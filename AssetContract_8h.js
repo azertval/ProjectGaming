@@ -9,7 +9,8 @@ var AssetContract_8h =
       [ "hmi::AssetFamily::Background", "namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003aa9ded1e5ce5d75814730bb4caaf49419", null ],
       [ "hmi::AssetFamily::Object", "namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003a497031794414a552435f90151ac3b54b", null ],
       [ "hmi::AssetFamily::CharacterSheet", "namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003aeb7e99d2187282628ef8b4c20cf7a714", null ],
-      [ "hmi::AssetFamily::Decor", "namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003ae953e8671da3a0647c0939df8ebe8e44", null ]
+      [ "hmi::AssetFamily::Decor", "namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003ae953e8671da3a0647c0939df8ebe8e44", null ],
+      [ "hmi::AssetFamily::Font", "namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003a194f5394ae2e9c74dc3c441b92862d1d", null ]
     ] ],
     [ "hmi::assetDimensionContract", "namespacehmi.html#a842c2e980bf7c8686d4a549d583d6866", null ],
     [ "hmi::assetFamilyName", "namespacehmi.html#ab940bcb1480c0e6616726dd361be3c1d", null ],

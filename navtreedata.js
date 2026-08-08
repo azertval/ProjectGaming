@@ -30,7 +30,7 @@ var NAVTREE =
     [ "Navigation", "index.html#autotoc_md3", null ],
     [ "Guide du développeur", "guide.html", "guide" ],
     [ "Cahier de test", "cahiertest.html", [
-      [ "Tests unitaires (571)", "cahiertest.html#autotoc_md4", [
+      [ "Tests unitaires (597)", "cahiertest.html#autotoc_md4", [
         [ "Core", "cahiertest.html#autotoc_md5", [
           [ "Diagnostics (14)", "cahiertest.html#autotoc_md6", null ],
           [ "Ecs (34)", "cahiertest.html#autotoc_md7", null ],
@@ -43,23 +43,24 @@ var NAVTREE =
         [ "HMI", "cahiertest.html#autotoc_md13", [
           [ "Diagnostics (2)", "cahiertest.html#autotoc_md14", null ],
           [ "Editor (37)", "cahiertest.html#autotoc_md15", null ],
-          [ "Graphics (163)", "cahiertest.html#autotoc_md16", null ],
-          [ "Input (63)", "cahiertest.html#autotoc_md17", null ],
-          [ "Localization (8)", "cahiertest.html#autotoc_md18", null ]
+          [ "Game (5)", "cahiertest.html#autotoc_md16", null ],
+          [ "Graphics (184)", "cahiertest.html#autotoc_md17", null ],
+          [ "Input (63)", "cahiertest.html#autotoc_md18", null ],
+          [ "Localization (8)", "cahiertest.html#autotoc_md19", null ]
         ] ]
       ] ],
-      [ "Tests d'intégration (87)", "cahiertest.html#autotoc_md19", [
-        [ "Animation Personnage — <span class=\"tt\">test_animation_personnage.cpp</span> (13)", "cahiertest.html#autotoc_md20", null ],
-        [ "Bloc Réduit — <span class=\"tt\">test_bloc_reduit.cpp</span> (2)", "cahiertest.html#autotoc_md21", null ],
-        [ "Boucle Simulation — <span class=\"tt\">test_boucle_simulation.cpp</span> (2)", "cahiertest.html#autotoc_md22", null ],
-        [ "Dangers avancés — <span class=\"tt\">test_danger_avance.cpp</span> (4)", "cahiertest.html#autotoc_md23", null ],
-        [ "Ecs Mouvement — <span class=\"tt\">test_ecs_mouvement.cpp</span> (4)", "cahiertest.html#autotoc_md24", null ],
-        [ "Niveau Ecs — <span class=\"tt\">test_niveau_ecs.cpp</span> (2)", "cahiertest.html#autotoc_md25", null ],
-        [ "Physique Personnage — <span class=\"tt\">test_physique_personnage.cpp</span> (60)", "cahiertest.html#autotoc_md26", null ]
+      [ "Tests d'intégration (87)", "cahiertest.html#autotoc_md20", [
+        [ "Animation Personnage — <span class=\"tt\">test_animation_personnage.cpp</span> (13)", "cahiertest.html#autotoc_md21", null ],
+        [ "Bloc Réduit — <span class=\"tt\">test_bloc_reduit.cpp</span> (2)", "cahiertest.html#autotoc_md22", null ],
+        [ "Boucle Simulation — <span class=\"tt\">test_boucle_simulation.cpp</span> (2)", "cahiertest.html#autotoc_md23", null ],
+        [ "Dangers avancés — <span class=\"tt\">test_danger_avance.cpp</span> (4)", "cahiertest.html#autotoc_md24", null ],
+        [ "Ecs Mouvement — <span class=\"tt\">test_ecs_mouvement.cpp</span> (4)", "cahiertest.html#autotoc_md25", null ],
+        [ "Niveau Ecs — <span class=\"tt\">test_niveau_ecs.cpp</span> (2)", "cahiertest.html#autotoc_md26", null ],
+        [ "Physique Personnage — <span class=\"tt\">test_physique_personnage.cpp</span> (60)", "cahiertest.html#autotoc_md27", null ]
       ] ],
-      [ "Tests système (3)", "cahiertest.html#autotoc_md27", [
-        [ "Parcours Complet — <span class=\"tt\">test_parcours_complet.cpp</span> (1)", "cahiertest.html#autotoc_md28", null ],
-        [ "Éditeur de niveaux — <span class=\"tt\">test_parcours_edition.cpp</span> (2)", "cahiertest.html#autotoc_md29", null ]
+      [ "Tests système (3)", "cahiertest.html#autotoc_md28", [
+        [ "Parcours Complet — <span class=\"tt\">test_parcours_complet.cpp</span> (1)", "cahiertest.html#autotoc_md29", null ],
+        [ "Éditeur de niveaux — <span class=\"tt\">test_parcours_edition.cpp</span> (2)", "cahiertest.html#autotoc_md30", null ]
       ] ]
     ] ],
     [ "Spécifications", "specifications.html", "specifications" ],
@@ -102,36 +103,37 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AabbVsAabb_8cpp.html",
-"MechanismAnimationAssignments_8h_source.html",
-"classcore_1_1ComponentPool.html#a7f018dd02b06e43193affdac6c6c82d2",
-"classcore_1_1LevelDraft.html#acc48e2f45fb3db53de09e30f60f75845",
-"classhmi_1_1AssetFileOperations.html#a47e8cae9f35e29d00068ecc8a472ea58",
-"classhmi_1_1GameKeyBindings.html#a7a7f7df56c93f41636cc5734c44f108a",
-"classhmi_1_1GameViewport.html#a6b3746ffb6acca3282ca1060522122bb",
-"classhmi_1_1GraphicsDevice.html#a2a98524940e3bf0b564975b3c72a6739",
-"classhmi_1_1Localization.html#aa549c7438b65314c5e0b8bd90996e310",
-"classhmi_1_1SkinCatalog.html#abbbffe68f2623ef82157bdb2adf4153b",
-"classhmi_1_1TexturePanel.html#a8900f1bd4dd38c73eca12d47e4b82875",
-"functions_vars_i.html",
-"lot-02-tache-02-sinks.html#autotoc_md328",
-"lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md550",
-"lot-10-tache-02-mapping-dash.html#autotoc_md770",
-"lot-15-tache-06-decouvrabilite.html#autotoc_md991",
-"lot-22-tache-01-modele-tuile-pente.html#autotoc_md1212",
-"lot-28.html#autotoc_md1402",
-"lot-34-tache-04-niveau-jouable-doc.html#autotoc_md1655",
-"lot-40.html",
-"lot-46.html#autotoc_md2052",
-"lot-53-tache-02-declencheurs.html#autotoc_md2318",
-"namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003aa9ded1e5ce5d75814730bb4caaf49419",
-"namespacehmi.html#ace704959d626f266592987f16eb2f3d5ad9e8fea9194ad4b49db82581f12a26bb",
-"structcore_1_1DangerBlinkConfig.html#a65b8183dacd7b4826a707ac18e3e7615",
-"structcore_1_1Vector2.html#a53fe7ef62405da41a3ee05b3081cab87",
-"structhmi_1_1LinkGestureDecision.html#a3ad9aa3ddf5ba1b555df0a74e9868f22",
-"structhmi_1_1SpriteQuad.html#a57d8a28d381a274c651561943f89c252",
-"test__decor__geometry_8cpp.html#a54c9c08ee3870b19fba5f1bb6605fc1d",
-"test__level__outcome_8cpp.html#a949c5e26a2d082b81f8ca72c83f952d9",
-"test__render__culling_8cpp.html#aaacc71351b4660d3c60329d7a702a68d"
+"MainWindow_8h.html",
+"classcore_1_1ComponentPool.html#a1b7f696c8e40313dc60b16c0970b68ad",
+"classcore_1_1LevelDraft.html#ab92577732d5dc65b789520e11494ee32",
+"classhmi_1_1AnimationCatalog.html#a66c97eb76d512128122986f77856aef8",
+"classhmi_1_1DraftRenderer.html#a84c8941c8cc5c37f44e0ddf6ce75ed24",
+"classhmi_1_1GameViewport.html#a35cd75882aae8709b437f6d71e454f3f",
+"classhmi_1_1GamepadBindingsWidget.html#a3b72f419efd319e7245636b6f76b2470",
+"classhmi_1_1LevelFileOperations.html#a0f2a3f81e7b378c50c4448c292ec2499",
+"classhmi_1_1QuadRecorder.html#acdea2dcd8f0e074027c719cd90581fe8",
+"classhmi_1_1TexturePanel.html#a3414bd2106ec3c869494d1aba771eb6d",
+"functions_c.html",
+"hierarchy.html",
+"lot-05-tache-02-pipeline-quads-textures.html#autotoc_md500",
+"lot-09-tache-02-mapping-saut.html#autotoc_md720",
+"lot-14.html#autotoc_md888",
+"lot-20-tache-02-menu-options.html#autotoc_md1162",
+"lot-26.html#autotoc_md1352",
+"lot-33-tache-03-interpolation-rendu.html#autotoc_md1603",
+"lot-39-tache-03-convention-assets-doc.html#autotoc_md1825",
+"lot-45.html#autotoc_md2015",
+"lot-51-tache-03-controles-documentation.html#autotoc_md2268",
+"namespacecore.html#ab931b1596f60176fe703b83007f27a12",
+"namespacehmi.html#a98ca4f5688bc7745232e8eb5a8c6d789",
+"spec-niveaux.html#autotoc_md259",
+"structcore_1_1Player.html#a99d532084d5856cea35317d60ded63e8",
+"structhmi_1_1DecorGestureState.html#afc6f063e736285ed38e02ce48fd5d7df",
+"structhmi_1_1RoomBounds.html#aafb711f5650f2bbadbad71aadec73076",
+"test__animation__personnage_8cpp.html#a525fe939edd26242eb0d04cd0361f6d5",
+"test__game__key__bindings_8cpp.html#a3a88b346a37691c7f3ca2e1a7f01d5fa",
+"test__mechanism__transitions_8cpp.html",
+"test__sprite_8cpp.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

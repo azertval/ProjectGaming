@@ -93,9 +93,9 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>661 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>687 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (571)</h1>
+Tests unitaires (597)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p><b><span class="tt"><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></span></b></p>
@@ -2429,7 +2429,43 @@ Vérifie que <span class="tt">loc.text(key)</span> diffère de <span class="tt">
 Vérifie que <span class="tt">loc.text(key)</span> diffère de <span class="tt">key</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
-Graphics (163)</h3>
+Game (5)</h3>
+<p><b><span class="tt"><a class="el" href="test__game__hud_8cpp.html" title="Tests unitaires du choix de contenu de l&#39;affichage tête haute (LOT-52 TACHE-03, EX-IHM-003).">test_game_hud.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>GameHudTest.BudgetsFinisAffichentLesDeuxCompteurs</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__game__hud_8cpp.html" title="Tests unitaires du choix de contenu de l&#39;affichage tête haute (LOT-52 TACHE-03, EX-IHM-003).">Source/Test/Unit/HMI/Game/test_game_hud.cpp</a>:28</span></sub>  </td><td class="markdownTableBodyNone">Un niveau avec des budgets finis affiche les deux compteurs et le nom du tableau.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">lines.size()</span> vaut <span class="tt">3u</span>.<br  />
+Vérifie que <span class="tt">lines[0]</span> vaut <span class="tt">"Sauts : 3"</span>.<br  />
+Vérifie que <span class="tt">lines[1]</span> vaut <span class="tt">"Dashs : 1"</span>.<br  />
+Vérifie que <span class="tt">lines[2]</span> vaut <span class="tt">"Salle des epreuves"</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>GameHudTest.NiveauSansBudgetNAfficheAucunCompteur</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__game__hud_8cpp.html" title="Tests unitaires du choix de contenu de l&#39;affichage tête haute (LOT-52 TACHE-03, EX-IHM-003).">Source/Test/Unit/HMI/Game/test_game_hud.cpp</a>:55</span></sub>  </td><td class="markdownTableBodyNone">Un niveau sans budget n'affiche aucun compteur.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">lines.size()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">lines[0]</span> vaut <span class="tt">"Promenade"</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>GameHudTest.BudgetPartielNAfficheQuUnCompteur</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__game__hud_8cpp.html" title="Tests unitaires du choix de contenu de l&#39;affichage tête haute (LOT-52 TACHE-03, EX-IHM-003).">Source/Test/Unit/HMI/Game/test_game_hud.cpp</a>:75</span></sub>  </td><td class="markdownTableBodyNone">Un budget partiellement défini n'affiche qu'un seul compteur.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">lines.size()</span> vaut <span class="tt">2u</span>.<br  />
+Vérifie que <span class="tt">lines[0]</span> vaut <span class="tt">"Sauts : 2"</span>.<br  />
+Vérifie que <span class="tt">lines[1]</span> vaut <span class="tt">"Chute libre"</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>GameHudTest.CompteurSuitLaDecroissanceDuBudget</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__game__hud_8cpp.html" title="Tests unitaires du choix de contenu de l&#39;affichage tête haute (LOT-52 TACHE-03, EX-IHM-003).">Source/Test/Unit/HMI/Game/test_game_hud.cpp</a>:97</span></sub>  </td><td class="markdownTableBodyNone">Le compteur affiché suit immédiatement la décroissance du budget.  </td><td class="markdownTableBodyNone">1. Composer les lignes avec 3 sauts restants, puis avec 2 (après un saut simulé).<br  />
+ 2. Comparer les deux résultats.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a8a1c52dc217e915a1ebbd5ec209037d9" title="Lignes à afficher pour l&#39;affichage tête haute d&#39;un pas de simulation donné.">hmi::gameHudLines</a>(player, "Niveau", localization)[0]</span> vaut <span class="tt">"Sauts : 3"</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a8a1c52dc217e915a1ebbd5ec209037d9" title="Lignes à afficher pour l&#39;affichage tête haute d&#39;un pas de simulation donné.">hmi::gameHudLines</a>(player, "Niveau", localization)[0]</span> vaut <span class="tt">"Sauts : 2"</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>GameHudTest.ClesDeTraductionExistentDansLesDeuxCatalogues</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__game__hud_8cpp.html" title="Tests unitaires du choix de contenu de l&#39;affichage tête haute (LOT-52 TACHE-03, EX-IHM-003).">Source/Test/Unit/HMI/Game/test_game_hud.cpp</a>:120</span></sub>  </td><td class="markdownTableBodyNone">Les clés de traduction du HUD existent dans les deux catalogues livrés.  </td><td class="markdownTableBodyNone">1. Charger fr.lang puis en.lang depuis les catalogues livrés.<br  />
+2. Résoudre les clés du HUD.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">localization.loadDefaultLanguage(language)</span> est vrai.<br  />
+Vérifie que <span class="tt">localization.text("hud.jumps_remaining")</span> diffère de <span class="tt">"hud.jumps_remaining"</span>.<br  />
+Vérifie que <span class="tt">localization.text("hud.dashes_remaining")</span> diffère de <span class="tt">"hud.dashes_remaining"</span>.  </td></tr>
+</table>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
+Graphics (184)</h3>
 <p><b><span class="tt"><a class="el" href="test__asset__contract_8cpp.html" title="Tests unitaires du contrat de dimensions des assets graphiques (LOT-40, EX-REN-007).">test_asset_contract.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2537,6 +2573,87 @@ Vérifie que <span class="tt">quad.sprite.height</span> vaut <span class="tt">12
 <td class="markdownTableBodyNone"><b>BackgroundFitTest.RepliEnDamierEmetUnQuadCommeUnFondValide</b> (Majeur)<br  />
 <sub><span class="tt"><a class="el" href="test__background__fit_8cpp.html" title="Tests unitaires du recadrage et de la composition du fond de niveau (LOT-44, EX-REN-044,...">Source/Test/Unit/HMI/Graphics/test_background_fit.cpp</a>:149</span></sub>  </td><td class="markdownTableBodyNone">Repli en damier : meme composition qu'un fond valide.  </td><td class="markdownTableBodyNone">1. Composer une scene avec une texture de repli (damier), en mode Texture.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">1u</span>.<br  />
 Vérifie que <span class="tt">scene.statistics().submitted</span> vaut <span class="tt">1</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__bitmap__font_8cpp.html" title="Tests unitaires de la police bitmap (LOT-52 TACHE-01) : mesure pure, lecture des métriques JSON,...">test_bitmap_font.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>BitmapFontTest.MesureChaineVideLargeurNulle</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__bitmap__font_8cpp.html" title="Tests unitaires de la police bitmap (LOT-52 TACHE-01) : mesure pure, lecture des métriques JSON,...">Source/Test/Unit/HMI/Graphics/test_bitmap_font.cpp</a>:30</span></sub>  </td><td class="markdownTableBodyNone">La mesure d'une chaîne vide donne une largeur nulle et une hauteur d'une ligne.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">extent.width</span> vaut <span class="tt">0.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">extent.height</span> vaut <span class="tt">static_cast&lt;float&gt;(font.metrics.lineHeight)</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>BitmapFontTest.MesureUnCaractere</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__bitmap__font_8cpp.html" title="Tests unitaires de la police bitmap (LOT-52 TACHE-01) : mesure pure, lecture des métriques JSON,...">Source/Test/Unit/HMI/Graphics/test_bitmap_font.cpp</a>:48</span></sub>  </td><td class="markdownTableBodyNone">La mesure d'un seul caractère donne exactement son avance.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">glyphA</span> diffère de <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">extent.width</span> vaut <span class="tt">static_cast&lt;float&gt;(glyphA-&gt;advance)</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">extent.height</span> vaut <span class="tt">static_cast&lt;float&gt;(font.metrics.lineHeight)</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>BitmapFontTest.MesureChaineAccentueeParPointsDeCode</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__bitmap__font_8cpp.html" title="Tests unitaires de la police bitmap (LOT-52 TACHE-01) : mesure pure, lecture des métriques JSON,...">Source/Test/Unit/HMI/Graphics/test_bitmap_font.cpp</a>:68</span></sub>  </td><td class="markdownTableBodyNone">Une chaîne accentuée est mesurée par points de code, pas par octets UTF-8.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">glyphE</span> diffère de <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">extent.width</span> vaut <span class="tt">static_cast&lt;float&gt;(glyphE-&gt;advance) * 6.0f</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>BitmapFontTest.CaractereAbsentEstSubstitue</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__bitmap__font_8cpp.html" title="Tests unitaires de la police bitmap (LOT-52 TACHE-01) : mesure pure, lecture des métriques JSON,...">Source/Test/Unit/HMI/Graphics/test_bitmap_font.cpp</a>:91</span></sub>  </td><td class="markdownTableBodyNone">Un caractère absent de la police est substitué par le glyphe de remplacement.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">substituted</span> diffère de <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">replacement</span> diffère de <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">substituted-&gt;x</span> vaut <span class="tt">replacement-&gt;x</span>.<br  />
+Vérifie que <span class="tt">substituted-&gt;y</span> vaut <span class="tt">replacement-&gt;y</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>BitmapFontTest.MetriquesJsonValideEstLue</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__bitmap__font_8cpp.html" title="Tests unitaires de la police bitmap (LOT-52 TACHE-01) : mesure pure, lecture des métriques JSON,...">Source/Test/Unit/HMI/Graphics/test_bitmap_font.cpp</a>:114</span></sub>  </td><td class="markdownTableBodyNone">Un fichier de métriques JSON valide se lit correctement (champs et glyphes).  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">result.metrics-&gt;lineHeight</span> vaut <span class="tt">10</span>.<br  />
+Vérifie que <span class="tt">result.metrics-&gt;replacementCodePoint</span> vaut <span class="tt">U'?'</span>.<br  />
+Vérifie que <span class="tt">glyphB</span> diffère de <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">glyphB-&gt;x</span> vaut <span class="tt">6</span>.<br  />
+Vérifie que <span class="tt">glyphB-&gt;y</span> vaut <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">glyphB-&gt;width</span> vaut <span class="tt">6</span>.<br  />
+Vérifie que <span class="tt">glyphB-&gt;height</span> vaut <span class="tt">10</span>.<br  />
+Vérifie que <span class="tt">glyphB-&gt;advance</span> vaut <span class="tt">6</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>BitmapFontTest.JsonInvalideEstUneErreurExploitable</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__bitmap__font_8cpp.html" title="Tests unitaires de la police bitmap (LOT-52 TACHE-01) : mesure pure, lecture des métriques JSON,...">Source/Test/Unit/HMI/Graphics/test_bitmap_font.cpp</a>:140</span></sub>  </td><td class="markdownTableBodyNone">Un JSON de métriques malformé est une erreur exploitable, jamais une exception.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">result.errorCode</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a230be1a1c12291d0b11fd55063ec7406ae41199faa7290c167f70f314c5e6c165" title="JSON malformé, ou racine qui n&#39;est pas un objet.">hmi::FontMetricsError::ParseError</a></span>.<br  />
+Vérifie que <span class="tt">result.error.empty()</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>BitmapFontTest.VersionInconnueEstRefusee</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__bitmap__font_8cpp.html" title="Tests unitaires de la police bitmap (LOT-52 TACHE-01) : mesure pure, lecture des métriques JSON,...">Source/Test/Unit/HMI/Graphics/test_bitmap_font.cpp</a>:158</span></sub>  </td><td class="markdownTableBodyNone">Une version de format supérieure à celle gérée est refusée.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">result.errorCode</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a230be1a1c12291d0b11fd55063ec7406a0f89bc98e9b12bdeda0604e57bdc0518" title="Numéro de version supérieur à FONT_METRICS_FORMAT_VERSION.">hmi::FontMetricsError::UnsupportedVersion</a></span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>BitmapFontTest.FichierMetriquesAbsentEstFileNotFound</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__bitmap__font_8cpp.html" title="Tests unitaires de la police bitmap (LOT-52 TACHE-01) : mesure pure, lecture des métriques JSON,...">Source/Test/Unit/HMI/Graphics/test_bitmap_font.cpp</a>:178</span></sub>  </td><td class="markdownTableBodyNone">Un fichier de métriques absent est un échec FileNotFound, sans exception.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">result.errorCode</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a230be1a1c12291d0b11fd55063ec7406a2767828026039e8ba7b38973cbb701f2" title="Fichier absent. Cas attendu (repli procédural), pas une anomalie.">hmi::FontMetricsError::FileNotFound</a></span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>BitmapFontTest.MetriquesCoherentesAvecLePngValidees</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__bitmap__font_8cpp.html" title="Tests unitaires de la police bitmap (LOT-52 TACHE-01) : mesure pure, lecture des métriques JSON,...">Source/Test/Unit/HMI/Graphics/test_bitmap_font.cpp</a>:195</span></sub>  </td><td class="markdownTableBodyNone">Des métriques cohérentes avec les dimensions du PNG sont validées.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">valid.valid</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>BitmapFontTest.MetriquesIncoherentesAvecLePngRefusees</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__bitmap__font_8cpp.html" title="Tests unitaires de la police bitmap (LOT-52 TACHE-01) : mesure pure, lecture des métriques JSON,...">Source/Test/Unit/HMI/Graphics/test_bitmap_font.cpp</a>:214</span></sub>  </td><td class="markdownTableBodyNone">Des métriques dont un glyphe déborde des dimensions du PNG sont refusées.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">invalid.valid</span> est faux.<br  />
+Vérifie que <span class="tt">invalid.message.find("font.png")</span> diffère de <span class="tt">std::string::npos</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>BitmapFontTest.ReplitProceduralCouvreAsciiEtAccentsDeFaconDeterministe</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__bitmap__font_8cpp.html" title="Tests unitaires de la police bitmap (LOT-52 TACHE-01) : mesure pure, lecture des métriques JSON,...">Source/Test/Unit/HMI/Graphics/test_bitmap_font.cpp</a>:235</span></sub>  </td><td class="markdownTableBodyNone">Le repli procédural couvre l'ASCII imprimable et les accents français, de façon déterministe.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">first.image.width</span> vaut <span class="tt">second.image.width</span>.<br  />
+Vérifie que <span class="tt">first.image.height</span> vaut <span class="tt">second.image.height</span>.<br  />
+Vérifie que <span class="tt">first.image.pixels</span> vaut <span class="tt">second.image.pixels</span>.<br  />
+Vérifie que <span class="tt">first.metrics.glyphs.size()</span> vaut <span class="tt">second.metrics.glyphs.size()</span>.<br  />
+Vérifie que <span class="tt">first.metrics.glyph(codePoint)</span> diffère de <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">first.metrics.glyph(codePoint)</span> diffère de <span class="tt">nullptr</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>BitmapFontTest.ReplitProceduralEstAutoCoherent</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__bitmap__font_8cpp.html" title="Tests unitaires de la police bitmap (LOT-52 TACHE-01) : mesure pure, lecture des métriques JSON,...">Source/Test/Unit/HMI/Graphics/test_bitmap_font.cpp</a>:273</span></sub>  </td><td class="markdownTableBodyNone">Chaque glyphe procédural désigne une région entièrement contenue dans l'image générée.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">coherence.valid</span> est vrai.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__camera2d_8cpp.html" title="Tests unitaires de la caméra 2D (conversions monde ↔ écran, projection).">test_camera2d.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -3260,6 +3377,55 @@ Vérifie que <span class="tt">alpha != 0</span> vaut <span class="tt">hmi::isIns
 <sub><span class="tt"><a class="el" href="test__slope__mask_8cpp.html" title="Tests unitaires du masque de silhouette des pentes et arrondis (LOT-42 TACHE-03).">Source/Test/Unit/HMI/Graphics/test_slope_mask.cpp</a>:217</span></sub>  </td><td class="markdownTableBodyNone">Une image non carree ou de dimensions incoherentes n'est pas detouree.  </td><td class="markdownTableBodyNone">1. Detourer une image rectangulaire, puis une image dont la taille ne correspond pas aux dimensions annoncees.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">rectangle</span> vaut <span class="tt">rectangleBefore</span>.<br  />
 Vérifie que <span class="tt">tooSmall</span> vaut <span class="tt">tooSmallBefore</span>.  </td></tr>
 </table>
+<p><b><span class="tt"><a class="el" href="test__text__renderer_8cpp.html" title="Tests unitaires de la composition de texte en quads sur le calque UI (LOT-52 TACHE-02).">test_text_renderer.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TextRendererTest.ChaineVideNeProduitAucunQuad</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__text__renderer_8cpp.html" title="Tests unitaires de la composition de texte en quads sur le calque UI (LOT-52 TACHE-02).">Source/Test/Unit/HMI/Graphics/test_text_renderer.cpp</a>:41</span></sub>  </td><td class="markdownTableBodyNone">Une chaîne vide ne produit aucun quad.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">0u</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>TextRendererTest.ChaineDeuxCaracteresProduitDeuxQuadsAuxPositionsAttendues</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__text__renderer_8cpp.html" title="Tests unitaires de la composition de texte en quads sur le calque UI (LOT-52 TACHE-02).">Source/Test/Unit/HMI/Graphics/test_text_renderer.cpp</a>:59</span></sub>  </td><td class="markdownTableBodyNone">Une chaîne de N caractères produit N quads, aux positions attendues.  </td><td class="markdownTableBodyNone">1. Composer « AB » en ancrage haut-gauche.<br  />
+2. Capturer la scène.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">recorder.size()</span> vaut <span class="tt">2u</span>.<br  />
+Vérifie que <span class="tt">recorder.containsSpriteAt(0.0f, 0.0f)</span> est vrai.<br  />
+Vérifie que <span class="tt">recorder.containsSpriteAt(6.0f, 0.0f)</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TextRendererTest.EspaceNEmetAucunQuadMaisAvanceLeStylo</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__text__renderer_8cpp.html" title="Tests unitaires de la composition de texte en quads sur le calque UI (LOT-52 TACHE-02).">Source/Test/Unit/HMI/Graphics/test_text_renderer.cpp</a>:81</span></sub>  </td><td class="markdownTableBodyNone">L'espace n'émet aucun quad mais fait avancer le stylo.  </td><td class="markdownTableBodyNone">1. Composer « A B » (A, espace, B).<br  />
+2. Capturer la scène.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">recorder.size()</span> vaut <span class="tt">2u</span>.<br  />
+Vérifie que <span class="tt">recorder.containsSpriteAt(0.0f, 0.0f)</span> est vrai.<br  />
+Vérifie que <span class="tt">recorder.containsSpriteAt(12.0f, 0.0f)</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>TextRendererTest.ChaineAccentueeCompteLesPointsDeCode</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__text__renderer_8cpp.html" title="Tests unitaires de la composition de texte en quads sur le calque UI (LOT-52 TACHE-02).">Source/Test/Unit/HMI/Graphics/test_text_renderer.cpp</a>:104</span></sub>  </td><td class="markdownTableBodyNone">Une chaîne accentuée produit un quad par point de code, pas par octet.  </td><td class="markdownTableBodyNone">1. Composer « É » (deux octets UTF-8, un point de code).<br  />
+2. Capturer la scène.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">1u</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TextRendererTest.AncrageCentreDecaleLaBoiteDeSaMoitie</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__text__renderer_8cpp.html" title="Tests unitaires de la composition de texte en quads sur le calque UI (LOT-52 TACHE-02).">Source/Test/Unit/HMI/Graphics/test_text_renderer.cpp</a>:122</span></sub>  </td><td class="markdownTableBodyNone">L'ancrage centré décale la boîte du texte de sa moitié.  </td><td class="markdownTableBodyNone">1. Composer « AB » avec un ancrage centré aux deux axes.<br  />
+2. Capturer la scène.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">recorder.size()</span> vaut <span class="tt">2u</span>.<br  />
+Vérifie que <span class="tt">recorder.containsSpriteAt(-6.0f, -5.0f)</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>TextRendererTest.AncrageDroiteBasPositionneLaFinDeLaBoite</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__text__renderer_8cpp.html" title="Tests unitaires de la composition de texte en quads sur le calque UI (LOT-52 TACHE-02).">Source/Test/Unit/HMI/Graphics/test_text_renderer.cpp</a>:144</span></sub>  </td><td class="markdownTableBodyNone">L'ancrage droite/bas positionne la fin de la boîte sur le point d'ancrage.  </td><td class="markdownTableBodyNone">1. Composer « AB » avec un ancrage droite/bas à (100, 100).<br  />
+2. Capturer la scène.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">recorder.size()</span> vaut <span class="tt">2u</span>.<br  />
+Vérifie que <span class="tt">recorder.containsSpriteAt(88.0f, 90.0f)</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TextRendererTest.PrimitivesSurLeCalqueUi</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__text__renderer_8cpp.html" title="Tests unitaires de la composition de texte en quads sur le calque UI (LOT-52 TACHE-02).">Source/Test/Unit/HMI/Graphics/test_text_renderer.cpp</a>:166</span></sub>  </td><td class="markdownTableBodyNone">Toutes les primitives composées le sont sur le calque UI.  </td><td class="markdownTableBodyNone">1. Composer un texte de plusieurs caractères.<br  />
+2. Capturer la scène.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">recorder.countOnLayer(hmi::RenderLayer::UI)</span> vaut <span class="tt">2</span>.<br  />
+Vérifie que <span class="tt">recorder.countOnLayer(hmi::RenderLayer::Tile)</span> vaut <span class="tt">0</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>TextRendererTest.CaractereAbsentEstSubstitueEtComposeUnQuad</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__text__renderer_8cpp.html" title="Tests unitaires de la composition de texte en quads sur le calque UI (LOT-52 TACHE-02).">Source/Test/Unit/HMI/Graphics/test_text_renderer.cpp</a>:188</span></sub>  </td><td class="markdownTableBodyNone">Un point de code non couvert est substitué par le glyphe de remplacement.  </td><td class="markdownTableBodyNone">1. Composer un caractère absent de <span class="tt">testMetrics()</span> ('#').<br  />
+2. Capturer la scène.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">1u</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TextRendererTest.TexteNestJamaisCulle</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__text__renderer_8cpp.html" title="Tests unitaires de la composition de texte en quads sur le calque UI (LOT-52 TACHE-02).">Source/Test/Unit/HMI/Graphics/test_text_renderer.cpp</a>:207</span></sub>  </td><td class="markdownTableBodyNone">Le texte n'est jamais soumis au culling par cadrage.  </td><td class="markdownTableBodyNone">1. Composer un texte à une position écran éloignée (10000, 10000), sans cadrage actif sur la scène.<br  />
+2. Vérifier la scène.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.isCullingEnabled()</span> est faux.<br  />
+Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">1u</span>.  </td></tr>
+</table>
 <p><b><span class="tt"><a class="el" href="test__texture__atlas_8cpp.html" title="Tests unitaires du mapping de régions de hmi::TextureAtlas (LOT-39, non-régression).">test_texture_atlas.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -3443,7 +3609,7 @@ Vérifie que <span class="tt">textures.textureFor(appearance)</span> vaut <span 
 Vérifie que <span class="tt">textures.widthFor(broken)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a75cfef1e5eb0b5569ebd42c004d73ce3" title="Côté, en pixels, du damier de repli généré par défaut (une case, EX-ARCH-021).">hmi::MISSING_TEXTURE_SIZE</a></span>.<br  />
 Vérifie que <span class="tt">textures.heightFor(broken)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a75cfef1e5eb0b5569ebd42c004d73ce3" title="Côté, en pixels, du damier de repli généré par défaut (une case, EX-ARCH-021).">hmi::MISSING_TEXTURE_SIZE</a></span>.  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
 Input (63)</h3>
 <p><b><span class="tt"><a class="el" href="test__editor__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de l&#39;éditeur (EditorKeyBindings, EX-CTRL-012).">test_editor_key_bindings.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -3845,7 +4011,7 @@ Vérifie que <span class="tt">mapWithDefaults(withKeys({<a class="el" href="name
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::X), gameKeyBindings, gamepadBindings) .moveX</span> vaut <span class="tt">-1.0f</span> (comparaison flottante).<br  />
 Vérifie que <span class="tt">hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::Y), gameKeyBindings, gamepadBindings) .moveX</span> vaut <span class="tt">1.0f</span> (comparaison flottante).  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
 Localization (8)</h3>
 <p><b><span class="tt"><a class="el" href="test__localization_8cpp.html" title="Tests unitaires du catalogue de traduction : analyse, repli, changement de langue.">test_localization.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -3895,9 +4061,9 @@ Vérifie que <span class="tt">localization.activeLanguage()</span> vaut <span cl
 Vérifie que <span class="tt">localization.text("menu.quit")</span> vaut <span class="tt">"Quitter"</span>.<br  />
 Vérifie que <span class="tt">localization.text("menu.play")</span> vaut <span class="tt">"Jouer"</span>.  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
 Tests d'intégration (87)</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
 Animation Personnage — <span class="tt">test_animation_personnage.cpp</span> (13)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -3975,7 +4141,7 @@ Vérifie que <span class="tt">world.getComponent&lt;<a class="el" href="structco
 3. Executer un pas.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">world.getComponent&lt;<a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...">core::Animation</a>&gt;(entity).clipIndex</span> vaut <span class="tt"><a class="el" href="namespacecore.html#ab778e77cf62b7d1c11d8038f75cbf020" title="Index du clip « wallslide » (glissade murale, LOT-48) dans core::playerClipSet().">core::PLAYER_CLIP_WALLSLIDE</a></span>.<br  />
 Vérifie que <span class="tt">world.getComponent&lt;<a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...">core::Animation</a>&gt;(entity).clipIndex</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a75463224decffa9f1ac1f5bf99119eef" title="Index du clip « land » (atterrissage, transition jouée une fois, LOT-48) dans core::playerClipSet().">core::PLAYER_CLIP_LAND</a></span>.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md22"></a>
 Bloc Réduit — <span class="tt">test_bloc_reduit.cpp</span> (2)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -3990,7 +4156,7 @@ Vérifie que <span class="tt">world.getComponent&lt;<a class="el" href="structco
 <sub><span class="tt"><a class="el" href="test__bloc__reduit_8cpp.html" title="Tests d&#39;intégration des blocs à taille réduite (TileType::BlockHalf/BlockQuarter, EX-GP-005) : compos...">Source/Test/Integration/test_bloc_reduit.cpp</a>:154</span></sub>  </td><td class="markdownTableBodyNone">L'espace autour d'un bloc réduit, hors de sa boîte réelle, reste franchissable.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">endX - startX</span> est strictement supérieur à <span class="tt">8.0f</span>.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md22"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md23"></a>
 Boucle Simulation — <span class="tt">test_boucle_simulation.cpp</span> (2)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4006,7 +4172,7 @@ Vérifie que <span class="tt">position.x</span> vaut <span class="tt">6.0f * tot
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">firstPosition.x</span> vaut <span class="tt">secondPosition.x</span>, à <span class="tt">TOLERANCE</span> près.<br  />
 Vérifie que <span class="tt">firstPosition.y</span> vaut <span class="tt">secondPosition.y</span>, à <span class="tt">TOLERANCE</span> près.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md23"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md24"></a>
 Dangers avancés — <span class="tt">test_danger_avance.cpp</span> (4)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4032,7 +4198,7 @@ Vérifie que <span class="tt">walkAndCheckIfEverLost(true)</span> est vrai.  </t
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">outcomeAtSpawn(0)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaab578b733cbb788fc6ad208314d2c4c2b" title="Le personnage a touché un danger ou est sorti par le bas (EX-GP-031).">core::LevelOutcome::Lost</a></span>.<br  />
 Vérifie que <span class="tt">outcomeAtSpawn(15)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaac9dbb2b7c84159b632d71e512eba8428" title="Partie en cours.">core::LevelOutcome::Playing</a></span>.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md24"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md25"></a>
 Ecs Mouvement — <span class="tt">test_ecs_mouvement.cpp</span> (4)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4059,7 +4225,7 @@ Vérifie que <span class="tt">fastPosition.y</span> vaut <span class="tt">4.0f</
 <sub><span class="tt"><a class="el" href="test__ecs__mouvement_8cpp.html" title="Tests d&#39;intégration de l&#39;ECS : entités + composants + système de mouvement assemblés dans un World,...">Source/Test/Integration/test_ecs_mouvement.cpp</a>:114</span></sub>  </td><td class="markdownTableBodyNone">Enregistré dans le World, le système s'exécute via World::update (chaîne complète).  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">position.x</span> vaut <span class="tt">10.0f * steps * STEP</span>, à <span class="tt">TOLERANCE</span> près.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md25"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md26"></a>
 Niveau Ecs — <span class="tt">test_niveau_ecs.cpp</span> (2)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4080,7 +4246,7 @@ Vérifie que <span class="tt">tilesByPosition.at({1, 1})</span> vaut <span class
 Vérifie que <span class="tt">nonEmptyTiles</span> est strictement supérieur à <span class="tt">0</span>.<br  />
 Vérifie que <span class="tt">entities</span> vaut <span class="tt">nonEmptyTiles</span>.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md26"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md27"></a>
 Physique Personnage — <span class="tt">test_physique_personnage.cpp</span> (60)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4400,9 +4566,9 @@ Vérifie que <span class="tt">outcome</span> diffère de <span class="tt"><a cla
 <sub><span class="tt"><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:2661</span></sub>  </td><td class="markdownTableBodyNone">Le niveau final combine plusieurs mécaniques en un seul parcours cohérent et reste franchissable.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">playReactiveFile("demo-final.json", script)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></span>.  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md27"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md28"></a>
 Tests système (3)</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md28"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md29"></a>
 Parcours Complet — <span class="tt">test_parcours_complet.cpp</span> (1)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4413,7 +4579,7 @@ Parcours Complet — <span class="tt">test_parcours_complet.cpp</span> (1)</h2>
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">sequence.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">playLevel(level)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></span>.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md29"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md30"></a>
 Éditeur de niveaux — <span class="tt">test_parcours_edition.cpp</span> (2)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">

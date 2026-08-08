@@ -4,6 +4,7 @@ var searchData=
   ['game_5faction_5fcount_1',['GAME_ACTION_COUNT',['../namespacehmi.html#ab42b3bed825ef5b3664995a516c4eb8d',1,'hmi']]],
   ['gamepad_5fbutton_5fcount_2',['GAMEPAD_BUTTON_COUNT',['../namespacehmi.html#aab59d64d595ba17a55cc07311285ba14',1,'hmi']]],
   ['generation_3',['generation',['../structcore_1_1Entity.html#a2ad1b664955eb77c38cef28d6978cf7b',1,'core::Entity']]],
-  ['gravity_4',['gravity',['../structcore_1_1PhysicsConfig.html#abca056c01e3263ccc8d5e3adbd174e91',1,'core::PhysicsConfig']]],
-  ['grounded_5',['grounded',['../structcore_1_1Player.html#a36776822edfa4ee73e00f620aa007085',1,'core::Player::grounded'],['../structcore_1_1SlopeFollowResult.html#aae445ef115720b52473f467d1de25b8c',1,'core::SlopeFollowResult::grounded']]]
+  ['glyphs_4',['glyphs',['../structhmi_1_1FontMetrics.html#af8edf913ecf02975f75b9d41f9acff65',1,'hmi::FontMetrics']]],
+  ['gravity_5',['gravity',['../structcore_1_1PhysicsConfig.html#abca056c01e3263ccc8d5e3adbd174e91',1,'core::PhysicsConfig']]],
+  ['grounded_6',['grounded',['../structcore_1_1Player.html#a36776822edfa4ee73e00f620aa007085',1,'core::Player::grounded'],['../structcore_1_1SlopeFollowResult.html#aae445ef115720b52473f467d1de25b8c',1,'core::SlopeFollowResult::grounded']]]
 ];

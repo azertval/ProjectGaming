@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-47-tache-04-section-animations.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-47-etats-visuels-mecanismes_2tache-04-section-animations"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-47.html#md_Lot_2LOT-47-etats-visuels-mecanismes_2epic" title="Lot/LOT-47-etats-visuels-mecanismes/epic.md">LOT-47</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2121"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2122"></a>
 Contexte</h1>
 <p>Les clips sont décrits dans les fichiers d'assets (LOT-46) et demandés par la correspondance état → clip (TACHE-01). Reste à choisir <b>quel asset animé</b> chaque famille de mécanisme utilise par défaut, sans quoi il faudrait assigner une surcharge (LOT-45) sur chaque porte de chaque niveau.</p>
 <p>C'est la quatrième section du panneau « Textures », et elle suit la même règle que les précédentes : elle s'ajoute, elle ne remplace rien.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2122"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2123"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Section « Animations »</b> : pour chaque famille de mécanisme (porte, interrupteur, plaque, danger commuté, danger temporisé, danger mobile), sélection de l'asset animé par défaut parmi <span class="tt">Assets/Skins/</span> (même dossier et même vignette-sélecteur que la section « Skins », <span class="tt">LOT-43</span>) — un mécanisme est un type de tuile skinnable comme un autre, <span class="tt">Assets/Objects/</span> reste réservé aux surcharges <b>par case</b> de <span class="tt">LOT-45</span>.</li>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 <li><b>Aperçu</b> : lecture de l'animation sélectionnée dans le panneau, pour vérifier le rythme sans entrer en mode essai.</li>
 <li>Traduction de toutes les chaînes.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2123"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2124"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/TexturePanel.{h,cpp}</span>, <span class="tt">Source/Elements/UI/TexturePanel.ui</span>.</li>
@@ -117,25 +117,25 @@ Fichiers impactés</h1>
   danger_switched,danger_blink,danger_mover}.png{,.anim.json}</span> (nouveau) : contenu de démonstration assigné par défaut, généré par <span class="tt">scripts/generate_mechanism_animations.py</span> (nouveau).</li>
 <li><span class="tt"><a class="el" href="test__skin__catalog_8cpp.html" title="Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).">Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp</a></span> : le test de conformité du catalogue livré supposait un skin <span class="tt">single</span> toujours strictement 16×16 ; corrigé pour accepter la bande horizontale d'un skin <span class="tt">single</span> <b>animé</b> (16×(16×N), déjà documentée dans <span class="tt">Skins/README.md</span> depuis LOT-46, mais jamais exercée par le catalogue livré avant ce lot).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2124"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2125"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Diagnostic des clips</b> : pour un catalogue d'animation donné et une famille de mécanisme donnée, la liste des clips manquants est correcte. Fonction <b>pure</b>, testée sans Qt.</li>
 <li>L'assignation d'un asset animé à une famille est bien écrite dans <span class="tt">skins.json</span> et relue.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2125"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2126"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas créer un second format de configuration.</b> Réutiliser <span class="tt">skins.json</span> évite d'avoir deux fichiers décrivant l'apparence d'un même type de tuile, avec les incohérences que cela produit.</li>
 <li>L'aperçu doit utiliser le <b>même</b> catalogue d'animation que le jeu, pas une lecture parallèle : sinon l'aperçu pourrait montrer un rythme différent de celui joué.</li>
 <li>Le diagnostic de clips manquants doit rester <b>informatif</b>, pas bloquant : un asset partiel est un état de travail légitime.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2126"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2127"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Chaque famille de mécanisme peut recevoir un asset animé par défaut, stocké dans <span class="tt">skins.json</span> ; les clips manquants sont signalés dans le panneau ; l'aperçu joue l'animation ; chaînes traduites ; diagnostic testé sans Qt ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2127"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2128"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-006</span> (apparence pilotée par l'état) ; réutilise <span class="tt">EX-EDIT-042</span> (association type → asset), <span class="tt">EX-EDIT-024</span> (jeux de skins), <span class="tt">EX-EDIT-026</span> (bibliothèque d'assets), <span class="tt">EX-REN-005</span> (animations par données), <span class="tt">EX-REN-033</span> (traduction). </p>
 </div></div><!-- contents -->

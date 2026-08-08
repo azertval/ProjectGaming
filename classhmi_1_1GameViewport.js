@@ -114,6 +114,7 @@ var classhmi_1_1GameViewport =
     [ "_dragging", "classhmi_1_1GameViewport.html#af54b45daf940437b7123fb53dd9ecc66", null ],
     [ "_dragStart", "classhmi_1_1GameViewport.html#ad36490092b1b28e463e3338f395e7caf", null ],
     [ "_editorBindings", "classhmi_1_1GameViewport.html#aeb6bf0e31dbd4b92c2878fab735725bf", null ],
+    [ "_font", "classhmi_1_1GameViewport.html#a5c63edbd4f0ca7e0b77ee7f7b211c2c7", null ],
     [ "_gameBindings", "classhmi_1_1GameViewport.html#acd267663dc14c010857f9d3156526e94", null ],
     [ "_gameLevel", "classhmi_1_1GameViewport.html#ae0609d50a53bd511ee96019f0b585d78", null ],
     [ "_gameLevels", "classhmi_1_1GameViewport.html#ae419f03e1eb9fb6705b9d6301ddb471d", null ],

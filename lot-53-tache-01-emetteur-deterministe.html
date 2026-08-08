@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-53-tache-01-emetteur-deterministe.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-53-effets-particules_2tache-01-emetteur-deterministe"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-53.html#md_Lot_2LOT-53-effets-particules_2epic" title="Lot/LOT-53-effets-particules/epic.md">LOT-53</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2310"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2311"></a>
 Contexte</h1>
 <p>Un système de particules est le premier endroit d'un moteur où l'on est tenté d'utiliser l'horloge et un générateur aléatoire non maîtrisé — c'est plus simple à écrire, et « ce n'est que du visuel ».</p>
 <p>Ce serait ici une erreur structurelle : tout le projet tient le <b>déterminisme</b> depuis <span class="tt">LOT-01</span> (<span class="tt">EX-NFR-002</span>), la simulation avance à pas fixe (<span class="tt">EX-REN-021</span>), et les tests système reposent sur la reproductibilité. Une source d'aléa non maîtrisée dans <span class="tt">Core</span> rendrait deux exécutions identiques visuellement différentes, et ouvrirait la porte à des divergences plus graves.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2311"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2312"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Composant et système de particules</b> dans <span class="tt">Core</span>, simulés au <b>pas fixe</b> : position, vitesse, durée de vie, teinte, avec intégration simple et disparition en fin de vie.</li>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 <li><b>Aucune collision, aucun effet de gameplay</b> : les particules ne sont pas testées contre la grille, ne déclenchent rien, et ne sont lues par aucun système de jeu (<span class="tt">EX-ARCH-012</span>).</li>
 <li><b>Description d'effet</b> : forme des données décrivant un effet (nombre de particules, dispersion, durée de vie, vitesse initiale), en constantes nommées — pas de nombres magiques dispersés.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2312"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2313"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Core/Ecs/Components/Particle.h</span> (nouveau).</li>
@@ -116,7 +116,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Core/CMakeLists.txt</span>.</li>
 <li><span class="tt">Source/Test/Unit/Core/Ecs/test_particle_system.cpp</span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2313"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2314"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Déterminisme</b> : deux exécutions de la même séquence produisent exactement les mêmes positions de particules à chaque pas. C'est le test central de la tâche.</li>
@@ -125,19 +125,19 @@ Tests (obligatoires)</h1>
 <li>Aucun effet sur les entités de gameplay présentes dans le même monde.</li>
 <li>Tests <span class="tt">Core</span> purs, sans GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2314"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2315"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne jamais utiliser l'horloge système</b>, même indirectement (initialisation de graine par défaut de la bibliothèque standard, par exemple). C'est le piège exact que ce lot doit éviter.</li>
 <li>Le recyclage doit être <b>déterministe</b> lui aussi : quelle particule est recyclée ne peut pas dépendre d'un ordre d'itération instable (le sparse set de l'ECS ne garantit pas d'ordre).</li>
 <li>Le coût par pas doit rester borné : quelques centaines de particules, intégration simple, pas de tri.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2315"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2316"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les particules sont simulées au pas fixe, strictement déterministes, bornées par un budget nommé, sans aucun effet sur le gameplay ; déterminisme et budget assertés par test ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2316"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2317"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-008</span> (effets visuels déterministes et bornés) ; réutilise <span class="tt">EX-NFR-002</span> (déterminisme), <span class="tt">EX-REN-021</span> (pas fixe), <span class="tt">EX-ARCH-012</span> (rendu sans effet sur la simulation), <span class="tt">EX-NFR-005</span> (budget), <span class="tt">EX-NFR-020</span> (tests unitaires <span class="tt">Core</span>). </p>
 </div></div><!-- contents -->

@@ -94,7 +94,7 @@ $(function(){initNavTree('guide-ecrans.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Guide_2guide-ecrans"></a></p>
 <p>Cette page explique comment l'application passe du menu au jeu, à l'éditeur ou aux options — le squelette de navigation qui relie les écrans décrits dans les autres pages (<a class="el" href="guide-entrees.html" title="Entrées et actions logiques">Entrées et actions logiques</a> pour le menu et les options, <a class="el" href="guide-niveaux.html" title="Niveaux : modèle, chargement, mécanismes, budgets">Niveaux : modèle, chargement, mécanismes, budgets</a> et <a class="el" href="guide-editeur.html" title="Éditeur de niveaux intégré">Éditeur de niveaux intégré</a> pour ce que le jeu et l'éditeur affichent une fois actifs). Depuis le <span class="tt">LOT-38</span>, l'application est une IHM <b>Qt</b> (<a class="el" href="guide-ihm-qt.html" title="IHM Qt (refonte) — socle applicatif &amp; viewport Direct3D 11">IHM Qt (refonte) — socle applicatif &amp; viewport Direct3D 11</a>) : la navigation n'est plus une machine à états rejouée à chaque pas de simulation, mais un mécanisme <b>événementiel</b> classique de Qt (widgets empilés + signaux/slots).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md40"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md41"></a>
 Le principe : des pages empilées, pilotées par signaux</h1>
 <p>Il y a quatre « écrans » mutuellement exclusifs — <b>menu</b>, <b>options</b>, <b>éditeur</b>, <b>jeu</b> — et un seul est visible à la fois. <span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">hmi::MainWindow</a></span> (un <span class="tt">QMainWindow</span>) les héberge dans un <b><span class="tt">QStackedWidget</span></b> central : une pile de widgets dont un seul est affiché. Trois pages y vivent :</p>
 <ul>
@@ -115,7 +115,7 @@ Le principe : des pages empilées, pilotées par signaux</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><span class="tt">showGame()</span>  </td><td class="markdownTableBodyNone">Lance la <b>séquence de niveaux</b> dans le viewport, docks masqués.  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md41"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md42"></a>
 Qui déclenche les transitions : les signaux</h1>
 <p>Aucun écran ne bascule lui-même vers un autre : chaque écran <b>émet un signal</b> d'intention, et <span class="tt">MainWindow</span> le <b>connecte</b> au <span class="tt">show…</span> correspondant. C'est l'équivalent Qt du découplage d'autrefois (un écran ne connaît pas les autres), mais porté par le mécanisme natif signaux/slots au lieu d'une valeur de retour rejouée par un gestionnaire.</p>
 <p>Le menu principal expose quatre signaux, connectés à la construction de <span class="tt">MainWindow</span> :</p>
@@ -124,7 +124,7 @@ Qui déclenche les transitions : les signaux</h1>
 <div class="line">connect(_menu, &amp;MainMenu::optionsRequested, <span class="keyword">this</span>, &amp;MainWindow::showOptions);</div>
 <div class="line">connect(_menu, &amp;MainMenu::quitRequested,    <span class="keyword">this</span>, &amp;QWidget::close);</div>
 </div><!-- fragment --><p>Un écran est ainsi <b>testable/éditable en isolation</b> (le menu émet ses signaux sans rien connaître du jeu), et ajouter un écran revient à ajouter une page à la pile et un <span class="tt">connect</span> — sans toucher aux écrans existants.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md42"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md43"></a>
 Le viewport partagé : éditeur <b>et</b> jeu</h1>
 <p>Le même <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">hmi::GameViewport</a></span> sert de canevas à l'éditeur et de surface de jeu (une seule intégration Direct3D 11 à maintenir, <a class="el" href="guide-ihm-qt.html" title="IHM Qt (refonte) — socle applicatif &amp; viewport Direct3D 11">IHM Qt (refonte) — socle applicatif &amp; viewport Direct3D 11</a>) :</p>
 <ul>
@@ -132,13 +132,13 @@ Le viewport partagé : éditeur <b>et</b> jeu</h1>
 <li>en <b>mode édition</b>, le viewport peint sur <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span> et propose l'<b>essai immédiat</b> : jouer le brouillon courant puis y revenir exactement où l'édition en était — la même <span class="tt">GameSession</span> est réutilisée, sans duplication (<a class="el" href="guide-editeur.html" title="Éditeur de niveaux intégré">Éditeur de niveaux intégré</a>).</li>
 </ul>
 <p>Le viewport signale aussi ses messages d'état via <b><span class="tt">statusMessage</span></b> (barre de statut de la fenêtre) — par exemple l'échec d'un enregistrement de brouillon invalide.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md43"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md44"></a>
 La séquence de niveaux démo</h1>
 <p><span class="tt">MainWindow::startGame</span> fournit la <b>liste ordonnée</b> des niveaux démo (<span class="tt">demo-deplacement.json</span> → <span class="tt">demo-saut.json</span> → … → <span class="tt">demo-final.json</span> → <span class="tt">demo-salles.json</span>) : un par mécanique plus un niveau final combiné et un niveau à salles, dans un ordre de difficulté maîtrisé (<span class="tt">EX-LVL-010</span>). Cette liste <b>doit</b> rester identique, dans le même ordre, à celle rejouée par le test système <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span> — un décalage entre les deux est précisément le défaut qui a déclenché <span class="tt">LOT-25</span>. <span class="tt">scripts/check_demo_sequence.py</span> (CI) compare les deux automatiquement.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md44"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md45"></a>
 Où ça s'insère dans la boucle</h1>
 <p>L'<b>event loop Qt</b> (<span class="tt">QApplication::exec</span>) possède la navigation. La <b>boucle de jeu à pas fixe</b> (déterminisme <span class="tt">EX-NFR-002</span>, <a class="el" href="guide-boucle.html" title="Boucle de jeu et pas de temps fixe">Boucle de jeu et pas de temps fixe</a>) ne tourne que <b>dans</b> le viewport, tant qu'il est en mode jeu ou édition : elle est cadencée par <span class="tt">QEvent::UpdateRequest</span> (<span class="tt">QWindow::requestUpdate</span>) et rejoue exactement la discipline historique — sonder la manette, convertir le temps réel en pas fixes, mettre à jour puis <span class="tt"><a class="el" href="classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">hmi::InputState::beginFrame</a></span> <b>par pas</b>, rendre <b>une fois</b> par frame avec interpolation (<span class="tt">EX-ARCH-031</span>). Le détail est dans <a class="el" href="guide-ihm-qt.html" title="IHM Qt (refonte) — socle applicatif &amp; viewport Direct3D 11">IHM Qt (refonte) — socle applicatif &amp; viewport Direct3D 11</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md45"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md46"></a>
 Voir aussi</h1>
 <ul>
 <li><span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">hmi::MainWindow</a></span>, <span class="tt"><a class="el" href="classhmi_1_1MainMenu.html" title="Menu principal : point d&#39;entrée de l&#39;application Qt (EX-IHM-040).">hmi::MainMenu</a></span>, <span class="tt"><a class="el" href="classhmi_1_1OptionsPage.html" title="Page Options unique, affichée dans la fenêtre principale (pas en pop-up), au style du menu principal ...">hmi::OptionsPage</a></span>, <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">hmi::GameViewport</a></span>, <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span>.</li>

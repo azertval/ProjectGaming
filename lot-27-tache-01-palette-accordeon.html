@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-27-tache-01-palette-accordeon.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-27-palette-categories_2tache-01-palette-accordeon"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-27.html#md_Lot_2LOT-27-palette-categories_2epic" title="Lot/LOT-27-palette-categories/epic.md">LOT-27</a> · <b>Emplacement :</b> <span class="tt">HMI/Editor</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1389"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1390"></a>
 Contexte</h1>
 <p>Réorganise <span class="tt">hmi::TilePalette</span> d'une liste plate de 19 types en un accordéon à trois niveaux (catégorie → sous-groupe → variante), validé au préalable sur un mockup HTML/CSS itéré avec le demandeur (voir <span class="tt">epic.md</span>). La hauteur du panneau devenant variable, <span class="tt">hmi::ToolBar</span> et <span class="tt">hmi::EditorLayout</span> sont ajustés pour rester cohérents.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1390"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1391"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">HMI/Editor/TilePalette.h</span>/<span class="tt">.cpp</span></b> : remplace la table statique <span class="tt">PALETTE_TYPES</span> par un modèle d'arbre construit à la volée (<span class="tt">relayout()</span>) — deux entrées autonomes (Vide, Piège) et trois catégories (Tuile, Interactif, Jalon), Tuile/Interactif portant chacune des sous-groupes (Pente/Arrondi ; Bloc poussable). État de dépliage : <span class="tt">std::array&lt;bool, 3&gt;</span> par catégorie et par sous-groupe, tous <span class="tt">false</span> à la construction. <span class="tt">Entry</span> (forme publique inchangée : <span class="tt">type</span>/<span class="tt">x</span>/<span class="tt">y</span>/<span class="tt">width</span>/<span class="tt">height</span>/<span class="tt">label</span>) n'expose que les entrées <b>visibles</b> ; un tableau privé parallèle <span class="tt">_rows</span> retient l'action d'un clic sur chaque entrée (sélectionner un type, replier/ déplier une catégorie, replier/déplier un sous-groupe). Nouvelle méthode <span class="tt">bottom()</span> (position <span class="tt">y</span> juste sous la dernière entrée visible).</li>
@@ -107,14 +107,14 @@ Travail à réaliser</h1>
 <li>Libellé « Danger » → « Piège » (affichage seulement ; <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a990816b607ebf99b1415760965e4d564">core::TileType::Danger</a></span> et son identifiant JSON inchangés).</li>
 <li><b>Défilement</b> (gap découvert après la première revue, voir <span class="tt">epic.md</span>) : <span class="tt">relayout()</span> reconstruit désormais la liste complète des entrées dépliées puis la <b>découpe</b> sur une fenêtre visible (<span class="tt">visibleRowCount(viewportHeight)</span>, réserve la place de <span class="tt">ToolBar</span> sous la palette) déterminée par <span class="tt">_scrollOffset</span>/<span class="tt">_viewportHeight</span> ; <span class="tt">setViewportHeight(viewportHeight)</span> synchronise la hauteur connue (appelé chaque frame par <span class="tt">EditorScreen</span>) et <span class="tt">scroll(wheelDelta)</span> fait défiler la fenêtre (molette, sans toucher à la sélection ni à l'état de dépliage), sur le modèle de <span class="tt">LevelPicker::update</span>. Nouvelle méthode privée <span class="tt">followRow(absoluteIndex)</span> : après tout repliage/dépliage, ajuste <span class="tt">_scrollOffset</span> pour que l'en-tête qui vient d'être cliqué reste dans la fenêtre visible — sans quoi replier/déplier un en-tête proche du bord de la fenêtre pourrait le faire disparaître derrière elle, sans aucun moyen de revenir dessus autrement qu'en devinant qu'il faut faire défiler. <span class="tt">EditorScreen::update</span> route la molette vers <span class="tt">_palette.scroll</span> quand la souris survole le panneau latéral (<span class="tt">input.mouseX() &lt; PANEL_WIDTH</span>), vers le zoom caméra sinon ; <span class="tt">renderPalette</span> dessine une barre de défilement (piste + curseur), même principe que <span class="tt">EditorScreen::renderPicker</span> (<span class="tt">LevelPicker</span>, LOT-15), uniquement si <span class="tt">totalRowCount() &gt; visibleRowCount(viewportHeight)</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1391"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1392"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/TilePalette.h</span>/<span class="tt">.cpp</span>, <span class="tt">EditorLayout.h</span>, <span class="tt">ToolBar.h</span>/<span class="tt">.cpp</span>.</li>
 <li><span class="tt">Source/HMI/Interface/EditorScreen.cpp</span> (constructeur, <span class="tt">update()</span>, <span class="tt">renderPalette</span>).</li>
 <li><span class="tt">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</span>, <span class="tt">test_tool_bar.cpp</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1392"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1393"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>État initial : exactement 5 entrées visibles (<span class="tt">EtatInitialCinqEntreesVisibles</span>).</li>
@@ -132,19 +132,19 @@ Tests (obligatoires)</h1>
 <li>Un en-tête déplié/replié reste visible même dans une fenêtre étroite (<span class="tt">EnTeteDeplieResteVisibleDansUneFenetreEtroite</span>) — couvre <span class="tt">followRow</span>.</li>
 <li>Build <span class="tt">/W4 /WX</span> sans avertissement ; suite complète (334 tests unitaires, 70 tests d'intégration, 2 tests système) verte sans régression.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1393"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1394"></a>
 Points d'attention</h1>
 <ul>
 <li><b><span class="tt">Entry</span> garde exactement sa forme publique d'avant ce lot</b> : c'est ce qui permet à <span class="tt">EditorScreen::renderPalette</span>/<span class="tt">renderToolBar</span> de rester inchangés malgré la réorganisation complète de la palette — le risque de régression de rendu était donc nul par construction, pas vérifié a posteriori.</li>
 <li><b>Le dépliage d'une catégorie peut déplacer la barre d'outils dans la même frame que le clic qui l'a causé</b> : sans le second appel à <span class="tt">ToolBar::relayout</span> juste après <span class="tt">_palette.handleClick</span>, la barre serait restée à son ancienne position jusqu'à la frame suivante (décalage visuel d'une frame après chaque clic sur un en-tête).</li>
 <li><b>Le défilement seul ne suffisait pas</b> : ajouté seul (sans <span class="tt">followRow</span>), un dépliage cumulé dépassant la fenêtre visible aurait simplement déplacé le problème plutôt que de le résoudre — déplier une catégorie proche du bas de la liste pouvait faire disparaître <b>son propre en-tête</b> de la fenêtre (<span class="tt">_scrollOffset</span> restant inchangé alors que le total de lignes grandissait sous lui). <span class="tt">followRow</span> calcule l'indice <b>absolu</b> (indépendant du défilement) de la ligne cliquée avant <span class="tt">relayout()</span> — cet indice reste valide après le clic, seul ce qui suit la ligne dans la liste changeant — puis ajuste <span class="tt">_scrollOffset</span> pour qu'il reste dans la fenêtre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1394"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1395"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Palette en accordéon à trois niveaux, panneau latéral jamais superposé au canevas, aucune régression sur la sélection de type ni sur la barre d'outils.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1395"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1396"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-018</span> (implémentation). </p>
 </div></div><!-- contents -->

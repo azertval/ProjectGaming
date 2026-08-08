@@ -5,5 +5,6 @@ var searchData=
   ['v1_2',['v1',['../structhmi_1_1BackgroundFit.html#a321876eec3c17d05eceb5d66890c5701',1,'hmi::BackgroundFit::v1'],['../structhmi_1_1SpriteQuad.html#a75b0c3489614d54680dcb955242fe1f2',1,'hmi::SpriteQuad::v1'],['../structhmi_1_1LineQuad.html#afded7a4914c8964639fdb73b43c6c339',1,'hmi::LineQuad::v1']]],
   ['valid_3',['valid',['../structhmi_1_1AssetValidation.html#a8b6f970c169b1013073cb60f807ba201',1,'hmi::AssetValidation']]],
   ['value_4',['value',['../structcore_1_1Velocity.html#ad6dd1b25f77f486834db55aa9c384b66',1,'core::Velocity::value'],['../structhmi_1_1PreviousPosition.html#abdda43ddf20dfb53ef9a71023e330209',1,'hmi::PreviousPosition::value'],['../structhmi_1_1RenderLayerTag.html#a5e570c7cddb738155928eeeb2d4aaab2',1,'hmi::RenderLayerTag::value']]],
-  ['view_5',['view',['../structhmi_1_1LoadedTexture.html#ae83354736dadd0d73dbe567cac01b353',1,'hmi::LoadedTexture']]]
+  ['vertical_5',['vertical',['../structhmi_1_1TextAnchor.html#a2713859c1666083a370e262db44b3da1',1,'hmi::TextAnchor']]],
+  ['view_6',['view',['../structhmi_1_1LoadedTexture.html#ae83354736dadd0d73dbe567cac01b353',1,'hmi::LoadedTexture']]]
 ];

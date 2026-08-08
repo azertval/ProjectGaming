@@ -4,5 +4,6 @@ var searchData=
   ['layer_1',['layer',['../structcore_1_1Sprite.html#ab90c3529acbce1120cdcf7d3dbb09082',1,'core::Sprite::layer'],['../structcore_1_1Decor.html#ac96f650191241b3fb731a34bcd6889d8',1,'core::Decor::layer'],['../structhmi_1_1DecorListRow.html#a368531241c770701fa2ecbf47249ec92',1,'hmi::DecorListRow::layer'],['../structhmi_1_1ComposedQuad.html#af6d4eeb26df72fc862a647b8acaf813c',1,'hmi::ComposedQuad::layer'],['../structhmi_1_1DecorVisualTag.html#a49e01c082a02b5fa0695b2d7b81ccf89',1,'hmi::DecorVisualTag::layer']]],
   ['left_2',['left',['../structhmi_1_1ArrowHead.html#adeefbfafc4079bba7d3525acf6342194',1,'hmi::ArrowHead']]],
   ['level_3',['level',['../structcore_1_1MemoryLogSink_1_1Entry.html#ab2a140504bc9e377d32147b8cddc7055',1,'core::MemoryLogSink::Entry::level'],['../structcore_1_1LevelLoadResult.html#acd73f8d045b0de9992c2a35920b35324',1,'core::LevelLoadResult::level']]],
-  ['line_4',['line',['../structhmi_1_1ComposedQuad.html#a7e6bffe91fa5be8be3d80bda3f408d7b',1,'hmi::ComposedQuad']]]
+  ['line_4',['line',['../structhmi_1_1ComposedQuad.html#a7e6bffe91fa5be8be3d80bda3f408d7b',1,'hmi::ComposedQuad']]],
+  ['lineheight_5',['lineHeight',['../structhmi_1_1FontMetrics.html#a21973518c82f73e635cc8a8295fed43d',1,'hmi::FontMetrics']]]
 ];

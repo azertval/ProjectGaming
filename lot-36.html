@@ -96,12 +96,12 @@ $(function(){initNavTree('lot-36.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>implémenté</b> (build/tests verts ; vérification IHM manuelle en cours). Prérequis : <a class="el" href="lot-35.html" title="LOT-35 — Refonte IHM (Qt) : éditeur (docking, palette, outils, peinture)">LOT-35</a> (éditeur Qt à docks). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1697"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1698"></a>
 Objectif</h1>
 <p>Remplacer le sélecteur de niveau rudimentaire (<span class="tt">LevelPicker</span> : simple liste défilante, seulement « Nouveau » / « ouvrir ») par un véritable <b>panneau de gestion des niveaux</b> docké, répondant directement au point de douleur du demandeur (« la liste des niveaux va vite devenir illisible »). L'utilisateur doit pouvoir <b>parcourir, rechercher/filtrer, créer, renommer, dupliquer et supprimer</b> les fichiers de niveaux confortablement, sans quitter l'éditeur.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1698"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1699"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1699"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1700"></a>
 Inclus</h2>
 <ul>
 <li><b>Panneau « Niveaux »</b> (<span class="tt">QDockWidget</span>) listant les fichiers <span class="tt">.json</span> du dossier <span class="tt">Levels</span> de l'application, via <span class="tt">QFileSystemModel</span> (ou un modèle dédié) + <span class="tt">QListView</span>/<span class="tt">QTreeView</span>.</li>
@@ -117,7 +117,7 @@ Inclus</h2>
 <li><b>Indicateur d'état</b> : niveau courant, marque « modifié » (<span class="tt">dirty</span>), erreurs de chargement affichées lisiblement (réutilise <span class="tt">LevelValidationError</span>).</li>
 <li>Documentation (guide éditeur — section gestion des niveaux) et tests de la logique nouvelle (nommage, unicité de duplication, filtrage) découplée de Qt.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1700"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1701"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Dossiers/catégories de niveaux, campagnes, ordre de séquence de jeu</b> — la séquence démo reste définie dans <span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">main.cpp</a></span> (<span class="tt">LOT-25</span>) ; l'organisation en collections est un lot futur éventuel.</li>
@@ -125,7 +125,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Édition simultanée de plusieurs niveaux (onglets multi-documents)</b> — un seul niveau ouvert à la fois, comme aujourd'hui.</li>
 <li><b>Liens visuels, textures, menus</b> — LOT-37/38/39 respectivement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1701"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1702"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>S'appuyer sur <span class="tt">QFileSystemModel</span>/<span class="tt">QSortFilterProxyModel</span></b> plutôt qu'une liste maison : recherche, tri et rafraîchissement à chaud viennent gratuitement, cohérent avec l'objectif de maintenabilité.</li>
@@ -133,14 +133,14 @@ Décisions de cadrage</h1>
 <li><b>Opérations de fichiers dans une couche testable</b> : la logique (nom valide, nom de duplication unique, résolution de collision) est isolée de Qt et couverte par tests ; Qt ne fait que la déclencher et afficher le résultat.</li>
 <li><b>Garde-fou <span class="tt">dirty</span> obligatoire au changement de niveau</b> : ne jamais perdre silencieusement un brouillon — reprend la sémantique de confirmation de l'éditeur historique.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1702"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1703"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelles : <span class="tt">EX-IHM-020</span> (panneau de gestion des niveaux avec recherche), <span class="tt">EX-IHM-021</span> (opérations fichiers : créer/renommer/dupliquer/supprimer avec validation et confirmation).</li>
 <li>Reconduite (présentation Qt, comportement conservé) : <span class="tt">EX-EDIT-001</span> (choix d'un niveau existant ou nouveau à l'ouverture de l'éditeur).</li>
 <li>Réutilisées : <span class="tt">EX-EDIT-006</span>/<span class="tt">EX-EDIT-007</span> (enregistrement/validation), <span class="tt">EX-NFR-010</span> (logique testable).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1703"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1704"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot. </p>
@@ -155,7 +155,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-36-tache-03-ouverture-garde-fou-doc.html#md_Lot_2LOT-36-refonte-ihm-qt-niveaux_2tache-03-ouverture-garde-fou-doc" title="Lot/LOT-36-refonte-ihm-qt-niveaux/tache-03-ouverture-garde-fou-doc.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Ouverture avec garde-fou <span class="tt">dirty</span>, indicateurs d'état/erreurs ; doc &amp; vérification  </td><td class="markdownTableBodyNone"><span class="tt">Source/Editor</span>, <span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1704"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1705"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Le panneau « Niveaux » liste tous les niveaux du dossier <span class="tt">Levels</span> et reste <b>lisible et filtrable</b> même avec de nombreux fichiers (recherche par nom fonctionnelle).</li>
@@ -165,12 +165,12 @@ Critères d'acceptation du lot</h1>
 <li>La logique de nommage/duplication/filtrage est <b>couverte par des tests</b> et découplée de Qt ; aucune règle de nommage ou de format dupliquée.</li>
 <li>Build <span class="tt">/W4 /WX</span>, Doxygen et lint verts ; IHM Qt <b>vérifiée visuellement</b>.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1705"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1706"></a>
 Dépendances</h1>
 <ul>
 <li>Bâtit sur <a class="el" href="lot-35.html" title="LOT-35 — Refonte IHM (Qt) : éditeur (docking, palette, outils, peinture)">LOT-35</a>. Réutilise <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">core::LevelLoader</a></span>/<span class="tt">LevelWriter</span>/<span class="tt">LevelDraft</span> (<span class="tt">LOT-07</span>/<span class="tt">14</span>), <span class="tt">hmi::LevelNameValidation</span> (<span class="tt">LOT-14</span>), et <span class="tt"><a class="el" href="namespacehmi.html#a18648161d8a6c752202b6034613a947b" title="Dossier contenant l&#39;exécutable en cours, pour localiser les ressources copiées à côté (niveaux,...">hmi::executableDirectory()</a></span> pour localiser <span class="tt">Levels</span>. Ne modifie pas <span class="tt">Core</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1706"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1707"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-36-tache-01-panneau-niveaux-recherche.html" title="TACHE-01 — Panneau « Niveaux » (modèle fichiers + liste + recherche/filtre)">TACHE-01 — Panneau « Niveaux » (modèle fichiers + liste + recherche/filtre)</a></li>

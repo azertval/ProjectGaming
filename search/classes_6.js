@@ -6,6 +6,7 @@ var searchData=
   ['gamepadpoller_3',['GamepadPoller',['../classhmi_1_1GamepadPoller.html',1,'hmi']]],
   ['gamesession_4',['GameSession',['../classhmi_1_1GameSession.html',1,'hmi']]],
   ['gameviewport_5',['GameViewport',['../classhmi_1_1GameViewport.html',1,'hmi']]],
-  ['graphicsdevice_6',['GraphicsDevice',['../classhmi_1_1GraphicsDevice.html',1,'hmi']]],
-  ['gridposition_7',['GridPosition',['../structcore_1_1GridPosition.html',1,'core']]]
+  ['glyphmetrics_6',['GlyphMetrics',['../structhmi_1_1GlyphMetrics.html',1,'hmi']]],
+  ['graphicsdevice_7',['GraphicsDevice',['../classhmi_1_1GraphicsDevice.html',1,'hmi']]],
+  ['gridposition_8',['GridPosition',['../structcore_1_1GridPosition.html',1,'core']]]
 ];

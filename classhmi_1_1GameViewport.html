@@ -288,6 +288,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a59a93eb0995d3ebd1f0547b569ff0b9c" id="r_a59a93eb0995d3ebd1f0547b569ff0b9c"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1TextureAtlas.html">hmi::TextureAtlas</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a59a93eb0995d3ebd1f0547b569ff0b9c">_atlas</a></td></tr>
 <tr class="memitem:a22acfc4d63a401176b695f09d71ec03b" id="r_a22acfc4d63a401176b695f09d71ec03b"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1TextureCache.html">hmi::TextureCache</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a22acfc4d63a401176b695f09d71ec03b">_textureCache</a></td></tr>
 <tr class="memitem:acb6b47f4e35e9c42a6354f799d90e066" id="r_acb6b47f4e35e9c42a6354f799d90e066"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1DraftRenderer.html">hmi::DraftRenderer</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acb6b47f4e35e9c42a6354f799d90e066">_draftRenderer</a></td></tr>
+<tr class="memitem:a5c63edbd4f0ca7e0b77ee7f7b211c2c7" id="r_a5c63edbd4f0ca7e0b77ee7f7b211c2c7"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1BitmapFont.html">hmi::BitmapFont</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5c63edbd4f0ca7e0b77ee7f7b211c2c7">_font</a></td></tr>
+<tr class="memdesc:a5c63edbd4f0ca7e0b77ee7f7b211c2c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Police bitmap de l'affichage tête haute (<span class="tt">LOT-52</span>), chargée une fois au démarrage comme <span class="tt"><a class="el" href="#a59a93eb0995d3ebd1f0547b569ff0b9c">_atlas</a></span> (pas de rechargement à chaud).  <br /></td></tr>
 <tr class="memitem:aeac238dcd6e5acc5b30326e29643e214" id="r_aeac238dcd6e5acc5b30326e29643e214"><td class="memItemLeft"><a class="el" href="classhmi_1_1SkinCatalog.html">hmi::SkinCatalog</a>&#160;</td><td class="memItemRight"><a class="el" href="#aeac238dcd6e5acc5b30326e29643e214">_skins</a></td></tr>
 <tr class="memdesc:aeac238dcd6e5acc5b30326e29643e214"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogue des jeux de skins (<span class="tt">LOT-42</span>), lu au démarrage depuis <span class="tt">Assets/skins.json</span>.  <br /></td></tr>
 <tr class="memitem:a18df9fc7817cad1954a2008e827ac3c6" id="r_a18df9fc7817cad1954a2008e827ac3c6"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a18df9fc7817cad1954a2008e827ac3c6">_skinSet</a></td></tr>
@@ -3246,6 +3248,30 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div><div class="memdoc">
 
 <p>Raccourcis d'éditeur remappables (<span class="tt">LOT-45</span>). </p>
+
+</div>
+</div>
+<a id="a5c63edbd4f0ca7e0b77ee7f7b211c2c7" name="a5c63edbd4f0ca7e0b77ee7f7b211c2c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c63edbd4f0ca7e0b77ee7f7b211c2c7">&#9670;&#160;</a></span>_font</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="classhmi_1_1BitmapFont.html">hmi::BitmapFont</a>&gt; hmi::GameViewport::_font</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Police bitmap de l'affichage tête haute (<span class="tt">LOT-52</span>), chargée une fois au démarrage comme <span class="tt"><a class="el" href="#a59a93eb0995d3ebd1f0547b569ff0b9c">_atlas</a></span> (pas de rechargement à chaud). </p>
 
 </div>
 </div>

@@ -8,7 +8,7 @@ var searchData=
   ['period_5',['period',['../structcore_1_1DangerBlinkConfig.html#a34073d8c80bc4660b36c5b40e112a119',1,'core::DangerBlinkConfig']]],
   ['phase_6',['phase',['../structcore_1_1DangerBlinkConfig.html#a74ae6768940a966b4ab83994dbc80295',1,'core::DangerBlinkConfig::phase'],['../structhmi_1_1DecorGestureState.html#a704cf64626188c71727087fcb3ef8e28',1,'hmi::DecorGestureState::phase']]],
   ['pixelheight_7',['pixelHeight',['../structhmi_1_1DecorAppearance.html#aa8028858b8e19b38d5f13e8c3fa0cffd',1,'hmi::DecorAppearance']]],
-  ['pixels_8',['pixels',['../structhmi_1_1ProceduralAtlasImage.html#a9793e61a5644666b4d997ae64dde340b',1,'hmi::ProceduralAtlasImage::pixels'],['../structhmi_1_1DecodedImage.html#aba74a5cfbd117d38f4d96921cafe3107',1,'hmi::DecodedImage::pixels']]],
+  ['pixels_8',['pixels',['../structhmi_1_1ProceduralAtlasImage.html#a9793e61a5644666b4d997ae64dde340b',1,'hmi::ProceduralAtlasImage::pixels'],['../structhmi_1_1ProceduralFontImage.html#a5d844d3be6b91d7fee4ac4e225a0e403',1,'hmi::ProceduralFontImage::pixels'],['../structhmi_1_1DecodedImage.html#aba74a5cfbd117d38f4d96921cafe3107',1,'hmi::DecodedImage::pixels']]],
   ['pixels_5fper_5funit_9',['PIXELS_PER_UNIT',['../classhmi_1_1Camera2D.html#a3d1d52a7653c7a3dca5eb2e5a5990f88',1,'hmi::Camera2D']]],
   ['pixelwidth_10',['pixelWidth',['../structhmi_1_1DecorAppearance.html#a096d468543ffa0f2e883bcbe7f63dbd4',1,'hmi::DecorAppearance']]],
   ['player_5fclip_5fdash_11',['PLAYER_CLIP_DASH',['../namespacecore.html#a29878d049f4e3e4ea35da414d6783daf',1,'core']]],

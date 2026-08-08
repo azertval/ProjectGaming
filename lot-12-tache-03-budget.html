@@ -94,23 +94,23 @@ $(function(){initNavTree('lot-12-tache-03-budget.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-12-niveau-puzzle_2tache-03-budget"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-12.html#md_Lot_2LOT-12-niveau-puzzle_2epic" title="Lot/LOT-12-niveau-puzzle/epic.md">LOT-12</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs/Systems</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md864"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md865"></a>
 Contexte</h1>
 <p>Le <span class="tt">CharacterPhysicsSystem</span> doit <b>respecter</b> le budget (<span class="tt">EX-GP-024</span>) : refuser un saut ou un dash quand le quota est épuisé et <b>décompter</b> chaque usage. <span class="tt">-1</span> = illimité (rétrocompatible).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md865"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md866"></a>
 Travail à réaliser</h1>
 <p>Dans <span class="tt">CharacterPhysicsSystem::update</span>, aux points de déclenchement :</p><ul>
 <li><b>Saut</b> (toutes sources : sol/coyote, mur, aérien) : n'autoriser que si <span class="tt">player.jumpsRemaining != 0</span> ; à chaque saut effectif, <b>décrémenter</b> <span class="tt">jumpsRemaining</span> s'il est <b>limité</b> (<span class="tt">&gt; 0</span>). <span class="tt">-1</span> reste illimité.</li>
 <li><b>Dash</b> : n'autoriser que si <span class="tt">player.dashesRemaining != 0</span> ; à chaque dash, <b>décrémenter</b> s'il est limité.</li>
 <li>Ne pas toucher aux autres compteurs (coyote, sauts aériens, minuteries) : le budget est une <b>contrainte globale</b> du tableau, distincte des règles de rechargement au sol.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md866"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md867"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="CharacterPhysicsSystem_8h.html" title="Système de physique du personnage : déplacement, gravité et collisions au pas fixe.">Source/Core/Ecs/Systems/CharacterPhysicsSystem.h</a></span>/<span class="tt">.cpp</span>.</li>
 <li>Tests d'intégration.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md867"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md868"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Budget de sauts</b> : avec <span class="tt">jumpsRemaining = 1</span>, un saut fonctionne, le suivant est <b>refusé</b>.</li>
@@ -118,18 +118,18 @@ Tests (obligatoires)</h1>
 <li><b>Illimité</b> : <span class="tt">-1</span> → aucun refus (comportement des lots précédents inchangé, tests verts).</li>
 <li><b>Déterminisme</b> (<span class="tt">EX-NFR-002</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md868"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md869"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Distinguer</b> budget (global, ne se recharge pas au sol) et sauts aériens (rechargés au sol) : un saut consomme <b>un</b> budget <b>et</b> le compteur de source approprié.</li>
 <li>Convention <span class="tt">-1</span> = illimité appliquée partout.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md869"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md870"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Budget respecté et décompté, <b>testé</b> (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md870"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md871"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-024</span>, <span class="tt">EX-NFR-002</span>, <span class="tt">EX-ARCH-011</span>. </p>
 </div></div><!-- contents -->

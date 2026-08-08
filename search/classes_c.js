@@ -9,5 +9,7 @@ var searchData=
   ['playerspritequad_6',['PlayerSpriteQuad',['../structhmi_1_1PlayerSpriteQuad.html',1,'hmi']]],
   ['playerspritetag_7',['PlayerSpriteTag',['../structhmi_1_1PlayerSpriteTag.html',1,'hmi']]],
   ['previousposition_8',['PreviousPosition',['../structhmi_1_1PreviousPosition.html',1,'hmi']]],
-  ['proceduralatlasimage_9',['ProceduralAtlasImage',['../structhmi_1_1ProceduralAtlasImage.html',1,'hmi']]]
+  ['proceduralatlasimage_9',['ProceduralAtlasImage',['../structhmi_1_1ProceduralAtlasImage.html',1,'hmi']]],
+  ['proceduralfont_10',['ProceduralFont',['../structhmi_1_1ProceduralFont.html',1,'hmi']]],
+  ['proceduralfontimage_11',['ProceduralFontImage',['../structhmi_1_1ProceduralFontImage.html',1,'hmi']]]
 ];
