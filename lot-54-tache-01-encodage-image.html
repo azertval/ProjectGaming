@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-54-tache-01-encodage-image.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-54-atelier-pixel-art_2tache-01-encodage-image"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-54.html#md_Lot_2LOT-54-atelier-pixel-art_2epic" title="Lot/LOT-54-atelier-pixel-art/epic.md">LOT-54</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2339"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2341"></a>
 Contexte</h1>
 <p>Le projet sait <b>lire</b> une image depuis le LOT-39 : <span class="tt"><a class="el" href="namespacehmi.html#a22c3bcff9f77b4c4df7938a08c036dfd" title="Décode un fichier image (PNG au minimum) en pixels RGBA.">hmi::decodeImageFile</a></span> décode un fichier en pixels RGBA non prémultipliés via <span class="tt">QImage</span>. Il ne sait pas en <b>écrire</b> — sauf dans un cas particulier, l'outil <span class="tt">--export-atlas</span> de <span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">main.cpp</a></span>, qui utilise <span class="tt">QImage::save</span> directement.</p>
 <p>L'atelier a besoin de l'opération symétrique, sous une forme réutilisable et testable.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2340"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2342"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">encodeImageFile</span> / <span class="tt">saveImageFile</span></b>, symétriques de <span class="tt">decodeImageFile</span> : depuis un tampon de pixels RGBA et des dimensions, écrire un PNG à un chemin donné. <b>Jamais d'exception</b> — résultat porteur d'un code exploitable (dossier inexistant, disque plein, fichier en lecture seule).</li>
@@ -106,14 +106,14 @@ Travail à réaliser</h1>
 <li><b>Écriture atomique</b> : écrire dans un fichier temporaire puis remplacer, afin qu'une interruption ne laisse pas un asset tronqué — d'autant que le rechargement à chaud (LOT-43) peut lire pendant l'écriture.</li>
 <li><b>Réutilisation par <span class="tt">--export-atlas</span></b> : faire passer l'outil existant par cette fonction plutôt que par <span class="tt">QImage::save</span> directement, pour n'avoir qu'un seul chemin d'écriture.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2341"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2343"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/TextureLoader.{h,cpp}</span> (ajout de l'écriture, symétrie avec le décodage).</li>
 <li><span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span> (<span class="tt">--export-atlas</span> passe par la nouvelle fonction).</li>
 <li><span class="tt">Source/Test/Unit/HMI/Graphics/test_image_encode.cpp</span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2342"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2344"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Aller-retour</b> : encoder puis décoder restitue exactement les mêmes pixels, y compris des pixels totalement et partiellement transparents.</li>
@@ -121,19 +121,19 @@ Tests (obligatoires)</h1>
 <li>L'écriture atomique ne laisse aucun fichier temporaire résiduel après succès comme après échec.</li>
 <li>Sans GPU (le décodage et l'encodage <span class="tt">QImage</span> ne demandent pas de device graphique).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2343"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2345"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le piège du prémultiplié.</b> <span class="tt">QImage</span> propose plusieurs formats alpha ; le projet utilise <span class="tt">Format_RGBA8888</span> (non prémultiplié) au décodage. L'écriture doit rester dans le même format, sinon les allers-retours dégraderont progressivement les bords des sprites.</li>
 <li>Ne pas écrire directement sur le fichier cible pendant qu'un <span class="tt">QFileSystemWatcher</span> éventuel (LOT-43) surveille le dossier : l'écriture atomique règle aussi ce problème.</li>
 <li>Conserver la politique d'erreurs du module : aucune exception dans le chemin de rendu ni dans l'édition.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2344"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2346"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Une image peut être écrite depuis un tampon RGBA, de façon atomique et sans exception ; l'aller-retour est exact, alpha compris ; <span class="tt">--export-atlas</span> passe par le même chemin ; tests sans GPU verts ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2345"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2347"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-045</span> (outil de dessin pixel art) ; réutilise <span class="tt">EX-REN-041</span> (décodage image), <span class="tt">EX-REN-042</span> (assets externalisés), <span class="tt">EX-NFR-040</span> (erreur récupérable), <span class="tt">EX-NFR-010</span> (testable sans GPU). </p>
 </div></div><!-- contents -->

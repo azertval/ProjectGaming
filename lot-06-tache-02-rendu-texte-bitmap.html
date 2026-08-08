@@ -94,42 +94,42 @@ $(function(){initNavTree('lot-06-tache-02-rendu-texte-bitmap.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-06-menu-principal_2tache-02-rendu-texte-bitmap"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-06.html#md_Lot_2LOT-06-menu-principal_2epic" title="Lot/LOT-06-menu-principal/epic.md">LOT-06</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md543"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md545"></a>
 Contexte</h1>
 <p>Le menu (et les futurs écrans) doivent afficher du <b>texte</b> (<span class="tt">EX-REN-032</span>). On l'obtient avec une <b>police bitmap</b> intégrée, dessinée via le <span class="tt">SpriteBatch</span> du LOT-05, ce qui reste cohérent avec le pixel art et le « from scratch ».</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md544"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md546"></a>
 Travail à réaliser</h1>
 <ul>
 <li><span class="tt">BitmapFont</span> : une texture de police <b>générée en code</b> (grille de glyphes de taille fixe) couvrant au minimum <b>A–Z</b>, <b>0–9</b>, l'espace et la ponctuation utile aux libellés (« Charger niveau », « Mode Edition », « Quitter », titre), ainsi que les <b>lettres accentuées</b> nécessaires aux libellés du catalogue de traduction français (é, è, à, ç, É…, cf. TACHE-03). Données de glyphes intégrées (déterministes), <span class="tt">ID3D11Texture2D</span> + vue de ressource en RAII.</li>
 <li>Métrique simple : chaque glyphe occupe une cellule de taille connue ; l'avance horizontale est fixe (police à chasse fixe) pour ce lot.</li>
 <li><span class="tt">drawText(SpriteBatch&amp;, texte, position, échelle, couleur)</span> : émet un quad par glyphe (régions de la texture de police), en unités écran/pixels.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md545"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md547"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/BitmapFont.h</span>, <span class="tt">BitmapFont.cpp</span> (nouveau).</li>
 <li><span class="tt">Source/HMI/CMakeLists.txt</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md546"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md548"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>Le texte s'affiche à la position et à l'échelle demandées (vérification visuelle via le menu).</li>
 <li>Les caractères non couverts sont gérés proprement (glyphe vide ou ignoré, pas de plantage).</li>
 <li>La couleur/teinte s'applique ; la netteté pixel art est préservée (échantillonnage nearest).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md547"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md549"></a>
 Points d'attention</h1>
 <ul>
 <li>Se limiter aux caractères réellement nécessaires ; à chasse fixe pour simplifier la mise en page.</li>
 <li>Réutiliser le pipeline <span class="tt">SpriteBatch</span> (mêmes états blend/nearest) : le texte est un lot de quads texturés comme les sprites.</li>
 <li>Rendu de texte en <b>espace écran</b> (pixels), indépendant de la caméra du monde.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md548"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md550"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">BitmapFont</span> + <span class="tt">drawText</span> fonctionnels, RAII, documentés ; build <span class="tt">/W4 /WX</span> sans avertissement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md549"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md551"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-032</span>, <span class="tt">EX-REN-011</span>, <span class="tt">EX-ARCH-022</span>. </p>
 </div></div><!-- contents -->

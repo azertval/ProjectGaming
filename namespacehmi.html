@@ -193,6 +193,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine la grille d'un <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span> en cours d'édition.  <a href="classhmi_1_1DraftRenderer.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GraphicsDevice" id="r_GraphicsDevice"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1GraphicsDevice.html">GraphicsDevice</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encapsule le device Direct3D 11, sa swap chain et la cible de rendu (RAII).  <a href="classhmi_1_1GraphicsDevice.html#details">More...</a><br /></td></tr>
+<tr class="memitem:LayerVisibility" id="r_LayerVisibility"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1LayerVisibility.html">LayerVisibility</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jeu de visibilités par calque, pour le mode d'inspection « définition des textures » (<span class="tt">LOT-51</span>).  <a href="classhmi_1_1LayerVisibility.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MechanismVisualState" id="r_MechanismVisualState"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MechanismVisualState.html">MechanismVisualState</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État de présentation d'un mécanisme animé, par <b>instance</b> (<span class="tt">LOT-47</span> TACHE-02).  <a href="structhmi_1_1MechanismVisualState.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PlayerSpriteQuad" id="r_PlayerSpriteQuad"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PlayerSpriteQuad.html">PlayerSpriteQuad</a></td></tr>
@@ -579,8 +581,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:af7d9b42fc7c496a35a24169feddc6ab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boîte englobante d'un rectangle texturé, en unités monde.  <br /></td></tr>
 <tr class="memitem:adbdaec090bf424bf2ec812fb1587c782" id="r_adbdaec090bf424bf2ec812fb1587c782"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#adbdaec090bf424bf2ec812fb1587c782">lineQuadBounds</a> (const <a class="el" href="structhmi_1_1LineQuad.html">LineQuad</a> &amp;quad) noexcept</td></tr>
 <tr class="memdesc:adbdaec090bf424bf2ec812fb1587c782"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boîte englobante d'un segment épais, en unités monde.  <br /></td></tr>
-<tr class="memitem:afacba4ee1b4df1a3448bb501cec4b44a" id="r_afacba4ee1b4df1a3448bb501cec4b44a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afacba4ee1b4df1a3448bb501cec4b44a">composeWorldSprites</a> (<a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, <a class="el" href="classcore_1_1World.html">core::World</a> &amp;world, <a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;textures, float interpolationAlpha, const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> *camera=nullptr)</td></tr>
-<tr class="memdesc:afacba4ee1b4df1a3448bb501cec4b44a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose les entités affichables d'un monde ECS en primitives.  <br /></td></tr>
+<tr class="memitem:af1b4dc88cfb3af31fc25a961e7a410b4" id="r_af1b4dc88cfb3af31fc25a961e7a410b4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af1b4dc88cfb3af31fc25a961e7a410b4">composeWorldSprites</a> (<a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, <a class="el" href="classcore_1_1World.html">core::World</a> &amp;world, <a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;textures, float interpolationAlpha, const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> *camera=nullptr, const <a class="el" href="classhmi_1_1LayerVisibility.html">LayerVisibility</a> &amp;visibility=<a class="el" href="classhmi_1_1LayerVisibility.html">LayerVisibility</a>{})</td></tr>
+<tr class="memdesc:af1b4dc88cfb3af31fc25a961e7a410b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose les entités affichables d'un monde ECS en primitives.  <br /></td></tr>
 <tr class="memitem:acce38c10bb9e9e440f634df58c943f35" id="r_acce38c10bb9e9e440f634df58c943f35"><td class="memItemLeft"><a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a>&#160;</td><td class="memItemRight"><a class="el" href="#acce38c10bb9e9e440f634df58c943f35">decorRenderLayer</a> (<a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a> layer) noexcept</td></tr>
 <tr class="memdesc:acce38c10bb9e9e440f634df58c943f35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Projette une couche de décor (<span class="tt">Core</span>) vers son calque de rendu (<span class="tt">HMI</span>), <span class="tt">EX-DEC-002</span>.  <br /></td></tr>
 <tr class="memitem:ac3ffff683e20d285cb666f9785ca0cf1" id="r_ac3ffff683e20d285cb666f9785ca0cf1"><td class="memItemLeft"><a class="el" href="structhmi_1_1DecorAppearance.html">DecorAppearance</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac3ffff683e20d285cb666f9785ca0cf1">resolveDecorAppearance</a> (const <a class="el" href="structhmi_1_1DecorVisualTag.html">DecorVisualTag</a> &amp;tag, const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;textures) noexcept</td></tr>
@@ -651,8 +653,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a98f0f2d822288b333e00905f4cc60165"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée une texture Direct3D 11 immuable à partir de pixels RGBA déjà décodés.  <br /></td></tr>
 <tr class="memitem:af6ffcc39449660c80e3c1c5a53e6c1ec" id="r_af6ffcc39449660c80e3c1c5a53e6c1ec"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af6ffcc39449660c80e3c1c5a53e6c1ec">loadTextureFromFile</a> (ID3D11Device *device, const std::filesystem::path &amp;path)</td></tr>
 <tr class="memdesc:af6ffcc39449660c80e3c1c5a53e6c1ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décode un fichier image puis crée la texture Direct3D 11 correspondante.  <br /></td></tr>
-<tr class="memitem:ab158a76df687b49eeccc12df1438d3ce" id="r_ab158a76df687b49eeccc12df1438d3ce"><td class="memItemLeft"><a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab158a76df687b49eeccc12df1438d3ce">resolveTileAppearance</a> (<a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, const <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> &amp;physicalRegion, const <a class="el" href="structhmi_1_1TileSkinTag.html">TileSkinTag</a> *tag, const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;textures) noexcept</td></tr>
-<tr class="memdesc:ab158a76df687b49eeccc12df1438d3ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout l'apparence d'une entité affichée selon le mode de rendu courant.  <br /></td></tr>
+<tr class="memitem:a703532077ec14c39205ccde5efbfb6bc" id="r_a703532077ec14c39205ccde5efbfb6bc"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a703532077ec14c39205ccde5efbfb6bc">resolveTileAppearance</a> (<a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, const <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> &amp;physicalRegion, const <a class="el" href="structhmi_1_1TileSkinTag.html">TileSkinTag</a> *tag, const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;textures, bool skinVisible=true, bool overrideVisible=true) noexcept</td></tr>
+<tr class="memdesc:a703532077ec14c39205ccde5efbfb6bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout l'apparence d'une entité affichée selon le mode de rendu courant.  <br /></td></tr>
 <tr class="memitem:ad7099b7e079afed3ba2eee64261b1725" id="r_ad7099b7e079afed3ba2eee64261b1725"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ad7099b7e079afed3ba2eee64261b1725">animationExcludedForTile</a> (<a class="el" href="#ac69176e5c8acf86f4990696f7f54f11e">SkinMode</a> mode, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type) noexcept</td></tr>
 <tr class="memdesc:ad7099b7e079afed3ba2eee64261b1725"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si la combinaison (mode de skin, type de tuile) exclut l'animation (<span class="tt">LOT-46</span> TACHE-05).  <br /></td></tr>
 <tr class="memitem:a6d5ae4c4504ac24560454bb394e9ad1a" id="r_a6d5ae4c4504ac24560454bb394e9ad1a"><td class="memItemLeft">std::uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a6d5ae4c4504ac24560454bb394e9ad1a">solidNeighborMask</a> (const <a class="el" href="classcore_1_1TileMap.html">core::TileMap</a> &amp;tiles, int column, int row) noexcept</td></tr>
@@ -700,6 +702,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:a71400cfb82eb06125e98cf974b6dc1be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les six familles de mécanismes à état dont l'apparence est pilotée par un clip (<span class="tt">LOT-47</span>), dans l'ordre où elles sont proposées par la section « Animations ».  <br /></td></tr>
 <tr class="memitem:ad72608bb6233a89509a4835525f62339" id="r_ad72608bb6233a89509a4835525f62339"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="#ad72608bb6233a89509a4835525f62339">DECORS_SUBDIRECTORY</a> = &quot;Decors/&quot;</td></tr>
 <tr class="memdesc:ad72608bb6233a89509a4835525f62339"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous-dossier des décors, relatif au dossier d'assets (<span class="tt">LOT-49</span>).  <br /></td></tr>
+<tr class="memitem:a8d75d16f31a44e7347ea403ce66aaff3" id="r_a8d75d16f31a44e7347ea403ce66aaff3"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a8d75d16f31a44e7347ea403ce66aaff3">RENDER_LAYER_COUNT</a> = static_cast&lt;std::size_t&gt;(<a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919a94f3616c83f30ab5a328e602bbb7d751">RenderLayer::EditorOverlay</a>) + 1</td></tr>
+<tr class="memdesc:a8d75d16f31a44e7347ea403ce66aaff3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de valeurs de <span class="tt"><a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919" title="Calques de dessin, du plus arrière au plus avant (EX-REN-014, EX-DEC-002).">hmi::RenderLayer</a></span> — dimensionne un tableau indexé par la valeur plutôt que par une liste de champs écrite à la main (voir <span class="tt"><a class="el" href="classhmi_1_1LayerVisibility.html" title="Jeu de visibilités par calque, pour le mode d&#39;inspection « définition des textures » (LOT-51).">hmi::LayerVisibility</a></span>).  <br /></td></tr>
 <tr class="memitem:a202cf813b8a09a5a8b784fa543250ce8" id="r_a202cf813b8a09a5a8b784fa543250ce8"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a202cf813b8a09a5a8b784fa543250ce8">MECHANISM_CLIP_DOOR_CLOSED</a> = &quot;closed&quot;</td></tr>
 <tr class="memdesc:a202cf813b8a09a5a8b784fa543250ce8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Noms de clip conventionnels, documentés dans <span class="tt">Source/Elements/Assets/README.md</span> — c'est le contrat qu'un auteur d'asset doit respecter pour que son animation soit reconnue.  <br /></td></tr>
 <tr class="memitem:a300d76e8ed6b73b7dba74ce128204700" id="r_a300d76e8ed6b73b7dba74ce128204700"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a300d76e8ed6b73b7dba74ce128204700">MECHANISM_CLIP_DOOR_OPENING</a> = &quot;opening&quot;</td></tr>
@@ -1469,7 +1473,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Mode de rendu de la scène : lecture directe des collisions, ou habillage. </p>
-<p>Deux valeurs, jamais trois : la superposition et le contrôle <b>fin par calque</b> relèvent de <span class="tt">LOT-51</span> et sont délibérément une autre notion. La bascule est purement <b>visuelle</b> — elle ne touche ni la simulation, ni la scène ECS, seulement la résolution de l'apparence (<span class="tt"><a class="el" href="#ab158a76df687b49eeccc12df1438d3ce" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">hmi::resolveTileAppearance</a></span>). </p>
+<p>Deux valeurs, jamais trois : la superposition et le contrôle <b>fin par calque</b> relèvent de <span class="tt">LOT-51</span> et sont délibérément une autre notion. La bascule est purement <b>visuelle</b> — elle ne touche ni la simulation, ni la scène ECS, seulement la résolution de l'apparence (<span class="tt"><a class="el" href="#a703532077ec14c39205ccde5efbfb6bc" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">hmi::resolveTileAppearance</a></span>). </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ace25c100da588ab6050fb0f486d61d54acda371792a8e564f310b48ba0004f5eb" name="ace25c100da588ab6050fb0f486d61d54acda371792a8e564f310b48ba0004f5eb"></a>Physique&#160;</td><td class="fielddoc"><p>Couleur plate par type de tuile : la géométrie de collision se lit directement à l'écran. </p>
 </td></tr>
@@ -2438,8 +2442,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="afacba4ee1b4df1a3448bb501cec4b44a" name="afacba4ee1b4df1a3448bb501cec4b44a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afacba4ee1b4df1a3448bb501cec4b44a">&#9670;&#160;</a></span>composeWorldSprites()</h2>
+<a id="af1b4dc88cfb3af31fc25a961e7a410b4" name="af1b4dc88cfb3af31fc25a961e7a410b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1b4dc88cfb3af31fc25a961e7a410b4">&#9670;&#160;</a></span>composeWorldSprites()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2472,7 +2476,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> *</td>          <td class="paramname"><span class="paramname"><em>camera</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> *</td>          <td class="paramname"><span class="paramname"><em>camera</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1LayerVisibility.html">LayerVisibility</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>visibility</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="classhmi_1_1LayerVisibility.html">LayerVisibility</a>{}</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2480,7 +2489,7 @@ Variables</h2></td></tr>
 <p>Compose les entités affichables d'un monde ECS en primitives. </p>
 <p>Parcourt les entités portant un <span class="tt"><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">core::Transform</a></span> <b>et</b> un <span class="tt"><a class="el" href="structcore_1_1Sprite.html" title="Apparence 2D d&#39;une entité : quelle région de l&#39;atlas dessiner, dans quelle couche et avec quelle tein...">core::Sprite</a></span>, résout la région d'atlas en coordonnées de texture normalisées, applique l'interpolation de rendu (<span class="tt"><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">hmi::PreviousPosition</a></span>) et empile un <span class="tt"><a class="el" href="structhmi_1_1SpriteQuad.html" title="Un quad texturé à dessiner : rectangle en unités monde, région de texture (coordonnées normalisées) e...">hmi::SpriteQuad</a></span> par entité. Lecture <b>seule</b> de l'ECS (<span class="tt">EX-ARCH-012</span>) : ni la simulation ni l'interpolation ne sont affectées, y compris pour une entité écartée par le culling (elle reste simulée, elle n'est simplement pas dessinée).</p>
 <p>Le calque de chaque entité vient de son <span class="tt"><a class="el" href="structhmi_1_1RenderLayerTag.html" title="Composant de présentation fixant le calque de dessin d&#39;une entité.">hmi::RenderLayerTag</a></span>, ou vaut <span class="tt"><a class="el" href="#ab6e44ad3d54b0383ef13f332d290df46" title="Calque appliqué à une entité dépourvue de hmi::RenderLayerTag.">hmi::DEFAULT_RENDER_LAYER</a></span> en son absence ; <span class="tt"><a class="el" href="structcore_1_1Sprite.html#ab90c3529acbce1120cdcf7d3dbb09082" title="Couche de dessin : une valeur plus grande est dessinée au-dessus.">core::Sprite::layer</a></span> reste le tri <b>fin</b> à l'intérieur de ce calque.</p>
-<p>L'apparence de chaque entité — texture liée et région échantillonnée — est résolue <b>ici</b>, à la composition, par <span class="tt"><a class="el" href="#ab158a76df687b49eeccc12df1438d3ce" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">hmi::resolveTileAppearance</a></span> (<span class="tt">LOT-41</span>) : changer de mode de rendu ne reconstruit donc jamais la scène ECS. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>L'apparence de chaque entité — texture liée et région échantillonnée — est résolue <b>ici</b>, à la composition, par <span class="tt"><a class="el" href="#a703532077ec14c39205ccde5efbfb6bc" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">hmi::resolveTileAppearance</a></span> (<span class="tt">LOT-41</span>) : changer de mode de rendu ne reconstruit donc jamais la scène ECS. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">scene</td><td>Scène à remplir (non vidée : la composition peut être cumulative). </td></tr>
     <tr><td class="paramname">world</td><td>Monde dont on lit <span class="tt">Transform</span>, <span class="tt">Sprite</span>, <span class="tt"><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">PreviousPosition</a></span>, <span class="tt"><a class="el" href="structhmi_1_1RenderLayerTag.html" title="Composant de présentation fixant le calque de dessin d&#39;une entité.">RenderLayerTag</a></span>. </td></tr>
@@ -2488,6 +2497,7 @@ Variables</h2></td></tr>
     <tr><td class="paramname">textures</td><td>Textures liables et leurs dimensions (atlas et damier de repli). </td></tr>
     <tr><td class="paramname">interpolationAlpha</td><td>Facteur d'interpolation <span class="tt">[0, 1[</span> entre le pas de simulation précédent et le pas courant (<span class="tt">EX-ARCH-031</span>) ; <span class="tt">0</span> reproduit le rendu non interpolé. </td></tr>
     <tr><td class="paramname">camera</td><td>Caméra courante, pour la parallaxe des décors (<span class="tt"><a class="el" href="#a5deae0becbca097ff1447b2f62de20ec" title="Facteur de défilement de la couche d&#39;un décor (EX-DEC-006).">hmi::parallaxFactor</a></span>, <span class="tt">EX-DEC-006</span>, <span class="tt">LOT-49</span> TACHE-03) : sa <span class="tt">visibleBounds()</span> sert de rectangle de référence (solidaire de la salle), son zoom d'échelle pour arrondir le décalage au pixel écran (<span class="tt"><a class="el" href="#a1e5980df41367af8a056278ffa933ea8" title="Arrondit une position monde au pixel écran le plus proche, pour un zoom pixel art net.">hmi::roundToScreenPixel</a></span>). Sans effet sur les entités non décor. <span class="tt">nullptr</span> désactive la parallaxe (un décor est alors composé à sa position simulée telle quelle), ce qui reste correct pour un décor de couche <span class="tt"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20ae953e8671da3a0647c0939df8ebe8e44" title="Décor : entre les tuiles et le personnage.">core::DecorLayer::Decor</a></span> (facteur <span class="tt">1.0</span>, <span class="tt">EX-DEC-006</span>). </td></tr>
+    <tr><td class="paramname">visibility</td><td>Jeu de visibilités par calque du mode d'inspection de l'éditeur (<span class="tt"><a class="el" href="classhmi_1_1LayerVisibility.html" title="Jeu de visibilités par calque, pour le mode d&#39;inspection « définition des textures » (LOT-51).">hmi::LayerVisibility</a></span>, <span class="tt">LOT-51</span>, <span class="tt">EX-EDIT-044</span>) : tout visible par défaut, donc sans effet pour <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> qui ne le fournit jamais. </td></tr>
   </table>
   </dd>
 </dl>
@@ -3936,7 +3946,7 @@ Variables</h2></td></tr>
 
 <p>Choisit la vignette à afficher pour un type de tuile dans la palette. </p>
 <p>Peindre sans voir ce que l'on pose serait une régression d'usage introduite par le <span class="tt">LOT-42</span> lui-même : dès que le canevas affiche des textures, une palette qui continue de montrer des pastilles de couleur fait choisir « la tuile violette » à l'aveugle.</p>
-<p>Applique <b>exactement</b> la même priorité que le canevas (<span class="tt"><a class="el" href="#ab158a76df687b49eeccc12df1438d3ce" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">hmi::resolveTileAppearance</a></span>) — mode Physique → couleur plate ; sinon skin assigné ; sinon damier. Les deux ne peuvent diverger que si l'on duplique la décision, d'où cette fonction unique plutôt qu'un choix pris dans le widget.</p>
+<p>Applique <b>exactement</b> la même priorité que le canevas (<span class="tt"><a class="el" href="#a703532077ec14c39205ccde5efbfb6bc" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">hmi::resolveTileAppearance</a></span>) — mode Physique → couleur plate ; sinon skin assigné ; sinon damier. Les deux ne peuvent diverger que si l'on duplique la décision, d'où cette fonction unique plutôt qu'un choix pris dans le widget.</p>
 <p>Un type en mode <span class="tt">bitmask16</span> rend la case <b>représentative</b> de la planche (l'intérieur plein) : la planche entière serait illisible en vignette, et la case zéro — la tuile isolée — serait un cas particulier peu représentatif du motif.</p>
 <p>Logique <b>pure</b> (aucune dépendance Qt/GPU), testable en isolation (<span class="tt">EX-NFR-010</span>). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -4296,7 +4306,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Résout la texture de fond d'un niveau (accès <span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures Direct3D 11 désignées par leur nom de fichier logique.">TextureCache</a></span>/GPU, <span class="tt">LOT-44</span>). </p>
-<p>Point de résolution unique du repli en damier pour le fond (<span class="tt"><a class="el" href="#a32457118c4e60dff8da0ba9839c0f29a" title="Obtient la texture d&#39;un asset, ou le repli en damier magenta à défaut.">hmi::resolveOrPlaceholder</a></span>, <span class="tt">EX-NFR-040</span>) : un asset absent ou invalide bascule sur le damier magenta, après l'avertissement déjà journalisé par le cache. Aucun accès cache n'a lieu si <code class="param">background</code> est absent — même séparation résolution/composition que <span class="tt"><a class="el" href="#a4940bc591cbdc2ca50619bde9fa1527a" title="Textures liables par la composition d&#39;une scène : atlas, damier de repli et skins.">hmi::sceneTextures</a></span> vis-à-vis de <span class="tt"><a class="el" href="#afacba4ee1b4df1a3448bb501cec4b44a" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Point de résolution unique du repli en damier pour le fond (<span class="tt"><a class="el" href="#a32457118c4e60dff8da0ba9839c0f29a" title="Obtient la texture d&#39;un asset, ou le repli en damier magenta à défaut.">hmi::resolveOrPlaceholder</a></span>, <span class="tt">EX-NFR-040</span>) : un asset absent ou invalide bascule sur le damier magenta, après l'avertissement déjà journalisé par le cache. Aucun accès cache n'a lieu si <code class="param">background</code> est absent — même séparation résolution/composition que <span class="tt"><a class="el" href="#a4940bc591cbdc2ca50619bde9fa1527a" title="Textures liables par la composition d&#39;une scène : atlas, damier de repli et skins.">hmi::sceneTextures</a></span> vis-à-vis de <span class="tt"><a class="el" href="#af1b4dc88cfb3af31fc25a961e7a410b4" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span>. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">background</td><td>Nom de l'asset de fond du niveau (<span class="tt"><a class="el" href="classcore_1_1Level.html#a8eb90b383f0aa69b2674aea4c416681f">core::Level::background</a></span>), ou absent. </td></tr>
     <tr><td class="paramname">cache</td><td>Cache de textures, résout l'asset (et son repli en damier). </td></tr>
@@ -4538,8 +4548,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ab158a76df687b49eeccc12df1438d3ce" name="ab158a76df687b49eeccc12df1438d3ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab158a76df687b49eeccc12df1438d3ce">&#9670;&#160;</a></span>resolveTileAppearance()</h2>
+<a id="a703532077ec14c39205ccde5efbfb6bc" name="a703532077ec14c39205ccde5efbfb6bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a703532077ec14c39205ccde5efbfb6bc">&#9670;&#160;</a></span>resolveTileAppearance()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4548,7 +4558,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a> hmi::resolveTileAppearance </td>
+          <td class="memname">std::optional&lt; <a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a> &gt; hmi::resolveTileAppearance </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
         </tr>
@@ -4565,7 +4575,17 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>textures</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>textures</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>skinVisible</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>overrideVisible</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -4581,16 +4601,24 @@ Variables</h2></td></tr>
 <li><span class="tt"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54acda371792a8e564f310b48ba0004f5eb" title="Couleur plate par type de tuile : la géométrie de collision se lit directement à l&#39;écran.">RenderMode::Physique</a></span> → la région d'atlas déjà portée par le <span class="tt"><a class="el" href="structcore_1_1Sprite.html" title="Apparence 2D d&#39;une entité : quelle région de l&#39;atlas dessiner, dans quelle couche et avec quelle tein...">core::Sprite</a></span>, c'est-à-dire le résultat de <span class="tt"><a class="el" href="#a597b9471d79c0d524b3dedbf52c2fac6" title="Région d&#39;atlas (couleur procédurale) associée à un type de tuile.">hmi::regionForTile</a></span> — comportement strictement inchangé, quel que soit le reste ;</li>
 <li><span class="tt"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54aa3e8ae43188ae76d38f414b2bdb0077b" title="Habillage par textures, construit lot après lot à partir de LOT-42.">RenderMode::Texture</a></span> + entité portant une surcharge (<span class="tt"><a class="el" href="structhmi_1_1TileSkinTag.html#a6449615c56d78758cfd1ced852b902ca" title="Nom de l&#39;asset assigné par instance à cette case (EX-EDIT-043, LOT-45), prioritaire sur le skin du ty...">hmi::TileSkinTag::overrideAsset</a></span>) <b>chargée</b> → l'image entière de la surcharge (<span class="tt">EX-EDIT-043</span>) ; une surcharge posée mais dont l'asset est introuvable retombe <b>directement</b> sur le damier, jamais sur le skin du type (sinon l'auteur croit son assignation prise en compte alors qu'elle est cassée) ;</li>
 <li><span class="tt"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54aa3e8ae43188ae76d38f414b2bdb0077b" title="Habillage par textures, construit lot après lot à partir de LOT-42.">RenderMode::Texture</a></span> + entité habillable (sans surcharge) dont le type est skinné <b>et</b> dont le skin est chargé → la case du skin (l'image entière en mode <span class="tt">single</span>, la case choisie par les raccords en mode <span class="tt">bitmask16</span>) ;</li>
-<li>tout autre cas (entité sans <span class="tt"><a class="el" href="structhmi_1_1TileSkinTag.html" title="Type de tuile et voisinage solide d&#39;une entité affichée, pour la résolution de son skin.">hmi::TileSkinTag</a></span>, type non skinné, asset absent ou refusé) → le damier magenta en entier. C'est un état <b>normal</b> du programme d'habillage tant que tous les types ne sont pas habillés, pas un défaut (<span class="tt">EX-NFR-040</span>). <dl class="params"><dt>Parameters</dt><dd>
+<li>tout autre cas (entité sans <span class="tt"><a class="el" href="structhmi_1_1TileSkinTag.html" title="Type de tuile et voisinage solide d&#39;une entité affichée, pour la résolution de son skin.">hmi::TileSkinTag</a></span>, type non skinné, asset absent ou refusé) → le damier magenta en entier. C'est un état <b>normal</b> du programme d'habillage tant que tous les types ne sont pas habillés, pas un défaut (<span class="tt">EX-NFR-040</span>).</li>
+</ul>
+<p><code class="param">skinVisible</code> et <code class="param">overrideVisible</code> pilotent le mode d'inspection « définition des textures » de l'éditeur (<span class="tt"><a class="el" href="classhmi_1_1LayerVisibility.html" title="Jeu de visibilités par calque, pour le mode d&#39;inspection « définition des textures » (LOT-51).">hmi::LayerVisibility</a></span>, <span class="tt">LOT-51</span>, <span class="tt">EX-EDIT-044</span>) : à <span class="tt">true</span> tous les deux (le défaut), le comportement ci-dessus est <b>exactement</b> celui de <span class="tt">LOT-45</span>, sans repli différent. Dès que l'un des deux vaut <span class="tt">false</span>, la résolution <b>isole</b> — plus de repli sur le damier pour l'axe masqué :</p><ul>
+<li>une surcharge dont l'axe (<span class="tt">overrideVisible</span>) est masqué ne s'affiche pas du tout ;</li>
+<li>un skin dont l'axe (<span class="tt">skinVisible</span>) est masqué ne s'affiche pas du tout ;</li>
+<li>une entité <b>sans</b> surcharge, quand <span class="tt">overrideVisible</span> seul est masqué, s'affiche normalement (le skin n'a pas besoin de la surcharge pour être signifiant) ;</li>
+<li>une entité sans surcharge ni skin (chargé) n'affiche <b>rien</b> dès que <span class="tt">skinVisible</span> est actif seul (pas de damier : ce n'est pas ce qu'on isole) — alors qu'en mode composé (les deux <span class="tt">true</span>), elle affiche le damier comme avant. <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mode</td><td>Mode de rendu courant. </td></tr>
     <tr><td class="paramname">physicalRegion</td><td>Région d'atlas de l'entité en mode Physique (<span class="tt"><a class="el" href="structcore_1_1Sprite.html#a6388caacbea8c28cb9e8956cd46e9b2c" title="Région de l&#39;atlas à échantillonner (en pixels).">core::Sprite::region</a></span>). </td></tr>
     <tr><td class="paramname">tag</td><td>Type et voisinage de la tuile, ou <span class="tt">nullptr</span> pour une entité non habillable (personnage, aides d'édition) — qui reste alors au damier en mode Texture. </td></tr>
     <tr><td class="paramname">textures</td><td>Textures liables, catalogue et jeu de skins courant. </td></tr>
+    <tr><td class="paramname">skinVisible</td><td>Axe « skin de type » visible (<span class="tt">LOT-51</span>) ; <span class="tt">true</span> par défaut (comportement <span class="tt">LOT-45</span> inchangé pour tout appelant qui ignore cet axe). </td></tr>
+    <tr><td class="paramname">overrideVisible</td><td>Axe « surcharge par instance » visible (<span class="tt">LOT-51</span>) ; <span class="tt">true</span> par défaut. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>L'apparence à utiliser pour composer la primitive. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>L'apparence à utiliser pour composer la primitive, ou <span class="tt">std::nullopt</span> si rien ne doit être composé pour cette entité (calque masqué, ou axe isolé sans rien à montrer, <span class="tt">LOT-51</span>). </dd></dl>
 </li>
 </ul>
 
@@ -4740,7 +4768,7 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Les textures et leurs dimensions, prêtes pour <span class="tt"><a class="el" href="#afacba4ee1b4df1a3448bb501cec4b44a" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Les textures et leurs dimensions, prêtes pour <span class="tt"><a class="el" href="#af1b4dc88cfb3af31fc25a961e7a410b4" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span>. </dd></dl>
 
 </div>
 </div>
@@ -6276,6 +6304,30 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sous-dossier de la spritesheet du personnage, relatif au dossier d'assets (<span class="tt">LOT-48</span>). </p>
+
+</div>
+</div>
+<a id="a8d75d16f31a44e7347ea403ce66aaff3" name="a8d75d16f31a44e7347ea403ce66aaff3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d75d16f31a44e7347ea403ce66aaff3">&#9670;&#160;</a></span>RENDER_LAYER_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t hmi::RENDER_LAYER_COUNT = static_cast&lt;std::size_t&gt;(<a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919a94f3616c83f30ab5a328e602bbb7d751">RenderLayer::EditorOverlay</a>) + 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre de valeurs de <span class="tt"><a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919" title="Calques de dessin, du plus arrière au plus avant (EX-REN-014, EX-DEC-002).">hmi::RenderLayer</a></span> — dimensionne un tableau indexé par la valeur plutôt que par une liste de champs écrite à la main (voir <span class="tt"><a class="el" href="classhmi_1_1LayerVisibility.html" title="Jeu de visibilités par calque, pour le mode d&#39;inspection « définition des textures » (LOT-51).">hmi::LayerVisibility</a></span>). </p>
 
 </div>
 </div>

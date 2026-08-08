@@ -68,6 +68,7 @@ var hierarchy =
       [ "core::MovementSystem", "classcore_1_1MovementSystem.html", null ]
     ] ],
     [ "core::View&lt; Components &gt;::Iterator", "classcore_1_1View_1_1Iterator.html", null ],
+    [ "hmi::LayerVisibility", "classhmi_1_1LayerVisibility.html", null ],
     [ "core::Level", "classcore_1_1Level.html", null ],
     [ "core::LevelDraft", "classcore_1_1LevelDraft.html", null ],
     [ "hmi::LevelFileOperations", "classhmi_1_1LevelFileOperations.html", null ],

@@ -96,26 +96,26 @@ $(function(){initNavTree('lot-26.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>terminé</b>. Quatre nouvelles tuiles, <span class="tt">SlopeDownRight</span>/<span class="tt">SlopeDownLeft</span>/ <span class="tt">RoundedDownRight</span>/<span class="tt">RoundedDownLeft</span> (<span class="tt">EX-GP-006</span>) — miroir vertical des pentes/arrondis de sol (<span class="tt">EX-GP-003</span>/<span class="tt">EX-GP-004</span>, <span class="tt">LOT-22</span>/<span class="tt">LOT-23</span>) : matière pleine en haut de la case plutôt qu'en bas, un mur incliné/courbe qui bloque un saut par le dessus, jamais une surface qu'on parcourt. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1346"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1348"></a>
 Objectif</h1>
 <p>L'éditeur ne permettait de poser des pentes/arrondis qu'au <b>sol</b> (<span class="tt">EX-GP-003</span>/<span class="tt">EX-GP-004</span>) : une silhouette inclinée/courbe donnant lieu à un <b>plafond</b> (grotte, couloir symétrique, plafond mansardé) n'avait pas d'équivalent. Ce lot ajoute cette variante en <b>réutilisant</b> l'infrastructure posée par <span class="tt">LOT-22</span>/<span class="tt">LOT-23</span> (fonction de hauteur pure, passe de suivi après le balayage classique) plutôt qu'en dupliquant une deuxième famille de formules ou de mécanique.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1347"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1349"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1348"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1350"></a>
 Inclus</h2>
 <ul>
 <li>Quatre nouvelles tuiles : <span class="tt">SlopeDownRight</span>, <span class="tt">SlopeDownLeft</span>, <span class="tt">RoundedDownRight</span>, <span class="tt">RoundedDownLeft</span> — miroir vertical exact de <span class="tt">SlopeUpRight</span>/<span class="tt">SlopeUpLeft</span>/<span class="tt">RoundedUpRight</span>/ <span class="tt">RoundedUpLeft</span> (même profil horizontal, silhouette retournée haut/bas).</li>
 <li><b>Collision par suivi</b>, miroir de celle du sol : ni solides pour la grille classique (<span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></span>), ni suivies en marchant (<span class="tt"><a class="el" href="namespacecore.html#aaa7b295b62e61a2f387f7b2775836d90">core::isFollowableSurface</a></span> reste <span class="tt">false</span>) — une passe dédiée (<span class="tt"><a class="el" href="namespacecore.html#af1cccb4ee1491e658a3af9705f20b5e1" title="Détecte si le bord haut d&#39;une boîte a franchi une silhouette de pente/arrondi de plafond (EX-GP-006) ...">core::resolveCeilingSlopeFollow</a></span>) bloque précisément un <b>saut</b> qui franchirait leur silhouette, sans jamais faire « marcher » le personnage dessus.</li>
 <li>Rendu (silhouette réelle, en gris — même matériau qu'un <span class="tt">Solid</span>, pas une couleur distincte par variante, cohérent avec la simplification déjà retenue pour les variantes de sol), palette de l'éditeur (19 types désormais), sérialisation JSON (<span class="tt">slopeDownRight</span>/<span class="tt">slopeDownLeft</span>/ <span class="tt">roundedDownRight</span>/<span class="tt">roundedDownLeft</span>).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1349"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1351"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Angle autre que 45°</b> ou <b>rayon différent</b> — hors périmètre, comme pour <span class="tt">LOT-22</span>/<span class="tt">LOT-23</span>.</li>
 <li><b>Bloc poussable en forme de pente/arrondi</b> — une pente/arrondi qui se pousserait comme un <span class="tt">Block</span> est une mécanique à part, non demandée ici.</li>
 <li><b>Niveau démo dédié</b> (<span class="tt">LOT-25</span>) — ces tuiles sont un outil d'édition/décor de plafond, pas une mécanique de gameplay nouvelle à prouver isolément par un niveau démo (contrairement aux pentes/ arrondis de sol, qui rendent une progression <b>nécessaire</b> — un plafond incliné bloque un saut, ce que n'importe quel <span class="tt">Solid</span> fait déjà, seule sa forme diffère) ; couvertes par les tests unitaires/intégration décrits ci-dessous.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1350"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1352"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Choix initial réévalué en cours de lot</b> : la première implémentation rendait ces tuiles <b>solides</b> (<span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></span>), avec une silhouette purement <b>visuelle</b> (collision = case pleine approximative). Retour en arrière complet suite à la demande explicite d'une physique <b>fidèle</b> à la silhouette (« ajoutons la physique qui suit le bloc ») : la collision réelle suit désormais le profil incliné/courbe au pixel près, comme les variantes de sol — cohérent avec le principe déjà établi ailleurs dans le projet (« l'affichage doit correspondre à la hitbox »), qu'une approximation en case pleine aurait contredit.</li>
@@ -126,12 +126,12 @@ Décisions de cadrage</h1>
 <li><b>Gap découvert après la première passe de revue</b> : la physique ne gérait que le franchissement <b>par en dessous</b> (saut bloqué contre la silhouette). Un personnage tombant sur le <b>dessus</b> d'une pente/arrondi de plafond (accessible depuis une zone praticable au-dessus, ex. un couloir entre deux niveaux) tombait au travers, faute de toute résolution pour ce cas — ni solide (<span class="tt">isSolid</span>), ni suivie par aucune passe existante. Corrigé en étendant <span class="tt">slopeSurfaceHeight</span> (physique de <b>sol</b>) pour reconnaître aussi ces quatre types, avec une hauteur <b>constante 0</b> (leur face du haut est toujours plate, au sommet de la case, quel que soit <span class="tt">localX</span>) : <span class="tt">
   resolveSlopeFollow</span> les prend alors en charge tel quel, sans aucun code de résolution supplémentaire — un personnage qui tombe dessus s'y pose désormais normalement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1351"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1353"></a>
 Exigences couvertes</h1>
 <ul>
 <li><span class="tt">EX-GP-006</span> — nouvelle exigence, implémentée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1352"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1354"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -146,7 +146,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-26-tache-03-documentation-verification.html#md_Lot_2LOT-26-pentes-arrondis-plafond_2tache-03-documentation-verification" title="Lot/LOT-26-pentes-arrondis-plafond/tache-03-documentation-verification.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Documentation et vérification  </td><td class="markdownTableBodyNone"><span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1353"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1355"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Un saut qui franchit une pente/arrondi de plafond <b>par en dessous</b> est bloqué précisément selon sa silhouette (bord fin = monte plus haut, bord épais = bloqué plus tôt) — pas comme un carré plein uniforme.</li>
@@ -156,12 +156,12 @@ Critères d'acceptation du lot</h1>
 <li>Placeables depuis la palette de l'éditeur, sérialisables (JSON), rendues avec leur silhouette réelle en gris.</li>
 <li>Logique nouvelle <b>couverte par des tests</b> dédiés (géométrie miroir, classification statique, aller-retour JSON, physique de blocage par en dessous <b>et</b> de support par au-dessus). Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1354"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1356"></a>
 Dépendances</h1>
 <ul>
 <li>Étend <span class="tt">TileType</span> (<span class="tt">LOT-03</span>/<span class="tt">LOT-07</span>) et réutilise directement l'infrastructure de suivi de surface posée par <span class="tt">LOT-22</span> (<span class="tt"><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></span>, <span class="tt"><a class="el" href="namespacecore.html#a467a4de3899a77b3500f043561e51b3f" title="Détecte si le bord bas d&#39;une boîte a franchi une surface suivable (pente, arrondi) pendant un pas,...">core::resolveSlopeFollow</a></span>) et étendue par <span class="tt">LOT-23</span> (arrondis) — aucune modification de ces fonctions existantes (hormis l'extension du <span class="tt">switch</span> de <span class="tt">slopeSurfaceHeight</span> pour la face du haut, voir décisions de cadrage), seulement de nouvelles fonctions miroir qui les appellent.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1355"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1357"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-26-tache-01-modele-physique-plafond.html" title="TACHE-01 — Modèle de tuile et physique de suivi">TACHE-01 — Modèle de tuile et physique de suivi</a></li>

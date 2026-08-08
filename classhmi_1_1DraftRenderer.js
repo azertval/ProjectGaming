@@ -9,7 +9,7 @@ var classhmi_1_1DraftRenderer =
     [ "invalidate", "classhmi_1_1DraftRenderer.html#a866ad56f7e8a029aaff1b8b72210c30a", null ],
     [ "lastScene", "classhmi_1_1DraftRenderer.html#acbb89fb6d31cb5718dece21322b1630c", null ],
     [ "rebuild", "classhmi_1_1DraftRenderer.html#a3d4077be5ae7aa58ff2c349443f97d65", null ],
-    [ "render", "classhmi_1_1DraftRenderer.html#a295760f40bc2f2f3a1a5ad979a105cf4", null ],
+    [ "render", "classhmi_1_1DraftRenderer.html#a3470ff5ef4272c643d9fec8223238417", null ],
     [ "setSkins", "classhmi_1_1DraftRenderer.html#a2034472c87db59e7a7941c945e9d61f4", null ],
     [ "_atlas", "classhmi_1_1DraftRenderer.html#a823f254cf3e79362168f4f5e3fa526a1", null ],
     [ "_batch", "classhmi_1_1DraftRenderer.html#a0b67904e6c3e241a281be17dafe27398", null ],

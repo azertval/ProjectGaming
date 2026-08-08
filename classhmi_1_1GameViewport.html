@@ -175,6 +175,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aadfe43ddd5e59b2aff37d65d26796d80" id="r_aadfe43ddd5e59b2aff37d65d26796d80"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aadfe43ddd5e59b2aff37d65d26796d80">setLevelSkinSet</a> (std::optional&lt; std::string &gt; skinSet)</td></tr>
 <tr class="memdesc:aadfe43ddd5e59b2aff37d65d26796d80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigne le jeu de skins du niveau courant (section « Fond », <span class="tt">LOT-44</span>).  <br /></td></tr>
 <tr class="memitem:a5f1055b69e7ae6b225e46936159184af" id="r_a5f1055b69e7ae6b225e46936159184af"><td class="memItemLeft"><a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5f1055b69e7ae6b225e46936159184af">renderMode</a> () const noexcept</td></tr>
+<tr class="memitem:a401e5d33501960bfd5b314a730a1eedf" id="r_a401e5d33501960bfd5b314a730a1eedf"><td class="memItemLeft">const <a class="el" href="classhmi_1_1LayerVisibility.html">LayerVisibility</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a401e5d33501960bfd5b314a730a1eedf">layerVisibility</a> () const noexcept</td></tr>
+<tr class="memdesc:a401e5d33501960bfd5b314a730a1eedf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jeu de visibilités par calque du mode d'inspection « définition des textures » (<span class="tt">LOT-51</span>, <span class="tt">EX-EDIT-044</span>) — édition uniquement, jamais lu par <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span>.  <br /></td></tr>
+<tr class="memitem:a2dbee9d7bfe00fea7038cd764ae27bc2" id="r_a2dbee9d7bfe00fea7038cd764ae27bc2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2dbee9d7bfe00fea7038cd764ae27bc2">setLayerVisible</a> (<a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> layer, bool visible) noexcept</td></tr>
+<tr class="memdesc:a2dbee9d7bfe00fea7038cd764ae27bc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affiche ou masque un calque du mode d'inspection (section « Calques » du panneau « Textures », <span class="tt">LOT-51</span>).  <br /></td></tr>
+<tr class="memitem:a35cd75882aae8709b437f6d71e454f3f" id="r_a35cd75882aae8709b437f6d71e454f3f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a35cd75882aae8709b437f6d71e454f3f">showAllLayers</a> () noexcept</td></tr>
+<tr class="memdesc:a35cd75882aae8709b437f6d71e454f3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rétablit la visibilité de tous les calques (action « tout afficher », TACHE-03).  <br /></td></tr>
 <tr class="memitem:ae7d92dd84fe3f73c2c13f2562daa761e" id="r_ae7d92dd84fe3f73c2c13f2562daa761e"><td class="memItemLeft"><a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ae7d92dd84fe3f73c2c13f2562daa761e">skinCatalog</a> () noexcept</td></tr>
 <tr class="memdesc:ae7d92dd84fe3f73c2c13f2562daa761e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogue des jeux de skins, édité par le panneau « Textures » (<span class="tt">LOT-42</span>).  <br /></td></tr>
 <tr class="memitem:ab1634dd73825b6d371c062bf557cd3d5" id="r_ab1634dd73825b6d371c062bf557cd3d5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab1634dd73825b6d371c062bf557cd3d5">setSkinSet</a> (const std::string &amp;setName)</td></tr>
@@ -354,6 +360,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a264024c0e798eebec1645ffb64087478"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grille de repère (cases + salles) affichée (bascule F10).  <br /></td></tr>
 <tr class="memitem:aac05c7a1070af1777f025f5215336aac" id="r_aac05c7a1070af1777f025f5215336aac"><td class="memItemLeft"><a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a>&#160;</td><td class="memItemRight"><a class="el" href="#aac05c7a1070af1777f025f5215336aac">_renderMode</a> = <a class="el" href="namespacehmi.html#a6757e25cf3a1020826327afe0dd194d3">DEFAULT_RENDER_MODE</a></td></tr>
 <tr class="memdesc:aac05c7a1070af1777f025f5215336aac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode de rendu courant (bascule <span class="tt">F8</span>, <span class="tt">EX-REN-046</span>), restauré des préférences au démarrage et réécrit à chaque bascule.  <br /></td></tr>
+<tr class="memitem:a74f96badf8676be9a637e99f4eca318b" id="r_a74f96badf8676be9a637e99f4eca318b"><td class="memItemLeft"><a class="el" href="classhmi_1_1LayerVisibility.html">LayerVisibility</a>&#160;</td><td class="memItemRight"><a class="el" href="#a74f96badf8676be9a637e99f4eca318b">_layerVisibility</a></td></tr>
+<tr class="memdesc:a74f96badf8676be9a637e99f4eca318b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jeu de visibilités par calque du mode d'inspection « définition des textures » (<span class="tt">LOT-51</span>) — tout visible par défaut, jamais persisté (TACHE-01), édition uniquement.  <br /></td></tr>
 <tr class="memitem:a1f2f909759ccc5199434aaba3e9c5766" id="r_a1f2f909759ccc5199434aaba3e9c5766"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1f2f909759ccc5199434aaba3e9c5766">_vsync</a> = true</td></tr>
 <tr class="memdesc:a1f2f909759ccc5199434aaba3e9c5766"><td class="mdescLeft">&#160;</td><td class="mdescRight">Synchronisation verticale (appliquée au device D3D11).  <br /></td></tr>
 <tr class="memitem:af93b0170b51e3476671c5e9b5f6178f2" id="r_af93b0170b51e3476671c5e9b5f6178f2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af93b0170b51e3476671c5e9b5f6178f2">_gameMode</a> = false</td></tr>
@@ -1232,6 +1240,34 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a401e5d33501960bfd5b314a730a1eedf" name="a401e5d33501960bfd5b314a730a1eedf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a401e5d33501960bfd5b314a730a1eedf">&#9670;&#160;</a></span>layerVisibility()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classhmi_1_1LayerVisibility.html">LayerVisibility</a> &amp; hmi::GameViewport::layerVisibility </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Jeu de visibilités par calque du mode d'inspection « définition des textures » (<span class="tt">LOT-51</span>, <span class="tt">EX-EDIT-044</span>) — édition uniquement, jamais lu par <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span>. </p>
+<dl class="section return"><dt>Returns</dt><dd>Le jeu de visibilités courant. </dd></dl>
 
 </div>
 </div>
@@ -2171,6 +2207,38 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
+<a id="a2dbee9d7bfe00fea7038cd764ae27bc2" name="a2dbee9d7bfe00fea7038cd764ae27bc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dbee9d7bfe00fea7038cd764ae27bc2">&#9670;&#160;</a></span>setLayerVisible()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::setLayerVisible </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a></td>          <td class="paramname"><span class="paramname"><em>layer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>visible</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Affiche ou masque un calque du mode d'inspection (section « Calques » du panneau « Textures », <span class="tt">LOT-51</span>). </p>
+<p>Comme <span class="tt"><a class="el" href="#a682255be40d1c669df3888777d1d5cea" title="Choisit le mode de rendu et persiste le choix (EX-REN-046, EX-IHM-011).">setRenderMode</a></span>, purement visuel : la scène ECS n'est jamais invalidée, seule la résolution d'apparence de l'image suivante en tient compte. Aucune persistance entre deux sessions (TACHE-01) : contrairement à <span class="tt"><a class="el" href="#a682255be40d1c669df3888777d1d5cea" title="Choisit le mode de rendu et persiste le choix (EX-REN-046, EX-IHM-011).">setRenderMode</a></span>, rien n'est écrit dans les préférences. </p>
+
+</div>
+</div>
 <a id="acfc8846bf80901c47e4639b84142f52c" name="acfc8846bf80901c47e4639b84142f52c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acfc8846bf80901c47e4639b84142f52c">&#9670;&#160;</a></span>setLevelBackground()</h2>
 
@@ -2342,6 +2410,33 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div><div class="memdoc">
 
 <p>Active/désactive la synchronisation verticale (<span class="tt">EX-REN-022</span>) ; appliqué au device D3D11. </p>
+
+</div>
+</div>
+<a id="a35cd75882aae8709b437f6d71e454f3f" name="a35cd75882aae8709b437f6d71e454f3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35cd75882aae8709b437f6d71e454f3f">&#9670;&#160;</a></span>showAllLayers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::showAllLayers </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rétablit la visibilité de tous les calques (action « tout afficher », TACHE-03). </p>
 
 </div>
 </div>
@@ -3381,6 +3476,30 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a74f96badf8676be9a637e99f4eca318b" name="a74f96badf8676be9a637e99f4eca318b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74f96badf8676be9a637e99f4eca318b">&#9670;&#160;</a></span>_layerVisibility</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1LayerVisibility.html">LayerVisibility</a> hmi::GameViewport::_layerVisibility</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Jeu de visibilités par calque du mode d'inspection « définition des textures » (<span class="tt">LOT-51</span>) — tout visible par défaut, jamais persisté (TACHE-01), édition uniquement. </p>
 
 </div>
 </div>

@@ -134,6 +134,12 @@ sendDecorBackward</span>).  <br /></td></tr>
 <tr class="memdesc:a295254fd1f1f1ed78b448551f3188337"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis par le bouton « Supprimer » pour le décor sélectionné.  <br /></td></tr>
 <tr class="memitem:a5b4365e5fe575f3393a6bac2fdd3be18" id="r_a5b4365e5fe575f3393a6bac2fdd3be18"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5b4365e5fe575f3393a6bac2fdd3be18">decorCenterRequested</a> (std::size_t index)</td></tr>
 <tr class="memdesc:a5b4365e5fe575f3393a6bac2fdd3be18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis par le bouton « Centrer » : demande de cadrer la caméra sur le décor sélectionné.  <br /></td></tr>
+<tr class="memitem:a98a53af87c93ed25748cc4bdc37e6539" id="r_a98a53af87c93ed25748cc4bdc37e6539"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a98a53af87c93ed25748cc4bdc37e6539">layerVisibilityChanged</a> (<a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> layer, bool visible)</td></tr>
+<tr class="memdesc:a98a53af87c93ed25748cc4bdc37e6539"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand une case de la section « Calques » change (<span class="tt">LOT-51</span>, <span class="tt">EX-EDIT-044</span>) : calque concerné et nouvelle visibilité — mode d'inspection éditeur, sans effet sur <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">GameSession</a></span>.  <br /></td></tr>
+<tr class="memitem:accfcc03555b5929ea0852de27065a5af" id="r_accfcc03555b5929ea0852de27065a5af"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#accfcc03555b5929ea0852de27065a5af">showAllLayersRequested</a> ()</td></tr>
+<tr class="memdesc:accfcc03555b5929ea0852de27065a5af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis par le bouton « Tout afficher » de la section « Calques » (<span class="tt">LOT-51</span> TACHE-03).  <br /></td></tr>
+<tr class="memitem:a9b51c3f00c7c197269bebb34682e6ef2" id="r_a9b51c3f00c7c197269bebb34682e6ef2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9b51c3f00c7c197269bebb34682e6ef2">physiqueOnlyToggled</a> (bool enabled)</td></tr>
+<tr class="memdesc:a9b51c3f00c7c197269bebb34682e6ef2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand la case « Physique seul » de la section « Calques » change : demande de bascule du mode de rendu, <b>la même bascule que <span class="tt">F8</span></b> vue depuis ce panneau (<span class="tt">LOT-51</span>) — pas un troisième mode.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -153,6 +159,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ab06e11a3895938523f95c28d2884d26a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resynchronise la section « Objets » avec le brouillon courant (<span class="tt">LOT-45</span>).  <br /></td></tr>
 <tr class="memitem:a5597c93d8146bc04b6983b8e1201db30" id="r_a5597c93d8146bc04b6983b8e1201db30"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5597c93d8146bc04b6983b8e1201db30">refreshDecors</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, std::optional&lt; std::size_t &gt; selectedIndex)</td></tr>
 <tr class="memdesc:a5597c93d8146bc04b6983b8e1201db30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resynchronise la section « Décors » avec le brouillon et la sélection courants (<span class="tt">LOT-50</span> TACHE-04).  <br /></td></tr>
+<tr class="memitem:acbd75957c09c2f53ac81b36ed3c202c8" id="r_acbd75957c09c2f53ac81b36ed3c202c8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acbd75957c09c2f53ac81b36ed3c202c8">setRenderModeIndicator</a> (<a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode)</td></tr>
+<tr class="memdesc:acbd75957c09c2f53ac81b36ed3c202c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resynchronise la case « Physique seul » de la section « Calques » (<span class="tt">LOT-51</span>) avec le mode de rendu courant, sans réémettre <span class="tt"><a class="el" href="#a9b51c3f00c7c197269bebb34682e6ef2" title="Émis quand la case « Physique seul » de la section « Calques » change : demande de bascule du mode de...">physiqueOnlyToggled</a></span> — même garde que <span class="tt"><a class="el" href="#ad8ba70ed6f484d3a30ffc3235b13d6e1" title="Synchronise la section « Fond » avec le niveau courant (LOT-44).">setLevelProperties</a></span>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -244,7 +252,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Panneau d'habillage, organisé en <b>sections</b> extensibles (<span class="tt">EX-EDIT-042</span>, <span class="tt">EX-EDIT-024</span>). </p>
-<p>Premier — et unique — panneau du programme d'habillage : <span class="tt">LOT-44</span> (Fond), <span class="tt">LOT-45</span> (Objets), <span class="tt">LOT-47</span> (Animations) et <span class="tt">LOT-50</span> (Décors) y ajouteront leur onglet plutôt que de créer chacun leur dock. C'est la raison d'être de la structure en onglets dès ce lot : sans elle, chaque lot suivant créerait le sien et l'éditeur finirait avec cinq panneaux d'habillage.</p>
+<p>Premier — et unique — panneau du programme d'habillage : <span class="tt">LOT-44</span> (Fond), <span class="tt">LOT-45</span> (Objets), <span class="tt">LOT-47</span> (Animations), <span class="tt">LOT-50</span> (Décors) et <span class="tt">LOT-51</span> (Calques) y ajoutent leur onglet plutôt que de créer chacun leur dock. C'est la raison d'être de la structure en onglets dès ce lot : sans elle, chaque lot suivant créerait le sien et l'éditeur finirait avec cinq panneaux d'habillage.</p>
 <p>Le panneau <b>ne possède pas</b> le catalogue : il agit sur celui que lui confie <span class="tt"><a class="el" href="#ab68661f6c1fb3a92bca60bff222f6423" title="Confie au panneau le catalogue à éditer.">setCatalog</a></span>, dont <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">GameViewport</a></span> reste propriétaire — le rendu doit voir les mêmes assignations, immédiatement. Toute modification est écrite sur disque (<span class="tt">skins.json</span>, au chemin déployé) et signalée par <span class="tt"><a class="el" href="#a8beee864e1295689d194f5e2a3b8d7ed" title="Émis après toute modification d&#39;assignation ou changement de jeu courant, une fois le catalogue à jou...">assignmentsChanged</a></span>, que le viewport et la palette consomment pour se rafraîchir.</p>
 <p>La logique alimentant l'arbre est <b>hors</b> du widget (<span class="tt"><a class="el" href="namespacehmi.html#ab7217d187da26402006a3c0d1eb98cbb" title="Construit les lignes du panneau pour un jeu de skins donné.">hmi::buildSkinRows</a></span>, <span class="tt"><a class="el" href="namespacehmi.html#a996180d6d3e7f5351cb2fd138872dbe4" title="Applique une assignation à un catalogue, ou la retire.">hmi::applySkinAssignment</a></span>), donc testée sans Qt (<span class="tt">EX-NFR-010</span>). Le choix du fichier assigné à un type se fait par vignettes (<span class="tt"><a class="el" href="classhmi_1_1AssetThumbnailView.html" title="Grille de vignettes d&#39;un dossier d&#39;assets, avec recherche, sélection et gestion des fichiers (importe...">hmi::AssetThumbnailView</a></span>, <span class="tt">LOT-43</span>), pas par saisie de nom. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -638,6 +646,37 @@ bringDecorForward</span>). </p>
 
 </div>
 </div>
+<a id="a98a53af87c93ed25748cc4bdc37e6539" name="a98a53af87c93ed25748cc4bdc37e6539"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98a53af87c93ed25748cc4bdc37e6539">&#9670;&#160;</a></span>layerVisibilityChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::layerVisibilityChanged </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a></td>          <td class="paramname"><span class="paramname"><em>layer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>visible</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis quand une case de la section « Calques » change (<span class="tt">LOT-51</span>, <span class="tt">EX-EDIT-044</span>) : calque concerné et nouvelle visibilité — mode d'inspection éditeur, sans effet sur <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">GameSession</a></span>. </p>
+
+</div>
+</div>
 <a id="a14735adac3bd42b177a10ec98e2cf527" name="a14735adac3bd42b177a10ec98e2cf527"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a14735adac3bd42b177a10ec98e2cf527">&#9670;&#160;</a></span>levelSkinSetChanged</h2>
 
@@ -991,6 +1030,33 @@ bringDecorForward</span>). </p>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9b51c3f00c7c197269bebb34682e6ef2" name="a9b51c3f00c7c197269bebb34682e6ef2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b51c3f00c7c197269bebb34682e6ef2">&#9670;&#160;</a></span>physiqueOnlyToggled</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::physiqueOnlyToggled </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>enabled</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis quand la case « Physique seul » de la section « Calques » change : demande de bascule du mode de rendu, <b>la même bascule que <span class="tt">F8</span></b> vue depuis ce panneau (<span class="tt">LOT-51</span>) — pas un troisième mode. </p>
 
 </div>
 </div>
@@ -1352,6 +1418,58 @@ bringDecorForward</span>). </p>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="acbd75957c09c2f53ac81b36ed3c202c8" name="acbd75957c09c2f53ac81b36ed3c202c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbd75957c09c2f53ac81b36ed3c202c8">&#9670;&#160;</a></span>setRenderModeIndicator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::setRenderModeIndicator </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Resynchronise la case « Physique seul » de la section « Calques » (<span class="tt">LOT-51</span>) avec le mode de rendu courant, sans réémettre <span class="tt"><a class="el" href="#a9b51c3f00c7c197269bebb34682e6ef2" title="Émis quand la case « Physique seul » de la section « Calques » change : demande de bascule du mode de...">physiqueOnlyToggled</a></span> — même garde que <span class="tt"><a class="el" href="#ad8ba70ed6f484d3a30ffc3235b13d6e1" title="Synchronise la section « Fond » avec le niveau courant (LOT-44).">setLevelProperties</a></span>. </p>
+<p>À appeler quand le mode change par un autre moyen que ce panneau (<span class="tt">F8</span>), pour que les deux entrées du même état ne divergent jamais. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mode</td><td>Mode de rendu courant (<span class="tt"><a class="el" href="classhmi_1_1GameViewport.html#a5f1055b69e7ae6b225e46936159184af">hmi::GameViewport::renderMode</a></span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="accfcc03555b5929ea0852de27065a5af" name="accfcc03555b5929ea0852de27065a5af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accfcc03555b5929ea0852de27065a5af">&#9670;&#160;</a></span>showAllLayersRequested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::showAllLayersRequested </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis par le bouton « Tout afficher » de la section « Calques » (<span class="tt">LOT-51</span> TACHE-03). </p>
 
 </div>
 </div>

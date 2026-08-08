@@ -93,7 +93,7 @@ $(function(){initNavTree('test__texture__resolution_8cpp.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Tests unitaires de la priorité de résolution surcharge &gt; skin &gt; damier (LOT-45, <span class="tt">EX-EDIT-043</span>) et de <span class="tt"><a class="el" href="namespacehmi.html#ae8ea482206091a0f850c865f8de6f5fb" title="Cherche la surcharge de texture assignée à une case précise (EX-EDIT-043, LOT-45).">hmi::textureOverrideAt</a></span>.  
+<p>Tests unitaires de la priorité de résolution surcharge &gt; skin &gt; damier (LOT-45, <span class="tt">EX-EDIT-043</span>), de l'affichage isolé sans repli (<span class="tt">LOT-51</span>, <span class="tt">EX-EDIT-044</span>) et de <span class="tt"><a class="el" href="namespacehmi.html#ae8ea482206091a0f850c865f8de6f5fb" title="Cherche la surcharge de texture assignée à une case précise (EX-EDIT-043, LOT-45).">hmi::textureOverrideAt</a></span>.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
@@ -127,14 +127,59 @@ Functions</h2></td></tr>
 <tr class="memdesc:a5a7091456f288e03eeaa26b14a619421"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le mode Physique ignore totalement les surcharges, comme les skins.  <br /></td></tr>
 <tr class="memitem:ad5785f727a177583dce10a2ebc59ee3f" id="r_ad5785f727a177583dce10a2ebc59ee3f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad5785f727a177583dce10a2ebc59ee3f">TEST</a> (TextureResolutionTest, IndexDObjetInvalideBorne)</td></tr>
 <tr class="memdesc:ad5785f727a177583dce10a2ebc59ee3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un index d'objet invalide ne lit jamais hors des bornes.  <br /></td></tr>
+<tr class="memitem:a520534c78cd851c89c295cacb5852983" id="r_a520534c78cd851c89c295cacb5852983"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a520534c78cd851c89c295cacb5852983">TEST</a> (TextureResolutionTest, ObjetsSeulsSurchargeChargeeSAffiche)</td></tr>
+<tr class="memdesc:a520534c78cd851c89c295cacb5852983"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affichage isolé « objets interactifs seuls » (<span class="tt">LOT-51</span>, <span class="tt">EX-EDIT-044</span>) : une surcharge chargée s'affiche normalement, l'axe skin n'intervient pas.  <br /></td></tr>
+<tr class="memitem:a3a135b4969197187213ebd948dfb0d6b" id="r_a3a135b4969197187213ebd948dfb0d6b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3a135b4969197187213ebd948dfb0d6b">TEST</a> (TextureResolutionTest, ObjetsSeulsSansSurchargeNAfficheRien)</td></tr>
+<tr class="memdesc:a3a135b4969197187213ebd948dfb0d6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affichage isolé « objets interactifs seuls » : une case sans surcharge, même si son type a un skin, n'affiche rien — ni skin, ni damier.  <br /></td></tr>
+<tr class="memitem:aba99dd5b4d6b3948f43c0db87e311f2a" id="r_aba99dd5b4d6b3948f43c0db87e311f2a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aba99dd5b4d6b3948f43c0db87e311f2a">TEST</a> (TextureResolutionTest, ObjetsSeulsSansSurchargeNiSkinNAfficheRien)</td></tr>
+<tr class="memdesc:aba99dd5b4d6b3948f43c0db87e311f2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affichage isolé « objets interactifs seuls » : une case sans surcharge ni skin n'affiche pas non plus le damier.  <br /></td></tr>
+<tr class="memitem:aa19dd8ca1ed319a4fccfbc75419b7f14" id="r_aa19dd8ca1ed319a4fccfbc75419b7f14"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa19dd8ca1ed319a4fccfbc75419b7f14">TEST</a> (TextureResolutionTest, SkinSeulTypeSkinneSAfficheNormalement)</td></tr>
+<tr class="memdesc:aa19dd8ca1ed319a4fccfbc75419b7f14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affichage isolé « skin des tuiles seul » : un type skinné, sans surcharge, s'affiche normalement.  <br /></td></tr>
+<tr class="memitem:ae487255d356f7dac7125097824b53804" id="r_ae487255d356f7dac7125097824b53804"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae487255d356f7dac7125097824b53804">TEST</a> (TextureResolutionTest, SkinSeulTypeNonSkinneNAfficheRien)</td></tr>
+<tr class="memdesc:ae487255d356f7dac7125097824b53804"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affichage isolé « skin des tuiles seul » : un type non skinné n'affiche rien — c'est le diagnostic recherché (quels types manquent encore un skin), pas le damier habituel.  <br /></td></tr>
+<tr class="memitem:a11c6601c8ca6faf19218f09a747a5b51" id="r_a11c6601c8ca6faf19218f09a747a5b51"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a11c6601c8ca6faf19218f09a747a5b51">TEST</a> (TextureResolutionTest, SkinSeulCaseAvecSurchargeNAfficheRien)</td></tr>
+<tr class="memdesc:a11c6601c8ca6faf19218f09a747a5b51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affichage isolé « skin des tuiles seul » : une case portant une surcharge n'affiche rien non plus — l'axe surcharge est masqué, l'isolement ne retombe jamais sur un autre axe.  <br /></td></tr>
+<tr class="memitem:a27e7fe4c9ff5bb9d45af6c423f4280c1" id="r_a27e7fe4c9ff5bb9d45af6c423f4280c1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a27e7fe4c9ff5bb9d45af6c423f4280c1">TEST</a> (TextureResolutionTest, DeuxAxesMasquesNAfficheJamaisRien)</td></tr>
+<tr class="memdesc:a27e7fe4c9ff5bb9d45af6c423f4280c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les deux axes masqués n'affichent jamais rien, quelle que soit la tuile — équivalent à un calque « Tile » entièrement masqué (<span class="tt">LOT-51</span> TACHE-01).  <br /></td></tr>
+<tr class="memitem:ac012f57401f254e7e51ecac6b8888691" id="r_ac012f57401f254e7e51ecac6b8888691"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac012f57401f254e7e51ecac6b8888691">TEST</a> (TextureResolutionTest, ModeComposeSurchargeIntrouvableRetombeSurLeDamier)</td></tr>
+<tr class="memdesc:ac012f57401f254e7e51ecac6b8888691"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le résolveur en mode composé (les deux axes visibles, le défaut) garde exactement le comportement de <span class="tt">LOT-45</span> : une surcharge introuvable retombe sur le damier même quand elle est la seule chose composée pour cette case.  <br /></td></tr>
 <tr class="memitem:a2477e5b9a986bacb38e06dc71f7c94be" id="r_a2477e5b9a986bacb38e06dc71f7c94be"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2477e5b9a986bacb38e06dc71f7c94be">TEST</a> (TextureResolutionTest, TextureOverrideAtTrouveLaSurchargeDeLaBonneCase)</td></tr>
 <tr class="memdesc:a2477e5b9a986bacb38e06dc71f7c94be"><td class="mdescLeft">&#160;</td><td class="mdescRight">textureOverrideAt trouve la surcharge d'une case précise, et distingue les positions voisines.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Tests unitaires de la priorité de résolution surcharge &gt; skin &gt; damier (LOT-45, <span class="tt">EX-EDIT-043</span>) et de <span class="tt"><a class="el" href="namespacehmi.html#ae8ea482206091a0f850c865f8de6f5fb" title="Cherche la surcharge de texture assignée à une case précise (EX-EDIT-043, LOT-45).">hmi::textureOverrideAt</a></span>. </p>
+<div class="textblock"><p>Tests unitaires de la priorité de résolution surcharge &gt; skin &gt; damier (LOT-45, <span class="tt">EX-EDIT-043</span>), de l'affichage isolé sans repli (<span class="tt">LOT-51</span>, <span class="tt">EX-EDIT-044</span>) et de <span class="tt"><a class="el" href="namespacehmi.html#ae8ea482206091a0f850c865f8de6f5fb" title="Cherche la surcharge de texture assignée à une case précise (EX-EDIT-043, LOT-45).">hmi::textureOverrideAt</a></span>. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a27e7fe4c9ff5bb9d45af6c423f4280c1" name="a27e7fe4c9ff5bb9d45af6c423f4280c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27e7fe4c9ff5bb9d45af6c423f4280c1">&#9670;&#160;</a></span>TEST() <span class="overload">[1/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TextureResolutionTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DeuxAxesMasquesNAfficheJamaisRien</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les deux axes masqués n'affichent jamais rien, quelle que soit la tuile — équivalent à un calque « Tile » entièrement masqué (<span class="tt">LOT-51</span> TACHE-01). </p>
+<p><b>Cas de test :</b> <b>Les deux axes masques n'affichent jamais rien.</b><br  />
+ <b>Categorie :</b> Unitaire · Résolution de texture<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Résoudre une tuile Solid skinnée avec surcharge, les deux axes masqués.<br  />
+ <b>Resultat attendu :</b> Aucune apparence n'est renvoyée. </p>
+
+</div>
+</div>
 <a id="ad5785f727a177583dce10a2ebc59ee3f" name="ad5785f727a177583dce10a2ebc59ee3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad5785f727a177583dce10a2ebc59ee3f">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5785f727a177583dce10a2ebc59ee3f">&#9670;&#160;</a></span>TEST() <span class="overload">[2/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -162,8 +207,37 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ac012f57401f254e7e51ecac6b8888691" name="ac012f57401f254e7e51ecac6b8888691"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac012f57401f254e7e51ecac6b8888691">&#9670;&#160;</a></span>TEST() <span class="overload">[3/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TextureResolutionTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ModeComposeSurchargeIntrouvableRetombeSurLeDamier</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le résolveur en mode composé (les deux axes visibles, le défaut) garde exactement le comportement de <span class="tt">LOT-45</span> : une surcharge introuvable retombe sur le damier même quand elle est la seule chose composée pour cette case. </p>
+<p><b>Cas de test :</b> <b>Mode compose : une surcharge introuvable retombe toujours sur le damier.</b><br  />
+ <b>Categorie :</b> Unitaire · Résolution de texture<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Résoudre une tuile Solid skinnée portant une surcharge introuvable, les deux axes visibles (valeurs par défaut).<br  />
+ <b>Resultat attendu :</b> La source est le damier, comme avant <span class="tt">LOT-51</span>. </p>
+
+</div>
+</div>
 <a id="a5a7091456f288e03eeaa26b14a619421" name="a5a7091456f288e03eeaa26b14a619421"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a7091456f288e03eeaa26b14a619421">&#9670;&#160;</a></span>TEST() <span class="overload">[2/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a7091456f288e03eeaa26b14a619421">&#9670;&#160;</a></span>TEST() <span class="overload">[4/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -191,8 +265,95 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a3a135b4969197187213ebd948dfb0d6b" name="a3a135b4969197187213ebd948dfb0d6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a135b4969197187213ebd948dfb0d6b">&#9670;&#160;</a></span>TEST() <span class="overload">[5/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TextureResolutionTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ObjetsSeulsSansSurchargeNAfficheRien</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Affichage isolé « objets interactifs seuls » : une case sans surcharge, même si son type a un skin, n'affiche rien — ni skin, ni damier. </p>
+<p><b>Cas de test :</b> <b>Objets interactifs seuls : une case sans surcharge n'affiche rien.</b><br  />
+ <b>Categorie :</b> Unitaire · Résolution de texture<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Résoudre une tuile Solid skinnée sans surcharge, axe skin masqué.<br  />
+ <b>Resultat attendu :</b> Aucune apparence n'est renvoyée (pas de repli sur le skin ni le damier). </p>
+
+</div>
+</div>
+<a id="aba99dd5b4d6b3948f43c0db87e311f2a" name="aba99dd5b4d6b3948f43c0db87e311f2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba99dd5b4d6b3948f43c0db87e311f2a">&#9670;&#160;</a></span>TEST() <span class="overload">[6/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TextureResolutionTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ObjetsSeulsSansSurchargeNiSkinNAfficheRien</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Affichage isolé « objets interactifs seuls » : une case sans surcharge ni skin n'affiche pas non plus le damier. </p>
+<p><b>Cas de test :</b> <b>Objets interactifs seuls : une case sans surcharge ni skin n'affiche pas le damier.</b><br  />
+ <b>Categorie :</b> Unitaire · Résolution de texture<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Résoudre une tuile Danger (non skinnée) sans surcharge, axe skin masqué.<br  />
+ <b>Resultat attendu :</b> Aucune apparence n'est renvoyée. </p>
+
+</div>
+</div>
+<a id="a520534c78cd851c89c295cacb5852983" name="a520534c78cd851c89c295cacb5852983"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a520534c78cd851c89c295cacb5852983">&#9670;&#160;</a></span>TEST() <span class="overload">[7/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TextureResolutionTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ObjetsSeulsSurchargeChargeeSAffiche</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Affichage isolé « objets interactifs seuls » (<span class="tt">LOT-51</span>, <span class="tt">EX-EDIT-044</span>) : une surcharge chargée s'affiche normalement, l'axe skin n'intervient pas. </p>
+<p><b>Cas de test :</b> <b>Objets interactifs seuls : une surcharge chargee s'affiche normalement.</b><br  />
+ <b>Categorie :</b> Unitaire · Résolution de texture<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Résoudre une tuile Solid skinnée portant une surcharge chargée, axe skin masqué.<br  />
+ <b>Resultat attendu :</b> La source est la surcharge, comme en mode composé. </p>
+
+</div>
+</div>
 <a id="a83195e0fdfd91b6b1f85c419a41d9393" name="a83195e0fdfd91b6b1f85c419a41d9393"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83195e0fdfd91b6b1f85c419a41d9393">&#9670;&#160;</a></span>TEST() <span class="overload">[3/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a83195e0fdfd91b6b1f85c419a41d9393">&#9670;&#160;</a></span>TEST() <span class="overload">[8/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -220,8 +381,95 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a11c6601c8ca6faf19218f09a747a5b51" name="a11c6601c8ca6faf19218f09a747a5b51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11c6601c8ca6faf19218f09a747a5b51">&#9670;&#160;</a></span>TEST() <span class="overload">[9/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TextureResolutionTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SkinSeulCaseAvecSurchargeNAfficheRien</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Affichage isolé « skin des tuiles seul » : une case portant une surcharge n'affiche rien non plus — l'axe surcharge est masqué, l'isolement ne retombe jamais sur un autre axe. </p>
+<p><b>Cas de test :</b> <b>Skin des tuiles seul : une case avec surcharge n'affiche rien.</b><br  />
+ <b>Categorie :</b> Unitaire · Résolution de texture<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Résoudre une tuile Solid portant une surcharge chargée, axe surcharge masqué.<br  />
+ <b>Resultat attendu :</b> Aucune apparence n'est renvoyée. </p>
+
+</div>
+</div>
+<a id="ae487255d356f7dac7125097824b53804" name="ae487255d356f7dac7125097824b53804"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae487255d356f7dac7125097824b53804">&#9670;&#160;</a></span>TEST() <span class="overload">[10/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TextureResolutionTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SkinSeulTypeNonSkinneNAfficheRien</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Affichage isolé « skin des tuiles seul » : un type non skinné n'affiche rien — c'est le diagnostic recherché (quels types manquent encore un skin), pas le damier habituel. </p>
+<p><b>Cas de test :</b> <b>Skin des tuiles seul : un type non skinne n'affiche rien.</b><br  />
+ <b>Categorie :</b> Unitaire · Résolution de texture<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Résoudre une tuile Danger (non skinnée) sans surcharge, axe surcharge masqué.<br  />
+ <b>Resultat attendu :</b> Aucune apparence n'est renvoyée (pas de damier). </p>
+
+</div>
+</div>
+<a id="aa19dd8ca1ed319a4fccfbc75419b7f14" name="aa19dd8ca1ed319a4fccfbc75419b7f14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa19dd8ca1ed319a4fccfbc75419b7f14">&#9670;&#160;</a></span>TEST() <span class="overload">[11/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TextureResolutionTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SkinSeulTypeSkinneSAfficheNormalement</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Affichage isolé « skin des tuiles seul » : un type skinné, sans surcharge, s'affiche normalement. </p>
+<p><b>Cas de test :</b> <b>Skin des tuiles seul : un type skinne s'affiche normalement.</b><br  />
+ <b>Categorie :</b> Unitaire · Résolution de texture<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Résoudre une tuile Solid skinnée sans surcharge, axe surcharge masqué.<br  />
+ <b>Resultat attendu :</b> La source est le skin du type, comme en mode composé. </p>
+
+</div>
+</div>
 <a id="ab07c6f55bf395f468c5cd339b0f40513" name="ab07c6f55bf395f468c5cd339b0f40513"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab07c6f55bf395f468c5cd339b0f40513">&#9670;&#160;</a></span>TEST() <span class="overload">[4/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab07c6f55bf395f468c5cd339b0f40513">&#9670;&#160;</a></span>TEST() <span class="overload">[12/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -250,7 +498,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7b386c399a64422c9672e2cf8b08df35" name="a7b386c399a64422c9672e2cf8b08df35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b386c399a64422c9672e2cf8b08df35">&#9670;&#160;</a></span>TEST() <span class="overload">[5/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b386c399a64422c9672e2cf8b08df35">&#9670;&#160;</a></span>TEST() <span class="overload">[13/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -279,7 +527,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa3eb2842efee082b0d680ee85a19b0e3" name="aa3eb2842efee082b0d680ee85a19b0e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3eb2842efee082b0d680ee85a19b0e3">&#9670;&#160;</a></span>TEST() <span class="overload">[6/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3eb2842efee082b0d680ee85a19b0e3">&#9670;&#160;</a></span>TEST() <span class="overload">[14/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -308,7 +556,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a550b070194f15d6615f1c3e2a9985f1d" name="a550b070194f15d6615f1c3e2a9985f1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a550b070194f15d6615f1c3e2a9985f1d">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a550b070194f15d6615f1c3e2a9985f1d">&#9670;&#160;</a></span>TEST() <span class="overload">[15/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -337,7 +585,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a2477e5b9a986bacb38e06dc71f7c94be" name="a2477e5b9a986bacb38e06dc71f7c94be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2477e5b9a986bacb38e06dc71f7c94be">&#9670;&#160;</a></span>TEST() <span class="overload">[8/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2477e5b9a986bacb38e06dc71f7c94be">&#9670;&#160;</a></span>TEST() <span class="overload">[16/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

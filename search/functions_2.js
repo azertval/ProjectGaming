@@ -34,7 +34,7 @@ var searchData=
   ['composehighlight_31',['composeHighlight',['../classhmi_1_1DraftRenderer.html#a25e74134b58cd46d21a696664f0b0596',1,'hmi::DraftRenderer']]],
   ['composelinks_32',['composeLinks',['../classhmi_1_1DraftRenderer.html#a6407efa6e5ef2c0c1818b76d99c7bc24',1,'hmi::DraftRenderer']]],
   ['composetextureoverridemarkers_33',['composeTextureOverrideMarkers',['../classhmi_1_1DraftRenderer.html#a314511c7371520ca8ffd2fa9af1127d4',1,'hmi::DraftRenderer']]],
-  ['composeworldsprites_34',['composeWorldSprites',['../namespacehmi.html#afacba4ee1b4df1a3448bb501cec4b44a',1,'hmi']]],
+  ['composeworldsprites_34',['composeWorldSprites',['../namespacehmi.html#af1b4dc88cfb3af31fc25a961e7a410b4',1,'hmi']]],
   ['computebackgroundfit_35',['computeBackgroundFit',['../namespacehmi.html#af173b9ae3dd18469f5ac8bc13fb3dcb9',1,'hmi']]],
   ['computeplayerspritequad_36',['computePlayerSpriteQuad',['../namespacehmi.html#a0a13a6b4cbedcfe953e4532f97cd953c',1,'hmi']]],
   ['contains_37',['contains',['../structcore_1_1Rect.html#a136b376d96d042f839c0af03ce894d00',1,'core::Rect']]],

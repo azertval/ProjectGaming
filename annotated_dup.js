@@ -102,6 +102,7 @@ var annotated_dup =
       [ "DecorOverlayState", "structhmi_1_1DecorOverlayState.html", "structhmi_1_1DecorOverlayState" ],
       [ "DraftRenderer", "classhmi_1_1DraftRenderer.html", "classhmi_1_1DraftRenderer" ],
       [ "GraphicsDevice", "classhmi_1_1GraphicsDevice.html", "classhmi_1_1GraphicsDevice" ],
+      [ "LayerVisibility", "classhmi_1_1LayerVisibility.html", "classhmi_1_1LayerVisibility" ],
       [ "MechanismVisualState", "structhmi_1_1MechanismVisualState.html", "structhmi_1_1MechanismVisualState" ],
       [ "PlayerSpriteQuad", "structhmi_1_1PlayerSpriteQuad.html", "structhmi_1_1PlayerSpriteQuad" ],
       [ "PlayerSpriteTag", "structhmi_1_1PlayerSpriteTag.html", "structhmi_1_1PlayerSpriteTag" ],

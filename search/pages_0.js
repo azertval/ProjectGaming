@@ -1,9 +1,9 @@
 var searchData=
 [
   ['0_204×0_208_20sprite_0',['TACHE-03 — Personnage humanoïde (spawn 0,4×0,8, sprite)',['../lot-11-tache-03-personnage-humanoide.html',1,'lot-11']]],
-  ['002_20lot_2020_1',['La manette : une seconde source, fusionnée en lecture (EX-CTRL-002, LOT-20)',['../guide-entrees.html#autotoc_md77',1,'']]],
-  ['003_20ex_20gp_20004_2',['2. Suivi de pente et d&apos;arrondi (EX-GP-003, EX-GP-004)',['../guide-physique.html#autotoc_md132',1,'']]],
-  ['004_3',['2. Suivi de pente et d&apos;arrondi (EX-GP-003, EX-GP-004)',['../guide-physique.html#autotoc_md132',1,'']]],
+  ['002_20lot_2020_1',['La manette : une seconde source, fusionnée en lecture (EX-CTRL-002, LOT-20)',['../guide-entrees.html#autotoc_md78',1,'']]],
+  ['003_20ex_20gp_20004_2',['2. Suivi de pente et d&apos;arrondi (EX-GP-003, EX-GP-004)',['../guide-physique.html#autotoc_md133',1,'']]],
+  ['004_3',['2. Suivi de pente et d&apos;arrondi (EX-GP-003, EX-GP-004)',['../guide-physique.html#autotoc_md133',1,'']]],
   ['01_20—_20émetteur_20de_20particules_20déterministe_4',['TACHE-01 — Émetteur de particules déterministe',['../lot-53-tache-01-emetteur-deterministe.html',1,'lot-53']]],
   ['01_20—_20champs_20de_20niveau_20et_20version_20du_20format_5',['TACHE-01 — Champs de niveau et version du format',['../lot-44-tache-01-modele-version-format.html',1,'lot-44']]],
   ['01_20—_20composant_20et_20système_20d_20animation_6',['TACHE-01 — Composant et système d&apos;animation',['../lot-18-tache-01-composant-systeme-animation.html',1,'lot-18']]],
@@ -59,8 +59,8 @@ var searchData=
   ['01_20—_20tiletextureoverride_20_3a_20modèle_20json_20nettoyage_20et_20historique_56',['TACHE-01 — `TileTextureOverride` : modèle, JSON, nettoyage et historique',['../lot-45-tache-01-modele-override.html',1,'lot-45']]],
   ['01_20—_20types_20mathématiques_20de_20core_57',['TACHE-01 — Types mathématiques de Core',['../lot-03-tache-01-math-core.html',1,'lot-03']]],
   ['01_20—_20widget_20de_20vignettes_20partagé_58',['TACHE-01 — Widget de vignettes partagé',['../lot-43-tache-01-widget-vignettes.html',1,'lot-43']]],
-  ['019_59',['Vitesse terminale newtonienne (EX-GP-019)',['../guide-physique.html#autotoc_md138',1,'']]],
-  ['02_60',['Avertissements connus à corriger avant WARN_AS_ERROR (relevés en TACHE-02)',['../lot-04-tache-07-ci-docs.html#autotoc_md461',1,'']]],
+  ['019_59',['Vitesse terminale newtonienne (EX-GP-019)',['../guide-physique.html#autotoc_md139',1,'']]],
+  ['02_60',['Avertissements connus à corriger avant WARN_AS_ERROR (relevés en TACHE-02)',['../lot-04-tache-07-ci-docs.html#autotoc_md463',1,'']]],
   ['02_20—_20écran_20éditeur_20_3a_20grille_20cliquable_20palette_20de_20tuiles_61',['TACHE-02 — Écran éditeur : grille cliquable + palette de tuiles',['../lot-14-tache-02-ecran-editeur-palette.html',1,'lot-14']]],
   ['02_20—_20éditeur_20et_20rendu_62',['02 — Éditeur et rendu',['../lot-23-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-26-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-28-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu']]],
   ['02_20—_20affichage_20isolé_20sans_20repli_63',['TACHE-02 — Affichage isolé sans repli',['../lot-51-tache-02-affichage-isole.html',1,'lot-51']]],

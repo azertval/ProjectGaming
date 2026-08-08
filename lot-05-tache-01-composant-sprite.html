@@ -94,40 +94,40 @@ $(function(){initNavTree('lot-05-tache-01-composant-sprite.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-05-rendu-2d_2tache-01-composant-sprite"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-05.html#md_Lot_2LOT-05-rendu-2d_2epic" title="Lot/LOT-05-rendu-2d/epic.md">LOT-05</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs/Components</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md484"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md486"></a>
 Contexte</h1>
 <p>Le rendu a besoin de savoir, pour chaque entité affichable, <b>quoi</b> dessiner et <b>dans quel ordre</b>. Comme le <span class="tt">Transform</span>, le <span class="tt">Sprite</span> est une <b>donnée pure</b> de <span class="tt">Core</span> (<span class="tt">EX-ARCH-011</span>), lue par le rendu de <span class="tt">HMI</span> sans mutation (<span class="tt">EX-ARCH-012</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md485"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md487"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Composant <span class="tt">Sprite</span> : région source dans l'atlas (rectangle en pixels de texture, via <span class="tt"><a class="el" href="structcore_1_1Rect.html" title="Rectangle aligné sur les axes (AABB) en unités monde.">core::Rect</a></span> ou un <span class="tt">TextureRect</span> dédié), <b>couche</b> de dessin (entier ou <span class="tt">enum class</span>), et éventuelle <b>teinte</b> (couleur RGBA, défaut blanc opaque).</li>
 <li>Rester <b>agnostique</b> du backend : pas de type DirectX ni de handle de texture dans le composant (l'atlas est résolu côté <span class="tt">HMI</span>).</li>
 <li>Documenter la convention d'unités de la région (pixels de l'atlas).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md486"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md488"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Sprite_8h.html" title="Composant d&#39;apparence 2D d&#39;une entité (données pures).">Source/Core/Ecs/Components/Sprite.h</a></span> (nouveau).</li>
 <li><span class="tt">Source/Test/Unit/test_sprite.cpp</span> (nouveau, si logique à tester).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md487"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md489"></a>
 Tests (obligatoires si logique)</h1>
 <ul>
 <li>Valeurs par défaut cohérentes (teinte blanche opaque, couche 0).</li>
 <li>Toute logique utilitaire éventuelle (ex. calcul de coordonnées UV normalisées) testée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md488"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md490"></a>
 Points d'attention</h1>
 <ul>
 <li>Donnée pure : aucun comportement, sérialisable plus tard avec les niveaux.</li>
 <li>Conventions : <span class="tt">_camelCase</span> si membres privés (ici struct de données publiques), documentation <span class="tt">.h</span>, <span class="tt">[[nodiscard]]</span> sur d'éventuels accès.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md489"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md491"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">Sprite</span> complet, sans dépendance DirectX, documenté ; build <span class="tt">/W4 /WX</span>, tests verts.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md490"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md492"></a>
 Exigences</h1>
 <p><span class="tt">EX-ARCH-011</span>, <span class="tt">EX-ARCH-012</span>, <span class="tt">EX-REN-011</span>, <span class="tt">EX-REN-014</span>. </p>
 </div></div><!-- contents -->

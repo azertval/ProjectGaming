@@ -94,7 +94,7 @@ $(function(){initNavTree('lot-47-tache-01-correspondance-etat-clip.html','','');
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-47-etats-visuels-mecanismes_2tache-01-correspondance-etat-clip"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-47.html#md_Lot_2LOT-47-etats-visuels-mecanismes_2epic" title="Lot/LOT-47-etats-visuels-mecanismes/epic.md">LOT-47</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2098"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2100"></a>
 Contexte</h1>
 <p><span class="tt">Core</span> expose déjà tous les états nécessaires, calculés au pas fixe et testés :</p>
 <ul>
@@ -102,7 +102,7 @@ Contexte</h1>
 <li><span class="tt">core::DangerController::isBlinkActive(index)</span> et <span class="tt">moverBox(index)</span>.</li>
 </ul>
 <p>Ce qui manque n'est donc pas l'information, mais sa <b>traduction en apparence</b>. Cette traduction est une décision de présentation : elle appartient à <span class="tt">HMI</span>, et <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a></span> ne doit gagner aucun champ.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2099"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2101"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Fonction pure de correspondance</b> : à partir du type de tuile et de son état logique, renvoyer le <b>nom du clip</b> attendu. Table explicite, un cas par famille :<ul>
@@ -117,33 +117,33 @@ Travail à réaliser</h1>
 <li><b>Noms de clips conventionnels</b>, documentés dans <span class="tt">Source/Elements/Assets/README.md</span> : c'est le contrat que l'auteur d'un asset doit respecter pour que son animation soit reconnue.</li>
 <li><b>Aucune lecture supplémentaire de <span class="tt">Core</span></b> : uniquement les accesseurs listés ci-dessus, déjà publics.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2100"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2102"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/MechanismVisuals.{h,cpp}</span> (nouveau).</li>
 <li><span class="tt">Source/Elements/Assets/README.md</span> (convention de noms de clips).</li>
 <li><span class="tt"><a class="el" href="test__mechanism__visuals_8cpp.html">Source/Test/Unit/HMI/Graphics/test_mechanism_visuals.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2101"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2103"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Chaque famille de mécanisme, chaque état</b> : la correspondance renvoie le clip attendu — table petite et figée, donc testable exhaustivement.</li>
 <li>Un type de tuile sans état (solide, bloc) ne produit aucune demande de clip.</li>
 <li>Fonction <b>pure</b> : ni GPU, ni Qt, ni ECS.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2102"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2104"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Lecture seule stricte</b> (<span class="tt">EX-ARCH-012</span>) : la correspondance interroge les contrôleurs, elle ne les modifie jamais et ne conserve aucun état de simulation.</li>
 <li>Ne pas confondre l'état d'un <b>danger commuté</b> (lié à un déclencheur) et celui d'un <b>danger temporisé</b> (période fixe) : ce sont deux sources différentes, et un asset peut vouloir les distinguer visuellement.</li>
 <li>La correspondance doit rester indépendante de l'asset : elle dit <b>quel clip demander</b>, pas si l'asset le fournit. Le repli est traité en TACHE-02.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2103"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2105"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>La correspondance est une fonction pure, exhaustivement testée, sans nouvelle surface <span class="tt">Core</span> ; la convention de noms de clips est documentée ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2104"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2106"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-006</span> (apparence pilotée par l'état logique) ; réutilise <span class="tt">EX-GP-020</span>/<span class="tt">EX-GP-021</span> (interrupteur, porte), <span class="tt">EX-GP-025</span> (plaque de pression), <span class="tt">EX-GP-052</span>/<span class="tt">EX-GP-053</span> (dangers commuté et temporisé), <span class="tt">EX-ARCH-012</span> (rendu en lecture seule), <span class="tt">EX-NFR-010</span> (testable sans GPU). </p>
 </div></div><!-- contents -->

@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-52-tache-01-police-bitmap.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-52-texte-hud_2tache-01-police-bitmap"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-52.html#md_Lot_2LOT-52-texte-hud_2epic" title="Lot/LOT-52-texte-hud/epic.md">LOT-52</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2277"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2279"></a>
 Contexte</h1>
 <p>Le projet a déjà eu une police bitmap : <em>hmi::BitmapFont</em>, retirée au <span class="tt">LOT-38</span> (commit <span class="tt">8338bc15</span>) avec toute la pile d'UI « maison », Qt reprenant l'affichage du texte hors-jeu. Le raisonnement était juste ; sa conséquence — plus aucun texte possible <b>dans la scène</b> — n'a jamais été traitée.</p>
 <p>L'implémentation retirée reste consultable dans l'historique Git et constitue un point de départ, à condition d'être rebranchée sur le <em>TextureCache</em> et les calques de LOT-40 plutôt que sur l'ancien chemin.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2278"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2280"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Atlas de glyphes</b> : un PNG (<span class="tt">Assets/Fonts/</span>) accompagné d'un fichier de <b>métriques</b> décrivant, pour chaque caractère couvert, sa région dans l'atlas et son avance horizontale. Chargé par le <em>TextureCache</em> (LOT-40) et validé par le contrat d'asset (<span class="tt">EX-REN-007</span>).</li>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 <li><b>Mesure de texte</b> : largeur et hauteur d'une chaîne à partir des seules métriques — fonction <b>pure</b>, sans GPU, indispensable pour cadrer un affichage sans le dessiner.</li>
 <li><b>Caractère absent</b> : substitution déterministe (par un glyphe de remplacement), jamais un plantage ni un trou silencieux.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2279"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2281"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/BitmapFont.{h,cpp}</span> (nouveau, à rapprocher de la version retirée au LOT-38).</li>
@@ -115,7 +115,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Assets/Fonts/</span> (nouveau dossier), <span class="tt">Source/HMI/CMakeLists.txt</span>.</li>
 <li><span class="tt">Source/Test/Unit/HMI/Graphics/test_bitmap_font.cpp</span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2280"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2282"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Mesure</b> : chaîne vide, un caractère, chaîne accentuée, chaîne contenant un caractère absent — largeurs attendues, fonction pure.</li>
@@ -123,19 +123,19 @@ Tests (obligatoires)</h1>
 <li>Absence d'atlas → repli procédural, sans exception.</li>
 <li>Sans GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2281"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2283"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Les accents ne sont pas optionnels.</b> Le français est la langue par défaut du projet (<span class="tt">EX-REN-033</span>) ; omettre les caractères accentués rendrait le HUD illisible et la faute serait découverte tard.</li>
 <li>L'encodage des chaînes est <b>UTF-8</b> (comme les catalogues de langue) : un caractère accentué occupe plusieurs octets. La mesure et le rendu doivent parcourir des points de code, pas des octets — c'est le piège classique.</li>
 <li>Ne pas réintroduire l'ancien chemin de rendu du LOT-38 : la police est un asset comme un autre, elle passe par le <em>TextureCache</em>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2282"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2284"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Un atlas de glyphes est chargé et validé, avec repli procédural ; la mesure de texte est pure et testée, y compris sur des chaînes accentuées ; un caractère absent est substitué ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2283"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2285"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-032</span> (affichage de texte) ; réutilise <span class="tt">EX-REN-042</span> (assets externalisés avec repli), <span class="tt">EX-REN-007</span> (contrat d'asset), <span class="tt">EX-REN-033</span> (traduction, français par défaut), <span class="tt">EX-ARCH-022</span> (<em>nearest</em>), <span class="tt">EX-NFR-040</span> (repli). </p>
 </div></div><!-- contents -->

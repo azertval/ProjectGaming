@@ -93,12 +93,12 @@ $(function(){initNavTree('lot-51-tache-02-affichage-isole.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-51-visibilite-calques_2tache-02-affichage-isole"></a></p>
-<p><b>Lot :</b> <a class="el" href="lot-51.html#md_Lot_2LOT-51-visibilite-calques_2epic" title="Lot/LOT-51-visibilite-calques/epic.md">LOT-51</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2253"></a>
+<p><b>Lot :</b> <a class="el" href="lot-51.html#md_Lot_2LOT-51-visibilite-calques_2epic" title="Lot/LOT-51-visibilite-calques/epic.md">LOT-51</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2255"></a>
 Contexte</h1>
 <p>Masquer les autres calques ne suffit pas à auditer un calque. La priorité de résolution figée en LOT-45 — <b>surcharge &gt; skin &gt; damier</b> — garantit qu'une case affiche <b>toujours</b> quelque chose. Isoler le calque « objets interactifs » avec cette règle montrerait donc toutes les cases : celles qui portent une surcharge, celles qui retombent sur le skin de leur type, et celles qui retombent sur le damier.</p>
 <p>C'est exactement l'inverse de ce qu'on cherche. Pour auditer, il faut voir <b>seulement ce qui est réellement configuré sur ce calque</b> — quitte à ne rien voir du tout.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2254"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2256"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Mode isolé</b> : quand un seul calque de contenu est visible, la résolution ne retombe <b>pas</b> sur les niveaux de priorité inférieurs :<ul>
@@ -110,14 +110,14 @@ Travail à réaliser</h1>
 <li><b>Un seul résolveur, deux règles d'affichage</b> : réutiliser le résolveur de priorité de LOT-45 avec un indicateur « composer » ou « isoler », plutôt que d'en écrire un second. Deux résolveurs divergeraient.</li>
 <li><b>Distinction claire des deux notions</b> : « masqué » (le calque n'est pas affiché) et « vide » (le calque est affiché mais rien n'y est configuré) doivent être distinguables à l'écran — un quadrillage discret sur le calque isolé, par exemple, plutôt qu'un écran noir ambigu.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2255"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2257"></a>
 Fichiers impactés</h1>
 <ul>
-<li><span class="tt">Source/HMI/Graphics/TileVisuals.{h,cpp}</span> (règle d'affichage isolé).</li>
-<li><span class="tt">Source/HMI/Graphics/DraftRenderer.{h,cpp}</span>.</li>
-<li><span class="tt"><a class="el" href="test__texture__resolution_8cpp.html" title="Tests unitaires de la priorité de résolution surcharge &gt; skin &gt; damier (LOT-45, EX-EDIT-043) et de hm...">Source/Test/Unit/HMI/Graphics/test_texture_resolution.cpp</a></span> (étendu).</li>
+<li><span class="tt">Source/HMI/Graphics/TileAppearance.{h,cpp}</span> (extension de <span class="tt">resolveTileAppearance</span>, le résolveur unique — pas <span class="tt">TileVisuals.{h,cpp}</span>, qui ne porte que la correspondance type de tuile → région d'atlas et ne connaît pas la priorité surcharge/skin/damier).</li>
+<li><span class="tt"><a class="el" href="ComposedScene_8cpp.html">Source/HMI/Graphics/ComposedScene.cpp</a></span> (seul appelant de production, ajusté au retour désormais optionnel).</li>
+<li><span class="tt"><a class="el" href="test__texture__resolution_8cpp.html" title="Tests unitaires de la priorité de résolution surcharge &gt; skin &gt; damier (LOT-45, EX-EDIT-043),...">Source/Test/Unit/HMI/Graphics/test_texture_resolution.cpp</a></span> (étendu).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2256"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2258"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>« Objets interactifs seuls » : une case avec surcharge est affichée ; une case sans surcharge dont le type a un skin n'affiche <b>rien</b> ; une case sans surcharge ni skin n'affiche <b>rien</b> (pas de damier).</li>
@@ -125,19 +125,19 @@ Tests (obligatoires)</h1>
 <li>Le résolveur en mode <b>composer</b> garde exactement le comportement de LOT-45 — les tests de priorité existants passent inchangés.</li>
 <li>Sans GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2257"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2259"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas casser la composition en ajoutant l'isolement.</b> Les tests de priorité de LOT-45 sont le filet : ils doivent passer sans modification.</li>
 <li>Le mode isolé n'a de sens que pour les calques <b>de contenu</b>. Isoler le calque d'aides d'édition ou celui de l'interface n'apporte rien : les exclure ou l'assumer explicitement.</li>
 <li>Ce mode n'est <b>pas</b> un mode de rendu du jeu : <span class="tt">GameSession</span> ne doit jamais l'utiliser, même accidentellement via un paramètre par défaut.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2258"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2260"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>L'affichage isolé ne montre que ce qui est configuré sur le calque, sans repli ; « masqué » et « vide » sont distinguables ; le résolveur reste unique et la composition inchangée ; tests sans GPU verts ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2259"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2261"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-044</span> (visibilité et isolement par calque) ; réutilise <span class="tt">EX-EDIT-042</span> (skins), <span class="tt">EX-EDIT-043</span> (surcharges, priorité inversée ici), <span class="tt">EX-REN-044</span> (fond), <span class="tt">EX-DEC-002</span> (couches de décor), <span class="tt">EX-NFR-004</span> (vérification sans GPU). </p>
 </div></div><!-- contents -->

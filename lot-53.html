@@ -96,14 +96,14 @@ $(function(){initNavTree('lot-53.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>non commencé</b>. Prérequis : <a class="el" href="lot-46.html" title="LOT-46 — Moteur d&#39;animation générique piloté par données">LOT-46</a> (moteur d'animation), <a class="el" href="lot-48.html" title="LOT-48 — Personnage : skin et animations depuis fichier">LOT-48</a> (personnage texturé). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2298"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2300"></a>
 Objectif</h1>
 <p>Donner un retour visuel aux mouvements du personnage.</p>
 <p>Le ressenti de déplacement a été travaillé sur quatre lots — temps de grâce au bord d'une plateforme et mémorisation du saut (<span class="tt">LOT-09</span>), double saut, saut mural et dash (<span class="tt">LOT-10</span>), gravité asymétrique, suspension à l'apex et chute rapide (<span class="tt">LOT-11</span>) — et <b>rien de tout cela n'est visible</b>. Un dash se distingue d'une course uniquement par la vitesse ; un atterrissage après une longue chute est identique à un pas.</p>
 <p>Une fois le personnage et le décor texturés, l'absence d'effets devient la principale différence entre le rendu du jeu et celui d'un jeu fini.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2299"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2301"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2300"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2302"></a>
 Inclus</h2>
 <ul>
 <li><b>Émetteur de particules dans <span class="tt">Core</span></b>, simulé au <b>pas fixe</b> et <b>déterministe</b> (<span class="tt">EX-NFR-002</span>) : toute source d'aléa est une suite pseudo-aléatoire à graine explicite, jamais l'horloge. Deux parties identiques produisent les mêmes effets.</li>
@@ -112,7 +112,7 @@ Inclus</h2>
 <li><b>Rendu</b> sur les calques <em>Object</em> et <em>Foreground</em> selon l'effet, en mode Texture uniquement.</li>
 <li>La secousse d'écran agit sur la <b>caméra de rendu</b> uniquement, jamais sur la position simulée.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2301"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2303"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li>Éditeur de particules, paramétrage par le level designer : effets définis en dur, réglés par constantes nommées.</li>
@@ -120,7 +120,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li>Éclairage, lueurs, post-traitement : hors du pipeline de quads, hors sujet.</li>
 <li>Effets sonores.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2302"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2304"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Dans <span class="tt">Core</span>, au pas fixe, déterministe.</b> Une simulation de particules au temps réel dans <span class="tt">HMI</span> serait plus simple à écrire, mais casserait le déterminisme que tout le projet tient depuis <span class="tt">LOT-01</span> (<span class="tt">EX-NFR-002</span>) et rendrait les rejeux non reproductibles. Le coût est faible : quelques centaines de particules par image.</li>
@@ -128,13 +128,13 @@ Décisions de cadrage</h1>
 <li><b>Secousse d'écran discrète et bornée</b> : un effet trop marqué nuit à la lisibilité d'un jeu de plateforme précis. Amplitude et durée sont des constantes conservatrices.</li>
 <li><b>Budget explicite plutôt qu'implicite</b> : après six calques ajoutés, un système capable d'émettre sans borne est le premier candidat à faire chuter la cadence.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2303"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2305"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle : <span class="tt">EX-REN-008</span> (effets visuels de courte durée, déterministes, sans effet sur le gameplay, dans un budget borné).</li>
 <li>Réutilisées : <span class="tt">EX-NFR-002</span> (déterminisme au pas fixe), <span class="tt">EX-REN-021</span> (pas fixe), <span class="tt">EX-ARCH-012</span> (rendu sans effet sur la simulation), <span class="tt">EX-NFR-005</span> (budget de primitives), <span class="tt">EX-REN-043</span> (calques), <span class="tt">EX-GP-017</span> (dash), <span class="tt">EX-GP-016</span> (saut mural).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2304"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2306"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -149,7 +149,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-53-tache-03-rendu-secousse.html#md_Lot_2LOT-53-effets-particules_2tache-03-rendu-secousse" title="Lot/LOT-53-effets-particules/tache-03-rendu-secousse.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Rendu des particules sur les calques <em>Object</em>/*Foreground* + secousse d'écran  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Graphics</span>  </td><td class="markdownTableBodyCenter">⬜  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2305"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2307"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Un dash, un atterrissage et une mort produisent chacun un effet visuel distinct, en mode Texture.</li>
@@ -158,10 +158,10 @@ Critères d'acceptation du lot</h1>
 <li>Aucun effet sur la simulation : les tests de gameplay et de franchissabilité passent sans modification, et la secousse d'écran ne modifie aucune position simulée.</li>
 <li>La simulation de particules est testée sans GPU ; build <span class="tt">/W4 /WX</span>, Doxygen, lint verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2306"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2308"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-46.html" title="LOT-46 — Moteur d&#39;animation générique piloté par données">LOT-46</a> (animations par données) et <a class="el" href="lot-48.html" title="LOT-48 — Personnage : skin et animations depuis fichier">LOT-48</a> (états du personnage exploités). Lit l'état de <a class="el" href="lot-10.html" title="LOT-10 — Mécaniques aériennes avancées : double saut, wall jump, dash">LOT-10</a> et <a class="el" href="lot-11.html" title="LOT-11 — Ressenti avancé : personnage humanoïde, gravité asymétrique, finitions">LOT-11</a> sans le modifier. Respecte le budget posé par <a class="el" href="lot-40.html" title="LOT-40 — Fondations : registre de textures, calques, culling, testabilité">LOT-40</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2307"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2309"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-53-tache-01-emetteur-deterministe.html" title="TACHE-01 — Émetteur de particules déterministe">TACHE-01 — Émetteur de particules déterministe</a></li>

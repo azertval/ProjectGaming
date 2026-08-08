@@ -96,19 +96,19 @@ $(function(){initNavTree('lot-24.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>terminé</b>. Des blocs poussables plus <b>petits</b> qu'une case pleine (<span class="tt">×0.5</span>, <span class="tt">×0.25</span>, <span class="tt">EX-GP-005</span>), pour des défis de précision — en préparation de blocs poussables <b>plus grands</b> qu'une case (multi-cases), envisagés pour un lot ultérieur non encore planifié. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1268"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1270"></a>
 Objectif</h1>
 <p><span class="tt">EX-GP-005</span> demande des blocs poussables à taille réduite (<span class="tt">×0.5</span>/<span class="tt">×0.25</span> d'une case), pour des sauts de précision autour de futurs blocs de grande taille. Contrairement aux pentes (<span class="tt">LOT-22</span>) et à l'arrondi (<span class="tt">LOT-23</span>), qui redéfinissent la <b>surface</b> d'une case pleine, un bloc réduit occupe une case <b>partiellement</b> : sa boîte de collision est plus petite que la case et <b>centrée</b> dedans, laissant un espace vide symétrique tout autour. <span class="tt">sweepAabb</span> (balayage sur grille, solide/vide par case entière) ne peut pas représenter cela — ce lot introduit donc une <b>seconde</b> routine de collision, boîte-contre-boîte, complémentaire au balayage sur grille plutôt qu'une modification de celui-ci.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1269"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1271"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1270"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1272"></a>
 Inclus</h2>
 <ul>
 <li>Deux nouvelles tuiles : <span class="tt">BlockHalf</span> (<span class="tt">×0.5</span>) et <span class="tt">BlockQuarter</span> (<span class="tt">×0.25</span>), gérées par <span class="tt"><a class="el" href="classcore_1_1BlockController.html" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block/BlockHalf/ BlockQuarter,...">core::BlockController</a></span> (<span class="tt">LOT-21</span>) au même titre que <span class="tt">Block</span> (poussée, chute) — mais avec une boîte de collision <b>réduite et centrée</b> dans leur case.</li>
 <li>Nouvelle routine de balayage <b>AABB contre AABB</b> (le personnage contre un bloc réduit), en complément du balayage sur grille existant — pas une modification de <span class="tt">sweepAabb</span>.</li>
 <li>Chargement/écriture JSON, palette de l'éditeur, rendu (sprite mis à l'échelle).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1271"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1273"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Blocs plus grands qu'une case (multi-cases)</b> — explicitement la motivation à terme de cette exigence, mais <b>pas</b> son contenu : un lot distinct, non encore planifié.</li>
@@ -116,19 +116,19 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Décalage non centré</b> — un bloc réduit reste toujours centré dans sa case ; un positionnement fin (ex. collé à un bord) n'est pas couvert.</li>
 <li><b>Interaction avec les pentes/l'arrondi</b> (<span class="tt">LOT-22</span>/<span class="tt">LOT-23</span>) — un bloc réduit posé sur une surface non plate est un cas non défini, laissé de côté.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1272"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1274"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>La boîte de collision est centrée dans la case, taille <span class="tt">facteur × 1</span> unité.</b> Un bloc <span class="tt">×0.5</span> laisse <span class="tt">0.25</span> unité de vide de chaque côté à l'intérieur de sa case ; un bloc <span class="tt">×0.25</span> laisse <span class="tt">0.375</span> unité. <span class="tt">BlockController</span> continue de suivre la <b>position de case</b> (<span class="tt">GridPosition</span>, comme pour <span class="tt">Block</span>) pour la poussée/chute (déplacement toujours d'une case entière à la fois, cohérent avec <span class="tt">LOT-21</span>) ; seule la boîte de collision <b>testée contre le personnage</b> est plus petite.</li>
 <li><b>Nouvelle routine de balayage, pas une extension de <span class="tt">sweepAabb</span>.</b> <span class="tt">sweepAabb</span> reste la référence testée pour la collision sur grille (murs, sols, pentes/arrondis de <span class="tt">LOT-22</span>/<span class="tt">LOT-23</span>, blocs pleins de <span class="tt">LOT-21</span>) ; les blocs réduits sont résolus par un <b>second</b> passage, boîte contre boîte, exécuté après le balayage sur grille (dans le même esprit que la poussée de bloc de <span class="tt">LOT-21</span>, déjà résolue dans son propre passage avant la physique). Une collision boîte-boîte classique (test de chevauchement sur les deux axes, résolution par l'axe de pénétration minimal) est un problème bien plus simple que le suivi de surface de <span class="tt">LOT-22</span>/<span class="tt">LOT-23</span> — ce lot reste donc d'un risque physique <b>modéré</b>, malgré l'ajout d'une routine de collision supplémentaire.</li>
 <li><b>La poussée d'un bloc réduit reste case par case</b>, identique à <span class="tt">Block</span>. Seule sa boîte de collision est plus petite ; le contact déclenchant la poussée (le personnage touche le bloc) doit être testé contre cette boîte réduite, pas contre la case entière — sinon le personnage semblerait pousser un bloc « à distance », dans l'espace vide qui l'entoure.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1273"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1275"></a>
 Exigences couvertes</h1>
 <ul>
 <li><span class="tt">EX-GP-005</span> — implémentée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1274"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1276"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -145,7 +145,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-24-tache-04-documentation-verification.html#md_Lot_2LOT-24-blocs-taille-fractionnaire_2tache-04-documentation-verification" title="Lot/LOT-24-blocs-taille-fractionnaire/tache-04-documentation-verification.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Documentation et vérification  </td><td class="markdownTableBodyNone"><span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1275"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1277"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Un bloc <span class="tt">×0.5</span>/<span class="tt">×0.25</span> est poussable et tombe exactement comme un bloc plein (<span class="tt">LOT-21</span>), déplacement case par case.</li>
@@ -153,12 +153,12 @@ Critères d'acceptation du lot</h1>
 <li><b>Aucune régression</b> sur les mécanismes existants (<span class="tt">Block</span> plein, portes, pentes/arrondis si déjà livrés).</li>
 <li>Logique nouvelle couverte par des tests. Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1276"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1278"></a>
 Dépendances</h1>
 <ul>
 <li>Étend <span class="tt"><a class="el" href="classcore_1_1BlockController.html" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block/BlockHalf/ BlockQuarter,...">core::BlockController</a></span> (<span class="tt">LOT-21</span>) sans le modifier en profondeur ; <b>indépendant</b> de <span class="tt">LOT-22</span>/<span class="tt">LOT-23</span> (surface plane uniquement pour ce lot), peut donc être mené en parallèle ou avant eux si l'ordre s'avère plus pratique à l'implémentation — l'ordre 22 → 23 → 24 proposé reflète la priorité exprimée, pas une dépendance technique stricte de 24 envers 22/23.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1277"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1279"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-24-tache-01-modele-bloc-reduit.html" title="TACHE-01 — Modèle de bloc réduit">TACHE-01 — Modèle de bloc réduit</a></li>

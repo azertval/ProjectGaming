@@ -30,7 +30,7 @@ var NAVTREE =
     [ "Navigation", "index.html#autotoc_md3", null ],
     [ "Guide du développeur", "guide.html", "guide" ],
     [ "Cahier de test", "cahiertest.html", [
-      [ "Tests unitaires (557)", "cahiertest.html#autotoc_md4", [
+      [ "Tests unitaires (571)", "cahiertest.html#autotoc_md4", [
         [ "Core", "cahiertest.html#autotoc_md5", [
           [ "Diagnostics (14)", "cahiertest.html#autotoc_md6", null ],
           [ "Ecs (34)", "cahiertest.html#autotoc_md7", null ],
@@ -43,7 +43,7 @@ var NAVTREE =
         [ "HMI", "cahiertest.html#autotoc_md13", [
           [ "Diagnostics (2)", "cahiertest.html#autotoc_md14", null ],
           [ "Editor (37)", "cahiertest.html#autotoc_md15", null ],
-          [ "Graphics (149)", "cahiertest.html#autotoc_md16", null ],
+          [ "Graphics (163)", "cahiertest.html#autotoc_md16", null ],
           [ "Input (63)", "cahiertest.html#autotoc_md17", null ],
           [ "Localization (8)", "cahiertest.html#autotoc_md18", null ]
         ] ]
@@ -102,36 +102,36 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AabbVsAabb_8cpp.html",
-"MechanismController_8h.html",
-"classcore_1_1ComponentPool.html#a7f399e6294d15b47dcf6a665a5f71d08",
-"classcore_1_1LevelDraft.html#acda8ea200910fc5679cd968d36de87e4",
-"classhmi_1_1AssetFileOperations.html#a723482e27e9d91e82dc8b6f86cae1283",
-"classhmi_1_1GameKeyBindings.html#a824abc78720652ff4fa0b24573b5b807",
-"classhmi_1_1GameViewport.html#a72ca397f707f841d16866836c0809c5f",
-"classhmi_1_1GraphicsDevice.html#a5869548fd0986fffcbb833721cf488c4",
-"classhmi_1_1MainMenu.html#a4c98f77783af20fb0bb7c163bc58f87e",
-"classhmi_1_1SpriteBatch.html#a4876bd6f672a6dbdc6dd166fcecb971d",
-"classhmi_1_1TexturePanel.html#aa87a55f7ba2a115bd8b04f042c82bb99",
-"globals_func_t.html",
-"lot-02.html",
-"lot-06-tache-06-ecrans-cibles.html#autotoc_md574",
-"lot-10-tache-06-niveau-parkour.html#autotoc_md794",
-"lot-16-tache-01-plafond-validation-taille.html",
-"lot-22.html",
-"lot-29-tache-03-ui-remappage.html#autotoc_md1458",
-"lot-35-tache-02-palette-arbre.html#autotoc_md1679",
-"lot-41-tache-03-non-regression-documentation.html#autotoc_md1900",
-"lot-47-tache-04-section-animations.html#autotoc_md2121",
-"lot-54-tache-01-encodage-image.html#autotoc_md2343",
-"namespacehmi.html#a1b53de392afb0dfdf5cdef4543fb672d",
-"namespacehmi.html#af9d5162737bdb5221fd49e4eeed58380",
-"structcore_1_1Decor.html#aed57c93e14ec7d99f5d70ec572159aac",
-"structhmi_1_1AnimationDescription.html#aeb65e0a5103ba71be4e5158465f20ef2",
-"structhmi_1_1LoadedTexture.html",
-"structhmi_1_1TileAppearance.html",
-"test__decor__mutations_8cpp.html#a34073cd4f6135e0c050c0fe8a40a3e10",
-"test__link__gesture_8cpp.html#a0a6966cd246b3e1b348b812f54c431b6",
-"test__skin__catalog_8cpp.html#a0b8924792773c00c93d252a157f7e612"
+"MechanismAnimationAssignments_8h_source.html",
+"classcore_1_1ComponentPool.html#a7f018dd02b06e43193affdac6c6c82d2",
+"classcore_1_1LevelDraft.html#acc48e2f45fb3db53de09e30f60f75845",
+"classhmi_1_1AssetFileOperations.html#a47e8cae9f35e29d00068ecc8a472ea58",
+"classhmi_1_1GameKeyBindings.html#a7a7f7df56c93f41636cc5734c44f108a",
+"classhmi_1_1GameViewport.html#a6b3746ffb6acca3282ca1060522122bb",
+"classhmi_1_1GraphicsDevice.html#a2a98524940e3bf0b564975b3c72a6739",
+"classhmi_1_1Localization.html#aa549c7438b65314c5e0b8bd90996e310",
+"classhmi_1_1SkinCatalog.html#abbbffe68f2623ef82157bdb2adf4153b",
+"classhmi_1_1TexturePanel.html#a8900f1bd4dd38c73eca12d47e4b82875",
+"functions_vars_i.html",
+"lot-02-tache-02-sinks.html#autotoc_md328",
+"lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md550",
+"lot-10-tache-02-mapping-dash.html#autotoc_md770",
+"lot-15-tache-06-decouvrabilite.html#autotoc_md991",
+"lot-22-tache-01-modele-tuile-pente.html#autotoc_md1212",
+"lot-28.html#autotoc_md1402",
+"lot-34-tache-04-niveau-jouable-doc.html#autotoc_md1655",
+"lot-40.html",
+"lot-46.html#autotoc_md2052",
+"lot-53-tache-02-declencheurs.html#autotoc_md2318",
+"namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003aa9ded1e5ce5d75814730bb4caaf49419",
+"namespacehmi.html#ace704959d626f266592987f16eb2f3d5ad9e8fea9194ad4b49db82581f12a26bb",
+"structcore_1_1DangerBlinkConfig.html#a65b8183dacd7b4826a707ac18e3e7615",
+"structcore_1_1Vector2.html#a53fe7ef62405da41a3ee05b3081cab87",
+"structhmi_1_1LinkGestureDecision.html#a3ad9aa3ddf5ba1b555df0a74e9868f22",
+"structhmi_1_1SpriteQuad.html#a57d8a28d381a274c651561943f89c252",
+"test__decor__geometry_8cpp.html#a54c9c08ee3870b19fba5f1bb6605fc1d",
+"test__level__outcome_8cpp.html#a949c5e26a2d082b81f8ca72c83f952d9",
+"test__render__culling_8cpp.html#aaacc71351b4660d3c60329d7a702a68d"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

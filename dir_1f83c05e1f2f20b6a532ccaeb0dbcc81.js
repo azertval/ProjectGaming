@@ -20,6 +20,7 @@ var dir_1f83c05e1f2f20b6a532ccaeb0dbcc81 =
     [ "GraphicsDevice.cpp", "GraphicsDevice_8cpp.html", null ],
     [ "GraphicsDevice.h", "GraphicsDevice_8h.html", "GraphicsDevice_8h" ],
     [ "GraphicsLog.h", "GraphicsLog_8h.html", "GraphicsLog_8h" ],
+    [ "LayerVisibility.h", "LayerVisibility_8h.html", "LayerVisibility_8h" ],
     [ "MechanismVisuals.cpp", "MechanismVisuals_8cpp.html", "MechanismVisuals_8cpp" ],
     [ "MechanismVisuals.h", "MechanismVisuals_8h.html", "MechanismVisuals_8h" ],
     [ "MissingTexture.cpp", "MissingTexture_8cpp.html", "MissingTexture_8cpp" ],

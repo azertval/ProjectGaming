@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-39-tache-02-texture-atlas-fichier.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-39-refonte-ihm-qt-textures_2tache-02-texture-atlas-fichier"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-39.html#md_Lot_2LOT-39-refonte-ihm-qt-textures_2epic" title="Lot/LOT-39-refonte-ihm-qt-textures/epic.md">LOT-39</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1813"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1815"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, chargée depuis un fichier image avec repli procédural (EX-REN-04...">hmi::TextureAtlas</a></span> est <b>explicitement conçu pour être remplacé par un chargement de fichier</b> : son interface publique (<span class="tt">textureView()</span>, <span class="tt">tile(col,row)</span>, <span class="tt">playerFrameRegion(...)</span>, <span class="tt">width()</span>/<span class="tt">height()</span>) est stable et consommée par <span class="tt">SpriteRenderer</span> et l'éditeur. Cette tâche fait basculer son <b>implémentation</b> vers un <b>atlas image chargé depuis un fichier</b> (via le loader TACHE-01), <b>sans changer l'interface</b> ni les appelants, avec <b>repli procédural</b> si l'asset manque.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1814"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1816"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Atlas fichier</b> : charger une image d'atlas (<span class="tt">Assets/atlas.png</span> ou équivalent) + une <b>description des régions</b> (mapping <span class="tt">tile(col,row)</span>/<span class="tt">playerFrameRegion</span> → rectangles en pixels). La description peut être une convention de grille (comme aujourd'hui : <span class="tt">TILE_SIZE</span>, <span class="tt">TILES_PER_SIDE</span>) ou un petit fichier de métadonnées — arbitrer (commencer simple : même grille que l'actuel).</li>
@@ -105,35 +105,35 @@ Travail à réaliser</h1>
 <li><b>Repli procédural</b> : si l'atlas fichier est absent/illisible, retomber sur la génération procédurale actuelle (conserver le code existant comme repli), avec un message clair. Permet une <b>migration incrémentale</b>.</li>
 <li><b>Migration tuile par tuile</b> possible : documenter comment remplacer progressivement les couleurs procédurales par de vraies tuiles.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1815"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1817"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/TextureAtlas.{h,cpp}</span> (implémentation fichier + repli ; interface conservée).</li>
 <li><span class="tt">Source/Elements/Assets/</span> (atlas image de base) + copie POST_BUILD (patron <span class="tt">Levels</span>/<span class="tt">Localization</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1816"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1818"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Mapping des régions testable</b> (sans GPU) : <span class="tt">tile(col,row)</span>/<span class="tt">playerFrameRegion</span> renvoient les rectangles attendus pour la description d'atlas donnée (mêmes valeurs qu'aujourd'hui pour la grille par défaut → non-régression).</li>
 <li><b>Repli</b> : en l'absence d'asset, l'atlas procédural est utilisé (comportement défini, pas de crash).</li>
 <li><b>Vérification manuelle</b> : les tuiles s'affichent avec la texture fichier (net, <em>nearest</em>) en jeu et dans l'éditeur ; le personnage animé reste correct.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1817"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1819"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Stabilité de l'interface</b> : c'est la garantie qui évite de toucher <span class="tt">SpriteRenderer</span>/éditeur — la vérifier (aucune signature publique modifiée).</li>
 <li><b>Parité des régions</b> : conserver la convention de grille existante pour ne rien casser, puis faire évoluer l'atlas.</li>
 <li><b>Copie d'assets</b> : brancher la copie POST_BUILD sur la cible <span class="tt">ProjectGaming</span> (<span class="tt">Assets/</span> → à côté de l'exe), et le déploiement release.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1818"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1820"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">TextureAtlas</span> chargé depuis un fichier, interface et appelants <b>inchangés</b>, repli procédural fonctionnel ; mapping <b>testé</b> ; <span class="tt">/W4 /WX</span> propre ; rendu vérifié visuellement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1819"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1821"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-041</span> (textures fichiers), <span class="tt">EX-REN-042</span> (assets externalisés, repli) ; réutilise <span class="tt">EX-ARCH-022</span> (nearest), <span class="tt">EX-NFR-040</span> (repli robuste).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1820"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1822"></a>
 Réalisé</h1>
 <p><span class="tt">tile</span>/<span class="tt">playerFrameRegion</span> rendues <span class="tt">static</span> (aucun état d'instance) et déplacées dans un fichier séparé, <span class="tt"><a class="el" href="TextureAtlasRegions_8cpp.html" title="Mapping (colonne, ligne) -&gt; région d&#39;atlas de hmi::TextureAtlas (tile, playerFrameRegion).">Source/HMI/Graphics/TextureAtlasRegions.cpp</a></span> — dépourvu de dépendance Qt/Direct3D 11, il est compilé et testé directement dans <span class="tt">UnitTests</span> (<span class="tt"><a class="el" href="test__texture__atlas_8cpp.html" title="Tests unitaires du mapping de régions de hmi::TextureAtlas (LOT-39, non-régression).">Source/Test/Unit/HMI/Graphics/test_texture_atlas.cpp</a></span>), contrairement à <span class="tt"><a class="el" href="TextureAtlas_8cpp.html">TextureAtlas.cpp</a></span> (chargement fichier + repli, dépendant de Qt/D3D11). La génération procédurale historique est extraite telle quelle (même sortie, non-régression) dans <span class="tt">Source/HMI/Graphics/ProceduralAtlas.{h,cpp}</span> (pur, testé par <span class="tt"><a class="el" href="test__procedural__atlas_8cpp.html" title="Tests unitaires de la génération procédurale de l&#39;atlas de repli (LOT-39, EX-NFR-040).">test_procedural_atlas.cpp</a></span>), servant à la fois de repli et de générateur pour l'atlas de base (<span class="tt">ProjectGaming.exe --export-atlas=...</span>, cf. TACHE-03). Grille de l'atlas fichier livré identique à la grille procédurale (parité vérifiée par export + rechargement, dimensions 80×112). </p>
 </div></div><!-- contents -->
