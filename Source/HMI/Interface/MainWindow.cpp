@@ -473,7 +473,9 @@ void MainWindow::buildUi() {
         if (!accepted || name.isEmpty()) {
             return;
         }
-        _viewport->renameOpenLevel(name.toStdString());
+        if (_viewport->renameOpenLevel(name.toStdString())) {
+            _levels->refresh();  // le fichier a pu changer de nom dans le dossier liste.
+        }
     });
     // Aperçu des raccourcis (LOT-57 TACHE-04, concretise EX-EDIT-015) : lit les raccourcis EFFECTIFS
     // des actions a l'ouverture, jamais un texte fige -- toujours a jour apres un remappage.
