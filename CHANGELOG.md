@@ -54,6 +54,16 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     posé vs. couche du décor sélectionné existant), pas un doublon strict. **3 nouveaux tests** (dont
     un garde-fou cassant si une action est ajoutée sans être branchée) ; build `/W4 /WX` propre, 777
     tests verts.
+  - **Amendement post-essai manuel** : premier essai réel de l'éditeur reconstruit, deux retours
+    tranchés dans la foulée. La barre d'outils du haut (`addToolBar` sur la fenêtre principale)
+    disparaît : le panneau « Outils » (`ToolPanel`), qui ne portait déjà plus que le strict
+    nécessaire de l'outil Décor depuis `LOT-56`, devient le panneau **Décors** (`DecorsPanel`) et
+    embarque désormais la barre (`QToolBar` verticale, même `EditorActions::populateToolBar`) ainsi
+    que l'inspecteur des décors posés déplacé de l'onglet « Décors » du panneau Textures — les deux
+    sélecteurs de couche (placement du prochain décor, couche du décor sélectionné) coexistent donc
+    maintenant dans le même panneau, renommés explicitement pour lever toute ambiguïté. Le panneau
+    Textures sort du regroupement en onglets de TACHE-02 et redevient indépendant, comme
+    Palette/Décors. `LAYOUT_VERSION` 4 → 5.
 
 - **LOT-56 — Système de design de l'IHM Qt** (`EX-IHM-050` à `EX-IHM-055`) : l'éditeur prend enfin
   la main sur sa propre apparence — jusqu'ici le style **natif** de la plate-forme, qui ignorait une

@@ -37,7 +37,7 @@ TEST(PanelFocusTest, OutilTextureMetEnAvantLePanneauTextures) {
 
 /**
  * @brief Les outils sans panneau dedie (Pinceau, Rectangle, Selection, Decor) ne mettent rien en
- *        avant : leurs controles vivent ailleurs (palette, panneau Outils).
+ *        avant : leurs controles vivent ailleurs (palette, panneau Decors non tabifie).
  * \castest{<b>Les outils sans panneau dedie ne mettent rien en avant.</b><br/>
  * \tcat Unitaire · Mise en avant des panneaux<br/>
  * \tcrit Majeur<br/>

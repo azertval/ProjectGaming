@@ -10,8 +10,10 @@ Panneaux Qt :
 
 - **Palette** (`PalettePanel`) — `QTreeView` catégories → sous-groupes → tuiles, alimenté par la
   taxonomie pure `tileTaxonomy` (`TileTaxonomy.{h,cpp}`, tous les `core::TileType` couverts).
-- **Outils** (`ToolPanel`) — Pinceau / Rectangle / Sélection / Lien (`EditorTool`), disposition
-  décrite hors code dans `Elements/UI/ToolPanel.ui`.
+- **Décors** (`DecorsPanel`, `LOT-57`) — regroupe la barre d'outils de l'éditeur (six outils +
+  commandes, `hmi::EditorActions`), le placement de décors (`LOT-49`) et l'inspecteur des décors
+  posés (`LOT-50`, déplacé du panneau Textures) ; disposition décrite hors code dans
+  `Elements/UI/DecorsPanel.ui`.
 - **Niveaux** (`LevelBrowserPanel`) — liste/recherche du dossier `Levels`, création / renommage /
   duplication / suppression, déléguant aux opérations fichiers pures.
 - **Liens** (`LinkPanel`) — liaisons déclencheur → cible (interrupteur/plaque → porte, danger

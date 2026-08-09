@@ -36,7 +36,7 @@ menubar.reset_layout = Reset layout
 
 # Dock panels
 dock.palette = Palette
-dock.tools = Tools
+dock.decors = Decors
 dock.levels = Levels
 dock.links = Links
 dock.textures = Textures
@@ -77,15 +77,14 @@ textures.animations_preview = Preview
 textures.animations_complete = Complete
 textures.animations_missing = Missing
 
-# "Decors" section of the Textures panel (LOT-50)
-textures.section_decors = Decors
-textures.decors_column_asset = Asset
-textures.decors_column_layer = Layer
-textures.decors_forward = Bring forward
-textures.decors_backward = Send backward
-textures.decors_center = Center
-textures.decors_remove = Remove
-textures.decors_missing_asset = Asset not found in Assets/Decors/
+# Decor inspector of the Decors panel (LOT-50, moved from the Textures panel in LOT-57)
+decors.column_asset = Asset
+decors.column_layer = Layer
+decors.forward = Bring forward
+decors.backward = Send backward
+decors.center = Center
+decors.remove = Remove
+decors.missing_asset = Asset not found in Assets/Decors/
 
 # Shared asset library (LOT-43)
 assets.search = Search…

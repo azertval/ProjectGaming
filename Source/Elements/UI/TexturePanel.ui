@@ -166,54 +166,6 @@
        </item>
       </layout>
      </widget>
-     <!-- Section « Décors » (LOT-50 TACHE-04) : liste des décors du niveau, groupés par couche et
-          dans l'ordre de superposition (hmi::buildDecorListRows), avec sélection croisée avec le
-          canevas et actions de réordonnancement/changement de couche/suppression/centrage. -->
-     <widget class="QWidget" name="decorsTab">
-      <attribute name="title"><string>Décors</string></attribute>
-      <layout class="QVBoxLayout" name="decorsLayout">
-       <item>
-        <widget class="QTableView" name="decorsTable">
-         <property name="selectionBehavior"><enum>QAbstractItemView::SelectRows</enum></property>
-         <property name="selectionMode"><enum>QAbstractItemView::SingleSelection</enum></property>
-         <property name="editTriggers"><set>QAbstractItemView::NoEditTriggers</set></property>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="decorsActionsLayout">
-         <item>
-          <widget class="QPushButton" name="decorForwardButton">
-           <property name="text"><string>Avancer</string></property>
-           <property name="enabled"><bool>false</bool></property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="decorBackwardButton">
-           <property name="text"><string>Reculer</string></property>
-           <property name="enabled"><bool>false</bool></property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QComboBox" name="decorLayerCombo">
-           <property name="enabled"><bool>false</bool></property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="decorCenterButton">
-           <property name="text"><string>Centrer</string></property>
-           <property name="enabled"><bool>false</bool></property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="decorRemoveButton">
-           <property name="text"><string>Supprimer</string></property>
-           <property name="enabled"><bool>false</bool></property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
     </widget>
    </item>
   </layout>

@@ -155,7 +155,7 @@ add_executable(ProjectGaming
     Interface/GamepadBindingsWidget.cpp
     # Éditeur de niveau
     Editor/PalettePanel.cpp
-    Editor/ToolPanel.cpp
+    Editor/DecorsPanel.cpp
     Editor/LevelBrowserPanel.cpp
     Editor/LinkPanel.cpp
     Editor/TileTaxonomy.cpp
@@ -185,7 +185,7 @@ add_executable(ProjectGaming
     ${ELEMENTS_UI}/MainWindow.ui
     ${ELEMENTS_UI}/MainMenu.ui
     ${ELEMENTS_UI}/OptionsPage.ui
-    ${ELEMENTS_UI}/ToolPanel.ui
+    ${ELEMENTS_UI}/DecorsPanel.ui
     ${ELEMENTS_UI}/TexturePanel.ui
     ${ELEMENTS_UI}/LevelBrowserPanel.ui
     ${ELEMENTS_UI}/AssetThumbnailView.ui

@@ -55,7 +55,7 @@ public:
 
     /// Coche l'action de l'outil actif **sans** émettre `triggered` : resynchronisation depuis la
     /// touche dédiée de `GameViewport` (remappable, `EditorAction::TextureAssignTool`), même garde
-    /// que `ToolPanel::setActiveTool`.
+    /// que `DecorsPanel::setActiveTool`.
     void setActiveTool(EditorTool tool);
 
     /// Active/désactive les six commandes qui n'ont de sens qu'en édition (Enregistrer, Essayer,

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DecorsPanel</class>
+ <!-- Panneau « Décors » (LOT-57, amendement post-essai manuel) : regroupe la barre d'outils de
+      l'éditeur, le placement de décors (LOT-49, ex-panneau « Outils ») et l'inspecteur des décors
+      posés (LOT-50, ex-onglet « Décors » du panneau Textures). Les libellés posés ici sont des
+      repères pour Qt Designer : retranslateUi les remplace tous (EX-REN-033). -->
+ <widget class="QWidget" name="DecorsPanel">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QVBoxLayout" name="toolBarContainerLayout">
+     <property name="leftMargin"><number>0</number></property>
+     <property name="rightMargin"><number>0</number></property>
+     <property name="topMargin"><number>0</number></property>
+     <property name="bottomMargin"><number>0</number></property>
+    </layout>
+   </item>
+   <!-- Placement (LOT-49) : n'a de sens que pour l'outil Décor, masqué sinon (setActiveTool). -->
+   <item>
+    <widget class="QWidget" name="decorPickerGroup">
+     <layout class="QVBoxLayout" name="decorPickerGroupLayout">
+      <property name="leftMargin"><number>0</number></property>
+      <property name="rightMargin"><number>0</number></property>
+      <property name="topMargin"><number>0</number></property>
+      <property name="bottomMargin"><number>0</number></property>
+      <item>
+       <widget class="QComboBox" name="decorPlacementLayerCombo"/>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="decorSnapCheckBox">
+        <property name="text"><string>Aimanter à la grille</string></property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="decorPickerContainerLayout">
+        <property name="leftMargin"><number>0</number></property>
+        <property name="rightMargin"><number>0</number></property>
+        <property name="topMargin"><number>0</number></property>
+        <property name="bottomMargin"><number>0</number></property>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <!-- Inspecteur (LOT-50, déplacé de TexturePanel) : toujours visible, indépendant de l'outil
+        actif, même principe que les inspecteurs Objets/Décors du panneau Textures (LOT-57
+        TACHE-03). -->
+   <item>
+    <widget class="QTableView" name="decorsTable">
+     <property name="selectionBehavior"><enum>QAbstractItemView::SelectRows</enum></property>
+     <property name="selectionMode"><enum>QAbstractItemView::SingleSelection</enum></property>
+     <property name="editTriggers"><set>QAbstractItemView::NoEditTriggers</set></property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="decorsActionsLayout">
+     <item>
+      <widget class="QPushButton" name="decorForwardButton">
+       <property name="text"><string>Avancer</string></property>
+       <property name="enabled"><bool>false</bool></property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="decorBackwardButton">
+       <property name="text"><string>Reculer</string></property>
+       <property name="enabled"><bool>false</bool></property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="decorSelectedLayerCombo">
+       <property name="enabled"><bool>false</bool></property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="decorCenterButton">
+       <property name="text"><string>Centrer</string></property>
+       <property name="enabled"><bool>false</bool></property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="decorRemoveButton">
+       <property name="text"><string>Supprimer</string></property>
+       <property name="enabled"><bool>false</bool></property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="spacer">
+     <property name="orientation"><enum>Qt::Vertical</enum></property>
+     <property name="sizeHint" stdset="0"><size><width>0</width><height>0</height></size></property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

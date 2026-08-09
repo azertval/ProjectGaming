@@ -32,7 +32,7 @@ std::string formatTwo(const std::string& templateText, int first, int second) {
     return replacePlaceholder(formatOne(templateText, first), "%2", std::to_string(second));
 }
 
-// Cle de traduction du libelle court d'un outil (deja utilisees par ToolPanel/EditorActions).
+// Cle de traduction du libelle court d'un outil (deja utilisees par EditorActions).
 const char* toolLabelKey(EditorTool tool) {
     switch (tool) {
         case EditorTool::Paint:

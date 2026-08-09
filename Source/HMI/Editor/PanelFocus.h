@@ -32,7 +32,8 @@ constexpr int PANEL_FOCUS_CATALOG_COUNT = 2;
 [[nodiscard]] const std::array<PanelFocusEntry, PANEL_FOCUS_CATALOG_COUNT>& panelFocusCatalog();
 
 /// @return Le panneau à mettre en avant pour @p tool, ou `std::nullopt` si cet outil n'en a pas
-///         (ses contrôles vivent ailleurs, ex. le panneau Outils pour l'outil Décor).
+///         (ses contrôles vivent ailleurs, ex. le panneau Décors pour l'outil Décor -- non tabifié,
+///         une mise en avant n'y aurait aucun effet).
 [[nodiscard]] std::optional<PanelId> panelForTool(EditorTool tool);
 
 }  // namespace hmi

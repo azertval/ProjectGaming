@@ -26,7 +26,6 @@
 #include <QString>
 #include <QStyleHints>
 #include <QTimer>
-#include <QToolBar>
 #include <QVBoxLayout>
 #include <QWidget>
 #include <array>
@@ -39,10 +38,10 @@
 #include "HMI/Editor/EditorStatus.h"
 #include "HMI/Editor/LevelBrowserPanel.h"
 #include "HMI/Editor/LinkPanel.h"
+#include "HMI/Editor/DecorsPanel.h"
 #include "HMI/Editor/PanelFocus.h"
 #include "HMI/Editor/TexturePanel.h"
 #include "HMI/Editor/PalettePanel.h"
-#include "HMI/Editor/ToolPanel.h"
 #include "HMI/Game/GameViewport.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Input/GamepadButton.h"
@@ -61,7 +60,8 @@ namespace {
 // Version de la disposition sérialisée : à incrémenter si l'ensemble des docks change, pour
 // invalider proprement une disposition sauvegardée devenue incompatible (`restoreState`).
 constexpr int LAYOUT_VERSION =
-    4;  // 4 : panneaux de droite regroupes en onglets par defaut (LOT-57 TACHE-02)
+    5;  // 5 : panneau Outils devenu Decors (barre d'outils + inspecteur), Textures sort du
+        //     regroupement en onglets (LOT-57, amendement post-essai manuel)
 
 // Clés de persistance (portée application ; l'organisation/appli sont fixées dans `main`,
 // HMI/main.cpp).
@@ -82,11 +82,10 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
       _viewport(new GameViewport()),
       _palette(nullptr),
       _levels(nullptr),
-      _tools(nullptr),
+      _decors(nullptr),
       _links(nullptr),
       _textures(nullptr),
       _actions(nullptr),
-      _toolBar(nullptr),
       _themeMenu(nullptr),
       _themeSystemAction(nullptr),
       _themeLightAction(nullptr),
@@ -126,9 +125,9 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_palette, &PalettePanel::tileSelected, _viewport,
             [this](core::TileType type) { _viewport->setActiveTile(type); });
     // Raccourci clavier de l'outil « Texture par instance » (LOT-45, « touche dédiée ») :
-    // resynchronise le panneau Outils (visibilité du sélecteur de décor) et la barre d'outils
+    // resynchronise le panneau Décors (visibilité du sélecteur de placement) et la barre d'outils
     // (LOT-56 TACHE-04), sans reboucler (setActiveTool n'émet rien).
-    connect(_viewport, &GameViewport::toolChanged, _tools, &ToolPanel::setActiveTool);
+    connect(_viewport, &GameViewport::toolChanged, _decors, &DecorsPanel::setActiveTool);
     connect(_viewport, &GameViewport::toolChanged, _actions, &EditorActions::setActiveTool);
     // Les messages d'état du viewport (enregistrement, essai, erreurs) s'affichent en bas, puis
     // laissent la main à l'aide contextuelle (LOT-57 TACHE-01).
@@ -162,7 +161,7 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
         _links->refresh(_viewport->draft());
         _textures->setLevelProperties(_viewport->draft().background(), _viewport->draft().skinSet());
         _textures->refreshObjects(_viewport->draft());
-        _textures->refreshDecors(_viewport->draft(), _viewport->selectedDecorIndex());
+        _decors->refreshDecors(_viewport->draft(), _viewport->selectedDecorIndex());
         refreshStatusHelp();  // nom du niveau et indicateur de modification (LOT-57 TACHE-01).
     });
     connect(_links, &LinkPanel::linkSelected, _viewport, &GameViewport::setHighlightedLink);
@@ -182,35 +181,36 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_textures, &TexturePanel::textureOverrideRemoveRequested, _viewport,
             &GameViewport::removeTextureOverride);
 
-    // Outil Décor (LOT-49 TACHE-04) : choisir un asset/une couche dans le panneau Outils arme le
+    // Outil Décor (LOT-49 TACHE-04) : choisir un asset/une couche dans le panneau Décors arme le
     // clic de placement du viewport, même séparation que la section « Objets » ci-dessus.
-    connect(_tools, &ToolPanel::decorAssetSelected, _viewport, [this](const QString& fileName) {
+    connect(_decors, &DecorsPanel::decorAssetSelected, _viewport, [this](const QString& fileName) {
         _viewport->setActiveDecorAsset(
             fileName.isEmpty() ? std::nullopt : std::make_optional(fileName.toStdString()));
     });
-    connect(_tools, &ToolPanel::decorLayerSelected, _viewport, &GameViewport::setActiveDecorLayer);
-    connect(_tools, &ToolPanel::decorSnapToGridChanged, _viewport, &GameViewport::setDecorSnapToGrid);
+    connect(_decors, &DecorsPanel::decorLayerSelected, _viewport, &GameViewport::setActiveDecorLayer);
+    connect(_decors, &DecorsPanel::decorSnapToGridChanged, _viewport,
+            &GameViewport::setDecorSnapToGrid);
     _textures->refreshObjects(_viewport->draft());  // etat initial (avant tout draftChanged).
 
-    // Section « Décors » (LOT-50 TACHE-04) : sélection croisée avec le canevas -- une seule
-    // source (`hmi::GameViewport::selectedDecorIndex`), les deux vues ne font que la refléter.
-    // Les actions de la liste (réordonner/changer de couche/supprimer/centrer) passent par les
-    // mêmes mutateurs que le canevas (TACHE-01), donc annulables.
-    connect(_textures, &TexturePanel::decorSelected, _viewport, &GameViewport::selectDecor);
+    // Inspecteur de décors (LOT-50 TACHE-04, déplacé dans le panneau Décors LOT-57) : sélection
+    // croisée avec le canevas -- une seule source (`hmi::GameViewport::selectedDecorIndex`), les
+    // deux vues ne font que la refléter. Les actions de la liste (réordonner/changer de
+    // couche/supprimer/centrer) passent par les mêmes mutateurs que le canevas, donc annulables.
+    connect(_decors, &DecorsPanel::decorSelected, _viewport, &GameViewport::selectDecor);
     connect(_viewport, &GameViewport::decorSelectionChanged, this,
             [this](std::optional<std::size_t> index) {
-                _textures->refreshDecors(_viewport->draft(), index);
+                _decors->refreshDecors(_viewport->draft(), index);
             });
-    connect(_textures, &TexturePanel::decorForwardRequested, _viewport,
+    connect(_decors, &DecorsPanel::decorForwardRequested, _viewport,
             &GameViewport::bringDecorForward);
-    connect(_textures, &TexturePanel::decorBackwardRequested, _viewport,
+    connect(_decors, &DecorsPanel::decorBackwardRequested, _viewport,
             &GameViewport::sendDecorBackward);
-    connect(_textures, &TexturePanel::decorLayerChangeRequested, _viewport,
+    connect(_decors, &DecorsPanel::decorLayerChangeRequested, _viewport,
             &GameViewport::setDecorLayer);
-    connect(_textures, &TexturePanel::decorRemoveRequested, _viewport, &GameViewport::removeDecor);
-    connect(_textures, &TexturePanel::decorCenterRequested, _viewport,
+    connect(_decors, &DecorsPanel::decorRemoveRequested, _viewport, &GameViewport::removeDecor);
+    connect(_decors, &DecorsPanel::decorCenterRequested, _viewport,
             &GameViewport::centerCameraOnDecor);
-    _textures->refreshDecors(_viewport->draft(), _viewport->selectedDecorIndex());
+    _decors->refreshDecors(_viewport->draft(), _viewport->selectedDecorIndex());
 
     // Panneau Textures : agit sur le catalogue dont le viewport est proprietaire, et lui signale
     // le jeu courant. Aucune scene n'est reconstruite -- l'apparence est resolue a la composition,
@@ -251,6 +251,7 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_textures, &TexturePanel::reloadRequested, this, [this] {
         _viewport->reloadAssets();
         _textures->reloadAssets();
+        _decors->reloadDecorThumbnails();  // LOT-57 : vignettes de l'inspecteur de decors.
         _palette->clearThumbnailCache();
         _palette->refreshThumbnails(_viewport->renderMode(), _textures->currentSet());
         showTransientStatusMessage(text("textures.reload_done"), 3000);
@@ -310,7 +311,6 @@ void MainWindow::showMenu() {
     _stack->setCurrentWidget(_menu);
     setDocksVisible(false);
     menuBar()->setVisible(false);  // pas de barre de menu sur l'écran d'accueil
-    _toolBar->setVisible(false);
     _actions->setEditingCommandsEnabled(false);
     _statusMessageTimer->stop();
     refreshStatusHelp();  // hors édition : zones et aide vides (aucun résidu d'état d'édition).
@@ -322,7 +322,6 @@ void MainWindow::showEditor() {
     _stack->setCurrentWidget(_editorContainer);
     setDocksVisible(true);
     menuBar()->setVisible(true);
-    _toolBar->setVisible(true);
     _actions->setEditingCommandsEnabled(true);
     _statusMessageTimer->stop();
     refreshStatusHelp();
@@ -336,7 +335,6 @@ void MainWindow::showGame() {
     _stack->setCurrentWidget(_editorContainer);
     setDocksVisible(false);
     menuBar()->setVisible(false);
-    _toolBar->setVisible(false);
     _actions->setEditingCommandsEnabled(false);
     _statusMessageTimer->stop();
     refreshStatusHelp();  // jeu : menuBar masquee -> contexte de niveau absent (pas de residu).
@@ -369,7 +367,6 @@ void MainWindow::showOptions() {
     _stack->setCurrentWidget(_options);
     setDocksVisible(false);
     menuBar()->setVisible(false);
-    _toolBar->setVisible(false);
     _actions->setEditingCommandsEnabled(false);
     _statusMessageTimer->stop();
     refreshStatusHelp();
@@ -379,13 +376,28 @@ void MainWindow::showOptions() {
 MainWindow::~MainWindow() = default;
 
 void MainWindow::buildUi() {
-    // Contenu des docks : les coquilles (`PalettePanel`/`ToolPanel`/`LevelsPanel`) et leur
+    // Outils et commandes principales (LOT-56 TACHE-04) : une action unique par commande, partagée
+    // entre la barre d'outils, le menu et son raccourci (plus de double définition). Construites
+    // avant les panneaux : le panneau Décors a besoin de `_actions` pour peupler sa barre d'outils
+    // embarquée (LOT-57, amendement). Icônes construites depuis le thème d'éditeur actuellement
+    // effectif ; régénérées par `EditorActions::refreshIcons` lors d'un changement de thème
+    // (TACHE-06).
+    _actions = new EditorActions(hmi::currentEditorTokens(), this);
+    // Raccourcis effectifs synchronises depuis les touches d'editeur remappables (LOT-57 TACHE-04) :
+    // ActionCatalog reste sans dependance Qt (valeurs par defaut litterales), c'est ici que le
+    // raccourci REELLEMENT actif est branche sur EditorKeyBindings.
+    _actions->applyShortcuts(_viewport->editorBindings(), _loc);
+
+    // Contenu des docks : les coquilles (`PalettePanel`/`DecorsPanel`/`LevelsPanel`) et leur
     // agencement viennent du `.ui` ; leurs widgets, paramétrés (chemins, dépendances), sont créés
     // en code.
     _palette = new PalettePanel(_ui->PalettePanel);
     _ui->PalettePanel->setWidget(_palette);
-    _tools = new ToolPanel(hmi::executableDirectory() / "Assets" / "Decors", _ui->ToolPanel);
-    _ui->ToolPanel->setWidget(_tools);
+    // Panneau Décors (LOT-57, amendement) : barre d'outils + placement + inspecteur, regroupés --
+    // l'ancien panneau « Outils » ne portait déjà plus que le décor (LOT-56 TACHE-04).
+    _decors = new DecorsPanel(hmi::executableDirectory() / "Assets" / "Decors", *_actions,
+                              _ui->DecorsPanel);
+    _ui->DecorsPanel->setWidget(_decors);
     _levels = new LevelBrowserPanel(hmi::executableDirectory() / "Levels", _ui->LevelsPanel);
     _ui->LevelsPanel->setWidget(_levels);
     _links = new LinkPanel(_ui->LinksPanel);
@@ -395,22 +407,21 @@ void MainWindow::buildUi() {
     _textures = new TexturePanel(hmi::executableDirectory() / "Assets" / "Skins",
                                  hmi::executableDirectory() / "Assets" / "skins.json",
                                  hmi::executableDirectory() / "Assets" / "Backgrounds",
-                                 hmi::executableDirectory() / "Assets" / "Objects",
-                                 hmi::executableDirectory() / "Assets" / "Decors",
-                                 _ui->TexturesPanel);
+                                 hmi::executableDirectory() / "Assets" / "Objects", _ui->TexturesPanel);
     _ui->TexturesPanel->setWidget(_textures);
 
-    // Regroupement par defaut des panneaux de droite en onglets (LOT-57 TACHE-02) : chacun reste
-    // individuellement deplacable/detachable/refermable (EX-IHM-010), seule la disposition par
-    // defaut change. Doit preceder la capture de _defaultState (constructeur, apres buildUi()).
+    // Regroupement par defaut des panneaux Niveaux/Liens en onglets (LOT-57 TACHE-02) : chacun
+    // reste individuellement deplacable/detachable/refermable (EX-IHM-010), seule la disposition
+    // par defaut change. Textures redevient un dock independant, comme Palette/Decors (LOT-57,
+    // amendement post-essai manuel). Doit preceder la capture de _defaultState (constructeur,
+    // apres buildUi()).
     tabifyDockWidget(_ui->LevelsPanel, _ui->LinksPanel);
-    tabifyDockWidget(_ui->LinksPanel, _ui->TexturesPanel);
     // Un changement de visibilite d'un de ces docks NON provoque par notre propre code (mise en
     // avant, bascule de mode, restauration de disposition -- toutes gardees par
     // _suppressPanelFocusTracking) ne peut venir que d'un choix explicite de l'utilisateur : cliquer
     // un onglet ou fermer/rouvrir le panneau. Meme principe pour un detachement (topLevelChanged),
     // toujours explicite, jamais gardee.
-    for (QDockWidget* const dock : {_ui->LevelsPanel, _ui->LinksPanel, _ui->TexturesPanel}) {
+    for (QDockWidget* const dock : {_ui->LevelsPanel, _ui->LinksPanel}) {
         connect(dock, &QDockWidget::visibilityChanged, this, [this](bool) {
             if (!_suppressPanelFocusTracking) {
                 _userPickedTab = true;
@@ -418,20 +429,6 @@ void MainWindow::buildUi() {
         });
         connect(dock, &QDockWidget::topLevelChanged, this, [this](bool) { _userPickedTab = true; });
     }
-
-    // Outils et commandes principales (LOT-56 TACHE-04) : une action unique par commande,
-    // partagée entre la barre d'outils, le menu et son raccourci (plus de double définition).
-    // Icônes construites depuis le thème d'éditeur actuellement effectif ; régénérées par
-    // EditorActions::refreshIcons lors d'un changement de thème (TACHE-06).
-    _actions = new EditorActions(hmi::currentEditorTokens(), this);
-    // Raccourcis effectifs synchronises depuis les touches d'editeur remappables (LOT-57 TACHE-04) :
-    // ActionCatalog reste sans dependance Qt (valeurs par defaut litterales), c'est ici que le
-    // raccourci REELLEMENT actif est branche sur EditorKeyBindings.
-    _actions->applyShortcuts(_viewport->editorBindings(), _loc);
-    _toolBar = addToolBar(QStringLiteral("EditorToolBar"));
-    _toolBar->setObjectName(QStringLiteral("EditorToolBar"));
-    _toolBar->setMovable(false);
-    _actions->populateToolBar(*_toolBar);
 
     for (const hmi::EditorTool tool : {hmi::EditorTool::Paint, hmi::EditorTool::Rectangle,
                                        hmi::EditorTool::Selection, hmi::EditorTool::Link,
@@ -576,7 +573,7 @@ void MainWindow::buildUi() {
     // ».
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->PalettePanel->toggleViewAction());
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->LevelsPanel->toggleViewAction());
-    _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->ToolPanel->toggleViewAction());
+    _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->DecorsPanel->toggleViewAction());
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->LinksPanel->toggleViewAction());
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->TexturesPanel->toggleViewAction());
     _ui->viewMenu->insertSeparator(_ui->actResetLayout);
@@ -822,7 +819,7 @@ void MainWindow::retranslateUi() {
 
     // Panneaux dockables (les actions « toggle » du menu Affichage suivent le titre du dock).
     _ui->PalettePanel->setWindowTitle(text("dock.palette"));
-    _ui->ToolPanel->setWindowTitle(text("dock.tools"));
+    _ui->DecorsPanel->setWindowTitle(text("dock.decors"));
     _ui->LevelsPanel->setWindowTitle(text("dock.levels"));
     _ui->LinksPanel->setWindowTitle(text("dock.links"));
     _ui->TexturesPanel->setWindowTitle(text("dock.textures"));
@@ -854,7 +851,7 @@ void MainWindow::retranslateUi() {
     _menu->retranslateUi(_loc);
     _options->retranslateUi(_loc);
     _palette->retranslateUi(_loc);
-    _tools->retranslateUi(_loc);
+    _decors->retranslateUi(_loc);
     _levels->retranslateUi(_loc);
     _links->retranslateUi(_loc);
     _textures->retranslateUi(_loc);

@@ -3,9 +3,9 @@
 namespace hmi {
 
 const std::array<PanelFocusEntry, PANEL_FOCUS_CATALOG_COUNT>& panelFocusCatalog() {
-    // Outil Décor volontairement absent : ses contrôles d'auteur vivent dans le panneau Outils
-    // (bloc démasqué par ToolPanel::setActiveTool), l'onglet Décors du panneau Textures n'étant
-    // qu'un inspecteur d'un décor déjà posé, pas la surface de l'outil.
+    // Outil Décor volontairement absent : ses contrôles (placement et inspection) vivent dans le
+    // panneau Décors (`DecorsPanel`, `LOT-57`), qui n'est tabifié avec aucun autre panneau -- le
+    // mettre en avant n'aurait aucun effet visible (rien à faire passer devant un onglet voisin).
     static const std::array<PanelFocusEntry, PANEL_FOCUS_CATALOG_COUNT> catalog{{
         {EditorTool::Link, PanelId::Links},
         {EditorTool::TextureAssign, PanelId::Textures},

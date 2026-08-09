@@ -37,7 +37,7 @@ menubar.reset_layout = Réinitialiser la disposition
 
 # Panneaux dockables
 dock.palette = Palette
-dock.tools = Outils
+dock.decors = Décors
 dock.levels = Niveaux
 dock.links = Liens
 dock.textures = Textures
@@ -78,15 +78,14 @@ textures.animations_preview = Aperçu
 textures.animations_complete = Complet
 textures.animations_missing = Manquants
 
-# Section « Décors » du panneau Textures (LOT-50)
-textures.section_decors = Décors
-textures.decors_column_asset = Asset
-textures.decors_column_layer = Couche
-textures.decors_forward = Avancer
-textures.decors_backward = Reculer
-textures.decors_center = Centrer
-textures.decors_remove = Supprimer
-textures.decors_missing_asset = Asset introuvable dans Assets/Decors/
+# Inspecteur de décors du panneau Décors (LOT-50, déplacé du panneau Textures en LOT-57)
+decors.column_asset = Asset
+decors.column_layer = Couche
+decors.forward = Avancer
+decors.backward = Reculer
+decors.center = Centrer
+decors.remove = Supprimer
+decors.missing_asset = Asset introuvable dans Assets/Decors/
 
 
 # Bibliotheque d'assets partagee (LOT-43)
