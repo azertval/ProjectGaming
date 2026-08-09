@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-09-tache-05-enchainement-niveaux.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-09-saut-game-feel_2tache-05-enchainement-niveaux"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-09.html#md_Lot_2LOT-09-saut-game-feel_2epic" title="Lot/LOT-09-saut-game-feel/epic.md">LOT-09</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Interface</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md739"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md740"></a>
 Contexte</h1>
 <p>Aujourd'hui, « Charger niveau » ouvre <b>un</b> niveau et la réussite revient au menu. On veut une <b>progression</b> (<span class="tt">EX-LVL-010</span>, <span class="tt">EX-LVL-011</span>) : écran titre → niveau 1 → niveau 2 → … → dernier → retour au titre. La simulation <span class="tt">Core</span> ne connaît qu'<b>un niveau à la fois</b> ; l'enchaînement est une responsabilité <b>d'orchestration</b>, donc côté <span class="tt">HMI</span> (<span class="tt">GameScreen</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md740"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md741"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Séquence ordonnée</b> : le <span class="tt">GameScreen</span> reçoit une <b>liste ordonnée</b> de chemins de niveaux (plutôt qu'un chemin unique) et un <b>indice courant</b> (démarrage à 0). Adapter la <b>fabrique d'écrans</b> (menu « Charger niveau ») pour fournir cette liste.<ul>
@@ -112,19 +112,19 @@ Travail à réaliser</h1>
 </li>
 <li><b>Échec</b> : inchangé (redémarrage du <b>niveau courant</b> à l'entrée). <b>Échap</b> : retour au menu.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md741"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md742"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/GameScreen.h</span>/<span class="tt">.cpp</span> (liste + indice, <span class="tt">loadLevel</span>, transition de réussite).</li>
 <li>La <b>fabrique</b> d'écrans (là où <span class="tt">GameScreen</span> est construit avec un chemin — <span class="tt">MenuScreen</span>/ <span class="tt">ScreenManager</span>/<span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span>) : fournir la séquence.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md742"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md743"></a>
 Vérification / tests</h1>
 <ul>
 <li><b>Logique testable</b> : isoler autant que possible la <b>décision de progression</b> (indice courant, « y a-t-il un suivant ? », prochain indice) dans une petite logique <b>pure</b> testable sans GPU (ex. un <span class="tt">LevelSequence</span> : <span class="tt">current()</span>, <span class="tt">advance()</span>, <span class="tt">isFinished()</span>), couverte par tests unitaires.</li>
 <li>L'<b>intégration</b> GPU (rechargement de scène, rendu) est vérifiée <b>visuellement</b> ; le franchissement effectif de la séquence est prouvé par le test d'intégration de la TACHE-06.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md743"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md744"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Monde neuf entre niveaux</b> : si <span class="tt"><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">core::World</a></span> n'est pas ré-assignable simplement, prévoir une remise à zéro explicite ; ne pas laisser d'entités du niveau précédent.</li>
@@ -132,12 +132,12 @@ Points d'attention</h1>
 <li><b>Extensibilité</b> : ajouter un niveau ne doit pas demander de modifier la logique d'enchaînement.</li>
 <li><b>Robustesse</b> : une séquence <b>vide</b> ou un niveau <b>illisible</b> ne doit pas planter (état neutre récupérable, <span class="tt">EX-NFR-040</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md744"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md745"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Réussite → niveau suivant chargé ; après le dernier → retour titre ; échec → redémarrage du niveau courant. Logique de séquence <b>testée</b> (<span class="tt">ctest</span> vert) ; enchaînement <b>vérifié visuellement</b> ; build <span class="tt">/W4 /WX</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md745"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md746"></a>
 Exigences</h1>
 <p><span class="tt">EX-LVL-010</span>, <span class="tt">EX-LVL-011</span>, <span class="tt">EX-NFR-010</span>, <span class="tt">EX-NFR-040</span>, <span class="tt">EX-ARCH-030</span>. </p>
 </div></div><!-- contents -->

@@ -96,13 +96,13 @@ $(function(){initNavTree('lot-50.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-49.html" title="LOT-49 — Décors libres : modèle, rendu et parallaxe">LOT-49</a> (modèle et rendu des décors), <a class="el" href="lot-43.html" title="LOT-43 — Bibliothèque d&#39;assets : vignettes, import, rechargement à chaud">LOT-43</a> (bibliothèque d'assets). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2201"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2202"></a>
 Objectif</h1>
 <p>Rendre les décors réellement utilisables par le level designer. LOT-49 pose le modèle, le rendu et un placement minimal ; ce lot livre l'outillage d'édition demandé par <span class="tt">EX-DEC-010</span> et <span class="tt">EX-EDIT-040</span> : placer, sélectionner, déplacer, redimensionner, changer de couche, réordonner et supprimer.</p>
 <p>C'est la différence entre « le format supporte les décors » et « on peut composer un décor ».</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2202"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2203"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2203"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2204"></a>
 Inclus</h2>
 <ul>
 <li><b>Nouvelle valeur <span class="tt"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou le panneau ToolPanel.">hmi::EditorTool</a></span></b> (ex. <em>DecorPlace</em>) et <b>geste pur</b> modelé sur <span class="tt"><a class="el" href="namespacehmi.html#a7f0f0f4f71e52b8deb6fb88a8d6411d9" title="Résout le clic de l&#39;outil « Lien » sur clickedCell selon l&#39;attente courante.">hmi::resolveLinkClick</a></span>/<span class="tt">LinkGesture</span> (LOT-37) : la machine à états du geste est une fonction testable sans Qt ni GPU, l'UI n'en est que le déclencheur.</li>
@@ -111,7 +111,7 @@ Inclus</h2>
 <li><b>Sélection visuelle</b> : mise en évidence du décor sélectionné et de ses poignées, sur le calque d'aides d'édition (<em>EditorOverlay</em>), jamais en jeu.</li>
 <li><b>Section « Décors » du panneau « Textures »</b> (LOT-42) : liste des décors du niveau courant, regroupés par couche, avec sélection croisée avec le canevas.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2204"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2205"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li>Manipulation par le joueur en cours de partie (<span class="tt">EX-DEC-020</span>/<span class="tt">EX-DEC-021</span>) : hors programme.</li>
@@ -119,7 +119,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li>Conversion photo → pixel art (<span class="tt">EX-EDIT-041</span>) : hors programme.</li>
 <li>Alignement automatique entre décors, guides magnétiques.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2205"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2206"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Geste pur, UI mince</b> : même parti que <span class="tt">LinkGesture</span> (LOT-37). La logique de sélection, de déplacement et de redimensionnement est une fonction déterministe sur des données, testable sans fenêtre — l'éditeur Qt ne fait que router les événements.</li>
@@ -127,13 +127,13 @@ Décisions de cadrage</h1>
 <li><b>Aimantation désactivable, jamais imposée</b> : imposer la grille annulerait l'intérêt même du décor libre.</li>
 <li><b>Aucun nouveau mécanisme d'historique</b> : tout passe par <span class="tt">LevelDraft::State</span>, comme le reste.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2206"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2207"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Concrétisées : <span class="tt">EX-DEC-010</span> (placer, déplacer, redimensionner, superposer, supprimer), <span class="tt">EX-EDIT-040</span> (édition de décors dans l'éditeur).</li>
 <li>Réutilisées : <span class="tt">EX-DEC-001</span>/<span class="tt">EX-DEC-002</span> (objet libre, couches), <span class="tt">EX-EDIT-010</span> (réutilisation du modèle <span class="tt">Core</span>), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-IHM-010</span> (fenêtre à panneaux).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2207"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2208"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -150,7 +150,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-50-tache-04-section-decors.html#md_Lot_2LOT-50-decors-edition_2tache-04-section-decors" title="Lot/LOT-50-decors-edition/tache-04-section-decors.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Section « Décors » du panneau « Textures », sélection croisée avec le canevas  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Editor</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2208"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2209"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Un décor peut être placé, sélectionné, déplacé, redimensionné, pivoté, changé de couche, réordonné et supprimé depuis l'éditeur.</li>
@@ -159,10 +159,10 @@ Critères d'acceptation du lot</h1>
 <li>Les aides visuelles de sélection n'apparaissent <b>jamais</b> en mode jeu ni en mode essai.</li>
 <li>Le geste de manipulation est testé sans Qt ni GPU ; build <span class="tt">/W4 /WX</span>, Doxygen, lint verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2209"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2210"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-49.html" title="LOT-49 — Décors libres : modèle, rendu et parallaxe">LOT-49</a> (modèle et rendu) et <a class="el" href="lot-43.html" title="LOT-43 — Bibliothèque d&#39;assets : vignettes, import, rechargement à chaud">LOT-43</a> (bibliothèque). Réutilise <span class="tt">LinkGesture</span>/<span class="tt">LinkGeometry</span> (LOT-37) et l'historique de <span class="tt">LevelDraft</span> (LOT-14). Complète le périmètre inspecté par <a class="el" href="lot-51.html" title="LOT-51 — Mode « définition des textures » : visibilité par calque">LOT-51</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2210"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2211"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-50-tache-01-mutateurs-decor.html" title="TACHE-01 — Mutateurs de décors sur `LevelDraft`">TACHE-01 — Mutateurs de décors sur `LevelDraft`</a></li>

@@ -140,6 +140,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a62f53e2b305a9de0461c6c9aa3e5bc1c" id="r_a62f53e2b305a9de0461c6c9aa3e5bc1c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a62f53e2b305a9de0461c6c9aa3e5bc1c">retranslateUi</a> (const <a class="el" href="classhmi_1_1Localization.html">Localization</a> &amp;loc)</td></tr>
 <tr class="memdesc:a62f53e2b305a9de0461c6c9aa3e5bc1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique la langue active (champ de recherche, boutons, entrée « (aucun) »).  <br /></td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a6eac7d30fa8ec639d3e50d7f5596144e" id="r_a6eac7d30fa8ec639d3e50d7f5596144e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6eac7d30fa8ec639d3e50d7f5596144e">event</a> (QEvent *event) override</td></tr>
+<tr class="memdesc:a6eac7d30fa8ec639d3e50d7f5596144e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Régénère les vignettes lors d'un changement d'écran (<span class="tt">QEvent::ScreenChangeInternal</span>) : l'échelle d'affichage a pu changer (<span class="tt">LOT-56</span> TACHE-05).  <br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a1fb8a2157e16df3d5f46270bba863e2c" id="r_a1fb8a2157e16df3d5f46270bba863e2c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1fb8a2157e16df3d5f46270bba863e2c">rebuildItems</a> ()</td></tr>
@@ -339,6 +344,33 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Vide le cache de vignettes décodées, sans recharger la grille (rechargement à chaud, LOT-43 TACHE-03) — le prochain <span class="tt"><a class="el" href="#ab50f09804b6fa7292c689d85fcf7ae93" title="Recharge la grille depuis le dossier courant (après un import/renommage/suppression,...">refresh()</a></span> redécode donc chaque fichier depuis le disque. </p>
+
+</div>
+</div>
+<a id="a6eac7d30fa8ec639d3e50d7f5596144e" name="a6eac7d30fa8ec639d3e50d7f5596144e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6eac7d30fa8ec639d3e50d7f5596144e">&#9670;&#160;</a></span>event()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::AssetThumbnailView::event </td>
+          <td>(</td>
+          <td class="paramtype">QEvent *</td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Régénère les vignettes lors d'un changement d'écran (<span class="tt">QEvent::ScreenChangeInternal</span>) : l'échelle d'affichage a pu changer (<span class="tt">LOT-56</span> TACHE-05). </p>
 
 </div>
 </div>

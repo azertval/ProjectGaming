@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-42-tache-02-raccords-automatiques.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-42-skin-tuiles-autotiling_2tache-02-raccords-automatiques"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-42.html#md_Lot_2LOT-42-skin-tuiles-autotiling_2epic" title="Lot/LOT-42-skin-tuiles-autotiling/epic.md">LOT-42</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1927"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1928"></a>
 Contexte</h1>
 <p>Une image unique par type de tuile répète la même case partout : un mur de vingt tuiles affiche vingt fois le même motif, la grille reste visible, et le dessus d'une plateforme est indiscernable de son intérieur. C'est exactement la limite du rendu en couleurs plates, transposée en couleur.</p>
 <p>La solution standard consiste à choisir l'image affichée <b>en fonction des voisins solides</b> de la case, dans une planche fournie par l'auteur. Sur quatre voisins (haut, bas, gauche, droite), il y a seize configurations — d'où une planche de 4×4 cases.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1928"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1929"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Fonction pure de masque</b> : à partir de la grille (<span class="tt"><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">core::TileMap</a></span>) et d'une position, produire un masque de quatre bits indiquant quels voisins orthogonaux sont solides, via <span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></span>/<span class="tt">TileMap::isSolid</span>. <b>Aucune nouvelle surface <span class="tt">Core</span></b> n'est requise.</li>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 <li><b>Application</b> : en mode <span class="tt">bitmask16</span>, la région d'atlas d'une tuile est calculée à partir de la planche et du masque ; en mode <span class="tt">single</span>, l'image entière est utilisée.</li>
 <li><b>Contrat de planche</b> : 4×4 cases de <span class="tt">TILE_SIZE</span>, déclaré dans le contrat d'asset (LOT-40) donc validé au chargement, et documenté dans <span class="tt">Source/Elements/Assets/README.md</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1929"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1930"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/TileAutotile.{h,cpp}</span> (nouveau).</li>
@@ -115,7 +115,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Assets/README.md</span> (convention de planche).</li>
 <li><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1930"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1931"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Les seize configurations</b> de masque produisent la case attendue — test exhaustif, la table étant petite et figée.</li>
@@ -123,19 +123,19 @@ Tests (obligatoires)</h1>
 <li>Comportement au bord du niveau, conforme à la convention retenue.</li>
 <li>Tout est <b>pur</b> : ni GPU, ni Qt, ni fichier.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1931"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1932"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le voisinage est celui de la solidité, pas du type.</b> Deux types solides différents (<span class="tt">Solid</span> et <span class="tt">Block</span>) doivent-ils se raccorder ? Trancher explicitement : se raccorder au <b>même type</b> est plus prévisible visuellement, se raccorder à <b>toute solidité</b> évite les coutures. Documenter le choix.</li>
 <li>Les pentes et arrondis ne sont <b>jamais</b> solides (<span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></span> les exclut) : ils ne participent donc pas au voisinage et restent en mode <span class="tt">single</span> avec leur masque de silhouette (TACHE-03). C'est cohérent, mais il faut vérifier que le résultat visuel ne laisse pas de couture visible entre une pente et le sol plein qu'elle rejoint.</li>
 <li>Le masque dépend de la grille <b>de collision</b>, qui peut différer de la grille du niveau quand une porte est fermée (<span class="tt">MechanismController::collisionMap</span>). Utiliser la grille <b>du niveau</b> : une porte qui s'ouvre ne doit pas faire changer l'habillage des murs voisins.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1932"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1933"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Une planche 4×4 produit des bords, coins et intérieurs distincts selon le voisinage ; les seize cas sont testés ; le comportement au bord et la règle de raccord entre types sont documentés ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1933"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1934"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-025</span> (raccords automatiques) ; réutilise <span class="tt">EX-EDIT-042</span> (association type → texture), <span class="tt">EX-REN-007</span> (contrat d'asset), <span class="tt">EX-NFR-010</span> (testable sans GPU), <span class="tt">EX-GP-001</span> (tuiles solides). </p>
 </div></div><!-- contents -->

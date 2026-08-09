@@ -94,17 +94,17 @@ $(function(){initNavTree('lot-03-tache-01-math-core.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-03-fondation-ecs_2tache-01-math-core"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-03.html#md_Lot_2LOT-03-fondation-ecs_2epic" title="Lot/LOT-03-fondation-ecs/epic.md">LOT-03</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Math</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md368"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md369"></a>
 Contexte</h1>
 <p>Les composants (à commencer par <span class="tt">Transform</span>) et la physique ont besoin de types mathématiques 2D. <span class="tt">Core</span> ne devant pas dépendre de DirectX (<span class="tt">EX-ARCH-040</span>), ces types sont <b>propres au projet</b>. La conversion vers <span class="tt">DirectXMath</span> se fera plus tard, uniquement dans <span class="tt">HMI</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md369"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md370"></a>
 Travail à réaliser</h1>
 <ul>
 <li><span class="tt">Vector2</span> (composantes <span class="tt">float</span>) : addition, soustraction, multiplication/division par un scalaire, produit scalaire, longueur, normalisation, égalité.</li>
 <li><span class="tt">Rect</span> (position + dimensions en unités monde, origine haut-gauche, Y-bas) : test de <b>contenance</b> d'un point, test d'<b>intersection</b> avec un autre <span class="tt">Rect</span>.</li>
 <li>Constantes/utilitaires minimaux si nécessaires (ex. comparaison approchée de <span class="tt">float</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md370"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md371"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX).">Source/Core/Math/Vector2.h</a></span>, <span class="tt"><a class="el" href="Vector2_8cpp.html">Vector2.cpp</a></span> (nouveau).</li>
@@ -112,7 +112,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Core/CMakeLists.txt</span> (ajout des sources).</li>
 <li><span class="tt">Source/Test/Unit/test_vector2.cpp</span>, <span class="tt"><a class="el" href="test__rect_8cpp.html" title="Tests unitaires du rectangle aligné sur les axes de Core.">test_rect.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md371"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md372"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Opérations vectorielles : résultats attendus (somme, échelle, produit scalaire, longueur d'un <span class="tt">(3,4)</span> = 5).</li>
@@ -120,20 +120,20 @@ Tests (obligatoires)</h1>
 <li><span class="tt">Rect::contains</span> : points intérieurs, sur les bords, extérieurs.</li>
 <li><span class="tt">Rect::intersects</span> : recouvrement, contact par un bord, disjonction.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md372"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md373"></a>
 Points d'attention</h1>
 <ul>
 <li>Types <b>sans dépendance système</b> ni DirectX.</li>
 <li>Comparaisons de <span class="tt">float</span> par tolérance (pas d'<span class="tt">==</span> brut sur des résultats calculés).</li>
 <li>Conventions : <span class="tt">_camelCase</span> pour d'éventuels membres, documentation <span class="tt">.h</span> + <span class="tt">.cpp</span>, <span class="tt">[[nodiscard]]</span> sur les accès purs.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md373"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md374"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Types complets et testés (<span class="tt">ctest</span> vert), sans dépendance externe.</li>
 <li>Compile <span class="tt">/W4 /WX</span>, formaté clang-format, documenté Doxygen.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md374"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md375"></a>
 Exigences</h1>
 <p><span class="tt">EX-ARCH-040</span>, <span class="tt">EX-NFR-010</span>, <span class="tt">EX-NFR-020</span>. </p>
 </div></div><!-- contents -->

@@ -7,10 +7,17 @@ var searchData=
   ['textureassigntool_4',['TextureAssignTool',['../namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a9bf65705792468edbe653567639a35e9',1,'hmi']]],
   ['tile_5',['Tile',['../namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152',1,'hmi']]],
   ['tileskin_6',['TileSkin',['../namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003ab9f26e792765678622367e1d286be9ff',1,'hmi']]],
-  ['togglegrid_7',['ToggleGrid',['../namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a77bfa926518159e75c2c4b508a81f19e',1,'hmi']]],
+  ['togglegrid_7',['ToggleGrid',['../namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a77bfa926518159e75c2c4b508a81f19e',1,'hmi::ToggleGrid'],['../namespacehmi.html#ab269aabb94611e449a8e7427969874f5a77bfa926518159e75c2c4b508a81f19e',1,'hmi::ToggleGrid']]],
   ['togglehelp_8',['ToggleHelp',['../namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a738a0bf4b0ed8d50e7b558ecb00fa80a',1,'hmi']]],
-  ['top_9',['Top',['../namespacehmi.html#aad6be73525ade97eef38c10c8ba51be7aa4ffdcf0dc1f31b9acaf295d75b51d00',1,'hmi']]],
-  ['topleft_10',['TopLeft',['../namespacehmi.html#a85a2df4671d768ea880f930a5f87e00dab32beb056fbfe36afbabc6c88c81ab36',1,'hmi']]],
-  ['topright_11',['TopRight',['../namespacehmi.html#a85a2df4671d768ea880f930a5f87e00da1d85a557894c340c318493f33bfa8efb',1,'hmi']]],
-  ['trace_12',['Trace',['../namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1',1,'core']]]
+  ['togglerendermode_9',['ToggleRenderMode',['../namespacehmi.html#ab269aabb94611e449a8e7427969874f5ae5217b6eb03211d9550042b6fe681626',1,'hmi']]],
+  ['tooldecor_10',['ToolDecor',['../namespacehmi.html#ab269aabb94611e449a8e7427969874f5a28a04f8164a3cc874fcf0ec5b047f437',1,'hmi']]],
+  ['toollink_11',['ToolLink',['../namespacehmi.html#ab269aabb94611e449a8e7427969874f5a8702edcc86ce2556bdb66ab132e3ea81',1,'hmi']]],
+  ['toolpaint_12',['ToolPaint',['../namespacehmi.html#ab269aabb94611e449a8e7427969874f5a6977408af40dc96deb1c4c86a6d4f32e',1,'hmi']]],
+  ['toolrectangle_13',['ToolRectangle',['../namespacehmi.html#ab269aabb94611e449a8e7427969874f5aee324dd1644d8a93504aaa30147cd2bc',1,'hmi']]],
+  ['toolselection_14',['ToolSelection',['../namespacehmi.html#ab269aabb94611e449a8e7427969874f5a7252d7debae0bab6f7e97a0f9537ae7e',1,'hmi']]],
+  ['tooltextureassign_15',['ToolTextureAssign',['../namespacehmi.html#ab269aabb94611e449a8e7427969874f5a841a11a9910d4195f440dac6a99b4b83',1,'hmi']]],
+  ['top_16',['Top',['../namespacehmi.html#aad6be73525ade97eef38c10c8ba51be7aa4ffdcf0dc1f31b9acaf295d75b51d00',1,'hmi']]],
+  ['topleft_17',['TopLeft',['../namespacehmi.html#a85a2df4671d768ea880f930a5f87e00dab32beb056fbfe36afbabc6c88c81ab36',1,'hmi']]],
+  ['topright_18',['TopRight',['../namespacehmi.html#a85a2df4671d768ea880f930a5f87e00da1d85a557894c340c318493f33bfa8efb',1,'hmi']]],
+  ['trace_19',['Trace',['../namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1',1,'core']]]
 ];

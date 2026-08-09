@@ -26,6 +26,7 @@ var hierarchy =
     [ "core::ClipSet", "classcore_1_1ClipSet.html", null ],
     [ "core::Collider", "structcore_1_1Collider.html", null ],
     [ "core::Color", "structcore_1_1Color.html", null ],
+    [ "hmi::ColorTokens", "structhmi_1_1ColorTokens.html", null ],
     [ "hmi::ComposedQuad", "structhmi_1_1ComposedQuad.html", null ],
     [ "hmi::ComposedScene", "classhmi_1_1ComposedScene.html", null ],
     [ "core::DangerBlinkConfig", "structcore_1_1DangerBlinkConfig.html", null ],
@@ -42,7 +43,10 @@ var hierarchy =
     [ "hmi::DecorListRow", "structhmi_1_1DecorListRow.html", null ],
     [ "hmi::DecorOverlayState", "structhmi_1_1DecorOverlayState.html", null ],
     [ "hmi::DecorVisualTag", "structhmi_1_1DecorVisualTag.html", null ],
+    [ "hmi::DesignColor", "structhmi_1_1DesignColor.html", null ],
+    [ "hmi::DesignTokens", "structhmi_1_1DesignTokens.html", null ],
     [ "hmi::DraftRenderer", "classhmi_1_1DraftRenderer.html", null ],
+    [ "hmi::EditorActionSpec", "structhmi_1_1EditorActionSpec.html", null ],
     [ "hmi::EditorKeyBindings", "classhmi_1_1EditorKeyBindings.html", null ],
     [ "core::Engine", "classcore_1_1Engine.html", null ],
     [ "core::Entity", "structcore_1_1Entity.html", null ],
@@ -50,6 +54,7 @@ var hierarchy =
     [ "core::MemoryLogSink::Entry", "structcore_1_1MemoryLogSink_1_1Entry.html", null ],
     [ "hmi::FileOpResult", "structhmi_1_1FileOpResult.html", null ],
     [ "core::FixedTimestep", "classcore_1_1FixedTimestep.html", null ],
+    [ "hmi::FontFamilyResolution", "structhmi_1_1FontFamilyResolution.html", null ],
     [ "hmi::FontMetrics", "structhmi_1_1FontMetrics.html", null ],
     [ "hmi::FontMetricsResult", "structhmi_1_1FontMetricsResult.html", null ],
     [ "hmi::GameKeyBindings", "classhmi_1_1GameKeyBindings.html", null ],
@@ -62,6 +67,9 @@ var hierarchy =
     [ "core::IComponentPool", "classcore_1_1IComponentPool.html", [
       [ "core::ComponentPool< T >", "classcore_1_1ComponentPool.html", null ]
     ] ],
+    [ "hmi::IconGeometry", "structhmi_1_1IconGeometry.html", null ],
+    [ "hmi::IconPoint", "structhmi_1_1IconPoint.html", null ],
+    [ "hmi::IconStroke", "structhmi_1_1IconStroke.html", null ],
     [ "core::ILogSink", "classcore_1_1ILogSink.html", [
       [ "core::ConsoleLogSink", "classcore_1_1ConsoleLogSink.html", null ],
       [ "core::MemoryLogSink", "classcore_1_1MemoryLogSink.html", null ]
@@ -105,6 +113,9 @@ var hierarchy =
     [ "QMainWindow", null, [
       [ "hmi::MainWindow", "classhmi_1_1MainWindow.html", null ]
     ] ],
+    [ "QObject", null, [
+      [ "hmi::EditorActions", "classhmi_1_1EditorActions.html", null ]
+    ] ],
     [ "hmi::QuadRecorder", "classhmi_1_1QuadRecorder.html", null ],
     [ "QWidget", null, [
       [ "hmi::AssetThumbnailView", "classhmi_1_1AssetThumbnailView.html", null ],
@@ -127,6 +138,7 @@ var hierarchy =
     [ "hmi::RoomGrid", "classhmi_1_1RoomGrid.html", null ],
     [ "hmi::SceneStatistics", "structhmi_1_1SceneStatistics.html", null ],
     [ "hmi::SceneTextures", "structhmi_1_1SceneTextures.html", null ],
+    [ "hmi::SizeTokens", "structhmi_1_1SizeTokens.html", null ],
     [ "hmi::SkinCatalog", "classhmi_1_1SkinCatalog.html", null ],
     [ "hmi::SkinCatalogResult", "structhmi_1_1SkinCatalogResult.html", null ],
     [ "hmi::SkinEntry", "structhmi_1_1SkinEntry.html", null ],
@@ -134,11 +146,13 @@ var hierarchy =
     [ "hmi::SkinSection", "structhmi_1_1SkinSection.html", null ],
     [ "hmi::SkinTexture", "structhmi_1_1SkinTexture.html", null ],
     [ "core::SlopeFollowResult", "structcore_1_1SlopeFollowResult.html", null ],
+    [ "hmi::SpacingTokens", "structhmi_1_1SpacingTokens.html", null ],
     [ "core::Sprite", "structcore_1_1Sprite.html", null ],
     [ "hmi::SpriteBatch", "classhmi_1_1SpriteBatch.html", null ],
     [ "hmi::SpriteQuad", "structhmi_1_1SpriteQuad.html", null ],
     [ "hmi::SpriteRenderer", "classhmi_1_1SpriteRenderer.html", null ],
     [ "core::LevelDraft::State", "structcore_1_1LevelDraft_1_1State.html", null ],
+    [ "hmi::StyleSheetSubstitutionResult", "structhmi_1_1StyleSheetSubstitutionResult.html", null ],
     [ "core::SweepResult", "structcore_1_1SweepResult.html", null ],
     [ "hmi::TextAnchor", "structhmi_1_1TextAnchor.html", null ],
     [ "hmi::TextExtent", "structhmi_1_1TextExtent.html", null ],
@@ -153,6 +167,8 @@ var hierarchy =
     [ "hmi::TileSubgroup", "structhmi_1_1TileSubgroup.html", null ],
     [ "core::TileTextureOverride", "structcore_1_1TileTextureOverride.html", null ],
     [ "core::Transform", "structcore_1_1Transform.html", null ],
+    [ "hmi::TypographyLevel", "structhmi_1_1TypographyLevel.html", null ],
+    [ "hmi::TypographyTokens", "structhmi_1_1TypographyTokens.html", null ],
     [ "core::Vector2", "structcore_1_1Vector2.html", null ],
     [ "core::Velocity", "structcore_1_1Velocity.html", null ],
     [ "hmi::SpriteBatch::Vertex", "structhmi_1_1SpriteBatch_1_1Vertex.html", null ],

@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-21-tache-01-controleur-blocs.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-21-bloc-poussable_2tache-01-controleur-blocs"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-21.html#md_Lot_2LOT-21-bloc-poussable_2epic" title="Lot/LOT-21-bloc-poussable/epic.md">LOT-21</a> · <b>Emplacement :</b> <span class="tt">Core/Levels</span>, <span class="tt">Core/Gameplay</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1183"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1184"></a>
 Contexte</h1>
 <p><span class="tt">EX-GP-022</span> demande un bloc poussable. <span class="tt">TileType</span> ne porte que des tuiles statiques ou à état ; cette tâche ajoute la tuile et la logique qui la fait bouger, sans dépendance rendu ni fenêtre.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1184"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1185"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Core/Levels/TileType.h</a></span></b> : nouvelle valeur <span class="tt">Block</span> ; <span class="tt">isSolid(TileType)</span> renvoie <span class="tt">true</span> pour <span class="tt">Block</span> (un bloc non encore déplacé bloque comme un mur).</li>
@@ -112,7 +112,7 @@ Travail à réaliser</h1>
 </li>
 <li><b><span class="tt">Source/Core/CMakeLists.txt</span></b> : ajoute <span class="tt"><a class="el" href="BlockController_8cpp.html">Gameplay/BlockController.cpp</a></span> à la bibliothèque <span class="tt">Core</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1185"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1186"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Source/Core/Levels/TileType.h</a></span>.</li>
@@ -121,7 +121,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Core/CMakeLists.txt</span>.</li>
 <li>Tests : <span class="tt"><a class="el" href="test__block__controller_8cpp.html" title="Tests unitaires des blocs poussables (BlockController, EX-GP-022).">Source/Test/Unit/Core/Gameplay/test_block_controller.cpp</a></span> (nouveau), <span class="tt"><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a></span>, <span class="tt"><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a></span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1186"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1187"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Position initiale d'un bloc conforme au niveau chargé ; case correspondante solide.</li>
@@ -131,18 +131,18 @@ Tests (obligatoires)</h1>
 <li><span class="tt">collisionMap</span> n'expose plus l'ancienne position d'un bloc déplacé comme solide (pas de mur fantôme).</li>
 <li>Chargement/écriture/rechargement (round-trip) d'un niveau contenant un bloc : type et absence de liaison de mécanisme préservés.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1187"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1188"></a>
 Points d'attention</h1>
 <ul>
 <li><b><span class="tt">isFree</span> ignore la tuile <span class="tt">Block</span> de <span class="tt">base</span>.</b> <span class="tt">base</span> (la grille passée en paramètre) porte la position <b>d'origine</b> de chaque bloc, jamais mise à jour — seule <span class="tt">_positions</span> (courante) fait autorité sur l'occupation par un bloc. Une implémentation qui testerait <span class="tt">isSolid(base.tile(...))</span> sans cette exception verrait indéfiniment la case de départ comme solide, même après que le bloc s'en soit éloigné.</li>
 <li><b><span class="tt">FALL_INTERVAL_STEPS</span></b> est un choix délibéré de chute discrète, pas une approximation à corriger plus tard (voir décision de cadrage de l'épic) : ne pas le remplacer par une intégration continue sans en rediscuter l'architecture (interaction avec <span class="tt">sweepAabb</span>, rendu).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1188"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1189"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">BlockController</span> compilé, testé (<span class="tt">ctest</span> vert), sans avertissement (<span class="tt">/W4 /WX</span>) ; <span class="tt">TileType::Block</span> chargeable/sérialisable ; aucune régression sur les mécanismes existants.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1189"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1190"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-022</span> (déjà déclarée dans <span class="tt"><a class="el" href="gameplay_8md.html">gameplay.md</a></span>, implémentation). </p>
 </div></div><!-- contents -->

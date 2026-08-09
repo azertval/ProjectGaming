@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-01-tache-03-boucle-pas-fixe.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-01-fenetre-boucle-jeu_2tache-03-boucle-pas-fixe"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-01.html#md_Lot_2LOT-01-fenetre-boucle-jeu_2epic" title="Lot/LOT-01-fenetre-boucle-jeu/epic.md">LOT-01</a> · <b>Module :</b> <span class="tt">Source/Core</span> · <b>Statut :</b> terminé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md297"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md298"></a>
 Contexte</h1>
 <p>La simulation doit être <b>déterministe</b> et indépendante du framerate d'affichage. La logique de cadencement est placée dans <span class="tt">Core</span> pour être <b>testable sans fenêtre ni GPU</b> (<span class="tt">EX-NFR-010</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md298"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md299"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Créer une classe <span class="tt">FixedTimestep</span> dans <span class="tt">Core</span> :<ul>
@@ -108,14 +108,14 @@ Travail à réaliser</h1>
 </li>
 <li>Ne dépend d'<b>aucune API système</b> (pas de <span class="tt">QueryPerformanceCounter</span> dans la classe : le temps réel est passé en paramètre, mesuré par l'appelant côté <span class="tt">HMI</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md299"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md300"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Core/FixedTimestep.h</span>, <span class="tt">Source/Core/FixedTimestep.cpp</span> (nouveau).</li>
 <li><span class="tt">Source/Core/CMakeLists.txt</span> (ajout des sources).</li>
 <li><span class="tt">Source/Test/Unit/test_fixed_timestep.cpp</span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md300"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md301"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Un temps écoulé égal au pas fixe → exactement <b>1</b> pas.</li>
@@ -123,14 +123,14 @@ Tests (obligatoires)</h1>
 <li>Un temps écoulé énorme → nombre de pas <b>plafonné</b> (anti-spirale).</li>
 <li>Un temps écoulé nul ou inférieur au pas → <b>0</b> pas.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md301"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md302"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Comportement conforme, couvert par les tests ci-dessus (<span class="tt">ctest</span> vert).</li>
 <li>Aucune dépendance système dans la classe (compilable/testable en isolation).</li>
 <li>Compile <span class="tt">/W4 /WX</span>, formaté, API documentée <span class="tt">.h</span> + <span class="tt">.cpp</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md302"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md303"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-021</span>, <span class="tt">EX-REN-020</span>, <span class="tt">EX-NFR-010</span>, <span class="tt">EX-NFR-002</span>, <span class="tt">EX-NFR-020</span>. </p>
 </div></div><!-- contents -->

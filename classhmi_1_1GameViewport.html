@@ -150,6 +150,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a206c034f1553b285c8f153deba15b404" id="r_a206c034f1553b285c8f153deba15b404"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a206c034f1553b285c8f153deba15b404">isDirty</a> () const noexcept</td></tr>
 <tr class="memitem:a1a527f3ff564f927ece3eca7644dfef5" id="r_a1a527f3ff564f927ece3eca7644dfef5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1a527f3ff564f927ece3eca7644dfef5">startPlaytest</a> ()</td></tr>
 <tr class="memdesc:a1a527f3ff564f927ece3eca7644dfef5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lance l'essai immédiat (<span class="tt">P</span>) sur un brouillon valide ; message d'erreur sinon.  <br /></td></tr>
+<tr class="memitem:a713b8aaa5e89ac3a117af92d64d21392" id="r_a713b8aaa5e89ac3a117af92d64d21392"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a713b8aaa5e89ac3a117af92d64d21392">undo</a> ()</td></tr>
+<tr class="memdesc:a713b8aaa5e89ac3a117af92d64d21392"><td class="mdescLeft">&#160;</td><td class="mdescRight">Annule la dernière modification du brouillon (<span class="tt">Ctrl+Z</span>) ; sans effet si rien à annuler.  <br /></td></tr>
+<tr class="memitem:afce3618d641b86f09b51e66c3af48901" id="r_afce3618d641b86f09b51e66c3af48901"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afce3618d641b86f09b51e66c3af48901">redo</a> ()</td></tr>
+<tr class="memdesc:afce3618d641b86f09b51e66c3af48901"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refait la dernière modification annulée (<span class="tt">Ctrl+Y</span>) ; sans effet si rien à refaire.  <br /></td></tr>
+<tr class="memitem:a40aa119bc6b5b56d6ebf8a2adc27f88e" id="r_a40aa119bc6b5b56d6ebf8a2adc27f88e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a40aa119bc6b5b56d6ebf8a2adc27f88e">toggleGrid</a> () noexcept</td></tr>
+<tr class="memdesc:a40aa119bc6b5b56d6ebf8a2adc27f88e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bascule l'affichage de la grille de repère (<span class="tt">F10</span>).  <br /></td></tr>
+<tr class="memitem:a4e56de8b6d247c368e7ae8d37b7cf9b8" id="r_a4e56de8b6d247c368e7ae8d37b7cf9b8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4e56de8b6d247c368e7ae8d37b7cf9b8">resetCamera</a> () noexcept</td></tr>
+<tr class="memdesc:a4e56de8b6d247c368e7ae8d37b7cf9b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réinitialise le cadrage manuel au cadrage automatique (touche <span class="tt">0</span>).  <br /></td></tr>
+<tr class="memitem:a724dc8e925c0167dbac0224249d6f3fb" id="r_a724dc8e925c0167dbac0224249d6f3fb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a724dc8e925c0167dbac0224249d6f3fb">toggleRenderMode</a> ()</td></tr>
+<tr class="memdesc:a724dc8e925c0167dbac0224249d6f3fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bascule le mode de rendu Physique/Texture (<span class="tt">F8</span>, <span class="tt">EX-REN-046</span>) ; actif en édition, en essai et en jeu réel (LOT-56 TACHE-04 : seule commande jamais désactivée par le mode courant).  <br /></td></tr>
 <tr class="memitem:aabcfc494046d87dfc987edbc1519f121" id="r_aabcfc494046d87dfc987edbc1519f121"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aabcfc494046d87dfc987edbc1519f121">startGame</a> (std::vector&lt; std::filesystem::path &gt; levels)</td></tr>
 <tr class="memdesc:aabcfc494046d87dfc987edbc1519f121"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lance le <b>jeu</b> : joue la séquence de niveaux <code class="param">levels</code> (mode « Jouer » du menu).  <br /></td></tr>
 <tr class="memitem:aa0c06ebd183a129d84615ec54d511db7" id="r_aa0c06ebd183a129d84615ec54d511db7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa0c06ebd183a129d84615ec54d511db7">setVSync</a> (bool enabled) noexcept</td></tr>
@@ -1683,6 +1693,25 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
+<a id="afce3618d641b86f09b51e66c3af48901" name="afce3618d641b86f09b51e66c3af48901"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afce3618d641b86f09b51e66c3af48901">&#9670;&#160;</a></span>redo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::redo </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Refait la dernière modification annulée (<span class="tt">Ctrl+Y</span>) ; sans effet si rien à refaire. </p>
+
+</div>
+</div>
 <a id="a75183d22f18c6565b01bf59f59f18a1a" name="a75183d22f18c6565b01bf59f59f18a1a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a75183d22f18c6565b01bf59f59f18a1a">&#9670;&#160;</a></span>reloadAssets()</h2>
 
@@ -1818,6 +1847,33 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div><div class="memdoc">
 
 <p>Le mode de rendu vient de basculer (<span class="tt">F8</span>) — la palette met ses vignettes à jour pour rester fidèle au canevas (<span class="tt">EX-EDIT-027</span>). </p>
+
+</div>
+</div>
+<a id="a4e56de8b6d247c368e7ae8d37b7cf9b8" name="a4e56de8b6d247c368e7ae8d37b7cf9b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e56de8b6d247c368e7ae8d37b7cf9b8">&#9670;&#160;</a></span>resetCamera()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::resetCamera </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Réinitialise le cadrage manuel au cadrage automatique (touche <span class="tt">0</span>). </p>
 
 </div>
 </div>
@@ -2615,6 +2671,52 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
+<a id="a40aa119bc6b5b56d6ebf8a2adc27f88e" name="a40aa119bc6b5b56d6ebf8a2adc27f88e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40aa119bc6b5b56d6ebf8a2adc27f88e">&#9670;&#160;</a></span>toggleGrid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::toggleGrid </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bascule l'affichage de la grille de repère (<span class="tt">F10</span>). </p>
+
+</div>
+</div>
+<a id="a724dc8e925c0167dbac0224249d6f3fb" name="a724dc8e925c0167dbac0224249d6f3fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a724dc8e925c0167dbac0224249d6f3fb">&#9670;&#160;</a></span>toggleRenderMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::toggleRenderMode </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bascule le mode de rendu Physique/Texture (<span class="tt">F8</span>, <span class="tt">EX-REN-046</span>) ; actif en édition, en essai et en jeu réel (LOT-56 TACHE-04 : seule commande jamais désactivée par le mode courant). </p>
+
+</div>
+</div>
 <a id="a0c50902b21767f071d17ce674736c182" name="a0c50902b21767f071d17ce674736c182"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0c50902b21767f071d17ce674736c182">&#9670;&#160;</a></span>toolChanged</h2>
 
@@ -2639,6 +2741,25 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div><div class="memdoc">
 
 <p>L'outil actif vient de changer par un moyen autre que le panneau Outils (raccourci clavier, <span class="tt">LOT-45</span>) — le panneau se resynchronise sans reboucler. </p>
+
+</div>
+</div>
+<a id="a713b8aaa5e89ac3a117af92d64d21392" name="a713b8aaa5e89ac3a117af92d64d21392"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a713b8aaa5e89ac3a117af92d64d21392">&#9670;&#160;</a></span>undo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::undo </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Annule la dernière modification du brouillon (<span class="tt">Ctrl+Z</span>) ; sans effet si rien à annuler. </p>
 
 </div>
 </div>

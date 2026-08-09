@@ -162,6 +162,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acbd75957c09c2f53ac81b36ed3c202c8" id="r_acbd75957c09c2f53ac81b36ed3c202c8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acbd75957c09c2f53ac81b36ed3c202c8">setRenderModeIndicator</a> (<a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode)</td></tr>
 <tr class="memdesc:acbd75957c09c2f53ac81b36ed3c202c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resynchronise la case « Physique seul » de la section « Calques » (<span class="tt">LOT-51</span>) avec le mode de rendu courant, sans réémettre <span class="tt"><a class="el" href="#a9b51c3f00c7c197269bebb34682e6ef2" title="Émis quand la case « Physique seul » de la section « Calques » change : demande de bascule du mode de...">physiqueOnlyToggled</a></span> — même garde que <span class="tt"><a class="el" href="#ad8ba70ed6f484d3a30ffc3235b13d6e1" title="Synchronise la section « Fond » avec le niveau courant (LOT-44).">setLevelProperties</a></span>.  <br /></td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a2427986c22aee0e6ce3c9a89d95e1d1e" id="r_a2427986c22aee0e6ce3c9a89d95e1d1e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a2427986c22aee0e6ce3c9a89d95e1d1e">event</a> (QEvent *event) override</td></tr>
+<tr class="memdesc:a2427986c22aee0e6ce3c9a89d95e1d1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Régénère les vignettes lors d'un changement d'écran (<span class="tt">QEvent::ScreenChangeInternal</span>) : l'échelle d'affichage a pu changer (<span class="tt">LOT-56</span> TACHE-05).  <br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a98f467bc620f51cf5b86539debe3cbf4" id="r_a98f467bc620f51cf5b86539debe3cbf4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a98f467bc620f51cf5b86539debe3cbf4">rebuildTree</a> ()</td></tr>
@@ -188,7 +193,7 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a8f313104722e95e480f2dd6ba9a94183" id="r_a8f313104722e95e480f2dd6ba9a94183"><td class="memItemLeft">QPixmap&#160;</td><td class="memItemRight"><a class="el" href="#a8f313104722e95e480f2dd6ba9a94183">decorThumbnailFor</a> (const std::string &amp;asset)</td></tr>
 <tr class="memdesc:a8f313104722e95e480f2dd6ba9a94183"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vignette d'un asset de décor, décodée au premier besoin puis mise en cache (<span class="tt">LOT-50</span> TACHE-04) — même repli en damier magenta que <span class="tt"><a class="el" href="#a4af3d78ff3009ccd51e057588acaf63e" title="Vignette d&#39;un fichier de skin (vide pour « aucun »), décodée au premier besoin puis mise en cache — r...">thumbnailFor</a></span> si absent/illisible.  <br /></td></tr>
 <tr class="memitem:af48e48d2ca91864a1b40fba6ef963396" id="r_af48e48d2ca91864a1b40fba6ef963396"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#af48e48d2ca91864a1b40fba6ef963396">decorLayerLabel</a> (<a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a> layer) const</td></tr>
-<tr class="memdesc:af48e48d2ca91864a1b40fba6ef963396"><td class="mdescLeft">&#160;</td><td class="mdescRight">Libellé localisé d'une couche de décor (mêmes trois libellés que le sélecteur de l'outil Décor, <span class="tt"><a class="el" href="classhmi_1_1ToolPanel.html" title="Sélecteur d&#39;outil d&#39;édition (EX-EDIT-014) : Pinceau, Rectangle, Sélection, Lien, Texture par instance...">ToolPanel</a></span>).  <br /></td></tr>
+<tr class="memdesc:af48e48d2ca91864a1b40fba6ef963396"><td class="mdescLeft">&#160;</td><td class="mdescRight">Libellé localisé d'une couche de décor (mêmes trois libellés que le sélecteur de l'outil Décor, <span class="tt"><a class="el" href="classhmi_1_1ToolPanel.html" title="Panneau « Outils » : le strict nécessaire de l&#39;outil Décor (LOT-49 TACHE-04) — grille de vignettes (h...">ToolPanel</a></span>).  <br /></td></tr>
 <tr class="memitem:aeef7cef4b5aeba0c8554ad0559052dc1" id="r_aeef7cef4b5aeba0c8554ad0559052dc1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aeef7cef4b5aeba0c8554ad0559052dc1">rebuildDecorRows</a> ()</td></tr>
 <tr class="memdesc:aeef7cef4b5aeba0c8554ad0559052dc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruit le tableau de la section « Décors » depuis <span class="tt"><a class="el" href="#a1ef4183df2edfd0c47f695d39d8c1863" title="Lignes affichées par le tableau « Décors », déjà groupées/triées (LOT-50 TACHE-04).">_decorRows</a></span> (déjà groupées/triées par <span class="tt"><a class="el" href="#a5597c93d8146bc04b6983b8e1201db30" title="Resynchronise la section « Décors » avec le brouillon et la sélection courants (LOT-50 TACHE-04).">refreshDecors</a></span>) et resélectionne <span class="tt"><a class="el" href="#a56f8c9dafa1d5369fb3c3763a2be2030" title="Décor actuellement sélectionné (rang dans core::LevelDraft::decors()), poussé par refreshDecors — jam...">_selectedDecorIndex</a></span>, <b>sans</b> réémettre <span class="tt"><a class="el" href="#ae31bb3980bbffeb8e7342ea80921332f" title="Émis quand la sélection change dans la liste « Décors » (surbrillance dans le canevas,...">decorSelected</a></span> (resynchronisation programmatique, même garde que <span class="tt"><a class="el" href="#ad8ba70ed6f484d3a30ffc3235b13d6e1" title="Synchronise la section « Fond » avec le niveau courant (LOT-44).">setLevelProperties</a></span>).  <br /></td></tr>
 <tr class="memitem:a12eaa0f30852a6ce86ab3a55d6d8d6cf" id="r_a12eaa0f30852a6ce86ab3a55d6d8d6cf"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a12eaa0f30852a6ce86ab3a55d6d8d6cf">updateDecorActionButtons</a> ()</td></tr>
@@ -561,7 +566,7 @@ bringDecorForward</span>). </p>
 </table>
 </div><div class="memdoc">
 
-<p>Libellé localisé d'une couche de décor (mêmes trois libellés que le sélecteur de l'outil Décor, <span class="tt"><a class="el" href="classhmi_1_1ToolPanel.html" title="Sélecteur d&#39;outil d&#39;édition (EX-EDIT-014) : Pinceau, Rectangle, Sélection, Lien, Texture par instance...">ToolPanel</a></span>). </p>
+<p>Libellé localisé d'une couche de décor (mêmes trois libellés que le sélecteur de l'outil Décor, <span class="tt"><a class="el" href="classhmi_1_1ToolPanel.html" title="Panneau « Outils » : le strict nécessaire de l&#39;outil Décor (LOT-49 TACHE-04) — grille de vignettes (h...">ToolPanel</a></span>). </p>
 
 </div>
 </div>
@@ -643,6 +648,33 @@ bringDecorForward</span>). </p>
 </div><div class="memdoc">
 
 <p>Vignette d'un asset de décor, décodée au premier besoin puis mise en cache (<span class="tt">LOT-50</span> TACHE-04) — même repli en damier magenta que <span class="tt"><a class="el" href="#a4af3d78ff3009ccd51e057588acaf63e" title="Vignette d&#39;un fichier de skin (vide pour « aucun »), décodée au premier besoin puis mise en cache — r...">thumbnailFor</a></span> si absent/illisible. </p>
+
+</div>
+</div>
+<a id="a2427986c22aee0e6ce3c9a89d95e1d1e" name="a2427986c22aee0e6ce3c9a89d95e1d1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2427986c22aee0e6ce3c9a89d95e1d1e">&#9670;&#160;</a></span>event()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::TexturePanel::event </td>
+          <td>(</td>
+          <td class="paramtype">QEvent *</td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Régénère les vignettes lors d'un changement d'écran (<span class="tt">QEvent::ScreenChangeInternal</span>) : l'échelle d'affichage a pu changer (<span class="tt">LOT-56</span> TACHE-05). </p>
 
 </div>
 </div>

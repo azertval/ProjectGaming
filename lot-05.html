@@ -96,12 +96,12 @@ $(function(){initNavTree('lot-05.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>terminé</b>. L'exécutable affiche une scène ECS (grille de tuiles + sprite mobile) rendue en Direct3D 11 via la caméra 2D ; le <span class="tt">World</span> est cadencé à pas fixe et le rendu, découplé, lit les composants sans les muter. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md479"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md480"></a>
 Objectif</h1>
 <p>Afficher à l'écran des entités de l'ECS (<span class="tt">Transform</span> + <span class="tt">Sprite</span>) via un pipeline <b>Direct3D 11</b> de quads texturés, avec une <b>caméra 2D</b> monde → écran, et <b>brancher le <span class="tt">World</span></b> dans la boucle à pas de temps fixe. À l'issue du lot : l'exécutable affiche une petite scène (grille de tuiles + un sprite) issue de l'ECS — la <b>première image réelle</b> du jeu.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md480"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md481"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md481"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md482"></a>
 Inclus</h2>
 <ul>
 <li>Composant <span class="tt">Sprite</span> (données pures dans <span class="tt">Core</span>) : région d'atlas + couche.</li>
@@ -112,7 +112,7 @@ Inclus</h2>
 <li><b>Câblage du <span class="tt">World</span></b> dans <span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span> : création, enregistrement des systèmes, <span class="tt">world.update(fixedDelta)</span> par pas fixe ; rendu découplé après la simulation.</li>
 <li>Scène de <b>démonstration</b> codée en dur (grille de tuiles + un sprite).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md482"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md483"></a>
 Exclus (lots ultérieurs)</h2>
 <ul>
 <li><b>Chargement de niveaux depuis fichier</b> (lot dédié suivant ; ici la scène est codée en dur).</li>
@@ -120,21 +120,21 @@ Exclus (lots ultérieurs)</h2>
 <li>Caméra qui <b>suit</b> une cible et <b>bornage</b> au niveau (<span class="tt">EX-REN-013</span>) — ici caméra basique.</li>
 <li>Menu, pause, fin de niveau, texte (<span class="tt">EX-REN-030</span> à <span class="tt">EX-REN-032</span>) ; audio (<span class="tt">EX-REN-040</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md483"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md484"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Périmètre</b> : rendu <b>fondamental</b> (sprites + atlas + caméra basique + couches + câblage <span class="tt">World</span>), le reste différé.</li>
 <li><b>Atlas</b> : <b>procédural</b> (généré en code), aucun asset ni chargeur d'image requis ; le chargement d'un vrai PNG viendra avec les graphismes.</li>
 <li><b>Shaders</b> : <b>compilés à l'exécution</b> via <span class="tt">D3DCompile</span> (itération rapide en dev).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md484"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md485"></a>
 Exigences couvertes</h1>
 <ul>
 <li><span class="tt">EX-REN-010</span> (grille de tuiles depuis un atlas), <span class="tt">EX-REN-011</span> (sprites + transparence), <span class="tt">EX-REN-014</span> (ordre de dessin par couches).</li>
 <li><span class="tt">EX-REN-021</span> / <span class="tt">EX-REN-022</span> (logique à pas fixe, rendu découplé ; V-Sync).</li>
 <li><span class="tt">EX-ARCH-012</span> (le rendu <b>lit</b> les composants sans les muter), <span class="tt">EX-ARCH-020</span> / <span class="tt">EX-ARCH-021</span> (unités monde, 16 px/unité), <span class="tt">EX-ARCH-022</span> (pixel art <em>nearest</em>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md485"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md486"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -155,7 +155,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-05-tache-06-cablage-world-demo.html#md_Lot_2LOT-05-rendu-2d_2tache-06-cablage-world-demo" title="Lot/LOT-05-rendu-2d/tache-06-cablage-world-demo.md">TACHE-06</a>  </td><td class="markdownTableBodyNone">Câblage du <span class="tt">World</span> dans la boucle + scène de démo  </td><td class="markdownTableBodyNone"><span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">HMI/main.cpp</a></span>  </td><td class="markdownTableBodyCenter">✅ Fait  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md486"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md487"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>L'exécutable affiche une <b>grille de tuiles</b> et <b>un sprite</b> (avec transparence), positionnés d'après des composants <span class="tt">Transform</span> de l'ECS.</li>
@@ -164,13 +164,13 @@ Critères d'acceptation du lot</h1>
 <li>Le <span class="tt">World</span> est <b>exécuté à pas fixe</b> dans la boucle (systèmes appelés) ; le rendu lit les composants <b>sans les muter</b>.</li>
 <li>Build <span class="tt">/W4 /WX</span> sans avertissement, tests verts (logique testable de <span class="tt">Core</span>), documentation Doxygen à jour, <span class="tt">CHANGELOG.md</span> mis à jour.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md487"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md488"></a>
 Dépendances</h1>
 <ul>
 <li>Réutilise l'ECS (<span class="tt">World</span>, <span class="tt">Transform</span>, vues) de <a class="el" href="lot-03.html" title="LOT-03 — Fondation ECS &amp; mathématiques Core">LOT-03</a> et le cadenceur <span class="tt">FixedTimestep</span> de <a class="el" href="lot-01.html" title="LOT-01 — Fenêtre &amp; boucle de jeu (Direct3D 11)">LOT-01</a>.</li>
 <li>S'appuie sur <span class="tt"><a class="el" href="classhmi_1_1GraphicsDevice.html" title="Encapsule le device Direct3D 11, sa swap chain et la cible de rendu (RAII).">hmi::GraphicsDevice</a></span> et <span class="tt">hmi::Window</span> (LOT-01) pour le device et la surface.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md488"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md489"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-05-tache-01-composant-sprite.html" title="TACHE-01 — Composant Sprite (données pures)">TACHE-01 — Composant Sprite (données pures)</a></li>

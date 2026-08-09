@@ -13,6 +13,7 @@ var classhmi_1_1TexturePanel =
     [ "decorRemoveRequested", "classhmi_1_1TexturePanel.html#a295254fd1f1f1ed78b448551f3188337", null ],
     [ "decorSelected", "classhmi_1_1TexturePanel.html#ae31bb3980bbffeb8e7342ea80921332f", null ],
     [ "decorThumbnailFor", "classhmi_1_1TexturePanel.html#a8f313104722e95e480f2dd6ba9a94183", null ],
+    [ "event", "classhmi_1_1TexturePanel.html#a2427986c22aee0e6ce3c9a89d95e1d1e", null ],
     [ "layerVisibilityChanged", "classhmi_1_1TexturePanel.html#a98a53af87c93ed25748cc4bdc37e6539", null ],
     [ "levelSkinSetChanged", "classhmi_1_1TexturePanel.html#a14735adac3bd42b177a10ec98e2cf527", null ],
     [ "onAnimationsAssetActivated", "classhmi_1_1TexturePanel.html#a68857e8af8072e751793c13ee22aac0c", null ],

@@ -26,9 +26,10 @@ var searchData=
   ['poll_23',['poll',['../classhmi_1_1GamepadPoller.html#a1ba7adb75dea62a30fca7a207dc79868',1,'hmi::GamepadPoller']]],
   ['pollmenugamepad_24',['pollMenuGamepad',['../classhmi_1_1MainWindow.html#aafc60968307486a4eb8b64b2254e7c9b',1,'hmi::MainWindow']]],
   ['poolfor_25',['poolFor',['../classcore_1_1World.html#a5d524864277691a7419b5268d4c53449',1,'core::World']]],
-  ['positions_26',['positions',['../classcore_1_1BlockController.html#a8c99052caaca4ae7ac2e9f461856ff66',1,'core::BlockController']]],
-  ['present_27',['present',['../classhmi_1_1GraphicsDevice.html#a1c884ac8ffdfbf82856ab657c7409c2a',1,'hmi::GraphicsDevice']]],
-  ['proceduralplayerclipnames_28',['proceduralPlayerClipNames',['../namespacehmi.html#ad9d86326e8a24c761d2b3c04e378a0a1',1,'hmi']]],
-  ['projectionmatrix_29',['projectionMatrix',['../classhmi_1_1Camera2D.html#ae4d184982026b7f61e3507c0d264321b',1,'hmi::Camera2D']]],
-  ['pushundo_30',['pushUndo',['../classcore_1_1LevelDraft.html#a949cfb0148244f0ba05257d4f523f51d',1,'core::LevelDraft']]]
+  ['populatetoolbar_26',['populateToolBar',['../classhmi_1_1EditorActions.html#a1a89ee1d8b8c0c9a21412ac07199625c',1,'hmi::EditorActions']]],
+  ['positions_27',['positions',['../classcore_1_1BlockController.html#a8c99052caaca4ae7ac2e9f461856ff66',1,'core::BlockController']]],
+  ['present_28',['present',['../classhmi_1_1GraphicsDevice.html#a1c884ac8ffdfbf82856ab657c7409c2a',1,'hmi::GraphicsDevice']]],
+  ['proceduralplayerclipnames_29',['proceduralPlayerClipNames',['../namespacehmi.html#ad9d86326e8a24c761d2b3c04e378a0a1',1,'hmi']]],
+  ['projectionmatrix_30',['projectionMatrix',['../classhmi_1_1Camera2D.html#ae4d184982026b7f61e3507c0d264321b',1,'hmi::Camera2D']]],
+  ['pushundo_31',['pushUndo',['../classcore_1_1LevelDraft.html#a949cfb0148244f0ba05257d4f523f51d',1,'core::LevelDraft']]]
 ];

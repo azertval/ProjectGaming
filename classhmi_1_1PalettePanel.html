@@ -122,6 +122,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a87d8b6fe8c8e5368cd13f730e8ca3f77" id="r_a87d8b6fe8c8e5368cd13f730e8ca3f77"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a87d8b6fe8c8e5368cd13f730e8ca3f77">clearThumbnailCache</a> ()</td></tr>
 <tr class="memdesc:a87d8b6fe8c8e5368cd13f730e8ca3f77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vide le cache d'images décodées (rechargement à chaud, <span class="tt">LOT-43</span> TACHE-03).  <br /></td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a6a63719ecec98fdc59f3728d58ff8ccd" id="r_a6a63719ecec98fdc59f3728d58ff8ccd"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6a63719ecec98fdc59f3728d58ff8ccd">event</a> (QEvent *event) override</td></tr>
+<tr class="memdesc:a6a63719ecec98fdc59f3728d58ff8ccd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Régénère les vignettes lors d'un changement d'écran (<span class="tt">QEvent::ScreenChangeInternal</span>) : l'échelle d'affichage a pu changer (<span class="tt">LOT-56</span> TACHE-05).  <br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:af1898fdecf86e9004f65845f4f96f364" id="r_af1898fdecf86e9004f65845f4f96f364"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af1898fdecf86e9004f65845f4f96f364">buildModel</a> ()</td></tr>
@@ -216,6 +221,33 @@ Private Attributes</h2></td></tr>
 
 <p>Vide le cache d'images décodées (rechargement à chaud, <span class="tt">LOT-43</span> TACHE-03). </p>
 <p>Sans effet visible tant que <span class="tt"><a class="el" href="#a10233aeb65931df202507bb41fa053d4" title="Rafraîchit les vignettes de la palette (EX-EDIT-027).">refreshThumbnails</a></span> n'est pas rappelé ensuite : un fichier modifié hors de l'application reste caché tant que le décodage n'est pas rejoué. </p>
+
+</div>
+</div>
+<a id="a6a63719ecec98fdc59f3728d58ff8ccd" name="a6a63719ecec98fdc59f3728d58ff8ccd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a63719ecec98fdc59f3728d58ff8ccd">&#9670;&#160;</a></span>event()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::PalettePanel::event </td>
+          <td>(</td>
+          <td class="paramtype">QEvent *</td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Régénère les vignettes lors d'un changement d'écran (<span class="tt">QEvent::ScreenChangeInternal</span>) : l'échelle d'affichage a pu changer (<span class="tt">LOT-56</span> TACHE-05). </p>
 
 </div>
 </div>

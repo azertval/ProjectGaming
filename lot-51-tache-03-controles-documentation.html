@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-51-tache-03-controles-documentation.html','',''); 
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-51-visibilite-calques_2tache-03-controles-documentation"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-51.html#md_Lot_2LOT-51-visibilite-calques_2epic" title="Lot/LOT-51-visibilite-calques/epic.md">LOT-51</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span>, <span class="tt">Documentation</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2265"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2266"></a>
 Contexte</h1>
 <p>Deux commandes du projet agissent désormais sur le rendu, et elles sont proches sans être équivalentes : <span class="tt">F8</span> <b>compose</b> le rendu tel que le joueur le verra ; les visibilités par calque <b>décomposent</b> pour auditer. Les confondre conduirait à croire qu'un calque masqué l'est aussi en jeu.</p>
 <p>L'interface et la documentation doivent lever cette ambiguïté sans qu'on ait à l'expliquer.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2266"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2267"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Contrôles de visibilité</b> dans l'interface d'édition : une case à cocher par calque, groupées et ordonnées <b>dans l'ordre de dessin</b> — c'est ce qui rend la pile de calques compréhensible d'un coup d'œil.</li>
@@ -112,7 +112,7 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2267"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2268"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/TexturePanel.{h,cpp}</span> (nouvel onglet « Calques »), <span class="tt">Source/Elements/UI/TexturePanel.ui</span>.</li>
@@ -120,26 +120,26 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Localization/fr.lang</span>, <span class="tt">en.lang</span>.</li>
 <li><span class="tt"><a class="el" href="guide-editeur_8md.html">Documentation/Guide/guide-editeur.md</a></span>, <span class="tt"><a class="el" href="guide-rendu_8md.html">guide-rendu.md</a></span>, <span class="tt"><a class="el" href="partager-un-niveau_8md.html">Documentation/Manuel/partager-un-niveau.md</a></span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2268"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2269"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Chaque clé de traduction utilisée existe dans les deux catalogues.</li>
 <li>L'action « tout afficher » restaure bien l'ensemble des calques.</li>
 <li>Vérification manuelle des combinaisons principales : chaque calque isolé, puis tout visible.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2269"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2270"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ordre de dessin dans l'interface</b> : lister les calques dans le désordre annulerait l'essentiel du bénéfice pédagogique du contrôle.</li>
 <li>Ne pas placer ces contrôles là où ils pourraient être pris pour des réglages de jeu (menu Options, par exemple) : ils appartiennent à l'éditeur.</li>
 <li>Le manuel s'adresse à un non-développeur : décrire l'usage (« vérifier ce qui est configuré sur chaque plan »), pas l'implémentation.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2270"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2271"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les contrôles existent, sont ordonnés comme la pile de calques, entièrement traduits, et distinguent sans ambiguïté l'aperçu du rendu de jeu ; une action restaure tout ; guide et manuel sont à jour ; Doxygen et lint verts.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2271"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2272"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-044</span> (visibilité par calque) ; réutilise <span class="tt">EX-REN-046</span> (bascule, distincte), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-IHM-010</span> (fenêtre à panneaux). </p>
 </div></div><!-- contents -->

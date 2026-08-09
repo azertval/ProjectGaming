@@ -93,9 +93,9 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>687 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>711 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (597)</h1>
+Tests unitaires (621)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p><b><span class="tt"><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></span></b></p>
@@ -2208,7 +2208,7 @@ Diagnostics (2)</h3>
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b" title="Assemble les messages de log en un texte (une ligne par message).">hmi::serializeSessionLog</a>({})</span> vaut <span class="tt">""</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
-Editor (37)</h3>
+Editor (40)</h3>
 <p><b><span class="tt"><a class="el" href="test__decor__geometry_8cpp.html" title="Tests unitaires de la géométrie partagée corps/poignées d&#39;un décor (LOT-50 TACHE-02).">test_decor_geometry.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2427,6 +2427,25 @@ Vérifie que <span class="tt">loc.text(key)</span> diffère de <span class="tt">
 <td class="markdownTableBodyNone"><b>SkinAssignmentsTest.LibellesDuPanneauTraduits</b> (Critique)<br  />
 <sub><span class="tt"><a class="el" href="test__skin__assignments_8cpp.html" title="Tests unitaires de la logique du panneau « Textures » (LOT-42 TACHE-04).">Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp</a>:273</span></sub>  </td><td class="markdownTableBodyNone">Les libelles propres au panneau Textures existent dans les deux catalogues.  </td><td class="markdownTableBodyNone">1. Pour chaque cle utilisee par le panneau, la resoudre en francais puis en anglais.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">loc.loadLanguage(language)</span> est vrai.<br  />
 Vérifie que <span class="tt">loc.text(key)</span> diffère de <span class="tt">key</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__thumbnail__geometry_8cpp.html" title="Tests unitaires du dimensionnement des vignettes à l&#39;échelle d&#39;affichage (LOT-56 TACHE-05,...">test_thumbnail_geometry.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ThumbnailGeometryTest.DimensionnementAuxFacteursUsuels</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__thumbnail__geometry_8cpp.html" title="Tests unitaires du dimensionnement des vignettes à l&#39;échelle d&#39;affichage (LOT-56 TACHE-05,...">Source/Test/Unit/HMI/Editor/test_thumbnail_geometry.cpp</a>:14</span></sub>  </td><td class="markdownTableBodyNone">Le dimensionnement produit la taille en pixels reels attendue.  </td><td class="markdownTableBodyNone">1. Calculer la taille en pixels pour une taille logique de 48 aux facteurs 1, 1.25, 1.5 et 2.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a8158375fa940021f6bb346e7c2b09247" title="Taille en pixels réels pour une taille logique et un facteur d&#39;échelle d&#39;affichage donnés.">hmi::thumbnailPixelSize</a>(48, 1.0)</span> vaut <span class="tt">48</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a8158375fa940021f6bb346e7c2b09247" title="Taille en pixels réels pour une taille logique et un facteur d&#39;échelle d&#39;affichage donnés.">hmi::thumbnailPixelSize</a>(48, 1.25)</span> vaut <span class="tt">60</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a8158375fa940021f6bb346e7c2b09247" title="Taille en pixels réels pour une taille logique et un facteur d&#39;échelle d&#39;affichage donnés.">hmi::thumbnailPixelSize</a>(48, 1.5)</span> vaut <span class="tt">72</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a8158375fa940021f6bb346e7c2b09247" title="Taille en pixels réels pour une taille logique et un facteur d&#39;échelle d&#39;affichage donnés.">hmi::thumbnailPixelSize</a>(48, 2.0)</span> vaut <span class="tt">96</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ThumbnailGeometryTest.FacteurNonEntierNeProduitJamaisZero</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__thumbnail__geometry_8cpp.html" title="Tests unitaires du dimensionnement des vignettes à l&#39;échelle d&#39;affichage (LOT-56 TACHE-05,...">Source/Test/Unit/HMI/Editor/test_thumbnail_geometry.cpp</a>:32</span></sub>  </td><td class="markdownTableBodyNone">Un facteur non entier ne produit jamais de dimension nulle.  </td><td class="markdownTableBodyNone">1. Calculer la taille en pixels pour la plus petite icone (16) a 1.25 et a un facteur tres faible (0.1).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a8158375fa940021f6bb346e7c2b09247" title="Taille en pixels réels pour une taille logique et un facteur d&#39;échelle d&#39;affichage donnés.">hmi::thumbnailPixelSize</a>(16, 1.25)</span> est strictement supérieur à <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a8158375fa940021f6bb346e7c2b09247" title="Taille en pixels réels pour une taille logique et un facteur d&#39;échelle d&#39;affichage donnés.">hmi::thumbnailPixelSize</a>(1, 0.1)</span> est strictement supérieur à <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a8158375fa940021f6bb346e7c2b09247" title="Taille en pixels réels pour une taille logique et un facteur d&#39;échelle d&#39;affichage donnés.">hmi::thumbnailPixelSize</a>(0, 2.0)</span> est strictement supérieur à <span class="tt">0</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ThumbnailGeometryTest.FonctionPure</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__thumbnail__geometry_8cpp.html" title="Tests unitaires du dimensionnement des vignettes à l&#39;échelle d&#39;affichage (LOT-56 TACHE-05,...">Source/Test/Unit/HMI/Editor/test_thumbnail_geometry.cpp</a>:48</span></sub>  </td><td class="markdownTableBodyNone">Le dimensionnement est une fonction pure.  </td><td class="markdownTableBodyNone">1. Appeler deux fois avec les memes entrees.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a8158375fa940021f6bb346e7c2b09247" title="Taille en pixels réels pour une taille logique et un facteur d&#39;échelle d&#39;affichage donnés.">hmi::thumbnailPixelSize</a>(32, 1.5)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a8158375fa940021f6bb346e7c2b09247" title="Taille en pixels réels pour une taille logique et un facteur d&#39;échelle d&#39;affichage donnés.">hmi::thumbnailPixelSize</a>(32, 1.5)</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
 Game (5)</h3>
@@ -4012,6 +4031,147 @@ Vérifie que <span class="tt">mapWithDefaults(withKeys({<a class="el" href="name
 Vérifie que <span class="tt">hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::Y), gameKeyBindings, gamepadBindings) .moveX</span> vaut <span class="tt">1.0f</span> (comparaison flottante).  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
+Interface (21)</h3>
+<p><b><span class="tt"><a class="el" href="test__application__theme_8cpp.html" title="Tests unitaires du thème de l&#39;IHM : modèle de feuille de style (LOT-56 TACHE-02, EX-IHM-050,...">test_application_theme.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ApplicationThemeTest.SubstitutionRemplaceTousLesMarqueurs</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__application__theme_8cpp.html" title="Tests unitaires du thème de l&#39;IHM : modèle de feuille de style (LOT-56 TACHE-02, EX-IHM-050,...">Source/Test/Unit/HMI/Interface/test_application_theme.cpp</a>:35</span></sub>  </td><td class="markdownTableBodyNone">La substitution remplace tous les marqueurs du modele.  </td><td class="markdownTableBodyNone">1. Substituer un modele avec deux marqueurs connus.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok</span> est vrai.<br  />
+Vérifie que <span class="tt">result.text</span> vaut <span class="tt">"x: 1; y: 2;"</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ApplicationThemeTest.MarqueurInconnuEstSignale</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__application__theme_8cpp.html" title="Tests unitaires du thème de l&#39;IHM : modèle de feuille de style (LOT-56 TACHE-02, EX-IHM-050,...">Source/Test/Unit/HMI/Interface/test_application_theme.cpp</a>:53</span></sub>  </td><td class="markdownTableBodyNone">Un marqueur inconnu est signale plutot que produit avec un trou.  </td><td class="markdownTableBodyNone">1. Substituer un modele dont un marqueur n'a pas de valeur.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok</span> est faux.<br  />
+Vérifie que <span class="tt">result.error.find("inconnu")</span> diffère de <span class="tt">std::string::npos</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ApplicationThemeTest.AucuneCouleurLitteraleDansLeModeleReel</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__application__theme_8cpp.html" title="Tests unitaires du thème de l&#39;IHM : modèle de feuille de style (LOT-56 TACHE-02, EX-IHM-050,...">Source/Test/Unit/HMI/Interface/test_application_theme.cpp</a>:70</span></sub>  </td><td class="markdownTableBodyNone">Le modele de theme livre ne contient aucune couleur litterale.  </td><td class="markdownTableBodyNone">1. Lire le fichier theme.qss livre.<br  />
+2. Chercher un motif de couleur hexadecimale.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">themeText.empty()</span> est faux.<br  />
+Vérifie que <span class="tt">std::regex_search(withoutComments, hexColorPattern)</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ApplicationThemeTest.EtancheiteDesPortees</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__application__theme_8cpp.html" title="Tests unitaires du thème de l&#39;IHM : modèle de feuille de style (LOT-56 TACHE-02, EX-IHM-050,...">Source/Test/Unit/HMI/Interface/test_application_theme.cpp</a>:97</span></sub>  </td><td class="markdownTableBodyNone">Les regles d'identite sont etanches au theme de l'editeur.  </td><td class="markdownTableBodyNone">1. Substituer le modele reel avec deux jeux de valeurs 'editor.*' distincts, memes valeurs 'identity.*'.<br  />
+2. Extraire les blocs <span class="tt">#MainMenu</span>/<span class="tt">#OptionsPage</span> des deux resultats.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">themeText.empty()</span> est faux.<br  />
+Vérifie que <span class="tt">dark.ok</span> est vrai.<br  />
+Vérifie que <span class="tt">light.ok</span> est vrai.<br  />
+Vérifie que <span class="tt">darkEnd</span> diffère de <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt">lightEnd</span> diffère de <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt">dark.text.substr(0, darkEnd)</span> vaut <span class="tt">light.text.substr(0, lightEnd)</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ApplicationThemeTest.ResolutionDePoliceSansNomDeRepliCodeEnDur</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__application__theme_8cpp.html" title="Tests unitaires du thème de l&#39;IHM : modèle de feuille de style (LOT-56 TACHE-02, EX-IHM-050,...">Source/Test/Unit/HMI/Interface/test_application_theme.cpp</a>:151</span></sub>  </td><td class="markdownTableBodyNone">La resolution de police retombe sur une famille generique sans nom code en dur.  </td><td class="markdownTableBodyNone">1. Resoudre la police embarquee enregistree, puis non enregistree.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">registered.useEmbeddedFamily</span> est vrai.<br  />
+Vérifie que <span class="tt">registered.embeddedFamily</span> vaut <span class="tt">"Inter"</span>.<br  />
+Vérifie que <span class="tt">missing.useEmbeddedFamily</span> est faux.<br  />
+Vérifie que <span class="tt">missing.embeddedFamily.empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ApplicationThemeTest.EchelleTypographiquePositiveEtOrdonnee</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__application__theme_8cpp.html" title="Tests unitaires du thème de l&#39;IHM : modèle de feuille de style (LOT-56 TACHE-02, EX-IHM-050,...">Source/Test/Unit/HMI/Interface/test_application_theme.cpp</a>:172</span></sub>  </td><td class="markdownTableBodyNone">L'echelle typographique est positive et ordonnee du plus grand au plus petit.  </td><td class="markdownTableBodyNone">1. Lire les tailles de l'echelle typographique des jetons.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">typography.screenTitle.pointSize</span> est strictement supérieur à <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">typography.sectionTitle.pointSize</span> est strictement supérieur à <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">typography.body.pointSize</span> est strictement supérieur à <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">typography.caption.pointSize</span> est strictement supérieur à <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">typography.monospaceBody.pointSize</span> est strictement supérieur à <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">typography.screenTitle.pointSize</span> est strictement supérieur à <span class="tt">typography.sectionTitle.pointSize</span>.<br  />
+Vérifie que <span class="tt">typography.sectionTitle.pointSize</span> est strictement supérieur à <span class="tt">typography.body.pointSize</span>.<br  />
+Vérifie que <span class="tt">typography.body.pointSize</span> est strictement supérieur à <span class="tt">typography.caption.pointSize</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ApplicationThemeTest.AucuneTailleDePoliceResiduelleDansLesFichiersUi</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__application__theme_8cpp.html" title="Tests unitaires du thème de l&#39;IHM : modèle de feuille de style (LOT-56 TACHE-02, EX-IHM-050,...">Source/Test/Unit/HMI/Interface/test_application_theme.cpp</a>:197</span></sub>  </td><td class="markdownTableBodyNone">Aucune taille de police ni marge figee ne subsiste dans les fichiers .ui.  </td><td class="markdownTableBodyNone">1. Lire MainMenu.ui et OptionsPage.ui.<br  />
+2. Chercher une propriete font/margin figee au niveau du widget racine.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">text.empty()</span> est faux.<br  />
+Vérifie que <span class="tt">text.find("&lt;property name=\\"font\\\\"\&gt;\")&lt;/tt&gt; vaut &lt;tt&gt;std::string::npos&lt;/tt&gt;.&lt;br/&gt;Vérifie que &lt;tt&gt;text.find(\"Margin\")</span> vaut <span class="tt">std::string::npos</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ApplicationThemeTest.ResolutionDuThemeEffectifSuitLeReglageEtLeSysteme</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__application__theme_8cpp.html" title="Tests unitaires du thème de l&#39;IHM : modèle de feuille de style (LOT-56 TACHE-02, EX-IHM-050,...">Source/Test/Unit/HMI/Interface/test_application_theme.cpp</a>:222</span></sub>  </td><td class="markdownTableBodyNone">La resolution du theme effectif suit le reglage et, si Systeme, le systeme.  </td><td class="markdownTableBodyNone">1. Resoudre les quatre combinaisons reglage/systeme.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a00629522279a61cffd0c68ae26c3fca0" title="Résout le thème effectif à appliquer.">hmi::resolveEffectiveEditorTheme</a>(EditorThemeSetting::System, /*systemPrefersDark=*/true)</span> vaut <span class="tt">EditorThemeMode::Dark</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a00629522279a61cffd0c68ae26c3fca0" title="Résout le thème effectif à appliquer.">hmi::resolveEffectiveEditorTheme</a>(EditorThemeSetting::System, /*systemPrefersDark=*/false)</span> vaut <span class="tt">EditorThemeMode::Light</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a00629522279a61cffd0c68ae26c3fca0" title="Résout le thème effectif à appliquer.">hmi::resolveEffectiveEditorTheme</a>(EditorThemeSetting::Light, /*systemPrefersDark=*/true)</span> vaut <span class="tt">EditorThemeMode::Light</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a00629522279a61cffd0c68ae26c3fca0" title="Résout le thème effectif à appliquer.">hmi::resolveEffectiveEditorTheme</a>(EditorThemeSetting::Dark, /*systemPrefersDark=*/false)</span> vaut <span class="tt">EditorThemeMode::Dark</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ApplicationThemeTest.EtancheiteDesPorteesAvecLesVraisThemes</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__application__theme_8cpp.html" title="Tests unitaires du thème de l&#39;IHM : modèle de feuille de style (LOT-56 TACHE-02, EX-IHM-050,...">Source/Test/Unit/HMI/Interface/test_application_theme.cpp</a>:250</span></sub>  </td><td class="markdownTableBodyNone">L'etancheite des portees tient avec les vrais themes sombre et clair.  </td><td class="markdownTableBodyNone">1. Produire la feuille de style avec editorDarkTokens() puis editorLightTokens().<br  />
+ 2. Comparer les blocs <span class="tt">#MainMenu</span>/<span class="tt">#OptionsPage</span> des deux resultats.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">themeText.empty()</span> est faux.<br  />
+Vérifie que <span class="tt">dark.ok</span> est vrai.<br  />
+Vérifie que <span class="tt">light.ok</span> est vrai.<br  />
+Vérifie que <span class="tt">darkEnd</span> diffère de <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt">lightEnd</span> diffère de <span class="tt">std::string::npos</span>.<br  />
+Vérifie que <span class="tt">dark.text.substr(0, darkEnd)</span> vaut <span class="tt">light.text.substr(0, lightEnd)</span>.<br  />
+Vérifie que <span class="tt">dark.text.substr(darkEnd)</span> diffère de <span class="tt">light.text.substr(lightEnd)</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__design__tokens_8cpp.html" title="Tests unitaires des jetons de design de l&#39;IHM (LOT-56 TACHE-01, EX-IHM-050, EX-IHM-051).">test_design_tokens.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>DesignTokensTest.ConversionHexadecimaleStableEtBienFormee</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__design__tokens_8cpp.html" title="Tests unitaires des jetons de design de l&#39;IHM (LOT-56 TACHE-01, EX-IHM-050, EX-IHM-051).">Source/Test/Unit/HMI/Interface/test_design_tokens.cpp</a>:14</span></sub>  </td><td class="markdownTableBodyNone">La conversion en couleur CSS hexadecimale est stable et bien formee.  </td><td class="markdownTableBodyNone">1. Convertir une couleur connue en chaine hexadecimale.<br  />
+2. Reconvertir la meme couleur.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">first</span> vaut <span class="tt">second</span>.<br  />
+Vérifie que <span class="tt">first.size()</span> vaut <span class="tt">7u</span>.<br  />
+Vérifie que <span class="tt">first</span> vaut <span class="tt">"#1a2b3c"</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>DesignTokensTest.ConversionRgbaPorteLesQuatreComposantes</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__design__tokens_8cpp.html" title="Tests unitaires des jetons de design de l&#39;IHM (LOT-56 TACHE-01, EX-IHM-050, EX-IHM-051).">Source/Test/Unit/HMI/Interface/test_design_tokens.cpp</a>:35</span></sub>  </td><td class="markdownTableBodyNone">La conversion en couleur CSS rgba() porte les quatre composantes.  </td><td class="markdownTableBodyNone">1. Convertir une couleur avec alpha partiel.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::toCssRgba(color)</span> vaut <span class="tt">"rgba(0, 128, 255, 64)"</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>DesignTokensTest.CouleurViewportSuitLaPorteeDuMode</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__design__tokens_8cpp.html" title="Tests unitaires des jetons de design de l&#39;IHM (LOT-56 TACHE-01, EX-IHM-050, EX-IHM-051).">Source/Test/Unit/HMI/Interface/test_design_tokens.cpp</a>:51</span></sub>  </td><td class="markdownTableBodyNone">La couleur d'effacement du viewport suit le jeton de fond de la bonne portee.  </td><td class="markdownTableBodyNone">1. Demander la couleur d'effacement en mode edition, puis en mode jeu.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ac309fd9a7985bf6b3ba59e8fd46362c6" title="Couleur d&#39;effacement du viewport (GameViewport), dérivée des jetons plutôt que d&#39;une valeur littérale...">hmi::viewportClearColor</a>(/*editorMode=*/true, <a class="el" href="namespacehmi.html#abc068660f97a7130175d11f2755ff340" title="Jetons du châssis d&#39;édition en thème sombre (défaut) : variables, editorLightTokens() (LOT-56 TACHE-0...">hmi::editorDarkTokens()</a>)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#abc068660f97a7130175d11f2755ff340" title="Jetons du châssis d&#39;édition en thème sombre (défaut) : variables, editorLightTokens() (LOT-56 TACHE-0...">hmi::editorDarkTokens()</a>.color.background</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ac309fd9a7985bf6b3ba59e8fd46362c6" title="Couleur d&#39;effacement du viewport (GameViewport), dérivée des jetons plutôt que d&#39;une valeur littérale...">hmi::viewportClearColor</a>(/*editorMode=*/true, <a class="el" href="namespacehmi.html#a579e19561f5e93deaf52895cb3d4b7fd" title="Jetons du châssis d&#39;édition en thème clair (LOT-56 TACHE-06) : mêmes rôles, mêmes échelles que editor...">hmi::editorLightTokens()</a>)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a579e19561f5e93deaf52895cb3d4b7fd" title="Jetons du châssis d&#39;édition en thème clair (LOT-56 TACHE-06) : mêmes rôles, mêmes échelles que editor...">hmi::editorLightTokens()</a>.color.background</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ac309fd9a7985bf6b3ba59e8fd46362c6" title="Couleur d&#39;effacement du viewport (GameViewport), dérivée des jetons plutôt que d&#39;une valeur littérale...">hmi::viewportClearColor</a>(/*editorMode=*/false, <a class="el" href="namespacehmi.html#abc068660f97a7130175d11f2755ff340" title="Jetons du châssis d&#39;édition en thème sombre (défaut) : variables, editorLightTokens() (LOT-56 TACHE-0...">hmi::editorDarkTokens()</a>)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ad6321dea8cce4302df77dbdbcd3fd155" title="Jetons de l&#39;identité du jeu (menu principal, écran Options, jeu) : invariants, ne suivent jamais aucu...">hmi::identityTokens()</a>.color.background</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>DesignTokensTest.LesDeuxPorteesPartagentLesMemesEchelles</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__design__tokens_8cpp.html" title="Tests unitaires des jetons de design de l&#39;IHM (LOT-56 TACHE-01, EX-IHM-050, EX-IHM-051).">Source/Test/Unit/HMI/Interface/test_design_tokens.cpp</a>:72</span></sub>  </td><td class="markdownTableBodyNone">Les deux portees partagent les memes echelles et tailles.  </td><td class="markdownTableBodyNone">1. Comparer espacement, typographie et tailles des deux jeux de jetons.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ad6321dea8cce4302df77dbdbcd3fd155" title="Jetons de l&#39;identité du jeu (menu principal, écran Options, jeu) : invariants, ne suivent jamais aucu...">hmi::identityTokens()</a>.spacing</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#abc068660f97a7130175d11f2755ff340" title="Jetons du châssis d&#39;édition en thème sombre (défaut) : variables, editorLightTokens() (LOT-56 TACHE-0...">hmi::editorDarkTokens()</a>.spacing</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ad6321dea8cce4302df77dbdbcd3fd155" title="Jetons de l&#39;identité du jeu (menu principal, écran Options, jeu) : invariants, ne suivent jamais aucu...">hmi::identityTokens()</a>.typography</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#abc068660f97a7130175d11f2755ff340" title="Jetons du châssis d&#39;édition en thème sombre (défaut) : variables, editorLightTokens() (LOT-56 TACHE-0...">hmi::editorDarkTokens()</a>.typography</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ad6321dea8cce4302df77dbdbcd3fd155" title="Jetons de l&#39;identité du jeu (menu principal, écran Options, jeu) : invariants, ne suivent jamais aucu...">hmi::identityTokens()</a>.size</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#abc068660f97a7130175d11f2755ff340" title="Jetons du châssis d&#39;édition en thème sombre (défaut) : variables, editorLightTokens() (LOT-56 TACHE-0...">hmi::editorDarkTokens()</a>.size</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#abc068660f97a7130175d11f2755ff340" title="Jetons du châssis d&#39;édition en thème sombre (défaut) : variables, editorLightTokens() (LOT-56 TACHE-0...">hmi::editorDarkTokens()</a>.spacing</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a579e19561f5e93deaf52895cb3d4b7fd" title="Jetons du châssis d&#39;édition en thème clair (LOT-56 TACHE-06) : mêmes rôles, mêmes échelles que editor...">hmi::editorLightTokens()</a>.spacing</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#abc068660f97a7130175d11f2755ff340" title="Jetons du châssis d&#39;édition en thème sombre (défaut) : variables, editorLightTokens() (LOT-56 TACHE-0...">hmi::editorDarkTokens()</a>.typography</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a579e19561f5e93deaf52895cb3d4b7fd" title="Jetons du châssis d&#39;édition en thème clair (LOT-56 TACHE-06) : mêmes rôles, mêmes échelles que editor...">hmi::editorLightTokens()</a>.typography</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#abc068660f97a7130175d11f2755ff340" title="Jetons du châssis d&#39;édition en thème sombre (défaut) : variables, editorLightTokens() (LOT-56 TACHE-0...">hmi::editorDarkTokens()</a>.size</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a579e19561f5e93deaf52895cb3d4b7fd" title="Jetons du châssis d&#39;édition en thème clair (LOT-56 TACHE-06) : mêmes rôles, mêmes échelles que editor...">hmi::editorLightTokens()</a>.size</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>DesignTokensTest.CouleursDesDeuxPorteesDistinctesEtCoherentes</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__design__tokens_8cpp.html" title="Tests unitaires des jetons de design de l&#39;IHM (LOT-56 TACHE-01, EX-IHM-050, EX-IHM-051).">Source/Test/Unit/HMI/Interface/test_design_tokens.cpp</a>:92</span></sub>  </td><td class="markdownTableBodyNone">Les couleurs des deux portees sont definies et distinctes.  </td><td class="markdownTableBodyNone">1. Comparer le fond des deux portees.<br  />
+2. Verifier que le texte contraste avec le fond dans chaque portee.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ad6321dea8cce4302df77dbdbcd3fd155" title="Jetons de l&#39;identité du jeu (menu principal, écran Options, jeu) : invariants, ne suivent jamais aucu...">hmi::identityTokens()</a>.color.background == <a class="el" href="namespacehmi.html#abc068660f97a7130175d11f2755ff340" title="Jetons du châssis d&#39;édition en thème sombre (défaut) : variables, editorLightTokens() (LOT-56 TACHE-0...">hmi::editorDarkTokens()</a>.color.background</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ad6321dea8cce4302df77dbdbcd3fd155" title="Jetons de l&#39;identité du jeu (menu principal, écran Options, jeu) : invariants, ne suivent jamais aucu...">hmi::identityTokens()</a>.color.text == <a class="el" href="namespacehmi.html#ad6321dea8cce4302df77dbdbcd3fd155" title="Jetons de l&#39;identité du jeu (menu principal, écran Options, jeu) : invariants, ne suivent jamais aucu...">hmi::identityTokens()</a>.color.background</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#abc068660f97a7130175d11f2755ff340" title="Jetons du châssis d&#39;édition en thème sombre (défaut) : variables, editorLightTokens() (LOT-56 TACHE-0...">hmi::editorDarkTokens()</a>.color.text == <a class="el" href="namespacehmi.html#abc068660f97a7130175d11f2755ff340" title="Jetons du châssis d&#39;édition en thème sombre (défaut) : variables, editorLightTokens() (LOT-56 TACHE-0...">hmi::editorDarkTokens()</a>.color.background</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>DesignTokensTest.AucunDoublonDeLargeurMinimale</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__design__tokens_8cpp.html" title="Tests unitaires des jetons de design de l&#39;IHM (LOT-56 TACHE-01, EX-IHM-050, EX-IHM-051).">Source/Test/Unit/HMI/Interface/test_design_tokens.cpp</a>:109</span></sub>  </td><td class="markdownTableBodyNone">Une seule grandeur de largeur minimale existe pour les deux widgets de remappage.  </td><td class="markdownTableBodyNone">1. Lire <span class="tt">controlMinWidth</span> dans les jetons du chassis d'edition.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#abc068660f97a7130175d11f2755ff340" title="Jetons du châssis d&#39;édition en thème sombre (défaut) : variables, editorLightTokens() (LOT-56 TACHE-0...">hmi::editorDarkTokens()</a>.size.controlMinWidth</span> est strictement supérieur à <span class="tt">0</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>DesignTokensTest.ChaqueThemeSatisfaitLeSeuilDeContraste</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__design__tokens_8cpp.html" title="Tests unitaires des jetons de design de l&#39;IHM (LOT-56 TACHE-01, EX-IHM-050, EX-IHM-051).">Source/Test/Unit/HMI/Interface/test_design_tokens.cpp</a>:124</span></sub>  </td><td class="markdownTableBodyNone">Chaque theme d'editeur satisfait un seuil de contraste texte/fond.  </td><td class="markdownTableBodyNone">1. Calculer le contraste texte/fond et texte-attenue/fond pour les deux themes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a4b85e74ce8764eb9f4121b7b91eb84c7" title="Rapport de contraste WCAG entre deux couleurs (1 = aucun contraste, 21 = noir sur blanc).">hmi::contrastRatio</a>(tokens-&gt;color.text, tokens-&gt;color.background)</span> est supérieur ou égal à <span class="tt">MIN_TEXT_CONTRAST</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a4b85e74ce8764eb9f4121b7b91eb84c7" title="Rapport de contraste WCAG entre deux couleurs (1 = aucun contraste, 21 = noir sur blanc).">hmi::contrastRatio</a>(tokens-&gt;color.textMuted, tokens-&gt;color.background)</span> est supérieur ou égal à <span class="tt">MIN_MUTED_TEXT_CONTRAST</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>DesignTokensTest.ContrasteSymetriqueEtUnitairePourUneMemeCouleur</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__design__tokens_8cpp.html" title="Tests unitaires des jetons de design de l&#39;IHM (LOT-56 TACHE-01, EX-IHM-050, EX-IHM-051).">Source/Test/Unit/HMI/Interface/test_design_tokens.cpp</a>:145</span></sub>  </td><td class="markdownTableBodyNone">Le rapport de contraste est symetrique et vaut 1 sans difference de couleur.  </td><td class="markdownTableBodyNone">1. Calculer le contraste d'une couleur avec elle-meme, puis dans les deux sens entre deux couleurs distinctes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::contrastRatio(color, color)</span> vaut <span class="tt">1.0</span>, à <span class="tt">1e-9</span> près.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a4b85e74ce8764eb9f4121b7b91eb84c7" title="Rapport de contraste WCAG entre deux couleurs (1 = aucun contraste, 21 = noir sur blanc).">hmi::contrastRatio</a>(<a class="el" href="structhmi_1_1DesignColor.html" title="Couleur RVBA pure (indépendante de Qt), convertible en chaîne CSS pour la feuille de style et directe...">hmi::DesignColor</a>{0, 0, 0}, <a class="el" href="structhmi_1_1DesignColor.html" title="Couleur RVBA pure (indépendante de Qt), convertible en chaîne CSS pour la feuille de style et directe...">hmi::DesignColor</a>{255, 255, 255})</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a4b85e74ce8764eb9f4121b7b91eb84c7" title="Rapport de contraste WCAG entre deux couleurs (1 = aucun contraste, 21 = noir sur blanc).">hmi::contrastRatio</a>(<a class="el" href="structhmi_1_1DesignColor.html" title="Couleur RVBA pure (indépendante de Qt), convertible en chaîne CSS pour la feuille de style et directe...">hmi::DesignColor</a>{255, 255, 255}, <a class="el" href="structhmi_1_1DesignColor.html" title="Couleur RVBA pure (indépendante de Qt), convertible en chaîne CSS pour la feuille de style et directe...">hmi::DesignColor</a>{0, 0, 0})</span>, à <span class="tt">1e-9</span> près.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__editor__actions_8cpp.html" title="Tests unitaires du catalogue d&#39;actions et de la géométrie des icônes de l&#39;éditeur (LOT-56 TACHE-04,...">test_editor_actions.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>EditorActionsTest.LesSixOutilsFormentUneBijectionAvecEditorTool</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__actions_8cpp.html" title="Tests unitaires du catalogue d&#39;actions et de la géométrie des icônes de l&#39;éditeur (LOT-56 TACHE-04,...">Source/Test/Unit/HMI/Interface/test_editor_actions.cpp</a>:35</span></sub>  </td><td class="markdownTableBodyNone">Les six outils du catalogue forment une bijection avec EditorTool.  </td><td class="markdownTableBodyNone">1. Pour chaque <a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou le panneau ToolPanel.">hmi::EditorTool</a>, resoudre l'action puis reconvertir vers l'outil.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">seen.insert(id).second</span> est vrai.<br  />
+Vérifie que <span class="tt">roundTrip.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">*roundTrip</span> vaut <span class="tt">tool</span>.<br  />
+Vérifie que <span class="tt">seen.size()</span> vaut <span class="tt">6u</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>EditorActionsTest.DefinitionUniqueDeRaccourci</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__actions_8cpp.html" title="Tests unitaires du catalogue d&#39;actions et de la géométrie des icônes de l&#39;éditeur (LOT-56 TACHE-04,...">Source/Test/Unit/HMI/Interface/test_editor_actions.cpp</a>:60</span></sub>  </td><td class="markdownTableBodyNone">Aucun raccourci n'est attribue a deux actions.  </td><td class="markdownTableBodyNone">1. Parcourir le catalogue, ignorer les raccourcis vides.<br  />
+2. Verifier qu'aucune valeur n'apparait deux fois.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">shortcuts.insert(shortcut).second</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>EditorActionsTest.GeometrieDesIconesNonVideEtDansLeCadre</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__actions_8cpp.html" title="Tests unitaires du catalogue d&#39;actions et de la géométrie des icônes de l&#39;éditeur (LOT-56 TACHE-04,...">Source/Test/Unit/HMI/Interface/test_editor_actions.cpp</a>:83</span></sub>  </td><td class="markdownTableBodyNone">La geometrie de chaque icone est non vide et dans le cadre normalise.  </td><td class="markdownTableBodyNone">1. Pour chaque action du catalogue, produire sa geometrie.<br  />
+2. Verifier qu'elle a au moins un trait, et que chaque point est dans [0,1].  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">geometry.strokes.empty()</span> est faux.<br  />
+Vérifie que <span class="tt">stroke.points.empty()</span> est faux.<br  />
+Vérifie que <span class="tt">point.x</span> est supérieur ou égal à <span class="tt">0.0f</span>.<br  />
+Vérifie que <span class="tt">point.x</span> est inférieur ou égal à <span class="tt">1.0f</span>.<br  />
+Vérifie que <span class="tt">point.y</span> est supérieur ou égal à <span class="tt">0.0f</span>.<br  />
+Vérifie que <span class="tt">point.y</span> est inférieur ou égal à <span class="tt">1.0f</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>EditorActionsTest.ChaqueLibelleExisteDansLesDeuxLangues</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__actions_8cpp.html" title="Tests unitaires du catalogue d&#39;actions et de la géométrie des icônes de l&#39;éditeur (LOT-56 TACHE-04,...">Source/Test/Unit/HMI/Interface/test_editor_actions.cpp</a>:110</span></sub>  </td><td class="markdownTableBodyNone">Chaque cle de libelle du catalogue d'actions existe en francais et en anglais.  </td><td class="markdownTableBodyNone">1. Lire fr.lang et en.lang.<br  />
+2. Verifier que chaque labelKey du catalogue y figure.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">fr.empty()</span> est faux.<br  />
+Vérifie que <span class="tt">en.empty()</span> est faux.<br  />
+Vérifie que <span class="tt">fr.count(spec.labelKey) &gt; 0</span> est vrai.<br  />
+Vérifie que <span class="tt">en.count(spec.labelKey) &gt; 0</span> est vrai.  </td></tr>
+</table>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
 Localization (8)</h3>
 <p><b><span class="tt"><a class="el" href="test__localization_8cpp.html" title="Tests unitaires du catalogue de traduction : analyse, repli, changement de langue.">test_localization.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -4061,9 +4221,9 @@ Vérifie que <span class="tt">localization.activeLanguage()</span> vaut <span cl
 Vérifie que <span class="tt">localization.text("menu.quit")</span> vaut <span class="tt">"Quitter"</span>.<br  />
 Vérifie que <span class="tt">localization.text("menu.play")</span> vaut <span class="tt">"Jouer"</span>.  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
 Tests d'intégration (87)</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md22"></a>
 Animation Personnage — <span class="tt">test_animation_personnage.cpp</span> (13)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4141,7 +4301,7 @@ Vérifie que <span class="tt">world.getComponent&lt;<a class="el" href="structco
 3. Executer un pas.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">world.getComponent&lt;<a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...">core::Animation</a>&gt;(entity).clipIndex</span> vaut <span class="tt"><a class="el" href="namespacecore.html#ab778e77cf62b7d1c11d8038f75cbf020" title="Index du clip « wallslide » (glissade murale, LOT-48) dans core::playerClipSet().">core::PLAYER_CLIP_WALLSLIDE</a></span>.<br  />
 Vérifie que <span class="tt">world.getComponent&lt;<a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...">core::Animation</a>&gt;(entity).clipIndex</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a75463224decffa9f1ac1f5bf99119eef" title="Index du clip « land » (atterrissage, transition jouée une fois, LOT-48) dans core::playerClipSet().">core::PLAYER_CLIP_LAND</a></span>.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md22"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md23"></a>
 Bloc Réduit — <span class="tt">test_bloc_reduit.cpp</span> (2)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4156,7 +4316,7 @@ Vérifie que <span class="tt">world.getComponent&lt;<a class="el" href="structco
 <sub><span class="tt"><a class="el" href="test__bloc__reduit_8cpp.html" title="Tests d&#39;intégration des blocs à taille réduite (TileType::BlockHalf/BlockQuarter, EX-GP-005) : compos...">Source/Test/Integration/test_bloc_reduit.cpp</a>:154</span></sub>  </td><td class="markdownTableBodyNone">L'espace autour d'un bloc réduit, hors de sa boîte réelle, reste franchissable.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">endX - startX</span> est strictement supérieur à <span class="tt">8.0f</span>.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md23"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md24"></a>
 Boucle Simulation — <span class="tt">test_boucle_simulation.cpp</span> (2)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4172,7 +4332,7 @@ Vérifie que <span class="tt">position.x</span> vaut <span class="tt">6.0f * tot
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">firstPosition.x</span> vaut <span class="tt">secondPosition.x</span>, à <span class="tt">TOLERANCE</span> près.<br  />
 Vérifie que <span class="tt">firstPosition.y</span> vaut <span class="tt">secondPosition.y</span>, à <span class="tt">TOLERANCE</span> près.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md24"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md25"></a>
 Dangers avancés — <span class="tt">test_danger_avance.cpp</span> (4)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4198,7 +4358,7 @@ Vérifie que <span class="tt">walkAndCheckIfEverLost(true)</span> est vrai.  </t
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">outcomeAtSpawn(0)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaab578b733cbb788fc6ad208314d2c4c2b" title="Le personnage a touché un danger ou est sorti par le bas (EX-GP-031).">core::LevelOutcome::Lost</a></span>.<br  />
 Vérifie que <span class="tt">outcomeAtSpawn(15)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaac9dbb2b7c84159b632d71e512eba8428" title="Partie en cours.">core::LevelOutcome::Playing</a></span>.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md25"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md26"></a>
 Ecs Mouvement — <span class="tt">test_ecs_mouvement.cpp</span> (4)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4225,7 +4385,7 @@ Vérifie que <span class="tt">fastPosition.y</span> vaut <span class="tt">4.0f</
 <sub><span class="tt"><a class="el" href="test__ecs__mouvement_8cpp.html" title="Tests d&#39;intégration de l&#39;ECS : entités + composants + système de mouvement assemblés dans un World,...">Source/Test/Integration/test_ecs_mouvement.cpp</a>:114</span></sub>  </td><td class="markdownTableBodyNone">Enregistré dans le World, le système s'exécute via World::update (chaîne complète).  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">position.x</span> vaut <span class="tt">10.0f * steps * STEP</span>, à <span class="tt">TOLERANCE</span> près.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md26"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md27"></a>
 Niveau Ecs — <span class="tt">test_niveau_ecs.cpp</span> (2)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4246,7 +4406,7 @@ Vérifie que <span class="tt">tilesByPosition.at({1, 1})</span> vaut <span class
 Vérifie que <span class="tt">nonEmptyTiles</span> est strictement supérieur à <span class="tt">0</span>.<br  />
 Vérifie que <span class="tt">entities</span> vaut <span class="tt">nonEmptyTiles</span>.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md27"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md28"></a>
 Physique Personnage — <span class="tt">test_physique_personnage.cpp</span> (60)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4566,9 +4726,9 @@ Vérifie que <span class="tt">outcome</span> diffère de <span class="tt"><a cla
 <sub><span class="tt"><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:2661</span></sub>  </td><td class="markdownTableBodyNone">Le niveau final combine plusieurs mécaniques en un seul parcours cohérent et reste franchissable.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">playReactiveFile("demo-final.json", script)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></span>.  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md28"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md29"></a>
 Tests système (3)</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md29"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md30"></a>
 Parcours Complet — <span class="tt">test_parcours_complet.cpp</span> (1)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4579,7 +4739,7 @@ Parcours Complet — <span class="tt">test_parcours_complet.cpp</span> (1)</h2>
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">sequence.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">playLevel(level)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></span>.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md30"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md31"></a>
 Éditeur de niveaux — <span class="tt">test_parcours_edition.cpp</span> (2)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">

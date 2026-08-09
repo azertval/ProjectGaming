@@ -7,8 +7,6 @@ var classhmi_1_1ToolPanel =
     [ "decorSnapToGridChanged", "classhmi_1_1ToolPanel.html#aaac893f5c55ea952e66b4a28fd56a4f8", null ],
     [ "retranslateUi", "classhmi_1_1ToolPanel.html#a58c3f4f3e479000f63d7cb75f71cd947", null ],
     [ "setActiveTool", "classhmi_1_1ToolPanel.html#a73f29aa7fab8c82d99807459dca3e898", null ],
-    [ "toolSelected", "classhmi_1_1ToolPanel.html#ab6b2b89386fe3445253d5470111a7244", null ],
-    [ "updateDecorPickerVisibility", "classhmi_1_1ToolPanel.html#ab43ba09347e5523800a53360578308a6", null ],
     [ "_decorView", "classhmi_1_1ToolPanel.html#ad85e048ec1397368c89922e5426aecef", null ],
     [ "_ui", "classhmi_1_1ToolPanel.html#ab1e856f382539bf2e6df5546a0dd94d7", null ]
 ];

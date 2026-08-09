@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-54-tache-08-apercu-live-planche.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-54-atelier-pixel-art_2tache-08-apercu-live-planche"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-54.html#md_Lot_2LOT-54-atelier-pixel-art_2epic" title="Lot/LOT-54-atelier-pixel-art/epic.md">LOT-54</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span>, <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2393"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2394"></a>
 Contexte</h1>
 <p>Sans cette tâche, l'atelier n'apporterait presque rien : un éditeur d'images externe fait déjà mieux que ce que LOT-54 peut livrer en un lot. Ce qui le justifie, c'est d'être <b>intégré</b> — voir immédiatement, dans le niveau, ce que l'on est en train de peindre.</p>
 <p>S'y ajoute un besoin créé par LOT-42 : dessiner une <b>planche à raccords</b> de seize cases, où chaque case correspond à une configuration de voisinage précise, est impossible sans repères. Un auteur livré à lui-même se tromperait de case une fois sur deux.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2394"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2395"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Aperçu live</b> : à chaque modification significative (fin de coup de pinceau, remplissage), mettre à jour le rendu du niveau, via l'invalidation ciblée du <em>TextureCache</em> (<span class="tt">invalidate(name)</span>, API prévue depuis LOT-40, exploitée par LOT-43).<ul>
@@ -111,7 +111,7 @@ Travail à réaliser</h1>
 <li><b>Case survolée dans la barre d'état</b> : en mode planche, le contexte d'atelier (TACHE-04) indique quelle case de la planche est sous le curseur et quelle configuration de voisinage elle décrit.</li>
 <li><b>Aperçu d'animation</b> : si l'asset porte une description d'animation (LOT-46), jouer le clip dans le canevas.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2395"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2396"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/PixelCanvas.{h,cpp}</span>.</li>
@@ -120,7 +120,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/HMI/Editor/EditorStatus.{h,cpp}</span> (créé en <span class="tt">LOT-57</span>) — case de planche survolée.</li>
 <li><span class="tt">Source/Elements/Localization/fr.lang</span>, <span class="tt">en.lang</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2396"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2397"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Libellés des seize cases</b> : chaque index de la table de raccords a un libellé, et il correspond bien à la configuration de voisinage de la table (LOT-42, TACHE-02). Fonction pure.</li>
@@ -128,7 +128,7 @@ Tests (obligatoires)</h1>
 <li>L'aperçu de raccord assemble les cases selon la même table que le rendu — pas une seconde table.</li>
 <li><b>Case survolée</b> : une position de canevas donnée produit l'index de case attendu, et aucun index hors de la planche ; fonction pure, réutilisant la conversion de la TACHE-03.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2397"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2398"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Une seule table de raccords.</b> Les libellés et l'aperçu doivent lire la table de LOT-42 ; une copie dans l'atelier divergerait au premier ajustement et induirait l'auteur en erreur — le pire résultat possible pour un outil censé le guider.</li>
@@ -136,12 +136,12 @@ Points d'attention</h1>
 <li>L'aperçu live ne doit pas rendre l'application saccadée : invalider et recharger une texture 16×16 est peu coûteux, mais le faire à chaque mouvement de souris ne l'est pas.</li>
 <li>Si l'asset édité n'est utilisé par aucun niveau ouvert, l'aperçu live n'a rien à montrer : le signaler plutôt que de laisser croire à un dysfonctionnement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2398"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2399"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Le niveau reflète les modifications en cours d'édition, par geste et non par pixel ; l'édition d'une planche affiche les repères et libellés des seize cases, issus de la table unique, ainsi qu'un aperçu d'assemblage 3×3 ; la case survolée figure dans la barre d'état ; un asset animé se prévisualise ; chaînes traduites ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2399"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2400"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-045</span> (outil de dessin pixel art, avec aperçu dans le niveau) ; réutilise <span class="tt">EX-EDIT-025</span> (raccords automatiques), <span class="tt">EX-EDIT-026</span> (rechargement à chaud), <span class="tt">EX-REN-005</span> (animations par données), <span class="tt">EX-IHM-060</span> (état de travail affiché en permanence), <span class="tt">EX-REN-033</span> (traduction). </p>
 </div></div><!-- contents -->

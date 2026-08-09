@@ -94,40 +94,40 @@ $(function(){initNavTree('lot-25-tache-03-integration-sequence-tests.html','',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-25-niveaux-demo-exhaustifs_2tache-03-integration-sequence-tests"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-25.html#md_Lot_2LOT-25-niveaux-demo-exhaustifs_2epic" title="Lot/LOT-25-niveaux-demo-exhaustifs/epic.md">LOT-25</a> · <b>Emplacement :</b> <span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">HMI/main.cpp</a></span>, <span class="tt">Test/Systeme</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1337"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1338"></a>
 Contexte</h1>
 <p>Les niveaux de <span class="tt">TACHE-02</span> n'ont d'effet que si le jeu les charge <b>et</b> que le test système les rejoue — c'est l'écart entre les deux (constaté avec <span class="tt">demo5.json</span>, absent du test système alors que chargé en jeu) qui a déclenché ce lot ; cette tâche referme cet écart et empêche sa réapparition.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1338"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1339"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span></b> : la liste de niveaux passée au constructeur de <span class="tt">GameScreen</span> (fabrique d'écrans, <span class="tt">ScreenId::Game</span>) reflète exactement la séquence finale décidée en <span class="tt">TACHE-01</span>.</li>
 <li><b><span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span></b> : <span class="tt">sequence</span> (dans <span class="tt">ParcoursCompletSysteme.FranchitTouteLaSequence</span>) référence exactement les <b>mêmes</b> fichiers, dans le <b>même ordre</b>, chacun avec un scénario d'entrées déterministe qui exploite la mécanique visée (sur le modèle des scénarios déjà écrits pour <span class="tt">demo.json</span>…<span class="tt">demo4.json</span>) — <b>le niveau final combiné (dernier de la séquence) inclus</b>, avec un scénario qui enchaîne réellement les mécaniques qu'il mélange (pas seulement un scénario générique qui le franchirait par chance).</li>
 <li><b>Garde-fou anti-divergence</b> (voir décision de cadrage de l'épic) : implémenté comme un script Python, <span class="tt">scripts/check_demo_sequence.py</span>, exécuté en CI (job <span class="tt">lint-exigences</span>, aux côtés du lint des exigences et du contrôle du cahier de test). Il extrait, par une simple recherche de motif <span class="tt">"demo-*.json"</span>, la séquence de fichiers dans <span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span> et dans <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span>, puis échoue (code de sortie 1) si les deux listes diffèrent (contenu ou ordre). Choisi plutôt qu'un fichier de configuration partagé : ne demande aucun refactoring des deux fichiers existants (qui restent lisibles en C++ pur, sans indirection vers un fichier externe), et le script est trivial à maintenir (une seule expression régulière).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1339"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1340"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span>.</li>
 <li><span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span>.</li>
 <li>Éventuel nouveau mécanisme de garde-fou (fichier de configuration partagé, ou test dédié).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1340"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1341"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">ParcoursCompletSysteme.FranchitTouteLaSequence</span> franchit tous les niveaux de la séquence complète (<span class="tt">Won</span> partout), avec des scénarios d'entrées couvrant réellement la mécanique visée par chaque niveau (pas un simple « avancer à droite » qui passerait par chance).</li>
 <li>Le garde-fou anti-divergence échoue délibérément si un niveau est ajouté à l'une des deux listes sans l'autre (vérifié en le cassant intentionnellement pendant le développement, puis en le corrigeant).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1341"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1342"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Scénarios d'entrées réalistes</b> : un scénario qui franchit un niveau par accident (sans utiliser la mécanique visée) invaliderait le critère d'acceptation 1 de l'épic aussi sûrement qu'un niveau mal conçu — revoir chaque scénario en le faisant échouer volontairement (mécanique désactivée en pensée) pour confirmer qu'il échouerait vraiment sans elle.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1342"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1343"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Séquence de jeu et test système strictement synchronisés, garde-fou anti-divergence en place et vérifié ; tous les niveaux franchis par le test système.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1343"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1344"></a>
 Exigences</h1>
 <p>Aucune exigence propre — cohérence entre le jeu et sa suite de tests. </p>
 </div></div><!-- contents -->

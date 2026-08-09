@@ -7,6 +7,7 @@ var classhmi_1_1AssetThumbnailView =
     [ "assetsChanged", "classhmi_1_1AssetThumbnailView.html#a9e007378ba6077167bdad01da4d8f89c", null ],
     [ "assetSelected", "classhmi_1_1AssetThumbnailView.html#a1601ba597faa6d6d161d28b311b42041", null ],
     [ "clearCache", "classhmi_1_1AssetThumbnailView.html#a75510601d7c608bd13ce33ab360679a8", null ],
+    [ "event", "classhmi_1_1AssetThumbnailView.html#a6eac7d30fa8ec639d3e50d7f5596144e", null ],
     [ "onCurrentItemChanged", "classhmi_1_1AssetThumbnailView.html#ac98bfc8b65009520deb99adf576ee325", null ],
     [ "onDelete", "classhmi_1_1AssetThumbnailView.html#afde8da711d2b71044159ffaddb9b5c5d", null ],
     [ "onDuplicate", "classhmi_1_1AssetThumbnailView.html#acdd3f0a8f06bdff2d0d517d3b68fae93", null ],

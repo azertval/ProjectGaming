@@ -41,6 +41,8 @@ var dir_8582677ef72a95e6c2b44a30d95c0011 =
     [ "TextureAssignGesture.h", "TextureAssignGesture_8h.html", "TextureAssignGesture_8h" ],
     [ "TexturePanel.cpp", "TexturePanel_8cpp.html", null ],
     [ "TexturePanel.h", "TexturePanel_8h.html", "TexturePanel_8h" ],
+    [ "ThumbnailGeometry.cpp", "ThumbnailGeometry_8cpp.html", "ThumbnailGeometry_8cpp" ],
+    [ "ThumbnailGeometry.h", "ThumbnailGeometry_8h.html", "ThumbnailGeometry_8h" ],
     [ "TileTaxonomy.cpp", "TileTaxonomy_8cpp.html", "TileTaxonomy_8cpp" ],
     [ "TileTaxonomy.h", "TileTaxonomy_8h.html", "TileTaxonomy_8h" ],
     [ "ToolPanel.cpp", "ToolPanel_8cpp.html", null ],

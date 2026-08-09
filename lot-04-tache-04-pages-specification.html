@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-04-tache-04-pages-specification.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-04-documentation-doxygen_2tache-04-pages-specification"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-04.html#md_Lot_2LOT-04-documentation-doxygen_2epic" title="Lot/LOT-04-documentation-doxygen/epic.md">LOT-04</a> · <b>Emplacement :</b> <span class="tt">Documentation/Specification/</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md441"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md442"></a>
 Contexte</h1>
 <p>Les spécifications (<span class="tt">vision</span> … <span class="tt">decors</span>, plus <span class="tt">conventions</span> intégré en TACHE-01) doivent former une <b>rubrique navigable</b> du site, et non une liste plate. On les structure sous une page « Spécifications » via <span class="tt">@page</span>/<span class="tt">@subpage</span>. Point clé de maintenabilité : **l'ordre d'affichage est porté par la liste <span class="tt">@subpage</span> de l'index** (source unique), et non par les noms de fichiers — insérer/réordonner une spec ne renumérote rien.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md442"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md443"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Faire de <span class="tt">Specification/README.md</span> la <b>page d'index</b> « Spécifications » (ancre <span class="tt">{#specifications}</span>) : elle liste les documents en <span class="tt">@subpage</span>, <b>dans l'ordre voulu</b>. Cet ordre est désormais l'unique source de vérité.</li>
@@ -107,19 +107,19 @@ Travail à réaliser</h1>
 <li>Préserver les renvois <span class="tt">EX-…</span> (identifiants d'exigences).</li>
 <li>(Optionnel, si retenu) Ajouter une exigence <span class="tt">EX-NFR</span> « documentation publiée et navigable » dans la spec des exigences non fonctionnelles.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md443"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md444"></a>
 Convention d'insertion d'une nouvelle spec (à documenter dans l'index)</h1>
 <ol type="1">
 <li>Créer <span class="tt">Documentation/Specification/&lt;nom&gt;.md</span> avec un en-tête <span class="tt">{#spec-&lt;nom&gt;}</span> + titre.</li>
 <li>Ajouter une ligne <span class="tt">@subpage spec-&lt;nom&gt;</span> <b>à la position voulue</b> dans <span class="tt">README.md</span>. → Aucune renumérotation, aucun lien à corriger.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md444"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md445"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Documentation/Specification/*.md</span> (en-têtes de page + ancres stables).</li>
 <li><span class="tt">Documentation/Specification/README.md</span> (page d'index de la rubrique, source de l'ordre).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md445"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md446"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>La rubrique « Spécifications » liste tous les documents (vision → decors + conventions) <b>dans l'ordre de l'index</b> et s'ouvre depuis l'accueil.</li>
@@ -127,18 +127,18 @@ Vérifications (obligatoires)</h1>
 <li>Chaque sous-page a un titre correct et est atteignable via la navigation (<span class="tt">@subpage</span>).</li>
 <li>Aucun avertissement Doxygen (ancres, liens).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md446"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md447"></a>
 Points d'attention</h1>
 <ul>
 <li>Ne pas dénaturer le contenu des specs : on ajoute <b>structure et ancres</b>, pas de réécriture.</li>
 <li>Ancres de page (<span class="tt">{#spec-…}</span>) <b>stables et indépendantes de l'ordre</b> : c'est ce qui rend les liens robustes aux insertions/réordonnancements.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md447"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md448"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Rubrique Spécifications hiérarchique, conventions comprises, navigable et sans avertissement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md448"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md449"></a>
 Exigences</h1>
 <p><span class="tt">EX-NFR-012</span>. </p>
 </div></div><!-- contents -->

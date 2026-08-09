@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-29-tache-01-modele-bindings.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-29-remappage-touches_2tache-01-modele-bindings"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-29.html#md_Lot_2LOT-29-remappage-touches_2epic" title="Lot/LOT-29-remappage-touches/epic.md">LOT-29</a> · <b>Emplacement :</b> <span class="tt">HMI/Input</span> · <b>Statut :</b> ✅</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1446"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1447"></a>
 Contexte</h1>
 <p>Pose les fondations du remappage, indépendamment de tout écran : les classes qui détiennent l'association action ↔ touche, leur persistance JSON, et un utilitaire d'affichage/capture de touche partagé par les deux futurs écrans (TACHE-03).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1447"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1448"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="GameKeyBindings_8h.html" title="Association remappable action de jeu -&gt; touche clavier, avec persistance (EX-CTRL-012).">Source/HMI/Input/GameKeyBindings.h</a></span>/<span class="tt">.cpp</span></b> (nouveau) : <span class="tt">enum class GameAction { MoveLeft,
@@ -112,7 +112,7 @@ Travail à réaliser</h1>
 <li>Un seul fichier <span class="tt">Settings/keybindings.json</span> (créé/lu via <span class="tt"><a class="el" href="namespacehmi.html#a18648161d8a6c752202b6034613a947b" title="Dossier contenant l&#39;exécutable en cours, pour localiser les ressources copiées à côté (niveaux,...">hmi::executableDirectory()</a> /
   "Settings" / "keybindings.json"</span>, section <span class="tt">"jeu"</span> pour <span class="tt">GameKeyBindings</span>, <span class="tt">"editeur"</span> pour <span class="tt">EditorKeyBindings</span> — deux méthodes <span class="tt">load</span>/<span class="tt">save</span> qui lisent/écrivent chacune leur propre sous-objet, sans se marcher dessus).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1448"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1449"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="GameKeyBindings_8h.html" title="Association remappable action de jeu -&gt; touche clavier, avec persistance (EX-CTRL-012).">Source/HMI/Input/GameKeyBindings.h</a></span>/<span class="tt">.cpp</span> (nouveaux).</li>
@@ -122,7 +122,7 @@ Fichiers impactés</h1>
 <li>Tests : <span class="tt"><a class="el" href="test__game__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de jeu (GameKeyBindings, EX-CTRL-012).">Source/Test/Unit/HMI/Input/test_game_key_bindings.cpp</a></span>, <span class="tt"><a class="el" href="test__editor__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de l&#39;éditeur (EditorKeyBindings, EX-CTRL-012).">test_editor_key_bindings.cpp</a></span>, <span class="tt"><a class="el" href="test__key__name_8cpp.html" title="Tests unitaires de l&#39;affichage et de la capture de touche (KeyName, LOT-29).">test_key_name.cpp</a></span> (nouveaux).</li>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> (nouveaux fichiers de test).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1449"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1450"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Valeurs par défaut correctes pour chaque action (jeu et éditeur).</li>
@@ -133,18 +133,18 @@ Tests (obligatoires)</h1>
 <li><span class="tt">keyDisplayName</span> : au moins une touche nommée (ex. <span class="tt">Key::Left</span>), une touche lettre non nommée explicitement dans l'enum si applicable, une touche totalement inconnue (repli hexadécimal).</li>
 <li><span class="tt">capturedKey</span> : renvoie la touche pressée à la frame courante ; renvoie <span class="tt">nullopt</span> quand seule <span class="tt">Échap</span> ou <span class="tt">Entrée</span> est pressée ; renvoie <span class="tt">nullopt</span> si rien n'est pressé.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1450"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1451"></a>
 Points d'attention</h1>
 <ul>
 <li><span class="tt">GameKeyBindings</span>/<span class="tt">EditorKeyBindings</span> ne connaissent ni <span class="tt">InputState</span> ni les écrans : uniquement le stockage et la persistance, testables en isolation (<span class="tt">EX-NFR-010</span>), sur le même principe que <span class="tt">OptionsModel</span> ne connaît ni <span class="tt">GraphicsDevice</span> ni <span class="tt">Localization</span> en écriture.</li>
 <li>La valeur JSON est un code VK brut : un fichier <span class="tt">keybindings.json</span> édité à la main avec un code hors de la plage couverte (<span class="tt">InputState::KEY_COUNT = 256</span>) doit être rejeté proprement (repli défaut), jamais un accès hors bornes.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1451"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1452"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les trois classes compilent, sont couvertes par des tests unitaires, et n'ont encore <b>aucun</b> appelant dans le jeu/l'éditeur (branchement réel en TACHE-02) — cette tâche est purement additive, zéro risque de régression.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1452"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1453"></a>
 Exigences</h1>
 <p><span class="tt">EX-CTRL-012</span> (persistance et modèle). </p>
 </div></div><!-- contents -->

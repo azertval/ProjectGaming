@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-50-tache-01-mutateurs-decor.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-50-decors-edition_2tache-01-mutateurs-decor"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-50.html#md_Lot_2LOT-50-decors-edition_2epic" title="Lot/LOT-50-decors-edition/epic.md">LOT-50</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Levels</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2211"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2212"></a>
 Contexte</h1>
 <p>LOT-49 a posé le modèle et deux opérations : ajouter, supprimer. Manipuler un décor en demande davantage — déplacer, redimensionner, pivoter, changer de couche, réordonner — et toutes doivent passer par <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span> pour bénéficier de l'historique par instantanés complets déjà en place (<span class="tt">LOT-14</span>).</p>
 <p>Le point délicat n'est pas le déplacement, c'est le <b>réordonnancement</b> : trois couches ne suffisent pas à ordonner dix décors qui se recouvrent, et l'ordre dans le vecteur annexe fait foi. L'exposer proprement est moins coûteux que d'introduire une profondeur continue.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2212"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2213"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Mutateurs</b> sur <span class="tt">LevelDraft</span>, chacun désignant un décor par son index :<ul>
@@ -114,13 +114,13 @@ Travail à réaliser</h1>
 <li><b>Historique</b> : gratuit via <span class="tt">LevelDraft::State</span>, à condition que chaque mutateur passe par le mécanisme d'instantané existant.</li>
 <li><b>Bornes</b> : un index hors bornes ne doit ni planter ni lever — retour d'échec exploitable (<span class="tt">EX-NFR-040</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2213"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2214"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Core/Levels/LevelDraft.{h,cpp}</span>.</li>
 <li><span class="tt"><a class="el" href="test__decor__mutations_8cpp.html" title="Tests unitaires des mutateurs de décors sur LevelDraft (LOT-50 TACHE-01, EX-DEC-010).">Source/Test/Unit/Core/Levels/test_decor_mutations.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2214"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2215"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Chaque mutateur : cas nominal, index hors bornes, valeurs limites (échelle nulle ou négative, rotation hors de <span class="tt">[0, 2π[</span>).</li>
@@ -130,19 +130,19 @@ Tests (obligatoires)</h1>
 <li>Contrat de stabilité des index respecté après réordonnancement et suppression.</li>
 <li>Tout dans <span class="tt">Core</span>, sans GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2215"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2216"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas introduire de nouveau mécanisme d'historique.</b> Les instantanés complets restent adaptés à la taille des niveaux du projet (décision de <span class="tt">LOT-14</span>, rappelée dans les non-objectifs de l'éditeur).</li>
 <li>Une échelle nulle ou négative doit être rejetée ou normalisée : un décor invisible ou retourné par accident est un piège d'usage.</li>
 <li>Le réordonnancement ne doit <b>pas</b> changer la couche, et le changement de couche ne doit pas perdre le rang de façon arbitraire — définir les deux comportements, ne pas les laisser émerger.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2216"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2217"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les six mutateurs existent, sont sûrs hors bornes, couverts par l'annulation, et le contrat de stabilité des index est défini et testé ; tests <span class="tt">Core</span> verts ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2217"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2218"></a>
 Exigences</h1>
 <p><span class="tt">EX-DEC-010</span> (déplacer, redimensionner, superposer, supprimer) ; réutilise <span class="tt">EX-EDIT-005</span> (annuler/refaire), <span class="tt">EX-DEC-001</span> (transform libre), <span class="tt">EX-DEC-002</span> (couches), <span class="tt">EX-NFR-040</span> (erreur récupérable), <span class="tt">EX-NFR-011</span> (frontière <span class="tt">Core</span>/<span class="tt">HMI</span>). </p>
 </div></div><!-- contents -->

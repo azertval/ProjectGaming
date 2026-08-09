@@ -150,7 +150,7 @@ Classes</h2></td></tr>
 <tr class="memitem:TileCategory" id="r_TileCategory"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1TileCategory.html">TileCategory</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une catégorie de premier niveau : ses tuiles directes + ses sous-groupes repliables.  <a href="structhmi_1_1TileCategory.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ToolPanel" id="r_ToolPanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1ToolPanel.html">ToolPanel</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sélecteur d'outil d'édition (<span class="tt">EX-EDIT-014</span>) : Pinceau, Rectangle, Sélection, Lien, Texture par instance, Décor.  <a href="classhmi_1_1ToolPanel.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Panneau « Outils » : le <b>strict nécessaire</b> de l'outil Décor (<span class="tt">LOT-49</span> TACHE-04) — grille de vignettes (<span class="tt"><a class="el" href="classhmi_1_1AssetThumbnailView.html" title="Grille de vignettes d&#39;un dossier d&#39;assets, avec recherche, sélection et gestion des fichiers (importe...">hmi::AssetThumbnailView</a></span>, <span class="tt">LOT-43</span>) sur <span class="tt">Assets/Decors/</span> et un sélecteur de couche.  <a href="classhmi_1_1ToolPanel.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GameSession" id="r_GameSession"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1GameSession.html">GameSession</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simule et rend <b>un seul niveau</b> (déjà validé, en mémoire), indépendamment de toute infrastructure d'écran.  <a href="classhmi_1_1GameSession.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GameViewport" id="r_GameViewport"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1GameViewport.html">GameViewport</a></td></tr>
@@ -273,8 +273,34 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sonde la manette (XInput, joueur 0) et fusionne son état dans un <span class="tt"><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></span>.  <a href="classhmi_1_1GamepadPoller.html#details">More...</a><br /></td></tr>
 <tr class="memitem:InputState" id="r_InputState"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1InputState.html">InputState</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État des entrées d'une frame, avec détection des fronts (pressée / relâchée).  <a href="classhmi_1_1InputState.html#details">More...</a><br /></td></tr>
+<tr class="memitem:EditorActionSpec" id="r_EditorActionSpec"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1EditorActionSpec.html">EditorActionSpec</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description d'une action, indépendante de Qt : de quoi construire un <span class="tt">QAction</span> complet (icône, libellé, raccourci, caractère cochable) sans dupliquer sa définition ailleurs.  <a href="structhmi_1_1EditorActionSpec.html#details">More...</a><br /></td></tr>
+<tr class="memitem:DesignColor" id="r_DesignColor"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DesignColor.html">DesignColor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Couleur RVBA pure (indépendante de Qt), convertible en chaîne CSS pour la feuille de style et directement décomposable pour construire une <span class="tt">QColor</span>/<span class="tt">QPalette</span>.  <a href="structhmi_1_1DesignColor.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ColorTokens" id="r_ColorTokens"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ColorTokens.html">ColorTokens</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rôles de couleur, communs aux deux portées d'habillage.  <a href="structhmi_1_1ColorTokens.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SpacingTokens" id="r_SpacingTokens"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SpacingTokens.html">SpacingTokens</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Échelle d'espacement, en pixels logiques.  <a href="structhmi_1_1SpacingTokens.html#details">More...</a><br /></td></tr>
+<tr class="memitem:TypographyLevel" id="r_TypographyLevel"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1TypographyLevel.html">TypographyLevel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un niveau de l'échelle typographique : taille en points et graisse (<span class="tt">QFont::Weight</span>, 1-1000).  <a href="structhmi_1_1TypographyLevel.html#details">More...</a><br /></td></tr>
+<tr class="memitem:TypographyTokens" id="r_TypographyTokens"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1TypographyTokens.html">TypographyTokens</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Échelle typographique, par <b>rôle</b> — jamais de taille ponctuelle en dehors de cette échelle.  <a href="structhmi_1_1TypographyTokens.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SizeTokens" id="r_SizeTokens"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SizeTokens.html">SizeTokens</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tailles d'icônes, de vignettes et de contrôles usuels, en pixels logiques (avant mise à l'échelle d'affichage, <span class="tt">LOT-56</span> TACHE-05).  <a href="structhmi_1_1SizeTokens.html#details">More...</a><br /></td></tr>
+<tr class="memitem:DesignTokens" id="r_DesignTokens"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jeu complet de jetons de design d'une portée (identité invariante ou châssis variable).  <a href="structhmi_1_1DesignTokens.html#details">More...</a><br /></td></tr>
+<tr class="memitem:EditorActions" id="r_EditorActions"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1EditorActions.html">EditorActions</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit et possède les <span class="tt">QAction</span> du catalogue (<span class="tt"><a class="el" href="ActionCatalog_8h.html" title="Catalogue des actions de l&#39;éditeur : outils et commandes principales (LOT-56 TACHE-04,...">HMI/Interface/ActionCatalog.h</a></span>) : chaque outil et chaque commande principale n'existe qu'une fois, placée simultanément dans la barre d'outils, un menu et un menu contextuel sans duplication.  <a href="classhmi_1_1EditorActions.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FontFamilyResolution" id="r_FontFamilyResolution"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1FontFamilyResolution.html">FontFamilyResolution</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat de la résolution : la police embarquée si elle a pu être enregistrée auprès de Qt, sinon aucun nom de famille &ndash; jamais un second nom codé en dur.  <a href="structhmi_1_1FontFamilyResolution.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GamepadBindingsWidget" id="r_GamepadBindingsWidget"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1GamepadBindingsWidget.html">GamepadBindingsWidget</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Widget de remappage des <b>boutons manette</b> (<span class="tt"><a class="el" href="classhmi_1_1GamepadBindings.html" title="Association action de jeu (GameAction, partagée avec GameKeyBindings) -&gt; bouton manette,...">GamepadBindings</a></span>), onglet « Commande manette » de la page Options.  <a href="classhmi_1_1GamepadBindingsWidget.html#details">More...</a><br /></td></tr>
+<tr class="memitem:IconPoint" id="r_IconPoint"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1IconPoint.html">IconPoint</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un point en espace normalisé [0,1] x [0,1] (origine en haut à gauche).  <a href="structhmi_1_1IconPoint.html#details">More...</a><br /></td></tr>
+<tr class="memitem:IconStroke" id="r_IconStroke"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1IconStroke.html">IconStroke</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un trait de l'icône : polyligne ouverte, ou polygone fermé (éventuellement rempli), d'une seule couleur.  <a href="structhmi_1_1IconStroke.html#details">More...</a><br /></td></tr>
+<tr class="memitem:IconGeometry" id="r_IconGeometry"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1IconGeometry.html">IconGeometry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Géométrie complète d'une icône : liste ordonnée de traits.  <a href="structhmi_1_1IconGeometry.html#details">More...</a><br /></td></tr>
 <tr class="memitem:KeybindingsWidget" id="r_KeybindingsWidget"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1KeybindingsWidget.html">KeybindingsWidget</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Widget de remappage des <b>touches de jeu</b> (<span class="tt"><a class="el" href="classhmi_1_1GameKeyBindings.html" title="Association action de jeu -&gt; touche, avec persistance JSON (EX-CTRL-012, LOT-29).">GameKeyBindings</a></span>), destiné à l'onglet « Commande clavier » de la page Options.  <a href="classhmi_1_1KeybindingsWidget.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MainMenu" id="r_MainMenu"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1MainMenu.html">MainMenu</a></td></tr>
@@ -283,6 +309,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fenêtre principale de l'application Qt : <b>poste de travail d'éditeur</b> à panneaux dockables autour du viewport Direct3D 11.  <a href="classhmi_1_1MainWindow.html#details">More...</a><br /></td></tr>
 <tr class="memitem:OptionsPage" id="r_OptionsPage"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1OptionsPage.html">OptionsPage</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Page Options <b>unique</b>, affichée dans la fenêtre principale (pas en pop-up), au style du menu principal (thème <span class="tt">theme.qss</span>).  <a href="classhmi_1_1OptionsPage.html#details">More...</a><br /></td></tr>
+<tr class="memitem:StyleSheetSubstitutionResult" id="r_StyleSheetSubstitutionResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1StyleSheetSubstitutionResult.html">StyleSheetSubstitutionResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une substitution : succès et texte produit, ou échec et message d'erreur — jamais un résultat produit silencieusement avec un trou (marqueur inconnu non substitué).  <a href="structhmi_1_1StyleSheetSubstitutionResult.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Localization" id="r_Localization"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1Localization.html">Localization</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogue de traduction (i18n) : associe des <b>clés</b> stables à des chaînes selon la <b>langue active</b>, avec repli sur la langue par défaut.  <a href="classhmi_1_1Localization.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
@@ -326,7 +354,7 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68ddae953e8671da3a0647c0939df8ebe8e44">Decor</a>
 <br />
  }</td></tr>
-<tr class="memdesc:a02048ad8ad69a87a10e8307ac2bd68dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outil actif dans la grille de l'éditeur, changé via <span class="tt">Tab</span> ou le panneau <span class="tt"><a class="el" href="classhmi_1_1ToolPanel.html" title="Sélecteur d&#39;outil d&#39;édition (EX-EDIT-014) : Pinceau, Rectangle, Sélection, Lien, Texture par instance...">ToolPanel</a></span>.  <a href="#a02048ad8ad69a87a10e8307ac2bd68dd">More...</a><br /></td></tr>
+<tr class="memdesc:a02048ad8ad69a87a10e8307ac2bd68dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outil actif dans la grille de l'éditeur, changé via <span class="tt">Tab</span> ou le panneau <span class="tt"><a class="el" href="classhmi_1_1ToolPanel.html" title="Panneau « Outils » : le strict nécessaire de l&#39;outil Décor (LOT-49 TACHE-04) — grille de vignettes (h...">ToolPanel</a></span>.  <a href="#a02048ad8ad69a87a10e8307ac2bd68dd">More...</a><br /></td></tr>
 <tr class="memitem:ac7ba9ad4c289f6706928912ab9bb0985" id="r_ac7ba9ad4c289f6706928912ab9bb0985"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ac7ba9ad4c289f6706928912ab9bb0985">LinkKind</a> { <a class="el" href="#ac7ba9ad4c289f6706928912ab9bb0985a7a3d46893bda116f6b56760a98aaf631">Mechanism</a>
 , <a class="el" href="#ac7ba9ad4c289f6706928912ab9bb0985a4b9c4a190a04fc1db208f8a62ee67619">DangerLink</a>
  }</td></tr>
@@ -535,6 +563,43 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a4180e6c308353c9965d695855746d982ae93f994f01c537c4e2f7d8528c3eb5e9">Count</a> = 3
  }</td></tr>
 <tr class="memdesc:a4180e6c308353c9965d695855746d982"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bouton de la souris suivi par l'<span class="tt"><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></span>.  <a href="#a4180e6c308353c9965d695855746d982">More...</a><br /></td></tr>
+<tr class="memitem:af951fa0fccb19bed92c122562085977a" id="r_af951fa0fccb19bed92c122562085977a"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#af951fa0fccb19bed92c122562085977a">EditorActionGroup</a> { <a class="el" href="#af951fa0fccb19bed92c122562085977aa6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="#af951fa0fccb19bed92c122562085977aac5ef5463f73a88dcdff84105e558092e">LevelTools</a>
+ }</td></tr>
+<tr class="memdesc:af951fa0fccb19bed92c122562085977a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Groupe d'exclusivité d'une action : les six outils d'édition forment un groupe <b>exclusif</b> (un seul actif à la fois) ; les commandes n'appartiennent à aucun groupe.  <a href="#af951fa0fccb19bed92c122562085977a">More...</a><br /></td></tr>
+<tr class="memitem:ab269aabb94611e449a8e7427969874f5" id="r_ab269aabb94611e449a8e7427969874f5"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a> { <br />
+&#160;&#160;<a class="el" href="#ab269aabb94611e449a8e7427969874f5a6977408af40dc96deb1c4c86a6d4f32e">ToolPaint</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5aee324dd1644d8a93504aaa30147cd2bc">ToolRectangle</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5a7252d7debae0bab6f7e97a0f9537ae7e">ToolSelection</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5a8702edcc86ce2556bdb66ab132e3ea81">ToolLink</a>
+, <br />
+&#160;&#160;<a class="el" href="#ab269aabb94611e449a8e7427969874f5a841a11a9910d4195f440dac6a99b4b83">ToolTextureAssign</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5a28a04f8164a3cc874fcf0ec5b047f437">ToolDecor</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5ac9cc8cce247e49bae79f15173ce97354">Save</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5ab13fc91e5d02ea9e1f1a538504213bea">Playtest</a>
+, <br />
+&#160;&#160;<a class="el" href="#ab269aabb94611e449a8e7427969874f5a1cdc076b28f70afac5fcedadf99fa119">Undo</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5a5afeaba074ef570dc720caaa855d49f6">Redo</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5a77bfa926518159e75c2c4b508a81f19e">ToggleGrid</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5a34e806c94d1cf43980bb179a0376e173">ResetCamera</a>
+, <br />
+&#160;&#160;<a class="el" href="#ab269aabb94611e449a8e7427969874f5ae5217b6eb03211d9550042b6fe681626">ToggleRenderMode</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:ab269aabb94611e449a8e7427969874f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifiant d'une icône : un par outil d'édition et par commande principale.  <a href="#ab269aabb94611e449a8e7427969874f5">More...</a><br /></td></tr>
+<tr class="memitem:acaf7f33926fae2f8294ef4ee5d24ba52" id="r_acaf7f33926fae2f8294ef4ee5d24ba52"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#acaf7f33926fae2f8294ef4ee5d24ba52">IconColorRole</a> { <a class="el" href="#acaf7f33926fae2f8294ef4ee5d24ba52a45bd1d5b32931106efbf1a82fe6a732f">Foreground</a>
+, <a class="el" href="#acaf7f33926fae2f8294ef4ee5d24ba52ac900e1bd8e22771d610bd2a5861b544f">Accent</a>
+ }</td></tr>
+<tr class="memdesc:acaf7f33926fae2f8294ef4ee5d24ba52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rôle de couleur d'un trait, résolu depuis les jetons de design au moment du rendu (recoloration automatique avec le thème, y compris après une bascule TACHE-06).  <a href="#acaf7f33926fae2f8294ef4ee5d24ba52">More...</a><br /></td></tr>
+<tr class="memitem:a796b5dfcf1d9de2fb2552d51af677646" id="r_a796b5dfcf1d9de2fb2552d51af677646"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a796b5dfcf1d9de2fb2552d51af677646">EditorThemeSetting</a> { <a class="el" href="#a796b5dfcf1d9de2fb2552d51af677646aa45da96d0bf6575970f2d27af22be28a">System</a>
+, <a class="el" href="#a796b5dfcf1d9de2fb2552d51af677646a9914a0ce04a7b7b6a8e39bec55064b82">Light</a>
+, <a class="el" href="#a796b5dfcf1d9de2fb2552d51af677646aa18366b217ebf811ad1886e4f4f865b2">Dark</a>
+ }</td></tr>
+<tr class="memdesc:a796b5dfcf1d9de2fb2552d51af677646"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réglage choisi par l'utilisateur (menu Affichage de l'éditeur, persisté entre sessions).  <a href="#a796b5dfcf1d9de2fb2552d51af677646">More...</a><br /></td></tr>
+<tr class="memitem:a57dcf8ac7fd26c90a8741e698c896580" id="r_a57dcf8ac7fd26c90a8741e698c896580"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a57dcf8ac7fd26c90a8741e698c896580">EditorThemeMode</a> { <a class="el" href="#a57dcf8ac7fd26c90a8741e698c896580a9914a0ce04a7b7b6a8e39bec55064b82">Light</a>
+, <a class="el" href="#a57dcf8ac7fd26c90a8741e698c896580aa18366b217ebf811ad1886e4f4f865b2">Dark</a>
+ }</td></tr>
+<tr class="memdesc:a57dcf8ac7fd26c90a8741e698c896580"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thème effectivement appliqué au châssis d'édition.  <a href="#a57dcf8ac7fd26c90a8741e698c896580">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -598,6 +663,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a62841e1d2bd66f14e276709d5f41acb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Libellé de taxonomie traduit dans la langue active.  <br /></td></tr>
 <tr class="memitem:ad9c60c575bab3fcb92a2876cc1b11bfc" id="r_ad9c60c575bab3fcb92a2876cc1b11bfc"><td class="memItemLeft"><a class="el" href="structhmi_1_1TextureAssignDecision.html">TextureAssignDecision</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad9c60c575bab3fcb92a2876cc1b11bfc">resolveTextureAssignClick</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> clickedCell, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> clickedTileType, const std::optional&lt; std::string &gt; &amp;existingOverride, const std::optional&lt; std::string &gt; &amp;selectedAsset, bool rightClick) noexcept</td></tr>
 <tr class="memdesc:ad9c60c575bab3fcb92a2876cc1b11bfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout le clic de l'outil « Texture par instance » sur <code class="param">clickedCell</code>.  <br /></td></tr>
+<tr class="memitem:a8158375fa940021f6bb346e7c2b09247" id="r_a8158375fa940021f6bb346e7c2b09247"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a8158375fa940021f6bb346e7c2b09247">thumbnailPixelSize</a> (int logicalSize, double scaleFactor) noexcept</td></tr>
+<tr class="memdesc:a8158375fa940021f6bb346e7c2b09247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taille en pixels <b>réels</b> pour une taille logique et un facteur d'échelle d'affichage donnés.  <br /></td></tr>
 <tr class="memitem:a324d7671eeb331de4b3459d66be9d0ca" id="r_a324d7671eeb331de4b3459d66be9d0ca"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1TileCategory.html">TileCategory</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a324d7671eeb331de4b3459d66be9d0ca">tileTaxonomy</a> ()</td></tr>
 <tr class="memdesc:a324d7671eeb331de4b3459d66be9d0ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taxonomie complète des types de tuiles peignables, en catégories/sous-groupes.  <br /></td></tr>
 <tr class="memitem:a8a1c52dc217e915a1ebbd5ec209037d9" id="r_a8a1c52dc217e915a1ebbd5ec209037d9"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8a1c52dc217e915a1ebbd5ec209037d9">gameHudLines</a> (const <a class="el" href="structcore_1_1Player.html">core::Player</a> &amp;player, const std::string &amp;levelName, const <a class="el" href="classhmi_1_1Localization.html">Localization</a> &amp;localization)</td></tr>
@@ -738,6 +805,55 @@ Functions</h2></td></tr>
 <tr class="memdesc:a2c3341857c60f0bef0a01a6cd10ce5f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit l'état d'entrée en <a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a>, dissocié des touches/boutons physiques (<span class="tt">EX-CTRL-010</span>, <span class="tt">EX-CTRL-012</span>).  <br /></td></tr>
 <tr class="memitem:a1b53de392afb0dfdf5cdef4543fb672d" id="r_a1b53de392afb0dfdf5cdef4543fb672d"><td class="memItemLeft">std::optional&lt; <a class="el" href="#a83c98e56e30eafa606048853f7962e48">hmi::Key</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1b53de392afb0dfdf5cdef4543fb672d">qtKeyToHmiKey</a> (int qtKey)</td></tr>
 <tr class="memdesc:a1b53de392afb0dfdf5cdef4543fb672d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit un code <span class="tt">Qt::Key</span> en <span class="tt"><a class="el" href="#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></span>.  <br /></td></tr>
+<tr class="memitem:a31529e361028e2fae2f4d12dc1d5b8d1" id="r_a31529e361028e2fae2f4d12dc1d5b8d1"><td class="memItemLeft">const std::array&lt; <a class="el" href="structhmi_1_1EditorActionSpec.html">EditorActionSpec</a>, <a class="el" href="#a79f2b5a2f6530436d6f2b090de10d6ac">EDITOR_ACTION_CATALOG_COUNT</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a31529e361028e2fae2f4d12dc1d5b8d1">editorActionCatalog</a> ()</td></tr>
+<tr class="memitem:a86efa8bc643b7f44b2cd6fc6133605f3" id="r_a86efa8bc643b7f44b2cd6fc6133605f3"><td class="memItemLeft">const <a class="el" href="structhmi_1_1EditorActionSpec.html">EditorActionSpec</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a86efa8bc643b7f44b2cd6fc6133605f3">editorActionSpec</a> (<a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a> id)</td></tr>
+<tr class="memitem:a3df22d8b0cb79245b439394aae6798ae" id="r_a3df22d8b0cb79245b439394aae6798ae"><td class="memItemLeft">std::optional&lt; <a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3df22d8b0cb79245b439394aae6798ae">editorActionTool</a> (<a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a> id)</td></tr>
+<tr class="memitem:a5aa3682b9ff2aba43ecaa20e2c6f4d9c" id="r_a5aa3682b9ff2aba43ecaa20e2c6f4d9c"><td class="memItemLeft"><a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5aa3682b9ff2aba43ecaa20e2c6f4d9c">editorActionForTool</a> (<a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a> tool)</td></tr>
+<tr class="memitem:a3aa575e76fff3cb3999cf33106e71c71" id="r_a3aa575e76fff3cb3999cf33106e71c71"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3aa575e76fff3cb3999cf33106e71c71">applyApplicationStyle</a> ()</td></tr>
+<tr class="memdesc:a3aa575e76fff3cb3999cf33106e71c71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choisit explicitement le style Qt de l'application (non natif, condition pour que la palette et la feuille de style s'appliquent à l'ensemble des contrôles).  <br /></td></tr>
+<tr class="memitem:a73cb9cef74be4c0f0577ef8fe0416522" id="r_a73cb9cef74be4c0f0577ef8fe0416522"><td class="memItemLeft">QPalette&#160;</td><td class="memItemRight"><a class="el" href="#a73cb9cef74be4c0f0577ef8fe0416522">buildApplicationPalette</a> (const <a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a> &amp;tokens)</td></tr>
+<tr class="memdesc:a73cb9cef74be4c0f0577ef8fe0416522"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit une <span class="tt">QPalette</span> complète — groupes actif, inactif et désactivé — à partir d'un jeu de jetons.  <br /></td></tr>
+<tr class="memitem:aee6f5ca213fc30772f1d5a7df740fe4c" id="r_aee6f5ca213fc30772f1d5a7df740fe4c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aee6f5ca213fc30772f1d5a7df740fe4c">applyStyleSheet</a> (const <a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a> &amp;editorTokens)</td></tr>
+<tr class="memdesc:aee6f5ca213fc30772f1d5a7df740fe4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge le modèle de feuille de style embarqué (<span class="tt">:/resources/theme.qss</span>), le substitue avec <code class="param">editorTokens</code> et l'applique à l'application.  <br /></td></tr>
+<tr class="memitem:a2c008aaa4051cc949be754258753baa7" id="r_a2c008aaa4051cc949be754258753baa7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2c008aaa4051cc949be754258753baa7">applyFont</a> ()</td></tr>
+<tr class="memdesc:a2c008aaa4051cc949be754258753baa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enregistre la police embarquée (<span class="tt">Assets/Fonts/Inter-{Regular,Bold}.ttf</span>) auprès de Qt et l'applique comme police par défaut de l'application.  <br /></td></tr>
+<tr class="memitem:a9dc9509fbff97a3271f33b011e243ecb" id="r_a9dc9509fbff97a3271f33b011e243ecb"><td class="memItemLeft"><a class="el" href="#a796b5dfcf1d9de2fb2552d51af677646">EditorThemeSetting</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9dc9509fbff97a3271f33b011e243ecb">editorThemeSetting</a> ()</td></tr>
+<tr class="memitem:a2b88537ea0df32cc5407ade781c323f0" id="r_a2b88537ea0df32cc5407ade781c323f0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2b88537ea0df32cc5407ade781c323f0">setEditorThemeSetting</a> (<a class="el" href="#a796b5dfcf1d9de2fb2552d51af677646">EditorThemeSetting</a> setting)</td></tr>
+<tr class="memdesc:a2b88537ea0df32cc5407ade781c323f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Persiste <code class="param">setting</code> (<span class="tt">QSettings</span>), relu au démarrage suivant.  <br /></td></tr>
+<tr class="memitem:a4a093e625bf2462100c49cb1803a35a9" id="r_a4a093e625bf2462100c49cb1803a35a9"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a4a093e625bf2462100c49cb1803a35a9">systemPrefersDarkTheme</a> ()</td></tr>
+<tr class="memitem:a26a0827c46d5301e7690c51a9e6fc159" id="r_a26a0827c46d5301e7690c51a9e6fc159"><td class="memItemLeft">const <a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a26a0827c46d5301e7690c51a9e6fc159">currentEditorTokens</a> ()</td></tr>
+<tr class="memitem:a21903bad18cb9cb682fe83b340418c1e" id="r_a21903bad18cb9cb682fe83b340418c1e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a21903bad18cb9cb682fe83b340418c1e">applyEditorTheme</a> ()</td></tr>
+<tr class="memdesc:a21903bad18cb9cb682fe83b340418c1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique le thème complet du châssis d'édition (portée <b>variable</b>) : police, palette puis feuille de style, tous dérivés des jetons <b>actuellement effectifs</b> (<span class="tt"><a class="el" href="#a26a0827c46d5301e7690c51a9e6fc159">currentEditorTokens()</a></span>).  <br /></td></tr>
+<tr class="memitem:a4dbd77c54104dd2723bba59437d00bd5" id="r_a4dbd77c54104dd2723bba59437d00bd5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4dbd77c54104dd2723bba59437d00bd5">reapplyEditorTheme</a> ()</td></tr>
+<tr class="memdesc:a4dbd77c54104dd2723bba59437d00bd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réapplique la palette et la feuille de style (mais pas la police, inchangée par le thème) depuis <span class="tt"><a class="el" href="#a26a0827c46d5301e7690c51a9e6fc159">currentEditorTokens()</a></span> — bascule à chaud (<span class="tt">LOT-56</span> TACHE-06), sans reconstruire les widgets.  <br /></td></tr>
+<tr class="memitem:ad6321dea8cce4302df77dbdbcd3fd155" id="r_ad6321dea8cce4302df77dbdbcd3fd155"><td class="memItemLeft">const <a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad6321dea8cce4302df77dbdbcd3fd155">identityTokens</a> () noexcept</td></tr>
+<tr class="memdesc:ad6321dea8cce4302df77dbdbcd3fd155"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jetons de l'identité du jeu (menu principal, écran Options, jeu) : <b>invariants</b>, ne suivent jamais aucun réglage d'affichage (<span class="tt">EX-IHM-050</span>).  <br /></td></tr>
+<tr class="memitem:abc068660f97a7130175d11f2755ff340" id="r_abc068660f97a7130175d11f2755ff340"><td class="memItemLeft">const <a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#abc068660f97a7130175d11f2755ff340">editorDarkTokens</a> () noexcept</td></tr>
+<tr class="memdesc:abc068660f97a7130175d11f2755ff340"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jetons du châssis d'édition en thème <b>sombre</b> (défaut) : <b>variables</b>, <span class="tt"><a class="el" href="#a579e19561f5e93deaf52895cb3d4b7fd" title="Jetons du châssis d&#39;édition en thème clair (LOT-56 TACHE-06) : mêmes rôles, mêmes échelles que editor...">editorLightTokens()</a></span> (<span class="tt">LOT-56</span> TACHE-06) en fournit un second jeu.  <br /></td></tr>
+<tr class="memitem:a579e19561f5e93deaf52895cb3d4b7fd" id="r_a579e19561f5e93deaf52895cb3d4b7fd"><td class="memItemLeft">const <a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a579e19561f5e93deaf52895cb3d4b7fd">editorLightTokens</a> () noexcept</td></tr>
+<tr class="memdesc:a579e19561f5e93deaf52895cb3d4b7fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jetons du châssis d'édition en thème <b>clair</b> (<span class="tt">LOT-56</span> TACHE-06) : mêmes rôles, mêmes échelles que <span class="tt"><a class="el" href="#abc068660f97a7130175d11f2755ff340" title="Jetons du châssis d&#39;édition en thème sombre (défaut) : variables, editorLightTokens() (LOT-56 TACHE-0...">editorDarkTokens()</a></span> — seules les couleurs diffèrent, et pas par simple inversion (les écarts de luminosité entre bordures/lignes alternées/fond diffèrent en clair et en sombre).  <br /></td></tr>
+<tr class="memitem:ac309fd9a7985bf6b3ba59e8fd46362c6" id="r_ac309fd9a7985bf6b3ba59e8fd46362c6"><td class="memItemLeft"><a class="el" href="structhmi_1_1DesignColor.html">DesignColor</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac309fd9a7985bf6b3ba59e8fd46362c6">viewportClearColor</a> (bool editorMode, const <a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a> &amp;activeEditorTokens) noexcept</td></tr>
+<tr class="memdesc:ac309fd9a7985bf6b3ba59e8fd46362c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Couleur d'effacement du viewport (<span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">GameViewport</a></span>), dérivée des jetons plutôt que d'une valeur littérale locale : fond de la portée <b>variable</b> en édition (suivant le thème actif de l'éditeur, <span class="tt">LOT-56</span> TACHE-06), fond de la portée <b>invariante</b> en jeu et en essai — la seule surface qui appartient tour à tour aux deux portées.  <br /></td></tr>
+<tr class="memitem:ae20924609a126f67a34764d3d6eb79fe" id="r_ae20924609a126f67a34764d3d6eb79fe"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ae20924609a126f67a34764d3d6eb79fe">toCssColor</a> (<a class="el" href="structhmi_1_1DesignColor.html">DesignColor</a> color)</td></tr>
+<tr class="memdesc:ae20924609a126f67a34764d3d6eb79fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion pure : couleur -&gt; chaîne CSS hexadécimale <span class="tt">"#rrggbb"</span> (minuscules, sans alpha — les feuilles de style Qt n'acceptent l'alpha que via <span class="tt">rgba()</span>).  <br /></td></tr>
+<tr class="memitem:a8226c5910f682e57f7f0b00e818a23fc" id="r_a8226c5910f682e57f7f0b00e818a23fc"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a8226c5910f682e57f7f0b00e818a23fc">toCssRgba</a> (<a class="el" href="structhmi_1_1DesignColor.html">DesignColor</a> color)</td></tr>
+<tr class="memdesc:a8226c5910f682e57f7f0b00e818a23fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion pure : couleur -&gt; chaîne CSS <span class="tt">"rgba(r, g, b, a)"</span>, composantes entières 0-255 (les feuilles de style Qt expriment l'alpha sur la même échelle que les autres composantes).  <br /></td></tr>
+<tr class="memitem:aadfbb57622e1e177b3c41c9ba011779b" id="r_aadfbb57622e1e177b3c41c9ba011779b"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#aadfbb57622e1e177b3c41c9ba011779b">relativeLuminance</a> (<a class="el" href="structhmi_1_1DesignColor.html">DesignColor</a> color) noexcept</td></tr>
+<tr class="memdesc:aadfbb57622e1e177b3c41c9ba011779b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Luminance relative WCAG d'une couleur (0 = noir, 1 = blanc), pour le calcul de contraste.  <br /></td></tr>
+<tr class="memitem:a4b85e74ce8764eb9f4121b7b91eb84c7" id="r_a4b85e74ce8764eb9f4121b7b91eb84c7"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a4b85e74ce8764eb9f4121b7b91eb84c7">contrastRatio</a> (<a class="el" href="structhmi_1_1DesignColor.html">DesignColor</a> a, <a class="el" href="structhmi_1_1DesignColor.html">DesignColor</a> b) noexcept</td></tr>
+<tr class="memdesc:a4b85e74ce8764eb9f4121b7b91eb84c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rapport de contraste WCAG entre deux couleurs (1 = aucun contraste, 21 = noir sur blanc).  <br /></td></tr>
+<tr class="memitem:a48d98f8ec6667823355ce1ea43b115ea" id="r_a48d98f8ec6667823355ce1ea43b115ea"><td class="memItemLeft">std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a48d98f8ec6667823355ce1ea43b115ea">buildStyleSheetValues</a> (const <a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a> &amp;editorTokens)</td></tr>
+<tr class="memdesc:a48d98f8ec6667823355ce1ea43b115ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Table de substitution marqueur -&gt; valeur pour le modèle de feuille de style (<span class="tt">LOT-56</span> TACHE-02), à partir d'un jeu de jetons du châssis d'édition (portée variable) ; les marqueurs de préfixe "identity." sont toujours résolus depuis <span class="tt"><a class="el" href="#ad6321dea8cce4302df77dbdbcd3fd155" title="Jetons de l&#39;identité du jeu (menu principal, écran Options, jeu) : invariants, ne suivent jamais aucu...">identityTokens()</a></span> (portée invariante).  <br /></td></tr>
+<tr class="memitem:ab6fc3cb9d2aa0cca7d624c1f3700e859" id="r_ab6fc3cb9d2aa0cca7d624c1f3700e859"><td class="memItemLeft"><a class="el" href="structhmi_1_1FontFamilyResolution.html">FontFamilyResolution</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab6fc3cb9d2aa0cca7d624c1f3700e859">resolveFontFamily</a> (bool fontRegistered, const std::string &amp;embeddedFamilyName)</td></tr>
+<tr class="memdesc:ab6fc3cb9d2aa0cca7d624c1f3700e859"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choisit la famille de police à employer pour le corps de l'IHM.  <br /></td></tr>
+<tr class="memitem:a209dabae621c4b379079647002f4c080" id="r_a209dabae621c4b379079647002f4c080"><td class="memItemLeft"><a class="el" href="structhmi_1_1IconGeometry.html">IconGeometry</a>&#160;</td><td class="memItemRight"><a class="el" href="#a209dabae621c4b379079647002f4c080">iconGeometry</a> (<a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a> id)</td></tr>
+<tr class="memdesc:a209dabae621c4b379079647002f4c080"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décrit la géométrie d'une icône, en espace normalisé.  <br /></td></tr>
+<tr class="memitem:a109a8b01a44769d182894f833e7cb054" id="r_a109a8b01a44769d182894f833e7cb054"><td class="memItemLeft"><a class="el" href="structhmi_1_1StyleSheetSubstitutionResult.html">StyleSheetSubstitutionResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a109a8b01a44769d182894f833e7cb054">substituteStyleSheetTemplate</a> (const std::string &amp;templateText, const std::unordered_map&lt; std::string, std::string &gt; &amp;values)</td></tr>
+<tr class="memdesc:a109a8b01a44769d182894f833e7cb054"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remplace chaque marqueur dollar-accolade de <code class="param">templateText</code> par sa valeur dans <code class="param">values</code>.  <br /></td></tr>
+<tr class="memitem:a3126473350fe705bf2fac20bc6194c62" id="r_a3126473350fe705bf2fac20bc6194c62"><td class="memItemLeft">QIcon&#160;</td><td class="memItemRight"><a class="el" href="#a3126473350fe705bf2fac20bc6194c62">themeIcon</a> (<a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a> id, int pixelSize, const <a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a> &amp;tokens)</td></tr>
+<tr class="memdesc:a3126473350fe705bf2fac20bc6194c62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint une icône à la taille demandée, recolorée depuis les jetons.  <br /></td></tr>
+<tr class="memitem:a00629522279a61cffd0c68ae26c3fca0" id="r_a00629522279a61cffd0c68ae26c3fca0"><td class="memItemLeft"><a class="el" href="#a57dcf8ac7fd26c90a8741e698c896580">EditorThemeMode</a>&#160;</td><td class="memItemRight"><a class="el" href="#a00629522279a61cffd0c68ae26c3fca0">resolveEffectiveEditorTheme</a> (<a class="el" href="#a796b5dfcf1d9de2fb2552d51af677646">EditorThemeSetting</a> setting, bool systemPrefersDark) noexcept</td></tr>
+<tr class="memdesc:a00629522279a61cffd0c68ae26c3fca0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout le thème effectif à appliquer.  <br /></td></tr>
 <tr class="memitem:a18648161d8a6c752202b6034613a947b" id="r_a18648161d8a6c752202b6034613a947b"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a18648161d8a6c752202b6034613a947b">executableDirectory</a> ()</td></tr>
 <tr class="memdesc:a18648161d8a6c752202b6034613a947b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dossier contenant l'exécutable en cours, pour localiser les ressources copiées à côté (niveaux, catalogues de traduction, logs).  <br /></td></tr>
 <tr class="memitem:ad674a6058a9d73bac93466d37cedcf71" id="r_ad674a6058a9d73bac93466d37cedcf71"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad674a6058a9d73bac93466d37cedcf71">TEST</a> (MechanismTransitionsTest, PremierCalculRejointEtatCibleSansTransition)</td></tr>
@@ -823,6 +939,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:ab42b3bed825ef5b3664995a516c4eb8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'actions de jeu remappables (<span class="tt"><a class="el" href="#a133516ef8002bd9e4d870db9494f5867" title="Action de jeu logique, remappable indépendamment de la touche physique qui la déclenche.">GameAction</a></span>).  <br /></td></tr>
 <tr class="memitem:aab59d64d595ba17a55cc07311285ba14" id="r_aab59d64d595ba17a55cc07311285ba14"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aab59d64d595ba17a55cc07311285ba14">GAMEPAD_BUTTON_COUNT</a> = 10</td></tr>
 <tr class="memdesc:aab59d64d595ba17a55cc07311285ba14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de boutons manette remappables (<span class="tt"><a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88" title="Bouton (ou direction) manette remappable à une action de jeu (EX-CTRL-002, LOT-30).">GamepadButton</a></span>).  <br /></td></tr>
+<tr class="memitem:a79f2b5a2f6530436d6f2b090de10d6ac" id="r_a79f2b5a2f6530436d6f2b090de10d6ac"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a79f2b5a2f6530436d6f2b090de10d6ac">EDITOR_ACTION_CATALOG_COUNT</a> = 13</td></tr>
+<tr class="memdesc:a79f2b5a2f6530436d6f2b090de10d6ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre total d'actions du catalogue (six outils, sept commandes principales).  <br /></td></tr>
 </table>
 <a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
 <a id="a979f7ffd7c87877cb1f65f0d08e4419d" name="a979f7ffd7c87877cb1f65f0d08e4419d"></a>
@@ -1096,6 +1214,91 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="af951fa0fccb19bed92c122562085977a" name="af951fa0fccb19bed92c122562085977a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af951fa0fccb19bed92c122562085977a">&#9670;&#160;</a></span>EditorActionGroup</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#af951fa0fccb19bed92c122562085977a">hmi::EditorActionGroup</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Groupe d'exclusivité d'une action : les six outils d'édition forment un groupe <b>exclusif</b> (un seul actif à la fois) ; les commandes n'appartiennent à aucun groupe. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af951fa0fccb19bed92c122562085977aa6adf97f83acf6453d4a6a4b1070f3754" name="af951fa0fccb19bed92c122562085977aa6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af951fa0fccb19bed92c122562085977aac5ef5463f73a88dcdff84105e558092e" name="af951fa0fccb19bed92c122562085977aac5ef5463f73a88dcdff84105e558092e"></a>LevelTools&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a57dcf8ac7fd26c90a8741e698c896580" name="a57dcf8ac7fd26c90a8741e698c896580"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57dcf8ac7fd26c90a8741e698c896580">&#9670;&#160;</a></span>EditorThemeMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a57dcf8ac7fd26c90a8741e698c896580">hmi::EditorThemeMode</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Thème effectivement appliqué au châssis d'édition. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a57dcf8ac7fd26c90a8741e698c896580a9914a0ce04a7b7b6a8e39bec55064b82" name="a57dcf8ac7fd26c90a8741e698c896580a9914a0ce04a7b7b6a8e39bec55064b82"></a>Light&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a57dcf8ac7fd26c90a8741e698c896580aa18366b217ebf811ad1886e4f4f865b2" name="a57dcf8ac7fd26c90a8741e698c896580aa18366b217ebf811ad1886e4f4f865b2"></a>Dark&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a796b5dfcf1d9de2fb2552d51af677646" name="a796b5dfcf1d9de2fb2552d51af677646"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a796b5dfcf1d9de2fb2552d51af677646">&#9670;&#160;</a></span>EditorThemeSetting</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a796b5dfcf1d9de2fb2552d51af677646">hmi::EditorThemeSetting</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Réglage choisi par l'utilisateur (menu Affichage de l'éditeur, persisté entre sessions). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a796b5dfcf1d9de2fb2552d51af677646aa45da96d0bf6575970f2d27af22be28a" name="a796b5dfcf1d9de2fb2552d51af677646aa45da96d0bf6575970f2d27af22be28a"></a>System&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a796b5dfcf1d9de2fb2552d51af677646a9914a0ce04a7b7b6a8e39bec55064b82" name="a796b5dfcf1d9de2fb2552d51af677646a9914a0ce04a7b7b6a8e39bec55064b82"></a>Light&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a796b5dfcf1d9de2fb2552d51af677646aa18366b217ebf811ad1886e4f4f865b2" name="a796b5dfcf1d9de2fb2552d51af677646aa18366b217ebf811ad1886e4f4f865b2"></a>Dark&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <a id="a02048ad8ad69a87a10e8307ac2bd68dd" name="a02048ad8ad69a87a10e8307ac2bd68dd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a02048ad8ad69a87a10e8307ac2bd68dd">&#9670;&#160;</a></span>EditorTool</h2>
 
@@ -1116,7 +1319,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Outil actif dans la grille de l'éditeur, changé via <span class="tt">Tab</span> ou le panneau <span class="tt"><a class="el" href="classhmi_1_1ToolPanel.html" title="Sélecteur d&#39;outil d&#39;édition (EX-EDIT-014) : Pinceau, Rectangle, Sélection, Lien, Texture par instance...">ToolPanel</a></span>. </p>
+<p>Outil actif dans la grille de l'éditeur, changé via <span class="tt">Tab</span> ou le panneau <span class="tt"><a class="el" href="classhmi_1_1ToolPanel.html" title="Panneau « Outils » : le strict nécessaire de l&#39;outil Décor (LOT-49 TACHE-04) — grille de vignettes (h...">ToolPanel</a></span>. </p>
 <p><span class="tt">Paint</span> peint case par case au clic/glisser (comportement LOT-14, inchangé). <span class="tt">Rectangle</span> peint un rectangle entier au relâchement d'un glisser. <span class="tt">Selection</span> définit une zone (glisser) dont le contenu peut être copié (<span class="tt">Ctrl+C</span>) puis collé ailleurs (<span class="tt">Ctrl+V</span>), sans peindre directement. <span class="tt">Link</span> (<span class="tt">LOT-37</span>, <span class="tt">EX-IHM-030</span>) lie/délie un mécanisme : cliquer un déclencheur (interrupteur/ plaque) passe en attente de cible, cliquer une cible (porte/danger commuté) crée la liaison ; refaire la même paire la supprime (bascule) — voir <span class="tt"><a class="el" href="#a7f0f0f4f71e52b8deb6fb88a8d6411d9" title="Résout le clic de l&#39;outil « Lien » sur clickedCell selon l&#39;attente courante.">hmi::resolveLinkClick</a></span>. <span class="tt">Échap</span> annule une attente en cours (revient à aucune case sélectionnée), sans toucher au brouillon. <span class="tt">TextureAssign</span> (<span class="tt">LOT-45</span>, <span class="tt">EX-EDIT-043</span>) assigne une texture par instance à une case : clic gauche assigne/remplace l'asset sélectionné dans la bibliothèque, reclic du même asset ou clic droit retire l'assignation — voir <span class="tt"><a class="el" href="#ad9c60c575bab3fcb92a2876cc1b11bfc" title="Résout le clic de l&#39;outil « Texture par instance » sur clickedCell.">hmi::resolveTextureAssignClick</a></span>. <span class="tt">Decor</span> (<span class="tt">LOT-49</span>/<span class="tt">LOT-50</span>, <span class="tt">EX-DEC-001</span>, <span class="tt">EX-DEC-010</span>) place, sélectionne, déplace, redimensionne, pivote et supprime des décors libres, jamais calés sur la grille : cliquer un décor le sélectionne et arme un glisser (corps = déplacer, coin = redimensionner, poignée dédiée = pivoter, <span class="tt">hmi::DecorGesture</span>) ; cliquer une zone vide pose l'asset/la couche sélectionnés dans la bibliothèque de décors (aucun décor sous le curseur, aucune sélection) ; clic droit ou touche « Suppr » retire le décor visé/sélectionné ; <span class="tt">Échap</span> abandonne un glisser en cours sans y toucher. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e" name="a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e"></a>Paint&#160;</td><td class="fielddoc"></td></tr>
@@ -1231,6 +1434,73 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a57cec4137b614c87cb4e24a3d003a3e0" name="a7bd1f14c12b142d5227ad2560e7c5e88a57cec4137b614c87cb4e24a3d003a3e0"></a>Y&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a36131cbdc50218d923d0bcb0d9870e1c" name="a7bd1f14c12b142d5227ad2560e7c5e88a36131cbdc50218d923d0bcb0d9870e1c"></a>LeftShoulder&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a27a5390f2d1b44a43f74d57703f8d354" name="a7bd1f14c12b142d5227ad2560e7c5e88a27a5390f2d1b44a43f74d57703f8d354"></a>RightShoulder&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="acaf7f33926fae2f8294ef4ee5d24ba52" name="acaf7f33926fae2f8294ef4ee5d24ba52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acaf7f33926fae2f8294ef4ee5d24ba52">&#9670;&#160;</a></span>IconColorRole</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#acaf7f33926fae2f8294ef4ee5d24ba52">hmi::IconColorRole</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rôle de couleur d'un trait, résolu depuis les jetons de design au moment du rendu (recoloration automatique avec le thème, y compris après une bascule TACHE-06). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="acaf7f33926fae2f8294ef4ee5d24ba52a45bd1d5b32931106efbf1a82fe6a732f" name="acaf7f33926fae2f8294ef4ee5d24ba52a45bd1d5b32931106efbf1a82fe6a732f"></a>Foreground&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acaf7f33926fae2f8294ef4ee5d24ba52ac900e1bd8e22771d610bd2a5861b544f" name="acaf7f33926fae2f8294ef4ee5d24ba52ac900e1bd8e22771d610bd2a5861b544f"></a>Accent&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="ab269aabb94611e449a8e7427969874f5" name="ab269aabb94611e449a8e7427969874f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab269aabb94611e449a8e7427969874f5">&#9670;&#160;</a></span>IconId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#ab269aabb94611e449a8e7427969874f5">hmi::IconId</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Identifiant d'une icône : un par outil d'édition et par commande principale. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a6977408af40dc96deb1c4c86a6d4f32e" name="ab269aabb94611e449a8e7427969874f5a6977408af40dc96deb1c4c86a6d4f32e"></a>ToolPaint&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5aee324dd1644d8a93504aaa30147cd2bc" name="ab269aabb94611e449a8e7427969874f5aee324dd1644d8a93504aaa30147cd2bc"></a>ToolRectangle&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a7252d7debae0bab6f7e97a0f9537ae7e" name="ab269aabb94611e449a8e7427969874f5a7252d7debae0bab6f7e97a0f9537ae7e"></a>ToolSelection&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a8702edcc86ce2556bdb66ab132e3ea81" name="ab269aabb94611e449a8e7427969874f5a8702edcc86ce2556bdb66ab132e3ea81"></a>ToolLink&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a841a11a9910d4195f440dac6a99b4b83" name="ab269aabb94611e449a8e7427969874f5a841a11a9910d4195f440dac6a99b4b83"></a>ToolTextureAssign&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a28a04f8164a3cc874fcf0ec5b047f437" name="ab269aabb94611e449a8e7427969874f5a28a04f8164a3cc874fcf0ec5b047f437"></a>ToolDecor&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5ac9cc8cce247e49bae79f15173ce97354" name="ab269aabb94611e449a8e7427969874f5ac9cc8cce247e49bae79f15173ce97354"></a>Save&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5ab13fc91e5d02ea9e1f1a538504213bea" name="ab269aabb94611e449a8e7427969874f5ab13fc91e5d02ea9e1f1a538504213bea"></a>Playtest&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a1cdc076b28f70afac5fcedadf99fa119" name="ab269aabb94611e449a8e7427969874f5a1cdc076b28f70afac5fcedadf99fa119"></a>Undo&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a5afeaba074ef570dc720caaa855d49f6" name="ab269aabb94611e449a8e7427969874f5a5afeaba074ef570dc720caaa855d49f6"></a>Redo&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a77bfa926518159e75c2c4b508a81f19e" name="ab269aabb94611e449a8e7427969874f5a77bfa926518159e75c2c4b508a81f19e"></a>ToggleGrid&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a34e806c94d1cf43980bb179a0376e173" name="ab269aabb94611e449a8e7427969874f5a34e806c94d1cf43980bb179a0376e173"></a>ResetCamera&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5ae5217b6eb03211d9550042b6fe681626" name="ab269aabb94611e449a8e7427969874f5ae5217b6eb03211d9550042b6fe681626"></a>ToggleRenderMode&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -1906,6 +2176,66 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a3aa575e76fff3cb3999cf33106e71c71" name="a3aa575e76fff3cb3999cf33106e71c71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3aa575e76fff3cb3999cf33106e71c71">&#9670;&#160;</a></span>applyApplicationStyle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::applyApplicationStyle </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Choisit explicitement le style Qt de l'application (non natif, condition pour que la palette et la feuille de style s'appliquent à l'ensemble des contrôles). </p>
+<p>À appeler <b>avant</b> la création du moindre widget : un style appliqué après ne se propage pas aux widgets déjà construits. </p>
+
+</div>
+</div>
+<a id="a21903bad18cb9cb682fe83b340418c1e" name="a21903bad18cb9cb682fe83b340418c1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21903bad18cb9cb682fe83b340418c1e">&#9670;&#160;</a></span>applyEditorTheme()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::applyEditorTheme </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applique le thème complet du châssis d'édition (portée <b>variable</b>) : police, palette puis feuille de style, tous dérivés des jetons <b>actuellement effectifs</b> (<span class="tt"><a class="el" href="#a26a0827c46d5301e7690c51a9e6fc159">currentEditorTokens()</a></span>). </p>
+<p>À appeler avant la construction de <span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">MainWindow</a></span>. </p>
+
+</div>
+</div>
+<a id="a2c008aaa4051cc949be754258753baa7" name="a2c008aaa4051cc949be754258753baa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c008aaa4051cc949be754258753baa7">&#9670;&#160;</a></span>applyFont()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::applyFont </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enregistre la police embarquée (<span class="tt">Assets/Fonts/Inter-{Regular,Bold}.ttf</span>) auprès de Qt et l'applique comme police par défaut de l'application. </p>
+<p>Repli explicite si le fichier est absent ou refusé par Qt : famille <b>générique</b> demandée à Qt (<span class="tt">QFont::StyleHint</span>), jamais un second nom de police codé en dur ; avertissement journalisé. </p>
+
+</div>
+</div>
 <a id="aff5a499bb21016a452b381ee65602b3a" name="aff5a499bb21016a452b381ee65602b3a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aff5a499bb21016a452b381ee65602b3a">&#9670;&#160;</a></span>applySilhouetteMask()</h2>
 
@@ -1994,6 +2324,26 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="aee6f5ca213fc30772f1d5a7df740fe4c" name="aee6f5ca213fc30772f1d5a7df740fe4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee6f5ca213fc30772f1d5a7df740fe4c">&#9670;&#160;</a></span>applyStyleSheet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::applyStyleSheet </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>editorTokens</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Charge le modèle de feuille de style embarqué (<span class="tt">:/resources/theme.qss</span>), le substitue avec <code class="param">editorTokens</code> et l'applique à l'application. </p>
+<p>Repli explicite : fichier absent/illisible ou marqueur inconnu -&gt; avertissement journalisé, l'application reste utilisable sans feuille de style (comportement historique de <span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">main.cpp</a></span>, non régressé). </p>
 
 </div>
 </div>
@@ -2219,6 +2569,34 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a73cb9cef74be4c0f0577ef8fe0416522" name="a73cb9cef74be4c0f0577ef8fe0416522"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73cb9cef74be4c0f0577ef8fe0416522">&#9670;&#160;</a></span>buildApplicationPalette()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QPalette hmi::buildApplicationPalette </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>tokens</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construit une <span class="tt">QPalette</span> complète — groupes actif, inactif et désactivé — à partir d'un jeu de jetons. </p>
+<p>Le groupe désactivé est explicitement dérivé du texte atténué : c'est celui qu'on oublie le plus souvent, et celui qui trahit le plus vite un thème incomplet. </p>
 
 </div>
 </div>
@@ -2469,6 +2847,34 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Les sections, dans l'ordre de la taxonomie. </dd></dl>
+
+</div>
+</div>
+<a id="a48d98f8ec6667823355ce1ea43b115ea" name="a48d98f8ec6667823355ce1ea43b115ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48d98f8ec6667823355ce1ea43b115ea">&#9670;&#160;</a></span>buildStyleSheetValues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt; std::string, std::string &gt; hmi::buildStyleSheetValues </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>editorTokens</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Table de substitution marqueur -&gt; valeur pour le modèle de feuille de style (<span class="tt">LOT-56</span> TACHE-02), à partir d'un jeu de jetons du châssis d'édition (portée variable) ; les marqueurs de préfixe "identity." sont toujours résolus depuis <span class="tt"><a class="el" href="#ad6321dea8cce4302df77dbdbcd3fd155" title="Jetons de l&#39;identité du jeu (menu principal, écran Options, jeu) : invariants, ne suivent jamais aucu...">identityTokens()</a></span> (portée invariante). </p>
+<p>Fonction <b>pure</b> : ne dépend que des jetons, jamais de l'état de l'application. </p>
 
 </div>
 </div>
@@ -2943,6 +3349,37 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a4b85e74ce8764eb9f4121b7b91eb84c7" name="a4b85e74ce8764eb9f4121b7b91eb84c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b85e74ce8764eb9f4121b7b91eb84c7">&#9670;&#160;</a></span>contrastRatio()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double hmi::contrastRatio </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DesignColor.html">DesignColor</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DesignColor.html">DesignColor</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rapport de contraste WCAG entre deux couleurs (1 = aucun contraste, 21 = noir sur blanc). </p>
+
+</div>
+</div>
 <a id="a98f0f2d822288b333e00905f4cc60165" name="a98f0f2d822288b333e00905f4cc60165"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a98f0f2d822288b333e00905f4cc60165">&#9670;&#160;</a></span>createTexture()</h2>
 
@@ -2991,6 +3428,32 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La texture chargée, ou <span class="tt">std::nullopt</span> en cas d'échec de création côté GPU. </dd></dl>
+
+</div>
+</div>
+<a id="a26a0827c46d5301e7690c51a9e6fc159" name="a26a0827c46d5301e7690c51a9e6fc159"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26a0827c46d5301e7690c51a9e6fc159">&#9670;&#160;</a></span>currentEditorTokens()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a> &amp; hmi::currentEditorTokens </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les jetons du châssis d'édition <b>actuellement effectifs</b> : résolution du réglage persisté et, si <span class="tt">Système</span>, du réglage courant du système d'exploitation (<span class="tt"><a class="el" href="#a00629522279a61cffd0c68ae26c3fca0" title="Résout le thème effectif à appliquer.">hmi::resolveEffectiveEditorTheme</a></span>). </dd></dl>
 
 </div>
 </div>
@@ -3308,6 +3771,190 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>L'élément visé, ou <span class="tt">std::nullopt</span> si le clic ne touche rien. </dd></dl>
+
+</div>
+</div>
+<a id="a31529e361028e2fae2f4d12dc1d5b8d1" name="a31529e361028e2fae2f4d12dc1d5b8d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31529e361028e2fae2f4d12dc1d5b8d1">&#9670;&#160;</a></span>editorActionCatalog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::array&lt; <a class="el" href="structhmi_1_1EditorActionSpec.html">EditorActionSpec</a>, <a class="el" href="#a79f2b5a2f6530436d6f2b090de10d6ac">EDITOR_ACTION_CATALOG_COUNT</a> &gt; &amp; hmi::editorActionCatalog </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le catalogue complet, dans l'ordre d'affichage voulu de la barre d'outils : les six outils (ordre de la palette/du panneau Outils historique), puis les sept commandes. </dd></dl>
+
+</div>
+</div>
+<a id="a5aa3682b9ff2aba43ecaa20e2c6f4d9c" name="a5aa3682b9ff2aba43ecaa20e2c6f4d9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5aa3682b9ff2aba43ecaa20e2c6f4d9c">&#9670;&#160;</a></span>editorActionForTool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a> hmi::editorActionForTool </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a></td>          <td class="paramname"><span class="paramname"><em>tool</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'identifiant d'action portant l'outil <code class="param">tool</code>. </dd></dl>
+
+</div>
+</div>
+<a id="a86efa8bc643b7f44b2cd6fc6133605f3" name="a86efa8bc643b7f44b2cd6fc6133605f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86efa8bc643b7f44b2cd6fc6133605f3">&#9670;&#160;</a></span>editorActionSpec()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structhmi_1_1EditorActionSpec.html">EditorActionSpec</a> &amp; hmi::editorActionSpec </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a></td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La spécification de l'action <code class="param">id</code>. </dd></dl>
+
+</div>
+</div>
+<a id="a3df22d8b0cb79245b439394aae6798ae" name="a3df22d8b0cb79245b439394aae6798ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3df22d8b0cb79245b439394aae6798ae">&#9670;&#160;</a></span>editorActionTool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a> &gt; hmi::editorActionTool </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a></td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'outil associé à l'action <code class="param">id</code>, si elle appartient au groupe <span class="tt">LevelTools</span> ; <span class="tt">std::nullopt</span> pour une commande. </dd></dl>
+
+</div>
+</div>
+<a id="abc068660f97a7130175d11f2755ff340" name="abc068660f97a7130175d11f2755ff340"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc068660f97a7130175d11f2755ff340">&#9670;&#160;</a></span>editorDarkTokens()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a> &amp; hmi::editorDarkTokens </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Jetons du châssis d'édition en thème <b>sombre</b> (défaut) : <b>variables</b>, <span class="tt"><a class="el" href="#a579e19561f5e93deaf52895cb3d4b7fd" title="Jetons du châssis d&#39;édition en thème clair (LOT-56 TACHE-06) : mêmes rôles, mêmes échelles que editor...">editorLightTokens()</a></span> (<span class="tt">LOT-56</span> TACHE-06) en fournit un second jeu. </p>
+
+</div>
+</div>
+<a id="a579e19561f5e93deaf52895cb3d4b7fd" name="a579e19561f5e93deaf52895cb3d4b7fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a579e19561f5e93deaf52895cb3d4b7fd">&#9670;&#160;</a></span>editorLightTokens()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a> &amp; hmi::editorLightTokens </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Jetons du châssis d'édition en thème <b>clair</b> (<span class="tt">LOT-56</span> TACHE-06) : mêmes rôles, mêmes échelles que <span class="tt"><a class="el" href="#abc068660f97a7130175d11f2755ff340" title="Jetons du châssis d&#39;édition en thème sombre (défaut) : variables, editorLightTokens() (LOT-56 TACHE-0...">editorDarkTokens()</a></span> — seules les couleurs diffèrent, et pas par simple inversion (les écarts de luminosité entre bordures/lignes alternées/fond diffèrent en clair et en sombre). </p>
+
+</div>
+</div>
+<a id="a9dc9509fbff97a3271f33b011e243ecb" name="a9dc9509fbff97a3271f33b011e243ecb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9dc9509fbff97a3271f33b011e243ecb">&#9670;&#160;</a></span>editorThemeSetting()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a796b5dfcf1d9de2fb2552d51af677646">EditorThemeSetting</a> hmi::editorThemeSetting </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le réglage de thème persisté (<span class="tt">QSettings</span>), <span class="tt">Système</span> par défaut. </dd></dl>
 
 </div>
 </div>
@@ -3648,6 +4295,61 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La poignée touchée, ou <span class="tt"><a class="el" href="#a85a2df4671d768ea880f930a5f87e00da6adf97f83acf6453d4a6a4b1070f3754">DecorHandle::None</a></span> si aucune. </dd></dl>
+
+</div>
+</div>
+<a id="a209dabae621c4b379079647002f4c080" name="a209dabae621c4b379079647002f4c080"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a209dabae621c4b379079647002f4c080">&#9670;&#160;</a></span>iconGeometry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1IconGeometry.html">IconGeometry</a> hmi::iconGeometry </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a></td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Décrit la géométrie d'une icône, en espace normalisé. </p>
+<p>Fonction <b>pure</b> : mêmes entrées, même sortie, aucune dépendance à Qt ni au GPU. Les formes visent des silhouettes distinctes plutôt qu'un détail fin : elles doivent rester lisibles à la plus petite taille d'icône des jetons (<span class="tt"><a class="el" href="structhmi_1_1SizeTokens.html#addb037ea908f42364d6d6678e7741a38">SizeTokens::iconSmall</a></span>). </p>
+
+</div>
+</div>
+<a id="ad6321dea8cce4302df77dbdbcd3fd155" name="ad6321dea8cce4302df77dbdbcd3fd155"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6321dea8cce4302df77dbdbcd3fd155">&#9670;&#160;</a></span>identityTokens()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a> &amp; hmi::identityTokens </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Jetons de l'identité du jeu (menu principal, écran Options, jeu) : <b>invariants</b>, ne suivent jamais aucun réglage d'affichage (<span class="tt">EX-IHM-050</span>). </p>
 
 </div>
 </div>
@@ -4690,6 +5392,26 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a4dbd77c54104dd2723bba59437d00bd5" name="a4dbd77c54104dd2723bba59437d00bd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dbd77c54104dd2723bba59437d00bd5">&#9670;&#160;</a></span>reapplyEditorTheme()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::reapplyEditorTheme </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Réapplique la palette et la feuille de style (mais pas la police, inchangée par le thème) depuis <span class="tt"><a class="el" href="#a26a0827c46d5301e7690c51a9e6fc159">currentEditorTokens()</a></span> — bascule à chaud (<span class="tt">LOT-56</span> TACHE-06), sans reconstruire les widgets. </p>
+<p>Les icônes et vignettes ne suivent <b>pas</b> automatiquement : leurs propriétaires (<span class="tt"><a class="el" href="classhmi_1_1EditorActions.html#a92148052c84a36d97dc127936ae28530" title="Reconstruit les icônes depuis un nouveau jeu de jetons (bascule de thème, LOT-56 TACHE-06) : sans quo...">EditorActions::refreshIcons</a></span>, caches de vignettes) doivent être resynchronisés séparément. </p>
+
+</div>
+</div>
 <a id="a597b9471d79c0d524b3dedbf52c2fac6" name="a597b9471d79c0d524b3dedbf52c2fac6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a597b9471d79c0d524b3dedbf52c2fac6">&#9670;&#160;</a></span>regionForTile()</h2>
 
@@ -4721,6 +5443,33 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La région d'atlas à échantillonner pour ce type. </dd></dl>
+
+</div>
+</div>
+<a id="aadfbb57622e1e177b3c41c9ba011779b" name="aadfbb57622e1e177b3c41c9ba011779b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadfbb57622e1e177b3c41c9ba011779b">&#9670;&#160;</a></span>relativeLuminance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double hmi::relativeLuminance </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DesignColor.html">DesignColor</a></td>          <td class="paramname"><span class="paramname"><em>color</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Luminance relative WCAG d'une couleur (0 = noir, 1 = blanc), pour le calcul de contraste. </p>
 
 </div>
 </div>
@@ -4940,6 +5689,84 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La texture à lier et ses dimensions en pixels. </dd></dl>
+
+</div>
+</div>
+<a id="a00629522279a61cffd0c68ae26c3fca0" name="a00629522279a61cffd0c68ae26c3fca0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00629522279a61cffd0c68ae26c3fca0">&#9670;&#160;</a></span>resolveEffectiveEditorTheme()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a57dcf8ac7fd26c90a8741e698c896580">EditorThemeMode</a> hmi::resolveEffectiveEditorTheme </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a796b5dfcf1d9de2fb2552d51af677646">EditorThemeSetting</a></td>          <td class="paramname"><span class="paramname"><em>setting</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>systemPrefersDark</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Résout le thème effectif à appliquer. </p>
+<p>Fonction <b>pure</b> : <span class="tt">System</span> + système clair -&gt; <span class="tt">Light</span> ; <span class="tt">System</span> + système sombre -&gt; <span class="tt">Dark</span> ; <span class="tt">Light</span>/<span class="tt">Dark</span> forcé -&gt; ignore le réglage système. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">setting</td><td>Réglage utilisateur courant. </td></tr>
+    <tr><td class="paramname">systemPrefersDark</td><td>Le système d'exploitation préfère-t-il un thème sombre. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le thème à appliquer au châssis d'édition (jamais à l'identité du jeu, invariante). </dd></dl>
+
+</div>
+</div>
+<a id="ab6fc3cb9d2aa0cca7d624c1f3700e859" name="ab6fc3cb9d2aa0cca7d624c1f3700e859"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6fc3cb9d2aa0cca7d624c1f3700e859">&#9670;&#160;</a></span>resolveFontFamily()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1FontFamilyResolution.html">FontFamilyResolution</a> hmi::resolveFontFamily </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>fontRegistered</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>embeddedFamilyName</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Choisit la famille de police à employer pour le corps de l'IHM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fontRegistered</td><td><span class="tt">true</span> si le fichier de police embarquée a pu être enregistré auprès de <span class="tt">QFontDatabase</span> (les deux graisses, régulière et grasse). </td></tr>
+    <tr><td class="paramname">embeddedFamilyName</td><td>Nom de famille rapporté par Qt pour la police embarquée (ex. "Inter"). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La police embarquée si <code class="param">fontRegistered</code> vaut <span class="tt">true</span> ; sinon un résultat sans nom de famille, signalant à l'appelant de retomber sur une famille générique. </dd></dl>
 
 </div>
 </div>
@@ -5393,6 +6220,25 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a2b88537ea0df32cc5407ade781c323f0" name="a2b88537ea0df32cc5407ade781c323f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b88537ea0df32cc5407ade781c323f0">&#9670;&#160;</a></span>setEditorThemeSetting()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::setEditorThemeSetting </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a796b5dfcf1d9de2fb2552d51af677646">EditorThemeSetting</a></td>          <td class="paramname"><span class="paramname"><em>setting</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Persiste <code class="param">setting</code> (<span class="tt">QSettings</span>), relu au démarrage suivant. </p>
+
+</div>
+</div>
 <a id="ab7a7e2e0b4ed018b8acae760f5678b94" name="ab7a7e2e0b4ed018b8acae760f5678b94"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab7a7e2e0b4ed018b8acae760f5678b94">&#9670;&#160;</a></span>skinModeFromName()</h2>
 
@@ -5613,6 +6459,71 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a109a8b01a44769d182894f833e7cb054" name="a109a8b01a44769d182894f833e7cb054"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a109a8b01a44769d182894f833e7cb054">&#9670;&#160;</a></span>substituteStyleSheetTemplate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1StyleSheetSubstitutionResult.html">StyleSheetSubstitutionResult</a> hmi::substituteStyleSheetTemplate </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>templateText</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::unordered_map&lt; std::string, std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>values</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Remplace chaque marqueur dollar-accolade de <code class="param">templateText</code> par sa valeur dans <code class="param">values</code>. </p>
+<p>Fonction <b>pure</b> : mêmes entrées, même sortie, aucun effet de bord, aucune dépendance à un fichier ou une instance d'application. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">templateText</td><td>Texte du modèle, contenant zéro ou plusieurs marqueurs. </td></tr>
+    <tr><td class="paramname">values</td><td>Table nom de marqueur -&gt; valeur de substitution. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">ok=true</span> avec le texte substitué ; <span class="tt">ok=false</span> avec un message nommant le premier marqueur absent de <code class="param">values</code> — jamais un résultat partiellement substitué. </dd></dl>
+
+</div>
+</div>
+<a id="a4a093e625bf2462100c49cb1803a35a9" name="a4a093e625bf2462100c49cb1803a35a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a093e625bf2462100c49cb1803a35a9">&#9670;&#160;</a></span>systemPrefersDarkTheme()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::systemPrefersDarkTheme </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si le système d'exploitation est actuellement réglé sur un thème sombre (<span class="tt">QStyleHints::colorScheme</span>). </dd></dl>
+
+</div>
+</div>
 <a id="acf25ab803e9993cf5baab355d23f8ca9" name="acf25ab803e9993cf5baab355d23f8ca9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acf25ab803e9993cf5baab355d23f8ca9">&#9670;&#160;</a></span>taxonomyLabelKey()</h2>
 
@@ -5812,6 +6723,90 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a3126473350fe705bf2fac20bc6194c62" name="a3126473350fe705bf2fac20bc6194c62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3126473350fe705bf2fac20bc6194c62">&#9670;&#160;</a></span>themeIcon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QIcon hmi::themeIcon </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a></td>          <td class="paramname"><span class="paramname"><em>id</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>pixelSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>tokens</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Peint une icône à la taille demandée, recolorée depuis les jetons. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Icône à peindre (<span class="tt"><a class="el" href="#a209dabae621c4b379079647002f4c080" title="Décrit la géométrie d&#39;une icône, en espace normalisé.">hmi::iconGeometry</a></span>). </td></tr>
+    <tr><td class="paramname">pixelSize</td><td>Côté du carré, en pixels <b>réels</b> (déjà multiplié par le facteur d'échelle d'affichage par l'appelant, <span class="tt">LOT-56</span> TACHE-05) : le tracé reste net à toute échelle. </td></tr>
+    <tr><td class="paramname">tokens</td><td>Jetons de la portée courante (châssis d'édition) : résout les rôles de couleur de la géométrie, de sorte que l'icône suive le thème actif (TACHE-06). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Une <span class="tt">QIcon</span> couvrant l'unique taille demandée. </dd></dl>
+
+</div>
+</div>
+<a id="a8158375fa940021f6bb346e7c2b09247" name="a8158375fa940021f6bb346e7c2b09247"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8158375fa940021f6bb346e7c2b09247">&#9670;&#160;</a></span>thumbnailPixelSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::thumbnailPixelSize </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>logicalSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>scaleFactor</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Taille en pixels <b>réels</b> pour une taille logique et un facteur d'échelle d'affichage donnés. </p>
+<p>Ne produit jamais zéro, même pour un facteur non entier (125 %, 150 %) appliqué à la plus petite taille d'icône des jetons : un défaut d'arrondi produirait sinon une vignette invisible plutôt que simplement floue. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">logicalSize</td><td>Taille demandée, en pixels logiques (jetons de design, <span class="tt"><a class="el" href="structhmi_1_1SizeTokens.html" title="Tailles d&#39;icônes, de vignettes et de contrôles usuels, en pixels logiques (avant mise à l&#39;échelle d&#39;a...">SizeTokens</a></span>). </td></tr>
+    <tr><td class="paramname">scaleFactor</td><td>Facteur d'échelle du support d'affichage (<span class="tt">devicePixelRatio</span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">round(logicalSize * scaleFactor)</span>, borné à 1 au minimum. </dd></dl>
+
+</div>
+</div>
 <a id="a324d7671eeb331de4b3459d66be9d0ca" name="a324d7671eeb331de4b3459d66be9d0ca"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a324d7671eeb331de4b3459d66be9d0ca">&#9670;&#160;</a></span>tileTaxonomy()</h2>
 
@@ -5837,6 +6832,60 @@ Variables</h2></td></tr>
 
 <p>Taxonomie complète des types de tuiles peignables, en catégories/sous-groupes. </p>
 <p>Logique <b>pure</b> (aucune dépendance Qt/GPU), testable (<span class="tt">EX-NFR-010</span>) : sert de source unique à la palette <span class="tt">QTreeView</span> de l'éditeur (<span class="tt">EX-EDIT-018</span>, <span class="tt">EX-IHM-010</span>). <b>Chaque</b> <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span> y figure <b>exactement une fois</b>, dans un ordre déterministe (invariant vérifié par les tests). Reprend l'organisation de la palette historique (<span class="tt">LOT-27</span>). </p>
+
+</div>
+</div>
+<a id="ae20924609a126f67a34764d3d6eb79fe" name="ae20924609a126f67a34764d3d6eb79fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae20924609a126f67a34764d3d6eb79fe">&#9670;&#160;</a></span>toCssColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::toCssColor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DesignColor.html">DesignColor</a></td>          <td class="paramname"><span class="paramname"><em>color</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Conversion pure : couleur -&gt; chaîne CSS hexadécimale <span class="tt">"#rrggbb"</span> (minuscules, sans alpha — les feuilles de style Qt n'acceptent l'alpha que via <span class="tt">rgba()</span>). </p>
+
+</div>
+</div>
+<a id="a8226c5910f682e57f7f0b00e818a23fc" name="a8226c5910f682e57f7f0b00e818a23fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8226c5910f682e57f7f0b00e818a23fc">&#9670;&#160;</a></span>toCssRgba()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::toCssRgba </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DesignColor.html">DesignColor</a></td>          <td class="paramname"><span class="paramname"><em>color</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Conversion pure : couleur -&gt; chaîne CSS <span class="tt">"rgba(r, g, b, a)"</span>, composantes entières 0-255 (les feuilles de style Qt expriment l'alpha sur la même échelle que les autres composantes). </p>
 
 </div>
 </div>
@@ -6068,6 +7117,44 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ac309fd9a7985bf6b3ba59e8fd46362c6" name="ac309fd9a7985bf6b3ba59e8fd46362c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac309fd9a7985bf6b3ba59e8fd46362c6">&#9670;&#160;</a></span>viewportClearColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1DesignColor.html">DesignColor</a> hmi::viewportClearColor </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>editorMode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>activeEditorTokens</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Couleur d'effacement du viewport (<span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">GameViewport</a></span>), dérivée des jetons plutôt que d'une valeur littérale locale : fond de la portée <b>variable</b> en édition (suivant le thème actif de l'éditeur, <span class="tt">LOT-56</span> TACHE-06), fond de la portée <b>invariante</b> en jeu et en essai — la seule surface qui appartient tour à tour aux deux portées. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">editorMode</td><td><span class="tt">true</span> en édition, <span class="tt">false</span> en jeu/essai. </td></tr>
+    <tr><td class="paramname">activeEditorTokens</td><td>Jetons du châssis d'édition <b>actuellement effectifs</b> (thème clair ou sombre) ; ignorés si <span class="tt">editorMode</span> est faux. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
 <a id="a58aec3b5e8b7ff780934f969eb35febb" name="a58aec3b5e8b7ff780934f969eb35febb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a58aec3b5e8b7ff780934f969eb35febb">&#9670;&#160;</a></span>AUTOTILE_CONFIGURATION_COUNT</h2>
@@ -6283,6 +7370,30 @@ Variables</h2></td></tr>
 
 <p>Mode appliqué au premier lancement et à défaut de préférence exploitable. </p>
 <p><span class="tt">Texture</span> dans <b>toutes</b> les configurations de build (<span class="tt">EX-REN-046</span>) : deux binaires du même code ne doivent jamais afficher un rendu différent par défaut, sous peine de rendre ambiguë toute capture d'écran ou vérification visuelle. </p>
+
+</div>
+</div>
+<a id="a79f2b5a2f6530436d6f2b090de10d6ac" name="a79f2b5a2f6530436d6f2b090de10d6ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79f2b5a2f6530436d6f2b090de10d6ac">&#9670;&#160;</a></span>EDITOR_ACTION_CATALOG_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::EDITOR_ACTION_CATALOG_COUNT = 13</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre total d'actions du catalogue (six outils, sept commandes principales). </p>
 
 </div>
 </div>

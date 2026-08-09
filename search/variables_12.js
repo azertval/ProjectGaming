@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['r_0',['r',['../structcore_1_1Color.html#a6661129aae38ea85f938acfd130a888d',1,'core::Color::r'],['../structhmi_1_1SpriteQuad.html#ab8e8494560e6c855471cfab0f735ac48',1,'hmi::SpriteQuad::r'],['../structhmi_1_1LineQuad.html#ae8956cc31b9497667597dc2cec9e99eb',1,'hmi::LineQuad::r'],['../structhmi_1_1SpriteBatch_1_1Vertex.html#ad0468112a8605e4ea04c7796474a2e0c',1,'hmi::SpriteBatch::Vertex::r']]],
+  ['r_0',['r',['../structcore_1_1Color.html#a6661129aae38ea85f938acfd130a888d',1,'core::Color::r'],['../structhmi_1_1SpriteQuad.html#ab8e8494560e6c855471cfab0f735ac48',1,'hmi::SpriteQuad::r'],['../structhmi_1_1LineQuad.html#ae8956cc31b9497667597dc2cec9e99eb',1,'hmi::LineQuad::r'],['../structhmi_1_1SpriteBatch_1_1Vertex.html#ad0468112a8605e4ea04c7796474a2e0c',1,'hmi::SpriteBatch::Vertex::r'],['../structhmi_1_1DesignColor.html#a0eba99c55f71ef2f0b9657feda2edcb2',1,'hmi::DesignColor::r']]],
   ['range_1',['range',['../structcore_1_1DangerMoverConfig.html#a2a6f89bb1020168a92000302cc9e3ac5',1,'core::DangerMoverConfig']]],
   ['region_2',['region',['../structcore_1_1Sprite.html#a6388caacbea8c28cb9e8956cd46e9b2c',1,'core::Sprite::region'],['../structhmi_1_1PaletteThumbnail.html#ab4e4bdc2d71a4e0a3e5c93148b6af058',1,'hmi::PaletteThumbnail::region'],['../structhmi_1_1TileAppearance.html#a109ec7f7f5274abd9fd592acd04f5bc5',1,'hmi::TileAppearance::region']]],
   ['render_5flayer_5fcount_3',['RENDER_LAYER_COUNT',['../namespacehmi.html#a8d75d16f31a44e7347ea403ce66aaff3',1,'hmi']]],

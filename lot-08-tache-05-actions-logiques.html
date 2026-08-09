@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-08-tache-05-actions-logiques.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-08-gameplay-personnage_2tache-05-actions-logiques"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-08.html#md_Lot_2LOT-08-gameplay-personnage_2epic" title="Lot/LOT-08-gameplay-personnage/epic.md">LOT-08</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Input</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md687"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md688"></a>
 Contexte</h1>
 <p>Le gameplay ne doit <b>jamais</b> dépendre d'une touche physique (<span class="tt">EX-CTRL-010</span>) : cette tâche pose la couche qui traduit l'<span class="tt">InputState</span> (LOT-06) en une <b>intention</b> <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span> (TACHE-01), échantillonnée une fois par frame en amont de la logique (<span class="tt">EX-CTRL-021</span>) et sans latence supérieure à une frame (<span class="tt">EX-CTRL-020</span>). C'est une <b>logique pure</b> (aucun <span class="tt">&lt;Windows.h&gt;</span>), testable en injectant un <span class="tt">InputState</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md688"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md689"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Étendre <span class="tt">Key</span></b> avec les touches lettres nécessaires (codes <span class="tt">VK_*</span>) : <span class="tt">A</span> (0x41), <span class="tt">D</span> (0x44), <span class="tt">Q</span> (0x51), <span class="tt">W</span> (0x57) — pour les schémas ZQSD/WASD ; les flèches existent déjà.</li>
@@ -109,14 +109,14 @@ Travail à réaliser</h1>
 </li>
 <li>Le saut (<span class="tt">Espace</span>/<span class="tt">W</span>) figure dans la spec des contrôles mais <b>n'est pas mappé</b> ici (hors périmètre) — laisser la place sans le câbler.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md689"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md690"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame.">Source/HMI/Input/InputState.h</a></span> (ajout d'énumérateurs <span class="tt">Key</span>).</li>
 <li><span class="tt"><a class="el" href="PlayerInputMapper_8h.html" title="Traduction des entrées clavier/manette en intention de déplacement (action logique).">Source/HMI/Input/PlayerInputMapper.h</a></span>/<span class="tt">.cpp</span> (nouveau) — ou en-tête seul si trivial.</li>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> (nouveau test unitaire).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md690"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md691"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">←</span> seule → <span class="tt">moveX == -1</span> ; <span class="tt">→</span> seule → <span class="tt">moveX == +1</span>.</li>
@@ -124,19 +124,19 @@ Tests (obligatoires)</h1>
 <li>Aucune touche → <span class="tt">moveX == 0</span>.</li>
 <li>Gauche <b>et</b> droite simultanées → <span class="tt">moveX == 0</span> (opposition neutralisée, déterministe).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md691"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md692"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Dissociation stricte</b> touche ↔ action (<span class="tt">EX-CTRL-010</span>) : le reste du moteur ne connaît que <span class="tt">PlayerInput</span>. Un futur remappage/manette (<span class="tt">EX-CTRL-012</span>) ne touchera que cette couche.</li>
 <li><b>Pur et testable</b> : le mapper ne lit pas la fenêtre, il lit un <span class="tt">InputState</span> injecté (<span class="tt">EX-NFR-010</span>).</li>
 <li>Un seul échantillonnage par frame, en amont de la mise à jour logique (<span class="tt">EX-CTRL-021</span>) : le mapper est appelé au début de l'<span class="tt">update</span> de l'écran, pas dans la boucle de rendu.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md692"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md693"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Mapping touches → <span class="tt">PlayerInput</span> documenté et <b>testé</b> (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md693"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md694"></a>
 Exigences</h1>
 <p><span class="tt">EX-CTRL-010</span>, <span class="tt">EX-CTRL-020</span>, <span class="tt">EX-CTRL-021</span>, <span class="tt">EX-NFR-010</span>. </p>
 </div></div><!-- contents -->

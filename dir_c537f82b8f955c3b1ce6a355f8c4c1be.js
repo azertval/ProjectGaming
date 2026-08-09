@@ -1,7 +1,19 @@
 var dir_c537f82b8f955c3b1ce6a355f8c4c1be =
 [
+    [ "ActionCatalog.cpp", "ActionCatalog_8cpp.html", "ActionCatalog_8cpp" ],
+    [ "ActionCatalog.h", "ActionCatalog_8h.html", "ActionCatalog_8h" ],
+    [ "ApplicationTheme.cpp", "ApplicationTheme_8cpp.html", "ApplicationTheme_8cpp" ],
+    [ "ApplicationTheme.h", "ApplicationTheme_8h.html", "ApplicationTheme_8h" ],
+    [ "DesignTokens.cpp", "DesignTokens_8cpp.html", "DesignTokens_8cpp" ],
+    [ "DesignTokens.h", "DesignTokens_8h.html", "DesignTokens_8h" ],
+    [ "EditorActions.cpp", "EditorActions_8cpp.html", null ],
+    [ "EditorActions.h", "EditorActions_8h.html", "EditorActions_8h" ],
+    [ "FontResolution.cpp", "FontResolution_8cpp.html", "FontResolution_8cpp" ],
+    [ "FontResolution.h", "FontResolution_8h.html", "FontResolution_8h" ],
     [ "GamepadBindingsWidget.cpp", "GamepadBindingsWidget_8cpp.html", null ],
     [ "GamepadBindingsWidget.h", "GamepadBindingsWidget_8h.html", "GamepadBindingsWidget_8h" ],
+    [ "IconGeometry.cpp", "IconGeometry_8cpp.html", "IconGeometry_8cpp" ],
+    [ "IconGeometry.h", "IconGeometry_8h.html", "IconGeometry_8h" ],
     [ "KeybindingsWidget.cpp", "KeybindingsWidget_8cpp.html", null ],
     [ "KeybindingsWidget.h", "KeybindingsWidget_8h.html", "KeybindingsWidget_8h" ],
     [ "MainMenu.cpp", "MainMenu_8cpp.html", null ],
@@ -9,5 +21,11 @@ var dir_c537f82b8f955c3b1ce6a355f8c4c1be =
     [ "MainWindow.cpp", "MainWindow_8cpp.html", null ],
     [ "MainWindow.h", "MainWindow_8h.html", "MainWindow_8h" ],
     [ "OptionsPage.cpp", "OptionsPage_8cpp.html", null ],
-    [ "OptionsPage.h", "OptionsPage_8h.html", "OptionsPage_8h" ]
+    [ "OptionsPage.h", "OptionsPage_8h.html", "OptionsPage_8h" ],
+    [ "StyleSheetTemplate.cpp", "StyleSheetTemplate_8cpp.html", "StyleSheetTemplate_8cpp" ],
+    [ "StyleSheetTemplate.h", "StyleSheetTemplate_8h.html", "StyleSheetTemplate_8h" ],
+    [ "ThemeIcons.cpp", "ThemeIcons_8cpp.html", "ThemeIcons_8cpp" ],
+    [ "ThemeIcons.h", "ThemeIcons_8h.html", "ThemeIcons_8h" ],
+    [ "ThemeResolution.cpp", "ThemeResolution_8cpp.html", "ThemeResolution_8cpp" ],
+    [ "ThemeResolution.h", "ThemeResolution_8h.html", "ThemeResolution_8h" ]
 ];

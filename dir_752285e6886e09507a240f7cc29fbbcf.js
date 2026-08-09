@@ -14,5 +14,6 @@ var dir_752285e6886e09507a240f7cc29fbbcf =
     [ "test_palette_appearance.cpp", "test__palette__appearance_8cpp.html", "test__palette__appearance_8cpp" ],
     [ "test_skin_assignments.cpp", "test__skin__assignments_8cpp.html", "test__skin__assignments_8cpp" ],
     [ "test_texture_assign_gesture.cpp", "test__texture__assign__gesture_8cpp.html", "test__texture__assign__gesture_8cpp" ],
+    [ "test_thumbnail_geometry.cpp", "test__thumbnail__geometry_8cpp.html", "test__thumbnail__geometry_8cpp" ],
     [ "test_tile_taxonomy.cpp", "test__tile__taxonomy_8cpp.html", "test__tile__taxonomy_8cpp" ]
 ];

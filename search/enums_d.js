@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['skincatalogerror_0',['SkinCatalogError',['../namespacehmi.html#ae064c48cb814db754a1228bda7b8d77d',1,'hmi']]],
-  ['skinmode_1',['SkinMode',['../namespacehmi.html#ac69176e5c8acf86f4990696f7f54f11e',1,'hmi']]]
+  ['renderlayer_0',['RenderLayer',['../namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919',1,'hmi']]],
+  ['rendermode_1',['RenderMode',['../namespacehmi.html#ace25c100da588ab6050fb0f486d61d54',1,'hmi']]]
 ];
