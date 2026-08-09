@@ -9,6 +9,10 @@ particulier, l'outil `--export-atlas` de `main.cpp`, qui utilise `QImage::save` 
 
 L'atelier a besoin de l'opération symétrique, sous une forme réutilisable et testable.
 
+C'est la seule tâche du lot qui ne dépend ni de [LOT-56](@ref lot-56) ni de [LOT-57](@ref lot-57) :
+elle ne touche à aucune interface. Elle peut donc être réalisée en premier, indépendamment de
+l'ordre d'exécution retenu pour le reste.
+
 ## Travail à réaliser
 - **`encodeImageFile` / `saveImageFile`**, symétriques de `decodeImageFile` : depuis un tampon de
   pixels RGBA et des dimensions, écrire un PNG à un chemin donné. **Jamais d'exception** — résultat

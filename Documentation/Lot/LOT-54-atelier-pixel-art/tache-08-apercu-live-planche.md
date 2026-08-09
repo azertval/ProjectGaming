@@ -1,4 +1,4 @@
-# TACHE-04 — Aperçu live et mode planche à raccords {#lot-54-tache-04-apercu-live-planche}
+# TACHE-08 — Aperçu live et mode planche à raccords {#lot-54-tache-08-apercu-live-planche}
 
 **Lot :** [LOT-54](epic.md) · **Emplacement :** `Source/HMI/Editor`, `Source/HMI/Graphics` · **Statut :** non commencé
 
@@ -21,9 +21,12 @@ livré à lui-même se tromperait de case une fois sur deux.
   afficher sur le canevas les **repères des seize cases** et, pour chacune, l'indication de la
   configuration de voisinage qu'elle représente (bord haut, coin concave bas-droite, intérieur,
   tuile isolée…).
-- **Aperçu de raccord** : optionnellement, une petite vue montrant un assemblage type (un bloc 3×3
-  de tuiles) construit avec la planche en cours — c'est ce qui permet de voir si les bords se
-  raccordent réellement.
+- **Aperçu de raccord** : une vue montrant un assemblage type (un bloc 3×3 de tuiles) construit avec
+  la planche en cours — c'est ce qui permet de voir si les bords se raccordent réellement. Il était
+  optionnel au cadrage initial ; il ne l'est plus. Les repères disent à quoi *sert* chaque case ;
+  seul l'assemblage dit si le résultat *tient*, et c'est la question que se pose l'auteur.
+- **Case survolée dans la barre d'état** : en mode planche, le contexte d'atelier (TACHE-04) indique
+  quelle case de la planche est sous le curseur et quelle configuration de voisinage elle décrit.
 - **Aperçu d'animation** : si l'asset porte une description d'animation (LOT-46), jouer le clip dans
   le canevas.
 
@@ -31,6 +34,7 @@ livré à lui-même se tromperait de case une fois sur deux.
 - `Source/HMI/Editor/PixelCanvas.{h,cpp}`.
 - `Source/HMI/Graphics/TextureCache.{h,cpp}` (invalidation ciblée, déjà disponible).
 - `Source/HMI/Graphics/TileAutotile.{h,cpp}` (libellés des seize configurations, réutilisés).
+- `Source/HMI/Editor/EditorStatus.{h,cpp}` (créé en `LOT-57`) — case de planche survolée.
 - `Source/Elements/Localization/fr.lang`, `en.lang`.
 
 ## Tests (obligatoires)
@@ -39,11 +43,16 @@ livré à lui-même se tromperait de case une fois sur deux.
 - Regroupement des invalidations : un geste continu ne produit qu'une invalidation, pas une par
   pixel.
 - L'aperçu de raccord assemble les cases selon la même table que le rendu — pas une seconde table.
+- **Case survolée** : une position de canevas donnée produit l'index de case attendu, et aucun index
+  hors de la planche ; fonction pure, réutilisant la conversion de la TACHE-03.
 
 ## Points d'attention
 - **Une seule table de raccords.** Les libellés et l'aperçu doivent lire la table de LOT-42 ; une
   copie dans l'atelier divergerait au premier ajustement et induirait l'auteur en erreur — le pire
   résultat possible pour un outil censé le guider.
+- Les repères des seize cases sont dessinés depuis les jetons (TACHE-03) et doivent rester lisibles
+  sur une planche sombre comme sur une planche claire : leur contraste ne peut pas dépendre du
+  contenu peint.
 - L'aperçu live ne doit pas rendre l'application saccadée : invalider et recharger une texture 16×16
   est peu coûteux, mais le faire à chaque mouvement de souris ne l'est pas.
 - Si l'asset édité n'est utilisé par aucun niveau ouvert, l'aperçu live n'a rien à montrer : le
@@ -51,10 +60,11 @@ livré à lui-même se tromperait de case une fois sur deux.
 
 ## Définition de fait (DoD)
 - Le niveau reflète les modifications en cours d'édition, par geste et non par pixel ; l'édition
-  d'une planche affiche les repères et libellés des seize cases, issus de la table unique ; un asset
-  animé se prévisualise ; chaînes traduites ; `/W4 /WX` propre.
+  d'une planche affiche les repères et libellés des seize cases, issus de la table unique, ainsi
+  qu'un aperçu d'assemblage 3×3 ; la case survolée figure dans la barre d'état ; un asset animé se
+  prévisualise ; chaînes traduites ; `/W4 /WX` propre.
 
 ## Exigences
 `EX-EDIT-045` (outil de dessin pixel art, avec aperçu dans le niveau) ; réutilise `EX-EDIT-025`
 (raccords automatiques), `EX-EDIT-026` (rechargement à chaud), `EX-REN-005` (animations par
-données), `EX-REN-033` (traduction).
+données), `EX-IHM-060` (état de travail affiché en permanence), `EX-REN-033` (traduction).
