@@ -871,16 +871,6 @@ void GameViewport::resizeEvent(QResizeEvent*) {
 }
 
 void GameViewport::keyPressEvent(QKeyEvent* event) {
-    // Bascule du mode de rendu : traitee **avant** toute autre branche, pour etre active en
-    // edition, en essai et en jeu reel (EX-REN-046). Touche fixe, jamais remappable -- meme parti
-    // pris que F10 (grille de repere) ; hmi::Key n'a d'ailleurs aucune valeur F8, donc la touche
-    // ne peut structurellement pas entrer dans une table de remappage.
-    if (event->key() == Qt::Key_F8) {
-        setRenderMode(_renderMode == RenderMode::Physique ? RenderMode::Texture
-                                                          : RenderMode::Physique);
-        return;
-    }
-
     // Mode jeu/essai : Échap sort ; les autres touches alimentent le jeu.
     if (_session) {
         if (event->key() == Qt::Key_Escape) {
@@ -916,21 +906,11 @@ void GameViewport::keyPressEvent(QKeyEvent* event) {
         cancelDecorGesture();
         return;
     }
+    // Annuler/refaire/enregistrer/essai/grille/recadrer/mode de rendu sont désormais des actions
+    // Qt uniques (barre d'outils/menu, `hmi::EditorActions`, LOT-56 TACHE-04) : plus de second
+    // traitement ici, sous peine de double déclenchement au même appui de touche (annuler deux
+    // pas d'un coup, bascule de grille/mode de rendu qui semble ne rien faire).
     if (event->modifiers() & Qt::ControlModifier) {
-        if (event->key() == Qt::Key_Z && _draft.undo()) {
-            _dirty = true;
-            markDraftMutated();
-            return;
-        }
-        if (event->key() == Qt::Key_Y && _draft.redo()) {
-            _dirty = true;
-            markDraftMutated();
-            return;
-        }
-        if (event->key() == Qt::Key_S) {
-            save();
-            return;
-        }
         if (event->key() == Qt::Key_C) {
             copySelection();
             return;
@@ -939,18 +919,6 @@ void GameViewport::keyPressEvent(QKeyEvent* event) {
             pasteClipboard();
             return;
         }
-    }
-    if (event->key() == Qt::Key_P) {
-        startPlaytest();
-        return;
-    }
-    if (event->key() == Qt::Key_F10) {
-        _showGrid = !_showGrid;  // bascule de la grille de repère (comme l'éditeur historique).
-        return;
-    }
-    if (event->key() == Qt::Key_0) {
-        _manualCamera = false;  // reinitialise au cadrage automatique (LOT-15).
-        return;
     }
     if (event->key() == Qt::Key_Delete && _tool == hmi::EditorTool::Decor &&
         _decorGesture.selectedIndex) {
@@ -1034,6 +1002,32 @@ void GameViewport::startPlaytest() {
     _session->setSkins(&_skins, _skinSet);
     HMI_LOG_INFO("Editeur : essai immediat demarre.");
     emit statusMessage(statusText("status.playtesting"));
+}
+
+void GameViewport::undo() {
+    if (_draft.undo()) {
+        _dirty = true;
+        markDraftMutated();
+    }
+}
+
+void GameViewport::redo() {
+    if (_draft.redo()) {
+        _dirty = true;
+        markDraftMutated();
+    }
+}
+
+void GameViewport::toggleGrid() noexcept {
+    _showGrid = !_showGrid;
+}
+
+void GameViewport::resetCamera() noexcept {
+    _manualCamera = false;
+}
+
+void GameViewport::toggleRenderMode() {
+    setRenderMode(_renderMode == RenderMode::Physique ? RenderMode::Texture : RenderMode::Physique);
 }
 
 void GameViewport::stopPlaytest() {

@@ -15,6 +15,7 @@
 
 class QStackedWidget;
 class QTimer;
+class QToolBar;
 class QWidget;
 
 namespace Ui {
@@ -27,6 +28,7 @@ class MemoryLogSink;
 
 namespace hmi {
 
+class EditorActions;
 class GameViewport;
 class MainMenu;
 class OptionsPage;
@@ -106,6 +108,8 @@ private:
     ToolPanel* _tools;         ///< Sélecteur d'outil d'édition (contenu du dock Outils).
     LinkPanel* _links;         ///< Liste/gestion des liaisons de mécanismes (dock Liens, LOT-37).
     TexturePanel* _textures;   ///< Habillage : jeu de skins et assignations (dock Textures, LOT-42).
+    EditorActions* _actions;   ///< Outils et commandes principales, barre d'outils (LOT-56 TACHE-04).
+    QToolBar* _toolBar;        ///< Barre d'outils de l'éditeur, alimentée par `_actions`.
     QByteArray _defaultState;  ///< Disposition par défaut (pour « Réinitialiser la disposition »).
 
     Localization _loc;  ///< Catalogue de traduction (i18n), source de tous les textes.

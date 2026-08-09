@@ -76,6 +76,7 @@ add_executable(UnitTests
     Unit/HMI/Diagnostics/test_session_log.cpp
     Unit/HMI/Interface/test_design_tokens.cpp
     Unit/HMI/Interface/test_application_theme.cpp
+    Unit/HMI/Interface/test_editor_actions.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
     Unit/HMI/Editor/test_tile_taxonomy.cpp
     Unit/HMI/Editor/test_skin_assignments.cpp
@@ -231,6 +232,11 @@ add_executable(UnitTests
     # chaines), aucune dependance Qt (l'enregistrement reel via QFontDatabase reste dans
     # ApplicationTheme.cpp, non compile ici).
     ../HMI/Interface/FontResolution.cpp
+    # Geometrie des icones et catalogue d'actions de l'editeur (LOT-56 TACHE-04) : logique pure
+    # (listes de primitives, tables statiques), aucune dependance Qt (le rendu QPainter reel reste
+    # dans ThemeIcons.cpp/EditorActions.cpp, non compiles ici).
+    ../HMI/Interface/IconGeometry.cpp
+    ../HMI/Interface/ActionCatalog.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE
@@ -251,7 +257,9 @@ target_compile_definitions(UnitTests PRIVATE
     PROJECTGAMING_ASSETS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Assets"
     PROJECTGAMING_THEME_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/Themes/theme.qss"
     PROJECTGAMING_MAIN_MENU_UI_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/UI/MainMenu.ui"
-    PROJECTGAMING_OPTIONS_PAGE_UI_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/UI/OptionsPage.ui")
+    PROJECTGAMING_OPTIONS_PAGE_UI_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/UI/OptionsPage.ui"
+    PROJECTGAMING_FR_LANG_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/Localization/fr.lang"
+    PROJECTGAMING_EN_LANG_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/Localization/en.lang")
 
 # Tests d'intégration : plusieurs briques assemblées collaborant de bout en bout.
 add_executable(IntegrationTests

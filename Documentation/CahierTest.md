@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**700 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**704 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (610)
+## Tests unitaires (614)
 
 ### Core
 
@@ -961,7 +961,7 @@
 | **PlayerInputMapperTest.RemapperUneActionManetteUtiliseLeNouveauBouton** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Input/test_player_input_mapper.cpp:279`</sub> | Une action remappée manette réagit à son nouveau bouton, le clavier reste indépendant. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::X), hmi::GameKeyBindings{}, gamepadBindings) .jumpPressed` est vrai.<br/>Vérifie que `mapWithDefaults(withKeys({hmi::Key::Space})).jumpPressed` est vrai. |
 | **PlayerInputMapperTest.RemapperGaucheEtDroiteManetteSurDesBoutonsDistinctsNeLesAnnulePas** (Bloquant)<br/><sub>`Source/Test/Unit/HMI/Input/test_player_input_mapper.cpp:304`</sub> | Remapper deux actions manette sur des boutons distincts ne les neutralise pas l'une l'autre. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::X), gameKeyBindings, gamepadBindings) .moveX` vaut `-1.0f` (comparaison flottante).<br/>Vérifie que `hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::Y), gameKeyBindings, gamepadBindings) .moveX` vaut `1.0f` (comparaison flottante). |
 
-#### Interface (13)
+#### Interface (17)
 
 **`test_application_theme.cpp`**
 
@@ -985,6 +985,15 @@
 | **DesignTokensTest.LesDeuxPorteesPartagentLesMemesEchelles** (Critique)<br/><sub>`Source/Test/Unit/HMI/Interface/test_design_tokens.cpp:68`</sub> | Les deux portees partagent les memes echelles et tailles. | 1. Comparer espacement, typographie et tailles des deux jeux de jetons. | Vérifie que `hmi::identityTokens().spacing` vaut `hmi::editorDarkTokens().spacing`.<br/>Vérifie que `hmi::identityTokens().typography` vaut `hmi::editorDarkTokens().typography`.<br/>Vérifie que `hmi::identityTokens().size` vaut `hmi::editorDarkTokens().size`. |
 | **DesignTokensTest.CouleursDesDeuxPorteesDistinctesEtCoherentes** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Interface/test_design_tokens.cpp:84`</sub> | Les couleurs des deux portees sont definies et distinctes. | 1. Comparer le fond des deux portees.<br/>2. Verifier que le texte contraste avec le fond dans chaque portee. | Vérifie que `hmi::identityTokens().color.background == hmi::editorDarkTokens().color.background` est faux.<br/>Vérifie que `hmi::identityTokens().color.text == hmi::identityTokens().color.background` est faux.<br/>Vérifie que `hmi::editorDarkTokens().color.text == hmi::editorDarkTokens().color.background` est faux. |
 | **DesignTokensTest.AucunDoublonDeLargeurMinimale** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Interface/test_design_tokens.cpp:101`</sub> | Une seule grandeur de largeur minimale existe pour les deux widgets de remappage. | 1. Lire `controlMinWidth` dans les jetons du chassis d'edition. | Vérifie que `hmi::editorDarkTokens().size.controlMinWidth` est strictement supérieur à `0`. |
+
+**`test_editor_actions.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **EditorActionsTest.LesSixOutilsFormentUneBijectionAvecEditorTool** (Critique)<br/><sub>`Source/Test/Unit/HMI/Interface/test_editor_actions.cpp:35`</sub> | Les six outils du catalogue forment une bijection avec EditorTool. | 1. Pour chaque hmi::EditorTool, resoudre l'action puis reconvertir vers l'outil. | Vérifie que `seen.insert(id).second` est vrai.<br/>Vérifie que `roundTrip.has_value()` est vrai.<br/>Vérifie que `*roundTrip` vaut `tool`.<br/>Vérifie que `seen.size()` vaut `6u`. |
+| **EditorActionsTest.DefinitionUniqueDeRaccourci** (Critique)<br/><sub>`Source/Test/Unit/HMI/Interface/test_editor_actions.cpp:60`</sub> | Aucun raccourci n'est attribue a deux actions. | 1. Parcourir le catalogue, ignorer les raccourcis vides.<br/>2. Verifier qu'aucune valeur n'apparait deux fois. | Vérifie que `shortcuts.insert(shortcut).second` est vrai. |
+| **EditorActionsTest.GeometrieDesIconesNonVideEtDansLeCadre** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Interface/test_editor_actions.cpp:83`</sub> | La geometrie de chaque icone est non vide et dans le cadre normalise. | 1. Pour chaque action du catalogue, produire sa geometrie.<br/>2. Verifier qu'elle a au moins un trait, et que chaque point est dans [0,1]. | Vérifie que `geometry.strokes.empty()` est faux.<br/>Vérifie que `stroke.points.empty()` est faux.<br/>Vérifie que `point.x` est supérieur ou égal à `0.0f`.<br/>Vérifie que `point.x` est inférieur ou égal à `1.0f`.<br/>Vérifie que `point.y` est supérieur ou égal à `0.0f`.<br/>Vérifie que `point.y` est inférieur ou égal à `1.0f`. |
+| **EditorActionsTest.ChaqueLibelleExisteDansLesDeuxLangues** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Interface/test_editor_actions.cpp:110`</sub> | Chaque cle de libelle du catalogue d'actions existe en francais et en anglais. | 1. Lire fr.lang et en.lang.<br/>2. Verifier que chaque labelKey du catalogue y figure. | Vérifie que `fr.empty()` est faux.<br/>Vérifie que `en.empty()` est faux.<br/>Vérifie que `fr.count(spec.labelKey) > 0` est vrai.<br/>Vérifie que `en.count(spec.labelKey) > 0` est vrai. |
 
 #### Localization (8)
 
