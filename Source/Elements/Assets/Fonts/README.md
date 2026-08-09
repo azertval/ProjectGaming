@@ -38,3 +38,20 @@ ASCII imprimable + accents français), sur le modèle de `atlas.png`/`hmi::build
 Un artiste pourra déposer `font.png` + `font.json` ici sans toucher au code : dès que les deux
 fichiers sont présents, valides (contrat d'asset, `EX-REN-007`) et cohérents entre eux, ils
 remplacent le repli procédural au démarrage suivant.
+
+## Police de l'interface hors-jeu (`LOT-56`)
+
+`Inter-Regular.ttf` et `Inter-Bold.ttf` sont la police **embarquée de l'IHM Qt** (menus, panneaux,
+boîtes de dialogue) — sans rapport avec la police bitmap du HUD ci-dessus, décrite plus haut : deux
+mécanismes distincts (`hmi::ApplicationTheme` pour l'un, `hmi::BitmapFont`/`hmi::ProceduralFont`
+pour l'autre), deux jeux de fichiers distincts. Enregistrées auprès de `QFontDatabase` au démarrage
+(`hmi::ApplicationTheme::applyEditorTheme`) ; famille couvrant les caractères accentués français du
+catalogue de traduction (`EX-REN-033`) et lisible aux petites tailles des libellés de panneaux.
+
+**Repli** : si l'un des deux fichiers est absent ou refusé par Qt, l'application retombe sur une
+famille générique demandée à Qt (jamais un second nom de police codé en dur), en journalisant un
+avertissement — même garantie que le repli procédural du HUD (`EX-NFR-040`).
+
+**Licence** : [Inter](https://github.com/rsms/inter) est distribuée sous licence
+[SIL Open Font License 1.1](https://scripts.sil.org/OFL), redistribuable avec l'application ;
+texte complet dans `Inter-LICENSE.txt`, à côté des fichiers.

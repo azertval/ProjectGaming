@@ -3,13 +3,20 @@
 #include <QApplication>
 #include <QColor>
 #include <QFile>
+#include <QFont>
+#include <QFontDatabase>
 #include <QString>
+#include <QStringList>
 #include <QStyle>
 #include <QStyleFactory>
 
+#include <filesystem>
+
 #include "HMI/HmiLog.h"
 #include "HMI/Interface/DesignTokens.h"
+#include "HMI/Interface/FontResolution.h"
 #include "HMI/Interface/StyleSheetTemplate.h"
+#include "HMI/Platform/ExecutableDirectory.h"
 
 namespace hmi {
 
@@ -93,6 +100,12 @@ std::unordered_map<std::string, std::string> buildStyleSheetValues(const DesignT
     values["tokens.spacing.medium"] = std::to_string(spacing.medium);
     values["tokens.spacing.large"] = std::to_string(spacing.large);
     values["tokens.spacing.extraLarge"] = std::to_string(spacing.extraLarge);
+    // Echelle typographique (LOT-56 TACHE-03) : elle aussi partagee entre les deux portees.
+    const TypographyTokens& typography = identityTokens().typography;
+    values["tokens.typography.screenTitle.pointSize"] =
+        std::to_string(typography.screenTitle.pointSize);
+    values["tokens.typography.sectionTitle.pointSize"] =
+        std::to_string(typography.sectionTitle.pointSize);
     return values;
 }
 
@@ -112,7 +125,40 @@ void applyStyleSheet(const DesignTokens& editorTokens) {
     qApp->setStyleSheet(QString::fromStdString(substituted.text));
 }
 
+void applyFont() {
+    const std::filesystem::path fontsDirectory = executableDirectory() / "Assets" / "Fonts";
+    const int regularId = QFontDatabase::addApplicationFont(
+        QString::fromStdString((fontsDirectory / "Inter-Regular.ttf").string()));
+    const int boldId = QFontDatabase::addApplicationFont(
+        QString::fromStdString((fontsDirectory / "Inter-Bold.ttf").string()));
+
+    std::string family;
+    if (regularId != -1) {
+        const QStringList families = QFontDatabase::applicationFontFamilies(regularId);
+        if (!families.isEmpty()) {
+            family = families.first().toStdString();
+        }
+    }
+    const FontFamilyResolution resolution =
+        resolveFontFamily(regularId != -1 && boldId != -1 && !family.empty(), family);
+
+    QFont font;
+    if (resolution.useEmbeddedFamily) {
+        font = QFont(QString::fromStdString(resolution.embeddedFamily));
+    } else {
+        // Famille generique demandee a Qt : jamais un second nom de police code en dur (voir
+        // hmi::resolveFontFamily).
+        font.setStyleHint(QFont::SansSerif);
+        HMI_LOG_WARNING(
+            "Police embarquee introuvable ou invalide (Assets/Fonts/Inter-*.ttf) : famille "
+            "generique.");
+    }
+    font.setPointSize(identityTokens().typography.body.pointSize);
+    QApplication::setFont(font);
+}
+
 void applyEditorTheme() {
+    applyFont();
     QApplication::setPalette(buildApplicationPalette(editorDarkTokens()));
     applyStyleSheet(editorDarkTokens());
 }

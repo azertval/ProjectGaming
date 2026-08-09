@@ -12,11 +12,11 @@ constexpr SpacingTokens SHARED_SPACING{};
 
 [[nodiscard]] TypographyTokens sharedTypography() noexcept {
     TypographyTokens typography;
-    typography.screenTitle = TypographyLevel{22, 700};   // QFont::Bold
-    typography.sectionTitle = TypographyLevel{13, 700};
+    typography.screenTitle = TypographyLevel{32, 700};   // QFont::Bold -- titre du menu/des Options.
+    typography.sectionTitle = TypographyLevel{16, 700};  // Boutons de navigation, titres de panneau.
     typography.body = TypographyLevel{10, 400};           // QFont::Normal
     typography.caption = TypographyLevel{9, 400};
-    typography.monospaceBody = TypographyLevel{22, 700};
+    typography.monospaceBody = TypographyLevel{10, 400};
     return typography;
 }
 

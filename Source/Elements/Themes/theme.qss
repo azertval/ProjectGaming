@@ -27,6 +27,8 @@
 #MainMenu QLabel#menuTitle,
 #OptionsPage QLabel#optionsTitle {
     color: ${identity.color.text};
+    font-size: ${tokens.typography.screenTitle.pointSize}pt;
+    font-weight: bold;
 }
 
 #MainMenu QPushButton {
@@ -35,7 +37,7 @@
     border: none;
     text-align: left;
     padding: ${tokens.spacing.small}px 0;
-    font-size: 22px;
+    font-size: ${tokens.typography.sectionTitle.pointSize}pt;
     font-weight: bold;
 }
 #MainMenu QPushButton:hover,

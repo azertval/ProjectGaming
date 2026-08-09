@@ -39,8 +39,14 @@ void applyApplicationStyle();
 /// style (comportement historique de `main.cpp`, non régressé).
 void applyStyleSheet(const DesignTokens& editorTokens);
 
-/// Applique le thème complet du châssis d'édition (portée **variable**) : palette puis feuille de
-/// style, tous deux dérivés du même jeu de jetons. À appeler avant la construction de
+/// Enregistre la police embarquée (`Assets/Fonts/Inter-{Regular,Bold}.ttf`) auprès de Qt et
+/// l'applique comme police par défaut de l'application. Repli explicite si le fichier est absent
+/// ou refusé par Qt : famille **générique** demandée à Qt (`QFont::StyleHint`), jamais un second
+/// nom de police codé en dur ; avertissement journalisé.
+void applyFont();
+
+/// Applique le thème complet du châssis d'édition (portée **variable**) : police, palette puis
+/// feuille de style, tous dérivés du même jeu de jetons. À appeler avant la construction de
 /// `MainWindow`.
 void applyEditorTheme();
 

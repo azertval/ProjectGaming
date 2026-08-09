@@ -227,6 +227,10 @@ add_executable(UnitTests
     # std::string, aucune dependance Qt (contrairement a ApplicationTheme.cpp, qui charge le
     # fichier via QFile et l'applique via QApplication::setStyleSheet).
     ../HMI/Interface/StyleSheetTemplate.cpp
+    # Resolution de la famille de police embarquee (LOT-56 TACHE-03) : decision pure (booleen +
+    # chaines), aucune dependance Qt (l'enregistrement reel via QFontDatabase reste dans
+    # ApplicationTheme.cpp, non compile ici).
+    ../HMI/Interface/FontResolution.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE
@@ -245,7 +249,9 @@ target_compile_definitions(UnitTests PRIVATE
     PROJECTGAMING_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels"
     PROJECTGAMING_LOCALIZATION_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Localization"
     PROJECTGAMING_ASSETS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Assets"
-    PROJECTGAMING_THEME_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/Themes/theme.qss")
+    PROJECTGAMING_THEME_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/Themes/theme.qss"
+    PROJECTGAMING_MAIN_MENU_UI_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/UI/MainMenu.ui"
+    PROJECTGAMING_OPTIONS_PAGE_UI_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/UI/OptionsPage.ui")
 
 # Tests d'intégration : plusieurs briques assemblées collaborant de bout en bout.
 add_executable(IntegrationTests

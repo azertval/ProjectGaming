@@ -3,13 +3,12 @@
  <class>OptionsPage</class>
  <widget class="QWidget" name="OptionsPage">
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="leftMargin"><number>72</number></property>
-   <property name="topMargin"><number>48</number></property>
-   <property name="rightMargin"><number>72</number></property>
-   <property name="bottomMargin"><number>40</number></property>
+   <!-- Marges posees en code (OptionsPage::OptionsPage, LOT-56) depuis l'echelle d'espacement des
+        jetons, pas de nombre fige ici. -->
    <item>
     <widget class="QLabel" name="optionsTitle">
-     <property name="font"><font><pointsize>32</pointsize><bold>true</bold></font></property>
+     <!-- Taille/graisse posees par theme.qss (#OptionsPage QLabel#optionsTitle, LOT-56 TACHE-03),
+          depuis l'echelle typographique des jetons, pas de propriete de police figee ici. -->
      <property name="text"><string>Options</string></property>
     </widget>
    </item>

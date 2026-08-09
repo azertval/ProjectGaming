@@ -140,6 +140,7 @@ add_executable(ProjectGaming
     # Interface (fenêtre, menu, options, remappage)
     Interface/DesignTokens.cpp
     Interface/StyleSheetTemplate.cpp
+    Interface/FontResolution.cpp
     Interface/ApplicationTheme.cpp
     Interface/MainWindow.cpp
     Interface/MainMenu.cpp

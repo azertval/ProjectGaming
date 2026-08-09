@@ -1,7 +1,7 @@
 /**
  * @file test_application_theme.cpp
- * @brief Tests unitaires du modèle de feuille de style de l'IHM (`LOT-56` TACHE-02, `EX-IHM-050`,
- *        `EX-IHM-051`).
+ * @brief Tests unitaires du thème de l'IHM : modèle de feuille de style (`LOT-56` TACHE-02,
+ *        `EX-IHM-050`, `EX-IHM-051`) et police/typographie (TACHE-03, `EX-IHM-052`).
  */
 
 #include <gtest/gtest.h>
@@ -11,6 +11,8 @@
 #include <sstream>
 #include <unordered_map>
 
+#include "HMI/Interface/DesignTokens.h"
+#include "HMI/Interface/FontResolution.h"
 #include "HMI/Interface/StyleSheetTemplate.h"
 
 namespace {
@@ -110,7 +112,9 @@ TEST(ApplicationThemeTest, EtancheiteDesPortees) {
         {"identity.color.accent", "#ffd133"},      {"identity.color.accentHover", "#ffdb5c"},
         {"identity.color.error", "#ff5c5c"},       {"tokens.spacing.extraSmall", "4"},
         {"tokens.spacing.small", "8"},              {"tokens.spacing.medium", "12"},
-        {"tokens.spacing.large", "16"},             {"tokens.spacing.extraLarge", "24"}};
+        {"tokens.spacing.large", "16"},             {"tokens.spacing.extraLarge", "24"},
+        {"tokens.typography.screenTitle.pointSize", "32"},
+        {"tokens.typography.sectionTitle.pointSize", "16"}};
 
     auto valuesWithEditor = [&](const std::string& suffix) {
         std::unordered_map<std::string, std::string> values = identity;
@@ -137,4 +141,76 @@ TEST(ApplicationThemeTest, EtancheiteDesPortees) {
     ASSERT_NE(darkEnd, std::string::npos);
     ASSERT_NE(lightEnd, std::string::npos);
     EXPECT_EQ(dark.text.substr(0, darkEnd), light.text.substr(0, lightEnd));
+}
+
+/**
+ * @brief La police embarquée est retenue quand elle a pu être enregistrée ; sinon, aucun nom de
+ *        famille n'est renvoyé (TACHE-03) -- l'appelant Qt doit alors demander une famille
+ *        générique, jamais un second nom codé en dur.
+ * \castest{<b>La resolution de police retombe sur une famille generique sans nom code en dur.</b><br/>
+ * \tcat Unitaire · Theme de l'IHM<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Resoudre la police embarquee enregistree, puis non enregistree.<br/>
+ * \tattendu Le premier cas rend la famille embarquee ; le second ne rend aucun nom de famille.
+ * }
+ */
+TEST(ApplicationThemeTest, ResolutionDePoliceSansNomDeRepliCodeEnDur) {
+    const hmi::FontFamilyResolution registered = hmi::resolveFontFamily(true, "Inter");
+    EXPECT_TRUE(registered.useEmbeddedFamily);
+    EXPECT_EQ(registered.embeddedFamily, "Inter");
+
+    const hmi::FontFamilyResolution missing = hmi::resolveFontFamily(false, "Inter");
+    EXPECT_FALSE(missing.useEmbeddedFamily);
+    EXPECT_TRUE(missing.embeddedFamily.empty());
+}
+
+/**
+ * @brief L'échelle typographique produit des tailles strictement positives, et les rôles de titre
+ *        et de corps sont ordonnés du plus grand au plus petit : titre d'écran > titre de
+ *        section > corps > libellé secondaire.
+ * \castest{<b>L'echelle typographique est positive et ordonnee du plus grand au plus petit.</b><br/>
+ * \tcat Unitaire · Theme de l'IHM<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Lire les tailles de l'echelle typographique des jetons.<br/>
+ * \tattendu Toutes sont strictement positives ; titre d'ecran > titre de section > corps > libelle
+ * secondaire.
+ * }
+ */
+TEST(ApplicationThemeTest, EchelleTypographiquePositiveEtOrdonnee) {
+    const hmi::TypographyTokens& typography = hmi::identityTokens().typography;
+    EXPECT_GT(typography.screenTitle.pointSize, 0);
+    EXPECT_GT(typography.sectionTitle.pointSize, 0);
+    EXPECT_GT(typography.body.pointSize, 0);
+    EXPECT_GT(typography.caption.pointSize, 0);
+    EXPECT_GT(typography.monospaceBody.pointSize, 0);
+
+    EXPECT_GT(typography.screenTitle.pointSize, typography.sectionTitle.pointSize);
+    EXPECT_GT(typography.sectionTitle.pointSize, typography.body.pointSize);
+    EXPECT_GT(typography.body.pointSize, typography.caption.pointSize);
+}
+
+/**
+ * @brief Aucune propriété de police ni de marge figée ne subsiste dans `MainMenu.ui` ou
+ *        `OptionsPage.ui` : la typographie et l'espacement viennent des jetons, pas du fichier
+ *        `.ui`.
+ * \castest{<b>Aucune taille de police ni marge figee ne subsiste dans les fichiers .ui.</b><br/>
+ * \tcat Unitaire · Theme de l'IHM<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Lire MainMenu.ui et OptionsPage.ui.<br/>2. Chercher une propriete font/margin figee
+ * au niveau du widget racine.<br/>
+ * \tattendu Aucune des deux proprietes n'apparait dans l'un ou l'autre fichier.
+ * }
+ */
+TEST(ApplicationThemeTest, AucuneTailleDePoliceResiduelleDansLesFichiersUi) {
+    for (const char* path : {PROJECTGAMING_MAIN_MENU_UI_PATH, PROJECTGAMING_OPTIONS_PAGE_UI_PATH}) {
+        std::ifstream file(path);
+        std::ostringstream buffer;
+        buffer << file.rdbuf();
+        const std::string text = buffer.str();
+        ASSERT_FALSE(text.empty()) << "fichier .ui introuvable : " << path;
+        EXPECT_EQ(text.find("<property name=\"font\">"), std::string::npos)
+            << "propriete de police figee trouvee dans " << path;
+        EXPECT_EQ(text.find("Margin"), std::string::npos)
+            << "propriete de marge figee trouvee dans " << path;
+    }
 }
