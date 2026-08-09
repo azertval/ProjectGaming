@@ -1,6 +1,6 @@
 # TACHE-01 — Barre d'état : état permanent et aide contextuelle {#lot-57-tache-01-barre-etat}
 
-**Lot :** [LOT-57](epic.md) · **Emplacement :** `Source/HMI/Interface`, `Source/HMI/Editor` · **Statut :** non commencé
+**Lot :** [LOT-57](epic.md) · **Emplacement :** `Source/HMI/Interface`, `Source/HMI/Editor` · **Statut :** fait
 
 ## Contexte
 La barre d'état de l'éditeur affiche une chaîne unique, `status.edit_help`, qui concatène sept

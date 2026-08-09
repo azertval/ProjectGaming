@@ -176,6 +176,7 @@ add_executable(ProjectGaming
     Editor/AssetFileOperations.cpp
     Editor/AssetReferences.cpp
     Editor/MechanismAnimationAssignments.cpp
+    Editor/EditorStatus.cpp
     # Ressource embarquée (thème .qss) — traitée par AUTORCC.
     ${ELEMENTS_UI}/resources.qrc
     # Mises en page Qt Designer — traitées par AUTOUIC (génèrent ui_*.h).

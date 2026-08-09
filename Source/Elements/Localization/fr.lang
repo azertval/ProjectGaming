@@ -105,7 +105,16 @@ assets.references_warning = « %1 » est utilisé par : %2
 assets.operation_failed = Opération impossible
 
 # Barre de statut et dialogues
-status.edit_help = Éditeur — peindre : clic gauche · Ctrl+Z/Y · P : essayer · F10 : grille · molette : zoom · clic droit : déplacer · 0 : recadrer
+status.zone.level = Niveau : %1
+status.zone.dirty = Modifié
+status.zone.hover = (%1, %2)
+status.zone.zoom = Zoom : %1%
+status.help_paint = Peindre : clic gauche/glisser · Ctrl+Z/Y : annuler/refaire
+status.help_rectangle = Rectangle : glisser pour peindre une zone · Ctrl+Z/Y : annuler/refaire
+status.help_selection = Sélection : glisser pour délimiter · Ctrl+C/V : copier/coller
+status.help_link = Lien : cliquer un déclencheur puis sa cible · recliquer la même paire délie
+status.help_texture_assign = Texture : clic gauche assigne, reclic ou clic droit retire
+status.help_decor = Décor : cliquer une zone vide pour poser, cliquer un décor pour le manipuler
 status.texture_assigned = Texture assignée : %1
 status.texture_removed = Texture retirée.
 status.texture_no_asset_selected = Aucun asset sélectionné : choisissez-en un dans l'onglet « Objets » du panneau Textures.

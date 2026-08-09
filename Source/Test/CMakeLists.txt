@@ -93,6 +93,7 @@ add_executable(UnitTests
     Unit/HMI/Editor/test_decor_gesture.cpp
     Unit/HMI/Editor/test_decor_list_model.cpp
     Unit/HMI/Editor/test_mechanism_animation_assignments.cpp
+    Unit/HMI/Editor/test_editor_status.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
     ../HMI/Graphics/Camera2D.cpp
@@ -210,6 +211,9 @@ add_executable(UnitTests
     # Les lignes du panneau « Textures » / section Animations et leur diagnostic de clips
     # manquants (LOT-47) sont une logique pure (filesystem + AnimationCatalog), testable sans Qt.
     ../HMI/Editor/MechanismAnimationAssignments.cpp
+    # Choix des lignes de la barre d'etat de l'editeur (LOT-57) a partir d'un contexte d'edition :
+    # fonction pure, meme patron que GameHud.cpp, testable hors GPU.
+    ../HMI/Editor/EditorStatus.cpp
     # Métriques de police bitmap, mesure pure de texte, lecture JSON et repli procédural (LOT-52) :
     # aucune dépendance GPU/Qt (contrairement à BitmapFont.cpp, qui charge la texture réelle et
     # n'est donc pas compilé ici, comme TextureAtlas.cpp/TextureCache.cpp) : testable hors GPU.

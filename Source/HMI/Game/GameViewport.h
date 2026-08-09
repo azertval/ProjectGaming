@@ -183,6 +183,22 @@ public:
         return _decorGesture.selectedIndex;
     }
 
+    /// @return La case actuellement survolée par le curseur, absente si hors de la grille ou si le
+    /// curseur a quitté le viewport (`LOT-57` TACHE-01, barre d'état).
+    [[nodiscard]] std::optional<core::GridPosition> hoveredCell() const noexcept {
+        return _hoverCell;
+    }
+
+    /// @return Le facteur de zoom courant de la caméra d'édition (`LOT-57` TACHE-01, barre d'état).
+    [[nodiscard]] float zoom() const noexcept {
+        return _camera.zoom();
+    }
+
+    /// @return L'outil d'édition actif.
+    [[nodiscard]] EditorTool activeTool() const noexcept {
+        return _tool;
+    }
+
     /// Met en surbrillance la liaison (déclencheur, cible) dans le viewport (sélection depuis le
     /// panneau « Liens ») ; n'affecte que le rendu, pas le brouillon.
     void setHighlightedLink(std::optional<std::pair<core::GridPosition, core::GridPosition>> link);
@@ -331,6 +347,13 @@ signals:
     /// La sélection de décor vient de changer, par un moyen autre que la section « Décors »
     /// (clic/pose/suppression au canevas, `LOT-50` TACHE-04) — le panneau se resynchronise.
     void decorSelectionChanged(std::optional<std::size_t> index);
+    /// La case survolée vient de changer (déplacement de souris, ou sortie du viewport) —
+    /// consommé par la barre d'état (`LOT-57` TACHE-01), qui évite ainsi un travail continu inutile
+    /// en ne recalculant que sur changement réel.
+    void hoveredCellChanged(std::optional<core::GridPosition> cell);
+    /// Le zoom d'édition vient de changer (molette, pan, recadrage) — consommé par la barre d'état
+    /// (`LOT-57` TACHE-01).
+    void zoomChanged(float zoom);
 
 protected:
     bool event(QEvent* event) override;
@@ -493,7 +516,10 @@ private:
     bool _dragging = false;             ///< Un glisser Rectangle/Sélection est en cours.
     core::GridPosition _dragStart{};    ///< Case de départ du glisser Rectangle/Sélection.
     core::GridPosition _dragCurrent{};  ///< Case courante du glisser (pour l'aperçu).
-    core::GridPosition _hoverCell{};    ///< Dernière case survolée (cible du collage).
+    /// Case actuellement survolée (cible du collage) ; absente hors de la grille ou après que le
+    /// curseur a quitté le viewport (`LOT-57` TACHE-01, `leaveEvent` via `event()`).
+    std::optional<core::GridPosition> _hoverCell;
+    float _lastEmittedZoom = 0.0f;  ///< Dernier zoom notifié (`zoomChanged`), évite l'émission en boucle.
     /// Sélection mémorisée (bornes min/max incluses), pour copier (`Ctrl+C`).
     const Localization* _loc = nullptr;  ///< Catalogue pour localiser les messages d'état.
 

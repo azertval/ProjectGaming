@@ -104,7 +104,16 @@ assets.references_warning = “%1” is used by: %2
 assets.operation_failed = Operation failed
 
 # Status bar and dialogs
-status.edit_help = Editor — paint: left click · Ctrl+Z/Y · P: playtest · F10: grid · wheel: zoom · right click: pan · 0: reset view
+status.zone.level = Level: %1
+status.zone.dirty = Modified
+status.zone.hover = (%1, %2)
+status.zone.zoom = Zoom: %1%
+status.help_paint = Paint: left click/drag · Ctrl+Z/Y: undo/redo
+status.help_rectangle = Rectangle: drag to paint an area · Ctrl+Z/Y: undo/redo
+status.help_selection = Selection: drag to select · Ctrl+C/V: copy/paste
+status.help_link = Link: click a trigger then its target · re-clicking the same pair unlinks
+status.help_texture_assign = Texture: left click assigns, re-click or right click removes
+status.help_decor = Decor: click empty space to place, click a decor to manipulate it
 status.texture_assigned = Texture assigned: %1
 status.texture_removed = Texture removed.
 status.texture_no_asset_selected = No asset selected: pick one in the "Objects" tab of the Textures panel.

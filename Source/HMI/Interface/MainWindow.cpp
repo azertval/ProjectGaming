@@ -8,6 +8,7 @@
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QDockWidget>
+#include <QFontMetrics>
 #include <QFormLayout>
 #include <QGuiApplication>
 #include <QKeyEvent>
@@ -31,6 +32,7 @@
 
 #include "Core/Diagnostics/MemoryLogSink.h"
 #include "HMI/Diagnostics/SessionLog.h"
+#include "HMI/Editor/EditorStatus.h"
 #include "HMI/Editor/LevelBrowserPanel.h"
 #include "HMI/Editor/LinkPanel.h"
 #include "HMI/Editor/TexturePanel.h"
@@ -119,9 +121,16 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     // (LOT-56 TACHE-04), sans reboucler (setActiveTool n'émet rien).
     connect(_viewport, &GameViewport::toolChanged, _tools, &ToolPanel::setActiveTool);
     connect(_viewport, &GameViewport::toolChanged, _actions, &EditorActions::setActiveTool);
-    // Les messages d'état du viewport (enregistrement, essai, erreurs) s'affichent en bas.
+    // Les messages d'état du viewport (enregistrement, essai, erreurs) s'affichent en bas, puis
+    // laissent la main à l'aide contextuelle (LOT-57 TACHE-01).
     connect(_viewport, &GameViewport::statusMessage, this,
-            [this](const QString& message) { statusBar()->showMessage(message, 5000); });
+            [this](const QString& message) { showTransientStatusMessage(message, 5000); });
+    // Barre d'état : zones permanentes (LOT-57 TACHE-01), recalculées à chaque changement
+    // pertinent -- outil, survol, zoom, brouillon (nom, modifications).
+    connect(_viewport, &GameViewport::toolChanged, this, [this](hmi::EditorTool) { refreshStatusHelp(); });
+    connect(_viewport, &GameViewport::hoveredCellChanged, this,
+            [this](std::optional<core::GridPosition>) { refreshStatusHelp(); });
+    connect(_viewport, &GameViewport::zoomChanged, this, [this](float) { refreshStatusHelp(); });
     // Ouvrir un niveau depuis le panneau : garde-fou des modifications non enregistrées d'abord.
     connect(_levels, &LevelBrowserPanel::levelOpenRequested, this, [this](const QString& path) {
         if (_viewport->isDirty()) {
@@ -143,6 +152,7 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
         _textures->setLevelProperties(_viewport->draft().background(), _viewport->draft().skinSet());
         _textures->refreshObjects(_viewport->draft());
         _textures->refreshDecors(_viewport->draft(), _viewport->selectedDecorIndex());
+        refreshStatusHelp();  // nom du niveau et indicateur de modification (LOT-57 TACHE-01).
     });
     connect(_links, &LinkPanel::linkSelected, _viewport, &GameViewport::setHighlightedLink);
     connect(_links, &LinkPanel::deleteRequested, _viewport, &GameViewport::unlinkMechanism);
@@ -249,7 +259,7 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
         _textures->reloadAssets();
         _palette->clearThumbnailCache();
         _palette->refreshThumbnails(_viewport->renderMode(), _textures->currentSet());
-        statusBar()->showMessage(text("textures.reload_done"), 3000);
+        showTransientStatusMessage(text("textures.reload_done"), 3000);
     });
 
     // Navigation depuis le menu principal.
@@ -300,7 +310,8 @@ void MainWindow::showMenu() {
     menuBar()->setVisible(false);  // pas de barre de menu sur l'écran d'accueil
     _toolBar->setVisible(false);
     _actions->setEditingCommandsEnabled(false);
-    statusBar()->clearMessage();
+    _statusMessageTimer->stop();
+    refreshStatusHelp();  // hors édition : zones et aide vides (aucun résidu d'état d'édition).
     setMenuGamepadActive(true);
 }
 
@@ -311,7 +322,8 @@ void MainWindow::showEditor() {
     menuBar()->setVisible(true);
     _toolBar->setVisible(true);
     _actions->setEditingCommandsEnabled(true);
-    statusBar()->showMessage(text("status.edit_help"));
+    _statusMessageTimer->stop();
+    refreshStatusHelp();
     _editorContainer->setFocus();
     setMenuGamepadActive(false);
 }
@@ -324,7 +336,8 @@ void MainWindow::showGame() {
     menuBar()->setVisible(false);
     _toolBar->setVisible(false);
     _actions->setEditingCommandsEnabled(false);
-    statusBar()->clearMessage();
+    _statusMessageTimer->stop();
+    refreshStatusHelp();  // jeu : menuBar masquee -> contexte de niveau absent (pas de residu).
     _editorContainer->setFocus();
 
     // Séquence de niveaux démo (même ordre que le jeu historique) — Échap ou la fin revient au
@@ -356,7 +369,8 @@ void MainWindow::showOptions() {
     menuBar()->setVisible(false);
     _toolBar->setVisible(false);
     _actions->setEditingCommandsEnabled(false);
-    statusBar()->clearMessage();
+    _statusMessageTimer->stop();
+    refreshStatusHelp();
     setMenuGamepadActive(true);
 }
 
@@ -492,6 +506,24 @@ void MainWindow::buildUi() {
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->LinksPanel->toggleViewAction());
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->TexturesPanel->toggleViewAction());
     _ui->viewMenu->insertSeparator(_ui->actResetLayout);
+
+    // Barre d'état structurée (LOT-57 TACHE-01) : zones permanentes, ajoutées via
+    // addPermanentWidget -- jamais recouvertes par un message transitoire (showMessage), à
+    // l'inverse de l'ancienne chaîne unique `status.edit_help`. Largeur minimale sur les zones qui
+    // changent au survol (case, zoom) : sans elle, la barre "saute" à chaque déplacement de souris.
+    _statusLevel = new QLabel(this);
+    _statusDirty = new QLabel(this);
+    _statusTool = new QLabel(this);
+    _statusHover = new QLabel(this);
+    _statusHover->setMinimumWidth(fontMetrics().horizontalAdvance(QStringLiteral("(999, 999)")));
+    _statusZoom = new QLabel(this);
+    _statusZoom->setMinimumWidth(fontMetrics().horizontalAdvance(QStringLiteral("Zoom : 999%")));
+    for (QLabel* const zone : {_statusLevel, _statusDirty, _statusTool, _statusHover, _statusZoom}) {
+        statusBar()->addPermanentWidget(zone);
+    }
+    _statusMessageTimer = new QTimer(this);
+    _statusMessageTimer->setSingleShot(true);
+    connect(_statusMessageTimer, &QTimer::timeout, this, &MainWindow::refreshStatusHelp);
 }
 
 void MainWindow::openResizeDialog() {
@@ -603,6 +635,36 @@ QString MainWindow::text(const char* key) const {
     return QString::fromStdString(_loc.text(key));
 }
 
+void MainWindow::refreshStatusHelp() {
+    EditorStatusContext context;
+    // Contexte de niveau seulement en édition (pas en jeu/essai ni au menu/Options) : même
+    // condition que l'ancien rechargement de `status.edit_help` en changement de langue.
+    if (_stack->currentWidget() == _editorContainer && menuBar()->isVisible()) {
+        LevelStatusInfo level;
+        level.name = _viewport->draft().name();
+        level.dirty = _viewport->isDirty();
+        level.tool = _viewport->activeTool();
+        level.hoveredCell = _viewport->hoveredCell();
+        level.zoom = _viewport->zoom();
+        context.level = level;
+    }
+    const EditorStatusLines lines = editorStatusLines(context, _loc);
+    _statusLevel->setText(QString::fromStdString(lines.permanent[0]));
+    _statusDirty->setText(QString::fromStdString(lines.permanent[1]));
+    _statusTool->setText(QString::fromStdString(lines.permanent[2]));
+    _statusHover->setText(QString::fromStdString(lines.permanent[3]));
+    _statusZoom->setText(QString::fromStdString(lines.permanent[4]));
+    statusBar()->showMessage(QString::fromStdString(lines.help));
+}
+
+void MainWindow::showTransientStatusMessage(const QString& message, int timeoutMs) {
+    // Timeout 0 (par defaut de showMessage) : le message reste affiche jusqu'a restauration
+    // explicite par _statusMessageTimer, plutot que d'etre vide silencieusement par Qt (defaut
+    // corrige, LOT-57 TACHE-01).
+    statusBar()->showMessage(message);
+    _statusMessageTimer->start(timeoutMs);
+}
+
 void MainWindow::retranslateUi() {
     setWindowTitle(text("window.title"));
 
@@ -636,10 +698,9 @@ void MainWindow::retranslateUi() {
     _links->retranslateUi(_loc);
     _textures->retranslateUi(_loc);
 
-    // Rafraîchit le message d'aide s'il est visible (mode éditeur).
-    if (_stack->currentWidget() == _editorContainer && menuBar()->isVisible()) {
-        statusBar()->showMessage(text("status.edit_help"));
-    }
+    // Recalcule la barre d'état dans la nouvelle langue (zones + aide) : un changement de langue ne
+    // doit pas rester sur une aide figée dans l'ancienne (LOT-57 TACHE-01).
+    refreshStatusHelp();
 }
 
 void MainWindow::changeLanguage(const QString& code) {
@@ -657,7 +718,7 @@ void MainWindow::changeLanguage(const QString& code) {
 
 void MainWindow::saveSessionLogs() {
     if (_sessionLog == nullptr) {
-        statusBar()->showMessage(text("options.logs_unavailable"), 5000);
+        showTransientStatusMessage(text("options.logs_unavailable"), 5000);
         return;
     }
     // Nom de fichier horodaté, à côté de l'exécutable (dossier Logs créé au besoin).
@@ -671,11 +732,11 @@ void MainWindow::saveSessionLogs() {
 
     if (hmi::saveSessionLog(_sessionLog->entries(), path)) {
         HMI_LOG_INFO("Journaux de session enregistres : " + path.string());
-        statusBar()->showMessage(
+        showTransientStatusMessage(
             text("options.logs_saved").arg(QString::fromStdString(path.filename().string())), 5000);
     } else {
         HMI_LOG_ERROR("Echec de l'enregistrement des journaux : " + path.string());
-        statusBar()->showMessage(text("options.logs_failed"), 5000);
+        showTransientStatusMessage(text("options.logs_failed"), 5000);
     }
 }
 

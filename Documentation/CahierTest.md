@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**711 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**717 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (621)
+## Tests unitaires (627)
 
 ### Core
 
@@ -484,7 +484,7 @@
 | **SessionLogTest.SerialiseUneLigneParMessage** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Diagnostics/test_session_log.cpp:15`</sub> | Chaque message donne une ligne, dans l'ordre d'arrivée. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::serializeSessionLog(entries)` vaut `"premier message\\nsecond message\\n"`. |
 | **SessionLogTest.VideDonneChaineVide** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Diagnostics/test_session_log.cpp:34`</sub> | Une session sans message produit un texte vide. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::serializeSessionLog({})` vaut `""`. |
 
-#### Editor (40)
+#### Editor (46)
 
 **`test_decor_geometry.cpp`**
 
@@ -508,6 +508,17 @@
 | **DecorListModelTest.AssetIntrouvableEstMarqueManquant** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_list_model.cpp:109`</sub> | Un asset introuvable est marque manquant. | 1. Construire un decor dont l'asset n'est pas dans la liste des assets connus. | Vérifie que `rows.size()` vaut `1u`.<br/>Vérifie que `rows[0].assetMissing` est vrai. |
 | **DecorListModelTest.AssetPresentNEstPasMarqueManquant** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_list_model.cpp:128`</sub> | Un asset present n'est pas marque manquant. | 1. Construire un decor dont l'asset est dans la liste des assets connus. | Vérifie que `rows.size()` vaut `1u`.<br/>Vérifie que `rows[0].assetMissing` est faux. |
 | **DecorListModelTest.SansDecorLaListeEstVide** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_list_model.cpp:147`</sub> | Sans decor, la liste est vide. | 1. Appeler buildDecorListRows sur un vecteur vide. | Vérifie que `rows.empty()` est vrai. |
+
+**`test_editor_status.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **EditorStatusTest.AucunNiveauOuvertNAfficheRien** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_editor_status.cpp:52`</sub> | Aucun niveau ouvert n'affiche aucune zone ni aide. | 1. Construire un contexte sans niveau.<br/>2. Calculer les lignes. | Vérifie que `lines.permanent.size()` vaut `5u`.<br/>Vérifie que `zone` vaut `""`.<br/>Vérifie que `lines.help` vaut `""`. |
+| **EditorStatusTest.AucuneCaseSurvoleeLaisseLaZoneVide** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_editor_status.cpp:72`</sub> | Aucune case survolee laisse la zone de coordonnees vide. | 1. Construire un niveau sans case survolee.<br/>2. Calculer les lignes. | Vérifie que `lines.permanent[0]` vaut `"Niveau : Salle des epreuves"`.<br/>Vérifie que `lines.permanent[3]` vaut `""`. |
+| **EditorStatusTest.IndicateurDeModificationSuitLEtatDirty** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_editor_status.cpp:91`</sub> | L'indicateur de modification suit l'etat "dirty" du niveau. | 1. Calculer les lignes avec dirty=true, puis dirty=false.<br/>2. Comparer la zone d'indicateur. | Vérifie que `hmi::editorStatusLines(dirtyContext, localization).permanent[1]` vaut `"Modifie"`.<br/>Vérifie que `hmi::editorStatusLines(cleanContext, localization).permanent[1]` vaut `""`. |
+| **EditorStatusTest.AideChangeAvecLOutilActif** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_editor_status.cpp:115`</sub> | L'aide contextuelle change avec l'outil actif. | 1. Calculer les lignes avec l'outil Pinceau, puis Lien.<br/>2. Comparer l'aide. | Vérifie que `hmi::editorStatusLines(paintContext, localization).help` vaut `"Aide pinceau"`.<br/>Vérifie que `hmi::editorStatusLines(linkContext, localization).help` vaut `"Aide lien"`. |
+| **EditorStatusTest.MemeContexteProduitLaMemeAide** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_editor_status.cpp:140`</sub> | La decision est deterministe : meme contexte, meme resultat. | 1. Calculer deux fois les lignes pour le meme contexte.<br/>2. Comparer. | Vérifie que `first.help` vaut `second.help`.<br/>Vérifie que `first.permanent` vaut `second.permanent`. |
+| **EditorStatusTest.ClesDeTraductionExistentDansLesDeuxCatalogues** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_editor_status.cpp:162`</sub> | Les cles de traduction de la barre d'etat existent dans les deux catalogues. | 1. Charger fr.lang puis en.lang depuis les catalogues livres.<br/>2. Resoudre chaque cle utilisee. | Vérifie que `localization.loadDefaultLanguage(language)` est vrai.<br/>Vérifie que `localization.text(key)` diffère de `key`. |
 
 **`test_level_name_validation.cpp`**
 

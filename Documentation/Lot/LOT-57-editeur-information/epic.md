@@ -1,6 +1,6 @@
 # LOT-57 — Architecture de l'information de l'éditeur {#lot-57}
 
-> Statut : **non commencé**. Prérequis : [LOT-51](@ref lot-51) (visibilité des calques),
+> Statut : **en cours**. Prérequis : [LOT-51](@ref lot-51) (visibilité des calques),
 > [LOT-56](@ref lot-56) (jetons, thème, actions et barre d'outils).
 
 ## Objectif
@@ -98,7 +98,7 @@ devient unique, et ce qui ne sert qu'à un outil s'efface quand cet outil n'est 
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-barre-etat.md) | Barre d'état structurée : état permanent et aide contextuelle à l'outil | `Source/HMI/Interface`, `Source/HMI/Editor` | ⬜ |
+| [TACHE-01](tache-01-barre-etat.md) | Barre d'état structurée : état permanent et aide contextuelle à l'outil | `Source/HMI/Interface`, `Source/HMI/Editor` | ✅ |
 | [TACHE-02](tache-02-panneaux-groupes.md) | Regroupement des panneaux en onglets, suivant l'outil actif | `Source/HMI/Interface` | ⬜ |
 | [TACHE-03](tache-03-panneau-textures.md) | Recentrage du panneau Textures ; calques déplacés vers le menu Affichage | `Source/HMI/Editor`, `Source/Elements/UI` | ⬜ |
 | [TACHE-04](tache-04-deduplication-raccourcis.md) | Déduplication des commandes, raccourcis d'éditeur branchés et remappables, aperçu à l'écran | `Source/HMI/Game`, `Source/HMI/Input`, `Source/HMI/Interface` | ⬜ |

@@ -278,10 +278,10 @@ void GameViewport::copySelection() {
 }
 
 void GameViewport::pasteClipboard() {
-    if (_clipboard.empty()) {
+    if (_clipboard.empty() || !_hoverCell) {
         return;
     }
-    _draft.paintRegion(_hoverCell.column, _hoverCell.row, _clipboard);
+    _draft.paintRegion(_hoverCell->column, _hoverCell->row, _clipboard);
     _dirty = true;
     markDraftMutated();
     emit statusMessage(statusText("status.region_pasted"));
@@ -807,6 +807,12 @@ void GameViewport::renderFrame(float deltaSeconds) {
         _session->render(pixelWidth(), pixelHeight(), _renderMode, _timestep.interpolationAlpha());
     } else {
         updateEditCamera();
+        // Zoom courant pour la barre d'etat (LOT-57 TACHE-01) : pas de signal natif sur Camera2D,
+        // comparaison au dernier zoom notifie plutot qu'une emission a chaque image.
+        if (_camera.zoom() != _lastEmittedZoom) {
+            _lastEmittedZoom = _camera.zoom();
+            emit zoomChanged(_lastEmittedZoom);
+        }
         hmi::LinkOverlayState linkOverlay;
         linkOverlay.hoveredCell = _hoverCell;
         linkOverlay.pendingLink = _pendingLink;
@@ -832,6 +838,15 @@ bool GameViewport::event(QEvent* event) {
             return true;
         case QEvent::FocusOut:
             _input.releaseAll();
+            break;
+        case QEvent::Leave:
+            // Le curseur quitte le viewport : la case survolee n'a plus de sens (LOT-57 TACHE-01,
+            // barre d'etat) -- QWindow n'a pas de leaveEvent() dedie comme QWidget, seul event()
+            // recoit QEvent::Leave.
+            if (_hoverCell) {
+                _hoverCell.reset();
+                emit hoveredCellChanged(std::nullopt);
+            }
             break;
         case QEvent::PlatformSurface:
             // Libère les ressources Direct3D 11 tant que la surface native existe encore (crash de
@@ -1234,8 +1249,10 @@ void GameViewport::mouseMoveEvent(QMouseEvent* event) {
         _manualCenter.y -= delta.y / scale;
         _rightDragLastScreen = current;
     }
-    if (const std::optional<core::GridPosition> cell = cellAt(event)) {
-        _hoverCell = *cell;  // cible du collage (Ctrl+V)
+    const std::optional<core::GridPosition> cell = cellAt(event);  // cible du collage (Ctrl+V)
+    if (cell != _hoverCell) {
+        _hoverCell = cell;
+        emit hoveredCellChanged(_hoverCell);
     }
     if (_painting) {
         paintAt(event);  // glisser de peinture

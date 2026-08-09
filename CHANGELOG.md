@@ -7,6 +7,20 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-57 — Architecture de l'information de l'éditeur** (`EX-IHM-060` à `EX-IHM-062`, en cours) :
+  redistribution de l'éditeur — ce qui informe devient permanent, ce qui commande devient unique, ce
+  qui ne sert qu'à un outil s'efface quand cet outil n'est pas actif.
+  - **TACHE-01 — Barre d'état structurée** : remplace la ligne unique `status.edit_help` (figée à
+    l'entrée en mode éditeur, définitivement effacée par le premier message transitoire) par cinq
+    zones **permanentes** (`hmi::EditorStatus`, fonction pure sur le patron de `hmi::gameHudLines`,
+    `LOT-52`) — niveau ouvert, modifications non enregistrées, outil actif, case survolée, zoom —
+    ajoutées à la barre d'état via `addPermanentWidget` (jamais recouvertes par un message). Aide
+    contextuelle à l'outil actif, restaurée automatiquement à l'expiration d'un message transitoire
+    (`MainWindow::refreshStatusHelp`/`showTransientStatusMessage`, minuteur unique). Case survolée et
+    zoom nouvellement exposés par `GameViewport` (`hoveredCell()`/`zoom()`, signaux `hoveredCellChanged`/
+    `zoomChanged`, émis seulement sur changement réel). **6 nouveaux tests**, sans Qt/GPU ; build
+    `/W4 /WX` propre, 770 tests verts.
+
 - **LOT-56 — Système de design de l'IHM Qt** (`EX-IHM-050` à `EX-IHM-055`) : l'éditeur prend enfin
   la main sur sa propre apparence — jusqu'ici le style **natif** de la plate-forme, qui ignorait une
   large part de l'unique feuille de style existante (`theme.qss`, restreinte au menu principal et à
