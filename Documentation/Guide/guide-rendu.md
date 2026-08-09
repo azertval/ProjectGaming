@@ -630,22 +630,55 @@ la refléter (`decorSelectionChanged`/`decorSelected`, resynchronisation bloqué
 jamais reboucler). Un décor dont l'asset est introuvable dans `Assets/Decors/` est signalé en
 rouge dans la liste, en plus du damier magenta déjà visible au canevas.
 
-## Le texte d'interface : côté Qt, plus dans le pipeline Direct3D
+## Le texte dans la scène : `hmi::BitmapFont` et `hmi::TextRenderer` (`LOT-52`)
 
-Le texte (menus, libellés, options) ne se dessine **pas** avec ce pipeline : c'est une préoccupation
-entièrement différente, portée par les **widgets Qt** de l'IHM (@ref guide-ihm-qt). Direct3D 11 ne
-rend donc que la **scène de jeu** (tuiles, personnage, décors) dans le viewport ; l'ancienne police
-bitmap « maison » et sa projection écran ont été retirées avec l'IHM « maison » au `LOT-38`. Un
-libellé de menu reste à la même position et à la même taille à l'écran parce que Qt le compose dans
-une couche indépendante de la caméra du monde, sans passer par `SpriteBatch`.
+Le texte de l'interface **hors-jeu** (menus, libellés, options) ne se dessine toujours **pas** avec
+ce pipeline : c'est une préoccupation entièrement différente, portée par les **widgets Qt** de
+l'IHM (@ref guide-ihm-qt), dans une couche indépendante de la caméra du monde. Mais depuis `LOT-52`,
+le pipeline Direct3D sait de nouveau afficher du texte **dans la scène de jeu** — l'ancienne police
+bitmap « maison », retirée avec l'IHM « maison » au `LOT-38`, est réintroduite du bon côté de la
+frontière (`SpriteBatch`, pas Qt) et rebranchée sur les fondations de `LOT-40` (calque `UI`,
+`TextureCache`, contrat d'asset) plutôt que sur son ancien chemin.
 
-Cette séparation a une conséquence qu'il faut connaître : **rien ne sait afficher du texte à
-l'intérieur de la scène**. Qt compose ses widgets *par-dessus* la fenêtre, en espace écran ; il ne
-peut pas ancrer une information au monde du jeu ni la faire suivre la caméra. Tout affichage tête
-haute ou indication en jeu est donc, aujourd'hui, impossible — c'est pourquoi les budgets de sauts
-et de dashs (`EX-GP-024`, `LOT-12`) existent dans la simulation sans être visibles nulle part. Une
-police bitmap sera réintroduite **du côté de la scène** au `LOT-52`, sur son propre calque et via
-`SpriteBatch`, sans remettre en cause le choix de Qt pour l'interface hors-jeu.
+**`hmi::BitmapFont`** essaie de charger `Assets/Fonts/font.png` accompagné de ses métriques
+(`Assets/Fonts/font.json` : la région et l'avance de chaque glyphe, format JSON versionné comme
+`hmi::AnimationCatalog`), validées par le contrat d'asset (`AssetFamily::Font`) puis par leur
+cohérence avec les dimensions décodées du PNG. Aucun asset n'est livré pour l'instant
+(`Source/Elements/Assets/Fonts/README.md`) : la police retombe donc, comme `hmi::TextureAtlas` sans
+`atlas.png`, sur un repli **procédural** déterministe (`hmi::buildProceduralFont`, glyphes 5×7
+pixels blancs sur fond transparent, ASCII imprimable et accents français `é è à ç ù ê î ô û`) — le
+jeu reste lisible sans aucun asset de police (`EX-NFR-040`). Comme `TextureAtlas`, `BitmapFont`
+possède sa **propre** ressource Direct3D (pas de passage par `TextureCache` : elle n'est chargée
+qu'une fois au démarrage, sans rechargement à chaud). Un point de code non couvert est substitué
+par un glyphe de remplacement (`?` par défaut), jamais un trou silencieux. La mesure d'une chaîne
+(`hmi::measureText`) est **pure** : elle ne dépend que des métriques, pas du GPU, ce qui permet de
+cadrer un texte sans le dessiner ; elle parcourt des **points de code** UTF-8, pas des octets — un
+caractère accentué du catalogue de traduction (`EX-REN-033`) en occupe plusieurs.
+
+**`hmi::composeText`** (`HMI/Graphics/TextRenderer.h`) compose une chaîne en `SpriteQuad`, un par
+glyphe, sur `RenderLayer::UI` — le calque réservé sans être utilisé depuis `LOT-40`. C'est le
+**premier** cas du projet où une passe de rendu a sa propre projection : `hmi::screenProjectionMatrix`
+construit une projection écran → clip à partir des seules dimensions du viewport, indépendante de
+`Camera2D`, pour que le texte ne tourne ni ne change de taille avec le zoom de la caméra du monde.
+Un ancrage (`hmi::TextAnchor`, gauche/centre/droite × haut/milieu/bas) évite d'avoir à mesurer le
+texte soi-même pour le centrer ; les positions sont arrondies au pixel écran entier, la police
+restant en filtrage *nearest* comme le reste du rendu (`EX-ARCH-022`).
+
+Le texte, en espace écran, n'a **pas** de position monde : il ne doit jamais être soumis au culling
+par cadrage caméra (`LOT-40` TACHE-05). `hmi::GameSession::renderHud` compose donc le HUD dans une
+`hmi::ComposedScene` **dédiée**, distincte de celle de `hmi::SpriteRenderer` et sur laquelle
+`setVisibleBounds` n'est jamais appelé — plutôt que d'étendre `hmi::submitComposedScene` à deux
+projections, une seconde passe `begin`/`end` complète (même `SpriteBatch`, projection écran) suit
+la passe monde de la même frame.
+
+**`hmi::gameHudLines`** (`Source/HMI/Game/GameHud.h`) choisit, en fonction **pure**, les lignes à
+afficher : les budgets de sauts et de dashs (`EX-GP-024`, `LOT-12`) — jusqu'ici invisibles, faute de
+tout rendu de texte, malgré leur existence dans `core::Player` depuis ce lot —, seulement si le
+budget du niveau est **fini** (`-1` = illimité, cas de la grande majorité des tableaux : aucune
+ligne superflue), puis le nom du tableau. Affiché en jeu et en essai (parce que `renderHud` est
+appelé depuis le point d'entrée unique `hmi::GameSession::render`, jamais depuis `hmi::
+DraftRenderer`, seul chemin de l'éditeur en édition pure), avec une ombre portée (décalage d'un
+pixel) pour rester lisible sur fond clair comme sur fond sombre.
 
 ## Assembler la frame complète
 
@@ -685,7 +718,9 @@ de cette page qu'il modifie, dans l'ordre :
   page).
 - **`LOT-51`** — *livré* : le mode d'inspection « définition des textures » — visibilité et
   isolement par calque, distinct de `F8` (décrit plus haut dans cette page).
-- **`LOT-52`** — le retour du texte dans la scène rendue.
+- **`LOT-52`** — *livré* : le retour du texte dans la scène rendue — police bitmap avec repli
+  procédural, composition sur le calque `UI` et sa propre projection écran, affichage tête haute
+  des budgets de sauts/dashs et du tableau courant (décrits plus haut dans cette page).
 
 Tant que ces lots ne sont pas livrés, ce guide décrit l'état réel du code ; il sera mis à jour au
 fil de leur intégration.
@@ -713,6 +748,10 @@ fil de leur intégration.
 - `core::LevelDraft::moveDecor`/`resizeDecor`/`rotateDecor`/`setDecorLayer`/`bringDecorForward`/
   `sendDecorBackward`, `hmi::DecorGeometry.h`, `hmi::DecorGesture.h`, `hmi::designateDecorAt`,
   `hmi::buildDecorListRows` — manipulation de décors dans l'éditeur (`LOT-50`, `EX-DEC-010`).
+- `hmi::BitmapFont`, `hmi::ProceduralFont`, `hmi::buildProceduralFont`, `hmi::measureText`,
+  `hmi::composeText`, `hmi::screenProjectionMatrix`, `hmi::gameHudLines`,
+  `hmi::GameSession::renderHud` — texte dans la scène et affichage tête haute (`LOT-52`,
+  `EX-IHM-003`/`EX-REN-032`).
 - `core::Transform`, `core::Sprite`, `core::AtlasRegion`, `core::Color` — les composants lus par le rendu.
 - @ref guide-ecs — le `World` et les vues que `SpriteRenderer` parcourt.
 - @ref guide-boucle — où le rendu s'insère dans la boucle de jeu.

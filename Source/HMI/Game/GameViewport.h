@@ -41,6 +41,7 @@ class TextureAtlas;
 class TextureCache;
 class DraftRenderer;
 class Localization;
+class BitmapFont;
 }  // namespace hmi
 
 namespace hmi {
@@ -425,6 +426,9 @@ private:
     std::unique_ptr<hmi::TextureAtlas> _atlas;
     std::unique_ptr<hmi::TextureCache> _textureCache;
     std::unique_ptr<hmi::DraftRenderer> _draftRenderer;
+    /// Police bitmap de l'affichage tête haute (`LOT-52`), chargée une fois au démarrage comme
+    /// `_atlas` (pas de rechargement à chaud).
+    std::unique_ptr<hmi::BitmapFont> _font;
     /// Catalogue des jeux de skins (`LOT-42`), lu au démarrage depuis `Assets/skins.json`. Vide si
     /// le fichier est absent ou illisible : tout retombe alors sur le damier, sans bloquer.
     hmi::SkinCatalog _skins;

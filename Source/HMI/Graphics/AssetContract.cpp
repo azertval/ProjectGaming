@@ -21,6 +21,8 @@ const char* assetFamilyName(AssetFamily family) noexcept {
             return "Spritesheet de personnage";
         case AssetFamily::Decor:
             return "Decor";
+        case AssetFamily::Font:
+            return "Police bitmap";
     }
     return "Inconnu";
 }
@@ -62,8 +64,11 @@ AssetDimensionContract assetDimensionContract(AssetFamily family) noexcept {
             return contract;
         case AssetFamily::Background:
         case AssetFamily::Decor:
-            // Dimensions libres : le fond est etire sur les bornes du niveau (LOT-44) et un decor
-            // est pose sans contrainte de grille (LOT-49). Seule la positivite est exigee.
+        case AssetFamily::Font:
+            // Dimensions libres : le fond est etire sur les bornes du niveau (LOT-44), un decor
+            // est pose sans contrainte de grille (LOT-49), et un atlas de police est decoupe par
+            // ses metriques plutot que par une grille de cases (LOT-52). Seule la positivite est
+            // exigee.
             return contract;
     }
     return contract;

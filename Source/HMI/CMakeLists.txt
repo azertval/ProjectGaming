@@ -126,9 +126,13 @@ add_executable(ProjectGaming
     Graphics/MechanismVisuals.cpp
     Graphics/DecorVisuals.cpp
     Graphics/Parallax.cpp
+    Graphics/ProceduralFont.cpp
+    Graphics/BitmapFont.cpp
+    Graphics/TextRenderer.cpp
     # Jeu (simulation d'un niveau + viewport Qt jeu/édition)
     Game/GameSession.cpp
     Game/GameViewport.cpp
+    Game/GameHud.cpp
     # Localisation
     Localization/Localization.cpp
     # Diagnostics (enregistrement des journaux de session)

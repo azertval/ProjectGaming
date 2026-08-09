@@ -1,6 +1,6 @@
 # TACHE-02 — *TextRenderer* : composition d'une chaîne en quads {#lot-52-tache-02-text-renderer}
 
-**Lot :** [LOT-52](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-52](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 Une fois la police chargée (TACHE-01), afficher du texte revient à émettre un quad par glyphe — soit
