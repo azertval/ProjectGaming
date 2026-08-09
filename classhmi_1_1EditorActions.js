@@ -2,6 +2,7 @@ var classhmi_1_1EditorActions =
 [
     [ "EditorActions", "classhmi_1_1EditorActions.html#ab90c9b8945bb5398c11af251c97dbadb", null ],
     [ "action", "classhmi_1_1EditorActions.html#a0cf45b53c8671c5d791a9408cba20a11", null ],
+    [ "applyShortcuts", "classhmi_1_1EditorActions.html#a15651f937c395ecf4bc082bc5c79f455", null ],
     [ "populateToolBar", "classhmi_1_1EditorActions.html#a1a89ee1d8b8c0c9a21412ac07199625c", null ],
     [ "refreshIcons", "classhmi_1_1EditorActions.html#a92148052c84a36d97dc127936ae28530", null ],
     [ "retranslateUi", "classhmi_1_1EditorActions.html#a72f7ac29c4a9353d7db2e9dedb9a0a59", null ],

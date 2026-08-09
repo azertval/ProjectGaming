@@ -46,8 +46,13 @@ var hierarchy =
     [ "hmi::DesignColor", "structhmi_1_1DesignColor.html", null ],
     [ "hmi::DesignTokens", "structhmi_1_1DesignTokens.html", null ],
     [ "hmi::DraftRenderer", "classhmi_1_1DraftRenderer.html", null ],
+    [ "hmi::EditContextTarget", "classhmi_1_1EditContextTarget.html", [
+      [ "hmi::GameViewport", "classhmi_1_1GameViewport.html", null ]
+    ] ],
     [ "hmi::EditorActionSpec", "structhmi_1_1EditorActionSpec.html", null ],
     [ "hmi::EditorKeyBindings", "classhmi_1_1EditorKeyBindings.html", null ],
+    [ "hmi::EditorStatusContext", "structhmi_1_1EditorStatusContext.html", null ],
+    [ "hmi::EditorStatusLines", "structhmi_1_1EditorStatusLines.html", null ],
     [ "core::Engine", "classcore_1_1Engine.html", null ],
     [ "core::Entity", "structcore_1_1Entity.html", null ],
     [ "core::EntityManager", "classcore_1_1EntityManager.html", null ],
@@ -80,12 +85,14 @@ var hierarchy =
       [ "core::MovementSystem", "classcore_1_1MovementSystem.html", null ]
     ] ],
     [ "core::View&lt; Components &gt;::Iterator", "classcore_1_1View_1_1Iterator.html", null ],
+    [ "hmi::KeyBindingIconEntry", "structhmi_1_1KeyBindingIconEntry.html", null ],
     [ "hmi::LayerVisibility", "classhmi_1_1LayerVisibility.html", null ],
     [ "core::Level", "classcore_1_1Level.html", null ],
     [ "core::LevelDraft", "classcore_1_1LevelDraft.html", null ],
     [ "hmi::LevelFileOperations", "classhmi_1_1LevelFileOperations.html", null ],
     [ "core::LevelLoader", "classcore_1_1LevelLoader.html", null ],
     [ "core::LevelLoadResult", "structcore_1_1LevelLoadResult.html", null ],
+    [ "hmi::LevelStatusInfo", "structhmi_1_1LevelStatusInfo.html", null ],
     [ "core::LevelWriter", "classcore_1_1LevelWriter.html", null ],
     [ "hmi::LineQuad", "structhmi_1_1LineQuad.html", null ],
     [ "hmi::LinkGestureDecision", "structhmi_1_1LinkGestureDecision.html", null ],
@@ -100,6 +107,7 @@ var hierarchy =
     [ "core::MechanismController", "classcore_1_1MechanismController.html", null ],
     [ "hmi::MechanismVisualState", "structhmi_1_1MechanismVisualState.html", null ],
     [ "hmi::PaletteThumbnail", "structhmi_1_1PaletteThumbnail.html", null ],
+    [ "hmi::PanelFocusEntry", "structhmi_1_1PanelFocusEntry.html", null ],
     [ "hmi::PendingLink", "structhmi_1_1PendingLink.html", null ],
     [ "core::PhysicsConfig", "structcore_1_1PhysicsConfig.html", null ],
     [ "core::Player", "structcore_1_1Player.html", null ],
@@ -119,6 +127,8 @@ var hierarchy =
     [ "hmi::QuadRecorder", "classhmi_1_1QuadRecorder.html", null ],
     [ "QWidget", null, [
       [ "hmi::AssetThumbnailView", "classhmi_1_1AssetThumbnailView.html", null ],
+      [ "hmi::DecorsPanel", "classhmi_1_1DecorsPanel.html", null ],
+      [ "hmi::EditorKeybindingsWidget", "classhmi_1_1EditorKeybindingsWidget.html", null ],
       [ "hmi::GamepadBindingsWidget", "classhmi_1_1GamepadBindingsWidget.html", null ],
       [ "hmi::KeybindingsWidget", "classhmi_1_1KeybindingsWidget.html", null ],
       [ "hmi::LevelBrowserPanel", "classhmi_1_1LevelBrowserPanel.html", null ],
@@ -126,8 +136,7 @@ var hierarchy =
       [ "hmi::MainMenu", "classhmi_1_1MainMenu.html", null ],
       [ "hmi::OptionsPage", "classhmi_1_1OptionsPage.html", null ],
       [ "hmi::PalettePanel", "classhmi_1_1PalettePanel.html", null ],
-      [ "hmi::TexturePanel", "classhmi_1_1TexturePanel.html", null ],
-      [ "hmi::ToolPanel", "classhmi_1_1ToolPanel.html", null ]
+      [ "hmi::TexturePanel", "classhmi_1_1TexturePanel.html", null ]
     ] ],
     [ "QWindow", null, [
       [ "hmi::GameViewport", "classhmi_1_1GameViewport.html", null ]

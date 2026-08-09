@@ -239,5 +239,7 @@ var searchData=
   ['08_20—_20nettoyage_20documentaire_236',['TACHE-08 — Nettoyage documentaire',['../lot-15-tache-08-nettoyage-documentation.html',1,'lot-15']]],
   ['08_20—_20sélecteur_20de_20langue_237',['TACHE-08 — Sélecteur de langue',['../lot-06-tache-08-selecteur-langue.html',1,'lot-06']]],
   ['08_20—_20traçabilité_20des_20exigences_20ids_20stables_20ancres_20doxygen_20lint_20ci_238',['TACHE-08 — Traçabilité des exigences (IDs stables, ancres Doxygen, lint CI)',['../lot-04-tache-08-tracabilite-exigences.html',1,'lot-04']]],
-  ['09_20—_20saut_20game_20feel_20et_20enchaînement_20de_20niveaux_239',['LOT-09 — Saut, game feel et enchaînement de niveaux',['../lot-09.html',1,'lots']]]
+  ['08_2009_239',['Amendement post-essai manuel (2026-08-09)',['../lot-57.html#autotoc_md2491',1,'']]],
+  ['09_240',['Amendement post-essai manuel (2026-08-09)',['../lot-57.html#autotoc_md2491',1,'']]],
+  ['09_20—_20saut_20game_20feel_20et_20enchaînement_20de_20niveaux_241',['LOT-09 — Saut, game feel et enchaînement de niveaux',['../lot-09.html',1,'lots']]]
 ];

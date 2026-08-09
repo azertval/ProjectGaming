@@ -8,6 +8,8 @@ var dir_c537f82b8f955c3b1ce6a355f8c4c1be =
     [ "DesignTokens.h", "DesignTokens_8h.html", "DesignTokens_8h" ],
     [ "EditorActions.cpp", "EditorActions_8cpp.html", null ],
     [ "EditorActions.h", "EditorActions_8h.html", "EditorActions_8h" ],
+    [ "EditorKeybindingsWidget.cpp", "EditorKeybindingsWidget_8cpp.html", null ],
+    [ "EditorKeybindingsWidget.h", "EditorKeybindingsWidget_8h.html", "EditorKeybindingsWidget_8h" ],
     [ "FontResolution.cpp", "FontResolution_8cpp.html", "FontResolution_8cpp" ],
     [ "FontResolution.h", "FontResolution_8h.html", "FontResolution_8h" ],
     [ "GamepadBindingsWidget.cpp", "GamepadBindingsWidget_8cpp.html", null ],

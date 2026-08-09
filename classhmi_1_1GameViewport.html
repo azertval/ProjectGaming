@@ -101,8 +101,11 @@ $(function(){initNavTree('classhmi_1_1GameViewport.html','','classhmi_1_1GameVie
 Inheritance diagram for hmi::GameViewport:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="classhmi_1_1GameViewport.png" alt=""/>
- </div></div>
+  <img src="classhmi_1_1GameViewport.png" usemap="#hmi_3A_3AGameViewport_map" alt=""/>
+  <map id="hmi_3A_3AGameViewport_map" name="hmi_3A_3AGameViewport_map">
+<area href="classhmi_1_1EditContextTarget.html" title="Interface pure implémentée par le contexte d&#39;édition actif." alt="hmi::EditContextTarget" shape="rect" coords="146,0,282,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
 Signals</h2></td></tr>
@@ -118,6 +121,10 @@ Signals</h2></td></tr>
 <tr class="memdesc:a0c50902b21767f071d17ce674736c182"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'outil actif vient de changer par un moyen autre que le panneau Outils (raccourci clavier, <span class="tt">LOT-45</span>) — le panneau se resynchronise sans reboucler.  <br /></td></tr>
 <tr class="memitem:a29fd278e5ee30802c9b3036d718b1aad" id="r_a29fd278e5ee30802c9b3036d718b1aad"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a29fd278e5ee30802c9b3036d718b1aad">decorSelectionChanged</a> (std::optional&lt; std::size_t &gt; index)</td></tr>
 <tr class="memdesc:a29fd278e5ee30802c9b3036d718b1aad"><td class="mdescLeft">&#160;</td><td class="mdescRight">La sélection de décor vient de changer, par un moyen autre que la section « Décors » (clic/pose/suppression au canevas, <span class="tt">LOT-50</span> TACHE-04) — le panneau se resynchronise.  <br /></td></tr>
+<tr class="memitem:a22e7abff7158a0e24d3c4a61879a41f6" id="r_a22e7abff7158a0e24d3c4a61879a41f6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a22e7abff7158a0e24d3c4a61879a41f6">hoveredCellChanged</a> (std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; cell)</td></tr>
+<tr class="memdesc:a22e7abff7158a0e24d3c4a61879a41f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">La case survolée vient de changer (déplacement de souris, ou sortie du viewport) — consommé par la barre d'état (<span class="tt">LOT-57</span> TACHE-01), qui évite ainsi un travail continu inutile en ne recalculant que sur changement réel.  <br /></td></tr>
+<tr class="memitem:a30636eb8e2e7cd9e0b6100c3b7831964" id="r_a30636eb8e2e7cd9e0b6100c3b7831964"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a30636eb8e2e7cd9e0b6100c3b7831964">zoomChanged</a> (float <a class="el" href="#ab231368af3ebbbca9bc7a5974b89826d">zoom</a>)</td></tr>
+<tr class="memdesc:a30636eb8e2e7cd9e0b6100c3b7831964"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le zoom d'édition vient de changer (molette, pan, recadrage) — consommé par la barre d'état (<span class="tt">LOT-57</span> TACHE-01).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -143,17 +150,29 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a30002a154b0395cdc334fe7313e08219"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accès <b>modifiable</b> aux touches de jeu (pour le remappage) : la session de jeu lit ces mêmes bindings, donc un changement s'applique immédiatement.  <br /></td></tr>
 <tr class="memitem:adcb2ea82e1836a4256705bb63674d533" id="r_adcb2ea82e1836a4256705bb63674d533"><td class="memItemLeft"><a class="el" href="classhmi_1_1GamepadBindings.html">hmi::GamepadBindings</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#adcb2ea82e1836a4256705bb63674d533">gamepadBindings</a> () noexcept</td></tr>
 <tr class="memdesc:adcb2ea82e1836a4256705bb63674d533"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accès <b>modifiable</b> aux boutons manette (pour le remappage), même principe que <span class="tt"><a class="el" href="#a30002a154b0395cdc334fe7313e08219" title="Accès modifiable aux touches de jeu (pour le remappage) : la session de jeu lit ces mêmes bindings,...">gameBindings</a></span>.  <br /></td></tr>
+<tr class="memitem:a0711813562ea435e387d355ebacd5413" id="r_a0711813562ea435e387d355ebacd5413"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditorKeyBindings.html">hmi::EditorKeyBindings</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a0711813562ea435e387d355ebacd5413">editorBindings</a> () noexcept</td></tr>
+<tr class="memdesc:a0711813562ea435e387d355ebacd5413"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accès <b>modifiable</b> aux touches d'éditeur (pour le remappage, <span class="tt">LOT-57</span> TACHE-04), même principe que <span class="tt"><a class="el" href="#a30002a154b0395cdc334fe7313e08219" title="Accès modifiable aux touches de jeu (pour le remappage) : la session de jeu lit ces mêmes bindings,...">gameBindings</a></span>.  <br /></td></tr>
 <tr class="memitem:a414edeb77630817f1fcedcccd100850a" id="r_a414edeb77630817f1fcedcccd100850a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a414edeb77630817f1fcedcccd100850a">save</a> ()</td></tr>
 <tr class="memdesc:a414edeb77630817f1fcedcccd100850a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enregistre le brouillon (<span class="tt">Ctrl+S</span>) : valide (<span class="tt">LevelDraft::toLevel</span>) puis écrit le fichier ; un brouillon invalide n'écrit rien et rapporte l'erreur (<span class="tt"><a class="el" href="#af5803731561d226a0140c1cb35d162bb" title="Message d&#39;état à afficher (enregistrement, essai, erreur de validation…).">statusMessage</a></span>).  <br /></td></tr>
 <tr class="memitem:a1767411cbfd2776ba5680c2004c7e489" id="r_a1767411cbfd2776ba5680c2004c7e489"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1767411cbfd2776ba5680c2004c7e489">openLevel</a> (const std::filesystem::path &amp;path)</td></tr>
 <tr class="memdesc:a1767411cbfd2776ba5680c2004c7e489"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre un fichier de niveau comme brouillon d'édition (remplace le brouillon courant).  <br /></td></tr>
 <tr class="memitem:a206c034f1553b285c8f153deba15b404" id="r_a206c034f1553b285c8f153deba15b404"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a206c034f1553b285c8f153deba15b404">isDirty</a> () const noexcept</td></tr>
+<tr class="memitem:a5988cb444ba8b2dcc59eab258a7a132d" id="r_a5988cb444ba8b2dcc59eab258a7a132d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5988cb444ba8b2dcc59eab258a7a132d">renameOpenLevel</a> (const std::string &amp;newName)</td></tr>
+<tr class="memdesc:a5988cb444ba8b2dcc59eab258a7a132d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme le niveau <b>ouvert</b> (action Rename, <span class="tt">F2</span>, <span class="tt">LOT-57</span> TACHE-04).  <br /></td></tr>
 <tr class="memitem:a1a527f3ff564f927ece3eca7644dfef5" id="r_a1a527f3ff564f927ece3eca7644dfef5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1a527f3ff564f927ece3eca7644dfef5">startPlaytest</a> ()</td></tr>
 <tr class="memdesc:a1a527f3ff564f927ece3eca7644dfef5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lance l'essai immédiat (<span class="tt">P</span>) sur un brouillon valide ; message d'erreur sinon.  <br /></td></tr>
-<tr class="memitem:a713b8aaa5e89ac3a117af92d64d21392" id="r_a713b8aaa5e89ac3a117af92d64d21392"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a713b8aaa5e89ac3a117af92d64d21392">undo</a> ()</td></tr>
-<tr class="memdesc:a713b8aaa5e89ac3a117af92d64d21392"><td class="mdescLeft">&#160;</td><td class="mdescRight">Annule la dernière modification du brouillon (<span class="tt">Ctrl+Z</span>) ; sans effet si rien à annuler.  <br /></td></tr>
-<tr class="memitem:afce3618d641b86f09b51e66c3af48901" id="r_afce3618d641b86f09b51e66c3af48901"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afce3618d641b86f09b51e66c3af48901">redo</a> ()</td></tr>
-<tr class="memdesc:afce3618d641b86f09b51e66c3af48901"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refait la dernière modification annulée (<span class="tt">Ctrl+Y</span>) ; sans effet si rien à refaire.  <br /></td></tr>
+<tr class="memitem:a568990508f037b367ef14c3b9e19e42f" id="r_a568990508f037b367ef14c3b9e19e42f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a568990508f037b367ef14c3b9e19e42f">undo</a> () override</td></tr>
+<tr class="memdesc:a568990508f037b367ef14c3b9e19e42f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Annule la dernière modification du brouillon (<span class="tt">Ctrl+Z</span>) ; sans effet si rien à annuler.  <br /></td></tr>
+<tr class="memitem:affb2c9a037fb461700cdb1363887784d" id="r_affb2c9a037fb461700cdb1363887784d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#affb2c9a037fb461700cdb1363887784d">redo</a> () override</td></tr>
+<tr class="memdesc:affb2c9a037fb461700cdb1363887784d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refait la dernière modification annulée (<span class="tt">Ctrl+Y</span>) ; sans effet si rien à refaire.  <br /></td></tr>
+<tr class="memitem:a9cc3829b49753d7695b05da881e28972" id="r_a9cc3829b49753d7695b05da881e28972"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9cc3829b49753d7695b05da881e28972">canUndo</a> () const override</td></tr>
+<tr class="memitem:a398fffef8ff4b2b6a06685c95321f3c7" id="r_a398fffef8ff4b2b6a06685c95321f3c7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a398fffef8ff4b2b6a06685c95321f3c7">canRedo</a> () const override</td></tr>
+<tr class="memitem:a6e535031898c2f5660eda2d87c508114" id="r_a6e535031898c2f5660eda2d87c508114"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6e535031898c2f5660eda2d87c508114">copy</a> () override</td></tr>
+<tr class="memdesc:a6e535031898c2f5660eda2d87c508114"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copie la sélection courante dans le presse-papiers local (<span class="tt">Ctrl+C</span>, <span class="tt"><a class="el" href="classhmi_1_1EditContextTarget.html" title="Interface pure implémentée par le contexte d&#39;édition actif.">EditContextTarget</a></span>).  <br /></td></tr>
+<tr class="memitem:aa18a967d2e1415c3ae003962e6bf72cd" id="r_aa18a967d2e1415c3ae003962e6bf72cd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa18a967d2e1415c3ae003962e6bf72cd">paste</a> () override</td></tr>
+<tr class="memdesc:aa18a967d2e1415c3ae003962e6bf72cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Colle le presse-papiers à la case survolée (<span class="tt">Ctrl+V</span>, <span class="tt"><a class="el" href="classhmi_1_1EditContextTarget.html" title="Interface pure implémentée par le contexte d&#39;édition actif.">EditContextTarget</a></span>).  <br /></td></tr>
+<tr class="memitem:a40d71071ab2442e73c282e7d0d6fb659" id="r_a40d71071ab2442e73c282e7d0d6fb659"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a40d71071ab2442e73c282e7d0d6fb659">canCopy</a> () const override</td></tr>
+<tr class="memitem:ad8deb900a849474d058895b65a414422" id="r_ad8deb900a849474d058895b65a414422"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ad8deb900a849474d058895b65a414422">canPaste</a> () const override</td></tr>
 <tr class="memitem:a40aa119bc6b5b56d6ebf8a2adc27f88e" id="r_a40aa119bc6b5b56d6ebf8a2adc27f88e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a40aa119bc6b5b56d6ebf8a2adc27f88e">toggleGrid</a> () noexcept</td></tr>
 <tr class="memdesc:a40aa119bc6b5b56d6ebf8a2adc27f88e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bascule l'affichage de la grille de repère (<span class="tt">F10</span>).  <br /></td></tr>
 <tr class="memitem:a4e56de8b6d247c368e7ae8d37b7cf9b8" id="r_a4e56de8b6d247c368e7ae8d37b7cf9b8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4e56de8b6d247c368e7ae8d37b7cf9b8">resetCamera</a> () noexcept</td></tr>
@@ -172,6 +191,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4d1767ffe75ae9a601c7d211410f86b7" id="r_a4d1767ffe75ae9a601c7d211410f86b7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a4d1767ffe75ae9a601c7d211410f86b7">levelHeight</a> () const</td></tr>
 <tr class="memitem:a987dc586ecf5f86913880758b34bba7a" id="r_a987dc586ecf5f86913880758b34bba7a"><td class="memItemLeft">const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a987dc586ecf5f86913880758b34bba7a">draft</a> () const noexcept</td></tr>
 <tr class="memitem:aa74451d68f30533ea059d2631397e215" id="r_aa74451d68f30533ea059d2631397e215"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa74451d68f30533ea059d2631397e215">selectedDecorIndex</a> () const noexcept</td></tr>
+<tr class="memitem:a47134978f9ee32fd613ddd132006835a" id="r_a47134978f9ee32fd613ddd132006835a"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a47134978f9ee32fd613ddd132006835a">hoveredCell</a> () const noexcept</td></tr>
+<tr class="memitem:ab231368af3ebbbca9bc7a5974b89826d" id="r_ab231368af3ebbbca9bc7a5974b89826d"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ab231368af3ebbbca9bc7a5974b89826d">zoom</a> () const noexcept</td></tr>
+<tr class="memitem:ae9ea1c0226a2ba9ad8aa99d4f99ebd61" id="r_ae9ea1c0226a2ba9ad8aa99d4f99ebd61"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae9ea1c0226a2ba9ad8aa99d4f99ebd61">activeTool</a> () const noexcept</td></tr>
 <tr class="memitem:accdd8d909af2dbb3fb790734c6a643b5" id="r_accdd8d909af2dbb3fb790734c6a643b5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#accdd8d909af2dbb3fb790734c6a643b5">setHighlightedLink</a> (std::optional&lt; std::pair&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; &gt; link)</td></tr>
 <tr class="memdesc:accdd8d909af2dbb3fb790734c6a643b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met en surbrillance la liaison (déclencheur, cible) dans le viewport (sélection depuis le panneau « Liens ») ; n'affecte que le rendu, pas le brouillon.  <br /></td></tr>
 <tr class="memitem:ae7ad870c084ca5c30be9891d70250638" id="r_ae7ad870c084ca5c30be9891d70250638"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae7ad870c084ca5c30be9891d70250638">unlinkMechanism</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> targetPosition)</td></tr>
@@ -213,6 +235,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:abb82d7356f42831c6aa6aa245195f1d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supprime le décor <code class="param">index</code> (bouton « Supprimer » de la section « Décors »).  <br /></td></tr>
 <tr class="memitem:a3367389fec48ddafd1d120eaac0dc839" id="r_a3367389fec48ddafd1d120eaac0dc839"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3367389fec48ddafd1d120eaac0dc839">centerCameraOnDecor</a> (std::size_t index)</td></tr>
 <tr class="memdesc:a3367389fec48ddafd1d120eaac0dc839"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recadre la caméra d'édition sur le décor <code class="param">index</code> (bouton « Centrer »), à son zoom courant — un décor hors du cadrage automatique (grand niveau) redevient ainsi atteignable sans avoir à le chercher à la souris.  <br /></td></tr>
+<tr class="inherit_header pub_methods_classhmi_1_1EditContextTarget"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classhmi_1_1EditContextTarget')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Public Member Functions inherited from <a class="el" href="classhmi_1_1EditContextTarget.html">hmi::EditContextTarget</a></td></tr>
+<tr class="memitem:a82f63a0d5ba2f3fe2e78ae6bcf79eb99 inherit pub_methods_classhmi_1_1EditContextTarget" id="r_a82f63a0d5ba2f3fe2e78ae6bcf79eb99"><td class="memItemLeft">virtual&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1EditContextTarget.html#a82f63a0d5ba2f3fe2e78ae6bcf79eb99">~EditContextTarget</a> ()=default</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -353,8 +377,10 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:ad36490092b1b28e463e3338f395e7caf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case de départ du glisser Rectangle/Sélection.  <br /></td></tr>
 <tr class="memitem:a6b3746ffb6acca3282ca1060522122bb" id="r_a6b3746ffb6acca3282ca1060522122bb"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6b3746ffb6acca3282ca1060522122bb">_dragCurrent</a> {}</td></tr>
 <tr class="memdesc:a6b3746ffb6acca3282ca1060522122bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case courante du glisser (pour l'aperçu).  <br /></td></tr>
-<tr class="memitem:a03652235a97abec83dfddf5304931d20" id="r_a03652235a97abec83dfddf5304931d20"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a03652235a97abec83dfddf5304931d20">_hoverCell</a> {}</td></tr>
-<tr class="memdesc:a03652235a97abec83dfddf5304931d20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dernière case survolée (cible du collage).  <br /></td></tr>
+<tr class="memitem:ad780d6c5b7e4843a50fbf1b7f5cb3151" id="r_ad780d6c5b7e4843a50fbf1b7f5cb3151"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad780d6c5b7e4843a50fbf1b7f5cb3151">_hoverCell</a></td></tr>
+<tr class="memdesc:ad780d6c5b7e4843a50fbf1b7f5cb3151"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case actuellement survolée (cible du collage) ; absente hors de la grille ou après que le curseur a quitté le viewport (<span class="tt">LOT-57</span> TACHE-01, <span class="tt">leaveEvent</span> via <span class="tt"><a class="el" href="#a5d3760d8afacd89cccc12dff1f843a9b">event()</a></span>).  <br /></td></tr>
+<tr class="memitem:ab08f60057375f2e16417a18a1cc07d6f" id="r_ab08f60057375f2e16417a18a1cc07d6f"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ab08f60057375f2e16417a18a1cc07d6f">_lastEmittedZoom</a> = 0.0f</td></tr>
+<tr class="memdesc:ab08f60057375f2e16417a18a1cc07d6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dernier zoom notifié (<span class="tt"><a class="el" href="#a30636eb8e2e7cd9e0b6100c3b7831964" title="Le zoom d&#39;édition vient de changer (molette, pan, recadrage) — consommé par la barre d&#39;état (LOT-57 T...">zoomChanged</a></span>), évite l'émission en boucle.  <br /></td></tr>
 <tr class="memitem:ae96e120c86e828f65d27936e5941297d" id="r_ae96e120c86e828f65d27936e5941297d"><td class="memItemLeft">const <a class="el" href="classhmi_1_1Localization.html">Localization</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ae96e120c86e828f65d27936e5941297d">_loc</a> = nullptr</td></tr>
 <tr class="memdesc:ae96e120c86e828f65d27936e5941297d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sélection mémorisée (bornes min/max incluses), pour copier (<span class="tt">Ctrl+C</span>).  <br /></td></tr>
 <tr class="memitem:a5726c12fdeac921d24dbc81a45e50474" id="r_a5726c12fdeac921d24dbc81a45e50474"><td class="memItemLeft">std::optional&lt; std::pair&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5726c12fdeac921d24dbc81a45e50474">_selection</a></td></tr>
@@ -388,7 +414,8 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Fenêtre native (<span class="tt">QWindow</span>) où Direct3D 11 présente, embarquée dans Qt. </p>
 <p><b>Mode édition</b> (LOT-35) : affiche le brouillon (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span>) via <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span>, caméra cadrant le niveau entier par défaut. Le clic/glisser gauche <b>peint</b> le type de tuile actif (<span class="tt"><a class="el" href="#aa1b0f14b74c790ed226ce9ad3302eaa5" title="Définit le type de tuile peint au clic (relié à la sélection de la palette).">setActiveTile</a></span>, fourni par la palette) à la case survolée (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a>::
-paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span> annulent/refont. La molette <b>zoome</b> manuellement (borné entre l'ajustement automatique et 4 cases visibles sur le plus petit axe) et le glisser <b>bouton droit</b> déplace la caméra (« pan ») ; <span class="tt">0</span> revient au cadrage automatique (LOT-15). <b>Mode essai</b> (LOT-35 TACHE-04) : une <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> rejoue le niveau ; sa boucle à pas fixe (<span class="tt"><a class="el" href="classcore_1_1FixedTimestep.html" title="Convertit un temps réel écoulé variable en un nombre de pas de simulation fixes.">core::FixedTimestep</a></span>) et ses entrées (Qt + XInput) reprennent la discipline du <span class="tt">LOT-33</span>. </p>
+paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span> annulent/refont. La molette <b>zoome</b> manuellement (borné entre l'ajustement automatique et 4 cases visibles sur le plus petit axe) et le glisser <b>bouton droit</b> déplace la caméra (« pan ») ; <span class="tt">0</span> revient au cadrage automatique (LOT-15). <b>Mode essai</b> (LOT-35 TACHE-04) : une <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> rejoue le niveau ; sa boucle à pas fixe (<span class="tt"><a class="el" href="classcore_1_1FixedTimestep.html" title="Convertit un temps réel écoulé variable en un nombre de pas de simulation fixes.">core::FixedTimestep</a></span>) et ses entrées (Qt + XInput) reprennent la discipline du <span class="tt">LOT-33</span>.</p>
+<p>Implémente <span class="tt"><a class="el" href="classhmi_1_1EditContextTarget.html" title="Interface pure implémentée par le contexte d&#39;édition actif.">hmi::EditContextTarget</a></span> (<span class="tt">LOT-57</span> TACHE-04) : c'est aujourd'hui l'unique cible d'Annuler/Refaire/Copier/Coller que <span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">MainWindow</a></span> connaisse, au travers de cette interface plutôt que d'un appel direct — le seuil de dispatch que le futur atelier pixel art (<span class="tt">LOT-54</span>) réutilisera pour sa propre cible, sans le réécrire. </p>
 </div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Member Typedef Documentation</h2>
 <a id="aa4c7f7a94f3204307abc42869f8d4b2e" name="aa4c7f7a94f3204307abc42869f8d4b2e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa4c7f7a94f3204307abc42869f8d4b2e">&#9670;&#160;</a></span>Clock</h2>
@@ -489,6 +516,32 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="ae9ea1c0226a2ba9ad8aa99d4f99ebd61" name="ae9ea1c0226a2ba9ad8aa99d4f99ebd61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9ea1c0226a2ba9ad8aa99d4f99ebd61">&#9670;&#160;</a></span>activeTool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a> hmi::GameViewport::activeTool </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'outil d'édition actif. </dd></dl>
+
+</div>
+</div>
 <a id="a42949254bea0fa15c30dd5c5e529f944" name="a42949254bea0fa15c30dd5c5e529f944"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a42949254bea0fa15c30dd5c5e529f944">&#9670;&#160;</a></span>applyDecorGestureAction()</h2>
 
@@ -593,6 +646,118 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
+<a id="a40d71071ab2442e73c282e7d0d6fb659" name="a40d71071ab2442e73c282e7d0d6fb659"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40d71071ab2442e73c282e7d0d6fb659">&#9670;&#160;</a></span>canCopy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::GameViewport::canCopy </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true si une sélection existe à copier (<span class="tt"><a class="el" href="classhmi_1_1EditContextTarget.html" title="Interface pure implémentée par le contexte d&#39;édition actif.">EditContextTarget</a></span>). </dd></dl>
+
+<p>Implements <a class="el" href="classhmi_1_1EditContextTarget.html#a6c7d5ccf54dca42793d4e9cfd9693ef2">hmi::EditContextTarget</a>.</p>
+
+</div>
+</div>
+<a id="ad8deb900a849474d058895b65a414422" name="ad8deb900a849474d058895b65a414422"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8deb900a849474d058895b65a414422">&#9670;&#160;</a></span>canPaste()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::GameViewport::canPaste </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true si le presse-papiers local contient une zone à coller (<span class="tt"><a class="el" href="classhmi_1_1EditContextTarget.html" title="Interface pure implémentée par le contexte d&#39;édition actif.">EditContextTarget</a></span>). </dd></dl>
+
+<p>Implements <a class="el" href="classhmi_1_1EditContextTarget.html#a2e6851af1958141abb8ee84fa3edd5fd">hmi::EditContextTarget</a>.</p>
+
+</div>
+</div>
+<a id="a398fffef8ff4b2b6a06685c95321f3c7" name="a398fffef8ff4b2b6a06685c95321f3c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a398fffef8ff4b2b6a06685c95321f3c7">&#9670;&#160;</a></span>canRedo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::GameViewport::canRedo </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true s'il existe une modification annulée à refaire (<span class="tt"><a class="el" href="classhmi_1_1EditContextTarget.html" title="Interface pure implémentée par le contexte d&#39;édition actif.">EditContextTarget</a></span>). </dd></dl>
+
+<p>Implements <a class="el" href="classhmi_1_1EditContextTarget.html#aeebaf7eb7a522b6c3e20eb471ab7c730">hmi::EditContextTarget</a>.</p>
+
+</div>
+</div>
+<a id="a9cc3829b49753d7695b05da881e28972" name="a9cc3829b49753d7695b05da881e28972"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cc3829b49753d7695b05da881e28972">&#9670;&#160;</a></span>canUndo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::GameViewport::canUndo </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true s'il existe une modification à annuler (<span class="tt"><a class="el" href="classhmi_1_1EditContextTarget.html" title="Interface pure implémentée par le contexte d&#39;édition actif.">EditContextTarget</a></span>). </dd></dl>
+
+<p>Implements <a class="el" href="classhmi_1_1EditContextTarget.html#abd57583a8365cf0134b53de7f78c0aba">hmi::EditContextTarget</a>.</p>
+
+</div>
+</div>
 <a id="a5f7a14d556f4c45f5e5eb6331c27be81" name="a5f7a14d556f4c45f5e5eb6331c27be81"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5f7a14d556f4c45f5e5eb6331c27be81">&#9670;&#160;</a></span>cellAt()</h2>
 
@@ -663,6 +828,35 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div><div class="memdoc">
 
 <p>Case de grille sous <code class="param">event</code>, <b>bornée</b> à la grille (jamais hors bornes) — pour les glissers rectangle/sélection dont le curseur peut dépasser légèrement les bords. </p>
+
+</div>
+</div>
+<a id="a6e535031898c2f5660eda2d87c508114" name="a6e535031898c2f5660eda2d87c508114"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e535031898c2f5660eda2d87c508114">&#9670;&#160;</a></span>copy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::copy </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copie la sélection courante dans le presse-papiers local (<span class="tt">Ctrl+C</span>, <span class="tt"><a class="el" href="classhmi_1_1EditContextTarget.html" title="Interface pure implémentée par le contexte d&#39;édition actif.">EditContextTarget</a></span>). </p>
+
+<p>Implements <a class="el" href="classhmi_1_1EditContextTarget.html#a3c642227543e70363586f7abbf08ed47">hmi::EditContextTarget</a>.</p>
 
 </div>
 </div>
@@ -824,6 +1018,33 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div><div class="memdoc">
 
 <p>Le brouillon vient d'être modifié (peinture, undo/redo, chargement, lien…) — le panneau « Liens » se resynchronise dessus (<span class="tt">refresh</span>). </p>
+
+</div>
+</div>
+<a id="a0711813562ea435e387d355ebacd5413" name="a0711813562ea435e387d355ebacd5413"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0711813562ea435e387d355ebacd5413">&#9670;&#160;</a></span>editorBindings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1EditorKeyBindings.html">hmi::EditorKeyBindings</a> &amp; hmi::GameViewport::editorBindings </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Accès <b>modifiable</b> aux touches d'éditeur (pour le remappage, <span class="tt">LOT-57</span> TACHE-04), même principe que <span class="tt"><a class="el" href="#a30002a154b0395cdc334fe7313e08219" title="Accès modifiable aux touches de jeu (pour le remappage) : la session de jeu lit ces mêmes bindings,...">gameBindings</a></span>. </p>
 
 </div>
 </div>
@@ -1151,6 +1372,59 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div><div class="memdoc">
 
 <p>Zone à mettre en surbrillance (glisser en cours, sinon sélection mémorisée), le cas échéant. </p>
+
+</div>
+</div>
+<a id="a47134978f9ee32fd613ddd132006835a" name="a47134978f9ee32fd613ddd132006835a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47134978f9ee32fd613ddd132006835a">&#9670;&#160;</a></span>hoveredCell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; hmi::GameViewport::hoveredCell </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La case actuellement survolée par le curseur, absente si hors de la grille ou si le curseur a quitté le viewport (<span class="tt">LOT-57</span> TACHE-01, barre d'état). </dd></dl>
+
+</div>
+</div>
+<a id="a22e7abff7158a0e24d3c4a61879a41f6" name="a22e7abff7158a0e24d3c4a61879a41f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22e7abff7158a0e24d3c4a61879a41f6">&#9670;&#160;</a></span>hoveredCellChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::hoveredCellChanged </td>
+          <td>(</td>
+          <td class="paramtype">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>cell</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La case survolée vient de changer (déplacement de souris, ou sortie du viewport) — consommé par la barre d'état (<span class="tt">LOT-57</span> TACHE-01), qui évite ainsi un travail continu inutile en ne recalculant que sur changement réel. </p>
 
 </div>
 </div>
@@ -1616,6 +1890,35 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
+<a id="aa18a967d2e1415c3ae003962e6bf72cd" name="aa18a967d2e1415c3ae003962e6bf72cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa18a967d2e1415c3ae003962e6bf72cd">&#9670;&#160;</a></span>paste()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::paste </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Colle le presse-papiers à la case survolée (<span class="tt">Ctrl+V</span>, <span class="tt"><a class="el" href="classhmi_1_1EditContextTarget.html" title="Interface pure implémentée par le contexte d&#39;édition actif.">EditContextTarget</a></span>). </p>
+
+<p>Implements <a class="el" href="classhmi_1_1EditContextTarget.html#a40fdcc4e36a7d76387b66d1030724564">hmi::EditContextTarget</a>.</p>
+
+</div>
+</div>
 <a id="a86d870ceb456a975b976f234e0a36cbf" name="a86d870ceb456a975b976f234e0a36cbf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a86d870ceb456a975b976f234e0a36cbf">&#9670;&#160;</a></span>pasteClipboard()</h2>
 
@@ -1693,11 +1996,14 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
-<a id="afce3618d641b86f09b51e66c3af48901" name="afce3618d641b86f09b51e66c3af48901"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afce3618d641b86f09b51e66c3af48901">&#9670;&#160;</a></span>redo()</h2>
+<a id="affb2c9a037fb461700cdb1363887784d" name="affb2c9a037fb461700cdb1363887784d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affb2c9a037fb461700cdb1363887784d">&#9670;&#160;</a></span>redo()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void hmi::GameViewport::redo </td>
@@ -1706,9 +2012,16 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Refait la dernière modification annulée (<span class="tt">Ctrl+Y</span>) ; sans effet si rien à refaire. </p>
+
+<p>Implements <a class="el" href="classhmi_1_1EditContextTarget.html#a977196ba3e313798f6a4285b9d29eb29">hmi::EditContextTarget</a>.</p>
 
 </div>
 </div>
@@ -1767,6 +2080,32 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div><div class="memdoc">
 
 <p>Retire l'override de texture de <code class="param">position</code> (bouton « Retirer » de la section « Objets », <span class="tt">LOT-45</span>) ; sans effet si <code class="param">position</code> n'en a pas. </p>
+
+</div>
+</div>
+<a id="a5988cb444ba8b2dcc59eab258a7a132d" name="a5988cb444ba8b2dcc59eab258a7a132d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5988cb444ba8b2dcc59eab258a7a132d">&#9670;&#160;</a></span>renameOpenLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::GameViewport::renameOpenLevel </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>newName</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Renomme le niveau <b>ouvert</b> (action Rename, <span class="tt">F2</span>, <span class="tt">LOT-57</span> TACHE-04). </p>
+<p>Renomme le fichier existant sur disque (<span class="tt"><a class="el" href="classhmi_1_1LevelFileOperations.html#a29deaa627df5f9e76a87300523963593" title="Renomme le niveau source en newName (met à jour le nom interne).">hmi::LevelFileOperations::rename</a></span>, même chemin que <span class="tt"><a class="el" href="classhmi_1_1LevelBrowserPanel.html#af6be2772b308c62a472a234e35f00c2e">LevelBrowserPanel::onRename</a></span>) si le niveau a déjà été enregistré au moins une fois ; sinon, seul le nom du brouillon change (rien à renommer sur disque). Sans effet si <code class="param">newName</code> est invalide (<span class="tt"><a class="el" href="namespacehmi.html#abf93f3d263fe7268a624a8a96566a89e" title="Indique si name peut servir de nom de niveau (donc de nom de fichier Windows).">hmi::isValidLevelName</a></span>) ou déjà pris par un autre fichier. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newName</td><td>Nouveau nom, tel que saisi (espaces de bord retirés avant validation). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true si le renommage a été appliqué. </dd></dl>
 
 </div>
 </div>
@@ -2744,11 +3083,14 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
-<a id="a713b8aaa5e89ac3a117af92d64d21392" name="a713b8aaa5e89ac3a117af92d64d21392"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a713b8aaa5e89ac3a117af92d64d21392">&#9670;&#160;</a></span>undo()</h2>
+<a id="a568990508f037b367ef14c3b9e19e42f" name="a568990508f037b367ef14c3b9e19e42f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a568990508f037b367ef14c3b9e19e42f">&#9670;&#160;</a></span>undo()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void hmi::GameViewport::undo </td>
@@ -2757,9 +3099,16 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Annule la dernière modification du brouillon (<span class="tt">Ctrl+Z</span>) ; sans effet si rien à annuler. </p>
+
+<p>Implements <a class="el" href="classhmi_1_1EditContextTarget.html#a4252365ae9427a189cbe1e0a05c82064">hmi::EditContextTarget</a>.</p>
 
 </div>
 </div>
@@ -2939,6 +3288,59 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true si redimensionner à (<code class="param">width</code>, <code class="param">height</code>) supprimerait du contenu posé. </dd></dl>
+
+</div>
+</div>
+<a id="ab231368af3ebbbca9bc7a5974b89826d" name="ab231368af3ebbbca9bc7a5974b89826d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab231368af3ebbbca9bc7a5974b89826d">&#9670;&#160;</a></span>zoom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::GameViewport::zoom </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le facteur de zoom courant de la caméra d'édition (<span class="tt">LOT-57</span> TACHE-01, barre d'état). </dd></dl>
+
+</div>
+</div>
+<a id="a30636eb8e2e7cd9e0b6100c3b7831964" name="a30636eb8e2e7cd9e0b6100c3b7831964"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30636eb8e2e7cd9e0b6100c3b7831964">&#9670;&#160;</a></span>zoomChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::zoomChanged </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>zoom</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le zoom d'édition vient de changer (molette, pan, recadrage) — consommé par la barre d'état (<span class="tt">LOT-57</span> TACHE-01). </p>
 
 </div>
 </div>
@@ -3580,8 +3982,8 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
-<a id="a03652235a97abec83dfddf5304931d20" name="a03652235a97abec83dfddf5304931d20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03652235a97abec83dfddf5304931d20">&#9670;&#160;</a></span>_hoverCell</h2>
+<a id="ad780d6c5b7e4843a50fbf1b7f5cb3151" name="ad780d6c5b7e4843a50fbf1b7f5cb3151"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad780d6c5b7e4843a50fbf1b7f5cb3151">&#9670;&#160;</a></span>_hoverCell</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3590,7 +3992,7 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> hmi::GameViewport::_hoverCell {}</td>
+          <td class="memname">std::optional&lt;<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&gt; hmi::GameViewport::_hoverCell</td>
         </tr>
       </table>
   </td>
@@ -3600,7 +4002,7 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </table>
 </div><div class="memdoc">
 
-<p>Dernière case survolée (cible du collage). </p>
+<p>Case actuellement survolée (cible du collage) ; absente hors de la grille ou après que le curseur a quitté le viewport (<span class="tt">LOT-57</span> TACHE-01, <span class="tt">leaveEvent</span> via <span class="tt"><a class="el" href="#a5d3760d8afacd89cccc12dff1f843a9b">event()</a></span>). </p>
 
 </div>
 </div>
@@ -3623,6 +4025,30 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab08f60057375f2e16417a18a1cc07d6f" name="ab08f60057375f2e16417a18a1cc07d6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab08f60057375f2e16417a18a1cc07d6f">&#9670;&#160;</a></span>_lastEmittedZoom</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::GameViewport::_lastEmittedZoom = 0.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dernier zoom notifié (<span class="tt"><a class="el" href="#a30636eb8e2e7cd9e0b6100c3b7831964" title="Le zoom d&#39;édition vient de changer (molette, pan, recadrage) — consommé par la barre d&#39;état (LOT-57 T...">zoomChanged</a></span>), évite l'émission en boucle. </p>
 
 </div>
 </div>

@@ -14,6 +14,11 @@ var dir_8582677ef72a95e6c2b44a30d95c0011 =
     [ "DecorGesture.h", "DecorGesture_8h.html", "DecorGesture_8h" ],
     [ "DecorListModel.cpp", "DecorListModel_8cpp.html", "DecorListModel_8cpp" ],
     [ "DecorListModel.h", "DecorListModel_8h.html", "DecorListModel_8h" ],
+    [ "DecorsPanel.cpp", "DecorsPanel_8cpp.html", null ],
+    [ "DecorsPanel.h", "DecorsPanel_8h.html", "DecorsPanel_8h" ],
+    [ "EditContextTarget.h", "EditContextTarget_8h.html", "EditContextTarget_8h" ],
+    [ "EditorStatus.cpp", "EditorStatus_8cpp.html", "EditorStatus_8cpp" ],
+    [ "EditorStatus.h", "EditorStatus_8h.html", "EditorStatus_8h" ],
     [ "EditorTool.h", "EditorTool_8h.html", "EditorTool_8h" ],
     [ "LevelBrowserPanel.cpp", "LevelBrowserPanel_8cpp.html", null ],
     [ "LevelBrowserPanel.h", "LevelBrowserPanel_8h.html", "LevelBrowserPanel_8h" ],
@@ -33,6 +38,8 @@ var dir_8582677ef72a95e6c2b44a30d95c0011 =
     [ "PaletteAppearance.h", "PaletteAppearance_8h.html", "PaletteAppearance_8h" ],
     [ "PalettePanel.cpp", "PalettePanel_8cpp.html", null ],
     [ "PalettePanel.h", "PalettePanel_8h.html", "PalettePanel_8h" ],
+    [ "PanelFocus.cpp", "PanelFocus_8cpp.html", "PanelFocus_8cpp" ],
+    [ "PanelFocus.h", "PanelFocus_8h.html", "PanelFocus_8h" ],
     [ "SkinAssignments.cpp", "SkinAssignments_8cpp.html", "SkinAssignments_8cpp" ],
     [ "SkinAssignments.h", "SkinAssignments_8h.html", "SkinAssignments_8h" ],
     [ "TaxonomyLabels.cpp", "TaxonomyLabels_8cpp.html", "TaxonomyLabels_8cpp" ],
@@ -44,7 +51,5 @@ var dir_8582677ef72a95e6c2b44a30d95c0011 =
     [ "ThumbnailGeometry.cpp", "ThumbnailGeometry_8cpp.html", "ThumbnailGeometry_8cpp" ],
     [ "ThumbnailGeometry.h", "ThumbnailGeometry_8h.html", "ThumbnailGeometry_8h" ],
     [ "TileTaxonomy.cpp", "TileTaxonomy_8cpp.html", "TileTaxonomy_8cpp" ],
-    [ "TileTaxonomy.h", "TileTaxonomy_8h.html", "TileTaxonomy_8h" ],
-    [ "ToolPanel.cpp", "ToolPanel_8cpp.html", null ],
-    [ "ToolPanel.h", "ToolPanel_8h.html", "ToolPanel_8h" ]
+    [ "TileTaxonomy.h", "TileTaxonomy_8h.html", "TileTaxonomy_8h" ]
 ];

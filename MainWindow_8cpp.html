@@ -101,14 +101,18 @@ $(function(){initNavTree('MainWindow_8cpp.html','',''); });
 <code>#include &lt;QDialog&gt;</code><br />
 <code>#include &lt;QDialogButtonBox&gt;</code><br />
 <code>#include &lt;QDockWidget&gt;</code><br />
+<code>#include &lt;QFontMetrics&gt;</code><br />
 <code>#include &lt;QFormLayout&gt;</code><br />
 <code>#include &lt;QGuiApplication&gt;</code><br />
+<code>#include &lt;QInputDialog&gt;</code><br />
 <code>#include &lt;QKeyEvent&gt;</code><br />
 <code>#include &lt;QLabel&gt;</code><br />
+<code>#include &lt;QLineEdit&gt;</code><br />
 <code>#include &lt;QMenu&gt;</code><br />
 <code>#include &lt;QMenuBar&gt;</code><br />
 <code>#include &lt;QMessageBox&gt;</code><br />
 <code>#include &lt;QSettings&gt;</code><br />
+<code>#include &lt;QSignalBlocker&gt;</code><br />
 <code>#include &lt;QSpinBox&gt;</code><br />
 <code>#include &lt;QStackedWidget&gt;</code><br />
 <code>#include &lt;QStatusBar&gt;</code><br />
@@ -118,16 +122,19 @@ $(function(){initNavTree('MainWindow_8cpp.html','',''); });
 <code>#include &lt;QToolBar&gt;</code><br />
 <code>#include &lt;QVBoxLayout&gt;</code><br />
 <code>#include &lt;QWidget&gt;</code><br />
+<code>#include &lt;array&gt;</code><br />
 <code>#include &lt;ctime&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="MemoryLogSink_8h_source.html">Core/Diagnostics/MemoryLogSink.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SessionLog_8h_source.html">HMI/Diagnostics/SessionLog.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="EditorStatus_8h_source.html">HMI/Editor/EditorStatus.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelBrowserPanel_8h_source.html">HMI/Editor/LevelBrowserPanel.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LinkPanel_8h_source.html">HMI/Editor/LinkPanel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="DecorsPanel_8h_source.html">HMI/Editor/DecorsPanel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PanelFocus_8h_source.html">HMI/Editor/PanelFocus.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TexturePanel_8h_source.html">HMI/Editor/TexturePanel.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PalettePanel_8h_source.html">HMI/Editor/PalettePanel.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="ToolPanel_8h_source.html">HMI/Editor/ToolPanel.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GameViewport_8h_source.html">HMI/Game/GameViewport.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="HmiLog_8h_source.html">HMI/HmiLog.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GamepadButton_8h_source.html">HMI/Input/GamepadButton.h</a>&quot;</code><br />

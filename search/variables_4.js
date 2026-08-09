@@ -18,6 +18,7 @@ var searchData=
   ['default_5frender_5flayer_15',['DEFAULT_RENDER_LAYER',['../namespacehmi.html#ab6e44ad3d54b0383ef13f332d290df46',1,'hmi']]],
   ['default_5frender_5fmode_16',['DEFAULT_RENDER_MODE',['../namespacehmi.html#a6757e25cf3a1020826327afe0dd194d3',1,'hmi']]],
   ['description_17',['description',['../structhmi_1_1AnimationDescriptionResult.html#a3cdcee7012ff94ee9d1035738c33edaf',1,'hmi::AnimationDescriptionResult']]],
-  ['disconnected_5fpoll_5finterval_18',['DISCONNECTED_POLL_INTERVAL',['../classhmi_1_1GamepadPoller.html#a7240bc976fbcfe00033bdbc223776d58',1,'hmi::GamepadPoller']]],
-  ['doorposition_19',['doorPosition',['../structcore_1_1Mechanism.html#aff8f5698a02356618c67d7fafae8b2b7',1,'core::Mechanism']]]
+  ['dirty_18',['dirty',['../structhmi_1_1LevelStatusInfo.html#a9cd9b8b2b1e60de42886994d2ffb1310',1,'hmi::LevelStatusInfo']]],
+  ['disconnected_5fpoll_5finterval_19',['DISCONNECTED_POLL_INTERVAL',['../classhmi_1_1GamepadPoller.html#a7240bc976fbcfe00033bdbc223776d58',1,'hmi::GamepadPoller']]],
+  ['doorposition_20',['doorPosition',['../structcore_1_1Mechanism.html#aff8f5698a02356618c67d7fafae8b2b7',1,'core::Mechanism']]]
 ];

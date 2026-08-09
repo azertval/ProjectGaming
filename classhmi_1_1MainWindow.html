@@ -124,6 +124,12 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:abb2b5a4ae54723c485af101667fc2f23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre la boîte de dialogue de redimensionnement du niveau (avec confirmation si destructeur).  <br /></td></tr>
 <tr class="memitem:a1ed419815e2ff1739411e9b7597f6734" id="r_a1ed419815e2ff1739411e9b7597f6734"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1ed419815e2ff1739411e9b7597f6734">retranslateUi</a> ()</td></tr>
 <tr class="memdesc:a1ed419815e2ff1739411e9b7597f6734"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique la langue active à tous les textes de l'IHM (fenêtre, menus, docks, panneaux).  <br /></td></tr>
+<tr class="memitem:ace1ef846c7704477a23af655b4f78e74" id="r_ace1ef846c7704477a23af655b4f78e74"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ace1ef846c7704477a23af655b4f78e74">refreshStatusHelp</a> ()</td></tr>
+<tr class="memdesc:ace1ef846c7704477a23af655b4f78e74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalcule et réaffiche la barre d'état (zones permanentes + aide contextuelle) depuis l'état courant du viewport (<span class="tt">LOT-57</span> TACHE-01, <span class="tt"><a class="el" href="namespacehmi.html#a8a9b5847205047e29cd377960c0ff15c" title="Décide le contenu de la barre d&#39;état de l&#39;éditeur pour context.">hmi::editorStatusLines</a></span>) — seule voie de mise à jour, appelée par tout changement pertinent (outil, survol, zoom, brouillon) ainsi qu'à l'expiration d'un message transitoire, pour la restaurer.  <br /></td></tr>
+<tr class="memitem:a77025d20fbce06f8f0fd55455cc6eca8" id="r_a77025d20fbce06f8f0fd55455cc6eca8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a77025d20fbce06f8f0fd55455cc6eca8">showTransientStatusMessage</a> (const QString &amp;message, int timeoutMs)</td></tr>
+<tr class="memdesc:a77025d20fbce06f8f0fd55455cc6eca8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affiche <code class="param">message</code> pour <code class="param">timeoutMs</code> dans la barre d'état, puis restaure l'aide contextuelle (<span class="tt"><a class="el" href="#ace1ef846c7704477a23af655b4f78e74" title="Recalcule et réaffiche la barre d&#39;état (zones permanentes + aide contextuelle) depuis l&#39;état courant ...">refreshStatusHelp</a></span>) — remplace <span class="tt">QStatusBar::showMessage</span>'s minuteur interne, qui laissait la barre vide à l'expiration au lieu de reprendre la main.  <br /></td></tr>
+<tr class="memitem:a79a0a32f6374cffe570e60650baadca4" id="r_a79a0a32f6374cffe570e60650baadca4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a79a0a32f6374cffe570e60650baadca4">applyPanelFocus</a> (<a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">hmi::EditorTool</a> tool)</td></tr>
+<tr class="memdesc:a79a0a32f6374cffe570e60650baadca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met en avant le panneau associé à <code class="param">tool</code> (<span class="tt"><a class="el" href="namespacehmi.html#a581615846aad015aff0e0a17e4f997c4">hmi::panelForTool</a></span>), si le réglage est actif et que l'utilisateur n'a rien imposé lui-même (<span class="tt">LOT-57</span> TACHE-02) — jamais un masquage, une simple suggestion de premier plan parmi les onglets regroupés.  <br /></td></tr>
 <tr class="memitem:abe9a3497ec9660b8c35097456cd7c181" id="r_abe9a3497ec9660b8c35097456cd7c181"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abe9a3497ec9660b8c35097456cd7c181">changeLanguage</a> (const QString &amp;code)</td></tr>
 <tr class="memdesc:abe9a3497ec9660b8c35097456cd7c181"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change la langue active (recharge le catalogue, persiste, retraduit tout).  <br /></td></tr>
 <tr class="memitem:acfd88f3e6576c175480e4eeac406ea93" id="r_acfd88f3e6576c175480e4eeac406ea93"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acfd88f3e6576c175480e4eeac406ea93">saveSessionLogs</a> ()</td></tr>
@@ -159,12 +165,14 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:ac5c63412581fcf98bd57cfe47e5b3510"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conteneur natif du viewport (page éditeur/jeu).  <br /></td></tr>
 <tr class="memitem:a1ed57ff25b1be1c311886896b1ae444f" id="r_a1ed57ff25b1be1c311886896b1ae444f"><td class="memItemLeft"><a class="el" href="classhmi_1_1GameViewport.html">GameViewport</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a1ed57ff25b1be1c311886896b1ae444f">_viewport</a></td></tr>
 <tr class="memdesc:a1ed57ff25b1be1c311886896b1ae444f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Surface de rendu D3D11 (possédée par le conteneur central).  <br /></td></tr>
+<tr class="memitem:acdb82ee8e5a56236705ceec1908982ff" id="r_acdb82ee8e5a56236705ceec1908982ff"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditContextTarget.html">EditContextTarget</a> *&#160;</td><td class="memItemRight"><a class="el" href="#acdb82ee8e5a56236705ceec1908982ff">_editContext</a> = nullptr</td></tr>
+<tr class="memdesc:acdb82ee8e5a56236705ceec1908982ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contexte d'édition actif, cible d'Annuler/Refaire/Copier/Coller (<span class="tt">LOT-57</span> TACHE-04) — égal à <span class="tt"><a class="el" href="#a1ed57ff25b1be1c311886896b1ae444f" title="Surface de rendu D3D11 (possédée par le conteneur central).">_viewport</a></span> aujourd'hui, seule implémentation ; un futur atelier pixel art (<span class="tt">LOT-54</span>) pourra le réassigner sans changer le dispatch des actions.  <br /></td></tr>
 <tr class="memitem:af1127880bfad8cb9a4e49eb5c072ca08" id="r_af1127880bfad8cb9a4e49eb5c072ca08"><td class="memItemLeft"><a class="el" href="classhmi_1_1PalettePanel.html">PalettePanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#af1127880bfad8cb9a4e49eb5c072ca08">_palette</a></td></tr>
 <tr class="memdesc:af1127880bfad8cb9a4e49eb5c072ca08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbre de sélection du type de tuile (contenu du dock Palette).  <br /></td></tr>
 <tr class="memitem:aa3a6277e15086fc09f3ba9b42dfc86e2" id="r_aa3a6277e15086fc09f3ba9b42dfc86e2"><td class="memItemLeft"><a class="el" href="classhmi_1_1LevelBrowserPanel.html">LevelBrowserPanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa3a6277e15086fc09f3ba9b42dfc86e2">_levels</a></td></tr>
 <tr class="memdesc:aa3a6277e15086fc09f3ba9b42dfc86e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liste/gestion des fichiers de niveaux (contenu du dock Niveaux).  <br /></td></tr>
-<tr class="memitem:a0a6c265c4c2be66172210f86051c0303" id="r_a0a6c265c4c2be66172210f86051c0303"><td class="memItemLeft"><a class="el" href="classhmi_1_1ToolPanel.html">ToolPanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a0a6c265c4c2be66172210f86051c0303">_tools</a></td></tr>
-<tr class="memdesc:a0a6c265c4c2be66172210f86051c0303"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sélecteur d'outil d'édition (contenu du dock Outils).  <br /></td></tr>
+<tr class="memitem:a5f1add76ec84a6e36c0c848293e2afcd" id="r_a5f1add76ec84a6e36c0c848293e2afcd"><td class="memItemLeft"><a class="el" href="classhmi_1_1DecorsPanel.html">DecorsPanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a5f1add76ec84a6e36c0c848293e2afcd">_decors</a></td></tr>
+<tr class="memdesc:a5f1add76ec84a6e36c0c848293e2afcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Placement/inspection de décors (dock Décors, <span class="tt">LOT-57</span> amendement) — contenait déjà tout ce qui concerne les décors (<span class="tt">ToolPanel</span>, <span class="tt">LOT-56</span> TACHE-04) avant d'y accueillir aussi l'inspecteur déplacé du panneau Textures.  <br /></td></tr>
 <tr class="memitem:a25b7f8b81604897b4eb8e29bdf3fd85e" id="r_a25b7f8b81604897b4eb8e29bdf3fd85e"><td class="memItemLeft"><a class="el" href="classhmi_1_1LinkPanel.html">LinkPanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a25b7f8b81604897b4eb8e29bdf3fd85e">_links</a></td></tr>
 <tr class="memdesc:a25b7f8b81604897b4eb8e29bdf3fd85e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liste/gestion des liaisons de mécanismes (dock Liens, LOT-37).  <br /></td></tr>
 <tr class="memitem:a5602a56b2b14b4139a7512c0acf75a3e" id="r_a5602a56b2b14b4139a7512c0acf75a3e"><td class="memItemLeft"><a class="el" href="classhmi_1_1TexturePanel.html">TexturePanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a5602a56b2b14b4139a7512c0acf75a3e">_textures</a></td></tr>
@@ -180,6 +188,21 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a2733313b50df77944124432621620597" id="r_a2733313b50df77944124432621620597"><td class="memItemLeft">QAction *&#160;</td><td class="memItemRight"><a class="el" href="#a2733313b50df77944124432621620597">_themeDarkAction</a></td></tr>
 <tr class="memitem:aa0f18b423a6be1bda623de58166a835f" id="r_aa0f18b423a6be1bda623de58166a835f"><td class="memItemLeft">QByteArray&#160;</td><td class="memItemRight"><a class="el" href="#aa0f18b423a6be1bda623de58166a835f">_defaultState</a></td></tr>
 <tr class="memdesc:aa0f18b423a6be1bda623de58166a835f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disposition par défaut (pour « Réinitialiser la disposition »).  <br /></td></tr>
+<tr class="memitem:a5ef79dfc7f245f466e3b459838b93d23" id="r_a5ef79dfc7f245f466e3b459838b93d23"><td class="memItemLeft">QAction *&#160;</td><td class="memItemRight"><a class="el" href="#a5ef79dfc7f245f466e3b459838b93d23">_actFollowActiveTool</a> = nullptr</td></tr>
+<tr class="memdesc:a5ef79dfc7f245f466e3b459838b93d23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réglage persisté (menu Affichage).  <br /></td></tr>
+<tr class="memitem:a324f91fcd0352eb34be747deb6beb0d3" id="r_a324f91fcd0352eb34be747deb6beb0d3"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a324f91fcd0352eb34be747deb6beb0d3">_userPickedTab</a> = false</td></tr>
+<tr class="memdesc:a324f91fcd0352eb34be747deb6beb0d3"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">true</span> dès que l'utilisateur a choisi un onglet ou déplacé un panneau lui-même : la mise en avant automatique cesse alors pour la session (jamais persisté, cf.  <br /></td></tr>
+<tr class="memitem:aff2cc741a88013d0821f5ed556409b71" id="r_aff2cc741a88013d0821f5ed556409b71"><td class="memItemLeft">std::array&lt; QAction *, 7 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aff2cc741a88013d0821f5ed556409b71">_layerVisibilityActions</a> {}</td></tr>
+<tr class="memitem:a6419d84811721041185969be8dc8b105" id="r_a6419d84811721041185969be8dc8b105"><td class="memItemLeft">QAction *&#160;</td><td class="memItemRight"><a class="el" href="#a6419d84811721041185969be8dc8b105">_actShowAllLayers</a> = nullptr</td></tr>
+<tr class="memitem:af383ac40d93b51725b361d72e2342292" id="r_af383ac40d93b51725b361d72e2342292"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af383ac40d93b51725b361d72e2342292">_suppressPanelFocusTracking</a> = false</td></tr>
+<tr class="memdesc:af383ac40d93b51725b361d72e2342292"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">true</span> pendant un changement de visibilité <b>provoqué par le code</b> (mise en avant automatique, bascule de mode, restauration de disposition) : évite qu'un tel changement soit pris pour un choix explicite de l'utilisateur (<span class="tt">QDockWidget::visibilityChanged</span>).  <br /></td></tr>
+<tr class="memitem:a01b3c1deb648798f61f0989a06c496cc" id="r_a01b3c1deb648798f61f0989a06c496cc"><td class="memItemLeft">QLabel *&#160;</td><td class="memItemRight"><a class="el" href="#a01b3c1deb648798f61f0989a06c496cc">_statusLevel</a> = nullptr</td></tr>
+<tr class="memitem:aab94b7069d9eace8a98eba480934326c" id="r_aab94b7069d9eace8a98eba480934326c"><td class="memItemLeft">QLabel *&#160;</td><td class="memItemRight"><a class="el" href="#aab94b7069d9eace8a98eba480934326c">_statusDirty</a> = nullptr</td></tr>
+<tr class="memitem:a02c5b9584d57d6c6dbefb74d1090ee7b" id="r_a02c5b9584d57d6c6dbefb74d1090ee7b"><td class="memItemLeft">QLabel *&#160;</td><td class="memItemRight"><a class="el" href="#a02c5b9584d57d6c6dbefb74d1090ee7b">_statusTool</a> = nullptr</td></tr>
+<tr class="memitem:a7131e45a37b5aba9918d58d9f34643d1" id="r_a7131e45a37b5aba9918d58d9f34643d1"><td class="memItemLeft">QLabel *&#160;</td><td class="memItemRight"><a class="el" href="#a7131e45a37b5aba9918d58d9f34643d1">_statusHover</a> = nullptr</td></tr>
+<tr class="memitem:ab10226b2c497c611d347ae6ecbc20763" id="r_ab10226b2c497c611d347ae6ecbc20763"><td class="memItemLeft">QLabel *&#160;</td><td class="memItemRight"><a class="el" href="#ab10226b2c497c611d347ae6ecbc20763">_statusZoom</a> = nullptr</td></tr>
+<tr class="memitem:a2d4fd479e6168cd919c7f22208347a5e" id="r_a2d4fd479e6168cd919c7f22208347a5e"><td class="memItemLeft">QTimer *&#160;</td><td class="memItemRight"><a class="el" href="#a2d4fd479e6168cd919c7f22208347a5e">_statusMessageTimer</a> = nullptr</td></tr>
+<tr class="memdesc:a2d4fd479e6168cd919c7f22208347a5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restaure l'aide contextuelle à l'expiration d'un message transitoire (<span class="tt"><a class="el" href="#a77025d20fbce06f8f0fd55455cc6eca8" title="Affiche message pour timeoutMs dans la barre d&#39;état, puis restaure l&#39;aide contextuelle (refreshStatus...">showTransientStatusMessage</a></span>).  <br /></td></tr>
 <tr class="memitem:a5caf9b64fbcd7d83d4b9473221e6af09" id="r_a5caf9b64fbcd7d83d4b9473221e6af09"><td class="memItemLeft"><a class="el" href="classhmi_1_1Localization.html">Localization</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5caf9b64fbcd7d83d4b9473221e6af09">_loc</a></td></tr>
 <tr class="memdesc:a5caf9b64fbcd7d83d4b9473221e6af09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogue de traduction (i18n), source de tous les textes.  <br /></td></tr>
 <tr class="memitem:a48ba153acc890d6de84fe2847b5162a9" id="r_a48ba153acc890d6de84fe2847b5162a9"><td class="memItemLeft"><a class="el" href="classcore_1_1MemoryLogSink.html">core::MemoryLogSink</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a48ba153acc890d6de84fe2847b5162a9">_sessionLog</a></td></tr>
@@ -221,6 +244,7 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+<p>&lt; Seule implémentation aujourd'hui (LOT-57 TACHE-04).</p>
 
 </div>
 </div>
@@ -250,6 +274,33 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a79a0a32f6374cffe570e60650baadca4" name="a79a0a32f6374cffe570e60650baadca4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79a0a32f6374cffe570e60650baadca4">&#9670;&#160;</a></span>applyPanelFocus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::applyPanelFocus </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">hmi::EditorTool</a></td>          <td class="paramname"><span class="paramname"><em>tool</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Met en avant le panneau associé à <code class="param">tool</code> (<span class="tt"><a class="el" href="namespacehmi.html#a581615846aad015aff0e0a17e4f997c4">hmi::panelForTool</a></span>), si le réglage est actif et que l'utilisateur n'a rien imposé lui-même (<span class="tt">LOT-57</span> TACHE-02) — jamais un masquage, une simple suggestion de premier plan parmi les onglets regroupés. </p>
+
+</div>
+</div>
 <a id="a2be2a6b71ee9770ab402e16bf8d61666" name="a2be2a6b71ee9770ab402e16bf8d61666"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2be2a6b71ee9770ab402e16bf8d61666">&#9670;&#160;</a></span>buildUi()</h2>
 
@@ -382,6 +433,33 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Traduit la manette en navigation de focus Qt (menus/options) : appelé par <span class="tt"><a class="el" href="#ad41040f5be4a9ff6498547f88c00f35a">_menuNavTimer</a></span>. </p>
+
+</div>
+</div>
+<a id="ace1ef846c7704477a23af655b4f78e74" name="ace1ef846c7704477a23af655b4f78e74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace1ef846c7704477a23af655b4f78e74">&#9670;&#160;</a></span>refreshStatusHelp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::refreshStatusHelp </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Recalcule et réaffiche la barre d'état (zones permanentes + aide contextuelle) depuis l'état courant du viewport (<span class="tt">LOT-57</span> TACHE-01, <span class="tt"><a class="el" href="namespacehmi.html#a8a9b5847205047e29cd377960c0ff15c" title="Décide le contenu de la barre d&#39;état de l&#39;éditeur pour context.">hmi::editorStatusLines</a></span>) — seule voie de mise à jour, appelée par tout changement pertinent (outil, survol, zoom, brouillon) ainsi qu'à l'expiration d'un message transitoire, pour la restaurer. </p>
 
 </div>
 </div>
@@ -651,6 +729,37 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a77025d20fbce06f8f0fd55455cc6eca8" name="a77025d20fbce06f8f0fd55455cc6eca8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77025d20fbce06f8f0fd55455cc6eca8">&#9670;&#160;</a></span>showTransientStatusMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::showTransientStatusMessage </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>message</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>timeoutMs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Affiche <code class="param">message</code> pour <code class="param">timeoutMs</code> dans la barre d'état, puis restaure l'aide contextuelle (<span class="tt"><a class="el" href="#ace1ef846c7704477a23af655b4f78e74" title="Recalcule et réaffiche la barre d&#39;état (zones permanentes + aide contextuelle) depuis l&#39;état courant ...">refreshStatusHelp</a></span>) — remplace <span class="tt">QStatusBar::showMessage</span>'s minuteur interne, qui laissait la barre vide à l'expiration au lieu de reprendre la main. </p>
+
+</div>
+</div>
 <a id="a23d7033f2e1cfe842e9d3c9f6f6f6db8" name="a23d7033f2e1cfe842e9d3c9f6f6f6db8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a23d7033f2e1cfe842e9d3c9f6f6f6db8">&#9670;&#160;</a></span>text()</h2>
 
@@ -679,6 +788,30 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a5ef79dfc7f245f466e3b459838b93d23" name="a5ef79dfc7f245f466e3b459838b93d23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ef79dfc7f245f466e3b459838b93d23">&#9670;&#160;</a></span>_actFollowActiveTool</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QAction* hmi::MainWindow::_actFollowActiveTool = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Réglage persisté (menu Affichage). </p>
+
+</div>
+</div>
 <a id="aa11ea4bf8bdc5815fc36bee49cd1c0ed" name="aa11ea4bf8bdc5815fc36bee49cd1c0ed"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa11ea4bf8bdc5815fc36bee49cd1c0ed">&#9670;&#160;</a></span>_actions</h2>
 
@@ -700,6 +833,53 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Outils et commandes principales, barre d'outils (LOT-56 TACHE-04). </p>
+
+</div>
+</div>
+<a id="a6419d84811721041185969be8dc8b105" name="a6419d84811721041185969be8dc8b105"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6419d84811721041185969be8dc8b105">&#9670;&#160;</a></span>_actShowAllLayers</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QAction* hmi::MainWindow::_actShowAllLayers = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5f1add76ec84a6e36c0c848293e2afcd" name="a5f1add76ec84a6e36c0c848293e2afcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f1add76ec84a6e36c0c848293e2afcd">&#9670;&#160;</a></span>_decors</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1DecorsPanel.html">DecorsPanel</a>* hmi::MainWindow::_decors</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Placement/inspection de décors (dock Décors, <span class="tt">LOT-57</span> amendement) — contenait déjà tout ce qui concerne les décors (<span class="tt">ToolPanel</span>, <span class="tt">LOT-56</span> TACHE-04) avant d'y accueillir aussi l'inspecteur déplacé du panneau Textures. </p>
+<p>La barre d'outils reste hors de ce panneau. </p>
 
 </div>
 </div>
@@ -727,6 +907,30 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="acdb82ee8e5a56236705ceec1908982ff" name="acdb82ee8e5a56236705ceec1908982ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdb82ee8e5a56236705ceec1908982ff">&#9670;&#160;</a></span>_editContext</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1EditContextTarget.html">EditContextTarget</a>* hmi::MainWindow::_editContext = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Contexte d'édition actif, cible d'Annuler/Refaire/Copier/Coller (<span class="tt">LOT-57</span> TACHE-04) — égal à <span class="tt"><a class="el" href="#a1ed57ff25b1be1c311886896b1ae444f" title="Surface de rendu D3D11 (possédée par le conteneur central).">_viewport</a></span> aujourd'hui, seule implémentation ; un futur atelier pixel art (<span class="tt">LOT-54</span>) pourra le réassigner sans changer le dispatch des actions. </p>
+
+</div>
+</div>
 <a id="ac5c63412581fcf98bd57cfe47e5b3510" name="ac5c63412581fcf98bd57cfe47e5b3510"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac5c63412581fcf98bd57cfe47e5b3510">&#9670;&#160;</a></span>_editorContainer</h2>
 
@@ -748,6 +952,28 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Conteneur natif du viewport (page éditeur/jeu). </p>
+
+</div>
+</div>
+<a id="aff2cc741a88013d0821f5ed556409b71" name="aff2cc741a88013d0821f5ed556409b71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff2cc741a88013d0821f5ed556409b71">&#9670;&#160;</a></span>_layerVisibilityActions</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt;QAction*, 7&gt; hmi::MainWindow::_layerVisibilityActions {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1009,6 +1235,164 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aab94b7069d9eace8a98eba480934326c" name="aab94b7069d9eace8a98eba480934326c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab94b7069d9eace8a98eba480934326c">&#9670;&#160;</a></span>_statusDirty</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QLabel* hmi::MainWindow::_statusDirty = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7131e45a37b5aba9918d58d9f34643d1" name="a7131e45a37b5aba9918d58d9f34643d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7131e45a37b5aba9918d58d9f34643d1">&#9670;&#160;</a></span>_statusHover</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QLabel* hmi::MainWindow::_statusHover = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a01b3c1deb648798f61f0989a06c496cc" name="a01b3c1deb648798f61f0989a06c496cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01b3c1deb648798f61f0989a06c496cc">&#9670;&#160;</a></span>_statusLevel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QLabel* hmi::MainWindow::_statusLevel = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2d4fd479e6168cd919c7f22208347a5e" name="a2d4fd479e6168cd919c7f22208347a5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d4fd479e6168cd919c7f22208347a5e">&#9670;&#160;</a></span>_statusMessageTimer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QTimer* hmi::MainWindow::_statusMessageTimer = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Restaure l'aide contextuelle à l'expiration d'un message transitoire (<span class="tt"><a class="el" href="#a77025d20fbce06f8f0fd55455cc6eca8" title="Affiche message pour timeoutMs dans la barre d&#39;état, puis restaure l&#39;aide contextuelle (refreshStatus...">showTransientStatusMessage</a></span>). </p>
+
+</div>
+</div>
+<a id="a02c5b9584d57d6c6dbefb74d1090ee7b" name="a02c5b9584d57d6c6dbefb74d1090ee7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02c5b9584d57d6c6dbefb74d1090ee7b">&#9670;&#160;</a></span>_statusTool</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QLabel* hmi::MainWindow::_statusTool = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab10226b2c497c611d347ae6ecbc20763" name="ab10226b2c497c611d347ae6ecbc20763"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab10226b2c497c611d347ae6ecbc20763">&#9670;&#160;</a></span>_statusZoom</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QLabel* hmi::MainWindow::_statusZoom = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af383ac40d93b51725b361d72e2342292" name="af383ac40d93b51725b361d72e2342292"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af383ac40d93b51725b361d72e2342292">&#9670;&#160;</a></span>_suppressPanelFocusTracking</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::MainWindow::_suppressPanelFocusTracking = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><span class="tt">true</span> pendant un changement de visibilité <b>provoqué par le code</b> (mise en avant automatique, bascule de mode, restauration de disposition) : évite qu'un tel changement soit pris pour un choix explicite de l'utilisateur (<span class="tt">QDockWidget::visibilityChanged</span>). </p>
+
+</div>
+</div>
 <a id="a5602a56b2b14b4139a7512c0acf75a3e" name="a5602a56b2b14b4139a7512c0acf75a3e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5602a56b2b14b4139a7512c0acf75a3e">&#9670;&#160;</a></span>_textures</h2>
 
@@ -1147,30 +1531,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a0a6c265c4c2be66172210f86051c0303" name="a0a6c265c4c2be66172210f86051c0303"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a6c265c4c2be66172210f86051c0303">&#9670;&#160;</a></span>_tools</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classhmi_1_1ToolPanel.html">ToolPanel</a>* hmi::MainWindow::_tools</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sélecteur d'outil d'édition (contenu du dock Outils). </p>
-
-</div>
-</div>
 <a id="abbf193c38db62a49872c5a57b1b61cce" name="abbf193c38db62a49872c5a57b1b61cce"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abbf193c38db62a49872c5a57b1b61cce">&#9670;&#160;</a></span>_ui</h2>
 
@@ -1192,6 +1552,31 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Mise en page (MainWindow.ui : menubar + docks). </p>
+
+</div>
+</div>
+<a id="a324f91fcd0352eb34be747deb6beb0d3" name="a324f91fcd0352eb34be747deb6beb0d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a324f91fcd0352eb34be747deb6beb0d3">&#9670;&#160;</a></span>_userPickedTab</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::MainWindow::_userPickedTab = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><span class="tt">true</span> dès que l'utilisateur a choisi un onglet ou déplacé un panneau lui-même : la mise en avant automatique cesse alors pour la session (jamais persisté, cf. </p>
+<p><span class="tt"><a class="el" href="namespacehmi.html#a581615846aad015aff0e0a17e4f997c4">hmi::panelForTool</a></span>). </p>
 
 </div>
 </div>

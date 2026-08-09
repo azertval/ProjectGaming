@@ -111,6 +111,16 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État complet du geste en cours, possédé par l'appelant (même patron que <span class="tt"><a class="el" href="structhmi_1_1PendingLink.html" title="Case en attente d&#39;appariement (premier clic de l&#39;outil « Lien »), avec son type courant.">hmi::PendingLink</a></span> pour <span class="tt">LinkGesture</span> : l'appelant porte l'état, ces fonctions le font évoluer).  <a href="structhmi_1_1DecorGestureState.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DecorListRow" id="r_DecorListRow"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DecorListRow.html">DecorListRow</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une ligne de la section « Décors » : un décor du niveau courant, avec son rang d'origine (identité stable pour la sélection croisée et les actions, <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a1d49b3c7088c0f8928c8a2aaadee665e">core::LevelDraft::decors()</a></span>).  <a href="structhmi_1_1DecorListRow.html#details">More...</a><br /></td></tr>
+<tr class="memitem:DecorsPanel" id="r_DecorsPanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1DecorsPanel.html">DecorsPanel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Panneau « Décors », qui regroupe deux choses jusqu'ici dispersées :  <a href="classhmi_1_1DecorsPanel.html#details">More...</a><br /></td></tr>
+<tr class="memitem:EditContextTarget" id="r_EditContextTarget"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1EditContextTarget.html">EditContextTarget</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface pure implémentée par le contexte d'édition <b>actif</b>.  <a href="classhmi_1_1EditContextTarget.html#details">More...</a><br /></td></tr>
+<tr class="memitem:LevelStatusInfo" id="r_LevelStatusInfo"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1LevelStatusInfo.html">LevelStatusInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État affiché pour un niveau en cours d'édition (barre d'état, <span class="tt">EX-EDIT-013</span>/<span class="tt">EX-EDIT-012</span>).  <a href="structhmi_1_1LevelStatusInfo.html#details">More...</a><br /></td></tr>
+<tr class="memitem:EditorStatusContext" id="r_EditorStatusContext"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1EditorStatusContext.html">EditorStatusContext</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contexte d'édition dont la barre d'état décide l'affichage.  <a href="structhmi_1_1EditorStatusContext.html#details">More...</a><br /></td></tr>
+<tr class="memitem:EditorStatusLines" id="r_EditorStatusLines"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1EditorStatusLines.html">EditorStatusLines</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lignes à afficher pour la barre d'état de l'éditeur, à un instant donné.  <a href="structhmi_1_1EditorStatusLines.html#details">More...</a><br /></td></tr>
 <tr class="memitem:LevelBrowserPanel" id="r_LevelBrowserPanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1LevelBrowserPanel.html">LevelBrowserPanel</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Panneau de gestion des niveaux : liste filtrable + créer/renommer/dupliquer/supprimer.  <a href="classhmi_1_1LevelBrowserPanel.html#details">More...</a><br /></td></tr>
 <tr class="memitem:FileOpResult" id="r_FileOpResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1FileOpResult.html">FileOpResult</a></td></tr>
@@ -135,6 +145,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vignette à afficher pour un type de tuile : d'où la lire, et quelle région y prendre.  <a href="structhmi_1_1PaletteThumbnail.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PalettePanel" id="r_PalettePanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PalettePanel.html">PalettePanel</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Palette de tuiles en <b>arbre</b> (<span class="tt">QTreeView</span>) : catégories → sous-groupes → tuiles.  <a href="classhmi_1_1PalettePanel.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PanelFocusEntry" id="r_PanelFocusEntry"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PanelFocusEntry.html">PanelFocusEntry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une entrée de la table : l'outil <code class="param">tool</code> met en avant le panneau <code class="param">panel</code>.  <a href="structhmi_1_1PanelFocusEntry.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SkinRow" id="r_SkinRow"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SkinRow.html">SkinRow</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une ligne du panneau : un type de tuile et l'apparence qui lui est assignée, s'il y en a une.  <a href="structhmi_1_1SkinRow.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SkinSection" id="r_SkinSection"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SkinSection.html">SkinSection</a></td></tr>
@@ -149,8 +161,6 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un sous-groupe : une famille de variantes (formes/tailles/orientations) sous une catégorie.  <a href="structhmi_1_1TileSubgroup.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TileCategory" id="r_TileCategory"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1TileCategory.html">TileCategory</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une catégorie de premier niveau : ses tuiles directes + ses sous-groupes repliables.  <a href="structhmi_1_1TileCategory.html#details">More...</a><br /></td></tr>
-<tr class="memitem:ToolPanel" id="r_ToolPanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1ToolPanel.html">ToolPanel</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Panneau « Outils » : le <b>strict nécessaire</b> de l'outil Décor (<span class="tt">LOT-49</span> TACHE-04) — grille de vignettes (<span class="tt"><a class="el" href="classhmi_1_1AssetThumbnailView.html" title="Grille de vignettes d&#39;un dossier d&#39;assets, avec recherche, sélection et gestion des fichiers (importe...">hmi::AssetThumbnailView</a></span>, <span class="tt">LOT-43</span>) sur <span class="tt">Assets/Decors/</span> et un sélecteur de couche.  <a href="classhmi_1_1ToolPanel.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GameSession" id="r_GameSession"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1GameSession.html">GameSession</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simule et rend <b>un seul niveau</b> (déjà validé, en mémoire), indépendamment de toute infrastructure d'écran.  <a href="classhmi_1_1GameSession.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GameViewport" id="r_GameViewport"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1GameViewport.html">GameViewport</a></td></tr>
@@ -275,6 +285,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État des entrées d'une frame, avec détection des fronts (pressée / relâchée).  <a href="classhmi_1_1InputState.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EditorActionSpec" id="r_EditorActionSpec"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1EditorActionSpec.html">EditorActionSpec</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description d'une action, indépendante de Qt : de quoi construire un <span class="tt">QAction</span> complet (icône, libellé, raccourci, caractère cochable) sans dupliquer sa définition ailleurs.  <a href="structhmi_1_1EditorActionSpec.html#details">More...</a><br /></td></tr>
+<tr class="memitem:KeyBindingIconEntry" id="r_KeyBindingIconEntry"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1KeyBindingIconEntry.html">KeyBindingIconEntry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Correspondance entre une action d'éditeur remappable (<span class="tt"><a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585" title="Action d&#39;éditeur logique, remappable indépendamment de la touche physique.">hmi::EditorAction</a></span>, <span class="tt"><a class="el" href="EditorKeyBindings_8h.html" title="Association remappable action d&#39;éditeur -&gt; touche clavier, avec persistance (EX-CTRL-012).">EditorKeyBindings.h</a></span>) et l'identifiant d'action du catalogue qui la rend effective (<span class="tt">LOT-57</span> TACHE-04, <span class="tt">EX-IHM-062</span>).  <a href="structhmi_1_1KeyBindingIconEntry.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DesignColor" id="r_DesignColor"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DesignColor.html">DesignColor</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Couleur RVBA pure (indépendante de Qt), convertible en chaîne CSS pour la feuille de style et directement décomposable pour construire une <span class="tt">QColor</span>/<span class="tt">QPalette</span>.  <a href="structhmi_1_1DesignColor.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ColorTokens" id="r_ColorTokens"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ColorTokens.html">ColorTokens</a></td></tr>
@@ -291,6 +303,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jeu complet de jetons de design d'une portée (identité invariante ou châssis variable).  <a href="structhmi_1_1DesignTokens.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EditorActions" id="r_EditorActions"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1EditorActions.html">EditorActions</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit et possède les <span class="tt">QAction</span> du catalogue (<span class="tt"><a class="el" href="ActionCatalog_8h.html" title="Catalogue des actions de l&#39;éditeur : outils et commandes principales (LOT-56 TACHE-04,...">HMI/Interface/ActionCatalog.h</a></span>) : chaque outil et chaque commande principale n'existe qu'une fois, placée simultanément dans la barre d'outils, un menu et un menu contextuel sans duplication.  <a href="classhmi_1_1EditorActions.html#details">More...</a><br /></td></tr>
+<tr class="memitem:EditorKeybindingsWidget" id="r_EditorKeybindingsWidget"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1EditorKeybindingsWidget.html">EditorKeybindingsWidget</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Widget de remappage des <b>touches d'éditeur</b> (<span class="tt"><a class="el" href="classhmi_1_1EditorKeyBindings.html" title="Association action d&#39;éditeur -&gt; touche, avec persistance JSON (EX-CTRL-012, LOT-29).">EditorKeyBindings</a></span>), destiné à l'onglet « Éditeur » de la page Options.  <a href="classhmi_1_1EditorKeybindingsWidget.html#details">More...</a><br /></td></tr>
 <tr class="memitem:FontFamilyResolution" id="r_FontFamilyResolution"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1FontFamilyResolution.html">FontFamilyResolution</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat de la résolution : la police embarquée si elle a pu être enregistrée auprès de Qt, sinon aucun nom de famille &ndash; jamais un second nom codé en dur.  <a href="structhmi_1_1FontFamilyResolution.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GamepadBindingsWidget" id="r_GamepadBindingsWidget"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1GamepadBindingsWidget.html">GamepadBindingsWidget</a></td></tr>
@@ -354,7 +368,7 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68ddae953e8671da3a0647c0939df8ebe8e44">Decor</a>
 <br />
  }</td></tr>
-<tr class="memdesc:a02048ad8ad69a87a10e8307ac2bd68dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outil actif dans la grille de l'éditeur, changé via <span class="tt">Tab</span> ou le panneau <span class="tt"><a class="el" href="classhmi_1_1ToolPanel.html" title="Panneau « Outils » : le strict nécessaire de l&#39;outil Décor (LOT-49 TACHE-04) — grille de vignettes (h...">ToolPanel</a></span>.  <a href="#a02048ad8ad69a87a10e8307ac2bd68dd">More...</a><br /></td></tr>
+<tr class="memdesc:a02048ad8ad69a87a10e8307ac2bd68dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outil actif dans la grille de l'éditeur, changé via <span class="tt">Tab</span> ou la barre d'outils (<span class="tt"><a class="el" href="classhmi_1_1EditorActions.html" title="Construit et possède les QAction du catalogue (HMI/Interface/ActionCatalog.h) : chaque outil et chaqu...">hmi::EditorActions</a></span>, panneau <span class="tt"><a class="el" href="classhmi_1_1DecorsPanel.html" title="Panneau « Décors », qui regroupe deux choses jusqu&#39;ici dispersées :">DecorsPanel</a></span>).  <a href="#a02048ad8ad69a87a10e8307ac2bd68dd">More...</a><br /></td></tr>
 <tr class="memitem:ac7ba9ad4c289f6706928912ab9bb0985" id="r_ac7ba9ad4c289f6706928912ab9bb0985"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ac7ba9ad4c289f6706928912ab9bb0985">LinkKind</a> { <a class="el" href="#ac7ba9ad4c289f6706928912ab9bb0985a7a3d46893bda116f6b56760a98aaf631">Mechanism</a>
 , <a class="el" href="#ac7ba9ad4c289f6706928912ab9bb0985a4b9c4a190a04fc1db208f8a62ee67619">DangerLink</a>
  }</td></tr>
@@ -374,6 +388,11 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a484fc821d307ce050da2a61ed1760a8dab12558f73b1de2a91f9d7719eea5be7f">MissingTexture</a>
  }</td></tr>
 <tr class="memdesc:a484fc821d307ce050da2a61ed1760a8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">D'où provient la vignette affichée par la palette pour un type de tuile.  <a href="#a484fc821d307ce050da2a61ed1760a8d">More...</a><br /></td></tr>
+<tr class="memitem:aaa32928dac1bf321cd65435b9a0b0726" id="r_aaa32928dac1bf321cd65435b9a0b0726"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aaa32928dac1bf321cd65435b9a0b0726">PanelId</a> { <a class="el" href="#aaa32928dac1bf321cd65435b9a0b0726a91aedca00492a5fba2c282abec5626f3">Levels</a>
+, <a class="el" href="#aaa32928dac1bf321cd65435b9a0b0726abd908db5ccb07777ced8023dffc802f4">Links</a>
+, <a class="el" href="#aaa32928dac1bf321cd65435b9a0b0726a536300d63028e7f16ba150566ecd3a5f">Textures</a>
+ }</td></tr>
+<tr class="memdesc:aaa32928dac1bf321cd65435b9a0b0726"><td class="mdescLeft">&#160;</td><td class="mdescRight">Panneau de droite pouvant être mis en avant (regroupés en onglets, TACHE-02).  <a href="#aaa32928dac1bf321cd65435b9a0b0726">More...</a><br /></td></tr>
 <tr class="memitem:a76066d550faf628786294c82cd2d12a4" id="r_a76066d550faf628786294c82cd2d12a4"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a76066d550faf628786294c82cd2d12a4">TextureAssignAction</a> { <a class="el" href="#a76066d550faf628786294c82cd2d12a4afd038fc7f319e48f3115d92bf5bdbef9">Ignore</a>
 , <a class="el" href="#a76066d550faf628786294c82cd2d12a4a185b7133db22230701a857c059360cc2">Assign</a>
 , <a class="el" href="#a76066d550faf628786294c82cd2d12a4a1063e38cb53d94d386f21227fcd84717">Remove</a>
@@ -584,6 +603,11 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#ab269aabb94611e449a8e7427969874f5a34e806c94d1cf43980bb179a0376e173">ResetCamera</a>
 , <br />
 &#160;&#160;<a class="el" href="#ab269aabb94611e449a8e7427969874f5ae5217b6eb03211d9550042b6fe681626">ToggleRenderMode</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5a5fb63579fc981698f97d55bfecb213ea">Copy</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5a36bb6559696dc9124986ae120515984f">Paste</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5a904a8304056d77e4547744781b7ceb50">Rename</a>
+, <br />
+&#160;&#160;<a class="el" href="#ab269aabb94611e449a8e7427969874f5a2583b92d245a881127917f19531ccf3b">ShortcutsOverview</a>
 <br />
  }</td></tr>
 <tr class="memdesc:ab269aabb94611e449a8e7427969874f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifiant d'une icône : un par outil d'édition et par commande principale.  <a href="#ab269aabb94611e449a8e7427969874f5">More...</a><br /></td></tr>
@@ -633,6 +657,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:ad2d0d345135e466b79a1a624d0bbe056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abandonne le geste en cours (<span class="tt">Échap</span>).  <br /></td></tr>
 <tr class="memitem:a1e20408c7b772742c9fba1a5ab462554" id="r_a1e20408c7b772742c9fba1a5ab462554"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1DecorListRow.html">DecorListRow</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1e20408c7b772742c9fba1a5ab462554">buildDecorListRows</a> (const std::vector&lt; <a class="el" href="structcore_1_1Decor.html">core::Decor</a> &gt; &amp;decors, const std::vector&lt; std::string &gt; &amp;availableAssets)</td></tr>
 <tr class="memdesc:a1e20408c7b772742c9fba1a5ab462554"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit les lignes de la section « Décors », groupées par couche puis dans l'ordre de superposition.  <br /></td></tr>
+<tr class="memitem:a8a9b5847205047e29cd377960c0ff15c" id="r_a8a9b5847205047e29cd377960c0ff15c"><td class="memItemLeft"><a class="el" href="structhmi_1_1EditorStatusLines.html">EditorStatusLines</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8a9b5847205047e29cd377960c0ff15c">editorStatusLines</a> (const <a class="el" href="structhmi_1_1EditorStatusContext.html">EditorStatusContext</a> &amp;context, const <a class="el" href="classhmi_1_1Localization.html">Localization</a> &amp;localization)</td></tr>
+<tr class="memdesc:a8a9b5847205047e29cd377960c0ff15c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décide le contenu de la barre d'état de l'éditeur pour <code class="param">context</code>.  <br /></td></tr>
 <tr class="memitem:abf93f3d263fe7268a624a8a96566a89e" id="r_abf93f3d263fe7268a624a8a96566a89e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#abf93f3d263fe7268a624a8a96566a89e">isValidLevelName</a> (const std::string &amp;name)</td></tr>
 <tr class="memdesc:abf93f3d263fe7268a624a8a96566a89e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si <code class="param">name</code> peut servir de nom de niveau (donc de nom de fichier Windows).  <br /></td></tr>
 <tr class="memitem:acb440eec2a1a3d3cc760795b9875ae8e" id="r_acb440eec2a1a3d3cc760795b9875ae8e"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#acb440eec2a1a3d3cc760795b9875ae8e">trimLevelName</a> (const std::string &amp;name)</td></tr>
@@ -651,6 +677,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:abe8227bea2ef2342d62abed6e4704b0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit les lignes de la section « Animations », diagnostic de clips manquants compris.  <br /></td></tr>
 <tr class="memitem:aa391954b311db21fd63162e8ec40fcc5" id="r_aa391954b311db21fd63162e8ec40fcc5"><td class="memItemLeft"><a class="el" href="structhmi_1_1PaletteThumbnail.html">PaletteThumbnail</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa391954b311db21fd63162e8ec40fcc5">paletteThumbnail</a> (<a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type, const <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> &amp;physicalRegion, const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *catalog, std::string_view setName)</td></tr>
 <tr class="memdesc:aa391954b311db21fd63162e8ec40fcc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choisit la vignette à afficher pour un type de tuile dans la palette.  <br /></td></tr>
+<tr class="memitem:ad532ff719e53686ef85d80516e85089e" id="r_ad532ff719e53686ef85d80516e85089e"><td class="memItemLeft">const std::array&lt; <a class="el" href="structhmi_1_1PanelFocusEntry.html">PanelFocusEntry</a>, <a class="el" href="#aa22d8fa67dd7b945de1a25413ef6532e">PANEL_FOCUS_CATALOG_COUNT</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad532ff719e53686ef85d80516e85089e">panelFocusCatalog</a> ()</td></tr>
+<tr class="memitem:a581615846aad015aff0e0a17e4f997c4" id="r_a581615846aad015aff0e0a17e4f997c4"><td class="memItemLeft">std::optional&lt; <a class="el" href="#aaa32928dac1bf321cd65435b9a0b0726">PanelId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a581615846aad015aff0e0a17e4f997c4">panelForTool</a> (<a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a> tool)</td></tr>
 <tr class="memitem:ab7217d187da26402006a3c0d1eb98cbb" id="r_ab7217d187da26402006a3c0d1eb98cbb"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1SkinSection.html">SkinSection</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab7217d187da26402006a3c0d1eb98cbb">buildSkinRows</a> (const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> &amp;catalog, std::string_view setName)</td></tr>
 <tr class="memdesc:ab7217d187da26402006a3c0d1eb98cbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit les lignes du panneau pour un jeu de skins donné.  <br /></td></tr>
 <tr class="memitem:acfc16de3fc9ebf22b724eeaa552313bf" id="r_acfc16de3fc9ebf22b724eeaa552313bf"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acfc16de3fc9ebf22b724eeaa552313bf">listSkinAssets</a> (const std::filesystem::path &amp;skinsDirectory)</td></tr>
@@ -805,10 +833,15 @@ Functions</h2></td></tr>
 <tr class="memdesc:a2c3341857c60f0bef0a01a6cd10ce5f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit l'état d'entrée en <a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a>, dissocié des touches/boutons physiques (<span class="tt">EX-CTRL-010</span>, <span class="tt">EX-CTRL-012</span>).  <br /></td></tr>
 <tr class="memitem:a1b53de392afb0dfdf5cdef4543fb672d" id="r_a1b53de392afb0dfdf5cdef4543fb672d"><td class="memItemLeft">std::optional&lt; <a class="el" href="#a83c98e56e30eafa606048853f7962e48">hmi::Key</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1b53de392afb0dfdf5cdef4543fb672d">qtKeyToHmiKey</a> (int qtKey)</td></tr>
 <tr class="memdesc:a1b53de392afb0dfdf5cdef4543fb672d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit un code <span class="tt">Qt::Key</span> en <span class="tt"><a class="el" href="#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></span>.  <br /></td></tr>
+<tr class="memitem:a807ca4b0d189a41995531913a247a3c9" id="r_a807ca4b0d189a41995531913a247a3c9"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a807ca4b0d189a41995531913a247a3c9">hmiKeyToQtKey</a> (<a class="el" href="#a83c98e56e30eafa606048853f7962e48">hmi::Key</a> key)</td></tr>
+<tr class="memdesc:a807ca4b0d189a41995531913a247a3c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit un <span class="tt"><a class="el" href="#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></span> en code <span class="tt">Qt::Key</span>, inverse de <span class="tt"><a class="el" href="#a1b53de392afb0dfdf5cdef4543fb672d" title="Traduit un code Qt::Key en hmi::Key.">qtKeyToHmiKey</a></span> (<span class="tt">LOT-57</span> TACHE-04).  <br /></td></tr>
 <tr class="memitem:a31529e361028e2fae2f4d12dc1d5b8d1" id="r_a31529e361028e2fae2f4d12dc1d5b8d1"><td class="memItemLeft">const std::array&lt; <a class="el" href="structhmi_1_1EditorActionSpec.html">EditorActionSpec</a>, <a class="el" href="#a79f2b5a2f6530436d6f2b090de10d6ac">EDITOR_ACTION_CATALOG_COUNT</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a31529e361028e2fae2f4d12dc1d5b8d1">editorActionCatalog</a> ()</td></tr>
 <tr class="memitem:a86efa8bc643b7f44b2cd6fc6133605f3" id="r_a86efa8bc643b7f44b2cd6fc6133605f3"><td class="memItemLeft">const <a class="el" href="structhmi_1_1EditorActionSpec.html">EditorActionSpec</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a86efa8bc643b7f44b2cd6fc6133605f3">editorActionSpec</a> (<a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a> id)</td></tr>
 <tr class="memitem:a3df22d8b0cb79245b439394aae6798ae" id="r_a3df22d8b0cb79245b439394aae6798ae"><td class="memItemLeft">std::optional&lt; <a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3df22d8b0cb79245b439394aae6798ae">editorActionTool</a> (<a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a> id)</td></tr>
 <tr class="memitem:a5aa3682b9ff2aba43ecaa20e2c6f4d9c" id="r_a5aa3682b9ff2aba43ecaa20e2c6f4d9c"><td class="memItemLeft"><a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5aa3682b9ff2aba43ecaa20e2c6f4d9c">editorActionForTool</a> (<a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a> tool)</td></tr>
+<tr class="memitem:ab2f97afc82a6834dea728c2748464369" id="r_ab2f97afc82a6834dea728c2748464369"><td class="memItemLeft">const std::array&lt; <a class="el" href="structhmi_1_1KeyBindingIconEntry.html">KeyBindingIconEntry</a>, <a class="el" href="#a1a8d24174b415e8452f331c030addee6">KEY_BINDING_ICON_COUNT</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ab2f97afc82a6834dea728c2748464369">keyBindingIconCatalog</a> ()</td></tr>
+<tr class="memitem:a650ff0aabcf8fdbabb864cd20f613b8c" id="r_a650ff0aabcf8fdbabb864cd20f613b8c"><td class="memItemLeft"><a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a>&#160;</td><td class="memItemRight"><a class="el" href="#a650ff0aabcf8fdbabb864cd20f613b8c">iconForKeyBindingAction</a> (<a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585">EditorAction</a> action)</td></tr>
+<tr class="memitem:aaec3ea44878dd72a447a29150231ddba" id="r_aaec3ea44878dd72a447a29150231ddba"><td class="memItemLeft">std::optional&lt; <a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585">EditorAction</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aaec3ea44878dd72a447a29150231ddba">keyBindingActionForIcon</a> (<a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a> id)</td></tr>
 <tr class="memitem:a3aa575e76fff3cb3999cf33106e71c71" id="r_a3aa575e76fff3cb3999cf33106e71c71"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3aa575e76fff3cb3999cf33106e71c71">applyApplicationStyle</a> ()</td></tr>
 <tr class="memdesc:a3aa575e76fff3cb3999cf33106e71c71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choisit explicitement le style Qt de l'application (non natif, condition pour que la palette et la feuille de style s'appliquent à l'ensemble des contrôles).  <br /></td></tr>
 <tr class="memitem:a73cb9cef74be4c0f0577ef8fe0416522" id="r_a73cb9cef74be4c0f0577ef8fe0416522"><td class="memItemLeft">QPalette&#160;</td><td class="memItemRight"><a class="el" href="#a73cb9cef74be4c0f0577ef8fe0416522">buildApplicationPalette</a> (const <a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a> &amp;tokens)</td></tr>
@@ -873,6 +906,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:a3ec3b0d0a4b02829e3cf0fe6f72bf05b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seuil de déplacement (unités monde) distinguant un clic (sélection simple) d'un glisser (manipulation) — sans lui, poser puis relâcher sans bouger produirait un micro-déplacement.  <br /></td></tr>
 <tr class="memitem:a71400cfb82eb06125e98cf974b6dc1be" id="r_a71400cfb82eb06125e98cf974b6dc1be"><td class="memItemLeft">constexpr <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a>&#160;</td><td class="memItemRight"><a class="el" href="#a71400cfb82eb06125e98cf974b6dc1be">MECHANISM_ANIMATION_TYPES</a> []</td></tr>
 <tr class="memdesc:a71400cfb82eb06125e98cf974b6dc1be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les six familles de mécanismes à état dont l'apparence est pilotée par un clip (<span class="tt">LOT-47</span>), dans l'ordre où elles sont proposées par la section « Animations ».  <br /></td></tr>
+<tr class="memitem:aa22d8fa67dd7b945de1a25413ef6532e" id="r_aa22d8fa67dd7b945de1a25413ef6532e"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aa22d8fa67dd7b945de1a25413ef6532e">PANEL_FOCUS_CATALOG_COUNT</a> = 2</td></tr>
+<tr class="memdesc:aa22d8fa67dd7b945de1a25413ef6532e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'entrées de la table (tous les outils n'ont pas de panneau dédié).  <br /></td></tr>
 <tr class="memitem:a5d007c47b6f8696b0b71cf94afe65d18" id="r_a5d007c47b6f8696b0b71cf94afe65d18"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5d007c47b6f8696b0b71cf94afe65d18">FONTS_SUBDIRECTORY</a> = &quot;Fonts/&quot;</td></tr>
 <tr class="memdesc:a5d007c47b6f8696b0b71cf94afe65d18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous-dossier des assets de police, relatif au dossier d'assets (<span class="tt">LOT-52</span>).  <br /></td></tr>
 <tr class="memitem:ad72608bb6233a89509a4835525f62339" id="r_ad72608bb6233a89509a4835525f62339"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="#ad72608bb6233a89509a4835525f62339">DECORS_SUBDIRECTORY</a> = &quot;Decors/&quot;</td></tr>
@@ -939,8 +974,10 @@ Variables</h2></td></tr>
 <tr class="memdesc:ab42b3bed825ef5b3664995a516c4eb8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'actions de jeu remappables (<span class="tt"><a class="el" href="#a133516ef8002bd9e4d870db9494f5867" title="Action de jeu logique, remappable indépendamment de la touche physique qui la déclenche.">GameAction</a></span>).  <br /></td></tr>
 <tr class="memitem:aab59d64d595ba17a55cc07311285ba14" id="r_aab59d64d595ba17a55cc07311285ba14"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aab59d64d595ba17a55cc07311285ba14">GAMEPAD_BUTTON_COUNT</a> = 10</td></tr>
 <tr class="memdesc:aab59d64d595ba17a55cc07311285ba14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de boutons manette remappables (<span class="tt"><a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88" title="Bouton (ou direction) manette remappable à une action de jeu (EX-CTRL-002, LOT-30).">GamepadButton</a></span>).  <br /></td></tr>
-<tr class="memitem:a79f2b5a2f6530436d6f2b090de10d6ac" id="r_a79f2b5a2f6530436d6f2b090de10d6ac"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a79f2b5a2f6530436d6f2b090de10d6ac">EDITOR_ACTION_CATALOG_COUNT</a> = 13</td></tr>
-<tr class="memdesc:a79f2b5a2f6530436d6f2b090de10d6ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre total d'actions du catalogue (six outils, sept commandes principales).  <br /></td></tr>
+<tr class="memitem:a79f2b5a2f6530436d6f2b090de10d6ac" id="r_a79f2b5a2f6530436d6f2b090de10d6ac"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a79f2b5a2f6530436d6f2b090de10d6ac">EDITOR_ACTION_CATALOG_COUNT</a> = 17</td></tr>
+<tr class="memdesc:a79f2b5a2f6530436d6f2b090de10d6ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre total d'actions du catalogue (six outils, onze commandes principales).  <br /></td></tr>
+<tr class="memitem:a1a8d24174b415e8452f331c030addee6" id="r_a1a8d24174b415e8452f331c030addee6"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a1a8d24174b415e8452f331c030addee6">KEY_BINDING_ICON_COUNT</a> = 9</td></tr>
+<tr class="memdesc:a1a8d24174b415e8452f331c030addee6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'actions d'éditeur remappables ayant une commande effective (<span class="tt"><a class="el" href="#af2f4a1af04682540c1b84611a24aa42c" title="Nombre d&#39;actions d&#39;éditeur remappables (EditorAction).">EDITOR_ACTION_COUNT</a></span> moins <span class="tt">TextureAssignTool</span>).  <br /></td></tr>
 </table>
 <a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
 <a id="a979f7ffd7c87877cb1f65f0d08e4419d" name="a979f7ffd7c87877cb1f65f0d08e4419d"></a>
@@ -1319,7 +1356,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Outil actif dans la grille de l'éditeur, changé via <span class="tt">Tab</span> ou le panneau <span class="tt"><a class="el" href="classhmi_1_1ToolPanel.html" title="Panneau « Outils » : le strict nécessaire de l&#39;outil Décor (LOT-49 TACHE-04) — grille de vignettes (h...">ToolPanel</a></span>. </p>
+<p>Outil actif dans la grille de l'éditeur, changé via <span class="tt">Tab</span> ou la barre d'outils (<span class="tt"><a class="el" href="classhmi_1_1EditorActions.html" title="Construit et possède les QAction du catalogue (HMI/Interface/ActionCatalog.h) : chaque outil et chaqu...">hmi::EditorActions</a></span>, panneau <span class="tt"><a class="el" href="classhmi_1_1DecorsPanel.html" title="Panneau « Décors », qui regroupe deux choses jusqu&#39;ici dispersées :">DecorsPanel</a></span>). </p>
 <p><span class="tt">Paint</span> peint case par case au clic/glisser (comportement LOT-14, inchangé). <span class="tt">Rectangle</span> peint un rectangle entier au relâchement d'un glisser. <span class="tt">Selection</span> définit une zone (glisser) dont le contenu peut être copié (<span class="tt">Ctrl+C</span>) puis collé ailleurs (<span class="tt">Ctrl+V</span>), sans peindre directement. <span class="tt">Link</span> (<span class="tt">LOT-37</span>, <span class="tt">EX-IHM-030</span>) lie/délie un mécanisme : cliquer un déclencheur (interrupteur/ plaque) passe en attente de cible, cliquer une cible (porte/danger commuté) crée la liaison ; refaire la même paire la supprime (bascule) — voir <span class="tt"><a class="el" href="#a7f0f0f4f71e52b8deb6fb88a8d6411d9" title="Résout le clic de l&#39;outil « Lien » sur clickedCell selon l&#39;attente courante.">hmi::resolveLinkClick</a></span>. <span class="tt">Échap</span> annule une attente en cours (revient à aucune case sélectionnée), sans toucher au brouillon. <span class="tt">TextureAssign</span> (<span class="tt">LOT-45</span>, <span class="tt">EX-EDIT-043</span>) assigne une texture par instance à une case : clic gauche assigne/remplace l'asset sélectionné dans la bibliothèque, reclic du même asset ou clic droit retire l'assignation — voir <span class="tt"><a class="el" href="#ad9c60c575bab3fcb92a2876cc1b11bfc" title="Résout le clic de l&#39;outil « Texture par instance » sur clickedCell.">hmi::resolveTextureAssignClick</a></span>. <span class="tt">Decor</span> (<span class="tt">LOT-49</span>/<span class="tt">LOT-50</span>, <span class="tt">EX-DEC-001</span>, <span class="tt">EX-DEC-010</span>) place, sélectionne, déplace, redimensionne, pivote et supprime des décors libres, jamais calés sur la grille : cliquer un décor le sélectionne et arme un glisser (corps = déplacer, coin = redimensionner, poignée dédiée = pivoter, <span class="tt">hmi::DecorGesture</span>) ; cliquer une zone vide pose l'asset/la couche sélectionnés dans la bibliothèque de décors (aucun décor sous le curseur, aucune sélection) ; clic droit ou touche « Suppr » retire le décor visé/sélectionné ; <span class="tt">Échap</span> abandonne un glisser en cours sans y toucher. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e" name="a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e"></a>Paint&#160;</td><td class="fielddoc"></td></tr>
@@ -1501,6 +1538,10 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a77bfa926518159e75c2c4b508a81f19e" name="ab269aabb94611e449a8e7427969874f5a77bfa926518159e75c2c4b508a81f19e"></a>ToggleGrid&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a34e806c94d1cf43980bb179a0376e173" name="ab269aabb94611e449a8e7427969874f5a34e806c94d1cf43980bb179a0376e173"></a>ResetCamera&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5ae5217b6eb03211d9550042b6fe681626" name="ab269aabb94611e449a8e7427969874f5ae5217b6eb03211d9550042b6fe681626"></a>ToggleRenderMode&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a5fb63579fc981698f97d55bfecb213ea" name="ab269aabb94611e449a8e7427969874f5a5fb63579fc981698f97d55bfecb213ea"></a>Copy&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a36bb6559696dc9124986ae120515984f" name="ab269aabb94611e449a8e7427969874f5a36bb6559696dc9124986ae120515984f"></a>Paste&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a904a8304056d77e4547744781b7ceb50" name="ab269aabb94611e449a8e7427969874f5a904a8304056d77e4547744781b7ceb50"></a>Rename&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a2583b92d245a881127917f19531ccf3b" name="ab269aabb94611e449a8e7427969874f5a2583b92d245a881127917f19531ccf3b"></a>ShortcutsOverview&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -1709,6 +1750,35 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="a484fc821d307ce050da2a61ed1760a8dab12558f73b1de2a91f9d7719eea5be7f" name="a484fc821d307ce050da2a61ed1760a8dab12558f73b1de2a91f9d7719eea5be7f"></a>MissingTexture&#160;</td><td class="fielddoc"><p>Damier magenta : le type n'est pas encore habillé (<span class="tt">EX-NFR-040</span>). </p>
 </td></tr>
+</table>
+
+</div>
+</div>
+<a id="aaa32928dac1bf321cd65435b9a0b0726" name="aaa32928dac1bf321cd65435b9a0b0726"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa32928dac1bf321cd65435b9a0b0726">&#9670;&#160;</a></span>PanelId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#aaa32928dac1bf321cd65435b9a0b0726">hmi::PanelId</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Panneau de droite pouvant être mis en avant (regroupés en onglets, TACHE-02). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aaa32928dac1bf321cd65435b9a0b0726a91aedca00492a5fba2c282abec5626f3" name="aaa32928dac1bf321cd65435b9a0b0726a91aedca00492a5fba2c282abec5626f3"></a>Levels&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaa32928dac1bf321cd65435b9a0b0726abd908db5ccb07777ced8023dffc802f4" name="aaa32928dac1bf321cd65435b9a0b0726abd908db5ccb07777ced8023dffc802f4"></a>Links&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaa32928dac1bf321cd65435b9a0b0726a536300d63028e7f16ba150566ecd3a5f" name="aaa32928dac1bf321cd65435b9a0b0726a536300d63028e7f16ba150566ecd3a5f"></a>Textures&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -3796,7 +3866,7 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Le catalogue complet, dans l'ordre d'affichage voulu de la barre d'outils : les six outils (ordre de la palette/du panneau Outils historique), puis les sept commandes. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Le catalogue complet, dans l'ordre d'affichage voulu de la barre d'outils : les six outils (ordre de la palette/du panneau Outils historique), puis les commandes. </dd></dl>
 
 </div>
 </div>
@@ -3929,6 +3999,45 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Jetons du châssis d'édition en thème <b>clair</b> (<span class="tt">LOT-56</span> TACHE-06) : mêmes rôles, mêmes échelles que <span class="tt"><a class="el" href="#abc068660f97a7130175d11f2755ff340" title="Jetons du châssis d&#39;édition en thème sombre (défaut) : variables, editorLightTokens() (LOT-56 TACHE-0...">editorDarkTokens()</a></span> — seules les couleurs diffèrent, et pas par simple inversion (les écarts de luminosité entre bordures/lignes alternées/fond diffèrent en clair et en sombre). </p>
+
+</div>
+</div>
+<a id="a8a9b5847205047e29cd377960c0ff15c" name="a8a9b5847205047e29cd377960c0ff15c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a9b5847205047e29cd377960c0ff15c">&#9670;&#160;</a></span>editorStatusLines()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1EditorStatusLines.html">EditorStatusLines</a> hmi::editorStatusLines </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1EditorStatusContext.html">EditorStatusContext</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>context</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1Localization.html">Localization</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>localization</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Décide le contenu de la barre d'état de l'éditeur pour <code class="param">context</code>. </p>
+<p>Fonction <b>pure</b> (<span class="tt">EX-NFR-010</span>) : ne lit que ce qu'on lui passe, aucune dépendance Qt/GPU — même patron que <span class="tt"><a class="el" href="#a8a1c52dc217e915a1ebbd5ec209037d9" title="Lignes à afficher pour l&#39;affichage tête haute d&#39;un pas de simulation donné.">hmi::gameHudLines</a></span> (<span class="tt">LOT-52</span>). Le rendu (<span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">MainWindow</a></span>) n'a plus qu'à afficher ce que cette fonction décide, et à la rappeler après l'expiration d'un message transitoire pour restaurer l'aide affichée. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">context</td><td>Contexte d'édition courant ; <span class="tt">context.level</span> absent (aucun niveau ouvert) produit des zones et une aide vides. </td></tr>
+    <tr><td class="paramname">localization</td><td>Catalogue de traduction (<span class="tt">EX-REN-033</span>) — aucune chaîne en dur. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Les zones permanentes et l'aide contextuelle à afficher. </dd></dl>
 
 </div>
 </div>
@@ -4298,6 +4407,66 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a807ca4b0d189a41995531913a247a3c9" name="a807ca4b0d189a41995531913a247a3c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a807ca4b0d189a41995531913a247a3c9">&#9670;&#160;</a></span>hmiKeyToQtKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::hmiKeyToQtKey </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a83c98e56e30eafa606048853f7962e48">hmi::Key</a></td>          <td class="paramname"><span class="paramname"><em>key</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Traduit un <span class="tt"><a class="el" href="#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></span> en code <span class="tt">Qt::Key</span>, inverse de <span class="tt"><a class="el" href="#a1b53de392afb0dfdf5cdef4543fb672d" title="Traduit un code Qt::Key en hmi::Key.">qtKeyToHmiKey</a></span> (<span class="tt">LOT-57</span> TACHE-04). </p>
+<p>Sert à faire refléter un remappage (<span class="tt"><a class="el" href="classhmi_1_1EditorKeyBindings.html" title="Association action d&#39;éditeur -&gt; touche, avec persistance JSON (EX-CTRL-012, LOT-29).">EditorKeyBindings</a></span>/<span class="tt"><a class="el" href="classhmi_1_1GameKeyBindings.html" title="Association action de jeu -&gt; touche, avec persistance JSON (EX-CTRL-012, LOT-29).">GameKeyBindings</a></span>) sur le raccourci effectif d'un <span class="tt">QAction</span> (<span class="tt"><a class="el" href="classhmi_1_1EditorActions.html#a15651f937c395ecf4bc082bc5c79f455" title="Fait refléter bindings sur le raccourci effectif de chaque commande concernée (hmi::keyBindingIconCat...">hmi::EditorActions::applyShortcuts</a></span>). Comme l'aller, les lettres et chiffres partagent déjà la même valeur entre Qt et Win32 — conversion directe pour tout code non explicitement nommé. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Touche à traduire. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le code <span class="tt">Qt::Key</span> correspondant. </dd></dl>
+
+</div>
+</div>
+<a id="a650ff0aabcf8fdbabb864cd20f613b8c" name="a650ff0aabcf8fdbabb864cd20f613b8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a650ff0aabcf8fdbabb864cd20f613b8c">&#9670;&#160;</a></span>iconForKeyBindingAction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a> hmi::iconForKeyBindingAction </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585">EditorAction</a></td>          <td class="paramname"><span class="paramname"><em>action</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'identifiant de commande rendant <code class="param">action</code> effective. </dd></dl>
+
+</div>
+</div>
 <a id="a209dabae621c4b379079647002f4c080" name="a209dabae621c4b379079647002f4c080"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a209dabae621c4b379079647002f4c080">&#9670;&#160;</a></span>iconGeometry()</h2>
 
@@ -4523,6 +4692,58 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si <code class="param">name</code> peut être utilisé comme nom de niveau. </dd></dl>
+
+</div>
+</div>
+<a id="aaec3ea44878dd72a447a29150231ddba" name="aaec3ea44878dd72a447a29150231ddba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaec3ea44878dd72a447a29150231ddba">&#9670;&#160;</a></span>keyBindingActionForIcon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585">EditorAction</a> &gt; hmi::keyBindingActionForIcon </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a></td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'action remappable dont <code class="param">id</code> est la commande effective, si elle en a une. </dd></dl>
+
+</div>
+</div>
+<a id="ab2f97afc82a6834dea728c2748464369" name="ab2f97afc82a6834dea728c2748464369"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2f97afc82a6834dea728c2748464369">&#9670;&#160;</a></span>keyBindingIconCatalog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::array&lt; <a class="el" href="structhmi_1_1KeyBindingIconEntry.html">KeyBindingIconEntry</a>, <a class="el" href="#a1a8d24174b415e8452f331c030addee6">KEY_BINDING_ICON_COUNT</a> &gt; &amp; hmi::keyBindingIconCatalog </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La table complète action remappable -&gt; commande du catalogue. </dd></dl>
 
 </div>
 </div>
@@ -5209,6 +5430,58 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La vignette à afficher. </dd></dl>
+
+</div>
+</div>
+<a id="ad532ff719e53686ef85d80516e85089e" name="ad532ff719e53686ef85d80516e85089e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad532ff719e53686ef85d80516e85089e">&#9670;&#160;</a></span>panelFocusCatalog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::array&lt; <a class="el" href="structhmi_1_1PanelFocusEntry.html">PanelFocusEntry</a>, <a class="el" href="#aa22d8fa67dd7b945de1a25413ef6532e">PANEL_FOCUS_CATALOG_COUNT</a> &gt; &amp; hmi::panelFocusCatalog </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La table complète outil → panneau. </dd></dl>
+
+</div>
+</div>
+<a id="a581615846aad015aff0e0a17e4f997c4" name="a581615846aad015aff0e0a17e4f997c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a581615846aad015aff0e0a17e4f997c4">&#9670;&#160;</a></span>panelForTool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="#aaa32928dac1bf321cd65435b9a0b0726">PanelId</a> &gt; hmi::panelForTool </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a></td>          <td class="paramname"><span class="paramname"><em>tool</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le panneau à mettre en avant pour <code class="param">tool</code>, ou <span class="tt">std::nullopt</span> si cet outil n'en a pas (ses contrôles vivent ailleurs, ex. le panneau Décors pour l'outil Décor &ndash; non tabifié, une mise en avant n'y aurait aucun effet). </dd></dl>
 
 </div>
 </div>
@@ -7383,7 +7656,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int hmi::EDITOR_ACTION_CATALOG_COUNT = 13</td>
+          <td class="memname">int hmi::EDITOR_ACTION_CATALOG_COUNT = 17</td>
         </tr>
       </table>
   </td>
@@ -7393,7 +7666,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Nombre total d'actions du catalogue (six outils, sept commandes principales). </p>
+<p>Nombre total d'actions du catalogue (six outils, onze commandes principales). </p>
 
 </div>
 </div>
@@ -7514,6 +7787,30 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nombre de boutons manette remappables (<span class="tt"><a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88" title="Bouton (ou direction) manette remappable à une action de jeu (EX-CTRL-002, LOT-30).">GamepadButton</a></span>). </p>
+
+</div>
+</div>
+<a id="a1a8d24174b415e8452f331c030addee6" name="a1a8d24174b415e8452f331c030addee6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a8d24174b415e8452f331c030addee6">&#9670;&#160;</a></span>KEY_BINDING_ICON_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::KEY_BINDING_ICON_COUNT = 9</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre d'actions d'éditeur remappables ayant une commande effective (<span class="tt"><a class="el" href="#af2f4a1af04682540c1b84611a24aa42c" title="Nombre d&#39;actions d&#39;éditeur remappables (EditorAction).">EDITOR_ACTION_COUNT</a></span> moins <span class="tt">TextureAssignTool</span>). </p>
 
 </div>
 </div>
@@ -7908,6 +8205,30 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sous-dossier des textures d'objets interactifs, relatif au dossier d'assets (<span class="tt">LOT-45</span>). </p>
+
+</div>
+</div>
+<a id="aa22d8fa67dd7b945de1a25413ef6532e" name="aa22d8fa67dd7b945de1a25413ef6532e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa22d8fa67dd7b945de1a25413ef6532e">&#9670;&#160;</a></span>PANEL_FOCUS_CATALOG_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::PANEL_FOCUS_CATALOG_COUNT = 2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre d'entrées de la table (tous les outils n'ont pas de panneau dédié). </p>
 
 </div>
 </div>

@@ -1,6 +1,6 @@
 var lots =
 [
-    [ "Lots", "lots.html#autotoc_md2523", null ],
+    [ "Lots", "lots.html#autotoc_md2524", null ],
     [ "LOT-01 — Fenêtre &amp; boucle de jeu (Direct3D 11)", "lot-01.html", "lot-01" ],
     [ "LOT-02 — Journalisation &amp; diagnostics", "lot-02.html", "lot-02" ],
     [ "LOT-03 — Fondation ECS &amp; mathématiques Core", "lot-03.html", "lot-03" ],

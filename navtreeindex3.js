@@ -1,5 +1,16 @@
 var NAVTREEINDEX3 =
 {
+"classcore_1_1LevelDraft.html#a60d7f1dacc1b06479942132d7dedf1fe":[8,0,0,36,14],
+"classcore_1_1LevelDraft.html#a60d7f1dacc1b06479942132d7dedf1fe":[9,0,0,36,14],
+"classcore_1_1LevelDraft.html#a631398d656311a8b0f41677c0ae2f058":[8,0,0,36,64],
+"classcore_1_1LevelDraft.html#a631398d656311a8b0f41677c0ae2f058":[9,0,0,36,64],
+"classcore_1_1LevelDraft.html#a67618564911cd89f947a0d2b1c47f774":[8,0,0,36,49],
+"classcore_1_1LevelDraft.html#a67618564911cd89f947a0d2b1c47f774":[9,0,0,36,49],
+"classcore_1_1LevelDraft.html#a6820058154fd9e3f777c5fd843b7b0cb":[8,0,0,36,48],
+"classcore_1_1LevelDraft.html#a6820058154fd9e3f777c5fd843b7b0cb":[9,0,0,36,48],
+"classcore_1_1LevelDraft.html#a6a0636029b5b633d7b93b2ebca0d80c8":[8,0,0,36,29],
+"classcore_1_1LevelDraft.html#a6a0636029b5b633d7b93b2ebca0d80c8":[9,0,0,36,29],
+"classcore_1_1LevelDraft.html#a6bc2d83836d4a00ba59360002ba556ac":[8,0,0,36,44],
 "classcore_1_1LevelDraft.html#a6bc2d83836d4a00ba59360002ba556ac":[9,0,0,36,44],
 "classcore_1_1LevelDraft.html#a6d40a7451d269feb1badaf2a5065752e":[8,0,0,36,39],
 "classcore_1_1LevelDraft.html#a6d40a7451d269feb1badaf2a5065752e":[9,0,0,36,39],
@@ -238,16 +249,5 @@ var NAVTREEINDEX3 =
 "classcore_1_1World.html":[8,0,0,24],
 "classcore_1_1World.html":[9,0,0,24],
 "classcore_1_1World.html#a1cbcfaf8115bb885cccea7ca60fc3a9f":[8,0,0,24,7],
-"classcore_1_1World.html#a1cbcfaf8115bb885cccea7ca60fc3a9f":[9,0,0,24,7],
-"classcore_1_1World.html#a1d131cad0324faf0dd0fd8b8ec322568":[8,0,0,24,1],
-"classcore_1_1World.html#a1d131cad0324faf0dd0fd8b8ec322568":[9,0,0,24,1],
-"classcore_1_1World.html#a2966120779e3a66dca375a13fc4595a2":[8,0,0,24,13],
-"classcore_1_1World.html#a2966120779e3a66dca375a13fc4595a2":[9,0,0,24,13],
-"classcore_1_1World.html#a3f7bff9ce2069d73f341d6726a793885":[8,0,0,24,3],
-"classcore_1_1World.html#a3f7bff9ce2069d73f341d6726a793885":[9,0,0,24,3],
-"classcore_1_1World.html#a5d524864277691a7419b5268d4c53449":[8,0,0,24,8],
-"classcore_1_1World.html#a5d524864277691a7419b5268d4c53449":[9,0,0,24,8],
-"classcore_1_1World.html#a6727aa6a37f820c7ae6d7555c27d55a1":[8,0,0,24,15],
-"classcore_1_1World.html#a6727aa6a37f820c7ae6d7555c27d55a1":[9,0,0,24,15],
-"classcore_1_1World.html#a757ed4615ee46be5535229c3a4555eb8":[8,0,0,24,12]
+"classcore_1_1World.html#a1cbcfaf8115bb885cccea7ca60fc3a9f":[9,0,0,24,7]
 };

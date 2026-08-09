@@ -13,5 +13,8 @@ var searchData=
   ['heightfor_10',['heightFor',['../structhmi_1_1SceneTextures.html#abce6688963dc3a0b879a9b86391326e8',1,'hmi::SceneTextures']]],
   ['hideevent_11',['hideEvent',['../classhmi_1_1GamepadBindingsWidget.html#ad29eefb8cc66b020a431dae0d5d85512',1,'hmi::GamepadBindingsWidget']]],
   ['highlight_12',['highlight',['../classhmi_1_1GameViewport.html#a7741b62548715a272721a4e7c4b67a21',1,'hmi::GameViewport']]],
-  ['hittestdecorhandles_13',['hitTestDecorHandles',['../namespacehmi.html#a375ceba0ca2cc74fa38e49f139bb1b44',1,'hmi']]]
+  ['hittestdecorhandles_13',['hitTestDecorHandles',['../namespacehmi.html#a375ceba0ca2cc74fa38e49f139bb1b44',1,'hmi']]],
+  ['hmikeytoqtkey_14',['hmiKeyToQtKey',['../namespacehmi.html#a807ca4b0d189a41995531913a247a3c9',1,'hmi']]],
+  ['hoveredcell_15',['hoveredCell',['../classhmi_1_1GameViewport.html#a47134978f9ee32fd613ddd132006835a',1,'hmi::GameViewport']]],
+  ['hoveredcellchanged_16',['hoveredCellChanged',['../classhmi_1_1GameViewport.html#a22e7abff7158a0e24d3c4a61879a41f6',1,'hmi::GameViewport']]]
 ];

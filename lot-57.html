@@ -94,7 +94,7 @@ $(function(){initNavTree('lot-57.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-57-editeur-information_2epic"></a></p>
 <blockquote class="doxtable">
-<p>Statut : <b>non commencé</b>. Prérequis : <a class="el" href="lot-51.html" title="LOT-51 — Mode « définition des textures » : visibilité par calque">LOT-51</a> (visibilité des calques), <a class="el" href="lot-56.html" title="LOT-56 — Système de design de l&#39;IHM Qt">LOT-56</a> (jetons, thème, actions et barre d'outils). </p>
+<p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-51.html" title="LOT-51 — Mode « définition des textures » : visibilité par calque">LOT-51</a> (visibilité des calques), <a class="el" href="lot-56.html" title="LOT-56 — Système de design de l&#39;IHM Qt">LOT-56</a> (jetons, thème, actions et barre d'outils). </p>
 </blockquote>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2485"></a>
 Objectif</h1>
@@ -142,6 +142,14 @@ Exigences couvertes</h1>
 <li>Réutilisées : <span class="tt">EX-IHM-010</span>/<span class="tt">EX-IHM-011</span> (panneaux dockables et disposition persistée), <span class="tt">EX-IHM-055</span> (actions, <span class="tt">LOT-56</span>), <span class="tt">EX-EDIT-044</span> (visibilité des calques, <span class="tt">LOT-51</span>), <span class="tt">EX-CTRL-012</span> (raccourcis d'éditeur remappables), <span class="tt">EX-REN-033</span> (traduction).</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2491"></a>
+Amendement post-essai manuel (2026-08-09)</h1>
+<p>Après livraison des quatre tâches, premier essai manuel réel de l'éditeur reconstruit : deux retours directs sur la disposition, tranchés et implémentés dans la foulée (branche encore ouverte, non mergée — pas un nouveau lot) :</p><ul>
+<li><b>Les « palettes de texture » devaient redevenir un panneau à part</b>, sur le modèle Outils/Palette. Le panneau « Outils » (<span class="tt">ToolPanel</span>), qui ne portait déjà plus que le strict nécessaire de l'outil Décor depuis <span class="tt">LOT-56</span> TACHE-04 (le choix d'outil s'était déplacé vers la barre d'outils), est renommé « Décors » (<span class="tt">DecorsPanel</span>) et regroupe désormais aussi l'inspecteur des décors posés (déplacé de l'onglet « Décors » du panneau Textures, <span class="tt">LOT-50</span>). Le panneau Textures sort du regroupement en onglets de TACHE-02 (Niveaux/Liens restent tabifiés, Textures redevient indépendant, comme Palette/Décors).</li>
+<li><b>La barre d'outils reste hors du panneau Décors</b>, à son emplacement d'avant l'amendement (barre globale de la fenêtre principale, <span class="tt">addToolBar()</span>, même <span class="tt">EditorActions::populateToolBar</span>) : un premier essai l'avait embarquée verticalement dans le panneau Décors, corrigé après retour immédiat — elle n'a pas vocation à dépendre d'un panneau ou d'un mode particulier.</li>
+<li>Les deux sélecteurs de couche de décor (placement du prochain décor, couche du décor sélectionné) vivent désormais dans le même panneau, renommés explicitement (<span class="tt">decorPlacementLayerCombo</span>/ <span class="tt">decorSelectedLayerCombo</span>) plutôt que de porter le même nom générique dans le même <span class="tt">.ui</span>.</li>
+<li><span class="tt">LAYOUT_VERSION</span> 4 → 5 (dock renommé).</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2492"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -150,15 +158,15 @@ Découpage</h1>
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Tâche  </th><th class="markdownTableHeadNone">Intitulé  </th><th class="markdownTableHeadNone">Emplacement  </th><th class="markdownTableHeadCenter">État  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="lot-57-tache-01-barre-etat.html#md_Lot_2LOT-57-editeur-information_2tache-01-barre-etat" title="Lot/LOT-57-editeur-information/tache-01-barre-etat.md">TACHE-01</a>  </td><td class="markdownTableBodyNone">Barre d'état structurée : état permanent et aide contextuelle à l'outil  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Interface</span>, <span class="tt">Source/HMI/Editor</span>  </td><td class="markdownTableBodyCenter">⬜  </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="lot-57-tache-01-barre-etat.html#md_Lot_2LOT-57-editeur-information_2tache-01-barre-etat" title="Lot/LOT-57-editeur-information/tache-01-barre-etat.md">TACHE-01</a>  </td><td class="markdownTableBodyNone">Barre d'état structurée : état permanent et aide contextuelle à l'outil  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Interface</span>, <span class="tt">Source/HMI/Editor</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a class="el" href="lot-57-tache-02-panneaux-groupes.html#md_Lot_2LOT-57-editeur-information_2tache-02-panneaux-groupes" title="Lot/LOT-57-editeur-information/tache-02-panneaux-groupes.md">TACHE-02</a>  </td><td class="markdownTableBodyNone">Regroupement des panneaux en onglets, suivant l'outil actif  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Interface</span>  </td><td class="markdownTableBodyCenter">⬜  </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="lot-57-tache-02-panneaux-groupes.html#md_Lot_2LOT-57-editeur-information_2tache-02-panneaux-groupes" title="Lot/LOT-57-editeur-information/tache-02-panneaux-groupes.md">TACHE-02</a>  </td><td class="markdownTableBodyNone">Regroupement des panneaux en onglets, suivant l'outil actif  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Interface</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="lot-57-tache-03-panneau-textures.html#md_Lot_2LOT-57-editeur-information_2tache-03-panneau-textures" title="Lot/LOT-57-editeur-information/tache-03-panneau-textures.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Recentrage du panneau Textures ; calques déplacés vers le menu Affichage  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Editor</span>, <span class="tt">Source/Elements/UI</span>  </td><td class="markdownTableBodyCenter">⬜  </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="lot-57-tache-03-panneau-textures.html#md_Lot_2LOT-57-editeur-information_2tache-03-panneau-textures" title="Lot/LOT-57-editeur-information/tache-03-panneau-textures.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Recentrage du panneau Textures ; calques déplacés vers le menu Affichage  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Editor</span>, <span class="tt">Source/Elements/UI</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a class="el" href="lot-57-tache-04-deduplication-raccourcis.html#md_Lot_2LOT-57-editeur-information_2tache-04-deduplication-raccourcis" title="Lot/LOT-57-editeur-information/tache-04-deduplication-raccourcis.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Déduplication des commandes, raccourcis d'éditeur branchés et remappables, aperçu à l'écran  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Game</span>, <span class="tt">Source/HMI/Input</span>, <span class="tt">Source/HMI/Interface</span>  </td><td class="markdownTableBodyCenter">⬜  </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="lot-57-tache-04-deduplication-raccourcis.html#md_Lot_2LOT-57-editeur-information_2tache-04-deduplication-raccourcis" title="Lot/LOT-57-editeur-information/tache-04-deduplication-raccourcis.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Déduplication des commandes, raccourcis d'éditeur branchés et remappables, aperçu à l'écran  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Game</span>, <span class="tt">Source/HMI/Input</span>, <span class="tt">Source/HMI/Interface</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2492"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2493"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Le niveau ouvert, la présence de modifications non enregistrées, l'outil actif, la case survolée et le zoom sont visibles en permanence pendant l'édition.</li>
@@ -170,11 +178,11 @@ Critères d'acceptation du lot</h1>
 <li>Un aperçu des raccourcis est atteignable depuis l'application.</li>
 <li>La disposition sauvegardée d'une session précédente se restaure sans panneau égaré ; libellés dans les deux langues ; build <span class="tt">/W4 /WX</span>, Doxygen, lint verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2493"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2494"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-56.html" title="LOT-56 — Système de design de l&#39;IHM Qt">LOT-56</a>, dont les actions rendent la déduplication structurelle plutôt que cosmétique, et sur <a class="el" href="lot-51.html" title="LOT-51 — Mode « définition des textures » : visibilité par calque">LOT-51</a>, dont le mode d'inspection par calque est déplacé. Utilise le patron de fonction pure de décision d'affichage établi par <a class="el" href="lot-52.html" title="LOT-52 — Texte, police bitmap et affichage tête haute">LOT-52</a>. Aucune dépendance sur les autres lots du programme d'habillage.</p>
 <p><a class="el" href="lot-54.html" title="LOT-54 — Atelier pixel art intégré">LOT-54</a> s'exécute derrière celui-ci et s'y branche : l'atelier pixel art étendra le modèle pur de la barre d'état d'un contexte d'édition d'asset, entrera dans le regroupement des panneaux et dans la table de mise en avant, prendra son point d'entrée dans le panneau Textures recentré, et donnera une seconde cible aux actions Annuler et Refaire dédupliquées ici. Quatre des tâches de ce lot sont donc à écrire en prévoyant ce second contexte d'édition, plutôt qu'en figeant leurs signatures sur le seul contexte niveau.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2494"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2495"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-57-tache-01-barre-etat.html" title="TACHE-01 — Barre d&#39;état : état permanent et aide contextuelle">TACHE-01 — Barre d'état : état permanent et aide contextuelle</a></li>

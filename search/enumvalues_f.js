@@ -4,7 +4,7 @@ var searchData=
   ['rectangle_1',['Rectangle',['../namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68ddace9291906a4c3b042650b70d7f3b152e',1,'hmi']]],
   ['redo_2',['Redo',['../namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a5afeaba074ef570dc720caaa855d49f6',1,'hmi::Redo'],['../namespacehmi.html#ab269aabb94611e449a8e7427969874f5a5afeaba074ef570dc720caaa855d49f6',1,'hmi::Redo']]],
   ['remove_3',['Remove',['../namespacehmi.html#a76066d550faf628786294c82cd2d12a4a1063e38cb53d94d386f21227fcd84717',1,'hmi']]],
-  ['rename_4',['Rename',['../namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a904a8304056d77e4547744781b7ceb50',1,'hmi']]],
+  ['rename_4',['Rename',['../namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a904a8304056d77e4547744781b7ceb50',1,'hmi::Rename'],['../namespacehmi.html#ab269aabb94611e449a8e7427969874f5a904a8304056d77e4547744781b7ceb50',1,'hmi::Rename']]],
   ['replacepending_5',['ReplacePending',['../namespacehmi.html#ace704959d626f266592987f16eb2f3d5a3dd35eb48e689222238c611f64809a3e',1,'hmi']]],
   ['resetcamera_6',['ResetCamera',['../namespacehmi.html#ab269aabb94611e449a8e7427969874f5a34e806c94d1cf43980bb179a0376e173',1,'hmi']]],
   ['resize_7',['Resize',['../namespacehmi.html#a36a02809aec3ca6ea3feb8e455433599a9d723d04c40bfd81835c0766a698cf63',1,'hmi']]],

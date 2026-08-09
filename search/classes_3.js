@@ -13,8 +13,9 @@ var searchData=
   ['decorhit_10',['DecorHit',['../structhmi_1_1DecorHit.html',1,'hmi']]],
   ['decorlistrow_11',['DecorListRow',['../structhmi_1_1DecorListRow.html',1,'hmi']]],
   ['decoroverlaystate_12',['DecorOverlayState',['../structhmi_1_1DecorOverlayState.html',1,'hmi']]],
-  ['decorvisualtag_13',['DecorVisualTag',['../structhmi_1_1DecorVisualTag.html',1,'hmi']]],
-  ['designcolor_14',['DesignColor',['../structhmi_1_1DesignColor.html',1,'hmi']]],
-  ['designtokens_15',['DesignTokens',['../structhmi_1_1DesignTokens.html',1,'hmi']]],
-  ['draftrenderer_16',['DraftRenderer',['../classhmi_1_1DraftRenderer.html',1,'hmi']]]
+  ['decorspanel_13',['DecorsPanel',['../classhmi_1_1DecorsPanel.html',1,'hmi']]],
+  ['decorvisualtag_14',['DecorVisualTag',['../structhmi_1_1DecorVisualTag.html',1,'hmi']]],
+  ['designcolor_15',['DesignColor',['../structhmi_1_1DesignColor.html',1,'hmi']]],
+  ['designtokens_16',['DesignTokens',['../structhmi_1_1DesignTokens.html',1,'hmi']]],
+  ['draftrenderer_17',['DraftRenderer',['../classhmi_1_1DraftRenderer.html',1,'hmi']]]
 ];

@@ -93,9 +93,9 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>711 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>724 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (621)</h1>
+Tests unitaires (634)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p><b><span class="tt"><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></span></b></p>
@@ -2208,7 +2208,7 @@ Diagnostics (2)</h3>
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b" title="Assemble les messages de log en un texte (une ligne par message).">hmi::serializeSessionLog</a>({})</span> vaut <span class="tt">""</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
-Editor (40)</h3>
+Editor (50)</h3>
 <p><b><span class="tt"><a class="el" href="test__decor__geometry_8cpp.html" title="Tests unitaires de la géométrie partagée corps/poignées d&#39;un décor (LOT-50 TACHE-02).">test_decor_geometry.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2289,6 +2289,42 @@ Vérifie que <span class="tt">rows[0].assetMissing</span> est faux.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>DecorListModelTest.SansDecorLaListeEstVide</b> (Mineur)<br  />
 <sub><span class="tt"><a class="el" href="test__decor__list__model_8cpp.html" title="Tests unitaires de la construction des lignes de la section « Décors » (LOT-50 TACHE-04).">Source/Test/Unit/HMI/Editor/test_decor_list_model.cpp</a>:147</span></sub>  </td><td class="markdownTableBodyNone">Sans decor, la liste est vide.  </td><td class="markdownTableBodyNone">1. Appeler buildDecorListRows sur un vecteur vide.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">rows.empty()</span> est vrai.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">test_editor_status.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>EditorStatusTest.AucunNiveauOuvertNAfficheRien</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:52</span></sub>  </td><td class="markdownTableBodyNone">Aucun niveau ouvert n'affiche aucune zone ni aide.  </td><td class="markdownTableBodyNone">1. Construire un contexte sans niveau.<br  />
+2. Calculer les lignes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">lines.permanent.size()</span> vaut <span class="tt">5u</span>.<br  />
+Vérifie que <span class="tt">zone</span> vaut <span class="tt">""</span>.<br  />
+Vérifie que <span class="tt">lines.help</span> vaut <span class="tt">""</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>EditorStatusTest.AucuneCaseSurvoleeLaisseLaZoneVide</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:72</span></sub>  </td><td class="markdownTableBodyNone">Aucune case survolee laisse la zone de coordonnees vide.  </td><td class="markdownTableBodyNone">1. Construire un niveau sans case survolee.<br  />
+2. Calculer les lignes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">lines.permanent[0]</span> vaut <span class="tt">"Niveau : Salle des epreuves"</span>.<br  />
+Vérifie que <span class="tt">lines.permanent[3]</span> vaut <span class="tt">""</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>EditorStatusTest.IndicateurDeModificationSuitLEtatDirty</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:91</span></sub>  </td><td class="markdownTableBodyNone">L'indicateur de modification suit l'etat "dirty" du niveau.  </td><td class="markdownTableBodyNone">1. Calculer les lignes avec dirty=true, puis dirty=false.<br  />
+2. Comparer la zone d'indicateur.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::editorStatusLines(dirtyContext, localization).permanent[1]</span> vaut <span class="tt">"Modifie"</span>.<br  />
+Vérifie que <span class="tt">hmi::editorStatusLines(cleanContext, localization).permanent[1]</span> vaut <span class="tt">""</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>EditorStatusTest.AideChangeAvecLOutilActif</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:115</span></sub>  </td><td class="markdownTableBodyNone">L'aide contextuelle change avec l'outil actif.  </td><td class="markdownTableBodyNone">1. Calculer les lignes avec l'outil Pinceau, puis Lien.<br  />
+2. Comparer l'aide.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::editorStatusLines(paintContext, localization).help</span> vaut <span class="tt">"Aide pinceau"</span>.<br  />
+Vérifie que <span class="tt">hmi::editorStatusLines(linkContext, localization).help</span> vaut <span class="tt">"Aide lien"</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>EditorStatusTest.MemeContexteProduitLaMemeAide</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:140</span></sub>  </td><td class="markdownTableBodyNone">La decision est deterministe : meme contexte, meme resultat.  </td><td class="markdownTableBodyNone">1. Calculer deux fois les lignes pour le meme contexte.<br  />
+2. Comparer.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">first.help</span> vaut <span class="tt">second.help</span>.<br  />
+Vérifie que <span class="tt">first.permanent</span> vaut <span class="tt">second.permanent</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>EditorStatusTest.ClesDeTraductionExistentDansLesDeuxCatalogues</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:162</span></sub>  </td><td class="markdownTableBodyNone">Les cles de traduction de la barre d'etat existent dans les deux catalogues.  </td><td class="markdownTableBodyNone">1. Charger fr.lang puis en.lang depuis les catalogues livres.<br  />
+2. Resoudre chaque cle utilisee.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">localization.loadDefaultLanguage(language)</span> est vrai.<br  />
+Vérifie que <span class="tt">localization.text(key)</span> diffère de <span class="tt">key</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__level__name__validation_8cpp.html" title="Tests unitaires de la validation d&#39;un nom de niveau saisi (LOT-15, EX-EDIT-009).">test_level_name_validation.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -2382,6 +2418,27 @@ Vérifie que <span class="tt">noCatalog.source</span> vaut <span class="tt"><a c
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>PaletteAppearanceTest.PaletteEtCanevasDecidentPareil</b> (Critique)<br  />
 <sub><span class="tt"><a class="el" href="test__palette__appearance_8cpp.html" title="Tests unitaires du choix de vignette de la palette (LOT-42 TACHE-05, EX-EDIT-027).">Source/Test/Unit/HMI/Editor/test_palette_appearance.cpp</a>:158</span></sub>  </td><td class="markdownTableBodyNone">La palette et le canevas resolvent la meme source pour chaque type.  </td><td class="markdownTableBodyNone">1. Pour plusieurs types et les deux modes, comparer la source choisie par la palette a celle choisie par la resolution du canevas.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">sameAtlas \|\| sameSkin \|\| sameMissing</span> est vrai.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__panel__focus_8cpp.html" title="Tests unitaires de la correspondance outil → panneau (LOT-57 TACHE-02, EX-IHM-061).">test_panel_focus.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PanelFocusTest.OutilLienMetEnAvantLePanneauLiens</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__panel__focus_8cpp.html" title="Tests unitaires de la correspondance outil → panneau (LOT-57 TACHE-02, EX-IHM-061).">Source/Test/Unit/HMI/Editor/test_panel_focus.cpp</a>:13</span></sub>  </td><td class="markdownTableBodyNone">L'outil Lien met en avant le panneau Liens.  </td><td class="markdownTableBodyNone">1. Interroger la table pour l'outil Lien.<br  />
+2. Verifier le panneau retourne.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::panelForTool(hmi::EditorTool::Link)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726abd908db5ccb07777ced8023dffc802f4">hmi::PanelId::Links</a></span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PanelFocusTest.OutilTextureMetEnAvantLePanneauTextures</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__panel__focus_8cpp.html" title="Tests unitaires de la correspondance outil → panneau (LOT-57 TACHE-02, EX-IHM-061).">Source/Test/Unit/HMI/Editor/test_panel_focus.cpp</a>:26</span></sub>  </td><td class="markdownTableBodyNone">L'outil Texture met en avant le panneau Textures.  </td><td class="markdownTableBodyNone">1. Interroger la table pour l'outil Texture par instance.<br  />
+2. Verifier le panneau retourne.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::panelForTool(hmi::EditorTool::TextureAssign)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726a536300d63028e7f16ba150566ecd3a5f">hmi::PanelId::Textures</a></span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PanelFocusTest.OutilsSansPanneauDedieNeMettentRienEnAvant</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__panel__focus_8cpp.html" title="Tests unitaires de la correspondance outil → panneau (LOT-57 TACHE-02, EX-IHM-061).">Source/Test/Unit/HMI/Editor/test_panel_focus.cpp</a>:41</span></sub>  </td><td class="markdownTableBodyNone">Les outils sans panneau dedie ne mettent rien en avant.  </td><td class="markdownTableBodyNone">1. Interroger la table pour chaque outil sans panneau dedie.<br  />
+2. Verifier l'absence de resultat.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::panelForTool(tool)</span> vaut <span class="tt">std::nullopt</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PanelFocusTest.AucunDoublonDOutilDansLaTable</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__panel__focus_8cpp.html" title="Tests unitaires de la correspondance outil → panneau (LOT-57 TACHE-02, EX-IHM-061).">Source/Test/Unit/HMI/Editor/test_panel_focus.cpp</a>:58</span></sub>  </td><td class="markdownTableBodyNone">La table ne contient aucun doublon d'outil.  </td><td class="markdownTableBodyNone">1. Parcourir toutes les paires d'entrees de la table.<br  />
+2. Comparer leurs outils.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">catalog[i].tool</span> diffère de <span class="tt">catalog[j].tool</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__skin__assignments_8cpp.html" title="Tests unitaires de la logique du panneau « Textures » (LOT-42 TACHE-04).">test_skin_assignments.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -3629,7 +3686,7 @@ Vérifie que <span class="tt">textures.widthFor(broken)</span> vaut <span class=
 Vérifie que <span class="tt">textures.heightFor(broken)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a75cfef1e5eb0b5569ebd42c004d73ce3" title="Côté, en pixels, du damier de repli généré par défaut (une case, EX-ARCH-021).">hmi::MISSING_TEXTURE_SIZE</a></span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
-Input (63)</h3>
+Input (65)</h3>
 <p><b><span class="tt"><a class="el" href="test__editor__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de l&#39;éditeur (EditorKeyBindings, EX-CTRL-012).">test_editor_key_bindings.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -3653,24 +3710,35 @@ Vérifie que <span class="tt">bindings.key(hmi::EditorAction::TextureAssignTool)
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">bindings.key(hmi::EditorAction::Rename)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e">hmi::Key::S</a></span>.<br  />
 Vérifie que <span class="tt">bindings.key(hmi::EditorAction::Save)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48afe5c3684dce76cdd9f7f42430868aa74">hmi::Key::F2</a></span>.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>EditorKeyBindingsTest.ResetToDefaultsRestaureLesDefauts</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__editor__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de l&#39;éditeur (EditorKeyBindings, EX-CTRL-012).">Source/Test/Unit/HMI/Input/test_editor_key_bindings.cpp</a>:60</span></sub>  </td><td class="markdownTableBodyNone"><span class="tt">resetToDefaults</span> restaure les valeurs par défaut après un ou plusieurs remaps.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">bindings.key(hmi::EditorAction::Playtest)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a44c29edb103a2872f519ad0c9a0fdaaa">hmi::Key::P</a></span>.  </td></tr>
+<td class="markdownTableBodyNone"><b>EditorKeyBindingsTest.SetKeyEchangeAvecTextureAssignTool</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de l&#39;éditeur (EditorKeyBindings, EX-CTRL-012).">Source/Test/Unit/HMI/Input/test_editor_key_bindings.cpp</a>:61</span></sub>  </td><td class="markdownTableBodyNone"><span class="tt">setKey</span> echange correctement quand TextureAssignTool est impliquee.  </td><td class="markdownTableBodyNone">1. Remapper TextureAssignTool sur la touche par defaut de Playtest.<br  />
+2. Verifier l'echange.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">bindings.key(hmi::EditorAction::TextureAssignTool)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a44c29edb103a2872f519ad0c9a0fdaaa">hmi::Key::P</a></span>.<br  />
+Vérifie que <span class="tt">bindings.key(hmi::EditorAction::Playtest)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48ab9ece18c950afbfa6b0fdbfa4ff731d3">hmi::Key::T</a></span>.  </td></tr>
 <tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>EditorKeyBindingsTest.ResetToDefaultsRestaureLesDefauts</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de l&#39;éditeur (EditorKeyBindings, EX-CTRL-012).">Source/Test/Unit/HMI/Input/test_editor_key_bindings.cpp</a>:78</span></sub>  </td><td class="markdownTableBodyNone"><span class="tt">resetToDefaults</span> restaure les valeurs par défaut après un ou plusieurs remaps.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">bindings.key(hmi::EditorAction::Playtest)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a44c29edb103a2872f519ad0c9a0fdaaa">hmi::Key::P</a></span>.  </td></tr>
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>EditorKeyBindingsTest.SaveEtLoadAllerRetour</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__editor__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de l&#39;éditeur (EditorKeyBindings, EX-CTRL-012).">Source/Test/Unit/HMI/Input/test_editor_key_bindings.cpp</a>:78</span></sub>  </td><td class="markdownTableBodyNone">Sauvegarder puis recharger préserve un jeu de bindings personnalisé (aller-retour JSON).  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__editor__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de l&#39;éditeur (EditorKeyBindings, EX-CTRL-012).">Source/Test/Unit/HMI/Input/test_editor_key_bindings.cpp</a>:96</span></sub>  </td><td class="markdownTableBodyNone">Sauvegarder puis recharger préserve un jeu de bindings personnalisé (aller-retour JSON).  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">original.save(path)</span> est vrai.<br  />
 Vérifie que <span class="tt">reloaded.key(hmi::EditorAction::Playtest)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48ae1dffc8709f31a4987c8a88334107e89">hmi::Key::F1</a></span>.<br  />
 Vérifie que <span class="tt">reloaded.key(hmi::EditorAction::Save)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e">hmi::Key::S</a></span>.  </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>EditorKeyBindingsTest.LoadFichierAbsentRenvoieLesDefauts</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__editor__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de l&#39;éditeur (EditorKeyBindings, EX-CTRL-012).">Source/Test/Unit/HMI/Input/test_editor_key_bindings.cpp</a>:106</span></sub>  </td><td class="markdownTableBodyNone">Charger depuis un fichier absent renvoie les valeurs par défaut, sans erreur.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">bindings.key(hmi::EditorAction::Save)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e">hmi::Key::S</a></span>.  </td></tr>
 <tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>EditorKeyBindingsTest.LoadFichierAbsentRenvoieLesDefauts</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de l&#39;éditeur (EditorKeyBindings, EX-CTRL-012).">Source/Test/Unit/HMI/Input/test_editor_key_bindings.cpp</a>:124</span></sub>  </td><td class="markdownTableBodyNone">Charger depuis un fichier absent renvoie les valeurs par défaut, sans erreur.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">bindings.key(hmi::EditorAction::Save)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e">hmi::Key::S</a></span>.  </td></tr>
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>EditorKeyBindingsTest.SavePreserveLaSectionJeu</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__editor__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de l&#39;éditeur (EditorKeyBindings, EX-CTRL-012).">Source/Test/Unit/HMI/Input/test_editor_key_bindings.cpp</a>:126</span></sub>  </td><td class="markdownTableBodyNone">Sauvegarder les touches d'éditeur préserve une section « jeu » déjà présente.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__editor__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de l&#39;éditeur (EditorKeyBindings, EX-CTRL-012).">Source/Test/Unit/HMI/Input/test_editor_key_bindings.cpp</a>:144</span></sub>  </td><td class="markdownTableBodyNone">Sauvegarder les touches d'éditeur préserve une section « jeu » déjà présente.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">bindings.save(path)</span> est vrai.<br  />
 Vérifie que <span class="tt">content.find("\\"jeu\\\\"\")&lt;/tt&gt; diffère de &lt;tt&gt;std::string::npos&lt;/tt&gt;.&lt;br/&gt;Vérifie que &lt;tt&gt;content.find(\"sauter\")</span> diffère de <span class="tt">std::string::npos</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>EditorKeyBindingsTest.SavePreserveLaSectionManette</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de l&#39;éditeur (EditorKeyBindings, EX-CTRL-012).">Source/Test/Unit/HMI/Input/test_editor_key_bindings.cpp</a>:178</span></sub>  </td><td class="markdownTableBodyNone">Sauvegarder les touches d'editeur preserve une section manette deja presente.  </td><td class="markdownTableBodyNone">1. Ecrire un fichier avec une section manette.<br  />
+2. Sauvegarder des touches d'editeur dessus.<br  />
+3. Relire le fichier.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">bindings.save(path)</span> est vrai.<br  />
+Vérifie que <span class="tt">content.find("\\"manette\\\\"\")&lt;/tt&gt; diffère de &lt;tt&gt;std::string::npos&lt;/tt&gt;.&lt;br/&gt;Vérifie que &lt;tt&gt;content.find(\"sauter\")</span> diffère de <span class="tt">std::string::npos</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__game__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de jeu (GameKeyBindings, EX-CTRL-012).">test_game_key_bindings.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -4031,7 +4099,7 @@ Vérifie que <span class="tt">mapWithDefaults(withKeys({<a class="el" href="name
 Vérifie que <span class="tt">hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::Y), gameKeyBindings, gamepadBindings) .moveX</span> vaut <span class="tt">1.0f</span> (comparaison flottante).  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
-Interface (21)</h3>
+Interface (22)</h3>
 <p><b><span class="tt"><a class="el" href="test__application__theme_8cpp.html" title="Tests unitaires du thème de l&#39;IHM : modèle de feuille de style (LOT-56 TACHE-02, EX-IHM-050,...">test_application_theme.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4146,7 +4214,7 @@ Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a4b85e74ce87
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>EditorActionsTest.LesSixOutilsFormentUneBijectionAvecEditorTool</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__editor__actions_8cpp.html" title="Tests unitaires du catalogue d&#39;actions et de la géométrie des icônes de l&#39;éditeur (LOT-56 TACHE-04,...">Source/Test/Unit/HMI/Interface/test_editor_actions.cpp</a>:35</span></sub>  </td><td class="markdownTableBodyNone">Les six outils du catalogue forment une bijection avec EditorTool.  </td><td class="markdownTableBodyNone">1. Pour chaque <a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou le panneau ToolPanel.">hmi::EditorTool</a>, resoudre l'action puis reconvertir vers l'outil.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">seen.insert(id).second</span> est vrai.<br  />
+<sub><span class="tt"><a class="el" href="test__editor__actions_8cpp.html" title="Tests unitaires du catalogue d&#39;actions et de la géométrie des icônes de l&#39;éditeur (LOT-56 TACHE-04,...">Source/Test/Unit/HMI/Interface/test_editor_actions.cpp</a>:35</span></sub>  </td><td class="markdownTableBodyNone">Les six outils du catalogue forment une bijection avec EditorTool.  </td><td class="markdownTableBodyNone">1. Pour chaque <a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou la barre d&#39;outils (hmi::EditorActions,...">hmi::EditorTool</a>, resoudre l'action puis reconvertir vers l'outil.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">seen.insert(id).second</span> est vrai.<br  />
 Vérifie que <span class="tt">roundTrip.has_value()</span> est vrai.<br  />
 Vérifie que <span class="tt">*roundTrip</span> vaut <span class="tt">tool</span>.<br  />
 Vérifie que <span class="tt">seen.size()</span> vaut <span class="tt">6u</span>.  </td></tr>
@@ -4170,6 +4238,14 @@ Vérifie que <span class="tt">point.y</span> est inférieur ou égal à <span cl
 Vérifie que <span class="tt">en.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">fr.count(spec.labelKey) &gt; 0</span> est vrai.<br  />
 Vérifie que <span class="tt">en.count(spec.labelKey) &gt; 0</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>EditorActionsTest.AucuneActionRemappableOrpheline</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__actions_8cpp.html" title="Tests unitaires du catalogue d&#39;actions et de la géométrie des icônes de l&#39;éditeur (LOT-56 TACHE-04,...">Source/Test/Unit/HMI/Interface/test_editor_actions.cpp</a>:134</span></sub>  </td><td class="markdownTableBodyNone">Chaque action d'editeur remappable a une commande effective.  </td><td class="markdownTableBodyNone">1. Comparer le nombre d'actions remappables (hors outil) au nombre d'entrees de la table de correspondance.<br  />
+2. Verifier que chaque entree pointe vers une commande reelle du catalogue et que l'aller-retour restitue l'action d'origine.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a1a8d24174b415e8452f331c030addee6" title="Nombre d&#39;actions d&#39;éditeur remappables ayant une commande effective (EDITOR_ACTION_COUNT moins Textur...">hmi::KEY_BINDING_ICON_COUNT</a></span> vaut <span class="tt"><a class="el" href="namespacehmi.html#af2f4a1af04682540c1b84611a24aa42c" title="Nombre d&#39;actions d&#39;éditeur remappables (EditorAction).">hmi::EDITOR_ACTION_COUNT</a> - 1</span>.<br  />
+<span class="tt">EXPECT_NO_THROW(static_cast&lt;void&gt;(<a class="el" href="namespacehmi.html#a86efa8bc643b7f44b2cd6fc6133605f3">hmi::editorActionSpec</a>(entry.id)))</span><br  />
+Vérifie que <span class="tt">seen.insert(entry.id).second</span> est vrai.<br  />
+Vérifie que <span class="tt">roundTrip.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">*roundTrip</span> vaut <span class="tt">entry.action</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
 Localization (8)</h3>

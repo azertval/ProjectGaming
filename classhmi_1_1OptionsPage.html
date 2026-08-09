@@ -112,6 +112,8 @@ Signals</h2></td></tr>
 <tr class="memdesc:a0a50dd2655a0e8d5a15ff38dc7b83153"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand l'utilisateur choisit une langue (« fr »/« en »).  <br /></td></tr>
 <tr class="memitem:a5d9315f0aafbff0cf5c7d0779c00aa07" id="r_a5d9315f0aafbff0cf5c7d0779c00aa07"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5d9315f0aafbff0cf5c7d0779c00aa07">saveLogsRequested</a> ()</td></tr>
 <tr class="memdesc:a5d9315f0aafbff0cf5c7d0779c00aa07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand l'utilisateur demande l'enregistrement des journaux de session.  <br /></td></tr>
+<tr class="memitem:a8c9ba3f2e632dedf033547c9a17db87c" id="r_a8c9ba3f2e632dedf033547c9a17db87c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8c9ba3f2e632dedf033547c9a17db87c">editorBindingsChanged</a> ()</td></tr>
+<tr class="memdesc:a8c9ba3f2e632dedf033547c9a17db87c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis après chaque remappage réussi d'une touche d'éditeur (<span class="tt">LOT-57</span> TACHE-04) : l'appelant doit resynchroniser les raccourcis effectifs des actions (<span class="tt"><a class="el" href="classhmi_1_1EditorActions.html#a15651f937c395ecf4bc082bc5c79f455" title="Fait refléter bindings sur le raccourci effectif de chaque commande concernée (hmi::keyBindingIconCat...">EditorActions::applyShortcuts</a></span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -125,9 +127,12 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a4e9e1f4e0aff3bf22f8a3fab7fe52643" id="r_a4e9e1f4e0aff3bf22f8a3fab7fe52643"><td class="memItemLeft">std::unique_ptr&lt; Ui::OptionsPage &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4e9e1f4e0aff3bf22f8a3fab7fe52643">_ui</a></td></tr>
 <tr class="memitem:a8987aa73dc8efea3e4b6f92a92106858" id="r_a8987aa73dc8efea3e4b6f92a92106858"><td class="memItemLeft"><a class="el" href="classhmi_1_1KeybindingsWidget.html">KeybindingsWidget</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a8987aa73dc8efea3e4b6f92a92106858">_keyboard</a> = nullptr</td></tr>
 <tr class="memdesc:a8987aa73dc8efea3e4b6f92a92106858"><td class="mdescLeft">&#160;</td><td class="mdescRight">Onglet remappage clavier (contenu dynamique).  <br /></td></tr>
+<tr class="memitem:a95412ed8125d875a12ad360eea7bdd17" id="r_a95412ed8125d875a12ad360eea7bdd17"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditorKeybindingsWidget.html">EditorKeybindingsWidget</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a95412ed8125d875a12ad360eea7bdd17">_editorKeyboard</a> = nullptr</td></tr>
+<tr class="memdesc:a95412ed8125d875a12ad360eea7bdd17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Onglet remappage éditeur (LOT-57).  <br /></td></tr>
 <tr class="memitem:a7807405c2da69c2a5410951631e9d3ed" id="r_a7807405c2da69c2a5410951631e9d3ed"><td class="memItemLeft"><a class="el" href="classhmi_1_1GamepadBindingsWidget.html">GamepadBindingsWidget</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a7807405c2da69c2a5410951631e9d3ed">_gamepad</a> = nullptr</td></tr>
 <tr class="memdesc:a7807405c2da69c2a5410951631e9d3ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Onglet remappage manette (contenu dynamique).  <br /></td></tr>
 <tr class="memitem:af7e6b91926b0786746556c191d707be4" id="r_af7e6b91926b0786746556c191d707be4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#af7e6b91926b0786746556c191d707be4">_keyboardTabIndex</a> = -1</td></tr>
+<tr class="memitem:aa0a5558dc255542a311b71454defdc40" id="r_aa0a5558dc255542a311b71454defdc40"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa0a5558dc255542a311b71454defdc40">_editorKeyboardTabIndex</a> = -1</td></tr>
 <tr class="memitem:a1d7d6433a8ca8224bd5a47c9ea4bf846" id="r_a1d7d6433a8ca8224bd5a47c9ea4bf846"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a1d7d6433a8ca8224bd5a47c9ea4bf846">_gamepadTabIndex</a> = -1</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
@@ -208,6 +213,33 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8c9ba3f2e632dedf033547c9a17db87c" name="a8c9ba3f2e632dedf033547c9a17db87c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c9ba3f2e632dedf033547c9a17db87c">&#9670;&#160;</a></span>editorBindingsChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::OptionsPage::editorBindingsChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis après chaque remappage réussi d'une touche d'éditeur (<span class="tt">LOT-57</span> TACHE-04) : l'appelant doit resynchroniser les raccourcis effectifs des actions (<span class="tt"><a class="el" href="classhmi_1_1EditorActions.html#a15651f937c395ecf4bc082bc5c79f455" title="Fait refléter bindings sur le raccourci effectif de chaque commande concernée (hmi::keyBindingIconCat...">EditorActions::applyShortcuts</a></span>). </p>
 
 </div>
 </div>
@@ -310,6 +342,52 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a95412ed8125d875a12ad360eea7bdd17" name="a95412ed8125d875a12ad360eea7bdd17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95412ed8125d875a12ad360eea7bdd17">&#9670;&#160;</a></span>_editorKeyboard</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1EditorKeybindingsWidget.html">EditorKeybindingsWidget</a>* hmi::OptionsPage::_editorKeyboard = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Onglet remappage éditeur (LOT-57). </p>
+
+</div>
+</div>
+<a id="aa0a5558dc255542a311b71454defdc40" name="aa0a5558dc255542a311b71454defdc40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0a5558dc255542a311b71454defdc40">&#9670;&#160;</a></span>_editorKeyboardTabIndex</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::OptionsPage::_editorKeyboardTabIndex = -1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a7807405c2da69c2a5410951631e9d3ed" name="a7807405c2da69c2a5410951631e9d3ed"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7807405c2da69c2a5410951631e9d3ed">&#9670;&#160;</a></span>_gamepad</h2>
 

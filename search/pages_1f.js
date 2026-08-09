@@ -11,7 +11,7 @@ var searchData=
   ['un_20contenu_20plus_20grand_20que_20la_20fenêtre_20_3a_20fitzoom_20et_20hmi_3a_3aroomgrid_8',['Cadrer un contenu plus grand que la fenêtre : &lt;span class=&quot;tt&quot;&gt;fitZoom&lt;/span&gt; et &lt;span class=&quot;tt&quot;&gt;hmi::RoomGrid&lt;/span&gt;',['../guide-rendu.html#autotoc_md151',1,'']]],
   ['un_20fichier_9',['&lt;a class=&quot;el&quot; href=&quot;classhmi_1_1TextureAtlas.html&quot; title=&quot;hmi::TextureAtlas&quot;&gt;hmi::TextureAtlas&lt;/a&gt; : un spritesheet, chargé depuis un fichier',['../guide-rendu.html#autotoc_md157',1,'']]],
   ['un_20jeu_20vidéo_10',['Pourquoi journaliser dans un jeu vidéo',['../guide-journalisation.html#autotoc_md94',1,'']]],
-  ['un_20niveau_11',['un niveau',['../manuel-partager-niveau.html#autotoc_md2531',1,'3. Créer un niveau'],['../manuel-jouer.html#autotoc_md2526',1,'Objectif d&apos;un niveau']]],
+  ['un_20niveau_11',['un niveau',['../manuel-partager-niveau.html#autotoc_md2532',1,'3. Créer un niveau'],['../manuel-jouer.html#autotoc_md2527',1,'Objectif d&apos;un niveau']]],
   ['un_20niveau_20_3a_20hmi_3a_3agamesession_20réutilisée_12',['Jouer un niveau : &lt;span class=&quot;tt&quot;&gt;hmi::GameSession&lt;/span&gt; réutilisée',['../guide-ihm-qt.html#autotoc_md90',1,'']]],
   ['un_20niveau_20plus_20grand_20que_20la_20fenêtre_13',['Cadrer un niveau plus grand que la fenêtre',['../guide-editeur.html#autotoc_md70',1,'']]],
   ['un_20niveau_20qu_20on_20peut_20défaire_14',['&lt;a class=&quot;el&quot; href=&quot;classcore_1_1LevelDraft.html&quot; title=&quot;core::LevelDraft&quot;&gt;core::LevelDraft&lt;/a&gt; : un niveau qu&apos;on peut défaire',['../guide-editeur.html#autotoc_md58',1,'']]],
@@ -52,7 +52,7 @@ var searchData=
   ['unités_20monde_20et_20pixels_20_3a_20hmi_3a_3acamera2d_20hmi_3a_3acamera2d_49',['Unités monde et pixels : &lt;a class=&quot;el&quot; href=&quot;classhmi_1_1Camera2D.html&quot; title=&quot;hmi::Camera2D&quot;&gt;hmi::Camera2D&lt;/a&gt;',['../guide-rendu.html#autotoc_md150',1,'']]],
   ['unitaire_50',['Vérification (visuelle, pas de test unitaire)',['../lot-08-tache-06-integration-jouable.html#autotoc_md698',1,'']]],
   ['unitaire_20—_20brique_20gpu_51',['Vérification (visuelle, pas de test unitaire — brique GPU)',['../lot-11-tache-03-personnage-humanoide.html#autotoc_md833',1,'']]],
-  ['unitaires_20621_52',['Tests unitaires (621)',['../cahiertest.html#autotoc_md4',1,'']]],
+  ['unitaires_20634_52',['Tests unitaires (634)',['../cahiertest.html#autotoc_md4',1,'']]],
   ['utilisateur_53',['utilisateur',['../lot-15-tache-01-entrees-molette-texte.html#autotoc_md960',1,'Ajustement post-livraison (essai utilisateur)'],['../lot-15-tache-04-camera-pan-zoom.html#autotoc_md980',1,'Ajustement post-livraison (essai utilisateur)'],['../lot-15-tache-06-decouvrabilite.html#autotoc_md997',1,'Ajustement post-livraison (essai utilisateur)'],['../manuel.html',1,'Manuel utilisateur']]],
   ['utilisateur_20ihm_54',['Interface utilisateur (IHM)',['../spec-interface-ihm.html',1,'specifications']]],
   ['utilisateur_20squelette_20première_20page_55',['TACHE-06 — Manuel utilisateur (squelette + première page)',['../lot-04-tache-06-manuel-utilisateur.html',1,'lot-04']]]

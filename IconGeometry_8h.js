@@ -20,7 +20,11 @@ var IconGeometry_8h =
       [ "hmi::IconId::Redo", "namespacehmi.html#ab269aabb94611e449a8e7427969874f5a5afeaba074ef570dc720caaa855d49f6", null ],
       [ "hmi::IconId::ToggleGrid", "namespacehmi.html#ab269aabb94611e449a8e7427969874f5a77bfa926518159e75c2c4b508a81f19e", null ],
       [ "hmi::IconId::ResetCamera", "namespacehmi.html#ab269aabb94611e449a8e7427969874f5a34e806c94d1cf43980bb179a0376e173", null ],
-      [ "hmi::IconId::ToggleRenderMode", "namespacehmi.html#ab269aabb94611e449a8e7427969874f5ae5217b6eb03211d9550042b6fe681626", null ]
+      [ "hmi::IconId::ToggleRenderMode", "namespacehmi.html#ab269aabb94611e449a8e7427969874f5ae5217b6eb03211d9550042b6fe681626", null ],
+      [ "hmi::IconId::Copy", "namespacehmi.html#ab269aabb94611e449a8e7427969874f5a5fb63579fc981698f97d55bfecb213ea", null ],
+      [ "hmi::IconId::Paste", "namespacehmi.html#ab269aabb94611e449a8e7427969874f5a36bb6559696dc9124986ae120515984f", null ],
+      [ "hmi::IconId::Rename", "namespacehmi.html#ab269aabb94611e449a8e7427969874f5a904a8304056d77e4547744781b7ceb50", null ],
+      [ "hmi::IconId::ShortcutsOverview", "namespacehmi.html#ab269aabb94611e449a8e7427969874f5a2583b92d245a881127917f19531ccf3b", null ]
     ] ],
     [ "hmi::iconGeometry", "namespacehmi.html#a209dabae621c4b379079647002f4c080", null ]
 ];
