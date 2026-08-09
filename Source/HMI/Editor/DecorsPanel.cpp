@@ -15,7 +15,6 @@
 #include <QStandardItemModel>
 #include <QString>
 #include <QTableView>
-#include <QToolBar>
 
 #include <algorithm>
 #include <cstddef>
@@ -31,7 +30,6 @@
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/TextureLoader.h"
 #include "HMI/Interface/DesignTokens.h"
-#include "HMI/Interface/EditorActions.h"
 #include "HMI/Localization/Localization.h"
 #include "ui_DecorsPanel.h"
 
@@ -78,25 +76,13 @@ const int ROW_ICON_SIZE = editorDarkTokens().size.iconMedium;
 
 }  // namespace
 
-DecorsPanel::DecorsPanel(std::filesystem::path decorsDirectory, EditorActions& actions,
-                         QWidget* parent)
+DecorsPanel::DecorsPanel(std::filesystem::path decorsDirectory, QWidget* parent)
     : QWidget(parent),
       _ui(std::make_unique<Ui::DecorsPanel>()),
-      _toolBar(nullptr),
       _decorView(nullptr),
       _decorsModel(new QStandardItemModel(0, DECORS_COLUMN_COUNT, this)),
       _decorsDirectory(std::move(decorsDirectory)) {
     _ui->setupUi(this);
-
-    // Barre d'outils (LOT-57, amendement) : reutilise EditorActions::populateToolBar telle quelle
-    // (aucun changement a EditorActions/ActionCatalog, EX-IHM-055 respectee) -- seul l'ancrage
-    // change, widget enfant du dock plutot que addToolBar() sur la fenetre principale. Verticale
-    // pour tenir dans un dock etroit sans chevron de debordement.
-    _toolBar = new QToolBar(this);
-    _toolBar->setOrientation(Qt::Vertical);
-    _toolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
-    actions.populateToolBar(*_toolBar);
-    _ui->toolBarContainerLayout->addWidget(_toolBar);
 
     // Placement de decors (LOT-49 TACHE-04) : grille de vignettes sur Assets/Decors/ (aucune
     // entree "(aucun)" -- poser sans asset selectionne n'a pas de sens), plus le choix de couche du

@@ -96,22 +96,21 @@ devient unique, et ce qui ne sert qu'à un outil s'efface quand cet outil n'est 
 Après livraison des quatre tâches, premier essai manuel réel de l'éditeur reconstruit : deux retours
 directs sur la disposition, tranchés et implémentés dans la foulée (branche encore ouverte, non
 mergée — pas un nouveau lot) :
-- **La barre d'outils du haut n'avait plus de raison d'exister comme telle.** Constat de code qui le
-  confirme : le panneau « Outils » (`ToolPanel`) ne portait déjà plus que le strict nécessaire de
-  l'outil Décor depuis `LOT-56` TACHE-04 (le choix d'outil s'était déplacé vers la barre). Elle est
-  donc devenue un `QToolBar` **vertical embarqué** dans ce panneau, renommé « Décors »
-  (`DecorsPanel`) — même `EditorActions::populateToolBar`, aucun changement à `EditorActions`/
-  `ActionCatalog`, `EX-IHM-055` toujours respectée. `addToolBar()` sur la fenêtre principale a
-  disparu.
 - **Les « palettes de texture » devaient redevenir un panneau à part**, sur le modèle
-  Outils/Palette. Le panneau Décors regroupe donc aussi le placement de décors (déplacé du panneau
-  Outils) et l'inspecteur des décors posés (déplacé de l'onglet « Décors » du panneau Textures,
-  `LOT-50`) ; le panneau Textures sort du regroupement en onglets de TACHE-02 (Niveaux/Liens restent
-  tabifiés, Textures redevient indépendant, comme Palette/Décors).
+  Outils/Palette. Le panneau « Outils » (`ToolPanel`), qui ne portait déjà plus que le strict
+  nécessaire de l'outil Décor depuis `LOT-56` TACHE-04 (le choix d'outil s'était déplacé vers la
+  barre d'outils), est renommé « Décors » (`DecorsPanel`) et regroupe désormais aussi l'inspecteur
+  des décors posés (déplacé de l'onglet « Décors » du panneau Textures, `LOT-50`). Le panneau
+  Textures sort du regroupement en onglets de TACHE-02 (Niveaux/Liens restent tabifiés, Textures
+  redevient indépendant, comme Palette/Décors).
+- **La barre d'outils reste hors du panneau Décors**, à son emplacement d'avant l'amendement (barre
+  globale de la fenêtre principale, `addToolBar()`, même `EditorActions::populateToolBar`) : un
+  premier essai l'avait embarquée verticalement dans le panneau Décors, corrigé après retour
+  immédiat — elle n'a pas vocation à dépendre d'un panneau ou d'un mode particulier.
 - Les deux sélecteurs de couche de décor (placement du prochain décor, couche du décor sélectionné)
   vivent désormais dans le même panneau, renommés explicitement (`decorPlacementLayerCombo`/
   `decorSelectedLayerCombo`) plutôt que de porter le même nom générique dans le même `.ui`.
-- `LAYOUT_VERSION` 4 → 5 (dock renommé, zone barre d'outils de la fenêtre principale supprimée).
+- `LAYOUT_VERSION` 4 → 5 (dock renommé).
 
 ## Découpage
 

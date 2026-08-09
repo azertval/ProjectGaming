@@ -21,6 +21,7 @@ class QLabel;
 class QMenu;
 class QStackedWidget;
 class QTimer;
+class QToolBar;
 class QWidget;
 
 namespace Ui {
@@ -127,13 +128,14 @@ private:
     PalettePanel* _palette;     ///< Arbre de sélection du type de tuile (contenu du dock Palette).
     LevelBrowserPanel*
         _levels;               ///< Liste/gestion des fichiers de niveaux (contenu du dock Niveaux).
-    /// Barre d'outils + placement/inspection de décors (dock Décors, `LOT-57` amendement) —
-    /// contenait déjà tout ce qui concerne les décors (`ToolPanel`, `LOT-56` TACHE-04) avant d'y
-    /// accueillir aussi la barre d'outils et l'inspecteur déplacé du panneau Textures.
+    /// Placement/inspection de décors (dock Décors, `LOT-57` amendement) — contenait déjà tout ce
+    /// qui concerne les décors (`ToolPanel`, `LOT-56` TACHE-04) avant d'y accueillir aussi
+    /// l'inspecteur déplacé du panneau Textures. La barre d'outils reste hors de ce panneau.
     DecorsPanel* _decors;
     LinkPanel* _links;         ///< Liste/gestion des liaisons de mécanismes (dock Liens, LOT-37).
     TexturePanel* _textures;   ///< Habillage : jeu de skins et assignations (dock Textures, LOT-42).
     EditorActions* _actions;   ///< Outils et commandes principales, barre d'outils (LOT-56 TACHE-04).
+    QToolBar* _toolBar;        ///< Barre d'outils de l'éditeur, alimentée par `_actions`.
     QMenu* _themeMenu;         ///< Sous-menu Affichage > Thème (LOT-56 TACHE-06).
     QAction* _themeSystemAction;
     QAction* _themeLightAction;

@@ -26,6 +26,7 @@
 #include <QString>
 #include <QStyleHints>
 #include <QTimer>
+#include <QToolBar>
 #include <QVBoxLayout>
 #include <QWidget>
 #include <array>
@@ -86,6 +87,7 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
       _links(nullptr),
       _textures(nullptr),
       _actions(nullptr),
+      _toolBar(nullptr),
       _themeMenu(nullptr),
       _themeSystemAction(nullptr),
       _themeLightAction(nullptr),
@@ -311,6 +313,7 @@ void MainWindow::showMenu() {
     _stack->setCurrentWidget(_menu);
     setDocksVisible(false);
     menuBar()->setVisible(false);  // pas de barre de menu sur l'écran d'accueil
+    _toolBar->setVisible(false);
     _actions->setEditingCommandsEnabled(false);
     _statusMessageTimer->stop();
     refreshStatusHelp();  // hors édition : zones et aide vides (aucun résidu d'état d'édition).
@@ -322,6 +325,7 @@ void MainWindow::showEditor() {
     _stack->setCurrentWidget(_editorContainer);
     setDocksVisible(true);
     menuBar()->setVisible(true);
+    _toolBar->setVisible(true);
     _actions->setEditingCommandsEnabled(true);
     _statusMessageTimer->stop();
     refreshStatusHelp();
@@ -335,6 +339,7 @@ void MainWindow::showGame() {
     _stack->setCurrentWidget(_editorContainer);
     setDocksVisible(false);
     menuBar()->setVisible(false);
+    _toolBar->setVisible(false);
     _actions->setEditingCommandsEnabled(false);
     _statusMessageTimer->stop();
     refreshStatusHelp();  // jeu : menuBar masquee -> contexte de niveau absent (pas de residu).
@@ -367,6 +372,7 @@ void MainWindow::showOptions() {
     _stack->setCurrentWidget(_options);
     setDocksVisible(false);
     menuBar()->setVisible(false);
+    _toolBar->setVisible(false);
     _actions->setEditingCommandsEnabled(false);
     _statusMessageTimer->stop();
     refreshStatusHelp();
@@ -377,26 +383,29 @@ MainWindow::~MainWindow() = default;
 
 void MainWindow::buildUi() {
     // Outils et commandes principales (LOT-56 TACHE-04) : une action unique par commande, partagée
-    // entre la barre d'outils, le menu et son raccourci (plus de double définition). Construites
-    // avant les panneaux : le panneau Décors a besoin de `_actions` pour peupler sa barre d'outils
-    // embarquée (LOT-57, amendement). Icônes construites depuis le thème d'éditeur actuellement
-    // effectif ; régénérées par `EditorActions::refreshIcons` lors d'un changement de thème
-    // (TACHE-06).
+    // entre la barre d'outils, le menu et son raccourci (plus de double définition). Icônes
+    // construites depuis le thème d'éditeur actuellement effectif ; régénérées par
+    // `EditorActions::refreshIcons` lors d'un changement de thème (TACHE-06).
     _actions = new EditorActions(hmi::currentEditorTokens(), this);
     // Raccourcis effectifs synchronises depuis les touches d'editeur remappables (LOT-57 TACHE-04) :
     // ActionCatalog reste sans dependance Qt (valeurs par defaut litterales), c'est ici que le
     // raccourci REELLEMENT actif est branche sur EditorKeyBindings.
     _actions->applyShortcuts(_viewport->editorBindings(), _loc);
+    // Barre d'outils de l'éditeur : reste globale à la fenêtre principale, hors du panneau Décors
+    // (LOT-57, amendement) -- une seule définition (`EditorActions`), un seul ancrage.
+    _toolBar = addToolBar(QStringLiteral("EditorToolBar"));
+    _toolBar->setObjectName(QStringLiteral("EditorToolBar"));
+    _toolBar->setMovable(false);
+    _actions->populateToolBar(*_toolBar);
 
     // Contenu des docks : les coquilles (`PalettePanel`/`DecorsPanel`/`LevelsPanel`) et leur
     // agencement viennent du `.ui` ; leurs widgets, paramétrés (chemins, dépendances), sont créés
     // en code.
     _palette = new PalettePanel(_ui->PalettePanel);
     _ui->PalettePanel->setWidget(_palette);
-    // Panneau Décors (LOT-57, amendement) : barre d'outils + placement + inspecteur, regroupés --
-    // l'ancien panneau « Outils » ne portait déjà plus que le décor (LOT-56 TACHE-04).
-    _decors = new DecorsPanel(hmi::executableDirectory() / "Assets" / "Decors", *_actions,
-                              _ui->DecorsPanel);
+    // Panneau Décors (LOT-57, amendement) : placement + inspecteur, regroupés -- l'ancien panneau
+    // « Outils » ne portait déjà plus que le décor (LOT-56 TACHE-04).
+    _decors = new DecorsPanel(hmi::executableDirectory() / "Assets" / "Decors", _ui->DecorsPanel);
     _ui->DecorsPanel->setWidget(_decors);
     _levels = new LevelBrowserPanel(hmi::executableDirectory() / "Levels", _ui->LevelsPanel);
     _ui->LevelsPanel->setWidget(_levels);

@@ -15,14 +15,13 @@
 
 /**
  * @file HMI/Editor/DecorsPanel.h
- * @brief Panneau « Décors » : tout ce qui touche aux décors et à l'action d'éditer, regroupé
+ * @brief Panneau « Décors » : tout ce qui touche au placement et à l'inspection des décors, regroupé
  *        (`LOT-57`, amendement post-essai manuel). Layout dans `DecorsPanel.ui`.
  */
 
 class QEvent;
 class QStandardItem;
 class QStandardItemModel;
-class QToolBar;
 
 namespace Ui {
 class DecorsPanel;
@@ -35,13 +34,10 @@ class LevelDraft;
 namespace hmi {
 
 class AssetThumbnailView;
-class EditorActions;
 class Localization;
 
 /**
- * @brief Panneau « Décors », qui regroupe trois choses jusqu'ici dispersées :
- *        - la **barre d'outils** de l'éditeur (six outils + commandes, `hmi::EditorActions`,
- *          `LOT-56`/`LOT-57`), vertical pour tenir dans un dock étroit ;
+ * @brief Panneau « Décors », qui regroupe deux choses jusqu'ici dispersées :
  *        - le **placement** de décors (`LOT-49`) : grille de vignettes sur `Assets/Decors/`, couche
  *          du *prochain* décor posé, aimantation — visible seulement quand l'outil Décor est actif ;
  *        - l'**inspection** des décors déjà posés (`LOT-50`), déplacée du panneau Textures : liste
@@ -50,7 +46,9 @@ class Localization;
  *
  * L'ancien panneau « Outils » ne portait déjà plus que le strict nécessaire de l'outil Décor depuis
  * `LOT-56` TACHE-04 (le choix d'outil s'était déplacé vers la barre d'outils) : ce panneau reprend
- * ce contenu plutôt que d'en créer un troisième, et y ajoute ce que son nom promettait déjà.
+ * ce contenu plutôt que d'en créer un troisième, et y ajoute ce que son nom promettait déjà. La
+ * barre d'outils de l'éditeur (`hmi::EditorActions`), elle, reste hors de ce panneau — barre
+ * globale de la fenêtre principale, pas propre au mode Décors.
  *
  * Les deux sélecteurs de couche ciblent des états **distincts** (prochain décor posé vs. décor
  * sélectionné existant) : ce n'est pas un doublon, chacun est le contrôle le plus proche de son
@@ -64,12 +62,9 @@ public:
      * @brief Construit le panneau.
      * @param decorsDirectory Dossier balayé pour peupler la grille de placement et résoudre les
      *                        vignettes de l'inspecteur (`LOT-49`/`LOT-50`).
-     * @param actions         Catalogue d'actions de l'éditeur (non possédé, doit survivre au
-     *                        panneau) : peuple la barre d'outils embarquée (`LOT-57`).
      * @param parent          Widget parent.
      */
-    explicit DecorsPanel(std::filesystem::path decorsDirectory, EditorActions& actions,
-                        QWidget* parent = nullptr);
+    explicit DecorsPanel(std::filesystem::path decorsDirectory, QWidget* parent = nullptr);
     ~DecorsPanel() override;
 
     /// Applique la langue active à tous les libellés du panneau.
@@ -166,7 +161,6 @@ private:
     void onDecorCenterClicked();
 
     std::unique_ptr<Ui::DecorsPanel> _ui;
-    QToolBar* _toolBar;               ///< Barre d'outils verticale, peuplée par `EditorActions`.
     AssetThumbnailView* _decorView;   ///< Grille de vignettes de placement (`Assets/Decors/`).
     QStandardItemModel* _decorsModel;  ///< Modèle du tableau de l'inspecteur.
     std::filesystem::path _decorsDirectory;

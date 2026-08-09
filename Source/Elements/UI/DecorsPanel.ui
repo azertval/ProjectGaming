@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>DecorsPanel</class>
- <!-- Panneau « Décors » (LOT-57, amendement post-essai manuel) : regroupe la barre d'outils de
-      l'éditeur, le placement de décors (LOT-49, ex-panneau « Outils ») et l'inspecteur des décors
-      posés (LOT-50, ex-onglet « Décors » du panneau Textures). Les libellés posés ici sont des
-      repères pour Qt Designer : retranslateUi les remplace tous (EX-REN-033). -->
+ <!-- Panneau « Décors » (LOT-57, amendement post-essai manuel) : regroupe le placement de décors
+      (LOT-49, ex-panneau « Outils ») et l'inspecteur des décors posés (LOT-50, ex-onglet « Décors »
+      du panneau Textures). La barre d'outils de l'éditeur reste hors de ce panneau (barre globale
+      de la fenêtre principale). Les libellés posés ici sont des repères pour Qt Designer :
+      retranslateUi les remplace tous (EX-REN-033). -->
  <widget class="QWidget" name="DecorsPanel">
   <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <layout class="QVBoxLayout" name="toolBarContainerLayout">
-     <property name="leftMargin"><number>0</number></property>
-     <property name="rightMargin"><number>0</number></property>
-     <property name="topMargin"><number>0</number></property>
-     <property name="bottomMargin"><number>0</number></property>
-    </layout>
-   </item>
    <!-- Placement (LOT-49) : n'a de sens que pour l'outil Décor, masqué sinon (setActiveTool). -->
    <item>
     <widget class="QWidget" name="decorPickerGroup">
