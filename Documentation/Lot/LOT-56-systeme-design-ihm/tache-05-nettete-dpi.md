@@ -29,6 +29,10 @@ interpolée montre à l'auteur du niveau autre chose que ce que le jeu affichera
 - **Facteur lu sur le support réel** et non supposé : il peut différer d'un écran à l'autre, et un
   déplacement de la fenêtre d'un écran à l'autre doit régénérer les vignettes.
 - **Tailles issues des jetons** (TACHE-01), en remplacement des constantes locales à chaque widget.
+- **Calcul exposé, pas enfoui** : la fonction pure de dimensionnement doit être utilisable depuis un
+  autre widget que ces trois-là. Le canevas de [LOT-54](@ref lot-54) est une quatrième surface de
+  pixel art agrandie au plus proche voisin et devra l'appeler ; une fonction privée à *PalettePanel*
+  y serait réécrite, et le défaut reviendrait par la porte de service.
 
 ## Fichiers impactés
 - `Source/HMI/Editor/PalettePanel.{h,cpp}`.

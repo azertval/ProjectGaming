@@ -164,7 +164,14 @@ couche à construire.
 ## Dépendances
 Bâtit sur [LOT-38](@ref lot-38) (unification sur Qt : c'est le lot qui a produit le thème restreint
 qu'on généralise ici). Aucune dépendance sur les lots du programme d'habillage `LOT-40` → `LOT-55` :
-ce lot peut être exécuté avant eux. [LOT-57](@ref lot-57) dépend en revanche de celui-ci.
+ce lot peut être exécuté avant eux.
+
+Deux lots dépendent en revanche de celui-ci et s'exécutent derrière : [LOT-57](@ref lot-57), et
+[LOT-54](@ref lot-54) — l'atelier pixel art, recadré pour consommer les jetons, les actions, les
+icônes et le dimensionnement à l'échelle d'affichage plutôt que d'arriver avec son propre habillage.
+Deux tâches d'ici sont donc à écrire en prévoyant un second consommateur : la TACHE-04 (les actions
+ne sont pas réservées à l'éditeur de niveaux) et la TACHE-05 (le calcul de dimensionnement doit être
+réutilisable par un autre widget que les trois chemins de vignettes).
 
 ## Navigation des tâches
 - @subpage lot-56-tache-01-socle-style

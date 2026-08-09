@@ -40,6 +40,11 @@ code, avec repli déterministe.
 - **Synchronisation conservée** : le viewport peut changer l'outil actif (touche dédiée) ; l'action
   cochée doit suivre, comme le fait aujourd'hui la resynchronisation entre *GameViewport* et
   *ToolPanel*.
+- **Ouvert à un second contexte d'édition** : les actions et les icônes ne sont pas réservées à
+  l'éditeur de niveaux. L'atelier pixel art de [LOT-54](@ref lot-54) y ajoutera son propre groupe
+  exclusif d'outils et ses propres icônes, selon le même patron de géométrie pure. Concevoir
+  `EditorActions` et `ThemeIcons` en conséquence — un jeu d'actions extensible et plusieurs groupes
+  exclusifs coexistants — coûte peu ici et évite une reprise là-bas.
 
 ## Fichiers impactés
 - `Source/HMI/Interface/ThemeIcons.{h,cpp}` (nouveau) — dessin des icônes depuis les jetons.

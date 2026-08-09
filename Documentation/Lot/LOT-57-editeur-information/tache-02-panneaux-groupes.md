@@ -31,6 +31,9 @@ durcir : suivre l'outil actif tant que l'utilisateur n'a rien imposé, et se tai
   Cette tâche change la disposition par défaut et doit donc invalider les dispositions enregistrées.
 - **Disposition par défaut reconstruite**, et action « réinitialiser la disposition » vérifiée contre
   elle.
+- **Table extensible** : la correspondance outil → panneau accueillera les outils et les panneaux de
+  l'atelier pixel art ([LOT-54](@ref lot-54)) — canevas, palette, historique. La table doit donc être
+  une donnée que l'on complète, pas une suite de conditions écrites en dur sur les six outils actuels.
 
 ## Fichiers impactés
 - `Source/HMI/Interface/MainWindow.{h,cpp}`, `Source/Elements/UI/MainWindow.ui`.

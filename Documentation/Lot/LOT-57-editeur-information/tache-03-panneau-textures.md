@@ -23,7 +23,10 @@ bascule vue d'ailleurs. Deux symptômes du même problème.
 - **Déplacement du mode d'inspection par calque vers le menu Affichage**, où vivent déjà les bascules de
   panneaux : une entrée par calque, dans l'ordre de dessin, plus « tout afficher ». L'avertissement
   permanent devient inutile — le menu Affichage dit de lui-même qu'on règle une vue.
-- **Recentrage du panneau sur la définition d'apparence** : Skins, Fond, Animations.
+- **Recentrage du panneau sur la définition d'apparence** : Skins, Fond, Animations. C'est le
+  voisinage où l'atelier pixel art de [LOT-54](@ref lot-54) prendra son second point d'entrée
+  (« éditer cet asset », sur l'asset couramment assigné) — une raison de plus de ne garder ici que ce
+  qui définit réellement l'apparence.
 - **Inspecteurs suivant la sélection** : les onglets Objets et Décors présentent l'élément sélectionné
   au canevas plutôt qu'une liste à parcourir indépendamment, la sélection croisée existante entre la
   table des décors et le canevas étant conservée dans les deux sens.

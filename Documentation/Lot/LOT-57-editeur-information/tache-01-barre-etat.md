@@ -34,6 +34,12 @@ barre d'état, à ceci près que le rendu est un widget Qt et non la scène.
   de la chaîne fourre-tout devenue inutile.
 - **Raccordement aux signaux existants** de changement d'outil, de survol, de zoom et de modification,
   plutôt qu'un rafraîchissement périodique.
+- **Ouvert à un second contexte d'édition** : l'atelier pixel art de [LOT-54](@ref lot-54) affichera
+  dans la même barre l'asset ouvert, son état modifié, l'outil de canevas actif, le pixel survolé, le
+  zoom et la couleur courante. C'est la même barre, la même règle de restauration après message et la
+  même exigence de pureté ; la décision doit donc accepter un contexte d'édition d'asset à côté du
+  contexte niveau, plutôt que de figer sa signature sur ce dernier et d'obliger LOT-54 à créer un
+  second modèle.
 
 ## Fichiers impactés
 - `Source/HMI/Editor/EditorStatus.{h,cpp}` (nouveau) — décision pure du contenu.

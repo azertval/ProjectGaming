@@ -33,6 +33,13 @@ la touche qui devrait l'ouvrir est justement l'une des actions définies mais no
 - **Branchement des actions remappables** : les neuf actions définies et non lues deviennent effectives,
   ou sont **retirées explicitement** de la définition si elles ne correspondent à aucune commande
   voulue. Aucune action ne doit rester définie sans effet.
+- **Annuler, refaire, copier et coller à cible contextuelle** : quatre de ces actions désigneront
+  bientôt deux cibles distinctes, car l'atelier pixel art de [LOT-54](@ref lot-54) apporte un second
+  historique et un second presse-papiers, indépendants de ceux de `core::LevelDraft`. C'est
+  précisément la raison pour laquelle elles doivent être **une** action chacune, dont la cible suit le
+  contexte d'édition actif — et non deux commandes homonymes arbitrées par le focus au dernier moment.
+  Prévoir ici la notion de contexte d'édition courant évite d'avoir à défaire ce branchement en
+  LOT-54.
 - **Écran de remappage de l'éditeur** : un onglet « Éditeur » dans la page Options, sur le modèle exact
   de l'onglet de remappage du jeu, réutilisant les clés de traduction déjà présentes.
 - **Aperçu des raccourcis** atteignable depuis l'application, listant les commandes et leurs touches

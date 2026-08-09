@@ -125,6 +125,13 @@ cosmétique, et sur [LOT-51](@ref lot-51), dont le mode d'inspection par calque 
 patron de fonction pure de décision d'affichage établi par [LOT-52](@ref lot-52). Aucune dépendance sur
 les autres lots du programme d'habillage.
 
+[LOT-54](@ref lot-54) s'exécute derrière celui-ci et s'y branche : l'atelier pixel art étendra le
+modèle pur de la barre d'état d'un contexte d'édition d'asset, entrera dans le regroupement des
+panneaux et dans la table de mise en avant, prendra son point d'entrée dans le panneau Textures
+recentré, et donnera une seconde cible aux actions Annuler et Refaire dédupliquées ici. Quatre des
+tâches de ce lot sont donc à écrire en prévoyant ce second contexte d'édition, plutôt qu'en figeant
+leurs signatures sur le seul contexte niveau.
+
 ## Navigation des tâches
 - @subpage lot-57-tache-01-barre-etat
 - @subpage lot-57-tache-02-panneaux-groupes
