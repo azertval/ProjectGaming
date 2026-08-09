@@ -77,6 +77,7 @@ add_executable(UnitTests
     Unit/HMI/Interface/test_design_tokens.cpp
     Unit/HMI/Interface/test_application_theme.cpp
     Unit/HMI/Interface/test_editor_actions.cpp
+    Unit/HMI/Editor/test_thumbnail_geometry.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
     Unit/HMI/Editor/test_tile_taxonomy.cpp
     Unit/HMI/Editor/test_skin_assignments.cpp
@@ -237,6 +238,9 @@ add_executable(UnitTests
     # dans ThemeIcons.cpp/EditorActions.cpp, non compiles ici).
     ../HMI/Interface/IconGeometry.cpp
     ../HMI/Interface/ActionCatalog.cpp
+    # Dimensionnement des vignettes a l'echelle d'affichage (LOT-56 TACHE-05) : arithmetique pure,
+    # aucune dependance Qt/GPU.
+    ../HMI/Editor/ThumbnailGeometry.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE

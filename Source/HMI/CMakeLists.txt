@@ -170,6 +170,7 @@ add_executable(ProjectGaming
     Editor/DecorGesture.cpp
     Editor/DecorListModel.cpp
     Editor/AssetLibrary.cpp
+    Editor/ThumbnailGeometry.cpp
     Editor/AssetThumbnailView.cpp
     Editor/AssetFileOperations.cpp
     Editor/AssetReferences.cpp

@@ -15,6 +15,7 @@
  * @brief Panneau « Palette » : arbre de sélection du type de tuile à peindre (LOT-35).
  */
 
+class QEvent;
 class QModelIndex;
 class QStandardItemModel;
 class QTreeView;
@@ -74,6 +75,11 @@ public:
 signals:
     /// Émis quand l'utilisateur sélectionne une tuile (feuille) dans l'arbre.
     void tileSelected(core::TileType type);
+
+protected:
+    /// Régénère les vignettes lors d'un changement d'écran (`QEvent::ScreenChangeInternal`) :
+    /// l'échelle d'affichage a pu changer (`LOT-56` TACHE-05).
+    bool event(QEvent* event) override;
 
 private:
     void buildModel();

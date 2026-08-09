@@ -18,6 +18,7 @@
 
 #include "HMI/Editor/AssetFileOperations.h"
 #include "HMI/Editor/AssetLibrary.h"
+#include "HMI/Editor/ThumbnailGeometry.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/ProceduralAtlas.h"
 #include "HMI/Graphics/TextureLoader.h"
@@ -168,10 +169,26 @@ QPixmap AssetThumbnailView::thumbnailFor(const std::string& fileName) {
     }
 
     // Plus proche voisin : les assets sont du pixel art, une vignette interpolee serait floue.
-    const QPixmap pixmap = QPixmap::fromImage(
-        source.scaled(THUMBNAIL_SIZE, THUMBNAIL_SIZE, Qt::KeepAspectRatio, Qt::FastTransformation));
+    // Rendue a la resolution REELLE (LOT-56 TACHE-05) : sans quoi un ecran a 125%/150% l'agrandit
+    // par interpolation cote Qt, contradictoire avec le filtrage plus proche voisin choisi ici.
+    const qreal scale = devicePixelRatioF();
+    const int pixelSize = thumbnailPixelSize(THUMBNAIL_SIZE, scale);
+    QPixmap pixmap = QPixmap::fromImage(
+        source.scaled(pixelSize, pixelSize, Qt::KeepAspectRatio, Qt::FastTransformation));
+    pixmap.setDevicePixelRatio(scale);
     _thumbnails.emplace(key, pixmap);
     return pixmap;
+}
+
+bool AssetThumbnailView::event(QEvent* event) {
+    if (event->type() == QEvent::ScreenChangeInternal) {
+        // Un deplacement vers un ecran d'echelle differente doit regenerer les vignettes (LOT-56
+        // TACHE-05) : le cache est a l'ancienne resolution, sinon le defaut reviendrait sans rien
+        // le signaler.
+        clearCache();
+        refresh();
+    }
+    return QWidget::event(event);
 }
 
 void AssetThumbnailView::onFilterChanged(const QString& text) {

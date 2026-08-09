@@ -1,6 +1,6 @@
 # TACHE-05 — Netteté des vignettes à toute échelle d'affichage {#lot-56-tache-05-nettete-dpi}
 
-**Lot :** [LOT-56](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** non commencé
+**Lot :** [LOT-56](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** fait
 
 ## Contexte
 Le facteur d'échelle d'affichage du système (`devicePixelRatio`) n'est pris en compte **que** par

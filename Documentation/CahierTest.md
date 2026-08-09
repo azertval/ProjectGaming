@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**704 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**707 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (614)
+## Tests unitaires (617)
 
 ### Core
 
@@ -484,7 +484,7 @@
 | **SessionLogTest.SerialiseUneLigneParMessage** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Diagnostics/test_session_log.cpp:15`</sub> | Chaque message donne une ligne, dans l'ordre d'arrivée. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::serializeSessionLog(entries)` vaut `"premier message\\nsecond message\\n"`. |
 | **SessionLogTest.VideDonneChaineVide** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Diagnostics/test_session_log.cpp:34`</sub> | Une session sans message produit un texte vide. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::serializeSessionLog({})` vaut `""`. |
 
-#### Editor (37)
+#### Editor (40)
 
 **`test_decor_geometry.cpp`**
 
@@ -552,6 +552,14 @@
 | **SkinAssignmentsTest.DossierAbsentListeVide** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp:217`</sub> | Un dossier de skins absent donne une liste vide, sans erreur. | 1. Balayer un chemin qui n'existe pas. | Vérifie que `hmi::listSkinAssets(std::filesystem::temp_directory_path() / "projectgaming_dossier_inexistant") .empty()` est vrai. |
 | **SkinAssignmentsTest.LibellesTaxonomieTraduitsDansLesDeuxLangues** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp:233`</sub> | Chaque libelle de la taxonomie a une traduction dans les deux catalogues. | 1. Pour chaque libelle de la taxonomie, obtenir sa cle de traduction.<br/> 2. Verifier que la cle est resolue en francais puis en anglais. | Vérifie que `loc.loadLanguage(language)` est vrai.<br/>Vérifie que `key.empty()` est faux.<br/>Vérifie que `loc.text(key)` diffère de `key`. |
 | **SkinAssignmentsTest.LibellesDuPanneauTraduits** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp:273`</sub> | Les libelles propres au panneau Textures existent dans les deux catalogues. | 1. Pour chaque cle utilisee par le panneau, la resoudre en francais puis en anglais. | Vérifie que `loc.loadLanguage(language)` est vrai.<br/>Vérifie que `loc.text(key)` diffère de `key`. |
+
+**`test_thumbnail_geometry.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ThumbnailGeometryTest.DimensionnementAuxFacteursUsuels** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_thumbnail_geometry.cpp:14`</sub> | Le dimensionnement produit la taille en pixels reels attendue. | 1. Calculer la taille en pixels pour une taille logique de 48 aux facteurs 1, 1.25, 1.5 et 2. | Vérifie que `hmi::thumbnailPixelSize(48, 1.0)` vaut `48`.<br/>Vérifie que `hmi::thumbnailPixelSize(48, 1.25)` vaut `60`.<br/>Vérifie que `hmi::thumbnailPixelSize(48, 1.5)` vaut `72`.<br/>Vérifie que `hmi::thumbnailPixelSize(48, 2.0)` vaut `96`. |
+| **ThumbnailGeometryTest.FacteurNonEntierNeProduitJamaisZero** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_thumbnail_geometry.cpp:32`</sub> | Un facteur non entier ne produit jamais de dimension nulle. | 1. Calculer la taille en pixels pour la plus petite icone (16) a 1.25 et a un facteur tres faible (0.1). | Vérifie que `hmi::thumbnailPixelSize(16, 1.25)` est strictement supérieur à `0`.<br/>Vérifie que `hmi::thumbnailPixelSize(1, 0.1)` est strictement supérieur à `0`.<br/>Vérifie que `hmi::thumbnailPixelSize(0, 2.0)` est strictement supérieur à `0`. |
+| **ThumbnailGeometryTest.FonctionPure** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_thumbnail_geometry.cpp:48`</sub> | Le dimensionnement est une fonction pure. | 1. Appeler deux fois avec les memes entrees. | Vérifie que `hmi::thumbnailPixelSize(32, 1.5)` vaut `hmi::thumbnailPixelSize(32, 1.5)`. |
 
 #### Game (5)
 

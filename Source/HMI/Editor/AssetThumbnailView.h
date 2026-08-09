@@ -17,6 +17,7 @@
  *        d'assets (`EX-EDIT-026`).
  */
 
+class QEvent;
 class QListWidgetItem;
 
 namespace Ui {
@@ -94,6 +95,11 @@ public:
 
     /// Applique la langue active (champ de recherche, boutons, entrée « (aucun) »).
     void retranslateUi(const Localization& loc);
+
+protected:
+    /// Régénère les vignettes lors d'un changement d'écran (`QEvent::ScreenChangeInternal`) :
+    /// l'échelle d'affichage a pu changer (`LOT-56` TACHE-05).
+    bool event(QEvent* event) override;
 
 signals:
     /// Émis quand la sélection change dans la grille (feuille, pas l'entrée « (aucun) »… incluse).

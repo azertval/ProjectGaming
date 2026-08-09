@@ -1,6 +1,7 @@
 #include "HMI/Editor/PalettePanel.h"
 
 #include <QColor>
+#include <QEvent>
 #include <QIcon>
 #include <QImage>
 #include <QItemSelectionModel>
@@ -22,6 +23,7 @@
 
 #include "HMI/Editor/PaletteAppearance.h"
 #include "HMI/Editor/TaxonomyLabels.h"
+#include "HMI/Editor/ThumbnailGeometry.h"
 #include "HMI/Editor/TileTaxonomy.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/ProceduralAtlas.h"
@@ -194,10 +196,27 @@ QPixmap PalettePanel::thumbnailFor(core::TileType type) {
         }
     }
 
-    // Mise a l'echelle en PLUS PROCHE VOISIN : l'interpolation lisse par defaut de Qt rendrait le
-    // pixel art flou, incoherent avec le rendu du canevas (EX-ARCH-022).
-    return QPixmap::fromImage(
-        tile.scaled(THUMBNAIL_SIZE, THUMBNAIL_SIZE, Qt::KeepAspectRatio, Qt::FastTransformation));
+    // Mise a l'echelle en PLUS PROCHE VOISIN, a la resolution REELLE (LOT-56 TACHE-05) : sans quoi
+    // l'interpolation lisse de Qt (fond d'ecran a 125%/150%) rendrait le pixel art flou, incoherent
+    // avec le rendu du canevas (EX-ARCH-022).
+    const qreal scale = devicePixelRatioF();
+    const int pixelSize = thumbnailPixelSize(THUMBNAIL_SIZE, scale);
+    QPixmap pixmap = QPixmap::fromImage(
+        tile.scaled(pixelSize, pixelSize, Qt::KeepAspectRatio, Qt::FastTransformation));
+    pixmap.setDevicePixelRatio(scale);
+    return pixmap;
+}
+
+bool PalettePanel::event(QEvent* event) {
+    if (event->type() == QEvent::ScreenChangeInternal) {
+        // Un deplacement vers un ecran d'echelle differente doit regenerer les vignettes (LOT-56
+        // TACHE-05) : le cache decode reste valable, seule la mise a l'echelle doit etre rejouee.
+        _decoded.clear();
+        _model->clear();
+        buildModel();
+        _tree->expandAll();
+    }
+    return QWidget::event(event);
 }
 
 void PalettePanel::onCurrentChanged(const QModelIndex& current) {

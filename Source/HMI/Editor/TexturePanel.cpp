@@ -6,6 +6,7 @@
 #include <QComboBox>
 #include <QDialog>
 #include <QDialogButtonBox>
+#include <QEvent>
 #include <QHeaderView>
 #include <QIcon>
 #include <QImage>
@@ -45,6 +46,7 @@
 #include "HMI/Editor/MechanismAnimationAssignments.h"
 #include "HMI/Editor/SkinAssignments.h"
 #include "HMI/Editor/TaxonomyLabels.h"
+#include "HMI/Editor/ThumbnailGeometry.h"
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/MechanismVisuals.h"
 #include "HMI/Graphics/MissingTexture.h"
@@ -641,8 +643,13 @@ QPixmap TexturePanel::thumbnailFor(const std::string& asset) {
         source = toImage(DecodedImage{missing.width, missing.height, missing.pixels});
     }
 
-    const QPixmap pixmap = QPixmap::fromImage(source.scaled(
-        ROW_ICON_SIZE, ROW_ICON_SIZE, Qt::KeepAspectRatio, Qt::FastTransformation));
+    // Resolution reelle (LOT-56 TACHE-05) : sans quoi l'ecran a 125%/150% agrandirait cette vignette
+    // par interpolation, incoherent avec le plus proche voisin choisi ici.
+    const qreal scale = devicePixelRatioF();
+    const int pixelSize = thumbnailPixelSize(ROW_ICON_SIZE, scale);
+    QPixmap pixmap = QPixmap::fromImage(
+        source.scaled(pixelSize, pixelSize, Qt::KeepAspectRatio, Qt::FastTransformation));
+    pixmap.setDevicePixelRatio(scale);
     _thumbnails.emplace(asset, pixmap);
     return pixmap;
 }
@@ -663,6 +670,20 @@ void TexturePanel::rebuildLevelSkinSetSelector() {
         _levelSkinSet ? QString::fromStdString(*_levelSkinSet) : defaultSetLabel(_loc);
     const int index = _ui->levelSkinSetSelector->findText(target);
     _ui->levelSkinSetSelector->setCurrentIndex(index >= 0 ? index : 0);
+}
+
+bool TexturePanel::event(QEvent* event) {
+    if (event->type() == QEvent::ScreenChangeInternal) {
+        // Un deplacement vers un ecran d'echelle differente doit regenerer les vignettes des
+        // lignes, des decors et de l'apercu d'animation (LOT-56 TACHE-05) : les caches decodes
+        // restent valables (memes fichiers), seule la mise a l'echelle doit etre rejouee.
+        _thumbnails.clear();
+        _decorThumbnails.clear();
+        rebuildTree();
+        rebuildDecorRows();
+        tickAnimationPreview();
+    }
+    return QWidget::event(event);
 }
 
 void TexturePanel::reloadAssets() {
@@ -765,8 +786,11 @@ QPixmap TexturePanel::decorThumbnailFor(const std::string& asset) {
         source = toImage(DecodedImage{missing.width, missing.height, missing.pixels});
     }
 
-    const QPixmap pixmap = QPixmap::fromImage(source.scaled(
-        ROW_ICON_SIZE, ROW_ICON_SIZE, Qt::KeepAspectRatio, Qt::FastTransformation));
+    const qreal scale = devicePixelRatioF();
+    const int pixelSize = thumbnailPixelSize(ROW_ICON_SIZE, scale);
+    QPixmap pixmap = QPixmap::fromImage(
+        source.scaled(pixelSize, pixelSize, Qt::KeepAspectRatio, Qt::FastTransformation));
+    pixmap.setDevicePixelRatio(scale);
     _decorThumbnails.emplace(asset, pixmap);
     return pixmap;
 }
@@ -1038,9 +1062,13 @@ void TexturePanel::tickAnimationPreview() {
         frame = _animationPreviewSheet;
     }
 
-    const QPixmap pixmap = QPixmap::fromImage(frame.scaled(
-        frame.width() * ANIMATION_PREVIEW_SCALE, frame.height() * ANIMATION_PREVIEW_SCALE,
-        Qt::KeepAspectRatio, Qt::FastTransformation));
+    // Resolution reelle (LOT-56 TACHE-05), meme raison que thumbnailFor/decorThumbnailFor.
+    const qreal scale = devicePixelRatioF();
+    const int pixelWidth = thumbnailPixelSize(frame.width() * ANIMATION_PREVIEW_SCALE, scale);
+    const int pixelHeight = thumbnailPixelSize(frame.height() * ANIMATION_PREVIEW_SCALE, scale);
+    QPixmap pixmap = QPixmap::fromImage(
+        frame.scaled(pixelWidth, pixelHeight, Qt::KeepAspectRatio, Qt::FastTransformation));
+    pixmap.setDevicePixelRatio(scale);
     _ui->animationPreviewLabel->setPixmap(pixmap);
 }
 
