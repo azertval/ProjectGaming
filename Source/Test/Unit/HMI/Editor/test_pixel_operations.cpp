@@ -137,6 +137,30 @@ TEST(PixelOperationsTest, DrawLineVerticaleSansTrou) {
 }
 
 /**
+ * @brief Un glisser rapide avec la gomme efface toute la ligne sans laisser de trou, en préservant
+ *        la teinte RVB des pixels effacés (même contrat que `erasePixel`).
+ * \castest{<b>eraseLine efface un segment complet sans trou.</b><br/>
+ * \tcat Unitaire · Operations pixel<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Effacer une ligne diagonale sur une image coloree.<br/>2. Lire chaque pixel du
+ * chemin.<br/>
+ * \tattendu Chaque pixel du chemin a un alpha nul et sa teinte RVB d'origine.
+ * }
+ */
+TEST(PixelOperationsTest, EraseLineEffaceSansTrou) {
+    hmi::DecodedImage image = uniformImage(5, 5, RED);
+
+    const hmi::PixelRegion region = hmi::eraseLine(image, 0, 0, 4, 4);
+    EXPECT_EQ(region, (hmi::PixelRegion{0, 0, 4, 4}));
+    for (int i = 0; i < 5; ++i) {
+        const std::optional<std::uint32_t> pixel = hmi::pickColor(image, i, i);
+        ASSERT_TRUE(pixel.has_value());
+        EXPECT_EQ(*pixel & 0xFF000000u, 0u) << "pixel " << i;
+        EXPECT_EQ(*pixel & 0x00FFFFFFu, RED & 0x00FFFFFFu) << "pixel " << i;
+    }
+}
+
+/**
  * @brief Le remplissage d'une zone fermée colore exactement cette zone, sans déborder au-delà de
  *        sa frontière.
  * \castest{<b>floodFill remplit une zone fermee sans deborder.</b><br/>
@@ -255,6 +279,25 @@ TEST(PixelOperationsTest, FloodFillImageEntierementUniformeRecoloreTout) {
     for (const std::uint32_t pixel : image.pixels) {
         EXPECT_EQ(pixel, GREEN);
     }
+}
+
+/**
+ * @brief L'union de deux régions donne la plus petite région couvrant les deux ; une région vide
+ *        n'affecte pas l'union.
+ * \castest{<b>unionPixelRegion couvre les deux regions, une region vide etant neutre.</b><br/>
+ * \tcat Unitaire · Operations pixel<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Unir deux regions disjointes.<br/>2. Unir une region avec une region vide.<br/>
+ * \tattendu Le premier resultat englobe les deux ; le second est identique a la region non vide.
+ * }
+ */
+TEST(PixelOperationsTest, UnionPixelRegionCouvreLesDeuxRegions) {
+    const hmi::PixelRegion a{0, 0, 2, 2};
+    const hmi::PixelRegion b{5, 5, 7, 7};
+
+    EXPECT_EQ(hmi::unionPixelRegion(a, b), (hmi::PixelRegion{0, 0, 7, 7}));
+    EXPECT_EQ(hmi::unionPixelRegion(a, hmi::PixelRegion{}), a);
+    EXPECT_EQ(hmi::unionPixelRegion(hmi::PixelRegion{}, b), b);
 }
 
 /**

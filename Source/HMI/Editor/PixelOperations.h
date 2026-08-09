@@ -56,6 +56,29 @@ struct PixelRegion {
 }
 
 /**
+ * @brief Union de deux régions (la plus petite région couvrant les deux).
+ *
+ * Une région vide n'affecte pas l'union : sert à accumuler la région touchée par un geste complet
+ * (`hmi::PixelCanvas`, TACHE-03) à partir des régions renvoyées par chacune de ses sous-opérations
+ * (ex. plusieurs `drawLine` successifs pendant un glisser).
+ */
+[[nodiscard]] constexpr PixelRegion unionPixelRegion(const PixelRegion& a,
+                                                      const PixelRegion& b) noexcept {
+    if (a.empty()) {
+        return b;
+    }
+    if (b.empty()) {
+        return a;
+    }
+    return PixelRegion{
+        a.minX < b.minX ? a.minX : b.minX,
+        a.minY < b.minY ? a.minY : b.minY,
+        a.maxX > b.maxX ? a.maxX : b.maxX,
+        a.maxY > b.maxY ? a.maxY : b.maxY,
+    };
+}
+
+/**
  * @brief Pose un pixel d'une couleur donnée.
  * @param image Image modifiée en place.
  * @param x     Colonne (0-based).
@@ -93,6 +116,22 @@ PixelRegion erasePixel(DecodedImage& image, int x, int y);
  *         bornes).
  */
 PixelRegion drawLine(DecodedImage& image, int x0, int y0, int x1, int y1, std::uint32_t color);
+
+/**
+ * @brief Efface une ligne pleine entre deux positions (même tracé que `drawLine`, alpha nul plutôt
+ *        qu'une couleur posée).
+ *
+ * Pendant de `drawLine` pour la gomme : un glisser rapide avec la gomme doit laisser une trace
+ * continue effacée, pas des pixels effacés isolés — même défaut, même correction.
+ * @param image Image modifiée en place.
+ * @param x0    Colonne de départ.
+ * @param y0    Ligne de départ.
+ * @param x1    Colonne d'arrivée.
+ * @param y1    Ligne d'arrivée.
+ * @return La région englobante des pixels effectivement effacés (vide si tout le segment est hors
+ *         bornes).
+ */
+PixelRegion eraseLine(DecodedImage& image, int x0, int y0, int x1, int y1);
 
 /**
  * @brief Remplit, de proche en proche, la zone connexe (4-connexité) de même couleur que le pixel

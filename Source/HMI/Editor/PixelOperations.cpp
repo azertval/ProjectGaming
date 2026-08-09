@@ -27,6 +27,41 @@ PixelRegion expand(PixelRegion region, int x, int y) noexcept {
     };
 }
 
+// Parcourt un segment entre deux positions (Bresenham entier, aucun pixel saute meme sur une
+// forte oblique) en appelant perPixel(x, y) -> region touchee a chaque etape, et renvoie
+// l'enveloppe des regions touchees. Partagee par drawLine (pose une couleur) et eraseLine (efface)
+// pour que les deux gestes de glisser restent alignes sur le meme trace, sans dupliquer le pas.
+template <typename PerPixel>
+PixelRegion walkLine(int x0, int y0, int x1, int y1, PerPixel&& perPixel) {
+    const int dx = std::abs(x1 - x0);
+    const int sx = x0 < x1 ? 1 : -1;
+    const int dy = -std::abs(y1 - y0);
+    const int sy = y0 < y1 ? 1 : -1;
+    int error = dx + dy;
+
+    PixelRegion region;
+    int x = x0;
+    int y = y0;
+    for (;;) {
+        if (!perPixel(x, y).empty()) {
+            region = expand(region, x, y);
+        }
+        if (x == x1 && y == y1) {
+            break;
+        }
+        const int doubledError = 2 * error;
+        if (doubledError >= dy) {
+            error += dy;
+            x += sx;
+        }
+        if (doubledError <= dx) {
+            error += dx;
+            y += sy;
+        }
+    }
+    return region;
+}
+
 }  // namespace
 
 PixelRegion setPixel(DecodedImage& image, int x, int y, std::uint32_t color) {
@@ -48,34 +83,12 @@ PixelRegion erasePixel(DecodedImage& image, int x, int y) {
 }
 
 PixelRegion drawLine(DecodedImage& image, int x0, int y0, int x1, int y1, std::uint32_t color) {
-    // Bresenham entier : aucune division, aucun pixel saute meme sur un segment tres oblique.
-    const int dx = std::abs(x1 - x0);
-    const int sx = x0 < x1 ? 1 : -1;
-    const int dy = -std::abs(y1 - y0);
-    const int sy = y0 < y1 ? 1 : -1;
-    int error = dx + dy;
+    return walkLine(x0, y0, x1, y1,
+                    [&image, color](int x, int y) { return setPixel(image, x, y, color); });
+}
 
-    PixelRegion region;
-    int x = x0;
-    int y = y0;
-    for (;;) {
-        if (!setPixel(image, x, y, color).empty()) {
-            region = expand(region, x, y);
-        }
-        if (x == x1 && y == y1) {
-            break;
-        }
-        const int doubledError = 2 * error;
-        if (doubledError >= dy) {
-            error += dy;
-            x += sx;
-        }
-        if (doubledError <= dx) {
-            error += dx;
-            y += sy;
-        }
-    }
-    return region;
+PixelRegion eraseLine(DecodedImage& image, int x0, int y0, int x1, int y1) {
+    return walkLine(x0, y0, x1, y1, [&image](int x, int y) { return erasePixel(image, x, y); });
 }
 
 PixelRegion floodFill(DecodedImage& image, int x, int y, std::uint32_t color) {

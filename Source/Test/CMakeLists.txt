@@ -97,6 +97,7 @@ add_executable(UnitTests
     Unit/HMI/Editor/test_panel_focus.cpp
     Unit/HMI/Editor/test_pixel_operations.cpp
     Unit/HMI/Editor/test_pixel_history.cpp
+    Unit/HMI/Editor/test_pixel_canvas_geometry.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
     ../HMI/Graphics/Camera2D.cpp
@@ -259,6 +260,10 @@ add_executable(UnitTests
     # dependances Qt de son implementation), aucune dependance Qt/GPU.
     ../HMI/Editor/PixelOperations.cpp
     ../HMI/Editor/PixelHistory.cpp
+    # Conversions vue <-> image du canevas pixel art (LOT-54 TACHE-03) : logique pure (aucune
+    # dependance Qt/GPU), le widget PixelCanvas lui-meme (Qt) n'est compile que dans ProjectGaming,
+    # meme distinction que ThumbnailGeometry.cpp/AssetThumbnailView.cpp.
+    ../HMI/Editor/PixelCanvasGeometry.cpp
 )
 
 # Encodage/decodage d'image (LOT-54 TACHE-01) : QImage (Qt) lit et ecrit le PNG, mais aucun device
