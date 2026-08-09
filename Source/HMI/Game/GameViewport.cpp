@@ -21,6 +21,8 @@
 #include "Core/Levels/TileMap.h"
 #include "Core/Math/Vector2.h"
 #include "HMI/Editor/DecorGesture.h"
+#include "HMI/Editor/LevelFileOperations.h"
+#include "HMI/Editor/LevelNameValidation.h"
 #include "HMI/Editor/LinkGeometry.h"
 #include "HMI/Editor/LinkGesture.h"
 #include "HMI/Editor/TextureAssignGesture.h"
@@ -923,20 +925,10 @@ void GameViewport::keyPressEvent(QKeyEvent* event) {
         cancelDecorGesture();
         return;
     }
-    // Annuler/refaire/enregistrer/essai/grille/recadrer/mode de rendu sont désormais des actions
-    // Qt uniques (barre d'outils/menu, `hmi::EditorActions`, LOT-56 TACHE-04) : plus de second
-    // traitement ici, sous peine de double déclenchement au même appui de touche (annuler deux
-    // pas d'un coup, bascule de grille/mode de rendu qui semble ne rien faire).
-    if (event->modifiers() & Qt::ControlModifier) {
-        if (event->key() == Qt::Key_C) {
-            copySelection();
-            return;
-        }
-        if (event->key() == Qt::Key_V) {
-            pasteClipboard();
-            return;
-        }
-    }
+    // Annuler/refaire/enregistrer/essai/grille/recadrer/mode de rendu/copier/coller sont désormais
+    // des actions Qt uniques (barre d'outils/menu, `hmi::EditorActions`, LOT-56 TACHE-04 et
+    // LOT-57 TACHE-04) : plus de second traitement ici, sous peine de double déclenchement au même
+    // appui de touche (annuler deux pas d'un coup, coller deux fois).
     if (event->key() == Qt::Key_Delete && _tool == hmi::EditorTool::Decor &&
         _decorGesture.selectedIndex) {
         // Retrait par touche "Suppr" (LOT-50 TACHE-02), en plus du clic droit : vise le decor
@@ -979,6 +971,37 @@ void GameViewport::save() {
         HMI_LOG_ERROR("Editeur : echec d'ecriture du niveau : " + path.string());
         emit statusMessage(statusText("status.write_failed"));
     }
+}
+
+bool GameViewport::renameOpenLevel(const std::string& newName) {
+    if (!hmi::isValidLevelName(newName)) {
+        emit statusMessage(statusText("status.rename_failed"));
+        return false;
+    }
+    const std::string trimmed = hmi::trimLevelName(newName);
+    if (trimmed == _draft.name()) {
+        return true;  // rien a faire.
+    }
+    const std::filesystem::path levelsDir = hmi::executableDirectory() / "Levels";
+    const std::filesystem::path oldPath = levelsDir / (_draft.name() + ".json");
+    if (std::filesystem::exists(oldPath)) {
+        // Niveau deja enregistre au moins une fois : renomme le fichier sur disque, meme chemin que
+        // LevelBrowserPanel::onRename -- le brouillon en memoire est mis a jour separement ci-dessous
+        // (writeRenamed opere sur une copie chargee depuis le disque, pas sur _draft).
+        const hmi::LevelFileOperations ops(levelsDir);
+        const hmi::FileOpResult result = ops.rename(oldPath, trimmed);
+        if (!result.ok) {
+            HMI_LOG_WARNING("Editeur : renommage refuse : " + result.error);
+            emit statusMessage(
+                statusText("status.rename_failed_reason").arg(QString::fromStdString(result.error)));
+            return false;
+        }
+    }
+    _draft.setName(trimmed);
+    markDraftMutated();
+    HMI_LOG_INFO("Editeur : niveau renomme en « " + trimmed + " ».");
+    emit statusMessage(statusText("status.level_renamed").arg(QString::fromStdString(trimmed)));
+    return true;
 }
 
 void GameViewport::openLevel(const std::filesystem::path& path) {

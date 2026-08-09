@@ -2,16 +2,38 @@
 
 #include <QAction>
 #include <QActionGroup>
+#include <QKeyCombination>
 #include <QKeySequence>
 #include <QSignalBlocker>
 #include <QString>
 #include <QToolBar>
 
+#include "HMI/Input/EditorKeyBindings.h"
+#include "HMI/Input/QtKeyMap.h"
 #include "HMI/Interface/DesignTokens.h"
 #include "HMI/Interface/ThemeIcons.h"
 #include "HMI/Localization/Localization.h"
 
 namespace hmi {
+
+namespace {
+
+// Le modificateur Ctrl de Save/Undo/Redo/Copy/Paste reste cable en dur (EditorKeyBindings.h) :
+// seule la touche-lettre associee est remappable. Les autres actions n'ont pas de modificateur.
+[[nodiscard]] bool carriesImplicitCtrl(EditorAction action) {
+    switch (action) {
+        case EditorAction::Save:
+        case EditorAction::Undo:
+        case EditorAction::Redo:
+        case EditorAction::Copy:
+        case EditorAction::Paste:
+            return true;
+        default:
+            return false;
+    }
+}
+
+}  // namespace
 
 EditorActions::EditorActions(const DesignTokens& tokens, QObject* parent)
     : QObject(parent), _toolGroup(new QActionGroup(this)) {
@@ -99,6 +121,16 @@ void EditorActions::refreshIcons(const DesignTokens& tokens) {
     for (std::size_t i = 0; i < catalog.size(); ++i) {
         _actions[i]->setIcon(themeIcon(catalog[i].id, tokens.size.iconMedium, tokens));
     }
+}
+
+void EditorActions::applyShortcuts(const EditorKeyBindings& bindings, const Localization& loc) {
+    for (const KeyBindingIconEntry& entry : keyBindingIconCatalog()) {
+        const auto qtKey = static_cast<Qt::Key>(hmiKeyToQtKey(bindings.key(entry.action)));
+        const Qt::KeyboardModifiers modifiers =
+            carriesImplicitCtrl(entry.action) ? Qt::ControlModifier : Qt::NoModifier;
+        action(entry.id)->setShortcut(QKeySequence(QKeyCombination(modifiers, qtKey)));
+    }
+    retranslateUi(loc);  // les infobulles incluent le raccourci : les refaire pour rester exactes.
 }
 
 }  // namespace hmi

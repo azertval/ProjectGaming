@@ -11,8 +11,10 @@
 #include <QFontMetrics>
 #include <QFormLayout>
 #include <QGuiApplication>
+#include <QInputDialog>
 #include <QKeyEvent>
 #include <QLabel>
+#include <QLineEdit>
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
@@ -101,6 +103,7 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
         static_cast<void>(_loc.loadLanguage(savedLanguage.toStdString()));
     }
     _viewport->setLocalization(&_loc);
+    _editContext = _viewport;  ///< Seule implémentation aujourd'hui (LOT-57 TACHE-04).
 
     // `createWindowContainer` embarque la fenêtre native du viewport et en prend la propriété.
     _editorContainer = QWidget::createWindowContainer(_viewport, this);
@@ -267,6 +270,10 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
             [this](bool enabled) { enabled ? showFullScreen() : showNormal(); });
     connect(_options, &OptionsPage::languageChanged, this, &MainWindow::changeLanguage);
     connect(_options, &OptionsPage::saveLogsRequested, this, &MainWindow::saveSessionLogs);
+    // Un remappage d'editeur (onglet Options > Éditeur, LOT-57 TACHE-04) doit se refleter
+    // immediatement sur les raccourcis effectifs des actions (menu/barre d'outils).
+    connect(_options, &OptionsPage::editorBindingsChanged, this,
+            [this] { _actions->applyShortcuts(_viewport->editorBindings(), _loc); });
 
     // Navigation manette des menus : sondage périodique, actif seulement hors jeu/édition.
     _menuNavTimer = new QTimer(this);
@@ -417,6 +424,10 @@ void MainWindow::buildUi() {
     // Icônes construites depuis le thème d'éditeur actuellement effectif ; régénérées par
     // EditorActions::refreshIcons lors d'un changement de thème (TACHE-06).
     _actions = new EditorActions(hmi::currentEditorTokens(), this);
+    // Raccourcis effectifs synchronises depuis les touches d'editeur remappables (LOT-57 TACHE-04) :
+    // ActionCatalog reste sans dependance Qt (valeurs par defaut litterales), c'est ici que le
+    // raccourci REELLEMENT actif est branche sur EditorKeyBindings.
+    _actions->applyShortcuts(_viewport->editorBindings(), _loc);
     _toolBar = addToolBar(QStringLiteral("EditorToolBar"));
     _toolBar->setObjectName(QStringLiteral("EditorToolBar"));
     _toolBar->setMovable(false);
@@ -435,16 +446,55 @@ void MainWindow::buildUi() {
             [this] { _viewport->save(); });
     connect(_actions->action(hmi::IconId::Playtest), &QAction::triggered, _viewport,
             [this] { _viewport->startPlaytest(); });
-    connect(_actions->action(hmi::IconId::Undo), &QAction::triggered, _viewport,
-            [this] { _viewport->undo(); });
-    connect(_actions->action(hmi::IconId::Redo), &QAction::triggered, _viewport,
-            [this] { _viewport->redo(); });
+    // Annuler/Refaire/Copier/Coller dispatchent via le contexte d'edition actif (_editContext,
+    // GameViewport aujourd'hui) plutot que directement sur _viewport : le seuil de dispatch que
+    // LOT-54 reutilisera pour sa propre cible (LOT-57 TACHE-04, EX-IHM-062).
+    connect(_actions->action(hmi::IconId::Undo), &QAction::triggered, this,
+            [this] { _editContext->undo(); });
+    connect(_actions->action(hmi::IconId::Redo), &QAction::triggered, this,
+            [this] { _editContext->redo(); });
+    connect(_actions->action(hmi::IconId::Copy), &QAction::triggered, this,
+            [this] { _editContext->copy(); });
+    connect(_actions->action(hmi::IconId::Paste), &QAction::triggered, this,
+            [this] { _editContext->paste(); });
     connect(_actions->action(hmi::IconId::ToggleGrid), &QAction::triggered, _viewport,
             [this] { _viewport->toggleGrid(); });
     connect(_actions->action(hmi::IconId::ResetCamera), &QAction::triggered, _viewport,
             [this] { _viewport->resetCamera(); });
     connect(_actions->action(hmi::IconId::ToggleRenderMode), &QAction::triggered, _viewport,
             [this] { _viewport->toggleRenderMode(); });
+    // Renommer le niveau ouvert (LOT-57 TACHE-04) : meme dialogue que LevelBrowserPanel::onRename,
+    // pre-rempli du nom courant.
+    connect(_actions->action(hmi::IconId::Rename), &QAction::triggered, this, [this] {
+        bool accepted = false;
+        const QString name = QInputDialog::getText(
+            this, text("level.rename"), text("level.rename_prompt"), QLineEdit::Normal,
+            QString::fromStdString(_viewport->draft().name()), &accepted);
+        if (!accepted || name.isEmpty()) {
+            return;
+        }
+        _viewport->renameOpenLevel(name.toStdString());
+    });
+    // Aperçu des raccourcis (LOT-57 TACHE-04, concretise EX-EDIT-015) : lit les raccourcis EFFECTIFS
+    // des actions a l'ouverture, jamais un texte fige -- toujours a jour apres un remappage.
+    connect(_actions->action(hmi::IconId::ShortcutsOverview), &QAction::triggered, this, [this] {
+        QDialog dialog(this);
+        dialog.setWindowTitle(text("dialog.shortcuts_title"));
+        auto* const layout = new QVBoxLayout(&dialog);
+        for (const hmi::EditorActionSpec& spec : hmi::editorActionCatalog()) {
+            QAction* const act = _actions->action(spec.id);
+            if (act->shortcut().isEmpty()) {
+                continue;
+            }
+            layout->addWidget(new QLabel(
+                act->text() + QStringLiteral(" — ") + act->shortcut().toString(QKeySequence::NativeText),
+                &dialog));
+        }
+        auto* const buttons = new QDialogButtonBox(QDialogButtonBox::Ok, &dialog);
+        layout->addWidget(buttons);
+        connect(buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+        dialog.exec();
+    });
 
     // Commandes principales egalement dans le menu "Niveau" (decouvrabilite, EX-EDIT-015) : les
     // memes actions que la barre d'outils, aucune seconde definition.
@@ -452,9 +502,13 @@ void MainWindow::buildUi() {
     _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::Playtest));
     _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::Undo));
     _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::Redo));
+    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::Copy));
+    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::Paste));
     _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::ToggleGrid));
     _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::ResetCamera));
     _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::ToggleRenderMode));
+    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::Rename));
+    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::ShortcutsOverview));
     _ui->levelMenu->insertSeparator(_ui->actResize);
 
     // Branchement du fonctionnel sur les actions restantes, déclarées dans le `.ui`.
@@ -567,6 +621,11 @@ void MainWindow::buildUi() {
         }
     });
     _ui->viewMenu->insertAction(_ui->actResetLayout, _actShowAllLayers);
+    // Bascule Physique/Texture (LOT-57 TACHE-04) : l'action existe déjà (IconId::ToggleRenderMode,
+    // LOT-56, toolbar + menu Niveau + F8) -- lui donner une présence ICI, à côté du mode
+    // d'inspection par calque, remplace la case "Physique seul" retirée en TACHE-03 (même état,
+    // une seule définition désormais, EX-IHM-062) sans en créer une seconde.
+    _ui->viewMenu->insertAction(_ui->actResetLayout, _actions->action(hmi::IconId::ToggleRenderMode));
     _ui->viewMenu->insertSeparator(_ui->actResetLayout);
 
     // Barre d'état structurée (LOT-57 TACHE-01) : zones permanentes, ajoutées via

@@ -147,6 +147,10 @@ action.redo = Refaire
 action.toggle_grid = Grille
 action.reset_camera = Recadrer
 action.toggle_render_mode = Mode de rendu
+action.copy = Copier
+action.paste = Coller
+action.rename = Renommer
+action.shortcuts_overview = Aperçu des raccourcis
 
 # Panneau Liens (LOT-37)
 link.column.type = Type
@@ -175,6 +179,8 @@ tab.audio = Audio
 tab.general = Général
 tab.keyboard = Commande clavier
 tab.gamepad = Commande manette
+tab.editor = Éditeur
+dialog.shortcuts_title = Raccourcis clavier
 options.title = Options
 options.back = Retour
 options.vsync = Synchronisation verticale
@@ -209,6 +215,9 @@ status.playtest_failed = Essai impossible : %1
 status.playtesting = Essai en cours — Échap pour revenir à l'édition.
 status.back_to_edit = Retour à l'édition.
 status.level_resized = Niveau redimensionné : %1 × %2
+status.rename_failed = Nom de niveau invalide.
+status.rename_failed_reason = Renommage impossible : %1
+status.level_renamed = Niveau renommé : %1
 
 # Remappage des touches (LOT-29/LOT-30, EX-CTRL-012, EX-CTRL-002)
 keybindings.game_title = Touches de jeu
@@ -234,6 +243,7 @@ keybindings.action.playtest = Test rapide
 keybindings.action.grid = Grille
 keybindings.action.help = Aide
 keybindings.action.rename = Renommer
+keybindings.action.texture_tool = Outil Texture
 
 # Affichage tete haute en jeu (LOT-52, EX-IHM-003)
 hud.jumps_remaining = Sauts : %1

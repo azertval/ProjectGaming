@@ -35,6 +35,25 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     porte plus que la définition d'apparence (Skins, Fond, Objets, Animations, Décors) ; les deux
     sélecteurs de jeu de skins (session d'édition vs. niveau) portent désormais chacun une infobulle
     distincte. Aucun nouveau test (changements Qt purs) ; build `/W4 /WX` propre, 774 tests verts.
+  - **TACHE-04 — Déduplication des commandes et raccourcis** : `hmi::EditorKeyBindings` définissait
+    dix actions d'éditeur remappables dont neuf n'étaient jamais lues (raccourcis interceptés en
+    dur, non remappables ; Copier/Coller au clavier bypassaient même `EditorKeyBindings`). Toutes
+    passent désormais par `hmi::EditorActions` (`hmi::keyBindingIconCatalog`, table pure liant
+    action remappable et commande du catalogue) : `EditorActions::applyShortcuts` synchronise le
+    raccourci **effectif** de chaque `QAction` depuis les touches remappées, y compris après un
+    remappage à chaud. Nouvel onglet « Éditeur » de la page Options (`EditorKeybindingsWidget`,
+    même patron que le remappage clavier de jeu). Renommer (F2) renomme désormais le niveau ouvert
+    (`GameViewport::renameOpenLevel`, réutilise `LevelFileOperations`/`LevelNameValidation` comme
+    `LevelBrowserPanel`) ; l'aide (F1) ouvre un aperçu des raccourcis lisant les touches effectives,
+    jamais un texte figé. La bascule Physique/Texture (case dupliquée retirée en TACHE-03) rejoint
+    le menu Affichage comme entrée unique de l'action déjà existante (`EX-IHM-062`). Annuler/Refaire/
+    Copier/Coller dispatchent désormais via `hmi::EditContextTarget`, interface que `GameViewport`
+    implémente — le seuil de dispatch qu'un futur atelier pixel art (`LOT-54`) réutilisera pour sa
+    propre cible sans le réécrire. Le doublon de sélecteur de couche de décor (panneau Outils vs.
+    onglet Décors) est conservé : les deux ciblent des états distincts (couche du prochain décor
+    posé vs. couche du décor sélectionné existant), pas un doublon strict. **3 nouveaux tests** (dont
+    un garde-fou cassant si une action est ajoutée sans être branchée) ; build `/W4 /WX` propre, 777
+    tests verts.
 
 - **LOT-56 — Système de design de l'IHM Qt** (`EX-IHM-050` à `EX-IHM-055`) : l'éditeur prend enfin
   la main sur sa propre apparence — jusqu'ici le style **natif** de la plate-forme, qui ignorait une

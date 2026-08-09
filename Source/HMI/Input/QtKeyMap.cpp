@@ -48,4 +48,40 @@ std::optional<hmi::Key> qtKeyToHmiKey(int qtKey) {
     return std::nullopt;
 }
 
+int hmiKeyToQtKey(hmi::Key key) {
+    switch (key) {
+        case hmi::Key::Escape:
+            return Qt::Key_Escape;
+        case hmi::Key::Tab:
+            return Qt::Key_Tab;
+        case hmi::Key::Enter:
+            return Qt::Key_Return;
+        case hmi::Key::Backspace:
+            return Qt::Key_Backspace;
+        case hmi::Key::Shift:
+            return Qt::Key_Shift;
+        case hmi::Key::Control:
+            return Qt::Key_Control;
+        case hmi::Key::Space:
+            return Qt::Key_Space;
+        case hmi::Key::Left:
+            return Qt::Key_Left;
+        case hmi::Key::Up:
+            return Qt::Key_Up;
+        case hmi::Key::Right:
+            return Qt::Key_Right;
+        case hmi::Key::Down:
+            return Qt::Key_Down;
+        case hmi::Key::F1:
+            return Qt::Key_F1;
+        case hmi::Key::F2:
+            return Qt::Key_F2;
+        case hmi::Key::F10:
+            return Qt::Key_F10;
+        default:
+            // Lettres A-Z, chiffres 0-9 : meme valeur Win32 <-> Qt (cf. qtKeyToHmiKey ci-dessus).
+            return static_cast<int>(key);
+    }
+}
+
 }  // namespace hmi

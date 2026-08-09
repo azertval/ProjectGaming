@@ -5,6 +5,7 @@
 #include <array>
 #include <memory>
 
+#include "HMI/Editor/EditContextTarget.h"
 #include "HMI/Editor/EditorTool.h"
 #include "HMI/Input/GamepadPoller.h"
 #include "HMI/Input/InputState.h"
@@ -120,6 +121,10 @@ private:
     OptionsPage* _options;      ///< Page Options à onglets.
     QWidget* _editorContainer;  ///< Conteneur natif du viewport (page éditeur/jeu).
     GameViewport* _viewport;    ///< Surface de rendu D3D11 (possédée par le conteneur central).
+    /// Contexte d'édition actif, cible d'Annuler/Refaire/Copier/Coller (`LOT-57` TACHE-04) — égal à
+    /// `_viewport` aujourd'hui, seule implémentation ; un futur atelier pixel art (`LOT-54`)
+    /// pourra le réassigner sans changer le dispatch des actions.
+    EditContextTarget* _editContext = nullptr;
     PalettePanel* _palette;     ///< Arbre de sélection du type de tuile (contenu du dock Palette).
     LevelBrowserPanel*
         _levels;               ///< Liste/gestion des fichiers de niveaux (contenu du dock Niveaux).

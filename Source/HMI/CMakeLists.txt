@@ -151,6 +151,7 @@ add_executable(ProjectGaming
     Interface/MainMenu.cpp
     Interface/OptionsPage.cpp
     Interface/KeybindingsWidget.cpp
+    Interface/EditorKeybindingsWidget.cpp
     Interface/GamepadBindingsWidget.cpp
     # Éditeur de niveau
     Editor/PalettePanel.cpp

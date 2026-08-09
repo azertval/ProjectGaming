@@ -145,6 +145,10 @@ action.redo = Redo
 action.toggle_grid = Grid
 action.reset_camera = Reset camera
 action.toggle_render_mode = Render mode
+action.copy = Copy
+action.paste = Paste
+action.rename = Rename
+action.shortcuts_overview = Shortcuts overview
 
 # Links panel (LOT-37)
 link.column.type = Type
@@ -173,6 +177,8 @@ tab.audio = Audio
 tab.general = General
 tab.keyboard = Keyboard
 tab.gamepad = Gamepad
+tab.editor = Editor
+dialog.shortcuts_title = Keyboard shortcuts
 options.title = Options
 options.back = Back
 options.vsync = Vertical sync
@@ -207,6 +213,9 @@ status.playtest_failed = Cannot playtest: %1
 status.playtesting = Playtesting — Esc to return to editing.
 status.back_to_edit = Back to editing.
 status.level_resized = Level resized: %1 × %2
+status.rename_failed = Invalid level name.
+status.rename_failed_reason = Rename failed: %1
+status.level_renamed = Level renamed: %1
 
 # Keybinding remapping (LOT-29/LOT-30, EX-CTRL-012, EX-CTRL-002)
 keybindings.game_title = Game keybindings
@@ -232,6 +241,7 @@ keybindings.action.playtest = Playtest
 keybindings.action.grid = Grid
 keybindings.action.help = Help
 keybindings.action.rename = Rename
+keybindings.action.texture_tool = Texture tool
 
 # In-game head-up display (LOT-52, EX-IHM-003)
 hud.jumps_remaining = Jumps: %1

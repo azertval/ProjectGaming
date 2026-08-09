@@ -11,6 +11,7 @@
 
 #include "HMI/Game/GameViewport.h"
 #include "HMI/Interface/DesignTokens.h"
+#include "HMI/Interface/EditorKeybindingsWidget.h"
 #include "HMI/Interface/GamepadBindingsWidget.h"
 #include "HMI/Interface/KeybindingsWidget.h"
 #include "HMI/Localization/Localization.h"
@@ -47,6 +48,14 @@ OptionsPage::OptionsPage(GameViewport* viewport, std::filesystem::path keybindin
     // Onglets à contenu **dynamique** (une ligne par action) : générés en code (exception admise).
     _keyboard = new KeybindingsWidget(viewport->gameBindings(), keybindingsPath, this);
     _keyboardTabIndex = _ui->tabWidget->addTab(_keyboard, QString());
+    // Onglet Éditeur (LOT-57 TACHE-04) : remappage des touches d'éditeur, jusqu'ici définies et
+    // jamais exposées à l'écran. bindingsChanged fait resynchroniser les raccourcis effectifs des
+    // actions (menu/barre d'outils), sans quoi un remappage ici resterait invisible ailleurs.
+    _editorKeyboard =
+        new EditorKeybindingsWidget(viewport->editorBindings(), keybindingsPath, this);
+    _editorKeyboardTabIndex = _ui->tabWidget->addTab(_editorKeyboard, QString());
+    connect(_editorKeyboard, &EditorKeybindingsWidget::bindingsChanged, this,
+            &OptionsPage::editorBindingsChanged);
     _gamepad = new GamepadBindingsWidget(viewport->gamepadBindings(), std::move(keybindingsPath),
                                          this);
     _gamepadTabIndex = _ui->tabWidget->addTab(_gamepad, QString());
@@ -92,8 +101,10 @@ void OptionsPage::retranslateUi(const Localization& loc) {
 
     // Onglets de remappage (contenu dynamique).
     _ui->tabWidget->setTabText(_keyboardTabIndex, t("tab.keyboard"));
+    _ui->tabWidget->setTabText(_editorKeyboardTabIndex, t("tab.editor"));
     _ui->tabWidget->setTabText(_gamepadTabIndex, t("tab.gamepad"));
     _keyboard->retranslateUi(loc);
+    _editorKeyboard->retranslateUi(loc);
     _gamepad->retranslateUi(loc);
 }
 
