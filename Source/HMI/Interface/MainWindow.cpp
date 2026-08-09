@@ -17,6 +17,7 @@
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QSettings>
+#include <QSignalBlocker>
 #include <QSpinBox>
 #include <QStackedWidget>
 #include <QStatusBar>
@@ -26,6 +27,7 @@
 #include <QToolBar>
 #include <QVBoxLayout>
 #include <QWidget>
+#include <array>
 #include <ctime>
 #include <filesystem>
 #include <vector>
@@ -235,25 +237,8 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
         _viewport->setSkinSet(_textures->currentSet());
         _palette->refreshThumbnails(_viewport->renderMode(), _textures->currentSet());
     });
-    connect(_viewport, &GameViewport::renderModeChanged, this, [this](RenderMode mode) {
-        _palette->refreshThumbnails(mode, _textures->currentSet());
-        // Case "Physique seul" de la section "Calques" (LOT-51) : F8 doit la resynchroniser, sinon
-        // les deux entrees du meme etat divergent (ni l'inverse : ce panneau ne fait qu'exposer un
-        // second acces a la meme bascule, jamais un troisieme mode).
-        _textures->setRenderModeIndicator(mode);
-    });
-
-    // Section « Calques » (LOT-51) : mode d'inspection editeur uniquement, jamais lu par
-    // hmi::GameSession -- les cases n'agissent que sur le viewport, comme la grille de repere
-    // (F10) ou l'aimantation de decors, sans aucune resynchronisation en retour (rien d'autre ne
-    // change cet etat).
-    connect(_textures, &TexturePanel::layerVisibilityChanged, _viewport,
-            &GameViewport::setLayerVisible);
-    connect(_textures, &TexturePanel::showAllLayersRequested, _viewport,
-            &GameViewport::showAllLayers);
-    connect(_textures, &TexturePanel::physiqueOnlyToggled, this, [this](bool enabled) {
-        _viewport->setRenderMode(enabled ? hmi::RenderMode::Physique : hmi::RenderMode::Texture);
-    });
+    connect(_viewport, &GameViewport::renderModeChanged, this,
+            [this](RenderMode mode) { _palette->refreshThumbnails(mode, _textures->currentSet()); });
 
     // Rechargement a chaud (LOT-43 TACHE-03) : un asset modifie/renomme/ajoute hors de
     // l'application n'est repris qu'a la demande explicite -- une surveillance automatique de
@@ -552,6 +537,38 @@ void MainWindow::buildUi() {
     _ui->viewMenu->insertAction(_ui->actResetLayout, _actFollowActiveTool);
     _ui->viewMenu->insertSeparator(_ui->actResetLayout);
 
+    // Mode d'inspection par calque (LOT-57 TACHE-03) : deplace depuis l'onglet Calques du panneau
+    // Textures -- DECOMPOSE le rendu pour auditer chaque calque, jamais lu par hmi::GameSession, a
+    // l'inverse de F8 qui le COMPOSE tel que le joueur le verra (EX-REN-046, la bascule Physique/
+    // Texture est traitee en TACHE-04). Cases dans l'ORDRE DE DESSIN (hmi::RenderLayer,
+    // EX-REN-014), toutes cochees par defaut, jamais persistees entre deux sessions.
+    constexpr std::array<hmi::RenderLayer, 7> LAYER_ORDER{
+        hmi::RenderLayer::Background, hmi::RenderLayer::Decor,  hmi::RenderLayer::Shadow,
+        hmi::RenderLayer::Tile,       hmi::RenderLayer::Object, hmi::RenderLayer::Player,
+        hmi::RenderLayer::Foreground};
+    for (std::size_t i = 0; i < LAYER_ORDER.size(); ++i) {
+        const hmi::RenderLayer layer = LAYER_ORDER[i];
+        QAction* const act = new QAction(this);
+        act->setCheckable(true);
+        act->setChecked(true);
+        connect(act, &QAction::toggled, _viewport,
+                [this, layer](bool checked) { _viewport->setLayerVisible(layer, checked); });
+        _ui->viewMenu->insertAction(_ui->actResetLayout, act);
+        _layerVisibilityActions[i] = act;
+    }
+    _actShowAllLayers = new QAction(this);
+    connect(_actShowAllLayers, &QAction::triggered, this, [this] {
+        _viewport->showAllLayers();
+        // showAllLayers() n'emet pas de signal par calque : resynchronise les cases sans
+        // redeclencher setLayerVisible sept fois (deja tout affiche cote rendu).
+        for (QAction* const act : _layerVisibilityActions) {
+            const QSignalBlocker blocker(act);
+            act->setChecked(true);
+        }
+    });
+    _ui->viewMenu->insertAction(_ui->actResetLayout, _actShowAllLayers);
+    _ui->viewMenu->insertSeparator(_ui->actResetLayout);
+
     // Barre d'état structurée (LOT-57 TACHE-01) : zones permanentes, ajoutées via
     // addPermanentWidget -- jamais recouvertes par un message transitoire (showMessage), à
     // l'inverse de l'ancienne chaîne unique `status.edit_help`. Largeur minimale sur les zones qui
@@ -761,6 +778,14 @@ void MainWindow::retranslateUi() {
     _themeLightAction->setText(text("menubar.theme_light"));
     _themeDarkAction->setText(text("menubar.theme_dark"));
     _actFollowActiveTool->setText(text("menubar.follow_active_tool"));
+    static constexpr const char* LAYER_ACTION_KEYS[] = {
+        "menubar.layer_background", "menubar.layer_decor_background", "menubar.layer_shadow",
+        "menubar.layer_tile_skin",  "menubar.layer_objects",           "menubar.layer_player",
+        "menubar.layer_decor_foreground"};
+    for (std::size_t i = 0; i < _layerVisibilityActions.size(); ++i) {
+        _layerVisibilityActions[i]->setText(text(LAYER_ACTION_KEYS[i]));
+    }
+    _actShowAllLayers->setText(text("menubar.layer_show_all"));
     _ui->actResetLayout->setText(text("menubar.reset_layout"));
     _actions->retranslateUi(_loc);
 

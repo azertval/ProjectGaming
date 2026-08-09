@@ -27,6 +27,14 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     table pure sur le patron d'`ActionCatalog`) tant que l'utilisateur n'a rien imposé lui-même (choix
     manuel d'onglet, déplacement de panneau) — jamais un masquage, réglable et persisté depuis le menu
     Affichage. **4 nouveaux tests**, sans Qt ; build `/W4 /WX` propre, 774 tests verts.
+  - **TACHE-03 — Recentrage du panneau Textures** : l'onglet Calques (mode d'inspection « définition
+    des textures », `LOT-51`) quitte le panneau Textures pour le menu Affichage — une entrée par
+    calque dans l'ordre de dessin, plus « tout afficher », sans changement de comportement
+    (`EX-EDIT-044` inchangée, jamais lue par `GameSession`). L'avertissement permanent qu'imposait sa
+    présence dans le panneau devient inutile dans son nouvel emplacement. Le panneau Textures ne
+    porte plus que la définition d'apparence (Skins, Fond, Objets, Animations, Décors) ; les deux
+    sélecteurs de jeu de skins (session d'édition vs. niveau) portent désormais chacun une infobulle
+    distincte. Aucun nouveau test (changements Qt purs) ; build `/W4 /WX` propre, 774 tests verts.
 
 - **LOT-56 — Système de design de l'IHM Qt** (`EX-IHM-050` à `EX-IHM-055`) : l'éditeur prend enfin
   la main sur sa propre apparence — jusqu'ici le style **natif** de la plate-forme, qui ignorait une

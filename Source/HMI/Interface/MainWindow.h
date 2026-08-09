@@ -2,6 +2,7 @@
 
 #include <QByteArray>
 #include <QMainWindow>
+#include <array>
 #include <memory>
 
 #include "HMI/Editor/EditorTool.h"
@@ -138,6 +139,12 @@ private:
     /// `true` dès que l'utilisateur a choisi un onglet ou déplacé un panneau lui-même : la mise en
     /// avant automatique cesse alors pour la session (jamais persisté, cf. `hmi::panelForTool`).
     bool _userPickedTab = false;
+
+    // Mode d'inspection par calque, déplacé du panneau Textures vers le menu Affichage
+    // (LOT-57 TACHE-03) : une entrée cochable par calque, dans l'ordre de dessin, plus « tout
+    // afficher ».
+    std::array<QAction*, 7> _layerVisibilityActions{};
+    QAction* _actShowAllLayers = nullptr;
     /// `true` pendant un changement de visibilité **provoqué par le code** (mise en avant
     /// automatique, bascule de mode, restauration de disposition) : évite qu'un tel changement soit
     /// pris pour un choix explicite de l'utilisateur (`QDockWidget::visibilityChanged`).

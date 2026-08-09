@@ -23,6 +23,16 @@ menubar.theme_system = Système
 menubar.theme_light = Clair
 menubar.theme_dark = Sombre
 menubar.follow_active_tool = Suivre l'outil actif
+# Mode d'inspection par calque (LOT-57 TACHE-03, deplace depuis l'onglet Calques du panneau
+# Textures) : DECOMPOSE le rendu pour auditer, distinct de la bascule Jeu/F8 qui le COMPOSE.
+menubar.layer_background = Fond
+menubar.layer_decor_background = Décor d'arrière-plan
+menubar.layer_shadow = Ombres
+menubar.layer_tile_skin = Skin des tuiles
+menubar.layer_objects = Objets interactifs
+menubar.layer_player = Personnage
+menubar.layer_decor_foreground = Décor de premier plan
+menubar.layer_show_all = Tout afficher
 menubar.reset_layout = Réinitialiser la disposition
 
 # Panneaux dockables
@@ -34,6 +44,7 @@ dock.textures = Textures
 
 # Panneau Textures (LOT-42)
 textures.skin_set = Jeu de skins
+textures.skin_set_tooltip = Jeu de skins de la session d'édition, distinct de celui du niveau (section « Fond »).
 textures.section_skins = Skins
 textures.column_type = Type de tuile
 textures.column_asset = Fichier
@@ -77,20 +88,6 @@ textures.decors_center = Centrer
 textures.decors_remove = Supprimer
 textures.decors_missing_asset = Asset introuvable dans Assets/Decors/
 
-# Section « Calques » du panneau Textures (LOT-51) : mode d'inspection "definition des textures",
-# distinct de la bascule Jeu (F8) -- decompose le rendu pour auditer, ne compose jamais.
-textures.section_layers = Calques
-textures.layers_hint = Aperçu d'édition uniquement : masquer un calque ici n'affecte jamais le jeu.
-textures.layers_background = Fond
-textures.layers_decor_background = Décor d'arrière-plan
-textures.layers_shadow = Ombres
-textures.layers_tile_skin = Skin des tuiles
-textures.layers_objects = Objets interactifs
-textures.layers_player = Personnage
-textures.layers_decor_foreground = Décor de premier plan
-textures.layers_physique = Physique seul
-textures.layers_physique_tooltip = Même bascule que F8 (Jeu), vue depuis ce panneau.
-textures.layers_show_all = Tout afficher
 
 # Bibliotheque d'assets partagee (LOT-43)
 assets.search = Rechercher…

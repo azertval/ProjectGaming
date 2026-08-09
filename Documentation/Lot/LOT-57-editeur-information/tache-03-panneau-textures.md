@@ -1,6 +1,6 @@
 # TACHE-03 — Recentrage du panneau Textures {#lot-57-tache-03-panneau-textures}
 
-**Lot :** [LOT-57](epic.md) · **Emplacement :** `Source/HMI/Editor`, `Source/Elements/UI` · **Statut :** non commencé
+**Lot :** [LOT-57](epic.md) · **Emplacement :** `Source/HMI/Editor`, `Source/Elements/UI` · **Statut :** fait
 
 ## Contexte
 Le panneau Textures est le plus gros fichier de widget du projet et concentre environ un tiers des

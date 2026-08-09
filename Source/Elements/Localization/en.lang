@@ -22,6 +22,16 @@ menubar.theme_system = System
 menubar.theme_light = Light
 menubar.theme_dark = Dark
 menubar.follow_active_tool = Follow active tool
+# Per-layer inspection mode (LOT-57 TACHE-03, moved from the Textures panel's Layers tab):
+# DECOMPOSES the render for auditing, distinct from the Game/F8 toggle which COMPOSES it.
+menubar.layer_background = Background
+menubar.layer_decor_background = Background decor
+menubar.layer_shadow = Shadows
+menubar.layer_tile_skin = Tile skin
+menubar.layer_objects = Interactive objects
+menubar.layer_player = Character
+menubar.layer_decor_foreground = Foreground decor
+menubar.layer_show_all = Show all
 menubar.reset_layout = Reset layout
 
 # Dock panels
@@ -33,6 +43,7 @@ dock.textures = Textures
 
 # Textures panel (LOT-42)
 textures.skin_set = Skin set
+textures.skin_set_tooltip = Skin set for the editing session, distinct from the level's (see "Background" section).
 textures.section_skins = Skins
 textures.column_type = Tile type
 textures.column_asset = File
@@ -75,21 +86,6 @@ textures.decors_backward = Send backward
 textures.decors_center = Center
 textures.decors_remove = Remove
 textures.decors_missing_asset = Asset not found in Assets/Decors/
-
-# "Layers" section of the Textures panel (LOT-51): "texture definition" inspection mode, distinct
-# from the Game toggle (F8) -- decomposes the render to audit it, never composes it.
-textures.section_layers = Layers
-textures.layers_hint = Editor preview only: hiding a layer here never affects the game.
-textures.layers_background = Background
-textures.layers_decor_background = Background decor
-textures.layers_shadow = Shadows
-textures.layers_tile_skin = Tile skin
-textures.layers_objects = Interactive objects
-textures.layers_player = Character
-textures.layers_decor_foreground = Foreground decor
-textures.layers_physique = Physics only
-textures.layers_physique_tooltip = Same toggle as F8 (Game), viewed from this panel.
-textures.layers_show_all = Show all
 
 # Shared asset library (LOT-43)
 assets.search = Search…
