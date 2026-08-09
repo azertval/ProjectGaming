@@ -9,9 +9,9 @@
 
 #include <QApplication>
 #include <QCoreApplication>
-#include <QImage>
 #include <QString>
 #include <cstdint>
+#include <filesystem>
 #include <memory>
 #include <optional>
 #include <string>
@@ -24,6 +24,7 @@
 #include "Core/Diagnostics/Logger.h"
 #include "Core/Diagnostics/MemoryLogSink.h"
 #include "HMI/Graphics/ProceduralAtlas.h"
+#include "HMI/Graphics/TextureLoader.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Interface/ApplicationTheme.h"
 #include "HMI/Interface/MainWindow.h"
@@ -139,10 +140,10 @@ int main(int argc, char** argv) {
     if (const std::optional<std::string> exportAtlasPath =
             commandLineOption(argc, argv, "--export-atlas=")) {
         const hmi::ProceduralAtlasImage image = hmi::buildProceduralAtlasImage();
-        const QImage png(reinterpret_cast<const uchar*>(image.pixels.data()), image.width,
-                         image.height, static_cast<int>(image.width * sizeof(std::uint32_t)),
-                         QImage::Format_RGBA8888);
-        const bool saved = png.save(QString::fromStdString(*exportAtlasPath));
+        const hmi::DecodedImage decoded{image.width, image.height, image.pixels};
+        // Passe par le meme chemin d'ecriture que l'atelier pixel art (LOT-54) : un seul
+        // encodeur de PNG dans tout le programme.
+        const bool saved = hmi::encodeImageFile(std::filesystem::path(*exportAtlasPath), decoded);
         if (!saved) {
             HMI_LOG_ERROR("Echec de l'export de l'atlas vers '" + *exportAtlasPath + "'.");
         }

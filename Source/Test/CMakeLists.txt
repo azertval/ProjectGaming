@@ -254,6 +254,23 @@ add_executable(UnitTests
     ../HMI/Editor/ThumbnailGeometry.cpp
 )
 
+# Encodage/decodage d'image (LOT-54 TACHE-01) : QImage (Qt) lit et ecrit le PNG, mais aucun device
+# Direct3D n'est requis -- seul TextureLoader.cpp touche a Qt parmi les sources de UnitTests.
+# Ajoute conditionnellement : sur un poste sans Qt, UnitTests doit continuer a se configurer et
+# construire (meme garde que BUILD_EDITOR_QT dans Source/HMI/CMakeLists.txt, qui a deja resolu
+# Qt6_DIR en cache si l'application a ete traitee avant ce dossier). Qt est toujours installe en
+# CI (cf. ci.yml) : le test s'y execute donc systematiquement.
+find_package(Qt6 QUIET COMPONENTS Gui)
+if(Qt6_FOUND)
+    target_sources(UnitTests PRIVATE
+        Unit/HMI/Graphics/test_image_encode.cpp
+        ../HMI/Graphics/TextureLoader.cpp)
+    target_link_libraries(UnitTests PRIVATE Qt6::Gui)
+else()
+    message(STATUS
+        "UnitTests : Qt6 introuvable -- test d'encodage/decodage d'image (LOT-54) ignore.")
+endif()
+
 target_link_libraries(UnitTests PRIVATE
     Core
     GTest::gtest_main
