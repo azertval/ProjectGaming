@@ -26,9 +26,9 @@
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/ProceduralAtlas.h"
 #include "HMI/Graphics/SlopeMask.h"
-#include "HMI/Graphics/TextureAtlas.h"
 #include "HMI/Graphics/TextureLoader.h"
 #include "HMI/Graphics/TileVisuals.h"
+#include "HMI/Interface/DesignTokens.h"
 #include "HMI/Localization/Localization.h"
 
 namespace hmi {
@@ -45,10 +45,10 @@ constexpr int TILE_TYPE_ROLE = Qt::UserRole + 1;
     return QString::fromStdString(localizedTaxonomyLabel(loc, label));
 }
 
-// Cote des vignettes de la palette, en pixels d'ecran. Multiple entier de la taille d'une case
-// (16) : toute autre valeur reechantillonnerait le pixel art de travers, meme en plus proche
-// voisin.
-constexpr int THUMBNAIL_SIZE = TextureAtlas::TILE_SIZE * 2;
+// Cote des vignettes de la palette, en pixels d'ecran : jeton de taille (LOT-56), deja un multiple
+// entier de la taille d'une case (16) -- toute autre valeur reechantillonnerait le pixel art de
+// travers, meme en plus proche voisin.
+const int THUMBNAIL_SIZE = editorDarkTokens().size.paletteThumbnail;
 
 // Crée une feuille sélectionnable portant son type de tuile.
 [[nodiscard]] QStandardItem* makeLeaf(const TileEntry& entry, const Localization* loc) {

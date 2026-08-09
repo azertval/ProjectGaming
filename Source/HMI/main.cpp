@@ -26,6 +26,7 @@
 #include "Core/Diagnostics/MemoryLogSink.h"
 #include "HMI/Graphics/ProceduralAtlas.h"
 #include "HMI/HmiLog.h"
+#include "HMI/Interface/ApplicationTheme.h"
 #include "HMI/Interface/MainWindow.h"
 
 namespace {
@@ -122,6 +123,10 @@ int main(int argc, char** argv) {
     }
 
     QApplication application(argc, argv);
+    // Style choisi avant tout widget (LOT-56) : appliqué après, il ne se propage pas aux widgets
+    // déjà construits -- condition pour que la palette et la feuille de style ci-dessous couvrent
+    // l'ensemble de l'application plutôt que le sous-ensemble que le style natif honore.
+    hmi::applyApplicationStyle();
     // Identité de l'application : sert de portée aux réglages persistés (QSettings — disposition
     // des panneaux de l'éditeur, EX-IHM-011).
     QCoreApplication::setOrganizationName(QStringLiteral("ProjectGaming"));
@@ -144,6 +149,9 @@ int main(int argc, char** argv) {
         }
         return saved ? 0 : 1;
     }
+
+    // Palette du châssis d'édition (portée variable, LOT-56), avant la construction de la fenêtre.
+    hmi::applyEditorTheme();
 
     // Thème de l'IHM (menu/options), embarqué en ressource (resources.qrc -> theme.qss). Portée par
     // objectName : l'éditeur (docks) conserve le thème Qt par défaut.

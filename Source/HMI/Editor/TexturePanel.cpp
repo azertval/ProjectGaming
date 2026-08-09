@@ -50,6 +50,7 @@
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/ProceduralAtlas.h"
 #include "HMI/Graphics/TextureLoader.h"
+#include "HMI/Interface/DesignTokens.h"
 #include "HMI/Localization/Localization.h"
 #include "ui_TexturePanel.h"
 
@@ -115,8 +116,9 @@ QString positionText(core::GridPosition position) {
 constexpr int TILE_TYPE_ROLE = Qt::UserRole + 1;
 
 // Cote des vignettes affichees dans l'arbre, en pixels d'ecran (repere visuel, pas une vignette
-// de selection -- le choix se fait dans AssetPickerDialog, a une taille plus grande).
-constexpr int ROW_ICON_SIZE = 20;
+// de selection -- le choix se fait dans AssetPickerDialog, a une taille plus grande) : jeton de
+// taille (LOT-56, icone moyenne), commun aux deux themes d'editeur.
+const int ROW_ICON_SIZE = editorDarkTokens().size.iconMedium;
 
 // Valeur affichee pour « aucun skin assigne ». Traduite : c'est une entree de liste comme une
 // autre pour l'utilisateur.

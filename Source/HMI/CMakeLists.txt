@@ -138,6 +138,8 @@ add_executable(ProjectGaming
     # Diagnostics (enregistrement des journaux de session)
     Diagnostics/SessionLog.cpp
     # Interface (fenêtre, menu, options, remappage)
+    Interface/DesignTokens.cpp
+    Interface/ApplicationTheme.cpp
     Interface/MainWindow.cpp
     Interface/MainMenu.cpp
     Interface/OptionsPage.cpp

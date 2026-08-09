@@ -22,6 +22,7 @@
 #include "HMI/Graphics/ProceduralAtlas.h"
 #include "HMI/Graphics/TextureLoader.h"
 #include "HMI/HmiLog.h"
+#include "HMI/Interface/DesignTokens.h"
 #include "HMI/Localization/Localization.h"
 #include "ui_AssetThumbnailView.h"
 
@@ -29,8 +30,9 @@ namespace hmi {
 
 namespace {
 
-// Cote des vignettes, en pixels d'ecran (coherent avec l'iconSize du .ui).
-constexpr int THUMBNAIL_SIZE = 48;
+// Cote des vignettes, en pixels d'ecran (coherent avec l'iconSize du .ui) : jeton de taille
+// (LOT-56), commun aux deux themes d'editeur (SizeTokens partage entre les portees).
+const int THUMBNAIL_SIZE = editorDarkTokens().size.assetThumbnail;
 
 // Role portant le nom de fichier d'un item ("" pour l'entree "(aucun)").
 constexpr int FILE_NAME_ROLE = Qt::UserRole + 1;

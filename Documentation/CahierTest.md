@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**687 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**693 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (597)
+## Tests unitaires (603)
 
 ### Core
 
@@ -960,6 +960,19 @@
 | **PlayerInputMapperTest.ActionDeclencheeParSonBoutonManetteParDefaut** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Input/test_player_input_mapper.cpp:262`</sub> | Une action est déclenchée par son bouton manette lié. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `input.jumpPressed` est vrai. |
 | **PlayerInputMapperTest.RemapperUneActionManetteUtiliseLeNouveauBouton** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Input/test_player_input_mapper.cpp:279`</sub> | Une action remappée manette réagit à son nouveau bouton, le clavier reste indépendant. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::X), hmi::GameKeyBindings{}, gamepadBindings) .jumpPressed` est vrai.<br/>Vérifie que `mapWithDefaults(withKeys({hmi::Key::Space})).jumpPressed` est vrai. |
 | **PlayerInputMapperTest.RemapperGaucheEtDroiteManetteSurDesBoutonsDistinctsNeLesAnnulePas** (Bloquant)<br/><sub>`Source/Test/Unit/HMI/Input/test_player_input_mapper.cpp:304`</sub> | Remapper deux actions manette sur des boutons distincts ne les neutralise pas l'une l'autre. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::X), gameKeyBindings, gamepadBindings) .moveX` vaut `-1.0f` (comparaison flottante).<br/>Vérifie que `hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::Y), gameKeyBindings, gamepadBindings) .moveX` vaut `1.0f` (comparaison flottante). |
+
+#### Interface (6)
+
+**`test_design_tokens.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **DesignTokensTest.ConversionHexadecimaleStableEtBienFormee** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Interface/test_design_tokens.cpp:14`</sub> | La conversion en couleur CSS hexadecimale est stable et bien formee. | 1. Convertir une couleur connue en chaine hexadecimale.<br/>2. Reconvertir la meme couleur. | Vérifie que `first` vaut `second`.<br/>Vérifie que `first.size()` vaut `7u`.<br/>Vérifie que `first` vaut `"#1a2b3c"`. |
+| **DesignTokensTest.ConversionRgbaPorteLesQuatreComposantes** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Interface/test_design_tokens.cpp:35`</sub> | La conversion en couleur CSS rgba() porte les quatre composantes. | 1. Convertir une couleur avec alpha partiel. | Vérifie que `hmi::toCssRgba(color)` vaut `"rgba(0, 128, 255, 64)"`. |
+| **DesignTokensTest.CouleurViewportSuitLaPorteeDuMode** (Critique)<br/><sub>`Source/Test/Unit/HMI/Interface/test_design_tokens.cpp:51`</sub> | La couleur d'effacement du viewport suit le jeton de fond de la bonne portee. | 1. Demander la couleur d'effacement en mode edition, puis en mode jeu. | Vérifie que `hmi::viewportClearColor(/*editorMode=*/true)` vaut `hmi::editorDarkTokens().color.background`.<br/>Vérifie que `hmi::viewportClearColor(/*editorMode=*/false)` vaut `hmi::identityTokens().color.background`. |
+| **DesignTokensTest.LesDeuxPorteesPartagentLesMemesEchelles** (Critique)<br/><sub>`Source/Test/Unit/HMI/Interface/test_design_tokens.cpp:68`</sub> | Les deux portees partagent les memes echelles et tailles. | 1. Comparer espacement, typographie et tailles des deux jeux de jetons. | Vérifie que `hmi::identityTokens().spacing` vaut `hmi::editorDarkTokens().spacing`.<br/>Vérifie que `hmi::identityTokens().typography` vaut `hmi::editorDarkTokens().typography`.<br/>Vérifie que `hmi::identityTokens().size` vaut `hmi::editorDarkTokens().size`. |
+| **DesignTokensTest.CouleursDesDeuxPorteesDistinctesEtCoherentes** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Interface/test_design_tokens.cpp:84`</sub> | Les couleurs des deux portees sont definies et distinctes. | 1. Comparer le fond des deux portees.<br/>2. Verifier que le texte contraste avec le fond dans chaque portee. | Vérifie que `hmi::identityTokens().color.background == hmi::editorDarkTokens().color.background` est faux.<br/>Vérifie que `hmi::identityTokens().color.text == hmi::identityTokens().color.background` est faux.<br/>Vérifie que `hmi::editorDarkTokens().color.text == hmi::editorDarkTokens().color.background` est faux. |
+| **DesignTokensTest.AucunDoublonDeLargeurMinimale** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Interface/test_design_tokens.cpp:101`</sub> | Une seule grandeur de largeur minimale existe pour les deux widgets de remappage. | 1. Lire `controlMinWidth` dans les jetons du chassis d'edition. | Vérifie que `hmi::editorDarkTokens().size.controlMinWidth` est strictement supérieur à `0`. |
 
 #### Localization (8)
 

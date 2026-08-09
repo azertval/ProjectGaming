@@ -74,6 +74,7 @@ add_executable(UnitTests
     Unit/HMI/Game/test_game_hud.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
+    Unit/HMI/Interface/test_design_tokens.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
     Unit/HMI/Editor/test_tile_taxonomy.cpp
     Unit/HMI/Editor/test_skin_assignments.cpp
@@ -216,6 +217,11 @@ add_executable(UnitTests
     # Choix des lignes du HUD (budgets, nom du tableau) à partir de core::Player/core::Level
     # (LOT-52) : fonction pure, testable hors GPU.
     ../HMI/Game/GameHud.cpp
+    # Jetons de design de l'IHM (LOT-56) : couleurs par rôle, échelles, conversion CSS -- aucune
+    # dépendance Qt/GPU (contrairement à ApplicationTheme.cpp, qui les applique via QPalette/
+    # QApplication et n'est donc pas compilé ici, même distinction que BitmapFont.cpp/
+    # ProceduralFont.cpp) : testable hors GPU.
+    ../HMI/Interface/DesignTokens.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE

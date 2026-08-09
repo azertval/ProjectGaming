@@ -1,0 +1,136 @@
+#pragma once
+
+#include <cstdint>
+#include <string>
+
+/**
+ * @file HMI/Interface/DesignTokens.h
+ * @brief Jetons de design de l'IHM Qt (`LOT-56`, `EX-IHM-050`, `EX-IHM-051`) : source unique des
+ *        couleurs, espacements, typographie et tailles de l'application.
+ *
+ * Logique **pure** (aucune dépendance Qt/GPU), testable hors instance d'application
+ * (`EX-NFR-010`) — compilée à la fois dans `ProjectGaming` et directement dans `UnitTests`, comme
+ * `hmi::ProceduralFont` ou `hmi::TileVisuals`.
+ *
+ * Deux portées d'habillage partagent la structure `DesignTokens` (mêmes rôles, mêmes échelles,
+ * mêmes tailles ; seules les couleurs diffèrent) :
+ * - `identityTokens()` — l'**identité du jeu** (menu principal, écran Options, jeu) : invariante,
+ *   ne suit jamais aucun réglage d'affichage.
+ * - `editorDarkTokens()` — le **châssis d'édition** (panneaux, barre d'outils, barre d'état, barre
+ *   de menus de l'éditeur, boîtes de dialogue ouvertes depuis lui) : variable, thème sombre par
+ *   défaut ; `editorLightTokens()` (`LOT-56` TACHE-06) lui ajoute un second jeu de valeurs.
+ *
+ * Réutiliser la **même** structure pour les deux portées rend leur symétrie de rôles garantie par
+ * le système de types plutôt que par convention : un rôle ajouté à l'une existe nécessairement
+ * dans l'autre.
+ */
+
+namespace hmi {
+
+/// Couleur RVBA pure (indépendante de Qt), convertible en chaîne CSS pour la feuille de style et
+/// directement décomposable pour construire une `QColor`/`QPalette`.
+struct DesignColor {
+    std::uint8_t r = 0;
+    std::uint8_t g = 0;
+    std::uint8_t b = 0;
+    std::uint8_t a = 255;
+
+    [[nodiscard]] friend bool operator==(const DesignColor& lhs, const DesignColor& rhs) noexcept {
+        return lhs.r == rhs.r && lhs.g == rhs.g && lhs.b == rhs.b && lhs.a == rhs.a;
+    }
+};
+
+/// Rôles de couleur, communs aux deux portées d'habillage. Nommés par **rôle** et non par teinte :
+/// un jeton `accent` survit à un changement de couleur, un jeton `ambre` non.
+struct ColorTokens {
+    DesignColor background;   ///< Fond des fenêtres/vues.
+    DesignColor surface;      ///< Fond des panneaux, boîtes de dialogue, champs.
+    DesignColor surfaceAlt;   ///< Fond alterné (lignes de tableau, onglets non sélectionnés).
+    DesignColor border;       ///< Bordures et séparateurs.
+    DesignColor text;         ///< Texte principal.
+    DesignColor textMuted;    ///< Texte secondaire/désactivé.
+    DesignColor accent;       ///< Couleur d'accent (sélection, focus, contrôle actif).
+    DesignColor accentHover;  ///< Couleur d'accent au survol.
+    DesignColor error;        ///< Signalement d'erreur/d'échec.
+};
+
+// Neutralise la macro Windows `small` (`rpcndr.h`, incluse via <Windows.h> -> GraphicsDevice.h
+// dans les traductions unites qui touchent Direct3D 11 avant ce fichier, ex. GameViewport.cpp) :
+// `#define small char` casserait sinon silencieusement `SpacingTokens::small` ci-dessous.
+#ifdef small
+#undef small
+#endif
+
+/// Échelle d'espacement, en pixels logiques.
+struct SpacingTokens {
+    int extraSmall = 4;
+    int small = 8;
+    int medium = 12;
+    int large = 16;
+    int extraLarge = 24;
+
+    [[nodiscard]] friend bool operator==(const SpacingTokens&, const SpacingTokens&) noexcept = default;
+};
+
+/// Un niveau de l'échelle typographique : taille en points et graisse (`QFont::Weight`, 1-1000).
+struct TypographyLevel {
+    int pointSize = 10;
+    int weight = 400;  ///< QFont::Normal
+
+    [[nodiscard]] friend bool operator==(const TypographyLevel&, const TypographyLevel&) noexcept = default;
+};
+
+/// Échelle typographique, par **rôle** — jamais de taille ponctuelle en dehors de cette échelle.
+struct TypographyTokens {
+    TypographyLevel screenTitle;    ///< Titre d'écran (menu principal, Options).
+    TypographyLevel sectionTitle;   ///< Titre de section/panneau.
+    TypographyLevel body;           ///< Corps de texte, contrôles.
+    TypographyLevel caption;        ///< Libellé secondaire, infobulle.
+    TypographyLevel monospaceBody;  ///< Texte à chasse fixe (identité du menu principal).
+
+    [[nodiscard]] friend bool operator==(const TypographyTokens&, const TypographyTokens&) noexcept = default;
+};
+
+/// Tailles d'icônes, de vignettes et de contrôles usuels, en pixels logiques (avant mise à
+/// l'échelle d'affichage, `LOT-56` TACHE-05).
+struct SizeTokens {
+    int iconSmall = 16;
+    int iconMedium = 20;         ///< Icônes de ligne (panneau Textures) et d'action de barre d'outils.
+    int iconLarge = 24;
+    int paletteThumbnail = 32;   ///< Vignettes de la palette (multiple de la taille d'une case).
+    int assetThumbnail = 48;     ///< Vignettes des grilles d'assets (`AssetThumbnailView`).
+    int controlMinWidth = 160;   ///< Largeur minimale usuelle (boutons de remappage clavier/manette).
+
+    [[nodiscard]] friend bool operator==(const SizeTokens&, const SizeTokens&) noexcept = default;
+};
+
+/// Jeu complet de jetons de design d'une portée (identité invariante ou châssis variable).
+struct DesignTokens {
+    ColorTokens color;
+    SpacingTokens spacing;
+    TypographyTokens typography;
+    SizeTokens size;
+};
+
+/// Jetons de l'identité du jeu (menu principal, écran Options, jeu) : **invariants**, ne suivent
+/// jamais aucun réglage d'affichage (`EX-IHM-050`).
+[[nodiscard]] const DesignTokens& identityTokens() noexcept;
+
+/// Jetons du châssis d'édition en thème **sombre** (défaut) : **variables**, `editorLightTokens()`
+/// (`LOT-56` TACHE-06) en fournit un second jeu.
+[[nodiscard]] const DesignTokens& editorDarkTokens() noexcept;
+
+/// Couleur d'effacement du viewport (`GameViewport`), dérivée des jetons plutôt que d'une valeur
+/// littérale locale : fond de la portée **variable** en édition, fond de la portée **invariante**
+/// en jeu et en essai — la seule surface qui appartient tour à tour aux deux portées.
+[[nodiscard]] DesignColor viewportClearColor(bool editorMode) noexcept;
+
+/// Conversion pure : couleur -> chaîne CSS hexadécimale `"#rrggbb"` (minuscules, sans alpha — les
+/// feuilles de style Qt n'acceptent l'alpha que via `rgba()`).
+[[nodiscard]] std::string toCssColor(DesignColor color);
+
+/// Conversion pure : couleur -> chaîne CSS `"rgba(r, g, b, a)"`, composantes entières 0-255 (les
+/// feuilles de style Qt expriment l'alpha sur la même échelle que les autres composantes).
+[[nodiscard]] std::string toCssRgba(DesignColor color);
+
+}  // namespace hmi
