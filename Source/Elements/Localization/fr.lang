@@ -279,3 +279,9 @@ palette.tile.spikes_left = Pics vers la gauche
 palette.tile.spikes_right = Pics vers la droite
 palette.tile.entry = Entrée
 palette.tile.exit = Sortie
+
+# Atelier pixel art (LOT-54) : noms d'operations de l'historique du canevas, distincts de
+# l'historique du niveau (EX-IHM-062, TACHE-02).
+pixel_editor.operation.brush = pinceau
+pixel_editor.operation.eraser = gomme
+pixel_editor.operation.fill = remplissage

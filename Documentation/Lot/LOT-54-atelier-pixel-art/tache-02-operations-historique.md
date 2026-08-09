@@ -1,6 +1,6 @@
 # TACHE-02 — Opérations sur tampon de pixels et historique nommé {#lot-54-tache-02-operations-historique}
 
-**Lot :** [LOT-54](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** non commencé
+**Lot :** [LOT-54](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** fait
 
 ## Contexte
 Le cœur de l'atelier, sous sa forme la plus testable : ce que fait chaque outil sur un tampon de

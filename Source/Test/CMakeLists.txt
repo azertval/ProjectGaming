@@ -95,6 +95,8 @@ add_executable(UnitTests
     Unit/HMI/Editor/test_mechanism_animation_assignments.cpp
     Unit/HMI/Editor/test_editor_status.cpp
     Unit/HMI/Editor/test_panel_focus.cpp
+    Unit/HMI/Editor/test_pixel_operations.cpp
+    Unit/HMI/Editor/test_pixel_history.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
     ../HMI/Graphics/Camera2D.cpp
@@ -252,6 +254,11 @@ add_executable(UnitTests
     # Dimensionnement des vignettes a l'echelle d'affichage (LOT-56 TACHE-05) : arithmetique pure,
     # aucune dependance Qt/GPU.
     ../HMI/Editor/ThumbnailGeometry.cpp
+    # Operations sur tampon de pixels et historique nomme de l'atelier pixel art (LOT-54
+    # TACHE-02) : logique pure sur hmi::DecodedImage (meme type que decodeImageFile, sans les
+    # dependances Qt de son implementation), aucune dependance Qt/GPU.
+    ../HMI/Editor/PixelOperations.cpp
+    ../HMI/Editor/PixelHistory.cpp
 )
 
 # Encodage/decodage d'image (LOT-54 TACHE-01) : QImage (Qt) lit et ecrit le PNG, mais aucun device

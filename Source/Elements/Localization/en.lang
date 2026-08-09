@@ -277,3 +277,9 @@ palette.tile.spikes_left = Spikes left
 palette.tile.spikes_right = Spikes right
 palette.tile.entry = Entry
 palette.tile.exit = Exit
+
+# Pixel art workshop (LOT-54) : canvas history operation names, distinct from the level's history
+# (EX-IHM-062, TACHE-02).
+pixel_editor.operation.brush = brush
+pixel_editor.operation.eraser = eraser
+pixel_editor.operation.fill = fill
