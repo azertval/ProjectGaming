@@ -20,6 +20,13 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     zoom nouvellement exposés par `GameViewport` (`hoveredCell()`/`zoom()`, signaux `hoveredCellChanged`/
     `zoomChanged`, émis seulement sur changement réel). **6 nouveaux tests**, sans Qt/GPU ; build
     `/W4 /WX` propre, 770 tests verts.
+  - **TACHE-02 — Regroupement des panneaux, suivi de l'outil actif** : les panneaux Niveaux, Liens et
+    Textures sont désormais regroupés en onglets par défaut (`tabifyDockWidget`, disposition v4,
+    invalide les dispositions antérieures), chacun restant individuellement déplaçable, détachable et
+    refermable. L'onglet pertinent est mis en avant à chaque changement d'outil (`hmi::panelForTool`,
+    table pure sur le patron d'`ActionCatalog`) tant que l'utilisateur n'a rien imposé lui-même (choix
+    manuel d'onglet, déplacement de panneau) — jamais un masquage, réglable et persisté depuis le menu
+    Affichage. **4 nouveaux tests**, sans Qt ; build `/W4 /WX` propre, 774 tests verts.
 
 - **LOT-56 — Système de design de l'IHM Qt** (`EX-IHM-050` à `EX-IHM-055`) : l'éditeur prend enfin
   la main sur sa propre apparence — jusqu'ici le style **natif** de la plate-forme, qui ignorait une

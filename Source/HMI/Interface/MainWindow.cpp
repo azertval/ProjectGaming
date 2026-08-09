@@ -35,6 +35,7 @@
 #include "HMI/Editor/EditorStatus.h"
 #include "HMI/Editor/LevelBrowserPanel.h"
 #include "HMI/Editor/LinkPanel.h"
+#include "HMI/Editor/PanelFocus.h"
 #include "HMI/Editor/TexturePanel.h"
 #include "HMI/Editor/PalettePanel.h"
 #include "HMI/Editor/ToolPanel.h"
@@ -56,12 +57,15 @@ namespace {
 // Version de la disposition sérialisée : à incrémenter si l'ensemble des docks change, pour
 // invalider proprement une disposition sauvegardée devenue incompatible (`restoreState`).
 constexpr int LAYOUT_VERSION =
-    3;  // 3 : dock « Liens » ajouté (LOT-37, invalide les dispositions v2)
+    4;  // 4 : panneaux de droite regroupes en onglets par defaut (LOT-57 TACHE-02)
 
 // Clés de persistance (portée application ; l'organisation/appli sont fixées dans `main`,
 // HMI/main.cpp).
 constexpr char GEOMETRY_KEY[] = "mainWindow/geometry";
 constexpr char STATE_KEY[] = "mainWindow/state";
+// Réglage de mise en avant automatique des panneaux (LOT-57 TACHE-02) : local à MainWindow, pas
+// une extension d'ApplicationTheme.cpp (qui concerne le thème, pas ce comportement).
+constexpr char FOLLOW_ACTIVE_TOOL_KEY[] = "panels/followActiveTool";
 
 }  // namespace
 
@@ -128,6 +132,8 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     // Barre d'état : zones permanentes (LOT-57 TACHE-01), recalculées à chaque changement
     // pertinent -- outil, survol, zoom, brouillon (nom, modifications).
     connect(_viewport, &GameViewport::toolChanged, this, [this](hmi::EditorTool) { refreshStatusHelp(); });
+    // Mise en avant du panneau pertinent selon l'outil actif (LOT-57 TACHE-02).
+    connect(_viewport, &GameViewport::toolChanged, this, &MainWindow::applyPanelFocus);
     connect(_viewport, &GameViewport::hoveredCellChanged, this,
             [this](std::optional<core::GridPosition>) { refreshStatusHelp(); });
     connect(_viewport, &GameViewport::zoomChanged, this, [this](float) { refreshStatusHelp(); });
@@ -298,9 +304,13 @@ void MainWindow::setDocksVisible(bool visible) {
     // laissait echapper silencieusement chaque dock ajoute ensuite, qui restait alors affiche
     // par-dessus le menu principal et le jeu (constate avec le dock « Textures » du LOT-42).
     // Les panneaux d'edition n'ont de sens qu'en mode edition (EX-IHM-010).
+    // Bascule de mode (edition/jeu/menu), pas un choix d'onglet : ne doit pas etre pris pour un
+    // "l'utilisateur a impose un panneau" (LOT-57 TACHE-02).
+    _suppressPanelFocusTracking = true;
     for (QDockWidget* const dock : findChildren<QDockWidget*>()) {
         dock->setVisible(visible);
     }
+    _suppressPanelFocusTracking = false;
 }
 
 void MainWindow::showMenu() {
@@ -398,6 +408,25 @@ void MainWindow::buildUi() {
                                  _ui->TexturesPanel);
     _ui->TexturesPanel->setWidget(_textures);
 
+    // Regroupement par defaut des panneaux de droite en onglets (LOT-57 TACHE-02) : chacun reste
+    // individuellement deplacable/detachable/refermable (EX-IHM-010), seule la disposition par
+    // defaut change. Doit preceder la capture de _defaultState (constructeur, apres buildUi()).
+    tabifyDockWidget(_ui->LevelsPanel, _ui->LinksPanel);
+    tabifyDockWidget(_ui->LinksPanel, _ui->TexturesPanel);
+    // Un changement de visibilite d'un de ces docks NON provoque par notre propre code (mise en
+    // avant, bascule de mode, restauration de disposition -- toutes gardees par
+    // _suppressPanelFocusTracking) ne peut venir que d'un choix explicite de l'utilisateur : cliquer
+    // un onglet ou fermer/rouvrir le panneau. Meme principe pour un detachement (topLevelChanged),
+    // toujours explicite, jamais gardee.
+    for (QDockWidget* const dock : {_ui->LevelsPanel, _ui->LinksPanel, _ui->TexturesPanel}) {
+        connect(dock, &QDockWidget::visibilityChanged, this, [this](bool) {
+            if (!_suppressPanelFocusTracking) {
+                _userPickedTab = true;
+            }
+        });
+        connect(dock, &QDockWidget::topLevelChanged, this, [this](bool) { _userPickedTab = true; });
+    }
+
     // Outils et commandes principales (LOT-56 TACHE-04) : une action unique par commande,
     // partagée entre la barre d'outils, le menu et son raccourci (plus de double définition).
     // Icônes construites depuis le thème d'éditeur actuellement effectif ; régénérées par
@@ -447,8 +476,12 @@ void MainWindow::buildUi() {
     connect(_ui->actMainMenu, &QAction::triggered, this, &MainWindow::showMenu);
     connect(_ui->actQuit, &QAction::triggered, this, &MainWindow::close);
     connect(_ui->actResize, &QAction::triggered, this, [this] { openResizeDialog(); });
-    connect(_ui->actResetLayout, &QAction::triggered, this,
-            [this] { restoreState(_defaultState, LAYOUT_VERSION); });
+    connect(_ui->actResetLayout, &QAction::triggered, this, [this] {
+        _suppressPanelFocusTracking = true;
+        restoreState(_defaultState, LAYOUT_VERSION);
+        _suppressPanelFocusTracking = false;
+        _userPickedTab = false;  // repart sur la mise en avant automatique, disposition remise a neuf.
+    });
 
     // Thème clair/sombre de l'éditeur (LOT-56 TACHE-06) : réglage Système/Clair/Sombre, persisté,
     // sans effet sur l'identité du jeu (menu principal/Options), qui reste toujours sombre.
@@ -505,6 +538,18 @@ void MainWindow::buildUi() {
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->ToolPanel->toggleViewAction());
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->LinksPanel->toggleViewAction());
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->TexturesPanel->toggleViewAction());
+    _ui->viewMenu->insertSeparator(_ui->actResetLayout);
+
+    // Mise en avant automatique des panneaux de droite selon l'outil actif (LOT-57 TACHE-02) :
+    // reglage persiste, actif par defaut.
+    _actFollowActiveTool = new QAction(this);
+    _actFollowActiveTool->setCheckable(true);
+    _actFollowActiveTool->setChecked(
+        QSettings().value(QString::fromLatin1(FOLLOW_ACTIVE_TOOL_KEY), true).toBool());
+    connect(_actFollowActiveTool, &QAction::toggled, this, [](bool enabled) {
+        QSettings().setValue(QString::fromLatin1(FOLLOW_ACTIVE_TOOL_KEY), enabled);
+    });
+    _ui->viewMenu->insertAction(_ui->actResetLayout, _actFollowActiveTool);
     _ui->viewMenu->insertSeparator(_ui->actResetLayout);
 
     // Barre d'état structurée (LOT-57 TACHE-01) : zones permanentes, ajoutées via
@@ -572,7 +617,9 @@ void MainWindow::restoreLayout() {
         restoreGeometry(geometry);
     }
     if (!state.isEmpty()) {
+        _suppressPanelFocusTracking = true;
         restoreState(state, LAYOUT_VERSION);
+        _suppressPanelFocusTracking = false;
     }
 }
 
@@ -665,6 +712,33 @@ void MainWindow::showTransientStatusMessage(const QString& message, int timeoutM
     _statusMessageTimer->start(timeoutMs);
 }
 
+void MainWindow::applyPanelFocus(hmi::EditorTool tool) {
+    if (!_actFollowActiveTool->isChecked() || _userPickedTab) {
+        return;  // reglage desactive, ou l'utilisateur a deja impose un onglet pour la session.
+    }
+    const std::optional<hmi::PanelId> panel = hmi::panelForTool(tool);
+    if (!panel) {
+        return;  // cet outil n'a pas de panneau dedie (ex. Decor : panneau Outils, jamais masque).
+    }
+    QDockWidget* dock = nullptr;
+    switch (*panel) {
+        case hmi::PanelId::Levels:
+            dock = _ui->LevelsPanel;
+            break;
+        case hmi::PanelId::Links:
+            dock = _ui->LinksPanel;
+            break;
+        case hmi::PanelId::Textures:
+            dock = _ui->TexturesPanel;
+            break;
+    }
+    // raise() met l'onglet au premier plan sans voler le focus clavier au canevas -- une
+    // suggestion, jamais une confiscation (ligne rouge de cette tache).
+    _suppressPanelFocusTracking = true;
+    dock->raise();
+    _suppressPanelFocusTracking = false;
+}
+
 void MainWindow::retranslateUi() {
     setWindowTitle(text("window.title"));
 
@@ -686,6 +760,7 @@ void MainWindow::retranslateUi() {
     _themeSystemAction->setText(text("menubar.theme_system"));
     _themeLightAction->setText(text("menubar.theme_light"));
     _themeDarkAction->setText(text("menubar.theme_dark"));
+    _actFollowActiveTool->setText(text("menubar.follow_active_tool"));
     _ui->actResetLayout->setText(text("menubar.reset_layout"));
     _actions->retranslateUi(_loc);
 

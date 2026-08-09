@@ -21,6 +21,7 @@ menubar.theme = Theme
 menubar.theme_system = System
 menubar.theme_light = Light
 menubar.theme_dark = Dark
+menubar.follow_active_tool = Follow active tool
 menubar.reset_layout = Reset layout
 
 # Dock panels

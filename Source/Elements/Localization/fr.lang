@@ -22,6 +22,7 @@ menubar.theme = Thème
 menubar.theme_system = Système
 menubar.theme_light = Clair
 menubar.theme_dark = Sombre
+menubar.follow_active_tool = Suivre l'outil actif
 menubar.reset_layout = Réinitialiser la disposition
 
 # Panneaux dockables

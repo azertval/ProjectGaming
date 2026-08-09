@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**717 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**721 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (627)
+## Tests unitaires (631)
 
 ### Core
 
@@ -484,7 +484,7 @@
 | **SessionLogTest.SerialiseUneLigneParMessage** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Diagnostics/test_session_log.cpp:15`</sub> | Chaque message donne une ligne, dans l'ordre d'arrivée. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::serializeSessionLog(entries)` vaut `"premier message\\nsecond message\\n"`. |
 | **SessionLogTest.VideDonneChaineVide** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Diagnostics/test_session_log.cpp:34`</sub> | Une session sans message produit un texte vide. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::serializeSessionLog({})` vaut `""`. |
 
-#### Editor (46)
+#### Editor (50)
 
 **`test_decor_geometry.cpp`**
 
@@ -549,6 +549,15 @@
 | **PaletteAppearanceTest.PenteSkinneeEstDetouree** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_palette_appearance.cpp:108`</sub> | Une pente skinnee est signalee comme devant etre detouree. | 1. Demander la vignette d'une pente montante assignee a un skin. | Vérifie que `slope.masked` est vrai.<br/>Vérifie que `block.masked` est faux. |
 | **PaletteAppearanceTest.TypeNonSkinneMontreLeDamier** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_palette_appearance.cpp:132`</sub> | Un type non skinne montre le damier dans la palette, comme dans le niveau. | 1. Demander la vignette d'un type absent du catalogue, en mode Texture.<br/> 2. Demander une vignette sans catalogue du tout. | Vérifie que `unassigned.source` vaut `hmi::PaletteThumbnailSource::MissingTexture`.<br/>Vérifie que `unassigned.region.width` vaut `hmi::MISSING_TEXTURE_SIZE`.<br/>Vérifie que `noCatalog.source` vaut `hmi::PaletteThumbnailSource::MissingTexture`. |
 | **PaletteAppearanceTest.PaletteEtCanevasDecidentPareil** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_palette_appearance.cpp:158`</sub> | La palette et le canevas resolvent la meme source pour chaque type. | 1. Pour plusieurs types et les deux modes, comparer la source choisie par la palette a celle choisie par la resolution du canevas. | Vérifie que `sameAtlas \|\| sameSkin \|\| sameMissing` est vrai. |
+
+**`test_panel_focus.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **PanelFocusTest.OutilLienMetEnAvantLePanneauLiens** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_panel_focus.cpp:13`</sub> | L'outil Lien met en avant le panneau Liens. | 1. Interroger la table pour l'outil Lien.<br/>2. Verifier le panneau retourne. | Vérifie que `hmi::panelForTool(hmi::EditorTool::Link)` vaut `hmi::PanelId::Links`. |
+| **PanelFocusTest.OutilTextureMetEnAvantLePanneauTextures** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_panel_focus.cpp:26`</sub> | L'outil Texture met en avant le panneau Textures. | 1. Interroger la table pour l'outil Texture par instance.<br/>2. Verifier le panneau retourne. | Vérifie que `hmi::panelForTool(hmi::EditorTool::TextureAssign)` vaut `hmi::PanelId::Textures`. |
+| **PanelFocusTest.OutilsSansPanneauDedieNeMettentRienEnAvant** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_panel_focus.cpp:41`</sub> | Les outils sans panneau dedie ne mettent rien en avant. | 1. Interroger la table pour chaque outil sans panneau dedie.<br/>2. Verifier l'absence de resultat. | Vérifie que `hmi::panelForTool(tool)` vaut `std::nullopt`. |
+| **PanelFocusTest.AucunDoublonDOutilDansLaTable** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_panel_focus.cpp:58`</sub> | La table ne contient aucun doublon d'outil. | 1. Parcourir toutes les paires d'entrees de la table.<br/>2. Comparer leurs outils. | Vérifie que `catalog[i].tool` diffère de `catalog[j].tool`. |
 
 **`test_skin_assignments.cpp`**
 

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <memory>
 
+#include "HMI/Editor/EditorTool.h"
 #include "HMI/Input/GamepadPoller.h"
 #include "HMI/Input/InputState.h"
 #include "HMI/Localization/Localization.h"
@@ -85,6 +86,10 @@ private:
     /// (`refreshStatusHelp`) — remplace `QStatusBar::showMessage`'s minuteur interne, qui laissait
     /// la barre vide à l'expiration au lieu de reprendre la main.
     void showTransientStatusMessage(const QString& message, int timeoutMs);
+    /// Met en avant le panneau associé à @p tool (`hmi::panelForTool`), si le réglage est actif et
+    /// que l'utilisateur n'a rien imposé lui-même (`LOT-57` TACHE-02) — jamais un masquage, une
+    /// simple suggestion de premier plan parmi les onglets regroupés.
+    void applyPanelFocus(hmi::EditorTool tool);
     /// Change la langue active (recharge le catalogue, persiste, retraduit tout).
     void changeLanguage(const QString& code);
     /// Enregistre les journaux de session accumulés dans un fichier horodaté.
@@ -127,6 +132,16 @@ private:
     QAction* _themeLightAction;
     QAction* _themeDarkAction;
     QByteArray _defaultState;  ///< Disposition par défaut (pour « Réinitialiser la disposition »).
+
+    // Regroupement des panneaux de droite en onglets, suivant l'outil actif (LOT-57 TACHE-02).
+    QAction* _actFollowActiveTool = nullptr;  ///< Réglage persisté (menu Affichage).
+    /// `true` dès que l'utilisateur a choisi un onglet ou déplacé un panneau lui-même : la mise en
+    /// avant automatique cesse alors pour la session (jamais persisté, cf. `hmi::panelForTool`).
+    bool _userPickedTab = false;
+    /// `true` pendant un changement de visibilité **provoqué par le code** (mise en avant
+    /// automatique, bascule de mode, restauration de disposition) : évite qu'un tel changement soit
+    /// pris pour un choix explicite de l'utilisateur (`QDockWidget::visibilityChanged`).
+    bool _suppressPanelFocusTracking = false;
 
     // Barre d'état structurée (LOT-57 TACHE-01) : zones permanentes (widgets ajoutés via
     // addPermanentWidget, jamais recouvertes par un message transitoire), dans l'ordre décidé par
