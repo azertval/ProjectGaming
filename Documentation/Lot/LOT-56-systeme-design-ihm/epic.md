@@ -1,6 +1,6 @@
 # LOT-56 — Système de design de l'IHM Qt {#lot-56}
 
-> Statut : **non commencé**. Prérequis : [LOT-38](@ref lot-38) (unification sur Qt, retrait de l'UI
+> Statut : **fait**. Prérequis : [LOT-38](@ref lot-38) (unification sur Qt, retrait de l'UI
 > « maison »).
 
 ## Objectif

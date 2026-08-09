@@ -32,6 +32,7 @@ class EditorActions : public QObject {
 
 public:
     /// @param tokens Jetons du châssis d'édition, pour la première génération des icônes.
+    /// @param parent Parent Qt (propriétaire des `QAction` construits), optionnel.
     explicit EditorActions(const DesignTokens& tokens, QObject* parent = nullptr);
 
     /// @return L'action portant @p id.

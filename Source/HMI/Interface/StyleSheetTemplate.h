@@ -5,7 +5,8 @@
 
 /**
  * @file HMI/Interface/StyleSheetTemplate.h
- * @brief Substitution de marqueurs `${...}` dans un modèle de feuille de style (`LOT-56` TACHE-02).
+ * @brief Substitution de marqueurs dollar-accolade dans un modèle de feuille de style (`LOT-56`
+ *        TACHE-02).
  *
  * Logique **pure** (aucune dépendance Qt/GPU), testable hors instance d'application
  * (`EX-NFR-010`) — compilée à la fois dans `ProjectGaming` et directement dans `UnitTests`, comme
@@ -23,11 +24,11 @@ struct StyleSheetSubstitutionResult {
 };
 
 /**
- * @brief Remplace chaque marqueur `${nom}` de @p templateText par sa valeur dans @p values.
+ * @brief Remplace chaque marqueur dollar-accolade de @p templateText par sa valeur dans @p values.
  *
  * Fonction **pure** : mêmes entrées, même sortie, aucun effet de bord, aucune dépendance à un
  * fichier ou une instance d'application.
- * @param templateText Texte du modèle, contenant zéro ou plusieurs marqueurs `${nom}`.
+ * @param templateText Texte du modèle, contenant zéro ou plusieurs marqueurs.
  * @param values        Table nom de marqueur -> valeur de substitution.
  * @return `ok=true` avec le texte substitué ; `ok=false` avec un message nommant le premier
  *         marqueur absent de @p values — jamais un résultat partiellement substitué.

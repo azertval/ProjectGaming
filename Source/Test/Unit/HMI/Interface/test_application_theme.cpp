@@ -98,7 +98,7 @@ TEST(ApplicationThemeTest, AucuneCouleurLitteraleDansLeModeleReel) {
  * \tcat Unitaire · Theme de l'IHM<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Substituer le modele reel avec deux jeux de valeurs 'editor.*' distincts, memes
- * valeurs 'identity.*'.<br/>2. Extraire les blocs #MainMenu/#OptionsPage des deux resultats.<br/>
+ * valeurs 'identity.*'.<br/>2. Extraire les blocs `#MainMenu`/`#OptionsPage` des deux resultats.<br/>
  * \tattendu Les deux extraits sont identiques au caractere pres.
  * }
  */
@@ -251,7 +251,7 @@ TEST(ApplicationThemeTest, ResolutionDuThemeEffectifSuitLeReglageEtLeSysteme) {
  * \tcat Unitaire · Theme de l'IHM<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Produire la feuille de style avec editorDarkTokens() puis editorLightTokens().<br/>
- * 2. Comparer les blocs #MainMenu/#OptionsPage des deux resultats.<br/>
+ * 2. Comparer les blocs `#MainMenu`/`#OptionsPage` des deux resultats.<br/>
  * \tattendu Les deux extraits sont identiques au caractere pres.
  * }
  */

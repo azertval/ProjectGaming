@@ -80,8 +80,6 @@
 
 /* Panneaux dockables : barre de titre et bordure -- QPalette ne porte pas ces roles. */
 QDockWidget {
-    titlebar-close-icon: none;
-    titlebar-normal-icon: none;
     color: ${editor.color.text};
     border: 1px solid ${editor.color.border};
 }

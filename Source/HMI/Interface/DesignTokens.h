@@ -150,10 +150,10 @@ struct DesignTokens {
 /// Rapport de contraste WCAG entre deux couleurs (1 = aucun contraste, 21 = noir sur blanc).
 [[nodiscard]] double contrastRatio(DesignColor a, DesignColor b) noexcept;
 
-/// Table de substitution `${...}` -> valeur pour le modèle de feuille de style (`LOT-56` TACHE-02),
-/// à partir d'un jeu de jetons du châssis d'édition (portée variable) ; les marqueurs
-/// `${identity.*}` sont toujours résolus depuis `identityTokens()` (portée invariante). Fonction
-/// **pure** : ne dépend que des jetons, jamais de l'état de l'application.
+/// Table de substitution marqueur -> valeur pour le modèle de feuille de style (`LOT-56`
+/// TACHE-02), à partir d'un jeu de jetons du châssis d'édition (portée variable) ; les marqueurs de
+/// préfixe "identity." sont toujours résolus depuis `identityTokens()` (portée invariante).
+/// Fonction **pure** : ne dépend que des jetons, jamais de l'état de l'application.
 [[nodiscard]] std::unordered_map<std::string, std::string> buildStyleSheetValues(
     const DesignTokens& editorTokens);
 
