@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**693 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**697 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (603)
+## Tests unitaires (607)
 
 ### Core
 
@@ -961,7 +961,16 @@
 | **PlayerInputMapperTest.RemapperUneActionManetteUtiliseLeNouveauBouton** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Input/test_player_input_mapper.cpp:279`</sub> | Une action remappée manette réagit à son nouveau bouton, le clavier reste indépendant. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::X), hmi::GameKeyBindings{}, gamepadBindings) .jumpPressed` est vrai.<br/>Vérifie que `mapWithDefaults(withKeys({hmi::Key::Space})).jumpPressed` est vrai. |
 | **PlayerInputMapperTest.RemapperGaucheEtDroiteManetteSurDesBoutonsDistinctsNeLesAnnulePas** (Bloquant)<br/><sub>`Source/Test/Unit/HMI/Input/test_player_input_mapper.cpp:304`</sub> | Remapper deux actions manette sur des boutons distincts ne les neutralise pas l'une l'autre. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::X), gameKeyBindings, gamepadBindings) .moveX` vaut `-1.0f` (comparaison flottante).<br/>Vérifie que `hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::Y), gameKeyBindings, gamepadBindings) .moveX` vaut `1.0f` (comparaison flottante). |
 
-#### Interface (6)
+#### Interface (10)
+
+**`test_application_theme.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ApplicationThemeTest.SubstitutionRemplaceTousLesMarqueurs** (Critique)<br/><sub>`Source/Test/Unit/HMI/Interface/test_application_theme.cpp:32`</sub> | La substitution remplace tous les marqueurs du modele. | 1. Substituer un modele avec deux marqueurs connus. | Vérifie que `result.ok` est vrai.<br/>Vérifie que `result.text` vaut `"x: 1; y: 2;"`. |
+| **ApplicationThemeTest.MarqueurInconnuEstSignale** (Critique)<br/><sub>`Source/Test/Unit/HMI/Interface/test_application_theme.cpp:50`</sub> | Un marqueur inconnu est signale plutot que produit avec un trou. | 1. Substituer un modele dont un marqueur n'a pas de valeur. | Vérifie que `result.ok` est faux.<br/>Vérifie que `result.error.find("inconnu")` diffère de `std::string::npos`. |
+| **ApplicationThemeTest.AucuneCouleurLitteraleDansLeModeleReel** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Interface/test_application_theme.cpp:67`</sub> | Le modele de theme livre ne contient aucune couleur litterale. | 1. Lire le fichier theme.qss livre.<br/>2. Chercher un motif de couleur hexadecimale. | Vérifie que `themeText.empty()` est faux.<br/>Vérifie que `std::regex_search(withoutComments, hexColorPattern)` est faux. |
+| **ApplicationThemeTest.EtancheiteDesPortees** (Critique)<br/><sub>`Source/Test/Unit/HMI/Interface/test_application_theme.cpp:94`</sub> | Les regles d'identite sont etanches au theme de l'editeur. | 1. Substituer le modele reel avec deux jeux de valeurs 'editor.*' distincts, memes valeurs 'identity.*'.<br/>2. Extraire les blocs #MainMenu/#OptionsPage des deux resultats. | Vérifie que `themeText.empty()` est faux.<br/>Vérifie que `dark.ok` est vrai.<br/>Vérifie que `light.ok` est vrai.<br/>Vérifie que `darkEnd` diffère de `std::string::npos`.<br/>Vérifie que `lightEnd` diffère de `std::string::npos`.<br/>Vérifie que `dark.text.substr(0, darkEnd)` vaut `light.text.substr(0, lightEnd)`. |
 
 **`test_design_tokens.cpp`**
 

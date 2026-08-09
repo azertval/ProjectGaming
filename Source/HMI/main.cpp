@@ -9,7 +9,6 @@
 
 #include <QApplication>
 #include <QCoreApplication>
-#include <QFile>
 #include <QImage>
 #include <QString>
 #include <cstdint>
@@ -150,18 +149,11 @@ int main(int argc, char** argv) {
         return saved ? 0 : 1;
     }
 
-    // Palette du châssis d'édition (portée variable, LOT-56), avant la construction de la fenêtre.
+    // Thème complet (palette + feuille de style, LOT-56) du châssis d'édition (portée variable),
+    // avant la construction de la fenêtre. La feuille de style couvre désormais toute l'IHM,
+    // produite à partir des jetons (Source/Elements/Themes/theme.qss, TACHE-02) : elle remplace le
+    // chargement direct historique (repli sans fichier de thème préservé dans applyStyleSheet).
     hmi::applyEditorTheme();
-
-    // Thème de l'IHM (menu/options), embarqué en ressource (resources.qrc -> theme.qss). Portée par
-    // objectName : l'éditeur (docks) conserve le thème Qt par défaut.
-    if (QFile themeFile(QStringLiteral(":/resources/theme.qss"));
-        themeFile.open(QFile::ReadOnly | QFile::Text)) {
-        application.setStyleSheet(QString::fromUtf8(themeFile.readAll()));
-    } else {
-        HMI_LOG_WARNING(
-            "Theme d'interface introuvable (:/resources/theme.qss) : style par defaut.");
-    }
 
     hmi::MainWindow window(sessionLog);
     window.show();

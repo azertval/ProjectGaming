@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QPalette>
+#include <string>
+#include <unordered_map>
 
 /**
  * @file HMI/Interface/ApplicationTheme.h
@@ -25,8 +27,21 @@ void applyApplicationStyle();
 /// oublie le plus souvent, et celui qui trahit le plus vite un thème incomplet.
 [[nodiscard]] QPalette buildApplicationPalette(const DesignTokens& tokens);
 
-/// Applique la palette du châssis d'édition (portée **variable**) comme palette par défaut de
-/// l'application. À appeler avant la construction de `MainWindow`.
+/// Construit la table de substitution `${...}` -> valeur pour un jeu de jetons du châssis
+/// d'édition (portée variable) ; les marqueurs `${identity.*}` sont toujours résolus depuis
+/// `identityTokens()` (portée invariante, jamais affectée par le thème de l'éditeur).
+[[nodiscard]] std::unordered_map<std::string, std::string> buildStyleSheetValues(
+    const DesignTokens& editorTokens);
+
+/// Charge le modèle de feuille de style embarqué (`:/resources/theme.qss`), le substitue avec
+/// @p editorTokens et l'applique à l'application. Repli explicite : fichier absent/illisible ou
+/// marqueur inconnu -> avertissement journalisé, l'application reste utilisable sans feuille de
+/// style (comportement historique de `main.cpp`, non régressé).
+void applyStyleSheet(const DesignTokens& editorTokens);
+
+/// Applique le thème complet du châssis d'édition (portée **variable**) : palette puis feuille de
+/// style, tous deux dérivés du même jeu de jetons. À appeler avant la construction de
+/// `MainWindow`.
 void applyEditorTheme();
 
 }  // namespace hmi

@@ -75,6 +75,7 @@ add_executable(UnitTests
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
     Unit/HMI/Interface/test_design_tokens.cpp
+    Unit/HMI/Interface/test_application_theme.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
     Unit/HMI/Editor/test_tile_taxonomy.cpp
     Unit/HMI/Editor/test_skin_assignments.cpp
@@ -222,6 +223,10 @@ add_executable(UnitTests
     # QApplication et n'est donc pas compilé ici, même distinction que BitmapFont.cpp/
     # ProceduralFont.cpp) : testable hors GPU.
     ../HMI/Interface/DesignTokens.cpp
+    # Substitution ${...} du modele de feuille de style (LOT-56 TACHE-02) : logique pure sur des
+    # std::string, aucune dependance Qt (contrairement a ApplicationTheme.cpp, qui charge le
+    # fichier via QFile et l'applique via QApplication::setStyleSheet).
+    ../HMI/Interface/StyleSheetTemplate.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE
@@ -239,7 +244,8 @@ target_link_libraries(UnitTests PRIVATE
 target_compile_definitions(UnitTests PRIVATE
     PROJECTGAMING_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels"
     PROJECTGAMING_LOCALIZATION_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Localization"
-    PROJECTGAMING_ASSETS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Assets")
+    PROJECTGAMING_ASSETS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Assets"
+    PROJECTGAMING_THEME_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/Themes/theme.qss")
 
 # Tests d'intégration : plusieurs briques assemblées collaborant de bout en bout.
 add_executable(IntegrationTests

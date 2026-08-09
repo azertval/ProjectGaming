@@ -2,10 +2,14 @@
 
 #include <QApplication>
 #include <QColor>
+#include <QFile>
+#include <QString>
 #include <QStyle>
 #include <QStyleFactory>
 
+#include "HMI/HmiLog.h"
 #include "HMI/Interface/DesignTokens.h"
+#include "HMI/Interface/StyleSheetTemplate.h"
 
 namespace hmi {
 
@@ -13,6 +17,21 @@ namespace {
 
 [[nodiscard]] QColor toQColor(DesignColor color) {
     return QColor(color.r, color.g, color.b, color.a);
+}
+
+// Ajoute les neuf roles de couleur d'une portee au tableau de substitution, sous le prefixe donne
+// (ex. "identity.color.background" -> "#1a1f29").
+void addColorValues(std::unordered_map<std::string, std::string>& values,
+                    const std::string& prefix, const ColorTokens& color) {
+    values[prefix + ".background"] = toCssColor(color.background);
+    values[prefix + ".surface"] = toCssColor(color.surface);
+    values[prefix + ".surfaceAlt"] = toCssColor(color.surfaceAlt);
+    values[prefix + ".border"] = toCssColor(color.border);
+    values[prefix + ".text"] = toCssColor(color.text);
+    values[prefix + ".textMuted"] = toCssColor(color.textMuted);
+    values[prefix + ".accent"] = toCssColor(color.accent);
+    values[prefix + ".accentHover"] = toCssColor(color.accentHover);
+    values[prefix + ".error"] = toCssColor(color.error);
 }
 
 // Applique les rôles communs aux trois groupes de palette pour un jeu de jetons donné.
@@ -62,8 +81,40 @@ QPalette buildApplicationPalette(const DesignTokens& tokens) {
     return palette;
 }
 
+std::unordered_map<std::string, std::string> buildStyleSheetValues(const DesignTokens& editorTokens) {
+    std::unordered_map<std::string, std::string> values;
+    addColorValues(values, "identity.color", identityTokens().color);
+    addColorValues(values, "editor.color", editorTokens.color);
+    // Echelle d'espacement : partagee entre les deux portees (DesignTokensTest.
+    // LesDeuxPorteesPartagentLesMemesEchelles), la source choisie ici est arbitraire.
+    const SpacingTokens& spacing = identityTokens().spacing;
+    values["tokens.spacing.extraSmall"] = std::to_string(spacing.extraSmall);
+    values["tokens.spacing.small"] = std::to_string(spacing.small);
+    values["tokens.spacing.medium"] = std::to_string(spacing.medium);
+    values["tokens.spacing.large"] = std::to_string(spacing.large);
+    values["tokens.spacing.extraLarge"] = std::to_string(spacing.extraLarge);
+    return values;
+}
+
+void applyStyleSheet(const DesignTokens& editorTokens) {
+    QFile themeFile(QStringLiteral(":/resources/theme.qss"));
+    if (!themeFile.open(QFile::ReadOnly | QFile::Text)) {
+        HMI_LOG_WARNING("Theme d'interface introuvable (:/resources/theme.qss) : style par defaut.");
+        return;
+    }
+    const std::string templateText = QString::fromUtf8(themeFile.readAll()).toStdString();
+    const StyleSheetSubstitutionResult substituted =
+        substituteStyleSheetTemplate(templateText, buildStyleSheetValues(editorTokens));
+    if (!substituted.ok) {
+        HMI_LOG_WARNING("Theme d'interface invalide (" + substituted.error + ") : style par defaut.");
+        return;
+    }
+    qApp->setStyleSheet(QString::fromStdString(substituted.text));
+}
+
 void applyEditorTheme() {
     QApplication::setPalette(buildApplicationPalette(editorDarkTokens()));
+    applyStyleSheet(editorDarkTokens());
 }
 
 }  // namespace hmi
