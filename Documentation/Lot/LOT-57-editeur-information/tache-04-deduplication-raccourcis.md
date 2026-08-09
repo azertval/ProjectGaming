@@ -1,6 +1,6 @@
 # TACHE-04 — Déduplication des commandes et raccourcis d'éditeur {#lot-57-tache-04-deduplication-raccourcis}
 
-**Lot :** [LOT-57](epic.md) · **Emplacement :** `Source/HMI/Game`, `Source/HMI/Input`, `Source/HMI/Interface` · **Statut :** non commencé
+**Lot :** [LOT-57](epic.md) · **Emplacement :** `Source/HMI/Game`, `Source/HMI/Input`, `Source/HMI/Interface` · **Statut :** fait
 
 ## Contexte
 Plusieurs états de l'éditeur sont pilotables depuis deux contrôles distincts : la couche d'un décor se

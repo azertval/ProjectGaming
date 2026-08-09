@@ -19,6 +19,7 @@ namespace hmi {
 class GameViewport;
 class Localization;
 class KeybindingsWidget;
+class EditorKeybindingsWidget;
 class GamepadBindingsWidget;
 
 /**
@@ -48,12 +49,17 @@ signals:
     void languageChanged(const QString& code);
     /// Émis quand l'utilisateur demande l'enregistrement des journaux de session.
     void saveLogsRequested();
+    /// Émis après chaque remappage réussi d'une touche d'éditeur (`LOT-57` TACHE-04) : l'appelant
+    /// doit resynchroniser les raccourcis effectifs des actions (`EditorActions::applyShortcuts`).
+    void editorBindingsChanged();
 
 private:
     std::unique_ptr<Ui::OptionsPage> _ui;
     KeybindingsWidget* _keyboard = nullptr;  ///< Onglet remappage clavier (contenu dynamique).
+    EditorKeybindingsWidget* _editorKeyboard = nullptr;  ///< Onglet remappage éditeur (LOT-57).
     GamepadBindingsWidget* _gamepad = nullptr;  ///< Onglet remappage manette (contenu dynamique).
     int _keyboardTabIndex = -1;
+    int _editorKeyboardTabIndex = -1;
     int _gamepadTabIndex = -1;
 };
 

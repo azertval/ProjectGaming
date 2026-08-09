@@ -151,10 +151,11 @@ add_executable(ProjectGaming
     Interface/MainMenu.cpp
     Interface/OptionsPage.cpp
     Interface/KeybindingsWidget.cpp
+    Interface/EditorKeybindingsWidget.cpp
     Interface/GamepadBindingsWidget.cpp
     # Éditeur de niveau
     Editor/PalettePanel.cpp
-    Editor/ToolPanel.cpp
+    Editor/DecorsPanel.cpp
     Editor/LevelBrowserPanel.cpp
     Editor/LinkPanel.cpp
     Editor/TileTaxonomy.cpp
@@ -176,13 +177,15 @@ add_executable(ProjectGaming
     Editor/AssetFileOperations.cpp
     Editor/AssetReferences.cpp
     Editor/MechanismAnimationAssignments.cpp
+    Editor/EditorStatus.cpp
+    Editor/PanelFocus.cpp
     # Ressource embarquée (thème .qss) — traitée par AUTORCC.
     ${ELEMENTS_UI}/resources.qrc
     # Mises en page Qt Designer — traitées par AUTOUIC (génèrent ui_*.h).
     ${ELEMENTS_UI}/MainWindow.ui
     ${ELEMENTS_UI}/MainMenu.ui
     ${ELEMENTS_UI}/OptionsPage.ui
-    ${ELEMENTS_UI}/ToolPanel.ui
+    ${ELEMENTS_UI}/DecorsPanel.ui
     ${ELEMENTS_UI}/TexturePanel.ui
     ${ELEMENTS_UI}/LevelBrowserPanel.ui
     ${ELEMENTS_UI}/AssetThumbnailView.ui

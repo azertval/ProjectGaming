@@ -29,6 +29,10 @@ enum class IconId {
     ToggleGrid,
     ResetCamera,
     ToggleRenderMode,
+    Copy,
+    Paste,
+    Rename,
+    ShortcutsOverview,
 };
 
 /// Rôle de couleur d'un trait, résolu depuis les jetons de design au moment du rendu (recoloration

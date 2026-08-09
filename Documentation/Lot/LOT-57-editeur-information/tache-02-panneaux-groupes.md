@@ -1,6 +1,6 @@
 # TACHE-02 — Regroupement des panneaux, suivant l'outil actif {#lot-57-tache-02-panneaux-groupes}
 
-**Lot :** [LOT-57](epic.md) · **Emplacement :** `Source/HMI/Interface` · **Statut :** non commencé
+**Lot :** [LOT-57](epic.md) · **Emplacement :** `Source/HMI/Interface` · **Statut :** fait
 
 ## Contexte
 Les cinq panneaux de l'éditeur — Palette, Outils, Niveaux, Liens, Textures — sont affichés

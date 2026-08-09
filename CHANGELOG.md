@@ -7,6 +7,64 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-57 — Architecture de l'information de l'éditeur** (`EX-IHM-060` à `EX-IHM-062`, en cours) :
+  redistribution de l'éditeur — ce qui informe devient permanent, ce qui commande devient unique, ce
+  qui ne sert qu'à un outil s'efface quand cet outil n'est pas actif.
+  - **TACHE-01 — Barre d'état structurée** : remplace la ligne unique `status.edit_help` (figée à
+    l'entrée en mode éditeur, définitivement effacée par le premier message transitoire) par cinq
+    zones **permanentes** (`hmi::EditorStatus`, fonction pure sur le patron de `hmi::gameHudLines`,
+    `LOT-52`) — niveau ouvert, modifications non enregistrées, outil actif, case survolée, zoom —
+    ajoutées à la barre d'état via `addPermanentWidget` (jamais recouvertes par un message). Aide
+    contextuelle à l'outil actif, restaurée automatiquement à l'expiration d'un message transitoire
+    (`MainWindow::refreshStatusHelp`/`showTransientStatusMessage`, minuteur unique). Case survolée et
+    zoom nouvellement exposés par `GameViewport` (`hoveredCell()`/`zoom()`, signaux `hoveredCellChanged`/
+    `zoomChanged`, émis seulement sur changement réel). **6 nouveaux tests**, sans Qt/GPU ; build
+    `/W4 /WX` propre, 770 tests verts.
+  - **TACHE-02 — Regroupement des panneaux, suivi de l'outil actif** : les panneaux Niveaux, Liens et
+    Textures sont désormais regroupés en onglets par défaut (`tabifyDockWidget`, disposition v4,
+    invalide les dispositions antérieures), chacun restant individuellement déplaçable, détachable et
+    refermable. L'onglet pertinent est mis en avant à chaque changement d'outil (`hmi::panelForTool`,
+    table pure sur le patron d'`ActionCatalog`) tant que l'utilisateur n'a rien imposé lui-même (choix
+    manuel d'onglet, déplacement de panneau) — jamais un masquage, réglable et persisté depuis le menu
+    Affichage. **4 nouveaux tests**, sans Qt ; build `/W4 /WX` propre, 774 tests verts.
+  - **TACHE-03 — Recentrage du panneau Textures** : l'onglet Calques (mode d'inspection « définition
+    des textures », `LOT-51`) quitte le panneau Textures pour le menu Affichage — une entrée par
+    calque dans l'ordre de dessin, plus « tout afficher », sans changement de comportement
+    (`EX-EDIT-044` inchangée, jamais lue par `GameSession`). L'avertissement permanent qu'imposait sa
+    présence dans le panneau devient inutile dans son nouvel emplacement. Le panneau Textures ne
+    porte plus que la définition d'apparence (Skins, Fond, Objets, Animations, Décors) ; les deux
+    sélecteurs de jeu de skins (session d'édition vs. niveau) portent désormais chacun une infobulle
+    distincte. Aucun nouveau test (changements Qt purs) ; build `/W4 /WX` propre, 774 tests verts.
+  - **TACHE-04 — Déduplication des commandes et raccourcis** : `hmi::EditorKeyBindings` définissait
+    dix actions d'éditeur remappables dont neuf n'étaient jamais lues (raccourcis interceptés en
+    dur, non remappables ; Copier/Coller au clavier bypassaient même `EditorKeyBindings`). Toutes
+    passent désormais par `hmi::EditorActions` (`hmi::keyBindingIconCatalog`, table pure liant
+    action remappable et commande du catalogue) : `EditorActions::applyShortcuts` synchronise le
+    raccourci **effectif** de chaque `QAction` depuis les touches remappées, y compris après un
+    remappage à chaud. Nouvel onglet « Éditeur » de la page Options (`EditorKeybindingsWidget`,
+    même patron que le remappage clavier de jeu). Renommer (F2) renomme désormais le niveau ouvert
+    (`GameViewport::renameOpenLevel`, réutilise `LevelFileOperations`/`LevelNameValidation` comme
+    `LevelBrowserPanel`) ; l'aide (F1) ouvre un aperçu des raccourcis lisant les touches effectives,
+    jamais un texte figé. La bascule Physique/Texture (case dupliquée retirée en TACHE-03) rejoint
+    le menu Affichage comme entrée unique de l'action déjà existante (`EX-IHM-062`). Annuler/Refaire/
+    Copier/Coller dispatchent désormais via `hmi::EditContextTarget`, interface que `GameViewport`
+    implémente — le seuil de dispatch qu'un futur atelier pixel art (`LOT-54`) réutilisera pour sa
+    propre cible sans le réécrire. Le doublon de sélecteur de couche de décor (panneau Outils vs.
+    onglet Décors) est conservé : les deux ciblent des états distincts (couche du prochain décor
+    posé vs. couche du décor sélectionné existant), pas un doublon strict. **3 nouveaux tests** (dont
+    un garde-fou cassant si une action est ajoutée sans être branchée) ; build `/W4 /WX` propre, 777
+    tests verts.
+  - **Amendement post-essai manuel** : premier essai réel de l'éditeur reconstruit, deux retours
+    tranchés dans la foulée. Le panneau « Outils » (`ToolPanel`), qui ne portait déjà plus que le
+    strict nécessaire de l'outil Décor depuis `LOT-56`, devient le panneau **Décors**
+    (`DecorsPanel`) et regroupe désormais aussi l'inspecteur des décors posés déplacé de l'onglet
+    « Décors » du panneau Textures — les deux sélecteurs de couche (placement du prochain décor,
+    couche du décor sélectionné) coexistent donc maintenant dans le même panneau, renommés
+    explicitement pour lever toute ambiguïté. Le panneau Textures sort du regroupement en onglets de
+    TACHE-02 et redevient indépendant, comme Palette/Décors. La barre d'outils du haut, elle, reste
+    à sa place (barre globale de la fenêtre principale, hors du panneau Décors). `LAYOUT_VERSION`
+    4 → 5.
+
 - **LOT-56 — Système de design de l'IHM Qt** (`EX-IHM-050` à `EX-IHM-055`) : l'éditeur prend enfin
   la main sur sa propre apparence — jusqu'ici le style **natif** de la plate-forme, qui ignorait une
   large part de l'unique feuille de style existante (`theme.qss`, restreinte au menu principal et à

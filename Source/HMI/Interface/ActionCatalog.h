@@ -4,6 +4,7 @@
 #include <optional>
 
 #include "HMI/Editor/EditorTool.h"
+#include "HMI/Input/EditorKeyBindings.h"
 #include "HMI/Interface/IconGeometry.h"
 
 /**
@@ -34,11 +35,11 @@ struct EditorActionSpec {
     EditorActionGroup group;
 };
 
-/// Nombre total d'actions du catalogue (six outils, sept commandes principales).
-constexpr int EDITOR_ACTION_CATALOG_COUNT = 13;
+/// Nombre total d'actions du catalogue (six outils, onze commandes principales).
+constexpr int EDITOR_ACTION_CATALOG_COUNT = 17;
 
 /// @return Le catalogue complet, dans l'ordre d'affichage voulu de la barre d'outils : les six
-///         outils (ordre de la palette/du panneau Outils historique), puis les sept commandes.
+///         outils (ordre de la palette/du panneau Outils historique), puis les commandes.
 [[nodiscard]] const std::array<EditorActionSpec, EDITOR_ACTION_CATALOG_COUNT>& editorActionCatalog();
 
 /// @return La spécification de l'action @p id.
@@ -50,5 +51,32 @@ constexpr int EDITOR_ACTION_CATALOG_COUNT = 13;
 
 /// @return L'identifiant d'action portant l'outil @p tool.
 [[nodiscard]] IconId editorActionForTool(EditorTool tool);
+
+/**
+ * @brief Correspondance entre une action d'éditeur remappable (`hmi::EditorAction`,
+ *        `EditorKeyBindings.h`) et l'identifiant d'action du catalogue qui la rend effective
+ *        (`LOT-57` TACHE-04, `EX-IHM-062`).
+ *
+ * `EditorAction::TextureAssignTool` en est volontairement absente : elle sélectionne un outil
+ * (groupe `LevelTools`), pas une commande, et reste lue directement par `hmi::GameViewport` comme
+ * un raccourci brut (cf. commentaire à son site d'appel).
+ */
+struct KeyBindingIconEntry {
+    EditorAction action;
+    IconId id;
+};
+
+/// Nombre d'actions d'éditeur remappables ayant une commande effective (`EDITOR_ACTION_COUNT`
+/// moins `TextureAssignTool`).
+constexpr int KEY_BINDING_ICON_COUNT = 9;
+
+/// @return La table complète action remappable -> commande du catalogue.
+[[nodiscard]] const std::array<KeyBindingIconEntry, KEY_BINDING_ICON_COUNT>& keyBindingIconCatalog();
+
+/// @return L'identifiant de commande rendant @p action effective.
+[[nodiscard]] IconId iconForKeyBindingAction(EditorAction action);
+
+/// @return L'action remappable dont @p id est la commande effective, si elle en a une.
+[[nodiscard]] std::optional<EditorAction> keyBindingActionForIcon(IconId id);
 
 }  // namespace hmi

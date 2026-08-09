@@ -24,6 +24,15 @@ const std::array<EditorActionSpec, EDITOR_ACTION_CATALOG_COUNT>& editorActionCat
         {IconId::ToggleGrid, "action.toggle_grid", "F10", false, EditorActionGroup::None},
         {IconId::ResetCamera, "action.reset_camera", "0", false, EditorActionGroup::None},
         {IconId::ToggleRenderMode, "action.toggle_render_mode", "F8", false, EditorActionGroup::None},
+        // Déduplication des commandes (LOT-57 TACHE-04) : branchées sur les actions d'éditeur
+        // remappables jusqu'ici définies et jamais lues (`EditorKeyBindings`). Valeurs par défaut
+        // alignées sur `EditorKeyBindings::defaultKey` ; la valeur effective vient toujours
+        // d'`EditorActions::applyShortcuts`, jamais de ce littéral seul (cf. son commentaire).
+        {IconId::Copy, "action.copy", "Ctrl+C", false, EditorActionGroup::None},
+        {IconId::Paste, "action.paste", "Ctrl+V", false, EditorActionGroup::None},
+        {IconId::Rename, "action.rename", "F2", false, EditorActionGroup::None},
+        {IconId::ShortcutsOverview, "action.shortcuts_overview", "F1", false,
+         EditorActionGroup::None},
     }};
     return catalog;
 }
@@ -72,6 +81,39 @@ IconId editorActionForTool(EditorTool tool) {
             return IconId::ToolDecor;
     }
     return IconId::ToolPaint;
+}
+
+const std::array<KeyBindingIconEntry, KEY_BINDING_ICON_COUNT>& keyBindingIconCatalog() {
+    static const std::array<KeyBindingIconEntry, KEY_BINDING_ICON_COUNT> catalog{{
+        {EditorAction::Save, IconId::Save},
+        {EditorAction::Undo, IconId::Undo},
+        {EditorAction::Redo, IconId::Redo},
+        {EditorAction::Copy, IconId::Copy},
+        {EditorAction::Paste, IconId::Paste},
+        {EditorAction::Playtest, IconId::Playtest},
+        {EditorAction::ToggleGrid, IconId::ToggleGrid},
+        {EditorAction::ToggleHelp, IconId::ShortcutsOverview},
+        {EditorAction::Rename, IconId::Rename},
+    }};
+    return catalog;
+}
+
+IconId iconForKeyBindingAction(EditorAction action) {
+    for (const KeyBindingIconEntry& entry : keyBindingIconCatalog()) {
+        if (entry.action == action) {
+            return entry.id;
+        }
+    }
+    return IconId::Save;  // inatteignable pour les 9 actions couvertes ; TextureAssignTool exclue.
+}
+
+std::optional<EditorAction> keyBindingActionForIcon(IconId id) {
+    for (const KeyBindingIconEntry& entry : keyBindingIconCatalog()) {
+        if (entry.id == id) {
+            return entry.action;
+        }
+    }
+    return std::nullopt;
 }
 
 }  // namespace hmi

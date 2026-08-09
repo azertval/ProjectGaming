@@ -16,6 +16,7 @@ class QToolBar;
 
 namespace hmi {
 
+class EditorKeyBindings;
 class Localization;
 struct DesignTokens;
 
@@ -54,7 +55,7 @@ public:
 
     /// Coche l'action de l'outil actif **sans** émettre `triggered` : resynchronisation depuis la
     /// touche dédiée de `GameViewport` (remappable, `EditorAction::TextureAssignTool`), même garde
-    /// que `ToolPanel::setActiveTool`.
+    /// que `DecorsPanel::setActiveTool`.
     void setActiveTool(EditorTool tool);
 
     /// Active/désactive les six commandes qui n'ont de sens qu'en édition (Enregistrer, Essayer,
@@ -65,6 +66,19 @@ public:
     /// Reconstruit les icônes depuis un nouveau jeu de jetons (bascule de thème, `LOT-56`
     /// TACHE-06) : sans quoi elles resteraient aux anciennes couleurs après le changement.
     void refreshIcons(const DesignTokens& tokens);
+
+    /**
+     * @brief Fait refléter @p bindings sur le raccourci effectif de chaque commande concernée
+     *        (`hmi::keyBindingIconCatalog`, `LOT-57` TACHE-04).
+     *
+     * `ActionCatalog` reste sans dépendance Qt (valeurs par défaut littérales) ; c'est ici, côté
+     * Qt, que le raccourci **réellement actif** d'un `QAction` est synchronisé avec les touches
+     * remappables — sans quoi un remappage dans les Options ne changerait rien à l'action.
+     * Refait aussi les infobulles (`retranslateUi`), pour que « libellé + raccourci » reste vrai.
+     * @param bindings Touches d'éditeur courantes.
+     * @param loc      Catalogue de traduction courant, pour les infobulles.
+     */
+    void applyShortcuts(const EditorKeyBindings& bindings, const Localization& loc);
 
 private:
     std::array<QAction*, EDITOR_ACTION_CATALOG_COUNT> _actions{};

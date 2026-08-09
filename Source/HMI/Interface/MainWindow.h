@@ -2,8 +2,11 @@
 
 #include <QByteArray>
 #include <QMainWindow>
+#include <array>
 #include <memory>
 
+#include "HMI/Editor/EditContextTarget.h"
+#include "HMI/Editor/EditorTool.h"
 #include "HMI/Input/GamepadPoller.h"
 #include "HMI/Input/InputState.h"
 #include "HMI/Localization/Localization.h"
@@ -14,6 +17,7 @@
  */
 
 class QAction;
+class QLabel;
 class QMenu;
 class QStackedWidget;
 class QTimer;
@@ -30,12 +34,12 @@ class MemoryLogSink;
 
 namespace hmi {
 
+class DecorsPanel;
 class EditorActions;
 class GameViewport;
 class MainMenu;
 class OptionsPage;
 class PalettePanel;
-class ToolPanel;
 class LevelBrowserPanel;
 class LinkPanel;
 class TexturePanel;
@@ -75,6 +79,19 @@ private:
 
     /// Applique la langue active à tous les textes de l'IHM (fenêtre, menus, docks, panneaux).
     void retranslateUi();
+    /// Recalcule et réaffiche la barre d'état (zones permanentes + aide contextuelle) depuis l'état
+    /// courant du viewport (`LOT-57` TACHE-01, `hmi::editorStatusLines`) — seule voie de mise à
+    /// jour, appelée par tout changement pertinent (outil, survol, zoom, brouillon) ainsi qu'à
+    /// l'expiration d'un message transitoire, pour la restaurer.
+    void refreshStatusHelp();
+    /// Affiche @p message pour @p timeoutMs dans la barre d'état, puis restaure l'aide contextuelle
+    /// (`refreshStatusHelp`) — remplace `QStatusBar::showMessage`'s minuteur interne, qui laissait
+    /// la barre vide à l'expiration au lieu de reprendre la main.
+    void showTransientStatusMessage(const QString& message, int timeoutMs);
+    /// Met en avant le panneau associé à @p tool (`hmi::panelForTool`), si le réglage est actif et
+    /// que l'utilisateur n'a rien imposé lui-même (`LOT-57` TACHE-02) — jamais un masquage, une
+    /// simple suggestion de premier plan parmi les onglets regroupés.
+    void applyPanelFocus(hmi::EditorTool tool);
     /// Change la langue active (recharge le catalogue, persiste, retraduit tout).
     void changeLanguage(const QString& code);
     /// Enregistre les journaux de session accumulés dans un fichier horodaté.
@@ -104,10 +121,17 @@ private:
     OptionsPage* _options;      ///< Page Options à onglets.
     QWidget* _editorContainer;  ///< Conteneur natif du viewport (page éditeur/jeu).
     GameViewport* _viewport;    ///< Surface de rendu D3D11 (possédée par le conteneur central).
+    /// Contexte d'édition actif, cible d'Annuler/Refaire/Copier/Coller (`LOT-57` TACHE-04) — égal à
+    /// `_viewport` aujourd'hui, seule implémentation ; un futur atelier pixel art (`LOT-54`)
+    /// pourra le réassigner sans changer le dispatch des actions.
+    EditContextTarget* _editContext = nullptr;
     PalettePanel* _palette;     ///< Arbre de sélection du type de tuile (contenu du dock Palette).
     LevelBrowserPanel*
         _levels;               ///< Liste/gestion des fichiers de niveaux (contenu du dock Niveaux).
-    ToolPanel* _tools;         ///< Sélecteur d'outil d'édition (contenu du dock Outils).
+    /// Placement/inspection de décors (dock Décors, `LOT-57` amendement) — contenait déjà tout ce
+    /// qui concerne les décors (`ToolPanel`, `LOT-56` TACHE-04) avant d'y accueillir aussi
+    /// l'inspecteur déplacé du panneau Textures. La barre d'outils reste hors de ce panneau.
+    DecorsPanel* _decors;
     LinkPanel* _links;         ///< Liste/gestion des liaisons de mécanismes (dock Liens, LOT-37).
     TexturePanel* _textures;   ///< Habillage : jeu de skins et assignations (dock Textures, LOT-42).
     EditorActions* _actions;   ///< Outils et commandes principales, barre d'outils (LOT-56 TACHE-04).
@@ -117,6 +141,33 @@ private:
     QAction* _themeLightAction;
     QAction* _themeDarkAction;
     QByteArray _defaultState;  ///< Disposition par défaut (pour « Réinitialiser la disposition »).
+
+    // Regroupement des panneaux de droite en onglets, suivant l'outil actif (LOT-57 TACHE-02).
+    QAction* _actFollowActiveTool = nullptr;  ///< Réglage persisté (menu Affichage).
+    /// `true` dès que l'utilisateur a choisi un onglet ou déplacé un panneau lui-même : la mise en
+    /// avant automatique cesse alors pour la session (jamais persisté, cf. `hmi::panelForTool`).
+    bool _userPickedTab = false;
+
+    // Mode d'inspection par calque, déplacé du panneau Textures vers le menu Affichage
+    // (LOT-57 TACHE-03) : une entrée cochable par calque, dans l'ordre de dessin, plus « tout
+    // afficher ».
+    std::array<QAction*, 7> _layerVisibilityActions{};
+    QAction* _actShowAllLayers = nullptr;
+    /// `true` pendant un changement de visibilité **provoqué par le code** (mise en avant
+    /// automatique, bascule de mode, restauration de disposition) : évite qu'un tel changement soit
+    /// pris pour un choix explicite de l'utilisateur (`QDockWidget::visibilityChanged`).
+    bool _suppressPanelFocusTracking = false;
+
+    // Barre d'état structurée (LOT-57 TACHE-01) : zones permanentes (widgets ajoutés via
+    // addPermanentWidget, jamais recouvertes par un message transitoire), dans l'ordre décidé par
+    // hmi::editorStatusLines.
+    QLabel* _statusLevel = nullptr;
+    QLabel* _statusDirty = nullptr;
+    QLabel* _statusTool = nullptr;
+    QLabel* _statusHover = nullptr;
+    QLabel* _statusZoom = nullptr;
+    /// Restaure l'aide contextuelle à l'expiration d'un message transitoire (`showTransientStatusMessage`).
+    QTimer* _statusMessageTimer = nullptr;
 
     Localization _loc;  ///< Catalogue de traduction (i18n), source de tous les textes.
     core::MemoryLogSink* _sessionLog;  ///< Sink mémoire des logs (nul en Release).

@@ -1,6 +1,6 @@
 # LOT-57 — Architecture de l'information de l'éditeur {#lot-57}
 
-> Statut : **non commencé**. Prérequis : [LOT-51](@ref lot-51) (visibilité des calques),
+> Statut : **fait**. Prérequis : [LOT-51](@ref lot-51) (visibilité des calques),
 > [LOT-56](@ref lot-56) (jetons, thème, actions et barre d'outils).
 
 ## Objectif
@@ -92,16 +92,36 @@ devient unique, et ce qui ne sert qu'à un outil s'efface quand cet outil n'est 
   (actions, `LOT-56`), `EX-EDIT-044` (visibilité des calques, `LOT-51`), `EX-CTRL-012` (raccourcis
   d'éditeur remappables), `EX-REN-033` (traduction).
 
+## Amendement post-essai manuel (2026-08-09)
+Après livraison des quatre tâches, premier essai manuel réel de l'éditeur reconstruit : deux retours
+directs sur la disposition, tranchés et implémentés dans la foulée (branche encore ouverte, non
+mergée — pas un nouveau lot) :
+- **Les « palettes de texture » devaient redevenir un panneau à part**, sur le modèle
+  Outils/Palette. Le panneau « Outils » (`ToolPanel`), qui ne portait déjà plus que le strict
+  nécessaire de l'outil Décor depuis `LOT-56` TACHE-04 (le choix d'outil s'était déplacé vers la
+  barre d'outils), est renommé « Décors » (`DecorsPanel`) et regroupe désormais aussi l'inspecteur
+  des décors posés (déplacé de l'onglet « Décors » du panneau Textures, `LOT-50`). Le panneau
+  Textures sort du regroupement en onglets de TACHE-02 (Niveaux/Liens restent tabifiés, Textures
+  redevient indépendant, comme Palette/Décors).
+- **La barre d'outils reste hors du panneau Décors**, à son emplacement d'avant l'amendement (barre
+  globale de la fenêtre principale, `addToolBar()`, même `EditorActions::populateToolBar`) : un
+  premier essai l'avait embarquée verticalement dans le panneau Décors, corrigé après retour
+  immédiat — elle n'a pas vocation à dépendre d'un panneau ou d'un mode particulier.
+- Les deux sélecteurs de couche de décor (placement du prochain décor, couche du décor sélectionné)
+  vivent désormais dans le même panneau, renommés explicitement (`decorPlacementLayerCombo`/
+  `decorSelectedLayerCombo`) plutôt que de porter le même nom générique dans le même `.ui`.
+- `LAYOUT_VERSION` 4 → 5 (dock renommé).
+
 ## Découpage
 
 > État : ✅ fait · 🔄 en cours · ⬜ non commencé.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-barre-etat.md) | Barre d'état structurée : état permanent et aide contextuelle à l'outil | `Source/HMI/Interface`, `Source/HMI/Editor` | ⬜ |
-| [TACHE-02](tache-02-panneaux-groupes.md) | Regroupement des panneaux en onglets, suivant l'outil actif | `Source/HMI/Interface` | ⬜ |
-| [TACHE-03](tache-03-panneau-textures.md) | Recentrage du panneau Textures ; calques déplacés vers le menu Affichage | `Source/HMI/Editor`, `Source/Elements/UI` | ⬜ |
-| [TACHE-04](tache-04-deduplication-raccourcis.md) | Déduplication des commandes, raccourcis d'éditeur branchés et remappables, aperçu à l'écran | `Source/HMI/Game`, `Source/HMI/Input`, `Source/HMI/Interface` | ⬜ |
+| [TACHE-01](tache-01-barre-etat.md) | Barre d'état structurée : état permanent et aide contextuelle à l'outil | `Source/HMI/Interface`, `Source/HMI/Editor` | ✅ |
+| [TACHE-02](tache-02-panneaux-groupes.md) | Regroupement des panneaux en onglets, suivant l'outil actif | `Source/HMI/Interface` | ✅ |
+| [TACHE-03](tache-03-panneau-textures.md) | Recentrage du panneau Textures ; calques déplacés vers le menu Affichage | `Source/HMI/Editor`, `Source/Elements/UI` | ✅ |
+| [TACHE-04](tache-04-deduplication-raccourcis.md) | Déduplication des commandes, raccourcis d'éditeur branchés et remappables, aperçu à l'écran | `Source/HMI/Game`, `Source/HMI/Input`, `Source/HMI/Interface` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Le niveau ouvert, la présence de modifications non enregistrées, l'outil actif, la case survolée et

@@ -21,17 +21,29 @@ menubar.theme = Theme
 menubar.theme_system = System
 menubar.theme_light = Light
 menubar.theme_dark = Dark
+menubar.follow_active_tool = Follow active tool
+# Per-layer inspection mode (LOT-57 TACHE-03, moved from the Textures panel's Layers tab):
+# DECOMPOSES the render for auditing, distinct from the Game/F8 toggle which COMPOSES it.
+menubar.layer_background = Background
+menubar.layer_decor_background = Background decor
+menubar.layer_shadow = Shadows
+menubar.layer_tile_skin = Tile skin
+menubar.layer_objects = Interactive objects
+menubar.layer_player = Character
+menubar.layer_decor_foreground = Foreground decor
+menubar.layer_show_all = Show all
 menubar.reset_layout = Reset layout
 
 # Dock panels
 dock.palette = Palette
-dock.tools = Tools
+dock.decors = Decors
 dock.levels = Levels
 dock.links = Links
 dock.textures = Textures
 
 # Textures panel (LOT-42)
 textures.skin_set = Skin set
+textures.skin_set_tooltip = Skin set for the editing session, distinct from the level's (see "Background" section).
 textures.section_skins = Skins
 textures.column_type = Tile type
 textures.column_asset = File
@@ -65,30 +77,14 @@ textures.animations_preview = Preview
 textures.animations_complete = Complete
 textures.animations_missing = Missing
 
-# "Decors" section of the Textures panel (LOT-50)
-textures.section_decors = Decors
-textures.decors_column_asset = Asset
-textures.decors_column_layer = Layer
-textures.decors_forward = Bring forward
-textures.decors_backward = Send backward
-textures.decors_center = Center
-textures.decors_remove = Remove
-textures.decors_missing_asset = Asset not found in Assets/Decors/
-
-# "Layers" section of the Textures panel (LOT-51): "texture definition" inspection mode, distinct
-# from the Game toggle (F8) -- decomposes the render to audit it, never composes it.
-textures.section_layers = Layers
-textures.layers_hint = Editor preview only: hiding a layer here never affects the game.
-textures.layers_background = Background
-textures.layers_decor_background = Background decor
-textures.layers_shadow = Shadows
-textures.layers_tile_skin = Tile skin
-textures.layers_objects = Interactive objects
-textures.layers_player = Character
-textures.layers_decor_foreground = Foreground decor
-textures.layers_physique = Physics only
-textures.layers_physique_tooltip = Same toggle as F8 (Game), viewed from this panel.
-textures.layers_show_all = Show all
+# Decor inspector of the Decors panel (LOT-50, moved from the Textures panel in LOT-57)
+decors.column_asset = Asset
+decors.column_layer = Layer
+decors.forward = Bring forward
+decors.backward = Send backward
+decors.center = Center
+decors.remove = Remove
+decors.missing_asset = Asset not found in Assets/Decors/
 
 # Shared asset library (LOT-43)
 assets.search = Search…
@@ -104,7 +100,16 @@ assets.references_warning = “%1” is used by: %2
 assets.operation_failed = Operation failed
 
 # Status bar and dialogs
-status.edit_help = Editor — paint: left click · Ctrl+Z/Y · P: playtest · F10: grid · wheel: zoom · right click: pan · 0: reset view
+status.zone.level = Level: %1
+status.zone.dirty = Modified
+status.zone.hover = (%1, %2)
+status.zone.zoom = Zoom: %1%
+status.help_paint = Paint: left click/drag · Ctrl+Z/Y: undo/redo
+status.help_rectangle = Rectangle: drag to paint an area · Ctrl+Z/Y: undo/redo
+status.help_selection = Selection: drag to select · Ctrl+C/V: copy/paste
+status.help_link = Link: click a trigger then its target · re-clicking the same pair unlinks
+status.help_texture_assign = Texture: left click assigns, re-click or right click removes
+status.help_decor = Decor: click empty space to place, click a decor to manipulate it
 status.texture_assigned = Texture assigned: %1
 status.texture_removed = Texture removed.
 status.texture_no_asset_selected = No asset selected: pick one in the "Objects" tab of the Textures panel.
@@ -139,6 +144,10 @@ action.redo = Redo
 action.toggle_grid = Grid
 action.reset_camera = Reset camera
 action.toggle_render_mode = Render mode
+action.copy = Copy
+action.paste = Paste
+action.rename = Rename
+action.shortcuts_overview = Shortcuts overview
 
 # Links panel (LOT-37)
 link.column.type = Type
@@ -167,6 +176,8 @@ tab.audio = Audio
 tab.general = General
 tab.keyboard = Keyboard
 tab.gamepad = Gamepad
+tab.editor = Editor
+dialog.shortcuts_title = Keyboard shortcuts
 options.title = Options
 options.back = Back
 options.vsync = Vertical sync
@@ -201,6 +212,9 @@ status.playtest_failed = Cannot playtest: %1
 status.playtesting = Playtesting — Esc to return to editing.
 status.back_to_edit = Back to editing.
 status.level_resized = Level resized: %1 × %2
+status.rename_failed = Invalid level name.
+status.rename_failed_reason = Rename failed: %1
+status.level_renamed = Level renamed: %1
 
 # Keybinding remapping (LOT-29/LOT-30, EX-CTRL-012, EX-CTRL-002)
 keybindings.game_title = Game keybindings
@@ -226,6 +240,7 @@ keybindings.action.playtest = Playtest
 keybindings.action.grid = Grid
 keybindings.action.help = Help
 keybindings.action.rename = Rename
+keybindings.action.texture_tool = Texture tool
 
 # In-game head-up display (LOT-52, EX-IHM-003)
 hud.jumps_remaining = Jumps: %1

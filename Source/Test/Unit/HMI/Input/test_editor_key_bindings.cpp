@@ -56,6 +56,24 @@ TEST(EditorKeyBindingsTest, SetKeyEchangeSurConflit) {
 }
 
 /**
+ * @brief `setKey` échange aussi correctement quand l'outil « Texture par instance » est impliqué
+ *        (seule action non couverte par `SetKeyEchangeSurConflit`, LOT-57 TACHE-04).
+ * \castest{<b>`setKey` echange correctement quand TextureAssignTool est impliquee.</b><br/>
+ * \tcat Unitaire · Editor Key Bindings<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Remapper TextureAssignTool sur la touche par defaut de Playtest.<br/>2. Verifier
+ * l'echange.<br/>
+ * \tattendu TextureAssignTool porte desormais P, Playtest porte T.
+ * }
+ */
+TEST(EditorKeyBindingsTest, SetKeyEchangeAvecTextureAssignTool) {
+    hmi::EditorKeyBindings bindings;
+    bindings.setKey(hmi::EditorAction::TextureAssignTool, hmi::Key::P);
+    EXPECT_EQ(bindings.key(hmi::EditorAction::TextureAssignTool), hmi::Key::P);
+    EXPECT_EQ(bindings.key(hmi::EditorAction::Playtest), hmi::Key::T);
+}
+
+/**
  * @brief `resetToDefaults` restaure les valeurs par défaut après un ou plusieurs remaps.
  * \castest{<b>`resetToDefaults` restaure les valeurs par défaut après un ou plusieurs
  * remaps.</b><br/>
@@ -151,5 +169,38 @@ TEST(EditorKeyBindingsTest, SavePreserveLaSectionJeu) {
     std::filesystem::remove(path);
 
     EXPECT_NE(content.find("\"jeu\""), std::string::npos);
+    EXPECT_NE(content.find("sauter"), std::string::npos);
+}
+
+/**
+ * @brief Sauvegarder les touches d'éditeur préserve une section « manette » déjà présente
+ *        (symétrique de `SavePreserveLaSectionJeu`, LOT-57 TACHE-04).
+ * \castest{<b>Sauvegarder les touches d'editeur preserve une section manette deja presente.</b><br/>
+ * \tcat Unitaire · Editor Key Bindings<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Ecrire un fichier avec une section manette.<br/>2. Sauvegarder des touches
+ * d'editeur dessus.<br/>3. Relire le fichier.<br/>
+ * \tattendu La section manette et son contenu sont toujours presents.
+ * }
+ */
+TEST(EditorKeyBindingsTest, SavePreserveLaSectionManette) {
+    const std::filesystem::path path = std::filesystem::temp_directory_path() /
+                                       "projectgaming_test_editor_bindings_manette.json";
+    {
+        std::ofstream file(path, std::ios::binary);
+        file << R"({"manette": {"sauter": 0}})";
+    }
+
+    hmi::EditorKeyBindings bindings;
+    ASSERT_TRUE(bindings.save(path));
+
+    std::string content;
+    {
+        std::ifstream reread(path, std::ios::binary);
+        content.assign(std::istreambuf_iterator<char>(reread), std::istreambuf_iterator<char>());
+    }
+    std::filesystem::remove(path);
+
+    EXPECT_NE(content.find("\"manette\""), std::string::npos);
     EXPECT_NE(content.find("sauter"), std::string::npos);
 }

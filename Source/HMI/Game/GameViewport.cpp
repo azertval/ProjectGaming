@@ -21,6 +21,8 @@
 #include "Core/Levels/TileMap.h"
 #include "Core/Math/Vector2.h"
 #include "HMI/Editor/DecorGesture.h"
+#include "HMI/Editor/LevelFileOperations.h"
+#include "HMI/Editor/LevelNameValidation.h"
 #include "HMI/Editor/LinkGeometry.h"
 #include "HMI/Editor/LinkGesture.h"
 #include "HMI/Editor/TextureAssignGesture.h"
@@ -278,10 +280,10 @@ void GameViewport::copySelection() {
 }
 
 void GameViewport::pasteClipboard() {
-    if (_clipboard.empty()) {
+    if (_clipboard.empty() || !_hoverCell) {
         return;
     }
-    _draft.paintRegion(_hoverCell.column, _hoverCell.row, _clipboard);
+    _draft.paintRegion(_hoverCell->column, _hoverCell->row, _clipboard);
     _dirty = true;
     markDraftMutated();
     emit statusMessage(statusText("status.region_pasted"));
@@ -807,6 +809,12 @@ void GameViewport::renderFrame(float deltaSeconds) {
         _session->render(pixelWidth(), pixelHeight(), _renderMode, _timestep.interpolationAlpha());
     } else {
         updateEditCamera();
+        // Zoom courant pour la barre d'etat (LOT-57 TACHE-01) : pas de signal natif sur Camera2D,
+        // comparaison au dernier zoom notifie plutot qu'une emission a chaque image.
+        if (_camera.zoom() != _lastEmittedZoom) {
+            _lastEmittedZoom = _camera.zoom();
+            emit zoomChanged(_lastEmittedZoom);
+        }
         hmi::LinkOverlayState linkOverlay;
         linkOverlay.hoveredCell = _hoverCell;
         linkOverlay.pendingLink = _pendingLink;
@@ -832,6 +840,15 @@ bool GameViewport::event(QEvent* event) {
             return true;
         case QEvent::FocusOut:
             _input.releaseAll();
+            break;
+        case QEvent::Leave:
+            // Le curseur quitte le viewport : la case survolee n'a plus de sens (LOT-57 TACHE-01,
+            // barre d'etat) -- QWindow n'a pas de leaveEvent() dedie comme QWidget, seul event()
+            // recoit QEvent::Leave.
+            if (_hoverCell) {
+                _hoverCell.reset();
+                emit hoveredCellChanged(std::nullopt);
+            }
             break;
         case QEvent::PlatformSurface:
             // Libère les ressources Direct3D 11 tant que la surface native existe encore (crash de
@@ -908,20 +925,10 @@ void GameViewport::keyPressEvent(QKeyEvent* event) {
         cancelDecorGesture();
         return;
     }
-    // Annuler/refaire/enregistrer/essai/grille/recadrer/mode de rendu sont désormais des actions
-    // Qt uniques (barre d'outils/menu, `hmi::EditorActions`, LOT-56 TACHE-04) : plus de second
-    // traitement ici, sous peine de double déclenchement au même appui de touche (annuler deux
-    // pas d'un coup, bascule de grille/mode de rendu qui semble ne rien faire).
-    if (event->modifiers() & Qt::ControlModifier) {
-        if (event->key() == Qt::Key_C) {
-            copySelection();
-            return;
-        }
-        if (event->key() == Qt::Key_V) {
-            pasteClipboard();
-            return;
-        }
-    }
+    // Annuler/refaire/enregistrer/essai/grille/recadrer/mode de rendu/copier/coller sont désormais
+    // des actions Qt uniques (barre d'outils/menu, `hmi::EditorActions`, LOT-56 TACHE-04 et
+    // LOT-57 TACHE-04) : plus de second traitement ici, sous peine de double déclenchement au même
+    // appui de touche (annuler deux pas d'un coup, coller deux fois).
     if (event->key() == Qt::Key_Delete && _tool == hmi::EditorTool::Decor &&
         _decorGesture.selectedIndex) {
         // Retrait par touche "Suppr" (LOT-50 TACHE-02), en plus du clic droit : vise le decor
@@ -964,6 +971,37 @@ void GameViewport::save() {
         HMI_LOG_ERROR("Editeur : echec d'ecriture du niveau : " + path.string());
         emit statusMessage(statusText("status.write_failed"));
     }
+}
+
+bool GameViewport::renameOpenLevel(const std::string& newName) {
+    if (!hmi::isValidLevelName(newName)) {
+        emit statusMessage(statusText("status.rename_failed"));
+        return false;
+    }
+    const std::string trimmed = hmi::trimLevelName(newName);
+    if (trimmed == _draft.name()) {
+        return true;  // rien a faire.
+    }
+    const std::filesystem::path levelsDir = hmi::executableDirectory() / "Levels";
+    const std::filesystem::path oldPath = levelsDir / (_draft.name() + ".json");
+    if (std::filesystem::exists(oldPath)) {
+        // Niveau deja enregistre au moins une fois : renomme le fichier sur disque, meme chemin que
+        // LevelBrowserPanel::onRename -- le brouillon en memoire est mis a jour separement ci-dessous
+        // (writeRenamed opere sur une copie chargee depuis le disque, pas sur _draft).
+        const hmi::LevelFileOperations ops(levelsDir);
+        const hmi::FileOpResult result = ops.rename(oldPath, trimmed);
+        if (!result.ok) {
+            HMI_LOG_WARNING("Editeur : renommage refuse : " + result.error);
+            emit statusMessage(
+                statusText("status.rename_failed_reason").arg(QString::fromStdString(result.error)));
+            return false;
+        }
+    }
+    _draft.setName(trimmed);
+    markDraftMutated();
+    HMI_LOG_INFO("Editeur : niveau renomme en « " + trimmed + " ».");
+    emit statusMessage(statusText("status.level_renamed").arg(QString::fromStdString(trimmed)));
+    return true;
 }
 
 void GameViewport::openLevel(const std::filesystem::path& path) {
@@ -1234,8 +1272,10 @@ void GameViewport::mouseMoveEvent(QMouseEvent* event) {
         _manualCenter.y -= delta.y / scale;
         _rightDragLastScreen = current;
     }
-    if (const std::optional<core::GridPosition> cell = cellAt(event)) {
-        _hoverCell = *cell;  // cible du collage (Ctrl+V)
+    const std::optional<core::GridPosition> cell = cellAt(event);  // cible du collage (Ctrl+V)
+    if (cell != _hoverCell) {
+        _hoverCell = cell;
+        emit hoveredCellChanged(_hoverCell);
     }
     if (_painting) {
         paintAt(event);  // glisser de peinture

@@ -125,3 +125,34 @@ TEST(EditorActionsTest, ChaqueLibelleExisteDansLesDeuxLangues) {
         EXPECT_TRUE(en.count(spec.labelKey) > 0) << "cle absente de en.lang : " << spec.labelKey;
     }
 }
+
+/**
+ * @brief Garde-fou « aucune action orpheline » (`LOT-57` TACHE-04) : chaque action d'éditeur
+ *        remappable, hors sélection d'outil, correspond à une commande effective du catalogue.
+ *        Ce test casse si une action est ajoutée à `EditorKeyBindings` sans être branchée ici —
+ *        exactement le défaut que cette tâche corrige (neuf actions définies, une seule lue).
+ * \castest{<b>Chaque action d'editeur remappable a une commande effective.</b><br/>
+ * \tcat Unitaire · Actions de l'editeur<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Comparer le nombre d'actions remappables (hors outil) au nombre d'entrees de la
+ * table de correspondance.<br/>2. Verifier que chaque entree pointe vers une commande reelle du
+ * catalogue et que l'aller-retour restitue l'action d'origine.<br/>
+ * \tattendu Les deux comptes sont egaux ; chaque commande existe et l'aller-retour est fidele.
+ * }
+ */
+TEST(EditorActionsTest, AucuneActionRemappableOrpheline) {
+    // EDITOR_ACTION_COUNT - 1 : TextureAssignTool selectionne un outil, pas une commande (exclue
+    // par construction de keyBindingIconCatalog). Une action ajoutee sans etre wiree ferait
+    // diverger ce compte de la taille de la table.
+    EXPECT_EQ(hmi::KEY_BINDING_ICON_COUNT, hmi::EDITOR_ACTION_COUNT - 1);
+
+    std::set<hmi::IconId> seen;
+    for (const hmi::KeyBindingIconEntry& entry : hmi::keyBindingIconCatalog()) {
+        EXPECT_NO_THROW(static_cast<void>(hmi::editorActionSpec(entry.id)))
+            << "action remappable sans commande reelle dans le catalogue";
+        EXPECT_TRUE(seen.insert(entry.id).second) << "commande partagee par deux actions";
+        const std::optional<hmi::EditorAction> roundTrip = hmi::keyBindingActionForIcon(entry.id);
+        ASSERT_TRUE(roundTrip.has_value());
+        EXPECT_EQ(*roundTrip, entry.action);
+    }
+}

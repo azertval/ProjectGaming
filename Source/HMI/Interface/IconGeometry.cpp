@@ -121,6 +121,33 @@ IconGeometry iconGeometry(IconId id) {
                 rectStroke(0.15f, 0.2f, 0.35f, 0.6f, true, IconColorRole::Accent),
                 rectStroke(0.50f, 0.2f, 0.35f, 0.6f, false, IconColorRole::Foreground),
             }};
+        case IconId::Copy:
+            return IconGeometry{{
+                rectStroke(0.18f, 0.30f, 0.44f, 0.50f, false, IconColorRole::Foreground),
+                rectStroke(0.38f, 0.18f, 0.44f, 0.50f, true, IconColorRole::Accent),
+            }};
+        case IconId::Paste:
+            return IconGeometry{{
+                rectStroke(0.22f, 0.26f, 0.56f, 0.58f, false, IconColorRole::Foreground),
+                rectStroke(0.38f, 0.15f, 0.24f, 0.14f, true, IconColorRole::Accent),
+            }};
+        case IconId::Rename:
+            return IconGeometry{{
+                IconStroke{{IconPoint{0.20f, 0.80f}, IconPoint{0.60f, 0.40f}}, false, false,
+                          IconColorRole::Foreground},
+                IconStroke{{IconPoint{0.60f, 0.40f}, IconPoint{0.76f, 0.24f}, IconPoint{0.84f, 0.32f},
+                           IconPoint{0.68f, 0.48f}},
+                          true, true, IconColorRole::Accent},
+                IconStroke{{IconPoint{0.18f, 0.82f}, IconPoint{0.30f, 0.82f}}, false, false,
+                          IconColorRole::Foreground},
+            }};
+        case IconId::ShortcutsOverview:
+            return IconGeometry{{
+                rectStroke(0.16f, 0.34f, 0.16f, 0.16f, true, IconColorRole::Accent),
+                rectStroke(0.42f, 0.34f, 0.16f, 0.16f, true, IconColorRole::Accent),
+                rectStroke(0.68f, 0.34f, 0.16f, 0.16f, true, IconColorRole::Accent),
+                rectStroke(0.16f, 0.56f, 0.68f, 0.14f, false, IconColorRole::Foreground),
+            }};
     }
     return IconGeometry{};
 }

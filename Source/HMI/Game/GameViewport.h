@@ -16,6 +16,7 @@
 #include "Core/Math/Rect.h"
 #include "Core/Time/FixedTimestep.h"
 #include "HMI/Editor/DecorGesture.h"
+#include "HMI/Editor/EditContextTarget.h"
 #include "HMI/Editor/EditorTool.h"
 #include "HMI/Game/GameSession.h"
 #include "HMI/Graphics/Camera2D.h"
@@ -57,8 +58,13 @@ namespace hmi {
  * droit** déplace la caméra (« pan ») ; `0` revient au cadrage automatique (LOT-15). **Mode essai**
  * (LOT-35 TACHE-04) : une `hmi::GameSession` rejoue le niveau ; sa boucle à pas fixe
  * (`core::FixedTimestep`) et ses entrées (Qt + XInput) reprennent la discipline du `LOT-33`.
+ *
+ * Implémente `hmi::EditContextTarget` (`LOT-57` TACHE-04) : c'est aujourd'hui l'unique cible
+ * d'Annuler/Refaire/Copier/Coller que `MainWindow` connaisse, au travers de cette interface plutôt
+ * que d'un appel direct — le seuil de dispatch que le futur atelier pixel art (`LOT-54`)
+ * réutilisera pour sa propre cible, sans le réécrire.
  */
-class GameViewport : public QWindow {
+class GameViewport : public QWindow, public EditContextTarget {
     Q_OBJECT
 
 public:
@@ -124,6 +130,12 @@ public:
         return _gamepadBindings;
     }
 
+    /// Accès **modifiable** aux touches d'éditeur (pour le remappage, `LOT-57` TACHE-04), même
+    /// principe que `gameBindings`.
+    [[nodiscard]] hmi::EditorKeyBindings& editorBindings() noexcept {
+        return _editorBindings;
+    }
+
     /// Enregistre le brouillon (`Ctrl+S`) : valide (`LevelDraft::toLevel`) puis écrit le fichier ;
     /// un brouillon invalide n'écrit rien et rapporte l'erreur (`statusMessage`).
     void save();
@@ -136,13 +148,49 @@ public:
         return _dirty;
     }
 
+    /**
+     * @brief Renomme le niveau **ouvert** (action Rename, `F2`, `LOT-57` TACHE-04).
+     *
+     * Renomme le fichier existant sur disque (`hmi::LevelFileOperations::rename`, même chemin que
+     * `LevelBrowserPanel::onRename`) si le niveau a déjà été enregistré au moins une fois ; sinon,
+     * seul le nom du brouillon change (rien à renommer sur disque). Sans effet si @p newName est
+     * invalide (`hmi::isValidLevelName`) ou déjà pris par un autre fichier.
+     * @param newName Nouveau nom, tel que saisi (espaces de bord retirés avant validation).
+     * @return true si le renommage a été appliqué.
+     */
+    bool renameOpenLevel(const std::string& newName);
+
     /// Lance l'essai immédiat (`P`) sur un brouillon valide ; message d'erreur sinon.
     void startPlaytest();
 
     /// Annule la dernière modification du brouillon (`Ctrl+Z`) ; sans effet si rien à annuler.
-    void undo();
+    void undo() override;
     /// Refait la dernière modification annulée (`Ctrl+Y`) ; sans effet si rien à refaire.
-    void redo();
+    void redo() override;
+    /// @return true s'il existe une modification à annuler (`EditContextTarget`).
+    [[nodiscard]] bool canUndo() const override {
+        return _draft.canUndo();
+    }
+    /// @return true s'il existe une modification annulée à refaire (`EditContextTarget`).
+    [[nodiscard]] bool canRedo() const override {
+        return _draft.canRedo();
+    }
+    /// Copie la sélection courante dans le presse-papiers local (`Ctrl+C`, `EditContextTarget`).
+    void copy() override {
+        copySelection();
+    }
+    /// Colle le presse-papiers à la case survolée (`Ctrl+V`, `EditContextTarget`).
+    void paste() override {
+        pasteClipboard();
+    }
+    /// @return true si une sélection existe à copier (`EditContextTarget`).
+    [[nodiscard]] bool canCopy() const override {
+        return _selection.has_value();
+    }
+    /// @return true si le presse-papiers local contient une zone à coller (`EditContextTarget`).
+    [[nodiscard]] bool canPaste() const override {
+        return !_clipboard.empty();
+    }
     /// Bascule l'affichage de la grille de repère (`F10`).
     void toggleGrid() noexcept;
     /// Réinitialise le cadrage manuel au cadrage automatique (touche `0`).
@@ -181,6 +229,22 @@ public:
     /// consommé par la section « Décors » du panneau « Textures » (`LOT-50` TACHE-04).
     [[nodiscard]] std::optional<std::size_t> selectedDecorIndex() const noexcept {
         return _decorGesture.selectedIndex;
+    }
+
+    /// @return La case actuellement survolée par le curseur, absente si hors de la grille ou si le
+    /// curseur a quitté le viewport (`LOT-57` TACHE-01, barre d'état).
+    [[nodiscard]] std::optional<core::GridPosition> hoveredCell() const noexcept {
+        return _hoverCell;
+    }
+
+    /// @return Le facteur de zoom courant de la caméra d'édition (`LOT-57` TACHE-01, barre d'état).
+    [[nodiscard]] float zoom() const noexcept {
+        return _camera.zoom();
+    }
+
+    /// @return L'outil d'édition actif.
+    [[nodiscard]] EditorTool activeTool() const noexcept {
+        return _tool;
     }
 
     /// Met en surbrillance la liaison (déclencheur, cible) dans le viewport (sélection depuis le
@@ -331,6 +395,13 @@ signals:
     /// La sélection de décor vient de changer, par un moyen autre que la section « Décors »
     /// (clic/pose/suppression au canevas, `LOT-50` TACHE-04) — le panneau se resynchronise.
     void decorSelectionChanged(std::optional<std::size_t> index);
+    /// La case survolée vient de changer (déplacement de souris, ou sortie du viewport) —
+    /// consommé par la barre d'état (`LOT-57` TACHE-01), qui évite ainsi un travail continu inutile
+    /// en ne recalculant que sur changement réel.
+    void hoveredCellChanged(std::optional<core::GridPosition> cell);
+    /// Le zoom d'édition vient de changer (molette, pan, recadrage) — consommé par la barre d'état
+    /// (`LOT-57` TACHE-01).
+    void zoomChanged(float zoom);
 
 protected:
     bool event(QEvent* event) override;
@@ -493,7 +564,10 @@ private:
     bool _dragging = false;             ///< Un glisser Rectangle/Sélection est en cours.
     core::GridPosition _dragStart{};    ///< Case de départ du glisser Rectangle/Sélection.
     core::GridPosition _dragCurrent{};  ///< Case courante du glisser (pour l'aperçu).
-    core::GridPosition _hoverCell{};    ///< Dernière case survolée (cible du collage).
+    /// Case actuellement survolée (cible du collage) ; absente hors de la grille ou après que le
+    /// curseur a quitté le viewport (`LOT-57` TACHE-01, `leaveEvent` via `event()`).
+    std::optional<core::GridPosition> _hoverCell;
+    float _lastEmittedZoom = 0.0f;  ///< Dernier zoom notifié (`zoomChanged`), évite l'émission en boucle.
     /// Sélection mémorisée (bornes min/max incluses), pour copier (`Ctrl+C`).
     const Localization* _loc = nullptr;  ///< Catalogue pour localiser les messages d'état.
 
