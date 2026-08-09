@@ -141,6 +141,7 @@ add_executable(ProjectGaming
     Interface/DesignTokens.cpp
     Interface/StyleSheetTemplate.cpp
     Interface/FontResolution.cpp
+    Interface/ThemeResolution.cpp
     Interface/ApplicationTheme.cpp
     Interface/IconGeometry.cpp
     Interface/ThemeIcons.cpp

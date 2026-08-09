@@ -1,8 +1,8 @@
 #pragma once
 
 #include <QPalette>
-#include <string>
-#include <unordered_map>
+
+#include "HMI/Interface/ThemeResolution.h"
 
 /**
  * @file HMI/Interface/ApplicationTheme.h
@@ -27,12 +27,6 @@ void applyApplicationStyle();
 /// oublie le plus souvent, et celui qui trahit le plus vite un thème incomplet.
 [[nodiscard]] QPalette buildApplicationPalette(const DesignTokens& tokens);
 
-/// Construit la table de substitution `${...}` -> valeur pour un jeu de jetons du châssis
-/// d'édition (portée variable) ; les marqueurs `${identity.*}` sont toujours résolus depuis
-/// `identityTokens()` (portée invariante, jamais affectée par le thème de l'éditeur).
-[[nodiscard]] std::unordered_map<std::string, std::string> buildStyleSheetValues(
-    const DesignTokens& editorTokens);
-
 /// Charge le modèle de feuille de style embarqué (`:/resources/theme.qss`), le substitue avec
 /// @p editorTokens et l'applique à l'application. Repli explicite : fichier absent/illisible ou
 /// marqueur inconnu -> avertissement journalisé, l'application reste utilisable sans feuille de
@@ -45,9 +39,30 @@ void applyStyleSheet(const DesignTokens& editorTokens);
 /// nom de police codé en dur ; avertissement journalisé.
 void applyFont();
 
+/// @return Le réglage de thème persisté (`QSettings`), `Système` par défaut.
+[[nodiscard]] EditorThemeSetting editorThemeSetting();
+
+/// Persiste @p setting (`QSettings`), relu au démarrage suivant.
+void setEditorThemeSetting(EditorThemeSetting setting);
+
+/// @return `true` si le système d'exploitation est actuellement réglé sur un thème sombre
+/// (`QStyleHints::colorScheme`).
+[[nodiscard]] bool systemPrefersDarkTheme();
+
+/// @return Les jetons du châssis d'édition **actuellement effectifs** : résolution du réglage
+/// persisté et, si `Système`, du réglage courant du système d'exploitation
+/// (`hmi::resolveEffectiveEditorTheme`).
+[[nodiscard]] const DesignTokens& currentEditorTokens();
+
 /// Applique le thème complet du châssis d'édition (portée **variable**) : police, palette puis
-/// feuille de style, tous dérivés du même jeu de jetons. À appeler avant la construction de
-/// `MainWindow`.
+/// feuille de style, tous dérivés des jetons **actuellement effectifs**
+/// (`currentEditorTokens()`). À appeler avant la construction de `MainWindow`.
 void applyEditorTheme();
+
+/// Réapplique la palette et la feuille de style (mais pas la police, inchangée par le thème)
+/// depuis `currentEditorTokens()` — bascule à chaud (`LOT-56` TACHE-06), sans reconstruire les
+/// widgets. Les icônes et vignettes ne suivent **pas** automatiquement : leurs propriétaires
+/// (`EditorActions::refreshIcons`, caches de vignettes) doivent être resynchronisés séparément.
+void reapplyEditorTheme();
 
 }  // namespace hmi

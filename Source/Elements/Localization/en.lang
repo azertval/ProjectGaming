@@ -17,6 +17,10 @@ menubar.quit = Quit
 menubar.level = Level
 menubar.resize = Resize…
 menubar.view = View
+menubar.theme = Theme
+menubar.theme_system = System
+menubar.theme_light = Light
+menubar.theme_dark = Dark
 menubar.reset_layout = Reset layout
 
 # Dock panels

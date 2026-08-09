@@ -14,6 +14,7 @@
 #include "HMI/Interface/DesignTokens.h"
 #include "HMI/Interface/FontResolution.h"
 #include "HMI/Interface/StyleSheetTemplate.h"
+#include "HMI/Interface/ThemeResolution.h"
 
 namespace {
 
@@ -213,4 +214,65 @@ TEST(ApplicationThemeTest, AucuneTailleDePoliceResiduelleDansLesFichiersUi) {
         EXPECT_EQ(text.find("Margin"), std::string::npos)
             << "propriete de marge figee trouvee dans " << path;
     }
+}
+
+/**
+ * @brief Résolution pure du thème effectif (`LOT-56` TACHE-06) : `Système` suit le système
+ *        d'exploitation, `Clair`/`Sombre` forcé l'ignore.
+ * \castest{<b>La resolution du theme effectif suit le reglage et, si Systeme, le systeme.</b><br/>
+ * \tcat Unitaire · Theme de l'IHM<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Resoudre les quatre combinaisons reglage/systeme.<br/>
+ * \tattendu Systeme+sombre -> Sombre ; Systeme+clair -> Clair ; Clair/Sombre force ignorent le
+ * systeme dans les deux etats.
+ * }
+ */
+TEST(ApplicationThemeTest, ResolutionDuThemeEffectifSuitLeReglageEtLeSysteme) {
+    using hmi::EditorThemeMode;
+    using hmi::EditorThemeSetting;
+    EXPECT_EQ(hmi::resolveEffectiveEditorTheme(EditorThemeSetting::System, /*systemPrefersDark=*/true),
+             EditorThemeMode::Dark);
+    EXPECT_EQ(
+        hmi::resolveEffectiveEditorTheme(EditorThemeSetting::System, /*systemPrefersDark=*/false),
+        EditorThemeMode::Light);
+    EXPECT_EQ(hmi::resolveEffectiveEditorTheme(EditorThemeSetting::Light, /*systemPrefersDark=*/true),
+             EditorThemeMode::Light);
+    EXPECT_EQ(
+        hmi::resolveEffectiveEditorTheme(EditorThemeSetting::Dark, /*systemPrefersDark=*/false),
+        EditorThemeMode::Dark);
+}
+
+/**
+ * @brief Avec les **vrais** jetons sombre et clair du châssis d'édition, les règles d'identité
+ *        (`#MainMenu`, `#OptionsPage`) de la feuille de style produite restent identiques au
+ *        caractère près : complète `ApplicationThemeTest.EtancheiteDesPortees` (jetons de test
+ *        arbitraires) en couvrant la bascule réelle que `LOT-56` TACHE-06 introduit.
+ * \castest{<b>L'etancheite des portees tient avec les vrais themes sombre et clair.</b><br/>
+ * \tcat Unitaire · Theme de l'IHM<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Produire la feuille de style avec editorDarkTokens() puis editorLightTokens().<br/>
+ * 2. Comparer les blocs #MainMenu/#OptionsPage des deux resultats.<br/>
+ * \tattendu Les deux extraits sont identiques au caractere pres.
+ * }
+ */
+TEST(ApplicationThemeTest, EtancheiteDesPorteesAvecLesVraisThemes) {
+    const std::string themeText = readThemeTemplate();
+    ASSERT_FALSE(themeText.empty()) << "theme.qss introuvable a PROJECTGAMING_THEME_PATH";
+
+    const hmi::StyleSheetSubstitutionResult dark = hmi::substituteStyleSheetTemplate(
+        themeText, hmi::buildStyleSheetValues(hmi::editorDarkTokens()));
+    const hmi::StyleSheetSubstitutionResult light = hmi::substituteStyleSheetTemplate(
+        themeText, hmi::buildStyleSheetValues(hmi::editorLightTokens()));
+    ASSERT_TRUE(dark.ok) << dark.error;
+    ASSERT_TRUE(light.ok) << light.error;
+
+    const std::string sectionMarker = "Chassis d'edition";
+    const std::size_t darkEnd = dark.text.find(sectionMarker);
+    const std::size_t lightEnd = light.text.find(sectionMarker);
+    ASSERT_NE(darkEnd, std::string::npos);
+    ASSERT_NE(lightEnd, std::string::npos);
+    EXPECT_EQ(dark.text.substr(0, darkEnd), light.text.substr(0, lightEnd));
+    // Les deux themes doivent en revanche produire des blocs "chassis d'edition" differents :
+    // sinon TACHE-06 n'aurait aucun effet visible.
+    EXPECT_NE(dark.text.substr(darkEnd), light.text.substr(lightEnd));
 }

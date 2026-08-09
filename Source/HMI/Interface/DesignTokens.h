@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <string>
+#include <unordered_map>
 
 /**
  * @file HMI/Interface/DesignTokens.h
@@ -120,10 +121,20 @@ struct DesignTokens {
 /// (`LOT-56` TACHE-06) en fournit un second jeu.
 [[nodiscard]] const DesignTokens& editorDarkTokens() noexcept;
 
+/// Jetons du châssis d'édition en thème **clair** (`LOT-56` TACHE-06) : mêmes rôles, mêmes
+/// échelles que `editorDarkTokens()` — seules les couleurs diffèrent, et pas par simple inversion
+/// (les écarts de luminosité entre bordures/lignes alternées/fond diffèrent en clair et en sombre).
+[[nodiscard]] const DesignTokens& editorLightTokens() noexcept;
+
 /// Couleur d'effacement du viewport (`GameViewport`), dérivée des jetons plutôt que d'une valeur
-/// littérale locale : fond de la portée **variable** en édition, fond de la portée **invariante**
-/// en jeu et en essai — la seule surface qui appartient tour à tour aux deux portées.
-[[nodiscard]] DesignColor viewportClearColor(bool editorMode) noexcept;
+/// littérale locale : fond de la portée **variable** en édition (suivant le thème actif de
+/// l'éditeur, `LOT-56` TACHE-06), fond de la portée **invariante** en jeu et en essai — la seule
+/// surface qui appartient tour à tour aux deux portées.
+/// @param editorMode         `true` en édition, `false` en jeu/essai.
+/// @param activeEditorTokens Jetons du châssis d'édition **actuellement effectifs** (thème clair
+///                           ou sombre) ; ignorés si `editorMode` est faux.
+[[nodiscard]] DesignColor viewportClearColor(bool editorMode,
+                                             const DesignTokens& activeEditorTokens) noexcept;
 
 /// Conversion pure : couleur -> chaîne CSS hexadécimale `"#rrggbb"` (minuscules, sans alpha — les
 /// feuilles de style Qt n'acceptent l'alpha que via `rgba()`).
@@ -132,5 +143,18 @@ struct DesignTokens {
 /// Conversion pure : couleur -> chaîne CSS `"rgba(r, g, b, a)"`, composantes entières 0-255 (les
 /// feuilles de style Qt expriment l'alpha sur la même échelle que les autres composantes).
 [[nodiscard]] std::string toCssRgba(DesignColor color);
+
+/// Luminance relative WCAG d'une couleur (0 = noir, 1 = blanc), pour le calcul de contraste.
+[[nodiscard]] double relativeLuminance(DesignColor color) noexcept;
+
+/// Rapport de contraste WCAG entre deux couleurs (1 = aucun contraste, 21 = noir sur blanc).
+[[nodiscard]] double contrastRatio(DesignColor a, DesignColor b) noexcept;
+
+/// Table de substitution `${...}` -> valeur pour le modèle de feuille de style (`LOT-56` TACHE-02),
+/// à partir d'un jeu de jetons du châssis d'édition (portée variable) ; les marqueurs
+/// `${identity.*}` sont toujours résolus depuis `identityTokens()` (portée invariante). Fonction
+/// **pure** : ne dépend que des jetons, jamais de l'état de l'application.
+[[nodiscard]] std::unordered_map<std::string, std::string> buildStyleSheetValues(
+    const DesignTokens& editorTokens);
 
 }  // namespace hmi

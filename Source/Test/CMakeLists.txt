@@ -233,6 +233,9 @@ add_executable(UnitTests
     # chaines), aucune dependance Qt (l'enregistrement reel via QFontDatabase reste dans
     # ApplicationTheme.cpp, non compile ici).
     ../HMI/Interface/FontResolution.cpp
+    # Resolution du theme effectif de l'editeur (LOT-56 TACHE-06) : decision pure (reglage +
+    # preference systeme -> thème a appliquer), aucune dependance Qt.
+    ../HMI/Interface/ThemeResolution.cpp
     # Geometrie des icones et catalogue d'actions de l'editeur (LOT-56 TACHE-04) : logique pure
     # (listes de primitives, tables statiques), aucune dependance Qt (le rendu QPainter reel reste
     # dans ThemeIcons.cpp/EditorActions.cpp, non compiles ici).

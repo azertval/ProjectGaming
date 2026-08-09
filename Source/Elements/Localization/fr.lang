@@ -18,6 +18,10 @@ menubar.quit = Quitter
 menubar.level = Niveau
 menubar.resize = Redimensionner…
 menubar.view = Affichage
+menubar.theme = Thème
+menubar.theme_system = Système
+menubar.theme_light = Clair
+menubar.theme_dark = Sombre
 menubar.reset_layout = Réinitialiser la disposition
 
 # Panneaux dockables

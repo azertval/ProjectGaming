@@ -1,6 +1,8 @@
 #include "HMI/Interface/DesignTokens.h"
 
+#include <algorithm>
 #include <array>
+#include <cmath>
 #include <cstdio>
 
 namespace hmi {
@@ -61,6 +63,41 @@ constexpr SizeTokens SHARED_SIZE{};
     return tokens;
 }
 
+// Chassis d'edition, theme CLAIR (LOT-56 TACHE-06) : pas le sombre invers -- ecarts de luminosite
+// entre fond/surface/bordure/lignes alternees choisis independamment, accent assombri (l'ambre vif
+// du theme sombre manque de contraste utilise comme texte sur un fond clair).
+[[nodiscard]] DesignTokens buildEditorLightTokens() noexcept {
+    DesignTokens tokens;
+    tokens.color.background = DesignColor{0xf5, 0xf6, 0xf8};
+    tokens.color.surface = DesignColor{0xff, 0xff, 0xff};
+    tokens.color.surfaceAlt = DesignColor{0xec, 0xee, 0xf2};
+    tokens.color.border = DesignColor{0xc9, 0xce, 0xd6};
+    tokens.color.text = DesignColor{0x1c, 0x21, 0x28};
+    tokens.color.textMuted = DesignColor{0x5b, 0x64, 0x72};
+    tokens.color.accent = DesignColor{0xb3, 0x6b, 0x00};
+    tokens.color.accentHover = DesignColor{0xcc, 0x7a, 0x00};
+    tokens.color.error = DesignColor{0xc0, 0x26, 0x26};
+    tokens.spacing = SHARED_SPACING;
+    tokens.typography = sharedTypography();
+    tokens.size = SHARED_SIZE;
+    return tokens;
+}
+
+// Ajoute les neuf roles de couleur d'une portee au tableau de substitution, sous le prefixe donne
+// (ex. "identity.color.background" -> "#1a1f29").
+void addColorValues(std::unordered_map<std::string, std::string>& values, const std::string& prefix,
+                    const ColorTokens& color) {
+    values[prefix + ".background"] = toCssColor(color.background);
+    values[prefix + ".surface"] = toCssColor(color.surface);
+    values[prefix + ".surfaceAlt"] = toCssColor(color.surfaceAlt);
+    values[prefix + ".border"] = toCssColor(color.border);
+    values[prefix + ".text"] = toCssColor(color.text);
+    values[prefix + ".textMuted"] = toCssColor(color.textMuted);
+    values[prefix + ".accent"] = toCssColor(color.accent);
+    values[prefix + ".accentHover"] = toCssColor(color.accentHover);
+    values[prefix + ".error"] = toCssColor(color.error);
+}
+
 }  // namespace
 
 const DesignTokens& identityTokens() noexcept {
@@ -73,8 +110,13 @@ const DesignTokens& editorDarkTokens() noexcept {
     return tokens;
 }
 
-DesignColor viewportClearColor(bool editorMode) noexcept {
-    return editorMode ? editorDarkTokens().color.background : identityTokens().color.background;
+const DesignTokens& editorLightTokens() noexcept {
+    static const DesignTokens tokens = buildEditorLightTokens();
+    return tokens;
+}
+
+DesignColor viewportClearColor(bool editorMode, const DesignTokens& activeEditorTokens) noexcept {
+    return editorMode ? activeEditorTokens.color.background : identityTokens().color.background;
 }
 
 std::string toCssColor(DesignColor color) {
@@ -86,6 +128,50 @@ std::string toCssColor(DesignColor color) {
 std::string toCssRgba(DesignColor color) {
     return "rgba(" + std::to_string(color.r) + ", " + std::to_string(color.g) + ", " +
            std::to_string(color.b) + ", " + std::to_string(color.a) + ")";
+}
+
+namespace {
+
+// Composante -> canal lineaire WCAG (gamma sRGB inverse).
+[[nodiscard]] double linearChannel(std::uint8_t component) noexcept {
+    const double c = static_cast<double>(component) / 255.0;
+    return c <= 0.04045 ? c / 12.92 : std::pow((c + 0.055) / 1.055, 2.4);
+}
+
+}  // namespace
+
+double relativeLuminance(DesignColor color) noexcept {
+    return 0.2126 * linearChannel(color.r) + 0.7152 * linearChannel(color.g) +
+          0.0722 * linearChannel(color.b);
+}
+
+double contrastRatio(DesignColor a, DesignColor b) noexcept {
+    const double la = relativeLuminance(a);
+    const double lb = relativeLuminance(b);
+    const double lighter = std::max(la, lb);
+    const double darker = std::min(la, lb);
+    return (lighter + 0.05) / (darker + 0.05);
+}
+
+std::unordered_map<std::string, std::string> buildStyleSheetValues(const DesignTokens& editorTokens) {
+    std::unordered_map<std::string, std::string> values;
+    addColorValues(values, "identity.color", identityTokens().color);
+    addColorValues(values, "editor.color", editorTokens.color);
+    // Echelle d'espacement : partagee entre les deux portees (DesignTokensTest.
+    // LesDeuxPorteesPartagentLesMemesEchelles), la source choisie ici est arbitraire.
+    const SpacingTokens& spacing = identityTokens().spacing;
+    values["tokens.spacing.extraSmall"] = std::to_string(spacing.extraSmall);
+    values["tokens.spacing.small"] = std::to_string(spacing.small);
+    values["tokens.spacing.medium"] = std::to_string(spacing.medium);
+    values["tokens.spacing.large"] = std::to_string(spacing.large);
+    values["tokens.spacing.extraLarge"] = std::to_string(spacing.extraLarge);
+    // Echelle typographique (LOT-56 TACHE-03) : elle aussi partagee entre les deux portees.
+    const TypographyTokens& typography = identityTokens().typography;
+    values["tokens.typography.screenTitle.pointSize"] =
+        std::to_string(typography.screenTitle.pointSize);
+    values["tokens.typography.sectionTitle.pointSize"] =
+        std::to_string(typography.sectionTitle.pointSize);
+    return values;
 }
 
 }  // namespace hmi

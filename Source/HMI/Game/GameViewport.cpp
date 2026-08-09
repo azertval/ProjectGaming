@@ -38,6 +38,7 @@
 #include "HMI/Graphics/TextureAtlas.h"
 #include "HMI/Graphics/TextureCache.h"
 #include "HMI/HmiLog.h"
+#include "HMI/Interface/ApplicationTheme.h"
 #include "HMI/Interface/DesignTokens.h"
 #include "HMI/Localization/Localization.h"
 #include "HMI/Platform/ExecutableDirectory.h"
@@ -794,10 +795,11 @@ void GameViewport::renderFrame(float deltaSeconds) {
         return;
     }
     ensureResources();
-    // Fond derive des jetons (LOT-56) : portee variable (chassis d'edition) en edition, portee
-    // invariante (identite du jeu) en jeu/essai -- seule surface qui appartient tour a tour aux
-    // deux portees (hmi::viewportClearColor).
-    const hmi::DesignColor clearColor = hmi::viewportClearColor(/*editorMode=*/!_session);
+    // Fond derive des jetons (LOT-56) : portee variable (chassis d'edition, suivant le theme actif
+    // de l'editeur, TACHE-06) en edition, portee invariante (identite du jeu) en jeu/essai -- seule
+    // surface qui appartient tour a tour aux deux portees (hmi::viewportClearColor).
+    const hmi::DesignColor clearColor =
+        hmi::viewportClearColor(/*editorMode=*/!_session, hmi::currentEditorTokens());
     _graphics->clear(static_cast<float>(clearColor.r) / 255.0f,
                      static_cast<float>(clearColor.g) / 255.0f,
                      static_cast<float>(clearColor.b) / 255.0f, 1.0f);

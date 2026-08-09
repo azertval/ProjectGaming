@@ -13,6 +13,8 @@
  * @brief Fenêtre principale de l'éditeur Qt : viewport central + panneaux dockables (LOT-35).
  */
 
+class QAction;
+class QMenu;
 class QStackedWidget;
 class QTimer;
 class QToolBar;
@@ -110,6 +112,10 @@ private:
     TexturePanel* _textures;   ///< Habillage : jeu de skins et assignations (dock Textures, LOT-42).
     EditorActions* _actions;   ///< Outils et commandes principales, barre d'outils (LOT-56 TACHE-04).
     QToolBar* _toolBar;        ///< Barre d'outils de l'éditeur, alimentée par `_actions`.
+    QMenu* _themeMenu;         ///< Sous-menu Affichage > Thème (LOT-56 TACHE-06).
+    QAction* _themeSystemAction;
+    QAction* _themeLightAction;
+    QAction* _themeDarkAction;
     QByteArray _defaultState;  ///< Disposition par défaut (pour « Réinitialiser la disposition »).
 
     Localization _loc;  ///< Catalogue de traduction (i18n), source de tous les textes.

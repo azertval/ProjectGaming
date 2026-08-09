@@ -57,8 +57,12 @@ TEST(DesignTokensTest, ConversionRgbaPorteLesQuatreComposantes) {
  * }
  */
 TEST(DesignTokensTest, CouleurViewportSuitLaPorteeDuMode) {
-    EXPECT_EQ(hmi::viewportClearColor(/*editorMode=*/true), hmi::editorDarkTokens().color.background);
-    EXPECT_EQ(hmi::viewportClearColor(/*editorMode=*/false), hmi::identityTokens().color.background);
+    EXPECT_EQ(hmi::viewportClearColor(/*editorMode=*/true, hmi::editorDarkTokens()),
+             hmi::editorDarkTokens().color.background);
+    EXPECT_EQ(hmi::viewportClearColor(/*editorMode=*/true, hmi::editorLightTokens()),
+             hmi::editorLightTokens().color.background);
+    EXPECT_EQ(hmi::viewportClearColor(/*editorMode=*/false, hmi::editorDarkTokens()),
+             hmi::identityTokens().color.background);
 }
 
 /**
@@ -76,6 +80,10 @@ TEST(DesignTokensTest, LesDeuxPorteesPartagentLesMemesEchelles) {
     EXPECT_EQ(hmi::identityTokens().spacing, hmi::editorDarkTokens().spacing);
     EXPECT_EQ(hmi::identityTokens().typography, hmi::editorDarkTokens().typography);
     EXPECT_EQ(hmi::identityTokens().size, hmi::editorDarkTokens().size);
+    // Les deux themes d'editeur (LOT-56 TACHE-06) partagent aussi ces echelles entre eux.
+    EXPECT_EQ(hmi::editorDarkTokens().spacing, hmi::editorLightTokens().spacing);
+    EXPECT_EQ(hmi::editorDarkTokens().typography, hmi::editorLightTokens().typography);
+    EXPECT_EQ(hmi::editorDarkTokens().size, hmi::editorLightTokens().size);
 }
 
 /**
@@ -107,4 +115,44 @@ TEST(DesignTokensTest, CouleursDesDeuxPorteesDistinctesEtCoherentes) {
  */
 TEST(DesignTokensTest, AucunDoublonDeLargeurMinimale) {
     EXPECT_GT(hmi::editorDarkTokens().size.controlMinWidth, 0);
+}
+
+/**
+ * @brief Pour chaque thème d'éditeur (sombre, clair), le rapport de contraste entre le texte et
+ *        son fond, et entre le texte atténué et son fond, dépasse un seuil de lisibilité fixé —
+ *        garde-fou contre un thème clair livré illisible (`LOT-56` TACHE-06).
+ * \castest{<b>Chaque theme d'editeur satisfait un seuil de contraste texte/fond.</b><br/>
+ * \tcat Unitaire · Jetons de design<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Calculer le contraste texte/fond et texte-attenue/fond pour les deux themes.<br/>
+ * \tattendu Le texte principal depasse 4.5:1, le texte attenue depasse 3:1, dans les deux themes.
+ * }
+ */
+TEST(DesignTokensTest, ChaqueThemeSatisfaitLeSeuilDeContraste) {
+    constexpr double MIN_TEXT_CONTRAST = 4.5;
+    constexpr double MIN_MUTED_TEXT_CONTRAST = 3.0;
+    for (const hmi::DesignTokens* tokens : {&hmi::editorDarkTokens(), &hmi::editorLightTokens()}) {
+        EXPECT_GE(hmi::contrastRatio(tokens->color.text, tokens->color.background),
+                 MIN_TEXT_CONTRAST);
+        EXPECT_GE(hmi::contrastRatio(tokens->color.textMuted, tokens->color.background),
+                 MIN_MUTED_TEXT_CONTRAST);
+    }
+}
+
+/**
+ * @brief Le rapport de contraste est symétrique et vaut 1 pour deux couleurs identiques (aucun
+ *        contraste) : garde-fou de la formule elle-même.
+ * \castest{<b>Le rapport de contraste est symetrique et vaut 1 sans difference de couleur.</b><br/>
+ * \tcat Unitaire · Jetons de design<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Calculer le contraste d'une couleur avec elle-meme, puis dans les deux sens entre
+ * deux couleurs distinctes.<br/>
+ * \tattendu Le premier resultat vaut 1 ; les deux sens du second sont egaux.
+ * }
+ */
+TEST(DesignTokensTest, ContrasteSymetriqueEtUnitairePourUneMemeCouleur) {
+    constexpr hmi::DesignColor color{0x42, 0x88, 0xcc};
+    EXPECT_NEAR(hmi::contrastRatio(color, color), 1.0, 1e-9);
+    EXPECT_NEAR(hmi::contrastRatio(hmi::DesignColor{0, 0, 0}, hmi::DesignColor{255, 255, 255}),
+               hmi::contrastRatio(hmi::DesignColor{255, 255, 255}, hmi::DesignColor{0, 0, 0}), 1e-9);
 }

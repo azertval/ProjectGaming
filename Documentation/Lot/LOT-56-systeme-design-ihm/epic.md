@@ -140,7 +140,7 @@ couche à construire.
 | [TACHE-03](tache-03-typographie-police.md) | Police embarquée avec repli et typographie à source unique | `Source/Elements`, `Source/HMI/Interface` | ✅ |
 | [TACHE-04](tache-04-icones-barre-outils.md) | Icônes dessinées par code et barre d'outils à actions | `Source/HMI/Interface`, `Source/HMI/Editor` | ✅ |
 | [TACHE-05](tache-05-nettete-dpi.md) | Netteté des vignettes à toute échelle d'affichage | `Source/HMI/Editor` | ✅ |
-| [TACHE-06](tache-06-theme-clair-sombre.md) | Thème clair/sombre **de l'éditeur**, suivant le système, réglable et persisté | `Source/HMI/Interface`, `Source/Elements/Themes` | ⬜ |
+| [TACHE-06](tache-06-theme-clair-sombre.md) | Thème clair/sombre **de l'éditeur**, suivant le système, réglable et persisté | `Source/HMI/Interface`, `Source/Elements/Themes` | ✅ |
 
 ## Critères d'acceptation du lot
 1. L'ensemble de l'application partage une seule apparence : aucun panneau, aucune boîte de dialogue

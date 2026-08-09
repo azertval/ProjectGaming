@@ -5,10 +5,13 @@
 #include <QFile>
 #include <QFont>
 #include <QFontDatabase>
+#include <QGuiApplication>
+#include <QSettings>
 #include <QString>
 #include <QStringList>
 #include <QStyle>
 #include <QStyleFactory>
+#include <QStyleHints>
 
 #include <filesystem>
 
@@ -22,23 +25,12 @@ namespace hmi {
 
 namespace {
 
+// Cle de preference du theme de l'editeur, meme portee QSettings que la langue et le mode de rendu
+// (EX-IHM-011) : aucun nouveau mecanisme de persistance a inventer.
+const char* const THEME_SETTINGS_KEY = "editor_theme";
+
 [[nodiscard]] QColor toQColor(DesignColor color) {
     return QColor(color.r, color.g, color.b, color.a);
-}
-
-// Ajoute les neuf roles de couleur d'une portee au tableau de substitution, sous le prefixe donne
-// (ex. "identity.color.background" -> "#1a1f29").
-void addColorValues(std::unordered_map<std::string, std::string>& values,
-                    const std::string& prefix, const ColorTokens& color) {
-    values[prefix + ".background"] = toCssColor(color.background);
-    values[prefix + ".surface"] = toCssColor(color.surface);
-    values[prefix + ".surfaceAlt"] = toCssColor(color.surfaceAlt);
-    values[prefix + ".border"] = toCssColor(color.border);
-    values[prefix + ".text"] = toCssColor(color.text);
-    values[prefix + ".textMuted"] = toCssColor(color.textMuted);
-    values[prefix + ".accent"] = toCssColor(color.accent);
-    values[prefix + ".accentHover"] = toCssColor(color.accentHover);
-    values[prefix + ".error"] = toCssColor(color.error);
 }
 
 // Applique les rôles communs aux trois groupes de palette pour un jeu de jetons donné.
@@ -54,11 +46,40 @@ void setCommonRoles(QPalette& palette, QPalette::ColorGroup group, const ColorTo
     palette.setColor(group, QPalette::ButtonText, toQColor(color.text));
     palette.setColor(group, QPalette::BrightText, toQColor(color.error));
     palette.setColor(group, QPalette::Highlight, toQColor(color.accent));
-    // Texte de sélection lu sur l'accent (clair) : le fond, sombre dans les deux portées, contraste
-    // mieux que le texte principal (lui aussi clair).
-    palette.setColor(group, QPalette::HighlightedText, toQColor(color.background));
+    // Texte de sélection lu sur l'accent : noir ou blanc, celui des deux qui contraste le mieux
+    // avec l'accent -- fonctionne aussi bien pour l'accent clair du thème sombre que pour l'accent
+    // assombri du thème clair (LOT-56 TACHE-06), sans étude de cas par thème.
+    constexpr DesignColor BLACK{0, 0, 0};
+    constexpr DesignColor WHITE{255, 255, 255};
+    const DesignColor highlightedText = contrastRatio(color.accent, BLACK) >=
+                                                contrastRatio(color.accent, WHITE)
+                                            ? BLACK
+                                            : WHITE;
+    palette.setColor(group, QPalette::HighlightedText, toQColor(highlightedText));
     palette.setColor(group, QPalette::Link, toQColor(color.accent));
     palette.setColor(group, QPalette::PlaceholderText, toQColor(color.textMuted));
+}
+
+[[nodiscard]] EditorThemeSetting parseThemeSetting(const QString& value) {
+    if (value == QLatin1String("light")) {
+        return EditorThemeSetting::Light;
+    }
+    if (value == QLatin1String("dark")) {
+        return EditorThemeSetting::Dark;
+    }
+    return EditorThemeSetting::System;
+}
+
+[[nodiscard]] const char* themeSettingName(EditorThemeSetting setting) {
+    switch (setting) {
+        case EditorThemeSetting::Light:
+            return "light";
+        case EditorThemeSetting::Dark:
+            return "dark";
+        case EditorThemeSetting::System:
+            return "system";
+    }
+    return "system";
 }
 
 }  // namespace
@@ -86,27 +107,6 @@ QPalette buildApplicationPalette(const DesignTokens& tokens) {
     palette.setColor(QPalette::Disabled, QPalette::ButtonText, muted);
 
     return palette;
-}
-
-std::unordered_map<std::string, std::string> buildStyleSheetValues(const DesignTokens& editorTokens) {
-    std::unordered_map<std::string, std::string> values;
-    addColorValues(values, "identity.color", identityTokens().color);
-    addColorValues(values, "editor.color", editorTokens.color);
-    // Echelle d'espacement : partagee entre les deux portees (DesignTokensTest.
-    // LesDeuxPorteesPartagentLesMemesEchelles), la source choisie ici est arbitraire.
-    const SpacingTokens& spacing = identityTokens().spacing;
-    values["tokens.spacing.extraSmall"] = std::to_string(spacing.extraSmall);
-    values["tokens.spacing.small"] = std::to_string(spacing.small);
-    values["tokens.spacing.medium"] = std::to_string(spacing.medium);
-    values["tokens.spacing.large"] = std::to_string(spacing.large);
-    values["tokens.spacing.extraLarge"] = std::to_string(spacing.extraLarge);
-    // Echelle typographique (LOT-56 TACHE-03) : elle aussi partagee entre les deux portees.
-    const TypographyTokens& typography = identityTokens().typography;
-    values["tokens.typography.screenTitle.pointSize"] =
-        std::to_string(typography.screenTitle.pointSize);
-    values["tokens.typography.sectionTitle.pointSize"] =
-        std::to_string(typography.sectionTitle.pointSize);
-    return values;
 }
 
 void applyStyleSheet(const DesignTokens& editorTokens) {
@@ -157,10 +157,35 @@ void applyFont() {
     QApplication::setFont(font);
 }
 
+EditorThemeSetting editorThemeSetting() {
+    return parseThemeSetting(
+        QSettings().value(QString::fromLatin1(THEME_SETTINGS_KEY), QStringLiteral("system")).toString());
+}
+
+void setEditorThemeSetting(EditorThemeSetting setting) {
+    QSettings().setValue(QString::fromLatin1(THEME_SETTINGS_KEY),
+                         QString::fromLatin1(themeSettingName(setting)));
+}
+
+bool systemPrefersDarkTheme() {
+    return QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark;
+}
+
+const DesignTokens& currentEditorTokens() {
+    const EditorThemeMode mode =
+        resolveEffectiveEditorTheme(editorThemeSetting(), systemPrefersDarkTheme());
+    return mode == EditorThemeMode::Light ? editorLightTokens() : editorDarkTokens();
+}
+
 void applyEditorTheme() {
     applyFont();
-    QApplication::setPalette(buildApplicationPalette(editorDarkTokens()));
-    applyStyleSheet(editorDarkTokens());
+    reapplyEditorTheme();
+}
+
+void reapplyEditorTheme() {
+    const DesignTokens& tokens = currentEditorTokens();
+    QApplication::setPalette(buildApplicationPalette(tokens));
+    applyStyleSheet(tokens);
 }
 
 }  // namespace hmi
