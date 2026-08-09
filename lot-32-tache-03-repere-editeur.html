@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-32-tache-03-repere-editeur.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-32-niveaux-a-salles_2tache-03-repere-editeur"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-32.html#md_Lot_2LOT-32-niveaux-a-salles_2epic" title="Lot/LOT-32-niveaux-a-salles/epic.md">LOT-32</a> · <b>Emplacement :</b> <span class="tt">HMI/Interface</span> · <b>Statut :</b> fait (confirmation visuelle à l'écran non automatisée — dépendance rendu D3D11, laissée à un essai manuel par un humain lançant l'éditeur)</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1566"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1568"></a>
 Contexte</h1>
 <p><span class="tt">EditorScreen::renderGrid</span> sait déjà dessiner un <b>quadrillage de repère</b> fin sur chaque bord de case (<span class="tt">_showGridLines</span>, un quad étroit et teinté par bord — <span class="tt">SpriteBatch</span> n'a pas de primitive de ligne). Cette tâche ajoute un second quadrillage, plus <b>épais</b>/plus <b>visible</b>, uniquement sur les frontières de <b>salles</b> (<span class="tt">RoomGrid</span>, TACHE-01), pour qu'un level designer puisse aligner ses couloirs sur les bords de salles sans avoir à compter les cases. La caméra de l'éditeur (pan/zoom manuel, <span class="tt">LOT-15</span>/<span class="tt">LOT-16</span>) <b>ne change pas</b> : ce repère est un calque visuel superposé, pas un changement de cadrage (décision de cadrage de l'épic — la caméra par salle, TACHE-02, est spécifique au jeu).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1567"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1569"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Construire un <span class="tt"><a class="el" href="classhmi_1_1RoomGrid.html" title="Partitionne une grille de niveau en un tableau de salles de taille fixe, façon Celeste (LOT-32).">hmi::RoomGrid</a></span></b> à partir de la taille courante du brouillon (<span class="tt">_draft.tileMap()</span>) — recalculé quand la taille change (redimensionnement, <span class="tt">Ctrl+R</span>/flèches, <span class="tt">LOT-16</span>), comme les autres états dérivés de la taille de grille.</li>
@@ -105,29 +105,29 @@ Travail à réaliser</h1>
 <li><b>Bascule d'affichage</b> : réutilise le raccourci existant (<span class="tt">F10</span>, <span class="tt">_showGridLines</span>) plutôt qu'un second raccourci dédié — un seul geste affiche les deux repères (case par case <b>et</b> salles) ensemble ; plus simple et plus découvrable (<span class="tt">EX-EDIT-015</span>) qu'une commande de plus à mémoriser, pour un repère qui sert le même besoin (aligner son geste de peinture).</li>
 <li><b>Aucun changement de cadrage caméra</b> de l'éditeur : <span class="tt">_manualCamera</span>/<span class="tt">_cameraCenter</span>/ <span class="tt">_cameraZoom</span> restent pilotés exactement comme avant (<span class="tt">LOT-15</span>/<span class="tt">16</span>), le quadrillage de salles est un calque de plus, pas une nouvelle règle de zoom.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1568"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1570"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/EditorScreen.h</span>/<span class="tt">.cpp</span> (<span class="tt">renderGrid</span>, état <span class="tt">RoomGrid</span>, éventuel bouton de bascule).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1569"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1571"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Non testable automatiquement (dépendance rendu D3D11, même limite que le reste de <span class="tt">renderGrid</span>) : vérifié par relecture et essai manuel — ouvrir/créer un niveau plus grand qu'une salle dans l'éditeur et constater que le quadrillage de salles apparaît aux bonnes frontières (comparer aux bornes renvoyées par <span class="tt">RoomGrid::roomBounds</span>, déjà testées en TACHE-01) et reste correct après un redimensionnement.</li>
 <li>Non-régression : le quadrillage de repère existant (<span class="tt">_showGridLines</span>) et le pan/zoom manuel (<span class="tt">LOT-15</span>) restent inchangés.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1570"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1572"></a>
 Points d'attention</h1>
 <ul>
 <li>Un niveau tenant dans une seule salle produit un <span class="tt">RoomGrid</span> à une seule salle (TACHE-01) : le quadrillage de salles se réduit alors au <b>contour du niveau entier</b>, sans ligne intermédiaire — comportement correct, pas un cas particulier à exclure.</li>
 <li>Garder la distinction visuelle nette avec le quadrillage de repère existant (bords de case) : l'un aide à viser une case précise, l'autre à repérer les frontières de salles — les confondre viderait la fonctionnalité de son intérêt.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1571"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1573"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Quadrillage de salles affiché dans l'éditeur, correct après redimensionnement, sans régression sur le pan/zoom ni le quadrillage de repère existant ; build <span class="tt">/W4 /WX</span> sans avertissement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1572"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1574"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-023</span> (nouvelle), <span class="tt">EX-EDIT-013</span> (cadrage/pan/zoom de l'éditeur, inchangé), <span class="tt">EX-EDIT-015</span> (commandes découvrables). </p>
 </div></div><!-- contents -->

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ProjectGaming: TACHE-03 — Ouvrir, créer, enregistrer et garde-fou d&#39;écrasement</title>
+<title>ProjectGaming: TACHE-05 — Ouvrir, créer, enregistrer et garde-fou d&#39;écrasement</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('lot-54-tache-03-ouvrir-enregistrer.html','',''); });
+$(function(){initNavTree('lot-54-tache-05-ouvrir-enregistrer.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -89,56 +89,60 @@ $(function(){initNavTree('lot-54-tache-03-ouvrir-enregistrer.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">TACHE-03 — Ouvrir, créer, enregistrer et garde-fou d'écrasement </div></div>
+  <div class="headertitle"><div class="title">TACHE-05 — Ouvrir, créer, enregistrer et garde-fou d'écrasement </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-54-atelier-pixel-art_2tache-03-ouvrir-enregistrer"></a></p>
+<div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-54-atelier-pixel-art_2tache-05-ouvrir-enregistrer"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-54.html#md_Lot_2LOT-54-atelier-pixel-art_2epic" title="Lot/LOT-54-atelier-pixel-art/epic.md">LOT-54</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2356"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2372"></a>
 Contexte</h1>
-<p>Le canevas (TACHE-02) travaille en mémoire ; il faut le relier aux fichiers d'assets. La bibliothèque de LOT-43 fournit déjà la navigation, la validation de nom et la <b>détection des références</b> — un asset peut être cité par plusieurs niveaux et par <span class="tt">skins.json</span>.</p>
+<p>Le canevas (TACHE-03) travaille en mémoire ; il faut le relier aux fichiers d'assets. La bibliothèque de LOT-43 fournit déjà la navigation, la validation de nom et la <b>détection des références</b> — un asset peut être cité par plusieurs niveaux et par <span class="tt">skins.json</span>.</p>
 <p>C'est cette détection qui rend l'enregistrement délicat : écraser un asset utilisé par cinq niveaux n'est pas une opération anodine, et l'utilisateur n'a aucun moyen de le savoir sans qu'on le lui dise.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2357"></a>
+<p>Le second point d'entrée a changé de nature depuis <a class="el" href="lot-57.html" title="LOT-57 — Architecture de l&#39;information de l&#39;éditeur">LOT-57</a> : le panneau Textures y est recentré sur ce qui <b>définit l'apparence</b> du niveau — Skins, Fond, Animations — et débarrassé de ce qui n'en relevait pas. C'est exactement le voisinage où « éditer cet asset » a du sens, et l'atelier s'y branche sans avoir à réorganiser quoi que ce soit.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2373"></a>
 Travail à réaliser</h1>
 <ul>
-<li><b>Ouvrir</b> un asset existant depuis la bibliothèque (LOT-43), comme point d'entrée principal de l'atelier.</li>
+<li><b>Ouvrir</b> un asset existant depuis la bibliothèque (LOT-43), comme point d'entrée principal de l'atelier, et depuis le panneau Textures recentré (TACHE-03 de LOT-57) sur l'asset couramment assigné.</li>
+<li><b>Commandes exposées comme actions</b> : ouvrir, créer, enregistrer et enregistrer sous sont des actions de <span class="tt">hmi::EditorActions</span> (TACHE-04), placées dans la barre d'outils du canevas et dans le menu — jamais redéclarées séparément, jamais interceptées en dur dans un widget.</li>
 <li><b>Créer</b> un nouvel asset, à une taille choisie <b>parmi celles admises</b> par le contrat d'asset de sa famille (LOT-40) — proposer les tailles valides plutôt que de laisser saisir n'importe quoi puis refuser au chargement.</li>
 <li><b>Enregistrer</b> via l'écriture atomique de TACHE-01, en préservant les dimensions de l'image ouverte.</li>
 <li><b>Garde-fou d'écrasement</b> : enregistrer par-dessus un asset <b>référencé</b> demande confirmation, en <b>nommant</b> les niveaux et les entrées de <span class="tt">skins.json</span> concernés (détection livrée en LOT-43).</li>
 <li><b>Garde-fou de perte de travail</b> : fermer l'atelier ou ouvrir un autre asset avec des modifications non enregistrées demande confirmation — même patron que l'éditeur de niveaux (<span class="tt">EX-EDIT-021</span>).</li>
 <li><b>Enregistrer sous</b> : créer une copie plutôt qu'écraser, la voie de sortie naturelle quand le garde-fou d'écrasement se déclenche.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2358"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2374"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/PixelCanvas.{h,cpp}</span>, <span class="tt">TexturePanel.{h,cpp}</span>, <span class="tt">AssetThumbnailView.{h,cpp}</span>.</li>
 <li><span class="tt">Source/HMI/Editor/AssetReferences.{h,cpp}</span> (réutilisé), <span class="tt">AssetFileOperations.{h,cpp}</span>.</li>
+<li><span class="tt">Source/HMI/Interface/EditorActions.{h,cpp}</span> (créé en <span class="tt">LOT-56</span>) — commandes de fichier de l'atelier.</li>
 <li><span class="tt">Source/Elements/Localization/fr.lang</span>, <span class="tt">en.lang</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2359"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2375"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Préservation des dimensions</b> : ouvrir puis enregistrer sans modification produit une image de mêmes dimensions et de mêmes pixels.</li>
 <li><b>Tailles proposées à la création</b> : conformes au contrat de chaque famille d'asset.</li>
 <li><b>Détection d'écrasement</b> : un asset référencé déclenche la demande de confirmation, un asset non référencé ne la déclenche pas.</li>
-<li>Suivi de l'état « modifié » : un coup de pinceau le marque, un enregistrement le lève.</li>
+<li>Suivi de l'état « modifié » : un coup de pinceau le marque, un enregistrement le lève — c'est l'indicateur que la barre d'état affiche (TACHE-04).</li>
+<li><b>Aucune commande de fichier redéclarée</b> : le test de définition unique de LOT-56 couvre aussi les commandes de l'atelier.</li>
 <li>Logique testée sans Qt.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2360"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2376"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas réimplémenter la détection des références</b> : elle existe depuis LOT-43 et doit rester unique, sinon les deux implémentations divergeront.</li>
-<li>L'enregistrement doit déclencher l'<b>invalidation ciblée</b> du cache (LOT-43, TACHE-03) pour que l'aperçu live (TACHE-04) se mette à jour — mais l'invalidation elle-même n'est pas le sujet de cette tâche.</li>
+<li>L'enregistrement doit déclencher l'<b>invalidation ciblée</b> du cache (LOT-43, TACHE-03) pour que l'aperçu live (TACHE-08) se mette à jour — mais l'invalidation elle-même n'est pas le sujet de cette tâche.</li>
 <li>Une création à une taille non conforme ne doit pas être possible du tout, plutôt que refusée après coup : c'est la différence entre un outil qui guide et un outil qui punit.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2361"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2377"></a>
 Définition de fait (DoD)</h1>
 <ul>
-<li>Ouvrir, créer et enregistrer un asset fonctionne depuis la bibliothèque ; les dimensions sont préservées ; l'écrasement d'un asset référencé et la perte de travail sont couverts par des garde-fous nommant les éléments concernés ; chaînes traduites ; <span class="tt">/W4 /WX</span> propre.</li>
+<li>Ouvrir, créer et enregistrer un asset fonctionne depuis la bibliothèque et depuis le panneau Textures recentré ; les commandes sont des actions uniques ; les dimensions sont préservées ; l'écrasement d'un asset référencé et la perte de travail sont couverts par des garde-fous nommant les éléments concernés ; chaînes traduites ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2362"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2378"></a>
 Exigences</h1>
-<p><span class="tt">EX-EDIT-045</span> (outil de dessin pixel art) ; réutilise <span class="tt">EX-EDIT-026</span> (gestion des fichiers d'assets), <span class="tt">EX-EDIT-021</span> (garde-fous contre la perte de travail), <span class="tt">EX-REN-007</span> (contrat d'asset), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-NFR-040</span> (erreur récupérable). </p>
+<p><span class="tt">EX-EDIT-045</span> (outil de dessin pixel art) ; réutilise <span class="tt">EX-EDIT-026</span> (gestion des fichiers d'assets), <span class="tt">EX-EDIT-021</span> (garde-fous contre la perte de travail), <span class="tt">EX-REN-007</span> (contrat d'asset), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-NFR-040</span> (erreur récupérable), <span class="tt">EX-IHM-055</span> (commandes exposées comme actions), <span class="tt">EX-IHM-062</span> (un état ou une commande à un seul endroit). </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

@@ -1,5 +1,7 @@
 var NAVTREEINDEX11 =
 {
+"functions_a.html":[9,3,0,1],
+"functions_b.html":[9,3,0,2],
 "functions_c.html":[9,3,0,3],
 "functions_d.html":[9,3,0,4],
 "functions_e.html":[9,3,0,5],
@@ -247,7 +249,5 @@ var NAVTREEINDEX11 =
 "guide-rendu.html#autotoc_md171":[3,9,9],
 "guide-rendu.html#autotoc_md172":[3,9,10],
 "guide.html":[3],
-"guide.html#autotoc_md173":[3,0],
-"guide.html#autotoc_md174":[3,1],
-"guide.html#autotoc_md175":[3,2]
+"guide.html#autotoc_md173":[3,0]
 };

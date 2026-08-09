@@ -1,6 +1,6 @@
 var lots =
 [
-    [ "Lots", "lots.html#autotoc_md2402", null ],
+    [ "Lots", "lots.html#autotoc_md2522", null ],
     [ "LOT-01 — Fenêtre &amp; boucle de jeu (Direct3D 11)", "lot-01.html", "lot-01" ],
     [ "LOT-02 — Journalisation &amp; diagnostics", "lot-02.html", "lot-02" ],
     [ "LOT-03 — Fondation ECS &amp; mathématiques Core", "lot-03.html", "lot-03" ],
@@ -14,16 +14,16 @@ var lots =
     [ "LOT-11 — Ressenti avancé : personnage humanoïde, gravité asymétrique, finitions", "lot-11.html", "lot-11" ],
     [ "LOT-12 — Niveau puzzle : mécanismes interrupteur/porte + budget de mouvements", "lot-12.html", "lot-12" ],
     [ "LOT-13 — Consolidation de la documentation", "lot-13.html", [
-      [ "Objectif", "lot-13.html#autotoc_md879", null ],
-      [ "Périmètre", "lot-13.html#autotoc_md880", [
-        [ "Inclus", "lot-13.html#autotoc_md881", null ],
-        [ "Exclus", "lot-13.html#autotoc_md882", null ]
+      [ "Objectif", "lot-13.html#autotoc_md881", null ],
+      [ "Périmètre", "lot-13.html#autotoc_md882", [
+        [ "Inclus", "lot-13.html#autotoc_md883", null ],
+        [ "Exclus", "lot-13.html#autotoc_md884", null ]
       ] ],
-      [ "Décisions de cadrage", "lot-13.html#autotoc_md883", null ],
-      [ "Exigences couvertes", "lot-13.html#autotoc_md884", null ],
-      [ "Découpage", "lot-13.html#autotoc_md885", null ],
-      [ "Critères d'acceptation du lot", "lot-13.html#autotoc_md886", null ],
-      [ "Dépendances", "lot-13.html#autotoc_md887", null ]
+      [ "Décisions de cadrage", "lot-13.html#autotoc_md885", null ],
+      [ "Exigences couvertes", "lot-13.html#autotoc_md886", null ],
+      [ "Découpage", "lot-13.html#autotoc_md887", null ],
+      [ "Critères d'acceptation du lot", "lot-13.html#autotoc_md888", null ],
+      [ "Dépendances", "lot-13.html#autotoc_md889", null ]
     ] ],
     [ "LOT-14 — Éditeur de niveaux intégré : édition de tuiles, mécanismes, essai immédiat", "lot-14.html", "lot-14" ],
     [ "LOT-15 — Éditeur de niveaux : robustesse et confort d'édition", "lot-15.html", "lot-15" ],
@@ -66,5 +66,7 @@ var lots =
     [ "LOT-52 — Texte, police bitmap et affichage tête haute", "lot-52.html", "lot-52" ],
     [ "LOT-53 — Effets et particules", "lot-53.html", "lot-53" ],
     [ "LOT-54 — Atelier pixel art intégré", "lot-54.html", "lot-54" ],
-    [ "LOT-55 — Ombres du plan physique", "lot-55.html", "lot-55" ]
+    [ "LOT-55 — Ombres du plan physique", "lot-55.html", "lot-55" ],
+    [ "LOT-56 — Système de design de l'IHM Qt", "lot-56.html", "lot-56" ],
+    [ "LOT-57 — Architecture de l'information de l'éditeur", "lot-57.html", "lot-57" ]
 ];

@@ -96,7 +96,7 @@ $(function(){initNavTree('spec-vision.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>brouillon</b>. Les points marqués ⚠️ sont des propositions à valider. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md268"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md270"></a>
 Concept</h1>
 <p>Jeu <b>2D de plateforme et puzzle</b>, en vue de côté, à base de niveaux discrets. Le joueur dirige un personnage qui traverse des tableaux en combinant <b>agilité de plateforme</b> (sauter, courir) et <b>résolution d'énigmes</b> (interrupteurs, blocs, portes, dangers).</p>
 <ul>
@@ -106,10 +106,10 @@ Concept</h1>
 <li><b>Public</b> : joueurs appréciant la réflexion et la précision, tous âges.</li>
 <li><b>Plateforme</b> : Windows (bureau), rendu DirectX.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md269"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md271"></a>
 Mécanique de jeu (décidée)</h2>
 <p>Le jeu repose sur la <b>boîte à outils classique</b> du genre plateforme/puzzle : interrupteurs, portes, clés, blocs poussables, dangers et (plus tard) plateformes mobiles. <b>Pas de mécanique signature exotique</b> pour le MVP : la difficulté vient de l'agencement des mécanismes, pas d'un gimmick. Une mécanique distinctive pourra être introduite ultérieurement une fois le socle validé.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md270"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md272"></a>
 Boucle de gameplay</h1>
 <ol type="1">
 <li>Le joueur entre dans un niveau (état initial défini).</li>
@@ -118,7 +118,7 @@ Boucle de gameplay</h1>
 <li>Il atteint la <b>sortie</b> du niveau (condition de victoire) — ou échoue (danger / chute) et <b>recommence</b> immédiatement.</li>
 <li>Progression vers le niveau suivant.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md271"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md273"></a>
 Objectifs (MVP)</h1>
 <ul>
 <li><a class="anchor" id="EX-VIS-001"></a><b>EX-VIS-001</b> — Le jeu doit proposer un personnage jouable se déplaçant et sautant dans un niveau en tuiles.</li>
@@ -127,13 +127,13 @@ Objectifs (MVP)</h1>
 <li><a class="anchor" id="EX-VIS-004"></a><b>EX-VIS-004</b> — Le jeu doit gérer l'échec (danger/chute) et le redémarrage du niveau.</li>
 <li><a class="anchor" id="EX-VIS-005"></a><b>EX-VIS-005</b> — Le jeu doit enchaîner au moins <b>3 niveaux</b> de démonstration.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md272"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md274"></a>
 Objectifs produit (au-delà du moteur)</h1>
 <ul>
 <li><a class="anchor" id="EX-VIS-006"></a><b>EX-VIS-006</b> — Le projet doit fournir un <b>éditeur de niveaux</b> permettant à des membres non-développeurs de l'équipe (level/game design) de créer du contenu sans coder. Détaillé dans <a class="el" href="spec-editeur.html#md_Specification_2editeur-niveaux" title="Specification/editeur-niveaux.md"><span class="tt">editeur-niveaux.md</span></a>. Livré <b>après</b> le chargement de niveaux dans le moteur.</li>
 <li><a class="anchor" id="EX-VIS-007"></a><b>EX-VIS-007</b> — À terme, le jeu doit proposer des <b>décors issus de photos réelles converties en pixel art</b>, plaçables et transformables, manipulables par le level designer (éditeur) <b>et par le joueur en jeu</b> (mécanique). Détaillé dans <a class="el" href="spec-decors.html#md_Specification_2decors" title="Specification/decors.md"><span class="tt">decors.md</span></a>. L'architecture doit l'<b>accommoder dès maintenant</b> (cf. <a class="el" href="spec-architecture.html#md_Specification_2architecture" title="Specification/architecture.md"><span class="tt">architecture.md</span></a>) ; la livraison est <b>post-MVP</b>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md273"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md275"></a>
 Hors périmètre (MVP)</h1>
 <ul>
 <li>Multijoueur, réseau.</li>
@@ -142,7 +142,7 @@ Hors périmètre (MVP)</h1>
 <li>Bande-son musicale élaborée (bruitages simples suffisent au MVP).</li>
 <li>Portabilité hors Windows.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md274"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md276"></a>
 Traçabilité</h1>
 <p>Ces objectifs sont détaillés dans <a class="el" href="spec-gameplay.html#md_Specification_2gameplay" title="Specification/gameplay.md"><span class="tt">gameplay.md</span></a>, <a class="el" href="spec-controles.html#md_Specification_2controles" title="Specification/controles.md"><span class="tt">controles.md</span></a>, <a class="el" href="spec-rendu-technique.html#md_Specification_2rendu-technique" title="Specification/rendu-technique.md"><span class="tt">rendu-technique.md</span></a>, <a class="el" href="spec-niveaux.html#md_Specification_2niveaux" title="Specification/niveaux.md"><span class="tt">niveaux.md</span></a>, <a class="el" href="spec-exigences.html#md_Specification_2exigences-non-fonctionnelles" title="Specification/exigences-non-fonctionnelles.md"><span class="tt">exigences-non-fonctionnelles.md</span></a>, <a class="el" href="spec-editeur.html#md_Specification_2editeur-niveaux" title="Specification/editeur-niveaux.md"><span class="tt">editeur-niveaux.md</span></a>, <a class="el" href="spec-architecture.html#md_Specification_2architecture" title="Specification/architecture.md"><span class="tt">architecture.md</span></a> et <a class="el" href="spec-decors.html#md_Specification_2decors" title="Specification/decors.md"><span class="tt">decors.md</span></a>. Chaque lot de <span class="tt">../Lot/</span> référence les exigences <span class="tt">EX-…</span> qu'il couvre. </p>
 </div></div><!-- contents -->

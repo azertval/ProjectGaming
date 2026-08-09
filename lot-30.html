@@ -96,13 +96,13 @@ $(function(){initNavTree('lot-30.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>✅ terminé</b>. Nouveau sous-menu Options → « Touches de la manette », symétrique de « Touches de jeu » (<span class="tt">LOT-29</span>) : le joueur choisit quel bouton XInput déclenche chaque action de jeu, au lieu du câblage en dur actuel. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1472"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1474"></a>
 Objectif</h1>
 <p><span class="tt">LOT-29</span> a livré le remappage clavier (jeu et éditeur), avec un filet de sécurité pour que la manette continue de fonctionner malgré un remap clavier : chaque action de jeu revérifie sa touche par défaut, en plus de la touche remappée, tant qu'aucune autre action ne se l'est appropriée. Ce filet reste un palliatif — la manette elle-même n'a toujours <b>aucune</b> couche de configuration : <span class="tt">Window::pollGamepad</span> câble chaque bouton XInput utile sur une touche fixe (D-pad/stick gauche → flèches, bouton A → Espace/Entrée, B/Start → Échap, épaule droite → Maj) et c'est ce câblage, pas un choix du joueur, qui décide quel bouton déclenche quelle action.</p>
 <p>Discuté avec le demandeur en cours de <span class="tt">LOT-29</span> (<span class="tt">AskUserQuestion</span>) : plutôt que de se contenter du filet de sécurité, un <b>vrai</b> remappage manette — différé à ce lot dédié, la manette n'ayant aucune capacité de bouton libre ni de couche de configuration à l'époque.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1473"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1475"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1474"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1476"></a>
 Inclus</h2>
 <ul>
 <li>Les <b>six mêmes actions de jeu</b> que <span class="tt">GameKeyBindings</span> (Aller à gauche, Aller à droite, Sauter, Dash, Viser le dash vers le haut, Viser le dash vers le bas) — aucune nouvelle action, seule la source manette devient configurable.</li>
@@ -112,7 +112,7 @@ Inclus</h2>
 <li><span class="tt">PlayerInputMapper</span> gagne une source manette véritablement configurable : chaque action vérifie sa touche clavier liée <b>ou</b> son bouton manette lié. Le filet de sécurité de <span class="tt">LOT-29</span> devient inutile et est retiré.</li>
 <li>Sous-menu Options → « Touches de la manette » (même patron que « Touches de jeu ») : capture d'un bouton manette pressé, invite dédiée si aucune manette n'est connectée.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1475"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1477"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li>Gâchettes analogiques (LT/RT) traitées comme boutons numériques, clics de stick — non nécessaires aux six actions existantes.</li>
@@ -120,7 +120,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li>Manette secondaire (joueur 2) — XInput joueur 0 uniquement, comme aujourd'hui.</li>
 <li><span class="tt">Start</span>/<span class="tt">Back</span> restent câblés en dur (Échap), conventions globales non remappables — même principe que <span class="tt">Échap</span>/<span class="tt">Entrée</span> côté clavier (<span class="tt">LOT-29</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1476"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1478"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Piste <span class="tt">GamepadButton</span> séparée de la fusion <span class="tt">Key</span> existante</b>, plutôt que de réutiliser le mécanisme <span class="tt">onGamepadKeyDown</span>/<span class="tt">onGamepadKeyUp</span> : ce dernier reste nécessaire tel quel pour la navigation de menu (<span class="tt">MenuModel</span>/<span class="tt">OptionsModel</span>/<span class="tt">LevelPicker</span>), qui n'est pas remappable ; y ajouter une indirection configurable aurait mélangé deux besoins différents (navigation fixe vs actions de jeu remappables) dans un seul mécanisme.</li>
@@ -128,13 +128,13 @@ Décisions de cadrage</h1>
 <li><b><span class="tt">GamepadBindings</span> séparée de <span class="tt">GameKeyBindings</span></b>, même mécanique dupliquée plutôt qu'une abstraction commune — cohérent avec la décision déjà prise pour <span class="tt">GameKeyBindings</span>/ <span class="tt">EditorKeyBindings</span> en <span class="tt">LOT-29</span> (deux à trois cas concrets connus, pas d'abstraction générique).</li>
 <li><b>Directions fusionnées D-pad/stick</b>, pas deux <span class="tt">GamepadButton</span> séparés par direction : le joueur ne perçoit pas la différence entre les deux, et <span class="tt">Window::pollGamepad</span> les traite déjà comme équivalentes aujourd'hui.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1477"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1479"></a>
 Exigences couvertes</h1>
 <ul>
 <li><span class="tt">EX-CTRL-002</span> — la manette reste fonctionnelle, désormais avec un mapping choisi par le joueur plutôt qu'un câblage fixe.</li>
 <li><span class="tt">EX-CTRL-012</span> — étend la reconfigurabilité du mapping à la manette.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1478"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1480"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -151,7 +151,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-30-tache-04-documentation-verification.html#md_Lot_2LOT-30-remappage-manette_2tache-04-documentation-verification" title="Lot/LOT-30-remappage-manette/tache-04-documentation-verification.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Documentation et vérification  </td><td class="markdownTableBodyNone"><span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1479"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1481"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Depuis Options, une nouvelle entrée « Touches de la manette » ouvre un sous-menu listant les six actions de jeu avec le bouton manette actuellement lié.</li>
@@ -161,13 +161,13 @@ Critères d'acceptation du lot</h1>
 <li><b>Aucune régression</b> sur le jeu avec les valeurs par défaut (comportement manette identique à avant ce lot tant qu'aucun remappage n'a eu lieu) ni sur le remappage clavier de <span class="tt">LOT-29</span>.</li>
 <li>Logique nouvelle couverte par des tests. Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen (vérifié avec le binaire 1.9.8 de la CI avant tout push) et lint des exigences verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1480"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1482"></a>
 Dépendances</h1>
 <ul>
 <li>Dépend de l'infrastructure de <span class="tt">LOT-29</span> (<span class="tt">GameKeyBindings</span>, persistance <span class="tt">keybindings.json</span>, patron <span class="tt">GameKeybindingsModel</span>/<span class="tt">Screen</span>) — branché sur sa branche, pas encore mergée.</li>
 <li>Étend <span class="tt">Window::pollGamepad</span>/<span class="tt">InputState</span> (<span class="tt">LOT-20</span>) et <span class="tt">PlayerInputMapper</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1481"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1483"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-30-tache-01-modele-bindings-manette.html" title="TACHE-01 — Modèle de bindings manette">TACHE-01 — Modèle de bindings manette</a></li>

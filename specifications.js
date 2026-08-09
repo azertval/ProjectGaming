@@ -1,15 +1,15 @@
 var specifications =
 [
-    [ "Documents", "specifications.html#autotoc_md267", null ],
+    [ "Documents", "specifications.html#autotoc_md269", null ],
     [ "Vision &amp; périmètre", "spec-vision.html", [
-      [ "Concept", "spec-vision.html#autotoc_md268", [
-        [ "Mécanique de jeu (décidée)", "spec-vision.html#autotoc_md269", null ]
+      [ "Concept", "spec-vision.html#autotoc_md270", [
+        [ "Mécanique de jeu (décidée)", "spec-vision.html#autotoc_md271", null ]
       ] ],
-      [ "Boucle de gameplay", "spec-vision.html#autotoc_md270", null ],
-      [ "Objectifs (MVP)", "spec-vision.html#autotoc_md271", null ],
-      [ "Objectifs produit (au-delà du moteur)", "spec-vision.html#autotoc_md272", null ],
-      [ "Hors périmètre (MVP)", "spec-vision.html#autotoc_md273", null ],
-      [ "Traçabilité", "spec-vision.html#autotoc_md274", null ]
+      [ "Boucle de gameplay", "spec-vision.html#autotoc_md272", null ],
+      [ "Objectifs (MVP)", "spec-vision.html#autotoc_md273", null ],
+      [ "Objectifs produit (au-delà du moteur)", "spec-vision.html#autotoc_md274", null ],
+      [ "Hors périmètre (MVP)", "spec-vision.html#autotoc_md275", null ],
+      [ "Traçabilité", "spec-vision.html#autotoc_md276", null ]
     ] ],
     [ "Gameplay", "spec-gameplay.html", [
       [ "1. Monde en tuiles", "spec-gameplay.html#autotoc_md241", [
@@ -31,20 +31,20 @@ var specifications =
       [ "Traçabilité", "spec-controles.html#autotoc_md191", null ]
     ] ],
     [ "Rendu &amp; cible technique", "spec-rendu-technique.html", [
-      [ "1. Cible technique", "spec-rendu-technique.html#autotoc_md261", null ],
-      [ "2. Rendu 2D", "spec-rendu-technique.html#autotoc_md262", null ],
-      [ "3. Boucle &amp; temps", "spec-rendu-technique.html#autotoc_md263", null ],
-      [ "4. Interface (HMI)", "spec-rendu-technique.html#autotoc_md264", null ],
-      [ "5. Audio (⚠️ minimal MVP)", "spec-rendu-technique.html#autotoc_md265", null ],
-      [ "Traçabilité", "spec-rendu-technique.html#autotoc_md266", null ]
+      [ "1. Cible technique", "spec-rendu-technique.html#autotoc_md263", null ],
+      [ "2. Rendu 2D", "spec-rendu-technique.html#autotoc_md264", null ],
+      [ "3. Boucle &amp; temps", "spec-rendu-technique.html#autotoc_md265", null ],
+      [ "4. Interface (HMI)", "spec-rendu-technique.html#autotoc_md266", null ],
+      [ "5. Audio (⚠️ minimal MVP)", "spec-rendu-technique.html#autotoc_md267", null ],
+      [ "Traçabilité", "spec-rendu-technique.html#autotoc_md268", null ]
     ] ],
     [ "Niveaux &amp; contenu", "spec-niveaux.html", [
-      [ "1. Représentation des niveaux", "spec-niveaux.html#autotoc_md256", [
-        [ "Format retenu (JSON, liste de tuiles-objets)", "spec-niveaux.html#autotoc_md257", null ]
+      [ "1. Représentation des niveaux", "spec-niveaux.html#autotoc_md258", [
+        [ "Format retenu (JSON, liste de tuiles-objets)", "spec-niveaux.html#autotoc_md259", null ]
       ] ],
-      [ "2. Progression", "spec-niveaux.html#autotoc_md258", null ],
-      [ "3. Conception (lignes directrices)", "spec-niveaux.html#autotoc_md259", null ],
-      [ "Traçabilité", "spec-niveaux.html#autotoc_md260", null ]
+      [ "2. Progression", "spec-niveaux.html#autotoc_md260", null ],
+      [ "3. Conception (lignes directrices)", "spec-niveaux.html#autotoc_md261", null ],
+      [ "Traçabilité", "spec-niveaux.html#autotoc_md262", null ]
     ] ],
     [ "Exigences non fonctionnelles", "spec-exigences.html", [
       [ "1. Performance", "spec-exigences.html#autotoc_md234", null ],
@@ -77,7 +77,9 @@ var specifications =
       [ "3. Gestion des niveaux", "spec-interface-ihm.html#autotoc_md252", null ],
       [ "4. Liens de mécanismes", "spec-interface-ihm.html#autotoc_md253", null ],
       [ "5. Menus, options, unification", "spec-interface-ihm.html#autotoc_md254", null ],
-      [ "Traçabilité", "spec-interface-ihm.html#autotoc_md255", null ]
+      [ "6. Système de design et habillage (LOT-56)", "spec-interface-ihm.html#autotoc_md255", null ],
+      [ "7. Architecture de l'information de l'éditeur (LOT-57)", "spec-interface-ihm.html#autotoc_md256", null ],
+      [ "Traçabilité", "spec-interface-ihm.html#autotoc_md257", null ]
     ] ],
     [ "Architecture (décisions dimensionnantes)", "spec-architecture.html", [
       [ "1. Modules &amp; dépendances", "spec-architecture.html#autotoc_md176", null ],
