@@ -22,15 +22,15 @@ class AssetThumbnailView;
 class Localization;
 
 /**
- * @brief Sélecteur d'outil d'édition (`EX-EDIT-014`) : Pinceau, Rectangle, Sélection, Lien,
- *        Texture par instance, Décor.
+ * @brief Panneau « Outils » : le **strict nécessaire** de l'outil Décor (`LOT-49` TACHE-04) —
+ *        grille de vignettes (`hmi::AssetThumbnailView`, `LOT-43`) sur `Assets/Decors/` et un
+ *        sélecteur de couche. La manipulation complète (déplacer, redimensionner, pivoter,
+ *        réordonner) relève de `LOT-50`.
  *
- * Mise en page dans `ToolPanel.ui` (boutons radio, exclusifs entre frères). Changer d'outil émet
- * `toolSelected`, consommé par le viewport (`GameViewport::setTool`). Pinceau actif par défaut.
- *
- * Porte aussi le **strict nécessaire** de l'outil Décor (`LOT-49` TACHE-04) : une grille de
- * vignettes (`hmi::AssetThumbnailView`, `LOT-43`) sur `Assets/Decors/` et un sélecteur de couche —
- * la manipulation complète (déplacer, redimensionner, pivoter, réordonner) relève de `LOT-50`.
+ * Le choix de l'outil actif (`EX-EDIT-014`) se fait depuis la barre d'outils
+ * (`hmi::EditorActions`, `LOT-56` TACHE-04), qui a remplacé les boutons radio empilés d'origine :
+ * ce panneau n'en garde que le sélecteur de décor, affiché seulement quand l'outil Décor est
+ * actif (`setActiveTool`).
  */
 class ToolPanel : public QWidget {
     Q_OBJECT
@@ -45,20 +45,18 @@ public:
     explicit ToolPanel(std::filesystem::path decorsDirectory, QWidget* parent = nullptr);
     ~ToolPanel() override;
 
-    /// Applique la langue active aux libellés des outils.
+    /// Applique la langue active aux libellés du sélecteur de décor.
     void retranslateUi(const Localization& loc);
 
     /**
-     * @brief Coche le bouton radio de @p tool sans émettre `toolSelected` (`LOT-45`).
+     * @brief Affiche ou masque le sélecteur de décor selon l'outil actif.
      *
-     * Resynchronise le panneau quand l'outil change par un autre moyen que ses propres boutons —
-     * le raccourci clavier de « Texture par instance ». Émettre `toolSelected` ici rebouclerait
-     * sur `GameViewport::setTool`, déjà à jour.
+     * Appelé à chaque changement d'outil (barre d'outils ou touche dédiée de « Texture par
+     * instance », via `GameViewport::toolChanged`) : seul l'outil Décor a besoin de ce sélecteur.
      */
     void setActiveTool(hmi::EditorTool tool);
 
 signals:
-    void toolSelected(hmi::EditorTool tool);
     /// Émis quand l'utilisateur choisit un asset dans la grille de décors (`LOT-49`) : asset actif
     /// de l'outil Décor ; vide si aucun n'est sélectionné.
     void decorAssetSelected(const QString& fileName);
@@ -69,8 +67,6 @@ signals:
     void decorSnapToGridChanged(bool enabled);
 
 private:
-    void updateDecorPickerVisibility();
-
     std::unique_ptr<Ui::ToolPanel> _ui;
     AssetThumbnailView* _decorView;  ///< Grille de vignettes de `Assets/Decors/` (`LOT-49`).
 };

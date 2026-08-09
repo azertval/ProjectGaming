@@ -139,6 +139,18 @@ public:
     /// Lance l'essai immédiat (`P`) sur un brouillon valide ; message d'erreur sinon.
     void startPlaytest();
 
+    /// Annule la dernière modification du brouillon (`Ctrl+Z`) ; sans effet si rien à annuler.
+    void undo();
+    /// Refait la dernière modification annulée (`Ctrl+Y`) ; sans effet si rien à refaire.
+    void redo();
+    /// Bascule l'affichage de la grille de repère (`F10`).
+    void toggleGrid() noexcept;
+    /// Réinitialise le cadrage manuel au cadrage automatique (touche `0`).
+    void resetCamera() noexcept;
+    /// Bascule le mode de rendu Physique/Texture (`F8`, `EX-REN-046`) ; actif en édition, en essai
+    /// et en jeu réel (LOT-56 TACHE-04 : seule commande jamais désactivée par le mode courant).
+    void toggleRenderMode();
+
     /// Lance le **jeu** : joue la séquence de niveaux @p levels (mode « Jouer » du menu). `Échap`
     /// ou la fin de la séquence émet `exitToMenuRequested`.
     void startGame(std::vector<std::filesystem::path> levels);

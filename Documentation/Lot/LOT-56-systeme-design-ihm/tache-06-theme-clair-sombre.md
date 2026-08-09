@@ -1,6 +1,6 @@
 # TACHE-06 — Thème clair et sombre de l'éditeur {#lot-56-tache-06-theme-clair-sombre}
 
-**Lot :** [LOT-56](epic.md) · **Emplacement :** `Source/HMI/Interface`, `Source/Elements/Themes` · **Statut :** non commencé
+**Lot :** [LOT-56](epic.md) · **Emplacement :** `Source/HMI/Interface`, `Source/Elements/Themes` · **Statut :** fait
 
 ## Contexte
 L'habillage du projet est sombre, sans alternative ni réglage, et rien dans `Source/HMI` n'interroge le

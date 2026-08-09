@@ -1,6 +1,7 @@
 #include "HMI/Interface/MainWindow.h"
 
 #include <QAction>
+#include <QActionGroup>
 #include <QApplication>
 #include <QCheckBox>
 #include <QCloseEvent>
@@ -8,6 +9,7 @@
 #include <QDialogButtonBox>
 #include <QDockWidget>
 #include <QFormLayout>
+#include <QGuiApplication>
 #include <QKeyEvent>
 #include <QLabel>
 #include <QMenu>
@@ -18,7 +20,9 @@
 #include <QStackedWidget>
 #include <QStatusBar>
 #include <QString>
+#include <QStyleHints>
 #include <QTimer>
+#include <QToolBar>
 #include <QVBoxLayout>
 #include <QWidget>
 #include <ctime>
@@ -35,6 +39,9 @@
 #include "HMI/Game/GameViewport.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Input/GamepadButton.h"
+#include "HMI/Interface/ApplicationTheme.h"
+#include "HMI/Interface/DesignTokens.h"
+#include "HMI/Interface/EditorActions.h"
 #include "HMI/Interface/MainMenu.h"
 #include "HMI/Interface/OptionsPage.h"
 #include "HMI/Platform/ExecutableDirectory.h"
@@ -68,6 +75,12 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
       _tools(nullptr),
       _links(nullptr),
       _textures(nullptr),
+      _actions(nullptr),
+      _toolBar(nullptr),
+      _themeMenu(nullptr),
+      _themeSystemAction(nullptr),
+      _themeLightAction(nullptr),
+      _themeDarkAction(nullptr),
       _loc(hmi::executableDirectory() / "Localization"),
       _sessionLog(sessionLog) {
     _ui->setupUi(this);  // barre de menus + docks (coquilles) depuis MainWindow.ui.
@@ -101,12 +114,11 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     // Sélectionner une tuile dans la palette définit le type peint au clic dans le viewport.
     connect(_palette, &PalettePanel::tileSelected, _viewport,
             [this](core::TileType type) { _viewport->setActiveTile(type); });
-    // Changer d'outil dans le panneau Outils met à jour l'outil actif du viewport.
-    connect(_tools, &ToolPanel::toolSelected, _viewport,
-            [this](hmi::EditorTool tool) { _viewport->setTool(tool); });
-    // Raccourci clavier de l'outil « Texture par instance » (LOT-45) : resynchronise le panneau
-    // sans reboucler (setActiveTool n'emet pas toolSelected).
+    // Raccourci clavier de l'outil « Texture par instance » (LOT-45, « touche dédiée ») :
+    // resynchronise le panneau Outils (visibilité du sélecteur de décor) et la barre d'outils
+    // (LOT-56 TACHE-04), sans reboucler (setActiveTool n'émet rien).
     connect(_viewport, &GameViewport::toolChanged, _tools, &ToolPanel::setActiveTool);
+    connect(_viewport, &GameViewport::toolChanged, _actions, &EditorActions::setActiveTool);
     // Les messages d'état du viewport (enregistrement, essai, erreurs) s'affichent en bas.
     connect(_viewport, &GameViewport::statusMessage, this,
             [this](const QString& message) { statusBar()->showMessage(message, 5000); });
@@ -286,6 +298,8 @@ void MainWindow::showMenu() {
     _stack->setCurrentWidget(_menu);
     setDocksVisible(false);
     menuBar()->setVisible(false);  // pas de barre de menu sur l'écran d'accueil
+    _toolBar->setVisible(false);
+    _actions->setEditingCommandsEnabled(false);
     statusBar()->clearMessage();
     setMenuGamepadActive(true);
 }
@@ -295,6 +309,8 @@ void MainWindow::showEditor() {
     _stack->setCurrentWidget(_editorContainer);
     setDocksVisible(true);
     menuBar()->setVisible(true);
+    _toolBar->setVisible(true);
+    _actions->setEditingCommandsEnabled(true);
     statusBar()->showMessage(text("status.edit_help"));
     _editorContainer->setFocus();
     setMenuGamepadActive(false);
@@ -306,6 +322,8 @@ void MainWindow::showGame() {
     _stack->setCurrentWidget(_editorContainer);
     setDocksVisible(false);
     menuBar()->setVisible(false);
+    _toolBar->setVisible(false);
+    _actions->setEditingCommandsEnabled(false);
     statusBar()->clearMessage();
     _editorContainer->setFocus();
 
@@ -336,6 +354,8 @@ void MainWindow::showOptions() {
     _stack->setCurrentWidget(_options);
     setDocksVisible(false);
     menuBar()->setVisible(false);
+    _toolBar->setVisible(false);
+    _actions->setEditingCommandsEnabled(false);
     statusBar()->clearMessage();
     setMenuGamepadActive(true);
 }
@@ -364,17 +384,105 @@ void MainWindow::buildUi() {
                                  _ui->TexturesPanel);
     _ui->TexturesPanel->setWidget(_textures);
 
-    // Branchement du fonctionnel sur les actions déclarées dans le `.ui` (libellés posés par
-    // retranslateUi ; les raccourcis Ctrl+S/P/Ctrl+Z sont gérés par le viewport, ces entrées
-    // servent la découvrabilité).
+    // Outils et commandes principales (LOT-56 TACHE-04) : une action unique par commande,
+    // partagée entre la barre d'outils, le menu et son raccourci (plus de double définition).
+    // Icônes construites depuis le thème d'éditeur actuellement effectif ; régénérées par
+    // EditorActions::refreshIcons lors d'un changement de thème (TACHE-06).
+    _actions = new EditorActions(hmi::currentEditorTokens(), this);
+    _toolBar = addToolBar(QStringLiteral("EditorToolBar"));
+    _toolBar->setObjectName(QStringLiteral("EditorToolBar"));
+    _toolBar->setMovable(false);
+    _actions->populateToolBar(*_toolBar);
+
+    for (const hmi::EditorTool tool : {hmi::EditorTool::Paint, hmi::EditorTool::Rectangle,
+                                       hmi::EditorTool::Selection, hmi::EditorTool::Link,
+                                       hmi::EditorTool::TextureAssign, hmi::EditorTool::Decor}) {
+        connect(_actions->toolAction(tool), &QAction::toggled, _viewport, [this, tool](bool on) {
+            if (on) {
+                _viewport->setTool(tool);
+            }
+        });
+    }
+    connect(_actions->action(hmi::IconId::Save), &QAction::triggered, _viewport,
+            [this] { _viewport->save(); });
+    connect(_actions->action(hmi::IconId::Playtest), &QAction::triggered, _viewport,
+            [this] { _viewport->startPlaytest(); });
+    connect(_actions->action(hmi::IconId::Undo), &QAction::triggered, _viewport,
+            [this] { _viewport->undo(); });
+    connect(_actions->action(hmi::IconId::Redo), &QAction::triggered, _viewport,
+            [this] { _viewport->redo(); });
+    connect(_actions->action(hmi::IconId::ToggleGrid), &QAction::triggered, _viewport,
+            [this] { _viewport->toggleGrid(); });
+    connect(_actions->action(hmi::IconId::ResetCamera), &QAction::triggered, _viewport,
+            [this] { _viewport->resetCamera(); });
+    connect(_actions->action(hmi::IconId::ToggleRenderMode), &QAction::triggered, _viewport,
+            [this] { _viewport->toggleRenderMode(); });
+
+    // Commandes principales egalement dans le menu "Niveau" (decouvrabilite, EX-EDIT-015) : les
+    // memes actions que la barre d'outils, aucune seconde definition.
+    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::Save));
+    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::Playtest));
+    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::Undo));
+    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::Redo));
+    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::ToggleGrid));
+    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::ResetCamera));
+    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::ToggleRenderMode));
+    _ui->levelMenu->insertSeparator(_ui->actResize);
+
+    // Branchement du fonctionnel sur les actions restantes, déclarées dans le `.ui`.
     connect(_ui->actMainMenu, &QAction::triggered, this, &MainWindow::showMenu);
     connect(_ui->actQuit, &QAction::triggered, this, &MainWindow::close);
-    connect(_ui->actSave, &QAction::triggered, _viewport, [this] { _viewport->save(); });
-    connect(_ui->actPlaytest, &QAction::triggered, _viewport,
-            [this] { _viewport->startPlaytest(); });
     connect(_ui->actResize, &QAction::triggered, this, [this] { openResizeDialog(); });
     connect(_ui->actResetLayout, &QAction::triggered, this,
             [this] { restoreState(_defaultState, LAYOUT_VERSION); });
+
+    // Thème clair/sombre de l'éditeur (LOT-56 TACHE-06) : réglage Système/Clair/Sombre, persisté,
+    // sans effet sur l'identité du jeu (menu principal/Options), qui reste toujours sombre.
+    _themeMenu = new QMenu(this);
+    _themeSystemAction = _themeMenu->addAction(QString());
+    _themeLightAction = _themeMenu->addAction(QString());
+    _themeDarkAction = _themeMenu->addAction(QString());
+    auto* const themeGroup = new QActionGroup(this);
+    themeGroup->setExclusive(true);
+    for (QAction* const act : {_themeSystemAction, _themeLightAction, _themeDarkAction}) {
+        act->setCheckable(true);
+        act->setActionGroup(themeGroup);
+    }
+    switch (hmi::editorThemeSetting()) {
+        case hmi::EditorThemeSetting::Light:
+            _themeLightAction->setChecked(true);
+            break;
+        case hmi::EditorThemeSetting::Dark:
+            _themeDarkAction->setChecked(true);
+            break;
+        case hmi::EditorThemeSetting::System:
+            _themeSystemAction->setChecked(true);
+            break;
+    }
+    // Re-genere palette + feuille de style + icones depuis le theme desormais effectif : les seuls
+    // elements qui suivent les jetons de couleur (les vignettes d'assets, elles, sont un contenu
+    // de jeu independant du thème de l'IHM, cf. epic.md).
+    const auto applyThemeSetting = [this](hmi::EditorThemeSetting setting) {
+        hmi::setEditorThemeSetting(setting);
+        hmi::reapplyEditorTheme();
+        _actions->refreshIcons(hmi::currentEditorTokens());
+    };
+    connect(_themeSystemAction, &QAction::triggered, this,
+            [applyThemeSetting] { applyThemeSetting(hmi::EditorThemeSetting::System); });
+    connect(_themeLightAction, &QAction::triggered, this,
+            [applyThemeSetting] { applyThemeSetting(hmi::EditorThemeSetting::Light); });
+    connect(_themeDarkAction, &QAction::triggered, this,
+            [applyThemeSetting] { applyThemeSetting(hmi::EditorThemeSetting::Dark); });
+    // Reglage "Systeme" : reagit a un changement live du theme du systeme d'exploitation.
+    connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this,
+            [this](Qt::ColorScheme) {
+                if (hmi::editorThemeSetting() == hmi::EditorThemeSetting::System) {
+                    hmi::reapplyEditorTheme();
+                    _actions->refreshIcons(hmi::currentEditorTokens());
+                }
+            });
+    _ui->viewMenu->insertMenu(_ui->actResetLayout, _themeMenu);
+    _ui->viewMenu->insertSeparator(_ui->actResetLayout);
 
     // Bascules de visibilité des docks (dynamiques) : insérées avant « Réinitialiser la disposition
     // ».
@@ -510,11 +618,14 @@ void MainWindow::retranslateUi() {
     _ui->actMainMenu->setText(text("menubar.main_menu"));
     _ui->actQuit->setText(text("menubar.quit"));
     _ui->levelMenu->setTitle(text("menubar.level"));
-    _ui->actSave->setText(text("menubar.save"));
-    _ui->actPlaytest->setText(text("menubar.playtest"));
     _ui->actResize->setText(text("menubar.resize"));
     _ui->viewMenu->setTitle(text("menubar.view"));
+    _themeMenu->setTitle(text("menubar.theme"));
+    _themeSystemAction->setText(text("menubar.theme_system"));
+    _themeLightAction->setText(text("menubar.theme_light"));
+    _themeDarkAction->setText(text("menubar.theme_dark"));
     _ui->actResetLayout->setText(text("menubar.reset_layout"));
+    _actions->retranslateUi(_loc);
 
     // Panneaux et pages (chacun retraduit son propre contenu depuis le catalogue).
     _menu->retranslateUi(_loc);

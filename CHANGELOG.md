@@ -7,6 +7,42 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-56 — Système de design de l'IHM Qt** (`EX-IHM-050` à `EX-IHM-055`) : l'éditeur prend enfin
+  la main sur sa propre apparence — jusqu'ici le style **natif** de la plate-forme, qui ignorait une
+  large part de l'unique feuille de style existante (`theme.qss`, restreinte au menu principal et à
+  la page Options par `objectName`, faute de mieux).
+  - `hmi::DesignTokens` (`HMI/Interface/DesignTokens.h`) — jetons de design purs (couleurs par rôle,
+    espacement, typographie, tailles), en deux portées de structure identique : l'**identité** du
+    jeu (menu, Options, jeu — invariante) et le **châssis d'édition** (variable). `hmi::
+    ApplicationTheme` choisit le style Qt Fusion avant tout widget, construit la `QPalette`
+    complète (actif/inactif/désactivé) et produit `theme.qss` par substitution de marqueurs depuis
+    les jetons (`hmi::substituteStyleSheetTemplate`, fonction pure) — plus aucune couleur littérale,
+    et une étanchéité entre les deux portées garantie par test. Focus clavier visible partout
+    (navigation à la manette, `EX-IHM-040`).
+  - Police **Inter** embarquée (`Assets/Fonts/Inter-{Regular,Bold}.ttf`, licence SIL OFL 1.1) avec
+    repli sur une famille générique si absente (`hmi::resolveFontFamily`, jamais un second nom codé
+    en dur) ; typographie à échelle unique, tailles et marges des `.ui` retirées au profit des
+    jetons.
+  - Barre d'outils à icônes (`hmi::EditorActions`) remplaçant les boutons radio empilés du panneau
+    Outils (`EX-EDIT-015`) : six outils et sept commandes (enregistrer, essayer, annuler, refaire,
+    grille, recadrer, mode de rendu) exposés comme des actions Qt **uniques**, simultanément dans le
+    menu, la barre d'outils et leur raccourci — plus de double définition. Icônes dessinées par code
+    (`hmi::iconGeometry`/`hmi::themeIcon`, géométrie pure + rendu `QPainter`), recolorées depuis les
+    jetons.
+  - Vignettes de la palette, des grilles d'assets et des lignes du panneau Textures rendues à la
+    résolution **réelle** de l'écran (`hmi::thumbnailPixelSize`, fonction pure) : nettes à 100 %,
+    125 % et 150 % d'échelle d'affichage, régénérées lors d'un changement d'écran.
+  - Thème **clair/sombre de l'éditeur** (`hmi::editorLightTokens`, `hmi::
+    resolveEffectiveEditorTheme`), suivant par défaut le réglage du système d'exploitation, réglable
+    depuis le menu Affichage (Système/Clair/Sombre) et persisté ; appliqué à chaud (palette, feuille
+    de style, icônes) sans redémarrage. Contraste texte/fond vérifié pour les deux thèmes (seuils
+    WCAG). L'identité (menu principal, Options, jeu) reste rigoureusement inchangée quel que soit le
+    thème actif, y compris après une bascule à chaud — garanti par test.
+  - **24 nouveaux tests**, tous sans Qt/GPU (la couche Qt — `ApplicationTheme`, `ThemeIcons`,
+    `EditorActions` — reste, comme `BitmapFont`/`GameViewport`, hors `UnitTests` ; seule leur
+    logique pure — jetons, gabarit de feuille de style, catalogue d'actions, géométrie d'icônes,
+    résolution de thème — y est compilée) ; build `/W4 /WX` propre, 856 tests verts.
+
 - **LOT-52 — Texte, police bitmap et affichage tête haute** (`EX-IHM-003`, re-concrétise
   `EX-REN-032` retirée au `LOT-38`) : le jeu peut de nouveau afficher du texte **dans la scène
   rendue** — les budgets de sauts/dashs (`EX-GP-024`, `LOT-12`) et le nom du tableau, jusqu'ici

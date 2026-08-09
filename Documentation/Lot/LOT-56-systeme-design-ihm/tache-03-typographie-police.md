@@ -1,6 +1,6 @@
 # TACHE-03 — Police embarquée et typographie à source unique {#lot-56-tache-03-typographie-police}
 
-**Lot :** [LOT-56](epic.md) · **Emplacement :** `Source/Elements`, `Source/HMI/Interface` · **Statut :** non commencé
+**Lot :** [LOT-56](epic.md) · **Emplacement :** `Source/Elements`, `Source/HMI/Interface` · **Statut :** fait
 
 ## Contexte
 La typographie de l'interface a **deux sources de vérité** qui se contredisent. Les fichiers

@@ -1,6 +1,6 @@
 # TACHE-01 — Socle de style : style Qt, palette applicative et jetons de design {#lot-56-tache-01-socle-style}
 
-**Lot :** [LOT-56](epic.md) · **Emplacement :** `Source/HMI/Interface` · **Statut :** non commencé
+**Lot :** [LOT-56](epic.md) · **Emplacement :** `Source/HMI/Interface` · **Statut :** fait
 
 ## Contexte
 `Source/HMI/main.cpp` charge une feuille de style et rien d'autre : l'application ne choisit jamais son

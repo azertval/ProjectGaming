@@ -12,6 +12,7 @@
 #include <QVBoxLayout>
 
 #include "HMI/Input/GamepadButtonName.h"
+#include "HMI/Interface/DesignTokens.h"
 #include "HMI/Localization/Localization.h"
 
 namespace hmi {
@@ -38,7 +39,8 @@ GamepadBindingsWidget::GamepadBindingsWidget(hmi::GamepadBindings& bindings,
     auto* const form = new QFormLayout();
     for (int index = 0; index < hmi::GAME_ACTION_COUNT; ++index) {
         auto* const button = new QPushButton(this);
-        button->setMinimumWidth(160);
+        // Largeur minimale unifiee avec KeybindingsWidget (LOT-56, jeton controlMinWidth).
+        button->setMinimumWidth(editorDarkTokens().size.controlMinWidth);
         connect(button, &QPushButton::clicked, this, [this, index] { startCapture(index); });
         _buttons[static_cast<std::size_t>(index)] = button;
         auto* const label = new QLabel(this);

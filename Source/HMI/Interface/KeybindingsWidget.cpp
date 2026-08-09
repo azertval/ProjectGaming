@@ -12,6 +12,7 @@
 
 #include "HMI/Input/QtKeyMap.h"
 #include "HMI/Input/KeyName.h"
+#include "HMI/Interface/DesignTokens.h"
 #include "HMI/Localization/Localization.h"
 
 namespace hmi {
@@ -38,7 +39,9 @@ KeybindingsWidget::KeybindingsWidget(hmi::GameKeyBindings& bindings, std::filesy
     auto* const form = new QFormLayout();
     for (int index = 0; index < hmi::GAME_ACTION_COUNT; ++index) {
         auto* const button = new QPushButton(this);
-        button->setMinimumWidth(140);
+        // Largeur minimale unifiee avec GamepadBindingsWidget (LOT-56, jeton controlMinWidth) :
+        // deux widgets jumeaux affichant la meme colonne de boutons dans des onglets voisins.
+        button->setMinimumWidth(editorDarkTokens().size.controlMinWidth);
         connect(button, &QPushButton::clicked, this, [this, index] {
             _capturing = index;
             _buttons[static_cast<std::size_t>(index)]->setText(

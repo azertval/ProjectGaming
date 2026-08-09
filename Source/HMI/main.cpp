@@ -9,7 +9,6 @@
 
 #include <QApplication>
 #include <QCoreApplication>
-#include <QFile>
 #include <QImage>
 #include <QString>
 #include <cstdint>
@@ -26,6 +25,7 @@
 #include "Core/Diagnostics/MemoryLogSink.h"
 #include "HMI/Graphics/ProceduralAtlas.h"
 #include "HMI/HmiLog.h"
+#include "HMI/Interface/ApplicationTheme.h"
 #include "HMI/Interface/MainWindow.h"
 
 namespace {
@@ -122,6 +122,10 @@ int main(int argc, char** argv) {
     }
 
     QApplication application(argc, argv);
+    // Style choisi avant tout widget (LOT-56) : appliqué après, il ne se propage pas aux widgets
+    // déjà construits -- condition pour que la palette et la feuille de style ci-dessous couvrent
+    // l'ensemble de l'application plutôt que le sous-ensemble que le style natif honore.
+    hmi::applyApplicationStyle();
     // Identité de l'application : sert de portée aux réglages persistés (QSettings — disposition
     // des panneaux de l'éditeur, EX-IHM-011).
     QCoreApplication::setOrganizationName(QStringLiteral("ProjectGaming"));
@@ -145,15 +149,11 @@ int main(int argc, char** argv) {
         return saved ? 0 : 1;
     }
 
-    // Thème de l'IHM (menu/options), embarqué en ressource (resources.qrc -> theme.qss). Portée par
-    // objectName : l'éditeur (docks) conserve le thème Qt par défaut.
-    if (QFile themeFile(QStringLiteral(":/resources/theme.qss"));
-        themeFile.open(QFile::ReadOnly | QFile::Text)) {
-        application.setStyleSheet(QString::fromUtf8(themeFile.readAll()));
-    } else {
-        HMI_LOG_WARNING(
-            "Theme d'interface introuvable (:/resources/theme.qss) : style par defaut.");
-    }
+    // Thème complet (palette + feuille de style, LOT-56) du châssis d'édition (portée variable),
+    // avant la construction de la fenêtre. La feuille de style couvre désormais toute l'IHM,
+    // produite à partir des jetons (Source/Elements/Themes/theme.qss, TACHE-02) : elle remplace le
+    // chargement direct historique (repli sans fichier de thème préservé dans applyStyleSheet).
+    hmi::applyEditorTheme();
 
     hmi::MainWindow window(sessionLog);
     window.show();

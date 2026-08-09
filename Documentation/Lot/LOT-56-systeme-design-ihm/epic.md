@@ -1,6 +1,6 @@
 # LOT-56 — Système de design de l'IHM Qt {#lot-56}
 
-> Statut : **non commencé**. Prérequis : [LOT-38](@ref lot-38) (unification sur Qt, retrait de l'UI
+> Statut : **fait**. Prérequis : [LOT-38](@ref lot-38) (unification sur Qt, retrait de l'UI
 > « maison »).
 
 ## Objectif
@@ -135,12 +135,12 @@ couche à construire.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-socle-style.md) | Socle de style : choix du style Qt, palette applicative et jetons de design | `Source/HMI/Interface` | ⬜ |
-| [TACHE-02](tache-02-theme-global.md) | Thème couvrant toute l'application, produit à partir des jetons, états de focus visibles | `Source/Elements/Themes`, `Source/HMI/Interface` | ⬜ |
-| [TACHE-03](tache-03-typographie-police.md) | Police embarquée avec repli et typographie à source unique | `Source/Elements`, `Source/HMI/Interface` | ⬜ |
-| [TACHE-04](tache-04-icones-barre-outils.md) | Icônes dessinées par code et barre d'outils à actions | `Source/HMI/Interface`, `Source/HMI/Editor` | ⬜ |
-| [TACHE-05](tache-05-nettete-dpi.md) | Netteté des vignettes à toute échelle d'affichage | `Source/HMI/Editor` | ⬜ |
-| [TACHE-06](tache-06-theme-clair-sombre.md) | Thème clair/sombre **de l'éditeur**, suivant le système, réglable et persisté | `Source/HMI/Interface`, `Source/Elements/Themes` | ⬜ |
+| [TACHE-01](tache-01-socle-style.md) | Socle de style : choix du style Qt, palette applicative et jetons de design | `Source/HMI/Interface` | ✅ |
+| [TACHE-02](tache-02-theme-global.md) | Thème couvrant toute l'application, produit à partir des jetons, états de focus visibles | `Source/Elements/Themes`, `Source/HMI/Interface` | ✅ |
+| [TACHE-03](tache-03-typographie-police.md) | Police embarquée avec repli et typographie à source unique | `Source/Elements`, `Source/HMI/Interface` | ✅ |
+| [TACHE-04](tache-04-icones-barre-outils.md) | Icônes dessinées par code et barre d'outils à actions | `Source/HMI/Interface`, `Source/HMI/Editor` | ✅ |
+| [TACHE-05](tache-05-nettete-dpi.md) | Netteté des vignettes à toute échelle d'affichage | `Source/HMI/Editor` | ✅ |
+| [TACHE-06](tache-06-theme-clair-sombre.md) | Thème clair/sombre **de l'éditeur**, suivant le système, réglable et persisté | `Source/HMI/Interface`, `Source/Elements/Themes` | ✅ |
 
 ## Critères d'acceptation du lot
 1. L'ensemble de l'application partage une seule apparence : aucun panneau, aucune boîte de dialogue

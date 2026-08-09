@@ -10,6 +10,7 @@
 #include <QTabWidget>
 
 #include "HMI/Game/GameViewport.h"
+#include "HMI/Interface/DesignTokens.h"
 #include "HMI/Interface/GamepadBindingsWidget.h"
 #include "HMI/Interface/KeybindingsWidget.h"
 #include "HMI/Localization/Localization.h"
@@ -23,6 +24,12 @@ OptionsPage::OptionsPage(GameViewport* viewport, std::filesystem::path keybindin
     setObjectName(QStringLiteral("OptionsPage"));  // ciblé par le thème (theme.qss)
     setAttribute(Qt::WA_StyledBackground, true);
     _ui->setupUi(this);
+
+    // Marges de la mise en page, depuis l'echelle d'espacement des jetons (LOT-56 TACHE-03) --
+    // remplace les nombres jusqu'ici figes dans OptionsPage.ui.
+    const SpacingTokens& spacing = identityTokens().spacing;
+    _ui->verticalLayout->setContentsMargins(spacing.extraLarge * 3, spacing.extraLarge * 2,
+                                            spacing.extraLarge * 3, spacing.extraLarge * 2);
 
     // Onglet Vidéo : V-Sync et plein écran fonctionnels (résolution/FPS présents mais désactivés).
     _ui->vsyncCheck->setChecked(viewport->vsyncEnabled());

@@ -1,6 +1,6 @@
 # TACHE-02 — Thème couvrant toute l'application {#lot-56-tache-02-theme-global}
 
-**Lot :** [LOT-56](epic.md) · **Emplacement :** `Source/Elements/Themes`, `Source/HMI/Interface` · **Statut :** non commencé
+**Lot :** [LOT-56](epic.md) · **Emplacement :** `Source/Elements/Themes`, `Source/HMI/Interface` · **Statut :** fait
 
 ## Contexte
 `Source/Elements/Themes/theme.qss` fait une soixantaine de lignes et n'adresse que deux écrans, par

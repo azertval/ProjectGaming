@@ -15,10 +15,12 @@ menubar.application = Application
 menubar.main_menu = Main menu
 menubar.quit = Quit
 menubar.level = Level
-menubar.save = Save (Ctrl+S)
-menubar.playtest = Playtest (P)
 menubar.resize = Resize…
 menubar.view = View
+menubar.theme = Theme
+menubar.theme_system = System
+menubar.theme_light = Light
+menubar.theme_dark = Dark
 menubar.reset_layout = Reset layout
 
 # Dock panels
@@ -127,6 +129,16 @@ tool.decor_layer_background = Background
 tool.decor_layer_decor = Decor
 tool.decor_layer_foreground = Foreground
 tool.decor_snap_to_grid = Snap to grid
+
+# Toolbar actions/commands (LOT-56 TACHE-04): label only, the shortcut comes from the action
+# itself (EditorActions::retranslateUi), never entered here.
+action.save = Save
+action.playtest = Playtest
+action.undo = Undo
+action.redo = Redo
+action.toggle_grid = Grid
+action.reset_camera = Reset camera
+action.toggle_render_mode = Render mode
 
 # Links panel (LOT-37)
 link.column.type = Type

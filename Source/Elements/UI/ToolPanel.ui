@@ -3,37 +3,8 @@
  <class>ToolPanel</class>
  <widget class="QWidget" name="ToolPanel">
   <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QRadioButton" name="paintRadio">
-     <property name="text"><string>Pinceau</string></property>
-     <property name="checked"><bool>true</bool></property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QRadioButton" name="rectangleRadio">
-     <property name="text"><string>Rectangle</string></property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QRadioButton" name="selectionRadio">
-     <property name="text"><string>Sélection</string></property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QRadioButton" name="linkRadio">
-     <property name="text"><string>Lien</string></property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QRadioButton" name="textureAssignRadio">
-     <property name="text"><string>Texture</string></property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QRadioButton" name="decorRadio">
-     <property name="text"><string>Décor</string></property>
-    </widget>
-   </item>
+   <!-- Le choix d'outil se fait desormais depuis la barre d'outils (hmi::EditorActions, LOT-56
+        TACHE-04) : ce panneau ne porte plus que le strict necessaire de l'outil Decor. -->
    <item>
     <widget class="QWidget" name="decorPickerGroup">
      <layout class="QVBoxLayout" name="decorPickerGroupLayout">

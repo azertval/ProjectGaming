@@ -14,8 +14,9 @@
    </widget>
    <widget class="QMenu" name="levelMenu">
     <property name="title"><string>Niveau</string></property>
-    <addaction name="actSave"/>
-    <addaction name="actPlaytest"/>
+    <!-- Enregistrer/Essayer/Annuler/Refaire/Grille/Recadrer/Mode de rendu sont inseres en code
+         (hmi::EditorActions, LOT-56 TACHE-04) : actions partagees avec la barre d'outils, aucune
+         seconde definition ici. -->
     <addaction name="actResize"/>
    </widget>
    <widget class="QMenu" name="viewMenu">
@@ -56,8 +57,6 @@
   </widget>
   <action name="actMainMenu"><property name="text"><string>Menu principal</string></property></action>
   <action name="actQuit"><property name="text"><string>Quitter</string></property></action>
-  <action name="actSave"><property name="text"><string>Enregistrer (Ctrl+S)</string></property></action>
-  <action name="actPlaytest"><property name="text"><string>Essayer (P)</string></property></action>
   <action name="actResize"><property name="text"><string>Redimensionner…</string></property></action>
   <action name="actResetLayout"><property name="text"><string>Réinitialiser la disposition</string></property></action>
  </widget>

@@ -74,6 +74,10 @@ add_executable(UnitTests
     Unit/HMI/Game/test_game_hud.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
+    Unit/HMI/Interface/test_design_tokens.cpp
+    Unit/HMI/Interface/test_application_theme.cpp
+    Unit/HMI/Interface/test_editor_actions.cpp
+    Unit/HMI/Editor/test_thumbnail_geometry.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
     Unit/HMI/Editor/test_tile_taxonomy.cpp
     Unit/HMI/Editor/test_skin_assignments.cpp
@@ -216,6 +220,30 @@ add_executable(UnitTests
     # Choix des lignes du HUD (budgets, nom du tableau) à partir de core::Player/core::Level
     # (LOT-52) : fonction pure, testable hors GPU.
     ../HMI/Game/GameHud.cpp
+    # Jetons de design de l'IHM (LOT-56) : couleurs par rôle, échelles, conversion CSS -- aucune
+    # dépendance Qt/GPU (contrairement à ApplicationTheme.cpp, qui les applique via QPalette/
+    # QApplication et n'est donc pas compilé ici, même distinction que BitmapFont.cpp/
+    # ProceduralFont.cpp) : testable hors GPU.
+    ../HMI/Interface/DesignTokens.cpp
+    # Substitution ${...} du modele de feuille de style (LOT-56 TACHE-02) : logique pure sur des
+    # std::string, aucune dependance Qt (contrairement a ApplicationTheme.cpp, qui charge le
+    # fichier via QFile et l'applique via QApplication::setStyleSheet).
+    ../HMI/Interface/StyleSheetTemplate.cpp
+    # Resolution de la famille de police embarquee (LOT-56 TACHE-03) : decision pure (booleen +
+    # chaines), aucune dependance Qt (l'enregistrement reel via QFontDatabase reste dans
+    # ApplicationTheme.cpp, non compile ici).
+    ../HMI/Interface/FontResolution.cpp
+    # Resolution du theme effectif de l'editeur (LOT-56 TACHE-06) : decision pure (reglage +
+    # preference systeme -> thème a appliquer), aucune dependance Qt.
+    ../HMI/Interface/ThemeResolution.cpp
+    # Geometrie des icones et catalogue d'actions de l'editeur (LOT-56 TACHE-04) : logique pure
+    # (listes de primitives, tables statiques), aucune dependance Qt (le rendu QPainter reel reste
+    # dans ThemeIcons.cpp/EditorActions.cpp, non compiles ici).
+    ../HMI/Interface/IconGeometry.cpp
+    ../HMI/Interface/ActionCatalog.cpp
+    # Dimensionnement des vignettes a l'echelle d'affichage (LOT-56 TACHE-05) : arithmetique pure,
+    # aucune dependance Qt/GPU.
+    ../HMI/Editor/ThumbnailGeometry.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE
@@ -233,7 +261,12 @@ target_link_libraries(UnitTests PRIVATE
 target_compile_definitions(UnitTests PRIVATE
     PROJECTGAMING_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels"
     PROJECTGAMING_LOCALIZATION_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Localization"
-    PROJECTGAMING_ASSETS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Assets")
+    PROJECTGAMING_ASSETS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Assets"
+    PROJECTGAMING_THEME_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/Themes/theme.qss"
+    PROJECTGAMING_MAIN_MENU_UI_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/UI/MainMenu.ui"
+    PROJECTGAMING_OPTIONS_PAGE_UI_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/UI/OptionsPage.ui"
+    PROJECTGAMING_FR_LANG_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/Localization/fr.lang"
+    PROJECTGAMING_EN_LANG_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/Localization/en.lang")
 
 # Tests d'intégration : plusieurs briques assemblées collaborant de bout en bout.
 add_executable(IntegrationTests

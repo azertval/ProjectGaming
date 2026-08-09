@@ -18,10 +18,12 @@
 
 #include "HMI/Editor/AssetFileOperations.h"
 #include "HMI/Editor/AssetLibrary.h"
+#include "HMI/Editor/ThumbnailGeometry.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/ProceduralAtlas.h"
 #include "HMI/Graphics/TextureLoader.h"
 #include "HMI/HmiLog.h"
+#include "HMI/Interface/DesignTokens.h"
 #include "HMI/Localization/Localization.h"
 #include "ui_AssetThumbnailView.h"
 
@@ -29,8 +31,9 @@ namespace hmi {
 
 namespace {
 
-// Cote des vignettes, en pixels d'ecran (coherent avec l'iconSize du .ui).
-constexpr int THUMBNAIL_SIZE = 48;
+// Cote des vignettes, en pixels d'ecran (coherent avec l'iconSize du .ui) : jeton de taille
+// (LOT-56), commun aux deux themes d'editeur (SizeTokens partage entre les portees).
+const int THUMBNAIL_SIZE = editorDarkTokens().size.assetThumbnail;
 
 // Role portant le nom de fichier d'un item ("" pour l'entree "(aucun)").
 constexpr int FILE_NAME_ROLE = Qt::UserRole + 1;
@@ -166,10 +169,26 @@ QPixmap AssetThumbnailView::thumbnailFor(const std::string& fileName) {
     }
 
     // Plus proche voisin : les assets sont du pixel art, une vignette interpolee serait floue.
-    const QPixmap pixmap = QPixmap::fromImage(
-        source.scaled(THUMBNAIL_SIZE, THUMBNAIL_SIZE, Qt::KeepAspectRatio, Qt::FastTransformation));
+    // Rendue a la resolution REELLE (LOT-56 TACHE-05) : sans quoi un ecran a 125%/150% l'agrandit
+    // par interpolation cote Qt, contradictoire avec le filtrage plus proche voisin choisi ici.
+    const qreal scale = devicePixelRatioF();
+    const int pixelSize = thumbnailPixelSize(THUMBNAIL_SIZE, scale);
+    QPixmap pixmap = QPixmap::fromImage(
+        source.scaled(pixelSize, pixelSize, Qt::KeepAspectRatio, Qt::FastTransformation));
+    pixmap.setDevicePixelRatio(scale);
     _thumbnails.emplace(key, pixmap);
     return pixmap;
+}
+
+bool AssetThumbnailView::event(QEvent* event) {
+    if (event->type() == QEvent::ScreenChangeInternal) {
+        // Un deplacement vers un ecran d'echelle differente doit regenerer les vignettes (LOT-56
+        // TACHE-05) : le cache est a l'ancienne resolution, sinon le defaut reviendrait sans rien
+        // le signaler.
+        clearCache();
+        refresh();
+    }
+    return QWidget::event(event);
 }
 
 void AssetThumbnailView::onFilterChanged(const QString& text) {

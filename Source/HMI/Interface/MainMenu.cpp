@@ -2,6 +2,7 @@
 
 #include <QPushButton>
 
+#include "HMI/Interface/DesignTokens.h"
 #include "HMI/Localization/Localization.h"
 #include "ui_MainMenu.h"
 
@@ -11,6 +12,12 @@ MainMenu::MainMenu(QWidget* parent) : QWidget(parent), _ui(std::make_unique<Ui::
     setObjectName(QStringLiteral("MainMenu"));   // ciblé par le thème (theme.qss)
     setAttribute(Qt::WA_StyledBackground, true);  // pour que la couleur de fond du thème s'applique
     _ui->setupUi(this);
+
+    // Marges de la mise en page, depuis l'echelle d'espacement des jetons (LOT-56 TACHE-03) --
+    // remplace les nombres jusqu'ici figes dans MainMenu.ui.
+    const SpacingTokens& spacing = identityTokens().spacing;
+    _ui->verticalLayout->setContentsMargins(spacing.extraLarge * 3, spacing.extraLarge * 3,
+                                            spacing.extraLarge * 2, spacing.extraLarge * 2);
 
     connect(_ui->playButton, &QPushButton::clicked, this, &MainMenu::playRequested);
     connect(_ui->editorButton, &QPushButton::clicked, this, &MainMenu::editorRequested);

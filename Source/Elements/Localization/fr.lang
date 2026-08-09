@@ -16,10 +16,12 @@ menubar.application = Application
 menubar.main_menu = Menu principal
 menubar.quit = Quitter
 menubar.level = Niveau
-menubar.save = Enregistrer (Ctrl+S)
-menubar.playtest = Essayer (P)
 menubar.resize = Redimensionner…
 menubar.view = Affichage
+menubar.theme = Thème
+menubar.theme_system = Système
+menubar.theme_light = Clair
+menubar.theme_dark = Sombre
 menubar.reset_layout = Réinitialiser la disposition
 
 # Panneaux dockables
@@ -128,6 +130,16 @@ tool.decor_layer_background = Arrière-plan
 tool.decor_layer_decor = Décor
 tool.decor_layer_foreground = Premier plan
 tool.decor_snap_to_grid = Aimanter à la grille
+
+# Actions/commandes de la barre d'outils (LOT-56 TACHE-04) : libellé seul, le raccourci vient de
+# l'action elle-même (EditorActions::retranslateUi), jamais saisi ici.
+action.save = Enregistrer
+action.playtest = Essayer
+action.undo = Annuler
+action.redo = Refaire
+action.toggle_grid = Grille
+action.reset_camera = Recadrer
+action.toggle_render_mode = Mode de rendu
 
 # Panneau Liens (LOT-37)
 link.column.type = Type

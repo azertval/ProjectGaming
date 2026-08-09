@@ -138,6 +138,15 @@ add_executable(ProjectGaming
     # Diagnostics (enregistrement des journaux de session)
     Diagnostics/SessionLog.cpp
     # Interface (fenêtre, menu, options, remappage)
+    Interface/DesignTokens.cpp
+    Interface/StyleSheetTemplate.cpp
+    Interface/FontResolution.cpp
+    Interface/ThemeResolution.cpp
+    Interface/ApplicationTheme.cpp
+    Interface/IconGeometry.cpp
+    Interface/ThemeIcons.cpp
+    Interface/ActionCatalog.cpp
+    Interface/EditorActions.cpp
     Interface/MainWindow.cpp
     Interface/MainMenu.cpp
     Interface/OptionsPage.cpp
@@ -162,6 +171,7 @@ add_executable(ProjectGaming
     Editor/DecorGesture.cpp
     Editor/DecorListModel.cpp
     Editor/AssetLibrary.cpp
+    Editor/ThumbnailGeometry.cpp
     Editor/AssetThumbnailView.cpp
     Editor/AssetFileOperations.cpp
     Editor/AssetReferences.cpp

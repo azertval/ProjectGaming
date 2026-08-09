@@ -26,6 +26,7 @@
  * @brief Panneau « Textures » : jeu de skins courant et assignation par type (LOT-42).
  */
 
+class QEvent;
 class QModelIndex;
 class QStandardItem;
 class QStandardItemModel;
@@ -152,6 +153,11 @@ public:
      * @param mode Mode de rendu courant (`hmi::GameViewport::renderMode`).
      */
     void setRenderModeIndicator(RenderMode mode);
+
+protected:
+    /// Régénère les vignettes lors d'un changement d'écran (`QEvent::ScreenChangeInternal`) :
+    /// l'échelle d'affichage a pu changer (`LOT-56` TACHE-05).
+    bool event(QEvent* event) override;
 
 signals:
     /// Émis après toute modification d'assignation ou changement de jeu courant, une fois le

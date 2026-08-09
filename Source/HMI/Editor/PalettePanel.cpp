@@ -1,6 +1,7 @@
 #include "HMI/Editor/PalettePanel.h"
 
 #include <QColor>
+#include <QEvent>
 #include <QIcon>
 #include <QImage>
 #include <QItemSelectionModel>
@@ -22,13 +23,14 @@
 
 #include "HMI/Editor/PaletteAppearance.h"
 #include "HMI/Editor/TaxonomyLabels.h"
+#include "HMI/Editor/ThumbnailGeometry.h"
 #include "HMI/Editor/TileTaxonomy.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/ProceduralAtlas.h"
 #include "HMI/Graphics/SlopeMask.h"
-#include "HMI/Graphics/TextureAtlas.h"
 #include "HMI/Graphics/TextureLoader.h"
 #include "HMI/Graphics/TileVisuals.h"
+#include "HMI/Interface/DesignTokens.h"
 #include "HMI/Localization/Localization.h"
 
 namespace hmi {
@@ -45,10 +47,10 @@ constexpr int TILE_TYPE_ROLE = Qt::UserRole + 1;
     return QString::fromStdString(localizedTaxonomyLabel(loc, label));
 }
 
-// Cote des vignettes de la palette, en pixels d'ecran. Multiple entier de la taille d'une case
-// (16) : toute autre valeur reechantillonnerait le pixel art de travers, meme en plus proche
-// voisin.
-constexpr int THUMBNAIL_SIZE = TextureAtlas::TILE_SIZE * 2;
+// Cote des vignettes de la palette, en pixels d'ecran : jeton de taille (LOT-56), deja un multiple
+// entier de la taille d'une case (16) -- toute autre valeur reechantillonnerait le pixel art de
+// travers, meme en plus proche voisin.
+const int THUMBNAIL_SIZE = editorDarkTokens().size.paletteThumbnail;
 
 // Crée une feuille sélectionnable portant son type de tuile.
 [[nodiscard]] QStandardItem* makeLeaf(const TileEntry& entry, const Localization* loc) {
@@ -194,10 +196,27 @@ QPixmap PalettePanel::thumbnailFor(core::TileType type) {
         }
     }
 
-    // Mise a l'echelle en PLUS PROCHE VOISIN : l'interpolation lisse par defaut de Qt rendrait le
-    // pixel art flou, incoherent avec le rendu du canevas (EX-ARCH-022).
-    return QPixmap::fromImage(
-        tile.scaled(THUMBNAIL_SIZE, THUMBNAIL_SIZE, Qt::KeepAspectRatio, Qt::FastTransformation));
+    // Mise a l'echelle en PLUS PROCHE VOISIN, a la resolution REELLE (LOT-56 TACHE-05) : sans quoi
+    // l'interpolation lisse de Qt (fond d'ecran a 125%/150%) rendrait le pixel art flou, incoherent
+    // avec le rendu du canevas (EX-ARCH-022).
+    const qreal scale = devicePixelRatioF();
+    const int pixelSize = thumbnailPixelSize(THUMBNAIL_SIZE, scale);
+    QPixmap pixmap = QPixmap::fromImage(
+        tile.scaled(pixelSize, pixelSize, Qt::KeepAspectRatio, Qt::FastTransformation));
+    pixmap.setDevicePixelRatio(scale);
+    return pixmap;
+}
+
+bool PalettePanel::event(QEvent* event) {
+    if (event->type() == QEvent::ScreenChangeInternal) {
+        // Un deplacement vers un ecran d'echelle differente doit regenerer les vignettes (LOT-56
+        // TACHE-05) : le cache decode reste valable, seule la mise a l'echelle doit etre rejouee.
+        _decoded.clear();
+        _model->clear();
+        buildModel();
+        _tree->expandAll();
+    }
+    return QWidget::event(event);
 }
 
 void PalettePanel::onCurrentChanged(const QModelIndex& current) {

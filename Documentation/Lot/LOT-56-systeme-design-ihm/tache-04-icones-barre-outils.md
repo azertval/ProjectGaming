@@ -1,6 +1,6 @@
 # TACHE-04 — Icônes dessinées par code et barre d'outils à actions {#lot-56-tache-04-icones-barre-outils}
 
-**Lot :** [LOT-56](epic.md) · **Emplacement :** `Source/HMI/Interface`, `Source/HMI/Editor` · **Statut :** non commencé
+**Lot :** [LOT-56](epic.md) · **Emplacement :** `Source/HMI/Interface`, `Source/HMI/Editor` · **Statut :** fait
 
 ## Contexte
 `EX-EDIT-015` exige depuis le `LOT-15` que l'éditeur expose ses commandes « de façon découvrable à
