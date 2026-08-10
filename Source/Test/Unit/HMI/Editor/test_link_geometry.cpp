@@ -12,7 +12,18 @@ using core::TileType;
 
 }  // namespace
 
-// Switch/PressurePlate sont des declencheurs ; les autres types ne le sont pas.
+/**
+ * @brief Seuls l'interrupteur et la plaque de pression sont des **déclencheurs** ; aucun autre type
+ * ne l'est. C'est ce prédicat qui décide ce que l'outil de liaison accepte comme point de
+ * départ.
+ * \castest{<b>Seuls l'interrupteur et la plaque de pression sont reconnus comme
+ * déclencheurs.</b><br/>
+ * \tcat Unitaire · Géométrie des liens<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(LinkGeometry, IsTriggerTileReconnaitDeclencheurs) {
     EXPECT_TRUE(hmi::isTriggerTile(TileType::Switch));
     EXPECT_TRUE(hmi::isTriggerTile(TileType::PressurePlate));
@@ -21,7 +32,18 @@ TEST(LinkGeometry, IsTriggerTileReconnaitDeclencheurs) {
     EXPECT_FALSE(hmi::isTriggerTile(TileType::Solid));
 }
 
-// Door/DangerSwitched sont des cibles ; les autres types ne le sont pas.
+/**
+ * @brief Seuls la porte et le danger commutable sont des **cibles** de liaison — un déclencheur
+ * n'en
+ * est jamais une, ce qui interdit de lier deux interrupteurs entre eux.
+ * \castest{<b>Seuls la porte et le danger commutable sont reconnus comme cibles de
+ * liaison.</b><br/>
+ * \tcat Unitaire · Géométrie des liens<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(LinkGeometry, IsLinkTargetTileReconnaitCibles) {
     EXPECT_TRUE(hmi::isLinkTargetTile(TileType::Door));
     EXPECT_TRUE(hmi::isLinkTargetTile(TileType::DangerSwitched));
@@ -29,7 +51,17 @@ TEST(LinkGeometry, IsLinkTargetTileReconnaitCibles) {
     EXPECT_FALSE(hmi::isLinkTargetTile(TileType::PressurePlate));
 }
 
-// linkSegment relie les centres de case (origine haut-gauche, +0.5 pour le centre).
+/**
+ * @brief Le trait relie les **centres** des deux cases (origine en haut à gauche, demi-case
+ * ajoutée) :
+ * partir du coin ferait pointer les flèches à côté des mécanismes qu'elles relient.
+ * \castest{<b>Le trait de liaison relie les centres des deux cases.</b><br/>
+ * \tcat Unitaire · Géométrie des liens<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(LinkGeometry, LinkSegmentRelieLesCentresDeCase) {
     const hmi::LinkSegment segment = hmi::linkSegment(GridPosition{0, 0}, GridPosition{3, 0});
     EXPECT_FLOAT_EQ(segment.a.x, 0.5f);
@@ -38,14 +70,34 @@ TEST(LinkGeometry, LinkSegmentRelieLesCentresDeCase) {
     EXPECT_FLOAT_EQ(segment.b.y, 0.5f);
 }
 
-// Segment vertical : seule la coordonnee row varie.
+/**
+ * @brief Un lien vertical ne fait varier que l'ordonnée, dans le sens du déclencheur vers la cible
+ * :
+ * l'orientation du segment porte le sens de lecture de la flèche.
+ * \castest{<b>Un lien vertical ne fait varier que l'ordonnée, du déclencheur vers la
+ * cible.</b><br/>
+ * \tcat Unitaire · Géométrie des liens<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(LinkGeometry, LinkSegmentVertical) {
     const hmi::LinkSegment segment = hmi::linkSegment(GridPosition{2, 1}, GridPosition{2, 5});
     EXPECT_FLOAT_EQ(segment.a.x, segment.b.x);
     EXPECT_LT(segment.a.y, segment.b.y);
 }
 
-// Segment diagonal : les deux coordonnees varient, sans decalage (un seul lien -> fanCount 1).
+/**
+ * @brief Un lien diagonal fait varier les deux coordonnées et, s'il est seul, ne subit **aucun**
+ * décalage : l'écartement en éventail ne se paie que lorsqu'il sert à distinguer des frères.
+ * \castest{<b>Un lien diagonal seul relie les centres sans aucun décalage.</b><br/>
+ * \tcat Unitaire · Géométrie des liens<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(LinkGeometry, LinkSegmentDiagonalSansDecalage) {
     const hmi::LinkSegment segment = hmi::linkSegment(GridPosition{0, 0}, GridPosition{2, 2});
     EXPECT_FLOAT_EQ(segment.a.x, 0.5f);
@@ -54,8 +106,19 @@ TEST(LinkGeometry, LinkSegmentDiagonalSansDecalage) {
     EXPECT_FLOAT_EQ(segment.b.y, 2.5f);
 }
 
-// Plusieurs liens partageant un declencheur : base commune (extremite declencheur non decalee,
-// effet d'eventail) ; seule l'extremite cible est decalee, de facon deterministe et symetrique.
+/**
+ * @brief Plusieurs liens partant du même déclencheur gardent une **base commune** et n'écartent que
+ * leur extrémité cible, symétriquement autour du centre et de façon déterministe. Sans cet
+ * éventail, trois liens vers la même zone se superposeraient en un seul trait illisible ; sans
+ * déterminisme, ils sauteraient d'une frame à l'autre.
+ * \castest{<b>Des liens frères gardent une base commune et écartent symétriquement leur extrémité
+ * cible.</b><br/>
+ * \tcat Unitaire · Géométrie des liens<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(LinkGeometry, LinkSegmentDecalageAntiSuperpositionBaseCommune) {
     constexpr GridPosition trigger{0, 0};
     constexpr GridPosition target{4, 0};
@@ -81,7 +144,18 @@ TEST(LinkGeometry, LinkSegmentDecalageAntiSuperpositionBaseCommune) {
     EXPECT_EQ(hmi::linkSegment(trigger, target, 0, 3).b.y, first.b.y);
 }
 
-// La pointe de fleche a ses deux ailes en retrait, symetriques par rapport a l'axe du segment.
+/**
+ * @brief La pointe de flèche a ses deux ailes en retrait de la cible et symétriques par rapport à
+ * l'axe
+ * du segment : c'est ce qui rend le **sens** de la liaison lisible d'un coup d'œil.
+ * \castest{<b>La pointe de flèche a ses ailes en retrait et symétriques par rapport à
+ * l'axe.</b><br/>
+ * \tcat Unitaire · Géométrie des liens<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(LinkGeometry, ArrowHeadOrienteeVersLaCible) {
     const hmi::ArrowHead head =
         hmi::arrowHead(core::Vector2{0.0f, 0.0f}, core::Vector2{4.0f, 0.0f});
@@ -92,7 +166,18 @@ TEST(LinkGeometry, ArrowHeadOrienteeVersLaCible) {
     EXPECT_NE(head.left.y, 0.0f);
 }
 
-// Segment degenere (memes extremites) : pas de direction definie, la pointe reste sur la cible.
+/**
+ * @brief Un segment dégénéré (mêmes extrémités) n'a pas de direction : la pointe se replie sur le
+ * point
+ * lui-même plutôt que de produire des coordonnées non définies issues d'une normalisation par
+ * zéro.
+ * \castest{<b>Un segment dégénéré replie la pointe sur le point, sans division par zéro.</b><br/>
+ * \tcat Unitaire · Géométrie des liens<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(LinkGeometry, ArrowHeadSegmentDegenere) {
     const core::Vector2 point{1.0f, 1.0f};
     const hmi::ArrowHead head = hmi::arrowHead(point, point);
@@ -102,8 +187,18 @@ TEST(LinkGeometry, ArrowHeadSegmentDegenere) {
     EXPECT_FLOAT_EQ(head.right.y, point.y);
 }
 
-// buildLinkRows : ordre deterministe (mecanismes puis liens de danger), contenu fidele au
-// brouillon.
+/**
+ * @brief La liste des liens est construite dans un ordre déterministe — mécanismes puis liens de
+ * danger — et son contenu reflète fidèlement le brouillon. Le panneau Liens s'appuie sur cet
+ * ordre : un tri instable ferait sauter les lignes à chaque modification.
+ * \castest{<b>La liste des liens est ordonnée (mécanismes puis dangers) et fidèle au
+ * brouillon.</b><br/>
+ * \tcat Unitaire · Géométrie des liens<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(LinkGeometry, BuildLinkRowsOrdreEtContenu) {
     core::LevelDraft draft = core::LevelDraft::empty("N", 6, 6);
     draft.paintTile(0, 0, TileType::Switch);
@@ -123,7 +218,16 @@ TEST(LinkGeometry, BuildLinkRowsOrdreEtContenu) {
     EXPECT_EQ(rows[1].target, (GridPosition{3, 0}));
 }
 
-// Brouillon sans liaison : liste vide.
+/**
+ * @brief Un brouillon sans aucune liaison donne une liste vide : le panneau affiche alors son état
+ * vide, il n'a pas de cas particulier à traiter.
+ * \castest{<b>Un brouillon sans liaison donne une liste vide.</b><br/>
+ * \tcat Unitaire · Géométrie des liens<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(LinkGeometry, BuildLinkRowsVideSansLiaison) {
     const core::LevelDraft draft = core::LevelDraft::empty("N", 4, 4);
     EXPECT_TRUE(hmi::buildLinkRows(draft).empty());

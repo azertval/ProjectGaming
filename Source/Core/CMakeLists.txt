@@ -34,6 +34,11 @@ add_library(Core STATIC
 # depuis la racine (ex. "Core/Core.h"), jamais par nom seul.
 target_include_directories(Core PUBLIC ${PROJECT_SOURCE_DIR}/Source)
 
+# Numéro de version : injecté depuis `project(... VERSION ...)`, seul endroit où il est écrit.
+# PRIVATE suffit — Core.cpp est l'unique consommateur, et un en-tête généré obligerait tous les
+# dépendants à connaître un répertoire d'inclusion supplémentaire pour une seule chaîne.
+target_compile_definitions(Core PRIVATE PROJECTGAMING_VERSION="${PROJECT_VERSION}")
+
 target_link_libraries(Core PRIVATE project_warnings project_options nlohmann_json::nlohmann_json)
 
 if(ENABLE_PCH)

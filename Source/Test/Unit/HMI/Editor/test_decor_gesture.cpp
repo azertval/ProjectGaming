@@ -33,6 +33,16 @@ constexpr float TWO_PI = 6.28318530717958647692f;
 // designateDecorAt
 // ---------------------------------------------------------------------------------------------
 
+/**
+ * @brief En cas de superposition, le clic désigne le décor **le plus au-dessus** : c'est celui que
+ * l'auteur voit, donc celui qu'il croit viser.
+ * \castest{<b>Un clic sur des décors superposés désigne le plus au-dessus.</b><br/>
+ * \tcat Unitaire · Geste sur les décors<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(DecorGestureTest, DesignateDecorAtChoisitLePlusAuDessusEnCasDeSuperposition) {
     const std::vector<Rect> bounds{
         Rect{Vector2{0.0f, 0.0f}, Vector2{4.0f, 4.0f}},  // dessous (rang 0)
@@ -47,6 +57,16 @@ TEST(DecorGestureTest, DesignateDecorAtChoisitLePlusAuDessusEnCasDeSuperposition
     EXPECT_EQ(hit->handle, DecorHandle::Body);
 }
 
+/**
+ * @brief Un clic dans le vide ne désigne rien : l'appelant en déduit la désélection, sans index
+ * sentinelle à interpréter.
+ * \castest{<b>Un clic dans le vide ne désigne aucun décor.</b><br/>
+ * \tcat Unitaire · Geste sur les décors<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(DecorGestureTest, DesignateDecorAtDansLeVideRenvoieNullopt) {
     const std::vector<Rect> bounds{Rect{Vector2{0.0f, 0.0f}, Vector2{1.0f, 1.0f}}};
 
@@ -56,6 +76,17 @@ TEST(DecorGestureTest, DesignateDecorAtDansLeVideRenvoieNullopt) {
     EXPECT_FALSE(hit.has_value());
 }
 
+/**
+ * @brief Les poignées du décor **sélectionné** l'emportent sur le corps d'un autre décor : sans
+ * cette priorité, une poignée posée au-dessus d'un voisin deviendrait inutilisable et le clic
+ * sélectionnerait le voisin au lieu de redimensionner.
+ * \castest{<b>Les poignées du décor sélectionné priment sur le corps d'un autre décor.</b><br/>
+ * \tcat Unitaire · Geste sur les décors<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(DecorGestureTest, DesignateDecorAtPrivilegieLesPoigneesDuDecorSelectionne) {
     // Decor 0 selectionne, ses poignees couvrent (0,0). Decor 1 (non selectionne) a son corps la
     // aussi -- sans priorite aux poignees, le clic viserait le corps du decor 1.
@@ -77,6 +108,16 @@ TEST(DecorGestureTest, DesignateDecorAtPrivilegieLesPoigneesDuDecorSelectionne) 
 // Clic contre glisser (seuil)
 // ---------------------------------------------------------------------------------------------
 
+/**
+ * @brief L'appui sélectionne **immédiatement**, avant tout glisser : un simple clic doit suffire à
+ * sélectionner, sans obliger à bouger la souris.
+ * \castest{<b>L'appui sélectionne immédiatement, même sans glisser.</b><br/>
+ * \tcat Unitaire · Geste sur les décors<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(DecorGestureTest, BeginSelectionneImmediatementMemeSansGlisser) {
     DecorGestureState state;
     Decor decor{"tree.png", Vector2{1.0f, 1.0f}};
@@ -89,6 +130,17 @@ TEST(DecorGestureTest, BeginSelectionneImmediatementMemeSansGlisser) {
     EXPECT_EQ(*state.selectedIndex, 2u);
 }
 
+/**
+ * @brief Sous le seuil de glisser, ni l'aperçu ni le relâchement ne produisent d'action : c'est ce
+ * qui distingue un clic de sélection d'un déplacement, et qui évite d'empiler dans l'historique un
+ * déplacement d'un demi-pixel à chaque clic.
+ * \castest{<b>Un déplacement sous le seuil ne produit aucune action.</b><br/>
+ * \tcat Unitaire · Geste sur les décors<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(DecorGestureTest, UnDeplacementSousLeSeuilNeProduitAucuneAction) {
     DecorGestureState state;
     Decor decor{"tree.png", Vector2{1.0f, 1.0f}};
@@ -105,6 +157,18 @@ TEST(DecorGestureTest, UnDeplacementSousLeSeuilNeProduitAucuneAction) {
     EXPECT_EQ(committed.kind, DecorGestureActionKind::None);
 }
 
+/**
+ * @brief Au-delà du seuil, l'aperçu produit un déplacement dont la position suit exactement le
+ * curseur : l'aperçu est calculé par la même fonction que l'action finale, il ne peut pas en
+ * diverger.
+ * \castest{<b>Un déplacement au-delà du seuil produit un aperçu de déplacement suivant le
+ * curseur.</b><br/>
+ * \tcat Unitaire · Geste sur les décors<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(DecorGestureTest, UnDeplacementAuDelaDuSeuilProduitUneActionDeplacer) {
     DecorGestureState state;
     Decor decor{"tree.png", Vector2{1.0f, 1.0f}};
@@ -124,6 +188,18 @@ TEST(DecorGestureTest, UnDeplacementAuDelaDuSeuilProduitUneActionDeplacer) {
 // Deplacer (corps)
 // ---------------------------------------------------------------------------------------------
 
+/**
+ * @brief Le relâchement produit la position finale, calculée comme le décalage du curseur appliqué
+ * à la position d'origine — jamais la position du curseur elle-même, qui ferait sauter le décor
+ * sous le pointeur au premier pixel de glisser.
+ * \castest{<b>Le relâchement produit la position finale, décalée depuis la position
+ * d'origine.</b><br/>
+ * \tcat Unitaire · Geste sur les décors<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(DecorGestureTest, DeplacerProduitLaPositionFinaleAuRelachement) {
     DecorGestureState state;
     Decor decor{"tree.png", Vector2{1.0f, 1.0f}};
@@ -141,6 +217,16 @@ TEST(DecorGestureTest, DeplacerProduitLaPositionFinaleAuRelachement) {
     EXPECT_FLOAT_EQ(action.position.y, 2.5f);   // 1.0 + (3.5 - 2.0)
 }
 
+/**
+ * @brief Avec aimantation, la position finale est arrondie à la case entière : c'est ce qui permet
+ * d'aligner des décors sur la grille sans viser au pixel.
+ * \castest{<b>Avec aimantation, la position finale est arrondie à la case entière.</b><br/>
+ * \tcat Unitaire · Geste sur les décors<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(DecorGestureTest, DeplacerAvecAimantationArrondiALaGrilleEntiere) {
     DecorGestureState state;
     Decor decor{"tree.png", Vector2{1.0f, 1.0f}};
@@ -155,6 +241,16 @@ TEST(DecorGestureTest, DeplacerAvecAimantationArrondiALaGrilleEntiere) {
     EXPECT_FLOAT_EQ(action.position.y, 1.0f);  // 1.0 + (2.4-2.0) = 1.4 -> arrondi a 1.0
 }
 
+/**
+ * @brief Sans aimantation, la position exacte est conservée : les décors sont libres, hors grille
+ * (`EX-DEC-001`), et l'aimantation reste un choix ponctuel.
+ * \castest{<b>Sans aimantation, la position exacte est conservée.</b><br/>
+ * \tcat Unitaire · Geste sur les décors<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(DecorGestureTest, DeplacerSansAimantationConserveLaPositionExacte) {
     DecorGestureState state;
     Decor decor{"tree.png", Vector2{1.0f, 1.0f}};
@@ -172,6 +268,16 @@ TEST(DecorGestureTest, DeplacerSansAimantationConserveLaPositionExacte) {
 // Redimensionner (coins)
 // ---------------------------------------------------------------------------------------------
 
+/**
+ * @brief Tirer le coin bas-droit étire le décor depuis le coin haut-gauche, qui reste **fixe** :
+ * l'ancre est toujours le coin opposé à la poignée, comme dans tout éditeur graphique.
+ * \castest{<b>Tirer le coin bas-droit étire depuis le coin haut-gauche, resté fixe.</b><br/>
+ * \tcat Unitaire · Geste sur les décors<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(DecorGestureTest, RedimensionnerDepuisLeCoinBasDroitEtireDepuisLeCoinHautGaucheFixe) {
     DecorGestureState state;
     Decor decor{"tree.png", Vector2{0.0f, 0.0f}};
@@ -189,6 +295,17 @@ TEST(DecorGestureTest, RedimensionnerDepuisLeCoinBasDroitEtireDepuisLeCoinHautGa
     EXPECT_FLOAT_EQ(action.scale.y, 3.0f);
 }
 
+/**
+ * @brief Tirer le coin haut-gauche déplace la position **et** l'échelle, l'ancre étant cette fois
+ * le coin bas-droit : les quatre poignées suivent la même règle, sans cas particulier.
+ * \castest{<b>Tirer le coin haut-gauche déplace la position et l'échelle, ancre au coin
+ * bas-droit.</b><br/>
+ * \tcat Unitaire · Geste sur les décors<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(DecorGestureTest, RedimensionnerDepuisLeCoinHautGaucheDeplaceLAncreOpposee) {
     DecorGestureState state;
     Decor decor{"tree.png", Vector2{0.0f, 0.0f}};
@@ -206,6 +323,17 @@ TEST(DecorGestureTest, RedimensionnerDepuisLeCoinHautGaucheDeplaceLAncreOpposee)
     EXPECT_FLOAT_EQ(action.scale.y, 2.0f);  // hauteur 4 au lieu de 2
 }
 
+/**
+ * @brief Tirer une poignée au-delà de son ancre ne produit jamais une échelle nulle ou négative :
+ * un décor d'échelle nulle serait invisible, donc impossible à rattraper à la souris.
+ * \castest{<b>Le redimensionnement ne descend jamais sous une taille minimale strictement
+ * positive.</b><br/>
+ * \tcat Unitaire · Geste sur les décors<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(DecorGestureTest, RedimensionnerNeDescendJamaisSousUneTailleMinimale) {
     DecorGestureState state;
     Decor decor{"tree.png", Vector2{0.0f, 0.0f}};
@@ -225,6 +353,17 @@ TEST(DecorGestureTest, RedimensionnerNeDescendJamaisSousUneTailleMinimale) {
 // Pivoter (poignee de rotation)
 // ---------------------------------------------------------------------------------------------
 
+/**
+ * @brief L'angle suit la direction du curseur **depuis le centre** du décor : curseur à droite du
+ * centre, quart de tour. C'est ce qui rend la rotation prévisible quelle que soit la distance au
+ * centre.
+ * \castest{<b>Amener le curseur à droite du centre produit un quart de tour.</b><br/>
+ * \tcat Unitaire · Geste sur les décors<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(DecorGestureTest, PivoterVersLaDroiteProduitUnQuartDeTour) {
     DecorGestureState state;
     Decor decor{"tree.png", Vector2{0.0f, 0.0f}};
@@ -239,6 +378,16 @@ TEST(DecorGestureTest, PivoterVersLaDroiteProduitUnQuartDeTour) {
     EXPECT_NEAR(action.rotation, TWO_PI * 0.25f, 1e-4f);
 }
 
+/**
+ * @brief L'angle produit reste dans [0, 2π) quel que soit le quadrant visé, cohérent avec la
+ * normalisation faite côté modèle.
+ * \castest{<b>L'angle produit par la rotation reste dans [0, 2π).</b><br/>
+ * \tcat Unitaire · Geste sur les décors<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(DecorGestureTest, PivoterNormaliseDansZeroDeuxPi) {
     DecorGestureState state;
     Decor decor{"tree.png", Vector2{0.0f, 0.0f}};
@@ -256,6 +405,16 @@ TEST(DecorGestureTest, PivoterNormaliseDansZeroDeuxPi) {
 // Abandon (Echap)
 // ---------------------------------------------------------------------------------------------
 
+/**
+ * @brief Abandonner (Échap) ramène le geste au repos sans produire d'action, mais **conserve la
+ * sélection** : on annule le glisser en cours, pas le fait d'avoir désigné le décor.
+ * \castest{<b>Abandonner un geste ne produit aucune action et conserve la sélection.</b><br/>
+ * \tcat Unitaire · Geste sur les décors<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(DecorGestureTest, AbandonNeProduitAucuneAction) {
     DecorGestureState state;
     Decor decor{"tree.png", Vector2{1.0f, 1.0f}};

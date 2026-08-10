@@ -65,6 +65,17 @@ void step(MechanismVisualState& state, const AnimationDescription& description, 
 
 }  // namespace
 
+/**
+ * @brief Le tout premier calcul rejoint directement l'état cible, **sans** jouer de transition :
+ * une porte déjà ouverte au chargement du niveau doit apparaître ouverte, pas s'ouvrir sous les
+ * yeux du joueur comme si un interrupteur venait d'être actionné.
+ * \castest{<b>Le premier calcul rejoint l'état cible sans jouer de transition.</b><br/>
+ * \tcat Unitaire · Transitions de mécanismes<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(MechanismTransitionsTest, PremierCalculRejointEtatCibleSansTransition) {
     MechanismVisualState state;
     const AnimationDescription description = doorDescription();
@@ -77,6 +88,18 @@ TEST(MechanismTransitionsTest, PremierCalculRejointEtatCibleSansTransition) {
     EXPECT_EQ(state.animation.clips->clipAt(state.animation.clipIndex).name, MECHANISM_CLIP_DOOR_OPEN);
 }
 
+/**
+ * @brief Un changement d'état déclenche la transition **une seule fois** : les pas suivants la
+ * font progresser jusqu'à l'état cible au lieu de la relancer depuis sa première image. Un
+ * redéclenchement par pas figerait l'ouverture sur son premier quart, indéfiniment.
+ * \castest{<b>Un changement d'état déclenche la transition une seule fois, puis la laisse
+ * aboutir.</b><br/>
+ * \tcat Unitaire · Transitions de mécanismes<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(MechanismTransitionsTest, ChangementDetatDeclencheLaTransitionUneSeuleFois) {
     MechanismVisualState state;
     const AnimationDescription description = doorDescription();
@@ -98,6 +121,17 @@ TEST(MechanismTransitionsTest, ChangementDetatDeclencheLaTransitionUneSeuleFois)
     EXPECT_EQ(state.animation.clips->clipAt(state.animation.clipIndex).name, MECHANISM_CLIP_DOOR_OPEN);
 }
 
+/**
+ * @brief Un asset qui ne fournit que les deux états, sans clips de transition, bascule directement
+ * et **en silence** : n'animer que les états est un choix d'artiste légitime, pas une erreur à
+ * signaler.
+ * \castest{<b>Un clip de transition absent fait basculer directement, sans avertissement.</b><br/>
+ * \tcat Unitaire · Transitions de mécanismes<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(MechanismTransitionsTest, ClipDeTransitionAbsentBasculeDirectementSansAvertissement) {
     // Asset sans clips "opening"/"closing" : seulement les deux etats.
     AnimationDescription description;
@@ -121,6 +155,17 @@ TEST(MechanismTransitionsTest, ClipDeTransitionAbsentBasculeDirectementSansAvert
     EXPECT_TRUE(warned.empty()) << "une transition absente est un cas legitime, silencieux";
 }
 
+/**
+ * @brief Un clip d'**état** manquant, lui, se replie et se journalise — mais une seule fois par
+ * couple (asset, clip manquant), pas par instance : un niveau posant cinquante portes du même
+ * asset incomplet produirait sinon cinquante fois le même message.
+ * \castest{<b>Un clip d'état absent se replie et n'est journalisé qu'une fois par asset.</b><br/>
+ * \tcat Unitaire · Transitions de mécanismes<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(MechanismTransitionsTest, ClipDEtatAbsentReplieEtJournaliseUneSeuleFois) {
     // Asset ne fournissant AUCUN des quatre clips conventionnels de porte.
     AnimationDescription description;
@@ -142,6 +187,17 @@ TEST(MechanismTransitionsTest, ClipDEtatAbsentReplieEtJournaliseUneSeuleFois) {
     EXPECT_EQ(warned.size(), 1u) << "un seul message par (asset, clip manquant), pas par instance";
 }
 
+/**
+ * @brief À état inchangé, un appel supplémentaire ne remet pas l'image courante à zéro : c'est
+ * l'invariant qui rend le calcul appelable à chaque frame de rendu sans figer l'animation.
+ * \castest{<b>À état inchangé, un appel supplémentaire ne réinitialise pas l'image en
+ * cours.</b><br/>
+ * \tcat Unitaire · Transitions de mécanismes<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(MechanismTransitionsTest, AucunChangementNeReinitialisePasLimageEnCours) {
     MechanismVisualState state;
     const AnimationDescription description = doorDescription();
@@ -160,6 +216,18 @@ TEST(MechanismTransitionsTest, AucunChangementNeReinitialisePasLimageEnCours) {
     EXPECT_EQ(state.animation.frameIndex, 1);
 }
 
+/**
+ * @brief Seule la porte a des clips de transition ; un interrupteur bascule directement entre ses
+ * deux états, silencieusement. Chercher une transition pour tous les mécanismes produirait des
+ * avertissements pour des assets pourtant complets.
+ * \castest{<b>Un interrupteur bascule directement entre ses deux états, sans
+ * avertissement.</b><br/>
+ * \tcat Unitaire · Transitions de mécanismes<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(MechanismTransitionsTest, SeuleLaPorteTransitionneLesAutresBasculentDirectement) {
     AnimationDescription description;
     description.frameWidth = 16;

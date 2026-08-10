@@ -16,21 +16,49 @@ using hmi::TextureAssignAction;
 
 }  // namespace
 
-// Case vide : toujours ignoree, quel que soit l'etat de selection/override.
+/**
+ * @brief Une case vide est toujours ignorée, quels que soient la sélection et l'état de surcharge :
+ * il n'y a rien à habiller là, et assigner une texture au vide laisserait une surcharge orpheline
+ * dans le fichier de niveau.
+ * \castest{<b>Une case vide est toujours ignorée.</b><br/>
+ * \tcat Unitaire · Geste d'assignation de texture<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(TextureAssignGesture, CaseVideIgnoree) {
     const auto decision = resolveTextureAssignClick(GridPosition{1, 1}, TileType::Empty,
                                                      std::nullopt, std::string{"crate.png"}, false);
     EXPECT_EQ(decision.action, TextureAssignAction::Ignore);
 }
 
-// Case sans override, aucun asset selectionne : ignoree (rien a assigner).
+/**
+ * @brief Sans asset sélectionné, un clic sur une case sans surcharge est ignoré : il n'y a rien à
+ * assigner, et l'outil ne doit pas inventer de valeur par défaut.
+ * \castest{<b>Sans asset sélectionné, le clic est ignoré.</b><br/>
+ * \tcat Unitaire · Geste d'assignation de texture<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(TextureAssignGesture, AucunAssetSelectionneIgnore) {
     const auto decision =
         resolveTextureAssignClick(GridPosition{1, 1}, TileType::Door, std::nullopt, std::nullopt, false);
     EXPECT_EQ(decision.action, TextureAssignAction::Ignore);
 }
 
-// Case sans override, un asset est selectionne : assignation.
+/**
+ * @brief Sur une case sans surcharge, le clic assigne l'asset sélectionné à cette case précise : le
+ * cas nominal de l'habillage par instance.
+ * \castest{<b>Sur une case sans surcharge, le clic assigne l'asset sélectionné.</b><br/>
+ * \tcat Unitaire · Geste d'assignation de texture<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(TextureAssignGesture, CaseSansOverrideAssigneLAssetSelectionne) {
     const auto decision = resolveTextureAssignClick(
         GridPosition{2, 3}, TileType::Door, std::nullopt, std::string{"door_red.png"}, false);
@@ -39,7 +67,16 @@ TEST(TextureAssignGesture, CaseSansOverrideAssigneLAssetSelectionne) {
     EXPECT_EQ(decision.assetName, "door_red.png");
 }
 
-// Case avec un override different de l'asset selectionne : remplacement (Assign).
+/**
+ * @brief Sur une case déjà surchargée avec un **autre** asset, le clic remplace : pas besoin de
+ * retirer d'abord pour changer d'avis.
+ * \castest{<b>Sur une case surchargée avec un autre asset, le clic remplace.</b><br/>
+ * \tcat Unitaire · Geste d'assignation de texture<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(TextureAssignGesture, CaseAvecOverrideDifferentRemplace) {
     const auto decision =
         resolveTextureAssignClick(GridPosition{2, 3}, TileType::Door, std::string{"door_blue.png"},
@@ -48,7 +85,16 @@ TEST(TextureAssignGesture, CaseAvecOverrideDifferentRemplace) {
     EXPECT_EQ(decision.assetName, "door_red.png");
 }
 
-// Case avec le MEME override que l'asset selectionne : clic gauche retire (bascule).
+/**
+ * @brief Recliquer avec le **même** asset retire la surcharge : le geste est une bascule, ce qui
+ * rend l'annulation atteignable sans changer d'outil ni de bouton.
+ * \castest{<b>Recliquer avec le même asset retire la surcharge.</b><br/>
+ * \tcat Unitaire · Geste d'assignation de texture<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(TextureAssignGesture, ReclicSurLeMemeAssetRetire) {
     const auto decision =
         resolveTextureAssignClick(GridPosition{2, 3}, TileType::Door, std::string{"door_red.png"},
@@ -57,7 +103,16 @@ TEST(TextureAssignGesture, ReclicSurLeMemeAssetRetire) {
     EXPECT_EQ(decision.cell, (GridPosition{2, 3}));
 }
 
-// Clic droit sur une case avec override : retrait explicite.
+/**
+ * @brief Le clic droit retire explicitement la surcharge, sans dépendre de l'asset sélectionné : le
+ * chemin direct quand on veut simplement revenir au skin du type.
+ * \castest{<b>Le clic droit retire la surcharge, indépendamment de la sélection.</b><br/>
+ * \tcat Unitaire · Geste d'assignation de texture<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(TextureAssignGesture, ClicDroitAvecOverrideRetire) {
     const auto decision = resolveTextureAssignClick(
         GridPosition{2, 3}, TileType::Door, std::string{"door_red.png"}, std::nullopt, true);
@@ -65,21 +120,49 @@ TEST(TextureAssignGesture, ClicDroitAvecOverrideRetire) {
     EXPECT_EQ(decision.cell, (GridPosition{2, 3}));
 }
 
-// Clic droit sur une case sans override : sans effet.
+/**
+ * @brief Le clic droit sur une case sans surcharge est sans effet : il n'y a rien à retirer, et
+ * l'opération ne doit pas entrer dans l'historique.
+ * \castest{<b>Le clic droit sur une case sans surcharge est sans effet.</b><br/>
+ * \tcat Unitaire · Geste d'assignation de texture<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(TextureAssignGesture, ClicDroitSansOverrideIgnore) {
     const auto decision = resolveTextureAssignClick(GridPosition{2, 3}, TileType::Door, std::nullopt,
                                                      std::string{"door_red.png"}, true);
     EXPECT_EQ(decision.action, TextureAssignAction::Ignore);
 }
 
-// Clic droit sur une case vide : ignore avant meme de regarder l'override (aucune case a retirer).
+/**
+ * @brief Le clic droit sur une case vide est ignoré avant même de consulter la surcharge : la règle
+ * « case vide, rien à faire » prime sur toutes les autres.
+ * \castest{<b>Le clic droit sur une case vide est ignoré.</b><br/>
+ * \tcat Unitaire · Geste d'assignation de texture<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(TextureAssignGesture, ClicDroitSurCaseVideIgnore) {
     const auto decision = resolveTextureAssignClick(GridPosition{2, 3}, TileType::Empty,
                                                      std::string{"door_red.png"}, std::nullopt, true);
     EXPECT_EQ(decision.action, TextureAssignAction::Ignore);
 }
 
-// Tout type non-Empty est eligible : aucune liste blanche par type (contrairement aux liens).
+/**
+ * @brief **Tout** type non vide est éligible — y compris une pente — sans liste blanche par type,
+ * contrairement aux liens de mécanismes : n'importe quelle case posée peut recevoir sa propre
+ * texture.
+ * \castest{<b>Tout type non vide est éligible à une surcharge de texture.</b><br/>
+ * \tcat Unitaire · Geste d'assignation de texture<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(TextureAssignGesture, ToutTypeNonVideEstEligible) {
     const auto decision = resolveTextureAssignClick(
         GridPosition{0, 0}, TileType::SlopeUpRight, std::nullopt, std::string{"deco.png"}, false);

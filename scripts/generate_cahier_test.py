@@ -10,6 +10,10 @@ module), que Doxygen transforme en arbre de navigation repliable (comme toute au
 Les blocs ``\\castest{...}`` restent la source de vérité unique (un seul endroit à maintenir, au
 plus près du test qu'ils décrivent) ; ce script ne fait que les collecter et les réorganiser.
 
+Les deux modes échouent si un test du dépôt n'a **pas** de bloc ``\\castest{}``
+(``find_undocumented_tests``) : sans ce contrôle, un test jamais documenté n'apparaît d'aucun
+côté de la comparaison ``--check``, qui le valide donc en silence.
+
 Usage :
   python scripts/generate_cahier_test.py            # régénère Documentation/CahierTest.md
   python scripts/generate_cahier_test.py --check     # vérifie que le fichier est à jour (CI)
@@ -21,12 +25,23 @@ import sys
 TEST_ROOT = 'Source/Test'
 OUTPUT_PATH = 'Documentation/CahierTest.md'
 
+# Déclaration d'un test GoogleTest, sous ses trois formes. `TEST_F`/`TEST_P` prennent en premier
+# argument la *fixture*, dont GoogleTest tire justement le nom de la suite : le premier groupe
+# reste donc la suite dans les trois cas. Ne reconnaître que `TEST(` — comme à l'origine — faisait
+# disparaître du cahier, sans le moindre message, les cas de test attachés à une fixture (tout
+# `test_image_encode.cpp` par exemple), alors que leur bloc `\castest{}` était bien écrit.
+TEST_DECLARATION = r'TEST(?:_F|_P)?\(\s*(?P<suite>[^,]+),\s*(?P<name>[^)]+)\)'
+
 # Un bloc castest s'étend de `\castest{` jusqu'à la fermeture `}` puis `*/`, immédiatement suivi
-# de la déclaration du test (TEST(Suite, Nom)) : les deux sont capturés ensemble pour associer
-# chaque cas de test à son emplacement dans le code.
+# de la déclaration du test : les deux sont capturés ensemble pour associer chaque cas de test à
+# son emplacement dans le code.
 CASTEST_RE = re.compile(
-    r'\\castest\{(?P<content>.*?)\}\s*\n\s*\*/\s*\nTEST\(\s*(?P<suite>[^,]+),\s*(?P<name>[^)]+)\)',
+    r'\\castest\{(?P<content>.*?)\}\s*\n\s*\*/\s*\n' + TEST_DECLARATION,
     re.DOTALL)
+
+# Même déclaration, en début de ligne, pour recenser **tous** les tests du dépôt et repérer ceux
+# qui n'ont pas de bloc `\castest{}` (cf. find_undocumented_tests).
+TEST_DECLARATION_RE = re.compile(r'^' + TEST_DECLARATION, re.MULTILINE)
 
 FIELD_RE = re.compile(r'\\t(cat|crit|etapes|attendu)\s+')
 TAG_RE = re.compile(r'</?b>')
@@ -235,6 +250,38 @@ def collect_cases(root):
     return cases
 
 
+def find_undocumented_tests(root):
+    """Liste les tests (chemin, ligne, suite, nom) dépourvus de bloc ``\\castest{}``.
+
+    Le mode ``--check`` compare le fichier généré au résultat du script : il détecte une
+    régénération oubliée, mais **pas** un test jamais documenté — un test sans bloc n'apparaît
+    simplement dans aucun des deux côtés de la comparaison. Le cahier a ainsi pu perdre 15 % des
+    tests sans qu'aucun garde-fou ne bronche. Ce contrôle ferme le trou : le cahier décrit soit
+    tous les tests, soit rien.
+    """
+    undocumented = []
+    for dirpath, _dirnames, filenames in sorted(os.walk(root)):
+        for filename in sorted(filenames):
+            if not filename.startswith('test_') or not filename.endswith('.cpp'):
+                continue
+            path = os.path.join(dirpath, filename)
+            with open(path, encoding='utf-8') as handle:
+                content = handle.read()
+            # Les blocs castest sont repérés par la position de la déclaration qu'ils précèdent :
+            # un test documenté est un test dont la déclaration termine un bloc.
+            documented = {match.start('suite') for match in CASTEST_RE.finditer(content)}
+            for match in TEST_DECLARATION_RE.finditer(content):
+                if match.start('suite') in documented:
+                    continue
+                undocumented.append({
+                    'path': path.replace('\\', '/'),
+                    'line': content.count('\n', 0, match.start()) + 1,
+                    'suite': match.group('suite').strip(),
+                    'name': match.group('name').strip(),
+                })
+    return undocumented
+
+
 def group_key(relative_dir):
     """Éclate un chemin de dossier relatif à TEST_ROOT en (categorie, sous-dossiers...)."""
     parts = [part for part in relative_dir.replace('\\', '/').split('/') if part not in ('', '.')]
@@ -348,6 +395,17 @@ def main():
     cases = collect_cases(TEST_ROOT)
     if not cases:
         print('Aucun bloc \\castest trouve : verifier le chemin TEST_ROOT.', file=sys.stderr)
+        return 1
+
+    undocumented = find_undocumented_tests(TEST_ROOT)
+    if undocumented:
+        print(f'{len(undocumented)} test(s) sans bloc \\castest : ils seraient absents du cahier.',
+              file=sys.stderr)
+        for test in undocumented:
+            print(f"  - {test['suite']}.{test['name']} ({test['path']}:{test['line']})",
+                  file=sys.stderr)
+        print('Documenter chaque test au-dessus de sa declaration, puis relancer.',
+              file=sys.stderr)
         return 1
 
     rendered = render_markdown(cases)

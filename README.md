@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/azertval/ProjectGaming/actions/workflows/ci.yml/badge.svg)](https://github.com/azertval/ProjectGaming/actions/workflows/ci.yml)
 [![Documentation](https://github.com/azertval/ProjectGaming/actions/workflows/docs.yml/badge.svg)](https://github.com/azertval/ProjectGaming/actions/workflows/docs.yml)
-[![Release Debug](https://github.com/azertval/ProjectGaming/actions/workflows/release.yml/badge.svg)](https://github.com/azertval/ProjectGaming/releases/tag/debug-latest)
+[![Release](https://github.com/azertval/ProjectGaming/actions/workflows/release.yml/badge.svg)](https://github.com/azertval/ProjectGaming/releases/latest)
 ![C++20](https://img.shields.io/badge/C%2B%2B-20-00599C)
 ![Direct3D 11](https://img.shields.io/badge/Direct3D-11-8A2BE2)
 
@@ -10,7 +10,8 @@ Jeu 2D de plateforme / puzzle développé **from scratch** en **C++20 / Direct3D
 (Windows), sans moteur tiers.
 
 - 📖 **Documentation en ligne** : <https://azertval.github.io/ProjectGaming/>
-- ⬇️ **Télécharger (version Debug)** : <https://github.com/azertval/ProjectGaming/releases/tag/debug-latest>
+- ⬇️ **Télécharger la dernière version** : <https://github.com/azertval/ProjectGaming/releases/latest>
+  (préversion roulante du dernier `main` : <https://github.com/azertval/ProjectGaming/releases/tag/debug-latest>)
 
 ## Description
 
@@ -49,6 +50,31 @@ Le moteur physique est complet et **jouable** :
   **menu d'options** (V-Sync, langue), jouable/navigable au **clavier, à la souris et à la
   manette** (XInput).
 
+Le moteur est **habillé** (programme `LOT-40` → `LOT-55`) :
+
+- **Rendu texturé multicouche** avec culling : sept calques, **fond** de niveau, **décors libres**
+  hors grille avec **parallaxe**, **ombres** du plan physique, premier plan au-dessus du
+  personnage. Bascule Physique/Texture par `F8`, et mode d'inspection par calque pour auditer un
+  habillage.
+- **Skins de tuiles** avec **raccords automatiques** (16 voisinages), **texture par instance** sur
+  les objets interactifs, **repli procédural** déterministe quand un asset manque — le jeu reste
+  jouable sans aucun fichier d'image.
+- **Animation pilotée par données** (`nom-asset.anim.json`) : clips nommés, bouclés ou joués une
+  fois, apparence des mécanismes suivant leur **état logique**, personnage habillé depuis une
+  spritesheet externe.
+- **Texte dans la scène** : police bitmap avec repli procédural, affichage tête haute des budgets
+  de sauts/dashs et du tableau courant.
+
+Et l'**éditeur** est un poste de travail complet :
+
+- **Bibliothèque d'assets** à vignettes (import, renommage, duplication, suppression) avec
+  **rechargement à chaud**, et détection des assets encore référencés avant suppression.
+- **Atelier pixel art intégré** : dessiner, remplir, pipetter, transformer une région, gérer des
+  palettes et voir l'aperçu des raccords — sans quitter l'application.
+- **Système de design** : barre d'outils à icônes, thème **clair/sombre** suivant le système,
+  vignettes nettes à toute échelle d'affichage, barre d'état permanente, raccourcis d'éditeur
+  remappables.
+
 Toute la simulation vit dans `Core` (pure, déterministe au pas fixe) et est **couverte par des
 tests** (unitaires, intégration, système) — voir le **Cahier de test**.
 
@@ -65,7 +91,7 @@ tests** (unitaires, intégration, système) — voir le **Cahier de test**.
 | Sous-dossier | Contenu |
 |--------------|---------|
 | `Core/` | Logique et moteur : ECS, mathématiques, boucle à pas fixe, diagnostics — **sans dépendance à DirectX**. |
-| `HMI/` | Présentation : fenêtre Win32, rendu Direct3D 11, entrées, éditeur. Dépend de `Core`, jamais l'inverse. |
+| `HMI/` | Présentation : l'application **Qt** (fenêtre, menu, options, éditeur), le rendu Direct3D 11 du jeu embarqué dans un viewport, et les entrées. Dépend de `Core`, jamais l'inverse. |
 | `Elements/` | Assets et éléments statiques (sprites, tuiles, sons, niveaux). |
 | `Test/` | Tests **unitaires** (`Unit/`), **d'intégration** (`Integration/`) et **système** (`Systeme/`) — GoogleTest. |
 
@@ -145,4 +171,10 @@ vérification locale ne prédirait plus rien. Binaires officiels :
 |----------|-------------|------|
 | **CI** (`ci.yml`) | Pull Request vers `main` | Configure, **build** et **tests** (CTest) sur `windows-2022`, **couverture** (OpenCppCoverage) et **lint des exigences**. Contrôle requis pour merger. |
 | **Documentation** (`docs.yml`) | Push sur `main` | Génère la **Doxygen** (garde-fou `WARN_AS_ERROR`) et la publie sur la branche `gh-pages` (site en ligne). |
-| **Release Debug** (`release.yml`) | Push sur `main` | Compile un exécutable **Debug autonome** (runtime statique) et publie la release roulante **`debug-latest`** pour les non-développeurs. |
+| **Release** (`release.yml`) | Push sur `main` | Compile un exécutable **Debug autonome** et publie la préversion roulante **`debug-latest`** pour les non-développeurs. |
+| **Release** (`release.yml`) | Tag `vX.Y.Z` | Publie une **release versionnée** (non préversion) avec les exécutables **Debug et Release**, chacun autonome. |
+
+> « Autonome » signifie qu'aucune installation n'est requise côté utilisateur : `windeployqt` dépose
+> les DLL Qt, le plugin de plateforme et le runtime du compilateur à côté de l'exécutable. Le
+> runtime MSVC est **dynamique** (`/MD`) et non statique — les DLL Qt officielles sont construites
+> ainsi, et un CRT statique provoquerait des incohérences d'allocation entre l'application et Qt.

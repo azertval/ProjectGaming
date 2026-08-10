@@ -30,7 +30,17 @@ constexpr std::size_t TILE_TYPE_COUNT = static_cast<std::size_t>(core::TileType:
 
 }  // namespace
 
-// Chaque type de tuile figure exactement une fois : aucun doublon, aucun oubli.
+/**
+ * @brief Chaque type de tuile figure exactement une fois dans la taxonomie : aucun doublon, aucun
+ * oubli. C'est le garde-fou qui casse si un `core::TileType` est ajouté sans être rangé dans la
+ * palette — il resterait sinon impossible à peindre, sans qu'aucun test ne le signale.
+ * \castest{<b>Chaque type de tuile figure exactement une fois dans la taxonomie.</b><br/>
+ * \tcat Unitaire · Taxonomie des tuiles<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(TileTaxonomy, ChaqueTypeFigureExactementUneFois) {
     const std::vector<core::TileType> types = flatten(hmi::tileTaxonomy());
 
@@ -41,7 +51,18 @@ TEST(TileTaxonomy, ChaqueTypeFigureExactementUneFois) {
     EXPECT_EQ(unique.size(), TILE_TYPE_COUNT) << "aucun type ne doit manquer";
 }
 
-// Toute entrée porte un libellé non vide (affichage dans l'arbre).
+/**
+ * @brief Toute entrée de la taxonomie — catégorie, sous-groupe et tuile — porte un libellé non
+ * vide : c'est ce texte qui s'affiche dans l'arbre de la palette, une chaîne vide y produirait une
+ * ligne muette impossible à identifier.
+ * \castest{<b>Chaque catégorie, sous-groupe et tuile de la taxonomie porte un libellé non
+ * vide.</b><br/>
+ * \tcat Unitaire · Taxonomie des tuiles<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(TileTaxonomy, ChaqueEntreeAUnLibelle) {
     for (const hmi::TileCategory& category : hmi::tileTaxonomy()) {
         EXPECT_FALSE(category.label.empty());

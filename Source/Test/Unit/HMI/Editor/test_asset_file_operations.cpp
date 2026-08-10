@@ -47,6 +47,17 @@ protected:
 
 }  // namespace
 
+/**
+ * @brief Importer un asset conforme le **copie** dans le dossier géré, en laissant l'original en
+ * place : l'auteur importe depuis son dossier de travail, qui ne doit pas se vider au fur et à
+ * mesure des imports.
+ * \castest{<b>Importer un asset conforme le copie sans déplacer l'original.</b><br/>
+ * \tcat Unitaire · Opérations sur fichiers d'assets<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST_F(AssetFileOps, ImporteUnAssetConforme) {
     const std::filesystem::path source = makeExternalFile("mur.png");
     const hmi::AssetFileOperations ops(dir);
@@ -60,6 +71,17 @@ TEST_F(AssetFileOps, ImporteUnAssetConforme) {
     EXPECT_TRUE(std::filesystem::exists(source)) << "l'import doit COPIER, jamais deplacer";
 }
 
+/**
+ * @brief Un asset non conforme au contrat de sa famille est refusé, le message **nomme le
+ * fichier**, et rien n'est copié : un asset aux mauvaises dimensions accepté ne se manifesterait
+ * qu'au rendu, longtemps après l'import, sous forme de tuiles décalées.
+ * \castest{<b>Un asset non conforme est refusé en nommant le fichier, sans rien copier.</b><br/>
+ * \tcat Unitaire · Opérations sur fichiers d'assets<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST_F(AssetFileOps, RefuseUnAssetNonConforme) {
     const std::filesystem::path source = makeExternalFile("mur.png");
     const hmi::AssetFileOperations ops(dir);
@@ -73,6 +95,18 @@ TEST_F(AssetFileOps, RefuseUnAssetNonConforme) {
     EXPECT_TRUE(ops.list().empty()) << "un asset refuse ne doit pas etre copie";
 }
 
+/**
+ * @brief Importer un second fichier de même nom est refusé plutôt qu'écrasant : deux fichiers
+ * homonymes venus de dossiers différents sont un cas courant, et l'asset déjà référencé par des
+ * niveaux ne doit pas être remplacé à l'insu de l'auteur.
+ * \castest{<b>Importer un second fichier de même nom est refusé, sans écraser le
+ * premier.</b><br/>
+ * \tcat Unitaire · Opérations sur fichiers d'assets<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST_F(AssetFileOps, RefuseUneCollisionAlImport) {
     const std::filesystem::path first = makeExternalFile("mur.png");
     const hmi::AssetFileOperations ops(dir);
@@ -88,6 +122,17 @@ TEST_F(AssetFileOps, RefuseUneCollisionAlImport) {
     EXPECT_FALSE(result.ok);
 }
 
+/**
+ * @brief Renommer conserve l'extension d'origine et déplace le fichier : l'auteur saisit un nom,
+ * pas un nom de fichier. Perdre l'extension rendrait l'asset invisible au balayage, qui ne retient
+ * que les images.
+ * \castest{<b>Renommer un asset conserve son extension et déplace le fichier.</b><br/>
+ * \tcat Unitaire · Opérations sur fichiers d'assets<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST_F(AssetFileOps, RenommeEtConserveLExtension) {
     const std::filesystem::path source = makeExternalFile("mur.png");
     const hmi::AssetFileOperations ops(dir);
@@ -100,6 +145,16 @@ TEST_F(AssetFileOps, RenommeEtConserveLExtension) {
     EXPECT_FALSE(std::filesystem::exists(imported.path));
 }
 
+/**
+ * @brief Un nom invalide au renommage (barre oblique, qui sortirait du dossier géré) est refusé
+ * **sans rien changer** : le fichier d'origine reste en place, l'opération est tout ou rien.
+ * \castest{<b>Un nom invalide au renommage est refusé sans rien changer.</b><br/>
+ * \tcat Unitaire · Opérations sur fichiers d'assets<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST_F(AssetFileOps, RefuseUnNomInvalideAuRenommage) {
     const std::filesystem::path source = makeExternalFile("mur.png");
     const hmi::AssetFileOperations ops(dir);
@@ -110,6 +165,17 @@ TEST_F(AssetFileOps, RefuseUnNomInvalideAuRenommage) {
     EXPECT_TRUE(std::filesystem::exists(imported.path)) << "un renommage refuse ne doit rien changer";
 }
 
+/**
+ * @brief Dupliquer deux fois le même asset produit deux copies distinctes : le nom est rendu
+ * unique à chaque appel, sinon la seconde duplication écraserait la première — le geste courant
+ * pour décliner une variante de skin.
+ * \castest{<b>Dupliquer deux fois le même asset produit deux copies distinctes.</b><br/>
+ * \tcat Unitaire · Opérations sur fichiers d'assets<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST_F(AssetFileOps, DupliqueSousUnNomUnique) {
     const std::filesystem::path source = makeExternalFile("mur.png");
     const hmi::AssetFileOperations ops(dir);
@@ -124,6 +190,16 @@ TEST_F(AssetFileOps, DupliqueSousUnNomUnique) {
     EXPECT_EQ(ops.list().size(), 3U);
 }
 
+/**
+ * @brief Supprimer retire effectivement l'asset du disque et le signale par un résultat
+ * favorable — la grille du panneau se fie à ce résultat pour retirer la vignette.
+ * \castest{<b>Supprimer retire effectivement l'asset du disque.</b><br/>
+ * \tcat Unitaire · Opérations sur fichiers d'assets<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST_F(AssetFileOps, SupprimeLeFichier) {
     const std::filesystem::path source = makeExternalFile("mur.png");
     const hmi::AssetFileOperations ops(dir);
@@ -134,6 +210,17 @@ TEST_F(AssetFileOps, SupprimeLeFichier) {
     EXPECT_FALSE(std::filesystem::exists(imported.path));
 }
 
+/**
+ * @brief Renommer, dupliquer ou supprimer un fichier absent échoue par un résultat récupérable,
+ * jamais par une exception : le fichier a pu disparaître entre le balayage et le clic (suppression
+ * externe, rechargement à chaud), et l'éditeur doit le signaler sans s'interrompre.
+ * \castest{<b>Renommer, dupliquer ou supprimer un fichier absent échoue proprement.</b><br/>
+ * \tcat Unitaire · Opérations sur fichiers d'assets<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST_F(AssetFileOps, OperationSurFichierAbsentEchoueProprement) {
     const hmi::AssetFileOperations ops(dir);
     const std::filesystem::path absent = dir / "inexistant.png";

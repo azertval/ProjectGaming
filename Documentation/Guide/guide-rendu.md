@@ -767,7 +767,8 @@ Un programme de seize lots (voir [les lots](@ref lots)) a levé ces limites une 
   composition sur le calque `UI` et sa propre projection écran, affichage tête haute des budgets de
   sauts/dashs et du tableau courant (décrits plus haut dans cette page).
 - **`LOT-54`** — l'atelier de pixel art intégré à l'éditeur (dessin, palette, aperçu de raccords),
-  qui produit les assets consommés par ce pipeline sans le modifier lui-même (@ref guide-editeur).
+  qui produit les assets consommés par ce pipeline sans le modifier lui-même
+  (@ref guide-atelier-pixel-art).
 - **`LOT-55`** — les ombres du plan physique (`hmi::composeShadows`, `RenderLayer::Shadow`,
   décrites plus haut dans cette page).
 
