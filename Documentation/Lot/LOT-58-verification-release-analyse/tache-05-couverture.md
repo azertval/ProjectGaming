@@ -1,6 +1,6 @@
 # TACHE-05 — Couverture étendue et seuil {#lot-58-tache-05-couverture}
 
-**Lot :** [LOT-58](epic.md) · **Emplacement :** `.github/workflows` · **Statut :** non commencé
+**Lot :** [LOT-58](epic.md) · **Emplacement :** `.github/workflows` · **Statut :** en cours
 
 ## Contexte
 L'étape `Coverage` de `ci.yml` exécute OpenCppCoverage sur **`UnitTests.exe` uniquement**, exporte
@@ -51,9 +51,32 @@ n'est pas l'exécuter.
   `EX-NFR-004`/`EX-NFR-010` ; le seuil doit en tenir compte plutôt que de pousser à écrire des tests
   de façade.
 
+## État de la mesure (LOT-58) — ⚠️ incomplet, à finir avant de clore la tâche
+- **Le mécanisme est câblé** : `ci.yml` exporte `UnitTests`, `IntegrationTests` et `SystemTests` en
+  binaire intermédiaire (`--export_type binary:...`), puis les fusionne (`--input_coverage`) en un
+  rapport Cobertura unique ; une étape dédiée compare `line-rate` au seuil et fait échouer le job en
+  dessous. `OpenCppCoverage` est épinglé (`OPENCPPCOVERAGE_VERSION: 0.9.9.0`).
+- **La mesure de référence n'a PAS pu être prise localement** : l'installeur `OpenCppCoverage`
+  (Inno Setup) exige une élévation UAC indisponible dans l'environnement ayant câblé ce job (la
+  demande d'élévation reste bloquée sur le bureau sécurisé, sans possibilité d'y répondre). Le seuil
+  posé dans `ci.yml` (`COVERAGE_THRESHOLD_PERCENT: 20`) est donc une **valeur plancher provisoire**
+  choisie pour ne détecter qu'une régression grossière (rapport vide, fusion cassée) — **pas** le
+  cliquet calé sous la valeur réellement mesurée que ce lot doit livrer.
+- **Reste à faire avant de considérer cette tâche terminée** : sur la première exécution réelle du
+  job `build-test-coverage` en CI, relever le pourcentage agrégé affiché (`Write-Host`), l'écrire ici
+  avec sa date, resserrer `COVERAGE_THRESHOLD_PERCENT` en conséquence (marge explicite sous la
+  valeur mesurée), et confirmer sur le rapport HTML que `Source/Core/Ecs/Systems/
+  CharacterPhysicsSystem.cpp` (ou un fichier équivalent) porte des lignes couvertes par
+  `IntegrationTests`/`SystemTests` que `UnitTests` seul ne couvrait pas — sans quoi la fusion ne
+  fonctionne pas. Faire aussi la démonstration du test négatif (seuil temporairement placé
+  au-dessus de la valeur mesurée) directement en CI, faute d'avoir pu la faire en local.
+
 ## Définition de fait (DoD)
 - La couverture agrège les trois exécutables, un seuil documenté et daté fait échouer la CI en cas
   de chute, la démonstration du blocage est faite, l'outil de couverture est épinglé.
+- **Non atteinte en totalité** : voir « État de la mesure » ci-dessus — le mécanisme est en place et
+  épinglé, mais la valeur de seuil réelle (mesurée, datée) et la démonstration du blocage restent à
+  faire sur la première exécution CI, faute d'avoir pu installer `OpenCppCoverage` en local.
 
 ## Exigences
 Réutilise `EX-NFR-022` (CI : build, tests et couverture), `EX-NFR-020` (tests unitaires `Core`),

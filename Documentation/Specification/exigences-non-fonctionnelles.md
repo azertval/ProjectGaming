@@ -21,7 +21,7 @@
 ## 3. Qualité & vérification
 - \anchor EX-NFR-020 **EX-NFR-020** — Toute logique de gameplay livrée dans `Core` doit être couverte par des **tests unitaires** (GoogleTest).
 - \anchor EX-NFR-021 **EX-NFR-021** — Les niveaux du MVP doivent être couverts par un **test système** vérifiant leur franchissabilité.
-- \anchor EX-NFR-022 **EX-NFR-022** — La **CI** doit exécuter build, tests et couverture à chaque push/PR et rester verte pour merger.
+- \anchor EX-NFR-022 **EX-NFR-022** — La **CI** doit exécuter build, tests et couverture à chaque push/PR et rester verte pour merger. La couverture agrège `UnitTests`, `IntegrationTests` et `SystemTests` (job `build-test-coverage` de `ci.yml`, LOT-58) ; une chute sous le seuil consigné (`COVERAGE_THRESHOLD_PERCENT`) fait échouer la CI.
 - \anchor EX-NFR-004 **EX-NFR-004** — La chaîne de rendu doit être **vérifiable sans GPU** : les
   primitives de dessin produites pour une scène donnée doivent pouvoir être **capturées et
   inspectées** par un test (ordre des calques, priorité de résolution des textures, choix des

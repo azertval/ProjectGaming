@@ -19,6 +19,15 @@ env:
   # pas le résultat local ne sert qu'à agacer. Installer la même version en local pour que
   # `clang-tidy`/`clang-format` prédisent le verdict de la CI (LOT-58).
   LLVM_VERSION: 18.1.8
+  # Version d'OpenCppCoverage épinglée, même raison que Doxygen/LLVM ci-dessus : le workflow
+  # l'installait jusqu'ici sans version fixée (LOT-58).
+  OPENCPPCOVERAGE_VERSION: 0.9.9.0
+  # Seuil de couverture (LOT-58, TACHE-05) : cliquet anti-régression, pas un objectif. Valeur
+  # PROVISOIRE posée sans mesure de référence locale (OpenCppCoverage n'a pas pu être installé sur
+  # le poste ayant câblé ce job : l'installeur nécessite une élévation UAC indisponible dans cet
+  # environnement). À RESSERRER sous la valeur réellement mesurée dès la première exécution de ce
+  # job en CI — voir tache-05-couverture.md, section « État de la mesure ».
+  COVERAGE_THRESHOLD_PERCENT: 20
 
 jobs:
   build-test-coverage:
@@ -63,19 +72,43 @@ jobs:
           if (-not (Test-Path $exe)) { throw "Executable absent : $exe" }
           Write-Host "OK : $exe"
 
-      - name: Install OpenCppCoverage
-        run: choco install opencppcoverage -y --no-progress
+      - name: Install OpenCppCoverage ${{ env.OPENCPPCOVERAGE_VERSION }}
+        run: choco install opencppcoverage --version=${{ env.OPENCPPCOVERAGE_VERSION }} -y --no-progress --allow-downgrade
 
-      - name: Coverage
+      - name: Coverage (UnitTests + IntegrationTests + SystemTests, fusionnes)
         shell: pwsh
+        # LOT-58 : le rapport précédent ne mesurait que UnitTests.exe -- les 89 tests d'intégration
+        # et les 3 tests système (toute la physique de bout en bout, la franchissabilité des
+        # niveaux livrés) en étaient absents, rendant le chiffre affiché faux par construction.
+        # OpenCppCoverage n'accepte qu'un exécutable par invocation : chaque suite est exportée au
+        # format binaire intermédiaire, puis les trois sont fusionnées (--input_coverage) en un
+        # seul rapport agrégé.
         run: |
           $exe = "C:\Program Files\OpenCppCoverage\OpenCppCoverage.exe"
-          & $exe `
-            --sources "$env:GITHUB_WORKSPACE\Source" `
-            --excluded_sources "$env:GITHUB_WORKSPACE\Source\Test" `
-            --export_type "cobertura:coverage.xml" `
-            --export_type "html:coverage-html" `
-            -- "build\vs\bin\Debug\UnitTests.exe"
+          $common = @(
+            "--sources", "$env:GITHUB_WORKSPACE\Source",
+            "--excluded_sources", "$env:GITHUB_WORKSPACE\Source\Test",
+            "--excluded_sources", "$env:GITHUB_WORKSPACE\External"
+          )
+          & $exe @common --export_type "binary:unit.cov" -- "build\vs\bin\Debug\UnitTests.exe"
+          & $exe @common --export_type "binary:integration.cov" -- "build\vs\bin\Debug\IntegrationTests.exe"
+          & $exe @common --export_type "binary:system.cov" -- "build\vs\bin\Debug\SystemTests.exe"
+          & $exe --input_coverage "unit.cov" --input_coverage "integration.cov" --input_coverage "system.cov" `
+            --export_type "cobertura:coverage.xml" --export_type "html:coverage-html"
+
+      - name: Seuil de couverture (LOT-58)
+        shell: pwsh
+        # Le seuil est un cliquet anti-régression, pas un objectif (voir tache-05-couverture.md) :
+        # une chute EN DESSOUS fait échouer la CI, il n'est pas destiné à forcer une hausse.
+        run: |
+          [xml]$report = Get-Content coverage.xml
+          $percent = [math]::Round([double]$report.coverage.'line-rate' * 100, 2)
+          Write-Host "Couverture agregee (UnitTests+IntegrationTests+SystemTests) : $percent %"
+          $threshold = ${{ env.COVERAGE_THRESHOLD_PERCENT }}
+          if ($percent -lt $threshold) {
+            Write-Error "Couverture $percent % sous le seuil $threshold % (EX-NFR-022, LOT-58)."
+            exit 1
+          }
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
