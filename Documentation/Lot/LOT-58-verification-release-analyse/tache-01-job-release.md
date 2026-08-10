@@ -1,7 +1,7 @@
 # TACHE-01 — Job CI de vérification en configuration Release {#lot-58-tache-01-job-release}
 
 **Lot :** [LOT-58](epic.md) · **Emplacement :** `.github/workflows`, `CMakePresets.json` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 `ci.yml` a deux jobs de build, et tous deux sont en **Debug** : le preset `vs` construit et teste

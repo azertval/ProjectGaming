@@ -56,5 +56,8 @@ La portée correspond en général au module (`core`, `hmi`, `elements`, `test`,
 ## Avant d'ouvrir une PR
 1. `cmake --build --preset vs` compile sans avertissement.
 2. `ctest --preset vs` passe à 100 %.
-3. Le code est formaté (`clang-format`) et les nouveaux comportements sont couverts par des tests.
-4. Le `CHANGELOG.md` (section *Unreleased*) est mis à jour si pertinent.
+3. `cmake --preset vs && cmake --build --preset vs-release && ctest --preset vs-release` compile et
+   teste en configuration **Release** (LOT-58) : certaines casses (variable lue uniquement par une
+   assertion, code conditionné à `core::kDeveloperBuild`) ne se voient qu'ici.
+4. Le code est formaté (`clang-format`) et les nouveaux comportements sont couverts par des tests.
+5. Le `CHANGELOG.md` (section *Unreleased*) est mis à jour si pertinent.

@@ -80,6 +80,44 @@ jobs:
             coverage.xml
             coverage-html/
 
+  build-test-release:
+    # Les deux jobs ci-dessus (et l'historique de la CI avant ce lot) ne construisent et ne testent
+    # qu'en Debug. Le premier build Release avait lieu dans release.yml, DÉCLENCHÉ PAR LE TAG : une
+    # casse Release-only (variable lue uniquement par une assertion, donc inutilisée sous NDEBUG,
+    # cf. 90f85254) n'était découverte qu'après un tag public. Ce job la découvre en PR (LOT-58).
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.8.1'
+          host: windows
+          target: desktop
+          arch: win64_msvc2022_64
+          cache: true
+
+      - name: Configure (CMake)
+        run: cmake --preset vs
+        env:
+          CMAKE_PREFIX_PATH: ${{ env.QT_ROOT_DIR }}
+
+      - name: Build (Release)
+        run: cmake --build --preset vs-release
+
+      - name: Test (CTest, Release)
+        run: ctest --preset vs-release
+
+      - name: Verifier que l'executable est bien produit
+        shell: pwsh
+        run: |
+          $exe = 'build/vs/bin/Release/ProjectGaming.exe'
+          if (-not (Test-Path $exe)) { throw "Executable absent : $exe" }
+          Write-Host "OK : $exe"
+
   build-ninja:
     # Le preset `vs` s'appuie sur MSBuild, qui établit lui-même l'environnement MSVC ; le preset
     # `ninja` hérite au contraire de celui du terminal. N'étant couvert par aucun job, il avait

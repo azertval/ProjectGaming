@@ -117,6 +117,11 @@ cmake --build --preset vs
 ctest --preset vs        # lance les tests
 ```
 
+Presets **Release** (`vs-release`, `ninja-release`) : mêmes commandes de build/test avec
+`--preset vs-release` ou `--preset ninja-release` (configurer avec `ninja-release` pour ce dernier).
+Vérifiés en CI (LOT-58) : certaines casses (variable lue uniquement par une assertion, `NDEBUG`)
+n'apparaissent qu'en Release.
+
 > Reproductible sur plusieurs postes : tout est versionné sauf `build/` (local).
 > GoogleTest est récupéré automatiquement par CMake (FetchContent).
 
