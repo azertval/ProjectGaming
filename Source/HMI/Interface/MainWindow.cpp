@@ -437,17 +437,11 @@ void MainWindow::buildUi() {
     _pixelToolBar->setObjectName(QStringLiteral("PixelToolBar"));
     _pixelToolBar->setMovable(false);
     _actions->populatePixelToolBar(*_pixelToolBar);
-    // Temoin + selecteur de couleur courante : pas une action themee (les icones d'action sont
-    // recolorees depuis les jetons, EX-IHM-051) mais un simple bouton dont la pastille montre la
-    // VRAIE couleur courante -- seul moyen d'atteindre une couleur absente de l'image ouverte
-    // (pipette) et de la palette de projet (pastilles, TACHE-07).
+    // Temoin + bouton du selecteur de couleur courante : cree ici (barre d'outils), mais rempli et
+    // branche plus bas, APRES la construction de _pixelCanvas (sinon acces a un pointeur nul).
     _pixelToolBar->addSeparator();
     _pixelColorButton = new QToolButton(this);
     _pixelToolBar->addWidget(_pixelColorButton);
-    updatePixelColorButtonIcon(_pixelCanvas->currentColor());
-    connect(_pixelColorButton, &QToolButton::clicked, this, [this] { openPixelColorPicker(); });
-    connect(_pixelCanvas, &PixelCanvas::currentColorChanged, this,
-            [this](std::uint32_t color) { updatePixelColorButtonIcon(color); });
 
     // Contenu des docks : les coquilles (`PalettePanel`/`DecorsPanel`/`LevelsPanel`) et leur
     // agencement viennent du `.ui` ; leurs widgets, paramétrés (chemins, dépendances), sont créés
@@ -474,6 +468,14 @@ void MainWindow::buildUi() {
     _pixelCanvas = new PixelCanvas(_ui->PixelCanvasPanel);
     _pixelCanvas->setLocalization(&_loc);  // infobulle de case en mode planche (TACHE-08).
     _ui->PixelCanvasPanel->setWidget(_pixelCanvas);
+    // Temoin + selecteur de couleur courante (bouton cree plus haut, dans la barre d'outils) : pas
+    // une action themee (les icones d'action sont recolorees depuis les jetons, EX-IHM-051) mais
+    // un simple bouton dont la pastille montre la VRAIE couleur courante -- seul moyen d'atteindre
+    // une couleur absente de l'image ouverte (pipette) et de la palette de projet (TACHE-07).
+    updatePixelColorButtonIcon(_pixelCanvas->currentColor());
+    connect(_pixelColorButton, &QToolButton::clicked, this, [this] { openPixelColorPicker(); });
+    connect(_pixelCanvas, &PixelCanvas::currentColorChanged, this,
+            [this](std::uint32_t color) { updatePixelColorButtonIcon(color); });
     _pixelHistoryPanel = new PixelHistoryPanel(_ui->PixelHistoryPanel);
     _ui->PixelHistoryPanel->setWidget(_pixelHistoryPanel);
     _pixelPalettePanel = new PixelPalettePanel(_ui->PixelPalettePanel);
