@@ -215,26 +215,22 @@ jobs:
       - name: Install Ninja
         run: choco install ninja -y --no-progress
 
-      - name: Configure et build (Ninja, ASan, sans l'editeur Qt)
+      - name: Configure, build et execution sous AddressSanitizer
         shell: cmd
+        # Tout dans UN SEUL step : chaque step GitHub Actions demarre un cmd.exe neuf, et
+        # l'effet de vcvars64.bat (PATH, dont le dossier de la DLL runtime ASan) ne survit pas
+        # d'un step a l'autre. Executer les .exe dans un step separe les fait echouer avant meme
+        # d'afficher un rapport ASan (clang_rt.asan_dynamic-x86_64.dll introuvable, exit code 1
+        # sans message) -- exactement le piege documente dans tache-02-job-asan.md.
         run: |
           for /f "usebackq tokens=*" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do (
             call "%%i\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
           )
           cmake -S . -B build/ninja-asan -G Ninja -DCMAKE_BUILD_TYPE=Debug -DENABLE_ASAN=ON -DBUILD_EDITOR_QT=OFF || exit /b 1
           cmake --build build/ninja-asan || exit /b 1
-
-      - name: UnitTests sous AddressSanitizer
-        shell: cmd
-        run: build\ninja-asan\bin\UnitTests.exe || exit /b 1
-
-      - name: IntegrationTests sous AddressSanitizer
-        shell: cmd
-        run: build\ninja-asan\bin\IntegrationTests.exe || exit /b 1
-
-      - name: SystemTests sous AddressSanitizer
-        shell: cmd
-        run: build\ninja-asan\bin\SystemTests.exe || exit /b 1
+          build\ninja-asan\bin\UnitTests.exe || exit /b 1
+          build\ninja-asan\bin\IntegrationTests.exe || exit /b 1
+          build\ninja-asan\bin\SystemTests.exe || exit /b 1
 
   clang-tidy:
     # .clang-tidy est complet depuis le debut du projet et n'etait execute nulle part (LOT-58) :
