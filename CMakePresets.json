@@ -14,12 +14,24 @@
       "displayName": "Ninja (single-config)",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/ninja",
-      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    },
+    {
+      "name": "ninja-release",
+      "displayName": "Ninja (single-config, Release)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/ninja-release",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
     }
   ],
   "buildPresets": [
     { "name": "vs", "configurePreset": "vs", "configuration": "Debug" },
-    { "name": "ninja", "configurePreset": "ninja" }
+    { "name": "vs-release", "configurePreset": "vs", "configuration": "Release" },
+    { "name": "ninja", "configurePreset": "ninja" },
+    { "name": "ninja-release", "configurePreset": "ninja-release" }
   ],
   "testPresets": [
     {
@@ -29,8 +41,19 @@
       "output": { "outputOnFailure": true }
     },
     {
+      "name": "vs-release",
+      "configurePreset": "vs",
+      "configuration": "Release",
+      "output": { "outputOnFailure": true }
+    },
+    {
       "name": "ninja",
       "configurePreset": "ninja",
+      "output": { "outputOnFailure": true }
+    },
+    {
+      "name": "ninja-release",
+      "configurePreset": "ninja-release",
       "output": { "outputOnFailure": true }
     }
   ]

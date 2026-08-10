@@ -49,7 +49,8 @@ constexpr int EDITOR_ACTION_CATALOG_COUNT = 30;
 /// @return Le catalogue complet, dans l'ordre d'affichage voulu de la barre d'outils : les six
 ///         outils de niveau (ordre de la palette/du panneau Outils historique), les quatre outils
 ///         de canevas pixel art (`LOT-54` TACHE-04), puis les commandes.
-[[nodiscard]] const std::array<EditorActionSpec, EDITOR_ACTION_CATALOG_COUNT>& editorActionCatalog();
+[[nodiscard]] const std::array<EditorActionSpec, EDITOR_ACTION_CATALOG_COUNT>&
+editorActionCatalog();
 
 /// @return La spécification de l'action @p id.
 [[nodiscard]] const EditorActionSpec& editorActionSpec(IconId id);
@@ -87,7 +88,8 @@ struct KeyBindingIconEntry {
 constexpr int KEY_BINDING_ICON_COUNT = 9;
 
 /// @return La table complète action remappable -> commande du catalogue.
-[[nodiscard]] const std::array<KeyBindingIconEntry, KEY_BINDING_ICON_COUNT>& keyBindingIconCatalog();
+[[nodiscard]] const std::array<KeyBindingIconEntry, KEY_BINDING_ICON_COUNT>&
+keyBindingIconCatalog();
 
 /// @return L'identifiant de commande rendant @p action effective.
 [[nodiscard]] IconId iconForKeyBindingAction(EditorAction action);

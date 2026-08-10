@@ -44,10 +44,11 @@
 #include "Core/Diagnostics/MemoryLogSink.h"
 #include "HMI/Diagnostics/SessionLog.h"
 #include "HMI/Editor/AssetReferences.h"
+#include "HMI/Editor/DecorsPanel.h"
 #include "HMI/Editor/EditorStatus.h"
 #include "HMI/Editor/LevelBrowserPanel.h"
 #include "HMI/Editor/LinkPanel.h"
-#include "HMI/Editor/DecorsPanel.h"
+#include "HMI/Editor/PalettePanel.h"
 #include "HMI/Editor/PanelFocus.h"
 #include "HMI/Editor/PixelAssetIO.h"
 #include "HMI/Editor/PixelCanvas.h"
@@ -55,7 +56,6 @@
 #include "HMI/Editor/PixelPalette.h"
 #include "HMI/Editor/PixelPalettePanel.h"
 #include "HMI/Editor/TexturePanel.h"
-#include "HMI/Editor/PalettePanel.h"
 #include "HMI/Game/GameViewport.h"
 #include "HMI/Graphics/AssetContract.h"
 #include "HMI/Graphics/TextureLoader.h"
@@ -167,7 +167,8 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
             [this](const QString& message) { showTransientStatusMessage(message, 5000); });
     // Barre d'état : zones permanentes (LOT-57 TACHE-01), recalculées à chaque changement
     // pertinent -- outil, survol, zoom, brouillon (nom, modifications).
-    connect(_viewport, &GameViewport::toolChanged, this, [this](hmi::EditorTool) { refreshStatusHelp(); });
+    connect(_viewport, &GameViewport::toolChanged, this,
+            [this](hmi::EditorTool) { refreshStatusHelp(); });
     // Mise en avant du panneau pertinent selon l'outil actif (LOT-57 TACHE-02).
     connect(_viewport, &GameViewport::toolChanged, this, &MainWindow::applyPanelFocus);
     connect(_viewport, &GameViewport::hoveredCellChanged, this,
@@ -191,7 +192,8 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     // brouillon, le panneau ne fait que refleter fond/jeu de skins du niveau courant.
     connect(_viewport, &GameViewport::draftChanged, this, [this] {
         _links->refresh(_viewport->draft());
-        _textures->setLevelProperties(_viewport->draft().background(), _viewport->draft().skinSet());
+        _textures->setLevelProperties(_viewport->draft().background(),
+                                      _viewport->draft().skinSet());
         _textures->refreshObjects(_viewport->draft());
         _decors->refreshDecors(_viewport->draft(), _viewport->selectedDecorIndex());
         refreshStatusHelp();  // nom du niveau et indicateur de modification (LOT-57 TACHE-01).
@@ -219,7 +221,8 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
         _viewport->setActiveDecorAsset(
             fileName.isEmpty() ? std::nullopt : std::make_optional(fileName.toStdString()));
     });
-    connect(_decors, &DecorsPanel::decorLayerSelected, _viewport, &GameViewport::setActiveDecorLayer);
+    connect(_decors, &DecorsPanel::decorLayerSelected, _viewport,
+            &GameViewport::setActiveDecorLayer);
     connect(_decors, &DecorsPanel::decorSnapToGridChanged, _viewport,
             &GameViewport::setDecorSnapToGrid);
     _textures->refreshObjects(_viewport->draft());  // etat initial (avant tout draftChanged).
@@ -254,11 +257,11 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     // proprietaire du brouillon), exactement comme le panneau Liens ci-dessus.
     connect(_textures, &TexturePanel::backgroundChanged, _viewport, [this](const QString& name) {
         _viewport->setLevelBackground(name.isEmpty() ? std::nullopt
-                                                      : std::make_optional(name.toStdString()));
+                                                     : std::make_optional(name.toStdString()));
     });
     connect(_textures, &TexturePanel::levelSkinSetChanged, _viewport, [this](const QString& name) {
         _viewport->setLevelSkinSet(name.isEmpty() ? std::nullopt
-                                                   : std::make_optional(name.toStdString()));
+                                                  : std::make_optional(name.toStdString()));
     });
 
     // Palette fidele au canevas (EX-EDIT-027) : elle interroge le MEME catalogue, et se rafraichit
@@ -272,8 +275,9 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
         _viewport->setSkinSet(_textures->currentSet());
         _palette->refreshThumbnails(_viewport->renderMode(), _textures->currentSet());
     });
-    connect(_viewport, &GameViewport::renderModeChanged, this,
-            [this](RenderMode mode) { _palette->refreshThumbnails(mode, _textures->currentSet()); });
+    connect(_viewport, &GameViewport::renderModeChanged, this, [this](RenderMode mode) {
+        _palette->refreshThumbnails(mode, _textures->currentSet());
+    });
 
     // Rechargement a chaud (LOT-43 TACHE-03) : un asset modifie/renomme/ajoute hors de
     // l'application n'est repris qu'a la demande explicite -- une surveillance automatique de
@@ -421,8 +425,8 @@ void MainWindow::buildUi() {
     // construites depuis le thème d'éditeur actuellement effectif ; régénérées par
     // `EditorActions::refreshIcons` lors d'un changement de thème (TACHE-06).
     _actions = new EditorActions(hmi::currentEditorTokens(), this);
-    // Raccourcis effectifs synchronises depuis les touches d'editeur remappables (LOT-57 TACHE-04) :
-    // ActionCatalog reste sans dependance Qt (valeurs par defaut litterales), c'est ici que le
+    // Raccourcis effectifs synchronises depuis les touches d'editeur remappables (LOT-57 TACHE-04)
+    // : ActionCatalog reste sans dependance Qt (valeurs par defaut litterales), c'est ici que le
     // raccourci REELLEMENT actif est branche sur EditorKeyBindings.
     _actions->applyShortcuts(_viewport->editorBindings(), _loc);
     // Barre d'outils de l'éditeur : reste globale à la fenêtre principale, hors du panneau Décors
@@ -458,10 +462,11 @@ void MainWindow::buildUi() {
     _ui->LinksPanel->setWidget(_links);
     // Panneau d'habillage (LOT-42) : écrit `skins.json` au chemin **déployé**, exactement comme
     // l'enregistrement d'un niveau — aucun nouveau mécanisme d'écriture.
-    _textures = new TexturePanel(hmi::executableDirectory() / "Assets" / "Skins",
-                                 hmi::executableDirectory() / "Assets" / "skins.json",
-                                 hmi::executableDirectory() / "Assets" / "Backgrounds",
-                                 hmi::executableDirectory() / "Assets" / "Objects", _ui->TexturesPanel);
+    _textures =
+        new TexturePanel(hmi::executableDirectory() / "Assets" / "Skins",
+                         hmi::executableDirectory() / "Assets" / "skins.json",
+                         hmi::executableDirectory() / "Assets" / "Backgrounds",
+                         hmi::executableDirectory() / "Assets" / "Objects", _ui->TexturesPanel);
     _ui->TexturesPanel->setWidget(_textures);
     // Atelier pixel art (LOT-54 TACHE-04) : canevas et historique visuel, meme patron que les
     // panneaux ci-dessus (coquille du .ui, contenu branche en code).
@@ -485,16 +490,17 @@ void MainWindow::buildUi() {
     // (LOT-57 TACHE-02, etendu LOT-54 TACHE-04/TACHE-07) : chacun reste individuellement
     // deplacable/detachable/refermable (EX-IHM-010), seule la disposition par defaut change.
     // Textures redevient un dock independant, comme Palette (niveau)/Decors (LOT-57, amendement
-    // post-essai manuel). Doit preceder la capture de _defaultState (constructeur, apres buildUi()).
+    // post-essai manuel). Doit preceder la capture de _defaultState (constructeur, apres
+    // buildUi()).
     tabifyDockWidget(_ui->LevelsPanel, _ui->LinksPanel);
     tabifyDockWidget(_ui->LinksPanel, _ui->PixelCanvasPanel);
     tabifyDockWidget(_ui->PixelCanvasPanel, _ui->PixelHistoryPanel);
     tabifyDockWidget(_ui->PixelHistoryPanel, _ui->PixelPalettePanel);
     // Un changement de visibilite d'un de ces docks NON provoque par notre propre code (mise en
     // avant, bascule de mode, restauration de disposition -- toutes gardees par
-    // _suppressPanelFocusTracking) ne peut venir que d'un choix explicite de l'utilisateur : cliquer
-    // un onglet ou fermer/rouvrir le panneau. Meme principe pour un detachement (topLevelChanged),
-    // toujours explicite, jamais gardee.
+    // _suppressPanelFocusTracking) ne peut venir que d'un choix explicite de l'utilisateur :
+    // cliquer un onglet ou fermer/rouvrir le panneau. Meme principe pour un detachement
+    // (topLevelChanged), toujours explicite, jamais gardee.
     for (QDockWidget* const dock : {_ui->LevelsPanel, _ui->LinksPanel, _ui->PixelCanvasPanel,
                                     _ui->PixelHistoryPanel, _ui->PixelPalettePanel}) {
         connect(dock, &QDockWidget::visibilityChanged, this, [this](bool) {
@@ -505,9 +511,9 @@ void MainWindow::buildUi() {
         connect(dock, &QDockWidget::topLevelChanged, this, [this](bool) { _userPickedTab = true; });
     }
 
-    for (const hmi::EditorTool tool : {hmi::EditorTool::Paint, hmi::EditorTool::Rectangle,
-                                       hmi::EditorTool::Selection, hmi::EditorTool::Link,
-                                       hmi::EditorTool::TextureAssign, hmi::EditorTool::Decor}) {
+    for (const hmi::EditorTool tool :
+         {hmi::EditorTool::Paint, hmi::EditorTool::Rectangle, hmi::EditorTool::Selection,
+          hmi::EditorTool::Link, hmi::EditorTool::TextureAssign, hmi::EditorTool::Decor}) {
         connect(_actions->toolAction(tool), &QAction::toggled, _viewport, [this, tool](bool on) {
             if (on) {
                 _viewport->setTool(tool);
@@ -519,8 +525,8 @@ void MainWindow::buildUi() {
     // dediee a resynchroniser aujourd'hui (aucun raccourci clavier sur ces quatre actions) :
     // l'action est l'unique source de verite, contrairement aux outils de niveau.
     for (const hmi::PixelTool tool :
-        {hmi::PixelTool::Brush, hmi::PixelTool::Eraser, hmi::PixelTool::Fill,
-         hmi::PixelTool::Eyedropper, hmi::PixelTool::Selection}) {
+         {hmi::PixelTool::Brush, hmi::PixelTool::Eraser, hmi::PixelTool::Fill,
+          hmi::PixelTool::Eyedropper, hmi::PixelTool::Selection}) {
         connect(_actions->pixelToolAction(tool), &QAction::toggled, _pixelCanvas,
                 [this, tool](bool on) {
                     if (!on) {
@@ -550,8 +556,8 @@ void MainWindow::buildUi() {
 
     // Palette de projet de l'atelier pixel art (LOT-54 TACHE-07) : donnee d'auteur persistee dans
     // Assets/palettes.json, distincte des jetons de design (epic.md, decision de cadrage).
-    _pixelPalette = hmi::PixelPalette::loadFromFile(hmi::executableDirectory() / "Assets" /
-                                                    "palettes.json");
+    _pixelPalette =
+        hmi::PixelPalette::loadFromFile(hmi::executableDirectory() / "Assets" / "palettes.json");
     _pixelPalettePanel->refresh(_pixelPalette);
     syncPaletteToCanvas();
     _pixelPalettePanel->setConstrainEnabled(
@@ -559,10 +565,9 @@ void MainWindow::buildUi() {
     _pixelCanvas->setPaletteConstrained(_pixelPalettePanel->constrainEnabled());
 
     connect(_pixelPalettePanel, &PixelPalettePanel::addRequested, this, [this] {
-        const std::string name =
-            text("pixel_palette.new_color_name")
-                .arg(static_cast<int>(_pixelPalette.entries().size()) + 1)
-                .toStdString();
+        const std::string name = text("pixel_palette.new_color_name")
+                                     .arg(static_cast<int>(_pixelPalette.entries().size()) + 1)
+                                     .toStdString();
         _pixelPalette.add(name, _pixelCanvas->currentColor());
         _pixelPalettePanel->refresh(_pixelPalette);
         syncPaletteToCanvas();
@@ -584,8 +589,8 @@ void MainWindow::buildUi() {
                 bool accepted = false;
                 const QString newName = QInputDialog::getText(
                     this, text("pixel_palette.rename"), text("pixel_palette.rename_prompt"),
-                    QLineEdit::Normal,
-                    QString::fromStdString(_pixelPalette.entries()[index].name), &accepted);
+                    QLineEdit::Normal, QString::fromStdString(_pixelPalette.entries()[index].name),
+                    &accepted);
                 if (!accepted || newName.isEmpty()) {
                     return;
                 }
@@ -604,7 +609,7 @@ void MainWindow::buildUi() {
             });
     connect(_pixelPalettePanel, &PixelPalettePanel::extractRequested, this, [this] {
         for (const hmi::PixelPaletteExtractionEntry& extracted :
-            hmi::extractPalette(_pixelCanvas->image())) {
+             hmi::extractPalette(_pixelCanvas->image())) {
             const std::string name = text("pixel_palette.new_color_name")
                                          .arg(static_cast<int>(_pixelPalette.entries().size()) + 1)
                                          .toStdString();
@@ -693,8 +698,9 @@ void MainWindow::buildUi() {
             _levels->refresh();  // le fichier a pu changer de nom dans le dossier liste.
         }
     });
-    // Aperçu des raccourcis (LOT-57 TACHE-04, concretise EX-EDIT-015) : lit les raccourcis EFFECTIFS
-    // des actions a l'ouverture, jamais un texte fige -- toujours a jour apres un remappage.
+    // Aperçu des raccourcis (LOT-57 TACHE-04, concretise EX-EDIT-015) : lit les raccourcis
+    // EFFECTIFS des actions a l'ouverture, jamais un texte fige -- toujours a jour apres un
+    // remappage.
     connect(_actions->action(hmi::IconId::ShortcutsOverview), &QAction::triggered, this, [this] {
         QDialog dialog(this);
         dialog.setWindowTitle(text("dialog.shortcuts_title"));
@@ -704,9 +710,9 @@ void MainWindow::buildUi() {
             if (act->shortcut().isEmpty()) {
                 continue;
             }
-            layout->addWidget(new QLabel(
-                act->text() + QStringLiteral(" — ") + act->shortcut().toString(QKeySequence::NativeText),
-                &dialog));
+            layout->addWidget(new QLabel(act->text() + QStringLiteral(" — ") +
+                                             act->shortcut().toString(QKeySequence::NativeText),
+                                         &dialog));
         }
         auto* const buttons = new QDialogButtonBox(QDialogButtonBox::Ok, &dialog);
         layout->addWidget(buttons);
@@ -737,7 +743,8 @@ void MainWindow::buildUi() {
         _suppressPanelFocusTracking = true;
         restoreState(_defaultState, LAYOUT_VERSION);
         _suppressPanelFocusTracking = false;
-        _userPickedTab = false;  // repart sur la mise en avant automatique, disposition remise a neuf.
+        _userPickedTab =
+            false;  // repart sur la mise en avant automatique, disposition remise a neuf.
     });
 
     // Thème clair/sombre de l'éditeur (LOT-56 TACHE-06) : réglage Système/Clair/Sombre, persisté,
@@ -846,7 +853,8 @@ void MainWindow::buildUi() {
     // LOT-56, toolbar + menu Niveau + F8) -- lui donner une présence ICI, à côté du mode
     // d'inspection par calque, remplace la case "Physique seul" retirée en TACHE-03 (même état,
     // une seule définition désormais, EX-IHM-062) sans en créer une seconde.
-    _ui->viewMenu->insertAction(_ui->actResetLayout, _actions->action(hmi::IconId::ToggleRenderMode));
+    _ui->viewMenu->insertAction(_ui->actResetLayout,
+                                _actions->action(hmi::IconId::ToggleRenderMode));
     _ui->viewMenu->insertSeparator(_ui->actResetLayout);
 
     // Barre d'état structurée (LOT-57 TACHE-01) : zones permanentes, ajoutées via
@@ -862,7 +870,7 @@ void MainWindow::buildUi() {
     _statusZoom->setMinimumWidth(fontMetrics().horizontalAdvance(QStringLiteral("Zoom : 999%")));
     _statusColor = new QLabel(this);  // Couleur courante de l'atelier pixel art (LOT-54 TACHE-04).
     for (QLabel* const zone :
-        {_statusLevel, _statusDirty, _statusTool, _statusHover, _statusZoom, _statusColor}) {
+         {_statusLevel, _statusDirty, _statusTool, _statusHover, _statusZoom, _statusColor}) {
         statusBar()->addPermanentWidget(zone);
     }
     _statusMessageTimer = new QTimer(this);
@@ -1078,9 +1086,10 @@ void MainWindow::updateActiveEditContext(QWidget* focused) {
     if (focused == nullptr) {
         return;  // perte de focus (fenetre inactive) : conserve le contexte actuel.
     }
-    EditContextTarget* const target = (focused == _pixelCanvas || _pixelCanvas->isAncestorOf(focused))
-                                          ? static_cast<EditContextTarget*>(_pixelCanvas)
-                                          : static_cast<EditContextTarget*>(_viewport);
+    EditContextTarget* const target =
+        (focused == _pixelCanvas || _pixelCanvas->isAncestorOf(focused))
+            ? static_cast<EditContextTarget*>(_pixelCanvas)
+            : static_cast<EditContextTarget*>(_viewport);
     if (target != _editContext) {
         _editContext = target;
         refreshStatusHelp();  // les zones affichees dependent du contexte actif (LOT-54 TACHE-04).
@@ -1132,18 +1141,18 @@ void MainWindow::updatePixelColorButtonIcon(std::uint32_t color) {
 
 void MainWindow::openPixelColorPicker() {
     const std::uint32_t current = _pixelCanvas->currentColor();
-    const QColor initial(static_cast<int>(current & 0xFFu), static_cast<int>((current >> 8) & 0xFFu),
-                         static_cast<int>((current >> 16) & 0xFFu),
-                         static_cast<int>((current >> 24) & 0xFFu));
+    const QColor initial(
+        static_cast<int>(current & 0xFFu), static_cast<int>((current >> 8) & 0xFFu),
+        static_cast<int>((current >> 16) & 0xFFu), static_cast<int>((current >> 24) & 0xFFu));
     const QColor chosen = QColorDialog::getColor(initial, this, text("pixel.color_picker_title"),
                                                  QColorDialog::ShowAlphaChannel);
     if (!chosen.isValid()) {
         return;
     }
-    const std::uint32_t packed =
-        static_cast<std::uint32_t>(chosen.red()) | (static_cast<std::uint32_t>(chosen.green()) << 8) |
-        (static_cast<std::uint32_t>(chosen.blue()) << 16) |
-        (static_cast<std::uint32_t>(chosen.alpha()) << 24);
+    const std::uint32_t packed = static_cast<std::uint32_t>(chosen.red()) |
+                                 (static_cast<std::uint32_t>(chosen.green()) << 8) |
+                                 (static_cast<std::uint32_t>(chosen.blue()) << 16) |
+                                 (static_cast<std::uint32_t>(chosen.alpha()) << 24);
     _pixelCanvas->setCurrentColor(packed);
 }
 
@@ -1154,7 +1163,7 @@ void MainWindow::openPixelAssetOpenDialog() {
     const QString directory =
         QString::fromStdString((hmi::executableDirectory() / "Assets").string());
     const QString path = QFileDialog::getOpenFileName(this, text("pixel.open_title"), directory,
-                                                       QStringLiteral("PNG (*.png)"));
+                                                      QStringLiteral("PNG (*.png)"));
     if (path.isEmpty()) {
         return;
     }
@@ -1178,9 +1187,8 @@ void MainWindow::openPixelAssetCreateDialog() {
     // Familles creables depuis l'atelier : Atlas exclu (fichier historique unique, jamais recree a
     // la main) et Font exclu (decoupe par ses metriques, hors perimetre d'un canevas generique).
     static constexpr hmi::AssetFamily FAMILIES[] = {
-        hmi::AssetFamily::TileSkin,       hmi::AssetFamily::AutotileSheet,
-        hmi::AssetFamily::Object,         hmi::AssetFamily::CharacterSheet,
-        hmi::AssetFamily::Background,     hmi::AssetFamily::Decor,
+        hmi::AssetFamily::TileSkin,       hmi::AssetFamily::AutotileSheet, hmi::AssetFamily::Object,
+        hmi::AssetFamily::CharacterSheet, hmi::AssetFamily::Background,    hmi::AssetFamily::Decor,
     };
 
     QDialog dialog(this);
@@ -1219,7 +1227,8 @@ void MainWindow::openPixelAssetCreateDialog() {
     form->addRow(text("pixel.create_size"), sizeCombo);
     form->addRow(widthSpin);
     form->addRow(heightSpin);
-    auto* const buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
+    auto* const buttons =
+        new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
     form->addRow(buttons);
     connect(buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
     connect(buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
@@ -1228,12 +1237,14 @@ void MainWindow::openPixelAssetCreateDialog() {
         return;
     }
 
-    const hmi::AssetFamily chosenFamily = FAMILIES[static_cast<std::size_t>(familyCombo->currentIndex())];
+    const hmi::AssetFamily chosenFamily =
+        FAMILIES[static_cast<std::size_t>(familyCombo->currentIndex())];
     const std::vector<std::pair<int, int>> sizes = hmi::validAssetSizes(chosenFamily);
     int width = 0;
     int height = 0;
     if (!sizes.empty()) {
-        const auto& [sizeWidth, sizeHeight] = sizes[static_cast<std::size_t>(sizeCombo->currentIndex())];
+        const auto& [sizeWidth, sizeHeight] =
+            sizes[static_cast<std::size_t>(sizeCombo->currentIndex())];
         width = sizeWidth;
         height = sizeHeight;
     } else {
@@ -1245,7 +1256,8 @@ void MainWindow::openPixelAssetCreateDialog() {
     image.width = width;
     image.height = height;
     image.pixels.assign(static_cast<std::size_t>(width) * static_cast<std::size_t>(height), 0u);
-    _pixelCanvas->setImage(image);  // assetName/chemin restent vides : nouvel asset, pas encore enregistre.
+    _pixelCanvas->setImage(
+        image);  // assetName/chemin restent vides : nouvel asset, pas encore enregistre.
     _pixelAssetPath.clear();
     refreshStatusHelp();
 }
@@ -1276,7 +1288,7 @@ void MainWindow::savePixelAsset(bool saveAs) {
                 this, text("pixel.overwrite_title"),
                 text("pixel.overwrite_text")
                     .arg(QString::fromStdString(target.filename().string()),
-                        QString::fromStdString(hmi::describeReferences(references))));
+                         QString::fromStdString(hmi::describeReferences(references))));
             if (answer != QMessageBox::Yes) {
                 return;
             }
@@ -1347,8 +1359,8 @@ void MainWindow::retranslateUi() {
     _themeDarkAction->setText(text("menubar.theme_dark"));
     _actFollowActiveTool->setText(text("menubar.follow_active_tool"));
     static constexpr const char* LAYER_ACTION_KEYS[] = {
-        "menubar.layer_background", "menubar.layer_decor_background", "menubar.layer_shadow",
-        "menubar.layer_tile_skin",  "menubar.layer_objects",           "menubar.layer_player",
+        "menubar.layer_background",      "menubar.layer_decor_background", "menubar.layer_shadow",
+        "menubar.layer_tile_skin",       "menubar.layer_objects",          "menubar.layer_player",
         "menubar.layer_decor_foreground"};
     for (std::size_t i = 0; i < _layerVisibilityActions.size(); ++i) {
         _layerVisibilityActions[i]->setText(text(LAYER_ACTION_KEYS[i]));

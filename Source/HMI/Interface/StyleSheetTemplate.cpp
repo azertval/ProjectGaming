@@ -24,8 +24,7 @@ StyleSheetSubstitutionResult substituteStyleSheetTemplate(
             return result;
         }
 
-        const std::string name =
-            templateText.substr(markerStart + 2, markerEnd - markerStart - 2);
+        const std::string name = templateText.substr(markerStart + 2, markerEnd - markerStart - 2);
         const auto found = values.find(name);
         if (found == values.end()) {
             result.ok = false;

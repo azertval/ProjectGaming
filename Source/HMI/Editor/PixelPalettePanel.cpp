@@ -23,7 +23,7 @@ namespace {
 // (feuille de style Qt, TACHE-01 de LOT-56).
 QColor toQColor(std::uint32_t color) {
     return QColor(static_cast<int>(color & 0xFFu), static_cast<int>((color >> 8) & 0xFFu),
-                 static_cast<int>((color >> 16) & 0xFFu), static_cast<int>((color >> 24) & 0xFFu));
+                  static_cast<int>((color >> 16) & 0xFFu), static_cast<int>((color >> 24) & 0xFFu));
 }
 
 QIcon swatchIcon(std::uint32_t color) {
@@ -77,7 +77,8 @@ void PixelPalettePanel::refresh(const PixelPalette& palette) {
     _entries = palette.entries();
     _list->clear();
     for (const PixelPaletteEntry& entry : _entries) {
-        auto* const item = new QListWidgetItem(swatchIcon(entry.color), QString::fromStdString(entry.name));
+        auto* const item =
+            new QListWidgetItem(swatchIcon(entry.color), QString::fromStdString(entry.name));
         _list->addItem(item);
     }
     updateButtonsEnabled();

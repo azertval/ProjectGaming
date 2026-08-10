@@ -70,7 +70,8 @@ struct SpacingTokens {
     int large = 16;
     int extraLarge = 24;
 
-    [[nodiscard]] friend bool operator==(const SpacingTokens&, const SpacingTokens&) noexcept = default;
+    [[nodiscard]] friend bool operator==(const SpacingTokens&,
+                                         const SpacingTokens&) noexcept = default;
 };
 
 /// Un niveau de l'échelle typographique : taille en points et graisse (`QFont::Weight`, 1-1000).
@@ -78,7 +79,8 @@ struct TypographyLevel {
     int pointSize = 10;
     int weight = 400;  ///< QFont::Normal
 
-    [[nodiscard]] friend bool operator==(const TypographyLevel&, const TypographyLevel&) noexcept = default;
+    [[nodiscard]] friend bool operator==(const TypographyLevel&,
+                                         const TypographyLevel&) noexcept = default;
 };
 
 /// Échelle typographique, par **rôle** — jamais de taille ponctuelle en dehors de cette échelle.
@@ -89,18 +91,20 @@ struct TypographyTokens {
     TypographyLevel caption;        ///< Libellé secondaire, infobulle.
     TypographyLevel monospaceBody;  ///< Texte à chasse fixe (identité du menu principal).
 
-    [[nodiscard]] friend bool operator==(const TypographyTokens&, const TypographyTokens&) noexcept = default;
+    [[nodiscard]] friend bool operator==(const TypographyTokens&,
+                                         const TypographyTokens&) noexcept = default;
 };
 
 /// Tailles d'icônes, de vignettes et de contrôles usuels, en pixels logiques (avant mise à
 /// l'échelle d'affichage, `LOT-56` TACHE-05).
 struct SizeTokens {
     int iconSmall = 16;
-    int iconMedium = 20;         ///< Icônes de ligne (panneau Textures) et d'action de barre d'outils.
+    int iconMedium = 20;  ///< Icônes de ligne (panneau Textures) et d'action de barre d'outils.
     int iconLarge = 24;
-    int paletteThumbnail = 32;   ///< Vignettes de la palette (multiple de la taille d'une case).
-    int assetThumbnail = 48;     ///< Vignettes des grilles d'assets (`AssetThumbnailView`).
-    int controlMinWidth = 160;   ///< Largeur minimale usuelle (boutons de remappage clavier/manette).
+    int paletteThumbnail = 32;  ///< Vignettes de la palette (multiple de la taille d'une case).
+    int assetThumbnail = 48;    ///< Vignettes des grilles d'assets (`AssetThumbnailView`).
+    int controlMinWidth =
+        160;  ///< Largeur minimale usuelle (boutons de remappage clavier/manette).
 
     [[nodiscard]] friend bool operator==(const SizeTokens&, const SizeTokens&) noexcept = default;
 };

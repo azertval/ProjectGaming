@@ -95,9 +95,19 @@ endif()
 # --- Options de compilation transverses (sanitizers) ---
 add_library(project_options INTERFACE)
 if(ENABLE_ASAN)
+    # Portée GLOBALE (add_compile_options/add_link_options), pas seulement sur project_options :
+    # sous MSVC, /fsanitize=address instrumente les conteneurs STL (annotate_string,
+    # annotate_vector, annotate_optional...), et l'éditeur de liens exige que TOUS les objets liés
+    # dans un même binaire partagent la même instrumentation (LNK2038 sinon). GoogleTest est
+    # récupéré par FetchContent (add_subdirectory(External) ci-dessous) et ne lie pas
+    # project_options : sans portée globale, gtest.lib serait compilé sans le sanitizer et
+    # l'édition de liens de tout exécutable de test échouerait (« discordance détectée »).
     if(MSVC)
+        add_compile_options(/fsanitize=address)
         target_compile_options(project_options INTERFACE /fsanitize=address)
     else()
+        add_compile_options(-fsanitize=address -fno-omit-frame-pointer)
+        add_link_options(-fsanitize=address)
         target_compile_options(project_options INTERFACE -fsanitize=address -fno-omit-frame-pointer)
         target_link_options(project_options INTERFACE -fsanitize=address)
     endif()

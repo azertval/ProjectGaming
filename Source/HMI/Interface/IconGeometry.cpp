@@ -24,7 +24,9 @@ constexpr float PI = std::numbers::pi_v<float>;
                                     IconColorRole color) {
     return IconStroke{{IconPoint{x, y}, IconPoint{x + width, y}, IconPoint{x + width, y + height},
                        IconPoint{x, y + height}},
-                      /*closed=*/true, filled, color};
+                      /*closed=*/true,
+                      filled,
+                      color};
 }
 
 }  // namespace
@@ -33,29 +35,46 @@ IconGeometry iconGeometry(IconId id) {
     switch (id) {
         case IconId::ToolPaint:
             return IconGeometry{{
-                IconStroke{{IconPoint{0.20f, 0.80f}, IconPoint{0.58f, 0.42f}}, false, false,
-                          IconColorRole::Foreground},
+                IconStroke{{IconPoint{0.20f, 0.80f}, IconPoint{0.58f, 0.42f}},
+                           false,
+                           false,
+                           IconColorRole::Foreground},
                 IconStroke{circlePoints(0.70f, 0.30f, 0.15f), true, true, IconColorRole::Accent},
             }};
         case IconId::ToolRectangle:
-            return IconGeometry{{rectStroke(0.20f, 0.20f, 0.60f, 0.60f, false,
-                                            IconColorRole::Foreground)}};
+            return IconGeometry{
+                {rectStroke(0.20f, 0.20f, 0.60f, 0.60f, false, IconColorRole::Foreground)}};
         case IconId::ToolSelection:
             return IconGeometry{{
-                IconStroke{{IconPoint{0.20f, 0.35f}, IconPoint{0.20f, 0.20f}, IconPoint{0.35f, 0.20f}},
-                          false, false, IconColorRole::Foreground},
-                IconStroke{{IconPoint{0.65f, 0.20f}, IconPoint{0.80f, 0.20f}, IconPoint{0.80f, 0.35f}},
-                          false, false, IconColorRole::Foreground},
-                IconStroke{{IconPoint{0.80f, 0.65f}, IconPoint{0.80f, 0.80f}, IconPoint{0.65f, 0.80f}},
-                          false, false, IconColorRole::Foreground},
-                IconStroke{{IconPoint{0.35f, 0.80f}, IconPoint{0.20f, 0.80f}, IconPoint{0.20f, 0.65f}},
-                          false, false, IconColorRole::Foreground},
+                IconStroke{
+                    {IconPoint{0.20f, 0.35f}, IconPoint{0.20f, 0.20f}, IconPoint{0.35f, 0.20f}},
+                    false,
+                    false,
+                    IconColorRole::Foreground},
+                IconStroke{
+                    {IconPoint{0.65f, 0.20f}, IconPoint{0.80f, 0.20f}, IconPoint{0.80f, 0.35f}},
+                    false,
+                    false,
+                    IconColorRole::Foreground},
+                IconStroke{
+                    {IconPoint{0.80f, 0.65f}, IconPoint{0.80f, 0.80f}, IconPoint{0.65f, 0.80f}},
+                    false,
+                    false,
+                    IconColorRole::Foreground},
+                IconStroke{
+                    {IconPoint{0.35f, 0.80f}, IconPoint{0.20f, 0.80f}, IconPoint{0.20f, 0.65f}},
+                    false,
+                    false,
+                    IconColorRole::Foreground},
             }};
         case IconId::ToolLink:
             return IconGeometry{{
-                IconStroke{circlePoints(0.27f, 0.5f, 0.14f), true, false, IconColorRole::Foreground},
-                IconStroke{{IconPoint{0.41f, 0.5f}, IconPoint{0.59f, 0.5f}}, false, false,
-                          IconColorRole::Foreground},
+                IconStroke{circlePoints(0.27f, 0.5f, 0.14f), true, false,
+                           IconColorRole::Foreground},
+                IconStroke{{IconPoint{0.41f, 0.5f}, IconPoint{0.59f, 0.5f}},
+                           false,
+                           false,
+                           IconColorRole::Foreground},
                 IconStroke{circlePoints(0.73f, 0.5f, 0.14f), true, true, IconColorRole::Accent},
             }};
         case IconId::ToolTextureAssign:
@@ -72,7 +91,8 @@ IconGeometry iconGeometry(IconId id) {
             for (int i = 0; i < 10; ++i) {
                 const float radius = (i % 2 == 0) ? outerRadius : innerRadius;
                 const float angle = -PI / 2.0f + PI * static_cast<float>(i) / 5.0f;
-                star.push_back(IconPoint{0.5f + radius * std::cos(angle), 0.5f + radius * std::sin(angle)});
+                star.push_back(
+                    IconPoint{0.5f + radius * std::cos(angle), 0.5f + radius * std::sin(angle)});
             }
             return IconGeometry{{IconStroke{star, true, true, IconColorRole::Accent}}};
         }
@@ -83,33 +103,53 @@ IconGeometry iconGeometry(IconId id) {
                 rectStroke(0.30f, 0.55f, 0.40f, 0.25f, false, IconColorRole::Foreground),
             }};
         case IconId::Playtest:
-            return IconGeometry{{IconStroke{{IconPoint{0.30f, 0.20f}, IconPoint{0.30f, 0.80f},
-                                            IconPoint{0.80f, 0.50f}},
-                                            true, true, IconColorRole::Accent}}};
+            return IconGeometry{{IconStroke{
+                {IconPoint{0.30f, 0.20f}, IconPoint{0.30f, 0.80f}, IconPoint{0.80f, 0.50f}},
+                true,
+                true,
+                IconColorRole::Accent}}};
         case IconId::Undo:
             return IconGeometry{{
-                IconStroke{{IconPoint{0.75f, 0.5f}, IconPoint{0.32f, 0.5f}}, false, false,
-                          IconColorRole::Foreground},
-                IconStroke{{IconPoint{0.32f, 0.5f}, IconPoint{0.47f, 0.35f}, IconPoint{0.47f, 0.65f}},
-                          true, true, IconColorRole::Foreground},
+                IconStroke{{IconPoint{0.75f, 0.5f}, IconPoint{0.32f, 0.5f}},
+                           false,
+                           false,
+                           IconColorRole::Foreground},
+                IconStroke{
+                    {IconPoint{0.32f, 0.5f}, IconPoint{0.47f, 0.35f}, IconPoint{0.47f, 0.65f}},
+                    true,
+                    true,
+                    IconColorRole::Foreground},
             }};
         case IconId::Redo:
             return IconGeometry{{
-                IconStroke{{IconPoint{0.25f, 0.5f}, IconPoint{0.68f, 0.5f}}, false, false,
-                          IconColorRole::Foreground},
-                IconStroke{{IconPoint{0.68f, 0.5f}, IconPoint{0.53f, 0.35f}, IconPoint{0.53f, 0.65f}},
-                          true, true, IconColorRole::Foreground},
+                IconStroke{{IconPoint{0.25f, 0.5f}, IconPoint{0.68f, 0.5f}},
+                           false,
+                           false,
+                           IconColorRole::Foreground},
+                IconStroke{
+                    {IconPoint{0.68f, 0.5f}, IconPoint{0.53f, 0.35f}, IconPoint{0.53f, 0.65f}},
+                    true,
+                    true,
+                    IconColorRole::Foreground},
             }};
         case IconId::ToggleGrid:
             return IconGeometry{{
-                IconStroke{{IconPoint{0.37f, 0.2f}, IconPoint{0.37f, 0.8f}}, false, false,
-                          IconColorRole::Foreground},
-                IconStroke{{IconPoint{0.63f, 0.2f}, IconPoint{0.63f, 0.8f}}, false, false,
-                          IconColorRole::Foreground},
-                IconStroke{{IconPoint{0.2f, 0.37f}, IconPoint{0.8f, 0.37f}}, false, false,
-                          IconColorRole::Foreground},
-                IconStroke{{IconPoint{0.2f, 0.63f}, IconPoint{0.8f, 0.63f}}, false, false,
-                          IconColorRole::Foreground},
+                IconStroke{{IconPoint{0.37f, 0.2f}, IconPoint{0.37f, 0.8f}},
+                           false,
+                           false,
+                           IconColorRole::Foreground},
+                IconStroke{{IconPoint{0.63f, 0.2f}, IconPoint{0.63f, 0.8f}},
+                           false,
+                           false,
+                           IconColorRole::Foreground},
+                IconStroke{{IconPoint{0.2f, 0.37f}, IconPoint{0.8f, 0.37f}},
+                           false,
+                           false,
+                           IconColorRole::Foreground},
+                IconStroke{{IconPoint{0.2f, 0.63f}, IconPoint{0.8f, 0.63f}},
+                           false,
+                           false,
+                           IconColorRole::Foreground},
             }};
         case IconId::ResetCamera:
             return IconGeometry{{
@@ -133,13 +173,19 @@ IconGeometry iconGeometry(IconId id) {
             }};
         case IconId::Rename:
             return IconGeometry{{
-                IconStroke{{IconPoint{0.20f, 0.80f}, IconPoint{0.60f, 0.40f}}, false, false,
-                          IconColorRole::Foreground},
-                IconStroke{{IconPoint{0.60f, 0.40f}, IconPoint{0.76f, 0.24f}, IconPoint{0.84f, 0.32f},
-                           IconPoint{0.68f, 0.48f}},
-                          true, true, IconColorRole::Accent},
-                IconStroke{{IconPoint{0.18f, 0.82f}, IconPoint{0.30f, 0.82f}}, false, false,
-                          IconColorRole::Foreground},
+                IconStroke{{IconPoint{0.20f, 0.80f}, IconPoint{0.60f, 0.40f}},
+                           false,
+                           false,
+                           IconColorRole::Foreground},
+                IconStroke{{IconPoint{0.60f, 0.40f}, IconPoint{0.76f, 0.24f},
+                            IconPoint{0.84f, 0.32f}, IconPoint{0.68f, 0.48f}},
+                           true,
+                           true,
+                           IconColorRole::Accent},
+                IconStroke{{IconPoint{0.18f, 0.82f}, IconPoint{0.30f, 0.82f}},
+                           false,
+                           false,
+                           IconColorRole::Foreground},
             }};
         case IconId::ShortcutsOverview:
             return IconGeometry{{
@@ -152,8 +198,10 @@ IconGeometry iconGeometry(IconId id) {
             // Manche vertical + touffe (cercle plein) : distinct de ToolPaint (manche diagonal,
             // cercle en haut a droite) pour rester reconnaissable meme cote a cote dans un menu.
             return IconGeometry{{
-                IconStroke{{IconPoint{0.5f, 0.15f}, IconPoint{0.5f, 0.55f}}, false, false,
-                          IconColorRole::Foreground},
+                IconStroke{{IconPoint{0.5f, 0.15f}, IconPoint{0.5f, 0.55f}},
+                           false,
+                           false,
+                           IconColorRole::Foreground},
                 IconStroke{circlePoints(0.5f, 0.72f, 0.16f), true, true, IconColorRole::Accent},
             }};
         case IconId::PixelEraser: {
@@ -167,34 +215,45 @@ IconGeometry iconGeometry(IconId id) {
         case IconId::PixelFill:
             // Bec verseur (triangle) + goutte (cercle plein) : pot de peinture qui se renverse.
             return IconGeometry{{
-                IconStroke{{IconPoint{0.20f, 0.30f}, IconPoint{0.60f, 0.30f}, IconPoint{0.40f, 0.65f}},
-                          true, false, IconColorRole::Foreground},
+                IconStroke{
+                    {IconPoint{0.20f, 0.30f}, IconPoint{0.60f, 0.30f}, IconPoint{0.40f, 0.65f}},
+                    true,
+                    false,
+                    IconColorRole::Foreground},
                 IconStroke{circlePoints(0.72f, 0.72f, 0.14f), true, true, IconColorRole::Accent},
             }};
         case IconId::PixelEyedropper:
             // Diagonale inverse de ToolPaint (cercle en bas a gauche plutot qu'en haut a droite) :
             // silhouette distincte tout en restant reconnaissable comme une pipette.
             return IconGeometry{{
-                IconStroke{{IconPoint{0.75f, 0.25f}, IconPoint{0.35f, 0.65f}}, false, false,
-                          IconColorRole::Foreground},
+                IconStroke{{IconPoint{0.75f, 0.25f}, IconPoint{0.35f, 0.65f}},
+                           false,
+                           false,
+                           IconColorRole::Foreground},
                 IconStroke{circlePoints(0.25f, 0.75f, 0.12f), true, true, IconColorRole::Accent},
             }};
         case IconId::PixelOpen:
             // Dossier ouvert : base + rabat superieur.
             return IconGeometry{{
                 rectStroke(0.15f, 0.35f, 0.70f, 0.45f, false, IconColorRole::Foreground),
-                IconStroke{{IconPoint{0.15f, 0.35f}, IconPoint{0.25f, 0.20f}, IconPoint{0.55f, 0.20f},
-                           IconPoint{0.62f, 0.35f}},
-                          true, true, IconColorRole::Accent},
+                IconStroke{{IconPoint{0.15f, 0.35f}, IconPoint{0.25f, 0.20f},
+                            IconPoint{0.55f, 0.20f}, IconPoint{0.62f, 0.35f}},
+                           true,
+                           true,
+                           IconColorRole::Accent},
             }};
         case IconId::PixelCreate:
             // Feuille vierge + signe plus : "nouveau".
             return IconGeometry{{
                 rectStroke(0.20f, 0.20f, 0.60f, 0.60f, false, IconColorRole::Foreground),
-                IconStroke{{IconPoint{0.5f, 0.32f}, IconPoint{0.5f, 0.68f}}, false, false,
-                          IconColorRole::Accent},
-                IconStroke{{IconPoint{0.32f, 0.5f}, IconPoint{0.68f, 0.5f}}, false, false,
-                          IconColorRole::Accent},
+                IconStroke{{IconPoint{0.5f, 0.32f}, IconPoint{0.5f, 0.68f}},
+                           false,
+                           false,
+                           IconColorRole::Accent},
+                IconStroke{{IconPoint{0.32f, 0.5f}, IconPoint{0.68f, 0.5f}},
+                           false,
+                           false,
+                           IconColorRole::Accent},
             }};
         case IconId::PixelSave:
             // Meme silhouette de disquette que Save (niveau) : le concept est identique, seule la
@@ -217,44 +276,68 @@ IconGeometry iconGeometry(IconId id) {
             // Meme motif que ToolSelection (quatre coins en L) : le concept de selection est
             // identique, seule la cible (canevas plutot que niveau) differe.
             return IconGeometry{{
-                IconStroke{{IconPoint{0.20f, 0.35f}, IconPoint{0.20f, 0.20f}, IconPoint{0.35f, 0.20f}},
-                          false, false, IconColorRole::Foreground},
-                IconStroke{{IconPoint{0.65f, 0.20f}, IconPoint{0.80f, 0.20f}, IconPoint{0.80f, 0.35f}},
-                          false, false, IconColorRole::Foreground},
-                IconStroke{{IconPoint{0.80f, 0.65f}, IconPoint{0.80f, 0.80f}, IconPoint{0.65f, 0.80f}},
-                          false, false, IconColorRole::Foreground},
-                IconStroke{{IconPoint{0.35f, 0.80f}, IconPoint{0.20f, 0.80f}, IconPoint{0.20f, 0.65f}},
-                          false, false, IconColorRole::Foreground},
+                IconStroke{
+                    {IconPoint{0.20f, 0.35f}, IconPoint{0.20f, 0.20f}, IconPoint{0.35f, 0.20f}},
+                    false,
+                    false,
+                    IconColorRole::Foreground},
+                IconStroke{
+                    {IconPoint{0.65f, 0.20f}, IconPoint{0.80f, 0.20f}, IconPoint{0.80f, 0.35f}},
+                    false,
+                    false,
+                    IconColorRole::Foreground},
+                IconStroke{
+                    {IconPoint{0.80f, 0.65f}, IconPoint{0.80f, 0.80f}, IconPoint{0.65f, 0.80f}},
+                    false,
+                    false,
+                    IconColorRole::Foreground},
+                IconStroke{
+                    {IconPoint{0.35f, 0.80f}, IconPoint{0.20f, 0.80f}, IconPoint{0.20f, 0.65f}},
+                    false,
+                    false,
+                    IconColorRole::Foreground},
             }};
         case IconId::PixelFlipHorizontal:
             // Axe vertical + deux blocs miroir (un plein, un vide) de part et d'autre.
             return IconGeometry{{
-                IconStroke{{IconPoint{0.5f, 0.15f}, IconPoint{0.5f, 0.85f}}, false, false,
-                          IconColorRole::Foreground},
+                IconStroke{{IconPoint{0.5f, 0.15f}, IconPoint{0.5f, 0.85f}},
+                           false,
+                           false,
+                           IconColorRole::Foreground},
                 rectStroke(0.15f, 0.30f, 0.25f, 0.40f, true, IconColorRole::Accent),
                 rectStroke(0.60f, 0.30f, 0.25f, 0.40f, false, IconColorRole::Foreground),
             }};
         case IconId::PixelFlipVertical:
             // Axe horizontal + deux blocs miroir de part et d'autre.
             return IconGeometry{{
-                IconStroke{{IconPoint{0.15f, 0.5f}, IconPoint{0.85f, 0.5f}}, false, false,
-                          IconColorRole::Foreground},
+                IconStroke{{IconPoint{0.15f, 0.5f}, IconPoint{0.85f, 0.5f}},
+                           false,
+                           false,
+                           IconColorRole::Foreground},
                 rectStroke(0.30f, 0.15f, 0.40f, 0.25f, true, IconColorRole::Accent),
                 rectStroke(0.30f, 0.60f, 0.40f, 0.25f, false, IconColorRole::Foreground),
             }};
         case IconId::PixelRotateClockwise:
             // Anneau ouvert (cercle a douze points, trace non ferme) + fleche a l'ouverture.
             return IconGeometry{{
-                IconStroke{circlePoints(0.5f, 0.5f, 0.28f, 12), false, false, IconColorRole::Foreground},
-                IconStroke{{IconPoint{0.76f, 0.30f}, IconPoint{0.90f, 0.40f}, IconPoint{0.74f, 0.46f}},
-                          true, true, IconColorRole::Accent},
+                IconStroke{circlePoints(0.5f, 0.5f, 0.28f, 12), false, false,
+                           IconColorRole::Foreground},
+                IconStroke{
+                    {IconPoint{0.76f, 0.30f}, IconPoint{0.90f, 0.40f}, IconPoint{0.74f, 0.46f}},
+                    true,
+                    true,
+                    IconColorRole::Accent},
             }};
         case IconId::PixelRotateCounterClockwise:
             // Meme anneau, fleche du cote oppose : sens inverse.
             return IconGeometry{{
-                IconStroke{circlePoints(0.5f, 0.5f, 0.28f, 12), false, false, IconColorRole::Foreground},
-                IconStroke{{IconPoint{0.24f, 0.30f}, IconPoint{0.10f, 0.40f}, IconPoint{0.26f, 0.46f}},
-                          true, true, IconColorRole::Accent},
+                IconStroke{circlePoints(0.5f, 0.5f, 0.28f, 12), false, false,
+                           IconColorRole::Foreground},
+                IconStroke{
+                    {IconPoint{0.24f, 0.30f}, IconPoint{0.10f, 0.40f}, IconPoint{0.26f, 0.46f}},
+                    true,
+                    true,
+                    IconColorRole::Accent},
             }};
     }
     return IconGeometry{};

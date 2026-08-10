@@ -98,8 +98,8 @@ TEST(BlockControllerTest, PousseeRefuseeContreUnMur) {
     }
     map.setTile(2, 1, core::TileType::Block);
     map.setTile(3, 1, core::TileType::Solid);  // mur juste à droite du bloc
-    core::Level level("bloc-mur", std::move(map), core::GridPosition{0, 0}, core::GridPosition{5, 1},
-                      std::vector<core::Mechanism>{});
+    core::Level level("bloc-mur", std::move(map), core::GridPosition{0, 0},
+                      core::GridPosition{5, 1}, std::vector<core::Mechanism>{});
     core::BlockController controller(level);
 
     controller.update(boxAt(1, 1), /*moveIntentX=*/1.0f, level.tileMap());
@@ -203,12 +203,14 @@ TEST(BlockControllerTest, BlocNonSoutenuTombe) {
     EXPECT_EQ(controller.positions()[0], (core::GridPosition{2, 0}));  // pas encore tombé
 
     controller.update(boxAt(5, 0), 0.0f, level.tileMap());
-    EXPECT_EQ(controller.positions()[0], (core::GridPosition{2, 1}));  // tombé d'une case, sur le sol
+    EXPECT_EQ(controller.positions()[0],
+              (core::GridPosition{2, 1}));  // tombé d'une case, sur le sol
 
     for (int step = 0; step < core::BlockController::FALL_INTERVAL_STEPS; ++step) {
         controller.update(boxAt(5, 0), 0.0f, level.tileMap());
     }
-    EXPECT_EQ(controller.positions()[0], (core::GridPosition{2, 1}));  // reste posé, arrêté par le sol
+    EXPECT_EQ(controller.positions()[0],
+              (core::GridPosition{2, 1}));  // reste posé, arrêté par le sol
 }
 
 /**
@@ -281,8 +283,8 @@ TEST(BlockControllerTest, BoxAtCentreEtReduitSelonLaTaille) {
     core::TileMap map(6, 3);
     map.setTile(2, 1, core::TileType::Block);
     map.setTile(3, 1, core::TileType::BlockHalf);
-    core::Level level("bloc-box", std::move(map), core::GridPosition{0, 0}, core::GridPosition{5, 0},
-                      std::vector<core::Mechanism>{});
+    core::Level level("bloc-box", std::move(map), core::GridPosition{0, 0},
+                      core::GridPosition{5, 0}, std::vector<core::Mechanism>{});
     core::BlockController controller(level);
 
     const core::Aabb fullBox = controller.boxAt(0);
@@ -343,9 +345,10 @@ TEST(BlockControllerTest, CollisionMapNeSolidifiePasLesBlocsReduits) {
  */
 TEST(BlockControllerTest, BlocReduitPousseSelonSaBoiteReelle) {
     core::TileMap map(6, 3);
-    map.setTile(2, 1, core::TileType::BlockHalf);  // boîte réelle centrée : [2.25, 2.75] x [1.25, 1.75]
-    core::Level level("bloc-demi", std::move(map), core::GridPosition{0, 0}, core::GridPosition{5, 1},
-                      std::vector<core::Mechanism>{});
+    map.setTile(2, 1,
+                core::TileType::BlockHalf);  // boîte réelle centrée : [2.25, 2.75] x [1.25, 1.75]
+    core::Level level("bloc-demi", std::move(map), core::GridPosition{0, 0},
+                      core::GridPosition{5, 1}, std::vector<core::Mechanism>{});
     core::BlockController controller(level);
 
     // Aligné sur le bord de la CASE entière (x max = 2.0) : encore dans le vide autour du bloc
@@ -386,8 +389,8 @@ TEST(BlockControllerTest, BlocNeTombePasATraversUnePente) {
     }
     map.setTile(2, 1, core::TileType::SlopeUpRight);
     map.setTile(2, 0, core::TileType::Block);
-    core::Level level("bloc-pente", std::move(map), core::GridPosition{0, 0}, core::GridPosition{5, 0},
-                      std::vector<core::Mechanism>{});
+    core::Level level("bloc-pente", std::move(map), core::GridPosition{0, 0},
+                      core::GridPosition{5, 0}, std::vector<core::Mechanism>{});
     core::BlockController controller(level);
 
     for (int step = 0; step < core::BlockController::FALL_INTERVAL_STEPS * 3; ++step) {

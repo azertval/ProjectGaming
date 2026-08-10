@@ -13,7 +13,6 @@
 #include <QTreeView>
 #include <QVBoxLayout>
 #include <QVariant>
-
 #include <cstdint>
 #include <cstring>
 #include <optional>

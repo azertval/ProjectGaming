@@ -50,8 +50,7 @@ bool BitmapFont::loadFromAssets(ID3D11Device* device) {
         assetPaths.resolve(FONTS_SUBDIRECTORY + FONT_METRICS_FILE_NAME);
     if (!metricsPath) {
         GRAPHICS_LOG_WARNING("BitmapFont : fichier de metriques '" + FONTS_SUBDIRECTORY +
-                             FONT_METRICS_FILE_NAME +
-                             "' absent, repli sur la police procedurale");
+                             FONT_METRICS_FILE_NAME + "' absent, repli sur la police procedurale");
         return false;
     }
     const FontMetricsResult metricsResult = loadFontMetricsFromFile(*metricsPath);

@@ -243,8 +243,8 @@ core::LevelOutcome playPuzzleFile(const char* file,
 // Script d'entrées REACTIF : fonction du pas ET de l'état courant (au sol, position), pour les
 // scénarios où le bon moment d'agir dépend de la trajectoire (double saut, wall jump, blocs) et ne
 // peut pas être fixé à l'avance par un simple numéro de pas.
-using ReactiveInput = std::function<core::PlayerInput(int step, const core::Player& player, float x,
-                                                       float y)>;
+using ReactiveInput =
+    std::function<core::PlayerInput(int step, const core::Player& player, float x, float y)>;
 
 // Rejoue un niveau livré, mécanismes ET blocs poussables compris (même composition que
 // `hmi::GameSession::update` : blocs -> grille -> balayage -> boîte-boîte pour les blocs réduits),
@@ -273,8 +273,9 @@ core::LevelOutcome playReactiveFile(const char* file, const ReactiveInput& input
         const core::Collider& collider = world.getComponent<core::Collider>(player);
         const core::Aabb previousBox =
             core::Aabb::fromTopLeftSize(previousTransform.position, collider.size);
-        const core::PlayerInput in = input(step, world.getComponent<core::Player>(player),
-                                           previousTransform.position.x, previousTransform.position.y);
+        const core::PlayerInput in =
+            input(step, world.getComponent<core::Player>(player), previousTransform.position.x,
+                  previousTransform.position.y);
 
         const core::TileMap mechanismMap = mechanisms.collisionMap();
         blocks.update(previousBox, in.moveX, mechanismMap);
@@ -438,8 +439,8 @@ TEST(PhysiquePersonnageIntegration, ChuteConvergeVersUneVitesseTerminale) {
     // Vitesse terminale attendue a masse par defaut (1.0) : gravite effective en chute
     // (config.gravity * config.fallGravityMultiplier) / config.fallDragCoefficient.
     const core::PhysicsConfig config;
-    const float expectedTerminal = (config.gravity * config.fallGravityMultiplier) /
-                                   config.fallDragCoefficient;
+    const float expectedTerminal =
+        (config.gravity * config.fallGravityMultiplier) / config.fallDragCoefficient;
 
     float lastVy = 0.0f;
     for (int i = 0; i < 2000; ++i) {
@@ -467,7 +468,8 @@ TEST(PhysiquePersonnageIntegration, AccelerationDeChuteDecroitVersLeRegimePerman
     core::TileMap tiles(4, 1000);
     const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
     // Flottement a l'apex desactive (apexThreshold = 0) : isole la traction newtonienne pure,
-    // sans le palier de gravite reduite pres de v=0 (EX-GP-018, comportement inchange par ailleurs).
+    // sans le palier de gravite reduite pres de v=0 (EX-GP-018, comportement inchange par
+    // ailleurs).
     core::PhysicsConfig config;
     config.apexThreshold = 0.0f;
     core::CharacterPhysicsSystem system(config);
@@ -628,8 +630,9 @@ TEST(PhysiquePersonnageIntegration, NeTraversePasLeSolEnChuteRapide) {
     fillRow(tiles, 50);  // sol loin en bas
     const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
     core::PhysicsConfig fast;
-    fast.gravity = 2000.0f;              // accélération énorme
-    fast.fallDragCoefficient = 1.0e-6f;  // trainee quasi nulle : pas de borne, le pas dépasse une tuile
+    fast.gravity = 2000.0f;  // accélération énorme
+    fast.fallDragCoefficient =
+        1.0e-6f;  // trainee quasi nulle : pas de borne, le pas dépasse une tuile
     core::CharacterPhysicsSystem system(fast);
     const core::PlayerInput input{};
 
@@ -1260,14 +1263,12 @@ TEST(PhysiquePersonnageIntegration, PasDeWallJumpSansMur) {
 /**
  * @brief Le niveau saut est franchissable **avec le saut** : en avançant et sautant, on atteint la
  * sortie.
- * \castest{<b>Le niveau saut est franchissable **avec le saut** : en avançant et sautant, on atteint
- * la sortie.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
+ * \castest{<b>Le niveau saut est franchissable **avec le saut** : en avançant et sautant, on
+ * atteint la sortie.</b><br/> \tcat Integration · Physique Personnage<br/> \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
- * \tattendu Le niveau saut est franchissable **avec le saut** : en avançant et sautant, on atteint la
- * sortie.
+ * \tattendu Le niveau saut est franchissable **avec le saut** : en avançant et sautant, on atteint
+ * la sortie.
  * }
  */
 TEST(PhysiquePersonnageIntegration, Niveau2FranchissableAvecSaut) {
@@ -1289,7 +1290,8 @@ TEST(PhysiquePersonnageIntegration, Niveau2FranchissableAvecSaut) {
  * \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
- * \tattendu Le niveau saut **exige** le saut : en avançant seulement (sans sauter), la marche bloque.
+ * \tattendu Le niveau saut **exige** le saut : en avançant seulement (sans sauter), la marche
+ * bloque.
  * }
  */
 TEST(PhysiquePersonnageIntegration, Niveau2RequiertLeSaut) {
@@ -1326,11 +1328,9 @@ TEST(PhysiquePersonnageIntegration, Niveau3FranchissableAvecDash) {
 }
 
 /**
- * @brief Le niveau dash **exige** le dash : en avançant seulement, on tombe dans la fosse de danger.
- * \castest{<b>Le niveau dash **exige** le dash : en avançant seulement, on tombe dans la fosse de
- * danger.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
+ * @brief Le niveau dash **exige** le dash : en avançant seulement, on tombe dans la fosse de
+ * danger. \castest{<b>Le niveau dash **exige** le dash : en avançant seulement, on tombe dans la
+ * fosse de danger.</b><br/> \tcat Integration · Physique Personnage<br/> \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
  * \tattendu Le niveau dash **exige** le dash : en avançant seulement, on tombe dans la fosse de
@@ -1348,15 +1348,12 @@ TEST(PhysiquePersonnageIntegration, Niveau3RequiertLeDash) {
 }
 
 /**
- * @brief Le niveau interrupteur : toucher l'interrupteur ouvre la porte → la sortie devient atteignable.
- * \castest{<b>Le niveau interrupteur : toucher l'interrupteur ouvre la porte → la sortie devient
- * atteignable.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau interrupteur : toucher l'interrupteur ouvre la porte → la sortie devient
- * atteignable.
+ * @brief Le niveau interrupteur : toucher l'interrupteur ouvre la porte → la sortie devient
+ * atteignable. \castest{<b>Le niveau interrupteur : toucher l'interrupteur ouvre la porte → la
+ * sortie devient atteignable.</b><br/> \tcat Integration · Physique Personnage<br/> \tcrit
+ * Majeur<br/> \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le
+ * scenario et verifier les assertions.<br/> \tattendu Le niveau interrupteur : toucher
+ * l'interrupteur ouvre la porte → la sortie devient atteignable.
  * }
  */
 TEST(PhysiquePersonnageIntegration, Niveau4FranchissableAvecInterrupteur) {
@@ -1560,7 +1557,8 @@ TEST(PhysiquePersonnageIntegration, SuitUnePenteDescendanteEnMarchant) {
     for (int col = 3; col <= 7; ++col) {               // sol bas, apres la pente
         tiles.setTile(col, 6, core::TileType::Solid);
     }
-    const core::Entity player = spawnPlayer(world, 0.3f, 4.0f);  // bord bas = 5.0 : posé au sol haut
+    const core::Entity player =
+        spawnPlayer(world, 0.3f, 4.0f);  // bord bas = 5.0 : posé au sol haut
     core::CharacterPhysicsSystem system;
     const core::PlayerInput input{1.0f};
 
@@ -1585,11 +1583,12 @@ TEST(PhysiquePersonnageIntegration, SuitUnePenteDescendanteEnMarchant) {
             yExitSlope = bottom;
         }
         ++guard;
-    // Seuil à 4.0 plutôt que 3.5 (juste après la pente) : la boîte 1×1 chevauche encore brièvement
-    // la pente et le sol bas juste après la transition, un « rattrapage » de contact (grounded
-    // oscille sol/chute sur quelques pas, comme `TransitionPenteSolPlatSansAACoup`) le temps que la
-    // boîte tienne entièrement dans une colonne de sol plat — laisser un peu plus de marge avant de
-    // vérifier l'état final évite un pas malchanceux pris en plein rattrapage.
+        // Seuil à 4.0 plutôt que 3.5 (juste après la pente) : la boîte 1×1 chevauche encore
+        // brièvement la pente et le sol bas juste après la transition, un « rattrapage » de contact
+        // (grounded oscille sol/chute sur quelques pas, comme `TransitionPenteSolPlatSansAACoup`)
+        // le temps que la boîte tienne entièrement dans une colonne de sol plat — laisser un peu
+        // plus de marge avant de vérifier l'état final évite un pas malchanceux pris en plein
+        // rattrapage.
     } while (centerX < 4.0f && guard < 600);
 
     ASSERT_TRUE(sawSlopeSample);
@@ -1617,7 +1616,7 @@ TEST(PhysiquePersonnageIntegration, SuitUnePenteDescendanteEnMarchant) {
 TEST(PhysiquePersonnageIntegration, ChuteRapideSurUnePenteSansLaTraverser) {
     core::World world;
     core::TileMap tiles(4, 60);
-    tiles.setTile(1, 50, core::TileType::SlopeUpRight);  // localX = 0.8 → hauteur = 0.2
+    tiles.setTile(1, 50, core::TileType::SlopeUpRight);          // localX = 0.8 → hauteur = 0.2
     const core::Entity player = spawnPlayer(world, 1.3f, 0.0f);  // tombe de haut, colonne 1
     core::PhysicsConfig fast;
     fast.gravity = 2000.0f;
@@ -1727,7 +1726,8 @@ TEST(PhysiquePersonnageIntegration, TransitionPenteSolPlatSansAACoup) {
     // invisible, téléportation) produirait un saut bien plus grand qu'un seul pas de marche. Le
     // raccord final (sortie de la pente vers le plein solide adjacent) produit un rattrapage un
     // peu plus large qu'un pas normal (largeur du personnage < largeur d'une case) : on borne
-    // large (une demi-case) pour couvrir ce rattrapage sans laisser passer un vrai à-coup (≥ 1 case).
+    // large (une demi-case) pour couvrir ce rattrapage sans laisser passer un vrai à-coup (≥ 1
+    // case).
     EXPECT_LT(maxStep, 0.5f);
 }
 
@@ -1747,7 +1747,8 @@ TEST(PhysiquePersonnageIntegration, TransitionPenteSolPlatSansAACoup) {
 TEST(PhysiquePersonnageIntegration, SuitUnArrondiAscendantEnMarchant) {
     core::World world;
     core::TileMap tiles(8, 8);
-    for (int col = 0; col <= 1; ++col) {  // sol bas, avant l'arrondi (meme disposition que la pente)
+    for (int col = 0; col <= 1;
+         ++col) {  // sol bas, avant l'arrondi (meme disposition que la pente)
         tiles.setTile(col, 6, core::TileType::Solid);
     }
     tiles.setTile(2, 5, core::TileType::RoundedUpRight);  // quart de cercle, meme orientation
@@ -1990,17 +1991,19 @@ TEST(PhysiquePersonnageIntegration, PlafondInclineSupportePersonnageParLeDessus)
 TEST(PhysiquePersonnageIntegration, SuitUnArrondiConcaveAscendantEnMarchant) {
     core::World world;
     core::TileMap tiles(8, 8);
-    for (int col = 0; col <= 1; ++col) {  // sol bas, avant l'arrondi (meme disposition que RoundedUpRight)
+    for (int col = 0; col <= 1;
+         ++col) {  // sol bas, avant l'arrondi (meme disposition que RoundedUpRight)
         tiles.setTile(col, 6, core::TileType::Solid);
     }
-    tiles.setTile(2, 5, core::TileType::ConcaveUpRight);  // quart de cercle concave, meme orientation
-    for (int col = 3; col <= 7; ++col) {                  // sol haut, apres l'arrondi
+    tiles.setTile(2, 5,
+                  core::TileType::ConcaveUpRight);  // quart de cercle concave, meme orientation
+    for (int col = 3; col <= 7; ++col) {            // sol haut, apres l'arrondi
         tiles.setTile(col, 5, core::TileType::Solid);
     }
     // Taille RÉELLE du personnage (0,4×0,8, comme `TransitionPenteSolPlatSansAACoup`), pas la boîte
-    // 1×1 des autres tests de ce fichier : une boîte pleine case chevauche déjà le sol haut adjacent
-    // (colonne 3, plein) au moment même de l'échantillon à mi-case (x=2,5, bord droit de la boîte
-    // atteignant x=3,0), déclenchant le rattrapage de raccord pente→sol documenté par
+    // 1×1 des autres tests de ce fichier : une boîte pleine case chevauche déjà le sol haut
+    // adjacent (colonne 3, plein) au moment même de l'échantillon à mi-case (x=2,5, bord droit de
+    // la boîte atteignant x=3,0), déclenchant le rattrapage de raccord pente→sol documenté par
     // `TransitionPenteSolPlatSansAACoup` avant que le suivi de la courbe concave n'ait eu la chance
     // de s'exprimer — non spécifique à cette formule, mais bien plus visible ici (courbe concave
     // restant proche du palier bas jusque tard) qu'avec la formule convexe (déjà proche du palier
@@ -2214,8 +2217,8 @@ TEST(PhysiquePersonnageIntegration, ArrondisConcavesDeSolAdjacentsSansChuteALaJo
     ASSERT_LT(guard, 600);
     // Valeur théorique au pic (x=3, jointure) : 5,0 pile. Une légère « décroche » près du pic
     // (tangente quasi verticale, courante pour toute courbe aussi raide, voir
-    // `TransitionPenteSolPlatSansAACoup`) reste ici sous 5,4 — bien avant le fond de la case voisine
-    // (6,0, qui signalerait une chute complète).
+    // `TransitionPenteSolPlatSansAACoup`) reste ici sous 5,4 — bien avant le fond de la case
+    // voisine (6,0, qui signalerait une chute complète).
     EXPECT_LT(maxBottomNearPeak, 5.4f);
     EXPECT_TRUE(world.getComponent<core::Player>(player).grounded);
     EXPECT_NEAR(world.getComponent<core::Transform>(player).position.y, 6.0f - size.y, 0.05f);
@@ -2254,11 +2257,13 @@ TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBordFinResteBloqueSansTelepo
     map.setTile(CEILING_COLUMN, CEILING_ROW, core::TileType::ConcaveDownRight);
 
     core::World world;
-    const core::Entity player = spawnHumanoid(world, core::GridPosition{CEILING_COLUMN, FLOOR_ROW - 1});
+    const core::Entity player =
+        spawnHumanoid(world, core::GridPosition{CEILING_COLUMN, FLOOR_ROW - 1});
     // offset=0.20 : bord FIN (silhouette quasi vide), le blocage a lieu tout pres du sommet de la
     // case — c'est justement la ou le bord bas du personnage (hauteur 0,8) reste encore dans la
     // meme case apres le blocage (voir la doc du test).
-    world.getComponent<core::Transform>(player).position.x = static_cast<float>(CEILING_COLUMN) + 0.20f;
+    world.getComponent<core::Transform>(player).position.x =
+        static_cast<float>(CEILING_COLUMN) + 0.20f;
     core::CharacterPhysicsSystem system;
 
     for (int i = 0; i < 10; ++i) {  // se poser au sol avant de sauter
@@ -2367,8 +2372,8 @@ TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBloqueMemeEnMarchantPendantL
         EXPECT_GT(minTop, 2.9f) << "ConcaveDownLeft, offset=" << offset << " (marche a gauche)";
     }
     // Même défaut, même correctif générique (indépendant du type de tuile) : vérifié aussi sur les
-    // pentes LINÉAIRES de plafond (`EX-GP-006`, `LOT-26`), pas seulement les arrondis concaves de ce
-    // lot — `SlopeDownRight`/`SlopeDownLeft` ont la même silhouette « épaisse d'un côté, fine de
+    // pentes LINÉAIRES de plafond (`EX-GP-006`, `LOT-26`), pas seulement les arrondis concaves de
+    // ce lot — `SlopeDownRight`/`SlopeDownLeft` ont la même silhouette « épaisse d'un côté, fine de
     // l'autre » (`h = x` / `h = 1 - x`), même mécanisme de disparition de colonne en marchant.
     for (float offset = 0.60f; offset <= 0.95f; offset += 0.05f) {
         const float startX = static_cast<float>(CEILING_COLUMN) + offset;
@@ -2409,15 +2414,17 @@ TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBloqueMemePresDuBordDeSaProp
         map.setTile(col, FLOOR_ROW, core::TileType::Solid);
     }
     map.setTile(CEILING_COLUMN, CEILING_ROW, core::TileType::ConcaveDownRight);
-    // Colonne 4 (au-delà du bord droit, le plus epais) volontairement VIDE : sans appui voisin, rien
-    // ne peut compenser une colonne mal choisie.
+    // Colonne 4 (au-delà du bord droit, le plus epais) volontairement VIDE : sans appui voisin,
+    // rien ne peut compenser une colonne mal choisie.
 
     core::World world;
-    const core::Entity player = spawnHumanoid(world, core::GridPosition{CEILING_COLUMN, FLOOR_ROW - 1});
+    const core::Entity player =
+        spawnHumanoid(world, core::GridPosition{CEILING_COLUMN, FLOOR_ROW - 1});
     // Bord droit de la boîte (largeur 0,4) à x=4,2 : centre à x=4,0, PILE sur la frontière de case
     // — la colonne qui doit bloquer le saut est la colonne 3 (la vraie tuile, dont le bord PLEIN,
     // silhouette la plus épaisse, touche justement cette frontière), pas la colonne 4 (vide).
-    world.getComponent<core::Transform>(player).position.x = static_cast<float>(CEILING_COLUMN) + 0.8f;
+    world.getComponent<core::Transform>(player).position.x =
+        static_cast<float>(CEILING_COLUMN) + 0.8f;
     core::CharacterPhysicsSystem system;
 
     bool jumped = false;

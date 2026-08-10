@@ -11,9 +11,8 @@ namespace hmi {
 
 PixelHistoryPanel::PixelHistoryPanel(QWidget* parent)
     : QWidget(parent), _list(new QListWidget(this)) {
-    connect(_list, &QListWidget::itemActivated, this, [this](QListWidgetItem*) {
-        onItemActivated();
-    });
+    connect(_list, &QListWidget::itemActivated, this,
+            [this](QListWidgetItem*) { onItemActivated(); });
 
     auto* const layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
@@ -27,8 +26,8 @@ void PixelHistoryPanel::refresh(const PixelHistory& history) {
     for (const PixelHistoryEntry& entry : _entries) {
         const QString label =
             _loc != nullptr
-                ? QString::fromStdString(_loc->text(
-                      std::string(pixelOperationTranslationKey(entry.kind))))
+                ? QString::fromStdString(
+                      _loc->text(std::string(pixelOperationTranslationKey(entry.kind))))
                 : QString::fromStdString(std::string(pixelOperationTranslationKey(entry.kind)));
         _list->addItem(label);
     }
@@ -42,13 +41,14 @@ void PixelHistoryPanel::refresh(const PixelHistory& history) {
 
 void PixelHistoryPanel::retranslateUi(const Localization& loc) {
     _loc = &loc;
-    const std::vector<PixelHistoryEntry> entries = _entries;  // refresh() les reconstruit a l'identique.
+    const std::vector<PixelHistoryEntry> entries =
+        _entries;  // refresh() les reconstruit a l'identique.
     for (int row = 0; row < _list->count(); ++row) {
         if (static_cast<std::size_t>(row) >= entries.size()) {
             break;
         }
-        _list->item(row)->setText(QString::fromStdString(
-            loc.text(std::string(pixelOperationTranslationKey(entries[static_cast<std::size_t>(row)].kind)))));
+        _list->item(row)->setText(QString::fromStdString(loc.text(std::string(
+            pixelOperationTranslationKey(entries[static_cast<std::size_t>(row)].kind)))));
     }
 }
 

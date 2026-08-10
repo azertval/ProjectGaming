@@ -14,21 +14,21 @@
  */
 
 /// Journalise un message pour une catégorie et un niveau donnés, via le journaliseur global.
-#define PROJECTGAMING_LOG(category, level, message)                                              \
-    do {                                                                                         \
-        ::core::Logger& projectgamingLogger = ::core::defaultLogger();                           \
-        if (projectgamingLogger.isEnabled(level)) {                                              \
-            projectgamingLogger.log(level,                                                       \
-                                    ::core::formatLogLine(::core::currentTimestamp(), level,      \
-                                                          category, __FILE__, __LINE__, message));\
-        }                                                                                        \
+#define PROJECTGAMING_LOG(category, level, message)                                       \
+    do {                                                                                  \
+        ::core::Logger& projectgamingLogger = ::core::defaultLogger();                    \
+        if (projectgamingLogger.isEnabled(level)) {                                       \
+            projectgamingLogger.log(                                                      \
+                level, ::core::formatLogLine(::core::currentTimestamp(), level, category, \
+                                             __FILE__, __LINE__, message));               \
+        }                                                                                 \
     } while (false)
 
-#define PROJECTGAMING_LOG_TRACE(category, message)                                               \
+#define PROJECTGAMING_LOG_TRACE(category, message) \
     PROJECTGAMING_LOG(category, ::core::LogLevel::Trace, message)
-#define PROJECTGAMING_LOG_INFO(category, message)                                                \
+#define PROJECTGAMING_LOG_INFO(category, message) \
     PROJECTGAMING_LOG(category, ::core::LogLevel::Info, message)
-#define PROJECTGAMING_LOG_WARNING(category, message)                                             \
+#define PROJECTGAMING_LOG_WARNING(category, message) \
     PROJECTGAMING_LOG(category, ::core::LogLevel::Warning, message)
-#define PROJECTGAMING_LOG_ERROR(category, message)                                               \
+#define PROJECTGAMING_LOG_ERROR(category, message) \
     PROJECTGAMING_LOG(category, ::core::LogLevel::Error, message)

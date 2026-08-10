@@ -39,8 +39,7 @@ DirectX::XMFLOAT4X4 screenProjectionMatrix(int viewportWidth, int viewportHeight
 // Compose une chaine en quads sur le calque UI, ancree a une position ecran.
 void composeText(ComposedScene& scene, const FontMetrics& metrics, TextureHandle texture,
                  int textureWidth, int textureHeight, std::string_view text, float x, float y,
-                 float scale, const core::Color& tint, TextAnchor anchor,
-                 std::int32_t sortOrder) {
+                 float scale, const core::Color& tint, TextAnchor anchor, std::int32_t sortOrder) {
     if (text.empty() || texture == nullptr || textureWidth <= 0 || textureHeight <= 0) {
         return;
     }
@@ -122,7 +121,7 @@ void composeText(ComposedScene& scene, const BitmapFont& font, std::string_view 
                  float y, float scale, const core::Color& tint, TextAnchor anchor,
                  std::int32_t sortOrder) {
     composeText(scene, font.metrics(), font.textureView(), font.textureWidth(),
-               font.textureHeight(), text, x, y, scale, tint, anchor, sortOrder);
+                font.textureHeight(), text, x, y, scale, tint, anchor, sortOrder);
 }
 
 }  // namespace hmi

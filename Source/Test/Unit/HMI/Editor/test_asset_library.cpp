@@ -1,6 +1,7 @@
 /**
  * @file test_asset_library.cpp
- * @brief Tests unitaires du balayage/filtrage partagé par le panneau « Textures » (LOT-43 TACHE-01).
+ * @brief Tests unitaires du balayage/filtrage partagé par le panneau « Textures » (LOT-43
+ * TACHE-01).
  */
 
 #include <filesystem>
@@ -96,7 +97,7 @@ TEST_F(AssetLibraryTest, FiltreParSousChaineInsensibleALaCasse) {
     touch("stone_cracked.png");
 
     EXPECT_EQ(hmi::listAssetFiles(dir, "STONE"),
-             (std::vector<std::string>{"stone.png", "stone_cracked.png"}));
+              (std::vector<std::string>{"stone.png", "stone_cracked.png"}));
     EXPECT_EQ(hmi::listAssetFiles(dir, "crate"), (std::vector<std::string>{"crate.png"}));
     EXPECT_TRUE(hmi::listAssetFiles(dir, "inexistant").empty());
 }

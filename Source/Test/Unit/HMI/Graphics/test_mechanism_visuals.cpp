@@ -1,6 +1,6 @@
-#include "HMI/Graphics/MechanismVisuals.h"
-
 #include <gtest/gtest.h>
+
+#include "HMI/Graphics/MechanismVisuals.h"
 
 namespace hmi {
 namespace {
@@ -49,7 +49,8 @@ TEST(MechanismVisualsTest, SwitchTargetClips) {
 TEST(MechanismVisualsTest, PressurePlateTargetClips) {
     EXPECT_EQ(mechanismTargetClip(core::TileType::PressurePlate, false),
               MECHANISM_CLIP_PLATE_RELEASED);
-    EXPECT_EQ(mechanismTargetClip(core::TileType::PressurePlate, true), MECHANISM_CLIP_PLATE_PRESSED);
+    EXPECT_EQ(mechanismTargetClip(core::TileType::PressurePlate, true),
+              MECHANISM_CLIP_PLATE_PRESSED);
 }
 
 /**
@@ -197,10 +198,9 @@ TEST(MechanismVisualsTest, OnlyDoorTransitionsOtherFamiliesSnapDirectly) {
  */
 TEST(MechanismVisualsTest, ExpectedClipsMatchTargetAndTransitionNames) {
     const std::vector<std::string> doorClips = mechanismExpectedClips(core::TileType::Door);
-    EXPECT_EQ(doorClips, (std::vector<std::string>{MECHANISM_CLIP_DOOR_CLOSED,
-                                                    MECHANISM_CLIP_DOOR_OPENING,
-                                                    MECHANISM_CLIP_DOOR_OPEN,
-                                                    MECHANISM_CLIP_DOOR_CLOSING}));
+    EXPECT_EQ(doorClips,
+              (std::vector<std::string>{MECHANISM_CLIP_DOOR_CLOSED, MECHANISM_CLIP_DOOR_OPENING,
+                                        MECHANISM_CLIP_DOOR_OPEN, MECHANISM_CLIP_DOOR_CLOSING}));
     EXPECT_EQ(mechanismExpectedClips(core::TileType::DangerMover),
               (std::vector<std::string>{MECHANISM_CLIP_DANGER_MOVER_IDLE}));
     EXPECT_TRUE(mechanismExpectedClips(core::TileType::Solid).empty());

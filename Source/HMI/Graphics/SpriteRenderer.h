@@ -25,7 +25,7 @@ class World;
 class TileMap;
 struct TileTextureOverride;
 struct Decor;
-}
+}  // namespace core
 
 namespace hmi {
 
@@ -219,9 +219,9 @@ private:
     /// `GraphicsLog` proscrit sur un chemin de dessin.
     void logStatisticsIfChanged();
 
-    SpriteBatch* _batch;                 // non possédé
-    const TextureAtlas* _atlas;          // non possédé
-    TextureCache* _cache;                // non possédé
+    SpriteBatch* _batch;                  // non possédé
+    const TextureAtlas* _atlas;           // non possédé
+    TextureCache* _cache;                 // non possédé
     const SkinCatalog* _skins = nullptr;  // non possédé
     std::string _skinSet;
     ComposedScene _scene;

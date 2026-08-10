@@ -3,8 +3,6 @@
  * @brief Tests unitaires des transitions et du repli sur clip manquant (LOT-47 TACHE-02).
  */
 
-#include "HMI/Graphics/MechanismVisuals.h"
-
 #include <set>
 #include <string>
 
@@ -12,6 +10,7 @@
 
 #include "Core/Ecs/AnimationClip.h"
 #include "HMI/Graphics/AnimationCatalog.h"
+#include "HMI/Graphics/MechanismVisuals.h"
 
 namespace hmi {
 namespace {
@@ -56,8 +55,8 @@ AnimationDescription doorDescription() {
 // Le resultat porte la region a afficher : non pertinent pour ces tests, qui verifient l'etat de
 // l'horloge (clip/image) et le journal d'avertissements. [[nodiscard]] oblige a le nommer.
 void step(MechanismVisualState& state, const AnimationDescription& description, core::TileType type,
-         bool active, const std::string& assetKey, float fixedDelta,
-         std::set<std::string>& warned) {
+          bool active, const std::string& assetKey, float fixedDelta,
+          std::set<std::string>& warned) {
     const core::AtlasRegion region =
         advanceMechanismVisual(state, description, type, active, assetKey, fixedDelta, warned);
     (void)region;
@@ -85,7 +84,8 @@ TEST(MechanismTransitionsTest, PremierCalculRejointEtatCibleSansTransition) {
     // meme si l'etat logique demarre "actif" (porte ouverte des le chargement, cas legitime).
     step(state, description, core::TileType::Door, true, "door.png", 0.0f, warned);
 
-    EXPECT_EQ(state.animation.clips->clipAt(state.animation.clipIndex).name, MECHANISM_CLIP_DOOR_OPEN);
+    EXPECT_EQ(state.animation.clips->clipAt(state.animation.clipIndex).name,
+              MECHANISM_CLIP_DOOR_OPEN);
 }
 
 /**
@@ -106,11 +106,13 @@ TEST(MechanismTransitionsTest, ChangementDetatDeclencheLaTransitionUneSeuleFois)
     std::set<std::string> warned;
 
     step(state, description, core::TileType::Door, false, "door.png", 0.0f, warned);
-    ASSERT_EQ(state.animation.clips->clipAt(state.animation.clipIndex).name, MECHANISM_CLIP_DOOR_CLOSED);
+    ASSERT_EQ(state.animation.clips->clipAt(state.animation.clipIndex).name,
+              MECHANISM_CLIP_DOOR_CLOSED);
 
     // Changement d'etat (fermee -> ouverte) : clip de transition demande.
     step(state, description, core::TileType::Door, true, "door.png", 0.0f, warned);
-    EXPECT_EQ(state.animation.clips->clipAt(state.animation.clipIndex).name, MECHANISM_CLIP_DOOR_OPENING);
+    EXPECT_EQ(state.animation.clips->clipAt(state.animation.clipIndex).name,
+              MECHANISM_CLIP_DOOR_OPENING);
 
     // Aucun changement : pas de redeclenchement (l'animation continue de progresser, mais ne
     // revient pas au debut du clip d'ouverture a chaque pas).
@@ -118,7 +120,8 @@ TEST(MechanismTransitionsTest, ChangementDetatDeclencheLaTransitionUneSeuleFois)
         step(state, description, core::TileType::Door, true, "door.png", 0.05f, warned);
     }
     // Le OneShot "opening" (2 images, 0.1s chacune) a fini d'enchainer sur "open" apres 0.2s.
-    EXPECT_EQ(state.animation.clips->clipAt(state.animation.clipIndex).name, MECHANISM_CLIP_DOOR_OPEN);
+    EXPECT_EQ(state.animation.clips->clipAt(state.animation.clipIndex).name,
+              MECHANISM_CLIP_DOOR_OPEN);
 }
 
 /**
@@ -151,7 +154,8 @@ TEST(MechanismTransitionsTest, ClipDeTransitionAbsentBasculeDirectementSansAvert
     step(state, description, core::TileType::Door, false, "door_no_transition.png", 0.0f, warned);
     step(state, description, core::TileType::Door, true, "door_no_transition.png", 0.0f, warned);
 
-    EXPECT_EQ(state.animation.clips->clipAt(state.animation.clipIndex).name, MECHANISM_CLIP_DOOR_OPEN);
+    EXPECT_EQ(state.animation.clips->clipAt(state.animation.clipIndex).name,
+              MECHANISM_CLIP_DOOR_OPEN);
     EXPECT_TRUE(warned.empty()) << "une transition absente est un cas legitime, silencieux";
 }
 
@@ -208,7 +212,8 @@ TEST(MechanismTransitionsTest, AucunChangementNeReinitialisePasLimageEnCours) {
     // Avance jusqu'a la seconde image du clip d'ouverture (0.1s/image).
     step(state, description, core::TileType::Door, true, "door.png", 0.06f, warned);
     step(state, description, core::TileType::Door, true, "door.png", 0.06f, warned);
-    ASSERT_EQ(state.animation.clips->clipAt(state.animation.clipIndex).name, MECHANISM_CLIP_DOOR_OPENING);
+    ASSERT_EQ(state.animation.clips->clipAt(state.animation.clipIndex).name,
+              MECHANISM_CLIP_DOOR_OPENING);
     ASSERT_EQ(state.animation.frameIndex, 1);
 
     // Aucun changement d'etat : un appel supplementaire ne doit PAS remettre l'image a zero.
@@ -247,7 +252,7 @@ TEST(MechanismTransitionsTest, SeuleLaPorteTransitionneLesAutresBasculentDirecte
     step(state, description, core::TileType::Switch, true, "switch.png", 0.0f, warned);
 
     EXPECT_EQ(state.animation.clips->clipAt(state.animation.clipIndex).name,
-             MECHANISM_CLIP_SWITCH_ACTIVE);
+              MECHANISM_CLIP_SWITCH_ACTIVE);
     EXPECT_TRUE(warned.empty());
 }
 

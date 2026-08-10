@@ -1,13 +1,12 @@
 #include "HMI/Interface/OptionsPage.h"
 
-#include <utility>
-
 #include <QCheckBox>
 #include <QComboBox>
 #include <QPushButton>
 #include <QSignalBlocker>
 #include <QString>
 #include <QTabWidget>
+#include <utility>
 
 #include "HMI/Game/GameViewport.h"
 #include "HMI/Interface/DesignTokens.h"
@@ -40,9 +39,9 @@ OptionsPage::OptionsPage(GameViewport* viewport, std::filesystem::path keybindin
             [this](bool on) { emit fullscreenRequested(on); });
 
     // Onglet Général (mise en page dans OptionsPage.ui) : langue (index 0 = fr, 1 = en) et logs.
-    connect(_ui->languageCombo, &QComboBox::currentIndexChanged, this,
-            [this](int index) { emit languageChanged(index == 0 ? QStringLiteral("fr")
-                                                                 : QStringLiteral("en")); });
+    connect(_ui->languageCombo, &QComboBox::currentIndexChanged, this, [this](int index) {
+        emit languageChanged(index == 0 ? QStringLiteral("fr") : QStringLiteral("en"));
+    });
     connect(_ui->saveLogsButton, &QPushButton::clicked, this, &OptionsPage::saveLogsRequested);
 
     // Onglets à contenu **dynamique** (une ligne par action) : générés en code (exception admise).
@@ -56,8 +55,8 @@ OptionsPage::OptionsPage(GameViewport* viewport, std::filesystem::path keybindin
     _editorKeyboardTabIndex = _ui->tabWidget->addTab(_editorKeyboard, QString());
     connect(_editorKeyboard, &EditorKeybindingsWidget::bindingsChanged, this,
             &OptionsPage::editorBindingsChanged);
-    _gamepad = new GamepadBindingsWidget(viewport->gamepadBindings(), std::move(keybindingsPath),
-                                         this);
+    _gamepad =
+        new GamepadBindingsWidget(viewport->gamepadBindings(), std::move(keybindingsPath), this);
     _gamepadTabIndex = _ui->tabWidget->addTab(_gamepad, QString());
 
     connect(_ui->backButton, &QPushButton::clicked, this, &OptionsPage::backRequested);

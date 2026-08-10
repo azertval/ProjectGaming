@@ -129,8 +129,8 @@ SlopeFollowResult resolveSlopeFollow(const Aabb& previousBox, const Aabb& newBox
     const float leftEdge = (std::min)(previousBox.min.x, newBox.min.x);
     const float rightEdge = (std::max)(previousBox.max.x, newBox.max.x);
     const int colStart = std::clamp(static_cast<int>(std::floor(leftEdge)), 0, width - 1);
-    const int colEnd = std::clamp(
-        static_cast<int>(std::floor(rightEdge - kColumnSkin)), 0, width - 1);
+    const int colEnd =
+        std::clamp(static_cast<int>(std::floor(rightEdge - kColumnSkin)), 0, width - 1);
     if (colStart > colEnd) {
         return result;
     }
@@ -184,7 +184,8 @@ SlopeFollowResult resolveSlopeFollow(const Aabb& previousBox, const Aabb& newBox
             // cohérent avec « tombe dessus », pas « était déjà dedans » (sans cette distinction, le
             // chevauchement résiduel après un blocage par en dessous serait pris pour un
             // atterrissage par-dessus, et téléporterait le personnage au-dessus du plafond).
-            if (isCeilingSlope(tileType) && previousBottomY > static_cast<float>(row) + kFollowTolerance) {
+            if (isCeilingSlope(tileType) &&
+                previousBottomY > static_cast<float>(row) + kFollowTolerance) {
                 continue;
             }
             const float surfaceY = static_cast<float>(row) + *height;
@@ -235,8 +236,8 @@ CeilingSlopeFollowResult resolveCeilingSlopeFollow(float previousTopY, float swe
     const float leftEdge = (std::min)(sweptMinX, newBox.min.x);
     const float rightEdge = (std::max)(sweptMaxX, newBox.max.x);
     const int colStart = std::clamp(static_cast<int>(std::floor(leftEdge)), 0, width - 1);
-    const int colEnd = std::clamp(
-        static_cast<int>(std::floor(rightEdge - kColumnSkin)), 0, width - 1);
+    const int colEnd =
+        std::clamp(static_cast<int>(std::floor(rightEdge - kColumnSkin)), 0, width - 1);
     if (colStart > colEnd) {
         return result;
     }

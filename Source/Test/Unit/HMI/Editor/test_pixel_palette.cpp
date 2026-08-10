@@ -182,7 +182,7 @@ TEST(PixelPaletteTest, CouleurDejaPresenteRenvoyeeTelleQuelle) {
 TEST(PixelPaletteTest, DepartageADistanceEgaleEstStable) {
     // Cible (128,128,128) : (100,128,128) et (156,128,128) sont a distance egale (28) sur le seul
     // canal rouge -- ne different que par l'ordre dans la palette.
-    constexpr std::uint32_t TARGET = 0xFF808080u;  // r=128,g=128,b=128,a=255
+    constexpr std::uint32_t TARGET = 0xFF808080u;       // r=128,g=128,b=128,a=255
     constexpr std::uint32_t CANDIDATE_A = 0xFF808064u;  // r=100,g=128,b=128
     constexpr std::uint32_t CANDIDATE_B = 0xFF80809Cu;  // r=156,g=128,b=128
     const std::vector<std::uint32_t> palette{CANDIDATE_A, CANDIDATE_B};

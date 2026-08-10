@@ -1,9 +1,8 @@
 #pragma once
 
+#include <QWidget>
 #include <filesystem>
 #include <memory>
-
-#include <QWidget>
 
 /**
  * @file HMI/Interface/OptionsPage.h

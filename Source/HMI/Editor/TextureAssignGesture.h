@@ -23,8 +23,8 @@ enum class TextureAssignAction {
 /// @brief Décision résultant de `resolveTextureAssignClick`.
 struct TextureAssignDecision {
     TextureAssignAction action = TextureAssignAction::Ignore;
-    core::GridPosition cell{};   ///< Case visée ; valide pour `Assign`/`Remove`.
-    std::string assetName;       ///< Asset à assigner ; valide pour `Assign` seulement.
+    core::GridPosition cell{};  ///< Case visée ; valide pour `Assign`/`Remove`.
+    std::string assetName;      ///< Asset à assigner ; valide pour `Assign` seulement.
 };
 
 /**
@@ -39,7 +39,8 @@ struct TextureAssignDecision {
  * @param clickedCell     Case visée par le clic.
  * @param clickedTileType Type de tuile à @p clickedCell au moment du clic.
  * @param existingOverride Nom de l'asset déjà assigné à @p clickedCell, si elle en a un.
- * @param selectedAsset   Asset actuellement sélectionné dans la bibliothèque « Objets », si un l'est.
+ * @param selectedAsset   Asset actuellement sélectionné dans la bibliothèque « Objets », si un
+ * l'est.
  * @param rightClick      `true` si le clic est un clic droit (retrait explicite).
  * @return La décision à appliquer.
  */

@@ -6,6 +6,31 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+### Ajouté
+- **LOT-58 — Vérification Release, sanitizer et analyse statique** (`EX-NFR-023`, `EX-NFR-024`,
+  rattache `EX-NFR-003`) : la CI tient enfin les promesses que le dépôt écrivait déjà. Cinq
+  vérifications, déclarées ou configurées depuis le début du projet et exécutées **nulle part**,
+  rejoignent les contrôles requis pour merger.
+  - **Job `build-test-release`** : build et `ctest` en configuration **Release** sur chaque PR,
+    plus les presets `vs-release`/`ninja-release`. Jusqu'ici, le premier build Release d'un cycle
+    avait lieu dans `release.yml`, **après** le tag — un cas réel (`90f85254`) a déjà coûté une
+    casse Release-only découverte trop tard.
+  - **Job `sanitize`** : `UnitTests`, `IntegrationTests` et `SystemTests` sous AddressSanitizer.
+    `EX-NFR-003` était orpheline depuis le `LOT-01` ; un vrai `heap-use-after-free` a été trouvé et
+    corrigé dans `LoggerTest.ClearSinksArreteLaDiffusion` (le test inspectait un sink après que
+    `Logger::clearSinks()` l'ait détruit).
+  - **Job `clang-tidy`** : analyse ciblée sur le diff de chaque PR. `bugprone-*` ramenée à zéro
+    (cinq sous-checks documentés comme non pertinents pour ce projet — idiomes Qt/D3D11/`Result`)
+    et rendue **bloquante** ; les autres familles restent consignées, non bloquantes.
+  - **Job `format`** : `clang-format --dry-run --Werror`, version LLVM épinglée. Reformatage
+    initial isolé (192 fichiers, aucun changement de comportement, `943/943` tests verts après).
+  - **Couverture étendue** : agrège désormais `UnitTests` + `IntegrationTests` + `SystemTests`
+    (jusqu'ici, seul `UnitTests` était mesuré) avec un seuil qui fait échouer la CI en cas de
+    chute. Mesurée à **93.66 %** (build local Ninja Debug, 2026-08-10), seuil posé à 85 %
+    (marge ~8.5 points) — à confirmer sur la mesure réelle en CI (preset `vs`, voir
+    `tache-05-couverture.md`).
+  - Outils épinglés : LLVM `18.1.8` (clang-tidy, clang-format), OpenCppCoverage `0.9.9.0`.
+
 ## [0.0.5] - 2026-08-10
 
 > Cinquième jalon : le moteur est **habillé**. Le programme `LOT-40` → `LOT-55`, ouvert juste après

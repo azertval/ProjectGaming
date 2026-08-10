@@ -81,7 +81,9 @@ public:
 
     /// @return Le facteur de taille de chaque bloc, même index que `positions()` (`1` = `Block`,
     ///         `0.5` = `BlockHalf`, `0.25` = `BlockQuarter`).
-    [[nodiscard]] const std::vector<float>& scales() const noexcept { return _scales; }
+    [[nodiscard]] const std::vector<float>& scales() const noexcept {
+        return _scales;
+    }
 
     /// @return La boîte de collision **réelle** du bloc d'indice @p index à sa position courante :
     ///         pleine case si `scales()[index] == 1`, sinon centrée et réduite (`EX-GP-005`).

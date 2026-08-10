@@ -2,10 +2,11 @@
 
 namespace hmi {
 
-TextureAssignDecision resolveTextureAssignClick(
-    core::GridPosition clickedCell, core::TileType clickedTileType,
-    const std::optional<std::string>& existingOverride,
-    const std::optional<std::string>& selectedAsset, bool rightClick) noexcept {
+TextureAssignDecision resolveTextureAssignClick(core::GridPosition clickedCell,
+                                                core::TileType clickedTileType,
+                                                const std::optional<std::string>& existingOverride,
+                                                const std::optional<std::string>& selectedAsset,
+                                                bool rightClick) noexcept {
     if (clickedTileType == core::TileType::Empty) {
         return TextureAssignDecision{TextureAssignAction::Ignore, {}, {}};
     }

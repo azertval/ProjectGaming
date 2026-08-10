@@ -26,7 +26,7 @@ struct PixelPaletteEntry {
     std::uint32_t color = 0xFF000000u;  ///< `R8G8B8A8_UNORM` (LOT-54 TACHE-01).
 
     [[nodiscard]] friend bool operator==(const PixelPaletteEntry&,
-                                        const PixelPaletteEntry&) noexcept = default;
+                                         const PixelPaletteEntry&) noexcept = default;
 };
 
 /**

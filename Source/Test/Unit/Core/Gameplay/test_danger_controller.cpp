@@ -50,7 +50,8 @@ core::Level makeLevelWithBlink(int period, int phase, int activeDuration) {
  * }
  */
 TEST(DangerControllerTest, MobileDemarreASaPositionDeDepart) {
-    const core::DangerController controller(makeLevelWithMover(core::DangerMoverAxis::Horizontal, 2));
+    const core::DangerController controller(
+        makeLevelWithMover(core::DangerMoverAxis::Horizontal, 2));
     ASSERT_EQ(controller.moverCount(), 1u);
     const core::Aabb box = controller.moverBox(0);
     EXPECT_FLOAT_EQ(box.min.x, 1.0f);
@@ -111,7 +112,7 @@ TEST(DangerControllerTest, MobileVerticalDeplaceLaLigne) {
         controller.update();
     }
     const core::Aabb box = controller.moverBox(0);
-    EXPECT_FLOAT_EQ(box.min.x, 1.0f);  // colonne inchangee
+    EXPECT_FLOAT_EQ(box.min.x, 1.0f);     // colonne inchangee
     EXPECT_NEAR(box.min.y, 3.0f, 1e-4f);  // ligne au bout de l'aller (portee 2, depart 1)
 }
 
@@ -148,18 +149,18 @@ TEST(DangerControllerTest, PorteeNulleImmobiliseLeMobile) {
  */
 TEST(DangerControllerTest, TemporiseAlterneSelonSaPeriode) {
     core::DangerController controller(makeLevelWithBlink(/*period=*/4, /*phase=*/0,
-                                                          /*activeDuration=*/2));
+                                                         /*activeDuration=*/2));
     const core::GridPosition position{2, 2};
 
-    EXPECT_TRUE(controller.isBlinkActive(position));   // pas 0 : actif
+    EXPECT_TRUE(controller.isBlinkActive(position));  // pas 0 : actif
     controller.update();
-    EXPECT_TRUE(controller.isBlinkActive(position));   // pas 1 : actif
+    EXPECT_TRUE(controller.isBlinkActive(position));  // pas 1 : actif
     controller.update();
     EXPECT_FALSE(controller.isBlinkActive(position));  // pas 2 : inactif
     controller.update();
     EXPECT_FALSE(controller.isBlinkActive(position));  // pas 3 : inactif
     controller.update();
-    EXPECT_TRUE(controller.isBlinkActive(position));   // pas 4 : nouveau cycle, actif
+    EXPECT_TRUE(controller.isBlinkActive(position));  // pas 4 : nouveau cycle, actif
 }
 
 /**
@@ -174,12 +175,12 @@ TEST(DangerControllerTest, TemporiseAlterneSelonSaPeriode) {
  */
 TEST(DangerControllerTest, DephasageDecaleLeMotif) {
     core::DangerController controller(makeLevelWithBlink(/*period=*/4, /*phase=*/1,
-                                                          /*activeDuration=*/2));
+                                                         /*activeDuration=*/2));
     const core::GridPosition position{2, 2};
 
     EXPECT_FALSE(controller.isBlinkActive(position));  // pas 0 : dephase, inactif
     controller.update();
-    EXPECT_TRUE(controller.isBlinkActive(position));   // pas 1 : actif
+    EXPECT_TRUE(controller.isBlinkActive(position));  // pas 1 : actif
 }
 
 /**

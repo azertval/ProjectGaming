@@ -93,7 +93,7 @@ FileOpResult AssetFileOperations::duplicate(const std::filesystem::path& source)
     // Cherche un nom de copie disponible : « base (copie) », « base (copie 2) », …
     std::string candidate = base + " (copie)";
     for (int index = 2; std::filesystem::exists(pathForStem(candidate, source.extension()), error);
-        ++index) {
+         ++index) {
         candidate = base + " (copie " + std::to_string(index) + ")";
     }
     const std::filesystem::path target = pathForStem(candidate, source.extension());

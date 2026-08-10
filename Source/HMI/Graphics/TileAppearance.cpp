@@ -35,8 +35,8 @@ namespace {
         return core::AtlasRegion{cell.column * SIZE, cell.row * SIZE, SIZE, SIZE};
     }
     // Image courante PAR INSTANCE d'un mecanisme (LOT-47) : prioritaire sur l'horloge partagee par
-    // asset ci-dessous, seule capable de distinguer deux tuiles du meme asset a des etats differents
-    // (une porte ouverte a cote d'une porte fermee, par exemple).
+    // asset ci-dessous, seule capable de distinguer deux tuiles du meme asset a des etats
+    // differents (une porte ouverte a cote d'une porte fermee, par exemple).
     if (tag.animatedFrame) {
         return *tag.animatedFrame;
     }
@@ -53,11 +53,10 @@ namespace {
 
 // Resout l'apparence d'une entite affichee selon le mode de rendu courant (point d'appel unique).
 std::optional<TileAppearance> resolveTileAppearance(RenderMode mode,
-                                                     const core::AtlasRegion& physicalRegion,
-                                                     const TileSkinTag* tag,
-                                                     const SceneTextures& textures,
-                                                     bool skinVisible,
-                                                     bool overrideVisible) noexcept {
+                                                    const core::AtlasRegion& physicalRegion,
+                                                    const TileSkinTag* tag,
+                                                    const SceneTextures& textures, bool skinVisible,
+                                                    bool overrideVisible) noexcept {
     if (mode == RenderMode::Physique) {
         // Mode de reference : la region deja resolue par hmi::regionForTile a la construction de
         // la scene. Rien n'est recalcule ici -- c'est ce qui garantit l'absence de regression. Les
@@ -107,7 +106,8 @@ std::optional<TileAppearance> resolveTileAppearance(RenderMode mode,
         return composeMode ? std::optional<TileAppearance>{missingAppearance()} : std::nullopt;
     }
 
-    const std::optional<SkinEntry> entry = textures.skinCatalog->resolve(textures.skinSet, tag->type);
+    const std::optional<SkinEntry> entry =
+        textures.skinCatalog->resolve(textures.skinSet, tag->type);
     if (!entry.has_value()) {
         // Type pas encore habille : etat normal (EX-NFR-040). En mode compose, le damier le
         // signale comme avant LOT-51 ; isole sur le skin, rien ne s'affiche -- c'est justement le

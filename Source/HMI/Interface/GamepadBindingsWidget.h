@@ -1,11 +1,10 @@
 #pragma once
 
+#include <QWidget>
 #include <array>
 #include <filesystem>
 
-#include <QWidget>
-
-#include "HMI/Input/GameKeyBindings.h"     // GAME_ACTION_COUNT
+#include "HMI/Input/GameKeyBindings.h"  // GAME_ACTION_COUNT
 #include "HMI/Input/GamepadBindings.h"
 #include "HMI/Input/GamepadPoller.h"
 #include "HMI/Input/InputState.h"

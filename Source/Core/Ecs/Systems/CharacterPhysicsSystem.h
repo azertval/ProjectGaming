@@ -34,14 +34,16 @@ class CharacterPhysicsSystem {
 public:
     /**
      * @brief Construit le système avec des réglages de physique donnés.
-     * @param config Constantes de physique (vitesse, gravité, chute max). Valeurs par défaut si omis.
+     * @param config Constantes de physique (vitesse, gravité, chute max). Valeurs par défaut si
+     * omis.
      */
     explicit CharacterPhysicsSystem(PhysicsConfig config = {});
 
     /**
      * @brief Applique un pas de simulation à toutes les entités « personnage ».
      * @param world      Monde ECS (entités Player + Transform + Velocity + Collider).
-     * @param tiles      Grille de collision : `isSolid(colonne, ligne)` désigne les tuiles bloquantes.
+     * @param tiles      Grille de collision : `isSolid(colonne, ligne)` désigne les tuiles
+     * bloquantes.
      * @param input      Intention de déplacement de la frame (dissociée des touches).
      * @param fixedDelta Durée du pas de simulation, en secondes.
      */

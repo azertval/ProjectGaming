@@ -11,8 +11,8 @@ FixedTimestep::FixedTimestep(float fixedDeltaSeconds, int maximumStepsPerCall)
     : _fixedDeltaSeconds(fixedDeltaSeconds),
       _maximumStepsPerCall(maximumStepsPerCall),
       _accumulator(0.0f) {
-    CORE_LOG_TRACE("Cadenceur a pas fixe : " + std::to_string(fixedDeltaSeconds) +
-                   " s/pas (max " + std::to_string(maximumStepsPerCall) + " pas/appel)");
+    CORE_LOG_TRACE("Cadenceur a pas fixe : " + std::to_string(fixedDeltaSeconds) + " s/pas (max " +
+                   std::to_string(maximumStepsPerCall) + " pas/appel)");
 }
 
 // Accumule le temps écoulé et renvoie le nombre de pas fixes à exécuter.

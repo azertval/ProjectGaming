@@ -4,10 +4,10 @@
  *        et retournement horizontal (`LOT-48`).
  */
 
-#include <gtest/gtest.h>
-
 #include <string>
 #include <vector>
+
+#include <gtest/gtest.h>
 
 #include "Core/Ecs/Components/Sprite.h"
 #include "Core/Ecs/Components/Transform.h"
@@ -38,8 +38,8 @@ hmi::TextureHandle characterSheetTexture = &otherTextureStorage;
  */
 TEST(PlayerSpriteTest, AncrageImageDeMemeTailleQueLaHitbox) {
     const core::Vector2 hitboxSize{16.0f / 16.0f, 16.0f / 16.0f};  // 1x1 unite = 16x16 px.
-    const hmi::PlayerSpriteQuad quad = hmi::computePlayerSpriteQuad(
-        core::Vector2{16.0f, 16.0f}, hitboxSize);
+    const hmi::PlayerSpriteQuad quad =
+        hmi::computePlayerSpriteQuad(core::Vector2{16.0f, 16.0f}, hitboxSize);
 
     EXPECT_FLOAT_EQ(quad.size.x, 1.0f);
     EXPECT_FLOAT_EQ(quad.size.y, 1.0f);
@@ -50,10 +50,9 @@ TEST(PlayerSpriteTest, AncrageImageDeMemeTailleQueLaHitbox) {
 /**
  * @brief Une image plus grande que la hitbox est centrée horizontalement et alignée par le bas :
  *        elle déborde symétriquement de chaque côté, jamais vers le bas.
- * \castest{<b>Image plus grande que la hitbox : centree horizontalement, alignee par le bas.</b><br/>
- * \tcat Unitaire · Player Sprite<br/>
- * \tcrit Critique<br/>
- * \tetapes 1. Calculer le quad pour une image 32x32 px et la hitbox reelle du personnage
+ * \castest{<b>Image plus grande que la hitbox : centree horizontalement, alignee par le
+ * bas.</b><br/> \tcat Unitaire · Player Sprite<br/> \tcrit Critique<br/> \tetapes 1. Calculer le
+ * quad pour une image 32x32 px et la hitbox reelle du personnage
  * (`core::playerSize()`).<br/>
  * \tattendu Le decalage horizontal est negatif de la moitie du surplus de largeur ; le bas de
  * l'image (offset.y + size.y) coincide avec le bas de la hitbox (hitboxSize.y).

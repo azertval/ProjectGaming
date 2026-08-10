@@ -3,10 +3,10 @@
  * @brief Tests unitaires du décor libre (LOT-49, `EX-DEC-001`).
  */
 
-#include <gtest/gtest.h>
-
 #include <string>
 #include <vector>
+
+#include <gtest/gtest.h>
 
 #include "Core/Levels/Decor.h"
 #include "Core/Levels/Level.h"

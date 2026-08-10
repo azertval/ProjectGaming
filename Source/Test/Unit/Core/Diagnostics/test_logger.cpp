@@ -73,12 +73,21 @@ TEST(LoggerTest, DiffuseAPlusieursSinks) {
  */
 TEST(LoggerTest, ClearSinksArreteLaDiffusion) {
     core::Logger logger;
-    auto sink = std::make_unique<core::MemoryLogSink>();
-    core::MemoryLogSink* observed = sink.get();
-    logger.addSink(std::move(sink));
+    logger.addSink(std::make_unique<core::MemoryLogSink>());
 
     logger.clearSinks();
+
+    // clearSinks() detruit le sink retire (le logger en possede le unique_ptr) : verifier son
+    // etat apres coup serait un use-after-free (trouve par AddressSanitizer, LOT-58 TACHE-02).
+    // On verifie a la place qu'un sink ajoute APRES clearSinks() est le seul a recevoir le
+    // message : si l'ancien sink etait reste attache (bogue de clearSinks), l'appel toucherait de
+    // la memoire liberee et planterait sous ASan.
+    auto sinkAfterClear = std::make_unique<core::MemoryLogSink>();
+    core::MemoryLogSink* observedAfterClear = sinkAfterClear.get();
+    logger.addSink(std::move(sinkAfterClear));
+
     logger.log(core::LogLevel::Error, "personne");
 
-    EXPECT_TRUE(observed->entries().empty());
+    ASSERT_EQ(observedAfterClear->entries().size(), 1u);
+    EXPECT_EQ(observedAfterClear->entries()[0].message, "personne");
 }

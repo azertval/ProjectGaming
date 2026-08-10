@@ -30,11 +30,11 @@ struct AssetReference {
  * Les références aux assets se font par **nom de fichier** : sans cette détection, renommer ou
  * supprimer un asset casse silencieusement les jeux de skins qui le citent (`LOT-43` TACHE-02).
  *
- * **Portée actuelle** : seul `hmi::SkinCatalog` peut référencer un asset aujourd'hui — `core::Level`
- * ne porte encore aucun champ de ce type (le fond de niveau, la désignation d'un jeu de skins par
- * un niveau, etc. sont posés à partir de `LOT-44`). Cette fonction est le point d'extension déjà en
- * place : les lots suivants y ajouteront la détection des niveaux sur disque sans changer sa
- * signature ni celle de `describeReferences`.
+ * **Portée actuelle** : seul `hmi::SkinCatalog` peut référencer un asset aujourd'hui —
+ * `core::Level` ne porte encore aucun champ de ce type (le fond de niveau, la désignation d'un jeu
+ * de skins par un niveau, etc. sont posés à partir de `LOT-44`). Cette fonction est le point
+ * d'extension déjà en place : les lots suivants y ajouteront la détection des niveaux sur disque
+ * sans changer sa signature ni celle de `describeReferences`.
  *
  * Logique **pure** (aucune dépendance Qt/GPU/fichier), testable en isolation (`EX-NFR-010`).
  * @param catalog  Catalogue interrogé (tous les jeux, pas seulement le courant).

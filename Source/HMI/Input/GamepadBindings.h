@@ -4,8 +4,8 @@
 #include <cstddef>
 #include <filesystem>
 
-#include "HMI/Input/GamepadButton.h"
 #include "HMI/Input/GameKeyBindings.h"
+#include "HMI/Input/GamepadButton.h"
 
 /**
  * @file HMI/Input/GamepadBindings.h

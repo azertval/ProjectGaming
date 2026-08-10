@@ -87,8 +87,8 @@ const LoadedTexture* TextureCache::getUnderKey(const std::string& cacheKey,
 
 // Charge et valide la description d'animation d'un asset depuis le disque (sans cache).
 std::optional<AnimationDescription> TextureCache::loadAnimation(const std::string& fileName,
-                                                                 int textureWidth,
-                                                                 int textureHeight) const {
+                                                                int textureWidth,
+                                                                int textureHeight) const {
     const std::string descriptorName = AnimationCatalog::descriptorFileName(fileName);
     const std::optional<std::filesystem::path> path = _paths.resolve(descriptorName);
     if (!path) {
@@ -117,7 +117,7 @@ std::optional<AnimationDescription> TextureCache::loadAnimation(const std::strin
 
 // Obtient la description d'animation d'un asset, en la chargeant au premier acces.
 const AnimationDescription* TextureCache::getAnimation(const std::string& fileName,
-                                                        int textureWidth, int textureHeight) {
+                                                       int textureWidth, int textureHeight) {
     return _animationEntries.getOrLoad(
         fileName, [&] { return loadAnimation(fileName, textureWidth, textureHeight); });
 }

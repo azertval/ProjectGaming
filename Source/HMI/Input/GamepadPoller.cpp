@@ -1,7 +1,6 @@
 #include "HMI/Input/GamepadPoller.h"
 
 #include <Windows.h>  // doit précéder <Xinput.h> (définit l'architecture cible).
-
 #include <Xinput.h>
 
 #include "HMI/HmiLog.h"

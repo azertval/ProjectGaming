@@ -32,8 +32,8 @@ struct PixelCanvasView {
     int panX = 0;  ///< Colonne de l'image affichée au coin haut-gauche du viewport.
     int panY = 0;  ///< Ligne de l'image affichée au coin haut-gauche du viewport.
 
-    [[nodiscard]] friend bool operator==(const PixelCanvasView&, const PixelCanvasView&) noexcept =
-        default;
+    [[nodiscard]] friend bool operator==(const PixelCanvasView&,
+                                         const PixelCanvasView&) noexcept = default;
 };
 
 /// Rectangle écran (pixels **logiques**, relatifs au coin haut-gauche du widget) d'un pixel image.
@@ -52,7 +52,7 @@ struct PixelScreenRect {
  * toujours exactement, puisqu'ils l'appellent tous.
  */
 [[nodiscard]] PixelScreenRect imagePixelScreenRect(const PixelCanvasView& view, int x,
-                                                    int y) noexcept;
+                                                   int y) noexcept;
 
 /**
  * @brief Pixel image sous une position écran donnée.
@@ -65,10 +65,9 @@ struct PixelScreenRect {
  *         jamais un indice tronqué au bord.
  */
 [[nodiscard]] std::optional<std::pair<int, int>> screenToImagePixel(const PixelCanvasView& view,
-                                                                     int imageWidth,
-                                                                     int imageHeight,
-                                                                     double screenX,
-                                                                     double screenY) noexcept;
+                                                                    int imageWidth, int imageHeight,
+                                                                    double screenX,
+                                                                    double screenY) noexcept;
 
 /// Zoom borné à `[PIXEL_CANVAS_MIN_ZOOM, PIXEL_CANVAS_MAX_ZOOM]`.
 [[nodiscard]] constexpr int clampPixelCanvasZoom(int zoom) noexcept {
@@ -91,7 +90,8 @@ struct PixelScreenRect {
     return clampPixelCanvasZoom(zoom - 1);
 }
 
-/// `true` si la grille de pixels doit être dessinée à ce zoom (`PIXEL_CANVAS_GRID_VISIBLE_MIN_ZOOM`).
+/// `true` si la grille de pixels doit être dessinée à ce zoom
+/// (`PIXEL_CANVAS_GRID_VISIBLE_MIN_ZOOM`).
 [[nodiscard]] constexpr bool pixelCanvasGridVisible(int zoom) noexcept {
     return zoom >= PIXEL_CANVAS_GRID_VISIBLE_MIN_ZOOM;
 }
@@ -115,6 +115,6 @@ struct PixelCanvasRealSize {
  * @param scaleFactor Facteur d'échelle du support d'affichage (`devicePixelRatio`).
  */
 [[nodiscard]] PixelCanvasRealSize pixelCanvasRealSize(int imageWidth, int imageHeight, int zoom,
-                                                       double scaleFactor) noexcept;
+                                                      double scaleFactor) noexcept;
 
 }  // namespace hmi

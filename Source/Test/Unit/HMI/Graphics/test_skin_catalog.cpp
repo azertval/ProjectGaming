@@ -8,9 +8,9 @@
 #include <filesystem>
 #include <fstream>
 #include <map>
-#include <utility>
 #include <optional>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include <gtest/gtest.h>
@@ -133,31 +133,27 @@ TEST(SkinCatalogTest, AllerRetourLectureEcriture) {
 TEST(SkinCatalogTest, ResolutionDansUnJeuExistant) {
     const hmi::SkinCatalog catalog = referenceCatalog();
 
-    const std::optional<hmi::SkinEntry> solid =
-        catalog.resolve("foret", core::TileType::Solid);
+    const std::optional<hmi::SkinEntry> solid = catalog.resolve("foret", core::TileType::Solid);
     ASSERT_TRUE(solid.has_value());
     EXPECT_EQ(solid->asset, "stone.png");
     EXPECT_EQ(solid->mode, hmi::SkinMode::Bitmask16);
 
-    const std::optional<hmi::SkinEntry> block =
-        catalog.resolve("foret", core::TileType::Block);
+    const std::optional<hmi::SkinEntry> block = catalog.resolve("foret", core::TileType::Block);
     ASSERT_TRUE(block.has_value());
     EXPECT_EQ(block->asset, "crate.png");
     EXPECT_EQ(block->mode, hmi::SkinMode::Single);
 
     // Un autre jeu donne une autre apparence pour le meme type : c'est tout l'objet des jeux.
-    const std::optional<hmi::SkinEntry> cave =
-        catalog.resolve("grotte", core::TileType::Solid);
+    const std::optional<hmi::SkinEntry> cave = catalog.resolve("grotte", core::TileType::Solid);
     ASSERT_TRUE(cave.has_value());
     EXPECT_EQ(cave->asset, "rock.png");
 }
 
 /**
  * @brief Un jeu inexistant retombe sur le jeu par defaut.
- * \castest{<b>Un jeu inexistant retombe sur le jeu par defaut plutot que de ne rien rendre.</b><br/>
- * \tcat Unitaire · Catalogue de skins<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Resoudre Solid dans un jeu qui n'existe pas.<br/>
+ * \castest{<b>Un jeu inexistant retombe sur le jeu par defaut plutot que de ne rien
+ * rendre.</b><br/> \tcat Unitaire · Catalogue de skins<br/> \tcrit Majeur<br/> \tetapes 1. Resoudre
+ * Solid dans un jeu qui n'existe pas.<br/>
  * 2. Resoudre Solid en demandant explicitement le defaut (nom vide).<br/>
  * \tattendu Les deux rendent l'entree du jeu « foret », designe par defaut.
  * }
@@ -198,8 +194,8 @@ TEST(SkinCatalogTest, TypeNonSkinneNeResoudRien) {
  * \castest{<b>Un fichier de skins malforme est signale sans lever d'exception.</b><br/>
  * \tcat Unitaire · Catalogue de skins<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Lire une chaine qui n'est pas du JSON, puis un JSON dont la racine est un tableau.<br/>
- * \tattendu Les deux lectures echouent avec le code ParseError, sans exception.
+ * \tetapes 1. Lire une chaine qui n'est pas du JSON, puis un JSON dont la racine est un
+ * tableau.<br/> \tattendu Les deux lectures echouent avec le code ParseError, sans exception.
  * }
  */
 TEST(SkinCatalogTest, JsonMalformeSignale) {
@@ -227,7 +223,8 @@ TEST(SkinCatalogTest, VersionInconnueRefusee) {
         hmi::SkinCatalog::loadFromString(R"({"version": 1, "jeux": {}})");
     EXPECT_TRUE(current.ok()) << current.error;
 
-    // Refuser plutot que lire au mieux : c'est precisement ce que le champ de version sert a eviter.
+    // Refuser plutot que lire au mieux : c'est precisement ce que le champ de version sert a
+    // eviter.
     const hmi::SkinCatalogResult future =
         hmi::SkinCatalog::loadFromString(R"({"version": 99, "jeux": {}})");
     EXPECT_FALSE(future.ok());
@@ -245,8 +242,8 @@ TEST(SkinCatalogTest, VersionInconnueRefusee) {
  * }
  */
 TEST(SkinCatalogTest, TypeOuModeInconnuSignale) {
-    const hmi::SkinCatalogResult badType = hmi::SkinCatalog::loadFromString(
-        R"({"jeux": {"foret": {"mur": {"asset": "a.png"}}}})");
+    const hmi::SkinCatalogResult badType =
+        hmi::SkinCatalog::loadFromString(R"({"jeux": {"foret": {"mur": {"asset": "a.png"}}}})");
     EXPECT_FALSE(badType.ok());
     EXPECT_EQ(badType.errorCode, hmi::SkinCatalogError::MalformedStructure);
 
@@ -271,8 +268,8 @@ TEST(SkinCatalogTest, TypeOuModeInconnuSignale) {
  * }
  */
 TEST(SkinCatalogTest, DefautInexistantSignale) {
-    const hmi::SkinCatalogResult result = hmi::SkinCatalog::loadFromString(
-        R"({"defaut": "banquise", "jeux": {"foret": {}}})");
+    const hmi::SkinCatalogResult result =
+        hmi::SkinCatalog::loadFromString(R"({"defaut": "banquise", "jeux": {"foret": {}}})");
 
     EXPECT_FALSE(result.ok());
     EXPECT_EQ(result.errorCode, hmi::SkinCatalogError::MalformedStructure);
@@ -352,14 +349,14 @@ TEST(SkinCatalogTest, EcritureSurDisqueRelisible) {
  */
 TEST(SkinCatalogTest, AssignationPuisRetrait) {
     hmi::SkinCatalog catalog;
-    catalog.assign("foret", core::TileType::Danger, hmi::SkinEntry{"spikes.png", hmi::SkinMode::Single});
+    catalog.assign("foret", core::TileType::Danger,
+                   hmi::SkinEntry{"spikes.png", hmi::SkinMode::Single});
 
     // Le premier jeu cree devient le defaut : sans cela un catalogue construit par assignation
     // successive ne resoudrait rien.
     EXPECT_EQ(catalog.defaultSetName(), "foret");
 
-    const std::optional<hmi::SkinEntry> assigned =
-        catalog.resolve("foret", core::TileType::Danger);
+    const std::optional<hmi::SkinEntry> assigned = catalog.resolve("foret", core::TileType::Danger);
     ASSERT_TRUE(assigned.has_value());
     EXPECT_EQ(assigned->asset, "spikes.png");
 

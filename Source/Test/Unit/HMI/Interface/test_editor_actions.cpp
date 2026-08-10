@@ -4,13 +4,13 @@
  *        (`LOT-56` TACHE-04, `EX-IHM-055`).
  */
 
-#include <gtest/gtest.h>
-
 #include <fstream>
 #include <set>
 #include <sstream>
 #include <string>
 #include <unordered_map>
+
+#include <gtest/gtest.h>
 
 #include "HMI/Interface/ActionCatalog.h"
 #include "HMI/Interface/IconGeometry.h"
@@ -40,9 +40,9 @@ namespace {
  * }
  */
 TEST(EditorActionsTest, LesSixOutilsFormentUneBijectionAvecEditorTool) {
-    constexpr hmi::EditorTool tools[] = {hmi::EditorTool::Paint,          hmi::EditorTool::Rectangle,
-                                        hmi::EditorTool::Selection,      hmi::EditorTool::Link,
-                                        hmi::EditorTool::TextureAssign, hmi::EditorTool::Decor};
+    constexpr hmi::EditorTool tools[] = {hmi::EditorTool::Paint,         hmi::EditorTool::Rectangle,
+                                         hmi::EditorTool::Selection,     hmi::EditorTool::Link,
+                                         hmi::EditorTool::TextureAssign, hmi::EditorTool::Decor};
     std::set<hmi::IconId> seen;
     for (hmi::EditorTool tool : tools) {
         const hmi::IconId id = hmi::editorActionForTool(tool);
@@ -139,11 +139,10 @@ TEST(EditorActionsTest, GeometrieDesIconesNonVideEtDansLeCadre) {
 /**
  * @brief Chaque clé de libellé utilisée par le catalogue d'actions existe dans les deux
  *        catalogues de traduction livrés (`EX-REN-033`).
- * \castest{<b>Chaque cle de libelle du catalogue d'actions existe en francais et en anglais.</b><br/>
- * \tcat Unitaire · Actions de l'editeur<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Lire fr.lang et en.lang.<br/>2. Verifier que chaque labelKey du catalogue y figure.<br/>
- * \tattendu Aucune cle n'est absente de l'un ou l'autre catalogue.
+ * \castest{<b>Chaque cle de libelle du catalogue d'actions existe en francais et en
+ * anglais.</b><br/> \tcat Unitaire · Actions de l'editeur<br/> \tcrit Majeur<br/> \tetapes 1. Lire
+ * fr.lang et en.lang.<br/>2. Verifier que chaque labelKey du catalogue y figure.<br/> \tattendu
+ * Aucune cle n'est absente de l'un ou l'autre catalogue.
  * }
  */
 TEST(EditorActionsTest, ChaqueLibelleExisteDansLesDeuxLangues) {

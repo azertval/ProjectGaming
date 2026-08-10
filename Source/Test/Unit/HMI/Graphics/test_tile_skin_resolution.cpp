@@ -96,11 +96,14 @@ TEST(TileSkinResolutionTest, ModePhysiqueIgnoreLesSkins) {
 TEST(TileSkinResolutionTest, SkinSingleRendLImageEntiere) {
     const hmi::SkinCatalog catalog = referenceCatalog();
     const hmi::SceneTextures textures = texturesWith(catalog);
-    // Le voisinage ne doit avoir aucun effet en mode single : on en met un non nul pour le verifier.
+    // Le voisinage ne doit avoir aucun effet en mode single : on en met un non nul pour le
+    // verifier.
     const hmi::TileSkinTag tag{core::TileType::Block, hmi::NEIGHBOR_UP | hmi::NEIGHBOR_LEFT};
 
-    const hmi::TileAppearance appearance = hmi::resolveTileAppearance(
-        hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &tag, textures).value();
+    const hmi::TileAppearance appearance =
+        hmi::resolveTileAppearance(hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &tag,
+                                   textures)
+            .value();
 
     EXPECT_EQ(appearance.source, hmi::AppearanceSource::Skin);
     EXPECT_EQ(appearance.region.x, 0);
@@ -123,15 +126,19 @@ TEST(TileSkinResolutionTest, SkinBitmaskChoisitSaCase) {
     const hmi::SkinCatalog catalog = referenceCatalog();
     const hmi::SceneTextures textures = texturesWith(catalog);
 
-    const hmi::TileSkinTag inside{core::TileType::Solid,
-                                  hmi::NEIGHBOR_UP | hmi::NEIGHBOR_RIGHT | hmi::NEIGHBOR_DOWN |
-                                      hmi::NEIGHBOR_LEFT};
+    const hmi::TileSkinTag inside{core::TileType::Solid, hmi::NEIGHBOR_UP | hmi::NEIGHBOR_RIGHT |
+                                                             hmi::NEIGHBOR_DOWN |
+                                                             hmi::NEIGHBOR_LEFT};
     const hmi::TileSkinTag alone{core::TileType::Solid, 0};
 
-    const hmi::TileAppearance insideAppearance = hmi::resolveTileAppearance(
-        hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &inside, textures).value();
-    const hmi::TileAppearance aloneAppearance = hmi::resolveTileAppearance(
-        hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &alone, textures).value();
+    const hmi::TileAppearance insideAppearance =
+        hmi::resolveTileAppearance(hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &inside,
+                                   textures)
+            .value();
+    const hmi::TileAppearance aloneAppearance =
+        hmi::resolveTileAppearance(hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &alone,
+                                   textures)
+            .value();
 
     EXPECT_EQ(insideAppearance.source, hmi::AppearanceSource::Skin);
     EXPECT_EQ(aloneAppearance.source, hmi::AppearanceSource::Skin);
@@ -164,8 +171,10 @@ TEST(TileSkinResolutionTest, TypeNonSkinneRetombeSurLeDamier) {
 
     // Etat normal du programme d'habillage tant que tous les types ne sont pas habilles : le
     // damier signale ce qui reste a faire plutot que de le masquer.
-    const hmi::TileAppearance appearance = hmi::resolveTileAppearance(
-        hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &tag, textures).value();
+    const hmi::TileAppearance appearance =
+        hmi::resolveTileAppearance(hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &tag,
+                                   textures)
+            .value();
 
     EXPECT_EQ(appearance.source, hmi::AppearanceSource::MissingTexture);
     EXPECT_EQ(appearance.region.width, hmi::MISSING_TEXTURE_SIZE);
@@ -190,8 +199,10 @@ TEST(TileSkinResolutionTest, SkinNonChargeRetombeSurLeDamier) {
 
     // Fichier absent, illisible ou refuse par le contrat d'asset : le TextureCache a deja
     // journalise l'avertissement, la resolution se contente de degrader.
-    const hmi::TileAppearance appearance = hmi::resolveTileAppearance(
-        hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &tag, textures).value();
+    const hmi::TileAppearance appearance =
+        hmi::resolveTileAppearance(hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &tag,
+                                   textures)
+            .value();
 
     EXPECT_EQ(appearance.source, hmi::AppearanceSource::MissingTexture);
 }
@@ -211,8 +222,10 @@ TEST(TileSkinResolutionTest, SansCatalogueToutRetombeSurLeDamier) {
     textures.skinCatalog = nullptr;
     const hmi::TileSkinTag tag{core::TileType::Solid, 0};
 
-    const hmi::TileAppearance appearance = hmi::resolveTileAppearance(
-        hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &tag, textures).value();
+    const hmi::TileAppearance appearance =
+        hmi::resolveTileAppearance(hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &tag,
+                                   textures)
+            .value();
 
     EXPECT_EQ(appearance.source, hmi::AppearanceSource::MissingTexture);
 }

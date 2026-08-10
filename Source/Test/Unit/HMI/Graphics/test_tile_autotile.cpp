@@ -206,8 +206,8 @@ TEST(TileAutotileTest, PenteNonCompteeCommeVoisinSolide) {
  * }
  */
 TEST(TileAutotileTest, CaseRepresentativeEstLInterieurPlein) {
-    const hmi::AutotileCell full = hmi::autotileCell(
-        hmi::NEIGHBOR_UP | hmi::NEIGHBOR_RIGHT | hmi::NEIGHBOR_DOWN | hmi::NEIGHBOR_LEFT);
+    const hmi::AutotileCell full = hmi::autotileCell(hmi::NEIGHBOR_UP | hmi::NEIGHBOR_RIGHT |
+                                                     hmi::NEIGHBOR_DOWN | hmi::NEIGHBOR_LEFT);
 
     EXPECT_EQ(hmi::autotileRepresentativeCell(), full);
     EXPECT_FALSE(hmi::autotileRepresentativeCell() == (hmi::AutotileCell{0, 0}));
@@ -258,7 +258,7 @@ TEST(TileAutotileTest, SeizeMasquesProduisentSeizeClesDeLibelleDistinctes) {
 TEST(TileAutotileTest, LibelleIgnoreLesBitsParasites) {
     constexpr std::uint8_t noisy = 0xF0 | hmi::NEIGHBOR_UP;
     EXPECT_EQ(hmi::autotileConfigurationLabelKey(noisy),
-             hmi::autotileConfigurationLabelKey(hmi::NEIGHBOR_UP));
+              hmi::autotileConfigurationLabelKey(hmi::NEIGHBOR_UP));
 }
 
 /**

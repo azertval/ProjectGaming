@@ -1,10 +1,9 @@
 #pragma once
 
-#include <filesystem>
-#include <memory>
-
 #include <QString>
 #include <QWidget>
+#include <filesystem>
+#include <memory>
 
 /**
  * @file HMI/Editor/LevelBrowserPanel.h
@@ -62,8 +61,8 @@ private:
 
     std::unique_ptr<Ui::LevelBrowserPanel> _ui;  ///< Mise en page (LevelBrowserPanel.ui).
     std::filesystem::path _dir;
-    QStandardItemModel* _model;   ///< Modèle source (données), rempli par refresh().
-    QSortFilterProxyModel* _proxy;  ///< Filtre de recherche au-dessus du modèle.
+    QStandardItemModel* _model;          ///< Modèle source (données), rempli par refresh().
+    QSortFilterProxyModel* _proxy;       ///< Filtre de recherche au-dessus du modèle.
     const Localization* _loc = nullptr;  ///< Catalogue courant (pour les dialogues localisés).
 };
 

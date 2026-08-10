@@ -456,7 +456,8 @@ private:
     /// Résout le clic de l'outil Lien (`hmi::resolveLinkClick`) et l'applique (attente, liaison).
     void handleLinkClick(const QMouseEvent* event);
     /// Résout le clic de l'outil « Texture par instance » (`hmi::resolveTextureAssignClick`) et
-    /// l'applique (assignation/retrait) ; @p rightClick distingue le clic droit (retrait explicite).
+    /// l'applique (assignation/retrait) ; @p rightClick distingue le clic droit (retrait
+    /// explicite).
     void handleTextureAssignClick(const QMouseEvent* event, bool rightClick);
     /// Convertit la position écran d'un événement souris en position **monde**, non calée sur la
     /// grille (`EX-DEC-001`) — contrairement à `cellAt`/`clampedCell`, utilisées par les autres
@@ -533,9 +534,9 @@ private:
     /// (`0`) ou l'ouverture d'un autre niveau. Restaure le pan/zoom manuel de l'éditeur historique
     /// (`EditorScreen`, LOT-15), perdu lors de la réécriture Direct3D11/Qt.
     bool _manualCamera = false;
-    float _manualZoom = 1.0f;            ///< Zoom manuel courant, actif si `_manualCamera`.
-    core::Vector2 _manualCenter{};       ///< Centre manuel courant, actif si `_manualCamera`.
-    bool _rightDragging = false;         ///< Un glisser bouton droit est en cours (pan potentiel).
+    float _manualZoom = 1.0f;       ///< Zoom manuel courant, actif si `_manualCamera`.
+    core::Vector2 _manualCenter{};  ///< Centre manuel courant, actif si `_manualCamera`.
+    bool _rightDragging = false;    ///< Un glisser bouton droit est en cours (pan potentiel).
     /// `true` dès qu'un glisser bouton droit a dépassé le seuil de mouvement : distingue un pan
     /// d'un simple clic droit (retrait d'override, outil « Texture par instance »).
     bool _cameraPanned = false;
@@ -567,7 +568,8 @@ private:
     /// Case actuellement survolée (cible du collage) ; absente hors de la grille ou après que le
     /// curseur a quitté le viewport (`LOT-57` TACHE-01, `leaveEvent` via `event()`).
     std::optional<core::GridPosition> _hoverCell;
-    float _lastEmittedZoom = 0.0f;  ///< Dernier zoom notifié (`zoomChanged`), évite l'émission en boucle.
+    float _lastEmittedZoom =
+        0.0f;  ///< Dernier zoom notifié (`zoomChanged`), évite l'émission en boucle.
     /// Sélection mémorisée (bornes min/max incluses), pour copier (`Ctrl+C`).
     const Localization* _loc = nullptr;  ///< Catalogue pour localiser les messages d'état.
 
@@ -594,7 +596,7 @@ private:
     bool _gameMode = false;  ///< La session courante est une **partie** (menu Jouer) et
                              ///< non un essai depuis l'éditeur (enchaînement/retour menu).
     std::vector<std::filesystem::path> _gameLevels;  ///< Séquence de niveaux du mode jeu.
-    std::size_t _gameLevel = 0;                      ///< Indice du niveau courant dans la séquence.
+    std::size_t _gameLevel = 0;  ///< Indice du niveau courant dans la séquence.
 
     /// Session de jeu de l'essai immédiat ; nulle en mode édition (essai ajouté au LOT-35
     /// TACHE-04).

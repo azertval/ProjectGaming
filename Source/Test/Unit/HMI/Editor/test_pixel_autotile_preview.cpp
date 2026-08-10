@@ -18,8 +18,8 @@ hmi::DecodedImage sheetImage(int widthInTiles, int heightInTiles, std::uint32_t 
     hmi::DecodedImage image;
     image.width = widthInTiles * TILE;
     image.height = heightInTiles * TILE;
-    image.pixels.assign(static_cast<std::size_t>(image.width) * static_cast<std::size_t>(image.height),
-                        fill);
+    image.pixels.assign(
+        static_cast<std::size_t>(image.width) * static_cast<std::size_t>(image.height), fill);
     return image;
 }
 
@@ -80,11 +80,10 @@ TEST(PixelAutotilePreviewTest, BitmaskCellAtPixelResoutLaCaseAttendue) {
  * \castest{<b>L'apercu d'assemblage utilise la meme table que le rendu.</b><br/>
  * \tcat Unitaire · Planche a raccords (atelier)<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Construire une planche 4x4 dont chaque case a une couleur distincte.<br/>2. Construire
- * l'apercu d'assemblage.<br/>3. Comparer la case centrale de l'apercu a la case attendue de la
- * source (via autotileCell du masque plein).<br/>
- * \tattendu Les pixels de la case centrale de l'apercu sont identiques a ceux de la case source
- * correspondante.
+ * \tetapes 1. Construire une planche 4x4 dont chaque case a une couleur distincte.<br/>2.
+ * Construire l'apercu d'assemblage.<br/>3. Comparer la case centrale de l'apercu a la case attendue
+ * de la source (via autotileCell du masque plein).<br/> \tattendu Les pixels de la case centrale de
+ * l'apercu sont identiques a ceux de la case source correspondante.
  * }
  */
 TEST(PixelAutotilePreviewTest, ApercuDAssemblageUtiliseLaMemeTableQueLeRendu) {

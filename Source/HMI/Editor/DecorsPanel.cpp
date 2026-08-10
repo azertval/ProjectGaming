@@ -15,7 +15,6 @@
 #include <QStandardItemModel>
 #include <QString>
 #include <QTableView>
-
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
@@ -98,12 +97,14 @@ DecorsPanel::DecorsPanel(std::filesystem::path decorsDirectory, QWidget* parent)
     for (std::size_t i = 0; i < std::size(DECOR_LAYER_ORDER); ++i) {
         _ui->decorPlacementLayerCombo->addItem(QString());
     }
-    _ui->decorPlacementLayerCombo->setCurrentIndex(1);  // core::DecorLayer::Decor, couche de reference
-    connect(_ui->decorPlacementLayerCombo, &QComboBox::currentIndexChanged, this, [this](int index) {
-        if (index >= 0 && index < static_cast<int>(std::size(DECOR_LAYER_ORDER))) {
-            emit decorLayerSelected(DECOR_LAYER_ORDER[index]);
-        }
-    });
+    _ui->decorPlacementLayerCombo->setCurrentIndex(
+        1);  // core::DecorLayer::Decor, couche de reference
+    connect(_ui->decorPlacementLayerCombo, &QComboBox::currentIndexChanged, this,
+            [this](int index) {
+                if (index >= 0 && index < static_cast<int>(std::size(DECOR_LAYER_ORDER))) {
+                    emit decorLayerSelected(DECOR_LAYER_ORDER[index]);
+                }
+            });
     connect(_ui->decorSnapCheckBox, &QCheckBox::toggled, this,
             [this](bool checked) { emit decorSnapToGridChanged(checked); });
 
@@ -149,7 +150,7 @@ void DecorsPanel::retranslateUi(const Localization& loc) {
     _loc = &loc;
     for (std::size_t i = 0; i < std::size(DECOR_LAYER_ORDER); ++i) {
         _ui->decorPlacementLayerCombo->setItemText(static_cast<int>(i),
-                                                    decorLayerLabel(DECOR_LAYER_ORDER[i]));
+                                                   decorLayerLabel(DECOR_LAYER_ORDER[i]));
     }
     _ui->decorSnapCheckBox->setText(QString::fromStdString(loc.text("tool.decor_snap_to_grid")));
     _decorView->retranslateUi(loc);
@@ -165,7 +166,7 @@ void DecorsPanel::retranslateUi(const Localization& loc) {
         const QSignalBlocker comboBlocker(_ui->decorSelectedLayerCombo);
         for (std::size_t i = 0; i < std::size(DECOR_LAYER_ORDER); ++i) {
             _ui->decorSelectedLayerCombo->setItemText(static_cast<int>(i),
-                                                       decorLayerLabel(DECOR_LAYER_ORDER[i]));
+                                                      decorLayerLabel(DECOR_LAYER_ORDER[i]));
         }
     }
     rebuildDecorRows();  // les libelles de couche/le tooltip "asset manquant" dependent de _loc
@@ -240,7 +241,7 @@ void DecorsPanel::rebuildDecorRows() {
     int selectedRow = -1;
     for (const DecorListRow& row : _decorRows) {
         auto* const assetItem = new QStandardItem(decorThumbnailFor(row.assetName),
-                                                   QString::fromStdString(row.assetName));
+                                                  QString::fromStdString(row.assetName));
         auto* const layerItem = new QStandardItem(decorLayerLabel(row.layer));
         assetItem->setEditable(false);
         layerItem->setEditable(false);
@@ -248,9 +249,9 @@ void DecorsPanel::rebuildDecorRows() {
             // Signale ce que le damier magenta signale deja dans le canevas (EX-NFR-040) : rouge
             // dans la liste, pour reperer tous les assets manquants d'un coup d'oeil.
             assetItem->setForeground(QColor(220, 60, 60));
-            assetItem->setToolTip(
-                _loc != nullptr ? QString::fromStdString(_loc->text("decors.missing_asset"))
-                                : QString());
+            assetItem->setToolTip(_loc != nullptr
+                                      ? QString::fromStdString(_loc->text("decors.missing_asset"))
+                                      : QString());
         }
         assetItem->setData(static_cast<qulonglong>(row.index), Qt::UserRole);
         const int newRow = _decorsModel->rowCount();
@@ -277,9 +278,9 @@ void DecorsPanel::updateDecorActionButtons() {
     if (!hasSelection) {
         return;
     }
-    const auto found = std::find_if(
-        _decorRows.begin(), _decorRows.end(),
-        [this](const DecorListRow& row) { return row.index == *_selectedDecorIndex; });
+    const auto found =
+        std::find_if(_decorRows.begin(), _decorRows.end(),
+                     [this](const DecorListRow& row) { return row.index == *_selectedDecorIndex; });
     if (found == _decorRows.end()) {
         return;
     }
@@ -291,7 +292,8 @@ std::optional<std::size_t> DecorsPanel::selectedDecorRowIndex() const {
     if (selected.isEmpty()) {
         return std::nullopt;
     }
-    const QStandardItem* const item = _decorsModel->item(selected.first().row(), DECORS_COLUMN_ASSET);
+    const QStandardItem* const item =
+        _decorsModel->item(selected.first().row(), DECORS_COLUMN_ASSET);
     if (item == nullptr) {
         return std::nullopt;
     }

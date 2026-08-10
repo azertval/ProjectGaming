@@ -39,7 +39,8 @@ struct AutotileCell {
     int column = 0;
     int row = 0;
 
-    [[nodiscard]] friend bool operator==(const AutotileCell& lhs, const AutotileCell& rhs) noexcept {
+    [[nodiscard]] friend bool operator==(const AutotileCell& lhs,
+                                         const AutotileCell& rhs) noexcept {
         return lhs.column == rhs.column && lhs.row == rhs.row;
     }
 };

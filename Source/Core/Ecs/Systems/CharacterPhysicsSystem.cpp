@@ -209,8 +209,8 @@ void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const Pl
             //   horizontale couverte par la boîte depuis le DÉBUT de la montée courante, pas
             //   seulement ce pas — marcher tout en sautant peut faire franchir le seuil vertical de
             //   blocage sur un pas où la colonne pertinente n'est plus couverte par la boîte, alors
-            //   qu'elle l'était sur un pas antérieur de la MÊME montée (le seuil peut être manqué de
-            //   peu sur plusieurs pas successifs avant d'être enfin atteint). Remis à l'étendue
+            //   qu'elle l'était sur un pas antérieur de la MÊME montée (le seuil peut être manqué
+            //   de peu sur plusieurs pas successifs avant d'être enfin atteint). Remis à l'étendue
             //   courante dès que le personnage était au sol ou ne montait pas avant ce pas — sans
             //   cette remise, une vieille montée laisserait une trace non pertinente.
             if (player.grounded || velocity.value.y >= 0.0f) {

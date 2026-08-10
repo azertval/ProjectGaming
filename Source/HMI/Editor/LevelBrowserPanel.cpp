@@ -1,7 +1,5 @@
 #include "HMI/Editor/LevelBrowserPanel.h"
 
-#include <utility>
-
 #include <QInputDialog>
 #include <QLineEdit>
 #include <QListView>
@@ -11,6 +9,7 @@
 #include <QSortFilterProxyModel>
 #include <QStandardItem>
 #include <QStandardItemModel>
+#include <utility>
 
 #include "HMI/Editor/LevelFileOperations.h"
 #include "HMI/HmiLog.h"
@@ -90,9 +89,9 @@ std::filesystem::path LevelBrowserPanel::selectedPath() const {
 
 void LevelBrowserPanel::onNew() {
     bool accepted = false;
-    const QString name = QInputDialog::getText(this, t(_loc, "level.new_title"),
-                                               t(_loc, "level.name_prompt"), QLineEdit::Normal,
-                                               QString(), &accepted);
+    const QString name =
+        QInputDialog::getText(this, t(_loc, "level.new_title"), t(_loc, "level.name_prompt"),
+                              QLineEdit::Normal, QString(), &accepted);
     if (!accepted || name.isEmpty()) {
         return;
     }
@@ -118,8 +117,8 @@ void LevelBrowserPanel::onRename() {
         return;
     }
     const LevelFileOperations ops(_dir);
-    HMI_LOG_INFO("Niveaux : renommage de « " + path.stem().string() + " » en « "
-                 + name.toStdString() + " ».");
+    HMI_LOG_INFO("Niveaux : renommage de « " + path.stem().string() + " » en « " +
+                 name.toStdString() + " ».");
     reportIfError(this, t(_loc, "level.operation_failed"), ops.rename(path, name.toStdString()));
     refresh();
 }

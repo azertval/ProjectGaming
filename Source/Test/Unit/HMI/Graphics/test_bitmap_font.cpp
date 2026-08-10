@@ -88,12 +88,10 @@ TEST(BitmapFontTest, MesureChaineAccentueeParPointsDeCode) {
 /**
  * @brief Un caractère absent de la police est substitué par le glyphe de remplacement, jamais un
  *        trou silencieux ni un plantage.
- * \castest{<b>Un caractère absent de la police est substitué par le glyphe de remplacement.</b><br/>
- * \tcat Unitaire · Police bitmap<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le caractère absent est substitué par le glyphe de remplacement.
+ * \castest{<b>Un caractère absent de la police est substitué par le glyphe de
+ * remplacement.</b><br/> \tcat Unitaire · Police bitmap<br/> \tcrit Majeur<br/> \tetapes 1. Mettre
+ * en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les
+ * assertions.<br/> \tattendu Le caractère absent est substitué par le glyphe de remplacement.
  * }
  */
 TEST(BitmapFontTest, CaractereAbsentEstSubstitue) {
@@ -253,8 +251,8 @@ TEST(BitmapFontTest, ReplitProceduralCouvreAsciiEtAccentsDeFaconDeterministe) {
 
     // ASCII imprimable complet.
     for (char32_t codePoint = 0x20; codePoint <= 0x7E; ++codePoint) {
-        EXPECT_NE(first.metrics.glyph(codePoint), nullptr) << "code point 0x" << std::hex
-                                                            << static_cast<std::uint32_t>(codePoint);
+        EXPECT_NE(first.metrics.glyph(codePoint), nullptr)
+            << "code point 0x" << std::hex << static_cast<std::uint32_t>(codePoint);
     }
     // Accents du francais utilises par le catalogue de traduction : e è à ç ù ê î ô û. Points de
     // code numeriques (pas de litteral U'e...') : le fichier source est lu en page de code

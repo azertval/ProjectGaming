@@ -22,16 +22,16 @@
  */
 TEST(PixelAssetIOTest, ChaqueTailleProposeeEstConforme) {
     constexpr hmi::AssetFamily families[] = {
-        hmi::AssetFamily::Atlas,     hmi::AssetFamily::TileSkin, hmi::AssetFamily::AutotileSheet,
-        hmi::AssetFamily::Object,    hmi::AssetFamily::CharacterSheet,
-        hmi::AssetFamily::Background, hmi::AssetFamily::Decor,   hmi::AssetFamily::Font};
+        hmi::AssetFamily::Atlas,          hmi::AssetFamily::TileSkin,
+        hmi::AssetFamily::AutotileSheet,  hmi::AssetFamily::Object,
+        hmi::AssetFamily::CharacterSheet, hmi::AssetFamily::Background,
+        hmi::AssetFamily::Decor,          hmi::AssetFamily::Font};
     for (const hmi::AssetFamily family : families) {
         for (const auto& [width, height] : hmi::validAssetSizes(family)) {
             const hmi::AssetValidation validation =
                 hmi::validateAsset(family, "test.png", width, height);
-            EXPECT_TRUE(validation.valid)
-                << hmi::assetFamilyName(family) << " " << width << "x" << height << " : "
-                << validation.message;
+            EXPECT_TRUE(validation.valid) << hmi::assetFamilyName(family) << " " << width << "x"
+                                          << height << " : " << validation.message;
         }
     }
 }

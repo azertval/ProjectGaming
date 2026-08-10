@@ -41,10 +41,10 @@ void handleAssertionFailure(const char* condition, const char* message, const ch
 #ifdef NDEBUG
 #define PROJECTGAMING_ASSERT(condition, message) ((void)0)
 #else
-#define PROJECTGAMING_ASSERT(condition, message)                                          \
-    do {                                                                                  \
-        if (!(condition)) {                                                               \
-            ::core::handleAssertionFailure(#condition, message, __FILE__, __LINE__);      \
-        }                                                                                 \
+#define PROJECTGAMING_ASSERT(condition, message)                                     \
+    do {                                                                             \
+        if (!(condition)) {                                                          \
+            ::core::handleAssertionFailure(#condition, message, __FILE__, __LINE__); \
+        }                                                                            \
     } while (false)
 #endif

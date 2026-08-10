@@ -50,7 +50,8 @@ std::vector<MechanismAnimationRow> buildMechanismAnimationRows(
             const AnimationDescriptionResult result = AnimationCatalog::loadFromFile(
                 skinsDirectory / AnimationCatalog::descriptorFileName(row.asset));
             for (const std::string& expectedClip : mechanismExpectedClips(type)) {
-                const bool present = result.ok() && result.description->clips.indexOf(expectedClip) >= 0;
+                const bool present =
+                    result.ok() && result.description->clips.indexOf(expectedClip) >= 0;
                 if (!present) {
                     row.missingClips.push_back(expectedClip);
                 }

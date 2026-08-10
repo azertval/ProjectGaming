@@ -30,10 +30,10 @@ hmi::DecodedImage sampleImage() {
     image.width = 2;
     image.height = 2;
     image.pixels = {
-        pack(255, 0, 0, 255),    // rouge opaque
-        pack(0, 0, 0, 0),        // totalement transparent
-        pack(0, 255, 0, 128),    // vert, semi-transparent
-        pack(18, 52, 86, 64),    // couleur quelconque, alpha partiel
+        pack(255, 0, 0, 255),  // rouge opaque
+        pack(0, 0, 0, 0),      // totalement transparent
+        pack(0, 255, 0, 128),  // vert, semi-transparent
+        pack(18, 52, 86, 64),  // couleur quelconque, alpha partiel
     };
     return image;
 }

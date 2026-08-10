@@ -169,7 +169,8 @@ public:
     void applyFlipVertical();
     /// Pivote la sélection d'un quart de tour horaire, ou l'image entière à défaut de sélection.
     void applyRotateClockwise();
-    /// Pivote la sélection d'un quart de tour antihoraire, ou l'image entière à défaut de sélection.
+    /// Pivote la sélection d'un quart de tour antihoraire, ou l'image entière à défaut de
+    /// sélection.
     void applyRotateCounterClockwise();
 
     [[nodiscard]] const PixelCanvasView& view() const noexcept {
@@ -251,14 +252,14 @@ private:
 
     bool _gestureActive = false;
     DecodedImage _gestureBeforeSnapshot;  ///< Copie de `_image` au début du geste courant.
-    PixelRegion _gestureRegion;           ///< Union des régions touchées depuis le début du geste.
+    PixelRegion _gestureRegion;  ///< Union des régions touchées depuis le début du geste.
     std::optional<std::pair<int, int>> _lastGesturePixel;
     std::optional<std::pair<int, int>> _hoveredPixel;
 
     // Outils de région (LOT-54 TACHE-06).
-    PixelRegion _selection;                 ///< Sélection courante, vide si aucune.
-    PixelClipboard _clipboard;              ///< Presse-papiers de l'atelier, distinct du niveau.
-    bool _selectionMoveActive = false;      ///< `true` : le geste en cours déplace `_selection`.
+    PixelRegion _selection;             ///< Sélection courante, vide si aucune.
+    PixelClipboard _clipboard;          ///< Presse-papiers de l'atelier, distinct du niveau.
+    bool _selectionMoveActive = false;  ///< `true` : le geste en cours déplace `_selection`.
     std::pair<int, int> _selectionDragAnchor{0, 0};  ///< Point de départ d'une nouvelle sélection.
 
     bool _panning = false;

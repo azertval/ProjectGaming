@@ -1,6 +1,7 @@
 #include "HMI/Input/QtKeyMap.h"
 
 #include <QtGlobal>
+
 #include <qnamespace.h>
 
 namespace hmi {

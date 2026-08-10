@@ -22,23 +22,23 @@ class Localization;
 
 /// État affiché pour un niveau en cours d'édition (barre d'état, `EX-EDIT-013`/`EX-EDIT-012`).
 struct LevelStatusInfo {
-    std::string name;                                  ///< Nom du niveau ouvert.
-    bool dirty = false;                                ///< Modifications non enregistrées.
-    EditorTool tool = EditorTool::Paint;                ///< Outil d'édition actif.
-    std::optional<core::GridPosition> hoveredCell;      ///< Case survolée, si le curseur est dessus.
-    float zoom = 1.0f;                                  ///< Facteur de zoom courant.
+    std::string name;                               ///< Nom du niveau ouvert.
+    bool dirty = false;                             ///< Modifications non enregistrées.
+    EditorTool tool = EditorTool::Paint;            ///< Outil d'édition actif.
+    std::optional<core::GridPosition> hoveredCell;  ///< Case survolée, si le curseur est dessus.
+    float zoom = 1.0f;                              ///< Facteur de zoom courant.
 };
 
 /// État affiché pour un asset en cours d'édition dans l'atelier pixel art (barre d'état, `LOT-54`
 /// TACHE-04, `EX-IHM-060`).
 struct PixelEditStatusInfo {
-    std::string assetName;                          ///< Nom de l'asset ouvert, vide si aucun (TACHE-05).
-    bool dirty = false;                              ///< Modifications non enregistrées.
-    PixelTool tool = PixelTool::Brush;                ///< Outil de canevas actif.
+    std::string assetName;              ///< Nom de l'asset ouvert, vide si aucun (TACHE-05).
+    bool dirty = false;                 ///< Modifications non enregistrées.
+    PixelTool tool = PixelTool::Brush;  ///< Outil de canevas actif.
     std::optional<std::pair<int, int>> hoveredPixel;  ///< Pixel survolé, si le curseur est dessus.
-    int zoom = 1;                                     ///< Facteur de zoom entier courant (TACHE-03).
-    std::uint32_t currentColor = 0xFF000000u;         ///< Couleur courante (R8G8B8A8_UNORM).
-    bool paletteConstrained = false;                  ///< Mode « contraindre à la palette » (TACHE-07).
+    int zoom = 1;                              ///< Facteur de zoom entier courant (TACHE-03).
+    std::uint32_t currentColor = 0xFF000000u;  ///< Couleur courante (R8G8B8A8_UNORM).
+    bool paletteConstrained = false;           ///< Mode « contraindre à la palette » (TACHE-07).
 };
 
 /**
@@ -70,14 +70,14 @@ struct EditorStatusLines {
  *
  * Fonction **pure** (`EX-NFR-010`) : ne lit que ce qu'on lui passe, aucune dépendance Qt/GPU — même
  * patron que `hmi::gameHudLines` (`LOT-52`). Le rendu (`MainWindow`) n'a plus qu'à afficher ce que
- * cette fonction décide, et à la rappeler après l'expiration d'un message transitoire pour restaurer
- * l'aide affichée.
+ * cette fonction décide, et à la rappeler après l'expiration d'un message transitoire pour
+ * restaurer l'aide affichée.
  * @param context      Contexte d'édition courant ; `context.level` absent (aucun niveau ouvert)
  *                      produit des zones et une aide vides.
  * @param localization Catalogue de traduction (`EX-REN-033`) — aucune chaîne en dur.
  * @return Les zones permanentes et l'aide contextuelle à afficher.
  */
 [[nodiscard]] EditorStatusLines editorStatusLines(const EditorStatusContext& context,
-                                                   const Localization& localization);
+                                                  const Localization& localization);
 
 }  // namespace hmi

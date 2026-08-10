@@ -3,11 +3,11 @@
  * @brief Tests unitaires de la texture assignée par instance (LOT-45, `EX-EDIT-043`).
  */
 
-#include <gtest/gtest.h>
-
 #include <algorithm>
 #include <string>
 #include <vector>
+
+#include <gtest/gtest.h>
 
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"

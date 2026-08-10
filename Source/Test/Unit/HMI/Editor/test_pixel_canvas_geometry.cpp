@@ -77,9 +77,8 @@ TEST(PixelCanvasGeometryTest, AllerRetourRectangleVersPixel) {
             for (int y = 0; y < 4; ++y) {
                 for (int x = 0; x < 4; ++x) {
                     const hmi::PixelScreenRect rect = hmi::imagePixelScreenRect(view, x, y);
-                    const auto roundTrip =
-                        hmi::screenToImagePixel(view, 10, 10, rect.x + rect.width / 2.0,
-                                                rect.y + rect.height / 2.0);
+                    const auto roundTrip = hmi::screenToImagePixel(
+                        view, 10, 10, rect.x + rect.width / 2.0, rect.y + rect.height / 2.0);
                     ASSERT_TRUE(roundTrip.has_value())
                         << "zoom=" << zoom << " x=" << x << " y=" << y;
                     EXPECT_EQ(*roundTrip, std::make_pair(x, y))

@@ -11,7 +11,8 @@ namespace {
 // fin.
 std::vector<int> tileCountProgression(int minimumTiles) {
     std::vector<int> counts;
-    constexpr int MAX_TILES = 64;  // plafond arbitraire : au-dela, une planche est deja tres grande.
+    constexpr int MAX_TILES =
+        64;  // plafond arbitraire : au-dela, une planche est deja tres grande.
     for (int tiles = minimumTiles; tiles <= MAX_TILES && counts.size() < 4; tiles *= 2) {
         counts.push_back(tiles);
     }

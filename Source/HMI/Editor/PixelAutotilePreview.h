@@ -36,7 +36,7 @@ namespace hmi {
  *         (`isBitmask16Candidate`) ou si `(x, y)` est hors bornes.
  */
 [[nodiscard]] std::optional<AutotileCell> bitmaskCellAtPixel(const DecodedImage& image,
-                                                              int tileSize, int x, int y) noexcept;
+                                                             int tileSize, int x, int y) noexcept;
 
 /**
  * @brief Construit l'aperçu d'assemblage 3×3 démonstratif à partir de la planche en cours.

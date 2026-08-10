@@ -98,9 +98,9 @@ public:
      *
      * Remplace toute liaison existante pour @p targetPosition (une cible n'a qu'un seul
      * déclencheur associé) ; plusieurs cibles peuvent en revanche partager le même déclencheur.
-     * Même geste éditeur pour les deux cibles (clic déclencheur, clic cible) — la liaison résultante
-     * est rangée dans `mechanisms()` (cible `Door`) ou `dangerLinks()` (cible `DangerSwitched`)
-     * selon ce que porte réellement @p targetPosition.
+     * Même geste éditeur pour les deux cibles (clic déclencheur, clic cible) — la liaison
+     * résultante est rangée dans `mechanisms()` (cible `Door`) ou `dangerLinks()` (cible
+     * `DangerSwitched`) selon ce que porte réellement @p targetPosition.
      * @pre La case @p switchPosition porte un `Switch`/`PressurePlate`, la case @p targetPosition
      *      porte une `Door` **ou** un `DangerSwitched`.
      */

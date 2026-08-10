@@ -14,9 +14,10 @@ constexpr SpacingTokens SHARED_SPACING{};
 
 [[nodiscard]] TypographyTokens sharedTypography() noexcept {
     TypographyTokens typography;
-    typography.screenTitle = TypographyLevel{32, 700};   // QFont::Bold -- titre du menu/des Options.
-    typography.sectionTitle = TypographyLevel{16, 700};  // Boutons de navigation, titres de panneau.
-    typography.body = TypographyLevel{10, 400};           // QFont::Normal
+    typography.screenTitle = TypographyLevel{32, 700};  // QFont::Bold -- titre du menu/des Options.
+    typography.sectionTitle =
+        TypographyLevel{16, 700};                // Boutons de navigation, titres de panneau.
+    typography.body = TypographyLevel{10, 400};  // QFont::Normal
     typography.caption = TypographyLevel{9, 400};
     typography.monospaceBody = TypographyLevel{10, 400};
     return typography;
@@ -142,7 +143,7 @@ namespace {
 
 double relativeLuminance(DesignColor color) noexcept {
     return 0.2126 * linearChannel(color.r) + 0.7152 * linearChannel(color.g) +
-          0.0722 * linearChannel(color.b);
+           0.0722 * linearChannel(color.b);
 }
 
 double contrastRatio(DesignColor a, DesignColor b) noexcept {
@@ -153,7 +154,8 @@ double contrastRatio(DesignColor a, DesignColor b) noexcept {
     return (lighter + 0.05) / (darker + 0.05);
 }
 
-std::unordered_map<std::string, std::string> buildStyleSheetValues(const DesignTokens& editorTokens) {
+std::unordered_map<std::string, std::string> buildStyleSheetValues(
+    const DesignTokens& editorTokens) {
     std::unordered_map<std::string, std::string> values;
     addColorValues(values, "identity.color", identityTokens().color);
     addColorValues(values, "editor.color", editorTokens.color);

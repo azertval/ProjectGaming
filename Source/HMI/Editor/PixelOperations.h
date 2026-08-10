@@ -44,9 +44,8 @@ struct PixelRegion {
 
     /// @return `true` si les deux régions couvrent exactement les mêmes pixels.
     [[nodiscard]] constexpr bool operator==(const PixelRegion& other) const noexcept {
-        return (empty() && other.empty()) ||
-              (minX == other.minX && minY == other.minY && maxX == other.maxX &&
-               maxY == other.maxY);
+        return (empty() && other.empty()) || (minX == other.minX && minY == other.minY &&
+                                              maxX == other.maxX && maxY == other.maxY);
     }
 };
 
@@ -63,7 +62,7 @@ struct PixelRegion {
  * (ex. plusieurs `drawLine` successifs pendant un glisser).
  */
 [[nodiscard]] constexpr PixelRegion unionPixelRegion(const PixelRegion& a,
-                                                      const PixelRegion& b) noexcept {
+                                                     const PixelRegion& b) noexcept {
     if (a.empty()) {
         return b;
     }
@@ -157,7 +156,7 @@ PixelRegion floodFill(DecodedImage& image, int x, int y, std::uint32_t color);
  * @return La couleur du pixel, ou `std::nullopt` si `(x, y)` est hors bornes.
  */
 [[nodiscard]] std::optional<std::uint32_t> pickColor(const DecodedImage& image, int x,
-                                                      int y) noexcept;
+                                                     int y) noexcept;
 
 /**
  * @brief Copie les pixels d'une région, ligne par ligne — capture le « avant » ou l'« après »
@@ -168,7 +167,7 @@ PixelRegion floodFill(DecodedImage& image, int x, int y, std::uint32_t color);
  *         @p region est vide.
  */
 [[nodiscard]] std::vector<std::uint32_t> readRegion(const DecodedImage& image,
-                                                     const PixelRegion& region);
+                                                    const PixelRegion& region);
 
 /**
  * @brief Écrit des pixels dans une région — inverse de `readRegion`, utilisé par
@@ -208,7 +207,8 @@ struct PixelClipboard {
  */
 PixelRegion flipHorizontal(DecodedImage& image, const PixelRegion& region);
 
-/// Retourne une région verticalement (miroir haut-bas), en place. Involutive, comme `flipHorizontal`.
+/// Retourne une région verticalement (miroir haut-bas), en place. Involutive, comme
+/// `flipHorizontal`.
 PixelRegion flipVertical(DecodedImage& image, const PixelRegion& region);
 
 /**
@@ -244,7 +244,8 @@ PixelRegion rotateCounterClockwise(DecodedImage& image, const PixelRegion& regio
 PixelRegion moveRegion(DecodedImage& image, const PixelRegion& region, int dx, int dy);
 
 /**
- * @brief Copie les pixels d'une région dans un presse-papiers autonome (ne référence plus @p image).
+ * @brief Copie les pixels d'une région dans un presse-papiers autonome (ne référence plus @p
+ * image).
  * @param image  Image consultée.
  * @param region Région copiée ; un presse-papiers vide si @p region est vide.
  */

@@ -46,7 +46,7 @@ struct PlayerSpriteQuad {
  *         hitbox.
  */
 [[nodiscard]] PlayerSpriteQuad computePlayerSpriteQuad(core::Vector2 imageSizePixels,
-                                                        core::Vector2 hitboxSize);
+                                                       core::Vector2 hitboxSize);
 
 /// Noms des clips que l'atlas procédural sait dessiner (`Idle`/`Run`/`Jump`, `LOT-18`) : seule
 /// source de vérité, partagée avec `hmi::PlayerClipKind` — traitée comme une « spritesheet »
@@ -69,6 +69,6 @@ struct PlayerSpriteQuad {
  *         premier nom de la chaîne de repli qui l'est ; `"idle"` en dernier recours.
  */
 [[nodiscard]] std::string resolveDeclaredPlayerClip(const std::vector<std::string>& declaredNames,
-                                                     std::string_view requested);
+                                                    std::string_view requested);
 
 }  // namespace hmi

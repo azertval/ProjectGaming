@@ -24,13 +24,13 @@ core::PlayerInput toPlayerInput(const InputState& input, const GameKeyBindings& 
     result.jumpHeld = input.keyDown(jumpKey) || input.gamepadButtonDown(jumpButton);
     // Visee verticale du dash (y vers le bas) : Bas = +1, Haut = -1, sinon 0.
     const bool aimDown = input.keyDown(gameKeyBindings.key(GameAction::AimDown)) ||
-                        input.gamepadButtonDown(gamepadBindings.button(GameAction::AimDown));
+                         input.gamepadButtonDown(gamepadBindings.button(GameAction::AimDown));
     const bool aimUp = input.keyDown(gameKeyBindings.key(GameAction::AimUp)) ||
-                      input.gamepadButtonDown(gamepadBindings.button(GameAction::AimUp));
+                       input.gamepadButtonDown(gamepadBindings.button(GameAction::AimUp));
     result.moveY = (aimDown ? 1.0f : 0.0f) - (aimUp ? 1.0f : 0.0f);
     // Dash : au front (`EX-CTRL-013`).
     result.dashPressed = input.keyPressed(gameKeyBindings.key(GameAction::Dash)) ||
-                        input.gamepadButtonPressed(gamepadBindings.button(GameAction::Dash));
+                         input.gamepadButtonPressed(gamepadBindings.button(GameAction::Dash));
     return result;
 }
 

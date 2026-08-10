@@ -25,6 +25,6 @@ namespace hmi {
  *         dossier est absent — un état de départ légitime, pas une erreur.
  */
 [[nodiscard]] std::vector<std::string> listAssetFiles(const std::filesystem::path& directory,
-                                                       const std::string& filterText = {});
+                                                      const std::string& filterText = {});
 
 }  // namespace hmi

@@ -112,12 +112,11 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
     // schéma que doorOpensWith ci-dessus.
     std::map<std::pair<int, int>, std::string> dangerOpensWith;
     for (const DangerLink& link : dangerLinks) {
-        const auto found = switchIds.find(
-            std::make_pair(link.triggerPosition.column, link.triggerPosition.row));
+        const auto found =
+            switchIds.find(std::make_pair(link.triggerPosition.column, link.triggerPosition.row));
         if (found != switchIds.end()) {
             dangerOpensWith.emplace(
-                std::make_pair(link.dangerPosition.column, link.dangerPosition.row),
-                found->second);
+                std::make_pair(link.dangerPosition.column, link.dangerPosition.row), found->second);
         }
     }
 
@@ -170,8 +169,8 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
             } else if (type == TileType::DangerMover) {
                 const auto found = moverByPosition.find(std::make_pair(column, row));
                 if (found != moverByPosition.end()) {
-                    tile["axis"] = found->second.axis == DangerMoverAxis::Vertical ? "vertical"
-                                                                                   : "horizontal";
+                    tile["axis"] =
+                        found->second.axis == DangerMoverAxis::Vertical ? "vertical" : "horizontal";
                     tile["range"] = found->second.range;
                 }
             } else if (type == TileType::DangerBlink) {

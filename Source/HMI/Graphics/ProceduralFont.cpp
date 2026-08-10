@@ -243,7 +243,8 @@ char32_t nextUtf8CodePoint(std::string_view text, std::size_t& index) noexcept {
             index = text.size();
             return 0xFFFD;
         }
-        const auto continuation = static_cast<unsigned char>(text[index + static_cast<std::size_t>(byte)]);
+        const auto continuation =
+            static_cast<unsigned char>(text[index + static_cast<std::size_t>(byte)]);
         if ((continuation & 0xC0) != 0x80) {
             index += 1;  // sequence tronquee : on avance d'un octet et on signale
             return 0xFFFD;
@@ -449,11 +450,10 @@ FontMetricsResult loadFontMetricsFromString(std::string_view json) {
         version = root[FIELD_VERSION].get<int>();
     }
     if (version > FONT_METRICS_FORMAT_VERSION) {
-        return metricsFailure(
-            "Version de format " + std::to_string(version) +
-                " non geree (cette version du jeu lit jusqu'a " +
-                std::to_string(FONT_METRICS_FORMAT_VERSION) + ").",
-            FontMetricsError::UnsupportedVersion);
+        return metricsFailure("Version de format " + std::to_string(version) +
+                                  " non geree (cette version du jeu lit jusqu'a " +
+                                  std::to_string(FONT_METRICS_FORMAT_VERSION) + ").",
+                              FontMetricsError::UnsupportedVersion);
     }
 
     if (!root.contains(FIELD_LINE_HEIGHT) || !root[FIELD_LINE_HEIGHT].is_number_integer() ||
@@ -473,9 +473,8 @@ FontMetricsResult loadFontMetricsFromString(std::string_view json) {
         const std::optional<char32_t> replacement =
             singleCodePoint(root[FIELD_REPLACEMENT].get<std::string>());
         if (!replacement) {
-            return metricsFailure(
-                "Le champ « replacement » doit contenir exactement un caractere.",
-                FontMetricsError::MalformedStructure);
+            return metricsFailure("Le champ « replacement » doit contenir exactement un caractere.",
+                                  FontMetricsError::MalformedStructure);
         }
         metrics.replacementCodePoint = *replacement;
     }
@@ -546,11 +545,11 @@ FontMetricsResult loadFontMetricsFromFile(const std::filesystem::path& path) {
 
 // Valide la coherence entre des metriques et les dimensions decodees du PNG associe.
 AssetValidation validateFontMetricsAgainstTexture(const FontMetrics& metrics,
-                                                   const std::string& fileName, int textureWidth,
-                                                   int textureHeight) {
+                                                  const std::string& fileName, int textureWidth,
+                                                  int textureHeight) {
     if (metrics.lineHeight <= 0) {
-        return AssetValidation{false, "Police " + fileName +
-                                          " refusee : hauteur de ligne non positive."};
+        return AssetValidation{false,
+                               "Police " + fileName + " refusee : hauteur de ligne non positive."};
     }
     for (const auto& [codePoint, glyph] : metrics.glyphs) {
         const bool withinBounds = glyph.x >= 0 && glyph.y >= 0 && glyph.width > 0 &&
@@ -559,11 +558,11 @@ AssetValidation validateFontMetricsAgainstTexture(const FontMetrics& metrics,
         if (!withinBounds) {
             std::ostringstream hex;
             hex << std::hex << static_cast<std::uint32_t>(codePoint);
-            return AssetValidation{
-                false, "Police " + fileName + " refusee : le glyphe U+" + hex.str() +
-                           " reference une region hors des bornes de l'image (" +
-                           std::to_string(textureWidth) + "x" + std::to_string(textureHeight) +
-                           " px)."};
+            return AssetValidation{false, "Police " + fileName + " refusee : le glyphe U+" +
+                                              hex.str() +
+                                              " reference une region hors des bornes de l'image (" +
+                                              std::to_string(textureWidth) + "x" +
+                                              std::to_string(textureHeight) + " px)."};
         }
     }
     return AssetValidation{true, std::string{}};

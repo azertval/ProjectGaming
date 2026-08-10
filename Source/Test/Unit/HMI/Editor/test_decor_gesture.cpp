@@ -4,11 +4,11 @@
  *        TACHE-02, `EX-DEC-010`).
  */
 
-#include <gtest/gtest.h>
-
 #include <cmath>
 #include <optional>
 #include <vector>
+
+#include <gtest/gtest.h>
 
 #include "Core/Levels/Decor.h"
 #include "Core/Math/Rect.h"
@@ -152,8 +152,8 @@ TEST(DecorGestureTest, UnDeplacementSousLeSeuilNeProduitAucuneAction) {
         state, Vector2{2.0f + hmi::DECOR_DRAG_THRESHOLD * 0.5f, 2.0f}, false);
     EXPECT_EQ(preview.kind, DecorGestureActionKind::None);
 
-    const hmi::DecorGestureAction committed = hmi::endDecorGesture(
-        state, Vector2{2.0f + hmi::DECOR_DRAG_THRESHOLD * 0.5f, 2.0f}, false);
+    const hmi::DecorGestureAction committed =
+        hmi::endDecorGesture(state, Vector2{2.0f + hmi::DECOR_DRAG_THRESHOLD * 0.5f, 2.0f}, false);
     EXPECT_EQ(committed.kind, DecorGestureActionKind::None);
 }
 
@@ -176,8 +176,8 @@ TEST(DecorGestureTest, UnDeplacementAuDelaDuSeuilProduitUneActionDeplacer) {
     hmi::beginDecorGesture(state, DecorHit{0, DecorHandle::Body}, Vector2{2.0f, 2.0f}, decor,
                            bounds);
 
-    const hmi::DecorGestureAction preview =
-        hmi::updateDecorGesture(state, Vector2{2.0f + hmi::DECOR_DRAG_THRESHOLD * 5.0f, 2.0f}, false);
+    const hmi::DecorGestureAction preview = hmi::updateDecorGesture(
+        state, Vector2{2.0f + hmi::DECOR_DRAG_THRESHOLD * 5.0f, 2.0f}, false);
 
     EXPECT_EQ(preview.kind, DecorGestureActionKind::Move);
     EXPECT_FLOAT_EQ(preview.position.x, 1.0f + hmi::DECOR_DRAG_THRESHOLD * 5.0f);
@@ -213,8 +213,8 @@ TEST(DecorGestureTest, DeplacerProduitLaPositionFinaleAuRelachement) {
 
     EXPECT_EQ(action.kind, DecorGestureActionKind::Move);
     EXPECT_EQ(action.index, 0u);
-    EXPECT_FLOAT_EQ(action.position.x, 4.0f);   // 1.0 + (5.0 - 2.0)
-    EXPECT_FLOAT_EQ(action.position.y, 2.5f);   // 1.0 + (3.5 - 2.0)
+    EXPECT_FLOAT_EQ(action.position.x, 4.0f);  // 1.0 + (5.0 - 2.0)
+    EXPECT_FLOAT_EQ(action.position.y, 2.5f);  // 1.0 + (3.5 - 2.0)
 }
 
 /**
@@ -314,7 +314,8 @@ TEST(DecorGestureTest, RedimensionnerDepuisLeCoinHautGaucheDeplaceLAncreOpposee)
                            bounds);
 
     // Glisse le coin haut-gauche vers (-4, -2) : l'ancre (coin bas-droit, (4,2)) reste fixe.
-    const hmi::DecorGestureAction action = hmi::endDecorGesture(state, Vector2{-4.0f, -2.0f}, false);
+    const hmi::DecorGestureAction action =
+        hmi::endDecorGesture(state, Vector2{-4.0f, -2.0f}, false);
 
     EXPECT_EQ(action.kind, DecorGestureActionKind::Resize);
     EXPECT_FLOAT_EQ(action.position.x, -4.0f);

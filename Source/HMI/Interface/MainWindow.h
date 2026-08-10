@@ -141,7 +141,8 @@ private:
     /// canevas — seul moyen d'atteindre une couleur absente à la fois de l'image ouverte (pipette)
     /// et de la palette de projet (pastilles).
     void openPixelColorPicker();
-    /// Met à jour le témoin de couleur de la barre d'outils du canevas (pastille de `_pixelColorButton`).
+    /// Met à jour le témoin de couleur de la barre d'outils du canevas (pastille de
+    /// `_pixelColorButton`).
     void updatePixelColorButtonIcon(std::uint32_t color);
 
     // Palette de projet (LOT-54 TACHE-07).
@@ -181,34 +182,41 @@ private:
     QWidget* _editorContainer;  ///< Conteneur natif du viewport (page éditeur/jeu).
     GameViewport* _viewport;    ///< Surface de rendu D3D11 (possédée par le conteneur central).
     /// Contexte d'édition actif, cible d'Annuler/Refaire/Copier/Coller (`LOT-57` TACHE-04) : `
-    /// _viewport` (niveau) ou `_pixelCanvas` (atelier pixel art, `LOT-54` TACHE-04), selon le widget
-    /// qui a le focus clavier (`updateActiveEditContext`) — le dispatch lui-même ne change jamais.
+    /// _viewport` (niveau) ou `_pixelCanvas` (atelier pixel art, `LOT-54` TACHE-04), selon le
+    /// widget qui a le focus clavier (`updateActiveEditContext`) — le dispatch lui-même ne change
+    /// jamais.
     EditContextTarget* _editContext = nullptr;
-    PalettePanel* _palette;     ///< Arbre de sélection du type de tuile (contenu du dock Palette).
+    PalettePanel* _palette;  ///< Arbre de sélection du type de tuile (contenu du dock Palette).
     LevelBrowserPanel*
-        _levels;               ///< Liste/gestion des fichiers de niveaux (contenu du dock Niveaux).
+        _levels;  ///< Liste/gestion des fichiers de niveaux (contenu du dock Niveaux).
     /// Placement/inspection de décors (dock Décors, `LOT-57` amendement) — contenait déjà tout ce
     /// qui concerne les décors (`ToolPanel`, `LOT-56` TACHE-04) avant d'y accueillir aussi
     /// l'inspecteur déplacé du panneau Textures. La barre d'outils reste hors de ce panneau.
     DecorsPanel* _decors;
-    LinkPanel* _links;         ///< Liste/gestion des liaisons de mécanismes (dock Liens, LOT-37).
-    TexturePanel* _textures;   ///< Habillage : jeu de skins et assignations (dock Textures, LOT-42).
+    LinkPanel* _links;        ///< Liste/gestion des liaisons de mécanismes (dock Liens, LOT-37).
+    TexturePanel* _textures;  ///< Habillage : jeu de skins et assignations (dock Textures, LOT-42).
     /// Canevas de l'atelier pixel art (dock Atelier, LOT-54 TACHE-04) : seconde implémentation de
     /// `EditContextTarget`, cible d'Annuler/Refaire/Copier/Coller quand elle a le focus clavier.
     PixelCanvas* _pixelCanvas;
-    PixelHistoryPanel* _pixelHistoryPanel;  ///< Historique visuel de l'atelier (dock, LOT-54 TACHE-04).
-    PixelPalettePanel* _pixelPalettePanel;  ///< Édition de la palette de projet (dock, LOT-54 TACHE-07).
-    PixelPalette _pixelPalette;  ///< Palette de projet, chargée/enregistrée dans Assets/palettes.json.
+    PixelHistoryPanel*
+        _pixelHistoryPanel;  ///< Historique visuel de l'atelier (dock, LOT-54 TACHE-04).
+    PixelPalettePanel*
+        _pixelPalettePanel;  ///< Édition de la palette de projet (dock, LOT-54 TACHE-07).
+    PixelPalette
+        _pixelPalette;  ///< Palette de projet, chargée/enregistrée dans Assets/palettes.json.
     /// Chemin complet du fichier de l'asset ouvert dans l'atelier, vide si aucun ou pas encore
     /// enregistré (LOT-54 TACHE-05) — `PixelCanvas::assetName()` n'en garde que le nom de fichier,
     /// pour l'affichage ; ce chemin sert à `savePixelAsset` pour retrouver le dossier.
     std::filesystem::path _pixelAssetPath;
-    EditorActions* _actions;   ///< Outils et commandes principales, barre d'outils (LOT-56 TACHE-04).
-    QToolBar* _toolBar;        ///< Barre d'outils de l'éditeur, alimentée par `_actions`.
-    QToolBar* _pixelToolBar;   ///< Barre d'outils du canevas pixel art (LOT-54 TACHE-04).
-    QToolButton* _pixelColorButton = nullptr;  ///< Témoin + sélecteur de couleur courante (canevas).
-    QMenu* _pixelMenu = nullptr;  ///< Menu « Atelier » : ouvrir/créer/enregistrer (LOT-54 TACHE-05).
-    QMenu* _themeMenu;         ///< Sous-menu Affichage > Thème (LOT-56 TACHE-06).
+    EditorActions*
+        _actions;        ///< Outils et commandes principales, barre d'outils (LOT-56 TACHE-04).
+    QToolBar* _toolBar;  ///< Barre d'outils de l'éditeur, alimentée par `_actions`.
+    QToolBar* _pixelToolBar;  ///< Barre d'outils du canevas pixel art (LOT-54 TACHE-04).
+    QToolButton* _pixelColorButton =
+        nullptr;  ///< Témoin + sélecteur de couleur courante (canevas).
+    QMenu* _pixelMenu =
+        nullptr;        ///< Menu « Atelier » : ouvrir/créer/enregistrer (LOT-54 TACHE-05).
+    QMenu* _themeMenu;  ///< Sous-menu Affichage > Thème (LOT-56 TACHE-06).
     QAction* _themeSystemAction;
     QAction* _themeLightAction;
     QAction* _themeDarkAction;
@@ -240,7 +248,8 @@ private:
     QLabel* _statusZoom = nullptr;
     /// Couleur courante de l'atelier pixel art (`LOT-54` TACHE-04) ; vide hors contexte d'atelier.
     QLabel* _statusColor = nullptr;
-    /// Restaure l'aide contextuelle à l'expiration d'un message transitoire (`showTransientStatusMessage`).
+    /// Restaure l'aide contextuelle à l'expiration d'un message transitoire
+    /// (`showTransientStatusMessage`).
     QTimer* _statusMessageTimer = nullptr;
 
     Localization _loc;  ///< Catalogue de traduction (i18n), source de tous les textes.

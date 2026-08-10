@@ -46,8 +46,8 @@ core::Entity spawnHumanoidAt(core::World& world, float x, float y) {
 // Assemble les boîtes actuellement mortelles des dangers mobile/commuté/temporisé, même
 // composition que `hmi::GameSession::collectActiveDangerBoxes`.
 std::vector<core::Aabb> collectActiveDangerBoxes(const core::Level& level,
-                                                  const core::DangerController& dangers,
-                                                  const core::MechanismController& mechanisms) {
+                                                 const core::DangerController& dangers,
+                                                 const core::MechanismController& mechanisms) {
     std::vector<core::Aabb> boxes;
     for (std::size_t index = 0; index < dangers.moverCount(); ++index) {
         boxes.push_back(dangers.moverBox(index));
@@ -102,7 +102,8 @@ TEST(DangerAvanceIntegrationTest, DangerDirectionnelMortelSeulementSurSaBande) {
             world.getComponent<core::Transform>(player).position, core::playerSize()));
         const core::Transform& transform = world.getComponent<core::Transform>(player);
         const core::Aabb box = core::Aabb::fromTopLeftSize(transform.position, core::playerSize());
-        return core::evaluateOutcome(box, level, collectActiveDangerBoxes(level, dangers, mechanisms));
+        return core::evaluateOutcome(box, level,
+                                     collectActiveDangerBoxes(level, dangers, mechanisms));
     };
 
     EXPECT_EQ(outcomeAt(5.0f), core::LevelOutcome::Playing);  // avant la bande : survit
@@ -145,12 +146,14 @@ TEST(DangerAvanceIntegrationTest, DangerMobileRattrapeLePersonnageImmobile) {
         const core::Aabb box = core::Aabb::fromTopLeftSize(transform.position, core::playerSize());
         mechanisms.update(box);
         dangers.update();
-        outcome = core::evaluateOutcome(box, level, collectActiveDangerBoxes(level, dangers, mechanisms));
+        outcome =
+            core::evaluateOutcome(box, level, collectActiveDangerBoxes(level, dangers, mechanisms));
         if (step == 0) {
             EXPECT_EQ(outcome, core::LevelOutcome::Playing);  // pas encore rattrape au depart
         }
     }
-    EXPECT_EQ(outcome, core::LevelOutcome::Lost) << "le danger mobile aurait du rattraper le personnage";
+    EXPECT_EQ(outcome, core::LevelOutcome::Lost)
+        << "le danger mobile aurait du rattraper le personnage";
 }
 
 /**
@@ -197,7 +200,8 @@ TEST(DangerAvanceIntegrationTest, DangerCommuteMortelSeulementApresDeclenchement
                 core::Aabb::fromTopLeftSize(transform.position, core::playerSize());
             mechanisms.update(box);
             dangers.update();
-            if (core::evaluateOutcome(box, level, collectActiveDangerBoxes(level, dangers, mechanisms)) ==
+            if (core::evaluateOutcome(box, level,
+                                      collectActiveDangerBoxes(level, dangers, mechanisms)) ==
                 core::LevelOutcome::Lost) {
                 sawLost = true;
                 break;
@@ -206,8 +210,7 @@ TEST(DangerAvanceIntegrationTest, DangerCommuteMortelSeulementApresDeclenchement
         return sawLost;
     };
 
-    EXPECT_FALSE(walkAndCheckIfEverLost(false))
-        << "sans liaison, le danger commute reste inerte";
+    EXPECT_FALSE(walkAndCheckIfEverLost(false)) << "sans liaison, le danger commute reste inerte";
     EXPECT_TRUE(walkAndCheckIfEverLost(true))
         << "l'interrupteur touche en chemin doit activer le danger lie";
 }
@@ -249,7 +252,8 @@ TEST(DangerAvanceIntegrationTest, DangerTemporiseMortelSeulementPendantSaFenetre
         const core::Transform& transform = world.getComponent<core::Transform>(player);
         const core::Aabb box = core::Aabb::fromTopLeftSize(transform.position, core::playerSize());
         mechanisms.update(box);
-        return core::evaluateOutcome(box, level, collectActiveDangerBoxes(level, dangers, mechanisms));
+        return core::evaluateOutcome(box, level,
+                                     collectActiveDangerBoxes(level, dangers, mechanisms));
     };
 
     EXPECT_EQ(outcomeAtSpawn(0), core::LevelOutcome::Lost);      // phase 0 : actif des le depart

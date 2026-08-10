@@ -95,10 +95,22 @@ std::string_view autotileConfigurationLabelKey(std::uint8_t mask) noexcept {
     // Une cle par masque (0-15), meme ordre et meme sens que CELL_BY_MASK ci-dessus : lire les
     // deux tables cote a cote est ce qui garantit qu'elles ne divergent jamais silencieusement.
     static constexpr std::array<std::string_view, AUTOTILE_CONFIGURATION_COUNT> KEYS{{
-        "autotile.config.0",  "autotile.config.1",  "autotile.config.2",  "autotile.config.3",
-        "autotile.config.4",  "autotile.config.5",  "autotile.config.6",  "autotile.config.7",
-        "autotile.config.8",  "autotile.config.9",  "autotile.config.10", "autotile.config.11",
-        "autotile.config.12", "autotile.config.13", "autotile.config.14", "autotile.config.15",
+        "autotile.config.0",
+        "autotile.config.1",
+        "autotile.config.2",
+        "autotile.config.3",
+        "autotile.config.4",
+        "autotile.config.5",
+        "autotile.config.6",
+        "autotile.config.7",
+        "autotile.config.8",
+        "autotile.config.9",
+        "autotile.config.10",
+        "autotile.config.11",
+        "autotile.config.12",
+        "autotile.config.13",
+        "autotile.config.14",
+        "autotile.config.15",
     }};
     return KEYS[mask & FULL_MASK];
 }
