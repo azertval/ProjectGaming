@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-04-tache-02-config-doxygen-markdown.html','',''); 
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-04-documentation-doxygen_2tache-02-config-doxygen-markdown"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-04.html#md_Lot_2LOT-04-documentation-doxygen_2epic" title="Lot/LOT-04-documentation-doxygen/epic.md">LOT-04</a> · <b>Emplacement :</b> <span class="tt">Documentation/Doxyfile</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md429"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md453"></a>
 Contexte</h1>
 <p>Le <span class="tt">Doxyfile</span> actuel n'ingère que le code (<span class="tt">INPUT = ../Source</span>, <span class="tt">FILE_PATTERNS = *.cpp *.h *.hpp</span>) : aucun fichier Markdown n'est lu et aucune page principale n'est définie, d'où un site sans accueil. Cette tâche configure Doxygen pour publier <b>le Markdown documentaire en plus du code</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md430"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md454"></a>
 Travail à réaliser</h1>
 <ul>
 <li><span class="tt">INPUT</span> : ajouter les sources Markdown documentaires — <span class="tt"><a class="el" href="index_8md.html">index.md</a></span>, <span class="tt">Specification</span>, <span class="tt">Lot</span>, <span class="tt">Manuel</span> — en conservant <span class="tt">../Source</span>.</li>
@@ -107,12 +107,12 @@ Travail à réaliser</h1>
 <li>Vérifier <span class="tt">MARKDOWN_SUPPORT = YES</span> (défaut) et, si besoin, <span class="tt">EXTENSION_MAPPING</span> pour <span class="tt">.md</span>.</li>
 <li>Laisser la référence de code active (<span class="tt">Source/</span>) : le site combine prose + API.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md431"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md455"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Documentation/Doxyfile</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md432"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md456"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li><span class="tt">doxygen Doxyfile</span> (dans <span class="tt">Documentation/</span>) génère sans erreur.</li>
@@ -120,19 +120,19 @@ Vérifications (obligatoires)</h1>
 <li>Les pages Markdown apparaissent dans la navigation ; la référence de code reste présente.</li>
 <li><span class="tt">generated/</span> n'est pas ingéré (pas de pages en double issues de la sortie).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md433"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md457"></a>
 Points d'attention</h1>
 <ul>
 <li>Chemins <span class="tt">INPUT</span> relatifs au dossier <span class="tt">Documentation/</span> (répertoire de travail de la CI <span class="tt">docs.yml</span>).</li>
 <li>La hiérarchie de navigation fine (<span class="tt">@page</span>/<span class="tt">@subpage</span>) est traitée en TACHE-03/04/05 ; ici on garantit surtout l'<b>ingestion</b> et la <b>mainpage</b>.</li>
 <li>Ne pas activer <span class="tt">WARN_AS_ERROR</span> ici (fait en TACHE-07, une fois toutes les pages propres).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md434"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md458"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Doxygen ingère le Markdown documentaire et le code ; page d'accueil affichée ; build local vert.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md435"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md459"></a>
 Exigences</h1>
 <p><span class="tt">EX-NFR-012</span>. </p>
 </div></div><!-- contents -->

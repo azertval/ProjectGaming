@@ -105,11 +105,17 @@ $(function(){initNavTree('test__asset__references_8cpp.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a339ec3bb49a2d97c0530da8841ba086e" id="r_a339ec3bb49a2d97c0530da8841ba086e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a339ec3bb49a2d97c0530da8841ba086e">TEST</a> (AssetReferencesTest, AssetCiteParUnJeuEstTrouve)</td></tr>
+<tr class="memdesc:a339ec3bb49a2d97c0530da8841ba086e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un asset cité par un jeu de skins est retrouvé, avec le nom du jeu qui le cite : c'est ce qui permet d'avertir avant de supprimer ou renommer un fichier encore utilisé.  <br /></td></tr>
 <tr class="memitem:a7f9dfc319bc2b925772b42e8444ef6cd" id="r_a7f9dfc319bc2b925772b42e8444ef6cd"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7f9dfc319bc2b925772b42e8444ef6cd">TEST</a> (AssetReferencesTest, AssetCiteParPlusieursJeuxEtTypesEstTrouveAChaqueFois)</td></tr>
+<tr class="memdesc:a7f9dfc319bc2b925772b42e8444ef6cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chaque citation compte séparément : un même fichier utilisé par deux types dans un jeu et par un troisième dans un autre donne <b>trois</b> références.  <br /></td></tr>
 <tr class="memitem:aaedc0804cd47a782723dcaee8ee2d2e1" id="r_aaedc0804cd47a782723dcaee8ee2d2e1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aaedc0804cd47a782723dcaee8ee2d2e1">TEST</a> (AssetReferencesTest, AssetNonReferenceNeDonneAucuneReference)</td></tr>
+<tr class="memdesc:aaedc0804cd47a782723dcaee8ee2d2e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un asset que rien ne cite ne donne aucune référence : c'est le cas où la suppression est sans danger, et où aucun avertissement ne doit venir déranger l'auteur.  <br /></td></tr>
 <tr class="memitem:a5ee99e7fe691399855e75262c58a16a2" id="r_a5ee99e7fe691399855e75262c58a16a2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5ee99e7fe691399855e75262c58a16a2">TEST</a> (AssetReferencesTest, NomProcheMaisDifferentNeDeclenchePasDeFauxPositif)</td></tr>
+<tr class="memdesc:a5ee99e7fe691399855e75262c58a16a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">La comparaison porte sur le nom <b>entier</b>, pas sur un préfixe : <span class="tt">stone2.png</span> ne compte pas comme une référence à <span class="tt">stone.png</span>.  <br /></td></tr>
 <tr class="memitem:a824d41b4d8f02e55a9e34f16ff60997a" id="r_a824d41b4d8f02e55a9e34f16ff60997a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a824d41b4d8f02e55a9e34f16ff60997a">TEST</a> (AssetReferencesTest, DescribeReferencesEstVideSansReference)</td></tr>
+<tr class="memdesc:a824d41b4d8f02e55a9e34f16ff60997a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sans référence, le message descriptif est vide — pas une phrase du genre « utilisé par (rien) » que l'appelant devrait ensuite filtrer : une chaîne vide se teste directement.  <br /></td></tr>
 <tr class="memitem:a9a5a77f4dbba59a81367c57059f78621" id="r_a9a5a77f4dbba59a81367c57059f78621"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9a5a77f4dbba59a81367c57059f78621">TEST</a> (AssetReferencesTest, DescribeReferencesNommeLesJeuxEtLesTypes)</td></tr>
+<tr class="memdesc:a9a5a77f4dbba59a81367c57059f78621"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le message nomme <b>les jeux et les types</b> concernés, pas seulement leur nombre : c'est ce qui permet à l'auteur d'aller corriger les usages avant de confirmer une suppression.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de la détection des références à un asset (LOT-43 TACHE-02). </p>
@@ -133,6 +139,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Chaque citation compte séparément : un même fichier utilisé par deux types dans un jeu et par un troisième dans un autre donne <b>trois</b> références. </p>
+<p>L'avertissement doit énumérer tout ce qui casserait, pas seulement le premier usage rencontré. <b>Cas de test :</b> <b>Un asset cité par plusieurs jeux et types donne une référence par citation.</b><br  />
+ <b>Categorie :</b> Unitaire · Références d'assets<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a339ec3bb49a2d97c0530da8841ba086e" name="a339ec3bb49a2d97c0530da8841ba086e"></a>
@@ -153,6 +168,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Un asset cité par un jeu de skins est retrouvé, avec le nom du jeu qui le cite : c'est ce qui permet d'avertir avant de supprimer ou renommer un fichier encore utilisé. </p>
+<p><b>Cas de test :</b> <b>Un asset cité par un jeu de skins est retrouvé, avec le nom du jeu.</b><br  />
+ <b>Categorie :</b> Unitaire · Références d'assets<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -175,6 +199,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Un asset que rien ne cite ne donne aucune référence : c'est le cas où la suppression est sans danger, et où aucun avertissement ne doit venir déranger l'auteur. </p>
+<p><b>Cas de test :</b> <b>Un asset non référencé ne donne aucune référence.</b><br  />
+ <b>Categorie :</b> Unitaire · Références d'assets<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a824d41b4d8f02e55a9e34f16ff60997a" name="a824d41b4d8f02e55a9e34f16ff60997a"></a>
@@ -195,6 +228,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Sans référence, le message descriptif est vide — pas une phrase du genre « utilisé par (rien) » que l'appelant devrait ensuite filtrer : une chaîne vide se teste directement. </p>
+<p><b>Cas de test :</b> <b>Sans référence, le message descriptif est vide.</b><br  />
+ <b>Categorie :</b> Unitaire · Références d'assets<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -217,6 +259,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Le message nomme <b>les jeux et les types</b> concernés, pas seulement leur nombre : c'est ce qui permet à l'auteur d'aller corriger les usages avant de confirmer une suppression. </p>
+<p><b>Cas de test :</b> <b>Le message descriptif nomme les jeux de skins et les types concernés.</b><br  />
+ <b>Categorie :</b> Unitaire · Références d'assets<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a5ee99e7fe691399855e75262c58a16a2" name="a5ee99e7fe691399855e75262c58a16a2"></a>
@@ -237,6 +288,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>La comparaison porte sur le nom <b>entier</b>, pas sur un préfixe : <span class="tt">stone2.png</span> ne compte pas comme une référence à <span class="tt">stone.png</span>. </p>
+<p>Un faux positif ferait renoncer à une suppression pourtant sans risque, et userait la confiance dans l'avertissement. <b>Cas de test :</b> <b>Un nom proche mais différent ne déclenche pas de fausse référence.</b><br  />
+ <b>Categorie :</b> Unitaire · Références d'assets<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>

@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-35-tache-02-palette-arbre.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-35-refonte-ihm-qt-editeur_2tache-02-palette-arbre"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-35.html#md_Lot_2LOT-35-refonte-ihm-qt-editeur_2epic" title="Lot/LOT-35-refonte-ihm-qt-editeur/epic.md">LOT-35</a> · <b>Emplacement :</b> <span class="tt">Source/Editor</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1681"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1705"></a>
 Contexte</h1>
 <p>La palette actuelle (<span class="tt">hmi::TilePalette</span>, <span class="tt">LOT-27</span>) est un <b>accordéon dessiné à la main</b> (catégories → sous-groupes → tuiles, défilement molette, barre de défilement — toute la géométrie en pixels). Cette tâche la remplace par un <b><span class="tt">QTreeView</span></b> natif alimenté par la <b>même taxonomie</b>, dans le dock « Palette ». La sélection d'une feuille (un <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span>) devient le <b>type de tuile actif</b> de l'éditeur.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1682"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1706"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Modèle de palette réutilisable</b> : extraire la taxonomie (catégories <span class="tt">Tuile/Interactif/Piège/
@@ -106,31 +106,31 @@ Travail à réaliser</h1>
 <li><b>Sélection → type actif</b> : <span class="tt">selectionModel()-&gt;currentChanged</span> sur une feuille met à jour le <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span> courant de l'éditeur (l'équivalent de <span class="tt">TilePalette::selected()</span>), consommé par l'outil de peinture (TACHE-03). Sélection clavier (flèches) et souris.</li>
 <li><b>Recherche/filtre</b> optionnelle (champ au-dessus de l'arbre) si peu coûteuse.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1683"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1707"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Editor/PalettePanel.{h,cpp}</span> (dock, vue, modèle Qt).</li>
 <li><span class="tt">Source/Editor/TileTaxonomy.{h,cpp}</span> (ou réutilisation d'un modèle pur extrait de <span class="tt">HMI/Editor/TilePalette</span>) — structure de catégories testable.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1684"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1708"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Taxonomie pure testée</b> : chaque <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span> « peignable » apparaît exactement une fois, sous la bonne catégorie/sous-groupe ; ordre déterministe. Réutiliser/adapter <span class="tt">test_tile_palette.cpp</span> (<span class="tt">Source/Test/Unit/HMI/Editor/</span>) vers la structure extraite.</li>
 <li><b>Vérification manuelle</b> : l'arbre affiche toutes les tuiles ; sélectionner change le type actif (visible au survol/peinture).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1685"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1709"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas dupliquer la liste des types</b> : une seule source de vérité pour « quelles tuiles, dans quelle catégorie » — partagée entre le modèle Qt et (tant qu'il existe) l'accordéon legacy.</li>
 <li><b>Parité de contenu</b> avec la palette <span class="tt">LOT-27</span> : mêmes tuiles, mêmes regroupements (non-régression fonctionnelle, seule la présentation change).</li>
 <li><b>Localisation</b> des libellés de catégories/tuiles via les catalogues <span class="tt">.lang</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1686"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1710"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Palette en <span class="tt">QTreeView</span> couvrant toute la taxonomie ; sélection pilotant le type actif ; taxonomie couverte par tests ; <span class="tt">/W4 /WX</span> propre ; vérification manuelle OK.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1687"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1711"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-018</span> (palette par catégories, présentation Qt), <span class="tt">EX-IHM-010</span> ; réutilise <span class="tt">EX-NFR-010</span> (taxonomie testable sans GPU). </p>
 </div></div><!-- contents -->

@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-03-tache-04-vues-requetes.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-03-fondation-ecs_2tache-04-vues-requetes"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-03.html#md_Lot_2LOT-03-fondation-ecs_2epic" title="Lot/LOT-03-fondation-ecs/epic.md">LOT-03</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md391"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md415"></a>
 Contexte</h1>
 <p>Les systèmes ont besoin d'itérer les entités possédant un <b>ensemble</b> de composants (ex. toutes celles ayant <span class="tt">Transform</span> <b>et</b> <span class="tt">Velocity</span>). C'est le rôle des vues.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md392"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md416"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Une <b>vue</b> <span class="tt">view&lt;A, B, ...&gt;()</span> exposée par le <span class="tt">World</span> :<ul>
@@ -108,13 +108,13 @@ Travail à réaliser</h1>
 </li>
 <li>Forme d'API au choix : <span class="tt">for (auto [entity, a, b] : world.view&lt;A, B&gt;())</span> ou <span class="tt">world.view&lt;A, B&gt;().each([](Entity, A&amp;, B&amp;){ ... })</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md393"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md417"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="View_8h.html" title="Vue multi-composants : itère les entités possédant un ensemble de types.">Source/Core/Ecs/View.h</a></span> (nouveau, template) et intégration <span class="tt">World</span>.</li>
 <li><span class="tt">Source/Test/Unit/test_view.cpp</span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md394"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md418"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Une vue <span class="tt">&lt;A, B&gt;</span> itère <b>exactement</b> les entités ayant A et B (ni celles avec A seul, ni B seul).</li>
@@ -122,19 +122,19 @@ Tests (obligatoires)</h1>
 <li>La modification d'un composant via la vue est visible ensuite (référence, pas copie).</li>
 <li>Vue vide (aucune entité correspondante) : itération sans erreur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md395"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md419"></a>
 Points d'attention</h1>
 <ul>
 <li>La vue ne doit <b>pas</b> invalider ses itérateurs si l'on ne modifie que les valeurs des composants (documenter l'interdiction d'ajouter/détruire pendant l'itération, ou définir un contrat clair).</li>
 <li>Conventions : documentation <span class="tt">.h</span>, <span class="tt">[[nodiscard]]</span> sur <span class="tt">view(...)</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md396"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md420"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Sélection multi-composants exacte et efficace, testée (<span class="tt">ctest</span> vert).</li>
 <li>Compile <span class="tt">/W4 /WX</span>, formaté, documenté Doxygen.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md397"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md421"></a>
 Exigences</h1>
 <p><span class="tt">EX-ARCH-010</span>, <span class="tt">EX-ARCH-012</span>, <span class="tt">EX-NFR-010</span>, <span class="tt">EX-NFR-020</span>. </p>
 </div></div><!-- contents -->

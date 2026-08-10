@@ -102,14 +102,23 @@ $(function(){initNavTree('test__texture__assign__gesture_8cpp.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a460fdaf819ac89a772aa8b2f27fab5d3" id="r_a460fdaf819ac89a772aa8b2f27fab5d3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a460fdaf819ac89a772aa8b2f27fab5d3">TEST</a> (TextureAssignGesture, CaseVideIgnoree)</td></tr>
+<tr class="memdesc:a460fdaf819ac89a772aa8b2f27fab5d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une case vide est toujours ignorée, quels que soient la sélection et l'état de surcharge : il n'y a rien à habiller là, et assigner une texture au vide laisserait une surcharge orpheline dans le fichier de niveau.  <br /></td></tr>
 <tr class="memitem:a3b7b565c97fb5dad94351fc6824bed1b" id="r_a3b7b565c97fb5dad94351fc6824bed1b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3b7b565c97fb5dad94351fc6824bed1b">TEST</a> (TextureAssignGesture, AucunAssetSelectionneIgnore)</td></tr>
+<tr class="memdesc:a3b7b565c97fb5dad94351fc6824bed1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sans asset sélectionné, un clic sur une case sans surcharge est ignoré : il n'y a rien à assigner, et l'outil ne doit pas inventer de valeur par défaut.  <br /></td></tr>
 <tr class="memitem:a76886425674b5079a3270053086d3004" id="r_a76886425674b5079a3270053086d3004"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a76886425674b5079a3270053086d3004">TEST</a> (TextureAssignGesture, CaseSansOverrideAssigneLAssetSelectionne)</td></tr>
+<tr class="memdesc:a76886425674b5079a3270053086d3004"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sur une case sans surcharge, le clic assigne l'asset sélectionné à cette case précise : le cas nominal de l'habillage par instance.  <br /></td></tr>
 <tr class="memitem:a301162907ae26c25981527c9fcfdb05c" id="r_a301162907ae26c25981527c9fcfdb05c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a301162907ae26c25981527c9fcfdb05c">TEST</a> (TextureAssignGesture, CaseAvecOverrideDifferentRemplace)</td></tr>
+<tr class="memdesc:a301162907ae26c25981527c9fcfdb05c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sur une case déjà surchargée avec un <b>autre</b> asset, le clic remplace : pas besoin de retirer d'abord pour changer d'avis.  <br /></td></tr>
 <tr class="memitem:a4dc302368d99e3057b20a097bd7c9544" id="r_a4dc302368d99e3057b20a097bd7c9544"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4dc302368d99e3057b20a097bd7c9544">TEST</a> (TextureAssignGesture, ReclicSurLeMemeAssetRetire)</td></tr>
+<tr class="memdesc:a4dc302368d99e3057b20a097bd7c9544"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recliquer avec le <b>même</b> asset retire la surcharge : le geste est une bascule, ce qui rend l'annulation atteignable sans changer d'outil ni de bouton.  <br /></td></tr>
 <tr class="memitem:aee5cee9d0d56892929d0539da611905f" id="r_aee5cee9d0d56892929d0539da611905f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aee5cee9d0d56892929d0539da611905f">TEST</a> (TextureAssignGesture, ClicDroitAvecOverrideRetire)</td></tr>
+<tr class="memdesc:aee5cee9d0d56892929d0539da611905f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le clic droit retire explicitement la surcharge, sans dépendre de l'asset sélectionné : le chemin direct quand on veut simplement revenir au skin du type.  <br /></td></tr>
 <tr class="memitem:ad6611ae89a5eed2a612c13641b897b40" id="r_ad6611ae89a5eed2a612c13641b897b40"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad6611ae89a5eed2a612c13641b897b40">TEST</a> (TextureAssignGesture, ClicDroitSansOverrideIgnore)</td></tr>
+<tr class="memdesc:ad6611ae89a5eed2a612c13641b897b40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le clic droit sur une case sans surcharge est sans effet : il n'y a rien à retirer, et l'opération ne doit pas entrer dans l'historique.  <br /></td></tr>
 <tr class="memitem:a979c82faa509b3660e58cfaf037929f2" id="r_a979c82faa509b3660e58cfaf037929f2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a979c82faa509b3660e58cfaf037929f2">TEST</a> (TextureAssignGesture, ClicDroitSurCaseVideIgnore)</td></tr>
+<tr class="memdesc:a979c82faa509b3660e58cfaf037929f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le clic droit sur une case vide est ignoré avant même de consulter la surcharge : la règle « case vide, rien à faire » prime sur toutes les autres.  <br /></td></tr>
 <tr class="memitem:a01d28832f575e11cabe6a6f89e5c52cc" id="r_a01d28832f575e11cabe6a6f89e5c52cc"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a01d28832f575e11cabe6a6f89e5c52cc">TEST</a> (TextureAssignGesture, ToutTypeNonVideEstEligible)</td></tr>
+<tr class="memdesc:a01d28832f575e11cabe6a6f89e5c52cc"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>Tout</b> type non vide est éligible — y compris une pente — sans liste blanche par type, contrairement aux liens de mécanismes : n'importe quelle case posée peut recevoir sa propre texture.  <br /></td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a3b7b565c97fb5dad94351fc6824bed1b" name="a3b7b565c97fb5dad94351fc6824bed1b"></a>
@@ -130,6 +139,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Sans asset sélectionné, un clic sur une case sans surcharge est ignoré : il n'y a rien à assigner, et l'outil ne doit pas inventer de valeur par défaut. </p>
+<p><b>Cas de test :</b> <b>Sans asset sélectionné, le clic est ignoré.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste d'assignation de texture<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -152,6 +170,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Sur une case déjà surchargée avec un <b>autre</b> asset, le clic remplace : pas besoin de retirer d'abord pour changer d'avis. </p>
+<p><b>Cas de test :</b> <b>Sur une case surchargée avec un autre asset, le clic remplace.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste d'assignation de texture<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a76886425674b5079a3270053086d3004" name="a76886425674b5079a3270053086d3004"></a>
@@ -172,6 +199,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Sur une case sans surcharge, le clic assigne l'asset sélectionné à cette case précise : le cas nominal de l'habillage par instance. </p>
+<p><b>Cas de test :</b> <b>Sur une case sans surcharge, le clic assigne l'asset sélectionné.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste d'assignation de texture<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -194,6 +230,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Une case vide est toujours ignorée, quels que soient la sélection et l'état de surcharge : il n'y a rien à habiller là, et assigner une texture au vide laisserait une surcharge orpheline dans le fichier de niveau. </p>
+<p><b>Cas de test :</b> <b>Une case vide est toujours ignorée.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste d'assignation de texture<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="aee5cee9d0d56892929d0539da611905f" name="aee5cee9d0d56892929d0539da611905f"></a>
@@ -214,6 +259,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Le clic droit retire explicitement la surcharge, sans dépendre de l'asset sélectionné : le chemin direct quand on veut simplement revenir au skin du type. </p>
+<p><b>Cas de test :</b> <b>Le clic droit retire la surcharge, indépendamment de la sélection.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste d'assignation de texture<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -236,6 +290,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Le clic droit sur une case sans surcharge est sans effet : il n'y a rien à retirer, et l'opération ne doit pas entrer dans l'historique. </p>
+<p><b>Cas de test :</b> <b>Le clic droit sur une case sans surcharge est sans effet.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste d'assignation de texture<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a979c82faa509b3660e58cfaf037929f2" name="a979c82faa509b3660e58cfaf037929f2"></a>
@@ -256,6 +319,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Le clic droit sur une case vide est ignoré avant même de consulter la surcharge : la règle « case vide, rien à faire » prime sur toutes les autres. </p>
+<p><b>Cas de test :</b> <b>Le clic droit sur une case vide est ignoré.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste d'assignation de texture<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -278,6 +350,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Recliquer avec le <b>même</b> asset retire la surcharge : le geste est une bascule, ce qui rend l'annulation atteignable sans changer d'outil ni de bouton. </p>
+<p><b>Cas de test :</b> <b>Recliquer avec le même asset retire la surcharge.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste d'assignation de texture<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a01d28832f575e11cabe6a6f89e5c52cc" name="a01d28832f575e11cabe6a6f89e5c52cc"></a>
@@ -298,6 +379,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p><b>Tout</b> type non vide est éligible — y compris une pente — sans liste blanche par type, contrairement aux liens de mécanismes : n'importe quelle case posée peut recevoir sa propre texture. </p>
+<p><b>Cas de test :</b> <b>Tout type non vide est éligible à une surcharge de texture.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste d'assignation de texture<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>

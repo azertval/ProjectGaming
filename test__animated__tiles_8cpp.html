@@ -112,12 +112,19 @@ $(function(){initNavTree('test__animated__tiles_8cpp.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a33a55ef5c0250b4e92f5b01be5b3d177" id="r_a33a55ef5c0250b4e92f5b01be5b3d177"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a33a55ef5c0250b4e92f5b01be5b3d177">TEST</a> (AnimatedTilesTest, SkinAnimeProduitDesRegionsDifferentesAuFilDesPas)</td></tr>
+<tr class="memdesc:a33a55ef5c0250b4e92f5b01be5b3d177"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un skin animé change de région au fil des pas, en restant sur le même rang de la spritesheet : c'est la preuve que l'horloge d'animation atteint bien la tuile, et que le découpage parcourt la planche horizontalement comme le veut la convention d'asset.  <br /></td></tr>
 <tr class="memitem:a8ea34c3e4fd646aaedefa676ccbba0f5" id="r_a8ea34c3e4fd646aaedefa676ccbba0f5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8ea34c3e4fd646aaedefa676ccbba0f5">TEST</a> (AnimatedTilesTest, SkinNonAnimeProduitUneRegionConstante)</td></tr>
+<tr class="memdesc:a8ea34c3e4fd646aaedefa676ccbba0f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un skin <b>non animé</b> rend la même région à chaque appel : sans image courante renseignée, la résolution retombe sur l'image entière.  <br /></td></tr>
 <tr class="memitem:a5501fe3ecf15c026ed679c39d0edbbc3" id="r_a5501fe3ecf15c026ed679c39d0edbbc3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5501fe3ecf15c026ed679c39d0edbbc3">TEST</a> (AnimatedTilesTest, SkinAnimeUtiliseLaRegionCouranteDeAnimatedFrame)</td></tr>
+<tr class="memdesc:a5501fe3ecf15c026ed679c39d0edbbc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quand une image courante est renseignée, la résolution l'utilise telle quelle plutôt que la planche entière : c'est le point de jonction entre l'horloge d'animation, partagée par asset, et le rendu d'une tuile donnée.  <br /></td></tr>
 <tr class="memitem:ad3e9db2a99f0f9430cc310765bb1f1de" id="r_ad3e9db2a99f0f9430cc310765bb1f1de"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad3e9db2a99f0f9430cc310765bb1f1de">TEST</a> (AnimatedTilesTest, MiseEnPhaseDeuxTuilesDuMemeTypeAffichentLaMemeImageAuMemePas)</td></tr>
+<tr class="memdesc:ad3e9db2a99f0f9430cc310765bb1f1de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deux tuiles du même asset restent en phase à chaque pas, image par image : c'est la garantie de déterminisme sur laquelle repose l'horloge unique par asset.  <br /></td></tr>
 <tr class="memitem:a4f505fa2ffbb9c1dd8e65c2007c60dac" id="r_a4f505fa2ffbb9c1dd8e65c2007c60dac"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4f505fa2ffbb9c1dd8e65c2007c60dac">TEST</a> (AnimatedTilesTest, Bitmask16ExclutLAnimation)</td></tr>
+<tr class="memdesc:a4f505fa2ffbb9c1dd8e65c2007c60dac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le mode à raccords automatiques exclut l'animation : la planche y sert déjà à décrire les seize voisinages possibles, ses cases ne peuvent pas servir en même temps d'images successives.  <br /></td></tr>
 <tr class="memitem:ada19a9b227bbab3a884a74da88d660c9" id="r_ada19a9b227bbab3a884a74da88d660c9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ada19a9b227bbab3a884a74da88d660c9">TEST</a> (AnimatedTilesTest, SilhouetteDetoureeExclutLAnimation)</td></tr>
+<tr class="memdesc:ada19a9b227bbab3a884a74da88d660c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une tuile à silhouette détourée (pente, arrondi) exclut l'animation : son rendu passe par un découpage propre à sa forme, incompatible avec un parcours d'images de planche.  <br /></td></tr>
 <tr class="memitem:a7c7097504075f6924d8ebc620c2d63ab" id="r_a7c7097504075f6924d8ebc620c2d63ab"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7c7097504075f6924d8ebc620c2d63ab">TEST</a> (AnimatedTilesTest, SingleSansSilhouetteNExclutPasLAnimation)</td></tr>
+<tr class="memdesc:a7c7097504075f6924d8ebc620c2d63ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une tuile pleine en mode image simple, elle, <b>peut</b> être animée : c'est le cas nominal (eau, lave, bloc scintillant).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires des tuiles animées (<span class="tt">LOT-46</span> TACHE-05) : horloge partagée par asset, mise en phase, exclusion des combinaisons non supportées. </p>
@@ -142,6 +149,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Le mode à raccords automatiques exclut l'animation : la planche y sert déjà à décrire les seize voisinages possibles, ses cases ne peuvent pas servir en même temps d'images successives. </p>
+<p><b>Cas de test :</b> <b>Le mode à raccords automatiques exclut l'animation.</b><br  />
+ <b>Categorie :</b> Unitaire · Tuiles animées<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="ad3e9db2a99f0f9430cc310765bb1f1de" name="ad3e9db2a99f0f9430cc310765bb1f1de"></a>
@@ -162,6 +178,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Deux tuiles du même asset restent en phase à chaque pas, image par image : c'est la garantie de déterminisme sur laquelle repose l'horloge unique par asset. </p>
+<p>Deux cases d'eau voisines déphasées se verraient immédiatement, et trahiraient une progression par instance. <b>Cas de test :</b> <b>Deux tuiles du même asset affichent la même image à chaque pas.</b><br  />
+ <b>Categorie :</b> Unitaire · Tuiles animées<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -184,6 +209,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Une tuile à silhouette détourée (pente, arrondi) exclut l'animation : son rendu passe par un découpage propre à sa forme, incompatible avec un parcours d'images de planche. </p>
+<p><b>Cas de test :</b> <b>Une tuile à silhouette détourée exclut l'animation.</b><br  />
+ <b>Categorie :</b> Unitaire · Tuiles animées<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a7c7097504075f6924d8ebc620c2d63ab" name="a7c7097504075f6924d8ebc620c2d63ab"></a>
@@ -204,6 +238,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Une tuile pleine en mode image simple, elle, <b>peut</b> être animée : c'est le cas nominal (eau, lave, bloc scintillant). </p>
+<p>Le pendant positif des deux exclusions ci-dessus, sans lequel elles pourraient être trop larges sans que rien ne le signale. <b>Cas de test :</b> <b>Une tuile pleine en mode image simple n'exclut pas l'animation.</b><br  />
+ <b>Categorie :</b> Unitaire · Tuiles animées<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -226,6 +269,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Un skin animé change de région au fil des pas, en restant sur le même rang de la spritesheet : c'est la preuve que l'horloge d'animation atteint bien la tuile, et que le découpage parcourt la planche horizontalement comme le veut la convention d'asset. </p>
+<p><b>Cas de test :</b> <b>Un skin animé produit des régions différentes au fil des pas, sur un même rang.</b><br  />
+ <b>Categorie :</b> Unitaire · Tuiles animées<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a5501fe3ecf15c026ed679c39d0edbbc3" name="a5501fe3ecf15c026ed679c39d0edbbc3"></a>
@@ -247,6 +299,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Quand une image courante est renseignée, la résolution l'utilise telle quelle plutôt que la planche entière : c'est le point de jonction entre l'horloge d'animation, partagée par asset, et le rendu d'une tuile donnée. </p>
+<p><b>Cas de test :</b> <b>Un skin animé utilise la région de l'image courante, pas la planche entière.</b><br  />
+ <b>Categorie :</b> Unitaire · Tuiles animées<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a8ea34c3e4fd646aaedefa676ccbba0f5" name="a8ea34c3e4fd646aaedefa676ccbba0f5"></a>
@@ -267,6 +328,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Un skin <b>non animé</b> rend la même région à chaque appel : sans image courante renseignée, la résolution retombe sur l'image entière. </p>
+<p>La grande majorité des skins n'est pas animée, et ne doit rien payer au mécanisme d'animation. <b>Cas de test :</b> <b>Un skin non animé produit une région constante d'un appel à l'autre.</b><br  />
+ <b>Categorie :</b> Unitaire · Tuiles animées<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>

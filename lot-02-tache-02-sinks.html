@@ -94,17 +94,17 @@ $(function(){initNavTree('lot-02-tache-02-sinks.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-02-journalisation_2tache-02-sinks"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-02.html#md_Lot_2LOT-02-journalisation_2epic" title="Lot/LOT-02-journalisation/epic.md">LOT-02</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Diagnostics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md333"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md357"></a>
 Contexte</h1>
 <p>Un sink est une <b>destination</b> de log. On découple la production des messages (<span class="tt">Logger</span>) de leur restitution, pour tester facilement et varier les sorties.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md334"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md358"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Interface <span class="tt">ILogSink</span> : <span class="tt">write(LogLevel, message)</span> (+ destructeur virtuel).</li>
 <li><span class="tt">ConsoleLogSink</span> : écrit sur la sortie standard <b>et</b> vers le débogueur (<span class="tt">OutputDebugString</span> sous Windows). Ce sink relève de <span class="tt">Core</span> mais son implémentation Windows reste isolée derrière l'interface.</li>
 <li><span class="tt">MemoryLogSink</span> (pour les tests) : conserve les messages reçus (niveau + texte) et permet de les inspecter.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md335"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md359"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="ILogSink_8h.html" title="Interface d&#39;une destination de journalisation.">Source/Core/Diagnostics/ILogSink.h</a></span> (nouveau).</li>
@@ -112,26 +112,26 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="MemoryLogSink_8h.html" title="Sink qui conserve les messages en mémoire, destiné aux tests.">Source/Core/Diagnostics/MemoryLogSink.h</a></span> (nouveau, pour les tests).</li>
 <li><span class="tt">Source/Test/Unit/test_sinks.cpp</span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md336"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md360"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">MemoryLogSink</span> conserve fidèlement niveau et texte des messages reçus, dans l'ordre.</li>
 <li>Un <span class="tt">Logger</span> équipé d'un <span class="tt">MemoryLogSink</span> restitue bien ce qui a passé le filtre (lien avec TACHE-01).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md337"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md361"></a>
 Points d'attention</h1>
 <ul>
 <li><span class="tt">ILogSink</span> : interface pure, destructeur virtuel, <span class="tt">override</span> sur les implémentations.</li>
 <li>Isoler l'appel Windows (<span class="tt">OutputDebugStringW</span>) dans <span class="tt"><a class="el" href="ConsoleLogSink_8cpp.html">ConsoleLogSink.cpp</a></span> uniquement.</li>
 <li>Conventions : documentation <span class="tt">.h</span>, RAII.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md338"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md362"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Sinks fonctionnels et testés via le sink mémoire (<span class="tt">ctest</span> vert).</li>
 <li>Compile <span class="tt">/W4 /WX</span>, formaté, documenté Doxygen.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md339"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md363"></a>
 Exigences</h1>
 <p>Conventions §10 ; <span class="tt">EX-NFR-010</span>, <span class="tt">EX-NFR-020</span>. </p>
 </div></div><!-- contents -->

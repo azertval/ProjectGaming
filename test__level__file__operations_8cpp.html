@@ -102,10 +102,15 @@ $(function(){initNavTree('test__level__file__operations_8cpp.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ad67ac8305af02c7245a71b1cf3557b2d" id="r_ad67ac8305af02c7245a71b1cf3557b2d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad67ac8305af02c7245a71b1cf3557b2d">TEST_F</a> (LevelFileOps, CreeUnNiveauValide)</td></tr>
+<tr class="memdesc:ad67ac8305af02c7245a71b1cf3557b2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Créer un niveau écrit sur disque un fichier <b>valide</b> et l'expose immédiatement dans la liste : la création part d'un <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span> vide passé par la validation, jamais d'un fichier vide qui échouerait au premier chargement.  <br /></td></tr>
 <tr class="memitem:aca91cb54e8a29f21e49a8d13bb2eef14" id="r_aca91cb54e8a29f21e49a8d13bb2eef14"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aca91cb54e8a29f21e49a8d13bb2eef14">TEST_F</a> (LevelFileOps, RefuseNomInvalideEtCollision)</td></tr>
+<tr class="memdesc:aca91cb54e8a29f21e49a8d13bb2eef14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un nom invalide (barre oblique, qui s'échapperait du dossier des niveaux) et un nom déjà pris sont refusés par un résultat récupérable, jamais par une exception ni par un écrasement silencieux du niveau existant.  <br /></td></tr>
 <tr class="memitem:ad859ebb492f6e6ce614b986c83dd2817" id="r_ad859ebb492f6e6ce614b986c83dd2817"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad859ebb492f6e6ce614b986c83dd2817">TEST_F</a> (LevelFileOps, RenommeEtDeplaceLeFichier)</td></tr>
+<tr class="memdesc:ad859ebb492f6e6ce614b986c83dd2817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renommer <b>déplace</b> le fichier : l'ancien chemin disparaît et le nouveau existe.  <br /></td></tr>
 <tr class="memitem:a84e4befacc22f243237f14b14908b7e8" id="r_a84e4befacc22f243237f14b14908b7e8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a84e4befacc22f243237f14b14908b7e8">TEST_F</a> (LevelFileOps, DupliqueSousUnNomUnique)</td></tr>
+<tr class="memdesc:a84e4befacc22f243237f14b14908b7e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dupliquer deux fois le même niveau produit deux copies <b>distinctes</b> : le nom de la copie est rendu unique à chaque appel, sinon la seconde duplication écraserait la première.  <br /></td></tr>
 <tr class="memitem:a88ecd94bb63d2c6851e23c2689105ae9" id="r_a88ecd94bb63d2c6851e23c2689105ae9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a88ecd94bb63d2c6851e23c2689105ae9">TEST_F</a> (LevelFileOps, SupprimeLeFichier)</td></tr>
+<tr class="memdesc:a88ecd94bb63d2c6851e23c2689105ae9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supprimer retire effectivement le fichier du disque et le signale par un résultat favorable — le panneau se fie à ce résultat pour retirer la ligne de sa liste.  <br /></td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ad67ac8305af02c7245a71b1cf3557b2d" name="ad67ac8305af02c7245a71b1cf3557b2d"></a>
@@ -126,6 +131,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Créer un niveau écrit sur disque un fichier <b>valide</b> et l'expose immédiatement dans la liste : la création part d'un <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span> vide passé par la validation, jamais d'un fichier vide qui échouerait au premier chargement. </p>
+<p><b>Cas de test :</b> <b>Créer un niveau écrit un fichier valide, immédiatement listé.</b><br  />
+ <b>Categorie :</b> Unitaire · Opérations sur fichiers de niveau<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -148,6 +162,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Dupliquer deux fois le même niveau produit deux copies <b>distinctes</b> : le nom de la copie est rendu unique à chaque appel, sinon la seconde duplication écraserait la première. </p>
+<p><b>Cas de test :</b> <b>Dupliquer deux fois le même niveau produit deux copies distinctes.</b><br  />
+ <b>Categorie :</b> Unitaire · Opérations sur fichiers de niveau<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="aca91cb54e8a29f21e49a8d13bb2eef14" name="aca91cb54e8a29f21e49a8d13bb2eef14"></a>
@@ -168,6 +191,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Un nom invalide (barre oblique, qui s'échapperait du dossier des niveaux) et un nom déjà pris sont refusés par un résultat récupérable, jamais par une exception ni par un écrasement silencieux du niveau existant. </p>
+<p><b>Cas de test :</b> <b>Un nom invalide ou déjà pris est refusé, sans écraser le niveau existant.</b><br  />
+ <b>Categorie :</b> Unitaire · Opérations sur fichiers de niveau<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -190,6 +222,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Renommer <b>déplace</b> le fichier : l'ancien chemin disparaît et le nouveau existe. </p>
+<p>Une copie qui laisserait l'ancien en place produirait deux niveaux là où l'auteur en attend un. <b>Cas de test :</b> <b>Renommer déplace le fichier : l'ancien chemin disparaît, le nouveau existe.</b><br  />
+ <b>Categorie :</b> Unitaire · Opérations sur fichiers de niveau<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a88ecd94bb63d2c6851e23c2689105ae9" name="a88ecd94bb63d2c6851e23c2689105ae9"></a>
@@ -210,6 +251,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Supprimer retire effectivement le fichier du disque et le signale par un résultat favorable — le panneau se fie à ce résultat pour retirer la ligne de sa liste. </p>
+<p><b>Cas de test :</b> <b>Supprimer retire effectivement le fichier du disque.</b><br  />
+ <b>Categorie :</b> Unitaire · Opérations sur fichiers de niveau<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>

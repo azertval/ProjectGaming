@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-34-tache-04-niveau-jouable-doc.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-34-refonte-ihm-qt-socle_2tache-04-niveau-jouable-doc"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-34.html#md_Lot_2LOT-34-refonte-ihm-qt-socle_2epic" title="Lot/LOT-34-refonte-ihm-qt-socle/epic.md">LOT-34</a> · <b>Emplacement :</b> <span class="tt">Source/Editor</span>, <span class="tt">Documentation</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1657"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1681"></a>
 Contexte</h1>
 <p>TACHE-02 fournit un viewport qui s'efface, TACHE-03 la boucle et les entrées. Cette tâche <b>branche le rendu du jeu existant</b> dans le viewport pour atteindre l'objectif du lot : un niveau se <b>charge, s'affiche et se joue</b> dans la fenêtre Qt, au rendu identique à l'exécutable historique. C'est le critère qui <b>dérisque</b> l'intégration Qt ↔ D3D11 avant d'y bâtir l'IHM (LOT-35+). Elle clôt le lot par la documentation et la vérification.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1658"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1682"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Assemblage de la scène de jeu</b> dans le viewport : charger un niveau via <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html#a49dba279ed545b7230ceeb8752e63543" title="Charge un niveau depuis un fichier.">core::LevelLoader::loadFromFile</a></span>, construire la scène (<span class="tt">core::LevelScene</span>/ECS <span class="tt">World</span>) et rendre via <span class="tt"><a class="el" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par calque puis par texture.">hmi::SpriteRenderer</a></span> + <span class="tt">SpriteBatch</span> + <span class="tt">Camera2D</span> + <span class="tt">TextureAtlas</span> — <b>exactement</b> le chemin de rendu du jeu actuel (<span class="tt">GameScreen</span>). Réutiliser au maximum la logique de <span class="tt">GameScreen</span> (cadrage caméra par salle <span class="tt">RoomGrid</span>, interpolation <span class="tt">PreviousPosition</span>) : soit en instanciant <span class="tt">GameScreen</span> derrière le viewport, soit en extrayant sa boucle de rendu dans un composant réutilisable sans <span class="tt">IScreen</span>/<span class="tt">ScreenManager</span>.</li>
@@ -118,32 +118,32 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1659"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1683"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Editor/</span> (assemblage scène/rendu de jeu ; éventuelle extraction d'un <span class="tt">GameView</span>/<span class="tt">GameRenderer</span> réutilisable depuis <span class="tt">HMI/Interface/GameScreen</span>).</li>
 <li><span class="tt"><a class="el" href="guide-ihm-qt_8md.html">Documentation/Guide/guide-ihm-qt.md</a></span> (nouveau), <span class="tt"><a class="el" href="architecture_8md.html">Documentation/Specification/architecture.md</a></span>, et les fichiers d'exigences concernés.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1660"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1684"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Non-régression du jeu</b> : la suite existante (unitaires/intégration/système, dont <span class="tt">test_parcours_complet</span>) reste <b>verte et déterministe</b> — le rendu Qt ne touche pas <span class="tt">Core</span>.</li>
 <li><b>Vérification manuelle</b> (dépendance GPU) : le niveau s'affiche identiquement à l'exe historique (tuiles, caméra par salle, interpolation) et se <b>joue</b> (déplacement/saut/dash clavier + manette).</li>
 <li>Toute logique extraite/réutilisée (p. ex. un <span class="tt">GameRenderer</span> sans <span class="tt">IScreen</span>) reste couverte par les tests existants ou de nouveaux tests si du comportement pur est déplacé.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1661"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1685"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas dupliquer la logique de <span class="tt">GameScreen</span></b> : préférer l'extraction d'un composant de rendu réutilisable (partagé entre legacy et Qt le temps de la coexistence) plutôt qu'une copie, pour éviter la divergence.</li>
 <li><b>Parité stricte</b> : mêmes couleurs de fond, même cadrage, même interpolation — toute différence visible signale une régression d'intégration à corriger avant de clôturer le lot.</li>
 <li><b>Doxygen 1.9.8</b> : construire la doc localement avec la version CI avant push (piège connu du projet).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1662"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1686"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Un niveau est jouable dans la fenêtre Qt, rendu identique au legacy ; documentation d'architecture et guide Qt à jour ; tests verts et déterministes ; <span class="tt">/W4 /WX</span>, Doxygen, lint verts. Critères d'acceptation du <a class="el" href="lot-34.html#md_Lot_2LOT-34-refonte-ihm-qt-socle_2epic" title="Lot/LOT-34-refonte-ihm-qt-socle/epic.md">LOT-34</a> satisfaits.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1663"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1687"></a>
 Exigences</h1>
 <p><span class="tt">EX-IHM-001</span>, <span class="tt">EX-IHM-002</span> (concrétisées), <span class="tt">EX-NFR-002</span> (déterminisme préservé) ; réutilise <span class="tt">EX-REN-015</span>/<span class="tt">EX-ARCH-031</span> (caméra par salle, interpolation, <span class="tt">LOT-32</span>/<span class="tt">33</span>). </p>
 </div></div><!-- contents -->

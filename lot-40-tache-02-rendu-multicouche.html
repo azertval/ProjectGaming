@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-40-tache-02-rendu-multicouche.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-40-fondations-rendu-textures_2tache-02-rendu-multicouche"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-40.html#md_Lot_2LOT-40-fondations-rendu-textures_2epic" title="Lot/LOT-40-fondations-rendu-textures/epic.md">LOT-40</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1853"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1877"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classhmi_1_1SpriteRenderer.html#ae920396ea3795c4e73846bf896b3f4da" title="Dessine toutes les entités affichables du monde, vues par la caméra.">hmi::SpriteRenderer::render</a></span> trie déjà ses sprites par <span class="tt"><a class="el" href="structcore_1_1Sprite.html#ab90c3529acbce1120cdcf7d3dbb09082" title="Couche de dessin : une valeur plus grande est dessinée au-dessus.">core::Sprite::layer</a></span> (entier simple) avant de les soumettre en <b>un seul</b> <span class="tt">SpriteBatch::begin/end</span>, puisqu'il n'existe aujourd'hui qu'une seule texture (l'atlas). Cette tâche introduit un ordonnancement de calques <b>nommé</b> et fait émettre <b>plusieurs</b> passes <span class="tt">begin/end</span>, une par groupe contigu de même texture, sans changer une seule ligne de <span class="tt">SpriteBatch</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1854"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1878"></a>
 Travail à réaliser</h1>
 <ul>
 <li><em><b>RenderLayer</b></em> (<span class="tt"><a class="el" href="RenderLayer_8h.html" title="Ordonnancement de calques unique et explicite du rendu (EX-REN-014).">Source/HMI/Graphics/RenderLayer.h</a></span>) : <span class="tt">enum class RenderLayer { Background,
@@ -107,30 +107,30 @@ Travail à réaliser</h1>
 <li><b><span class="tt">DraftRenderer</span></b> : même traitement pour la scène de l'éditeur (<span class="tt">rebuild()</span>).</li>
 <li>Toute entité/tuile existante reste implicitement sur la valeur <em>Tile</em> de <em>RenderLayer</em> avec la texture de l'atlas — <b>aucun changement de comportement</b> tant qu'aucun appelant ne pousse un sprite sur un autre calque/texture (ce qui n'arrive qu'à partir de LOT-42+).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1855"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1879"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="RenderLayer_8h.html" title="Ordonnancement de calques unique et explicite du rendu (EX-REN-014).">Source/HMI/Graphics/RenderLayer.h</a></span> (nouveau).</li>
 <li><span class="tt">Source/HMI/Graphics/SpriteRenderer.{h,cpp}</span>, <span class="tt">Source/HMI/Graphics/DraftRenderer.{h,cpp}</span> (regroupement, plusieurs passes).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1856"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1880"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Logique de regroupement/tri (ordre de calque &gt; texture &gt; <span class="tt">Sprite::layer</span>) testable sans GPU avec des textures/handles factices (pointeurs distincts, pas de vraies ressources D3D11).</li>
 <li><b>Non-régression</b> : la liste des primitives soumises pour une scène de référence est identique avant/après, <b>assertée</b> via le <em>QuadRecorder</em> de la TACHE-04 (<span class="tt">EX-NFR-004</span>) — et non constatée à l'œil. Une vérification visuelle complémentaire reste utile, mais elle ne tient pas lieu de test.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1857"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1881"></a>
 Points d'attention</h1>
 <ul>
 <li>Le tri doit rester <b>stable</b> (comme aujourd'hui, <span class="tt">std::stable_sort</span>) : à texture et calque égaux, l'ordre de soumission d'origine est préservé.</li>
 <li><span class="tt">SpriteBatch::begin/end</span> : contrat public strictement inchangé (aucune signature modifiée).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1858"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1882"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Rendu multi-textures fonctionnel, liste de primitives identique au rendu actuel tant qu'une seule texture est utilisée ; plus aucune valeur de calque magique dans le code ; <span class="tt">/W4 /WX</span> propre ; logique de regroupement testée sans GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1859"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1883"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-043</span> (rendu multi-textures par calques) ; amende <span class="tt">EX-REN-014</span> (ordonnancement explicite) ; réutilise <span class="tt">EX-NFR-004</span> (vérification sans GPU), <span class="tt">EX-NFR-011</span> (pas de dépendance <span class="tt">Core → HMI</span>). </p>
 </div></div><!-- contents -->

@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-42-tache-01-skins-json.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-42-skin-tuiles-autotiling_2tache-01-skins-json"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-42.html#md_Lot_2LOT-42-skin-tuiles-autotiling_2epic" title="Lot/LOT-42-skin-tuiles-autotiling/epic.md">LOT-42</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1922"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1946"></a>
 Contexte</h1>
 <p>L'association type de tuile → apparence est aujourd'hui <b>codée en dur</b> dans <span class="tt"><a class="el" href="namespacehmi.html#a597b9471d79c0d524b3dedbf52c2fac6" title="Région d&#39;atlas (couleur procédurale) associée à un type de tuile.">hmi::regionForTile</a></span> (<span class="tt"><a class="el" href="TileVisuals_8cpp.html">TileVisuals.cpp</a></span>) : une table de trente entrées pointant vers des cases de l'atlas procédural. C'est la bonne solution pour des couleurs plates ; c'en est une mauvaise pour des textures, que le level designer doit pouvoir changer sans recompiler.</p>
 <p>Deux exigences structurent le format dès sa création, parce qu'aucune des deux ne peut être ajoutée après coup sans migration : le regroupement en <b>jeux nommés</b> (<span class="tt">EX-EDIT-024</span>) et le <b>mode de rendu</b> par type (<span class="tt">EX-EDIT-025</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1923"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1947"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Format <span class="tt">skins.json</span></b> : un numéro de <span class="tt">version</span>, puis des jeux de skins nommés, chacun associant un <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span> à une entrée <span class="tt">{ asset, mode }</span> où <span class="tt">mode</span> vaut <span class="tt">single</span> ou <span class="tt">bitmask16</span>. Un jeu par défaut est désigné. Exemple de structure : <div class="fragment"><div class="line">{</div>
@@ -118,14 +118,14 @@ Travail à réaliser</h1>
 <li><b>Emplacement d'écriture</b> : <span class="tt">executableDirectory()/Assets/skins.json</span>, exactement comme l'enregistrement d'un niveau (<span class="tt"><a class="el" href="LevelFileOperations_8cpp.html">Source/HMI/Editor/LevelFileOperations.cpp</a></span>). Aucun nouveau mécanisme d'écriture.</li>
 <li>Version livrée par défaut dans <span class="tt">Source/Elements/Assets/skins.json</span>, copiée au build.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1924"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1948"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/SkinCatalog.{h,cpp}</span> (nouveau) — format, lecture, écriture, résolution.</li>
 <li><span class="tt">Source/Elements/Assets/skins.json</span> (nouveau), <span class="tt">Source/HMI/CMakeLists.txt</span> (copie <span class="tt">POST_BUILD</span>).</li>
 <li><span class="tt"><a class="el" href="test__skin__catalog_8cpp.html" title="Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).">Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1925"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1949"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Round-trip lecture → écriture → lecture, jeux multiples compris.</li>
@@ -133,19 +133,19 @@ Tests (obligatoires)</h1>
 <li>Résolution : jeu existant, jeu inexistant → défaut, type non skinné → absence d'entrée.</li>
 <li>Tout est <b>pur</b> : aucun GPU, aucun Qt.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1926"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1950"></a>
 Points d'attention</h1>
 <ul>
 <li><b><span class="tt">Core</span> ne doit jamais voir ce fichier.</b> <span class="tt">skins.json</span> est une configuration de présentation ; seule la <b>désignation</b> du jeu par un niveau (LOT-44) est une donnée de niveau, et ce n'est qu'une chaîne.</li>
 <li>Réutiliser la conversion <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span> ↔ chaîne déjà écrite pour le format de niveau (<span class="tt">parseTileType</span> dans <span class="tt"><a class="el" href="LevelLoader_8cpp.html">LevelLoader.cpp</a></span>) plutôt que d'en écrire une seconde : deux tables de noms divergeraient au premier nouveau type de tuile.</li>
 <li>Une version de format <b>inconnue</b> (supérieure à celle gérée) doit être signalée clairement, pas lue au mieux : c'est précisément ce que le champ sert à éviter.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1927"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1951"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Le format est lu, écrit et résolu sans exception ; les jeux et les modes sont pris en compte ; aucune dépendance <span class="tt">Core</span> ; tests purs verts ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1928"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1952"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-042</span> (association type → texture), <span class="tt">EX-EDIT-024</span> (jeux de skins) ; réutilise <span class="tt">EX-NFR-040</span> (erreur récupérable), <span class="tt">EX-NFR-010</span> (testable sans GPU), <span class="tt">EX-LVL-003</span> (noms de types de tuiles du format JSON). </p>
 </div></div><!-- contents -->

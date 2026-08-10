@@ -227,9 +227,11 @@ Functions</h2></td></tr>
 <tr class="memitem:a7ea440de4d5748a9a951d36624766651" id="r_a7ea440de4d5748a9a951d36624766651"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7ea440de4d5748a9a951d36624766651">TEST</a> (PhysiquePersonnageIntegration, ArrondisConcavesDeSolAdjacentsSansChuteALaJointure)</td></tr>
 <tr class="memdesc:a7ea440de4d5748a9a951d36624766651"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deux arrondis concaves de <b>sol</b> posés côte à côte, orientations opposées (<span class="tt">ConcaveUpRight</span> puis <span class="tt">ConcaveUpLeft</span>), forment un pic continu à leur jointure (les deux bords « pleins » se touchent) : le personnage la franchit en marchant sans jamais chuter jusqu'au fond de la vallée voisine (<span class="tt">EX-GP-007</span>).  <br /></td></tr>
 <tr class="memitem:a1d3299c598d86c865eb7592559d2f283" id="r_a1d3299c598d86c865eb7592559d2f283"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1d3299c598d86c865eb7592559d2f283">TEST</a> (PhysiquePersonnageIntegration, ConcaveDePlafondBordFinResteBloqueSansTeleportation)</td></tr>
-<tr class="memdesc:a1d3299c598d86c865eb7592559d2f283"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un arrondi concave de <b>plafond</b>, seul sur sa case (voisine vide), bloque toujours un saut visant son bord « plein » (silhouette la plus épaisse, tout près de son propre bord de case).  <br /></td></tr>
+<tr class="memdesc:a1d3299c598d86c865eb7592559d2f283"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un saut bloqué près du bord <b>fin</b> (silhouette quasi vide) d'un arrondi concave de plafond reste bloqué DURABLEMENT — le personnage retombe normalement ensuite, il ne se téléporte jamais au-dessus du plafond.  <br /></td></tr>
 <tr class="memitem:a4d6e0699050acbcc973468311a499818" id="r_a4d6e0699050acbcc973468311a499818"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4d6e0699050acbcc973468311a499818">TEST</a> (PhysiquePersonnageIntegration, ConcaveDePlafondBloqueMemeEnMarchantPendantLeSaut)</td></tr>
+<tr class="memdesc:a4d6e0699050acbcc973468311a499818"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sauter tout en marchant (les deux à la fois, comme un joueur réel) <b>vers son propre bord épais</b> sous un arrondi concave de plafond bloque toujours le saut, y compris quand marcher pendant la montée déplace la boîte plus vite que le seuil vertical de blocage n'est atteint : la colonne pertinente peut alors « disparaître » d'un pas à l'autre — voire sur PLUSIEURS pas consécutifs quand le seuil est manqué de peu à chaque fois (une mémoire limitée au seul pas précédent ne suffit pas).  <br /></td></tr>
 <tr class="memitem:ab6be7decf9201b8ffb23a507d450b7b1" id="r_ab6be7decf9201b8ffb23a507d450b7b1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab6be7decf9201b8ffb23a507d450b7b1">TEST</a> (PhysiquePersonnageIntegration, ConcaveDePlafondBloqueMemePresDuBordDeSaPropreCase)</td></tr>
+<tr class="memdesc:ab6be7decf9201b8ffb23a507d450b7b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un arrondi concave de <b>plafond</b>, seul sur sa case (voisine vide), bloque toujours un saut visant son bord « plein » (silhouette la plus épaisse, tout près de son propre bord de case).  <br /></td></tr>
 <tr class="memitem:a7cc962a63bd3c6829b39e69417d1a20f" id="r_a7cc962a63bd3c6829b39e69417d1a20f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7cc962a63bd3c6829b39e69417d1a20f">TEST</a> (PhysiquePersonnageIntegration, NiveauDoubleSautFranchissable)</td></tr>
 <tr class="memdesc:a7cc962a63bd3c6829b39e69417d1a20f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau double saut est franchissable en enchaînant un saut au sol puis un saut aérien (<span class="tt">EX-GP-015</span>) : un mur trop haut pour un seul saut devient franchissable.  <br /></td></tr>
 <tr class="memitem:aa3e09736da7a7bcb1a4681d553c23f77" id="r_aa3e09736da7a7bcb1a4681d553c23f77"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa3e09736da7a7bcb1a4681d553c23f77">TEST</a> (PhysiquePersonnageIntegration, NiveauDoubleSautRequiertLeSautAerien)</td></tr>
@@ -600,6 +602,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Sauter tout en marchant (les deux à la fois, comme un joueur réel) <b>vers son propre bord épais</b> sous un arrondi concave de plafond bloque toujours le saut, y compris quand marcher pendant la montée déplace la boîte plus vite que le seuil vertical de blocage n'est atteint : la colonne pertinente peut alors « disparaître » d'un pas à l'autre — voire sur PLUSIEURS pas consécutifs quand le seuil est manqué de peu à chaque fois (une mémoire limitée au seul pas précédent ne suffit pas). </p>
+<p><span class="tt"><a class="el" href="classcore_1_1CharacterPhysicsSystem.html" title="Fait évoluer le personnage jouable d&#39;un pas fixe : intention horizontale, gravité continue,...">core::CharacterPhysicsSystem</a></span> mémorise l'étendue horizontale couverte par la boîte depuis le <b>début de la montée courante</b> (<span class="tt">Player::ascentSweepMinX/MaxX</span>), pas seulement le pas précédent. Testé dans les deux orientations (<span class="tt">ConcaveDownRight</span> en marchant vers la droite, son bord épais ; <span class="tt">ConcaveDownLeft</span> en marchant vers la gauche, symétrique) — marcher vers son propre bord <b>fin</b> n'est volontairement PAS testé ici : s'en éloigner en marchant y ramène légitimement vers une silhouette quasi vide (<span class="tt">EX-GP-007</span>). <b>Cas de test :</b> <b>Sauter tout en marchant vers le bord épais d'un arrondi concave de plafond bloque toujours le saut, en combinant les deux mouvements.</b><br  />
+ <b>Categorie :</b> Integration · Physique Personnage<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le saut reste bloqué par la silhouette épaisse en marchant vers elle pendant la montée — jamais un passage complet jusqu'à l'apogée libre d'un saut non bloqué. </p>
+
 </div>
 </div>
 <a id="ab6be7decf9201b8ffb23a507d450b7b1" name="ab6be7decf9201b8ffb23a507d450b7b1"></a>
@@ -620,6 +631,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Un arrondi concave de <b>plafond</b>, seul sur sa case (voisine vide), bloque toujours un saut visant son bord « plein » (silhouette la plus épaisse, tout près de son propre bord de case). </p>
+<p>Même exigence que pour le sol (largeur complète de la boîte, pas seulement son centre) : sinon le centre de la boîte glisse dans la case voisine vide (aucune silhouette à vérifier là) avant que son bord n'ait fini de traverser la portion la plus épaisse, laissant un saut passer au travers par en dessous sans être bloqué du tout. <b>Cas de test :</b> <b>Un arrondi concave de plafond bloque un saut visant son bord plein, même tout près du bord de sa propre case.</b><br  />
+ <b>Categorie :</b> Integration · Physique Personnage<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le saut est bloqué par la silhouette épaisse près du bord de case, bien avant d'atteindre l'apogée libre d'un saut totalement non bloqué. </p>
 
 </div>
 </div>
@@ -672,22 +692,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Un arrondi concave de <b>plafond</b>, seul sur sa case (voisine vide), bloque toujours un saut visant son bord « plein » (silhouette la plus épaisse, tout près de son propre bord de case). </p>
-<p>Même exigence que pour le sol (largeur complète de la boîte, pas seulement son centre) : sinon le centre de la boîte glisse dans la case voisine vide (aucune silhouette à vérifier là) avant que son bord n'ait fini de traverser la portion la plus épaisse, laissant un saut passer au travers par en dessous sans être bloqué du tout. <b>Cas de test :</b> <b>Un arrondi concave de plafond bloque un saut visant son bord plein, même tout près du bord de sa propre case.</b><br  />
- <b>Categorie :</b> Integration · Physique Personnage<br  />
- <b>Criticite :</b> Bloquant<br  />
- <b>Etapes :</b><br  />
- 1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Le saut est bloqué par la silhouette épaisse près du bord de case, bien avant d'atteindre l'apogée libre d'un saut totalement non bloqué.</p>
-<p>Sauter tout en marchant (les deux à la fois, comme un joueur réel) <b>vers son propre bord épais</b> sous un arrondi concave de plafond bloque toujours le saut, y compris quand marcher pendant la montée déplace la boîte plus vite que le seuil vertical de blocage n'est atteint : la colonne pertinente peut alors « disparaître » d'un pas à l'autre — voire sur PLUSIEURS pas consécutifs quand le seuil est manqué de peu à chaque fois (une mémoire limitée au seul pas précédent ne suffit pas). <span class="tt"><a class="el" href="classcore_1_1CharacterPhysicsSystem.html" title="Fait évoluer le personnage jouable d&#39;un pas fixe : intention horizontale, gravité continue,...">core::CharacterPhysicsSystem</a></span> mémorise l'étendue horizontale couverte par la boîte depuis le <b>début de la montée courante</b> (<span class="tt">Player::ascentSweepMinX/MaxX</span>), pas seulement le pas précédent. Testé dans les deux orientations (<span class="tt">ConcaveDownRight</span> en marchant vers la droite, son bord épais ; <span class="tt">ConcaveDownLeft</span> en marchant vers la gauche, symétrique) — marcher vers son propre bord <b>fin</b> n'est volontairement PAS testé ici : s'en éloigner en marchant y ramène légitimement vers une silhouette quasi vide (<span class="tt">EX-GP-007</span>). <b>Cas de test :</b> <b>Sauter tout en marchant vers le bord épais d'un arrondi concave de plafond bloque toujours le saut, en combinant les deux mouvements.</b><br  />
- <b>Categorie :</b> Integration · Physique Personnage<br  />
- <b>Criticite :</b> Bloquant<br  />
- <b>Etapes :</b><br  />
- 1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Le saut reste bloqué par la silhouette épaisse en marchant vers elle pendant la montée — jamais un passage complet jusqu'à l'apogée libre d'un saut non bloqué.</p>
-<p>Un saut bloqué près du bord <b>fin</b> (silhouette quasi vide) d'un arrondi concave de plafond reste bloqué DURABLEMENT — le personnage retombe normalement ensuite, il ne se téléporte jamais au-dessus du plafond. Près du bord fin, le blocage a lieu tout près du sommet de la case (silhouette peu épaisse) : le bord bas du personnage reste alors, du fait de sa propre hauteur, encore DANS la même case après le blocage. <span class="tt"><a class="el" href="namespacecore.html#a467a4de3899a77b3500f043561e51b3f" title="Détecte si le bord bas d&#39;une boîte a franchi une surface suivable (pente, arrondi) pendant un pas,...">core::resolveSlopeFollow</a></span> doit donc, sur le pas suivant, distinguer ce chevauchement résiduel d'un véritable atterrissage sur la face du haut de la tuile de plafond (qui ne devrait porter un personnage que tombant dessus <b>par au-dessus</b>) — sans cette distinction, le personnage se retrouverait téléporté tout AU-DESSUS du plafond. Vérifie l'invariant à CHAQUE pas (pas seulement au minimum global), puisque ce cas ne se manifeste qu'un pas après le blocage, contrairement à <span class="tt">minY</span>/<span class="tt">minTopY</span>. <b>Cas de test :</b> <b>Un saut bloqué près du bord fin d'un arrondi concave de plafond reste bloqué durablement, sans téléportation au-dessus du plafond au pas suivant.</b><br  />
+<p>Un saut bloqué près du bord <b>fin</b> (silhouette quasi vide) d'un arrondi concave de plafond reste bloqué DURABLEMENT — le personnage retombe normalement ensuite, il ne se téléporte jamais au-dessus du plafond. </p>
+<p>Près du bord fin, le blocage a lieu tout près du sommet de la case (silhouette peu épaisse) : le bord bas du personnage reste alors, du fait de sa propre hauteur, encore DANS la même case après le blocage. <span class="tt"><a class="el" href="namespacecore.html#a467a4de3899a77b3500f043561e51b3f" title="Détecte si le bord bas d&#39;une boîte a franchi une surface suivable (pente, arrondi) pendant un pas,...">core::resolveSlopeFollow</a></span> doit donc, sur le pas suivant, distinguer ce chevauchement résiduel d'un véritable atterrissage sur la face du haut de la tuile de plafond (qui ne devrait porter un personnage que tombant dessus <b>par au-dessus</b>) — sans cette distinction, le personnage se retrouverait téléporté tout AU-DESSUS du plafond. Vérifie l'invariant à CHAQUE pas (pas seulement au minimum global), puisque ce cas ne se manifeste qu'un pas après le blocage, contrairement à <span class="tt">minY</span>/<span class="tt">minTopY</span>. <b>Cas de test :</b> <b>Un saut bloqué près du bord fin d'un arrondi concave de plafond reste bloqué durablement, sans téléportation au-dessus du plafond au pas suivant.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />

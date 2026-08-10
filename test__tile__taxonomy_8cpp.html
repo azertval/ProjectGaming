@@ -101,7 +101,9 @@ $(function(){initNavTree('test__tile__taxonomy_8cpp.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a8869bf84f7bf9f3ef130f5355eb298d2" id="r_a8869bf84f7bf9f3ef130f5355eb298d2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8869bf84f7bf9f3ef130f5355eb298d2">TEST</a> (TileTaxonomy, ChaqueTypeFigureExactementUneFois)</td></tr>
+<tr class="memdesc:a8869bf84f7bf9f3ef130f5355eb298d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chaque type de tuile figure exactement une fois dans la taxonomie : aucun doublon, aucun oubli.  <br /></td></tr>
 <tr class="memitem:a177c33858097ed44da8cc183d0002603" id="r_a177c33858097ed44da8cc183d0002603"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a177c33858097ed44da8cc183d0002603">TEST</a> (TileTaxonomy, ChaqueEntreeAUnLibelle)</td></tr>
+<tr class="memdesc:a177c33858097ed44da8cc183d0002603"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toute entrée de la taxonomie — catégorie, sous-groupe et tuile — porte un libellé non vide : c'est ce texte qui s'affiche dans l'arbre de la palette, une chaîne vide y produirait une ligne muette impossible à identifier.  <br /></td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a177c33858097ed44da8cc183d0002603" name="a177c33858097ed44da8cc183d0002603"></a>
@@ -123,6 +125,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Toute entrée de la taxonomie — catégorie, sous-groupe et tuile — porte un libellé non vide : c'est ce texte qui s'affiche dans l'arbre de la palette, une chaîne vide y produirait une ligne muette impossible à identifier. </p>
+<p><b>Cas de test :</b> <b>Chaque catégorie, sous-groupe et tuile de la taxonomie porte un libellé non vide.</b><br  />
+ <b>Categorie :</b> Unitaire · Taxonomie des tuiles<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a8869bf84f7bf9f3ef130f5355eb298d2" name="a8869bf84f7bf9f3ef130f5355eb298d2"></a>
@@ -143,6 +154,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Chaque type de tuile figure exactement une fois dans la taxonomie : aucun doublon, aucun oubli. </p>
+<p>C'est le garde-fou qui casse si un <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span> est ajouté sans être rangé dans la palette — il resterait sinon impossible à peindre, sans qu'aucun test ne le signale. <b>Cas de test :</b> <b>Chaque type de tuile figure exactement une fois dans la taxonomie.</b><br  />
+ <b>Categorie :</b> Unitaire · Taxonomie des tuiles<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>

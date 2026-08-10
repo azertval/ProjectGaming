@@ -108,13 +108,21 @@ $(function(){initNavTree('test__asset__file__operations_8cpp.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a30ef0fbe11ba736249084dbab19bc189" id="r_a30ef0fbe11ba736249084dbab19bc189"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a30ef0fbe11ba736249084dbab19bc189">TEST_F</a> (AssetFileOps, ImporteUnAssetConforme)</td></tr>
+<tr class="memdesc:a30ef0fbe11ba736249084dbab19bc189"><td class="mdescLeft">&#160;</td><td class="mdescRight">Importer un asset conforme le <b>copie</b> dans le dossier géré, en laissant l'original en place : l'auteur importe depuis son dossier de travail, qui ne doit pas se vider au fur et à mesure des imports.  <br /></td></tr>
 <tr class="memitem:a3732ec1766fe3c9261e5e3df5ed322b5" id="r_a3732ec1766fe3c9261e5e3df5ed322b5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3732ec1766fe3c9261e5e3df5ed322b5">TEST_F</a> (AssetFileOps, RefuseUnAssetNonConforme)</td></tr>
+<tr class="memdesc:a3732ec1766fe3c9261e5e3df5ed322b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un asset non conforme au contrat de sa famille est refusé, le message <b>nomme le fichier</b>, et rien n'est copié : un asset aux mauvaises dimensions accepté ne se manifesterait qu'au rendu, longtemps après l'import, sous forme de tuiles décalées.  <br /></td></tr>
 <tr class="memitem:a06ef767dc6cd35037e5ced14ecb5ffb4" id="r_a06ef767dc6cd35037e5ced14ecb5ffb4"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a06ef767dc6cd35037e5ced14ecb5ffb4">TEST_F</a> (AssetFileOps, RefuseUneCollisionAlImport)</td></tr>
+<tr class="memdesc:a06ef767dc6cd35037e5ced14ecb5ffb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Importer un second fichier de même nom est refusé plutôt qu'écrasant : deux fichiers homonymes venus de dossiers différents sont un cas courant, et l'asset déjà référencé par des niveaux ne doit pas être remplacé à l'insu de l'auteur.  <br /></td></tr>
 <tr class="memitem:a5d04beab791d30430c57e632a80768de" id="r_a5d04beab791d30430c57e632a80768de"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5d04beab791d30430c57e632a80768de">TEST_F</a> (AssetFileOps, RenommeEtConserveLExtension)</td></tr>
+<tr class="memdesc:a5d04beab791d30430c57e632a80768de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renommer conserve l'extension d'origine et déplace le fichier : l'auteur saisit un nom, pas un nom de fichier.  <br /></td></tr>
 <tr class="memitem:a8ef4852b9b8bedac241865c23601735b" id="r_a8ef4852b9b8bedac241865c23601735b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8ef4852b9b8bedac241865c23601735b">TEST_F</a> (AssetFileOps, RefuseUnNomInvalideAuRenommage)</td></tr>
+<tr class="memdesc:a8ef4852b9b8bedac241865c23601735b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un nom invalide au renommage (barre oblique, qui sortirait du dossier géré) est refusé <b>sans rien changer</b> : le fichier d'origine reste en place, l'opération est tout ou rien.  <br /></td></tr>
 <tr class="memitem:a1bd0c953a06086b8bbc4fe9dd6ab18d6" id="r_a1bd0c953a06086b8bbc4fe9dd6ab18d6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1bd0c953a06086b8bbc4fe9dd6ab18d6">TEST_F</a> (AssetFileOps, DupliqueSousUnNomUnique)</td></tr>
+<tr class="memdesc:a1bd0c953a06086b8bbc4fe9dd6ab18d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dupliquer deux fois le même asset produit deux copies distinctes : le nom est rendu unique à chaque appel, sinon la seconde duplication écraserait la première — le geste courant pour décliner une variante de skin.  <br /></td></tr>
 <tr class="memitem:a4b967ac5c934f71007f1a5eaf724325f" id="r_a4b967ac5c934f71007f1a5eaf724325f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4b967ac5c934f71007f1a5eaf724325f">TEST_F</a> (AssetFileOps, SupprimeLeFichier)</td></tr>
+<tr class="memdesc:a4b967ac5c934f71007f1a5eaf724325f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supprimer retire effectivement l'asset du disque et le signale par un résultat favorable — la grille du panneau se fie à ce résultat pour retirer la vignette.  <br /></td></tr>
 <tr class="memitem:ae251c5017424c8eb87753e05d4f52e4b" id="r_ae251c5017424c8eb87753e05d4f52e4b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae251c5017424c8eb87753e05d4f52e4b">TEST_F</a> (AssetFileOps, OperationSurFichierAbsentEchoueProprement)</td></tr>
+<tr class="memdesc:ae251c5017424c8eb87753e05d4f52e4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renommer, dupliquer ou supprimer un fichier absent échoue par un résultat récupérable, jamais par une exception : le fichier a pu disparaître entre le balayage et le clic (suppression externe, rechargement à chaud), et l'éditeur doit le signaler sans s'interrompre.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires des opérations fichiers sur les assets (LOT-43 TACHE-02). </p>
@@ -138,6 +146,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Dupliquer deux fois le même asset produit deux copies distinctes : le nom est rendu unique à chaque appel, sinon la seconde duplication écraserait la première — le geste courant pour décliner une variante de skin. </p>
+<p><b>Cas de test :</b> <b>Dupliquer deux fois le même asset produit deux copies distinctes.</b><br  />
+ <b>Categorie :</b> Unitaire · Opérations sur fichiers d'assets<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a30ef0fbe11ba736249084dbab19bc189" name="a30ef0fbe11ba736249084dbab19bc189"></a>
@@ -158,6 +175,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Importer un asset conforme le <b>copie</b> dans le dossier géré, en laissant l'original en place : l'auteur importe depuis son dossier de travail, qui ne doit pas se vider au fur et à mesure des imports. </p>
+<p><b>Cas de test :</b> <b>Importer un asset conforme le copie sans déplacer l'original.</b><br  />
+ <b>Categorie :</b> Unitaire · Opérations sur fichiers d'assets<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -180,6 +206,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Renommer, dupliquer ou supprimer un fichier absent échoue par un résultat récupérable, jamais par une exception : le fichier a pu disparaître entre le balayage et le clic (suppression externe, rechargement à chaud), et l'éditeur doit le signaler sans s'interrompre. </p>
+<p><b>Cas de test :</b> <b>Renommer, dupliquer ou supprimer un fichier absent échoue proprement.</b><br  />
+ <b>Categorie :</b> Unitaire · Opérations sur fichiers d'assets<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a3732ec1766fe3c9261e5e3df5ed322b5" name="a3732ec1766fe3c9261e5e3df5ed322b5"></a>
@@ -200,6 +235,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Un asset non conforme au contrat de sa famille est refusé, le message <b>nomme le fichier</b>, et rien n'est copié : un asset aux mauvaises dimensions accepté ne se manifesterait qu'au rendu, longtemps après l'import, sous forme de tuiles décalées. </p>
+<p><b>Cas de test :</b> <b>Un asset non conforme est refusé en nommant le fichier, sans rien copier.</b><br  />
+ <b>Categorie :</b> Unitaire · Opérations sur fichiers d'assets<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -222,6 +266,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Importer un second fichier de même nom est refusé plutôt qu'écrasant : deux fichiers homonymes venus de dossiers différents sont un cas courant, et l'asset déjà référencé par des niveaux ne doit pas être remplacé à l'insu de l'auteur. </p>
+<p><b>Cas de test :</b> <b>Importer un second fichier de même nom est refusé, sans écraser le premier.</b><br  />
+ <b>Categorie :</b> Unitaire · Opérations sur fichiers d'assets<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a8ef4852b9b8bedac241865c23601735b" name="a8ef4852b9b8bedac241865c23601735b"></a>
@@ -242,6 +295,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Un nom invalide au renommage (barre oblique, qui sortirait du dossier géré) est refusé <b>sans rien changer</b> : le fichier d'origine reste en place, l'opération est tout ou rien. </p>
+<p><b>Cas de test :</b> <b>Un nom invalide au renommage est refusé sans rien changer.</b><br  />
+ <b>Categorie :</b> Unitaire · Opérations sur fichiers d'assets<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -264,6 +326,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Renommer conserve l'extension d'origine et déplace le fichier : l'auteur saisit un nom, pas un nom de fichier. </p>
+<p>Perdre l'extension rendrait l'asset invisible au balayage, qui ne retient que les images. <b>Cas de test :</b> <b>Renommer un asset conserve son extension et déplace le fichier.</b><br  />
+ <b>Categorie :</b> Unitaire · Opérations sur fichiers d'assets<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a4b967ac5c934f71007f1a5eaf724325f" name="a4b967ac5c934f71007f1a5eaf724325f"></a>
@@ -284,6 +355,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Supprimer retire effectivement l'asset du disque et le signale par un résultat favorable — la grille du panneau se fie à ce résultat pour retirer la vignette. </p>
+<p><b>Cas de test :</b> <b>Supprimer retire effectivement l'asset du disque.</b><br  />
+ <b>Categorie :</b> Unitaire · Opérations sur fichiers d'assets<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>

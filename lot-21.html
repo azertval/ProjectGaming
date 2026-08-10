@@ -96,12 +96,12 @@ $(function(){initNavTree('lot-21.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>terminé</b>. Nouveau mécanisme de puzzle : le <b>bloc poussable</b>, spécifié dès <span class="tt"><a class="el" href="gameplay_8md.html">gameplay.md</a></span> (<span class="tt">EX-GP-022</span>) mais jamais livré jusqu'ici. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1175"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1199"></a>
 Objectif</h1>
 <p><span class="tt">EX-GP-022</span> demande un bloc déplaçable horizontalement par le personnage et retombant sous gravité. Aucun code de gameplay ne le gère : <span class="tt">TileType</span> ne connaît que des tuiles à <b>état</b> (porte ouverte/fermée) ou statiques, jamais une tuile qui change de <b>position</b> en jeu. Ce lot introduit ce comportement, sur le modèle déjà établi par <span class="tt"><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a></span> (LOT-12/LOT-19) plutôt qu'en réinventant une architecture séparée.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1176"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1200"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1177"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1201"></a>
 Inclus</h2>
 <ul>
 <li><b><span class="tt">TileType::Block</span></b>, nouvelle tuile plaçable depuis la palette de l'éditeur comme n'importe quelle autre (pas de liaison à établir, contrairement à <span class="tt">Switch</span>/<span class="tt">PressurePlate</span>↔<span class="tt">Door</span>).</li>
@@ -112,7 +112,7 @@ Inclus</h2>
 </li>
 <li>Intégration dans <span class="tt">hmi::GameScreen</span> : la position courante des blocs complète la grille de collision déjà résolue par <span class="tt">MechanismController</span>, et une entité-tuile par bloc est repositionnée chaque pas pour le rendu (même principe que le retour visuel des portes).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1178"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1202"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Bloc sur plaque de pression</b> : un bloc posé sur une <span class="tt">PressurePlate</span> ne l'active pas. <span class="tt">MechanismController</span> ne connaît que la boîte et la masse du <b>personnage</b> ; lui faire interroger aussi les positions de blocs est une évolution distincte, non nécessaire pour livrer le bloc poussable lui-même.</li>
@@ -120,19 +120,19 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Poussée verticale ou diagonale</b> — <span class="tt">EX-GP-022</span> ne demande qu'un déplacement horizontal ; la chute couvre déjà l'axe vertical.</li>
 <li><b>Chute continue (position flottante, animation lissée)</b> — décision de cadrage ci-dessous.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1179"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1203"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Un bloc occupe toujours exactement une case, jamais une position intermédiaire.</b> Cohérent avec le reste des mécanismes de ce moteur (une porte bascule d'un état à l'autre sans étape intermédiaire) : la chute est <b>discrète</b> (une case entière au bout d'un nombre de pas fixes configurable, <span class="tt">BlockController::FALL_INTERVAL_STEPS</span>), pas une intégration continue façon <span class="tt">CharacterPhysicsSystem</span>. Plus simple à raisonner, à tester, et à garder déterministe — un bloc qui tomberait en position flottante continue exigerait de le faire participer au balayage <span class="tt">sweepAabb</span> comme un second acteur physique, une complexité non justifiée par le besoin.</li>
 <li><b>La poussée est résolue AVANT la physique du personnage, avec la boîte du pas précédent.</b> <span class="tt">GameScreen::update</span> appelle <span class="tt">BlockController::update</span> avant <span class="tt">CharacterPhysicsSystem::update</span>, en lui passant la boîte du personnage <b>telle que laissée par le pas précédent</b> : ainsi, un bloc qui vient de se dégager ne bloque jamais le personnage sur ce même pas (la case est déjà libre quand le balayage de collision s'exécute juste après).</li>
 <li><b><span class="tt">collisionMap(base)</span> efface d'abord la position d'origine de chaque bloc.</b> <span class="tt">base</span> (la grille résolue par <span class="tt">MechanismController</span>) porte encore la tuile <span class="tt">Block</span> à sa position de <b>départ</b>, jamais mise à jour par le chargeur : sans effacement préalable, une case quittée par un bloc resterait perçue comme un mur, indéfiniment (mur fantôme — bug réellement rencontré en écrivant le contrôleur, corrigé avant livraison).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1180"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1204"></a>
 Exigences couvertes</h1>
 <ul>
 <li><span class="tt">EX-GP-022</span> — implémentée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1181"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1205"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -147,7 +147,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-21-tache-03-documentation-verification.html#md_Lot_2LOT-21-bloc-poussable_2tache-03-documentation-verification" title="Lot/LOT-21-bloc-poussable/tache-03-documentation-verification.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Documentation et vérification  </td><td class="markdownTableBodyNone"><span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1182"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1206"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Un bloc placé dans l'éditeur (palette) est chargé, sauvegardé et rechargé sans perte (round-trip JSON).</li>
@@ -156,12 +156,12 @@ Critères d'acceptation du lot</h1>
 <li>Aucune régression sur les mécanismes existants (interrupteur, plaque de pression, portes).</li>
 <li>Logique nouvelle <b>couverte par des tests</b> (<span class="tt">ctest</span> vert), déterministe, sans GPU. Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1183"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1207"></a>
 Dépendances</h1>
 <ul>
 <li>Étend <span class="tt">TileType</span>/<span class="tt">TileMap</span> (LOT-03/07) et reprend le patron de <span class="tt"><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a></span> (LOT-12/LOT-19) sans le modifier. S'intègre à <span class="tt">hmi::GameScreen</span> (LOT-08 et suivants) et à la palette de l'éditeur (LOT-14/LOT-15).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1184"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1208"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-21-tache-01-controleur-blocs.html" title="TACHE-01 — Modèle et contrôleur (Core)">TACHE-01 — Modèle et contrôleur (Core)</a></li>

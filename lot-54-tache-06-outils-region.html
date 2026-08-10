@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-54-tache-06-outils-region.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-54-atelier-pixel-art_2tache-06-outils-region"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-54.html#md_Lot_2LOT-54-atelier-pixel-art_2epic" title="Lot/LOT-54-atelier-pixel-art/epic.md">LOT-54</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2381"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2405"></a>
 Contexte</h1>
 <p>Le cadrage initial du lot excluait la sélection, le déplacement de région et les transformations, au motif qu'un premier jet devait rester minimal. Cette exclusion coûtait cher pour ce qu'elle économisait : dessiner une tuile de bord droit quand la tuile de bord gauche existe déjà se fait en une symétrie, et une planche à raccords de seize cases est massivement redondante par construction. Sans ces outils, l'auteur repeint à la main ce qu'il a déjà dessiné.</p>
 <p>Deux choses ont changé et rendent la réintégration peu coûteuse. D'une part, ces opérations sont des <b>fonctions sur un tampon</b> — le même patron pur et testable que la TACHE-02, sans Qt ni GPU. D'autre part, leur interface se réduit à des <b>actions</b> (<a class="el" href="lot-56.html" title="LOT-56 — Système de design de l&#39;IHM Qt">LOT-56</a>) : une entrée de barre d'outils, un raccourci porté par l'action, rien à construire. Copier et coller ont même déjà leur action remappable dans <span class="tt"><a class="el" href="classhmi_1_1EditorKeyBindings.html" title="Association action d&#39;éditeur -&gt; touche, avec persistance JSON (EX-CTRL-012, LOT-29).">hmi::EditorKeyBindings</a></span>, branchée par la TACHE-04 de <a class="el" href="lot-57.html" title="LOT-57 — Architecture de l&#39;information de l&#39;éditeur">LOT-57</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2382"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2406"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Sélection rectangulaire</b> : outil de sélection dans le groupe exclusif du canevas (TACHE-04), avec une région courante éventuellement vide, alignée sur la grille de pixels.</li>
@@ -109,7 +109,7 @@ Travail à réaliser</h1>
 <li><b>Opérations pures</b> : toutes ces transformations sont des fonctions sur un tampon et une région, ajoutées à <span class="tt">PixelOperations</span>, et chacune produit <b>une</b> entrée nommée dans l'historique (TACHE-02).</li>
 <li><b>Traduction</b> des libellés, infobulles et noms d'opérations, dans les deux catalogues.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2383"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2407"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/PixelOperations.{h,cpp}</span> — transformations de région.</li>
@@ -119,7 +119,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Localization/fr.lang</span>, <span class="tt">en.lang</span>.</li>
 <li><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a></span> (complété).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2384"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2408"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Involution des symétries</b> : deux symétries successives sur le même axe restituent exactement l'image d'origine, avec et sans sélection active.</li>
@@ -131,7 +131,7 @@ Tests (obligatoires)</h1>
 <li><b>Une entrée d'historique par transformation</b>, portant son nom, et annulable.</li>
 <li>Opérations <b>pures</b>, testées sans Qt ni GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2385"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2409"></a>
 Points d'attention</h1>
 <ul>
 <li><b>La troncature au cadre est la règle, pas l'agrandissement.</b> Un asset a des dimensions imposées par le contrat de sa famille (<span class="tt">EX-REN-007</span>) ; une rotation qui redimensionnerait l'image produirait un fichier que le chargement refuserait ensuite.</li>
@@ -139,12 +139,12 @@ Points d'attention</h1>
 <li>La région sélectionnée doit rester <b>visible</b> pendant qu'on la déplace, avec un tracé qui ne masque pas les pixels du bord — et dessiné depuis les jetons, comme le reste du canevas (TACHE-03).</li>
 <li>Ne pas confondre le presse-papiers de l'atelier avec la copie de zone de l'éditeur de niveaux : ce sont deux tampons distincts, et les actions de copier/coller les visent selon le contexte d'édition actif, exactement comme Annuler (TACHE-04).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2386"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2410"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Une région peut être sélectionnée, déplacée, retournée sur les deux axes, pivotée par quart de tour, copiée et collée ; chaque transformation est une fonction pure testée, produit une entrée nommée dans l'historique et n'écrit jamais hors du cadre ; chaînes traduites ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2387"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2411"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-045</span> (outil de dessin pixel art) ; réutilise <span class="tt">EX-REN-007</span> (contrat d'asset), <span class="tt">EX-IHM-055</span> (commandes exposées comme actions), <span class="tt">EX-IHM-062</span> (un état ou une commande à un seul endroit), <span class="tt">EX-CTRL-012</span> (raccourcis d'éditeur remappables), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-NFR-010</span> (testable sans GPU). </p>
 </div></div><!-- contents -->

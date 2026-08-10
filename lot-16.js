@@ -1,50 +1,50 @@
 var lot_16 =
 [
-    [ "Objectif", "lot-16.html#autotoc_md1013", null ],
-    [ "Périmètre", "lot-16.html#autotoc_md1014", [
-      [ "Inclus", "lot-16.html#autotoc_md1015", null ],
-      [ "Exclus (hors périmètre de ce lot)", "lot-16.html#autotoc_md1016", null ]
+    [ "Objectif", "lot-16.html#autotoc_md1037", null ],
+    [ "Périmètre", "lot-16.html#autotoc_md1038", [
+      [ "Inclus", "lot-16.html#autotoc_md1039", null ],
+      [ "Exclus (hors périmètre de ce lot)", "lot-16.html#autotoc_md1040", null ]
     ] ],
-    [ "Décisions de cadrage", "lot-16.html#autotoc_md1017", null ],
-    [ "Exigences couvertes", "lot-16.html#autotoc_md1018", null ],
-    [ "Découpage", "lot-16.html#autotoc_md1019", null ],
-    [ "Critères d'acceptation du lot", "lot-16.html#autotoc_md1020", null ],
-    [ "Dépendances", "lot-16.html#autotoc_md1021", null ],
-    [ "Navigation des tâches", "lot-16.html#autotoc_md1022", null ],
+    [ "Décisions de cadrage", "lot-16.html#autotoc_md1041", null ],
+    [ "Exigences couvertes", "lot-16.html#autotoc_md1042", null ],
+    [ "Découpage", "lot-16.html#autotoc_md1043", null ],
+    [ "Critères d'acceptation du lot", "lot-16.html#autotoc_md1044", null ],
+    [ "Dépendances", "lot-16.html#autotoc_md1045", null ],
+    [ "Navigation des tâches", "lot-16.html#autotoc_md1046", null ],
     [ "TACHE-01 — Plafond de taille et validation « largeur x hauteur »", "lot-16-tache-01-plafond-validation-taille.html", [
-      [ "Contexte", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md1023", null ],
-      [ "Travail à réaliser", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md1024", null ],
-      [ "Fichiers impactés", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md1025", null ],
-      [ "Tests (obligatoires)", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md1026", null ],
-      [ "Points d'attention", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md1027", null ],
-      [ "Définition de fait (DoD)", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md1028", null ],
-      [ "Exigences", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md1029", null ]
+      [ "Contexte", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md1047", null ],
+      [ "Travail à réaliser", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md1048", null ],
+      [ "Fichiers impactés", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md1049", null ],
+      [ "Tests (obligatoires)", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md1050", null ],
+      [ "Points d'attention", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md1051", null ],
+      [ "Définition de fait (DoD)", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md1052", null ],
+      [ "Exigences", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md1053", null ]
     ] ],
     [ "TACHE-02 — Boîte de dialogue de redimensionnement (Ctrl+R)", "lot-16-tache-02-boite-dialogue-redimensionnement.html", [
-      [ "Contexte", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md1030", null ],
-      [ "Travail à réaliser", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md1031", null ],
-      [ "Fichiers impactés", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md1032", null ],
-      [ "Tests (obligatoires)", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md1033", null ],
-      [ "Points d'attention", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md1034", null ],
-      [ "Définition de fait (DoD)", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md1035", null ],
-      [ "Exigences", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md1036", null ]
+      [ "Contexte", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md1054", null ],
+      [ "Travail à réaliser", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md1055", null ],
+      [ "Fichiers impactés", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md1056", null ],
+      [ "Tests (obligatoires)", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md1057", null ],
+      [ "Points d'attention", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md1058", null ],
+      [ "Définition de fait (DoD)", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md1059", null ],
+      [ "Exigences", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md1060", null ]
     ] ],
     [ "TACHE-03 — Caméra : englober tout le niveau (éditeur et jeu)", "lot-16-tache-03-camera-niveau-entier.html", [
-      [ "Contexte", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md1037", null ],
-      [ "Travail à réaliser", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md1038", null ],
-      [ "Fichiers impactés", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md1039", null ],
-      [ "Tests (obligatoires)", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md1040", null ],
-      [ "Points d'attention", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md1041", null ],
-      [ "Définition de fait (DoD)", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md1042", null ],
-      [ "Exigences", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md1043", null ]
+      [ "Contexte", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md1061", null ],
+      [ "Travail à réaliser", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md1062", null ],
+      [ "Fichiers impactés", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md1063", null ],
+      [ "Tests (obligatoires)", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md1064", null ],
+      [ "Points d'attention", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md1065", null ],
+      [ "Définition de fait (DoD)", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md1066", null ],
+      [ "Exigences", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md1067", null ]
     ] ],
     [ "TACHE-04 — Documentation et vérification", "lot-16-tache-04-documentation-verification.html", [
-      [ "Contexte", "lot-16-tache-04-documentation-verification.html#autotoc_md1044", null ],
-      [ "Travail à réaliser", "lot-16-tache-04-documentation-verification.html#autotoc_md1045", null ],
-      [ "Fichiers impactés", "lot-16-tache-04-documentation-verification.html#autotoc_md1046", null ],
-      [ "Tests (obligatoires)", "lot-16-tache-04-documentation-verification.html#autotoc_md1047", null ],
-      [ "Points d'attention", "lot-16-tache-04-documentation-verification.html#autotoc_md1048", null ],
-      [ "Définition de fait (DoD)", "lot-16-tache-04-documentation-verification.html#autotoc_md1049", null ],
-      [ "Exigences", "lot-16-tache-04-documentation-verification.html#autotoc_md1050", null ]
+      [ "Contexte", "lot-16-tache-04-documentation-verification.html#autotoc_md1068", null ],
+      [ "Travail à réaliser", "lot-16-tache-04-documentation-verification.html#autotoc_md1069", null ],
+      [ "Fichiers impactés", "lot-16-tache-04-documentation-verification.html#autotoc_md1070", null ],
+      [ "Tests (obligatoires)", "lot-16-tache-04-documentation-verification.html#autotoc_md1071", null ],
+      [ "Points d'attention", "lot-16-tache-04-documentation-verification.html#autotoc_md1072", null ],
+      [ "Définition de fait (DoD)", "lot-16-tache-04-documentation-verification.html#autotoc_md1073", null ],
+      [ "Exigences", "lot-16-tache-04-documentation-verification.html#autotoc_md1074", null ]
     ] ]
 ];

@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-15-tache-07-essai-memoire-erreurs-structurees.html
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-15-editeur-industriel_2tache-07-essai-memoire-erreurs-structurees"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-15.html#md_Lot_2LOT-15-editeur-industriel_2epic" title="Lot/LOT-15-editeur-industriel/epic.md">LOT-15</a> · <b>Emplacement :</b> <span class="tt">Core/Levels</span>, <span class="tt">HMI/Interface</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md999"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1023"></a>
 Contexte</h1>
 <p>Deux points de dette technique relevés en LOT-14 : l'essai immédiat (<span class="tt">P</span>) écrit le brouillon dans un <b>fichier temporaire partagé</b> (<span class="tt">projectgaming_playtest_level.json</span>) avant de le recharger dans un <span class="tt">GameScreen</span> — un aller-retour JSON inutile et un risque de collision entre deux instances de l'éditeur ou un fichier resté d'une session précédente. Et <span class="tt">describeValidationError</span> traduit les messages d'erreur en cherchant des <b>sous-chaînes françaises</b> (<span class="tt">"entree"</span>, <span class="tt">"sortie"</span>, <span class="tt">"interrupteur"</span>, <span class="tt">"Porte liee"</span>) dans le message technique de <span class="tt">LevelLoader</span> — tout changement de formulation y casserait silencieusement la traduction.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1000"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1024"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">LevelValidationError</span></b> (<span class="tt">enum class</span>, <span class="tt">Core/Levels</span>) : <span class="tt">None</span>, <span class="tt">MissingEntry</span>, <span class="tt">MissingExit</span>, <span class="tt">UnresolvedMechanism</span>, <span class="tt">OutOfBounds</span>, <span class="tt">DuplicatePosition</span>, <span class="tt">ParseError</span>, … (un cas par famille d'erreur déjà distinguée dans les messages actuels de <span class="tt">LevelLoader</span>). <span class="tt">LevelLoadResult</span> gagne un champ <span class="tt">LevelValidationError error_code</span> (nom provisoire), rempli par <span class="tt">LevelLoader</span> en plus du message technique <span class="tt">error</span> existant — <b>additif</b>, <span class="tt">error</span> inchangé (tests/journaux existants non affectés).</li>
@@ -106,7 +106,7 @@ Travail à réaliser</h1>
   <a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a> level)</span> qui appelle directement ce <span class="tt">loadLevel(core::Level)</span>, sans <span class="tt">LevelSequence</span> ni accès disque ; en fin de niveau (sortie atteinte), ce mode se comporte comme la fin de séquence actuelle (retour au menu — pas d'enchaînement, cohérent avec un essai à niveau unique).</li>
 <li><b><span class="tt">EditorScreen::startPlaytest</span></b> utilise ce nouveau constructeur avec le <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a></span> déjà produit par <span class="tt">_draft.toLevel()</span> ; suppression de <span class="tt">playtestFilePath()</span> et de toute écriture disque pour l'essai immédiat.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1001"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1025"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="LevelLoader_8h.html" title="Chargement d&#39;un niveau depuis le format JSON (liste de tuiles-objets).">Source/Core/Levels/LevelLoader.h</a></span>/<span class="tt">.cpp</span>, <span class="tt">LevelLoadResult</span> (nouveau champ).</li>
@@ -114,7 +114,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/HMI/Interface/EditorScreen.h</span>/<span class="tt">.cpp</span> (<span class="tt">describeValidationError</span>, <span class="tt">startPlaytest</span>).</li>
 <li>Tests unitaires (<span class="tt"><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">test_level_loader.cpp</a></span> ou équivalent, <span class="tt">test_game_screen.cpp</span> si existant), test système d'essai immédiat.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1002"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1026"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Chaque famille d'erreur de <span class="tt">LevelLoader</span> (entrée manquante, sortie manquante, liaison non résolue, position hors bornes, position dupliquée, JSON malformé) produit le <span class="tt">error_code</span> attendu ; <span class="tt">error</span> (message technique) reste identique à avant (non-régression des tests existants).</li>
@@ -122,18 +122,18 @@ Tests (obligatoires)</h1>
 <li>Le nouveau constructeur <span class="tt">GameScreen(core::Level)</span> construit une scène jouable identique (même position de personnage, mêmes tuiles) à celle obtenue via le constructeur par fichier pour un niveau équivalent.</li>
 <li>Lancer un essai immédiat ne crée <b>aucun fichier</b> sous le dossier temporaire (vérification par chemin, absence de <span class="tt">projectgaming_playtest_level.json</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1003"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1027"></a>
 Points d'attention</h1>
 <ul>
 <li>Garder <span class="tt">LevelLoadResult::error</span> (texte) pour la compatibilité des tests/journaux déjà en place — ce n'est pas remplacé, seulement complété.</li>
 <li>La factorisation de <span class="tt">GameScreen::loadLevel</span> ne doit rien changer au comportement du mode séquence-par-fichiers existant (non-régression LOT-09/LOT-12) : c'est un partage de code, pas une réécriture de la logique de scène.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1004"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1028"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Essai immédiat en mémoire et erreurs structurées opérationnels et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1005"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1029"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-007</span>, <span class="tt">EX-EDIT-008</span> (approfondies, sens inchangé), <span class="tt">EX-NFR-040</span> (erreurs récupérables). </p>
 </div></div><!-- contents -->

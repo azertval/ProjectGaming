@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-42-tache-05-palette-fidele.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-42-skin-tuiles-autotiling_2tache-05-palette-fidele"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-42.html#md_Lot_2LOT-42-skin-tuiles-autotiling_2epic" title="Lot/LOT-42-skin-tuiles-autotiling/epic.md">LOT-42</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1950"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1974"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classhmi_1_1PalettePanel.html" title="Palette de tuiles en arbre (QTreeView) : catégories → sous-groupes → tuiles.">hmi::PalettePanel</a></span> affiche chaque type de tuile par sa <b>couleur plate</b>, obtenue via <span class="tt"><a class="el" href="namespacehmi.html#a597b9471d79c0d524b3dedbf52c2fac6" title="Région d&#39;atlas (couleur procédurale) associée à un type de tuile.">hmi::regionForTile</a></span> (<span class="tt">TileVisuals</span>). C'était fidèle tant que le rendu n'avait qu'un mode.</p>
 <p>Dès ce lot, ce n'est plus vrai : en mode Texture, le canevas affiche des textures et la palette continuerait d'afficher des pastilles de couleur. Le level designer choisirait « la tuile violette » sans voir ce qu'il pose. C'est une régression d'usage introduite par le lot lui-même — d'où une tâche dédiée plutôt qu'une correction ultérieure.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1951"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1975"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>La palette suit le mode courant</b> (<span class="tt">RenderMode</span>, LOT-41) : en mode Texture, chaque entrée montre la texture réellement assignée au type dans le jeu de skins courant ; en mode Physique, la couleur plate d'aujourd'hui.</li>
@@ -108,30 +108,30 @@ Travail à réaliser</h1>
 <li><b>Rafraîchissement</b> : la palette se met à jour quand le jeu de skins change, quand une assignation change, et quand le mode bascule.</li>
 <li>Décodage CPU (<span class="tt"><a class="el" href="namespacehmi.html#a22c3bcff9f77b4c4df7938a08c036dfd" title="Décode un fichier image (PNG au minimum) en pixels RGBA.">hmi::decodeImageFile</a></span> → <span class="tt">QPixmap</span>), <b>jamais</b> de texture Direct3D 11 : un widget Qt ne doit pas dépendre du device graphique.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1952"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1976"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/PalettePanel.{h,cpp}</span>.</li>
 <li><span class="tt">Source/HMI/Editor/TexturePanel.{h,cpp}</span> (signal d'assignation modifiée).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1953"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1977"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Choix de l'apparence à afficher pour un type donné, selon le mode, le jeu courant et le mode de skin : fonction <b>pure</b>, testée sans Qt (mode Physique → région d'atlas ; Texture + skin → asset ; Texture sans skin → repli ; <span class="tt">bitmask16</span> → case représentative).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1954"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1978"></a>
 Points d'attention</h1>
 <ul>
 <li>Ne pas dupliquer la logique de résolution : la palette doit interroger <b>le même</b> résolveur que le canevas (LOT-41, TACHE-01), sinon les deux divergeront au premier cas particulier.</li>
 <li>Attention au coût : la palette peut afficher trente entrées. Décoder les images une fois et les mettre en cache côté widget ; ne rien décoder pendant le défilement.</li>
 <li>Le rendu des vignettes doit rester <b>net</b> (pixel art) : mise à l'échelle en plus proche voisin, pas l'interpolation lisse par défaut de Qt.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1955"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1979"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>La palette montre la texture réelle en mode Texture et la couleur plate en mode Physique, se met à jour aux trois événements listés, réutilise le résolveur du canevas, et sa logique de choix est testée sans Qt ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1956"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1980"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-027</span> (palette fidèle au rendu) ; réutilise <span class="tt">EX-EDIT-018</span> (palette organisée par catégories), <span class="tt">EX-EDIT-042</span> (association type → texture), <span class="tt">EX-REN-046</span> (bascule), <span class="tt">EX-ARCH-022</span> (<em>nearest</em>). </p>
 </div></div><!-- contents -->

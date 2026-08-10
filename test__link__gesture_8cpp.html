@@ -100,14 +100,23 @@ $(function(){initNavTree('test__link__gesture_8cpp.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ad3cb2226462b1e393fad4fc98530d040" id="r_ad3cb2226462b1e393fad4fc98530d040"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad3cb2226462b1e393fad4fc98530d040">TEST</a> (LinkGesture, ClicHorsCategorieIgnore)</td></tr>
+<tr class="memdesc:ad3cb2226462b1e393fad4fc98530d040"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une case qui n'est ni déclencheur ni cible est ignorée, sans attente en cours : l'outil de liaison partage le canevas avec tout le reste, un clic à côté ne doit rien amorcer.  <br /></td></tr>
 <tr class="memitem:a0982719a6f538aba4ff386a0bbd8be99" id="r_a0982719a6f538aba4ff386a0bbd8be99"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0982719a6f538aba4ff386a0bbd8be99">TEST</a> (LinkGesture, PremierClicSurDeclencheurPoseLAttente)</td></tr>
+<tr class="memdesc:a0982719a6f538aba4ff386a0bbd8be99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sans attente, un clic sur un déclencheur pose l'attente sur cette case : c'est la première moitié du geste en deux temps.  <br /></td></tr>
 <tr class="memitem:a4382b0988562b8cccf592be41cfb95d6" id="r_a4382b0988562b8cccf592be41cfb95d6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4382b0988562b8cccf592be41cfb95d6">TEST</a> (LinkGesture, PremierClicSurCiblePoseLAttente)</td></tr>
+<tr class="memdesc:a4382b0988562b8cccf592be41cfb95d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un clic sur une <b>cible</b> pose l'attente de la même façon : l'ordre est indifférent, l'auteur peut partir de la porte comme de l'interrupteur.  <br /></td></tr>
 <tr class="memitem:a9488f089b6dc6b9141d6d4e5a8684ec2" id="r_a9488f089b6dc6b9141d6d4e5a8684ec2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9488f089b6dc6b9141d6d4e5a8684ec2">TEST</a> (LinkGesture, DeuxDeclencheursRemplacentLAttente)</td></tr>
+<tr class="memdesc:a9488f089b6dc6b9141d6d4e5a8684ec2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deux déclencheurs de suite ne se lient pas entre eux : le second <b>remplace</b> l'attente.  <br /></td></tr>
 <tr class="memitem:a868ba94df3f20de08e065bdeebbb112c" id="r_a868ba94df3f20de08e065bdeebbb112c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a868ba94df3f20de08e065bdeebbb112c">TEST</a> (LinkGesture, DeuxCiblesRemplacentLAttente)</td></tr>
+<tr class="memdesc:a868ba94df3f20de08e065bdeebbb112c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Symétriquement, deux cibles de suite remplacent l'attente : une porte ne se lie pas à une autre porte.  <br /></td></tr>
 <tr class="memitem:ac0073f8dfa4fb5e9bb654dd190e47bcf" id="r_ac0073f8dfa4fb5e9bb654dd190e47bcf"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac0073f8dfa4fb5e9bb654dd190e47bcf">TEST</a> (LinkGesture, DeclencheurPuisCibleNonLieeCreeLaLiaison)</td></tr>
+<tr class="memdesc:ac0073f8dfa4fb5e9bb654dd190e47bcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déclencheur en attente puis clic sur une cible pas encore liée : la liaison est créée, avec le déclencheur et la cible dans leurs rôles respectifs — jamais dans l'ordre des clics.  <br /></td></tr>
 <tr class="memitem:a0a6966cd246b3e1b348b812f54c431b6" id="r_a0a6966cd246b3e1b348b812f54c431b6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0a6966cd246b3e1b348b812f54c431b6">TEST</a> (LinkGesture, CiblePuisDeclencheurDejaLieSupprimeLaLiaison)</td></tr>
+<tr class="memdesc:a0a6966cd246b3e1b348b812f54c431b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le même geste sur une paire <b>déjà liée</b> supprime la liaison : le geste est une bascule, et il fonctionne en partant de la cible comme du déclencheur — les rôles sont déduits des types, pas de l'ordre.  <br /></td></tr>
 <tr class="memitem:a559eb9eed50dcab0fd907924711c00d4" id="r_a559eb9eed50dcab0fd907924711c00d4"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a559eb9eed50dcab0fd907924711c00d4">TEST</a> (LinkGesture, AttentePerimeeEstIgnoreeEtRemplacee)</td></tr>
+<tr class="memdesc:a559eb9eed50dcab0fd907924711c00d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une attente périmée — la case retenue a été repeinte entre-temps et ne porte plus un type liable — est traitée comme une absence d'attente : le clic courant devient la nouvelle attente, au lieu de créer une liaison vers une case qui n'est plus un mécanisme.  <br /></td></tr>
 <tr class="memitem:ac7bb78c56b612e8c82882a31ab859768" id="r_ac7bb78c56b612e8c82882a31ab859768"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac7bb78c56b612e8c82882a31ab859768">TEST</a> (LinkGesture, ClicHorsCategorieAvecAttenteIgnore)</td></tr>
+<tr class="memdesc:ac7bb78c56b612e8c82882a31ab859768"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un clic hors catégorie alors qu'une attente est en cours est ignoré <b>sans</b> perdre l'attente : un clic imprécis à côté du mécanisme visé ne doit pas obliger à tout recommencer.  <br /></td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a559eb9eed50dcab0fd907924711c00d4" name="a559eb9eed50dcab0fd907924711c00d4"></a>
@@ -128,6 +137,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Une attente périmée — la case retenue a été repeinte entre-temps et ne porte plus un type liable — est traitée comme une absence d'attente : le clic courant devient la nouvelle attente, au lieu de créer une liaison vers une case qui n'est plus un mécanisme. </p>
+<p><b>Cas de test :</b> <b>Une attente périmée est ignorée et remplacée par le clic courant.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste de liaison<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -150,6 +168,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Le même geste sur une paire <b>déjà liée</b> supprime la liaison : le geste est une bascule, et il fonctionne en partant de la cible comme du déclencheur — les rôles sont déduits des types, pas de l'ordre. </p>
+<p><b>Cas de test :</b> <b>Le même geste sur une paire déjà liée supprime la liaison.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste de liaison<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="ac7bb78c56b612e8c82882a31ab859768" name="ac7bb78c56b612e8c82882a31ab859768"></a>
@@ -170,6 +197,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Un clic hors catégorie alors qu'une attente est en cours est ignoré <b>sans</b> perdre l'attente : un clic imprécis à côté du mécanisme visé ne doit pas obliger à tout recommencer. </p>
+<p><b>Cas de test :</b> <b>Un clic hors catégorie est ignoré sans perdre l'attente en cours.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste de liaison<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -192,6 +228,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Une case qui n'est ni déclencheur ni cible est ignorée, sans attente en cours : l'outil de liaison partage le canevas avec tout le reste, un clic à côté ne doit rien amorcer. </p>
+<p><b>Cas de test :</b> <b>Un clic hors catégorie est ignoré quand aucune attente n'est en cours.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste de liaison<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="ac0073f8dfa4fb5e9bb654dd190e47bcf" name="ac0073f8dfa4fb5e9bb654dd190e47bcf"></a>
@@ -212,6 +257,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Déclencheur en attente puis clic sur une cible pas encore liée : la liaison est créée, avec le déclencheur et la cible dans leurs rôles respectifs — jamais dans l'ordre des clics. </p>
+<p><b>Cas de test :</b> <b>Déclencheur en attente puis cible non liée crée la liaison.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste de liaison<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -234,6 +288,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Symétriquement, deux cibles de suite remplacent l'attente : une porte ne se lie pas à une autre porte. </p>
+<p><b>Cas de test :</b> <b>Deux cibles successives remplacent l'attente au lieu de se lier.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste de liaison<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a9488f089b6dc6b9141d6d4e5a8684ec2" name="a9488f089b6dc6b9141d6d4e5a8684ec2"></a>
@@ -254,6 +317,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Deux déclencheurs de suite ne se lient pas entre eux : le second <b>remplace</b> l'attente. </p>
+<p>C'est le rattrapage naturel après un clic sur le mauvais interrupteur, sans geste d'annulation à connaître. <b>Cas de test :</b> <b>Deux déclencheurs successifs remplacent l'attente au lieu de se lier.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste de liaison<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -276,6 +348,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Un clic sur une <b>cible</b> pose l'attente de la même façon : l'ordre est indifférent, l'auteur peut partir de la porte comme de l'interrupteur. </p>
+<p><b>Cas de test :</b> <b>Sans attente, un clic sur une cible pose aussi l'attente.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste de liaison<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a0982719a6f538aba4ff386a0bbd8be99" name="a0982719a6f538aba4ff386a0bbd8be99"></a>
@@ -296,6 +377,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Sans attente, un clic sur un déclencheur pose l'attente sur cette case : c'est la première moitié du geste en deux temps. </p>
+<p><b>Cas de test :</b> <b>Sans attente, un clic sur un déclencheur pose l'attente.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste de liaison<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>

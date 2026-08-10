@@ -101,17 +101,29 @@ $(function(){initNavTree('test__animation__catalog_8cpp.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ac09333fff461c64708dbe66d5b15fa78" id="r_ac09333fff461c64708dbe66d5b15fa78"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac09333fff461c64708dbe66d5b15fa78">TEST</a> (AnimationCatalogTest, RoundTripClipsMultiplesDureeParDefautEtOneShot)</td></tr>
+<tr class="memdesc:ac09333fff461c64708dbe66d5b15fa78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un descripteur valide se relit intégralement : dimensions d'image, clips multiples, durée <b>par défaut</b> quand elle est omise, mode joué-une-fois et clip suivant résolu dans le même jeu.  <br /></td></tr>
 <tr class="memitem:ad24828849706f813f536f04c0f3d672c" id="r_ad24828849706f813f536f04c0f3d672c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad24828849706f813f536f04c0f3d672c">TEST</a> (AnimationCatalogTest, JsonInvalideEstUneErreurExploitable)</td></tr>
+<tr class="memdesc:ad24828849706f813f536f04c0f3d672c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un JSON illisible donne une erreur d'analyse <b>exploitable</b>, avec un message non vide : les descripteurs sont écrits à la main, une erreur muette laisserait l'artiste sans piste.  <br /></td></tr>
 <tr class="memitem:a6978a4c8868455720304a75f4847d346" id="r_a6978a4c8868455720304a75f4847d346"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6978a4c8868455720304a75f4847d346">TEST</a> (AnimationCatalogTest, VersionInconnueEstRefusee)</td></tr>
+<tr class="memdesc:a6978a4c8868455720304a75f4847d346"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une version de format inconnue est refusée explicitement plutôt que lue au mieux : mieux vaut un refus net qu'une animation silencieusement fausse issue d'un format futur.  <br /></td></tr>
 <tr class="memitem:abf1b10494519ea340722d876ed5f1043" id="r_abf1b10494519ea340722d876ed5f1043"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abf1b10494519ea340722d876ed5f1043">TEST</a> (AnimationCatalogTest, ClipSuivantInexistantEstRefuse)</td></tr>
+<tr class="memdesc:abf1b10494519ea340722d876ed5f1043"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un clip suivant qui ne désigne aucun clip du descripteur est refusé au chargement : cette incohérence ne se manifesterait sinon qu'à la fin de la transition, en pleine partie.  <br /></td></tr>
 <tr class="memitem:ad86203ba025f3a7e2bfac467861e747b" id="r_ad86203ba025f3a7e2bfac467861e747b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad86203ba025f3a7e2bfac467861e747b">TEST</a> (AnimationCatalogTest, IndiceDImageNegatifEstRefuse)</td></tr>
+<tr class="memdesc:ad86203ba025f3a7e2bfac467861e747b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un indice d'image négatif est refusé : il indexerait la spritesheet hors de ses bornes.  <br /></td></tr>
 <tr class="memitem:a634145c2cb14351b07574cfb32ebe1d8" id="r_a634145c2cb14351b07574cfb32ebe1d8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a634145c2cb14351b07574cfb32ebe1d8">TEST</a> (AnimationCatalogTest, ClipSansFramesEstRefuse)</td></tr>
+<tr class="memdesc:a634145c2cb14351b07574cfb32ebe1d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un clip sans aucune image est refusé : il n'aurait rien à afficher, et son absence d'images ne se verrait qu'au moment de le jouer.  <br /></td></tr>
 <tr class="memitem:a6703df98a2e3e0bf84bd4f031ca2fcd0" id="r_a6703df98a2e3e0bf84bd4f031ca2fcd0"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6703df98a2e3e0bf84bd4f031ca2fcd0">TEST</a> (AnimationCatalogTest, FichierAbsentEstFileNotFoundSansException)</td></tr>
+<tr class="memdesc:a6703df98a2e3e0bf84bd4f031ca2fcd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un fichier absent donne un code d'erreur dédié, <b>sans exception</b> : la plupart des assets n'ont pas de descripteur, l'absence est le cas courant et non une anomalie.  <br /></td></tr>
 <tr class="memitem:a6498261360e4c8d574cc181af260766d" id="r_a6498261360e4c8d574cc181af260766d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6498261360e4c8d574cc181af260766d">TEST</a> (AnimationCatalogTest, DescriptorFileNameRemplaceLExtension)</td></tr>
+<tr class="memdesc:a6498261360e4c8d574cc181af260766d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nom du descripteur se déduit de celui de l'image en remplaçant l'extension, chemin de sous-dossier <b>conservé</b> : perdre le préfixe ferait chercher le descripteur au mauvais endroit, un piège déjà rencontré sur les clés du cache de textures.  <br /></td></tr>
 <tr class="memitem:aecaf1690c1a4d3633d0b094ec7a6a9b6" id="r_aecaf1690c1a4d3633d0b094ec7a6a9b6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aecaf1690c1a4d3633d0b094ec7a6a9b6">TEST</a> (AnimationCatalogTest, CoherenceAvecLePngValideeSurSpritesheetAUnRang)</td></tr>
+<tr class="memdesc:aecaf1690c1a4d3633d0b094ec7a6a9b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un descripteur cohérent avec les dimensions réelles du PNG est validé : six images de 16 px sur un rang de 16 px de haut.  <br /></td></tr>
 <tr class="memitem:a899b9843fc9709e3a6ca964d2a4eb19c" id="r_a899b9843fc9709e3a6ca964d2a4eb19c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a899b9843fc9709e3a6ca964d2a4eb19c">TEST</a> (AnimationCatalogTest, TailleDImageIncoherenteAvecLePngEstRefusee)</td></tr>
+<tr class="memdesc:a899b9843fc9709e3a6ca964d2a4eb19c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une hauteur de PNG différente de la hauteur d'image (plusieurs rangs, non supportés) ou une largeur qui n'est pas un multiple de la largeur d'image sont refusées, avec un message : ce sont les deux façons de se tromper en découpant une planche.  <br /></td></tr>
 <tr class="memitem:a7eb66f49a83842ed6603d098c3feb1d6" id="r_a7eb66f49a83842ed6603d098c3feb1d6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7eb66f49a83842ed6603d098c3feb1d6">TEST</a> (AnimationCatalogTest, IndiceDImageHorsBornesDeLaSpritesheetReelleEstRefuse)</td></tr>
+<tr class="memdesc:a7eb66f49a83842ed6603d098c3feb1d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un indice d'image au-delà de ce que contient réellement la spritesheet est refusé, même quand la largeur est un multiple valide : la validation confronte les clips au fichier, pas seulement le fichier à lui-même.  <br /></td></tr>
 <tr class="memitem:a2af80f05f77e9806a4763f22be728bae" id="r_a2af80f05f77e9806a4763f22be728bae"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2af80f05f77e9806a4763f22be728bae">TEST</a> (AnimationCatalogTest, FrameRegionPremiereEtDerniereImageSpritesheetAUnRang)</td></tr>
+<tr class="memdesc:a2af80f05f77e9806a4763f22be728bae"><td class="mdescLeft">&#160;</td><td class="mdescRight">La région d'une image se déduit de son indice par simple décalage horizontal, l'ordonnée ne variant jamais : c'est la convention de planche à un seul rang, qui rend le découpage prévisible pour l'artiste.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires du format <span class="tt">nom-asset.anim.json</span> (<span class="tt"><a class="el" href="classhmi_1_1AnimationCatalog.html" title="Lecture, validation et traduction en région de texture du format nom-asset.anim.json.">hmi::AnimationCatalog</a></span>, LOT-46 TACHE-03) : lecture, validation, traduction en région de texture. </p>
@@ -136,6 +148,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Un clip sans aucune image est refusé : il n'aurait rien à afficher, et son absence d'images ne se verrait qu'au moment de le jouer. </p>
+<p><b>Cas de test :</b> <b>Un clip sans images est refusé.</b><br  />
+ <b>Categorie :</b> Unitaire · Catalogue d'animations<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="abf1b10494519ea340722d876ed5f1043" name="abf1b10494519ea340722d876ed5f1043"></a>
@@ -156,6 +177,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Un clip suivant qui ne désigne aucun clip du descripteur est refusé au chargement : cette incohérence ne se manifesterait sinon qu'à la fin de la transition, en pleine partie. </p>
+<p><b>Cas de test :</b> <b>Un clip suivant inexistant est refusé au chargement.</b><br  />
+ <b>Categorie :</b> Unitaire · Catalogue d'animations<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -178,6 +208,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Un descripteur cohérent avec les dimensions réelles du PNG est validé : six images de 16 px sur un rang de 16 px de haut. </p>
+<p><b>Cas de test :</b> <b>Un descripteur cohérent avec les dimensions du PNG est validé.</b><br  />
+ <b>Categorie :</b> Unitaire · Catalogue d'animations<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a6498261360e4c8d574cc181af260766d" name="a6498261360e4c8d574cc181af260766d"></a>
@@ -198,6 +237,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Le nom du descripteur se déduit de celui de l'image en remplaçant l'extension, chemin de sous-dossier <b>conservé</b> : perdre le préfixe ferait chercher le descripteur au mauvais endroit, un piège déjà rencontré sur les clés du cache de textures. </p>
+<p><b>Cas de test :</b> <b>Le nom du descripteur remplace l'extension en conservant le chemin.</b><br  />
+ <b>Categorie :</b> Unitaire · Catalogue d'animations<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -220,6 +268,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Un fichier absent donne un code d'erreur dédié, <b>sans exception</b> : la plupart des assets n'ont pas de descripteur, l'absence est le cas courant et non une anomalie. </p>
+<p><b>Cas de test :</b> <b>Un fichier absent donne un code dédié, sans exception.</b><br  />
+ <b>Categorie :</b> Unitaire · Catalogue d'animations<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a2af80f05f77e9806a4763f22be728bae" name="a2af80f05f77e9806a4763f22be728bae"></a>
@@ -240,6 +297,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>La région d'une image se déduit de son indice par simple décalage horizontal, l'ordonnée ne variant jamais : c'est la convention de planche à un seul rang, qui rend le découpage prévisible pour l'artiste. </p>
+<p><b>Cas de test :</b> <b>La région d'une image se déduit de son indice par décalage horizontal, ordonnée constante.</b><br  />
+ <b>Categorie :</b> Unitaire · Catalogue d'animations<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -262,6 +328,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Un indice d'image au-delà de ce que contient réellement la spritesheet est refusé, même quand la largeur est un multiple valide : la validation confronte les clips au fichier, pas seulement le fichier à lui-même. </p>
+<p><b>Cas de test :</b> <b>Un indice d'image hors des bornes réelles de la spritesheet est refusé.</b><br  />
+ <b>Categorie :</b> Unitaire · Catalogue d'animations<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="ad86203ba025f3a7e2bfac467861e747b" name="ad86203ba025f3a7e2bfac467861e747b"></a>
@@ -282,6 +357,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Un indice d'image négatif est refusé : il indexerait la spritesheet hors de ses bornes. </p>
+<p><b>Cas de test :</b> <b>Un indice d'image négatif est refusé.</b><br  />
+ <b>Categorie :</b> Unitaire · Catalogue d'animations<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -304,6 +388,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Un JSON illisible donne une erreur d'analyse <b>exploitable</b>, avec un message non vide : les descripteurs sont écrits à la main, une erreur muette laisserait l'artiste sans piste. </p>
+<p><b>Cas de test :</b> <b>Un JSON invalide donne une erreur d'analyse avec un message exploitable.</b><br  />
+ <b>Categorie :</b> Unitaire · Catalogue d'animations<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="ac09333fff461c64708dbe66d5b15fa78" name="ac09333fff461c64708dbe66d5b15fa78"></a>
@@ -324,6 +417,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Un descripteur valide se relit intégralement : dimensions d'image, clips multiples, durée <b>par défaut</b> quand elle est omise, mode joué-une-fois et clip suivant résolu dans le même jeu. </p>
+<p>C'est le contrat complet du format, vérifié en une fois sur un cas nominal. <b>Cas de test :</b> <b>Un descripteur valide se relit intégralement, durée par défaut et clip suivant compris.</b><br  />
+ <b>Categorie :</b> Unitaire · Catalogue d'animations<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -346,6 +448,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Une hauteur de PNG différente de la hauteur d'image (plusieurs rangs, non supportés) ou une largeur qui n'est pas un multiple de la largeur d'image sont refusées, avec un message : ce sont les deux façons de se tromper en découpant une planche. </p>
+<p><b>Cas de test :</b> <b>Des dimensions de PNG incohérentes avec l'image sont refusées.</b><br  />
+ <b>Categorie :</b> Unitaire · Catalogue d'animations<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a6978a4c8868455720304a75f4847d346" name="a6978a4c8868455720304a75f4847d346"></a>
@@ -366,6 +477,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Une version de format inconnue est refusée explicitement plutôt que lue au mieux : mieux vaut un refus net qu'une animation silencieusement fausse issue d'un format futur. </p>
+<p><b>Cas de test :</b> <b>Une version de format inconnue est refusée.</b><br  />
+ <b>Categorie :</b> Unitaire · Catalogue d'animations<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>

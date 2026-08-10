@@ -1,41 +1,41 @@
 var lot_48 =
 [
-    [ "Objectif", "lot-48.html#autotoc_md2133", null ],
-    [ "Périmètre", "lot-48.html#autotoc_md2134", [
-      [ "Inclus", "lot-48.html#autotoc_md2135", null ],
-      [ "Exclus (hors périmètre de ce lot)", "lot-48.html#autotoc_md2136", null ]
+    [ "Objectif", "lot-48.html#autotoc_md2157", null ],
+    [ "Périmètre", "lot-48.html#autotoc_md2158", [
+      [ "Inclus", "lot-48.html#autotoc_md2159", null ],
+      [ "Exclus (hors périmètre de ce lot)", "lot-48.html#autotoc_md2160", null ]
     ] ],
-    [ "Décisions de cadrage", "lot-48.html#autotoc_md2137", null ],
-    [ "Exigences couvertes", "lot-48.html#autotoc_md2138", null ],
-    [ "Découpage", "lot-48.html#autotoc_md2139", null ],
-    [ "Critères d'acceptation du lot", "lot-48.html#autotoc_md2140", null ],
-    [ "Dépendances", "lot-48.html#autotoc_md2141", null ],
-    [ "Navigation des tâches", "lot-48.html#autotoc_md2142", null ],
+    [ "Décisions de cadrage", "lot-48.html#autotoc_md2161", null ],
+    [ "Exigences couvertes", "lot-48.html#autotoc_md2162", null ],
+    [ "Découpage", "lot-48.html#autotoc_md2163", null ],
+    [ "Critères d'acceptation du lot", "lot-48.html#autotoc_md2164", null ],
+    [ "Dépendances", "lot-48.html#autotoc_md2165", null ],
+    [ "Navigation des tâches", "lot-48.html#autotoc_md2166", null ],
     [ "TACHE-01 — Spritesheet externe et ancrage image/hitbox", "lot-48-tache-01-spritesheet-externe.html", [
-      [ "Contexte", "lot-48-tache-01-spritesheet-externe.html#autotoc_md2143", null ],
-      [ "Travail à réaliser", "lot-48-tache-01-spritesheet-externe.html#autotoc_md2144", null ],
-      [ "Fichiers impactés", "lot-48-tache-01-spritesheet-externe.html#autotoc_md2145", null ],
-      [ "Tests (obligatoires)", "lot-48-tache-01-spritesheet-externe.html#autotoc_md2146", null ],
-      [ "Points d'attention", "lot-48-tache-01-spritesheet-externe.html#autotoc_md2147", null ],
-      [ "Définition de fait (DoD)", "lot-48-tache-01-spritesheet-externe.html#autotoc_md2148", null ],
-      [ "Exigences", "lot-48-tache-01-spritesheet-externe.html#autotoc_md2149", null ]
+      [ "Contexte", "lot-48-tache-01-spritesheet-externe.html#autotoc_md2167", null ],
+      [ "Travail à réaliser", "lot-48-tache-01-spritesheet-externe.html#autotoc_md2168", null ],
+      [ "Fichiers impactés", "lot-48-tache-01-spritesheet-externe.html#autotoc_md2169", null ],
+      [ "Tests (obligatoires)", "lot-48-tache-01-spritesheet-externe.html#autotoc_md2170", null ],
+      [ "Points d'attention", "lot-48-tache-01-spritesheet-externe.html#autotoc_md2171", null ],
+      [ "Définition de fait (DoD)", "lot-48-tache-01-spritesheet-externe.html#autotoc_md2172", null ],
+      [ "Exigences", "lot-48-tache-01-spritesheet-externe.html#autotoc_md2173", null ]
     ] ],
     [ "TACHE-02 — Clips couvrant les états de gameplay livrés", "lot-48-tache-02-nouveaux-clips.html", [
-      [ "Contexte", "lot-48-tache-02-nouveaux-clips.html#autotoc_md2150", null ],
-      [ "Travail à réaliser", "lot-48-tache-02-nouveaux-clips.html#autotoc_md2151", null ],
-      [ "Fichiers impactés", "lot-48-tache-02-nouveaux-clips.html#autotoc_md2152", null ],
-      [ "Tests (obligatoires)", "lot-48-tache-02-nouveaux-clips.html#autotoc_md2153", null ],
-      [ "Points d'attention", "lot-48-tache-02-nouveaux-clips.html#autotoc_md2154", null ],
-      [ "Définition de fait (DoD)", "lot-48-tache-02-nouveaux-clips.html#autotoc_md2155", null ],
-      [ "Exigences", "lot-48-tache-02-nouveaux-clips.html#autotoc_md2156", null ]
+      [ "Contexte", "lot-48-tache-02-nouveaux-clips.html#autotoc_md2174", null ],
+      [ "Travail à réaliser", "lot-48-tache-02-nouveaux-clips.html#autotoc_md2175", null ],
+      [ "Fichiers impactés", "lot-48-tache-02-nouveaux-clips.html#autotoc_md2176", null ],
+      [ "Tests (obligatoires)", "lot-48-tache-02-nouveaux-clips.html#autotoc_md2177", null ],
+      [ "Points d'attention", "lot-48-tache-02-nouveaux-clips.html#autotoc_md2178", null ],
+      [ "Définition de fait (DoD)", "lot-48-tache-02-nouveaux-clips.html#autotoc_md2179", null ],
+      [ "Exigences", "lot-48-tache-02-nouveaux-clips.html#autotoc_md2180", null ]
     ] ],
     [ "TACHE-03 — Orientation et non-régression du gameplay", "lot-48-tache-03-orientation-non-regression.html", [
-      [ "Contexte", "lot-48-tache-03-orientation-non-regression.html#autotoc_md2157", null ],
-      [ "Travail à réaliser", "lot-48-tache-03-orientation-non-regression.html#autotoc_md2158", null ],
-      [ "Fichiers impactés", "lot-48-tache-03-orientation-non-regression.html#autotoc_md2159", null ],
-      [ "Tests (obligatoires)", "lot-48-tache-03-orientation-non-regression.html#autotoc_md2160", null ],
-      [ "Points d'attention", "lot-48-tache-03-orientation-non-regression.html#autotoc_md2161", null ],
-      [ "Définition de fait (DoD)", "lot-48-tache-03-orientation-non-regression.html#autotoc_md2162", null ],
-      [ "Exigences", "lot-48-tache-03-orientation-non-regression.html#autotoc_md2163", null ]
+      [ "Contexte", "lot-48-tache-03-orientation-non-regression.html#autotoc_md2181", null ],
+      [ "Travail à réaliser", "lot-48-tache-03-orientation-non-regression.html#autotoc_md2182", null ],
+      [ "Fichiers impactés", "lot-48-tache-03-orientation-non-regression.html#autotoc_md2183", null ],
+      [ "Tests (obligatoires)", "lot-48-tache-03-orientation-non-regression.html#autotoc_md2184", null ],
+      [ "Points d'attention", "lot-48-tache-03-orientation-non-regression.html#autotoc_md2185", null ],
+      [ "Définition de fait (DoD)", "lot-48-tache-03-orientation-non-regression.html#autotoc_md2186", null ],
+      [ "Exigences", "lot-48-tache-03-orientation-non-regression.html#autotoc_md2187", null ]
     ] ]
 ];

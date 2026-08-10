@@ -106,6 +106,7 @@ Functions</h2></td></tr>
 <tr class="memitem:ab1dad21306961b3a2292db4816f50ea1" id="r_ab1dad21306961b3a2292db4816f50ea1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab1dad21306961b3a2292db4816f50ea1">TEST</a> (Camera2DTest, CentreAuMilieuDeLEcran)</td></tr>
 <tr class="memdesc:ab1dad21306961b3a2292db4816f50ea1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le centre de la caméra se projette au centre de l'écran.  <br /></td></tr>
 <tr class="memitem:a44d5005e9eae8a07c363b476a6fc2a5c" id="r_a44d5005e9eae8a07c363b476a6fc2a5c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a44d5005e9eae8a07c363b476a6fc2a5c">TEST</a> (Camera2DTest, CenterEtZoomRenvoientLesValeursPosees)</td></tr>
+<tr class="memdesc:a44d5005e9eae8a07c363b476a6fc2a5c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">center()</span>/<span class="tt">zoom()</span> renvoient exactement ce que <span class="tt">setCenter()</span>/<span class="tt">setZoom()</span> ont posé — nécessaire au pan/zoom manuel de l'éditeur, qui repart du cadrage courant au premier geste.  <br /></td></tr>
 <tr class="memitem:abe3c8e4de45220ca2bdc4131088c6393" id="r_abe3c8e4de45220ca2bdc4131088c6393"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abe3c8e4de45220ca2bdc4131088c6393">TEST</a> (Camera2DTest, EchelleEtAxeY)</td></tr>
 <tr class="memdesc:abe3c8e4de45220ca2bdc4131088c6393"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une unité monde vaut 16 pixels ; l'axe Y va vers le bas.  <br /></td></tr>
 <tr class="memitem:afb44f0a1467aad957fe999626534600c" id="r_afb44f0a1467aad957fe999626534600c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afb44f0a1467aad957fe999626534600c">TEST</a> (Camera2DTest, Zoom)</td></tr>
@@ -174,6 +175,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p><span class="tt">center()</span>/<span class="tt">zoom()</span> renvoient exactement ce que <span class="tt">setCenter()</span>/<span class="tt">setZoom()</span> ont posé — nécessaire au pan/zoom manuel de l'éditeur, qui repart du cadrage courant au premier geste. </p>
+<p><b>Cas de test :</b> <b>center() et zoom() renvoient exactement les valeurs posées.</b><br  />
+ <b>Categorie :</b> Unitaire · Camera2 D<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>

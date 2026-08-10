@@ -94,14 +94,14 @@ $(function(){initNavTree('lot-31-tache-03-integration-editeur.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-31-blocs-danger-avances_2tache-03-integration-editeur"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-31.html#md_Lot_2LOT-31-blocs-danger-avances_2epic" title="Lot/LOT-31-blocs-danger-avances/epic.md">LOT-31</a> · <b>Emplacement :</b> <span class="tt">HMI/Editor</span>, <span class="tt">HMI/Graphics</span>, <span class="tt">HMI/Interface</span> · <b>Statut :</b> ✅</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1534"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1558"></a>
 Contexte</h1>
 <p>Rend les sept nouveaux types <b>peignables</b> depuis la palette (<span class="tt">EX-EDIT-002</span>), le danger directionnel <b>visuellement fidèle</b> à sa hitbox réelle, et la liaison déclencheur↔danger commuté éditable au même geste qu'une porte (<span class="tt">EX-EDIT-003</span>).</p>
 <p><b>Deux réductions de périmètre tranchées pendant l'implémentation</b>, documentées ici plutôt que laissées implicites :</p><ul>
 <li><b>Pas de geste dédié « portée » pour <span class="tt">DangerMover</span>.</b> L'idée initiale (second clic après avoir peint la tuile, pour définir axe/portée à la souris) n'a pas été implémentée : elle aurait ajouté un état d'interaction supplémentaire (<span class="tt">_pendingMoverConfig</span> ou équivalent) pour un gain marginal — <span class="tt">LevelDraft::setMoverConfig</span> existe déjà (TACHE-01) et couvre le besoin <b>programmatique</b> ; sans UI dédiée, un danger mobile peint depuis la palette garde l'axe/la portée de conception par défaut (horizontal, 2 cases) tant que <span class="tt">setMoverConfig</span> n'est pas appelé — cohérent avec l'exclusion déjà actée par l'epic (pas de widget numérique). Un futur lot pourra ajouter ce geste s'il s'avère réellement nécessaire à l'usage.</li>
 <li><b>Mobile/Commuté/Temporisé partagent la couleur du danger classique</b> (même région d'atlas, rouge) plutôt que des teintes distinctes. La grille procédurale de <span class="tt">TextureAtlas</span> (5×5 cases) n'a qu'<b>une seule</b> case encore libre (<span class="tt">(3,4)</span>) — les 24 autres portent déjà une couleur ou un masque de forme (pentes/arrondis). Une distinction fiable aurait exigé d'agrandir la grille (<span class="tt">TILES_PER_SIDE</span>), une opération plus large et plus risquée (réindexation complète de la palette de couleurs procédurale) que ce que ce lot justifie : le <b>type</b> de la tuile (visible dans la palette au moment de peindre) et son <b>comportement</b> restent la source de vérité, la couleur n'étant qu'un indice secondaire. Le danger <b>directionnel</b>, lui, reste visuellement fidèle (bande sur son bord réel) car cela ne nécessite aucune nouvelle case d'atlas — seulement un positionnement différent du même quad rouge.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1535"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1559"></a>
 Travail réalisé</h1>
 <ul>
 <li><b><span class="tt">TilePalette.h</span>/<span class="tt">.cpp</span></b> : la catégorie « Piège » (<span class="tt">Category</span>), avant <span class="tt">pushStandalone</span> (une seule feuille), devient un <b>en-tête de catégorie</b> (comme « Tuile »/« Interactif ») :<ul>
@@ -120,7 +120,7 @@ Travail réalisé</h1>
 </li>
 <li><b>Niveau de démonstration</b> : <span class="tt">Source/Elements/Levels/demo-dangers-avances.json</span> (nouveau), intégré à la séquence jouée (<span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span>, juste après <span class="tt">demo-bloc-reduit.json</span>, avant <span class="tt">demo-final.json</span>). Les quatre variantes sont posées sur des <b>alcôves surélevées optionnelles</b> au-dessus d'un couloir principal ininterrompu — comme les douze niveaux de démo existants, aucun n'exige de scénario de mort pour être franchi ; ce niveau ne fait pas exception.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1536"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1560"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="DangerGeometry_8h.html" title="Géométrie de la zone mortelle d&#39;une case de danger (EX-GP-050).">Source/Core/Levels/DangerGeometry.h</a></span>/<span class="tt">.cpp</span> (<span class="tt">isDangerTileType</span>).</li>
@@ -132,7 +132,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span>, <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span> (insertion dans la séquence, aux deux endroits — vérifié par <span class="tt">scripts/check_demo_sequence.py</span>).</li>
 <li>Tests : <span class="tt">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</span> (catégorie Piège restructurée, sous-groupe Directionnel), <span class="tt"><a class="el" href="test__parcours__edition_8cpp.html" title="Parcours système : créer un niveau dans l&#39;éditeur, l&#39;enregistrer, le recharger, et vérifier qu&#39;il est...">Source/Test/Systeme/test_parcours_edition.cpp</a></span> (nouveau test — peinture/liaison/configuration des sept types, round-trip disque).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1537"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1561"></a>
 Tests (réalisés)</h1>
 <ul>
 <li>Chaque nouveau type est sélectionnable depuis la palette et peint la bonne valeur de <span class="tt">TileType</span> (<span class="tt">CategoriePiegeDeplieeExposeSesFeuilles</span>, <span class="tt">SousGroupeDirectionnelDeplieExposeSesBords</span>).</li>
@@ -141,13 +141,13 @@ Tests (réalisés)</h1>
 <li><span class="tt"><a class="el" href="test__parcours__edition_8cpp.html" title="Parcours système : créer un niveau dans l&#39;éditeur, l&#39;enregistrer, le recharger, et vérifier qu&#39;il est...">test_parcours_edition.cpp</a></span> : peinture des sept types + liaison + configuration explicite (mobile, temporisé) survivent à un enregistrement/rechargement disque complet.</li>
 <li><span class="tt">scripts/check_demo_sequence.py</span> retourne un code de sortie <span class="tt">0</span> (14 niveaux, <span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span> et <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span> identiques).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1538"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1562"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les sept types sont éditables de bout en bout (peinture, liaison, enregistrement, rechargement, essai immédiat) sans édition manuelle de JSON — à l'exception de l'axe/la portée d'un danger mobile personnalisés (valeurs par défaut sans geste dédié, cf. réduction de périmètre ci-dessus).</li>
 <li>Couverture des <b>trois niveaux de test</b> du projet pour l'ensemble du lot : Unit (TACHE-01/02), Integration (TACHE-02), Système (cette tâche — <span class="tt">demo-dangers-avances</span> jouée bout en bout dans la séquence réelle via <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span>, et round-trip d'édition via <span class="tt"><a class="el" href="test__parcours__edition_8cpp.html" title="Parcours système : créer un niveau dans l&#39;éditeur, l&#39;enregistrer, le recharger, et vérifier qu&#39;il est...">test_parcours_edition.cpp</a></span>). Build <span class="tt">/W4 /WX</span> et suite complète (453 Unit + 81 Integration + 3 Système) vertes, sans régression.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1539"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1563"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-001</span>, <span class="tt">EX-EDIT-002</span>, <span class="tt">EX-EDIT-003</span>, <span class="tt">EX-EDIT-016</span>, <span class="tt">EX-GP-050</span>, <span class="tt">EX-GP-051</span>, <span class="tt">EX-GP-052</span>, <span class="tt">EX-GP-053</span>. </p>
 </div></div><!-- contents -->

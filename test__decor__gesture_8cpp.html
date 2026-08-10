@@ -107,20 +107,35 @@ $(function(){initNavTree('test__decor__gesture_8cpp.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a8da7c5c3f5e4deca170e03d54a59f2e9" id="r_a8da7c5c3f5e4deca170e03d54a59f2e9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8da7c5c3f5e4deca170e03d54a59f2e9">TEST</a> (DecorGestureTest, DesignateDecorAtChoisitLePlusAuDessusEnCasDeSuperposition)</td></tr>
+<tr class="memdesc:a8da7c5c3f5e4deca170e03d54a59f2e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">En cas de superposition, le clic désigne le décor <b>le plus au-dessus</b> : c'est celui que l'auteur voit, donc celui qu'il croit viser.  <br /></td></tr>
 <tr class="memitem:a73605d2f166102969a0423dae039950c" id="r_a73605d2f166102969a0423dae039950c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a73605d2f166102969a0423dae039950c">TEST</a> (DecorGestureTest, DesignateDecorAtDansLeVideRenvoieNullopt)</td></tr>
+<tr class="memdesc:a73605d2f166102969a0423dae039950c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un clic dans le vide ne désigne rien : l'appelant en déduit la désélection, sans index sentinelle à interpréter.  <br /></td></tr>
 <tr class="memitem:a83f64961ebd982943ebaac03fe424b0e" id="r_a83f64961ebd982943ebaac03fe424b0e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a83f64961ebd982943ebaac03fe424b0e">TEST</a> (DecorGestureTest, DesignateDecorAtPrivilegieLesPoigneesDuDecorSelectionne)</td></tr>
+<tr class="memdesc:a83f64961ebd982943ebaac03fe424b0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les poignées du décor <b>sélectionné</b> l'emportent sur le corps d'un autre décor : sans cette priorité, une poignée posée au-dessus d'un voisin deviendrait inutilisable et le clic sélectionnerait le voisin au lieu de redimensionner.  <br /></td></tr>
 <tr class="memitem:a9cd4ec021310b57b4e74771d09ee55f6" id="r_a9cd4ec021310b57b4e74771d09ee55f6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9cd4ec021310b57b4e74771d09ee55f6">TEST</a> (DecorGestureTest, BeginSelectionneImmediatementMemeSansGlisser)</td></tr>
+<tr class="memdesc:a9cd4ec021310b57b4e74771d09ee55f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'appui sélectionne <b>immédiatement</b>, avant tout glisser : un simple clic doit suffire à sélectionner, sans obliger à bouger la souris.  <br /></td></tr>
 <tr class="memitem:aceceafb9a2e25495ddb1ca966846fe1f" id="r_aceceafb9a2e25495ddb1ca966846fe1f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aceceafb9a2e25495ddb1ca966846fe1f">TEST</a> (DecorGestureTest, UnDeplacementSousLeSeuilNeProduitAucuneAction)</td></tr>
+<tr class="memdesc:aceceafb9a2e25495ddb1ca966846fe1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous le seuil de glisser, ni l'aperçu ni le relâchement ne produisent d'action : c'est ce qui distingue un clic de sélection d'un déplacement, et qui évite d'empiler dans l'historique un déplacement d'un demi-pixel à chaque clic.  <br /></td></tr>
 <tr class="memitem:abc22ae9534295907a6a2f2582787bc4b" id="r_abc22ae9534295907a6a2f2582787bc4b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abc22ae9534295907a6a2f2582787bc4b">TEST</a> (DecorGestureTest, UnDeplacementAuDelaDuSeuilProduitUneActionDeplacer)</td></tr>
+<tr class="memdesc:abc22ae9534295907a6a2f2582787bc4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Au-delà du seuil, l'aperçu produit un déplacement dont la position suit exactement le curseur : l'aperçu est calculé par la même fonction que l'action finale, il ne peut pas en diverger.  <br /></td></tr>
 <tr class="memitem:a3a987c435fca395c55794fdd7e6a34ae" id="r_a3a987c435fca395c55794fdd7e6a34ae"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3a987c435fca395c55794fdd7e6a34ae">TEST</a> (DecorGestureTest, DeplacerProduitLaPositionFinaleAuRelachement)</td></tr>
+<tr class="memdesc:a3a987c435fca395c55794fdd7e6a34ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le relâchement produit la position finale, calculée comme le décalage du curseur appliqué à la position d'origine — jamais la position du curseur elle-même, qui ferait sauter le décor sous le pointeur au premier pixel de glisser.  <br /></td></tr>
 <tr class="memitem:abbbbe8bc66d291e06c59da17319a7bd2" id="r_abbbbe8bc66d291e06c59da17319a7bd2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abbbbe8bc66d291e06c59da17319a7bd2">TEST</a> (DecorGestureTest, DeplacerAvecAimantationArrondiALaGrilleEntiere)</td></tr>
+<tr class="memdesc:abbbbe8bc66d291e06c59da17319a7bd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Avec aimantation, la position finale est arrondie à la case entière : c'est ce qui permet d'aligner des décors sur la grille sans viser au pixel.  <br /></td></tr>
 <tr class="memitem:af3ef7ecf792aa349ade89129e17d772a" id="r_af3ef7ecf792aa349ade89129e17d772a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af3ef7ecf792aa349ade89129e17d772a">TEST</a> (DecorGestureTest, DeplacerSansAimantationConserveLaPositionExacte)</td></tr>
+<tr class="memdesc:af3ef7ecf792aa349ade89129e17d772a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sans aimantation, la position exacte est conservée : les décors sont libres, hors grille (<span class="tt">EX-DEC-001</span>), et l'aimantation reste un choix ponctuel.  <br /></td></tr>
 <tr class="memitem:ab11db629ed202a827bc26ef732288998" id="r_ab11db629ed202a827bc26ef732288998"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab11db629ed202a827bc26ef732288998">TEST</a> (DecorGestureTest, RedimensionnerDepuisLeCoinBasDroitEtireDepuisLeCoinHautGaucheFixe)</td></tr>
+<tr class="memdesc:ab11db629ed202a827bc26ef732288998"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tirer le coin bas-droit étire le décor depuis le coin haut-gauche, qui reste <b>fixe</b> : l'ancre est toujours le coin opposé à la poignée, comme dans tout éditeur graphique.  <br /></td></tr>
 <tr class="memitem:a4a19eda7de1c5437809cad2b907da05d" id="r_a4a19eda7de1c5437809cad2b907da05d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4a19eda7de1c5437809cad2b907da05d">TEST</a> (DecorGestureTest, RedimensionnerDepuisLeCoinHautGaucheDeplaceLAncreOpposee)</td></tr>
+<tr class="memdesc:a4a19eda7de1c5437809cad2b907da05d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tirer le coin haut-gauche déplace la position <b>et</b> l'échelle, l'ancre étant cette fois le coin bas-droit : les quatre poignées suivent la même règle, sans cas particulier.  <br /></td></tr>
 <tr class="memitem:a98f20ced94a9967b4d8b23dadc527a65" id="r_a98f20ced94a9967b4d8b23dadc527a65"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a98f20ced94a9967b4d8b23dadc527a65">TEST</a> (DecorGestureTest, RedimensionnerNeDescendJamaisSousUneTailleMinimale)</td></tr>
+<tr class="memdesc:a98f20ced94a9967b4d8b23dadc527a65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tirer une poignée au-delà de son ancre ne produit jamais une échelle nulle ou négative : un décor d'échelle nulle serait invisible, donc impossible à rattraper à la souris.  <br /></td></tr>
 <tr class="memitem:ad119b3504b4cd8d3784a02dc69c60db6" id="r_ad119b3504b4cd8d3784a02dc69c60db6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad119b3504b4cd8d3784a02dc69c60db6">TEST</a> (DecorGestureTest, PivoterVersLaDroiteProduitUnQuartDeTour)</td></tr>
+<tr class="memdesc:ad119b3504b4cd8d3784a02dc69c60db6"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'angle suit la direction du curseur <b>depuis le centre</b> du décor : curseur à droite du centre, quart de tour.  <br /></td></tr>
 <tr class="memitem:a7315b7749d4330af5d87dcaf9adc459f" id="r_a7315b7749d4330af5d87dcaf9adc459f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7315b7749d4330af5d87dcaf9adc459f">TEST</a> (DecorGestureTest, PivoterNormaliseDansZeroDeuxPi)</td></tr>
+<tr class="memdesc:a7315b7749d4330af5d87dcaf9adc459f"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'angle produit reste dans [0, 2π) quel que soit le quadrant visé, cohérent avec la normalisation faite côté modèle.  <br /></td></tr>
 <tr class="memitem:ad02cbaf5c14af094a9da1e4b160fc73e" id="r_ad02cbaf5c14af094a9da1e4b160fc73e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad02cbaf5c14af094a9da1e4b160fc73e">TEST</a> (DecorGestureTest, AbandonNeProduitAucuneAction)</td></tr>
+<tr class="memdesc:ad02cbaf5c14af094a9da1e4b160fc73e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abandonner (Échap) ramène le geste au repos sans produire d'action, mais <b>conserve la sélection</b> : on annule le glisser en cours, pas le fait d'avoir désigné le décor.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de la machine à états du geste de manipulation de décors (LOT-50 TACHE-02, <span class="tt">EX-DEC-010</span>). </p>
@@ -144,6 +159,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Abandonner (Échap) ramène le geste au repos sans produire d'action, mais <b>conserve la sélection</b> : on annule le glisser en cours, pas le fait d'avoir désigné le décor. </p>
+<p><b>Cas de test :</b> <b>Abandonner un geste ne produit aucune action et conserve la sélection.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste sur les décors<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a9cd4ec021310b57b4e74771d09ee55f6" name="a9cd4ec021310b57b4e74771d09ee55f6"></a>
@@ -164,6 +188,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>L'appui sélectionne <b>immédiatement</b>, avant tout glisser : un simple clic doit suffire à sélectionner, sans obliger à bouger la souris. </p>
+<p><b>Cas de test :</b> <b>L'appui sélectionne immédiatement, même sans glisser.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste sur les décors<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -186,6 +219,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Avec aimantation, la position finale est arrondie à la case entière : c'est ce qui permet d'aligner des décors sur la grille sans viser au pixel. </p>
+<p><b>Cas de test :</b> <b>Avec aimantation, la position finale est arrondie à la case entière.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste sur les décors<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a3a987c435fca395c55794fdd7e6a34ae" name="a3a987c435fca395c55794fdd7e6a34ae"></a>
@@ -206,6 +248,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Le relâchement produit la position finale, calculée comme le décalage du curseur appliqué à la position d'origine — jamais la position du curseur elle-même, qui ferait sauter le décor sous le pointeur au premier pixel de glisser. </p>
+<p><b>Cas de test :</b> <b>Le relâchement produit la position finale, décalée depuis la position d'origine.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste sur les décors<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -228,6 +279,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Sans aimantation, la position exacte est conservée : les décors sont libres, hors grille (<span class="tt">EX-DEC-001</span>), et l'aimantation reste un choix ponctuel. </p>
+<p><b>Cas de test :</b> <b>Sans aimantation, la position exacte est conservée.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste sur les décors<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a8da7c5c3f5e4deca170e03d54a59f2e9" name="a8da7c5c3f5e4deca170e03d54a59f2e9"></a>
@@ -248,6 +308,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>En cas de superposition, le clic désigne le décor <b>le plus au-dessus</b> : c'est celui que l'auteur voit, donc celui qu'il croit viser. </p>
+<p><b>Cas de test :</b> <b>Un clic sur des décors superposés désigne le plus au-dessus.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste sur les décors<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -270,6 +339,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Un clic dans le vide ne désigne rien : l'appelant en déduit la désélection, sans index sentinelle à interpréter. </p>
+<p><b>Cas de test :</b> <b>Un clic dans le vide ne désigne aucun décor.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste sur les décors<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a83f64961ebd982943ebaac03fe424b0e" name="a83f64961ebd982943ebaac03fe424b0e"></a>
@@ -290,6 +368,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Les poignées du décor <b>sélectionné</b> l'emportent sur le corps d'un autre décor : sans cette priorité, une poignée posée au-dessus d'un voisin deviendrait inutilisable et le clic sélectionnerait le voisin au lieu de redimensionner. </p>
+<p><b>Cas de test :</b> <b>Les poignées du décor sélectionné priment sur le corps d'un autre décor.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste sur les décors<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -312,6 +399,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>L'angle produit reste dans [0, 2π) quel que soit le quadrant visé, cohérent avec la normalisation faite côté modèle. </p>
+<p><b>Cas de test :</b> <b>L'angle produit par la rotation reste dans [0, 2π).</b><br  />
+ <b>Categorie :</b> Unitaire · Geste sur les décors<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="ad119b3504b4cd8d3784a02dc69c60db6" name="ad119b3504b4cd8d3784a02dc69c60db6"></a>
@@ -332,6 +428,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>L'angle suit la direction du curseur <b>depuis le centre</b> du décor : curseur à droite du centre, quart de tour. </p>
+<p>C'est ce qui rend la rotation prévisible quelle que soit la distance au centre. <b>Cas de test :</b> <b>Amener le curseur à droite du centre produit un quart de tour.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste sur les décors<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -354,6 +459,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Tirer le coin bas-droit étire le décor depuis le coin haut-gauche, qui reste <b>fixe</b> : l'ancre est toujours le coin opposé à la poignée, comme dans tout éditeur graphique. </p>
+<p><b>Cas de test :</b> <b>Tirer le coin bas-droit étire depuis le coin haut-gauche, resté fixe.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste sur les décors<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a4a19eda7de1c5437809cad2b907da05d" name="a4a19eda7de1c5437809cad2b907da05d"></a>
@@ -374,6 +488,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Tirer le coin haut-gauche déplace la position <b>et</b> l'échelle, l'ancre étant cette fois le coin bas-droit : les quatre poignées suivent la même règle, sans cas particulier. </p>
+<p><b>Cas de test :</b> <b>Tirer le coin haut-gauche déplace la position et l'échelle, ancre au coin bas-droit.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste sur les décors<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -396,6 +519,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Tirer une poignée au-delà de son ancre ne produit jamais une échelle nulle ou négative : un décor d'échelle nulle serait invisible, donc impossible à rattraper à la souris. </p>
+<p><b>Cas de test :</b> <b>Le redimensionnement ne descend jamais sous une taille minimale strictement positive.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste sur les décors<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="abc22ae9534295907a6a2f2582787bc4b" name="abc22ae9534295907a6a2f2582787bc4b"></a>
@@ -417,6 +549,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Au-delà du seuil, l'aperçu produit un déplacement dont la position suit exactement le curseur : l'aperçu est calculé par la même fonction que l'action finale, il ne peut pas en diverger. </p>
+<p><b>Cas de test :</b> <b>Un déplacement au-delà du seuil produit un aperçu de déplacement suivant le curseur.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste sur les décors<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="aceceafb9a2e25495ddb1ca966846fe1f" name="aceceafb9a2e25495ddb1ca966846fe1f"></a>
@@ -437,6 +578,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Sous le seuil de glisser, ni l'aperçu ni le relâchement ne produisent d'action : c'est ce qui distingue un clic de sélection d'un déplacement, et qui évite d'empiler dans l'historique un déplacement d'un demi-pixel à chaque clic. </p>
+<p><b>Cas de test :</b> <b>Un déplacement sous le seuil ne produit aucune action.</b><br  />
+ <b>Categorie :</b> Unitaire · Geste sur les décors<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>

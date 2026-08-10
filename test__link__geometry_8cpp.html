@@ -101,15 +101,25 @@ $(function(){initNavTree('test__link__geometry_8cpp.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ae46397a529566ddf12cbe9a7813d134a" id="r_ae46397a529566ddf12cbe9a7813d134a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae46397a529566ddf12cbe9a7813d134a">TEST</a> (LinkGeometry, IsTriggerTileReconnaitDeclencheurs)</td></tr>
+<tr class="memdesc:ae46397a529566ddf12cbe9a7813d134a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seuls l'interrupteur et la plaque de pression sont des <b>déclencheurs</b> ; aucun autre type ne l'est.  <br /></td></tr>
 <tr class="memitem:a1438058e2fa0cca31419d079a64adb4b" id="r_a1438058e2fa0cca31419d079a64adb4b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1438058e2fa0cca31419d079a64adb4b">TEST</a> (LinkGeometry, IsLinkTargetTileReconnaitCibles)</td></tr>
+<tr class="memdesc:a1438058e2fa0cca31419d079a64adb4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seuls la porte et le danger commutable sont des <b>cibles</b> de liaison — un déclencheur n'en est jamais une, ce qui interdit de lier deux interrupteurs entre eux.  <br /></td></tr>
 <tr class="memitem:a60e95d29f99120132fe31192c39de679" id="r_a60e95d29f99120132fe31192c39de679"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a60e95d29f99120132fe31192c39de679">TEST</a> (LinkGeometry, LinkSegmentRelieLesCentresDeCase)</td></tr>
+<tr class="memdesc:a60e95d29f99120132fe31192c39de679"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le trait relie les <b>centres</b> des deux cases (origine en haut à gauche, demi-case ajoutée) : partir du coin ferait pointer les flèches à côté des mécanismes qu'elles relient.  <br /></td></tr>
 <tr class="memitem:af3451f2a993da45b9b3cfe3b2170732f" id="r_af3451f2a993da45b9b3cfe3b2170732f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af3451f2a993da45b9b3cfe3b2170732f">TEST</a> (LinkGeometry, LinkSegmentVertical)</td></tr>
+<tr class="memdesc:af3451f2a993da45b9b3cfe3b2170732f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un lien vertical ne fait varier que l'ordonnée, dans le sens du déclencheur vers la cible : l'orientation du segment porte le sens de lecture de la flèche.  <br /></td></tr>
 <tr class="memitem:a65cdd64622589bd19b0afd587320cdb7" id="r_a65cdd64622589bd19b0afd587320cdb7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a65cdd64622589bd19b0afd587320cdb7">TEST</a> (LinkGeometry, LinkSegmentDiagonalSansDecalage)</td></tr>
+<tr class="memdesc:a65cdd64622589bd19b0afd587320cdb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un lien diagonal fait varier les deux coordonnées et, s'il est seul, ne subit <b>aucun</b> décalage : l'écartement en éventail ne se paie que lorsqu'il sert à distinguer des frères.  <br /></td></tr>
 <tr class="memitem:a549a6592ef8f60ee5cd617039b87c082" id="r_a549a6592ef8f60ee5cd617039b87c082"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a549a6592ef8f60ee5cd617039b87c082">TEST</a> (LinkGeometry, LinkSegmentDecalageAntiSuperpositionBaseCommune)</td></tr>
+<tr class="memdesc:a549a6592ef8f60ee5cd617039b87c082"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plusieurs liens partant du même déclencheur gardent une <b>base commune</b> et n'écartent que leur extrémité cible, symétriquement autour du centre et de façon déterministe.  <br /></td></tr>
 <tr class="memitem:aa3caa1cb7c5b5dd8c91ad562797aa4a0" id="r_aa3caa1cb7c5b5dd8c91ad562797aa4a0"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa3caa1cb7c5b5dd8c91ad562797aa4a0">TEST</a> (LinkGeometry, ArrowHeadOrienteeVersLaCible)</td></tr>
+<tr class="memdesc:aa3caa1cb7c5b5dd8c91ad562797aa4a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">La pointe de flèche a ses deux ailes en retrait de la cible et symétriques par rapport à l'axe du segment : c'est ce qui rend le <b>sens</b> de la liaison lisible d'un coup d'œil.  <br /></td></tr>
 <tr class="memitem:af728d489845794d91696b919c571d236" id="r_af728d489845794d91696b919c571d236"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af728d489845794d91696b919c571d236">TEST</a> (LinkGeometry, ArrowHeadSegmentDegenere)</td></tr>
+<tr class="memdesc:af728d489845794d91696b919c571d236"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un segment dégénéré (mêmes extrémités) n'a pas de direction : la pointe se replie sur le point lui-même plutôt que de produire des coordonnées non définies issues d'une normalisation par zéro.  <br /></td></tr>
 <tr class="memitem:a1519001da34062af7e88f2f81529a677" id="r_a1519001da34062af7e88f2f81529a677"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1519001da34062af7e88f2f81529a677">TEST</a> (LinkGeometry, BuildLinkRowsOrdreEtContenu)</td></tr>
+<tr class="memdesc:a1519001da34062af7e88f2f81529a677"><td class="mdescLeft">&#160;</td><td class="mdescRight">La liste des liens est construite dans un ordre déterministe — mécanismes puis liens de danger — et son contenu reflète fidèlement le brouillon.  <br /></td></tr>
 <tr class="memitem:a22ea83efbcfe77dffd2e316dfde9211f" id="r_a22ea83efbcfe77dffd2e316dfde9211f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a22ea83efbcfe77dffd2e316dfde9211f">TEST</a> (LinkGeometry, BuildLinkRowsVideSansLiaison)</td></tr>
+<tr class="memdesc:a22ea83efbcfe77dffd2e316dfde9211f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un brouillon sans aucune liaison donne une liste vide : le panneau affiche alors son état vide, il n'a pas de cas particulier à traiter.  <br /></td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="aa3caa1cb7c5b5dd8c91ad562797aa4a0" name="aa3caa1cb7c5b5dd8c91ad562797aa4a0"></a>
@@ -130,6 +140,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>La pointe de flèche a ses deux ailes en retrait de la cible et symétriques par rapport à l'axe du segment : c'est ce qui rend le <b>sens</b> de la liaison lisible d'un coup d'œil. </p>
+<p><b>Cas de test :</b> <b>La pointe de flèche a ses ailes en retrait et symétriques par rapport à l'axe.</b><br  />
+ <b>Categorie :</b> Unitaire · Géométrie des liens<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -152,6 +171,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Un segment dégénéré (mêmes extrémités) n'a pas de direction : la pointe se replie sur le point lui-même plutôt que de produire des coordonnées non définies issues d'une normalisation par zéro. </p>
+<p><b>Cas de test :</b> <b>Un segment dégénéré replie la pointe sur le point, sans division par zéro.</b><br  />
+ <b>Categorie :</b> Unitaire · Géométrie des liens<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a1519001da34062af7e88f2f81529a677" name="a1519001da34062af7e88f2f81529a677"></a>
@@ -172,6 +200,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>La liste des liens est construite dans un ordre déterministe — mécanismes puis liens de danger — et son contenu reflète fidèlement le brouillon. </p>
+<p>Le panneau Liens s'appuie sur cet ordre : un tri instable ferait sauter les lignes à chaque modification. <b>Cas de test :</b> <b>La liste des liens est ordonnée (mécanismes puis dangers) et fidèle au brouillon.</b><br  />
+ <b>Categorie :</b> Unitaire · Géométrie des liens<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -194,6 +231,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Un brouillon sans aucune liaison donne une liste vide : le panneau affiche alors son état vide, il n'a pas de cas particulier à traiter. </p>
+<p><b>Cas de test :</b> <b>Un brouillon sans liaison donne une liste vide.</b><br  />
+ <b>Categorie :</b> Unitaire · Géométrie des liens<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a1438058e2fa0cca31419d079a64adb4b" name="a1438058e2fa0cca31419d079a64adb4b"></a>
@@ -214,6 +260,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Seuls la porte et le danger commutable sont des <b>cibles</b> de liaison — un déclencheur n'en est jamais une, ce qui interdit de lier deux interrupteurs entre eux. </p>
+<p><b>Cas de test :</b> <b>Seuls la porte et le danger commutable sont reconnus comme cibles de liaison.</b><br  />
+ <b>Categorie :</b> Unitaire · Géométrie des liens<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -236,6 +291,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Seuls l'interrupteur et la plaque de pression sont des <b>déclencheurs</b> ; aucun autre type ne l'est. </p>
+<p>C'est ce prédicat qui décide ce que l'outil de liaison accepte comme point de départ. <b>Cas de test :</b> <b>Seuls l'interrupteur et la plaque de pression sont reconnus comme déclencheurs.</b><br  />
+ <b>Categorie :</b> Unitaire · Géométrie des liens<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a549a6592ef8f60ee5cd617039b87c082" name="a549a6592ef8f60ee5cd617039b87c082"></a>
@@ -256,6 +320,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Plusieurs liens partant du même déclencheur gardent une <b>base commune</b> et n'écartent que leur extrémité cible, symétriquement autour du centre et de façon déterministe. </p>
+<p>Sans cet éventail, trois liens vers la même zone se superposeraient en un seul trait illisible ; sans déterminisme, ils sauteraient d'une frame à l'autre. <b>Cas de test :</b> <b>Des liens frères gardent une base commune et écartent symétriquement leur extrémité cible.</b><br  />
+ <b>Categorie :</b> Unitaire · Géométrie des liens<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -278,6 +351,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Un lien diagonal fait varier les deux coordonnées et, s'il est seul, ne subit <b>aucun</b> décalage : l'écartement en éventail ne se paie que lorsqu'il sert à distinguer des frères. </p>
+<p><b>Cas de test :</b> <b>Un lien diagonal seul relie les centres sans aucun décalage.</b><br  />
+ <b>Categorie :</b> Unitaire · Géométrie des liens<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a60e95d29f99120132fe31192c39de679" name="a60e95d29f99120132fe31192c39de679"></a>
@@ -299,6 +381,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Le trait relie les <b>centres</b> des deux cases (origine en haut à gauche, demi-case ajoutée) : partir du coin ferait pointer les flèches à côté des mécanismes qu'elles relient. </p>
+<p><b>Cas de test :</b> <b>Le trait de liaison relie les centres des deux cases.</b><br  />
+ <b>Categorie :</b> Unitaire · Géométrie des liens<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="af3451f2a993da45b9b3cfe3b2170732f" name="af3451f2a993da45b9b3cfe3b2170732f"></a>
@@ -319,6 +410,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Un lien vertical ne fait varier que l'ordonnée, dans le sens du déclencheur vers la cible : l'orientation du segment porte le sens de lecture de la flèche. </p>
+<p><b>Cas de test :</b> <b>Un lien vertical ne fait varier que l'ordonnée, du déclencheur vers la cible.</b><br  />
+ <b>Categorie :</b> Unitaire · Géométrie des liens<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>

@@ -105,9 +105,13 @@ $(function(){initNavTree('test__asset__library_8cpp.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a2d08bb418286cb27a656f97f6a18db04" id="r_a2d08bb418286cb27a656f97f6a18db04"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2d08bb418286cb27a656f97f6a18db04">TEST_F</a> (AssetLibraryTest, NeRetientQueLesImagesTrieesParOrdreAlphabetique)</td></tr>
+<tr class="memdesc:a2d08bb418286cb27a656f97f6a18db04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le balayage ne retient que les images et les trie par ordre alphabétique : les fichiers voisins non graphiques (notes, README) n'ont rien à faire dans une bibliothèque d'assets, et un ordre stable évite que la grille se réorganise d'un balayage à l'autre.  <br /></td></tr>
 <tr class="memitem:abb1f39b0e133fcf83e7accddd240bdb2" id="r_abb1f39b0e133fcf83e7accddd240bdb2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abb1f39b0e133fcf83e7accddd240bdb2">TEST_F</a> (AssetLibraryTest, ExtensionInsensibleALaCasse)</td></tr>
+<tr class="memdesc:abb1f39b0e133fcf83e7accddd240bdb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'extension est reconnue quelle que soit sa casse : un fichier déposé par un outil externe en <span class="tt">.PNG</span> ou <span class="tt">.Png</span> est un asset comme un autre, et le système de fichiers Windows ne distingue de toute façon pas les deux.  <br /></td></tr>
 <tr class="memitem:a73ae1ac139a4a4da2440aa1acb42663e" id="r_a73ae1ac139a4a4da2440aa1acb42663e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a73ae1ac139a4a4da2440aa1acb42663e">TEST_F</a> (AssetLibraryTest, FiltreParSousChaineInsensibleALaCasse)</td></tr>
+<tr class="memdesc:a73ae1ac139a4a4da2440aa1acb42663e"><td class="mdescLeft">&#160;</td><td class="mdescRight">La recherche filtre par sous-chaîne, sans tenir compte de la casse, et renvoie une liste vide plutôt qu'une erreur quand rien ne correspond — c'est une recherche incrémentale, tapée caractère par caractère, où l'absence de résultat est un état normal.  <br /></td></tr>
 <tr class="memitem:a50bf4eea134b1233d2fb50796106a21e" id="r_a50bf4eea134b1233d2fb50796106a21e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a50bf4eea134b1233d2fb50796106a21e">TEST_F</a> (AssetLibraryTest, DossierAbsentListeVide)</td></tr>
+<tr class="memdesc:a50bf4eea134b1233d2fb50796106a21e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un dossier d'assets absent donne une liste vide, jamais une exception : le dossier peut légitimement ne pas exister (installation neuve, asset jamais créé), et le panneau doit alors s'afficher vide plutôt que faire échouer son ouverture.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires du balayage/filtrage partagé par le panneau « Textures » (LOT-43 TACHE-01). </p>
@@ -131,6 +135,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Un dossier d'assets absent donne une liste vide, jamais une exception : le dossier peut légitimement ne pas exister (installation neuve, asset jamais créé), et le panneau doit alors s'afficher vide plutôt que faire échouer son ouverture. </p>
+<p><b>Cas de test :</b> <b>Un dossier d'assets absent donne une liste vide, sans exception.</b><br  />
+ <b>Categorie :</b> Unitaire · Bibliothèque d'assets<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="abb1f39b0e133fcf83e7accddd240bdb2" name="abb1f39b0e133fcf83e7accddd240bdb2"></a>
@@ -151,6 +164,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>L'extension est reconnue quelle que soit sa casse : un fichier déposé par un outil externe en <span class="tt">.PNG</span> ou <span class="tt">.Png</span> est un asset comme un autre, et le système de fichiers Windows ne distingue de toute façon pas les deux. </p>
+<p><b>Cas de test :</b> <b>L'extension d'image est reconnue quelle que soit sa casse.</b><br  />
+ <b>Categorie :</b> Unitaire · Bibliothèque d'assets<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -173,6 +195,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>La recherche filtre par sous-chaîne, sans tenir compte de la casse, et renvoie une liste vide plutôt qu'une erreur quand rien ne correspond — c'est une recherche incrémentale, tapée caractère par caractère, où l'absence de résultat est un état normal. </p>
+<p><b>Cas de test :</b> <b>La recherche filtre par sous-chaîne insensible à la casse, liste vide si rien ne correspond.</b><br  />
+ <b>Categorie :</b> Unitaire · Bibliothèque d'assets<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a2d08bb418286cb27a656f97f6a18db04" name="a2d08bb418286cb27a656f97f6a18db04"></a>
@@ -193,6 +224,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Le balayage ne retient que les images et les trie par ordre alphabétique : les fichiers voisins non graphiques (notes, README) n'ont rien à faire dans une bibliothèque d'assets, et un ordre stable évite que la grille se réorganise d'un balayage à l'autre. </p>
+<p><b>Cas de test :</b> <b>Le balayage ne retient que les images, triées par ordre alphabétique.</b><br  />
+ <b>Categorie :</b> Unitaire · Bibliothèque d'assets<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>

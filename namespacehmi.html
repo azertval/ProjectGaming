@@ -1041,11 +1041,17 @@ Functions</h2></td></tr>
 <tr class="memitem:a18648161d8a6c752202b6034613a947b" id="r_a18648161d8a6c752202b6034613a947b"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a18648161d8a6c752202b6034613a947b">executableDirectory</a> ()</td></tr>
 <tr class="memdesc:a18648161d8a6c752202b6034613a947b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dossier contenant l'exécutable en cours, pour localiser les ressources copiées à côté (niveaux, catalogues de traduction, logs).  <br /></td></tr>
 <tr class="memitem:ad674a6058a9d73bac93466d37cedcf71" id="r_ad674a6058a9d73bac93466d37cedcf71"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad674a6058a9d73bac93466d37cedcf71">TEST</a> (MechanismTransitionsTest, PremierCalculRejointEtatCibleSansTransition)</td></tr>
+<tr class="memdesc:ad674a6058a9d73bac93466d37cedcf71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le tout premier calcul rejoint directement l'état cible, <b>sans</b> jouer de transition : une porte déjà ouverte au chargement du niveau doit apparaître ouverte, pas s'ouvrir sous les yeux du joueur comme si un interrupteur venait d'être actionné.  <br /></td></tr>
 <tr class="memitem:a90e6d84c42db35e9f30e38f1aa000054" id="r_a90e6d84c42db35e9f30e38f1aa000054"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a90e6d84c42db35e9f30e38f1aa000054">TEST</a> (MechanismTransitionsTest, ChangementDetatDeclencheLaTransitionUneSeuleFois)</td></tr>
+<tr class="memdesc:a90e6d84c42db35e9f30e38f1aa000054"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un changement d'état déclenche la transition <b>une seule fois</b> : les pas suivants la font progresser jusqu'à l'état cible au lieu de la relancer depuis sa première image.  <br /></td></tr>
 <tr class="memitem:a625cc20c906a0d415fdf2655a672bd46" id="r_a625cc20c906a0d415fdf2655a672bd46"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a625cc20c906a0d415fdf2655a672bd46">TEST</a> (MechanismTransitionsTest, ClipDeTransitionAbsentBasculeDirectementSansAvertissement)</td></tr>
+<tr class="memdesc:a625cc20c906a0d415fdf2655a672bd46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un asset qui ne fournit que les deux états, sans clips de transition, bascule directement et <b>en silence</b> : n'animer que les états est un choix d'artiste légitime, pas une erreur à signaler.  <br /></td></tr>
 <tr class="memitem:a1dfc69c100079f94448e2b12a99d6a90" id="r_a1dfc69c100079f94448e2b12a99d6a90"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1dfc69c100079f94448e2b12a99d6a90">TEST</a> (MechanismTransitionsTest, ClipDEtatAbsentReplieEtJournaliseUneSeuleFois)</td></tr>
+<tr class="memdesc:a1dfc69c100079f94448e2b12a99d6a90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un clip d'<b>état</b> manquant, lui, se replie et se journalise — mais une seule fois par couple (asset, clip manquant), pas par instance : un niveau posant cinquante portes du même asset incomplet produirait sinon cinquante fois le même message.  <br /></td></tr>
 <tr class="memitem:a4dc5a434d1a5329d868b55bd13b1278d" id="r_a4dc5a434d1a5329d868b55bd13b1278d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4dc5a434d1a5329d868b55bd13b1278d">TEST</a> (MechanismTransitionsTest, AucunChangementNeReinitialisePasLimageEnCours)</td></tr>
+<tr class="memdesc:a4dc5a434d1a5329d868b55bd13b1278d"><td class="mdescLeft">&#160;</td><td class="mdescRight">À état inchangé, un appel supplémentaire ne remet pas l'image courante à zéro : c'est l'invariant qui rend le calcul appelable à chaque frame de rendu sans figer l'animation.  <br /></td></tr>
 <tr class="memitem:a280d7aec474da3bc7a0e244d4cf5b336" id="r_a280d7aec474da3bc7a0e244d4cf5b336"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a280d7aec474da3bc7a0e244d4cf5b336">TEST</a> (MechanismTransitionsTest, SeuleLaPorteTransitionneLesAutresBasculentDirectement)</td></tr>
+<tr class="memdesc:a280d7aec474da3bc7a0e244d4cf5b336"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seule la porte a des clips de transition ; un interrupteur bascule directement entre ses deux états, silencieusement.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -8439,6 +8445,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>À état inchangé, un appel supplémentaire ne remet pas l'image courante à zéro : c'est l'invariant qui rend le calcul appelable à chaque frame de rendu sans figer l'animation. </p>
+<p><b>Cas de test :</b> <b>À état inchangé, un appel supplémentaire ne réinitialise pas l'image en cours.</b><br  />
+ <b>Categorie :</b> Unitaire · Transitions de mécanismes<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a90e6d84c42db35e9f30e38f1aa000054" name="a90e6d84c42db35e9f30e38f1aa000054"></a>
@@ -8459,6 +8474,15 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Un changement d'état déclenche la transition <b>une seule fois</b> : les pas suivants la font progresser jusqu'à l'état cible au lieu de la relancer depuis sa première image. </p>
+<p>Un redéclenchement par pas figerait l'ouverture sur son premier quart, indéfiniment. <b>Cas de test :</b> <b>Un changement d'état déclenche la transition une seule fois, puis la laisse aboutir.</b><br  />
+ <b>Categorie :</b> Unitaire · Transitions de mécanismes<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -8481,6 +8505,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Un clip d'<b>état</b> manquant, lui, se replie et se journalise — mais une seule fois par couple (asset, clip manquant), pas par instance : un niveau posant cinquante portes du même asset incomplet produirait sinon cinquante fois le même message. </p>
+<p><b>Cas de test :</b> <b>Un clip d'état absent se replie et n'est journalisé qu'une fois par asset.</b><br  />
+ <b>Categorie :</b> Unitaire · Transitions de mécanismes<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a625cc20c906a0d415fdf2655a672bd46" name="a625cc20c906a0d415fdf2655a672bd46"></a>
@@ -8501,6 +8534,15 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Un asset qui ne fournit que les deux états, sans clips de transition, bascule directement et <b>en silence</b> : n'animer que les états est un choix d'artiste légitime, pas une erreur à signaler. </p>
+<p><b>Cas de test :</b> <b>Un clip de transition absent fait basculer directement, sans avertissement.</b><br  />
+ <b>Categorie :</b> Unitaire · Transitions de mécanismes<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
@@ -8523,6 +8565,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Le tout premier calcul rejoint directement l'état cible, <b>sans</b> jouer de transition : une porte déjà ouverte au chargement du niveau doit apparaître ouverte, pas s'ouvrir sous les yeux du joueur comme si un interrupteur venait d'être actionné. </p>
+<p><b>Cas de test :</b> <b>Le premier calcul rejoint l'état cible sans jouer de transition.</b><br  />
+ <b>Categorie :</b> Unitaire · Transitions de mécanismes<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
+
 </div>
 </div>
 <a id="a280d7aec474da3bc7a0e244d4cf5b336" name="a280d7aec474da3bc7a0e244d4cf5b336"></a>
@@ -8543,6 +8594,15 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Seule la porte a des clips de transition ; un interrupteur bascule directement entre ses deux états, silencieusement. </p>
+<p>Chercher une transition pour tous les mécanismes produirait des avertissements pour des assets pourtant complets. <b>Cas de test :</b> <b>Un interrupteur bascule directement entre ses deux états, sans avertissement.</b><br  />
+ <b>Categorie :</b> Unitaire · Transitions de mécanismes<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ </p>
 
 </div>
 </div>
