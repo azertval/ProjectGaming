@@ -1,6 +1,25 @@
 # TACHE-08 — Aperçu live et mode planche à raccords {#lot-54-tache-08-apercu-live-planche}
 
-**Lot :** [LOT-54](epic.md) · **Emplacement :** `Source/HMI/Editor`, `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-54](epic.md) · **Emplacement :** `Source/HMI/Editor`, `Source/HMI/Graphics` · **Statut :** fait
+
+> **Amendement de portée.**
+> - **Aperçu live** : livré tel que cadré, via `GameViewport::invalidateAsset` (invalidation
+>   ciblée, déjà prévue depuis LOT-43). Comme `TextureCache` lit depuis le disque, un aperçu
+>   *avant* tout premier enregistrement suppose une écriture — `MainWindow::updateLivePreview`
+>   écrit silencieusement sur `_pixelAssetPath` à chaque geste complet (regroupé, jamais par
+>   pixel) **une fois qu'un chemin existe** (après le premier « Enregistrer »/« Enregistrer
+>   sous »). Un tout nouvel asset pas encore enregistré une première fois n'a donc pas d'aperçu
+>   live — cohérent avec le point d'attention « rien à montrer » ci-dessous.
+> - **Repères des seize cases** et **aperçu d'assemblage 3×3** : livrés, dessinés directement
+>   dans `PixelCanvas` (grille de case épaisse + incrustation de l'assemblage dans le coin), et
+>   non comme un second panneau séparé — plus simple, toujours visible sans occuper un onglet.
+> - **Case survolée** : livrée comme **infobulle** (`QToolTip`) sur le canevas plutôt que comme
+>   zone de la barre d'état structurée — évite de complexifier davantage le modèle à six zones de
+>   `hmi::EditorStatus`, pour une information qui n'a de sens qu'au survol immédiat de la case.
+> - **Aperçu d'animation** : **non livré**. Nécessite d'intégrer `hmi::AnimationCatalog`/
+>   `TextureCache::getAnimation` (LOT-46) au canevas pour rejouer un clip — un point d'extension
+>   clair (la description est déjà résolue par le cache), laissé à une passe ultérieure faute de
+>   temps dans celle-ci.
 
 ## Contexte
 Sans cette tâche, l'atelier n'apporterait presque rien : un éditeur d'images externe fait déjà mieux

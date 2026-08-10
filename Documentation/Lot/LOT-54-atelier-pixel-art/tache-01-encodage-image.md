@@ -1,6 +1,6 @@
 # TACHE-01 — Encodage et enregistrement d'image {#lot-54-tache-01-encodage-image}
 
-**Lot :** [LOT-54](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-54](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 Le projet sait **lire** une image depuis le LOT-39 : `hmi::decodeImageFile` décode un fichier en

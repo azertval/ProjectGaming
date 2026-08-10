@@ -1,6 +1,7 @@
 # LOT-54 — Atelier pixel art intégré {#lot-54}
 
-> Statut : **non commencé**. Prérequis : [LOT-42](@ref lot-42) (convention `Assets/Skins/`, planches
+> Statut : **fait** (deux points d'entrée/fonctionnalités secondaires non livrés, cf. amendements
+> de TACHE-05 et TACHE-08). Prérequis : [LOT-42](@ref lot-42) (convention `Assets/Skins/`, planches
 > à raccords), [LOT-43](@ref lot-43) (bibliothèque et rechargement à chaud),
 > [LOT-56](@ref lot-56) (jetons de design, style maîtrisé, actions et barre d'outils, netteté à
 > toute échelle) et [LOT-57](@ref lot-57) (barre d'état structurée, regroupement des panneaux,
@@ -129,14 +130,14 @@ le périmètre récupère en fonctions d'édition ce qu'il n'a plus à dépenser
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-encodage-image.md) | Encodage et enregistrement d'image, symétrique de `decodeImageFile` | `Source/HMI/Graphics` | ⬜ |
-| [TACHE-02](tache-02-operations-historique.md) | Opérations pures sur tampon de pixels et historique à opérations nommées | `Source/HMI/Editor` | ⬜ |
-| [TACHE-03](tache-03-canevas.md) | Canevas : rendu net à toute échelle, couleurs issues des jetons, surface invariante | `Source/HMI/Editor` | ⬜ |
-| [TACHE-04](tache-04-actions-barre-outils.md) | Outils en actions, barre d'outils, annuler/refaire contextuel, barre d'état, historique visuel | `Source/HMI/Interface`, `Source/HMI/Editor` | ⬜ |
-| [TACHE-05](tache-05-ouvrir-enregistrer.md) | Ouvrir, créer, enregistrer + garde-fous + point d'entrée depuis la bibliothèque et le panneau Textures | `Source/HMI/Editor` | ⬜ |
-| [TACHE-06](tache-06-outils-region.md) | Outils de région : sélection, déplacement, symétries, rotations, copier/coller | `Source/HMI/Editor` | ⬜ |
-| [TACHE-07](tache-07-palettes.md) | Palettes persistées, extraction depuis un asset, mode contraint à la palette | `Source/HMI/Editor`, `Source/Elements` | ⬜ |
-| [TACHE-08](tache-08-apercu-live-planche.md) | Aperçu live, mode planche à raccords, aperçu de raccord et d'animation | `Source/HMI/Editor`, `Source/HMI/Graphics` | ⬜ |
+| [TACHE-01](tache-01-encodage-image.md) | Encodage et enregistrement d'image, symétrique de `decodeImageFile` | `Source/HMI/Graphics` | ✅ |
+| [TACHE-02](tache-02-operations-historique.md) | Opérations pures sur tampon de pixels et historique à opérations nommées | `Source/HMI/Editor` | ✅ |
+| [TACHE-03](tache-03-canevas.md) | Canevas : rendu net à toute échelle, couleurs issues des jetons, surface invariante | `Source/HMI/Editor` | ✅ |
+| [TACHE-04](tache-04-actions-barre-outils.md) | Outils en actions, barre d'outils, annuler/refaire contextuel, barre d'état, historique visuel | `Source/HMI/Interface`, `Source/HMI/Editor` | ✅ |
+| [TACHE-05](tache-05-ouvrir-enregistrer.md) | Ouvrir, créer, enregistrer + garde-fous + point d'entrée depuis la bibliothèque et le panneau Textures | `Source/HMI/Editor` | ✅ (point d'entrée Textures non câblé, cf. amendement) |
+| [TACHE-06](tache-06-outils-region.md) | Outils de région : sélection, déplacement, symétries, rotations, copier/coller | `Source/HMI/Editor` | ✅ |
+| [TACHE-07](tache-07-palettes.md) | Palettes persistées, extraction depuis un asset, mode contraint à la palette | `Source/HMI/Editor`, `Source/Elements` | ✅ |
+| [TACHE-08](tache-08-apercu-live-planche.md) | Aperçu live, mode planche à raccords, aperçu de raccord et d'animation | `Source/HMI/Editor`, `Source/HMI/Graphics` | ✅ (aperçu d'animation non livré, cf. amendement) |
 
 ## Critères d'acceptation du lot
 1. Créer, peindre et enregistrer un nouvel asset PNG depuis le canevas, puis le retrouver assignable

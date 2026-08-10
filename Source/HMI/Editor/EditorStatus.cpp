@@ -1,6 +1,7 @@
 #include "HMI/Editor/EditorStatus.h"
 
 #include <cmath>
+#include <cstdio>
 
 #include "HMI/Localization/Localization.h"
 
@@ -70,16 +71,87 @@ const char* toolHelpKey(EditorTool tool) {
     return "status.help_paint";
 }
 
+// Cle de traduction du libelle court d'un outil de canevas pixel art (LOT-54 TACHE-04) -- deja
+// utilisees par EditorActions (memes cles que les actions de la barre d'outils du canevas).
+const char* pixelToolLabelKey(PixelTool tool) {
+    switch (tool) {
+        case PixelTool::Brush:
+            return "pixel_tool.brush";
+        case PixelTool::Eraser:
+            return "pixel_tool.eraser";
+        case PixelTool::Fill:
+            return "pixel_tool.fill";
+        case PixelTool::Eyedropper:
+            return "pixel_tool.eyedropper";
+        case PixelTool::Selection:
+            return "pixel_tool.selection";
+    }
+    return "pixel_tool.brush";
+}
+
+// Cle de traduction de l'aide contextuelle d'un outil de canevas pixel art (LOT-54 TACHE-04).
+const char* pixelToolHelpKey(PixelTool tool) {
+    switch (tool) {
+        case PixelTool::Brush:
+            return "status.help_pixel_brush";
+        case PixelTool::Eraser:
+            return "status.help_pixel_eraser";
+        case PixelTool::Fill:
+            return "status.help_pixel_fill";
+        case PixelTool::Eyedropper:
+            return "status.help_pixel_eyedropper";
+        case PixelTool::Selection:
+            return "status.help_pixel_selection";
+    }
+    return "status.help_pixel_brush";
+}
+
+// Couleur R8G8B8A8_UNORM (ordre memoire R,G,B,A, meme convention que decodeImageFile/
+// encodeImageFile, LOT-54 TACHE-01) -> chaine hexadecimale "#rrggbbaa", alpha compris (une
+// pipette peut prelever une couleur partiellement transparente).
+std::string formatColorHex(std::uint32_t color) {
+    char buffer[10] = {};
+    std::snprintf(buffer, sizeof(buffer), "#%02x%02x%02x%02x",
+                  static_cast<unsigned>(color & 0xFFu), static_cast<unsigned>((color >> 8) & 0xFFu),
+                  static_cast<unsigned>((color >> 16) & 0xFFu),
+                  static_cast<unsigned>((color >> 24) & 0xFFu));
+    return std::string(buffer);
+}
+
 }  // namespace
 
 // Contenu de la barre d'etat de l'editeur (voir en-tete) : zones permanentes puis aide.
 EditorStatusLines editorStatusLines(const EditorStatusContext& context,
                                     const Localization& localization) {
     EditorStatusLines lines;
-    lines.permanent.assign(5, std::string{});  // niveau, modifie, outil, case survolee, zoom.
+    // niveau/asset, modifie, outil, case/pixel survole, zoom, couleur courante (atelier seulement).
+    lines.permanent.assign(6, std::string{});
+
+    if (context.pixelEdit) {
+        const PixelEditStatusInfo& pixel = *context.pixelEdit;
+        if (!pixel.assetName.empty()) {
+            lines.permanent[0] = formatOne(localization.text("status.zone.asset"), pixel.assetName);
+        }
+        if (pixel.dirty) {
+            lines.permanent[1] = localization.text("status.zone.dirty");
+        }
+        lines.permanent[2] = localization.text(pixelToolLabelKey(pixel.tool));
+        if (pixel.hoveredPixel) {
+            lines.permanent[3] = formatTwo(localization.text("status.zone.hover"),
+                                           pixel.hoveredPixel->first, pixel.hoveredPixel->second);
+        }
+        lines.permanent[4] = formatOne(localization.text("status.zone.zoom"), pixel.zoom * 100);
+        // Mode contraint (LOT-54 TACHE-07) : integre a la meme zone couleur plutot qu'une septieme
+        // zone -- l'information n'a de sens qu'accolee a la couleur qu'elle affecte.
+        const char* const colorKey =
+            pixel.paletteConstrained ? "status.zone.color_constrained" : "status.zone.color";
+        lines.permanent[5] = formatOne(localization.text(colorKey), formatColorHex(pixel.currentColor));
+        lines.help = localization.text(pixelToolHelpKey(pixel.tool));
+        return lines;
+    }
 
     if (!context.level) {
-        return lines;  // aucun niveau ouvert : zones et aide vides, jamais de libelle de repli.
+        return lines;  // aucun contexte actif : zones et aide vides, jamais de libelle de repli.
     }
     const LevelStatusInfo& level = *context.level;
 
@@ -95,6 +167,7 @@ EditorStatusLines editorStatusLines(const EditorStatusContext& context,
     }
     const int zoomPercent = static_cast<int>(std::lround(level.zoom * 100.0f));
     lines.permanent[4] = formatOne(localization.text("status.zone.zoom"), zoomPercent);
+    // permanent[5] (couleur) reste vide : sans objet hors atelier pixel art.
 
     lines.help = localization.text(toolHelpKey(level.tool));
     return lines;

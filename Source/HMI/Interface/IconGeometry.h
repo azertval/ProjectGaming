@@ -33,6 +33,24 @@ enum class IconId {
     Paste,
     Rename,
     ShortcutsOverview,
+    // Outils du canevas pixel art (LOT-54 TACHE-04) : groupe exclusif distinct des outils de
+    // niveau ci-dessus (`EditorActionGroup::PixelTools`, `HMI/Interface/ActionCatalog.h`).
+    PixelBrush,
+    PixelEraser,
+    PixelFill,
+    PixelEyedropper,
+    // Commandes de fichier de l'atelier pixel art (LOT-54 TACHE-05) : ouvrir/creer/enregistrer/
+    // enregistrer sous, groupe `EditorActionGroup::PixelCommands`.
+    PixelOpen,
+    PixelCreate,
+    PixelSave,
+    PixelSaveAs,
+    // Sélection et transformations de région (LOT-54 TACHE-06).
+    PixelSelectionTool,
+    PixelFlipHorizontal,
+    PixelFlipVertical,
+    PixelRotateClockwise,
+    PixelRotateCounterClockwise,
 };
 
 /// Rôle de couleur d'un trait, résolu depuis les jetons de design au moment du rendu (recoloration

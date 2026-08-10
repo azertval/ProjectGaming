@@ -55,6 +55,38 @@ TEST(EditorActionsTest, LesSixOutilsFormentUneBijectionAvecEditorTool) {
 }
 
 /**
+ * @brief Les quatre outils du canevas pixel art forment une bijection exacte avec `hmi::PixelTool`
+ *        (`LOT-54` TACHE-04) — même garantie que pour les six outils de niveau, et le groupe
+ *        `PixelTools` reste **distinct** de `LevelTools` (aucun outil de canevas n'appartient au
+ *        groupe des outils de niveau).
+ * \castest{<b>Les quatre outils de canevas forment une bijection avec PixelTool.</b><br/>
+ * \tcat Unitaire · Actions de l'editeur<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Pour chaque hmi::PixelTool, resoudre l'action puis reconvertir vers l'outil.<br/>
+ * 2. Verifier que l'action appartient au groupe PixelTools.<br/>
+ * \tattendu L'aller-retour restitue l'outil d'origine pour chacun des cinq, et chaque action
+ * appartient au groupe PixelTools.
+ * }
+ */
+TEST(EditorActionsTest, LesCinqOutilsDeCanevasFormentUneBijectionAvecPixelTool) {
+    constexpr hmi::PixelTool tools[] = {hmi::PixelTool::Brush, hmi::PixelTool::Eraser,
+                                        hmi::PixelTool::Fill, hmi::PixelTool::Eyedropper,
+                                        hmi::PixelTool::Selection};
+    std::set<hmi::IconId> seen;
+    for (hmi::PixelTool tool : tools) {
+        const hmi::IconId id = hmi::editorActionForPixelTool(tool);
+        EXPECT_TRUE(seen.insert(id).second) << "action dupliquee pour plusieurs outils";
+        EXPECT_EQ(hmi::editorActionSpec(id).group, hmi::EditorActionGroup::PixelTools);
+        EXPECT_FALSE(hmi::editorActionTool(id).has_value())
+            << "un outil de canevas ne doit pas appartenir au groupe des outils de niveau";
+        const std::optional<hmi::PixelTool> roundTrip = hmi::editorActionPixelTool(id);
+        ASSERT_TRUE(roundTrip.has_value());
+        EXPECT_EQ(*roundTrip, tool);
+    }
+    EXPECT_EQ(seen.size(), 5u);
+}
+
+/**
  * @brief Chaque commande n'a qu'une seule définition de raccourci : aucun raccourci non vide n'est
  *        attribué deux fois dans le catalogue.
  * \castest{<b>Aucun raccourci n'est attribue a deux actions.</b><br/>

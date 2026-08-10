@@ -1,6 +1,6 @@
 # TACHE-03 — Canevas : rendu net et surface invariante {#lot-54-tache-03-canevas}
 
-**Lot :** [LOT-54](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** non commencé
+**Lot :** [LOT-54](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** fait
 
 ## Contexte
 Le widget qui montre l'image en cours d'édition et transforme les gestes de souris en appels aux

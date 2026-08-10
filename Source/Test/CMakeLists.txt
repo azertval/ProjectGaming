@@ -95,6 +95,12 @@ add_executable(UnitTests
     Unit/HMI/Editor/test_mechanism_animation_assignments.cpp
     Unit/HMI/Editor/test_editor_status.cpp
     Unit/HMI/Editor/test_panel_focus.cpp
+    Unit/HMI/Editor/test_pixel_operations.cpp
+    Unit/HMI/Editor/test_pixel_history.cpp
+    Unit/HMI/Editor/test_pixel_canvas_geometry.cpp
+    Unit/HMI/Editor/test_pixel_asset_io.cpp
+    Unit/HMI/Editor/test_pixel_palette.cpp
+    Unit/HMI/Editor/test_pixel_autotile_preview.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
     ../HMI/Graphics/Camera2D.cpp
@@ -252,7 +258,42 @@ add_executable(UnitTests
     # Dimensionnement des vignettes a l'echelle d'affichage (LOT-56 TACHE-05) : arithmetique pure,
     # aucune dependance Qt/GPU.
     ../HMI/Editor/ThumbnailGeometry.cpp
+    # Operations sur tampon de pixels et historique nomme de l'atelier pixel art (LOT-54
+    # TACHE-02) : logique pure sur hmi::DecodedImage (meme type que decodeImageFile, sans les
+    # dependances Qt de son implementation), aucune dependance Qt/GPU.
+    ../HMI/Editor/PixelOperations.cpp
+    ../HMI/Editor/PixelHistory.cpp
+    # Conversions vue <-> image du canevas pixel art (LOT-54 TACHE-03) : logique pure (aucune
+    # dependance Qt/GPU), le widget PixelCanvas lui-meme (Qt) n'est compile que dans ProjectGaming,
+    # meme distinction que ThumbnailGeometry.cpp/AssetThumbnailView.cpp.
+    ../HMI/Editor/PixelCanvasGeometry.cpp
+    # Tailles d'asset proposees a la creation dans l'atelier pixel art (LOT-54 TACHE-05) : logique
+    # pure, derivee du contrat de dimensions (AssetContract.cpp, deja compile ci-dessus).
+    ../HMI/Editor/PixelAssetIO.cpp
+    # Palette de projet, extraction et contrainte de couleur (LOT-54 TACHE-07) : logique pure
+    # (std::filesystem + nlohmann::json, deja lie ci-dessous), aucune dependance Qt/GPU.
+    ../HMI/Editor/PixelPalette.cpp
+    # Mode planche a raccords de l'atelier pixel art (LOT-54 TACHE-08) : logique pure, reutilise
+    # la table canonique de TileAutotile.cpp (deja compilee ci-dessus), aucune dependance Qt/GPU.
+    ../HMI/Editor/PixelAutotilePreview.cpp
 )
+
+# Encodage/decodage d'image (LOT-54 TACHE-01) : QImage (Qt) lit et ecrit le PNG, mais aucun device
+# Direct3D n'est requis -- seul TextureLoader.cpp touche a Qt parmi les sources de UnitTests.
+# Ajoute conditionnellement : sur un poste sans Qt, UnitTests doit continuer a se configurer et
+# construire (meme garde que BUILD_EDITOR_QT dans Source/HMI/CMakeLists.txt, qui a deja resolu
+# Qt6_DIR en cache si l'application a ete traitee avant ce dossier). Qt est toujours installe en
+# CI (cf. ci.yml) : le test s'y execute donc systematiquement.
+find_package(Qt6 QUIET COMPONENTS Gui)
+if(Qt6_FOUND)
+    target_sources(UnitTests PRIVATE
+        Unit/HMI/Graphics/test_image_encode.cpp
+        ../HMI/Graphics/TextureLoader.cpp)
+    target_link_libraries(UnitTests PRIVATE Qt6::Gui)
+else()
+    message(STATUS
+        "UnitTests : Qt6 introuvable -- test d'encodage/decodage d'image (LOT-54) ignore.")
+endif()
 
 target_link_libraries(UnitTests PRIVATE
     Core

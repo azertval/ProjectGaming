@@ -5,12 +5,17 @@
 #include <QApplication>
 #include <QCheckBox>
 #include <QCloseEvent>
+#include <QColor>
+#include <QColorDialog>
+#include <QComboBox>
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QDockWidget>
+#include <QFileDialog>
 #include <QFontMetrics>
 #include <QFormLayout>
 #include <QGuiApplication>
+#include <QIcon>
 #include <QInputDialog>
 #include <QKeyEvent>
 #include <QLabel>
@@ -18,6 +23,7 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
+#include <QPixmap>
 #include <QSettings>
 #include <QSignalBlocker>
 #include <QSpinBox>
@@ -27,6 +33,7 @@
 #include <QStyleHints>
 #include <QTimer>
 #include <QToolBar>
+#include <QToolButton>
 #include <QVBoxLayout>
 #include <QWidget>
 #include <array>
@@ -36,14 +43,22 @@
 
 #include "Core/Diagnostics/MemoryLogSink.h"
 #include "HMI/Diagnostics/SessionLog.h"
+#include "HMI/Editor/AssetReferences.h"
 #include "HMI/Editor/EditorStatus.h"
 #include "HMI/Editor/LevelBrowserPanel.h"
 #include "HMI/Editor/LinkPanel.h"
 #include "HMI/Editor/DecorsPanel.h"
 #include "HMI/Editor/PanelFocus.h"
+#include "HMI/Editor/PixelAssetIO.h"
+#include "HMI/Editor/PixelCanvas.h"
+#include "HMI/Editor/PixelHistoryPanel.h"
+#include "HMI/Editor/PixelPalette.h"
+#include "HMI/Editor/PixelPalettePanel.h"
 #include "HMI/Editor/TexturePanel.h"
 #include "HMI/Editor/PalettePanel.h"
 #include "HMI/Game/GameViewport.h"
+#include "HMI/Graphics/AssetContract.h"
+#include "HMI/Graphics/TextureLoader.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Input/GamepadButton.h"
 #include "HMI/Interface/ApplicationTheme.h"
@@ -61,7 +76,10 @@ namespace {
 // Version de la disposition sérialisée : à incrémenter si l'ensemble des docks change, pour
 // invalider proprement une disposition sauvegardée devenue incompatible (`restoreState`).
 constexpr int LAYOUT_VERSION =
-    5;  // 5 : panneau Outils devenu Decors (barre d'outils + inspecteur), Textures sort du
+    7;  // 7 : panneau de palette de l'atelier pixel art rejoint le regroupement (LOT-54 TACHE-07)
+        // 6 : atelier pixel art (canevas + historique) rejoint le regroupement Niveaux/Liens
+        //     (LOT-54 TACHE-04)
+        // 5 : panneau Outils devenu Decors (barre d'outils + inspecteur), Textures sort du
         //     regroupement en onglets (LOT-57, amendement post-essai manuel)
 
 // Clés de persistance (portée application ; l'organisation/appli sont fixées dans `main`,
@@ -71,6 +89,8 @@ constexpr char STATE_KEY[] = "mainWindow/state";
 // Réglage de mise en avant automatique des panneaux (LOT-57 TACHE-02) : local à MainWindow, pas
 // une extension d'ApplicationTheme.cpp (qui concerne le thème, pas ce comportement).
 constexpr char FOLLOW_ACTIVE_TOOL_KEY[] = "panels/followActiveTool";
+// Reglage "contraindre a la palette" de l'atelier pixel art (LOT-54 TACHE-07).
+constexpr char CONSTRAIN_TO_PALETTE_KEY[] = "pixelEditor/constrainToPalette";
 
 }  // namespace
 
@@ -86,8 +106,12 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
       _decors(nullptr),
       _links(nullptr),
       _textures(nullptr),
+      _pixelCanvas(nullptr),
+      _pixelHistoryPanel(nullptr),
+      _pixelPalettePanel(nullptr),
       _actions(nullptr),
       _toolBar(nullptr),
+      _pixelToolBar(nullptr),
       _themeMenu(nullptr),
       _themeSystemAction(nullptr),
       _themeLightAction(nullptr),
@@ -122,6 +146,12 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     setCentralWidget(_stack);
 
     buildUi();  // contenu des docks (panneaux) + branchement des actions de la barre de menus.
+
+    // Contexte d'edition actif (LOT-54 TACHE-04, EX-IHM-062) : suit le focus clavier entre le
+    // niveau (_viewport) et l'atelier pixel art (_pixelCanvas) -- Annuler/Refaire/Copier/Coller
+    // (deja dispatches via _editContext) et la barre d'etat visent ainsi toujours le meme widget.
+    connect(qApp, &QApplication::focusChanged, this,
+            [this](QWidget*, QWidget* now) { updateActiveEditContext(now); });
 
     // Sélectionner une tuile dans la palette définit le type peint au clic dans le viewport.
     connect(_palette, &PalettePanel::tileSelected, _viewport,
@@ -314,6 +344,7 @@ void MainWindow::showMenu() {
     setDocksVisible(false);
     menuBar()->setVisible(false);  // pas de barre de menu sur l'écran d'accueil
     _toolBar->setVisible(false);
+    _pixelToolBar->setVisible(false);
     _actions->setEditingCommandsEnabled(false);
     _statusMessageTimer->stop();
     refreshStatusHelp();  // hors édition : zones et aide vides (aucun résidu d'état d'édition).
@@ -326,6 +357,7 @@ void MainWindow::showEditor() {
     setDocksVisible(true);
     menuBar()->setVisible(true);
     _toolBar->setVisible(true);
+    _pixelToolBar->setVisible(true);
     _actions->setEditingCommandsEnabled(true);
     _statusMessageTimer->stop();
     refreshStatusHelp();
@@ -340,6 +372,7 @@ void MainWindow::showGame() {
     setDocksVisible(false);
     menuBar()->setVisible(false);
     _toolBar->setVisible(false);
+    _pixelToolBar->setVisible(false);
     _actions->setEditingCommandsEnabled(false);
     _statusMessageTimer->stop();
     refreshStatusHelp();  // jeu : menuBar masquee -> contexte de niveau absent (pas de residu).
@@ -373,6 +406,7 @@ void MainWindow::showOptions() {
     setDocksVisible(false);
     menuBar()->setVisible(false);
     _toolBar->setVisible(false);
+    _pixelToolBar->setVisible(false);
     _actions->setEditingCommandsEnabled(false);
     _statusMessageTimer->stop();
     refreshStatusHelp();
@@ -397,6 +431,17 @@ void MainWindow::buildUi() {
     _toolBar->setObjectName(QStringLiteral("EditorToolBar"));
     _toolBar->setMovable(false);
     _actions->populateToolBar(*_toolBar);
+    // Barre d'outils DEDIEE du canevas pixel art (LOT-54 TACHE-04) : groupe d'actions distinct
+    // (EditorActionGroup::PixelTools), jamais melange a la barre d'outils du niveau ci-dessus.
+    _pixelToolBar = addToolBar(QStringLiteral("PixelToolBar"));
+    _pixelToolBar->setObjectName(QStringLiteral("PixelToolBar"));
+    _pixelToolBar->setMovable(false);
+    _actions->populatePixelToolBar(*_pixelToolBar);
+    // Temoin + bouton du selecteur de couleur courante : cree ici (barre d'outils), mais rempli et
+    // branche plus bas, APRES la construction de _pixelCanvas (sinon acces a un pointeur nul).
+    _pixelToolBar->addSeparator();
+    _pixelColorButton = new QToolButton(this);
+    _pixelToolBar->addWidget(_pixelColorButton);
 
     // Contenu des docks : les coquilles (`PalettePanel`/`DecorsPanel`/`LevelsPanel`) et leur
     // agencement viennent du `.ui` ; leurs widgets, paramétrés (chemins, dépendances), sont créés
@@ -418,19 +463,40 @@ void MainWindow::buildUi() {
                                  hmi::executableDirectory() / "Assets" / "Backgrounds",
                                  hmi::executableDirectory() / "Assets" / "Objects", _ui->TexturesPanel);
     _ui->TexturesPanel->setWidget(_textures);
+    // Atelier pixel art (LOT-54 TACHE-04) : canevas et historique visuel, meme patron que les
+    // panneaux ci-dessus (coquille du .ui, contenu branche en code).
+    _pixelCanvas = new PixelCanvas(_ui->PixelCanvasPanel);
+    _pixelCanvas->setLocalization(&_loc);  // infobulle de case en mode planche (TACHE-08).
+    _ui->PixelCanvasPanel->setWidget(_pixelCanvas);
+    // Temoin + selecteur de couleur courante (bouton cree plus haut, dans la barre d'outils) : pas
+    // une action themee (les icones d'action sont recolorees depuis les jetons, EX-IHM-051) mais
+    // un simple bouton dont la pastille montre la VRAIE couleur courante -- seul moyen d'atteindre
+    // une couleur absente de l'image ouverte (pipette) et de la palette de projet (TACHE-07).
+    updatePixelColorButtonIcon(_pixelCanvas->currentColor());
+    connect(_pixelColorButton, &QToolButton::clicked, this, [this] { openPixelColorPicker(); });
+    connect(_pixelCanvas, &PixelCanvas::currentColorChanged, this,
+            [this](std::uint32_t color) { updatePixelColorButtonIcon(color); });
+    _pixelHistoryPanel = new PixelHistoryPanel(_ui->PixelHistoryPanel);
+    _ui->PixelHistoryPanel->setWidget(_pixelHistoryPanel);
+    _pixelPalettePanel = new PixelPalettePanel(_ui->PixelPalettePanel);
+    _ui->PixelPalettePanel->setWidget(_pixelPalettePanel);
 
-    // Regroupement par defaut des panneaux Niveaux/Liens en onglets (LOT-57 TACHE-02) : chacun
-    // reste individuellement deplacable/detachable/refermable (EX-IHM-010), seule la disposition
-    // par defaut change. Textures redevient un dock independant, comme Palette/Decors (LOT-57,
-    // amendement post-essai manuel). Doit preceder la capture de _defaultState (constructeur,
-    // apres buildUi()).
+    // Regroupement par defaut des panneaux Niveaux/Liens/Atelier/Historique/Palette en onglets
+    // (LOT-57 TACHE-02, etendu LOT-54 TACHE-04/TACHE-07) : chacun reste individuellement
+    // deplacable/detachable/refermable (EX-IHM-010), seule la disposition par defaut change.
+    // Textures redevient un dock independant, comme Palette (niveau)/Decors (LOT-57, amendement
+    // post-essai manuel). Doit preceder la capture de _defaultState (constructeur, apres buildUi()).
     tabifyDockWidget(_ui->LevelsPanel, _ui->LinksPanel);
+    tabifyDockWidget(_ui->LinksPanel, _ui->PixelCanvasPanel);
+    tabifyDockWidget(_ui->PixelCanvasPanel, _ui->PixelHistoryPanel);
+    tabifyDockWidget(_ui->PixelHistoryPanel, _ui->PixelPalettePanel);
     // Un changement de visibilite d'un de ces docks NON provoque par notre propre code (mise en
     // avant, bascule de mode, restauration de disposition -- toutes gardees par
     // _suppressPanelFocusTracking) ne peut venir que d'un choix explicite de l'utilisateur : cliquer
     // un onglet ou fermer/rouvrir le panneau. Meme principe pour un detachement (topLevelChanged),
     // toujours explicite, jamais gardee.
-    for (QDockWidget* const dock : {_ui->LevelsPanel, _ui->LinksPanel}) {
+    for (QDockWidget* const dock : {_ui->LevelsPanel, _ui->LinksPanel, _ui->PixelCanvasPanel,
+                                    _ui->PixelHistoryPanel, _ui->PixelPalettePanel}) {
         connect(dock, &QDockWidget::visibilityChanged, this, [this](bool) {
             if (!_suppressPanelFocusTracking) {
                 _userPickedTab = true;
@@ -448,6 +514,150 @@ void MainWindow::buildUi() {
             }
         });
     }
+    // Outils du canevas pixel art (LOT-54 TACHE-04) : meme patron que les outils de niveau
+    // ci-dessus, sur le groupe d'actions distinct EditorActionGroup::PixelTools. Pas de touche
+    // dediee a resynchroniser aujourd'hui (aucun raccourci clavier sur ces quatre actions) :
+    // l'action est l'unique source de verite, contrairement aux outils de niveau.
+    for (const hmi::PixelTool tool :
+        {hmi::PixelTool::Brush, hmi::PixelTool::Eraser, hmi::PixelTool::Fill,
+         hmi::PixelTool::Eyedropper, hmi::PixelTool::Selection}) {
+        connect(_actions->pixelToolAction(tool), &QAction::toggled, _pixelCanvas,
+                [this, tool](bool on) {
+                    if (!on) {
+                        return;
+                    }
+                    _pixelCanvas->setActiveTool(tool);
+                    refreshStatusHelp();
+                    applyPixelPanelFocus(tool);
+                });
+    }
+    // Canevas pixel art : recalcule de la barre d'etat a chaque changement pertinent (LOT-54
+    // TACHE-04), meme discipline que le viewport ci-dessous. L'historique visuel se reconstruit a
+    // chaque changement de l'historique (nouvelle entree, annuler, refaire).
+    connect(_pixelCanvas, &PixelCanvas::imageChanged, this, [this] {
+        refreshStatusHelp();
+        updateLivePreview();
+    });
+    connect(_pixelCanvas, &PixelCanvas::hoveredPixelChanged, this,
+            [this](std::optional<std::pair<int, int>>) { refreshStatusHelp(); });
+    connect(_pixelCanvas, &PixelCanvas::historyChanged, this, [this] {
+        _pixelHistoryPanel->refresh(_pixelCanvas->history());
+        refreshStatusHelp();
+    });
+    connect(_pixelHistoryPanel, &PixelHistoryPanel::jumpRequested, _pixelCanvas,
+            &PixelCanvas::jumpHistoryTo);
+    _pixelHistoryPanel->refresh(_pixelCanvas->history());  // etat initial (historique vide).
+
+    // Palette de projet de l'atelier pixel art (LOT-54 TACHE-07) : donnee d'auteur persistee dans
+    // Assets/palettes.json, distincte des jetons de design (epic.md, decision de cadrage).
+    _pixelPalette = hmi::PixelPalette::loadFromFile(hmi::executableDirectory() / "Assets" /
+                                                    "palettes.json");
+    _pixelPalettePanel->refresh(_pixelPalette);
+    syncPaletteToCanvas();
+    _pixelPalettePanel->setConstrainEnabled(
+        QSettings().value(QString::fromLatin1(CONSTRAIN_TO_PALETTE_KEY), false).toBool());
+    _pixelCanvas->setPaletteConstrained(_pixelPalettePanel->constrainEnabled());
+
+    connect(_pixelPalettePanel, &PixelPalettePanel::addRequested, this, [this] {
+        const std::string name =
+            text("pixel_palette.new_color_name")
+                .arg(static_cast<int>(_pixelPalette.entries().size()) + 1)
+                .toStdString();
+        _pixelPalette.add(name, _pixelCanvas->currentColor());
+        _pixelPalettePanel->refresh(_pixelPalette);
+        syncPaletteToCanvas();
+        savePixelPalette();
+    });
+    connect(_pixelPalettePanel, &PixelPalettePanel::removeRequested, this,
+            [this](std::size_t index) {
+                if (_pixelPalette.removeAt(index)) {
+                    _pixelPalettePanel->refresh(_pixelPalette);
+                    syncPaletteToCanvas();
+                    savePixelPalette();
+                }
+            });
+    connect(_pixelPalettePanel, &PixelPalettePanel::renameRequested, this,
+            [this](std::size_t index) {
+                if (index >= _pixelPalette.entries().size()) {
+                    return;
+                }
+                bool accepted = false;
+                const QString newName = QInputDialog::getText(
+                    this, text("pixel_palette.rename"), text("pixel_palette.rename_prompt"),
+                    QLineEdit::Normal,
+                    QString::fromStdString(_pixelPalette.entries()[index].name), &accepted);
+                if (!accepted || newName.isEmpty()) {
+                    return;
+                }
+                _pixelPalette.renameAt(index, newName.toStdString());
+                _pixelPalettePanel->refresh(_pixelPalette);
+                savePixelPalette();
+            });
+    connect(_pixelPalettePanel, &PixelPalettePanel::moveRequested, this,
+            [this](std::size_t index, bool up) {
+                const std::size_t target = up ? index - 1 : index + 1;
+                if (_pixelPalette.moveEntry(index, target)) {
+                    _pixelPalettePanel->refresh(_pixelPalette);
+                    syncPaletteToCanvas();
+                    savePixelPalette();
+                }
+            });
+    connect(_pixelPalettePanel, &PixelPalettePanel::extractRequested, this, [this] {
+        for (const hmi::PixelPaletteExtractionEntry& extracted :
+            hmi::extractPalette(_pixelCanvas->image())) {
+            const std::string name = text("pixel_palette.new_color_name")
+                                         .arg(static_cast<int>(_pixelPalette.entries().size()) + 1)
+                                         .toStdString();
+            _pixelPalette.add(name, extracted.color);
+        }
+        _pixelPalettePanel->refresh(_pixelPalette);
+        syncPaletteToCanvas();
+        savePixelPalette();
+    });
+    connect(_pixelPalettePanel, &PixelPalettePanel::constrainToggled, this, [this](bool enabled) {
+        _pixelCanvas->setPaletteConstrained(enabled);
+        QSettings().setValue(QString::fromLatin1(CONSTRAIN_TO_PALETTE_KEY), enabled);
+        refreshStatusHelp();
+    });
+    connect(_pixelPalettePanel, &PixelPalettePanel::colorActivated, this,
+            [this](std::uint32_t color) {
+                _pixelCanvas->setCurrentColor(color);
+                refreshStatusHelp();
+            });
+
+    // Commandes de fichier de l'atelier pixel art (LOT-54 TACHE-05).
+    connect(_actions->action(hmi::IconId::PixelOpen), &QAction::triggered, this,
+            [this] { openPixelAssetOpenDialog(); });
+    connect(_actions->action(hmi::IconId::PixelCreate), &QAction::triggered, this,
+            [this] { openPixelAssetCreateDialog(); });
+    connect(_actions->action(hmi::IconId::PixelSave), &QAction::triggered, this,
+            [this] { savePixelAsset(false); });
+    connect(_actions->action(hmi::IconId::PixelSaveAs), &QAction::triggered, this,
+            [this] { savePixelAsset(true); });
+    // Menu dedie (decouvrabilite, EX-EDIT-015), memes actions que la barre d'outils du canevas --
+    // aucune seconde definition.
+    _pixelMenu = menuBar()->addMenu(QString());
+    _pixelMenu->addAction(_actions->action(hmi::IconId::PixelOpen));
+    _pixelMenu->addAction(_actions->action(hmi::IconId::PixelCreate));
+    _pixelMenu->addAction(_actions->action(hmi::IconId::PixelSave));
+    _pixelMenu->addAction(_actions->action(hmi::IconId::PixelSaveAs));
+
+    // Commandes de region (LOT-54 TACHE-06) : Copier/Coller reutilisent le dispatch existant
+    // (_editContext, IconId::Copy/Paste ci-dessous) -- rien a cabler ici pour elles.
+    connect(_actions->action(hmi::IconId::PixelFlipHorizontal), &QAction::triggered, _pixelCanvas,
+            [this] { _pixelCanvas->applyFlipHorizontal(); });
+    connect(_actions->action(hmi::IconId::PixelFlipVertical), &QAction::triggered, _pixelCanvas,
+            [this] { _pixelCanvas->applyFlipVertical(); });
+    connect(_actions->action(hmi::IconId::PixelRotateClockwise), &QAction::triggered, _pixelCanvas,
+            [this] { _pixelCanvas->applyRotateClockwise(); });
+    connect(_actions->action(hmi::IconId::PixelRotateCounterClockwise), &QAction::triggered,
+            _pixelCanvas, [this] { _pixelCanvas->applyRotateCounterClockwise(); });
+    _pixelMenu->addSeparator();
+    _pixelMenu->addAction(_actions->action(hmi::IconId::PixelFlipHorizontal));
+    _pixelMenu->addAction(_actions->action(hmi::IconId::PixelFlipVertical));
+    _pixelMenu->addAction(_actions->action(hmi::IconId::PixelRotateClockwise));
+    _pixelMenu->addAction(_actions->action(hmi::IconId::PixelRotateCounterClockwise));
+
     connect(_actions->action(hmi::IconId::Save), &QAction::triggered, _viewport,
             [this] { _viewport->save(); });
     connect(_actions->action(hmi::IconId::Playtest), &QAction::triggered, _viewport,
@@ -585,6 +795,9 @@ void MainWindow::buildUi() {
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->DecorsPanel->toggleViewAction());
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->LinksPanel->toggleViewAction());
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->TexturesPanel->toggleViewAction());
+    _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->PixelCanvasPanel->toggleViewAction());
+    _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->PixelHistoryPanel->toggleViewAction());
+    _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->PixelPalettePanel->toggleViewAction());
     _ui->viewMenu->insertSeparator(_ui->actResetLayout);
 
     // Mise en avant automatique des panneaux de droite selon l'outil actif (LOT-57 TACHE-02) :
@@ -647,7 +860,9 @@ void MainWindow::buildUi() {
     _statusHover->setMinimumWidth(fontMetrics().horizontalAdvance(QStringLiteral("(999, 999)")));
     _statusZoom = new QLabel(this);
     _statusZoom->setMinimumWidth(fontMetrics().horizontalAdvance(QStringLiteral("Zoom : 999%")));
-    for (QLabel* const zone : {_statusLevel, _statusDirty, _statusTool, _statusHover, _statusZoom}) {
+    _statusColor = new QLabel(this);  // Couleur courante de l'atelier pixel art (LOT-54 TACHE-04).
+    for (QLabel* const zone :
+        {_statusLevel, _statusDirty, _statusTool, _statusHover, _statusZoom, _statusColor}) {
         statusBar()->addPermanentWidget(zone);
     }
     _statusMessageTimer = new QTimer(this);
@@ -768,16 +983,30 @@ QString MainWindow::text(const char* key) const {
 
 void MainWindow::refreshStatusHelp() {
     EditorStatusContext context;
-    // Contexte de niveau seulement en édition (pas en jeu/essai ni au menu/Options) : même
-    // condition que l'ancien rechargement de `status.edit_help` en changement de langue.
+    // Contexte actif seulement en édition (pas en jeu/essai ni au menu/Options) : même condition
+    // que l'ancien rechargement de `status.edit_help` en changement de langue. Lequel des deux
+    // contextes (niveau/atelier) dépend du widget qui a le focus clavier (_editContext, LOT-54
+    // TACHE-04) -- jamais les deux en même temps (EX-IHM-062).
     if (_stack->currentWidget() == _editorContainer && menuBar()->isVisible()) {
-        LevelStatusInfo level;
-        level.name = _viewport->draft().name();
-        level.dirty = _viewport->isDirty();
-        level.tool = _viewport->activeTool();
-        level.hoveredCell = _viewport->hoveredCell();
-        level.zoom = _viewport->zoom();
-        context.level = level;
+        if (_editContext == static_cast<EditContextTarget*>(_pixelCanvas)) {
+            PixelEditStatusInfo pixel;
+            pixel.assetName = _pixelCanvas->assetName();
+            pixel.dirty = _pixelCanvas->isDirty();
+            pixel.tool = _pixelCanvas->activeTool();
+            pixel.hoveredPixel = _pixelCanvas->hoveredPixel();
+            pixel.zoom = _pixelCanvas->view().zoom;
+            pixel.currentColor = _pixelCanvas->currentColor();
+            pixel.paletteConstrained = _pixelCanvas->paletteConstrained();
+            context.pixelEdit = pixel;
+        } else {
+            LevelStatusInfo level;
+            level.name = _viewport->draft().name();
+            level.dirty = _viewport->isDirty();
+            level.tool = _viewport->activeTool();
+            level.hoveredCell = _viewport->hoveredCell();
+            level.zoom = _viewport->zoom();
+            context.level = level;
+        }
     }
     const EditorStatusLines lines = editorStatusLines(context, _loc);
     _statusLevel->setText(QString::fromStdString(lines.permanent[0]));
@@ -785,6 +1014,7 @@ void MainWindow::refreshStatusHelp() {
     _statusTool->setText(QString::fromStdString(lines.permanent[2]));
     _statusHover->setText(QString::fromStdString(lines.permanent[3]));
     _statusZoom->setText(QString::fromStdString(lines.permanent[4]));
+    _statusColor->setText(QString::fromStdString(lines.permanent[5]));
     statusBar()->showMessage(QString::fromStdString(lines.help));
 }
 
@@ -804,8 +1034,23 @@ void MainWindow::applyPanelFocus(hmi::EditorTool tool) {
     if (!panel) {
         return;  // cet outil n'a pas de panneau dedie (ex. Decor : panneau Outils, jamais masque).
     }
+    raisePanel(*panel);
+}
+
+void MainWindow::applyPixelPanelFocus(hmi::PixelTool tool) {
+    if (!_actFollowActiveTool->isChecked() || _userPickedTab) {
+        return;
+    }
+    const std::optional<hmi::PanelId> panel = hmi::panelForPixelTool(tool);
+    if (!panel) {
+        return;
+    }
+    raisePanel(*panel);
+}
+
+void MainWindow::raisePanel(hmi::PanelId panel) {
     QDockWidget* dock = nullptr;
-    switch (*panel) {
+    switch (panel) {
         case hmi::PanelId::Levels:
             dock = _ui->LevelsPanel;
             break;
@@ -815,12 +1060,263 @@ void MainWindow::applyPanelFocus(hmi::EditorTool tool) {
         case hmi::PanelId::Textures:
             dock = _ui->TexturesPanel;
             break;
+        case hmi::PanelId::PixelCanvas:
+            dock = _ui->PixelCanvasPanel;
+            break;
+        case hmi::PanelId::PixelHistory:
+            dock = _ui->PixelHistoryPanel;
+            break;
     }
     // raise() met l'onglet au premier plan sans voler le focus clavier au canevas -- une
     // suggestion, jamais une confiscation (ligne rouge de cette tache).
     _suppressPanelFocusTracking = true;
     dock->raise();
     _suppressPanelFocusTracking = false;
+}
+
+void MainWindow::updateActiveEditContext(QWidget* focused) {
+    if (focused == nullptr) {
+        return;  // perte de focus (fenetre inactive) : conserve le contexte actuel.
+    }
+    EditContextTarget* const target = (focused == _pixelCanvas || _pixelCanvas->isAncestorOf(focused))
+                                          ? static_cast<EditContextTarget*>(_pixelCanvas)
+                                          : static_cast<EditContextTarget*>(_viewport);
+    if (target != _editContext) {
+        _editContext = target;
+        refreshStatusHelp();  // les zones affichees dependent du contexte actif (LOT-54 TACHE-04).
+    }
+}
+
+bool MainWindow::confirmDiscardPixelChanges() {
+    if (!_pixelCanvas->isDirty()) {
+        return true;
+    }
+    // Meme patron que le garde-fou d'ouverture de niveau (EX-EDIT-021) : la meme paire de cles de
+    // traduction convient, la question posee est identique pour un autre type de document.
+    const QMessageBox::StandardButton answer =
+        QMessageBox::question(this, text("dialog.unsaved_title"), text("dialog.unsaved_text"));
+    return answer == QMessageBox::Yes;
+}
+
+std::string MainWindow::pixelAssetCacheKey() const {
+    std::error_code error;
+    const std::filesystem::path assetsDirectory = hmi::executableDirectory() / "Assets";
+    const std::filesystem::path relative =
+        std::filesystem::relative(_pixelAssetPath, assetsDirectory, error);
+    if (error) {
+        return _pixelAssetPath.filename().string();  // repli degrade, jamais une exception.
+    }
+    return relative.generic_string();  // barres obliques, meme convention que "Skins/mur.png".
+}
+
+void MainWindow::updateLivePreview() {
+    if (_pixelAssetPath.empty()) {
+        return;  // asset pas encore enregistre une premiere fois : rien a montrer (TACHE-08).
+    }
+    if (!hmi::encodeImageFile(_pixelAssetPath, _pixelCanvas->image())) {
+        return;  // echec silencieux : l'apercu live n'est pas une operation critique.
+    }
+    // Invalidation CIBLEE (LOT-40/LOT-43, TextureCache::invalidate) : regroupee par geste, puisque
+    // imageChanged n'est emis qu'une fois par geste complet (TACHE-02/TACHE-03), jamais par pixel.
+    _viewport->invalidateAsset(pixelAssetCacheKey());
+}
+
+void MainWindow::updatePixelColorButtonIcon(std::uint32_t color) {
+    constexpr int SWATCH_SIZE = 20;
+    QPixmap pixmap(SWATCH_SIZE, SWATCH_SIZE);
+    pixmap.fill(QColor(static_cast<int>(color & 0xFFu), static_cast<int>((color >> 8) & 0xFFu),
+                       static_cast<int>((color >> 16) & 0xFFu),
+                       static_cast<int>((color >> 24) & 0xFFu)));
+    _pixelColorButton->setIcon(QIcon(pixmap));
+}
+
+void MainWindow::openPixelColorPicker() {
+    const std::uint32_t current = _pixelCanvas->currentColor();
+    const QColor initial(static_cast<int>(current & 0xFFu), static_cast<int>((current >> 8) & 0xFFu),
+                         static_cast<int>((current >> 16) & 0xFFu),
+                         static_cast<int>((current >> 24) & 0xFFu));
+    const QColor chosen = QColorDialog::getColor(initial, this, text("pixel.color_picker_title"),
+                                                 QColorDialog::ShowAlphaChannel);
+    if (!chosen.isValid()) {
+        return;
+    }
+    const std::uint32_t packed =
+        static_cast<std::uint32_t>(chosen.red()) | (static_cast<std::uint32_t>(chosen.green()) << 8) |
+        (static_cast<std::uint32_t>(chosen.blue()) << 16) |
+        (static_cast<std::uint32_t>(chosen.alpha()) << 24);
+    _pixelCanvas->setCurrentColor(packed);
+}
+
+void MainWindow::openPixelAssetOpenDialog() {
+    if (!confirmDiscardPixelChanges()) {
+        return;
+    }
+    const QString directory =
+        QString::fromStdString((hmi::executableDirectory() / "Assets").string());
+    const QString path = QFileDialog::getOpenFileName(this, text("pixel.open_title"), directory,
+                                                       QStringLiteral("PNG (*.png)"));
+    if (path.isEmpty()) {
+        return;
+    }
+    const std::filesystem::path fsPath(path.toStdString());
+    const std::optional<hmi::DecodedImage> decoded = hmi::decodeImageFile(fsPath);
+    if (!decoded) {
+        showTransientStatusMessage(text("pixel.open_failed"), 5000);
+        return;
+    }
+    _pixelCanvas->setImage(*decoded);
+    _pixelCanvas->setAssetName(fsPath.filename().string());
+    _pixelAssetPath = fsPath;
+    refreshStatusHelp();
+}
+
+void MainWindow::openPixelAssetCreateDialog() {
+    if (!confirmDiscardPixelChanges()) {
+        return;
+    }
+
+    // Familles creables depuis l'atelier : Atlas exclu (fichier historique unique, jamais recree a
+    // la main) et Font exclu (decoupe par ses metriques, hors perimetre d'un canevas generique).
+    static constexpr hmi::AssetFamily FAMILIES[] = {
+        hmi::AssetFamily::TileSkin,       hmi::AssetFamily::AutotileSheet,
+        hmi::AssetFamily::Object,         hmi::AssetFamily::CharacterSheet,
+        hmi::AssetFamily::Background,     hmi::AssetFamily::Decor,
+    };
+
+    QDialog dialog(this);
+    dialog.setWindowTitle(text("pixel.create_title"));
+
+    auto* const familyCombo = new QComboBox(&dialog);
+    for (const hmi::AssetFamily family : FAMILIES) {
+        familyCombo->addItem(QString::fromUtf8(hmi::assetFamilyName(family)));
+    }
+    auto* const sizeCombo = new QComboBox(&dialog);
+    auto* const widthSpin = new QSpinBox(&dialog);
+    widthSpin->setRange(1, 2048);
+    auto* const heightSpin = new QSpinBox(&dialog);
+    heightSpin->setRange(1, 2048);
+
+    const auto refreshSizeControls = [&](int index) {
+        if (index < 0) {
+            return;
+        }
+        const std::vector<std::pair<int, int>> sizes =
+            hmi::validAssetSizes(FAMILIES[static_cast<std::size_t>(index)]);
+        sizeCombo->clear();
+        for (const auto& [width, height] : sizes) {
+            sizeCombo->addItem(QStringLiteral("%1 x %2").arg(width).arg(height));
+        }
+        const bool freeform = sizes.empty();
+        sizeCombo->setVisible(!freeform);
+        widthSpin->setVisible(freeform);
+        heightSpin->setVisible(freeform);
+    };
+    connect(familyCombo, &QComboBox::currentIndexChanged, &dialog, refreshSizeControls);
+    refreshSizeControls(0);
+
+    auto* const form = new QFormLayout(&dialog);
+    form->addRow(text("pixel.create_family"), familyCombo);
+    form->addRow(text("pixel.create_size"), sizeCombo);
+    form->addRow(widthSpin);
+    form->addRow(heightSpin);
+    auto* const buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
+    form->addRow(buttons);
+    connect(buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+    connect(buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+
+    if (dialog.exec() != QDialog::Accepted) {
+        return;
+    }
+
+    const hmi::AssetFamily chosenFamily = FAMILIES[static_cast<std::size_t>(familyCombo->currentIndex())];
+    const std::vector<std::pair<int, int>> sizes = hmi::validAssetSizes(chosenFamily);
+    int width = 0;
+    int height = 0;
+    if (!sizes.empty()) {
+        const auto& [sizeWidth, sizeHeight] = sizes[static_cast<std::size_t>(sizeCombo->currentIndex())];
+        width = sizeWidth;
+        height = sizeHeight;
+    } else {
+        width = widthSpin->value();
+        height = heightSpin->value();
+    }
+
+    hmi::DecodedImage image;
+    image.width = width;
+    image.height = height;
+    image.pixels.assign(static_cast<std::size_t>(width) * static_cast<std::size_t>(height), 0u);
+    _pixelCanvas->setImage(image);  // assetName/chemin restent vides : nouvel asset, pas encore enregistre.
+    _pixelAssetPath.clear();
+    refreshStatusHelp();
+}
+
+void MainWindow::savePixelAsset(bool saveAs) {
+    std::filesystem::path target = _pixelAssetPath;
+    if (saveAs || target.empty()) {
+        const std::filesystem::path startDirectory =
+            target.empty() ? hmi::executableDirectory() / "Assets" : target.parent_path();
+        const QString path = QFileDialog::getSaveFileName(
+            this, text("pixel.save_title"), QString::fromStdString(startDirectory.string()),
+            QStringLiteral("PNG (*.png)"));
+        if (path.isEmpty()) {
+            return;
+        }
+        target = std::filesystem::path(path.toStdString());
+    }
+
+    // Garde-fou d'ecrasement (LOT-43) : un asset REFERENCE demande confirmation, en nommant les
+    // references -- jamais silencieux (EX-EDIT-026). Un asset absent ou non reference s'ecrit sans
+    // demander.
+    std::error_code existsError;
+    if (std::filesystem::exists(target, existsError)) {
+        const std::vector<hmi::AssetReference> references =
+            hmi::findSkinCatalogReferences(_viewport->skinCatalog(), target.filename().string());
+        if (!references.empty()) {
+            const QMessageBox::StandardButton answer = QMessageBox::question(
+                this, text("pixel.overwrite_title"),
+                text("pixel.overwrite_text")
+                    .arg(QString::fromStdString(target.filename().string()),
+                        QString::fromStdString(hmi::describeReferences(references))));
+            if (answer != QMessageBox::Yes) {
+                return;
+            }
+        }
+    }
+
+    if (!hmi::encodeImageFile(target, _pixelCanvas->image())) {
+        showTransientStatusMessage(text("pixel.save_failed"), 5000);
+        return;
+    }
+    _pixelAssetPath = target;
+    _pixelCanvas->setAssetName(target.filename().string());
+    _pixelCanvas->markSaved();
+    // Invalidation CIBLEE du niveau (LOT-40/LOT-43/TACHE-08) : un seul asset a relire, jamais tout
+    // le TextureCache. Les caches de vignettes des panneaux (Textures/Decors/Palette), eux,
+    // n'exposent qu'un rechargement complet -- acceptable ici, sur un enregistrement explicite
+    // plutot qu'a chaque geste (updateLivePreview, plus haut, ne les touche pas).
+    _viewport->invalidateAsset(pixelAssetCacheKey());
+    _textures->reloadAssets();
+    _decors->reloadDecorThumbnails();
+    _palette->clearThumbnailCache();
+    _palette->refreshThumbnails(_viewport->renderMode(), _textures->currentSet());
+    showTransientStatusMessage(
+        text("pixel.save_done").arg(QString::fromStdString(target.filename().string())), 3000);
+    refreshStatusHelp();
+}
+
+void MainWindow::syncPaletteToCanvas() {
+    std::vector<std::uint32_t> colors;
+    colors.reserve(_pixelPalette.entries().size());
+    for (const hmi::PixelPaletteEntry& entry : _pixelPalette.entries()) {
+        colors.push_back(entry.color);
+    }
+    _pixelCanvas->setPaletteColors(std::move(colors));
+}
+
+void MainWindow::savePixelPalette() {
+    if (!_pixelPalette.saveToFile(hmi::executableDirectory() / "Assets" / "palettes.json")) {
+        HMI_LOG_WARNING("Echec de l'enregistrement de la palette de projet (palettes.json).");
+    }
 }
 
 void MainWindow::retranslateUi() {
@@ -832,6 +1328,10 @@ void MainWindow::retranslateUi() {
     _ui->LevelsPanel->setWindowTitle(text("dock.levels"));
     _ui->LinksPanel->setWindowTitle(text("dock.links"));
     _ui->TexturesPanel->setWindowTitle(text("dock.textures"));
+    _ui->PixelCanvasPanel->setWindowTitle(text("dock.pixel_canvas"));
+    _ui->PixelHistoryPanel->setWindowTitle(text("dock.pixel_history"));
+    _ui->PixelPalettePanel->setWindowTitle(text("dock.pixel_palette"));
+    _pixelColorButton->setToolTip(text("pixel.color_picker_title"));
 
     // Barre de menus.
     _ui->appMenu->setTitle(text("menubar.application"));
@@ -839,6 +1339,7 @@ void MainWindow::retranslateUi() {
     _ui->actQuit->setText(text("menubar.quit"));
     _ui->levelMenu->setTitle(text("menubar.level"));
     _ui->actResize->setText(text("menubar.resize"));
+    _pixelMenu->setTitle(text("menubar.pixel"));
     _ui->viewMenu->setTitle(text("menubar.view"));
     _themeMenu->setTitle(text("menubar.theme"));
     _themeSystemAction->setText(text("menubar.theme_system"));
@@ -864,6 +1365,8 @@ void MainWindow::retranslateUi() {
     _levels->retranslateUi(_loc);
     _links->retranslateUi(_loc);
     _textures->retranslateUi(_loc);
+    _pixelHistoryPanel->retranslateUi(_loc);
+    _pixelPalettePanel->retranslateUi(_loc);
 
     // Recalcule la barre d'état dans la nouvelle langue (zones + aide) : un changement de langue ne
     // doit pas rester sur une aide figée dans l'ancienne (LOT-57 TACHE-01).

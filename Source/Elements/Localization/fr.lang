@@ -41,6 +41,9 @@ dock.decors = Décors
 dock.levels = Niveaux
 dock.links = Liens
 dock.textures = Textures
+dock.pixel_canvas = Atelier
+dock.pixel_history = Historique de l'atelier
+dock.pixel_palette = Palette
 
 # Panneau Textures (LOT-42)
 textures.skin_set = Jeu de skins
@@ -103,15 +106,23 @@ assets.operation_failed = Opération impossible
 
 # Barre de statut et dialogues
 status.zone.level = Niveau : %1
+status.zone.asset = Asset : %1
 status.zone.dirty = Modifié
 status.zone.hover = (%1, %2)
 status.zone.zoom = Zoom : %1%
+status.zone.color = Couleur : %1
+status.zone.color_constrained = Couleur : %1 (contrainte à la palette)
 status.help_paint = Peindre : clic gauche/glisser · Ctrl+Z/Y : annuler/refaire
 status.help_rectangle = Rectangle : glisser pour peindre une zone · Ctrl+Z/Y : annuler/refaire
 status.help_selection = Sélection : glisser pour délimiter · Ctrl+C/V : copier/coller
 status.help_link = Lien : cliquer un déclencheur puis sa cible · recliquer la même paire délie
 status.help_texture_assign = Texture : clic gauche assigne, reclic ou clic droit retire
 status.help_decor = Décor : cliquer une zone vide pour poser, cliquer un décor pour le manipuler
+status.help_pixel_brush = Pinceau : clic gauche/glisser peint · Ctrl+Z/Y : annuler/refaire
+status.help_pixel_eraser = Gomme : clic gauche/glisser efface · Ctrl+Z/Y : annuler/refaire
+status.help_pixel_fill = Pot de peinture : clic remplit la zone connexe
+status.help_pixel_eyedropper = Pipette : clic prélève la couleur du pixel visé
+status.help_pixel_selection = Sélection : glisser délimite ou déplace · Ctrl+C/V : copier/coller
 status.texture_assigned = Texture assignée : %1
 status.texture_removed = Texture retirée.
 status.texture_no_asset_selected = Aucun asset sélectionné : choisissez-en un dans l'onglet « Objets » du panneau Textures.
@@ -137,6 +148,14 @@ tool.decor_layer_decor = Décor
 tool.decor_layer_foreground = Premier plan
 tool.decor_snap_to_grid = Aimanter à la grille
 
+# Outils du canevas pixel art (LOT-54 TACHE-04) : groupe exclusif distinct des outils de niveau
+# ci-dessus, reutilises aussi comme libelle court dans la barre d'etat (hmi::EditorStatus).
+pixel_tool.brush = Pinceau
+pixel_tool.eraser = Gomme
+pixel_tool.fill = Pot de peinture
+pixel_tool.eyedropper = Pipette
+pixel_tool.selection = Sélection
+
 # Actions/commandes de la barre d'outils (LOT-56 TACHE-04) : libellé seul, le raccourci vient de
 # l'action elle-même (EditorActions::retranslateUi), jamais saisi ici.
 action.save = Enregistrer
@@ -150,6 +169,60 @@ action.copy = Copier
 action.paste = Coller
 action.rename = Renommer
 action.shortcuts_overview = Aperçu des raccourcis
+
+# Commandes de fichier de l'atelier pixel art (LOT-54 TACHE-05).
+action.pixel_open = Ouvrir un asset…
+action.pixel_create = Créer un asset…
+action.pixel_save = Enregistrer l'asset
+action.pixel_save_as = Enregistrer l'asset sous…
+action.pixel_flip_horizontal = Symétrie horizontale
+action.pixel_flip_vertical = Symétrie verticale
+action.pixel_rotate_cw = Pivoter (horaire)
+action.pixel_rotate_ccw = Pivoter (antihoraire)
+
+# Panneau de palette de l'atelier pixel art (LOT-54 TACHE-07).
+pixel_palette.add = Ajouter
+pixel_palette.remove = Retirer
+pixel_palette.rename = Renommer
+pixel_palette.move_up = Monter
+pixel_palette.move_down = Descendre
+pixel_palette.extract = Extraire de l'asset
+pixel_palette.constrain = Contraindre à la palette
+pixel_palette.rename_prompt = Nouveau nom de la couleur
+pixel_palette.new_color_name = Couleur %1
+
+# Configurations de voisinage d'une planche a raccords (LOT-42, meme table que TileAutotile.cpp) :
+# libelle affiche dans l'atelier pixel art en mode planche (LOT-54 TACHE-08).
+autotile.config.0 = Tuile isolée
+autotile.config.1 = Extrémité basse de colonne
+autotile.config.2 = Extrémité gauche de rangée
+autotile.config.3 = Coin extérieur bas-gauche
+autotile.config.4 = Extrémité haute de colonne
+autotile.config.5 = Segment vertical
+autotile.config.6 = Coin extérieur haut-gauche
+autotile.config.7 = Bord gauche
+autotile.config.8 = Extrémité droite de rangée
+autotile.config.9 = Coin extérieur bas-droite
+autotile.config.10 = Segment horizontal
+autotile.config.11 = Bord bas
+autotile.config.12 = Coin extérieur haut-droite
+autotile.config.13 = Bord droit
+autotile.config.14 = Bord haut
+autotile.config.15 = Intérieur plein
+
+# Boîtes de dialogue de l'atelier pixel art (LOT-54 TACHE-05).
+menubar.pixel = Atelier
+pixel.open_title = Ouvrir un asset
+pixel.open_failed = Échec de l'ouverture de l'asset.
+pixel.create_title = Créer un asset
+pixel.create_family = Famille
+pixel.create_size = Taille
+pixel.save_title = Enregistrer l'asset
+pixel.save_failed = Échec de l'enregistrement de l'asset.
+pixel.save_done = Asset enregistré : %1
+pixel.overwrite_title = Remplacer l'asset ?
+pixel.overwrite_text = « %1 » est référencé par : %2. Le remplacer ?
+pixel.color_picker_title = Couleur courante
 
 # Panneau Liens (LOT-37)
 link.column.type = Type
@@ -279,3 +352,15 @@ palette.tile.spikes_left = Pics vers la gauche
 palette.tile.spikes_right = Pics vers la droite
 palette.tile.entry = Entrée
 palette.tile.exit = Sortie
+
+# Atelier pixel art (LOT-54) : noms d'operations de l'historique du canevas, distincts de
+# l'historique du niveau (EX-IHM-062, TACHE-02).
+pixel_editor.operation.brush = pinceau
+pixel_editor.operation.eraser = gomme
+pixel_editor.operation.fill = remplissage
+pixel_editor.operation.move = déplacement de région
+pixel_editor.operation.flip_horizontal = symétrie horizontale
+pixel_editor.operation.flip_vertical = symétrie verticale
+pixel_editor.operation.rotate_cw = rotation horaire
+pixel_editor.operation.rotate_ccw = rotation antihoraire
+pixel_editor.operation.paste = collage

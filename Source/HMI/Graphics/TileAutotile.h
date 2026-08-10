@@ -1,6 +1,8 @@
 #pragma once
 
+#include <array>
 #include <cstdint>
+#include <string_view>
 
 #include "Core/Levels/TileMap.h"
 
@@ -89,5 +91,29 @@ struct AutotileCell {
  * @return La case d'intérieur plein.
  */
 [[nodiscard]] AutotileCell autotileRepresentativeCell() noexcept;
+
+/**
+ * @brief Clé de traduction décrivant la configuration de voisinage d'un masque, pour l'atelier
+ *        pixel art (`LOT-54` TACHE-08, `EX-REN-033`).
+ *
+ * Les seize valeurs correspondent **exactement** aux seize entrées de la table canonique
+ * `CELL_BY_MASK` (`TileAutotile.cpp`) — dessiner une planche sans savoir ce que représente chaque
+ * case est une source d'erreurs garantie ; ce n'est jamais une seconde table, seulement sa
+ * description en langage naturel.
+ * @param mask Masque de voisinage (seuls les quatre bits de poids faible sont lus).
+ * @return La clé (existe dans les deux catalogues, `fr.lang`/`en.lang`).
+ */
+[[nodiscard]] std::string_view autotileConfigurationLabelKey(std::uint8_t mask) noexcept;
+
+/**
+ * @brief Masques des neuf cases d'un assemblage 3×3 démonstratif (`LOT-54` TACHE-08).
+ *
+ * Un bloc 3×3 **plein**, flottant (aucun voisin hors du bloc n'est considéré solide) : chaque case
+ * ne voit que ses voisines internes, ce qui donne un panorama représentatif — coins, bords et
+ * intérieur — de la façon dont la planche en cours se raccorde à elle-même. C'est l'assemblage,
+ * pas les repères, qui répond à « le résultat tient-il ? ».
+ * @return Les neuf masques, en ordre de lecture (ligne par ligne, gauche à droite, haut en bas).
+ */
+[[nodiscard]] std::array<std::uint8_t, 9> autotileAssemblyMasks() noexcept;
 
 }  // namespace hmi

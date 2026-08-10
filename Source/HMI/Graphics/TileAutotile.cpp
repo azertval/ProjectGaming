@@ -91,4 +91,42 @@ AutotileCell autotileRepresentativeCell() noexcept {
     return CELL_BY_MASK[FULL_MASK];
 }
 
+std::string_view autotileConfigurationLabelKey(std::uint8_t mask) noexcept {
+    // Une cle par masque (0-15), meme ordre et meme sens que CELL_BY_MASK ci-dessus : lire les
+    // deux tables cote a cote est ce qui garantit qu'elles ne divergent jamais silencieusement.
+    static constexpr std::array<std::string_view, AUTOTILE_CONFIGURATION_COUNT> KEYS{{
+        "autotile.config.0",  "autotile.config.1",  "autotile.config.2",  "autotile.config.3",
+        "autotile.config.4",  "autotile.config.5",  "autotile.config.6",  "autotile.config.7",
+        "autotile.config.8",  "autotile.config.9",  "autotile.config.10", "autotile.config.11",
+        "autotile.config.12", "autotile.config.13", "autotile.config.14", "autotile.config.15",
+    }};
+    return KEYS[mask & FULL_MASK];
+}
+
+std::array<std::uint8_t, 9> autotileAssemblyMasks() noexcept {
+    std::array<std::uint8_t, 9> masks{};
+    for (int row = 0; row < 3; ++row) {
+        for (int column = 0; column < 3; ++column) {
+            std::uint8_t mask = 0;
+            // Bloc 3x3 plein et flottant : un voisin ne compte solide que s'il appartient lui
+            // aussi au bloc (jamais l'exterieur, a l'inverse de solidNeighborMask) -- c'est ce qui
+            // montre les quatre bords ET l'interieur dans un seul assemblage compact.
+            if (row > 0) {
+                mask |= NEIGHBOR_UP;
+            }
+            if (column < 2) {
+                mask |= NEIGHBOR_RIGHT;
+            }
+            if (row < 2) {
+                mask |= NEIGHBOR_DOWN;
+            }
+            if (column > 0) {
+                mask |= NEIGHBOR_LEFT;
+            }
+            masks[static_cast<std::size_t>(row) * 3 + static_cast<std::size_t>(column)] = mask;
+        }
+    }
+    return masks;
+}
+
 }  // namespace hmi

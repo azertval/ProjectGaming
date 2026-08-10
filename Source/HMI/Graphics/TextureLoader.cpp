@@ -3,6 +3,7 @@
 #include <QImage>
 #include <QString>
 #include <cstring>
+#include <system_error>
 
 #include "HMI/Graphics/GraphicsLog.h"
 
@@ -32,6 +33,51 @@ std::optional<DecodedImage> decodeImageFile(const std::filesystem::path& path) {
                     image.constScanLine(row), rowBytes);
     }
     return decoded;
+}
+
+// Écrit un fichier PNG depuis des pixels RGBA déjà en mémoire — symétrique de decodeImageFile.
+bool encodeImageFile(const std::filesystem::path& path, const DecodedImage& image) {
+    if (image.width <= 0 || image.height <= 0 ||
+        image.pixels.size() != static_cast<std::size_t>(image.width) *
+                                    static_cast<std::size_t>(image.height)) {
+        GRAPHICS_LOG_WARNING("TextureLoader : image invalide, encodage refuse pour '" +
+                             path.string() + "'");
+        return false;
+    }
+
+    std::error_code error;
+    const std::filesystem::path directory = path.parent_path();
+    if (!directory.empty() && !std::filesystem::is_directory(directory, error)) {
+        GRAPHICS_LOG_WARNING("TextureLoader : dossier de destination introuvable pour '" +
+                             path.string() + "'");
+        return false;
+    }
+
+    // Format_RGBA8888 : le meme format non premultiplie que decodeImageFile lit -- aucune
+    // conversion de canal, l'aller-retour restitue exactement les memes pixels.
+    const QImage output(reinterpret_cast<const uchar*>(image.pixels.data()), image.width,
+                        image.height, static_cast<int>(image.width * sizeof(std::uint32_t)),
+                        QImage::Format_RGBA8888);
+
+    // Ecriture atomique : fichier temporaire dans le meme dossier (donc le meme volume, condition
+    // pour que le remplacement soit atomique), puis remplacement en une seule operation. Un
+    // QFileSystemWatcher de rechargement a chaud (LOT-43) ne voit ainsi jamais de fichier tronque.
+    const std::filesystem::path temporary =
+        directory / (path.stem().wstring() + L".tmp" + path.extension().wstring());
+    if (!output.save(QString::fromStdWString(temporary.wstring()), "PNG")) {
+        GRAPHICS_LOG_WARNING("TextureLoader : echec d'ecriture temporaire pour '" + path.string() +
+                             "'");
+        std::filesystem::remove(temporary, error);
+        return false;
+    }
+    std::filesystem::rename(temporary, path, error);
+    if (error) {
+        GRAPHICS_LOG_WARNING("TextureLoader : echec du remplacement atomique pour '" +
+                             path.string() + "'");
+        std::filesystem::remove(temporary, error);
+        return false;
+    }
+    return true;
 }
 
 // Crée une texture Direct3D 11 immuable à partir de pixels RGBA déjà décodés.

@@ -36,8 +36,11 @@ namespace {
 }  // namespace
 
 EditorActions::EditorActions(const DesignTokens& tokens, QObject* parent)
-    : QObject(parent), _toolGroup(new QActionGroup(this)) {
+    : QObject(parent),
+      _toolGroup(new QActionGroup(this)),
+      _pixelToolGroup(new QActionGroup(this)) {
     _toolGroup->setExclusive(true);
+    _pixelToolGroup->setExclusive(true);
 
     for (std::size_t i = 0; i < editorActionCatalog().size(); ++i) {
         const EditorActionSpec& spec = editorActionCatalog()[i];
@@ -49,11 +52,15 @@ EditorActions::EditorActions(const DesignTokens& tokens, QObject* parent)
         }
         if (spec.group == EditorActionGroup::LevelTools) {
             act->setActionGroup(_toolGroup);
+        } else if (spec.group == EditorActionGroup::PixelTools) {
+            act->setActionGroup(_pixelToolGroup);
         }
         _actions[i] = act;
     }
-    // Pinceau actif par défaut (même défaut que l'ancien panneau Outils, EX-EDIT-014).
+    // Pinceau actif par défaut (même défaut que l'ancien panneau Outils, EX-EDIT-014) ; pinceau
+    // du canevas pixel art également, même raisonnement (LOT-54 TACHE-04).
     action(IconId::ToolPaint)->setChecked(true);
+    action(IconId::PixelBrush)->setChecked(true);
 }
 
 QAction* EditorActions::action(IconId id) const {
@@ -70,10 +77,37 @@ QAction* EditorActions::toolAction(EditorTool tool) const {
     return action(editorActionForTool(tool));
 }
 
+QAction* EditorActions::pixelToolAction(PixelTool tool) const {
+    return action(editorActionForPixelTool(tool));
+}
+
 void EditorActions::populateToolBar(QToolBar& toolBar) const {
+    // Outils de niveau puis commandes, SANS les outils/commandes de canevas pixel art (groupes
+    // distincts, barre d'outils dediee -- populatePixelToolBar, LOT-54 TACHE-04/TACHE-05).
     bool separatorInserted = false;
     for (const EditorActionSpec& spec : editorActionCatalog()) {
+        if (spec.group == EditorActionGroup::PixelTools ||
+            spec.group == EditorActionGroup::PixelCommands) {
+            continue;
+        }
         if (!separatorInserted && spec.group != EditorActionGroup::LevelTools) {
+            toolBar.addSeparator();
+            separatorInserted = true;
+        }
+        toolBar.addAction(action(spec.id));
+    }
+}
+
+void EditorActions::populatePixelToolBar(QToolBar& toolBar) const {
+    // Outils du canevas puis commandes de fichier (LOT-54 TACHE-05), separateur entre les deux --
+    // meme disposition que populateToolBar (outils de niveau puis commandes).
+    bool separatorInserted = false;
+    for (const EditorActionSpec& spec : editorActionCatalog()) {
+        if (spec.group != EditorActionGroup::PixelTools &&
+            spec.group != EditorActionGroup::PixelCommands) {
+            continue;
+        }
+        if (!separatorInserted && spec.group == EditorActionGroup::PixelCommands) {
             toolBar.addSeparator();
             separatorInserted = true;
         }
@@ -106,11 +140,23 @@ void EditorActions::setActiveTool(EditorTool tool) {
     act->setChecked(true);
 }
 
+void EditorActions::setActivePixelTool(PixelTool tool) {
+    QAction* const act = pixelToolAction(tool);
+    if (act == nullptr || act->isChecked()) {
+        return;
+    }
+    const QSignalBlocker blocker(act);
+    act->setChecked(true);
+}
+
 void EditorActions::setEditingCommandsEnabled(bool enabled) {
     for (const EditorActionSpec& spec : editorActionCatalog()) {
         // Le mode de rendu reste toujours actif : en edition, en essai et en jeu reel
-        // (EX-REN-046) -- jamais desactive, contrairement aux six autres commandes.
-        if (spec.group == EditorActionGroup::None && spec.id != IconId::ToggleRenderMode) {
+        // (EX-REN-046) -- jamais desactive, contrairement aux autres commandes. Les commandes de
+        // fichier de l'atelier (LOT-54 TACHE-05) suivent la meme regle que celles du niveau.
+        const bool gated = (spec.group == EditorActionGroup::None && spec.id != IconId::ToggleRenderMode) ||
+                          spec.group == EditorActionGroup::PixelCommands;
+        if (gated) {
             action(spec.id)->setEnabled(enabled);
         }
     }

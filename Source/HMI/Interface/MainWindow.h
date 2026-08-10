@@ -3,10 +3,14 @@
 #include <QByteArray>
 #include <QMainWindow>
 #include <array>
+#include <filesystem>
 #include <memory>
 
 #include "HMI/Editor/EditContextTarget.h"
 #include "HMI/Editor/EditorTool.h"
+#include "HMI/Editor/PanelFocus.h"
+#include "HMI/Editor/PixelPalette.h"
+#include "HMI/Editor/PixelTool.h"
 #include "HMI/Input/GamepadPoller.h"
 #include "HMI/Input/InputState.h"
 #include "HMI/Localization/Localization.h"
@@ -22,6 +26,7 @@ class QMenu;
 class QStackedWidget;
 class QTimer;
 class QToolBar;
+class QToolButton;
 class QWidget;
 
 namespace Ui {
@@ -43,6 +48,9 @@ class PalettePanel;
 class LevelBrowserPanel;
 class LinkPanel;
 class TexturePanel;
+class PixelCanvas;
+class PixelHistoryPanel;
+class PixelPalettePanel;
 
 /**
  * @brief Fenêtre principale de l'application Qt : **poste de travail d'éditeur** à panneaux
@@ -92,6 +100,57 @@ private:
     /// que l'utilisateur n'a rien imposé lui-même (`LOT-57` TACHE-02) — jamais un masquage, une
     /// simple suggestion de premier plan parmi les onglets regroupés.
     void applyPanelFocus(hmi::EditorTool tool);
+    /// Équivalent pour les outils du canevas pixel art (`hmi::panelForPixelTool`, `LOT-54`
+    /// TACHE-04) — même garde, même règle de non-masquage.
+    void applyPixelPanelFocus(hmi::PixelTool tool);
+    /// Met en avant @p panel (résolution `PanelId` -> `QDockWidget*`), sans jamais voler le focus
+    /// clavier — factorisé entre `applyPanelFocus` et `applyPixelPanelFocus`.
+    void raisePanel(hmi::PanelId panel);
+    /// Réassigne le contexte d'édition actif (`_editContext`) et le contexte de la barre d'état
+    /// selon le widget qui vient de recevoir le focus clavier (`LOT-54` TACHE-04, `EX-IHM-062`) :
+    /// le canevas pixel art si le focus y entre, le niveau sinon.
+    void updateActiveEditContext(QWidget* focused);
+
+    // Atelier pixel art : ouvrir/créer/enregistrer (LOT-54 TACHE-05).
+    /// @return `true` si l'on peut poursuivre (rien à perdre, ou perte confirmée) — même patron que
+    ///         le garde-fou d'ouverture de niveau (`EX-EDIT-021`).
+    [[nodiscard]] bool confirmDiscardPixelChanges();
+    /// Ouvre un asset existant choisi par l'utilisateur (bibliothèque `Assets/`), après le
+    /// garde-fou de perte de travail.
+    void openPixelAssetOpenDialog();
+    /// Crée un nouvel asset à une taille choisie parmi celles admises par le contrat de sa famille
+    /// (`hmi::validAssetSizes`), après le garde-fou de perte de travail.
+    void openPixelAssetCreateDialog();
+    /// Enregistre l'asset ouvert. @p saveAs force le choix d'un nouveau chemin (copie), même sans
+    /// chemin existant ; sans @p saveAs, réutilise le chemin d'ouverture s'il y en a un. Un
+    /// écrasement d'asset référencé demande confirmation, nommant les références (`LOT-43`).
+    void savePixelAsset(bool saveAs);
+
+    // Aperçu live et mode planche à raccords (LOT-54 TACHE-08).
+    /// Nom logique de l'asset ouvert, relatif à `Assets/` (ex. `"Skins/mur.png"`) : la clé sous
+    /// laquelle `hmi::TextureCache`/`GameViewport::invalidateAsset` connaissent cet asset — un
+    /// simple nom de fichier ne suffit pas, le cache est indexé par chemin complet (préfixe de
+    /// sous-dossier compris).
+    [[nodiscard]] std::string pixelAssetCacheKey() const;
+    /// Écrit l'image en cours sur `_pixelAssetPath` et invalide son entrée de `TextureCache`, pour
+    /// que le niveau affiché reflète l'édition en cours — sans effet tant qu'aucun chemin n'est
+    /// associé (asset pas encore enregistré une première fois, TACHE-05).
+    void updateLivePreview();
+
+    /// Ouvre un sélecteur de couleur (`QColorDialog`) pour choisir librement la couleur courante du
+    /// canevas — seul moyen d'atteindre une couleur absente à la fois de l'image ouverte (pipette)
+    /// et de la palette de projet (pastilles).
+    void openPixelColorPicker();
+    /// Met à jour le témoin de couleur de la barre d'outils du canevas (pastille de `_pixelColorButton`).
+    void updatePixelColorButtonIcon(std::uint32_t color);
+
+    // Palette de projet (LOT-54 TACHE-07).
+    /// Recopie les couleurs de `_pixelPalette` vers `_pixelCanvas` (mode contraint) — à appeler
+    /// après toute mutation qui change les couleurs ou leur ordre (l'ordre affecte le départage à
+    /// distance égale, `hmi::nearestPaletteColor`).
+    void syncPaletteToCanvas();
+    /// Enregistre `_pixelPalette` dans `Assets/palettes.json`, journalise un échec éventuel.
+    void savePixelPalette();
     /// Change la langue active (recharge le catalogue, persiste, retraduit tout).
     void changeLanguage(const QString& code);
     /// Enregistre les journaux de session accumulés dans un fichier horodaté.
@@ -121,9 +180,9 @@ private:
     OptionsPage* _options;      ///< Page Options à onglets.
     QWidget* _editorContainer;  ///< Conteneur natif du viewport (page éditeur/jeu).
     GameViewport* _viewport;    ///< Surface de rendu D3D11 (possédée par le conteneur central).
-    /// Contexte d'édition actif, cible d'Annuler/Refaire/Copier/Coller (`LOT-57` TACHE-04) — égal à
-    /// `_viewport` aujourd'hui, seule implémentation ; un futur atelier pixel art (`LOT-54`)
-    /// pourra le réassigner sans changer le dispatch des actions.
+    /// Contexte d'édition actif, cible d'Annuler/Refaire/Copier/Coller (`LOT-57` TACHE-04) : `
+    /// _viewport` (niveau) ou `_pixelCanvas` (atelier pixel art, `LOT-54` TACHE-04), selon le widget
+    /// qui a le focus clavier (`updateActiveEditContext`) — le dispatch lui-même ne change jamais.
     EditContextTarget* _editContext = nullptr;
     PalettePanel* _palette;     ///< Arbre de sélection du type de tuile (contenu du dock Palette).
     LevelBrowserPanel*
@@ -134,8 +193,21 @@ private:
     DecorsPanel* _decors;
     LinkPanel* _links;         ///< Liste/gestion des liaisons de mécanismes (dock Liens, LOT-37).
     TexturePanel* _textures;   ///< Habillage : jeu de skins et assignations (dock Textures, LOT-42).
+    /// Canevas de l'atelier pixel art (dock Atelier, LOT-54 TACHE-04) : seconde implémentation de
+    /// `EditContextTarget`, cible d'Annuler/Refaire/Copier/Coller quand elle a le focus clavier.
+    PixelCanvas* _pixelCanvas;
+    PixelHistoryPanel* _pixelHistoryPanel;  ///< Historique visuel de l'atelier (dock, LOT-54 TACHE-04).
+    PixelPalettePanel* _pixelPalettePanel;  ///< Édition de la palette de projet (dock, LOT-54 TACHE-07).
+    PixelPalette _pixelPalette;  ///< Palette de projet, chargée/enregistrée dans Assets/palettes.json.
+    /// Chemin complet du fichier de l'asset ouvert dans l'atelier, vide si aucun ou pas encore
+    /// enregistré (LOT-54 TACHE-05) — `PixelCanvas::assetName()` n'en garde que le nom de fichier,
+    /// pour l'affichage ; ce chemin sert à `savePixelAsset` pour retrouver le dossier.
+    std::filesystem::path _pixelAssetPath;
     EditorActions* _actions;   ///< Outils et commandes principales, barre d'outils (LOT-56 TACHE-04).
     QToolBar* _toolBar;        ///< Barre d'outils de l'éditeur, alimentée par `_actions`.
+    QToolBar* _pixelToolBar;   ///< Barre d'outils du canevas pixel art (LOT-54 TACHE-04).
+    QToolButton* _pixelColorButton = nullptr;  ///< Témoin + sélecteur de couleur courante (canevas).
+    QMenu* _pixelMenu = nullptr;  ///< Menu « Atelier » : ouvrir/créer/enregistrer (LOT-54 TACHE-05).
     QMenu* _themeMenu;         ///< Sous-menu Affichage > Thème (LOT-56 TACHE-06).
     QAction* _themeSystemAction;
     QAction* _themeLightAction;
@@ -166,6 +238,8 @@ private:
     QLabel* _statusTool = nullptr;
     QLabel* _statusHover = nullptr;
     QLabel* _statusZoom = nullptr;
+    /// Couleur courante de l'atelier pixel art (`LOT-54` TACHE-04) ; vide hors contexte d'atelier.
+    QLabel* _statusColor = nullptr;
     /// Restaure l'aide contextuelle à l'expiration d'un message transitoire (`showTransientStatusMessage`).
     QTimer* _statusMessageTimer = nullptr;
 
