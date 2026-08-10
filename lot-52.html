@@ -96,16 +96,16 @@ $(function(){initNavTree('lot-52.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-40.html" title="LOT-40 — Fondations : registre de textures, calques, culling, testabilité">LOT-40</a> (<em>TextureCache</em>, calque <em>UI</em>), <a class="el" href="lot-43.html" title="LOT-43 — Bibliothèque d&#39;assets : vignettes, import, rechargement à chaud">LOT-43</a> (bibliothèque d'assets). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2273"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2274"></a>
 Objectif</h1>
 <p>Donner au jeu la capacité d'<b>afficher du texte dans la scène rendue</b>, et s'en servir pour montrer au joueur une information qui existe depuis longtemps sans avoir jamais été visible.</p>
 <p><span class="tt">EX-REN-032</span> (« le jeu doit afficher du texte ») a bien été implémentée par le passé — une police bitmap <em><a class="el" href="classhmi_1_1BitmapFont.html" title="Police bitmap chargée depuis Assets/Fonts/, avec repli procédural (EX-NFR-040).">hmi::BitmapFont</a></em> alimentait l'interface « maison » — puis <b>délibérément retirée</b> au <span class="tt">LOT-38</span> (commit <span class="tt">8338bc15</span>) avec toute la pile d'UI historique, Qt reprenant l'affichage du texte <b>hors-jeu</b>. Le raisonnement était juste : un menu Qt n'a rien à faire dans <span class="tt">SpriteBatch</span>.</p>
 <p>Mais la conséquence, elle, n'a pas été traitée : il n'existe plus <b>aucune</b> notion de police ni de glyphe dans <span class="tt">Source/HMI/Graphics</span>, et le viewport Direct3D 11 ne sait donc afficher aucun texte <b>dans la scène de jeu</b>. Qt compose ses widgets par-dessus la fenêtre, dans une couche indépendante de la caméra du monde ; il ne peut pas afficher une information ancrée au jeu.</p>
 <p>La conséquence la plus visible : <span class="tt">LOT-12</span> a introduit des <b>budgets de sauts et de dashs</b> par tableau (<span class="tt">EX-GP-024</span>) — une contrainte de puzzle qui refuse une action quand le budget est épuisé — et le joueur n'a <b>aucun moyen de savoir combien il lui en reste</b>.</p>
 <p>Ce lot réintroduit donc la brique de texte <b>du bon côté de la frontière</b> : dans le pipeline de rendu de la scène, pas dans l'interface hors-jeu. L'implémentation retirée au <span class="tt">LOT-38</span> reste consultable dans l'historique Git (<span class="tt">Source/HMI/Graphics/BitmapFont.{h,cpp}</span>) et constitue un point de départ, à condition de la rebrancher sur le <em>TextureCache</em> et les calques de <span class="tt">LOT-40</span> plutôt que sur l'ancien chemin.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2274"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2275"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2275"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2276"></a>
 Inclus</h2>
 <ul>
 <li><b>Police bitmap</b> : atlas de glyphes (PNG) accompagné de ses métriques (fichier de description), chargé par le <em>TextureCache</em> et validé par le contrat d'asset (LOT-40). Repli procédural si l'atlas est absent, dans la lignée de <span class="tt">EX-REN-042</span>.</li>
@@ -114,7 +114,7 @@ Inclus</h2>
 <li><b>Traduction</b> : tout libellé passe par <span class="tt"><a class="el" href="classhmi_1_1Localization.html" title="Catalogue de traduction (i18n) : associe des clés stables à des chaînes selon la langue active,...">hmi::Localization</a></span> (<span class="tt">EX-REN-033</span>) ; les chaînes sont ajoutées aux deux catalogues de langue.</li>
 <li>Mesure de texte (largeur, hauteur) exposée comme fonction <b>pure</b>, pour permettre le cadrage sans GPU.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2276"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2277"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li>Écrans de pause et de fin de niveau (<span class="tt">EX-REN-031</span>, non implémentée) : ce lot fournit la brique d'affichage, pas les écrans. Ils restent hors du programme d'habillage.</li>
@@ -122,7 +122,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li>Dialogues, sous-titres, tutoriel textuel — la conception des niveaux reste un tutoriel implicite sans texte.</li>
 <li>Affichage de diagnostic (compteur d'images, boîtes de collision) : la brique le permettra, ce lot ne le livre pas.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2277"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2278"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Réintroduction ciblée, pas retour en arrière</b> : le retrait de <em><a class="el" href="classhmi_1_1BitmapFont.html" title="Police bitmap chargée depuis Assets/Fonts/, avec repli procédural (EX-NFR-040).">hmi::BitmapFont</a></em> au <span class="tt">LOT-38</span> était justifié pour l'<b>interface hors-jeu</b> et n'est pas remis en cause — menus, options et éditeur restent en Qt. Ce lot ne rétablit le texte que <b>dans la scène rendue</b>, là où Qt ne peut structurellement pas intervenir.</li>
@@ -131,14 +131,14 @@ Décisions de cadrage</h1>
 <li><b>Périmètre du HUD volontairement minimal</b> : les budgets et le nom du tableau, rien d'autre. Le besoin est identifié et précis ; élargir maintenant reviendrait à concevoir une interface de jeu sans en avoir établi le besoin.</li>
 <li><b>Placé dans le programme d'habillage</b> parce qu'il en partage entièrement l'infrastructure (<em>TextureCache</em>, calques, contrat d'asset). Il ne dépend d'aucun autre lot que LOT-40, et peut donc être avancé si le besoin devient prioritaire.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2278"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2279"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle : <span class="tt">EX-IHM-003</span> (affichage tête haute des budgets et du tableau courant).</li>
 <li>Re-concrétisée : <span class="tt">EX-REN-032</span> (affichage de texte, cette fois <b>dans la scène rendue</b> — l'ancienne implémentation d'UI a été retirée au <span class="tt">LOT-38</span>).</li>
 <li>Réutilisées : <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-REN-042</span> (assets externalisés avec repli), <span class="tt">EX-REN-007</span> (contrat d'asset), <span class="tt">EX-REN-043</span> (calques), <span class="tt">EX-GP-024</span> (budgets de mouvements), <span class="tt">EX-ARCH-012</span> (aucun effet sur la simulation), <span class="tt">EX-ARCH-022</span> (<em>nearest</em>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2279"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2280"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -153,7 +153,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-52-tache-03-hud.html#md_Lot_2LOT-52-texte-hud_2tache-03-hud" title="Lot/LOT-52-texte-hud/tache-03-hud.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Affichage tête haute (budgets, nom du tableau) + clés de traduction  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Game</span>, <span class="tt">Source/Elements/Localization</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2280"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2281"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Une chaîne s'affiche dans le viewport du jeu, nette, sans filtrage flou.</li>
@@ -162,10 +162,10 @@ Critères d'acceptation du lot</h1>
 <li>En l'absence d'atlas de police, le jeu reste lisible (repli) et ne plante pas.</li>
 <li>La mesure de texte est testée sans GPU ; build <span class="tt">/W4 /WX</span>, Doxygen, lint verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2281"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2282"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-40.html" title="LOT-40 — Fondations : registre de textures, calques, culling, testabilité">LOT-40</a> (<em>TextureCache</em>, calque <em>UI</em>, contrat d'asset) et <a class="el" href="lot-43.html" title="LOT-43 — Bibliothèque d&#39;assets : vignettes, import, rechargement à chaud">LOT-43</a> (import d'assets). Rétablit, du côté de la scène rendue, une capacité retirée par <a class="el" href="lot-38.html" title="LOT-38 — Refonte IHM (Qt) : menus, options, remappage &amp; retrait du legacy UI">LOT-38</a>. Aucune dépendance sur les autres lots du programme : il peut être avancé dans la séquence si le besoin devient prioritaire.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2282"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2283"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-52-tache-01-police-bitmap.html" title="TACHE-01 — Police bitmap : atlas de glyphes et métriques">TACHE-01 — Police bitmap : atlas de glyphes et métriques</a></li>

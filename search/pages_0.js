@@ -62,7 +62,7 @@ var searchData=
   ['01_20—_20types_20mathématiques_20de_20core_59',['TACHE-01 — Types mathématiques de Core',['../lot-03-tache-01-math-core.html',1,'lot-03']]],
   ['01_20—_20widget_20de_20vignettes_20partagé_60',['TACHE-01 — Widget de vignettes partagé',['../lot-43-tache-01-widget-vignettes.html',1,'lot-43']]],
   ['019_61',['Vitesse terminale newtonienne (EX-GP-019)',['../guide-physique.html#autotoc_md141',1,'']]],
-  ['02_62',['Avertissements connus à corriger avant WARN_AS_ERROR (relevés en TACHE-02)',['../lot-04-tache-07-ci-docs.html#autotoc_md467',1,'']]],
+  ['02_62',['Avertissements connus à corriger avant WARN_AS_ERROR (relevés en TACHE-02)',['../lot-04-tache-07-ci-docs.html#autotoc_md468',1,'']]],
   ['02_20—_20écran_20éditeur_20_3a_20grille_20cliquable_20palette_20de_20tuiles_63',['TACHE-02 — Écran éditeur : grille cliquable + palette de tuiles',['../lot-14-tache-02-ecran-editeur-palette.html',1,'lot-14']]],
   ['02_20—_20éditeur_20et_20rendu_64',['02 — Éditeur et rendu',['../lot-23-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-26-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-28-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu']]],
   ['02_20—_20affichage_20isolé_20sans_20repli_65',['TACHE-02 — Affichage isolé sans repli',['../lot-51-tache-02-affichage-isole.html',1,'lot-51']]],
@@ -239,7 +239,7 @@ var searchData=
   ['08_20—_20nettoyage_20documentaire_236',['TACHE-08 — Nettoyage documentaire',['../lot-15-tache-08-nettoyage-documentation.html',1,'lot-15']]],
   ['08_20—_20sélecteur_20de_20langue_237',['TACHE-08 — Sélecteur de langue',['../lot-06-tache-08-selecteur-langue.html',1,'lot-06']]],
   ['08_20—_20traçabilité_20des_20exigences_20ids_20stables_20ancres_20doxygen_20lint_20ci_238',['TACHE-08 — Traçabilité des exigences (IDs stables, ancres Doxygen, lint CI)',['../lot-04-tache-08-tracabilite-exigences.html',1,'lot-04']]],
-  ['08_2009_239',['Amendement post-essai manuel (2026-08-09)',['../lot-57.html#autotoc_md2491',1,'']]],
-  ['09_240',['Amendement post-essai manuel (2026-08-09)',['../lot-57.html#autotoc_md2491',1,'']]],
+  ['08_2009_239',['Amendement post-essai manuel (2026-08-09)',['../lot-57.html#autotoc_md2495',1,'']]],
+  ['09_240',['Amendement post-essai manuel (2026-08-09)',['../lot-57.html#autotoc_md2495',1,'']]],
   ['09_20—_20saut_20game_20feel_20et_20enchaînement_20de_20niveaux_241',['LOT-09 — Saut, game feel et enchaînement de niveaux',['../lot-09.html',1,'lots']]]
 ];

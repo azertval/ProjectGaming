@@ -96,10 +96,10 @@ $(function(){initNavTree('spec-decors.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>partiellement livré</b>. Le <b>système de décors</b> (section 1) et son <b>édition</b> (section 2, à la conception) sont concrétisés par <span class="tt">LOT-49</span> et <span class="tt">LOT-50</span> du programme d'habillage (<span class="tt">LOT-40</span> → <span class="tt">LOT-55</span>) — tous deux <b>livrés</b>. La <b>manipulation en jeu</b> (section 2, <span class="tt">EX-DEC-020/021</span>) et le <b>pipeline photo → pixel art</b> (section 3) restent <b>post-programme</b> : le socle (cf. <a class="el" href="spec-architecture.html#md_Specification_2architecture" title="Specification/architecture.md"><span class="tt">architecture.md</span></a>) doit les accommoder, la livraison n'est pas planifiée. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md213"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md214"></a>
 Vision</h1>
 <p>Les décors sont issus de <b>photos réelles converties en pixel art</b>, plaçables et transformables. Ils sont manipulables par le <b>level designer</b> (dans l'éditeur) et, <b>à terme, par le joueur</b> (mécanique de gameplay).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md214"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md215"></a>
 1. Système de décors</h1>
 <ul>
 <li><a class="anchor" id="EX-DEC-001"></a><b>EX-DEC-001</b> — Un décor est un <b>objet libre</b> (non calé sur la grille de tuiles) doté d'un <b>transform</b> (position, échelle, rotation optionnelle) en unités monde.</li>
@@ -110,20 +110,20 @@ Vision</h1>
 <li><a class="anchor" id="EX-DEC-006"></a><b>EX-DEC-006</b> — Chaque <b>couche</b> de décor porte un <b>facteur de défilement</b> (parallaxe) appliqué au rendu : une couche d'arrière-plan défile moins vite que le niveau, une couche de premier plan plus vite, ce qui donne la profondeur. Le facteur est purement visuel (<span class="tt">EX-ARCH-012</span>). Le décalage est calculé <b>relativement au centre de la salle courante</b> (<span class="tt">EX-REN-015</span>) et non en espace niveau : la caméra ne défilant jamais d'une salle à l'autre, un décalage absolu ferait sauter le décor à chaque bascule, alors qu'un décalage par salle se replace au moment exact où toute l'image change déjà. Concrétisé en <span class="tt">LOT-49</span>.</li>
 </ul>
 <p>Les décors sont <b>traversables</b> : ils ne participent jamais aux collisions. Combiné à la couche de <b>premier plan</b> dessinée au-dessus du personnage (<span class="tt">EX-REN-014</span>), c'est le moyen de lecture qui permet au joueur de distinguer d'un coup d'œil le décor du physique.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md215"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md216"></a>
 2. Manipulation</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md216"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md217"></a>
 À la conception (éditeur)</h2>
 <ul>
 <li><a class="anchor" id="EX-DEC-010"></a><b>EX-DEC-010</b> — L'éditeur permet de <b>placer, déplacer, redimensionner, superposer et supprimer</b> des décors. Placement en <span class="tt">LOT-49</span> ; déplacer/redimensionner/pivoter/changer de couche/réordonner en <span class="tt">LOT-50</span>.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md217"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md218"></a>
 En jeu (mécanique, à terme)</h2>
 <ul>
 <li><a class="anchor" id="EX-DEC-020"></a><b>EX-DEC-020</b> — Le joueur peut <b>manipuler en temps réel</b> les décors marqués manipulables (déplacer / redimensionner).</li>
 <li><a class="anchor" id="EX-DEC-021"></a><b>EX-DEC-021</b> — La manipulation en jeu reste <b>déterministe</b> (pas de temps fixe) et compatible avec une éventuelle sauvegarde/rejeu.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md218"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md219"></a>
 3. Pipeline photo → pixel art (intégré à l'éditeur)</h1>
 <ul>
 <li><a class="anchor" id="EX-DEC-030"></a><b>EX-DEC-030</b> — L'éditeur permet de <b>charger une photo</b> et de la <b>convertir en pixel art</b> (pixellisation, réduction de palette) — traitement <b>intégré à l'outil</b>.</li>
@@ -133,7 +133,7 @@ En jeu (mécanique, à terme)</h2>
 <blockquote class="doxtable">
 <p>Dépendance à prévoir : une capacité de <b>traitement d'image</b> côté éditeur (bibliothèque à ajouter dans <span class="tt">External/</span>, par ex. <span class="tt">stb_image</span> pour le chargement) — décision de dépendance prise au lot correspondant. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md219"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md220"></a>
 4. Périmètre &amp; séquencement</h1>
 <ul>
 <li><b>MVP moteur</b> : ni décors photo ni manipulation en jeu. <b>Mais</b> l'architecture (ECS, trois espaces de coordonnées, décors = entités) est posée pour les accueillir sans refonte.</li>
@@ -146,7 +146,7 @@ En jeu (mécanique, à terme)</h2>
 </ol>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md220"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md221"></a>
 Traçabilité</h1>
 <p>S'appuie sur <a class="el" href="spec-architecture.html#md_Specification_2architecture" title="Specification/architecture.md"><span class="tt">architecture.md</span></a> (ECS, coordonnées, décors = simulation), <a class="el" href="spec-editeur.html#md_Specification_2editeur-niveaux" title="Specification/editeur-niveaux.md"><span class="tt">editeur-niveaux.md</span></a> (édition intégrée) et <a class="el" href="spec-vision.html#md_Specification_2vision" title="Specification/vision.md"><span class="tt">vision.md</span></a>. </p>
 </div></div><!-- contents -->

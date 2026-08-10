@@ -1,8 +1,8 @@
 var guide =
 [
-    [ "Comment lire ce guide", "guide.html#autotoc_md174", null ],
-    [ "Architecture en deux couches", "guide.html#autotoc_md175", null ],
-    [ "Plan du guide", "guide.html#autotoc_md176", null ],
+    [ "Comment lire ce guide", "guide.html#autotoc_md175", null ],
+    [ "Architecture en deux couches", "guide.html#autotoc_md176", null ],
+    [ "Plan du guide", "guide.html#autotoc_md177", null ],
     [ "Boucle de jeu et pas de temps fixe", "guide-boucle.html", [
       [ "Qu'est-ce qu'une boucle de jeu ?", "guide-boucle.html#autotoc_md32", null ],
       [ "Le piège du framerate variable", "guide-boucle.html#autotoc_md33", null ],
@@ -125,9 +125,10 @@ var guide =
         [ "Manipulation de décors dans l'éditeur (<span class=\"tt\">LOT-50</span>)", "guide-rendu.html#autotoc_md169", null ]
       ] ],
       [ "Le texte dans la scène : <span class=\"tt\">hmi::BitmapFont</span> et <span class=\"tt\">hmi::TextRenderer</span> (<span class=\"tt\">LOT-52</span>)", "guide-rendu.html#autotoc_md170", null ],
-      [ "Assembler la frame complète", "guide-rendu.html#autotoc_md171", null ],
-      [ "Ce qui vient ensuite : le programme d'habillage (<span class=\"tt\">LOT-40</span> → <span class=\"tt\">LOT-55</span>)", "guide-rendu.html#autotoc_md172", null ],
-      [ "Voir aussi", "guide-rendu.html#autotoc_md173", null ]
+      [ "Ombres du plan physique (<span class=\"tt\">LOT-55</span>)", "guide-rendu.html#autotoc_md171", null ],
+      [ "Assembler la frame complète", "guide-rendu.html#autotoc_md172", null ],
+      [ "Le programme d'habillage, livré (<span class=\"tt\">LOT-40</span> → <span class=\"tt\">LOT-55</span>)", "guide-rendu.html#autotoc_md173", null ],
+      [ "Voir aussi", "guide-rendu.html#autotoc_md174", null ]
     ] ],
     [ "Journalisation et assertions", "guide-journalisation.html", [
       [ "Pourquoi journaliser dans un jeu vidéo", "guide-journalisation.html#autotoc_md94", null ],

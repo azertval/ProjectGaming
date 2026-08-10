@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-09-tache-06-niveaux-demo.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-09-saut-game-feel_2tache-06-niveaux-demo"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-09.html#md_Lot_2LOT-09-saut-game-feel_2epic" title="Lot/LOT-09-saut-game-feel/epic.md">LOT-09</a> · <b>Emplacement :</b> <span class="tt">Source/Elements/Levels</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md747"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md748"></a>
 Contexte</h1>
 <p>La progression (TACHE-05) a besoin de <b>contenu</b> : une séquence d'au moins <b>deux</b> niveaux, de difficulté croissante, dont un <b>exige le saut</b> (sinon les techniques de TACHE-03/04 ne sont pas démontrées). Comme au LOT-08, la franchissabilité est <b>prouvée par test</b> — et ici, on prouve aussi que le saut est <b>nécessaire</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md748"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md749"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Niveau 1</b> : prise en main sans saut — réutiliser/adapter le niveau <b>descendant</b> du LOT-08 (déplacement + chute + danger). Le renommer si la séquence adopte une convention (<span class="tt">demo1.json</span>).</li>
@@ -110,20 +110,20 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md749"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md750"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Elements/Levels/*.json</span> (niveaux 1 et 2 de la séquence).</li>
 <li><span class="tt"><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a></span> (ou fichier dédié) : tests de franchissabilité et de nécessité du saut.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md750"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md751"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Niveau 2 : <b>avec saut</b> → <span class="tt">Won</span> ; <b>sans saut</b> → jamais <span class="tt">Won</span> (bloqué).</li>
 <li>Le niveau 1 reste franchissable (préserver/adapter la preuve du LOT-08).</li>
 <li>Scénarios <b>déterministes</b> (mêmes entrées → même issue, <span class="tt">EX-NFR-002</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md751"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md752"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Hauteur atteignable</b> : la marche du niveau 2 doit être franchissable avec le réglage de saut (garder une marge sous ~2,5 tuiles) — sinon niveau infranchissable.</li>
@@ -131,12 +131,12 @@ Points d'attention</h1>
 <li><b>Scénario de test</b> : injecter <span class="tt">jumpPressed</span> au bon moment (au sol, avant la marche) ; garder le scénario lisible et robuste aux petits écarts de réglage (marge).</li>
 <li>Cohérence avec la <b>séquence</b> de TACHE-05 (ordre, noms, copie CMake).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md752"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md753"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Deux niveaux livrés et enchaînés ; franchissabilité <b>avec saut</b> et <b>nécessité du saut</b> prouvées par tests ; <span class="tt">ctest</span> vert ; build <span class="tt">/W4 /WX</span>, <span class="tt">CHANGELOG.md</span> à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md753"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md754"></a>
 Exigences</h1>
 <p><span class="tt">EX-LVL-001</span>, <span class="tt">EX-LVL-004</span>, <span class="tt">EX-LVL-012</span>, <span class="tt">EX-GP-011</span>, <span class="tt">EX-NFR-002</span>, <span class="tt">EX-NFR-020</span>. </p>
 </div></div><!-- contents -->

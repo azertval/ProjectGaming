@@ -1,5 +1,8 @@
 var NAVTREEINDEX10 =
 {
+"classhmi_1_1MainWindow.html#ad46f19e154147f414a4ca0817086c2ac":[9,0,1,127,22],
+"classhmi_1_1MainWindow.html#ada4e70102abcb89f966532432b0dfa79":[8,0,1,127,54],
+"classhmi_1_1MainWindow.html#ada4e70102abcb89f966532432b0dfa79":[9,0,1,127,54],
 "classhmi_1_1MainWindow.html#ae097a0ee2d4a9bc2d23c7fa2ae069bb1":[8,0,1,127,72],
 "classhmi_1_1MainWindow.html#ae097a0ee2d4a9bc2d23c7fa2ae069bb1":[9,0,1,127,72],
 "classhmi_1_1MainWindow.html#aea2c791ab6d35fa22a0f186c128de6af":[8,0,1,127,56],
@@ -246,8 +249,5 @@ var NAVTREEINDEX10 =
 "classhmi_1_1PixelCanvas.html#afecb40b6d9f656c7029519d8141ce54a":[9,0,1,28,5],
 "classhmi_1_1PixelHistory.html":[8,0,1,33],
 "classhmi_1_1PixelHistory.html":[9,0,1,33],
-"classhmi_1_1PixelHistory.html#a4400d105711e061d6ee1445af96d6528":[8,0,1,33,0],
-"classhmi_1_1PixelHistory.html#a4400d105711e061d6ee1445af96d6528":[9,0,1,33,0],
-"classhmi_1_1PixelHistory.html#a6093f6b1f0fbbfc0965d9eedcbdbea37":[8,0,1,33,6],
-"classhmi_1_1PixelHistory.html#a6093f6b1f0fbbfc0965d9eedcbdbea37":[9,0,1,33,6]
+"classhmi_1_1PixelHistory.html#a4400d105711e061d6ee1445af96d6528":[8,0,1,33,0]
 };

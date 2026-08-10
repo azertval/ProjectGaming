@@ -96,13 +96,13 @@ $(function(){initNavTree('lot-02.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>terminé</b>. Infrastructure <b>transverse</b> : utilisée par tous les modules (y compris l'ECS du LOT-03). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md316"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md317"></a>
 Objectif</h1>
 <p>Fournir, dans <span class="tt">Core/Diagnostics</span>, un <b>système de journalisation</b> (log par niveaux, vers des sorties configurables) et un <b>mécanisme d'assertions</b> (<span class="tt"><a class="el" href="Assert_8h.html#a24ec0bff1ac1e68bdf8ac50376a41076" title="Vérifie une précondition.">PROJECTGAMING_ASSERT</a></span>), utilisables partout dans le code et testables. Remplace les <span class="tt">std::cout</span> / <span class="tt">std::fprintf</span> provisoires.</p>
 <p>À l'issue du lot : n'importe quel module peut journaliser (<span class="tt">trace</span>/<span class="tt">info</span>/<span class="tt">warning</span>/<span class="tt">error</span>) et poser des préconditions vérifiées en Debug, conformément au guide de conventions §10.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md317"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md318"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md318"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md319"></a>
 Inclus</h2>
 <ul>
 <li>Niveaux de log et interface <span class="tt">Logger</span> (filtrage par niveau minimal).</li>
@@ -111,13 +111,13 @@ Inclus</h2>
 <li><b>Assertions</b> <span class="tt"><a class="el" href="Assert_8h.html#a24ec0bff1ac1e68bdf8ac50376a41076" title="Vérifie une précondition.">PROJECTGAMING_ASSERT(condition, message)</a></span> : actives en Debug, retirées en Release, avec <b>handler surchargeable</b> (testable sans abandon du processus).</li>
 <li>Intégration dans <span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span> (remplacement du <span class="tt">std::fprintf</span> de gestion d'erreurs).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md319"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md320"></a>
 Exclus (plus tard)</h2>
 <ul>
 <li>Sink fichier avec rotation, journalisation asynchrone/multi-thread (mono-thread au MVP).</li>
 <li>Catégories/canaux de log avancés, filtrage par module.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md320"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md321"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Guide de conventions <b>§10</b> (assertions <span class="tt"><a class="el" href="Assert_8h.html#a24ec0bff1ac1e68bdf8ac50376a41076" title="Vérifie une précondition.">PROJECTGAMING_ASSERT</a></span>, niveaux de log, interdiction de <span class="tt">std::cout</span> en production).</li>
@@ -125,7 +125,7 @@ Exigences couvertes</h1>
 <li><span class="tt">EX-NFR-020</span> — comportement couvert par des tests unitaires.</li>
 <li>Appuie <span class="tt">EX-NFR-040</span> (signaler les erreurs récupérables) et la politique d'erreurs des conventions (§9).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md321"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md322"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -144,7 +144,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-02-tache-05-integration.html#md_Lot_2LOT-02-journalisation_2tache-05-integration" title="Lot/LOT-02-journalisation/tache-05-integration.md">TACHE-05</a>  </td><td class="markdownTableBodyNone">Intégration dans <span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span> &amp; documentation  </td><td class="markdownTableBodyNone"><span class="tt">HMI</span>  </td><td class="markdownTableBodyCenter">✅ Fait  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md322"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md323"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Un message journalisé au-dessus du niveau minimal atteint les sinks configurés ; en dessous, il est filtré.</li>
@@ -154,12 +154,12 @@ Critères d'acceptation du lot</h1>
 <li><span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span> utilise le logger (plus de <span class="tt">std::fprintf</span> direct).</li>
 <li>Tests unitaires verts (<span class="tt">ctest</span>), build <span class="tt">/W4 /WX</span> sans avertissement, <b>CI verte</b> sur la PR, API documentée en Doxygen, <span class="tt">CHANGELOG.md</span> mis à jour.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md323"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md324"></a>
 Dépendances</h1>
 <ul>
 <li>Aucune dépendance de code. Ce lot <b>précède</b> LOT-03 (ECS), qui l'utilisera pour ses assertions et traces.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md324"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md325"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-02-tache-01-niveaux-logger.html" title="TACHE-01 — Niveaux de log &amp; interface Logger">TACHE-01 — Niveaux de log &amp; interface Logger</a></li>

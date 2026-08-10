@@ -1,5 +1,8 @@
 var NAVTREEINDEX5 =
 {
+"classhmi_1_1Camera2D.html#ab11e9713f8b1ccad4cb98a5c2807a410":[9,0,1,60,12],
+"classhmi_1_1Camera2D.html#adfbd3dc1e9d3a0840f9fed36c57d47a6":[8,0,1,60,13],
+"classhmi_1_1Camera2D.html#adfbd3dc1e9d3a0840f9fed36c57d47a6":[9,0,1,60,13],
 "classhmi_1_1Camera2D.html#ae4d184982026b7f61e3507c0d264321b":[8,0,1,60,3],
 "classhmi_1_1Camera2D.html#ae4d184982026b7f61e3507c0d264321b":[9,0,1,60,3],
 "classhmi_1_1Camera2D.html#aea18d5858adba920f73a1a252c3be08d":[8,0,1,60,5],
@@ -246,8 +249,5 @@ var NAVTREEINDEX5 =
 "classhmi_1_1EditorKeybindingsWidget.html#a1626edd839d541ac6dc5cacb09a2bfe9":[9,0,1,119,3],
 "classhmi_1_1EditorKeybindingsWidget.html#a1e1548bcd52083cf6d65c0ee0b43bf2c":[8,0,1,119,1],
 "classhmi_1_1EditorKeybindingsWidget.html#a1e1548bcd52083cf6d65c0ee0b43bf2c":[9,0,1,119,1],
-"classhmi_1_1EditorKeybindingsWidget.html#a22ed5979e780cc6564850667e682082c":[8,0,1,119,6],
-"classhmi_1_1EditorKeybindingsWidget.html#a22ed5979e780cc6564850667e682082c":[9,0,1,119,6],
-"classhmi_1_1EditorKeybindingsWidget.html#a27cdaaef07410b1e1beece882721c3d6":[8,0,1,119,10],
-"classhmi_1_1EditorKeybindingsWidget.html#a27cdaaef07410b1e1beece882721c3d6":[9,0,1,119,10]
+"classhmi_1_1EditorKeybindingsWidget.html#a22ed5979e780cc6564850667e682082c":[8,0,1,119,6]
 };

@@ -1,5 +1,16 @@
 var NAVTREEINDEX30 =
 {
+"structhmi_1_1FileOpResult.html#a0fe646d23cde5a31b9c6a35b93a441cf":[8,0,1,15,3],
+"structhmi_1_1FileOpResult.html#a0fe646d23cde5a31b9c6a35b93a441cf":[9,0,1,15,3],
+"structhmi_1_1FileOpResult.html#a8bae884f634120321ba108f14d039e05":[8,0,1,15,2],
+"structhmi_1_1FileOpResult.html#a8bae884f634120321ba108f14d039e05":[9,0,1,15,2],
+"structhmi_1_1FileOpResult.html#ab28ea2cfc9a1c46c078439898fec2e71":[8,0,1,15,0],
+"structhmi_1_1FileOpResult.html#ab28ea2cfc9a1c46c078439898fec2e71":[9,0,1,15,0],
+"structhmi_1_1FileOpResult.html#abc63325c5ab2e33ad0a317c2010428ae":[8,0,1,15,4],
+"structhmi_1_1FileOpResult.html#abc63325c5ab2e33ad0a317c2010428ae":[9,0,1,15,4],
+"structhmi_1_1FontFamilyResolution.html":[8,0,1,120],
+"structhmi_1_1FontFamilyResolution.html":[9,0,1,120],
+"structhmi_1_1FontFamilyResolution.html#a5b1d0b78418b051e3f932d51feb538c3":[8,0,1,120,1],
 "structhmi_1_1FontFamilyResolution.html#a5b1d0b78418b051e3f932d51feb538c3":[9,0,1,120,1],
 "structhmi_1_1FontFamilyResolution.html#aa428e4985d32f1e01e619dbb05fdb44c":[8,0,1,120,0],
 "structhmi_1_1FontFamilyResolution.html#aa428e4985d32f1e01e619dbb05fdb44c":[9,0,1,120,0],
@@ -238,16 +249,5 @@ var NAVTREEINDEX30 =
 "structhmi_1_1PixelHistoryEntry.html#a8e2843ed5440e08255206e9f3a9827b5":[8,0,1,32,0],
 "structhmi_1_1PixelHistoryEntry.html#a8e2843ed5440e08255206e9f3a9827b5":[9,0,1,32,0],
 "structhmi_1_1PixelHistoryEntry.html#af7d7ee9628baa64f19d8afc208623a25":[8,0,1,32,1],
-"structhmi_1_1PixelHistoryEntry.html#af7d7ee9628baa64f19d8afc208623a25":[9,0,1,32,1],
-"structhmi_1_1PixelPaletteEntry.html":[8,0,1,37],
-"structhmi_1_1PixelPaletteEntry.html":[9,0,1,37],
-"structhmi_1_1PixelPaletteEntry.html#a132c857d49420604e1ad5667403b3ac3":[8,0,1,37,0],
-"structhmi_1_1PixelPaletteEntry.html#a132c857d49420604e1ad5667403b3ac3":[9,0,1,37,0],
-"structhmi_1_1PixelPaletteEntry.html#a5d3ba01f7e0f5b1dd29f775747fac73b":[8,0,1,37,2],
-"structhmi_1_1PixelPaletteEntry.html#a5d3ba01f7e0f5b1dd29f775747fac73b":[9,0,1,37,2],
-"structhmi_1_1PixelPaletteEntry.html#a9bc373220051f4bf2696e82268fa7871":[8,0,1,37,1],
-"structhmi_1_1PixelPaletteEntry.html#a9bc373220051f4bf2696e82268fa7871":[9,0,1,37,1],
-"structhmi_1_1PixelPaletteExtractionEntry.html":[8,0,1,39],
-"structhmi_1_1PixelPaletteExtractionEntry.html":[9,0,1,39],
-"structhmi_1_1PixelPaletteExtractionEntry.html#ac1012273de1f92409923b4bb22732756":[8,0,1,39,0]
+"structhmi_1_1PixelHistoryEntry.html#af7d7ee9628baa64f19d8afc208623a25":[9,0,1,32,1]
 };

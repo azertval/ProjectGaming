@@ -96,7 +96,7 @@ $(function(){initNavTree('lot-15.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>terminé</b>. Ce lot fait évoluer l'éditeur intégré livré en LOT-14 (peinture, mécanismes, redimensionnement, undo/redo, enregistrement, essai immédiat) vers un outil plus proche d'un éditeur de niveau de production : protection contre la perte de travail, confort d'édition sur des niveaux plus grands, découvrabilité des commandes, et réduction de la dette technique laissée par LOT-14. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md943"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md944"></a>
 Objectif</h1>
 <ul>
 <li><b>Nommer/renommer</b> un niveau et être <b>averti avant d'écraser</b> un fichier existant (<span class="tt">EX-EDIT-009</span>).</li>
@@ -107,9 +107,9 @@ Objectif</h1>
 <li>Éliminer deux points de dette technique identifiés en LOT-14 : l'essai immédiat passe par un fichier temporaire partagé plutôt qu'un niveau en mémoire, et les messages d'erreur de validation sont traduits par recherche de sous-chaînes fragiles.</li>
 </ul>
 <p>Comme pour LOT-14, toute la logique nouvelle sans rendu (mutation par lot, requête de perte de données, saisie de texte) reste dans <span class="tt">Core</span>/logique pure, testable sans GPU (<span class="tt">EX-NFR-010</span>) ; <span class="tt">HMI/Editor</span> et <span class="tt">HMI/Interface</span> n'orchestrent que l'interaction et l'affichage.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md944"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md945"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md945"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md946"></a>
 Inclus</h2>
 <ul>
 <li><b>Entrées bas niveau</b> : molette (zoom) et texte tapé (saisie de nom), absents de <span class="tt">InputState</span> aujourd'hui.</li>
@@ -122,7 +122,7 @@ Inclus</h2>
 <li><b>Erreurs de validation structurées</b> : <span class="tt">LevelLoadResult</span> porte un code d'erreur énuméré en plus du message technique, pour que l'éditeur traduise sans dépendre du texte exact du message.</li>
 <li><b>Nettoyage documentaire</b> : suppression de <span class="tt">Source/Core/Level/README.md</span> (format abandonné, jamais implémenté), mise à jour de <span class="tt">Source/HMI/Editor/README.md</span> (périmètre réellement livré).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md946"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md947"></a>
 Exclus (lots ultérieurs ou non retenus)</h2>
 <ul>
 <li><b>Décors &amp; pipeline photo → pixel art</b> (<span class="tt">EX-DEC-*</span>, <span class="tt">EX-EDIT-040/041</span>) — dépend d'un lot dédié, inchangé depuis LOT-14.</li>
@@ -131,7 +131,7 @@ Exclus (lots ultérieurs ou non retenus)</h2>
 <li><b>Édition collaborative en temps réel</b> — non-objectif de la spec.</li>
 <li><b>Palette pilotée par un fichier de configuration externe</b> — la liste de types gérés par <span class="tt">Core</span> reste petite et change rarement ; ajouter une couche de données externes serait une abstraction non justifiée à ce stade.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md947"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md948"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Une seule méthode <span class="tt">Core</span> pour toute mutation par lot</b> : <span class="tt">LevelDraft::paintRegion(originColumn,
@@ -146,13 +146,13 @@ Décisions de cadrage</h1>
 <li><b>Palette et barre d'outils restent des classes de géométrie pure</b> (comme <span class="tt">TilePalette</span> en LOT-14) : aucune dépendance de rendu, testables sans GPU.</li>
 <li><b>Ajustements post-livraison, à l'essai interactif</b> : la palette/barre d'outils, prévues en bandes horizontales empilées, se recouvraient entre elles et parfois avec la grille — remplacées par un <b>panneau latéral</b> vertical fixe (<span class="tt">EditorLayout.h</span>, TACHE-06). Une <b>grille de repère</b> (bascule <span class="tt">F10</span>) a été ajoutée, absente du périmètre initial. Les bornes de zoom (TACHE-04) ont été resserrées (cadrage automatique du niveau ↔ 4 cases visibles) après un premier passage sans lien avec la taille du niveau. Détail dans les fiches TACHE-01/04/06 concernées.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md948"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md949"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelles : <span class="tt">EX-EDIT-009</span>, <span class="tt">EX-EDIT-012</span> à <span class="tt">EX-EDIT-016</span>.</li>
 <li>Réutilisées (approfondies sans changer leur sens) : <span class="tt">EX-EDIT-003</span> (précisée), <span class="tt">EX-EDIT-005</span> (redimensionnement), <span class="tt">EX-EDIT-007</span>/<span class="tt">008</span> (validation, essai immédiat), <span class="tt">EX-EDIT-010</span>/<span class="tt">011</span> (réutilisation/round-trip), <span class="tt">EX-NFR-010</span> (testabilité sans GPU), <span class="tt">EX-NFR-040</span> (erreurs récupérables).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md949"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md950"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -177,7 +177,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-15-tache-08-nettoyage-documentation.html#md_Lot_2LOT-15-editeur-industriel_2tache-08-nettoyage-documentation" title="Lot/LOT-15-editeur-industriel/tache-08-nettoyage-documentation.md">TACHE-08</a>  </td><td class="markdownTableBodyNone">Nettoyage documentaire (READMEs, spec, CHANGELOG)  </td><td class="markdownTableBodyNone"><span class="tt">Documentation</span>, <span class="tt">Source/Core/Level</span>, <span class="tt">Source/HMI/Editor</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md950"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md951"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Créer un niveau demande un <b>nom</b> ; le renommer est possible en cours d'édition ; enregistrer sous un nom qui écraserait un <b>autre</b> fichier existant est <b>confirmé</b> explicitement.</li>
@@ -188,12 +188,12 @@ Critères d'acceptation du lot</h1>
 <li>L'essai immédiat ne crée <b>plus aucun fichier temporaire</b> ; les messages d'erreur affichés à l'utilisateur ne dépendent plus d'une recherche de sous-chaîne dans un texte technique.</li>
 <li>Logique nouvelle <b>couverte par des tests</b> (<span class="tt">ctest</span> vert), déterministe, sans GPU. Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et <span class="tt">CHANGELOG.md</span> à jour, lint des exigences vert.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md951"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md952"></a>
 Dépendances</h1>
 <ul>
 <li>Réutilise l'éditeur intégré et le modèle mutable (LOT-14 : <span class="tt">LevelDraft</span>, <span class="tt">LevelWriter</span>, <span class="tt">EditorScreen</span>, <span class="tt">TilePalette</span>, <span class="tt">LevelPicker</span>), le rendu 2D et la caméra (LOT-05), les entrées/<span class="tt">InputState</span> (LOT-02/LOT-06), le <span class="tt">GameScreen</span>/<span class="tt">LevelSequence</span> (LOT-09).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md952"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md953"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-15-tache-01-entrees-molette-texte.html" title="TACHE-01 — Entrées bas niveau : molette et texte tapé">TACHE-01 — Entrées bas niveau : molette et texte tapé</a></li>

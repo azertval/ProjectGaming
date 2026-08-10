@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-20-tache-03-documentation-verification.html','',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-20-manette-menu-options_2tache-03-documentation-verification"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-20.html#md_Lot_2LOT-20-manette-menu-options_2epic" title="Lot/LOT-20-manette-menu-options/epic.md">LOT-20</a> · <b>Emplacement :</b> <span class="tt">Documentation</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1167"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1168"></a>
 Contexte</h1>
 <p>Dernière tâche du lot : aligner la documentation sur ce qui a été livré, comme pour chaque lot précédent.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1168"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1169"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="guide-entrees_8md.html">Documentation/Guide/guide-entrees.md</a></span></b> : nouvelle section sur la fusion manette — pourquoi elle vit dans <span class="tt">Window</span> (pas <span class="tt">InputState</span>), pourquoi deux sources indépendantes combinées en lecture plutôt qu'une écriture partagée (le bug de stomping évité), la table de correspondance.</li>
@@ -106,31 +106,31 @@ Travail à réaliser</h1>
 <li><b>Doxygen</b> : génération locale complète (<span class="tt">doxygen Doxyfile</span> depuis <span class="tt">Documentation/</span>) avant de pousser.</li>
 <li><b><span class="tt">scripts/lint_exigences.py</span></b> : doit rester vert (aucune nouvelle exigence déclarée — <span class="tt">EX-CTRL-002</span> déjà déclarée, seulement son marqueur « souhaité » retiré).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1169"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1170"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="guide-entrees_8md.html">Documentation/Guide/guide-entrees.md</a></span>.</li>
 <li><span class="tt">CHANGELOG.md</span>.</li>
 <li><span class="tt"><a class="el" href="lots_8md.html">Documentation/Lot/lots.md</a></span> (ajout de la ligne LOT-20).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1170"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1171"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">python scripts/lint_exigences.py</span> retourne un code de sortie <span class="tt">0</span>.</li>
 <li><span class="tt">doxygen Doxyfile</span> (depuis <span class="tt">Documentation/</span>) se termine avec un code de sortie <span class="tt">0</span> et <b>aucune</b> ligne de sortie.</li>
 <li><b>Vérification visuelle obligatoire</b> dans l'application compilée : naviguer le menu principal, entrer dans Options, basculer V-Sync et la langue, revenir au menu — au clavier <b>et</b> à la souris (la manette réelle n'est pas disponible en CI/automatisation, vérifiée par les tests unitaires de TACHE-01 à la place).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1171"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1172"></a>
 Points d'attention</h1>
 <ul>
 <li>Cette tâche clôt le lot : vérifier que les critères d'acceptation d'<span class="tt">epic.md</span> sont tous effectivement remplis avant de le marquer terminé (statut + cases ✅ du tableau des tâches).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1172"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1173"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Documentation cohérente avec le code livré ; lint des exigences et génération Doxygen locale verts ; <span class="tt">CHANGELOG.md</span> à jour ; <span class="tt">epic.md</span> marqué <b>terminé</b>, chaque tâche marquée ✅.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1173"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1174"></a>
 Exigences</h1>
 <p>Aucune exigence propre — tâche de cohérence documentaire pour l'ensemble du lot. </p>
 </div></div><!-- contents -->

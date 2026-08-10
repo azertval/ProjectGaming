@@ -45,7 +45,7 @@ var searchData=
   ['renameat_42',['renameAt',['../classhmi_1_1PixelPalette.html#aedc9abb4523c1be8bfbe25959205be78',1,'hmi::PixelPalette']]],
   ['renameopenlevel_43',['renameOpenLevel',['../classhmi_1_1GameViewport.html#a5988cb444ba8b2dcc59eab258a7a132d',1,'hmi::GameViewport']]],
   ['renamerequested_44',['renameRequested',['../classhmi_1_1PixelPalettePanel.html#a9b0041c7bec157b31c2725ff3a20669a',1,'hmi::PixelPalettePanel']]],
-  ['render_45',['render',['../classhmi_1_1GameSession.html#a8c26c9a8cbd1841bd091a5eb2299017a',1,'hmi::GameSession::render()'],['../classhmi_1_1DraftRenderer.html#a3470ff5ef4272c643d9fec8223238417',1,'hmi::DraftRenderer::render()'],['../classhmi_1_1SpriteRenderer.html#a270c88e63e8379d9c3fe9b10b4055df5',1,'hmi::SpriteRenderer::render()']]],
+  ['render_45',['render',['../classhmi_1_1GameSession.html#a8c26c9a8cbd1841bd091a5eb2299017a',1,'hmi::GameSession::render()'],['../classhmi_1_1DraftRenderer.html#a3470ff5ef4272c643d9fec8223238417',1,'hmi::DraftRenderer::render()'],['../classhmi_1_1SpriteRenderer.html#ae920396ea3795c4e73846bf896b3f4da',1,'hmi::SpriteRenderer::render()']]],
   ['renderframe_46',['renderFrame',['../classhmi_1_1GameViewport.html#acabefda16573458d0d6d86bd29b400e4',1,'hmi::GameViewport']]],
   ['renderhud_47',['renderHud',['../classhmi_1_1GameSession.html#a7600fad72568c7816ca4c523d1b7cac7',1,'hmi::GameSession']]],
   ['renderlayername_48',['renderLayerName',['../namespacehmi.html#a8b8fd5c80e500ad266167edacf261714',1,'hmi']]],

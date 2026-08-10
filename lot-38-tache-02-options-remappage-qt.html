@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-38-tache-02-options-remappage-qt.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-38-refonte-ihm-qt-menus-options_2tache-02-options-remappage-qt"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-38.html#md_Lot_2LOT-38-refonte-ihm-qt-menus-options_2epic" title="Lot/LOT-38-refonte-ihm-qt-menus-options/epic.md">LOT-38</a> · <b>Emplacement :</b> <span class="tt">Source/Editor</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1780"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1781"></a>
 Contexte</h1>
 <p>Porte en Qt l'écran <b>Options</b> (<span class="tt">OptionsScreen</span> : V-Sync, langue) et les trois écrans de <b>remappage</b> (<span class="tt">GameKeybindingsScreen</span>, <span class="tt">EditorKeybindingsScreen</span>, <span class="tt">GamepadBindingsScreen</span>). Les <b>modèles</b> sous- jacents (<span class="tt">GameKeyBindings</span>, <span class="tt">EditorKeyBindings</span>, <span class="tt">GamepadBindings</span>, <span class="tt">Localization</span>) sont déjà découplés du rendu et <b>réutilisés tels quels</b> ; seule la présentation change. Le format <span class="tt">keybindings.json</span> et les catalogues <span class="tt">.lang</span> <b>ne changent pas</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1781"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1782"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Options Qt</b> (<span class="tt">QDialog</span>/vue) :<ul>
@@ -114,32 +114,32 @@ Travail à réaliser</h1>
 </li>
 <li><b>Localisation</b> de tous les libellés via <span class="tt">.lang</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1782"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1783"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Editor/OptionsDialog.{h,cpp}</span>, <span class="tt">Source/Editor/KeybindingsView.{h,cpp}</span> (générique pour les trois jeux de bindings).</li>
 <li>Câblage vers <span class="tt">GraphicsDevice</span>, <span class="tt">Localization</span>, <span class="tt">…KeyBindings</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1783"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1784"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Non-régression modèles</b> : les <span class="tt">…KeyBindings</span> (chargement/enregistrement) et la détection de conflit restent testés (réutiliser <span class="tt">test_editor_keybindings_model.cpp</span>) — pas de logique dupliquée.</li>
 <li><b>Logique de capture testable</b> : conversion d'un événement de capture en binding, détection de conflit, sans Qt fenêtré.</li>
 <li><b>Vérification manuelle</b> : changer V-Sync (effet visible), changer de langue (libellés), remapper une action jeu/éditeur/manette et vérifier la persistance après relance.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1784"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1785"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Formats inchangés</b> : <span class="tt">keybindings.json</span> (sections jeu/editeur/manette) et <span class="tt">.lang</span> — aucune migration.</li>
 <li><b>Capture manette</b> : réutiliser le sondage XInput (throttling <span class="tt">LOT-33</span>) pour lire un bouton pressé.</li>
 <li><b>Conflits de touches</b> : conserver exactement la règle existante (refus/avertissement).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1785"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1786"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Options (V-Sync, langue) et remappage (jeu/éditeur/manette) en Qt, équivalents aux écrans historiques, réglages persistés ; logique de capture <b>testée</b>, modèles non dupliqués ; <span class="tt">/W4 /WX</span> propre ; vérification manuelle OK.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1786"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1787"></a>
 Exigences</h1>
 <p><span class="tt">EX-IHM-040</span> ; reconduit <span class="tt">EX-REN-022</span> (V-Sync), <span class="tt">EX-CTRL-012</span> (remappage éditeur) et le remappage jeu/manette (<span class="tt">LOT-29</span>/<span class="tt">30</span>) ; réutilise la localisation (<span class="tt">LOT-06</span>). </p>
 </div></div><!-- contents -->

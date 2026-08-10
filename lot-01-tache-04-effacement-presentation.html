@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-01-tache-04-effacement-presentation.html','',''); 
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-01-fenetre-boucle-jeu_2tache-04-effacement-presentation"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-01.html#md_Lot_2LOT-01-fenetre-boucle-jeu_2epic" title="Lot/LOT-01-fenetre-boucle-jeu/epic.md">LOT-01</a> · <b>Module :</b> <span class="tt">Source/HMI</span> · <b>Statut :</b> terminé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md304"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md305"></a>
 Contexte</h1>
 <p>Avec la fenêtre (TACHE-01) et le device (TACHE-02), on produit la première image : un écran effacé à une couleur, présenté sans tearing, et robuste au redimensionnement.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md305"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md306"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Ajouter à <span class="tt">GraphicsDevice</span> (ou une classe <span class="tt">Renderer</span> mince au-dessus) :<ul>
@@ -108,27 +108,27 @@ Travail à réaliser</h1>
 <li>Implémenter le <b>redimensionnement</b> : sur événement de resize (TACHE-01), relâcher la render target view, appeler <span class="tt">ResizeBuffers</span>, recréer la render target view et le viewport.</li>
 <li>Ignorer le resize lorsque la fenêtre est <b>minimisée</b> (taille client nulle).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md306"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md307"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/GraphicsDevice.*</span> (ou <span class="tt">Source/HMI/Renderer.*</span> nouveau).</li>
 <li><span class="tt">Source/HMI/CMakeLists.txt</span> si nouveaux fichiers.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md307"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md308"></a>
 Points d'attention</h1>
 <ul>
 <li>Ordre correct du redimensionnement : <b>libérer</b> les vues liées au back buffer <b>avant</b> <span class="tt">ResizeBuffers</span>, sinon échec.</li>
 <li><span class="tt">Present(1, …)</span> pour la V-Sync (<span class="tt">EX-REN-022</span>).</li>
 <li>Aucune fuite lors des redimensionnements répétés (vérifiable sous AddressSanitizer et couche debug D3D).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md308"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md309"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>La fenêtre affiche une couleur stable, présentée sans tearing.</li>
 <li>Redimensionnements répétés (dont minimisation/restauration) sans crash ni fuite.</li>
 <li>Compile <span class="tt">/W4 /WX</span>, formaté, API documentée en Doxygen.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md309"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md310"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-022</span>, <span class="tt">EX-REN-003</span>. </p>
 </div></div><!-- contents -->

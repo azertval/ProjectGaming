@@ -1,5 +1,8 @@
 var NAVTREEINDEX8 =
 {
+"classhmi_1_1GamepadBindings.html#a08dc5ede6ebcc95787e68e5a29c5dc39":[9,0,1,106,6],
+"classhmi_1_1GamepadBindings.html#a0ed690827fac65b25557c931c28c77ac":[8,0,1,106,1],
+"classhmi_1_1GamepadBindings.html#a0ed690827fac65b25557c931c28c77ac":[9,0,1,106,1],
 "classhmi_1_1GamepadBindings.html#a296a85cfbc3cbcf97273a63ae76b4b44":[8,0,1,106,2],
 "classhmi_1_1GamepadBindings.html#a296a85cfbc3cbcf97273a63ae76b4b44":[9,0,1,106,2],
 "classhmi_1_1GamepadBindings.html#a3f42aca6dbeb6a897524b89ff433bc90":[8,0,1,106,4],
@@ -246,8 +249,5 @@ var NAVTREEINDEX8 =
 "classhmi_1_1LevelBrowserPanel.html#a54a1a5599165345f9f99365040d32dfa":[9,0,1,14,12],
 "classhmi_1_1LevelBrowserPanel.html#a58de8dfe0962f33f5d5d89a3fb3353eb":[8,0,1,14,15],
 "classhmi_1_1LevelBrowserPanel.html#a58de8dfe0962f33f5d5d89a3fb3353eb":[9,0,1,14,15],
-"classhmi_1_1LevelBrowserPanel.html#a5b1fc770c5e8e6dd08a5e857c8c07157":[8,0,1,14,10],
-"classhmi_1_1LevelBrowserPanel.html#a5b1fc770c5e8e6dd08a5e857c8c07157":[9,0,1,14,10],
-"classhmi_1_1LevelBrowserPanel.html#a5df8e9d86cd2cac721e90074d0db8fc3":[8,0,1,14,4],
-"classhmi_1_1LevelBrowserPanel.html#a5df8e9d86cd2cac721e90074d0db8fc3":[9,0,1,14,4]
+"classhmi_1_1LevelBrowserPanel.html#a5b1fc770c5e8e6dd08a5e857c8c07157":[8,0,1,14,10]
 };

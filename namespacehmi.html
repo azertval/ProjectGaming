@@ -914,6 +914,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a8e40b7d9a122c5304de1782b079c3637"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom persisté d'un mode de rendu (valeur écrite dans les préférences).  <br /></td></tr>
 <tr class="memitem:a3159aa4ba6c589c9813db6e524f19785" id="r_a3159aa4ba6c589c9813db6e524f19785"><td class="memItemLeft"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3159aa4ba6c589c9813db6e524f19785">renderModeFromName</a> (const std::string &amp;name) noexcept</td></tr>
 <tr class="memdesc:a3159aa4ba6c589c9813db6e524f19785"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode de rendu correspondant à un nom persisté.  <br /></td></tr>
+<tr class="memitem:a2e6c3c847f3e8705f25938eb17ecc2b2" id="r_a2e6c3c847f3e8705f25938eb17ecc2b2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2e6c3c847f3e8705f25938eb17ecc2b2">composeShadows</a> (<a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, <a class="el" href="classcore_1_1World.html">core::World</a> &amp;world, <a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;textures, float interpolationAlpha, const <a class="el" href="classcore_1_1TileMap.html">core::TileMap</a> *doorCollision=nullptr)</td></tr>
+<tr class="memdesc:a2e6c3c847f3e8705f25938eb17ecc2b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose une ombre décalée pour chaque tuile physique visible, sur <span class="tt"><a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919a3f39588bb19e28051d9aedfbb170025c" title="Ombres portées des tuiles solides (LOT-55, EX-REN-045).">RenderLayer::Shadow</a></span>.  <br /></td></tr>
 <tr class="memitem:aacad28238195c8395f4229ab6d861b6d" id="r_aacad28238195c8395f4229ab6d861b6d"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#aacad28238195c8395f4229ab6d861b6d">skinModeName</a> (<a class="el" href="#ac69176e5c8acf86f4990696f7f54f11e">SkinMode</a> mode) noexcept</td></tr>
 <tr class="memdesc:aacad28238195c8395f4229ab6d861b6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom persisté d'un mode de skin (valeur écrite dans <span class="tt">skins.json</span>).  <br /></td></tr>
 <tr class="memitem:ab7a7e2e0b4ed018b8acae760f5678b94" id="r_ab7a7e2e0b4ed018b8acae760f5678b94"><td class="memItemLeft">std::optional&lt; <a class="el" href="#ac69176e5c8acf86f4990696f7f54f11e">SkinMode</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab7a7e2e0b4ed018b8acae760f5678b94">skinModeFromName</a> (std::string_view name) noexcept</td></tr>
@@ -1110,6 +1112,11 @@ Variables</h2></td></tr>
 <tr class="memdesc:ab6e44ad3d54b0383ef13f332d290df46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calque appliqué à une entité dépourvue de <span class="tt"><a class="el" href="structhmi_1_1RenderLayerTag.html" title="Composant de présentation fixant le calque de dessin d&#39;une entité.">hmi::RenderLayerTag</a></span>.  <br /></td></tr>
 <tr class="memitem:a6757e25cf3a1020826327afe0dd194d3" id="r_a6757e25cf3a1020826327afe0dd194d3"><td class="memItemLeft">constexpr <a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6757e25cf3a1020826327afe0dd194d3">DEFAULT_RENDER_MODE</a> = <a class="el" href="#ace25c100da588ab6050fb0f486d61d54aa3e8ae43188ae76d38f414b2bdb0077b">RenderMode::Texture</a></td></tr>
 <tr class="memdesc:a6757e25cf3a1020826327afe0dd194d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode appliqué au premier lancement et à défaut de préférence exploitable.  <br /></td></tr>
+<tr class="memitem:a5f780954ea0c82a7805ce96374e73399" id="r_a5f780954ea0c82a7805ce96374e73399"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a5f780954ea0c82a7805ce96374e73399">SHADOW_OFFSET_X</a> = 1.0f / 16.0f</td></tr>
+<tr class="memdesc:a5f780954ea0c82a7805ce96374e73399"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décalage de l'ombre par rapport à sa tuile, en unités monde (1 pixel à 16 px/unité).  <br /></td></tr>
+<tr class="memitem:aa3213a2886118c9513378f9528ebe208" id="r_aa3213a2886118c9513378f9528ebe208"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#aa3213a2886118c9513378f9528ebe208">SHADOW_OFFSET_Y</a> = 1.0f / 16.0f</td></tr>
+<tr class="memitem:a3596257b2f41bac7871e8cb7730595d7" id="r_a3596257b2f41bac7871e8cb7730595d7"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a3596257b2f41bac7871e8cb7730595d7">SHADOW_OPACITY</a> = 0.4f</td></tr>
+<tr class="memdesc:a3596257b2f41bac7871e8cb7730595d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opacité de l'ombre (constante, cf. décisions de cadrage du LOT-55 : pas de réglage designer).  <br /></td></tr>
 <tr class="memitem:a37c697d0c580a4d6aa3313ee67dc6103" id="r_a37c697d0c580a4d6aa3313ee67dc6103"><td class="memItemLeft">constexpr <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a>&#160;</td><td class="memItemRight"><a class="el" href="#a37c697d0c580a4d6aa3313ee67dc6103">SILHOUETTE_TILE_TYPES</a> []</td></tr>
 <tr class="memdesc:a37c697d0c580a4d6aa3313ee67dc6103"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les douze types de tuiles à silhouette <b>inclinée ou courbe</b>.  <br /></td></tr>
 <tr class="memitem:aa9e6d80a32a4e383a6413ef674feef96" id="r_aa9e6d80a32a4e383a6413ef674feef96"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aa9e6d80a32a4e383a6413ef674feef96">SILHOUETTE_TILE_TYPE_COUNT</a></td></tr>
@@ -3519,6 +3526,66 @@ Variables</h2></td></tr>
     <tr><td class="paramname">levelWidth</td><td>Largeur du niveau, en unités monde (une case = une unité). </td></tr>
     <tr><td class="paramname">levelHeight</td><td>Hauteur du niveau, en unités monde. </td></tr>
     <tr><td class="paramname">mode</td><td>Mode de rendu courant ; sans effet hors <span class="tt"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54aa3e8ae43188ae76d38f414b2bdb0077b" title="Habillage par textures, construit lot après lot à partir de LOT-42.">RenderMode::Texture</a></span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2e6c3c847f3e8705f25938eb17ecc2b2" name="a2e6c3c847f3e8705f25938eb17ecc2b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e6c3c847f3e8705f25938eb17ecc2b2">&#9670;&#160;</a></span>composeShadows()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::composeShadows </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>scene</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classcore_1_1World.html">core::World</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>world</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>textures</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>interpolationAlpha</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1TileMap.html">core::TileMap</a> *</td>          <td class="paramname"><span class="paramname"><em>doorCollision</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compose une ombre décalée pour chaque tuile physique visible, sur <span class="tt"><a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919a3f39588bb19e28051d9aedfbb170025c" title="Ombres portées des tuiles solides (LOT-55, EX-REN-045).">RenderLayer::Shadow</a></span>. </p>
+<p>Parcourt les mêmes entités que <span class="tt"><a class="el" href="#af1b4dc88cfb3af31fc25a961e7a410b4" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span> (<span class="tt"><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">core::Transform</a></span> + <span class="tt"><a class="el" href="namespacehmi.html">hmi</a>::
+<a class="el" href="structhmi_1_1TileSkinTag.html" title="Type de tuile et voisinage solide d&#39;une entité affichée, pour la résolution de son skin.">TileSkinTag</a></span>) mais n'en retient que les tuiles qui <b>projettent une ombre</b> : pleines (<span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></span>, <span class="tt">EX-GP-001</span>) ou à silhouette inclinée/courbe (<span class="tt"><a class="el" href="#a8a000913259074c63f34b46b7d67864e" title="Indique si un type de tuile a une silhouette autre qu&#39;un carré plein.">hmi::hasSilhouette</a></span>, <span class="tt">LOT-42</span>). La forme échantillonnée est celle de <span class="tt"><a class="el" href="#a597b9471d79c0d524b3dedbf52c2fac6" title="Région d&#39;atlas (couleur procédurale) associée à un type de tuile.">hmi::regionForTile</a></span> — <b>le même</b> atlas procédural que le mode Physique et que le masque de silhouette (<span class="tt"><a class="el" href="#a4c1e8f8b25b6e5fe20c207887cd1dc33" title="Indique si un pixel appartient à la matière d&#39;une tuile à silhouette.">hmi::isInsideSilhouette</a></span>) : une case carrée pleine ou arrondi/pente est déjà, dans cet atlas, opaque <b>exactement</b> là où la matière est présente et transparente ailleurs (<span class="tt">hmi::SlopeMask::applySilhouetteMask</span>, <span class="tt"><a class="el" href="namespacehmi.html">hmi</a>::
+<a class="el" href="#a0fa1fc503abd25e16f2e3d52f6c8d540" title="Génère, en mémoire, l&#39;atlas procédural historique (grille de tuiles + images du personnage),...">buildProceduralAtlasImage</a></span>). Teinter cette région en noir semi-transparent donne donc l'ombre à sa forme réelle sans réimplémenter la géométrie, et sans le moindre nouveau prédicat de solidité dans <span class="tt">Core</span> — un bloc réduit (<span class="tt">BlockHalf</span>/<span class="tt">BlockQuarter</span>) hérite de la même façon de sa taille réelle via <span class="tt"><a class="el" href="structcore_1_1Transform.html#a944094d20677cd32afa8804686f9c1a9" title="Facteurs d&#39;échelle horizontal et vertical (1 = taille nominale).">core::Transform::scale</a></span> (<span class="tt"><a class="el" href="namespacecore.html#a9b733af18a1507c5dc7b4ffdd88d8b6a" title="Facteur de taille visuel/collision d&#39;une tuile bloc réduite (EX-GP-005).">core::tileVisualScale</a></span>), déjà porté par l'entité comme pour son propre sprite.</p>
+<p>Une porte (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1">core::TileType::Door</a></span>) n'est <b>jamais</b> solide au sens de <span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></span> — sa solidité réelle dépend de l'état du mécanisme qui la commande, jamais reflété par <span class="tt"><a class="el" href="namespacehmi.html">hmi</a>::
+<a class="el" href="structhmi_1_1TileSkinTag.html#af27ab75e03393c0fd46707ed7306232d" title="Type de la tuile représentée par l&#39;entité.">TileSkinTag::type</a></span> (figé au chargement). <code class="param">doorCollision</code>, quand fourni, tranche donc son ombre d'après l'état <b>courant</b> (<span class="tt"><a class="el" href="classcore_1_1MechanismController.html#a465aa3ad3194fcb485d656dbe0b292c2">core::MechanismController::collisionMap</a></span>) plutôt que d'après le type statique — une porte fermée projette une ombre, une porte ouverte n'en projette plus. <span class="tt">nullptr</span> (l'éditeur, qui ne simule aucun mécanisme) exclut simplement les portes de l'ombrage.</p>
+<p>Un bloc poussable (<span class="tt">EX-GP-022</span>) suit son ombre automatiquement : son entité porte la même position interpolée (<span class="tt"><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">hmi::PreviousPosition</a></span>, <span class="tt">EX-ARCH-031</span>) que celle utilisée pour son propre sprite, jamais recalculée ici. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scene</td><td>Scène à remplir (non vidée : la composition peut être cumulative). </td></tr>
+    <tr><td class="paramname">world</td><td>Monde dont on lit <span class="tt">Transform</span>, <span class="tt"><a class="el" href="structhmi_1_1TileSkinTag.html" title="Type de tuile et voisinage solide d&#39;une entité affichée, pour la résolution de son skin.">TileSkinTag</a></span>, <span class="tt"><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">PreviousPosition</a></span>. </td></tr>
+    <tr><td class="paramname">mode</td><td>Mode de rendu courant : sans effet en dehors de <span class="tt"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54aa3e8ae43188ae76d38f414b2bdb0077b" title="Habillage par textures, construit lot après lot à partir de LOT-42.">RenderMode::Texture</a></span> (<span class="tt">EX-REN-046</span>) — le mode Physique reste la lecture nue des collisions. </td></tr>
+    <tr><td class="paramname">textures</td><td>Textures liables (seul <span class="tt"><a class="el" href="structhmi_1_1SceneTextures.html#a7d9763188484890ea78646b52d3a9820" title="Atlas du jeu (hmi::TextureAtlas::textureView).">hmi::SceneTextures::atlas</a></span> est utilisé : l'ombre n'est jamais celle d'un skin, toujours celle de l'atlas procédural). </td></tr>
+    <tr><td class="paramname">interpolationAlpha</td><td>Facteur d'interpolation <span class="tt">[0, 1[</span> (<span class="tt">EX-ARCH-031</span>), identique à celui de <span class="tt"><a class="el" href="#af1b4dc88cfb3af31fc25a961e7a410b4" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span>. </td></tr>
+    <tr><td class="paramname">doorCollision</td><td>Grille de collision courante des mécanismes (<span class="tt"><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a>::
+                      collisionMap</span>), ou <span class="tt">nullptr</span> pour ignorer les portes (aucune simulation de mécanisme, comme dans l'éditeur). </td></tr>
   </table>
   </dd>
 </dl>
@@ -10165,6 +10232,76 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nombre de valeurs de <span class="tt"><a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919" title="Calques de dessin, du plus arrière au plus avant (EX-REN-014, EX-DEC-002).">hmi::RenderLayer</a></span> — dimensionne un tableau indexé par la valeur plutôt que par une liste de champs écrite à la main (voir <span class="tt"><a class="el" href="classhmi_1_1LayerVisibility.html" title="Jeu de visibilités par calque, pour le mode d&#39;inspection « définition des textures » (LOT-51).">hmi::LayerVisibility</a></span>). </p>
+
+</div>
+</div>
+<a id="a5f780954ea0c82a7805ce96374e73399" name="a5f780954ea0c82a7805ce96374e73399"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f780954ea0c82a7805ce96374e73399">&#9670;&#160;</a></span>SHADOW_OFFSET_X</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::SHADOW_OFFSET_X = 1.0f / 16.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Décalage de l'ombre par rapport à sa tuile, en unités monde (1 pixel à 16 px/unité). </p>
+
+</div>
+</div>
+<a id="aa3213a2886118c9513378f9528ebe208" name="aa3213a2886118c9513378f9528ebe208"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3213a2886118c9513378f9528ebe208">&#9670;&#160;</a></span>SHADOW_OFFSET_Y</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::SHADOW_OFFSET_Y = 1.0f / 16.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3596257b2f41bac7871e8cb7730595d7" name="a3596257b2f41bac7871e8cb7730595d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3596257b2f41bac7871e8cb7730595d7">&#9670;&#160;</a></span>SHADOW_OPACITY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::SHADOW_OPACITY = 0.4f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Opacité de l'ombre (constante, cf. décisions de cadrage du LOT-55 : pas de réglage designer). </p>
 
 </div>
 </div>

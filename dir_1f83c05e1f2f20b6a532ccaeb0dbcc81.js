@@ -45,6 +45,8 @@ var dir_1f83c05e1f2f20b6a532ccaeb0dbcc81 =
     [ "RenderMode.h", "RenderMode_8h.html", "RenderMode_8h" ],
     [ "RoomGrid.cpp", "RoomGrid_8cpp.html", null ],
     [ "RoomGrid.h", "RoomGrid_8h.html", "RoomGrid_8h" ],
+    [ "ShadowRenderer.cpp", "ShadowRenderer_8cpp.html", "ShadowRenderer_8cpp" ],
+    [ "ShadowRenderer.h", "ShadowRenderer_8h.html", "ShadowRenderer_8h" ],
     [ "SkinCatalog.cpp", "SkinCatalog_8cpp.html", "SkinCatalog_8cpp" ],
     [ "SkinCatalog.h", "SkinCatalog_8h.html", "SkinCatalog_8h" ],
     [ "SlopeMask.cpp", "SlopeMask_8cpp.html", "SlopeMask_8cpp" ],

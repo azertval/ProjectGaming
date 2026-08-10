@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-52-tache-03-hud.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-52-texte-hud_2tache-03-hud"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-52.html#md_Lot_2LOT-52-texte-hud_2epic" title="Lot/LOT-52-texte-hud/epic.md">LOT-52</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Game</span>, <span class="tt">Source/Elements/Localization</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2297"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2298"></a>
 Contexte</h1>
 <p><span class="tt">LOT-12</span> a introduit les <b>budgets de sauts et de dashs</b> par tableau (<span class="tt">EX-GP-024</span>) : une contrainte de puzzle qui <b>refuse</b> l'action quand le budget est épuisé. Le joueur subit donc un refus sans jamais avoir su combien il lui restait de sauts.</p>
 <p>L'information existe dans <span class="tt"><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></span> (<span class="tt">jumpsRemaining</span>, <span class="tt">dashesRemaining</span>) depuis ce lot ; il n'a jamais été possible de l'afficher, faute de rendu de texte.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2298"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2299"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Affichage des budgets</b> : sauts et dashs restants, affichés <b>uniquement</b> quand le niveau définit un budget (une valeur négative signifie « illimité » — ne rien afficher dans ce cas, plutôt qu'un symbole d'infini que le joueur devrait interpréter).</li>
@@ -108,7 +108,7 @@ Travail à réaliser</h1>
 <li><b>Position et lisibilité</b> : coin de l'écran, avec un contraste suffisant pour rester lisible sur un fond clair comme sur un fond sombre (le fond de niveau est libre). Prévoir un contour ou une ombre portée de texte.</li>
 <li><b>Aucun effet sur la simulation</b> (<span class="tt">EX-ARCH-012</span>) : l'affichage lit <span class="tt"><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></span>, il ne le modifie pas.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2299"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2300"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Game/GameHud.{h,cpp}</span> (nouveau) ou extension de <span class="tt">GameSession</span>.</li>
@@ -116,14 +116,14 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Localization/fr.lang</span>, <span class="tt">en.lang</span>.</li>
 <li><span class="tt"><a class="el" href="test__game__hud_8cpp.html" title="Tests unitaires du choix de contenu de l&#39;affichage tête haute (LOT-52 TACHE-03, EX-IHM-003).">Source/Test/Unit/HMI/Game/test_game_hud.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2300"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2301"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Contenu affiché</b> : niveau avec budgets → les deux compteurs ; niveau sans budget → aucun compteur ; budget partiellement défini (sauts limités, dashs illimités) → un seul compteur. Fonction <b>pure</b> produisant la liste des lignes à afficher, testée sans GPU.</li>
 <li>Décroissance : après un saut, le compteur affiché correspond à <span class="tt">jumpsRemaining</span>.</li>
 <li>Chaque clé de traduction utilisée existe dans les deux catalogues.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2301"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2302"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas afficher un compteur quand le budget est illimité.</b> Le cas par défaut de la grande majorité des niveaux est « illimité » ; un HUD permanent affichant l'infini serait du bruit visuel sur tous les tableaux non-puzzle.</li>
@@ -131,12 +131,12 @@ Points d'attention</h1>
 <li>Le HUD ne doit pas masquer une zone de jeu utile : vérifier sur le plus petit cadrage de salle.</li>
 <li>Ne pas ajouter d'information « parce qu'on peut » (position, vitesse, compteur d'images) : le périmètre est délibérément minimal, et un affichage de diagnostic est un autre sujet.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2302"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2303"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les budgets restants et le nom du tableau sont visibles en jeu et en essai, uniquement quand ils ont du sens, lisibles sur tout fond, entièrement traduits, sans effet sur la simulation ; le choix du contenu est testé sans GPU ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2303"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2304"></a>
 Exigences</h1>
 <p><span class="tt">EX-IHM-003</span> (affichage tête haute) ; réutilise <span class="tt">EX-REN-032</span> (affichage de texte), <span class="tt">EX-GP-024</span> (budgets de mouvements), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-ARCH-012</span> (rendu sans effet sur la simulation). </p>
 </div></div><!-- contents -->

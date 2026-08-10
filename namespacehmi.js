@@ -439,6 +439,7 @@ var namespacehmi =
     [ "capturedKey", "namespacehmi.html#ac200bbbe13247069ff384e574db66eec", null ],
     [ "clampPixelCanvasZoom", "namespacehmi.html#a072a077fce13e73032619656dbe577b0", null ],
     [ "composeBackground", "namespacehmi.html#a78c747bc4cd322fc326e0801bbd294d5", null ],
+    [ "composeShadows", "namespacehmi.html#a2e6c3c847f3e8705f25938eb17ecc2b2", null ],
     [ "composeText", "namespacehmi.html#a92fcb0b71665ce7fa96392fe929af75b", null ],
     [ "composeText", "namespacehmi.html#a2c8293a59cb710c2a12f8c459eb645f2", null ],
     [ "composeWorldSprites", "namespacehmi.html#af1b4dc88cfb3af31fc25a961e7a410b4", null ],
@@ -635,6 +636,9 @@ var namespacehmi =
     [ "PLAYER_SHEET_FILE_NAME", "namespacehmi.html#af9d5162737bdb5221fd49e4eeed58380", null ],
     [ "PLAYER_SUBDIRECTORY", "namespacehmi.html#a3056f1e4372f3a240ed0fcb1715237fd", null ],
     [ "RENDER_LAYER_COUNT", "namespacehmi.html#a8d75d16f31a44e7347ea403ce66aaff3", null ],
+    [ "SHADOW_OFFSET_X", "namespacehmi.html#a5f780954ea0c82a7805ce96374e73399", null ],
+    [ "SHADOW_OFFSET_Y", "namespacehmi.html#aa3213a2886118c9513378f9528ebe208", null ],
+    [ "SHADOW_OPACITY", "namespacehmi.html#a3596257b2f41bac7871e8cb7730595d7", null ],
     [ "SILHOUETTE_TILE_TYPE_COUNT", "namespacehmi.html#aa9e6d80a32a4e383a6413ef674feef96", null ],
     [ "SILHOUETTE_TILE_TYPES", "namespacehmi.html#a37c697d0c580a4d6aa3313ee67dc6103", null ],
     [ "SKINS_SUBDIRECTORY", "namespacehmi.html#ab94e51ddc058f58bc9dd1692a7568be0", null ]

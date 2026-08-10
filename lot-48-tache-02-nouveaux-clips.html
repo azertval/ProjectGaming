@@ -94,7 +94,7 @@ $(function(){initNavTree('lot-48-tache-02-nouveaux-clips.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-48-personnage-texture_2tache-02-nouveaux-clips"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-48.html#md_Lot_2LOT-48-personnage-texture_2epic" title="Lot/LOT-48-personnage-texture/epic.md">LOT-48</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs/Systems</span>, <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2149"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2150"></a>
 Contexte</h1>
 <p>Le gameplay du personnage s'est enrichi sur trois lots sans que le visuel suive :</p>
 <ul>
@@ -104,7 +104,7 @@ Contexte</h1>
 </ul>
 <p><span class="tt">core::AnimationSystem::targetClip()</span> continue pourtant de projeter tout cela sur <b>trois</b> clips : <span class="tt">!grounded</span> → saut, <span class="tt">|vitesse.x| &gt; 0,01</span> → course, sinon repos. Un dash, une glissade murale et une chute libre affichent donc la même image.</p>
 <p>Toute l'information nécessaire est déjà dans <span class="tt"><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></span> et <span class="tt"><a class="el" href="structcore_1_1Velocity.html" title="Vitesse linéaire d&#39;une entité, en unités monde par seconde.">core::Velocity</a></span>, calculée pour la physique : <span class="tt">grounded</span>, <span class="tt">wallDirection</span>, <span class="tt">dashTimer</span>, <span class="tt">facing</span>, signe de la vitesse verticale.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2150"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2151"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Étendre la projection état → clip</b>, sans ajouter aucun champ à <span class="tt"><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></span> :<ul>
@@ -119,14 +119,14 @@ Travail à réaliser</h1>
 <li><b>Ordre de priorité explicite</b> entre les clips, documenté : plusieurs conditions peuvent être vraies simultanément (dash pendant une chute, glissade au moment de toucher le sol).</li>
 <li><b>Repli</b> : un clip non fourni par la spritesheet retombe sur le clip le plus proche déclaré (chute → saut, atterrissage → repos), afin qu'une spritesheet partielle reste utilisable.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2151"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2152"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Core/Ecs/Systems/AnimationSystem.{h,cpp}</span> (projection étendue).</li>
 <li><span class="tt">Source/HMI/Graphics/PlayerSprite.{h,cpp}</span> (repli entre clips).</li>
 <li><span class="tt">Source/Test/Unit/Core/Ecs/test_animation_system.cpp</span> (étendu).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2152"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2153"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Chaque état</b> produit le clip attendu, à partir d'un <span class="tt"><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></span>/<span class="tt"><a class="el" href="structcore_1_1Velocity.html" title="Vitesse linéaire d&#39;une entité, en unités monde par seconde.">core::Velocity</a></span> construit pour le cas.</li>
@@ -135,19 +135,19 @@ Tests (obligatoires)</h1>
 <li>Repli entre clips quand la spritesheet est partielle.</li>
 <li>Tests <span class="tt">Core</span> purs, sans GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2153"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2154"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Aucun nouveau champ dans <span class="tt"><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></span>.</b> L'animation doit rester une <b>conséquence</b> de l'état physique existant ; ajouter un champ « pour l'animation » ferait entrer la présentation dans la simulation (<span class="tt">EX-ARCH-012</span>) et fausserait le déterminisme des tests de gameplay.</li>
 <li>Le seuil de vitesse distinguant repos et course existe déjà (<span class="tt">0,01</span>) : ne pas en introduire un second pour la chute sans nécessité, et le nommer s'il en faut un.</li>
 <li>L'atterrissage est une <b>transition</b>, pas un état : il se détecte par comparaison avec le pas précédent, comme les transitions de mécanismes (LOT-47, TACHE-02).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2154"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2155"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Chute, atterrissage, glissade murale et dash sont visuellement distincts du saut ; la priorité entre clips est documentée et testée ; aucun champ ajouté à <span class="tt"><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></span> ; les tests de gameplay existants passent inchangés ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2155"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2156"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-009</span> (clips couvrant les états de gameplay) ; réutilise <span class="tt">EX-REN-005</span> (animations par données), <span class="tt">EX-GP-015</span>/<span class="tt">EX-GP-016</span>/<span class="tt">EX-GP-017</span> (double saut, saut mural, dash), <span class="tt">EX-GP-018</span> (ressenti vertical), <span class="tt">EX-ARCH-012</span> (rendu sans effet sur la simulation). </p>
 </div></div><!-- contents -->

@@ -93,9 +93,9 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>783 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>790 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (693)</h1>
+Tests unitaires (700)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p><b><span class="tt"><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></span></b></p>
@@ -2902,7 +2902,7 @@ Vérifie que <span class="tt">localization.text("hud.jumps_remaining")</span> di
 Vérifie que <span class="tt">localization.text("hud.dashes_remaining")</span> diffère de <span class="tt">"hud.dashes_remaining"</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
-Graphics (188)</h3>
+Graphics (195)</h3>
 <p><b><span class="tt"><a class="el" href="test__asset__contract_8cpp.html" title="Tests unitaires du contrat de dimensions des assets graphiques (LOT-40, EX-REN-007).">test_asset_contract.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -3665,6 +3665,57 @@ Vérifie que <span class="tt">grid.roomIndexAt(<a class="el" href="structcore_1_
 <sub><span class="tt"><a class="el" href="test__room__grid_8cpp.html" title="Tests unitaires de la partition d&#39;un niveau en salles (RoomGrid, LOT-32).">Source/Test/Unit/HMI/Graphics/test_room_grid.cpp</a>:117</span></sub>  </td><td class="markdownTableBodyNone">Une position hors des bornes du niveau est bornée à la salle la plus proche.  </td><td class="markdownTableBodyNone">1. Construire un <span class="tt">RoomGrid</span> pour un petit niveau.<br  />
 2. Interroger <span class="tt">roomIndexAt</span> avec des coordonnées négatives puis très supérieures aux bornes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">grid.roomIndexAt(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{-100, -100})</span> vaut <span class="tt">(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{0, 0})</span>.<br  />
 Vérifie que <span class="tt">grid.roomIndexAt(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{1000, 1000})</span> vaut <span class="tt">(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{0, 0})</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__shadow__render_8cpp.html" title="Tests unitaires des ombres du plan physique (LOT-55, EX-REN-045).">test_shadow_render.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ShadowRenderTest.TuilePleineProjetteUnQuadDecaleSurShadow</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__shadow__render_8cpp.html" title="Tests unitaires des ombres du plan physique (LOT-55, EX-REN-045).">Source/Test/Unit/HMI/Graphics/test_shadow_render.cpp</a>:52</span></sub>  </td><td class="markdownTableBodyNone">Tuile pleine : quad d'ombre decale sur Shadow.  </td><td class="markdownTableBodyNone">1. Peupler une tuile Solid.<br  />
+2. Composer les ombres en mode Texture.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">recorder.size()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">recorder.countOnLayer(hmi::RenderLayer::Shadow)</span> vaut <span class="tt">1</span>.<br  />
+Vérifie que <span class="tt">quad.sprite.x</span> vaut <span class="tt">3.0f + <a class="el" href="namespacehmi.html#a5f780954ea0c82a7805ce96374e73399" title="Décalage de l&#39;ombre par rapport à sa tuile, en unités monde (1 pixel à 16 px/unité).">hmi::SHADOW_OFFSET_X</a></span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">quad.sprite.y</span> vaut <span class="tt">2.0f + <a class="el" href="namespacehmi.html#aa3213a2886118c9513378f9528ebe208">hmi::SHADOW_OFFSET_Y</a></span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">quad.sprite.width</span> vaut <span class="tt">1.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">quad.sprite.height</span> vaut <span class="tt">1.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">quad.sprite.a</span> est strictement inférieur à <span class="tt">1.0f</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ShadowRenderTest.TuilesNonPhysiquesAucuneOmbre</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__shadow__render_8cpp.html" title="Tests unitaires des ombres du plan physique (LOT-55, EX-REN-045).">Source/Test/Unit/HMI/Graphics/test_shadow_render.cpp</a>:81</span></sub>  </td><td class="markdownTableBodyNone">Tuiles non physiques : aucune ombre.  </td><td class="markdownTableBodyNone">1. Peupler danger, entree, sortie, interrupteur, plaque, porte.<br  />
+2. Composer les ombres en mode Texture.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">0u</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ShadowRenderTest.ModePhysiqueAucuneOmbre</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__shadow__render_8cpp.html" title="Tests unitaires des ombres du plan physique (LOT-55, EX-REN-045).">Source/Test/Unit/HMI/Graphics/test_shadow_render.cpp</a>:107</span></sub>  </td><td class="markdownTableBodyNone">Mode Physique : aucune ombre.  </td><td class="markdownTableBodyNone">1. Peupler une tuile Solid et une silhouette.<br  />
+2. Composer en mode Physique.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">0u</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ShadowRenderTest.DouzeSilhouettesMemeRegionQueRegionForTile</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__shadow__render_8cpp.html" title="Tests unitaires des ombres du plan physique (LOT-55, EX-REN-045).">Source/Test/Unit/HMI/Graphics/test_shadow_render.cpp</a>:129</span></sub>  </td><td class="markdownTableBodyNone">Silhouettes : ombre a la meme region d'atlas que la tuile.  </td><td class="markdownTableBodyNone">1. Peupler chacun des douze types a silhouette.<br  />
+2. Composer les ombres.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">recorder.size()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">quad.sprite.u0</span> vaut <span class="tt">expectedU0</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">quad.sprite.v0</span> vaut <span class="tt">expectedV0</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">quad.sprite.u1</span> vaut <span class="tt">expectedU1</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">quad.sprite.v1</span> vaut <span class="tt">expectedV1</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ShadowRenderTest.BlocsReduitsOmbreATailleReelle</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__shadow__render_8cpp.html" title="Tests unitaires des ombres du plan physique (LOT-55, EX-REN-045).">Source/Test/Unit/HMI/Graphics/test_shadow_render.cpp</a>:167</span></sub>  </td><td class="markdownTableBodyNone">Blocs reduits : ombre a la taille reelle.  </td><td class="markdownTableBodyNone">1. Peupler BlockHalf et BlockQuarter.<br  />
+2. Composer les ombres.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">recorder.size()</span> vaut <span class="tt">2u</span>.<br  />
+Vérifie que <span class="tt">recorder.quads()[0].sprite.width</span> vaut <span class="tt">0.5f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">recorder.quads()[0].sprite.height</span> vaut <span class="tt">0.5f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">recorder.quads()[1].sprite.width</span> vaut <span class="tt">0.25f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">recorder.quads()[1].sprite.height</span> vaut <span class="tt">0.25f</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ShadowRenderTest.BlocPoussableEnMouvementOmbreInterpolee</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__shadow__render_8cpp.html" title="Tests unitaires des ombres du plan physique (LOT-55, EX-REN-045).">Source/Test/Unit/HMI/Graphics/test_shadow_render.cpp</a>:194</span></sub>  </td><td class="markdownTableBodyNone">Bloc poussable en mouvement : ombre interpolee.  </td><td class="markdownTableBodyNone">1. Peupler un Block avec une PreviousPosition distincte.<br  />
+2. Composer a interpolationAlpha = 0.5.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">recorder.size()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">recorder.quads().front().sprite.x</span> vaut <span class="tt">4.5f + <a class="el" href="namespacehmi.html#a5f780954ea0c82a7805ce96374e73399" title="Décalage de l&#39;ombre par rapport à sa tuile, en unités monde (1 pixel à 16 px/unité).">hmi::SHADOW_OFFSET_X</a></span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">recorder.quads().front().sprite.y</span> vaut <span class="tt">5.0f + <a class="el" href="namespacehmi.html#aa3213a2886118c9513378f9528ebe208">hmi::SHADOW_OFFSET_Y</a></span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ShadowRenderTest.PorteSuitLEtatCourantDeLaGrilleDeCollision</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__shadow__render_8cpp.html" title="Tests unitaires des ombres du plan physique (LOT-55, EX-REN-045).">Source/Test/Unit/HMI/Graphics/test_shadow_render.cpp</a>:221</span></sub>  </td><td class="markdownTableBodyNone">Porte : ombre selon l'etat courant de la grille de collision.  </td><td class="markdownTableBodyNone">1. Peupler une porte.<br  />
+2. Composer sans grille, puis avec une grille ou elle est fermee, puis ouverte.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">0u</span>.<br  />
+Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">0u</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__skin__catalog_8cpp.html" title="Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).">test_skin_catalog.cpp</a></span></b></p>
 <table class="markdownTable">

@@ -21,6 +21,7 @@ var dir_9c2c1d58a156aa8e30c089ae7a4e31f9 =
     [ "test_render_culling.cpp", "test__render__culling_8cpp.html", "test__render__culling_8cpp" ],
     [ "test_render_mode.cpp", "test__render__mode_8cpp.html", "test__render__mode_8cpp" ],
     [ "test_room_grid.cpp", "test__room__grid_8cpp.html", "test__room__grid_8cpp" ],
+    [ "test_shadow_render.cpp", "test__shadow__render_8cpp.html", "test__shadow__render_8cpp" ],
     [ "test_skin_catalog.cpp", "test__skin__catalog_8cpp.html", "test__skin__catalog_8cpp" ],
     [ "test_slope_mask.cpp", "test__slope__mask_8cpp.html", "test__slope__mask_8cpp" ],
     [ "test_text_renderer.cpp", "test__text__renderer_8cpp.html", "test__text__renderer_8cpp" ],

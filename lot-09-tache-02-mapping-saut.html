@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-09-tache-02-mapping-saut.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-09-saut-game-feel_2tache-02-mapping-saut"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-09.html#md_Lot_2LOT-09-saut-game-feel_2epic" title="Lot/LOT-09-saut-game-feel/epic.md">LOT-09</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Input</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md719"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md720"></a>
 Contexte</h1>
 <p>Le saut ne doit pas dépendre d'une touche physique (<span class="tt">EX-CTRL-010</span>) : <span class="tt">toPlayerInput</span> (LOT-08) traduit déjà le déplacement, on lui ajoute le <b>saut</b>. Il faut les <b>deux fronts</b> — pressé et maintenu — que l'<span class="tt">InputState</span> (LOT-06) sait déjà fournir (<span class="tt">keyPressed</span>, <span class="tt">keyDown</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md720"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md721"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Étendre l'énumération <span class="tt">Key</span> si nécessaire (l'espace existe déjà : <span class="tt">Space</span> ; <span class="tt">W</span> a été ajouté au LOT-08).</li>
@@ -108,13 +108,13 @@ Travail à réaliser</h1>
 </li>
 <li>Conserver la correspondance de déplacement existante (gauche/droite inchangée).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md721"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md722"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="PlayerInputMapper_8cpp.html">Source/HMI/Input/PlayerInputMapper.cpp</a></span> (et <span class="tt">.h</span> si le contrat évolue).</li>
 <li>Test unitaire du mapping.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md722"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md723"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">Space</span> <b>pressée</b> (front) → <span class="tt">jumpPressed == true</span> ; <span class="tt">Space</span> maintenue mais pas au front → <span class="tt">jumpPressed == false</span>, <span class="tt">jumpHeld == true</span>.</li>
@@ -122,19 +122,19 @@ Tests (obligatoires)</h1>
 <li>Aucune touche de saut → <span class="tt">jumpPressed == false</span> et <span class="tt">jumpHeld == false</span>.</li>
 <li>Le déplacement (<span class="tt">moveX</span>) reste correct en présence d'un saut (indépendance des axes).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md723"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md724"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Pressé vs maintenu</b> : <span class="tt">keyPressed</span> = front d'une frame (déclenche une fois) ; <span class="tt">keyDown</span> = maintenu (continu). Ne pas confondre — c'est ce qui distingue « sauter » de « garder l'appui ».</li>
 <li><b>Pur et testable</b> : le mapper lit un <span class="tt">InputState</span> injecté, aucune fenêtre (<span class="tt">EX-NFR-010</span>).</li>
 <li>La couche <span class="tt">Core</span> ne verra que <span class="tt">PlayerInput</span> : un futur remappage/manette (<span class="tt">EX-CTRL-012</span>) ne touchera que cette fonction.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md724"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md725"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Saut mappé (pressé + maintenu) et <b>testé</b> (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md725"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md726"></a>
 Exigences</h1>
 <p><span class="tt">EX-CTRL-010</span>, <span class="tt">EX-CTRL-011</span>, <span class="tt">EX-NFR-010</span>. </p>
 </div></div><!-- contents -->

@@ -1,5 +1,16 @@
 var NAVTREEINDEX31 =
 {
+"structhmi_1_1PixelPaletteEntry.html":[8,0,1,37],
+"structhmi_1_1PixelPaletteEntry.html":[9,0,1,37],
+"structhmi_1_1PixelPaletteEntry.html#a132c857d49420604e1ad5667403b3ac3":[8,0,1,37,0],
+"structhmi_1_1PixelPaletteEntry.html#a132c857d49420604e1ad5667403b3ac3":[9,0,1,37,0],
+"structhmi_1_1PixelPaletteEntry.html#a5d3ba01f7e0f5b1dd29f775747fac73b":[8,0,1,37,2],
+"structhmi_1_1PixelPaletteEntry.html#a5d3ba01f7e0f5b1dd29f775747fac73b":[9,0,1,37,2],
+"structhmi_1_1PixelPaletteEntry.html#a9bc373220051f4bf2696e82268fa7871":[8,0,1,37,1],
+"structhmi_1_1PixelPaletteEntry.html#a9bc373220051f4bf2696e82268fa7871":[9,0,1,37,1],
+"structhmi_1_1PixelPaletteExtractionEntry.html":[8,0,1,39],
+"structhmi_1_1PixelPaletteExtractionEntry.html":[9,0,1,39],
+"structhmi_1_1PixelPaletteExtractionEntry.html#ac1012273de1f92409923b4bb22732756":[8,0,1,39,0],
 "structhmi_1_1PixelPaletteExtractionEntry.html#ac1012273de1f92409923b4bb22732756":[9,0,1,39,0],
 "structhmi_1_1PixelPaletteExtractionEntry.html#acbd0a5b11d3ad7bfef9b7de2d4be79d9":[8,0,1,39,1],
 "structhmi_1_1PixelPaletteExtractionEntry.html#acbd0a5b11d3ad7bfef9b7de2d4be79d9":[9,0,1,39,1],
@@ -238,16 +249,5 @@ var NAVTREEINDEX31 =
 "structhmi_1_1SpriteBatch_1_1Vertex.html#a3d6d423bd76108581a2b36b256e87dd5":[8,0,1,91,0,7],
 "structhmi_1_1SpriteBatch_1_1Vertex.html#a3d6d423bd76108581a2b36b256e87dd5":[9,0,1,91,0,7],
 "structhmi_1_1SpriteBatch_1_1Vertex.html#a75f33a9e7282bcd3cd0df7bc1e08870d":[8,0,1,91,0,0],
-"structhmi_1_1SpriteBatch_1_1Vertex.html#a75f33a9e7282bcd3cd0df7bc1e08870d":[9,0,1,91,0,0],
-"structhmi_1_1SpriteBatch_1_1Vertex.html#a9a81b3d446ca4b8deda6cfec5b7376fe":[8,0,1,91,0,6],
-"structhmi_1_1SpriteBatch_1_1Vertex.html#a9a81b3d446ca4b8deda6cfec5b7376fe":[9,0,1,91,0,6],
-"structhmi_1_1SpriteBatch_1_1Vertex.html#aa06f2c610c42f36c0f0f13658bd274e9":[8,0,1,91,0,5],
-"structhmi_1_1SpriteBatch_1_1Vertex.html#aa06f2c610c42f36c0f0f13658bd274e9":[9,0,1,91,0,5],
-"structhmi_1_1SpriteBatch_1_1Vertex.html#ac96d6f9185d4fe301b8fb0c9cee4e2e3":[8,0,1,91,0,1],
-"structhmi_1_1SpriteBatch_1_1Vertex.html#ac96d6f9185d4fe301b8fb0c9cee4e2e3":[9,0,1,91,0,1],
-"structhmi_1_1SpriteBatch_1_1Vertex.html#ad0468112a8605e4ea04c7796474a2e0c":[8,0,1,91,0,3],
-"structhmi_1_1SpriteBatch_1_1Vertex.html#ad0468112a8605e4ea04c7796474a2e0c":[9,0,1,91,0,3],
-"structhmi_1_1SpriteBatch_1_1Vertex.html#adcf41445f05057b738eb3411d8e47703":[8,0,1,91,0,4],
-"structhmi_1_1SpriteBatch_1_1Vertex.html#adcf41445f05057b738eb3411d8e47703":[9,0,1,91,0,4],
-"structhmi_1_1SpriteQuad.html":[8,0,1,82]
+"structhmi_1_1SpriteBatch_1_1Vertex.html#a75f33a9e7282bcd3cd0df7bc1e08870d":[9,0,1,91,0,0]
 };

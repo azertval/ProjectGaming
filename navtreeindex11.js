@@ -1,5 +1,8 @@
 var NAVTREEINDEX11 =
 {
+"classhmi_1_1PixelHistory.html#a4400d105711e061d6ee1445af96d6528":[9,0,1,33,0],
+"classhmi_1_1PixelHistory.html#a6093f6b1f0fbbfc0965d9eedcbdbea37":[8,0,1,33,6],
+"classhmi_1_1PixelHistory.html#a6093f6b1f0fbbfc0965d9eedcbdbea37":[9,0,1,33,6],
 "classhmi_1_1PixelHistory.html#a7770d08d847df91ee22e4e9100cadff8":[8,0,1,33,5],
 "classhmi_1_1PixelHistory.html#a7770d08d847df91ee22e4e9100cadff8":[9,0,1,33,5],
 "classhmi_1_1PixelHistory.html#a794871fcb5fddc6065bca408dc58d111":[8,0,1,33,1],
@@ -246,8 +249,5 @@ var NAVTREEINDEX11 =
 "classhmi_1_1SpriteBatch.html#ae81bf5e883aafc69903b1c90873d67ef":[9,0,1,91,2],
 "classhmi_1_1SpriteBatch.html#af5c305262e5e8b1d44d9fec68198fadc":[8,0,1,91,18],
 "classhmi_1_1SpriteBatch.html#af5c305262e5e8b1d44d9fec68198fadc":[9,0,1,91,18],
-"classhmi_1_1SpriteBatch.html#af72c76e3499e01c439bdb030a59c3b22":[8,0,1,91,16],
-"classhmi_1_1SpriteBatch.html#af72c76e3499e01c439bdb030a59c3b22":[9,0,1,91,16],
-"classhmi_1_1SpriteBatch.html#afb2cf10826482b3ad8d503a829a8ed5b":[8,0,1,91,5],
-"classhmi_1_1SpriteBatch.html#afb2cf10826482b3ad8d503a829a8ed5b":[9,0,1,91,5]
+"classhmi_1_1SpriteBatch.html#af72c76e3499e01c439bdb030a59c3b22":[8,0,1,91,16]
 };

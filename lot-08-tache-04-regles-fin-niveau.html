@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-08-tache-04-regles-fin-niveau.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-08-gameplay-personnage_2tache-04-regles-fin-niveau"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-08.html#md_Lot_2LOT-08-gameplay-personnage_2epic" title="Lot/LOT-08-gameplay-personnage/epic.md">LOT-08</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Levels</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md681"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md682"></a>
 Contexte</h1>
 <p>Une fois le personnage mobile, il faut <b>statuer sur l'issue</b> du niveau. Cette logique est <b>pure</b> (géométrie de recouvrement contre le modèle de niveau), sans rendu ni entrée, donc testable en isolation. Elle ne <b>déclenche</b> rien (menu, réinitialisation) : elle <b>classe</b> l'état courant ; l'intégration (TACHE-06) agira sur le verdict.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md682"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md683"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">LevelOutcome</span></b> (<span class="tt">enum class</span>) : <span class="tt">Playing</span>, <span class="tt">Won</span>, <span class="tt">Lost</span>.</li>
@@ -109,13 +109,13 @@ Travail à réaliser</h1>
 </li>
 <li>Priorité déterministe si recouvrement simultané (définir et documenter l'ordre, p. ex. échec prioritaire sur succès), pour un comportement reproductible (<span class="tt">EX-NFR-002</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md683"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md684"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="LevelOutcome_8h.html" title="Issue d&#39;un niveau (en cours / gagné / perdu) évaluée depuis la position du personnage.">Source/Core/Levels/LevelOutcome.h</a></span> (+ <span class="tt">.cpp</span> si nécessaire) — nouveau.</li>
 <li><span class="tt">Source/Core/CMakeLists.txt</span>, <span class="tt">Source/Test/CMakeLists.txt</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md684"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md685"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Personnage sur la <b>sortie</b> → <span class="tt">Won</span>.</li>
@@ -124,19 +124,19 @@ Tests (obligatoires)</h1>
 <li>Personnage en zone libre → <span class="tt">Playing</span>.</li>
 <li><b>Simultané</b> sortie + danger → issue déterministe documentée (échec prioritaire).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md685"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md686"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Donnée pure</b> : pas de rendu, pas d'entrée, pas de <span class="tt">World</span> requis — travaille sur <span class="tt">Aabb</span> + <span class="tt">Level</span>. (Le lien avec l'entité personnage se fait dans l'intégration.)</li>
 <li>Cohérence du recouvrement tuile↔boîte avec le repère (origine haut-gauche, tuile = 1 unité).</li>
 <li>Ne pas <b>muter</b> le niveau ni l'état : fonction d'observation.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md686"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md687"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">LevelOutcome</span> + évaluateur documentés et <b>testés</b> (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md687"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md688"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-030</span>, <span class="tt">EX-GP-031</span>, <span class="tt">EX-NFR-002</span>, <span class="tt">EX-NFR-010</span>, <span class="tt">EX-ARCH-011</span>. </p>
 </div></div><!-- contents -->
