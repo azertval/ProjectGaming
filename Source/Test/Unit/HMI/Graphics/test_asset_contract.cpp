@@ -69,8 +69,8 @@ TEST(AssetContractTest, SkinDeTuileNonConformeRefuseAvecMessage) {
  */
 TEST(AssetContractTest, SkinDeTuileAnimeSpritesheetHorizontaleAcceptee) {
     const hmi::AssetValidation validation =
-        hmi::validateAsset(hmi::AssetFamily::TileSkin, "water.png", hmi::TextureAtlas::TILE_SIZE * 4,
-                           hmi::TextureAtlas::TILE_SIZE);
+        hmi::validateAsset(hmi::AssetFamily::TileSkin, "water.png",
+                           hmi::TextureAtlas::TILE_SIZE * 4, hmi::TextureAtlas::TILE_SIZE);
 
     EXPECT_TRUE(validation.valid) << validation.message;
 }
@@ -86,9 +86,9 @@ TEST(AssetContractTest, SkinDeTuileAnimeSpritesheetHorizontaleAcceptee) {
  * }
  */
 TEST(AssetContractTest, SkinDeTuileSurPlusieursRangsRefuse) {
-    const hmi::AssetValidation validation = hmi::validateAsset(
-        hmi::AssetFamily::TileSkin, "mur.png", hmi::TextureAtlas::TILE_SIZE,
-        hmi::TextureAtlas::TILE_SIZE * 2);
+    const hmi::AssetValidation validation =
+        hmi::validateAsset(hmi::AssetFamily::TileSkin, "mur.png", hmi::TextureAtlas::TILE_SIZE,
+                           hmi::TextureAtlas::TILE_SIZE * 2);
 
     EXPECT_FALSE(validation.valid);
 }

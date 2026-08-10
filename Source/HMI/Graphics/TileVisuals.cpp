@@ -30,7 +30,8 @@ core::AtlasRegion regionForTile(core::TileType type) {
         case core::TileType::Switch:
             return TextureAtlas::tile(3, 0);  // jaune
         case core::TileType::PressurePlate:
-            return TextureAtlas::tile(1, 1);  // cyan (libere par LOT-17 : ancien placeholder du personnage)
+            return TextureAtlas::tile(
+                1, 1);  // cyan (libere par LOT-17 : ancien placeholder du personnage)
         case core::TileType::Door:
             return TextureAtlas::tile(2, 1);  // orange
         case core::TileType::Block:
@@ -54,9 +55,11 @@ core::AtlasRegion regionForTile(core::TileType type) {
             return TextureAtlas::tile(position.column, position.row);
         }
         case core::TileType::BlockHalf:
-            return TextureAtlas::tile(1, 3);  // gris foncé (variante teintée du bloc plein, EX-GP-005)
+            return TextureAtlas::tile(1,
+                                      3);  // gris foncé (variante teintée du bloc plein, EX-GP-005)
         case core::TileType::BlockQuarter:
-            return TextureAtlas::tile(0, 3);  // gris clair (plus le bloc est petit, plus la teinte s'éclaircit)
+            return TextureAtlas::tile(
+                0, 3);  // gris clair (plus le bloc est petit, plus la teinte s'éclaircit)
         case core::TileType::Empty:
             break;
     }

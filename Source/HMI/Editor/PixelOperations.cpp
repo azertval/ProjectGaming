@@ -11,7 +11,7 @@ namespace {
 // Index a plat d'un pixel (x, y) dans un tampon de largeur width -- appelant deja borne-verifie.
 std::size_t pixelIndex(int width, int x, int y) noexcept {
     return static_cast<std::size_t>(y) * static_cast<std::size_t>(width) +
-          static_cast<std::size_t>(x);
+           static_cast<std::size_t>(x);
 }
 
 // Etend une region pour qu'elle couvre aussi (x, y).
@@ -145,7 +145,7 @@ std::vector<std::uint32_t> readRegion(const DecodedImage& image, const PixelRegi
     }
     std::vector<std::uint32_t> data;
     data.reserve(static_cast<std::size_t>(region.width()) *
-                static_cast<std::size_t>(region.height()));
+                 static_cast<std::size_t>(region.height()));
     for (int yy = region.minY; yy <= region.maxY; ++yy) {
         for (int xx = region.minX; xx <= region.maxX; ++xx) {
             data.push_back(image.pixels[pixelIndex(image.width, xx, yy)]);
@@ -196,8 +196,9 @@ PixelClipboard rotateClipboardClockwise(const PixelClipboard& source) {
             const int sy = source.height - 1 - nx;
             rotated.pixels[static_cast<std::size_t>(ny) * static_cast<std::size_t>(rotated.width) +
                            static_cast<std::size_t>(nx)] =
-                source.pixels[static_cast<std::size_t>(sy) * static_cast<std::size_t>(source.width) +
-                              static_cast<std::size_t>(sx)];
+                source
+                    .pixels[static_cast<std::size_t>(sy) * static_cast<std::size_t>(source.width) +
+                            static_cast<std::size_t>(sx)];
         }
     }
     return rotated;
@@ -273,8 +274,8 @@ PixelRegion moveRegion(DecodedImage& image, const PixelRegion& region, int dx, i
     }
     const PixelClipboard content = copyRegion(image, region);
     PixelRegion touched = eraseRegion(image, region);
-    touched = unionPixelRegion(
-        touched, pasteClipboard(image, content, region.minX + dx, region.minY + dy));
+    touched = unionPixelRegion(touched,
+                               pasteClipboard(image, content, region.minX + dx, region.minY + dy));
     return touched;
 }
 

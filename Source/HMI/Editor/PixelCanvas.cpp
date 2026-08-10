@@ -2,8 +2,8 @@
 
 #include <QEvent>
 #include <QMouseEvent>
-#include <QPainter>
 #include <QPaintEvent>
+#include <QPainter>
 #include <QPen>
 #include <QPixmap>
 #include <QRectF>
@@ -181,9 +181,9 @@ void PixelCanvas::applyToolAtPoint(int x, int y) {
             // Premier point du geste : decide s'il deplace la selection existante (clic dedans) ou
             // en definit une nouvelle (clic dehors) -- ne mute jamais l'image a ce point precis
             // (un deplacement nul serait un no-op couteux et polluerait l'historique).
-            const bool insideSelection =
-                !_selection.empty() && x >= _selection.minX && x <= _selection.maxX &&
-                y >= _selection.minY && y <= _selection.maxY;
+            const bool insideSelection = !_selection.empty() && x >= _selection.minX &&
+                                         x <= _selection.maxX && y >= _selection.minY &&
+                                         y <= _selection.maxY;
             _selectionMoveActive = insideSelection;
             if (!insideSelection) {
                 _selectionDragAnchor = std::make_pair(x, y);
@@ -218,9 +218,10 @@ void PixelCanvas::continueToolTo(int x, int y) {
                 _selection = PixelRegion{_selection.minX + dx, _selection.minY + dy,
                                          _selection.maxX + dx, _selection.maxY + dy};
             } else {
-                _selection = PixelRegion{
-                    std::min(_selectionDragAnchor.first, x), std::min(_selectionDragAnchor.second, y),
-                    std::max(_selectionDragAnchor.first, x), std::max(_selectionDragAnchor.second, y)};
+                _selection = PixelRegion{std::min(_selectionDragAnchor.first, x),
+                                         std::min(_selectionDragAnchor.second, y),
+                                         std::max(_selectionDragAnchor.first, x),
+                                         std::max(_selectionDragAnchor.second, y)};
                 update();
                 return;  // definir une selection ne mute jamais l'image : aucune region touchee.
             }
@@ -243,7 +244,8 @@ void PixelCanvas::endGesture() {
         // Un geste complet (appui, glisser, relachement) produit UNE seule entree d'historique,
         // jamais une par deplacement de souris (TACHE-02/TACHE-03) : sinon annuler deviendrait
         // inutilisable et l'apercu live (TACHE-08) invaliderait le cache a chaque pixel.
-        const std::vector<std::uint32_t> before = readRegion(_gestureBeforeSnapshot, _gestureRegion);
+        const std::vector<std::uint32_t> before =
+            readRegion(_gestureBeforeSnapshot, _gestureRegion);
         const std::vector<std::uint32_t> after = readRegion(_image, _gestureRegion);
         _history.push(operationKindForTool(_activeTool), _gestureRegion, before, after);
         _dirty = true;
@@ -286,7 +288,8 @@ void PixelCanvas::commitRegionMutation(PixelOperationKind kind, const DecodedIma
 }
 
 void PixelCanvas::applyRegionOperation(PixelOperationKind kind,
-                                       PixelRegion (*operation)(DecodedImage&, const PixelRegion&)) {
+                                       PixelRegion (*operation)(DecodedImage&,
+                                                                const PixelRegion&)) {
     const PixelRegion region = effectiveRegion();
     if (region.empty()) {
         return;
@@ -368,7 +371,7 @@ void PixelCanvas::mouseMoveEvent(QMouseEvent* event) {
             static_cast<std::uint8_t>(hoveredCell->row * AUTOTILE_SHEET_SIDE + hoveredCell->column);
         const std::string label(autotileConfigurationLabelKey(mask));
         QToolTip::showText(event->globalPosition().toPoint(),
-                          QString::fromStdString(_loc->text(label)), this);
+                           QString::fromStdString(_loc->text(label)), this);
     } else {
         QToolTip::hideText();
     }
@@ -420,8 +423,8 @@ void PixelCanvas::wheelEvent(QWheelEvent* event) {
 
 QPixmap PixelCanvas::renderPixmap() const {
     const qreal scale = devicePixelRatioF();
-    const PixelCanvasRealSize real = pixelCanvasRealSize(_image.width, _image.height, _view.zoom,
-                                                          scale);
+    const PixelCanvasRealSize real =
+        pixelCanvasRealSize(_image.width, _image.height, _view.zoom, scale);
     QPixmap pixmap(std::max(1, real.width), std::max(1, real.height));
 
     // Surface de peinture (fond + damier) : portee INVARIANTE des jetons (epic.md, decision de
@@ -500,11 +503,12 @@ QPixmap PixelCanvas::renderPixmap() const {
         const int insetX = real.width - ASSEMBLY_DISPLAY_SIZE - insetMargin;
         const int insetY = real.height - ASSEMBLY_DISPLAY_SIZE - insetMargin;
         if (insetX >= 0 && insetY >= 0) {
-            painter.fillRect(QRect(insetX - insetMargin / 2, insetY - insetMargin / 2,
-                                   ASSEMBLY_DISPLAY_SIZE + insetMargin, ASSEMBLY_DISPLAY_SIZE + insetMargin),
-                             toQColor(identityTokens().color.surface));
+            painter.fillRect(
+                QRect(insetX - insetMargin / 2, insetY - insetMargin / 2,
+                      ASSEMBLY_DISPLAY_SIZE + insetMargin, ASSEMBLY_DISPLAY_SIZE + insetMargin),
+                toQColor(identityTokens().color.surface));
             painter.drawImage(QRect(insetX, insetY, ASSEMBLY_DISPLAY_SIZE, ASSEMBLY_DISPLAY_SIZE),
-                             assemblyImage);
+                              assemblyImage);
             painter.setPen(QPen(toQColor(identityTokens().color.border), std::max(1.0, scale)));
             painter.setBrush(Qt::NoBrush);
             painter.drawRect(QRect(insetX, insetY, ASSEMBLY_DISPLAY_SIZE, ASSEMBLY_DISPLAY_SIZE));

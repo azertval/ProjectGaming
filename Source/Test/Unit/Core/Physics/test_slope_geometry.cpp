@@ -13,12 +13,10 @@
 
 /**
  * @brief `SlopeUpRight` monte de gauche à droite : haut (0) au bord droit, bas (1) au bord gauche.
- * \castest{<b>SlopeUpRight monte de gauche à droite : haut au bord droit, bas au bord gauche.</b><br/>
- * \tcat Unitaire · Slope Geometry<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Évaluer `slopeSurfaceHeight` aux deux bords et au centre de la case.<br/>2. Comparer
- * aux valeurs attendues.<br/>
- * \tattendu Hauteur 1 au bord gauche, 0 au bord droit, 0,5 au centre.
+ * \castest{<b>SlopeUpRight monte de gauche à droite : haut au bord droit, bas au bord
+ * gauche.</b><br/> \tcat Unitaire · Slope Geometry<br/> \tcrit Majeur<br/> \tetapes 1. Évaluer
+ * `slopeSurfaceHeight` aux deux bords et au centre de la case.<br/>2. Comparer aux valeurs
+ * attendues.<br/> \tattendu Hauteur 1 au bord gauche, 0 au bord droit, 0,5 au centre.
  * }
  */
 TEST(SlopeGeometryTest, SlopeUpRightMonteDeGaucheADroite) {
@@ -36,12 +34,10 @@ TEST(SlopeGeometryTest, SlopeUpRightMonteDeGaucheADroite) {
 
 /**
  * @brief `SlopeUpLeft` monte de droite à gauche : haut (0) au bord gauche, bas (1) au bord droit.
- * \castest{<b>SlopeUpLeft monte de droite à gauche : haut au bord gauche, bas au bord droit.</b><br/>
- * \tcat Unitaire · Slope Geometry<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Évaluer `slopeSurfaceHeight` aux deux bords et au centre de la case.<br/>2. Comparer
- * aux valeurs attendues.<br/>
- * \tattendu Hauteur 0 au bord gauche, 1 au bord droit, 0,5 au centre.
+ * \castest{<b>SlopeUpLeft monte de droite à gauche : haut au bord gauche, bas au bord
+ * droit.</b><br/> \tcat Unitaire · Slope Geometry<br/> \tcrit Majeur<br/> \tetapes 1. Évaluer
+ * `slopeSurfaceHeight` aux deux bords et au centre de la case.<br/>2. Comparer aux valeurs
+ * attendues.<br/> \tattendu Hauteur 0 au bord gauche, 1 au bord droit, 0,5 au centre.
  * }
  */
 TEST(SlopeGeometryTest, SlopeUpLeftMonteDeDroiteAGauche) {
@@ -178,9 +174,8 @@ TEST(SlopeGeometryTest, ArrondiNestPasSolideStatiquement) {
  * \castest{<b>isFollowableSurface reconnaît les deux orientations d'arrondi.</b><br/>
  * \tcat Unitaire · Slope Geometry<br/>
  * \tcrit Mineur<br/>
- * \tetapes 1. Appeler `isFollowableSurface` sur `RoundedUpRight` et `RoundedUpLeft`.<br/>2. Vérifier
- * l'assertion.<br/>
- * \tattendu `true` pour les deux.
+ * \tetapes 1. Appeler `isFollowableSurface` sur `RoundedUpRight` et `RoundedUpLeft`.<br/>2.
+ * Vérifier l'assertion.<br/> \tattendu `true` pour les deux.
  * }
  */
 TEST(SlopeGeometryTest, IsFollowableSurfaceReconnaitLesArrondis) {
@@ -240,12 +235,11 @@ TEST(SlopeGeometryTest, PenteEtArrondiDePlafondOntUneFaceDuHautPlate) {
 /**
  * @brief `isCeilingSlope` reconnaît exactement les quatre types de plafond, aucun autre
  * (`EX-GP-006`).
- * \castest{<b>isCeilingSlope reconnaît exactement les quatre types de plafond, aucun autre.</b><br/>
- * \tcat Unitaire · Slope Geometry<br/>
- * \tcrit Mineur<br/>
- * \tetapes 1. Appeler `isCeilingSlope` sur les quatre types de plafond et sur `SlopeUpRight`/
- * `Solid`.<br/>2. Vérifier l'assertion.<br/>
- * \tattendu `true` pour les quatre types de plafond, `false` pour `SlopeUpRight` et `Solid`.
+ * \castest{<b>isCeilingSlope reconnaît exactement les quatre types de plafond, aucun
+ * autre.</b><br/> \tcat Unitaire · Slope Geometry<br/> \tcrit Mineur<br/> \tetapes 1. Appeler
+ * `isCeilingSlope` sur les quatre types de plafond et sur `SlopeUpRight`/ `Solid`.<br/>2. Vérifier
+ * l'assertion.<br/> \tattendu `true` pour les quatre types de plafond, `false` pour `SlopeUpRight`
+ * et `Solid`.
  * }
  */
 TEST(SlopeGeometryTest, IsCeilingSlopeReconnaitExactementLesQuatreTypes) {
@@ -449,9 +443,8 @@ TEST(SlopeGeometryTest, ConcaveNestPasSolideStatiquement) {
  * \castest{<b>isFollowableSurface reconnaît les deux orientations d'arrondi concave.</b><br/>
  * \tcat Unitaire · Slope Geometry<br/>
  * \tcrit Mineur<br/>
- * \tetapes 1. Appeler `isFollowableSurface` sur `ConcaveUpRight` et `ConcaveUpLeft`.<br/>2. Vérifier
- * l'assertion.<br/>
- * \tattendu `true` pour les deux.
+ * \tetapes 1. Appeler `isFollowableSurface` sur `ConcaveUpRight` et `ConcaveUpLeft`.<br/>2.
+ * Vérifier l'assertion.<br/> \tattendu `true` pour les deux.
  * }
  */
 TEST(SlopeGeometryTest, IsFollowableSurfaceReconnaitLesConcaves) {

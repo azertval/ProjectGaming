@@ -111,8 +111,8 @@ const char* pixelToolHelpKey(PixelTool tool) {
 // pipette peut prelever une couleur partiellement transparente).
 std::string formatColorHex(std::uint32_t color) {
     char buffer[10] = {};
-    std::snprintf(buffer, sizeof(buffer), "#%02x%02x%02x%02x",
-                  static_cast<unsigned>(color & 0xFFu), static_cast<unsigned>((color >> 8) & 0xFFu),
+    std::snprintf(buffer, sizeof(buffer), "#%02x%02x%02x%02x", static_cast<unsigned>(color & 0xFFu),
+                  static_cast<unsigned>((color >> 8) & 0xFFu),
                   static_cast<unsigned>((color >> 16) & 0xFFu),
                   static_cast<unsigned>((color >> 24) & 0xFFu));
     return std::string(buffer);
@@ -145,7 +145,8 @@ EditorStatusLines editorStatusLines(const EditorStatusContext& context,
         // zone -- l'information n'a de sens qu'accolee a la couleur qu'elle affecte.
         const char* const colorKey =
             pixel.paletteConstrained ? "status.zone.color_constrained" : "status.zone.color";
-        lines.permanent[5] = formatOne(localization.text(colorKey), formatColorHex(pixel.currentColor));
+        lines.permanent[5] =
+            formatOne(localization.text(colorKey), formatColorHex(pixel.currentColor));
         lines.help = localization.text(pixelToolHelpKey(pixel.tool));
         return lines;
     }
@@ -161,9 +162,8 @@ EditorStatusLines editorStatusLines(const EditorStatusContext& context,
     }
     lines.permanent[2] = localization.text(toolLabelKey(level.tool));
     if (level.hoveredCell) {
-        lines.permanent[3] =
-            formatTwo(localization.text("status.zone.hover"), level.hoveredCell->column,
-                     level.hoveredCell->row);
+        lines.permanent[3] = formatTwo(localization.text("status.zone.hover"),
+                                       level.hoveredCell->column, level.hoveredCell->row);
     }
     const int zoomPercent = static_cast<int>(std::lround(level.zoom * 100.0f));
     lines.permanent[4] = formatOne(localization.text("status.zone.zoom"), zoomPercent);

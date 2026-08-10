@@ -59,7 +59,7 @@ TEST_F(LevelFileOps, CreeUnNiveauValide) {
  */
 TEST_F(LevelFileOps, RefuseNomInvalideEtCollision) {
     const hmi::LevelFileOperations ops(dir);
-    EXPECT_FALSE(ops.create("a/b", 10, 6).ok);   // barre oblique interdite
+    EXPECT_FALSE(ops.create("a/b", 10, 6).ok);  // barre oblique interdite
     EXPECT_TRUE(ops.create("Niveau", 10, 6).ok);
     EXPECT_FALSE(ops.create("Niveau", 10, 6).ok);  // collision de nom
 }

@@ -172,16 +172,15 @@ std::string AnimationCatalog::descriptorFileName(std::string_view assetFileName)
 }
 
 AssetValidation AnimationCatalog::validateAgainstTexture(const AnimationDescription& description,
-                                                          const std::string& fileName,
-                                                          int textureWidth, int textureHeight) {
+                                                         const std::string& fileName,
+                                                         int textureWidth, int textureHeight) {
     // Disposition horizontale, un seul rang (frameRegion) : la hauteur du PNG doit egaler
     // frameHeight, et sa largeur etre un multiple positif de frameWidth.
     if (textureHeight != description.frameHeight || description.frameWidth <= 0 ||
         textureWidth % description.frameWidth != 0 || textureWidth < description.frameWidth) {
         return AssetValidation{
-            false, "Animation " + fileName + " refusee : image " +
-                       std::to_string(textureWidth) + "x" + std::to_string(textureHeight) +
-                       " px incoherente avec une image de " +
+            false, "Animation " + fileName + " refusee : image " + std::to_string(textureWidth) +
+                       "x" + std::to_string(textureHeight) + " px incoherente avec une image de " +
                        std::to_string(description.frameWidth) + "x" +
                        std::to_string(description.frameHeight) +
                        " px sur un seul rang (largeur multiple de " +
@@ -193,11 +192,11 @@ AssetValidation AnimationCatalog::validateAgainstTexture(const AnimationDescript
         const core::AnimationClip& clip = description.clips.clipAt(index);
         for (const int frame : clip.frames) {
             if (frame < 0 || frame >= frameCount) {
-                return AssetValidation{
-                    false, "Animation " + fileName + " refusee : le clip « " + clip.name +
-                               " » reference l'image " + std::to_string(frame) +
-                               ", hors bornes (la spritesheet en contient " +
-                               std::to_string(frameCount) + ")."};
+                return AssetValidation{false, "Animation " + fileName + " refusee : le clip « " +
+                                                  clip.name + " » reference l'image " +
+                                                  std::to_string(frame) +
+                                                  ", hors bornes (la spritesheet en contient " +
+                                                  std::to_string(frameCount) + ")."};
             }
         }
     }
@@ -212,7 +211,7 @@ core::AtlasRegion AnimationCatalog::frameRegion(const AnimationDescription& desc
 }
 
 core::AtlasRegion AnimationCatalog::currentFrameRegion(const AnimationDescription& description,
-                                                        const core::Animation& animation) {
+                                                       const core::Animation& animation) {
     if (!animation.clips || animation.clips->clipCount() == 0) {
         return frameRegion(description, 0);
     }

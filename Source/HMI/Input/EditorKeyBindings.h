@@ -17,10 +17,11 @@ namespace hmi {
 /**
  * @brief Action d'éditeur logique, remappable indépendamment de la touche physique.
  *
- * Sous-ensemble **significatif** des raccourcis de l'éditeur (`hmi::GameViewport`, mode édition), pas exhaustif (décision de
- * cadrage `LOT-29`) : navigation de menu, redimensionnement par flèches, `Ctrl+R`, `"0"`, `Tab`,
- * Maj+clic restent câblés en dur. Le modificateur `Ctrl` de Save/Undo/Redo/Copy/Paste reste
- * lui-même câblé en dur ; seule la touche-lettre associée est ici remappable.
+ * Sous-ensemble **significatif** des raccourcis de l'éditeur (`hmi::GameViewport`, mode édition),
+ * pas exhaustif (décision de cadrage `LOT-29`) : navigation de menu, redimensionnement par flèches,
+ * `Ctrl+R`, `"0"`, `Tab`, Maj+clic restent câblés en dur. Le modificateur `Ctrl` de
+ * Save/Undo/Redo/Copy/Paste reste lui-même câblé en dur ; seule la touche-lettre associée est ici
+ * remappable.
  */
 enum class EditorAction {
     Save,

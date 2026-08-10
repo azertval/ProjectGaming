@@ -20,14 +20,14 @@ namespace hmi {
 class Localization;
 
 /**
- * @brief Liste éditable de la palette de projet (`hmi::PixelPalette`), avec le réglage « contraindre
- *        à la palette ».
+ * @brief Liste éditable de la palette de projet (`hmi::PixelPalette`), avec le réglage «
+ * contraindre à la palette ».
  *
  * **Vue du modèle**, pas un état : `refresh` reconstruit l'affichage depuis une `hmi::PixelPalette`
- * déjà chargée, même patron que `hmi::LinkPanel`/`hmi::PixelHistoryPanel`. Chaque action utilisateur
- * émet un signal ; la mutation effective de la palette (et son enregistrement) reste à la charge de
- * `MainWindow`, seul propriétaire du fichier `palettes.json`. Seules les pastilles de couleur
- * montrent les couleurs de la palette elle-même — le reste de l'habillage vient des jetons
+ * déjà chargée, même patron que `hmi::LinkPanel`/`hmi::PixelHistoryPanel`. Chaque action
+ * utilisateur émet un signal ; la mutation effective de la palette (et son enregistrement) reste à
+ * la charge de `MainWindow`, seul propriétaire du fichier `palettes.json`. Seules les pastilles de
+ * couleur montrent les couleurs de la palette elle-même — le reste de l'habillage vient des jetons
  * (`EX-IHM-051`).
  */
 class PixelPalettePanel : public QWidget {

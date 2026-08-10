@@ -14,7 +14,8 @@ namespace hmi {
 
 /// Nombre de valeurs de `hmi::RenderLayer` — dimensionne un tableau indexé par la valeur plutôt que
 /// par une liste de champs écrite à la main (voir `hmi::LayerVisibility`).
-inline constexpr std::size_t RENDER_LAYER_COUNT = static_cast<std::size_t>(RenderLayer::EditorOverlay) + 1;
+inline constexpr std::size_t RENDER_LAYER_COUNT =
+    static_cast<std::size_t>(RenderLayer::EditorOverlay) + 1;
 
 /**
  * @brief Jeu de visibilités par calque, pour le mode d'inspection « définition des textures »

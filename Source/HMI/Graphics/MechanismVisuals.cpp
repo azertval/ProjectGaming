@@ -26,8 +26,9 @@ void setMechanismClip(core::Animation& animation, const core::ClipSet& clips,
         // repli lisible + un seul message par (asset, clip d'etat).
         const std::string key = assetKey + "|" + fallbackClip;
         if (warnedMissingClips.insert(key).second) {
-            GRAPHICS_LOG_WARNING("Mecanisme : clip d'etat '" + fallbackClip + "' introuvable dans '" +
-                                 assetKey + "' -- repli sur le premier clip disponible (LOT-47).");
+            GRAPHICS_LOG_WARNING("Mecanisme : clip d'etat '" + fallbackClip +
+                                 "' introuvable dans '" + assetKey +
+                                 "' -- repli sur le premier clip disponible (LOT-47).");
         }
         index = 0;  // repli lisible : ClipSet::clipAt borne deja les index invalides/jeu vide.
     }
@@ -67,16 +68,18 @@ std::optional<std::string> mechanismTargetClip(core::TileType type, bool active)
             return active ? MECHANISM_CLIP_DANGER_SWITCHED_ACTIVE
                           : MECHANISM_CLIP_DANGER_SWITCHED_INACTIVE;
         case core::TileType::DangerBlink:
-            return active ? MECHANISM_CLIP_DANGER_BLINK_LETHAL : MECHANISM_CLIP_DANGER_BLINK_HARMLESS;
+            return active ? MECHANISM_CLIP_DANGER_BLINK_LETHAL
+                          : MECHANISM_CLIP_DANGER_BLINK_HARMLESS;
         case core::TileType::DangerMover:
-            return MECHANISM_CLIP_DANGER_MOVER_IDLE;  // un seul clip, l'etat est porte par la position.
+            return MECHANISM_CLIP_DANGER_MOVER_IDLE;  // un seul clip, l'etat est porte par la
+                                                      // position.
         default:
             return std::nullopt;  // type sans etat : aucune demande de clip.
     }
 }
 
 std::optional<std::string> mechanismTransitionClip(core::TileType type, bool wasActive,
-                                                    bool isActive) noexcept {
+                                                   bool isActive) noexcept {
     if (type != core::TileType::Door || wasActive == isActive) {
         // Seule la porte transitionne visiblement (LOT-47 TACHE-02) ; les autres familles basculent
         // directement sur leur clip d'etat cible. Aucun changement : rien a declencher.
@@ -88,8 +91,8 @@ std::optional<std::string> mechanismTransitionClip(core::TileType type, bool was
 std::vector<std::string> mechanismExpectedClips(core::TileType type) {
     switch (type) {
         case core::TileType::Door:
-            return {MECHANISM_CLIP_DOOR_CLOSED, MECHANISM_CLIP_DOOR_OPENING, MECHANISM_CLIP_DOOR_OPEN,
-                    MECHANISM_CLIP_DOOR_CLOSING};
+            return {MECHANISM_CLIP_DOOR_CLOSED, MECHANISM_CLIP_DOOR_OPENING,
+                    MECHANISM_CLIP_DOOR_OPEN, MECHANISM_CLIP_DOOR_CLOSING};
         case core::TileType::Switch:
             return {MECHANISM_CLIP_SWITCH_INACTIVE, MECHANISM_CLIP_SWITCH_ACTIVE};
         case core::TileType::PressurePlate:
@@ -106,8 +109,9 @@ std::vector<std::string> mechanismExpectedClips(core::TileType type) {
 }
 
 core::AtlasRegion advanceMechanismVisual(MechanismVisualState& state,
-                                         const AnimationDescription& description, core::TileType type,
-                                         bool active, const std::string& assetKey, float fixedDelta,
+                                         const AnimationDescription& description,
+                                         core::TileType type, bool active,
+                                         const std::string& assetKey, float fixedDelta,
                                          std::set<std::string>& warnedMissingClips) {
     const bool changed = !state.initialized || active != state.previousActive;
     if (!state.animation.clips) {
@@ -126,8 +130,8 @@ core::AtlasRegion advanceMechanismVisual(MechanismVisualState& state,
                 preferredClip = *transition;
             }
         }
-        setMechanismClip(state.animation, *state.animation.clips, preferredClip, targetClip, assetKey,
-                         warnedMissingClips);
+        setMechanismClip(state.animation, *state.animation.clips, preferredClip, targetClip,
+                         assetKey, warnedMissingClips);
         state.previousActive = active;
         state.initialized = true;
     }

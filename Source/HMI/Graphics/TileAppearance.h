@@ -184,7 +184,7 @@ struct SceneTextures {
                                                     : missing;
             case AppearanceSource::Override:
                 return objectAt(appearance.skinIndex) ? objectAt(appearance.skinIndex)->texture
-                                                       : missing;
+                                                      : missing;
         }
         return missing;
     }
@@ -201,7 +201,7 @@ struct SceneTextures {
                                                     : missingWidth;
             case AppearanceSource::Override:
                 return objectAt(appearance.skinIndex) ? objectAt(appearance.skinIndex)->width
-                                                       : missingWidth;
+                                                      : missingWidth;
         }
         return missingWidth;
     }
@@ -218,7 +218,7 @@ struct SceneTextures {
                                                     : missingHeight;
             case AppearanceSource::Override:
                 return objectAt(appearance.skinIndex) ? objectAt(appearance.skinIndex)->height
-                                                       : missingHeight;
+                                                      : missingHeight;
         }
         return missingHeight;
     }

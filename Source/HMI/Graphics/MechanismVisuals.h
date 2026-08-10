@@ -54,7 +54,7 @@ inline constexpr const char* MECHANISM_CLIP_DANGER_MOVER_IDLE = "idle";
  * @return Le nom du clip d'état cible, ou `std::nullopt` si @p type n'est pas un mécanisme à état.
  */
 [[nodiscard]] std::optional<std::string> mechanismTargetClip(core::TileType type,
-                                                              bool active) noexcept;
+                                                             bool active) noexcept;
 
 /**
  * @brief Nom du clip de **transition** joué une fois lors d'un changement d'état (`LOT-47`
@@ -72,8 +72,8 @@ inline constexpr const char* MECHANISM_CLIP_DANGER_MOVER_IDLE = "idle";
  *         l'état n'a pas changé.
  */
 [[nodiscard]] std::optional<std::string> mechanismTransitionClip(core::TileType type,
-                                                                  bool wasActive,
-                                                                  bool isActive) noexcept;
+                                                                 bool wasActive,
+                                                                 bool isActive) noexcept;
 
 /**
  * @brief Noms de clip attendus par la correspondance pour un type de mécanisme, dans l'ordre du
@@ -127,11 +127,11 @@ struct MechanismVisualState {
  * @return La région de la spritesheet à afficher pour l'image courante.
  */
 [[nodiscard]] core::AtlasRegion advanceMechanismVisual(MechanismVisualState& state,
-                                                        const AnimationDescription& description,
-                                                        core::TileType type, bool active,
-                                                        const std::string& assetKey,
-                                                        float fixedDelta,
-                                                        std::set<std::string>& warnedMissingClips);
+                                                       const AnimationDescription& description,
+                                                       core::TileType type, bool active,
+                                                       const std::string& assetKey,
+                                                       float fixedDelta,
+                                                       std::set<std::string>& warnedMissingClips);
 
 /**
  * @brief Alpha de **diagnostic**, réservé au mode Physique (`LOT-47` TACHE-03).

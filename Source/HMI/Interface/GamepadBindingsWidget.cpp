@@ -1,15 +1,14 @@
 #include "HMI/Interface/GamepadBindingsWidget.h"
 
-#include <array>
-#include <optional>
-#include <utility>
-
 #include <QFormLayout>
 #include <QLabel>
 #include <QPushButton>
 #include <QString>
 #include <QTimer>
 #include <QVBoxLayout>
+#include <array>
+#include <optional>
+#include <utility>
 
 #include "HMI/Input/GamepadButtonName.h"
 #include "HMI/Interface/DesignTokens.h"
@@ -21,8 +20,8 @@ namespace {
 
 // Clés de traduction des actions (même ordre que `hmi::GameAction`, partagées avec le clavier).
 constexpr std::array<const char*, hmi::GAME_ACTION_COUNT> ACTION_KEYS{
-    "keybindings.action.left", "keybindings.action.right", "keybindings.action.aim_up",
-    "keybindings.action.aim_down", "keybindings.action.jump", "keybindings.action.dash"};
+    "keybindings.action.left",     "keybindings.action.right", "keybindings.action.aim_up",
+    "keybindings.action.aim_down", "keybindings.action.jump",  "keybindings.action.dash"};
 
 [[nodiscard]] hmi::GameAction actionAt(int index) {
     return static_cast<hmi::GameAction>(index);
@@ -32,7 +31,10 @@ constexpr std::array<const char*, hmi::GAME_ACTION_COUNT> ACTION_KEYS{
 
 GamepadBindingsWidget::GamepadBindingsWidget(hmi::GamepadBindings& bindings,
                                              std::filesystem::path savePath, QWidget* parent)
-    : QWidget(parent), _bindings(bindings), _savePath(std::move(savePath)), _timer(new QTimer(this)) {
+    : QWidget(parent),
+      _bindings(bindings),
+      _savePath(std::move(savePath)),
+      _timer(new QTimer(this)) {
     _timer->setInterval(30);
     connect(_timer, &QTimer::timeout, this, &GamepadBindingsWidget::onCaptureTick);
 
@@ -72,9 +74,8 @@ void GamepadBindingsWidget::updateStatus() {
     if (_loc == nullptr) {
         return;
     }
-    _status->setText(QString::fromStdString(
-        _loc->text(_input.gamepadConnected() ? "options.gamepad_connected"
-                                             : "options.gamepad_disconnected")));
+    _status->setText(QString::fromStdString(_loc->text(
+        _input.gamepadConnected() ? "options.gamepad_connected" : "options.gamepad_disconnected")));
 }
 
 void GamepadBindingsWidget::showEvent(QShowEvent* event) {
@@ -132,8 +133,8 @@ void GamepadBindingsWidget::onCaptureTick() {
 
 void GamepadBindingsWidget::refresh() {
     for (int index = 0; index < hmi::GAME_ACTION_COUNT; ++index) {
-        _buttons[static_cast<std::size_t>(index)]->setText(
-            QString::fromStdString(hmi::gamepadButtonDisplayName(_bindings.button(actionAt(index)))));
+        _buttons[static_cast<std::size_t>(index)]->setText(QString::fromStdString(
+            hmi::gamepadButtonDisplayName(_bindings.button(actionAt(index)))));
     }
 }
 

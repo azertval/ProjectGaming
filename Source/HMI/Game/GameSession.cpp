@@ -21,6 +21,7 @@
 #include "Core/Physics/AabbVsAabb.h"
 #include "Core/Physics/PlayerInput.h"
 #include "Core/Physics/PlayerSpawn.h"
+#include "HMI/Game/GameHud.h"
 #include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/BitmapFont.h"
 #include "HMI/Graphics/DecorVisuals.h"
@@ -36,7 +37,6 @@
 #include "HMI/Graphics/TileAutotile.h"
 #include "HMI/Graphics/TileSkinTag.h"
 #include "HMI/Graphics/TileVisuals.h"
-#include "HMI/Game/GameHud.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Input/InputState.h"
 #include "HMI/Input/PlayerInputMapper.h"
@@ -119,10 +119,10 @@ void GameSession::loadLevel(core::Level level) {
         _world, levelRef, [this](core::TileType type) { return regionForTile(type); },
         [this, &sceneMap, &levelRef](core::Entity entity, core::TileType type, int column,
                                      int row) {
-            _world.addComponent(
-                entity, TileSkinTag{type, solidNeighborMask(sceneMap, column, row),
-                                    textureOverrideAt(levelRef.textureOverrides(),
-                                                       core::GridPosition{column, row})});
+            _world.addComponent(entity,
+                                TileSkinTag{type, solidNeighborMask(sceneMap, column, row),
+                                            textureOverrideAt(levelRef.textureOverrides(),
+                                                              core::GridPosition{column, row})});
         },
         [this](core::Entity entity, const core::Decor& decor, std::size_t) {
             // Marque de presentation (nom d'asset) + calque de rendu projete (EX-DEC-002,
@@ -295,8 +295,9 @@ void GameSession::spawnPlayer(core::GridPosition entry) {
 }
 
 // Applique la correspondance etat -> clip a UNE entite-tuile de mecanisme (voir en-tete).
-void GameSession::applyMechanismVisual(core::Entity entity, bool active, MechanismVisualState& state,
-                                       const SceneTextures& textures, float fixedDelta) {
+void GameSession::applyMechanismVisual(core::Entity entity, bool active,
+                                       MechanismVisualState& state, const SceneTextures& textures,
+                                       float fixedDelta) {
     if (!_world.hasComponent<TileSkinTag>(entity) || !_world.hasComponent<core::Sprite>(entity)) {
         return;  // entite-tuile non reperee (robustesse) : rien a faire, meme garde que le reste.
     }
@@ -328,7 +329,8 @@ void GameSession::applyMechanismVisual(core::Entity entity, bool active, Mechani
         width = skin.width;
         height = skin.height;
     } else if (appearance.source == AppearanceSource::Override) {
-        const SkinTexture& object = textures.objects[static_cast<std::size_t>(appearance.skinIndex)];
+        const SkinTexture& object =
+            textures.objects[static_cast<std::size_t>(appearance.skinIndex)];
         assetPath = OBJECTS_SUBDIRECTORY + object.asset;
         width = object.width;
         height = object.height;
@@ -357,8 +359,8 @@ void GameSession::updateMechanismVisuals(float fixedDelta) {
         sceneTextures(_atlas, _cache, _tileSkins, _tileSkinSet, _level->textureOverrides(), {});
 
     for (std::size_t index = 0; index < _doorEntities.size(); ++index) {
-        applyMechanismVisual(_doorEntities[index], _mechanisms->isDoorOpen(index), _doorVisuals[index],
-                             textures, fixedDelta);
+        applyMechanismVisual(_doorEntities[index], _mechanisms->isDoorOpen(index),
+                             _doorVisuals[index], textures, fixedDelta);
     }
     for (std::size_t index = 0; index < _switchEntities.size(); ++index) {
         applyMechanismVisual(_switchEntities[index], _mechanisms->isDoorOpen(index),
@@ -373,8 +375,8 @@ void GameSession::updateMechanismVisuals(float fixedDelta) {
     const std::vector<core::DangerBlinkConfig>& blinkConfigs = _level->blinkConfigs();
     for (std::size_t index = 0; index < _dangerBlinkEntities.size(); ++index) {
         const bool active = _dangers->isBlinkActive(blinkConfigs[index].position);
-        applyMechanismVisual(_dangerBlinkEntities[index], active, _dangerBlinkVisuals[index], textures,
-                             fixedDelta);
+        applyMechanismVisual(_dangerBlinkEntities[index], active, _dangerBlinkVisuals[index],
+                             textures, fixedDelta);
     }
     for (std::size_t index = 0; index < _moverEntities.size(); ++index) {
         // Danger mobile : un seul clip (l'etat est porte par la position, pas par ce booleen) --
@@ -397,7 +399,7 @@ void GameSession::refreshMechanismDiagnosticTint(RenderMode mode) {
             continue;  // porte non reperee (robustesse) : rien a faire.
         }
         const float alpha = mechanismDiagnosticAlpha(mode, _mechanisms->isDoorOpen(index),
-                                                      DOOR_OPEN_ALPHA, DOOR_CLOSED_ALPHA);
+                                                     DOOR_OPEN_ALPHA, DOOR_CLOSED_ALPHA);
         _world.getComponent<core::Sprite>(door).tint = core::Color{1.0f, 1.0f, 1.0f, alpha};
     }
 
@@ -492,7 +494,8 @@ void GameSession::refreshPlayerSprite() {
     // externe (AC#2 du lot) -- calculee une seule fois, partagee par les deux usages.
     const PlayerClipKind proceduralKind = proceduralClipKindFor(clipName);
     const int proceduralFrame = animation.frameIndex % proceduralFrameCount(proceduralKind);
-    const core::AtlasRegion proceduralRegion = _atlas.playerFrameRegion(proceduralKind, proceduralFrame);
+    const core::AtlasRegion proceduralRegion =
+        _atlas.playerFrameRegion(proceduralKind, proceduralFrame);
     sprite.region = proceduralRegion;
 
     core::AtlasRegion textureRegion = proceduralRegion;
@@ -500,8 +503,8 @@ void GameSession::refreshPlayerSprite() {
     core::Vector2 imageSizePixels{static_cast<float>(TextureAtlas::PLAYER_FRAME_SIZE),
                                   static_cast<float>(TextureAtlas::PLAYER_FRAME_SIZE)};
 
-    if (const LoadedTexture* sheet = _cache.get(PLAYER_SUBDIRECTORY + PLAYER_SHEET_FILE_NAME,
-                                                AssetFamily::CharacterSheet)) {
+    if (const LoadedTexture* sheet =
+            _cache.get(PLAYER_SUBDIRECTORY + PLAYER_SHEET_FILE_NAME, AssetFamily::CharacterSheet)) {
         if (const AnimationDescription* description = _cache.getAnimation(
                 PLAYER_SUBDIRECTORY + PLAYER_SHEET_FILE_NAME, sheet->width, sheet->height)) {
             // Noms effectivement declares par CETTE spritesheet (peut-etre partielle) : le repli
@@ -732,7 +735,7 @@ void GameSession::renderHud(int viewportWidth, int viewportHeight) {
     float lineY = HUD_MARGIN;
     for (const std::string& line : lines) {
         composeText(_hudScene, _font, line, HUD_MARGIN + 1.0f, lineY + 1.0f, HUD_SCALE,
-                   HUD_SHADOW_COLOR);
+                    HUD_SHADOW_COLOR);
         composeText(_hudScene, _font, line, HUD_MARGIN, lineY, HUD_SCALE, HUD_TEXT_COLOR);
         lineY += static_cast<float>(_font.metrics().lineHeight) * HUD_SCALE + HUD_LINE_SPACING;
     }

@@ -203,15 +203,17 @@ private:
     /// image/pas).
     std::set<std::string> _warnedExcludedAnimations;
 
-    // Apparence des mecanismes pilotee par l'etat (LOT-47) : une horloge par instance suivie (porte,
-    // declencheur, danger commute/temporise/mobile), independante de _tileAnimations ci-dessus.
+    // Apparence des mecanismes pilotee par l'etat (LOT-47) : une horloge par instance suivie
+    // (porte, declencheur, danger commute/temporise/mobile), independante de _tileAnimations
+    // ci-dessus.
     std::vector<MechanismVisualState> _doorVisuals;
     std::vector<MechanismVisualState> _switchVisuals;
     std::vector<MechanismVisualState> _dangerSwitchedVisuals;
     std::vector<MechanismVisualState> _dangerBlinkVisuals;
     std::vector<MechanismVisualState> _dangerMoverVisuals;
-    /// Couples (asset, clip attendu) deja signales comme manquants : un seul message par combinaison
-    /// pour toute la session, meme principe que _warnedExcludedAnimations (LOT-47 TACHE-02).
+    /// Couples (asset, clip attendu) deja signales comme manquants : un seul message par
+    /// combinaison pour toute la session, meme principe que _warnedExcludedAnimations (LOT-47
+    /// TACHE-02).
     std::set<std::string> _warnedMissingMechanismClips;
 };
 

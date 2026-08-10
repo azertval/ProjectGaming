@@ -63,7 +63,8 @@ TEST(GameHudTest, BudgetsFinisAffichentLesDeuxCompteurs) {
 TEST(GameHudTest, NiveauSansBudgetNAfficheAucunCompteur) {
     core::Player player;  // jumpsRemaining/dashesRemaining par defaut : -1 (illimite)
 
-    const std::vector<std::string> lines = hmi::gameHudLines(player, "Promenade", testLocalization());
+    const std::vector<std::string> lines =
+        hmi::gameHudLines(player, "Promenade", testLocalization());
 
     ASSERT_EQ(lines.size(), 1u);
     EXPECT_EQ(lines[0], "Promenade");
@@ -85,7 +86,8 @@ TEST(GameHudTest, BudgetPartielNAfficheQuUnCompteur) {
     player.jumpsRemaining = 2;
     player.dashesRemaining = -1;
 
-    const std::vector<std::string> lines = hmi::gameHudLines(player, "Chute libre", testLocalization());
+    const std::vector<std::string> lines =
+        hmi::gameHudLines(player, "Chute libre", testLocalization());
 
     ASSERT_EQ(lines.size(), 2u);
     EXPECT_EQ(lines[0], "Sauts : 2");

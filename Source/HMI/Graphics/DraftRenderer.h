@@ -106,8 +106,7 @@ public:
                 const std::optional<std::pair<core::GridPosition, core::GridPosition>>& highlight,
                 const LinkOverlayState& linkOverlay, RenderMode mode,
                 bool showTextureOverrides = false, float deltaSeconds = 0.0f,
-                const DecorOverlayState& decorOverlay = {},
-                const LayerVisibility& visibility = {});
+                const DecorOverlayState& decorOverlay = {}, const LayerVisibility& visibility = {});
 
     /// Marque la scène comme périmée : elle sera reconstruite au prochain `render` (à appeler après
     /// toute mutation du brouillon — peinture, undo/redo, chargement, redimensionnement).

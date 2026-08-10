@@ -76,6 +76,6 @@ struct DecorAppearance {
  * @return La texture à lier et ses dimensions en pixels.
  */
 [[nodiscard]] DecorAppearance resolveDecorAppearance(const DecorVisualTag& tag,
-                                                      const SceneTextures& textures) noexcept;
+                                                     const SceneTextures& textures) noexcept;
 
 }  // namespace hmi

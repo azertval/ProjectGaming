@@ -4,10 +4,10 @@
  * (`LOT-51`, `EX-EDIT-044`).
  */
 
-#include <gtest/gtest.h>
-
 #include <optional>
 #include <string>
+
+#include <gtest/gtest.h>
 
 #include "Core/Ecs/Components/Sprite.h"
 #include "Core/Ecs/Components/Transform.h"
@@ -69,8 +69,8 @@ void addDecor(core::World& world, DecorLayer decorLayer) {
 /// hmi::GameSession::spawnPlayer (cf. test_decor_visuals.cpp).
 void addPlayer(core::World& world) {
     const core::Entity entity = world.createEntity();
-    world.addComponent(
-        entity, core::Transform{core::Vector2{2.0f, 2.0f}, core::Vector2{0.4f, 0.8f}, 0.0f});
+    world.addComponent(entity,
+                       core::Transform{core::Vector2{2.0f, 2.0f}, core::Vector2{0.4f, 0.8f}, 0.0f});
     core::Sprite sprite;
     sprite.region = core::AtlasRegion{0, 80, 16, 16};
     world.addComponent(entity, sprite);

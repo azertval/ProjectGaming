@@ -109,11 +109,9 @@ TEST(DecorGeometryTest, HitTestDecorHandlesIdentifieLaPoigneeTouchee) {
 }
 
 /**
- * @brief `decorRotatedPoint` à rotation nulle renvoie exactement `centre + localOffset` (identité) :
- * base de comparaison avant de vérifier une rotation non nulle.
- * \castest{<b>decorRotatedPoint a rotation nulle est l'identite.</b><br/>
- * \tcat Unitaire · Decor Geometry<br/>
- * \tcrit Majeur<br/>
+ * @brief `decorRotatedPoint` à rotation nulle renvoie exactement `centre + localOffset` (identité)
+ * : base de comparaison avant de vérifier une rotation non nulle. \castest{<b>decorRotatedPoint a
+ * rotation nulle est l'identite.</b><br/> \tcat Unitaire · Decor Geometry<br/> \tcrit Majeur<br/>
  * \tetapes 1. Calculer decorRotatedPoint a rotation 0.<br/>
  * \tattendu Le point renvoye est centre + localOffset, sans deformation.
  * }
@@ -140,7 +138,7 @@ TEST(DecorGeometryTest, DecorRotatedPointARotationNulleEstLIdentite) {
  */
 TEST(DecorGeometryTest, DecorRotatedPointA90DegresTourneDansLeSensHoraire) {
     const Rect bounds{Vector2{0.0f, 0.0f}, Vector2{4.0f, 4.0f}};  // carre, centre (2, 2)
-    constexpr float HALF_TURN_QUARTER = 1.57079632679f;          // pi/2
+    constexpr float HALF_TURN_QUARTER = 1.57079632679f;           // pi/2
 
     // Coin superieur droit (2, -2) relatif au centre, tourne de 90 degres horaire.
     const Vector2 point = hmi::decorRotatedPoint(bounds, Vector2{2.0f, -2.0f}, HALF_TURN_QUARTER);
@@ -162,7 +160,7 @@ TEST(DecorGeometryTest, DecorRotatedPointA90DegresTourneDansLeSensHoraire) {
  */
 TEST(DecorGeometryTest, PoigneesDeCoinTournentAvecLeDecor) {
     const Rect bounds{Vector2{0.0f, 0.0f}, Vector2{4.0f, 4.0f}};  // carre, centre (2, 2)
-    constexpr float HALF_TURN_QUARTER = 1.57079632679f;          // pi/2
+    constexpr float HALF_TURN_QUARTER = 1.57079632679f;           // pi/2
 
     const hmi::DecorHandleLayout upright = hmi::decorHandleLayout(bounds, 0.1f, 0.0f);
     const hmi::DecorHandleLayout rotated = hmi::decorHandleLayout(bounds, 0.1f, HALF_TURN_QUARTER);
@@ -170,9 +168,8 @@ TEST(DecorGeometryTest, PoigneesDeCoinTournentAvecLeDecor) {
     const Vector2 uprightTopRightCenter{
         upright.topRight.position.x + upright.topRight.size.x * 0.5f,
         upright.topRight.position.y + upright.topRight.size.y * 0.5f};
-    const Vector2 rotatedTopLeftCenter{
-        rotated.topLeft.position.x + rotated.topLeft.size.x * 0.5f,
-        rotated.topLeft.position.y + rotated.topLeft.size.y * 0.5f};
+    const Vector2 rotatedTopLeftCenter{rotated.topLeft.position.x + rotated.topLeft.size.x * 0.5f,
+                                       rotated.topLeft.position.y + rotated.topLeft.size.y * 0.5f};
 
     EXPECT_NEAR(rotatedTopLeftCenter.x, uprightTopRightCenter.x, 1e-3f);
     EXPECT_NEAR(rotatedTopLeftCenter.y, uprightTopRightCenter.y, 1e-3f);

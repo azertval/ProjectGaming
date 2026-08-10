@@ -176,8 +176,8 @@ struct FontMetricsResult {
  *         bornes de la texture, ou une hauteur de ligne non positive).
  */
 [[nodiscard]] AssetValidation validateFontMetricsAgainstTexture(const FontMetrics& metrics,
-                                                                 const std::string& fileName,
-                                                                 int textureWidth,
-                                                                 int textureHeight);
+                                                                const std::string& fileName,
+                                                                int textureWidth,
+                                                                int textureHeight);
 
 }  // namespace hmi

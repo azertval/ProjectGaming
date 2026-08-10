@@ -49,7 +49,9 @@ BlockController::BlockController(const Level& level) {
     _fallTimers.assign(_positions.size(), 0);
 }
 
-Aabb BlockController::boxAt(std::size_t index) const { return blockBox(_positions[index], _scales[index]); }
+Aabb BlockController::boxAt(std::size_t index) const {
+    return blockBox(_positions[index], _scales[index]);
+}
 
 bool BlockController::isFree(GridPosition target, const TileMap& base,
                              std::size_t excluding) const {

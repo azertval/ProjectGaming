@@ -215,7 +215,7 @@ TEST(TextRendererTest, CaractereAbsentEstSubstitueEtComposeUnQuad) {
 TEST(TextRendererTest, TexteNestJamaisCulle) {
     hmi::ComposedScene scene;
     ASSERT_FALSE(scene.isCullingEnabled());
-    hmi::composeText(scene, testMetrics(), fontTexture, TEXTURE_WIDTH, TEXTURE_HEIGHT, "A", 10000.0f,
-                     10000.0f, 1.0f, core::Color{});
+    hmi::composeText(scene, testMetrics(), fontTexture, TEXTURE_WIDTH, TEXTURE_HEIGHT, "A",
+                     10000.0f, 10000.0f, 1.0f, core::Color{});
     EXPECT_EQ(scene.size(), 1u);
 }

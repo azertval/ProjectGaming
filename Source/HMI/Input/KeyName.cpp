@@ -82,7 +82,7 @@ std::string keyDisplayName(Key key) {
     }
     std::ostringstream stream;
     stream << "Touche 0x" << std::hex << std::uppercase << std::setw(2) << std::setfill('0')
-          << code;
+           << code;
     return stream.str();
 }
 

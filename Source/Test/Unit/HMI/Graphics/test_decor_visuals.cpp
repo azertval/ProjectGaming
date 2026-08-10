@@ -4,12 +4,12 @@
  *        TACHE-02, `EX-DEC-002`, `EX-ARCH-012`).
  */
 
-#include <gtest/gtest.h>
-
 #include <cstdint>
 #include <optional>
 #include <string>
 #include <vector>
+
+#include <gtest/gtest.h>
 
 #include "Core/Ecs/Components/Sprite.h"
 #include "Core/Ecs/Components/Transform.h"
@@ -41,8 +41,7 @@ hmi::SceneTextures testTextures() {
     textures.missing = missingTexture;
     textures.missingWidth = hmi::MISSING_TEXTURE_SIZE;
     textures.missingHeight = hmi::MISSING_TEXTURE_SIZE;
-    textures.decors.push_back(
-        hmi::SkinTexture{"tree.png", std::nullopt, decorTexture, 48, 32});
+    textures.decors.push_back(hmi::SkinTexture{"tree.png", std::nullopt, decorTexture, 48, 32});
     return textures;
 }
 
@@ -74,8 +73,8 @@ void addTile(core::World& world, float x, float y) {
 // Ajoute une entite personnage minimale (RenderLayer::Player), comme hmi::GameSession::spawnPlayer.
 void addPlayer(core::World& world) {
     const core::Entity entity = world.createEntity();
-    world.addComponent(
-        entity, core::Transform{core::Vector2{2.0f, 2.0f}, core::Vector2{0.4f, 0.8f}, 0.0f});
+    world.addComponent(entity,
+                       core::Transform{core::Vector2{2.0f, 2.0f}, core::Vector2{0.4f, 0.8f}, 0.0f});
     core::Sprite sprite;
     sprite.region = core::AtlasRegion{0, 80, 16, 16};
     world.addComponent(entity, sprite);

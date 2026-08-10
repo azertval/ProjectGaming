@@ -136,8 +136,7 @@ public:
           std::vector<DangerBlinkConfig> blinkConfigs = {},
           std::optional<std::string> background = std::nullopt,
           std::optional<std::string> skinSet = std::nullopt,
-          std::vector<TileTextureOverride> textureOverrides = {},
-          std::vector<Decor> decors = {})
+          std::vector<TileTextureOverride> textureOverrides = {}, std::vector<Decor> decors = {})
         : _name(std::move(name)),
           _tileMap(std::move(tileMap)),
           _entry(entry),

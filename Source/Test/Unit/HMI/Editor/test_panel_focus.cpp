@@ -84,8 +84,8 @@ TEST(PanelFocusTest, AucunDoublonDOutilDansLaTable) {
  */
 TEST(PanelFocusTest, OutilsDeCanevasMettentEnAvantLePanneauDuCanevas) {
     for (const hmi::PixelTool tool :
-        {hmi::PixelTool::Brush, hmi::PixelTool::Eraser, hmi::PixelTool::Fill,
-         hmi::PixelTool::Eyedropper, hmi::PixelTool::Selection}) {
+         {hmi::PixelTool::Brush, hmi::PixelTool::Eraser, hmi::PixelTool::Fill,
+          hmi::PixelTool::Eyedropper, hmi::PixelTool::Selection}) {
         EXPECT_EQ(hmi::panelForPixelTool(tool), hmi::PanelId::PixelCanvas)
             << "outil " << static_cast<int>(tool);
     }

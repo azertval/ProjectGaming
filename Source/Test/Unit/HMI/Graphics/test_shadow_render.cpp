@@ -3,9 +3,9 @@
  * @brief Tests unitaires des ombres du plan physique (LOT-55, EX-REN-045).
  */
 
-#include <gtest/gtest.h>
-
 #include <optional>
+
+#include <gtest/gtest.h>
 
 #include "Core/Ecs/Components/Transform.h"
 #include "Core/Ecs/World.h"
@@ -27,7 +27,7 @@ hmi::TextureHandle texture = &textureStorage;
 hmi::SceneTextures testTextures() {
     hmi::SceneTextures textures;
     textures.atlas = texture;
-    textures.atlasWidth = 80;   // 5 colonnes x 16 px (hmi::TextureAtlas::TILES_PER_SIDE)
+    textures.atlasWidth = 80;  // 5 colonnes x 16 px (hmi::TextureAtlas::TILES_PER_SIDE)
     textures.atlasHeight = 160;
     return textures;
 }
@@ -39,8 +39,8 @@ core::Entity addTile(core::World& world, core::TileType type, int column, int ro
     const float scale = core::tileVisualScale(type);
     const float margin = (1.0f - scale) * 0.5f;
     world.addComponent(entity, core::Transform{core::Vector2{static_cast<float>(column) + margin,
-                                                              static_cast<float>(row) + margin},
-                                                core::Vector2{scale, scale}, 0.0f});
+                                                             static_cast<float>(row) + margin},
+                                               core::Vector2{scale, scale}, 0.0f});
     world.addComponent(entity, hmi::TileSkinTag{type, 0, std::nullopt, std::nullopt});
     return entity;
 }
@@ -149,8 +149,7 @@ TEST(ShadowRenderTest, DouzeSilhouettesMemeRegionQueRegionForTile) {
         const core::AtlasRegion region = hmi::regionForTile(type);
         const float expectedU0 = static_cast<float>(region.x) / textures.atlasWidth;
         const float expectedV0 = static_cast<float>(region.y) / textures.atlasHeight;
-        const float expectedU1 =
-            static_cast<float>(region.x + region.width) / textures.atlasWidth;
+        const float expectedU1 = static_cast<float>(region.x + region.width) / textures.atlasWidth;
         const float expectedV1 =
             static_cast<float>(region.y + region.height) / textures.atlasHeight;
         const hmi::ComposedQuad& quad = recorder.quads().front();

@@ -36,15 +36,15 @@ MechanismController::MechanismController(const Level& level)
     // _collision ci-dessous — seules les portes sont réécrites, jamais les déclencheurs eux-mêmes).
     _continuous.reserve(_mechanisms.size());
     for (const Mechanism& mechanism : _mechanisms) {
-        _continuous.push_back(_collision.tile(mechanism.switchPosition.column,
-                                              mechanism.switchPosition.row) ==
-                              TileType::PressurePlate);
+        _continuous.push_back(
+            _collision.tile(mechanism.switchPosition.column, mechanism.switchPosition.row) ==
+            TileType::PressurePlate);
     }
     _dangerContinuous.reserve(_dangerLinks.size());
     for (const DangerLink& link : _dangerLinks) {
-        _dangerContinuous.push_back(_collision.tile(link.triggerPosition.column,
-                                                     link.triggerPosition.row) ==
-                                    TileType::PressurePlate);
+        _dangerContinuous.push_back(
+            _collision.tile(link.triggerPosition.column, link.triggerPosition.row) ==
+            TileType::PressurePlate);
     }
     // Portes fermées au départ : solides dans la grille de collision.
     for (const Mechanism& mechanism : _mechanisms) {

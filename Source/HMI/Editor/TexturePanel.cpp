@@ -25,7 +25,6 @@
 #include <QTreeView>
 #include <QVBoxLayout>
 #include <QVariant>
-
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
@@ -242,10 +241,8 @@ TexturePanel::TexturePanel(std::filesystem::path skinsDirectory, std::filesystem
 
     connect(_ui->setSelector, &QComboBox::currentIndexChanged, this, &TexturePanel::onSetChanged);
     connect(_model, &QStandardItemModel::itemChanged, this, &TexturePanel::onItemChanged);
-    connect(_ui->skinsTree, &QTreeView::doubleClicked, this,
-            &TexturePanel::onAssetColumnActivated);
-    connect(_ui->reloadButton, &QPushButton::clicked, this,
-            [this] { emit reloadRequested(); });
+    connect(_ui->skinsTree, &QTreeView::doubleClicked, this, &TexturePanel::onAssetColumnActivated);
+    connect(_ui->reloadButton, &QPushButton::clicked, this, [this] { emit reloadRequested(); });
 
     // Section « Fond » (LOT-44) : grille de vignettes embarquee directement (pas un dialogue de
     // selection comme pour les skins) -- selectionner une case choisit le fond immediatement, avec
@@ -341,7 +338,8 @@ void TexturePanel::retranslateUi(const Localization& loc) {
     _ui->levelSkinSetLabel->setText(QString::fromStdString(loc.text("textures.level_skin_set")));
     _ui->levelSkinSetLabel->setToolTip(
         QString::fromStdString(loc.text("textures.level_skin_set_tooltip")));
-    _ui->objectsAssetLabel->setText(QString::fromStdString(loc.text("textures.objects_asset_label")));
+    _ui->objectsAssetLabel->setText(
+        QString::fromStdString(loc.text("textures.objects_asset_label")));
     _ui->objectsListLabel->setText(QString::fromStdString(loc.text("textures.objects_list_label")));
     _ui->objectsRemoveButton->setText(QString::fromStdString(loc.text("textures.objects_remove")));
     _objectsModel->setHorizontalHeaderLabels(
@@ -387,8 +385,8 @@ void TexturePanel::rebuildTree() {
 
     if (_catalog != nullptr) {
         for (const SkinSection& section : buildSkinRows(*_catalog, _currentSet)) {
-            auto* const header =
-                new QStandardItem(QString::fromStdString(localizedTaxonomyLabel(_loc, section.label)));
+            auto* const header = new QStandardItem(
+                QString::fromStdString(localizedTaxonomyLabel(_loc, section.label)));
             header->setEditable(false);
             for (const SkinRow& row : section.rows) {
                 auto* const typeItem = new QStandardItem(
@@ -407,10 +405,10 @@ void TexturePanel::rebuildTree() {
 
                 auto* const modeItem =
                     new QStandardItem(QString::fromLatin1(skinModeName(row.mode)));
-                modeItem->setData(QStringList{QString::fromLatin1(skinModeName(SkinMode::Single)),
-                                              QString::fromLatin1(
-                                                  skinModeName(SkinMode::Bitmask16))},
-                                  Qt::UserRole);
+                modeItem->setData(
+                    QStringList{QString::fromLatin1(skinModeName(SkinMode::Single)),
+                                QString::fromLatin1(skinModeName(SkinMode::Bitmask16))},
+                    Qt::UserRole);
                 modeItem->setData(static_cast<int>(row.type), TILE_TYPE_ROLE);
 
                 header->appendRow(QList<QStandardItem*>{typeItem, assetItem, modeItem});
@@ -459,7 +457,8 @@ void TexturePanel::onItemChanged(QStandardItem* item) {
     }
 
     const QString assetText = assetItem->text();
-    const std::string asset = assetText == noneLabel(_loc) ? std::string{} : assetText.toStdString();
+    const std::string asset =
+        assetText == noneLabel(_loc) ? std::string{} : assetText.toStdString();
     const SkinMode mode =
         skinModeFromName(modeItem->text().toStdString()).value_or(SkinMode::Single);
 
@@ -524,8 +523,8 @@ QPixmap TexturePanel::thumbnailFor(const std::string& asset) {
         source = toImage(DecodedImage{missing.width, missing.height, missing.pixels});
     }
 
-    // Resolution reelle (LOT-56 TACHE-05) : sans quoi l'ecran a 125%/150% agrandirait cette vignette
-    // par interpolation, incoherent avec le plus proche voisin choisi ici.
+    // Resolution reelle (LOT-56 TACHE-05) : sans quoi l'ecran a 125%/150% agrandirait cette
+    // vignette par interpolation, incoherent avec le plus proche voisin choisi ici.
     const qreal scale = devicePixelRatioF();
     const int pixelSize = thumbnailPixelSize(ROW_ICON_SIZE, scale);
     QPixmap pixmap = QPixmap::fromImage(
@@ -589,13 +588,14 @@ void TexturePanel::refreshObjects(const core::LevelDraft& draft) {
     _objectRows = draft.textureOverrides();
     // Tri stable par position (colonne puis ligne) : un grand niveau peut porter beaucoup de
     // surcharges, une liste dans l'ordre d'insertion serait illisible.
-    std::stable_sort(_objectRows.begin(), _objectRows.end(),
-                     [](const core::TileTextureOverride& lhs, const core::TileTextureOverride& rhs) {
-                         if (lhs.position.column != rhs.position.column) {
-                             return lhs.position.column < rhs.position.column;
-                         }
-                         return lhs.position.row < rhs.position.row;
-                     });
+    std::stable_sort(
+        _objectRows.begin(), _objectRows.end(),
+        [](const core::TileTextureOverride& lhs, const core::TileTextureOverride& rhs) {
+            if (lhs.position.column != rhs.position.column) {
+                return lhs.position.column < rhs.position.column;
+            }
+            return lhs.position.row < rhs.position.row;
+        });
     rebuildObjectRows();
 }
 
@@ -655,8 +655,8 @@ void TexturePanel::rebuildAnimationsTree() {
         return;
     }
 
-    for (const MechanismAnimationRow& row : buildMechanismAnimationRows(*_catalog, _currentSet,
-                                                                        _skinsDirectory)) {
+    for (const MechanismAnimationRow& row :
+         buildMechanismAnimationRows(*_catalog, _currentSet, _skinsDirectory)) {
         auto* const typeItem =
             new QStandardItem(QString::fromStdString(localizedTaxonomyLabel(_loc, row.typeLabel)));
         typeItem->setEditable(false);

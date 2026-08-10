@@ -95,10 +95,10 @@ private:
         _playerOnSwitchPrev;  ///< Le personnage était-il sur le déclencheur au pas précédent ?
     std::vector<bool> _continuous;  ///< true = plaque de pression (activation continue), figé au
                                     ///< chargement ; false = interrupteur à bascule classique.
-    std::vector<DangerLink> _dangerLinks;      ///< Liaisons déclencheur↔danger commuté.
-    std::vector<bool> _dangerActive;           ///< État de chaque danger commuté (actif = mortel ?).
+    std::vector<DangerLink> _dangerLinks;  ///< Liaisons déclencheur↔danger commuté.
+    std::vector<bool> _dangerActive;       ///< État de chaque danger commuté (actif = mortel ?).
     std::vector<bool> _playerOnDangerTriggerPrev;  ///< Front, même principe que
-                                                    ///< `_playerOnSwitchPrev`, pour `_dangerLinks`.
+                                                   ///< `_playerOnSwitchPrev`, pour `_dangerLinks`.
     std::vector<bool> _dangerContinuous;  ///< true = plaque de pression, même principe que
                                           ///< `_continuous`, pour `_dangerLinks`.
 };

@@ -123,8 +123,8 @@ void LevelDraft::linkMechanism(GridPosition switchPosition, GridPosition targetP
                          "linkMechanism : la position source ne porte pas de declencheur "
                          "(interrupteur ou plaque de pression)");
     const TileType targetTile = _tileMap.inBounds(targetPosition.column, targetPosition.row)
-                                     ? _tileMap.tile(targetPosition.column, targetPosition.row)
-                                     : TileType::Empty;
+                                    ? _tileMap.tile(targetPosition.column, targetPosition.row)
+                                    : TileType::Empty;
     PROJECTGAMING_ASSERT(targetTile == TileType::Door || targetTile == TileType::DangerSwitched,
                          "linkMechanism : la position cible ne porte pas de porte ni de danger "
                          "commute");
@@ -176,8 +176,7 @@ void LevelDraft::setMoverConfig(GridPosition position, DangerMoverAxis axis, int
     _moverConfigs.push_back(DangerMoverConfig{position, axis, range});
 }
 
-void LevelDraft::setBlinkConfig(GridPosition position, int period, int phase,
-                                int activeDuration) {
+void LevelDraft::setBlinkConfig(GridPosition position, int period, int phase, int activeDuration) {
     PROJECTGAMING_ASSERT(_tileMap.inBounds(position.column, position.row) &&
                              _tileMap.tile(position.column, position.row) == TileType::DangerBlink,
                          "setBlinkConfig : la position ne porte pas un DangerBlink");
@@ -380,39 +379,37 @@ void LevelDraft::resize(int width, int height) {
     _mechanisms.erase(std::remove_if(_mechanisms.begin(), _mechanisms.end(),
                                      [this](const Mechanism& mechanism) {
                                          return !_tileMap.inBounds(mechanism.switchPosition.column,
-                                                                    mechanism.switchPosition.row) ||
+                                                                   mechanism.switchPosition.row) ||
                                                 !_tileMap.inBounds(mechanism.doorPosition.column,
-                                                                    mechanism.doorPosition.row);
+                                                                   mechanism.doorPosition.row);
                                      }),
                       _mechanisms.end());
     _dangerLinks.erase(std::remove_if(_dangerLinks.begin(), _dangerLinks.end(),
                                       [this](const DangerLink& link) {
                                           return !_tileMap.inBounds(link.triggerPosition.column,
-                                                                     link.triggerPosition.row) ||
+                                                                    link.triggerPosition.row) ||
                                                  !_tileMap.inBounds(link.dangerPosition.column,
-                                                                     link.dangerPosition.row);
+                                                                    link.dangerPosition.row);
                                       }),
                        _dangerLinks.end());
     _moverConfigs.erase(std::remove_if(_moverConfigs.begin(), _moverConfigs.end(),
                                        [this](const DangerMoverConfig& config) {
-                                           return !_tileMap.inBounds(
-                                               config.startPosition.column,
-                                               config.startPosition.row);
+                                           return !_tileMap.inBounds(config.startPosition.column,
+                                                                     config.startPosition.row);
                                        }),
                         _moverConfigs.end());
     _blinkConfigs.erase(std::remove_if(_blinkConfigs.begin(), _blinkConfigs.end(),
                                        [this](const DangerBlinkConfig& config) {
                                            return !_tileMap.inBounds(config.position.column,
-                                                                      config.position.row);
+                                                                     config.position.row);
                                        }),
                         _blinkConfigs.end());
-    _textureOverrides.erase(
-        std::remove_if(_textureOverrides.begin(), _textureOverrides.end(),
-                       [this](const TileTextureOverride& override) {
-                           return !_tileMap.inBounds(override.position.column,
-                                                       override.position.row);
-                       }),
-        _textureOverrides.end());
+    _textureOverrides.erase(std::remove_if(_textureOverrides.begin(), _textureOverrides.end(),
+                                           [this](const TileTextureOverride& override) {
+                                               return !_tileMap.inBounds(override.position.column,
+                                                                         override.position.row);
+                                           }),
+                            _textureOverrides.end());
     // _decors n'est volontairement PAS filtre : contrairement aux autres donnees annexes (keyees
     // par case), un decor libre peut legitimement deborder du niveau (une branche qui depasse) --
     // le tronquer serait une perte de travail (TACHE-01).
@@ -478,9 +475,20 @@ bool LevelDraft::redo() {
 }
 
 LevelDraft::State LevelDraft::snapshot() const {
-    return State{_name,        _tileMap,     _entry,        _exit,         _mechanisms,
-                 _jumpBudget,  _dashBudget,  _dangerLinks,  _moverConfigs, _blinkConfigs,
-                 _background,  _skinSet,     _textureOverrides, _decors};
+    return State{_name,
+                 _tileMap,
+                 _entry,
+                 _exit,
+                 _mechanisms,
+                 _jumpBudget,
+                 _dashBudget,
+                 _dangerLinks,
+                 _moverConfigs,
+                 _blinkConfigs,
+                 _background,
+                 _skinSet,
+                 _textureOverrides,
+                 _decors};
 }
 
 void LevelDraft::restore(State state) {

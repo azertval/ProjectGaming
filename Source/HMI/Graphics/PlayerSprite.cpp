@@ -5,15 +5,22 @@
 namespace hmi {
 
 namespace {
-// Chaine de repli d'un clip demande vers le plus proche declare (voir hmi::resolveDeclaredPlayerClip).
-// nullptr = "idle", dernier recours (jamais absent en pratique, procedural comme externe).
+// Chaine de repli d'un clip demande vers le plus proche declare (voir
+// hmi::resolveDeclaredPlayerClip). nullptr = "idle", dernier recours (jamais absent en pratique,
+// procedural comme externe).
 [[nodiscard]] const char* fallbackFor(std::string_view name) noexcept {
-    if (name == "fall") return "jump";
-    if (name == "land") return "idle";
-    if (name == "wallslide") return "jump";
-    if (name == "dash") return "run";
-    if (name == "run") return "idle";
-    if (name == "jump") return "idle";
+    if (name == "fall")
+        return "jump";
+    if (name == "land")
+        return "idle";
+    if (name == "wallslide")
+        return "jump";
+    if (name == "dash")
+        return "run";
+    if (name == "run")
+        return "idle";
+    if (name == "jump")
+        return "idle";
     return nullptr;
 }
 

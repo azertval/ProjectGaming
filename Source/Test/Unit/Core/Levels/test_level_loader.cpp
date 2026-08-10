@@ -1040,7 +1040,7 @@ TEST(LevelLoaderTest, LesQuinzeNiveauxDeDemoSeChargentSansErreur) {
     const std::filesystem::path levelsDir(PROJECTGAMING_LEVELS_DIR);
     int checked = 0;
     for (const std::filesystem::directory_entry& entry :
-        std::filesystem::directory_iterator(levelsDir)) {
+         std::filesystem::directory_iterator(levelsDir)) {
         if (entry.path().extension() != ".json") {
             continue;
         }

@@ -1,17 +1,16 @@
 #include "HMI/Interface/KeybindingsWidget.h"
 
-#include <array>
-#include <utility>
-
 #include <QFormLayout>
 #include <QKeyEvent>
 #include <QLabel>
 #include <QPushButton>
 #include <QString>
 #include <QVBoxLayout>
+#include <array>
+#include <utility>
 
-#include "HMI/Input/QtKeyMap.h"
 #include "HMI/Input/KeyName.h"
+#include "HMI/Input/QtKeyMap.h"
 #include "HMI/Interface/DesignTokens.h"
 #include "HMI/Localization/Localization.h"
 
@@ -21,8 +20,8 @@ namespace {
 
 // Clés de traduction des actions de jeu (même ordre que `hmi::GameAction`).
 constexpr std::array<const char*, hmi::GAME_ACTION_COUNT> ACTION_KEYS{
-    "keybindings.action.left", "keybindings.action.right", "keybindings.action.aim_up",
-    "keybindings.action.aim_down", "keybindings.action.jump", "keybindings.action.dash"};
+    "keybindings.action.left",     "keybindings.action.right", "keybindings.action.aim_up",
+    "keybindings.action.aim_down", "keybindings.action.jump",  "keybindings.action.dash"};
 
 [[nodiscard]] hmi::GameAction actionAt(int index) {
     return static_cast<hmi::GameAction>(index);

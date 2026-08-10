@@ -115,7 +115,7 @@ public:
      *         invalide.
      */
     [[nodiscard]] const AnimationDescription* getAnimation(const std::string& fileName,
-                                                            int textureWidth, int textureHeight);
+                                                           int textureWidth, int textureHeight);
 
     /**
      * @brief Retire une entrée du cache, de sorte que le prochain `get` relise le fichier.
@@ -168,8 +168,8 @@ private:
     /// via `hmi::AnimationCatalog`. `std::nullopt` couvre aussi bien l'absence de fichier
     /// (silencieuse) qu'un échec de lecture/validation (journalisé par `getAnimation`).
     [[nodiscard]] std::optional<AnimationDescription> loadAnimation(const std::string& fileName,
-                                                                     int textureWidth,
-                                                                     int textureHeight) const;
+                                                                    int textureWidth,
+                                                                    int textureHeight) const;
 
     ID3D11Device* _device;  // non possédé
     AssetPaths _paths;

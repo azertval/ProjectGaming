@@ -4,9 +4,9 @@
  *        TACHE-04).
  */
 
-#include <gtest/gtest.h>
-
 #include <vector>
+
+#include <gtest/gtest.h>
 
 #include "Core/Levels/Decor.h"
 #include "Core/Math/Vector2.h"

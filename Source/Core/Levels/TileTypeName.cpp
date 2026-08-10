@@ -90,10 +90,11 @@ std::string tileTypeName(TileType type) {
 
 std::optional<TileType> parseTileType(std::string_view name) {
     // Table construite une fois a partir de tileTypeName : la reciprocite des deux conversions est
-    // ainsi structurelle, pas seulement testee. Ajouter un TileType suffit donc a le rendre lisible.
-    // Les cles sont des std::string (proprietaires) : tileTypeName renvoie une valeur, dont un
-    // string_view ne survivrait pas.
-    using NameTable = std::unordered_map<std::string, TileType, TransparentStringHash, std::equal_to<>>;
+    // ainsi structurelle, pas seulement testee. Ajouter un TileType suffit donc a le rendre
+    // lisible. Les cles sont des std::string (proprietaires) : tileTypeName renvoie une valeur,
+    // dont un string_view ne survivrait pas.
+    using NameTable =
+        std::unordered_map<std::string, TileType, TransparentStringHash, std::equal_to<>>;
     static const NameTable byName = [] {
         NameTable table;
         for (int raw = 0; raw <= static_cast<int>(TileType::DangerBlink); ++raw) {

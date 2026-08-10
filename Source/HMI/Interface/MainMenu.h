@@ -1,12 +1,12 @@
 #pragma once
 
-#include <memory>
-
 #include <QWidget>
+#include <memory>
 
 /**
  * @file HMI/Interface/MainMenu.h
- * @brief Menu principal de l'application Qt (LOT-38). Mise en page dans `MainMenu.ui` (Qt Designer).
+ * @brief Menu principal de l'application Qt (LOT-38). Mise en page dans `MainMenu.ui` (Qt
+ * Designer).
  */
 
 namespace Ui {

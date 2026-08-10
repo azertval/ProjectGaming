@@ -38,8 +38,8 @@ std::optional<DecodedImage> decodeImageFile(const std::filesystem::path& path) {
 // Écrit un fichier PNG depuis des pixels RGBA déjà en mémoire — symétrique de decodeImageFile.
 bool encodeImageFile(const std::filesystem::path& path, const DecodedImage& image) {
     if (image.width <= 0 || image.height <= 0 ||
-        image.pixels.size() != static_cast<std::size_t>(image.width) *
-                                    static_cast<std::size_t>(image.height)) {
+        image.pixels.size() !=
+            static_cast<std::size_t>(image.width) * static_cast<std::size_t>(image.height)) {
         GRAPHICS_LOG_WARNING("TextureLoader : image invalide, encodage refuse pour '" +
                              path.string() + "'");
         return false;

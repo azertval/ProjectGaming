@@ -97,13 +97,15 @@ TEST(AnimationPersonnageIntegration, EnMouvementAuSolCourt) {
     const core::Entity entity = spawnCharacter(world, /*grounded=*/true, /*velocityX=*/3.0f);
 
     core::AnimationSystem system;
-    system.update(world, STEP);  // Idle -> Run : consomme le pas de transition (pas d'accumulation).
+    system.update(world,
+                  STEP);  // Idle -> Run : consomme le pas de transition (pas d'accumulation).
 
     const core::Animation& animation = world.getComponent<core::Animation>(entity);
     EXPECT_EQ(animation.clipIndex, core::PLAYER_CLIP_RUN);
     EXPECT_EQ(animation.frameIndex, 0);
 
-    // Durée d'une image de course : 0,1 s (6 pas à 60 Hz). Vérifie le passage 0 -> 1 -> 2 -> 3 -> 0.
+    // Durée d'une image de course : 0,1 s (6 pas à 60 Hz). Vérifie le passage 0 -> 1 -> 2 -> 3 ->
+    // 0.
     for (int expectedFrame : {1, 2, 3, 0}) {
         for (int i = 0; i < 6; ++i) {
             system.update(world, STEP);
@@ -155,7 +157,8 @@ TEST(AnimationPersonnageIntegration, ChangementDeClipReinitialiseLImage) {
     core::Velocity& velocity = world.getComponent<core::Velocity>(entity);
 
     core::AnimationSystem system;
-    system.update(world, STEP);  // Idle -> Run : consomme le pas de transition (pas d'accumulation).
+    system.update(world,
+                  STEP);  // Idle -> Run : consomme le pas de transition (pas d'accumulation).
     // Avance l'animation de course jusqu'à une image différente de 0.
     for (int i = 0; i < 6; ++i) {
         system.update(world, STEP);
@@ -360,12 +363,10 @@ TEST(AnimationPersonnageIntegration, DashInterrompLAtterrissage) {
  *        (transition detectee par comparaison avec le clip du pas precedent, comme les
  *        transitions de mecanismes, `LOT-47` TACHE-02), qui enchaine sur Idle ou Run une fois
  *        jouee.
- * \castest{<b>Un contact au sol depuis un clip aerien declenche Land, qui enchaine sur Idle.</b><br/>
- * \tcat Integration · Animation Personnage<br/>
- * \tcrit Critique<br/>
- * \tetapes 1. Faire chuter le personnage (Fall).<br/>2. Le poser au sol, immobile.<br/>3.
- * Executer jusqu'a la fin de la transition.<br/>
- * \tattendu Land se joue une fois puis bascule sur Idle.
+ * \castest{<b>Un contact au sol depuis un clip aerien declenche Land, qui enchaine sur
+ * Idle.</b><br/> \tcat Integration · Animation Personnage<br/> \tcrit Critique<br/> \tetapes 1.
+ * Faire chuter le personnage (Fall).<br/>2. Le poser au sol, immobile.<br/>3. Executer jusqu'a la
+ * fin de la transition.<br/> \tattendu Land se joue une fois puis bascule sur Idle.
  * }
  */
 TEST(AnimationPersonnageIntegration, AtterrissageEnchaineSurRepos) {

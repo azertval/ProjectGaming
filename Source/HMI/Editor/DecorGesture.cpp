@@ -20,7 +20,8 @@ float normalizeRotation(float rotation) noexcept {
 }
 
 // Coin FIXE (oppose a la poignee saisie) autour duquel le redimensionnement pivote.
-core::Vector2 resizeAnchor(DecorHandle handle, core::Vector2 position, core::Vector2 size) noexcept {
+core::Vector2 resizeAnchor(DecorHandle handle, core::Vector2 position,
+                           core::Vector2 size) noexcept {
     switch (handle) {
         case DecorHandle::TopLeft:
             return core::Vector2{position.x + size.x, position.y + size.y};  // bas-droit

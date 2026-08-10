@@ -10,8 +10,8 @@
 
 namespace {
 core::AnimationClip makeClip(std::string name, std::vector<int> frames, float duration,
-                              core::ClipEndMode endMode = core::ClipEndMode::Loop,
-                              std::string next = {}) {
+                             core::ClipEndMode endMode = core::ClipEndMode::Loop,
+                             std::string next = {}) {
     core::AnimationClip clip;
     clip.name = std::move(name);
     clip.frames = std::move(frames);
@@ -138,8 +138,7 @@ TEST(AnimationClipTest, DureesInegalesEntreClips) {
  */
 TEST(AnimationClipTest, ClipJoueUneFoisAvecClipSuivant) {
     core::ClipSet clips;
-    clips.addClip(
-        makeClip("opening", {1, 2, 3, 4}, 0.06f, core::ClipEndMode::OneShot, "open"));
+    clips.addClip(makeClip("opening", {1, 2, 3, 4}, 0.06f, core::ClipEndMode::OneShot, "open"));
     clips.addClip(makeClip("open", {5}, 0.0f));
 
     const core::AnimationClip& opening = clips.clipAt(clips.indexOf("opening"));

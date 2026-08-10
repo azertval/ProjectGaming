@@ -96,9 +96,9 @@ void DraftRenderer::render(
         composeBackground(_scene, resolveBackgroundTexture(draft.background(), _cache),
                           draft.tileMap().width(), draft.tileMap().height(), mode);
     }
-    const SceneTextures textures = sceneTextures(_atlas, _cache, _skins, _skinSet,
-                                                 draft.textureOverrides(), _tileAnimations,
-                                                 draft.decors());
+    const SceneTextures textures =
+        sceneTextures(_atlas, _cache, _skins, _skinSet, draft.textureOverrides(), _tileAnimations,
+                      draft.decors());
     // Calque Ombre (LOT-55) : meme raison de gate a l'appel que Fond ci-dessus -- aucune simulation
     // de mecanisme dans l'editeur (jamais de porte fermee/ouverte a suivre), donc pas de grille de
     // collision a transmettre.
@@ -393,11 +393,13 @@ void DraftRenderer::composeDecorSelection(const core::LevelDraft& draft,
                             static_cast<float>(MISSING_TEXTURE_SIZE)};
     if (const LoadedTexture* loaded =
             _cache.get(DECORS_SUBDIRECTORY + decor.assetName, AssetFamily::Decor)) {
-        pixelSize = core::Vector2{static_cast<float>(loaded->width), static_cast<float>(loaded->height)};
+        pixelSize =
+            core::Vector2{static_cast<float>(loaded->width), static_cast<float>(loaded->height)};
     }
     const core::Rect bounds = decorWorldBounds(decor, pixelSize);
     const float worldUnitsPerScreenPixel = 1.0f / (Camera2D::PIXELS_PER_UNIT * camera.zoom());
-    const DecorHandleLayout handles = decorHandleLayout(bounds, worldUnitsPerScreenPixel, decor.rotation);
+    const DecorHandleLayout handles =
+        decorHandleLayout(bounds, worldUnitsPerScreenPixel, decor.rotation);
 
     const core::AtlasRegion solid = _atlas.tile(0, 0);
     const float atlasWidth = static_cast<float>(_atlas.width());
@@ -474,9 +476,10 @@ void DraftRenderer::composeDecorSelection(const core::LevelDraft& draft,
         constexpr float OUTSET = 0.015f;  // liseré sombre autour de chaque poignée
         _scene.addSprite(
             RenderLayer::EditorOverlay, _atlas.textureView(), OVERLAY_ORDER_DECOR_HANDLE_DARK,
-            solidQuad(core::Rect{core::Vector2{rect.position.x - OUTSET, rect.position.y - OUTSET},
-                                 core::Vector2{rect.size.x + OUTSET * 2.0f, rect.size.y + OUTSET * 2.0f}},
-                      0.02f, 0.05f, 0.08f, 0.95f));
+            solidQuad(
+                core::Rect{core::Vector2{rect.position.x - OUTSET, rect.position.y - OUTSET},
+                           core::Vector2{rect.size.x + OUTSET * 2.0f, rect.size.y + OUTSET * 2.0f}},
+                0.02f, 0.05f, 0.08f, 0.95f));
         _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureView(),
                          OVERLAY_ORDER_DECOR_HANDLE_BRIGHT, solidQuad(rect, r, g, b, 1.0f));
     };
@@ -516,10 +519,10 @@ void DraftRenderer::rebuild(const core::LevelDraft& draft) {
             // le canevas de l'editeur montre exactement ce que le joueur verra. La surcharge de
             // texture par instance (EX-EDIT-043, LOT-45) y est resolue une fois, ici, comme le
             // voisinage solide.
-            _world.addComponent(
-                entity, TileSkinTag{type, solidNeighborMask(map, column, row),
-                                    textureOverrideAt(draft.textureOverrides(),
-                                                       core::GridPosition{column, row})});
+            _world.addComponent(entity,
+                                TileSkinTag{type, solidNeighborMask(map, column, row),
+                                            textureOverrideAt(draft.textureOverrides(),
+                                                              core::GridPosition{column, row})});
         }
     }
 

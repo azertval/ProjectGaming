@@ -1,7 +1,7 @@
-#include <gtest/gtest.h>
-
 #include <optional>
 #include <string>
+
+#include <gtest/gtest.h>
 
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/TileType.h"
@@ -29,7 +29,7 @@ using hmi::TextureAssignAction;
  */
 TEST(TextureAssignGesture, CaseVideIgnoree) {
     const auto decision = resolveTextureAssignClick(GridPosition{1, 1}, TileType::Empty,
-                                                     std::nullopt, std::string{"crate.png"}, false);
+                                                    std::nullopt, std::string{"crate.png"}, false);
     EXPECT_EQ(decision.action, TextureAssignAction::Ignore);
 }
 
@@ -44,8 +44,8 @@ TEST(TextureAssignGesture, CaseVideIgnoree) {
  * }
  */
 TEST(TextureAssignGesture, AucunAssetSelectionneIgnore) {
-    const auto decision =
-        resolveTextureAssignClick(GridPosition{1, 1}, TileType::Door, std::nullopt, std::nullopt, false);
+    const auto decision = resolveTextureAssignClick(GridPosition{1, 1}, TileType::Door,
+                                                    std::nullopt, std::nullopt, false);
     EXPECT_EQ(decision.action, TextureAssignAction::Ignore);
 }
 
@@ -131,8 +131,8 @@ TEST(TextureAssignGesture, ClicDroitAvecOverrideRetire) {
  * }
  */
 TEST(TextureAssignGesture, ClicDroitSansOverrideIgnore) {
-    const auto decision = resolveTextureAssignClick(GridPosition{2, 3}, TileType::Door, std::nullopt,
-                                                     std::string{"door_red.png"}, true);
+    const auto decision = resolveTextureAssignClick(
+        GridPosition{2, 3}, TileType::Door, std::nullopt, std::string{"door_red.png"}, true);
     EXPECT_EQ(decision.action, TextureAssignAction::Ignore);
 }
 
@@ -147,8 +147,8 @@ TEST(TextureAssignGesture, ClicDroitSansOverrideIgnore) {
  * }
  */
 TEST(TextureAssignGesture, ClicDroitSurCaseVideIgnore) {
-    const auto decision = resolveTextureAssignClick(GridPosition{2, 3}, TileType::Empty,
-                                                     std::string{"door_red.png"}, std::nullopt, true);
+    const auto decision = resolveTextureAssignClick(
+        GridPosition{2, 3}, TileType::Empty, std::string{"door_red.png"}, std::nullopt, true);
     EXPECT_EQ(decision.action, TextureAssignAction::Ignore);
 }
 
@@ -164,7 +164,7 @@ TEST(TextureAssignGesture, ClicDroitSurCaseVideIgnore) {
  * }
  */
 TEST(TextureAssignGesture, ToutTypeNonVideEstEligible) {
-    const auto decision = resolveTextureAssignClick(
-        GridPosition{0, 0}, TileType::SlopeUpRight, std::nullopt, std::string{"deco.png"}, false);
+    const auto decision = resolveTextureAssignClick(GridPosition{0, 0}, TileType::SlopeUpRight,
+                                                    std::nullopt, std::string{"deco.png"}, false);
     EXPECT_EQ(decision.action, TextureAssignAction::Assign);
 }

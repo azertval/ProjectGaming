@@ -26,8 +26,8 @@ constexpr const char* FIELD_COLOR = "color";
 // justifier une fonction partagee entre deux fichiers independants.
 std::string formatColorHex(std::uint32_t color) {
     char buffer[10] = {};
-    std::snprintf(buffer, sizeof(buffer), "#%02x%02x%02x%02x",
-                  static_cast<unsigned>(color & 0xFFu), static_cast<unsigned>((color >> 8) & 0xFFu),
+    std::snprintf(buffer, sizeof(buffer), "#%02x%02x%02x%02x", static_cast<unsigned>(color & 0xFFu),
+                  static_cast<unsigned>((color >> 8) & 0xFFu),
                   static_cast<unsigned>((color >> 16) & 0xFFu),
                   static_cast<unsigned>((color >> 24) & 0xFFu));
     return std::string(buffer);
@@ -80,7 +80,7 @@ std::optional<std::uint32_t> parseColorHex(const std::string& text) {
         a = *parsedAlpha;
     }
     return static_cast<std::uint32_t>(*r) | (static_cast<std::uint32_t>(*g) << 8) |
-          (static_cast<std::uint32_t>(*b) << 16) | (static_cast<std::uint32_t>(a) << 24);
+           (static_cast<std::uint32_t>(*b) << 16) | (static_cast<std::uint32_t>(a) << 24);
 }
 
 }  // namespace
@@ -207,7 +207,8 @@ std::vector<PixelPaletteExtractionEntry> extractPalette(const DecodedImage& imag
     return result;
 }
 
-std::uint32_t nearestPaletteColor(std::uint32_t color, const std::vector<std::uint32_t>& palette) noexcept {
+std::uint32_t nearestPaletteColor(std::uint32_t color,
+                                  const std::vector<std::uint32_t>& palette) noexcept {
     const std::uint32_t alpha = color & 0xFF000000u;
     if (alpha == 0 || palette.empty()) {
         return color;  // gomme, ou palette vide : couleur inchangee.

@@ -64,7 +64,7 @@ TEST_F(AssetFileOps, ImporteUnAssetConforme) {
 
     const hmi::FileOpResult result =
         ops.import(source, hmi::AssetFamily::TileSkin, hmi::TextureAtlas::TILE_SIZE,
-                  hmi::TextureAtlas::TILE_SIZE);
+                   hmi::TextureAtlas::TILE_SIZE);
 
     ASSERT_TRUE(result.ok) << result.error;
     EXPECT_TRUE(std::filesystem::exists(result.path));
@@ -88,10 +88,11 @@ TEST_F(AssetFileOps, RefuseUnAssetNonConforme) {
 
     const hmi::FileOpResult result =
         ops.import(source, hmi::AssetFamily::TileSkin, hmi::TextureAtlas::TILE_SIZE + 1,
-                  hmi::TextureAtlas::TILE_SIZE);
+                   hmi::TextureAtlas::TILE_SIZE);
 
     EXPECT_FALSE(result.ok);
-    EXPECT_NE(result.error.find("mur.png"), std::string::npos) << "le message doit nommer le fichier";
+    EXPECT_NE(result.error.find("mur.png"), std::string::npos)
+        << "le message doit nommer le fichier";
     EXPECT_TRUE(ops.list().empty()) << "un asset refuse ne doit pas etre copie";
 }
 
@@ -162,7 +163,8 @@ TEST_F(AssetFileOps, RefuseUnNomInvalideAuRenommage) {
     ASSERT_TRUE(imported.ok) << imported.error;
 
     EXPECT_FALSE(ops.rename(imported.path, "a/b").ok);  // barre oblique interdite
-    EXPECT_TRUE(std::filesystem::exists(imported.path)) << "un renommage refuse ne doit rien changer";
+    EXPECT_TRUE(std::filesystem::exists(imported.path))
+        << "un renommage refuse ne doit rien changer";
 }
 
 /**
