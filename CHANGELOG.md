@@ -26,7 +26,8 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     initial isolé (192 fichiers, aucun changement de comportement, `943/943` tests verts après).
   - **Couverture étendue** : agrège désormais `UnitTests` + `IntegrationTests` + `SystemTests`
     (jusqu'ici, seul `UnitTests` était mesuré) avec un seuil qui fait échouer la CI en cas de
-    chute — **valeur provisoire**, à resserrer sur la première mesure réelle en CI (voir
+    chute. Mesurée à **93.66 %** (build local Ninja Debug, 2026-08-10), seuil posé à 85 %
+    (marge ~8.5 points) — à confirmer sur la mesure réelle en CI (preset `vs`, voir
     `tache-05-couverture.md`).
   - Outils épinglés : LLVM `18.1.8` (clang-tidy, clang-format), OpenCppCoverage `0.9.9.0`.
 

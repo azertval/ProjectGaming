@@ -59,22 +59,25 @@ pour ce lot) :
   (`bugprone-integer-division`).
 - clang-format : reformatage initial (192 fichiers) + `943/943` tests verts après, test négatif
   démontré.
-- Couverture : **mécanisme câblé mais non mesuré** — `OpenCppCoverage` n'a pas pu être installé
-  localement (installeur Inno Setup exigeant une élévation UAC indisponible dans cet environnement).
-  Voir `tache-05-couverture.md`, section « État de la mesure ».
+- Couverture : `OpenCppCoverage` installé (élévation UAC accordée manuellement), mesure fusionnée
+  prise le 2026-08-10 : **93.66 %** (8602/9184 lignes), seuil posé à 85 % (marge ~8.5 points), test
+  négatif démontré par calcul direct (seuil à 95 % aurait fait échouer le job). Voir
+  `tache-05-couverture.md`, section « État de la mesure », pour la réserve méthodologique (mesure
+  prise sur un build **Ninja** local, pas le preset `vs` exact de la CI).
 
-**Ce qui reste, faute de PR/CI réelle** : la démonstration `gh pr checks` des cinq jobs, la mesure
-de référence de couverture et son seuil resserré, et la durée réelle de la CI (mesurable seulement
-sur de vraies machines GitHub Actions). Ces points sont à lever au premier passage réel en CI de la
-branche `ci/lot-58-verification-release-analyse`, avant de considérer le lot totalement clos.
+**Ce qui reste, faute de PR/CI réelle** : la démonstration `gh pr checks` des cinq jobs et la durée
+réelle de la CI (mesurable seulement sur de vraies machines GitHub Actions), ainsi que la
+confirmation que la couverture mesurée en CI (preset `vs`) reste cohérente avec la mesure Ninja
+locale. À lever au premier passage réel en CI de la branche
+`ci/lot-58-verification-release-analyse`, avant de considérer le lot totalement clos.
 
 ## Définition de fait (DoD)
 - Les documents décrivent les vérifications **réellement exécutées**, les deux nouvelles exigences
   sont déclarées et référencées, `EX-NFR-003` est rattachée, les mesures de référence (couverture,
   durée, triage) sont consignées, et la CI complète est verte sur la PR du lot.
-- **Non atteinte en totalité** : voir « État de la vérification » ci-dessus. La documentation, le
-  câblage et les vérifications locales sont faits ; la CI réelle (première exécution en ligne) et la
-  mesure de couverture restent à faire.
+- **Presque atteinte** : voir « État de la vérification » ci-dessus. Documentation, câblage et
+  vérifications locales faits, y compris la mesure de couverture. Seule la CI réelle (première
+  exécution en ligne, `gh pr checks`, durée mesurée) reste à faire.
 
 ## Exigences
 `EX-NFR-023`, `EX-NFR-024` (déclarées ici) ; réutilise `EX-NFR-003` (ASan), `EX-NFR-012`

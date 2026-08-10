@@ -22,12 +22,12 @@ env:
   # Version d'OpenCppCoverage épinglée, même raison que Doxygen/LLVM ci-dessus : le workflow
   # l'installait jusqu'ici sans version fixée (LOT-58).
   OPENCPPCOVERAGE_VERSION: 0.9.9.0
-  # Seuil de couverture (LOT-58, TACHE-05) : cliquet anti-régression, pas un objectif. Valeur
-  # PROVISOIRE posée sans mesure de référence locale (OpenCppCoverage n'a pas pu être installé sur
-  # le poste ayant câblé ce job : l'installeur nécessite une élévation UAC indisponible dans cet
-  # environnement). À RESSERRER sous la valeur réellement mesurée dès la première exécution de ce
-  # job en CI — voir tache-05-couverture.md, section « État de la mesure ».
-  COVERAGE_THRESHOLD_PERCENT: 20
+  # Seuil de couverture (LOT-58, TACHE-05) : cliquet anti-régression, pas un objectif. Mesuré
+  # localement le 2026-08-10 (build Ninja Debug, UnitTests+IntegrationTests+SystemTests fusionnés) :
+  # 93.66 % (8602/9184 lignes). Seuil calé avec une marge explicite de ~8.5 points — voir
+  # tache-05-couverture.md, section « État de la mesure », pour la méthode et la mise en garde sur
+  # l'écart possible avec la mesure en CI (preset `vs`, image `windows-2022`, non reproduite ici).
+  COVERAGE_THRESHOLD_PERCENT: 85
 
 jobs:
   build-test-coverage:

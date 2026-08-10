@@ -1,9 +1,10 @@
 # LOT-58 — Vérification Release, sanitizer et analyse statique {#lot-58}
 
 > Statut : **en cours**. Prérequis : aucun. À exécuter **tôt** dans le programme `0.1.0` : c'est lui
-> qui protège les lots de contenu qui suivent. TACHE-01 à TACHE-04 faites et vérifiées localement ;
-> TACHE-05 (seuil de couverture) et TACHE-06 (vérification CI réelle) restent à finir au premier
-> passage en CI, faute d'avoir pu installer `OpenCppCoverage` ou ouvrir de PR localement.
+> qui protège les lots de contenu qui suivent. TACHE-01 à TACHE-05 faites et vérifiées localement
+> (couverture mesurée à 93.66 %, seuil posé à 85 %) ; seule TACHE-06 garde une réserve — la
+> vérification CI réelle (`gh pr checks`) reste à faire au premier passage en ligne, faute d'avoir
+> ouvert de PR pour ce lot (choix explicite : vérification locale uniquement).
 
 ## Objectif
 Faire tenir à la CI les promesses que le dépôt écrit déjà.
@@ -87,7 +88,7 @@ la physique de bout en bout, en sont absents.
 | [TACHE-02](tache-02-job-asan.md) | Job CI AddressSanitizer sur les exécutables de test | `.github/workflows`, `CMakeLists.txt` | ✅ |
 | [TACHE-03](tache-03-clang-tidy.md) | `clang-tidy` câblé, trié, puis bloquant sur les familles propres | `CMakeLists.txt`, `.clang-tidy`, `.github/workflows` | ✅ |
 | [TACHE-04](tache-04-clang-format.md) | Vérification automatique du formatage | `.github/workflows` | ✅ |
-| [TACHE-05](tache-05-couverture.md) | Couverture étendue aux tests d'intégration et système, avec seuil | `.github/workflows` | 🔄 |
+| [TACHE-05](tache-05-couverture.md) | Couverture étendue aux tests d'intégration et système, avec seuil | `.github/workflows` | ✅ |
 | [TACHE-06](tache-06-documentation-verification.md) | Documentation et vérification | `Documentation` | 🔄 |
 
 ## Critères d'acceptation du lot
