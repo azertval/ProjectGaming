@@ -5,13 +5,17 @@
 #include <QWidget>
 #include <cstdint>
 #include <optional>
+#include <string>
 #include <utility>
 
+#include "HMI/Editor/EditContextTarget.h"
 #include "HMI/Editor/PixelCanvasGeometry.h"
 #include "HMI/Editor/PixelHistory.h"
 #include "HMI/Editor/PixelOperations.h"
+#include "HMI/Editor/PixelTool.h"
 #include "HMI/Graphics/TextureLoader.h"
 
+class QEvent;
 class QMouseEvent;
 class QPaintEvent;
 class QPixmap;
@@ -24,20 +28,6 @@ class QWheelEvent;
  */
 
 namespace hmi {
-
-/**
- * @brief Outil actif du canevas — détermine ce que produisent les gestes de souris.
- *
- * Simple énumération ici : les actions, icônes et barre d'outils qui l'exposent à l'utilisateur
- * arrivent en TACHE-04 (`hmi::EditorActions`), comme un groupe exclusif distinct de celui des
- * outils de niveau.
- */
-enum class PixelTool {
-    Brush,
-    Eraser,
-    Fill,
-    Eyedropper,
-};
 
 /**
  * @brief Widget affichant l'image en cours d'édition et transformant les gestes de souris en
@@ -54,8 +44,14 @@ enum class PixelTool {
  * Un geste complet (appui, glisser, relâchement) produit **une seule** entrée dans `hmi::
  * PixelHistory`, locale à ce canevas et totalement indépendante de `core::LevelDraft` — annuler un
  * coup de pinceau n'annule jamais une action d'édition de niveau, et réciproquement.
+ *
+ * Implémente `hmi::EditContextTarget` (TACHE-04) : `MainWindow` y dispatche Annuler/Refaire/
+ * Copier/Coller quand ce canevas est le contexte d'édition actif, exactement comme `GameViewport`
+ * pour le niveau — le seuil de dispatch prévu depuis `LOT-57` TACHE-04, sans le réécrire. Copier et
+ * coller restent des opérations neutres (aucun presse-papiers) tant que TACHE-06 ne leur donne pas
+ * de contenu.
  */
-class PixelCanvas : public QWidget {
+class PixelCanvas : public QWidget, public EditContextTarget {
     Q_OBJECT
 
 public:
@@ -65,6 +61,22 @@ public:
     void setImage(DecodedImage image);
     [[nodiscard]] const DecodedImage& image() const noexcept {
         return _image;
+    }
+
+    /// Nom de l'asset ouvert (barre d'état, TACHE-04), vide si aucun — `setImage` ne le change pas
+    /// lui-même : TACHE-05 (ouvrir/créer/enregistrer) l'appelle explicitement en même temps.
+    void setAssetName(std::string name) {
+        _assetName = std::move(name);
+    }
+    [[nodiscard]] const std::string& assetName() const noexcept {
+        return _assetName;
+    }
+    /// Modifications non enregistrées depuis l'ouverture/le dernier enregistrement (barre d'état,
+    /// TACHE-04). Tant que TACHE-05 n'introduit pas d'enregistrement, une entrée d'historique
+    /// non annulée suffit à définir « modifié » : c'est déjà exactement ce que « annulable »
+    /// signifie.
+    [[nodiscard]] bool isDirty() const noexcept {
+        return _history.canUndo();
     }
 
     void setActiveTool(PixelTool tool) noexcept {
@@ -85,16 +97,28 @@ public:
     [[nodiscard]] const PixelHistory& history() const noexcept {
         return _history;
     }
-    [[nodiscard]] bool canUndo() const noexcept {
+
+    // hmi::EditContextTarget (TACHE-04) : Annuler/Refaire à cible contextuelle (EX-IHM-062). Copier
+    // et coller restent neutres tant que TACHE-06 ne leur donne pas de presse-papiers de région.
+    [[nodiscard]] bool canUndo() const override {
         return _history.canUndo();
     }
-    [[nodiscard]] bool canRedo() const noexcept {
+    void undo() override;
+    [[nodiscard]] bool canRedo() const override {
         return _history.canRedo();
     }
-    /// @return `true` si l'annulation a eu un effet (déléguée à `hmi::PixelHistory::undo`).
-    bool undo();
-    /// @return `true` si le rétablissement a eu un effet (déléguée à `hmi::PixelHistory::redo`).
-    bool redo();
+    void redo() override;
+    /// Revient à l'état immédiatement après l'entrée @p index de `history().appliedEntries()`
+    /// (panneau d'historique visuel, TACHE-04) ; sans effet si @p index est hors bornes.
+    void jumpHistoryTo(std::size_t index);
+    [[nodiscard]] bool canCopy() const override {
+        return false;
+    }
+    void copy() override {}
+    [[nodiscard]] bool canPaste() const override {
+        return false;
+    }
+    void paste() override {}
 
     [[nodiscard]] const PixelCanvasView& view() const noexcept {
         return _view;
@@ -106,14 +130,30 @@ public:
     /// hors de l'image — alimente le pixel survolé de la barre d'état (TACHE-04).
     [[nodiscard]] std::optional<std::pair<int, int>> imagePixelAt(
         const QPointF& widgetPosition) const;
+    /// Dernier pixel survolé par la souris à l'intérieur de l'image, ou `std::nullopt` si la souris
+    /// n'y est pas (curseur sorti du widget, ou hors de l'image à zoom/décalage donnés).
+    [[nodiscard]] std::optional<std::pair<int, int>> hoveredPixel() const noexcept {
+        return _hoveredPixel;
+    }
 
     [[nodiscard]] QSize sizeHint() const override;
+
+signals:
+    /// Émis après chaque mutation de `image()` (geste, annuler, refaire) — la barre d'état et
+    /// l'aperçu live (TACHE-08) s'y abonnent plutôt que d'interroger le canevas à chaque frame.
+    void imageChanged();
+    /// Émis après chaque changement de l'historique (nouvelle entrée, annuler, refaire) — alimente
+    /// le panneau d'historique visuel (`hmi::PixelHistoryPanel`).
+    void historyChanged();
+    /// Émis à chaque changement du pixel survolé (barre d'état, TACHE-04).
+    void hoveredPixelChanged(std::optional<std::pair<int, int>> pixel);
 
 protected:
     void paintEvent(QPaintEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
     void mouseReleaseEvent(QMouseEvent* event) override;
+    void leaveEvent(QEvent* event) override;
     void wheelEvent(QWheelEvent* event) override;
 
 private:
@@ -129,6 +169,7 @@ private:
     void endGesture();
 
     DecodedImage _image;
+    std::string _assetName;
     PixelHistory _history;
     PixelCanvasView _view;
     PixelTool _activeTool = PixelTool::Brush;
@@ -138,6 +179,7 @@ private:
     DecodedImage _gestureBeforeSnapshot;  ///< Copie de `_image` au début du geste courant.
     PixelRegion _gestureRegion;           ///< Union des régions touchées depuis le début du geste.
     std::optional<std::pair<int, int>> _lastGesturePixel;
+    std::optional<std::pair<int, int>> _hoveredPixel;
 
     bool _panning = false;
     QPointF _panStartWidgetPos;

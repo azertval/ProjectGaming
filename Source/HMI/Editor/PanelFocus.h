@@ -4,6 +4,7 @@
 #include <optional>
 
 #include "HMI/Editor/EditorTool.h"
+#include "HMI/Editor/PixelTool.h"
 
 /**
  * @file HMI/Editor/PanelFocus.h
@@ -17,7 +18,9 @@
 namespace hmi {
 
 /// Panneau de droite pouvant être mis en avant (regroupés en onglets, TACHE-02).
-enum class PanelId { Levels, Links, Textures };
+/// `PixelCanvas`/`PixelHistory` rejoignent le regroupement en `LOT-54` TACHE-04 : le canevas et
+/// l'historique visuel de l'atelier pixel art.
+enum class PanelId { Levels, Links, Textures, PixelCanvas, PixelHistory };
 
 /// Une entrée de la table : l'outil @p tool met en avant le panneau @p panel.
 struct PanelFocusEntry {
@@ -35,5 +38,24 @@ constexpr int PANEL_FOCUS_CATALOG_COUNT = 2;
 ///         (ses contrôles vivent ailleurs, ex. le panneau Décors pour l'outil Décor -- non tabifié,
 ///         une mise en avant n'y aurait aucun effet).
 [[nodiscard]] std::optional<PanelId> panelForTool(EditorTool tool);
+
+/// Une entrée de la table équivalente pour les outils du canevas pixel art (`LOT-54` TACHE-04) :
+/// l'outil @p tool met en avant le panneau @p panel. Table séparée de `panelFocusCatalog` — deux
+/// groupes d'outils disjoints (`hmi::EditorTool`/`hmi::PixelTool`), jamais actifs en même temps.
+struct PixelPanelFocusEntry {
+    PixelTool tool;
+    PanelId panel;
+};
+
+/// Nombre d'entrées de la table des outils de canevas (les quatre outils du canevas mettent tous
+/// en avant le même panneau : on édite toujours en le voyant).
+constexpr int PIXEL_PANEL_FOCUS_CATALOG_COUNT = 4;
+
+/// @return La table complète outil de canevas → panneau.
+[[nodiscard]] const std::array<PixelPanelFocusEntry, PIXEL_PANEL_FOCUS_CATALOG_COUNT>&
+pixelPanelFocusCatalog();
+
+/// @return Le panneau à mettre en avant pour l'outil de canevas @p tool.
+[[nodiscard]] std::optional<PanelId> panelForPixelTool(PixelTool tool);
 
 }  // namespace hmi

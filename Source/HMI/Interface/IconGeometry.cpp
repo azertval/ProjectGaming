@@ -148,6 +148,37 @@ IconGeometry iconGeometry(IconId id) {
                 rectStroke(0.68f, 0.34f, 0.16f, 0.16f, true, IconColorRole::Accent),
                 rectStroke(0.16f, 0.56f, 0.68f, 0.14f, false, IconColorRole::Foreground),
             }};
+        case IconId::PixelBrush:
+            // Manche vertical + touffe (cercle plein) : distinct de ToolPaint (manche diagonal,
+            // cercle en haut a droite) pour rester reconnaissable meme cote a cote dans un menu.
+            return IconGeometry{{
+                IconStroke{{IconPoint{0.5f, 0.15f}, IconPoint{0.5f, 0.55f}}, false, false,
+                          IconColorRole::Foreground},
+                IconStroke{circlePoints(0.5f, 0.72f, 0.16f), true, true, IconColorRole::Accent},
+            }};
+        case IconId::PixelEraser: {
+            const std::vector<IconPoint> body{IconPoint{0.20f, 0.55f}, IconPoint{0.45f, 0.25f},
+                                              IconPoint{0.82f, 0.50f}, IconPoint{0.57f, 0.80f}};
+            return IconGeometry{{
+                IconStroke{body, true, true, IconColorRole::Accent},
+                IconStroke{body, true, false, IconColorRole::Foreground},
+            }};
+        }
+        case IconId::PixelFill:
+            // Bec verseur (triangle) + goutte (cercle plein) : pot de peinture qui se renverse.
+            return IconGeometry{{
+                IconStroke{{IconPoint{0.20f, 0.30f}, IconPoint{0.60f, 0.30f}, IconPoint{0.40f, 0.65f}},
+                          true, false, IconColorRole::Foreground},
+                IconStroke{circlePoints(0.72f, 0.72f, 0.14f), true, true, IconColorRole::Accent},
+            }};
+        case IconId::PixelEyedropper:
+            // Diagonale inverse de ToolPaint (cercle en bas a gauche plutot qu'en haut a droite) :
+            // silhouette distincte tout en restant reconnaissable comme une pipette.
+            return IconGeometry{{
+                IconStroke{{IconPoint{0.75f, 0.25f}, IconPoint{0.35f, 0.65f}}, false, false,
+                          IconColorRole::Foreground},
+                IconStroke{circlePoints(0.25f, 0.75f, 0.12f), true, true, IconColorRole::Accent},
+            }};
     }
     return IconGeometry{};
 }

@@ -17,9 +17,11 @@ hmi::Localization testLocalization() {
     hmi::Localization localization;
     localization.setDefaultCatalog(
         "fr", {{"status.zone.level", "Niveau : %1"},
+               {"status.zone.asset", "Asset : %1"},
                {"status.zone.dirty", "Modifie"},
                {"status.zone.hover", "(%1, %2)"},
                {"status.zone.zoom", "Zoom : %1%"},
+               {"status.zone.color", "Couleur : %1"},
                {"tool.brush", "Pinceau"},
                {"tool.rectangle", "Rectangle"},
                {"tool.selection", "Selection"},
@@ -31,7 +33,15 @@ hmi::Localization testLocalization() {
                {"status.help_selection", "Aide selection"},
                {"status.help_link", "Aide lien"},
                {"status.help_texture_assign", "Aide texture"},
-               {"status.help_decor", "Aide decor"}});
+               {"status.help_decor", "Aide decor"},
+               {"pixel_tool.brush", "Pinceau"},
+               {"pixel_tool.eraser", "Gomme"},
+               {"pixel_tool.fill", "Pot de peinture"},
+               {"pixel_tool.eyedropper", "Pipette"},
+               {"status.help_pixel_brush", "Aide pinceau pixel"},
+               {"status.help_pixel_eraser", "Aide gomme"},
+               {"status.help_pixel_fill", "Aide pot de peinture"},
+               {"status.help_pixel_eyedropper", "Aide pipette"}});
     return localization;
 }
 
@@ -45,6 +55,17 @@ hmi::LevelStatusInfo baseLevel() {
     return level;
 }
 
+hmi::PixelEditStatusInfo basePixelEdit() {
+    hmi::PixelEditStatusInfo pixel;
+    pixel.assetName = "mur.png";
+    pixel.dirty = false;
+    pixel.tool = hmi::PixelTool::Brush;
+    pixel.hoveredPixel = std::nullopt;
+    pixel.zoom = 8;
+    pixel.currentColor = 0xFF0000FFu;  // rouge opaque (R8G8B8A8_UNORM).
+    return pixel;
+}
+
 }  // namespace
 
 /**
@@ -53,14 +74,15 @@ hmi::LevelStatusInfo baseLevel() {
  * \tcat Unitaire · Barre d'etat de l'editeur<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Construire un contexte sans niveau.<br/>2. Calculer les lignes.<br/>
- * \tattendu Les cinq zones permanentes et l'aide sont vides.
+ * \tattendu Les six zones permanentes et l'aide sont vides.
  * }
  */
 TEST(EditorStatusTest, AucunNiveauOuvertNAfficheRien) {
     const hmi::EditorStatusLines lines =
         hmi::editorStatusLines(hmi::EditorStatusContext{}, testLocalization());
 
-    ASSERT_EQ(lines.permanent.size(), 5u);
+    // Six zones depuis LOT-54 TACHE-04 (ajout de la couleur courante, atelier pixel art seulement).
+    ASSERT_EQ(lines.permanent.size(), 6u);
     for (const std::string& zone : lines.permanent) {
         EXPECT_EQ(zone, "");
     }
@@ -157,6 +179,82 @@ TEST(EditorStatusTest, MemeContexteProduitLaMemeAide) {
 }
 
 /**
+ * @brief Le contexte d'atelier pixel art produit les six zones attendues (asset, modifie, outil,
+ *        pixel survole, zoom, couleur) et l'aide de l'outil de canevas actif -- sans toucher au
+ *        contexte de niveau (mutuellement exclusifs).
+ * \castest{<b>Le contexte d'atelier pixel art produit les zones et l'aide attendues.</b><br/>
+ * \tcat Unitaire · Barre d'etat de l'editeur<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Construire un contexte d'edition d'asset avec un pixel survole.<br/>2. Calculer les
+ * lignes.<br/>
+ * \tattendu Les six zones portent les valeurs attendues et l'aide correspond a l'outil actif.
+ * }
+ */
+TEST(EditorStatusTest, ContextePixelEditProduitLesZonesEtLAideAttendues) {
+    hmi::PixelEditStatusInfo pixel = basePixelEdit();
+    pixel.hoveredPixel = std::make_pair(3, 5);
+    hmi::EditorStatusContext context;
+    context.pixelEdit = pixel;
+
+    const hmi::EditorStatusLines lines = hmi::editorStatusLines(context, testLocalization());
+
+    EXPECT_EQ(lines.permanent[0], "Asset : mur.png");
+    EXPECT_EQ(lines.permanent[1], "");  // dirty = false.
+    EXPECT_EQ(lines.permanent[2], "Pinceau");
+    EXPECT_EQ(lines.permanent[3], "(3, 5)");
+    EXPECT_EQ(lines.permanent[4], "Zoom : 800%");
+    EXPECT_EQ(lines.permanent[5], "Couleur : #ff0000ff");
+    EXPECT_EQ(lines.help, "Aide pinceau pixel");
+}
+
+/**
+ * @brief Aucun asset ouvert laisse la zone d'asset vide, sans libellé de remplacement, exactement
+ *        comme l'absence de niveau ouvert.
+ * \castest{<b>Aucun asset ouvert laisse la zone d'asset vide.</b><br/>
+ * \tcat Unitaire · Barre d'etat de l'editeur<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Construire un contexte d'atelier sans nom d'asset.<br/>2. Calculer les lignes.<br/>
+ * \tattendu La zone d'asset (index 0) est vide ; les autres zones restent renseignees.
+ * }
+ */
+TEST(EditorStatusTest, AucunAssetOuvertLaisseLaZoneVide) {
+    hmi::PixelEditStatusInfo pixel = basePixelEdit();
+    pixel.assetName.clear();
+    hmi::EditorStatusContext context;
+    context.pixelEdit = pixel;
+
+    const hmi::EditorStatusLines lines = hmi::editorStatusLines(context, testLocalization());
+
+    EXPECT_EQ(lines.permanent[0], "");
+    EXPECT_EQ(lines.permanent[2], "Pinceau");
+}
+
+/**
+ * @brief L'aide contextuelle de l'atelier change avec l'outil de canevas actif.
+ * \castest{<b>L'aide de l'atelier change avec l'outil de canevas actif.</b><br/>
+ * \tcat Unitaire · Barre d'etat de l'editeur<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Calculer les lignes avec l'outil Gomme, puis Pipette.<br/>2. Comparer l'aide.<br/>
+ * \tattendu L'aide differe entre les deux outils et correspond a la cle attendue.
+ * }
+ */
+TEST(EditorStatusTest, AideDeLAtelierChangeAvecLOutilActif) {
+    const hmi::Localization localization = testLocalization();
+
+    hmi::PixelEditStatusInfo eraser = basePixelEdit();
+    eraser.tool = hmi::PixelTool::Eraser;
+    hmi::EditorStatusContext eraserContext;
+    eraserContext.pixelEdit = eraser;
+    EXPECT_EQ(hmi::editorStatusLines(eraserContext, localization).help, "Aide gomme");
+
+    hmi::PixelEditStatusInfo eyedropper = basePixelEdit();
+    eyedropper.tool = hmi::PixelTool::Eyedropper;
+    hmi::EditorStatusContext eyedropperContext;
+    eyedropperContext.pixelEdit = eyedropper;
+    EXPECT_EQ(hmi::editorStatusLines(eyedropperContext, localization).help, "Aide pipette");
+}
+
+/**
  * @brief Chaque cle de traduction utilisee par la barre d'etat existe, traduite, dans les deux
  *        catalogues livres (francais et anglais).
  * \castest{<b>Les cles de traduction de la barre d'etat existent dans les deux catalogues.</b><br/>
@@ -170,10 +268,12 @@ TEST(EditorStatusTest, MemeContexteProduitLaMemeAide) {
 TEST(EditorStatusTest, ClesDeTraductionExistentDansLesDeuxCatalogues) {
     const std::filesystem::path directory(PROJECTGAMING_LOCALIZATION_DIR);
     const char* const keys[] = {
-        "status.zone.level",         "status.zone.dirty",           "status.zone.hover",
-        "status.zone.zoom",          "status.help_paint",           "status.help_rectangle",
-        "status.help_selection",     "status.help_link",            "status.help_texture_assign",
-        "status.help_decor"};
+        "status.zone.level",   "status.zone.asset",     "status.zone.dirty",
+        "status.zone.hover",   "status.zone.zoom",      "status.zone.color",
+        "status.help_paint",   "status.help_rectangle", "status.help_selection",
+        "status.help_link",    "status.help_texture_assign", "status.help_decor",
+        "status.help_pixel_brush", "status.help_pixel_eraser", "status.help_pixel_fill",
+        "status.help_pixel_eyedropper"};
     for (const std::string& language : {"fr", "en"}) {
         hmi::Localization localization(directory);
         ASSERT_TRUE(localization.loadDefaultLanguage(language)) << language;

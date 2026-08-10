@@ -4,6 +4,7 @@
 #include <optional>
 
 #include "HMI/Editor/EditorTool.h"
+#include "HMI/Editor/PixelTool.h"
 #include "HMI/Input/EditorKeyBindings.h"
 #include "HMI/Interface/IconGeometry.h"
 
@@ -21,8 +22,11 @@
 namespace hmi {
 
 /// Groupe d'exclusivité d'une action : les six outils d'édition forment un groupe **exclusif**
-/// (un seul actif à la fois) ; les commandes n'appartiennent à aucun groupe.
-enum class EditorActionGroup { None, LevelTools };
+/// (un seul actif à la fois) ; les commandes n'appartiennent à aucun groupe. `PixelTools` (`LOT-54`
+/// TACHE-04) est un second groupe exclusif, **distinct** de `LevelTools` : les outils du canevas
+/// pixel art et ceux du niveau ne s'excluent jamais entre eux, seulement au sein de leur propre
+/// groupe.
+enum class EditorActionGroup { None, LevelTools, PixelTools };
 
 /// Description d'une action, indépendante de Qt : de quoi construire un `QAction` complet (icône,
 /// libellé, raccourci, caractère cochable) sans dupliquer sa définition ailleurs.
@@ -35,22 +39,31 @@ struct EditorActionSpec {
     EditorActionGroup group;
 };
 
-/// Nombre total d'actions du catalogue (six outils, onze commandes principales).
-constexpr int EDITOR_ACTION_CATALOG_COUNT = 17;
+/// Nombre total d'actions du catalogue (six outils de niveau, quatre outils de canevas pixel art,
+/// onze commandes principales).
+constexpr int EDITOR_ACTION_CATALOG_COUNT = 21;
 
 /// @return Le catalogue complet, dans l'ordre d'affichage voulu de la barre d'outils : les six
-///         outils (ordre de la palette/du panneau Outils historique), puis les commandes.
+///         outils de niveau (ordre de la palette/du panneau Outils historique), les quatre outils
+///         de canevas pixel art (`LOT-54` TACHE-04), puis les commandes.
 [[nodiscard]] const std::array<EditorActionSpec, EDITOR_ACTION_CATALOG_COUNT>& editorActionCatalog();
 
 /// @return La spécification de l'action @p id.
 [[nodiscard]] const EditorActionSpec& editorActionSpec(IconId id);
 
 /// @return L'outil associé à l'action @p id, si elle appartient au groupe `LevelTools` ;
-///         `std::nullopt` pour une commande.
+///         `std::nullopt` pour une commande ou un outil de canevas pixel art.
 [[nodiscard]] std::optional<EditorTool> editorActionTool(IconId id);
 
 /// @return L'identifiant d'action portant l'outil @p tool.
 [[nodiscard]] IconId editorActionForTool(EditorTool tool);
+
+/// @return L'outil de canevas pixel art associé à l'action @p id, si elle appartient au groupe
+///         `PixelTools` ; `std::nullopt` sinon (`LOT-54` TACHE-04).
+[[nodiscard]] std::optional<PixelTool> editorActionPixelTool(IconId id);
+
+/// @return L'identifiant d'action portant l'outil de canevas pixel art @p tool.
+[[nodiscard]] IconId editorActionForPixelTool(PixelTool tool);
 
 /**
  * @brief Correspondance entre une action d'éditeur remappable (`hmi::EditorAction`,

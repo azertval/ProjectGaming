@@ -55,6 +55,18 @@
    <attribute name="dockWidgetArea"><number>2</number></attribute>
    <widget class="QWidget" name="texturesContents"/>
   </widget>
+  <!-- Atelier pixel art (LOT-54 TACHE-04) : canevas et historique visuel, regroupes en onglets
+       avec Niveaux/Liens (LOT-57 TACHE-02) via tabifyDockWidget en code. -->
+  <widget class="QDockWidget" name="PixelCanvasPanel">
+   <property name="windowTitle"><string>Atelier</string></property>
+   <attribute name="dockWidgetArea"><number>2</number></attribute>
+   <widget class="QWidget" name="pixelCanvasContents"/>
+  </widget>
+  <widget class="QDockWidget" name="PixelHistoryPanel">
+   <property name="windowTitle"><string>Historique de l'atelier</string></property>
+   <attribute name="dockWidgetArea"><number>2</number></attribute>
+   <widget class="QWidget" name="pixelHistoryContents"/>
+  </widget>
   <action name="actMainMenu"><property name="text"><string>Menu principal</string></property></action>
   <action name="actQuit"><property name="text"><string>Quitter</string></property></action>
   <action name="actResize"><property name="text"><string>Redimensionner…</string></property></action>

@@ -132,7 +132,7 @@ le périmètre récupère en fonctions d'édition ce qu'il n'a plus à dépenser
 | [TACHE-01](tache-01-encodage-image.md) | Encodage et enregistrement d'image, symétrique de `decodeImageFile` | `Source/HMI/Graphics` | ✅ |
 | [TACHE-02](tache-02-operations-historique.md) | Opérations pures sur tampon de pixels et historique à opérations nommées | `Source/HMI/Editor` | ✅ |
 | [TACHE-03](tache-03-canevas.md) | Canevas : rendu net à toute échelle, couleurs issues des jetons, surface invariante | `Source/HMI/Editor` | ✅ |
-| [TACHE-04](tache-04-actions-barre-outils.md) | Outils en actions, barre d'outils, annuler/refaire contextuel, barre d'état, historique visuel | `Source/HMI/Interface`, `Source/HMI/Editor` | ⬜ |
+| [TACHE-04](tache-04-actions-barre-outils.md) | Outils en actions, barre d'outils, annuler/refaire contextuel, barre d'état, historique visuel | `Source/HMI/Interface`, `Source/HMI/Editor` | ✅ |
 | [TACHE-05](tache-05-ouvrir-enregistrer.md) | Ouvrir, créer, enregistrer + garde-fous + point d'entrée depuis la bibliothèque et le panneau Textures | `Source/HMI/Editor` | ⬜ |
 | [TACHE-06](tache-06-outils-region.md) | Outils de région : sélection, déplacement, symétries, rotations, copier/coller | `Source/HMI/Editor` | ⬜ |
 | [TACHE-07](tache-07-palettes.md) | Palettes persistées, extraction depuis un asset, mode contraint à la palette | `Source/HMI/Editor`, `Source/Elements` | ⬜ |

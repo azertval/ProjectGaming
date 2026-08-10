@@ -40,6 +40,8 @@ dock.decors = Decors
 dock.levels = Levels
 dock.links = Links
 dock.textures = Textures
+dock.pixel_canvas = Workshop
+dock.pixel_history = Workshop history
 
 # Textures panel (LOT-42)
 textures.skin_set = Skin set
@@ -101,15 +103,21 @@ assets.operation_failed = Operation failed
 
 # Status bar and dialogs
 status.zone.level = Level: %1
+status.zone.asset = Asset: %1
 status.zone.dirty = Modified
 status.zone.hover = (%1, %2)
 status.zone.zoom = Zoom: %1%
+status.zone.color = Color: %1
 status.help_paint = Paint: left click/drag · Ctrl+Z/Y: undo/redo
 status.help_rectangle = Rectangle: drag to paint an area · Ctrl+Z/Y: undo/redo
 status.help_selection = Selection: drag to select · Ctrl+C/V: copy/paste
 status.help_link = Link: click a trigger then its target · re-clicking the same pair unlinks
 status.help_texture_assign = Texture: left click assigns, re-click or right click removes
 status.help_decor = Decor: click empty space to place, click a decor to manipulate it
+status.help_pixel_brush = Brush: left click/drag paints · Ctrl+Z/Y: undo/redo
+status.help_pixel_eraser = Eraser: left click/drag erases · Ctrl+Z/Y: undo/redo
+status.help_pixel_fill = Bucket: click fills the connected area
+status.help_pixel_eyedropper = Eyedropper: click picks the color under the cursor
 status.texture_assigned = Texture assigned: %1
 status.texture_removed = Texture removed.
 status.texture_no_asset_selected = No asset selected: pick one in the "Objects" tab of the Textures panel.
@@ -134,6 +142,13 @@ tool.decor_layer_background = Background
 tool.decor_layer_decor = Decor
 tool.decor_layer_foreground = Foreground
 tool.decor_snap_to_grid = Snap to grid
+
+# Pixel art canvas tools (LOT-54 TACHE-04): exclusive group distinct from the level tools above,
+# also reused as the short label in the status bar (hmi::EditorStatus).
+pixel_tool.brush = Brush
+pixel_tool.eraser = Eraser
+pixel_tool.fill = Bucket
+pixel_tool.eyedropper = Eyedropper
 
 # Toolbar actions/commands (LOT-56 TACHE-04): label only, the shortcut comes from the action
 # itself (EditorActions::retranslateUi), never entered here.

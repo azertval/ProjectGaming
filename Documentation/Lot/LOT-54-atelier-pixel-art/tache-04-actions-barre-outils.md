@@ -1,6 +1,6 @@
 # TACHE-04 — Actions, barre d'outils, état et historique visuel {#lot-54-tache-04-actions-barre-outils}
 
-**Lot :** [LOT-54](epic.md) · **Emplacement :** `Source/HMI/Interface`, `Source/HMI/Editor` · **Statut :** non commencé
+**Lot :** [LOT-54](epic.md) · **Emplacement :** `Source/HMI/Interface`, `Source/HMI/Editor` · **Statut :** fait
 
 ## Contexte
 La tâche par laquelle l'atelier devient un citoyen de l'éditeur plutôt qu'une fenêtre à part. Elle

@@ -16,6 +16,13 @@ const std::array<EditorActionSpec, EDITOR_ACTION_CATALOG_COUNT>& editorActionCat
         {IconId::ToolLink, "tool.link", "", true, EditorActionGroup::LevelTools},
         {IconId::ToolTextureAssign, "tool.texture_assign", "", true, EditorActionGroup::LevelTools},
         {IconId::ToolDecor, "tool.decor", "", true, EditorActionGroup::LevelTools},
+        // Outils du canevas pixel art (LOT-54 TACHE-04) : groupe exclusif SEPARE des outils de
+        // niveau ci-dessus -- les deux groupes ne s'excluent jamais entre eux. Aucun raccourci
+        // clavier dedie aujourd'hui (choix par la barre d'outils du canevas uniquement).
+        {IconId::PixelBrush, "pixel_tool.brush", "", true, EditorActionGroup::PixelTools},
+        {IconId::PixelEraser, "pixel_tool.eraser", "", true, EditorActionGroup::PixelTools},
+        {IconId::PixelFill, "pixel_tool.fill", "", true, EditorActionGroup::PixelTools},
+        {IconId::PixelEyedropper, "pixel_tool.eyedropper", "", true, EditorActionGroup::PixelTools},
         // Commandes principales : aucun groupe, aucune n'est cochable.
         {IconId::Save, "action.save", "Ctrl+S", false, EditorActionGroup::None},
         {IconId::Playtest, "action.playtest", "P", false, EditorActionGroup::None},
@@ -81,6 +88,35 @@ IconId editorActionForTool(EditorTool tool) {
             return IconId::ToolDecor;
     }
     return IconId::ToolPaint;
+}
+
+std::optional<PixelTool> editorActionPixelTool(IconId id) {
+    switch (id) {
+        case IconId::PixelBrush:
+            return PixelTool::Brush;
+        case IconId::PixelEraser:
+            return PixelTool::Eraser;
+        case IconId::PixelFill:
+            return PixelTool::Fill;
+        case IconId::PixelEyedropper:
+            return PixelTool::Eyedropper;
+        default:
+            return std::nullopt;
+    }
+}
+
+IconId editorActionForPixelTool(PixelTool tool) {
+    switch (tool) {
+        case PixelTool::Brush:
+            return IconId::PixelBrush;
+        case PixelTool::Eraser:
+            return IconId::PixelEraser;
+        case PixelTool::Fill:
+            return IconId::PixelFill;
+        case PixelTool::Eyedropper:
+            return IconId::PixelEyedropper;
+    }
+    return IconId::PixelBrush;
 }
 
 const std::array<KeyBindingIconEntry, KEY_BINDING_ICON_COUNT>& keyBindingIconCatalog() {

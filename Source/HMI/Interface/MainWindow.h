@@ -7,6 +7,8 @@
 
 #include "HMI/Editor/EditContextTarget.h"
 #include "HMI/Editor/EditorTool.h"
+#include "HMI/Editor/PanelFocus.h"
+#include "HMI/Editor/PixelTool.h"
 #include "HMI/Input/GamepadPoller.h"
 #include "HMI/Input/InputState.h"
 #include "HMI/Localization/Localization.h"
@@ -43,6 +45,8 @@ class PalettePanel;
 class LevelBrowserPanel;
 class LinkPanel;
 class TexturePanel;
+class PixelCanvas;
+class PixelHistoryPanel;
 
 /**
  * @brief Fenêtre principale de l'application Qt : **poste de travail d'éditeur** à panneaux
@@ -92,6 +96,16 @@ private:
     /// que l'utilisateur n'a rien imposé lui-même (`LOT-57` TACHE-02) — jamais un masquage, une
     /// simple suggestion de premier plan parmi les onglets regroupés.
     void applyPanelFocus(hmi::EditorTool tool);
+    /// Équivalent pour les outils du canevas pixel art (`hmi::panelForPixelTool`, `LOT-54`
+    /// TACHE-04) — même garde, même règle de non-masquage.
+    void applyPixelPanelFocus(hmi::PixelTool tool);
+    /// Met en avant @p panel (résolution `PanelId` -> `QDockWidget*`), sans jamais voler le focus
+    /// clavier — factorisé entre `applyPanelFocus` et `applyPixelPanelFocus`.
+    void raisePanel(hmi::PanelId panel);
+    /// Réassigne le contexte d'édition actif (`_editContext`) et le contexte de la barre d'état
+    /// selon le widget qui vient de recevoir le focus clavier (`LOT-54` TACHE-04, `EX-IHM-062`) :
+    /// le canevas pixel art si le focus y entre, le niveau sinon.
+    void updateActiveEditContext(QWidget* focused);
     /// Change la langue active (recharge le catalogue, persiste, retraduit tout).
     void changeLanguage(const QString& code);
     /// Enregistre les journaux de session accumulés dans un fichier horodaté.
@@ -134,8 +148,13 @@ private:
     DecorsPanel* _decors;
     LinkPanel* _links;         ///< Liste/gestion des liaisons de mécanismes (dock Liens, LOT-37).
     TexturePanel* _textures;   ///< Habillage : jeu de skins et assignations (dock Textures, LOT-42).
+    /// Canevas de l'atelier pixel art (dock Atelier, LOT-54 TACHE-04) : seconde implémentation de
+    /// `EditContextTarget`, cible d'Annuler/Refaire/Copier/Coller quand elle a le focus clavier.
+    PixelCanvas* _pixelCanvas;
+    PixelHistoryPanel* _pixelHistoryPanel;  ///< Historique visuel de l'atelier (dock, LOT-54 TACHE-04).
     EditorActions* _actions;   ///< Outils et commandes principales, barre d'outils (LOT-56 TACHE-04).
     QToolBar* _toolBar;        ///< Barre d'outils de l'éditeur, alimentée par `_actions`.
+    QToolBar* _pixelToolBar;   ///< Barre d'outils du canevas pixel art (LOT-54 TACHE-04).
     QMenu* _themeMenu;         ///< Sous-menu Affichage > Thème (LOT-56 TACHE-06).
     QAction* _themeSystemAction;
     QAction* _themeLightAction;
@@ -166,6 +185,8 @@ private:
     QLabel* _statusTool = nullptr;
     QLabel* _statusHover = nullptr;
     QLabel* _statusZoom = nullptr;
+    /// Couleur courante de l'atelier pixel art (`LOT-54` TACHE-04) ; vide hors contexte d'atelier.
+    QLabel* _statusColor = nullptr;
     /// Restaure l'aide contextuelle à l'expiration d'un message transitoire (`showTransientStatusMessage`).
     QTimer* _statusMessageTimer = nullptr;
 

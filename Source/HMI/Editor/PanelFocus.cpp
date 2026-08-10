@@ -22,4 +22,26 @@ std::optional<PanelId> panelForTool(EditorTool tool) {
     return std::nullopt;
 }
 
+const std::array<PixelPanelFocusEntry, PIXEL_PANEL_FOCUS_CATALOG_COUNT>& pixelPanelFocusCatalog() {
+    // Les quatre outils du canevas mettent tous en avant le meme panneau (PixelCanvas) : des qu'un
+    // outil de canevas est actif, on veut voir le canevas -- a la difference des outils de niveau,
+    // aucun outil de canevas n'a de panneau "annexe" dedie.
+    static const std::array<PixelPanelFocusEntry, PIXEL_PANEL_FOCUS_CATALOG_COUNT> catalog{{
+        {PixelTool::Brush, PanelId::PixelCanvas},
+        {PixelTool::Eraser, PanelId::PixelCanvas},
+        {PixelTool::Fill, PanelId::PixelCanvas},
+        {PixelTool::Eyedropper, PanelId::PixelCanvas},
+    }};
+    return catalog;
+}
+
+std::optional<PanelId> panelForPixelTool(PixelTool tool) {
+    for (const PixelPanelFocusEntry& entry : pixelPanelFocusCatalog()) {
+        if (entry.tool == tool) {
+            return entry.panel;
+        }
+    }
+    return std::nullopt;
+}
+
 }  // namespace hmi

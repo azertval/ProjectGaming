@@ -41,6 +41,8 @@ dock.decors = Décors
 dock.levels = Niveaux
 dock.links = Liens
 dock.textures = Textures
+dock.pixel_canvas = Atelier
+dock.pixel_history = Historique de l'atelier
 
 # Panneau Textures (LOT-42)
 textures.skin_set = Jeu de skins
@@ -103,15 +105,21 @@ assets.operation_failed = Opération impossible
 
 # Barre de statut et dialogues
 status.zone.level = Niveau : %1
+status.zone.asset = Asset : %1
 status.zone.dirty = Modifié
 status.zone.hover = (%1, %2)
 status.zone.zoom = Zoom : %1%
+status.zone.color = Couleur : %1
 status.help_paint = Peindre : clic gauche/glisser · Ctrl+Z/Y : annuler/refaire
 status.help_rectangle = Rectangle : glisser pour peindre une zone · Ctrl+Z/Y : annuler/refaire
 status.help_selection = Sélection : glisser pour délimiter · Ctrl+C/V : copier/coller
 status.help_link = Lien : cliquer un déclencheur puis sa cible · recliquer la même paire délie
 status.help_texture_assign = Texture : clic gauche assigne, reclic ou clic droit retire
 status.help_decor = Décor : cliquer une zone vide pour poser, cliquer un décor pour le manipuler
+status.help_pixel_brush = Pinceau : clic gauche/glisser peint · Ctrl+Z/Y : annuler/refaire
+status.help_pixel_eraser = Gomme : clic gauche/glisser efface · Ctrl+Z/Y : annuler/refaire
+status.help_pixel_fill = Pot de peinture : clic remplit la zone connexe
+status.help_pixel_eyedropper = Pipette : clic prélève la couleur du pixel visé
 status.texture_assigned = Texture assignée : %1
 status.texture_removed = Texture retirée.
 status.texture_no_asset_selected = Aucun asset sélectionné : choisissez-en un dans l'onglet « Objets » du panneau Textures.
@@ -136,6 +144,13 @@ tool.decor_layer_background = Arrière-plan
 tool.decor_layer_decor = Décor
 tool.decor_layer_foreground = Premier plan
 tool.decor_snap_to_grid = Aimanter à la grille
+
+# Outils du canevas pixel art (LOT-54 TACHE-04) : groupe exclusif distinct des outils de niveau
+# ci-dessus, reutilises aussi comme libelle court dans la barre d'etat (hmi::EditorStatus).
+pixel_tool.brush = Pinceau
+pixel_tool.eraser = Gomme
+pixel_tool.fill = Pot de peinture
+pixel_tool.eyedropper = Pipette
 
 # Actions/commandes de la barre d'outils (LOT-56 TACHE-04) : libellé seul, le raccourci vient de
 # l'action elle-même (EditorActions::retranslateUi), jamais saisi ici.

@@ -36,8 +36,11 @@ namespace {
 }  // namespace
 
 EditorActions::EditorActions(const DesignTokens& tokens, QObject* parent)
-    : QObject(parent), _toolGroup(new QActionGroup(this)) {
+    : QObject(parent),
+      _toolGroup(new QActionGroup(this)),
+      _pixelToolGroup(new QActionGroup(this)) {
     _toolGroup->setExclusive(true);
+    _pixelToolGroup->setExclusive(true);
 
     for (std::size_t i = 0; i < editorActionCatalog().size(); ++i) {
         const EditorActionSpec& spec = editorActionCatalog()[i];
@@ -49,11 +52,15 @@ EditorActions::EditorActions(const DesignTokens& tokens, QObject* parent)
         }
         if (spec.group == EditorActionGroup::LevelTools) {
             act->setActionGroup(_toolGroup);
+        } else if (spec.group == EditorActionGroup::PixelTools) {
+            act->setActionGroup(_pixelToolGroup);
         }
         _actions[i] = act;
     }
-    // Pinceau actif par défaut (même défaut que l'ancien panneau Outils, EX-EDIT-014).
+    // Pinceau actif par défaut (même défaut que l'ancien panneau Outils, EX-EDIT-014) ; pinceau
+    // du canevas pixel art également, même raisonnement (LOT-54 TACHE-04).
     action(IconId::ToolPaint)->setChecked(true);
+    action(IconId::PixelBrush)->setChecked(true);
 }
 
 QAction* EditorActions::action(IconId id) const {
@@ -70,14 +77,31 @@ QAction* EditorActions::toolAction(EditorTool tool) const {
     return action(editorActionForTool(tool));
 }
 
+QAction* EditorActions::pixelToolAction(PixelTool tool) const {
+    return action(editorActionForPixelTool(tool));
+}
+
 void EditorActions::populateToolBar(QToolBar& toolBar) const {
+    // Outils de niveau puis commandes, SANS les outils de canevas pixel art (groupe distinct,
+    // barre d'outils dediee -- populatePixelToolBar, LOT-54 TACHE-04).
     bool separatorInserted = false;
     for (const EditorActionSpec& spec : editorActionCatalog()) {
+        if (spec.group == EditorActionGroup::PixelTools) {
+            continue;
+        }
         if (!separatorInserted && spec.group != EditorActionGroup::LevelTools) {
             toolBar.addSeparator();
             separatorInserted = true;
         }
         toolBar.addAction(action(spec.id));
+    }
+}
+
+void EditorActions::populatePixelToolBar(QToolBar& toolBar) const {
+    for (const EditorActionSpec& spec : editorActionCatalog()) {
+        if (spec.group == EditorActionGroup::PixelTools) {
+            toolBar.addAction(action(spec.id));
+        }
     }
 }
 
@@ -99,6 +123,15 @@ void EditorActions::retranslateUi(const Localization& loc) {
 
 void EditorActions::setActiveTool(EditorTool tool) {
     QAction* const act = toolAction(tool);
+    if (act == nullptr || act->isChecked()) {
+        return;
+    }
+    const QSignalBlocker blocker(act);
+    act->setChecked(true);
+}
+
+void EditorActions::setActivePixelTool(PixelTool tool) {
+    QAction* const act = pixelToolAction(tool);
     if (act == nullptr || act->isChecked()) {
         return;
     }

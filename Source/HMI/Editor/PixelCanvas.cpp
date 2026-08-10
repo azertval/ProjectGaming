@@ -1,5 +1,6 @@
 #include "HMI/Editor/PixelCanvas.h"
 
+#include <QEvent>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPaintEvent>
@@ -57,7 +58,13 @@ constexpr int CHECKER_LOGICAL_CELL = 6;
 }  // namespace
 
 PixelCanvas::PixelCanvas(QWidget* parent) : QWidget(parent) {
-    setMouseTracking(false);
+    // Suivi de souris SANS bouton presse : necessaire pour que le pixel survole (barre d'etat,
+    // TACHE-04) se mette a jour au simple deplacement, pas seulement pendant un geste de dessin.
+    setMouseTracking(true);
+    // Cible reelle du clavier (raccourcis d'outil) quand l'utilisateur clique dans le canevas --
+    // c'est ce changement de focus que MainWindow observe pour reassigner le contexte d'edition
+    // actif (TACHE-04, EX-IHM-062).
+    setFocusPolicy(Qt::StrongFocus);
 }
 
 void PixelCanvas::setImage(DecodedImage image) {
@@ -65,24 +72,38 @@ void PixelCanvas::setImage(DecodedImage image) {
     _history = PixelHistory();
     _gestureActive = false;
     _lastGesturePixel.reset();
+    if (_hoveredPixel) {
+        _hoveredPixel.reset();
+        emit hoveredPixelChanged(_hoveredPixel);
+    }
     updateGeometry();
     update();
+    emit imageChanged();
+    emit historyChanged();
 }
 
-bool PixelCanvas::undo() {
-    const bool undone = _history.undo(_image);
-    if (undone) {
+void PixelCanvas::undo() {
+    if (_history.undo(_image)) {
         update();
+        emit imageChanged();
+        emit historyChanged();
     }
-    return undone;
 }
 
-bool PixelCanvas::redo() {
-    const bool redone = _history.redo(_image);
-    if (redone) {
+void PixelCanvas::redo() {
+    if (_history.redo(_image)) {
         update();
+        emit imageChanged();
+        emit historyChanged();
     }
-    return redone;
+}
+
+void PixelCanvas::jumpHistoryTo(std::size_t index) {
+    if (_history.jumpTo(_image, index)) {
+        update();
+        emit imageChanged();
+        emit historyChanged();
+    }
 }
 
 void PixelCanvas::zoomIn() {
@@ -163,6 +184,8 @@ void PixelCanvas::endGesture() {
         const std::vector<std::uint32_t> before = readRegion(_gestureBeforeSnapshot, _gestureRegion);
         const std::vector<std::uint32_t> after = readRegion(_image, _gestureRegion);
         _history.push(operationKindForTool(_activeTool), _gestureRegion, before, after);
+        emit imageChanged();
+        emit historyChanged();
     }
     _gestureActive = false;
     _lastGesturePixel.reset();
@@ -187,6 +210,12 @@ void PixelCanvas::mousePressEvent(QMouseEvent* event) {
 }
 
 void PixelCanvas::mouseMoveEvent(QMouseEvent* event) {
+    const std::optional<std::pair<int, int>> pixel = imagePixelAt(event->position());
+    if (pixel != _hoveredPixel) {
+        _hoveredPixel = pixel;
+        emit hoveredPixelChanged(_hoveredPixel);
+    }
+
     if (_panning) {
         const QPointF delta = event->position() - _panStartWidgetPos;
         _view.panX = _panStartView.panX - static_cast<int>(std::lround(delta.x() / _view.zoom));
@@ -194,16 +223,19 @@ void PixelCanvas::mouseMoveEvent(QMouseEvent* event) {
         update();
         return;
     }
-    if (!_gestureActive) {
-        return;
-    }
-    const std::optional<std::pair<int, int>> pixel = imagePixelAt(event->position());
-    if (!pixel) {
-        return;  // hors image : ignore, le trait reprend au prochain point dans l'image.
+    if (!_gestureActive || !pixel) {
+        return;  // hors image (geste en cours) : ignore, le trait reprend au prochain point dedans.
     }
     continueToolTo(pixel->first, pixel->second);
     _lastGesturePixel = pixel;
     update();
+}
+
+void PixelCanvas::leaveEvent(QEvent* /*event*/) {
+    if (_hoveredPixel) {
+        _hoveredPixel.reset();
+        emit hoveredPixelChanged(_hoveredPixel);
+    }
 }
 
 void PixelCanvas::mouseReleaseEvent(QMouseEvent* event) {

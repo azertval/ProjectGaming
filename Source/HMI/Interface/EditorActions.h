@@ -3,6 +3,7 @@
 #include <QObject>
 #include <array>
 
+#include "HMI/Editor/PixelTool.h"
 #include "HMI/Interface/ActionCatalog.h"
 
 class QAction;
@@ -40,14 +41,26 @@ public:
     [[nodiscard]] QAction* action(IconId id) const;
     /// @return L'action de l'outil @p tool (raccourci vers `action(editorActionForTool(tool))`).
     [[nodiscard]] QAction* toolAction(EditorTool tool) const;
-    /// @return Le groupe exclusif des six actions d'outil.
+    /// @return Le groupe exclusif des six actions d'outil de niveau.
     [[nodiscard]] QActionGroup* toolGroup() const noexcept {
         return _toolGroup;
     }
 
-    /// Ajoute toutes les actions à @p toolBar, dans l'ordre du catalogue, avec un séparateur entre
-    /// les outils et les commandes principales.
+    /// @return L'action de l'outil de canevas pixel art @p tool (`LOT-54` TACHE-04).
+    [[nodiscard]] QAction* pixelToolAction(PixelTool tool) const;
+    /// @return Le groupe exclusif des quatre actions d'outil de canevas pixel art, **distinct** de
+    ///         `toolGroup()` (`LOT-54` TACHE-04).
+    [[nodiscard]] QActionGroup* pixelToolGroup() const noexcept {
+        return _pixelToolGroup;
+    }
+
+    /// Ajoute les actions d'outils de niveau et les commandes principales à @p toolBar, dans
+    /// l'ordre du catalogue, avec un séparateur entre les deux — **sans** les outils de canevas
+    /// pixel art (`populatePixelToolBar`, barre d'outils distincte).
     void populateToolBar(QToolBar& toolBar) const;
+    /// Ajoute les quatre actions d'outil de canevas pixel art à @p toolBar (`LOT-54` TACHE-04) —
+    /// barre d'outils dédiée du canevas, distincte de celle des outils de niveau.
+    void populatePixelToolBar(QToolBar& toolBar) const;
 
     /// Applique la langue active : libellé de chaque action, et infobulle incluant son raccourci
     /// (jamais saisi séparément).
@@ -57,6 +70,9 @@ public:
     /// touche dédiée de `GameViewport` (remappable, `EditorAction::TextureAssignTool`), même garde
     /// que `DecorsPanel::setActiveTool`.
     void setActiveTool(EditorTool tool);
+    /// Coche l'action de l'outil de canevas pixel art actif **sans** émettre `triggered` — même
+    /// garde que `setActiveTool` (`LOT-54` TACHE-04).
+    void setActivePixelTool(PixelTool tool);
 
     /// Active/désactive les six commandes qui n'ont de sens qu'en édition (Enregistrer, Essayer,
     /// Annuler, Refaire, Grille, Recadrer). Le mode de rendu reste toujours actif : il s'applique
@@ -83,6 +99,7 @@ public:
 private:
     std::array<QAction*, EDITOR_ACTION_CATALOG_COUNT> _actions{};
     QActionGroup* _toolGroup;
+    QActionGroup* _pixelToolGroup;  ///< Groupe exclusif des outils de canevas, distinct de `_toolGroup`.
 };
 
 }  // namespace hmi
