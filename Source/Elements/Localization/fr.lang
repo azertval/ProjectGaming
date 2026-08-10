@@ -166,6 +166,25 @@ action.paste = Coller
 action.rename = Renommer
 action.shortcuts_overview = Aperçu des raccourcis
 
+# Commandes de fichier de l'atelier pixel art (LOT-54 TACHE-05).
+action.pixel_open = Ouvrir un asset…
+action.pixel_create = Créer un asset…
+action.pixel_save = Enregistrer l'asset
+action.pixel_save_as = Enregistrer l'asset sous…
+
+# Boîtes de dialogue de l'atelier pixel art (LOT-54 TACHE-05).
+menubar.pixel = Atelier
+pixel.open_title = Ouvrir un asset
+pixel.open_failed = Échec de l'ouverture de l'asset.
+pixel.create_title = Créer un asset
+pixel.create_family = Famille
+pixel.create_size = Taille
+pixel.save_title = Enregistrer l'asset
+pixel.save_failed = Échec de l'enregistrement de l'asset.
+pixel.save_done = Asset enregistré : %1
+pixel.overwrite_title = Remplacer l'asset ?
+pixel.overwrite_text = « %1 » est référencé par : %2. Le remplacer ?
+
 # Panneau Liens (LOT-37)
 link.column.type = Type
 link.column.trigger = Déclencheur

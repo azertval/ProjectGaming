@@ -82,11 +82,12 @@ QAction* EditorActions::pixelToolAction(PixelTool tool) const {
 }
 
 void EditorActions::populateToolBar(QToolBar& toolBar) const {
-    // Outils de niveau puis commandes, SANS les outils de canevas pixel art (groupe distinct,
-    // barre d'outils dediee -- populatePixelToolBar, LOT-54 TACHE-04).
+    // Outils de niveau puis commandes, SANS les outils/commandes de canevas pixel art (groupes
+    // distincts, barre d'outils dediee -- populatePixelToolBar, LOT-54 TACHE-04/TACHE-05).
     bool separatorInserted = false;
     for (const EditorActionSpec& spec : editorActionCatalog()) {
-        if (spec.group == EditorActionGroup::PixelTools) {
+        if (spec.group == EditorActionGroup::PixelTools ||
+            spec.group == EditorActionGroup::PixelCommands) {
             continue;
         }
         if (!separatorInserted && spec.group != EditorActionGroup::LevelTools) {
@@ -98,10 +99,19 @@ void EditorActions::populateToolBar(QToolBar& toolBar) const {
 }
 
 void EditorActions::populatePixelToolBar(QToolBar& toolBar) const {
+    // Outils du canevas puis commandes de fichier (LOT-54 TACHE-05), separateur entre les deux --
+    // meme disposition que populateToolBar (outils de niveau puis commandes).
+    bool separatorInserted = false;
     for (const EditorActionSpec& spec : editorActionCatalog()) {
-        if (spec.group == EditorActionGroup::PixelTools) {
-            toolBar.addAction(action(spec.id));
+        if (spec.group != EditorActionGroup::PixelTools &&
+            spec.group != EditorActionGroup::PixelCommands) {
+            continue;
         }
+        if (!separatorInserted && spec.group == EditorActionGroup::PixelCommands) {
+            toolBar.addSeparator();
+            separatorInserted = true;
+        }
+        toolBar.addAction(action(spec.id));
     }
 }
 
@@ -142,8 +152,11 @@ void EditorActions::setActivePixelTool(PixelTool tool) {
 void EditorActions::setEditingCommandsEnabled(bool enabled) {
     for (const EditorActionSpec& spec : editorActionCatalog()) {
         // Le mode de rendu reste toujours actif : en edition, en essai et en jeu reel
-        // (EX-REN-046) -- jamais desactive, contrairement aux six autres commandes.
-        if (spec.group == EditorActionGroup::None && spec.id != IconId::ToggleRenderMode) {
+        // (EX-REN-046) -- jamais desactive, contrairement aux autres commandes. Les commandes de
+        // fichier de l'atelier (LOT-54 TACHE-05) suivent la meme regle que celles du niveau.
+        const bool gated = (spec.group == EditorActionGroup::None && spec.id != IconId::ToggleRenderMode) ||
+                          spec.group == EditorActionGroup::PixelCommands;
+        if (gated) {
             action(spec.id)->setEnabled(enabled);
         }
     }

@@ -25,8 +25,10 @@ namespace hmi {
 /// (un seul actif à la fois) ; les commandes n'appartiennent à aucun groupe. `PixelTools` (`LOT-54`
 /// TACHE-04) est un second groupe exclusif, **distinct** de `LevelTools` : les outils du canevas
 /// pixel art et ceux du niveau ne s'excluent jamais entre eux, seulement au sein de leur propre
-/// groupe.
-enum class EditorActionGroup { None, LevelTools, PixelTools };
+/// groupe. `PixelCommands` (`LOT-54` TACHE-05) n'est pas exclusif (comme `None`) mais reste tagué
+/// séparément : ces commandes vivent dans la barre d'outils **du canevas**, jamais dans celle du
+/// niveau.
+enum class EditorActionGroup { None, LevelTools, PixelTools, PixelCommands };
 
 /// Description d'une action, indépendante de Qt : de quoi construire un `QAction` complet (icône,
 /// libellé, raccourci, caractère cochable) sans dupliquer sa définition ailleurs.
@@ -40,8 +42,8 @@ struct EditorActionSpec {
 };
 
 /// Nombre total d'actions du catalogue (six outils de niveau, quatre outils de canevas pixel art,
-/// onze commandes principales).
-constexpr int EDITOR_ACTION_CATALOG_COUNT = 21;
+/// onze commandes principales, quatre commandes de fichier de l'atelier).
+constexpr int EDITOR_ACTION_CATALOG_COUNT = 25;
 
 /// @return Le catalogue complet, dans l'ordre d'affichage voulu de la barre d'outils : les six
 ///         outils de niveau (ordre de la palette/du panneau Outils historique), les quatre outils

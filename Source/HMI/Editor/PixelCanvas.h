@@ -63,20 +63,26 @@ public:
         return _image;
     }
 
-    /// Nom de l'asset ouvert (barre d'état, TACHE-04), vide si aucun — `setImage` ne le change pas
-    /// lui-même : TACHE-05 (ouvrir/créer/enregistrer) l'appelle explicitement en même temps.
+    /// Nom de l'asset ouvert (barre d'état, TACHE-04), vide si aucun. `setImage` le remet à vide
+    /// (nouveau document) ; l'appelant le renseigne ensuite après une ouverture ou un
+    /// enregistrement réussi (TACHE-05).
     void setAssetName(std::string name) {
         _assetName = std::move(name);
     }
     [[nodiscard]] const std::string& assetName() const noexcept {
         return _assetName;
     }
-    /// Modifications non enregistrées depuis l'ouverture/le dernier enregistrement (barre d'état,
-    /// TACHE-04). Tant que TACHE-05 n'introduit pas d'enregistrement, une entrée d'historique
-    /// non annulée suffit à définir « modifié » : c'est déjà exactement ce que « annulable »
-    /// signifie.
+    /// Modifications non enregistrées depuis l'ouverture/le dernier enregistrement (barre d'état
+    /// TACHE-04, garde-fou de perte de travail TACHE-05) : un coup de pinceau la marque, un
+    /// enregistrement (`markSaved`) la lève.
     [[nodiscard]] bool isDirty() const noexcept {
-        return _history.canUndo();
+        return _dirty;
+    }
+    /// Marque l'image comme enregistrée — appelé après une écriture réussie (TACHE-05). Ne touche
+    /// pas à l'historique : annuler après un enregistrement reste possible et remarque « modifié »,
+    /// comme dans tout éditeur (revenir en arrière s'écarte du fichier tout juste écrit).
+    void markSaved() noexcept {
+        _dirty = false;
     }
 
     void setActiveTool(PixelTool tool) noexcept {
@@ -170,6 +176,7 @@ private:
 
     DecodedImage _image;
     std::string _assetName;
+    bool _dirty = false;
     PixelHistory _history;
     PixelCanvasView _view;
     PixelTool _activeTool = PixelTool::Brush;

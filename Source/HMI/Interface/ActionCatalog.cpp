@@ -23,6 +23,12 @@ const std::array<EditorActionSpec, EDITOR_ACTION_CATALOG_COUNT>& editorActionCat
         {IconId::PixelEraser, "pixel_tool.eraser", "", true, EditorActionGroup::PixelTools},
         {IconId::PixelFill, "pixel_tool.fill", "", true, EditorActionGroup::PixelTools},
         {IconId::PixelEyedropper, "pixel_tool.eyedropper", "", true, EditorActionGroup::PixelTools},
+        // Commandes de fichier de l'atelier pixel art (LOT-54 TACHE-05) : aucun raccourci clavier
+        // dedie aujourd'hui, comme les outils de canevas ci-dessus.
+        {IconId::PixelOpen, "action.pixel_open", "", false, EditorActionGroup::PixelCommands},
+        {IconId::PixelCreate, "action.pixel_create", "", false, EditorActionGroup::PixelCommands},
+        {IconId::PixelSave, "action.pixel_save", "", false, EditorActionGroup::PixelCommands},
+        {IconId::PixelSaveAs, "action.pixel_save_as", "", false, EditorActionGroup::PixelCommands},
         // Commandes principales : aucun groupe, aucune n'est cochable.
         {IconId::Save, "action.save", "Ctrl+S", false, EditorActionGroup::None},
         {IconId::Playtest, "action.playtest", "P", false, EditorActionGroup::None},

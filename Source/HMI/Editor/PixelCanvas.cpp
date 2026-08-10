@@ -68,7 +68,12 @@ PixelCanvas::PixelCanvas(QWidget* parent) : QWidget(parent) {
 }
 
 void PixelCanvas::setImage(DecodedImage image) {
+    // Depart d'un document neuf (ouverture/creation, TACHE-05) : tout l'etat propre au document
+    // precedent est reinitialise ensemble, pas seulement l'image -- un nom d'asset ou un historique
+    // laisse derriere induirait la barre d'etat et l'annulation en erreur.
     _image = std::move(image);
+    _assetName.clear();
+    _dirty = false;
     _history = PixelHistory();
     _gestureActive = false;
     _lastGesturePixel.reset();
@@ -84,6 +89,7 @@ void PixelCanvas::setImage(DecodedImage image) {
 
 void PixelCanvas::undo() {
     if (_history.undo(_image)) {
+        _dirty = true;
         update();
         emit imageChanged();
         emit historyChanged();
@@ -92,6 +98,7 @@ void PixelCanvas::undo() {
 
 void PixelCanvas::redo() {
     if (_history.redo(_image)) {
+        _dirty = true;
         update();
         emit imageChanged();
         emit historyChanged();
@@ -100,6 +107,7 @@ void PixelCanvas::redo() {
 
 void PixelCanvas::jumpHistoryTo(std::size_t index) {
     if (_history.jumpTo(_image, index)) {
+        _dirty = true;
         update();
         emit imageChanged();
         emit historyChanged();
@@ -184,6 +192,7 @@ void PixelCanvas::endGesture() {
         const std::vector<std::uint32_t> before = readRegion(_gestureBeforeSnapshot, _gestureRegion);
         const std::vector<std::uint32_t> after = readRegion(_image, _gestureRegion);
         _history.push(operationKindForTool(_activeTool), _gestureRegion, before, after);
+        _dirty = true;
         emit imageChanged();
         emit historyChanged();
     }

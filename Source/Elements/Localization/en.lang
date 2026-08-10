@@ -164,6 +164,25 @@ action.paste = Paste
 action.rename = Rename
 action.shortcuts_overview = Shortcuts overview
 
+# Pixel art workshop file commands (LOT-54 TACHE-05).
+action.pixel_open = Open asset…
+action.pixel_create = Create asset…
+action.pixel_save = Save asset
+action.pixel_save_as = Save asset as…
+
+# Pixel art workshop dialogs (LOT-54 TACHE-05).
+menubar.pixel = Workshop
+pixel.open_title = Open asset
+pixel.open_failed = Failed to open the asset.
+pixel.create_title = Create asset
+pixel.create_family = Family
+pixel.create_size = Size
+pixel.save_title = Save asset
+pixel.save_failed = Failed to save the asset.
+pixel.save_done = Asset saved: %1
+pixel.overwrite_title = Replace asset?
+pixel.overwrite_text = "%1" is referenced by: %2. Replace it anyway?
+
 # Links panel (LOT-37)
 link.column.type = Type
 link.column.trigger = Trigger

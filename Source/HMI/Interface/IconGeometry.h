@@ -39,6 +39,12 @@ enum class IconId {
     PixelEraser,
     PixelFill,
     PixelEyedropper,
+    // Commandes de fichier de l'atelier pixel art (LOT-54 TACHE-05) : ouvrir/creer/enregistrer/
+    // enregistrer sous, groupe `EditorActionGroup::PixelCommands`.
+    PixelOpen,
+    PixelCreate,
+    PixelSave,
+    PixelSaveAs,
 };
 
 /// Rôle de couleur d'un trait, résolu depuis les jetons de design au moment du rendu (recoloration

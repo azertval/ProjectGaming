@@ -3,6 +3,7 @@
 #include <QByteArray>
 #include <QMainWindow>
 #include <array>
+#include <filesystem>
 #include <memory>
 
 #include "HMI/Editor/EditContextTarget.h"
@@ -106,6 +107,21 @@ private:
     /// selon le widget qui vient de recevoir le focus clavier (`LOT-54` TACHE-04, `EX-IHM-062`) :
     /// le canevas pixel art si le focus y entre, le niveau sinon.
     void updateActiveEditContext(QWidget* focused);
+
+    // Atelier pixel art : ouvrir/créer/enregistrer (LOT-54 TACHE-05).
+    /// @return `true` si l'on peut poursuivre (rien à perdre, ou perte confirmée) — même patron que
+    ///         le garde-fou d'ouverture de niveau (`EX-EDIT-021`).
+    [[nodiscard]] bool confirmDiscardPixelChanges();
+    /// Ouvre un asset existant choisi par l'utilisateur (bibliothèque `Assets/`), après le
+    /// garde-fou de perte de travail.
+    void openPixelAssetOpenDialog();
+    /// Crée un nouvel asset à une taille choisie parmi celles admises par le contrat de sa famille
+    /// (`hmi::validAssetSizes`), après le garde-fou de perte de travail.
+    void openPixelAssetCreateDialog();
+    /// Enregistre l'asset ouvert. @p saveAs force le choix d'un nouveau chemin (copie), même sans
+    /// chemin existant ; sans @p saveAs, réutilise le chemin d'ouverture s'il y en a un. Un
+    /// écrasement d'asset référencé demande confirmation, nommant les références (`LOT-43`).
+    void savePixelAsset(bool saveAs);
     /// Change la langue active (recharge le catalogue, persiste, retraduit tout).
     void changeLanguage(const QString& code);
     /// Enregistre les journaux de session accumulés dans un fichier horodaté.
@@ -135,9 +151,9 @@ private:
     OptionsPage* _options;      ///< Page Options à onglets.
     QWidget* _editorContainer;  ///< Conteneur natif du viewport (page éditeur/jeu).
     GameViewport* _viewport;    ///< Surface de rendu D3D11 (possédée par le conteneur central).
-    /// Contexte d'édition actif, cible d'Annuler/Refaire/Copier/Coller (`LOT-57` TACHE-04) — égal à
-    /// `_viewport` aujourd'hui, seule implémentation ; un futur atelier pixel art (`LOT-54`)
-    /// pourra le réassigner sans changer le dispatch des actions.
+    /// Contexte d'édition actif, cible d'Annuler/Refaire/Copier/Coller (`LOT-57` TACHE-04) : `
+    /// _viewport` (niveau) ou `_pixelCanvas` (atelier pixel art, `LOT-54` TACHE-04), selon le widget
+    /// qui a le focus clavier (`updateActiveEditContext`) — le dispatch lui-même ne change jamais.
     EditContextTarget* _editContext = nullptr;
     PalettePanel* _palette;     ///< Arbre de sélection du type de tuile (contenu du dock Palette).
     LevelBrowserPanel*
@@ -152,9 +168,14 @@ private:
     /// `EditContextTarget`, cible d'Annuler/Refaire/Copier/Coller quand elle a le focus clavier.
     PixelCanvas* _pixelCanvas;
     PixelHistoryPanel* _pixelHistoryPanel;  ///< Historique visuel de l'atelier (dock, LOT-54 TACHE-04).
+    /// Chemin complet du fichier de l'asset ouvert dans l'atelier, vide si aucun ou pas encore
+    /// enregistré (LOT-54 TACHE-05) — `PixelCanvas::assetName()` n'en garde que le nom de fichier,
+    /// pour l'affichage ; ce chemin sert à `savePixelAsset` pour retrouver le dossier.
+    std::filesystem::path _pixelAssetPath;
     EditorActions* _actions;   ///< Outils et commandes principales, barre d'outils (LOT-56 TACHE-04).
     QToolBar* _toolBar;        ///< Barre d'outils de l'éditeur, alimentée par `_actions`.
     QToolBar* _pixelToolBar;   ///< Barre d'outils du canevas pixel art (LOT-54 TACHE-04).
+    QMenu* _pixelMenu = nullptr;  ///< Menu « Atelier » : ouvrir/créer/enregistrer (LOT-54 TACHE-05).
     QMenu* _themeMenu;         ///< Sous-menu Affichage > Thème (LOT-56 TACHE-06).
     QAction* _themeSystemAction;
     QAction* _themeLightAction;

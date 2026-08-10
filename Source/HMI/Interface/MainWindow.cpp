@@ -5,9 +5,11 @@
 #include <QApplication>
 #include <QCheckBox>
 #include <QCloseEvent>
+#include <QComboBox>
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QDockWidget>
+#include <QFileDialog>
 #include <QFontMetrics>
 #include <QFormLayout>
 #include <QGuiApplication>
@@ -36,16 +38,20 @@
 
 #include "Core/Diagnostics/MemoryLogSink.h"
 #include "HMI/Diagnostics/SessionLog.h"
+#include "HMI/Editor/AssetReferences.h"
 #include "HMI/Editor/EditorStatus.h"
 #include "HMI/Editor/LevelBrowserPanel.h"
 #include "HMI/Editor/LinkPanel.h"
 #include "HMI/Editor/DecorsPanel.h"
 #include "HMI/Editor/PanelFocus.h"
+#include "HMI/Editor/PixelAssetIO.h"
 #include "HMI/Editor/PixelCanvas.h"
 #include "HMI/Editor/PixelHistoryPanel.h"
 #include "HMI/Editor/TexturePanel.h"
 #include "HMI/Editor/PalettePanel.h"
 #include "HMI/Game/GameViewport.h"
+#include "HMI/Graphics/AssetContract.h"
+#include "HMI/Graphics/TextureLoader.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Input/GamepadButton.h"
 #include "HMI/Interface/ApplicationTheme.h"
@@ -510,6 +516,23 @@ void MainWindow::buildUi() {
             &PixelCanvas::jumpHistoryTo);
     _pixelHistoryPanel->refresh(_pixelCanvas->history());  // etat initial (historique vide).
 
+    // Commandes de fichier de l'atelier pixel art (LOT-54 TACHE-05).
+    connect(_actions->action(hmi::IconId::PixelOpen), &QAction::triggered, this,
+            [this] { openPixelAssetOpenDialog(); });
+    connect(_actions->action(hmi::IconId::PixelCreate), &QAction::triggered, this,
+            [this] { openPixelAssetCreateDialog(); });
+    connect(_actions->action(hmi::IconId::PixelSave), &QAction::triggered, this,
+            [this] { savePixelAsset(false); });
+    connect(_actions->action(hmi::IconId::PixelSaveAs), &QAction::triggered, this,
+            [this] { savePixelAsset(true); });
+    // Menu dedie (decouvrabilite, EX-EDIT-015), memes actions que la barre d'outils du canevas --
+    // aucune seconde definition.
+    _pixelMenu = menuBar()->addMenu(QString());
+    _pixelMenu->addAction(_actions->action(hmi::IconId::PixelOpen));
+    _pixelMenu->addAction(_actions->action(hmi::IconId::PixelCreate));
+    _pixelMenu->addAction(_actions->action(hmi::IconId::PixelSave));
+    _pixelMenu->addAction(_actions->action(hmi::IconId::PixelSaveAs));
+
     connect(_actions->action(hmi::IconId::Save), &QAction::triggered, _viewport,
             [this] { _viewport->save(); });
     connect(_actions->action(hmi::IconId::Playtest), &QAction::triggered, _viewport,
@@ -937,6 +960,174 @@ void MainWindow::updateActiveEditContext(QWidget* focused) {
     }
 }
 
+bool MainWindow::confirmDiscardPixelChanges() {
+    if (!_pixelCanvas->isDirty()) {
+        return true;
+    }
+    // Meme patron que le garde-fou d'ouverture de niveau (EX-EDIT-021) : la meme paire de cles de
+    // traduction convient, la question posee est identique pour un autre type de document.
+    const QMessageBox::StandardButton answer =
+        QMessageBox::question(this, text("dialog.unsaved_title"), text("dialog.unsaved_text"));
+    return answer == QMessageBox::Yes;
+}
+
+void MainWindow::openPixelAssetOpenDialog() {
+    if (!confirmDiscardPixelChanges()) {
+        return;
+    }
+    const QString directory =
+        QString::fromStdString((hmi::executableDirectory() / "Assets").string());
+    const QString path = QFileDialog::getOpenFileName(this, text("pixel.open_title"), directory,
+                                                       QStringLiteral("PNG (*.png)"));
+    if (path.isEmpty()) {
+        return;
+    }
+    const std::filesystem::path fsPath(path.toStdString());
+    const std::optional<hmi::DecodedImage> decoded = hmi::decodeImageFile(fsPath);
+    if (!decoded) {
+        showTransientStatusMessage(text("pixel.open_failed"), 5000);
+        return;
+    }
+    _pixelCanvas->setImage(*decoded);
+    _pixelCanvas->setAssetName(fsPath.filename().string());
+    _pixelAssetPath = fsPath;
+    refreshStatusHelp();
+}
+
+void MainWindow::openPixelAssetCreateDialog() {
+    if (!confirmDiscardPixelChanges()) {
+        return;
+    }
+
+    // Familles creables depuis l'atelier : Atlas exclu (fichier historique unique, jamais recree a
+    // la main) et Font exclu (decoupe par ses metriques, hors perimetre d'un canevas generique).
+    static constexpr hmi::AssetFamily FAMILIES[] = {
+        hmi::AssetFamily::TileSkin,       hmi::AssetFamily::AutotileSheet,
+        hmi::AssetFamily::Object,         hmi::AssetFamily::CharacterSheet,
+        hmi::AssetFamily::Background,     hmi::AssetFamily::Decor,
+    };
+
+    QDialog dialog(this);
+    dialog.setWindowTitle(text("pixel.create_title"));
+
+    auto* const familyCombo = new QComboBox(&dialog);
+    for (const hmi::AssetFamily family : FAMILIES) {
+        familyCombo->addItem(QString::fromUtf8(hmi::assetFamilyName(family)));
+    }
+    auto* const sizeCombo = new QComboBox(&dialog);
+    auto* const widthSpin = new QSpinBox(&dialog);
+    widthSpin->setRange(1, 2048);
+    auto* const heightSpin = new QSpinBox(&dialog);
+    heightSpin->setRange(1, 2048);
+
+    const auto refreshSizeControls = [&](int index) {
+        if (index < 0) {
+            return;
+        }
+        const std::vector<std::pair<int, int>> sizes =
+            hmi::validAssetSizes(FAMILIES[static_cast<std::size_t>(index)]);
+        sizeCombo->clear();
+        for (const auto& [width, height] : sizes) {
+            sizeCombo->addItem(QStringLiteral("%1 x %2").arg(width).arg(height));
+        }
+        const bool freeform = sizes.empty();
+        sizeCombo->setVisible(!freeform);
+        widthSpin->setVisible(freeform);
+        heightSpin->setVisible(freeform);
+    };
+    connect(familyCombo, &QComboBox::currentIndexChanged, &dialog, refreshSizeControls);
+    refreshSizeControls(0);
+
+    auto* const form = new QFormLayout(&dialog);
+    form->addRow(text("pixel.create_family"), familyCombo);
+    form->addRow(text("pixel.create_size"), sizeCombo);
+    form->addRow(widthSpin);
+    form->addRow(heightSpin);
+    auto* const buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
+    form->addRow(buttons);
+    connect(buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+    connect(buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+
+    if (dialog.exec() != QDialog::Accepted) {
+        return;
+    }
+
+    const hmi::AssetFamily chosenFamily = FAMILIES[static_cast<std::size_t>(familyCombo->currentIndex())];
+    const std::vector<std::pair<int, int>> sizes = hmi::validAssetSizes(chosenFamily);
+    int width = 0;
+    int height = 0;
+    if (!sizes.empty()) {
+        const auto& [sizeWidth, sizeHeight] = sizes[static_cast<std::size_t>(sizeCombo->currentIndex())];
+        width = sizeWidth;
+        height = sizeHeight;
+    } else {
+        width = widthSpin->value();
+        height = heightSpin->value();
+    }
+
+    hmi::DecodedImage image;
+    image.width = width;
+    image.height = height;
+    image.pixels.assign(static_cast<std::size_t>(width) * static_cast<std::size_t>(height), 0u);
+    _pixelCanvas->setImage(image);  // assetName/chemin restent vides : nouvel asset, pas encore enregistre.
+    _pixelAssetPath.clear();
+    refreshStatusHelp();
+}
+
+void MainWindow::savePixelAsset(bool saveAs) {
+    std::filesystem::path target = _pixelAssetPath;
+    if (saveAs || target.empty()) {
+        const std::filesystem::path startDirectory =
+            target.empty() ? hmi::executableDirectory() / "Assets" : target.parent_path();
+        const QString path = QFileDialog::getSaveFileName(
+            this, text("pixel.save_title"), QString::fromStdString(startDirectory.string()),
+            QStringLiteral("PNG (*.png)"));
+        if (path.isEmpty()) {
+            return;
+        }
+        target = std::filesystem::path(path.toStdString());
+    }
+
+    // Garde-fou d'ecrasement (LOT-43) : un asset REFERENCE demande confirmation, en nommant les
+    // references -- jamais silencieux (EX-EDIT-026). Un asset absent ou non reference s'ecrit sans
+    // demander.
+    std::error_code existsError;
+    if (std::filesystem::exists(target, existsError)) {
+        const std::vector<hmi::AssetReference> references =
+            hmi::findSkinCatalogReferences(_viewport->skinCatalog(), target.filename().string());
+        if (!references.empty()) {
+            const QMessageBox::StandardButton answer = QMessageBox::question(
+                this, text("pixel.overwrite_title"),
+                text("pixel.overwrite_text")
+                    .arg(QString::fromStdString(target.filename().string()),
+                        QString::fromStdString(hmi::describeReferences(references))));
+            if (answer != QMessageBox::Yes) {
+                return;
+            }
+        }
+    }
+
+    if (!hmi::encodeImageFile(target, _pixelCanvas->image())) {
+        showTransientStatusMessage(text("pixel.save_failed"), 5000);
+        return;
+    }
+    _pixelAssetPath = target;
+    _pixelCanvas->setAssetName(target.filename().string());
+    _pixelCanvas->markSaved();
+    // Invalidation ciblee du cache pour que l'apercu live (TACHE-08) et le panneau Textures
+    // reprennent le nouveau contenu sans redemarrer -- reutilise le meme chemin que le bouton
+    // "Recharger" du panneau Textures (LOT-43) ; TACHE-08 le remplacera par une invalidation
+    // vraiment ciblee au nom de l'asset plutot que ce rechargement complet.
+    _viewport->reloadAssets();
+    _textures->reloadAssets();
+    _decors->reloadDecorThumbnails();
+    _palette->clearThumbnailCache();
+    _palette->refreshThumbnails(_viewport->renderMode(), _textures->currentSet());
+    showTransientStatusMessage(
+        text("pixel.save_done").arg(QString::fromStdString(target.filename().string())), 3000);
+    refreshStatusHelp();
+}
+
 void MainWindow::retranslateUi() {
     setWindowTitle(text("window.title"));
 
@@ -955,6 +1146,7 @@ void MainWindow::retranslateUi() {
     _ui->actQuit->setText(text("menubar.quit"));
     _ui->levelMenu->setTitle(text("menubar.level"));
     _ui->actResize->setText(text("menubar.resize"));
+    _pixelMenu->setTitle(text("menubar.pixel"));
     _ui->viewMenu->setTitle(text("menubar.view"));
     _themeMenu->setTitle(text("menubar.theme"));
     _themeSystemAction->setText(text("menubar.theme_system"));

@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**757 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**761 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (667)
+## Tests unitaires (671)
 
 ### Core
 
@@ -484,7 +484,7 @@
 | **SessionLogTest.SerialiseUneLigneParMessage** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Diagnostics/test_session_log.cpp:15`</sub> | Chaque message donne une ligne, dans l'ordre d'arrivée. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::serializeSessionLog(entries)` vaut `"premier message\\nsecond message\\n"`. |
 | **SessionLogTest.VideDonneChaineVide** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Diagnostics/test_session_log.cpp:34`</sub> | Une session sans message produit un texte vide. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::serializeSessionLog({})` vaut `""`. |
 
-#### Editor (82)
+#### Editor (86)
 
 **`test_decor_geometry.cpp`**
 
@@ -563,6 +563,15 @@
 | **PanelFocusTest.AucunDoublonDOutilDansLaTable** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_panel_focus.cpp:58`</sub> | La table ne contient aucun doublon d'outil. | 1. Parcourir toutes les paires d'entrees de la table.<br/>2. Comparer leurs outils. | Vérifie que `catalog[i].tool` diffère de `catalog[j].tool`. |
 | **PanelFocusTest.OutilsDeCanevasMettentEnAvantLePanneauDuCanevas** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_panel_focus.cpp:77`</sub> | Chaque outil de canevas pixel art met en avant le panneau du canevas. | 1. Interroger la table pour chacun des quatre outils de canevas.<br/>2. Verifier le panneau retourne. | Vérifie que `hmi::panelForPixelTool(tool)` vaut `hmi::PanelId::PixelCanvas`. |
 | **PanelFocusTest.AucunDoublonDOutilDansLaTableDeCanevas** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_panel_focus.cpp:95`</sub> | La table des outils de canevas ne contient aucun doublon. | 1. Parcourir toutes les paires d'entrees de la table des outils de canevas.<br/> 2. Comparer leurs outils. | Vérifie que `catalog[i].tool` diffère de `catalog[j].tool`. |
+
+**`test_pixel_asset_io.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **PixelAssetIOTest.ChaqueTailleProposeeEstConforme** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_pixel_asset_io.cpp:15`</sub> | Chaque taille proposee est conforme au contrat de sa famille. | 1. Pour chaque famille, produire les tailles proposees.<br/>2. Valider chacune contre le contrat de la meme famille. | Vérifie que `validation.valid` est vrai. |
+| **PixelAssetIOTest.FamilleADimensionsLibresNeProposeAucuneTaille** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_pixel_asset_io.cpp:42`</sub> | Une famille a dimensions libres ne propose aucune taille. | 1. Produire les tailles proposees pour Fond, Decor et Police. | Vérifie que `hmi::validAssetSizes(hmi::AssetFamily::Background).empty()` est vrai.<br/>Vérifie que `hmi::validAssetSizes(hmi::AssetFamily::Decor).empty()` est vrai.<br/>Vérifie que `hmi::validAssetSizes(hmi::AssetFamily::Font).empty()` est vrai. |
+| **PixelAssetIOTest.TileSkinProposeDesLargeursMultiplesDeCase** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_pixel_asset_io.cpp:58`</sub> | Un skin de tuile propose des largeurs multiples de case, hauteur fixe. | 1. Produire les tailles proposees pour TileSkin.<br/>2. Verifier la hauteur et la largeur de chaque taille. | Vérifie que `sizes.empty()` est faux.<br/>Vérifie que `height` vaut `hmi::TextureAtlas::TILE_SIZE`.<br/>Vérifie que `width % hmi::TextureAtlas::TILE_SIZE` vaut `0`. |
+| **PixelAssetIOTest.AutotileSheetProposePlusieursTailles** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_pixel_asset_io.cpp:79`</sub> | Les familles a taille non contrainte proposent plusieurs options. | 1. Produire les tailles proposees pour AutotileSheet. | Vérifie que `sizes.size()` est strictement supérieur à `1U`. |
 
 **`test_pixel_canvas_geometry.cpp`**
 

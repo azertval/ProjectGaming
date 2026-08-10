@@ -1,6 +1,15 @@
 # TACHE-05 — Ouvrir, créer, enregistrer et garde-fou d'écrasement {#lot-54-tache-05-ouvrir-enregistrer}
 
-**Lot :** [LOT-54](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** non commencé
+**Lot :** [LOT-54](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** fait
+
+> **Amendement de portée.** Le second point d'entrée (« éditer cet asset » depuis le panneau
+> Textures recentré, sur l'asset couramment assigné) n'a **pas** été câblé dans cette passe : seul
+> le point d'entrée principal (choisir un fichier dans `Assets/`, via `QFileDialog`) est livré.
+> `TexturePanel` est un composant volumineux déjà testé, et l'ajout d'un bouton "éditer" qui
+> pousserait un chemin d'asset vers `PixelCanvas::setImage` reste un point d'extension simple à
+> réaliser dans une passe ultérieure, sans changer la forme d'`openPixelAssetOpenDialog`. Le reste
+> de la tâche (créer, enregistrer, enregistrer sous, garde-fous d'écrasement et de perte de
+> travail) est livré tel que cadré.
 
 ## Contexte
 Le canevas (TACHE-03) travaille en mémoire ; il faut le relier aux fichiers d'assets. La
