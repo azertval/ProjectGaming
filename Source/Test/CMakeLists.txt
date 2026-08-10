@@ -99,6 +99,7 @@ add_executable(UnitTests
     Unit/HMI/Editor/test_pixel_history.cpp
     Unit/HMI/Editor/test_pixel_canvas_geometry.cpp
     Unit/HMI/Editor/test_pixel_asset_io.cpp
+    Unit/HMI/Editor/test_pixel_palette.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
     ../HMI/Graphics/Camera2D.cpp
@@ -268,6 +269,9 @@ add_executable(UnitTests
     # Tailles d'asset proposees a la creation dans l'atelier pixel art (LOT-54 TACHE-05) : logique
     # pure, derivee du contrat de dimensions (AssetContract.cpp, deja compile ci-dessus).
     ../HMI/Editor/PixelAssetIO.cpp
+    # Palette de projet, extraction et contrainte de couleur (LOT-54 TACHE-07) : logique pure
+    # (std::filesystem + nlohmann::json, deja lie ci-dessous), aucune dependance Qt/GPU.
+    ../HMI/Editor/PixelPalette.cpp
 )
 
 # Encodage/decodage d'image (LOT-54 TACHE-01) : QImage (Qt) lit et ecrit le PNG, mais aucun device

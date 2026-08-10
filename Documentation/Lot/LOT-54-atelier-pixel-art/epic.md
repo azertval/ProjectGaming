@@ -135,7 +135,7 @@ le périmètre récupère en fonctions d'édition ce qu'il n'a plus à dépenser
 | [TACHE-04](tache-04-actions-barre-outils.md) | Outils en actions, barre d'outils, annuler/refaire contextuel, barre d'état, historique visuel | `Source/HMI/Interface`, `Source/HMI/Editor` | ✅ |
 | [TACHE-05](tache-05-ouvrir-enregistrer.md) | Ouvrir, créer, enregistrer + garde-fous + point d'entrée depuis la bibliothèque et le panneau Textures | `Source/HMI/Editor` | ✅ (point d'entrée Textures non câblé, cf. amendement) |
 | [TACHE-06](tache-06-outils-region.md) | Outils de région : sélection, déplacement, symétries, rotations, copier/coller | `Source/HMI/Editor` | ✅ |
-| [TACHE-07](tache-07-palettes.md) | Palettes persistées, extraction depuis un asset, mode contraint à la palette | `Source/HMI/Editor`, `Source/Elements` | ⬜ |
+| [TACHE-07](tache-07-palettes.md) | Palettes persistées, extraction depuis un asset, mode contraint à la palette | `Source/HMI/Editor`, `Source/Elements` | ✅ |
 | [TACHE-08](tache-08-apercu-live-planche.md) | Aperçu live, mode planche à raccords, aperçu de raccord et d'animation | `Source/HMI/Editor`, `Source/HMI/Graphics` | ⬜ |
 
 ## Critères d'acceptation du lot

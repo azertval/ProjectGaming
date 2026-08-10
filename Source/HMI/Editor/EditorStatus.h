@@ -38,6 +38,7 @@ struct PixelEditStatusInfo {
     std::optional<std::pair<int, int>> hoveredPixel;  ///< Pixel survolé, si le curseur est dessus.
     int zoom = 1;                                     ///< Facteur de zoom entier courant (TACHE-03).
     std::uint32_t currentColor = 0xFF000000u;         ///< Couleur courante (R8G8B8A8_UNORM).
+    bool paletteConstrained = false;                  ///< Mode « contraindre à la palette » (TACHE-07).
 };
 
 /**

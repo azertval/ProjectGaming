@@ -43,6 +43,7 @@ dock.links = Liens
 dock.textures = Textures
 dock.pixel_canvas = Atelier
 dock.pixel_history = Historique de l'atelier
+dock.pixel_palette = Palette
 
 # Panneau Textures (LOT-42)
 textures.skin_set = Jeu de skins
@@ -110,6 +111,7 @@ status.zone.dirty = Modifié
 status.zone.hover = (%1, %2)
 status.zone.zoom = Zoom : %1%
 status.zone.color = Couleur : %1
+status.zone.color_constrained = Couleur : %1 (contrainte à la palette)
 status.help_paint = Peindre : clic gauche/glisser · Ctrl+Z/Y : annuler/refaire
 status.help_rectangle = Rectangle : glisser pour peindre une zone · Ctrl+Z/Y : annuler/refaire
 status.help_selection = Sélection : glisser pour délimiter · Ctrl+C/V : copier/coller
@@ -177,6 +179,17 @@ action.pixel_flip_horizontal = Symétrie horizontale
 action.pixel_flip_vertical = Symétrie verticale
 action.pixel_rotate_cw = Pivoter (horaire)
 action.pixel_rotate_ccw = Pivoter (antihoraire)
+
+# Panneau de palette de l'atelier pixel art (LOT-54 TACHE-07).
+pixel_palette.add = Ajouter
+pixel_palette.remove = Retirer
+pixel_palette.rename = Renommer
+pixel_palette.move_up = Monter
+pixel_palette.move_down = Descendre
+pixel_palette.extract = Extraire de l'asset
+pixel_palette.constrain = Contraindre à la palette
+pixel_palette.rename_prompt = Nouveau nom de la couleur
+pixel_palette.new_color_name = Couleur %1
 
 # Boîtes de dialogue de l'atelier pixel art (LOT-54 TACHE-05).
 menubar.pixel = Atelier

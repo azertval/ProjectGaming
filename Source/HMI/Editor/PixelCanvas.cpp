@@ -12,6 +12,7 @@
 #include <cmath>
 #include <cstring>
 
+#include "HMI/Editor/PixelPalette.h"
 #include "HMI/Interface/DesignTokens.h"
 
 namespace hmi {
@@ -147,13 +148,13 @@ void PixelCanvas::applyToolAtPoint(int x, int y) {
     PixelRegion touched;
     switch (_activeTool) {
         case PixelTool::Brush:
-            touched = setPixel(_image, x, y, _currentColor);
+            touched = setPixel(_image, x, y, effectivePaintColor());
             break;
         case PixelTool::Eraser:
             touched = erasePixel(_image, x, y);
             break;
         case PixelTool::Fill:
-            touched = floodFill(_image, x, y, _currentColor);
+            touched = floodFill(_image, x, y, effectivePaintColor());
             break;
         case PixelTool::Eyedropper:
             // Ne mute jamais l'image : prelevement seul, aucune entree d'historique.
@@ -185,7 +186,7 @@ void PixelCanvas::continueToolTo(int x, int y) {
     PixelRegion touched;
     switch (_activeTool) {
         case PixelTool::Brush:
-            touched = drawLine(_image, lastX, lastY, x, y, _currentColor);
+            touched = drawLine(_image, lastX, lastY, x, y, effectivePaintColor());
             break;
         case PixelTool::Eraser:
             touched = eraseLine(_image, lastX, lastY, x, y);
@@ -236,6 +237,13 @@ void PixelCanvas::endGesture() {
     }
     _gestureActive = false;
     _lastGesturePixel.reset();
+}
+
+std::uint32_t PixelCanvas::effectivePaintColor() const noexcept {
+    if (!_paletteConstrained) {
+        return _currentColor;
+    }
+    return nearestPaletteColor(_currentColor, _paletteColors);
 }
 
 PixelRegion PixelCanvas::effectiveRegion() const {

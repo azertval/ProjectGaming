@@ -22,6 +22,7 @@ hmi::Localization testLocalization() {
                {"status.zone.hover", "(%1, %2)"},
                {"status.zone.zoom", "Zoom : %1%"},
                {"status.zone.color", "Couleur : %1"},
+               {"status.zone.color_constrained", "Couleur : %1 (contrainte)"},
                {"tool.brush", "Pinceau"},
                {"tool.rectangle", "Rectangle"},
                {"tool.selection", "Selection"},
@@ -210,6 +211,31 @@ TEST(EditorStatusTest, ContextePixelEditProduitLesZonesEtLAideAttendues) {
 }
 
 /**
+ * @brief Le mode contraint figure dans la zone couleur de la barre d'état, distinct du mode libre.
+ * \castest{<b>Le mode contraint figure dans la zone couleur.</b><br/>
+ * \tcat Unitaire · Barre d'etat de l'editeur<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Calculer les lignes avec le mode contraint actif, puis inactif.<br/>2. Comparer la
+ * zone couleur (index 5).<br/>
+ * \tattendu La zone differe entre les deux modes et correspond a la cle attendue.
+ * }
+ */
+TEST(EditorStatusTest, ModeContraintFigureDansLaZoneCouleur) {
+    const hmi::Localization localization = testLocalization();
+
+    hmi::PixelEditStatusInfo constrained = basePixelEdit();
+    constrained.paletteConstrained = true;
+    hmi::EditorStatusContext constrainedContext;
+    constrainedContext.pixelEdit = constrained;
+    EXPECT_EQ(hmi::editorStatusLines(constrainedContext, localization).permanent[5],
+             "Couleur : #ff0000ff (contrainte)");
+
+    hmi::EditorStatusContext freeContext;
+    freeContext.pixelEdit = basePixelEdit();  // paletteConstrained = false par defaut.
+    EXPECT_EQ(hmi::editorStatusLines(freeContext, localization).permanent[5], "Couleur : #ff0000ff");
+}
+
+/**
  * @brief Aucun asset ouvert laisse la zone d'asset vide, sans libellé de remplacement, exactement
  *        comme l'absence de niveau ouvert.
  * \castest{<b>Aucun asset ouvert laisse la zone d'asset vide.</b><br/>
@@ -272,6 +298,7 @@ TEST(EditorStatusTest, ClesDeTraductionExistentDansLesDeuxCatalogues) {
     const char* const keys[] = {
         "status.zone.level",   "status.zone.asset",     "status.zone.dirty",
         "status.zone.hover",   "status.zone.zoom",      "status.zone.color",
+        "status.zone.color_constrained",
         "status.help_paint",   "status.help_rectangle", "status.help_selection",
         "status.help_link",    "status.help_texture_assign", "status.help_decor",
         "status.help_pixel_brush", "status.help_pixel_eraser", "status.help_pixel_fill",

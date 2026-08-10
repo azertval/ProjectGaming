@@ -9,6 +9,7 @@
 #include "HMI/Editor/EditContextTarget.h"
 #include "HMI/Editor/EditorTool.h"
 #include "HMI/Editor/PanelFocus.h"
+#include "HMI/Editor/PixelPalette.h"
 #include "HMI/Editor/PixelTool.h"
 #include "HMI/Input/GamepadPoller.h"
 #include "HMI/Input/InputState.h"
@@ -48,6 +49,7 @@ class LinkPanel;
 class TexturePanel;
 class PixelCanvas;
 class PixelHistoryPanel;
+class PixelPalettePanel;
 
 /**
  * @brief Fenêtre principale de l'application Qt : **poste de travail d'éditeur** à panneaux
@@ -122,6 +124,14 @@ private:
     /// chemin existant ; sans @p saveAs, réutilise le chemin d'ouverture s'il y en a un. Un
     /// écrasement d'asset référencé demande confirmation, nommant les références (`LOT-43`).
     void savePixelAsset(bool saveAs);
+
+    // Palette de projet (LOT-54 TACHE-07).
+    /// Recopie les couleurs de `_pixelPalette` vers `_pixelCanvas` (mode contraint) — à appeler
+    /// après toute mutation qui change les couleurs ou leur ordre (l'ordre affecte le départage à
+    /// distance égale, `hmi::nearestPaletteColor`).
+    void syncPaletteToCanvas();
+    /// Enregistre `_pixelPalette` dans `Assets/palettes.json`, journalise un échec éventuel.
+    void savePixelPalette();
     /// Change la langue active (recharge le catalogue, persiste, retraduit tout).
     void changeLanguage(const QString& code);
     /// Enregistre les journaux de session accumulés dans un fichier horodaté.
@@ -168,6 +178,8 @@ private:
     /// `EditContextTarget`, cible d'Annuler/Refaire/Copier/Coller quand elle a le focus clavier.
     PixelCanvas* _pixelCanvas;
     PixelHistoryPanel* _pixelHistoryPanel;  ///< Historique visuel de l'atelier (dock, LOT-54 TACHE-04).
+    PixelPalettePanel* _pixelPalettePanel;  ///< Édition de la palette de projet (dock, LOT-54 TACHE-07).
+    PixelPalette _pixelPalette;  ///< Palette de projet, chargée/enregistrée dans Assets/palettes.json.
     /// Chemin complet du fichier de l'asset ouvert dans l'atelier, vide si aucun ou pas encore
     /// enregistré (LOT-54 TACHE-05) — `PixelCanvas::assetName()` n'en garde que le nom de fichier,
     /// pour l'affichage ; ce chemin sert à `savePixelAsset` pour retrouver le dossier.

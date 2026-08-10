@@ -185,6 +185,8 @@ add_executable(ProjectGaming
     Editor/PixelCanvas.cpp
     Editor/PixelHistoryPanel.cpp
     Editor/PixelAssetIO.cpp
+    Editor/PixelPalette.cpp
+    Editor/PixelPalettePanel.cpp
     # Ressource embarquée (thème .qss) — traitée par AUTORCC.
     ${ELEMENTS_UI}/resources.qrc
     # Mises en page Qt Designer — traitées par AUTOUIC (génèrent ui_*.h).

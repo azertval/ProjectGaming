@@ -141,8 +141,11 @@ EditorStatusLines editorStatusLines(const EditorStatusContext& context,
                                            pixel.hoveredPixel->first, pixel.hoveredPixel->second);
         }
         lines.permanent[4] = formatOne(localization.text("status.zone.zoom"), pixel.zoom * 100);
-        lines.permanent[5] =
-            formatOne(localization.text("status.zone.color"), formatColorHex(pixel.currentColor));
+        // Mode contraint (LOT-54 TACHE-07) : integre a la meme zone couleur plutot qu'une septieme
+        // zone -- l'information n'a de sens qu'accolee a la couleur qu'elle affecte.
+        const char* const colorKey =
+            pixel.paletteConstrained ? "status.zone.color_constrained" : "status.zone.color";
+        lines.permanent[5] = formatOne(localization.text(colorKey), formatColorHex(pixel.currentColor));
         lines.help = localization.text(pixelToolHelpKey(pixel.tool));
         return lines;
     }

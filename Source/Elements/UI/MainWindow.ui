@@ -67,6 +67,11 @@
    <attribute name="dockWidgetArea"><number>2</number></attribute>
    <widget class="QWidget" name="pixelHistoryContents"/>
   </widget>
+  <widget class="QDockWidget" name="PixelPalettePanel">
+   <property name="windowTitle"><string>Palette</string></property>
+   <attribute name="dockWidgetArea"><number>2</number></attribute>
+   <widget class="QWidget" name="pixelPaletteContents"/>
+  </widget>
   <action name="actMainMenu"><property name="text"><string>Menu principal</string></property></action>
   <action name="actQuit"><property name="text"><string>Quitter</string></property></action>
   <action name="actResize"><property name="text"><string>Redimensionner…</string></property></action>

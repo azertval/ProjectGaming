@@ -47,6 +47,8 @@
 #include "HMI/Editor/PixelAssetIO.h"
 #include "HMI/Editor/PixelCanvas.h"
 #include "HMI/Editor/PixelHistoryPanel.h"
+#include "HMI/Editor/PixelPalette.h"
+#include "HMI/Editor/PixelPalettePanel.h"
 #include "HMI/Editor/TexturePanel.h"
 #include "HMI/Editor/PalettePanel.h"
 #include "HMI/Game/GameViewport.h"
@@ -69,7 +71,8 @@ namespace {
 // Version de la disposition sérialisée : à incrémenter si l'ensemble des docks change, pour
 // invalider proprement une disposition sauvegardée devenue incompatible (`restoreState`).
 constexpr int LAYOUT_VERSION =
-    6;  // 6 : atelier pixel art (canevas + historique) rejoint le regroupement Niveaux/Liens
+    7;  // 7 : panneau de palette de l'atelier pixel art rejoint le regroupement (LOT-54 TACHE-07)
+        // 6 : atelier pixel art (canevas + historique) rejoint le regroupement Niveaux/Liens
         //     (LOT-54 TACHE-04)
         // 5 : panneau Outils devenu Decors (barre d'outils + inspecteur), Textures sort du
         //     regroupement en onglets (LOT-57, amendement post-essai manuel)
@@ -81,6 +84,8 @@ constexpr char STATE_KEY[] = "mainWindow/state";
 // Réglage de mise en avant automatique des panneaux (LOT-57 TACHE-02) : local à MainWindow, pas
 // une extension d'ApplicationTheme.cpp (qui concerne le thème, pas ce comportement).
 constexpr char FOLLOW_ACTIVE_TOOL_KEY[] = "panels/followActiveTool";
+// Reglage "contraindre a la palette" de l'atelier pixel art (LOT-54 TACHE-07).
+constexpr char CONSTRAIN_TO_PALETTE_KEY[] = "pixelEditor/constrainToPalette";
 
 }  // namespace
 
@@ -98,6 +103,7 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
       _textures(nullptr),
       _pixelCanvas(nullptr),
       _pixelHistoryPanel(nullptr),
+      _pixelPalettePanel(nullptr),
       _actions(nullptr),
       _toolBar(nullptr),
       _pixelToolBar(nullptr),
@@ -453,22 +459,25 @@ void MainWindow::buildUi() {
     _ui->PixelCanvasPanel->setWidget(_pixelCanvas);
     _pixelHistoryPanel = new PixelHistoryPanel(_ui->PixelHistoryPanel);
     _ui->PixelHistoryPanel->setWidget(_pixelHistoryPanel);
+    _pixelPalettePanel = new PixelPalettePanel(_ui->PixelPalettePanel);
+    _ui->PixelPalettePanel->setWidget(_pixelPalettePanel);
 
-    // Regroupement par defaut des panneaux Niveaux/Liens/Atelier/Historique en onglets (LOT-57
-    // TACHE-02, etendu LOT-54 TACHE-04) : chacun reste individuellement
+    // Regroupement par defaut des panneaux Niveaux/Liens/Atelier/Historique/Palette en onglets
+    // (LOT-57 TACHE-02, etendu LOT-54 TACHE-04/TACHE-07) : chacun reste individuellement
     // deplacable/detachable/refermable (EX-IHM-010), seule la disposition par defaut change.
-    // Textures redevient un dock independant, comme Palette/Decors (LOT-57, amendement post-essai
-    // manuel). Doit preceder la capture de _defaultState (constructeur, apres buildUi()).
+    // Textures redevient un dock independant, comme Palette (niveau)/Decors (LOT-57, amendement
+    // post-essai manuel). Doit preceder la capture de _defaultState (constructeur, apres buildUi()).
     tabifyDockWidget(_ui->LevelsPanel, _ui->LinksPanel);
     tabifyDockWidget(_ui->LinksPanel, _ui->PixelCanvasPanel);
     tabifyDockWidget(_ui->PixelCanvasPanel, _ui->PixelHistoryPanel);
+    tabifyDockWidget(_ui->PixelHistoryPanel, _ui->PixelPalettePanel);
     // Un changement de visibilite d'un de ces docks NON provoque par notre propre code (mise en
     // avant, bascule de mode, restauration de disposition -- toutes gardees par
     // _suppressPanelFocusTracking) ne peut venir que d'un choix explicite de l'utilisateur : cliquer
     // un onglet ou fermer/rouvrir le panneau. Meme principe pour un detachement (topLevelChanged),
     // toujours explicite, jamais gardee.
-    for (QDockWidget* const dock :
-        {_ui->LevelsPanel, _ui->LinksPanel, _ui->PixelCanvasPanel, _ui->PixelHistoryPanel}) {
+    for (QDockWidget* const dock : {_ui->LevelsPanel, _ui->LinksPanel, _ui->PixelCanvasPanel,
+                                    _ui->PixelHistoryPanel, _ui->PixelPalettePanel}) {
         connect(dock, &QDockWidget::visibilityChanged, this, [this](bool) {
             if (!_suppressPanelFocusTracking) {
                 _userPickedTab = true;
@@ -516,6 +525,83 @@ void MainWindow::buildUi() {
     connect(_pixelHistoryPanel, &PixelHistoryPanel::jumpRequested, _pixelCanvas,
             &PixelCanvas::jumpHistoryTo);
     _pixelHistoryPanel->refresh(_pixelCanvas->history());  // etat initial (historique vide).
+
+    // Palette de projet de l'atelier pixel art (LOT-54 TACHE-07) : donnee d'auteur persistee dans
+    // Assets/palettes.json, distincte des jetons de design (epic.md, decision de cadrage).
+    _pixelPalette = hmi::PixelPalette::loadFromFile(hmi::executableDirectory() / "Assets" /
+                                                    "palettes.json");
+    _pixelPalettePanel->refresh(_pixelPalette);
+    syncPaletteToCanvas();
+    _pixelPalettePanel->setConstrainEnabled(
+        QSettings().value(QString::fromLatin1(CONSTRAIN_TO_PALETTE_KEY), false).toBool());
+    _pixelCanvas->setPaletteConstrained(_pixelPalettePanel->constrainEnabled());
+
+    connect(_pixelPalettePanel, &PixelPalettePanel::addRequested, this, [this] {
+        const std::string name =
+            text("pixel_palette.new_color_name")
+                .arg(static_cast<int>(_pixelPalette.entries().size()) + 1)
+                .toStdString();
+        _pixelPalette.add(name, _pixelCanvas->currentColor());
+        _pixelPalettePanel->refresh(_pixelPalette);
+        syncPaletteToCanvas();
+        savePixelPalette();
+    });
+    connect(_pixelPalettePanel, &PixelPalettePanel::removeRequested, this,
+            [this](std::size_t index) {
+                if (_pixelPalette.removeAt(index)) {
+                    _pixelPalettePanel->refresh(_pixelPalette);
+                    syncPaletteToCanvas();
+                    savePixelPalette();
+                }
+            });
+    connect(_pixelPalettePanel, &PixelPalettePanel::renameRequested, this,
+            [this](std::size_t index) {
+                if (index >= _pixelPalette.entries().size()) {
+                    return;
+                }
+                bool accepted = false;
+                const QString newName = QInputDialog::getText(
+                    this, text("pixel_palette.rename"), text("pixel_palette.rename_prompt"),
+                    QLineEdit::Normal,
+                    QString::fromStdString(_pixelPalette.entries()[index].name), &accepted);
+                if (!accepted || newName.isEmpty()) {
+                    return;
+                }
+                _pixelPalette.renameAt(index, newName.toStdString());
+                _pixelPalettePanel->refresh(_pixelPalette);
+                savePixelPalette();
+            });
+    connect(_pixelPalettePanel, &PixelPalettePanel::moveRequested, this,
+            [this](std::size_t index, bool up) {
+                const std::size_t target = up ? index - 1 : index + 1;
+                if (_pixelPalette.moveEntry(index, target)) {
+                    _pixelPalettePanel->refresh(_pixelPalette);
+                    syncPaletteToCanvas();
+                    savePixelPalette();
+                }
+            });
+    connect(_pixelPalettePanel, &PixelPalettePanel::extractRequested, this, [this] {
+        for (const hmi::PixelPaletteExtractionEntry& extracted :
+            hmi::extractPalette(_pixelCanvas->image())) {
+            const std::string name = text("pixel_palette.new_color_name")
+                                         .arg(static_cast<int>(_pixelPalette.entries().size()) + 1)
+                                         .toStdString();
+            _pixelPalette.add(name, extracted.color);
+        }
+        _pixelPalettePanel->refresh(_pixelPalette);
+        syncPaletteToCanvas();
+        savePixelPalette();
+    });
+    connect(_pixelPalettePanel, &PixelPalettePanel::constrainToggled, this, [this](bool enabled) {
+        _pixelCanvas->setPaletteConstrained(enabled);
+        QSettings().setValue(QString::fromLatin1(CONSTRAIN_TO_PALETTE_KEY), enabled);
+        refreshStatusHelp();
+    });
+    connect(_pixelPalettePanel, &PixelPalettePanel::colorActivated, this,
+            [this](std::uint32_t color) {
+                _pixelCanvas->setCurrentColor(color);
+                refreshStatusHelp();
+            });
 
     // Commandes de fichier de l'atelier pixel art (LOT-54 TACHE-05).
     connect(_actions->action(hmi::IconId::PixelOpen), &QAction::triggered, this,
@@ -689,6 +775,7 @@ void MainWindow::buildUi() {
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->TexturesPanel->toggleViewAction());
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->PixelCanvasPanel->toggleViewAction());
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->PixelHistoryPanel->toggleViewAction());
+    _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->PixelPalettePanel->toggleViewAction());
     _ui->viewMenu->insertSeparator(_ui->actResetLayout);
 
     // Mise en avant automatique des panneaux de droite selon l'outil actif (LOT-57 TACHE-02) :
@@ -887,6 +974,7 @@ void MainWindow::refreshStatusHelp() {
             pixel.hoveredPixel = _pixelCanvas->hoveredPixel();
             pixel.zoom = _pixelCanvas->view().zoom;
             pixel.currentColor = _pixelCanvas->currentColor();
+            pixel.paletteConstrained = _pixelCanvas->paletteConstrained();
             context.pixelEdit = pixel;
         } else {
             LevelStatusInfo level;
@@ -1145,6 +1233,21 @@ void MainWindow::savePixelAsset(bool saveAs) {
     refreshStatusHelp();
 }
 
+void MainWindow::syncPaletteToCanvas() {
+    std::vector<std::uint32_t> colors;
+    colors.reserve(_pixelPalette.entries().size());
+    for (const hmi::PixelPaletteEntry& entry : _pixelPalette.entries()) {
+        colors.push_back(entry.color);
+    }
+    _pixelCanvas->setPaletteColors(std::move(colors));
+}
+
+void MainWindow::savePixelPalette() {
+    if (!_pixelPalette.saveToFile(hmi::executableDirectory() / "Assets" / "palettes.json")) {
+        HMI_LOG_WARNING("Echec de l'enregistrement de la palette de projet (palettes.json).");
+    }
+}
+
 void MainWindow::retranslateUi() {
     setWindowTitle(text("window.title"));
 
@@ -1156,6 +1259,7 @@ void MainWindow::retranslateUi() {
     _ui->TexturesPanel->setWindowTitle(text("dock.textures"));
     _ui->PixelCanvasPanel->setWindowTitle(text("dock.pixel_canvas"));
     _ui->PixelHistoryPanel->setWindowTitle(text("dock.pixel_history"));
+    _ui->PixelPalettePanel->setWindowTitle(text("dock.pixel_palette"));
 
     // Barre de menus.
     _ui->appMenu->setTitle(text("menubar.application"));
@@ -1190,6 +1294,7 @@ void MainWindow::retranslateUi() {
     _links->retranslateUi(_loc);
     _textures->retranslateUi(_loc);
     _pixelHistoryPanel->retranslateUi(_loc);
+    _pixelPalettePanel->retranslateUi(_loc);
 
     // Recalcule la barre d'état dans la nouvelle langue (zones + aide) : un changement de langue ne
     // doit pas rester sur une aide figée dans l'ancienne (LOT-57 TACHE-01).

@@ -7,6 +7,7 @@
 #include <optional>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include "HMI/Editor/EditContextTarget.h"
 #include "HMI/Editor/PixelCanvasGeometry.h"
@@ -98,6 +99,22 @@ public:
     }
     [[nodiscard]] std::uint32_t currentColor() const noexcept {
         return _currentColor;
+    }
+
+    /// Couleurs de la palette de projet (`LOT-54` TACHE-07), consultées quand le mode contraint est
+    /// actif. Simple copie des valeurs : le canevas n'est jamais propriétaire de la palette
+    /// elle-même (`MainWindow`/`hmi::PixelPalette`).
+    void setPaletteColors(std::vector<std::uint32_t> colors) {
+        _paletteColors = std::move(colors);
+    }
+    /// Active/désactive le mode « contraindre à la palette » : toute couleur posée (pinceau, pot de
+    /// peinture) est ramenée à l'entrée la plus proche de `setPaletteColors` (`hmi::
+    /// nearestPaletteColor`) ; désactivable à tout moment, jamais imposé.
+    void setPaletteConstrained(bool enabled) noexcept {
+        _paletteConstrained = enabled;
+    }
+    [[nodiscard]] bool paletteConstrained() const noexcept {
+        return _paletteConstrained;
     }
 
     [[nodiscard]] const PixelHistory& history() const noexcept {
@@ -203,6 +220,9 @@ private:
     /// `flipHorizontal`/`rotateClockwise`…) à `effectiveRegion()` et la pousse dans l'historique.
     void applyRegionOperation(PixelOperationKind kind,
                               PixelRegion (*operation)(DecodedImage&, const PixelRegion&));
+    /// `_currentColor`, ramenée à l'entrée de palette la plus proche si le mode contraint est actif
+    /// (`hmi::nearestPaletteColor`) ; `_currentColor` telle quelle sinon.
+    [[nodiscard]] std::uint32_t effectivePaintColor() const noexcept;
 
     DecodedImage _image;
     std::string _assetName;
@@ -211,6 +231,8 @@ private:
     PixelCanvasView _view;
     PixelTool _activeTool = PixelTool::Brush;
     std::uint32_t _currentColor = 0xFF000000u;  // noir opaque (R8G8B8A8_UNORM, LOT-54 TACHE-01).
+    std::vector<std::uint32_t> _paletteColors;  ///< Copie des couleurs de la palette (TACHE-07).
+    bool _paletteConstrained = false;
 
     bool _gestureActive = false;
     DecodedImage _gestureBeforeSnapshot;  ///< Copie de `_image` au début du geste courant.

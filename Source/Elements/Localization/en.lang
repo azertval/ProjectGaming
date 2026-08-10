@@ -42,6 +42,7 @@ dock.links = Links
 dock.textures = Textures
 dock.pixel_canvas = Workshop
 dock.pixel_history = Workshop history
+dock.pixel_palette = Palette
 
 # Textures panel (LOT-42)
 textures.skin_set = Skin set
@@ -108,6 +109,7 @@ status.zone.dirty = Modified
 status.zone.hover = (%1, %2)
 status.zone.zoom = Zoom: %1%
 status.zone.color = Color: %1
+status.zone.color_constrained = Color: %1 (constrained to palette)
 status.help_paint = Paint: left click/drag · Ctrl+Z/Y: undo/redo
 status.help_rectangle = Rectangle: drag to paint an area · Ctrl+Z/Y: undo/redo
 status.help_selection = Selection: drag to select · Ctrl+C/V: copy/paste
@@ -175,6 +177,17 @@ action.pixel_flip_horizontal = Flip horizontal
 action.pixel_flip_vertical = Flip vertical
 action.pixel_rotate_cw = Rotate (clockwise)
 action.pixel_rotate_ccw = Rotate (counter-clockwise)
+
+# Pixel art workshop palette panel (LOT-54 TACHE-07).
+pixel_palette.add = Add
+pixel_palette.remove = Remove
+pixel_palette.rename = Rename
+pixel_palette.move_up = Move up
+pixel_palette.move_down = Move down
+pixel_palette.extract = Extract from asset
+pixel_palette.constrain = Constrain to palette
+pixel_palette.rename_prompt = New color name
+pixel_palette.new_color_name = Color %1
 
 # Pixel art workshop dialogs (LOT-54 TACHE-05).
 menubar.pixel = Workshop

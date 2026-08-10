@@ -1,6 +1,6 @@
 # TACHE-07 — Palettes persistées et mode contraint {#lot-54-tache-07-palettes}
 
-**Lot :** [LOT-54](epic.md) · **Emplacement :** `Source/HMI/Editor`, `Source/Elements` · **Statut :** non commencé
+**Lot :** [LOT-54](epic.md) · **Emplacement :** `Source/HMI/Editor`, `Source/Elements` · **Statut :** fait
 
 ## Contexte
 Une palette de couleurs choisie à la main dans un sélecteur, perdue à la fermeture de la fenêtre, ne
