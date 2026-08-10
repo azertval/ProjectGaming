@@ -1,6 +1,6 @@
 # TACHE-03 — Ombres des silhouettes et des blocs réduits {#lot-55-tache-03-ombres-silhouettes}
 
-**Lot :** [LOT-55](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-55](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 La TACHE-01 émet un quad d'ombre rectangulaire pour chaque tuile **solide** au sens de
@@ -50,10 +50,18 @@ une forme plus riche.
   explicitement plutôt que de le supposer.
 
 ## Fichiers impactés
-- `Source/HMI/Graphics/ShadowRenderer.{h,cpp}`.
-- `Source/HMI/Graphics/SlopeMask.{h,cpp}` (LOT-42, variante d'ombre).
-- `Source/HMI/Graphics/TextureCache.{h,cpp}` (mise en cache des masques d'ombre).
-- `Source/Test/Unit/HMI/Graphics/test_shadow_render.cpp` (étendu).
+- `Source/HMI/Graphics/ShadowRenderer.{h,cpp}` — voir « Réalisation » de
+  [TACHE-01](tache-01-quad-ombre.md).
+- `Source/Test/Unit/HMI/Graphics/test_shadow_render.cpp`.
+
+## Réalisation
+Contrairement à l'anticipation ci-dessus, aucune variante d'ombre du `SlopeMask` n'a été mise en
+cache dans `TextureCache` : `hmi::regionForTile(type)` pointe déjà, dans l'atlas procédural, vers
+une région détourée à la silhouette exacte (`hmi::isInsideSilhouette`, la même fonction que
+`hmi::SlopeMask`) — la réutiliser telle quelle pour l'ombre (teintée en noir semi-transparent) est
+strictement équivalente à en dériver une variante, sans code ni cache supplémentaires. Voir
+« Réalisation » de [TACHE-01](tache-01-quad-ombre.md) pour l'implémentation unique qui couvre les
+deux tâches.
 
 ## Tests (obligatoires)
 - Pour chacun des douze types à silhouette : l'ombre émise a la **même forme** que la silhouette de
