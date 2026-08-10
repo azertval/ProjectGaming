@@ -1,7 +1,7 @@
 # TACHE-02 — Job CI AddressSanitizer {#lot-58-tache-02-job-asan}
 
 **Lot :** [LOT-58](epic.md) · **Emplacement :** `.github/workflows`, `CMakeLists.txt` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 L'option `ENABLE_ASAN` est en place depuis le `LOT-01` (`CMakeLists.txt`, cible interface

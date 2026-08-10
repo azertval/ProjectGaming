@@ -5,7 +5,7 @@
 ## 1. Performance
 - \anchor EX-NFR-001 **EX-NFR-001** — Le jeu doit maintenir **60 images/seconde** sur une configuration de bureau récente pour les niveaux du MVP.
 - \anchor EX-NFR-002 **EX-NFR-002** — La simulation doit fonctionner à **pas de temps fixe** et rester déterministe (mêmes entrées → même résultat).
-- \anchor EX-NFR-003 **EX-NFR-003** — L'empreinte mémoire doit rester stable dans le temps (aucune fuite ; vérifiable via AddressSanitizer).
+- \anchor EX-NFR-003 **EX-NFR-003** — L'empreinte mémoire doit rester stable dans le temps (aucune fuite ; vérifiable via AddressSanitizer). Vérifiée par le job `sanitize` de `ci.yml` (LOT-58) : les trois exécutables de test (`UnitTests`, `IntegrationTests`, `SystemTests`) s'exécutent sous AddressSanitizer à chaque PR.
 - \anchor EX-NFR-005 **EX-NFR-005** — Le rendu ne doit soumettre que les primitives **effectivement
   visibles** : le contenu hors du cadrage de la caméra (`EX-REN-015`, salle courante) est écarté
   avant soumission. Le nombre de primitives émises par image doit rester **borné et observable**,

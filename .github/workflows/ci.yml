@@ -163,6 +163,41 @@ jobs:
           if (-not (Test-Path $exe)) { throw "Executable absent : $exe" }
           Write-Host "OK : $exe"
 
+  sanitize:
+    # ENABLE_ASAN existe depuis le LOT-01 et n'etait cable dans aucun workflow : EX-NFR-003
+    # (empreinte memoire, verifiable via AddressSanitizer) etait orpheline. Ce job instrumente les
+    # trois executables de test (jamais l'application Qt/D3D11, injouable sans affichage) et les
+    # execute -- meme etablissement de l'environnement MSVC que build-ninja (LOT-58).
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Ninja
+        run: choco install ninja -y --no-progress
+
+      - name: Configure et build (Ninja, ASan, sans l'editeur Qt)
+        shell: cmd
+        run: |
+          for /f "usebackq tokens=*" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do (
+            call "%%i\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
+          )
+          cmake -S . -B build/ninja-asan -G Ninja -DCMAKE_BUILD_TYPE=Debug -DENABLE_ASAN=ON -DBUILD_EDITOR_QT=OFF || exit /b 1
+          cmake --build build/ninja-asan || exit /b 1
+
+      - name: UnitTests sous AddressSanitizer
+        shell: cmd
+        run: build\ninja-asan\bin\UnitTests.exe || exit /b 1
+
+      - name: IntegrationTests sous AddressSanitizer
+        shell: cmd
+        run: build\ninja-asan\bin\IntegrationTests.exe || exit /b 1
+
+      - name: SystemTests sous AddressSanitizer
+        shell: cmd
+        run: build\ninja-asan\bin\SystemTests.exe || exit /b 1
+
   lint-exigences:
     # Contrôle du référentiel d'exigences (EX-...) : unicité des déclarations et
     # absence de référence orpheline. Léger et portable (Python), donc sur Linux.
