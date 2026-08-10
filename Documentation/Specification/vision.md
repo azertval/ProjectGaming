@@ -34,9 +34,13 @@ Le jeu repose sur la **boîte à outils classique** du genre plateforme/puzzle :
 
 ## Hors périmètre (MVP)
 - Multijoueur, réseau.
-- Sauvegarde de progression persistante (au-delà du niveau courant).
+- ~~Sauvegarde de progression persistante (au-delà du niveau courant).~~ — **levé pour la `0.1.0`** :
+  le MVP est livré, et un jeu distribué qui repart du premier tableau à chaque lancement n'est pas
+  publiable. Devient `EX-LVL-014`, prévu en `LOT-59`, à la granularité du **tableau** (pas de point
+  de contrôle en cours de niveau).
 - Édition collaborative en temps réel dans l'éditeur (plusieurs éditeurs simultanés sur un même niveau).
-- Bande-son musicale élaborée (bruitages simples suffisent au MVP).
+- Bande-son musicale élaborée (bruitages simples suffisent au MVP — cf. `EX-REN-040`, prévu en
+  `LOT-60`).
 - Portabilité hors Windows.
 
 ## Traçabilité

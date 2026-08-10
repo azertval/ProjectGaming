@@ -6,6 +6,54 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+### Ajouté
+- **Cadrage du programme `0.1.0`** (`LOT-58` → `LOT-66`) : documentation seule, aucun code. Issu
+  d'un audit du dépôt comparant l'état livré à ce que les spécifications promettent déjà. Deux
+  familles d'écarts, traitées ensemble parce qu'elles se protègent l'une l'autre.
+  - **Complétude produit** — le moteur est complet, le *jeu* ne l'est pas. `LOT-59` (boucle de jeu :
+    écrans de pause et de fin de niveau, séquence sortie du littéral C++ de `MainWindow`,
+    progression persistée, sélection de niveau côté joueur) lève `EX-REN-031` et `EX-GP-040`, tous
+    deux marqués ⚠️ depuis leur rédaction. `LOT-60` (audio) lève `EX-REN-040` : le jeu est
+    aujourd'hui **totalement silencieux**, alors que `vision.md` place les bruitages dans le MVP —
+    la bibliothèque retenue est **Qt Multimedia**, par cohérence avec une interface déjà
+    intégralement Qt depuis le `LOT-38`. `LOT-63` livre les mécanismes que le référentiel annonce
+    sans les avoir : clé et porte verrouillée (`EX-GP-023`, ⚠️ optionnel MVP), action « Interagir »
+    (seule ligne du tableau des contrôles sans identifiant d'exigence), plateforme mobile. Le
+    `LOT-53` (effets et particules), cadré de longue date et resté non commencé, rejoint le
+    programme.
+  - **Durcissement d'ingénierie** — trois vérifications étaient **déclarées** et exécutées **nulle
+    part**. `LOT-58` les met en œuvre : la CI ne construisait ni ne testait **jamais** en
+    configuration Release (le premier build Release d'un cycle avait lieu *après* la pose du tag —
+    une casse Release-only a déjà été livrée, cf. `90f85254`) ; AddressSanitizer n'avait pas tourné
+    depuis le `LOT-01`, faisant de `EX-NFR-003` une exigence **orpheline** ; `clang-tidy` et
+    `clang-format` n'étaient câblés nulle part malgré `conventions.md`. S'y ajoutent la couverture,
+    produite sans seuil et mesurée sur les seuls tests unitaires. `LOT-61` donne une trace
+    exploitable à une version publiée — `main()` n'installe aucun sink en Release, donc un défaut
+    signalé par un joueur n'est accompagné d'aucun élément. `LOT-62` transforme `EX-NFR-005`
+    (« borné et observable ») et `EX-NFR-001` (60 images/seconde) en garanties assertées plutôt que
+    déclaratives.
+  - **Contrôle du cadrage et contenu à niveau** — deux manques relevés en cours d'audit. `LOT-64` :
+    la caméra est aujourd'hui **entièrement automatique** (niveau entier sous 24 × 14 tuiles,
+    salle par salle au-delà, deux **constantes de compilation**) et le moteur n'a **aucune caméra de
+    suivi** ; le cadrage devient une donnée du niveau, choisie et prévisualisée dans l'éditeur, avec
+    trois modes. `LOT-65` : les quinze tableaux datent du `LOT-25` et n'exploitent ni les mécaniques
+    ni l'habillage ajoutés depuis — un garde-fou **dérivé des énumérations du code** échouera tant
+    qu'une mécanique livrée n'apparaîtra dans aucun niveau franchi par le test système.
+  - `LOT-66` clôt le programme : Qt épinglé en local comme en CI (`EX-BUILD-010` — le CMake retient
+    aujourd'hui la version *la plus récente installée*), numéro de version **généré** au lieu d'être
+    recopié dans le `Doxyfile`, statuts des spécifications sortis de « brouillon », exigences
+    orphelines requalifiées, puis bascule `0.1.0`.
+  - Nouvelles exigences déclarées ici : `EX-IHM-004`, `EX-IHM-005`, `EX-LVL-006`, `EX-LVL-013`,
+    `EX-LVL-014`, `EX-LVL-015`, `EX-NFR-042`, `EX-REN-016`, `EX-REN-047`, `EX-REN-048`,
+    `EX-CTRL-022`, `EX-EDIT-028`, `EX-GP-026` — deux exigences de qualité CI supplémentaires sont
+    déclarées et exécutées par le `LOT-58` (fusionné séparément). `vision.md` lève la sauvegarde de
+    progression de son hors-périmètre MVP.
+  - Les lots sont numérotés **dans leur ordre d'exécution** — aucun n'était livré au moment du
+    cadrage, ce que la règle de stabilité des numéros (`Documentation/Lot/lots.md`) autorise. Seul
+    le `LOT-53`, déjà publié sous ce numéro, conserve le sien et s'intercale entre le `LOT-60` et le
+    `LOT-61`. Principe d'ordonnancement : le **durcissement précède** le contenu qu'il doit
+    protéger, et la refonte des niveaux vient en dernier puisqu'elle consomme tout le reste.
+
 ## [0.0.5] - 2026-08-10
 
 > Cinquième jalon : le moteur est **habillé**. Le programme `LOT-40` → `LOT-55`, ouvert juste après

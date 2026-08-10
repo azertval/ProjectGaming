@@ -28,6 +28,15 @@
   nouvelle tuile) : une salle a « plusieurs entrées/sorties » simplement parce qu'un couloir reste
   ouvert sur plusieurs de ses bords vers des salles voisines — propriété géométrique, pas un
   mécanisme.
+- \anchor EX-REN-016 **EX-REN-016** — Le cadrage de la caméra doit offrir **trois modes**, choisis
+  par le niveau (`EX-LVL-006`) et non déduits de ses dimensions : **niveau entier** (`EX-REN-013`),
+  **par salle** (`EX-REN-015`) et **suivi du personnage**. Ce dernier — absent du moteur jusqu'ici —
+  accompagne le personnage avec une **zone morte** (pas de tremblement permanent), une
+  **anticipation** dans le sens du déplacement s'inversant **progressivement**, un lissage cadencé
+  sur le **pas fixe** (`EX-REN-021`) et non sur la fréquence de rendu, et un **bornage** aux limites
+  du niveau — un axe plus étroit que le cadrage étant **centré** plutôt que borné. Le centre retenu
+  reste aligné sur la grille de pixels et le zoom **entier** (`EX-ARCH-022`), sous peine de rendre
+  flou tout le pixel art. Aucun effet sur la simulation (`EX-ARCH-012`). Prévu en `LOT-64`.
 - \anchor EX-REN-014 **EX-REN-014** — Le rendu doit gérer un ordre de dessin par **couches**,
   défini par un **ordonnancement unique et explicite**, dont aucun calque concurrent ne peut
   s'écarter : **fond**, **décor d'arrière-plan**, **ombres**, **tuiles physiques**, **objets**,
@@ -104,7 +113,20 @@
 - \anchor EX-REN-033 **EX-REN-033** — Tout **texte affiché** doit passer par un **catalogue de traduction** : le code référence des **clés** stables, résolues vers une chaîne selon la **langue active**, chargée depuis un **fichier par langue** (français par défaut). Aucun libellé d'interface n'est codé en dur, afin de rendre l'ajout d'une langue trivial (un fichier de plus, sans modification du code). Une clé ou un fichier de langue manquant est traité comme une **erreur récupérable** (repli déterministe), cf. `EX-NFR-040`.
 
 ## 5. Audio (⚠️ minimal MVP)
-- \anchor EX-REN-040 **EX-REN-040** (⚠️ souhaité) — Le jeu devrait jouer des **bruitages** (saut, interrupteur, victoire, échec).
+- \anchor EX-REN-040 **EX-REN-040** (⚠️ souhaité) — Le jeu devrait jouer des **bruitages** (saut, interrupteur, victoire, échec). Prévu en `LOT-60`.
+- \anchor EX-REN-047 **EX-REN-047** — La lecture audio doit vivre **entièrement dans `HMI`** : `Core`
+  expose des **transitions d'état**, `HMI` en déduit les sons à jouer — jamais l'inverse. La
+  simulation reste pure, déterministe et testable **sans périphérique audio** (`EX-NFR-010`), et le
+  son n'a **aucun effet** sur elle (`EX-ARCH-012`). La détection de transitions est une fonction
+  pure, partagée avec les effets visuels (`EX-REN-008`) plutôt que dupliquée. La bibliothèque retenue
+  est **Qt Multimedia**, par cohérence avec le reste de l'interface, déjà intégralement Qt depuis
+  `LOT-38` ; elle est provisionnée sur les trois environnements selon `EX-BUILD-010`. Prévu en
+  `LOT-60`.
+- \anchor EX-REN-048 **EX-REN-048** — Le **volume** doit être réglable depuis les options, prendre
+  effet immédiatement et être **persisté** comme les autres réglages. L'absence de périphérique
+  audio, de catalogue de sons ou d'un fichier référencé est une **erreur récupérable**
+  (`EX-NFR-040`) : le jeu reste pleinement jouable en silence, avec un avertissement journalisé une
+  seule fois par asset. Prévu en `LOT-60`.
 
 ## Traçabilité
 Tout ce qui touche fenêtre, rendu, entrées et interface relève de `Source/HMI` ; la logique de simulation reste dans `Source/Core`. Contraintes de performance : [`exigences-non-fonctionnelles.md`](exigences-non-fonctionnelles.md).

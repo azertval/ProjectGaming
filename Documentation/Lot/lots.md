@@ -76,3 +76,38 @@ c'est un identifiant stable, jamais réordonné.
 - @subpage lot-55
 - @subpage lot-56
 - @subpage lot-57
+- @subpage lot-59
+- @subpage lot-60
+- @subpage lot-61
+- @subpage lot-62
+- @subpage lot-63
+- @subpage lot-64
+- @subpage lot-65
+- @subpage lot-66
+
+## Programme `0.1.0`
+
+Les lots `LOT-58` à `LOT-66`, avec le `LOT-53` (cadré de longue date et resté non commencé),
+forment le programme de la version **`0.1.0`** : le passage d'un moteur complet à un **jeu**
+distribuable. Deux familles s'y répondent — la **complétude produit** (boucle de jeu, son, effets,
+mécanismes manquants, cadrage de caméra, refonte des niveaux) et le **durcissement d'ingénierie**
+(vérification en Release, sanitizer, analyse statique, diagnostics d'une version publiée, budget de
+rendu mesuré).
+
+Ces lots sont numérotés **dans leur ordre d'exécution**, ce que la règle générale ci-dessus permet
+puisqu'aucun n'était encore livré au moment de leur cadrage. Seul le `LOT-53`, cadré de longue date
+et déjà publié sous ce numéro, conserve le sien et s'exécute entre le `LOT-60` et le `LOT-61` :
+c'est précisément le cas que la règle protège.
+
+| Rang | Lot | Pourquoi à cette place |
+|:----:|-----|------------------------|
+| 1 | [LOT-58](@ref lot-58) | Le durcissement précède le contenu qu'il doit protéger. |
+| 2 | [LOT-59](@ref lot-59) | Tous les autres lots produit se voient à travers ses écrans. |
+| 3 | [LOT-60](@ref lot-60) | Le son a besoin d'un écran de fin de niveau où exister. |
+| 4 | [LOT-53](@ref lot-53) | Réutilise les déclencheurs d'événements posés par le `LOT-60`. |
+| 5 | [LOT-61](@ref lot-61) | Indépendant ; requis avant qu'un tiers n'exécute le jeu. |
+| 6 | [LOT-62](@ref lot-62) | Mesure le budget une fois tous les émetteurs livrés. |
+| 7 | [LOT-63](@ref lot-63) | **Découpable** : le lot qu'on rogne si le calendrier se tend. |
+| 8 | [LOT-64](@ref lot-64) | Le cadrage doit exister avant qu'on refasse les niveaux. |
+| 9 | [LOT-65](@ref lot-65) | Dernier lot de contenu : exploite tout ce qui précède. |
+| 10 | [LOT-66](@ref lot-66) | Clôt le programme ; les statuts ne se figent qu'à la fin. |

@@ -37,6 +37,13 @@
 ## 5. Robustesse
 - \anchor EX-NFR-040 **EX-NFR-040** — Une erreur récupérable (fichier de niveau invalide, ressource manquante) ne doit pas faire planter le jeu : elle est signalée et gérée (cf. politique d'erreurs des conventions).
 - \anchor EX-NFR-041 **EX-NFR-041** — Les ressources (mémoire, handles DirectX) doivent être gérées en **RAII** (libération garantie).
+- \anchor EX-NFR-042 **EX-NFR-042** — Une **version publiée** doit produire une **trace exploitable**
+  d'exécution : journal écrit dans un fichier à côté de l'exécutable, contenant au minimum la
+  version, la configuration de build et le contexte matériel (adaptateur graphique, manette). Le
+  volume est **borné** (taille maximale et rotation), la trace reste **locale** — aucun envoi réseau,
+  aucune donnée personnelle — et un dossier inaccessible dégrade la journalisation, jamais le jeu
+  (`EX-NFR-040`). Sans cela, un défaut signalé par un joueur n'est accompagné d'aucun élément.
+  Prévu en `LOT-61`.
 
 ## 6. Build & dépendances
 - \anchor EX-BUILD-010 **EX-BUILD-010** — Une dépendance tierce **non gérable par `FetchContent`**
