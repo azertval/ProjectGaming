@@ -120,6 +120,14 @@ jobs:
           Copy-Item build-prod/bin/Release/* package-release/ -Recurse -Force
           Compress-Archive -Path package-release/* -DestinationPath "ProjectGaming-${{ github.ref_name }}-release.zip" -Force
 
+      # Les notes viennent du CHANGELOG plutôt que de `--generate-notes`, qui ne produit qu'une
+      # liste brute de messages de commit — illisible pour le non-développeur à qui la release
+      # versionnée est destinée. Le script échoue si la section de la version manque : mieux vaut
+      # interrompre le workflow qu'ouvrir une release aux notes vides, qui ne se corrige pas
+      # proprement. Cette étape est donc volontairement AVANT la publication.
+      - name: Notes de release depuis le CHANGELOG
+        run: python scripts/extract_release_notes.py "${{ github.ref_name }}" -o release-notes.md
+
       - name: Publish versioned release
         shell: pwsh
         env:
@@ -129,4 +137,4 @@ jobs:
             "ProjectGaming-${{ github.ref_name }}-debug.zip" `
             "ProjectGaming-${{ github.ref_name }}-release.zip" `
             --title "${{ github.ref_name }}" `
-            --generate-notes
+            --notes-file release-notes.md

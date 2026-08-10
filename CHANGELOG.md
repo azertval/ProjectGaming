@@ -552,6 +552,13 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     annonçait un runtime « statique » (faux depuis le `LOT-38` — les DLL Qt imposent `/MD`) et
     ignorait le déclencheur `vX.Y.Z`. Le manuel ne connaissait que la préversion roulante et
     documente désormais les **versions publiées**.
+  - **Notes de release lisibles** : `release.yml` publiait avec `--generate-notes`, qui produit une
+    liste brute de messages de commit — utile à un développeur qui connaît déjà le projet, opaque
+    pour le non-développeur à qui la release versionnée est justement destinée. Le workflow lit
+    désormais la section correspondante du CHANGELOG (`scripts/extract_release_notes.py`,
+    `--notes-file`), et **échoue avant de publier** si elle est absente : une release ouverte avec
+    des notes vides ne se corrige pas proprement. La marche à suivre pour publier une version est
+    consignée dans `CONTRIBUTING.md`.
 - **LOT-38 (Étape B) — Retrait du legacy & réorganisation** : suppression de l'IHM « maison »
   (écrans `IScreen`/`ScreenManager`, widgets d'éditeur, police bitmap, fenêtre Win32) et de
   l'exécutable historique ; `Source/HMI` devient l'unique cible (`ProjectGaming`), code réparti par
