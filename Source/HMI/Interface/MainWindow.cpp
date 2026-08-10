@@ -490,8 +490,9 @@ void MainWindow::buildUi() {
     // ci-dessus, sur le groupe d'actions distinct EditorActionGroup::PixelTools. Pas de touche
     // dediee a resynchroniser aujourd'hui (aucun raccourci clavier sur ces quatre actions) :
     // l'action est l'unique source de verite, contrairement aux outils de niveau.
-    for (const hmi::PixelTool tool : {hmi::PixelTool::Brush, hmi::PixelTool::Eraser,
-                                      hmi::PixelTool::Fill, hmi::PixelTool::Eyedropper}) {
+    for (const hmi::PixelTool tool :
+        {hmi::PixelTool::Brush, hmi::PixelTool::Eraser, hmi::PixelTool::Fill,
+         hmi::PixelTool::Eyedropper, hmi::PixelTool::Selection}) {
         connect(_actions->pixelToolAction(tool), &QAction::toggled, _pixelCanvas,
                 [this, tool](bool on) {
                     if (!on) {
@@ -532,6 +533,22 @@ void MainWindow::buildUi() {
     _pixelMenu->addAction(_actions->action(hmi::IconId::PixelCreate));
     _pixelMenu->addAction(_actions->action(hmi::IconId::PixelSave));
     _pixelMenu->addAction(_actions->action(hmi::IconId::PixelSaveAs));
+
+    // Commandes de region (LOT-54 TACHE-06) : Copier/Coller reutilisent le dispatch existant
+    // (_editContext, IconId::Copy/Paste ci-dessous) -- rien a cabler ici pour elles.
+    connect(_actions->action(hmi::IconId::PixelFlipHorizontal), &QAction::triggered, _pixelCanvas,
+            [this] { _pixelCanvas->applyFlipHorizontal(); });
+    connect(_actions->action(hmi::IconId::PixelFlipVertical), &QAction::triggered, _pixelCanvas,
+            [this] { _pixelCanvas->applyFlipVertical(); });
+    connect(_actions->action(hmi::IconId::PixelRotateClockwise), &QAction::triggered, _pixelCanvas,
+            [this] { _pixelCanvas->applyRotateClockwise(); });
+    connect(_actions->action(hmi::IconId::PixelRotateCounterClockwise), &QAction::triggered,
+            _pixelCanvas, [this] { _pixelCanvas->applyRotateCounterClockwise(); });
+    _pixelMenu->addSeparator();
+    _pixelMenu->addAction(_actions->action(hmi::IconId::PixelFlipHorizontal));
+    _pixelMenu->addAction(_actions->action(hmi::IconId::PixelFlipVertical));
+    _pixelMenu->addAction(_actions->action(hmi::IconId::PixelRotateClockwise));
+    _pixelMenu->addAction(_actions->action(hmi::IconId::PixelRotateCounterClockwise));
 
     connect(_actions->action(hmi::IconId::Save), &QAction::triggered, _viewport,
             [this] { _viewport->save(); });

@@ -12,6 +12,18 @@ std::string_view pixelOperationTranslationKey(PixelOperationKind kind) noexcept 
             return "pixel_editor.operation.eraser";
         case PixelOperationKind::Fill:
             return "pixel_editor.operation.fill";
+        case PixelOperationKind::Move:
+            return "pixel_editor.operation.move";
+        case PixelOperationKind::FlipHorizontal:
+            return "pixel_editor.operation.flip_horizontal";
+        case PixelOperationKind::FlipVertical:
+            return "pixel_editor.operation.flip_vertical";
+        case PixelOperationKind::RotateClockwise:
+            return "pixel_editor.operation.rotate_cw";
+        case PixelOperationKind::RotateCounterClockwise:
+            return "pixel_editor.operation.rotate_ccw";
+        case PixelOperationKind::Paste:
+            return "pixel_editor.operation.paste";
     }
     return "pixel_editor.operation.brush";  // inatteignable (switch exhaustif) ; /W4 l'exige.
 }

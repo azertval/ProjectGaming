@@ -180,4 +180,87 @@ PixelRegion floodFill(DecodedImage& image, int x, int y, std::uint32_t color);
 void writeRegion(DecodedImage& image, const PixelRegion& region,
                  const std::vector<std::uint32_t>& data);
 
+/**
+ * @brief Contenu copié depuis un tampon (presse-papiers de l'atelier, `LOT-54` TACHE-06).
+ *
+ * **Distinct** du presse-papiers de l'éditeur de niveaux : deux tampons séparés, visés selon le
+ * contexte d'édition actif (`hmi::PixelCanvas`, comme Annuler — `EX-IHM-062`).
+ */
+struct PixelClipboard {
+    int width = 0;
+    int height = 0;
+    std::vector<std::uint32_t> pixels;
+
+    /// @return `true` si le presse-papiers ne porte aucun contenu.
+    [[nodiscard]] bool empty() const noexcept {
+        return width <= 0 || height <= 0;
+    }
+};
+
+/**
+ * @brief Retourne une région horizontalement (miroir gauche-droite), en place.
+ *
+ * Involutive : appliquer deux fois de suite restitue exactement le contenu d'origine.
+ * @param image  Image modifiée en place.
+ * @param region Région retournée ; sans effet si vide.
+ * @return @p region telle quelle si non vide, sinon une région vide — jamais d'entrée d'historique
+ *         pour une région vide (à la charge de l'appelant de ne pas en pousser une).
+ */
+PixelRegion flipHorizontal(DecodedImage& image, const PixelRegion& region);
+
+/// Retourne une région verticalement (miroir haut-bas), en place. Involutive, comme `flipHorizontal`.
+PixelRegion flipVertical(DecodedImage& image, const PixelRegion& region);
+
+/**
+ * @brief Pivote le contenu d'une région d'un quart de tour, sens horaire.
+ *
+ * La région d'origine est effacée (alpha nul), puis le contenu pivoté (largeur/hauteur échangées)
+ * est écrit ancré au même coin haut-gauche — sur une région **non carrée**, le nouveau contour
+ * déborde donc du contour d'origine ; ce débordement est tronqué au cadre de **l'image**, jamais
+ * agrandi (`setPixel` ignore silencieusement tout pixel hors bornes).
+ * @param image  Image modifiée en place.
+ * @param region Région pivotée ; sans effet si vide.
+ * @return L'union de la région effacée et de la région écrite (pour l'historique).
+ */
+PixelRegion rotateClockwise(DecodedImage& image, const PixelRegion& region);
+
+/// Pivote le contenu d'une région d'un quart de tour, sens antihoraire (trois quarts de tour
+/// horaires, pour ne pas dupliquer la logique de rotation). Mêmes règles de troncature que
+/// `rotateClockwise`.
+PixelRegion rotateCounterClockwise(DecodedImage& image, const PixelRegion& region);
+
+/**
+ * @brief Déplace le contenu d'une région d'un décalage donné.
+ *
+ * La région de départ devient transparente ; le contenu est reposé au décalage donné, tronqué au
+ * cadre de l'image. Un déplacement entièrement hors cadre efface la région de départ sans rien
+ * reposer de visible — jamais d'écriture hors bornes, jamais de tampon corrompu.
+ * @param image  Image modifiée en place.
+ * @param region Région déplacée ; sans effet si vide.
+ * @param dx     Décalage horizontal, en pixels.
+ * @param dy     Décalage vertical, en pixels.
+ * @return L'union de la région quittée et de la région reposée (pour l'historique).
+ */
+PixelRegion moveRegion(DecodedImage& image, const PixelRegion& region, int dx, int dy);
+
+/**
+ * @brief Copie les pixels d'une région dans un presse-papiers autonome (ne référence plus @p image).
+ * @param image  Image consultée.
+ * @param region Région copiée ; un presse-papiers vide si @p region est vide.
+ */
+[[nodiscard]] PixelClipboard copyRegion(const DecodedImage& image, const PixelRegion& region);
+
+/**
+ * @brief Colle un presse-papiers dans l'image, coin haut-gauche à `(x, y)`.
+ *
+ * Tronqué au cadre de l'image : coller près d'un bord n'écrit jamais hors bornes (chaque pixel
+ * passe par `setPixel`, qui ignore silencieusement les positions hors bornes).
+ * @param image     Image modifiée en place.
+ * @param clipboard Contenu à coller ; sans effet si vide.
+ * @param x         Colonne du coin haut-gauche du contenu collé.
+ * @param y         Ligne du coin haut-gauche du contenu collé.
+ * @return La région effectivement écrite (peut être plus petite que @p clipboard si tronquée).
+ */
+PixelRegion pasteClipboard(DecodedImage& image, const PixelClipboard& clipboard, int x, int y);
+
 }  // namespace hmi

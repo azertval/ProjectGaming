@@ -118,6 +118,7 @@ status.help_pixel_brush = Brush: left click/drag paints · Ctrl+Z/Y: undo/redo
 status.help_pixel_eraser = Eraser: left click/drag erases · Ctrl+Z/Y: undo/redo
 status.help_pixel_fill = Bucket: click fills the connected area
 status.help_pixel_eyedropper = Eyedropper: click picks the color under the cursor
+status.help_pixel_selection = Selection: drag to select or move · Ctrl+C/V: copy/paste
 status.texture_assigned = Texture assigned: %1
 status.texture_removed = Texture removed.
 status.texture_no_asset_selected = No asset selected: pick one in the "Objects" tab of the Textures panel.
@@ -149,6 +150,7 @@ pixel_tool.brush = Brush
 pixel_tool.eraser = Eraser
 pixel_tool.fill = Bucket
 pixel_tool.eyedropper = Eyedropper
+pixel_tool.selection = Selection
 
 # Toolbar actions/commands (LOT-56 TACHE-04): label only, the shortcut comes from the action
 # itself (EditorActions::retranslateUi), never entered here.
@@ -169,6 +171,10 @@ action.pixel_open = Open asset…
 action.pixel_create = Create asset…
 action.pixel_save = Save asset
 action.pixel_save_as = Save asset as…
+action.pixel_flip_horizontal = Flip horizontal
+action.pixel_flip_vertical = Flip vertical
+action.pixel_rotate_cw = Rotate (clockwise)
+action.pixel_rotate_ccw = Rotate (counter-clockwise)
 
 # Pixel art workshop dialogs (LOT-54 TACHE-05).
 menubar.pixel = Workshop
@@ -317,3 +323,9 @@ palette.tile.exit = Exit
 pixel_editor.operation.brush = brush
 pixel_editor.operation.eraser = eraser
 pixel_editor.operation.fill = fill
+pixel_editor.operation.move = region move
+pixel_editor.operation.flip_horizontal = horizontal flip
+pixel_editor.operation.flip_vertical = vertical flip
+pixel_editor.operation.rotate_cw = clockwise rotation
+pixel_editor.operation.rotate_ccw = counter-clockwise rotation
+pixel_editor.operation.paste = paste

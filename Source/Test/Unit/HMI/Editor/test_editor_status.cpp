@@ -38,10 +38,12 @@ hmi::Localization testLocalization() {
                {"pixel_tool.eraser", "Gomme"},
                {"pixel_tool.fill", "Pot de peinture"},
                {"pixel_tool.eyedropper", "Pipette"},
+               {"pixel_tool.selection", "Selection"},
                {"status.help_pixel_brush", "Aide pinceau pixel"},
                {"status.help_pixel_eraser", "Aide gomme"},
                {"status.help_pixel_fill", "Aide pot de peinture"},
-               {"status.help_pixel_eyedropper", "Aide pipette"}});
+               {"status.help_pixel_eyedropper", "Aide pipette"},
+               {"status.help_pixel_selection", "Aide selection"}});
     return localization;
 }
 
@@ -273,7 +275,7 @@ TEST(EditorStatusTest, ClesDeTraductionExistentDansLesDeuxCatalogues) {
         "status.help_paint",   "status.help_rectangle", "status.help_selection",
         "status.help_link",    "status.help_texture_assign", "status.help_decor",
         "status.help_pixel_brush", "status.help_pixel_eraser", "status.help_pixel_fill",
-        "status.help_pixel_eyedropper"};
+        "status.help_pixel_eyedropper", "status.help_pixel_selection"};
     for (const std::string& language : {"fr", "en"}) {
         hmi::Localization localization(directory);
         ASSERT_TRUE(localization.loadDefaultLanguage(language)) << language;

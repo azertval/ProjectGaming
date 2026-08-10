@@ -45,6 +45,12 @@ enum class IconId {
     PixelCreate,
     PixelSave,
     PixelSaveAs,
+    // Sélection et transformations de région (LOT-54 TACHE-06).
+    PixelSelectionTool,
+    PixelFlipHorizontal,
+    PixelFlipVertical,
+    PixelRotateClockwise,
+    PixelRotateCounterClockwise,
 };
 
 /// Rôle de couleur d'un trait, résolu depuis les jetons de design au moment du rendu (recoloration

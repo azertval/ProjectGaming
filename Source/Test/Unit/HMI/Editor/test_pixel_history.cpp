@@ -243,6 +243,12 @@ TEST(PixelHistoryTest, ClesDeNomDOperationExistentDansLesDeuxCatalogues) {
         hmi::PixelOperationKind::Brush,
         hmi::PixelOperationKind::Eraser,
         hmi::PixelOperationKind::Fill,
+        hmi::PixelOperationKind::Move,
+        hmi::PixelOperationKind::FlipHorizontal,
+        hmi::PixelOperationKind::FlipVertical,
+        hmi::PixelOperationKind::RotateClockwise,
+        hmi::PixelOperationKind::RotateCounterClockwise,
+        hmi::PixelOperationKind::Paste,
     };
     for (const std::string& language : {"fr", "en"}) {
         hmi::Localization localization(directory);

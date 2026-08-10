@@ -213,6 +213,49 @@ IconGeometry iconGeometry(IconId id) {
                 rectStroke(0.20f, 0.52f, 0.34f, 0.24f, false, IconColorRole::Foreground),
                 IconStroke{circlePoints(0.78f, 0.72f, 0.15f), true, true, IconColorRole::Accent},
             }};
+        case IconId::PixelSelectionTool:
+            // Meme motif que ToolSelection (quatre coins en L) : le concept de selection est
+            // identique, seule la cible (canevas plutot que niveau) differe.
+            return IconGeometry{{
+                IconStroke{{IconPoint{0.20f, 0.35f}, IconPoint{0.20f, 0.20f}, IconPoint{0.35f, 0.20f}},
+                          false, false, IconColorRole::Foreground},
+                IconStroke{{IconPoint{0.65f, 0.20f}, IconPoint{0.80f, 0.20f}, IconPoint{0.80f, 0.35f}},
+                          false, false, IconColorRole::Foreground},
+                IconStroke{{IconPoint{0.80f, 0.65f}, IconPoint{0.80f, 0.80f}, IconPoint{0.65f, 0.80f}},
+                          false, false, IconColorRole::Foreground},
+                IconStroke{{IconPoint{0.35f, 0.80f}, IconPoint{0.20f, 0.80f}, IconPoint{0.20f, 0.65f}},
+                          false, false, IconColorRole::Foreground},
+            }};
+        case IconId::PixelFlipHorizontal:
+            // Axe vertical + deux blocs miroir (un plein, un vide) de part et d'autre.
+            return IconGeometry{{
+                IconStroke{{IconPoint{0.5f, 0.15f}, IconPoint{0.5f, 0.85f}}, false, false,
+                          IconColorRole::Foreground},
+                rectStroke(0.15f, 0.30f, 0.25f, 0.40f, true, IconColorRole::Accent),
+                rectStroke(0.60f, 0.30f, 0.25f, 0.40f, false, IconColorRole::Foreground),
+            }};
+        case IconId::PixelFlipVertical:
+            // Axe horizontal + deux blocs miroir de part et d'autre.
+            return IconGeometry{{
+                IconStroke{{IconPoint{0.15f, 0.5f}, IconPoint{0.85f, 0.5f}}, false, false,
+                          IconColorRole::Foreground},
+                rectStroke(0.30f, 0.15f, 0.40f, 0.25f, true, IconColorRole::Accent),
+                rectStroke(0.30f, 0.60f, 0.40f, 0.25f, false, IconColorRole::Foreground),
+            }};
+        case IconId::PixelRotateClockwise:
+            // Anneau ouvert (cercle a douze points, trace non ferme) + fleche a l'ouverture.
+            return IconGeometry{{
+                IconStroke{circlePoints(0.5f, 0.5f, 0.28f, 12), false, false, IconColorRole::Foreground},
+                IconStroke{{IconPoint{0.76f, 0.30f}, IconPoint{0.90f, 0.40f}, IconPoint{0.74f, 0.46f}},
+                          true, true, IconColorRole::Accent},
+            }};
+        case IconId::PixelRotateCounterClockwise:
+            // Meme anneau, fleche du cote oppose : sens inverse.
+            return IconGeometry{{
+                IconStroke{circlePoints(0.5f, 0.5f, 0.28f, 12), false, false, IconColorRole::Foreground},
+                IconStroke{{IconPoint{0.24f, 0.30f}, IconPoint{0.10f, 0.40f}, IconPoint{0.26f, 0.46f}},
+                          true, true, IconColorRole::Accent},
+            }};
     }
     return IconGeometry{};
 }

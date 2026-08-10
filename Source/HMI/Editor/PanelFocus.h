@@ -47,9 +47,9 @@ struct PixelPanelFocusEntry {
     PanelId panel;
 };
 
-/// Nombre d'entrées de la table des outils de canevas (les quatre outils du canevas mettent tous
+/// Nombre d'entrées de la table des outils de canevas (les cinq outils du canevas mettent tous
 /// en avant le même panneau : on édite toujours en le voyant).
-constexpr int PIXEL_PANEL_FOCUS_CATALOG_COUNT = 4;
+constexpr int PIXEL_PANEL_FOCUS_CATALOG_COUNT = 5;
 
 /// @return La table complète outil de canevas → panneau.
 [[nodiscard]] const std::array<PixelPanelFocusEntry, PIXEL_PANEL_FOCUS_CATALOG_COUNT>&

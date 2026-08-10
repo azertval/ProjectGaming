@@ -31,6 +31,7 @@ const std::array<PixelPanelFocusEntry, PIXEL_PANEL_FOCUS_CATALOG_COUNT>& pixelPa
         {PixelTool::Eraser, PanelId::PixelCanvas},
         {PixelTool::Fill, PanelId::PixelCanvas},
         {PixelTool::Eyedropper, PanelId::PixelCanvas},
+        {PixelTool::Selection, PanelId::PixelCanvas},
     }};
     return catalog;
 }

@@ -21,6 +21,9 @@ enum class PixelTool {
     Eraser,
     Fill,
     Eyedropper,
+    /// Sélection rectangulaire (`LOT-54` TACHE-06) : glisser hors d'une sélection existante en
+    /// définit une nouvelle ; glisser à l'intérieur la déplace (`hmi::moveRegion`).
+    Selection,
 };
 
 }  // namespace hmi

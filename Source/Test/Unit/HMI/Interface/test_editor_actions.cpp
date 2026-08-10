@@ -64,13 +64,14 @@ TEST(EditorActionsTest, LesSixOutilsFormentUneBijectionAvecEditorTool) {
  * \tcrit Critique<br/>
  * \tetapes 1. Pour chaque hmi::PixelTool, resoudre l'action puis reconvertir vers l'outil.<br/>
  * 2. Verifier que l'action appartient au groupe PixelTools.<br/>
- * \tattendu L'aller-retour restitue l'outil d'origine pour chacun des quatre, et chaque action
+ * \tattendu L'aller-retour restitue l'outil d'origine pour chacun des cinq, et chaque action
  * appartient au groupe PixelTools.
  * }
  */
-TEST(EditorActionsTest, LesQuatreOutilsDeCanevasFormentUneBijectionAvecPixelTool) {
+TEST(EditorActionsTest, LesCinqOutilsDeCanevasFormentUneBijectionAvecPixelTool) {
     constexpr hmi::PixelTool tools[] = {hmi::PixelTool::Brush, hmi::PixelTool::Eraser,
-                                        hmi::PixelTool::Fill, hmi::PixelTool::Eyedropper};
+                                        hmi::PixelTool::Fill, hmi::PixelTool::Eyedropper,
+                                        hmi::PixelTool::Selection};
     std::set<hmi::IconId> seen;
     for (hmi::PixelTool tool : tools) {
         const hmi::IconId id = hmi::editorActionForPixelTool(tool);
@@ -82,7 +83,7 @@ TEST(EditorActionsTest, LesQuatreOutilsDeCanevasFormentUneBijectionAvecPixelTool
         ASSERT_TRUE(roundTrip.has_value());
         EXPECT_EQ(*roundTrip, tool);
     }
-    EXPECT_EQ(seen.size(), 4u);
+    EXPECT_EQ(seen.size(), 5u);
 }
 
 /**

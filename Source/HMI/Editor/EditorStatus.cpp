@@ -83,6 +83,8 @@ const char* pixelToolLabelKey(PixelTool tool) {
             return "pixel_tool.fill";
         case PixelTool::Eyedropper:
             return "pixel_tool.eyedropper";
+        case PixelTool::Selection:
+            return "pixel_tool.selection";
     }
     return "pixel_tool.brush";
 }
@@ -98,6 +100,8 @@ const char* pixelToolHelpKey(PixelTool tool) {
             return "status.help_pixel_fill";
         case PixelTool::Eyedropper:
             return "status.help_pixel_eyedropper";
+        case PixelTool::Selection:
+            return "status.help_pixel_selection";
     }
     return "status.help_pixel_brush";
 }

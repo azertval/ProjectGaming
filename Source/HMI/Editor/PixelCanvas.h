@@ -48,8 +48,8 @@ namespace hmi {
  * Implémente `hmi::EditContextTarget` (TACHE-04) : `MainWindow` y dispatche Annuler/Refaire/
  * Copier/Coller quand ce canevas est le contexte d'édition actif, exactement comme `GameViewport`
  * pour le niveau — le seuil de dispatch prévu depuis `LOT-57` TACHE-04, sans le réécrire. Copier et
- * coller restent des opérations neutres (aucun presse-papiers) tant que TACHE-06 ne leur donne pas
- * de contenu.
+ * coller (TACHE-06) visent un presse-papiers **propre à l'atelier** (`hmi::PixelClipboard`),
+ * distinct de celui de l'éditeur de niveaux.
  */
 class PixelCanvas : public QWidget, public EditContextTarget {
     Q_OBJECT
@@ -104,8 +104,8 @@ public:
         return _history;
     }
 
-    // hmi::EditContextTarget (TACHE-04) : Annuler/Refaire à cible contextuelle (EX-IHM-062). Copier
-    // et coller restent neutres tant que TACHE-06 ne leur donne pas de presse-papiers de région.
+    // hmi::EditContextTarget (TACHE-04/TACHE-06) : Annuler/Refaire/Copier/Coller à cible
+    // contextuelle (EX-IHM-062).
     [[nodiscard]] bool canUndo() const override {
         return _history.canUndo();
     }
@@ -118,13 +118,30 @@ public:
     /// (panneau d'historique visuel, TACHE-04) ; sans effet si @p index est hors bornes.
     void jumpHistoryTo(std::size_t index);
     [[nodiscard]] bool canCopy() const override {
-        return false;
+        return _image.width > 0 && _image.height > 0;
     }
-    void copy() override {}
+    /// Copie la sélection courante, ou l'image entière à défaut de sélection.
+    void copy() override;
     [[nodiscard]] bool canPaste() const override {
-        return false;
+        return !_clipboard.empty();
     }
-    void paste() override {}
+    /// Colle le presse-papiers de l'atelier au pixel survolé (coin haut-gauche), tronqué au cadre ;
+    /// sans effet si le presse-papiers est vide. Sélectionne le contenu collé, pour l'ajuster
+    /// (déplacer, transformer) immédiatement après.
+    void paste() override;
+
+    /// Région actuellement sélectionnée (outil Sélection), vide si aucune.
+    [[nodiscard]] const PixelRegion& selection() const noexcept {
+        return _selection;
+    }
+    /// Retourne la sélection horizontalement, ou l'image entière à défaut de sélection.
+    void applyFlipHorizontal();
+    /// Retourne la sélection verticalement, ou l'image entière à défaut de sélection.
+    void applyFlipVertical();
+    /// Pivote la sélection d'un quart de tour horaire, ou l'image entière à défaut de sélection.
+    void applyRotateClockwise();
+    /// Pivote la sélection d'un quart de tour antihoraire, ou l'image entière à défaut de sélection.
+    void applyRotateCounterClockwise();
 
     [[nodiscard]] const PixelCanvasView& view() const noexcept {
         return _view;
@@ -169,10 +186,23 @@ private:
     /// étend `_gestureRegion` avec la région effectivement modifiée.
     void applyToolAtPoint(int x, int y);
     /// Prolonge le geste courant du dernier point traité jusqu'à `(x, y)` (pinceau/gomme : ligne
-    /// sans trou entre deux positions successives, TACHE-02).
+    /// sans trou entre deux positions successives, TACHE-02 ; déplacement de sélection, TACHE-06).
     void continueToolTo(int x, int y);
     void beginGesture(int x, int y);
     void endGesture();
+
+    /// Région effective d'une transformation : la sélection courante, ou l'image entière si aucune
+    /// sélection n'est active (TACHE-06 : « à défaut de sélection, à l'image entière »).
+    [[nodiscard]] PixelRegion effectiveRegion() const;
+    /// Capture @p beforeSnapshot/`_image` sur @p touched, pousse l'entrée d'historique nommée si
+    /// non vide, et émet les signaux de mutation — factorisé entre `applyFlipHorizontal`/
+    /// `applyFlipVertical`/`applyRotateClockwise`/`applyRotateCounterClockwise`/`paste`.
+    void commitRegionMutation(PixelOperationKind kind, const DecodedImage& beforeSnapshot,
+                              const PixelRegion& touched);
+    /// Applique une transformation pure de `hmi::PixelOperations` (même signature que
+    /// `flipHorizontal`/`rotateClockwise`…) à `effectiveRegion()` et la pousse dans l'historique.
+    void applyRegionOperation(PixelOperationKind kind,
+                              PixelRegion (*operation)(DecodedImage&, const PixelRegion&));
 
     DecodedImage _image;
     std::string _assetName;
@@ -187,6 +217,12 @@ private:
     PixelRegion _gestureRegion;           ///< Union des régions touchées depuis le début du geste.
     std::optional<std::pair<int, int>> _lastGesturePixel;
     std::optional<std::pair<int, int>> _hoveredPixel;
+
+    // Outils de région (LOT-54 TACHE-06).
+    PixelRegion _selection;                 ///< Sélection courante, vide si aucune.
+    PixelClipboard _clipboard;              ///< Presse-papiers de l'atelier, distinct du niveau.
+    bool _selectionMoveActive = false;      ///< `true` : le geste en cours déplace `_selection`.
+    std::pair<int, int> _selectionDragAnchor{0, 0};  ///< Point de départ d'une nouvelle sélection.
 
     bool _panning = false;
     QPointF _panStartWidgetPos;

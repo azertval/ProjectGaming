@@ -4,7 +4,9 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPaintEvent>
+#include <QPen>
 #include <QPixmap>
+#include <QRectF>
 #include <QWheelEvent>
 #include <algorithm>
 #include <cmath>
@@ -38,9 +40,10 @@ namespace {
 // illisible aux forts facteurs.
 constexpr int CHECKER_LOGICAL_CELL = 6;
 
-// Correspondance outil -> type d'operation d'historique (LOT-54 TACHE-02). L'outil pipette ne
-// mute jamais l'image (aucune region non vide n'est jamais poussee pour lui) : la valeur de repli
-// n'est donc jamais observee, mais /W4 impose un switch exhaustif.
+// Correspondance outil -> type d'operation d'historique (LOT-54 TACHE-02/TACHE-06). L'outil
+// pipette ne mute jamais l'image (aucune region non vide n'est jamais poussee pour lui) : la
+// valeur de repli n'est donc jamais observee pour lui. L'outil Selection ne mute l'image QUE
+// lorsqu'il deplace une selection existante -- c'est alors toujours un deplacement de region.
 [[nodiscard]] PixelOperationKind operationKindForTool(PixelTool tool) noexcept {
     switch (tool) {
         case PixelTool::Brush:
@@ -51,6 +54,8 @@ constexpr int CHECKER_LOGICAL_CELL = 6;
             return PixelOperationKind::Fill;
         case PixelTool::Eyedropper:
             return PixelOperationKind::Brush;
+        case PixelTool::Selection:
+            return PixelOperationKind::Move;
     }
     return PixelOperationKind::Brush;
 }
@@ -77,6 +82,9 @@ void PixelCanvas::setImage(DecodedImage image) {
     _history = PixelHistory();
     _gestureActive = false;
     _lastGesturePixel.reset();
+    _selection = PixelRegion{};
+    _clipboard = PixelClipboard{};
+    _selectionMoveActive = false;
     if (_hoveredPixel) {
         _hoveredPixel.reset();
         emit hoveredPixelChanged(_hoveredPixel);
@@ -153,6 +161,21 @@ void PixelCanvas::applyToolAtPoint(int x, int y) {
                 _currentColor = *picked;
             }
             return;
+        case PixelTool::Selection: {
+            // Premier point du geste : decide s'il deplace la selection existante (clic dedans) ou
+            // en definit une nouvelle (clic dehors) -- ne mute jamais l'image a ce point precis
+            // (un deplacement nul serait un no-op couteux et polluerait l'historique).
+            const bool insideSelection =
+                !_selection.empty() && x >= _selection.minX && x <= _selection.maxX &&
+                y >= _selection.minY && y <= _selection.maxY;
+            _selectionMoveActive = insideSelection;
+            if (!insideSelection) {
+                _selectionDragAnchor = std::make_pair(x, y);
+                _selection = PixelRegion{x, y, x, y};
+                update();
+            }
+            return;
+        }
     }
     _gestureRegion = unionPixelRegion(_gestureRegion, touched);
 }
@@ -171,6 +194,21 @@ void PixelCanvas::continueToolTo(int x, int y) {
         case PixelTool::Eyedropper:
             // Geste ponctuel : le pot de peinture et la pipette ignorent le glisser.
             return;
+        case PixelTool::Selection:
+            if (_selectionMoveActive) {
+                const int dx = x - lastX;
+                const int dy = y - lastY;
+                touched = moveRegion(_image, _selection, dx, dy);
+                _selection = PixelRegion{_selection.minX + dx, _selection.minY + dy,
+                                         _selection.maxX + dx, _selection.maxY + dy};
+            } else {
+                _selection = PixelRegion{
+                    std::min(_selectionDragAnchor.first, x), std::min(_selectionDragAnchor.second, y),
+                    std::max(_selectionDragAnchor.first, x), std::max(_selectionDragAnchor.second, y)};
+                update();
+                return;  // definir une selection ne mute jamais l'image : aucune region touchee.
+            }
+            break;
     }
     _gestureRegion = unionPixelRegion(_gestureRegion, touched);
 }
@@ -198,6 +236,77 @@ void PixelCanvas::endGesture() {
     }
     _gestureActive = false;
     _lastGesturePixel.reset();
+}
+
+PixelRegion PixelCanvas::effectiveRegion() const {
+    if (!_selection.empty()) {
+        return _selection;
+    }
+    if (_image.width <= 0 || _image.height <= 0) {
+        return {};
+    }
+    return PixelRegion{0, 0, _image.width - 1, _image.height - 1};
+}
+
+void PixelCanvas::commitRegionMutation(PixelOperationKind kind, const DecodedImage& beforeSnapshot,
+                                       const PixelRegion& touched) {
+    if (touched.empty()) {
+        return;
+    }
+    const std::vector<std::uint32_t> before = readRegion(beforeSnapshot, touched);
+    const std::vector<std::uint32_t> after = readRegion(_image, touched);
+    _history.push(kind, touched, before, after);
+    _dirty = true;
+    update();
+    emit imageChanged();
+    emit historyChanged();
+}
+
+void PixelCanvas::applyRegionOperation(PixelOperationKind kind,
+                                       PixelRegion (*operation)(DecodedImage&, const PixelRegion&)) {
+    const PixelRegion region = effectiveRegion();
+    if (region.empty()) {
+        return;
+    }
+    const DecodedImage beforeSnapshot = _image;
+    const PixelRegion touched = operation(_image, region);
+    commitRegionMutation(kind, beforeSnapshot, touched);
+}
+
+void PixelCanvas::applyFlipHorizontal() {
+    applyRegionOperation(PixelOperationKind::FlipHorizontal, &flipHorizontal);
+}
+
+void PixelCanvas::applyFlipVertical() {
+    applyRegionOperation(PixelOperationKind::FlipVertical, &flipVertical);
+}
+
+void PixelCanvas::applyRotateClockwise() {
+    applyRegionOperation(PixelOperationKind::RotateClockwise, &rotateClockwise);
+}
+
+void PixelCanvas::applyRotateCounterClockwise() {
+    applyRegionOperation(PixelOperationKind::RotateCounterClockwise, &rotateCounterClockwise);
+}
+
+void PixelCanvas::copy() {
+    const PixelRegion region = effectiveRegion();
+    _clipboard = copyRegion(_image, region);
+}
+
+void PixelCanvas::paste() {
+    if (_clipboard.empty()) {
+        return;
+    }
+    const int x = _hoveredPixel ? _hoveredPixel->first : 0;
+    const int y = _hoveredPixel ? _hoveredPixel->second : 0;
+    const DecodedImage beforeSnapshot = _image;
+    const PixelRegion touched = pasteClipboard(_image, _clipboard, x, y);
+    if (touched.empty()) {
+        return;
+    }
+    _selection = touched;  // le contenu colle devient la selection : ajustable immediatement.
+    commitRegionMutation(PixelOperationKind::Paste, beforeSnapshot, touched);
 }
 
 void PixelCanvas::mousePressEvent(QMouseEvent* event) {
@@ -310,6 +419,20 @@ QPixmap PixelCanvas::renderPixmap() const {
             const int screenY = static_cast<int>(std::lround(row * zoomReal));
             painter.drawLine(0, screenY, real.width, screenY);
         }
+    }
+
+    // Region selectionnee (TACHE-06) : reste visible pendant qu'on la deplace, tracee depuis les
+    // jetons (portee invariante, comme le reste de la surface de peinture) sans masquer les pixels
+    // du bord (contour seul, jamais rempli).
+    if (!_selection.empty()) {
+        const double zoomReal = static_cast<double>(_view.zoom) * scale;
+        const double rectX = (_selection.minX - _view.panX) * zoomReal;
+        const double rectY = (_selection.minY - _view.panY) * zoomReal;
+        const double rectW = _selection.width() * zoomReal;
+        const double rectH = _selection.height() * zoomReal;
+        painter.setPen(QPen(toQColor(identityTokens().color.accent), std::max(1.0, scale)));
+        painter.setBrush(Qt::NoBrush);
+        painter.drawRect(QRectF(rectX, rectY, rectW, rectH));
     }
 
     pixmap.setDevicePixelRatio(scale);

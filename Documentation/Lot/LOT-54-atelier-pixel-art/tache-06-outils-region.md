@@ -1,6 +1,6 @@
 # TACHE-06 — Outils de région {#lot-54-tache-06-outils-region}
 
-**Lot :** [LOT-54](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** non commencé
+**Lot :** [LOT-54](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** fait
 
 ## Contexte
 Le cadrage initial du lot excluait la sélection, le déplacement de région et les transformations, au

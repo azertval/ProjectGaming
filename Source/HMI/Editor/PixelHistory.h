@@ -28,6 +28,13 @@ enum class PixelOperationKind {
     Brush,
     Eraser,
     Fill,
+    // Outils de région (LOT-54 TACHE-06).
+    Move,
+    FlipHorizontal,
+    FlipVertical,
+    RotateClockwise,
+    RotateCounterClockwise,
+    Paste,
 };
 
 /**

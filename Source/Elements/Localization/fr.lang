@@ -120,6 +120,7 @@ status.help_pixel_brush = Pinceau : clic gauche/glisser peint · Ctrl+Z/Y : annu
 status.help_pixel_eraser = Gomme : clic gauche/glisser efface · Ctrl+Z/Y : annuler/refaire
 status.help_pixel_fill = Pot de peinture : clic remplit la zone connexe
 status.help_pixel_eyedropper = Pipette : clic prélève la couleur du pixel visé
+status.help_pixel_selection = Sélection : glisser délimite ou déplace · Ctrl+C/V : copier/coller
 status.texture_assigned = Texture assignée : %1
 status.texture_removed = Texture retirée.
 status.texture_no_asset_selected = Aucun asset sélectionné : choisissez-en un dans l'onglet « Objets » du panneau Textures.
@@ -151,6 +152,7 @@ pixel_tool.brush = Pinceau
 pixel_tool.eraser = Gomme
 pixel_tool.fill = Pot de peinture
 pixel_tool.eyedropper = Pipette
+pixel_tool.selection = Sélection
 
 # Actions/commandes de la barre d'outils (LOT-56 TACHE-04) : libellé seul, le raccourci vient de
 # l'action elle-même (EditorActions::retranslateUi), jamais saisi ici.
@@ -171,6 +173,10 @@ action.pixel_open = Ouvrir un asset…
 action.pixel_create = Créer un asset…
 action.pixel_save = Enregistrer l'asset
 action.pixel_save_as = Enregistrer l'asset sous…
+action.pixel_flip_horizontal = Symétrie horizontale
+action.pixel_flip_vertical = Symétrie verticale
+action.pixel_rotate_cw = Pivoter (horaire)
+action.pixel_rotate_ccw = Pivoter (antihoraire)
 
 # Boîtes de dialogue de l'atelier pixel art (LOT-54 TACHE-05).
 menubar.pixel = Atelier
@@ -319,3 +325,9 @@ palette.tile.exit = Sortie
 pixel_editor.operation.brush = pinceau
 pixel_editor.operation.eraser = gomme
 pixel_editor.operation.fill = remplissage
+pixel_editor.operation.move = déplacement de région
+pixel_editor.operation.flip_horizontal = symétrie horizontale
+pixel_editor.operation.flip_vertical = symétrie verticale
+pixel_editor.operation.rotate_cw = rotation horaire
+pixel_editor.operation.rotate_ccw = rotation antihoraire
+pixel_editor.operation.paste = collage

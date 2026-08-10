@@ -23,12 +23,24 @@ const std::array<EditorActionSpec, EDITOR_ACTION_CATALOG_COUNT>& editorActionCat
         {IconId::PixelEraser, "pixel_tool.eraser", "", true, EditorActionGroup::PixelTools},
         {IconId::PixelFill, "pixel_tool.fill", "", true, EditorActionGroup::PixelTools},
         {IconId::PixelEyedropper, "pixel_tool.eyedropper", "", true, EditorActionGroup::PixelTools},
+        {IconId::PixelSelectionTool, "pixel_tool.selection", "", true, EditorActionGroup::PixelTools},
         // Commandes de fichier de l'atelier pixel art (LOT-54 TACHE-05) : aucun raccourci clavier
         // dedie aujourd'hui, comme les outils de canevas ci-dessus.
         {IconId::PixelOpen, "action.pixel_open", "", false, EditorActionGroup::PixelCommands},
         {IconId::PixelCreate, "action.pixel_create", "", false, EditorActionGroup::PixelCommands},
         {IconId::PixelSave, "action.pixel_save", "", false, EditorActionGroup::PixelCommands},
         {IconId::PixelSaveAs, "action.pixel_save_as", "", false, EditorActionGroup::PixelCommands},
+        // Commandes de region (LOT-54 TACHE-06) : Copier/Coller reutilisent les actions
+        // deduplique deja definies (IconId::Copy/Paste, EX-IHM-062) -- rien a ajouter ici pour
+        // elles. Deplacement : geste de glisser de l'outil Selection, pas une commande.
+        {IconId::PixelFlipHorizontal, "action.pixel_flip_horizontal", "", false,
+         EditorActionGroup::PixelCommands},
+        {IconId::PixelFlipVertical, "action.pixel_flip_vertical", "", false,
+         EditorActionGroup::PixelCommands},
+        {IconId::PixelRotateClockwise, "action.pixel_rotate_cw", "", false,
+         EditorActionGroup::PixelCommands},
+        {IconId::PixelRotateCounterClockwise, "action.pixel_rotate_ccw", "", false,
+         EditorActionGroup::PixelCommands},
         // Commandes principales : aucun groupe, aucune n'est cochable.
         {IconId::Save, "action.save", "Ctrl+S", false, EditorActionGroup::None},
         {IconId::Playtest, "action.playtest", "P", false, EditorActionGroup::None},
@@ -106,6 +118,8 @@ std::optional<PixelTool> editorActionPixelTool(IconId id) {
             return PixelTool::Fill;
         case IconId::PixelEyedropper:
             return PixelTool::Eyedropper;
+        case IconId::PixelSelectionTool:
+            return PixelTool::Selection;
         default:
             return std::nullopt;
     }
@@ -121,6 +135,8 @@ IconId editorActionForPixelTool(PixelTool tool) {
             return IconId::PixelFill;
         case PixelTool::Eyedropper:
             return IconId::PixelEyedropper;
+        case PixelTool::Selection:
+            return IconId::PixelSelectionTool;
     }
     return IconId::PixelBrush;
 }

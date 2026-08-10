@@ -168,4 +168,142 @@ void writeRegion(DecodedImage& image, const PixelRegion& region,
     }
 }
 
+namespace {
+
+// Efface une region entiere (alpha nul, RVB conserve -- meme contrat que erasePixel), pixel par
+// pixel : reutilise pour la "zone quittee" d'un deplacement ou d'une rotation.
+PixelRegion eraseRegion(DecodedImage& image, const PixelRegion& region) {
+    PixelRegion touched;
+    for (int y = region.minY; y <= region.maxY; ++y) {
+        for (int x = region.minX; x <= region.maxX; ++x) {
+            touched = unionPixelRegion(touched, erasePixel(image, x, y));
+        }
+    }
+    return touched;
+}
+
+// Pivote un presse-papiers d'un quart de tour horaire (largeur/hauteur echangees). Fonction pure
+// sur un PixelClipboard, partagee par rotateClockwise et rotateCounterClockwise (trois rotations
+// horaires) pour n'ecrire la logique de rotation qu'une seule fois.
+PixelClipboard rotateClipboardClockwise(const PixelClipboard& source) {
+    PixelClipboard rotated;
+    rotated.width = source.height;
+    rotated.height = source.width;
+    rotated.pixels.resize(source.pixels.size());
+    for (int ny = 0; ny < rotated.height; ++ny) {
+        for (int nx = 0; nx < rotated.width; ++nx) {
+            const int sx = ny;
+            const int sy = source.height - 1 - nx;
+            rotated.pixels[static_cast<std::size_t>(ny) * static_cast<std::size_t>(rotated.width) +
+                           static_cast<std::size_t>(nx)] =
+                source.pixels[static_cast<std::size_t>(sy) * static_cast<std::size_t>(source.width) +
+                              static_cast<std::size_t>(sx)];
+        }
+    }
+    return rotated;
+}
+
+}  // namespace
+
+PixelRegion flipHorizontal(DecodedImage& image, const PixelRegion& region) {
+    if (region.empty()) {
+        return {};
+    }
+    for (int y = region.minY; y <= region.maxY; ++y) {
+        int left = region.minX;
+        int right = region.maxX;
+        while (left < right) {
+            const std::uint32_t leftColor = image.pixels[pixelIndex(image.width, left, y)];
+            const std::uint32_t rightColor = image.pixels[pixelIndex(image.width, right, y)];
+            image.pixels[pixelIndex(image.width, left, y)] = rightColor;
+            image.pixels[pixelIndex(image.width, right, y)] = leftColor;
+            ++left;
+            --right;
+        }
+    }
+    return region;
+}
+
+PixelRegion flipVertical(DecodedImage& image, const PixelRegion& region) {
+    if (region.empty()) {
+        return {};
+    }
+    for (int x = region.minX; x <= region.maxX; ++x) {
+        int top = region.minY;
+        int bottom = region.maxY;
+        while (top < bottom) {
+            const std::uint32_t topColor = image.pixels[pixelIndex(image.width, x, top)];
+            const std::uint32_t bottomColor = image.pixels[pixelIndex(image.width, x, bottom)];
+            image.pixels[pixelIndex(image.width, x, top)] = bottomColor;
+            image.pixels[pixelIndex(image.width, x, bottom)] = topColor;
+            ++top;
+            --bottom;
+        }
+    }
+    return region;
+}
+
+PixelRegion rotateClockwise(DecodedImage& image, const PixelRegion& region) {
+    if (region.empty()) {
+        return {};
+    }
+    const PixelClipboard rotated = rotateClipboardClockwise(copyRegion(image, region));
+    PixelRegion touched = eraseRegion(image, region);
+    touched = unionPixelRegion(touched, pasteClipboard(image, rotated, region.minX, region.minY));
+    return touched;
+}
+
+PixelRegion rotateCounterClockwise(DecodedImage& image, const PixelRegion& region) {
+    if (region.empty()) {
+        return {};
+    }
+    // Trois rotations horaires = une antihoraire : evite de dupliquer la logique de rotation.
+    PixelClipboard rotated = copyRegion(image, region);
+    for (int i = 0; i < 3; ++i) {
+        rotated = rotateClipboardClockwise(rotated);
+    }
+    PixelRegion touched = eraseRegion(image, region);
+    touched = unionPixelRegion(touched, pasteClipboard(image, rotated, region.minX, region.minY));
+    return touched;
+}
+
+PixelRegion moveRegion(DecodedImage& image, const PixelRegion& region, int dx, int dy) {
+    if (region.empty()) {
+        return {};
+    }
+    const PixelClipboard content = copyRegion(image, region);
+    PixelRegion touched = eraseRegion(image, region);
+    touched = unionPixelRegion(
+        touched, pasteClipboard(image, content, region.minX + dx, region.minY + dy));
+    return touched;
+}
+
+PixelClipboard copyRegion(const DecodedImage& image, const PixelRegion& region) {
+    if (region.empty()) {
+        return {};
+    }
+    PixelClipboard clip;
+    clip.width = region.width();
+    clip.height = region.height();
+    clip.pixels = readRegion(image, region);
+    return clip;
+}
+
+PixelRegion pasteClipboard(DecodedImage& image, const PixelClipboard& clipboard, int x, int y) {
+    if (clipboard.empty()) {
+        return {};
+    }
+    PixelRegion touched;
+    for (int row = 0; row < clipboard.height; ++row) {
+        for (int col = 0; col < clipboard.width; ++col) {
+            const std::uint32_t pixel =
+                clipboard.pixels[static_cast<std::size_t>(row) *
+                                     static_cast<std::size_t>(clipboard.width) +
+                                 static_cast<std::size_t>(col)];
+            touched = unionPixelRegion(touched, setPixel(image, x + col, y + row, pixel));
+        }
+    }
+    return touched;
+}
+
 }  // namespace hmi

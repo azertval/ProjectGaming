@@ -300,6 +300,187 @@ TEST(PixelOperationsTest, UnionPixelRegionCouvreLesDeuxRegions) {
     EXPECT_EQ(hmi::unionPixelRegion(hmi::PixelRegion{}, b), b);
 }
 
+// Image 4x3 de valeurs distinctes (index de pixel encode en couleur), pour verifier une
+// transformation geometrique pixel par pixel sans ambiguite.
+namespace {
+hmi::DecodedImage indexedImage(int width, int height) {
+    hmi::DecodedImage image;
+    image.width = width;
+    image.height = height;
+    image.pixels.resize(static_cast<std::size_t>(width) * static_cast<std::size_t>(height));
+    for (std::size_t i = 0; i < image.pixels.size(); ++i) {
+        image.pixels[i] = 0xFF000000u | static_cast<std::uint32_t>(i);
+    }
+    return image;
+}
+}  // namespace
+
+/**
+ * @brief Deux symétries horizontales successives restituent exactement l'image d'origine, avec et
+ *        sans sélection active (région partielle et image entière).
+ * \castest{<b>Deux symetries horizontales restituent l'image d'origine.</b><br/>
+ * \tcat Unitaire · Operations pixel<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Appliquer flipHorizontal deux fois sur une sous-region.<br/>2. Repeter sur l'image
+ * entiere.<br/>
+ * \tattendu Les pixels sont identiques a l'original dans les deux cas.
+ * }
+ */
+TEST(PixelOperationsTest, DeuxSymetriesHorizontalesRestituentLOrigine) {
+    const hmi::DecodedImage original = indexedImage(6, 4);
+
+    hmi::DecodedImage partial = original;
+    const hmi::PixelRegion subRegion{1, 1, 4, 2};
+    hmi::flipHorizontal(partial, subRegion);
+    hmi::flipHorizontal(partial, subRegion);
+    EXPECT_EQ(partial.pixels, original.pixels) << "sous-region (avec selection)";
+
+    hmi::DecodedImage whole = original;
+    const hmi::PixelRegion wholeRegion{0, 0, 5, 3};
+    hmi::flipHorizontal(whole, wholeRegion);
+    hmi::flipHorizontal(whole, wholeRegion);
+    EXPECT_EQ(whole.pixels, original.pixels) << "image entiere (sans selection)";
+}
+
+/**
+ * @brief Deux symétries verticales successives restituent exactement l'image d'origine.
+ * \castest{<b>Deux symetries verticales restituent l'image d'origine.</b><br/>
+ * \tcat Unitaire · Operations pixel<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Appliquer flipVertical deux fois sur une sous-region.<br/>
+ * \tattendu Les pixels sont identiques a l'original.
+ * }
+ */
+TEST(PixelOperationsTest, DeuxSymetriesVerticalesRestituentLOrigine) {
+    const hmi::DecodedImage original = indexedImage(5, 6);
+    hmi::DecodedImage image = original;
+    const hmi::PixelRegion region{0, 1, 4, 4};
+
+    hmi::flipVertical(image, region);
+    hmi::flipVertical(image, region);
+
+    EXPECT_EQ(image.pixels, original.pixels);
+}
+
+/**
+ * @brief Quatre rotations d'un quart de tour dans le même sens restituent l'image d'origine sur
+ *        une région carrée.
+ * \castest{<b>Quatre rotations restituent l'image d'origine sur une region carree.</b><br/>
+ * \tcat Unitaire · Operations pixel<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Appliquer rotateClockwise quatre fois sur une region carree.<br/>
+ * \tattendu Les pixels de la region sont identiques a l'original apres le cycle complet.
+ * }
+ */
+TEST(PixelOperationsTest, QuatreRotationsRestituentLOrigineSurRegionCarree) {
+    const hmi::DecodedImage original = indexedImage(6, 6);
+    hmi::DecodedImage image = original;
+    const hmi::PixelRegion region{1, 1, 4, 4};  // 4x4, carree.
+
+    for (int i = 0; i < 4; ++i) {
+        hmi::rotateClockwise(image, region);
+    }
+
+    EXPECT_EQ(image.pixels, original.pixels);
+}
+
+/**
+ * @brief Sur une région non carrée, la rotation opère dans le rectangle englobant et le
+ *        débordement est tronqué au cadre de l'image, jamais écrit hors bornes.
+ * \castest{<b>Rotation non carree : le debordement est tronque au cadre.</b><br/>
+ * \tcat Unitaire · Operations pixel<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Pivoter une region rectangulaire proche du bord de l'image.<br/>2. Verifier que
+ * l'image garde sa taille et qu'aucune ecriture n'a debord du tampon.<br/>
+ * \tattendu Le vecteur de pixels garde exactement sa taille d'origine (aucun redimensionnement,
+ * aucun crash).
+ * }
+ */
+TEST(PixelOperationsTest, RotationNonCarreeTronqueLeDebordement) {
+    hmi::DecodedImage image = indexedImage(5, 5);
+    const std::size_t originalSize = image.pixels.size();
+    // Region 4 (largeur) x 2 (hauteur) collee au bord bas : pivotee, elle devient 2 (largeur) x 4
+    // (hauteur), ancree au meme coin haut-gauche (0,3) -- la nouvelle hauteur (4) deborderait du
+    // cadre 5x5 des la ligne 5 (lignes valides 0..4).
+    const hmi::PixelRegion region{0, 3, 3, 4};
+
+    EXPECT_NO_THROW(hmi::rotateClockwise(image, region));
+
+    EXPECT_EQ(image.pixels.size(), originalSize);
+    EXPECT_EQ(image.width, 5);
+    EXPECT_EQ(image.height, 5);
+}
+
+/**
+ * @brief Coller un presse-papiers près d'un bord tronque au cadre sans écriture hors limites.
+ * \castest{<b>Coller pres d'un bord tronque sans ecriture hors limites.</b><br/>
+ * \tcat Unitaire · Operations pixel<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Copier une region.<br/>2. La coller a une position debordant du cadre.<br/>
+ * \tattendu Aucune exception ; la taille du tampon est inchangee ; les pixels dans les bornes sont
+ * ecrits.
+ * }
+ */
+TEST(PixelOperationsTest, CollerPresDUnBordTronqueSansDeborder) {
+    hmi::DecodedImage image = indexedImage(4, 4);
+    const std::size_t originalSize = image.pixels.size();
+    const hmi::PixelClipboard clip = hmi::copyRegion(image, hmi::PixelRegion{0, 0, 1, 1});
+
+    hmi::PixelRegion touched{};
+    EXPECT_NO_THROW(touched = hmi::pasteClipboard(image, clip, 3, 3));
+
+    EXPECT_EQ(image.pixels.size(), originalSize);
+    // Seul le pixel (3,3) tombe dans les bornes ; le reste du 2x2 colle deborderait.
+    EXPECT_EQ(touched, (hmi::PixelRegion{3, 3, 3, 3}));
+}
+
+/**
+ * @brief Une transformation sans région (région vide) est sans effet et ne produit pas d'entrée
+ *        d'historique (région renvoyée vide).
+ * \castest{<b>Une transformation sur une region vide est sans effet.</b><br/>
+ * \tcat Unitaire · Operations pixel<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Appliquer flipHorizontal, rotateClockwise et moveRegion sur une region vide.<br/>
+ * \tattendu Chaque appel renvoie une region vide ; l'image reste inchangee.
+ * }
+ */
+TEST(PixelOperationsTest, TransformationSurRegionVideEstSansEffet) {
+    const hmi::DecodedImage original = indexedImage(3, 3);
+    hmi::DecodedImage image = original;
+    const hmi::PixelRegion empty{};
+
+    EXPECT_TRUE(hmi::flipHorizontal(image, empty).empty());
+    EXPECT_TRUE(hmi::rotateClockwise(image, empty).empty());
+    EXPECT_TRUE(hmi::moveRegion(image, empty, 1, 1).empty());
+    EXPECT_EQ(image.pixels, original.pixels);
+}
+
+/**
+ * @brief Déplacer une région laisse la zone quittée transparente ; un déplacement entièrement hors
+ *        cadre efface la zone de départ sans rien reposer de visible, sans tampon corrompu.
+ * \castest{<b>Deplacer une region laisse la zone quittee transparente.</b><br/>
+ * \tcat Unitaire · Operations pixel<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Deplacer une region a l'interieur du cadre.<br/>2. Verifier la zone quittee et la
+ * zone reposee.<br/>3. Deplacer une region entierement hors cadre.<br/>
+ * \tattendu La zone quittee est transparente ; le deplacement hors cadre n'ecrit rien de visible et
+ * ne leve pas d'exception.
+ * }
+ */
+TEST(PixelOperationsTest, DeplacerUneRegionLaisseLaZoneQuitteeTransparente) {
+    hmi::DecodedImage image = uniformImage(6, 6, RED);
+    hmi::setPixel(image, 1, 1, GREEN);
+
+    hmi::moveRegion(image, hmi::PixelRegion{1, 1, 1, 1}, 3, 3);
+
+    EXPECT_EQ(hmi::pickColor(image, 1, 1).value() & 0xFF000000u, 0u) << "zone quittee transparente";
+    EXPECT_EQ(hmi::pickColor(image, 4, 4), GREEN) << "contenu repose au decalage";
+
+    hmi::DecodedImage farImage = uniformImage(4, 4, RED);
+    EXPECT_NO_THROW(hmi::moveRegion(farImage, hmi::PixelRegion{0, 0, 1, 1}, 100, 100));
+    EXPECT_EQ(farImage.pixels.size(), 16U);
+}
+
 /**
  * @brief `readRegion` puis `writeRegion` restituent exactement le contenu d'origine — l'aller-
  *        retour dont dépend `hmi::PixelHistory` pour annuler/refaire.
