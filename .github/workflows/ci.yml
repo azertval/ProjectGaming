@@ -271,6 +271,26 @@ jobs:
             exit 1
           }
 
+  format:
+    # CONTRIBUTING.md exige un code formate (clang-format) avant tout commit depuis le debut du
+    # projet ; rien ne le verifiait (LOT-58). Controle, jamais reecriture : le job signale, il ne
+    # pousse pas de commit de reformatage. Sur Linux (contrairement a clang-tidy) : clang-format
+    # n'a pas besoin des en-tetes Direct3D/Windows, seulement du texte source.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install clang-format ${{ env.LLVM_VERSION }}
+        # Le paquet PyPI redistribue les binaires officiels LLVM : meme mecanisme et memes
+        # garanties de version que le job clang-tidy (LOT-58), sans installer tout LLVM.
+        run: pip install "clang-format==${{ env.LLVM_VERSION }}"
+
+      - name: Verifier le formatage (Source/, hors External/)
+        run: |
+          clang-format --version
+          git ls-files 'Source/*.cpp' 'Source/*.h' | xargs clang-format --dry-run --Werror --style=file
+
   lint-exigences:
     # Contrôle du référentiel d'exigences (EX-...) : unicité des déclarations et
     # absence de référence orpheline. Léger et portable (Python), donc sur Linux.

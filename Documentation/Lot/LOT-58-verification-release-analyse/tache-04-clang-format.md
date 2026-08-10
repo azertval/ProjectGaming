@@ -1,6 +1,6 @@
 # TACHE-04 — Vérification automatique du formatage {#lot-58-tache-04-clang-format}
 
-**Lot :** [LOT-58](epic.md) · **Emplacement :** `.github/workflows` · **Statut :** non commencé
+**Lot :** [LOT-58](epic.md) · **Emplacement :** `.github/workflows` · **Statut :** fait
 
 ## Contexte
 `CONTRIBUTING.md` ouvre sur « Le code doit être formaté (`clang-format`) […] avant tout commit », et
@@ -45,6 +45,12 @@ C'est la moins grave des trois vérifications manquantes de ce lot, et la moins 
 - Le formatage est vérifié sur chaque PR avec une version épinglée, un écart est démontré refusé, la
   commande locale équivalente est documentée, et l'éventuel reformatage initial est isolé dans son
   propre commit.
+- Vérifié localement (LOT-58) : `clang-format 18.1.8` (paquet PyPI, binaires officiels LLVM — le
+  `clang-format` fourni par cette installation de Visual Studio est une édition preview LLVM 22.1.3
+  qui ne prédit pas le verdict de la CI). 192 fichiers `Source/*.cpp,*.h` s'écartaient du style :
+  reformatés dans un commit séparé et unique, `ctest --preset ninja` confirmé à 100 % (943 tests)
+  après coup. Test négatif (indentation et espacement volontairement faux dans un constructeur)
+  fait échouer `clang-format --dry-run --Werror`, puis retiré.
 
 ## Exigences
 `EX-NFR-024` (formatage vérifié automatiquement) ; réutilise `EX-NFR-012` (conventions),

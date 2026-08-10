@@ -60,6 +60,11 @@ La portée correspond en général au module (`core`, `hmi`, `elements`, `test`,
    teste en configuration **Release** (LOT-58) : certaines casses (variable lue uniquement par une
    assertion, code conditionné à `core::kDeveloperBuild`) ne se voient qu'ici.
 4. Le code est formaté (`clang-format`) et les nouveaux comportements sont couverts par des tests.
+   Vérifié en CI (LOT-58) avec une version **épinglée** (`LLVM_VERSION` dans `ci.yml`) : deux
+   versions majeures ne formatent pas identiquement. Reproduire localement (même version,
+   installée en isolation via le paquet PyPI qui redistribue les binaires officiels LLVM, sans
+   dépendre de celle fournie par l'IDE) :
+   `pip install "clang-format==$LLVM_VERSION" && git ls-files 'Source/*.cpp' 'Source/*.h' | xargs clang-format --dry-run --Werror --style=file`
 5. `clang-tidy` sur les fichiers `Source/*.cpp` modifiés (LOT-58) :
    `cmake -S . -B build/ninja-tidy -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_PCH=OFF`
    puis `clang-tidy -p build/ninja-tidy <fichier.cpp>` (version LLVM épinglée : `LLVM_VERSION` dans
