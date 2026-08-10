@@ -1,7 +1,7 @@
 # TACHE-03 — `clang-tidy` câblé, trié, puis bloquant {#lot-58-tache-03-clang-tidy}
 
 **Lot :** [LOT-58](epic.md) · **Emplacement :** `CMakeLists.txt`, `.clang-tidy`,
-`.github/workflows` · **Statut :** non commencé
+`.github/workflows` · **Statut :** fait
 
 ## Contexte
 `.clang-tidy` est un fichier sérieux : `bugprone-*`, `cppcoreguidelines-*`, `modernize-*`,
@@ -60,9 +60,37 @@ signalé — pas parce que le code est parfait, mais parce qu'on ne le lui a jam
 - Le triage produit des corrections mécaniques : les faire dans des commits séparés du câblage,
   pour qu'une régression reste bissectable.
 
+## État du triage (LOT-58, passe complète sur 129 fichiers `Source/*.cpp` hors `Source/Test`)
+- **Choix tranché** : job sur `windows-2022`, LLVM installé via Chocolatey et **épinglé**
+  (`LLVM_VERSION` dans `ci.yml`, même raison que `DOXYGEN_VERSION`) — le code dépend de Direct3D 11
+  et de `Windows.h`, indisponibles sous Linux.
+- **`bugprone-*` : zéro remontée, bloquant** (`WarningsAsErrors: 'bugprone-*'` dans `.clang-tidy`),
+  après exclusion documentée de cinq sous-checks structurellement bruyants pour ce projet (voir
+  commentaire dans `.clang-tidy`) : `easily-swappable-parameters` (38 remontées — paires de
+  paramètres délibérées du domaine, colonne/ligne, x/y…), `suspicious-include` (16 — idiome Qt
+  `#include "moc_*.cpp"`), `exception-escape` (5 — fonctions `noexcept` à dessein appelant des
+  opérations STL dont l'allocation théorique n'est jamais exercée), `invalid-enum-default-
+  initialization` (5 — idiome D3D11 `XXX_DESC desc{}` standard), `unchecked-optional-access`
+  (2 — motif `Result{optional<T>, bool ok() const}` que le check ne sait pas relier).
+- **Autres familles, consignées et non bloquantes** (triage complet hors budget de ce lot) :
+  `readability-*` (998 remontées), `cppcoreguidelines-*` (704), `modernize-*` (531),
+  `performance-*` (21). Visibles dans les logs de chaque exécution du job, jamais cachées.
+- **Limite connue de la vérification locale** : 17 fichiers (`SpriteBatch.cpp`, `GameViewport.cpp`,
+  `Camera2D.cpp`, `MainMenu.cpp`, `MainWindow.cpp`, `OptionsPage.cpp`…) déclenchent une erreur de
+  compilation à l'analyse (`cpuid.h` introuvable depuis `DirectXMath.h` en mode `clang-cl`,
+  `ui_*.h` généré par AUTOUIC absent du `compile_commands.json` local) : clang-tidy **récupère** et
+  continue d'analyser le reste du fichier (confirmé sur `SpriteBatch.cpp`, dont les 5 remontées
+  `invalid-enum-default-initialization` ont bien été détectées malgré l'erreur), mais la
+  couverture de ces fichiers n'est pas garantie à 100 % en local. À vérifier sur la première
+  exécution réelle en CI (`windows-2022`, image et provisionnement Qt différents de ce poste).
+
 ## Définition de fait (DoD)
 - `clang-tidy` s'exécute sur chaque PR, au moins `bugprone-*` est à zéro et bloquant, le reste est
   consigné avec sa raison, une violation est démontrée refusée, `CONTRIBUTING.md` dit la vérité.
+- Vérifié localement : test négatif (division entière assignée à un flottant,
+  `bugprone-integer-division`) fait échouer `clang-tidy` (code de sortie 1) tandis qu'une remontée
+  `readability-math-missing-parentheses` dans le même fichier reste un avertissement non bloquant —
+  la politique par famille fonctionne comme prévu. Retiré après vérification.
 
 ## Exigences
 `EX-NFR-024` (analyse statique vérifiée automatiquement) ; réutilise `EX-NFR-012` (conventions),

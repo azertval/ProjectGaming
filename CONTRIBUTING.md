@@ -60,4 +60,11 @@ La portée correspond en général au module (`core`, `hmi`, `elements`, `test`,
    teste en configuration **Release** (LOT-58) : certaines casses (variable lue uniquement par une
    assertion, code conditionné à `core::kDeveloperBuild`) ne se voient qu'ici.
 4. Le code est formaté (`clang-format`) et les nouveaux comportements sont couverts par des tests.
-5. Le `CHANGELOG.md` (section *Unreleased*) est mis à jour si pertinent.
+5. `clang-tidy` sur les fichiers `Source/*.cpp` modifiés (LOT-58) :
+   `cmake -S . -B build/ninja-tidy -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_PCH=OFF`
+   puis `clang-tidy -p build/ninja-tidy <fichier.cpp>` (version LLVM épinglée : `LLVM_VERSION` dans
+   `ci.yml`). Seules les violations `bugprone-*` font échouer la CI ; les autres familles
+   (`cppcoreguidelines-*`, `modernize-*`, `performance-*`, `readability-*`) restent visibles mais
+   non bloquantes (triage complet hors périmètre du `LOT-58`, voir
+   `Documentation/Lot/LOT-58-verification-release-analyse/tache-03-clang-tidy.md`).
+6. Le `CHANGELOG.md` (section *Unreleased*) est mis à jour si pertinent.

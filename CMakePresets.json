@@ -14,7 +14,10 @@
       "displayName": "Ninja (single-config)",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/ninja",
-      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
     },
     {
       "name": "ninja-release",

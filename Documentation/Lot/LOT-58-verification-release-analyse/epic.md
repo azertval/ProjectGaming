@@ -82,7 +82,7 @@ la physique de bout en bout, en sont absents.
 |-------|----------|-------------|:----:|
 | [TACHE-01](tache-01-job-release.md) | Job CI de vérification en configuration Release | `.github/workflows`, `CMakePresets.json` | ✅ |
 | [TACHE-02](tache-02-job-asan.md) | Job CI AddressSanitizer sur les exécutables de test | `.github/workflows`, `CMakeLists.txt` | ✅ |
-| [TACHE-03](tache-03-clang-tidy.md) | `clang-tidy` câblé, trié, puis bloquant sur les familles propres | `CMakeLists.txt`, `.clang-tidy`, `.github/workflows` | ⬜ |
+| [TACHE-03](tache-03-clang-tidy.md) | `clang-tidy` câblé, trié, puis bloquant sur les familles propres | `CMakeLists.txt`, `.clang-tidy`, `.github/workflows` | ✅ |
 | [TACHE-04](tache-04-clang-format.md) | Vérification automatique du formatage | `.github/workflows` | ⬜ |
 | [TACHE-05](tache-05-couverture.md) | Couverture étendue aux tests d'intégration et système, avec seuil | `.github/workflows` | ⬜ |
 | [TACHE-06](tache-06-documentation-verification.md) | Documentation et vérification | `Documentation` | ⬜ |

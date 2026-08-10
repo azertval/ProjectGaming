@@ -14,6 +14,11 @@ env:
   # échouait en CI. Poste de développement et CI doivent exécuter la MÊME version,
   # sinon la vérification locale ne prédit rien.
   DOXYGEN_VERSION: 1.16.1
+  # Version de LLVM (clang-tidy, clang-format) épinglée pour la même raison que Doxygen : deux
+  # versions majeures ne signalent/ne formatent pas identiquement, et un contrôle qui ne prédit
+  # pas le résultat local ne sert qu'à agacer. Installer la même version en local pour que
+  # `clang-tidy`/`clang-format` prédisent le verdict de la CI (LOT-58).
+  LLVM_VERSION: 18.1.8
 
 jobs:
   build-test-coverage:
@@ -197,6 +202,74 @@ jobs:
       - name: SystemTests sous AddressSanitizer
         shell: cmd
         run: build\ninja-asan\bin\SystemTests.exe || exit /b 1
+
+  clang-tidy:
+    # .clang-tidy est complet depuis le debut du projet et n'etait execute nulle part (LOT-58) :
+    # conventions.md le presentait comme de l'outillage « en place », a tort. Analyse ciblee sur le
+    # DIFF de la PR (pas tout le depot) : la dette existante (jamais passee au crible) ne bloque
+    # personne, et le cout de ce job ne croit pas avec la taille du depot. Seule bugprone-* est
+    # bloquante (WarningsAsErrors dans .clang-tidy, apres triage -- voir tache-03) ; les autres
+    # familles (cppcoreguidelines-*, modernize-*, performance-*, readability-*) restent visibles
+    # dans les logs sans faire echouer le job : un triage complet est hors budget de ce lot.
+    # windows-2022 (pas Linux) : le code inclut Direct3D 11/Windows.h, indisponibles sous Linux.
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.8.1'
+          host: windows
+          target: desktop
+          arch: win64_msvc2022_64
+          cache: true
+
+      - name: Install LLVM (clang-tidy) ${{ env.LLVM_VERSION }}
+        run: choco install llvm --version=${{ env.LLVM_VERSION }} -y --no-progress --allow-downgrade
+
+      - name: Configure (Ninja, compile_commands.json, sans PCH)
+        # ENABLE_PCH=OFF : le fichier .pch genere par MSVC n'est pas un format que clang-tidy sait
+        # lire, l'analyse echouerait sur chaque fichier avec un message qui ne parle pas de PCH.
+        shell: cmd
+        run: |
+          for /f "usebackq tokens=*" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do (
+            call "%%i\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
+          )
+          cmake -S . -B build/ninja-tidy -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_PCH=OFF || exit /b 1
+        env:
+          CMAKE_PREFIX_PATH: ${{ env.QT_ROOT_DIR }}
+
+      - name: clang-tidy sur les fichiers modifies par la PR
+        shell: pwsh
+        # Diff contre la base de la PR : seuls les fichiers Source/*.cpp (hors Source/Test) reellement
+        # touches sont analyses. --diff-filter=ACMR exclut les fichiers supprimes (sinon clang-tidy
+        # echouerait a les trouver).
+        run: |
+          git fetch origin "${{ github.base_ref }}" --depth=1
+          $files = git diff --name-only --diff-filter=ACMR "origin/${{ github.base_ref }}...HEAD" -- 'Source/*.cpp' |
+            Where-Object { $_ -notmatch '^Source/Test/' }
+
+          if (-not $files) {
+            Write-Host "Aucun fichier Source/*.cpp modifie par cette PR : rien a analyser."
+            exit 0
+          }
+
+          Write-Host "Fichiers analyses :`n$($files -join "`n")"
+          $clangTidy = "C:\Program Files\LLVM\bin\clang-tidy.exe"
+          $failed = $false
+          foreach ($f in $files) {
+            & $clangTidy -p build\ninja-tidy --extra-arg=-Wno-unused-command-line-argument $f
+            if ($LASTEXITCODE -ne 0) { $failed = $true }
+          }
+          if ($failed) {
+            Write-Error "clang-tidy : au moins une violation bloquante (bugprone-*)."
+            exit 1
+          }
 
   lint-exigences:
     # Contrôle du référentiel d'exigences (EX-...) : unicité des déclarations et
