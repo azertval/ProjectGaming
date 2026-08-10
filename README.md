@@ -172,12 +172,21 @@ vérification locale ne prédirait plus rien. Binaires officiels :
 
 ## Intégration continue
 
-| Workflow | Déclencheur | Rôle |
-|----------|-------------|------|
-| **CI** (`ci.yml`) | Pull Request vers `main` | Configure, **build** et **tests** (CTest) sur `windows-2022`, **couverture** (OpenCppCoverage) et **lint des exigences**. Contrôle requis pour merger. |
-| **Documentation** (`docs.yml`) | Push sur `main` | Génère la **Doxygen** (garde-fou `WARN_AS_ERROR`) et la publie sur la branche `gh-pages` (site en ligne). |
-| **Release** (`release.yml`) | Push sur `main` | Compile un exécutable **Debug autonome** et publie la préversion roulante **`debug-latest`** pour les non-développeurs. |
-| **Release** (`release.yml`) | Tag `vX.Y.Z` | Publie une **release versionnée** (non préversion) avec les exécutables **Debug et Release**, chacun autonome. |
+Chaque job ci-dessous est un **contrôle requis pour merger** (protection de branche), à l'exception
+de `docs` (`docs.yml`, informatif).
+
+| Workflow | Job | Déclencheur | Rôle |
+|----------|-----|-------------|------|
+| **CI** (`ci.yml`) | `build-test-coverage` | PR vers `main` | Build + tests (CTest) **Debug** sur `windows-2022`, **couverture** agrégée `UnitTests`+`IntegrationTests`+`SystemTests` avec seuil (LOT-58). |
+| **CI** (`ci.yml`) | `build-test-release` | PR vers `main` | Build + tests **Release** (LOT-58) : une casse Release-only (variable inutilisée sous `NDEBUG`…) est refusée avant le tag, pas après. |
+| **CI** (`ci.yml`) | `build-ninja` | PR vers `main` | Build + tests via le générateur Ninja (détection Qt automatique). |
+| **CI** (`ci.yml`) | `sanitize` | PR vers `main` | Les trois exécutables de test sous **AddressSanitizer** (LOT-58, `EX-NFR-003`). |
+| **CI** (`ci.yml`) | `clang-tidy` | PR vers `main` | Analyse statique sur le diff de la PR ; `bugprone-*` bloquant, le reste consigné (LOT-58). |
+| **CI** (`ci.yml`) | `format` | PR vers `main` | `clang-format --dry-run --Werror`, version épinglée (LOT-58). |
+| **CI** (`ci.yml`) | `lint-exigences` | PR vers `main` | Identifiants `EX-…`, cahier de test à jour, séquence de niveaux démo. |
+| **Documentation** (`docs.yml`) | `docs` | Push sur `main` | Génère la **Doxygen** (garde-fou `WARN_AS_ERROR`) et la publie sur la branche `gh-pages` (site en ligne). |
+| **Release** (`release.yml`) | `rolling-debug` | Push sur `main` | Compile un exécutable **Debug autonome** et publie la préversion roulante **`debug-latest`** pour les non-développeurs. |
+| **Release** (`release.yml`) | `versioned-release` | Tag `vX.Y.Z` | Publie une **release versionnée** (non préversion) avec les exécutables **Debug et Release**, chacun autonome. |
 
 > « Autonome » signifie qu'aucune installation n'est requise côté utilisateur : `windeployqt` dépose
 > les DLL Qt, le plugin de plateforme et le runtime du compilateur à côté de l'exécutable. Le

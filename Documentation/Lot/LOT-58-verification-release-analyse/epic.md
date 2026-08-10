@@ -1,7 +1,9 @@
 # LOT-58 — Vérification Release, sanitizer et analyse statique {#lot-58}
 
-> Statut : **non commencé**. Prérequis : aucun. À exécuter **tôt** dans le programme `0.1.0` :
-> c'est lui qui protège les lots de contenu qui suivent.
+> Statut : **en cours**. Prérequis : aucun. À exécuter **tôt** dans le programme `0.1.0` : c'est lui
+> qui protège les lots de contenu qui suivent. TACHE-01 à TACHE-04 faites et vérifiées localement ;
+> TACHE-05 (seuil de couverture) et TACHE-06 (vérification CI réelle) restent à finir au premier
+> passage en CI, faute d'avoir pu installer `OpenCppCoverage` ou ouvrir de PR localement.
 
 ## Objectif
 Faire tenir à la CI les promesses que le dépôt écrit déjà.
@@ -43,7 +45,8 @@ la physique de bout en bout, en sont absents.
   visible** et fixe ce qui est trivial ; une refonte guidée par l'analyse statique serait un lot en
   soi.
 - Portage hors Windows, autres compilateurs, autres sanitizers (UBSan, TSan).
-- Tests de performance chiffrés — c'est [LOT-62](@ref lot-62).
+- Tests de performance chiffrés — c'est LOT-62 (budget de rendu mesuré, programme de cadrage
+  `0.1.0`).
 - Signature de code, empaquetage, installeur.
 
 ## Décisions de cadrage
@@ -85,7 +88,7 @@ la physique de bout en bout, en sont absents.
 | [TACHE-03](tache-03-clang-tidy.md) | `clang-tidy` câblé, trié, puis bloquant sur les familles propres | `CMakeLists.txt`, `.clang-tidy`, `.github/workflows` | ✅ |
 | [TACHE-04](tache-04-clang-format.md) | Vérification automatique du formatage | `.github/workflows` | ✅ |
 | [TACHE-05](tache-05-couverture.md) | Couverture étendue aux tests d'intégration et système, avec seuil | `.github/workflows` | 🔄 |
-| [TACHE-06](tache-06-documentation-verification.md) | Documentation et vérification | `Documentation` | ⬜ |
+| [TACHE-06](tache-06-documentation-verification.md) | Documentation et vérification | `Documentation` | 🔄 |
 
 ## Critères d'acceptation du lot
 1. Une PR introduisant une casse **Release-only** (variable inutilisée sous `NDEBUG`, assertion
@@ -101,9 +104,9 @@ la physique de bout en bout, en sont absents.
    sont parallèles).
 
 ## Dépendances
-Aucun prérequis. Protège tous les lots suivants du programme `0.1.0` — en particulier
-[LOT-60](@ref lot-60) (nouvelle dépendance tierce) et [LOT-53](@ref lot-53) (recyclage de
-particules, terrain classique de dépassement de tampon).
+Aucun prérequis. Protège tous les lots suivants du programme `0.1.0` — en particulier LOT-60
+(audio, nouvelle dépendance tierce) et [LOT-53](@ref lot-53) (recyclage de particules, terrain
+classique de dépassement de tampon).
 
 ## Navigation des tâches
 - @subpage lot-58-tache-01-job-release

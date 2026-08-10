@@ -1,6 +1,6 @@
 # TACHE-06 — Documentation et vérification {#lot-58-tache-06-documentation-verification}
 
-**Lot :** [LOT-58](epic.md) · **Emplacement :** `Documentation` · **Statut :** non commencé
+**Lot :** [LOT-58](epic.md) · **Emplacement :** `Documentation` · **Statut :** en cours
 
 ## Contexte
 Ce lot ne change rien au produit : il change ce que le dépôt **garantit**. Sa documentation est donc
@@ -34,8 +34,8 @@ condition de dire **où** chaque vérification s'exécute.
   référencées ; `EX-NFR-003` n'est plus orpheline.
 - `python scripts/generate_cahier_test.py --check` et `python scripts/check_demo_sequence.py`.
 - `python scripts/build_docs.py` avec la version Doxygen épinglée par `ci.yml`.
-- Les **six** nouveaux ou modifiés jobs passent sur la PR du lot — vérifié par `gh pr checks`, pas
-  supposé.
+- Les **cinq** jobs nouveaux ou modifiés (`build-test-release`, `sanitize`, `clang-tidy`, `format`,
+  `build-test-coverage`) passent sur la PR du lot — vérifié par `gh pr checks`, pas supposé.
 
 ## Points d'attention
 - **Ne pas annoncer plus que ce qui est livré.** Si le triage clang-tidy laisse des familles en
@@ -46,10 +46,35 @@ condition de dire **où** chaque vérification s'exécute.
 - Éviter `` `fichier.cpp::Nom` `` dans la documentation Doxygen : le `::` dans un span casse la
   génération sur la version épinglée de la CI sans rien signaler en local.
 
+## État de la vérification (LOT-58) — mode local, sans PR ni push
+Les six tâches ont été implémentées et vérifiées **localement**, sans ouvrir de PR (choix explicite
+pour ce lot) :
+- `lint_exigences.py`, `generate_cahier_test.py --check`, `check_demo_sequence.py`,
+  `build_docs.py` (Doxygen `1.16.1` téléchargé pour matcher la CI) : **tous verts**.
+- Presets Release : `ctest --preset ninja-release` → 943/943 tests (2 ignorés sous `NDEBUG`), test
+  négatif démontré (variable POD lue seulement par `PROJECTGAMING_ASSERT`).
+- ASan : 846+89+3 tests verts sur 3 exécutions consécutives, un vrai `heap-use-after-free` trouvé et
+  corrigé, test négatif démontré (lecture heap hors bornes).
+- clang-tidy : triage complet (129 fichiers), `bugprone-*` à zéro, test négatif démontré
+  (`bugprone-integer-division`).
+- clang-format : reformatage initial (192 fichiers) + `943/943` tests verts après, test négatif
+  démontré.
+- Couverture : **mécanisme câblé mais non mesuré** — `OpenCppCoverage` n'a pas pu être installé
+  localement (installeur Inno Setup exigeant une élévation UAC indisponible dans cet environnement).
+  Voir `tache-05-couverture.md`, section « État de la mesure ».
+
+**Ce qui reste, faute de PR/CI réelle** : la démonstration `gh pr checks` des cinq jobs, la mesure
+de référence de couverture et son seuil resserré, et la durée réelle de la CI (mesurable seulement
+sur de vraies machines GitHub Actions). Ces points sont à lever au premier passage réel en CI de la
+branche `ci/lot-58-verification-release-analyse`, avant de considérer le lot totalement clos.
+
 ## Définition de fait (DoD)
 - Les documents décrivent les vérifications **réellement exécutées**, les deux nouvelles exigences
   sont déclarées et référencées, `EX-NFR-003` est rattachée, les mesures de référence (couverture,
   durée, triage) sont consignées, et la CI complète est verte sur la PR du lot.
+- **Non atteinte en totalité** : voir « État de la vérification » ci-dessus. La documentation, le
+  câblage et les vérifications locales sont faits ; la CI réelle (première exécution en ligne) et la
+  mesure de couverture restent à faire.
 
 ## Exigences
 `EX-NFR-023`, `EX-NFR-024` (déclarées ici) ; réutilise `EX-NFR-003` (ASan), `EX-NFR-012`

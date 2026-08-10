@@ -22,6 +22,14 @@
 - \anchor EX-NFR-020 **EX-NFR-020** — Toute logique de gameplay livrée dans `Core` doit être couverte par des **tests unitaires** (GoogleTest).
 - \anchor EX-NFR-021 **EX-NFR-021** — Les niveaux du MVP doivent être couverts par un **test système** vérifiant leur franchissabilité.
 - \anchor EX-NFR-022 **EX-NFR-022** — La **CI** doit exécuter build, tests et couverture à chaque push/PR et rester verte pour merger. La couverture agrège `UnitTests`, `IntegrationTests` et `SystemTests` (job `build-test-coverage` de `ci.yml`, LOT-58) ; une chute sous le seuil consigné (`COVERAGE_THRESHOLD_PERCENT`) fait échouer la CI.
+- \anchor EX-NFR-023 **EX-NFR-023** — La configuration **Release** doit être construite et testée en
+  CI, sur **chaque PR** — avant tout tag, jamais découverte après. Vérifiée par le job
+  `build-test-release` de `ci.yml` (LOT-58), contrôle requis pour merger au même titre que
+  `build-test-coverage`.
+- \anchor EX-NFR-024 **EX-NFR-024** — L'analyse statique et le formatage doivent être **vérifiés
+  automatiquement**, pas seulement configurés. Vérifiés par les jobs `clang-tidy` (`bugprone-*`
+  bloquant, le reste consigné) et `format` (`clang-format --dry-run --Werror`, version épinglée) de
+  `ci.yml` (LOT-58).
 - \anchor EX-NFR-004 **EX-NFR-004** — La chaîne de rendu doit être **vérifiable sans GPU** : les
   primitives de dessin produites pour une scène donnée doivent pouvoir être **capturées et
   inspectées** par un test (ordre des calques, priorité de résolution des textures, choix des
@@ -47,4 +55,8 @@
   (`EX-NFR-031`) et la licence documentée. Introduit en `LOT-34`.
 
 ## Traçabilité
-Ces exigences transverses conditionnent l'acceptation de chaque lot. Elles s'appuient sur l'outillage déjà en place (CMake, CI, clang-tidy, ASan, conventions).
+Ces exigences transverses conditionnent l'acceptation de chaque lot. Depuis le `LOT-58`, elles
+s'appuient sur de l'outillage **effectivement exécuté** à chaque PR (CMake, CI Debug **et**
+Release, clang-tidy, clang-format, ASan, couverture agrégée) et non plus seulement configuré :
+voir le tableau « Outillage qualité » de [`conventions.md`](conventions.md) pour le job qui vérifie
+chaque outil.

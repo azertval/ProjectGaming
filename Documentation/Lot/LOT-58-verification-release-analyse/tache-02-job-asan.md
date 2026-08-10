@@ -50,7 +50,7 @@ tout ce qui manipule des tampons bruts. Rien n'a jamais été instrumenté.
   images GitHub — sinon l'exécutable ne démarre pas, avec une erreur qui ne parle pas d'ASan.
 - **ASan détecte les débordements et les usages après libération, pas toutes les fuites.** Pour
   l'empreinte mémoire au sens de `EX-NFR-003`, viser d'abord la sûreté mémoire, et noter que la
-  stabilité dans la durée reste à vérifier autrement (le budget de [LOT-62](@ref lot-62) y
+  stabilité dans la durée reste à vérifier autrement (le budget de rendu mesuré du LOT-62 y
   contribue).
 - Le temps d'exécution est multiplié par deux à trois : vérifier que la durée du job reste
   acceptable, quitte à n'y exécuter que les tests, jamais l'application.
