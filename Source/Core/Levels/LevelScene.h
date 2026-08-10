@@ -28,7 +28,8 @@ class Level;
  *
  * @param world         Monde à peupler.
  * @param level         Niveau source.
- * @param regionForTile Correspondance type de tuile → région d'atlas (dépendance de rendu injectée).
+ * @param regionForTile Correspondance type de tuile → région d'atlas (dépendance de rendu
+ * injectée).
  * @param onTileEntity  Rappel invoqué après la création de chaque entité tuile, avec son type et
  *                      sa case. Permet à la couche de présentation d'y attacher ses **propres**
  *                      composants (`hmi::TileSkinTag`, `LOT-42`) sans que `Core` connaisse la

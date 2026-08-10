@@ -65,7 +65,8 @@ struct AtlasGridPosition {
  * Recherche linéaire : le nombre de surcharges d'un niveau reste modeste (donnée purement
  * visuelle, posée à la main), et cette fonction n'est appelée qu'à la **construction** de la scène
  * (une fois par tuile), jamais à chaque image — même principe que `solidNeighborMask`.
- * @param overrides Surcharges du niveau (`core::Level::textureOverrides`/`core::LevelDraft::textureOverrides`).
+ * @param overrides Surcharges du niveau
+ * (`core::Level::textureOverrides`/`core::LevelDraft::textureOverrides`).
  * @param position  Position de la case cherchée.
  * @return Le nom de l'asset assigné à cette case, ou `std::nullopt` si elle n'en a pas.
  */

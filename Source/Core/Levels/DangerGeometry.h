@@ -29,9 +29,10 @@ inline constexpr float kDangerEdgeThickness = 0.25f;
  * **quand elles sont actives/présentes**, identique à `Danger`). Bande étroite
  * (`kDangerEdgeThickness`) alignée sur le bord désigné pour les quatre variantes directionnelles :
  * `DangerUp`/`DangerDown` sur le bord **haut** / **bas** de la case, `DangerLeft`/`DangerRight`
- * sur le bord **gauche** / **droit** (`EX-GP-050`). Seule source de vérité, partagée par la résolution de
- * fin de niveau (`core::evaluateOutcome`) et l'aperçu visuel de l'éditeur (`hmi::TileVisuals`) —
- * même garantie de non-divergence que `core::tileVisualScale` pour les blocs réduits (`EX-GP-005`).
+ * sur le bord **gauche** / **droit** (`EX-GP-050`). Seule source de vérité, partagée par la
+ * résolution de fin de niveau (`core::evaluateOutcome`) et l'aperçu visuel de l'éditeur
+ * (`hmi::TileVisuals`) — même garantie de non-divergence que `core::tileVisualScale` pour les blocs
+ * réduits (`EX-GP-005`).
  * @param type Type de tuile (tout type non listé ci-dessus renvoie la case pleine).
  * @param col  Colonne de la case (unités de grille).
  * @param row  Ligne de la case (unités de grille).

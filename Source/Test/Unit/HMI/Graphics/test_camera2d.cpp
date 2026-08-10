@@ -3,8 +3,9 @@
  * @brief Tests unitaires de la caméra 2D (conversions monde ↔ écran, projection).
  */
 
-#include <DirectXMath.h>
 #include <cmath>
+
+#include <DirectXMath.h>
 #include <gtest/gtest.h>
 
 #include "Core/Math/Vector2.h"

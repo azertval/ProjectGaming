@@ -9,8 +9,9 @@
  * fenêtre/rendu est exclue (vérifiée visuellement) ; on teste ici la simulation et l'enchaînement.
  *
  * Cette liste **doit** rester identique, dans le même ordre, à celle jouée par
- * `Source/HMI/Interface/MainWindow.cpp` (`MainWindow::startGame`) — un décalage entre les deux (un niveau
- * chargé en jeu mais absent d'ici, ou l'inverse) est précisément le défaut qui a déclenché `LOT-25`
+ * `Source/HMI/Interface/MainWindow.cpp` (`MainWindow::startGame`) — un décalage entre les deux (un
+ * niveau chargé en jeu mais absent d'ici, ou l'inverse) est précisément le défaut qui a déclenché
+ * `LOT-25`
  * (`demo5.json` manquait ici). `scripts/check_demo_sequence.py` (CI) compare les deux listes
  * automatiquement.
  */

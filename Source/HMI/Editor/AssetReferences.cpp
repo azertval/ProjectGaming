@@ -7,7 +7,7 @@
 namespace hmi {
 
 std::vector<AssetReference> findSkinCatalogReferences(const SkinCatalog& catalog,
-                                                       const std::string& fileName) {
+                                                      const std::string& fileName) {
     std::vector<AssetReference> references;
     for (const std::string& setName : catalog.setNames()) {
         for (const auto& [type, entry] : catalog.assignments(setName)) {

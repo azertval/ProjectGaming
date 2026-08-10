@@ -16,20 +16,21 @@ namespace core {
  * `core::MechanismController` (ce modèle ne fait que les représenter) : `Switch` bascule au
  * contact (front), `PressurePlate` (`EX-GP-025`) reste active tant qu'un poids suffisant y
  * repose — les deux partagent la même infrastructure de liaison à une `Door`. `Block` (`EX-GP-022`)
- * est un **bloc poussable** : sa position initiale est celle du fichier, mais `core::BlockController`
- * la fait évoluer chaque pas fixe (poussée par le personnage, chute si non soutenu) — comme pour
- * les mécanismes, ce modèle ne fait que représenter sa position de **départ**. `SlopeUpRight`/
- * `SlopeUpLeft` (`EX-GP-003`) sont des **pentes** à 45° (montée sur toute la largeur d'une case,
- * respectivement vers la droite et vers la gauche) : leur surface est **inclinée**, décrite par
- * `core::slopeSurfaceHeight` (`Core/Physics/SlopeGeometry.h`) et suivie par une passe de
- * résolution dédiée (@ref guide-physique) — **pas** par `isSolid` (voir ci-dessous). `RoundedUpRight`/
- * `RoundedUpLeft` (`EX-GP-004`) sont la variante **courbe** (quart de cercle) des pentes : même
- * orientation, même infrastructure de suivi (`core::slopeSurfaceHeight`, non solides), seule la
- * formule de hauteur diffère (linéaire pour une pente, quart de cercle pour un arrondi).
- * `BlockHalf`/`BlockQuarter` (`EX-GP-005`) sont des **blocs poussables réduits** (facteurs `×0.5`/
- * `×0.25`, `core::BlockController`) : mêmes règles de poussée/chute que `Block` (case par case),
- * mais leur boîte de collision **réelle** (testée contre le personnage) est plus petite que la
- * case et **centrée** dedans — résolue par une routine dédiée boîte-contre-boîte
+ * est un **bloc poussable** : sa position initiale est celle du fichier, mais
+ * `core::BlockController` la fait évoluer chaque pas fixe (poussée par le personnage, chute si non
+ * soutenu) — comme pour les mécanismes, ce modèle ne fait que représenter sa position de
+ * **départ**. `SlopeUpRight`/ `SlopeUpLeft` (`EX-GP-003`) sont des **pentes** à 45° (montée sur
+ * toute la largeur d'une case, respectivement vers la droite et vers la gauche) : leur surface est
+ * **inclinée**, décrite par `core::slopeSurfaceHeight` (`Core/Physics/SlopeGeometry.h`) et suivie
+ * par une passe de résolution dédiée (@ref guide-physique) — **pas** par `isSolid` (voir
+ * ci-dessous). `RoundedUpRight`/ `RoundedUpLeft` (`EX-GP-004`) sont la variante **courbe** (quart
+ * de cercle) des pentes : même orientation, même infrastructure de suivi
+ * (`core::slopeSurfaceHeight`, non solides), seule la formule de hauteur diffère (linéaire pour une
+ * pente, quart de cercle pour un arrondi). `BlockHalf`/`BlockQuarter` (`EX-GP-005`) sont des
+ * **blocs poussables réduits** (facteurs `×0.5`/ `×0.25`, `core::BlockController`) : mêmes règles
+ * de poussée/chute que `Block` (case par case), mais leur boîte de collision **réelle** (testée
+ * contre le personnage) est plus petite que la case et **centrée** dedans — résolue par une routine
+ * dédiée boîte-contre-boîte
  * (`core::sweepAabbVsAabb`, @ref guide-physique), pas par la grille classique. `SlopeDownRight`/
  * `SlopeDownLeft`/`RoundedDownRight`/`RoundedDownLeft` (`EX-GP-006`) sont les variantes de
  * **plafond** des pentes/arrondis ci-dessus : miroir vertical de la même silhouette (matière
@@ -41,23 +42,25 @@ namespace core {
  * renvoie `0`) supporte normalement un personnage qui tombe dessus **par au-dessus**, via
  * `core::resolveSlopeFollow` réutilisé tel quel. Le personnage ne « marche » en revanche jamais
  * **latéralement** le long de leur silhouette inclinée (`core::isFollowableSurface` reste `false`
- * — pas de déplacement calé en suivant la pente, contrairement à une pente de sol). `ConcaveUpRight`/
- * `ConcaveUpLeft`/`ConcaveDownRight`/`ConcaveDownLeft` (`EX-GP-007`) sont une **seconde famille** de
- * quart de cercle, **concave** plutôt que **convexe** (`RoundedUpRight`/`RoundedUpLeft` et leurs
- * variantes de plafond ci-dessus) : le centre du cercle est du côté de la **matière** plutôt que du
- * côté creux, ce qui inverse la courbure — tangente **horizontale** du côté bas/creux, **verticale**
- * du côté haut/plein (l'inverse exact de l'arrondi convexe). Mêmes orientations (`Up`/`Down`,
- * `Right`/`Left`) et même infrastructure de suivi que les arrondis convexes (`core::slopeSurfaceHeight`,
- * `core::resolveSlopeFollow` pour le sol ; `core::ceilingSlopeHeight`, `core::resolveCeilingSlopeFollow`
- * pour le plafond) — seule la formule de hauteur change. `DangerUp`/`DangerDown`/`DangerLeft`/
- * `DangerRight` (`EX-GP-050`) sont un **danger directionnel** : le suffixe décrit le bord **mortel**
- * de la case (celui vers lequel les pics pointent), pas un mouvement — le reste de la case est
- * traversable sans risque. Non solides (comme `Danger`), leur zone mortelle réelle (une bande
- * étroite le long du bord désigné, pas la case entière) est décrite par `core::dangerHitbox`
+ * — pas de déplacement calé en suivant la pente, contrairement à une pente de sol).
+ * `ConcaveUpRight`/ `ConcaveUpLeft`/`ConcaveDownRight`/`ConcaveDownLeft` (`EX-GP-007`) sont une
+ * **seconde famille** de quart de cercle, **concave** plutôt que **convexe**
+ * (`RoundedUpRight`/`RoundedUpLeft` et leurs variantes de plafond ci-dessus) : le centre du cercle
+ * est du côté de la **matière** plutôt que du côté creux, ce qui inverse la courbure — tangente
+ * **horizontale** du côté bas/creux, **verticale** du côté haut/plein (l'inverse exact de l'arrondi
+ * convexe). Mêmes orientations (`Up`/`Down`, `Right`/`Left`) et même infrastructure de suivi que
+ * les arrondis convexes (`core::slopeSurfaceHeight`, `core::resolveSlopeFollow` pour le sol ;
+ * `core::ceilingSlopeHeight`, `core::resolveCeilingSlopeFollow` pour le plafond) — seule la formule
+ * de hauteur change. `DangerUp`/`DangerDown`/`DangerLeft`/ `DangerRight` (`EX-GP-050`) sont un
+ * **danger directionnel** : le suffixe décrit le bord **mortel** de la case (celui vers lequel les
+ * pics pointent), pas un mouvement — le reste de la case est traversable sans risque. Non solides
+ * (comme `Danger`), leur zone mortelle réelle (une bande étroite le long du bord désigné, pas la
+ * case entière) est décrite par `core::dangerHitbox`
  * (`Core/Levels/DangerGeometry.h`), consommée par `core::evaluateOutcome`. `DangerMover`
  * (`EX-GP-051`) est un **danger mobile** : sa position initiale est celle du fichier, mais un
  * aller-retour linéaire déterministe (axe/portée, `core::DangerMoverConfig`) la fait évoluer chaque
- * pas fixe — comme pour `Block`, ce modèle ne représente que sa position de **départ**. `DangerSwitched`
+ * pas fixe — comme pour `Block`, ce modèle ne représente que sa position de **départ**.
+ * `DangerSwitched`
  * (`EX-GP-052`) est un **danger commuté** : mortel uniquement quand l'interrupteur/la plaque de
  * pression qui lui est lié (`core::DangerLink`) est actif — l'inverse de `Door`, qui devient
  * franchissable quand actif. `DangerBlink` (`EX-GP-053`) est un **danger temporisé** : alterne

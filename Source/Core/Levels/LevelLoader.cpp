@@ -49,8 +49,9 @@ struct DangerSwitchedLink {
 // Convertit le champ optionnel "axis" d'un dangerMover ("horizontal"/"vertical") ; valeur de
 // conception par défaut (horizontal) si absent ou non reconnu.
 [[nodiscard]] DangerMoverAxis parseMoverAxis(const nlohmann::json& tile) {
-    return tile.value("axis", std::string{"horizontal"}) == "vertical" ? DangerMoverAxis::Vertical
-                                                                        : DangerMoverAxis::Horizontal;
+    return tile.value("axis", std::string{"horizontal"}) == "vertical"
+               ? DangerMoverAxis::Vertical
+               : DangerMoverAxis::Horizontal;
 }
 
 // Convertit le champ "layer" d'un décor ("background"/"decor"/"foreground") ; valeur de
@@ -79,7 +80,8 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                            LevelValidationError::ParseError);
         }
         if (!root.at("tiles").is_array()) {
-            return failure("Le champ 'tiles' doit etre une liste", LevelValidationError::ParseError);
+            return failure("Le champ 'tiles' doit etre une liste",
+                           LevelValidationError::ParseError);
         }
 
         const int width = root.at("width").get<int>();
@@ -138,9 +140,9 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                                LevelValidationError::UnknownTileType);
             }
             if (!map.inBounds(x, y)) {
-                return failure("Tuile hors bornes en (" + std::to_string(x) + ", " +
-                                   std::to_string(y) + ")",
-                               LevelValidationError::OutOfBounds);
+                return failure(
+                    "Tuile hors bornes en (" + std::to_string(x) + ", " + std::to_string(y) + ")",
+                    LevelValidationError::OutOfBounds);
             }
             if (!occupiedPositions.emplace(x, y).second) {
                 return failure("Deux tuiles a la meme position (" + std::to_string(x) + ", " +
@@ -179,24 +181,23 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                 doors.push_back(
                     DoorLink{GridPosition{x, y}, tile.value("opensWith", std::string{})});
             } else if (*type == TileType::DangerSwitched) {
-                switchedDangers.push_back(DangerSwitchedLink{
-                    GridPosition{x, y}, tile.value("opensWith", std::string{})});
+                switchedDangers.push_back(
+                    DangerSwitchedLink{GridPosition{x, y}, tile.value("opensWith", std::string{})});
             } else if (*type == TileType::DangerMover) {
                 const DangerMoverAxis axis = parseMoverAxis(tile);
                 const int range = tile.value("range", 2);
                 const int farColumn = axis == DangerMoverAxis::Horizontal ? x + range : x;
                 const int farRow = axis == DangerMoverAxis::Vertical ? y + range : y;
                 if (range < 0 || !map.inBounds(farColumn, farRow)) {
-                    return failure("Portee de danger mobile hors bornes en (" +
-                                       std::to_string(x) + ", " + std::to_string(y) + ")",
+                    return failure("Portee de danger mobile hors bornes en (" + std::to_string(x) +
+                                       ", " + std::to_string(y) + ")",
                                    LevelValidationError::OutOfBounds);
                 }
                 moverConfigs.push_back(DangerMoverConfig{GridPosition{x, y}, axis, range});
             } else if (*type == TileType::DangerBlink) {
-                blinkConfigs.push_back(DangerBlinkConfig{GridPosition{x, y},
-                                                         tile.value("period", 120),
-                                                         tile.value("phase", 0),
-                                                         tile.value("activeDuration", 60)});
+                blinkConfigs.push_back(
+                    DangerBlinkConfig{GridPosition{x, y}, tile.value("period", 120),
+                                      tile.value("phase", 0), tile.value("activeDuration", 60)});
             }
         }
 
@@ -276,15 +277,15 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
         LEVELS_LOG_TRACE("Niveau charge : '" + name + "' (" + std::to_string(width) + "x" +
                          std::to_string(height) + ", " + std::to_string(mechanisms.size()) +
                          " mecanisme(s))");
-        return LevelLoadResult{Level(std::move(name), std::move(map), entry, exit,
-                                     std::move(mechanisms), jumpBudget, dashBudget,
-                                     std::move(dangerLinks), std::move(moverConfigs),
-                                     std::move(blinkConfigs), std::move(background),
-                                     std::move(skinSet), std::move(textureOverrides),
-                                     std::move(decors)),
-                               {}};
+        return LevelLoadResult{
+            Level(std::move(name), std::move(map), entry, exit, std::move(mechanisms), jumpBudget,
+                  dashBudget, std::move(dangerLinks), std::move(moverConfigs),
+                  std::move(blinkConfigs), std::move(background), std::move(skinSet),
+                  std::move(textureOverrides), std::move(decors)),
+            {}};
     } catch (const nlohmann::json::exception& error) {
-        return failure(std::string("JSON invalide : ") + error.what(), LevelValidationError::ParseError);
+        return failure(std::string("JSON invalide : ") + error.what(),
+                       LevelValidationError::ParseError);
     }
 }
 

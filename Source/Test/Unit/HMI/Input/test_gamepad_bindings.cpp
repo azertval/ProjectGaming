@@ -128,8 +128,8 @@ TEST(GamepadBindingsTest, SaveEtLoadAllerRetour) {
  * }
  */
 TEST(GamepadBindingsTest, LoadFichierAbsentRenvoieLesDefauts) {
-    const std::filesystem::path path = std::filesystem::temp_directory_path() /
-                                       "projectgaming_test_gamepad_bindings_absent.json";
+    const std::filesystem::path path =
+        std::filesystem::temp_directory_path() / "projectgaming_test_gamepad_bindings_absent.json";
     std::filesystem::remove(path);
 
     const hmi::GamepadBindings bindings = hmi::GamepadBindings::load(path);
@@ -148,8 +148,8 @@ TEST(GamepadBindingsTest, LoadFichierAbsentRenvoieLesDefauts) {
  * }
  */
 TEST(GamepadBindingsTest, LoadNomBoutonInconnuIgnore) {
-    const std::filesystem::path path = std::filesystem::temp_directory_path() /
-                                       "projectgaming_test_gamepad_bindings_inconnu.json";
+    const std::filesystem::path path =
+        std::filesystem::temp_directory_path() / "projectgaming_test_gamepad_bindings_inconnu.json";
     {
         std::ofstream file(path, std::ios::binary);
         file << R"({"manette": {"sauter": "bouton_qui_n_existe_pas"}})";
@@ -174,8 +174,8 @@ TEST(GamepadBindingsTest, LoadNomBoutonInconnuIgnore) {
  * }
  */
 TEST(GamepadBindingsTest, SavePreserveLesAutresSections) {
-    const std::filesystem::path path = std::filesystem::temp_directory_path() /
-                                       "projectgaming_test_gamepad_bindings_partage.json";
+    const std::filesystem::path path =
+        std::filesystem::temp_directory_path() / "projectgaming_test_gamepad_bindings_partage.json";
     {
         std::ofstream file(path, std::ios::binary);
         file << R"({"jeu": {"sauter": 32}, "editeur": {"sauvegarder": 83}})";

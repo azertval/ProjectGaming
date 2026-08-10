@@ -56,5 +56,20 @@ La portée correspond en général au module (`core`, `hmi`, `elements`, `test`,
 ## Avant d'ouvrir une PR
 1. `cmake --build --preset vs` compile sans avertissement.
 2. `ctest --preset vs` passe à 100 %.
-3. Le code est formaté (`clang-format`) et les nouveaux comportements sont couverts par des tests.
-4. Le `CHANGELOG.md` (section *Unreleased*) est mis à jour si pertinent.
+3. `cmake --preset vs && cmake --build --preset vs-release && ctest --preset vs-release` compile et
+   teste en configuration **Release** (LOT-58) : certaines casses (variable lue uniquement par une
+   assertion, code conditionné à `core::kDeveloperBuild`) ne se voient qu'ici.
+4. Le code est formaté (`clang-format`) et les nouveaux comportements sont couverts par des tests.
+   Vérifié en CI (LOT-58) avec une version **épinglée** (`LLVM_VERSION` dans `ci.yml`) : deux
+   versions majeures ne formatent pas identiquement. Reproduire localement (même version,
+   installée en isolation via le paquet PyPI qui redistribue les binaires officiels LLVM, sans
+   dépendre de celle fournie par l'IDE) :
+   `pip install "clang-format==$LLVM_VERSION" && git ls-files 'Source/*.cpp' 'Source/*.h' | xargs clang-format --dry-run --Werror --style=file`
+5. `clang-tidy` sur les fichiers `Source/*.cpp` modifiés (LOT-58) :
+   `cmake -S . -B build/ninja-tidy -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_PCH=OFF`
+   puis `clang-tidy -p build/ninja-tidy <fichier.cpp>` (version LLVM épinglée : `LLVM_VERSION` dans
+   `ci.yml`). Seules les violations `bugprone-*` font échouer la CI ; les autres familles
+   (`cppcoreguidelines-*`, `modernize-*`, `performance-*`, `readability-*`) restent visibles mais
+   non bloquantes (triage complet hors périmètre du `LOT-58`, voir
+   `Documentation/Lot/LOT-58-verification-release-analyse/tache-03-clang-tidy.md`).
+6. Le `CHANGELOG.md` (section *Unreleased*) est mis à jour si pertinent.

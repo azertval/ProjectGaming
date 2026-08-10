@@ -16,16 +16,17 @@ namespace {
 constexpr float kSkin = 1e-4f;
 
 // Une pente (EX-GP-003) n'est jamais solide (voir isSolid), donc le bord bas de la boîte peut s'y
-// enfoncer PARTIELLEMENT dans la case — contrairement au sol plat, où il ne fait jamais qu'affleurer
-// la frontière (raison pour laquelle `kSkin` suffit à exclure cette ligne du balayage horizontal).
-// Sans cette exclusion, un bloc plein adjacent à la MÊME ligne qu'une pente bloquerait le
-// personnage à mi-montée : son corps chevauche encore la case du dessous alors qu'il n'a fait que
-// suivre la pente (comportement normal, pas un mur). On exclut donc du balayage horizontal toute
-// ligne où l'empreinte horizontale COURANTE de la boîte repose sur une pente.
+// enfoncer PARTIELLEMENT dans la case — contrairement au sol plat, où il ne fait jamais
+// qu'affleurer la frontière (raison pour laquelle `kSkin` suffit à exclure cette ligne du balayage
+// horizontal). Sans cette exclusion, un bloc plein adjacent à la MÊME ligne qu'une pente bloquerait
+// le personnage à mi-montée : son corps chevauche encore la case du dessous alors qu'il n'a fait
+// que suivre la pente (comportement normal, pas un mur). On exclut donc du balayage horizontal
+// toute ligne où l'empreinte horizontale COURANTE de la boîte repose sur une pente.
 bool rowIsSlopeGround(const TileMap& tiles, const Vector2& pos, const Vector2& size, int row) {
     const int width = tiles.width();
     const int colStart = std::clamp(static_cast<int>(std::floor(pos.x)), 0, width - 1);
-    const int colEnd = std::clamp(static_cast<int>(std::floor(pos.x + size.x - kSkin)), 0, width - 1);
+    const int colEnd =
+        std::clamp(static_cast<int>(std::floor(pos.x + size.x - kSkin)), 0, width - 1);
     for (int col = colStart; col <= colEnd; ++col) {
         if (isFollowableSurface(tiles.tile(col, row))) {
             return true;
@@ -50,7 +51,8 @@ float sweepX(const TileMap& tiles, const Vector2& pos, const Vector2& size, floa
 
     // Lignes réellement occupées par la boîte (la peau évite de mordre la ligne juste effleurée).
     const int rowMin = std::clamp(static_cast<int>(std::floor(pos.y)), 0, height - 1);
-    const int rowMax = std::clamp(static_cast<int>(std::floor(pos.y + size.y - kSkin)), 0, height - 1);
+    const int rowMax =
+        std::clamp(static_cast<int>(std::floor(pos.y + size.y - kSkin)), 0, height - 1);
 
     if (dx > 0.0f) {
         // On balaie de la colonne du bord droit actuel jusqu'à celle du bord droit visé : le
@@ -88,10 +90,12 @@ float sweepY(const TileMap& tiles, const Vector2& pos, const Vector2& size, floa
     const int height = tiles.height();
 
     const int colMin = std::clamp(static_cast<int>(std::floor(pos.x)), 0, width - 1);
-    const int colMax = std::clamp(static_cast<int>(std::floor(pos.x + size.x - kSkin)), 0, width - 1);
+    const int colMax =
+        std::clamp(static_cast<int>(std::floor(pos.x + size.x - kSkin)), 0, width - 1);
 
     if (dy > 0.0f) {
-        const int rowStart = std::clamp(static_cast<int>(std::floor(pos.y + size.y)), 0, height - 1);
+        const int rowStart =
+            std::clamp(static_cast<int>(std::floor(pos.y + size.y)), 0, height - 1);
         const int rowEnd = std::clamp(static_cast<int>(std::floor(newY + size.y)), 0, height - 1);
         for (int row = rowStart; row <= rowEnd; ++row) {
             for (int col = colMin; col <= colMax; ++col) {

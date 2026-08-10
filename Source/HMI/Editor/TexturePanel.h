@@ -185,11 +185,13 @@ private:
 
     std::unique_ptr<Ui::TexturePanel> _ui;
     QStandardItemModel* _model;
-    AssetThumbnailView* _backgroundView;  ///< Grille de vignettes de `Assets/Backgrounds/` (LOT-44).
-    AssetThumbnailView* _objectView;      ///< Grille de vignettes de `Assets/Objects/` (LOT-45).
-    QStandardItemModel* _objectsModel;    ///< Modèle du tableau des surcharges (LOT-45).
-    QStandardItemModel* _animationsModel;  ///< Modèle de l'arbre de la section « Animations » (LOT-47).
-    QTimer* _animationPreviewTimer;        ///< Fait avancer l'aperçu de la section « Animations ».
+    AssetThumbnailView*
+        _backgroundView;                ///< Grille de vignettes de `Assets/Backgrounds/` (LOT-44).
+    AssetThumbnailView* _objectView;    ///< Grille de vignettes de `Assets/Objects/` (LOT-45).
+    QStandardItemModel* _objectsModel;  ///< Modèle du tableau des surcharges (LOT-45).
+    QStandardItemModel*
+        _animationsModel;  ///< Modèle de l'arbre de la section « Animations » (LOT-47).
+    QTimer* _animationPreviewTimer;  ///< Fait avancer l'aperçu de la section « Animations ».
     /// Spritesheet décodée de l'asset actuellement prévisualisé (vide si aucune sélection/asset
     /// illisible) — décodée une fois par sélection, pas à chaque image de la minuterie.
     QImage _animationPreviewSheet;
@@ -211,7 +213,7 @@ private:
     /// rechargement/reconstruction qui perdrait la sélection courante des widgets (grille, combo).
     std::optional<std::string> _levelBackground;
     std::optional<std::string> _levelSkinSet;
-    bool _updating = false;              ///< Garde de réentrance pendant la reconstruction du modèle.
+    bool _updating = false;  ///< Garde de réentrance pendant la reconstruction du modèle.
     const Localization* _loc = nullptr;  ///< Catalogue courant (nul avant première retraduction).
     /// Fichier de skin (vide pour « aucun ») -> vignette décodée. Vidé par `reloadAssets`.
     std::unordered_map<std::string, QPixmap> _thumbnails;

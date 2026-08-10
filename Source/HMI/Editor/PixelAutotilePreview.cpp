@@ -7,7 +7,7 @@ bool isBitmask16Candidate(const DecodedImage& image, int tileSize) noexcept {
         return false;
     }
     return image.width == tileSize * AUTOTILE_SHEET_SIDE &&
-          image.height == tileSize * AUTOTILE_SHEET_SIDE;
+           image.height == tileSize * AUTOTILE_SHEET_SIDE;
 }
 
 std::optional<AutotileCell> bitmaskCellAtPixel(const DecodedImage& image, int tileSize, int x,
@@ -34,9 +34,9 @@ DecodedImage buildAutotileAssemblyPreview(const DecodedImage& sheet, int tileSiz
         const int destRow = static_cast<int>(i / 3);
         const AutotileCell sourceCell = autotileCell(masks[i]);
 
-        const PixelRegion sourceRegion{
-            sourceCell.column * tileSize, sourceCell.row * tileSize,
-            sourceCell.column * tileSize + tileSize - 1, sourceCell.row * tileSize + tileSize - 1};
+        const PixelRegion sourceRegion{sourceCell.column * tileSize, sourceCell.row * tileSize,
+                                       sourceCell.column * tileSize + tileSize - 1,
+                                       sourceCell.row * tileSize + tileSize - 1};
         if (sourceRegion.maxX >= sheet.width || sourceRegion.maxY >= sheet.height) {
             continue;  // planche plus petite que prevu : case laissee transparente, jamais lue.
         }

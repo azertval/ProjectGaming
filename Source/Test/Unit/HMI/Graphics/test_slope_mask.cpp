@@ -84,8 +84,8 @@ TEST(SlopeMaskTest, MasqueIdentiqueALAtlasProcedural) {
                 // se verrait immediatement en basculant Physique/Texture.
                 const bool inside = hmi::isInsideSilhouette(type, x, y, TILE);
                 EXPECT_EQ(alphaOf(pixel) != 0, inside)
-                    << "divergence en (" << x << ", " << y << ") pour la case ("
-                    << position->column << ", " << position->row << ")";
+                    << "divergence en (" << x << ", " << y << ") pour la case (" << position->column
+                    << ", " << position->row << ")";
             }
         }
     }
@@ -93,11 +93,10 @@ TEST(SlopeMaskTest, MasqueIdentiqueALAtlasProcedural) {
 
 /**
  * @brief Une pente montante est pleine en bas et vide en haut.
- * \castest{<b>Une pente montante vers la droite est pleine sous sa surface, vide au-dessus.</b><br/>
- * \tcat Unitaire · Masque de silhouette<br/>
- * \tcrit Critique<br/>
- * \tetapes 1. Tester les quatre coins de la case d'une pente montante vers la droite.<br/>
- * \tattendu Le coin bas-droite est plein, le coin haut-gauche est vide.
+ * \castest{<b>Une pente montante vers la droite est pleine sous sa surface, vide
+ * au-dessus.</b><br/> \tcat Unitaire · Masque de silhouette<br/> \tcrit Critique<br/> \tetapes 1.
+ * Tester les quatre coins de la case d'une pente montante vers la droite.<br/> \tattendu Le coin
+ * bas-droite est plein, le coin haut-gauche est vide.
  * }
  */
 TEST(SlopeMaskTest, PenteMontantePleineEnBas) {
@@ -180,13 +179,13 @@ TEST(SlopeMaskTest, DetourageTransparenceFranche) {
 
     for (int y = 0; y < TILE; ++y) {
         for (int x = 0; x < TILE; ++x) {
-            const std::uint32_t alpha =
-                alphaOf(pixels[static_cast<std::size_t>(y) * TILE + x]);
+            const std::uint32_t alpha = alphaOf(pixels[static_cast<std::size_t>(y) * TILE + x]);
             // Transparence franche, jamais anticrenelee : le rendu est en plus proche voisin
             // (EX-ARCH-022), un bord adouci creerait un halo.
-            EXPECT_TRUE(alpha == 0 || alpha == 255) << "alpha intermediaire en (" << x << ", " << y
-                                                    << ") : " << alpha;
-            EXPECT_EQ(alpha != 0, hmi::isInsideSilhouette(core::TileType::RoundedUpLeft, x, y, TILE));
+            EXPECT_TRUE(alpha == 0 || alpha == 255)
+                << "alpha intermediaire en (" << x << ", " << y << ") : " << alpha;
+            EXPECT_EQ(alpha != 0,
+                      hmi::isInsideSilhouette(core::TileType::RoundedUpLeft, x, y, TILE));
         }
     }
 }

@@ -4,12 +4,12 @@
  *        `EX-IHM-050`, `EX-IHM-051`) et police/typographie (TACHE-03, `EX-IHM-052`).
  */
 
-#include <gtest/gtest.h>
-
 #include <fstream>
 #include <regex>
 #include <sstream>
 #include <unordered_map>
+
+#include <gtest/gtest.h>
 
 #include "HMI/Interface/DesignTokens.h"
 #include "HMI/Interface/FontResolution.h"
@@ -70,8 +70,8 @@ TEST(ApplicationThemeTest, MarqueurInconnuEstSignale) {
  * \castest{<b>Le modele de theme livre ne contient aucune couleur litterale.</b><br/>
  * \tcat Unitaire · Theme de l'IHM<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Lire le fichier theme.qss livre.<br/>2. Chercher un motif de couleur hexadecimale.<br/>
- * \tattendu Aucune occurrence en dehors des commentaires n'est trouvee.
+ * \tetapes 1. Lire le fichier theme.qss livre.<br/>2. Chercher un motif de couleur
+ * hexadecimale.<br/> \tattendu Aucune occurrence en dehors des commentaires n'est trouvee.
  * }
  */
 TEST(ApplicationThemeTest, AucuneCouleurLitteraleDansLeModeleReel) {
@@ -81,8 +81,7 @@ TEST(ApplicationThemeTest, AucuneCouleurLitteraleDansLeModeleReel) {
     // Retire les commentaires /* ... */ (l'en-tete documente l'historique en exemples de couleurs)
     // avant de chercher un motif de couleur hexadecimale dans les regles elles-memes.
     const std::regex commentPattern(R"(/\*[\s\S]*?\*/)");
-    const std::string withoutComments =
-        std::regex_replace(themeText, commentPattern, "");
+    const std::string withoutComments = std::regex_replace(themeText, commentPattern, "");
 
     const std::regex hexColorPattern(R"(#[0-9a-fA-F]{6}\b)");
     EXPECT_FALSE(std::regex_search(withoutComments, hexColorPattern))
@@ -98,8 +97,8 @@ TEST(ApplicationThemeTest, AucuneCouleurLitteraleDansLeModeleReel) {
  * \tcat Unitaire · Theme de l'IHM<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Substituer le modele reel avec deux jeux de valeurs 'editor.*' distincts, memes
- * valeurs 'identity.*'.<br/>2. Extraire les blocs `#MainMenu`/`#OptionsPage` des deux resultats.<br/>
- * \tattendu Les deux extraits sont identiques au caractere pres.
+ * valeurs 'identity.*'.<br/>2. Extraire les blocs `#MainMenu`/`#OptionsPage` des deux
+ * resultats.<br/> \tattendu Les deux extraits sont identiques au caractere pres.
  * }
  */
 TEST(ApplicationThemeTest, EtancheiteDesPortees) {
@@ -107,13 +106,20 @@ TEST(ApplicationThemeTest, EtancheiteDesPortees) {
     ASSERT_FALSE(themeText.empty()) << "theme.qss introuvable a PROJECTGAMING_THEME_PATH";
 
     const std::unordered_map<std::string, std::string> identity{
-        {"identity.color.background", "#1a1f29"}, {"identity.color.surface", "#1e2531"},
-        {"identity.color.surfaceAlt", "#232a36"},  {"identity.color.border", "#333a48"},
-        {"identity.color.text", "#f2f2ff"},        {"identity.color.textMuted", "#b3b8c7"},
-        {"identity.color.accent", "#ffd133"},      {"identity.color.accentHover", "#ffdb5c"},
-        {"identity.color.error", "#ff5c5c"},       {"tokens.spacing.extraSmall", "4"},
-        {"tokens.spacing.small", "8"},              {"tokens.spacing.medium", "12"},
-        {"tokens.spacing.large", "16"},             {"tokens.spacing.extraLarge", "24"},
+        {"identity.color.background", "#1a1f29"},
+        {"identity.color.surface", "#1e2531"},
+        {"identity.color.surfaceAlt", "#232a36"},
+        {"identity.color.border", "#333a48"},
+        {"identity.color.text", "#f2f2ff"},
+        {"identity.color.textMuted", "#b3b8c7"},
+        {"identity.color.accent", "#ffd133"},
+        {"identity.color.accentHover", "#ffdb5c"},
+        {"identity.color.error", "#ff5c5c"},
+        {"tokens.spacing.extraSmall", "4"},
+        {"tokens.spacing.small", "8"},
+        {"tokens.spacing.medium", "12"},
+        {"tokens.spacing.large", "16"},
+        {"tokens.spacing.extraLarge", "24"},
         {"tokens.typography.screenTitle.pointSize", "32"},
         {"tokens.typography.sectionTitle.pointSize", "16"}};
 
@@ -148,11 +154,10 @@ TEST(ApplicationThemeTest, EtancheiteDesPortees) {
  * @brief La police embarquée est retenue quand elle a pu être enregistrée ; sinon, aucun nom de
  *        famille n'est renvoyé (TACHE-03) -- l'appelant Qt doit alors demander une famille
  *        générique, jamais un second nom codé en dur.
- * \castest{<b>La resolution de police retombe sur une famille generique sans nom code en dur.</b><br/>
- * \tcat Unitaire · Theme de l'IHM<br/>
- * \tcrit Critique<br/>
- * \tetapes 1. Resoudre la police embarquee enregistree, puis non enregistree.<br/>
- * \tattendu Le premier cas rend la famille embarquee ; le second ne rend aucun nom de famille.
+ * \castest{<b>La resolution de police retombe sur une famille generique sans nom code en
+ * dur.</b><br/> \tcat Unitaire · Theme de l'IHM<br/> \tcrit Critique<br/> \tetapes 1. Resoudre la
+ * police embarquee enregistree, puis non enregistree.<br/> \tattendu Le premier cas rend la famille
+ * embarquee ; le second ne rend aucun nom de famille.
  * }
  */
 TEST(ApplicationThemeTest, ResolutionDePoliceSansNomDeRepliCodeEnDur) {
@@ -169,12 +174,10 @@ TEST(ApplicationThemeTest, ResolutionDePoliceSansNomDeRepliCodeEnDur) {
  * @brief L'échelle typographique produit des tailles strictement positives, et les rôles de titre
  *        et de corps sont ordonnés du plus grand au plus petit : titre d'écran > titre de
  *        section > corps > libellé secondaire.
- * \castest{<b>L'echelle typographique est positive et ordonnee du plus grand au plus petit.</b><br/>
- * \tcat Unitaire · Theme de l'IHM<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Lire les tailles de l'echelle typographique des jetons.<br/>
- * \tattendu Toutes sont strictement positives ; titre d'ecran > titre de section > corps > libelle
- * secondaire.
+ * \castest{<b>L'echelle typographique est positive et ordonnee du plus grand au plus
+ * petit.</b><br/> \tcat Unitaire · Theme de l'IHM<br/> \tcrit Majeur<br/> \tetapes 1. Lire les
+ * tailles de l'echelle typographique des jetons.<br/> \tattendu Toutes sont strictement positives ;
+ * titre d'ecran > titre de section > corps > libelle secondaire.
  * }
  */
 TEST(ApplicationThemeTest, EchelleTypographiquePositiveEtOrdonnee) {
@@ -230,13 +233,15 @@ TEST(ApplicationThemeTest, AucuneTailleDePoliceResiduelleDansLesFichiersUi) {
 TEST(ApplicationThemeTest, ResolutionDuThemeEffectifSuitLeReglageEtLeSysteme) {
     using hmi::EditorThemeMode;
     using hmi::EditorThemeSetting;
-    EXPECT_EQ(hmi::resolveEffectiveEditorTheme(EditorThemeSetting::System, /*systemPrefersDark=*/true),
-             EditorThemeMode::Dark);
+    EXPECT_EQ(
+        hmi::resolveEffectiveEditorTheme(EditorThemeSetting::System, /*systemPrefersDark=*/true),
+        EditorThemeMode::Dark);
     EXPECT_EQ(
         hmi::resolveEffectiveEditorTheme(EditorThemeSetting::System, /*systemPrefersDark=*/false),
         EditorThemeMode::Light);
-    EXPECT_EQ(hmi::resolveEffectiveEditorTheme(EditorThemeSetting::Light, /*systemPrefersDark=*/true),
-             EditorThemeMode::Light);
+    EXPECT_EQ(
+        hmi::resolveEffectiveEditorTheme(EditorThemeSetting::Light, /*systemPrefersDark=*/true),
+        EditorThemeMode::Light);
     EXPECT_EQ(
         hmi::resolveEffectiveEditorTheme(EditorThemeSetting::Dark, /*systemPrefersDark=*/false),
         EditorThemeMode::Dark);

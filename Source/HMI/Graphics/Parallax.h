@@ -51,7 +51,7 @@ inline constexpr float PARALLAX_FACTOR_FOREGROUND = 1.15f;
  * @return La position à utiliser pour le rendu (et le culling) de ce décor.
  */
 [[nodiscard]] core::Vector2 parallaxRenderPosition(core::Vector2 decorPosition, float factor,
-                                                    const core::Rect& cameraBounds) noexcept;
+                                                   const core::Rect& cameraBounds) noexcept;
 
 /**
  * @brief Inverse de `parallaxRenderPosition` : retrouve la position **simulée** équivalente à un
@@ -71,7 +71,7 @@ inline constexpr float PARALLAX_FACTOR_FOREGROUND = 1.15f;
  *         (robustesse -- aucune couche du projet n'a un facteur nul).
  */
 [[nodiscard]] core::Vector2 parallaxModelPosition(core::Vector2 renderPosition, float factor,
-                                                   const core::Rect& cameraBounds) noexcept;
+                                                  const core::Rect& cameraBounds) noexcept;
 
 /**
  * @brief Arrondit une position monde au pixel écran le plus proche, pour un zoom pixel art net.

@@ -70,7 +70,7 @@ public:
 private:
     /// Chemin d'un nom de fichier (sans extension) dans le dossier géré, avec l'extension donnée.
     [[nodiscard]] std::filesystem::path pathForStem(const std::string& stem,
-                                                     const std::filesystem::path& extension) const;
+                                                    const std::filesystem::path& extension) const;
 
     std::filesystem::path _directory;
 };

@@ -37,7 +37,7 @@ class Localization;
  *         finis), puis le nom du tableau.
  */
 [[nodiscard]] std::vector<std::string> gameHudLines(const core::Player& player,
-                                                     const std::string& levelName,
-                                                     const Localization& localization);
+                                                    const std::string& levelName,
+                                                    const Localization& localization);
 
 }  // namespace hmi

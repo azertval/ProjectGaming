@@ -194,10 +194,10 @@ core::Vector2 GameViewport::screenPosition(const QMouseEvent* event) const {
 }
 
 float GameViewport::minManualZoom() const {
-    return hmi::Camera2D::fitZoom(
-        static_cast<float>(pixelWidth()), static_cast<float>(pixelHeight()),
-        static_cast<float>(_draft.tileMap().width()), static_cast<float>(_draft.tileMap().height()),
-        0.92f);
+    return hmi::Camera2D::fitZoom(static_cast<float>(pixelWidth()),
+                                  static_cast<float>(pixelHeight()),
+                                  static_cast<float>(_draft.tileMap().width()),
+                                  static_cast<float>(_draft.tileMap().height()), 0.92f);
 }
 
 float GameViewport::maxManualZoom() const {
@@ -206,8 +206,7 @@ float GameViewport::maxManualZoom() const {
     // niveau plus petit que 4 cases sur un axe rendrait sinon ce maximum inferieur au minimum
     // (std::clamp exige min <= max), verrouillant le zoom a l'ajustement automatique.
     constexpr float MINIMUM_VISIBLE_CELLS = 4.0f;
-    const float smallerAxis =
-        static_cast<float>((std::min)(pixelWidth(), pixelHeight()));
+    const float smallerAxis = static_cast<float>((std::min)(pixelWidth(), pixelHeight()));
     const float rawMax = smallerAxis / (MINIMUM_VISIBLE_CELLS * hmi::Camera2D::PIXELS_PER_UNIT);
     return (std::max)(rawMax, minManualZoom());
 }
@@ -388,7 +387,8 @@ core::Vector2 GameViewport::decorPixelSize(const std::string& assetName) const {
     if (_textureCache) {
         if (const hmi::LoadedTexture* loaded =
                 _textureCache->get(hmi::DECORS_SUBDIRECTORY + assetName, hmi::AssetFamily::Decor)) {
-            return core::Vector2{static_cast<float>(loaded->width), static_cast<float>(loaded->height)};
+            return core::Vector2{static_cast<float>(loaded->width),
+                                 static_cast<float>(loaded->height)};
         }
     }
     // Asset introuvable/cache pas encore pret : meme repli que hmi::resolveDecorAppearance
@@ -408,8 +408,8 @@ std::vector<core::Rect> GameViewport::decorBoundsForGesture() const {
     const core::Rect cameraBounds = _camera.visibleBounds();
     for (const core::Decor& decor : _draft.decors()) {
         core::Decor rendered = decor;
-        rendered.position = hmi::parallaxRenderPosition(decor.position, hmi::parallaxFactor(decor.layer),
-                                                         cameraBounds);
+        rendered.position = hmi::parallaxRenderPosition(
+            decor.position, hmi::parallaxFactor(decor.layer), cameraBounds);
         bounds.push_back(hmi::decorWorldBounds(rendered, decorPixelSize(decor.assetName)));
     }
     return bounds;
@@ -425,8 +425,8 @@ std::optional<hmi::DecorHandleLayout> GameViewport::selectedDecorHandles() const
     decor.position = hmi::parallaxRenderPosition(decor.position, hmi::parallaxFactor(decor.layer),
                                                  _camera.visibleBounds());
     const core::Rect bounds = hmi::decorWorldBounds(decor, decorPixelSize(decor.assetName));
-    // Le cadrage courant est deja a jour : chaque appelant (handleDecorPress/Move/Release) rafraichit
-    // la camera via worldPositionAt() avant de consulter les poignees.
+    // Le cadrage courant est deja a jour : chaque appelant (handleDecorPress/Move/Release)
+    // rafraichit la camera via worldPositionAt() avant de consulter les poignees.
     const float worldUnitsPerScreenPixel = 1.0f / (hmi::Camera2D::PIXELS_PER_UNIT * _camera.zoom());
     // decor.rotation n'est jamais touche par la parallaxe (purement une position de rendu,
     // EX-ARCH-012) : celui du brouillon convient tel quel, sans conversion.
@@ -470,8 +470,8 @@ void GameViewport::handleDecorPress(const QMouseEvent* event) {
     // Position EXACTE du clic (EX-DEC-001), jamais calee sur la grille -- en espace MODELE : sans
     // cette conversion, un decor pose en couche Arriere-plan/Premier plan sauterait hors du point
     // de clic des l'image suivante (sa parallaxe le decalerait au rendu).
-    decor.position = hmi::parallaxModelPosition(cursorRender, hmi::parallaxFactor(_activeDecorLayer),
-                                                _camera.visibleBounds());
+    decor.position = hmi::parallaxModelPosition(
+        cursorRender, hmi::parallaxFactor(_activeDecorLayer), _camera.visibleBounds());
     _draft.addDecor(decor);
     _decorGesture.selectedIndex = _draft.decors().size() - 1;  // le nouveau decor reste selectionne
     _dirty = true;
@@ -486,7 +486,8 @@ void GameViewport::handleDecorMove(const QMouseEvent* event) {
         return;
     }
     // Meme conversion qu'a l'amorce (handleDecorPress) : le geste raisonne en espace modele, avec
-    // le facteur de la couche du decor deja saisi (_decorGesture.selectedIndex, fixe pour le geste).
+    // le facteur de la couche du decor deja saisi (_decorGesture.selectedIndex, fixe pour le
+    // geste).
     const core::DecorLayer layer = _draft.decors()[*_decorGesture.selectedIndex].layer;
     const core::Vector2 cursorModel = hmi::parallaxModelPosition(
         worldPositionAt(event), hmi::parallaxFactor(layer), _camera.visibleBounds());
@@ -494,8 +495,8 @@ void GameViewport::handleDecorMove(const QMouseEvent* event) {
         hmi::updateDecorGesture(_decorGesture, cursorModel, _decorSnapToGrid);
     // Jamais d'invalidate() ici : l'apercu ne touche pas _draft, DraftRenderer le lit a chaque
     // image comme un parametre ordinaire (LOT-50 TACHE-03), pas via une reconstruction de scene.
-    _decorPreview =
-        preview.kind == hmi::DecorGestureActionKind::None ? std::nullopt : std::make_optional(preview);
+    _decorPreview = preview.kind == hmi::DecorGestureActionKind::None ? std::nullopt
+                                                                      : std::make_optional(preview);
 }
 
 void GameViewport::handleDecorRelease(const QMouseEvent* event, bool rightClick) {
@@ -528,7 +529,8 @@ void GameViewport::handleDecorRelease(const QMouseEvent* event, bool rightClick)
     const core::DecorLayer layer = _draft.decors()[*_decorGesture.selectedIndex].layer;
     const core::Vector2 cursorModel = hmi::parallaxModelPosition(
         worldPositionAt(event), hmi::parallaxFactor(layer), _camera.visibleBounds());
-    const hmi::DecorGestureAction action = hmi::endDecorGesture(_decorGesture, cursorModel, _decorSnapToGrid);
+    const hmi::DecorGestureAction action =
+        hmi::endDecorGesture(_decorGesture, cursorModel, _decorSnapToGrid);
     _decorPreview.reset();
     applyDecorGestureAction(action);  // invalide via markDraftMutated() si applique.
 }
@@ -820,15 +822,15 @@ void GameViewport::renderFrame(float deltaSeconds) {
         linkOverlay.pendingLink = _pendingLink;
         linkOverlay.selectedLink = _selectedLink;
         // Retour visuel des cases habillees (LOT-45) : seulement quand l'outil dedie est actif,
-        // sinon l'auteur ne sait pas ce qui est deja habille sans que ca encombre les autres outils.
+        // sinon l'auteur ne sait pas ce qui est deja habille sans que ca encombre les autres
+        // outils.
         const bool showTextureOverrides = _tool == hmi::EditorTool::TextureAssign;
         hmi::DecorOverlayState decorOverlay;
         decorOverlay.selectedIndex = _decorGesture.selectedIndex;
         decorOverlay.preview = _decorPreview;
         decorOverlay.snapToGrid = _decorSnapToGrid;
         _draftRenderer->render(_draft, _camera, _showGrid, highlight(), linkOverlay, _renderMode,
-                               showTextureOverrides, deltaSeconds, decorOverlay,
-                               _layerVisibility);
+                               showTextureOverrides, deltaSeconds, decorOverlay, _layerVisibility);
     }
     _graphics->present();
 }
@@ -986,14 +988,14 @@ bool GameViewport::renameOpenLevel(const std::string& newName) {
     const std::filesystem::path oldPath = levelsDir / (_draft.name() + ".json");
     if (std::filesystem::exists(oldPath)) {
         // Niveau deja enregistre au moins une fois : renomme le fichier sur disque, meme chemin que
-        // LevelBrowserPanel::onRename -- le brouillon en memoire est mis a jour separement ci-dessous
-        // (writeRenamed opere sur une copie chargee depuis le disque, pas sur _draft).
+        // LevelBrowserPanel::onRename -- le brouillon en memoire est mis a jour separement
+        // ci-dessous (writeRenamed opere sur une copie chargee depuis le disque, pas sur _draft).
         const hmi::LevelFileOperations ops(levelsDir);
         const hmi::FileOpResult result = ops.rename(oldPath, trimmed);
         if (!result.ok) {
             HMI_LOG_WARNING("Editeur : renommage refuse : " + result.error);
-            emit statusMessage(
-                statusText("status.rename_failed_reason").arg(QString::fromStdString(result.error)));
+            emit statusMessage(statusText("status.rename_failed_reason")
+                                   .arg(QString::fromStdString(result.error)));
             return false;
         }
     }
@@ -1017,7 +1019,8 @@ void GameViewport::openLevel(const std::filesystem::path& path) {
     _dirty = false;
     _pendingLink.reset();
     _selectedLink.reset();
-    _manualCamera = false;  // cadrage automatique sur le niveau ouvert (LOT-15), pas l'ancien pan/zoom.
+    _manualCamera =
+        false;  // cadrage automatique sur le niveau ouvert (LOT-15), pas l'ancien pan/zoom.
     markDraftMutated();
     HMI_LOG_INFO("Editeur : niveau ouvert : " + path.string());
     emit statusMessage(
@@ -1303,8 +1306,8 @@ void GameViewport::wheelEvent(QWheelEvent* event) {
         _manualCenter = _camera.center();
         _manualCamera = true;
     }
-    _manualZoom = std::clamp(_manualZoom + static_cast<float>(notches), minManualZoom(),
-                             maxManualZoom());
+    _manualZoom =
+        std::clamp(_manualZoom + static_cast<float>(notches), minManualZoom(), maxManualZoom());
 }
 
 }  // namespace hmi

@@ -22,12 +22,12 @@ namespace hmi {
  *        `hmi::SkinCatalogError`/`core::LevelValidationError`).
  */
 enum class AnimationCatalogError {
-    None,                ///< Pas d'erreur.
-    FileNotFound,        ///< Fichier absent. Cas **légitime** (image fixe), pas une anomalie.
-    ParseError,          ///< JSON malformé, ou racine qui n'est pas un objet.
-    UnsupportedVersion,  ///< Numéro de version supérieur à `AnimationCatalog::FORMAT_VERSION`.
-    MalformedStructure,  ///< Structure inattendue (clip sans « frames », `next` inexistant…).
-    IncoherentFrameSize, ///< Taille d'image déclarée incohérente avec les dimensions du PNG.
+    None,                 ///< Pas d'erreur.
+    FileNotFound,         ///< Fichier absent. Cas **légitime** (image fixe), pas une anomalie.
+    ParseError,           ///< JSON malformé, ou racine qui n'est pas un objet.
+    UnsupportedVersion,   ///< Numéro de version supérieur à `AnimationCatalog::FORMAT_VERSION`.
+    MalformedStructure,   ///< Structure inattendue (clip sans « frames », `next` inexistant…).
+    IncoherentFrameSize,  ///< Taille d'image déclarée incohérente avec les dimensions du PNG.
 };
 
 /**
@@ -132,7 +132,7 @@ public:
      * @return La région correspondante.
      */
     [[nodiscard]] static core::AtlasRegion frameRegion(const AnimationDescription& description,
-                                                        int frameSheetIndex);
+                                                       int frameSheetIndex);
 
     /**
      * @brief Région de l'image **courante** d'une animation en cours, d'après son état

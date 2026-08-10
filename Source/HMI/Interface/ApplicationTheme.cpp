@@ -12,7 +12,6 @@
 #include <QStyle>
 #include <QStyleFactory>
 #include <QStyleHints>
-
 #include <filesystem>
 
 #include "HMI/HmiLog.h"
@@ -51,10 +50,8 @@ void setCommonRoles(QPalette& palette, QPalette::ColorGroup group, const ColorTo
     // assombri du thème clair (LOT-56 TACHE-06), sans étude de cas par thème.
     constexpr DesignColor BLACK{0, 0, 0};
     constexpr DesignColor WHITE{255, 255, 255};
-    const DesignColor highlightedText = contrastRatio(color.accent, BLACK) >=
-                                                contrastRatio(color.accent, WHITE)
-                                            ? BLACK
-                                            : WHITE;
+    const DesignColor highlightedText =
+        contrastRatio(color.accent, BLACK) >= contrastRatio(color.accent, WHITE) ? BLACK : WHITE;
     palette.setColor(group, QPalette::HighlightedText, toQColor(highlightedText));
     palette.setColor(group, QPalette::Link, toQColor(color.accent));
     palette.setColor(group, QPalette::PlaceholderText, toQColor(color.textMuted));
@@ -112,14 +109,16 @@ QPalette buildApplicationPalette(const DesignTokens& tokens) {
 void applyStyleSheet(const DesignTokens& editorTokens) {
     QFile themeFile(QStringLiteral(":/resources/theme.qss"));
     if (!themeFile.open(QFile::ReadOnly | QFile::Text)) {
-        HMI_LOG_WARNING("Theme d'interface introuvable (:/resources/theme.qss) : style par defaut.");
+        HMI_LOG_WARNING(
+            "Theme d'interface introuvable (:/resources/theme.qss) : style par defaut.");
         return;
     }
     const std::string templateText = QString::fromUtf8(themeFile.readAll()).toStdString();
     const StyleSheetSubstitutionResult substituted =
         substituteStyleSheetTemplate(templateText, buildStyleSheetValues(editorTokens));
     if (!substituted.ok) {
-        HMI_LOG_WARNING("Theme d'interface invalide (" + substituted.error + ") : style par defaut.");
+        HMI_LOG_WARNING("Theme d'interface invalide (" + substituted.error +
+                        ") : style par defaut.");
         return;
     }
     qApp->setStyleSheet(QString::fromStdString(substituted.text));
@@ -159,7 +158,9 @@ void applyFont() {
 
 EditorThemeSetting editorThemeSetting() {
     return parseThemeSetting(
-        QSettings().value(QString::fromLatin1(THEME_SETTINGS_KEY), QStringLiteral("system")).toString());
+        QSettings()
+            .value(QString::fromLatin1(THEME_SETTINGS_KEY), QStringLiteral("system"))
+            .toString());
 }
 
 void setEditorThemeSetting(EditorThemeSetting setting) {

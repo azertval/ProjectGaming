@@ -99,7 +99,8 @@ public:
 private:
     std::array<QAction*, EDITOR_ACTION_CATALOG_COUNT> _actions{};
     QActionGroup* _toolGroup;
-    QActionGroup* _pixelToolGroup;  ///< Groupe exclusif des outils de canevas, distinct de `_toolGroup`.
+    QActionGroup*
+        _pixelToolGroup;  ///< Groupe exclusif des outils de canevas, distinct de `_toolGroup`.
 };
 
 }  // namespace hmi

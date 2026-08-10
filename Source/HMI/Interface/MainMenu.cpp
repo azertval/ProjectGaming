@@ -9,7 +9,7 @@
 namespace hmi {
 
 MainMenu::MainMenu(QWidget* parent) : QWidget(parent), _ui(std::make_unique<Ui::MainMenu>()) {
-    setObjectName(QStringLiteral("MainMenu"));   // ciblé par le thème (theme.qss)
+    setObjectName(QStringLiteral("MainMenu"));    // ciblé par le thème (theme.qss)
     setAttribute(Qt::WA_StyledBackground, true);  // pour que la couleur de fond du thème s'applique
     _ui->setupUi(this);
 

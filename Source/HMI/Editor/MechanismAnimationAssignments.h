@@ -18,7 +18,7 @@ namespace hmi {
 /// Les six familles de mécanismes à état dont l'apparence est pilotée par un clip (`LOT-47`),
 /// dans l'ordre où elles sont proposées par la section « Animations ».
 inline constexpr core::TileType MECHANISM_ANIMATION_TYPES[] = {
-    core::TileType::Door,          core::TileType::Switch,       core::TileType::PressurePlate,
+    core::TileType::Door,           core::TileType::Switch,      core::TileType::PressurePlate,
     core::TileType::DangerSwitched, core::TileType::DangerBlink, core::TileType::DangerMover,
 };
 

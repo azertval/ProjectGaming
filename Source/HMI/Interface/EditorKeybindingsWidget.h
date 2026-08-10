@@ -1,9 +1,8 @@
 #pragma once
 
+#include <QWidget>
 #include <array>
 #include <filesystem>
-
-#include <QWidget>
 
 #include "HMI/Input/EditorKeyBindings.h"
 

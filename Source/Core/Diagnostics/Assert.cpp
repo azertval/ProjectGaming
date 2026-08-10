@@ -15,11 +15,9 @@ namespace {
 AssertionHandler& currentHandler() {
     static AssertionHandler handler = [](const char* condition, const char* message,
                                          const char* file, int line) {
-        const std::string text =
-            std::string("Assertion echouee (") + condition + ") : " + message;
-        defaultLogger().log(
-            LogLevel::Error,
-            formatLogLine(currentTimestamp(), LogLevel::Error, "Assert", file, line, text));
+        const std::string text = std::string("Assertion echouee (") + condition + ") : " + message;
+        defaultLogger().log(LogLevel::Error, formatLogLine(currentTimestamp(), LogLevel::Error,
+                                                           "Assert", file, line, text));
         std::abort();
     };
     return handler;

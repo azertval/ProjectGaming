@@ -69,8 +69,8 @@ SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache,
     // personnage n'est pas une tuile, sa resolution vit hors de hmi::resolveTileAppearance
     // (GameSession::refreshPlayerSprite compose PlayerSpriteTag a partir de cette texture, avec
     // repli sur l'atlas si absente/invalide -- meme avertissement deja journalise par le cache).
-    if (const LoadedTexture* sheet = cache.get(PLAYER_SUBDIRECTORY + PLAYER_SHEET_FILE_NAME,
-                                               AssetFamily::CharacterSheet)) {
+    if (const LoadedTexture* sheet =
+            cache.get(PLAYER_SUBDIRECTORY + PLAYER_SHEET_FILE_NAME, AssetFamily::CharacterSheet)) {
         textures.characterSheet = sheet->view.Get();
         textures.characterSheetWidth = sheet->width;
         textures.characterSheetHeight = sheet->height;
@@ -173,7 +173,8 @@ BackgroundTexture resolveBackgroundTexture(const std::optional<std::string>& bac
     return BackgroundTexture{texture->view.Get(), texture->width, texture->height};
 }
 
-// Avance l'horloge d'animation partagee des tuiles animees d'un jeu de skins courant (voir en-tete).
+// Avance l'horloge d'animation partagee des tuiles animees d'un jeu de skins courant (voir
+// en-tete).
 void advanceTileAnimations(const SkinCatalog* skins, const std::string& skinSet,
                            TextureCache& cache, float deltaSeconds,
                            std::unordered_map<std::string, core::Animation>& tileAnimations,
@@ -202,7 +203,7 @@ void advanceTileAnimations(const SkinCatalog* skins, const std::string& skinSet,
                 GRAPHICS_LOG_WARNING(
                     "Animation de '" + entry.asset + "' ignoree : combinaison non supportee (" +
                     std::string(entry.mode == SkinMode::Bitmask16 ? "mode bitmask16"
-                                                                   : "silhouette detouree") +
+                                                                  : "silhouette detouree") +
                     " + animation, LOT-46).");
             }
             continue;
@@ -224,9 +225,8 @@ SpriteRenderer::SpriteRenderer(SpriteBatch& batch, const TextureAtlas& atlas, Te
 
 // Dessine toutes les entites affichables du monde, vues par la camera.
 void SpriteRenderer::render(core::World& world, const Camera2D& camera, RenderMode mode,
-                            float interpolationAlpha,
-                            const std::optional<std::string>& background, int levelWidth,
-                            int levelHeight,
+                            float interpolationAlpha, const std::optional<std::string>& background,
+                            int levelWidth, int levelHeight,
                             const std::vector<core::TileTextureOverride>& textureOverrides,
                             const std::unordered_map<std::string, core::Animation>& tileAnimations,
                             const std::vector<core::Decor>& decors,

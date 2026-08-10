@@ -23,7 +23,8 @@ const std::array<EditorActionSpec, EDITOR_ACTION_CATALOG_COUNT>& editorActionCat
         {IconId::PixelEraser, "pixel_tool.eraser", "", true, EditorActionGroup::PixelTools},
         {IconId::PixelFill, "pixel_tool.fill", "", true, EditorActionGroup::PixelTools},
         {IconId::PixelEyedropper, "pixel_tool.eyedropper", "", true, EditorActionGroup::PixelTools},
-        {IconId::PixelSelectionTool, "pixel_tool.selection", "", true, EditorActionGroup::PixelTools},
+        {IconId::PixelSelectionTool, "pixel_tool.selection", "", true,
+         EditorActionGroup::PixelTools},
         // Commandes de fichier de l'atelier pixel art (LOT-54 TACHE-05) : aucun raccourci clavier
         // dedie aujourd'hui, comme les outils de canevas ci-dessus.
         {IconId::PixelOpen, "action.pixel_open", "", false, EditorActionGroup::PixelCommands},
@@ -48,7 +49,8 @@ const std::array<EditorActionSpec, EDITOR_ACTION_CATALOG_COUNT>& editorActionCat
         {IconId::Redo, "action.redo", "Ctrl+Y", false, EditorActionGroup::None},
         {IconId::ToggleGrid, "action.toggle_grid", "F10", false, EditorActionGroup::None},
         {IconId::ResetCamera, "action.reset_camera", "0", false, EditorActionGroup::None},
-        {IconId::ToggleRenderMode, "action.toggle_render_mode", "F8", false, EditorActionGroup::None},
+        {IconId::ToggleRenderMode, "action.toggle_render_mode", "F8", false,
+         EditorActionGroup::None},
         // Déduplication des commandes (LOT-57 TACHE-04) : branchées sur les actions d'éditeur
         // remappables jusqu'ici définies et jamais lues (`EditorKeyBindings`). Valeurs par défaut
         // alignées sur `EditorKeyBindings::defaultKey` ; la valeur effective vient toujours

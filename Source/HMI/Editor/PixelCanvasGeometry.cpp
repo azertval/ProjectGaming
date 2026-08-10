@@ -15,8 +15,8 @@ PixelScreenRect imagePixelScreenRect(const PixelCanvasView& view, int x, int y) 
 }
 
 std::optional<std::pair<int, int>> screenToImagePixel(const PixelCanvasView& view, int imageWidth,
-                                                       int imageHeight, double screenX,
-                                                       double screenY) noexcept {
+                                                      int imageHeight, double screenX,
+                                                      double screenY) noexcept {
     if (view.zoom <= 0) {
         return std::nullopt;
     }

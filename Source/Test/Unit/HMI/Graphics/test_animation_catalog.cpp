@@ -34,7 +34,8 @@ constexpr const char* VALID_JSON = R"({
  * }
  */
 TEST(AnimationCatalogTest, RoundTripClipsMultiplesDureeParDefautEtOneShot) {
-    const hmi::AnimationDescriptionResult result = hmi::AnimationCatalog::loadFromString(VALID_JSON);
+    const hmi::AnimationDescriptionResult result =
+        hmi::AnimationCatalog::loadFromString(VALID_JSON);
     ASSERT_TRUE(result.ok()) << result.error;
 
     const hmi::AnimationDescription& description = *result.description;
@@ -42,7 +43,8 @@ TEST(AnimationCatalogTest, RoundTripClipsMultiplesDureeParDefautEtOneShot) {
     EXPECT_EQ(description.frameHeight, 16);
     ASSERT_EQ(description.clips.clipCount(), 3);
 
-    const core::AnimationClip& closed = description.clips.clipAt(description.clips.indexOf("closed"));
+    const core::AnimationClip& closed =
+        description.clips.clipAt(description.clips.indexOf("closed"));
     EXPECT_EQ(closed.frames, (std::vector<int>{0}));
     EXPECT_EQ(closed.endMode, core::ClipEndMode::Loop);
     // "frameDuration" absent : durée par défaut documentée (AnimationCatalog::
@@ -69,7 +71,8 @@ TEST(AnimationCatalogTest, RoundTripClipsMultiplesDureeParDefautEtOneShot) {
  * }
  */
 TEST(AnimationCatalogTest, JsonInvalideEstUneErreurExploitable) {
-    const hmi::AnimationDescriptionResult result = hmi::AnimationCatalog::loadFromString("{ pas du json");
+    const hmi::AnimationDescriptionResult result =
+        hmi::AnimationCatalog::loadFromString("{ pas du json");
     EXPECT_FALSE(result.ok());
     EXPECT_EQ(result.errorCode, hmi::AnimationCatalogError::ParseError);
     EXPECT_FALSE(result.error.empty());
@@ -204,7 +207,8 @@ TEST(AnimationCatalogTest, DescriptorFileNameRemplaceLExtension) {
  * }
  */
 TEST(AnimationCatalogTest, CoherenceAvecLePngValideeSurSpritesheetAUnRang) {
-    const hmi::AnimationDescriptionResult result = hmi::AnimationCatalog::loadFromString(VALID_JSON);
+    const hmi::AnimationDescriptionResult result =
+        hmi::AnimationCatalog::loadFromString(VALID_JSON);
     ASSERT_TRUE(result.ok());
 
     // 6 images de 16 px sur un seul rang de 16 px de haut : coherent.
@@ -225,7 +229,8 @@ TEST(AnimationCatalogTest, CoherenceAvecLePngValideeSurSpritesheetAUnRang) {
  * }
  */
 TEST(AnimationCatalogTest, TailleDImageIncoherenteAvecLePngEstRefusee) {
-    const hmi::AnimationDescriptionResult result = hmi::AnimationCatalog::loadFromString(VALID_JSON);
+    const hmi::AnimationDescriptionResult result =
+        hmi::AnimationCatalog::loadFromString(VALID_JSON);
     ASSERT_TRUE(result.ok());
 
     // Hauteur du PNG differente de frameHeight : plus d'un rang, non supporte (TACHE-03).
@@ -252,7 +257,8 @@ TEST(AnimationCatalogTest, TailleDImageIncoherenteAvecLePngEstRefusee) {
  * }
  */
 TEST(AnimationCatalogTest, IndiceDImageHorsBornesDeLaSpritesheetReelleEstRefuse) {
-    const hmi::AnimationDescriptionResult result = hmi::AnimationCatalog::loadFromString(VALID_JSON);
+    const hmi::AnimationDescriptionResult result =
+        hmi::AnimationCatalog::loadFromString(VALID_JSON);
     ASSERT_TRUE(result.ok());
 
     // Le clip "open" reference l'image 5 : une spritesheet de 5 images (80 px / 16) est trop

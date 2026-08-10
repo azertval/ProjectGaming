@@ -63,16 +63,26 @@ namespace {
 
 // Inverse de buttonName ; nullopt si le nom ne correspond a aucun bouton connu.
 [[nodiscard]] std::optional<GamepadButton> parseButtonName(const std::string& name) {
-    if (name == "haut") return GamepadButton::Up;
-    if (name == "bas") return GamepadButton::Down;
-    if (name == "gauche") return GamepadButton::Left;
-    if (name == "droite") return GamepadButton::Right;
-    if (name == "a") return GamepadButton::A;
-    if (name == "b") return GamepadButton::B;
-    if (name == "x") return GamepadButton::X;
-    if (name == "y") return GamepadButton::Y;
-    if (name == "lb") return GamepadButton::LeftShoulder;
-    if (name == "rb") return GamepadButton::RightShoulder;
+    if (name == "haut")
+        return GamepadButton::Up;
+    if (name == "bas")
+        return GamepadButton::Down;
+    if (name == "gauche")
+        return GamepadButton::Left;
+    if (name == "droite")
+        return GamepadButton::Right;
+    if (name == "a")
+        return GamepadButton::A;
+    if (name == "b")
+        return GamepadButton::B;
+    if (name == "x")
+        return GamepadButton::X;
+    if (name == "y")
+        return GamepadButton::Y;
+    if (name == "lb")
+        return GamepadButton::LeftShoulder;
+    if (name == "rb")
+        return GamepadButton::RightShoulder;
     return std::nullopt;
 }
 

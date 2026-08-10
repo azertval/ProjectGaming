@@ -53,8 +53,8 @@ bool DangerController::isBlinkActive(GridPosition position) const noexcept {
         if (config.period <= 0) {
             return false;  // configuration degeneree (robustesse) : jamais mortel
         }
-        const long long cursor = ((_stepCount - config.phase) % config.period + config.period) %
-                                 config.period;
+        const long long cursor =
+            ((_stepCount - config.phase) % config.period + config.period) % config.period;
         return cursor < static_cast<long long>(config.activeDuration);
     }
     return false;

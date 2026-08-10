@@ -8,9 +8,10 @@
  * @file HMI/Editor/DecorGeometry.h
  * @brief Géométrie **partagée** du corps et des poignées d'un décor (LOT-50), pure et testable.
  *
- * Source unique pour le rendu (`hmi::DraftRenderer`, TACHE-03) et la détection (`hmi::DecorGesture`,
- * TACHE-02) : si chacun calculait son propre rectangle, ils finiraient par diverger au premier
- * ajustement de taille, et les poignées cesseraient de répondre là où elles s'affichent.
+ * Source unique pour le rendu (`hmi::DraftRenderer`, TACHE-03) et la détection
+ * (`hmi::DecorGesture`, TACHE-02) : si chacun calculait son propre rectangle, ils finiraient par
+ * diverger au premier ajustement de taille, et les poignées cesseraient de répondre là où elles
+ * s'affichent.
  */
 
 namespace hmi {
@@ -46,7 +47,8 @@ inline constexpr float DECOR_ROTATION_HANDLE_SCREEN_OFFSET = 24.0f;
  * @param pixelSize Dimensions réelles de l'asset chargé, en pixels (`hmi::DecorAppearance`).
  * @return Le rectangle englobant, en unités monde.
  */
-[[nodiscard]] core::Rect decorWorldBounds(const core::Decor& decor, core::Vector2 pixelSize) noexcept;
+[[nodiscard]] core::Rect decorWorldBounds(const core::Decor& decor,
+                                          core::Vector2 pixelSize) noexcept;
 
 /**
  * @brief Point tourné autour du **centre** de @p bounds, du même angle que l'affichage du décor
@@ -85,7 +87,8 @@ struct DecorHandleLayout {
  * rotation du décor (`decorRotatedPoint`) ; les rectangles eux-mêmes restent alignés aux axes
  * (simplification assumée — un petit carré non tourné reste un repère de coin lisible même sur un
  * décor pivoté).
- * @param bounds                    Rectangle englobant **non tourné** du décor (`decorWorldBounds`).
+ * @param bounds                    Rectangle englobant **non tourné** du décor
+ * (`decorWorldBounds`).
  * @param worldUnitsPerScreenPixel  Échelle inverse de la caméra courante
  *                                  (`1 / (hmi::Camera2D::PIXELS_PER_UNIT * zoom)`).
  * @param rotation                  Rotation du décor, en radians (`core::Decor::rotation`).

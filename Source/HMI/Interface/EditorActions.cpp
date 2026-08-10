@@ -36,9 +36,7 @@ namespace {
 }  // namespace
 
 EditorActions::EditorActions(const DesignTokens& tokens, QObject* parent)
-    : QObject(parent),
-      _toolGroup(new QActionGroup(this)),
-      _pixelToolGroup(new QActionGroup(this)) {
+    : QObject(parent), _toolGroup(new QActionGroup(this)), _pixelToolGroup(new QActionGroup(this)) {
     _toolGroup->setExclusive(true);
     _pixelToolGroup->setExclusive(true);
 
@@ -64,7 +62,8 @@ EditorActions::EditorActions(const DesignTokens& tokens, QObject* parent)
 }
 
 QAction* EditorActions::action(IconId id) const {
-    const std::array<EditorActionSpec, EDITOR_ACTION_CATALOG_COUNT>& catalog = editorActionCatalog();
+    const std::array<EditorActionSpec, EDITOR_ACTION_CATALOG_COUNT>& catalog =
+        editorActionCatalog();
     for (std::size_t i = 0; i < catalog.size(); ++i) {
         if (catalog[i].id == id) {
             return _actions[i];
@@ -116,7 +115,8 @@ void EditorActions::populatePixelToolBar(QToolBar& toolBar) const {
 }
 
 void EditorActions::retranslateUi(const Localization& loc) {
-    const std::array<EditorActionSpec, EDITOR_ACTION_CATALOG_COUNT>& catalog = editorActionCatalog();
+    const std::array<EditorActionSpec, EDITOR_ACTION_CATALOG_COUNT>& catalog =
+        editorActionCatalog();
     for (std::size_t i = 0; i < catalog.size(); ++i) {
         const QString label = QString::fromStdString(loc.text(catalog[i].labelKey));
         _actions[i]->setText(label);
@@ -154,8 +154,9 @@ void EditorActions::setEditingCommandsEnabled(bool enabled) {
         // Le mode de rendu reste toujours actif : en edition, en essai et en jeu reel
         // (EX-REN-046) -- jamais desactive, contrairement aux autres commandes. Les commandes de
         // fichier de l'atelier (LOT-54 TACHE-05) suivent la meme regle que celles du niveau.
-        const bool gated = (spec.group == EditorActionGroup::None && spec.id != IconId::ToggleRenderMode) ||
-                          spec.group == EditorActionGroup::PixelCommands;
+        const bool gated =
+            (spec.group == EditorActionGroup::None && spec.id != IconId::ToggleRenderMode) ||
+            spec.group == EditorActionGroup::PixelCommands;
         if (gated) {
             action(spec.id)->setEnabled(enabled);
         }
@@ -163,7 +164,8 @@ void EditorActions::setEditingCommandsEnabled(bool enabled) {
 }
 
 void EditorActions::refreshIcons(const DesignTokens& tokens) {
-    const std::array<EditorActionSpec, EDITOR_ACTION_CATALOG_COUNT>& catalog = editorActionCatalog();
+    const std::array<EditorActionSpec, EDITOR_ACTION_CATALOG_COUNT>& catalog =
+        editorActionCatalog();
     for (std::size_t i = 0; i < catalog.size(); ++i) {
         _actions[i]->setIcon(themeIcon(catalog[i].id, tokens.size.iconMedium, tokens));
     }

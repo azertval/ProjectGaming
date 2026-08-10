@@ -64,8 +64,8 @@ hmi::SceneTextures texturesWith(const hmi::SkinCatalog& catalog) {
  * \castest{<b>Une surcharge chargée est prioritaire sur le skin du type.</b><br/>
  * \tcat Unitaire · Résolution de texture<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Résoudre une tuile Solid (skinnée) portant une surcharge chargée, en mode Texture.<br/>
- * \tattendu La source est la surcharge, pas le skin du type.
+ * \tetapes 1. Résoudre une tuile Solid (skinnée) portant une surcharge chargée, en mode
+ * Texture.<br/> \tattendu La source est la surcharge, pas le skin du type.
  * }
  */
 TEST(TextureResolutionTest, SurchargeChargeePrioritaireSurLeSkin) {
@@ -73,8 +73,10 @@ TEST(TextureResolutionTest, SurchargeChargeePrioritaireSurLeSkin) {
     const hmi::SceneTextures textures = texturesWith(catalog);
     const hmi::TileSkinTag tag{core::TileType::Solid, 0, std::string{"door_red.png"}};
 
-    const hmi::TileAppearance appearance = hmi::resolveTileAppearance(
-        hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &tag, textures).value();
+    const hmi::TileAppearance appearance =
+        hmi::resolveTileAppearance(hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &tag,
+                                   textures)
+            .value();
 
     EXPECT_EQ(appearance.source, hmi::AppearanceSource::Override);
     EXPECT_EQ(appearance.region.width, TILE);
@@ -98,8 +100,10 @@ TEST(TextureResolutionTest, SurchargeIntrouvableRetombeSurLeDamierPasSurLeSkin) 
     const hmi::SceneTextures textures = texturesWith(catalog);
     const hmi::TileSkinTag tag{core::TileType::Solid, 0, std::string{"asset_jamais_charge.png"}};
 
-    const hmi::TileAppearance appearance = hmi::resolveTileAppearance(
-        hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &tag, textures).value();
+    const hmi::TileAppearance appearance =
+        hmi::resolveTileAppearance(hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &tag,
+                                   textures)
+            .value();
 
     EXPECT_EQ(appearance.source, hmi::AppearanceSource::MissingTexture);
     EXPECT_EQ(textures.textureFor(appearance), &missingStorage);
@@ -119,8 +123,10 @@ TEST(TextureResolutionTest, SansSurchargeLeSkinSAppliqueNormalement) {
     const hmi::SceneTextures textures = texturesWith(catalog);
     const hmi::TileSkinTag tag{core::TileType::Solid, 0};
 
-    const hmi::TileAppearance appearance = hmi::resolveTileAppearance(
-        hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &tag, textures).value();
+    const hmi::TileAppearance appearance =
+        hmi::resolveTileAppearance(hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &tag,
+                                   textures)
+            .value();
 
     EXPECT_EQ(appearance.source, hmi::AppearanceSource::Skin);
     EXPECT_EQ(textures.textureFor(appearance), &stoneStorage);
@@ -141,8 +147,10 @@ TEST(TextureResolutionTest, SurchargeSAppliqueMemeSansSkinDuType) {
     const hmi::SceneTextures textures = texturesWith(catalog);
     const hmi::TileSkinTag tag{core::TileType::Danger, 0, std::string{"door_red.png"}};
 
-    const hmi::TileAppearance appearance = hmi::resolveTileAppearance(
-        hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &tag, textures).value();
+    const hmi::TileAppearance appearance =
+        hmi::resolveTileAppearance(hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &tag,
+                                   textures)
+            .value();
 
     EXPECT_EQ(appearance.source, hmi::AppearanceSource::Override);
 }
@@ -162,8 +170,10 @@ TEST(TextureResolutionTest, SurchargeSAppliqueMemeSansCatalogue) {
     textures.skinCatalog = nullptr;
     const hmi::TileSkinTag tag{core::TileType::Solid, 0, std::string{"door_red.png"}};
 
-    const hmi::TileAppearance appearance = hmi::resolveTileAppearance(
-        hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &tag, textures).value();
+    const hmi::TileAppearance appearance =
+        hmi::resolveTileAppearance(hmi::RenderMode::Texture, hmi::TextureAtlas::tile(0, 0), &tag,
+                                   textures)
+            .value();
 
     EXPECT_EQ(appearance.source, hmi::AppearanceSource::Override);
     EXPECT_EQ(textures.textureFor(appearance), &doorRedStorage);
@@ -196,8 +206,8 @@ TEST(TextureResolutionTest, ModePhysiqueIgnoreLesSurcharges) {
  * \castest{<b>Un index d'objet invalide retombe sur le damier sans lecture hors bornes.</b><br/>
  * \tcat Unitaire · Résolution de texture<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Interroger les textures avec une apparence Override portant un index hors bornes.<br/>
- * \tattendu La texture et les dimensions rendues sont celles du damier.
+ * \tetapes 1. Interroger les textures avec une apparence Override portant un index hors
+ * bornes.<br/> \tattendu La texture et les dimensions rendues sont celles du damier.
  * }
  */
 TEST(TextureResolutionTest, IndexDObjetInvalideBorne) {

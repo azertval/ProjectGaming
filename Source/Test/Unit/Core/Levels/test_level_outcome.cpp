@@ -153,9 +153,9 @@ TEST(LevelOutcomeTest, BoiteSupplementaireProvoqueLEchec) {
     const std::vector<core::Aabb> extraDangerBoxes{unitBox(3.0f, 3.0f)};
 
     EXPECT_EQ(core::evaluateOutcome(unitBox(1.0f, 1.0f), level, extraDangerBoxes),
-             core::LevelOutcome::Playing);  // loin de la boîte supplémentaire
+              core::LevelOutcome::Playing);  // loin de la boîte supplémentaire
     EXPECT_EQ(core::evaluateOutcome(unitBox(3.0f, 3.0f), level, extraDangerBoxes),
-             core::LevelOutcome::Lost);  // recouvre la boîte supplémentaire
+              core::LevelOutcome::Lost);  // recouvre la boîte supplémentaire
 }
 
 /**

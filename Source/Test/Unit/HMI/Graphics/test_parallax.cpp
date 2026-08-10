@@ -4,10 +4,10 @@
  *        courante (LOT-49 TACHE-03, `EX-DEC-006`).
  */
 
-#include <gtest/gtest.h>
-
 #include <optional>
 #include <string>
+
+#include <gtest/gtest.h>
 
 #include "Core/Ecs/Components/Sprite.h"
 #include "Core/Ecs/Components/Transform.h"
@@ -162,11 +162,10 @@ TEST(ParallaxTest, MemePositionRelativeDonneMemePositionEcranEntreSalles) {
  * }
  */
 TEST(ParallaxTest, RoundToScreenPixelArrondiAuPixelEcran) {
-    const core::Vector2 rounded =
-        hmi::roundToScreenPixel(core::Vector2{1.03f, 2.49f}, 16.0f);
+    const core::Vector2 rounded = hmi::roundToScreenPixel(core::Vector2{1.03f, 2.49f}, 16.0f);
 
-    EXPECT_FLOAT_EQ(rounded.x, 1.0f);    // round(1.03*16)=16 -> 16/16 = 1.0
-    EXPECT_FLOAT_EQ(rounded.y, 2.5f);    // round(2.49*16)=40 -> 40/16 = 2.5
+    EXPECT_FLOAT_EQ(rounded.x, 1.0f);  // round(1.03*16)=16 -> 16/16 = 1.0
+    EXPECT_FLOAT_EQ(rounded.y, 2.5f);  // round(2.49*16)=40 -> 40/16 = 2.5
 }
 
 /**

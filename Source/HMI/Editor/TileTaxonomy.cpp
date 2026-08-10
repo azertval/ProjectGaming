@@ -45,9 +45,7 @@ std::vector<TileCategory> tileTaxonomy() {
                {TileType::DangerLeft, "Pics vers la gauche"},
                {TileType::DangerRight, "Pics vers la droite"}}},
          }},
-        {"Jalon",
-         {{TileType::Entry, "Entrée"}, {TileType::Exit, "Sortie"}},
-         {}},
+        {"Jalon", {{TileType::Entry, "Entrée"}, {TileType::Exit, "Sortie"}}, {}},
     };
 }
 

@@ -23,11 +23,12 @@ namespace hmi {
  * rendu.
  *
  * C'est un composant **de présentation** (`hmi`, jamais `core`) : il vit néanmoins dans le
- * `core::World` (générique sur le type de composant), écrit par `HMI` (`hmi::GameSession` recopie la
- * position courante vers ce champ au début de chaque pas) et lu par `HMI` (`hmi::SpriteRenderer`).
- * `Core` l'ignore totalement — aucune règle de simulation n'en dépend, la frontière `HMI → Core`
- * reste intacte (`EX-NFR-010`, `EX-ARCH-012`). Une entité **sans** ce composant (les tuiles fixes,
- * l'immense majorité) est simplement dessinée à sa position courante, sans interpolation.
+ * `core::World` (générique sur le type de composant), écrit par `HMI` (`hmi::GameSession` recopie
+ * la position courante vers ce champ au début de chaque pas) et lu par `HMI`
+ * (`hmi::SpriteRenderer`). `Core` l'ignore totalement — aucune règle de simulation n'en dépend, la
+ * frontière `HMI → Core` reste intacte (`EX-NFR-010`, `EX-ARCH-012`). Une entité **sans** ce
+ * composant (les tuiles fixes, l'immense majorité) est simplement dessinée à sa position courante,
+ * sans interpolation.
  */
 struct PreviousPosition {
     /// Position de l'entité (coin haut-gauche, unités monde) telle que laissée par le pas

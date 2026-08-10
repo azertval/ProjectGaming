@@ -1,15 +1,15 @@
 #pragma once
 
+#include <QWidget>
 #include <array>
 #include <filesystem>
-
-#include <QWidget>
 
 #include "HMI/Input/GameKeyBindings.h"
 
 /**
  * @file HMI/Interface/KeybindingsWidget.h
- * @brief Remappage des touches de jeu (`EX-CTRL-012`), en widget embarquable (onglet Options, LOT-38).
+ * @brief Remappage des touches de jeu (`EX-CTRL-012`), en widget embarquable (onglet Options,
+ * LOT-38).
  */
 
 class QFormLayout;

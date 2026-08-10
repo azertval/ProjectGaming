@@ -4,10 +4,10 @@
  *        `EX-DEC-010`).
  */
 
-#include <gtest/gtest.h>
-
 #include <cmath>
 #include <optional>
+
+#include <gtest/gtest.h>
 
 #include "Core/Levels/Decor.h"
 #include "Core/Levels/LevelDraft.h"
@@ -391,7 +391,8 @@ LevelDraft fourDecorsWithInterleavedLayer() {
  * }
  */
 TEST(DecorMutationsTest, BringDecorForwardEchangeAvecLeProchainDeMemeCouche) {
-    LevelDraft draft = fourDecorsWithInterleavedLayer();  // A(Decor) B(Foreground) C(Decor) D(Decor)
+    LevelDraft draft =
+        fourDecorsWithInterleavedLayer();  // A(Decor) B(Foreground) C(Decor) D(Decor)
 
     const std::optional<std::size_t> newIndex = draft.bringDecorForward(0);  // avance A
 
@@ -435,7 +436,8 @@ TEST(DecorMutationsTest, BringDecorForwardDejaEnTeteEstUnNoOpReussi) {
  * }
  */
 TEST(DecorMutationsTest, SendDecorBackwardEchangeAvecLePrecedentDeMemeCouche) {
-    LevelDraft draft = fourDecorsWithInterleavedLayer();  // A(Decor) B(Foreground) C(Decor) D(Decor)
+    LevelDraft draft =
+        fourDecorsWithInterleavedLayer();  // A(Decor) B(Foreground) C(Decor) D(Decor)
 
     const std::optional<std::size_t> newIndex = draft.sendDecorBackward(2);  // recule C
 
@@ -478,7 +480,8 @@ TEST(DecorMutationsTest, SendDecorBackwardDejaEnQueueEstUnNoOpReussi) {
  * }
  */
 TEST(DecorMutationsTest, BringDecorToFrontAmeneAuDernierRangDeSaCouche) {
-    LevelDraft draft = fourDecorsWithInterleavedLayer();  // A(Decor) B(Foreground) C(Decor) D(Decor)
+    LevelDraft draft =
+        fourDecorsWithInterleavedLayer();  // A(Decor) B(Foreground) C(Decor) D(Decor)
 
     const std::optional<std::size_t> newIndex = draft.bringDecorToFront(0);  // A au premier plan
 
@@ -504,7 +507,8 @@ TEST(DecorMutationsTest, BringDecorToFrontAmeneAuDernierRangDeSaCouche) {
  * }
  */
 TEST(DecorMutationsTest, SendDecorToBackAmeneAuPremierRangDeSaCouche) {
-    LevelDraft draft = fourDecorsWithInterleavedLayer();  // A(Decor) B(Foreground) C(Decor) D(Decor)
+    LevelDraft draft =
+        fourDecorsWithInterleavedLayer();  // A(Decor) B(Foreground) C(Decor) D(Decor)
 
     const std::optional<std::size_t> newIndex = draft.sendDecorToBack(3);  // D a l'arriere-plan
 
@@ -529,7 +533,8 @@ TEST(DecorMutationsTest, SendDecorToBackAmeneAuPremierRangDeSaCouche) {
  * }
  */
 TEST(DecorMutationsTest, BringDecorToFrontEtSendDecorToBackDejaEnPlaceSontDesNoOp) {
-    LevelDraft draft = fourDecorsWithInterleavedLayer();  // A(Decor) B(Foreground) C(Decor) D(Decor)
+    LevelDraft draft =
+        fourDecorsWithInterleavedLayer();  // A(Decor) B(Foreground) C(Decor) D(Decor)
 
     EXPECT_EQ(draft.bringDecorToFront(3), 3u);  // D deja au premier plan de sa couche
     EXPECT_EQ(draft.sendDecorToBack(0), 0u);    // A deja a l'arriere-plan de sa couche

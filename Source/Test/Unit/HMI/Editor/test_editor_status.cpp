@@ -15,36 +15,36 @@ namespace {
 
 hmi::Localization testLocalization() {
     hmi::Localization localization;
-    localization.setDefaultCatalog(
-        "fr", {{"status.zone.level", "Niveau : %1"},
-               {"status.zone.asset", "Asset : %1"},
-               {"status.zone.dirty", "Modifie"},
-               {"status.zone.hover", "(%1, %2)"},
-               {"status.zone.zoom", "Zoom : %1%"},
-               {"status.zone.color", "Couleur : %1"},
-               {"status.zone.color_constrained", "Couleur : %1 (contrainte)"},
-               {"tool.brush", "Pinceau"},
-               {"tool.rectangle", "Rectangle"},
-               {"tool.selection", "Selection"},
-               {"tool.link", "Lien"},
-               {"tool.texture_assign", "Texture"},
-               {"tool.decor", "Decor"},
-               {"status.help_paint", "Aide pinceau"},
-               {"status.help_rectangle", "Aide rectangle"},
-               {"status.help_selection", "Aide selection"},
-               {"status.help_link", "Aide lien"},
-               {"status.help_texture_assign", "Aide texture"},
-               {"status.help_decor", "Aide decor"},
-               {"pixel_tool.brush", "Pinceau"},
-               {"pixel_tool.eraser", "Gomme"},
-               {"pixel_tool.fill", "Pot de peinture"},
-               {"pixel_tool.eyedropper", "Pipette"},
-               {"pixel_tool.selection", "Selection"},
-               {"status.help_pixel_brush", "Aide pinceau pixel"},
-               {"status.help_pixel_eraser", "Aide gomme"},
-               {"status.help_pixel_fill", "Aide pot de peinture"},
-               {"status.help_pixel_eyedropper", "Aide pipette"},
-               {"status.help_pixel_selection", "Aide selection"}});
+    localization.setDefaultCatalog("fr",
+                                   {{"status.zone.level", "Niveau : %1"},
+                                    {"status.zone.asset", "Asset : %1"},
+                                    {"status.zone.dirty", "Modifie"},
+                                    {"status.zone.hover", "(%1, %2)"},
+                                    {"status.zone.zoom", "Zoom : %1%"},
+                                    {"status.zone.color", "Couleur : %1"},
+                                    {"status.zone.color_constrained", "Couleur : %1 (contrainte)"},
+                                    {"tool.brush", "Pinceau"},
+                                    {"tool.rectangle", "Rectangle"},
+                                    {"tool.selection", "Selection"},
+                                    {"tool.link", "Lien"},
+                                    {"tool.texture_assign", "Texture"},
+                                    {"tool.decor", "Decor"},
+                                    {"status.help_paint", "Aide pinceau"},
+                                    {"status.help_rectangle", "Aide rectangle"},
+                                    {"status.help_selection", "Aide selection"},
+                                    {"status.help_link", "Aide lien"},
+                                    {"status.help_texture_assign", "Aide texture"},
+                                    {"status.help_decor", "Aide decor"},
+                                    {"pixel_tool.brush", "Pinceau"},
+                                    {"pixel_tool.eraser", "Gomme"},
+                                    {"pixel_tool.fill", "Pot de peinture"},
+                                    {"pixel_tool.eyedropper", "Pipette"},
+                                    {"pixel_tool.selection", "Selection"},
+                                    {"status.help_pixel_brush", "Aide pinceau pixel"},
+                                    {"status.help_pixel_eraser", "Aide gomme"},
+                                    {"status.help_pixel_fill", "Aide pot de peinture"},
+                                    {"status.help_pixel_eyedropper", "Aide pipette"},
+                                    {"status.help_pixel_selection", "Aide selection"}});
     return localization;
 }
 
@@ -228,11 +228,12 @@ TEST(EditorStatusTest, ModeContraintFigureDansLaZoneCouleur) {
     hmi::EditorStatusContext constrainedContext;
     constrainedContext.pixelEdit = constrained;
     EXPECT_EQ(hmi::editorStatusLines(constrainedContext, localization).permanent[5],
-             "Couleur : #ff0000ff (contrainte)");
+              "Couleur : #ff0000ff (contrainte)");
 
     hmi::EditorStatusContext freeContext;
     freeContext.pixelEdit = basePixelEdit();  // paletteConstrained = false par defaut.
-    EXPECT_EQ(hmi::editorStatusLines(freeContext, localization).permanent[5], "Couleur : #ff0000ff");
+    EXPECT_EQ(hmi::editorStatusLines(freeContext, localization).permanent[5],
+              "Couleur : #ff0000ff");
 }
 
 /**
@@ -295,14 +296,24 @@ TEST(EditorStatusTest, AideDeLAtelierChangeAvecLOutilActif) {
  */
 TEST(EditorStatusTest, ClesDeTraductionExistentDansLesDeuxCatalogues) {
     const std::filesystem::path directory(PROJECTGAMING_LOCALIZATION_DIR);
-    const char* const keys[] = {
-        "status.zone.level",   "status.zone.asset",     "status.zone.dirty",
-        "status.zone.hover",   "status.zone.zoom",      "status.zone.color",
-        "status.zone.color_constrained",
-        "status.help_paint",   "status.help_rectangle", "status.help_selection",
-        "status.help_link",    "status.help_texture_assign", "status.help_decor",
-        "status.help_pixel_brush", "status.help_pixel_eraser", "status.help_pixel_fill",
-        "status.help_pixel_eyedropper", "status.help_pixel_selection"};
+    const char* const keys[] = {"status.zone.level",
+                                "status.zone.asset",
+                                "status.zone.dirty",
+                                "status.zone.hover",
+                                "status.zone.zoom",
+                                "status.zone.color",
+                                "status.zone.color_constrained",
+                                "status.help_paint",
+                                "status.help_rectangle",
+                                "status.help_selection",
+                                "status.help_link",
+                                "status.help_texture_assign",
+                                "status.help_decor",
+                                "status.help_pixel_brush",
+                                "status.help_pixel_eraser",
+                                "status.help_pixel_fill",
+                                "status.help_pixel_eyedropper",
+                                "status.help_pixel_selection"};
     for (const std::string& language : {"fr", "en"}) {
         hmi::Localization localization(directory);
         ASSERT_TRUE(localization.loadDefaultLanguage(language)) << language;

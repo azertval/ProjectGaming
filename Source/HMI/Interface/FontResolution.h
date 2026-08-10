@@ -33,6 +33,6 @@ struct FontFamilyResolution {
  *         famille, signalant à l'appelant de retomber sur une famille générique.
  */
 [[nodiscard]] FontFamilyResolution resolveFontFamily(bool fontRegistered,
-                                                      const std::string& embeddedFamilyName);
+                                                     const std::string& embeddedFamilyName);
 
 }  // namespace hmi

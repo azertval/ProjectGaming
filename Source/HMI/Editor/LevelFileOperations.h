@@ -6,7 +6,8 @@
 
 /**
  * @file HMI/Editor/LevelFileOperations.h
- * @brief Opérations fichiers sur les niveaux (créer/renommer/dupliquer/supprimer), sans Qt (LOT-36).
+ * @brief Opérations fichiers sur les niveaux (créer/renommer/dupliquer/supprimer), sans Qt
+ * (LOT-36).
  */
 
 namespace hmi {

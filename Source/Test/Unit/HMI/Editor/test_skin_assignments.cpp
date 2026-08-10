@@ -158,8 +158,7 @@ TEST(SkinAssignmentsTest, AssignationPuisRetraitDepuisLePanneau) {
 
     hmi::applySkinAssignment(catalog, "foret", core::TileType::Danger, "spikes.png",
                              hmi::SkinMode::Single);
-    const std::optional<hmi::SkinEntry> assigned =
-        catalog.resolve("foret", core::TileType::Danger);
+    const std::optional<hmi::SkinEntry> assigned = catalog.resolve("foret", core::TileType::Danger);
     ASSERT_TRUE(assigned.has_value());
     EXPECT_EQ(assigned->asset, "spikes.png");
 
@@ -273,8 +272,8 @@ TEST(SkinAssignmentsTest, LibellesTaxonomieTraduitsDansLesDeuxLangues) {
  * \castest{<b>Les libelles propres au panneau Textures existent dans les deux catalogues.</b><br/>
  * \tcat Unitaire · Panneau Textures<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Pour chaque cle utilisee par le panneau, la resoudre en francais puis en anglais.<br/>
- * \tattendu Chaque cle est traduite dans les deux langues.
+ * \tetapes 1. Pour chaque cle utilisee par le panneau, la resoudre en francais puis en
+ * anglais.<br/> \tattendu Chaque cle est traduite dans les deux langues.
  * }
  */
 TEST(SkinAssignmentsTest, LibellesDuPanneauTraduits) {

@@ -225,8 +225,9 @@ TEST(PlayerInputMapperTest, RemapperUneActionClavierUtiliseLaNouvelleTouche) {
     hmi::GameKeyBindings gameKeyBindings;
     gameKeyBindings.setKey(hmi::GameAction::Dash, hmi::Key::F1);
 
-    EXPECT_TRUE(hmi::toPlayerInput(withKeys({hmi::Key::F1}), gameKeyBindings, hmi::GamepadBindings{})
-                    .dashPressed);
+    EXPECT_TRUE(
+        hmi::toPlayerInput(withKeys({hmi::Key::F1}), gameKeyBindings, hmi::GamepadBindings{})
+            .dashPressed);
 }
 
 /**
@@ -268,9 +269,8 @@ TEST(PlayerInputMapperTest, RemapperGaucheEtDroiteSurDesTouchesDistinctesNeLesAn
  * }
  */
 TEST(PlayerInputMapperTest, ActionDeclencheeParSonBoutonManetteParDefaut) {
-    const core::PlayerInput input =
-        hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::A), hmi::GameKeyBindings{},
-                          hmi::GamepadBindings{});
+    const core::PlayerInput input = hmi::toPlayerInput(
+        withGamepadButton(hmi::GamepadButton::A), hmi::GameKeyBindings{}, hmi::GamepadBindings{});
     EXPECT_TRUE(input.jumpPressed);
 }
 
@@ -316,12 +316,12 @@ TEST(PlayerInputMapperTest, RemapperGaucheEtDroiteManetteSurDesBoutonsDistinctsN
     gamepadBindings.setKey(hmi::GameAction::MoveRight, hmi::GamepadButton::Y);
     const hmi::GameKeyBindings gameKeyBindings;
 
-    EXPECT_FLOAT_EQ(
-        hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::X), gameKeyBindings, gamepadBindings)
-            .moveX,
-        -1.0f);
-    EXPECT_FLOAT_EQ(
-        hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::Y), gameKeyBindings, gamepadBindings)
-            .moveX,
-        1.0f);
+    EXPECT_FLOAT_EQ(hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::X), gameKeyBindings,
+                                       gamepadBindings)
+                        .moveX,
+                    -1.0f);
+    EXPECT_FLOAT_EQ(hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::Y), gameKeyBindings,
+                                       gamepadBindings)
+                        .moveX,
+                    1.0f);
 }

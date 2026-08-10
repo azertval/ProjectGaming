@@ -72,11 +72,13 @@ TEST(AnimatedTilesTest, SkinAnimeProduitDesRegionsDifferentesAuFilDesPas) {
     core::Animation animation = freshWaterAnimation();
     const hmi::AnimationDescription description = waterDescription();
 
-    const core::AtlasRegion first = hmi::AnimationCatalog::currentFrameRegion(description, animation);
+    const core::AtlasRegion first =
+        hmi::AnimationCatalog::currentFrameRegion(description, animation);
     for (int i = 0; i < 6; ++i) {  // 6 pas = 0,1 s : une image complete a la cadence du clip.
         core::advanceAnimation(animation, STEP);
     }
-    const core::AtlasRegion second = hmi::AnimationCatalog::currentFrameRegion(description, animation);
+    const core::AtlasRegion second =
+        hmi::AnimationCatalog::currentFrameRegion(description, animation);
 
     EXPECT_NE(first.x, second.x);
     EXPECT_EQ(first.y, second.y);  // spritesheet a un seul rang.
@@ -97,13 +99,15 @@ TEST(AnimatedTilesTest, SkinNonAnimeProduitUneRegionConstante) {
     // Sans animatedFrame renseigne (asset non anime, TACHE-03) : resolveTileAppearance retombe
     // sur l'image entiere, quel que soit le nombre d'appels.
     hmi::SkinCatalog catalog;
-    catalog.assign("defaut", core::TileType::Solid, hmi::SkinEntry{"stone.png", hmi::SkinMode::Single});
+    catalog.assign("defaut", core::TileType::Solid,
+                   hmi::SkinEntry{"stone.png", hmi::SkinMode::Single});
 
     hmi::SceneTextures textures;
     textures.atlas = &storageA;
     textures.atlasWidth = TILE * 5;
     textures.atlasHeight = TILE * 5;
-    textures.skins = {hmi::SkinTexture{"stone.png", std::nullopt, &storageB, TILE, TILE, std::nullopt}};
+    textures.skins = {
+        hmi::SkinTexture{"stone.png", std::nullopt, &storageB, TILE, TILE, std::nullopt}};
     textures.skinCatalog = &catalog;
     textures.skinSet = "defaut";
 
@@ -133,7 +137,8 @@ TEST(AnimatedTilesTest, SkinNonAnimeProduitUneRegionConstante) {
  */
 TEST(AnimatedTilesTest, SkinAnimeUtiliseLaRegionCouranteDeAnimatedFrame) {
     hmi::SkinCatalog catalog;
-    catalog.assign("defaut", core::TileType::Solid, hmi::SkinEntry{"water.png", hmi::SkinMode::Single});
+    catalog.assign("defaut", core::TileType::Solid,
+                   hmi::SkinEntry{"water.png", hmi::SkinMode::Single});
 
     const core::AtlasRegion currentFrame{TILE * 2, 0, TILE, TILE};  // 3e image de la spritesheet.
     hmi::SceneTextures textures;
@@ -178,8 +183,10 @@ TEST(AnimatedTilesTest, MiseEnPhaseDeuxTuilesDuMemeTypeAffichentLaMemeImageAuMem
     for (int step = 0; step < 37; ++step) {
         core::advanceAnimation(tileOne, STEP);
         core::advanceAnimation(tileTwo, STEP);
-        const core::AtlasRegion regionOne = hmi::AnimationCatalog::currentFrameRegion(description, tileOne);
-        const core::AtlasRegion regionTwo = hmi::AnimationCatalog::currentFrameRegion(description, tileTwo);
+        const core::AtlasRegion regionOne =
+            hmi::AnimationCatalog::currentFrameRegion(description, tileOne);
+        const core::AtlasRegion regionTwo =
+            hmi::AnimationCatalog::currentFrameRegion(description, tileTwo);
         ASSERT_EQ(regionOne.x, regionTwo.x) << "pas " << step;
         ASSERT_EQ(tileOne.frameIndex, tileTwo.frameIndex) << "pas " << step;
     }

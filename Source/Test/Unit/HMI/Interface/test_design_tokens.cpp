@@ -48,21 +48,19 @@ TEST(DesignTokensTest, ConversionRgbaPorteLesQuatreComposantes) {
  * @brief La couleur d'effacement du viewport dérive du **même** jeton que le fond de la portée
  *        correspondante, en mode édition comme en mode jeu : c'est le seul garde-fou contre la
  *        réapparition de la couture entre le canevas et les widgets.
- * \castest{<b>La couleur d'effacement du viewport suit le jeton de fond de la bonne portee.</b><br/>
- * \tcat Unitaire · Jetons de design<br/>
- * \tcrit Critique<br/>
- * \tetapes 1. Demander la couleur d'effacement en mode edition, puis en mode jeu.<br/>
- * \tattendu En edition elle vaut le fond du chassis variable ; en jeu, le fond de l'identite
- * invariante.
+ * \castest{<b>La couleur d'effacement du viewport suit le jeton de fond de la bonne
+ * portee.</b><br/> \tcat Unitaire · Jetons de design<br/> \tcrit Critique<br/> \tetapes 1. Demander
+ * la couleur d'effacement en mode edition, puis en mode jeu.<br/> \tattendu En edition elle vaut le
+ * fond du chassis variable ; en jeu, le fond de l'identite invariante.
  * }
  */
 TEST(DesignTokensTest, CouleurViewportSuitLaPorteeDuMode) {
     EXPECT_EQ(hmi::viewportClearColor(/*editorMode=*/true, hmi::editorDarkTokens()),
-             hmi::editorDarkTokens().color.background);
+              hmi::editorDarkTokens().color.background);
     EXPECT_EQ(hmi::viewportClearColor(/*editorMode=*/true, hmi::editorLightTokens()),
-             hmi::editorLightTokens().color.background);
+              hmi::editorLightTokens().color.background);
     EXPECT_EQ(hmi::viewportClearColor(/*editorMode=*/false, hmi::editorDarkTokens()),
-             hmi::identityTokens().color.background);
+              hmi::identityTokens().color.background);
 }
 
 /**
@@ -98,7 +96,8 @@ TEST(DesignTokensTest, LesDeuxPorteesPartagentLesMemesEchelles) {
  * }
  */
 TEST(DesignTokensTest, CouleursDesDeuxPorteesDistinctesEtCoherentes) {
-    EXPECT_FALSE(hmi::identityTokens().color.background == hmi::editorDarkTokens().color.background);
+    EXPECT_FALSE(hmi::identityTokens().color.background ==
+                 hmi::editorDarkTokens().color.background);
     EXPECT_FALSE(hmi::identityTokens().color.text == hmi::identityTokens().color.background);
     EXPECT_FALSE(hmi::editorDarkTokens().color.text == hmi::editorDarkTokens().color.background);
 }
@@ -106,11 +105,10 @@ TEST(DesignTokensTest, CouleursDesDeuxPorteesDistinctesEtCoherentes) {
 /**
  * @brief Les deux widgets de remappage (clavier, manette) doivent exposer la même largeur
  *        minimale : c'est la grandeur que TACHE-01 unifie via `SizeTokens::controlMinWidth`.
- * \castest{<b>Une seule grandeur de largeur minimale existe pour les deux widgets de remappage.</b><br/>
- * \tcat Unitaire · Jetons de design<br/>
- * \tcrit Mineur<br/>
- * \tetapes 1. Lire `controlMinWidth` dans les jetons du chassis d'edition.<br/>
- * \tattendu La valeur est strictement positive (utilisee telle quelle par les deux widgets).
+ * \castest{<b>Une seule grandeur de largeur minimale existe pour les deux widgets de
+ * remappage.</b><br/> \tcat Unitaire · Jetons de design<br/> \tcrit Mineur<br/> \tetapes 1. Lire
+ * `controlMinWidth` dans les jetons du chassis d'edition.<br/> \tattendu La valeur est strictement
+ * positive (utilisee telle quelle par les deux widgets).
  * }
  */
 TEST(DesignTokensTest, AucunDoublonDeLargeurMinimale) {
@@ -133,9 +131,9 @@ TEST(DesignTokensTest, ChaqueThemeSatisfaitLeSeuilDeContraste) {
     constexpr double MIN_MUTED_TEXT_CONTRAST = 3.0;
     for (const hmi::DesignTokens* tokens : {&hmi::editorDarkTokens(), &hmi::editorLightTokens()}) {
         EXPECT_GE(hmi::contrastRatio(tokens->color.text, tokens->color.background),
-                 MIN_TEXT_CONTRAST);
+                  MIN_TEXT_CONTRAST);
         EXPECT_GE(hmi::contrastRatio(tokens->color.textMuted, tokens->color.background),
-                 MIN_MUTED_TEXT_CONTRAST);
+                  MIN_MUTED_TEXT_CONTRAST);
     }
 }
 
@@ -154,5 +152,6 @@ TEST(DesignTokensTest, ContrasteSymetriqueEtUnitairePourUneMemeCouleur) {
     constexpr hmi::DesignColor color{0x42, 0x88, 0xcc};
     EXPECT_NEAR(hmi::contrastRatio(color, color), 1.0, 1e-9);
     EXPECT_NEAR(hmi::contrastRatio(hmi::DesignColor{0, 0, 0}, hmi::DesignColor{255, 255, 255}),
-               hmi::contrastRatio(hmi::DesignColor{255, 255, 255}, hmi::DesignColor{0, 0, 0}), 1e-9);
+                hmi::contrastRatio(hmi::DesignColor{255, 255, 255}, hmi::DesignColor{0, 0, 0}),
+                1e-9);
 }

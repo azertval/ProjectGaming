@@ -68,8 +68,7 @@ struct SkinSection {
  * @return Les noms de fichiers image, triés par ordre alphabétique ; vide si le dossier est
  *         absent — un état de départ légitime, pas une erreur.
  */
-[[nodiscard]] std::vector<std::string> listSkinAssets(
-    const std::filesystem::path& skinsDirectory);
+[[nodiscard]] std::vector<std::string> listSkinAssets(const std::filesystem::path& skinsDirectory);
 
 /**
  * @brief Applique une assignation à un catalogue, ou la retire.

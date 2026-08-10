@@ -201,8 +201,10 @@ void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mo
             }
 
             // Habillage du personnage (LOT-48), en RenderMode::Texture uniquement : resolu a part
-            // de hmi::resolveTileAppearance (le personnage n'est pas une tuile, cf. PlayerSpriteTag)
-            // -- son quad est decorrelee de la hitbox, contrairement au chemin generique ci-dessous.
+            // de hmi::resolveTileAppearance (le personnage n'est pas une tuile, cf.
+            // PlayerSpriteTag)
+            // -- son quad est decorrelee de la hitbox, contrairement au chemin generique
+            // ci-dessous.
             const PlayerSpriteTag* playerTag = world.hasComponent<PlayerSpriteTag>(entity)
                                                    ? &world.getComponent<PlayerSpriteTag>(entity)
                                                    : nullptr;
@@ -247,9 +249,9 @@ void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mo
                 atlasWidth = static_cast<float>(appearance.pixelWidth);
                 atlasHeight = static_cast<float>(appearance.pixelHeight);
                 worldWidth = static_cast<float>(appearance.pixelWidth) / Camera2D::PIXELS_PER_UNIT *
-                            transform.scale.x;
+                             transform.scale.x;
                 worldHeight = static_cast<float>(appearance.pixelHeight) /
-                             Camera2D::PIXELS_PER_UNIT * transform.scale.y;
+                              Camera2D::PIXELS_PER_UNIT * transform.scale.y;
             } else if (usePlayerAppearance) {
                 region = playerTag->textureRegion;
                 if (playerTag->usesCharacterSheet) {
@@ -294,10 +296,10 @@ void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mo
                 // plus tard par la projection de la camera. Le damier de repli fait exactement une
                 // case (MISSING_TEXTURE_SIZE == TILE_SIZE) : la geometrie composee est donc la meme
                 // dans les deux modes, seule la texture echantillonnee change.
-                worldWidth =
-                    static_cast<float>(region.width) / Camera2D::PIXELS_PER_UNIT * transform.scale.x;
+                worldWidth = static_cast<float>(region.width) / Camera2D::PIXELS_PER_UNIT *
+                             transform.scale.x;
                 worldHeight = static_cast<float>(region.height) / Camera2D::PIXELS_PER_UNIT *
-                             transform.scale.y;
+                              transform.scale.y;
             }
 
             // Position a dessiner : interpolee entre le pas precedent et le pas courant si
@@ -319,8 +321,7 @@ void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mo
             if (decorTag != nullptr && camera != nullptr) {
                 position = parallaxRenderPosition(position, parallaxFactor(decorTag->layer),
                                                   camera->visibleBounds());
-                position = roundToScreenPixel(position,
-                                              Camera2D::PIXELS_PER_UNIT * camera->zoom());
+                position = roundToScreenPixel(position, Camera2D::PIXELS_PER_UNIT * camera->zoom());
             }
 
             position = position + quadOffset;

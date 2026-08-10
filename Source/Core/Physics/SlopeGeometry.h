@@ -116,8 +116,7 @@ struct SlopeFollowResult {
  * @return Le résultat du calage, ou `grounded == false` si aucune surface n'a été franchie.
  */
 [[nodiscard]] SlopeFollowResult resolveSlopeFollow(const Aabb& previousBox, const Aabb& newBox,
-                                                    float velocityY,
-                                                    const TileMap& tiles) noexcept;
+                                                   float velocityY, const TileMap& tiles) noexcept;
 
 /// @brief Résultat de `resolveCeilingSlopeFollow` : la position verticale à laquelle bloquer le
 ///        bord haut, si une silhouette de plafond a été franchie pendant le pas.

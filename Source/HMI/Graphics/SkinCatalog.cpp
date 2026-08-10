@@ -196,8 +196,7 @@ bool SkinCatalog::saveToFile(const std::filesystem::path& path) const {
     return file.good();
 }
 
-std::optional<SkinEntry> SkinCatalog::resolve(std::string_view setName,
-                                              core::TileType type) const {
+std::optional<SkinEntry> SkinCatalog::resolve(std::string_view setName, core::TileType type) const {
     auto set = _sets.find(setName);
     if (set == _sets.end()) {
         // Jeu inconnu (ou demande explicite du defaut) : repli sur le jeu par defaut plutot qu'un

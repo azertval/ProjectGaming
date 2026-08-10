@@ -15,7 +15,8 @@
 
 /**
  * @file HMI/Editor/DecorsPanel.h
- * @brief Panneau « Décors » : tout ce qui touche au placement et à l'inspection des décors, regroupé
+ * @brief Panneau « Décors » : tout ce qui touche au placement et à l'inspection des décors,
+ * regroupé
  *        (`LOT-57`, amendement post-essai manuel). Layout dans `DecorsPanel.ui`.
  */
 
@@ -39,7 +40,8 @@ class Localization;
 /**
  * @brief Panneau « Décors », qui regroupe deux choses jusqu'ici dispersées :
  *        - le **placement** de décors (`LOT-49`) : grille de vignettes sur `Assets/Decors/`, couche
- *          du *prochain* décor posé, aimantation — visible seulement quand l'outil Décor est actif ;
+ *          du *prochain* décor posé, aimantation — visible seulement quand l'outil Décor est actif
+ * ;
  *        - l'**inspection** des décors déjà posés (`LOT-50`), déplacée du panneau Textures : liste
  *          groupée par couche, réordonnancement, changement de couche du décor *sélectionné*,
  *          suppression, recentrage caméra — toujours visible, indépendamment de l'outil actif.
@@ -161,7 +163,7 @@ private:
     void onDecorCenterClicked();
 
     std::unique_ptr<Ui::DecorsPanel> _ui;
-    AssetThumbnailView* _decorView;   ///< Grille de vignettes de placement (`Assets/Decors/`).
+    AssetThumbnailView* _decorView;    ///< Grille de vignettes de placement (`Assets/Decors/`).
     QStandardItemModel* _decorsModel;  ///< Modèle du tableau de l'inspecteur.
     std::filesystem::path _decorsDirectory;
     /// Lignes affichées par l'inspecteur, déjà groupées/triées (`LOT-50` TACHE-04).

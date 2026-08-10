@@ -10,7 +10,6 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QString>
-
 #include <cstdint>
 #include <cstring>
 #include <optional>
@@ -144,7 +143,8 @@ void AssetThumbnailView::rebuildItems() {
         _ui->assetList->addItem(item);
     }
 
-    selectAsset(previousSelection);  // conserve la selection a travers un filtrage/rafraichissement.
+    selectAsset(
+        previousSelection);  // conserve la selection a travers un filtrage/rafraichissement.
 }
 
 // Vignette d'un fichier, decodee au premier besoin puis mise en cache par chemin absolu.
@@ -233,8 +233,8 @@ QString AssetThumbnailView::referencesWarning(const std::string& fileName) const
 
 void AssetThumbnailView::onImport() {
     const QString title = t(_loc, "assets.import");
-    const QString path = QFileDialog::getOpenFileName(this, title, QString(),
-                                                       QStringLiteral("Images (*.png)"));
+    const QString path =
+        QFileDialog::getOpenFileName(this, title, QString(), QStringLiteral("Images (*.png)"));
     if (path.isEmpty()) {
         return;
     }
@@ -277,9 +277,7 @@ void AssetThumbnailView::onRename() {
     if (!warning.isEmpty()) {
         const QMessageBox::StandardButton answer = QMessageBox::question(
             this, t(_loc, "assets.rename"),
-            t(_loc, "assets.references_warning")
-                .arg(QString::fromStdString(current))
-                .arg(warning));
+            t(_loc, "assets.references_warning").arg(QString::fromStdString(current)).arg(warning));
         if (answer != QMessageBox::Yes) {
             return;
         }
@@ -292,7 +290,7 @@ void AssetThumbnailView::onRename() {
         return;
     }
     HMI_LOG_INFO("Bibliotheque d'assets : renomme « " + current + " » en « " +
-                result.path.filename().string() + " ».");
+                 result.path.filename().string() + " ».");
     refresh();
     selectAsset(result.path.filename().string());
     emit assetsChanged();  // la section doit rafraichir toute assignation qui visait l'ancien nom.
@@ -328,9 +326,9 @@ void AssetThumbnailView::onDelete() {
     QString message = t(_loc, "assets.delete_confirm").arg(QString::fromStdString(current));
     const QString warning = referencesWarning(current);
     if (!warning.isEmpty()) {
-        message += QStringLiteral("\n") + t(_loc, "assets.references_warning")
-                                              .arg(QString::fromStdString(current))
-                                              .arg(warning);
+        message +=
+            QStringLiteral("\n") +
+            t(_loc, "assets.references_warning").arg(QString::fromStdString(current)).arg(warning);
     }
     const QMessageBox::StandardButton answer =
         QMessageBox::question(this, t(_loc, "assets.delete_title"), message);

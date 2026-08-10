@@ -3,8 +3,6 @@
  * @brief Tests unitaires de la section « Animations » du panneau « Textures » (LOT-47 TACHE-04).
  */
 
-#include "HMI/Editor/MechanismAnimationAssignments.h"
-
 #include <filesystem>
 #include <fstream>
 #include <string>
@@ -13,6 +11,7 @@
 #include <gtest/gtest.h>
 
 #include "Core/Levels/TileType.h"
+#include "HMI/Editor/MechanismAnimationAssignments.h"
 #include "HMI/Graphics/MechanismVisuals.h"
 #include "HMI/Graphics/SkinCatalog.h"
 
@@ -58,9 +57,8 @@ const hmi::MechanismAnimationRow* findRow(const std::vector<hmi::MechanismAnimat
 
 /**
  * @brief Une ligne par famille de mecanisme, dans l'ordre attendu.
- * \castest{<b>La section Animations propose exactement les six familles de mecanismes a etat.</b><br/>
- * \tcat Unitaire · Panneau Textures (Animations)<br/>
- * \tcrit Critique<br/>
+ * \castest{<b>La section Animations propose exactement les six familles de mecanismes a
+ * etat.</b><br/> \tcat Unitaire · Panneau Textures (Animations)<br/> \tcrit Critique<br/>
  * \tetapes 1. Construire les lignes pour un catalogue vide.<br/>
  * \tattendu Six lignes, une par famille de MECHANISM_ANIMATION_TYPES, sans asset assigne.
  * }
@@ -84,16 +82,16 @@ TEST(MechanismAnimationAssignmentsTest, UneLigneParFamille) {
 
 /**
  * @brief Un asset assigne sans fichier d'animation liste tous les clips comme manquants.
- * \castest{<b>Un asset assigne sans .anim.json liste tous les clips attendus comme manquants.</b><br/>
- * \tcat Unitaire · Panneau Textures (Animations)<br/>
- * \tcrit Critique<br/>
+ * \castest{<b>Un asset assigne sans .anim.json liste tous les clips attendus comme
+ * manquants.</b><br/> \tcat Unitaire · Panneau Textures (Animations)<br/> \tcrit Critique<br/>
  * \tetapes 1. Assigner un asset a Door, sans creer de fichier d'animation.<br/>
  * \tattendu missingClips contient exactement les clips attendus de Door.
  * }
  */
 TEST(MechanismAnimationAssignmentsTest, AssetSansAnimationListeToutManquant) {
     hmi::SkinCatalog catalog;
-    catalog.assign("defaut", core::TileType::Door, hmi::SkinEntry{"door.png", hmi::SkinMode::Single});
+    catalog.assign("defaut", core::TileType::Door,
+                   hmi::SkinEntry{"door.png", hmi::SkinMode::Single});
     const std::filesystem::path directory = makeTempSkinsDir("sans_anim");
 
     const std::vector<hmi::MechanismAnimationRow> rows =
@@ -111,8 +109,8 @@ TEST(MechanismAnimationAssignmentsTest, AssetSansAnimationListeToutManquant) {
  * \castest{<b>Un asset fournissant tous les clips attendus ne signale rien de manquant.</b><br/>
  * \tcat Unitaire · Panneau Textures (Animations)<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Assigner un asset a Switch et deposer un .anim.json avec ses deux clips attendus.<br/>
- * \tattendu missingClips est vide.
+ * \tetapes 1. Assigner un asset a Switch et deposer un .anim.json avec ses deux clips
+ * attendus.<br/> \tattendu missingClips est vide.
  * }
  */
 TEST(MechanismAnimationAssignmentsTest, AssetCompletNeManqueRien) {
@@ -121,7 +119,7 @@ TEST(MechanismAnimationAssignmentsTest, AssetCompletNeManqueRien) {
                    hmi::SkinEntry{"switch.png", hmi::SkinMode::Single});
     const std::filesystem::path directory = makeTempSkinsDir("complet");
     writeFile(directory / "switch.anim.json",
-             descriptorWithClips(hmi::mechanismExpectedClips(core::TileType::Switch)));
+              descriptorWithClips(hmi::mechanismExpectedClips(core::TileType::Switch)));
 
     const std::vector<hmi::MechanismAnimationRow> rows =
         hmi::buildMechanismAnimationRows(catalog, "defaut", directory);
@@ -137,23 +135,24 @@ TEST(MechanismAnimationAssignmentsTest, AssetCompletNeManqueRien) {
  * \castest{<b>Un asset partiel signale uniquement les clips absents.</b><br/>
  * \tcat Unitaire · Panneau Textures (Animations)<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Assigner un asset a Door dont le .anim.json ne fournit que « closed » et « open ».<br/>
- * \tattendu missingClips contient exactement « opening » et « closing ».
+ * \tetapes 1. Assigner un asset a Door dont le .anim.json ne fournit que « closed » et « open
+ * ».<br/> \tattendu missingClips contient exactement « opening » et « closing ».
  * }
  */
 TEST(MechanismAnimationAssignmentsTest, AssetPartielSignaleLeReste) {
     hmi::SkinCatalog catalog;
-    catalog.assign("defaut", core::TileType::Door, hmi::SkinEntry{"door.png", hmi::SkinMode::Single});
+    catalog.assign("defaut", core::TileType::Door,
+                   hmi::SkinEntry{"door.png", hmi::SkinMode::Single});
     const std::filesystem::path directory = makeTempSkinsDir("partiel");
-    writeFile(directory / "door.anim.json",
-             descriptorWithClips({hmi::MECHANISM_CLIP_DOOR_CLOSED, hmi::MECHANISM_CLIP_DOOR_OPEN}));
+    writeFile(directory / "door.anim.json", descriptorWithClips({hmi::MECHANISM_CLIP_DOOR_CLOSED,
+                                                                 hmi::MECHANISM_CLIP_DOOR_OPEN}));
 
     const std::vector<hmi::MechanismAnimationRow> rows =
         hmi::buildMechanismAnimationRows(catalog, "defaut", directory);
     const hmi::MechanismAnimationRow* door = findRow(rows, core::TileType::Door);
     ASSERT_NE(door, nullptr);
     EXPECT_EQ(door->missingClips, (std::vector<std::string>{hmi::MECHANISM_CLIP_DOOR_OPENING,
-                                                             hmi::MECHANISM_CLIP_DOOR_CLOSING}));
+                                                            hmi::MECHANISM_CLIP_DOOR_CLOSING}));
 
     std::filesystem::remove_all(directory);
 }

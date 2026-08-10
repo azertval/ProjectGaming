@@ -44,7 +44,8 @@ constexpr std::size_t TILE_TYPE_COUNT = static_cast<std::size_t>(core::TileType:
 TEST(TileTaxonomy, ChaqueTypeFigureExactementUneFois) {
     const std::vector<core::TileType> types = flatten(hmi::tileTaxonomy());
 
-    EXPECT_EQ(types.size(), TILE_TYPE_COUNT) << "la taxonomie doit couvrir tous les types de tuiles";
+    EXPECT_EQ(types.size(), TILE_TYPE_COUNT)
+        << "la taxonomie doit couvrir tous les types de tuiles";
 
     const std::set<core::TileType> unique(types.begin(), types.end());
     EXPECT_EQ(unique.size(), types.size()) << "aucun type ne doit apparaitre deux fois";

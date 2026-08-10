@@ -1,17 +1,16 @@
 #include "HMI/Interface/EditorKeybindingsWidget.h"
 
-#include <array>
-#include <utility>
-
 #include <QFormLayout>
 #include <QKeyEvent>
 #include <QLabel>
 #include <QPushButton>
 #include <QString>
 #include <QVBoxLayout>
+#include <array>
+#include <utility>
 
-#include "HMI/Input/QtKeyMap.h"
 #include "HMI/Input/KeyName.h"
+#include "HMI/Input/QtKeyMap.h"
 #include "HMI/Interface/DesignTokens.h"
 #include "HMI/Localization/Localization.h"
 
@@ -21,9 +20,9 @@ namespace {
 
 // Clés de traduction des actions d'éditeur (même ordre que `hmi::EditorAction`).
 constexpr std::array<const char*, hmi::EDITOR_ACTION_COUNT> ACTION_KEYS{
-    "keybindings.action.save",     "keybindings.action.undo",   "keybindings.action.redo",
-    "keybindings.action.copy",     "keybindings.action.paste",  "keybindings.action.playtest",
-    "keybindings.action.grid",     "keybindings.action.help",   "keybindings.action.rename",
+    "keybindings.action.save",        "keybindings.action.undo",  "keybindings.action.redo",
+    "keybindings.action.copy",        "keybindings.action.paste", "keybindings.action.playtest",
+    "keybindings.action.grid",        "keybindings.action.help",  "keybindings.action.rename",
     "keybindings.action.texture_tool"};
 
 [[nodiscard]] hmi::EditorAction actionAt(int index) {
