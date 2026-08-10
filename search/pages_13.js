@@ -78,7 +78,7 @@ var searchData=
   ['intention_20d_20entrée_75',['TACHE-01 — Composants du personnage &amp;amp; intention d&apos;entrée',['../lot-08-tache-01-composants-personnage.html',1,'lot-08']]],
   ['inter_20systèmes_76',['8. Communication inter-systèmes',['../spec-architecture.html#autotoc_md184',1,'']]],
   ['interactif_20_3a_20texture_20par_20instance_77',['LOT-45 — Objet interactif : texture par instance',['../lot-45.html',1,'lots']]],
-  ['interface_2022_78',['Interface (22)',['../cahiertest.html#autotoc_md19',1,'']]],
+  ['interface_2023_78',['Interface (23)',['../cahiertest.html#autotoc_md19',1,'']]],
   ['interface_20_3a_20hmi_3a_3alocalization_20hmi_3a_3alocalization_79',['La langue de l&apos;interface : &lt;a class=&quot;el&quot; href=&quot;classhmi_1_1Localization.html&quot; title=&quot;hmi::Localization&quot;&gt;hmi::Localization&lt;/a&gt;',['../guide-entrees.html#autotoc_md83',1,'']]],
   ['interface_20conservée_20repli_20procédural_80',['TACHE-02 — `TextureAtlas` sur atlas fichier (interface conservée, repli procédural)',['../lot-39-tache-02-texture-atlas-fichier.html',1,'lot-39']]],
   ['interface_20et_20documentation_81',['TACHE-03 — Contrôles d&apos;interface et documentation',['../lot-51-tache-03-controles-documentation.html',1,'lot-51']]],

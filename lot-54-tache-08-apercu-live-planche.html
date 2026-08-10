@@ -93,7 +93,15 @@ $(function(){initNavTree('lot-54-tache-08-apercu-live-planche.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-54-atelier-pixel-art_2tache-08-apercu-live-planche"></a></p>
-<p><b>Lot :</b> <a class="el" href="lot-54.html#md_Lot_2LOT-54-atelier-pixel-art_2epic" title="Lot/LOT-54-atelier-pixel-art/epic.md">LOT-54</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span>, <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> non commencé</p>
+<p><b>Lot :</b> <a class="el" href="lot-54.html#md_Lot_2LOT-54-atelier-pixel-art_2epic" title="Lot/LOT-54-atelier-pixel-art/epic.md">LOT-54</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span>, <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
+<blockquote class="doxtable">
+<p><b>Amendement de portée.</b></p><ul>
+<li><b>Aperçu live</b> : livré tel que cadré, via <span class="tt">GameViewport::invalidateAsset</span> (invalidation ciblée, déjà prévue depuis LOT-43). Comme <span class="tt">TextureCache</span> lit depuis le disque, un aperçu <em>avant</em> tout premier enregistrement suppose une écriture — <span class="tt">MainWindow::updateLivePreview</span> écrit silencieusement sur <span class="tt">_pixelAssetPath</span> à chaque geste complet (regroupé, jamais par pixel) <b>une fois qu'un chemin existe</b> (après le premier « Enregistrer »/« Enregistrer sous »). Un tout nouvel asset pas encore enregistré une première fois n'a donc pas d'aperçu live — cohérent avec le point d'attention « rien à montrer » ci-dessous.</li>
+<li><b>Repères des seize cases</b> et <b>aperçu d'assemblage 3×3</b> : livrés, dessinés directement dans <span class="tt">PixelCanvas</span> (grille de case épaisse + incrustation de l'assemblage dans le coin), et non comme un second panneau séparé — plus simple, toujours visible sans occuper un onglet.</li>
+<li><b>Case survolée</b> : livrée comme <b>infobulle</b> (<span class="tt">QToolTip</span>) sur le canevas plutôt que comme zone de la barre d'état structurée — évite de complexifier davantage le modèle à six zones de <span class="tt">hmi::EditorStatus</span>, pour une information qui n'a de sens qu'au survol immédiat de la case.</li>
+<li><b>Aperçu d'animation</b> : <b>non livré</b>. Nécessite d'intégrer <span class="tt"><a class="el" href="classhmi_1_1AnimationCatalog.html" title="Lecture, validation et traduction en région de texture du format nom-asset.anim.json.">hmi::AnimationCatalog</a></span>/ <span class="tt">TextureCache::getAnimation</span> (LOT-46) au canevas pour rejouer un clip — un point d'extension clair (la description est déjà résolue par le cache), laissé à une passe ultérieure faute de temps dans celle-ci. </li>
+</ul>
+</blockquote>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2394"></a>
 Contexte</h1>
 <p>Sans cette tâche, l'atelier n'apporterait presque rien : un éditeur d'images externe fait déjà mieux que ce que LOT-54 peut livrer en un lot. Ce qui le justifie, c'est d'être <b>intégré</b> — voir immédiatement, dans le niveau, ce que l'on est en train de peindre.</p>

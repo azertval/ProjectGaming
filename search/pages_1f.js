@@ -52,7 +52,7 @@ var searchData=
   ['unités_20monde_20et_20pixels_20_3a_20hmi_3a_3acamera2d_20hmi_3a_3acamera2d_49',['Unités monde et pixels : &lt;a class=&quot;el&quot; href=&quot;classhmi_1_1Camera2D.html&quot; title=&quot;hmi::Camera2D&quot;&gt;hmi::Camera2D&lt;/a&gt;',['../guide-rendu.html#autotoc_md150',1,'']]],
   ['unitaire_50',['Vérification (visuelle, pas de test unitaire)',['../lot-08-tache-06-integration-jouable.html#autotoc_md698',1,'']]],
   ['unitaire_20—_20brique_20gpu_51',['Vérification (visuelle, pas de test unitaire — brique GPU)',['../lot-11-tache-03-personnage-humanoide.html#autotoc_md833',1,'']]],
-  ['unitaires_20634_52',['Tests unitaires (634)',['../cahiertest.html#autotoc_md4',1,'']]],
+  ['unitaires_20693_52',['Tests unitaires (693)',['../cahiertest.html#autotoc_md4',1,'']]],
   ['utilisateur_53',['utilisateur',['../lot-15-tache-01-entrees-molette-texte.html#autotoc_md960',1,'Ajustement post-livraison (essai utilisateur)'],['../lot-15-tache-04-camera-pan-zoom.html#autotoc_md980',1,'Ajustement post-livraison (essai utilisateur)'],['../lot-15-tache-06-decouvrabilite.html#autotoc_md997',1,'Ajustement post-livraison (essai utilisateur)'],['../manuel.html',1,'Manuel utilisateur']]],
   ['utilisateur_20ihm_54',['Interface utilisateur (IHM)',['../spec-interface-ihm.html',1,'specifications']]],
   ['utilisateur_20squelette_20première_20page_55',['TACHE-06 — Manuel utilisateur (squelette + première page)',['../lot-04-tache-06-manuel-utilisateur.html',1,'lot-04']]]

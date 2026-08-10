@@ -47,7 +47,8 @@ var hierarchy =
     [ "hmi::DesignTokens", "structhmi_1_1DesignTokens.html", null ],
     [ "hmi::DraftRenderer", "classhmi_1_1DraftRenderer.html", null ],
     [ "hmi::EditContextTarget", "classhmi_1_1EditContextTarget.html", [
-      [ "hmi::GameViewport", "classhmi_1_1GameViewport.html", null ]
+      [ "hmi::GameViewport", "classhmi_1_1GameViewport.html", null ],
+      [ "hmi::PixelCanvas", "classhmi_1_1PixelCanvas.html", null ]
     ] ],
     [ "hmi::EditorActionSpec", "structhmi_1_1EditorActionSpec.html", null ],
     [ "hmi::EditorKeyBindings", "classhmi_1_1EditorKeyBindings.html", null ],
@@ -110,6 +111,18 @@ var hierarchy =
     [ "hmi::PanelFocusEntry", "structhmi_1_1PanelFocusEntry.html", null ],
     [ "hmi::PendingLink", "structhmi_1_1PendingLink.html", null ],
     [ "core::PhysicsConfig", "structcore_1_1PhysicsConfig.html", null ],
+    [ "hmi::PixelCanvasRealSize", "structhmi_1_1PixelCanvasRealSize.html", null ],
+    [ "hmi::PixelCanvasView", "structhmi_1_1PixelCanvasView.html", null ],
+    [ "hmi::PixelClipboard", "structhmi_1_1PixelClipboard.html", null ],
+    [ "hmi::PixelEditStatusInfo", "structhmi_1_1PixelEditStatusInfo.html", null ],
+    [ "hmi::PixelHistory", "classhmi_1_1PixelHistory.html", null ],
+    [ "hmi::PixelHistoryEntry", "structhmi_1_1PixelHistoryEntry.html", null ],
+    [ "hmi::PixelPalette", "classhmi_1_1PixelPalette.html", null ],
+    [ "hmi::PixelPaletteEntry", "structhmi_1_1PixelPaletteEntry.html", null ],
+    [ "hmi::PixelPaletteExtractionEntry", "structhmi_1_1PixelPaletteExtractionEntry.html", null ],
+    [ "hmi::PixelPanelFocusEntry", "structhmi_1_1PixelPanelFocusEntry.html", null ],
+    [ "hmi::PixelRegion", "structhmi_1_1PixelRegion.html", null ],
+    [ "hmi::PixelScreenRect", "structhmi_1_1PixelScreenRect.html", null ],
     [ "core::Player", "structcore_1_1Player.html", null ],
     [ "core::PlayerInput", "structcore_1_1PlayerInput.html", null ],
     [ "hmi::PlayerSpriteQuad", "structhmi_1_1PlayerSpriteQuad.html", null ],
@@ -136,6 +149,9 @@ var hierarchy =
       [ "hmi::MainMenu", "classhmi_1_1MainMenu.html", null ],
       [ "hmi::OptionsPage", "classhmi_1_1OptionsPage.html", null ],
       [ "hmi::PalettePanel", "classhmi_1_1PalettePanel.html", null ],
+      [ "hmi::PixelCanvas", "classhmi_1_1PixelCanvas.html", null ],
+      [ "hmi::PixelHistoryPanel", "classhmi_1_1PixelHistoryPanel.html", null ],
+      [ "hmi::PixelPalettePanel", "classhmi_1_1PixelPalettePanel.html", null ],
       [ "hmi::TexturePanel", "classhmi_1_1TexturePanel.html", null ]
     ] ],
     [ "QWindow", null, [

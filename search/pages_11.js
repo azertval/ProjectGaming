@@ -46,7 +46,7 @@ var searchData=
   ['grand_20que_20la_20fenêtre_20_3a_20fitzoom_20et_20hmi_3a_3aroomgrid_43',['Cadrer un contenu plus grand que la fenêtre : &lt;span class=&quot;tt&quot;&gt;fitZoom&lt;/span&gt; et &lt;span class=&quot;tt&quot;&gt;hmi::RoomGrid&lt;/span&gt;',['../guide-rendu.html#autotoc_md151',1,'']]],
   ['grande_20taille_44',['LOT-16 — Niveaux de grande taille',['../lot-16.html',1,'lots']]],
   ['grande_20taille_20lot_2016_45',['7. Niveaux de grande taille (LOT-16)',['../spec-editeur.html#autotoc_md229',1,'']]],
-  ['graphics_20184_46',['Graphics (184)',['../cahiertest.html#autotoc_md17',1,'']]],
+  ['graphics_20188_46',['Graphics (188)',['../cahiertest.html#autotoc_md17',1,'']]],
   ['graphicsdevice_47',['TACHE-02 — Fenêtre Qt + viewport `QWindow` embarqué → `GraphicsDevice`',['../lot-34-tache-02-viewport-d3d11-embarque.html',1,'lot-34']]],
   ['gravité_20_3a_20core_3a_3aloglevel_20core_3a_3aloglevel_48',['Les niveaux de gravité : &lt;a class=&quot;el&quot; href=&quot;namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3&quot; title=&quot;core::LogLevel&quot;&gt;core::LogLevel&lt;/a&gt;',['../guide-journalisation.html#autotoc_md95',1,'']]],
   ['gravité_20asymétrique_20apex_20hang_20fast_20fall_49',['TACHE-02 — Gravité asymétrique + apex hang + fast-fall',['../lot-11-tache-02-gravite-asymetrique.html',1,'lot-11']]],

@@ -95,7 +95,9 @@ $(function(){initNavTree('TileAutotile_8h.html','',''); });
 
 <p>Raccords automatiques : voisinage solide → case d'une planche 4×4 (<span class="tt">EX-EDIT-025</span>).  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<div class="textblock"><code>#include &lt;array&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
 <code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
 </div>
 <p><a href="TileAutotile_8h_source.html">Go to the source code of this file.</a></p>
@@ -126,6 +128,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a34134b921b6e696d52d483a74483aab1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case de la planche 4×4 correspondant à un masque de voisinage.  <br /></td></tr>
 <tr class="memitem:a9e828846d7bde545c8e1ec0a0b1fc73c" id="r_a9e828846d7bde545c8e1ec0a0b1fc73c"><td class="memItemLeft"><a class="el" href="structhmi_1_1AutotileCell.html">AutotileCell</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a9e828846d7bde545c8e1ec0a0b1fc73c">hmi::autotileRepresentativeCell</a> () noexcept</td></tr>
 <tr class="memdesc:a9e828846d7bde545c8e1ec0a0b1fc73c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case représentative d'une planche : l'<b>intérieur plein</b> (quatre voisins solides).  <br /></td></tr>
+<tr class="memitem:a126525c795b7d17752d39838f2027233" id="r_a126525c795b7d17752d39838f2027233"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a126525c795b7d17752d39838f2027233">hmi::autotileConfigurationLabelKey</a> (std::uint8_t mask) noexcept</td></tr>
+<tr class="memdesc:a126525c795b7d17752d39838f2027233"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clé de traduction décrivant la configuration de voisinage d'un masque, pour l'atelier pixel art (<span class="tt">LOT-54</span> TACHE-08, <span class="tt">EX-REN-033</span>).  <br /></td></tr>
+<tr class="memitem:af8658633ab15f4ba347cc95133627a7e" id="r_af8658633ab15f4ba347cc95133627a7e"><td class="memItemLeft">std::array&lt; std::uint8_t, 9 &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#af8658633ab15f4ba347cc95133627a7e">hmi::autotileAssemblyMasks</a> () noexcept</td></tr>
+<tr class="memdesc:af8658633ab15f4ba347cc95133627a7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Masques des neuf cases d'un assemblage 3×3 démonstratif (<span class="tt">LOT-54</span> TACHE-08).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>

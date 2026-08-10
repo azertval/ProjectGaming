@@ -130,6 +130,31 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a77025d20fbce06f8f0fd55455cc6eca8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affiche <code class="param">message</code> pour <code class="param">timeoutMs</code> dans la barre d'état, puis restaure l'aide contextuelle (<span class="tt"><a class="el" href="#ace1ef846c7704477a23af655b4f78e74" title="Recalcule et réaffiche la barre d&#39;état (zones permanentes + aide contextuelle) depuis l&#39;état courant ...">refreshStatusHelp</a></span>) — remplace <span class="tt">QStatusBar::showMessage</span>'s minuteur interne, qui laissait la barre vide à l'expiration au lieu de reprendre la main.  <br /></td></tr>
 <tr class="memitem:a79a0a32f6374cffe570e60650baadca4" id="r_a79a0a32f6374cffe570e60650baadca4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a79a0a32f6374cffe570e60650baadca4">applyPanelFocus</a> (<a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">hmi::EditorTool</a> tool)</td></tr>
 <tr class="memdesc:a79a0a32f6374cffe570e60650baadca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met en avant le panneau associé à <code class="param">tool</code> (<span class="tt"><a class="el" href="namespacehmi.html#a581615846aad015aff0e0a17e4f997c4">hmi::panelForTool</a></span>), si le réglage est actif et que l'utilisateur n'a rien imposé lui-même (<span class="tt">LOT-57</span> TACHE-02) — jamais un masquage, une simple suggestion de premier plan parmi les onglets regroupés.  <br /></td></tr>
+<tr class="memitem:a8cbad498c7c99b413ae8352e9ab30f06" id="r_a8cbad498c7c99b413ae8352e9ab30f06"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8cbad498c7c99b413ae8352e9ab30f06">applyPixelPanelFocus</a> (<a class="el" href="namespacehmi.html#a9cb51e9b7642963a83312d94737fe571">hmi::PixelTool</a> tool)</td></tr>
+<tr class="memdesc:a8cbad498c7c99b413ae8352e9ab30f06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Équivalent pour les outils du canevas pixel art (<span class="tt"><a class="el" href="namespacehmi.html#ab2bc0ec0306fbff43f717277d659cd16">hmi::panelForPixelTool</a></span>, <span class="tt">LOT-54</span> TACHE-04) — même garde, même règle de non-masquage.  <br /></td></tr>
+<tr class="memitem:a79815fd4671818f84de9e9b199526451" id="r_a79815fd4671818f84de9e9b199526451"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a79815fd4671818f84de9e9b199526451">raisePanel</a> (<a class="el" href="namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726">hmi::PanelId</a> panel)</td></tr>
+<tr class="memdesc:a79815fd4671818f84de9e9b199526451"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met en avant <code class="param">panel</code> (résolution <span class="tt"><a class="el" href="namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726" title="Panneau de droite pouvant être mis en avant (regroupés en onglets, TACHE-02).">PanelId</a></span> -&gt; <span class="tt">QDockWidget*</span>), sans jamais voler le focus clavier — factorisé entre <span class="tt"><a class="el" href="#a79a0a32f6374cffe570e60650baadca4" title="Met en avant le panneau associé à tool (hmi::panelForTool), si le réglage est actif et que l&#39;utilisat...">applyPanelFocus</a></span> et <span class="tt"><a class="el" href="#a8cbad498c7c99b413ae8352e9ab30f06" title="Équivalent pour les outils du canevas pixel art (hmi::panelForPixelTool, LOT-54 TACHE-04) — même gard...">applyPixelPanelFocus</a></span>.  <br /></td></tr>
+<tr class="memitem:aef651eacf7d4b0696a0ec0bfbc1d0483" id="r_aef651eacf7d4b0696a0ec0bfbc1d0483"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aef651eacf7d4b0696a0ec0bfbc1d0483">updateActiveEditContext</a> (QWidget *focused)</td></tr>
+<tr class="memdesc:aef651eacf7d4b0696a0ec0bfbc1d0483"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réassigne le contexte d'édition actif (<span class="tt"><a class="el" href="#acdb82ee8e5a56236705ceec1908982ff" title="Contexte d&#39;édition actif, cible d&#39;Annuler/Refaire/Copier/Coller (LOT-57 TACHE-04) :  _viewport (nivea...">_editContext</a></span>) et le contexte de la barre d'état selon le widget qui vient de recevoir le focus clavier (<span class="tt">LOT-54</span> TACHE-04, <span class="tt">EX-IHM-062</span>) : le canevas pixel art si le focus y entre, le niveau sinon.  <br /></td></tr>
+<tr class="memitem:aab330acfe884d7b8fef9583592f41a03" id="r_aab330acfe884d7b8fef9583592f41a03"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aab330acfe884d7b8fef9583592f41a03">confirmDiscardPixelChanges</a> ()</td></tr>
+<tr class="memitem:a8ed05d0fa3bc00be3ee6e349e292f7a2" id="r_a8ed05d0fa3bc00be3ee6e349e292f7a2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8ed05d0fa3bc00be3ee6e349e292f7a2">openPixelAssetOpenDialog</a> ()</td></tr>
+<tr class="memdesc:a8ed05d0fa3bc00be3ee6e349e292f7a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre un asset existant choisi par l'utilisateur (bibliothèque <span class="tt">Assets/</span>), après le garde-fou de perte de travail.  <br /></td></tr>
+<tr class="memitem:ad32a46642735fa5056ea258df35b2847" id="r_ad32a46642735fa5056ea258df35b2847"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad32a46642735fa5056ea258df35b2847">openPixelAssetCreateDialog</a> ()</td></tr>
+<tr class="memdesc:ad32a46642735fa5056ea258df35b2847"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée un nouvel asset à une taille choisie parmi celles admises par le contrat de sa famille (<span class="tt"><a class="el" href="namespacehmi.html#ad4e08bbde577c00ef32757d631d79922" title="Tailles proposées à la création d&#39;un asset de la famille donnée.">hmi::validAssetSizes</a></span>), après le garde-fou de perte de travail.  <br /></td></tr>
+<tr class="memitem:a642e967ee46ac21ec8880d51589e93da" id="r_a642e967ee46ac21ec8880d51589e93da"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a642e967ee46ac21ec8880d51589e93da">savePixelAsset</a> (bool saveAs)</td></tr>
+<tr class="memdesc:a642e967ee46ac21ec8880d51589e93da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enregistre l'asset ouvert.  <br /></td></tr>
+<tr class="memitem:a0c2030c04ec61b66dcf517d9d337049f" id="r_a0c2030c04ec61b66dcf517d9d337049f"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a0c2030c04ec61b66dcf517d9d337049f">pixelAssetCacheKey</a> () const</td></tr>
+<tr class="memdesc:a0c2030c04ec61b66dcf517d9d337049f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom logique de l'asset ouvert, relatif à <span class="tt">Assets/</span> (ex.  <br /></td></tr>
+<tr class="memitem:a7581f0e4c9e3019b782e5ecf3cf1401c" id="r_a7581f0e4c9e3019b782e5ecf3cf1401c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7581f0e4c9e3019b782e5ecf3cf1401c">updateLivePreview</a> ()</td></tr>
+<tr class="memdesc:a7581f0e4c9e3019b782e5ecf3cf1401c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit l'image en cours sur <span class="tt"><a class="el" href="#a8693f7156ad8338ea1e88913cf266855" title="Chemin complet du fichier de l&#39;asset ouvert dans l&#39;atelier, vide si aucun ou pas encore enregistré (L...">_pixelAssetPath</a></span> et invalide son entrée de <span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures Direct3D 11 désignées par leur nom de fichier logique.">TextureCache</a></span>, pour que le niveau affiché reflète l'édition en cours — sans effet tant qu'aucun chemin n'est associé (asset pas encore enregistré une première fois, TACHE-05).  <br /></td></tr>
+<tr class="memitem:a2a42277558bb0f0e66662cd61fdf789e" id="r_a2a42277558bb0f0e66662cd61fdf789e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2a42277558bb0f0e66662cd61fdf789e">openPixelColorPicker</a> ()</td></tr>
+<tr class="memdesc:a2a42277558bb0f0e66662cd61fdf789e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre un sélecteur de couleur (<span class="tt">QColorDialog</span>) pour choisir librement la couleur courante du canevas — seul moyen d'atteindre une couleur absente à la fois de l'image ouverte (pipette) et de la palette de projet (pastilles).  <br /></td></tr>
+<tr class="memitem:a3b786cda76b1c4b3c58cfe1d926711c2" id="r_a3b786cda76b1c4b3c58cfe1d926711c2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3b786cda76b1c4b3c58cfe1d926711c2">updatePixelColorButtonIcon</a> (std::uint32_t color)</td></tr>
+<tr class="memdesc:a3b786cda76b1c4b3c58cfe1d926711c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour le témoin de couleur de la barre d'outils du canevas (pastille de <span class="tt"><a class="el" href="#ab3583f6b0d511a1a585c4ae6621942fd" title="Témoin + sélecteur de couleur courante (canevas).">_pixelColorButton</a></span>).  <br /></td></tr>
+<tr class="memitem:a995770117dd47f09b9d2754a0216e9bb" id="r_a995770117dd47f09b9d2754a0216e9bb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a995770117dd47f09b9d2754a0216e9bb">syncPaletteToCanvas</a> ()</td></tr>
+<tr class="memdesc:a995770117dd47f09b9d2754a0216e9bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recopie les couleurs de <span class="tt"><a class="el" href="#aea2c791ab6d35fa22a0f186c128de6af" title="Palette de projet, chargée/enregistrée dans Assets/palettes.json.">_pixelPalette</a></span> vers <span class="tt"><a class="el" href="#a82d3a9dc41ae7d2ec973430715219e5e" title="Canevas de l&#39;atelier pixel art (dock Atelier, LOT-54 TACHE-04) : seconde implémentation de EditContex...">_pixelCanvas</a></span> (mode contraint) — à appeler après toute mutation qui change les couleurs ou leur ordre (l'ordre affecte le départage à distance égale, <span class="tt"><a class="el" href="namespacehmi.html#aa3ad36cdfd66f4029481e164b0ccb66c" title="Couleur de palette la plus proche de color (mode « contraindre à la palette »).">hmi::nearestPaletteColor</a></span>).  <br /></td></tr>
+<tr class="memitem:ac76d0f9ba39d1a52d33fbaecf7f777d0" id="r_ac76d0f9ba39d1a52d33fbaecf7f777d0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac76d0f9ba39d1a52d33fbaecf7f777d0">savePixelPalette</a> ()</td></tr>
+<tr class="memdesc:ac76d0f9ba39d1a52d33fbaecf7f777d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enregistre <span class="tt"><a class="el" href="#aea2c791ab6d35fa22a0f186c128de6af" title="Palette de projet, chargée/enregistrée dans Assets/palettes.json.">_pixelPalette</a></span> dans <span class="tt">Assets/palettes.json</span>, journalise un échec éventuel.  <br /></td></tr>
 <tr class="memitem:abe9a3497ec9660b8c35097456cd7c181" id="r_abe9a3497ec9660b8c35097456cd7c181"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abe9a3497ec9660b8c35097456cd7c181">changeLanguage</a> (const QString &amp;code)</td></tr>
 <tr class="memdesc:abe9a3497ec9660b8c35097456cd7c181"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change la langue active (recharge le catalogue, persiste, retraduit tout).  <br /></td></tr>
 <tr class="memitem:acfd88f3e6576c175480e4eeac406ea93" id="r_acfd88f3e6576c175480e4eeac406ea93"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acfd88f3e6576c175480e4eeac406ea93">saveSessionLogs</a> ()</td></tr>
@@ -166,7 +191,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a1ed57ff25b1be1c311886896b1ae444f" id="r_a1ed57ff25b1be1c311886896b1ae444f"><td class="memItemLeft"><a class="el" href="classhmi_1_1GameViewport.html">GameViewport</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a1ed57ff25b1be1c311886896b1ae444f">_viewport</a></td></tr>
 <tr class="memdesc:a1ed57ff25b1be1c311886896b1ae444f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Surface de rendu D3D11 (possédée par le conteneur central).  <br /></td></tr>
 <tr class="memitem:acdb82ee8e5a56236705ceec1908982ff" id="r_acdb82ee8e5a56236705ceec1908982ff"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditContextTarget.html">EditContextTarget</a> *&#160;</td><td class="memItemRight"><a class="el" href="#acdb82ee8e5a56236705ceec1908982ff">_editContext</a> = nullptr</td></tr>
-<tr class="memdesc:acdb82ee8e5a56236705ceec1908982ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contexte d'édition actif, cible d'Annuler/Refaire/Copier/Coller (<span class="tt">LOT-57</span> TACHE-04) — égal à <span class="tt"><a class="el" href="#a1ed57ff25b1be1c311886896b1ae444f" title="Surface de rendu D3D11 (possédée par le conteneur central).">_viewport</a></span> aujourd'hui, seule implémentation ; un futur atelier pixel art (<span class="tt">LOT-54</span>) pourra le réassigner sans changer le dispatch des actions.  <br /></td></tr>
+<tr class="memdesc:acdb82ee8e5a56236705ceec1908982ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contexte d'édition actif, cible d'Annuler/Refaire/Copier/Coller (<span class="tt">LOT-57</span> TACHE-04) : <span class="tt">
+<a class="el" href="#a1ed57ff25b1be1c311886896b1ae444f" title="Surface de rendu D3D11 (possédée par le conteneur central).">_viewport</a></span> (niveau) ou <span class="tt"><a class="el" href="#a82d3a9dc41ae7d2ec973430715219e5e" title="Canevas de l&#39;atelier pixel art (dock Atelier, LOT-54 TACHE-04) : seconde implémentation de EditContex...">_pixelCanvas</a></span> (atelier pixel art, <span class="tt">LOT-54</span> TACHE-04), selon le widget qui a le focus clavier (<span class="tt"><a class="el" href="#aef651eacf7d4b0696a0ec0bfbc1d0483" title="Réassigne le contexte d&#39;édition actif (_editContext) et le contexte de la barre d&#39;état selon le widge...">updateActiveEditContext</a></span>) — le dispatch lui-même ne change jamais.  <br /></td></tr>
 <tr class="memitem:af1127880bfad8cb9a4e49eb5c072ca08" id="r_af1127880bfad8cb9a4e49eb5c072ca08"><td class="memItemLeft"><a class="el" href="classhmi_1_1PalettePanel.html">PalettePanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#af1127880bfad8cb9a4e49eb5c072ca08">_palette</a></td></tr>
 <tr class="memdesc:af1127880bfad8cb9a4e49eb5c072ca08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbre de sélection du type de tuile (contenu du dock Palette).  <br /></td></tr>
 <tr class="memitem:aa3a6277e15086fc09f3ba9b42dfc86e2" id="r_aa3a6277e15086fc09f3ba9b42dfc86e2"><td class="memItemLeft"><a class="el" href="classhmi_1_1LevelBrowserPanel.html">LevelBrowserPanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa3a6277e15086fc09f3ba9b42dfc86e2">_levels</a></td></tr>
@@ -177,10 +203,26 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a25b7f8b81604897b4eb8e29bdf3fd85e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liste/gestion des liaisons de mécanismes (dock Liens, LOT-37).  <br /></td></tr>
 <tr class="memitem:a5602a56b2b14b4139a7512c0acf75a3e" id="r_a5602a56b2b14b4139a7512c0acf75a3e"><td class="memItemLeft"><a class="el" href="classhmi_1_1TexturePanel.html">TexturePanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a5602a56b2b14b4139a7512c0acf75a3e">_textures</a></td></tr>
 <tr class="memdesc:a5602a56b2b14b4139a7512c0acf75a3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Habillage : jeu de skins et assignations (dock Textures, LOT-42).  <br /></td></tr>
+<tr class="memitem:a82d3a9dc41ae7d2ec973430715219e5e" id="r_a82d3a9dc41ae7d2ec973430715219e5e"><td class="memItemLeft"><a class="el" href="classhmi_1_1PixelCanvas.html">PixelCanvas</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a82d3a9dc41ae7d2ec973430715219e5e">_pixelCanvas</a></td></tr>
+<tr class="memdesc:a82d3a9dc41ae7d2ec973430715219e5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Canevas de l'atelier pixel art (dock Atelier, LOT-54 TACHE-04) : seconde implémentation de <span class="tt"><a class="el" href="classhmi_1_1EditContextTarget.html" title="Interface pure implémentée par le contexte d&#39;édition actif.">EditContextTarget</a></span>, cible d'Annuler/Refaire/Copier/Coller quand elle a le focus clavier.  <br /></td></tr>
+<tr class="memitem:ada4e70102abcb89f966532432b0dfa79" id="r_ada4e70102abcb89f966532432b0dfa79"><td class="memItemLeft"><a class="el" href="classhmi_1_1PixelHistoryPanel.html">PixelHistoryPanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ada4e70102abcb89f966532432b0dfa79">_pixelHistoryPanel</a></td></tr>
+<tr class="memdesc:ada4e70102abcb89f966532432b0dfa79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Historique visuel de l'atelier (dock, LOT-54 TACHE-04).  <br /></td></tr>
+<tr class="memitem:aa1e36a973715fe3eec66812c2ff30349" id="r_aa1e36a973715fe3eec66812c2ff30349"><td class="memItemLeft"><a class="el" href="classhmi_1_1PixelPalettePanel.html">PixelPalettePanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa1e36a973715fe3eec66812c2ff30349">_pixelPalettePanel</a></td></tr>
+<tr class="memdesc:aa1e36a973715fe3eec66812c2ff30349"><td class="mdescLeft">&#160;</td><td class="mdescRight">Édition de la palette de projet (dock, LOT-54 TACHE-07).  <br /></td></tr>
+<tr class="memitem:aea2c791ab6d35fa22a0f186c128de6af" id="r_aea2c791ab6d35fa22a0f186c128de6af"><td class="memItemLeft"><a class="el" href="classhmi_1_1PixelPalette.html">PixelPalette</a>&#160;</td><td class="memItemRight"><a class="el" href="#aea2c791ab6d35fa22a0f186c128de6af">_pixelPalette</a></td></tr>
+<tr class="memdesc:aea2c791ab6d35fa22a0f186c128de6af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Palette de projet, chargée/enregistrée dans Assets/palettes.json.  <br /></td></tr>
+<tr class="memitem:a8693f7156ad8338ea1e88913cf266855" id="r_a8693f7156ad8338ea1e88913cf266855"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a8693f7156ad8338ea1e88913cf266855">_pixelAssetPath</a></td></tr>
+<tr class="memdesc:a8693f7156ad8338ea1e88913cf266855"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chemin complet du fichier de l'asset ouvert dans l'atelier, vide si aucun ou pas encore enregistré (LOT-54 TACHE-05) — <span class="tt"><a class="el" href="classhmi_1_1PixelCanvas.html#ad6eeb984190cd8c1ea473a2eb85c98a4">PixelCanvas::assetName()</a></span> n'en garde que le nom de fichier, pour l'affichage ; ce chemin sert à <span class="tt"><a class="el" href="#a642e967ee46ac21ec8880d51589e93da" title="Enregistre l&#39;asset ouvert.">savePixelAsset</a></span> pour retrouver le dossier.  <br /></td></tr>
 <tr class="memitem:aa11ea4bf8bdc5815fc36bee49cd1c0ed" id="r_aa11ea4bf8bdc5815fc36bee49cd1c0ed"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditorActions.html">EditorActions</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa11ea4bf8bdc5815fc36bee49cd1c0ed">_actions</a></td></tr>
 <tr class="memdesc:aa11ea4bf8bdc5815fc36bee49cd1c0ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outils et commandes principales, barre d'outils (LOT-56 TACHE-04).  <br /></td></tr>
 <tr class="memitem:ab33c6cdb6968b9fb8550383780597a57" id="r_ab33c6cdb6968b9fb8550383780597a57"><td class="memItemLeft">QToolBar *&#160;</td><td class="memItemRight"><a class="el" href="#ab33c6cdb6968b9fb8550383780597a57">_toolBar</a></td></tr>
 <tr class="memdesc:ab33c6cdb6968b9fb8550383780597a57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Barre d'outils de l'éditeur, alimentée par <span class="tt"><a class="el" href="#aa11ea4bf8bdc5815fc36bee49cd1c0ed" title="Outils et commandes principales, barre d&#39;outils (LOT-56 TACHE-04).">_actions</a></span>.  <br /></td></tr>
+<tr class="memitem:a3ad6d124626e17702946ecd76561c760" id="r_a3ad6d124626e17702946ecd76561c760"><td class="memItemLeft">QToolBar *&#160;</td><td class="memItemRight"><a class="el" href="#a3ad6d124626e17702946ecd76561c760">_pixelToolBar</a></td></tr>
+<tr class="memdesc:a3ad6d124626e17702946ecd76561c760"><td class="mdescLeft">&#160;</td><td class="mdescRight">Barre d'outils du canevas pixel art (LOT-54 TACHE-04).  <br /></td></tr>
+<tr class="memitem:ab3583f6b0d511a1a585c4ae6621942fd" id="r_ab3583f6b0d511a1a585c4ae6621942fd"><td class="memItemLeft">QToolButton *&#160;</td><td class="memItemRight"><a class="el" href="#ab3583f6b0d511a1a585c4ae6621942fd">_pixelColorButton</a> = nullptr</td></tr>
+<tr class="memdesc:ab3583f6b0d511a1a585c4ae6621942fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Témoin + sélecteur de couleur courante (canevas).  <br /></td></tr>
+<tr class="memitem:a8a5241297f9f8dbaf7195e8a56934b0c" id="r_a8a5241297f9f8dbaf7195e8a56934b0c"><td class="memItemLeft">QMenu *&#160;</td><td class="memItemRight"><a class="el" href="#a8a5241297f9f8dbaf7195e8a56934b0c">_pixelMenu</a> = nullptr</td></tr>
+<tr class="memdesc:a8a5241297f9f8dbaf7195e8a56934b0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Menu « Atelier » : ouvrir/créer/enregistrer (LOT-54 TACHE-05).  <br /></td></tr>
 <tr class="memitem:ae097a0ee2d4a9bc2d23c7fa2ae069bb1" id="r_ae097a0ee2d4a9bc2d23c7fa2ae069bb1"><td class="memItemLeft">QMenu *&#160;</td><td class="memItemRight"><a class="el" href="#ae097a0ee2d4a9bc2d23c7fa2ae069bb1">_themeMenu</a></td></tr>
 <tr class="memdesc:ae097a0ee2d4a9bc2d23c7fa2ae069bb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous-menu Affichage &gt; Thème (LOT-56 TACHE-06).  <br /></td></tr>
 <tr class="memitem:abe297cceab56ce35aee224b3de06c902" id="r_abe297cceab56ce35aee224b3de06c902"><td class="memItemLeft">QAction *&#160;</td><td class="memItemRight"><a class="el" href="#abe297cceab56ce35aee224b3de06c902">_themeSystemAction</a></td></tr>
@@ -201,6 +243,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a02c5b9584d57d6c6dbefb74d1090ee7b" id="r_a02c5b9584d57d6c6dbefb74d1090ee7b"><td class="memItemLeft">QLabel *&#160;</td><td class="memItemRight"><a class="el" href="#a02c5b9584d57d6c6dbefb74d1090ee7b">_statusTool</a> = nullptr</td></tr>
 <tr class="memitem:a7131e45a37b5aba9918d58d9f34643d1" id="r_a7131e45a37b5aba9918d58d9f34643d1"><td class="memItemLeft">QLabel *&#160;</td><td class="memItemRight"><a class="el" href="#a7131e45a37b5aba9918d58d9f34643d1">_statusHover</a> = nullptr</td></tr>
 <tr class="memitem:ab10226b2c497c611d347ae6ecbc20763" id="r_ab10226b2c497c611d347ae6ecbc20763"><td class="memItemLeft">QLabel *&#160;</td><td class="memItemRight"><a class="el" href="#ab10226b2c497c611d347ae6ecbc20763">_statusZoom</a> = nullptr</td></tr>
+<tr class="memitem:a36d71bc9d8b83de33fdead9b658943fb" id="r_a36d71bc9d8b83de33fdead9b658943fb"><td class="memItemLeft">QLabel *&#160;</td><td class="memItemRight"><a class="el" href="#a36d71bc9d8b83de33fdead9b658943fb">_statusColor</a> = nullptr</td></tr>
+<tr class="memdesc:a36d71bc9d8b83de33fdead9b658943fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Couleur courante de l'atelier pixel art (<span class="tt">LOT-54</span> TACHE-04) ; vide hors contexte d'atelier.  <br /></td></tr>
 <tr class="memitem:a2d4fd479e6168cd919c7f22208347a5e" id="r_a2d4fd479e6168cd919c7f22208347a5e"><td class="memItemLeft">QTimer *&#160;</td><td class="memItemRight"><a class="el" href="#a2d4fd479e6168cd919c7f22208347a5e">_statusMessageTimer</a> = nullptr</td></tr>
 <tr class="memdesc:a2d4fd479e6168cd919c7f22208347a5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restaure l'aide contextuelle à l'expiration d'un message transitoire (<span class="tt"><a class="el" href="#a77025d20fbce06f8f0fd55455cc6eca8" title="Affiche message pour timeoutMs dans la barre d&#39;état, puis restaure l&#39;aide contextuelle (refreshStatus...">showTransientStatusMessage</a></span>).  <br /></td></tr>
 <tr class="memitem:a5caf9b64fbcd7d83d4b9473221e6af09" id="r_a5caf9b64fbcd7d83d4b9473221e6af09"><td class="memItemLeft"><a class="el" href="classhmi_1_1Localization.html">Localization</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5caf9b64fbcd7d83d4b9473221e6af09">_loc</a></td></tr>
@@ -301,6 +345,33 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a8cbad498c7c99b413ae8352e9ab30f06" name="a8cbad498c7c99b413ae8352e9ab30f06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cbad498c7c99b413ae8352e9ab30f06">&#9670;&#160;</a></span>applyPixelPanelFocus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::applyPixelPanelFocus </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a9cb51e9b7642963a83312d94737fe571">hmi::PixelTool</a></td>          <td class="paramname"><span class="paramname"><em>tool</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Équivalent pour les outils du canevas pixel art (<span class="tt"><a class="el" href="namespacehmi.html#ab2bc0ec0306fbff43f717277d659cd16">hmi::panelForPixelTool</a></span>, <span class="tt">LOT-54</span> TACHE-04) — même garde, même règle de non-masquage. </p>
+
+</div>
+</div>
 <a id="a2be2a6b71ee9770ab402e16bf8d61666" name="a2be2a6b71ee9770ab402e16bf8d61666"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2be2a6b71ee9770ab402e16bf8d61666">&#9670;&#160;</a></span>buildUi()</h2>
 
@@ -382,6 +453,113 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aab330acfe884d7b8fef9583592f41a03" name="aab330acfe884d7b8fef9583592f41a03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab330acfe884d7b8fef9583592f41a03">&#9670;&#160;</a></span>confirmDiscardPixelChanges()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::MainWindow::confirmDiscardPixelChanges </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si l'on peut poursuivre (rien à perdre, ou perte confirmée) — même patron que le garde-fou d'ouverture de niveau (<span class="tt">EX-EDIT-021</span>). </dd></dl>
+
+</div>
+</div>
+<a id="ad32a46642735fa5056ea258df35b2847" name="ad32a46642735fa5056ea258df35b2847"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad32a46642735fa5056ea258df35b2847">&#9670;&#160;</a></span>openPixelAssetCreateDialog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::openPixelAssetCreateDialog </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crée un nouvel asset à une taille choisie parmi celles admises par le contrat de sa famille (<span class="tt"><a class="el" href="namespacehmi.html#ad4e08bbde577c00ef32757d631d79922" title="Tailles proposées à la création d&#39;un asset de la famille donnée.">hmi::validAssetSizes</a></span>), après le garde-fou de perte de travail. </p>
+
+</div>
+</div>
+<a id="a8ed05d0fa3bc00be3ee6e349e292f7a2" name="a8ed05d0fa3bc00be3ee6e349e292f7a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ed05d0fa3bc00be3ee6e349e292f7a2">&#9670;&#160;</a></span>openPixelAssetOpenDialog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::openPixelAssetOpenDialog </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ouvre un asset existant choisi par l'utilisateur (bibliothèque <span class="tt">Assets/</span>), après le garde-fou de perte de travail. </p>
+
+</div>
+</div>
+<a id="a2a42277558bb0f0e66662cd61fdf789e" name="a2a42277558bb0f0e66662cd61fdf789e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a42277558bb0f0e66662cd61fdf789e">&#9670;&#160;</a></span>openPixelColorPicker()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::openPixelColorPicker </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ouvre un sélecteur de couleur (<span class="tt">QColorDialog</span>) pour choisir librement la couleur courante du canevas — seul moyen d'atteindre une couleur absente à la fois de l'image ouverte (pipette) et de la palette de projet (pastilles). </p>
+
+</div>
+</div>
 <a id="abb2b5a4ae54723c485af101667fc2f23" name="abb2b5a4ae54723c485af101667fc2f23"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abb2b5a4ae54723c485af101667fc2f23">&#9670;&#160;</a></span>openResizeDialog()</h2>
 
@@ -409,6 +587,34 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a0c2030c04ec61b66dcf517d9d337049f" name="a0c2030c04ec61b66dcf517d9d337049f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c2030c04ec61b66dcf517d9d337049f">&#9670;&#160;</a></span>pixelAssetCacheKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::MainWindow::pixelAssetCacheKey </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nom logique de l'asset ouvert, relatif à <span class="tt">Assets/</span> (ex. </p>
+<p><span class="tt">"Skins/mur.png"</span>) : la clé sous laquelle <span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures Direct3D 11 désignées par leur nom de fichier logique.">hmi::TextureCache</a></span>/<span class="tt"><a class="el" href="classhmi_1_1GameViewport.html#a447c144c52c54657cb29e4b7473e8f3b" title="Rechargement à chaud ciblé d&#39;un seul asset (LOT-43 TACHE-03).">GameViewport::invalidateAsset</a></span> connaissent cet asset — un simple nom de fichier ne suffit pas, le cache est indexé par chemin complet (préfixe de sous-dossier compris). </p>
+
+</div>
+</div>
 <a id="aafc60968307486a4eb8b64b2254e7c9b" name="aafc60968307486a4eb8b64b2254e7c9b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aafc60968307486a4eb8b64b2254e7c9b">&#9670;&#160;</a></span>pollMenuGamepad()</h2>
 
@@ -433,6 +639,33 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Traduit la manette en navigation de focus Qt (menus/options) : appelé par <span class="tt"><a class="el" href="#ad41040f5be4a9ff6498547f88c00f35a">_menuNavTimer</a></span>. </p>
+
+</div>
+</div>
+<a id="a79815fd4671818f84de9e9b199526451" name="a79815fd4671818f84de9e9b199526451"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79815fd4671818f84de9e9b199526451">&#9670;&#160;</a></span>raisePanel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::raisePanel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726">hmi::PanelId</a></td>          <td class="paramname"><span class="paramname"><em>panel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Met en avant <code class="param">panel</code> (résolution <span class="tt"><a class="el" href="namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726" title="Panneau de droite pouvant être mis en avant (regroupés en onglets, TACHE-02).">PanelId</a></span> -&gt; <span class="tt">QDockWidget*</span>), sans jamais voler le focus clavier — factorisé entre <span class="tt"><a class="el" href="#a79a0a32f6374cffe570e60650baadca4" title="Met en avant le panneau associé à tool (hmi::panelForTool), si le réglage est actif et que l&#39;utilisat...">applyPanelFocus</a></span> et <span class="tt"><a class="el" href="#a8cbad498c7c99b413ae8352e9ab30f06" title="Équivalent pour les outils du canevas pixel art (hmi::panelForPixelTool, LOT-54 TACHE-04) — même gard...">applyPixelPanelFocus</a></span>. </p>
 
 </div>
 </div>
@@ -537,6 +770,61 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a642e967ee46ac21ec8880d51589e93da" name="a642e967ee46ac21ec8880d51589e93da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a642e967ee46ac21ec8880d51589e93da">&#9670;&#160;</a></span>savePixelAsset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::savePixelAsset </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>saveAs</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enregistre l'asset ouvert. </p>
+<p><code class="param">saveAs</code> force le choix d'un nouveau chemin (copie), même sans chemin existant ; sans <code class="param">saveAs</code>, réutilise le chemin d'ouverture s'il y en a un. Un écrasement d'asset référencé demande confirmation, nommant les références (<span class="tt">LOT-43</span>). </p>
+
+</div>
+</div>
+<a id="ac76d0f9ba39d1a52d33fbaecf7f777d0" name="ac76d0f9ba39d1a52d33fbaecf7f777d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac76d0f9ba39d1a52d33fbaecf7f777d0">&#9670;&#160;</a></span>savePixelPalette()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::savePixelPalette </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enregistre <span class="tt"><a class="el" href="#aea2c791ab6d35fa22a0f186c128de6af" title="Palette de projet, chargée/enregistrée dans Assets/palettes.json.">_pixelPalette</a></span> dans <span class="tt">Assets/palettes.json</span>, journalise un échec éventuel. </p>
 
 </div>
 </div>
@@ -760,6 +1048,33 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a995770117dd47f09b9d2754a0216e9bb" name="a995770117dd47f09b9d2754a0216e9bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a995770117dd47f09b9d2754a0216e9bb">&#9670;&#160;</a></span>syncPaletteToCanvas()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::syncPaletteToCanvas </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Recopie les couleurs de <span class="tt"><a class="el" href="#aea2c791ab6d35fa22a0f186c128de6af" title="Palette de projet, chargée/enregistrée dans Assets/palettes.json.">_pixelPalette</a></span> vers <span class="tt"><a class="el" href="#a82d3a9dc41ae7d2ec973430715219e5e" title="Canevas de l&#39;atelier pixel art (dock Atelier, LOT-54 TACHE-04) : seconde implémentation de EditContex...">_pixelCanvas</a></span> (mode contraint) — à appeler après toute mutation qui change les couleurs ou leur ordre (l'ordre affecte le départage à distance égale, <span class="tt"><a class="el" href="namespacehmi.html#aa3ad36cdfd66f4029481e164b0ccb66c" title="Couleur de palette la plus proche de color (mode « contraindre à la palette »).">hmi::nearestPaletteColor</a></span>). </p>
+
+</div>
+</div>
 <a id="a23d7033f2e1cfe842e9d3c9f6f6f6db8" name="a23d7033f2e1cfe842e9d3c9f6f6f6db8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a23d7033f2e1cfe842e9d3c9f6f6f6db8">&#9670;&#160;</a></span>text()</h2>
 
@@ -784,6 +1099,87 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Raccourci : texte localisé d'une clé, en <span class="tt">QString</span>. </p>
+
+</div>
+</div>
+<a id="aef651eacf7d4b0696a0ec0bfbc1d0483" name="aef651eacf7d4b0696a0ec0bfbc1d0483"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef651eacf7d4b0696a0ec0bfbc1d0483">&#9670;&#160;</a></span>updateActiveEditContext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::updateActiveEditContext </td>
+          <td>(</td>
+          <td class="paramtype">QWidget *</td>          <td class="paramname"><span class="paramname"><em>focused</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Réassigne le contexte d'édition actif (<span class="tt"><a class="el" href="#acdb82ee8e5a56236705ceec1908982ff" title="Contexte d&#39;édition actif, cible d&#39;Annuler/Refaire/Copier/Coller (LOT-57 TACHE-04) :  _viewport (nivea...">_editContext</a></span>) et le contexte de la barre d'état selon le widget qui vient de recevoir le focus clavier (<span class="tt">LOT-54</span> TACHE-04, <span class="tt">EX-IHM-062</span>) : le canevas pixel art si le focus y entre, le niveau sinon. </p>
+
+</div>
+</div>
+<a id="a7581f0e4c9e3019b782e5ecf3cf1401c" name="a7581f0e4c9e3019b782e5ecf3cf1401c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7581f0e4c9e3019b782e5ecf3cf1401c">&#9670;&#160;</a></span>updateLivePreview()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::updateLivePreview </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Écrit l'image en cours sur <span class="tt"><a class="el" href="#a8693f7156ad8338ea1e88913cf266855" title="Chemin complet du fichier de l&#39;asset ouvert dans l&#39;atelier, vide si aucun ou pas encore enregistré (L...">_pixelAssetPath</a></span> et invalide son entrée de <span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures Direct3D 11 désignées par leur nom de fichier logique.">TextureCache</a></span>, pour que le niveau affiché reflète l'édition en cours — sans effet tant qu'aucun chemin n'est associé (asset pas encore enregistré une première fois, TACHE-05). </p>
+
+</div>
+</div>
+<a id="a3b786cda76b1c4b3c58cfe1d926711c2" name="a3b786cda76b1c4b3c58cfe1d926711c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b786cda76b1c4b3c58cfe1d926711c2">&#9670;&#160;</a></span>updatePixelColorButtonIcon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::updatePixelColorButtonIcon </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t</td>          <td class="paramname"><span class="paramname"><em>color</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Met à jour le témoin de couleur de la barre d'outils du canevas (pastille de <span class="tt"><a class="el" href="#ab3583f6b0d511a1a585c4ae6621942fd" title="Témoin + sélecteur de couleur courante (canevas).">_pixelColorButton</a></span>). </p>
 
 </div>
 </div>
@@ -927,7 +1323,8 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Contexte d'édition actif, cible d'Annuler/Refaire/Copier/Coller (<span class="tt">LOT-57</span> TACHE-04) — égal à <span class="tt"><a class="el" href="#a1ed57ff25b1be1c311886896b1ae444f" title="Surface de rendu D3D11 (possédée par le conteneur central).">_viewport</a></span> aujourd'hui, seule implémentation ; un futur atelier pixel art (<span class="tt">LOT-54</span>) pourra le réassigner sans changer le dispatch des actions. </p>
+<p>Contexte d'édition actif, cible d'Annuler/Refaire/Copier/Coller (<span class="tt">LOT-57</span> TACHE-04) : <span class="tt">
+<a class="el" href="#a1ed57ff25b1be1c311886896b1ae444f" title="Surface de rendu D3D11 (possédée par le conteneur central).">_viewport</a></span> (niveau) ou <span class="tt"><a class="el" href="#a82d3a9dc41ae7d2ec973430715219e5e" title="Canevas de l&#39;atelier pixel art (dock Atelier, LOT-54 TACHE-04) : seconde implémentation de EditContex...">_pixelCanvas</a></span> (atelier pixel art, <span class="tt">LOT-54</span> TACHE-04), selon le widget qui a le focus clavier (<span class="tt"><a class="el" href="#aef651eacf7d4b0696a0ec0bfbc1d0483" title="Réassigne le contexte d&#39;édition actif (_editContext) et le contexte de la barre d&#39;état selon le widge...">updateActiveEditContext</a></span>) — le dispatch lui-même ne change jamais. </p>
 
 </div>
 </div>
@@ -1187,6 +1584,198 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a8693f7156ad8338ea1e88913cf266855" name="a8693f7156ad8338ea1e88913cf266855"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8693f7156ad8338ea1e88913cf266855">&#9670;&#160;</a></span>_pixelAssetPath</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::MainWindow::_pixelAssetPath</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Chemin complet du fichier de l'asset ouvert dans l'atelier, vide si aucun ou pas encore enregistré (LOT-54 TACHE-05) — <span class="tt"><a class="el" href="classhmi_1_1PixelCanvas.html#ad6eeb984190cd8c1ea473a2eb85c98a4">PixelCanvas::assetName()</a></span> n'en garde que le nom de fichier, pour l'affichage ; ce chemin sert à <span class="tt"><a class="el" href="#a642e967ee46ac21ec8880d51589e93da" title="Enregistre l&#39;asset ouvert.">savePixelAsset</a></span> pour retrouver le dossier. </p>
+
+</div>
+</div>
+<a id="a82d3a9dc41ae7d2ec973430715219e5e" name="a82d3a9dc41ae7d2ec973430715219e5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82d3a9dc41ae7d2ec973430715219e5e">&#9670;&#160;</a></span>_pixelCanvas</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1PixelCanvas.html">PixelCanvas</a>* hmi::MainWindow::_pixelCanvas</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Canevas de l'atelier pixel art (dock Atelier, LOT-54 TACHE-04) : seconde implémentation de <span class="tt"><a class="el" href="classhmi_1_1EditContextTarget.html" title="Interface pure implémentée par le contexte d&#39;édition actif.">EditContextTarget</a></span>, cible d'Annuler/Refaire/Copier/Coller quand elle a le focus clavier. </p>
+
+</div>
+</div>
+<a id="ab3583f6b0d511a1a585c4ae6621942fd" name="ab3583f6b0d511a1a585c4ae6621942fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3583f6b0d511a1a585c4ae6621942fd">&#9670;&#160;</a></span>_pixelColorButton</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QToolButton* hmi::MainWindow::_pixelColorButton = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Témoin + sélecteur de couleur courante (canevas). </p>
+
+</div>
+</div>
+<a id="ada4e70102abcb89f966532432b0dfa79" name="ada4e70102abcb89f966532432b0dfa79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada4e70102abcb89f966532432b0dfa79">&#9670;&#160;</a></span>_pixelHistoryPanel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1PixelHistoryPanel.html">PixelHistoryPanel</a>* hmi::MainWindow::_pixelHistoryPanel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Historique visuel de l'atelier (dock, LOT-54 TACHE-04). </p>
+
+</div>
+</div>
+<a id="a8a5241297f9f8dbaf7195e8a56934b0c" name="a8a5241297f9f8dbaf7195e8a56934b0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a5241297f9f8dbaf7195e8a56934b0c">&#9670;&#160;</a></span>_pixelMenu</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QMenu* hmi::MainWindow::_pixelMenu = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Menu « Atelier » : ouvrir/créer/enregistrer (LOT-54 TACHE-05). </p>
+
+</div>
+</div>
+<a id="aea2c791ab6d35fa22a0f186c128de6af" name="aea2c791ab6d35fa22a0f186c128de6af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea2c791ab6d35fa22a0f186c128de6af">&#9670;&#160;</a></span>_pixelPalette</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1PixelPalette.html">PixelPalette</a> hmi::MainWindow::_pixelPalette</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Palette de projet, chargée/enregistrée dans Assets/palettes.json. </p>
+
+</div>
+</div>
+<a id="aa1e36a973715fe3eec66812c2ff30349" name="aa1e36a973715fe3eec66812c2ff30349"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1e36a973715fe3eec66812c2ff30349">&#9670;&#160;</a></span>_pixelPalettePanel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1PixelPalettePanel.html">PixelPalettePanel</a>* hmi::MainWindow::_pixelPalettePanel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Édition de la palette de projet (dock, LOT-54 TACHE-07). </p>
+
+</div>
+</div>
+<a id="a3ad6d124626e17702946ecd76561c760" name="a3ad6d124626e17702946ecd76561c760"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ad6d124626e17702946ecd76561c760">&#9670;&#160;</a></span>_pixelToolBar</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QToolBar* hmi::MainWindow::_pixelToolBar</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Barre d'outils du canevas pixel art (LOT-54 TACHE-04). </p>
+
+</div>
+</div>
 <a id="a48ba153acc890d6de84fe2847b5162a9" name="a48ba153acc890d6de84fe2847b5162a9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a48ba153acc890d6de84fe2847b5162a9">&#9670;&#160;</a></span>_sessionLog</h2>
 
@@ -1232,6 +1821,30 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Central : empile menu principal, options et viewport. </p>
+
+</div>
+</div>
+<a id="a36d71bc9d8b83de33fdead9b658943fb" name="a36d71bc9d8b83de33fdead9b658943fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36d71bc9d8b83de33fdead9b658943fb">&#9670;&#160;</a></span>_statusColor</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QLabel* hmi::MainWindow::_statusColor = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Couleur courante de l'atelier pixel art (<span class="tt">LOT-54</span> TACHE-04) ; vide hors contexte d'atelier. </p>
 
 </div>
 </div>

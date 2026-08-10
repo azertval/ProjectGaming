@@ -10,7 +10,7 @@ var searchData=
   ['ecs_20mathématiques_20core_7',['LOT-03 — Fondation ECS &amp;amp; mathématiques Core',['../lot-03.html',1,'lots']]],
   ['ecs_20mouvement_20—_20test_5fecs_5fmouvement_20cpp_204_8',['Ecs Mouvement — &lt;span class=&quot;tt&quot;&gt;test_ecs_mouvement.cpp&lt;/span&gt; (4)',['../cahiertest.html#autotoc_md26',1,'']]],
   ['ecs_20résout_9',['Le problème que l&apos;ECS résout',['../guide-ecs.html#autotoc_md48',1,'']]],
-  ['editor_2050_10',['Editor (50)',['../cahiertest.html#autotoc_md15',1,'']]],
+  ['editor_20104_10',['Editor (104)',['../cahiertest.html#autotoc_md15',1,'']]],
   ['editorkeybindings_20lot_2029_20hmi_3a_3agamepadbindings_20gamepadbindings_20lot_2030_11',['Remapper les touches et boutons : &lt;a class=&quot;el&quot; href=&quot;classhmi_1_1GameKeyBindings.html&quot; title=&quot;hmi::GameKeyBindings&quot;&gt;GameKeyBindings&lt;/a&gt;/&lt;a class=&quot;el&quot; href=&quot;classhmi_1_1EditorKeyBindings.html&quot; title=&quot;hmi::EditorKeyBindings&quot;&gt;EditorKeyBindings&lt;/a&gt; (LOT-29), &lt;a class=&quot;el&quot; href=&quot;classhmi_1_1GamepadBindings.html&quot; title=&quot;hmi::GamepadBindings&quot;&gt;GamepadBindings&lt;/a&gt; (LOT-30)',['../guide-entrees.html#autotoc_md82',1,'']]],
   ['editortool_12',['Trois outils, une même grille : &lt;a class=&quot;el&quot; href=&quot;namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd&quot; title=&quot;hmi::EditorTool&quot;&gt;EditorTool&lt;/a&gt;',['../guide-editeur.html#autotoc_md64',1,'']]],
   ['effacement_20écran_20présentation_20redimensionnement_13',['TACHE-04 — Effacement écran, présentation &amp;amp; redimensionnement',['../lot-01-tache-04-effacement-presentation.html',1,'lot-01']]],

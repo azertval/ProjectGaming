@@ -93,9 +93,9 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>724 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>783 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (634)</h1>
+Tests unitaires (693)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p><b><span class="tt"><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></span></b></p>
@@ -2208,7 +2208,7 @@ Diagnostics (2)</h3>
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b" title="Assemble les messages de log en un texte (une ligne par message).">hmi::serializeSessionLog</a>({})</span> vaut <span class="tt">""</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
-Editor (50)</h3>
+Editor (104)</h3>
 <p><b><span class="tt"><a class="el" href="test__decor__geometry_8cpp.html" title="Tests unitaires de la géométrie partagée corps/poignées d&#39;un décor (LOT-50 TACHE-02).">test_decor_geometry.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2296,33 +2296,58 @@ Vérifie que <span class="tt">rows[0].assetMissing</span> est faux.  </td></tr>
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>EditorStatusTest.AucunNiveauOuvertNAfficheRien</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:52</span></sub>  </td><td class="markdownTableBodyNone">Aucun niveau ouvert n'affiche aucune zone ni aide.  </td><td class="markdownTableBodyNone">1. Construire un contexte sans niveau.<br  />
-2. Calculer les lignes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">lines.permanent.size()</span> vaut <span class="tt">5u</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:76</span></sub>  </td><td class="markdownTableBodyNone">Aucun niveau ouvert n'affiche aucune zone ni aide.  </td><td class="markdownTableBodyNone">1. Construire un contexte sans niveau.<br  />
+2. Calculer les lignes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">lines.permanent.size()</span> vaut <span class="tt">6u</span>.<br  />
 Vérifie que <span class="tt">zone</span> vaut <span class="tt">""</span>.<br  />
 Vérifie que <span class="tt">lines.help</span> vaut <span class="tt">""</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>EditorStatusTest.AucuneCaseSurvoleeLaisseLaZoneVide</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:72</span></sub>  </td><td class="markdownTableBodyNone">Aucune case survolee laisse la zone de coordonnees vide.  </td><td class="markdownTableBodyNone">1. Construire un niveau sans case survolee.<br  />
+<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:97</span></sub>  </td><td class="markdownTableBodyNone">Aucune case survolee laisse la zone de coordonnees vide.  </td><td class="markdownTableBodyNone">1. Construire un niveau sans case survolee.<br  />
 2. Calculer les lignes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">lines.permanent[0]</span> vaut <span class="tt">"Niveau : Salle des epreuves"</span>.<br  />
 Vérifie que <span class="tt">lines.permanent[3]</span> vaut <span class="tt">""</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>EditorStatusTest.IndicateurDeModificationSuitLEtatDirty</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:91</span></sub>  </td><td class="markdownTableBodyNone">L'indicateur de modification suit l'etat "dirty" du niveau.  </td><td class="markdownTableBodyNone">1. Calculer les lignes avec dirty=true, puis dirty=false.<br  />
+<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:116</span></sub>  </td><td class="markdownTableBodyNone">L'indicateur de modification suit l'etat "dirty" du niveau.  </td><td class="markdownTableBodyNone">1. Calculer les lignes avec dirty=true, puis dirty=false.<br  />
 2. Comparer la zone d'indicateur.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::editorStatusLines(dirtyContext, localization).permanent[1]</span> vaut <span class="tt">"Modifie"</span>.<br  />
 Vérifie que <span class="tt">hmi::editorStatusLines(cleanContext, localization).permanent[1]</span> vaut <span class="tt">""</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>EditorStatusTest.AideChangeAvecLOutilActif</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:115</span></sub>  </td><td class="markdownTableBodyNone">L'aide contextuelle change avec l'outil actif.  </td><td class="markdownTableBodyNone">1. Calculer les lignes avec l'outil Pinceau, puis Lien.<br  />
+<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:140</span></sub>  </td><td class="markdownTableBodyNone">L'aide contextuelle change avec l'outil actif.  </td><td class="markdownTableBodyNone">1. Calculer les lignes avec l'outil Pinceau, puis Lien.<br  />
 2. Comparer l'aide.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::editorStatusLines(paintContext, localization).help</span> vaut <span class="tt">"Aide pinceau"</span>.<br  />
 Vérifie que <span class="tt">hmi::editorStatusLines(linkContext, localization).help</span> vaut <span class="tt">"Aide lien"</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>EditorStatusTest.MemeContexteProduitLaMemeAide</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:140</span></sub>  </td><td class="markdownTableBodyNone">La decision est deterministe : meme contexte, meme resultat.  </td><td class="markdownTableBodyNone">1. Calculer deux fois les lignes pour le meme contexte.<br  />
+<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:165</span></sub>  </td><td class="markdownTableBodyNone">La decision est deterministe : meme contexte, meme resultat.  </td><td class="markdownTableBodyNone">1. Calculer deux fois les lignes pour le meme contexte.<br  />
 2. Comparer.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">first.help</span> vaut <span class="tt">second.help</span>.<br  />
 Vérifie que <span class="tt">first.permanent</span> vaut <span class="tt">second.permanent</span>.  </td></tr>
 <tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>EditorStatusTest.ContextePixelEditProduitLesZonesEtLAideAttendues</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:188</span></sub>  </td><td class="markdownTableBodyNone">Le contexte d'atelier pixel art produit les zones et l'aide attendues.  </td><td class="markdownTableBodyNone">1. Construire un contexte d'edition d'asset avec un pixel survole.<br  />
+2. Calculer les lignes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">lines.permanent[0]</span> vaut <span class="tt">"Asset : mur.png"</span>.<br  />
+Vérifie que <span class="tt">lines.permanent[1]</span> vaut <span class="tt">""</span>.<br  />
+Vérifie que <span class="tt">lines.permanent[2]</span> vaut <span class="tt">"Pinceau"</span>.<br  />
+Vérifie que <span class="tt">lines.permanent[3]</span> vaut <span class="tt">"(3, 5)"</span>.<br  />
+Vérifie que <span class="tt">lines.permanent[4]</span> vaut <span class="tt">"Zoom : 800%"</span>.<br  />
+Vérifie que <span class="tt">lines.permanent[5]</span> vaut <span class="tt">"Couleur : #ff0000ff"</span>.<br  />
+Vérifie que <span class="tt">lines.help</span> vaut <span class="tt">"Aide pinceau pixel"</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>EditorStatusTest.ModeContraintFigureDansLaZoneCouleur</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:215</span></sub>  </td><td class="markdownTableBodyNone">Le mode contraint figure dans la zone couleur.  </td><td class="markdownTableBodyNone">1. Calculer les lignes avec le mode contraint actif, puis inactif.<br  />
+2. Comparer la zone couleur (index 5).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::editorStatusLines(constrainedContext, localization).permanent[5]</span> vaut <span class="tt">"Couleur : #ff0000ff (contrainte)"</span>.<br  />
+Vérifie que <span class="tt">hmi::editorStatusLines(freeContext, localization).permanent[5]</span> vaut <span class="tt">"Couleur : #ff0000ff"</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>EditorStatusTest.AucunAssetOuvertLaisseLaZoneVide</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:241</span></sub>  </td><td class="markdownTableBodyNone">Aucun asset ouvert laisse la zone d'asset vide.  </td><td class="markdownTableBodyNone">1. Construire un contexte d'atelier sans nom d'asset.<br  />
+2. Calculer les lignes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">lines.permanent[0]</span> vaut <span class="tt">""</span>.<br  />
+Vérifie que <span class="tt">lines.permanent[2]</span> vaut <span class="tt">"Pinceau"</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>EditorStatusTest.AideDeLAtelierChangeAvecLOutilActif</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:262</span></sub>  </td><td class="markdownTableBodyNone">L'aide de l'atelier change avec l'outil de canevas actif.  </td><td class="markdownTableBodyNone">1. Calculer les lignes avec l'outil Gomme, puis Pipette.<br  />
+2. Comparer l'aide.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::editorStatusLines(eraserContext, localization).help</span> vaut <span class="tt">"Aide gomme"</span>.<br  />
+Vérifie que <span class="tt">hmi::editorStatusLines(eyedropperContext, localization).help</span> vaut <span class="tt">"Aide pipette"</span>.  </td></tr>
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>EditorStatusTest.ClesDeTraductionExistentDansLesDeuxCatalogues</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:162</span></sub>  </td><td class="markdownTableBodyNone">Les cles de traduction de la barre d'etat existent dans les deux catalogues.  </td><td class="markdownTableBodyNone">1. Charger fr.lang puis en.lang depuis les catalogues livres.<br  />
+<sub><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a>:288</span></sub>  </td><td class="markdownTableBodyNone">Les cles de traduction de la barre d'etat existent dans les deux catalogues.  </td><td class="markdownTableBodyNone">1. Charger fr.lang puis en.lang depuis les catalogues livres.<br  />
 2. Resoudre chaque cle utilisee.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">localization.loadDefaultLanguage(language)</span> est vrai.<br  />
 Vérifie que <span class="tt">localization.text(key)</span> diffère de <span class="tt">key</span>.  </td></tr>
 </table>
@@ -2439,6 +2464,342 @@ Vérifie que <span class="tt">noCatalog.source</span> vaut <span class="tt"><a c
 <td class="markdownTableBodyNone"><b>PanelFocusTest.AucunDoublonDOutilDansLaTable</b> (Majeur)<br  />
 <sub><span class="tt"><a class="el" href="test__panel__focus_8cpp.html" title="Tests unitaires de la correspondance outil → panneau (LOT-57 TACHE-02, EX-IHM-061).">Source/Test/Unit/HMI/Editor/test_panel_focus.cpp</a>:58</span></sub>  </td><td class="markdownTableBodyNone">La table ne contient aucun doublon d'outil.  </td><td class="markdownTableBodyNone">1. Parcourir toutes les paires d'entrees de la table.<br  />
 2. Comparer leurs outils.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">catalog[i].tool</span> diffère de <span class="tt">catalog[j].tool</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PanelFocusTest.OutilsDeCanevasMettentEnAvantLePanneauDuCanevas</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__panel__focus_8cpp.html" title="Tests unitaires de la correspondance outil → panneau (LOT-57 TACHE-02, EX-IHM-061).">Source/Test/Unit/HMI/Editor/test_panel_focus.cpp</a>:77</span></sub>  </td><td class="markdownTableBodyNone">Chaque outil de canevas pixel art met en avant le panneau du canevas.  </td><td class="markdownTableBodyNone">1. Interroger la table pour chacun des quatre outils de canevas.<br  />
+2. Verifier le panneau retourne.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::panelForPixelTool(tool)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726ab1175488d7517a7b3490f45437b7cd0d">hmi::PanelId::PixelCanvas</a></span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PanelFocusTest.AucunDoublonDOutilDansLaTableDeCanevas</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__panel__focus_8cpp.html" title="Tests unitaires de la correspondance outil → panneau (LOT-57 TACHE-02, EX-IHM-061).">Source/Test/Unit/HMI/Editor/test_panel_focus.cpp</a>:96</span></sub>  </td><td class="markdownTableBodyNone">La table des outils de canevas ne contient aucun doublon.  </td><td class="markdownTableBodyNone">1. Parcourir toutes les paires d'entrees de la table des outils de canevas.<br  />
+ 2. Comparer leurs outils.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">catalog[i].tool</span> diffère de <span class="tt">catalog[j].tool</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__pixel__asset__io_8cpp.html" title="Tests unitaires des tailles proposées à la création d&#39;un asset dans l&#39;atelier pixel art (LOT-54 TACHE...">test_pixel_asset_io.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelAssetIOTest.ChaqueTailleProposeeEstConforme</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__asset__io_8cpp.html" title="Tests unitaires des tailles proposées à la création d&#39;un asset dans l&#39;atelier pixel art (LOT-54 TACHE...">Source/Test/Unit/HMI/Editor/test_pixel_asset_io.cpp</a>:15</span></sub>  </td><td class="markdownTableBodyNone">Chaque taille proposee est conforme au contrat de sa famille.  </td><td class="markdownTableBodyNone">1. Pour chaque famille, produire les tailles proposees.<br  />
+2. Valider chacune contre le contrat de la meme famille.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">validation.valid</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelAssetIOTest.FamilleADimensionsLibresNeProposeAucuneTaille</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__asset__io_8cpp.html" title="Tests unitaires des tailles proposées à la création d&#39;un asset dans l&#39;atelier pixel art (LOT-54 TACHE...">Source/Test/Unit/HMI/Editor/test_pixel_asset_io.cpp</a>:42</span></sub>  </td><td class="markdownTableBodyNone">Une famille a dimensions libres ne propose aucune taille.  </td><td class="markdownTableBodyNone">1. Produire les tailles proposees pour Fond, Decor et Police.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::validAssetSizes(hmi::AssetFamily::Background).empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">hmi::validAssetSizes(hmi::AssetFamily::Decor).empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">hmi::validAssetSizes(hmi::AssetFamily::Font).empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelAssetIOTest.TileSkinProposeDesLargeursMultiplesDeCase</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__asset__io_8cpp.html" title="Tests unitaires des tailles proposées à la création d&#39;un asset dans l&#39;atelier pixel art (LOT-54 TACHE...">Source/Test/Unit/HMI/Editor/test_pixel_asset_io.cpp</a>:58</span></sub>  </td><td class="markdownTableBodyNone">Un skin de tuile propose des largeurs multiples de case, hauteur fixe.  </td><td class="markdownTableBodyNone">1. Produire les tailles proposees pour TileSkin.<br  />
+2. Verifier la hauteur et la largeur de chaque taille.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">sizes.empty()</span> est faux.<br  />
+Vérifie que <span class="tt">height</span> vaut <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html#aacbd0307d4440f04585dee673ca56d9d" title="Côté d&#39;une tuile, en pixels (EX-ARCH-021).">hmi::TextureAtlas::TILE_SIZE</a></span>.<br  />
+Vérifie que <span class="tt">width % <a class="el" href="classhmi_1_1TextureAtlas.html#aacbd0307d4440f04585dee673ca56d9d" title="Côté d&#39;une tuile, en pixels (EX-ARCH-021).">hmi::TextureAtlas::TILE_SIZE</a></span> vaut <span class="tt">0</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelAssetIOTest.AutotileSheetProposePlusieursTailles</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__asset__io_8cpp.html" title="Tests unitaires des tailles proposées à la création d&#39;un asset dans l&#39;atelier pixel art (LOT-54 TACHE...">Source/Test/Unit/HMI/Editor/test_pixel_asset_io.cpp</a>:79</span></sub>  </td><td class="markdownTableBodyNone">Les familles a taille non contrainte proposent plusieurs options.  </td><td class="markdownTableBodyNone">1. Produire les tailles proposees pour AutotileSheet.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">sizes.size()</span> est strictement supérieur à <span class="tt">1U</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__pixel__autotile__preview_8cpp.html" title="Tests unitaires du mode planche à raccords de l&#39;atelier pixel art (LOT-54 TACHE-08,...">test_pixel_autotile_preview.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelAutotilePreviewTest.SeuleUneImage4x4EstUnePlancheARaccords</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__autotile__preview_8cpp.html" title="Tests unitaires du mode planche à raccords de l&#39;atelier pixel art (LOT-54 TACHE-08,...">Source/Test/Unit/HMI/Editor/test_pixel_autotile_preview.cpp</a>:31</span></sub>  </td><td class="markdownTableBodyNone">Seule une image de dimensions exactement 4x4 cases est une planche a raccords.  </td><td class="markdownTableBodyNone">1. Tester une image 4x4 cases.<br  />
+2. Tester des images plus petites, plus grandes, et non carrees.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::isBitmask16Candidate(sheetImage(4, 4, 0), TILE)</span> est vrai.<br  />
+Vérifie que <span class="tt">hmi::isBitmask16Candidate(sheetImage(3, 4, 0), TILE)</span> est faux.<br  />
+Vérifie que <span class="tt">hmi::isBitmask16Candidate(sheetImage(4, 3, 0), TILE)</span> est faux.<br  />
+Vérifie que <span class="tt">hmi::isBitmask16Candidate(sheetImage(8, 8, 0), TILE)</span> est faux.<br  />
+Vérifie que <span class="tt">hmi::isBitmask16Candidate(sheetImage(1, 1, 0), TILE)</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelAutotilePreviewTest.BitmaskCellAtPixelResoutLaCaseAttendue</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__autotile__preview_8cpp.html" title="Tests unitaires du mode planche à raccords de l&#39;atelier pixel art (LOT-54 TACHE-08,...">Source/Test/Unit/HMI/Editor/test_pixel_autotile_preview.cpp</a>:51</span></sub>  </td><td class="markdownTableBodyNone">bitmaskCellAtPixel resout la case attendue ou nullopt.  </td><td class="markdownTableBodyNone">1. Interroger une position au milieu de la case (2,1) d'une planche 4x4.<br  />
+ 2. Interroger une position hors bornes.<br  />
+3. Interroger la meme position sur une image qui n'est pas une planche.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">cell.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">cell-&gt;column</span> vaut <span class="tt">2</span>.<br  />
+Vérifie que <span class="tt">cell-&gt;row</span> vaut <span class="tt">1</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a4e0bb7068f67524a92030a9f89870b0e" title="Case de la planche sous un pixel donné.">hmi::bitmaskCellAtPixel</a>(sheet, TILE, sheet.width, 0).has_value()</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a4e0bb7068f67524a92030a9f89870b0e" title="Case de la planche sous un pixel donné.">hmi::bitmaskCellAtPixel</a>(sheet, TILE, -1, 0).has_value()</span> est faux.<br  />
+Vérifie que <span class="tt">hmi::bitmaskCellAtPixel(notASheet, TILE, 1, 1).has_value()</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelAutotilePreviewTest.ApercuDAssemblageUtiliseLaMemeTableQueLeRendu</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__autotile__preview_8cpp.html" title="Tests unitaires du mode planche à raccords de l&#39;atelier pixel art (LOT-54 TACHE-08,...">Source/Test/Unit/HMI/Editor/test_pixel_autotile_preview.cpp</a>:80</span></sub>  </td><td class="markdownTableBodyNone">L'apercu d'assemblage utilise la meme table que le rendu.  </td><td class="markdownTableBodyNone">1. Construire une planche 4x4 dont chaque case a une couleur distincte.<br  />
+2. Construire l'apercu d'assemblage.<br  />
+3. Comparer la case centrale de l'apercu a la case attendue de la source (via autotileCell du masque plein).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">preview.width</span> vaut <span class="tt">TILE * 3</span>.<br  />
+Vérifie que <span class="tt">preview.height</span> vaut <span class="tt">TILE * 3</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a2b3df9fe36014e65055f654d0a8747c5" title="Couleur du pixel à une position donnée (outil pipette).">hmi::pickColor</a>(preview, TILE + 1, TILE + 1)</span> vaut <span class="tt">expectedColor</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelAutotilePreviewTest.PlancheTropPetiteNeDebordePas</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__autotile__preview_8cpp.html" title="Tests unitaires du mode planche à raccords de l&#39;atelier pixel art (LOT-54 TACHE-08,...">Source/Test/Unit/HMI/Editor/test_pixel_autotile_preview.cpp</a>:122</span></sub>  </td><td class="markdownTableBodyNone">Une planche trop petite laisse la case correspondante transparente.  </td><td class="markdownTableBodyNone">1. Construire l'apercu d'assemblage a partir d'une planche degeneree (1x1 case).  </td><td class="markdownTableBodyNone"><span class="tt">EXPECT_NO_THROW(preview = hmi::buildAutotileAssemblyPreview(tinySheet, TILE))</span><br  />
+Vérifie que <span class="tt">preview.width</span> vaut <span class="tt">TILE * 3</span>.<br  />
+Vérifie que <span class="tt">preview.height</span> vaut <span class="tt">TILE * 3</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__pixel__canvas__geometry_8cpp.html" title="Tests unitaires des conversions pures vue ↔ image du canevas pixel art (LOT-54 TACHE-03,...">test_pixel_canvas_geometry.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelCanvasGeometryTest.ScreenToImagePixelPourDiversesVues</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__canvas__geometry_8cpp.html" title="Tests unitaires des conversions pures vue ↔ image du canevas pixel art (LOT-54 TACHE-03,...">Source/Test/Unit/HMI/Editor/test_pixel_canvas_geometry.cpp</a>:16</span></sub>  </td><td class="markdownTableBodyNone">screenToImagePixel donne le bon pixel pour diverses combinaisons de zoom et de decalage.  </td><td class="markdownTableBodyNone">1. Construire plusieurs vues (zoom, decalage) differentes.<br  />
+2. Convertir une position ecran connue vers un pixel image.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a5c512277fe15943410e76fb97e3b0353" title="Pixel image sous une position écran donnée.">hmi::screenToImagePixel</a>(view, 16, 16, 0.0, 0.0)</span> vaut <span class="tt">std::make_pair(0, 0)</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a5c512277fe15943410e76fb97e3b0353" title="Pixel image sous une position écran donnée.">hmi::screenToImagePixel</a>(view, 16, 16, 20.0, 12.0)</span> vaut <span class="tt">std::make_pair(2, 1)</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a5c512277fe15943410e76fb97e3b0353" title="Pixel image sous une position écran donnée.">hmi::screenToImagePixel</a>(zoomed, 16, 16, 20.0, 12.0)</span> vaut <span class="tt">std::make_pair(1, 0)</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a5c512277fe15943410e76fb97e3b0353" title="Pixel image sous une position écran donnée.">hmi::screenToImagePixel</a>(panned, 16, 16, 0.0, 0.0)</span> vaut <span class="tt">std::make_pair(3, 1)</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelCanvasGeometryTest.ScreenToImagePixelHorsBornesRenvoieAbsence</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__canvas__geometry_8cpp.html" title="Tests unitaires des conversions pures vue ↔ image du canevas pixel art (LOT-54 TACHE-03,...">Source/Test/Unit/HMI/Editor/test_pixel_canvas_geometry.cpp</a>:40</span></sub>  </td><td class="markdownTableBodyNone">screenToImagePixel renvoie nullopt hors de l'image, y compris en negatif.  </td><td class="markdownTableBodyNone">1. Convertir une position ecran negative.<br  />
+2. Convertir une position au-dela du bord droit/bas de l'image.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a5c512277fe15943410e76fb97e3b0353" title="Pixel image sous une position écran donnée.">hmi::screenToImagePixel</a>(view, 4, 4, -1.0, 0.0).has_value()</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a5c512277fe15943410e76fb97e3b0353" title="Pixel image sous une position écran donnée.">hmi::screenToImagePixel</a>(view, 4, 4, 0.0, -8.0).has_value()</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a5c512277fe15943410e76fb97e3b0353" title="Pixel image sous une position écran donnée.">hmi::screenToImagePixel</a>(view, 4, 4, 32.0, 0.0).has_value()</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelCanvasGeometryTest.AllerRetourRectangleVersPixel</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__canvas__geometry_8cpp.html" title="Tests unitaires des conversions pures vue ↔ image du canevas pixel art (LOT-54 TACHE-03,...">Source/Test/Unit/HMI/Editor/test_pixel_canvas_geometry.cpp</a>:59</span></sub>  </td><td class="markdownTableBodyNone">Le centre du rectangle d'un pixel reconverti donne ce meme pixel, a tout zoom.  </td><td class="markdownTableBodyNone">1. Pour plusieurs zooms et decalages, calculer le rectangle ecran d'un pixel.<br  />
+ 2. Reconvertir le centre de ce rectangle.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">roundTrip.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">*roundTrip</span> vaut <span class="tt">std::make_pair(x, y)</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelCanvasGeometryTest.PixelCanvasRealSizeReutiliseThumbnailPixelSize</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__canvas__geometry_8cpp.html" title="Tests unitaires des conversions pures vue ↔ image du canevas pixel art (LOT-54 TACHE-03,...">Source/Test/Unit/HMI/Editor/test_pixel_canvas_geometry.cpp</a>:96</span></sub>  </td><td class="markdownTableBodyNone">pixelCanvasRealSize reutilise thumbnailPixelSize (LOT-56) sans la redefinir.  </td><td class="markdownTableBodyNone">1. Calculer la taille reelle du canevas a plusieurs facteurs d'echelle.<br  />
+2. Calculer independamment thumbnailPixelSize sur les memes tailles logiques.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">real.width</span> vaut <span class="tt">hmi::thumbnailPixelSize(IMAGE_WIDTH * ZOOM, factor)</span>.<br  />
+Vérifie que <span class="tt">real.height</span> vaut <span class="tt">hmi::thumbnailPixelSize(IMAGE_HEIGHT * ZOOM, factor)</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelCanvasGeometryTest.CommandesDeZoomRestentBorneesEtEntieres</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__canvas__geometry_8cpp.html" title="Tests unitaires des conversions pures vue ↔ image du canevas pixel art (LOT-54 TACHE-03,...">Source/Test/Unit/HMI/Editor/test_pixel_canvas_geometry.cpp</a>:121</span></sub>  </td><td class="markdownTableBodyNone">Les commandes de zoom restent bornees et entieres.  </td><td class="markdownTableBodyNone">1. Zoomer avant a repetition au-dela du maximum.<br  />
+2. Zoomer arriere a repetition en-deca du minimum.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">zoom</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ab72ec3386202539c0f1a9361fb8fa6cf">hmi::PIXEL_CANVAS_MAX_ZOOM</a></span>.<br  />
+Vérifie que <span class="tt">zoom</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ac1decd951afe920c7de7387fb2f0ecda" title="Zoom minimal (1 pixel image = 1 pixel écran) et maximal admis par les commandes de zoom du canevas — ...">hmi::PIXEL_CANVAS_MIN_ZOOM</a></span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelCanvasGeometryTest.GrilleVisibleAuSeuilAttendu</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__canvas__geometry_8cpp.html" title="Tests unitaires des conversions pures vue ↔ image du canevas pixel art (LOT-54 TACHE-03,...">Source/Test/Unit/HMI/Editor/test_pixel_canvas_geometry.cpp</a>:145</span></sub>  </td><td class="markdownTableBodyNone">pixelCanvasGridVisible bascule au seuil attendu.  </td><td class="markdownTableBodyNone">1. Evaluer pixelCanvasGridVisible juste en-deca et juste au niveau du seuil.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ae93c247933101e54e4b4a66e4c22c541" title="true si la grille de pixels doit être dessinée à ce zoom (PIXEL_CANVAS_GRID_VISIBLE_MIN_ZOOM).">hmi::pixelCanvasGridVisible</a>(<a class="el" href="namespacehmi.html#af6dd4ff8d5e0ef90e4386088a9b55c07" title="Facteur de zoom à partir duquel la grille de pixels est dessinée : en-deçà, elle ne ferait que du bru...">hmi::PIXEL_CANVAS_GRID_VISIBLE_MIN_ZOOM</a> - 1)</span> est faux.<br  />
+Vérifie que <span class="tt">hmi::pixelCanvasGridVisible(hmi::PIXEL_CANVAS_GRID_VISIBLE_MIN_ZOOM)</span> est vrai.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__pixel__history_8cpp.html" title="Tests unitaires de l&#39;historique nommé annuler/refaire du canevas pixel art (LOT-54 TACHE-02,...">test_pixel_history.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelHistoryTest.SuiteDOperationsAnnulableEtRetablissable</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__history_8cpp.html" title="Tests unitaires de l&#39;historique nommé annuler/refaire du canevas pixel art (LOT-54 TACHE-02,...">Source/Test/Unit/HMI/Editor/test_pixel_history.cpp</a>:47</span></sub>  </td><td class="markdownTableBodyNone">Une suite d'operations est annulable puis retablissable a l'identique.  </td><td class="markdownTableBodyNone">1. Appliquer trois operations successives.<br  />
+2. Annuler deux fois.<br  />
+ 3. Retablir deux fois.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::pickColor(image, 0, 0)</span> vaut <span class="tt">RED</span>.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, 1, 0)</span> vaut <span class="tt">GREEN</span>.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, 2, 0)</span> vaut <span class="tt">BLUE</span>.<br  />
+Vérifie que <span class="tt">history.undo(image)</span> est vrai.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, 2, 0)</span> vaut <span class="tt">0u</span>.<br  />
+Vérifie que <span class="tt">history.undo(image)</span> est vrai.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, 1, 0)</span> vaut <span class="tt">0u</span>.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, 0, 0)</span> vaut <span class="tt">RED</span>.<br  />
+Vérifie que <span class="tt">history.redo(image)</span> est vrai.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, 1, 0)</span> vaut <span class="tt">GREEN</span>.<br  />
+Vérifie que <span class="tt">history.redo(image)</span> est vrai.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, 2, 0)</span> vaut <span class="tt">BLUE</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelHistoryTest.NouvelleOperationApresAnnulationVideLeRetablissement</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__history_8cpp.html" title="Tests unitaires de l&#39;historique nommé annuler/refaire du canevas pixel art (LOT-54 TACHE-02,...">Source/Test/Unit/HMI/Editor/test_pixel_history.cpp</a>:82</span></sub>  </td><td class="markdownTableBodyNone">Une nouvelle operation apres une annulation vide la pile de retablissement.  </td><td class="markdownTableBodyNone">1. Appliquer deux operations.<br  />
+2. Annuler la derniere.<br  />
+3. Appliquer une operation differente.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">history.undo(image)</span> est vrai.<br  />
+Vérifie que <span class="tt">history.canRedo()</span> est vrai.<br  />
+Vérifie que <span class="tt">history.canRedo()</span> est faux.<br  />
+Vérifie que <span class="tt">history.redo(image)</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelHistoryTest.AnnulerAuDelaDuFondDePileSansEffet</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__history_8cpp.html" title="Tests unitaires de l&#39;historique nommé annuler/refaire du canevas pixel art (LOT-54 TACHE-02,...">Source/Test/Unit/HMI/Editor/test_pixel_history.cpp</a>:108</span></sub>  </td><td class="markdownTableBodyNone">Annuler au-dela du fond de pile est sans effet.  </td><td class="markdownTableBodyNone">1. Sur un historique vide, appeler undo().<br  />
+2. Appliquer une operation, l'annuler, puis annuler une seconde fois.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">history.undo(image)</span> est faux.<br  />
+Vérifie que <span class="tt">history.undo(image)</span> est vrai.<br  />
+Vérifie que <span class="tt">history.undo(image)</span> est faux.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, 0, 0)</span> vaut <span class="tt">RED</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelHistoryTest.JumpToEquivautADesAnnulationsSuccessives</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__history_8cpp.html" title="Tests unitaires de l&#39;historique nommé annuler/refaire du canevas pixel art (LOT-54 TACHE-02,...">Source/Test/Unit/HMI/Editor/test_pixel_history.cpp</a>:131</span></sub>  </td><td class="markdownTableBodyNone">jumpTo produit le meme tampon que des annulations successives.  </td><td class="markdownTableBodyNone">1. Appliquer quatre operations sur deux tampons identiques independants.<br  />
+ 2. Sur le premier, annuler successivement jusqu'a l'entree d'index 1.<br  />
+3. Sur le second, appeler jumpTo(1) directement.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">undoHistory.undo(byUndo)</span> est vrai.<br  />
+Vérifie que <span class="tt">undoHistory.undo(byUndo)</span> est vrai.<br  />
+Vérifie que <span class="tt">jumpHistory.jumpTo(byJump, 1)</span> est vrai.<br  />
+Vérifie que <span class="tt">byUndo.pixels</span> vaut <span class="tt">byJump.pixels</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelHistoryTest.JumpToHorsBornesEchoueProprement</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__history_8cpp.html" title="Tests unitaires de l&#39;historique nommé annuler/refaire du canevas pixel art (LOT-54 TACHE-02,...">Source/Test/Unit/HMI/Editor/test_pixel_history.cpp</a>:164</span></sub>  </td><td class="markdownTableBodyNone">jumpTo hors bornes echoue proprement.  </td><td class="markdownTableBodyNone">1. Appliquer une operation.<br  />
+2. Appeler jumpTo avec un index hors bornes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">history.jumpTo(image, 5)</span> est faux.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, 0, 0)</span> vaut <span class="tt">GREEN</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelHistoryTest.ProfondeurPlafonneeOublieLesEntreesLesPlusAnciennes</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__history_8cpp.html" title="Tests unitaires de l&#39;historique nommé annuler/refaire du canevas pixel art (LOT-54 TACHE-02,...">Source/Test/Unit/HMI/Editor/test_pixel_history.cpp</a>:183</span></sub>  </td><td class="markdownTableBodyNone">Au-dela de la profondeur maximale, les entrees les plus anciennes sont oubliees.  </td><td class="markdownTableBodyNone">1. Construire un historique de profondeur 2.<br  />
+2. Appliquer trois operations.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">history.appliedEntries().size()</span> vaut <span class="tt">2U</span>.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, 0, 0)</span> vaut <span class="tt">RED</span>.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, 1, 0)</span> vaut <span class="tt">GREEN</span>.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, 2, 0)</span> vaut <span class="tt">BLUE</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelHistoryTest.AppliedEntriesExposeLaListeOrdonnee</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__history_8cpp.html" title="Tests unitaires de l&#39;historique nommé annuler/refaire du canevas pixel art (LOT-54 TACHE-02,...">Source/Test/Unit/HMI/Editor/test_pixel_history.cpp</a>:210</span></sub>  </td><td class="markdownTableBodyNone">appliedEntries expose la liste ordonnee des operations.  </td><td class="markdownTableBodyNone">1. Appliquer pinceau puis gomme.<br  />
+2. Lire appliedEntries().  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">history.appliedEntries().size()</span> vaut <span class="tt">2U</span>.<br  />
+Vérifie que <span class="tt">history.appliedEntries()[0].kind</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a5889df12c254317504ef5777d27d9b0eaa25744428546172386b93dd44900a81a">hmi::PixelOperationKind::Brush</a></span>.<br  />
+Vérifie que <span class="tt">history.appliedEntries()[1].kind</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a5889df12c254317504ef5777d27d9b0ea1432aab1d005218c17376fbee5b3c894">hmi::PixelOperationKind::Eraser</a></span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelHistoryTest.ClesDeNomDOperationExistentDansLesDeuxCatalogues</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__history_8cpp.html" title="Tests unitaires de l&#39;historique nommé annuler/refaire du canevas pixel art (LOT-54 TACHE-02,...">Source/Test/Unit/HMI/Editor/test_pixel_history.cpp</a>:232</span></sub>  </td><td class="markdownTableBodyNone">Chaque cle de nom d'operation existe dans les deux catalogues.  </td><td class="markdownTableBodyNone">1. Charger fr.lang puis en.lang.<br  />
+2. Resoudre la cle de chaque type d'operation.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">localization.loadDefaultLanguage(language)</span> est vrai.<br  />
+Vérifie que <span class="tt">localization.text(key)</span> diffère de <span class="tt">key</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">test_pixel_operations.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelOperationsTest.SetPixelChangeLaCouleurEtRenvoieLaRegion</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a>:36</span></sub>  </td><td class="markdownTableBodyNone">setPixel change la couleur du pixel vise et renvoie la region attendue.  </td><td class="markdownTableBodyNone">1. Poser un pixel dans les bornes d'une image.<br  />
+2. Poser un pixel hors bornes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">region.empty()</span> est faux.<br  />
+Vérifie que <span class="tt">region.minX</span> vaut <span class="tt">1</span>.<br  />
+Vérifie que <span class="tt">region.maxX</span> vaut <span class="tt">1</span>.<br  />
+Vérifie que <span class="tt">region.minY</span> vaut <span class="tt">2</span>.<br  />
+Vérifie que <span class="tt">region.maxY</span> vaut <span class="tt">2</span>.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, 1, 2)</span> vaut <span class="tt">GREEN</span>.<br  />
+Vérifie que <span class="tt">outOfBounds.empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelOperationsTest.ErasePixelPreserveLaTeinteRvb</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a>:61</span></sub>  </td><td class="markdownTableBodyNone">erasePixel met l'alpha a zero sans changer la teinte RVB.  </td><td class="markdownTableBodyNone">1. Effacer un pixel colore.<br  />
+2. Lire sa couleur.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">erased.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">*erased &amp; 0xFF000000u</span> vaut <span class="tt">0u</span>.<br  />
+Vérifie que <span class="tt">*erased &amp; 0x00FFFFFFu</span> vaut <span class="tt">RED &amp; 0x00FFFFFFu</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelOperationsTest.PickColorRenvoieLaCouleurOuAbsentHorsBornes</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a>:80</span></sub>  </td><td class="markdownTableBodyNone">pickColor renvoie la couleur du pixel ou nullopt hors bornes.  </td><td class="markdownTableBodyNone">1. Poser une couleur connue sur un pixel.<br  />
+2. La prelever avec pickColor.<br  />
+ 3. Prelever hors bornes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::pickColor(image, 1, 1)</span> vaut <span class="tt">BLUE</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a2b3df9fe36014e65055f654d0a8747c5" title="Couleur du pixel à une position donnée (outil pipette).">hmi::pickColor</a>(image, -1, 0).has_value()</span> est faux.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, 3, 0).has_value()</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelOperationsTest.DrawLineDiagonaleSansTrou</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a>:99</span></sub>  </td><td class="markdownTableBodyNone">drawLine peint un segment diagonal sans trou.  </td><td class="markdownTableBodyNone">1. Tracer une ligne diagonale entre deux positions eloignees.<br  />
+2. Lire chaque pixel du chemin attendu.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">region.minX</span> vaut <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">region.minY</span> vaut <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">region.maxX</span> vaut <span class="tt">5</span>.<br  />
+Vérifie que <span class="tt">region.maxY</span> vaut <span class="tt">5</span>.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, i, i)</span> vaut <span class="tt">GREEN</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelOperationsTest.DrawLineVerticaleSansTrou</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a>:122</span></sub>  </td><td class="markdownTableBodyNone">drawLine peint un segment purement vertical sans trou.  </td><td class="markdownTableBodyNone">1. Tracer une ligne verticale.<br  />
+2. Lire chaque pixel de la colonne.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::pickColor(image, 1, y)</span> vaut <span class="tt">RED</span>.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, 0, 3)</span> vaut <span class="tt">TRANSPARENT_BLACK</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelOperationsTest.EraseLineEffaceSansTrou</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a>:142</span></sub>  </td><td class="markdownTableBodyNone">eraseLine efface un segment complet sans trou.  </td><td class="markdownTableBodyNone">1. Effacer une ligne diagonale sur une image coloree.<br  />
+2. Lire chaque pixel du chemin.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">region</span> vaut <span class="tt">(<a class="el" href="structhmi_1_1PixelRegion.html" title="Rectangle de pixels modifié par une opération (bornes incluses).">hmi::PixelRegion</a>{0, 0, 4, 4})</span>.<br  />
+Vérifie que <span class="tt">pixel.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">*pixel &amp; 0xFF000000u</span> vaut <span class="tt">0u</span>.<br  />
+Vérifie que <span class="tt">*pixel &amp; 0x00FFFFFFu</span> vaut <span class="tt">RED &amp; 0x00FFFFFFu</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelOperationsTest.FloodFillZoneFermeeNeDeborde</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a>:166</span></sub>  </td><td class="markdownTableBodyNone">floodFill remplit une zone fermee sans deborder.  </td><td class="markdownTableBodyNone">1. Construire une image avec un carre interieur cerne d'une bordure d'une autre couleur.<br  />
+2. Remplir depuis le centre du carre.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::pickColor(image, x, y)</span> vaut <span class="tt">GREEN</span>.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, i, 0)</span> vaut <span class="tt">BLUE</span>.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, i, 4)</span> vaut <span class="tt">BLUE</span>.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, 0, i)</span> vaut <span class="tt">BLUE</span>.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, 4, i)</span> vaut <span class="tt">BLUE</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelOperationsTest.FloodFillZoneOuverteRempliJusquAuBord</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a>:202</span></sub>  </td><td class="markdownTableBodyNone">floodFill remplit une zone ouverte jusqu'au bord sans deborder du tampon.  </td><td class="markdownTableBodyNone">1. Construire une image entierement d'une couleur (zone "ouverte" par construction : aucune bordure).<br  />
+2. Remplir depuis un coin.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">region.minX</span> vaut <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">region.minY</span> vaut <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">region.maxX</span> vaut <span class="tt">3</span>.<br  />
+Vérifie que <span class="tt">region.maxY</span> vaut <span class="tt">2</span>.<br  />
+Vérifie que <span class="tt">pixel</span> vaut <span class="tt">GREEN</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelOperationsTest.FloodFillCouleurDejaPresenteNeChangeRien</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a>:226</span></sub>  </td><td class="markdownTableBodyNone">floodFill sur la couleur deja presente est un no-op sans boucle infinie.  </td><td class="markdownTableBodyNone">1. Construire une grande image uniforme.<br  />
+2. La remplir avec sa propre couleur.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">region.empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">pixel</span> vaut <span class="tt">BLUE</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelOperationsTest.FloodFillImageUnPixel</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a>:248</span></sub>  </td><td class="markdownTableBodyNone">floodFill fonctionne sur une image d'un seul pixel.  </td><td class="markdownTableBodyNone">1. Construire une image 1x1.<br  />
+2. La remplir d'une autre couleur.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">region</span> vaut <span class="tt">(<a class="el" href="structhmi_1_1PixelRegion.html" title="Rectangle de pixels modifié par une opération (bornes incluses).">hmi::PixelRegion</a>{0, 0, 0, 0})</span>.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, 0, 0)</span> vaut <span class="tt">GREEN</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelOperationsTest.FloodFillImageEntierementUniformeRecoloreTout</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a>:266</span></sub>  </td><td class="markdownTableBodyNone">floodFill sur une image entierement uniforme la recolore integralement.  </td><td class="markdownTableBodyNone">1. Construire une image uniforme.<br  />
+2. La remplir d'une autre couleur depuis un pixel quelconque.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">pixel</span> vaut <span class="tt">GREEN</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelOperationsTest.UnionPixelRegionCouvreLesDeuxRegions</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a>:287</span></sub>  </td><td class="markdownTableBodyNone">unionPixelRegion couvre les deux regions, une region vide etant neutre.  </td><td class="markdownTableBodyNone">1. Unir deux regions disjointes.<br  />
+2. Unir une region avec une region vide.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::unionPixelRegion(a, b)</span> vaut <span class="tt">(<a class="el" href="structhmi_1_1PixelRegion.html" title="Rectangle de pixels modifié par une opération (bornes incluses).">hmi::PixelRegion</a>{0, 0, 7, 7})</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a290ef18de7f42bca5222d50528866be1" title="Union de deux régions (la plus petite région couvrant les deux).">hmi::unionPixelRegion</a>(a, <a class="el" href="structhmi_1_1PixelRegion.html" title="Rectangle de pixels modifié par une opération (bornes incluses).">hmi::PixelRegion</a>{})</span> vaut <span class="tt">a</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a290ef18de7f42bca5222d50528866be1" title="Union de deux régions (la plus petite région couvrant les deux).">hmi::unionPixelRegion</a>(<a class="el" href="structhmi_1_1PixelRegion.html" title="Rectangle de pixels modifié par une opération (bornes incluses).">hmi::PixelRegion</a>{}, b)</span> vaut <span class="tt">b</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelOperationsTest.DeuxSymetriesHorizontalesRestituentLOrigine</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a>:321</span></sub>  </td><td class="markdownTableBodyNone">Deux symetries horizontales restituent l'image d'origine.  </td><td class="markdownTableBodyNone">1. Appliquer flipHorizontal deux fois sur une sous-region.<br  />
+2. Repeter sur l'image entiere.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">partial.pixels</span> vaut <span class="tt">original.pixels</span>.<br  />
+Vérifie que <span class="tt">whole.pixels</span> vaut <span class="tt">original.pixels</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelOperationsTest.DeuxSymetriesVerticalesRestituentLOrigine</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a>:347</span></sub>  </td><td class="markdownTableBodyNone">Deux symetries verticales restituent l'image d'origine.  </td><td class="markdownTableBodyNone">1. Appliquer flipVertical deux fois sur une sous-region.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">image.pixels</span> vaut <span class="tt">original.pixels</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelOperationsTest.QuatreRotationsRestituentLOrigineSurRegionCarree</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a>:368</span></sub>  </td><td class="markdownTableBodyNone">Quatre rotations restituent l'image d'origine sur une region carree.  </td><td class="markdownTableBodyNone">1. Appliquer rotateClockwise quatre fois sur une region carree.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">image.pixels</span> vaut <span class="tt">original.pixels</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelOperationsTest.RotationNonCarreeTronqueLeDebordement</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a>:390</span></sub>  </td><td class="markdownTableBodyNone">Rotation non carree : le debordement est tronque au cadre.  </td><td class="markdownTableBodyNone">1. Pivoter une region rectangulaire proche du bord de l'image.<br  />
+2. Verifier que l'image garde sa taille et qu'aucune ecriture n'a debord du tampon.  </td><td class="markdownTableBodyNone"><span class="tt">EXPECT_NO_THROW(hmi::rotateClockwise(image, region))</span><br  />
+Vérifie que <span class="tt">image.pixels.size()</span> vaut <span class="tt">originalSize</span>.<br  />
+Vérifie que <span class="tt">image.width</span> vaut <span class="tt">5</span>.<br  />
+Vérifie que <span class="tt">image.height</span> vaut <span class="tt">5</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelOperationsTest.CollerPresDUnBordTronqueSansDeborder</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a>:416</span></sub>  </td><td class="markdownTableBodyNone">Coller pres d'un bord tronque sans ecriture hors limites.  </td><td class="markdownTableBodyNone">1. Copier une region.<br  />
+2. La coller a une position debordant du cadre.  </td><td class="markdownTableBodyNone"><span class="tt">EXPECT_NO_THROW(touched = hmi::pasteClipboard(image, clip, 3, 3))</span><br  />
+Vérifie que <span class="tt">image.pixels.size()</span> vaut <span class="tt">originalSize</span>.<br  />
+Vérifie que <span class="tt">touched</span> vaut <span class="tt">(<a class="el" href="structhmi_1_1PixelRegion.html" title="Rectangle de pixels modifié par une opération (bornes incluses).">hmi::PixelRegion</a>{3, 3, 3, 3})</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelOperationsTest.TransformationSurRegionVideEstSansEffet</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a>:440</span></sub>  </td><td class="markdownTableBodyNone">Une transformation sur une region vide est sans effet.  </td><td class="markdownTableBodyNone">1. Appliquer flipHorizontal, rotateClockwise et moveRegion sur une region vide.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::flipHorizontal(image, empty).empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">hmi::rotateClockwise(image, empty).empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">hmi::moveRegion(image, empty, 1, 1).empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">image.pixels</span> vaut <span class="tt">original.pixels</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelOperationsTest.DeplacerUneRegionLaisseLaZoneQuitteeTransparente</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a>:461</span></sub>  </td><td class="markdownTableBodyNone">Deplacer une region laisse la zone quittee transparente.  </td><td class="markdownTableBodyNone">1. Deplacer une region a l'interieur du cadre.<br  />
+2. Verifier la zone quittee et la zone reposee.<br  />
+3. Deplacer une region entierement hors cadre.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::pickColor(image, 1, 1).value() &amp; 0xFF000000u</span> vaut <span class="tt">0u</span>.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, 4, 4)</span> vaut <span class="tt">GREEN</span>.<br  />
+<span class="tt">EXPECT_NO_THROW(<a class="el" href="namespacehmi.html#af4491efde1190c3d2d164fd659e75fdf" title="Déplace le contenu d&#39;une région d&#39;un décalage donné.">hmi::moveRegion</a>(farImage, <a class="el" href="structhmi_1_1PixelRegion.html" title="Rectangle de pixels modifié par une opération (bornes incluses).">hmi::PixelRegion</a>{0, 0, 1, 1}, 100, 100))</span><br  />
+Vérifie que <span class="tt">farImage.pixels.size()</span> vaut <span class="tt">16U</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelOperationsTest.ReadRegionPuisWriteRegionRestitueLeContenu</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a>:487</span></sub>  </td><td class="markdownTableBodyNone">readRegion puis writeRegion restituent le contenu d'origine.  </td><td class="markdownTableBodyNone">1. Lire une region d'une image.<br  />
+2. Modifier l'image dans cette region.<br  />
+ 3. Reecrire les pixels lus a l'etape 1.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">before.size()</span> vaut <span class="tt">9U</span>.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, 2, 2)</span> vaut <span class="tt">GREEN</span>.<br  />
+Vérifie que <span class="tt">hmi::pickColor(image, x, y)</span> vaut <span class="tt">RED</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__pixel__palette_8cpp.html" title="Tests unitaires de la palette de projet, de l&#39;extraction et de la contrainte de couleur (LOT-54 TACHE...">test_pixel_palette.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelPaletteTest.DeuxExtractionsProduisentLaMemeListe</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__palette_8cpp.html" title="Tests unitaires de la palette de projet, de l&#39;extraction et de la contrainte de couleur (LOT-54 TACHE...">Source/Test/Unit/HMI/Editor/test_pixel_palette.cpp</a>:50</span></sub>  </td><td class="markdownTableBodyNone">Ecrire puis relire une palette restitue le meme contenu, alpha compris.  </td><td class="markdownTableBodyNone">1. Construire une image avec des couleurs repetees.<br  />
+2. L'extraire deux fois.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">first.size()</span> vaut <span class="tt">2U</span>.<br  />
+Vérifie que <span class="tt">first[0].color</span> vaut <span class="tt">RED</span>.<br  />
+Vérifie que <span class="tt">first[0].count</span> vaut <span class="tt">2</span>.<br  />
+Vérifie que <span class="tt">first[1].color</span> vaut <span class="tt">GREEN</span>.<br  />
+Vérifie que <span class="tt">first[1].count</span> vaut <span class="tt">2</span>.<br  />
+Vérifie que <span class="tt">second.size()</span> vaut <span class="tt">first.size()</span>.<br  />
+Vérifie que <span class="tt">first[i].color</span> vaut <span class="tt">second[i].color</span>.<br  />
+Vérifie que <span class="tt">first[i].count</span> vaut <span class="tt">second[i].count</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelPaletteTest.ImageEntierementTransparenteProduitUneExtractionVide</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__palette_8cpp.html" title="Tests unitaires de la palette de projet, de l&#39;extraction et de la contrainte de couleur (LOT-54 TACHE...">Source/Test/Unit/HMI/Editor/test_pixel_palette.cpp</a>:145</span></sub>  </td><td class="markdownTableBodyNone">Une image entierement transparente produit une extraction vide.  </td><td class="markdownTableBodyNone">1. Construire une image entierement transparente.<br  />
+2. L'extraire.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::extractPalette(image).empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelPaletteTest.CouleurDejaPresenteRenvoyeeTelleQuelle</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__palette_8cpp.html" title="Tests unitaires de la palette de projet, de l&#39;extraction et de la contrainte de couleur (LOT-54 TACHE...">Source/Test/Unit/HMI/Editor/test_pixel_palette.cpp</a>:159</span></sub>  </td><td class="markdownTableBodyNone">Une couleur deja presente est renvoyee telle quelle.  </td><td class="markdownTableBodyNone">1. Contraindre une couleur presente dans la palette.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::nearestPaletteColor(GREEN, palette)</span> vaut <span class="tt">GREEN</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelPaletteTest.DepartageADistanceEgaleEstStable</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__palette_8cpp.html" title="Tests unitaires de la palette de projet, de l&#39;extraction et de la contrainte de couleur (LOT-54 TACHE...">Source/Test/Unit/HMI/Editor/test_pixel_palette.cpp</a>:174</span></sub>  </td><td class="markdownTableBodyNone">Le departage a distance egale est stable.  </td><td class="markdownTableBodyNone">1. Construire une palette avec deux couleurs equidistantes d'une couleur cible.<br  />
+ 2. Contraindre la couleur cible plusieurs fois.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">first</span> vaut <span class="tt">CANDIDATE_A</span>.<br  />
+Vérifie que <span class="tt">second</span> vaut <span class="tt">first</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PixelPaletteTest.PaletteVideLaisseLaCouleurInchangee</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__palette_8cpp.html" title="Tests unitaires de la palette de projet, de l&#39;extraction et de la contrainte de couleur (LOT-54 TACHE...">Source/Test/Unit/HMI/Editor/test_pixel_palette.cpp</a>:199</span></sub>  </td><td class="markdownTableBodyNone">Une palette vide laisse la couleur inchangee.  </td><td class="markdownTableBodyNone">1. Contraindre une couleur avec une palette vide.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#aa3ad36cdfd66f4029481e164b0ccb66c" title="Couleur de palette la plus proche de color (mode « contraindre à la palette »).">hmi::nearestPaletteColor</a>(RED, {})</span> vaut <span class="tt">RED</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PixelPaletteTest.ContraintePreserveToujoursLAlpha</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__pixel__palette_8cpp.html" title="Tests unitaires de la palette de projet, de l&#39;extraction et de la contrainte de couleur (LOT-54 TACHE...">Source/Test/Unit/HMI/Editor/test_pixel_palette.cpp</a>:213</span></sub>  </td><td class="markdownTableBodyNone">La contrainte preserve toujours l'alpha d'origine.  </td><td class="markdownTableBodyNone">1. Contraindre un pixel totalement transparent.<br  />
+2. Contraindre un pixel semi-transparent.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::nearestPaletteColor(transparent, palette)</span> vaut <span class="tt">transparent</span>.<br  />
+Vérifie que <span class="tt">constrained &amp; 0xFF000000u</span> vaut <span class="tt">semiTransparentGreen &amp; 0xFF000000u</span>.<br  />
+Vérifie que <span class="tt">constrained &amp; 0x00FFFFFFu</span> vaut <span class="tt">GREEN &amp; 0x00FFFFFFu</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__skin__assignments_8cpp.html" title="Tests unitaires de la logique du panneau « Textures » (LOT-42 TACHE-04).">test_skin_assignments.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -2541,7 +2902,7 @@ Vérifie que <span class="tt">localization.text("hud.jumps_remaining")</span> di
 Vérifie que <span class="tt">localization.text("hud.dashes_remaining")</span> diffère de <span class="tt">"hud.dashes_remaining"</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
-Graphics (184)</h3>
+Graphics (188)</h3>
 <p><b><span class="tt"><a class="el" href="test__asset__contract_8cpp.html" title="Tests unitaires du contrat de dimensions des assets graphiques (LOT-40, EX-REN-007).">test_asset_contract.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -3602,44 +3963,61 @@ Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ae8ea4822060
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>TileAutotileTest.SeizeConfigurationsSeizeCasesDistinctes</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:26</span></sub>  </td><td class="markdownTableBodyNone">Les seize configurations de voisinage donnent seize cases distinctes.  </td><td class="markdownTableBodyNone">1. Calculer la case de chacun des seize masques possibles.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">cell.column</span> est supérieur ou égal à <span class="tt">0</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:28</span></sub>  </td><td class="markdownTableBodyNone">Les seize configurations de voisinage donnent seize cases distinctes.  </td><td class="markdownTableBodyNone">1. Calculer la case de chacun des seize masques possibles.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">cell.column</span> est supérieur ou égal à <span class="tt">0</span>.<br  />
 Vérifie que <span class="tt">cell.column</span> est strictement inférieur à <span class="tt"><a class="el" href="namespacehmi.html#a645fa51fe9636c77f3b67558bb094d23" title="Nombre de cases par côté de la planche de raccords (4×4 = seize configurations).">hmi::AUTOTILE_SHEET_SIDE</a></span>.<br  />
 Vérifie que <span class="tt">cell.row</span> est supérieur ou égal à <span class="tt">0</span>.<br  />
 Vérifie que <span class="tt">cell.row</span> est strictement inférieur à <span class="tt"><a class="el" href="namespacehmi.html#a645fa51fe9636c77f3b67558bb094d23" title="Nombre de cases par côté de la planche de raccords (4×4 = seize configurations).">hmi::AUTOTILE_SHEET_SIDE</a></span>.<br  />
 Vérifie que <span class="tt">cells.size()</span> vaut <span class="tt">static_cast&lt;std::size_t&gt;(<a class="el" href="namespacehmi.html#a58aec3b5e8b7ff780934f969eb35febb" title="Nombre de configurations de voisinage distinctes.">hmi::AUTOTILE_CONFIGURATION_COUNT</a>)</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>TileAutotileTest.TableDeCorrespondanceExhaustive</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:52</span></sub>  </td><td class="markdownTableBodyNone">Chaque masque de voisinage designe la case attendue de la planche.  </td><td class="markdownTableBodyNone">1. Verifier la case des seize masques, un a un.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">cell.column</span> vaut <span class="tt">expected.column</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:54</span></sub>  </td><td class="markdownTableBodyNone">Chaque masque de voisinage designe la case attendue de la planche.  </td><td class="markdownTableBodyNone">1. Verifier la case des seize masques, un a un.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">cell.column</span> vaut <span class="tt">expected.column</span>.<br  />
 Vérifie que <span class="tt">cell.row</span> vaut <span class="tt">expected.row</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>TileAutotileTest.ExterieurDeLaGrilleCompteSolide</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:94</span></sub>  </td><td class="markdownTableBodyNone">L'exterieur de la grille compte comme solide.  </td><td class="markdownTableBodyNone">1. Placer un solide isole dans le coin haut-gauche d'une grille vide.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">(mask &amp; <a class="el" href="namespacehmi.html#a904bd9605b7079403b098a5e97e9726ea61271f72df64bd77b3a36dd3cd10c899" title="Voisin du dessus solide.">hmi::NEIGHBOR_UP</a>) != 0</span> est vrai.<br  />
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:96</span></sub>  </td><td class="markdownTableBodyNone">L'exterieur de la grille compte comme solide.  </td><td class="markdownTableBodyNone">1. Placer un solide isole dans le coin haut-gauche d'une grille vide.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">(mask &amp; <a class="el" href="namespacehmi.html#a904bd9605b7079403b098a5e97e9726ea61271f72df64bd77b3a36dd3cd10c899" title="Voisin du dessus solide.">hmi::NEIGHBOR_UP</a>) != 0</span> est vrai.<br  />
 Vérifie que <span class="tt">(mask &amp; <a class="el" href="namespacehmi.html#a904bd9605b7079403b098a5e97e9726ea68f6464eef6db912e7119136d0434a4e" title="Voisin de gauche solide.">hmi::NEIGHBOR_LEFT</a>) != 0</span> est vrai.<br  />
 Vérifie que <span class="tt">(mask &amp; <a class="el" href="namespacehmi.html#a904bd9605b7079403b098a5e97e9726ea6dec95bf21538a7b8aa476a3ab10274a" title="Voisin de droite solide.">hmi::NEIGHBOR_RIGHT</a>) != 0</span> est faux.<br  />
 Vérifie que <span class="tt">(mask &amp; <a class="el" href="namespacehmi.html#a904bd9605b7079403b098a5e97e9726eacb74c4b7fffb91a3bb82742c2f5383b4" title="Voisin du dessous solide.">hmi::NEIGHBOR_DOWN</a>) != 0</span> est faux.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>TileAutotileTest.TuileIsoleeAuCentre</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:116</span></sub>  </td><td class="markdownTableBodyNone">Une tuile solide entouree de vide donne la configuration isolee.  </td><td class="markdownTableBodyNone">1. Placer un solide au centre d'une grille vide, loin des bords.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::solidNeighborMask(tiles, 2, 2)</span> vaut <span class="tt">0</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:118</span></sub>  </td><td class="markdownTableBodyNone">Une tuile solide entouree de vide donne la configuration isolee.  </td><td class="markdownTableBodyNone">1. Placer un solide au centre d'une grille vide, loin des bords.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::solidNeighborMask(tiles, 2, 2)</span> vaut <span class="tt">0</span>.<br  />
 Vérifie que <span class="tt">hmi::autotileCell(0)</span> vaut <span class="tt">(<a class="el" href="structhmi_1_1AutotileCell.html" title="Position d&#39;une case dans la planche de raccords, en cases (origine haut-gauche).">hmi::AutotileCell</a>{0, 0})</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>TileAutotileTest.DessusDePlateformeDistinctDeLInterieur</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:133</span></sub>  </td><td class="markdownTableBodyNone">Le dessus d'une plateforme pleine differe de son interieur.  </td><td class="markdownTableBodyNone">1. Remplir de solide les lignes 2 a 4 d'une grille vide.<br  />
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:135</span></sub>  </td><td class="markdownTableBodyNone">Le dessus d'une plateforme pleine differe de son interieur.  </td><td class="markdownTableBodyNone">1. Remplir de solide les lignes 2 a 4 d'une grille vide.<br  />
  2. Comparer la case de la ligne de surface et celle d'une case enfouie.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">surface</span> vaut <span class="tt">(<a class="el" href="structhmi_1_1AutotileCell.html" title="Position d&#39;une case dans la planche de raccords, en cases (origine haut-gauche).">hmi::AutotileCell</a>{2, 3})</span>.<br  />
 Vérifie que <span class="tt">inside</span> vaut <span class="tt">(<a class="el" href="structhmi_1_1AutotileCell.html" title="Position d&#39;une case dans la planche de raccords, en cases (origine haut-gauche).">hmi::AutotileCell</a>{3, 3})</span>.<br  />
 Vérifie que <span class="tt">surface == inside</span> est faux.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>TileAutotileTest.RaccordEntreTypesSolidesDifferents</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:161</span></sub>  </td><td class="markdownTableBodyNone">Le voisinage est celui de la solidite, pas du type de tuile.  </td><td class="markdownTableBodyNone">1. Placer un solide et, a sa droite, un bloc poussable.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">(hmi::solidNeighborMask(tiles, 2, 2) &amp; <a class="el" href="namespacehmi.html#a904bd9605b7079403b098a5e97e9726ea6dec95bf21538a7b8aa476a3ab10274a" title="Voisin de droite solide.">hmi::NEIGHBOR_RIGHT</a>) != 0</span> est vrai.  </td></tr>
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:163</span></sub>  </td><td class="markdownTableBodyNone">Le voisinage est celui de la solidite, pas du type de tuile.  </td><td class="markdownTableBodyNone">1. Placer un solide et, a sa droite, un bloc poussable.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">(hmi::solidNeighborMask(tiles, 2, 2) &amp; <a class="el" href="namespacehmi.html#a904bd9605b7079403b098a5e97e9726ea6dec95bf21538a7b8aa476a3ab10274a" title="Voisin de droite solide.">hmi::NEIGHBOR_RIGHT</a>) != 0</span> est vrai.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>TileAutotileTest.PenteNonCompteeCommeVoisinSolide</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:180</span></sub>  </td><td class="markdownTableBodyNone">Une pente n'est pas comptee comme voisin solide.  </td><td class="markdownTableBodyNone">1. Placer un solide et, a sa droite, une pente montante.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">(hmi::solidNeighborMask(tiles, 2, 2) &amp; <a class="el" href="namespacehmi.html#a904bd9605b7079403b098a5e97e9726ea6dec95bf21538a7b8aa476a3ab10274a" title="Voisin de droite solide.">hmi::NEIGHBOR_RIGHT</a>) != 0</span> est faux.  </td></tr>
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:182</span></sub>  </td><td class="markdownTableBodyNone">Une pente n'est pas comptee comme voisin solide.  </td><td class="markdownTableBodyNone">1. Placer un solide et, a sa droite, une pente montante.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">(hmi::solidNeighborMask(tiles, 2, 2) &amp; <a class="el" href="namespacehmi.html#a904bd9605b7079403b098a5e97e9726ea6dec95bf21538a7b8aa476a3ab10274a" title="Voisin de droite solide.">hmi::NEIGHBOR_RIGHT</a>) != 0</span> est faux.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>TileAutotileTest.CaseRepresentativeEstLInterieurPlein</b> (Mineur)<br  />
-<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:199</span></sub>  </td><td class="markdownTableBodyNone">La case representative d'une planche est son interieur plein.  </td><td class="markdownTableBodyNone">1. Demander la case representative de la planche.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9e828846d7bde545c8e1ec0a0b1fc73c" title="Case représentative d&#39;une planche : l&#39;intérieur plein (quatre voisins solides).">hmi::autotileRepresentativeCell()</a></span> vaut <span class="tt">full</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:201</span></sub>  </td><td class="markdownTableBodyNone">La case representative d'une planche est son interieur plein.  </td><td class="markdownTableBodyNone">1. Demander la case representative de la planche.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9e828846d7bde545c8e1ec0a0b1fc73c" title="Case représentative d&#39;une planche : l&#39;intérieur plein (quatre voisins solides).">hmi::autotileRepresentativeCell()</a></span> vaut <span class="tt">full</span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9e828846d7bde545c8e1ec0a0b1fc73c" title="Case représentative d&#39;une planche : l&#39;intérieur plein (quatre voisins solides).">hmi::autotileRepresentativeCell()</a> == (<a class="el" href="structhmi_1_1AutotileCell.html" title="Position d&#39;une case dans la planche de raccords, en cases (origine haut-gauche).">hmi::AutotileCell</a>{0, 0})</span> est faux.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>TileAutotileTest.BitsParasitesIgnores</b> (Mineur)<br  />
-<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:216</span></sub>  </td><td class="markdownTableBodyNone">Un masque portant des bits parasites reste dans la planche.  </td><td class="markdownTableBodyNone">1. Demander la case d'un masque dont les bits de poids fort sont a 1.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::autotileCell(noisy)</span> vaut <span class="tt">hmi::autotileCell(hmi::NEIGHBOR_UP)</span>.  </td></tr>
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:218</span></sub>  </td><td class="markdownTableBodyNone">Un masque portant des bits parasites reste dans la planche.  </td><td class="markdownTableBodyNone">1. Demander la case d'un masque dont les bits de poids fort sont a 1.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::autotileCell(noisy)</span> vaut <span class="tt">hmi::autotileCell(hmi::NEIGHBOR_UP)</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>TileAutotileTest.SeizeMasquesProduisentSeizeClesDeLibelleDistinctes</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:234</span></sub>  </td><td class="markdownTableBodyNone">Les seize masques produisent seize cles de libelle distinctes.  </td><td class="markdownTableBodyNone">1. Produire la cle de libelle de chacun des seize masques.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">keys.size()</span> vaut <span class="tt">static_cast&lt;std::size_t&gt;(<a class="el" href="namespacehmi.html#a58aec3b5e8b7ff780934f969eb35febb" title="Nombre de configurations de voisinage distinctes.">hmi::AUTOTILE_CONFIGURATION_COUNT</a>)</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TileAutotileTest.LibelleIgnoreLesBitsParasites</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:251</span></sub>  </td><td class="markdownTableBodyNone">Un masque de libelle portant des bits parasites reste dans la table.  </td><td class="markdownTableBodyNone">1. Demander le libelle d'un masque dont les bits de poids fort sont a 1.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::autotileConfigurationLabelKey(noisy)</span> vaut <span class="tt">hmi::autotileConfigurationLabelKey(hmi::NEIGHBOR_UP)</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>TileAutotileTest.AssemblageTroisParTroisPlaceLInterieurPleinAuCentre</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:268</span></sub>  </td><td class="markdownTableBodyNone">L'assemblage 3x3 place l'interieur plein au centre.  </td><td class="markdownTableBodyNone">1. Produire les neuf masques de l'assemblage.<br  />
+2. Verifier la case centrale et la diversite des masques.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">masks[4]</span> vaut <span class="tt">fullMask</span>.<br  />
+Vérifie que <span class="tt">distinctMasks.size()</span> est strictement supérieur à <span class="tt">1U</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TileAutotileTest.AssemblageResoutDesCasesValidesViaLaTableCanonique</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:291</span></sub>  </td><td class="markdownTableBodyNone">Chaque masque de l'assemblage resout une case valide de la planche.  </td><td class="markdownTableBodyNone">1. Resoudre la case de chacun des neuf masques via autotileCell.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">cell.column</span> est supérieur ou égal à <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">cell.column</span> est strictement inférieur à <span class="tt"><a class="el" href="namespacehmi.html#a645fa51fe9636c77f3b67558bb094d23" title="Nombre de cases par côté de la planche de raccords (4×4 = seize configurations).">hmi::AUTOTILE_SHEET_SIDE</a></span>.<br  />
+Vérifie que <span class="tt">cell.row</span> est supérieur ou égal à <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">cell.row</span> est strictement inférieur à <span class="tt"><a class="el" href="namespacehmi.html#a645fa51fe9636c77f3b67558bb094d23" title="Nombre de cases par côté de la planche de raccords (4×4 = seize configurations).">hmi::AUTOTILE_SHEET_SIDE</a></span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__tile__skin__resolution_8cpp.html" title="Tests unitaires de la résolution d&#39;apparence par skin (LOT-42, EX-EDIT-042, EX-EDIT-025).">test_tile_skin_resolution.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -4099,7 +4477,7 @@ Vérifie que <span class="tt">mapWithDefaults(withKeys({<a class="el" href="name
 Vérifie que <span class="tt">hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::Y), gameKeyBindings, gamepadBindings) .moveX</span> vaut <span class="tt">1.0f</span> (comparaison flottante).  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
-Interface (22)</h3>
+Interface (23)</h3>
 <p><b><span class="tt"><a class="el" href="test__application__theme_8cpp.html" title="Tests unitaires du thème de l&#39;IHM : modèle de feuille de style (LOT-56 TACHE-02, EX-IHM-050,...">test_application_theme.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4219,28 +4597,37 @@ Vérifie que <span class="tt">roundTrip.has_value()</span> est vrai.<br  />
 Vérifie que <span class="tt">*roundTrip</span> vaut <span class="tt">tool</span>.<br  />
 Vérifie que <span class="tt">seen.size()</span> vaut <span class="tt">6u</span>.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>EditorActionsTest.DefinitionUniqueDeRaccourci</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__editor__actions_8cpp.html" title="Tests unitaires du catalogue d&#39;actions et de la géométrie des icônes de l&#39;éditeur (LOT-56 TACHE-04,...">Source/Test/Unit/HMI/Interface/test_editor_actions.cpp</a>:60</span></sub>  </td><td class="markdownTableBodyNone">Aucun raccourci n'est attribue a deux actions.  </td><td class="markdownTableBodyNone">1. Parcourir le catalogue, ignorer les raccourcis vides.<br  />
-2. Verifier qu'aucune valeur n'apparait deux fois.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">shortcuts.insert(shortcut).second</span> est vrai.  </td></tr>
+<td class="markdownTableBodyNone"><b>EditorActionsTest.LesCinqOutilsDeCanevasFormentUneBijectionAvecPixelTool</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__actions_8cpp.html" title="Tests unitaires du catalogue d&#39;actions et de la géométrie des icônes de l&#39;éditeur (LOT-56 TACHE-04,...">Source/Test/Unit/HMI/Interface/test_editor_actions.cpp</a>:62</span></sub>  </td><td class="markdownTableBodyNone">Les quatre outils de canevas forment une bijection avec PixelTool.  </td><td class="markdownTableBodyNone">1. Pour chaque <a class="el" href="namespacehmi.html#a9cb51e9b7642963a83312d94737fe571" title="Outil actif du canevas pixel art — détermine ce que produisent les gestes de souris (hmi::PixelCanvas...">hmi::PixelTool</a>, resoudre l'action puis reconvertir vers l'outil.<br  />
+ 2. Verifier que l'action appartient au groupe PixelTools.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">seen.insert(id).second</span> est vrai.<br  />
+Vérifie que <span class="tt">hmi::editorActionSpec(id).group</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#af951fa0fccb19bed92c122562085977aa538dd7170e9aa85616805507f70f32df">hmi::EditorActionGroup::PixelTools</a></span>.<br  />
+Vérifie que <span class="tt">hmi::editorActionTool(id).has_value()</span> est faux.<br  />
+Vérifie que <span class="tt">roundTrip.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">*roundTrip</span> vaut <span class="tt">tool</span>.<br  />
+Vérifie que <span class="tt">seen.size()</span> vaut <span class="tt">5u</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>EditorActionsTest.DefinitionUniqueDeRaccourci</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__editor__actions_8cpp.html" title="Tests unitaires du catalogue d&#39;actions et de la géométrie des icônes de l&#39;éditeur (LOT-56 TACHE-04,...">Source/Test/Unit/HMI/Interface/test_editor_actions.cpp</a>:92</span></sub>  </td><td class="markdownTableBodyNone">Aucun raccourci n'est attribue a deux actions.  </td><td class="markdownTableBodyNone">1. Parcourir le catalogue, ignorer les raccourcis vides.<br  />
+2. Verifier qu'aucune valeur n'apparait deux fois.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">shortcuts.insert(shortcut).second</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>EditorActionsTest.GeometrieDesIconesNonVideEtDansLeCadre</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__editor__actions_8cpp.html" title="Tests unitaires du catalogue d&#39;actions et de la géométrie des icônes de l&#39;éditeur (LOT-56 TACHE-04,...">Source/Test/Unit/HMI/Interface/test_editor_actions.cpp</a>:83</span></sub>  </td><td class="markdownTableBodyNone">La geometrie de chaque icone est non vide et dans le cadre normalise.  </td><td class="markdownTableBodyNone">1. Pour chaque action du catalogue, produire sa geometrie.<br  />
+<sub><span class="tt"><a class="el" href="test__editor__actions_8cpp.html" title="Tests unitaires du catalogue d&#39;actions et de la géométrie des icônes de l&#39;éditeur (LOT-56 TACHE-04,...">Source/Test/Unit/HMI/Interface/test_editor_actions.cpp</a>:115</span></sub>  </td><td class="markdownTableBodyNone">La geometrie de chaque icone est non vide et dans le cadre normalise.  </td><td class="markdownTableBodyNone">1. Pour chaque action du catalogue, produire sa geometrie.<br  />
 2. Verifier qu'elle a au moins un trait, et que chaque point est dans [0,1].  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">geometry.strokes.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">stroke.points.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">point.x</span> est supérieur ou égal à <span class="tt">0.0f</span>.<br  />
 Vérifie que <span class="tt">point.x</span> est inférieur ou égal à <span class="tt">1.0f</span>.<br  />
 Vérifie que <span class="tt">point.y</span> est supérieur ou égal à <span class="tt">0.0f</span>.<br  />
 Vérifie que <span class="tt">point.y</span> est inférieur ou égal à <span class="tt">1.0f</span>.  </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>EditorActionsTest.ChaqueLibelleExisteDansLesDeuxLangues</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__editor__actions_8cpp.html" title="Tests unitaires du catalogue d&#39;actions et de la géométrie des icônes de l&#39;éditeur (LOT-56 TACHE-04,...">Source/Test/Unit/HMI/Interface/test_editor_actions.cpp</a>:110</span></sub>  </td><td class="markdownTableBodyNone">Chaque cle de libelle du catalogue d'actions existe en francais et en anglais.  </td><td class="markdownTableBodyNone">1. Lire fr.lang et en.lang.<br  />
+<sub><span class="tt"><a class="el" href="test__editor__actions_8cpp.html" title="Tests unitaires du catalogue d&#39;actions et de la géométrie des icônes de l&#39;éditeur (LOT-56 TACHE-04,...">Source/Test/Unit/HMI/Interface/test_editor_actions.cpp</a>:142</span></sub>  </td><td class="markdownTableBodyNone">Chaque cle de libelle du catalogue d'actions existe en francais et en anglais.  </td><td class="markdownTableBodyNone">1. Lire fr.lang et en.lang.<br  />
 2. Verifier que chaque labelKey du catalogue y figure.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">fr.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">en.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">fr.count(spec.labelKey) &gt; 0</span> est vrai.<br  />
 Vérifie que <span class="tt">en.count(spec.labelKey) &gt; 0</span> est vrai.  </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>EditorActionsTest.AucuneActionRemappableOrpheline</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__editor__actions_8cpp.html" title="Tests unitaires du catalogue d&#39;actions et de la géométrie des icônes de l&#39;éditeur (LOT-56 TACHE-04,...">Source/Test/Unit/HMI/Interface/test_editor_actions.cpp</a>:134</span></sub>  </td><td class="markdownTableBodyNone">Chaque action d'editeur remappable a une commande effective.  </td><td class="markdownTableBodyNone">1. Comparer le nombre d'actions remappables (hors outil) au nombre d'entrees de la table de correspondance.<br  />
+<sub><span class="tt"><a class="el" href="test__editor__actions_8cpp.html" title="Tests unitaires du catalogue d&#39;actions et de la géométrie des icônes de l&#39;éditeur (LOT-56 TACHE-04,...">Source/Test/Unit/HMI/Interface/test_editor_actions.cpp</a>:166</span></sub>  </td><td class="markdownTableBodyNone">Chaque action d'editeur remappable a une commande effective.  </td><td class="markdownTableBodyNone">1. Comparer le nombre d'actions remappables (hors outil) au nombre d'entrees de la table de correspondance.<br  />
 2. Verifier que chaque entree pointe vers une commande reelle du catalogue et que l'aller-retour restitue l'action d'origine.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a1a8d24174b415e8452f331c030addee6" title="Nombre d&#39;actions d&#39;éditeur remappables ayant une commande effective (EDITOR_ACTION_COUNT moins Textur...">hmi::KEY_BINDING_ICON_COUNT</a></span> vaut <span class="tt"><a class="el" href="namespacehmi.html#af2f4a1af04682540c1b84611a24aa42c" title="Nombre d&#39;actions d&#39;éditeur remappables (EditorAction).">hmi::EDITOR_ACTION_COUNT</a> - 1</span>.<br  />
 <span class="tt">EXPECT_NO_THROW(static_cast&lt;void&gt;(<a class="el" href="namespacehmi.html#a86efa8bc643b7f44b2cd6fc6133605f3">hmi::editorActionSpec</a>(entry.id)))</span><br  />
 Vérifie que <span class="tt">seen.insert(entry.id).second</span> est vrai.<br  />

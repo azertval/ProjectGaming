@@ -9,6 +9,7 @@ var dir_9c2c1d58a156aa8e30c089ae7a4e31f9 =
     [ "test_cache_registry.cpp", "test__cache__registry_8cpp.html", "test__cache__registry_8cpp" ],
     [ "test_camera2d.cpp", "test__camera2d_8cpp.html", "test__camera2d_8cpp" ],
     [ "test_decor_visuals.cpp", "test__decor__visuals_8cpp.html", "test__decor__visuals_8cpp" ],
+    [ "test_image_encode.cpp", "test__image__encode_8cpp.html", "test__image__encode_8cpp" ],
     [ "test_layer_visibility.cpp", "test__layer__visibility_8cpp.html", "test__layer__visibility_8cpp" ],
     [ "test_mechanism_transitions.cpp", "test__mechanism__transitions_8cpp.html", "test__mechanism__transitions_8cpp" ],
     [ "test_mechanism_visuals.cpp", "test__mechanism__visuals_8cpp.html", null ],

@@ -10,12 +10,14 @@ var searchData=
   ['clipindex_7',['clipIndex',['../structcore_1_1Animation.html#a5a7f2a8719b59a9db71f439a81937ee5',1,'core::Animation']]],
   ['clips_8',['clips',['../structcore_1_1Animation.html#a09d0b49f51de158e9e159f4a4b18c626',1,'core::Animation::clips'],['../structhmi_1_1AnimationDescription.html#a92f5d1037158b3ece0d7591ae095b077',1,'hmi::AnimationDescription::clips']]],
   ['closed_9',['closed',['../structhmi_1_1IconStroke.html#a9c8a3ca2185210ddc2e6f9313392c7f8',1,'hmi::IconStroke']]],
-  ['color_10',['color',['../structhmi_1_1DesignTokens.html#aaf69264bfc62979df7342c5347cbdeb4',1,'hmi::DesignTokens::color'],['../structhmi_1_1IconStroke.html#a59ec7ab3d7a65eadbbc428f6b6ca373c',1,'hmi::IconStroke::color']]],
+  ['color_10',['color',['../structhmi_1_1PixelPaletteEntry.html#a9bc373220051f4bf2696e82268fa7871',1,'hmi::PixelPaletteEntry::color'],['../structhmi_1_1PixelPaletteExtractionEntry.html#ac1012273de1f92409923b4bb22732756',1,'hmi::PixelPaletteExtractionEntry::color'],['../structhmi_1_1DesignTokens.html#aaf69264bfc62979df7342c5347cbdeb4',1,'hmi::DesignTokens::color'],['../structhmi_1_1IconStroke.html#a59ec7ab3d7a65eadbbc428f6b6ca373c',1,'hmi::IconStroke::color']]],
   ['column_11',['column',['../structcore_1_1GridPosition.html#ab0574e45a221418d1a0ea6e1b67c6bc0',1,'core::GridPosition::column'],['../structhmi_1_1RoomBounds.html#a92ab7b8ca1892eb132580cd282f8ca3b',1,'hmi::RoomBounds::column'],['../structhmi_1_1AutotileCell.html#aec8849facc712ea3a1d296b911df4250',1,'hmi::AutotileCell::column'],['../structhmi_1_1AtlasGridPosition.html#aaa94f43780aa3d3571bb673cb4bf55b6',1,'hmi::AtlasGridPosition::column']]],
   ['considered_12',['considered',['../structhmi_1_1SceneStatistics.html#acd46778c69e1a9ae0093a0701d426976',1,'hmi::SceneStatistics']]],
   ['controlminwidth_13',['controlMinWidth',['../structhmi_1_1SizeTokens.html#ae19213d66c31d01cdd23368a4afde150',1,'hmi::SizeTokens']]],
-  ['coyotetime_14',['coyoteTime',['../structcore_1_1PhysicsConfig.html#ac73ce3de3e423e272cad5f348e524bbe',1,'core::PhysicsConfig']]],
-  ['coyotetimer_15',['coyoteTimer',['../structcore_1_1Player.html#a69f291499ab2b7c27220c071a590b97a',1,'core::Player']]],
-  ['culled_16',['culled',['../structhmi_1_1SceneStatistics.html#a944649e434a4fab1f0a72e0fbf23f1cf',1,'hmi::SceneStatistics']]],
-  ['culling_5fmargin_5funits_17',['CULLING_MARGIN_UNITS',['../classhmi_1_1ComposedScene.html#ad8dd91b7cee4c5d987aae7b22fac4d7e',1,'hmi::ComposedScene']]]
+  ['count_14',['count',['../structhmi_1_1PixelPaletteExtractionEntry.html#acbd0a5b11d3ad7bfef9b7de2d4be79d9',1,'hmi::PixelPaletteExtractionEntry']]],
+  ['coyotetime_15',['coyoteTime',['../structcore_1_1PhysicsConfig.html#ac73ce3de3e423e272cad5f348e524bbe',1,'core::PhysicsConfig']]],
+  ['coyotetimer_16',['coyoteTimer',['../structcore_1_1Player.html#a69f291499ab2b7c27220c071a590b97a',1,'core::Player']]],
+  ['culled_17',['culled',['../structhmi_1_1SceneStatistics.html#a944649e434a4fab1f0a72e0fbf23f1cf',1,'hmi::SceneStatistics']]],
+  ['culling_5fmargin_5funits_18',['CULLING_MARGIN_UNITS',['../classhmi_1_1ComposedScene.html#ad8dd91b7cee4c5d987aae7b22fac4d7e',1,'hmi::ComposedScene']]],
+  ['currentcolor_19',['currentColor',['../structhmi_1_1PixelEditStatusInfo.html#a4439cd114f4790a5f175c570b41039b1',1,'hmi::PixelEditStatusInfo']]]
 ];

@@ -53,7 +53,10 @@ var searchData=
   ['jumpbuffertimer_50',['jumpBufferTimer',['../structcore_1_1Player.html#a57dfc80a1b22f8c10cd6a2cff4b9e47e',1,'core::Player']]],
   ['jumpcutfactor_51',['jumpCutFactor',['../structcore_1_1PhysicsConfig.html#aad3d74392a7ee0841dc1d321a63ab1a9',1,'core::PhysicsConfig']]],
   ['jumpheld_52',['jumpHeld',['../structcore_1_1PlayerInput.html#a8fb113d4f6429ea94935827f5b2e93db',1,'core::PlayerInput']]],
-  ['jumppressed_53',['jumpPressed',['../structcore_1_1PlayerInput.html#a3b085dfdd9bfdf1f3f5a743cf9658b23',1,'core::PlayerInput']]],
-  ['jumpspeed_54',['jumpSpeed',['../structcore_1_1PhysicsConfig.html#a0c37db23188588851424c06d9183bfa1',1,'core::PhysicsConfig']]],
-  ['jumpsremaining_55',['jumpsRemaining',['../structcore_1_1Player.html#a99d532084d5856cea35317d60ded63e8',1,'core::Player']]]
+  ['jumphistoryto_53',['jumpHistoryTo',['../classhmi_1_1PixelCanvas.html#a5cdffa84150c83cbca8e474e53ea2d7f',1,'hmi::PixelCanvas']]],
+  ['jumppressed_54',['jumpPressed',['../structcore_1_1PlayerInput.html#a3b085dfdd9bfdf1f3f5a743cf9658b23',1,'core::PlayerInput']]],
+  ['jumprequested_55',['jumpRequested',['../classhmi_1_1PixelHistoryPanel.html#af1fd9edbdb9684ecda25bb9d29320db6',1,'hmi::PixelHistoryPanel']]],
+  ['jumpspeed_56',['jumpSpeed',['../structcore_1_1PhysicsConfig.html#a0c37db23188588851424c06d9183bfa1',1,'core::PhysicsConfig']]],
+  ['jumpsremaining_57',['jumpsRemaining',['../structcore_1_1Player.html#a99d532084d5856cea35317d60ded63e8',1,'core::Player']]],
+  ['jumpto_58',['jumpTo',['../classhmi_1_1PixelHistory.html#a7b852d4e2ec5be8ce02fe8eb811f7ed2',1,'hmi::PixelHistory']]]
 ];

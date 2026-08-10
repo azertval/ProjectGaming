@@ -273,7 +273,7 @@ var searchData=
   ['tests_20système_270',['TACHE-03 — Intégration séquence et tests système',['../lot-25-tache-03-integration-sequence-tests.html',1,'lot-25']]],
   ['tests_20système_203_271',['Tests système (3)',['../cahiertest.html#autotoc_md29',1,'']]],
   ['tests_20système_20guide_20non_20codeur_20git_272',['TACHE-06 — Intégration menu, tests système, guide non-codeur Git',['../lot-14-tache-06-integration-guide-non-codeur.html',1,'lot-14']]],
-  ['tests_20unitaires_20634_273',['Tests unitaires (634)',['../cahiertest.html#autotoc_md4',1,'']]],
+  ['tests_20unitaires_20693_273',['Tests unitaires (693)',['../cahiertest.html#autotoc_md4',1,'']]],
   ['texte_20dans_20la_20scène_20_3a_20hmi_3a_3abitmapfont_20et_20hmi_3a_3atextrenderer_20lot_2052_274',['Le texte dans la scène : &lt;span class=&quot;tt&quot;&gt;hmi::BitmapFont&lt;/span&gt; et &lt;span class=&quot;tt&quot;&gt;hmi::TextRenderer&lt;/span&gt; (&lt;span class=&quot;tt&quot;&gt;LOT-52&lt;/span&gt;)',['../guide-rendu.html#autotoc_md170',1,'']]],
   ['texte_20police_20bitmap_275',['TACHE-02 — Rendu de texte (police bitmap)',['../lot-06-tache-02-rendu-texte-bitmap.html',1,'lot-06']]],
   ['texte_20police_20bitmap_20et_20affichage_20tête_20haute_276',['LOT-52 — Texte, police bitmap et affichage tête haute',['../lot-52.html',1,'lots']]],

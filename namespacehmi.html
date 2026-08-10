@@ -117,6 +117,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface pure implémentée par le contexte d'édition <b>actif</b>.  <a href="classhmi_1_1EditContextTarget.html#details">More...</a><br /></td></tr>
 <tr class="memitem:LevelStatusInfo" id="r_LevelStatusInfo"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1LevelStatusInfo.html">LevelStatusInfo</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État affiché pour un niveau en cours d'édition (barre d'état, <span class="tt">EX-EDIT-013</span>/<span class="tt">EX-EDIT-012</span>).  <a href="structhmi_1_1LevelStatusInfo.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PixelEditStatusInfo" id="r_PixelEditStatusInfo"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PixelEditStatusInfo.html">PixelEditStatusInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État affiché pour un asset en cours d'édition dans l'atelier pixel art (barre d'état, <span class="tt">LOT-54</span> TACHE-04, <span class="tt">EX-IHM-060</span>).  <a href="structhmi_1_1PixelEditStatusInfo.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EditorStatusContext" id="r_EditorStatusContext"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1EditorStatusContext.html">EditorStatusContext</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contexte d'édition dont la barre d'état décide l'affichage.  <a href="structhmi_1_1EditorStatusContext.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EditorStatusLines" id="r_EditorStatusLines"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1EditorStatusLines.html">EditorStatusLines</a></td></tr>
@@ -147,6 +149,34 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Palette de tuiles en <b>arbre</b> (<span class="tt">QTreeView</span>) : catégories → sous-groupes → tuiles.  <a href="classhmi_1_1PalettePanel.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PanelFocusEntry" id="r_PanelFocusEntry"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PanelFocusEntry.html">PanelFocusEntry</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une entrée de la table : l'outil <code class="param">tool</code> met en avant le panneau <code class="param">panel</code>.  <a href="structhmi_1_1PanelFocusEntry.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PixelPanelFocusEntry" id="r_PixelPanelFocusEntry"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PixelPanelFocusEntry.html">PixelPanelFocusEntry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une entrée de la table équivalente pour les outils du canevas pixel art (<span class="tt">LOT-54</span> TACHE-04) : l'outil <code class="param">tool</code> met en avant le panneau <code class="param">panel</code>.  <a href="structhmi_1_1PixelPanelFocusEntry.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PixelCanvas" id="r_PixelCanvas"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PixelCanvas.html">PixelCanvas</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Widget affichant l'image en cours d'édition et transformant les gestes de souris en appels aux opérations pures de <span class="tt">hmi::PixelOperations</span> (TACHE-02).  <a href="classhmi_1_1PixelCanvas.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PixelCanvasView" id="r_PixelCanvasView"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PixelCanvasView.html">PixelCanvasView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État de la vue du canevas : zoom entier et décalage de défilement, en pixels <b>image</b>.  <a href="structhmi_1_1PixelCanvasView.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PixelScreenRect" id="r_PixelScreenRect"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PixelScreenRect.html">PixelScreenRect</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle écran (pixels <b>logiques</b>, relatifs au coin haut-gauche du widget) d'un pixel image.  <a href="structhmi_1_1PixelScreenRect.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PixelCanvasRealSize" id="r_PixelCanvasRealSize"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PixelCanvasRealSize.html">PixelCanvasRealSize</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taille en pixels <b>réels</b> de l'image entière affichée (<span class="tt">largeur/hauteur image × zoom</span>, à l'échelle d'affichage réelle).  <a href="structhmi_1_1PixelCanvasRealSize.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PixelHistoryEntry" id="r_PixelHistoryEntry"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PixelHistoryEntry.html">PixelHistoryEntry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une entrée d'historique : la région affectée, son contenu avant et après l'opération.  <a href="structhmi_1_1PixelHistoryEntry.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PixelHistory" id="r_PixelHistory"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PixelHistory.html">PixelHistory</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pile d'annulation/rétablissement nommée d'un canevas pixel art.  <a href="classhmi_1_1PixelHistory.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PixelHistoryPanel" id="r_PixelHistoryPanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PixelHistoryPanel.html">PixelHistoryPanel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liste ordonnée des opérations nommées de l'historique du canevas pixel art actif.  <a href="classhmi_1_1PixelHistoryPanel.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PixelRegion" id="r_PixelRegion"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle de pixels modifié par une opération (bornes incluses).  <a href="structhmi_1_1PixelRegion.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PixelClipboard" id="r_PixelClipboard"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PixelClipboard.html">PixelClipboard</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contenu copié depuis un tampon (presse-papiers de l'atelier, <span class="tt">LOT-54</span> TACHE-06).  <a href="structhmi_1_1PixelClipboard.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PixelPaletteEntry" id="r_PixelPaletteEntry"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PixelPaletteEntry.html">PixelPaletteEntry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une entrée nommée de la palette de projet.  <a href="structhmi_1_1PixelPaletteEntry.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PixelPalette" id="r_PixelPalette"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PixelPalette.html">PixelPalette</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Palette de couleurs nommées du projet, lue/écrite dans <span class="tt">Assets/palettes.json</span>.  <a href="classhmi_1_1PixelPalette.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PixelPaletteExtractionEntry" id="r_PixelPaletteExtractionEntry"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PixelPaletteExtractionEntry.html">PixelPaletteExtractionEntry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une couleur extraite, avec son nombre d'occurrences dans l'image.  <a href="structhmi_1_1PixelPaletteExtractionEntry.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PixelPalettePanel" id="r_PixelPalettePanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PixelPalettePanel.html">PixelPalettePanel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liste éditable de la palette de projet (<span class="tt"><a class="el" href="classhmi_1_1PixelPalette.html" title="Palette de couleurs nommées du projet, lue/écrite dans Assets/palettes.json.">hmi::PixelPalette</a></span>), avec le réglage « contraindre à la palette ».  <a href="classhmi_1_1PixelPalettePanel.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SkinRow" id="r_SkinRow"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SkinRow.html">SkinRow</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une ligne du panneau : un type de tuile et l'apparence qui lui est assignée, s'il y en a une.  <a href="structhmi_1_1SkinRow.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SkinSection" id="r_SkinSection"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SkinSection.html">SkinSection</a></td></tr>
@@ -388,11 +418,41 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a484fc821d307ce050da2a61ed1760a8dab12558f73b1de2a91f9d7719eea5be7f">MissingTexture</a>
  }</td></tr>
 <tr class="memdesc:a484fc821d307ce050da2a61ed1760a8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">D'où provient la vignette affichée par la palette pour un type de tuile.  <a href="#a484fc821d307ce050da2a61ed1760a8d">More...</a><br /></td></tr>
-<tr class="memitem:aaa32928dac1bf321cd65435b9a0b0726" id="r_aaa32928dac1bf321cd65435b9a0b0726"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aaa32928dac1bf321cd65435b9a0b0726">PanelId</a> { <a class="el" href="#aaa32928dac1bf321cd65435b9a0b0726a91aedca00492a5fba2c282abec5626f3">Levels</a>
+<tr class="memitem:aaa32928dac1bf321cd65435b9a0b0726" id="r_aaa32928dac1bf321cd65435b9a0b0726"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aaa32928dac1bf321cd65435b9a0b0726">PanelId</a> { <br />
+&#160;&#160;<a class="el" href="#aaa32928dac1bf321cd65435b9a0b0726a91aedca00492a5fba2c282abec5626f3">Levels</a>
 , <a class="el" href="#aaa32928dac1bf321cd65435b9a0b0726abd908db5ccb07777ced8023dffc802f4">Links</a>
 , <a class="el" href="#aaa32928dac1bf321cd65435b9a0b0726a536300d63028e7f16ba150566ecd3a5f">Textures</a>
+, <a class="el" href="#aaa32928dac1bf321cd65435b9a0b0726ab1175488d7517a7b3490f45437b7cd0d">PixelCanvas</a>
+, <br />
+&#160;&#160;<a class="el" href="#aaa32928dac1bf321cd65435b9a0b0726a60421a4156d1beef9070bc14bd2623a4">PixelHistory</a>
+<br />
  }</td></tr>
 <tr class="memdesc:aaa32928dac1bf321cd65435b9a0b0726"><td class="mdescLeft">&#160;</td><td class="mdescRight">Panneau de droite pouvant être mis en avant (regroupés en onglets, TACHE-02).  <a href="#aaa32928dac1bf321cd65435b9a0b0726">More...</a><br /></td></tr>
+<tr class="memitem:a5889df12c254317504ef5777d27d9b0e" id="r_a5889df12c254317504ef5777d27d9b0e"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a5889df12c254317504ef5777d27d9b0e">PixelOperationKind</a> { <br />
+&#160;&#160;<a class="el" href="#a5889df12c254317504ef5777d27d9b0eaa25744428546172386b93dd44900a81a">Brush</a>
+, <a class="el" href="#a5889df12c254317504ef5777d27d9b0ea1432aab1d005218c17376fbee5b3c894">Eraser</a>
+, <a class="el" href="#a5889df12c254317504ef5777d27d9b0eadb3e3f51c9107e26c9bccf9a188ce2ed">Fill</a>
+, <a class="el" href="#a5889df12c254317504ef5777d27d9b0ea6bc362dbf494c61ea117fe3c71ca48a5">Move</a>
+, <br />
+&#160;&#160;<a class="el" href="#a5889df12c254317504ef5777d27d9b0eaef2eb5709a994eb86f7daa5c72975176">FlipHorizontal</a>
+, <a class="el" href="#a5889df12c254317504ef5777d27d9b0ea17a90cd11c563123de1b1a3db779bee6">FlipVertical</a>
+, <a class="el" href="#a5889df12c254317504ef5777d27d9b0eaafb7976e05c7fb09abf47d0b2add09a5">RotateClockwise</a>
+, <a class="el" href="#a5889df12c254317504ef5777d27d9b0ea1a139302b19d048aee4be8e428710ac6">RotateCounterClockwise</a>
+, <br />
+&#160;&#160;<a class="el" href="#a5889df12c254317504ef5777d27d9b0ea36bb6559696dc9124986ae120515984f">Paste</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a5889df12c254317504ef5777d27d9b0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type d'une opération d'historique — détermine sa clé de traduction (<span class="tt">EX-REN-033</span>).  <a href="#a5889df12c254317504ef5777d27d9b0e">More...</a><br /></td></tr>
+<tr class="memitem:a9cb51e9b7642963a83312d94737fe571" id="r_a9cb51e9b7642963a83312d94737fe571"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a9cb51e9b7642963a83312d94737fe571">PixelTool</a> { <br />
+&#160;&#160;<a class="el" href="#a9cb51e9b7642963a83312d94737fe571aa25744428546172386b93dd44900a81a">Brush</a>
+, <a class="el" href="#a9cb51e9b7642963a83312d94737fe571a1432aab1d005218c17376fbee5b3c894">Eraser</a>
+, <a class="el" href="#a9cb51e9b7642963a83312d94737fe571adb3e3f51c9107e26c9bccf9a188ce2ed">Fill</a>
+, <a class="el" href="#a9cb51e9b7642963a83312d94737fe571a97fa84c4743927e4267e1380285c5cf3">Eyedropper</a>
+, <br />
+&#160;&#160;<a class="el" href="#a9cb51e9b7642963a83312d94737fe571a6ff9dd0d34f65181173c1e4bc39939de">Selection</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a9cb51e9b7642963a83312d94737fe571"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outil actif du canevas pixel art — détermine ce que produisent les gestes de souris (<span class="tt"><a class="el" href="classhmi_1_1PixelCanvas.html" title="Widget affichant l&#39;image en cours d&#39;édition et transformant les gestes de souris en appels aux opérat...">hmi::PixelCanvas</a></span>) et forme un groupe exclusif distinct de <span class="tt"><a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou la barre d&#39;outils (hmi::EditorActions,...">hmi::EditorTool</a></span> (<span class="tt"><a class="el" href="classhmi_1_1EditorActions.html" title="Construit et possède les QAction du catalogue (HMI/Interface/ActionCatalog.h) : chaque outil et chaqu...">hmi::EditorActions</a></span>, TACHE-04).  <a href="#a9cb51e9b7642963a83312d94737fe571">More...</a><br /></td></tr>
 <tr class="memitem:a76066d550faf628786294c82cd2d12a4" id="r_a76066d550faf628786294c82cd2d12a4"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a76066d550faf628786294c82cd2d12a4">TextureAssignAction</a> { <a class="el" href="#a76066d550faf628786294c82cd2d12a4afd038fc7f319e48f3115d92bf5bdbef9">Ignore</a>
 , <a class="el" href="#a76066d550faf628786294c82cd2d12a4a185b7133db22230701a857c059360cc2">Assign</a>
 , <a class="el" href="#a76066d550faf628786294c82cd2d12a4a1063e38cb53d94d386f21227fcd84717">Remove</a>
@@ -584,6 +644,8 @@ Enumerations</h2></td></tr>
 <tr class="memdesc:a4180e6c308353c9965d695855746d982"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bouton de la souris suivi par l'<span class="tt"><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></span>.  <a href="#a4180e6c308353c9965d695855746d982">More...</a><br /></td></tr>
 <tr class="memitem:af951fa0fccb19bed92c122562085977a" id="r_af951fa0fccb19bed92c122562085977a"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#af951fa0fccb19bed92c122562085977a">EditorActionGroup</a> { <a class="el" href="#af951fa0fccb19bed92c122562085977aa6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="#af951fa0fccb19bed92c122562085977aac5ef5463f73a88dcdff84105e558092e">LevelTools</a>
+, <a class="el" href="#af951fa0fccb19bed92c122562085977aa538dd7170e9aa85616805507f70f32df">PixelTools</a>
+, <a class="el" href="#af951fa0fccb19bed92c122562085977aa86a1b1e9341f1107357650f07ca05a4d">PixelCommands</a>
  }</td></tr>
 <tr class="memdesc:af951fa0fccb19bed92c122562085977a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Groupe d'exclusivité d'une action : les six outils d'édition forment un groupe <b>exclusif</b> (un seul actif à la fois) ; les commandes n'appartiennent à aucun groupe.  <a href="#af951fa0fccb19bed92c122562085977a">More...</a><br /></td></tr>
 <tr class="memitem:ab269aabb94611e449a8e7427969874f5" id="r_ab269aabb94611e449a8e7427969874f5"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a> { <br />
@@ -608,6 +670,22 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#ab269aabb94611e449a8e7427969874f5a904a8304056d77e4547744781b7ceb50">Rename</a>
 , <br />
 &#160;&#160;<a class="el" href="#ab269aabb94611e449a8e7427969874f5a2583b92d245a881127917f19531ccf3b">ShortcutsOverview</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5acb62bc8345822bd1eafa0aeed010986d">PixelBrush</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5a822428af0448274e8406713161f94e74">PixelEraser</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5a290c657e69be64f7df2826cb91731a00">PixelFill</a>
+, <br />
+&#160;&#160;<a class="el" href="#ab269aabb94611e449a8e7427969874f5ac221e982ad3153d8d404c667a7709991">PixelEyedropper</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5adf52905c862a17db8d14f43c3ae902c1">PixelOpen</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5a6fc6cdcce220e482b4eb19567bc33207">PixelCreate</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5abcf42ef4b1f57699f8d21f3993825168">PixelSave</a>
+, <br />
+&#160;&#160;<a class="el" href="#ab269aabb94611e449a8e7427969874f5a5319a6e4c7a4ea19fe90088019e2ea24">PixelSaveAs</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5adfcd991ba3cfade0c3ee7bc9a5f77f5d">PixelSelectionTool</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5a6182cb405421ab907a93f405bf943345">PixelFlipHorizontal</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5a9d1399be20d425f915fde7a54eeb46d7">PixelFlipVertical</a>
+, <br />
+&#160;&#160;<a class="el" href="#ab269aabb94611e449a8e7427969874f5a1beb43ed323f13176f693ac0ac53cad0">PixelRotateClockwise</a>
+, <a class="el" href="#ab269aabb94611e449a8e7427969874f5ab824c0db14abbbacd5e0f263a2dc8159">PixelRotateCounterClockwise</a>
 <br />
  }</td></tr>
 <tr class="memdesc:ab269aabb94611e449a8e7427969874f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifiant d'une icône : un par outil d'édition et par commande principale.  <a href="#ab269aabb94611e449a8e7427969874f5">More...</a><br /></td></tr>
@@ -679,6 +757,69 @@ Functions</h2></td></tr>
 <tr class="memdesc:aa391954b311db21fd63162e8ec40fcc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choisit la vignette à afficher pour un type de tuile dans la palette.  <br /></td></tr>
 <tr class="memitem:ad532ff719e53686ef85d80516e85089e" id="r_ad532ff719e53686ef85d80516e85089e"><td class="memItemLeft">const std::array&lt; <a class="el" href="structhmi_1_1PanelFocusEntry.html">PanelFocusEntry</a>, <a class="el" href="#aa22d8fa67dd7b945de1a25413ef6532e">PANEL_FOCUS_CATALOG_COUNT</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad532ff719e53686ef85d80516e85089e">panelFocusCatalog</a> ()</td></tr>
 <tr class="memitem:a581615846aad015aff0e0a17e4f997c4" id="r_a581615846aad015aff0e0a17e4f997c4"><td class="memItemLeft">std::optional&lt; <a class="el" href="#aaa32928dac1bf321cd65435b9a0b0726">PanelId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a581615846aad015aff0e0a17e4f997c4">panelForTool</a> (<a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a> tool)</td></tr>
+<tr class="memitem:ae845d02ed259b4f615718e3deff3d7f7" id="r_ae845d02ed259b4f615718e3deff3d7f7"><td class="memItemLeft">const std::array&lt; <a class="el" href="structhmi_1_1PixelPanelFocusEntry.html">PixelPanelFocusEntry</a>, <a class="el" href="#a36f90c7ddc69068df41623c0e9cdfbfa">PIXEL_PANEL_FOCUS_CATALOG_COUNT</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ae845d02ed259b4f615718e3deff3d7f7">pixelPanelFocusCatalog</a> ()</td></tr>
+<tr class="memitem:ab2bc0ec0306fbff43f717277d659cd16" id="r_ab2bc0ec0306fbff43f717277d659cd16"><td class="memItemLeft">std::optional&lt; <a class="el" href="#aaa32928dac1bf321cd65435b9a0b0726">PanelId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab2bc0ec0306fbff43f717277d659cd16">panelForPixelTool</a> (<a class="el" href="#a9cb51e9b7642963a83312d94737fe571">PixelTool</a> tool)</td></tr>
+<tr class="memitem:ad4e08bbde577c00ef32757d631d79922" id="r_ad4e08bbde577c00ef32757d631d79922"><td class="memItemLeft">std::vector&lt; std::pair&lt; int, int &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad4e08bbde577c00ef32757d631d79922">validAssetSizes</a> (<a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> family)</td></tr>
+<tr class="memdesc:ad4e08bbde577c00ef32757d631d79922"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tailles proposées à la création d'un asset de la famille donnée.  <br /></td></tr>
+<tr class="memitem:a36da6ef3a19b18c97c6401f40f52c456" id="r_a36da6ef3a19b18c97c6401f40f52c456"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a36da6ef3a19b18c97c6401f40f52c456">isBitmask16Candidate</a> (const <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;image, int tileSize) noexcept</td></tr>
+<tr class="memdesc:a36da6ef3a19b18c97c6401f40f52c456"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">true</span> si <code class="param">image</code> a exactement les dimensions d'une planche à raccords bitmask16.  <br /></td></tr>
+<tr class="memitem:a4e0bb7068f67524a92030a9f89870b0e" id="r_a4e0bb7068f67524a92030a9f89870b0e"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1AutotileCell.html">AutotileCell</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4e0bb7068f67524a92030a9f89870b0e">bitmaskCellAtPixel</a> (const <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;image, int tileSize, int x, int y) noexcept</td></tr>
+<tr class="memdesc:a4e0bb7068f67524a92030a9f89870b0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case de la planche sous un pixel donné.  <br /></td></tr>
+<tr class="memitem:aff37e9236b08bfad7dfb95f55b218f71" id="r_aff37e9236b08bfad7dfb95f55b218f71"><td class="memItemLeft"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a>&#160;</td><td class="memItemRight"><a class="el" href="#aff37e9236b08bfad7dfb95f55b218f71">buildAutotileAssemblyPreview</a> (const <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;sheet, int tileSize)</td></tr>
+<tr class="memdesc:aff37e9236b08bfad7dfb95f55b218f71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit l'aperçu d'assemblage 3×3 démonstratif à partir de la planche en cours.  <br /></td></tr>
+<tr class="memitem:ac0bf9debe0673864ec313b2422695f30" id="r_ac0bf9debe0673864ec313b2422695f30"><td class="memItemLeft"><a class="el" href="structhmi_1_1PixelScreenRect.html">PixelScreenRect</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac0bf9debe0673864ec313b2422695f30">imagePixelScreenRect</a> (const <a class="el" href="structhmi_1_1PixelCanvasView.html">PixelCanvasView</a> &amp;view, int x, int y) noexcept</td></tr>
+<tr class="memdesc:ac0bf9debe0673864ec313b2422695f30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle écran du pixel image <span class="tt">(x, y)</span>, au zoom et décalage de vue donnés.  <br /></td></tr>
+<tr class="memitem:a5c512277fe15943410e76fb97e3b0353" id="r_a5c512277fe15943410e76fb97e3b0353"><td class="memItemLeft">std::optional&lt; std::pair&lt; int, int &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5c512277fe15943410e76fb97e3b0353">screenToImagePixel</a> (const <a class="el" href="structhmi_1_1PixelCanvasView.html">PixelCanvasView</a> &amp;view, int imageWidth, int imageHeight, double screenX, double screenY) noexcept</td></tr>
+<tr class="memdesc:a5c512277fe15943410e76fb97e3b0353"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pixel image sous une position écran donnée.  <br /></td></tr>
+<tr class="memitem:a90efb98d6af0cfa83f9f8cf88d319fb4" id="r_a90efb98d6af0cfa83f9f8cf88d319fb4"><td class="memItemLeft"><a class="el" href="structhmi_1_1PixelCanvasRealSize.html">PixelCanvasRealSize</a>&#160;</td><td class="memItemRight"><a class="el" href="#a90efb98d6af0cfa83f9f8cf88d319fb4">pixelCanvasRealSize</a> (int imageWidth, int imageHeight, int zoom, double scaleFactor) noexcept</td></tr>
+<tr class="memdesc:a90efb98d6af0cfa83f9f8cf88d319fb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taille en pixels réels du canevas entier à un facteur d'échelle d'affichage donné.  <br /></td></tr>
+<tr class="memitem:a072a077fce13e73032619656dbe577b0" id="r_a072a077fce13e73032619656dbe577b0"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a072a077fce13e73032619656dbe577b0">clampPixelCanvasZoom</a> (int zoom) noexcept</td></tr>
+<tr class="memdesc:a072a077fce13e73032619656dbe577b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zoom borné à <span class="tt">[<a class="el" href="#ac1decd951afe920c7de7387fb2f0ecda" title="Zoom minimal (1 pixel image = 1 pixel écran) et maximal admis par les commandes de zoom du canevas — ...">PIXEL_CANVAS_MIN_ZOOM</a>, <a class="el" href="#ab72ec3386202539c0f1a9361fb8fa6cf">PIXEL_CANVAS_MAX_ZOOM</a>]</span>.  <br /></td></tr>
+<tr class="memitem:a298d8f1b2aa9452b5c1b84c0126909e1" id="r_a298d8f1b2aa9452b5c1b84c0126909e1"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a298d8f1b2aa9452b5c1b84c0126909e1">pixelCanvasZoomIn</a> (int zoom) noexcept</td></tr>
+<tr class="memdesc:a298d8f1b2aa9452b5c1b84c0126909e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zoom suivant (plus grand), borné — toujours entier.  <br /></td></tr>
+<tr class="memitem:a94616e38137c224aa8a621c8be84ee1a" id="r_a94616e38137c224aa8a621c8be84ee1a"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a94616e38137c224aa8a621c8be84ee1a">pixelCanvasZoomOut</a> (int zoom) noexcept</td></tr>
+<tr class="memdesc:a94616e38137c224aa8a621c8be84ee1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zoom précédent (plus petit), borné — toujours entier.  <br /></td></tr>
+<tr class="memitem:ae93c247933101e54e4b4a66e4c22c541" id="r_ae93c247933101e54e4b4a66e4c22c541"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#ae93c247933101e54e4b4a66e4c22c541">pixelCanvasGridVisible</a> (int zoom) noexcept</td></tr>
+<tr class="memdesc:ae93c247933101e54e4b4a66e4c22c541"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">true</span> si la grille de pixels doit être dessinée à ce zoom (<span class="tt"><a class="el" href="#af6dd4ff8d5e0ef90e4386088a9b55c07" title="Facteur de zoom à partir duquel la grille de pixels est dessinée : en-deçà, elle ne ferait que du bru...">PIXEL_CANVAS_GRID_VISIBLE_MIN_ZOOM</a></span>).  <br /></td></tr>
+<tr class="memitem:a3b63cca463130fa610151d47ec01c381" id="r_a3b63cca463130fa610151d47ec01c381"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a3b63cca463130fa610151d47ec01c381">pixelOperationTranslationKey</a> (<a class="el" href="#a5889df12c254317504ef5777d27d9b0e">PixelOperationKind</a> kind) noexcept</td></tr>
+<tr class="memdesc:a3b63cca463130fa610151d47ec01c381"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clé de traduction décrivant une opération.  <br /></td></tr>
+<tr class="memitem:a19b91accdacf56adec54949791ca8d2a" id="r_a19b91accdacf56adec54949791ca8d2a"><td class="memItemLeft"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#a19b91accdacf56adec54949791ca8d2a">setPixel</a> (<a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;image, int x, int y, std::uint32_t color)</td></tr>
+<tr class="memdesc:a19b91accdacf56adec54949791ca8d2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose un pixel d'une couleur donnée.  <br /></td></tr>
+<tr class="memitem:af51c0f2ec41091ef3e6e9c031098db4b" id="r_af51c0f2ec41091ef3e6e9c031098db4b"><td class="memItemLeft"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#af51c0f2ec41091ef3e6e9c031098db4b">erasePixel</a> (<a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;image, int x, int y)</td></tr>
+<tr class="memdesc:af51c0f2ec41091ef3e6e9c031098db4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Efface un pixel (alpha nul), sans changer sa couleur RVB.  <br /></td></tr>
+<tr class="memitem:a2d1f5025d8c952998d761fcabb5c8aa3" id="r_a2d1f5025d8c952998d761fcabb5c8aa3"><td class="memItemLeft"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2d1f5025d8c952998d761fcabb5c8aa3">drawLine</a> (<a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;image, int x0, int y0, int x1, int y1, std::uint32_t color)</td></tr>
+<tr class="memdesc:a2d1f5025d8c952998d761fcabb5c8aa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trace une ligne pleine entre deux positions (algorithme de Bresenham).  <br /></td></tr>
+<tr class="memitem:a2085949801371f7bfb91d94f2dd2ac18" id="r_a2085949801371f7bfb91d94f2dd2ac18"><td class="memItemLeft"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2085949801371f7bfb91d94f2dd2ac18">eraseLine</a> (<a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;image, int x0, int y0, int x1, int y1)</td></tr>
+<tr class="memdesc:a2085949801371f7bfb91d94f2dd2ac18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Efface une ligne pleine entre deux positions (même tracé que <span class="tt"><a class="el" href="#a2d1f5025d8c952998d761fcabb5c8aa3" title="Trace une ligne pleine entre deux positions (algorithme de Bresenham).">drawLine</a></span>, alpha nul plutôt qu'une couleur posée).  <br /></td></tr>
+<tr class="memitem:a76e3283d122f8e9b31c1b98d3db8f59f" id="r_a76e3283d122f8e9b31c1b98d3db8f59f"><td class="memItemLeft"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#a76e3283d122f8e9b31c1b98d3db8f59f">floodFill</a> (<a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;image, int x, int y, std::uint32_t color)</td></tr>
+<tr class="memdesc:a76e3283d122f8e9b31c1b98d3db8f59f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remplit, de proche en proche, la zone connexe (4-connexité) de même couleur que le pixel de départ.  <br /></td></tr>
+<tr class="memitem:a2b3df9fe36014e65055f654d0a8747c5" id="r_a2b3df9fe36014e65055f654d0a8747c5"><td class="memItemLeft">std::optional&lt; std::uint32_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2b3df9fe36014e65055f654d0a8747c5">pickColor</a> (const <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;image, int x, int y) noexcept</td></tr>
+<tr class="memdesc:a2b3df9fe36014e65055f654d0a8747c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Couleur du pixel à une position donnée (outil pipette).  <br /></td></tr>
+<tr class="memitem:af837f7f56fae98fb73ed278ea49e27b5" id="r_af837f7f56fae98fb73ed278ea49e27b5"><td class="memItemLeft">std::vector&lt; std::uint32_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af837f7f56fae98fb73ed278ea49e27b5">readRegion</a> (const <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;image, const <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> &amp;region)</td></tr>
+<tr class="memdesc:af837f7f56fae98fb73ed278ea49e27b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copie les pixels d'une région, ligne par ligne — capture le « avant » ou l'« après » d'une entrée d'historique (<span class="tt"><a class="el" href="classhmi_1_1PixelHistory.html" title="Pile d&#39;annulation/rétablissement nommée d&#39;un canevas pixel art.">hmi::PixelHistory</a></span>).  <br /></td></tr>
+<tr class="memitem:a5c0696a5aefa22650536ad018edc2d72" id="r_a5c0696a5aefa22650536ad018edc2d72"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5c0696a5aefa22650536ad018edc2d72">writeRegion</a> (<a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;image, const <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> &amp;region, const std::vector&lt; std::uint32_t &gt; &amp;data)</td></tr>
+<tr class="memdesc:a5c0696a5aefa22650536ad018edc2d72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit des pixels dans une région — inverse de <span class="tt"><a class="el" href="#af837f7f56fae98fb73ed278ea49e27b5" title="Copie les pixels d&#39;une région, ligne par ligne — capture le « avant » ou l&#39;« après » d&#39;une entrée d&#39;h...">readRegion</a></span>, utilisé par <span class="tt"><a class="el" href="classhmi_1_1PixelHistory.html" title="Pile d&#39;annulation/rétablissement nommée d&#39;un canevas pixel art.">hmi::PixelHistory</a></span> pour restaurer un instantané annulé/rétabli.  <br /></td></tr>
+<tr class="memitem:a486dbc7c3e1e338b88180295bc55902e" id="r_a486dbc7c3e1e338b88180295bc55902e"><td class="memItemLeft"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#a486dbc7c3e1e338b88180295bc55902e">flipHorizontal</a> (<a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;image, const <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> &amp;region)</td></tr>
+<tr class="memdesc:a486dbc7c3e1e338b88180295bc55902e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne une région horizontalement (miroir gauche-droite), en place.  <br /></td></tr>
+<tr class="memitem:ac939037edc9bac81094fac90cd542928" id="r_ac939037edc9bac81094fac90cd542928"><td class="memItemLeft"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac939037edc9bac81094fac90cd542928">flipVertical</a> (<a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;image, const <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> &amp;region)</td></tr>
+<tr class="memdesc:ac939037edc9bac81094fac90cd542928"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne une région verticalement (miroir haut-bas), en place. Involutive, comme <span class="tt"><a class="el" href="#a486dbc7c3e1e338b88180295bc55902e" title="Retourne une région horizontalement (miroir gauche-droite), en place.">flipHorizontal</a></span>.  <br /></td></tr>
+<tr class="memitem:aec25f1a17679cd4a0d2d007366c464e6" id="r_aec25f1a17679cd4a0d2d007366c464e6"><td class="memItemLeft"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#aec25f1a17679cd4a0d2d007366c464e6">rotateClockwise</a> (<a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;image, const <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> &amp;region)</td></tr>
+<tr class="memdesc:aec25f1a17679cd4a0d2d007366c464e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pivote le contenu d'une région d'un quart de tour, sens horaire.  <br /></td></tr>
+<tr class="memitem:a27bac07e9e405be340c7c6c8cb738f2a" id="r_a27bac07e9e405be340c7c6c8cb738f2a"><td class="memItemLeft"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#a27bac07e9e405be340c7c6c8cb738f2a">rotateCounterClockwise</a> (<a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;image, const <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> &amp;region)</td></tr>
+<tr class="memdesc:a27bac07e9e405be340c7c6c8cb738f2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pivote le contenu d'une région d'un quart de tour, sens antihoraire (trois quarts de tour horaires, pour ne pas dupliquer la logique de rotation).  <br /></td></tr>
+<tr class="memitem:af4491efde1190c3d2d164fd659e75fdf" id="r_af4491efde1190c3d2d164fd659e75fdf"><td class="memItemLeft"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#af4491efde1190c3d2d164fd659e75fdf">moveRegion</a> (<a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;image, const <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> &amp;region, int dx, int dy)</td></tr>
+<tr class="memdesc:af4491efde1190c3d2d164fd659e75fdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déplace le contenu d'une région d'un décalage donné.  <br /></td></tr>
+<tr class="memitem:a5c31825d1aef08ebb316b89f690ab3c4" id="r_a5c31825d1aef08ebb316b89f690ab3c4"><td class="memItemLeft"><a class="el" href="structhmi_1_1PixelClipboard.html">PixelClipboard</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5c31825d1aef08ebb316b89f690ab3c4">copyRegion</a> (const <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;image, const <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> &amp;region)</td></tr>
+<tr class="memdesc:a5c31825d1aef08ebb316b89f690ab3c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copie les pixels d'une région dans un presse-papiers autonome (ne référence plus <code class="param">image</code>).  <br /></td></tr>
+<tr class="memitem:a938b816874bb703ccf5c5358e36cb5cc" id="r_a938b816874bb703ccf5c5358e36cb5cc"><td class="memItemLeft"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#a938b816874bb703ccf5c5358e36cb5cc">pasteClipboard</a> (<a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;image, const <a class="el" href="structhmi_1_1PixelClipboard.html">PixelClipboard</a> &amp;clipboard, int x, int y)</td></tr>
+<tr class="memdesc:a938b816874bb703ccf5c5358e36cb5cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Colle un presse-papiers dans l'image, coin haut-gauche à <span class="tt">(x, y)</span>.  <br /></td></tr>
+<tr class="memitem:acf0a003503690378f8af5a4d62107584" id="r_acf0a003503690378f8af5a4d62107584"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#acf0a003503690378f8af5a4d62107584">pixelInBounds</a> (int width, int height, int x, int y) noexcept</td></tr>
+<tr class="memitem:a290ef18de7f42bca5222d50528866be1" id="r_a290ef18de7f42bca5222d50528866be1"><td class="memItemLeft">constexpr <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#a290ef18de7f42bca5222d50528866be1">unionPixelRegion</a> (const <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> &amp;a, const <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> &amp;b) noexcept</td></tr>
+<tr class="memdesc:a290ef18de7f42bca5222d50528866be1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Union de deux régions (la plus petite région couvrant les deux).  <br /></td></tr>
+<tr class="memitem:a7ba85f23cf2dc7ce24be072c8ae4bc97" id="r_a7ba85f23cf2dc7ce24be072c8ae4bc97"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1PixelPaletteExtractionEntry.html">PixelPaletteExtractionEntry</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7ba85f23cf2dc7ce24be072c8ae4bc97">extractPalette</a> (const <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;image)</td></tr>
+<tr class="memdesc:a7ba85f23cf2dc7ce24be072c8ae4bc97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Couleurs effectivement présentes dans une image, dans un ordre <b>déterministe</b>.  <br /></td></tr>
+<tr class="memitem:aa3ad36cdfd66f4029481e164b0ccb66c" id="r_aa3ad36cdfd66f4029481e164b0ccb66c"><td class="memItemLeft">std::uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#aa3ad36cdfd66f4029481e164b0ccb66c">nearestPaletteColor</a> (std::uint32_t color, const std::vector&lt; std::uint32_t &gt; &amp;palette) noexcept</td></tr>
+<tr class="memdesc:aa3ad36cdfd66f4029481e164b0ccb66c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Couleur de <code class="param">palette</code> la plus proche de <code class="param">color</code> (mode « contraindre à la palette »).  <br /></td></tr>
 <tr class="memitem:ab7217d187da26402006a3c0d1eb98cbb" id="r_ab7217d187da26402006a3c0d1eb98cbb"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1SkinSection.html">SkinSection</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab7217d187da26402006a3c0d1eb98cbb">buildSkinRows</a> (const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> &amp;catalog, std::string_view setName)</td></tr>
 <tr class="memdesc:ab7217d187da26402006a3c0d1eb98cbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit les lignes du panneau pour un jeu de skins donné.  <br /></td></tr>
 <tr class="memitem:acfc16de3fc9ebf22b724eeaa552313bf" id="r_acfc16de3fc9ebf22b724eeaa552313bf"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acfc16de3fc9ebf22b724eeaa552313bf">listSkinAssets</a> (const std::filesystem::path &amp;skinsDirectory)</td></tr>
@@ -801,6 +942,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a32457118c4e60dff8da0ba9839c0f29a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtient la texture d'un asset, ou le <b>repli en damier magenta</b> à défaut.  <br /></td></tr>
 <tr class="memitem:a22c3bcff9f77b4c4df7938a08c036dfd" id="r_a22c3bcff9f77b4c4df7938a08c036dfd"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a22c3bcff9f77b4c4df7938a08c036dfd">decodeImageFile</a> (const std::filesystem::path &amp;path)</td></tr>
 <tr class="memdesc:a22c3bcff9f77b4c4df7938a08c036dfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décode un fichier image (PNG au minimum) en pixels RGBA.  <br /></td></tr>
+<tr class="memitem:ae4e98112a456615557383e9b5d0d6252" id="r_ae4e98112a456615557383e9b5d0d6252"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae4e98112a456615557383e9b5d0d6252">encodeImageFile</a> (const std::filesystem::path &amp;path, const <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;image)</td></tr>
+<tr class="memdesc:ae4e98112a456615557383e9b5d0d6252"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit un fichier PNG depuis des pixels RGBA déjà en mémoire — symétrique de <span class="tt"><a class="el" href="#a22c3bcff9f77b4c4df7938a08c036dfd" title="Décode un fichier image (PNG au minimum) en pixels RGBA.">decodeImageFile</a></span>.  <br /></td></tr>
 <tr class="memitem:a98f0f2d822288b333e00905f4cc60165" id="r_a98f0f2d822288b333e00905f4cc60165"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a98f0f2d822288b333e00905f4cc60165">createTexture</a> (ID3D11Device *device, int width, int height, const std::vector&lt; std::uint32_t &gt; &amp;pixels)</td></tr>
 <tr class="memdesc:a98f0f2d822288b333e00905f4cc60165"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée une texture Direct3D 11 immuable à partir de pixels RGBA déjà décodés.  <br /></td></tr>
 <tr class="memitem:af6ffcc39449660c80e3c1c5a53e6c1ec" id="r_af6ffcc39449660c80e3c1c5a53e6c1ec"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af6ffcc39449660c80e3c1c5a53e6c1ec">loadTextureFromFile</a> (ID3D11Device *device, const std::filesystem::path &amp;path)</td></tr>
@@ -815,6 +958,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a34134b921b6e696d52d483a74483aab1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case de la planche 4×4 correspondant à un masque de voisinage.  <br /></td></tr>
 <tr class="memitem:a9e828846d7bde545c8e1ec0a0b1fc73c" id="r_a9e828846d7bde545c8e1ec0a0b1fc73c"><td class="memItemLeft"><a class="el" href="structhmi_1_1AutotileCell.html">AutotileCell</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9e828846d7bde545c8e1ec0a0b1fc73c">autotileRepresentativeCell</a> () noexcept</td></tr>
 <tr class="memdesc:a9e828846d7bde545c8e1ec0a0b1fc73c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case représentative d'une planche : l'<b>intérieur plein</b> (quatre voisins solides).  <br /></td></tr>
+<tr class="memitem:a126525c795b7d17752d39838f2027233" id="r_a126525c795b7d17752d39838f2027233"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a126525c795b7d17752d39838f2027233">autotileConfigurationLabelKey</a> (std::uint8_t mask) noexcept</td></tr>
+<tr class="memdesc:a126525c795b7d17752d39838f2027233"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clé de traduction décrivant la configuration de voisinage d'un masque, pour l'atelier pixel art (<span class="tt">LOT-54</span> TACHE-08, <span class="tt">EX-REN-033</span>).  <br /></td></tr>
+<tr class="memitem:af8658633ab15f4ba347cc95133627a7e" id="r_af8658633ab15f4ba347cc95133627a7e"><td class="memItemLeft">std::array&lt; std::uint8_t, 9 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af8658633ab15f4ba347cc95133627a7e">autotileAssemblyMasks</a> () noexcept</td></tr>
+<tr class="memdesc:af8658633ab15f4ba347cc95133627a7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Masques des neuf cases d'un assemblage 3×3 démonstratif (<span class="tt">LOT-54</span> TACHE-08).  <br /></td></tr>
 <tr class="memitem:a597b9471d79c0d524b3dedbf52c2fac6" id="r_a597b9471d79c0d524b3dedbf52c2fac6"><td class="memItemLeft"><a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#a597b9471d79c0d524b3dedbf52c2fac6">regionForTile</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type)</td></tr>
 <tr class="memdesc:a597b9471d79c0d524b3dedbf52c2fac6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région d'atlas (couleur procédurale) associée à un type de tuile.  <br /></td></tr>
 <tr class="memitem:a3a1050ef6cc138977442e9d4206cb3b1" id="r_a3a1050ef6cc138977442e9d4206cb3b1"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1AtlasGridPosition.html">AtlasGridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3a1050ef6cc138977442e9d4206cb3b1">slopeTileGridPosition</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type)</td></tr>
@@ -839,6 +986,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a86efa8bc643b7f44b2cd6fc6133605f3" id="r_a86efa8bc643b7f44b2cd6fc6133605f3"><td class="memItemLeft">const <a class="el" href="structhmi_1_1EditorActionSpec.html">EditorActionSpec</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a86efa8bc643b7f44b2cd6fc6133605f3">editorActionSpec</a> (<a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a> id)</td></tr>
 <tr class="memitem:a3df22d8b0cb79245b439394aae6798ae" id="r_a3df22d8b0cb79245b439394aae6798ae"><td class="memItemLeft">std::optional&lt; <a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3df22d8b0cb79245b439394aae6798ae">editorActionTool</a> (<a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a> id)</td></tr>
 <tr class="memitem:a5aa3682b9ff2aba43ecaa20e2c6f4d9c" id="r_a5aa3682b9ff2aba43ecaa20e2c6f4d9c"><td class="memItemLeft"><a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5aa3682b9ff2aba43ecaa20e2c6f4d9c">editorActionForTool</a> (<a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a> tool)</td></tr>
+<tr class="memitem:acf8a770950fbbb8d0ec11f73bc3a1342" id="r_acf8a770950fbbb8d0ec11f73bc3a1342"><td class="memItemLeft">std::optional&lt; <a class="el" href="#a9cb51e9b7642963a83312d94737fe571">PixelTool</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acf8a770950fbbb8d0ec11f73bc3a1342">editorActionPixelTool</a> (<a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a> id)</td></tr>
+<tr class="memitem:ac869b9559702a631f147b3dbb7091c62" id="r_ac869b9559702a631f147b3dbb7091c62"><td class="memItemLeft"><a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac869b9559702a631f147b3dbb7091c62">editorActionForPixelTool</a> (<a class="el" href="#a9cb51e9b7642963a83312d94737fe571">PixelTool</a> tool)</td></tr>
 <tr class="memitem:ab2f97afc82a6834dea728c2748464369" id="r_ab2f97afc82a6834dea728c2748464369"><td class="memItemLeft">const std::array&lt; <a class="el" href="structhmi_1_1KeyBindingIconEntry.html">KeyBindingIconEntry</a>, <a class="el" href="#a1a8d24174b415e8452f331c030addee6">KEY_BINDING_ICON_COUNT</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ab2f97afc82a6834dea728c2748464369">keyBindingIconCatalog</a> ()</td></tr>
 <tr class="memitem:a650ff0aabcf8fdbabb864cd20f613b8c" id="r_a650ff0aabcf8fdbabb864cd20f613b8c"><td class="memItemLeft"><a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a>&#160;</td><td class="memItemRight"><a class="el" href="#a650ff0aabcf8fdbabb864cd20f613b8c">iconForKeyBindingAction</a> (<a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585">EditorAction</a> action)</td></tr>
 <tr class="memitem:aaec3ea44878dd72a447a29150231ddba" id="r_aaec3ea44878dd72a447a29150231ddba"><td class="memItemLeft">std::optional&lt; <a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585">EditorAction</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aaec3ea44878dd72a447a29150231ddba">keyBindingActionForIcon</a> (<a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a> id)</td></tr>
@@ -908,6 +1057,13 @@ Variables</h2></td></tr>
 <tr class="memdesc:a71400cfb82eb06125e98cf974b6dc1be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les six familles de mécanismes à état dont l'apparence est pilotée par un clip (<span class="tt">LOT-47</span>), dans l'ordre où elles sont proposées par la section « Animations ».  <br /></td></tr>
 <tr class="memitem:aa22d8fa67dd7b945de1a25413ef6532e" id="r_aa22d8fa67dd7b945de1a25413ef6532e"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aa22d8fa67dd7b945de1a25413ef6532e">PANEL_FOCUS_CATALOG_COUNT</a> = 2</td></tr>
 <tr class="memdesc:aa22d8fa67dd7b945de1a25413ef6532e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'entrées de la table (tous les outils n'ont pas de panneau dédié).  <br /></td></tr>
+<tr class="memitem:a36f90c7ddc69068df41623c0e9cdfbfa" id="r_a36f90c7ddc69068df41623c0e9cdfbfa"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a36f90c7ddc69068df41623c0e9cdfbfa">PIXEL_PANEL_FOCUS_CATALOG_COUNT</a> = 5</td></tr>
+<tr class="memdesc:a36f90c7ddc69068df41623c0e9cdfbfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'entrées de la table des outils de canevas (les cinq outils du canevas mettent tous en avant le même panneau : on édite toujours en le voyant).  <br /></td></tr>
+<tr class="memitem:ac1decd951afe920c7de7387fb2f0ecda" id="r_ac1decd951afe920c7de7387fb2f0ecda"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#ac1decd951afe920c7de7387fb2f0ecda">PIXEL_CANVAS_MIN_ZOOM</a> = 1</td></tr>
+<tr class="memdesc:ac1decd951afe920c7de7387fb2f0ecda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zoom minimal (1 pixel image = 1 pixel écran) et maximal admis par les commandes de zoom du canevas — toujours <b>entier</b>, pour que les pixels restent carrés (<span class="tt">EX-ARCH-022</span>).  <br /></td></tr>
+<tr class="memitem:ab72ec3386202539c0f1a9361fb8fa6cf" id="r_ab72ec3386202539c0f1a9361fb8fa6cf"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#ab72ec3386202539c0f1a9361fb8fa6cf">PIXEL_CANVAS_MAX_ZOOM</a> = 32</td></tr>
+<tr class="memitem:af6dd4ff8d5e0ef90e4386088a9b55c07" id="r_af6dd4ff8d5e0ef90e4386088a9b55c07"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#af6dd4ff8d5e0ef90e4386088a9b55c07">PIXEL_CANVAS_GRID_VISIBLE_MIN_ZOOM</a> = 4</td></tr>
+<tr class="memdesc:af6dd4ff8d5e0ef90e4386088a9b55c07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Facteur de zoom à partir duquel la grille de pixels est dessinée : en-deçà, elle ne ferait que du bruit visuel sur des pixels trop petits pour la distinguer du contenu.  <br /></td></tr>
 <tr class="memitem:a5d007c47b6f8696b0b71cf94afe65d18" id="r_a5d007c47b6f8696b0b71cf94afe65d18"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5d007c47b6f8696b0b71cf94afe65d18">FONTS_SUBDIRECTORY</a> = &quot;Fonts/&quot;</td></tr>
 <tr class="memdesc:a5d007c47b6f8696b0b71cf94afe65d18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous-dossier des assets de police, relatif au dossier d'assets (<span class="tt">LOT-52</span>).  <br /></td></tr>
 <tr class="memitem:ad72608bb6233a89509a4835525f62339" id="r_ad72608bb6233a89509a4835525f62339"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="#ad72608bb6233a89509a4835525f62339">DECORS_SUBDIRECTORY</a> = &quot;Decors/&quot;</td></tr>
@@ -974,8 +1130,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:ab42b3bed825ef5b3664995a516c4eb8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'actions de jeu remappables (<span class="tt"><a class="el" href="#a133516ef8002bd9e4d870db9494f5867" title="Action de jeu logique, remappable indépendamment de la touche physique qui la déclenche.">GameAction</a></span>).  <br /></td></tr>
 <tr class="memitem:aab59d64d595ba17a55cc07311285ba14" id="r_aab59d64d595ba17a55cc07311285ba14"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aab59d64d595ba17a55cc07311285ba14">GAMEPAD_BUTTON_COUNT</a> = 10</td></tr>
 <tr class="memdesc:aab59d64d595ba17a55cc07311285ba14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de boutons manette remappables (<span class="tt"><a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88" title="Bouton (ou direction) manette remappable à une action de jeu (EX-CTRL-002, LOT-30).">GamepadButton</a></span>).  <br /></td></tr>
-<tr class="memitem:a79f2b5a2f6530436d6f2b090de10d6ac" id="r_a79f2b5a2f6530436d6f2b090de10d6ac"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a79f2b5a2f6530436d6f2b090de10d6ac">EDITOR_ACTION_CATALOG_COUNT</a> = 17</td></tr>
-<tr class="memdesc:a79f2b5a2f6530436d6f2b090de10d6ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre total d'actions du catalogue (six outils, onze commandes principales).  <br /></td></tr>
+<tr class="memitem:a79f2b5a2f6530436d6f2b090de10d6ac" id="r_a79f2b5a2f6530436d6f2b090de10d6ac"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a79f2b5a2f6530436d6f2b090de10d6ac">EDITOR_ACTION_CATALOG_COUNT</a> = 30</td></tr>
+<tr class="memdesc:a79f2b5a2f6530436d6f2b090de10d6ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre total d'actions du catalogue (six outils de niveau, cinq outils de canevas pixel art, onze commandes principales, quatre commandes de fichier de l'atelier, quatre commandes de région de l'atelier).  <br /></td></tr>
 <tr class="memitem:a1a8d24174b415e8452f331c030addee6" id="r_a1a8d24174b415e8452f331c030addee6"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a1a8d24174b415e8452f331c030addee6">KEY_BINDING_ICON_COUNT</a> = 9</td></tr>
 <tr class="memdesc:a1a8d24174b415e8452f331c030addee6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'actions d'éditeur remappables ayant une commande effective (<span class="tt"><a class="el" href="#af2f4a1af04682540c1b84611a24aa42c" title="Nombre d&#39;actions d&#39;éditeur remappables (EditorAction).">EDITOR_ACTION_COUNT</a></span> moins <span class="tt">TextureAssignTool</span>).  <br /></td></tr>
 </table>
@@ -1272,9 +1428,12 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Groupe d'exclusivité d'une action : les six outils d'édition forment un groupe <b>exclusif</b> (un seul actif à la fois) ; les commandes n'appartiennent à aucun groupe. </p>
+<p><span class="tt">PixelTools</span> (<span class="tt">LOT-54</span> TACHE-04) est un second groupe exclusif, <b>distinct</b> de <span class="tt">LevelTools</span> : les outils du canevas pixel art et ceux du niveau ne s'excluent jamais entre eux, seulement au sein de leur propre groupe. <span class="tt">PixelCommands</span> (<span class="tt">LOT-54</span> TACHE-05) n'est pas exclusif (comme <span class="tt">None</span>) mais reste tagué séparément : ces commandes vivent dans la barre d'outils <b>du canevas</b>, jamais dans celle du niveau. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af951fa0fccb19bed92c122562085977aa6adf97f83acf6453d4a6a4b1070f3754" name="af951fa0fccb19bed92c122562085977aa6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="af951fa0fccb19bed92c122562085977aac5ef5463f73a88dcdff84105e558092e" name="af951fa0fccb19bed92c122562085977aac5ef5463f73a88dcdff84105e558092e"></a>LevelTools&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af951fa0fccb19bed92c122562085977aa538dd7170e9aa85616805507f70f32df" name="af951fa0fccb19bed92c122562085977aa538dd7170e9aa85616805507f70f32df"></a>PixelTools&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af951fa0fccb19bed92c122562085977aa86a1b1e9341f1107357650f07ca05a4d" name="af951fa0fccb19bed92c122562085977aa86a1b1e9341f1107357650f07ca05a4d"></a>PixelCommands&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -1542,6 +1701,19 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a36bb6559696dc9124986ae120515984f" name="ab269aabb94611e449a8e7427969874f5a36bb6559696dc9124986ae120515984f"></a>Paste&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a904a8304056d77e4547744781b7ceb50" name="ab269aabb94611e449a8e7427969874f5a904a8304056d77e4547744781b7ceb50"></a>Rename&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a2583b92d245a881127917f19531ccf3b" name="ab269aabb94611e449a8e7427969874f5a2583b92d245a881127917f19531ccf3b"></a>ShortcutsOverview&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5acb62bc8345822bd1eafa0aeed010986d" name="ab269aabb94611e449a8e7427969874f5acb62bc8345822bd1eafa0aeed010986d"></a>PixelBrush&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a822428af0448274e8406713161f94e74" name="ab269aabb94611e449a8e7427969874f5a822428af0448274e8406713161f94e74"></a>PixelEraser&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a290c657e69be64f7df2826cb91731a00" name="ab269aabb94611e449a8e7427969874f5a290c657e69be64f7df2826cb91731a00"></a>PixelFill&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5ac221e982ad3153d8d404c667a7709991" name="ab269aabb94611e449a8e7427969874f5ac221e982ad3153d8d404c667a7709991"></a>PixelEyedropper&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5adf52905c862a17db8d14f43c3ae902c1" name="ab269aabb94611e449a8e7427969874f5adf52905c862a17db8d14f43c3ae902c1"></a>PixelOpen&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a6fc6cdcce220e482b4eb19567bc33207" name="ab269aabb94611e449a8e7427969874f5a6fc6cdcce220e482b4eb19567bc33207"></a>PixelCreate&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5abcf42ef4b1f57699f8d21f3993825168" name="ab269aabb94611e449a8e7427969874f5abcf42ef4b1f57699f8d21f3993825168"></a>PixelSave&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a5319a6e4c7a4ea19fe90088019e2ea24" name="ab269aabb94611e449a8e7427969874f5a5319a6e4c7a4ea19fe90088019e2ea24"></a>PixelSaveAs&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5adfcd991ba3cfade0c3ee7bc9a5f77f5d" name="ab269aabb94611e449a8e7427969874f5adfcd991ba3cfade0c3ee7bc9a5f77f5d"></a>PixelSelectionTool&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a6182cb405421ab907a93f405bf943345" name="ab269aabb94611e449a8e7427969874f5a6182cb405421ab907a93f405bf943345"></a>PixelFlipHorizontal&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a9d1399be20d425f915fde7a54eeb46d7" name="ab269aabb94611e449a8e7427969874f5a9d1399be20d425f915fde7a54eeb46d7"></a>PixelFlipVertical&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5a1beb43ed323f13176f693ac0ac53cad0" name="ab269aabb94611e449a8e7427969874f5a1beb43ed323f13176f693ac0ac53cad0"></a>PixelRotateClockwise&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab269aabb94611e449a8e7427969874f5ab824c0db14abbbacd5e0f263a2dc8159" name="ab269aabb94611e449a8e7427969874f5ab824c0db14abbbacd5e0f263a2dc8159"></a>PixelRotateCounterClockwise&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -1775,10 +1947,81 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Panneau de droite pouvant être mis en avant (regroupés en onglets, TACHE-02). </p>
+<p><span class="tt"><a class="el" href="classhmi_1_1PixelCanvas.html" title="Widget affichant l&#39;image en cours d&#39;édition et transformant les gestes de souris en appels aux opérat...">PixelCanvas</a></span>/<span class="tt"><a class="el" href="classhmi_1_1PixelHistory.html" title="Pile d&#39;annulation/rétablissement nommée d&#39;un canevas pixel art.">PixelHistory</a></span> rejoignent le regroupement en <span class="tt">LOT-54</span> TACHE-04 : le canevas et l'historique visuel de l'atelier pixel art. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aaa32928dac1bf321cd65435b9a0b0726a91aedca00492a5fba2c282abec5626f3" name="aaa32928dac1bf321cd65435b9a0b0726a91aedca00492a5fba2c282abec5626f3"></a>Levels&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aaa32928dac1bf321cd65435b9a0b0726abd908db5ccb07777ced8023dffc802f4" name="aaa32928dac1bf321cd65435b9a0b0726abd908db5ccb07777ced8023dffc802f4"></a>Links&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aaa32928dac1bf321cd65435b9a0b0726a536300d63028e7f16ba150566ecd3a5f" name="aaa32928dac1bf321cd65435b9a0b0726a536300d63028e7f16ba150566ecd3a5f"></a>Textures&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaa32928dac1bf321cd65435b9a0b0726ab1175488d7517a7b3490f45437b7cd0d" name="aaa32928dac1bf321cd65435b9a0b0726ab1175488d7517a7b3490f45437b7cd0d"></a>PixelCanvas&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaa32928dac1bf321cd65435b9a0b0726a60421a4156d1beef9070bc14bd2623a4" name="aaa32928dac1bf321cd65435b9a0b0726a60421a4156d1beef9070bc14bd2623a4"></a>PixelHistory&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a5889df12c254317504ef5777d27d9b0e" name="a5889df12c254317504ef5777d27d9b0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5889df12c254317504ef5777d27d9b0e">&#9670;&#160;</a></span>PixelOperationKind</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a5889df12c254317504ef5777d27d9b0e">hmi::PixelOperationKind</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Type d'une opération d'historique — détermine sa clé de traduction (<span class="tt">EX-REN-033</span>). </p>
+<p>Ce nom sert deux fois : dans le libellé de l'action « Annuler <em>…</em> » (TACHE-04) et dans le panneau d'historique visuel. D'autres membres rejoignent cette énumération aux tâches suivantes (déplacement de région, symétries, rotations, coller — TACHE-06). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a5889df12c254317504ef5777d27d9b0eaa25744428546172386b93dd44900a81a" name="a5889df12c254317504ef5777d27d9b0eaa25744428546172386b93dd44900a81a"></a>Brush&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5889df12c254317504ef5777d27d9b0ea1432aab1d005218c17376fbee5b3c894" name="a5889df12c254317504ef5777d27d9b0ea1432aab1d005218c17376fbee5b3c894"></a>Eraser&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5889df12c254317504ef5777d27d9b0eadb3e3f51c9107e26c9bccf9a188ce2ed" name="a5889df12c254317504ef5777d27d9b0eadb3e3f51c9107e26c9bccf9a188ce2ed"></a>Fill&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5889df12c254317504ef5777d27d9b0ea6bc362dbf494c61ea117fe3c71ca48a5" name="a5889df12c254317504ef5777d27d9b0ea6bc362dbf494c61ea117fe3c71ca48a5"></a>Move&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5889df12c254317504ef5777d27d9b0eaef2eb5709a994eb86f7daa5c72975176" name="a5889df12c254317504ef5777d27d9b0eaef2eb5709a994eb86f7daa5c72975176"></a>FlipHorizontal&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5889df12c254317504ef5777d27d9b0ea17a90cd11c563123de1b1a3db779bee6" name="a5889df12c254317504ef5777d27d9b0ea17a90cd11c563123de1b1a3db779bee6"></a>FlipVertical&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5889df12c254317504ef5777d27d9b0eaafb7976e05c7fb09abf47d0b2add09a5" name="a5889df12c254317504ef5777d27d9b0eaafb7976e05c7fb09abf47d0b2add09a5"></a>RotateClockwise&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5889df12c254317504ef5777d27d9b0ea1a139302b19d048aee4be8e428710ac6" name="a5889df12c254317504ef5777d27d9b0ea1a139302b19d048aee4be8e428710ac6"></a>RotateCounterClockwise&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5889df12c254317504ef5777d27d9b0ea36bb6559696dc9124986ae120515984f" name="a5889df12c254317504ef5777d27d9b0ea36bb6559696dc9124986ae120515984f"></a>Paste&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a9cb51e9b7642963a83312d94737fe571" name="a9cb51e9b7642963a83312d94737fe571"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cb51e9b7642963a83312d94737fe571">&#9670;&#160;</a></span>PixelTool</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a9cb51e9b7642963a83312d94737fe571">hmi::PixelTool</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Outil actif du canevas pixel art — détermine ce que produisent les gestes de souris (<span class="tt"><a class="el" href="classhmi_1_1PixelCanvas.html" title="Widget affichant l&#39;image en cours d&#39;édition et transformant les gestes de souris en appels aux opérat...">hmi::PixelCanvas</a></span>) et forme un groupe exclusif distinct de <span class="tt"><a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou la barre d&#39;outils (hmi::EditorActions,...">hmi::EditorTool</a></span> (<span class="tt"><a class="el" href="classhmi_1_1EditorActions.html" title="Construit et possède les QAction du catalogue (HMI/Interface/ActionCatalog.h) : chaque outil et chaqu...">hmi::EditorActions</a></span>, TACHE-04). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a9cb51e9b7642963a83312d94737fe571aa25744428546172386b93dd44900a81a" name="a9cb51e9b7642963a83312d94737fe571aa25744428546172386b93dd44900a81a"></a>Brush&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a9cb51e9b7642963a83312d94737fe571a1432aab1d005218c17376fbee5b3c894" name="a9cb51e9b7642963a83312d94737fe571a1432aab1d005218c17376fbee5b3c894"></a>Eraser&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a9cb51e9b7642963a83312d94737fe571adb3e3f51c9107e26c9bccf9a188ce2ed" name="a9cb51e9b7642963a83312d94737fe571adb3e3f51c9107e26c9bccf9a188ce2ed"></a>Fill&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a9cb51e9b7642963a83312d94737fe571a97fa84c4743927e4267e1380285c5cf3" name="a9cb51e9b7642963a83312d94737fe571a97fa84c4743927e4267e1380285c5cf3"></a>Eyedropper&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a9cb51e9b7642963a83312d94737fe571a6ff9dd0d34f65181173c1e4bc39939de" name="a9cb51e9b7642963a83312d94737fe571a6ff9dd0d34f65181173c1e4bc39939de"></a>Selection&#160;</td><td class="fielddoc"><p>Sélection rectangulaire (<span class="tt">LOT-54</span> TACHE-06) : glisser hors d'une sélection existante en définit une nouvelle ; glisser à l'intérieur la déplace (<span class="tt"><a class="el" href="#af4491efde1190c3d2d164fd659e75fdf" title="Déplace le contenu d&#39;une région d&#39;un décalage donné.">hmi::moveRegion</a></span>). </p>
+</td></tr>
 </table>
 
 </div>
@@ -2524,6 +2767,34 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="af8658633ab15f4ba347cc95133627a7e" name="af8658633ab15f4ba347cc95133627a7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8658633ab15f4ba347cc95133627a7e">&#9670;&#160;</a></span>autotileAssemblyMasks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt; std::uint8_t, 9 &gt; hmi::autotileAssemblyMasks </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Masques des neuf cases d'un assemblage 3×3 démonstratif (<span class="tt">LOT-54</span> TACHE-08). </p>
+<p>Un bloc 3×3 <b>plein</b>, flottant (aucun voisin hors du bloc n'est considéré solide) : chaque case ne voit que ses voisines internes, ce qui donne un panorama représentatif — coins, bords et intérieur — de la façon dont la planche en cours se raccorde à elle-même. C'est l'assemblage, pas les repères, qui répond à « le résultat tient-il ? ». </p><dl class="section return"><dt>Returns</dt><dd>Les neuf masques, en ordre de lecture (ligne par ligne, gauche à droite, haut en bas). </dd></dl>
+
+</div>
+</div>
 <a id="a34134b921b6e696d52d483a74483aab1" name="a34134b921b6e696d52d483a74483aab1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a34134b921b6e696d52d483a74483aab1">&#9670;&#160;</a></span>autotileCell()</h2>
 
@@ -2555,6 +2826,40 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La case à échantillonner dans la planche. </dd></dl>
+
+</div>
+</div>
+<a id="a126525c795b7d17752d39838f2027233" name="a126525c795b7d17752d39838f2027233"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a126525c795b7d17752d39838f2027233">&#9670;&#160;</a></span>autotileConfigurationLabelKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view hmi::autotileConfigurationLabelKey </td>
+          <td>(</td>
+          <td class="paramtype">std::uint8_t</td>          <td class="paramname"><span class="paramname"><em>mask</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clé de traduction décrivant la configuration de voisinage d'un masque, pour l'atelier pixel art (<span class="tt">LOT-54</span> TACHE-08, <span class="tt">EX-REN-033</span>). </p>
+<p>Les seize valeurs correspondent <b>exactement</b> aux seize entrées de la table canonique <span class="tt">CELL_BY_MASK</span> (<span class="tt"><a class="el" href="TileAutotile_8cpp.html">TileAutotile.cpp</a></span>) — dessiner une planche sans savoir ce que représente chaque case est une source d'erreurs garantie ; ce n'est jamais une seconde table, seulement sa description en langage naturel. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mask</td><td>Masque de voisinage (seuls les quatre bits de poids faible sont lus). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La clé (existe dans les deux catalogues, <span class="tt">fr.lang</span>/<span class="tt">en.lang</span>). </dd></dl>
 
 </div>
 </div>
@@ -2642,6 +2947,57 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a4e0bb7068f67524a92030a9f89870b0e" name="a4e0bb7068f67524a92030a9f89870b0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e0bb7068f67524a92030a9f89870b0e">&#9670;&#160;</a></span>bitmaskCellAtPixel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structhmi_1_1AutotileCell.html">AutotileCell</a> &gt; hmi::bitmaskCellAtPixel </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>tileSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Case de la planche sous un pixel donné. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>Image consultée. </td></tr>
+    <tr><td class="paramname">tileSize</td><td>Côté d'une case, en pixels. </td></tr>
+    <tr><td class="paramname">x</td><td>Colonne du pixel. </td></tr>
+    <tr><td class="paramname">y</td><td>Ligne du pixel. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La case, ou <span class="tt">std::nullopt</span> si <code class="param">image</code> n'est pas une planche bitmask16 (<span class="tt"><a class="el" href="#a36da6ef3a19b18c97c6401f40f52c456" title="true si image a exactement les dimensions d&#39;une planche à raccords bitmask16.">isBitmask16Candidate</a></span>) ou si <span class="tt">(x, y)</span> est hors bornes. </dd></dl>
+
+</div>
+</div>
 <a id="a73cb9cef74be4c0f0577ef8fe0416522" name="a73cb9cef74be4c0f0577ef8fe0416522"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a73cb9cef74be4c0f0577ef8fe0416522">&#9670;&#160;</a></span>buildApplicationPalette()</h2>
 
@@ -2667,6 +3023,45 @@ Variables</h2></td></tr>
 
 <p>Construit une <span class="tt">QPalette</span> complète — groupes actif, inactif et désactivé — à partir d'un jeu de jetons. </p>
 <p>Le groupe désactivé est explicitement dérivé du texte atténué : c'est celui qu'on oublie le plus souvent, et celui qui trahit le plus vite un thème incomplet. </p>
+
+</div>
+</div>
+<a id="aff37e9236b08bfad7dfb95f55b218f71" name="aff37e9236b08bfad7dfb95f55b218f71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff37e9236b08bfad7dfb95f55b218f71">&#9670;&#160;</a></span>buildAutotileAssemblyPreview()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> hmi::buildAutotileAssemblyPreview </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>sheet</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>tileSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construit l'aperçu d'assemblage 3×3 démonstratif à partir de la planche en cours. </p>
+<p>Les repères disent à quoi <em>sert</em> chaque case ; seul cet assemblage dit si le résultat <em>tient</em> (epic.md) — composé avec <span class="tt"><a class="el" href="#af8658633ab15f4ba347cc95133627a7e" title="Masques des neuf cases d&#39;un assemblage 3×3 démonstratif (LOT-54 TACHE-08).">hmi::autotileAssemblyMasks</a></span>/<span class="tt"><a class="el" href="#a34134b921b6e696d52d483a74483aab1" title="Case de la planche 4×4 correspondant à un masque de voisinage.">hmi::autotileCell</a></span>, la <b>même</b> table que le rendu du niveau, jamais une seconde. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sheet</td><td>Planche en cours d'édition. </td></tr>
+    <tr><td class="paramname">tileSize</td><td>Côté d'une case, en pixels. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Une image de <span class="tt">3 * tileSize</span> de côté ; une case qui déborderait de <code class="param">sheet</code> (planche plus petite que prévu) reste transparente plutôt que de lire hors bornes. </dd></dl>
 
 </div>
 </div>
@@ -3047,6 +3442,33 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La touche capturée, ou <span class="tt">std::nullopt</span> si aucune touche assignable n'est pressée. </dd></dl>
+
+</div>
+</div>
+<a id="a072a077fce13e73032619656dbe577b0" name="a072a077fce13e73032619656dbe577b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a072a077fce13e73032619656dbe577b0">&#9670;&#160;</a></span>clampPixelCanvasZoom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::clampPixelCanvasZoom </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>zoom</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Zoom borné à <span class="tt">[<a class="el" href="#ac1decd951afe920c7de7387fb2f0ecda" title="Zoom minimal (1 pixel image = 1 pixel écran) et maximal admis par les commandes de zoom du canevas — ...">PIXEL_CANVAS_MIN_ZOOM</a>, <a class="el" href="#ab72ec3386202539c0f1a9361fb8fa6cf">PIXEL_CANVAS_MAX_ZOOM</a>]</span>. </p>
 
 </div>
 </div>
@@ -3450,6 +3872,44 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a5c31825d1aef08ebb316b89f690ab3c4" name="a5c31825d1aef08ebb316b89f690ab3c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c31825d1aef08ebb316b89f690ab3c4">&#9670;&#160;</a></span>copyRegion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1PixelClipboard.html">PixelClipboard</a> hmi::copyRegion </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>region</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copie les pixels d'une région dans un presse-papiers autonome (ne référence plus <code class="param">image</code>). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>Image consultée. </td></tr>
+    <tr><td class="paramname">region</td><td>Région copiée ; un presse-papiers vide si <code class="param">region</code> est vide. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a98f0f2d822288b333e00905f4cc60165" name="a98f0f2d822288b333e00905f4cc60165"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a98f0f2d822288b333e00905f4cc60165">&#9670;&#160;</a></span>createTexture()</h2>
 
@@ -3844,6 +4304,61 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a2d1f5025d8c952998d761fcabb5c8aa3" name="a2d1f5025d8c952998d761fcabb5c8aa3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d1f5025d8c952998d761fcabb5c8aa3">&#9670;&#160;</a></span>drawLine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> hmi::drawLine </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x0</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y0</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t</td>          <td class="paramname"><span class="paramname"><em>color</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Trace une ligne pleine entre deux positions (algorithme de Bresenham). </p>
+<p>Sans elle, un glisser rapide de souris entre deux positions successives d'un même geste laisse des pixels isolés au lieu d'un trait continu — le défaut le plus visible d'un canevas pixel art fait naïvement. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>Image modifiée en place. </td></tr>
+    <tr><td class="paramname">x0</td><td>Colonne de départ. </td></tr>
+    <tr><td class="paramname">y0</td><td>Ligne de départ. </td></tr>
+    <tr><td class="paramname">x1</td><td>Colonne d'arrivée. </td></tr>
+    <tr><td class="paramname">y1</td><td>Ligne d'arrivée. </td></tr>
+    <tr><td class="paramname">color</td><td>Couleur posée sur chaque pixel du tracé. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La région englobante des pixels effectivement posés (vide si tout le segment est hors bornes). </dd></dl>
+
+</div>
+</div>
 <a id="a31529e361028e2fae2f4d12dc1d5b8d1" name="a31529e361028e2fae2f4d12dc1d5b8d1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a31529e361028e2fae2f4d12dc1d5b8d1">&#9670;&#160;</a></span>editorActionCatalog()</h2>
 
@@ -3866,7 +4381,33 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Le catalogue complet, dans l'ordre d'affichage voulu de la barre d'outils : les six outils (ordre de la palette/du panneau Outils historique), puis les commandes. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Le catalogue complet, dans l'ordre d'affichage voulu de la barre d'outils : les six outils de niveau (ordre de la palette/du panneau Outils historique), les quatre outils de canevas pixel art (<span class="tt">LOT-54</span> TACHE-04), puis les commandes. </dd></dl>
+
+</div>
+</div>
+<a id="ac869b9559702a631f147b3dbb7091c62" name="ac869b9559702a631f147b3dbb7091c62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac869b9559702a631f147b3dbb7091c62">&#9670;&#160;</a></span>editorActionForPixelTool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a> hmi::editorActionForPixelTool </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a9cb51e9b7642963a83312d94737fe571">PixelTool</a></td>          <td class="paramname"><span class="paramname"><em>tool</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'identifiant d'action portant l'outil de canevas pixel art <code class="param">tool</code>. </dd></dl>
 
 </div>
 </div>
@@ -3893,6 +4434,32 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>L'identifiant d'action portant l'outil <code class="param">tool</code>. </dd></dl>
+
+</div>
+</div>
+<a id="acf8a770950fbbb8d0ec11f73bc3a1342" name="acf8a770950fbbb8d0ec11f73bc3a1342"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf8a770950fbbb8d0ec11f73bc3a1342">&#9670;&#160;</a></span>editorActionPixelTool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="#a9cb51e9b7642963a83312d94737fe571">PixelTool</a> &gt; hmi::editorActionPixelTool </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ab269aabb94611e449a8e7427969874f5">IconId</a></td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'outil de canevas pixel art associé à l'action <code class="param">id</code>, si elle appartient au groupe <span class="tt">PixelTools</span> ; <span class="tt">std::nullopt</span> sinon (<span class="tt">LOT-54</span> TACHE-04). </dd></dl>
 
 </div>
 </div>
@@ -3944,7 +4511,7 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>L'outil associé à l'action <code class="param">id</code>, si elle appartient au groupe <span class="tt">LevelTools</span> ; <span class="tt">std::nullopt</span> pour une commande. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>L'outil associé à l'action <code class="param">id</code>, si elle appartient au groupe <span class="tt">LevelTools</span> ; <span class="tt">std::nullopt</span> pour une commande ou un outil de canevas pixel art. </dd></dl>
 
 </div>
 </div>
@@ -4067,6 +4634,47 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ae4e98112a456615557383e9b5d0d6252" name="ae4e98112a456615557383e9b5d0d6252"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4e98112a456615557383e9b5d0d6252">&#9670;&#160;</a></span>encodeImageFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::encodeImageFile </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>image</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Écrit un fichier PNG depuis des pixels RGBA déjà en mémoire — symétrique de <span class="tt"><a class="el" href="#a22c3bcff9f77b4c4df7938a08c036dfd" title="Décode un fichier image (PNG au minimum) en pixels RGBA.">decodeImageFile</a></span>. </p>
+<p>Écriture <b>atomique</b> : les pixels sont d'abord écrits dans un fichier temporaire du même dossier, puis ce fichier remplace <code class="param">path</code> en une seule opération (<span class="tt">std::filesystem::rename</span>). Une interruption (crash, disque plein en cours d'écriture) laisse donc soit l'ancien fichier intact, soit le nouveau complet, jamais un fichier tronqué — ce qui importe d'autant plus que le rechargement à chaud (<span class="tt">LOT-43</span>) peut lire pendant l'écriture. Le fichier temporaire ne subsiste ni après un succès ni après un échec.</p>
+<p>Le format en mémoire reste <span class="tt">Format_RGBA8888</span> (alpha non prémultiplié), comme au décodage : décoder puis réencoder restitue exactement les mêmes pixels, canal alpha compris. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>Chemin du fichier PNG à écrire. </td></tr>
+    <tr><td class="paramname">image</td><td>Image à encoder (dimensions strictement positives, <span class="tt">pixels.size() == width *
+             height</span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> en cas de succès, <span class="tt">false</span> sinon (dossier de destination absent, image invalide, échec d'écriture — jamais d'exception, <span class="tt">EX-NFR-040</span>). </dd></dl>
+
+</div>
+</div>
 <a id="a16be7eae78f5fc7596567c6af2d382ab" name="a16be7eae78f5fc7596567c6af2d382ab"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a16be7eae78f5fc7596567c6af2d382ab">&#9670;&#160;</a></span>endDecorGesture()</h2>
 
@@ -4112,6 +4720,92 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a2085949801371f7bfb91d94f2dd2ac18" name="a2085949801371f7bfb91d94f2dd2ac18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2085949801371f7bfb91d94f2dd2ac18">&#9670;&#160;</a></span>eraseLine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> hmi::eraseLine </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x0</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y0</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y1</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Efface une ligne pleine entre deux positions (même tracé que <span class="tt"><a class="el" href="#a2d1f5025d8c952998d761fcabb5c8aa3" title="Trace une ligne pleine entre deux positions (algorithme de Bresenham).">drawLine</a></span>, alpha nul plutôt qu'une couleur posée). </p>
+<p>Pendant de <span class="tt"><a class="el" href="#a2d1f5025d8c952998d761fcabb5c8aa3" title="Trace une ligne pleine entre deux positions (algorithme de Bresenham).">drawLine</a></span> pour la gomme : un glisser rapide avec la gomme doit laisser une trace continue effacée, pas des pixels effacés isolés — même défaut, même correction. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>Image modifiée en place. </td></tr>
+    <tr><td class="paramname">x0</td><td>Colonne de départ. </td></tr>
+    <tr><td class="paramname">y0</td><td>Ligne de départ. </td></tr>
+    <tr><td class="paramname">x1</td><td>Colonne d'arrivée. </td></tr>
+    <tr><td class="paramname">y1</td><td>Ligne d'arrivée. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La région englobante des pixels effectivement effacés (vide si tout le segment est hors bornes). </dd></dl>
+
+</div>
+</div>
+<a id="af51c0f2ec41091ef3e6e9c031098db4b" name="af51c0f2ec41091ef3e6e9c031098db4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af51c0f2ec41091ef3e6e9c031098db4b">&#9670;&#160;</a></span>erasePixel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> hmi::erasePixel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Efface un pixel (alpha nul), sans changer sa couleur RVB. </p>
+<p>Alpha nul, RVB <b>conservé</b> plutôt que mis à zéro : un pixel effacé puis re-coloré sans jamais changer sa teinte reproduit l'attente naturelle d'une gomme. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>Image modifiée en place. </td></tr>
+    <tr><td class="paramname">x</td><td>Colonne (0-based). </td></tr>
+    <tr><td class="paramname">y</td><td>Ligne (0-based). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La région modifiée (le seul pixel <span class="tt">(x, y)</span>), vide si <span class="tt">(x, y)</span> est hors bornes. </dd></dl>
+
+</div>
+</div>
 <a id="a18648161d8a6c752202b6034613a947b" name="a18648161d8a6c752202b6034613a947b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a18648161d8a6c752202b6034613a947b">&#9670;&#160;</a></span>executableDirectory()</h2>
 
@@ -4137,6 +4831,40 @@ Variables</h2></td></tr>
 
 <p>Dossier contenant l'exécutable en cours, pour localiser les ressources copiées à côté (niveaux, catalogues de traduction, logs). </p>
 <dl class="section return"><dt>Returns</dt><dd>Le chemin du dossier de l'exécutable. </dd></dl>
+
+</div>
+</div>
+<a id="a7ba85f23cf2dc7ce24be072c8ae4bc97" name="a7ba85f23cf2dc7ce24be072c8ae4bc97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ba85f23cf2dc7ce24be072c8ae4bc97">&#9670;&#160;</a></span>extractPalette()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1PixelPaletteExtractionEntry.html">PixelPaletteExtractionEntry</a> &gt; hmi::extractPalette </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>image</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Couleurs effectivement présentes dans une image, dans un ordre <b>déterministe</b>. </p>
+<p>Fonction <b>pure</b>. Un pixel totalement transparent (alpha nul) n'est <b>jamais</b> une couleur — c'est la gomme, pas une entrée de palette (même règle que <span class="tt">hmi::constrainToPalette</span> ci-dessous) : une image entièrement transparente produit donc une liste vide. L'ordre (première apparition, balayage ligne par ligne) est stable d'un appel à l'autre sur la même image. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>Image consultée. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Les couleurs présentes, chacune avec son nombre d'occurrences. </dd></dl>
 
 </div>
 </div>
@@ -4217,6 +4945,103 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>L'index à plat de cette image dans la grille. </dd></dl>
+
+</div>
+</div>
+<a id="a486dbc7c3e1e338b88180295bc55902e" name="a486dbc7c3e1e338b88180295bc55902e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a486dbc7c3e1e338b88180295bc55902e">&#9670;&#160;</a></span>flipHorizontal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> hmi::flipHorizontal </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>region</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retourne une région horizontalement (miroir gauche-droite), en place. </p>
+<p>Involutive : appliquer deux fois de suite restitue exactement le contenu d'origine. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>Image modifiée en place. </td></tr>
+    <tr><td class="paramname">region</td><td>Région retournée ; sans effet si vide. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code class="param">region</code> telle quelle si non vide, sinon une région vide — jamais d'entrée d'historique pour une région vide (à la charge de l'appelant de ne pas en pousser une). </dd></dl>
+
+</div>
+</div>
+<a id="ac939037edc9bac81094fac90cd542928" name="ac939037edc9bac81094fac90cd542928"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac939037edc9bac81094fac90cd542928">&#9670;&#160;</a></span>flipVertical()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> hmi::flipVertical </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>region</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retourne une région verticalement (miroir haut-bas), en place. Involutive, comme <span class="tt"><a class="el" href="#a486dbc7c3e1e338b88180295bc55902e" title="Retourne une région horizontalement (miroir gauche-droite), en place.">flipHorizontal</a></span>. </p>
+
+</div>
+</div>
+<a id="a76e3283d122f8e9b31c1b98d3db8f59f" name="a76e3283d122f8e9b31c1b98d3db8f59f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76e3283d122f8e9b31c1b98d3db8f59f">&#9670;&#160;</a></span>floodFill()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> hmi::floodFill </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t</td>          <td class="paramname"><span class="paramname"><em>color</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remplit, de proche en proche, la zone connexe (4-connexité) de même couleur que le pixel de départ. </p>
+<p>Itératif (file explicite), <b>jamais récursif</b> : une récursion sur une grande zone déborderait la pile. Sans effet — et sans parcourir quoi que ce soit — si <span class="tt">(x, y)</span> est hors bornes ou si la couleur de départ est déjà <code class="param">color</code>, ce qui évite à la fois une opération d'historique vide et une boucle sans fin sur une image déjà uniforme. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>Image modifiée en place. </td></tr>
+    <tr><td class="paramname">x</td><td>Colonne du point de départ. </td></tr>
+    <tr><td class="paramname">y</td><td>Ligne du point de départ. </td></tr>
+    <tr><td class="paramname">color</td><td>Couleur de remplissage. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La région englobante des pixels effectivement remplis (vide si sans effet). </dd></dl>
 
 </div>
 </div>
@@ -4519,6 +5344,81 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Jetons de l'identité du jeu (menu principal, écran Options, jeu) : <b>invariants</b>, ne suivent jamais aucun réglage d'affichage (<span class="tt">EX-IHM-050</span>). </p>
+
+</div>
+</div>
+<a id="ac0bf9debe0673864ec313b2422695f30" name="ac0bf9debe0673864ec313b2422695f30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0bf9debe0673864ec313b2422695f30">&#9670;&#160;</a></span>imagePixelScreenRect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1PixelScreenRect.html">PixelScreenRect</a> hmi::imagePixelScreenRect </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1PixelCanvasView.html">PixelCanvasView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>view</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rectangle écran du pixel image <span class="tt">(x, y)</span>, au zoom et décalage de vue donnés. </p>
+<p>Fonction <b>pure</b> : ne dépend que de <code class="param">view</code>, jamais des bornes de l'image — c'est elle qui garantit que la grille, le pixel survolé et le tracé de sélection (TACHE-06) s'accordent toujours exactement, puisqu'ils l'appellent tous. </p>
+
+</div>
+</div>
+<a id="a36da6ef3a19b18c97c6401f40f52c456" name="a36da6ef3a19b18c97c6401f40f52c456"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36da6ef3a19b18c97c6401f40f52c456">&#9670;&#160;</a></span>isBitmask16Candidate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::isBitmask16Candidate </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>tileSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><span class="tt">true</span> si <code class="param">image</code> a exactement les dimensions d'une planche à raccords bitmask16. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>Image consultée. </td></tr>
+    <tr><td class="paramname">tileSize</td><td>Côté d'une case, en pixels (<span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html#aacbd0307d4440f04585dee673ca56d9d" title="Côté d&#39;une tuile, en pixels (EX-ARCH-021).">TextureAtlas::TILE_SIZE</a></span>). </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -5334,6 +6234,89 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="af4491efde1190c3d2d164fd659e75fdf" name="af4491efde1190c3d2d164fd659e75fdf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4491efde1190c3d2d164fd659e75fdf">&#9670;&#160;</a></span>moveRegion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> hmi::moveRegion </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>region</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>dx</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>dy</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Déplace le contenu d'une région d'un décalage donné. </p>
+<p>La région de départ devient transparente ; le contenu est reposé au décalage donné, tronqué au cadre de l'image. Un déplacement entièrement hors cadre efface la région de départ sans rien reposer de visible — jamais d'écriture hors bornes, jamais de tampon corrompu. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>Image modifiée en place. </td></tr>
+    <tr><td class="paramname">region</td><td>Région déplacée ; sans effet si vide. </td></tr>
+    <tr><td class="paramname">dx</td><td>Décalage horizontal, en pixels. </td></tr>
+    <tr><td class="paramname">dy</td><td>Décalage vertical, en pixels. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>L'union de la région quittée et de la région reposée (pour l'historique). </dd></dl>
+
+</div>
+</div>
+<a id="aa3ad36cdfd66f4029481e164b0ccb66c" name="aa3ad36cdfd66f4029481e164b0ccb66c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3ad36cdfd66f4029481e164b0ccb66c">&#9670;&#160;</a></span>nearestPaletteColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t hmi::nearestPaletteColor </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t</td>          <td class="paramname"><span class="paramname"><em>color</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::uint32_t &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>palette</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Couleur de <code class="param">palette</code> la plus proche de <code class="param">color</code> (mode « contraindre à la palette »). </p>
+<p>Fonction <b>pure</b>, distance euclidienne sur les seuls canaux RVB (l'alpha d'origine est toujours préservé, voir ci-dessous). Le départage entre couleurs équidistantes retient la <b>première</b> rencontrée dans <code class="param">palette</code> — déterministe et stable, pour qu'un même geste sur une même image produise toujours le même résultat.</p>
+<p>Un pixel <b>totalement transparent</b> (alpha nul) est renvoyé <b>inchangé</b> : ce n'est pas une couleur mais l'état « gomme », qui doit rester accessible même en mode contraint. Une <b>palette vide</b> laisse également la couleur inchangée plutôt que de produire une couleur indéfinie. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">color</td><td>Couleur posée par le geste courant. </td></tr>
+    <tr><td class="paramname">palette</td><td>Couleurs de la palette (généralement <span class="tt"><a class="el" href="classhmi_1_1PixelPalette.html#a4a8647f4cdafebee24859cc4d524465a">PixelPalette::entries()</a></span>, projetées sur leur seul champ <span class="tt">color</span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La couleur contrainte, alpha d'origine préservé. </dd></dl>
+
+</div>
+</div>
 <a id="a91e9f8bb5e7b91ae4e2c77d2c09fefd7" name="a91e9f8bb5e7b91ae4e2c77d2c09fefd7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a91e9f8bb5e7b91ae4e2c77d2c09fefd7">&#9670;&#160;</a></span>nextUtf8CodePoint()</h2>
 
@@ -5456,6 +6439,32 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>La table complète outil → panneau. </dd></dl>
+
+</div>
+</div>
+<a id="ab2bc0ec0306fbff43f717277d659cd16" name="ab2bc0ec0306fbff43f717277d659cd16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2bc0ec0306fbff43f717277d659cd16">&#9670;&#160;</a></span>panelForPixelTool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="#aaa32928dac1bf321cd65435b9a0b0726">PanelId</a> &gt; hmi::panelForPixelTool </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a9cb51e9b7642963a83312d94737fe571">PixelTool</a></td>          <td class="paramname"><span class="paramname"><em>tool</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le panneau à mettre en avant pour l'outil de canevas <code class="param">tool</code>. </dd></dl>
 
 </div>
 </div>
@@ -5610,6 +6619,325 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a938b816874bb703ccf5c5358e36cb5cc" name="a938b816874bb703ccf5c5358e36cb5cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a938b816874bb703ccf5c5358e36cb5cc">&#9670;&#160;</a></span>pasteClipboard()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> hmi::pasteClipboard </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1PixelClipboard.html">PixelClipboard</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>clipboard</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Colle un presse-papiers dans l'image, coin haut-gauche à <span class="tt">(x, y)</span>. </p>
+<p>Tronqué au cadre de l'image : coller près d'un bord n'écrit jamais hors bornes (chaque pixel passe par <span class="tt"><a class="el" href="#a19b91accdacf56adec54949791ca8d2a" title="Pose un pixel d&#39;une couleur donnée.">setPixel</a></span>, qui ignore silencieusement les positions hors bornes). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>Image modifiée en place. </td></tr>
+    <tr><td class="paramname">clipboard</td><td>Contenu à coller ; sans effet si vide. </td></tr>
+    <tr><td class="paramname">x</td><td>Colonne du coin haut-gauche du contenu collé. </td></tr>
+    <tr><td class="paramname">y</td><td>Ligne du coin haut-gauche du contenu collé. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La région effectivement écrite (peut être plus petite que <code class="param">clipboard</code> si tronquée). </dd></dl>
+
+</div>
+</div>
+<a id="a2b3df9fe36014e65055f654d0a8747c5" name="a2b3df9fe36014e65055f654d0a8747c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b3df9fe36014e65055f654d0a8747c5">&#9670;&#160;</a></span>pickColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; std::uint32_t &gt; hmi::pickColor </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Couleur du pixel à une position donnée (outil pipette). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>Image consultée. </td></tr>
+    <tr><td class="paramname">x</td><td>Colonne. </td></tr>
+    <tr><td class="paramname">y</td><td>Ligne. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La couleur du pixel, ou <span class="tt">std::nullopt</span> si <span class="tt">(x, y)</span> est hors bornes. </dd></dl>
+
+</div>
+</div>
+<a id="ae93c247933101e54e4b4a66e4c22c541" name="ae93c247933101e54e4b4a66e4c22c541"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae93c247933101e54e4b4a66e4c22c541">&#9670;&#160;</a></span>pixelCanvasGridVisible()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::pixelCanvasGridVisible </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>zoom</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><span class="tt">true</span> si la grille de pixels doit être dessinée à ce zoom (<span class="tt"><a class="el" href="#af6dd4ff8d5e0ef90e4386088a9b55c07" title="Facteur de zoom à partir duquel la grille de pixels est dessinée : en-deçà, elle ne ferait que du bru...">PIXEL_CANVAS_GRID_VISIBLE_MIN_ZOOM</a></span>). </p>
+
+</div>
+</div>
+<a id="a90efb98d6af0cfa83f9f8cf88d319fb4" name="a90efb98d6af0cfa83f9f8cf88d319fb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90efb98d6af0cfa83f9f8cf88d319fb4">&#9670;&#160;</a></span>pixelCanvasRealSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1PixelCanvasRealSize.html">PixelCanvasRealSize</a> hmi::pixelCanvasRealSize </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>imageWidth</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>imageHeight</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>zoom</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>scaleFactor</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Taille en pixels réels du canevas entier à un facteur d'échelle d'affichage donné. </p>
+<p>Réutilise <b>directement</b> <span class="tt"><a class="el" href="#a8158375fa940021f6bb346e7c2b09247" title="Taille en pixels réels pour une taille logique et un facteur d&#39;échelle d&#39;affichage donnés.">hmi::thumbnailPixelSize</a></span> (<span class="tt">LOT-56</span> TACHE-05) — jamais réécrite : c'est la même fonction qui dimensionne les vignettes de la bibliothèque et du panneau Textures, pour que le canevas ne redevienne pas flou à 125 %/150 % le jour où elle évolue sans lui. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">imageWidth</td><td>Largeur de l'image, en pixels. </td></tr>
+    <tr><td class="paramname">imageHeight</td><td>Hauteur de l'image, en pixels. </td></tr>
+    <tr><td class="paramname">zoom</td><td>Facteur de zoom entier du canevas. </td></tr>
+    <tr><td class="paramname">scaleFactor</td><td>Facteur d'échelle du support d'affichage (<span class="tt">devicePixelRatio</span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a298d8f1b2aa9452b5c1b84c0126909e1" name="a298d8f1b2aa9452b5c1b84c0126909e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a298d8f1b2aa9452b5c1b84c0126909e1">&#9670;&#160;</a></span>pixelCanvasZoomIn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::pixelCanvasZoomIn </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>zoom</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Zoom suivant (plus grand), borné — toujours entier. </p>
+
+</div>
+</div>
+<a id="a94616e38137c224aa8a621c8be84ee1a" name="a94616e38137c224aa8a621c8be84ee1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94616e38137c224aa8a621c8be84ee1a">&#9670;&#160;</a></span>pixelCanvasZoomOut()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::pixelCanvasZoomOut </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>zoom</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Zoom précédent (plus petit), borné — toujours entier. </p>
+
+</div>
+</div>
+<a id="acf0a003503690378f8af5a4d62107584" name="acf0a003503690378f8af5a4d62107584"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf0a003503690378f8af5a4d62107584">&#9670;&#160;</a></span>pixelInBounds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::pixelInBounds </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si <span class="tt">(x, y)</span> est dans les bornes d'une image <span class="tt">width</span> x <span class="tt">height</span>. </dd></dl>
+
+</div>
+</div>
+<a id="a3b63cca463130fa610151d47ec01c381" name="a3b63cca463130fa610151d47ec01c381"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b63cca463130fa610151d47ec01c381">&#9670;&#160;</a></span>pixelOperationTranslationKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view hmi::pixelOperationTranslationKey </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a5889df12c254317504ef5777d27d9b0e">PixelOperationKind</a></td>          <td class="paramname"><span class="paramname"><em>kind</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clé de traduction décrivant une opération. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">kind</td><td>Type d'opération. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La clé (existe dans les deux catalogues, <span class="tt">fr.lang</span>/<span class="tt">en.lang</span>). </dd></dl>
+
+</div>
+</div>
+<a id="ae845d02ed259b4f615718e3deff3d7f7" name="ae845d02ed259b4f615718e3deff3d7f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae845d02ed259b4f615718e3deff3d7f7">&#9670;&#160;</a></span>pixelPanelFocusCatalog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::array&lt; <a class="el" href="structhmi_1_1PixelPanelFocusEntry.html">PixelPanelFocusEntry</a>, <a class="el" href="#a36f90c7ddc69068df41623c0e9cdfbfa">PIXEL_PANEL_FOCUS_CATALOG_COUNT</a> &gt; &amp; hmi::pixelPanelFocusCatalog </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La table complète outil de canevas → panneau. </dd></dl>
+
+</div>
+</div>
 <a id="ad9d86326e8a24c761d2b3c04e378a0a1" name="ad9d86326e8a24c761d2b3c04e378a0a1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad9d86326e8a24c761d2b3c04e378a0a1">&#9670;&#160;</a></span>proceduralPlayerClipNames()</h2>
 
@@ -5662,6 +6990,45 @@ Variables</h2></td></tr>
 
 <p>Traduit un code <span class="tt">Qt::Key</span> en <span class="tt"><a class="el" href="#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></span>. </p>
 <p>Les lettres/chiffres/espace partagent déjà la même valeur entre Qt et Win32 (<span class="tt">Qt::Key_A == VK 'A' == 0x41</span>) ; seules les touches spéciales (flèches, Échap, Tab, Maj, Ctrl, F1/F2/F10) passent par une correspondance explicite. <span class="tt">nullopt</span> pour une touche non suivie. </p>
+
+</div>
+</div>
+<a id="af837f7f56fae98fb73ed278ea49e27b5" name="af837f7f56fae98fb73ed278ea49e27b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af837f7f56fae98fb73ed278ea49e27b5">&#9670;&#160;</a></span>readRegion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::uint32_t &gt; hmi::readRegion </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>region</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copie les pixels d'une région, ligne par ligne — capture le « avant » ou l'« après » d'une entrée d'historique (<span class="tt"><a class="el" href="classhmi_1_1PixelHistory.html" title="Pile d&#39;annulation/rétablissement nommée d&#39;un canevas pixel art.">hmi::PixelHistory</a></span>). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>Image consultée. </td></tr>
+    <tr><td class="paramname">region</td><td>Région à copier (doit être contenue dans les bornes de <code class="param">image</code>). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Les pixels de la région, taille <span class="tt">region.width() * region.height()</span> ; vide si <code class="param">region</code> est vide. </dd></dl>
 
 </div>
 </div>
@@ -6272,6 +7639,61 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="aec25f1a17679cd4a0d2d007366c464e6" name="aec25f1a17679cd4a0d2d007366c464e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec25f1a17679cd4a0d2d007366c464e6">&#9670;&#160;</a></span>rotateClockwise()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> hmi::rotateClockwise </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>region</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pivote le contenu d'une région d'un quart de tour, sens horaire. </p>
+<p>La région d'origine est effacée (alpha nul), puis le contenu pivoté (largeur/hauteur échangées) est écrit ancré au même coin haut-gauche — sur une région <b>non carrée</b>, le nouveau contour déborde donc du contour d'origine ; ce débordement est tronqué au cadre de <b>l'image</b>, jamais agrandi (<span class="tt"><a class="el" href="#a19b91accdacf56adec54949791ca8d2a" title="Pose un pixel d&#39;une couleur donnée.">setPixel</a></span> ignore silencieusement tout pixel hors bornes). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>Image modifiée en place. </td></tr>
+    <tr><td class="paramname">region</td><td>Région pivotée ; sans effet si vide. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>L'union de la région effacée et de la région écrite (pour l'historique). </dd></dl>
+
+</div>
+</div>
+<a id="a27bac07e9e405be340c7c6c8cb738f2a" name="a27bac07e9e405be340c7c6c8cb738f2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27bac07e9e405be340c7c6c8cb738f2a">&#9670;&#160;</a></span>rotateCounterClockwise()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> hmi::rotateCounterClockwise </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>region</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pivote le contenu d'une région d'un quart de tour, sens antihoraire (trois quarts de tour horaires, pour ne pas dupliquer la logique de rotation). </p>
+<p>Mêmes règles de troncature que <span class="tt"><a class="el" href="#aec25f1a17679cd4a0d2d007366c464e6" title="Pivote le contenu d&#39;une région d&#39;un quart de tour, sens horaire.">rotateClockwise</a></span>. </p>
+
+</div>
+</div>
 <a id="a1e5980df41367af8a056278ffa933ea8" name="a1e5980df41367af8a056278ffa933ea8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1e5980df41367af8a056278ffa933ea8">&#9670;&#160;</a></span>roundToScreenPixel()</h2>
 
@@ -6459,6 +7881,63 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a5c512277fe15943410e76fb97e3b0353" name="a5c512277fe15943410e76fb97e3b0353"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c512277fe15943410e76fb97e3b0353">&#9670;&#160;</a></span>screenToImagePixel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; std::pair&lt; int, int &gt; &gt; hmi::screenToImagePixel </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1PixelCanvasView.html">PixelCanvasView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>view</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>imageWidth</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>imageHeight</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>screenX</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>screenY</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pixel image sous une position écran donnée. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">view</td><td>Vue courante (zoom, décalage). </td></tr>
+    <tr><td class="paramname">imageWidth</td><td>Largeur de l'image, en pixels. </td></tr>
+    <tr><td class="paramname">imageHeight</td><td>Hauteur de l'image, en pixels. </td></tr>
+    <tr><td class="paramname">screenX</td><td>Position écran, en pixels logiques (ex. <span class="tt">QMouseEvent::position().x()</span>). </td></tr>
+    <tr><td class="paramname">screenY</td><td>Position écran, en pixels logiques. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La position <span class="tt">(colonne, ligne)</span>, ou <span class="tt">std::nullopt</span> si elle tombe hors de l'image — jamais un indice tronqué au bord. </dd></dl>
+
+</div>
+</div>
 <a id="a5bc539b762cfd88b17c71d8a44a1a22b" name="a5bc539b762cfd88b17c71d8a44a1a22b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5bc539b762cfd88b17c71d8a44a1a22b">&#9670;&#160;</a></span>serializeSessionLog()</h2>
 
@@ -6509,6 +7988,49 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Persiste <code class="param">setting</code> (<span class="tt">QSettings</span>), relu au démarrage suivant. </p>
+
+</div>
+</div>
+<a id="a19b91accdacf56adec54949791ca8d2a" name="a19b91accdacf56adec54949791ca8d2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19b91accdacf56adec54949791ca8d2a">&#9670;&#160;</a></span>setPixel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> hmi::setPixel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t</td>          <td class="paramname"><span class="paramname"><em>color</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pose un pixel d'une couleur donnée. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>Image modifiée en place. </td></tr>
+    <tr><td class="paramname">x</td><td>Colonne (0-based). </td></tr>
+    <tr><td class="paramname">y</td><td>Ligne (0-based). </td></tr>
+    <tr><td class="paramname">color</td><td>Couleur <span class="tt">R8G8B8A8_UNORM</span> posée. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La région modifiée (le seul pixel <span class="tt">(x, y)</span>), vide si <span class="tt">(x, y)</span> est hors bornes. </dd></dl>
 
 </div>
 </div>
@@ -7243,6 +8765,38 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a290ef18de7f42bca5222d50528866be1" name="a290ef18de7f42bca5222d50528866be1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a290ef18de7f42bca5222d50528866be1">&#9670;&#160;</a></span>unionPixelRegion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> hmi::unionPixelRegion </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Union de deux régions (la plus petite région couvrant les deux). </p>
+<p>Une région vide n'affecte pas l'union : sert à accumuler la région touchée par un geste complet (<span class="tt"><a class="el" href="classhmi_1_1PixelCanvas.html" title="Widget affichant l&#39;image en cours d&#39;édition et transformant les gestes de souris en appels aux opérat...">hmi::PixelCanvas</a></span>, TACHE-03) à partir des régions renvoyées par chacune de ses sous-opérations (ex. plusieurs <span class="tt"><a class="el" href="#a2d1f5025d8c952998d761fcabb5c8aa3" title="Trace une ligne pleine entre deux positions (algorithme de Bresenham).">drawLine</a></span> successifs pendant un glisser). </p>
+
+</div>
+</div>
 <a id="a4f30c6bfd2448aa006603a325bef5bae" name="a4f30c6bfd2448aa006603a325bef5bae"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4f30c6bfd2448aa006603a325bef5bae">&#9670;&#160;</a></span>updateDecorGesture()</h2>
 
@@ -7285,6 +8839,41 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>L'action d'aperçu courante. </dd></dl>
+
+</div>
+</div>
+<a id="ad4e08bbde577c00ef32757d631d79922" name="ad4e08bbde577c00ef32757d631d79922"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4e08bbde577c00ef32757d631d79922">&#9670;&#160;</a></span>validAssetSizes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::pair&lt; int, int &gt; &gt; hmi::validAssetSizes </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a></td>          <td class="paramname"><span class="paramname"><em>family</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Tailles proposées à la création d'un asset de la famille donnée. </p>
+<p>Fonction <b>pure</b> (<span class="tt">EX-NFR-010</span>) : dérivée de <span class="tt"><a class="el" href="#a842c2e980bf7c8686d4a549d583d6866" title="Contrat de dimensions d&#39;une famille d&#39;assets.">hmi::assetDimensionContract</a></span>, jamais une seconde description des mêmes règles — une création à une taille non conforme ne doit pas être possible du tout, plutôt que refusée après coup au chargement (<span class="tt"><a class="el" href="#ab24a5852795a7f93e35b8ab9ad8e9c9c" title="Valide les dimensions d&#39;un asset décodé contre le contrat de sa famille (EX-REN-007).">hmi::validateAsset</a></span>).</p>
+<p>Chaque taille renvoyée passe <span class="tt"><a class="el" href="#ab24a5852795a7f93e35b8ab9ad8e9c9c" title="Valide les dimensions d&#39;un asset décodé contre le contrat de sa famille (EX-REN-007).">hmi::validateAsset</a></span> pour sa famille. Une famille à <b>dimensions libres</b> (fond, décor, police) renvoie une liste <b>vide</b> : il n'existe alors aucune progression de tailles pertinente, l'appelant doit permettre une saisie libre (strictement positive). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">family</td><td>Famille de l'asset à créer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Une courte progression de tailles conformes (croissante), ou vide si les dimensions sont libres. </dd></dl>
 
 </div>
 </div>
@@ -7422,6 +9011,42 @@ Variables</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">editorMode</td><td><span class="tt">true</span> en édition, <span class="tt">false</span> en jeu/essai. </td></tr>
     <tr><td class="paramname">activeEditorTokens</td><td>Jetons du châssis d'édition <b>actuellement effectifs</b> (thème clair ou sombre) ; ignorés si <span class="tt">editorMode</span> est faux. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5c0696a5aefa22650536ad018edc2d72" name="a5c0696a5aefa22650536ad018edc2d72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c0696a5aefa22650536ad018edc2d72">&#9670;&#160;</a></span>writeRegion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::writeRegion </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>region</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::uint32_t &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Écrit des pixels dans une région — inverse de <span class="tt"><a class="el" href="#af837f7f56fae98fb73ed278ea49e27b5" title="Copie les pixels d&#39;une région, ligne par ligne — capture le « avant » ou l&#39;« après » d&#39;une entrée d&#39;h...">readRegion</a></span>, utilisé par <span class="tt"><a class="el" href="classhmi_1_1PixelHistory.html" title="Pile d&#39;annulation/rétablissement nommée d&#39;un canevas pixel art.">hmi::PixelHistory</a></span> pour restaurer un instantané annulé/rétabli. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>Image modifiée en place. </td></tr>
+    <tr><td class="paramname">region</td><td>Région ciblée (doit être contenue dans les bornes de <code class="param">image</code>). </td></tr>
+    <tr><td class="paramname">data</td><td>Pixels à écrire, taille attendue <span class="tt">region.width() * region.height()</span>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -7656,7 +9281,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int hmi::EDITOR_ACTION_CATALOG_COUNT = 17</td>
+          <td class="memname">int hmi::EDITOR_ACTION_CATALOG_COUNT = 30</td>
         </tr>
       </table>
   </td>
@@ -7666,7 +9291,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Nombre total d'actions du catalogue (six outils, onze commandes principales). </p>
+<p>Nombre total d'actions du catalogue (six outils de niveau, cinq outils de canevas pixel art, onze commandes principales, quatre commandes de fichier de l'atelier, quatre commandes de région de l'atelier). </p>
 
 </div>
 </div>
@@ -8301,6 +9926,100 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Facteur de la couche <span class="tt"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20a45bd1d5b32931106efbf1a82fe6a732f" title="Premier plan : au-dessus du personnage (EX-DEC-002).">core::DecorLayer::Foreground</a></span> : défile <b>plus vite</b> que le niveau. </p>
+
+</div>
+</div>
+<a id="af6dd4ff8d5e0ef90e4386088a9b55c07" name="af6dd4ff8d5e0ef90e4386088a9b55c07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6dd4ff8d5e0ef90e4386088a9b55c07">&#9670;&#160;</a></span>PIXEL_CANVAS_GRID_VISIBLE_MIN_ZOOM</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::PIXEL_CANVAS_GRID_VISIBLE_MIN_ZOOM = 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Facteur de zoom à partir duquel la grille de pixels est dessinée : en-deçà, elle ne ferait que du bruit visuel sur des pixels trop petits pour la distinguer du contenu. </p>
+
+</div>
+</div>
+<a id="ab72ec3386202539c0f1a9361fb8fa6cf" name="ab72ec3386202539c0f1a9361fb8fa6cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab72ec3386202539c0f1a9361fb8fa6cf">&#9670;&#160;</a></span>PIXEL_CANVAS_MAX_ZOOM</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::PIXEL_CANVAS_MAX_ZOOM = 32</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac1decd951afe920c7de7387fb2f0ecda" name="ac1decd951afe920c7de7387fb2f0ecda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1decd951afe920c7de7387fb2f0ecda">&#9670;&#160;</a></span>PIXEL_CANVAS_MIN_ZOOM</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::PIXEL_CANVAS_MIN_ZOOM = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Zoom minimal (1 pixel image = 1 pixel écran) et maximal admis par les commandes de zoom du canevas — toujours <b>entier</b>, pour que les pixels restent carrés (<span class="tt">EX-ARCH-022</span>). </p>
+
+</div>
+</div>
+<a id="a36f90c7ddc69068df41623c0e9cdfbfa" name="a36f90c7ddc69068df41623c0e9cdfbfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36f90c7ddc69068df41623c0e9cdfbfa">&#9670;&#160;</a></span>PIXEL_PANEL_FOCUS_CATALOG_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::PIXEL_PANEL_FOCUS_CATALOG_COUNT = 5</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre d'entrées de la table des outils de canevas (les cinq outils du canevas mettent tous en avant le même panneau : on édite toujours en le voyant). </p>
 
 </div>
 </div>

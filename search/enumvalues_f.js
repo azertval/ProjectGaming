@@ -11,10 +11,12 @@ var searchData=
   ['right_8',['Right',['../namespacehmi.html#ab412a047d226db9cfe040477949a8f3ea92b09c7c48c520c3c55e497875da437c',1,'hmi::Right'],['../namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a92b09c7c48c520c3c55e497875da437c',1,'hmi::Right'],['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48a92b09c7c48c520c3c55e497875da437c',1,'hmi::Right'],['../namespacehmi.html#a4180e6c308353c9965d695855746d982a92b09c7c48c520c3c55e497875da437c',1,'hmi::Right']]],
   ['rightshoulder_9',['RightShoulder',['../namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a27a5390f2d1b44a43f74d57703f8d354',1,'hmi']]],
   ['rotate_10',['Rotate',['../namespacehmi.html#a36a02809aec3ca6ea3feb8e455433599a8d2de5368588552fbae54044ac5c7b3d',1,'hmi']]],
-  ['rotation_11',['Rotation',['../namespacehmi.html#a85a2df4671d768ea880f930a5f87e00daf1a42bd417390fc63b030a519624607a',1,'hmi']]],
-  ['roundeddownleft_12',['RoundedDownLeft',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6d03d7bc46f5ed6091e390a1c7f49baf',1,'core']]],
-  ['roundeddownright_13',['RoundedDownRight',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a84e112227c7b90d17dcb8a6e1004843f',1,'core']]],
-  ['roundedupleft_14',['RoundedUpLeft',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6963fec4d3928056fb763a8d4c82883b',1,'core']]],
-  ['roundedupright_15',['RoundedUpRight',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae818c3e2caa396d31600b85dc40f70e4',1,'core']]],
-  ['run_16',['Run',['../namespacehmi.html#a01d3aca49804e2e7ac13786499fe7bf4ac5301693c4e792bcd5a479ef38fb8f8d',1,'hmi']]]
+  ['rotateclockwise_11',['RotateClockwise',['../namespacehmi.html#a5889df12c254317504ef5777d27d9b0eaafb7976e05c7fb09abf47d0b2add09a5',1,'hmi']]],
+  ['rotatecounterclockwise_12',['RotateCounterClockwise',['../namespacehmi.html#a5889df12c254317504ef5777d27d9b0ea1a139302b19d048aee4be8e428710ac6',1,'hmi']]],
+  ['rotation_13',['Rotation',['../namespacehmi.html#a85a2df4671d768ea880f930a5f87e00daf1a42bd417390fc63b030a519624607a',1,'hmi']]],
+  ['roundeddownleft_14',['RoundedDownLeft',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6d03d7bc46f5ed6091e390a1c7f49baf',1,'core']]],
+  ['roundeddownright_15',['RoundedDownRight',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a84e112227c7b90d17dcb8a6e1004843f',1,'core']]],
+  ['roundedupleft_16',['RoundedUpLeft',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6963fec4d3928056fb763a8d4c82883b',1,'core']]],
+  ['roundedupright_17',['RoundedUpRight',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae818c3e2caa396d31600b85dc40f70e4',1,'core']]],
+  ['run_18',['Run',['../namespacehmi.html#a01d3aca49804e2e7ac13786499fe7bf4ac5301693c4e792bcd5a479ef38fb8f8d',1,'hmi']]]
 ];

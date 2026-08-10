@@ -98,12 +98,17 @@ $(function(){initNavTree('MainWindow_8cpp.html','',''); });
 <code>#include &lt;QApplication&gt;</code><br />
 <code>#include &lt;QCheckBox&gt;</code><br />
 <code>#include &lt;QCloseEvent&gt;</code><br />
+<code>#include &lt;QColor&gt;</code><br />
+<code>#include &lt;QColorDialog&gt;</code><br />
+<code>#include &lt;QComboBox&gt;</code><br />
 <code>#include &lt;QDialog&gt;</code><br />
 <code>#include &lt;QDialogButtonBox&gt;</code><br />
 <code>#include &lt;QDockWidget&gt;</code><br />
+<code>#include &lt;QFileDialog&gt;</code><br />
 <code>#include &lt;QFontMetrics&gt;</code><br />
 <code>#include &lt;QFormLayout&gt;</code><br />
 <code>#include &lt;QGuiApplication&gt;</code><br />
+<code>#include &lt;QIcon&gt;</code><br />
 <code>#include &lt;QInputDialog&gt;</code><br />
 <code>#include &lt;QKeyEvent&gt;</code><br />
 <code>#include &lt;QLabel&gt;</code><br />
@@ -111,6 +116,7 @@ $(function(){initNavTree('MainWindow_8cpp.html','',''); });
 <code>#include &lt;QMenu&gt;</code><br />
 <code>#include &lt;QMenuBar&gt;</code><br />
 <code>#include &lt;QMessageBox&gt;</code><br />
+<code>#include &lt;QPixmap&gt;</code><br />
 <code>#include &lt;QSettings&gt;</code><br />
 <code>#include &lt;QSignalBlocker&gt;</code><br />
 <code>#include &lt;QSpinBox&gt;</code><br />
@@ -120,6 +126,7 @@ $(function(){initNavTree('MainWindow_8cpp.html','',''); });
 <code>#include &lt;QStyleHints&gt;</code><br />
 <code>#include &lt;QTimer&gt;</code><br />
 <code>#include &lt;QToolBar&gt;</code><br />
+<code>#include &lt;QToolButton&gt;</code><br />
 <code>#include &lt;QVBoxLayout&gt;</code><br />
 <code>#include &lt;QWidget&gt;</code><br />
 <code>#include &lt;array&gt;</code><br />
@@ -128,14 +135,22 @@ $(function(){initNavTree('MainWindow_8cpp.html','',''); });
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="MemoryLogSink_8h_source.html">Core/Diagnostics/MemoryLogSink.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SessionLog_8h_source.html">HMI/Diagnostics/SessionLog.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="AssetReferences_8h_source.html">HMI/Editor/AssetReferences.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="EditorStatus_8h_source.html">HMI/Editor/EditorStatus.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelBrowserPanel_8h_source.html">HMI/Editor/LevelBrowserPanel.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LinkPanel_8h_source.html">HMI/Editor/LinkPanel.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="DecorsPanel_8h_source.html">HMI/Editor/DecorsPanel.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PanelFocus_8h_source.html">HMI/Editor/PanelFocus.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PixelAssetIO_8h_source.html">HMI/Editor/PixelAssetIO.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PixelCanvas_8h_source.html">HMI/Editor/PixelCanvas.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PixelHistoryPanel_8h_source.html">HMI/Editor/PixelHistoryPanel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PixelPalette_8h_source.html">HMI/Editor/PixelPalette.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PixelPalettePanel_8h_source.html">HMI/Editor/PixelPalettePanel.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TexturePanel_8h_source.html">HMI/Editor/TexturePanel.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PalettePanel_8h_source.html">HMI/Editor/PalettePanel.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GameViewport_8h_source.html">HMI/Game/GameViewport.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="AssetContract_8h_source.html">HMI/Graphics/AssetContract.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TextureLoader_8h_source.html">HMI/Graphics/TextureLoader.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="HmiLog_8h_source.html">HMI/HmiLog.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GamepadButton_8h_source.html">HMI/Input/GamepadButton.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ApplicationTheme_8h_source.html">HMI/Interface/ApplicationTheme.h</a>&quot;</code><br />

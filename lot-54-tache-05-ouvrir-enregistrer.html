@@ -93,7 +93,10 @@ $(function(){initNavTree('lot-54-tache-05-ouvrir-enregistrer.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-54-atelier-pixel-art_2tache-05-ouvrir-enregistrer"></a></p>
-<p><b>Lot :</b> <a class="el" href="lot-54.html#md_Lot_2LOT-54-atelier-pixel-art_2epic" title="Lot/LOT-54-atelier-pixel-art/epic.md">LOT-54</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> non commencé</p>
+<p><b>Lot :</b> <a class="el" href="lot-54.html#md_Lot_2LOT-54-atelier-pixel-art_2epic" title="Lot/LOT-54-atelier-pixel-art/epic.md">LOT-54</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> fait</p>
+<blockquote class="doxtable">
+<p><b>Amendement de portée.</b> Le second point d'entrée (« éditer cet asset » depuis le panneau Textures recentré, sur l'asset couramment assigné) n'a <b>pas</b> été câblé dans cette passe : seul le point d'entrée principal (choisir un fichier dans <span class="tt">Assets/</span>, via <span class="tt">QFileDialog</span>) est livré. <span class="tt">TexturePanel</span> est un composant volumineux déjà testé, et l'ajout d'un bouton "éditer" qui pousserait un chemin d'asset vers <span class="tt">PixelCanvas::setImage</span> reste un point d'extension simple à réaliser dans une passe ultérieure, sans changer la forme d'<span class="tt">openPixelAssetOpenDialog</span>. Le reste de la tâche (créer, enregistrer, enregistrer sous, garde-fous d'écrasement et de perte de travail) est livré tel que cadré. </p>
+</blockquote>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2373"></a>
 Contexte</h1>
 <p>Le canevas (TACHE-03) travaille en mémoire ; il faut le relier aux fichiers d'assets. La bibliothèque de LOT-43 fournit déjà la navigation, la validation de nom et la <b>détection des références</b> — un asset peut être cité par plusieurs niveaux et par <span class="tt">skins.json</span>.</p>

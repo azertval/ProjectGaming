@@ -15,7 +15,7 @@ var searchData=
   ['tiles_5fper_5fside_12',['TILES_PER_SIDE',['../classhmi_1_1TextureAtlas.html#af4e63cbf4c417709c3a22399de752c67',1,'hmi::TextureAtlas']]],
   ['tiletype_13',['tileType',['../structhmi_1_1PendingLink.html#a19ae36a60be74045f0475f3e6fd8cbe0',1,'hmi::PendingLink']]],
   ['tint_14',['tint',['../structcore_1_1Sprite.html#aa14509186966df68f09f59dfda0e2318',1,'core::Sprite']]],
-  ['tool_15',['tool',['../structhmi_1_1LevelStatusInfo.html#a34fa72e0a84dd03ff663f512a161111d',1,'hmi::LevelStatusInfo::tool'],['../structhmi_1_1PanelFocusEntry.html#ac00480fe8ec2557681ad7fd897bbaa80',1,'hmi::PanelFocusEntry::tool']]],
+  ['tool_15',['tool',['../structhmi_1_1LevelStatusInfo.html#a34fa72e0a84dd03ff663f512a161111d',1,'hmi::LevelStatusInfo::tool'],['../structhmi_1_1PixelEditStatusInfo.html#a957595d3dba27a17569c54ad50e0d7a6',1,'hmi::PixelEditStatusInfo::tool'],['../structhmi_1_1PanelFocusEntry.html#ac00480fe8ec2557681ad7fd897bbaa80',1,'hmi::PanelFocusEntry::tool'],['../structhmi_1_1PixelPanelFocusEntry.html#a3675068e93f52eca1c244dbf9500a5d6',1,'hmi::PixelPanelFocusEntry::tool']]],
   ['topleft_16',['topLeft',['../structhmi_1_1DecorHandleLayout.html#af53acc4bf37bb0f088c72077ee3f9e4c',1,'hmi::DecorHandleLayout']]],
   ['topright_17',['topRight',['../structhmi_1_1DecorHandleLayout.html#ab3a80d6ab00237822d9f966e79ada94b',1,'hmi::DecorHandleLayout']]],
   ['topy_18',['topY',['../structcore_1_1CeilingSlopeFollowResult.html#a1621909caf4fecdc1bd3d1f880dbef58',1,'core::CeilingSlopeFollowResult']]],

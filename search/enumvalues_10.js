@@ -2,7 +2,7 @@ var searchData=
 [
   ['s_0',['S',['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e',1,'hmi']]],
   ['save_1',['Save',['../namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585ac9cc8cce247e49bae79f15173ce97354',1,'hmi::Save'],['../namespacehmi.html#ab269aabb94611e449a8e7427969874f5ac9cc8cce247e49bae79f15173ce97354',1,'hmi::Save']]],
-  ['selection_2',['Selection',['../namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda6ff9dd0d34f65181173c1e4bc39939de',1,'hmi']]],
+  ['selection_2',['Selection',['../namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda6ff9dd0d34f65181173c1e4bc39939de',1,'hmi::Selection'],['../namespacehmi.html#a9cb51e9b7642963a83312d94737fe571a6ff9dd0d34f65181173c1e4bc39939de',1,'hmi::Selection']]],
   ['setpending_3',['SetPending',['../namespacehmi.html#ace704959d626f266592987f16eb2f3d5ad9e8fea9194ad4b49db82581f12a26bb',1,'hmi']]],
   ['shadow_4',['Shadow',['../namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a3f39588bb19e28051d9aedfbb170025c',1,'hmi']]],
   ['shift_5',['Shift',['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48a825a3d98017bab11815ad2817201324c',1,'hmi']]],

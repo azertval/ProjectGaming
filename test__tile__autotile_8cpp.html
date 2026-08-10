@@ -95,8 +95,10 @@ $(function(){initNavTree('test__tile__autotile_8cpp.html','',''); });
 
 <p>Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<div class="textblock"><code>#include &lt;array&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;set&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
@@ -122,12 +124,79 @@ Functions</h2></td></tr>
 <tr class="memdesc:add0862ef5236c69a2b50dc96eafcdb8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">La case representative est l'interieur plein.  <br /></td></tr>
 <tr class="memitem:ac16dc0678bc8ff3027cbc04b6661d5eb" id="r_ac16dc0678bc8ff3027cbc04b6661d5eb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac16dc0678bc8ff3027cbc04b6661d5eb">TEST</a> (TileAutotileTest, BitsParasitesIgnores)</td></tr>
 <tr class="memdesc:ac16dc0678bc8ff3027cbc04b6661d5eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les bits hors des quatre voisins sont ignores.  <br /></td></tr>
+<tr class="memitem:a989f6fa8b7b0c48ec9180a09c574264c" id="r_a989f6fa8b7b0c48ec9180a09c574264c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a989f6fa8b7b0c48ec9180a09c574264c">TEST</a> (TileAutotileTest, SeizeMasquesProduisentSeizeClesDeLibelleDistinctes)</td></tr>
+<tr class="memdesc:a989f6fa8b7b0c48ec9180a09c574264c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chacun des seize masques produit une clé de libellé distincte (atelier pixel art, LOT-54 TACHE-08) : aucune case de la planche ne partage le libellé d'une autre.  <br /></td></tr>
+<tr class="memitem:adbdd9085d587270a73281b5ae0bde353" id="r_adbdd9085d587270a73281b5ae0bde353"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adbdd9085d587270a73281b5ae0bde353">TEST</a> (TileAutotileTest, LibelleIgnoreLesBitsParasites)</td></tr>
+<tr class="memdesc:adbdd9085d587270a73281b5ae0bde353"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les bits parasites d'un masque de libellé sont ignorés, comme pour <span class="tt">autotileCell</span>.  <br /></td></tr>
+<tr class="memitem:ad18faed5df37005ce27efa09b3858bf0" id="r_ad18faed5df37005ce27efa09b3858bf0"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad18faed5df37005ce27efa09b3858bf0">TEST</a> (TileAutotileTest, AssemblageTroisParTroisPlaceLInterieurPleinAuCentre)</td></tr>
+<tr class="memdesc:ad18faed5df37005ce27efa09b3858bf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'assemblage 3×3 démonstratif place l'intérieur plein (les quatre voisins internes solides) au centre, et couvre coins/bords/intérieur — un panorama représentatif des seize configurations, pas seulement un sous-ensemble.  <br /></td></tr>
+<tr class="memitem:af6bcad7ab1460203b3239f1b013361d7" id="r_af6bcad7ab1460203b3239f1b013361d7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af6bcad7ab1460203b3239f1b013361d7">TEST</a> (TileAutotileTest, AssemblageResoutDesCasesValidesViaLaTableCanonique)</td></tr>
+<tr class="memdesc:af6bcad7ab1460203b3239f1b013361d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chaque masque de l'assemblage 3×3 résout, via la table canonique, une case valide de la planche 4×4 — jamais une seconde table qui pourrait diverger.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="af6bcad7ab1460203b3239f1b013361d7" name="af6bcad7ab1460203b3239f1b013361d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6bcad7ab1460203b3239f1b013361d7">&#9670;&#160;</a></span>TEST() <span class="overload">[1/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TileAutotileTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AssemblageResoutDesCasesValidesViaLaTableCanonique</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Chaque masque de l'assemblage 3×3 résout, via la table canonique, une case valide de la planche 4×4 — jamais une seconde table qui pourrait diverger. </p>
+<p><b>Cas de test :</b> <b>Chaque masque de l'assemblage resout une case valide de la planche.</b><br  />
+ <b>Categorie :</b> Unitaire · Raccords automatiques<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Resoudre la case de chacun des neuf masques via autotileCell.<br  />
+ <b>Resultat attendu :</b> Chaque case tient dans la planche 4x4 (colonne et ligne entre 0 et 3). </p>
+
+</div>
+</div>
+<a id="ad18faed5df37005ce27efa09b3858bf0" name="ad18faed5df37005ce27efa09b3858bf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad18faed5df37005ce27efa09b3858bf0">&#9670;&#160;</a></span>TEST() <span class="overload">[2/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TileAutotileTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AssemblageTroisParTroisPlaceLInterieurPleinAuCentre</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'assemblage 3×3 démonstratif place l'intérieur plein (les quatre voisins internes solides) au centre, et couvre coins/bords/intérieur — un panorama représentatif des seize configurations, pas seulement un sous-ensemble. </p>
+<p><b>Cas de test :</b> <b>L'assemblage 3x3 place l'interieur plein au centre.</b><br  />
+ <b>Categorie :</b> Unitaire · Raccords automatiques<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Produire les neuf masques de l'assemblage.<br  />
+2. Verifier la case centrale et la diversite des masques.<br  />
+ <b>Resultat attendu :</b> Le masque central vaut le masque plein (quatre voisins) ; les neuf masques ne sont pas tous identiques. </p>
+
+</div>
+</div>
 <a id="ac16dc0678bc8ff3027cbc04b6661d5eb" name="ac16dc0678bc8ff3027cbc04b6661d5eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac16dc0678bc8ff3027cbc04b6661d5eb">&#9670;&#160;</a></span>TEST() <span class="overload">[1/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac16dc0678bc8ff3027cbc04b6661d5eb">&#9670;&#160;</a></span>TEST() <span class="overload">[3/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -156,7 +225,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="add0862ef5236c69a2b50dc96eafcdb8d" name="add0862ef5236c69a2b50dc96eafcdb8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add0862ef5236c69a2b50dc96eafcdb8d">&#9670;&#160;</a></span>TEST() <span class="overload">[2/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#add0862ef5236c69a2b50dc96eafcdb8d">&#9670;&#160;</a></span>TEST() <span class="overload">[4/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -185,7 +254,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a6665c5886258394050f269a611964c02" name="a6665c5886258394050f269a611964c02"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6665c5886258394050f269a611964c02">&#9670;&#160;</a></span>TEST() <span class="overload">[3/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6665c5886258394050f269a611964c02">&#9670;&#160;</a></span>TEST() <span class="overload">[5/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -217,7 +286,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a0c8aa8baf5f892f698ccd4037b4b9efa" name="a0c8aa8baf5f892f698ccd4037b4b9efa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c8aa8baf5f892f698ccd4037b4b9efa">&#9670;&#160;</a></span>TEST() <span class="overload">[4/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c8aa8baf5f892f698ccd4037b4b9efa">&#9670;&#160;</a></span>TEST() <span class="overload">[6/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -245,8 +314,37 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="adbdd9085d587270a73281b5ae0bde353" name="adbdd9085d587270a73281b5ae0bde353"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbdd9085d587270a73281b5ae0bde353">&#9670;&#160;</a></span>TEST() <span class="overload">[7/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TileAutotileTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LibelleIgnoreLesBitsParasites</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les bits parasites d'un masque de libellé sont ignorés, comme pour <span class="tt">autotileCell</span>. </p>
+<p><b>Cas de test :</b> <b>Un masque de libelle portant des bits parasites reste dans la table.</b><br  />
+ <b>Categorie :</b> Unitaire · Raccords automatiques<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Demander le libelle d'un masque dont les bits de poids fort sont a 1.<br  />
+ <b>Resultat attendu :</b> Le libelle est celui des quatre bits de poids faible. </p>
+
+</div>
+</div>
 <a id="a26a031abb8009b2c7877e2f4cc9e2fcd" name="a26a031abb8009b2c7877e2f4cc9e2fcd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26a031abb8009b2c7877e2f4cc9e2fcd">&#9670;&#160;</a></span>TEST() <span class="overload">[5/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a26a031abb8009b2c7877e2f4cc9e2fcd">&#9670;&#160;</a></span>TEST() <span class="overload">[8/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -275,7 +373,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ab7d0a6c7ecf6d39aadb193bf73927008" name="ab7d0a6c7ecf6d39aadb193bf73927008"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7d0a6c7ecf6d39aadb193bf73927008">&#9670;&#160;</a></span>TEST() <span class="overload">[6/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7d0a6c7ecf6d39aadb193bf73927008">&#9670;&#160;</a></span>TEST() <span class="overload">[9/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -304,7 +402,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a13b14a7fae76a10cb386671f7910e572" name="a13b14a7fae76a10cb386671f7910e572"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13b14a7fae76a10cb386671f7910e572">&#9670;&#160;</a></span>TEST() <span class="overload">[7/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a13b14a7fae76a10cb386671f7910e572">&#9670;&#160;</a></span>TEST() <span class="overload">[10/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -332,8 +430,37 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a989f6fa8b7b0c48ec9180a09c574264c" name="a989f6fa8b7b0c48ec9180a09c574264c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a989f6fa8b7b0c48ec9180a09c574264c">&#9670;&#160;</a></span>TEST() <span class="overload">[11/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TileAutotileTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SeizeMasquesProduisentSeizeClesDeLibelleDistinctes</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Chacun des seize masques produit une clé de libellé distincte (atelier pixel art, LOT-54 TACHE-08) : aucune case de la planche ne partage le libellé d'une autre. </p>
+<p><b>Cas de test :</b> <b>Les seize masques produisent seize cles de libelle distinctes.</b><br  />
+ <b>Categorie :</b> Unitaire · Raccords automatiques<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Produire la cle de libelle de chacun des seize masques.<br  />
+ <b>Resultat attendu :</b> Les seize cles sont deux a deux differentes. </p>
+
+</div>
+</div>
 <a id="a048224472d72a78076fa54e19c6f9157" name="a048224472d72a78076fa54e19c6f9157"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a048224472d72a78076fa54e19c6f9157">&#9670;&#160;</a></span>TEST() <span class="overload">[8/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a048224472d72a78076fa54e19c6f9157">&#9670;&#160;</a></span>TEST() <span class="overload">[12/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -362,7 +489,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7908d2d61f87c8a5fbadbae15be7a675" name="a7908d2d61f87c8a5fbadbae15be7a675"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7908d2d61f87c8a5fbadbae15be7a675">&#9670;&#160;</a></span>TEST() <span class="overload">[9/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7908d2d61f87c8a5fbadbae15be7a675">&#9670;&#160;</a></span>TEST() <span class="overload">[13/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

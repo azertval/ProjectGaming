@@ -9,12 +9,16 @@ var searchData=
   ['has_6',['has',['../classcore_1_1ComponentPool.html#aa6399864a2dc32b2625103a46c0ce6b8',1,'core::ComponentPool']]],
   ['hascomponent_7',['hasComponent',['../classcore_1_1World.html#a89409118ee9ad14b7aeb404b0e844c04',1,'core::World']]],
   ['hassilhouette_8',['hasSilhouette',['../namespacehmi.html#a8a000913259074c63f34b46b7d67864e',1,'hmi']]],
-  ['height_9',['height',['../classcore_1_1TileMap.html#aa3eeac433441da6f84c9a5e152fd3845',1,'core::TileMap::height()'],['../classhmi_1_1GraphicsDevice.html#ad3952af7203763d45dac4a9ca9439b17',1,'hmi::GraphicsDevice::height()'],['../classhmi_1_1TextureAtlas.html#a4d1a9e1cfc71dd6c1b319ce0dab8a6d7',1,'hmi::TextureAtlas::height()']]],
+  ['height_9',['height',['../classcore_1_1TileMap.html#aa3eeac433441da6f84c9a5e152fd3845',1,'core::TileMap::height()'],['../structhmi_1_1PixelRegion.html#a6a3122cbd18f25a0d3eb3155a85f9855',1,'hmi::PixelRegion::height()'],['../classhmi_1_1GraphicsDevice.html#ad3952af7203763d45dac4a9ca9439b17',1,'hmi::GraphicsDevice::height()'],['../classhmi_1_1TextureAtlas.html#a4d1a9e1cfc71dd6c1b319ce0dab8a6d7',1,'hmi::TextureAtlas::height()']]],
   ['heightfor_10',['heightFor',['../structhmi_1_1SceneTextures.html#abce6688963dc3a0b879a9b86391326e8',1,'hmi::SceneTextures']]],
   ['hideevent_11',['hideEvent',['../classhmi_1_1GamepadBindingsWidget.html#ad29eefb8cc66b020a431dae0d5d85512',1,'hmi::GamepadBindingsWidget']]],
   ['highlight_12',['highlight',['../classhmi_1_1GameViewport.html#a7741b62548715a272721a4e7c4b67a21',1,'hmi::GameViewport']]],
-  ['hittestdecorhandles_13',['hitTestDecorHandles',['../namespacehmi.html#a375ceba0ca2cc74fa38e49f139bb1b44',1,'hmi']]],
-  ['hmikeytoqtkey_14',['hmiKeyToQtKey',['../namespacehmi.html#a807ca4b0d189a41995531913a247a3c9',1,'hmi']]],
-  ['hoveredcell_15',['hoveredCell',['../classhmi_1_1GameViewport.html#a47134978f9ee32fd613ddd132006835a',1,'hmi::GameViewport']]],
-  ['hoveredcellchanged_16',['hoveredCellChanged',['../classhmi_1_1GameViewport.html#a22e7abff7158a0e24d3c4a61879a41f6',1,'hmi::GameViewport']]]
+  ['history_13',['history',['../classhmi_1_1PixelCanvas.html#a87cfdc983a37d4af6204bf08455e843f',1,'hmi::PixelCanvas']]],
+  ['historychanged_14',['historyChanged',['../classhmi_1_1PixelCanvas.html#a7930a3c832ecdfd99d45f77fa0605582',1,'hmi::PixelCanvas']]],
+  ['hittestdecorhandles_15',['hitTestDecorHandles',['../namespacehmi.html#a375ceba0ca2cc74fa38e49f139bb1b44',1,'hmi']]],
+  ['hmikeytoqtkey_16',['hmiKeyToQtKey',['../namespacehmi.html#a807ca4b0d189a41995531913a247a3c9',1,'hmi']]],
+  ['hoveredcell_17',['hoveredCell',['../classhmi_1_1GameViewport.html#a47134978f9ee32fd613ddd132006835a',1,'hmi::GameViewport']]],
+  ['hoveredcellchanged_18',['hoveredCellChanged',['../classhmi_1_1GameViewport.html#a22e7abff7158a0e24d3c4a61879a41f6',1,'hmi::GameViewport']]],
+  ['hoveredpixel_19',['hoveredPixel',['../classhmi_1_1PixelCanvas.html#a80a66874ef7245921560687884777e98',1,'hmi::PixelCanvas']]],
+  ['hoveredpixelchanged_20',['hoveredPixelChanged',['../classhmi_1_1PixelCanvas.html#a1ecae83ab6b3259ec1643af49046f117',1,'hmi::PixelCanvas']]]
 ];

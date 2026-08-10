@@ -10,5 +10,6 @@ var searchData=
   ['body_7',['Body',['../namespacehmi.html#a85a2df4671d768ea880f930a5f87e00daac101b32dda4448cf13a93fe283dddd8',1,'hmi']]],
   ['bottom_8',['Bottom',['../namespacehmi.html#aad6be73525ade97eef38c10c8ba51be7a2ad9d63b69c4a10a5cc9cad923133bc4',1,'hmi']]],
   ['bottomleft_9',['BottomLeft',['../namespacehmi.html#a85a2df4671d768ea880f930a5f87e00da98e5a1c44509157ebcaf46c515c78875',1,'hmi']]],
-  ['bottomright_10',['BottomRight',['../namespacehmi.html#a85a2df4671d768ea880f930a5f87e00da9146bfc669fddc88db2c4d89297d0e9a',1,'hmi']]]
+  ['bottomright_10',['BottomRight',['../namespacehmi.html#a85a2df4671d768ea880f930a5f87e00da9146bfc669fddc88db2c4d89297d0e9a',1,'hmi']]],
+  ['brush_11',['Brush',['../namespacehmi.html#a5889df12c254317504ef5777d27d9b0eaa25744428546172386b93dd44900a81a',1,'hmi::Brush'],['../namespacehmi.html#a9cb51e9b7642963a83312d94737fe571aa25744428546172386b93dd44900a81a',1,'hmi::Brush']]]
 ];
