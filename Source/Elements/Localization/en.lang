@@ -220,6 +220,7 @@ pixel.save_failed = Failed to save the asset.
 pixel.save_done = Asset saved: %1
 pixel.overwrite_title = Replace asset?
 pixel.overwrite_text = "%1" is referenced by: %2. Replace it anyway?
+pixel.color_picker_title = Current color
 
 # Links panel (LOT-37)
 link.column.type = Type

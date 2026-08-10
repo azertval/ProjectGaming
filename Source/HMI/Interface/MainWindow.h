@@ -26,6 +26,7 @@ class QMenu;
 class QStackedWidget;
 class QTimer;
 class QToolBar;
+class QToolButton;
 class QWidget;
 
 namespace Ui {
@@ -136,6 +137,13 @@ private:
     /// associé (asset pas encore enregistré une première fois, TACHE-05).
     void updateLivePreview();
 
+    /// Ouvre un sélecteur de couleur (`QColorDialog`) pour choisir librement la couleur courante du
+    /// canevas — seul moyen d'atteindre une couleur absente à la fois de l'image ouverte (pipette)
+    /// et de la palette de projet (pastilles).
+    void openPixelColorPicker();
+    /// Met à jour le témoin de couleur de la barre d'outils du canevas (pastille de `_pixelColorButton`).
+    void updatePixelColorButtonIcon(std::uint32_t color);
+
     // Palette de projet (LOT-54 TACHE-07).
     /// Recopie les couleurs de `_pixelPalette` vers `_pixelCanvas` (mode contraint) — à appeler
     /// après toute mutation qui change les couleurs ou leur ordre (l'ordre affecte le départage à
@@ -198,6 +206,7 @@ private:
     EditorActions* _actions;   ///< Outils et commandes principales, barre d'outils (LOT-56 TACHE-04).
     QToolBar* _toolBar;        ///< Barre d'outils de l'éditeur, alimentée par `_actions`.
     QToolBar* _pixelToolBar;   ///< Barre d'outils du canevas pixel art (LOT-54 TACHE-04).
+    QToolButton* _pixelColorButton = nullptr;  ///< Témoin + sélecteur de couleur courante (canevas).
     QMenu* _pixelMenu = nullptr;  ///< Menu « Atelier » : ouvrir/créer/enregistrer (LOT-54 TACHE-05).
     QMenu* _themeMenu;         ///< Sous-menu Affichage > Thème (LOT-56 TACHE-06).
     QAction* _themeSystemAction;

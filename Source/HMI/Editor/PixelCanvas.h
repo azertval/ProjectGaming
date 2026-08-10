@@ -104,10 +104,11 @@ public:
         return _activeTool;
     }
 
-    /// Couleur courante (pinceau, pot de peinture) ; mise à jour par la pipette au clic.
-    void setCurrentColor(std::uint32_t color) noexcept {
-        _currentColor = color;
-    }
+    /// Couleur courante (pinceau, pot de peinture). Point d'entrée **unique** de la mutation :
+    /// la pipette (au clic) passe par ici aussi, pour qu'un seul signal (`currentColorChanged`)
+    /// couvre toutes les sources — pipette, pastille de palette, sélecteur dédié de la barre
+    /// d'outils (`MainWindow`).
+    void setCurrentColor(std::uint32_t color);
     [[nodiscard]] std::uint32_t currentColor() const noexcept {
         return _currentColor;
     }
@@ -198,6 +199,9 @@ signals:
     void historyChanged();
     /// Émis à chaque changement du pixel survolé (barre d'état, TACHE-04).
     void hoveredPixelChanged(std::optional<std::pair<int, int>> pixel);
+    /// Émis à chaque changement de la couleur courante, quelle qu'en soit la source (pipette,
+    /// pastille de palette, sélecteur dédié) — la barre d'outils y aligne son témoin de couleur.
+    void currentColorChanged(std::uint32_t color);
 
 protected:
     void paintEvent(QPaintEvent* event) override;

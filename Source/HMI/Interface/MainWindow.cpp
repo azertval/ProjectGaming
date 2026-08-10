@@ -5,6 +5,8 @@
 #include <QApplication>
 #include <QCheckBox>
 #include <QCloseEvent>
+#include <QColor>
+#include <QColorDialog>
 #include <QComboBox>
 #include <QDialog>
 #include <QDialogButtonBox>
@@ -13,6 +15,7 @@
 #include <QFontMetrics>
 #include <QFormLayout>
 #include <QGuiApplication>
+#include <QIcon>
 #include <QInputDialog>
 #include <QKeyEvent>
 #include <QLabel>
@@ -20,6 +23,7 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
+#include <QPixmap>
 #include <QSettings>
 #include <QSignalBlocker>
 #include <QSpinBox>
@@ -29,6 +33,7 @@
 #include <QStyleHints>
 #include <QTimer>
 #include <QToolBar>
+#include <QToolButton>
 #include <QVBoxLayout>
 #include <QWidget>
 #include <array>
@@ -432,6 +437,17 @@ void MainWindow::buildUi() {
     _pixelToolBar->setObjectName(QStringLiteral("PixelToolBar"));
     _pixelToolBar->setMovable(false);
     _actions->populatePixelToolBar(*_pixelToolBar);
+    // Temoin + selecteur de couleur courante : pas une action themee (les icones d'action sont
+    // recolorees depuis les jetons, EX-IHM-051) mais un simple bouton dont la pastille montre la
+    // VRAIE couleur courante -- seul moyen d'atteindre une couleur absente de l'image ouverte
+    // (pipette) et de la palette de projet (pastilles, TACHE-07).
+    _pixelToolBar->addSeparator();
+    _pixelColorButton = new QToolButton(this);
+    _pixelToolBar->addWidget(_pixelColorButton);
+    updatePixelColorButtonIcon(_pixelCanvas->currentColor());
+    connect(_pixelColorButton, &QToolButton::clicked, this, [this] { openPixelColorPicker(); });
+    connect(_pixelCanvas, &PixelCanvas::currentColorChanged, this,
+            [this](std::uint32_t color) { updatePixelColorButtonIcon(color); });
 
     // Contenu des docks : les coquilles (`PalettePanel`/`DecorsPanel`/`LevelsPanel`) et leur
     // agencement viennent du `.ui` ; leurs widgets, paramétrés (chemins, dépendances), sont créés
@@ -1103,6 +1119,32 @@ void MainWindow::updateLivePreview() {
     _viewport->invalidateAsset(pixelAssetCacheKey());
 }
 
+void MainWindow::updatePixelColorButtonIcon(std::uint32_t color) {
+    constexpr int SWATCH_SIZE = 20;
+    QPixmap pixmap(SWATCH_SIZE, SWATCH_SIZE);
+    pixmap.fill(QColor(static_cast<int>(color & 0xFFu), static_cast<int>((color >> 8) & 0xFFu),
+                       static_cast<int>((color >> 16) & 0xFFu),
+                       static_cast<int>((color >> 24) & 0xFFu)));
+    _pixelColorButton->setIcon(QIcon(pixmap));
+}
+
+void MainWindow::openPixelColorPicker() {
+    const std::uint32_t current = _pixelCanvas->currentColor();
+    const QColor initial(static_cast<int>(current & 0xFFu), static_cast<int>((current >> 8) & 0xFFu),
+                         static_cast<int>((current >> 16) & 0xFFu),
+                         static_cast<int>((current >> 24) & 0xFFu));
+    const QColor chosen = QColorDialog::getColor(initial, this, text("pixel.color_picker_title"),
+                                                 QColorDialog::ShowAlphaChannel);
+    if (!chosen.isValid()) {
+        return;
+    }
+    const std::uint32_t packed =
+        static_cast<std::uint32_t>(chosen.red()) | (static_cast<std::uint32_t>(chosen.green()) << 8) |
+        (static_cast<std::uint32_t>(chosen.blue()) << 16) |
+        (static_cast<std::uint32_t>(chosen.alpha()) << 24);
+    _pixelCanvas->setCurrentColor(packed);
+}
+
 void MainWindow::openPixelAssetOpenDialog() {
     if (!confirmDiscardPixelChanges()) {
         return;
@@ -1287,6 +1329,7 @@ void MainWindow::retranslateUi() {
     _ui->PixelCanvasPanel->setWindowTitle(text("dock.pixel_canvas"));
     _ui->PixelHistoryPanel->setWindowTitle(text("dock.pixel_history"));
     _ui->PixelPalettePanel->setWindowTitle(text("dock.pixel_palette"));
+    _pixelColorButton->setToolTip(text("pixel.color_picker_title"));
 
     // Barre de menus.
     _ui->appMenu->setTitle(text("menubar.application"));

@@ -127,6 +127,15 @@ void PixelCanvas::jumpHistoryTo(std::size_t index) {
     }
 }
 
+void PixelCanvas::setCurrentColor(std::uint32_t color) {
+    if (_currentColor == color) {
+        return;  // evite un signal redondant quand la source n'a rien change (ex. pipette sur la
+                 // couleur deja active).
+    }
+    _currentColor = color;
+    emit currentColorChanged(_currentColor);
+}
+
 void PixelCanvas::zoomIn() {
     _view.zoom = pixelCanvasZoomIn(_view.zoom);
     updateGeometry();
@@ -161,9 +170,11 @@ void PixelCanvas::applyToolAtPoint(int x, int y) {
             touched = floodFill(_image, x, y, effectivePaintColor());
             break;
         case PixelTool::Eyedropper:
-            // Ne mute jamais l'image : prelevement seul, aucune entree d'historique.
+            // Ne mute jamais l'image : prelevement seul, aucune entree d'historique. Passe par
+            // setCurrentColor (pas une affectation directe) pour que le temoin de couleur de la
+            // barre d'outils se resynchronise, comme les autres sources de changement.
             if (const std::optional<std::uint32_t> picked = pickColor(_image, x, y)) {
-                _currentColor = *picked;
+                setCurrentColor(*picked);
             }
             return;
         case PixelTool::Selection: {

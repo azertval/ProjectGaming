@@ -222,6 +222,7 @@ pixel.save_failed = Échec de l'enregistrement de l'asset.
 pixel.save_done = Asset enregistré : %1
 pixel.overwrite_title = Remplacer l'asset ?
 pixel.overwrite_text = « %1 » est référencé par : %2. Le remplacer ?
+pixel.color_picker_title = Couleur courante
 
 # Panneau Liens (LOT-37)
 link.column.type = Type
