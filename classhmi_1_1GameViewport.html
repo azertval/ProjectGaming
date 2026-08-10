@@ -379,7 +379,7 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a6b3746ffb6acca3282ca1060522122bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case courante du glisser (pour l'aperçu).  <br /></td></tr>
 <tr class="memitem:ad780d6c5b7e4843a50fbf1b7f5cb3151" id="r_ad780d6c5b7e4843a50fbf1b7f5cb3151"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad780d6c5b7e4843a50fbf1b7f5cb3151">_hoverCell</a></td></tr>
 <tr class="memdesc:ad780d6c5b7e4843a50fbf1b7f5cb3151"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case actuellement survolée (cible du collage) ; absente hors de la grille ou après que le curseur a quitté le viewport (<span class="tt">LOT-57</span> TACHE-01, <span class="tt">leaveEvent</span> via <span class="tt"><a class="el" href="#a5d3760d8afacd89cccc12dff1f843a9b">event()</a></span>).  <br /></td></tr>
-<tr class="memitem:ab08f60057375f2e16417a18a1cc07d6f" id="r_ab08f60057375f2e16417a18a1cc07d6f"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ab08f60057375f2e16417a18a1cc07d6f">_lastEmittedZoom</a> = 0.0f</td></tr>
+<tr class="memitem:ab08f60057375f2e16417a18a1cc07d6f" id="r_ab08f60057375f2e16417a18a1cc07d6f"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ab08f60057375f2e16417a18a1cc07d6f">_lastEmittedZoom</a></td></tr>
 <tr class="memdesc:ab08f60057375f2e16417a18a1cc07d6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dernier zoom notifié (<span class="tt"><a class="el" href="#a30636eb8e2e7cd9e0b6100c3b7831964" title="Le zoom d&#39;édition vient de changer (molette, pan, recadrage) — consommé par la barre d&#39;état (LOT-57 T...">zoomChanged</a></span>), évite l'émission en boucle.  <br /></td></tr>
 <tr class="memitem:ae96e120c86e828f65d27936e5941297d" id="r_ae96e120c86e828f65d27936e5941297d"><td class="memItemLeft">const <a class="el" href="classhmi_1_1Localization.html">Localization</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ae96e120c86e828f65d27936e5941297d">_loc</a> = nullptr</td></tr>
 <tr class="memdesc:ae96e120c86e828f65d27936e5941297d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sélection mémorisée (bornes min/max incluses), pour copier (<span class="tt">Ctrl+C</span>).  <br /></td></tr>
@@ -4038,7 +4038,7 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">float hmi::GameViewport::_lastEmittedZoom = 0.0f</td>
+          <td class="memname">float hmi::GameViewport::_lastEmittedZoom</td>
         </tr>
       </table>
   </td>
@@ -4047,7 +4047,9 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
   </tr>
 </table>
 </div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">                   =</div>
+<div class="line">0.0f</div>
+</div><!-- fragment -->
 <p>Dernier zoom notifié (<span class="tt"><a class="el" href="#a30636eb8e2e7cd9e0b6100c3b7831964" title="Le zoom d&#39;édition vient de changer (molette, pan, recadrage) — consommé par la barre d&#39;état (LOT-57 T...">zoomChanged</a></span>), évite l'émission en boucle. </p>
 
 </div>

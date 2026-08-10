@@ -56,5 +56,6 @@ var dir_7c7356e692772728ab91d19f773c60c4 =
     [ "LOT-54-atelier-pixel-art", "dir_f744fc27a3017b04cf2c4921621e2499.html", null ],
     [ "LOT-55-ombres-plan-physique", "dir_7a4e45b7f381dce287abe833e114faa2.html", null ],
     [ "LOT-56-systeme-design-ihm", "dir_f599109fffcddaabe5e1b1a499b63c5f.html", null ],
-    [ "LOT-57-editeur-information", "dir_8816217a880410c96656e6af0bcf2262.html", null ]
+    [ "LOT-57-editeur-information", "dir_8816217a880410c96656e6af0bcf2262.html", null ],
+    [ "LOT-58-verification-release-analyse", "dir_689038ff9fbbbf5bcda839b7f01d8d00.html", null ]
 ];

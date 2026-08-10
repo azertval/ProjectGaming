@@ -1,5 +1,6 @@
 var NAVTREEINDEX14 =
 {
+"guide-ihm-qt.html#autotoc_md110":[3,14,3],
 "guide-ihm-qt.html#autotoc_md111":[3,14,4],
 "guide-ihm-qt.html#autotoc_md112":[3,14,5],
 "guide-ihm-qt.html#autotoc_md113":[3,14,6],
@@ -248,6 +249,5 @@ var NAVTREEINDEX14 =
 "lot-03.html#autotoc_md385":[6,3,1],
 "lot-03.html#autotoc_md386":[6,3,2],
 "lot-03.html#autotoc_md387":[6,3,2,0],
-"lot-03.html#autotoc_md388":[6,3,2,1],
-"lot-03.html#autotoc_md389":[6,3,3]
+"lot-03.html#autotoc_md388":[6,3,2,1]
 };

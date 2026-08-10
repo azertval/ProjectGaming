@@ -1,5 +1,6 @@
 var NAVTREEINDEX21 =
 {
+"lot-37-tache-01-primitive-ligne-geometrie.html":[6,37,8],
 "lot-37-tache-01-primitive-ligne-geometrie.html#autotoc_md1767":[6,37,8,0],
 "lot-37-tache-01-primitive-ligne-geometrie.html#autotoc_md1768":[6,37,8,1],
 "lot-37-tache-01-primitive-ligne-geometrie.html#autotoc_md1769":[6,37,8,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX21 =
 "lot-42.html#autotoc_md1939":[6,42,1,1],
 "lot-42.html#autotoc_md1940":[6,42,2],
 "lot-42.html#autotoc_md1941":[6,42,3],
-"lot-42.html#autotoc_md1942":[6,42,4],
-"lot-42.html#autotoc_md1943":[6,42,5]
+"lot-42.html#autotoc_md1942":[6,42,4]
 };

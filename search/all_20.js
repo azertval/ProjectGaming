@@ -18,7 +18,7 @@ var searchData=
   ['un_20contrôle_15',['Un état, un contrôle',['../guide-design-ihm.html#autotoc_md62',1,'']]],
   ['un_20fichier_16',['&lt;a class=&quot;el&quot; href=&quot;classhmi_1_1TextureAtlas.html&quot; title=&quot;hmi::TextureAtlas&quot;&gt;hmi::TextureAtlas&lt;/a&gt; : un spritesheet, chargé depuis un fichier',['../guide-rendu.html#autotoc_md181',1,'']]],
   ['un_20jeu_20vidéo_17',['Pourquoi journaliser dans un jeu vidéo',['../guide-journalisation.html#autotoc_md118',1,'']]],
-  ['un_20niveau_18',['un niveau',['../manuel-partager-niveau.html#autotoc_md2560',1,'3. Créer un niveau'],['../manuel-jouer.html#autotoc_md2555',1,'Objectif d&apos;un niveau']]],
+  ['un_20niveau_18',['un niveau',['../manuel-partager-niveau.html#autotoc_md2615',1,'3. Créer un niveau'],['../manuel-jouer.html#autotoc_md2610',1,'Objectif d&apos;un niveau']]],
   ['un_20niveau_20_3a_20hmi_3a_3agamesession_20réutilisée_19',['Jouer un niveau : &lt;span class=&quot;tt&quot;&gt;hmi::GameSession&lt;/span&gt; réutilisée',['../guide-ihm-qt.html#autotoc_md112',1,'']]],
   ['un_20niveau_20plus_20grand_20que_20la_20fenêtre_20',['Cadrer un niveau plus grand que la fenêtre',['../guide-editeur.html#autotoc_md92',1,'']]],
   ['un_20niveau_20qu_20on_20peut_20défaire_21',['&lt;a class=&quot;el&quot; href=&quot;classcore_1_1LevelDraft.html&quot; title=&quot;core::LevelDraft&quot;&gt;core::LevelDraft&lt;/a&gt; : un niveau qu&apos;on peut défaire',['../guide-editeur.html#autotoc_md80',1,'']]],

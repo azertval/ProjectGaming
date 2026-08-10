@@ -2,6 +2,7 @@ var NAVTREEINDEX13 =
 {
 "dir_67ee9df1995649328d94b0ad88bfac69.html":[10,0,1,49],
 "dir_681a55f4ca7a981b92d9fc38bc44b355.html":[10,0,3,2,2,1,0],
+"dir_689038ff9fbbbf5bcda839b7f01d8d00.html":[10,0,1,57],
 "dir_6b291a504d31f639e5c71947a516e13b.html":[10,0,1,20],
 "dir_6f073fb43d5276a75c75681f0b9c807e.html":[10,0,1,25],
 "dir_72022e338313d55d41baa13d2ba342b4.html":[10,0,1,48],
@@ -248,6 +249,5 @@ var NAVTREEINDEX13 =
 "guide-ihm-qt.html":[3,14],
 "guide-ihm-qt.html#autotoc_md107":[3,14,0],
 "guide-ihm-qt.html#autotoc_md108":[3,14,1],
-"guide-ihm-qt.html#autotoc_md109":[3,14,2],
-"guide-ihm-qt.html#autotoc_md110":[3,14,3]
+"guide-ihm-qt.html#autotoc_md109":[3,14,2]
 };

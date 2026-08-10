@@ -101,7 +101,7 @@ $(function(){initNavTree('spec-exigences.html','',''); });
 <ul>
 <li><a class="anchor" id="EX-NFR-001"></a><b>EX-NFR-001</b> — Le jeu doit maintenir <b>60 images/seconde</b> sur une configuration de bureau récente pour les niveaux du MVP.</li>
 <li><a class="anchor" id="EX-NFR-002"></a><b>EX-NFR-002</b> — La simulation doit fonctionner à <b>pas de temps fixe</b> et rester déterministe (mêmes entrées → même résultat).</li>
-<li><a class="anchor" id="EX-NFR-003"></a><b>EX-NFR-003</b> — L'empreinte mémoire doit rester stable dans le temps (aucune fuite ; vérifiable via AddressSanitizer).</li>
+<li><a class="anchor" id="EX-NFR-003"></a><b>EX-NFR-003</b> — L'empreinte mémoire doit rester stable dans le temps (aucune fuite ; vérifiable via AddressSanitizer). Vérifiée par le job <span class="tt">sanitize</span> de <span class="tt">ci.yml</span> (LOT-58) : les trois exécutables de test (<span class="tt">UnitTests</span>, <span class="tt">IntegrationTests</span>, <span class="tt">SystemTests</span>) s'exécutent sous AddressSanitizer à chaque PR.</li>
 <li><a class="anchor" id="EX-NFR-005"></a><b>EX-NFR-005</b> — Le rendu ne doit soumettre que les primitives <b>effectivement visibles</b> : le contenu hors du cadrage de la caméra (<span class="tt">EX-REN-015</span>, salle courante) est écarté avant soumission. Le nombre de primitives émises par image doit rester <b>borné et observable</b>, l'habillage complet (fond, décors, ombres, tuiles, objets, effets) multipliant le volume par rapport au rendu d'origine. Concrétisé en <span class="tt">LOT-40</span>.</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md261"></a>
@@ -117,7 +117,9 @@ $(function(){initNavTree('spec-exigences.html','',''); });
 <ul>
 <li><a class="anchor" id="EX-NFR-020"></a><b>EX-NFR-020</b> — Toute logique de gameplay livrée dans <span class="tt">Core</span> doit être couverte par des <b>tests unitaires</b> (GoogleTest).</li>
 <li><a class="anchor" id="EX-NFR-021"></a><b>EX-NFR-021</b> — Les niveaux du MVP doivent être couverts par un <b>test système</b> vérifiant leur franchissabilité.</li>
-<li><a class="anchor" id="EX-NFR-022"></a><b>EX-NFR-022</b> — La <b>CI</b> doit exécuter build, tests et couverture à chaque push/PR et rester verte pour merger.</li>
+<li><a class="anchor" id="EX-NFR-022"></a><b>EX-NFR-022</b> — La <b>CI</b> doit exécuter build, tests et couverture à chaque push/PR et rester verte pour merger. La couverture agrège <span class="tt">UnitTests</span>, <span class="tt">IntegrationTests</span> et <span class="tt">SystemTests</span> (job <span class="tt">build-test-coverage</span> de <span class="tt">ci.yml</span>, LOT-58) ; une chute sous le seuil consigné (<span class="tt">COVERAGE_THRESHOLD_PERCENT</span>) fait échouer la CI.</li>
+<li><a class="anchor" id="EX-NFR-023"></a><b>EX-NFR-023</b> — La configuration <b>Release</b> doit être construite et testée en CI, sur <b>chaque PR</b> — avant tout tag, jamais découverte après. Vérifiée par le job <span class="tt">build-test-release</span> de <span class="tt">ci.yml</span> (LOT-58), contrôle requis pour merger au même titre que <span class="tt">build-test-coverage</span>.</li>
+<li><a class="anchor" id="EX-NFR-024"></a><b>EX-NFR-024</b> — L'analyse statique et le formatage doivent être <b>vérifiés automatiquement</b>, pas seulement configurés. Vérifiés par les jobs <span class="tt">clang-tidy</span> (<span class="tt">bugprone-*</span> bloquant, le reste consigné) et <span class="tt">format</span> (<span class="tt">clang-format --dry-run --Werror</span>, version épinglée) de <span class="tt">ci.yml</span> (LOT-58).</li>
 <li><a class="anchor" id="EX-NFR-004"></a><b>EX-NFR-004</b> — La chaîne de rendu doit être <b>vérifiable sans GPU</b> : les primitives de dessin produites pour une scène donnée doivent pouvoir être <b>capturées et inspectées</b> par un test (ordre des calques, priorité de résolution des textures, choix des raccords automatiques, isolement d'un calque, effets de bord du culling). Un critère d'acceptation du type « rendu identique » ou « ordre de calque correct » ne doit pas reposer sur une vérification à l'œil quand il peut être asserté. Concrétisé en <span class="tt">LOT-40</span>.</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md263"></a>
@@ -140,7 +142,7 @@ $(function(){initNavTree('spec-exigences.html','',''); });
 </ul>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md266"></a>
 Traçabilité</h1>
-<p>Ces exigences transverses conditionnent l'acceptation de chaque lot. Elles s'appuient sur l'outillage déjà en place (CMake, CI, clang-tidy, ASan, conventions). </p>
+<p>Ces exigences transverses conditionnent l'acceptation de chaque lot. Depuis le <span class="tt">LOT-58</span>, elles s'appuient sur de l'outillage <b>effectivement exécuté</b> à chaque PR (CMake, CI Debug <b>et</b> Release, clang-tidy, clang-format, ASan, couverture agrégée) et non plus seulement configuré : voir le tableau « Outillage qualité » de <a class="el" href="spec-conventions.html#md_Specification_2conventions" title="Specification/conventions.md"><span class="tt">conventions.md</span></a> pour le job qui vérifie chaque outil. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
