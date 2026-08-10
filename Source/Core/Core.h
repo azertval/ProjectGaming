@@ -19,8 +19,13 @@ namespace core {
 class Engine {
 public:
     /**
-     * @brief Retourne la version du moteur.
-     * @return Chaîne de version sémantique (par exemple "0.1.0").
+     * @brief Retourne la version du moteur, telle que déclarée par le système de build.
+     *
+     * La chaîne provient de `project(... VERSION ...)` (CMakeLists.txt racine), transmise à la
+     * compilation : elle **ne peut pas** diverger du numéro que porte la release, contrairement
+     * à une constante recopiée dans le code.
+     *
+     * @return Chaîne de version sémantique (par exemple "0.0.5").
      */
     std::string version() const;
 };

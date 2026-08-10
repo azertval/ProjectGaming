@@ -6,8 +6,124 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+## [0.0.5] - 2026-08-10
+
+> Cinquième jalon : le moteur est **habillé**. Le programme `LOT-40` → `LOT-55`, ouvert juste après
+> le jalon précédent, est livré en entier : rendu texturé multicouche avec culling, skins de tuiles
+> et **raccords automatiques**, texture par instance, fonds de niveau, **décors libres** hors grille
+> avec parallaxe, moteur d'**animation piloté par données**, personnage habillé depuis une
+> spritesheet externe, retour du **texte dans la scène** et affichage tête haute, et enfin les
+> **ombres du plan physique** (LOT-55) — le tout derrière une bascule `F8` qui restitue à tout
+> moment la lecture nue des collisions.
+>
+> L'**éditeur** change d'échelle en parallèle : bibliothèque d'assets à vignettes avec rechargement
+> à chaud (LOT-43), manipulation complète des décors (LOT-50), mode d'inspection par calque
+> (LOT-51), puis trois lots qui s'attaquent à l'interface elle-même — un **système de design**
+> assumé, thème clair/sombre compris (LOT-56), une **redistribution de l'information** où ce qui
+> informe devient permanent et ce qui commande devient unique (LOT-57), et un **atelier pixel art
+> intégré** (LOT-54) qui ferme la boucle entre dessiner un asset et le voir dans le niveau.
+>
+> Cette version retire aussi le dernier morceau d'IHM « maison » (LOT-38 Étape B) : il ne reste
+> qu'une application Qt. **943 tests** (541 au jalon précédent).
+>
+> Voir le détail ci-dessous (LOT-38 Étape B, LOT-39 → LOT-57).
+
 ### Ajouté
-- **LOT-57 — Architecture de l'information de l'éditeur** (`EX-IHM-060` à `EX-IHM-062`, en cours) :
+- **LOT-55 — Ombres du plan physique** (`EX-REN-045`, `EX-ARCH-012`) : **dernier lot du programme
+  d'habillage** `LOT-40` → `LOT-55`. Le calque `RenderLayer::Shadow`, réservé sans être utilisé
+  depuis le `LOT-40`, s'active enfin — entre `Decor` et `Tile`, donc sous les tuiles et au-dessus du
+  fond et des décors d'arrière-plan. L'objectif est de **lecture**, pas d'esthétique : distinguer
+  d'un coup d'œil ce qui est **physique** (solide, donc porteur) de ce qui n'est que décor — le
+  complément exact du calque de premier plan (`LOT-49`), qui dit l'inverse.
+  - `hmi::composeShadows` (`HMI/Graphics/ShadowRenderer.h`) parcourt les mêmes entités que
+    `hmi::composeWorldSprites` et n'en retient que celles qui projettent une ombre : pleines
+    (`core::isSolid`) ou à silhouette inclinée/courbe (`hmi::hasSilhouette`, `LOT-42`). La région
+    échantillonnée est directement `hmi::regionForTile` — le **même** atlas procédural que le mode
+    Physique, déjà opaque exactement là où la matière est présente. Teinter ce quad en noir
+    semi-transparent, décalé d'un pixel, donne donc l'ombre à sa **forme réelle** (pente, arrondi,
+    bloc réduit via `core::tileVisualScale`) sans réimplémenter la moindre géométrie et **sans aucun
+    nouveau prédicat de solidité dans `Core`** : une ombre est la projection d'une forme, pas d'un
+    degré de solidité, et `Core` expose déjà cette forme sous une version plus riche qu'un booléen.
+  - Une **porte** fait exception à la règle « ombre = type statique » : son type reste `Door` quel
+    que soit l'état du mécanisme, alors que sa solidité réelle dépend de l'interrupteur.
+    `composeShadows` accepte donc une grille de collision optionnelle
+    (`MechanismController::collisionMap`, fournie par `GameSession`) et tranche sur l'état
+    **courant** — fermée, elle projette ; ouverte, elle ne projette plus. `hmi::DraftRenderer`, qui
+    ne simule aucun mécanisme, ne la fournit pas : dans l'éditeur une porte n'a jamais d'ombre, état
+    normal et non défaut.
+  - Actif en `RenderMode::Texture` **uniquement**, aucun effet sur le gameplay (`EX-ARCH-012`), même
+    culling que le reste, masquable par l'axe `Shadow` de `hmi::LayerVisibility` (`LOT-51`). Un bloc
+    poussable en mouvement voit son ombre suivre par la même interpolation
+    (`hmi::PreviousPosition`) que son propre sprite. Un niveau sans fond ni décor n'a simplement
+    aucune surface pour recevoir l'ombre — pas d'erreur, pas de cas particulier.
+  - Documenté dans `Documentation/Guide/guide-rendu.md`, qui remplace au passage sa section
+    d'orientation « ce qui vient ensuite » (obsolète depuis plusieurs lots) par l'état livré complet
+    du programme d'habillage. **943 tests verts**, build `/W4 /WX` propre.
+
+- **LOT-54 — Atelier pixel art intégré** (`EX-EDIT-045`) : créer et modifier les fichiers d'assets
+  de texture (skins, planches, fonds, objets, décors) **sans quitter l'application**, en voyant
+  immédiatement le résultat dans le niveau. Depuis le `LOT-43`, on savait importer et recharger un
+  asset, jamais le **modifier** : corriger un pixel imposait un aller-retour vers un éditeur externe,
+  particulièrement coûteux sur une planche à raccords dont la justesse ne se juge qu'une fois
+  assemblée. Ce lot s'exécute délibérément **derrière** `LOT-56` et `LOT-57` — le canevas n'a donc à
+  inventer ni son habillage, ni ses commandes, ni son affichage d'état, et le budget ainsi libéré
+  finance des fonctions d'édition plutôt que de la plomberie d'interface.
+  - **TACHE-01 — Écriture d'image** : `hmi::encodeImageFile`, symétrique exact de `decodeImageFile`
+    (`LOT-40`), écriture PNG **atomique** (fichier temporaire puis remplacement) depuis un tampon
+    RGBA non prémultiplié — le rechargement à chaud surveille le même dossier et pourrait lire un
+    fichier à demi écrit. `--export-atlas` passe désormais par ce même chemin. `UnitTests` reste
+    constructible sans Qt (le seul test touchant Qt est ajouté conditionnellement).
+  - **TACHE-02 — Opérations et historique** : `hmi::PixelOperations` (pinceau, gomme, ligne de
+    Bresenham sans trou au glisser rapide, remplissage par zone contiguë **itératif** — jamais
+    récursif —, pipette), fonctions pures sur `hmi::DecodedImage`, sans Qt ni GPU.
+    `hmi::PixelHistory` : pile d'annulation **locale au canevas**, totalement indépendante de
+    `core::LevelDraft` (annuler un coup de pinceau n'annule jamais une pose de tuile), à opérations
+    **nommées** (clés présentes dans les deux catalogues de traduction), mémorisant des **régions**
+    plutôt que des instantanés complets, profondeur plafonnée, retour à un point antérieur en un
+    appel.
+  - **TACHE-03 — Canevas** : `hmi::PixelCanvasGeometry` (conversions pures vue ↔ image, zoom
+    toujours **entier** pour que les pixels restent carrés), réutilisant `hmi::thumbnailPixelSize`
+    (`LOT-56`) pour la netteté à toute échelle d'affichage plutôt que de la redéfinir.
+    `hmi::PixelCanvas` (`QWidget`) : plus proche voisin, grille de pixels au-delà d'un seuil de zoom,
+    damier de transparence. Fond et damier tirés des jetons de portée **invariante** — un fond qui
+    changerait de clarté avec le thème fausserait la perception des couleurs posées, rédhibitoire
+    pour l'outil dont c'est le sujet. Un geste complet produit **une** entrée d'historique.
+  - **TACHE-04 — Actions, barre d'outils, barre d'état** : quatre outils en actions Qt formant un
+    groupe exclusif **distinct** de celui des outils de niveau (`EditorActionGroup::PixelTools`),
+    icônes dessinées par code. Annuler/Refaire restent une action **unique** à cible contextuelle :
+    `PixelCanvas` implémente `hmi::EditContextTarget` et `MainWindow` réassigne la cible au widget
+    qui reçoit le focus clavier — le dispatch livré par `LOT-57` n'est pas modifié.
+    `hmi::EditorStatus` et `hmi::PanelFocus` sont **étendus** (`PixelEditStatusInfo`, `PanelId::
+    PixelCanvas`/`PixelHistory`), jamais doublés. Nouveau `PixelHistoryPanel`.
+  - **TACHE-05 — Ouvrir, créer, enregistrer** : `hmi::validAssetSizes` dérive les tailles proposées
+    du contrat d'asset (`EX-REN-007`) plutôt que de les redécrire — une création non conforme devient
+    impossible au lieu d'être refusée après coup ; les familles à dimensions libres (fond, décor,
+    police) ouvrent une saisie libre. Garde-fou d'écrasement nommant les références concernées.
+  - **TACHE-06 — Outils de région** : sélection rectangulaire, déplacement, symétries horizontale et
+    verticale, rotations par quart de tour, copier/coller par un presse-papiers autonome — toutes
+    fonctions pures, exposées comme des actions.
+  - **TACHE-07 — Palettes** : `hmi::PixelPalette` (couleurs nommées persistées dans
+    `Assets/palettes.json`, même patron que `SkinCatalog` — fichier absent traité comme une palette
+    vide, entrée malformée ignorée plutôt que d'abandonner toute la palette),
+    `hmi::extractPalette` (ordre déterministe, occurrences, jamais l'alpha nul) et
+    `hmi::nearestPaletteColor` (départage stable, alpha d'origine préservé). Panneau d'édition et
+    réglage « contraindre à la palette », persisté. Un sélecteur de couleur libre a été ajouté dans
+    la foulée : pipette et pastilles étaient les deux seuls moyens de changer de couleur, aucun ne
+    permettant d'en choisir une absente des deux.
+  - **TACHE-08 — Aperçu live et planche à raccords** : `MainWindow::updateLivePreview` écrit l'image
+    en cours et invalide **ciblément** son entrée de `TextureCache` (`GameViewport::invalidateAsset`,
+    prévu depuis `LOT-43`) à chaque geste complet — jamais par pixel. `TileAutotile` est étendu
+    (`autotileConfigurationLabelKey`, `autotileAssemblyMasks`) pour que la **même** table canonique
+    décrive aussi les seize configurations en langage naturel et fournisse l'assemblage 3×3, jamais
+    une seconde table. `hmi::PixelAutotilePreview` (pur) détecte une planche 4×4 et compose l'aperçu
+    d'assemblage depuis le tampon en mémoire ; le canevas y ajoute repères de cases et infobulle
+    nommant la configuration survolée.
+  - **Non livrés, actés dans l'épic** : le point d'entrée depuis le panneau Textures n'est pas câblé
+    (TACHE-05), et l'aperçu **d'animation** n'est pas livré faute de temps pour intégrer
+    `AnimationCatalog` au canevas (TACHE-08) — l'aperçu de **raccords**, lui, l'est.
+  - Documenté dans `Documentation/Guide/guide-atelier-pixel-art.md`. Build `/W4 /WX` propre.
+
+- **LOT-57 — Architecture de l'information de l'éditeur** (`EX-IHM-060` à `EX-IHM-062`) :
   redistribution de l'éditeur — ce qui informe devient permanent, ce qui commande devient unique, ce
   qui ne sert qu'à un outil s'efface quand cet outil n'est pas actif.
   - **TACHE-01 — Barre d'état structurée** : remplace la ligne unique `status.edit_help` (figée à
@@ -19,14 +135,14 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     (`MainWindow::refreshStatusHelp`/`showTransientStatusMessage`, minuteur unique). Case survolée et
     zoom nouvellement exposés par `GameViewport` (`hoveredCell()`/`zoom()`, signaux `hoveredCellChanged`/
     `zoomChanged`, émis seulement sur changement réel). **6 nouveaux tests**, sans Qt/GPU ; build
-    `/W4 /WX` propre, 770 tests verts.
+    `/W4 /WX` propre, suite verte.
   - **TACHE-02 — Regroupement des panneaux, suivi de l'outil actif** : les panneaux Niveaux, Liens et
     Textures sont désormais regroupés en onglets par défaut (`tabifyDockWidget`, disposition v4,
     invalide les dispositions antérieures), chacun restant individuellement déplaçable, détachable et
     refermable. L'onglet pertinent est mis en avant à chaque changement d'outil (`hmi::panelForTool`,
     table pure sur le patron d'`ActionCatalog`) tant que l'utilisateur n'a rien imposé lui-même (choix
     manuel d'onglet, déplacement de panneau) — jamais un masquage, réglable et persisté depuis le menu
-    Affichage. **4 nouveaux tests**, sans Qt ; build `/W4 /WX` propre, 774 tests verts.
+    Affichage. **4 nouveaux tests**, sans Qt ; build `/W4 /WX` propre, suite verte.
   - **TACHE-03 — Recentrage du panneau Textures** : l'onglet Calques (mode d'inspection « définition
     des textures », `LOT-51`) quitte le panneau Textures pour le menu Affichage — une entrée par
     calque dans l'ordre de dessin, plus « tout afficher », sans changement de comportement
@@ -34,7 +150,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     présence dans le panneau devient inutile dans son nouvel emplacement. Le panneau Textures ne
     porte plus que la définition d'apparence (Skins, Fond, Objets, Animations, Décors) ; les deux
     sélecteurs de jeu de skins (session d'édition vs. niveau) portent désormais chacun une infobulle
-    distincte. Aucun nouveau test (changements Qt purs) ; build `/W4 /WX` propre, 774 tests verts.
+    distincte. Aucun nouveau test (changements Qt purs) ; build `/W4 /WX` propre, suite verte.
   - **TACHE-04 — Déduplication des commandes et raccourcis** : `hmi::EditorKeyBindings` définissait
     dix actions d'éditeur remappables dont neuf n'étaient jamais lues (raccourcis interceptés en
     dur, non remappables ; Copier/Coller au clavier bypassaient même `EditorKeyBindings`). Toutes
@@ -52,8 +168,8 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     propre cible sans le réécrire. Le doublon de sélecteur de couche de décor (panneau Outils vs.
     onglet Décors) est conservé : les deux ciblent des états distincts (couche du prochain décor
     posé vs. couche du décor sélectionné existant), pas un doublon strict. **3 nouveaux tests** (dont
-    un garde-fou cassant si une action est ajoutée sans être branchée) ; build `/W4 /WX` propre, 777
-    tests verts.
+    un garde-fou cassant si une action est ajoutée sans être branchée) ; build `/W4 /WX` propre, suite
+    verte.
   - **Amendement post-essai manuel** : premier essai réel de l'éditeur reconstruit, deux retours
     tranchés dans la foulée. Le panneau « Outils » (`ToolPanel`), qui ne portait déjà plus que le
     strict nécessaire de l'outil Décor depuis `LOT-56`, devient le panneau **Décors**
@@ -99,7 +215,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   - **24 nouveaux tests**, tous sans Qt/GPU (la couche Qt — `ApplicationTheme`, `ThemeIcons`,
     `EditorActions` — reste, comme `BitmapFont`/`GameViewport`, hors `UnitTests` ; seule leur
     logique pure — jetons, gabarit de feuille de style, catalogue d'actions, géométrie d'icônes,
-    résolution de thème — y est compilée) ; build `/W4 /WX` propre, 856 tests verts.
+    résolution de thème — y est compilée) ; build `/W4 /WX` propre, suite verte.
 
 - **LOT-52 — Texte, police bitmap et affichage tête haute** (`EX-IHM-003`, re-concrétise
   `EX-REN-032` retirée au `LOT-38`) : le jeu peut de nouveau afficher du texte **dans la scène
@@ -138,7 +254,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   - **32 nouveaux tests**, tous sans GPU (`hmi::ProceduralFont`/`hmi::TextRenderer`/`hmi::
     GameHud` sont des fichiers séparés de leurs classes propriétaires de ressources Direct3D —
     `hmi::BitmapFont` n'est pas compilé dans `UnitTests`, comme `hmi::TextureAtlas`) ; build
-    `/W4 /WX` propre, 832 tests verts.
+    `/W4 /WX` propre, suite verte.
 
 - **LOT-51 — Mode d'inspection « définition des textures » par calque** (`EX-EDIT-044`) : nouvel
   onglet « Calques » du panneau Textures — une case à cocher par calque de rendu, dans l'ordre de
@@ -408,6 +524,41 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   `QSettings`) et un bouton **« Enregistrer les journaux »** (`hmi::saveSessionLog`, build dev).
 
 ### Modifié
+- **Préparation de la release — dette de documentation et de vérification** : audit complet mené
+  avant de poser le tag, et correction de ce qu'il a mis au jour.
+  - **Une seule source de vérité pour le numéro de version.** `core::Engine::version()` renvoyait
+    `"0.1.0"` en dur et `project(… VERSION …)` valait `0.1.0` — aucun des deux n'avait jamais
+    correspondu à un tag publié, seul le `Doxyfile` étant bumpé à chaque jalon. Le `project()`
+    racine devient l'unique endroit où le numéro est écrit : il alimente `core::Engine::version()`
+    par définition de compilation (`PROJECTGAMING_VERSION`), et `scripts/build_docs.py` — déjà
+    exécuté par la CI — **échoue** désormais si le `PROJECT_NUMBER` du `Doxyfile` s'en écarte.
+  - **Le garde-fou du Cahier de test en était un à moitié.** `generate_cahier_test.py` ne
+    reconnaissait que la forme `TEST(` : les cas de test attachés à une *fixture* (`TEST_F`)
+    disparaissaient du cahier **sans le moindre message**, dont l'intégralité de
+    `test_image_encode.cpp`. Et `--check` ne comparait le fichier qu'au résultat du script, jamais
+    au code : un test jamais documenté n'apparaissait d'aucun côté de la comparaison, donc passait.
+    Les trois formes sont maintenant reconnues, et un **contrôle de complétude** échoue en listant
+    tout test dépourvu de bloc `\castest{}`.
+  - **145 tests sur 943 (15 %) n'étaient dans aucun cahier** — des fichiers entiers issus des
+    `LOT-46` à `LOT-50`. Tous documentés : le Cahier de test passe de **790 à 943 cas**. Au passage,
+    deux blocs de documentation détachés de leur test dans `test_physique_personnage.cpp` (trois
+    blocs empilés devant un seul `TEST`) ont été remis en face du test qu'ils décrivent.
+  - **Guide du développeur** : `LOT-54`, `LOT-56` et `LOT-57` n'y avaient aucune couverture. Deux
+    pages ajoutées — `guide-atelier-pixel-art.md` et `guide-design-ihm.md` — et `guide-ihm-qt.md`,
+    qui s'arrêtait au `LOT-36`, recadré et relié aux deux nouvelles ; références à `hmi::ToolPanel`
+    (supprimé au `LOT-57`) corrigées dans `guide-editeur.md`.
+  - **README et manuel** : la liste des fonctionnalités décrivait l'état d'avant le programme
+    d'habillage ; `HMI/` y était encore « fenêtre Win32 » ; le tableau d'intégration continue
+    annonçait un runtime « statique » (faux depuis le `LOT-38` — les DLL Qt imposent `/MD`) et
+    ignorait le déclencheur `vX.Y.Z`. Le manuel ne connaissait que la préversion roulante et
+    documente désormais les **versions publiées**.
+  - **Notes de release lisibles** : `release.yml` publiait avec `--generate-notes`, qui produit une
+    liste brute de messages de commit — utile à un développeur qui connaît déjà le projet, opaque
+    pour le non-développeur à qui la release versionnée est justement destinée. Le workflow lit
+    désormais la section correspondante du CHANGELOG (`scripts/extract_release_notes.py`,
+    `--notes-file`), et **échoue avant de publier** si elle est absente : une release ouverte avec
+    des notes vides ne se corrige pas proprement. La marche à suivre pour publier une version est
+    consignée dans `CONTRIBUTING.md`.
 - **LOT-38 (Étape B) — Retrait du legacy & réorganisation** : suppression de l'IHM « maison »
   (écrans `IScreen`/`ScreenManager`, widgets d'éditeur, police bitmap, fenêtre Win32) et de
   l'exécutable historique ; `Source/HMI` devient l'unique cible (`ProjectGaming`), code réparti par

@@ -35,8 +35,16 @@ TEST(Camera2DTest, CentreAuMilieuDeLEcran) {
     EXPECT_NEAR(screen.y, HEIGHT * 0.5f, TOLERANCE);
 }
 
-// center()/zoom() renvoient exactement ce que setCenter()/setZoom() ont pose -- necessaire au
-// pan/zoom manuel de l'editeur, qui repart du cadrage courant au premier geste.
+/**
+ * @brief `center()`/`zoom()` renvoient exactement ce que `setCenter()`/`setZoom()` ont posé —
+ * nécessaire au pan/zoom manuel de l'éditeur, qui repart du cadrage courant au premier geste.
+ * \castest{<b>center() et zoom() renvoient exactement les valeurs posées.</b><br/>
+ * \tcat Unitaire · Camera2 D<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(Camera2DTest, CenterEtZoomRenvoientLesValeursPosees) {
     hmi::Camera2D camera(WIDTH, HEIGHT);
     camera.setCenter(core::Vector2{3.0f, 4.0f});

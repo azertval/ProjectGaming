@@ -1,8 +1,10 @@
 # IHM Qt (refonte) — socle applicatif & viewport Direct3D 11 {#guide-ihm-qt}
 
-> Statut : **socle en place** (`LOT-34` → `LOT-38`). Cette page décrit l'application Qt qui a
-> remplacé l'IHM « maison ». Le rendu **du jeu** reste Direct3D 11 ; seule l'**interface hors-jeu**
-> passe à Qt (voir [spécification IHM](@ref spec-interface-ihm)).
+> Statut : **socle en place** (`LOT-34` → `LOT-38`), **complété** par le système de design et la
+> redistribution de l'information de l'éditeur (`LOT-56`, `LOT-57` — voir
+> @ref guide-design-ihm, qui traite l'apparence et la répartition des commandes que cette page
+> laisse de côté). Le rendu **du jeu** reste Direct3D 11 ; seule l'**interface hors-jeu** passe à
+> Qt (voir [spécification IHM](@ref spec-interface-ihm)).
 
 ## Pourquoi Qt
 
@@ -113,7 +115,29 @@ dépendance Qt/GPU) qui réutilise `hmi::isValidLevelName`, `core::LevelLoader`/
 Un double-clic **ouvre** le niveau dans le viewport, précédé d'un **garde-fou** si le brouillon
 courant a des modifications non enregistrées (`EX-IHM-020`/`EX-IHM-021`).
 
+### Liens de mécanismes (LOT-37) et unification des menus (LOT-38)
+
+Deux étapes complètent le socle et sont décrites ailleurs pour ne pas être racontées deux fois :
+
+- **Liaison des mécanismes par traits et flèches** (`LOT-37`, `EX-IHM-030`/`EX-IHM-031`) — le geste
+  en deux temps (`hmi::resolveLinkClick`) et la géométrie des traits sont traités dans
+  @ref guide-editeur.
+- **Menu principal, options, jeu et remappage en Qt** (`LOT-38`) — la navigation entre pages
+  empilées et leurs signaux sont traités dans @ref guide-ecrans. C'est à cette étape que l'IHM
+  « maison » et l'exécutable historique ont été retirés, et que l'internationalisation, la
+  journalisation et la manette ont été unifiées sur l'unique application Qt.
+
+## Ce que cette page ne couvre pas
+
+L'**apparence** de tout ce qui précède (style, palette, thème clair/sombre, typographie, icônes,
+netteté à l'échelle d'affichage) et la **répartition** des commandes et de l'état dans l'éditeur
+(barre d'état permanente, regroupement des panneaux, unicité des commandes) sont l'objet d'un lot
+à part entière : @ref guide-design-ihm. L'atelier pixel art, qui vit dans ce même châssis, a sa
+page : @ref guide-atelier-pixel-art.
+
 ## Voir aussi
+- @ref guide-design-ihm — jetons de design, thème, actions uniques, barre d'état structurée.
+- @ref guide-atelier-pixel-art — l'atelier pixel art intégré à l'éditeur.
 - [Spécification IHM](@ref spec-interface-ihm) — le *quoi/pourquoi* de la refonte (`EX-IHM-*`).
 - @ref guide-boucle — la boucle et le pas de temps fixe (repris à l'identique côté Qt).
 - @ref guide-entrees — la traduction des entrées en actions logiques (partagée).

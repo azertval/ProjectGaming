@@ -40,6 +40,17 @@ La portée correspond en général au module (`core`, `hmi`, `elements`, `test`,
   `vX.Y.Z` poussé, publie une **Release versionnée** (non préversion) avec les exécutables
   **Debug et Release**, chacun autonome — destinés aux non-développeurs (télécharger,
   décompresser, lancer).
+
+## Publier une version
+1. Bumper `VERSION` dans le `project()` du `CMakeLists.txt` racine — **seul** endroit où le numéro
+   est écrit : il alimente `core::Engine::version()` à la compilation. Aligner le `PROJECT_NUMBER`
+   du `Documentation/Doxyfile` (`scripts/build_docs.py` échoue si les deux divergent).
+2. Dans `CHANGELOG.md`, transformer `## [Non publié]` en `## [X.Y.Z] - AAAA-MM-JJ`, lui ajouter un
+   chapeau de jalon, et rouvrir un `## [Non publié]` vide au-dessus.
+3. Vérifier les notes que produira la release :
+   `python scripts/extract_release_notes.py vX.Y.Z` — le workflow lit **cette** section du
+   CHANGELOG (`--notes-file`) et **échoue** si elle est absente.
+4. Merger, puis poser le tag sur le commit de merge : `git tag vX.Y.Z && git push origin vX.Y.Z`.
 - **Documentation** (`docs.yml`) : génère la Doxygen et la publie sur la branche **`gh-pages`** (lisible en ligne via GitHub Pages).
 
 ## Avant d'ouvrir une PR

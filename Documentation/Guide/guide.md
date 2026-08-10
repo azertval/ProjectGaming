@@ -46,5 +46,7 @@ affiche. Cette frontière est ce qui rend le moteur analysable domaine par domai
 - @subpage guide-rendu — le **rendu 2D** : Direct3D 11, sprite batching, atlas, caméra, interpolation.
 - @subpage guide-journalisation — la **journalisation** et les **assertions** : niveaux, sinks, macros.
 - @subpage guide-editeur — l'**éditeur de niveaux intégré** : brouillon mutable, peinture, undo/redo, essai immédiat.
+- @subpage guide-atelier-pixel-art — l'**atelier pixel art** : opérations pures, historique local, canevas, palettes.
 - @subpage guide-ecrans — la **navigation** Qt : menu, jeu, éditeur et options (pages empilées, signaux).
 - @subpage guide-ihm-qt — la **refonte IHM vers Qt** : socle applicatif, viewport Direct3D 11, boucle et entrées Qt.
+- @subpage guide-design-ihm — le **système de design** et l'**architecture de l'information** : jetons, thème, actions, barre d'état.

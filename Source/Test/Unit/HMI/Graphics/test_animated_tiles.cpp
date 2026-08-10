@@ -56,6 +56,18 @@ int storageB = 0;
 
 }  // namespace
 
+/**
+ * @brief Un skin animé change de région au fil des pas, en restant sur le même rang de la
+ * spritesheet : c'est la preuve que l'horloge d'animation atteint bien la tuile, et que le
+ * découpage parcourt la planche horizontalement comme le veut la convention d'asset.
+ * \castest{<b>Un skin animé produit des régions différentes au fil des pas, sur un même
+ * rang.</b><br/>
+ * \tcat Unitaire · Tuiles animées<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(AnimatedTilesTest, SkinAnimeProduitDesRegionsDifferentesAuFilDesPas) {
     core::Animation animation = freshWaterAnimation();
     const hmi::AnimationDescription description = waterDescription();
@@ -70,6 +82,17 @@ TEST(AnimatedTilesTest, SkinAnimeProduitDesRegionsDifferentesAuFilDesPas) {
     EXPECT_EQ(first.y, second.y);  // spritesheet a un seul rang.
 }
 
+/**
+ * @brief Un skin **non animé** rend la même région à chaque appel : sans image courante
+ * renseignée, la résolution retombe sur l'image entière. La grande majorité des skins n'est pas
+ * animée, et ne doit rien payer au mécanisme d'animation.
+ * \castest{<b>Un skin non animé produit une région constante d'un appel à l'autre.</b><br/>
+ * \tcat Unitaire · Tuiles animées<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(AnimatedTilesTest, SkinNonAnimeProduitUneRegionConstante) {
     // Sans animatedFrame renseigne (asset non anime, TACHE-03) : resolveTileAppearance retombe
     // sur l'image entiere, quel que soit le nombre d'appels.
@@ -97,6 +120,17 @@ TEST(AnimatedTilesTest, SkinNonAnimeProduitUneRegionConstante) {
     EXPECT_EQ(first.region.width, TILE);
 }
 
+/**
+ * @brief Quand une image courante est renseignée, la résolution l'utilise telle quelle plutôt que
+ * la planche entière : c'est le point de jonction entre l'horloge d'animation, partagée par asset,
+ * et le rendu d'une tuile donnée.
+ * \castest{<b>Un skin animé utilise la région de l'image courante, pas la planche entière.</b><br/>
+ * \tcat Unitaire · Tuiles animées<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(AnimatedTilesTest, SkinAnimeUtiliseLaRegionCouranteDeAnimatedFrame) {
     hmi::SkinCatalog catalog;
     catalog.assign("defaut", core::TileType::Solid, hmi::SkinEntry{"water.png", hmi::SkinMode::Single});
@@ -120,6 +154,17 @@ TEST(AnimatedTilesTest, SkinAnimeUtiliseLaRegionCouranteDeAnimatedFrame) {
     EXPECT_EQ(appearance.region.width, TILE);
 }
 
+/**
+ * @brief Deux tuiles du même asset restent en phase à chaque pas, image par image : c'est la
+ * garantie de déterminisme sur laquelle repose l'horloge unique par asset. Deux cases d'eau
+ * voisines déphasées se verraient immédiatement, et trahiraient une progression par instance.
+ * \castest{<b>Deux tuiles du même asset affichent la même image à chaque pas.</b><br/>
+ * \tcat Unitaire · Tuiles animées<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(AnimatedTilesTest, MiseEnPhaseDeuxTuilesDuMemeTypeAffichentLaMemeImageAuMemePas) {
     // Deux "tuiles" independantes, meme jeu de clips partage : si chacune progressait pour son
     // propre compte (au lieu d'une horloge unique par asset), elles resteraient identiques tant
@@ -140,14 +185,45 @@ TEST(AnimatedTilesTest, MiseEnPhaseDeuxTuilesDuMemeTypeAffichentLaMemeImageAuMem
     }
 }
 
+/**
+ * @brief Le mode à raccords automatiques exclut l'animation : la planche y sert déjà à décrire les
+ * seize voisinages possibles, ses cases ne peuvent pas servir en même temps d'images successives.
+ * \castest{<b>Le mode à raccords automatiques exclut l'animation.</b><br/>
+ * \tcat Unitaire · Tuiles animées<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(AnimatedTilesTest, Bitmask16ExclutLAnimation) {
     EXPECT_TRUE(hmi::animationExcludedForTile(hmi::SkinMode::Bitmask16, core::TileType::Solid));
 }
 
+/**
+ * @brief Une tuile à silhouette détourée (pente, arrondi) exclut l'animation : son rendu passe par
+ * un découpage propre à sa forme, incompatible avec un parcours d'images de planche.
+ * \castest{<b>Une tuile à silhouette détourée exclut l'animation.</b><br/>
+ * \tcat Unitaire · Tuiles animées<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(AnimatedTilesTest, SilhouetteDetoureeExclutLAnimation) {
     EXPECT_TRUE(hmi::animationExcludedForTile(hmi::SkinMode::Single, core::TileType::SlopeUpRight));
 }
 
+/**
+ * @brief Une tuile pleine en mode image simple, elle, **peut** être animée : c'est le cas
+ * nominal (eau, lave, bloc scintillant). Le pendant positif des deux exclusions ci-dessus, sans
+ * lequel elles pourraient être trop larges sans que rien ne le signale.
+ * \castest{<b>Une tuile pleine en mode image simple n'exclut pas l'animation.</b><br/>
+ * \tcat Unitaire · Tuiles animées<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST(AnimatedTilesTest, SingleSansSilhouetteNExclutPasLAnimation) {
     EXPECT_FALSE(hmi::animationExcludedForTile(hmi::SkinMode::Single, core::TileType::Solid));
     EXPECT_FALSE(hmi::animationExcludedForTile(hmi::SkinMode::Single, core::TileType::Block));

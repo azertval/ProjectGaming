@@ -3,12 +3,12 @@
 namespace core {
 
 // Retourne la version du moteur.
-// Chaîne de version sémantique (par exemple "0.1.0").
+// Chaîne de version sémantique (par exemple "0.0.5").
 std::string Engine::version() const {
-    // Version fixée en dur pour l'amorçage. Elle sera dérivée du numéro de
-    // version du projet CMake (PROJECT_VERSION) lors de la mise en place du
-    // versionnage, afin d'avoir une source unique de vérité.
-    return "0.1.0";
+    // PROJECTGAMING_VERSION est défini par Source/Core/CMakeLists.txt depuis PROJECT_VERSION :
+    // le numéro n'existe qu'à un seul endroit (le `project()` racine), d'où il alimente aussi le
+    // Doxyfile (contrôlé par scripts/build_docs.py) et le tag de release.
+    return PROJECTGAMING_VERSION;
 }
 
 }  // namespace core

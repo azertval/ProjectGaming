@@ -20,15 +20,58 @@ Le ``Doxyfile`` est configuré en ``QUIET = YES`` et
 rien et renvoie 0, un avertissement fait échouer la commande — même garde-fou
 qu'en intégration continue.
 
+Avant de générer, le script vérifie que le ``PROJECT_NUMBER`` du ``Doxyfile``
+correspond à la ``VERSION`` du ``project()`` racine — la source unique de vérité
+du numéro de version, dont ``core::Engine::version()`` est également dérivé.
+Rien ne reliait ces valeurs jusqu'ici, et elles ont divergé pendant quatre
+jalons (Doxyfile bumpé à chaque release, CMake resté à sa valeur d'amorçage).
+
 Usage :
   python scripts/build_docs.py
 """
 import os
+import re
 import subprocess
 import sys
 
 DOC_DIRECTORY = 'Documentation'
 DOXYFILE = 'Doxyfile'
+ROOT_CMAKELISTS = 'CMakeLists.txt'
+
+PROJECT_VERSION_RE = re.compile(r'^\s*VERSION\s+(\S+)\s*$', re.MULTILINE)
+PROJECT_NUMBER_RE = re.compile(r'^\s*PROJECT_NUMBER\s*=\s*(\S+)\s*$', re.MULTILINE)
+
+
+def read_single(path, pattern, label):
+    """Extrait l'unique capture de @p pattern dans @p path, ou None en signalant pourquoi."""
+    try:
+        with open(path, encoding='utf-8') as handle:
+            matches = pattern.findall(handle.read())
+    except OSError as error:
+        print('ERREUR : %s illisible (%s).' % (path, error))
+        return None
+    if len(matches) != 1:
+        print('ERREUR : %s attendu exactement une fois dans %s (trouve %d).'
+              % (label, path, len(matches)))
+        return None
+    return matches[0]
+
+
+def check_version_consistency(root):
+    """Vrai si le PROJECT_NUMBER du Doxyfile égale la VERSION du project() racine."""
+    cmake_version = read_single(os.path.join(root, ROOT_CMAKELISTS),
+                                PROJECT_VERSION_RE, 'VERSION')
+    doxygen_version = read_single(os.path.join(root, DOC_DIRECTORY, DOXYFILE),
+                                  PROJECT_NUMBER_RE, 'PROJECT_NUMBER')
+    if cmake_version is None or doxygen_version is None:
+        return False
+    if cmake_version != doxygen_version:
+        print('ERREUR : versions incoherentes.')
+        print('  %s      : VERSION %s' % (ROOT_CMAKELISTS, cmake_version))
+        print('  %s/%s : PROJECT_NUMBER %s' % (DOC_DIRECTORY, DOXYFILE, doxygen_version))
+        print("Le project() racine est la source unique de verite : aligner le Doxyfile sur lui.")
+        return False
+    return True
 
 
 def build(root):
@@ -57,6 +100,8 @@ def build(root):
 
 def main():
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if not check_version_consistency(root):
+        return 1
     return build(root)
 
 

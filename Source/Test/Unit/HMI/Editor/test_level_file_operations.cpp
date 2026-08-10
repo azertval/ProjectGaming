@@ -27,6 +27,17 @@ protected:
 
 }  // namespace
 
+/**
+ * @brief Créer un niveau écrit sur disque un fichier **valide** et l'expose immédiatement dans la
+ * liste : la création part d'un `core::LevelDraft` vide passé par la validation, jamais d'un
+ * fichier vide qui échouerait au premier chargement.
+ * \castest{<b>Créer un niveau écrit un fichier valide, immédiatement listé.</b><br/>
+ * \tcat Unitaire · Opérations sur fichiers de niveau<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST_F(LevelFileOps, CreeUnNiveauValide) {
     const hmi::LevelFileOperations ops(dir);
     const hmi::FileOpResult result = ops.create("MonNiveau", 10, 6);
@@ -35,6 +46,17 @@ TEST_F(LevelFileOps, CreeUnNiveauValide) {
     EXPECT_EQ(ops.list().size(), 1U);
 }
 
+/**
+ * @brief Un nom invalide (barre oblique, qui s'échapperait du dossier des niveaux) et un nom déjà
+ * pris sont refusés par un résultat récupérable, jamais par une exception ni par un écrasement
+ * silencieux du niveau existant.
+ * \castest{<b>Un nom invalide ou déjà pris est refusé, sans écraser le niveau existant.</b><br/>
+ * \tcat Unitaire · Opérations sur fichiers de niveau<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST_F(LevelFileOps, RefuseNomInvalideEtCollision) {
     const hmi::LevelFileOperations ops(dir);
     EXPECT_FALSE(ops.create("a/b", 10, 6).ok);   // barre oblique interdite
@@ -42,6 +64,16 @@ TEST_F(LevelFileOps, RefuseNomInvalideEtCollision) {
     EXPECT_FALSE(ops.create("Niveau", 10, 6).ok);  // collision de nom
 }
 
+/**
+ * @brief Renommer **déplace** le fichier : l'ancien chemin disparaît et le nouveau existe. Une
+ * copie qui laisserait l'ancien en place produirait deux niveaux là où l'auteur en attend un.
+ * \castest{<b>Renommer déplace le fichier : l'ancien chemin disparaît, le nouveau existe.</b><br/>
+ * \tcat Unitaire · Opérations sur fichiers de niveau<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST_F(LevelFileOps, RenommeEtDeplaceLeFichier) {
     const hmi::LevelFileOperations ops(dir);
     const hmi::FileOpResult created = ops.create("Ancien", 10, 6);
@@ -52,6 +84,16 @@ TEST_F(LevelFileOps, RenommeEtDeplaceLeFichier) {
     EXPECT_TRUE(std::filesystem::exists(renamed.path));
 }
 
+/**
+ * @brief Dupliquer deux fois le même niveau produit deux copies **distinctes** : le nom de la
+ * copie est rendu unique à chaque appel, sinon la seconde duplication écraserait la première.
+ * \castest{<b>Dupliquer deux fois le même niveau produit deux copies distinctes.</b><br/>
+ * \tcat Unitaire · Opérations sur fichiers de niveau<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST_F(LevelFileOps, DupliqueSousUnNomUnique) {
     const hmi::LevelFileOperations ops(dir);
     const hmi::FileOpResult base = ops.create("Base", 10, 6);
@@ -64,6 +106,16 @@ TEST_F(LevelFileOps, DupliqueSousUnNomUnique) {
     EXPECT_EQ(ops.list().size(), 3U);
 }
 
+/**
+ * @brief Supprimer retire effectivement le fichier du disque et le signale par un résultat
+ * favorable — le panneau se fie à ce résultat pour retirer la ligne de sa liste.
+ * \castest{<b>Supprimer retire effectivement le fichier du disque.</b><br/>
+ * \tcat Unitaire · Opérations sur fichiers de niveau<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST_F(LevelFileOps, SupprimeLeFichier) {
     const hmi::LevelFileOperations ops(dir);
     const hmi::FileOpResult created = ops.create("X", 10, 6);

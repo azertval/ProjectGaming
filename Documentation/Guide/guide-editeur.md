@@ -125,7 +125,10 @@ viewport. Le problème d'occlusion disparaît par construction :
 - la **Palette** (`hmi::PalettePanel`, un `QTreeView` alimenté par la taxonomie pure
   `hmi::tileTaxonomy`) émet le type sélectionné, que `MainWindow` relaie au viewport via
   `GameViewport::setActiveTile` ;
-- les **Outils** (`hmi::ToolPanel`) émettent l'outil actif, relayé via `GameViewport::setTool`.
+- l'**outil actif** est choisi depuis la barre d'outils à icônes (`hmi::EditorActions`, `LOT-56`) et
+  relayé via `GameViewport::setTool`. L'ancien panneau de boutons radio a disparu ; ce qui restait
+  d'options propres à l'outil Décor vit désormais dans le panneau **Décors** (`hmi::DecorsPanel`),
+  qui regroupe aussi l'inspecteur des décors posés (voir @ref guide-design-ihm).
 
 Le viewport ne reçoit donc que des **clics de grille** ; il n'a plus à arbitrer entre « peindre » et
 « cliquer un panneau ». Détail de ces widgets Qt : @ref guide-ihm-qt.
@@ -293,12 +296,16 @@ dupliquer/supprimer, sans dépendance Qt) — la même séparation « logique pu
 ## Voir aussi
 - `core::LevelDraft` (dont `paintRegion`, `wouldResizeDropContent`), `core::LevelWriter`,
   `core::LevelLoader` (dont `LevelValidationError`), `core::Mechanism`.
-- `hmi::GameViewport`, `hmi::EditorTool`, `hmi::PalettePanel`, `hmi::tileTaxonomy`, `hmi::ToolPanel`,
-  `hmi::LevelBrowserPanel`, `hmi::LevelFileOperations`, `hmi::isValidLevelName`.
+- `hmi::GameViewport`, `hmi::EditorTool`, `hmi::PalettePanel`, `hmi::tileTaxonomy`,
+  `hmi::DecorsPanel`, `hmi::LevelBrowserPanel`, `hmi::LevelFileOperations`, `hmi::isValidLevelName`.
 - `hmi::Camera2D::fitZoom` — le cadrage partagé par l'éditeur et le jeu.
 - `hmi::LayerVisibility`, `hmi::resolveTileAppearance` — le mode d'inspection « définition des
   textures » (`LOT-51`) et le résolveur unique qu'il réutilise avec `F8`.
 - @ref guide-ihm-qt — l'IHM Qt : fenêtre, docks, arbre de palette, navigateur de fichiers, viewport.
+- @ref guide-atelier-pixel-art — l'atelier pixel art : modifier les assets sans quitter l'éditeur,
+  avec un historique **distinct** de celui du brouillon décrit ici.
+- @ref guide-design-ihm — la barre d'état permanente, le regroupement des panneaux et l'unicité des
+  commandes de l'éditeur (`LOT-56`, `LOT-57`).
 - @ref guide-niveaux — le modèle de niveau immuable, la validation et le format JSON réutilisés sans
   duplication.
 - @ref guide-rendu — `SpriteBatch`/`Camera2D`/`TextureAtlas`, réutilisés tels quels par

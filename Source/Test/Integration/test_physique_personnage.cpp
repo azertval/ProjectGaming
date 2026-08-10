@@ -2222,45 +2222,6 @@ TEST(PhysiquePersonnageIntegration, ArrondisConcavesDeSolAdjacentsSansChuteALaJo
 }
 
 /**
- * @brief Un arrondi concave de **plafond**, seul sur sa case (voisine vide), bloque toujours un
- * saut visant son bord « plein » (silhouette la plus épaisse, tout près de son propre bord de
- * case). Même exigence que pour le sol (largeur complète de la boîte, pas seulement son centre) :
- * sinon le centre de la boîte glisse dans la case voisine vide (aucune silhouette à vérifier là)
- * avant que son bord n'ait fini de traverser la portion la plus épaisse, laissant un saut passer
- * au travers par en dessous sans être bloqué du tout.
- * \castest{<b>Un arrondi concave de plafond bloque un saut visant son bord plein, même tout près
- * du bord de sa propre case.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Bloquant<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le saut est bloqué par la silhouette épaisse près du bord de case, bien avant
- * d'atteindre l'apogée libre d'un saut totalement non bloqué.
- * }
- */
-/**
- * @brief Sauter tout en marchant (les deux à la fois, comme un joueur réel) **vers son propre bord
- * épais** sous un arrondi concave de plafond bloque toujours le saut, y compris quand marcher
- * pendant la montée déplace la boîte plus vite que le seuil vertical de blocage n'est atteint : la
- * colonne pertinente peut alors « disparaître » d'un pas à l'autre — voire sur PLUSIEURS pas
- * consécutifs quand le seuil est manqué de peu à chaque fois (une mémoire limitée au seul pas
- * précédent ne suffit pas). `core::CharacterPhysicsSystem` mémorise l'étendue horizontale couverte
- * par la boîte depuis le **début de la montée courante** (`Player::ascentSweepMinX/MaxX`), pas
- * seulement le pas précédent. Testé dans les deux orientations (`ConcaveDownRight` en marchant vers
- * la droite, son bord épais ; `ConcaveDownLeft` en marchant vers la gauche, symétrique) — marcher
- * vers son propre bord **fin** n'est volontairement PAS testé ici : s'en éloigner en marchant y
- * ramène légitimement vers une silhouette quasi vide (`EX-GP-007`).
- * \castest{<b>Sauter tout en marchant vers le bord épais d'un arrondi concave de plafond bloque
- * toujours le saut, en combinant les deux mouvements.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Bloquant<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le saut reste bloqué par la silhouette épaisse en marchant vers elle pendant la montée
- * — jamais un passage complet jusqu'à l'apogée libre d'un saut non bloqué.
- * }
- */
-/**
  * @brief Un saut bloqué près du bord **fin** (silhouette quasi vide) d'un arrondi concave de
  * plafond reste bloqué DURABLEMENT — le personnage retombe normalement ensuite, il ne se
  * téléporte jamais au-dessus du plafond. Près du bord fin, le blocage a lieu tout près du sommet
@@ -2324,6 +2285,28 @@ TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBordFinResteBloqueSansTelepo
     SUCCEED();
 }
 
+/**
+ * @brief Sauter tout en marchant (les deux à la fois, comme un joueur réel) **vers son propre bord
+ * épais** sous un arrondi concave de plafond bloque toujours le saut, y compris quand marcher
+ * pendant la montée déplace la boîte plus vite que le seuil vertical de blocage n'est atteint : la
+ * colonne pertinente peut alors « disparaître » d'un pas à l'autre — voire sur PLUSIEURS pas
+ * consécutifs quand le seuil est manqué de peu à chaque fois (une mémoire limitée au seul pas
+ * précédent ne suffit pas). `core::CharacterPhysicsSystem` mémorise l'étendue horizontale couverte
+ * par la boîte depuis le **début de la montée courante** (`Player::ascentSweepMinX/MaxX`), pas
+ * seulement le pas précédent. Testé dans les deux orientations (`ConcaveDownRight` en marchant vers
+ * la droite, son bord épais ; `ConcaveDownLeft` en marchant vers la gauche, symétrique) — marcher
+ * vers son propre bord **fin** n'est volontairement PAS testé ici : s'en éloigner en marchant y
+ * ramène légitimement vers une silhouette quasi vide (`EX-GP-007`).
+ * \castest{<b>Sauter tout en marchant vers le bord épais d'un arrondi concave de plafond bloque
+ * toujours le saut, en combinant les deux mouvements.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le saut reste bloqué par la silhouette épaisse en marchant vers elle pendant la montée
+ * — jamais un passage complet jusqu'à l'apogée libre d'un saut non bloqué.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBloqueMemeEnMarchantPendantLeSaut) {
     constexpr int CEILING_COLUMN = 3;
     constexpr int CEILING_ROW = 3;
@@ -2399,6 +2382,23 @@ TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBloqueMemeEnMarchantPendantL
     }
 }
 
+/**
+ * @brief Un arrondi concave de **plafond**, seul sur sa case (voisine vide), bloque toujours un
+ * saut visant son bord « plein » (silhouette la plus épaisse, tout près de son propre bord de
+ * case). Même exigence que pour le sol (largeur complète de la boîte, pas seulement son centre) :
+ * sinon le centre de la boîte glisse dans la case voisine vide (aucune silhouette à vérifier là)
+ * avant que son bord n'ait fini de traverser la portion la plus épaisse, laissant un saut passer
+ * au travers par en dessous sans être bloqué du tout.
+ * \castest{<b>Un arrondi concave de plafond bloque un saut visant son bord plein, même tout près
+ * du bord de sa propre case.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le saut est bloqué par la silhouette épaisse près du bord de case, bien avant
+ * d'atteindre l'apogée libre d'un saut totalement non bloqué.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBloqueMemePresDuBordDeSaPropreCase) {
     constexpr int CEILING_COLUMN = 3;
     constexpr int CEILING_ROW = 3;
