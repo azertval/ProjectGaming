@@ -22,6 +22,7 @@
 
 namespace core {
 class World;
+class TileMap;
 struct TileTextureOverride;
 struct Decor;
 }
@@ -180,13 +181,18 @@ public:
      *                    transmise telle quelle à `hmi::sceneTextures`.
      * @param decors      Décors libres du niveau courant (`EX-DEC-001`, `LOT-49`), transmis tels
      *                    quels à `hmi::sceneTextures`.
+     * @param doorCollision Grille de collision courante des mécanismes (`core::
+     *                    MechanismController::collisionMap`, `LOT-55`), pour que l'ombre d'une
+     *                    porte suive son état ouverte/fermée plutôt que son type statique ;
+     *                    `nullptr` (défaut) exclut les portes de l'ombrage.
      */
     void render(core::World& world, const Camera2D& camera, RenderMode mode,
                 float interpolationAlpha, const std::optional<std::string>& background = {},
                 int levelWidth = 0, int levelHeight = 0,
                 const std::vector<core::TileTextureOverride>& textureOverrides = {},
                 const std::unordered_map<std::string, core::Animation>& tileAnimations = {},
-                const std::vector<core::Decor>& decors = {});
+                const std::vector<core::Decor>& decors = {},
+                const core::TileMap* doorCollision = nullptr);
 
     /// @return La scène composée à la dernière image (primitives soumises et compteurs).
     [[nodiscard]] const ComposedScene& lastScene() const noexcept {

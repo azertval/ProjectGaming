@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**783 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**790 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (693)
+## Tests unitaires (700)
 
 ### Core
 
@@ -677,7 +677,7 @@
 | **GameHudTest.CompteurSuitLaDecroissanceDuBudget** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_hud.cpp:97`</sub> | Le compteur affiché suit immédiatement la décroissance du budget. | 1. Composer les lignes avec 3 sauts restants, puis avec 2 (après un saut simulé).<br/> 2. Comparer les deux résultats. | Vérifie que `hmi::gameHudLines(player, "Niveau", localization)[0]` vaut `"Sauts : 3"`.<br/>Vérifie que `hmi::gameHudLines(player, "Niveau", localization)[0]` vaut `"Sauts : 2"`. |
 | **GameHudTest.ClesDeTraductionExistentDansLesDeuxCatalogues** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_hud.cpp:120`</sub> | Les clés de traduction du HUD existent dans les deux catalogues livrés. | 1. Charger fr.lang puis en.lang depuis les catalogues livrés.<br/>2. Résoudre les clés du HUD. | Vérifie que `localization.loadDefaultLanguage(language)` est vrai.<br/>Vérifie que `localization.text("hud.jumps_remaining")` diffère de `"hud.jumps_remaining"`.<br/>Vérifie que `localization.text("hud.dashes_remaining")` diffère de `"hud.dashes_remaining"`. |
 
-#### Graphics (188)
+#### Graphics (195)
 
 **`test_asset_contract.cpp`**
 
@@ -871,6 +871,18 @@
 | **RoomGridTest.NiveauNonMultipleRogneLaDerniereSalle** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_room_grid.cpp:65`</sub> | Un niveau non multiple de la taille de salle rogne la dernière colonne/ligne. | 1. Construire un `RoomGrid` pour un niveau dépassant de quelques cases un multiple de la taille de salle.<br/>2. Vérifier le rectangle de la dernière salle sur chaque axe. | Vérifie que `grid.columns()` vaut `2`.<br/>Vérifie que `grid.rows()` vaut `2`.<br/>Vérifie que `last.column` vaut `hmi::RoomGrid::ROOM_WIDTH_TILES`.<br/>Vérifie que `last.row` vaut `hmi::RoomGrid::ROOM_HEIGHT_TILES`.<br/>Vérifie que `last.width` vaut `extraWidth`.<br/>Vérifie que `last.height` vaut `extraHeight`. |
 | **RoomGridTest.RoomIndexAtQuatreCoins** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_room_grid.cpp:94`</sub> | `roomIndexAt` renvoie l'indice de salle correct aux quatre coins et au centre. | 1. Construire un `RoomGrid` de 2x2 salles.<br/>2. Interroger `roomIndexAt` à des positions choisies dans chacune des quatre salles. | Vérifie que `grid.roomIndexAt(core::GridPosition{0, 0})` vaut `(core::GridPosition{0, 0})`.<br/>Vérifie que `grid.roomIndexAt(core::GridPosition{width - 1, 0})` vaut `(core::GridPosition{1, 0})`.<br/>Vérifie que `grid.roomIndexAt(core::GridPosition{0, height - 1})` vaut `(core::GridPosition{0, 1})`.<br/>Vérifie que `grid.roomIndexAt(core::GridPosition{width - 1, height - 1})` vaut `(core::GridPosition{1, 1})`. |
 | **RoomGridTest.PositionHorsBornesEstBornee** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_room_grid.cpp:117`</sub> | Une position hors des bornes du niveau est bornée à la salle la plus proche. | 1. Construire un `RoomGrid` pour un petit niveau.<br/>2. Interroger `roomIndexAt` avec des coordonnées négatives puis très supérieures aux bornes. | Vérifie que `grid.roomIndexAt(core::GridPosition{-100, -100})` vaut `(core::GridPosition{0, 0})`.<br/>Vérifie que `grid.roomIndexAt(core::GridPosition{1000, 1000})` vaut `(core::GridPosition{0, 0})`. |
+
+**`test_shadow_render.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ShadowRenderTest.TuilePleineProjetteUnQuadDecaleSurShadow** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_shadow_render.cpp:52`</sub> | Tuile pleine : quad d'ombre decale sur Shadow. | 1. Peupler une tuile Solid.<br/>2. Composer les ombres en mode Texture. | Vérifie que `recorder.size()` vaut `1u`.<br/>Vérifie que `recorder.countOnLayer(hmi::RenderLayer::Shadow)` vaut `1`.<br/>Vérifie que `quad.sprite.x` vaut `3.0f + hmi::SHADOW_OFFSET_X` (comparaison flottante).<br/>Vérifie que `quad.sprite.y` vaut `2.0f + hmi::SHADOW_OFFSET_Y` (comparaison flottante).<br/>Vérifie que `quad.sprite.width` vaut `1.0f` (comparaison flottante).<br/>Vérifie que `quad.sprite.height` vaut `1.0f` (comparaison flottante).<br/>Vérifie que `quad.sprite.a` est strictement inférieur à `1.0f`. |
+| **ShadowRenderTest.TuilesNonPhysiquesAucuneOmbre** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_shadow_render.cpp:81`</sub> | Tuiles non physiques : aucune ombre. | 1. Peupler danger, entree, sortie, interrupteur, plaque, porte.<br/>2. Composer les ombres en mode Texture. | Vérifie que `scene.size()` vaut `0u`. |
+| **ShadowRenderTest.ModePhysiqueAucuneOmbre** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_shadow_render.cpp:107`</sub> | Mode Physique : aucune ombre. | 1. Peupler une tuile Solid et une silhouette.<br/>2. Composer en mode Physique. | Vérifie que `scene.size()` vaut `0u`. |
+| **ShadowRenderTest.DouzeSilhouettesMemeRegionQueRegionForTile** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_shadow_render.cpp:129`</sub> | Silhouettes : ombre a la meme region d'atlas que la tuile. | 1. Peupler chacun des douze types a silhouette.<br/>2. Composer les ombres. | Vérifie que `recorder.size()` vaut `1u`.<br/>Vérifie que `quad.sprite.u0` vaut `expectedU0` (comparaison flottante).<br/>Vérifie que `quad.sprite.v0` vaut `expectedV0` (comparaison flottante).<br/>Vérifie que `quad.sprite.u1` vaut `expectedU1` (comparaison flottante).<br/>Vérifie que `quad.sprite.v1` vaut `expectedV1` (comparaison flottante). |
+| **ShadowRenderTest.BlocsReduitsOmbreATailleReelle** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_shadow_render.cpp:167`</sub> | Blocs reduits : ombre a la taille reelle. | 1. Peupler BlockHalf et BlockQuarter.<br/>2. Composer les ombres. | Vérifie que `recorder.size()` vaut `2u`.<br/>Vérifie que `recorder.quads()[0].sprite.width` vaut `0.5f` (comparaison flottante).<br/>Vérifie que `recorder.quads()[0].sprite.height` vaut `0.5f` (comparaison flottante).<br/>Vérifie que `recorder.quads()[1].sprite.width` vaut `0.25f` (comparaison flottante).<br/>Vérifie que `recorder.quads()[1].sprite.height` vaut `0.25f` (comparaison flottante). |
+| **ShadowRenderTest.BlocPoussableEnMouvementOmbreInterpolee** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_shadow_render.cpp:194`</sub> | Bloc poussable en mouvement : ombre interpolee. | 1. Peupler un Block avec une PreviousPosition distincte.<br/>2. Composer a interpolationAlpha = 0.5. | Vérifie que `recorder.size()` vaut `1u`.<br/>Vérifie que `recorder.quads().front().sprite.x` vaut `4.5f + hmi::SHADOW_OFFSET_X` (comparaison flottante).<br/>Vérifie que `recorder.quads().front().sprite.y` vaut `5.0f + hmi::SHADOW_OFFSET_Y` (comparaison flottante). |
+| **ShadowRenderTest.PorteSuitLEtatCourantDeLaGrilleDeCollision** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_shadow_render.cpp:221`</sub> | Porte : ombre selon l'etat courant de la grille de collision. | 1. Peupler une porte.<br/>2. Composer sans grille, puis avec une grille ou elle est fermee, puis ouverte. | Vérifie que `scene.size()` vaut `0u`.<br/>Vérifie que `scene.size()` vaut `1u`.<br/>Vérifie que `scene.size()` vaut `0u`. |
 
 **`test_skin_catalog.cpp`**
 

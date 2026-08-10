@@ -71,6 +71,7 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_layer_visibility.cpp
     Unit/HMI/Graphics/test_bitmap_font.cpp
     Unit/HMI/Graphics/test_text_renderer.cpp
+    Unit/HMI/Graphics/test_shadow_render.cpp
     Unit/HMI/Game/test_game_hud.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
@@ -154,6 +155,9 @@ add_executable(UnitTests
     # texture (acces TextureCache/GPU) est separee dans hmi::resolveBackgroundTexture
     # (SpriteRenderer.cpp, non compile ici), meme patron que composeWorldSprites/sceneTextures.
     ../HMI/Graphics/BackgroundRenderer.cpp
+    # Les ombres du plan physique (LOT-55) ne font que composer des quads a partir de l'ECS et de
+    # l'atlas procedural (regions deja calculees) -- pure, sans GPU, meme patron que ci-dessus.
+    ../HMI/Graphics/ShadowRenderer.cpp
     # L'état des entrées est indépendant de la fenêtre (aucun <Windows.h>) : sa
     # source est compilée dans les tests pour valider les fronts en isolation.
     ../HMI/Input/InputState.cpp

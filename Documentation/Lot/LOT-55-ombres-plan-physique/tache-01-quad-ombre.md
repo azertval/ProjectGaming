@@ -1,6 +1,6 @@
 # TACHE-01 — Quad d'ombre par tuile solide {#lot-55-tache-01-quad-ombre}
 
-**Lot :** [LOT-55](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-55](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 Le calque *Shadow* de *RenderLayer* a été réservé en LOT-40 et n'a jamais été utilisé. Cette tâche
@@ -29,10 +29,33 @@ détache de ce qui ne l'est pas. C'est le complément du calque de premier plan 
   tâche se limite au quad rectangulaire pleine case des types `Solid` et `Block`.
 
 ## Fichiers impactés
-- `Source/HMI/Graphics/ShadowRenderer.{h,cpp}` (nouveau) ou extension de `DraftRenderer`/
-  `SpriteRenderer`.
-- `Source/HMI/Game/GameSession.{h,cpp}`, `Source/HMI/Graphics/DraftRenderer.{h,cpp}`.
+- `Source/HMI/Graphics/ShadowRenderer.{h,cpp}` (nouveau) : `hmi::composeShadows`, unique pour
+  TACHE-01 et TACHE-03 (voir Réalisation ci-dessous).
+- `Source/HMI/Graphics/SpriteRenderer.{h,cpp}` (appel depuis `SpriteRenderer::render`, paramètre
+  `doorCollision`), `Source/HMI/Graphics/DraftRenderer.cpp` (appel gardé par `LayerVisibility`),
+  `Source/HMI/Game/GameSession.cpp` (transmet `MechanismController::collisionMap()`).
 - `Source/Test/Unit/HMI/Graphics/test_shadow_render.cpp` (nouveau).
+
+## Réalisation
+`hmi::composeShadows` parcourt les mêmes entités que `hmi::composeWorldSprites`
+(`core::Transform` + `hmi::TileSkinTag`) et ne retient que celles qui projettent une ombre
+(`core::isSolid(type) || hmi::hasSilhouette(type)`, plus le cas particulier de la porte ci-dessous).
+La région échantillonnée est directement `hmi::regionForTile(type)` — **le même** atlas procédural
+que le mode Physique et que le détourage de silhouette (`LOT-42`) : cette région est déjà opaque
+exactement là où la matière est présente (case pleine, ou silhouette de pente/arrondi) et
+transparente ailleurs, donc teinter le quad en noir semi-transparent donne l'ombre à sa forme
+réelle sans réimplémenter la géométrie ni ajouter de cache dédié. Un bloc réduit hérite de sa
+taille réelle via `core::Transform::scale` (`core::tileVisualScale`), déjà porté par l'entité
+comme pour son propre sprite. Une seule fonction couvre donc à la fois TACHE-01 (quad plein) et
+TACHE-03 (silhouettes, blocs réduits) : la distinction entre les deux n'existe plus en pratique une
+fois la région réutilisée telle quelle.
+
+Pour la porte (source de solidité, cf. « Points d'attention ») : `TileSkinTag::type` reste
+`TileType::Door` quel que soit l'état du mécanisme (figé au chargement, jamais réécrit) — le choix
+retenu est donc de suivre l'état courant, via un paramètre optionnel `doorCollision` (la grille
+`core::MechanismController::collisionMap()`) plutôt que le type statique. `hmi::GameSession` le
+fournit toujours ; `hmi::DraftRenderer` (aucune simulation de mécanisme) passe `nullptr`, et une
+porte n'y projette donc jamais d'ombre — état normal de l'éditeur, pas un défaut.
 
 ## Tests (obligatoires)
 - Une tuile `Solid` ou `Block` produit un quad sur le calque *Shadow*, décalé de l'offset attendu ;

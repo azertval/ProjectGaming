@@ -1,6 +1,6 @@
 # LOT-55 — Ombres du plan physique {#lot-55}
 
-> Statut : **non commencé**. Prérequis : [LOT-41](@ref lot-41) (bascule). Bénéficie de
+> Statut : **fait**. Prérequis : [LOT-41](@ref lot-41) (bascule). Bénéficie de
 > [LOT-44](@ref lot-44) (fond) et [LOT-49](@ref lot-49) (décors). Dernier lot du programme
 > d'habillage.
 
@@ -74,9 +74,9 @@ rien tant que le reste de l'habillage n'existe pas.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-quad-ombre.md) | Génération du quad d'ombre par tuile solide sur le calque *Shadow* | `Source/HMI/Graphics` | ⬜ |
-| [TACHE-03](tache-03-ombres-silhouettes.md) | Ombres à la forme réelle : silhouettes (pentes, arrondis) et blocs réduits | `Source/HMI/Graphics` | ⬜ |
-| [TACHE-02](tache-02-verification-documentation.md) | Vérification finale du programme + documentation | `Source/Test`, `Documentation` | ⬜ |
+| [TACHE-01](tache-01-quad-ombre.md) | Génération du quad d'ombre par tuile solide sur le calque *Shadow* | `Source/HMI/Graphics` | ✅ |
+| [TACHE-03](tache-03-ombres-silhouettes.md) | Ombres à la forme réelle : silhouettes (pentes, arrondis) et blocs réduits | `Source/HMI/Graphics` | ✅ |
+| [TACHE-02](tache-02-verification-documentation.md) | Vérification finale du programme + documentation | `Source/Test`, `Documentation` | ✅ |
 
 > `TACHE-03` s'exécute **avant** `TACHE-02` (vérification finale) ; les numéros sont des
 > identifiants, pas un ordre.

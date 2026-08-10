@@ -24,11 +24,13 @@ l'interface (français/anglais) à tout moment.
 Une manette **XInput** peut être branchée ou débranchée à tout moment ; elle **complète** le
 clavier plutôt que de le remplacer (les deux fonctionnent simultanément).
 
-**F8** bascule entre deux façons de voir le niveau. L'affichage normal montre le niveau **habillé** ;
-l'autre le montre **tel qu'il est réellement construit**, chaque case dans une couleur unie selon
-son rôle — pratique pour comprendre exactement où commence un sol, une pente ou un piège quand un
-passage résiste. La bascule ne change rien au jeu lui-même : ni la difficulté, ni la position du
-personnage, ni la progression. Le choix est conservé pour les fois suivantes.
+**F8** bascule entre deux façons de voir le niveau. L'affichage normal montre le niveau **habillé** —
+les cases physiques (sol, pentes, blocs) y projettent une ombre légère sur ce qu'il y a derrière
+elles, pour aider à distinguer d'un coup d'œil ce qui porte de ce qui n'est que décor ; l'autre le
+montre **tel qu'il est réellement construit**, chaque case dans une couleur unie selon son rôle —
+pratique pour comprendre exactement où commence un sol, une pente ou un piège quand un passage
+résiste. La bascule ne change rien au jeu lui-même : ni la difficulté, ni la position du personnage,
+ni la progression. Le choix est conservé pour les fois suivantes.
 
 ## Objectif d'un niveau
 

@@ -9,6 +9,7 @@
 #include "HMI/Graphics/DecorVisuals.h"
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/PlayerSprite.h"
+#include "HMI/Graphics/ShadowRenderer.h"
 #include "HMI/Graphics/TextureAtlas.h"
 #include "HMI/Graphics/TextureCache.h"
 
@@ -228,15 +229,16 @@ void SpriteRenderer::render(core::World& world, const Camera2D& camera, RenderMo
                             int levelHeight,
                             const std::vector<core::TileTextureOverride>& textureOverrides,
                             const std::unordered_map<std::string, core::Animation>& tileAnimations,
-                            const std::vector<core::Decor>& decors) {
+                            const std::vector<core::Decor>& decors,
+                            const core::TileMap* doorCollision) {
     _scene.clear();
     _scene.setVisibleBounds(camera.visibleBounds());
+    const SceneTextures textures =
+        sceneTextures(*_atlas, *_cache, _skins, _skinSet, textureOverrides, tileAnimations, decors);
     composeBackground(_scene, resolveBackgroundTexture(background, *_cache), levelWidth,
                       levelHeight, mode);
-    composeWorldSprites(_scene, world, mode,
-                        sceneTextures(*_atlas, *_cache, _skins, _skinSet, textureOverrides,
-                                      tileAnimations, decors),
-                        interpolationAlpha, &camera);
+    composeShadows(_scene, world, mode, textures, interpolationAlpha, doorCollision);
+    composeWorldSprites(_scene, world, mode, textures, interpolationAlpha, &camera);
     _scene.sort();
     logStatisticsIfChanged();
     submitComposedScene(*_batch, camera.projectionMatrix(), _scene);

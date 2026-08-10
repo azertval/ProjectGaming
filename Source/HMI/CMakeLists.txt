@@ -120,6 +120,7 @@ add_executable(ProjectGaming
     Graphics/ComposedScene.cpp
     Graphics/QuadRecorder.cpp
     Graphics/BackgroundRenderer.cpp
+    Graphics/ShadowRenderer.cpp
     Graphics/SpriteRenderer.cpp
     Graphics/DraftRenderer.cpp
     Graphics/TileVisuals.cpp

@@ -680,6 +680,45 @@ appelé depuis le point d'entrée unique `hmi::GameSession::render`, jamais depu
 DraftRenderer`, seul chemin de l'éditeur en édition pure), avec une ombre portée (décalage d'un
 pixel) pour rester lisible sur fond clair comme sur fond sombre.
 
+## Ombres du plan physique (`LOT-55`)
+
+Dernier calque du programme d'habillage à s'activer : `RenderLayer::Shadow`, réservé sans être
+utilisé depuis `LOT-40`, entre `Decor` et `Tile` dans l'empilement — sous les tuiles, au-dessus du
+fond et des décors d'arrière-plan. L'objectif est de **lecture**, pas d'esthétique : aider le
+niveau designer, et en `RenderMode::Texture` le joueur, à distinguer d'un coup d'œil ce qui est
+**physique** (solide, collidable) de ce qui est **décor** — le complément exact du calque de
+premier plan (`LOT-49`) : l'un dit « ceci passe devant vous, donc ne vous porte pas », l'autre
+« ceci est en relief, donc vous porte ».
+
+`hmi::composeShadows` (`HMI/Graphics/ShadowRenderer.h`) parcourt les mêmes entités que
+`hmi::composeWorldSprites` (`core::Transform` + `hmi::TileSkinTag`), et n'en retient que celles qui
+projettent une ombre : pleines (`core::isSolid`) ou à silhouette inclinée/courbe (`hmi::
+hasSilhouette`, `LOT-42`). La région échantillonnée est directement `hmi::regionForTile(type)` — le
+**même** atlas procédural que `RenderMode::Physique` et que le détourage de silhouette des skins :
+cette région est déjà opaque exactement là où la matière est présente et transparente ailleurs
+(`hmi::isInsideSilhouette`), donc teinter le quad en noir semi-transparent, décalé d'un pixel, donne
+l'ombre à sa forme réelle — pente, arrondi, ou bloc réduit (`core::tileVisualScale`, porté par
+`core::Transform::scale` comme pour le sprite de la tuile) — sans réimplémenter la géométrie ni
+ajouter le moindre nouveau prédicat de solidité dans `Core` : une ombre est la projection d'une
+**forme**, pas d'un degré de solidité, et cette forme est déjà exposée côté `Core` sous une forme
+plus riche qu'un booléen. Un bloc poussable en mouvement voit son ombre suivre automatiquement, par
+la même interpolation (`hmi::PreviousPosition`) que son propre sprite — jamais recalculée à part.
+
+Une porte fait exception à la règle « ombre = type statique » : `hmi::TileSkinTag::type` reste
+`TileType::Door` quel que soit l'état du mécanisme (figé au chargement), alors que sa solidité
+**réelle** dépend de l'interrupteur qui la commande. `hmi::composeShadows` accepte donc une grille
+de collision optionnelle (`core::MechanismController::collisionMap()`, fournie par `hmi::
+GameSession`) pour trancher l'ombre d'une porte sur son état **courant** plutôt que sur son type
+figé — une porte fermée projette une ombre, une porte ouverte n'en projette plus.
+`hmi::DraftRenderer` (aucune simulation de mécanisme dans l'éditeur) ne fournit pas cette grille :
+une porte n'y projette jamais d'ombre, état normal plutôt qu'un défaut.
+
+Actif **uniquement** en `RenderMode::Texture` (`RenderMode::Physique` reste la lecture nue des
+collisions, déjà sans ambiguïté par la couleur plate) et sans le moindre effet sur le gameplay
+(`EX-ARCH-012`) : les ombres passent par le même culling que le reste (`hmi::ComposedScene::
+addSprite`), et l'axe `Shadow` de `hmi::LayerVisibility` (`LOT-51`) les masque grossièrement dans
+l'éditeur, comme `Background`/`Decor`/`Foreground`.
+
 ## Assembler la frame complète
 
 Dans le viewport (`hmi::GameViewport::renderFrame`), l'ordre d'une frame de rendu est :
@@ -690,40 +729,52 @@ les buffers). C'est la même boucle que celle décrite en @ref guide-boucle, don
 étape — toujours exécutée **une fois par frame réelle**, après que tous les pas de simulation fixes
 de cette frame ont eu lieu.
 
-## Ce qui vient ensuite : le programme d'habillage (`LOT-40` → `LOT-55`)
+## Le programme d'habillage, livré (`LOT-40` → `LOT-55`)
 
 Le pipeline d'origine était volontairement minimal : **une** texture liée par lot de dessin, deux
 valeurs de couche, aucun culling, et une seule façon de représenter l'état d'un objet — la teinte.
 Cela suffisait au rendu en couleurs plates ; cela ne suffit plus dès qu'on veut de vraies textures.
-Les deux premiers lots du programme (`LOT-40` et `LOT-41`) ont levé les verrous structurels ; les
-suivants ajoutent le contenu visuel.
+Un programme de seize lots (voir [les lots](@ref lots)) a levé ces limites une à une ; `LOT-55`
+(ombres du plan physique, décrites plus haut) en est le dernier :
 
-Un programme de seize lots est cadré pour lever ces limites (voir [les lots](@ref lots)). Les points
-de cette page qu'il modifie, dans l'ordre :
-
-- **`LOT-40`** — *livré* : registre de textures par nom logique, calques nommés, regroupement des
-  quads par `(calque, texture)`, validation des dimensions d'asset, culling, capture des primitives
-  (décrits plus haut dans cette page).
-- **`LOT-41`** — *livré* : la bascule `F8` entre rendu **Physique** et rendu **Texture** (décrite
+- **`LOT-40`** — registre de textures par nom logique, calques nommés, regroupement des quads par
+  `(calque, texture)`, validation des dimensions d'asset, culling, capture des primitives (décrits
   plus haut dans cette page).
-- **`LOT-42`** — le **skin des tuiles** et les raccords automatiques : le lot à partir duquel le
-  mode Texture cesse d'afficher un damier.
-- **`LOT-46`** — *livré* : les animations décrites par des **données** et non par un `enum` figé,
-  applicables à toute entité et plus seulement au personnage (décrit plus haut dans cette page).
-- **`LOT-49`** — *livré* : des décors libres hors grille sur trois couches, dont une
-  **au-dessus** du personnage, et leur parallaxe relative à la salle courante (décrits plus haut
+- **`LOT-41`** — la bascule `F8` entre rendu **Physique** et rendu **Texture** (décrite plus haut
   dans cette page).
-- **`LOT-50`** — *livré* : manipulation complète des décors dans l'éditeur — sélectionner,
-  déplacer, redimensionner, pivoter, changer de couche, réordonner (décrit plus haut dans cette
-  page).
-- **`LOT-51`** — *livré* : le mode d'inspection « définition des textures » — visibilité et
-  isolement par calque, distinct de `F8` (décrit plus haut dans cette page).
-- **`LOT-52`** — *livré* : le retour du texte dans la scène rendue — police bitmap avec repli
-  procédural, composition sur le calque `UI` et sa propre projection écran, affichage tête haute
-  des budgets de sauts/dashs et du tableau courant (décrits plus haut dans cette page).
+- **`LOT-42`** — le skin des tuiles (`hmi::TileSkinTag`, `hmi::resolveTileAppearance`) et les
+  raccords automatiques entre tuiles voisines : le lot à partir duquel le mode Texture cesse
+  d'afficher le damier magenta pour un type habillé.
+- **`LOT-43`** — la bibliothèque d'assets à vignettes de l'éditeur (gestion de fichiers,
+  rechargement à chaud des textures), hors du pipeline de rendu lui-même (@ref guide-editeur).
+- **`LOT-44`** — le fond de niveau (`hmi::composeBackground`, `RenderLayer::Background`),
+  recadré en mode *cover* sur les bornes du niveau, en `RenderMode::Texture` uniquement.
+- **`LOT-45`** — la texture assignée **par instance** à une case (`EX-EDIT-043`), prioritaire sur
+  le skin de son type dans `hmi::resolveTileAppearance`.
+- **`LOT-46`** — les animations décrites par des **données** et non par un `enum` figé, applicables
+  à toute entité et plus seulement au personnage (décrit plus haut dans cette page).
+- **`LOT-47`** — l'apparence des mécanismes (porte, interrupteur, dangers commutés/temporisés)
+  pilotée par leur état logique plutôt que par une simple modulation d'opacité de diagnostic.
+- **`LOT-48`** — le personnage habillé depuis une spritesheet externe, découplée de sa hitbox
+  (décrit plus haut dans cette page).
+- **`LOT-49`** — des décors libres hors grille sur trois couches, dont une **au-dessus** du
+  personnage, et leur parallaxe relative à la salle courante (décrits plus haut dans cette page).
+- **`LOT-50`** — manipulation complète des décors dans l'éditeur — sélectionner, déplacer,
+  redimensionner, pivoter, changer de couche, réordonner (décrit plus haut dans cette page).
+- **`LOT-51`** — le mode d'inspection « définition des textures » — visibilité et isolement par
+  calque, distinct de `F8` (décrit plus haut dans cette page).
+- **`LOT-52`** — le retour du texte dans la scène rendue — police bitmap avec repli procédural,
+  composition sur le calque `UI` et sa propre projection écran, affichage tête haute des budgets de
+  sauts/dashs et du tableau courant (décrits plus haut dans cette page).
+- **`LOT-54`** — l'atelier de pixel art intégré à l'éditeur (dessin, palette, aperçu de raccords),
+  qui produit les assets consommés par ce pipeline sans le modifier lui-même (@ref guide-editeur).
+- **`LOT-55`** — les ombres du plan physique (`hmi::composeShadows`, `RenderLayer::Shadow`,
+  décrites plus haut dans cette page).
 
-Tant que ces lots ne sont pas livrés, ce guide décrit l'état réel du code ; il sera mis à jour au
-fil de leur intégration.
+`LOT-53` (effets et particules, retour visuel des mouvements du personnage) reste **non commencé** :
+indépendant de `LOT-55` (aucun des deux ne dépend de l'autre), il n'est pas couvert par cette page
+tant qu'il n'est pas livré, conformément à la règle du projet — cette documentation ne décrit que le
+code déjà implémenté.
 
 ## Voir aussi
 - `hmi::GraphicsDevice`, `hmi::GameViewport`, `hmi::Camera2D`.
@@ -752,6 +803,8 @@ fil de leur intégration.
   `hmi::composeText`, `hmi::screenProjectionMatrix`, `hmi::gameHudLines`,
   `hmi::GameSession::renderHud` — texte dans la scène et affichage tête haute (`LOT-52`,
   `EX-IHM-003`/`EX-REN-032`).
+- `hmi::composeShadows`, `hmi::SHADOW_OFFSET_X`/`SHADOW_OFFSET_Y`, `hmi::SHADOW_OPACITY` — ombres du
+  plan physique (`LOT-55`, `EX-REN-045`).
 - `core::Transform`, `core::Sprite`, `core::AtlasRegion`, `core::Color` — les composants lus par le rendu.
 - @ref guide-ecs — le `World` et les vues que `SpriteRenderer` parcourt.
 - @ref guide-boucle — où le rendu s'insère dans la boucle de jeu.

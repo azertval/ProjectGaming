@@ -18,6 +18,7 @@
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/Parallax.h"
 #include "HMI/Graphics/RoomGrid.h"
+#include "HMI/Graphics/ShadowRenderer.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/TextureAtlas.h"
 #include "HMI/Graphics/TextureCache.h"
@@ -95,10 +96,16 @@ void DraftRenderer::render(
         composeBackground(_scene, resolveBackgroundTexture(draft.background(), _cache),
                           draft.tileMap().width(), draft.tileMap().height(), mode);
     }
-    composeWorldSprites(_scene, _world, mode,
-                        sceneTextures(_atlas, _cache, _skins, _skinSet, draft.textureOverrides(),
-                                      _tileAnimations, draft.decors()),
-                        1.0f, &camera, visibility);
+    const SceneTextures textures = sceneTextures(_atlas, _cache, _skins, _skinSet,
+                                                 draft.textureOverrides(), _tileAnimations,
+                                                 draft.decors());
+    // Calque Ombre (LOT-55) : meme raison de gate a l'appel que Fond ci-dessus -- aucune simulation
+    // de mecanisme dans l'editeur (jamais de porte fermee/ouverte a suivre), donc pas de grille de
+    // collision a transmettre.
+    if (visibility.visible(RenderLayer::Shadow)) {
+        composeShadows(_scene, _world, mode, textures, 1.0f);
+    }
+    composeWorldSprites(_scene, _world, mode, textures, 1.0f, &camera, visibility);
     if (showGrid) {
         composeGrid(draft, decorOverlay.snapToGrid);
     }

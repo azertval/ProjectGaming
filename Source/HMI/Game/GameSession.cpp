@@ -701,10 +701,12 @@ void GameSession::render(int viewportWidth, int viewportHeight, RenderMode mode,
         static_cast<float>(roomBounds.width), static_cast<float>(roomBounds.height), 0.92f);
     _camera.setZoom(zoom);
 
-    // Interpolation de rendu (EX-ARCH-031) entre le pas precedent et le pas courant.
+    // Interpolation de rendu (EX-ARCH-031) entre le pas precedent et le pas courant. La grille de
+    // collision des mecanismes (portes) tranche l'ombre d'une porte d'apres son etat COURANT
+    // (LOT-55) : TileSkinTag::type reste TileType::Door quel que soit cet etat.
     _renderer.render(_world, _camera, mode, interpolationAlpha, _level->background(), _levelWidth,
-                     _levelHeight, _level->textureOverrides(), _tileAnimations,
-                     _level->decors());
+                     _levelHeight, _level->textureOverrides(), _tileAnimations, _level->decors(),
+                     _mechanisms ? &_mechanisms->collisionMap() : nullptr);
 
     renderHud(viewportWidth, viewportHeight);
 }
