@@ -456,6 +456,7 @@ void MainWindow::buildUi() {
     // Atelier pixel art (LOT-54 TACHE-04) : canevas et historique visuel, meme patron que les
     // panneaux ci-dessus (coquille du .ui, contenu branche en code).
     _pixelCanvas = new PixelCanvas(_ui->PixelCanvasPanel);
+    _pixelCanvas->setLocalization(&_loc);  // infobulle de case en mode planche (TACHE-08).
     _ui->PixelCanvasPanel->setWidget(_pixelCanvas);
     _pixelHistoryPanel = new PixelHistoryPanel(_ui->PixelHistoryPanel);
     _ui->PixelHistoryPanel->setWidget(_pixelHistoryPanel);
@@ -515,7 +516,10 @@ void MainWindow::buildUi() {
     // Canevas pixel art : recalcule de la barre d'etat a chaque changement pertinent (LOT-54
     // TACHE-04), meme discipline que le viewport ci-dessous. L'historique visuel se reconstruit a
     // chaque changement de l'historique (nouvelle entree, annuler, refaire).
-    connect(_pixelCanvas, &PixelCanvas::imageChanged, this, [this] { refreshStatusHelp(); });
+    connect(_pixelCanvas, &PixelCanvas::imageChanged, this, [this] {
+        refreshStatusHelp();
+        updateLivePreview();
+    });
     connect(_pixelCanvas, &PixelCanvas::hoveredPixelChanged, this,
             [this](std::optional<std::pair<int, int>>) { refreshStatusHelp(); });
     connect(_pixelCanvas, &PixelCanvas::historyChanged, this, [this] {
@@ -1076,6 +1080,29 @@ bool MainWindow::confirmDiscardPixelChanges() {
     return answer == QMessageBox::Yes;
 }
 
+std::string MainWindow::pixelAssetCacheKey() const {
+    std::error_code error;
+    const std::filesystem::path assetsDirectory = hmi::executableDirectory() / "Assets";
+    const std::filesystem::path relative =
+        std::filesystem::relative(_pixelAssetPath, assetsDirectory, error);
+    if (error) {
+        return _pixelAssetPath.filename().string();  // repli degrade, jamais une exception.
+    }
+    return relative.generic_string();  // barres obliques, meme convention que "Skins/mur.png".
+}
+
+void MainWindow::updateLivePreview() {
+    if (_pixelAssetPath.empty()) {
+        return;  // asset pas encore enregistre une premiere fois : rien a montrer (TACHE-08).
+    }
+    if (!hmi::encodeImageFile(_pixelAssetPath, _pixelCanvas->image())) {
+        return;  // echec silencieux : l'apercu live n'est pas une operation critique.
+    }
+    // Invalidation CIBLEE (LOT-40/LOT-43, TextureCache::invalidate) : regroupee par geste, puisque
+    // imageChanged n'est emis qu'une fois par geste complet (TACHE-02/TACHE-03), jamais par pixel.
+    _viewport->invalidateAsset(pixelAssetCacheKey());
+}
+
 void MainWindow::openPixelAssetOpenDialog() {
     if (!confirmDiscardPixelChanges()) {
         return;
@@ -1219,11 +1246,11 @@ void MainWindow::savePixelAsset(bool saveAs) {
     _pixelAssetPath = target;
     _pixelCanvas->setAssetName(target.filename().string());
     _pixelCanvas->markSaved();
-    // Invalidation ciblee du cache pour que l'apercu live (TACHE-08) et le panneau Textures
-    // reprennent le nouveau contenu sans redemarrer -- reutilise le meme chemin que le bouton
-    // "Recharger" du panneau Textures (LOT-43) ; TACHE-08 le remplacera par une invalidation
-    // vraiment ciblee au nom de l'asset plutot que ce rechargement complet.
-    _viewport->reloadAssets();
+    // Invalidation CIBLEE du niveau (LOT-40/LOT-43/TACHE-08) : un seul asset a relire, jamais tout
+    // le TextureCache. Les caches de vignettes des panneaux (Textures/Decors/Palette), eux,
+    // n'exposent qu'un rechargement complet -- acceptable ici, sur un enregistrement explicite
+    // plutot qu'a chaque geste (updateLivePreview, plus haut, ne les touche pas).
+    _viewport->invalidateAsset(pixelAssetCacheKey());
     _textures->reloadAssets();
     _decors->reloadDecorThumbnails();
     _palette->clearThumbnailCache();

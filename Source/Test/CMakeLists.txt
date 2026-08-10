@@ -100,6 +100,7 @@ add_executable(UnitTests
     Unit/HMI/Editor/test_pixel_canvas_geometry.cpp
     Unit/HMI/Editor/test_pixel_asset_io.cpp
     Unit/HMI/Editor/test_pixel_palette.cpp
+    Unit/HMI/Editor/test_pixel_autotile_preview.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
     ../HMI/Graphics/Camera2D.cpp
@@ -272,6 +273,9 @@ add_executable(UnitTests
     # Palette de projet, extraction et contrainte de couleur (LOT-54 TACHE-07) : logique pure
     # (std::filesystem + nlohmann::json, deja lie ci-dessous), aucune dependance Qt/GPU.
     ../HMI/Editor/PixelPalette.cpp
+    # Mode planche a raccords de l'atelier pixel art (LOT-54 TACHE-08) : logique pure, reutilise
+    # la table canonique de TileAutotile.cpp (deja compilee ci-dessus), aucune dependance Qt/GPU.
+    ../HMI/Editor/PixelAutotilePreview.cpp
 )
 
 # Encodage/decodage d'image (LOT-54 TACHE-01) : QImage (Qt) lit et ecrit le PNG, mais aucun device

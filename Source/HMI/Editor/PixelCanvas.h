@@ -22,6 +22,10 @@ class QPaintEvent;
 class QPixmap;
 class QWheelEvent;
 
+namespace hmi {
+class Localization;
+}  // namespace hmi
+
 /**
  * @file HMI/Editor/PixelCanvas.h
  * @brief Canevas de l'atelier pixel art : affiche et édite un `hmi::DecodedImage` en mémoire
@@ -57,6 +61,13 @@ class PixelCanvas : public QWidget, public EditContextTarget {
 
 public:
     explicit PixelCanvas(QWidget* parent = nullptr);
+
+    /// Catalogue de traduction utilisé pour l'infobulle de case en mode planche à raccords
+    /// (`hmi::autotileConfigurationLabelKey`, TACHE-08). Même patron que `GameViewport::
+    /// setLocalization`.
+    void setLocalization(const Localization* loc) noexcept {
+        _loc = loc;
+    }
 
     /// Remplace l'image éditée et réinitialise l'historique local (ouverture d'un asset, TACHE-05).
     void setImage(DecodedImage image);
@@ -249,6 +260,8 @@ private:
     bool _panning = false;
     QPointF _panStartWidgetPos;
     PixelCanvasView _panStartView;
+
+    const Localization* _loc = nullptr;  ///< Pour l'infobulle de case en mode planche (TACHE-08).
 };
 
 }  // namespace hmi

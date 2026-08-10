@@ -189,6 +189,25 @@ pixel_palette.constrain = Constrain to palette
 pixel_palette.rename_prompt = New color name
 pixel_palette.new_color_name = Color %1
 
+# Autotile sheet neighbor configurations (LOT-42, same table as TileAutotile.cpp): label shown in
+# the pixel art workshop's sheet mode (LOT-54 TACHE-08).
+autotile.config.0 = Isolated tile
+autotile.config.1 = Column bottom end
+autotile.config.2 = Row left end
+autotile.config.3 = Outer corner bottom-left
+autotile.config.4 = Column top end
+autotile.config.5 = Vertical segment
+autotile.config.6 = Outer corner top-left
+autotile.config.7 = Left edge
+autotile.config.8 = Row right end
+autotile.config.9 = Outer corner bottom-right
+autotile.config.10 = Horizontal segment
+autotile.config.11 = Bottom edge
+autotile.config.12 = Outer corner top-right
+autotile.config.13 = Right edge
+autotile.config.14 = Top edge
+autotile.config.15 = Solid interior
+
 # Pixel art workshop dialogs (LOT-54 TACHE-05).
 menubar.pixel = Workshop
 pixel.open_title = Open asset

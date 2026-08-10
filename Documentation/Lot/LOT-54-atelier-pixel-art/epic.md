@@ -1,6 +1,7 @@
 # LOT-54 — Atelier pixel art intégré {#lot-54}
 
-> Statut : **en cours**. Prérequis : [LOT-42](@ref lot-42) (convention `Assets/Skins/`, planches
+> Statut : **fait** (deux points d'entrée/fonctionnalités secondaires non livrés, cf. amendements
+> de TACHE-05 et TACHE-08). Prérequis : [LOT-42](@ref lot-42) (convention `Assets/Skins/`, planches
 > à raccords), [LOT-43](@ref lot-43) (bibliothèque et rechargement à chaud),
 > [LOT-56](@ref lot-56) (jetons de design, style maîtrisé, actions et barre d'outils, netteté à
 > toute échelle) et [LOT-57](@ref lot-57) (barre d'état structurée, regroupement des panneaux,
@@ -136,7 +137,7 @@ le périmètre récupère en fonctions d'édition ce qu'il n'a plus à dépenser
 | [TACHE-05](tache-05-ouvrir-enregistrer.md) | Ouvrir, créer, enregistrer + garde-fous + point d'entrée depuis la bibliothèque et le panneau Textures | `Source/HMI/Editor` | ✅ (point d'entrée Textures non câblé, cf. amendement) |
 | [TACHE-06](tache-06-outils-region.md) | Outils de région : sélection, déplacement, symétries, rotations, copier/coller | `Source/HMI/Editor` | ✅ |
 | [TACHE-07](tache-07-palettes.md) | Palettes persistées, extraction depuis un asset, mode contraint à la palette | `Source/HMI/Editor`, `Source/Elements` | ✅ |
-| [TACHE-08](tache-08-apercu-live-planche.md) | Aperçu live, mode planche à raccords, aperçu de raccord et d'animation | `Source/HMI/Editor`, `Source/HMI/Graphics` | ⬜ |
+| [TACHE-08](tache-08-apercu-live-planche.md) | Aperçu live, mode planche à raccords, aperçu de raccord et d'animation | `Source/HMI/Editor`, `Source/HMI/Graphics` | ✅ (aperçu d'animation non livré, cf. amendement) |
 
 ## Critères d'acceptation du lot
 1. Créer, peindre et enregistrer un nouvel asset PNG depuis le canevas, puis le retrouver assignable

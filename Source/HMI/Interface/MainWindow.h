@@ -125,6 +125,17 @@ private:
     /// écrasement d'asset référencé demande confirmation, nommant les références (`LOT-43`).
     void savePixelAsset(bool saveAs);
 
+    // Aperçu live et mode planche à raccords (LOT-54 TACHE-08).
+    /// Nom logique de l'asset ouvert, relatif à `Assets/` (ex. `"Skins/mur.png"`) : la clé sous
+    /// laquelle `hmi::TextureCache`/`GameViewport::invalidateAsset` connaissent cet asset — un
+    /// simple nom de fichier ne suffit pas, le cache est indexé par chemin complet (préfixe de
+    /// sous-dossier compris).
+    [[nodiscard]] std::string pixelAssetCacheKey() const;
+    /// Écrit l'image en cours sur `_pixelAssetPath` et invalide son entrée de `TextureCache`, pour
+    /// que le niveau affiché reflète l'édition en cours — sans effet tant qu'aucun chemin n'est
+    /// associé (asset pas encore enregistré une première fois, TACHE-05).
+    void updateLivePreview();
+
     // Palette de projet (LOT-54 TACHE-07).
     /// Recopie les couleurs de `_pixelPalette` vers `_pixelCanvas` (mode contraint) — à appeler
     /// après toute mutation qui change les couleurs ou leur ordre (l'ordre affecte le départage à

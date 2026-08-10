@@ -7,13 +7,17 @@
 #include <QPen>
 #include <QPixmap>
 #include <QRectF>
+#include <QToolTip>
 #include <QWheelEvent>
 #include <algorithm>
 #include <cmath>
 #include <cstring>
 
+#include "HMI/Editor/PixelAutotilePreview.h"
 #include "HMI/Editor/PixelPalette.h"
+#include "HMI/Graphics/TextureAtlas.h"
 #include "HMI/Interface/DesignTokens.h"
+#include "HMI/Localization/Localization.h"
 
 namespace hmi {
 
@@ -342,6 +346,22 @@ void PixelCanvas::mouseMoveEvent(QMouseEvent* event) {
         emit hoveredPixelChanged(_hoveredPixel);
     }
 
+    // Mode planche a raccords (TACHE-08) : infobulle nommant la configuration de la case survolee
+    // -- "quelle case represente quoi" est ce que l'auteur doit savoir sans quitter le canevas des
+    // yeux.
+    const std::optional<AutotileCell> hoveredCell =
+        pixel ? bitmaskCellAtPixel(_image, TextureAtlas::TILE_SIZE, pixel->first, pixel->second)
+              : std::nullopt;
+    if (hoveredCell && _loc != nullptr) {
+        const std::uint8_t mask =
+            static_cast<std::uint8_t>(hoveredCell->row * AUTOTILE_SHEET_SIDE + hoveredCell->column);
+        const std::string label(autotileConfigurationLabelKey(mask));
+        QToolTip::showText(event->globalPosition().toPoint(),
+                          QString::fromStdString(_loc->text(label)), this);
+    } else {
+        QToolTip::hideText();
+    }
+
     if (_panning) {
         const QPointF delta = event->position() - _panStartWidgetPos;
         _view.panX = _panStartView.panX - static_cast<int>(std::lround(delta.x() / _view.zoom));
@@ -441,6 +461,43 @@ QPixmap PixelCanvas::renderPixmap() const {
         painter.setPen(QPen(toQColor(identityTokens().color.accent), std::max(1.0, scale)));
         painter.setBrush(Qt::NoBrush);
         painter.drawRect(QRectF(rectX, rectY, rectW, rectH));
+    }
+
+    // Mode planche a raccords (TACHE-08) : reperes des seize cases (grille de case, plus epaisse
+    // que la grille de pixel) et apercu d'assemblage 3x3 -- les reperes disent a quoi sert chaque
+    // case, l'assemblage dit si le resultat tient (epic.md).
+    if (isBitmask16Candidate(_image, TextureAtlas::TILE_SIZE)) {
+        const double zoomReal = static_cast<double>(_view.zoom) * scale;
+        painter.setPen(QPen(toQColor(identityTokens().color.accent), std::max(2.0, 2.0 * scale)));
+        for (int column = 0; column <= AUTOTILE_SHEET_SIDE; ++column) {
+            const int screenX =
+                static_cast<int>(std::lround(column * TextureAtlas::TILE_SIZE * zoomReal));
+            painter.drawLine(screenX, 0, screenX, real.height);
+        }
+        for (int row = 0; row <= AUTOTILE_SHEET_SIDE; ++row) {
+            const int screenY =
+                static_cast<int>(std::lround(row * TextureAtlas::TILE_SIZE * zoomReal));
+            painter.drawLine(0, screenY, real.width, screenY);
+        }
+
+        // Apercu d'assemblage, en incrustation dans le coin bas-droit -- agrandi pour rester
+        // lisible independamment du zoom du canevas.
+        const DecodedImage assembly = buildAutotileAssemblyPreview(_image, TextureAtlas::TILE_SIZE);
+        constexpr int ASSEMBLY_DISPLAY_SIZE = 96;  // pixels reels, cote du carre affiche.
+        const QImage assemblyImage = toQImage(assembly);
+        const int insetMargin = std::max(4, static_cast<int>(std::lround(4 * scale)));
+        const int insetX = real.width - ASSEMBLY_DISPLAY_SIZE - insetMargin;
+        const int insetY = real.height - ASSEMBLY_DISPLAY_SIZE - insetMargin;
+        if (insetX >= 0 && insetY >= 0) {
+            painter.fillRect(QRect(insetX - insetMargin / 2, insetY - insetMargin / 2,
+                                   ASSEMBLY_DISPLAY_SIZE + insetMargin, ASSEMBLY_DISPLAY_SIZE + insetMargin),
+                             toQColor(identityTokens().color.surface));
+            painter.drawImage(QRect(insetX, insetY, ASSEMBLY_DISPLAY_SIZE, ASSEMBLY_DISPLAY_SIZE),
+                             assemblyImage);
+            painter.setPen(QPen(toQColor(identityTokens().color.border), std::max(1.0, scale)));
+            painter.setBrush(Qt::NoBrush);
+            painter.drawRect(QRect(insetX, insetY, ASSEMBLY_DISPLAY_SIZE, ASSEMBLY_DISPLAY_SIZE));
+        }
     }
 
     pixmap.setDevicePixelRatio(scale);

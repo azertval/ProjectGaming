@@ -191,6 +191,25 @@ pixel_palette.constrain = Contraindre à la palette
 pixel_palette.rename_prompt = Nouveau nom de la couleur
 pixel_palette.new_color_name = Couleur %1
 
+# Configurations de voisinage d'une planche a raccords (LOT-42, meme table que TileAutotile.cpp) :
+# libelle affiche dans l'atelier pixel art en mode planche (LOT-54 TACHE-08).
+autotile.config.0 = Tuile isolée
+autotile.config.1 = Extrémité basse de colonne
+autotile.config.2 = Extrémité gauche de rangée
+autotile.config.3 = Coin extérieur bas-gauche
+autotile.config.4 = Extrémité haute de colonne
+autotile.config.5 = Segment vertical
+autotile.config.6 = Coin extérieur haut-gauche
+autotile.config.7 = Bord gauche
+autotile.config.8 = Extrémité droite de rangée
+autotile.config.9 = Coin extérieur bas-droite
+autotile.config.10 = Segment horizontal
+autotile.config.11 = Bord bas
+autotile.config.12 = Coin extérieur haut-droite
+autotile.config.13 = Bord droit
+autotile.config.14 = Bord haut
+autotile.config.15 = Intérieur plein
+
 # Boîtes de dialogue de l'atelier pixel art (LOT-54 TACHE-05).
 menubar.pixel = Atelier
 pixel.open_title = Ouvrir un asset
