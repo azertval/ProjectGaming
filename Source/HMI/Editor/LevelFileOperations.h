@@ -52,7 +52,7 @@ public:
     [[nodiscard]] FileOpResult duplicate(const std::filesystem::path& source) const;
 
     /// Supprime le fichier de niveau @p source.
-    static [[nodiscard]] FileOpResult remove(const std::filesystem::path& source);
+    [[nodiscard]] static FileOpResult remove(const std::filesystem::path& source);
 
 private:
     /// Chemin du fichier `.json` correspondant à un nom de niveau, dans le dossier géré.
