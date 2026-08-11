@@ -450,12 +450,18 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
     if (showPauseOverlay) {
         syncOverlayGeometry();
         _pauseScreen->raise();
-        // activateWindow() : _pauseScreen est une fenêtre de haut niveau distincte depuis
-        // TACHE-07, elle ne partage plus automatiquement l'activation de `this` -- sans cet appel,
-        // focusDefaultAction() poserait le focus clavier *dans* la fenêtre sans que celle-ci soit
-        // la fenêtre active du système, et Échap/Entrée resteraient reçus par le viewport.
         _pauseScreen->activateWindow();
-        _pauseScreen->focusDefaultAction();
+        // focusDefaultAction() différé (LOT-59 TACHE-07, bug réel trouvé à l'essai manuel :
+        // Entrée ne faisait rien dans le menu de pause) : _pauseScreen est une fenêtre de haut
+        // niveau distincte, elle ne partage plus automatiquement l'activation de `this`.
+        // activateWindow() ne fait que POSTER la demande d'activation côté OS -- Qt ne marque la
+        // fenêtre comme réellement active qu'en traitant le WM_ACTIVATE en retour, plus tard dans
+        // la boucle d'événements. Poser le focus clavier dans le même appel, avant ce traitement,
+        // ne prend pas effet côté routage clavier de l'OS (même si `QWidget::hasFocus()` répond
+        // vrai côté Qt) : Entrée/Échap restent routés vers la fenêtre précédemment active. Un
+        // délai de 0 ms (prochain tour de la boucle d'événements) suffit à laisser l'activation se
+        // terminer avant de poser le focus.
+        QTimer::singleShot(0, _pauseScreen, [this] { _pauseScreen->focusDefaultAction(); });
     }
 
     // Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même règle que _pauseScreen
@@ -466,8 +472,10 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
     if (showLevelCompleteOverlay) {
         syncOverlayGeometry();
         _levelCompleteScreen->raise();
-        _levelCompleteScreen->activateWindow();  // cf. commentaire de _pauseScreen ci-dessus.
-        _levelCompleteScreen->focusDefaultAction();
+        _levelCompleteScreen->activateWindow();
+        // Focus différé : cf. commentaire de _pauseScreen ci-dessus (même piège d'activation).
+        QTimer::singleShot(0, _levelCompleteScreen,
+                           [this] { _levelCompleteScreen->focusDefaultAction(); });
     }
 
     if (!showPauseOverlay && !showLevelCompleteOverlay &&
