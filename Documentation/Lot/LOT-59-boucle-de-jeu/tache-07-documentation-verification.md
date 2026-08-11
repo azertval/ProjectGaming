@@ -98,10 +98,15 @@ technique documentée dans la mémoire projet `project_win32_gui_automation_dpi`
 constatée. Un clic synthétique (`SetCursorPos`/`mouse_event`) a de plus été **bloqué par
 l'antivirus**. Conformément à la préférence déjà exprimée par l'utilisateur (« pas de test inapp »,
 mémoire `feedback_no_live_gui_automation`), l'automatisation n'a **pas** été poussée plus loin
-(ex. `PostMessage` direct sur le HWND enfant) : **restent à faire par un humain** — mettre en
-pause/reprendre en cours de partie réelle, terminer un tableau (écran de fin de niveau), terminer
-la séquence, quitter/relancer puis vérifier *Continuer*, et jouer un niveau personnel. C'est
-précisément le risque déjà signalé, non résolu, dans les États de `TACHE-02` et `TACHE-03`.
+(ex. `PostMessage` direct sur le HWND enfant) : le reste a été laissé à l'essai manuel humain.
+
+**Et le risque signalé était fondé.** Le premier essai manuel réel (l'utilisateur, après merge de
+la PR de vérification initiale) a immédiatement reproduit le risque explicitement noté depuis
+`TACHE-02` : à la fin d'un tableau, le personnage se figeait mais aucun écran de fin de niveau
+n'apparaissait — ni, par le même mécanisme, l'écran de pause. Cause et correction détaillées dans
+l'État de `TACHE-02` (fenêtre de haut niveau distincte au lieu d'un widget frère du conteneur du
+viewport) ; corrigé et revérifié (`ctest` 972/972, CI complète verte) avant de redemander l'essai
+manuel.
 
 ## Exigences
 Réutilise `EX-REN-031`, `EX-GP-040` (levées), `EX-IHM-004`, `EX-IHM-005`, `EX-LVL-013`,

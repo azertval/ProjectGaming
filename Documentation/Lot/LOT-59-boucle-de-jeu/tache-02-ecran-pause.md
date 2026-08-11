@@ -61,10 +61,7 @@ Le point délicat n'est pas l'écran : c'est ce que devient la simulation pendan
   clavier / souris / manette, traduit ; `/W4 /WX` propre.
 
 ## État
-`hmi::PauseScreen` recouvre `_editorContainer` comme un widget **frère** (jamais une page de
-`_stack`) : c'est le patron documenté par Qt pour superposer du contenu à un
-`QWidget::createWindowContainer`, dont la fenêtre native (le viewport D3D11) peint toujours
-par-dessus ses propres descendants Qt. `GameViewport::tick()` cesse d'alimenter l'accumulateur de
+`GameViewport::tick()` cesse d'alimenter l'accumulateur de
 `core::FixedTimestep` pendant la pause, mais continue d'appeler `InputState::beginFrame()` chaque
 image (juste hors de la boucle de pas) pour éviter qu'un bouton manette tenu en ouvrant la pause
 laisse un front périmé qui ferait osciller entrée/sortie à la reprise — piège explicitement anticipé
@@ -75,10 +72,20 @@ Manette : bouton **B** plutôt que Start (ce projet n'a pas de bouton Start dans
 `GamepadButton` remappable ; B est déjà la convention « retour » établie ailleurs dans l'IHM, et
 la tâche accepte « Start / B » comme alternatives).
 
-**Risque connu, non vérifié** : le rendu effectif du recouvrement par-dessus la scène D3D11 n'a pas
-été testé à l'essai manuel (réservé à `TACHE-07` par convention du projet, jamais en cours de
-tâche). Si l'affichage ne correspond pas à l'attendu, chercher du côté de
-`MainWindow::applyScreenDressing`/`syncOverlayGeometry` (ordre de levée au premier plan/géométrie).
+**Bug réel trouvé et corrigé à l'essai manuel (`TACHE-07`) : le recouvrement ne s'affichait pas
+du tout.** `hmi::PauseScreen` recouvrait initialement `_editorContainer` comme un simple widget Qt
+**frère** (jamais une page de `_stack`), sur la foi d'un patron cru « documenté par Qt ». En
+pratique : la simulation se figeait bien (`pauseSimulation`), mais aucun écran n'apparaissait —
+personnage figé, rien à l'écran. Cause réelle (confirmée par la documentation/les forums Qt
+officiels) : une fenêtre **native** embarquée via `QWidget::createWindowContainer` peint **toujours**
+par-dessus ses **frères** Qt ordinaires dans la même fenêtre de haut niveau, quel que soit leur
+`raise()` — ce n'est pas une histoire de descendant vs frère, c'est une limitation de superposition
+au sein d'une même fenêtre native. Correction : `_pauseScreen` (et `_levelCompleteScreen`,
+`TACHE-03`) sont devenus des **fenêtres de haut niveau** propres (`Qt::Tool | Qt::FramelessWindowHint`,
+fond translucide, possédées par `MainWindow`), positionnées en coordonnées **écran** sur le
+rectangle de `_editorContainer` (`syncOverlayGeometry`, resynchronisé sur redimensionnement **et**
+déplacement de la fenêtre principale). Voir `MainWindow::applyScreenDressing`/`syncOverlayGeometry`
+pour le détail.
 
 ## Exigences
 `EX-IHM-004` (écran de pause) ; lève `EX-REN-031` pour sa partie pause ; réutilise `EX-GP-032`

@@ -88,8 +88,11 @@ réputé de la `TACHE-05`, pas de celle-ci.
 la table complète pour `NiveauTermine` (transitions et habillage) par anticipation de cette tâche,
 donc déjà couverte par ses tests.
 
-**Risque connu, non vérifié** : comme `_pauseScreen` (`TACHE-02`), le rendu effectif du recouvrement
-par-dessus la scène D3D11 n'a pas été testé à l'essai manuel (réservé à `TACHE-07`).
+**Bug réel trouvé et corrigé à l'essai manuel (`TACHE-07`), partagé avec `_pauseScreen`** : le
+recouvrement ne s'affichait pas du tout (personnage figé, écran vide) — un widget Qt frère du
+conteneur du viewport ne se dessine jamais de façon fiable par-dessus la fenêtre native qu'il
+embarque. `_levelCompleteScreen` est depuis une fenêtre de haut niveau propre, comme
+`_pauseScreen` ; voir l'État de `TACHE-02` pour le détail de la cause et de la correction.
 
 ## Exigences
 `EX-IHM-004` (écran de fin de niveau) ; lève `EX-REN-031` pour sa partie fin de niveau ; réutilise

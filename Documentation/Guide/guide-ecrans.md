@@ -36,18 +36,27 @@ tous n'y vivent pas de la même façon :
   **conteneur du viewport** partagé par `Editor`/`Game` (`hmi::GameViewport`). Ajoutées via
   `QStackedWidget::addWidget`, Qt gère leur taille.
 - **Recouvrements** (`Pause`, `NiveauTermine`) : `hmi::PauseScreen` et `hmi::LevelCompleteScreen`
-  ne sont **jamais** des pages de la pile — ce sont des widgets **frères** du conteneur du
-  viewport (même parent, `_stack`), dont la géométrie est synchronisée à la main
-  (`MainWindow::syncOverlayGeometry`, appelé à la construction et à chaque `resizeEvent`) et la
-  visibilité pilotée par `applyScreenDressing` (`hide()`/`show()` + `raise()`). C'est le patron
-  documenté par Qt pour superposer un widget à un `QWidget::createWindowContainer` : la fenêtre
-  **native** qu'embarque le conteneur (le viewport Direct3D 11) peint toujours par-dessus ses
-  propres **descendants** Qt — un widget enfant du conteneur ne s'afficherait donc jamais visible
-  par-dessus lui. Un widget **frère**, en revanche, est un widget Qt ordinaire aux yeux du
-  compositeur de fenêtres et se dessine normalement par-dessus. Conséquence directe :
-  `Pause`/`NiveauTermine` ne basculent **aucune page** de `_stack` (`applyScreenDressing` laisse le
-  conteneur du viewport affiché derrière eux) — c'est ce qui permet à la **scène de rester visible**
-  derrière l'écran de pause ou de fin de niveau.
+  ne sont **jamais** des pages de la pile — `applyScreenDressing` laisse le conteneur du viewport
+  affiché derrière eux, ce qui permet à la **scène de rester visible** (figée) derrière l'écran de
+  pause ou de fin de niveau. Ce sont des **fenêtres de haut niveau** propres (`Qt::Tool |
+  Qt::FramelessWindowHint`, fond translucide, possédées par `MainWindow`), positionnées en
+  coordonnées **écran** sur le rectangle de `_editorContainer` (`MainWindow::syncOverlayGeometry`,
+  resynchronisé à chaque déplacement **et** redimensionnement de la fenêtre principale — un
+  recouvrement en fenêtre de haut niveau ne suit sinon aucun des deux automatiquement), et
+  activées explicitement (`activateWindow()`, avant `focusDefaultAction()`) puisqu'une fenêtre de
+  haut niveau distincte ne partage pas l'activation de `MainWindow`.
+
+  **Ce n'était pas la première tentative.** La première version faisait de ces écrans de simples
+  widgets Qt **frères** du conteneur du viewport (même parent, `_stack`), sur la foi d'un patron cru
+  documenté par Qt : la fenêtre **native** qu'embarque `QWidget::createWindowContainer` (le viewport
+  Direct3D 11) peinturait par-dessus ses **descendants** Qt, donc un widget **frère** — simple widget
+  Qt aux yeux du compositeur — se dessinerait normalement par-dessus. Faux en pratique, découvert à
+  l'essai manuel (`LOT-59` TACHE-07) : la simulation se figeait bien, mais **aucun écran
+  n'apparaissait** — personnage figé, rien à l'écran. La documentation Qt confirme, une fois le bon
+  terme cherché : une fenêtre native embarquée peint **toujours** par-dessus **tous** ses frères Qt
+  de la même fenêtre de haut niveau, quel que soit leur `raise()` — ce n'est pas une affaire de
+  descendant vs frère, c'est une limitation de superposition **au sein d'une même fenêtre native**.
+  Seule une fenêtre de haut niveau **distincte** s'en affranchit, d'où la conception actuelle.
 
 `LevelSelect`, à l'inverse, est une page normale : atteint depuis le **menu**, jamais en cours de
 partie, il n'a aucune scène à laisser visible derrière lui.
