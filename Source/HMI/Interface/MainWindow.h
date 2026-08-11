@@ -5,7 +5,10 @@
 #include <array>
 #include <filesystem>
 #include <memory>
+#include <optional>
+#include <string>
 
+#include "Core/Levels/LevelSequence.h"
 #include "HMI/Editor/EditContextTarget.h"
 #include "HMI/Editor/EditorTool.h"
 #include "HMI/Editor/PanelFocus.h"
@@ -48,6 +51,7 @@ class MainMenu;
 class OptionsPage;
 class PauseScreen;
 class LevelCompleteScreen;
+class LevelSelectScreen;
 class PalettePanel;
 class LevelBrowserPanel;
 class LinkPanel;
@@ -166,12 +170,12 @@ private:
     /// Raccourci : texte localisé d'une clé, en `QString`.
     [[nodiscard]] QString text(const char* key) const;
 
-    /// Affiche le menu principal (docks et barre de menu masqués).
+    /// Affiche le menu principal (docks et barre de menu masqués) ; rafraîchit l'état de
+    /// « Continuer » (`MainMenu::setContinueEnabled`, `LOT-59` TACHE-06) à chaque affichage --
+    /// seule voie de mise à jour, jamais suivi à part.
     void showMenu();
     /// Affiche l'éditeur (viewport + docks + barre de menu).
     void showEditor();
-    /// Lance le jeu (séquence de niveaux démo) dans le viewport, docks masqués.
-    void showGame();
     /// Affiche la page Options (onglets) dans la fenêtre, revient à l'écran d'où elle a été
     /// ouverte (Menu ou Pause, `EX-GP-041`).
     void showOptions();
@@ -220,6 +224,37 @@ private:
     /// n'est perdu).
     void returnToMenuFromLevelComplete();
 
+    // Sélection de niveau côté joueur (LOT-59 TACHE-06, EX-IHM-005).
+    /// Charge `sequence-demo.json` (`DEMO_SEQUENCE_FILE`), affiche une boîte d'erreur et @return
+    /// `std::nullopt` en cas d'échec (fichier absent/invalide, `EX-NFR-040`) -- factorisé entre
+    /// tous les points d'entrée dans le jeu (Continuer/Nouvelle partie/Choisir un
+    /// niveau/ouverture de l'écran de sélection).
+    [[nodiscard]] std::optional<core::LevelSequence> loadDemoSequenceOrWarn();
+    /// Charge la séquence, résout l'indice de départ (nom de @p startLevelName dans la séquence ;
+    /// premier tableau si vide ou introuvable -- séquence modifiée depuis, `EX-NFR-040`), applique
+    /// @p transitionEvent (`OpenGame` depuis le menu, `LevelChosen` depuis l'écran de sélection),
+    /// puis démarre `_viewport` en mode séquence (`_gameTracksProgression = true`).
+    void startSequence(const std::string& startLevelName, hmi::ScreenEvent transitionEvent);
+    /// « Continuer » (menu) : reprend au tableau atteint (`Progression::currentLevel`) ; sans
+    /// effet si aucune progression (le bouton est alors grisé, `MainMenu::setContinueEnabled`).
+    void continueGame();
+    /// « Nouvelle partie » (menu) : confirmation si une progression existe (elle serait perdue),
+    /// puis efface la progression et recommence au premier tableau.
+    void newGame();
+    /// « Choisir un niveau » (menu) : ouvre `_levelSelectScreen`, peuplé de la séquence (avec état
+    /// de déverrouillage) et des niveaux personnels du dossier (hors séquence,
+    /// `LevelFileOperations` filtrée).
+    void openLevelSelect();
+    /// Retour au menu depuis l'écran de sélection de niveau.
+    void closeLevelSelect();
+    /// Un tableau de séquence a été choisi dans `_levelSelectScreen` : **revalidé** via
+    /// `hmi::isLevelUnlocked` avant tout lancement (défense en profondeur, `EX-IHM-005`) -- jamais
+    /// lancé verrouillé, même si l'écran l'a par erreur laissé passer.
+    void chooseSequenceLevel(const QString& levelName);
+    /// Un niveau **personnel** a été choisi (hors séquence) : lancé seul
+    /// (`_gameTracksProgression = false`), ne touche jamais la progression de la séquence.
+    void playPersonalLevel(const QString& path);
+
     /// Traduit la manette en navigation de focus Qt (menus/options) : appelé par `_menuNavTimer`.
     void pollMenuGamepad();
     /// Active/désactive la navigation manette des menus (inactive en jeu/édition).
@@ -241,6 +276,9 @@ private:
     /// `_pauseScreen` -- enfant de `_stack`, jamais une page, géométrie synchronisée
     /// manuellement.
     LevelCompleteScreen* _levelCompleteScreen = nullptr;
+    /// Écran de sélection de niveau (`LOT-59` TACHE-06) : une page normale de `_stack` (jamais un
+    /// recouvrement -- atteint depuis le menu, pas en jeu, contrairement aux deux précédents).
+    LevelSelectScreen* _levelSelectScreen = nullptr;
     GameViewport* _viewport;  ///< Surface de rendu D3D11 (possédée par le conteneur central).
     /// Contexte d'édition actif, cible d'Annuler/Refaire/Copier/Coller (`LOT-57` TACHE-04) : `
     /// _viewport` (niveau) ou `_pixelCanvas` (atelier pixel art, `LOT-54` TACHE-04), selon le
@@ -319,6 +357,11 @@ private:
     /// construction, marquée/écrite à chaque réussite de tableau (`openLevelComplete`) -- jamais
     /// ailleurs (pas d'écriture par image ni par pas).
     hmi::Progression _progression;
+    /// `true` si la partie en cours suit la séquence démo (Continuer/Nouvelle partie/tableau de
+    /// séquence choisi) -- `false` pour un niveau **personnel** lancé hors séquence (`LOT-59`
+    /// TACHE-06) : `openLevelComplete` ne touche `_progression` que si vrai, sinon un niveau
+    /// d'essai personnel « débloquerait » la campagne.
+    bool _gameTracksProgression = false;
 
     // Navigation manette des menus (hors jeu) : sondage périodique -> événements clavier Qt.
     GamepadPoller _menuPad;

@@ -5,10 +5,14 @@
 
 # Menu principal
 menu.title = ProjectGaming
-menu.play = Jouer
+menu.continue = Continuer
+menu.new_game = Nouvelle partie
+menu.select_level = Choisir un niveau
 menu.edit_mode = Mode Édition
 menu.options = Options
 menu.quit = Quitter
+menu.new_game_confirm_title = Nouvelle partie ?
+menu.new_game_confirm_text = La progression actuelle sera effacée. Commencer une nouvelle partie ?
 
 # Écran de pause (LOT-59 TACHE-02)
 pause.title = Pause
@@ -30,6 +34,14 @@ level_complete.return_to_menu = Retour au menu
 sequence.demo.title = Séquence de démonstration
 game.sequence_failed_title = Séquence illisible
 game.sequence_failed_text = Impossible de charger la séquence de niveaux : %1
+
+# Écran de sélection de niveau (LOT-59 TACHE-06)
+level_select.title = Choisir un niveau
+level_select.tab_sequence = Séquence
+level_select.tab_personal = Niveaux personnels
+level_select.back = Retour
+level_select.completed_suffix = (terminé)
+level_select.locked_suffix = (verrouillé)
 
 # Fenetre principale et barre de menus
 window.title = ProjectGaming — Éditeur

@@ -36,6 +36,8 @@ TEST(ScreenFlowTest, TransitionsAutoriseesMenentALEcranAttendu) {
     const ScreenState pause{.screen = ScreenId::Pause, .optionsReturnTo = ScreenId::Menu};
     const ScreenState niveauTermine{.screen = ScreenId::NiveauTermine,
                                     .optionsReturnTo = ScreenId::Menu};
+    const ScreenState levelSelect{.screen = ScreenId::LevelSelect,
+                                  .optionsReturnTo = ScreenId::Menu};
     const ScreenState optionsFromMenu{.screen = ScreenId::Options,
                                       .optionsReturnTo = ScreenId::Menu};
     const ScreenState optionsFromPause{.screen = ScreenId::Options,
@@ -61,6 +63,10 @@ TEST(ScreenFlowTest, TransitionsAutoriseesMenentALEcranAttendu) {
               ScreenId::Game);
     EXPECT_EQ(resolveTransition(niveauTermine, ScreenEvent::ReplayLevel)->screen, ScreenId::Game);
     EXPECT_EQ(resolveTransition(niveauTermine, ScreenEvent::ReturnToMenuFromLevelComplete)->screen,
+              ScreenId::Menu);
+    EXPECT_EQ(resolveTransition(menu, ScreenEvent::OpenLevelSelect)->screen, ScreenId::LevelSelect);
+    EXPECT_EQ(resolveTransition(levelSelect, ScreenEvent::LevelChosen)->screen, ScreenId::Game);
+    EXPECT_EQ(resolveTransition(levelSelect, ScreenEvent::CloseLevelSelect)->screen,
               ScreenId::Menu);
 }
 
@@ -106,22 +112,27 @@ TEST(ScreenFlowTest, OptionsRevientVersSonEcranDOrigine) {
 TEST(ScreenFlowTest, TransitionInterditeEstRefusee) {
     const ScreenState editor{.screen = ScreenId::Editor, .optionsReturnTo = ScreenId::Menu};
     const ScreenState menu{.screen = ScreenId::Menu, .optionsReturnTo = ScreenId::Menu};
+    const ScreenState game{.screen = ScreenId::Game, .optionsReturnTo = ScreenId::Menu};
 
     EXPECT_EQ(resolveTransition(editor, ScreenEvent::OpenPause), std::nullopt);
     EXPECT_EQ(resolveTransition(menu, ScreenEvent::LevelSucceeded), std::nullopt);
     EXPECT_EQ(resolveTransition(menu, ScreenEvent::OpenPause), std::nullopt);
     EXPECT_EQ(resolveTransition(menu, ScreenEvent::ResumePause), std::nullopt);
     EXPECT_EQ(resolveTransition(editor, ScreenEvent::OpenOptions), std::nullopt);
+    // Sélection de niveau (LOT-59 TACHE-06) : atteignable seulement depuis le menu, jamais en jeu
+    // ni en édition.
+    EXPECT_EQ(resolveTransition(editor, ScreenEvent::OpenLevelSelect), std::nullopt);
+    EXPECT_EQ(resolveTransition(game, ScreenEvent::OpenLevelSelect), std::nullopt);
 }
 
 /**
- * @brief L'habillage de fenêtre attendu pour chacun des six écrans correspond à ce que
+ * @brief L'habillage de fenêtre attendu pour chacun des sept écrans correspond à ce que
  *        `MainWindow` appliquait à la main avant l'extraction de la table (docks, barres,
  *        commandes d'édition, navigation manette).
  * \castest{<b>L'habillage de fenêtre est celui attendu pour chaque écran.</b><br/>
  * \tcat Unitaire · Machine à états des écrans<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Interroger l'habillage de chacun des six écrans.<br/>2. Vérifier chaque champ.<br/>
+ * \tetapes 1. Interroger l'habillage de chacun des sept écrans.<br/>2. Vérifier chaque champ.<br/>
  * \tattendu L'habillage correspond au comportement historique de chaque `showXxx()`.
  * }
  */
@@ -161,6 +172,15 @@ TEST(ScreenFlowTest, HabillageDeFenetreEstCeluiAttenduParEcran) {
     EXPECT_FALSE(options.editingCommandsEnabled);
     EXPECT_TRUE(options.gamepadNavigationActive);
     EXPECT_FALSE(options.overlayVisible);
+
+    const ScreenDressing levelSelect = dressingFor(ScreenId::LevelSelect);
+    EXPECT_FALSE(levelSelect.docksVisible);
+    EXPECT_FALSE(levelSelect.menuBarVisible);
+    EXPECT_FALSE(levelSelect.toolBarVisible);
+    EXPECT_FALSE(levelSelect.pixelToolBarVisible);
+    EXPECT_FALSE(levelSelect.editingCommandsEnabled);
+    EXPECT_TRUE(levelSelect.gamepadNavigationActive);
+    EXPECT_FALSE(levelSelect.overlayVisible);
 
     for (const ScreenId overlayScreen : {ScreenId::Pause, ScreenId::NiveauTermine}) {
         const ScreenDressing overlay = dressingFor(overlayScreen);

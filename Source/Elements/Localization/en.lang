@@ -4,10 +4,14 @@
 
 # Main menu
 menu.title = ProjectGaming
-menu.play = Play
+menu.continue = Continue
+menu.new_game = New Game
+menu.select_level = Select Level
 menu.edit_mode = Edit Mode
 menu.options = Options
 menu.quit = Quit
+menu.new_game_confirm_title = New game?
+menu.new_game_confirm_text = Current progress will be erased. Start a new game?
 
 # Pause screen (LOT-59 TACHE-02)
 pause.title = Pause
@@ -29,6 +33,14 @@ level_complete.return_to_menu = Return to Menu
 sequence.demo.title = Demo Sequence
 game.sequence_failed_title = Sequence Unreadable
 game.sequence_failed_text = Could not load the level sequence: %1
+
+# Level select screen (LOT-59 TACHE-06)
+level_select.title = Select Level
+level_select.tab_sequence = Sequence
+level_select.tab_personal = Personal Levels
+level_select.back = Back
+level_select.completed_suffix = (completed)
+level_select.locked_suffix = (locked)
 
 # Main window and menu bar
 window.title = ProjectGaming — Editor

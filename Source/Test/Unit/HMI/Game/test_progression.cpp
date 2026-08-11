@@ -1,6 +1,7 @@
 /**
  * @file test_progression.cpp
- * @brief Tests unitaires de la progression de partie persistée (LOT-59 TACHE-05, EX-LVL-014).
+ * @brief Tests unitaires de la progression de partie persistée (LOT-59 TACHE-05, EX-LVL-014) et de
+ *        la règle de déverrouillage de la sélection de niveau (TACHE-06, EX-IHM-005).
  */
 
 #include <cstdint>
@@ -8,6 +9,7 @@
 #include <fstream>
 #include <string>
 #include <system_error>
+#include <vector>
 
 #include <gtest/gtest.h>
 
@@ -226,4 +228,93 @@ TEST(ProgressionTest, TableauRetireDeLaSequenceNInvalidePasLeReste) {
     EXPECT_TRUE(progression.isCompleted("demo-deplacement.json"));
     EXPECT_TRUE(progression.isCompleted("demo-dash.json"));
     EXPECT_EQ(progression.completedLevels().size(), 3U);
+}
+
+namespace {
+
+const std::vector<std::string> FIVE_LEVEL_SEQUENCE = {"demo-deplacement.json", "demo-saut.json",
+                                                      "demo-double-saut.json",
+                                                      "demo-wall-jump.json", "demo-dash.json"};
+
+}  // namespace
+
+/**
+ * @brief Progression vide : seul le premier tableau de la séquence est jouable.
+ * \castest{<b>Progression vide : seul le premier tableau est jouable.</b><br/>
+ * \tcat Unitaire · Progression (règle de déverrouillage)<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Construire une progression vide.<br/>2. Interroger `isLevelUnlocked` pour chaque
+ * tableau de la séquence.<br/>
+ * \tattendu Seul le premier tableau est jouable ; tous les autres sont verrouillés.
+ * }
+ */
+TEST(ProgressionUnlockTest, ProgressionVideSeulLePremierTableauEstJouable) {
+    const hmi::Progression progression;
+    EXPECT_TRUE(hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, "demo-deplacement.json"));
+    EXPECT_FALSE(hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, "demo-saut.json"));
+    EXPECT_FALSE(hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, "demo-double-saut.json"));
+    EXPECT_FALSE(hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, "demo-wall-jump.json"));
+    EXPECT_FALSE(hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, "demo-dash.json"));
+}
+
+/**
+ * @brief Trois tableaux terminés : les trois plus le quatrième (premier non terminé) sont
+ * jouables, le cinquième reste verrouillé.
+ * \castest{<b>Trois tableaux terminés : les trois plus le quatrième sont jouables.</b><br/>
+ * \tcat Unitaire · Progression (règle de déverrouillage)<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Marquer les trois premiers tableaux terminés.<br/>2. Interroger `isLevelUnlocked`
+ * pour chaque tableau de la séquence.<br/>
+ * \tattendu Les quatre premiers sont jouables, le cinquième reste verrouillé.
+ * }
+ */
+TEST(ProgressionUnlockTest, TroisTableauxTerminesDeverrouillentLeQuatrieme) {
+    hmi::Progression progression;
+    progression.markCompleted("demo-deplacement.json");
+    progression.markCompleted("demo-saut.json");
+    progression.markCompleted("demo-double-saut.json");
+
+    EXPECT_TRUE(hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, "demo-deplacement.json"));
+    EXPECT_TRUE(hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, "demo-saut.json"));
+    EXPECT_TRUE(hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, "demo-double-saut.json"));
+    EXPECT_TRUE(hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, "demo-wall-jump.json"));
+    EXPECT_FALSE(hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, "demo-dash.json"));
+}
+
+/**
+ * @brief Séquence entièrement terminée : tous les tableaux sont jouables (aucun tableau non
+ * terminé à borner).
+ * \castest{<b>Séquence entièrement terminée : tous les tableaux sont jouables.</b><br/>
+ * \tcat Unitaire · Progression (règle de déverrouillage)<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Marquer tous les tableaux de la séquence terminés.<br/>2. Interroger
+ * `isLevelUnlocked` pour chacun.<br/>
+ * \tattendu Chaque tableau est jouable.
+ * }
+ */
+TEST(ProgressionUnlockTest, SequenceEntierementTermineeTousJouables) {
+    hmi::Progression progression;
+    for (const std::string& level : FIVE_LEVEL_SEQUENCE) {
+        progression.markCompleted(level);
+    }
+    for (const std::string& level : FIVE_LEVEL_SEQUENCE) {
+        EXPECT_TRUE(hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, level)) << level;
+    }
+}
+
+/**
+ * @brief Un tableau verrouillé n'est jamais jouable, quelle que soit la façon de le demander --
+ * c'est la garantie que `MainWindow::chooseSequenceLevel` revalide avant tout lancement, même si
+ * un écran laissait par erreur passer un choix verrouillé.
+ * \castest{<b>Un tableau verrouillé n'est jamais jouable.</b><br/>
+ * \tcat Unitaire · Progression (règle de déverrouillage)<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Ne terminer aucun tableau.<br/>2. Interroger `isLevelUnlocked` pour un tableau loin
+ * dans la séquence.<br/>
+ * \tattendu Le tableau est verrouillé (faux).
+ * }
+ */
+TEST(ProgressionUnlockTest, TableauVerrouilleNEstJamaisJouable) {
+    const hmi::Progression progression;
+    EXPECT_FALSE(hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, "demo-dash.json"));
 }

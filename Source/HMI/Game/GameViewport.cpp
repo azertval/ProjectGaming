@@ -1168,13 +1168,13 @@ void GameViewport::advanceToNextLevel() {
     loadGameLevel(_gameLevel + 1);
 }
 
-void GameViewport::startGame(std::vector<std::filesystem::path> levels) {
+void GameViewport::startGame(std::vector<std::filesystem::path> levels, std::size_t startIndex) {
     ensureResources();
     _gameLevels = std::move(levels);
     _gameMode = true;
     HMI_LOG_INFO("Jeu : demarrage de la sequence (" + std::to_string(_gameLevels.size()) +
-                 " niveaux).");
-    loadGameLevel(0);
+                 " niveaux, indice de depart " + std::to_string(startIndex) + ").");
+    loadGameLevel(startIndex);
 }
 
 void GameViewport::loadGameLevel(std::size_t index) {

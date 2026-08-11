@@ -23,6 +23,7 @@ enum class ScreenId {
     Options,
     Pause,
     NiveauTermine,
+    LevelSelect,
 };
 
 /// Événement pouvant déclencher une transition d'écran. Un seul événement `OpenOptions`/
@@ -42,6 +43,9 @@ enum class ScreenEvent {
     ContinueAfterLevel,
     ReplayLevel,
     ReturnToMenuFromLevelComplete,
+    OpenLevelSelect,
+    CloseLevelSelect,
+    LevelChosen,
 };
 
 /// Habillage de fenêtre associé à un écran : ce que chaque `showXxx()` répétait à la main

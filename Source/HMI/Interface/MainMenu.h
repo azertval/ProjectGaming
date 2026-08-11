@@ -35,8 +35,15 @@ public:
     /// Applique la langue active aux libellés (titre et boutons).
     void retranslateUi(const Localization& loc);
 
+    /// Active/désactive « Continuer » (`LOT-59` TACHE-06) : grisé sans progression, seul bouton
+    /// dont l'état dépend d'autre chose que la langue -- appelé par `MainWindow` à chaque retour
+    /// au menu (source de vérité : `Progression::currentLevel`, jamais suivi ici).
+    void setContinueEnabled(bool enabled);
+
 signals:
-    void playRequested();
+    void continueRequested();
+    void newGameRequested();
+    void selectLevelRequested();
     void editorRequested();
     void optionsRequested();
     void quitRequested();

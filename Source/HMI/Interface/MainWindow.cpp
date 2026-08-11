@@ -37,6 +37,7 @@
 #include <QToolButton>
 #include <QVBoxLayout>
 #include <QWidget>
+#include <algorithm>
 #include <array>
 #include <ctime>
 #include <filesystem>
@@ -49,6 +50,7 @@
 #include "HMI/Editor/DecorsPanel.h"
 #include "HMI/Editor/EditorStatus.h"
 #include "HMI/Editor/LevelBrowserPanel.h"
+#include "HMI/Editor/LevelFileOperations.h"
 #include "HMI/Editor/LinkPanel.h"
 #include "HMI/Editor/PalettePanel.h"
 #include "HMI/Editor/PanelFocus.h"
@@ -67,6 +69,7 @@
 #include "HMI/Interface/DesignTokens.h"
 #include "HMI/Interface/EditorActions.h"
 #include "HMI/Interface/LevelCompleteScreen.h"
+#include "HMI/Interface/LevelSelectScreen.h"
 #include "HMI/Interface/MainMenu.h"
 #include "HMI/Interface/OptionsPage.h"
 #include "HMI/Interface/PauseScreen.h"
@@ -150,11 +153,19 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     _menu = new MainMenu();
     _options =
         new OptionsPage(_viewport, hmi::executableDirectory() / "Settings" / "keybindings.json");
+    _levelSelectScreen = new LevelSelectScreen();
     _stack = new QStackedWidget(this);
     _stack->addWidget(_menu);
     _stack->addWidget(_options);
+    _stack->addWidget(_levelSelectScreen);
     _stack->addWidget(_editorContainer);
     setCentralWidget(_stack);
+    connect(_levelSelectScreen, &LevelSelectScreen::backRequested, this,
+            &MainWindow::closeLevelSelect);
+    connect(_levelSelectScreen, &LevelSelectScreen::sequenceLevelChosen, this,
+            &MainWindow::chooseSequenceLevel);
+    connect(_levelSelectScreen, &LevelSelectScreen::personalLevelChosen, this,
+            &MainWindow::playPersonalLevel);
 
     // Recouvrement de pause (LOT-59 TACHE-02) : enfant de _stack (même parent que
     // _editorContainer, un conteneur de fenêtre native), jamais une page -- _stack::addWidget()
@@ -332,7 +343,10 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
 
     // Navigation depuis le menu principal.
     connect(_menu, &MainMenu::editorRequested, this, &MainWindow::showEditor);
-    connect(_menu, &MainMenu::playRequested, this, &MainWindow::showGame);
+    // Jouer (LOT-59 TACHE-06) : trois intentions distinctes remplacent l'ancien "Jouer" unique.
+    connect(_menu, &MainMenu::continueRequested, this, &MainWindow::continueGame);
+    connect(_menu, &MainMenu::newGameRequested, this, &MainWindow::newGame);
+    connect(_menu, &MainMenu::selectLevelRequested, this, &MainWindow::openLevelSelect);
     connect(_menu, &MainMenu::optionsRequested, this, &MainWindow::showOptions);
     connect(_menu, &MainMenu::quitRequested, this, &MainWindow::close);
     // Retour au menu à la fin d'une partie (ou Échap en mode jeu).
@@ -404,6 +418,9 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
         case ScreenId::Options:
             _stack->setCurrentWidget(_options);
             break;
+        case ScreenId::LevelSelect:
+            _stack->setCurrentWidget(_levelSelectScreen);
+            break;
         case ScreenId::Editor:
         case ScreenId::Game:
         case ScreenId::Pause:
@@ -441,6 +458,8 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
     if (!showPauseOverlay && !showLevelCompleteOverlay &&
         (screen == ScreenId::Editor || screen == ScreenId::Game)) {
         _editorContainer->setFocus();
+    } else if (screen == ScreenId::LevelSelect) {
+        _levelSelectScreen->focusDefaultAction();
     }
 
     const ScreenDressing dressing = hmi::dressingFor(screen);
@@ -519,15 +538,23 @@ void MainWindow::openLevelComplete() {
     // Progression persistée (LOT-59 TACHE-05, EX-LVL-014) : marquée ICI, une seule fois par
     // réussite, avant tout chargement du tableau suivant -- point d'écriture unique (ni
     // Continuer/Rejouer/Retour ne réécrivent). `nextLevel` est vide en fin de séquence :
-    // `currentLevel` reste alors au dernier tableau atteint, sans effet tant qu'aucune sélection de
-    // niveau (TACHE-06) ne le lit.
-    _progression.setSequenceId(DEMO_SEQUENCE_FILE);
-    _progression.markCompleted(finishedLevel);
-    if (!nextLevel.empty()) {
-        _progression.setCurrentLevel(nextLevel);
-    }
-    if (!_progression.save(hmi::executableDirectory() / "Settings" / "progression.json")) {
-        HMI_LOG_WARNING("Progression : echec de l'ecriture (Settings/progression.json).");
+    // `currentLevel` reste alors au dernier tableau atteint. Un niveau **personnel** (`LOT-59`
+    // TACHE-06, `_gameTracksProgression == false`) ne touche jamais la progression -- sinon
+    // l'essayer « débloquerait » la campagne.
+    if (_gameTracksProgression) {
+        // `alreadyCompleted` distingue une PREMIÈRE réussite (avance le tableau atteint) d'une
+        // rejouée -- rejouer un tableau déjà terminé plus ancien que le tableau atteint (via
+        // « Choisir un niveau », TACHE-06 : les tableaux terminés restent tous jouables) ne doit
+        // JAMAIS faire reculer `currentLevel` vers ce tableau plus ancien.
+        const bool alreadyCompleted = _progression.isCompleted(finishedLevel);
+        _progression.setSequenceId(DEMO_SEQUENCE_FILE);
+        _progression.markCompleted(finishedLevel);
+        if (!alreadyCompleted && !nextLevel.empty()) {
+            _progression.setCurrentLevel(nextLevel);
+        }
+        if (!_progression.save(hmi::executableDirectory() / "Settings" / "progression.json")) {
+            HMI_LOG_WARNING("Progression : echec de l'ecriture (Settings/progression.json).");
+        }
     }
 }
 
@@ -566,6 +593,9 @@ void MainWindow::showMenu() {
         return;
     }
     HMI_LOG_INFO("Navigation : menu principal.");
+    // Seule voie de mise a jour (LOT-59 TACHE-06) : le menu est toujours reaffiche via cette
+    // methode (fin de partie, retour de pause, etc.), donc toujours a jour sans suivi separe.
+    _menu->setContinueEnabled(!_progression.currentLevel().empty());
 }
 
 void MainWindow::showEditor() {
@@ -575,33 +605,134 @@ void MainWindow::showEditor() {
     HMI_LOG_INFO("Navigation : editeur.");
 }
 
-void MainWindow::showGame() {
+std::optional<core::LevelSequence> MainWindow::loadDemoSequenceOrWarn() {
     // Séquence de niveaux en donnée de contenu (LOT-59 TACHE-04, EX-LVL-013) : plus aucun nom de
-    // niveau écrit dans Source/HMI. Résolue AVANT la transition d'écran : un fichier de séquence
-    // absent/invalide est une erreur récupérable (EX-NFR-040) -- on reste sur le menu plutôt que
-    // d'ouvrir un écran de jeu sans rien à jouer.
+    // niveau écrit dans Source/HMI. Un fichier de séquence absent/invalide est une erreur
+    // récupérable (EX-NFR-040) -- l'appelant reste sur son écran courant plutôt que d'ouvrir un
+    // écran de jeu sans rien à jouer.
     const std::filesystem::path levelsDir = hmi::executableDirectory() / "Levels";
-    const core::LevelSequenceLoadResult sequenceLoad =
+    core::LevelSequenceLoadResult sequenceLoad =
         core::LevelSequenceLoader::loadFromFile(levelsDir / DEMO_SEQUENCE_FILE);
     if (!sequenceLoad.ok()) {
         HMI_LOG_WARNING("Jeu : sequence illisible : " + sequenceLoad.error);
         QMessageBox::warning(
             this, text("game.sequence_failed_title"),
             text("game.sequence_failed_text").arg(QString::fromStdString(sequenceLoad.error)));
+        return std::nullopt;
+    }
+    return std::move(*sequenceLoad.sequence);
+}
+
+void MainWindow::startSequence(const std::string& startLevelName, ScreenEvent transitionEvent) {
+    const std::optional<core::LevelSequence> sequence = loadDemoSequenceOrWarn();
+    if (!sequence) {
         return;
     }
 
-    if (!transitionScreen(ScreenEvent::OpenGame)) {
+    std::size_t startIndex = 0;
+    if (!startLevelName.empty()) {
+        const auto found = std::ranges::find(sequence->levels, startLevelName);
+        if (found != sequence->levels.end()) {
+            startIndex = static_cast<std::size_t>(std::distance(sequence->levels.begin(), found));
+        }
+        // Sinon (nom introuvable -- séquence modifiée depuis, EX-NFR-040) : reprend au premier
+        // tableau plutôt que d'échouer, startIndex reste à 0.
+    }
+
+    if (!transitionScreen(transitionEvent)) {
         return;
     }
     HMI_LOG_INFO("Navigation : jeu.");
 
+    const std::filesystem::path levelsDir = hmi::executableDirectory() / "Levels";
     std::vector<std::filesystem::path> levelPaths;
-    levelPaths.reserve(sequenceLoad.sequence->levels.size());
-    for (const std::string& levelName : sequenceLoad.sequence->levels) {
+    levelPaths.reserve(sequence->levels.size());
+    for (const std::string& levelName : sequence->levels) {
         levelPaths.push_back(levelsDir / levelName);
     }
-    _viewport->startGame(std::move(levelPaths));
+    _gameTracksProgression = true;
+    _viewport->startGame(std::move(levelPaths), startIndex);
+}
+
+void MainWindow::continueGame() {
+    if (_progression.currentLevel().empty()) {
+        return;  // "Continuer" est grise dans ce cas (garde ici aussi : clavier/manette).
+    }
+    startSequence(_progression.currentLevel(), ScreenEvent::OpenGame);
+}
+
+void MainWindow::newGame() {
+    const bool hasProgression =
+        !_progression.completedLevels().empty() || !_progression.currentLevel().empty();
+    if (hasProgression) {
+        const QMessageBox::StandardButton answer = QMessageBox::question(
+            this, text("menu.new_game_confirm_title"), text("menu.new_game_confirm_text"));
+        if (answer != QMessageBox::Yes) {
+            return;
+        }
+        _progression.reset();
+        if (!_progression.save(hmi::executableDirectory() / "Settings" / "progression.json")) {
+            HMI_LOG_WARNING("Progression : echec de l'ecriture (Settings/progression.json).");
+        }
+    }
+    startSequence({}, ScreenEvent::OpenGame);
+}
+
+void MainWindow::openLevelSelect() {
+    const std::optional<core::LevelSequence> sequence = loadDemoSequenceOrWarn();
+    if (!sequence) {
+        return;
+    }
+    if (!transitionScreen(ScreenEvent::OpenLevelSelect)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : selection de niveau.");
+
+    _levelSelectScreen->setSequenceLevels(sequence->levels, _progression);
+
+    // Niveaux personnels : tout le dossier (hmi::LevelFileOperations, deja reutilise par le
+    // panneau Niveaux de l'editeur), MOINS les tableaux de la sequence demo -- sans ce filtre, un
+    // tableau verrouille serait lancable en clair depuis cet onglet (EX-IHM-005, "hors sequence").
+    const hmi::LevelFileOperations levelOps(hmi::executableDirectory() / "Levels");
+    std::vector<std::filesystem::path> personalLevels = levelOps.list();
+    std::erase_if(personalLevels, [&sequence](const std::filesystem::path& path) {
+        return std::ranges::find(sequence->levels, path.filename().string()) !=
+               sequence->levels.end();
+    });
+    _levelSelectScreen->setPersonalLevels(personalLevels);
+}
+
+void MainWindow::closeLevelSelect() {
+    if (!transitionScreen(ScreenEvent::CloseLevelSelect)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : retour au menu depuis la selection de niveau.");
+}
+
+void MainWindow::chooseSequenceLevel(const QString& levelName) {
+    const std::string name = levelName.toStdString();
+    // Revalidation (défense en profondeur, EX-IHM-005) : l'écran grise déjà les tableaux
+    // verrouillés, mais n'est pas l'unique garde -- jamais lancé verrouillé, même par un chemin
+    // qui contournerait l'affichage (manette, focus forcé).
+    const std::optional<core::LevelSequence> sequence = loadDemoSequenceOrWarn();
+    if (!sequence) {
+        return;
+    }
+    if (!isLevelUnlocked(_progression, sequence->levels, name)) {
+        HMI_LOG_WARNING("Selection de niveau : tableau verrouille ignore (" + name + ").");
+        return;
+    }
+    startSequence(name, ScreenEvent::LevelChosen);
+}
+
+void MainWindow::playPersonalLevel(const QString& path) {
+    if (!transitionScreen(ScreenEvent::LevelChosen)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : jeu (niveau personnel).");
+    // Hors séquence : ne doit jamais toucher à la progression de la campagne (EX-IHM-005).
+    _gameTracksProgression = false;
+    _viewport->startGame({std::filesystem::path(path.toStdString())});
 }
 
 void MainWindow::showOptions() {
@@ -1184,6 +1315,8 @@ void MainWindow::pollMenuGamepad() {
             closeOptions();
         } else if (_screenState.screen == ScreenId::Pause) {
             resumeFromPause();
+        } else if (_screenState.screen == ScreenId::LevelSelect) {
+            closeLevelSelect();
         }
     }
 
@@ -1578,6 +1711,7 @@ void MainWindow::retranslateUi() {
     _menu->retranslateUi(_loc);
     _pauseScreen->retranslateUi(_loc);
     _levelCompleteScreen->retranslateUi(_loc);
+    _levelSelectScreen->retranslateUi(_loc);
     _options->retranslateUi(_loc);
     _palette->retranslateUi(_loc);
     _decors->retranslateUi(_loc);

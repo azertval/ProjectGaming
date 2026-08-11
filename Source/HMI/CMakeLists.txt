@@ -154,6 +154,7 @@ add_executable(ProjectGaming
     Interface/MainMenu.cpp
     Interface/PauseScreen.cpp
     Interface/LevelCompleteScreen.cpp
+    Interface/LevelSelectScreen.cpp
     Interface/OptionsPage.cpp
     Interface/KeybindingsWidget.cpp
     Interface/EditorKeybindingsWidget.cpp
@@ -200,6 +201,7 @@ add_executable(ProjectGaming
     ${ELEMENTS_UI}/MainMenu.ui
     ${ELEMENTS_UI}/PauseScreen.ui
     ${ELEMENTS_UI}/LevelCompleteScreen.ui
+    ${ELEMENTS_UI}/LevelSelectScreen.ui
     ${ELEMENTS_UI}/OptionsPage.ui
     ${ELEMENTS_UI}/DecorsPanel.ui
     ${ELEMENTS_UI}/TexturePanel.ui

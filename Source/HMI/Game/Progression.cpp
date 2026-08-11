@@ -87,4 +87,22 @@ Progression Progression::load(const std::filesystem::path& path) {
     return progression;
 }
 
+bool isLevelUnlocked(const Progression& progression, const std::vector<std::string>& sequence,
+                     const std::string& levelName) {
+    if (progression.isCompleted(levelName)) {
+        return true;
+    }
+    for (const std::string& level : sequence) {
+        if (progression.isCompleted(level)) {
+            continue;
+        }
+        // Premier tableau non termine rencontre dans l'ordre de la sequence : jouable s'il s'agit
+        // de celui demande, verrouille sinon (tous les suivants) -- sortie immediate, la boucle
+        // n'evalue jamais un candidat plus loin dans la sequence.
+        return level == levelName;
+    }
+    return false;  // sequence entierement terminee et levelName absent : n'existe pas (ou n'est
+                   // pas dans cette sequence), jamais jouable par cette regle.
+}
+
 }  // namespace hmi

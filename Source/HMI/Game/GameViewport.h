@@ -199,9 +199,10 @@ public:
     /// et en jeu réel (LOT-56 TACHE-04 : seule commande jamais désactivée par le mode courant).
     void toggleRenderMode();
 
-    /// Lance le **jeu** : joue la séquence de niveaux @p levels (mode « Jouer » du menu). `Échap`
-    /// ou la fin de la séquence émet `exitToMenuRequested`.
-    void startGame(std::vector<std::filesystem::path> levels);
+    /// Lance le **jeu** : joue la séquence de niveaux @p levels, à partir de @p startIndex
+    /// (0 = depuis le début ; « Continuer »/sélection de niveau, `LOT-59` TACHE-06, reprennent
+    /// plus loin). `Échap` ou la fin de la séquence émet `exitToMenuRequested`.
+    void startGame(std::vector<std::filesystem::path> levels, std::size_t startIndex = 0);
 
     /// Suspend la simulation (écran de pause, `LOT-59` TACHE-02) : `tick()` cesse d'alimenter
     /// l'accumulateur de pas fixe -- aucun pas n'est consommé pendant la pause (`EX-GP-041`). Le

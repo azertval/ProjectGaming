@@ -3,6 +3,7 @@
 #include <filesystem>
 #include <set>
 #include <string>
+#include <vector>
 
 /**
  * @file HMI/Game/Progression.h
@@ -86,5 +87,21 @@ private:
     std::string _currentLevel;
     std::set<std::string> _completedLevels;
 };
+
+/**
+ * @brief Règle de déverrouillage (`LOT-59` TACHE-06, `EX-IHM-005`) : fonction **pure**, seule
+ *        source de vérité sur ce qui est jouable -- un écran ne fait que l'afficher, jamais sa
+ *        propre condition.
+ *
+ * Jouable : tout tableau déjà **terminé** (`progression.isCompleted`), plus le **premier** tableau
+ * non terminé de @p sequence, dans son ordre. Les suivants restent verrouillés -- sinon la
+ * progression ne signifierait rien. Une @p sequence entièrement terminée rend tout jouable (aucun
+ * tableau non terminé à borner).
+ *
+ * @param levelName Nom de fichier (jamais un indice, comme le reste de la progression).
+ */
+[[nodiscard]] bool isLevelUnlocked(const Progression& progression,
+                                   const std::vector<std::string>& sequence,
+                                   const std::string& levelName);
 
 }  // namespace hmi

@@ -36,6 +36,16 @@ ScreenDressing dressingFor(ScreenId screen) noexcept {
                                   .editingCommandsEnabled = false,
                                   .gamepadNavigationActive = true,
                                   .overlayVisible = false};
+        case ScreenId::LevelSelect:
+            // Même habillage que Menu/Options : page du QStackedWidget, jamais un recouvrement
+            // (atteint depuis le menu, pas en jeu -- LOT-59 TACHE-06).
+            return ScreenDressing{.docksVisible = false,
+                                  .menuBarVisible = false,
+                                  .toolBarVisible = false,
+                                  .pixelToolBarVisible = false,
+                                  .editingCommandsEnabled = false,
+                                  .gamepadNavigationActive = true,
+                                  .overlayVisible = false};
         case ScreenId::Pause:
         case ScreenId::NiveauTermine:
             // Recouvrement par-dessus Game (EX-GP-041, TACHE-02) : même habillage que Game (la
@@ -67,6 +77,18 @@ std::optional<ScreenState> resolveTransition(const ScreenState& current,
                 case ScreenEvent::OpenOptions:
                     return ScreenState{.screen = ScreenId::Options,
                                        .optionsReturnTo = ScreenId::Menu};
+                case ScreenEvent::OpenLevelSelect:
+                    return ScreenState{.screen = ScreenId::LevelSelect,
+                                       .optionsReturnTo = ScreenId::Menu};
+                default:
+                    return std::nullopt;
+            }
+        case ScreenId::LevelSelect:
+            switch (event) {
+                case ScreenEvent::CloseLevelSelect:
+                    return ScreenState{.screen = ScreenId::Menu, .optionsReturnTo = ScreenId::Menu};
+                case ScreenEvent::LevelChosen:
+                    return ScreenState{.screen = ScreenId::Game, .optionsReturnTo = ScreenId::Menu};
                 default:
                     return std::nullopt;
             }
