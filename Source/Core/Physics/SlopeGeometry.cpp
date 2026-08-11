@@ -3,8 +3,6 @@
 #include <algorithm>
 #include <cmath>
 
-#include <math.h>
-
 #include "Core/Levels/TileMap.h"
 
 namespace core {
@@ -17,6 +15,96 @@ constexpr float K_FOLLOW_TOLERANCE = 1e-3F;
 // Évite qu'un bord de boîte tombant PILE sur une frontière de case n'en morde la case suivante
 // (même rôle que kSkin, SweptCollision.cpp).
 constexpr float K_COLUMN_SKIN = 1e-4F;
+
+// Abscisse locale (repère de la case, [0, 1]) à utiliser pour la colonne @p col : depuis le
+// CENTRE de la boîte (position finale) si @p col est la colonne centrale, sinon depuis le bord le
+// plus GÉNÉREUX ayant pu couvrir cette colonne pendant tout le pas (avant ou après) -- pas
+// seulement le bord final. Partagé par resolveSlopeFollow et resolveCeilingSlopeFollow (même
+// règle, symétrique).
+[[nodiscard]] float localXForColumn(int col, int centerColumn, float centerX, float leftEdge,
+                                    float rightEdge) noexcept {
+    if (col == centerColumn) {
+        return centerX - static_cast<float>(col);
+    }
+    if (col < centerColumn) {
+        return leftEdge - static_cast<float>(col);
+    }
+    return rightEdge - static_cast<float>(col);
+}
+
+// Parmi les colonnes couvertes par la boîte sur une ligne donnée, la surface de SOL valide la
+// plus HAUTE (bord bas le moins profond) : c'est elle qui arrête la chute en premier, comme un
+// balayage classique -- une colonne voisine plus permissive (case vide, ou pente moins haute à
+// cet endroit) ne doit jamais faire ignorer un appui plus haut ailleurs sous la boîte.
+[[nodiscard]] std::optional<float> bestFloorSurfaceInRow(int row, int colStart, int colEnd,
+                                                         int width, int centerColumn,
+                                                         float centerX, float leftEdge,
+                                                         float rightEdge, float previousBottomY,
+                                                         float newBottomY,
+                                                         const TileMap& tiles) noexcept {
+    std::optional<float> best;
+    for (int col = colStart; col <= colEnd; ++col) {
+        if (col < 0 || col >= width) {
+            continue;
+        }
+        const float localX = localXForColumn(col, centerColumn, centerX, leftEdge, rightEdge);
+        const TileType tileType = tiles.tile(col, row);
+        const std::optional<float> height = slopeSurfaceHeight(tileType, localX);
+        if (!height) {
+            continue;
+        }
+        // Une tuile de PLAFOND (`isCeilingSlope`) n'a de face du haut plate (`h == 0`, voir
+        // l'en-tête) que pour porter un personnage qui tombe dessus PAR AU-DESSUS -- jamais un
+        // personnage bloqué PAR EN DESSOUS par sa silhouette (`resolveCeilingSlopeFollow`) et
+        // dont le bord bas reste, du fait de sa propre hauteur, encore DANS la même case
+        // (silhouette fine : blocage proche du sommet de la case, `EX-GP-007`). Exigé ici : le
+        // bord bas devait déjà être AU-DESSUS (ou pile au sommet) de la case avant ce pas --
+        // cohérent avec « tombe dessus », pas « était déjà dedans » (sans cette distinction, le
+        // chevauchement résiduel après un blocage par en dessous serait pris pour un
+        // atterrissage par-dessus, et téléporterait le personnage au-dessus du plafond).
+        if (isCeilingSlope(tileType) &&
+            previousBottomY > static_cast<float>(row) + K_FOLLOW_TOLERANCE) {
+            continue;
+        }
+        const float surfaceY = static_cast<float>(row) + *height;
+        // Calage dès que le bord bas est À ou SOUS la surface (comme un sol : jamais en-
+        // dessous), sans exiger d'être parti d'AU-DESSUS d'elle -- un déplacement HORIZONTAL peut
+        // faire entrer dans une nouvelle colonne dont la pente exige une hauteur plus haute que
+        // la position précédente (qui appartenait à une autre colonne, sans rapport avec cette
+        // surface-ci).
+        if (newBottomY >= surfaceY - K_FOLLOW_TOLERANCE && (!best || surfaceY < *best)) {
+            best = surfaceY;
+        }
+    }
+    return best;
+}
+
+// Miroir exact de bestFloorSurfaceInRow ci-dessus, pour la silhouette de PLAFOND : la plus BASSE
+// (bord haut le moins profond, donc atteinte le plus tôt en montant).
+[[nodiscard]] std::optional<float> bestCeilingSurfaceInRow(int row, int colStart, int colEnd,
+                                                           int width, int centerColumn,
+                                                           float centerX, float leftEdge,
+                                                           float rightEdge, float newTopY,
+                                                           const TileMap& tiles) noexcept {
+    std::optional<float> best;
+    for (int col = colStart; col <= colEnd; ++col) {
+        if (col < 0 || col >= width) {
+            continue;
+        }
+        const float localX = localXForColumn(col, centerColumn, centerX, leftEdge, rightEdge);
+        const std::optional<float> height = ceilingSlopeHeight(tiles.tile(col, row), localX);
+        if (!height) {
+            continue;
+        }
+        const float surfaceY = static_cast<float>(row) + *height;
+        // Blocage dès que le bord haut est À ou SOUS la silhouette (jamais au-dessus) : symétrique
+        // du calage "à ou sous la surface" du sol, miroir verticalement.
+        if (newTopY <= surfaceY + K_FOLLOW_TOLERANCE && (!best || surfaceY > *best)) {
+            best = surfaceY;
+        }
+    }
+    return best;
+}
 
 }  // namespace
 
@@ -146,67 +234,18 @@ SlopeFollowResult resolveSlopeFollow(const Aabb& previousBox, const Aabb& newBox
     // pourtant courant (une pente relie normalement deux paliers d'une ligne d'écart).
     const int rowStart = static_cast<int>(std::floor(previousBottomY - K_FOLLOW_TOLERANCE));
     const int rowEnd = static_cast<int>(std::floor(newBottomY));
+    // L'itération part de la ligne la plus haute du pas (rowStart) : la première ligne où une
+    // colonne couverte offre un appui valide est la bonne (comme un balayage classique).
     for (int row = rowStart; row <= rowEnd; ++row) {
         if (row < 0 || row >= tiles.height()) {
             continue;
         }
-        // Parmi les colonnes couvertes par la boîte, la surface valide la plus HAUTE (bord bas le
-        // moins profond) est la bonne : c'est elle qui arrête la chute en premier, comme un
-        // balayage classique — une colonne voisine plus permissive (case vide, ou pente moins
-        // haute à cet endroit) ne doit jamais faire ignorer un appui plus haut ailleurs sous la
-        // boîte.
-        bool found = false;
-        float bestSurfaceY = 0.0F;
-        for (int col = colStart; col <= colEnd; ++col) {
-            if (col < 0 || col >= width) {
-                continue;
-            }
-            // Colonne centrale : localX depuis le CENTRE de la boîte (position finale). Colonne
-            // supplémentaire : localX depuis le bord le plus GÉNÉREUX ayant pu la couvrir pendant
-            // le pas (avant ou après), pas seulement le bord final.
-            float localX = NAN;
-            if (col == centerColumn) {
-                localX = centerX - static_cast<float>(col);
-            } else if (col < centerColumn) {
-                localX = leftEdge - static_cast<float>(col);
-            } else {
-                localX = rightEdge - static_cast<float>(col);
-            }
-            const TileType tileType = tiles.tile(col, row);
-            const std::optional<float> height = slopeSurfaceHeight(tileType, localX);
-            if (!height) {
-                continue;
-            }
-            // Une tuile de PLAFOND (`isCeilingSlope`) n'a de face du haut plate (`h == 0`, voir
-            // l'en-tête) que pour porter un personnage qui tombe dessus PAR AU-DESSUS — jamais un
-            // personnage bloqué PAR EN DESSOUS par sa silhouette (`resolveCeilingSlopeFollow`) et
-            // dont le bord bas reste, du fait de sa propre hauteur, encore DANS la même case
-            // (silhouette fine : blocage proche du sommet de la case, `EX-GP-007`). Exigé ici : le
-            // bord bas devait déjà être AU-DESSUS (ou pile au sommet) de la case avant ce pas —
-            // cohérent avec « tombe dessus », pas « était déjà dedans » (sans cette distinction, le
-            // chevauchement résiduel après un blocage par en dessous serait pris pour un
-            // atterrissage par-dessus, et téléporterait le personnage au-dessus du plafond).
-            if (isCeilingSlope(tileType) &&
-                previousBottomY > static_cast<float>(row) + K_FOLLOW_TOLERANCE) {
-                continue;
-            }
-            const float surfaceY = static_cast<float>(row) + *height;
-            // Calage dès que le bord bas est À ou SOUS la surface (comme un sol : jamais en-
-            // dessous), sans exiger d'être parti d'AU-DESSUS d'elle — un déplacement HORIZONTAL
-            // peut faire entrer dans une nouvelle colonne dont la pente exige une hauteur plus
-            // haute que la position précédente (qui appartenait à une autre colonne, sans rapport
-            // avec cette surface-ci).
-            if (newBottomY >= surfaceY - K_FOLLOW_TOLERANCE &&
-                (!found || surfaceY < bestSurfaceY)) {
-                found = true;
-                bestSurfaceY = surfaceY;
-            }
-        }
-        // L'itération part de la ligne la plus haute du pas (rowStart) : la première ligne où une
-        // colonne couverte offre un appui valide est la bonne (comme un balayage classique).
-        if (found) {
+        const std::optional<float> bestSurfaceY =
+            bestFloorSurfaceInRow(row, colStart, colEnd, width, centerColumn, centerX, leftEdge,
+                                  rightEdge, previousBottomY, newBottomY, tiles);
+        if (bestSurfaceY) {
             result.grounded = true;
-            result.bottomY = bestSurfaceY;
+            result.bottomY = *bestSurfaceY;
             return result;
         }
     }
@@ -256,41 +295,12 @@ CeilingSlopeFollowResult resolveCeilingSlopeFollow(float previousTopY, float swe
         if (row < 0 || row >= tiles.height()) {
             continue;
         }
-        // Parmi les colonnes couvertes par la boîte, la silhouette valide la plus BASSE (bord haut
-        // le moins profond, donc atteinte le plus tôt en montant) est la bonne : symétrique du
-        // choix de la surface la plus haute dans resolveSlopeFollow.
-        bool found = false;
-        float bestSurfaceY = 0.0F;
-        for (int col = colStart; col <= colEnd; ++col) {
-            if (col < 0 || col >= width) {
-                continue;
-            }
-            // Même règle que resolveSlopeFollow : colonne centrale → localX depuis le centre de la
-            // boîte (position finale) ; colonne supplémentaire → localX depuis le bord le plus
-            // généreux ayant pu la couvrir pendant le pas.
-            float localX = NAN;
-            if (col == centerColumn) {
-                localX = centerX - static_cast<float>(col);
-            } else if (col < centerColumn) {
-                localX = leftEdge - static_cast<float>(col);
-            } else {
-                localX = rightEdge - static_cast<float>(col);
-            }
-            const std::optional<float> height = ceilingSlopeHeight(tiles.tile(col, row), localX);
-            if (!height) {
-                continue;
-            }
-            const float surfaceY = static_cast<float>(row) + *height;
-            // Blocage des que le bord haut est A ou SOUS la silhouette (jamais au-dessus) :
-            // symetrique du calage "a ou sous la surface" du sol, miroir verticalement.
-            if (newTopY <= surfaceY + K_FOLLOW_TOLERANCE && (!found || surfaceY > bestSurfaceY)) {
-                found = true;
-                bestSurfaceY = surfaceY;
-            }
-        }
-        if (found) {
+        const std::optional<float> bestSurfaceY = bestCeilingSurfaceInRow(
+            row, colStart, colEnd, width, centerColumn, centerX, leftEdge, rightEdge, newTopY,
+            tiles);
+        if (bestSurfaceY) {
             result.blocked = true;
-            result.topY = bestSurfaceY;
+            result.topY = *bestSurfaceY;
             return result;
         }
     }
