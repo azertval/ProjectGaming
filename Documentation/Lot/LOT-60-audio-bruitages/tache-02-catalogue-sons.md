@@ -22,12 +22,13 @@ insupportable. Le repli d'un son absent est le **silence**, plus une entrée de 
 - **Repli silencieux** : événement sans entrée, fichier absent, fichier illisible → aucun son,
   un avertissement journalisé **une seule fois** par asset, jamais à chaque déclenchement.
 - **Assets de bruitages** dans `Source/Elements/Audio/` : WAV PCM courts, couvrant les événements
-  de `EX-REN-040` et ceux de la `TACHE-03`. Un script de génération procédurale
-  (`scripts/generate_test_sounds.py`, sur le modèle des `generate_test_skins.py` existants) fournit
-  des sons de substitution déterministes, pour que le dépôt soit sonore sans dépendre d'assets
-  d'origine externe.
-- **Licence des sons** documentée, comme l'est déjà celle de la police Inter
-  (`Source/Elements/Assets/Fonts/Inter-LICENSE.txt`).
+  de `EX-REN-040` et ceux de la `TACHE-03`. Sons **libres de droit** sélectionnés dans un dépôt
+  réputé (licence CC0 ou CC-BY), pas de génération procédurale — un vrai bruitage vaut mieux qu'un
+  bip synthétique pour un jeu destiné à être joué, pas seulement testé.
+- **Licence et attribution des sons** documentées dans `Source/Elements/Audio/CREDITS.md` : pour
+  chaque fichier, l'auteur, la source et la licence — sur le modèle de la police Inter
+  (`Source/Elements/Assets/Fonts/Inter-LICENSE.txt`), et **obligatoire** même pour du CC0 dès lors
+  que ce lot s'engage à créditer les auteurs.
 - **Politique de recouvrement** : un même événement déclenché en rafale ne doit ni saturer ni
   couper le son précédent de façon audible — limiter le nombre d'instances simultanées par
   événement, avec une constante nommée.
@@ -36,7 +37,7 @@ insupportable. Le repli d'un son absent est le **silence**, plus une entrée de 
 - `Source/HMI/Audio/SoundCatalog.{h,cpp}` (nouveau).
 - `Source/Elements/Audio/sounds.json` et les fichiers WAV (nouveaux).
 - `Source/Elements/Audio/README.md`.
-- `scripts/generate_test_sounds.py` (nouveau).
+- `Source/Elements/Audio/CREDITS.md` (nouveau) — auteur, source et licence par fichier.
 - `Source/HMI/CMakeLists.txt` — copie du dossier `Audio/` à côté de l'exécutable, comme `Levels/` et
   `Localization/`.
 - `Source/Test/Unit/HMI/Audio/test_sound_catalog.cpp` (nouveau), `Source/Test/CMakeLists.txt`.
@@ -64,6 +65,9 @@ insupportable. Le repli d'un son absent est le **silence**, plus une entrée de 
   release est muette alors que le build local est sonore — panne classique et tardive.
 - Des WAV, même courts, sont des binaires versionnés : garder les fichiers petits, et noter que
   `Source/Elements/Audio/README.md` les évoquait déjà comme candidats à Git LFS.
+- Vérifier la licence de **chaque** son avant de l'intégrer : le CC-BY exige l'attribution
+  (`CREDITS.md` suffit), certaines licences interdisent la redistribution ou l'usage commercial —
+  écarter ces dernières plutôt que de les intégrer avec une réserve.
 
 ## Définition de fait (DoD)
 - Un catalogue JSON associe événements et fichiers sur le patron des catalogues existants, les
