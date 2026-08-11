@@ -22,7 +22,8 @@ Checks: >
   -cppcoreguidelines-owning-memory,
   -cppcoreguidelines-avoid-do-while,
   -cppcoreguidelines-pro-bounds-pointer-arithmetic,
-  -cppcoreguidelines-pro-type-vararg
+  -cppcoreguidelines-pro-type-vararg,
+  -cppcoreguidelines-avoid-const-or-ref-data-members
 
 # LOT-58 : seule bugprone-* est bloquante (voir --warnings-as-errors dans le job `clang-tidy` de
 # ci.yml) -- les autres familles (cppcoreguidelines-*, modernize-*, performance-*, readability-*)
@@ -68,6 +69,10 @@ Checks: >
 #  - pro-type-vararg (2 remontees) : toutes deux sur `std::snprintf` avec taille de tampon explicite
 #    -- l'exception « vararg sur, taille bornee » que les Core Guidelines elles-memes reconnaissent
 #    (Type.1), pas un appel C vararg non protege.
+#  - avoid-const-or-ref-data-members (12 remontees) : toutes sur un seul struct local
+#    (TileParseState, LevelLoader.cpp), un "parameter object" de references vers les accumulateurs
+#    de LevelLoader::loadFromString, construit et consomme a un seul site d'appel, jamais copie ni
+#    stocke -- la regle vise les types generaux potentiellement copies/stockes (C.12), pas ce motif.
 
 WarningsAsErrors: 'bugprone-*'
 HeaderFilterRegex: 'Source/.*'

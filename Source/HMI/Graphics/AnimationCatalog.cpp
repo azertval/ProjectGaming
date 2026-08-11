@@ -43,12 +43,14 @@ struct ClipParseResult {
 // failure() ci-dessus) : l'erreur, precise, remonte jusqu'a l'appelant de loadFromString.
 [[nodiscard]] ClipParseResult parseClip(const std::string& name, const nlohmann::json& clipJson) {
     if (!clipJson.is_object()) {
-        return {.error = "Le clip « " + name + " » n'est pas un objet.",
+        return {.clip = std::nullopt,
+               .error = "Le clip « " + name + " » n'est pas un objet.",
                .errorCode = AnimationCatalogError::MalformedStructure};
     }
     if (!clipJson.contains(FIELD_FRAMES) || !clipJson[FIELD_FRAMES].is_array() ||
         clipJson[FIELD_FRAMES].empty()) {
-        return {.error = "Le clip « " + name + " » n'a pas de champ « frames » exploitable.",
+        return {.clip = std::nullopt,
+               .error = "Le clip « " + name + " » n'a pas de champ « frames » exploitable.",
                .errorCode = AnimationCatalogError::MalformedStructure};
     }
 
@@ -56,8 +58,9 @@ struct ClipParseResult {
     clip.name = name;
     for (const nlohmann::json& frameJson : clipJson[FIELD_FRAMES]) {
         if (!frameJson.is_number_integer() || frameJson.get<int>() < 0) {
-            return {.error = "Le clip « " + name +
-                            " » contient un indice d'image invalide (entier positif attendu).",
+            return {.clip = std::nullopt,
+                   .error = "Le clip « " + name +
+                           " » contient un indice d'image invalide (entier positif attendu).",
                    .errorCode = AnimationCatalogError::MalformedStructure};
         }
         clip.frames.push_back(frameJson.get<int>());
@@ -67,8 +70,9 @@ struct ClipParseResult {
     if (clipJson.contains(FIELD_FRAME_DURATION)) {
         if (!clipJson[FIELD_FRAME_DURATION].is_number() ||
             clipJson[FIELD_FRAME_DURATION].get<float>() < 0.0F) {
-            return {.error = "Le champ « frameDuration » du clip « " + name +
-                            " » doit etre un nombre positif ou nul.",
+            return {.clip = std::nullopt,
+                   .error = "Le champ « frameDuration » du clip « " + name +
+                           " » doit etre un nombre positif ou nul.",
                    .errorCode = AnimationCatalogError::MalformedStructure};
         }
         clip.frameDuration = clipJson[FIELD_FRAME_DURATION].get<float>();
@@ -79,7 +83,8 @@ struct ClipParseResult {
     bool loop = true;
     if (clipJson.contains(FIELD_LOOP)) {
         if (!clipJson[FIELD_LOOP].is_boolean()) {
-            return {.error = "Le champ « loop » du clip « " + name + " » n'est pas un booleen.",
+            return {.clip = std::nullopt,
+                   .error = "Le champ « loop » du clip « " + name + " » n'est pas un booleen.",
                    .errorCode = AnimationCatalogError::MalformedStructure};
         }
         loop = clipJson[FIELD_LOOP].get<bool>();
@@ -88,13 +93,14 @@ struct ClipParseResult {
 
     if (clipJson.contains(FIELD_NEXT)) {
         if (!clipJson[FIELD_NEXT].is_string()) {
-            return {.error = "Le champ « next » du clip « " + name + " » n'est pas une chaine.",
+            return {.clip = std::nullopt,
+                   .error = "Le champ « next » du clip « " + name + " » n'est pas une chaine.",
                    .errorCode = AnimationCatalogError::MalformedStructure};
         }
         clip.nextClip = clipJson[FIELD_NEXT].get<std::string>();
     }
 
-    return {.clip = std::move(clip)};
+    return {.clip = std::move(clip), .error = {}, .errorCode = AnimationCatalogError::None};
 }
 
 }  // namespace
