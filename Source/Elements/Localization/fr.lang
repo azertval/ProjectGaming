@@ -26,6 +26,11 @@ level_complete.continue = Continuer
 level_complete.replay = Rejouer
 level_complete.return_to_menu = Retour au menu
 
+# Séquence de niveaux (LOT-59 TACHE-04)
+sequence.demo.title = Séquence de démonstration
+game.sequence_failed_title = Séquence illisible
+game.sequence_failed_text = Impossible de charger la séquence de niveaux : %1
+
 # Fenetre principale et barre de menus
 window.title = ProjectGaming — Éditeur
 menubar.application = Application

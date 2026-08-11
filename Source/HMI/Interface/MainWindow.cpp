@@ -43,6 +43,7 @@
 #include <vector>
 
 #include "Core/Diagnostics/MemoryLogSink.h"
+#include "Core/Levels/LevelSequence.h"
 #include "HMI/Diagnostics/SessionLog.h"
 #include "HMI/Editor/AssetReferences.h"
 #include "HMI/Editor/DecorsPanel.h"
@@ -557,31 +558,32 @@ void MainWindow::showEditor() {
 }
 
 void MainWindow::showGame() {
+    // Séquence de niveaux en donnée de contenu (LOT-59 TACHE-04, EX-LVL-013) : plus aucun nom de
+    // niveau écrit dans Source/HMI. Résolue AVANT la transition d'écran : un fichier de séquence
+    // absent/invalide est une erreur récupérable (EX-NFR-040) -- on reste sur le menu plutôt que
+    // d'ouvrir un écran de jeu sans rien à jouer.
+    const std::filesystem::path levelsDir = hmi::executableDirectory() / "Levels";
+    const core::LevelSequenceLoadResult sequenceLoad =
+        core::LevelSequenceLoader::loadFromFile(levelsDir / "sequence-demo.json");
+    if (!sequenceLoad.ok()) {
+        HMI_LOG_WARNING("Jeu : sequence illisible : " + sequenceLoad.error);
+        QMessageBox::warning(
+            this, text("game.sequence_failed_title"),
+            text("game.sequence_failed_text").arg(QString::fromStdString(sequenceLoad.error)));
+        return;
+    }
+
     if (!transitionScreen(ScreenEvent::OpenGame)) {
         return;
     }
     HMI_LOG_INFO("Navigation : jeu.");
 
-    // Séquence de niveaux démo (même ordre que le jeu historique) — Échap ou la fin revient au
-    // menu.
-    const std::filesystem::path levels = hmi::executableDirectory() / "Levels";
-    _viewport->startGame({
-        levels / "demo-deplacement.json",
-        levels / "demo-saut.json",
-        levels / "demo-double-saut.json",
-        levels / "demo-wall-jump.json",
-        levels / "demo-dash.json",
-        levels / "demo-interrupteur.json",
-        levels / "demo-plaque-pression.json",
-        levels / "demo-bloc.json",
-        levels / "demo-budget.json",
-        levels / "demo-pente.json",
-        levels / "demo-arrondi.json",
-        levels / "demo-bloc-reduit.json",
-        levels / "demo-dangers-avances.json",
-        levels / "demo-final.json",
-        levels / "demo-salles.json",
-    });
+    std::vector<std::filesystem::path> levelPaths;
+    levelPaths.reserve(sequenceLoad.sequence->levels.size());
+    for (const std::string& levelName : sequenceLoad.sequence->levels) {
+        levelPaths.push_back(levelsDir / levelName);
+    }
+    _viewport->startGame(std::move(levelPaths));
 }
 
 void MainWindow::showOptions() {

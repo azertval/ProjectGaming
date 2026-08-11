@@ -17,6 +17,7 @@ add_executable(UnitTests
     Unit/Core/Ecs/test_player_components.cpp
     Unit/Core/Levels/test_level.cpp
     Unit/Core/Levels/test_level_loader.cpp
+    Unit/Core/Levels/test_level_sequence.cpp
     Unit/Core/Levels/test_level_writer.cpp
     Unit/Core/Levels/test_level_draft.cpp
     Unit/Core/Levels/test_level_outcome.cpp
