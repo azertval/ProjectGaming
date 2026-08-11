@@ -1,7 +1,7 @@
 # TACHE-04 — Séquence de niveaux en donnée de contenu {#lot-59-tache-04-sequence-en-donnee}
 
 **Lot :** [LOT-59](epic.md) · **Emplacement :** `Source/Elements/Levels`, `Source/Core/Levels` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 La séquence jouée est un **littéral C++** : quinze chemins énumérés dans `MainWindow::startGame`
@@ -30,10 +30,14 @@ divergent pas. Le script reste utile ; ce qu'il compare doit changer.
 - `Source/Elements/Levels/sequence-demo.json` (nouveau).
 - `Source/Core/Levels/LevelSequence.{h,cpp}` (nouveau).
 - `Source/Core/CMakeLists.txt`, `Source/Test/CMakeLists.txt`.
-- `Source/HMI/Interface/MainWindow.cpp` (retrait du littéral).
+- `Source/HMI/Interface/MainWindow.cpp` (retrait du littéral, résolution de la séquence avant
+  transition d'écran).
 - `Source/Test/Unit/Core/Levels/test_level_sequence.cpp` (nouveau).
-- `scripts/check_demo_sequence.py`.
+- `scripts/check_demo_sequence.py` (compare désormais `sequence-demo.json` au test système).
 - `Source/Elements/Levels/README.md`.
+- `Source/HMI/Editor/LevelFileOperations.cpp` et son test — exclusion du préfixe réservé
+  `sequence-` de la liste des niveaux (effet de bord découvert en testant, cf. État ci-dessous).
+- `Source/Elements/Localization/{fr,en}.lang` — libellés d'échec de chargement de la séquence.
 
 ## Tests (obligatoires)
 - Une séquence valide se charge dans l'ordre exact du fichier.
@@ -57,6 +61,29 @@ divergent pas. Le script reste utile ; ce qu'il compare doit changer.
 - La séquence jouée provient d'un fichier de contenu validé, aucun nom de niveau ne subsiste dans
   `Source/HMI`, les fichiers manquants ou malformés sont des erreurs récupérables, le garde-fou de
   synchronisation est adapté et vérifié ; `/W4 /WX` propre.
+
+## État
+`core::LevelSequenceLoader` suit exactement le patron de `LevelLoader` (parsing non lançant,
+`try`/`catch` sur `nlohmann::json::exception`, `LevelSequenceLoadResult` de même forme que
+`LevelLoadResult`, version de format indépendante `kLevelSequenceFormatVersion`). La vérification
+d'existence des niveaux référencés (« niveau référencé mais absent ») se fait dans `loadFromFile`
+uniquement — `loadFromString` n'a pas de dossier de base à résoudre, donc ne peut pas la faire ;
+elle résout chaque entrée relativement au **dossier du fichier de séquence lui-même**, qui est
+aussi celui des niveaux (`Source/Elements/Levels`).
+
+`MainWindow::showGame()` résout maintenant la séquence AVANT la transition d'écran : un fichier de
+séquence absent/invalide laisse l'application sur le menu (message d'erreur modal), plutôt que
+d'ouvrir un écran de jeu sans rien à jouer.
+
+**Effet de bord corrigé, découvert en relançant la suite complète après l'ajout du fichier** :
+`sequence-demo.json` partage le dossier des niveaux (demandé par la tâche), ce qui cassait deux
+choses qui balaient ce dossier sans distinguer un niveau d'un fichier de contenu :
+- Le test `LevelLoaderTest.LesQuinzeNiveauxDeDemoSeChargentSansErreur` (balayait tout `.json` du
+  dossier) — restreint au préfixe `demo-`, comme `scripts/check_demo_sequence.py` le fait déjà.
+- `hmi::LevelFileOperations::list()`, qui alimente le panneau Niveaux de l'éditeur — un fichier de
+  séquence y serait apparu comme un niveau ouvrable, et son ouverture aurait échoué (mauvais
+  format). `sequence-` est désormais un préfixe de nom de fichier **réservé** dans ce dossier,
+  explicitement exclu de la liste et documenté dans `Source/Elements/Levels/README.md`.
 
 ## Exigences
 `EX-LVL-013` (séquence en donnée de contenu) ; réutilise `EX-LVL-001` (contenu externe),

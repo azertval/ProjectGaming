@@ -1,7 +1,7 @@
 # TACHE-02 — Écran de pause et suspension du pas fixe {#lot-59-tache-02-ecran-pause}
 
 **Lot :** [LOT-59](epic.md) · **Emplacement :** `Source/HMI/Interface`, `Source/HMI/Game` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 Échap, en cours de partie, quitte **directement** vers le menu principal. Une pression malheureuse
@@ -59,6 +59,45 @@ Le point délicat n'est pas l'écran : c'est ce que devient la simulation pendan
 - Échap ouvre une pause qui suspend réellement la simulation et la restitue à l'identique ; aucun
   rattrapage au retour ; *Recommencer* réutilise le chemin de redémarrage existant ; navigable
   clavier / souris / manette, traduit ; `/W4 /WX` propre.
+
+## État
+`GameViewport::tick()` cesse d'alimenter l'accumulateur de
+`core::FixedTimestep` pendant la pause, mais continue d'appeler `InputState::beginFrame()` chaque
+image (juste hors de la boucle de pas) pour éviter qu'un bouton manette tenu en ouvrant la pause
+laisse un front périmé qui ferait osciller entrée/sortie à la reprise — piège explicitement anticipé
+par cette tâche, couvert par un test dédié
+(`test_fixed_timestep.cpp::PauseSansAppelNAccumuleAucunPas`).
+
+Manette : bouton **B** plutôt que Start (ce projet n'a pas de bouton Start dans son énumération
+`GamepadButton` remappable ; B est déjà la convention « retour » établie ailleurs dans l'IHM, et
+la tâche accepte « Start / B » comme alternatives).
+
+**Bug réel trouvé et corrigé à l'essai manuel (`TACHE-07`) : le recouvrement ne s'affichait pas
+du tout.** `hmi::PauseScreen` recouvrait initialement `_editorContainer` comme un simple widget Qt
+**frère** (jamais une page de `_stack`), sur la foi d'un patron cru « documenté par Qt ». En
+pratique : la simulation se figeait bien (`pauseSimulation`), mais aucun écran n'apparaissait —
+personnage figé, rien à l'écran. Cause réelle (confirmée par la documentation/les forums Qt
+officiels) : une fenêtre **native** embarquée via `QWidget::createWindowContainer` peint **toujours**
+par-dessus ses **frères** Qt ordinaires dans la même fenêtre de haut niveau, quel que soit leur
+`raise()` — ce n'est pas une histoire de descendant vs frère, c'est une limitation de superposition
+au sein d'une même fenêtre native. Correction : `_pauseScreen` (et `_levelCompleteScreen`,
+`TACHE-03`) sont devenus des **fenêtres de haut niveau** propres (`Qt::Tool | Qt::FramelessWindowHint`,
+fond translucide, possédées par `MainWindow`), positionnées en coordonnées **écran** sur le
+rectangle de `_editorContainer` (`syncOverlayGeometry`, resynchronisé sur redimensionnement **et**
+déplacement de la fenêtre principale). Voir `MainWindow::applyScreenDressing`/`syncOverlayGeometry`
+pour le détail.
+
+**Deuxième bug réel, une fois l'écran visible : Entrée sans effet, seule Espace fonctionnait.**
+D'abord `Qt::Tool` comme indicateur de fenêtre : sur Windows, Qt affiche une fenêtre `Qt::Tool` avec
+`SW_SHOWNOACTIVATE` — par conception, pour les palettes flottantes qui ne doivent jamais voler le
+focus — ce qui empêchait `activateWindow()` de fonctionner. Remplacé par `Qt::Dialog`, conçu pour
+s'activer normalement. Puis, une fois la fenêtre bien activée, un **troisième** bug de la même
+veine : Entrée restait sans effet sur le bouton qui avait pourtant le focus (la navigation
+Tab/flèches fonctionnait). Cause : `QPushButton::autoDefault` ne vaut `true` par défaut que si un
+**ancêtre C++ réel** du bouton est un `QDialog` (`qobject_cast<QDialog*>`, vérifié dynamiquement) —
+`Qt::Dialog` n'est qu'un indicateur de fenêtre côté gestionnaire de fenêtres, `PauseScreen` reste un
+`QWidget` ordinaire côté classe C++. `setAutoDefault(true)` posé explicitement sur chaque bouton
+(et, par le même défaut, sur ceux de `MainMenu`/`LevelCompleteScreen`/`LevelSelectScreen`).
 
 ## Exigences
 `EX-IHM-004` (écran de pause) ; lève `EX-REN-031` pour sa partie pause ; réutilise `EX-GP-032`

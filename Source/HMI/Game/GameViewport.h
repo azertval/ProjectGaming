@@ -199,9 +199,51 @@ public:
     /// et en jeu réel (LOT-56 TACHE-04 : seule commande jamais désactivée par le mode courant).
     void toggleRenderMode();
 
-    /// Lance le **jeu** : joue la séquence de niveaux @p levels (mode « Jouer » du menu). `Échap`
-    /// ou la fin de la séquence émet `exitToMenuRequested`.
-    void startGame(std::vector<std::filesystem::path> levels);
+    /// Lance le **jeu** : joue la séquence de niveaux @p levels, à partir de @p startIndex
+    /// (0 = depuis le début ; « Continuer »/sélection de niveau, `LOT-59` TACHE-06, reprennent
+    /// plus loin). `Échap` ou la fin de la séquence émet `exitToMenuRequested`.
+    void startGame(std::vector<std::filesystem::path> levels, std::size_t startIndex = 0);
+
+    /// Suspend la simulation (écran de pause, `LOT-59` TACHE-02) : `tick()` cesse d'alimenter
+    /// l'accumulateur de pas fixe -- aucun pas n'est consommé pendant la pause (`EX-GP-041`). Le
+    /// rendu continue (la scène reste dessinée derrière l'écran de pause).
+    void pauseSimulation() noexcept;
+    /// Reprend la simulation après `pauseSimulation()` : réarme l'horloge de référence
+    /// (`_previousFrame`) sur l'instant courant, faute de quoi le temps passé en pause serait
+    /// rattrapé d'un coup au pas suivant (piège documenté par TACHE-02).
+    void resumeSimulation();
+    /// @return true si la simulation est actuellement suspendue (`pauseSimulation`).
+    [[nodiscard]] bool simulationPaused() const noexcept {
+        return _paused;
+    }
+    /// Recharge le niveau en cours (personnage à l'entrée, mécanismes et budgets remis) -- même
+    /// chemin que le redémarrage après échec (`EX-GP-032`, `GameSession::reload`), jamais un
+    /// second. Sans effet hors partie/essai (aucune session active).
+    void restartCurrentLevel();
+    /// Abandonne la partie en cours (« Quitter vers le menu » depuis la pause, `LOT-59` TACHE-02,
+    /// après confirmation côté appelant) : même nettoyage que l'ancienne sortie directe par
+    /// `Échap`, désormais déclenchée par l'écran de pause plutôt que par la touche elle-même.
+    void quitGame() noexcept;
+    /// @return true si le tableau qui vient d'être réussi (`levelSucceeded`) est le **dernier**
+    ///         de la séquence -- choisit l'habillage de l'écran de fin de niveau (`LOT-59`
+    ///         TACHE-03) : fin de tableau (Continuer/Rejouer) ou fin de séquence (retour menu).
+    [[nodiscard]] bool isLastGameLevel() const noexcept;
+    /// @return Le nom de fichier **complet** (extension comprise, comme dans
+    ///         `core::LevelSequence::levels`) du tableau qui vient d'être réussi -- sert à la fois
+    ///         d'affichage à l'écran de fin de niveau et d'identifiant de progression
+    ///         (`hmi::Progression`, `LOT-59` TACHE-05/06 : doit rester dans le même format que la
+    ///         séquence, sous peine de ne plus jamais correspondre). Chaîne vide hors partie
+    ///         réelle.
+    [[nodiscard]] std::string currentGameLevelName() const;
+    /// @return Le nom de fichier **complet** du tableau **suivant** celui qui vient d'être réussi
+    ///         -- le tableau où reprendre (`hmi::Progression::currentLevel`, `LOT-59` TACHE-05).
+    ///         Chaîne vide en fin de séquence (`isLastGameLevel`) ou hors partie réelle.
+    [[nodiscard]] std::string nextGameLevelName() const;
+    /// « Continuer » depuis l'écran de fin de niveau (`LOT-59` TACHE-03) : charge le tableau
+    /// suivant de la séquence -- reprend l'ancien enchaînement automatique sur réussite, mais sur
+    /// validation du joueur plutôt qu'immédiatement. Sans effet si le tableau réussi était déjà
+    /// le dernier (`isLastGameLevel`) : l'écran ne propose alors pas ce bouton.
+    void advanceToNextLevel();
 
     /// Active/désactive la synchronisation verticale (`EX-REN-022`) ; appliqué au device D3D11.
     void setVSync(bool enabled) noexcept;
@@ -381,8 +423,18 @@ public:
 signals:
     /// Message d'état à afficher (enregistrement, essai, erreur de validation…).
     void statusMessage(const QString& message);
-    /// Demande de retour au menu principal (fin de partie ou `Échap` en mode jeu).
+    /// Demande de retour au menu principal (fin de la séquence de niveaux -- plus depuis `LOT-59`
+    /// TACHE-02 sur `Échap` en mode jeu, qui ouvre désormais la pause via `pauseRequested`).
     void exitToMenuRequested();
+    /// `Échap` (ou le bouton `B` manette) en mode jeu réel, hors pause : demande l'ouverture de
+    /// l'écran de pause (`LOT-59` TACHE-02, `EX-GP-041`) -- jamais en essai depuis l'éditeur
+    /// (`stopPlaytest` garde son propre chemin, inchangé).
+    void pauseRequested();
+    /// Le tableau courant vient d'être réussi, en partie réelle (`LOT-59` TACHE-03) : la
+    /// simulation est déjà figée (`pauseSimulation`) quand ce signal part -- c'est l'écran de fin
+    /// de niveau qui décide de la suite (`isLastGameLevel` choisit son habillage). Jamais émis en
+    /// essai depuis l'éditeur (`stopPlaytest` garde son propre chemin, inchangé).
+    void levelSucceeded();
     /// Le brouillon vient d'être modifié (peinture, undo/redo, chargement, lien…) — le panneau
     /// « Liens » se resynchronise dessus (`refresh`).
     void draftChanged();
@@ -595,6 +647,9 @@ private:
     bool _vsync = true;      ///< Synchronisation verticale (appliquée au device D3D11).
     bool _gameMode = false;  ///< La session courante est une **partie** (menu Jouer) et
                              ///< non un essai depuis l'éditeur (enchaînement/retour menu).
+    /// Écran de pause affiché (`LOT-59` TACHE-02) : `tick()` n'avance plus l'accumulateur de pas
+    /// fixe tant que c'est vrai -- le rendu, lui, continue.
+    bool _paused = false;
     std::vector<std::filesystem::path> _gameLevels;  ///< Séquence de niveaux du mode jeu.
     std::size_t _gameLevel = 0;                      ///< Indice du niveau courant dans la séquence.
 

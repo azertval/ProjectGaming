@@ -12,6 +12,7 @@ add_library(Core STATIC
     Levels/TileMap.cpp
     Levels/TileTypeName.cpp
     Levels/LevelLoader.cpp
+    Levels/LevelSequence.cpp
     Levels/LevelWriter.cpp
     Levels/LevelDraft.cpp
     Levels/LevelScene.cpp

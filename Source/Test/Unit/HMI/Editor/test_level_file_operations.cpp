@@ -1,7 +1,9 @@
 #include <cstdint>
 #include <filesystem>
+#include <fstream>
 #include <string>
 #include <system_error>
+#include <vector>
 
 #include <gtest/gtest.h>
 
@@ -44,6 +46,30 @@ TEST_F(LevelFileOps, CreeUnNiveauValide) {
     ASSERT_TRUE(result.ok) << result.error;
     EXPECT_TRUE(std::filesystem::exists(result.path));
     EXPECT_EQ(ops.list().size(), 1U);
+}
+
+/**
+ * @brief Un fichier de séquence de contenu (`sequence-*.json`, `LOT-59` TACHE-04) partageant le
+ * dossier des niveaux n'est **pas** un niveau et ne doit jamais apparaître dans la liste : il ne
+ * se chargerait pas comme tel si l'utilisateur tentait de l'ouvrir depuis ce panneau.
+ * \castest{<b>Un fichier de séquence n'apparaît jamais dans la liste des niveaux.</b><br/>
+ * \tcat Unitaire · Opérations sur fichiers de niveau<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Créer un niveau valide, puis écrire à côté un fichier `sequence-demo.json`
+ * quelconque.<br/>2. Lister le dossier.<br/>
+ * \tattendu Seul le niveau valide apparaît dans la liste ; le fichier de séquence en est exclu.
+ * }
+ */
+TEST_F(LevelFileOps, FichierDeSequenceExcluDeLaListe) {
+    const hmi::LevelFileOperations ops(dir);
+    ASSERT_TRUE(ops.create("MonNiveau", 10, 6).ok);
+    std::ofstream sequenceFile(dir / "sequence-demo.json");
+    sequenceFile << R"({ "levels": ["MonNiveau.json"] })";
+    sequenceFile.close();
+
+    const std::vector<std::filesystem::path> listed = ops.list();
+    ASSERT_EQ(listed.size(), 1U);
+    EXPECT_EQ(listed.front().filename().string(), "MonNiveau.json");
 }
 
 /**

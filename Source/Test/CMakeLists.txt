@@ -17,6 +17,7 @@ add_executable(UnitTests
     Unit/Core/Ecs/test_player_components.cpp
     Unit/Core/Levels/test_level.cpp
     Unit/Core/Levels/test_level_loader.cpp
+    Unit/Core/Levels/test_level_sequence.cpp
     Unit/Core/Levels/test_level_writer.cpp
     Unit/Core/Levels/test_level_draft.cpp
     Unit/Core/Levels/test_level_outcome.cpp
@@ -73,11 +74,13 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_text_renderer.cpp
     Unit/HMI/Graphics/test_shadow_render.cpp
     Unit/HMI/Game/test_game_hud.cpp
+    Unit/HMI/Game/test_progression.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
     Unit/HMI/Interface/test_design_tokens.cpp
     Unit/HMI/Interface/test_application_theme.cpp
     Unit/HMI/Interface/test_editor_actions.cpp
+    Unit/HMI/Interface/test_screen_flow.cpp
     Unit/HMI/Editor/test_thumbnail_geometry.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
     Unit/HMI/Editor/test_tile_taxonomy.cpp
@@ -228,6 +231,9 @@ add_executable(UnitTests
     # Correspondance outil -> panneau a mettre en avant (LOT-57) : table pure, meme patron que
     # ActionCatalog.cpp, testable hors Qt.
     ../HMI/Editor/PanelFocus.cpp
+    # Machine a etats des ecrans de la fenetre principale (LOT-59) : table de transitions et
+    # habillage de fenetre, purs, meme patron que PanelFocus.cpp -- testable hors Qt.
+    ../HMI/Interface/ScreenFlow.cpp
     # Métriques de police bitmap, mesure pure de texte, lecture JSON et repli procédural (LOT-52) :
     # aucune dépendance GPU/Qt (contrairement à BitmapFont.cpp, qui charge la texture réelle et
     # n'est donc pas compilé ici, comme TextureAtlas.cpp/TextureCache.cpp) : testable hors GPU.
@@ -238,6 +244,10 @@ add_executable(UnitTests
     # Choix des lignes du HUD (budgets, nom du tableau) à partir de core::Player/core::Level
     # (LOT-52) : fonction pure, testable hors GPU.
     ../HMI/Game/GameHud.cpp
+    # Progression persistée (LOT-59 TACHE-05, EX-LVL-014) : logique et persistance JSON pures,
+    # aucune dépendance Qt/GPU (fichier/écriture atomique via std::filesystem/std::ofstream) --
+    # testable hors GPU, même patron que GameKeyBindings.cpp ci-dessous.
+    ../HMI/Game/Progression.cpp
     # Jetons de design de l'IHM (LOT-56) : couleurs par rôle, échelles, conversion CSS -- aucune
     # dépendance Qt/GPU (contrairement à ApplicationTheme.cpp, qui les applique via QPalette/
     # QApplication et n'est donc pas compilé ici, même distinction que BitmapFont.cpp/

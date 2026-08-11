@@ -1,6 +1,6 @@
 # TACHE-03 — Écran de fin de niveau et de fin de séquence {#lot-59-tache-03-ecran-fin-niveau}
 
-**Lot :** [LOT-59](epic.md) · **Emplacement :** `Source/HMI/Interface` · **Statut :** non commencé
+**Lot :** [LOT-59](epic.md) · **Emplacement :** `Source/HMI/Interface` · **Statut :** fait
 
 ## Contexte
 Atteindre la sortie enchaîne **instantanément** sur le tableau suivant. Rien ne marque la réussite :
@@ -29,11 +29,14 @@ C'est aussi le seul endroit où un bruitage de victoire (`LOT-60`) et un effet d
 ## Fichiers impactés
 - `Source/HMI/Interface/LevelCompleteScreen.{h,cpp}` (nouveau), mise en page dans
   `Source/Elements/UI/LevelCompleteScreen.ui`.
-- `Source/HMI/Game/GameSession.{h,cpp}` — signalement de la réussite au lieu du chargement direct
-  du suivant.
-- `Source/HMI/Interface/MainWindow.{h,cpp}` — câblage.
+- `Source/HMI/Game/GameViewport.{h,cpp}` — signalement de la réussite (`levelSucceeded`) au lieu du
+  chargement direct du suivant ; `isLastGameLevel`/`currentGameLevelName`/`advanceToNextLevel`
+  nouveaux, pour l'écran. La logique de fin (`LevelOutcome::Won`) reste dans `Core` (`GameSession`,
+  inchangée) : seul l'**appelant** HMI change de comportement, pas la simulation elle-même.
+- `Source/HMI/Interface/MainWindow.{h,cpp}` — câblage, même patron de recouvrement que
+  `_pauseScreen` (`TACHE-02`).
 - `Source/Elements/Localization/{fr,en}.lang`.
-- `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp` (étendu).
+- `Source/HMI/CMakeLists.txt` — nouveaux fichiers.
 
 ## Tests (obligatoires)
 - Une réussite mène à `NiveauTermine`, jamais directement au tableau suivant.
@@ -57,6 +60,39 @@ C'est aussi le seul endroit où un bruitage de victoire (`LOT-60`) et un effet d
 - La réussite d'un tableau et la fin de la séquence sont marquées par un écran, la progression y est
   enregistrée une fois, le dernier tableau ne provoque aucun accès hors bornes, le test système
   passe inchangé ; traduit ; `/W4 /WX` propre.
+
+## État
+Un seul écran paramétré (`LevelCompleteScreen::configure(sequenceComplete, levelName)`), comme la
+tâche l'autorisait explicitement : `ScreenId::NiveauTermine` n'a pas de troisième état, la table de
+transitions de la `TACHE-01` (déjà écrite avec `LevelSucceeded`/`ContinueAfterLevel`/`ReplayLevel`/
+`ReturnToMenuFromLevelComplete`) n'a pas eu à bouger. En fin de séquence, *Continuer* et *Rejouer*
+sont **masqués** plutôt que menant à un chargement hors bornes : `GameViewport::isLastGameLevel()`
+choisit la variante avant même l'ouverture de l'écran, donc le bouton qui mènerait hors bornes
+n'existe simplement pas dans ce cas (le garde-fou de `GameViewport::loadGameLevel` sur un indice
+hors bornes reste en place, mais n'est plus atteignable par ce chemin).
+
+`GameViewport::tick()` fige la simulation (`pauseSimulation`) avant d'émettre `levelSucceeded`, pour
+que la scène reste visible et immobile derrière l'écran (même besoin que la pause, `TACHE-02`) --
+et donc le même piège : *Continuer* et *Rejouer* doivent **reprendre** (`resumeSimulation`, qui
+réarme `_previousFrame`) avant de charger/recharger, sinon `_paused` reste vrai et la nouvelle
+session ne serait jamais avancée par `tick()`. Repéré avant tout essai manuel, en relisant
+`restartFromPause` (`TACHE-02`) comme référence -- même correction appliquée ici.
+
+**Marquage de la progression reporté.** Le point où « marquer le tableau comme terminé » (une
+tâche du travail à réaliser ci-dessus) doit se brancher est balisé par un commentaire `TODO(LOT-59
+TACHE-05)` dans `MainWindow::openLevelComplete` : `hmi::Progression` n'existe pas encore. Le critère
+de test « marqué une seule fois, même traversé deux fois » n'est donc pas encore vérifiable et est
+réputé de la `TACHE-05`, pas de celle-ci.
+
+**Aucune extension de `test_screen_flow.cpp`** n'a été nécessaire : la `TACHE-01` avait déjà écrit
+la table complète pour `NiveauTermine` (transitions et habillage) par anticipation de cette tâche,
+donc déjà couverte par ses tests.
+
+**Bug réel trouvé et corrigé à l'essai manuel (`TACHE-07`), partagé avec `_pauseScreen`** : le
+recouvrement ne s'affichait pas du tout (personnage figé, écran vide) — un widget Qt frère du
+conteneur du viewport ne se dessine jamais de façon fiable par-dessus la fenêtre native qu'il
+embarque. `_levelCompleteScreen` est depuis une fenêtre de haut niveau propre, comme
+`_pauseScreen` ; voir l'État de `TACHE-02` pour le détail de la cause et de la correction.
 
 ## Exigences
 `EX-IHM-004` (écran de fin de niveau) ; lève `EX-REN-031` pour sa partie fin de niveau ; réutilise

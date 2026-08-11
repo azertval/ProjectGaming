@@ -334,13 +334,52 @@ l'**échec l'emporte sur le succès** — une règle simple et prévisible plut�
 l'ordre de test interne.
 
 Cette fonction ne fait que **classer** l'état ; c'est côté présentation que la transition a
-réellement lieu. Le viewport de jeu (`hmi::GameViewport`, alimenté par la liste de
-`hmi::MainWindow::startGame`) gère l'**ordre** des niveaux d'une session et l'enchaînement qui en
-découle : une issue `Won` avance vers le niveau suivant de la séquence ; après le **dernier** niveau,
-il revient au menu plutôt que de tenter un niveau inexistant (`EX-LVL-010`/`EX-LVL-011`).
+réellement lieu. Le viewport de jeu (`hmi::GameViewport`, alimenté par la liste résolue depuis
+`core::LevelSequence`, ci-dessous) gère l'**ordre** des niveaux d'une session. Depuis `LOT-59`,
+une issue `Won` ne charge plus le niveau suivant directement : elle **fige** la simulation
+(`pauseSimulation`) et signale la réussite (`GameViewport::levelSucceeded`) — c'est l'écran de fin
+de niveau qui avance ensuite, sur validation du joueur (@ref guide-ecrans détaille l'écran ;
+`EX-LVL-010`/`EX-LVL-011` restent respectées : l'**ordre** est inchangé, seul le passage par un
+écran plutôt qu'un enchaînement instantané a changé).
+
+## Séquence de niveaux (donnée de contenu, `LOT-59`)
+
+La **séquence jouée** (quel fichier après quel autre) est elle-même une donnée de contenu
+(`EX-LVL-013`), au même titre qu'un niveau — jamais un littéral C++. `core::LevelSequenceLoader`
+(`Core/Levels/LevelSequence.h`) suit exactement le patron de `core::LevelLoader` ci-dessus : lecture
+JSON **non lançante** (`try`/`catch` sur `nlohmann::json::exception`), résultat catégorisé
+(`core::LevelSequenceLoadResult`, même forme que `LevelLoadResult`), version de format indépendante
+(`core::kLevelSequenceFormatVersion`).
+
+Format (`Source/Elements/Levels/sequence-demo.json`) :
+
+```json
+{
+  "version": 1,
+  "titleKey": "sequence.demo.title",
+  "levels": ["demo-deplacement.json", "demo-saut.json", "…"]
+}
+```
+
+`levels` contient des **noms de fichiers**, résolus par l'appelant relativement au dossier de
+niveaux (`hmi::executableDirectory() / "Levels"`) — `Core` ignore ce dossier (`EX-NFR-011`), mais
+`loadFromFile` vérifie tout de même que chaque niveau référencé existe **à côté du fichier de
+séquence lui-même** (c'est là que vivent les niveaux) : un nom mal orthographié est une erreur
+récupérable et **nommée** (`EX-NFR-040`), jamais un chargement hors bornes différé au premier
+niveau joué. Cette même contrainte impose un préfixe de nom de fichier **réservé**, `sequence-`,
+dans `Source/Elements/Levels` : un fichier de séquence n'est pas un niveau, et
+`hmi::LevelFileOperations::list()` (panneau Niveaux de l'éditeur, @ref guide-editeur) l'exclut
+explicitement de ce qu'il propose d'ouvrir.
+
+`scripts/check_demo_sequence.py` (CI) vérifie que `sequence-demo.json` reste identique, dans le
+même ordre, à la liste rejouée par le test système `Source/Test/Systeme/test_parcours_complet.cpp`
+— un décalage entre les deux est précisément le défaut qui a déclenché `LOT-25`.
 
 ## Voir aussi
 - `core::Level`, `core::TileMap`, `core::TileType`, `core::LevelLoader`, `core::LevelLoadResult`.
+- `core::LevelSequence`, `core::LevelSequenceLoader`, `core::LevelSequenceLoadResult`.
 - `core::buildLevelScene`, `core::MechanismController`, `core::BlockController`, `core::DangerController`, `core::dangerHitbox`, `core::evaluateOutcome`, `hmi::GameSession`.
+- @ref guide-ecrans — l'écran de fin de niveau qui décide de la suite depuis `LOT-59`, et la
+  progression persistée entre deux lancements.
 - @ref guide-physique — comment le balayage consomme `isSolid`/`collisionMap()`.
 - @ref guide-ecs — le composant `core::Player` qui porte les compteurs de budget.

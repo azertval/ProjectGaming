@@ -1,6 +1,6 @@
 # TACHE-01 — Machine à états d'écran {#lot-59-tache-01-machine-etats-ecrans}
 
-**Lot :** [LOT-59](epic.md) · **Emplacement :** `Source/HMI/Interface` · **Statut :** non commencé
+**Lot :** [LOT-59](epic.md) · **Emplacement :** `Source/HMI/Interface` · **Statut :** fait
 
 ## Contexte
 `hmi::ScreenId` connaît quatre écrans — `Menu`, `Game`, `Editor`, `Options` — et la navigation entre
@@ -54,6 +54,14 @@ peut pas atteindre `Pause` depuis l'éditeur.
 - `Pause` et `NiveauTermine` existent, toute transition d'écran passe par une table pure et testée,
   les transitions interdites sont refusées, aucun comportement d'écran existant n'a changé ;
   `/W4 /WX` propre.
+
+## État
+`hmi::ScreenFlow` (table pure) et le câblage de `MainWindow` sont en place, avec les six écrans et
+leurs transitions testées (`test_screen_flow.cpp`, 5 tests). `Pause` et `NiveauTermine` existent
+dans l'énumération et la table, mais ne sont **pas encore atteignables depuis l'IHM réelle** :
+aucun bouton ni raccourci ne déclenche encore `OpenPause`/`LevelSucceeded` — c'est le travail de
+`TACHE-02`/`TACHE-03`, qui ajouteront les écrans eux-mêmes (`PauseScreen`, `LevelCompleteScreen`)
+et les événements qui les déclenchent.
 
 ## Exigences
 `EX-IHM-004` (écrans de pause et de fin de niveau) ; réutilise `EX-GP-040` (états de jeu),

@@ -777,16 +777,40 @@ void GameViewport::tick() {
 
     _gamepad.poll(_input);
 
-    const int steps = _timestep.advance(elapsedSeconds);
-    const float fixedDelta = _timestep.fixedDeltaSeconds();
-    for (int step = 0; step < steps; ++step) {
-        if (_session && _session->update(_input, fixedDelta) == core::LevelOutcome::Won) {
-            if (_gameMode) {
-                loadGameLevel(_gameLevel + 1);  // enchaîne le niveau suivant de la séquence
-            } else {
-                stopPlaytest();  // essai éditeur : retour à l'édition
+    // Ouverture de la pause à la manette (bouton B, `EX-CTRL-012`), même geste que « retour »
+    // ailleurs dans l'IHM -- seulement en partie réelle, jamais en essai depuis l'éditeur
+    // (`LOT-59` TACHE-02).
+    if (_gameMode && !_paused && _input.gamepadButtonPressed(GamepadButton::B)) {
+        emit pauseRequested();
+    }
+
+    // Pause (LOT-59 TACHE-02, EX-GP-041) : l'accumulateur n'est PAS alimenté (pas un dt nul, un
+    // appel simplement absent) -- aucun pas n'est consommé tant que la pause dure. Le rendu, lui,
+    // continue ci-dessous : la scène reste dessinée derrière l'écran de pause.
+    if (!_paused) {
+        const int steps = _timestep.advance(elapsedSeconds);
+        const float fixedDelta = _timestep.fixedDeltaSeconds();
+        for (int step = 0; step < steps; ++step) {
+            if (_session && _session->update(_input, fixedDelta) == core::LevelOutcome::Won) {
+                _input.beginFrame();
+                if (_gameMode) {
+                    // Fige la scène et signale la réussite : c'est l'écran de fin de niveau qui
+                    // décide (Continuer/Rejouer), le joueur valide -- plus d'enchaînement
+                    // automatique (LOT-59 TACHE-03). `break` immédiat : ne pas avancer les pas
+                    // restants de ce tick sur un niveau déjà gagné.
+                    pauseSimulation();
+                    emit levelSucceeded();
+                } else {
+                    stopPlaytest();  // essai éditeur : retour à l'édition
+                }
+                break;
             }
+            _input.beginFrame();
         }
+    } else {
+        // Consomme les fronts (ex. bouton B tenu en ouvrant la pause) sans avancer la simulation
+        // -- sinon un appui encore maintenu à la reprise ferait osciller entrée/sortie de pause
+        // (piège documenté par TACHE-02).
         _input.beginFrame();
     }
 
@@ -892,16 +916,22 @@ void GameViewport::resizeEvent(QResizeEvent*) {
 }
 
 void GameViewport::keyPressEvent(QKeyEvent* event) {
-    // Mode jeu/essai : Échap sort ; les autres touches alimentent le jeu.
+    // Mode jeu/essai : Échap ouvre la pause (partie réelle, LOT-59 TACHE-02) ou sort (essai) ;
+    // les autres touches alimentent le jeu -- jamais pendant une pause, où le focus clavier
+    // revient à l'écran de pause (MainWindow::applyScreenDressing), pas au viewport.
     if (_session) {
         if (event->key() == Qt::Key_Escape) {
+            if (_paused) {
+                return;  // ne devrait pas arriver (focus sur l'écran de pause) ; robustesse
+            }
             if (_gameMode) {
-                _gameMode = false;
-                _session.reset();
-                emit exitToMenuRequested();
+                emit pauseRequested();
             } else {
                 stopPlaytest();
             }
+            return;
+        }
+        if (_paused) {
             return;
         }
         if (!event->isAutoRepeat()) {
@@ -1092,13 +1122,66 @@ void GameViewport::setVSync(bool enabled) noexcept {
     }
 }
 
-void GameViewport::startGame(std::vector<std::filesystem::path> levels) {
+void GameViewport::pauseSimulation() noexcept {
+    _paused = true;
+}
+
+void GameViewport::resumeSimulation() {
+    _paused = false;
+    // Réarme l'horloge de référence sur l'instant courant : sans ça, le prochain tick() verrait
+    // un elapsedSeconds egal a toute la duree de la pause, et FixedTimestep::advance rendrait
+    // d'un coup tous les pas « manques » (le personnage traverserait le niveau, TACHE-02).
+    _previousFrame = Clock::now();
+}
+
+void GameViewport::restartCurrentLevel() {
+    if (_session) {
+        _session->reload();
+    }
+}
+
+void GameViewport::quitGame() noexcept {
+    _gameMode = false;
+    _paused = false;
+    _session.reset();
+}
+
+bool GameViewport::isLastGameLevel() const noexcept {
+    return _gameLevel + 1 >= _gameLevels.size();
+}
+
+std::string GameViewport::currentGameLevelName() const {
+    if (!_gameMode || _gameLevel >= _gameLevels.size()) {
+        return {};
+    }
+    // Nom de fichier COMPLET (extension comprise), pas `.stem()` : ce nom sert aussi
+    // d'identifiant de progression (LOT-59 TACHE-05/06, `hmi::Progression`/`hmi::isLevelUnlocked`)
+    // comparé aux entrées de `core::LevelSequence::levels`, qui portent l'extension -- un `.stem()`
+    // ici désynchronisait silencieusement les deux formats (bug réel trouvé en jeu : la progression
+    // s'écrivait mais ne débloquait jamais rien, aucun nom ne correspondait jamais). La séquence
+    // affiche déjà ses entrées avec extension ailleurs (`hmi::LevelSelectScreen`), donc pas
+    // d'incohérence nouvelle côté affichage.
+    return _gameLevels[_gameLevel].filename().string();
+}
+
+std::string GameViewport::nextGameLevelName() const {
+    if (!_gameMode || _gameLevel + 1 >= _gameLevels.size()) {
+        return {};
+    }
+    return _gameLevels[_gameLevel + 1].filename().string();  // cf. currentGameLevelName().
+}
+
+void GameViewport::advanceToNextLevel() {
+    loadGameLevel(_gameLevel + 1);
+}
+
+void GameViewport::startGame(std::vector<std::filesystem::path> levels, std::size_t startIndex) {
     ensureResources();
     _gameLevels = std::move(levels);
     _gameMode = true;
     HMI_LOG_INFO("Jeu : demarrage de la sequence (" + std::to_string(_gameLevels.size()) +
-                 " niveaux).");
-    loadGameLevel(0);
+                 " niveaux, indice de depart " + std::to_string(startIndex) + ").");
+    loadGameLevel(startIndex);
 }
 
 void GameViewport::loadGameLevel(std::size_t index) {

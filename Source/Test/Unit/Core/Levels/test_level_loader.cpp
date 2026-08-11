@@ -1041,7 +1041,11 @@ TEST(LevelLoaderTest, LesQuinzeNiveauxDeDemoSeChargentSansErreur) {
     int checked = 0;
     for (const std::filesystem::directory_entry& entry :
          std::filesystem::directory_iterator(levelsDir)) {
-        if (entry.path().extension() != ".json") {
+        // Filtre sur le prefixe "demo-" (meme convention que scripts/check_demo_sequence.py),
+        // pas "tout .json du dossier" : celui-ci contient aussi sequence-demo.json (LOT-59
+        // TACHE-04, EX-LVL-013), qui n'est pas un niveau et ne se chargerait pas comme tel.
+        if (entry.path().extension() != ".json" ||
+            entry.path().filename().string().rfind("demo-", 0) != 0) {
             continue;
         }
         const core::LevelLoadResult result = core::LevelLoader::loadFromFile(entry.path());

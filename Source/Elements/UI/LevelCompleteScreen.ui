@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LevelCompleteScreen</class>
+ <widget class="QWidget" name="LevelCompleteScreen">
+  <layout class="QVBoxLayout" name="outerLayout">
+   <!-- Recouvrement plein cadre (LOT-59 TACHE-03), meme patron que PauseScreen.ui : menu centre
+        par les extenseurs haut/bas, fond translucide pose en code. Un seul ecran parametre pour
+        fin de tableau ET fin de sequence (LevelCompleteScreen::setSequenceComplete) : ils
+        partagent tout sauf le titre et la presence des boutons Continuer/Rejouer. -->
+   <item>
+    <spacer name="topSpacer">
+     <property name="orientation"><enum>Qt::Vertical</enum></property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="centerRow">
+     <item>
+      <spacer name="leftSpacer">
+       <property name="orientation"><enum>Qt::Horizontal</enum></property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QWidget" name="menuCard">
+       <layout class="QVBoxLayout" name="cardLayout">
+        <item>
+         <widget class="QLabel" name="titleLabel">
+          <property name="text"><string>Tableau termine</string></property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="titleSpacer">
+          <property name="orientation"><enum>Qt::Vertical</enum></property>
+          <property name="sizeType"><enum>QSizePolicy::Fixed</enum></property>
+          <property name="sizeHint" stdset="0"><size><width>0</width><height>24</height></size></property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="continueButton">
+          <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
+          <property name="text"><string>Continuer</string></property>
+          <property name="flat"><bool>true</bool></property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="replayButton">
+          <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
+          <property name="text"><string>Rejouer</string></property>
+          <property name="flat"><bool>true</bool></property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="returnToMenuButton">
+          <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
+          <property name="text"><string>Retour au menu</string></property>
+          <property name="flat"><bool>true</bool></property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <spacer name="rightSpacer">
+       <property name="orientation"><enum>Qt::Horizontal</enum></property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="bottomSpacer">
+     <property name="orientation"><enum>Qt::Vertical</enum></property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

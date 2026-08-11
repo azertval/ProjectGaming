@@ -5,14 +5,19 @@
 #include <array>
 #include <filesystem>
 #include <memory>
+#include <optional>
+#include <string>
 
+#include "Core/Levels/LevelSequence.h"
 #include "HMI/Editor/EditContextTarget.h"
 #include "HMI/Editor/EditorTool.h"
 #include "HMI/Editor/PanelFocus.h"
 #include "HMI/Editor/PixelPalette.h"
 #include "HMI/Editor/PixelTool.h"
+#include "HMI/Game/Progression.h"
 #include "HMI/Input/GamepadPoller.h"
 #include "HMI/Input/InputState.h"
+#include "HMI/Interface/ScreenFlow.h"
 #include "HMI/Localization/Localization.h"
 
 /**
@@ -44,6 +49,9 @@ class EditorActions;
 class GameViewport;
 class MainMenu;
 class OptionsPage;
+class PauseScreen;
+class LevelCompleteScreen;
+class LevelSelectScreen;
 class PalettePanel;
 class LevelBrowserPanel;
 class LinkPanel;
@@ -75,6 +83,15 @@ public:
 protected:
     /// Sauvegarde la disposition avant fermeture.
     void closeEvent(QCloseEvent* event) override;
+    /// Resynchronise la géométrie des recouvrements d'écran (`_pauseScreen`/`_levelCompleteScreen`,
+    /// `LOT-59` TACHE-02/03) -- fenêtres de haut niveau positionnées à la main, jamais
+    /// redimensionnées automatiquement par `_stack`.
+    void resizeEvent(QResizeEvent* event) override;
+    /// Même resynchronisation que `resizeEvent`, nécessaire en plus de lui : un recouvrement est
+    /// une fenêtre de haut niveau positionnée en coordonnées **écran** (`syncOverlayGeometry`),
+    /// donc déplacer la fenêtre principale sans la redimensionner (aucun `resizeEvent`) la
+    /// désaligne quand même.
+    void moveEvent(QMoveEvent* event) override;
 
 private:
     /// Crée les panneaux (contenu des docks du `.ui`) et branche les actions de la barre de menus.
@@ -159,16 +176,92 @@ private:
     /// Raccourci : texte localisé d'une clé, en `QString`.
     [[nodiscard]] QString text(const char* key) const;
 
-    /// Affiche le menu principal (docks et barre de menu masqués).
+    /// Affiche le menu principal (docks et barre de menu masqués) ; rafraîchit l'état de
+    /// « Continuer » (`MainMenu::setContinueEnabled`, `LOT-59` TACHE-06) à chaque affichage --
+    /// seule voie de mise à jour, jamais suivi à part.
     void showMenu();
     /// Affiche l'éditeur (viewport + docks + barre de menu).
     void showEditor();
-    /// Lance le jeu (séquence de niveaux démo) dans le viewport, docks masqués.
-    void showGame();
-    /// Affiche la page Options (onglets) dans la fenêtre.
+    /// Affiche la page Options (onglets) dans la fenêtre, revient à l'écran d'où elle a été
+    /// ouverte (Menu ou Pause, `EX-GP-041`).
     void showOptions();
+    /// Ferme la page Options, retour à l'écran d'où elle a été ouverte (`ScreenState::
+    /// optionsReturnTo`) -- remplace l'ancien retour direct et systématique vers le menu.
+    void closeOptions();
     /// Montre/masque tous les panneaux dockables.
     void setDocksVisible(bool visible);
+
+    /// Résout @p event via `hmi::resolveTransition` depuis l'écran courant (`_screenState`) et
+    /// applique l'habillage du nouvel écran (`applyScreenDressing`) -- @return `false` sans effet
+    /// si la transition est refusée (`EX-GP-041`), auquel cas l'appelant ne doit rien faire
+    /// d'autre (aucun chargement, aucun log de navigation).
+    bool transitionScreen(hmi::ScreenEvent event);
+    /// Bascule la page du `QStackedWidget` (seule part propre à Qt, hors de portée d'une table
+    /// pure) puis applique l'habillage générique de @p screen (`hmi::dressingFor`) : docks,
+    /// barres, commandes d'édition, navigation manette, minuteur de statut.
+    void applyScreenDressing(hmi::ScreenId screen);
+    /// Positionne `_pauseScreen`/`_levelCompleteScreen` (fenêtres de haut niveau) pour recouvrir
+    /// exactement `_editorContainer` **en coordonnées écran** (`LOT-59` TACHE-02/03/07) -- appelé
+    /// à la création et à chaque déplacement/redimensionnement de la fenêtre principale
+    /// (`moveEvent`/`resizeEvent`).
+    void syncOverlayGeometry();
+
+    // Écran de pause (LOT-59 TACHE-02).
+    /// `Échap`/bouton manette B en jeu réel (`GameViewport::pauseRequested`) : ouvre la pause.
+    void openPause();
+    /// « Reprendre » (bouton, `Échap`, ou B manette depuis la pause) : reprend la simulation.
+    void resumeFromPause();
+    /// « Recommencer le niveau » depuis la pause : même chemin que le redémarrage après échec.
+    void restartFromPause();
+    /// « Quitter vers le menu » depuis la pause : demande confirmation (perd la progression du
+    /// tableau en cours), puis abandonne la partie si confirmé.
+    void quitPauseToMenu();
+
+    // Écran de fin de niveau et de fin de séquence (LOT-59 TACHE-03).
+    /// `GameViewport::levelSucceeded` : configure `_levelCompleteScreen` (nom du tableau, variante
+    /// fin de séquence via `GameViewport::isLastGameLevel`) puis ouvre l'écran.
+    void openLevelComplete();
+    /// « Continuer » : charge le tableau suivant de la séquence. Absent (bouton masqué) en fin de
+    /// séquence -- jamais atteint sur le dernier tableau.
+    void continueFromLevelComplete();
+    /// « Rejouer » : recharge le tableau qui vient d'être terminé (même chemin que le redémarrage
+    /// après échec/depuis la pause).
+    void replayFromLevelComplete();
+    /// « Retour au menu » depuis l'écran de fin de niveau ou de fin de séquence : abandonne la
+    /// partie, sans confirmation (contrairement à la pause : le tableau vient d'être réussi, rien
+    /// n'est perdu).
+    void returnToMenuFromLevelComplete();
+
+    // Sélection de niveau côté joueur (LOT-59 TACHE-06, EX-IHM-005).
+    /// Charge `sequence-demo.json` (`DEMO_SEQUENCE_FILE`), affiche une boîte d'erreur et @return
+    /// `std::nullopt` en cas d'échec (fichier absent/invalide, `EX-NFR-040`) -- factorisé entre
+    /// tous les points d'entrée dans le jeu (Continuer/Nouvelle partie/Choisir un
+    /// niveau/ouverture de l'écran de sélection).
+    [[nodiscard]] std::optional<core::LevelSequence> loadDemoSequenceOrWarn();
+    /// Charge la séquence, résout l'indice de départ (nom de @p startLevelName dans la séquence ;
+    /// premier tableau si vide ou introuvable -- séquence modifiée depuis, `EX-NFR-040`), applique
+    /// @p transitionEvent (`OpenGame` depuis le menu, `LevelChosen` depuis l'écran de sélection),
+    /// puis démarre `_viewport` en mode séquence (`_gameTracksProgression = true`).
+    void startSequence(const std::string& startLevelName, hmi::ScreenEvent transitionEvent);
+    /// « Continuer » (menu) : reprend au tableau atteint (`Progression::currentLevel`) ; sans
+    /// effet si aucune progression (le bouton est alors grisé, `MainMenu::setContinueEnabled`).
+    void continueGame();
+    /// « Nouvelle partie » (menu) : confirmation si une progression existe (elle serait perdue),
+    /// puis efface la progression et recommence au premier tableau.
+    void newGame();
+    /// « Choisir un niveau » (menu) : ouvre `_levelSelectScreen`, peuplé de la séquence (avec état
+    /// de déverrouillage) et des niveaux personnels du dossier (hors séquence,
+    /// `LevelFileOperations` filtrée).
+    void openLevelSelect();
+    /// Retour au menu depuis l'écran de sélection de niveau.
+    void closeLevelSelect();
+    /// Un tableau de séquence a été choisi dans `_levelSelectScreen` : **revalidé** via
+    /// `hmi::isLevelUnlocked` avant tout lancement (défense en profondeur, `EX-IHM-005`) -- jamais
+    /// lancé verrouillé, même si l'écran l'a par erreur laissé passer.
+    void chooseSequenceLevel(const QString& levelName);
+    /// Un niveau **personnel** a été choisi (hors séquence) : lancé seul
+    /// (`_gameTracksProgression = false`), ne touche jamais la progression de la séquence.
+    void playPersonalLevel(const QString& path);
 
     /// Traduit la manette en navigation de focus Qt (menus/options) : appelé par `_menuNavTimer`.
     void pollMenuGamepad();
@@ -176,11 +269,28 @@ private:
     void setMenuGamepadActive(bool active);
 
     std::unique_ptr<Ui::EditorMainWindow> _ui;  ///< Mise en page (MainWindow.ui : menubar + docks).
+    /// Écran courant et écran de retour d'Options (`LOT-59` TACHE-01, `EX-GP-041`) : seule source
+    /// de vérité sur la navigation, mise à jour uniquement par `transitionScreen`.
+    hmi::ScreenState _screenState;
     QStackedWidget* _stack;     ///< Central : empile menu principal, options et viewport.
     MainMenu* _menu;            ///< Menu principal (page d'accueil).
     OptionsPage* _options;      ///< Page Options à onglets.
     QWidget* _editorContainer;  ///< Conteneur natif du viewport (page éditeur/jeu).
-    GameViewport* _viewport;    ///< Surface de rendu D3D11 (possédée par le conteneur central).
+    /// Recouvrement de pause (`LOT-59` TACHE-02) : fenêtre de **haut niveau** possédée par `this`
+    /// (`Qt::Tool | Qt::FramelessWindowHint`, fond translucide), jamais une page ni un enfant de
+    /// `_stack` -- une fenêtre native embarquée via `QWidget::createWindowContainer`
+    /// (`_editorContainer`) peint toujours par-dessus ses **frères** Qt ordinaires, quel que soit
+    /// leur `raise()` : seule une fenêtre de haut niveau distincte se superpose de façon fiable
+    /// (limitation documentée de Qt, constatée en jeu : `TACHE-07`). Géométrie synchronisée en
+    /// coordonnées **écran** (`syncOverlayGeometry`), visibilité pilotée par `applyScreenDressing`.
+    PauseScreen* _pauseScreen = nullptr;
+    /// Recouvrement de fin de niveau/séquence (`LOT-59` TACHE-03) : même patron que
+    /// `_pauseScreen` ci-dessus (fenêtre de haut niveau, pas un enfant de `_stack`).
+    LevelCompleteScreen* _levelCompleteScreen = nullptr;
+    /// Écran de sélection de niveau (`LOT-59` TACHE-06) : une page normale de `_stack` (jamais un
+    /// recouvrement -- atteint depuis le menu, pas en jeu, contrairement aux deux précédents).
+    LevelSelectScreen* _levelSelectScreen = nullptr;
+    GameViewport* _viewport;  ///< Surface de rendu D3D11 (possédée par le conteneur central).
     /// Contexte d'édition actif, cible d'Annuler/Refaire/Copier/Coller (`LOT-57` TACHE-04) : `
     /// _viewport` (niveau) ou `_pixelCanvas` (atelier pixel art, `LOT-54` TACHE-04), selon le
     /// widget qui a le focus clavier (`updateActiveEditContext`) — le dispatch lui-même ne change
@@ -254,6 +364,15 @@ private:
 
     Localization _loc;  ///< Catalogue de traduction (i18n), source de tous les textes.
     core::MemoryLogSink* _sessionLog;  ///< Sink mémoire des logs (nul en Release).
+    /// Progression de partie persistée (`LOT-59` TACHE-05, `EX-LVL-014`) : chargée une fois à la
+    /// construction, marquée/écrite à chaque réussite de tableau (`openLevelComplete`) -- jamais
+    /// ailleurs (pas d'écriture par image ni par pas).
+    hmi::Progression _progression;
+    /// `true` si la partie en cours suit la séquence démo (Continuer/Nouvelle partie/tableau de
+    /// séquence choisi) -- `false` pour un niveau **personnel** lancé hors séquence (`LOT-59`
+    /// TACHE-06) : `openLevelComplete` ne touche `_progression` que si vrai, sinon un niveau
+    /// d'essai personnel « débloquerait » la campagne.
+    bool _gameTracksProgression = false;
 
     // Navigation manette des menus (hors jeu) : sondage périodique -> événements clavier Qt.
     GamepadPoller _menuPad;

@@ -23,7 +23,11 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
+#include <QMoveEvent>
 #include <QPixmap>
+#include <QPoint>
+#include <QRect>
+#include <QResizeEvent>
 #include <QSettings>
 #include <QSignalBlocker>
 #include <QSpinBox>
@@ -36,17 +40,20 @@
 #include <QToolButton>
 #include <QVBoxLayout>
 #include <QWidget>
+#include <algorithm>
 #include <array>
 #include <ctime>
 #include <filesystem>
 #include <vector>
 
 #include "Core/Diagnostics/MemoryLogSink.h"
+#include "Core/Levels/LevelSequence.h"
 #include "HMI/Diagnostics/SessionLog.h"
 #include "HMI/Editor/AssetReferences.h"
 #include "HMI/Editor/DecorsPanel.h"
 #include "HMI/Editor/EditorStatus.h"
 #include "HMI/Editor/LevelBrowserPanel.h"
+#include "HMI/Editor/LevelFileOperations.h"
 #include "HMI/Editor/LinkPanel.h"
 #include "HMI/Editor/PalettePanel.h"
 #include "HMI/Editor/PanelFocus.h"
@@ -64,8 +71,11 @@
 #include "HMI/Interface/ApplicationTheme.h"
 #include "HMI/Interface/DesignTokens.h"
 #include "HMI/Interface/EditorActions.h"
+#include "HMI/Interface/LevelCompleteScreen.h"
+#include "HMI/Interface/LevelSelectScreen.h"
 #include "HMI/Interface/MainMenu.h"
 #include "HMI/Interface/OptionsPage.h"
+#include "HMI/Interface/PauseScreen.h"
 #include "HMI/Platform/ExecutableDirectory.h"
 #include "ui_MainWindow.h"
 
@@ -92,6 +102,11 @@ constexpr char FOLLOW_ACTIVE_TOOL_KEY[] = "panels/followActiveTool";
 // Reglage "contraindre a la palette" de l'atelier pixel art (LOT-54 TACHE-07).
 constexpr char CONSTRAIN_TO_PALETTE_KEY[] = "pixelEditor/constrainToPalette";
 
+// Nom du fichier de séquence jouée (LOT-59 TACHE-04, EX-LVL-013), à côté des niveaux -- identifie
+// aussi la progression (LOT-59 TACHE-05) : un seul littéral, partagé entre showGame (chargement)
+// et openLevelComplete (marquage), plutôt que deux occurrences à faire dériver.
+constexpr char DEMO_SEQUENCE_FILE[] = "sequence-demo.json";
+
 }  // namespace
 
 MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
@@ -117,7 +132,9 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
       _themeLightAction(nullptr),
       _themeDarkAction(nullptr),
       _loc(hmi::executableDirectory() / "Localization"),
-      _sessionLog(sessionLog) {
+      _sessionLog(sessionLog),
+      _progression(
+          hmi::Progression::load(hmi::executableDirectory() / "Settings" / "progression.json")) {
     _ui->setupUi(this);  // barre de menus + docks (coquilles) depuis MainWindow.ui.
 
     // Catalogue de traduction : français par défaut (repli), langue active depuis les réglages.
@@ -139,11 +156,56 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     _menu = new MainMenu();
     _options =
         new OptionsPage(_viewport, hmi::executableDirectory() / "Settings" / "keybindings.json");
+    _levelSelectScreen = new LevelSelectScreen();
     _stack = new QStackedWidget(this);
     _stack->addWidget(_menu);
     _stack->addWidget(_options);
+    _stack->addWidget(_levelSelectScreen);
     _stack->addWidget(_editorContainer);
     setCentralWidget(_stack);
+    connect(_levelSelectScreen, &LevelSelectScreen::backRequested, this,
+            &MainWindow::closeLevelSelect);
+    connect(_levelSelectScreen, &LevelSelectScreen::sequenceLevelChosen, this,
+            &MainWindow::chooseSequenceLevel);
+    connect(_levelSelectScreen, &LevelSelectScreen::personalLevelChosen, this,
+            &MainWindow::playPersonalLevel);
+
+    // Recouvrement de pause (LOT-59 TACHE-02) : fenêtre de HAUT NIVEAU possédée par `this`
+    // (Qt::Dialog -- pas d'entrée dans la barre des tâches vu qu'elle a un propriétaire, reste
+    // au-dessus de lui sans Qt::WindowStaysOnTopHint), PAS un enfant de _stack. Un widget Qt
+    // ordinaire, même frère du conteneur natif du viewport (_editorContainer,
+    // QWidget::createWindowContainer), ne se dessine JAMAIS de façon fiable par-dessus la fenêtre
+    // native qu'il embarque, quel que soit son raise() -- limitation documentée de Qt, constatée
+    // en jeu (TACHE-07 : l'écran ne s'affichait pas, la simulation restait figée sans rien à
+    // l'écran). PAS Qt::Tool (essayé d'abord, décrit ci-dessous) : sur Windows, Qt affiche une
+    // fenêtre Qt::Tool avec SW_SHOWNOACTIVATE -- par conception, pour les palettes flottantes qui
+    // ne doivent jamais voler le focus -- ce qui empêche `activateWindow()` de fonctionner
+    // (deuxième bug réel trouvé en jeu : Entrée/Échap restaient sans effet). Qt::Dialog n'a pas
+    // cette restriction, une fenêtre de dialogue étant conçue pour recevoir le focus normalement.
+    // Géométrie synchronisée en coordonnées ÉCRAN (syncOverlayGeometry), pas relative à _stack.
+    _pauseScreen = new PauseScreen(this);
+    _pauseScreen->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
+    _pauseScreen->setAttribute(Qt::WA_TranslucentBackground);
+    _pauseScreen->hide();
+    connect(_pauseScreen, &PauseScreen::resumeRequested, this, &MainWindow::resumeFromPause);
+    connect(_pauseScreen, &PauseScreen::restartRequested, this, &MainWindow::restartFromPause);
+    connect(_pauseScreen, &PauseScreen::optionsRequested, this, &MainWindow::showOptions);
+    connect(_pauseScreen, &PauseScreen::quitToMenuRequested, this, &MainWindow::quitPauseToMenu);
+    connect(_viewport, &GameViewport::pauseRequested, this, &MainWindow::openPause);
+
+    // Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même patron que _pauseScreen
+    // ci-dessus (fenêtre de haut niveau Qt::Dialog, pas un enfant de _stack).
+    _levelCompleteScreen = new LevelCompleteScreen(this);
+    _levelCompleteScreen->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
+    _levelCompleteScreen->setAttribute(Qt::WA_TranslucentBackground);
+    _levelCompleteScreen->hide();
+    connect(_levelCompleteScreen, &LevelCompleteScreen::continueRequested, this,
+            &MainWindow::continueFromLevelComplete);
+    connect(_levelCompleteScreen, &LevelCompleteScreen::replayRequested, this,
+            &MainWindow::replayFromLevelComplete);
+    connect(_levelCompleteScreen, &LevelCompleteScreen::returnToMenuRequested, this,
+            &MainWindow::returnToMenuFromLevelComplete);
+    connect(_viewport, &GameViewport::levelSucceeded, this, &MainWindow::openLevelComplete);
 
     buildUi();  // contenu des docks (panneaux) + branchement des actions de la barre de menus.
 
@@ -295,14 +357,17 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
 
     // Navigation depuis le menu principal.
     connect(_menu, &MainMenu::editorRequested, this, &MainWindow::showEditor);
-    connect(_menu, &MainMenu::playRequested, this, &MainWindow::showGame);
+    // Jouer (LOT-59 TACHE-06) : trois intentions distinctes remplacent l'ancien "Jouer" unique.
+    connect(_menu, &MainMenu::continueRequested, this, &MainWindow::continueGame);
+    connect(_menu, &MainMenu::newGameRequested, this, &MainWindow::newGame);
+    connect(_menu, &MainMenu::selectLevelRequested, this, &MainWindow::openLevelSelect);
     connect(_menu, &MainMenu::optionsRequested, this, &MainWindow::showOptions);
     connect(_menu, &MainMenu::quitRequested, this, &MainWindow::close);
     // Retour au menu à la fin d'une partie (ou Échap en mode jeu).
     connect(_viewport, &GameViewport::exitToMenuRequested, this, &MainWindow::showMenu);
-    // Page Options : retour au menu, bascule plein écran, changement de langue, sauvegarde des
-    // logs.
-    connect(_options, &OptionsPage::backRequested, this, &MainWindow::showMenu);
+    // Page Options : retour à l'écran d'origine (Menu ou Pause, EX-GP-041), bascule plein écran,
+    // changement de langue, sauvegarde des logs.
+    connect(_options, &OptionsPage::backRequested, this, &MainWindow::closeOptions);
     connect(_options, &OptionsPage::fullscreenRequested, this,
             [this](bool enabled) { enabled ? showFullScreen() : showNormal(); });
     connect(_options, &OptionsPage::languageChanged, this, &MainWindow::changeLanguage);
@@ -342,79 +407,395 @@ void MainWindow::setDocksVisible(bool visible) {
     _suppressPanelFocusTracking = false;
 }
 
-void MainWindow::showMenu() {
-    HMI_LOG_INFO("Navigation : menu principal.");
-    _stack->setCurrentWidget(_menu);
-    setDocksVisible(false);
-    menuBar()->setVisible(false);  // pas de barre de menu sur l'écran d'accueil
-    _toolBar->setVisible(false);
-    _pixelToolBar->setVisible(false);
-    _actions->setEditingCommandsEnabled(false);
+bool MainWindow::transitionScreen(ScreenEvent event) {
+    const std::optional<ScreenState> next = resolveTransition(_screenState, event);
+    if (!next) {
+        HMI_LOG_WARNING(
+            "Transition d'ecran refusee (evenement non autorise depuis l'ecran "
+            "courant, EX-GP-041).");
+        return false;
+    }
+    _screenState = *next;
+    applyScreenDressing(_screenState.screen);
+    return true;
+}
+
+void MainWindow::applyScreenDressing(ScreenId screen) {
+    // Choix de la page du QStackedWidget : seule part propre a Qt (pointeurs de widgets), hors de
+    // portee d'une table pure (hmi::ScreenDressing). Pause/NiveauTermine recouvrent Game (meme
+    // page) : leurs widgets d'ecran (TACHE-02/03) se dessinent PAR-DESSUS, la scene reste visible
+    // derriere.
+    switch (screen) {
+        case ScreenId::Menu:
+            _stack->setCurrentWidget(_menu);
+            // Rafraîchi ICI plutôt que dans showMenu() (bug réel trouvé en jeu, LOT-59 TACHE-07 :
+            // « Continuer » ne s'activait jamais) : la plupart des retours au menu ne passent PAS
+            // par la méthode showMenu() -- returnToMenuFromLevelComplete/quitPauseToMenu/
+            // closeLevelSelect résolvent chacun leur PROPRE ScreenEvent directement. Poser le
+            // rafraîchissement ici couvre TOUTE transition qui atterrit sur Menu, quel que soit
+            // l'événement, sans avoir à le dupliquer dans chaque poignée de retour.
+            _menu->setContinueEnabled(!_progression.currentLevel().empty());
+            break;
+        case ScreenId::Options:
+            _stack->setCurrentWidget(_options);
+            break;
+        case ScreenId::LevelSelect:
+            _stack->setCurrentWidget(_levelSelectScreen);
+            break;
+        case ScreenId::Editor:
+        case ScreenId::Game:
+        case ScreenId::Pause:
+        case ScreenId::NiveauTermine:
+            _stack->setCurrentWidget(_editorContainer);
+            break;
+    }
+
+    // Recouvrement de pause (LOT-59 TACHE-02) : visible et au premier plan seulement sur cet
+    // écran -- jamais une page de _stack (la scène doit rester dessinée derrière, cf. le
+    // commentaire de construction de _pauseScreen). Ne touche jamais à l'état de pause du
+    // viewport lui-même (GameViewport::pauseSimulation/resumeSimulation) : c'est le rôle exclusif
+    // de openPause/resumeFromPause/restartFromPause/quitPauseToMenu, jamais un effet de bord de
+    // l'affichage -- une visite par Options (Pause -> Options -> Pause) ne doit pas reprendre puis
+    // re-suspendre la simulation.
+    const bool showPauseOverlay = screen == ScreenId::Pause;
+    _pauseScreen->setVisible(showPauseOverlay);
+    if (showPauseOverlay) {
+        syncOverlayGeometry();
+        _pauseScreen->raise();
+        _pauseScreen->activateWindow();
+        // focusDefaultAction() différé (LOT-59 TACHE-07, bug réel trouvé à l'essai manuel :
+        // Entrée ne faisait rien dans le menu de pause) : _pauseScreen est une fenêtre de haut
+        // niveau distincte, elle ne partage plus automatiquement l'activation de `this`.
+        // activateWindow() ne fait que POSTER la demande d'activation côté OS -- Qt ne marque la
+        // fenêtre comme réellement active qu'en traitant le WM_ACTIVATE en retour, plus tard dans
+        // la boucle d'événements. Poser le focus clavier dans le même appel, avant ce traitement,
+        // ne prend pas effet côté routage clavier de l'OS (même si `QWidget::hasFocus()` répond
+        // vrai côté Qt) : Entrée/Échap restent routés vers la fenêtre précédemment active. Un
+        // délai de 0 ms (prochain tour de la boucle d'événements) suffit à laisser l'activation se
+        // terminer avant de poser le focus.
+        QTimer::singleShot(0, _pauseScreen, [this] { _pauseScreen->focusDefaultAction(); });
+    }
+
+    // Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même règle que _pauseScreen
+    // ci-dessus -- `openLevelComplete` a déjà appelé `_levelCompleteScreen->configure(...)` avant
+    // cette transition, ici on ne fait que (dé)montrer.
+    const bool showLevelCompleteOverlay = screen == ScreenId::NiveauTermine;
+    _levelCompleteScreen->setVisible(showLevelCompleteOverlay);
+    if (showLevelCompleteOverlay) {
+        syncOverlayGeometry();
+        _levelCompleteScreen->raise();
+        _levelCompleteScreen->activateWindow();
+        // Focus différé : cf. commentaire de _pauseScreen ci-dessus (même piège d'activation).
+        QTimer::singleShot(0, _levelCompleteScreen,
+                           [this] { _levelCompleteScreen->focusDefaultAction(); });
+    }
+
+    if (!showPauseOverlay && !showLevelCompleteOverlay &&
+        (screen == ScreenId::Editor || screen == ScreenId::Game)) {
+        _editorContainer->setFocus();
+    } else if (screen == ScreenId::LevelSelect) {
+        _levelSelectScreen->focusDefaultAction();
+    }
+
+    const ScreenDressing dressing = hmi::dressingFor(screen);
+    setDocksVisible(dressing.docksVisible);
+    menuBar()->setVisible(dressing.menuBarVisible);
+    _toolBar->setVisible(dressing.toolBarVisible);
+    _pixelToolBar->setVisible(dressing.pixelToolBarVisible);
+    _actions->setEditingCommandsEnabled(dressing.editingCommandsEnabled);
+    setMenuGamepadActive(dressing.gamepadNavigationActive);
     _statusMessageTimer->stop();
-    refreshStatusHelp();  // hors édition : zones et aide vides (aucun résidu d'état d'édition).
-    setMenuGamepadActive(true);
+    refreshStatusHelp();
+}
+
+void MainWindow::syncOverlayGeometry() {
+    // Coordonnées ÉCRAN, pas relatives à _stack : _pauseScreen/_levelCompleteScreen sont des
+    // fenêtres de haut niveau depuis TACHE-07 (cf. leur commentaire de construction), plus des
+    // enfants de _stack -- setGeometry(_stack->rect()) les positionnerait n'importe où (coin
+    // haut-gauche de l'écran, taille de _stack) plutôt que par-dessus le viewport.
+    const QRect overlayRect(_editorContainer->mapToGlobal(QPoint(0, 0)), _editorContainer->size());
+    _pauseScreen->setGeometry(overlayRect);
+    _levelCompleteScreen->setGeometry(overlayRect);
+}
+
+void MainWindow::resizeEvent(QResizeEvent* event) {
+    QMainWindow::resizeEvent(event);
+    syncOverlayGeometry();
+}
+
+void MainWindow::moveEvent(QMoveEvent* event) {
+    QMainWindow::moveEvent(event);
+    syncOverlayGeometry();
+}
+
+void MainWindow::openPause() {
+    if (!transitionScreen(ScreenEvent::OpenPause)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : pause.");
+    _viewport->pauseSimulation();
+}
+
+void MainWindow::resumeFromPause() {
+    if (!transitionScreen(ScreenEvent::ResumePause)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : reprise depuis la pause.");
+    _viewport->resumeSimulation();
+}
+
+void MainWindow::restartFromPause() {
+    if (!transitionScreen(ScreenEvent::RestartFromPause)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : niveau redemarre depuis la pause.");
+    _viewport->resumeSimulation();
+    _viewport->restartCurrentLevel();
+}
+
+void MainWindow::quitPauseToMenu() {
+    const QMessageBox::StandardButton answer = QMessageBox::question(
+        this, text("pause.quit_confirm_title"), text("pause.quit_confirm_text"));
+    if (answer != QMessageBox::Yes) {
+        return;
+    }
+    if (!transitionScreen(ScreenEvent::QuitPauseToMenu)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : partie abandonnee depuis la pause, retour au menu.");
+    _viewport->quitGame();
+}
+
+void MainWindow::openLevelComplete() {
+    // Configure AVANT la transition (`applyScreenDressing` ne fait que montrer/masquer l'écran
+    // déjà configuré) : le nom du tableau et la variante dépendent du tableau qui vient d'être
+    // réussi, interrogé pendant qu'il est encore courant (GameViewport::_gameLevel n'avance qu'à
+    // `advanceToNextLevel`/`replayFromLevelComplete`).
+    const bool sequenceComplete = _viewport->isLastGameLevel();
+    const std::string finishedLevel = _viewport->currentGameLevelName();
+    const std::string nextLevel = _viewport->nextGameLevelName();
+    // `finishedLevel` (extension comprise) est l'identifiant de progression, comparé tel quel aux
+    // entrées de core::LevelSequence -- ne jamais le tronquer. Le titre affiché, lui, s'en passe
+    // pour rester lisible (ex. « Tableau terminé : demo-saut », pas « ...demo-saut.json »).
+    const QString displayName =
+        QString::fromStdString(std::filesystem::path(finishedLevel).stem().string());
+    _levelCompleteScreen->configure(sequenceComplete, displayName);
+    if (!transitionScreen(ScreenEvent::LevelSucceeded)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : tableau reussi.");
+
+    // Progression persistée (LOT-59 TACHE-05, EX-LVL-014) : marquée ICI, une seule fois par
+    // réussite, avant tout chargement du tableau suivant -- point d'écriture unique (ni
+    // Continuer/Rejouer/Retour ne réécrivent). `nextLevel` est vide en fin de séquence :
+    // `currentLevel` reste alors au dernier tableau atteint. Un niveau **personnel** (`LOT-59`
+    // TACHE-06, `_gameTracksProgression == false`) ne touche jamais la progression -- sinon
+    // l'essayer « débloquerait » la campagne.
+    if (_gameTracksProgression) {
+        // `alreadyCompleted` distingue une PREMIÈRE réussite (avance le tableau atteint) d'une
+        // rejouée -- rejouer un tableau déjà terminé plus ancien que le tableau atteint (via
+        // « Choisir un niveau », TACHE-06 : les tableaux terminés restent tous jouables) ne doit
+        // JAMAIS faire reculer `currentLevel` vers ce tableau plus ancien.
+        const bool alreadyCompleted = _progression.isCompleted(finishedLevel);
+        _progression.setSequenceId(DEMO_SEQUENCE_FILE);
+        _progression.markCompleted(finishedLevel);
+        if (!alreadyCompleted && !nextLevel.empty()) {
+            _progression.setCurrentLevel(nextLevel);
+        }
+        if (!_progression.save(hmi::executableDirectory() / "Settings" / "progression.json")) {
+            HMI_LOG_WARNING("Progression : echec de l'ecriture (Settings/progression.json).");
+        }
+    }
+}
+
+void MainWindow::continueFromLevelComplete() {
+    if (!transitionScreen(ScreenEvent::ContinueAfterLevel)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : tableau suivant.");
+    // `openLevelComplete` a fige la simulation (GameViewport::pauseSimulation) pour figer la scene
+    // derriere l'ecran -- la reprendre avant de charger le tableau suivant, sinon _paused reste
+    // vrai et tick() ne fait plus jamais avancer la nouvelle session (meme piege que
+    // restartFromPause, TACHE-02).
+    _viewport->resumeSimulation();
+    _viewport->advanceToNextLevel();
+}
+
+void MainWindow::replayFromLevelComplete() {
+    if (!transitionScreen(ScreenEvent::ReplayLevel)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : tableau rejoue depuis l'ecran de fin de niveau.");
+    _viewport->resumeSimulation();  // cf. continueFromLevelComplete : meme necessite de reprise.
+    _viewport->restartCurrentLevel();
+}
+
+void MainWindow::returnToMenuFromLevelComplete() {
+    if (!transitionScreen(ScreenEvent::ReturnToMenuFromLevelComplete)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : retour au menu depuis l'ecran de fin de niveau/sequence.");
+    _viewport->quitGame();
+}
+
+void MainWindow::showMenu() {
+    if (!transitionScreen(ScreenEvent::OpenMenu)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : menu principal.");
+    // `_menu->setContinueEnabled(...)` : posé dans `applyScreenDressing` (cas `ScreenId::Menu`),
+    // pas ici -- la plupart des retours au menu ne passent pas par cette méthode.
 }
 
 void MainWindow::showEditor() {
+    if (!transitionScreen(ScreenEvent::OpenEditor)) {
+        return;
+    }
     HMI_LOG_INFO("Navigation : editeur.");
-    _stack->setCurrentWidget(_editorContainer);
-    setDocksVisible(true);
-    menuBar()->setVisible(true);
-    _toolBar->setVisible(true);
-    _pixelToolBar->setVisible(true);
-    _actions->setEditingCommandsEnabled(true);
-    _statusMessageTimer->stop();
-    refreshStatusHelp();
-    _editorContainer->setFocus();
-    setMenuGamepadActive(false);
 }
 
-void MainWindow::showGame() {
-    HMI_LOG_INFO("Navigation : jeu.");
-    setMenuGamepadActive(false);
-    _stack->setCurrentWidget(_editorContainer);
-    setDocksVisible(false);
-    menuBar()->setVisible(false);
-    _toolBar->setVisible(false);
-    _pixelToolBar->setVisible(false);
-    _actions->setEditingCommandsEnabled(false);
-    _statusMessageTimer->stop();
-    refreshStatusHelp();  // jeu : menuBar masquee -> contexte de niveau absent (pas de residu).
-    _editorContainer->setFocus();
+std::optional<core::LevelSequence> MainWindow::loadDemoSequenceOrWarn() {
+    // Séquence de niveaux en donnée de contenu (LOT-59 TACHE-04, EX-LVL-013) : plus aucun nom de
+    // niveau écrit dans Source/HMI. Un fichier de séquence absent/invalide est une erreur
+    // récupérable (EX-NFR-040) -- l'appelant reste sur son écran courant plutôt que d'ouvrir un
+    // écran de jeu sans rien à jouer.
+    const std::filesystem::path levelsDir = hmi::executableDirectory() / "Levels";
+    core::LevelSequenceLoadResult sequenceLoad =
+        core::LevelSequenceLoader::loadFromFile(levelsDir / DEMO_SEQUENCE_FILE);
+    if (!sequenceLoad.ok()) {
+        HMI_LOG_WARNING("Jeu : sequence illisible : " + sequenceLoad.error);
+        QMessageBox::warning(
+            this, text("game.sequence_failed_title"),
+            text("game.sequence_failed_text").arg(QString::fromStdString(sequenceLoad.error)));
+        return std::nullopt;
+    }
+    return std::move(*sequenceLoad.sequence);
+}
 
-    // Séquence de niveaux démo (même ordre que le jeu historique) — Échap ou la fin revient au
-    // menu.
-    const std::filesystem::path levels = hmi::executableDirectory() / "Levels";
-    _viewport->startGame({
-        levels / "demo-deplacement.json",
-        levels / "demo-saut.json",
-        levels / "demo-double-saut.json",
-        levels / "demo-wall-jump.json",
-        levels / "demo-dash.json",
-        levels / "demo-interrupteur.json",
-        levels / "demo-plaque-pression.json",
-        levels / "demo-bloc.json",
-        levels / "demo-budget.json",
-        levels / "demo-pente.json",
-        levels / "demo-arrondi.json",
-        levels / "demo-bloc-reduit.json",
-        levels / "demo-dangers-avances.json",
-        levels / "demo-final.json",
-        levels / "demo-salles.json",
+void MainWindow::startSequence(const std::string& startLevelName, ScreenEvent transitionEvent) {
+    const std::optional<core::LevelSequence> sequence = loadDemoSequenceOrWarn();
+    if (!sequence) {
+        return;
+    }
+
+    std::size_t startIndex = 0;
+    if (!startLevelName.empty()) {
+        const auto found = std::ranges::find(sequence->levels, startLevelName);
+        if (found != sequence->levels.end()) {
+            startIndex = static_cast<std::size_t>(std::distance(sequence->levels.begin(), found));
+        }
+        // Sinon (nom introuvable -- séquence modifiée depuis, EX-NFR-040) : reprend au premier
+        // tableau plutôt que d'échouer, startIndex reste à 0.
+    }
+
+    if (!transitionScreen(transitionEvent)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : jeu.");
+
+    const std::filesystem::path levelsDir = hmi::executableDirectory() / "Levels";
+    std::vector<std::filesystem::path> levelPaths;
+    levelPaths.reserve(sequence->levels.size());
+    for (const std::string& levelName : sequence->levels) {
+        levelPaths.push_back(levelsDir / levelName);
+    }
+    _gameTracksProgression = true;
+    _viewport->startGame(std::move(levelPaths), startIndex);
+}
+
+void MainWindow::continueGame() {
+    if (_progression.currentLevel().empty()) {
+        return;  // "Continuer" est grise dans ce cas (garde ici aussi : clavier/manette).
+    }
+    startSequence(_progression.currentLevel(), ScreenEvent::OpenGame);
+}
+
+void MainWindow::newGame() {
+    const bool hasProgression =
+        !_progression.completedLevels().empty() || !_progression.currentLevel().empty();
+    if (hasProgression) {
+        const QMessageBox::StandardButton answer = QMessageBox::question(
+            this, text("menu.new_game_confirm_title"), text("menu.new_game_confirm_text"));
+        if (answer != QMessageBox::Yes) {
+            return;
+        }
+        _progression.reset();
+        if (!_progression.save(hmi::executableDirectory() / "Settings" / "progression.json")) {
+            HMI_LOG_WARNING("Progression : echec de l'ecriture (Settings/progression.json).");
+        }
+    }
+    startSequence({}, ScreenEvent::OpenGame);
+}
+
+void MainWindow::openLevelSelect() {
+    const std::optional<core::LevelSequence> sequence = loadDemoSequenceOrWarn();
+    if (!sequence) {
+        return;
+    }
+    if (!transitionScreen(ScreenEvent::OpenLevelSelect)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : selection de niveau.");
+
+    _levelSelectScreen->setSequenceLevels(sequence->levels, _progression);
+
+    // Niveaux personnels : tout le dossier (hmi::LevelFileOperations, deja reutilise par le
+    // panneau Niveaux de l'editeur), MOINS les tableaux de la sequence demo -- sans ce filtre, un
+    // tableau verrouille serait lancable en clair depuis cet onglet (EX-IHM-005, "hors sequence").
+    const hmi::LevelFileOperations levelOps(hmi::executableDirectory() / "Levels");
+    std::vector<std::filesystem::path> personalLevels = levelOps.list();
+    std::erase_if(personalLevels, [&sequence](const std::filesystem::path& path) {
+        return std::ranges::find(sequence->levels, path.filename().string()) !=
+               sequence->levels.end();
     });
+    _levelSelectScreen->setPersonalLevels(personalLevels);
+}
+
+void MainWindow::closeLevelSelect() {
+    if (!transitionScreen(ScreenEvent::CloseLevelSelect)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : retour au menu depuis la selection de niveau.");
+}
+
+void MainWindow::chooseSequenceLevel(const QString& levelName) {
+    const std::string name = levelName.toStdString();
+    // Revalidation (défense en profondeur, EX-IHM-005) : l'écran grise déjà les tableaux
+    // verrouillés, mais n'est pas l'unique garde -- jamais lancé verrouillé, même par un chemin
+    // qui contournerait l'affichage (manette, focus forcé).
+    const std::optional<core::LevelSequence> sequence = loadDemoSequenceOrWarn();
+    if (!sequence) {
+        return;
+    }
+    if (!isLevelUnlocked(_progression, sequence->levels, name)) {
+        HMI_LOG_WARNING("Selection de niveau : tableau verrouille ignore (" + name + ").");
+        return;
+    }
+    startSequence(name, ScreenEvent::LevelChosen);
+}
+
+void MainWindow::playPersonalLevel(const QString& path) {
+    if (!transitionScreen(ScreenEvent::LevelChosen)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : jeu (niveau personnel).");
+    // Hors séquence : ne doit jamais toucher à la progression de la campagne (EX-IHM-005).
+    _gameTracksProgression = false;
+    _viewport->startGame({std::filesystem::path(path.toStdString())});
 }
 
 void MainWindow::showOptions() {
+    if (!transitionScreen(ScreenEvent::OpenOptions)) {
+        return;
+    }
     HMI_LOG_INFO("Navigation : options.");
-    _stack->setCurrentWidget(_options);
-    setDocksVisible(false);
-    menuBar()->setVisible(false);
-    _toolBar->setVisible(false);
-    _pixelToolBar->setVisible(false);
-    _actions->setEditingCommandsEnabled(false);
-    _statusMessageTimer->stop();
-    refreshStatusHelp();
-    setMenuGamepadActive(true);
+}
+
+void MainWindow::closeOptions() {
+    if (!transitionScreen(ScreenEvent::CloseOptions)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : retour depuis les options.");
 }
 
 MainWindow::~MainWindow() = default;
@@ -976,10 +1357,16 @@ void MainWindow::pollMenuGamepad() {
     if (_menuPadInput.gamepadButtonPressed(GamepadButton::A)) {
         post(Qt::Key_Return, Qt::NoModifier);
     }
-    // B : retour contextuel (depuis Options vers le menu), sans quitter depuis le menu principal.
-    if (_menuPadInput.gamepadButtonPressed(GamepadButton::B) &&
-        _stack->currentWidget() == _options) {
-        showMenu();
+    // B : retour contextuel (depuis Options vers son écran d'origine, ou reprise depuis la pause
+    // -- LOT-59 TACHE-02), sans quitter depuis le menu principal.
+    if (_menuPadInput.gamepadButtonPressed(GamepadButton::B)) {
+        if (_screenState.screen == ScreenId::Options) {
+            closeOptions();
+        } else if (_screenState.screen == ScreenId::Pause) {
+            resumeFromPause();
+        } else if (_screenState.screen == ScreenId::LevelSelect) {
+            closeLevelSelect();
+        }
     }
 
     _menuPadInput.beginFrame();
@@ -1371,6 +1758,9 @@ void MainWindow::retranslateUi() {
 
     // Panneaux et pages (chacun retraduit son propre contenu depuis le catalogue).
     _menu->retranslateUi(_loc);
+    _pauseScreen->retranslateUi(_loc);
+    _levelCompleteScreen->retranslateUi(_loc);
+    _levelSelectScreen->retranslateUi(_loc);
     _options->retranslateUi(_loc);
     _palette->retranslateUi(_loc);
     _decors->retranslateUi(_loc);
