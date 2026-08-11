@@ -94,7 +94,7 @@ victoire (`LOT-60`) ou un effet de mort (`LOT-53`) n'ont pas de place où existe
 | [TACHE-03](tache-03-ecran-fin-niveau.md) | Écran de fin de niveau et écran de fin de séquence | `Source/HMI/Interface` | ✅ |
 | [TACHE-04](tache-04-sequence-en-donnee.md) | Séquence de niveaux en donnée de contenu | `Source/Elements/Levels`, `Source/Core/Levels` | ✅ |
 | [TACHE-05](tache-05-progression-persistee.md) | Progression persistée entre deux lancements | `Source/HMI/Game` | ✅ |
-| [TACHE-06](tache-06-selection-niveau.md) | Sélection de niveau côté joueur (Continuer / Nouvelle / Choisir) | `Source/HMI/Interface` | ⬜ |
+| [TACHE-06](tache-06-selection-niveau.md) | Sélection de niveau côté joueur (Continuer / Nouvelle / Choisir) | `Source/HMI/Interface` | ✅ |
 | [TACHE-07](tache-07-documentation-verification.md) | Documentation et vérification | `Source/Test`, `Documentation` | ⬜ |
 
 ## Critères d'acceptation du lot
