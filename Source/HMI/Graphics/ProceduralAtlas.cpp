@@ -144,8 +144,8 @@ std::uint32_t torsoPixel(int x, int y, ArmPose arms, std::uint32_t shirt, std::u
         return armsShown ? shirt : transparent;
     }
     // y == 7
-    const bool hand = (arms == ArmPose::WIDE) ? (inRange(x, 2, 3) || inRange(x, 12, 13))
-                                              : (x == 3 || x == 12);
+    const bool hand =
+        (arms == ArmPose::WIDE) ? (inRange(x, 2, 3) || inRange(x, 12, 13)) : (x == 3 || x == 12);
     if (hand) {
         return skin;
     }

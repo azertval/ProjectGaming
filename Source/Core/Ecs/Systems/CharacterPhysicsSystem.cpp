@@ -31,8 +31,8 @@ void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const Pl
         });
 }
 
-bool CharacterPhysicsSystem::applyDash(Player& player, Velocity& velocity,
-                                       const PlayerInput& input, float fixedDelta) const {
+bool CharacterPhysicsSystem::applyDash(Player& player, Velocity& velocity, const PlayerInput& input,
+                                       float fixedDelta) const {
     //   0d. Dash (EX-GP-017) : ruée directionnelle si disponible et pas déjà en dash.
     //       Direction = (moveX, moveY) normalisée (8 directions) ; à défaut l'orientation.
     //       Refusé si le budget de dashs du tableau est épuisé (EX-GP-024 ; -1 = illimité).
@@ -167,11 +167,10 @@ void CharacterPhysicsSystem::resolveVelocity(Player& player, Velocity& velocity,
 }
 
 void CharacterPhysicsSystem::resolveCollisionAndState(Player& player, Transform& transform,
-                                                       Velocity& velocity,
-                                                       const Collider& collider,
-                                                       const TileMap& tiles,
-                                                       const PlayerInput& input,
-                                                       float fixedDelta) const {
+                                                      Velocity& velocity, const Collider& collider,
+                                                      const TileMap& tiles,
+                                                      const PlayerInput& input,
+                                                      float fixedDelta) const {
     //   3. Déplacement voulu sur ce pas :
     const Vector2 delta = velocity.value * fixedDelta;
 
@@ -207,8 +206,7 @@ void CharacterPhysicsSystem::resolveCollisionAndState(Player& player, Transform&
                 static_cast<int>(std::floor((newBox.min.x + newBox.max.x) * 0.5F));
             const int landedRow = static_cast<int>(std::floor(follow.bottomY - 1e-4F));
             if (centerColumn >= 0 && centerColumn < tiles.width() && landedRow >= 0 &&
-                landedRow < tiles.height() &&
-                isCeilingSlope(tiles.tile(centerColumn, landedRow))) {
+                landedRow < tiles.height() && isCeilingSlope(tiles.tile(centerColumn, landedRow))) {
                 PHYSICS_LOG_TRACE(
                     "Calage au sol sur une tuile de plafond (face du haut) : colonne=" +
                     std::to_string(centerColumn) + " ligne=" + std::to_string(landedRow) +

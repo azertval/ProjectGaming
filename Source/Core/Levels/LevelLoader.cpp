@@ -99,7 +99,8 @@ struct TileParseState {
 
     const std::optional<TileType> type = parseTileType(typeName);
     if (!type) {
-        return failure("Type de tuile inconnu : " + typeName, LevelValidationError::UnknownTileType);
+        return failure("Type de tuile inconnu : " + typeName,
+                       LevelValidationError::UnknownTileType);
     }
     if (!state.map.inBounds(x, y)) {
         return failure(
@@ -107,9 +108,9 @@ struct TileParseState {
             LevelValidationError::OutOfBounds);
     }
     if (!state.occupiedPositions.emplace(x, y).second) {
-        return failure("Deux tuiles a la meme position (" + std::to_string(x) + ", " +
-                           std::to_string(y) + ")",
-                       LevelValidationError::DuplicatePosition);
+        return failure(
+            "Deux tuiles a la meme position (" + std::to_string(x) + ", " + std::to_string(y) + ")",
+            LevelValidationError::DuplicatePosition);
     }
     state.map.setTile(x, y, *type);
 
@@ -132,9 +133,9 @@ struct TileParseState {
         // partagee avec les portes via 'opensWith'.
         const std::string id = tile.value("id", std::string{});
         if (id.empty()) {
-            return failure("Declencheur sans 'id' en (" + std::to_string(x) + ", " +
-                               std::to_string(y) + ")",
-                           LevelValidationError::MissingSwitchId);
+            return failure(
+                "Declencheur sans 'id' en (" + std::to_string(x) + ", " + std::to_string(y) + ")",
+                LevelValidationError::MissingSwitchId);
         }
         if (!state.switchesById.emplace(id, GridPosition{.column = x, .row = y}).second) {
             return failure("Identifiant de declencheur en double : " + id,
@@ -157,10 +158,8 @@ struct TileParseState {
                                std::to_string(y) + ")",
                            LevelValidationError::OutOfBounds);
         }
-        state.moverConfigs.push_back(
-            DangerMoverConfig{.startPosition = GridPosition{.column = x, .row = y},
-                              .axis = axis,
-                              .range = range});
+        state.moverConfigs.push_back(DangerMoverConfig{
+            .startPosition = GridPosition{.column = x, .row = y}, .axis = axis, .range = range});
     } else if (*type == TileType::DangerBlink) {
         state.blinkConfigs.push_back(
             DangerBlinkConfig{.position = GridPosition{.column = x, .row = y},
@@ -297,12 +296,10 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
         std::vector<TileTextureOverride> textureOverrides;
 
         // Chaque objet de 'tiles' place une tuile dans la grille.
-        TileParseState tileState{map,          entry,
-                                 exit,          entryCount,
-                                 exitCount,     occupiedPositions,
-                                 switchesById,  doors,
-                                 switchedDangers, moverConfigs,
-                                 blinkConfigs,  textureOverrides};
+        TileParseState tileState{map,          entry,        exit,
+                                 entryCount,   exitCount,    occupiedPositions,
+                                 switchesById, doors,        switchedDangers,
+                                 moverConfigs, blinkConfigs, textureOverrides};
         for (const nlohmann::json& tile : root.at("tiles")) {
             std::optional<LevelLoadResult> tileError = parseTile(tile, tileState);
             if (tileError) {

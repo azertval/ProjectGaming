@@ -62,8 +62,8 @@ GraphicsDevice::GraphicsDevice(HWND window, int width, int height)
         flags &= ~static_cast<UINT>(D3D11_CREATE_DEVICE_DEBUG);
         result = D3D11CreateDeviceAndSwapChain(
             nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, flags, requestedLevels.data(),
-            static_cast<UINT>(requestedLevels.size()), D3D11_SDK_VERSION, &description,
-            &_swapChain, &_device, nullptr, &_context);
+            static_cast<UINT>(requestedLevels.size()), D3D11_SDK_VERSION, &description, &_swapChain,
+            &_device, nullptr, &_context);
     }
 #endif
 

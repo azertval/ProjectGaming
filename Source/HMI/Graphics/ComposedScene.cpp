@@ -223,8 +223,8 @@ std::optional<SpriteAppearance> resolveSpriteAppearance(
         result.region = core::AtlasRegion{0, 0, appearance.pixelWidth, appearance.pixelHeight};
         result.atlasWidth = static_cast<float>(appearance.pixelWidth);
         result.atlasHeight = static_cast<float>(appearance.pixelHeight);
-        result.worldWidth =
-            static_cast<float>(appearance.pixelWidth) / Camera2D::PIXELS_PER_UNIT * transform.scale.x;
+        result.worldWidth = static_cast<float>(appearance.pixelWidth) / Camera2D::PIXELS_PER_UNIT *
+                            transform.scale.x;
         result.worldHeight = static_cast<float>(appearance.pixelHeight) /
                              Camera2D::PIXELS_PER_UNIT * transform.scale.y;
         return result;
@@ -274,10 +274,10 @@ std::optional<SpriteAppearance> resolveSpriteAppearance(
     // projection de la camera. Le damier de repli fait exactement une case (MISSING_TEXTURE_SIZE
     // == TILE_SIZE) : la geometrie composee est donc la meme dans les deux modes, seule la
     // texture echantillonnee change.
-    result.worldWidth =
-        static_cast<float>(appearance->region.width) / Camera2D::PIXELS_PER_UNIT * transform.scale.x;
-    result.worldHeight =
-        static_cast<float>(appearance->region.height) / Camera2D::PIXELS_PER_UNIT * transform.scale.y;
+    result.worldWidth = static_cast<float>(appearance->region.width) / Camera2D::PIXELS_PER_UNIT *
+                        transform.scale.x;
+    result.worldHeight = static_cast<float>(appearance->region.height) / Camera2D::PIXELS_PER_UNIT *
+                         transform.scale.y;
     return result;
 }
 

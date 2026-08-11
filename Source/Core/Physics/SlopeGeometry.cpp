@@ -37,10 +37,9 @@ constexpr float K_COLUMN_SKIN = 1e-4F;
 // balayage classique -- une colonne voisine plus permissive (case vide, ou pente moins haute à
 // cet endroit) ne doit jamais faire ignorer un appui plus haut ailleurs sous la boîte.
 [[nodiscard]] std::optional<float> bestFloorSurfaceInRow(int row, int colStart, int colEnd,
-                                                         int width, int centerColumn,
-                                                         float centerX, float leftEdge,
-                                                         float rightEdge, float previousBottomY,
-                                                         float newBottomY,
+                                                         int width, int centerColumn, float centerX,
+                                                         float leftEdge, float rightEdge,
+                                                         float previousBottomY, float newBottomY,
                                                          const TileMap& tiles) noexcept {
     std::optional<float> best;
     for (int col = colStart; col <= colEnd; ++col) {
@@ -295,9 +294,9 @@ CeilingSlopeFollowResult resolveCeilingSlopeFollow(float previousTopY, float swe
         if (row < 0 || row >= tiles.height()) {
             continue;
         }
-        const std::optional<float> bestSurfaceY = bestCeilingSurfaceInRow(
-            row, colStart, colEnd, width, centerColumn, centerX, leftEdge, rightEdge, newTopY,
-            tiles);
+        const std::optional<float> bestSurfaceY =
+            bestCeilingSurfaceInRow(row, colStart, colEnd, width, centerColumn, centerX, leftEdge,
+                                    rightEdge, newTopY, tiles);
         if (bestSurfaceY) {
             result.blocked = true;
             result.topY = *bestSurfaceY;

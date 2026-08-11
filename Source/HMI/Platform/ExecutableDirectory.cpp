@@ -1,8 +1,8 @@
 #include "HMI/Platform/ExecutableDirectory.h"
 
-#include <Windows.h>
-
 #include <array>
+
+#include <Windows.h>
 
 namespace hmi {
 
