@@ -13,13 +13,13 @@ BackgroundFit computeBackgroundFit(float imageWidth, float imageHeight, float ta
     if (imageAspect > targetAspect) {
         // Image relativement plus large que la cible : recadrage horizontal, hauteur pleine.
         const float visibleWidthFraction = targetAspect / imageAspect;
-        fit.u0 = (1.0f - visibleWidthFraction) * 0.5f;
-        fit.u1 = 1.0f - fit.u0;
+        fit.u0 = (1.0F - visibleWidthFraction) * 0.5F;
+        fit.u1 = 1.0F - fit.u0;
     } else if (imageAspect < targetAspect) {
         // Image relativement plus haute que la cible : recadrage vertical, largeur pleine.
         const float visibleHeightFraction = imageAspect / targetAspect;
-        fit.v0 = (1.0f - visibleHeightFraction) * 0.5f;
-        fit.v1 = 1.0f - fit.v0;
+        fit.v0 = (1.0F - visibleHeightFraction) * 0.5F;
+        fit.v1 = 1.0F - fit.v0;
     }
     return fit;
 }
@@ -36,8 +36,8 @@ void composeBackground(ComposedScene& scene, const BackgroundTexture& background
         static_cast<float>(levelWidth), static_cast<float>(levelHeight));
 
     SpriteQuad quad;
-    quad.x = 0.0f;
-    quad.y = 0.0f;
+    quad.x = 0.0F;
+    quad.y = 0.0F;
     quad.width = static_cast<float>(levelWidth);
     quad.height = static_cast<float>(levelHeight);
     quad.u0 = fit.u0;

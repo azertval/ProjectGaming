@@ -62,11 +62,13 @@ void LinkPanel::rebuildRows() {
     _model->removeRows(0, _model->rowCount());
     for (const LinkRow& row : _rows) {
         const bool mechanism = row.kind == LinkKind::Mechanism;
-        const QString typeLabel =
-            _loc != nullptr
-                ? QString::fromStdString(
-                      _loc->text(mechanism ? "link.type.mechanism" : "link.type.danger"))
-                : (mechanism ? QStringLiteral("Mécanisme") : QStringLiteral("Danger commuté"));
+        QString typeLabel;
+        if (_loc != nullptr) {
+            typeLabel = QString::fromStdString(
+                _loc->text(mechanism ? "link.type.mechanism" : "link.type.danger"));
+        } else {
+            typeLabel = mechanism ? QStringLiteral("Mécanisme") : QStringLiteral("Danger commuté");
+        }
         auto* const typeItem = new QStandardItem(typeLabel);
         auto* const triggerItem = new QStandardItem(positionText(row.trigger));
         auto* const targetItem = new QStandardItem(positionText(row.target));

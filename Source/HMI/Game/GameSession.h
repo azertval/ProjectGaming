@@ -123,6 +123,12 @@ private:
     void spawnPlayer(core::GridPosition entry);
     void snapshotPreviousPositions();
     void refreshBlockVisuals();
+    /// Résout la collision des blocs à taille RÉDUITE (`EX-GP-005`) contre le personnage : leur
+    /// boîte réelle (centrée, plus petite qu'une case) n'est jamais posée sur la grille de
+    /// collision, donc jamais vue par la physique sur grille -- balayage boîte-boîte dédié
+    /// (`core::sweepAabbVsAabb`) sur le déplacement obtenu par cette dernière. Sans effet si le
+    /// personnage n'a pas bougé ce pas (@p previousBox égale sa position courante).
+    void resolveReducedBlockCollision(const core::Aabb& previousBox);
     void refreshDangerVisuals();
     /// Apparence des mécanismes pilotée par leur état logique (`LOT-47`, `EX-REN-006`) : projette
     /// l'état de chaque mécanisme suivi sur un clip (correspondance + transitions), au **pas fixe**

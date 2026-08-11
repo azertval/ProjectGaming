@@ -1,5 +1,6 @@
 #include "HMI/Editor/EditorStatus.h"
 
+#include <array>
 #include <cmath>
 #include <cstdio>
 
@@ -110,12 +111,12 @@ const char* pixelToolHelpKey(PixelTool tool) {
 // encodeImageFile, LOT-54 TACHE-01) -> chaine hexadecimale "#rrggbbaa", alpha compris (une
 // pipette peut prelever une couleur partiellement transparente).
 std::string formatColorHex(std::uint32_t color) {
-    char buffer[10] = {};
-    std::snprintf(buffer, sizeof(buffer), "#%02x%02x%02x%02x", static_cast<unsigned>(color & 0xFFu),
-                  static_cast<unsigned>((color >> 8) & 0xFFu),
-                  static_cast<unsigned>((color >> 16) & 0xFFu),
-                  static_cast<unsigned>((color >> 24) & 0xFFu));
-    return std::string(buffer);
+    std::array<char, 10> buffer{};
+    std::snprintf(buffer.data(), buffer.size(), "#%02x%02x%02x%02x",
+                  static_cast<unsigned>(color & 0xFFU), static_cast<unsigned>((color >> 8) & 0xFFU),
+                  static_cast<unsigned>((color >> 16) & 0xFFU),
+                  static_cast<unsigned>((color >> 24) & 0xFFU));
+    return std::string(buffer.data());
 }
 
 }  // namespace
@@ -165,7 +166,7 @@ EditorStatusLines editorStatusLines(const EditorStatusContext& context,
         lines.permanent[3] = formatTwo(localization.text("status.zone.hover"),
                                        level.hoveredCell->column, level.hoveredCell->row);
     }
-    const int zoomPercent = static_cast<int>(std::lround(level.zoom * 100.0f));
+    const int zoomPercent = static_cast<int>(std::lround(level.zoom * 100.0F));
     lines.permanent[4] = formatOne(localization.text("status.zone.zoom"), zoomPercent);
     // permanent[5] (couleur) reste vide : sans objet hors atelier pixel art.
 

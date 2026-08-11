@@ -26,14 +26,17 @@ std::vector<DecorListRow> buildDecorListRows(const std::vector<core::Decor>& dec
     rows.reserve(decors.size());
     for (std::size_t index = 0; index < decors.size(); ++index) {
         const core::Decor& decor = decors[index];
-        const bool missing = std::find(availableAssets.begin(), availableAssets.end(),
-                                       decor.assetName) == availableAssets.end();
-        rows.push_back(DecorListRow{index, decor.assetName, decor.layer, missing});
+        const bool missing =
+            std::ranges::find(availableAssets, decor.assetName) == availableAssets.end();
+        rows.push_back(DecorListRow{.index = index,
+                                    .assetName = decor.assetName,
+                                    .layer = decor.layer,
+                                    .assetMissing = missing});
     }
     // Tri STABLE par couche uniquement : les lignes arrivent deja dans l'ordre de superposition
     // (index croissant de core::LevelDraft::decors()), un tri stable le preserve donc a couche
     // egale, sans cle secondaire explicite.
-    std::stable_sort(rows.begin(), rows.end(), [](const DecorListRow& a, const DecorListRow& b) {
+    std::ranges::stable_sort(rows, [](const DecorListRow& a, const DecorListRow& b) {
         return layerDisplayRank(a.layer) < layerDisplayRank(b.layer);
     });
     return rows;

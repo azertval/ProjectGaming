@@ -117,7 +117,7 @@ public:
 private:
     std::size_t _maxDepth;
     std::vector<PixelHistoryEntry> _applied;  ///< Pile d'annulation, plus ancienne en premier.
-    std::vector<PixelHistoryEntry> _undone;  ///< Pile de rétablissement, plus récente en dernier.
+    std::vector<PixelHistoryEntry> _undone;   ///< Pile de rétablissement, plus récente en dernier.
 };
 
 }  // namespace hmi

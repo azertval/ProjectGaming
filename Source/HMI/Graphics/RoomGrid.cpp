@@ -25,16 +25,17 @@ core::GridPosition RoomGrid::roomIndexAt(core::GridPosition tile) const noexcept
     // non negatives, retombant toujours dans une salle existante.
     const int column = std::clamp(tile.column, 0, _levelWidth - 1);
     const int row = std::clamp(tile.row, 0, _levelHeight - 1);
-    return core::GridPosition{column / ROOM_WIDTH_TILES, row / ROOM_HEIGHT_TILES};
+    return core::GridPosition{.column = column / ROOM_WIDTH_TILES, .row = row / ROOM_HEIGHT_TILES};
 }
 
 // Rectangle (en cases) de la salle d'indice roomIndex, rogne aux bornes du niveau.
 RoomBounds RoomGrid::roomBounds(core::GridPosition roomIndex) const noexcept {
     const int originColumn = roomIndex.column * ROOM_WIDTH_TILES;
     const int originRow = roomIndex.row * ROOM_HEIGHT_TILES;
-    return RoomBounds{originColumn, originRow,
-                      (std::min)(ROOM_WIDTH_TILES, _levelWidth - originColumn),
-                      (std::min)(ROOM_HEIGHT_TILES, _levelHeight - originRow)};
+    return RoomBounds{.column = originColumn,
+                      .row = originRow,
+                      .width = (std::min)(ROOM_WIDTH_TILES, _levelWidth - originColumn),
+                      .height = (std::min)(ROOM_HEIGHT_TILES, _levelHeight - originRow)};
 }
 
 }  // namespace hmi

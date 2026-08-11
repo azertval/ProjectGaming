@@ -32,7 +32,8 @@ PixelHistory::PixelHistory(std::size_t maxDepth) : _maxDepth(maxDepth) {}
 
 void PixelHistory::push(PixelOperationKind kind, PixelRegion region,
                         std::vector<std::uint32_t> before, std::vector<std::uint32_t> after) {
-    _applied.push_back(PixelHistoryEntry{kind, region, std::move(before), std::move(after)});
+    _applied.push_back(PixelHistoryEntry{
+        .kind = kind, .region = region, .before = std::move(before), .after = std::move(after)});
     _undone.clear();
     if (_applied.size() > _maxDepth) {
         // Oublie l'entree la plus ancienne : l'etat courant du tampon (deja a jour) n'est jamais

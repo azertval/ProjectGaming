@@ -71,7 +71,7 @@ bool BitmapFont::loadFromAssets(ID3D11Device* device) {
     _textureHeight = loaded->height;
     _texture = std::move(loaded->texture);
     _view = std::move(loaded->view);
-    _metrics = std::move(*metricsResult.metrics);
+    _metrics = *metricsResult.metrics;
     GRAPHICS_LOG_INFO("BitmapFont : police chargee depuis '" + imagePath->string() + "'");
     return true;
 }

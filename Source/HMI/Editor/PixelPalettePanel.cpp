@@ -22,8 +22,8 @@ namespace {
 // la pastille montre la couleur elle-meme (EX-IHM-051) : tout le reste du panneau vient des jetons
 // (feuille de style Qt, TACHE-01 de LOT-56).
 QColor toQColor(std::uint32_t color) {
-    return QColor(static_cast<int>(color & 0xFFu), static_cast<int>((color >> 8) & 0xFFu),
-                  static_cast<int>((color >> 16) & 0xFFu), static_cast<int>((color >> 24) & 0xFFu));
+    return {static_cast<int>(color & 0xFFU), static_cast<int>((color >> 8) & 0xFFU),
+            static_cast<int>((color >> 16) & 0xFFU), static_cast<int>((color >> 24) & 0xFFU)};
 }
 
 QIcon swatchIcon(std::uint32_t color) {

@@ -52,7 +52,7 @@ namespace {
                                                            std::string_view name) {
     for (int index = 1; index < argc; ++index) {
         const std::string_view argument = argv[index];
-        if (argument.substr(0, name.size()) == name) {
+        if (argument.starts_with(name)) {
             return std::string(argument.substr(name.size()));
         }
     }
@@ -140,7 +140,8 @@ int main(int argc, char** argv) {
     if (const std::optional<std::string> exportAtlasPath =
             commandLineOption(argc, argv, "--export-atlas=")) {
         const hmi::ProceduralAtlasImage image = hmi::buildProceduralAtlasImage();
-        const hmi::DecodedImage decoded{image.width, image.height, image.pixels};
+        const hmi::DecodedImage decoded{
+            .width = image.width, .height = image.height, .pixels = image.pixels};
         // Passe par le meme chemin d'ecriture que l'atelier pixel art (LOT-54) : un seul
         // encodeur de PNG dans tout le programme.
         const bool saved = hmi::encodeImageFile(std::filesystem::path(*exportAtlasPath), decoded);
@@ -159,7 +160,7 @@ int main(int argc, char** argv) {
     hmi::MainWindow window(sessionLog);
     window.show();
 
-    const int code = application.exec();
+    const int code = QApplication::exec();
     HMI_LOG_INFO("Arret de ProjectGaming (code " + std::to_string(code) + ").");
     return code;
 }

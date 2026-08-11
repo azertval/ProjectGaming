@@ -7,8 +7,8 @@ const std::array<PanelFocusEntry, PANEL_FOCUS_CATALOG_COUNT>& panelFocusCatalog(
     // panneau Décors (`DecorsPanel`, `LOT-57`), qui n'est tabifié avec aucun autre panneau -- le
     // mettre en avant n'aurait aucun effet visible (rien à faire passer devant un onglet voisin).
     static const std::array<PanelFocusEntry, PANEL_FOCUS_CATALOG_COUNT> catalog{{
-        {EditorTool::Link, PanelId::Links},
-        {EditorTool::TextureAssign, PanelId::Textures},
+        {.tool = EditorTool::Link, .panel = PanelId::Links},
+        {.tool = EditorTool::TextureAssign, .panel = PanelId::Textures},
     }};
     return catalog;
 }
@@ -27,11 +27,11 @@ const std::array<PixelPanelFocusEntry, PIXEL_PANEL_FOCUS_CATALOG_COUNT>& pixelPa
     // outil de canevas est actif, on veut voir le canevas -- a la difference des outils de niveau,
     // aucun outil de canevas n'a de panneau "annexe" dedie.
     static const std::array<PixelPanelFocusEntry, PIXEL_PANEL_FOCUS_CATALOG_COUNT> catalog{{
-        {PixelTool::Brush, PanelId::PixelCanvas},
-        {PixelTool::Eraser, PanelId::PixelCanvas},
-        {PixelTool::Fill, PanelId::PixelCanvas},
-        {PixelTool::Eyedropper, PanelId::PixelCanvas},
-        {PixelTool::Selection, PanelId::PixelCanvas},
+        {.tool = PixelTool::Brush, .panel = PanelId::PixelCanvas},
+        {.tool = PixelTool::Eraser, .panel = PanelId::PixelCanvas},
+        {.tool = PixelTool::Fill, .panel = PanelId::PixelCanvas},
+        {.tool = PixelTool::Eyedropper, .panel = PanelId::PixelCanvas},
+        {.tool = PixelTool::Selection, .panel = PanelId::PixelCanvas},
     }};
     return catalog;
 }

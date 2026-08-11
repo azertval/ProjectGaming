@@ -23,9 +23,12 @@ DecorAppearance resolveDecorAppearance(const DecorVisualTag& tag,
     const int index = textures.decorIndexOf(tag.assetName);
     if (index >= 0) {
         const SkinTexture& loaded = textures.decors[static_cast<std::size_t>(index)];
-        return DecorAppearance{loaded.texture, loaded.width, loaded.height};
+        return DecorAppearance{
+            .texture = loaded.texture, .pixelWidth = loaded.width, .pixelHeight = loaded.height};
     }
-    return DecorAppearance{textures.missing, textures.missingWidth, textures.missingHeight};
+    return DecorAppearance{.texture = textures.missing,
+                           .pixelWidth = textures.missingWidth,
+                           .pixelHeight = textures.missingHeight};
 }
 
 }  // namespace hmi

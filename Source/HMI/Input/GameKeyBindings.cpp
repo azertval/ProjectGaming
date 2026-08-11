@@ -62,7 +62,7 @@ Key GameKeyBindings::key(GameAction action) const noexcept {
 // Echange avec l'action qui detenait deja newKey, s'il y en a une : jamais deux actions sur la
 // meme touche a l'issue de l'appel.
 void GameKeyBindings::setKey(GameAction action, Key newKey) noexcept {
-    const std::size_t index = static_cast<std::size_t>(action);
+    const auto index = static_cast<std::size_t>(action);
     for (std::size_t other = 0; other < _keys.size(); ++other) {
         if (other != index && _keys[other] == newKey) {
             _keys[other] = _keys[index];

@@ -16,7 +16,8 @@ namespace hmi {
 
 // Région (en pixels) de la tuile à une position de la grille.
 core::AtlasRegion TextureAtlas::tile(int column, int row) {
-    return core::AtlasRegion{column * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE};
+    return core::AtlasRegion{
+        .x = column * TILE_SIZE, .y = row * TILE_SIZE, .width = TILE_SIZE, .height = TILE_SIZE};
 }
 
 // Région (en pixels) d'une image d'animation du personnage, sous la grille de tuiles.
@@ -24,9 +25,10 @@ core::AtlasRegion TextureAtlas::playerFrameRegion(PlayerClipKind clip, int frame
     const int flatIndex = flatPlayerFrameIndex(clip, frameIndex);
     const int column = flatIndex % PLAYER_FRAME_COLUMNS;
     const int row = flatIndex / PLAYER_FRAME_COLUMNS;
-    return core::AtlasRegion{column * PLAYER_FRAME_SIZE,
-                             TILE_SIZE * TILES_PER_SIDE + row * PLAYER_FRAME_SIZE,
-                             PLAYER_FRAME_SIZE, PLAYER_FRAME_SIZE};
+    return core::AtlasRegion{.x = column * PLAYER_FRAME_SIZE,
+                             .y = (TILE_SIZE * TILES_PER_SIDE) + (row * PLAYER_FRAME_SIZE),
+                             .width = PLAYER_FRAME_SIZE,
+                             .height = PLAYER_FRAME_SIZE};
 }
 
 }  // namespace hmi

@@ -28,7 +28,7 @@ std::vector<std::filesystem::path> AssetFileOperations::list() const {
             assets.push_back(entry.path());
         }
     }
-    std::sort(assets.begin(), assets.end(), [](const auto& lhs, const auto& rhs) {
+    std::ranges::sort(assets, [](const auto& lhs, const auto& rhs) {
         return lhs.filename().string() < rhs.filename().string();
     });
     return assets;
@@ -103,7 +103,7 @@ FileOpResult AssetFileOperations::duplicate(const std::filesystem::path& source)
     return FileOpResult::success(target);
 }
 
-FileOpResult AssetFileOperations::remove(const std::filesystem::path& source) const {
+FileOpResult AssetFileOperations::remove(const std::filesystem::path& source) {
     std::error_code error;
     if (!std::filesystem::exists(source, error)) {
         return FileOpResult::failure("Asset introuvable.");

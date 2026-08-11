@@ -71,34 +71,34 @@ core::AtlasRegion regionForTile(core::TileType type) {
 std::optional<AtlasGridPosition> slopeTileGridPosition(core::TileType type) {
     switch (type) {
         case core::TileType::SlopeUpRight:
-            return AtlasGridPosition{1, 2};
+            return AtlasGridPosition{.column = 1, .row = 2};
         case core::TileType::SlopeUpLeft:
-            return AtlasGridPosition{2, 2};
+            return AtlasGridPosition{.column = 2, .row = 2};
         case core::TileType::RoundedUpRight:
-            return AtlasGridPosition{3, 2};
+            return AtlasGridPosition{.column = 3, .row = 2};
         case core::TileType::RoundedUpLeft:
-            return AtlasGridPosition{0, 1};
+            return AtlasGridPosition{.column = 0, .row = 1};
         case core::TileType::SlopeDownRight:
-            return AtlasGridPosition{2, 3};
+            return AtlasGridPosition{.column = 2, .row = 3};
         case core::TileType::SlopeDownLeft:
-            return AtlasGridPosition{3, 3};
+            return AtlasGridPosition{.column = 3, .row = 3};
         case core::TileType::RoundedDownRight:
-            return AtlasGridPosition{0, 4};
+            return AtlasGridPosition{.column = 0, .row = 4};
         case core::TileType::RoundedDownLeft:
-            return AtlasGridPosition{1, 4};
+            return AtlasGridPosition{.column = 1, .row = 4};
         case core::TileType::ConcaveUpRight:
-            return AtlasGridPosition{4, 1};
+            return AtlasGridPosition{.column = 4, .row = 1};
         case core::TileType::ConcaveUpLeft:
-            return AtlasGridPosition{4, 2};
+            return AtlasGridPosition{.column = 4, .row = 2};
         case core::TileType::ConcaveDownRight:
-            return AtlasGridPosition{4, 3};
+            return AtlasGridPosition{.column = 4, .row = 3};
         case core::TileType::ConcaveDownLeft:
             // (4, 4) est réservée au damier de transparence (TextureAtlas::transparentTileIndex,
             // vérifiée AVANT le masque de forme) — l'utiliser ici afficherait le damier au lieu de
             // la silhouette concave. (2, 4) est la seule des « sept cases libres » de l'épic qui
             // était en réalité disponible (l'épic comptait par erreur la case réservée parmi les
             // sept, qui n'en laissait donc que six réellement libres).
-            return AtlasGridPosition{2, 4};
+            return AtlasGridPosition{.column = 2, .row = 4};
         default:
             return std::nullopt;
     }

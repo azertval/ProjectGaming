@@ -9,39 +9,45 @@ namespace {
 // hmi::resolveDeclaredPlayerClip). nullptr = "idle", dernier recours (jamais absent en pratique,
 // procedural comme externe).
 [[nodiscard]] const char* fallbackFor(std::string_view name) noexcept {
-    if (name == "fall")
+    if (name == "fall") {
         return "jump";
-    if (name == "land")
+    }
+    if (name == "land") {
         return "idle";
-    if (name == "wallslide")
+    }
+    if (name == "wallslide") {
         return "jump";
-    if (name == "dash")
+    }
+    if (name == "dash") {
         return "run";
-    if (name == "run")
+    }
+    if (name == "run") {
         return "idle";
-    if (name == "jump")
+    }
+    if (name == "jump") {
         return "idle";
+    }
     return nullptr;
 }
 
 [[nodiscard]] bool isDeclared(const std::vector<std::string>& declaredNames,
                               std::string_view name) noexcept {
-    return std::any_of(declaredNames.begin(), declaredNames.end(),
-                       [&](const std::string& declared) { return declared == name; });
+    return std::ranges::any_of(declaredNames,
+                               [&](const std::string& declared) { return declared == name; });
 }
 }  // namespace
 
 // Calcule le quad d'affichage du personnage par ancrage centre-bas (voir en-tete).
 PlayerSpriteQuad computePlayerSpriteQuad(core::Vector2 imageSizePixels, core::Vector2 hitboxSize) {
-    constexpr float PIXELS_PER_UNIT = 16.0f;  // hmi::Camera2D::PIXELS_PER_UNIT (EX-ARCH-021).
+    constexpr float PIXELS_PER_UNIT = 16.0F;  // hmi::Camera2D::PIXELS_PER_UNIT (EX-ARCH-021).
     const core::Vector2 imageSizeWorld{imageSizePixels.x / PIXELS_PER_UNIT,
                                        imageSizePixels.y / PIXELS_PER_UNIT};
     // Centre-bas de l'image aligne sur le centre-bas de la hitbox : decalage horizontal centre
     // (symetrique, LOT-48 TACHE-03), decalage vertical tel que le bas de l'image coincide avec le
     // bas de la hitbox.
-    const core::Vector2 offset{(hitboxSize.x - imageSizeWorld.x) * 0.5f,
+    const core::Vector2 offset{(hitboxSize.x - imageSizeWorld.x) * 0.5F,
                                hitboxSize.y - imageSizeWorld.y};
-    return PlayerSpriteQuad{offset, imageSizeWorld};
+    return PlayerSpriteQuad{.offset = offset, .size = imageSizeWorld};
 }
 
 // Noms des clips que l'atlas procedural sait dessiner (voir en-tete).

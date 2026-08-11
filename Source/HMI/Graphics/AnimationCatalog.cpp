@@ -27,7 +27,80 @@ constexpr const char* FIELD_NEXT = "next";
 // chemin -- c'est a l'appelant (hmi::TextureCache) de decider, a partir du code d'erreur, s'il doit
 // journaliser (EX-NFR-040).
 [[nodiscard]] AnimationDescriptionResult failure(std::string message, AnimationCatalogError code) {
-    return AnimationDescriptionResult{std::nullopt, std::move(message), code};
+    return AnimationDescriptionResult{
+        .description = std::nullopt, .error = std::move(message), .errorCode = code};
+}
+
+// Issue de l'analyse d'UN clip (voir parseClip ci-dessous) : soit le clip, soit -- exclusif -- de
+// quoi construire l'echec a renvoyer par loadFromString (message + code).
+struct ClipParseResult {
+    std::optional<core::AnimationClip> clip;
+    std::string error;
+    AnimationCatalogError errorCode = AnimationCatalogError::None;
+};
+
+// Analyse l'entree JSON `clips.<name>` en un core::AnimationClip. Ne journalise rien (comme
+// failure() ci-dessus) : l'erreur, precise, remonte jusqu'a l'appelant de loadFromString.
+[[nodiscard]] ClipParseResult parseClip(const std::string& name, const nlohmann::json& clipJson) {
+    if (!clipJson.is_object()) {
+        return {.clip = std::nullopt,
+                .error = "Le clip « " + name + " » n'est pas un objet.",
+                .errorCode = AnimationCatalogError::MalformedStructure};
+    }
+    if (!clipJson.contains(FIELD_FRAMES) || !clipJson[FIELD_FRAMES].is_array() ||
+        clipJson[FIELD_FRAMES].empty()) {
+        return {.clip = std::nullopt,
+                .error = "Le clip « " + name + " » n'a pas de champ « frames » exploitable.",
+                .errorCode = AnimationCatalogError::MalformedStructure};
+    }
+
+    core::AnimationClip clip;
+    clip.name = name;
+    for (const nlohmann::json& frameJson : clipJson[FIELD_FRAMES]) {
+        if (!frameJson.is_number_integer() || frameJson.get<int>() < 0) {
+            return {.clip = std::nullopt,
+                    .error = "Le clip « " + name +
+                             " » contient un indice d'image invalide (entier positif attendu).",
+                    .errorCode = AnimationCatalogError::MalformedStructure};
+        }
+        clip.frames.push_back(frameJson.get<int>());
+    }
+
+    clip.frameDuration = AnimationCatalog::DEFAULT_FRAME_DURATION_SECONDS;
+    if (clipJson.contains(FIELD_FRAME_DURATION)) {
+        if (!clipJson[FIELD_FRAME_DURATION].is_number() ||
+            clipJson[FIELD_FRAME_DURATION].get<float>() < 0.0F) {
+            return {.clip = std::nullopt,
+                    .error = "Le champ « frameDuration » du clip « " + name +
+                             " » doit etre un nombre positif ou nul.",
+                    .errorCode = AnimationCatalogError::MalformedStructure};
+        }
+        clip.frameDuration = clipJson[FIELD_FRAME_DURATION].get<float>();
+    }
+
+    // Absent : boucle (comportement historique, EX-REN-012). Present mais pas un booleen : donnee
+    // invalide, jamais devinee.
+    bool loop = true;
+    if (clipJson.contains(FIELD_LOOP)) {
+        if (!clipJson[FIELD_LOOP].is_boolean()) {
+            return {.clip = std::nullopt,
+                    .error = "Le champ « loop » du clip « " + name + " » n'est pas un booleen.",
+                    .errorCode = AnimationCatalogError::MalformedStructure};
+        }
+        loop = clipJson[FIELD_LOOP].get<bool>();
+    }
+    clip.endMode = loop ? core::ClipEndMode::Loop : core::ClipEndMode::OneShot;
+
+    if (clipJson.contains(FIELD_NEXT)) {
+        if (!clipJson[FIELD_NEXT].is_string()) {
+            return {.clip = std::nullopt,
+                    .error = "Le champ « next » du clip « " + name + " » n'est pas une chaine.",
+                    .errorCode = AnimationCatalogError::MalformedStructure};
+        }
+        clip.nextClip = clipJson[FIELD_NEXT].get<std::string>();
+    }
+
+    return {.clip = std::move(clip), .error = {}, .errorCode = AnimationCatalogError::None};
 }
 
 }  // namespace
@@ -80,61 +153,12 @@ AnimationDescriptionResult AnimationCatalog::loadFromString(std::string_view jso
     std::set<std::string> names;
     // Premiere passe : chaque clip, valide independamment des autres (dont son nom).
     for (const auto& [name, clipJson] : root[FIELD_CLIPS].items()) {
-        if (!clipJson.is_object()) {
-            return failure("Le clip « " + name + " » n'est pas un objet.",
-                           AnimationCatalogError::MalformedStructure);
+        ClipParseResult parsed = parseClip(name, clipJson);
+        if (!parsed.clip) {
+            return failure(std::move(parsed.error), parsed.errorCode);
         }
-        if (!clipJson.contains(FIELD_FRAMES) || !clipJson[FIELD_FRAMES].is_array() ||
-            clipJson[FIELD_FRAMES].empty()) {
-            return failure("Le clip « " + name + " » n'a pas de champ « frames » exploitable.",
-                           AnimationCatalogError::MalformedStructure);
-        }
-
-        core::AnimationClip clip;
-        clip.name = name;
-        for (const nlohmann::json& frameJson : clipJson[FIELD_FRAMES]) {
-            if (!frameJson.is_number_integer() || frameJson.get<int>() < 0) {
-                return failure("Le clip « " + name +
-                                   " » contient un indice d'image invalide (entier positif "
-                                   "attendu).",
-                               AnimationCatalogError::MalformedStructure);
-            }
-            clip.frames.push_back(frameJson.get<int>());
-        }
-
-        clip.frameDuration = DEFAULT_FRAME_DURATION_SECONDS;
-        if (clipJson.contains(FIELD_FRAME_DURATION)) {
-            if (!clipJson[FIELD_FRAME_DURATION].is_number() ||
-                clipJson[FIELD_FRAME_DURATION].get<float>() < 0.0f) {
-                return failure("Le champ « frameDuration » du clip « " + name +
-                                   " » doit etre un nombre positif ou nul.",
-                               AnimationCatalogError::MalformedStructure);
-            }
-            clip.frameDuration = clipJson[FIELD_FRAME_DURATION].get<float>();
-        }
-
-        // Absent : boucle (comportement historique, EX-REN-012). Present mais pas un booleen :
-        // donnee invalide, jamais devinee.
-        bool loop = true;
-        if (clipJson.contains(FIELD_LOOP)) {
-            if (!clipJson[FIELD_LOOP].is_boolean()) {
-                return failure("Le champ « loop » du clip « " + name + " » n'est pas un booleen.",
-                               AnimationCatalogError::MalformedStructure);
-            }
-            loop = clipJson[FIELD_LOOP].get<bool>();
-        }
-        clip.endMode = loop ? core::ClipEndMode::Loop : core::ClipEndMode::OneShot;
-
-        if (clipJson.contains(FIELD_NEXT)) {
-            if (!clipJson[FIELD_NEXT].is_string()) {
-                return failure("Le champ « next » du clip « " + name + " » n'est pas une chaine.",
-                               AnimationCatalogError::MalformedStructure);
-            }
-            clip.nextClip = clipJson[FIELD_NEXT].get<std::string>();
-        }
-
         names.insert(name);
-        clips.addClip(std::move(clip));
+        clips.addClip(std::move(*parsed.clip));
     }
 
     // Seconde passe : « next » doit designer un clip du MEME fichier -- verifie une fois tous les
@@ -142,7 +166,7 @@ AnimationDescriptionResult AnimationCatalog::loadFromString(std::string_view jso
     for (const std::string& name : names) {
         const core::AnimationClip& clip = clips.clipAt(clips.indexOf(name));
         if (clip.endMode == core::ClipEndMode::OneShot && !clip.nextClip.empty() &&
-            names.find(clip.nextClip) == names.end()) {
+            !names.contains(clip.nextClip)) {
             return failure("Le clip « " + name + " » designe un clip suivant inexistant (« " +
                                clip.nextClip + " »).",
                            AnimationCatalogError::MalformedStructure);
@@ -153,7 +177,9 @@ AnimationDescriptionResult AnimationCatalog::loadFromString(std::string_view jso
     description.frameWidth = frameWidth;
     description.frameHeight = frameHeight;
     description.clips = std::move(clips);
-    return AnimationDescriptionResult{std::move(description), {}, AnimationCatalogError::None};
+    return AnimationDescriptionResult{.description = std::move(description),
+                                      .error = {},
+                                      .errorCode = AnimationCatalogError::None};
 }
 
 AnimationDescriptionResult AnimationCatalog::loadFromFile(const std::filesystem::path& path) {
@@ -179,8 +205,10 @@ AssetValidation AnimationCatalog::validateAgainstTexture(const AnimationDescript
     if (textureHeight != description.frameHeight || description.frameWidth <= 0 ||
         textureWidth % description.frameWidth != 0 || textureWidth < description.frameWidth) {
         return AssetValidation{
-            false, "Animation " + fileName + " refusee : image " + std::to_string(textureWidth) +
-                       "x" + std::to_string(textureHeight) + " px incoherente avec une image de " +
+            .valid = false,
+            .message = "Animation " + fileName + " refusee : image " +
+                       std::to_string(textureWidth) + "x" + std::to_string(textureHeight) +
+                       " px incoherente avec une image de " +
                        std::to_string(description.frameWidth) + "x" +
                        std::to_string(description.frameHeight) +
                        " px sur un seul rang (largeur multiple de " +
@@ -192,22 +220,25 @@ AssetValidation AnimationCatalog::validateAgainstTexture(const AnimationDescript
         const core::AnimationClip& clip = description.clips.clipAt(index);
         for (const int frame : clip.frames) {
             if (frame < 0 || frame >= frameCount) {
-                return AssetValidation{false, "Animation " + fileName + " refusee : le clip « " +
-                                                  clip.name + " » reference l'image " +
-                                                  std::to_string(frame) +
+                return AssetValidation{.valid = false,
+                                       .message = "Animation " + fileName +
+                                                  " refusee : le clip « " + clip.name +
+                                                  " » reference l'image " + std::to_string(frame) +
                                                   ", hors bornes (la spritesheet en contient " +
                                                   std::to_string(frameCount) + ")."};
             }
         }
     }
 
-    return AssetValidation{true, std::string{}};
+    return AssetValidation{.valid = true, .message = std::string{}};
 }
 
 core::AtlasRegion AnimationCatalog::frameRegion(const AnimationDescription& description,
                                                 int frameSheetIndex) {
-    return core::AtlasRegion{frameSheetIndex * description.frameWidth, 0, description.frameWidth,
-                             description.frameHeight};
+    return core::AtlasRegion{.x = frameSheetIndex * description.frameWidth,
+                             .y = 0,
+                             .width = description.frameWidth,
+                             .height = description.frameHeight};
 }
 
 core::AtlasRegion AnimationCatalog::currentFrameRegion(const AnimationDescription& description,

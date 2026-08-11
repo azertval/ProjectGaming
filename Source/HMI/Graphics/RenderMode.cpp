@@ -20,7 +20,7 @@ const char* renderModeName(RenderMode mode) noexcept {
 // le defaut : une preference illisible ne doit jamais empecher l'application de demarrer.
 RenderMode renderModeFromName(const std::string& name) noexcept {
     std::string lowered = name;
-    std::transform(lowered.begin(), lowered.end(), lowered.begin(), [](unsigned char character) {
+    std::ranges::transform(lowered, lowered.begin(), [](unsigned char character) {
         return static_cast<char>(std::tolower(character));
     });
     if (lowered == renderModeName(RenderMode::Physique)) {

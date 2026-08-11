@@ -24,7 +24,7 @@ enum class LinkGestureAction {
     SetPending,      ///< Aucune attente valide : la case cliquée devient l'attente.
     ReplacePending,  ///< Attente de même catégorie que le clic : remplacée par la case cliquée.
     Link,            ///< Catégories complémentaires, pas encore liées : créer la liaison.
-    Unlink,  ///< Catégories complémentaires, déjà liées : supprimer la liaison (bascule).
+    Unlink,          ///< Catégories complémentaires, déjà liées : supprimer la liaison (bascule).
 };
 
 /// @brief Décision résultant de `resolveLinkClick` : action à appliquer et paramètres associés.

@@ -7,13 +7,13 @@ namespace hmi {
 
 namespace {
 
-constexpr float TWO_PI = 6.28318530717958647692f;
-constexpr float MIN_DECOR_SIZE = 0.05f;  // unites monde : evite une echelle nulle/degeneree.
+constexpr float TWO_PI = 6.28318530717958647692F;
+constexpr float MIN_DECOR_SIZE = 0.05F;  // unites monde : evite une echelle nulle/degeneree.
 
 // Normalise un angle dans [0, 2*pi[ (meme regle que core::LevelDraft::rotateDecor).
 float normalizeRotation(float rotation) noexcept {
     float normalized = std::fmod(rotation, TWO_PI);
-    if (normalized < 0.0f) {
+    if (normalized < 0.0F) {
         normalized += TWO_PI;
     }
     return normalized;
@@ -59,8 +59,8 @@ DecorGestureAction computeAction(const DecorGestureState& state, core::Vector2 w
 
     if (state.handle == DecorHandle::Rotation) {
         action.kind = DecorGestureActionKind::Rotate;
-        const core::Vector2 center{state.initialPosition.x + state.initialSize.x * 0.5f,
-                                   state.initialPosition.y + state.initialSize.y * 0.5f};
+        const core::Vector2 center{state.initialPosition.x + (state.initialSize.x * 0.5F),
+                                   state.initialPosition.y + (state.initialSize.y * 0.5F)};
         const core::Vector2 toCursor = worldPosition - center;
         // atan2(dx, -dy) : 0 pointe vers le haut (dx=0, dy<0), croissant dans le sens horaire --
         // convention arbitraire mais fixe, la seule exigence etant la coherence apercu/final.
@@ -101,7 +101,7 @@ std::optional<DecorHit> designateDecorAt(
     if (selectedIndex && selectedHandles) {
         const DecorHandle handle = hitTestDecorHandles(point, *selectedHandles);
         if (handle != DecorHandle::None) {
-            return DecorHit{*selectedIndex, handle};
+            return DecorHit{.index = *selectedIndex, .handle = handle};
         }
     }
     // Du dernier au premier : le dernier du vecteur est le plus au-dessus de sa couche (LOT-49
@@ -109,7 +109,7 @@ std::optional<DecorHit> designateDecorAt(
     for (std::size_t i = bounds.size(); i > 0; --i) {
         const std::size_t index = i - 1;
         if (bounds[index].contains(point)) {
-            return DecorHit{index, DecorHandle::Body};
+            return DecorHit{.index = index, .handle = DecorHandle::Body};
         }
     }
     return std::nullopt;

@@ -29,7 +29,7 @@ namespace {
 const char* const THEME_SETTINGS_KEY = "editor_theme";
 
 [[nodiscard]] QColor toQColor(DesignColor color) {
-    return QColor(color.r, color.g, color.b, color.a);
+    return {color.r, color.g, color.b, color.a};
 }
 
 // Applique les rôles communs aux trois groupes de palette pour un jeu de jetons donné.
@@ -48,8 +48,8 @@ void setCommonRoles(QPalette& palette, QPalette::ColorGroup group, const ColorTo
     // Texte de sélection lu sur l'accent : noir ou blanc, celui des deux qui contraste le mieux
     // avec l'accent -- fonctionne aussi bien pour l'accent clair du thème sombre que pour l'accent
     // assombri du thème clair (LOT-56 TACHE-06), sans étude de cas par thème.
-    constexpr DesignColor BLACK{0, 0, 0};
-    constexpr DesignColor WHITE{255, 255, 255};
+    constexpr DesignColor BLACK{.r = 0, .g = 0, .b = 0};
+    constexpr DesignColor WHITE{.r = 255, .g = 255, .b = 255};
     const DesignColor highlightedText =
         contrastRatio(color.accent, BLACK) >= contrastRatio(color.accent, WHITE) ? BLACK : WHITE;
     palette.setColor(group, QPalette::HighlightedText, toQColor(highlightedText));

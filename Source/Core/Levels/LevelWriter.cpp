@@ -201,11 +201,11 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
             entry["asset"] = decor.assetName;
             entry["x"] = decor.position.x;
             entry["y"] = decor.position.y;
-            if (decor.scale.x != 1.0f || decor.scale.y != 1.0f) {
+            if (decor.scale.x != 1.0F || decor.scale.y != 1.0F) {
                 entry["scaleX"] = decor.scale.x;
                 entry["scaleY"] = decor.scale.y;
             }
-            if (decor.rotation != 0.0f) {
+            if (decor.rotation != 0.0F) {
                 entry["rotation"] = decor.rotation;
             }
             entry["layer"] = decorLayerName(decor.layer);

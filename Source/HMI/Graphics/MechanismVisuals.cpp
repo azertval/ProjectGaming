@@ -37,7 +37,7 @@ void setMechanismClip(core::Animation& animation, const core::ClipSet& clips,
     }
     animation.clipIndex = index;
     animation.frameIndex = 0;
-    animation.elapsed = 0.0f;
+    animation.elapsed = 0.0F;
 }
 
 }  // namespace
@@ -142,7 +142,7 @@ core::AtlasRegion advanceMechanismVisual(MechanismVisualState& state,
 float mechanismDiagnosticAlpha(RenderMode mode, bool active, float activeAlpha,
                                float inactiveAlpha) noexcept {
     if (mode != RenderMode::Physique) {
-        return 1.0f;  // mode Texture : l'etat se voit au clip, jamais a l'alpha (LOT-47 TACHE-03).
+        return 1.0F;  // mode Texture : l'etat se voit au clip, jamais a l'alpha (LOT-47 TACHE-03).
     }
     return active ? activeAlpha : inactiveAlpha;
 }

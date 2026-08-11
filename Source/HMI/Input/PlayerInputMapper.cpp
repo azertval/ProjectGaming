@@ -16,7 +16,7 @@ core::PlayerInput toPlayerInput(const InputState& input, const GameKeyBindings& 
 
     core::PlayerInput result;
     // Gauche et droite se neutralisent (-1 + 1 = 0) : comportement deterministe.
-    result.moveX = (right ? 1.0f : 0.0f) - (left ? 1.0f : 0.0f);
+    result.moveX = (right ? 1.0F : 0.0F) - (left ? 1.0F : 0.0F);
     // Saut : jumpPressed = front (declenche/bufferise), jumpHeld = maintenu (hauteur variable).
     const Key jumpKey = gameKeyBindings.key(GameAction::Jump);
     const GamepadButton jumpButton = gamepadBindings.button(GameAction::Jump);
@@ -27,7 +27,7 @@ core::PlayerInput toPlayerInput(const InputState& input, const GameKeyBindings& 
                          input.gamepadButtonDown(gamepadBindings.button(GameAction::AimDown));
     const bool aimUp = input.keyDown(gameKeyBindings.key(GameAction::AimUp)) ||
                        input.gamepadButtonDown(gamepadBindings.button(GameAction::AimUp));
-    result.moveY = (aimDown ? 1.0f : 0.0f) - (aimUp ? 1.0f : 0.0f);
+    result.moveY = (aimDown ? 1.0F : 0.0F) - (aimUp ? 1.0F : 0.0F);
     // Dash : au front (`EX-CTRL-013`).
     result.dashPressed = input.keyPressed(gameKeyBindings.key(GameAction::Dash)) ||
                          input.gamepadButtonPressed(gamepadBindings.button(GameAction::Dash));

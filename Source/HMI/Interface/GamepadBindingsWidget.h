@@ -61,7 +61,7 @@ private:
     hmi::InputState _input;
     QTimer* _timer;
     QTimer* _statusTimer = nullptr;  ///< Sondage périodique de l'état de connexion (hors capture).
-    std::array<QPushButton*, hmi::GAME_ACTION_COUNT> _buttons;
+    std::array<QPushButton*, hmi::GAME_ACTION_COUNT> _buttons{};
     std::array<QLabel*, hmi::GAME_ACTION_COUNT> _actionLabels{};
     QLabel* _help = nullptr;
     QLabel* _status = nullptr;  ///< État de connexion de la manette (informatif).

@@ -16,6 +16,7 @@
 #include <QString>
 #include <QTableView>
 #include <algorithm>
+#include <array>
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
@@ -38,7 +39,7 @@ namespace {
 
 // Ordre des entrees des deux selecteurs de couche, synchronise avec core::DecorLayer -- une seule
 // definition, partagee par le placement (prochain decor pose) et l'inspecteur (decor selectionne).
-constexpr core::DecorLayer DECOR_LAYER_ORDER[] = {
+constexpr std::array<core::DecorLayer, 3> DECOR_LAYER_ORDER{
     core::DecorLayer::Background, core::DecorLayer::Decor, core::DecorLayer::Foreground};
 
 // Rang de core::DecorLayer dans DECOR_LAYER_ORDER (index du selecteur de couche de l'inspecteur).

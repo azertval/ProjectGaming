@@ -35,7 +35,7 @@ ProceduralAtlasImage buildMissingTextureImage(int size) {
             const int checkerX = x / MISSING_TEXTURE_CHECKER_SIZE;
             const int checkerY = y / MISSING_TEXTURE_CHECKER_SIZE;
             const bool magenta = ((checkerX + checkerY) % 2) == 0;
-            image.pixels[static_cast<std::size_t>(y) * static_cast<std::size_t>(side) +
+            image.pixels[(static_cast<std::size_t>(y) * static_cast<std::size_t>(side)) +
                          static_cast<std::size_t>(x)] = magenta ? MAGENTA : BLACK;
         }
     }

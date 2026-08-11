@@ -19,8 +19,12 @@ namespace {
 
 // Damier magenta en entier : repli commun a toutes les branches qui n'aboutissent pas a un skin.
 [[nodiscard]] TileAppearance missingAppearance() noexcept {
-    return TileAppearance{AppearanceSource::MissingTexture,
-                          core::AtlasRegion{0, 0, MISSING_TEXTURE_SIZE, MISSING_TEXTURE_SIZE}, -1};
+    return TileAppearance{
+        .source = AppearanceSource::MissingTexture,
+        .region =
+            core::AtlasRegion{
+                .x = 0, .y = 0, .width = MISSING_TEXTURE_SIZE, .height = MISSING_TEXTURE_SIZE},
+        .skinIndex = -1};
 }
 
 // Region a echantillonner dans un skin, selon son mode de decoupage.
@@ -32,7 +36,8 @@ namespace {
         // Bitmask16 exclut l'animation (LOT-46 TACHE-05, limite assumee) : texture.animatedFrame
         // n'est jamais renseigne pour ce mode (voir hmi::sceneTextures), ignore ici de toute facon.
         const AutotileCell cell = autotileCell(tag.neighborMask);
-        return core::AtlasRegion{cell.column * SIZE, cell.row * SIZE, SIZE, SIZE};
+        return core::AtlasRegion{
+            .x = cell.column * SIZE, .y = cell.row * SIZE, .width = SIZE, .height = SIZE};
     }
     // Image courante PAR INSTANCE d'un mecanisme (LOT-47) : prioritaire sur l'horloge partagee par
     // asset ci-dessous, seule capable de distinguer deux tuiles du meme asset a des etats
@@ -46,7 +51,7 @@ namespace {
     }
     // Mode single, non anime : l'image entiere, qui fait exactement une case (contrat d'asset
     // TileSkin).
-    return core::AtlasRegion{0, 0, SIZE, SIZE};
+    return core::AtlasRegion{.x = 0, .y = 0, .width = SIZE, .height = SIZE};
 }
 
 }  // namespace
@@ -61,7 +66,8 @@ std::optional<TileAppearance> resolveTileAppearance(RenderMode mode,
         // Mode de reference : la region deja resolue par hmi::regionForTile a la construction de
         // la scene. Rien n'est recalcule ici -- c'est ce qui garantit l'absence de regression. Les
         // axes skin/surcharge (LOT-51) n'ont pas de sens en Physique : ignores.
-        return TileAppearance{AppearanceSource::Atlas, physicalRegion, -1};
+        return TileAppearance{
+            .source = AppearanceSource::Atlas, .region = physicalRegion, .skinIndex = -1};
     }
 
     // Entite non habillable (personnage, aides d'edition) : damier, quels que soient les axes
@@ -92,8 +98,10 @@ std::optional<TileAppearance> resolveTileAppearance(RenderMode mode,
         // defaut, l'image entiere (surcharge non animee, comportement inchange depuis LOT-45).
         constexpr int SIZE = TextureAtlas::TILE_SIZE;
         const core::AtlasRegion region =
-            tag->animatedFrame ? *tag->animatedFrame : core::AtlasRegion{0, 0, SIZE, SIZE};
-        return TileAppearance{AppearanceSource::Override, region, index};
+            tag->animatedFrame ? *tag->animatedFrame
+                               : core::AtlasRegion{.x = 0, .y = 0, .width = SIZE, .height = SIZE};
+        return TileAppearance{
+            .source = AppearanceSource::Override, .region = region, .skinIndex = index};
     }
 
     // Pas de surcharge : cette entite ne concerne l'axe "surcharge" en rien -- seul l'axe skin
@@ -123,9 +131,10 @@ std::optional<TileAppearance> resolveTileAppearance(RenderMode mode,
         return composeMode ? std::optional<TileAppearance>{missingAppearance()} : std::nullopt;
     }
 
-    return TileAppearance{AppearanceSource::Skin,
-                          skinRegion(*entry, *tag, textures.skins[static_cast<std::size_t>(index)]),
-                          index};
+    return TileAppearance{
+        .source = AppearanceSource::Skin,
+        .region = skinRegion(*entry, *tag, textures.skins[static_cast<std::size_t>(index)]),
+        .skinIndex = index};
 }
 
 // Indique si la combinaison (mode de skin, type de tuile) exclut l'animation (voir en-tete).

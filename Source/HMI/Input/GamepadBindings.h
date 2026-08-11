@@ -63,7 +63,7 @@ public:
     [[nodiscard]] static GamepadBindings load(const std::filesystem::path& path);
 
 private:
-    std::array<GamepadButton, GAME_ACTION_COUNT> _buttons;
+    std::array<GamepadButton, GAME_ACTION_COUNT> _buttons{};
 };
 
 }  // namespace hmi

@@ -18,7 +18,13 @@ env:
   # versions majeures ne signalent/ne formatent pas identiquement, et un contrôle qui ne prédit
   # pas le résultat local ne sert qu'à agacer. Installer la même version en local pour que
   # `clang-tidy`/`clang-format` prédisent le verdict de la CI (LOT-58).
-  LLVM_VERSION: 18.1.8
+  # Relevée de 18.1.8 a 20.1.8 (branche fix/clang-tidy-triage) : l'image `windows-2022` du runner
+  # a progresse vers un toolset MSVC dont le STL refuse desormais de se laisser analyser par un
+  # clang-cl plus ancien que Clang 19 (`static_assert ... STL1000 : Unexpected compiler version,
+  # expected Clang 19.0.0 or newer` dans `yvals_core.h`, sur CHAQUE fichier) -- 18.1.8 echouait a
+  # se compiler lui-meme, pas un defaut du code analyse. 20.1.8 choisie car disponible identique
+  # sur Chocolatey (clang-tidy) et PyPI (clang-format), une marge au-dessus du minimum strict.
+  LLVM_VERSION: 20.1.8
   # Version d'OpenCppCoverage épinglée, même raison que Doxygen/LLVM ci-dessus : le workflow
   # l'installait jusqu'ici sans version fixée (LOT-58).
   OPENCPPCOVERAGE_VERSION: 0.9.9.0
@@ -272,6 +278,18 @@ jobs:
           cmake -S . -B build/ninja-tidy -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_PCH=OFF || exit /b 1
         env:
           CMAKE_PREFIX_PATH: ${{ env.QT_ROOT_DIR }}
+
+      - name: Build (genere les en-tetes AUTOUIC/AUTOMOC, ui_*.h/moc_*.cpp)
+        # clang-tidy lit compile_commands.json mais n'execute jamais AUTOUIC/AUTOMOC lui-meme : sans
+        # ce build, tout fichier incluant "ui_*.h" (widgets avec un formulaire .ui) echoue a l'analyse
+        # avec "file not found", une erreur de configuration CI, pas un defaut du code (confirme en
+        # premiere execution reelle -- voir tache-03-clang-tidy.md).
+        shell: cmd
+        run: |
+          for /f "usebackq tokens=*" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do (
+            call "%%i\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
+          )
+          cmake --build build/ninja-tidy || exit /b 1
 
       - name: clang-tidy sur les fichiers modifies par la PR
         shell: pwsh

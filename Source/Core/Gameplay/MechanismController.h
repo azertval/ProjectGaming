@@ -99,8 +99,8 @@ private:
     std::vector<bool> _dangerActive;       ///< État de chaque danger commuté (actif = mortel ?).
     std::vector<bool> _playerOnDangerTriggerPrev;  ///< Front, même principe que
                                                    ///< `_playerOnSwitchPrev`, pour `_dangerLinks`.
-    std::vector<bool> _dangerContinuous;  ///< true = plaque de pression, même principe que
-                                          ///< `_continuous`, pour `_dangerLinks`.
+    std::vector<bool> _dangerContinuous;           ///< true = plaque de pression, même principe que
+                                                   ///< `_continuous`, pour `_dangerLinks`.
 };
 
 }  // namespace core

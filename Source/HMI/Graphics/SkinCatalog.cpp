@@ -26,7 +26,8 @@ constexpr const char* FIELD_MODE = "mode";
 // core::LevelLoader::failure) : chaque site d'appel n'a pas a le refaire.
 [[nodiscard]] SkinCatalogResult failure(std::string message, SkinCatalogError code) {
     GRAPHICS_LOG_WARNING("skins.json : " + message);
-    return SkinCatalogResult{std::nullopt, std::move(message), code};
+    return SkinCatalogResult{
+        .catalog = std::nullopt, .error = std::move(message), .errorCode = code};
 }
 
 }  // namespace
@@ -143,7 +144,8 @@ SkinCatalogResult SkinCatalog::loadFromString(std::string_view json) {
         }
     }
 
-    return SkinCatalogResult{std::move(catalog), {}, SkinCatalogError::None};
+    return SkinCatalogResult{
+        .catalog = std::move(catalog), .error = {}, .errorCode = SkinCatalogError::None};
 }
 
 SkinCatalogResult SkinCatalog::loadFromFile(const std::filesystem::path& path) {
@@ -214,7 +216,7 @@ std::optional<SkinEntry> SkinCatalog::resolve(std::string_view setName, core::Ti
 }
 
 bool SkinCatalog::setDefaultSetName(const std::string& setName) {
-    if (_sets.find(setName) == _sets.end()) {
+    if (!_sets.contains(setName)) {
         return false;
     }
     _defaultSet = setName;

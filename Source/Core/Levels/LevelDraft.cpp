@@ -13,7 +13,7 @@ LevelDraft::LevelDraft(std::string name, TileMap tileMap)
     : _name(std::move(name)), _tileMap(std::move(tileMap)) {}
 
 LevelDraft LevelDraft::empty(std::string name, int width, int height) {
-    return LevelDraft(std::move(name), TileMap(width, height));
+    return {std::move(name), TileMap(width, height)};
 }
 
 LevelDraft LevelDraft::fromLevel(const Level& level) {
@@ -67,7 +67,7 @@ void LevelDraft::paintTileInternal(int column, int row, TileType type) {
         return;
     }
 
-    const GridPosition position{column, row};
+    const GridPosition position{.column = column, .row = row};
     if (_entry && *_entry == position) {
         _entry.reset();
     }
@@ -87,7 +87,7 @@ void LevelDraft::setEntry(int column, int row) {
 }
 
 void LevelDraft::setEntryInternal(int column, int row) {
-    const GridPosition position{column, row};
+    const GridPosition position{.column = column, .row = row};
     if (_entry && *_entry != position) {
         _tileMap.setTile(_entry->column, _entry->row, TileType::Empty);
     }
@@ -102,7 +102,7 @@ void LevelDraft::setExit(int column, int row) {
 }
 
 void LevelDraft::setExitInternal(int column, int row) {
-    const GridPosition position{column, row};
+    const GridPosition position{.column = column, .row = row};
     if (_exit && *_exit != position) {
         _tileMap.setTile(_exit->column, _exit->row, TileType::Empty);
     }
@@ -132,35 +132,29 @@ void LevelDraft::linkMechanism(GridPosition switchPosition, GridPosition targetP
     pushUndo();
     // Retrait direct (sans passer par unlinkMechanism, qui empilerait un second snapshot) :
     // lier remplace une eventuelle liaison existante en une seule action undoable.
-    _mechanisms.erase(std::remove_if(_mechanisms.begin(), _mechanisms.end(),
-                                     [targetPosition](const Mechanism& mechanism) {
-                                         return mechanism.doorPosition == targetPosition;
-                                     }),
-                      _mechanisms.end());
-    _dangerLinks.erase(std::remove_if(_dangerLinks.begin(), _dangerLinks.end(),
-                                      [targetPosition](const DangerLink& link) {
-                                          return link.dangerPosition == targetPosition;
-                                      }),
-                       _dangerLinks.end());
+    std::erase_if(_mechanisms, [targetPosition](const Mechanism& mechanism) {
+        return mechanism.doorPosition == targetPosition;
+    });
+    std::erase_if(_dangerLinks, [targetPosition](const DangerLink& link) {
+        return link.dangerPosition == targetPosition;
+    });
     if (targetTile == TileType::Door) {
-        _mechanisms.push_back(Mechanism{switchPosition, targetPosition});
+        _mechanisms.push_back(
+            Mechanism{.switchPosition = switchPosition, .doorPosition = targetPosition});
     } else {
-        _dangerLinks.push_back(DangerLink{switchPosition, targetPosition});
+        _dangerLinks.push_back(
+            DangerLink{.triggerPosition = switchPosition, .dangerPosition = targetPosition});
     }
 }
 
 void LevelDraft::unlinkMechanism(GridPosition targetPosition) {
     pushUndo();
-    _mechanisms.erase(std::remove_if(_mechanisms.begin(), _mechanisms.end(),
-                                     [targetPosition](const Mechanism& mechanism) {
-                                         return mechanism.doorPosition == targetPosition;
-                                     }),
-                      _mechanisms.end());
-    _dangerLinks.erase(std::remove_if(_dangerLinks.begin(), _dangerLinks.end(),
-                                      [targetPosition](const DangerLink& link) {
-                                          return link.dangerPosition == targetPosition;
-                                      }),
-                       _dangerLinks.end());
+    std::erase_if(_mechanisms, [targetPosition](const Mechanism& mechanism) {
+        return mechanism.doorPosition == targetPosition;
+    });
+    std::erase_if(_dangerLinks, [targetPosition](const DangerLink& link) {
+        return link.dangerPosition == targetPosition;
+    });
 }
 
 void LevelDraft::setMoverConfig(GridPosition position, DangerMoverAxis axis, int range) {
@@ -168,12 +162,11 @@ void LevelDraft::setMoverConfig(GridPosition position, DangerMoverAxis axis, int
                              _tileMap.tile(position.column, position.row) == TileType::DangerMover,
                          "setMoverConfig : la position ne porte pas un DangerMover");
     pushUndo();
-    _moverConfigs.erase(std::remove_if(_moverConfigs.begin(), _moverConfigs.end(),
-                                       [position](const DangerMoverConfig& config) {
-                                           return config.startPosition == position;
-                                       }),
-                        _moverConfigs.end());
-    _moverConfigs.push_back(DangerMoverConfig{position, axis, range});
+    std::erase_if(_moverConfigs, [position](const DangerMoverConfig& config) {
+        return config.startPosition == position;
+    });
+    _moverConfigs.push_back(
+        DangerMoverConfig{.startPosition = position, .axis = axis, .range = range});
 }
 
 void LevelDraft::setBlinkConfig(GridPosition position, int period, int phase, int activeDuration) {
@@ -181,31 +174,27 @@ void LevelDraft::setBlinkConfig(GridPosition position, int period, int phase, in
                              _tileMap.tile(position.column, position.row) == TileType::DangerBlink,
                          "setBlinkConfig : la position ne porte pas un DangerBlink");
     pushUndo();
-    _blinkConfigs.erase(std::remove_if(_blinkConfigs.begin(), _blinkConfigs.end(),
-                                       [position](const DangerBlinkConfig& config) {
-                                           return config.position == position;
-                                       }),
-                        _blinkConfigs.end());
-    _blinkConfigs.push_back(DangerBlinkConfig{position, period, phase, activeDuration});
+    std::erase_if(_blinkConfigs, [position](const DangerBlinkConfig& config) {
+        return config.position == position;
+    });
+    _blinkConfigs.push_back(DangerBlinkConfig{
+        .position = position, .period = period, .phase = phase, .activeDuration = activeDuration});
 }
 
 void LevelDraft::setTextureOverride(GridPosition position, std::string assetName) {
     pushUndo();
-    _textureOverrides.erase(std::remove_if(_textureOverrides.begin(), _textureOverrides.end(),
-                                           [position](const TileTextureOverride& override) {
-                                               return override.position == position;
-                                           }),
-                            _textureOverrides.end());
-    _textureOverrides.push_back(TileTextureOverride{position, std::move(assetName)});
+    std::erase_if(_textureOverrides, [position](const TileTextureOverride& override) {
+        return override.position == position;
+    });
+    _textureOverrides.push_back(
+        TileTextureOverride{.position = position, .assetName = std::move(assetName)});
 }
 
 void LevelDraft::removeTextureOverride(GridPosition position) {
     pushUndo();
-    _textureOverrides.erase(std::remove_if(_textureOverrides.begin(), _textureOverrides.end(),
-                                           [position](const TileTextureOverride& override) {
-                                               return override.position == position;
-                                           }),
-                            _textureOverrides.end());
+    std::erase_if(_textureOverrides, [position](const TileTextureOverride& override) {
+        return override.position == position;
+    });
 }
 
 void LevelDraft::addDecor(Decor decor) {
@@ -231,7 +220,7 @@ bool LevelDraft::moveDecor(std::size_t index, Vector2 position) {
 }
 
 bool LevelDraft::resizeDecor(std::size_t index, Vector2 position, Vector2 scale) {
-    if (index >= _decors.size() || scale.x <= 0.0f || scale.y <= 0.0f) {
+    if (index >= _decors.size() || scale.x <= 0.0F || scale.y <= 0.0F) {
         return false;
     }
     pushUndo();
@@ -247,9 +236,9 @@ bool LevelDraft::rotateDecor(std::size_t index, float rotation) {
     pushUndo();
     // Normalise dans [0, 2*pi[ : std::fmod conserve le signe de son operande, un reste negatif
     // est donc ramene dans l'intervalle par un tour complet supplementaire.
-    constexpr float TWO_PI = 6.28318530717958647692f;
+    constexpr float TWO_PI = 6.28318530717958647692F;
     float normalized = std::fmod(rotation, TWO_PI);
-    if (normalized < 0.0f) {
+    if (normalized < 0.0F) {
         normalized += TWO_PI;
     }
     _decors[index].rotation = normalized;
@@ -376,40 +365,23 @@ void LevelDraft::resize(int width, int height) {
     if (_exit && !_tileMap.inBounds(_exit->column, _exit->row)) {
         _exit.reset();
     }
-    _mechanisms.erase(std::remove_if(_mechanisms.begin(), _mechanisms.end(),
-                                     [this](const Mechanism& mechanism) {
-                                         return !_tileMap.inBounds(mechanism.switchPosition.column,
-                                                                   mechanism.switchPosition.row) ||
-                                                !_tileMap.inBounds(mechanism.doorPosition.column,
-                                                                   mechanism.doorPosition.row);
-                                     }),
-                      _mechanisms.end());
-    _dangerLinks.erase(std::remove_if(_dangerLinks.begin(), _dangerLinks.end(),
-                                      [this](const DangerLink& link) {
-                                          return !_tileMap.inBounds(link.triggerPosition.column,
-                                                                    link.triggerPosition.row) ||
-                                                 !_tileMap.inBounds(link.dangerPosition.column,
-                                                                    link.dangerPosition.row);
-                                      }),
-                       _dangerLinks.end());
-    _moverConfigs.erase(std::remove_if(_moverConfigs.begin(), _moverConfigs.end(),
-                                       [this](const DangerMoverConfig& config) {
-                                           return !_tileMap.inBounds(config.startPosition.column,
-                                                                     config.startPosition.row);
-                                       }),
-                        _moverConfigs.end());
-    _blinkConfigs.erase(std::remove_if(_blinkConfigs.begin(), _blinkConfigs.end(),
-                                       [this](const DangerBlinkConfig& config) {
-                                           return !_tileMap.inBounds(config.position.column,
-                                                                     config.position.row);
-                                       }),
-                        _blinkConfigs.end());
-    _textureOverrides.erase(std::remove_if(_textureOverrides.begin(), _textureOverrides.end(),
-                                           [this](const TileTextureOverride& override) {
-                                               return !_tileMap.inBounds(override.position.column,
-                                                                         override.position.row);
-                                           }),
-                            _textureOverrides.end());
+    std::erase_if(_mechanisms, [this](const Mechanism& mechanism) {
+        return !_tileMap.inBounds(mechanism.switchPosition.column, mechanism.switchPosition.row) ||
+               !_tileMap.inBounds(mechanism.doorPosition.column, mechanism.doorPosition.row);
+    });
+    std::erase_if(_dangerLinks, [this](const DangerLink& link) {
+        return !_tileMap.inBounds(link.triggerPosition.column, link.triggerPosition.row) ||
+               !_tileMap.inBounds(link.dangerPosition.column, link.dangerPosition.row);
+    });
+    std::erase_if(_moverConfigs, [this](const DangerMoverConfig& config) {
+        return !_tileMap.inBounds(config.startPosition.column, config.startPosition.row);
+    });
+    std::erase_if(_blinkConfigs, [this](const DangerBlinkConfig& config) {
+        return !_tileMap.inBounds(config.position.column, config.position.row);
+    });
+    std::erase_if(_textureOverrides, [this](const TileTextureOverride& override) {
+        return !_tileMap.inBounds(override.position.column, override.position.row);
+    });
     // _decors n'est volontairement PAS filtre : contrairement aux autres donnees annexes (keyees
     // par case), un decor libre peut legitimement deborder du niveau (une branche qui depasse) --
     // le tronquer serait une perte de travail (TACHE-01).
@@ -475,20 +447,20 @@ bool LevelDraft::redo() {
 }
 
 LevelDraft::State LevelDraft::snapshot() const {
-    return State{_name,
-                 _tileMap,
-                 _entry,
-                 _exit,
-                 _mechanisms,
-                 _jumpBudget,
-                 _dashBudget,
-                 _dangerLinks,
-                 _moverConfigs,
-                 _blinkConfigs,
-                 _background,
-                 _skinSet,
-                 _textureOverrides,
-                 _decors};
+    return State{.name = _name,
+                 .tileMap = _tileMap,
+                 .entry = _entry,
+                 .exit = _exit,
+                 .mechanisms = _mechanisms,
+                 .jumpBudget = _jumpBudget,
+                 .dashBudget = _dashBudget,
+                 .dangerLinks = _dangerLinks,
+                 .moverConfigs = _moverConfigs,
+                 .blinkConfigs = _blinkConfigs,
+                 .background = _background,
+                 .skinSet = _skinSet,
+                 .textureOverrides = _textureOverrides,
+                 .decors = _decors};
 }
 
 void LevelDraft::restore(State state) {
@@ -521,34 +493,22 @@ LevelLoadResult LevelDraft::toLevel() const {
 }
 
 void LevelDraft::removeLinkedDataAt(GridPosition position, bool keepTextureOverride) {
-    _mechanisms.erase(std::remove_if(_mechanisms.begin(), _mechanisms.end(),
-                                     [position](const Mechanism& mechanism) {
-                                         return mechanism.switchPosition == position ||
-                                                mechanism.doorPosition == position;
-                                     }),
-                      _mechanisms.end());
-    _dangerLinks.erase(std::remove_if(_dangerLinks.begin(), _dangerLinks.end(),
-                                      [position](const DangerLink& link) {
-                                          return link.triggerPosition == position ||
-                                                 link.dangerPosition == position;
-                                      }),
-                       _dangerLinks.end());
-    _moverConfigs.erase(std::remove_if(_moverConfigs.begin(), _moverConfigs.end(),
-                                       [position](const DangerMoverConfig& config) {
-                                           return config.startPosition == position;
-                                       }),
-                        _moverConfigs.end());
-    _blinkConfigs.erase(std::remove_if(_blinkConfigs.begin(), _blinkConfigs.end(),
-                                       [position](const DangerBlinkConfig& config) {
-                                           return config.position == position;
-                                       }),
-                        _blinkConfigs.end());
+    std::erase_if(_mechanisms, [position](const Mechanism& mechanism) {
+        return mechanism.switchPosition == position || mechanism.doorPosition == position;
+    });
+    std::erase_if(_dangerLinks, [position](const DangerLink& link) {
+        return link.triggerPosition == position || link.dangerPosition == position;
+    });
+    std::erase_if(_moverConfigs, [position](const DangerMoverConfig& config) {
+        return config.startPosition == position;
+    });
+    std::erase_if(_blinkConfigs, [position](const DangerBlinkConfig& config) {
+        return config.position == position;
+    });
     if (!keepTextureOverride) {
-        _textureOverrides.erase(std::remove_if(_textureOverrides.begin(), _textureOverrides.end(),
-                                               [position](const TileTextureOverride& override) {
-                                                   return override.position == position;
-                                               }),
-                                _textureOverrides.end());
+        std::erase_if(_textureOverrides, [position](const TileTextureOverride& override) {
+            return override.position == position;
+        });
     }
 }
 

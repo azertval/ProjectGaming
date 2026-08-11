@@ -8,25 +8,31 @@ TextureAssignDecision resolveTextureAssignClick(core::GridPosition clickedCell,
                                                 const std::optional<std::string>& selectedAsset,
                                                 bool rightClick) noexcept {
     if (clickedTileType == core::TileType::Empty) {
-        return TextureAssignDecision{TextureAssignAction::Ignore, {}, {}};
+        return TextureAssignDecision{
+            .action = TextureAssignAction::Ignore, .cell = {}, .assetName = {}};
     }
 
     if (rightClick) {
         if (!existingOverride) {
-            return TextureAssignDecision{TextureAssignAction::Ignore, {}, {}};
+            return TextureAssignDecision{
+                .action = TextureAssignAction::Ignore, .cell = {}, .assetName = {}};
         }
-        return TextureAssignDecision{TextureAssignAction::Remove, clickedCell, {}};
+        return TextureAssignDecision{
+            .action = TextureAssignAction::Remove, .cell = clickedCell, .assetName = {}};
     }
 
     if (!selectedAsset) {
-        return TextureAssignDecision{TextureAssignAction::Ignore, {}, {}};
+        return TextureAssignDecision{
+            .action = TextureAssignAction::Ignore, .cell = {}, .assetName = {}};
     }
     if (existingOverride && *existingOverride == *selectedAsset) {
         // Recliquer le meme asset deja assigne retire l'override (bascule) : evite d'exiger un
         // clic droit pour le cas le plus courant (defaire son propre geste).
-        return TextureAssignDecision{TextureAssignAction::Remove, clickedCell, {}};
+        return TextureAssignDecision{
+            .action = TextureAssignAction::Remove, .cell = clickedCell, .assetName = {}};
     }
-    return TextureAssignDecision{TextureAssignAction::Assign, clickedCell, *selectedAsset};
+    return TextureAssignDecision{
+        .action = TextureAssignAction::Assign, .cell = clickedCell, .assetName = *selectedAsset};
 }
 
 }  // namespace hmi

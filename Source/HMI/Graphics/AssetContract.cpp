@@ -115,9 +115,10 @@ AssetValidation validateAsset(AssetFamily family, const std::string& fileName, i
     }
 
     if (conforming) {
-        return AssetValidation{true, std::string{}};
+        return AssetValidation{.valid = true, .message = std::string{}};
     }
-    return AssetValidation{false, "Asset " + fileName + " (" + assetFamilyName(family) +
+    return AssetValidation{.valid = false,
+                           .message = "Asset " + fileName + " (" + assetFamilyName(family) +
                                       ") refuse : dimensions " + std::to_string(width) + "x" +
                                       std::to_string(height) + " px, attendu " +
                                       describeContract(contract) + "."};

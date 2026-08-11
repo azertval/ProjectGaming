@@ -29,7 +29,7 @@ std::optional<DecodedImage> decodeImageFile(const std::filesystem::path& path) {
                           static_cast<std::size_t>(decoded.height));
     const std::size_t rowBytes = static_cast<std::size_t>(decoded.width) * sizeof(std::uint32_t);
     for (int row = 0; row < decoded.height; ++row) {
-        std::memcpy(decoded.pixels.data() + static_cast<std::size_t>(row) * decoded.width,
+        std::memcpy(decoded.pixels.data() + (static_cast<std::size_t>(row) * decoded.width),
                     image.constScanLine(row), rowBytes);
     }
     return decoded;

@@ -190,7 +190,7 @@ private:
     AssetThumbnailView* _objectView;    ///< Grille de vignettes de `Assets/Objects/` (LOT-45).
     QStandardItemModel* _objectsModel;  ///< Modèle du tableau des surcharges (LOT-45).
     QStandardItemModel*
-        _animationsModel;  ///< Modèle de l'arbre de la section « Animations » (LOT-47).
+        _animationsModel;            ///< Modèle de l'arbre de la section « Animations » (LOT-47).
     QTimer* _animationPreviewTimer;  ///< Fait avancer l'aperçu de la section « Animations ».
     /// Spritesheet décodée de l'asset actuellement prévisualisé (vide si aucune sélection/asset
     /// illisible) — décodée une fois par sélection, pas à chaque image de la minuterie.

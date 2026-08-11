@@ -72,17 +72,57 @@ signalé — pas parce que le code est parfait, mais parce qu'on ne le lui a jam
   opérations STL dont l'allocation théorique n'est jamais exercée), `invalid-enum-default-
   initialization` (5 — idiome D3D11 `XXX_DESC desc{}` standard), `unchecked-optional-access`
   (2 — motif `Result{optional<T>, bool ok() const}` que le check ne sait pas relier).
-- **Autres familles, consignées et non bloquantes** (triage complet hors budget de ce lot) :
-  `readability-*` (998 remontées), `cppcoreguidelines-*` (704), `modernize-*` (531),
-  `performance-*` (21). Visibles dans les logs de chaque exécution du job, jamais cachées.
 - **Limite connue de la vérification locale** : 17 fichiers (`SpriteBatch.cpp`, `GameViewport.cpp`,
   `Camera2D.cpp`, `MainMenu.cpp`, `MainWindow.cpp`, `OptionsPage.cpp`…) déclenchent une erreur de
   compilation à l'analyse (`cpuid.h` introuvable depuis `DirectXMath.h` en mode `clang-cl`,
   `ui_*.h` généré par AUTOUIC absent du `compile_commands.json` local) : clang-tidy **récupère** et
   continue d'analyser le reste du fichier (confirmé sur `SpriteBatch.cpp`, dont les 5 remontées
   `invalid-enum-default-initialization` ont bien été détectées malgré l'erreur), mais la
-  couverture de ces fichiers n'est pas garantie à 100 % en local. À vérifier sur la première
-  exécution réelle en CI (`windows-2022`, image et provisionnement Qt différents de ce poste).
+  couverture de ces fichiers n'est pas garantie à 100 % en local.
+- **Confirmé en CI (branche `fix/clang-tidy-triage`)** : le job `clang-tidy` ne lançait aucun build
+  avant l'analyse (seulement `cmake` de configuration), donc AUTOUIC ne générait jamais les
+  `ui_*.h` — chaque fichier avec un formulaire `.ui` (`MainWindow.cpp`, `DecorsPanel.cpp`…)
+  échouait avec « file not found », une erreur de configuration CI et non un défaut du code.
+  Corrigé par l'ajout d'une étape `cmake --build` entre la configuration et l'analyse.
+
+### Complément (branche `fix/clang-tidy-triage`, hors budget initial de ce lot)
+Le triage complet des familles `readability-*`/`cppcoreguidelines-*`/`modernize-*`/
+`performance-*`, explicitement laissé de côté ci-dessus (998/704/531/21 remontées à l'époque), a
+été fait dans un second temps :
+- **Phase mécanique** : ~1050 remontées sur 18 checks sûrs et sans ambiguïté sémantique (suffixes
+  de littéraux, initialiseurs désignés, parenthèses, accolades, `auto`, `std::ranges`,
+  initialisation de membres/variables, `const`/`static`…) corrigées par `clang-tidy --fix`, revues
+  et vérifiées compilables une par une.
+- **Idiomes documentés, comme pour `bugprone-*` ci-dessus** (nouvelles exclusions dans
+  `.clang-tidy`, avec la même méthode : remontées comptées, échantillon vérifié, raison écrite) :
+  `pro-bounds-avoid-unchecked-container-access`/`pro-bounds-constant-array-index` (210 — accès
+  `[]` borné par une boucle `for` classique dans du code physique/gameplay au pas fixe ; le check
+  ignore le flot de contrôle, `.at()` ajouterait un coût d'exception en boucle temps réel),
+  `owning-memory` (59 — idiome Qt `new Widget(parent)`, l'arbre QObject gère la destruction),
+  `avoid-do-while` (43 — 100 % expansion des macros `*_LOG_*`/`PROJECTGAMING_ASSERT`, aucun
+  do-while écrit à la main), `pro-bounds-pointer-arithmetic` (4 — copie mémoire en masse vers
+  `std::memcpy`), `pro-type-vararg` (2 — `std::snprintf` à taille bornée).
+- **`avoid-c-arrays`** : converti en `std::array` partout où c'était un net gain (interop D3D11/
+  Win32, tableaux d'énumérations) ; laissé en `const char[]` pour les quelques constantes-clés
+  `QSettings` (chaîne littérale, conversion sans bénéfice réel) — non bloquant de toute façon.
+- **`readability-function-cognitive-complexity`** : les 12 remontées corrigées par extraction de
+  fonctions (jamais par changement de logique), vérifiées build + suite de tests complète après
+  chaque fichier. La plus lourde, `CharacterPhysicsSystem::update` (103, plus 73 sur sa lambda),
+  a été découpée en cinq méthodes suivant les étapes déjà numérotées en commentaire dans le code
+  d'origine.
+- **Limite d'environnement découverte pendant ce travail** : le clang-tidy 18.1.8 épinglé par la
+  CI ne compile pas les en-têtes MSVC de ce poste de développement (toolset trop récent pour ce
+  clang, `__builtin_verbose_trap` absent de clang 18) — tout ce complément a donc été vérifié avec
+  le clang-tidy 22.1.3 fourni par Visual Studio (celui qui correspond réellement à ce toolset), à
+  confirmer sur la première exécution CI de la branche.
+- **Rescan de confirmation** : une fois les trois passes ci-dessus posées, un scan complet a été
+  relancé pour vérifier l'absence de régression. Il a fait remonter quatre points mineurs, tous
+  causés par ce complément lui-même (jamais par du code préexistant) : des listes d'initialisation
+  désignées non exhaustives dans `AnimationCatalog.cpp` (élevées en erreur par clang, coupant
+  l'analyse du reste du fichier), un `std::array` non initialisé dans `ExecutableDirectory.cpp`, un
+  septième idiome à documenter (`avoid-const-or-ref-data-members`, 12 remontées sur un seul
+  "parameter object" de références dans `LevelLoader.cpp`), et deux derniers tableaux C dans
+  `MainWindow.cpp`. Tous corrigés et revérifiés.
 
 ## Définition de fait (DoD)
 - `clang-tidy` s'exécute sur chaque PR, au moins `bugprone-*` est à zéro et bloquant, le reste est

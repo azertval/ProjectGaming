@@ -1186,7 +1186,7 @@ void MainWindow::openPixelAssetCreateDialog() {
 
     // Familles creables depuis l'atelier : Atlas exclu (fichier historique unique, jamais recree a
     // la main) et Font exclu (decoupe par ses metriques, hors perimetre d'un canevas generique).
-    static constexpr hmi::AssetFamily FAMILIES[] = {
+    static constexpr std::array<hmi::AssetFamily, 6> FAMILIES{
         hmi::AssetFamily::TileSkin,       hmi::AssetFamily::AutotileSheet, hmi::AssetFamily::Object,
         hmi::AssetFamily::CharacterSheet, hmi::AssetFamily::Background,    hmi::AssetFamily::Decor,
     };
@@ -1358,7 +1358,7 @@ void MainWindow::retranslateUi() {
     _themeLightAction->setText(text("menubar.theme_light"));
     _themeDarkAction->setText(text("menubar.theme_dark"));
     _actFollowActiveTool->setText(text("menubar.follow_active_tool"));
-    static constexpr const char* LAYER_ACTION_KEYS[] = {
+    static constexpr std::array<const char*, 7> LAYER_ACTION_KEYS{
         "menubar.layer_background",      "menubar.layer_decor_background", "menubar.layer_shadow",
         "menubar.layer_tile_skin",       "menubar.layer_objects",          "menubar.layer_player",
         "menubar.layer_decor_foreground"};
@@ -1407,10 +1407,10 @@ void MainWindow::saveSessionLogs() {
     const std::time_t now = std::time(nullptr);
     std::tm local{};
     localtime_s(&local, &now);
-    char stamp[32] = {};
-    std::strftime(stamp, sizeof(stamp), "%Y%m%d_%H%M%S", &local);
+    std::array<char, 32> stamp{};
+    std::strftime(stamp.data(), stamp.size(), "%Y%m%d_%H%M%S", &local);
     const std::filesystem::path path =
-        hmi::executableDirectory() / "Logs" / (std::string("session_") + stamp + ".log");
+        hmi::executableDirectory() / "Logs" / (std::string("session_") + stamp.data() + ".log");
 
     if (hmi::saveSessionLog(_sessionLog->entries(), path)) {
         HMI_LOG_INFO("Journaux de session enregistres : " + path.string());

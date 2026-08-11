@@ -596,7 +596,7 @@ private:
     bool _gameMode = false;  ///< La session courante est une **partie** (menu Jouer) et
                              ///< non un essai depuis l'éditeur (enchaînement/retour menu).
     std::vector<std::filesystem::path> _gameLevels;  ///< Séquence de niveaux du mode jeu.
-    std::size_t _gameLevel = 0;  ///< Indice du niveau courant dans la séquence.
+    std::size_t _gameLevel = 0;                      ///< Indice du niveau courant dans la séquence.
 
     /// Session de jeu de l'essai immédiat ; nulle en mode édition (essai ajouté au LOT-35
     /// TACHE-04).

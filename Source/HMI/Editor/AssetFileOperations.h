@@ -65,7 +65,7 @@ public:
     [[nodiscard]] FileOpResult duplicate(const std::filesystem::path& source) const;
 
     /// Supprime le fichier @p source.
-    [[nodiscard]] FileOpResult remove(const std::filesystem::path& source) const;
+    [[nodiscard]] static FileOpResult remove(const std::filesystem::path& source);
 
 private:
     /// Chemin d'un nom de fichier (sans extension) dans le dossier géré, avec l'extension donnée.
