@@ -111,26 +111,11 @@ enum class ArmPose { WIDE, TUCKED };
 // repliees en un seul bloc, pieds ne touchant pas la ligne du bas).
 enum class LegPose { NEUTRAL, APART, TUCKED };
 
-// Couleur du pixel (x, y) de la silhouette du personnage pour une pose donnee, (0,0) = coin
-// haut-gauche de la region 16x16 (EX-REN-011). Silhouette humanoide par blocs rectangulaires :
-// cheveux, peau, chemise/manches, mains, pantalon, chaussures. Transparent hors silhouette.
-//
-// La region est CARREE (16x16), comme une tuile : le rendu (SpriteRenderer) multiplie ses
-// dimensions par Transform::scale, qui vaut core::playerSize() (0,4 x 0,8, cf. GameSession) —
-// c'est ce facteur d'echelle, deja non uniforme, qui donne au personnage sa silhouette deux
-// fois plus haute que large a l'ecran. Une region deja non carree doublerait cet effet (bug de
-// LOT-17, corrige) : chaque image est donc dessinee compressee de moitie en hauteur ici, pour
-// retrouver ses proportions une fois etiree par l'echelle.
-std::uint32_t playerPixel(int x, int y, ArmPose arms, LegPose legs) {
-    const std::uint32_t hair = pack(90, 60, 40, 255);
-    const std::uint32_t skin = pack(230, 190, 150, 255);
-    const std::uint32_t shirt = pack(50, 110, 200, 255);
-    const std::uint32_t pants = pack(60, 60, 70, 255);
-    const std::uint32_t shoes = pack(30, 30, 35, 255);
-    const std::uint32_t transparent = pack(0, 0, 0, 0);
-
-    // Tete (lignes 0-3) : cheveux, puis peau avec cheveux sur les cotes, puis nuque. Fixe :
-    // aucune pose ne fait bouger la tete (LOT-18 se limite aux bras/jambes).
+// Tete (lignes 0-3) : cheveux, puis peau avec cheveux sur les cotes, puis nuque. Fixe : aucune
+// pose ne fait bouger la tete (LOT-18 se limite aux bras/jambes). Extrait de playerPixel
+// ci-dessous (seule sa taille, pas son comportement).
+std::uint32_t headPixel(int x, int y, std::uint32_t hair, std::uint32_t skin,
+                        std::uint32_t transparent) {
     if (y == 0) {
         return inRange(x, 5, 10) ? hair : transparent;
     }
@@ -143,11 +128,14 @@ std::uint32_t playerPixel(int x, int y, ArmPose arms, LegPose legs) {
     if (y == 2) {
         return inRange(x, 5, 10) ? skin : transparent;
     }
-    if (y == 3) {
-        return inRange(x, 6, 9) ? skin : transparent;
-    }
-    // Torse (lignes 4-9) : epaules (largeur fixe), puis bras+torse (largeur selon ArmPose),
-    // mains aux extremites des bras, puis torse seul.
+    // y == 3
+    return inRange(x, 6, 9) ? skin : transparent;
+}
+
+// Torse (lignes 4-9) : epaules (largeur fixe), puis bras+torse (largeur selon ArmPose), mains aux
+// extremites des bras, puis torse seul. Extrait de playerPixel ci-dessous.
+std::uint32_t torsoPixel(int x, int y, ArmPose arms, std::uint32_t shirt, std::uint32_t skin,
+                         std::uint32_t transparent) {
     if (y == 4 || inRange(y, 8, 9)) {
         return inRange(x, 4, 11) ? shirt : transparent;
     }
@@ -155,16 +143,20 @@ std::uint32_t playerPixel(int x, int y, ArmPose arms, LegPose legs) {
         const bool armsShown = (arms == ArmPose::WIDE) ? inRange(x, 2, 13) : inRange(x, 3, 12);
         return armsShown ? shirt : transparent;
     }
-    if (y == 7) {
-        const bool hand = (arms == ArmPose::WIDE) ? (inRange(x, 2, 3) || inRange(x, 12, 13))
-                                                  : (x == 3 || x == 12);
-        if (hand) {
-            return skin;
-        }
-        return inRange(x, 4, 11) ? shirt : transparent;
+    // y == 7
+    const bool hand = (arms == ArmPose::WIDE) ? (inRange(x, 2, 3) || inRange(x, 12, 13))
+                                              : (x == 3 || x == 12);
+    if (hand) {
+        return skin;
     }
-    // Jambes (lignes 10-15) : pantalon puis chaussures, separees par un espace transparent.
-    // Tucked (saut) est plus court (pieds repliees) et forme un seul bloc central.
+    return inRange(x, 4, 11) ? shirt : transparent;
+}
+
+// Jambes (lignes 10-15) : pantalon puis chaussures, separees par un espace transparent. Tucked
+// (saut) est plus court (pieds repliees) et forme un seul bloc central. Extrait de playerPixel
+// ci-dessous.
+std::uint32_t legsPixel(int x, int y, LegPose legs, std::uint32_t pants, std::uint32_t shoes,
+                        std::uint32_t transparent) {
     if (legs == LegPose::TUCKED) {
         if (inRange(y, 10, 12)) {
             return inRange(x, 6, 9) ? pants : transparent;
@@ -186,6 +178,33 @@ std::uint32_t playerPixel(int x, int y, ArmPose arms, LegPose legs) {
         return onLeg ? shoes : transparent;
     }
     return transparent;
+}
+
+// Couleur du pixel (x, y) de la silhouette du personnage pour une pose donnee, (0,0) = coin
+// haut-gauche de la region 16x16 (EX-REN-011). Silhouette humanoide par blocs rectangulaires :
+// cheveux, peau, chemise/manches, mains, pantalon, chaussures. Transparent hors silhouette.
+//
+// La region est CARREE (16x16), comme une tuile : le rendu (SpriteRenderer) multiplie ses
+// dimensions par Transform::scale, qui vaut core::playerSize() (0,4 x 0,8, cf. GameSession) —
+// c'est ce facteur d'echelle, deja non uniforme, qui donne au personnage sa silhouette deux
+// fois plus haute que large a l'ecran. Une region deja non carree doublerait cet effet (bug de
+// LOT-17, corrige) : chaque image est donc dessinee compressee de moitie en hauteur ici, pour
+// retrouver ses proportions une fois etiree par l'echelle.
+std::uint32_t playerPixel(int x, int y, ArmPose arms, LegPose legs) {
+    const std::uint32_t hair = pack(90, 60, 40, 255);
+    const std::uint32_t skin = pack(230, 190, 150, 255);
+    const std::uint32_t shirt = pack(50, 110, 200, 255);
+    const std::uint32_t pants = pack(60, 60, 70, 255);
+    const std::uint32_t shoes = pack(30, 30, 35, 255);
+    const std::uint32_t transparent = pack(0, 0, 0, 0);
+
+    if (y <= 3) {
+        return headPixel(x, y, hair, skin, transparent);
+    }
+    if (y <= 9) {
+        return torsoPixel(x, y, arms, shirt, skin, transparent);
+    }
+    return legsPixel(x, y, legs, pants, shoes, transparent);
 }
 
 // Pose (bras, jambes) d'une image donnee d'un clip. L'ordre des images dans la grille de
