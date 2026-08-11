@@ -38,13 +38,22 @@ tous n'y vivent pas de la même façon :
 - **Recouvrements** (`Pause`, `NiveauTermine`) : `hmi::PauseScreen` et `hmi::LevelCompleteScreen`
   ne sont **jamais** des pages de la pile — `applyScreenDressing` laisse le conteneur du viewport
   affiché derrière eux, ce qui permet à la **scène de rester visible** (figée) derrière l'écran de
-  pause ou de fin de niveau. Ce sont des **fenêtres de haut niveau** propres (`Qt::Tool |
+  pause ou de fin de niveau. Ce sont des **fenêtres de haut niveau** propres (`Qt::Dialog |
   Qt::FramelessWindowHint`, fond translucide, possédées par `MainWindow`), positionnées en
   coordonnées **écran** sur le rectangle de `_editorContainer` (`MainWindow::syncOverlayGeometry`,
   resynchronisé à chaque déplacement **et** redimensionnement de la fenêtre principale — un
   recouvrement en fenêtre de haut niveau ne suit sinon aucun des deux automatiquement), et
-  activées explicitement (`activateWindow()`, avant `focusDefaultAction()`) puisqu'une fenêtre de
-  haut niveau distincte ne partage pas l'activation de `MainWindow`.
+  activées explicitement (`activateWindow()`, focus posé un tour de boucle d'événements plus tard
+  via `QTimer::singleShot(0, …)` -- `activateWindow()` ne fait que **poster** la demande, Qt ne
+  marque la fenêtre réellement active qu'en traitant le `WM_ACTIVATE` en retour) puisqu'une fenêtre
+  de haut niveau distincte ne partage pas l'activation de `MainWindow`. **Pas `Qt::Tool`** (essayé
+  d'abord) : sur Windows, Qt affiche une fenêtre `Qt::Tool` avec `SW_SHOWNOACTIVATE` par conception
+  (pensé pour les palettes flottantes qui ne doivent jamais voler le focus), ce qui empêchait
+  `activateWindow()` de fonctionner du tout. Et même fenêtre bien activée, un bouton qui a le focus
+  ne répond à **Entrée** que si `QPushButton::autoDefault` vaut vrai — vrai par défaut seulement
+  si un ancêtre **C++** du bouton est un vrai `QDialog` (`qobject_cast`, indépendant de l'indicateur
+  de fenêtre) : posé explicitement (`setAutoDefault(true)`) sur chaque bouton de ces écrans **et**
+  de `hmi::MainMenu`/`hmi::LevelSelectScreen`, qui partagent le même défaut.
 
   **Ce n'était pas la première tentative.** La première version faisait de ces écrans de simples
   widgets Qt **frères** du conteneur du viewport (même parent, `_stack`), sur la foi d'un patron cru

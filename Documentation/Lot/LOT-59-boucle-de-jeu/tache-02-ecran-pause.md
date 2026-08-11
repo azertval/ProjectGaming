@@ -87,6 +87,18 @@ rectangle de `_editorContainer` (`syncOverlayGeometry`, resynchronisé sur redim
 déplacement de la fenêtre principale). Voir `MainWindow::applyScreenDressing`/`syncOverlayGeometry`
 pour le détail.
 
+**Deuxième bug réel, une fois l'écran visible : Entrée sans effet, seule Espace fonctionnait.**
+D'abord `Qt::Tool` comme indicateur de fenêtre : sur Windows, Qt affiche une fenêtre `Qt::Tool` avec
+`SW_SHOWNOACTIVATE` — par conception, pour les palettes flottantes qui ne doivent jamais voler le
+focus — ce qui empêchait `activateWindow()` de fonctionner. Remplacé par `Qt::Dialog`, conçu pour
+s'activer normalement. Puis, une fois la fenêtre bien activée, un **troisième** bug de la même
+veine : Entrée restait sans effet sur le bouton qui avait pourtant le focus (la navigation
+Tab/flèches fonctionnait). Cause : `QPushButton::autoDefault` ne vaut `true` par défaut que si un
+**ancêtre C++ réel** du bouton est un `QDialog` (`qobject_cast<QDialog*>`, vérifié dynamiquement) —
+`Qt::Dialog` n'est qu'un indicateur de fenêtre côté gestionnaire de fenêtres, `PauseScreen` reste un
+`QWidget` ordinaire côté classe C++. `setAutoDefault(true)` posé explicitement sur chaque bouton
+(et, par le même défaut, sur ceux de `MainMenu`/`LevelCompleteScreen`/`LevelSelectScreen`).
+
 ## Exigences
 `EX-IHM-004` (écran de pause) ; lève `EX-REN-031` pour sa partie pause ; réutilise `EX-GP-032`
 (redémarrage), `EX-GP-041` (transitions), `EX-REN-021` (pas fixe), `EX-NFR-002` (déterminisme),
