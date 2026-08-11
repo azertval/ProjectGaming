@@ -13,6 +13,7 @@
 #include "HMI/Editor/PixelTool.h"
 #include "HMI/Input/GamepadPoller.h"
 #include "HMI/Input/InputState.h"
+#include "HMI/Interface/ScreenFlow.h"
 #include "HMI/Localization/Localization.h"
 
 /**
@@ -165,10 +166,24 @@ private:
     void showEditor();
     /// Lance le jeu (séquence de niveaux démo) dans le viewport, docks masqués.
     void showGame();
-    /// Affiche la page Options (onglets) dans la fenêtre.
+    /// Affiche la page Options (onglets) dans la fenêtre, revient à l'écran d'où elle a été
+    /// ouverte (Menu ou Pause, `EX-GP-041`).
     void showOptions();
+    /// Ferme la page Options, retour à l'écran d'où elle a été ouverte (`ScreenState::
+    /// optionsReturnTo`) -- remplace l'ancien retour direct et systématique vers le menu.
+    void closeOptions();
     /// Montre/masque tous les panneaux dockables.
     void setDocksVisible(bool visible);
+
+    /// Résout @p event via `hmi::resolveTransition` depuis l'écran courant (`_screenState`) et
+    /// applique l'habillage du nouvel écran (`applyScreenDressing`) -- @return `false` sans effet
+    /// si la transition est refusée (`EX-GP-041`), auquel cas l'appelant ne doit rien faire
+    /// d'autre (aucun chargement, aucun log de navigation).
+    bool transitionScreen(hmi::ScreenEvent event);
+    /// Bascule la page du `QStackedWidget` (seule part propre à Qt, hors de portée d'une table
+    /// pure) puis applique l'habillage générique de @p screen (`hmi::dressingFor`) : docks,
+    /// barres, commandes d'édition, navigation manette, minuteur de statut.
+    void applyScreenDressing(hmi::ScreenId screen);
 
     /// Traduit la manette en navigation de focus Qt (menus/options) : appelé par `_menuNavTimer`.
     void pollMenuGamepad();
@@ -176,6 +191,9 @@ private:
     void setMenuGamepadActive(bool active);
 
     std::unique_ptr<Ui::EditorMainWindow> _ui;  ///< Mise en page (MainWindow.ui : menubar + docks).
+    /// Écran courant et écran de retour d'Options (`LOT-59` TACHE-01, `EX-GP-041`) : seule source
+    /// de vérité sur la navigation, mise à jour uniquement par `transitionScreen`.
+    hmi::ScreenState _screenState;
     QStackedWidget* _stack;     ///< Central : empile menu principal, options et viewport.
     MainMenu* _menu;            ///< Menu principal (page d'accueil).
     OptionsPage* _options;      ///< Page Options à onglets.

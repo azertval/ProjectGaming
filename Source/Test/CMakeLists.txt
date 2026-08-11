@@ -78,6 +78,7 @@ add_executable(UnitTests
     Unit/HMI/Interface/test_design_tokens.cpp
     Unit/HMI/Interface/test_application_theme.cpp
     Unit/HMI/Interface/test_editor_actions.cpp
+    Unit/HMI/Interface/test_screen_flow.cpp
     Unit/HMI/Editor/test_thumbnail_geometry.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
     Unit/HMI/Editor/test_tile_taxonomy.cpp
@@ -228,6 +229,9 @@ add_executable(UnitTests
     # Correspondance outil -> panneau a mettre en avant (LOT-57) : table pure, meme patron que
     # ActionCatalog.cpp, testable hors Qt.
     ../HMI/Editor/PanelFocus.cpp
+    # Machine a etats des ecrans de la fenetre principale (LOT-59) : table de transitions et
+    # habillage de fenetre, purs, meme patron que PanelFocus.cpp -- testable hors Qt.
+    ../HMI/Interface/ScreenFlow.cpp
     # Métriques de police bitmap, mesure pure de texte, lecture JSON et repli procédural (LOT-52) :
     # aucune dépendance GPU/Qt (contrairement à BitmapFont.cpp, qui charge la texture réelle et
     # n'est donc pas compilé ici, comme TextureAtlas.cpp/TextureCache.cpp) : testable hors GPU.

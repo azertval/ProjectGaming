@@ -300,9 +300,9 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_menu, &MainMenu::quitRequested, this, &MainWindow::close);
     // Retour au menu à la fin d'une partie (ou Échap en mode jeu).
     connect(_viewport, &GameViewport::exitToMenuRequested, this, &MainWindow::showMenu);
-    // Page Options : retour au menu, bascule plein écran, changement de langue, sauvegarde des
-    // logs.
-    connect(_options, &OptionsPage::backRequested, this, &MainWindow::showMenu);
+    // Page Options : retour à l'écran d'origine (Menu ou Pause, EX-GP-041), bascule plein écran,
+    // changement de langue, sauvegarde des logs.
+    connect(_options, &OptionsPage::backRequested, this, &MainWindow::closeOptions);
     connect(_options, &OptionsPage::fullscreenRequested, this,
             [this](bool enabled) { enabled ? showFullScreen() : showNormal(); });
     connect(_options, &OptionsPage::languageChanged, this, &MainWindow::changeLanguage);
@@ -342,45 +342,70 @@ void MainWindow::setDocksVisible(bool visible) {
     _suppressPanelFocusTracking = false;
 }
 
-void MainWindow::showMenu() {
-    HMI_LOG_INFO("Navigation : menu principal.");
-    _stack->setCurrentWidget(_menu);
-    setDocksVisible(false);
-    menuBar()->setVisible(false);  // pas de barre de menu sur l'écran d'accueil
-    _toolBar->setVisible(false);
-    _pixelToolBar->setVisible(false);
-    _actions->setEditingCommandsEnabled(false);
+bool MainWindow::transitionScreen(ScreenEvent event) {
+    const std::optional<ScreenState> next = resolveTransition(_screenState, event);
+    if (!next) {
+        HMI_LOG_WARNING(
+            "Transition d'ecran refusee (evenement non autorise depuis l'ecran "
+            "courant, EX-GP-041).");
+        return false;
+    }
+    _screenState = *next;
+    applyScreenDressing(_screenState.screen);
+    return true;
+}
+
+void MainWindow::applyScreenDressing(ScreenId screen) {
+    // Choix de la page du QStackedWidget : seule part propre a Qt (pointeurs de widgets), hors de
+    // portee d'une table pure (hmi::ScreenDressing). Pause/NiveauTermine recouvrent Game (meme
+    // page) : leurs widgets d'ecran (TACHE-02/03) se dessinent PAR-DESSUS, la scene reste visible
+    // derriere.
+    switch (screen) {
+        case ScreenId::Menu:
+            _stack->setCurrentWidget(_menu);
+            break;
+        case ScreenId::Options:
+            _stack->setCurrentWidget(_options);
+            break;
+        case ScreenId::Editor:
+        case ScreenId::Game:
+        case ScreenId::Pause:
+        case ScreenId::NiveauTermine:
+            _stack->setCurrentWidget(_editorContainer);
+            _editorContainer->setFocus();
+            break;
+    }
+
+    const ScreenDressing dressing = hmi::dressingFor(screen);
+    setDocksVisible(dressing.docksVisible);
+    menuBar()->setVisible(dressing.menuBarVisible);
+    _toolBar->setVisible(dressing.toolBarVisible);
+    _pixelToolBar->setVisible(dressing.pixelToolBarVisible);
+    _actions->setEditingCommandsEnabled(dressing.editingCommandsEnabled);
+    setMenuGamepadActive(dressing.gamepadNavigationActive);
     _statusMessageTimer->stop();
-    refreshStatusHelp();  // hors édition : zones et aide vides (aucun résidu d'état d'édition).
-    setMenuGamepadActive(true);
+    refreshStatusHelp();
+}
+
+void MainWindow::showMenu() {
+    if (!transitionScreen(ScreenEvent::OpenMenu)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : menu principal.");
 }
 
 void MainWindow::showEditor() {
+    if (!transitionScreen(ScreenEvent::OpenEditor)) {
+        return;
+    }
     HMI_LOG_INFO("Navigation : editeur.");
-    _stack->setCurrentWidget(_editorContainer);
-    setDocksVisible(true);
-    menuBar()->setVisible(true);
-    _toolBar->setVisible(true);
-    _pixelToolBar->setVisible(true);
-    _actions->setEditingCommandsEnabled(true);
-    _statusMessageTimer->stop();
-    refreshStatusHelp();
-    _editorContainer->setFocus();
-    setMenuGamepadActive(false);
 }
 
 void MainWindow::showGame() {
+    if (!transitionScreen(ScreenEvent::OpenGame)) {
+        return;
+    }
     HMI_LOG_INFO("Navigation : jeu.");
-    setMenuGamepadActive(false);
-    _stack->setCurrentWidget(_editorContainer);
-    setDocksVisible(false);
-    menuBar()->setVisible(false);
-    _toolBar->setVisible(false);
-    _pixelToolBar->setVisible(false);
-    _actions->setEditingCommandsEnabled(false);
-    _statusMessageTimer->stop();
-    refreshStatusHelp();  // jeu : menuBar masquee -> contexte de niveau absent (pas de residu).
-    _editorContainer->setFocus();
 
     // Séquence de niveaux démo (même ordre que le jeu historique) — Échap ou la fin revient au
     // menu.
@@ -405,16 +430,17 @@ void MainWindow::showGame() {
 }
 
 void MainWindow::showOptions() {
+    if (!transitionScreen(ScreenEvent::OpenOptions)) {
+        return;
+    }
     HMI_LOG_INFO("Navigation : options.");
-    _stack->setCurrentWidget(_options);
-    setDocksVisible(false);
-    menuBar()->setVisible(false);
-    _toolBar->setVisible(false);
-    _pixelToolBar->setVisible(false);
-    _actions->setEditingCommandsEnabled(false);
-    _statusMessageTimer->stop();
-    refreshStatusHelp();
-    setMenuGamepadActive(true);
+}
+
+void MainWindow::closeOptions() {
+    if (!transitionScreen(ScreenEvent::CloseOptions)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : retour depuis les options.");
 }
 
 MainWindow::~MainWindow() = default;
@@ -976,10 +1002,11 @@ void MainWindow::pollMenuGamepad() {
     if (_menuPadInput.gamepadButtonPressed(GamepadButton::A)) {
         post(Qt::Key_Return, Qt::NoModifier);
     }
-    // B : retour contextuel (depuis Options vers le menu), sans quitter depuis le menu principal.
+    // B : retour contextuel (depuis Options vers son écran d'origine), sans quitter depuis le
+    // menu principal.
     if (_menuPadInput.gamepadButtonPressed(GamepadButton::B) &&
-        _stack->currentWidget() == _options) {
-        showMenu();
+        _screenState.screen == ScreenId::Options) {
+        closeOptions();
     }
 
     _menuPadInput.beginFrame();

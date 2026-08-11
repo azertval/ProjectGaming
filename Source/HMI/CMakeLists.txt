@@ -148,6 +148,7 @@ add_executable(ProjectGaming
     Interface/ThemeIcons.cpp
     Interface/ActionCatalog.cpp
     Interface/EditorActions.cpp
+    Interface/ScreenFlow.cpp
     Interface/MainWindow.cpp
     Interface/MainMenu.cpp
     Interface/OptionsPage.cpp
