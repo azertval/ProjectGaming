@@ -98,6 +98,8 @@ private:
  * progression ne signifierait rien. Une @p sequence entièrement terminée rend tout jouable (aucun
  * tableau non terminé à borner).
  *
+ * @param progression Progression courante (tableaux terminés).
+ * @param sequence Séquence de niveaux, dans son ordre de jeu.
  * @param levelName Nom de fichier (jamais un indice, comme le reste de la progression).
  */
 [[nodiscard]] bool isLevelUnlocked(const Progression& progression,

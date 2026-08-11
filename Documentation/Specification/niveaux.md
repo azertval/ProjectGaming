@@ -76,12 +76,12 @@ d'autres mécanismes. L'exemple omet les tuiles `solid` des bords pour rester li
   contenu** (fichier de `Source/Elements/Levels`), jamais un littéral du code : réordonner, ajouter
   ou retirer un tableau ne doit demander aucune recompilation. Même exigence de validation et de
   version de format que les niveaux eux-mêmes (`EX-LVL-004`, `EX-LVL-005`) ; un niveau référencé mais
-  absent est une **erreur récupérable** (`EX-NFR-040`). Prévu en `LOT-59`.
+  absent est une **erreur récupérable** (`EX-NFR-040`). Concrétisé en `LOT-59`.
 - \anchor EX-LVL-014 **EX-LVL-014** — La **progression** du joueur (tableau atteint, tableaux
   terminés) doit être **conservée entre deux lancements**, à la granularité du **tableau** et non de
   l'instant. Elle est stockée par **nom** de niveau — de sorte qu'un réordonnancement de la séquence
   (`EX-LVL-013`) ne la rende pas fausse — et se dégrade proprement : fichier absent, vide ou
-  corrompu donne une partie neuve, sans erreur bloquante. Prévu en `LOT-59`.
+  corrompu donne une partie neuve, sans erreur bloquante. Concrétisé en `LOT-59`.
 - \anchor EX-LVL-015 **EX-LVL-015** — Le contenu livré doit **couvrir toutes les mécaniques** du
   moteur : chaque type de tuile et chaque mode de cadrage (`EX-LVL-006`) doit apparaître dans au
   moins un tableau de la séquence franchi par le test système (`EX-NFR-021`). La vérification est

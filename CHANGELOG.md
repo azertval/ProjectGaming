@@ -7,6 +7,33 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-59 — Boucle de jeu complète : pause, fin de niveau, progression** (`EX-IHM-004`,
+  `EX-IHM-005`, `EX-LVL-013`, `EX-LVL-014` ; lève `EX-REN-031` et `EX-GP-040`, tous deux marqués ⚠️
+  depuis leur rédaction). Premier lot de **contenu** du programme `0.1.0` : le moteur était
+  complet, le *jeu* ne l'était pas.
+  - **Machine à états d'écran** (`hmi::ScreenFlow`, logique pure) : deux écrans supplémentaires,
+    `Pause` et `NiveauTermine`, recouvrant la scène en jeu sans jamais devenir une page du
+    `QStackedWidget` (patron de superposition à un `QWidget::createWindowContainer`) ; un
+    septième, `LevelSelect`, atteint depuis le menu.
+  - **Écran de pause** : Échap/bouton manette B ouvre la pause au lieu de quitter directement.
+    Simulation réellement suspendue (aucun pas de temps fixe consommé, pas un `dt` multiplié par
+    zéro) ; réarmement de l'horloge de référence à la reprise pour éviter un rattrapage massif de
+    pas ; `hmi::InputState::beginFrame` continue d'être appelé en pause pour qu'un bouton manette
+    tenu ne fasse pas osciller entrée/sortie.
+  - **Écran de fin de niveau / fin de séquence** : une réussite fige la scène et ouvre un écran
+    (Continuer/Rejouer, ou retour au menu après le dernier tableau) au lieu d'enchaîner
+    instantanément sur le suivant.
+  - **Séquence de niveaux en donnée de contenu** (`core::LevelSequenceLoader`, même patron que
+    `core::LevelLoader`) : `sequence-demo.json` remplace le littéral C++ de `MainWindow`.
+    `scripts/check_demo_sequence.py` compare désormais ce fichier au test système.
+  - **Progression persistée** (`hmi::Progression`, `Settings/progression.json`, écriture
+    atomique) : tableau atteint et tableaux terminés stockés par **nom**, jamais par indice, pour
+    résister à un réordonnancement de la séquence.
+  - **Sélection de niveau côté joueur** : « Jouer » devient trois entrées (Continuer/Nouvelle
+    partie/Choisir un niveau). Règle de déverrouillage pure et testée
+    (`hmi::isLevelUnlocked`) : les tableaux terminés plus le premier non terminé sont jouables,
+    revalidée avant tout lancement (défense en profondeur). Les niveaux personnels du dossier
+    (créés dans l'éditeur) sont jouables hors séquence sans jamais toucher la progression.
 - **LOT-58 — Vérification Release, sanitizer et analyse statique** (`EX-NFR-023`, `EX-NFR-024`,
   rattache `EX-NFR-003`) : la CI tient enfin les promesses que le dépôt écrivait déjà. Cinq
   vérifications, déclarées ou configurées depuis le début du projet et exécutées **nulle part**,
