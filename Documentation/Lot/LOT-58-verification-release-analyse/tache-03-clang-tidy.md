@@ -78,8 +78,12 @@ signalé — pas parce que le code est parfait, mais parce qu'on ne le lui a jam
   `ui_*.h` généré par AUTOUIC absent du `compile_commands.json` local) : clang-tidy **récupère** et
   continue d'analyser le reste du fichier (confirmé sur `SpriteBatch.cpp`, dont les 5 remontées
   `invalid-enum-default-initialization` ont bien été détectées malgré l'erreur), mais la
-  couverture de ces fichiers n'est pas garantie à 100 % en local. À vérifier sur la première
-  exécution réelle en CI (`windows-2022`, image et provisionnement Qt différents de ce poste).
+  couverture de ces fichiers n'est pas garantie à 100 % en local.
+- **Confirmé en CI (branche `fix/clang-tidy-triage`)** : le job `clang-tidy` ne lançait aucun build
+  avant l'analyse (seulement `cmake` de configuration), donc AUTOUIC ne générait jamais les
+  `ui_*.h` — chaque fichier avec un formulaire `.ui` (`MainWindow.cpp`, `DecorsPanel.cpp`…)
+  échouait avec « file not found », une erreur de configuration CI et non un défaut du code.
+  Corrigé par l'ajout d'une étape `cmake --build` entre la configuration et l'analyse.
 
 ### Complément (branche `fix/clang-tidy-triage`, hors budget initial de ce lot)
 Le triage complet des familles `readability-*`/`cppcoreguidelines-*`/`modernize-*`/

@@ -279,6 +279,18 @@ jobs:
         env:
           CMAKE_PREFIX_PATH: ${{ env.QT_ROOT_DIR }}
 
+      - name: Build (genere les en-tetes AUTOUIC/AUTOMOC, ui_*.h/moc_*.cpp)
+        # clang-tidy lit compile_commands.json mais n'execute jamais AUTOUIC/AUTOMOC lui-meme : sans
+        # ce build, tout fichier incluant "ui_*.h" (widgets avec un formulaire .ui) echoue a l'analyse
+        # avec "file not found", une erreur de configuration CI, pas un defaut du code (confirme en
+        # premiere execution reelle -- voir tache-03-clang-tidy.md).
+        shell: cmd
+        run: |
+          for /f "usebackq tokens=*" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do (
+            call "%%i\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
+          )
+          cmake --build build/ninja-tidy || exit /b 1
+
       - name: clang-tidy sur les fichiers modifies par la PR
         shell: pwsh
         # Diff contre la base de la PR : seuls les fichiers Source/*.cpp (hors Source/Test) reellement
