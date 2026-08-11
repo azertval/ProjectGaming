@@ -1,7 +1,7 @@
 # TACHE-01 — Provisionnement de Qt Multimedia et socle de lecture {#lot-60-tache-01-socle-qt-multimedia}
 
 **Lot :** [LOT-60](epic.md) · **Emplacement :** `Source/HMI/Audio`, `.github/workflows` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 Le projet dépend déjà de Qt (`Widgets`, `Gui`), provisionné sur trois environnements comme
@@ -60,6 +60,26 @@ qu'un joueur le signale.
   assumé du choix de bibliothèque.
 - Ne pas construire d'interface abstraite « au cas où l'on changerait de bibliothèque » : le choix
   est arrêté, et une abstraction à une seule implémentation coûte sans rien rendre.
+
+## État
+`Qt6::Multimedia` est un composant additionnel de `find_package(Qt6 ...)` dans
+`Source/HMI/CMakeLists.txt`, avec la même garde qu'auparavant (Qt absent → cible ignorée, pas
+d'échec de configuration). `hmi::AudioEngine` (`Source/HMI/Audio`) enveloppe `QSoundEffect` :
+détection du périphérique de sortie par défaut à la construction (`QMediaDevices`), état muet
+propagé sans exception, volume borné à [0, 1], préchargement par identifiant logique. Un
+constructeur dédié (`ForceMuted::Yes`) rend l'état muet vérifiable sans matériel réel — les tests
+(`test_audio_engine.cpp`) sont ajoutés à `UnitTests` uniquement si `Qt6::Multimedia` est résolu,
+même garde que `Qt6::Gui`/`TextureLoader.cpp` (LOT-54) : sur un poste sans le module, `UnitTests`
+continue de se construire (DoD).
+
+Provisionnement CI : `modules: qtmultimedia` ajouté aux six points `install-qt-action` de
+`ci.yml` (4) et `release.yml` (2). Le job `build-test-coverage` vérifie la présence de
+`Qt6Multimediad.dll` à côté de l'exécutable après `windeployqt`, contrôle qui aurait laissé passer
+silencieusement un module non déployé.
+
+**Non livré par cette tâche** : le catalogue de sons et les assets eux-mêmes (`TACHE-02`) —
+`AudioEngine` sait précharger et jouer un échantillon, mais aucun son n'est encore associé à un
+événement de jeu.
 
 ## Définition de fait (DoD)
 - `Qt6::Multimedia` est provisionné sur les trois environnements, `hmi::AudioEngine` lit un

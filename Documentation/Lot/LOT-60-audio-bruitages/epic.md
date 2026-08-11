@@ -1,6 +1,6 @@
 # LOT-60 — Audio : socle et bruitages {#lot-60}
 
-> Statut : **non commencé**. Prérequis : [LOT-59](@ref lot-59) (écrans de pause et de fin de
+> Statut : **en cours**. Prérequis : [LOT-59](@ref lot-59) (écrans de pause et de fin de
 > niveau — un bruitage de victoire a besoin d'un moment où exister),
 > [LOT-58](@ref lot-58) (une nouvelle dépendance tierce arrive après le durcissement, pas avant).
 
@@ -82,7 +82,7 @@ rendu actuel de celui d'un jeu fini — d'autant que tout le travail de *game fe
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-socle-qt-multimedia.md) | Provisionnement de Qt Multimedia et socle de lecture | `Source/HMI/Audio`, `.github/workflows` | ⬜ |
+| [TACHE-01](tache-01-socle-qt-multimedia.md) | Provisionnement de Qt Multimedia et socle de lecture | `Source/HMI/Audio`, `.github/workflows` | ✅ |
 | [TACHE-02](tache-02-catalogue-sons.md) | Catalogue de sons piloté par données et repli silencieux | `Source/HMI/Audio`, `Source/Elements/Audio` | ⬜ |
 | [TACHE-03](tache-03-declencheurs.md) | Déclencheurs depuis les transitions d'état du jeu et de l'IHM | `Source/HMI/Game`, `Source/HMI/Interface` | ⬜ |
 | [TACHE-04](tache-04-volume-options.md) | Réglage de volume persisté dans les options | `Source/HMI/Interface` | ⬜ |
