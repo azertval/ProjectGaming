@@ -18,7 +18,13 @@ env:
   # versions majeures ne signalent/ne formatent pas identiquement, et un contrôle qui ne prédit
   # pas le résultat local ne sert qu'à agacer. Installer la même version en local pour que
   # `clang-tidy`/`clang-format` prédisent le verdict de la CI (LOT-58).
-  LLVM_VERSION: 18.1.8
+  # Relevée de 18.1.8 a 20.1.8 (branche fix/clang-tidy-triage) : l'image `windows-2022` du runner
+  # a progresse vers un toolset MSVC dont le STL refuse desormais de se laisser analyser par un
+  # clang-cl plus ancien que Clang 19 (`static_assert ... STL1000 : Unexpected compiler version,
+  # expected Clang 19.0.0 or newer` dans `yvals_core.h`, sur CHAQUE fichier) -- 18.1.8 echouait a
+  # se compiler lui-meme, pas un defaut du code analyse. 20.1.8 choisie car disponible identique
+  # sur Chocolatey (clang-tidy) et PyPI (clang-format), une marge au-dessus du minimum strict.
+  LLVM_VERSION: 20.1.8
   # Version d'OpenCppCoverage épinglée, même raison que Doxygen/LLVM ci-dessus : le workflow
   # l'installait jusqu'ici sans version fixée (LOT-58).
   OPENCPPCOVERAGE_VERSION: 0.9.9.0
