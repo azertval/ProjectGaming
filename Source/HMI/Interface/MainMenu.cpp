@@ -25,6 +25,14 @@ MainMenu::MainMenu(QWidget* parent) : QWidget(parent), _ui(std::make_unique<Ui::
     connect(_ui->editorButton, &QPushButton::clicked, this, &MainMenu::editorRequested);
     connect(_ui->optionsButton, &QPushButton::clicked, this, &MainMenu::optionsRequested);
     connect(_ui->quitButton, &QPushButton::clicked, this, &MainMenu::quitRequested);
+
+    // autoDefault (LOT-59 TACHE-07, bug réel trouvé en jeu sur PauseScreen, même cause ici) : Qt
+    // ne l'active par défaut que pour un bouton dont un ancêtre est un vrai QDialog -- ce widget
+    // n'en est pas un, donc Entrée ne déclenchait aucun bouton, même focus (seule Espace
+    // fonctionnait). Posé explicitement pour que le bouton *ayant le focus* réponde à Entrée.
+    for (QPushButton* const button : findChildren<QPushButton*>()) {
+        button->setAutoDefault(true);
+    }
 }
 
 MainMenu::~MainMenu() = default;

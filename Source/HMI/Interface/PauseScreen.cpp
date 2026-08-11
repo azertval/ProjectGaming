@@ -27,6 +27,15 @@ PauseScreen::PauseScreen(QWidget* parent)
     connect(_ui->restartButton, &QPushButton::clicked, this, &PauseScreen::restartRequested);
     connect(_ui->optionsButton, &QPushButton::clicked, this, &PauseScreen::optionsRequested);
     connect(_ui->quitButton, &QPushButton::clicked, this, &PauseScreen::quitToMenuRequested);
+
+    // autoDefault (LOT-59 TACHE-07, bug réel trouvé en jeu : Entrée sans effet) : Qt ne l'active
+    // par défaut que pour un bouton dont un ancêtre est un vrai QDialog -- ce widget n'en est pas
+    // un (même affiché comme fenêtre Qt::Dialog, cf. MainWindow), donc Entrée ne déclenchait aucun
+    // bouton, même focus (seule Espace fonctionnait). Posé explicitement sur chacun pour que le
+    // bouton *ayant le focus* réponde à Entrée, quel qu'il soit.
+    for (QPushButton* const button : findChildren<QPushButton*>()) {
+        button->setAutoDefault(true);
+    }
 }
 
 PauseScreen::~PauseScreen() = default;

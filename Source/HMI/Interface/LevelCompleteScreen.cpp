@@ -26,6 +26,12 @@ LevelCompleteScreen::LevelCompleteScreen(QWidget* parent)
     connect(_ui->replayButton, &QPushButton::clicked, this, &LevelCompleteScreen::replayRequested);
     connect(_ui->returnToMenuButton, &QPushButton::clicked, this,
             &LevelCompleteScreen::returnToMenuRequested);
+
+    // autoDefault : cf. PauseScreen.cpp -- même widget qui n'est pas un vrai QDialog, même bug
+    // réel trouvé en jeu (Entrée sans effet, seule Espace fonctionnait).
+    for (QPushButton* const button : findChildren<QPushButton*>()) {
+        button->setAutoDefault(true);
+    }
 }
 
 LevelCompleteScreen::~LevelCompleteScreen() = default;

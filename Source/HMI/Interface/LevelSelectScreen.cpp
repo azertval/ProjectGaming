@@ -47,6 +47,14 @@ LevelSelectScreen::LevelSelectScreen(QWidget* parent)
     connect(_ui->personalList, &QListWidget::itemActivated, this, [this](QListWidgetItem* item) {
         emit personalLevelChosen(item->data(Qt::UserRole).toString());
     });
+
+    // autoDefault (LOT-59 TACHE-07, bug réel trouvé en jeu sur PauseScreen, même cause ici) : Qt
+    // ne l'active par défaut que pour un bouton dont un ancêtre est un vrai QDialog -- ce widget
+    // n'en est pas un, donc Entrée ne déclenchait pas `backButton`, même focus (seule Espace
+    // fonctionnait).
+    for (QPushButton* const button : findChildren<QPushButton*>()) {
+        button->setAutoDefault(true);
+    }
 }
 
 LevelSelectScreen::~LevelSelectScreen() = default;
