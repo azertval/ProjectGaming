@@ -12,6 +12,10 @@ namespace core {
 class World;
 class TileMap;
 struct PlayerInput;
+struct Player;
+struct Transform;
+struct Velocity;
+struct Collider;
 
 /**
  * @brief Fait évoluer le personnage jouable d'un pas fixe : intention horizontale, gravité
@@ -51,6 +55,28 @@ public:
                 float fixedDelta) const;
 
 private:
+    /// Étapes 0/0a-0d/1/2/2b/2bis de update() (voir son .cpp) : à partir de l'intention d'entrée
+    /// et des minuteries de game feel du personnage, détermine la vitesse voulue pour ce pas
+    /// (saut, dash, gravité effective, wall slide) -- ne touche ni `Transform` ni les tuiles,
+    /// seule la résolution de collision (ci-dessous) en a besoin.
+    void resolveVelocity(Player& player, Velocity& velocity, const PlayerInput& input,
+                         float fixedDelta) const;
+    /// Partie « 0d. Dash » de resolveVelocity() (voir son .cpp) : déclenche un dash si demandé et
+    /// disponible, puis décompte sa durée en cours. @return true si le dash occupe encore ce pas
+    /// (auquel cas la gravité/le saut/le déplacement horizontal normaux, gérés par
+    /// resolveVelocity() APRÈS cet appel, ne doivent pas s'appliquer).
+    [[nodiscard]] bool applyDash(Player& player, Velocity& velocity, const PlayerInput& input,
+                                 float fixedDelta) const;
+    /// Partie « 0a. Saut » de resolveVelocity() : consomme le buffer de saut si une source
+    /// l'autorise (sol/coyote, mur, ou saut aérien, dans cet ordre).
+    void applyJump(Player& player, Velocity& velocity) const;
+    /// Étapes 3 à 9 de update() : à partir de la vitesse voulue (résolue par resolveVelocity()),
+    /// balaie le déplacement contre les tuiles solides puis les pentes (sol/plafond), et met à
+    /// jour l'état « au sol »/« contact mural » qui en découle.
+    void resolveCollisionAndState(Player& player, Transform& transform, Velocity& velocity,
+                                  const Collider& collider, const TileMap& tiles,
+                                  const PlayerInput& input, float fixedDelta) const;
+
     PhysicsConfig _config;
 };
 
