@@ -9,8 +9,11 @@ namespace {
 // Statique plutot que reconstruit a chaque appel : clipAt() est lu potentiellement a chaque pas
 // fixe pour chaque entite animee.
 const AnimationClip& emptyClip() {
-    static const AnimationClip empty{/*name=*/{}, /*frames=*/{0}, /*frameDuration=*/0.0f,
-                                     ClipEndMode::Loop, /*nextClip=*/{}};
+    static const AnimationClip empty{.name = {},
+                                     .frames = {0},
+                                     .frameDuration = 0.0F,
+                                     .endMode = ClipEndMode::Loop,
+                                     .nextClip = {}};
     return empty;
 }
 }  // namespace

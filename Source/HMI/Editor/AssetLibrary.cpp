@@ -11,8 +11,8 @@ namespace {
 // Minuscules ASCII, pour une comparaison insensible a la casse (extension et filtre).
 [[nodiscard]] std::string toLower(const std::string& text) {
     std::string lowered = text;
-    std::transform(lowered.begin(), lowered.end(), lowered.begin(),
-                   [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
+    std::ranges::transform(lowered, lowered.begin(),
+                           [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
     return lowered;
 }
 
@@ -44,7 +44,7 @@ std::vector<std::string> listAssetFiles(const std::filesystem::path& directory,
         }
         assets.push_back(std::move(name));
     }
-    std::sort(assets.begin(), assets.end());
+    std::ranges::sort(assets);
     return assets;
 }
 

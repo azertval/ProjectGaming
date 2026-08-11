@@ -69,15 +69,15 @@ public:
     /// Coche l'action de l'outil actif **sans** émettre `triggered` : resynchronisation depuis la
     /// touche dédiée de `GameViewport` (remappable, `EditorAction::TextureAssignTool`), même garde
     /// que `DecorsPanel::setActiveTool`.
-    void setActiveTool(EditorTool tool);
+    void setActiveTool(EditorTool tool) const;
     /// Coche l'action de l'outil de canevas pixel art actif **sans** émettre `triggered` — même
     /// garde que `setActiveTool` (`LOT-54` TACHE-04).
-    void setActivePixelTool(PixelTool tool);
+    void setActivePixelTool(PixelTool tool) const;
 
     /// Active/désactive les six commandes qui n'ont de sens qu'en édition (Enregistrer, Essayer,
     /// Annuler, Refaire, Grille, Recadrer). Le mode de rendu reste toujours actif : il s'applique
     /// aussi en essai et en jeu réel (`EX-REN-046`).
-    void setEditingCommandsEnabled(bool enabled);
+    void setEditingCommandsEnabled(bool enabled) const;
 
     /// Reconstruit les icônes depuis un nouveau jeu de jetons (bascule de thème, `LOT-56`
     /// TACHE-06) : sans quoi elles resteraient aux anciennes couleurs après le changement.

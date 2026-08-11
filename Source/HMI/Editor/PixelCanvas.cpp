@@ -30,14 +30,14 @@ namespace {
     QImage image(decoded.width, decoded.height, QImage::Format_RGBA8888);
     for (int y = 0; y < decoded.height; ++y) {
         const std::uint32_t* const row =
-            decoded.pixels.data() + static_cast<std::size_t>(y) * decoded.width;
+            decoded.pixels.data() + (static_cast<std::size_t>(y) * decoded.width);
         std::memcpy(image.scanLine(y), row, static_cast<std::size_t>(decoded.width) * 4);
     }
     return image;
 }
 
 [[nodiscard]] QColor toQColor(DesignColor color) noexcept {
-    return QColor(color.r, color.g, color.b);
+    return {color.r, color.g, color.b};
 }
 
 // Cote d'une case du damier de transparence, en pixels LOGIQUES (espace ecran, TACHE-03 point
@@ -154,7 +154,7 @@ std::optional<std::pair<int, int>> PixelCanvas::imagePixelAt(const QPointF& widg
 }
 
 QSize PixelCanvas::sizeHint() const {
-    return QSize(std::max(1, _image.width * _view.zoom), std::max(1, _image.height * _view.zoom));
+    return {std::max(1, _image.width * _view.zoom), std::max(1, _image.height * _view.zoom)};
 }
 
 void PixelCanvas::applyToolAtPoint(int x, int y) {
@@ -187,7 +187,7 @@ void PixelCanvas::applyToolAtPoint(int x, int y) {
             _selectionMoveActive = insideSelection;
             if (!insideSelection) {
                 _selectionDragAnchor = std::make_pair(x, y);
-                _selection = PixelRegion{x, y, x, y};
+                _selection = PixelRegion{.minX = x, .minY = y, .maxX = x, .maxY = y};
                 update();
             }
             return;
@@ -215,13 +215,15 @@ void PixelCanvas::continueToolTo(int x, int y) {
                 const int dx = x - lastX;
                 const int dy = y - lastY;
                 touched = moveRegion(_image, _selection, dx, dy);
-                _selection = PixelRegion{_selection.minX + dx, _selection.minY + dy,
-                                         _selection.maxX + dx, _selection.maxY + dy};
+                _selection = PixelRegion{.minX = _selection.minX + dx,
+                                         .minY = _selection.minY + dy,
+                                         .maxX = _selection.maxX + dx,
+                                         .maxY = _selection.maxY + dy};
             } else {
-                _selection = PixelRegion{std::min(_selectionDragAnchor.first, x),
-                                         std::min(_selectionDragAnchor.second, y),
-                                         std::max(_selectionDragAnchor.first, x),
-                                         std::max(_selectionDragAnchor.second, y)};
+                _selection = PixelRegion{.minX = std::min(_selectionDragAnchor.first, x),
+                                         .minY = std::min(_selectionDragAnchor.second, y),
+                                         .maxX = std::max(_selectionDragAnchor.first, x),
+                                         .maxY = std::max(_selectionDragAnchor.second, y)};
                 update();
                 return;  // definir une selection ne mute jamais l'image : aucune region touchee.
             }
@@ -270,7 +272,7 @@ PixelRegion PixelCanvas::effectiveRegion() const {
     if (_image.width <= 0 || _image.height <= 0) {
         return {};
     }
-    return PixelRegion{0, 0, _image.width - 1, _image.height - 1};
+    return PixelRegion{.minX = 0, .minY = 0, .maxX = _image.width - 1, .maxY = _image.height - 1};
 }
 
 void PixelCanvas::commitRegionMutation(PixelOperationKind kind, const DecodedImage& beforeSnapshot,
@@ -367,8 +369,8 @@ void PixelCanvas::mouseMoveEvent(QMouseEvent* event) {
         pixel ? bitmaskCellAtPixel(_image, TextureAtlas::TILE_SIZE, pixel->first, pixel->second)
               : std::nullopt;
     if (hoveredCell && _loc != nullptr) {
-        const std::uint8_t mask =
-            static_cast<std::uint8_t>(hoveredCell->row * AUTOTILE_SHEET_SIDE + hoveredCell->column);
+        const auto mask = static_cast<std::uint8_t>((hoveredCell->row * AUTOTILE_SHEET_SIDE) +
+                                                    hoveredCell->column);
         const std::string label(autotileConfigurationLabelKey(mask));
         QToolTip::showText(event->globalPosition().toPoint(),
                            QString::fromStdString(_loc->text(label)), this);
@@ -504,7 +506,7 @@ QPixmap PixelCanvas::renderPixmap() const {
         const int insetY = real.height - ASSEMBLY_DISPLAY_SIZE - insetMargin;
         if (insetX >= 0 && insetY >= 0) {
             painter.fillRect(
-                QRect(insetX - insetMargin / 2, insetY - insetMargin / 2,
+                QRect(insetX - (insetMargin / 2), insetY - (insetMargin / 2),
                       ASSEMBLY_DISPLAY_SIZE + insetMargin, ASSEMBLY_DISPLAY_SIZE + insetMargin),
                 toQColor(identityTokens().color.surface));
             painter.drawImage(QRect(insetX, insetY, ASSEMBLY_DISPLAY_SIZE, ASSEMBLY_DISPLAY_SIZE),

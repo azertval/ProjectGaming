@@ -47,7 +47,8 @@ public:
      * @param input      Intention de déplacement de la frame (dissociée des touches).
      * @param fixedDelta Durée du pas de simulation, en secondes.
      */
-    void update(World& world, const TileMap& tiles, const PlayerInput& input, float fixedDelta);
+    void update(World& world, const TileMap& tiles, const PlayerInput& input,
+                float fixedDelta) const;
 
 private:
     PhysicsConfig _config;

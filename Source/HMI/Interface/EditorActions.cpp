@@ -131,7 +131,7 @@ void EditorActions::retranslateUi(const Localization& loc) {
     }
 }
 
-void EditorActions::setActiveTool(EditorTool tool) {
+void EditorActions::setActiveTool(EditorTool tool) const {
     QAction* const act = toolAction(tool);
     if (act == nullptr || act->isChecked()) {
         return;
@@ -140,7 +140,7 @@ void EditorActions::setActiveTool(EditorTool tool) {
     act->setChecked(true);
 }
 
-void EditorActions::setActivePixelTool(PixelTool tool) {
+void EditorActions::setActivePixelTool(PixelTool tool) const {
     QAction* const act = pixelToolAction(tool);
     if (act == nullptr || act->isChecked()) {
         return;
@@ -149,7 +149,7 @@ void EditorActions::setActivePixelTool(PixelTool tool) {
     act->setChecked(true);
 }
 
-void EditorActions::setEditingCommandsEnabled(bool enabled) {
+void EditorActions::setEditingCommandsEnabled(bool enabled) const {
     for (const EditorActionSpec& spec : editorActionCatalog()) {
         // Le mode de rendu reste toujours actif : en edition, en essai et en jeu reel
         // (EX-REN-046) -- jamais desactive, contrairement aux autres commandes. Les commandes de

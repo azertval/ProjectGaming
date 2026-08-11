@@ -7,7 +7,7 @@ FontFamilyResolution resolveFontFamily(bool fontRegistered, const std::string& e
         return FontFamilyResolution{};  // pas de nom : l'appelant retombe sur une famille
                                         // générique.
     }
-    return FontFamilyResolution{true, embeddedFamilyName};
+    return FontFamilyResolution{.useEmbeddedFamily = true, .embeddedFamily = embeddedFamilyName};
 }
 
 }  // namespace hmi

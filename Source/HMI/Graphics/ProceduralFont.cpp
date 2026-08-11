@@ -135,22 +135,22 @@ constexpr std::array<Pattern, (ASCII_LAST - ASCII_FIRST) + 1> ASCII_FONT = {{
 }};
 
 // Signe diacritique appliqué a une lettre de base pour former une lettre accentuee.
-enum class Accent { Acute, Grave, Circumflex, Diaeresis, Cedilla };
+enum class Accent { ACUTE, GRAVE, CIRCUMFLEX, DIAERESIS, CEDILLA };
 
 // Motif d'un accent superieur (2 lignes de 5 pixels), place au-dessus du corps.
 using TopAccent = std::array<std::uint8_t, 2>;
 
 TopAccent topAccentPattern(Accent accent) noexcept {
     switch (accent) {
-        case Accent::Acute:
+        case Accent::ACUTE:
             return {0b00010, 0b00100};
-        case Accent::Grave:
+        case Accent::GRAVE:
             return {0b01000, 0b00100};
-        case Accent::Circumflex:
+        case Accent::CIRCUMFLEX:
             return {0b00100, 0b01010};
-        case Accent::Diaeresis:
+        case Accent::DIAERESIS:
             return {0b01010, 0b00000};
-        case Accent::Cedilla:
+        case Accent::CEDILLA:
             break;
     }
     return {0b00000, 0b00000};
@@ -167,27 +167,27 @@ struct AccentedGlyph {
 // code sont ecrits en valeur numerique (pas en litteral `U'e'`) pour rester independants de
 // l'encodage du fichier source.
 constexpr std::array<AccentedGlyph, 21> ACCENTED_GLYPHS = {{
-    {0x00E0, 'a', Accent::Grave},       // a
-    {0x00E2, 'a', Accent::Circumflex},  // a
-    {0x00E4, 'a', Accent::Diaeresis},   // a
-    {0x00E7, 'c', Accent::Cedilla},     // c
-    {0x00E9, 'e', Accent::Acute},       // e
-    {0x00E8, 'e', Accent::Grave},       // e
-    {0x00EA, 'e', Accent::Circumflex},  // e
-    {0x00EB, 'e', Accent::Diaeresis},   // e
-    {0x00EE, 'i', Accent::Circumflex},  // i
-    {0x00EF, 'i', Accent::Diaeresis},   // i
-    {0x00F4, 'o', Accent::Circumflex},  // o
-    {0x00F6, 'o', Accent::Diaeresis},   // o
-    {0x00F9, 'u', Accent::Grave},       // u
-    {0x00FB, 'u', Accent::Circumflex},  // u
-    {0x00FC, 'u', Accent::Diaeresis},   // u
-    {0x00C0, 'A', Accent::Grave},       // A
-    {0x00C2, 'A', Accent::Circumflex},  // A
-    {0x00C7, 'C', Accent::Cedilla},     // C
-    {0x00C9, 'E', Accent::Acute},       // E
-    {0x00C8, 'E', Accent::Grave},       // E
-    {0x00CA, 'E', Accent::Circumflex},  // E
+    {.codePoint = 0x00E0, .base = 'a', .accent = Accent::GRAVE},       // a
+    {.codePoint = 0x00E2, .base = 'a', .accent = Accent::CIRCUMFLEX},  // a
+    {.codePoint = 0x00E4, .base = 'a', .accent = Accent::DIAERESIS},   // a
+    {.codePoint = 0x00E7, .base = 'c', .accent = Accent::CEDILLA},     // c
+    {.codePoint = 0x00E9, .base = 'e', .accent = Accent::ACUTE},       // e
+    {.codePoint = 0x00E8, .base = 'e', .accent = Accent::GRAVE},       // e
+    {.codePoint = 0x00EA, .base = 'e', .accent = Accent::CIRCUMFLEX},  // e
+    {.codePoint = 0x00EB, .base = 'e', .accent = Accent::DIAERESIS},   // e
+    {.codePoint = 0x00EE, .base = 'i', .accent = Accent::CIRCUMFLEX},  // i
+    {.codePoint = 0x00EF, .base = 'i', .accent = Accent::DIAERESIS},   // i
+    {.codePoint = 0x00F4, .base = 'o', .accent = Accent::CIRCUMFLEX},  // o
+    {.codePoint = 0x00F6, .base = 'o', .accent = Accent::DIAERESIS},   // o
+    {.codePoint = 0x00F9, .base = 'u', .accent = Accent::GRAVE},       // u
+    {.codePoint = 0x00FB, .base = 'u', .accent = Accent::CIRCUMFLEX},  // u
+    {.codePoint = 0x00FC, .base = 'u', .accent = Accent::DIAERESIS},   // u
+    {.codePoint = 0x00C0, .base = 'A', .accent = Accent::GRAVE},       // A
+    {.codePoint = 0x00C2, .base = 'A', .accent = Accent::CIRCUMFLEX},  // A
+    {.codePoint = 0x00C7, .base = 'C', .accent = Accent::CEDILLA},     // C
+    {.codePoint = 0x00C9, .base = 'E', .accent = Accent::ACUTE},       // E
+    {.codePoint = 0x00C8, .base = 'E', .accent = Accent::GRAVE},       // E
+    {.codePoint = 0x00CA, .base = 'E', .accent = Accent::CIRCUMFLEX},  // E
 }};
 
 // Assemble une couleur RVBA (octets) en un pixel R8G8B8A8_UNORM (ordre memoire R,G,B,A).
@@ -197,7 +197,7 @@ std::uint32_t pack(std::uint8_t red, std::uint8_t green, std::uint8_t blue,
            (static_cast<std::uint32_t>(blue) << 16) | (static_cast<std::uint32_t>(alpha) << 24);
 }
 
-constexpr std::uint32_t GLYPH_PIXEL = 0xFFFFFFFFu;  // blanc opaque, colorable par teinte
+constexpr std::uint32_t GLYPH_PIXEL = 0xFFFFFFFFU;  // blanc opaque, colorable par teinte
 
 }  // namespace
 
@@ -226,13 +226,13 @@ char32_t nextUtf8CodePoint(std::string_view text, std::size_t& index) noexcept {
     char32_t codePoint = 0;
     if ((lead & 0xE0) == 0xC0) {
         continuationBytes = 1;
-        codePoint = lead & 0x1Fu;
+        codePoint = lead & 0x1FU;
     } else if ((lead & 0xF0) == 0xE0) {
         continuationBytes = 2;
-        codePoint = lead & 0x0Fu;
+        codePoint = lead & 0x0FU;
     } else if ((lead & 0xF8) == 0xF0) {
         continuationBytes = 3;
-        codePoint = lead & 0x07u;
+        codePoint = lead & 0x07U;
     } else {
         index += 1;  // octet de tete invalide : on avance d'un octet
         return 0xFFFD;
@@ -249,7 +249,7 @@ char32_t nextUtf8CodePoint(std::string_view text, std::size_t& index) noexcept {
             index += 1;  // sequence tronquee : on avance d'un octet et on signale
             return 0xFFFD;
         }
-        codePoint = (codePoint << 6) | (continuation & 0x3Fu);
+        codePoint = (codePoint << 6) | (continuation & 0x3FU);
     }
     index += static_cast<std::size_t>(continuationBytes) + 1;
     return codePoint;
@@ -263,15 +263,15 @@ TextExtent measureText(const FontMetrics& metrics, std::string_view text, float 
         return extent;
     }
 
-    float lineWidth = 0.0f;
-    float maxWidth = 0.0f;
+    float lineWidth = 0.0F;
+    float maxWidth = 0.0F;
     int lineCount = 1;
     std::size_t index = 0;
     while (index < text.size()) {
         const char32_t codePoint = nextUtf8CodePoint(text, index);
         if (codePoint == U'\n') {
             maxWidth = std::max(maxWidth, lineWidth);
-            lineWidth = 0.0f;
+            lineWidth = 0.0F;
             ++lineCount;
             continue;
         }
@@ -311,11 +311,11 @@ ProceduralFont buildProceduralFont() {
         for (int row = 0; row < GLYPH_ROWS; ++row) {
             for (int column = 0; column < GLYPH_COLUMNS; ++column) {
                 const bool lit = (pattern[static_cast<std::size_t>(row)] &
-                                  (1u << (GLYPH_COLUMNS - 1 - column))) != 0;
+                                  (1U << (GLYPH_COLUMNS - 1 - column))) != 0;
                 if (lit) {
                     const int x = originX + column;
                     const int y = originY + BODY_TOP + row;
-                    pixels[static_cast<std::size_t>(y) * static_cast<std::size_t>(textureWidth) +
+                    pixels[(static_cast<std::size_t>(y) * static_cast<std::size_t>(textureWidth)) +
                            static_cast<std::size_t>(x)] = GLYPH_PIXEL;
                 }
             }
@@ -326,14 +326,14 @@ ProceduralFont buildProceduralFont() {
     const auto blitTopAccent = [&](int cellIndex, const TopAccent& accent) {
         const int originX = (cellIndex % COLUMNS) * CELL_WIDTH;
         const int originY = (cellIndex / COLUMNS) * CELL_HEIGHT;
-        for (int row = 0; row < static_cast<int>(accent.size()); ++row) {
+        for (int row = 0; std::cmp_less(row, accent.size()); ++row) {
             for (int column = 0; column < GLYPH_COLUMNS; ++column) {
                 const bool lit = (accent[static_cast<std::size_t>(row)] &
-                                  (1u << (GLYPH_COLUMNS - 1 - column))) != 0;
+                                  (1U << (GLYPH_COLUMNS - 1 - column))) != 0;
                 if (lit) {
                     const int x = originX + column;
                     const int y = originY + row;
-                    pixels[static_cast<std::size_t>(y) * static_cast<std::size_t>(textureWidth) +
+                    pixels[(static_cast<std::size_t>(y) * static_cast<std::size_t>(textureWidth)) +
                            static_cast<std::size_t>(x)] = GLYPH_PIXEL;
                 }
             }
@@ -344,13 +344,13 @@ ProceduralFont buildProceduralFont() {
     const auto blitCedilla = [&](int cellIndex) {
         const int originX = (cellIndex % COLUMNS) * CELL_WIDTH;
         const int originY = (cellIndex / COLUMNS) * CELL_HEIGHT;
-        constexpr std::uint8_t cedilla = 0b01100;
+        constexpr std::uint8_t CEDILLA = 0b01100;
         for (int column = 0; column < GLYPH_COLUMNS; ++column) {
-            const bool lit = (cedilla & (1u << (GLYPH_COLUMNS - 1 - column))) != 0;
+            const bool lit = (CEDILLA & (1U << (GLYPH_COLUMNS - 1 - column))) != 0;
             if (lit) {
                 const int x = originX + column;
                 const int y = originY + CELL_HEIGHT - 1;
-                pixels[static_cast<std::size_t>(y) * static_cast<std::size_t>(textureWidth) +
+                pixels[(static_cast<std::size_t>(y) * static_cast<std::size_t>(textureWidth)) +
                        static_cast<std::size_t>(x)] = GLYPH_PIXEL;
             }
         }
@@ -371,11 +371,11 @@ ProceduralFont buildProceduralFont() {
         registerGlyph(ASCII_FIRST + static_cast<char32_t>(glyph), glyph);
     }
 
-    for (int accented = 0; accented < static_cast<int>(ACCENTED_GLYPHS.size()); ++accented) {
+    for (int accented = 0; std::cmp_less(accented, ACCENTED_GLYPHS.size()); ++accented) {
         const AccentedGlyph& entry = ACCENTED_GLYPHS[static_cast<std::size_t>(accented)];
         const int cellIndex = asciiCount + accented;
         blitBody(cellIndex, ASCII_FONT[static_cast<std::size_t>(entry.base - ASCII_FIRST)]);
-        if (entry.accent == Accent::Cedilla) {
+        if (entry.accent == Accent::CEDILLA) {
             blitCedilla(cellIndex);
         } else {
             blitTopAccent(cellIndex, topAccentPattern(entry.accent));
@@ -410,7 +410,8 @@ constexpr const char* FIELD_HEIGHT = "height";
 constexpr const char* FIELD_ADVANCE = "advance";
 
 [[nodiscard]] FontMetricsResult metricsFailure(std::string message, FontMetricsError code) {
-    return FontMetricsResult{std::nullopt, std::move(message), code};
+    return FontMetricsResult{
+        .metrics = std::nullopt, .error = std::move(message), .errorCode = code};
 }
 
 // Decode une chaine JSON attendue comme UN SEUL point de code UTF-8 (champ "char"/"replacement").
@@ -528,7 +529,8 @@ FontMetricsResult loadFontMetricsFromString(std::string_view json) {
         metrics.glyphs[*codePoint] = glyph;
     }
 
-    return FontMetricsResult{std::move(metrics), {}, FontMetricsError::None};
+    return FontMetricsResult{
+        .metrics = std::move(metrics), .error = {}, .errorCode = FontMetricsError::None};
 }
 
 // Lit des metriques de police depuis un fichier.
@@ -548,8 +550,9 @@ AssetValidation validateFontMetricsAgainstTexture(const FontMetrics& metrics,
                                                   const std::string& fileName, int textureWidth,
                                                   int textureHeight) {
     if (metrics.lineHeight <= 0) {
-        return AssetValidation{false,
-                               "Police " + fileName + " refusee : hauteur de ligne non positive."};
+        return AssetValidation{
+            .valid = false,
+            .message = "Police " + fileName + " refusee : hauteur de ligne non positive."};
     }
     for (const auto& [codePoint, glyph] : metrics.glyphs) {
         const bool withinBounds = glyph.x >= 0 && glyph.y >= 0 && glyph.width > 0 &&
@@ -558,14 +561,15 @@ AssetValidation validateFontMetricsAgainstTexture(const FontMetrics& metrics,
         if (!withinBounds) {
             std::ostringstream hex;
             hex << std::hex << static_cast<std::uint32_t>(codePoint);
-            return AssetValidation{false, "Police " + fileName + " refusee : le glyphe U+" +
+            return AssetValidation{.valid = false,
+                                   .message = "Police " + fileName + " refusee : le glyphe U+" +
                                               hex.str() +
                                               " reference une region hors des bornes de l'image (" +
                                               std::to_string(textureWidth) + "x" +
                                               std::to_string(textureHeight) + " px)."};
         }
     }
-    return AssetValidation{true, std::string{}};
+    return AssetValidation{.valid = true, .message = std::string{}};
 }
 
 }  // namespace hmi

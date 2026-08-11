@@ -104,11 +104,11 @@ std::uint32_t slopeShapePixel(core::TileType type, int localX, int localY) {
 
 // Largeur des bras : ecartes du corps ou resserres (variation de pose entre images d'un meme
 // clip, LOT-18).
-enum class ArmPose { Wide, Tucked };
+enum class ArmPose { WIDE, TUCKED };
 
 // Position des jambes : neutre, ecartee (course), ou resserree/raccourcie (saut, jambes
 // repliees en un seul bloc, pieds ne touchant pas la ligne du bas).
-enum class LegPose { Neutral, Apart, Tucked };
+enum class LegPose { NEUTRAL, APART, TUCKED };
 
 // Couleur du pixel (x, y) de la silhouette du personnage pour une pose donnee, (0,0) = coin
 // haut-gauche de la region 16x16 (EX-REN-011). Silhouette humanoide par blocs rectangulaires :
@@ -151,11 +151,11 @@ std::uint32_t playerPixel(int x, int y, ArmPose arms, LegPose legs) {
         return inRange(x, 4, 11) ? shirt : transparent;
     }
     if (inRange(y, 5, 6)) {
-        const bool armsShown = (arms == ArmPose::Wide) ? inRange(x, 2, 13) : inRange(x, 3, 12);
+        const bool armsShown = (arms == ArmPose::WIDE) ? inRange(x, 2, 13) : inRange(x, 3, 12);
         return armsShown ? shirt : transparent;
     }
     if (y == 7) {
-        const bool hand = (arms == ArmPose::Wide) ? (inRange(x, 2, 3) || inRange(x, 12, 13))
+        const bool hand = (arms == ArmPose::WIDE) ? (inRange(x, 2, 3) || inRange(x, 12, 13))
                                                   : (x == 3 || x == 12);
         if (hand) {
             return skin;
@@ -164,7 +164,7 @@ std::uint32_t playerPixel(int x, int y, ArmPose arms, LegPose legs) {
     }
     // Jambes (lignes 10-15) : pantalon puis chaussures, separees par un espace transparent.
     // Tucked (saut) est plus court (pieds repliees) et forme un seul bloc central.
-    if (legs == LegPose::Tucked) {
+    if (legs == LegPose::TUCKED) {
         if (inRange(y, 10, 12)) {
             return inRange(x, 6, 9) ? pants : transparent;
         }
@@ -173,10 +173,10 @@ std::uint32_t playerPixel(int x, int y, ArmPose arms, LegPose legs) {
         }
         return transparent;
     }
-    const int leftMin = (legs == LegPose::Apart) ? 4 : 5;
-    const int leftMax = (legs == LegPose::Apart) ? 6 : 7;
-    const int rightMin = (legs == LegPose::Apart) ? 10 : 9;
-    const int rightMax = (legs == LegPose::Apart) ? 12 : 11;
+    const int leftMin = (legs == LegPose::APART) ? 4 : 5;
+    const int leftMax = (legs == LegPose::APART) ? 6 : 7;
+    const int rightMin = (legs == LegPose::APART) ? 10 : 9;
+    const int rightMax = (legs == LegPose::APART) ? 12 : 11;
     const bool onLeg = inRange(x, leftMin, leftMax) || inRange(x, rightMin, rightMax);
     if (inRange(y, 10, 12)) {
         return onLeg ? pants : transparent;
@@ -198,17 +198,17 @@ Pose poseFor(PlayerClipKind clip, int frameIndex) {
     switch (clip) {
         case PlayerClipKind::Idle:
             // Image 0 : bras relaches. Image 1 : legerement resserres (respiration/attente).
-            return (frameIndex == 0) ? Pose{ArmPose::Wide, LegPose::Neutral}
-                                     : Pose{ArmPose::Tucked, LegPose::Neutral};
+            return (frameIndex == 0) ? Pose{.arms = ArmPose::WIDE, .legs = LegPose::NEUTRAL}
+                                     : Pose{.arms = ArmPose::TUCKED, .legs = LegPose::NEUTRAL};
         case PlayerClipKind::Run:
             // Alterne jambes ecartees (phase basse, bras relaches) et jambes neutres (phase
             // haute, bras resserres) : deux poses distinctes suffisent a lire un cycle de course.
-            return (frameIndex % 2 == 0) ? Pose{ArmPose::Wide, LegPose::Apart}
-                                         : Pose{ArmPose::Tucked, LegPose::Neutral};
+            return (frameIndex % 2 == 0) ? Pose{.arms = ArmPose::WIDE, .legs = LegPose::APART}
+                                         : Pose{.arms = ArmPose::TUCKED, .legs = LegPose::NEUTRAL};
         case PlayerClipKind::Jump:
-            return Pose{ArmPose::Wide, LegPose::Tucked};
+            return Pose{.arms = ArmPose::WIDE, .legs = LegPose::TUCKED};
     }
-    return Pose{ArmPose::Wide, LegPose::Neutral};
+    return Pose{.arms = ArmPose::WIDE, .legs = LegPose::NEUTRAL};
 }
 }  // namespace
 
@@ -239,20 +239,20 @@ ProceduralAtlasImage buildProceduralAtlasImage() {
 
     ProceduralAtlasImage image;
     image.width = gridSide;
-    image.height = gridSide + frameRows * TextureAtlas::PLAYER_FRAME_SIZE;
+    image.height = gridSide + (frameRows * TextureAtlas::PLAYER_FRAME_SIZE);
     image.pixels.assign(
         static_cast<std::size_t>(image.width) * static_cast<std::size_t>(image.height),
         pack(0, 0, 0, 0));
 
     // Dernière tuile réservée au test de transparence : damier opaque / transparent.
     const int transparentTileIndex =
-        TextureAtlas::TILES_PER_SIDE * TextureAtlas::TILES_PER_SIDE - 1;
+        (TextureAtlas::TILES_PER_SIDE * TextureAtlas::TILES_PER_SIDE) - 1;
 
     for (int y = 0; y < gridSide; ++y) {
         for (int x = 0; x < image.width; ++x) {
             const int tileColumn = x / TextureAtlas::TILE_SIZE;
             const int tileRow = y / TextureAtlas::TILE_SIZE;
-            const int tileIndex = tileRow * TextureAtlas::TILES_PER_SIDE + tileColumn;
+            const int tileIndex = (tileRow * TextureAtlas::TILES_PER_SIDE) + tileColumn;
 
             std::uint32_t color = tileColor(tileIndex);
             if (tileIndex == transparentTileIndex) {
@@ -267,7 +267,7 @@ ProceduralAtlasImage buildProceduralAtlasImage() {
                 color = slopeShapePixel(*slopeType, x % TextureAtlas::TILE_SIZE,
                                         y % TextureAtlas::TILE_SIZE);
             }
-            image.pixels[static_cast<std::size_t>(y) * static_cast<std::size_t>(image.width) +
+            image.pixels[(static_cast<std::size_t>(y) * static_cast<std::size_t>(image.width)) +
                          static_cast<std::size_t>(x)] = color;
         }
     }
@@ -281,13 +281,13 @@ ProceduralAtlasImage buildProceduralAtlasImage() {
         const int column = flatIndex % TextureAtlas::PLAYER_FRAME_COLUMNS;
         const int row = flatIndex / TextureAtlas::PLAYER_FRAME_COLUMNS;
         const int originX = column * TextureAtlas::PLAYER_FRAME_SIZE;
-        const int originY = framesTop + row * TextureAtlas::PLAYER_FRAME_SIZE;
+        const int originY = framesTop + (row * TextureAtlas::PLAYER_FRAME_SIZE);
         for (int localY = 0; localY < TextureAtlas::PLAYER_FRAME_SIZE; ++localY) {
             for (int localX = 0; localX < TextureAtlas::PLAYER_FRAME_SIZE; ++localX) {
                 const std::uint32_t color = playerPixel(localX, localY, pose.arms, pose.legs);
                 const int x = originX + localX;
                 const int y = originY + localY;
-                image.pixels[static_cast<std::size_t>(y) * static_cast<std::size_t>(image.width) +
+                image.pixels[(static_cast<std::size_t>(y) * static_cast<std::size_t>(image.width)) +
                              static_cast<std::size_t>(x)] = color;
             }
         }

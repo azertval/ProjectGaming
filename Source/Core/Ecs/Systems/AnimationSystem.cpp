@@ -12,7 +12,7 @@ namespace core {
 namespace {
 // En dessous de ce seuil (unites monde/s), le personnage est considere immobile (bruit flottant
 // tolere ; idle ne doit jamais se declencher a tort pour un personnage reellement en mouvement).
-constexpr float MOVING_THRESHOLD = 0.01f;
+constexpr float MOVING_THRESHOLD = 0.01F;
 
 // Noms des clips du personnage, migres tels quels depuis l'ancien enum (LOT-18), etendus par
 // LOT-48 TACHE-02 : seule source de verite de ces chaines, partagee entre la construction du jeu
@@ -47,7 +47,7 @@ bool isAirborneClip(int clipIndex) {
 //   5. run/idle   -- au sol, seuil de vitesse horizontale existant, inchange depuis LOT-18.
 const char* targetClipName(const Player& player, const Velocity& velocity,
                            const Animation& animation) {
-    if (player.dashTimer > 0.0f) {
+    if (player.dashTimer > 0.0F) {
         return PLAYER_CLIP_NAME_DASH;
     }
     if (animation.clipIndex == PLAYER_CLIP_LAND ||
@@ -55,10 +55,10 @@ const char* targetClipName(const Player& player, const Velocity& velocity,
         return PLAYER_CLIP_NAME_LAND;
     }
     if (!player.grounded) {
-        if (player.wallDirection != 0.0f) {
+        if (player.wallDirection != 0.0F) {
             return PLAYER_CLIP_NAME_WALLSLIDE;
         }
-        return (velocity.value.y > 0.0f) ? PLAYER_CLIP_NAME_FALL : PLAYER_CLIP_NAME_JUMP;
+        return (velocity.value.y > 0.0F) ? PLAYER_CLIP_NAME_FALL : PLAYER_CLIP_NAME_JUMP;
     }
     if (std::abs(velocity.value.x) > MOVING_THRESHOLD) {
         return PLAYER_CLIP_NAME_RUN;
@@ -79,7 +79,7 @@ bool setTargetClip(Animation& animation, const ClipSet& clips, const char* name)
     }
     animation.clipIndex = resolved;
     animation.frameIndex = 0;
-    animation.elapsed = 0.0f;
+    animation.elapsed = 0.0F;
     return true;
 }
 }  // namespace
@@ -92,21 +92,21 @@ std::shared_ptr<const ClipSet> playerClipSet() {
         AnimationClip idle;
         idle.name = PLAYER_CLIP_NAME_IDLE;
         idle.frames = {0, 1};
-        idle.frameDuration = 0.5f;
+        idle.frameDuration = 0.5F;
         idle.endMode = ClipEndMode::Loop;
         clips->addClip(idle);
 
         AnimationClip run;
         run.name = PLAYER_CLIP_NAME_RUN;
         run.frames = {0, 1, 2, 3};
-        run.frameDuration = 0.1f;
+        run.frameDuration = 0.1F;
         run.endMode = ClipEndMode::Loop;
         clips->addClip(run);
 
         AnimationClip jump;
         jump.name = PLAYER_CLIP_NAME_JUMP;
         jump.frames = {0};  // pose unique : jamais animee (une seule image, cf. advanceAnimation).
-        jump.frameDuration = 0.0f;
+        jump.frameDuration = 0.0F;
         jump.endMode = ClipEndMode::Loop;
         clips->addClip(jump);
 
@@ -116,7 +116,7 @@ std::shared_ptr<const ClipSet> playerClipSet() {
         AnimationClip fall;
         fall.name = PLAYER_CLIP_NAME_FALL;
         fall.frames = {0};  // pose unique, comme jump : distinguee par le NOM du clip, pas l'image.
-        fall.frameDuration = 0.0f;
+        fall.frameDuration = 0.0F;
         fall.endMode = ClipEndMode::Loop;
         clips->addClip(fall);
 
@@ -126,7 +126,7 @@ std::shared_ptr<const ClipSet> playerClipSet() {
         // bascule sur idle -- immediatement corrigee vers run par le pas suivant si le personnage
         // est deja en mouvement (targetClipName est reevalue a chaque pas, cf. en-tete).
         land.frames = {0, 1};
-        land.frameDuration = 0.08f;
+        land.frameDuration = 0.08F;
         land.endMode = ClipEndMode::OneShot;
         land.nextClip = PLAYER_CLIP_NAME_IDLE;
         clips->addClip(land);
@@ -134,14 +134,14 @@ std::shared_ptr<const ClipSet> playerClipSet() {
         AnimationClip wallslide;
         wallslide.name = PLAYER_CLIP_NAME_WALLSLIDE;
         wallslide.frames = {0};  // pose unique : contact mural continu, pas de cycle d'images.
-        wallslide.frameDuration = 0.0f;
+        wallslide.frameDuration = 0.0F;
         wallslide.endMode = ClipEndMode::Loop;
         clips->addClip(wallslide);
 
         AnimationClip dash;
         dash.name = PLAYER_CLIP_NAME_DASH;
         dash.frames = {0};  // pose unique : le dash est bref (Player::dashTimer), pas de cycle.
-        dash.frameDuration = 0.0f;
+        dash.frameDuration = 0.0F;
         dash.endMode = ClipEndMode::Loop;
         clips->addClip(dash);
 
@@ -164,7 +164,7 @@ void advanceAnimation(Animation& animation, float fixedDelta) {
     }
 
     const AnimationClip* clip = &clips.clipAt(animation.clipIndex);
-    if (clip->frames.size() <= 1 || clip->frameDuration <= 0.0f) {
+    if (clip->frames.size() <= 1 || clip->frameDuration <= 0.0F) {
         return;  // pose unique : jamais animee, aucun temps accumule (evite une derive d'elapsed).
     }
 
@@ -187,14 +187,14 @@ void advanceAnimation(Animation& animation, float fixedDelta) {
         // derniere image (pas de bouclage, pas de plantage sur un nom absent, EX-NFR-040).
         const int nextIndex = clips.indexOf(clip->nextClip);
         if (nextIndex < 0) {
-            animation.elapsed = 0.0f;
+            animation.elapsed = 0.0F;
             break;
         }
         animation.clipIndex = nextIndex;
         animation.frameIndex = 0;
         clip = &clips.clipAt(animation.clipIndex);
-        if (clip->frames.size() <= 1 || clip->frameDuration <= 0.0f) {
-            animation.elapsed = 0.0f;
+        if (clip->frames.size() <= 1 || clip->frameDuration <= 0.0F) {
+            animation.elapsed = 0.0F;
             break;
         }
     }

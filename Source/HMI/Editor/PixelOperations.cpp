@@ -10,20 +10,20 @@ namespace {
 
 // Index a plat d'un pixel (x, y) dans un tampon de largeur width -- appelant deja borne-verifie.
 std::size_t pixelIndex(int width, int x, int y) noexcept {
-    return static_cast<std::size_t>(y) * static_cast<std::size_t>(width) +
+    return (static_cast<std::size_t>(y) * static_cast<std::size_t>(width)) +
            static_cast<std::size_t>(x);
 }
 
 // Etend une region pour qu'elle couvre aussi (x, y).
 PixelRegion expand(PixelRegion region, int x, int y) noexcept {
     if (region.empty()) {
-        return PixelRegion{x, y, x, y};
+        return PixelRegion{.minX = x, .minY = y, .maxX = x, .maxY = y};
     }
     return PixelRegion{
-        region.minX < x ? region.minX : x,
-        region.minY < y ? region.minY : y,
-        region.maxX > x ? region.maxX : x,
-        region.maxY > y ? region.maxY : y,
+        .minX = region.minX < x ? region.minX : x,
+        .minY = region.minY < y ? region.minY : y,
+        .maxX = region.maxX > x ? region.maxX : x,
+        .maxY = region.maxY > y ? region.maxY : y,
     };
 }
 
@@ -69,7 +69,7 @@ PixelRegion setPixel(DecodedImage& image, int x, int y, std::uint32_t color) {
         return {};
     }
     image.pixels[pixelIndex(image.width, x, y)] = color;
-    return PixelRegion{x, y, x, y};
+    return PixelRegion{.minX = x, .minY = y, .maxX = x, .maxY = y};
 }
 
 PixelRegion erasePixel(DecodedImage& image, int x, int y) {
@@ -78,8 +78,8 @@ PixelRegion erasePixel(DecodedImage& image, int x, int y) {
     }
     // Alpha nul, RVB conserve : re-colorer un pixel efface ne fait jamais resurgir une teinte
     // fantome, et effacer par-dessus une gomme reste sans effet visuel.
-    image.pixels[pixelIndex(image.width, x, y)] &= 0x00FFFFFFu;
-    return PixelRegion{x, y, x, y};
+    image.pixels[pixelIndex(image.width, x, y)] &= 0x00FFFFFFU;
+    return PixelRegion{.minX = x, .minY = y, .maxX = x, .maxY = y};
 }
 
 PixelRegion drawLine(DecodedImage& image, int x0, int y0, int x1, int y1, std::uint32_t color) {
@@ -103,7 +103,7 @@ PixelRegion floodFill(DecodedImage& image, int x, int y, std::uint32_t color) {
         return {};
     }
 
-    PixelRegion region{x, y, x, y};
+    PixelRegion region{.minX = x, .minY = y, .maxX = x, .maxY = y};
     image.pixels[startIndex] = color;
 
     // Pile explicite (jamais de recursion : une grande zone deborderait la pile d'appel).
@@ -194,11 +194,12 @@ PixelClipboard rotateClipboardClockwise(const PixelClipboard& source) {
         for (int nx = 0; nx < rotated.width; ++nx) {
             const int sx = ny;
             const int sy = source.height - 1 - nx;
-            rotated.pixels[static_cast<std::size_t>(ny) * static_cast<std::size_t>(rotated.width) +
-                           static_cast<std::size_t>(nx)] =
-                source
-                    .pixels[static_cast<std::size_t>(sy) * static_cast<std::size_t>(source.width) +
-                            static_cast<std::size_t>(sx)];
+            rotated
+                .pixels[(static_cast<std::size_t>(ny) * static_cast<std::size_t>(rotated.width)) +
+                        static_cast<std::size_t>(nx)] =
+                source.pixels[(static_cast<std::size_t>(sy) *
+                               static_cast<std::size_t>(source.width)) +
+                              static_cast<std::size_t>(sx)];
         }
     }
     return rotated;
@@ -298,8 +299,8 @@ PixelRegion pasteClipboard(DecodedImage& image, const PixelClipboard& clipboard,
     for (int row = 0; row < clipboard.height; ++row) {
         for (int col = 0; col < clipboard.width; ++col) {
             const std::uint32_t pixel =
-                clipboard.pixels[static_cast<std::size_t>(row) *
-                                     static_cast<std::size_t>(clipboard.width) +
+                clipboard.pixels[(static_cast<std::size_t>(row) *
+                                  static_cast<std::size_t>(clipboard.width)) +
                                  static_cast<std::size_t>(col)];
             touched = unionPixelRegion(touched, setPixel(image, x + col, y + row, pixel));
         }

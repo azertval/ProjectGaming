@@ -18,7 +18,7 @@ std::optional<AutotileCell> bitmaskCellAtPixel(const DecodedImage& image, int ti
     if (!pixelInBounds(image.width, image.height, x, y)) {
         return std::nullopt;
     }
-    return AutotileCell{x / tileSize, y / tileSize};
+    return AutotileCell{.column = x / tileSize, .row = y / tileSize};
 }
 
 DecodedImage buildAutotileAssemblyPreview(const DecodedImage& sheet, int tileSize) {
@@ -26,7 +26,7 @@ DecodedImage buildAutotileAssemblyPreview(const DecodedImage& sheet, int tileSiz
     preview.width = tileSize * 3;
     preview.height = tileSize * 3;
     preview.pixels.assign(
-        static_cast<std::size_t>(preview.width) * static_cast<std::size_t>(preview.height), 0u);
+        static_cast<std::size_t>(preview.width) * static_cast<std::size_t>(preview.height), 0U);
 
     const std::array<std::uint8_t, 9> masks = autotileAssemblyMasks();
     for (std::size_t i = 0; i < masks.size(); ++i) {
@@ -34,16 +34,18 @@ DecodedImage buildAutotileAssemblyPreview(const DecodedImage& sheet, int tileSiz
         const int destRow = static_cast<int>(i / 3);
         const AutotileCell sourceCell = autotileCell(masks[i]);
 
-        const PixelRegion sourceRegion{sourceCell.column * tileSize, sourceCell.row * tileSize,
-                                       sourceCell.column * tileSize + tileSize - 1,
-                                       sourceCell.row * tileSize + tileSize - 1};
+        const PixelRegion sourceRegion{.minX = sourceCell.column * tileSize,
+                                       .minY = sourceCell.row * tileSize,
+                                       .maxX = (sourceCell.column * tileSize) + tileSize - 1,
+                                       .maxY = (sourceCell.row * tileSize) + tileSize - 1};
         if (sourceRegion.maxX >= sheet.width || sourceRegion.maxY >= sheet.height) {
             continue;  // planche plus petite que prevu : case laissee transparente, jamais lue.
         }
 
-        const PixelRegion destRegion{destColumn * tileSize, destRow * tileSize,
-                                     destColumn * tileSize + tileSize - 1,
-                                     destRow * tileSize + tileSize - 1};
+        const PixelRegion destRegion{.minX = destColumn * tileSize,
+                                     .minY = destRow * tileSize,
+                                     .maxX = (destColumn * tileSize) + tileSize - 1,
+                                     .maxY = (destRow * tileSize) + tileSize - 1};
         writeRegion(preview, destRegion, readRegion(sheet, sourceRegion));
     }
     return preview;

@@ -27,7 +27,7 @@ public:
      *
      * @return Chaîne de version sémantique (par exemple "0.0.5").
      */
-    std::string version() const;
+    static std::string version();
 };
 
 }  // namespace core

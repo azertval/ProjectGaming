@@ -85,7 +85,7 @@ public:
     [[nodiscard]] static EditorKeyBindings load(const std::filesystem::path& path);
 
 private:
-    std::array<Key, EDITOR_ACTION_COUNT> _keys;
+    std::array<Key, EDITOR_ACTION_COUNT> _keys{};
 };
 
 }  // namespace hmi

@@ -63,26 +63,36 @@ namespace {
 
 // Inverse de buttonName ; nullopt si le nom ne correspond a aucun bouton connu.
 [[nodiscard]] std::optional<GamepadButton> parseButtonName(const std::string& name) {
-    if (name == "haut")
+    if (name == "haut") {
         return GamepadButton::Up;
-    if (name == "bas")
+    }
+    if (name == "bas") {
         return GamepadButton::Down;
-    if (name == "gauche")
+    }
+    if (name == "gauche") {
         return GamepadButton::Left;
-    if (name == "droite")
+    }
+    if (name == "droite") {
         return GamepadButton::Right;
-    if (name == "a")
+    }
+    if (name == "a") {
         return GamepadButton::A;
-    if (name == "b")
+    }
+    if (name == "b") {
         return GamepadButton::B;
-    if (name == "x")
+    }
+    if (name == "x") {
         return GamepadButton::X;
-    if (name == "y")
+    }
+    if (name == "y") {
         return GamepadButton::Y;
-    if (name == "lb")
+    }
+    if (name == "lb") {
         return GamepadButton::LeftShoulder;
-    if (name == "rb")
+    }
+    if (name == "rb") {
         return GamepadButton::RightShoulder;
+    }
     return std::nullopt;
 }
 
@@ -117,7 +127,7 @@ GamepadButton GamepadBindings::button(GameAction action) const noexcept {
 // Echange avec l'action qui detenait deja newButton, s'il y en a une : jamais deux actions sur le
 // meme bouton a l'issue de l'appel.
 void GamepadBindings::setKey(GameAction action, GamepadButton newButton) noexcept {
-    const std::size_t index = static_cast<std::size_t>(action);
+    const auto index = static_cast<std::size_t>(action);
     for (std::size_t other = 0; other < _buttons.size(); ++other) {
         if (other != index && _buttons[other] == newButton) {
             _buttons[other] = _buttons[index];

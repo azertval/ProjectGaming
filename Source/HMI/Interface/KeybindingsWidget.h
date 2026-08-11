@@ -48,7 +48,7 @@ private:
     hmi::GameKeyBindings& _bindings;
     std::filesystem::path _savePath;
     int _capturing = -1;  ///< Indice de l'action en cours de capture, ou -1.
-    std::array<QPushButton*, hmi::GAME_ACTION_COUNT> _buttons;
+    std::array<QPushButton*, hmi::GAME_ACTION_COUNT> _buttons{};
     std::array<QLabel*, hmi::GAME_ACTION_COUNT> _actionLabels{};
     QLabel* _help = nullptr;
     const Localization* _loc = nullptr;

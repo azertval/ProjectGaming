@@ -5,12 +5,12 @@
 namespace hmi {
 
 PixelScreenRect imagePixelScreenRect(const PixelCanvasView& view, int x, int y) noexcept {
-    const double zoom = static_cast<double>(view.zoom);
+    const auto zoom = static_cast<double>(view.zoom);
     return PixelScreenRect{
-        static_cast<double>(x - view.panX) * zoom,
-        static_cast<double>(y - view.panY) * zoom,
-        zoom,
-        zoom,
+        .x = static_cast<double>(x - view.panX) * zoom,
+        .y = static_cast<double>(y - view.panY) * zoom,
+        .width = zoom,
+        .height = zoom,
     };
 }
 
@@ -33,8 +33,8 @@ std::optional<std::pair<int, int>> screenToImagePixel(const PixelCanvasView& vie
 PixelCanvasRealSize pixelCanvasRealSize(int imageWidth, int imageHeight, int zoom,
                                         double scaleFactor) noexcept {
     return PixelCanvasRealSize{
-        thumbnailPixelSize(imageWidth * zoom, scaleFactor),
-        thumbnailPixelSize(imageHeight * zoom, scaleFactor),
+        .width = thumbnailPixelSize(imageWidth * zoom, scaleFactor),
+        .height = thumbnailPixelSize(imageHeight * zoom, scaleFactor),
     };
 }
 

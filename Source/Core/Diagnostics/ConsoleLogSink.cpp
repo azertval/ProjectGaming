@@ -17,7 +17,7 @@ void ConsoleLogSink::write(LogLevel level, std::string_view message) {
     // la sortie standard.
     std::ostream& stream = (level >= LogLevel::Warning) ? std::cerr : std::cout;
     // Flush immédiat : les journaux restent visibles même en cas d'arrêt brutal.
-    stream << message << std::endl;
+    stream << message << '\n';
 
 #ifdef _WIN32
     // Double la sortie vers la fenêtre de débogage de Visual Studio.

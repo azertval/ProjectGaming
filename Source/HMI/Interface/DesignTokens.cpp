@@ -14,12 +14,13 @@ constexpr SpacingTokens SHARED_SPACING{};
 
 [[nodiscard]] TypographyTokens sharedTypography() noexcept {
     TypographyTokens typography;
-    typography.screenTitle = TypographyLevel{32, 700};  // QFont::Bold -- titre du menu/des Options.
-    typography.sectionTitle =
-        TypographyLevel{16, 700};                // Boutons de navigation, titres de panneau.
-    typography.body = TypographyLevel{10, 400};  // QFont::Normal
-    typography.caption = TypographyLevel{9, 400};
-    typography.monospaceBody = TypographyLevel{10, 400};
+    typography.screenTitle = TypographyLevel{
+        .pointSize = 32, .weight = 700};  // QFont::Bold -- titre du menu/des Options.
+    typography.sectionTitle = TypographyLevel{
+        .pointSize = 16, .weight = 700};  // Boutons de navigation, titres de panneau.
+    typography.body = TypographyLevel{.pointSize = 10, .weight = 400};  // QFont::Normal
+    typography.caption = TypographyLevel{.pointSize = 9, .weight = 400};
+    typography.monospaceBody = TypographyLevel{.pointSize = 10, .weight = 400};
     return typography;
 }
 
@@ -29,15 +30,15 @@ constexpr SizeTokens SHARED_SIZE{};
 // (fond sombre, accent ambre), désormais nommées par rôle plutôt qu'éparpillées en littéraux.
 [[nodiscard]] DesignTokens buildIdentityTokens() noexcept {
     DesignTokens tokens;
-    tokens.color.background = DesignColor{0x1a, 0x1f, 0x29};
-    tokens.color.surface = DesignColor{0x1e, 0x25, 0x31};
-    tokens.color.surfaceAlt = DesignColor{0x23, 0x2a, 0x36};
-    tokens.color.border = DesignColor{0x33, 0x3a, 0x48};
-    tokens.color.text = DesignColor{0xf2, 0xf2, 0xff};
-    tokens.color.textMuted = DesignColor{0xb3, 0xb8, 0xc7};
-    tokens.color.accent = DesignColor{0xff, 0xd1, 0x33};
-    tokens.color.accentHover = DesignColor{0xff, 0xdb, 0x5c};
-    tokens.color.error = DesignColor{0xff, 0x5c, 0x5c};
+    tokens.color.background = DesignColor{.r = 0x1a, .g = 0x1f, .b = 0x29};
+    tokens.color.surface = DesignColor{.r = 0x1e, .g = 0x25, .b = 0x31};
+    tokens.color.surfaceAlt = DesignColor{.r = 0x23, .g = 0x2a, .b = 0x36};
+    tokens.color.border = DesignColor{.r = 0x33, .g = 0x3a, .b = 0x48};
+    tokens.color.text = DesignColor{.r = 0xf2, .g = 0xf2, .b = 0xff};
+    tokens.color.textMuted = DesignColor{.r = 0xb3, .g = 0xb8, .b = 0xc7};
+    tokens.color.accent = DesignColor{.r = 0xff, .g = 0xd1, .b = 0x33};
+    tokens.color.accentHover = DesignColor{.r = 0xff, .g = 0xdb, .b = 0x5c};
+    tokens.color.error = DesignColor{.r = 0xff, .g = 0x5c, .b = 0x5c};
     tokens.spacing = SHARED_SPACING;
     tokens.typography = sharedTypography();
     tokens.size = SHARED_SIZE;
@@ -49,15 +50,15 @@ constexpr SizeTokens SHARED_SIZE{};
 // d'acceptation 1 du lot : une seule apparence, aucune couture entre les deux portées).
 [[nodiscard]] DesignTokens buildEditorDarkTokens() noexcept {
     DesignTokens tokens;
-    tokens.color.background = DesignColor{0x1e, 0x22, 0x2b};
-    tokens.color.surface = DesignColor{0x26, 0x2b, 0x36};
-    tokens.color.surfaceAlt = DesignColor{0x2d, 0x33, 0x40};
-    tokens.color.border = DesignColor{0x3a, 0x41, 0x50};
-    tokens.color.text = DesignColor{0xe6, 0xe8, 0xee};
-    tokens.color.textMuted = DesignColor{0x9a, 0xa1, 0xb0};
-    tokens.color.accent = DesignColor{0xff, 0xd1, 0x33};
-    tokens.color.accentHover = DesignColor{0xff, 0xdb, 0x5c};
-    tokens.color.error = DesignColor{0xff, 0x6b, 0x6b};
+    tokens.color.background = DesignColor{.r = 0x1e, .g = 0x22, .b = 0x2b};
+    tokens.color.surface = DesignColor{.r = 0x26, .g = 0x2b, .b = 0x36};
+    tokens.color.surfaceAlt = DesignColor{.r = 0x2d, .g = 0x33, .b = 0x40};
+    tokens.color.border = DesignColor{.r = 0x3a, .g = 0x41, .b = 0x50};
+    tokens.color.text = DesignColor{.r = 0xe6, .g = 0xe8, .b = 0xee};
+    tokens.color.textMuted = DesignColor{.r = 0x9a, .g = 0xa1, .b = 0xb0};
+    tokens.color.accent = DesignColor{.r = 0xff, .g = 0xd1, .b = 0x33};
+    tokens.color.accentHover = DesignColor{.r = 0xff, .g = 0xdb, .b = 0x5c};
+    tokens.color.error = DesignColor{.r = 0xff, .g = 0x6b, .b = 0x6b};
     tokens.spacing = SHARED_SPACING;
     tokens.typography = sharedTypography();
     tokens.size = SHARED_SIZE;
@@ -69,15 +70,15 @@ constexpr SizeTokens SHARED_SIZE{};
 // du theme sombre manque de contraste utilise comme texte sur un fond clair).
 [[nodiscard]] DesignTokens buildEditorLightTokens() noexcept {
     DesignTokens tokens;
-    tokens.color.background = DesignColor{0xf5, 0xf6, 0xf8};
-    tokens.color.surface = DesignColor{0xff, 0xff, 0xff};
-    tokens.color.surfaceAlt = DesignColor{0xec, 0xee, 0xf2};
-    tokens.color.border = DesignColor{0xc9, 0xce, 0xd6};
-    tokens.color.text = DesignColor{0x1c, 0x21, 0x28};
-    tokens.color.textMuted = DesignColor{0x5b, 0x64, 0x72};
-    tokens.color.accent = DesignColor{0xb3, 0x6b, 0x00};
-    tokens.color.accentHover = DesignColor{0xcc, 0x7a, 0x00};
-    tokens.color.error = DesignColor{0xc0, 0x26, 0x26};
+    tokens.color.background = DesignColor{.r = 0xf5, .g = 0xf6, .b = 0xf8};
+    tokens.color.surface = DesignColor{.r = 0xff, .g = 0xff, .b = 0xff};
+    tokens.color.surfaceAlt = DesignColor{.r = 0xec, .g = 0xee, .b = 0xf2};
+    tokens.color.border = DesignColor{.r = 0xc9, .g = 0xce, .b = 0xd6};
+    tokens.color.text = DesignColor{.r = 0x1c, .g = 0x21, .b = 0x28};
+    tokens.color.textMuted = DesignColor{.r = 0x5b, .g = 0x64, .b = 0x72};
+    tokens.color.accent = DesignColor{.r = 0xb3, .g = 0x6b, .b = 0x00};
+    tokens.color.accentHover = DesignColor{.r = 0xcc, .g = 0x7a, .b = 0x00};
+    tokens.color.error = DesignColor{.r = 0xc0, .g = 0x26, .b = 0x26};
     tokens.spacing = SHARED_SPACING;
     tokens.typography = sharedTypography();
     tokens.size = SHARED_SIZE;
@@ -142,8 +143,8 @@ namespace {
 }  // namespace
 
 double relativeLuminance(DesignColor color) noexcept {
-    return 0.2126 * linearChannel(color.r) + 0.7152 * linearChannel(color.g) +
-           0.0722 * linearChannel(color.b);
+    return (0.2126 * linearChannel(color.r)) + (0.7152 * linearChannel(color.g)) +
+           (0.0722 * linearChannel(color.b));
 }
 
 double contrastRatio(DesignColor a, DesignColor b) noexcept {

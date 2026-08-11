@@ -85,8 +85,8 @@ void GraphicsDevice::createRenderTarget() {
     D3D11_VIEWPORT viewport{};
     viewport.Width = static_cast<float>(_width);
     viewport.Height = static_cast<float>(_height);
-    viewport.MinDepth = 0.0f;
-    viewport.MaxDepth = 1.0f;
+    viewport.MinDepth = 0.0F;
+    viewport.MaxDepth = 1.0F;
     _context->RSSetViewports(1, &viewport);
 }
 

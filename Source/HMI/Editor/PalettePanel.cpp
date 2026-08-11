@@ -64,7 +64,7 @@ const int THUMBNAIL_SIZE = editorDarkTokens().size.paletteThumbnail;
     QImage image(decoded.width, decoded.height, QImage::Format_RGBA8888);
     for (int y = 0; y < decoded.height; ++y) {
         const std::uint32_t* const row =
-            decoded.pixels.data() + static_cast<std::size_t>(y) * decoded.width;
+            decoded.pixels.data() + (static_cast<std::size_t>(y) * decoded.width);
         std::memcpy(image.scanLine(y), row, static_cast<std::size_t>(decoded.width) * 4);
     }
     return image;
@@ -170,12 +170,14 @@ QPixmap PalettePanel::thumbnailFor(core::TileType type) {
         }
         case PaletteThumbnailSource::MissingTexture: {
             const ProceduralAtlasImage missing = buildMissingTextureImage();
-            source = toImage(DecodedImage{missing.width, missing.height, missing.pixels});
+            source = toImage(DecodedImage{
+                .width = missing.width, .height = missing.height, .pixels = missing.pixels});
             break;
         }
         case PaletteThumbnailSource::Atlas: {
             const ProceduralAtlasImage atlas = buildProceduralAtlasImage();
-            source = toImage(DecodedImage{atlas.width, atlas.height, atlas.pixels});
+            source = toImage(
+                DecodedImage{.width = atlas.width, .height = atlas.height, .pixels = atlas.pixels});
             break;
         }
     }

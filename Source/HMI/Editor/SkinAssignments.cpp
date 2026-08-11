@@ -71,13 +71,12 @@ std::vector<std::string> listSkinAssets(const std::filesystem::path& skinsDirect
             continue;
         }
         const std::string extension = entry.path().extension().string();
-        if (std::find(std::begin(IMAGE_EXTENSIONS), std::end(IMAGE_EXTENSIONS), extension) ==
-            std::end(IMAGE_EXTENSIONS)) {
+        if (std::ranges::find(IMAGE_EXTENSIONS, extension) == std::end(IMAGE_EXTENSIONS)) {
             continue;
         }
         assets.push_back(entry.path().filename().string());
     }
-    std::sort(assets.begin(), assets.end());
+    std::ranges::sort(assets);
     return assets;
 }
 
@@ -90,7 +89,7 @@ void applySkinAssignment(SkinCatalog& catalog, std::string_view setName, core::T
         catalog.clearAssignment(set, type);
         return;
     }
-    catalog.assign(set, type, SkinEntry{asset, mode});
+    catalog.assign(set, type, SkinEntry{.asset = asset, .mode = mode});
 }
 
 }  // namespace hmi

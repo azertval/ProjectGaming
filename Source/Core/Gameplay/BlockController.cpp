@@ -12,7 +12,7 @@ namespace {
 
 // Tolérance de contact bloc/personnage : les deux bords doivent se toucher à peu près, pas se
 // chevaucher franchement (sinon une simple superposition passagère pousserait le bloc).
-constexpr float PUSH_TOUCH_TOLERANCE = 0.05f;
+constexpr float PUSH_TOUCH_TOLERANCE = 0.05F;
 
 // true si `type` est l'une des trois tailles de bloc (EX-GP-005) ; false sinon.
 [[nodiscard]] bool isBlockTile(TileType type) {
@@ -22,7 +22,7 @@ constexpr float PUSH_TOUCH_TOLERANCE = 0.05f;
 // Boîte RÉELLE occupée par un bloc à sa position courante : pleine case si `scale == 1`, sinon
 // centrée et réduite (`EX-GP-005`) — une case = une unité monde (`EX-ARCH-021`).
 [[nodiscard]] Aabb blockBox(GridPosition position, float scale) {
-    const float margin = (1.0f - scale) * 0.5f;
+    const float margin = (1.0F - scale) * 0.5F;
     const Vector2 topLeft{static_cast<float>(position.column) + margin,
                           static_cast<float>(position.row) + margin};
     return Aabb::fromTopLeftSize(topLeft, Vector2{scale, scale});
@@ -41,7 +41,7 @@ BlockController::BlockController(const Level& level) {
         for (int column = 0; column < map.width(); ++column) {
             const TileType tile = map.tile(column, row);
             if (isBlockTile(tile)) {
-                _positions.push_back(GridPosition{column, row});
+                _positions.push_back(GridPosition{.column = column, .row = row});
                 _scales.push_back(tileVisualScale(tile));
             }
         }
@@ -84,8 +84,8 @@ bool BlockController::isFree(GridPosition target, const TileMap& base,
 
 void BlockController::update(const Aabb& playerBox, float moveIntentX, const TileMap& base) {
     // 1. Poussée : direction du déplacement voulu, bloc touché de ce côté, case suivante libre.
-    if (moveIntentX != 0.0f) {
-        const int direction = moveIntentX > 0.0f ? 1 : -1;
+    if (moveIntentX != 0.0F) {
+        const int direction = moveIntentX > 0.0F ? 1 : -1;
         for (std::size_t index = 0; index < _positions.size(); ++index) {
             const GridPosition current = _positions[index];
             const Aabb box = blockBox(current, _scales[index]);
@@ -99,7 +99,7 @@ void BlockController::update(const Aabb& playerBox, float moveIntentX, const Til
             if (!touchesFromLeft && !touchesFromRight) {
                 continue;
             }
-            const GridPosition target{current.column + direction, current.row};
+            const GridPosition target{.column = current.column + direction, .row = current.row};
             if (isFree(target, base, index)) {
                 _positions[index] = target;
                 _fallTimers[index] = 0;  // repart de zéro : re-teste la chute dès le prochain pas
@@ -113,7 +113,7 @@ void BlockController::update(const Aabb& playerBox, float moveIntentX, const Til
     // 2. Chute : un bloc non soutenu tombe d'une case au bout de FALL_INTERVAL_STEPS pas.
     for (std::size_t index = 0; index < _positions.size(); ++index) {
         const GridPosition current = _positions[index];
-        const GridPosition below{current.column, current.row + 1};
+        const GridPosition below{.column = current.column, .row = current.row + 1};
         if (!isFree(below, base, index)) {
             _fallTimers[index] = 0;
             continue;
@@ -144,7 +144,7 @@ TileMap BlockController::collisionMap(const TileMap& base) const {
     // franchissable AUTOUR de lui dans la grille classique (EX-GP-005) — sa collision réelle est
     // résolue à part par `core::sweepAabbVsAabb` (voir `boxAt`/`scales`, en-tête de la classe).
     for (std::size_t index = 0; index < _positions.size(); ++index) {
-        if (_scales[index] >= 1.0f) {
+        if (_scales[index] >= 1.0F) {
             combined.setTile(_positions[index].column, _positions[index].row, TileType::Solid);
         }
     }

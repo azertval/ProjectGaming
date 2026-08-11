@@ -80,7 +80,7 @@ public:
     [[nodiscard]] static GameKeyBindings load(const std::filesystem::path& path);
 
 private:
-    std::array<Key, GAME_ACTION_COUNT> _keys;
+    std::array<Key, GAME_ACTION_COUNT> _keys{};
 };
 
 }  // namespace hmi

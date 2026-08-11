@@ -26,10 +26,10 @@ constexpr const char* FIELD_COLOR = "color";
 // justifier une fonction partagee entre deux fichiers independants.
 std::string formatColorHex(std::uint32_t color) {
     char buffer[10] = {};
-    std::snprintf(buffer, sizeof(buffer), "#%02x%02x%02x%02x", static_cast<unsigned>(color & 0xFFu),
-                  static_cast<unsigned>((color >> 8) & 0xFFu),
-                  static_cast<unsigned>((color >> 16) & 0xFFu),
-                  static_cast<unsigned>((color >> 24) & 0xFFu));
+    std::snprintf(buffer, sizeof(buffer), "#%02x%02x%02x%02x", static_cast<unsigned>(color & 0xFFU),
+                  static_cast<unsigned>((color >> 8) & 0xFFU),
+                  static_cast<unsigned>((color >> 16) & 0xFFU),
+                  static_cast<unsigned>((color >> 24) & 0xFFU));
     return std::string(buffer);
 }
 
@@ -71,7 +71,7 @@ std::optional<std::uint32_t> parseColorHex(const std::string& text) {
     if (!r || !g || !b) {
         return std::nullopt;
     }
-    std::uint8_t a = 0xFFu;
+    std::uint8_t a = 0xFFU;
     if (text.size() == 9) {
         const std::optional<std::uint8_t> parsedAlpha = hexByte(text[7], text[8]);
         if (!parsedAlpha) {
@@ -111,7 +111,7 @@ PixelPalette PixelPalette::loadFromString(std::string_view json) {
             continue;
         }
         palette._entries.push_back(
-            PixelPaletteEntry{entryJson[FIELD_NAME].get<std::string>(), *color});
+            PixelPaletteEntry{.name = entryJson[FIELD_NAME].get<std::string>(), .color = *color});
     }
     return palette;
 }
@@ -157,7 +157,7 @@ bool PixelPalette::saveToFile(const std::filesystem::path& path) const {
 }
 
 void PixelPalette::add(std::string name, std::uint32_t color) {
-    _entries.push_back(PixelPaletteEntry{std::move(name), color});
+    _entries.push_back(PixelPaletteEntry{.name = std::move(name), .color = color});
 }
 
 bool PixelPalette::removeAt(std::size_t index) {
@@ -199,7 +199,7 @@ std::vector<PixelPaletteExtractionEntry> extractPalette(const DecodedImage& imag
         const auto found = indexOf.find(pixel);
         if (found == indexOf.end()) {
             indexOf.emplace(pixel, result.size());
-            result.push_back(PixelPaletteExtractionEntry{pixel, 1});
+            result.push_back(PixelPaletteExtractionEntry{.color = pixel, .count = 1});
         } else {
             ++result[found->second].count;
         }
@@ -209,30 +209,30 @@ std::vector<PixelPaletteExtractionEntry> extractPalette(const DecodedImage& imag
 
 std::uint32_t nearestPaletteColor(std::uint32_t color,
                                   const std::vector<std::uint32_t>& palette) noexcept {
-    const std::uint32_t alpha = color & 0xFF000000u;
+    const std::uint32_t alpha = color & 0xFF000000U;
     if (alpha == 0 || palette.empty()) {
         return color;  // gomme, ou palette vide : couleur inchangee.
     }
 
-    const int r = static_cast<int>(color & 0xFFu);
-    const int g = static_cast<int>((color >> 8) & 0xFFu);
-    const int b = static_cast<int>((color >> 16) & 0xFFu);
+    const int r = static_cast<int>(color & 0xFFU);
+    const int g = static_cast<int>((color >> 8) & 0xFFU);
+    const int b = static_cast<int>((color >> 16) & 0xFFU);
 
-    std::uint32_t nearestRgb = palette.front() & 0x00FFFFFFu;
+    std::uint32_t nearestRgb = palette.front() & 0x00FFFFFFU;
     long long bestDistance = -1;
     for (const std::uint32_t entry : palette) {
-        const int entryR = static_cast<int>(entry & 0xFFu);
-        const int entryG = static_cast<int>((entry >> 8) & 0xFFu);
-        const int entryB = static_cast<int>((entry >> 16) & 0xFFu);
+        const int entryR = static_cast<int>(entry & 0xFFU);
+        const int entryG = static_cast<int>((entry >> 8) & 0xFFU);
+        const int entryB = static_cast<int>((entry >> 16) & 0xFFU);
         const long long dr = r - entryR;
         const long long dg = g - entryG;
         const long long db = b - entryB;
-        const long long distance = dr * dr + dg * dg + db * db;
+        const long long distance = (dr * dr) + (dg * dg) + (db * db);
         // '<' strict, jamais '<=' : a distance egale, la PREMIERE entree rencontree l'emporte --
         // departage stable et deterministe (meme geste, meme resultat, a chaque execution).
         if (bestDistance < 0 || distance < bestDistance) {
             bestDistance = distance;
-            nearestRgb = entry & 0x00FFFFFFu;
+            nearestRgb = entry & 0x00FFFFFFU;
         }
     }
     return nearestRgb | alpha;

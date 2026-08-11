@@ -13,7 +13,7 @@ namespace hmi {
 namespace {
 
 [[nodiscard]] QColor toQColor(DesignColor color) {
-    return QColor(color.r, color.g, color.b, color.a);
+    return {color.r, color.g, color.b, color.a};
 }
 
 [[nodiscard]] QColor resolveColor(IconColorRole role, const DesignTokens& tokens) {

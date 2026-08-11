@@ -55,7 +55,7 @@ std::vector<std::filesystem::path> LevelFileOperations::list() const {
             levels.push_back(entry.path());
         }
     }
-    std::sort(levels.begin(), levels.end(), [](const auto& lhs, const auto& rhs) {
+    std::ranges::sort(levels, [](const auto& lhs, const auto& rhs) {
         return lhs.filename().string() < rhs.filename().string();
     });
     return levels;
@@ -123,7 +123,7 @@ FileOpResult LevelFileOperations::duplicate(const std::filesystem::path& source)
     return writeRenamed(source, candidate, pathForName(candidate));
 }
 
-FileOpResult LevelFileOperations::remove(const std::filesystem::path& source) const {
+FileOpResult LevelFileOperations::remove(const std::filesystem::path& source) {
     std::error_code error;
     if (!std::filesystem::exists(source, error)) {
         return FileOpResult::failure("Niveau introuvable.");

@@ -14,7 +14,8 @@ std::vector<AssetReference> findSkinCatalogReferences(const SkinCatalog& catalog
             // Comparaison exacte : un nom proche mais different (ex. « mur.png » vs
             // « mur2.png ») ne doit jamais declencher un avertissement injustifie.
             if (entry.asset == fileName) {
-                references.push_back(AssetReference{setName, core::tileTypeName(type)});
+                references.push_back(
+                    AssetReference{.setName = setName, .typeName = core::tileTypeName(type)});
             }
         }
     }

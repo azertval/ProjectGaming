@@ -12,15 +12,15 @@ namespace {
 
 // La boîte recouvre-t-elle la case (col, row) ? Chevauchement d'aire strictement positive.
 bool overlapsCell(const Aabb& box, GridPosition cell) {
-    const float left = static_cast<float>(cell.column);
-    const float top = static_cast<float>(cell.row);
-    return box.min.x < left + 1.0f && box.max.x > left && box.min.y < top + 1.0f && box.max.y > top;
+    const auto left = static_cast<float>(cell.column);
+    const auto top = static_cast<float>(cell.row);
+    return box.min.x < left + 1.0F && box.max.x > left && box.min.y < top + 1.0F && box.max.y > top;
 }
 
 // Seuil de poids (masse, `core::Player::mass`) requis pour activer une plaque de pression
 // (`EX-GP-025`) — calé sur la masse par défaut du personnage, pour qu'une plaque fonctionne
 // « prête à l'emploi » sans configuration tant qu'aucune autre masse n'existe dans le jeu.
-constexpr float MIN_TRIGGER_MASS = 1.0f;
+constexpr float MIN_TRIGGER_MASS = 1.0F;
 
 }  // namespace
 

@@ -27,7 +27,8 @@ constexpr const char* FIELD_NEXT = "next";
 // chemin -- c'est a l'appelant (hmi::TextureCache) de decider, a partir du code d'erreur, s'il doit
 // journaliser (EX-NFR-040).
 [[nodiscard]] AnimationDescriptionResult failure(std::string message, AnimationCatalogError code) {
-    return AnimationDescriptionResult{std::nullopt, std::move(message), code};
+    return AnimationDescriptionResult{
+        .description = std::nullopt, .error = std::move(message), .errorCode = code};
 }
 
 }  // namespace
@@ -105,7 +106,7 @@ AnimationDescriptionResult AnimationCatalog::loadFromString(std::string_view jso
         clip.frameDuration = DEFAULT_FRAME_DURATION_SECONDS;
         if (clipJson.contains(FIELD_FRAME_DURATION)) {
             if (!clipJson[FIELD_FRAME_DURATION].is_number() ||
-                clipJson[FIELD_FRAME_DURATION].get<float>() < 0.0f) {
+                clipJson[FIELD_FRAME_DURATION].get<float>() < 0.0F) {
                 return failure("Le champ « frameDuration » du clip « " + name +
                                    " » doit etre un nombre positif ou nul.",
                                AnimationCatalogError::MalformedStructure);
@@ -142,7 +143,7 @@ AnimationDescriptionResult AnimationCatalog::loadFromString(std::string_view jso
     for (const std::string& name : names) {
         const core::AnimationClip& clip = clips.clipAt(clips.indexOf(name));
         if (clip.endMode == core::ClipEndMode::OneShot && !clip.nextClip.empty() &&
-            names.find(clip.nextClip) == names.end()) {
+            !names.contains(clip.nextClip)) {
             return failure("Le clip « " + name + " » designe un clip suivant inexistant (« " +
                                clip.nextClip + " »).",
                            AnimationCatalogError::MalformedStructure);
@@ -153,7 +154,9 @@ AnimationDescriptionResult AnimationCatalog::loadFromString(std::string_view jso
     description.frameWidth = frameWidth;
     description.frameHeight = frameHeight;
     description.clips = std::move(clips);
-    return AnimationDescriptionResult{std::move(description), {}, AnimationCatalogError::None};
+    return AnimationDescriptionResult{.description = std::move(description),
+                                      .error = {},
+                                      .errorCode = AnimationCatalogError::None};
 }
 
 AnimationDescriptionResult AnimationCatalog::loadFromFile(const std::filesystem::path& path) {
@@ -179,8 +182,10 @@ AssetValidation AnimationCatalog::validateAgainstTexture(const AnimationDescript
     if (textureHeight != description.frameHeight || description.frameWidth <= 0 ||
         textureWidth % description.frameWidth != 0 || textureWidth < description.frameWidth) {
         return AssetValidation{
-            false, "Animation " + fileName + " refusee : image " + std::to_string(textureWidth) +
-                       "x" + std::to_string(textureHeight) + " px incoherente avec une image de " +
+            .valid = false,
+            .message = "Animation " + fileName + " refusee : image " +
+                       std::to_string(textureWidth) + "x" + std::to_string(textureHeight) +
+                       " px incoherente avec une image de " +
                        std::to_string(description.frameWidth) + "x" +
                        std::to_string(description.frameHeight) +
                        " px sur un seul rang (largeur multiple de " +
@@ -192,22 +197,25 @@ AssetValidation AnimationCatalog::validateAgainstTexture(const AnimationDescript
         const core::AnimationClip& clip = description.clips.clipAt(index);
         for (const int frame : clip.frames) {
             if (frame < 0 || frame >= frameCount) {
-                return AssetValidation{false, "Animation " + fileName + " refusee : le clip « " +
-                                                  clip.name + " » reference l'image " +
-                                                  std::to_string(frame) +
+                return AssetValidation{.valid = false,
+                                       .message = "Animation " + fileName +
+                                                  " refusee : le clip « " + clip.name +
+                                                  " » reference l'image " + std::to_string(frame) +
                                                   ", hors bornes (la spritesheet en contient " +
                                                   std::to_string(frameCount) + ")."};
             }
         }
     }
 
-    return AssetValidation{true, std::string{}};
+    return AssetValidation{.valid = true, .message = std::string{}};
 }
 
 core::AtlasRegion AnimationCatalog::frameRegion(const AnimationDescription& description,
                                                 int frameSheetIndex) {
-    return core::AtlasRegion{frameSheetIndex * description.frameWidth, 0, description.frameWidth,
-                             description.frameHeight};
+    return core::AtlasRegion{.x = frameSheetIndex * description.frameWidth,
+                             .y = 0,
+                             .width = description.frameWidth,
+                             .height = description.frameHeight};
 }
 
 core::AtlasRegion AnimationCatalog::currentFrameRegion(const AnimationDescription& description,

@@ -24,7 +24,7 @@ namespace {
 // refaire, et un echec de chargement reste tracable meme hors du contexte HMI (tests, outillage).
 [[nodiscard]] LevelLoadResult failure(std::string message, LevelValidationError code) {
     LEVELS_LOG_WARNING("Echec du chargement : " + message);
-    return LevelLoadResult{std::nullopt, std::move(message), code};
+    return LevelLoadResult{.level = std::nullopt, .error = std::move(message), .errorCode = code};
 }
 
 // Vrai pour les tuiles "déclencheur" liables à une porte (interrupteur ou plaque de pression,
@@ -155,14 +155,15 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
             // de liste blanche (usage purement visuel, contrairement aux liens de mecanismes).
             if (tile.contains("texture")) {
                 textureOverrides.push_back(
-                    TileTextureOverride{GridPosition{x, y}, tile.at("texture").get<std::string>()});
+                    TileTextureOverride{.position = GridPosition{.column = x, .row = y},
+                                        .assetName = tile.at("texture").get<std::string>()});
             }
 
             if (*type == TileType::Entry) {
-                entry = GridPosition{x, y};
+                entry = GridPosition{.column = x, .row = y};
                 ++entryCount;
             } else if (*type == TileType::Exit) {
-                exit = GridPosition{x, y};
+                exit = GridPosition{.column = x, .row = y};
                 ++exitCount;
             } else if (isTriggerType(*type)) {
                 // Interrupteur ou plaque de pression (EX-GP-020/EX-GP-025) : meme regle
@@ -173,16 +174,17 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                                        std::to_string(y) + ")",
                                    LevelValidationError::MissingSwitchId);
                 }
-                if (!switchesById.emplace(id, GridPosition{x, y}).second) {
+                if (!switchesById.emplace(id, GridPosition{.column = x, .row = y}).second) {
                     return failure("Identifiant de declencheur en double : " + id,
                                    LevelValidationError::DuplicateSwitchId);
                 }
             } else if (*type == TileType::Door) {
-                doors.push_back(
-                    DoorLink{GridPosition{x, y}, tile.value("opensWith", std::string{})});
+                doors.push_back(DoorLink{.position = GridPosition{.column = x, .row = y},
+                                         .opensWith = tile.value("opensWith", std::string{})});
             } else if (*type == TileType::DangerSwitched) {
                 switchedDangers.push_back(
-                    DangerSwitchedLink{GridPosition{x, y}, tile.value("opensWith", std::string{})});
+                    DangerSwitchedLink{.position = GridPosition{.column = x, .row = y},
+                                       .opensWith = tile.value("opensWith", std::string{})});
             } else if (*type == TileType::DangerMover) {
                 const DangerMoverAxis axis = parseMoverAxis(tile);
                 const int range = tile.value("range", 2);
@@ -193,11 +195,16 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                                        ", " + std::to_string(y) + ")",
                                    LevelValidationError::OutOfBounds);
                 }
-                moverConfigs.push_back(DangerMoverConfig{GridPosition{x, y}, axis, range});
+                moverConfigs.push_back(
+                    DangerMoverConfig{.startPosition = GridPosition{.column = x, .row = y},
+                                      .axis = axis,
+                                      .range = range});
             } else if (*type == TileType::DangerBlink) {
                 blinkConfigs.push_back(
-                    DangerBlinkConfig{GridPosition{x, y}, tile.value("period", 120),
-                                      tile.value("phase", 0), tile.value("activeDuration", 60)});
+                    DangerBlinkConfig{.position = GridPosition{.column = x, .row = y},
+                                      .period = tile.value("period", 120),
+                                      .phase = tile.value("phase", 0),
+                                      .activeDuration = tile.value("activeDuration", 60)});
             }
         }
 
@@ -231,7 +238,8 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                 return failure("Porte liee a un interrupteur inexistant : " + door.opensWith,
                                LevelValidationError::UnresolvedMechanism);
             }
-            mechanisms.push_back(Mechanism{found->second, door.position});
+            mechanisms.push_back(
+                Mechanism{.switchPosition = found->second, .doorPosition = door.position});
         }
 
         // Résout les liaisons interrupteur↔danger commuté (EX-GP-052), même règle que ci-dessus :
@@ -247,7 +255,8 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                     "Danger commute lie a un interrupteur inexistant : " + danger.opensWith,
                     LevelValidationError::UnresolvedMechanism);
             }
-            dangerLinks.push_back(DangerLink{found->second, danger.position});
+            dangerLinks.push_back(
+                DangerLink{.triggerPosition = found->second, .dangerPosition = danger.position});
         }
 
         // Tableau racine optionnel "decors" (EX-DEC-001, LOT-49) : absent = aucun décor
@@ -265,9 +274,9 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                 decor.assetName = decorJson.at("asset").get<std::string>();
                 decor.position.x = decorJson.at("x").get<float>();
                 decor.position.y = decorJson.at("y").get<float>();
-                decor.scale.x = decorJson.value("scaleX", 1.0f);
-                decor.scale.y = decorJson.value("scaleY", 1.0f);
-                decor.rotation = decorJson.value("rotation", 0.0f);
+                decor.scale.x = decorJson.value("scaleX", 1.0F);
+                decor.scale.y = decorJson.value("scaleY", 1.0F);
+                decor.rotation = decorJson.value("rotation", 0.0F);
                 decor.layer = parseDecorLayer(decorJson);
                 decor.manipulable = decorJson.value("manipulable", false);
                 decors.push_back(std::move(decor));
@@ -278,11 +287,11 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                          std::to_string(height) + ", " + std::to_string(mechanisms.size()) +
                          " mecanisme(s))");
         return LevelLoadResult{
-            Level(std::move(name), std::move(map), entry, exit, std::move(mechanisms), jumpBudget,
-                  dashBudget, std::move(dangerLinks), std::move(moverConfigs),
-                  std::move(blinkConfigs), std::move(background), std::move(skinSet),
-                  std::move(textureOverrides), std::move(decors)),
-            {}};
+            .level = Level(std::move(name), std::move(map), entry, exit, std::move(mechanisms),
+                           jumpBudget, dashBudget, std::move(dangerLinks), std::move(moverConfigs),
+                           std::move(blinkConfigs), std::move(background), std::move(skinSet),
+                           std::move(textureOverrides), std::move(decors)),
+            .error = {}};
     } catch (const nlohmann::json::exception& error) {
         return failure(std::string("JSON invalide : ") + error.what(),
                        LevelValidationError::ParseError);

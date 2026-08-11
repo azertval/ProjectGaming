@@ -10,7 +10,7 @@ namespace core {
 FixedTimestep::FixedTimestep(float fixedDeltaSeconds, int maximumStepsPerCall)
     : _fixedDeltaSeconds(fixedDeltaSeconds),
       _maximumStepsPerCall(maximumStepsPerCall),
-      _accumulator(0.0f) {
+      _accumulator(0.0F) {
     CORE_LOG_TRACE("Cadenceur a pas fixe : " + std::to_string(fixedDeltaSeconds) + " s/pas (max " +
                    std::to_string(maximumStepsPerCall) + " pas/appel)");
 }
@@ -20,7 +20,7 @@ FixedTimestep::FixedTimestep(float fixedDeltaSeconds, int maximumStepsPerCall)
 int FixedTimestep::advance(float elapsedSeconds) {
     // Un temps écoulé négatif ou nul n'apporte aucun pas : on ignore les valeurs
     // aberrantes (horloge non monotone) plutôt que de reculer l'accumulateur.
-    if (elapsedSeconds > 0.0f) {
+    if (elapsedSeconds > 0.0F) {
         _accumulator += elapsedSeconds;
     }
 
@@ -36,7 +36,7 @@ int FixedTimestep::advance(float elapsedSeconds) {
     // On abandonne ce retard (reset de l'accumulateur) pour éviter la spirale de
     // la mort, où chaque frame accumulerait davantage qu'elle ne consomme.
     if (steps == _maximumStepsPerCall && _accumulator >= _fixedDeltaSeconds) {
-        _accumulator = 0.0f;
+        _accumulator = 0.0F;
     }
 
     return steps;
