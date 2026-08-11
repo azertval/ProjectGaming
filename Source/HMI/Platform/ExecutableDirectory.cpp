@@ -2,12 +2,14 @@
 
 #include <Windows.h>
 
+#include <array>
+
 namespace hmi {
 
 std::filesystem::path executableDirectory() {
-    wchar_t buffer[MAX_PATH];
-    const DWORD length = GetModuleFileNameW(nullptr, buffer, MAX_PATH);
-    return std::filesystem::path(std::wstring(buffer, length)).parent_path();
+    std::array<wchar_t, MAX_PATH> buffer;
+    const DWORD length = GetModuleFileNameW(nullptr, buffer.data(), MAX_PATH);
+    return std::filesystem::path(std::wstring(buffer.data(), length)).parent_path();
 }
 
 }  // namespace hmi

@@ -1,6 +1,7 @@
 #include "HMI/Editor/SkinAssignments.h"
 
 #include <algorithm>
+#include <array>
 #include <optional>
 #include <system_error>
 
@@ -12,7 +13,7 @@ namespace {
 
 // Extensions d'image acceptees pour un skin. Le decodage (hmi::decodeImageFile) gere davantage de
 // formats, mais proposer un fichier qui ne sera pas lu serait pire que de ne pas le proposer.
-constexpr const char* IMAGE_EXTENSIONS[] = {".png", ".PNG"};
+constexpr std::array<const char*, 2> IMAGE_EXTENSIONS{".png", ".PNG"};
 
 // Ajoute une ligne pour un type, en y reportant son assignation courante si elle existe.
 void appendRow(std::vector<SkinRow>& rows, const SkinCatalog& catalog, std::string_view setName,

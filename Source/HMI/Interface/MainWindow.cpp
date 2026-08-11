@@ -1186,7 +1186,7 @@ void MainWindow::openPixelAssetCreateDialog() {
 
     // Familles creables depuis l'atelier : Atlas exclu (fichier historique unique, jamais recree a
     // la main) et Font exclu (decoupe par ses metriques, hors perimetre d'un canevas generique).
-    static constexpr hmi::AssetFamily FAMILIES[] = {
+    static constexpr std::array<hmi::AssetFamily, 6> FAMILIES{
         hmi::AssetFamily::TileSkin,       hmi::AssetFamily::AutotileSheet, hmi::AssetFamily::Object,
         hmi::AssetFamily::CharacterSheet, hmi::AssetFamily::Background,    hmi::AssetFamily::Decor,
     };

@@ -1,5 +1,6 @@
 #include "HMI/Editor/PixelPalette.h"
 
+#include <array>
 #include <cstdio>
 #include <fstream>
 #include <optional>
@@ -25,12 +26,12 @@ constexpr const char* FIELD_COLOR = "color";
 // "#rrggbbaa", meme convention que hmi::formatColorHex (EditorStatus.cpp) : trop petite pour
 // justifier une fonction partagee entre deux fichiers independants.
 std::string formatColorHex(std::uint32_t color) {
-    char buffer[10] = {};
-    std::snprintf(buffer, sizeof(buffer), "#%02x%02x%02x%02x", static_cast<unsigned>(color & 0xFFU),
-                  static_cast<unsigned>((color >> 8) & 0xFFU),
+    std::array<char, 10> buffer{};
+    std::snprintf(buffer.data(), buffer.size(), "#%02x%02x%02x%02x",
+                  static_cast<unsigned>(color & 0xFFU), static_cast<unsigned>((color >> 8) & 0xFFU),
                   static_cast<unsigned>((color >> 16) & 0xFFU),
                   static_cast<unsigned>((color >> 24) & 0xFFU));
-    return std::string(buffer);
+    return std::string(buffer.data());
 }
 
 // Chiffre hexadecimal -> valeur, sans lever (contrairement a std::stoul) : aucune exception ne

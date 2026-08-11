@@ -1,6 +1,6 @@
 #include "HMI/Graphics/GraphicsDevice.h"
 
-#include <iterator>
+#include <array>
 #include <stdexcept>
 #include <string>
 
@@ -48,11 +48,11 @@ GraphicsDevice::GraphicsDevice(HWND window, int width, int height)
     flags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
-    const D3D_FEATURE_LEVEL requestedLevels[] = {D3D_FEATURE_LEVEL_11_0};
+    const std::array<D3D_FEATURE_LEVEL, 1> requestedLevels{D3D_FEATURE_LEVEL_11_0};
 
     HRESULT result = D3D11CreateDeviceAndSwapChain(
-        nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, flags, requestedLevels,
-        static_cast<UINT>(std::size(requestedLevels)), D3D11_SDK_VERSION, &description, &_swapChain,
+        nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, flags, requestedLevels.data(),
+        static_cast<UINT>(requestedLevels.size()), D3D11_SDK_VERSION, &description, &_swapChain,
         &_device, nullptr, &_context);
 
 #ifdef _DEBUG
@@ -61,8 +61,8 @@ GraphicsDevice::GraphicsDevice(HWND window, int width, int height)
     if (FAILED(result) && (flags & D3D11_CREATE_DEVICE_DEBUG) != 0) {
         flags &= ~static_cast<UINT>(D3D11_CREATE_DEVICE_DEBUG);
         result = D3D11CreateDeviceAndSwapChain(
-            nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, flags, requestedLevels,
-            static_cast<UINT>(std::size(requestedLevels)), D3D11_SDK_VERSION, &description,
+            nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, flags, requestedLevels.data(),
+            static_cast<UINT>(requestedLevels.size()), D3D11_SDK_VERSION, &description,
             &_swapChain, &_device, nullptr, &_context);
     }
 #endif
@@ -121,8 +121,8 @@ void GraphicsDevice::clear(float red, float green, float blue, float alpha) {
     // runtime D3D11 expose toujours le back buffer courant via le même objet), seule sa *liaison*
     // au pipeline doit être rétablie.
     _context->OMSetRenderTargets(1, _renderTargetView.GetAddressOf(), nullptr);
-    const float color[4] = {red, green, blue, alpha};
-    _context->ClearRenderTargetView(_renderTargetView.Get(), color);
+    const std::array<float, 4> color{red, green, blue, alpha};
+    _context->ClearRenderTargetView(_renderTargetView.Get(), color.data());
 }
 
 // Présente l'image à l'écran, synchronisée (V-Sync) selon vsyncEnabled() (EX-REN-022).

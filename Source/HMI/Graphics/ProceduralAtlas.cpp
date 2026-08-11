@@ -1,5 +1,6 @@
 #include "HMI/Graphics/ProceduralAtlas.h"
 
+#include <array>
 #include <optional>
 
 #include "Core/Levels/TileType.h"
@@ -25,7 +26,7 @@ std::uint32_t pack(std::uint8_t red, std::uint8_t green, std::uint8_t blue, std:
 // soit remplacées par un masque de forme (`slopeShapePixel`) : leur couleur de base ici n'a pas
 // d'importance, remplie de noir par convention.
 std::uint32_t tileColor(int tileIndex) {
-    static const std::uint32_t palette[] = {
+    static const std::array<std::uint32_t, 25> palette{
         // Ligne 0
         pack(200, 60, 60, 255),
         pack(60, 200, 60, 255),
