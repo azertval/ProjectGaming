@@ -84,6 +84,25 @@ std::optional<std::uint32_t> parseColorHex(const std::string& text) {
            (static_cast<std::uint32_t>(*b) << 16) | (static_cast<std::uint32_t>(a) << 24);
 }
 
+// Une entree individuelle de `colors` -> entree de palette, ou nullopt si malformee (forme
+// inattendue, ou couleur hexadecimale invalide) -- journalise la raison, ne leve jamais (EX-NFR-
+// 040 : une entree fautive n'invalide pas le reste de la palette).
+std::optional<PixelPaletteEntry> parseColorEntry(const nlohmann::json& entryJson) {
+    if (!entryJson.is_object() || !entryJson.contains(FIELD_NAME) ||
+        !entryJson.contains(FIELD_COLOR) || !entryJson[FIELD_NAME].is_string() ||
+        !entryJson[FIELD_COLOR].is_string()) {
+        HMI_LOG_WARNING("palettes.json : entree malformee, ignoree.");
+        return std::nullopt;
+    }
+    const std::optional<std::uint32_t> color =
+        parseColorHex(entryJson[FIELD_COLOR].get<std::string>());
+    if (!color) {
+        HMI_LOG_WARNING("palettes.json : couleur invalide, entree ignoree.");
+        return std::nullopt;
+    }
+    return PixelPaletteEntry{.name = entryJson[FIELD_NAME].get<std::string>(), .color = *color};
+}
+
 }  // namespace
 
 PixelPalette PixelPalette::loadFromString(std::string_view json) {
@@ -99,20 +118,10 @@ PixelPalette PixelPalette::loadFromString(std::string_view json) {
     }
 
     for (const nlohmann::json& entryJson : root[FIELD_COLORS]) {
-        if (!entryJson.is_object() || !entryJson.contains(FIELD_NAME) ||
-            !entryJson.contains(FIELD_COLOR) || !entryJson[FIELD_NAME].is_string() ||
-            !entryJson[FIELD_COLOR].is_string()) {
-            HMI_LOG_WARNING("palettes.json : entree malformee, ignoree.");
-            continue;  // une entree fautive n'invalide pas le reste de la palette (EX-NFR-040).
+        std::optional<PixelPaletteEntry> entry = parseColorEntry(entryJson);
+        if (entry) {
+            palette._entries.push_back(std::move(*entry));
         }
-        const std::optional<std::uint32_t> color =
-            parseColorHex(entryJson[FIELD_COLOR].get<std::string>());
-        if (!color) {
-            HMI_LOG_WARNING("palettes.json : couleur invalide, entree ignoree.");
-            continue;
-        }
-        palette._entries.push_back(
-            PixelPaletteEntry{.name = entryJson[FIELD_NAME].get<std::string>(), .color = *color});
     }
     return palette;
 }
