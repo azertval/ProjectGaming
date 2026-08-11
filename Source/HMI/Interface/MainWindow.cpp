@@ -24,6 +24,7 @@
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QPixmap>
+#include <QResizeEvent>
 #include <QSettings>
 #include <QSignalBlocker>
 #include <QSpinBox>
@@ -66,6 +67,7 @@
 #include "HMI/Interface/EditorActions.h"
 #include "HMI/Interface/MainMenu.h"
 #include "HMI/Interface/OptionsPage.h"
+#include "HMI/Interface/PauseScreen.h"
 #include "HMI/Platform/ExecutableDirectory.h"
 #include "ui_MainWindow.h"
 
@@ -144,6 +146,20 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     _stack->addWidget(_options);
     _stack->addWidget(_editorContainer);
     setCentralWidget(_stack);
+
+    // Recouvrement de pause (LOT-59 TACHE-02) : enfant de _stack (même parent que
+    // _editorContainer, un conteneur de fenêtre native), jamais une page -- _stack::addWidget()
+    // n'en sait rien, sa géométrie et sa visibilité sont gérées à la main (syncOverlayGeometry,
+    // applyScreenDressing). C'est le patron documenté par Qt pour superposer un widget à un
+    // QWidget::createWindowContainer : un widget descendant du conteneur ne s'afficherait jamais
+    // par-dessus la fenêtre native qu'il embarque.
+    _pauseScreen = new PauseScreen(_stack);
+    _pauseScreen->hide();
+    connect(_pauseScreen, &PauseScreen::resumeRequested, this, &MainWindow::resumeFromPause);
+    connect(_pauseScreen, &PauseScreen::restartRequested, this, &MainWindow::restartFromPause);
+    connect(_pauseScreen, &PauseScreen::optionsRequested, this, &MainWindow::showOptions);
+    connect(_pauseScreen, &PauseScreen::quitToMenuRequested, this, &MainWindow::quitPauseToMenu);
+    connect(_viewport, &GameViewport::pauseRequested, this, &MainWindow::openPause);
 
     buildUi();  // contenu des docks (panneaux) + branchement des actions de la barre de menus.
 
@@ -372,8 +388,24 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
         case ScreenId::Pause:
         case ScreenId::NiveauTermine:
             _stack->setCurrentWidget(_editorContainer);
-            _editorContainer->setFocus();
             break;
+    }
+
+    // Recouvrement de pause (LOT-59 TACHE-02) : visible et au premier plan seulement sur cet
+    // écran -- jamais une page de _stack (la scène doit rester dessinée derrière, cf. le
+    // commentaire de construction de _pauseScreen). Ne touche jamais à l'état de pause du
+    // viewport lui-même (GameViewport::pauseSimulation/resumeSimulation) : c'est le rôle exclusif
+    // de openPause/resumeFromPause/restartFromPause/quitPauseToMenu, jamais un effet de bord de
+    // l'affichage -- une visite par Options (Pause -> Options -> Pause) ne doit pas reprendre puis
+    // re-suspendre la simulation.
+    const bool showPauseOverlay = screen == ScreenId::Pause;
+    _pauseScreen->setVisible(showPauseOverlay);
+    if (showPauseOverlay) {
+        syncOverlayGeometry();
+        _pauseScreen->raise();
+        _pauseScreen->focusDefaultAction();
+    } else if (screen == ScreenId::Editor || screen == ScreenId::Game) {
+        _editorContainer->setFocus();
     }
 
     const ScreenDressing dressing = hmi::dressingFor(screen);
@@ -385,6 +417,53 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
     setMenuGamepadActive(dressing.gamepadNavigationActive);
     _statusMessageTimer->stop();
     refreshStatusHelp();
+}
+
+void MainWindow::syncOverlayGeometry() {
+    _pauseScreen->setGeometry(_stack->rect());
+}
+
+void MainWindow::resizeEvent(QResizeEvent* event) {
+    QMainWindow::resizeEvent(event);
+    syncOverlayGeometry();
+}
+
+void MainWindow::openPause() {
+    if (!transitionScreen(ScreenEvent::OpenPause)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : pause.");
+    _viewport->pauseSimulation();
+}
+
+void MainWindow::resumeFromPause() {
+    if (!transitionScreen(ScreenEvent::ResumePause)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : reprise depuis la pause.");
+    _viewport->resumeSimulation();
+}
+
+void MainWindow::restartFromPause() {
+    if (!transitionScreen(ScreenEvent::RestartFromPause)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : niveau redemarre depuis la pause.");
+    _viewport->resumeSimulation();
+    _viewport->restartCurrentLevel();
+}
+
+void MainWindow::quitPauseToMenu() {
+    const QMessageBox::StandardButton answer = QMessageBox::question(
+        this, text("pause.quit_confirm_title"), text("pause.quit_confirm_text"));
+    if (answer != QMessageBox::Yes) {
+        return;
+    }
+    if (!transitionScreen(ScreenEvent::QuitPauseToMenu)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : partie abandonnee depuis la pause, retour au menu.");
+    _viewport->quitGame();
 }
 
 void MainWindow::showMenu() {
@@ -1002,11 +1081,14 @@ void MainWindow::pollMenuGamepad() {
     if (_menuPadInput.gamepadButtonPressed(GamepadButton::A)) {
         post(Qt::Key_Return, Qt::NoModifier);
     }
-    // B : retour contextuel (depuis Options vers son écran d'origine), sans quitter depuis le
-    // menu principal.
-    if (_menuPadInput.gamepadButtonPressed(GamepadButton::B) &&
-        _screenState.screen == ScreenId::Options) {
-        closeOptions();
+    // B : retour contextuel (depuis Options vers son écran d'origine, ou reprise depuis la pause
+    // -- LOT-59 TACHE-02), sans quitter depuis le menu principal.
+    if (_menuPadInput.gamepadButtonPressed(GamepadButton::B)) {
+        if (_screenState.screen == ScreenId::Options) {
+            closeOptions();
+        } else if (_screenState.screen == ScreenId::Pause) {
+            resumeFromPause();
+        }
     }
 
     _menuPadInput.beginFrame();
@@ -1398,6 +1480,7 @@ void MainWindow::retranslateUi() {
 
     // Panneaux et pages (chacun retraduit son propre contenu depuis le catalogue).
     _menu->retranslateUi(_loc);
+    _pauseScreen->retranslateUi(_loc);
     _options->retranslateUi(_loc);
     _palette->retranslateUi(_loc);
     _decors->retranslateUi(_loc);

@@ -45,6 +45,7 @@ class EditorActions;
 class GameViewport;
 class MainMenu;
 class OptionsPage;
+class PauseScreen;
 class PalettePanel;
 class LevelBrowserPanel;
 class LinkPanel;
@@ -76,6 +77,9 @@ public:
 protected:
     /// Sauvegarde la disposition avant fermeture.
     void closeEvent(QCloseEvent* event) override;
+    /// Resynchronise la géométrie des recouvrements d'écran (`_pauseScreen`, `LOT-59` TACHE-02) --
+    /// simples enfants de `_stack`, jamais des pages, donc jamais redimensionnés par lui.
+    void resizeEvent(QResizeEvent* event) override;
 
 private:
     /// Crée les panneaux (contenu des docks du `.ui`) et branche les actions de la barre de menus.
@@ -184,6 +188,20 @@ private:
     /// pure) puis applique l'habillage générique de @p screen (`hmi::dressingFor`) : docks,
     /// barres, commandes d'édition, navigation manette, minuteur de statut.
     void applyScreenDressing(hmi::ScreenId screen);
+    /// Positionne `_pauseScreen` pour recouvrir exactement `_stack` (`LOT-59` TACHE-02) --
+    /// appelé à la création et à chaque redimensionnement (`resizeEvent`).
+    void syncOverlayGeometry();
+
+    // Écran de pause (LOT-59 TACHE-02).
+    /// `Échap`/bouton manette B en jeu réel (`GameViewport::pauseRequested`) : ouvre la pause.
+    void openPause();
+    /// « Reprendre » (bouton, `Échap`, ou B manette depuis la pause) : reprend la simulation.
+    void resumeFromPause();
+    /// « Recommencer le niveau » depuis la pause : même chemin que le redémarrage après échec.
+    void restartFromPause();
+    /// « Quitter vers le menu » depuis la pause : demande confirmation (perd la progression du
+    /// tableau en cours), puis abandonne la partie si confirmé.
+    void quitPauseToMenu();
 
     /// Traduit la manette en navigation de focus Qt (menus/options) : appelé par `_menuNavTimer`.
     void pollMenuGamepad();
@@ -198,7 +216,11 @@ private:
     MainMenu* _menu;            ///< Menu principal (page d'accueil).
     OptionsPage* _options;      ///< Page Options à onglets.
     QWidget* _editorContainer;  ///< Conteneur natif du viewport (page éditeur/jeu).
-    GameViewport* _viewport;    ///< Surface de rendu D3D11 (possédée par le conteneur central).
+    /// Recouvrement de pause (`LOT-59` TACHE-02) : enfant de `_stack`, jamais une page -- ce qui
+    /// permet à la scène de rester dessinée derrière lui. Géométrie synchronisée manuellement
+    /// (`syncOverlayGeometry`), visibilité pilotée par `applyScreenDressing`.
+    PauseScreen* _pauseScreen = nullptr;
+    GameViewport* _viewport;  ///< Surface de rendu D3D11 (possédée par le conteneur central).
     /// Contexte d'édition actif, cible d'Annuler/Refaire/Copier/Coller (`LOT-57` TACHE-04) : `
     /// _viewport` (niveau) ou `_pixelCanvas` (atelier pixel art, `LOT-54` TACHE-04), selon le
     /// widget qui a le focus clavier (`updateActiveEditContext`) — le dispatch lui-même ne change

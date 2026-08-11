@@ -10,6 +10,15 @@ menu.edit_mode = Mode Édition
 menu.options = Options
 menu.quit = Quitter
 
+# Écran de pause (LOT-59 TACHE-02)
+pause.title = Pause
+pause.resume = Reprendre
+pause.restart = Recommencer le niveau
+pause.options = Options
+pause.quit_to_menu = Quitter vers le menu
+pause.quit_confirm_title = Quitter vers le menu ?
+pause.quit_confirm_text = La progression du tableau en cours sera perdue. Quitter vers le menu ?
+
 # Fenetre principale et barre de menus
 window.title = ProjectGaming — Éditeur
 menubar.application = Application

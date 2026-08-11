@@ -9,6 +9,15 @@ menu.edit_mode = Edit Mode
 menu.options = Options
 menu.quit = Quit
 
+# Pause screen (LOT-59 TACHE-02)
+pause.title = Pause
+pause.resume = Resume
+pause.restart = Restart Level
+pause.options = Options
+pause.quit_to_menu = Quit to Menu
+pause.quit_confirm_title = Quit to menu?
+pause.quit_confirm_text = Progress on the current level will be lost. Quit to menu?
+
 # Main window and menu bar
 window.title = ProjectGaming — Editor
 menubar.application = Application

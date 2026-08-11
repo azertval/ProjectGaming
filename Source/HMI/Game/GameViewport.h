@@ -203,6 +203,27 @@ public:
     /// ou la fin de la séquence émet `exitToMenuRequested`.
     void startGame(std::vector<std::filesystem::path> levels);
 
+    /// Suspend la simulation (écran de pause, `LOT-59` TACHE-02) : `tick()` cesse d'alimenter
+    /// l'accumulateur de pas fixe -- aucun pas n'est consommé pendant la pause (`EX-GP-041`). Le
+    /// rendu continue (la scène reste dessinée derrière l'écran de pause).
+    void pauseSimulation() noexcept;
+    /// Reprend la simulation après `pauseSimulation()` : réarme l'horloge de référence
+    /// (`_previousFrame`) sur l'instant courant, faute de quoi le temps passé en pause serait
+    /// rattrapé d'un coup au pas suivant (piège documenté par TACHE-02).
+    void resumeSimulation();
+    /// @return true si la simulation est actuellement suspendue (`pauseSimulation`).
+    [[nodiscard]] bool simulationPaused() const noexcept {
+        return _paused;
+    }
+    /// Recharge le niveau en cours (personnage à l'entrée, mécanismes et budgets remis) -- même
+    /// chemin que le redémarrage après échec (`EX-GP-032`, `GameSession::reload`), jamais un
+    /// second. Sans effet hors partie/essai (aucune session active).
+    void restartCurrentLevel();
+    /// Abandonne la partie en cours (« Quitter vers le menu » depuis la pause, `LOT-59` TACHE-02,
+    /// après confirmation côté appelant) : même nettoyage que l'ancienne sortie directe par
+    /// `Échap`, désormais déclenchée par l'écran de pause plutôt que par la touche elle-même.
+    void quitGame() noexcept;
+
     /// Active/désactive la synchronisation verticale (`EX-REN-022`) ; appliqué au device D3D11.
     void setVSync(bool enabled) noexcept;
     /// @return true si la V-Sync est active.
@@ -381,8 +402,13 @@ public:
 signals:
     /// Message d'état à afficher (enregistrement, essai, erreur de validation…).
     void statusMessage(const QString& message);
-    /// Demande de retour au menu principal (fin de partie ou `Échap` en mode jeu).
+    /// Demande de retour au menu principal (fin de la séquence de niveaux -- plus depuis `LOT-59`
+    /// TACHE-02 sur `Échap` en mode jeu, qui ouvre désormais la pause via `pauseRequested`).
     void exitToMenuRequested();
+    /// `Échap` (ou le bouton `B` manette) en mode jeu réel, hors pause : demande l'ouverture de
+    /// l'écran de pause (`LOT-59` TACHE-02, `EX-GP-041`) -- jamais en essai depuis l'éditeur
+    /// (`stopPlaytest` garde son propre chemin, inchangé).
+    void pauseRequested();
     /// Le brouillon vient d'être modifié (peinture, undo/redo, chargement, lien…) — le panneau
     /// « Liens » se resynchronise dessus (`refresh`).
     void draftChanged();
@@ -595,6 +621,9 @@ private:
     bool _vsync = true;      ///< Synchronisation verticale (appliquée au device D3D11).
     bool _gameMode = false;  ///< La session courante est une **partie** (menu Jouer) et
                              ///< non un essai depuis l'éditeur (enchaînement/retour menu).
+    /// Écran de pause affiché (`LOT-59` TACHE-02) : `tick()` n'avance plus l'accumulateur de pas
+    /// fixe tant que c'est vrai -- le rendu, lui, continue.
+    bool _paused = false;
     std::vector<std::filesystem::path> _gameLevels;  ///< Séquence de niveaux du mode jeu.
     std::size_t _gameLevel = 0;                      ///< Indice du niveau courant dans la séquence.
 
