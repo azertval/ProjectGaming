@@ -24,6 +24,14 @@ l'UI « maison » dessinée quad par quad. `Core` demeure indépendant de la pr�
   dans la simulation depuis `LOT-12` sans avoir jamais été rendues visibles. L'affichage passe par le
   catalogue de traduction (`EX-REN-033`) et n'a aucun effet sur le gameplay (`EX-ARCH-012`).
   Concrétisé en `LOT-52`.
+- \anchor EX-IHM-004 **EX-IHM-004** — Le jeu doit offrir un **écran de pause** (suspendant réellement
+  la simulation, sans consommer de pas de temps fixe) et un **écran de fin de niveau**, navigables
+  au clavier, à la souris et à la manette comme le reste de l'interface, et passant par le catalogue
+  de traduction (`EX-REN-033`). Détaille `EX-REN-031` du côté de l'interface. Prévu en `LOT-59`.
+- \anchor EX-IHM-005 **EX-IHM-005** — Le menu principal doit distinguer **reprendre** une partie
+  (`EX-LVL-014`), en **commencer une nouvelle** et **choisir un niveau** parmi ceux déjà atteints.
+  Un niveau **hors séquence** (créé dans l'éditeur) doit être jouable sans passer par l'essai de
+  l'éditeur, et sans modifier la progression de la séquence. Prévu en `LOT-59`.
 
 ## 2. Éditeur
 - \anchor EX-IHM-010 **EX-IHM-010** — L'éditeur de niveaux doit se présenter en **fenêtre à panneaux

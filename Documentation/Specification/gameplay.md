@@ -73,6 +73,14 @@ Le niveau est une **grille de tuiles** de taille fixe : **16 × 16 px** par tuil
 - \anchor EX-GP-023 **EX-GP-023** (⚠️ optionnel MVP) — Une **clé** collectée doit ouvrir une **porte verrouillée** correspondante.
 - \anchor EX-GP-024 **EX-GP-024** — Un **tableau** peut **limiter** le nombre de **sauts** et/ou de **dashs** disponibles (budget de mouvements, défini par le niveau) ; à budget épuisé, l'action est **refusée**. Le budget est **réinitialisé** au (re)chargement du niveau. Contrainte de **puzzle**.
 - \anchor EX-GP-025 **EX-GP-025** — Une **plaque de pression** doit maintenir la porte liée **ouverte** tant qu'un poids suffisant y repose, et la **refermer** dès qu'il en repart — activation **continue**, à la différence de l'interrupteur à bascule (`EX-GP-020`), dont le comportement n'est pas affecté.
+- \anchor EX-GP-026 **EX-GP-026** — Une **plateforme mobile** doit parcourir un trajet entre **deux
+  points** à vitesse constante, en **portant** le personnage et les blocs poussables (`EX-GP-022`)
+  qui reposent dessus, sans traversée (`EX-GP-014`), sans glissement cumulé ni décollement. Sa
+  position est fonction du **numéro de pas** de simulation — jamais d'une accumulation ni du temps
+  réel — de sorte que le déterminisme (`EX-NFR-002`) soit préservé. L'ordre de résolution dans le pas
+  (déplacer les plateformes, porter les entités posées, appliquer la physique du personnage) est
+  **documenté et testé** ; le cas d'écrasement contre un plafond est tranché explicitement. Prévu en
+  `LOT-63`.
 
 Chaque mécanisme est déterministe : à état d'entrée identique, comportement identique (facilite tests et rejouabilité).
 
