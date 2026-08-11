@@ -309,6 +309,21 @@ else()
         "UnitTests : Qt6 introuvable -- test d'encodage/decodage d'image (LOT-54) ignore.")
 endif()
 
+# Le moteur audio (LOT-60 TACHE-01) enveloppe QSoundEffect (Qt Multimedia) : sa dependance a la
+# bibliotheque n'est testable qu'avec le module present. Ajoute conditionnellement, meme garde que
+# Qt6::Gui/TextureLoader.cpp ci-dessus -- sur un poste sans le module, UnitTests continue de se
+# configurer et de construire (DoD de la tache-01 : testable sans Qt6::Multimedia).
+find_package(Qt6 QUIET COMPONENTS Multimedia)
+if(Qt6_FOUND AND TARGET Qt6::Multimedia)
+    target_sources(UnitTests PRIVATE
+        Unit/HMI/Audio/test_audio_engine.cpp
+        ../HMI/Audio/AudioEngine.cpp)
+    target_link_libraries(UnitTests PRIVATE Qt6::Multimedia)
+else()
+    message(STATUS
+        "UnitTests : Qt6::Multimedia introuvable -- test du moteur audio (LOT-60) ignore.")
+endif()
+
 target_link_libraries(UnitTests PRIVATE
     Core
     GTest::gtest_main

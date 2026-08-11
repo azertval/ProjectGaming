@@ -60,7 +60,7 @@ if(_qt_hints)
     list(APPEND CMAKE_PREFIX_PATH ${_qt_hints})
 endif()
 
-find_package(Qt6 QUIET COMPONENTS Widgets Gui)
+find_package(Qt6 QUIET COMPONENTS Widgets Gui Multimedia)
 if(NOT Qt6_FOUND)
     # Avertissement et non simple statut : sans Qt il n'y a **aucun exécutable**, seulement les
     # tests. Passer inaperçu est précisément ce qui rendait l'absence d'exe difficile à diagnostiquer.
@@ -137,6 +137,8 @@ add_executable(ProjectGaming
     Game/GameHud.cpp
     # Localisation
     Localization/Localization.cpp
+    # Audio (bruitages, LOT-60)
+    Audio/AudioEngine.cpp
     # Diagnostics (enregistrement des journaux de session)
     Diagnostics/SessionLog.cpp
     # Interface (fenêtre, menu, options, remappage)
@@ -220,6 +222,7 @@ target_link_libraries(ProjectGaming PRIVATE
     Core
     Qt6::Widgets
     Qt6::Gui
+    Qt6::Multimedia
     d3d11
     dxgi
     d3dcompiler
