@@ -792,11 +792,18 @@ void GameViewport::tick() {
         const float fixedDelta = _timestep.fixedDeltaSeconds();
         for (int step = 0; step < steps; ++step) {
             if (_session && _session->update(_input, fixedDelta) == core::LevelOutcome::Won) {
+                _input.beginFrame();
                 if (_gameMode) {
-                    loadGameLevel(_gameLevel + 1);  // enchaîne le niveau suivant de la séquence
+                    // Fige la scène et signale la réussite : c'est l'écran de fin de niveau qui
+                    // décide (Continuer/Rejouer), le joueur valide -- plus d'enchaînement
+                    // automatique (LOT-59 TACHE-03). `break` immédiat : ne pas avancer les pas
+                    // restants de ce tick sur un niveau déjà gagné.
+                    pauseSimulation();
+                    emit levelSucceeded();
                 } else {
                     stopPlaytest();  // essai éditeur : retour à l'édition
                 }
+                break;
             }
             _input.beginFrame();
         }
@@ -1137,6 +1144,21 @@ void GameViewport::quitGame() noexcept {
     _gameMode = false;
     _paused = false;
     _session.reset();
+}
+
+bool GameViewport::isLastGameLevel() const noexcept {
+    return _gameLevel + 1 >= _gameLevels.size();
+}
+
+std::string GameViewport::currentGameLevelName() const {
+    if (!_gameMode || _gameLevel >= _gameLevels.size()) {
+        return {};
+    }
+    return _gameLevels[_gameLevel].stem().string();
+}
+
+void GameViewport::advanceToNextLevel() {
+    loadGameLevel(_gameLevel + 1);
 }
 
 void GameViewport::startGame(std::vector<std::filesystem::path> levels) {

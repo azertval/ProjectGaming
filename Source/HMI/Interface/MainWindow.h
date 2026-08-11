@@ -46,6 +46,7 @@ class GameViewport;
 class MainMenu;
 class OptionsPage;
 class PauseScreen;
+class LevelCompleteScreen;
 class PalettePanel;
 class LevelBrowserPanel;
 class LinkPanel;
@@ -203,6 +204,21 @@ private:
     /// tableau en cours), puis abandonne la partie si confirmé.
     void quitPauseToMenu();
 
+    // Écran de fin de niveau et de fin de séquence (LOT-59 TACHE-03).
+    /// `GameViewport::levelSucceeded` : configure `_levelCompleteScreen` (nom du tableau, variante
+    /// fin de séquence via `GameViewport::isLastGameLevel`) puis ouvre l'écran.
+    void openLevelComplete();
+    /// « Continuer » : charge le tableau suivant de la séquence. Absent (bouton masqué) en fin de
+    /// séquence -- jamais atteint sur le dernier tableau.
+    void continueFromLevelComplete();
+    /// « Rejouer » : recharge le tableau qui vient d'être terminé (même chemin que le redémarrage
+    /// après échec/depuis la pause).
+    void replayFromLevelComplete();
+    /// « Retour au menu » depuis l'écran de fin de niveau ou de fin de séquence : abandonne la
+    /// partie, sans confirmation (contrairement à la pause : le tableau vient d'être réussi, rien
+    /// n'est perdu).
+    void returnToMenuFromLevelComplete();
+
     /// Traduit la manette en navigation de focus Qt (menus/options) : appelé par `_menuNavTimer`.
     void pollMenuGamepad();
     /// Active/désactive la navigation manette des menus (inactive en jeu/édition).
@@ -220,6 +236,10 @@ private:
     /// permet à la scène de rester dessinée derrière lui. Géométrie synchronisée manuellement
     /// (`syncOverlayGeometry`), visibilité pilotée par `applyScreenDressing`.
     PauseScreen* _pauseScreen = nullptr;
+    /// Recouvrement de fin de niveau/séquence (`LOT-59` TACHE-03) : même patron que
+    /// `_pauseScreen` -- enfant de `_stack`, jamais une page, géométrie synchronisée
+    /// manuellement.
+    LevelCompleteScreen* _levelCompleteScreen = nullptr;
     GameViewport* _viewport;  ///< Surface de rendu D3D11 (possédée par le conteneur central).
     /// Contexte d'édition actif, cible d'Annuler/Refaire/Copier/Coller (`LOT-57` TACHE-04) : `
     /// _viewport` (niveau) ou `_pixelCanvas` (atelier pixel art, `LOT-54` TACHE-04), selon le

@@ -65,6 +65,7 @@
 #include "HMI/Interface/ApplicationTheme.h"
 #include "HMI/Interface/DesignTokens.h"
 #include "HMI/Interface/EditorActions.h"
+#include "HMI/Interface/LevelCompleteScreen.h"
 #include "HMI/Interface/MainMenu.h"
 #include "HMI/Interface/OptionsPage.h"
 #include "HMI/Interface/PauseScreen.h"
@@ -160,6 +161,18 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_pauseScreen, &PauseScreen::optionsRequested, this, &MainWindow::showOptions);
     connect(_pauseScreen, &PauseScreen::quitToMenuRequested, this, &MainWindow::quitPauseToMenu);
     connect(_viewport, &GameViewport::pauseRequested, this, &MainWindow::openPause);
+
+    // Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même patron que _pauseScreen
+    // ci-dessus (widget frère de _editorContainer, jamais une page de _stack).
+    _levelCompleteScreen = new LevelCompleteScreen(_stack);
+    _levelCompleteScreen->hide();
+    connect(_levelCompleteScreen, &LevelCompleteScreen::continueRequested, this,
+            &MainWindow::continueFromLevelComplete);
+    connect(_levelCompleteScreen, &LevelCompleteScreen::replayRequested, this,
+            &MainWindow::replayFromLevelComplete);
+    connect(_levelCompleteScreen, &LevelCompleteScreen::returnToMenuRequested, this,
+            &MainWindow::returnToMenuFromLevelComplete);
+    connect(_viewport, &GameViewport::levelSucceeded, this, &MainWindow::openLevelComplete);
 
     buildUi();  // contenu des docks (panneaux) + branchement des actions de la barre de menus.
 
@@ -404,7 +417,21 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
         syncOverlayGeometry();
         _pauseScreen->raise();
         _pauseScreen->focusDefaultAction();
-    } else if (screen == ScreenId::Editor || screen == ScreenId::Game) {
+    }
+
+    // Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même règle que _pauseScreen
+    // ci-dessus -- `openLevelComplete` a déjà appelé `_levelCompleteScreen->configure(...)` avant
+    // cette transition, ici on ne fait que (dé)montrer.
+    const bool showLevelCompleteOverlay = screen == ScreenId::NiveauTermine;
+    _levelCompleteScreen->setVisible(showLevelCompleteOverlay);
+    if (showLevelCompleteOverlay) {
+        syncOverlayGeometry();
+        _levelCompleteScreen->raise();
+        _levelCompleteScreen->focusDefaultAction();
+    }
+
+    if (!showPauseOverlay && !showLevelCompleteOverlay &&
+        (screen == ScreenId::Editor || screen == ScreenId::Game)) {
         _editorContainer->setFocus();
     }
 
@@ -421,6 +448,7 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
 
 void MainWindow::syncOverlayGeometry() {
     _pauseScreen->setGeometry(_stack->rect());
+    _levelCompleteScreen->setGeometry(_stack->rect());
 }
 
 void MainWindow::resizeEvent(QResizeEvent* event) {
@@ -463,6 +491,54 @@ void MainWindow::quitPauseToMenu() {
         return;
     }
     HMI_LOG_INFO("Navigation : partie abandonnee depuis la pause, retour au menu.");
+    _viewport->quitGame();
+}
+
+void MainWindow::openLevelComplete() {
+    // Configure AVANT la transition (`applyScreenDressing` ne fait que montrer/masquer l'écran
+    // déjà configuré) : le nom du tableau et la variante dépendent du tableau qui vient d'être
+    // réussi, interrogé pendant qu'il est encore courant (GameViewport::_gameLevel n'avance qu'à
+    // `advanceToNextLevel`/`replayFromLevelComplete`).
+    //
+    // TODO(LOT-59 TACHE-05) : marquer le tableau comme terminé dans la progression persistée,
+    // ici, une seule fois par réussite -- avant tout chargement du tableau suivant. Pas encore
+    // implémentable : `hmi::Progression` n'existe pas avant cette tâche.
+    const bool sequenceComplete = _viewport->isLastGameLevel();
+    _levelCompleteScreen->configure(sequenceComplete,
+                                    QString::fromStdString(_viewport->currentGameLevelName()));
+    if (!transitionScreen(ScreenEvent::LevelSucceeded)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : tableau reussi.");
+}
+
+void MainWindow::continueFromLevelComplete() {
+    if (!transitionScreen(ScreenEvent::ContinueAfterLevel)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : tableau suivant.");
+    // `openLevelComplete` a fige la simulation (GameViewport::pauseSimulation) pour figer la scene
+    // derriere l'ecran -- la reprendre avant de charger le tableau suivant, sinon _paused reste
+    // vrai et tick() ne fait plus jamais avancer la nouvelle session (meme piege que
+    // restartFromPause, TACHE-02).
+    _viewport->resumeSimulation();
+    _viewport->advanceToNextLevel();
+}
+
+void MainWindow::replayFromLevelComplete() {
+    if (!transitionScreen(ScreenEvent::ReplayLevel)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : tableau rejoue depuis l'ecran de fin de niveau.");
+    _viewport->resumeSimulation();  // cf. continueFromLevelComplete : meme necessite de reprise.
+    _viewport->restartCurrentLevel();
+}
+
+void MainWindow::returnToMenuFromLevelComplete() {
+    if (!transitionScreen(ScreenEvent::ReturnToMenuFromLevelComplete)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : retour au menu depuis l'ecran de fin de niveau/sequence.");
     _viewport->quitGame();
 }
 
@@ -1481,6 +1557,7 @@ void MainWindow::retranslateUi() {
     // Panneaux et pages (chacun retraduit son propre contenu depuis le catalogue).
     _menu->retranslateUi(_loc);
     _pauseScreen->retranslateUi(_loc);
+    _levelCompleteScreen->retranslateUi(_loc);
     _options->retranslateUi(_loc);
     _palette->retranslateUi(_loc);
     _decors->retranslateUi(_loc);

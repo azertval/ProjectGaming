@@ -18,6 +18,13 @@ pause.quit_to_menu = Quit to Menu
 pause.quit_confirm_title = Quit to menu?
 pause.quit_confirm_text = Progress on the current level will be lost. Quit to menu?
 
+# Level complete and sequence complete screen (LOT-59 TACHE-03)
+level_complete.title_level = Level complete: %1
+level_complete.title_sequence = Sequence complete!
+level_complete.continue = Continue
+level_complete.replay = Replay
+level_complete.return_to_menu = Return to Menu
+
 # Main window and menu bar
 window.title = ProjectGaming — Editor
 menubar.application = Application

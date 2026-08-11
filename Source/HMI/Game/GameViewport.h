@@ -223,6 +223,18 @@ public:
     /// après confirmation côté appelant) : même nettoyage que l'ancienne sortie directe par
     /// `Échap`, désormais déclenchée par l'écran de pause plutôt que par la touche elle-même.
     void quitGame() noexcept;
+    /// @return true si le tableau qui vient d'être réussi (`levelSucceeded`) est le **dernier**
+    ///         de la séquence -- choisit l'habillage de l'écran de fin de niveau (`LOT-59`
+    ///         TACHE-03) : fin de tableau (Continuer/Rejouer) ou fin de séquence (retour menu).
+    [[nodiscard]] bool isLastGameLevel() const noexcept;
+    /// @return Le nom (fichier sans extension) du tableau qui vient d'être réussi, pour
+    ///         l'affichage de l'écran de fin de niveau. Chaîne vide hors partie réelle.
+    [[nodiscard]] std::string currentGameLevelName() const;
+    /// « Continuer » depuis l'écran de fin de niveau (`LOT-59` TACHE-03) : charge le tableau
+    /// suivant de la séquence -- reprend l'ancien enchaînement automatique sur réussite, mais sur
+    /// validation du joueur plutôt qu'immédiatement. Sans effet si le tableau réussi était déjà
+    /// le dernier (`isLastGameLevel`) : l'écran ne propose alors pas ce bouton.
+    void advanceToNextLevel();
 
     /// Active/désactive la synchronisation verticale (`EX-REN-022`) ; appliqué au device D3D11.
     void setVSync(bool enabled) noexcept;
@@ -409,6 +421,11 @@ signals:
     /// l'écran de pause (`LOT-59` TACHE-02, `EX-GP-041`) -- jamais en essai depuis l'éditeur
     /// (`stopPlaytest` garde son propre chemin, inchangé).
     void pauseRequested();
+    /// Le tableau courant vient d'être réussi, en partie réelle (`LOT-59` TACHE-03) : la
+    /// simulation est déjà figée (`pauseSimulation`) quand ce signal part -- c'est l'écran de fin
+    /// de niveau qui décide de la suite (`isLastGameLevel` choisit son habillage). Jamais émis en
+    /// essai depuis l'éditeur (`stopPlaytest` garde son propre chemin, inchangé).
+    void levelSucceeded();
     /// Le brouillon vient d'être modifié (peinture, undo/redo, chargement, lien…) — le panneau
     /// « Liens » se resynchronise dessus (`refresh`).
     void draftChanged();
