@@ -171,15 +171,20 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
             &MainWindow::playPersonalLevel);
 
     // Recouvrement de pause (LOT-59 TACHE-02) : fenêtre de HAUT NIVEAU possédée par `this`
-    // (Qt::Tool -- pas d'entrée dans la barre des tâches, reste au-dessus de son propriétaire sans
-    // Qt::WindowStaysOnTopHint), PAS un enfant de _stack. Un widget Qt ordinaire, même frère du
-    // conteneur natif du viewport (_editorContainer, QWidget::createWindowContainer), ne se
-    // dessine JAMAIS de façon fiable par-dessus la fenêtre native qu'il embarque, quel que soit son
-    // raise() -- limitation documentée de Qt, constatée en jeu (TACHE-07 : l'écran ne s'affichait
-    // pas, la simulation restait figée sans rien à l'écran). Géométrie synchronisée en coordonnées
-    // ÉCRAN (syncOverlayGeometry), pas relative à _stack.
+    // (Qt::Dialog -- pas d'entrée dans la barre des tâches vu qu'elle a un propriétaire, reste
+    // au-dessus de lui sans Qt::WindowStaysOnTopHint), PAS un enfant de _stack. Un widget Qt
+    // ordinaire, même frère du conteneur natif du viewport (_editorContainer,
+    // QWidget::createWindowContainer), ne se dessine JAMAIS de façon fiable par-dessus la fenêtre
+    // native qu'il embarque, quel que soit son raise() -- limitation documentée de Qt, constatée
+    // en jeu (TACHE-07 : l'écran ne s'affichait pas, la simulation restait figée sans rien à
+    // l'écran). PAS Qt::Tool (essayé d'abord, décrit ci-dessous) : sur Windows, Qt affiche une
+    // fenêtre Qt::Tool avec SW_SHOWNOACTIVATE -- par conception, pour les palettes flottantes qui
+    // ne doivent jamais voler le focus -- ce qui empêche `activateWindow()` de fonctionner
+    // (deuxième bug réel trouvé en jeu : Entrée/Échap restaient sans effet). Qt::Dialog n'a pas
+    // cette restriction, une fenêtre de dialogue étant conçue pour recevoir le focus normalement.
+    // Géométrie synchronisée en coordonnées ÉCRAN (syncOverlayGeometry), pas relative à _stack.
     _pauseScreen = new PauseScreen(this);
-    _pauseScreen->setWindowFlags(Qt::Tool | Qt::FramelessWindowHint);
+    _pauseScreen->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     _pauseScreen->setAttribute(Qt::WA_TranslucentBackground);
     _pauseScreen->hide();
     connect(_pauseScreen, &PauseScreen::resumeRequested, this, &MainWindow::resumeFromPause);
@@ -189,9 +194,9 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_viewport, &GameViewport::pauseRequested, this, &MainWindow::openPause);
 
     // Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même patron que _pauseScreen
-    // ci-dessus (fenêtre de haut niveau, pas un enfant de _stack).
+    // ci-dessus (fenêtre de haut niveau Qt::Dialog, pas un enfant de _stack).
     _levelCompleteScreen = new LevelCompleteScreen(this);
-    _levelCompleteScreen->setWindowFlags(Qt::Tool | Qt::FramelessWindowHint);
+    _levelCompleteScreen->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     _levelCompleteScreen->setAttribute(Qt::WA_TranslucentBackground);
     _levelCompleteScreen->hide();
     connect(_levelCompleteScreen, &LevelCompleteScreen::continueRequested, this,
