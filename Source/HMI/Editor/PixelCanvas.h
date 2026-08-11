@@ -252,7 +252,7 @@ private:
 
     bool _gestureActive = false;
     DecodedImage _gestureBeforeSnapshot;  ///< Copie de `_image` au début du geste courant.
-    PixelRegion _gestureRegion;  ///< Union des régions touchées depuis le début du geste.
+    PixelRegion _gestureRegion;           ///< Union des régions touchées depuis le début du geste.
     std::optional<std::pair<int, int>> _lastGesturePixel;
     std::optional<std::pair<int, int>> _hoveredPixel;
 
