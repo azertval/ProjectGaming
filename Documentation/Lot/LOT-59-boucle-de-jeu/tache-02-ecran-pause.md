@@ -1,7 +1,7 @@
 # TACHE-02 — Écran de pause et suspension du pas fixe {#lot-59-tache-02-ecran-pause}
 
 **Lot :** [LOT-59](epic.md) · **Emplacement :** `Source/HMI/Interface`, `Source/HMI/Game` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 Échap, en cours de partie, quitte **directement** vers le menu principal. Une pression malheureuse
@@ -59,6 +59,26 @@ Le point délicat n'est pas l'écran : c'est ce que devient la simulation pendan
 - Échap ouvre une pause qui suspend réellement la simulation et la restitue à l'identique ; aucun
   rattrapage au retour ; *Recommencer* réutilise le chemin de redémarrage existant ; navigable
   clavier / souris / manette, traduit ; `/W4 /WX` propre.
+
+## État
+`hmi::PauseScreen` recouvre `_editorContainer` comme un widget **frère** (jamais une page de
+`_stack`) : c'est le patron documenté par Qt pour superposer du contenu à un
+`QWidget::createWindowContainer`, dont la fenêtre native (le viewport D3D11) peint toujours
+par-dessus ses propres descendants Qt. `GameViewport::tick()` cesse d'alimenter l'accumulateur de
+`core::FixedTimestep` pendant la pause, mais continue d'appeler `InputState::beginFrame()` chaque
+image (juste hors de la boucle de pas) pour éviter qu'un bouton manette tenu en ouvrant la pause
+laisse un front périmé qui ferait osciller entrée/sortie à la reprise — piège explicitement anticipé
+par cette tâche, couvert par un test dédié
+(`test_fixed_timestep.cpp::PauseSansAppelNAccumuleAucunPas`).
+
+Manette : bouton **B** plutôt que Start (ce projet n'a pas de bouton Start dans son énumération
+`GamepadButton` remappable ; B est déjà la convention « retour » établie ailleurs dans l'IHM, et
+la tâche accepte « Start / B » comme alternatives).
+
+**Risque connu, non vérifié** : le rendu effectif du recouvrement par-dessus la scène D3D11 n'a pas
+été testé à l'essai manuel (réservé à `TACHE-07` par convention du projet, jamais en cours de
+tâche). Si l'affichage ne correspond pas à l'attendu, chercher du côté de
+`MainWindow::applyScreenDressing`/`syncOverlayGeometry` (ordre de levée au premier plan/géométrie).
 
 ## Exigences
 `EX-IHM-004` (écran de pause) ; lève `EX-REN-031` pour sa partie pause ; réutilise `EX-GP-032`
