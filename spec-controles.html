@@ -117,7 +117,7 @@ $(function(){initNavTree('spec-controles.html','',''); });
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Dash (8 directions)  </td><td class="markdownTableBodyNone">Maj (remappable, <span class="tt">LOT-29</span>)  </td><td class="markdownTableBodyNone">Épaule droite (remappable, <span class="tt">LOT-30</span>)  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Interagir (⚠️ souhaité, non implémenté)  </td><td class="markdownTableBodyNone">E  </td><td class="markdownTableBodyNone">X  </td></tr>
+<td class="markdownTableBodyNone">Interagir (⚠️ non implémenté, prévu en <span class="tt">LOT-63</span> — cf. <span class="tt">EX-CTRL-022</span>)  </td><td class="markdownTableBodyNone">E (remappable)  </td><td class="markdownTableBodyNone">X (remappable)  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Quitter vers le menu (jeu)  </td><td class="markdownTableBodyNone">Échap  </td><td class="markdownTableBodyNone">B / Start  </td></tr>
 <tr class="markdownTableRowOdd">
@@ -130,6 +130,7 @@ $(function(){initNavTree('spec-controles.html','',''); });
 <li><a class="anchor" id="EX-CTRL-011"></a><b>EX-CTRL-011</b> — L'état d'une action doit distinguer <b>pressée</b>, <b>maintenue</b> et <b>relâchée</b> dans une frame (nécessaire au <em>jump buffering</em>).</li>
 <li><a class="anchor" id="EX-CTRL-012"></a><b>EX-CTRL-012</b> — Le mapping doit être <b>reconfigurable</b> (au minimum via un fichier de configuration). Implémenté pour un sous-ensemble d'actions de jeu et d'éditeur, clavier (<span class="tt">LOT-29</span>) et manette (<span class="tt">LOT-30</span>) : Options → Touches de jeu / Touches de l'éditeur / Touches de la manette, persistance dans <span class="tt">Settings/keybindings.json</span>. Les deux sources (clavier, manette) sont remappables indépendamment l'une de l'autre — remapper l'une n'affecte jamais l'autre.</li>
 <li><a class="anchor" id="EX-CTRL-013"></a><b>EX-CTRL-013</b> — Le <b>dash</b> doit être une action logique dédiée (touche par défaut : <b>Maj</b>), sa <b>direction</b> étant donnée par les touches directionnelles (8 directions), à défaut par l'<b>orientation</b> courante du personnage.</li>
+<li><a class="anchor" id="EX-CTRL-022"></a><b>EX-CTRL-022</b> — <b>Interagir</b> doit être une action logique dédiée (défauts : <b>E</b> au clavier, <b>X</b> à la manette), remappable indépendamment sur chaque source (<span class="tt">EX-CTRL-012</span>) et distinguant ses fronts (<span class="tt">EX-CTRL-011</span>). Elle <b>complète</b> l'activation par contact des mécanismes, qu'elle ne remplace pas (<span class="tt">EX-GP-020</span> autorise les deux) : les niveaux livrés restent franchissables à l'identique. Un fichier de remappage antérieur reste lisible, l'action y prenant sa valeur par défaut. Prévu en <span class="tt">LOT-63</span>.</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md216"></a>
 3. Réactivité</h1>

@@ -57,5 +57,13 @@ var dir_7c7356e692772728ab91d19f773c60c4 =
     [ "LOT-55-ombres-plan-physique", "dir_7a4e45b7f381dce287abe833e114faa2.html", null ],
     [ "LOT-56-systeme-design-ihm", "dir_f599109fffcddaabe5e1b1a499b63c5f.html", null ],
     [ "LOT-57-editeur-information", "dir_8816217a880410c96656e6af0bcf2262.html", null ],
-    [ "LOT-58-verification-release-analyse", "dir_689038ff9fbbbf5bcda839b7f01d8d00.html", null ]
+    [ "LOT-58-verification-release-analyse", "dir_689038ff9fbbbf5bcda839b7f01d8d00.html", null ],
+    [ "LOT-59-boucle-de-jeu", "dir_f997f21c882294a2aa6c6faeebe22ec8.html", null ],
+    [ "LOT-60-audio-bruitages", "dir_b23f6b09eeff24aec0cbb2fe6d418880.html", null ],
+    [ "LOT-61-diagnostics-version-publiee", "dir_0f1500e51cc1c8b68888d165e3424d6d.html", null ],
+    [ "LOT-62-budget-rendu-mesure", "dir_c9ecebe556f0d75b88862de955e4a305.html", null ],
+    [ "LOT-63-mecanismes-manquants", "dir_2f09acb92076d55ff1338bea9b4161c0.html", null ],
+    [ "LOT-64-cadrage-camera-choisi", "dir_cef68d7617ab81ad584c944a6d9df8f1.html", null ],
+    [ "LOT-65-refonte-niveaux-demo", "dir_454f6987f77939194d4589233d509782.html", null ],
+    [ "LOT-66-reproductibilite-referentiel", "dir_146ee2ab50310745620b47df046cb628.html", null ]
 ];

@@ -11,7 +11,7 @@ var searchData=
   ['4_20périmètre_20séquencement_8',['4. Périmètre &amp;amp; séquencement',['../spec-decors.html#autotoc_md244',1,'']]],
   ['4_20portabilité_20reproductibilité_9',['4. Portabilité &amp;amp; reproductibilité',['../spec-exigences.html#autotoc_md263',1,'']]],
   ['4_20provisionnement_20ci_20github_20workflows_20ci_20yml_20job_20build_20test_20coverage_10',['4. Provisionnement CI (&lt;span class=&quot;tt&quot;&gt;.github/workflows/ci.yml&lt;/span&gt;, job &lt;span class=&quot;tt&quot;&gt;build-test-coverage&lt;/span&gt;)',['../lot-34-tache-01-provisionnement-qt-build.html#autotoc_md1657',1,'']]],
-  ['4_20publier_20votre_20niveau_11',['4. Publier votre niveau',['../manuel-partager-niveau.html#autotoc_md2616',1,'']]],
+  ['4_20publier_20votre_20niveau_11',['4. Publier votre niveau',['../manuel-partager-niveau.html#autotoc_md2942',1,'']]],
   ['4_20saut_20et_20game_20feel_12',['4. Saut et &lt;em&gt;game feel&lt;/em&gt;',['../guide-physique.html#autotoc_md166',1,'']]],
   ['40_13',['Ne dessiner que ce qui se voit : le culling (&lt;span class=&quot;tt&quot;&gt;LOT-40&lt;/span&gt;)',['../guide-rendu.html#autotoc_md188',1,'']]],
   ['40_20—_20fondations_20_3a_20registre_20de_20textures_20calques_20culling_20testabilité_14',['LOT-40 — Fondations : registre de textures, calques, culling, testabilité',['../lot-40.html',1,'lots']]],

@@ -10,7 +10,7 @@ var searchData=
   ['5_20menus_20options_20unification_7',['5. Menus, options, unification',['../spec-interface-ihm.html#autotoc_md280',1,'']]],
   ['5_20non_20objectifs_20éditeur_20mvp_8',['5. Non-objectifs (éditeur, MVP)',['../spec-editeur.html#autotoc_md252',1,'']]],
   ['5_20provisionnement_20release_20github_20workflows_20release_20yml_9',['5. Provisionnement Release (&lt;span class=&quot;tt&quot;&gt;.github/workflows/release.yml&lt;/span&gt;)',['../lot-34-tache-01-provisionnement-qt-build.html#autotoc_md1658',1,'']]],
-  ['5_20récupérer_20les_20niveaux_20des_20autres_10',['5. Récupérer les niveaux des autres',['../manuel-partager-niveau.html#autotoc_md2617',1,'']]],
+  ['5_20récupérer_20les_20niveaux_20des_20autres_10',['5. Récupérer les niveaux des autres',['../manuel-partager-niveau.html#autotoc_md2943',1,'']]],
   ['5_20robustesse_11',['5. Robustesse',['../spec-exigences.html#autotoc_md264',1,'']]],
   ['50_12',['50',['../guide-rendu.html#autotoc_md193',1,'Manipulation de décors dans l&apos;éditeur (&lt;span class=&quot;tt&quot;&gt;LOT-50&lt;/span&gt;)'],['../lot-49-tache-02-rendu-couches.html#autotoc_md2211',1,'Révision (&lt;span class=&quot;tt&quot;&gt;LOT-50&lt;/span&gt;)']]],
   ['50_20—_20décors_20_3a_20placement_20et_20manipulation_20dans_20l_20éditeur_13',['LOT-50 — Décors : placement et manipulation dans l&apos;éditeur',['../lot-50.html',1,'lots']]],
@@ -29,5 +29,6 @@ var searchData=
   ['58_26',['État de la mesure (LOT-58)',['../lot-58-tache-05-couverture.html#autotoc_md2596',1,'']]],
   ['58_20—_20mode_20local_20sans_20pr_20ni_20push_27',['État de la vérification (LOT-58) — mode local, sans PR ni push',['../lot-58-tache-06-documentation-verification.html#autotoc_md2604',1,'']]],
   ['58_20—_20vérification_20release_20sanitizer_20et_20analyse_20statique_28',['LOT-58 — Vérification Release, sanitizer et analyse statique',['../lot-58.html',1,'lots']]],
-  ['58_20passe_20complète_20sur_20129_20fichiers_20source_20cpp_20hors_20source_20test_29',['État du triage (LOT-58, passe complète sur 129 fichiers &lt;span class=&quot;tt&quot;&gt;Source/*.cpp&lt;/span&gt; hors &lt;span class=&quot;tt&quot;&gt;Source/Test&lt;/span&gt;)',['../lot-58-tache-03-clang-tidy.html#autotoc_md2581',1,'']]]
+  ['58_20passe_20complète_20sur_20129_20fichiers_20source_20cpp_20hors_20source_20test_29',['État du triage (LOT-58, passe complète sur 129 fichiers &lt;span class=&quot;tt&quot;&gt;Source/*.cpp&lt;/span&gt; hors &lt;span class=&quot;tt&quot;&gt;Source/Test&lt;/span&gt;)',['../lot-58-tache-03-clang-tidy.html#autotoc_md2581',1,'']]],
+  ['59_20—_20boucle_20de_20jeu_20complète_20_3a_20pause_20fin_20de_20niveau_20progression_30',['LOT-59 — Boucle de jeu complète : pause, fin de niveau, progression',['../lot-59.html',1,'lots']]]
 ];

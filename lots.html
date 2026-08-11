@@ -98,7 +98,7 @@ $(function(){initNavTree('lots.html','',''); });
 <blockquote class="doxtable">
 <p><b>Exception actée — programme d'habillage <span class="tt">LOT-40</span> → <span class="tt">LOT-55</span>.</b> La règle ci-dessus protège les identifiants <b>livrés</b> : un lot terminé n'est jamais renuméroté, sous peine de rendre fausses toutes les références du CHANGELOG, des commits et des spécifications. Les lots <span class="tt">LOT-40</span> à <span class="tt">LOT-48</span>, <b>tous non commencés</b>, ont été renumérotés <b>une seule fois</b>, lors du recadrage du programme d'habillage, afin que le numéro corresponde à l'ordre d'implémentation réel. Cette exception ne se reproduira pas : à partir de ce recadrage, tout lot planifié conserve son numéro même si son ordre d'exécution change. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2607"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2932"></a>
 Lots</h1>
 <ul>
 <li><a class="el" href="lot-01.html" title="LOT-01 — Fenêtre &amp; boucle de jeu (Direct3D 11)">LOT-01 — Fenêtre &amp; boucle de jeu (Direct3D 11)</a></li>
@@ -158,8 +158,44 @@ Lots</h1>
 <li><a class="el" href="lot-55.html" title="LOT-55 — Ombres du plan physique">LOT-55 — Ombres du plan physique</a></li>
 <li><a class="el" href="lot-56.html" title="LOT-56 — Système de design de l&#39;IHM Qt">LOT-56 — Système de design de l'IHM Qt</a></li>
 <li><a class="el" href="lot-57.html" title="LOT-57 — Architecture de l&#39;information de l&#39;éditeur">LOT-57 — Architecture de l'information de l'éditeur</a></li>
-<li><a class="el" href="lot-58.html" title="LOT-58 — Vérification Release, sanitizer et analyse statique">LOT-58 — Vérification Release, sanitizer et analyse statique</a> </li>
+<li><a class="el" href="lot-58.html" title="LOT-58 — Vérification Release, sanitizer et analyse statique">LOT-58 — Vérification Release, sanitizer et analyse statique</a></li>
+<li><a class="el" href="lot-59.html" title="LOT-59 — Boucle de jeu complète : pause, fin de niveau, progression">LOT-59 — Boucle de jeu complète : pause, fin de niveau, progression</a></li>
+<li><a class="el" href="lot-60.html" title="LOT-60 — Audio : socle et bruitages">LOT-60 — Audio : socle et bruitages</a></li>
+<li><a class="el" href="lot-61.html" title="LOT-61 — Diagnostics d&#39;une version publiée">LOT-61 — Diagnostics d'une version publiée</a></li>
+<li><a class="el" href="lot-62.html" title="LOT-62 — Budget de rendu mesuré">LOT-62 — Budget de rendu mesuré</a></li>
+<li><a class="el" href="lot-63.html" title="LOT-63 — Mécanismes manquants du référentiel">LOT-63 — Mécanismes manquants du référentiel</a></li>
+<li><a class="el" href="lot-64.html" title="LOT-64 — Cadrage de caméra choisi par le level designer">LOT-64 — Cadrage de caméra choisi par le level designer</a></li>
+<li><a class="el" href="lot-65.html" title="LOT-65 — Refonte des niveaux de démonstration">LOT-65 — Refonte des niveaux de démonstration</a></li>
+<li><a class="el" href="lot-66.html" title="LOT-66 — Reproductibilité et référentiel">LOT-66 — Reproductibilité et référentiel</a></li>
 </ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2933"></a>
+Programme <span class="tt">0.1.0</span></h1>
+<p>Les lots <span class="tt">LOT-58</span> à <span class="tt">LOT-66</span>, avec le <span class="tt">LOT-53</span> (cadré de longue date et resté non commencé), forment le programme de la version <b><span class="tt">0.1.0</span></b> : le passage d'un moteur complet à un <b>jeu</b> distribuable. Deux familles s'y répondent — la <b>complétude produit</b> (boucle de jeu, son, effets, mécanismes manquants, cadrage de caméra, refonte des niveaux) et le <b>durcissement d'ingénierie</b> (vérification en Release, sanitizer, analyse statique, diagnostics d'une version publiée, budget de rendu mesuré).</p>
+<p>Ces lots sont numérotés <b>dans leur ordre d'exécution</b>, ce que la règle générale ci-dessus permet puisqu'aucun n'était encore livré au moment de leur cadrage. Seul le <span class="tt">LOT-53</span>, cadré de longue date et déjà publié sous ce numéro, conserve le sien et s'exécute entre le <span class="tt">LOT-60</span> et le <span class="tt">LOT-61</span> : c'est précisément le cas que la règle protège.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Rang  </th><th class="markdownTableHeadNone">Lot  </th><th class="markdownTableHeadNone">Pourquoi à cette place  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">1  </td><td class="markdownTableBodyNone"><a class="el" href="lot-58.html" title="LOT-58 — Vérification Release, sanitizer et analyse statique">LOT-58</a>  </td><td class="markdownTableBodyNone">Le durcissement précède le contenu qu'il doit protéger.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">2  </td><td class="markdownTableBodyNone"><a class="el" href="lot-59.html" title="LOT-59 — Boucle de jeu complète : pause, fin de niveau, progression">LOT-59</a>  </td><td class="markdownTableBodyNone">Tous les autres lots produit se voient à travers ses écrans.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">3  </td><td class="markdownTableBodyNone"><a class="el" href="lot-60.html" title="LOT-60 — Audio : socle et bruitages">LOT-60</a>  </td><td class="markdownTableBodyNone">Le son a besoin d'un écran de fin de niveau où exister.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">4  </td><td class="markdownTableBodyNone"><a class="el" href="lot-53.html" title="LOT-53 — Effets et particules">LOT-53</a>  </td><td class="markdownTableBodyNone">Réutilise les déclencheurs d'événements posés par le <span class="tt">LOT-60</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">5  </td><td class="markdownTableBodyNone"><a class="el" href="lot-61.html" title="LOT-61 — Diagnostics d&#39;une version publiée">LOT-61</a>  </td><td class="markdownTableBodyNone">Indépendant ; requis avant qu'un tiers n'exécute le jeu.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">6  </td><td class="markdownTableBodyNone"><a class="el" href="lot-62.html" title="LOT-62 — Budget de rendu mesuré">LOT-62</a>  </td><td class="markdownTableBodyNone">Mesure le budget une fois tous les émetteurs livrés.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">7  </td><td class="markdownTableBodyNone"><a class="el" href="lot-63.html" title="LOT-63 — Mécanismes manquants du référentiel">LOT-63</a>  </td><td class="markdownTableBodyNone"><b>Découpable</b> : le lot qu'on rogne si le calendrier se tend.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">8  </td><td class="markdownTableBodyNone"><a class="el" href="lot-64.html" title="LOT-64 — Cadrage de caméra choisi par le level designer">LOT-64</a>  </td><td class="markdownTableBodyNone">Le cadrage doit exister avant qu'on refasse les niveaux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">9  </td><td class="markdownTableBodyNone"><a class="el" href="lot-65.html" title="LOT-65 — Refonte des niveaux de démonstration">LOT-65</a>  </td><td class="markdownTableBodyNone">Dernier lot de contenu : exploite tout ce qui précède.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">10  </td><td class="markdownTableBodyNone"><a class="el" href="lot-66.html" title="LOT-66 — Reproductibilité et référentiel">LOT-66</a>  </td><td class="markdownTableBodyNone">Clôt le programme ; les statuts ne se figent qu'à la fin.  </td></tr>
+</table>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

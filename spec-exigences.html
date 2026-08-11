@@ -134,6 +134,7 @@ $(function(){initNavTree('spec-exigences.html','',''); });
 <ul>
 <li><a class="anchor" id="EX-NFR-040"></a><b>EX-NFR-040</b> — Une erreur récupérable (fichier de niveau invalide, ressource manquante) ne doit pas faire planter le jeu : elle est signalée et gérée (cf. politique d'erreurs des conventions).</li>
 <li><a class="anchor" id="EX-NFR-041"></a><b>EX-NFR-041</b> — Les ressources (mémoire, handles DirectX) doivent être gérées en <b>RAII</b> (libération garantie).</li>
+<li><a class="anchor" id="EX-NFR-042"></a><b>EX-NFR-042</b> — Une <b>version publiée</b> doit produire une <b>trace exploitable</b> d'exécution : journal écrit dans un fichier à côté de l'exécutable, contenant au minimum la version, la configuration de build et le contexte matériel (adaptateur graphique, manette). Le volume est <b>borné</b> (taille maximale et rotation), la trace reste <b>locale</b> — aucun envoi réseau, aucune donnée personnelle — et un dossier inaccessible dégrade la journalisation, jamais le jeu (<span class="tt">EX-NFR-040</span>). Sans cela, un défaut signalé par un joueur n'est accompagné d'aucun élément. Prévu en <span class="tt">LOT-61</span>.</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md265"></a>
 6. Build &amp; dépendances</h1>
