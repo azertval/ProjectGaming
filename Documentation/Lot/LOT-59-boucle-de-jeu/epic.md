@@ -1,8 +1,9 @@
 # LOT-59 — Boucle de jeu complète : pause, fin de niveau, progression {#lot-59}
 
-> Statut : **en cours**. Prérequis : [LOT-38](@ref lot-38) (IHM Qt unifiée),
-> [LOT-52](@ref lot-52) (texte dans la scène). **Premier lot de contenu** du programme `0.1.0`,
-> après le durcissement du [LOT-58](@ref lot-58).
+> Statut : **code, tests et documentation faits ; essai manuel humain final restant** (voir État de
+> [TACHE-07](tache-07-documentation-verification.md)). Prérequis : [LOT-38](@ref lot-38) (IHM Qt
+> unifiée), [LOT-52](@ref lot-52) (texte dans la scène). **Premier lot de contenu** du programme
+> `0.1.0`, après le durcissement du [LOT-58](@ref lot-58).
 
 ## Objectif
 Faire du moteur un **jeu** : une partie qu'on peut mettre en pause, dont on voit la fin d'un
@@ -95,7 +96,7 @@ victoire (`LOT-60`) ou un effet de mort (`LOT-53`) n'ont pas de place où existe
 | [TACHE-04](tache-04-sequence-en-donnee.md) | Séquence de niveaux en donnée de contenu | `Source/Elements/Levels`, `Source/Core/Levels` | ✅ |
 | [TACHE-05](tache-05-progression-persistee.md) | Progression persistée entre deux lancements | `Source/HMI/Game` | ✅ |
 | [TACHE-06](tache-06-selection-niveau.md) | Sélection de niveau côté joueur (Continuer / Nouvelle / Choisir) | `Source/HMI/Interface` | ✅ |
-| [TACHE-07](tache-07-documentation-verification.md) | Documentation et vérification | `Source/Test`, `Documentation` | ⬜ |
+| [TACHE-07](tache-07-documentation-verification.md) | Documentation et vérification | `Source/Test`, `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Échap en cours de partie ouvre un écran de **pause** ; Reprendre restitue la partie **exactement**

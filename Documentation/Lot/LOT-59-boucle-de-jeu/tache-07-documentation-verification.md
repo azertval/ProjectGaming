@@ -1,7 +1,7 @@
 # TACHE-07 — Documentation et vérification {#lot-59-tache-07-documentation-verification}
 
 **Lot :** [LOT-59](epic.md) · **Emplacement :** `Source/Test`, `Documentation` ·
-**Statut :** non commencé
+**Statut :** fait (essai manuel humain restant, voir État)
 
 ## Contexte
 Ce lot est le premier depuis longtemps à modifier ce que **voit le joueur** plutôt que ce que
@@ -60,6 +60,48 @@ manipule le level designer. Deux documents s'en trouvent faux dès la première 
 - Les deux mentions ⚠️ sont levées, le manuel décrit les contrôles réels, le guide documente la
   machine à états et les deux nouveaux formats, le cahier est régénéré, tous les scripts de
   vérification et la CI complète sont verts, l'essai manuel est fait.
+
+## État
+
+**Documentation.** `EX-REN-031`/`EX-GP-040` levées (⚠️ retirée, description réécrite sur ce qui est
+livré) ; `EX-IHM-004`/`EX-IHM-005`/`EX-LVL-013`/`EX-LVL-014` passées de « prévu » à « concrétisé »
+en `LOT-59`. `Documentation/Manuel/jouer.md` : menu à six entrées, sections Pause et Progression/
+sélection ajoutées, Échap corrigé (met en pause, ne quitte plus). `Documentation/Guide/
+guide-ecrans.md` réécrit en profondeur (machine à états `hmi::ScreenFlow`, patron page vs
+recouvrement et sa raison, piège du réarmement d'horloge en pause, fin de niveau/séquence,
+sélection et déverrouillage) ; `Documentation/Guide/guide-niveaux.md` corrigé (le paragraphe
+« Issue et enchaînement » décrivait encore l'ancien enchaînement automatique) et étendu (format de
+`sequence-demo.json`). `CHANGELOG.md` (section *Non publié*) et cahier de test régénérés.
+
+**Doxygen a trouvé une vraie erreur** (version locale 1.17.0, la CI épingle 1.16.1 — utilisée
+faute de binaire Windows immédiatement disponible pour cette version exacte, écart documenté plutôt
+que ignoré) : paramètres non documentés de `hmi::isLevelUnlocked`. Corrigé. `python
+scripts/build_docs.py` passe (`WARN_AS_ERROR`, même garde qu'en CI) mais reste une vérification
+**locale** avec une version différente de celle de la CI — la CI reste la vérification qui compte
+en dernier ressort pour cette page (cf. `project_ci_local_reproduction` en mémoire projet).
+
+**Scripts de vérification** : `lint_exigences.py`, `generate_cahier_test.py --check`,
+`check_demo_sequence.py` tous verts. `ctest` (preset `ninja`, le seul utilisable en local sur ce
+poste — le preset `vs` exige un générateur Visual Studio 17 2022 indisponible) : **972/972**
+(100 %).
+
+**Essai manuel — partiellement automatisé, le reste réservé à un humain.** Une vérification
+visuelle automatisée (capture d'écran + navigation clavier, `SetForegroundWindow`/`SendKeys`/
+`CopyFromScreen`) a confirmé avec de vraies captures : le menu principal à six entrées avec
+« Continuer » effectivement grisé sans progression, et l'écran `hmi::LevelSelectScreen` (page
+normale, onglet Séquence listant les quinze tableaux avec le premier jouable et les quatorze
+suivants marqués « (verrouillé) » — exactement la règle attendue). En revanche, l'entrée clavier
+synthétique (`SendKeys`) **n'atteint pas** le viewport de jeu embarqué (HWND natif enfant séparé,
+`QWidget::createWindowContainer`) : ni déplacement du personnage ni ouverture de la pause par
+Échap n'ont eu d'effet observable, alors que la même technique fonctionnait pour le menu — limite
+technique documentée dans la mémoire projet `project_win32_gui_automation_dpi`, pas une régression
+constatée. Un clic synthétique (`SetCursorPos`/`mouse_event`) a de plus été **bloqué par
+l'antivirus**. Conformément à la préférence déjà exprimée par l'utilisateur (« pas de test inapp »,
+mémoire `feedback_no_live_gui_automation`), l'automatisation n'a **pas** été poussée plus loin
+(ex. `PostMessage` direct sur le HWND enfant) : **restent à faire par un humain** — mettre en
+pause/reprendre en cours de partie réelle, terminer un tableau (écran de fin de niveau), terminer
+la séquence, quitter/relancer puis vérifier *Continuer*, et jouer un niveau personnel. C'est
+précisément le risque déjà signalé, non résolu, dans les États de `TACHE-02` et `TACHE-03`.
 
 ## Exigences
 Réutilise `EX-REN-031`, `EX-GP-040` (levées), `EX-IHM-004`, `EX-IHM-005`, `EX-LVL-013`,
