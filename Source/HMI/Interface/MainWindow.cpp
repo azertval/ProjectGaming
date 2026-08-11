@@ -428,6 +428,13 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
     switch (screen) {
         case ScreenId::Menu:
             _stack->setCurrentWidget(_menu);
+            // Rafraîchi ICI plutôt que dans showMenu() (bug réel trouvé en jeu, LOT-59 TACHE-07 :
+            // « Continuer » ne s'activait jamais) : la plupart des retours au menu ne passent PAS
+            // par la méthode showMenu() -- returnToMenuFromLevelComplete/quitPauseToMenu/
+            // closeLevelSelect résolvent chacun leur PROPRE ScreenEvent directement. Poser le
+            // rafraîchissement ici couvre TOUTE transition qui atterrit sur Menu, quel que soit
+            // l'événement, sans avoir à le dupliquer dans chaque poignée de retour.
+            _menu->setContinueEnabled(!_progression.currentLevel().empty());
             break;
         case ScreenId::Options:
             _stack->setCurrentWidget(_options);
@@ -567,7 +574,12 @@ void MainWindow::openLevelComplete() {
     const bool sequenceComplete = _viewport->isLastGameLevel();
     const std::string finishedLevel = _viewport->currentGameLevelName();
     const std::string nextLevel = _viewport->nextGameLevelName();
-    _levelCompleteScreen->configure(sequenceComplete, QString::fromStdString(finishedLevel));
+    // `finishedLevel` (extension comprise) est l'identifiant de progression, comparé tel quel aux
+    // entrées de core::LevelSequence -- ne jamais le tronquer. Le titre affiché, lui, s'en passe
+    // pour rester lisible (ex. « Tableau terminé : demo-saut », pas « ...demo-saut.json »).
+    const QString displayName =
+        QString::fromStdString(std::filesystem::path(finishedLevel).stem().string());
+    _levelCompleteScreen->configure(sequenceComplete, displayName);
     if (!transitionScreen(ScreenEvent::LevelSucceeded)) {
         return;
     }
@@ -631,9 +643,8 @@ void MainWindow::showMenu() {
         return;
     }
     HMI_LOG_INFO("Navigation : menu principal.");
-    // Seule voie de mise a jour (LOT-59 TACHE-06) : le menu est toujours reaffiche via cette
-    // methode (fin de partie, retour de pause, etc.), donc toujours a jour sans suivi separe.
-    _menu->setContinueEnabled(!_progression.currentLevel().empty());
+    // `_menu->setContinueEnabled(...)` : posé dans `applyScreenDressing` (cas `ScreenId::Menu`),
+    // pas ici -- la plupart des retours au menu ne passent pas par cette méthode.
 }
 
 void MainWindow::showEditor() {

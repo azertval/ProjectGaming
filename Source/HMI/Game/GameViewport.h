@@ -228,12 +228,16 @@ public:
     ///         de la séquence -- choisit l'habillage de l'écran de fin de niveau (`LOT-59`
     ///         TACHE-03) : fin de tableau (Continuer/Rejouer) ou fin de séquence (retour menu).
     [[nodiscard]] bool isLastGameLevel() const noexcept;
-    /// @return Le nom (fichier sans extension) du tableau qui vient d'être réussi, pour
-    ///         l'affichage de l'écran de fin de niveau. Chaîne vide hors partie réelle.
+    /// @return Le nom de fichier **complet** (extension comprise, comme dans
+    ///         `core::LevelSequence::levels`) du tableau qui vient d'être réussi -- sert à la fois
+    ///         d'affichage à l'écran de fin de niveau et d'identifiant de progression
+    ///         (`hmi::Progression`, `LOT-59` TACHE-05/06 : doit rester dans le même format que la
+    ///         séquence, sous peine de ne plus jamais correspondre). Chaîne vide hors partie
+    ///         réelle.
     [[nodiscard]] std::string currentGameLevelName() const;
-    /// @return Le nom (fichier sans extension) du tableau **suivant** celui qui vient d'être
-    ///         réussi -- le tableau où reprendre (`hmi::Progression::currentLevel`, `LOT-59`
-    ///         TACHE-05). Chaîne vide en fin de séquence (`isLastGameLevel`) ou hors partie réelle.
+    /// @return Le nom de fichier **complet** du tableau **suivant** celui qui vient d'être réussi
+    ///         -- le tableau où reprendre (`hmi::Progression::currentLevel`, `LOT-59` TACHE-05).
+    ///         Chaîne vide en fin de séquence (`isLastGameLevel`) ou hors partie réelle.
     [[nodiscard]] std::string nextGameLevelName() const;
     /// « Continuer » depuis l'écran de fin de niveau (`LOT-59` TACHE-03) : charge le tableau
     /// suivant de la séquence -- reprend l'ancien enchaînement automatique sur réussite, mais sur

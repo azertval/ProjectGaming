@@ -1154,14 +1154,21 @@ std::string GameViewport::currentGameLevelName() const {
     if (!_gameMode || _gameLevel >= _gameLevels.size()) {
         return {};
     }
-    return _gameLevels[_gameLevel].stem().string();
+    // Nom de fichier COMPLET (extension comprise), pas `.stem()` : ce nom sert aussi
+    // d'identifiant de progression (LOT-59 TACHE-05/06, `hmi::Progression`/`hmi::isLevelUnlocked`)
+    // comparé aux entrées de `core::LevelSequence::levels`, qui portent l'extension -- un `.stem()`
+    // ici désynchronisait silencieusement les deux formats (bug réel trouvé en jeu : la progression
+    // s'écrivait mais ne débloquait jamais rien, aucun nom ne correspondait jamais). La séquence
+    // affiche déjà ses entrées avec extension ailleurs (`hmi::LevelSelectScreen`), donc pas
+    // d'incohérence nouvelle côté affichage.
+    return _gameLevels[_gameLevel].filename().string();
 }
 
 std::string GameViewport::nextGameLevelName() const {
     if (!_gameMode || _gameLevel + 1 >= _gameLevels.size()) {
         return {};
     }
-    return _gameLevels[_gameLevel + 1].stem().string();
+    return _gameLevels[_gameLevel + 1].filename().string();  // cf. currentGameLevelName().
 }
 
 void GameViewport::advanceToNextLevel() {
