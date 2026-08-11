@@ -23,7 +23,10 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
+#include <QMoveEvent>
 #include <QPixmap>
+#include <QPoint>
+#include <QRect>
 #include <QResizeEvent>
 #include <QSettings>
 #include <QSignalBlocker>
@@ -167,13 +170,17 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_levelSelectScreen, &LevelSelectScreen::personalLevelChosen, this,
             &MainWindow::playPersonalLevel);
 
-    // Recouvrement de pause (LOT-59 TACHE-02) : enfant de _stack (même parent que
-    // _editorContainer, un conteneur de fenêtre native), jamais une page -- _stack::addWidget()
-    // n'en sait rien, sa géométrie et sa visibilité sont gérées à la main (syncOverlayGeometry,
-    // applyScreenDressing). C'est le patron documenté par Qt pour superposer un widget à un
-    // QWidget::createWindowContainer : un widget descendant du conteneur ne s'afficherait jamais
-    // par-dessus la fenêtre native qu'il embarque.
-    _pauseScreen = new PauseScreen(_stack);
+    // Recouvrement de pause (LOT-59 TACHE-02) : fenêtre de HAUT NIVEAU possédée par `this`
+    // (Qt::Tool -- pas d'entrée dans la barre des tâches, reste au-dessus de son propriétaire sans
+    // Qt::WindowStaysOnTopHint), PAS un enfant de _stack. Un widget Qt ordinaire, même frère du
+    // conteneur natif du viewport (_editorContainer, QWidget::createWindowContainer), ne se
+    // dessine JAMAIS de façon fiable par-dessus la fenêtre native qu'il embarque, quel que soit son
+    // raise() -- limitation documentée de Qt, constatée en jeu (TACHE-07 : l'écran ne s'affichait
+    // pas, la simulation restait figée sans rien à l'écran). Géométrie synchronisée en coordonnées
+    // ÉCRAN (syncOverlayGeometry), pas relative à _stack.
+    _pauseScreen = new PauseScreen(this);
+    _pauseScreen->setWindowFlags(Qt::Tool | Qt::FramelessWindowHint);
+    _pauseScreen->setAttribute(Qt::WA_TranslucentBackground);
     _pauseScreen->hide();
     connect(_pauseScreen, &PauseScreen::resumeRequested, this, &MainWindow::resumeFromPause);
     connect(_pauseScreen, &PauseScreen::restartRequested, this, &MainWindow::restartFromPause);
@@ -182,8 +189,10 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_viewport, &GameViewport::pauseRequested, this, &MainWindow::openPause);
 
     // Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même patron que _pauseScreen
-    // ci-dessus (widget frère de _editorContainer, jamais une page de _stack).
-    _levelCompleteScreen = new LevelCompleteScreen(_stack);
+    // ci-dessus (fenêtre de haut niveau, pas un enfant de _stack).
+    _levelCompleteScreen = new LevelCompleteScreen(this);
+    _levelCompleteScreen->setWindowFlags(Qt::Tool | Qt::FramelessWindowHint);
+    _levelCompleteScreen->setAttribute(Qt::WA_TranslucentBackground);
     _levelCompleteScreen->hide();
     connect(_levelCompleteScreen, &LevelCompleteScreen::continueRequested, this,
             &MainWindow::continueFromLevelComplete);
@@ -441,6 +450,11 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
     if (showPauseOverlay) {
         syncOverlayGeometry();
         _pauseScreen->raise();
+        // activateWindow() : _pauseScreen est une fenêtre de haut niveau distincte depuis
+        // TACHE-07, elle ne partage plus automatiquement l'activation de `this` -- sans cet appel,
+        // focusDefaultAction() poserait le focus clavier *dans* la fenêtre sans que celle-ci soit
+        // la fenêtre active du système, et Échap/Entrée resteraient reçus par le viewport.
+        _pauseScreen->activateWindow();
         _pauseScreen->focusDefaultAction();
     }
 
@@ -452,6 +466,7 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
     if (showLevelCompleteOverlay) {
         syncOverlayGeometry();
         _levelCompleteScreen->raise();
+        _levelCompleteScreen->activateWindow();  // cf. commentaire de _pauseScreen ci-dessus.
         _levelCompleteScreen->focusDefaultAction();
     }
 
@@ -474,12 +489,22 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
 }
 
 void MainWindow::syncOverlayGeometry() {
-    _pauseScreen->setGeometry(_stack->rect());
-    _levelCompleteScreen->setGeometry(_stack->rect());
+    // Coordonnées ÉCRAN, pas relatives à _stack : _pauseScreen/_levelCompleteScreen sont des
+    // fenêtres de haut niveau depuis TACHE-07 (cf. leur commentaire de construction), plus des
+    // enfants de _stack -- setGeometry(_stack->rect()) les positionnerait n'importe où (coin
+    // haut-gauche de l'écran, taille de _stack) plutôt que par-dessus le viewport.
+    const QRect overlayRect(_editorContainer->mapToGlobal(QPoint(0, 0)), _editorContainer->size());
+    _pauseScreen->setGeometry(overlayRect);
+    _levelCompleteScreen->setGeometry(overlayRect);
 }
 
 void MainWindow::resizeEvent(QResizeEvent* event) {
     QMainWindow::resizeEvent(event);
+    syncOverlayGeometry();
+}
+
+void MainWindow::moveEvent(QMoveEvent* event) {
+    QMainWindow::moveEvent(event);
     syncOverlayGeometry();
 }
 
