@@ -118,12 +118,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ac6ad5ecefd44575af0fa872a440c7617"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute les quatre actions d'outil de canevas pixel art à <code class="param">toolBar</code> (<span class="tt">LOT-54</span> TACHE-04) — barre d'outils dédiée du canevas, distincte de celle des outils de niveau.  <br /></td></tr>
 <tr class="memitem:a72f7ac29c4a9353d7db2e9dedb9a0a59" id="r_a72f7ac29c4a9353d7db2e9dedb9a0a59"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a72f7ac29c4a9353d7db2e9dedb9a0a59">retranslateUi</a> (const <a class="el" href="classhmi_1_1Localization.html">Localization</a> &amp;loc)</td></tr>
 <tr class="memdesc:a72f7ac29c4a9353d7db2e9dedb9a0a59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique la langue active : libellé de chaque action, et infobulle incluant son raccourci (jamais saisi séparément).  <br /></td></tr>
-<tr class="memitem:ae79b05bccfbf61e89c0c7f55b5a5d616" id="r_ae79b05bccfbf61e89c0c7f55b5a5d616"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae79b05bccfbf61e89c0c7f55b5a5d616">setActiveTool</a> (<a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a> tool)</td></tr>
-<tr class="memdesc:ae79b05bccfbf61e89c0c7f55b5a5d616"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coche l'action de l'outil actif <b>sans</b> émettre <span class="tt">triggered</span> : resynchronisation depuis la touche dédiée de <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">GameViewport</a></span> (remappable, <span class="tt"><a class="el" href="namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a9bf65705792468edbe653567639a35e9" title="Sélectionne l&#39;outil « Texture par instance » (LOT-45, EX-EDIT-043).">EditorAction::TextureAssignTool</a></span>), même garde que <span class="tt"><a class="el" href="classhmi_1_1DecorsPanel.html#aa852513d409a76d5407e1b2b4d89f6de" title="Affiche ou masque le sélecteur de placement selon l&#39;outil actif.">DecorsPanel::setActiveTool</a></span>.  <br /></td></tr>
-<tr class="memitem:ac67fbfc53e4b2a2d522731be0979d921" id="r_ac67fbfc53e4b2a2d522731be0979d921"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac67fbfc53e4b2a2d522731be0979d921">setActivePixelTool</a> (<a class="el" href="namespacehmi.html#a9cb51e9b7642963a83312d94737fe571">PixelTool</a> tool)</td></tr>
-<tr class="memdesc:ac67fbfc53e4b2a2d522731be0979d921"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coche l'action de l'outil de canevas pixel art actif <b>sans</b> émettre <span class="tt">triggered</span> — même garde que <span class="tt"><a class="el" href="#ae79b05bccfbf61e89c0c7f55b5a5d616" title="Coche l&#39;action de l&#39;outil actif sans émettre triggered : resynchronisation depuis la touche dédiée de...">setActiveTool</a></span> (<span class="tt">LOT-54</span> TACHE-04).  <br /></td></tr>
-<tr class="memitem:a21b2adeb2ebb1931ab9cdd67e11677fd" id="r_a21b2adeb2ebb1931ab9cdd67e11677fd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a21b2adeb2ebb1931ab9cdd67e11677fd">setEditingCommandsEnabled</a> (bool enabled)</td></tr>
-<tr class="memdesc:a21b2adeb2ebb1931ab9cdd67e11677fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active/désactive les six commandes qui n'ont de sens qu'en édition (Enregistrer, Essayer, Annuler, Refaire, Grille, Recadrer).  <br /></td></tr>
+<tr class="memitem:af84d72bf51035c33133a93d8ba91e41f" id="r_af84d72bf51035c33133a93d8ba91e41f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af84d72bf51035c33133a93d8ba91e41f">setActiveTool</a> (<a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a> tool) const</td></tr>
+<tr class="memdesc:af84d72bf51035c33133a93d8ba91e41f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coche l'action de l'outil actif <b>sans</b> émettre <span class="tt">triggered</span> : resynchronisation depuis la touche dédiée de <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">GameViewport</a></span> (remappable, <span class="tt"><a class="el" href="namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a9bf65705792468edbe653567639a35e9" title="Sélectionne l&#39;outil « Texture par instance » (LOT-45, EX-EDIT-043).">EditorAction::TextureAssignTool</a></span>), même garde que <span class="tt"><a class="el" href="classhmi_1_1DecorsPanel.html#aa852513d409a76d5407e1b2b4d89f6de" title="Affiche ou masque le sélecteur de placement selon l&#39;outil actif.">DecorsPanel::setActiveTool</a></span>.  <br /></td></tr>
+<tr class="memitem:a9b3e60e5dfa7e66f645d6884ecc440a5" id="r_a9b3e60e5dfa7e66f645d6884ecc440a5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9b3e60e5dfa7e66f645d6884ecc440a5">setActivePixelTool</a> (<a class="el" href="namespacehmi.html#a9cb51e9b7642963a83312d94737fe571">PixelTool</a> tool) const</td></tr>
+<tr class="memdesc:a9b3e60e5dfa7e66f645d6884ecc440a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coche l'action de l'outil de canevas pixel art actif <b>sans</b> émettre <span class="tt">triggered</span> — même garde que <span class="tt"><a class="el" href="#af84d72bf51035c33133a93d8ba91e41f" title="Coche l&#39;action de l&#39;outil actif sans émettre triggered : resynchronisation depuis la touche dédiée de...">setActiveTool</a></span> (<span class="tt">LOT-54</span> TACHE-04).  <br /></td></tr>
+<tr class="memitem:a4afc7fc551a714ca36cf6b4c151fd20d" id="r_a4afc7fc551a714ca36cf6b4c151fd20d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4afc7fc551a714ca36cf6b4c151fd20d">setEditingCommandsEnabled</a> (bool enabled) const</td></tr>
+<tr class="memdesc:a4afc7fc551a714ca36cf6b4c151fd20d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active/désactive les six commandes qui n'ont de sens qu'en édition (Enregistrer, Essayer, Annuler, Refaire, Grille, Recadrer).  <br /></td></tr>
 <tr class="memitem:a92148052c84a36d97dc127936ae28530" id="r_a92148052c84a36d97dc127936ae28530"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a92148052c84a36d97dc127936ae28530">refreshIcons</a> (const <a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a> &amp;tokens)</td></tr>
 <tr class="memdesc:a92148052c84a36d97dc127936ae28530"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruit les icônes depuis un nouveau jeu de jetons (bascule de thème, <span class="tt">LOT-56</span> TACHE-06) : sans quoi elles resteraient aux anciennes couleurs après le changement.  <br /></td></tr>
 <tr class="memitem:a15651f937c395ecf4bc082bc5c79f455" id="r_a15651f937c395ecf4bc082bc5c79f455"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a15651f937c395ecf4bc082bc5c79f455">applyShortcuts</a> (const <a class="el" href="classhmi_1_1EditorKeyBindings.html">EditorKeyBindings</a> &amp;bindings, const <a class="el" href="classhmi_1_1Localization.html">Localization</a> &amp;loc)</td></tr>
@@ -361,8 +361,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ac67fbfc53e4b2a2d522731be0979d921" name="ac67fbfc53e4b2a2d522731be0979d921"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac67fbfc53e4b2a2d522731be0979d921">&#9670;&#160;</a></span>setActivePixelTool()</h2>
+<a id="a9b3e60e5dfa7e66f645d6884ecc440a5" name="a9b3e60e5dfa7e66f645d6884ecc440a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b3e60e5dfa7e66f645d6884ecc440a5">&#9670;&#160;</a></span>setActivePixelTool()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -371,17 +371,17 @@ Private Attributes</h2></td></tr>
           <td class="memname">void hmi::EditorActions::setActivePixelTool </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespacehmi.html#a9cb51e9b7642963a83312d94737fe571">PixelTool</a></td>          <td class="paramname"><span class="paramname"><em>tool</em></span></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Coche l'action de l'outil de canevas pixel art actif <b>sans</b> émettre <span class="tt">triggered</span> — même garde que <span class="tt"><a class="el" href="#ae79b05bccfbf61e89c0c7f55b5a5d616" title="Coche l&#39;action de l&#39;outil actif sans émettre triggered : resynchronisation depuis la touche dédiée de...">setActiveTool</a></span> (<span class="tt">LOT-54</span> TACHE-04). </p>
+<p>Coche l'action de l'outil de canevas pixel art actif <b>sans</b> émettre <span class="tt">triggered</span> — même garde que <span class="tt"><a class="el" href="#af84d72bf51035c33133a93d8ba91e41f" title="Coche l&#39;action de l&#39;outil actif sans émettre triggered : resynchronisation depuis la touche dédiée de...">setActiveTool</a></span> (<span class="tt">LOT-54</span> TACHE-04). </p>
 
 </div>
 </div>
-<a id="ae79b05bccfbf61e89c0c7f55b5a5d616" name="ae79b05bccfbf61e89c0c7f55b5a5d616"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae79b05bccfbf61e89c0c7f55b5a5d616">&#9670;&#160;</a></span>setActiveTool()</h2>
+<a id="af84d72bf51035c33133a93d8ba91e41f" name="af84d72bf51035c33133a93d8ba91e41f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af84d72bf51035c33133a93d8ba91e41f">&#9670;&#160;</a></span>setActiveTool()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -390,7 +390,7 @@ Private Attributes</h2></td></tr>
           <td class="memname">void hmi::EditorActions::setActiveTool </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a></td>          <td class="paramname"><span class="paramname"><em>tool</em></span></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -399,8 +399,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a21b2adeb2ebb1931ab9cdd67e11677fd" name="a21b2adeb2ebb1931ab9cdd67e11677fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21b2adeb2ebb1931ab9cdd67e11677fd">&#9670;&#160;</a></span>setEditingCommandsEnabled()</h2>
+<a id="a4afc7fc551a714ca36cf6b4c151fd20d" name="a4afc7fc551a714ca36cf6b4c151fd20d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4afc7fc551a714ca36cf6b4c151fd20d">&#9670;&#160;</a></span>setEditingCommandsEnabled()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -409,7 +409,7 @@ Private Attributes</h2></td></tr>
           <td class="memname">void hmi::EditorActions::setEditingCommandsEnabled </td>
           <td>(</td>
           <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>enabled</em></span></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -32,7 +32,7 @@ var searchData=
   ['sans_20les_20confondre_20avec_20f8_20lot_2051_29',['Le mode « définition des textures » : auditer les calques sans les confondre avec &lt;span class=&quot;tt&quot;&gt;F8&lt;/span&gt; (&lt;span class=&quot;tt&quot;&gt;LOT-51&lt;/span&gt;)',['../guide-editeur.html#autotoc_md93',1,'']]],
   ['sans_20ligne_20de_20commande_30',['Créer et partager un niveau (sans ligne de commande)',['../manuel-partager-niveau.html',1,'manuel']]],
   ['sans_20pas_20de_20simulation_20et_20les_20entrées_31',['Les frames sans pas de simulation et les entrées',['../guide-boucle.html#autotoc_md49',1,'']]],
-  ['sans_20pr_20ni_20push_32',['État de la vérification (LOT-58) — mode local, sans PR ni push',['../lot-58-tache-06-documentation-verification.html#autotoc_md2604',1,'']]],
+  ['sans_20pr_20ni_20push_32',['État de la vérification (LOT-58) — mode local, sans PR ni push',['../lot-58-tache-06-documentation-verification.html#autotoc_md2605',1,'']]],
   ['sans_20quitter_20l_20éditeur_33',['Essai immédiat : jouer sans quitter l&apos;éditeur',['../guide-editeur.html#autotoc_md89',1,'']]],
   ['sans_20re_20coder_20le_20moteur_34',['Le problème : éditer un niveau sans (re)coder le moteur',['../guide-editeur.html#autotoc_md79',1,'']]],
   ['sans_20repli_35',['TACHE-02 — Affichage isolé sans repli',['../lot-51-tache-02-affichage-isole.html',1,'lot-51']]],

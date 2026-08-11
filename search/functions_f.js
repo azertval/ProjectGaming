@@ -53,5 +53,6 @@ var searchData=
   ['proceduralplayerclipnames_50',['proceduralPlayerClipNames',['../namespacehmi.html#ad9d86326e8a24c761d2b3c04e378a0a1',1,'hmi']]],
   ['projectionmatrix_51',['projectionMatrix',['../classhmi_1_1Camera2D.html#ae4d184982026b7f61e3507c0d264321b',1,'hmi::Camera2D']]],
   ['push_52',['push',['../classhmi_1_1PixelHistory.html#a7770d08d847df91ee22e4e9100cadff8',1,'hmi::PixelHistory']]],
-  ['pushundo_53',['pushUndo',['../classcore_1_1LevelDraft.html#a949cfb0148244f0ba05257d4f523f51d',1,'core::LevelDraft']]]
+  ['pushblocks_53',['pushBlocks',['../classcore_1_1BlockController.html#aa4b0ed0452dd103740061bedd65042cd',1,'core::BlockController']]],
+  ['pushundo_54',['pushUndo',['../classcore_1_1LevelDraft.html#a949cfb0148244f0ba05257d4f523f51d',1,'core::LevelDraft']]]
 ];

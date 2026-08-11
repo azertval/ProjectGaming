@@ -14,6 +14,7 @@ var classhmi_1_1GameSession =
     [ "reload", "classhmi_1_1GameSession.html#acb992fe3f9402a56c9546fb62c450a0c", null ],
     [ "render", "classhmi_1_1GameSession.html#a8c26c9a8cbd1841bd091a5eb2299017a", null ],
     [ "renderHud", "classhmi_1_1GameSession.html#a7600fad72568c7816ca4c523d1b7cac7", null ],
+    [ "resolveReducedBlockCollision", "classhmi_1_1GameSession.html#a0be991537db6f5099f91d51684a98257", null ],
     [ "setSkins", "classhmi_1_1GameSession.html#af73e9ba375e947026121ce9e52d0e1aa", null ],
     [ "snapshotPreviousPositions", "classhmi_1_1GameSession.html#a6bb897af2e39b7bb5bbf7507d4f7b6ad", null ],
     [ "spawnPlayer", "classhmi_1_1GameSession.html#a4db26f5baed613a962f368bc27c4dbe8", null ],

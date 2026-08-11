@@ -1,5 +1,17 @@
 var NAVTREEINDEX3 =
 {
+"classcore_1_1Level.html#af42df8d6a33bdaa7aedf5b2aafd728ef":[8,0,0,35,14],
+"classcore_1_1Level.html#af42df8d6a33bdaa7aedf5b2aafd728ef":[9,0,0,35,14],
+"classcore_1_1LevelDraft.html":[8,0,0,36],
+"classcore_1_1LevelDraft.html":[9,0,0,36],
+"classcore_1_1LevelDraft.html#a0017cadc8caea0b43ba08b120ce76bb0":[8,0,0,36,53],
+"classcore_1_1LevelDraft.html#a0017cadc8caea0b43ba08b120ce76bb0":[9,0,0,36,53],
+"classcore_1_1LevelDraft.html#a092ed94e8ecc1a8aee79de183afe6338":[8,0,0,36,57],
+"classcore_1_1LevelDraft.html#a092ed94e8ecc1a8aee79de183afe6338":[9,0,0,36,57],
+"classcore_1_1LevelDraft.html#a0b0f16e06f765e2a1daf4bc797a07f3a":[8,0,0,36,35],
+"classcore_1_1LevelDraft.html#a0b0f16e06f765e2a1daf4bc797a07f3a":[9,0,0,36,35],
+"classcore_1_1LevelDraft.html#a0eabbb032c3a59a3c0888d5f9a3fe95d":[8,0,0,36,34],
+"classcore_1_1LevelDraft.html#a0eabbb032c3a59a3c0888d5f9a3fe95d":[9,0,0,36,34],
 "classcore_1_1LevelDraft.html#a1286763b9db8bf337b2bf3a4d4049917":[8,0,0,36,24],
 "classcore_1_1LevelDraft.html#a1286763b9db8bf337b2bf3a4d4049917":[9,0,0,36,24],
 "classcore_1_1LevelDraft.html#a13dd782e9b0882563e3c7bc01d5adfd4":[8,0,0,36,61],
@@ -237,17 +249,5 @@ var NAVTREEINDEX3 =
 "classcore_1_1TileMap.html#ac10e33912267325df3143dca05c71e9e":[8,0,0,40,2],
 "classcore_1_1TileMap.html#ac10e33912267325df3143dca05c71e9e":[9,0,0,40,2],
 "classcore_1_1TileMap.html#ac5b00a57298ccb7318d7a703a208965c":[8,0,0,40,9],
-"classcore_1_1TileMap.html#ac5b00a57298ccb7318d7a703a208965c":[9,0,0,40,9],
-"classcore_1_1TileMap.html#acc50d7a0a8bdb26db3694ddacd37f457":[8,0,0,40,3],
-"classcore_1_1TileMap.html#acc50d7a0a8bdb26db3694ddacd37f457":[9,0,0,40,3],
-"classcore_1_1TileMap.html#ae9ed095ea6353b7d213d3e742956d52c":[8,0,0,40,0],
-"classcore_1_1TileMap.html#ae9ed095ea6353b7d213d3e742956d52c":[9,0,0,40,0],
-"classcore_1_1View.html":[8,0,0,23],
-"classcore_1_1View.html":[9,0,0,23],
-"classcore_1_1View.html#a097f64b75500842306575f65d5ff7ad2":[8,0,0,23,3],
-"classcore_1_1View.html#a097f64b75500842306575f65d5ff7ad2":[9,0,0,23,3],
-"classcore_1_1View.html#a27b0a25fa3918e0a8cb93b5aa076c40c":[8,0,0,23,6],
-"classcore_1_1View.html#a27b0a25fa3918e0a8cb93b5aa076c40c":[9,0,0,23,6],
-"classcore_1_1View.html#a4888128d907a06adce68b142bcc867ce":[8,0,0,23,7],
-"classcore_1_1View.html#a4888128d907a06adce68b142bcc867ce":[9,0,0,23,7]
+"classcore_1_1TileMap.html#ac5b00a57298ccb7318d7a703a208965c":[9,0,0,40,9]
 };

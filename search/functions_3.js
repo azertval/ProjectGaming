@@ -46,5 +46,6 @@ var searchData=
   ['draftrenderer_43',['DraftRenderer',['../classhmi_1_1DraftRenderer.html#ab7ac8e70c8f5d62819348a53803663a3',1,'hmi::DraftRenderer']]],
   ['draw_44',['draw',['../classhmi_1_1SpriteBatch.html#adf3e122b7b78551672d6e8642941383d',1,'hmi::SpriteBatch::draw(const SpriteQuad &amp;quad)'],['../classhmi_1_1SpriteBatch.html#afb2cf10826482b3ad8d503a829a8ed5b',1,'hmi::SpriteBatch::draw(const LineQuad &amp;line)']]],
   ['drawline_45',['drawLine',['../namespacehmi.html#a2d1f5025d8c952998d761fcabb5c8aa3',1,'hmi']]],
-  ['duplicate_46',['duplicate',['../classhmi_1_1AssetFileOperations.html#a04cf5e56f73e1c67072eabfaa5486720',1,'hmi::AssetFileOperations::duplicate()'],['../classhmi_1_1LevelFileOperations.html#a211ad9cc234f61dc4e93d2f53c5f6471',1,'hmi::LevelFileOperations::duplicate()']]]
+  ['dropblocks_46',['dropBlocks',['../classcore_1_1BlockController.html#a26c5b394ff976688bc1932b0b9a33df1',1,'core::BlockController']]],
+  ['duplicate_47',['duplicate',['../classhmi_1_1AssetFileOperations.html#a04cf5e56f73e1c67072eabfaa5486720',1,'hmi::AssetFileOperations::duplicate()'],['../classhmi_1_1LevelFileOperations.html#a211ad9cc234f61dc4e93d2f53c5f6471',1,'hmi::LevelFileOperations::duplicate()']]]
 ];

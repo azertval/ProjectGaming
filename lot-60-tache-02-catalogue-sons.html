@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-60-tache-02-catalogue-sons.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-60-audio-bruitages_2tache-02-catalogue-sons"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-60.html#md_Lot_2LOT-60-audio-bruitages_2epic" title="Lot/LOT-60-audio-bruitages/epic.md">LOT-60</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Audio</span>, <span class="tt">Source/Elements/Audio</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2683"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2684"></a>
 Contexte</h1>
 <p>Le projet a un patron bien rodé pour associer un nom logique à un fichier d'asset : <span class="tt">SkinCatalog</span> (<span class="tt">LOT-42</span>), <span class="tt">AnimationCatalog</span> (<span class="tt">LOT-46</span>) et <span class="tt">PixelPalette</span> (<span class="tt">LOT-54</span>) lisent tous un JSON, traitent le fichier absent comme un catalogue vide et <b>ignorent une entrée malformée plutôt que d'abandonner le catalogue entier</b>. Le catalogue de sons suit ce patron ; l'écrire autrement serait la seule erreur possible ici.</p>
 <p>Le repli, en revanche, diffère. Pour une texture manquante, <span class="tt">LOT-40</span> produit un damier magenta : visible, donc signalant. Pour un son manquant, l'équivalent — un bip de remplacement — serait insupportable. Le repli d'un son absent est le <b>silence</b>, plus une entrée de journal.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2684"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2685"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">hmi::SoundCatalog</span></b> : nom logique d'événement → fichier de <span class="tt">Source/Elements/Audio</span>, lu depuis un <span class="tt">sounds.json</span>, sur le patron exact de <span class="tt"><a class="el" href="classhmi_1_1SkinCatalog.html" title="Catalogue des jeux de skins : (jeu, type de tuile) → { asset, mode }.">hmi::SkinCatalog</a></span>.</li>
@@ -108,7 +108,7 @@ Travail à réaliser</h1>
 <li><b>Licence des sons</b> documentée, comme l'est déjà celle de la police Inter (<span class="tt">Source/Elements/Assets/Fonts/Inter-LICENSE.txt</span>).</li>
 <li><b>Politique de recouvrement</b> : un même événement déclenché en rafale ne doit ni saturer ni couper le son précédent de façon audible — limiter le nombre d'instances simultanées par événement, avec une constante nommée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2685"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2686"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Audio/SoundCatalog.{h,cpp}</span> (nouveau).</li>
@@ -118,7 +118,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/HMI/CMakeLists.txt</span> — copie du dossier <span class="tt">Audio/</span> à côté de l'exécutable, comme <span class="tt">Levels/</span> et <span class="tt">Localization/</span>.</li>
 <li><span class="tt">Source/Test/Unit/HMI/Audio/test_sound_catalog.cpp</span> (nouveau), <span class="tt">Source/Test/CMakeLists.txt</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2686"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2687"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Catalogue <b>absent</b> → catalogue vide, aucune erreur.</li>
@@ -127,7 +127,7 @@ Tests (obligatoires)</h1>
 <li>Le catalogue <b>livré</b> référence des fichiers qui existent tous — le test qui attrape une faute de frappe dans le contenu.</li>
 <li>Tests <b>purs</b>, sans Qt Multimedia ni périphérique : le catalogue est une résolution de chemins, la lecture appartient à <span class="tt">AudioEngine</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2687"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2688"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas journaliser à chaque déclenchement.</b> Un son manquant sur un événement fréquent (le pas, le saut) inonderait le journal et masquerait tout le reste. Une fois par asset, comme le fait déjà <span class="tt"><a class="el" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par calque puis par texture.">hmi::SpriteRenderer</a></span> pour ses statistiques.</li>
@@ -136,12 +136,12 @@ Points d'attention</h1>
 <li>Le dossier <span class="tt">Audio/</span> doit être copié à côté de l'exécutable par le <span class="tt">POST_BUILD</span>, sans quoi la release est muette alors que le build local est sonore — panne classique et tardive.</li>
 <li>Des WAV, même courts, sont des binaires versionnés : garder les fichiers petits, et noter que <span class="tt">Source/Elements/Audio/README.md</span> les évoquait déjà comme candidats à Git LFS.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2688"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2689"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Un catalogue JSON associe événements et fichiers sur le patron des catalogues existants, les échantillons sont préchargés, tout manque se traduit par un silence journalisé une fois, les assets sont présents, générables et licenciés, le dossier est déployé ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2689"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2690"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-047</span> (socle audio), <span class="tt">EX-REN-048</span> (absence de son en erreur récupérable) ; lève <span class="tt">EX-REN-040</span> pour sa partie contenu ; réutilise <span class="tt">EX-NFR-040</span> (erreur récupérable), <span class="tt">EX-NFR-010</span> (testable sans périphérique), <span class="tt">EX-NFR-031</span> (assets et licences). </p>
 </div></div><!-- contents -->

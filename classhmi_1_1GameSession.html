@@ -119,6 +119,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a4db26f5baed613a962f368bc27c4dbe8" id="r_a4db26f5baed613a962f368bc27c4dbe8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4db26f5baed613a962f368bc27c4dbe8">spawnPlayer</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> entry)</td></tr>
 <tr class="memitem:a6bb897af2e39b7bb5bbf7507d4f7b6ad" id="r_a6bb897af2e39b7bb5bbf7507d4f7b6ad"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6bb897af2e39b7bb5bbf7507d4f7b6ad">snapshotPreviousPositions</a> ()</td></tr>
 <tr class="memitem:a07859790cd2650e474452b47229d82f0" id="r_a07859790cd2650e474452b47229d82f0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a07859790cd2650e474452b47229d82f0">refreshBlockVisuals</a> ()</td></tr>
+<tr class="memitem:a0be991537db6f5099f91d51684a98257" id="r_a0be991537db6f5099f91d51684a98257"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0be991537db6f5099f91d51684a98257">resolveReducedBlockCollision</a> (const <a class="el" href="structcore_1_1Aabb.html">core::Aabb</a> &amp;previousBox)</td></tr>
+<tr class="memdesc:a0be991537db6f5099f91d51684a98257"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout la collision des blocs à taille RÉDUITE (<span class="tt">EX-GP-005</span>) contre le personnage : leur boîte réelle (centrée, plus petite qu'une case) n'est jamais posée sur la grille de collision, donc jamais vue par la physique sur grille &ndash; balayage boîte-boîte dédié (<span class="tt"><a class="el" href="namespacecore.html#a0019562e8e9658def020086ee4d49425" title="Déplace box de delta en s&#39;arrêtant au premier contact avec obstacle, une boîte fixe unique (pas une g...">core::sweepAabbVsAabb</a></span>) sur le déplacement obtenu par cette dernière.  <br /></td></tr>
 <tr class="memitem:a872c364ddc81ce08e017c066ab4bb564" id="r_a872c364ddc81ce08e017c066ab4bb564"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a872c364ddc81ce08e017c066ab4bb564">refreshDangerVisuals</a> ()</td></tr>
 <tr class="memitem:a2a575a6cc519a25b3a6bee83876d11bb" id="r_a2a575a6cc519a25b3a6bee83876d11bb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2a575a6cc519a25b3a6bee83876d11bb">updateMechanismVisuals</a> (float fixedDelta)</td></tr>
 <tr class="memdesc:a2a575a6cc519a25b3a6bee83876d11bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apparence des mécanismes pilotée par leur état logique (<span class="tt">LOT-47</span>, <span class="tt">EX-REN-006</span>) : projette l'état de chaque mécanisme suivi sur un clip (correspondance + transitions), au <b>pas fixe</b> — la simulation n'en dépend jamais, seule l'apparence en résulte (<span class="tt">EX-ARCH-012</span>).  <br /></td></tr>
@@ -625,6 +627,34 @@ Private Attributes</h2></td></tr>
 
 <p>Compose et soumet l'affichage tête haute (budgets, nom du tableau), en espace écran, sur sa propre projection (<span class="tt"><a class="el" href="namespacehmi.html#a9fbb2bf9b95887bf5bf16e14e750bac4" title="Construit la projection écran → clip du calque UI, indépendante de Camera2D.">hmi::screenProjectionMatrix</a></span>) — jamais affecté par le zoom de la caméra ni par son culling (<span class="tt">LOT-52</span> TACHE-02/03). </p>
 <p>Sans effet si <span class="tt"><a class="el" href="#ac533af7faac79b9027367dda3df0b639">_localization</a></span> est nul. </p>
+
+</div>
+</div>
+<a id="a0be991537db6f5099f91d51684a98257" name="a0be991537db6f5099f91d51684a98257"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0be991537db6f5099f91d51684a98257">&#9670;&#160;</a></span>resolveReducedBlockCollision()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameSession::resolveReducedBlockCollision </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Aabb.html">core::Aabb</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>previousBox</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Résout la collision des blocs à taille RÉDUITE (<span class="tt">EX-GP-005</span>) contre le personnage : leur boîte réelle (centrée, plus petite qu'une case) n'est jamais posée sur la grille de collision, donc jamais vue par la physique sur grille &ndash; balayage boîte-boîte dédié (<span class="tt"><a class="el" href="namespacecore.html#a0019562e8e9658def020086ee4d49425" title="Déplace box de delta en s&#39;arrêtant au premier contact avec obstacle, une boîte fixe unique (pas une g...">core::sweepAabbVsAabb</a></span>) sur le déplacement obtenu par cette dernière. </p>
+<p>Sans effet si le personnage n'a pas bougé ce pas (<code class="param">previousBox</code> égale sa position courante). </p>
 
 </div>
 </div>

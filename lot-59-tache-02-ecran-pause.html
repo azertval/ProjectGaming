@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-59-tache-02-ecran-pause.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-59-boucle-de-jeu_2tache-02-ecran-pause"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-59.html#md_Lot_2LOT-59-boucle-de-jeu_2epic" title="Lot/LOT-59-boucle-de-jeu/epic.md">LOT-59</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Interface</span>, <span class="tt">Source/HMI/Game</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2624"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2625"></a>
 Contexte</h1>
 <p>Échap, en cours de partie, quitte <b>directement</b> vers le menu principal. Une pression malheureuse sur un tableau difficile perd la partie en cours, sans confirmation ni retour possible. C'est le comportement décrit — et déploré — par <span class="tt">EX-REN-031</span>.</p>
 <p>Le point délicat n'est pas l'écran : c'est ce que devient la simulation pendant qu'il est affiché.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2625"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2626"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Écran de pause</b> avec quatre entrées : <em>Reprendre</em>, <em>Recommencer le niveau</em>, <em>Options</em>, <em>Quitter vers le menu</em>. Le dernier demande confirmation, puisqu'il perd la progression du tableau en cours.</li>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 <li><b>Le rendu continue</b> : la scène reste dessinée derrière l'écran de pause (l'interpolation d'affichage se fige naturellement, la position simulée n'avançant plus).</li>
 <li><em>Recommencer le niveau</em> passe par le <b>même</b> chemin que le redémarrage après échec (<span class="tt">EX-GP-032</span>), déjà implémenté dans <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> — pas un second chemin de rechargement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2626"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2627"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/PauseScreen.{h,cpp}</span> (nouveau) et sa mise en page dans <span class="tt">Source/Elements/UI/PauseScreen.ui</span>.</li>
@@ -116,7 +116,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Localization/{fr,en}.lang</span> — libellés.</li>
 <li><span class="tt"><a class="el" href="test__fixed__timestep_8cpp.html" title="Tests unitaires du cadenceur à pas de temps fixe.">Source/Test/Unit/Core/Time/test_fixed_timestep.cpp</a></span> — suspension et réarmement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2627"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2628"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Aucun pas consommé en pause</b> : sur une séquence où l'alimentation est suspendue puis reprise, le nombre total de pas est celui du temps <b>hors</b> pause, à la tolérance d'un pas près.</li>
@@ -125,7 +125,7 @@ Tests (obligatoires)</h1>
 <li><em>Recommencer</em> remet le niveau dans son état initial, identiquement au redémarrage après échec.</li>
 <li>Les libellés de l'écran existent dans les <b>deux</b> catalogues de traduction.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2628"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2629"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas multiplier <span class="tt">dt</span> par zéro.</b> La boucle consommerait toujours des pas, et tout ce qui se compte en pas — animations, dangers temporisés, budgets — dériverait pendant la pause.</li>
@@ -133,12 +133,12 @@ Points d'attention</h1>
 <li>La pause ne doit pas être atteignable depuis l'essai de l'éditeur sans que le retour soit défini : trancher explicitement dans la table de la <span class="tt">TACHE-01</span>.</li>
 <li>La manette est <em>pollée</em> : vérifier qu'un appui maintenu au moment de la pause ne fait pas osciller entrée/sortie.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2629"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2630"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Échap ouvre une pause qui suspend réellement la simulation et la restitue à l'identique ; aucun rattrapage au retour ; <em>Recommencer</em> réutilise le chemin de redémarrage existant ; navigable clavier / souris / manette, traduit ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2630"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2631"></a>
 Exigences</h1>
 <p><span class="tt">EX-IHM-004</span> (écran de pause) ; lève <span class="tt">EX-REN-031</span> pour sa partie pause ; réutilise <span class="tt">EX-GP-032</span> (redémarrage), <span class="tt">EX-GP-041</span> (transitions), <span class="tt">EX-REN-021</span> (pas fixe), <span class="tt">EX-NFR-002</span> (déterminisme), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-CTRL-012</span> (remappage). </p>
 </div></div><!-- contents -->
