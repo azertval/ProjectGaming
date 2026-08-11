@@ -1,6 +1,6 @@
 # LOT-59 — Boucle de jeu complète : pause, fin de niveau, progression {#lot-59}
 
-> Statut : **non commencé**. Prérequis : [LOT-38](@ref lot-38) (IHM Qt unifiée),
+> Statut : **en cours**. Prérequis : [LOT-38](@ref lot-38) (IHM Qt unifiée),
 > [LOT-52](@ref lot-52) (texte dans la scène). **Premier lot de contenu** du programme `0.1.0`,
 > après le durcissement du [LOT-58](@ref lot-58).
 
@@ -89,7 +89,7 @@ victoire (`LOT-60`) ou un effet de mort (`LOT-53`) n'ont pas de place où existe
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-machine-etats-ecrans.md) | Machine à états d'écran : `Pause` et `NiveauTermine`, transitions explicites | `Source/HMI/Interface` | ⬜ |
+| [TACHE-01](tache-01-machine-etats-ecrans.md) | Machine à états d'écran : `Pause` et `NiveauTermine`, transitions explicites | `Source/HMI/Interface` | ✅ |
 | [TACHE-02](tache-02-ecran-pause.md) | Écran de pause et suspension réelle du pas fixe | `Source/HMI/Interface`, `Source/HMI/Game` | ⬜ |
 | [TACHE-03](tache-03-ecran-fin-niveau.md) | Écran de fin de niveau et écran de fin de séquence | `Source/HMI/Interface` | ⬜ |
 | [TACHE-04](tache-04-sequence-en-donnee.md) | Séquence de niveaux en donnée de contenu | `Source/Elements/Levels`, `Source/Core/Levels` | ⬜ |
