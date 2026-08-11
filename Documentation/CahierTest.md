@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**959 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**968 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (867)
+## Tests unitaires (876)
 
 ### Core
 
@@ -838,7 +838,7 @@
 | **TileTaxonomy.ChaqueTypeFigureExactementUneFois** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_tile_taxonomy.cpp:37`</sub> | Chaque type de tuile figure exactement une fois dans la taxonomie. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `types.size()` vaut `TILE_TYPE_COUNT`.<br/>Vérifie que `unique.size()` vaut `types.size()`.<br/>Vérifie que `unique.size()` vaut `TILE_TYPE_COUNT`. |
 | **TileTaxonomy.ChaqueEntreeAUnLibelle** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_tile_taxonomy.cpp:59`</sub> | Chaque catégorie, sous-groupe et tuile de la taxonomie porte un libellé non vide. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `category.label.empty()` est faux.<br/>Vérifie que `entry.label.empty()` est faux.<br/>Vérifie que `subgroup.label.empty()` est faux.<br/>Vérifie que `entry.label.empty()` est faux. |
 
-#### Game (5)
+#### Game (14)
 
 **`test_game_hud.cpp`**
 
@@ -849,6 +849,20 @@
 | **GameHudTest.BudgetPartielNAfficheQuUnCompteur** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_hud.cpp:76`</sub> | Un budget partiellement défini n'affiche qu'un seul compteur. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `lines.size()` vaut `2u`.<br/>Vérifie que `lines[0]` vaut `"Sauts : 2"`.<br/>Vérifie que `lines[1]` vaut `"Chute libre"`. |
 | **GameHudTest.CompteurSuitLaDecroissanceDuBudget** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_hud.cpp:99`</sub> | Le compteur affiché suit immédiatement la décroissance du budget. | 1. Composer les lignes avec 3 sauts restants, puis avec 2 (après un saut simulé).<br/> 2. Comparer les deux résultats. | Vérifie que `hmi::gameHudLines(player, "Niveau", localization)[0]` vaut `"Sauts : 3"`.<br/>Vérifie que `hmi::gameHudLines(player, "Niveau", localization)[0]` vaut `"Sauts : 2"`. |
 | **GameHudTest.ClesDeTraductionExistentDansLesDeuxCatalogues** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_hud.cpp:122`</sub> | Les clés de traduction du HUD existent dans les deux catalogues livrés. | 1. Charger fr.lang puis en.lang depuis les catalogues livrés.<br/>2. Résoudre les clés du HUD. | Vérifie que `localization.loadDefaultLanguage(language)` est vrai.<br/>Vérifie que `localization.text("hud.jumps_remaining")` diffère de `"hud.jumps_remaining"`.<br/>Vérifie que `localization.text("hud.dashes_remaining")` diffère de `"hud.dashes_remaining"`. |
+
+**`test_progression.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ProgressionTest.ProgressionNeuveEstVide** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_progression.cpp:42`</sub> | Une progression neuve est vide. | 1. Construire une `Progression` par défaut.<br/>2. Vérifier ses champs. | Vérifie que `progression.sequenceId().empty()` est vrai.<br/>Vérifie que `progression.currentLevel().empty()` est vrai.<br/>Vérifie que `progression.completedLevels().empty()` est vrai. |
+| **ProgressionTest.MarquerDeuxFoisLeMemeTableauEstSansEffet** (Critique)<br/><sub>`Source/Test/Unit/HMI/Game/test_progression.cpp:59`</sub> | Marquer un tableau terminé deux fois est sans effet. | 1. Marquer un tableau terminé.<br/>2. Le marquer une seconde fois.<br/>3. Vérifier la taille de l'ensemble. | Vérifie que `progression.completedLevels().size()` vaut `1U`.<br/>Vérifie que `progression.isCompleted("demo-saut.json")` est vrai.<br/>Vérifie que `progression.isCompleted("demo-dash.json")` est faux. |
+| **ProgressionTest.ResetEffaceToutLaProgression** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_progression.cpp:79`</sub> | reset() efface toute la progression. | 1. Construire une progression avec du contenu.<br/>2. Appeler `reset()`.<br/>3. Vérifier qu'elle est redevenue vide. | Vérifie que `progression.sequenceId().empty()` est vrai.<br/>Vérifie que `progression.currentLevel().empty()` est vrai.<br/>Vérifie que `progression.completedLevels().empty()` est vrai. |
+| **ProgressionDir.AllerRetourProduitExactementLaMemeProgression** (Critique)<br/><sub>`Source/Test/Unit/HMI/Game/test_progression.cpp:102`</sub> | Sauvegarder puis relire une progression produit exactement la même. | 1. Construire une progression avec plusieurs tableaux terminés.<br/>2. La sauvegarder.<br/>3. La relire depuis le même fichier. | Vérifie que `original.save(path)` est vrai.<br/>Vérifie que `reloaded.sequenceId()` vaut `original.sequenceId()`.<br/>Vérifie que `reloaded.currentLevel()` vaut `original.currentLevel()`.<br/>Vérifie que `reloaded.completedLevels()` vaut `original.completedLevels()`. |
+| **ProgressionDir.FichierAbsentDonneUnePartieNeuve** (Critique)<br/><sub>`Source/Test/Unit/HMI/Game/test_progression.cpp:129`</sub> | Un fichier de progression absent donne une partie neuve. | 1. Charger depuis un chemin qui n'existe pas.<br/>2. Vérifier le résultat. | Vérifie que `progression.sequenceId().empty()` est vrai.<br/>Vérifie que `progression.currentLevel().empty()` est vrai.<br/>Vérifie que `progression.completedLevels().empty()` est vrai. |
+| **ProgressionDir.FichierVideDonneUnePartieNeuve** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_progression.cpp:145`</sub> | Un fichier de progression vide donne une partie neuve. | 1. Écrire un fichier vide.<br/>2. Le charger. | Vérifie que `progression.sequenceId().empty()` est vrai.<br/>Vérifie que `progression.completedLevels().empty()` est vrai. |
+| **ProgressionDir.FichierMalformeDonneUnePartieNeuve** (Critique)<br/><sub>`Source/Test/Unit/HMI/Game/test_progression.cpp:162`</sub> | Un fichier de progression malformé donne une partie neuve. | 1. Écrire du JSON invalide.<br/>2. Le charger. | Vérifie que `progression.sequenceId().empty()` est vrai.<br/>Vérifie que `progression.completedLevels().empty()` est vrai. |
+| **ProgressionDir.EntreeInconnueDansCompletedLevelsEstIgnoree** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_progression.cpp:182`</sub> | Une entrée inconnue de completedLevels est ignorée sans invalider le reste. | 1. Écrire un fichier dont `completedLevels` contient une entrée numérique.<br/>2. Le charger. | Vérifie que `progression.sequenceId()` vaut `"sequence-demo.json"`.<br/>Vérifie que `progression.completedLevels().size()` vaut `2U`.<br/>Vérifie que `progression.isCompleted("demo-deplacement.json")` est vrai.<br/>Vérifie que `progression.isCompleted("demo-saut.json")` est vrai. |
+| **ProgressionTest.TableauRetireDeLaSequenceNInvalidePasLeReste** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_progression.cpp:209`</sub> | Un tableau retiré de la séquence n'invalide pas le reste de la progression. | 1. Marquer trois tableaux terminés.<br/>2. Simuler le retrait d'un tableau de la séquence (aucune action sur la progression : elle ne connaît pas la séquence).<br/>3. Vérifier que les deux autres restent marqués terminés. | Vérifie que `progression.isCompleted("demo-deplacement.json")` est vrai.<br/>Vérifie que `progression.isCompleted("demo-dash.json")` est vrai.<br/>Vérifie que `progression.completedLevels().size()` vaut `3U`. |
 
 #### Graphics (244)
 

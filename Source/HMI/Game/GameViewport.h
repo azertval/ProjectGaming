@@ -230,6 +230,10 @@ public:
     /// @return Le nom (fichier sans extension) du tableau qui vient d'être réussi, pour
     ///         l'affichage de l'écran de fin de niveau. Chaîne vide hors partie réelle.
     [[nodiscard]] std::string currentGameLevelName() const;
+    /// @return Le nom (fichier sans extension) du tableau **suivant** celui qui vient d'être
+    ///         réussi -- le tableau où reprendre (`hmi::Progression::currentLevel`, `LOT-59`
+    ///         TACHE-05). Chaîne vide en fin de séquence (`isLastGameLevel`) ou hors partie réelle.
+    [[nodiscard]] std::string nextGameLevelName() const;
     /// « Continuer » depuis l'écran de fin de niveau (`LOT-59` TACHE-03) : charge le tableau
     /// suivant de la séquence -- reprend l'ancien enchaînement automatique sur réussite, mais sur
     /// validation du joueur plutôt qu'immédiatement. Sans effet si le tableau réussi était déjà

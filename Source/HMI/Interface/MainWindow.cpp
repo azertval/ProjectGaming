@@ -96,6 +96,11 @@ constexpr char FOLLOW_ACTIVE_TOOL_KEY[] = "panels/followActiveTool";
 // Reglage "contraindre a la palette" de l'atelier pixel art (LOT-54 TACHE-07).
 constexpr char CONSTRAIN_TO_PALETTE_KEY[] = "pixelEditor/constrainToPalette";
 
+// Nom du fichier de séquence jouée (LOT-59 TACHE-04, EX-LVL-013), à côté des niveaux -- identifie
+// aussi la progression (LOT-59 TACHE-05) : un seul littéral, partagé entre showGame (chargement)
+// et openLevelComplete (marquage), plutôt que deux occurrences à faire dériver.
+constexpr char DEMO_SEQUENCE_FILE[] = "sequence-demo.json";
+
 }  // namespace
 
 MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
@@ -121,7 +126,9 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
       _themeLightAction(nullptr),
       _themeDarkAction(nullptr),
       _loc(hmi::executableDirectory() / "Localization"),
-      _sessionLog(sessionLog) {
+      _sessionLog(sessionLog),
+      _progression(
+          hmi::Progression::load(hmi::executableDirectory() / "Settings" / "progression.json")) {
     _ui->setupUi(this);  // barre de menus + docks (coquilles) depuis MainWindow.ui.
 
     // Catalogue de traduction : français par défaut (repli), langue active depuis les réglages.
@@ -500,17 +507,28 @@ void MainWindow::openLevelComplete() {
     // déjà configuré) : le nom du tableau et la variante dépendent du tableau qui vient d'être
     // réussi, interrogé pendant qu'il est encore courant (GameViewport::_gameLevel n'avance qu'à
     // `advanceToNextLevel`/`replayFromLevelComplete`).
-    //
-    // TODO(LOT-59 TACHE-05) : marquer le tableau comme terminé dans la progression persistée,
-    // ici, une seule fois par réussite -- avant tout chargement du tableau suivant. Pas encore
-    // implémentable : `hmi::Progression` n'existe pas avant cette tâche.
     const bool sequenceComplete = _viewport->isLastGameLevel();
-    _levelCompleteScreen->configure(sequenceComplete,
-                                    QString::fromStdString(_viewport->currentGameLevelName()));
+    const std::string finishedLevel = _viewport->currentGameLevelName();
+    const std::string nextLevel = _viewport->nextGameLevelName();
+    _levelCompleteScreen->configure(sequenceComplete, QString::fromStdString(finishedLevel));
     if (!transitionScreen(ScreenEvent::LevelSucceeded)) {
         return;
     }
     HMI_LOG_INFO("Navigation : tableau reussi.");
+
+    // Progression persistée (LOT-59 TACHE-05, EX-LVL-014) : marquée ICI, une seule fois par
+    // réussite, avant tout chargement du tableau suivant -- point d'écriture unique (ni
+    // Continuer/Rejouer/Retour ne réécrivent). `nextLevel` est vide en fin de séquence :
+    // `currentLevel` reste alors au dernier tableau atteint, sans effet tant qu'aucune sélection de
+    // niveau (TACHE-06) ne le lit.
+    _progression.setSequenceId(DEMO_SEQUENCE_FILE);
+    _progression.markCompleted(finishedLevel);
+    if (!nextLevel.empty()) {
+        _progression.setCurrentLevel(nextLevel);
+    }
+    if (!_progression.save(hmi::executableDirectory() / "Settings" / "progression.json")) {
+        HMI_LOG_WARNING("Progression : echec de l'ecriture (Settings/progression.json).");
+    }
 }
 
 void MainWindow::continueFromLevelComplete() {
@@ -564,7 +582,7 @@ void MainWindow::showGame() {
     // d'ouvrir un écran de jeu sans rien à jouer.
     const std::filesystem::path levelsDir = hmi::executableDirectory() / "Levels";
     const core::LevelSequenceLoadResult sequenceLoad =
-        core::LevelSequenceLoader::loadFromFile(levelsDir / "sequence-demo.json");
+        core::LevelSequenceLoader::loadFromFile(levelsDir / DEMO_SEQUENCE_FILE);
     if (!sequenceLoad.ok()) {
         HMI_LOG_WARNING("Jeu : sequence illisible : " + sequenceLoad.error);
         QMessageBox::warning(

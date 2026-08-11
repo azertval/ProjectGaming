@@ -133,6 +133,7 @@ add_executable(ProjectGaming
     # Jeu (simulation d'un niveau + viewport Qt jeu/édition)
     Game/GameSession.cpp
     Game/GameViewport.cpp
+    Game/Progression.cpp
     Game/GameHud.cpp
     # Localisation
     Localization/Localization.cpp

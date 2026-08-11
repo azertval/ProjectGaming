@@ -1157,6 +1157,13 @@ std::string GameViewport::currentGameLevelName() const {
     return _gameLevels[_gameLevel].stem().string();
 }
 
+std::string GameViewport::nextGameLevelName() const {
+    if (!_gameMode || _gameLevel + 1 >= _gameLevels.size()) {
+        return {};
+    }
+    return _gameLevels[_gameLevel + 1].stem().string();
+}
+
 void GameViewport::advanceToNextLevel() {
     loadGameLevel(_gameLevel + 1);
 }

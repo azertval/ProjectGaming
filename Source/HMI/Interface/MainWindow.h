@@ -11,6 +11,7 @@
 #include "HMI/Editor/PanelFocus.h"
 #include "HMI/Editor/PixelPalette.h"
 #include "HMI/Editor/PixelTool.h"
+#include "HMI/Game/Progression.h"
 #include "HMI/Input/GamepadPoller.h"
 #include "HMI/Input/InputState.h"
 #include "HMI/Interface/ScreenFlow.h"
@@ -314,6 +315,10 @@ private:
 
     Localization _loc;  ///< Catalogue de traduction (i18n), source de tous les textes.
     core::MemoryLogSink* _sessionLog;  ///< Sink mémoire des logs (nul en Release).
+    /// Progression de partie persistée (`LOT-59` TACHE-05, `EX-LVL-014`) : chargée une fois à la
+    /// construction, marquée/écrite à chaque réussite de tableau (`openLevelComplete`) -- jamais
+    /// ailleurs (pas d'écriture par image ni par pas).
+    hmi::Progression _progression;
 
     // Navigation manette des menus (hors jeu) : sondage périodique -> événements clavier Qt.
     GamepadPoller _menuPad;
