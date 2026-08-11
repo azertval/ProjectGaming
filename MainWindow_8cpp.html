@@ -116,7 +116,11 @@ $(function(){initNavTree('MainWindow_8cpp.html','',''); });
 <code>#include &lt;QMenu&gt;</code><br />
 <code>#include &lt;QMenuBar&gt;</code><br />
 <code>#include &lt;QMessageBox&gt;</code><br />
+<code>#include &lt;QMoveEvent&gt;</code><br />
 <code>#include &lt;QPixmap&gt;</code><br />
+<code>#include &lt;QPoint&gt;</code><br />
+<code>#include &lt;QRect&gt;</code><br />
+<code>#include &lt;QResizeEvent&gt;</code><br />
 <code>#include &lt;QSettings&gt;</code><br />
 <code>#include &lt;QSignalBlocker&gt;</code><br />
 <code>#include &lt;QSpinBox&gt;</code><br />
@@ -129,16 +133,19 @@ $(function(){initNavTree('MainWindow_8cpp.html','',''); });
 <code>#include &lt;QToolButton&gt;</code><br />
 <code>#include &lt;QVBoxLayout&gt;</code><br />
 <code>#include &lt;QWidget&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;array&gt;</code><br />
 <code>#include &lt;ctime&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="MemoryLogSink_8h_source.html">Core/Diagnostics/MemoryLogSink.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelSequence_8h_source.html">Core/Levels/LevelSequence.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SessionLog_8h_source.html">HMI/Diagnostics/SessionLog.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="AssetReferences_8h_source.html">HMI/Editor/AssetReferences.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="DecorsPanel_8h_source.html">HMI/Editor/DecorsPanel.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="EditorStatus_8h_source.html">HMI/Editor/EditorStatus.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelBrowserPanel_8h_source.html">HMI/Editor/LevelBrowserPanel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelFileOperations_8h_source.html">HMI/Editor/LevelFileOperations.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LinkPanel_8h_source.html">HMI/Editor/LinkPanel.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PalettePanel_8h_source.html">HMI/Editor/PalettePanel.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PanelFocus_8h_source.html">HMI/Editor/PanelFocus.h</a>&quot;</code><br />
@@ -156,8 +163,11 @@ $(function(){initNavTree('MainWindow_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="ApplicationTheme_8h_source.html">HMI/Interface/ApplicationTheme.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="DesignTokens_8h_source.html">HMI/Interface/DesignTokens.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="EditorActions_8h_source.html">HMI/Interface/EditorActions.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelCompleteScreen_8h_source.html">HMI/Interface/LevelCompleteScreen.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelSelectScreen_8h_source.html">HMI/Interface/LevelSelectScreen.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="MainMenu_8h_source.html">HMI/Interface/MainMenu.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="OptionsPage_8h_source.html">HMI/Interface/OptionsPage.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PauseScreen_8h_source.html">HMI/Interface/PauseScreen.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ExecutableDirectory_8h_source.html">HMI/Platform/ExecutableDirectory.h</a>&quot;</code><br />
 <code>#include &quot;ui_MainWindow.h&quot;</code><br />
 </div><table class="memberdecls">

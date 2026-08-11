@@ -20,5 +20,6 @@ var searchData=
   ['description_17',['description',['../structhmi_1_1AnimationDescriptionResult.html#a3cdcee7012ff94ee9d1035738c33edaf',1,'hmi::AnimationDescriptionResult']]],
   ['dirty_18',['dirty',['../structhmi_1_1LevelStatusInfo.html#a9cd9b8b2b1e60de42886994d2ffb1310',1,'hmi::LevelStatusInfo::dirty'],['../structhmi_1_1PixelEditStatusInfo.html#a5e78865d03928b21b28f7801e71d96ca',1,'hmi::PixelEditStatusInfo::dirty']]],
   ['disconnected_5fpoll_5finterval_19',['DISCONNECTED_POLL_INTERVAL',['../classhmi_1_1GamepadPoller.html#a7240bc976fbcfe00033bdbc223776d58',1,'hmi::GamepadPoller']]],
-  ['doorposition_20',['doorPosition',['../structcore_1_1Mechanism.html#aff8f5698a02356618c67d7fafae8b2b7',1,'core::Mechanism']]]
+  ['docksvisible_20',['docksVisible',['../structhmi_1_1ScreenDressing.html#afaadcce2a4848ec507ac6584b3590205',1,'hmi::ScreenDressing']]],
+  ['doorposition_21',['doorPosition',['../structcore_1_1Mechanism.html#aff8f5698a02356618c67d7fafae8b2b7',1,'core::Mechanism']]]
 ];

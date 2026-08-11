@@ -96,7 +96,7 @@ $(function(){initNavTree('lot-49.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-40.html" title="LOT-40 — Fondations : registre de textures, calques, culling, testabilité">LOT-40</a> (calques), <a class="el" href="lot-41.html" title="LOT-41 — Bascule Physique/Texture (`F8`, non remappable)">LOT-41</a> (bascule), <a class="el" href="lot-44.html" title="LOT-44 — Fond de niveau et versionnement du format">LOT-44</a> (format de niveau versionné). Concrétise <a class="el" href="spec-decors.html#md_Specification_2decors" title="Specification/decors.md"><span class="tt">decors.md</span></a>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2188"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2195"></a>
 Objectif</h1>
 <p>Livrer les <b>calques de décor</b> — arrière-plan, décor, premier plan — demandés dès l'origine et absents du cadrage initial du programme, qui ne prévoyait qu'un fond et des tuiles habillées.</p>
 <p>Deux manques concrets, aujourd'hui :</p>
@@ -105,9 +105,9 @@ Objectif</h1>
 <li>Rien n'est jamais dessiné <b>au-dessus</b> du personnage. Or c'est précisément ce qui permet au joueur de comprendre d'un coup d'œil ce qui est physique : ce qui passe devant lui ne le porte pas et ne le bloque pas.</li>
 </ul>
 <p>Ce système est déjà <b>spécifié</b> (<span class="tt">EX-DEC-001</span> à <span class="tt">EX-DEC-005</span>, <span class="tt">EX-DEC-010</span>) depuis longtemps, sans avoir jamais été rattaché à un lot.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2189"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2196"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2190"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2197"></a>
 Inclus</h2>
 <ul>
 <li><b><span class="tt">Core</span></b> : <em><a class="el" href="structcore_1_1Decor.html" title="Décor libre : nom d&#39;asset, transform en unités monde flottantes, couche et indicateur statique/manipu...">core::Decor</a></em> — nom d'asset, position en unités monde (<b>flottante, hors grille</b>), échelle, rotation, couche, et l'indicateur statique/manipulable de <span class="tt">EX-DEC-005</span>. Vecteur annexe sur <span class="tt">Level</span>/<span class="tt">LevelDraft</span>, <b>exactement</b> le patron <span class="tt">Mechanism</span>/<span class="tt">DangerLink</span> (<span class="tt"><a class="el" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes.">Source/Core/Levels/Level.h</a></span>). Données pures, aucun handle de texture.</li>
@@ -119,7 +119,7 @@ Inclus</h2>
 <li>Dossier <span class="tt">Assets/Decors/</span> + commande <span class="tt">POST_BUILD</span>.</li>
 <li><b>Placement minimal</b> dans l'éditeur, juste assez pour voir le résultat : poser un décor sur une couche et le supprimer. La manipulation complète (déplacer, redimensionner, pivoter, réordonner) relève de LOT-50.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2191"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2198"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Manipulation par le joueur en cours de partie</b> (<span class="tt">EX-DEC-020</span>/<span class="tt">EX-DEC-021</span>) : reste post-programme. L'indicateur <span class="tt">manipulable</span> est stocké et sérialisé dès maintenant, mais n'a aucun effet en jeu.</li>
@@ -127,7 +127,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li>Outils d'édition avancés (LOT-50), visibilité par calque (LOT-51).</li>
 <li>Décors animés : gratuits si l'asset désigné porte un <span class="tt">nom-asset.anim.json</span> (LOT-46), aucune disposition particulière n'est nécessaire.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2192"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2199"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Décor = donnée de niveau, pas entité de gameplay.</b> <span class="tt">EX-DEC-004</span> demande des entités ECS sérialisables ; le patron de vecteur annexe sur <span class="tt">Level</span> répond à la sérialisation et au déterminisme, et le monde ECS est peuplé à la construction de la scène comme pour les tuiles (<span class="tt"><a class="el" href="namespacecore.html#a2af6bf1cd31d496a597f6bdf257ce148" title="Peuple un World d&#39;une entité par tuile non vide du niveau.">core::buildLevelScene</a></span>). Aucun nouveau mécanisme de persistance.</li>
@@ -135,14 +135,14 @@ Décisions de cadrage</h1>
 <li><b>Parallaxe relative au centre de la salle courante</b> (arbitré). La caméra bascule d'une salle à l'autre sans transition (<span class="tt">EX-REN-015</span>, <span class="tt">LOT-32</span>), alors que la parallaxe suppose un défilement continu. Le décalage est donc calculé depuis la position <b>dans la salle</b>, pas dans le niveau : le décor se replace à chaque salle, et la parallaxe n'agit qu'à l'intérieur d'une salle. L'alternative — un décalage absolu en espace niveau — ferait sauter visiblement le décor à chaque bascule, un artefact ; le replacement par salle, lui, a lieu au moment exact où toute l'image change déjà, donc invisible. Le décalage doit également être pris en compte par le culling (LOT-40, TACHE-05) : une couche parallaxée n'occupe pas le même rectangle monde que le niveau.</li>
 <li><b>Aucune collision, jamais.</b> Un décor qui pourrait bloquer serait une tuile ; la distinction décor/physique est le sujet même du lot.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2193"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2200"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle : <span class="tt">EX-DEC-006</span> (facteur de défilement par couche).</li>
 <li>Concrétisées : <span class="tt">EX-DEC-001</span> (objet libre avec transform), <span class="tt">EX-DEC-002</span> (trois couches), <span class="tt">EX-DEC-003</span> (rendu pixel art net), <span class="tt">EX-DEC-004</span> (entités de la simulation, sérialisables), <span class="tt">EX-DEC-005</span> (statique ou manipulable).</li>
 <li>Réutilisées : <span class="tt">EX-REN-014</span> (ordonnancement des couches), <span class="tt">EX-REN-043</span> (multi-textures), <span class="tt">EX-REN-046</span> (bascule), <span class="tt">EX-LVL-005</span> (format versionné), <span class="tt">EX-ARCH-012</span> (rendu sans effet sur la simulation), <span class="tt">EX-NFR-005</span> (culling).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2194"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2201"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -159,7 +159,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-49-tache-04-placement-minimal.html#md_Lot_2LOT-49-decors-libres_2tache-04-placement-minimal" title="Lot/LOT-49-decors-libres/tache-04-placement-minimal.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Placement minimal dans l'éditeur + dossier <span class="tt">Assets/Decors/</span> + <span class="tt">POST_BUILD</span>  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Editor</span>, <span class="tt">Source/HMI/CMakeLists.txt</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2195"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2202"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Un décor posé sur la couche premier plan est dessiné <b>au-dessus</b> du personnage ; sur les couches arrière, en dessous des tuiles — asserté via le <em>QuadRecorder</em>.</li>
@@ -169,10 +169,10 @@ Critères d'acceptation du lot</h1>
 <li>Un niveau existant (sans décors) se charge sans changement de comportement.</li>
 <li>Round-trip JSON, undo/redo et projection couche → calque testés sans GPU ; build <span class="tt">/W4 /WX</span>, Doxygen, lint verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2196"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2203"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-40.html" title="LOT-40 — Fondations : registre de textures, calques, culling, testabilité">LOT-40</a> (calques, culling), <a class="el" href="lot-41.html" title="LOT-41 — Bascule Physique/Texture (`F8`, non remappable)">LOT-41</a> (bascule) et <a class="el" href="lot-44.html" title="LOT-44 — Fond de niveau et versionnement du format">LOT-44</a> (format versionné, patron de données annexes). Bénéficie de <a class="el" href="lot-46.html" title="LOT-46 — Moteur d&#39;animation générique piloté par données">LOT-46</a> (décors animés) et de <a class="el" href="lot-43.html" title="LOT-43 — Bibliothèque d&#39;assets : vignettes, import, rechargement à chaud">LOT-43</a> (import d'assets). Prérequis de <a class="el" href="lot-50.html" title="LOT-50 — Décors : placement et manipulation dans l&#39;éditeur">LOT-50</a> ; étend le périmètre de <a class="el" href="lot-51.html" title="LOT-51 — Mode « définition des textures » : visibilité par calque">LOT-51</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2197"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2204"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-49-tache-01-modele-decor.html" title="TACHE-01 — *core::Decor* : modèle, couches et sérialisation">TACHE-01 — *core::Decor* : modèle, couches et sérialisation</a></li>

@@ -93,28 +93,28 @@ $(function(){initNavTree('lot-59-tache-01-machine-etats-ecrans.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-59-boucle-de-jeu_2tache-01-machine-etats-ecrans"></a></p>
-<p><b>Lot :</b> <a class="el" href="lot-59.html#md_Lot_2LOT-59-boucle-de-jeu_2epic" title="Lot/LOT-59-boucle-de-jeu/epic.md">LOT-59</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Interface</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2618"></a>
+<p><b>Lot :</b> <a class="el" href="lot-59.html#md_Lot_2LOT-59-boucle-de-jeu_2epic" title="Lot/LOT-59-boucle-de-jeu/epic.md">LOT-59</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Interface</span> · <b>Statut :</b> fait</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2625"></a>
 Contexte</h1>
-<p><span class="tt">hmi::ScreenId</span> connaît quatre écrans — <span class="tt">Menu</span>, <span class="tt">Game</span>, <span class="tt">Editor</span>, <span class="tt">Options</span> — et la navigation entre eux est écrite à même <span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">hmi::MainWindow</a></span> : chaque méthode <span class="tt">showXxx()</span> répète la même litanie (basculer le <span class="tt">QStackedWidget</span>, montrer ou cacher les docks, la barre de menus, les deux barres d'outils, activer ou non la navigation manette, réarmer la barre d'état). Ajouter deux écrans en copiant ce bloc deux fois de plus rendrait la dixième incohérence inévitable.</p>
+<p><span class="tt"><a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528d" title="Écran actuellement affiché par la fenêtre principale.">hmi::ScreenId</a></span> connaît quatre écrans — <span class="tt">Menu</span>, <span class="tt">Game</span>, <span class="tt">Editor</span>, <span class="tt">Options</span> — et la navigation entre eux est écrite à même <span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">hmi::MainWindow</a></span> : chaque méthode <span class="tt">showXxx()</span> répète la même litanie (basculer le <span class="tt">QStackedWidget</span>, montrer ou cacher les docks, la barre de menus, les deux barres d'outils, activer ou non la navigation manette, réarmer la barre d'état). Ajouter deux écrans en copiant ce bloc deux fois de plus rendrait la dixième incohérence inévitable.</p>
 <p><span class="tt">EX-GP-041</span> demande des transitions <b>explicites et unidirectionnelles</b>. Aujourd'hui elles sont implicites : n'importe quelle méthode peut appeler n'importe quelle autre, et rien ne dit qu'on ne peut pas atteindre <span class="tt">Pause</span> depuis l'éditeur.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2619"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2626"></a>
 Travail à réaliser</h1>
 <ul>
-<li><b>Ajouter <span class="tt">Pause</span> et <span class="tt">NiveauTermine</span></b> à <span class="tt">hmi::ScreenId</span>, et un <span class="tt">FinDeSequence</span> si la <span class="tt">TACHE-03</span> conclut qu'il ne se confond pas avec le précédent.</li>
+<li><b>Ajouter <span class="tt">Pause</span> et <span class="tt">NiveauTermine</span></b> à <span class="tt"><a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528d" title="Écran actuellement affiché par la fenêtre principale.">hmi::ScreenId</a></span>, et un <span class="tt">FinDeSequence</span> si la <span class="tt">TACHE-03</span> conclut qu'il ne se confond pas avec le précédent.</li>
 <li><b>Extraire la navigation</b> de <span class="tt">MainWindow</span> vers une unité dédiée : à partir de (état courant, événement), quel écran devient courant et quel est l'habillage de fenêtre associé (docks, menus, barres d'outils, navigation manette). Table de transitions <b>pure</b>, testable sans Qt — même patron que <span class="tt">hmi::PanelFocus</span> et <span class="tt">hmi::ActionCatalog</span>, qui séparent déjà la décision du widget.</li>
 <li><b>Transitions autorisées uniquement</b> : toute transition non déclarée est refusée et journalisée, plutôt que de basculer silencieusement. On ne peut pas atteindre <span class="tt">Pause</span> autrement que depuis <span class="tt">Game</span>, ni <span class="tt">NiveauTermine</span> autrement que par une réussite.</li>
 <li><b>Ne pas déplacer autre chose.</b> Les méthodes <span class="tt">showXxx()</span> deviennent des consommatrices de la table ; leur contenu propre (construction des panneaux, connexions) reste où il est.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2620"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2627"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/ScreenFlow.{h,cpp}</span> (nouveau) — table de transitions pure.</li>
 <li><span class="tt">Source/HMI/Interface/MainWindow.{h,cpp}</span> — <span class="tt">ScreenId</span> étendu, <span class="tt">showXxx()</span> réécrites en termes de la table.</li>
-<li><span class="tt">Source/Test/Unit/HMI/Interface/test_screen_flow.cpp</span> (nouveau).</li>
-<li><span class="tt">Source/Test/CMakeLists.txt</span> (compiler <span class="tt">ScreenFlow.cpp</span> dans <span class="tt">UnitTests</span>, comme <span class="tt"><a class="el" href="PanelFocus_8cpp.html">PanelFocus.cpp</a></span>).</li>
+<li><span class="tt"><a class="el" href="test__screen__flow_8cpp.html" title="Tests unitaires de la machine à états des écrans (LOT-59 TACHE-01, EX-GP-041).">Source/Test/Unit/HMI/Interface/test_screen_flow.cpp</a></span> (nouveau).</li>
+<li><span class="tt">Source/Test/CMakeLists.txt</span> (compiler <span class="tt"><a class="el" href="ScreenFlow_8cpp.html">ScreenFlow.cpp</a></span> dans <span class="tt">UnitTests</span>, comme <span class="tt"><a class="el" href="PanelFocus_8cpp.html">PanelFocus.cpp</a></span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2621"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2628"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Chaque transition <b>autorisée</b> mène à l'écran attendu, pour chacun des six écrans.</li>
@@ -122,19 +122,22 @@ Tests (obligatoires)</h1>
 <li>L'habillage de fenêtre associé à chaque écran est celui attendu (docks visibles ou non, barres, navigation manette) — c'est ce qui est aujourd'hui répété à la main et diverge.</li>
 <li>Tests purs, sans Qt ni GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2622"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2629"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas transformer ceci en refonte de <span class="tt">MainWindow</span>.</b> Le lot ajoute deux écrans ; la table est extraite parce qu'on la modifie, pas parce que le fichier est long.</li>
 <li>La bascule <span class="tt">Game</span> → <span class="tt">Options</span> existe déjà depuis le menu de pause <b>et</b> depuis le menu principal : le retour doit revenir d'où l'on vient, ce que la table doit porter explicitement plutôt que par une variable « écran précédent » posée ailleurs.</li>
 <li><span class="tt"><a class="el" href="classhmi_1_1EditorActions.html#a4afc7fc551a714ca36cf6b4c151fd20d" title="Active/désactive les six commandes qui n&#39;ont de sens qu&#39;en édition (Enregistrer, Essayer,...">hmi::EditorActions::setEditingCommandsEnabled</a></span> et la visibilité des docks sont déjà pilotées par écran : les faire dériver de la table, pas les recopier à côté.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2623"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2630"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">Pause</span> et <span class="tt">NiveauTermine</span> existent, toute transition d'écran passe par une table pure et testée, les transitions interdites sont refusées, aucun comportement d'écran existant n'a changé ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2624"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2631"></a>
+État</h1>
+<p><span class="tt">hmi::ScreenFlow</span> (table pure) et le câblage de <span class="tt">MainWindow</span> sont en place, avec les six écrans et leurs transitions testées (<span class="tt"><a class="el" href="test__screen__flow_8cpp.html" title="Tests unitaires de la machine à états des écrans (LOT-59 TACHE-01, EX-GP-041).">test_screen_flow.cpp</a></span>, 5 tests). <span class="tt">Pause</span> et <span class="tt">NiveauTermine</span> existent dans l'énumération et la table, mais ne sont <b>pas encore atteignables depuis l'IHM réelle</b> : aucun bouton ni raccourci ne déclenche encore <span class="tt">OpenPause</span>/<span class="tt">LevelSucceeded</span> — c'est le travail de <span class="tt">TACHE-02</span>/<span class="tt">TACHE-03</span>, qui ajouteront les écrans eux-mêmes (<span class="tt">PauseScreen</span>, <span class="tt">LevelCompleteScreen</span>) et les événements qui les déclenchent.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2632"></a>
 Exigences</h1>
 <p><span class="tt">EX-IHM-004</span> (écrans de pause et de fin de niveau) ; réutilise <span class="tt">EX-GP-040</span> (états de jeu), <span class="tt">EX-GP-041</span> (machine à états), <span class="tt">EX-IHM-001</span> (interface hors-jeu en Qt), <span class="tt">EX-NFR-010</span> (logique testable sans fenêtre). </p>
 </div></div><!-- contents -->

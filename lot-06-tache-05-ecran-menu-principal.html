@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-06-tache-05-ecran-menu-principal.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-06-menu-principal_2tache-05-ecran-menu-principal"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-06.html#md_Lot_2LOT-06-menu-principal_2epic" title="Lot/LOT-06-menu-principal/epic.md">LOT-06</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Interface</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md595"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md602"></a>
 Contexte</h1>
 <p>L'écran d'accueil du jeu. Il présente les trois options et route l'application selon le choix de l'utilisateur (<span class="tt">EX-REN-030</span>), au clavier <b>et</b> à la souris.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md596"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md603"></a>
 Travail à réaliser</h1>
 <ul>
 <li><span class="tt">MenuScreen</span> (implémente <span class="tt">IScreen</span>) avec les trois entrées : <b>« Charger niveau »</b>, <b>« Mode Edition »</b>, <b>« Quitter »</b>.</li>
@@ -107,32 +107,32 @@ Travail à réaliser</h1>
 <li><b>Rendu</b> : titre + libellés via <span class="tt">BitmapFont</span> (TACHE-02), textes issus du catalogue ; l'option sélectionnée est mise en évidence (couleur/teinte ou surbrillance).</li>
 <li><b>Actions</b> (transitions, cf. TACHE-04) : « Charger niveau » → écran Jeu ; « Mode Edition » → écran Éditeur ; « Quitter » → demande de fermeture.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md597"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md604"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/MenuScreen.h</span>, <span class="tt">MenuScreen.cpp</span> (nouveau).</li>
 <li><span class="tt">Source/HMI/CMakeLists.txt</span>, <span class="tt">Source/Test/CMakeLists.txt</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md598"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md605"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>La navigation clavier fait défiler la sélection et <b>boucle</b> (ou se borne) aux extrémités, de façon déterministe.</li>
 <li>Valider une option produit la <b>transition attendue</b> (logique de sélection testable en injectant un <span class="tt">InputState</span>, sans fenêtre).</li>
 <li>Le survol souris d'une zone d'option sélectionne cette option.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md599"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md606"></a>
 Points d'attention</h1>
 <ul>
 <li>Séparer la <b>logique de sélection/transition</b> (testable) du <b>dessin</b> (visuel).</li>
 <li>Cohérence clavier/souris : le survol met à jour la même sélection que les flèches.</li>
 <li>En langue par défaut (français), le catalogue résout exactement « Charger niveau », « Mode Edition », « Quitter » ; le <span class="tt">MenuScreen</span> n'écrit aucun de ces littéraux directement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md600"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md607"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Menu navigable clavier + souris, actions câblées, logique testée (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span>, documenté.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md601"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md608"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-030</span>, <span class="tt">EX-REN-032</span>, <span class="tt">EX-CTRL-011</span>, <span class="tt">EX-CTRL-001</span>. </p>
 </div></div><!-- contents -->

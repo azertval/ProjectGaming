@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-60-tache-04-volume-options.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-60-audio-bruitages_2tache-04-volume-options"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-60.html#md_Lot_2LOT-60-audio-bruitages_2epic" title="Lot/LOT-60-audio-bruitages/epic.md">LOT-60</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Interface</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2698"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2712"></a>
 Contexte</h1>
 <p>Un jeu qui se met à faire du bruit sans offrir de le baisser est plus pénible que muet. <span class="tt"><a class="el" href="classhmi_1_1OptionsPage.html" title="Page Options unique, affichée dans la fenêtre principale (pas en pop-up), au style du menu principal ...">hmi::OptionsPage</a></span> gère déjà deux réglages persistés — V-Sync et langue — plus l'état de la manette et trois écrans de remappage : le réglage de volume s'y ajoute selon un patron établi, sans rien inventer.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2699"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2713"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Curseur de volume global</b> dans <span class="tt"><a class="el" href="classhmi_1_1OptionsPage.html" title="Page Options unique, affichée dans la fenêtre principale (pas en pop-up), au style du menu principal ...">hmi::OptionsPage</a></span>, avec sa valeur lisible et un libellé traduit (<span class="tt">EX-REN-033</span>).</li>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 <li><b>Muet</b> atteignable proprement (valeur zéro), et retrouvé au lancement suivant.</li>
 <li><b>Navigation clavier / souris / manette</b>, comme tout le reste de la page.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2700"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2714"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/OptionsPage.{h,cpp}</span>, <span class="tt">Source/Elements/UI/OptionsPage.ui</span>.</li>
@@ -115,7 +115,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Localization/{fr,en}.lang</span>.</li>
 <li><span class="tt">Source/Test/Unit/HMI/Audio/test_audio_engine.cpp</span> (étendu).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2701"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2715"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Le volume est <b>borné</b> : les valeurs hors plage sont ramenées aux extrêmes, jamais propagées.</li>
@@ -124,7 +124,7 @@ Tests (obligatoires)</h1>
 <li>Volume à zéro : aucune lecture n'est tentée, et rien ne plante.</li>
 <li>Libellés présents dans les <b>deux</b> catalogues de traduction.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2702"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2716"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas jouer l'échantillon de test à chaque pas du curseur</b> : au relâchement uniquement, sinon le réglage devient une mitraillette.</li>
@@ -132,12 +132,12 @@ Points d'attention</h1>
 <li>La page d'options est atteignable <b>depuis le menu principal et depuis la pause</b> (<span class="tt">LOT-59</span>) : vérifier que le retour revient au bon écran dans les deux cas — c'est la table de transitions de <span class="tt">LOT-59</span> TACHE-01 qui le porte, pas une variable posée ici.</li>
 <li>Vérifier le rendu du curseur dans les thèmes <b>clair et sombre</b> (<span class="tt">LOT-56</span>) : la feuille de style du projet couvre l'IHM, un nouveau type de widget peut y être mal servi.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2703"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2717"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Le volume se règle dans les options avec effet immédiat et retour sonore au relâchement, est borné, persiste entre deux lancements, se comporte correctement à zéro et depuis les deux chemins d'accès à la page, et est traduit ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2704"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2718"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-048</span> (volume réglable et persisté) ; réutilise <span class="tt">EX-IHM-001</span> (interface hors-jeu en Qt), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-CTRL-012</span> (clavier et manette), <span class="tt">EX-NFR-040</span> (erreur récupérable), <span class="tt">EX-IHM-050</span> à <span class="tt">EX-IHM-055</span> (système de design, thèmes). </p>
 </div></div><!-- contents -->

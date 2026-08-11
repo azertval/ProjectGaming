@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-49-tache-01-modele-decor.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-49-decors-libres_2tache-01-modele-decor"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-49.html#md_Lot_2LOT-49-decors-libres_2epic" title="Lot/LOT-49-decors-libres/epic.md">LOT-49</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Levels</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2198"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2205"></a>
 Contexte</h1>
 <p>Tout ce que contient un niveau est aujourd'hui <b>calé sur la grille</b> : <span class="tt"><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">core::TileMap</a></span> est une grille dense d'une <span class="tt">TileType</span> par case, et les données annexes (<span class="tt">Mechanism</span>, <span class="tt">DangerLink</span>, <span class="tt">DangerMoverConfig</span>, <span class="tt">TileTextureOverride</span>) sont keyées par une position <b>entière</b>.</p>
 <p>Un décor est le premier objet du projet à ne pas l'être : <span class="tt">EX-DEC-001</span> demande un objet <b>libre</b>, doté d'un transform en unités monde. C'est la seule vraie nouveauté de modèle du programme, et elle reste modeste — le patron de vecteur annexe s'applique tel quel, seule la clé change de nature.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2199"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2206"></a>
 Travail à réaliser</h1>
 <ul>
 <li><em><b><a class="el" href="structcore_1_1Decor.html" title="Décor libre : nom d&#39;asset, transform en unités monde flottantes, couche et indicateur statique/manipu...">core::Decor</a></b></em> : nom d'asset (chaîne), position en unités monde (<b>flottante</b>), échelle, rotation, couche, et l'indicateur statique/manipulable de <span class="tt">EX-DEC-005</span>. <span class="tt">struct</span> de données pures.</li>
@@ -109,13 +109,13 @@ Travail à réaliser</h1>
 <li><b>Historique</b> : champ ajouté à <span class="tt">LevelDraft::State</span>, annulation/rétablissement gratuits.</li>
 <li><b>Redimensionnement</b> : décider explicitement du sort d'un décor hors des nouvelles bornes après <span class="tt">resize</span>. Contrairement aux données annexes keyées par case, un décor libre peut légitimement déborder du niveau (une branche qui dépasse) — le tronquer serait une perte de travail. Conserver, et documenter ce choix comme une différence assumée avec les autres données annexes.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2200"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2207"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Decor_8h.html" title="Objet de décor libre (hors grille) d&#39;un niveau (EX-DEC-001, LOT-49).">Source/Core/Levels/Decor.h</a></span> (nouveau), <span class="tt"><a class="el" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes.">Level.h</a></span>, <span class="tt">LevelDraft.{h,cpp}</span>, <span class="tt"><a class="el" href="LevelLoader_8cpp.html">LevelLoader.cpp</a></span>, <span class="tt"><a class="el" href="LevelWriter_8cpp.html">LevelWriter.cpp</a></span>.</li>
 <li><span class="tt"><a class="el" href="test__decor_8cpp.html" title="Tests unitaires du décor libre (LOT-49, EX-DEC-001).">Source/Test/Unit/Core/Levels/test_decor.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2201"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2208"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Round-trip JSON : aucun décor, un décor, plusieurs décors sur des couches différentes, positions fractionnaires, rotation et échelle non par défaut.</li>
@@ -125,7 +125,7 @@ Tests (obligatoires)</h1>
 <li>Redimensionnement : les décors hors bornes sont conservés, conformément au choix documenté.</li>
 <li>Tout dans <span class="tt">Core</span>, sans GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2202"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2209"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Position flottante</b> : attention aux comparaisons d'égalité dans les tests et à la précision de sérialisation JSON. Fixer une précision d'écriture pour que le round-trip soit exact.</li>
@@ -133,12 +133,12 @@ Points d'attention</h1>
 <li><span class="tt">EX-DEC-004</span> demande des « entités ECS de la simulation ». Le vecteur annexe assure la sérialisation et le déterminisme ; les entités ECS sont créées à la construction de la scène, comme pour les tuiles (<span class="tt"><a class="el" href="namespacecore.html#a2af6bf1cd31d496a597f6bdf257ce148" title="Peuple un World d&#39;une entité par tuile non vide du niveau.">core::buildLevelScene</a></span>). Ne pas introduire de second mécanisme de persistance.</li>
 <li>L'indicateur <span class="tt">manipulable</span> est stocké et sérialisé, mais <b>sans effet</b> : <span class="tt">EX-DEC-020</span>/<span class="tt">EX-DEC-021</span> (manipulation en jeu) restent hors programme.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2203"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2210"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><em><a class="el" href="structcore_1_1Decor.html" title="Décor libre : nom d&#39;asset, transform en unités monde flottantes, couche et indicateur statique/manipu...">core::Decor</a></em> existe, transite par le JSON de façon rétrocompatible en préservant son ordre, est couvert par l'annulation, et le comportement au redimensionnement est documenté ; tests <span class="tt">Core</span> verts ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2204"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2211"></a>
 Exigences</h1>
 <p><span class="tt">EX-DEC-001</span> (objet libre avec transform), <span class="tt">EX-DEC-002</span> (couches), <span class="tt">EX-DEC-004</span> (entité sérialisable), <span class="tt">EX-DEC-005</span> (statique ou manipulable) ; réutilise <span class="tt">EX-LVL-003</span> (format JSON), <span class="tt">EX-LVL-005</span> (version), <span class="tt">EX-EDIT-005</span> (annuler/refaire), <span class="tt">EX-NFR-011</span> (frontière <span class="tt">Core</span>/<span class="tt">HMI</span>). </p>
 </div></div><!-- contents -->

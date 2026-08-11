@@ -9,9 +9,12 @@ var searchData=
   ['_7eilogsink_6',['~ILogSink',['../classcore_1_1ILogSink.html#a733cb4c0fc2eca07e037b5ef7faf54d5',1,'core::ILogSink']]],
   ['_7eisystem_7',['~ISystem',['../classcore_1_1ISystem.html#a720a3e2dcc57e50cc42fb24b73a8bf9a',1,'core::ISystem']]],
   ['_7elevelbrowserpanel_8',['~LevelBrowserPanel',['../classhmi_1_1LevelBrowserPanel.html#adde81f1cab1c37e2a715cdb8641fd8ba',1,'hmi::LevelBrowserPanel']]],
-  ['_7emainmenu_9',['~MainMenu',['../classhmi_1_1MainMenu.html#a14456d1cc71348647b0dcfccea2e4e3d',1,'hmi::MainMenu']]],
-  ['_7emainwindow_10',['~MainWindow',['../classhmi_1_1MainWindow.html#a9217cc93491089761355a98056939638',1,'hmi::MainWindow']]],
-  ['_7eoptionspage_11',['~OptionsPage',['../classhmi_1_1OptionsPage.html#aedd14b2f20d69aee127aaa93b779a6d6',1,'hmi::OptionsPage']]],
-  ['_7espritebatch_12',['~SpriteBatch',['../classhmi_1_1SpriteBatch.html#ae81bf5e883aafc69903b1c90873d67ef',1,'hmi::SpriteBatch']]],
-  ['_7etexturepanel_13',['~TexturePanel',['../classhmi_1_1TexturePanel.html#af9948eba8e1ae33c5f2dcf1cc3d42790',1,'hmi::TexturePanel']]]
+  ['_7elevelcompletescreen_9',['~LevelCompleteScreen',['../classhmi_1_1LevelCompleteScreen.html#af867e095c5e3ed893cc2c417a7c16ebb',1,'hmi::LevelCompleteScreen']]],
+  ['_7elevelselectscreen_10',['~LevelSelectScreen',['../classhmi_1_1LevelSelectScreen.html#aaf675ab38c9b9f6ef05cc3b3e63904cd',1,'hmi::LevelSelectScreen']]],
+  ['_7emainmenu_11',['~MainMenu',['../classhmi_1_1MainMenu.html#a14456d1cc71348647b0dcfccea2e4e3d',1,'hmi::MainMenu']]],
+  ['_7emainwindow_12',['~MainWindow',['../classhmi_1_1MainWindow.html#a9217cc93491089761355a98056939638',1,'hmi::MainWindow']]],
+  ['_7eoptionspage_13',['~OptionsPage',['../classhmi_1_1OptionsPage.html#aedd14b2f20d69aee127aaa93b779a6d6',1,'hmi::OptionsPage']]],
+  ['_7epausescreen_14',['~PauseScreen',['../classhmi_1_1PauseScreen.html#abca13b1576b060df4ba992f281a97c22',1,'hmi::PauseScreen']]],
+  ['_7espritebatch_15',['~SpriteBatch',['../classhmi_1_1SpriteBatch.html#ae81bf5e883aafc69903b1c90873d67ef',1,'hmi::SpriteBatch']]],
+  ['_7etexturepanel_16',['~TexturePanel',['../classhmi_1_1TexturePanel.html#af9948eba8e1ae33c5f2dcf1cc3d42790',1,'hmi::TexturePanel']]]
 ];

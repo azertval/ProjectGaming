@@ -1,7 +1,7 @@
 var lots =
 [
-    [ "Lots", "lots.html#autotoc_md2933", null ],
-    [ "Programme <span class=\"tt\">0.1.0</span>", "lots.html#autotoc_md2934", null ],
+    [ "Lots", "lots.html#autotoc_md2947", null ],
+    [ "Programme <span class=\"tt\">0.1.0</span>", "lots.html#autotoc_md2948", null ],
     [ "LOT-01 — Fenêtre &amp; boucle de jeu (Direct3D 11)", "lot-01.html", "lot-01" ],
     [ "LOT-02 — Journalisation &amp; diagnostics", "lot-02.html", "lot-02" ],
     [ "LOT-03 — Fondation ECS &amp; mathématiques Core", "lot-03.html", "lot-03" ],
@@ -15,16 +15,16 @@ var lots =
     [ "LOT-11 — Ressenti avancé : personnage humanoïde, gravité asymétrique, finitions", "lot-11.html", "lot-11" ],
     [ "LOT-12 — Niveau puzzle : mécanismes interrupteur/porte + budget de mouvements", "lot-12.html", "lot-12" ],
     [ "LOT-13 — Consolidation de la documentation", "lot-13.html", [
-      [ "Objectif", "lot-13.html#autotoc_md907", null ],
-      [ "Périmètre", "lot-13.html#autotoc_md908", [
-        [ "Inclus", "lot-13.html#autotoc_md909", null ],
-        [ "Exclus", "lot-13.html#autotoc_md910", null ]
+      [ "Objectif", "lot-13.html#autotoc_md914", null ],
+      [ "Périmètre", "lot-13.html#autotoc_md915", [
+        [ "Inclus", "lot-13.html#autotoc_md916", null ],
+        [ "Exclus", "lot-13.html#autotoc_md917", null ]
       ] ],
-      [ "Décisions de cadrage", "lot-13.html#autotoc_md911", null ],
-      [ "Exigences couvertes", "lot-13.html#autotoc_md912", null ],
-      [ "Découpage", "lot-13.html#autotoc_md913", null ],
-      [ "Critères d'acceptation du lot", "lot-13.html#autotoc_md914", null ],
-      [ "Dépendances", "lot-13.html#autotoc_md915", null ]
+      [ "Décisions de cadrage", "lot-13.html#autotoc_md918", null ],
+      [ "Exigences couvertes", "lot-13.html#autotoc_md919", null ],
+      [ "Découpage", "lot-13.html#autotoc_md920", null ],
+      [ "Critères d'acceptation du lot", "lot-13.html#autotoc_md921", null ],
+      [ "Dépendances", "lot-13.html#autotoc_md922", null ]
     ] ],
     [ "LOT-14 — Éditeur de niveaux intégré : édition de tuiles, mécanismes, essai immédiat", "lot-14.html", "lot-14" ],
     [ "LOT-15 — Éditeur de niveaux : robustesse et confort d'édition", "lot-15.html", "lot-15" ],

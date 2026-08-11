@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-05-tache-03-atlas-procedural.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-05-rendu-2d_2tache-03-atlas-procedural"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-05.html#md_Lot_2LOT-05-rendu-2d_2epic" title="Lot/LOT-05-rendu-2d/epic.md">LOT-05</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md529"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md536"></a>
 Contexte</h1>
 <p>Aucun asset graphique n'existe encore. Pour débloquer le rendu sans dépendre d'un fichier ni d'un chargeur d'image, l'atlas est <b>généré en mémoire</b> : une petite texture contenant quelques tuiles 16×16 distinctes (couleurs / motifs). Un vrai atlas PNG sera chargé plus tard, avec les graphismes.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md530"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md537"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Générer en code une texture d'atlas (ex. 64×64 ou 128×128) découpée en <b>tuiles 16×16</b> identifiables (couleurs pleines, damier, une tuile avec zone <b>transparente</b> pour tester l'alpha).</li>
@@ -105,32 +105,32 @@ Travail à réaliser</h1>
 <li>Exposer une <b>table de régions</b> nommées/indexées (rectangle en pixels par tuile) que le <span class="tt">Sprite</span> (TACHE-01) référence.</li>
 <li>Isoler la génération pour qu'elle soit <b>remplaçable</b> par un chargement de fichier plus tard (interface d'atlas stable).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md531"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md538"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="TextureAtlas_8h.html" title="Atlas de textures (spritesheet) et ses régions de tuiles.">Source/HMI/Graphics/TextureAtlas.h</a></span>, <span class="tt"><a class="el" href="TextureAtlas_8cpp.html">TextureAtlas.cpp</a></span> (nouveau).</li>
 <li><span class="tt">Source/HMI/CMakeLists.txt</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md532"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md539"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>La texture générée est correctement créée (dimensions, format RGBA).</li>
 <li>Les régions retournées correspondent aux tuiles attendues (coordonnées en pixels).</li>
 <li>Une tuile avec alpha rend une zone transparente à l'écran (via la démo).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md533"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md540"></a>
 Points d'attention</h1>
 <ul>
 <li>Génération <b>déterministe</b> (mêmes pixels à chaque exécution).</li>
 <li>Frontière claire : le composant <span class="tt">Sprite</span> référence une <b>région</b> (données), la résolution région → texture se fait dans <span class="tt">HMI</span>.</li>
 <li>RAII sur la texture et la vue de ressource.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md534"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md541"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Atlas procédural utilisable par le pipeline, régions exposées, remplaçable à terme ; build <span class="tt">/W4 /WX</span>, documenté.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md535"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md542"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-010</span>, <span class="tt">EX-REN-011</span>, <span class="tt">EX-ARCH-021</span>. </p>
 </div></div><!-- contents -->

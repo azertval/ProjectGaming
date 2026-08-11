@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-63-tache-02-cle-porte-verrouillee.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-63-mecanismes-manquants_2tache-02-cle-porte-verrouillee"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-63.html#md_Lot_2LOT-63-mecanismes-manquants_2epic" title="Lot/LOT-63-mecanismes-manquants/epic.md">LOT-63</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Levels</span>, <span class="tt">Source/Core/Gameplay</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2791"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2805"></a>
 Contexte</h1>
 <p><span class="tt">EX-GP-023</span> — « Une <b>clé</b> collectée doit ouvrir une <b>porte verrouillée</b> correspondante » — porte la mention « ⚠️ optionnel MVP » depuis la rédaction des spécifications de gameplay. Aucun <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span> ne représente ni la clé ni la porte verrouillée, et <span class="tt"><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a></span> ne connaît que l'interrupteur à bascule et la plaque de pression.</p>
 <p>C'est pourtant le mécanisme de puzzle le plus courant du genre, et celui qui donne le plus de marge au level designer : contrairement à l'interrupteur, il crée une <b>dépendance d'ordre</b> entre deux endroits du tableau.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2792"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2806"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Deux nouveaux <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span></b> : <span class="tt">Key</span> et <span class="tt">LockedDoor</span>, avec leurs noms sérialisés (<span class="tt">TileTypeName</span>) et leur place dans la validation (<span class="tt">EX-LVL-004</span>).</li>
@@ -108,7 +108,7 @@ Travail à réaliser</h1>
 <li><b>État réinitialisé</b> au (re)chargement du niveau, comme le budget de mouvements (<span class="tt">EX-GP-024</span>) : mourir après avoir pris la clé doit remettre la clé en place.</li>
 <li><b>Grille de collision</b> : une porte verrouillée est <b>solide</b> tant qu'elle est fermée, et cesse de l'être une fois ouverte — via le même mécanisme que la porte existante (<span class="tt">MechanismController::collisionMap</span>), sans nouveau chemin.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2793"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2807"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Source/Core/Levels/TileType.h</a></span>, <span class="tt">TileTypeName.{h,cpp}</span>, <span class="tt"><a class="el" href="LevelLoader_8cpp.html">LevelLoader.cpp</a></span>, <span class="tt"><a class="el" href="LevelWriter_8cpp.html">LevelWriter.cpp</a></span>.</li>
@@ -116,7 +116,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="test__tile__type__name_8cpp.html" title="Tests unitaires de la correspondance type de tuile &lt;-&gt; nom textuel (LOT-42, EX-LVL-003).">Source/Test/Unit/Core/Levels/test_tile_type_name.cpp</a></span>, <span class="tt"><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">test_level_loader.cpp</a></span>, <span class="tt"><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">test_level_writer.cpp</a></span> (étendus).</li>
 <li><span class="tt"><a class="el" href="test__mechanism__controller_8cpp.html" title="Tests unitaires des mécanismes interrupteur↔porte (MechanismController).">Source/Test/Unit/Core/Gameplay/test_mechanism_controller.cpp</a></span> (étendu).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2794"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2808"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Ramasser la clé ouvre la porte liée, et <b>elle seule</b> : deux paires dans un tableau ne s'influencent pas.</li>
@@ -127,7 +127,7 @@ Tests (obligatoires)</h1>
 <li>Validation : une clé sans porte liée, une porte sans clé, un identifiant en double — chacun est refusé avec une erreur exploitable.</li>
 <li>Tests <span class="tt">Core</span> purs, sans GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2795"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2809"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas dupliquer la notion de liaison.</b> Le format en a déjà une, validée et testée ; en ajouter une seconde pour les clés créerait deux chemins de validation qui divergeront.</li>
@@ -135,12 +135,12 @@ Points d'attention</h1>
 <li>L'ombre du plan physique (<span class="tt">LOT-55</span>) traite déjà la porte comme un cas particulier : son type ne dit pas sa solidité, et <span class="tt">composeShadows</span> consulte la grille de collision courante. La porte verrouillée doit être traitée <b>de la même façon</b>, sinon elle projette une ombre après ouverture.</li>
 <li>Une porte verrouillée doit-elle apparaître dans le budget de mouvements ou les conditions de fin ? Non — mais le vérifier plutôt que le supposer.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2796"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2810"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Clé et porte verrouillée existent comme types de tuile sérialisables et validés, liés par le mécanisme de liaison existant, avec ouverture définitive, solidité cohérente, réinitialisation au rechargement et paires indépendantes ; couverts par des tests <span class="tt">Core</span> purs ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2797"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2811"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-023</span> (clé et porte verrouillée — levée ici) ; réutilise <span class="tt">EX-GP-021</span> (porte), <span class="tt">EX-GP-024</span> (réinitialisation au chargement), <span class="tt">EX-CTRL-022</span> (action « Interagir », si retenue), <span class="tt">EX-LVL-002</span>/<span class="tt">EX-LVL-004</span> (format et validation), <span class="tt">EX-NFR-002</span> (déterminisme), <span class="tt">EX-NFR-020</span> (tests unitaires <span class="tt">Core</span>). </p>
 </div></div><!-- contents -->

@@ -94,12 +94,12 @@ $(function(){initNavTree('lot-57-tache-02-panneaux-groupes.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-57-editeur-information_2tache-02-panneaux-groupes"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-57.html#md_Lot_2LOT-57-editeur-information_2epic" title="Lot/LOT-57-editeur-information/epic.md">LOT-57</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Interface</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2531"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2538"></a>
 Contexte</h1>
 <p>Les cinq panneaux de l'éditeur — Palette, Outils, Niveaux, Liens, Textures — sont affichés <b>simultanément</b> dès l'entrée en mode éditeur, et le restent quel que soit l'outil actif. Ils sont déclarés côte à côte, deux à gauche et trois à droite, sans regroupement.</p>
 <p>Or leur utilité est très inégale selon le moment : le panneau Liens ne sert qu'avec l'outil Lien ou pour auditer les liaisons ; la Palette, avec ses trente entrées dépliées en permanence, ne sert qu'aux outils de peinture ; le panneau Textures définit l'apparence, opération distincte de la construction du niveau. Les trois panneaux de droite occupent en permanence une largeur qui manque au canevas.</p>
 <p>Le bon réflexe existe pourtant déjà, à un seul endroit : dans le panneau Outils, le bloc de sélection des décors est masqué quand l'outil Décor n'est pas actif. Cette tâche généralise ce principe, sans le durcir : suivre l'outil actif tant que l'utilisateur n'a rien imposé, et se taire ensuite.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2532"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2539"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Regroupement en onglets</b> des panneaux de droite (Niveaux, Liens, Textures) dans une disposition par défaut, chacun restant individuellement déplaçable, détachable et refermable (<span class="tt">EX-IHM-010</span>).</li>
@@ -110,7 +110,7 @@ Travail à réaliser</h1>
 <li><b>Disposition par défaut reconstruite</b>, et action « réinitialiser la disposition » vérifiée contre elle.</li>
 <li><b>Table extensible</b> : la correspondance outil → panneau accueillera les outils et les panneaux de l'atelier pixel art (<a class="el" href="lot-54.html" title="LOT-54 — Atelier pixel art intégré">LOT-54</a>) — canevas, palette, historique. La table doit donc être une donnée que l'on complète, pas une suite de conditions écrites en dur sur les six outils actuels.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2533"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2540"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/MainWindow.{h,cpp}</span>, <span class="tt">Source/Elements/UI/MainWindow.ui</span>.</li>
@@ -118,7 +118,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Localization/fr.lang</span>, <span class="tt">en.lang</span>.</li>
 <li><span class="tt"><a class="el" href="test__panel__focus_8cpp.html" title="Tests unitaires de la correspondance outil → panneau (LOT-57 TACHE-02, EX-IHM-061).">Source/Test/Unit/HMI/Editor/test_panel_focus.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2534"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2541"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Correspondance outil → panneau</b> : chaque outil produit le panneau à mettre en avant, ou aucun. Fonction <b>pure</b>, testée sans Qt.</li>
@@ -126,7 +126,7 @@ Tests (obligatoires)</h1>
 <li><b>Réglage désactivé</b> : aucune mise en avant, quel que soit l'outil.</li>
 <li><b>Persistance</b> : le réglage est relu au démarrage suivant.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2535"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2542"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne jamais masquer un panneau que l'utilisateur a ouvert.</b> C'est la ligne rouge de cette tâche : une mise en avant est une suggestion, un masquage est une confiscation.</li>
@@ -135,12 +135,12 @@ Points d'attention</h1>
 <li>Vérifier le comportement au passage éditeur → jeu → éditeur : les panneaux sont masqués puis réaffichés, et le regroupement doit survivre à l'aller-retour.</li>
 <li>Un onglet mis en avant ne doit pas voler le focus clavier au canevas : l'utilisateur peint à la souris tout en utilisant les raccourcis.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2536"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2543"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les panneaux de droite sont regroupés en onglets par défaut, l'onglet pertinent suit l'outil actif tant que l'utilisateur n'a rien imposé, et aucun panneau ouvert explicitement n'est masqué ; la mise en avant est réglable et persistée ; la version de disposition est incrémentée et la réinitialisation vérifiée ; la correspondance est pure et testée ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2537"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2544"></a>
 Exigences</h1>
 <p><span class="tt">EX-IHM-061</span> (panneaux groupés, suivant l'outil actif) ; réutilise <span class="tt">EX-IHM-010</span> (panneaux dockables), <span class="tt">EX-IHM-011</span> (disposition persistée et réinitialisable), <span class="tt">EX-REN-033</span> (traduction). </p>
 </div></div><!-- contents -->

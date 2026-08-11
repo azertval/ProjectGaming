@@ -96,15 +96,15 @@ $(function(){initNavTree('lot-62.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>non commencé</b>. Prérequis : <a class="el" href="lot-40.html" title="LOT-40 — Fondations : registre de textures, calques, culling, testabilité">LOT-40</a> (composition, culling, compteurs et <em>QuadRecorder</em>). Bénéficie de <a class="el" href="lot-53.html" title="LOT-53 — Effets et particules">LOT-53</a>, qui est le premier système capable d'émettre sans borne. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2743"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2757"></a>
 Objectif</h1>
 <p>Transformer deux exigences aujourd'hui <b>déclaratives</b> en garanties <b>assertées</b>.</p>
 <p><span class="tt">EX-NFR-005</span> demande que le nombre de primitives émises par image reste « borné et <b>observable</b> ». Les compteurs existent bel et bien — <span class="tt"><a class="el" href="classhmi_1_1ComposedScene.html#a43dde3d9e70aac31ab47a430e516124d">hmi::ComposedScene::statistics()</a></span> expose primitives composées, soumises et lots — mais ils ne sortent que dans une trace, consommée nulle part ailleurs que par <span class="tt"><a class="el" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par calque puis par texture.">hmi::SpriteRenderer</a></span> pour éviter de journaliser deux fois la même valeur. Aucun test ne vérifie qu'un niveau livré reste dans un budget ; la seule mesure de bout en bout du programme d'habillage a été <b>manuelle</b>, à la <span class="tt">TACHE-02</span> du <span class="tt">LOT-55</span>.</p>
 <p><span class="tt">EX-NFR-001</span> demande 60 images par seconde sur une configuration de bureau récente. Rien ne mesure la cadence, et rien ne l'affiche : on ne sait ni si elle est tenue, ni où elle se dégraderait.</p>
 <p>Le moment est le bon : sept calques ont été ajoutés en seize lots, et <span class="tt">LOT-53</span> introduira le premier système capable d'émettre un nombre variable de primitives. Un budget qu'on ne mesure pas est un budget qu'on dépasse.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2744"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2758"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2745"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2759"></a>
 Inclus</h2>
 <ul>
 <li><b>Test de non-régression du volume de primitives</b> sur les niveaux livrés : pour une caméra et un mode de rendu donnés, le nombre de primitives composées et soumises reste sous un plafond nommé.</li>
@@ -112,7 +112,7 @@ Inclus</h2>
 <li><b>Compteur de cadence et de primitives affichable</b> en jeu, activable par une touche ou une option, en réutilisant l'affichage tête haute du <span class="tt">LOT-52</span>.</li>
 <li><b>Mesure de référence consignée</b> : valeurs par niveau livré, à la date du lot, dans la documentation.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2746"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2760"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li>Optimisation du rendu : ce lot <b>mesure</b>, il n'accélère pas. Si une mesure révèle un problème, il est consigné, pas corrigé ici.</li>
@@ -120,7 +120,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li>Profilage GPU, instrumentation par étape du pipeline, requêtes de temps Direct3D.</li>
 <li>Budget mémoire des textures.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2747"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2761"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Asserter le déterministe, afficher le reste.</b> Le nombre de primitives d'une scène est une fonction pure de l'état et de la caméra : il se teste sans GPU, exactement comme <span class="tt">LOT-40</span> l'a rendu possible (<span class="tt">EX-NFR-004</span>). La cadence, elle, dépend de la machine : elle s'affiche pour être observée, elle ne se teste pas en CI. Confondre les deux donnerait un test instable qu'on finirait par désactiver.</li>
@@ -129,13 +129,13 @@ Décisions de cadrage</h1>
 <li><b>Réutiliser l'affichage tête haute existant</b> (<span class="tt">LOT-52</span>) plutôt que d'ouvrir un second chemin de texte dans la scène.</li>
 <li><b>Ce lot ne corrige rien.</b> Séparer la mesure de l'optimisation évite le travers classique où l'on ajuste le plafond jusqu'à ce que le test passe.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2748"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2762"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Aucune nouvelle exigence. Ce lot <b>honore</b> des exigences existantes : <span class="tt">EX-NFR-005</span> (primitives bornées et observables) et <span class="tt">EX-NFR-001</span> (60 images par seconde), qui n'ont jamais eu de moyen de vérification.</li>
 <li>Réutilisées : <span class="tt">EX-NFR-004</span> (rendu vérifiable sans GPU), <span class="tt">EX-REN-015</span> (cadrage par salle), <span class="tt">EX-REN-043</span> (calques), <span class="tt">EX-REN-021</span> (pas fixe), <span class="tt">EX-IHM-003</span> (affichage tête haute), <span class="tt">EX-ARCH-012</span> (rendu sans effet sur la simulation).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2749"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2763"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -150,7 +150,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-62-tache-03-documentation-verification.html#md_Lot_2LOT-62-budget-rendu-mesure_2tache-03-documentation-verification" title="Lot/LOT-62-budget-rendu-mesure/tache-03-documentation-verification.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Documentation, mesure de référence et vérification  </td><td class="markdownTableBodyNone"><span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">⬜  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2750"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2764"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Chaque niveau livré est couvert par un test asserant son volume de primitives sous un plafond nommé, en mode Physique <b>et</b> en mode Texture.</li>
@@ -161,10 +161,10 @@ Critères d'acceptation du lot</h1>
 <li>Les tests s'exécutent <b>sans GPU</b> et restent stables d'une exécution à l'autre.</li>
 <li>Build <span class="tt">/W4 /WX</span>, <span class="tt">ctest</span> à 100 %, Doxygen et lints verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2751"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2765"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-40.html" title="LOT-40 — Fondations : registre de textures, calques, culling, testabilité">LOT-40</a> (composition, culling, statistiques, <em>QuadRecorder</em>), <a class="el" href="lot-51.html" title="LOT-51 — Mode « définition des textures » : visibilité par calque">LOT-51</a> (visibilité par calque) et <a class="el" href="lot-52.html" title="LOT-52 — Texte, police bitmap et affichage tête haute">LOT-52</a> (affichage tête haute). Protège <a class="el" href="lot-53.html" title="LOT-53 — Effets et particules">LOT-53</a>, dont le budget de particules devient vérifiable de bout en bout.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2752"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2766"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-62-tache-01-test-budget-primitives.html" title="TACHE-01 — Test de non-régression du volume de primitives">TACHE-01 — Test de non-régression du volume de primitives</a></li>

@@ -2,7 +2,7 @@ var searchData=
 [
   ['background_0',['background',['../classcore_1_1Level.html#a8eb90b383f0aa69b2674aea4c416681f',1,'core::Level::background()'],['../classcore_1_1LevelDraft.html#ae10fca65c113da45ec8bf89846979889',1,'core::LevelDraft::background()']]],
   ['backgroundchanged_1',['backgroundChanged',['../classhmi_1_1TexturePanel.html#a68512ca2144f0717636c1f48d3b5ffd8',1,'hmi::TexturePanel']]],
-  ['backrequested_2',['backRequested',['../classhmi_1_1OptionsPage.html#a0053e3dcff3ab69fe7dc59d6e22ecd19',1,'hmi::OptionsPage']]],
+  ['backrequested_2',['backRequested',['../classhmi_1_1LevelSelectScreen.html#a3982f2c4920812fc2fb7f2a966369334',1,'hmi::LevelSelectScreen::backRequested()'],['../classhmi_1_1OptionsPage.html#a0053e3dcff3ab69fe7dc59d6e22ecd19',1,'hmi::OptionsPage::backRequested()']]],
   ['batchcount_3',['batchCount',['../classhmi_1_1ComposedScene.html#a751bbaba08ad6bd4f8104723af3b95df',1,'hmi::ComposedScene']]],
   ['begin_4',['begin',['../classcore_1_1View.html#ab0515d40432d6e5dfa6aad75a8a4ea08',1,'core::View::begin()'],['../classhmi_1_1SpriteBatch.html#a4876bd6f672a6dbdc6dd166fcecb971d',1,'hmi::SpriteBatch::begin()']]],
   ['begindecorgesture_5',['beginDecorGesture',['../namespacehmi.html#a263efd837914cad8c91c95b803c649ae',1,'hmi']]],

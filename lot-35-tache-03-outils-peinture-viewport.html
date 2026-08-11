@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-35-tache-03-outils-peinture-viewport.html','','');
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-35-refonte-ihm-qt-editeur_2tache-03-outils-peinture-viewport"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-35.html#md_Lot_2LOT-35-refonte-ihm-qt-editeur_2epic" title="Lot/LOT-35-refonte-ihm-qt-editeur/epic.md">LOT-35</a> · <b>Emplacement :</b> <span class="tt">Source/Editor</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1712"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1719"></a>
 Contexte</h1>
 <p>Cœur interactif de l'éditeur : transformer les clics souris Qt sur le viewport en <b>mutations de <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span></b> (source de vérité déjà testée), avec les trois outils existants (<span class="tt">Paint</span>, <span class="tt">Rectangle</span>, <span class="tt">Selection</span>), l'annuler/refaire et le copier/coller. Aucune règle d'édition n'est réécrite : cette tâche <b>relie</b> les entrées Qt à l'API de <span class="tt">LevelDraft</span> et dessine le retour visuel dans le viewport (au pixel de la grille).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1713"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1720"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Barre d'outils</b> (<span class="tt">QToolBar</span> + <span class="tt">QActionGroup</span> exclusif) : <span class="tt">Paint</span>, <span class="tt">Rectangle</span>, <span class="tt">Selection</span> (réutilise <span class="tt"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou la barre d&#39;outils (hmi::EditorActions,...">hmi::EditorTool</a></span>), avec <span class="tt">Tab</span> pour cycler (parité). Outil courant = source de vérité de l'éditeur (comme aujourd'hui <span class="tt">_toolBar.selected()</span>).</li>
@@ -108,21 +108,21 @@ Travail à réaliser</h1>
 <li><b>Undo/Redo</b> : <span class="tt">QAction</span> Ctrl+Z / Ctrl+Y → <span class="tt">LevelDraft::undo()</span> / <span class="tt">redo()</span> ; états d'activation des actions reflétant la disponibilité de l'historique.</li>
 <li><b>Caméra</b> : molette = zoom, glisser bouton droit = pan, touche de recadrage auto (parité <span class="tt">EditorScreen</span> <span class="tt">_manualCamera</span>), portés sur le viewport.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1714"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1721"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Editor/ToolPanel.{h,cpp}</span> (ou intégration barre d'outils dans <span class="tt">MainWindow</span>).</li>
 <li><span class="tt">Source/Editor/GameViewport.{h,cpp}</span> (mode édition : survol, peinture, aperçu rectangle/sélection ; rendu du retour visuel via <span class="tt">SpriteBatch</span>).</li>
 <li>Éventuel <span class="tt">Source/Editor/EditorController.{h,cpp}</span> (glue souris/outil → <span class="tt">LevelDraft</span>, <b>testable</b>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1715"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1722"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Contrôleur d'édition testable</b> (sans Qt/GPU) : pour un outil donné et une suite d'événements (case de départ/arrivée), vérifier les appels résultants à <span class="tt">LevelDraft</span> (tuiles peintes, rectangle rempli, région copiée/collée) — en injectant un <span class="tt">LevelDraft</span> réel et en comparant l'état obtenu.</li>
 <li><b>Non-régression</b> : les tests existants de <span class="tt">LevelDraft</span> (<span class="tt">Core</span>) et de sélection/presse-papiers restent verts ; la logique n'est pas dupliquée.</li>
 <li><b>Vérification manuelle</b> : peindre, remplir un rectangle, sélectionner/copier/coller, annuler/ refaire, zoom/pan — comportement identique à l'éditeur historique.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1716"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1723"></a>
 Points d'attention</h1>
 <ul>
 <li><b><span class="tt">LevelDraft</span> reste la seule autorité</b> : pas de mutation de grille hors de son API (undo/redo en dépend). Le contrôleur Qt ne fait que traduire et appeler.</li>
@@ -130,12 +130,12 @@ Points d'attention</h1>
 <li><b>Retour visuel dans le viewport</b> (quads <span class="tt">SpriteBatch</span>), pas en overlay Qt, pour rester aligné au zoom/pan de la caméra.</li>
 <li><b>Exclusivité des glissers</b> : peinture vs rectangle/sélection mutuellement exclusifs (parité <span class="tt">_paintingDrag</span>/<span class="tt">_areaDragActive</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1717"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1724"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les trois outils, l'undo/redo et le copier/coller fonctionnent via <span class="tt">LevelDraft</span> ; retour visuel correct ; contrôleur d'édition <b>couvert par des tests</b> ; <span class="tt">/W4 /WX</span> propre ; vérification manuelle OK.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1718"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1725"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-002</span> (peinture), <span class="tt">EX-EDIT-005</span> (undo/redo), <span class="tt">EX-EDIT-014</span> (outils) — présentation Qt, comportement conservé ; <span class="tt">EX-EDIT-010</span> (pas de duplication de logique), <span class="tt">EX-NFR-010</span>. </p>
 </div></div><!-- contents -->

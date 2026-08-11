@@ -39,6 +39,9 @@ var namespacecore =
     [ "LevelDraft", "classcore_1_1LevelDraft.html", "classcore_1_1LevelDraft" ],
     [ "LevelLoadResult", "structcore_1_1LevelLoadResult.html", "structcore_1_1LevelLoadResult" ],
     [ "LevelLoader", "classcore_1_1LevelLoader.html", "classcore_1_1LevelLoader" ],
+    [ "LevelSequence", "structcore_1_1LevelSequence.html", "structcore_1_1LevelSequence" ],
+    [ "LevelSequenceLoadResult", "structcore_1_1LevelSequenceLoadResult.html", "structcore_1_1LevelSequenceLoadResult" ],
+    [ "LevelSequenceLoader", "classcore_1_1LevelSequenceLoader.html", "classcore_1_1LevelSequenceLoader" ],
     [ "LevelWriter", "classcore_1_1LevelWriter.html", "classcore_1_1LevelWriter" ],
     [ "TileMap", "classcore_1_1TileMap.html", "classcore_1_1TileMap" ],
     [ "Rect", "structcore_1_1Rect.html", "structcore_1_1Rect" ],
@@ -68,6 +71,14 @@ var namespacecore =
       [ "Playing", "namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaac9dbb2b7c84159b632d71e512eba8428", null ],
       [ "Won", "namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5", null ],
       [ "Lost", "namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaab578b733cbb788fc6ad208314d2c4c2b", null ]
+    ] ],
+    [ "LevelSequenceError", "namespacecore.html#a11710ea83ff0491921176355c55fa4bb", [
+      [ "None", "namespacecore.html#a11710ea83ff0491921176355c55fa4bba6adf97f83acf6453d4a6a4b1070f3754", null ],
+      [ "FileNotFound", "namespacecore.html#a11710ea83ff0491921176355c55fa4bba2767828026039e8ba7b38973cbb701f2", null ],
+      [ "ParseError", "namespacecore.html#a11710ea83ff0491921176355c55fa4bbae41199faa7290c167f70f314c5e6c165", null ],
+      [ "EmptySequence", "namespacecore.html#a11710ea83ff0491921176355c55fa4bba0631bdbb0897b80acac1a294b8d82c2f", null ],
+      [ "MissingLevelFile", "namespacecore.html#a11710ea83ff0491921176355c55fa4bbaba35c21b69d8dc6ba93ac503fed3a3ee", null ],
+      [ "UnsupportedFormatVersion", "namespacecore.html#a11710ea83ff0491921176355c55fa4bba7d194788f42fea83b92833f89101a8f4", null ]
     ] ],
     [ "LevelValidationError", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823", [
       [ "None", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a6adf97f83acf6453d4a6a4b1070f3754", null ],
@@ -165,6 +176,7 @@ var namespacecore =
     [ "kDangerEdgeThickness", "namespacecore.html#aa10b66433e2fea5a1103518ca7015a3a", null ],
     [ "kDeveloperBuild", "namespacecore.html#ada3f6bef6b32bd54ea16d550e0769fb1", null ],
     [ "kLevelFormatVersion", "namespacecore.html#a4e9944a74ac070775a2730be05705abb", null ],
+    [ "kLevelSequenceFormatVersion", "namespacecore.html#a092aaea01e9801e07160e2829611801b", null ],
     [ "kPlayerHeight", "namespacecore.html#aaa73b5f2476cf8e0f359e4f05e1b2d9a", null ],
     [ "kPlayerWidth", "namespacecore.html#af90aca85784a36802e810be93df9800f", null ],
     [ "PLAYER_CLIP_DASH", "namespacecore.html#a29878d049f4e3e4ea35da414d6783daf", null ],

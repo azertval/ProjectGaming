@@ -97,10 +97,10 @@ $(function(){initNavTree('lot-37-tache-02-rendu-liens-creation.html','',''); });
 <blockquote class="doxtable">
 <p>Réalisé dans <span class="tt"><a class="el" href="DraftRenderer_8cpp.html">Source/HMI/Graphics/DraftRenderer.cpp</a></span> (<span class="tt">drawLinks</span>, appelé depuis <span class="tt">render</span>), <span class="tt">Source/HMI/Editor/LinkGesture.{h,cpp}</span> (machine à état pure du geste) et <span class="tt">Source/HMI/Game/GameViewport.{h,cpp}</span> (<span class="tt">handleLinkClick</span>). Pas d'<span class="tt">EditorController</span> séparé (code legacy retiré au <span class="tt">LOT-38</span>) : le geste vit directement dans <span class="tt">GameViewport</span>, comme Pinceau/ Rectangle/Sélection. <b>Décision de cadrage révisée</b> : pas de <span class="tt">Maj+clic</span> disponible quel que soit l'outil — un <b>outil dédié</b> <span class="tt">EditorTool::Link</span> (panneau Outils), plus simple côté utilisateur. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1774"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1781"></a>
 Contexte</h1>
 <p>Avec la primitive et la géométrie de la TACHE-01, cette tâche <b>dessine les liaisons</b> du niveau comme des flèches explicites dans le viewport, et donne un <b>retour visuel immédiat</b> pendant la création d'un lien (trait provisoire). Elle réutilise <b>intégralement</b> le modèle existant (<span class="tt">LevelDraft</span> + <span class="tt">Mechanism</span>/<span class="tt">DangerLink</span>), remplaçant l'indication par teinte de case.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1775"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1782"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Rendu des liens</b> : pour chaque <span class="tt">Mechanism</span> (interrupteur/plaque → porte) et <span class="tt">DangerLink</span> (déclencheur → danger commuté) du brouillon, dessiner une <b>flèche</b> du centre du déclencheur au centre de la cible (via <span class="tt">LinkGeometry</span> + primitive TACHE-01), par-dessus la grille de tuiles.<ul>
@@ -115,32 +115,32 @@ Travail à réaliser</h1>
 </li>
 <li>Réutiliser les prédicats existants <span class="tt">isTriggerTile</span> (<span class="tt">Switch</span>/<span class="tt">PressurePlate</span>) et <span class="tt">isLinkTargetTile</span> (<span class="tt">Door</span>/<span class="tt">DangerSwitched</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1776"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1783"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Editor/GameViewport.{h,cpp}</span> (rendu des liens + trait provisoire en mode édition).</li>
 <li><span class="tt">Source/Editor/EditorController.{h,cpp}</span> (geste de liaison → <span class="tt">LevelDraft</span>), si ce contrôleur existe (LOT-35 TACHE-03).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1777"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1784"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Logique de geste testable</b> (sans GPU) : la machine « case en attente → paire → link/unlink » produit les bons appels <span class="tt">LevelDraft</span> (création, bascule/suppression, cas cible sans déclencheur valide ignoré). Réutilise <span class="tt">LinkGeometry</span> (TACHE-01) pour le placement.</li>
 <li><b>Non-régression</b> : <span class="tt">LevelDraft::linkMechanism</span>/<span class="tt">unlinkMechanism</span> restent testés côté <span class="tt">Core</span> ; la sérialisation d'un niveau avec liens est inchangée.</li>
 <li><b>Vérification manuelle</b> : créer une liaison (trait provisoire visible), la voir dessinée, la supprimer par bascule ; plusieurs liens lisibles simultanément.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1778"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1785"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Alignement au viewport</b> : les flèches suivent le zoom/pan de la caméra (dessin dans le viewport, pas overlay Qt).</li>
 <li><b>Le modèle ne change pas</b> : une cible = un déclencheur ; plusieurs cibles par déclencheur possible (plusieurs flèches partant d'un même déclencheur — gérer la lisibilité, cf. décalage TACHE-01).</li>
 <li><b>Dangers avancés</b> : la liaison déclencheur→danger commuté est couverte ; les <b>paramètres</b> mover/blink ne sont pas l'objet de ce lot.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1779"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1786"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Liaisons rendues par flèches explicites, création avec trait provisoire, suppression par bascule ; logique de geste <b>testée</b> ; teinte de case retirée/réduite ; <span class="tt">/W4 /WX</span> propre ; vérification manuelle OK.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1780"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1787"></a>
 Exigences</h1>
 <p><span class="tt">EX-IHM-030</span> (liens par traits/flèches) ; reconduit <span class="tt">EX-EDIT-003</span> (liaison déclencheur→cible) ; <span class="tt">EX-EDIT-010</span> (pas de duplication de logique), <span class="tt">EX-NFR-010</span>. </p>
 </div></div><!-- contents -->

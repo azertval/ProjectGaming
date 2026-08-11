@@ -93,9 +93,9 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>943 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>972 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (851)</h1>
+Tests unitaires (880)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p><b><span class="tt"><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></span></b></p>
@@ -716,7 +716,7 @@ Vérifie que <span class="tt">controller.isDangerActive(<a class="el" href="stru
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isDangerActive(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{4, 1})</span> est faux.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
-Levels (179)</h3>
+Levels (188)</h3>
 <p><b><span class="tt"><a class="el" href="test__danger__geometry_8cpp.html" title="Tests unitaires de la géométrie des dangers directionnels (core::dangerHitbox, EX-GP-050).">test_danger_geometry.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -1696,6 +1696,62 @@ Vérifie que <span class="tt"><a class="el" href="namespacecore.html#a23087f4f32
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacecore.html#a23087f4f32dfa24ad53d7a9811ae351d" title="Détermine l&#39;issue du niveau à partir de la boîte du personnage.">core::evaluateOutcome</a>(unitBox(5.0f, 5.0f), level)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaab578b733cbb788fc6ad208314d2c4c2b" title="Le personnage a touché un danger ou est sorti par le bas (EX-GP-031).">core::LevelOutcome::Lost</a></span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacecore.html#a23087f4f32dfa24ad53d7a9811ae351d" title="Détermine l&#39;issue du niveau à partir de la boîte du personnage.">core::evaluateOutcome</a>(unitBox(5.0f, 5.0f), level, {})</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaab578b733cbb788fc6ad208314d2c4c2b" title="Le personnage a touché un danger ou est sorti par le bas (EX-GP-031).">core::LevelOutcome::Lost</a></span>.  </td></tr>
 </table>
+<p><b><span class="tt"><a class="el" href="test__level__sequence_8cpp.html" title="Tests unitaires du chargement de séquence de niveaux (LOT-59 TACHE-04, EX-LVL-013).">test_level_sequence.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>LevelSequenceLoaderTest.SequenceValideSeChargeDansLOrdreExact</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__level__sequence_8cpp.html" title="Tests unitaires du chargement de séquence de niveaux (LOT-59 TACHE-04, EX-LVL-013).">Source/Test/Unit/Core/Levels/test_level_sequence.cpp</a>:51</span></sub>  </td><td class="markdownTableBodyNone">Une séquence valide se charge dans l'ordre exact du fichier.  </td><td class="markdownTableBodyNone">1. Charger une séquence JSON valide depuis une chaîne.<br  />
+2. Vérifier l'ordre des niveaux et la clé de titre.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">result.errorCode</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a11710ea83ff0491921176355c55fa4bba6adf97f83acf6453d4a6a4b1070f3754" title="Pas d&#39;erreur (chargement réussi).">core::LevelSequenceError::None</a></span>.<br  />
+Vérifie que <span class="tt">result.sequence-&gt;titleKey</span> vaut <span class="tt">"sequence.demo.title"</span>.<br  />
+Vérifie que <span class="tt">result.sequence-&gt;levels.size()</span> vaut <span class="tt">2u</span>.<br  />
+Vérifie que <span class="tt">result.sequence-&gt;levels[0]</span> vaut <span class="tt">"a.json"</span>.<br  />
+Vérifie que <span class="tt">result.sequence-&gt;levels[1]</span> vaut <span class="tt">"b.json"</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>LevelSequenceLoaderTest.SequenceSansVersionSeChargeSansErreur</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__level__sequence_8cpp.html" title="Tests unitaires du chargement de séquence de niveaux (LOT-59 TACHE-04, EX-LVL-013).">Source/Test/Unit/Core/Levels/test_level_sequence.cpp</a>:73</span></sub>  </td><td class="markdownTableBodyNone">Une séquence sans champ version se charge sans erreur.  </td><td class="markdownTableBodyNone">1. Charger une séquence JSON sans champ <span class="tt">version</span>.<br  />
+2. Vérifier le succès.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>LevelSequenceLoaderTest.VersionSuperieureALaVersionGereeEchoueProprement</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__level__sequence_8cpp.html" title="Tests unitaires du chargement de séquence de niveaux (LOT-59 TACHE-04, EX-LVL-013).">Source/Test/Unit/Core/Levels/test_level_sequence.cpp</a>:88</span></sub>  </td><td class="markdownTableBodyNone">Une séquence dont la version dépasse celle gérée échoue proprement.  </td><td class="markdownTableBodyNone">1. Charger une séquence dont <span class="tt">version</span> dépasse la version gérée.<br  />
+2. Vérifier l'échec et son code.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">result.errorCode</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a11710ea83ff0491921176355c55fa4bba7d194788f42fea83b92833f89101a8f4" title="&quot;version&quot; du fichier supérieure à celle gérée (EX-LVL-005).">core::LevelSequenceError::UnsupportedFormatVersion</a></span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>LevelSequenceLoaderTest.JsonMalformeEchoueProprement</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__level__sequence_8cpp.html" title="Tests unitaires du chargement de séquence de niveaux (LOT-59 TACHE-04, EX-LVL-013).">Source/Test/Unit/Core/Levels/test_level_sequence.cpp</a>:105</span></sub>  </td><td class="markdownTableBodyNone">Un JSON malformé échoue proprement.  </td><td class="markdownTableBodyNone">1. Charger une chaîne qui n'est pas du JSON valide.<br  />
+2. Vérifier l'échec et son code.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">result.error.empty()</span> est faux.<br  />
+Vérifie que <span class="tt">result.errorCode</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a11710ea83ff0491921176355c55fa4bbae41199faa7290c167f70f314c5e6c165" title="JSON malformé ou champ obligatoire manquant/mal typé.">core::LevelSequenceError::ParseError</a></span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>LevelSequenceLoaderTest.ListeDeNiveauxVideEchoueProprement</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__level__sequence_8cpp.html" title="Tests unitaires du chargement de séquence de niveaux (LOT-59 TACHE-04, EX-LVL-013).">Source/Test/Unit/Core/Levels/test_level_sequence.cpp</a>:123</span></sub>  </td><td class="markdownTableBodyNone">Une liste de niveaux vide échoue proprement.  </td><td class="markdownTableBodyNone">1. Charger une séquence dont <span class="tt">levels</span> est une liste vide.<br  />
+2. Vérifier l'échec et son code.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">result.errorCode</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a11710ea83ff0491921176355c55fa4bba0631bdbb0897b80acac1a294b8d82c2f" title="La liste levels est vide.">core::LevelSequenceError::EmptySequence</a></span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>LevelSequenceDir.FichierIntrouvableRejete</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__level__sequence_8cpp.html" title="Tests unitaires du chargement de séquence de niveaux (LOT-59 TACHE-04, EX-LVL-013).">Source/Test/Unit/Core/Levels/test_level_sequence.cpp</a>:140</span></sub>  </td><td class="markdownTableBodyNone">Charger un fichier de séquence inexistant échoue proprement.  </td><td class="markdownTableBodyNone">1. Charger un chemin de fichier inexistant.<br  />
+2. Vérifier l'échec et son code.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">result.error.empty()</span> est faux.<br  />
+Vérifie que <span class="tt">result.errorCode</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a11710ea83ff0491921176355c55fa4bba2767828026039e8ba7b38973cbb701f2" title="Fichier de séquence introuvable sur disque.">core::LevelSequenceError::FileNotFound</a></span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>LevelSequenceDir.NiveauReferenceMaisAbsentEchoueProprementEtNommeLeFautif</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__level__sequence_8cpp.html" title="Tests unitaires du chargement de séquence de niveaux (LOT-59 TACHE-04, EX-LVL-013).">Source/Test/Unit/Core/Levels/test_level_sequence.cpp</a>:158</span></sub>  </td><td class="markdownTableBodyNone">Un niveau référencé mais absent échoue proprement, nommant le fautif.  </td><td class="markdownTableBodyNone">1. Écrire un fichier de séquence référençant un niveau absent du même dossier.<br  />
+2. Charger ce fichier.<br  />
+3. Vérifier l'échec, son code, et que le nom du niveau fautif apparaît dans le message.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">result.errorCode</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a11710ea83ff0491921176355c55fa4bbaba35c21b69d8dc6ba93ac503fed3a3ee" title="Un niveau référencé est introuvable sur disque.">core::LevelSequenceError::MissingLevelFile</a></span>.<br  />
+Vérifie que <span class="tt">result.error.find("absent.json")</span> diffère de <span class="tt">std::string::npos</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>LevelSequenceDir.SequenceDontTousLesNiveauxExistentSeCharge</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__level__sequence_8cpp.html" title="Tests unitaires du chargement de séquence de niveaux (LOT-59 TACHE-04, EX-LVL-013).">Source/Test/Unit/Core/Levels/test_level_sequence.cpp</a>:179</span></sub>  </td><td class="markdownTableBodyNone">Une séquence dont tous les niveaux référencés existent se charge.  </td><td class="markdownTableBodyNone">1. Écrire un fichier de séquence et les niveaux qu'il référence, dans le même dossier.<br  />
+2. Charger le fichier de séquence.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>LevelSequenceLoaderTest.SequenceDeDemoLivreeValide</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__level__sequence_8cpp.html" title="Tests unitaires du chargement de séquence de niveaux (LOT-59 TACHE-04, EX-LVL-013).">Source/Test/Unit/Core/Levels/test_level_sequence.cpp</a>:199</span></sub>  </td><td class="markdownTableBodyNone">La séquence de démonstration livrée se charge et référence des niveaux qui existent tous.  </td><td class="markdownTableBodyNone">1. Charger <span class="tt">sequence-demo.json</span> depuis le dossier de niveaux livré.<br  />
+2. Vérifier le succès et qu'au moins un niveau est référencé.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">result.sequence-&gt;levels.empty()</span> est faux.  </td></tr>
+</table>
 <p><b><span class="tt"><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">test_level_writer.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2378,7 +2434,7 @@ Vérifie que <span class="tt">r.normal.y</span> vaut <span class="tt">1.0f</span
 Vérifie que <span class="tt">r.position.x</span> vaut <span class="tt">3.0f</span> (comparaison flottante).  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md12"></a>
-Time (6)</h3>
+Time (7)</h3>
 <p><b><span class="tt"><a class="el" href="test__fixed__timestep_8cpp.html" title="Tests unitaires du cadenceur à pas de temps fixe.">test_fixed_timestep.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2411,6 +2467,12 @@ Vérifie que <span class="tt">timestep.advance(0.0f)</span> vaut <span class="tt
 <td class="markdownTableBodyNone"><b>FixedTimestepTest.PasFixeExpose</b> (Majeur)<br  />
 <sub><span class="tt"><a class="el" href="test__fixed__timestep_8cpp.html" title="Tests unitaires du cadenceur à pas de temps fixe.">Source/Test/Unit/Core/Time/test_fixed_timestep.cpp</a>:100</span></sub>  </td><td class="markdownTableBodyNone">Le pas fixe exposé correspond à la configuration.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">timestep.fixedDeltaSeconds()</span> vaut <span class="tt">STEP</span>, à <span class="tt">1e-6f</span> près.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>FixedTimestepTest.PauseSansAppelNAccumuleAucunPas</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__fixed__timestep_8cpp.html" title="Tests unitaires du cadenceur à pas de temps fixe.">Source/Test/Unit/Core/Time/test_fixed_timestep.cpp</a>:119</span></sub>  </td><td class="markdownTableBodyNone">Une pause simulée (aucun appel à advance()) n'accumule aucun pas.  </td><td class="markdownTableBodyNone">1. Avancer normalement de quelques pas.<br  />
+2. Simuler une pause de longue durée en n'appelant PAS advance() (aucun appel, pas un appel à zéro).<br  />
+3. Reprendre avec un petit delta, comme après réarmement de l'horloge de référence.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">timestep.advance(STEP * 3.0f)</span> vaut <span class="tt">3</span>.<br  />
+Vérifie que <span class="tt">timestep.advance(STEP)</span> vaut <span class="tt">1</span>.  </td></tr>
 </table>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md13"></a>
 HMI</h2>
@@ -2430,7 +2492,7 @@ Diagnostics (2)</h3>
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b" title="Assemble les messages de log en un texte (une ligne par message).">hmi::serializeSessionLog</a>({})</span> vaut <span class="tt">""</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
-Editor (175)</h3>
+Editor (176)</h3>
 <p><b><span class="tt"><a class="el" href="test__asset__file__operations_8cpp.html" title="Tests unitaires des opérations fichiers sur les assets (LOT-43 TACHE-02).">test_asset_file_operations.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2783,34 +2845,40 @@ Vérifie que <span class="tt">localization.text(key)</span> diffère de <span cl
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelFileOps.CreeUnNiveauValide</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/HMI/Editor/test_level_file_operations.cpp</a>:34</span></sub>  </td><td class="markdownTableBodyNone">Créer un niveau écrit un fichier valide, immédiatement listé.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/HMI/Editor/test_level_file_operations.cpp</a>:36</span></sub>  </td><td class="markdownTableBodyNone">Créer un niveau écrit un fichier valide, immédiatement listé.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok</span> est vrai.<br  />
 Vérifie que <span class="tt">std::filesystem::exists(result.path)</span> est vrai.<br  />
 Vérifie que <span class="tt">ops.list().size()</span> vaut <span class="tt">1U</span>.  </td></tr>
 <tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>LevelFileOps.FichierDeSequenceExcluDeLaListe</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/HMI/Editor/test_level_file_operations.cpp</a>:55</span></sub>  </td><td class="markdownTableBodyNone">Un fichier de séquence n'apparaît jamais dans la liste des niveaux.  </td><td class="markdownTableBodyNone">1. Créer un niveau valide, puis écrire à côté un fichier <span class="tt">sequence-demo.json</span> quelconque.<br  />
+2. Lister le dossier.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">ops.create("MonNiveau", 10, 6).ok</span> est vrai.<br  />
+Vérifie que <span class="tt">listed.size()</span> vaut <span class="tt">1U</span>.<br  />
+Vérifie que <span class="tt">listed.front().filename().string()</span> vaut <span class="tt">"MonNiveau.json"</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelFileOps.RefuseNomInvalideEtCollision</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/HMI/Editor/test_level_file_operations.cpp</a>:53</span></sub>  </td><td class="markdownTableBodyNone">Un nom invalide ou déjà pris est refusé, sans écraser le niveau existant.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/HMI/Editor/test_level_file_operations.cpp</a>:79</span></sub>  </td><td class="markdownTableBodyNone">Un nom invalide ou déjà pris est refusé, sans écraser le niveau existant.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">ops.create("a/b", 10, 6).ok</span> est faux.<br  />
 Vérifie que <span class="tt">ops.create("Niveau", 10, 6).ok</span> est vrai.<br  />
 Vérifie que <span class="tt">ops.create("Niveau", 10, 6).ok</span> est faux.  </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelFileOps.RenommeEtDeplaceLeFichier</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/HMI/Editor/test_level_file_operations.cpp</a>:70</span></sub>  </td><td class="markdownTableBodyNone">Renommer déplace le fichier : l'ancien chemin disparaît, le nouveau existe.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/HMI/Editor/test_level_file_operations.cpp</a>:96</span></sub>  </td><td class="markdownTableBodyNone">Renommer déplace le fichier : l'ancien chemin disparaît, le nouveau existe.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">created.ok</span> est vrai.<br  />
 Vérifie que <span class="tt">renamed.ok</span> est vrai.<br  />
 Vérifie que <span class="tt">std::filesystem::exists(created.path)</span> est faux.<br  />
 Vérifie que <span class="tt">std::filesystem::exists(renamed.path)</span> est vrai.  </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelFileOps.DupliqueSousUnNomUnique</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/HMI/Editor/test_level_file_operations.cpp</a>:90</span></sub>  </td><td class="markdownTableBodyNone">Dupliquer deux fois le même niveau produit deux copies distinctes.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/HMI/Editor/test_level_file_operations.cpp</a>:116</span></sub>  </td><td class="markdownTableBodyNone">Dupliquer deux fois le même niveau produit deux copies distinctes.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">base.ok</span> est vrai.<br  />
 Vérifie que <span class="tt">first.ok</span> est vrai.<br  />
 Vérifie que <span class="tt">second.ok</span> est vrai.<br  />
 Vérifie que <span class="tt">first.path</span> diffère de <span class="tt">second.path</span>.<br  />
 Vérifie que <span class="tt">ops.list().size()</span> vaut <span class="tt">3U</span>.  </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelFileOps.SupprimeLeFichier</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/HMI/Editor/test_level_file_operations.cpp</a>:112</span></sub>  </td><td class="markdownTableBodyNone">Supprimer retire effectivement le fichier du disque.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/HMI/Editor/test_level_file_operations.cpp</a>:138</span></sub>  </td><td class="markdownTableBodyNone">Supprimer retire effectivement le fichier du disque.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">created.ok</span> est vrai.<br  />
 Vérifie que <span class="tt">ops.remove(created.path).ok</span> est vrai.<br  />
 Vérifie que <span class="tt">std::filesystem::exists(created.path)</span> est faux.  </td></tr>
@@ -3543,7 +3611,7 @@ Vérifie que <span class="tt">subgroup.label.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">entry.label.empty()</span> est faux.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
-Game (5)</h3>
+Game (18)</h3>
 <p><b><span class="tt"><a class="el" href="test__game__hud_8cpp.html" title="Tests unitaires du choix de contenu de l&#39;affichage tête haute (LOT-52 TACHE-03, EX-IHM-003).">test_game_hud.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -3577,6 +3645,93 @@ Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a8a1c52dc217
 2. Résoudre les clés du HUD.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">localization.loadDefaultLanguage(language)</span> est vrai.<br  />
 Vérifie que <span class="tt">localization.text("hud.jumps_remaining")</span> diffère de <span class="tt">"hud.jumps_remaining"</span>.<br  />
 Vérifie que <span class="tt">localization.text("hud.dashes_remaining")</span> diffère de <span class="tt">"hud.dashes_remaining"</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__progression_8cpp.html" title="Tests unitaires de la progression de partie persistée (LOT-59 TACHE-05, EX-LVL-014) et de la règle de...">test_progression.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ProgressionTest.ProgressionNeuveEstVide</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__progression_8cpp.html" title="Tests unitaires de la progression de partie persistée (LOT-59 TACHE-05, EX-LVL-014) et de la règle de...">Source/Test/Unit/HMI/Game/test_progression.cpp</a>:44</span></sub>  </td><td class="markdownTableBodyNone">Une progression neuve est vide.  </td><td class="markdownTableBodyNone">1. Construire une <span class="tt">Progression</span> par défaut.<br  />
+2. Vérifier ses champs.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">progression.sequenceId().empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">progression.currentLevel().empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">progression.completedLevels().empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ProgressionTest.MarquerDeuxFoisLeMemeTableauEstSansEffet</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__progression_8cpp.html" title="Tests unitaires de la progression de partie persistée (LOT-59 TACHE-05, EX-LVL-014) et de la règle de...">Source/Test/Unit/HMI/Game/test_progression.cpp</a>:61</span></sub>  </td><td class="markdownTableBodyNone">Marquer un tableau terminé deux fois est sans effet.  </td><td class="markdownTableBodyNone">1. Marquer un tableau terminé.<br  />
+2. Le marquer une seconde fois.<br  />
+3. Vérifier la taille de l'ensemble.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">progression.completedLevels().size()</span> vaut <span class="tt">1U</span>.<br  />
+Vérifie que <span class="tt">progression.isCompleted("demo-saut.json")</span> est vrai.<br  />
+Vérifie que <span class="tt">progression.isCompleted("demo-dash.json")</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ProgressionTest.ResetEffaceToutLaProgression</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__progression_8cpp.html" title="Tests unitaires de la progression de partie persistée (LOT-59 TACHE-05, EX-LVL-014) et de la règle de...">Source/Test/Unit/HMI/Game/test_progression.cpp</a>:81</span></sub>  </td><td class="markdownTableBodyNone">reset() efface toute la progression.  </td><td class="markdownTableBodyNone">1. Construire une progression avec du contenu.<br  />
+2. Appeler <span class="tt">reset()</span>.<br  />
+3. Vérifier qu'elle est redevenue vide.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">progression.sequenceId().empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">progression.currentLevel().empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">progression.completedLevels().empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ProgressionDir.AllerRetourProduitExactementLaMemeProgression</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__progression_8cpp.html" title="Tests unitaires de la progression de partie persistée (LOT-59 TACHE-05, EX-LVL-014) et de la règle de...">Source/Test/Unit/HMI/Game/test_progression.cpp</a>:104</span></sub>  </td><td class="markdownTableBodyNone">Sauvegarder puis relire une progression produit exactement la même.  </td><td class="markdownTableBodyNone">1. Construire une progression avec plusieurs tableaux terminés.<br  />
+2. La sauvegarder.<br  />
+3. La relire depuis le même fichier.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">original.save(path)</span> est vrai.<br  />
+Vérifie que <span class="tt">reloaded.sequenceId()</span> vaut <span class="tt">original.sequenceId()</span>.<br  />
+Vérifie que <span class="tt">reloaded.currentLevel()</span> vaut <span class="tt">original.currentLevel()</span>.<br  />
+Vérifie que <span class="tt">reloaded.completedLevels()</span> vaut <span class="tt">original.completedLevels()</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ProgressionDir.FichierAbsentDonneUnePartieNeuve</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__progression_8cpp.html" title="Tests unitaires de la progression de partie persistée (LOT-59 TACHE-05, EX-LVL-014) et de la règle de...">Source/Test/Unit/HMI/Game/test_progression.cpp</a>:131</span></sub>  </td><td class="markdownTableBodyNone">Un fichier de progression absent donne une partie neuve.  </td><td class="markdownTableBodyNone">1. Charger depuis un chemin qui n'existe pas.<br  />
+2. Vérifier le résultat.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">progression.sequenceId().empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">progression.currentLevel().empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">progression.completedLevels().empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ProgressionDir.FichierVideDonneUnePartieNeuve</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__progression_8cpp.html" title="Tests unitaires de la progression de partie persistée (LOT-59 TACHE-05, EX-LVL-014) et de la règle de...">Source/Test/Unit/HMI/Game/test_progression.cpp</a>:147</span></sub>  </td><td class="markdownTableBodyNone">Un fichier de progression vide donne une partie neuve.  </td><td class="markdownTableBodyNone">1. Écrire un fichier vide.<br  />
+2. Le charger.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">progression.sequenceId().empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">progression.completedLevels().empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ProgressionDir.FichierMalformeDonneUnePartieNeuve</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__progression_8cpp.html" title="Tests unitaires de la progression de partie persistée (LOT-59 TACHE-05, EX-LVL-014) et de la règle de...">Source/Test/Unit/HMI/Game/test_progression.cpp</a>:164</span></sub>  </td><td class="markdownTableBodyNone">Un fichier de progression malformé donne une partie neuve.  </td><td class="markdownTableBodyNone">1. Écrire du JSON invalide.<br  />
+2. Le charger.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">progression.sequenceId().empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">progression.completedLevels().empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ProgressionDir.EntreeInconnueDansCompletedLevelsEstIgnoree</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__progression_8cpp.html" title="Tests unitaires de la progression de partie persistée (LOT-59 TACHE-05, EX-LVL-014) et de la règle de...">Source/Test/Unit/HMI/Game/test_progression.cpp</a>:184</span></sub>  </td><td class="markdownTableBodyNone">Une entrée inconnue de completedLevels est ignorée sans invalider le reste.  </td><td class="markdownTableBodyNone">1. Écrire un fichier dont <span class="tt">completedLevels</span> contient une entrée numérique.<br  />
+2. Le charger.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">progression.sequenceId()</span> vaut <span class="tt">"sequence-demo.json"</span>.<br  />
+Vérifie que <span class="tt">progression.completedLevels().size()</span> vaut <span class="tt">2U</span>.<br  />
+Vérifie que <span class="tt">progression.isCompleted("demo-deplacement.json")</span> est vrai.<br  />
+Vérifie que <span class="tt">progression.isCompleted("demo-saut.json")</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ProgressionTest.TableauRetireDeLaSequenceNInvalidePasLeReste</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__progression_8cpp.html" title="Tests unitaires de la progression de partie persistée (LOT-59 TACHE-05, EX-LVL-014) et de la règle de...">Source/Test/Unit/HMI/Game/test_progression.cpp</a>:211</span></sub>  </td><td class="markdownTableBodyNone">Un tableau retiré de la séquence n'invalide pas le reste de la progression.  </td><td class="markdownTableBodyNone">1. Marquer trois tableaux terminés.<br  />
+2. Simuler le retrait d'un tableau de la séquence (aucune action sur la progression : elle ne connaît pas la séquence).<br  />
+3. Vérifier que les deux autres restent marqués terminés.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">progression.isCompleted("demo-deplacement.json")</span> est vrai.<br  />
+Vérifie que <span class="tt">progression.isCompleted("demo-dash.json")</span> est vrai.<br  />
+Vérifie que <span class="tt">progression.completedLevels().size()</span> vaut <span class="tt">3U</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ProgressionUnlockTest.ProgressionVideSeulLePremierTableauEstJouable</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__progression_8cpp.html" title="Tests unitaires de la progression de partie persistée (LOT-59 TACHE-05, EX-LVL-014) et de la règle de...">Source/Test/Unit/HMI/Game/test_progression.cpp</a>:243</span></sub>  </td><td class="markdownTableBodyNone">Progression vide : seul le premier tableau est jouable.  </td><td class="markdownTableBodyNone">1. Construire une progression vide.<br  />
+2. Interroger <span class="tt">isLevelUnlocked</span> pour chaque tableau de la séquence.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">hmi::isLevelUnlocked</a>(progression, FIVE_LEVEL_SEQUENCE, "demo-deplacement.json")</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">hmi::isLevelUnlocked</a>(progression, FIVE_LEVEL_SEQUENCE, "demo-saut.json")</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">hmi::isLevelUnlocked</a>(progression, FIVE_LEVEL_SEQUENCE, "demo-double-saut.json")</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">hmi::isLevelUnlocked</a>(progression, FIVE_LEVEL_SEQUENCE, "demo-wall-jump.json")</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">hmi::isLevelUnlocked</a>(progression, FIVE_LEVEL_SEQUENCE, "demo-dash.json")</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ProgressionUnlockTest.TroisTableauxTerminesDeverrouillentLeQuatrieme</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__progression_8cpp.html" title="Tests unitaires de la progression de partie persistée (LOT-59 TACHE-05, EX-LVL-014) et de la règle de...">Source/Test/Unit/HMI/Game/test_progression.cpp</a>:263</span></sub>  </td><td class="markdownTableBodyNone">Trois tableaux terminés : les trois plus le quatrième sont jouables.  </td><td class="markdownTableBodyNone">1. Marquer les trois premiers tableaux terminés.<br  />
+2. Interroger <span class="tt">isLevelUnlocked</span> pour chaque tableau de la séquence.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">hmi::isLevelUnlocked</a>(progression, FIVE_LEVEL_SEQUENCE, "demo-deplacement.json")</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">hmi::isLevelUnlocked</a>(progression, FIVE_LEVEL_SEQUENCE, "demo-saut.json")</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">hmi::isLevelUnlocked</a>(progression, FIVE_LEVEL_SEQUENCE, "demo-double-saut.json")</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">hmi::isLevelUnlocked</a>(progression, FIVE_LEVEL_SEQUENCE, "demo-wall-jump.json")</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">hmi::isLevelUnlocked</a>(progression, FIVE_LEVEL_SEQUENCE, "demo-dash.json")</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ProgressionUnlockTest.SequenceEntierementTermineeTousJouables</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__progression_8cpp.html" title="Tests unitaires de la progression de partie persistée (LOT-59 TACHE-05, EX-LVL-014) et de la règle de...">Source/Test/Unit/HMI/Game/test_progression.cpp</a>:287</span></sub>  </td><td class="markdownTableBodyNone">Séquence entièrement terminée : tous les tableaux sont jouables.  </td><td class="markdownTableBodyNone">1. Marquer tous les tableaux de la séquence terminés.<br  />
+2. Interroger <span class="tt">isLevelUnlocked</span> pour chacun.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, level)</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ProgressionUnlockTest.TableauVerrouilleNEstJamaisJouable</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__progression_8cpp.html" title="Tests unitaires de la progression de partie persistée (LOT-59 TACHE-05, EX-LVL-014) et de la règle de...">Source/Test/Unit/HMI/Game/test_progression.cpp</a>:309</span></sub>  </td><td class="markdownTableBodyNone">Un tableau verrouillé n'est jamais jouable.  </td><td class="markdownTableBodyNone">1. Ne terminer aucun tableau.<br  />
+2. Interroger <span class="tt">isLevelUnlocked</span> pour un tableau loin dans la séquence.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">hmi::isLevelUnlocked</a>(progression, FIVE_LEVEL_SEQUENCE, "demo-dash.json")</span> est faux.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
 Graphics (244)</h3>
@@ -5533,7 +5688,7 @@ Vérifie que <span class="tt">mapWithDefaults(withKeys({<a class="el" href="name
 Vérifie que <span class="tt">hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::Y), gameKeyBindings, gamepadBindings) .moveX</span> vaut <span class="tt">1.0f</span> (comparaison flottante).  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
-Interface (23)</h3>
+Interface (28)</h3>
 <p><b><span class="tt"><a class="el" href="test__application__theme_8cpp.html" title="Tests unitaires du thème de l&#39;IHM : modèle de feuille de style (LOT-56 TACHE-02, EX-IHM-050,...">test_application_theme.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -5690,6 +5845,101 @@ Vérifie que <span class="tt">seen.insert(entry.id).second</span> est vrai.<br  
 Vérifie que <span class="tt">roundTrip.has_value()</span> est vrai.<br  />
 Vérifie que <span class="tt">*roundTrip</span> vaut <span class="tt">entry.action</span>.  </td></tr>
 </table>
+<p><b><span class="tt"><a class="el" href="test__screen__flow_8cpp.html" title="Tests unitaires de la machine à états des écrans (LOT-59 TACHE-01, EX-GP-041).">test_screen_flow.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ScreenFlowTest.TransitionsAutoriseesMenentALEcranAttendu</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__screen__flow_8cpp.html" title="Tests unitaires de la machine à états des écrans (LOT-59 TACHE-01, EX-GP-041).">Source/Test/Unit/HMI/Interface/test_screen_flow.cpp</a>:24</span></sub>  </td><td class="markdownTableBodyNone">Chaque transition autorisée mène à l'écran attendu.  </td><td class="markdownTableBodyNone">1. Résoudre chacune des transitions autorisées listées.<br  />
+2. Vérifier l'écran résultant.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">resolveTransition(menu, ScreenEvent::OpenEditor)-&gt;screen</span> vaut <span class="tt">ScreenId::Editor</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(menu, ScreenEvent::OpenGame)-&gt;screen</span> vaut <span class="tt">ScreenId::Game</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(menu, ScreenEvent::OpenOptions)-&gt;screen</span> vaut <span class="tt">ScreenId::Options</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(editor, ScreenEvent::OpenMenu)-&gt;screen</span> vaut <span class="tt">ScreenId::Menu</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(game, ScreenEvent::OpenMenu)-&gt;screen</span> vaut <span class="tt">ScreenId::Menu</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(game, ScreenEvent::OpenPause)-&gt;screen</span> vaut <span class="tt">ScreenId::Pause</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(game, ScreenEvent::LevelSucceeded)-&gt;screen</span> vaut <span class="tt">ScreenId::NiveauTermine</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(pause, ScreenEvent::ResumePause)-&gt;screen</span> vaut <span class="tt">ScreenId::Game</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(pause, ScreenEvent::RestartFromPause)-&gt;screen</span> vaut <span class="tt">ScreenId::Game</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(pause, ScreenEvent::QuitPauseToMenu)-&gt;screen</span> vaut <span class="tt">ScreenId::Menu</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(pause, ScreenEvent::OpenOptions)-&gt;screen</span> vaut <span class="tt">ScreenId::Options</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(optionsFromMenu, ScreenEvent::CloseOptions)-&gt;screen</span> vaut <span class="tt">ScreenId::Menu</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(optionsFromPause, ScreenEvent::CloseOptions)-&gt;screen</span> vaut <span class="tt">ScreenId::Pause</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(niveauTermine, ScreenEvent::ContinueAfterLevel)-&gt;screen</span> vaut <span class="tt">ScreenId::Game</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(niveauTermine, ScreenEvent::ReplayLevel)-&gt;screen</span> vaut <span class="tt">ScreenId::Game</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(niveauTermine, ScreenEvent::ReturnToMenuFromLevelComplete)-&gt;screen</span> vaut <span class="tt">ScreenId::Menu</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(menu, ScreenEvent::OpenLevelSelect)-&gt;screen</span> vaut <span class="tt">ScreenId::LevelSelect</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(levelSelect, ScreenEvent::LevelChosen)-&gt;screen</span> vaut <span class="tt">ScreenId::Game</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(levelSelect, ScreenEvent::CloseLevelSelect)-&gt;screen</span> vaut <span class="tt">ScreenId::Menu</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ScreenFlowTest.OptionsRevientVersSonEcranDOrigine</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__screen__flow_8cpp.html" title="Tests unitaires de la machine à états des écrans (LOT-59 TACHE-01, EX-GP-041).">Source/Test/Unit/HMI/Interface/test_screen_flow.cpp</a>:76</span></sub>  </td><td class="markdownTableBodyNone">Options revient vers son écran d'origine (Menu ou Pause).  </td><td class="markdownTableBodyNone">1. Ouvrir Options depuis Menu, puis le fermer : vérifier le retour au Menu.<br  />
+2. Ouvrir Options depuis Pause, puis le fermer : vérifier le retour à Pause.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">openedFromMenu.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">resolveTransition(*openedFromMenu, ScreenEvent::CloseOptions)-&gt;screen</span> vaut <span class="tt">ScreenId::Menu</span>.<br  />
+Vérifie que <span class="tt">openedFromPause.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">resolveTransition(*openedFromPause, ScreenEvent::CloseOptions)-&gt;screen</span> vaut <span class="tt">ScreenId::Pause</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ScreenFlowTest.TransitionInterditeEstRefusee</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__screen__flow_8cpp.html" title="Tests unitaires de la machine à états des écrans (LOT-59 TACHE-01, EX-GP-041).">Source/Test/Unit/HMI/Interface/test_screen_flow.cpp</a>:104</span></sub>  </td><td class="markdownTableBodyNone">Une transition interdite est refusée.  </td><td class="markdownTableBodyNone">1. Tenter Editor -&gt; Pause (via OpenPause).<br  />
+2. Tenter Menu -&gt; NiveauTermine (via LevelSucceeded).<br  />
+3. Tenter Menu -&gt; Pause directement.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">resolveTransition(editor, ScreenEvent::OpenPause)</span> vaut <span class="tt">std::nullopt</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(menu, ScreenEvent::LevelSucceeded)</span> vaut <span class="tt">std::nullopt</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(menu, ScreenEvent::OpenPause)</span> vaut <span class="tt">std::nullopt</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(menu, ScreenEvent::ResumePause)</span> vaut <span class="tt">std::nullopt</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(editor, ScreenEvent::OpenOptions)</span> vaut <span class="tt">std::nullopt</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(editor, ScreenEvent::OpenLevelSelect)</span> vaut <span class="tt">std::nullopt</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(game, ScreenEvent::OpenLevelSelect)</span> vaut <span class="tt">std::nullopt</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ScreenFlowTest.HabillageDeFenetreEstCeluiAttenduParEcran</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__screen__flow_8cpp.html" title="Tests unitaires de la machine à états des écrans (LOT-59 TACHE-01, EX-GP-041).">Source/Test/Unit/HMI/Interface/test_screen_flow.cpp</a>:132</span></sub>  </td><td class="markdownTableBodyNone">L'habillage de fenêtre est celui attendu pour chaque écran.  </td><td class="markdownTableBodyNone">1. Interroger l'habillage de chacun des sept écrans.<br  />
+2. Vérifier chaque champ.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">menu.docksVisible</span> est faux.<br  />
+Vérifie que <span class="tt">menu.menuBarVisible</span> est faux.<br  />
+Vérifie que <span class="tt">menu.toolBarVisible</span> est faux.<br  />
+Vérifie que <span class="tt">menu.pixelToolBarVisible</span> est faux.<br  />
+Vérifie que <span class="tt">menu.editingCommandsEnabled</span> est faux.<br  />
+Vérifie que <span class="tt">menu.gamepadNavigationActive</span> est vrai.<br  />
+Vérifie que <span class="tt">menu.overlayVisible</span> est faux.<br  />
+Vérifie que <span class="tt">editor.docksVisible</span> est vrai.<br  />
+Vérifie que <span class="tt">editor.menuBarVisible</span> est vrai.<br  />
+Vérifie que <span class="tt">editor.toolBarVisible</span> est vrai.<br  />
+Vérifie que <span class="tt">editor.pixelToolBarVisible</span> est vrai.<br  />
+Vérifie que <span class="tt">editor.editingCommandsEnabled</span> est vrai.<br  />
+Vérifie que <span class="tt">editor.gamepadNavigationActive</span> est faux.<br  />
+Vérifie que <span class="tt">editor.overlayVisible</span> est faux.<br  />
+Vérifie que <span class="tt">game.docksVisible</span> est faux.<br  />
+Vérifie que <span class="tt">game.menuBarVisible</span> est faux.<br  />
+Vérifie que <span class="tt">game.toolBarVisible</span> est faux.<br  />
+Vérifie que <span class="tt">game.pixelToolBarVisible</span> est faux.<br  />
+Vérifie que <span class="tt">game.editingCommandsEnabled</span> est faux.<br  />
+Vérifie que <span class="tt">game.gamepadNavigationActive</span> est faux.<br  />
+Vérifie que <span class="tt">game.overlayVisible</span> est faux.<br  />
+Vérifie que <span class="tt">options.docksVisible</span> est faux.<br  />
+Vérifie que <span class="tt">options.menuBarVisible</span> est faux.<br  />
+Vérifie que <span class="tt">options.toolBarVisible</span> est faux.<br  />
+Vérifie que <span class="tt">options.pixelToolBarVisible</span> est faux.<br  />
+Vérifie que <span class="tt">options.editingCommandsEnabled</span> est faux.<br  />
+Vérifie que <span class="tt">options.gamepadNavigationActive</span> est vrai.<br  />
+Vérifie que <span class="tt">options.overlayVisible</span> est faux.<br  />
+Vérifie que <span class="tt">levelSelect.docksVisible</span> est faux.<br  />
+Vérifie que <span class="tt">levelSelect.menuBarVisible</span> est faux.<br  />
+Vérifie que <span class="tt">levelSelect.toolBarVisible</span> est faux.<br  />
+Vérifie que <span class="tt">levelSelect.pixelToolBarVisible</span> est faux.<br  />
+Vérifie que <span class="tt">levelSelect.editingCommandsEnabled</span> est faux.<br  />
+Vérifie que <span class="tt">levelSelect.gamepadNavigationActive</span> est vrai.<br  />
+Vérifie que <span class="tt">levelSelect.overlayVisible</span> est faux.<br  />
+Vérifie que <span class="tt">overlay.docksVisible</span> est faux.<br  />
+Vérifie que <span class="tt">overlay.menuBarVisible</span> est faux.<br  />
+Vérifie que <span class="tt">overlay.toolBarVisible</span> est faux.<br  />
+Vérifie que <span class="tt">overlay.pixelToolBarVisible</span> est faux.<br  />
+Vérifie que <span class="tt">overlay.editingCommandsEnabled</span> est faux.<br  />
+Vérifie que <span class="tt">overlay.gamepadNavigationActive</span> est vrai.<br  />
+Vérifie que <span class="tt">overlay.overlayVisible</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ScreenFlowTest.ContinuerOuRejouerDepuisNiveauTermineRameneAGame</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__screen__flow_8cpp.html" title="Tests unitaires de la machine à états des écrans (LOT-59 TACHE-01, EX-GP-041).">Source/Test/Unit/HMI/Interface/test_screen_flow.cpp</a>:201</span></sub>  </td><td class="markdownTableBodyNone">Continuer/Rejouer depuis NiveauTermine ramène à Game.  </td><td class="markdownTableBodyNone">1. Résoudre ContinueAfterLevel depuis NiveauTermine.<br  />
+2. Résoudre ReplayLevel depuis NiveauTermine.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">resolveTransition(niveauTermine, ScreenEvent::ContinueAfterLevel)-&gt;screen</span> vaut <span class="tt">ScreenId::Game</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(niveauTermine, ScreenEvent::ReplayLevel)-&gt;screen</span> vaut <span class="tt">ScreenId::Game</span>.  </td></tr>
+</table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
 Localization (8)</h3>
 <p><b><span class="tt"><a class="el" href="test__localization_8cpp.html" title="Tests unitaires du catalogue de traduction : analyse, repli, changement de langue.">test_localization.cpp</a></span></b></p>
@@ -5738,7 +5988,7 @@ Vérifie que <span class="tt">localization.text("menu.quitter")</span> vaut <spa
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">localization.loadDefaultLanguage("fr")</span> est vrai.<br  />
 Vérifie que <span class="tt">localization.activeLanguage()</span> vaut <span class="tt">"fr"</span>.<br  />
 Vérifie que <span class="tt">localization.text("menu.quit")</span> vaut <span class="tt">"Quitter"</span>.<br  />
-Vérifie que <span class="tt">localization.text("menu.play")</span> vaut <span class="tt">"Jouer"</span>.  </td></tr>
+Vérifie que <span class="tt">localization.text("menu.continue")</span> vaut <span class="tt">"Continuer"</span>.  </td></tr>
 </table>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
 Tests d'intégration (89)</h1>

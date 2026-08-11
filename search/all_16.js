@@ -4,7 +4,7 @@ var searchData=
   ['kdeveloperbuild_1',['kDeveloperBuild',['../namespacecore.html#ada3f6bef6b32bd54ea16d550e0769fb1',1,'core']]],
   ['key_2',['Key',['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48',1,'hmi']]],
   ['key_3',['key',['../classhmi_1_1EditorKeyBindings.html#a2cc7f550f71dc0a6cdd7ae5282e5aa66',1,'hmi::EditorKeyBindings::key()'],['../classhmi_1_1GameKeyBindings.html#a598a666a329ac0f1d438b0cc2a7e3cf3',1,'hmi::GameKeyBindings::key()']]],
-  ['key_20_3a_20hmi_3a_3aqtkeytohmikey_20qtkeytohmikey_4',['Le pont Qt → &lt;a class=&quot;el&quot; href=&quot;namespacehmi.html#a83c98e56e30eafa606048853f7962e48&quot; title=&quot;hmi::Key&quot;&gt;Key&lt;/a&gt; : &lt;a class=&quot;el&quot; href=&quot;namespacehmi.html#a1b53de392afb0dfdf5cdef4543fb672d&quot; title=&quot;hmi::qtKeyToHmiKey&quot;&gt;qtKeyToHmiKey&lt;/a&gt;',['../guide-entrees.html#autotoc_md100',1,'']]],
+  ['key_20_3a_20hmi_3a_3aqtkeytohmikey_20qtkeytohmikey_4',['Le pont Qt → &lt;a class=&quot;el&quot; href=&quot;namespacehmi.html#a83c98e56e30eafa606048853f7962e48&quot; title=&quot;hmi::Key&quot;&gt;Key&lt;/a&gt; : &lt;a class=&quot;el&quot; href=&quot;namespacehmi.html#a1b53de392afb0dfdf5cdef4543fb672d&quot; title=&quot;hmi::qtKeyToHmiKey&quot;&gt;qtKeyToHmiKey&lt;/a&gt;',['../guide-entrees.html#autotoc_md106',1,'']]],
   ['key_5fbinding_5ficon_5fcount_5',['KEY_BINDING_ICON_COUNT',['../namespacehmi.html#a1a8d24174b415e8452f331c030addee6',1,'hmi']]],
   ['key_5fcount_6',['KEY_COUNT',['../classhmi_1_1InputState.html#ae87822f9a9d0e59969b18d5fcb9a785a',1,'hmi::InputState']]],
   ['keybindingactionforicon_7',['keyBindingActionForIcon',['../namespacehmi.html#aaec3ea44878dd72a447a29150231ddba',1,'hmi']]],
@@ -18,11 +18,12 @@ var searchData=
   ['keyname_2ecpp_15',['KeyName.cpp',['../KeyName_8cpp.html',1,'']]],
   ['keyname_2eh_16',['KeyName.h',['../KeyName_8h.html',1,'']]],
   ['keypressed_17',['keyPressed',['../classhmi_1_1InputState.html#a31d4d382e571e231ef0d13937e2b1f4f',1,'hmi::InputState']]],
-  ['keypressevent_18',['keyPressEvent',['../classhmi_1_1GameViewport.html#ac3bad1f6d1f1e5f61bbb4e35283ad308',1,'hmi::GameViewport::keyPressEvent()'],['../classhmi_1_1EditorKeybindingsWidget.html#ab12500557ec10ea0d22d1bed22f1520f',1,'hmi::EditorKeybindingsWidget::keyPressEvent()'],['../classhmi_1_1KeybindingsWidget.html#adfb3f1bc4826280f3de23a4ad75de2f6',1,'hmi::KeybindingsWidget::keyPressEvent()']]],
+  ['keypressevent_18',['keyPressEvent',['../classhmi_1_1GameViewport.html#ac3bad1f6d1f1e5f61bbb4e35283ad308',1,'hmi::GameViewport::keyPressEvent()'],['../classhmi_1_1EditorKeybindingsWidget.html#ab12500557ec10ea0d22d1bed22f1520f',1,'hmi::EditorKeybindingsWidget::keyPressEvent()'],['../classhmi_1_1KeybindingsWidget.html#adfb3f1bc4826280f3de23a4ad75de2f6',1,'hmi::KeybindingsWidget::keyPressEvent()'],['../classhmi_1_1PauseScreen.html#a80838d821155bb1169051b518cf50be0',1,'hmi::PauseScreen::keyPressEvent()']]],
   ['keyreleased_19',['keyReleased',['../classhmi_1_1InputState.html#ae58b5ee926c82c8f62bf57ee7e446ac4',1,'hmi::InputState']]],
   ['keyreleaseevent_20',['keyReleaseEvent',['../classhmi_1_1GameViewport.html#aeab73386d2f7ed680a6bee08b923d1c9',1,'hmi::GameViewport']]],
   ['kind_21',['kind',['../structhmi_1_1DecorGestureAction.html#a602263f6b2fa40f84abe2713c0c5a2cd',1,'hmi::DecorGestureAction::kind'],['../structhmi_1_1LinkRow.html#a94244c8504c1e369911da965056b39c9',1,'hmi::LinkRow::kind'],['../structhmi_1_1PixelHistoryEntry.html#a0bca112b1e07f1c110b91a978303bea2',1,'hmi::PixelHistoryEntry::kind'],['../structhmi_1_1ComposedQuad.html#a11f80072d43177fd77c938bb6efaab02',1,'hmi::ComposedQuad::kind']]],
   ['klevelformatversion_22',['kLevelFormatVersion',['../namespacecore.html#a4e9944a74ac070775a2730be05705abb',1,'core']]],
-  ['kplayerheight_23',['kPlayerHeight',['../namespacecore.html#aaa73b5f2476cf8e0f359e4f05e1b2d9a',1,'core']]],
-  ['kplayerwidth_24',['kPlayerWidth',['../namespacecore.html#af90aca85784a36802e810be93df9800f',1,'core']]]
+  ['klevelsequenceformatversion_23',['kLevelSequenceFormatVersion',['../namespacecore.html#a092aaea01e9801e07160e2829611801b',1,'core']]],
+  ['kplayerheight_24',['kPlayerHeight',['../namespacecore.html#aaa73b5f2476cf8e0f359e4f05e1b2d9a',1,'core']]],
+  ['kplayerwidth_25',['kPlayerWidth',['../namespacecore.html#af90aca85784a36802e810be93df9800f',1,'core']]]
 ];
