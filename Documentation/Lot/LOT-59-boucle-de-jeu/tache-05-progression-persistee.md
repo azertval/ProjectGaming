@@ -1,6 +1,6 @@
 # TACHE-05 — Progression persistée {#lot-59-tache-05-progression-persistee}
 
-**Lot :** [LOT-59](epic.md) · **Emplacement :** `Source/HMI/Game` · **Statut :** non commencé
+**Lot :** [LOT-59](epic.md) · **Emplacement :** `Source/HMI/Game` · **Statut :** fait
 
 ## Contexte
 Rien n'est conservé entre deux lancements. Quinze tableaux se jouent d'une traite ou pas du tout —
@@ -28,10 +28,15 @@ second.
 
 ## Fichiers impactés
 - `Source/HMI/Game/Progression.{h,cpp}` (nouveau) — logique pure, sans Qt.
-- `Source/HMI/Interface/MainWindow.{h,cpp}` — chargement au démarrage, écriture en fin de tableau.
+- `Source/HMI/Game/GameViewport.{h,cpp}` — `nextGameLevelName()` (nouveau), miroir de
+  `currentGameLevelName` : le tableau suivant devient `Progression::currentLevel`.
+- `Source/HMI/Interface/MainWindow.{h,cpp}` — chargement au démarrage, écriture en fin de tableau
+  (`openLevelComplete`, après la transition).
+- `Source/HMI/CMakeLists.txt` (compiler `Progression.cpp` dans `ProjectGaming`).
 - `Source/Test/Unit/HMI/Game/test_progression.cpp` (nouveau).
 - `Source/Test/CMakeLists.txt` (compiler `Progression.cpp` dans `UnitTests`).
-- `.gitignore` — vérifier que `Settings/` produit à l'exécution n'est pas versionné.
+- `.gitignore` — vérifié : `Settings/` produit à l'exécution vit sous `build/` (déjà ignoré en
+  bloc, `[Bb]uild/`), rien à ajouter.
 
 ## Tests (obligatoires)
 - Aller-retour : écrire une progression, la relire, obtenir exactement la même.
@@ -55,6 +60,28 @@ second.
 ## Définition de fait (DoD)
 - La progression survit à un redémarrage, se corrompt sans dommage, résiste au réordonnancement de
   la séquence, s'écrit atomiquement et rarement ; couverte par des tests purs ; `/W4 /WX` propre.
+
+## État
+`hmi::Progression` suit le patron de persistance de `GameKeyBindings` (construction par défaut =
+partie neuve, `save` membre/`load` statique, lecture tolérante), mais avec une écriture **atomique**
+(fichier temporaire puis `std::filesystem::rename`), comme demandé — `GameKeyBindings::save` lui-même
+n'est **pas** atomique (écrit directement le fichier final), donc le modèle exact suivi pour
+l'écriture est `hmi::encodeImageFile` (`HMI/Graphics/TextureLoader.cpp`, `LOT-54`), transposé sans
+Qt. Stockage par nom partout (`sequenceId`, `currentLevel`, `completedLevels`), `std::set` pour
+l'ensemble des terminés : marquer deux fois le même tableau est idempotent sans code dédié — couvre
+directement l'exigence de la `TACHE-03` (« marqué une seule fois, même traversé deux fois »).
+
+`MainWindow` charge la progression une fois à la construction et l'écrit à un seul point :
+`openLevelComplete`, après la transition d'écran (comme les autres handlers d'écran de ce fichier —
+`quitPauseToMenu`, `restartFromPause` — qui n'agissent qu'après une transition acceptée). Le
+tableau suivant (`GameViewport::nextGameLevelName`, nouveau, miroir de `currentGameLevelName`)
+devient `currentLevel` ; vide en fin de séquence, sans effet tant que rien ne le lit encore.
+
+**« Nouvelle partie » n'est pas câblée** : le bouton n'existe pas avant la `TACHE-06` (qui remplace
+« Jouer » par Continuer/Nouvelle partie/Choisir un niveau) — `Progression::reset()` existe et est
+testé, prêt à être appelé depuis là après confirmation, mais rien ne l'invoque encore. De même,
+`showGame()` ne lit pas encore `_progression.currentLevel()` : le jeu recommence toujours au
+premier tableau jusqu'à la `TACHE-06`, qui décide *où* reprendre.
 
 ## Exigences
 `EX-LVL-014` (progression persistée) ; réutilise `EX-LVL-013` (séquence en donnée), `EX-NFR-040`
