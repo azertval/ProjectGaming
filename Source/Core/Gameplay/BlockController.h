@@ -95,6 +95,12 @@ private:
     ///         dans @p base, et non occupée par un bloc autre que celui d'indice @p excluding.
     [[nodiscard]] bool isFree(GridPosition target, const TileMap& base,
                               std::size_t excluding) const;
+    /// Étape 1 de update() : pousse chaque bloc touché du côté du déplacement voulu si sa case
+    /// suivante est libre.
+    void pushBlocks(const Aabb& playerBox, float moveIntentX, const TileMap& base);
+    /// Étape 2 de update() : fait tomber d'une case chaque bloc non soutenu depuis
+    /// `FALL_INTERVAL_STEPS` pas.
+    void dropBlocks(const TileMap& base);
 
     std::vector<GridPosition> _positions;
     std::vector<float> _scales;    ///< Facteur de taille (`1`/`0.5`/`0.25`), même index.

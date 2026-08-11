@@ -83,34 +83,42 @@ bool BlockController::isFree(GridPosition target, const TileMap& base,
 }
 
 void BlockController::update(const Aabb& playerBox, float moveIntentX, const TileMap& base) {
-    // 1. Poussée : direction du déplacement voulu, bloc touché de ce côté, case suivante libre.
-    if (moveIntentX != 0.0F) {
-        const int direction = moveIntentX > 0.0F ? 1 : -1;
-        for (std::size_t index = 0; index < _positions.size(); ++index) {
-            const GridPosition current = _positions[index];
-            const Aabb box = blockBox(current, _scales[index]);
-            if (!overlapsVertically(playerBox, box)) {
-                continue;
-            }
-            const bool touchesFromLeft =
-                direction > 0 && std::fabs(playerBox.max.x - box.min.x) <= PUSH_TOUCH_TOLERANCE;
-            const bool touchesFromRight =
-                direction < 0 && std::fabs(playerBox.min.x - box.max.x) <= PUSH_TOUCH_TOLERANCE;
-            if (!touchesFromLeft && !touchesFromRight) {
-                continue;
-            }
-            const GridPosition target{.column = current.column + direction, .row = current.row};
-            if (isFree(target, base, index)) {
-                _positions[index] = target;
-                _fallTimers[index] = 0;  // repart de zéro : re-teste la chute dès le prochain pas
-                GAMEPLAY_LOG_TRACE("Bloc #" + std::to_string(index) + " pousse vers (" +
-                                   std::to_string(target.column) + ", " +
-                                   std::to_string(target.row) + ")");
-            }
+    pushBlocks(playerBox, moveIntentX, base);
+    dropBlocks(base);
+}
+
+void BlockController::pushBlocks(const Aabb& playerBox, float moveIntentX, const TileMap& base) {
+    // Direction du déplacement voulu, bloc touché de ce côté, case suivante libre.
+    if (moveIntentX == 0.0F) {
+        return;
+    }
+    const int direction = moveIntentX > 0.0F ? 1 : -1;
+    for (std::size_t index = 0; index < _positions.size(); ++index) {
+        const GridPosition current = _positions[index];
+        const Aabb box = blockBox(current, _scales[index]);
+        if (!overlapsVertically(playerBox, box)) {
+            continue;
+        }
+        const bool touchesFromLeft =
+            direction > 0 && std::fabs(playerBox.max.x - box.min.x) <= PUSH_TOUCH_TOLERANCE;
+        const bool touchesFromRight =
+            direction < 0 && std::fabs(playerBox.min.x - box.max.x) <= PUSH_TOUCH_TOLERANCE;
+        if (!touchesFromLeft && !touchesFromRight) {
+            continue;
+        }
+        const GridPosition target{.column = current.column + direction, .row = current.row};
+        if (isFree(target, base, index)) {
+            _positions[index] = target;
+            _fallTimers[index] = 0;  // repart de zéro : re-teste la chute dès le prochain pas
+            GAMEPLAY_LOG_TRACE("Bloc #" + std::to_string(index) + " pousse vers (" +
+                               std::to_string(target.column) + ", " + std::to_string(target.row) +
+                               ")");
         }
     }
+}
 
-    // 2. Chute : un bloc non soutenu tombe d'une case au bout de FALL_INTERVAL_STEPS pas.
+void BlockController::dropBlocks(const TileMap& base) {
+    // Un bloc non soutenu tombe d'une case au bout de FALL_INTERVAL_STEPS pas.
     for (std::size_t index = 0; index < _positions.size(); ++index) {
         const GridPosition current = _positions[index];
         const GridPosition below{.column = current.column, .row = current.row + 1};
