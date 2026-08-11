@@ -29,16 +29,9 @@ ScreenDressing dressingFor(ScreenId screen) noexcept {
                                   .gamepadNavigationActive = false,
                                   .overlayVisible = false};
         case ScreenId::Options:
-            return ScreenDressing{.docksVisible = false,
-                                  .menuBarVisible = false,
-                                  .toolBarVisible = false,
-                                  .pixelToolBarVisible = false,
-                                  .editingCommandsEnabled = false,
-                                  .gamepadNavigationActive = true,
-                                  .overlayVisible = false};
         case ScreenId::LevelSelect:
-            // Même habillage que Menu/Options : page du QStackedWidget, jamais un recouvrement
-            // (atteint depuis le menu, pas en jeu -- LOT-59 TACHE-06).
+            // Même habillage que Menu : page du QStackedWidget, jamais un recouvrement (LevelSelect
+            // est atteint depuis le menu, pas en jeu -- LOT-59 TACHE-06).
             return ScreenDressing{.docksVisible = false,
                                   .menuBarVisible = false,
                                   .toolBarVisible = false,
