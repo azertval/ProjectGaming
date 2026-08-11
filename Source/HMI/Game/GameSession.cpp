@@ -443,6 +443,49 @@ void GameSession::refreshBlockVisuals() {
     }
 }
 
+void GameSession::resolveReducedBlockCollision(const core::Aabb& previousBox) {
+    core::Transform& transform = _world.getComponent<core::Transform>(_player);
+    const core::Vector2 delta = transform.position - previousBox.min;
+    if (delta.x == 0.0f && delta.y == 0.0f) {
+        return;
+    }
+    core::Vector2 bestPosition = transform.position;  // depart : resultat de la grille
+    core::Vector2 bestNormal{};
+    const std::vector<float>& scales = _blocks->scales();
+    for (std::size_t index = 0; index < scales.size(); ++index) {
+        if (scales[index] >= 1.0f) {
+            continue;  // bloc plein : deja resolu par le balayage sur grille ci-dessus
+        }
+        const core::SweepResult result =
+            core::sweepAabbVsAabb(previousBox, delta, _blocks->boxAt(index));
+        if (result.normal.x != 0.0f && std::fabs(result.position.x - previousBox.min.x) <
+                                           std::fabs(bestPosition.x - previousBox.min.x)) {
+            bestPosition.x = result.position.x;
+            bestNormal.x = result.normal.x;
+        }
+        if (result.normal.y != 0.0f && std::fabs(result.position.y - previousBox.min.y) <
+                                           std::fabs(bestPosition.y - previousBox.min.y)) {
+            bestPosition.y = result.position.y;
+            bestNormal.y = result.normal.y;
+        }
+    }
+    if (bestNormal.x == 0.0f && bestNormal.y == 0.0f) {
+        return;
+    }
+    transform.position = bestPosition;
+    core::Velocity& velocity = _world.getComponent<core::Velocity>(_player);
+    core::Player& player = _world.getComponent<core::Player>(_player);
+    if (bestNormal.x != 0.0f) {
+        velocity.value.x = 0.0f;
+    }
+    if (bestNormal.y != 0.0f) {
+        velocity.value.y = 0.0f;
+        if (bestNormal.y < 0.0f) {
+            player.grounded = true;  // pose sur le dessus d'un bloc reduit
+        }
+    }
+}
+
 void GameSession::refreshDangerVisuals() {
     for (std::size_t index = 0; index < _moverEntities.size(); ++index) {
         const core::Entity mover = _moverEntities[index];
@@ -604,46 +647,7 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
     // 2bis. Blocs a TAILLE REDUITE (EX-GP-005) : leur boite REELLE (centree, plus petite qu'une
     // case) n'est jamais posee dans `collision` ci-dessus. Composee ici via un balayage boite-boite
     // dedie (core::sweepAabbVsAabb), sur le deplacement REEL obtenu par la physique sur grille.
-    {
-        core::Transform& transform = _world.getComponent<core::Transform>(_player);
-        const core::Vector2 delta = transform.position - previousBox.min;
-        if (delta.x != 0.0f || delta.y != 0.0f) {
-            core::Vector2 bestPosition = transform.position;  // depart : resultat de la grille
-            core::Vector2 bestNormal{};
-            const std::vector<float>& scales = _blocks->scales();
-            for (std::size_t index = 0; index < scales.size(); ++index) {
-                if (scales[index] >= 1.0f) {
-                    continue;  // bloc plein : deja resolu par le balayage sur grille ci-dessus
-                }
-                const core::SweepResult result =
-                    core::sweepAabbVsAabb(previousBox, delta, _blocks->boxAt(index));
-                if (result.normal.x != 0.0f && std::fabs(result.position.x - previousBox.min.x) <
-                                                   std::fabs(bestPosition.x - previousBox.min.x)) {
-                    bestPosition.x = result.position.x;
-                    bestNormal.x = result.normal.x;
-                }
-                if (result.normal.y != 0.0f && std::fabs(result.position.y - previousBox.min.y) <
-                                                   std::fabs(bestPosition.y - previousBox.min.y)) {
-                    bestPosition.y = result.position.y;
-                    bestNormal.y = result.normal.y;
-                }
-            }
-            if (bestNormal.x != 0.0f || bestNormal.y != 0.0f) {
-                transform.position = bestPosition;
-                core::Velocity& velocity = _world.getComponent<core::Velocity>(_player);
-                core::Player& player = _world.getComponent<core::Player>(_player);
-                if (bestNormal.x != 0.0f) {
-                    velocity.value.x = 0.0f;
-                }
-                if (bestNormal.y != 0.0f) {
-                    velocity.value.y = 0.0f;
-                    if (bestNormal.y < 0.0f) {
-                        player.grounded = true;  // pose sur le dessus d'un bloc reduit
-                    }
-                }
-            }
-        }
-    }
+    resolveReducedBlockCollision(previousBox);
 
     // 2ter. Animation (EX-REN-012) : derivee de l'etat physique qui vient d'etre mis a jour.
     _animation.update(_world, fixedDelta);
