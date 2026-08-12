@@ -22,6 +22,7 @@ de l'interface (français/anglais) à tout moment.
 | Dash (8 directions, selon les touches directionnelles maintenues) | **Maj** | Épaule droite (**RB**) |
 | Viser le dash vers le haut / le bas | **↑** / **↓** | Stick gauche / D-pad |
 | Voir le niveau tel qu'il est construit | **F8** | — |
+| Afficher le compteur de diagnostic (cadence, primitives) | **F9** | — |
 | Mettre en pause | **Échap** | **B** ou **Start** |
 
 Une manette **XInput** peut être branchée ou débranchée à tout moment ; elle **complète** le
@@ -34,6 +35,11 @@ montre **tel qu'il est réellement construit**, chaque case dans une couleur uni
 pratique pour comprendre exactement où commence un sol, une pente ou un piège quand un passage
 résiste. La bascule ne change rien au jeu lui-même : ni la difficulté, ni la position du personnage,
 ni la progression. Le choix est conservé pour les fois suivantes.
+
+**F9** affiche, en haut à droite de l'écran, un petit compteur technique : la cadence de rendu (en
+images par seconde), le nombre de primitives dessinées et le nombre de passes de dessin. Il ne sert
+qu'à vérifier que le jeu tourne bien à la vitesse attendue ; désactivé par défaut, il n'a aucun
+effet sur la partie et n'est pas conservé d'une session à l'autre.
 
 ## Objectif d'un niveau
 

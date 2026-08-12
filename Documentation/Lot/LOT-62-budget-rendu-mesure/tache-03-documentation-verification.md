@@ -1,6 +1,6 @@
 # TACHE-03 — Documentation, mesure de référence et vérification {#lot-62-tache-03-documentation-verification}
 
-**Lot :** [LOT-62](epic.md) · **Emplacement :** `Documentation` · **Statut :** non commencé
+**Lot :** [LOT-62](epic.md) · **Emplacement :** `Documentation` · **Statut :** fait
 
 ## Contexte
 Ce lot produit des **chiffres**, et un chiffre sans date ni contexte devient inexploitable en

@@ -14,6 +14,7 @@
 #include <optional>
 #include <utility>
 
+#include "Core/Ecs/Components/Sprite.h"  // core::Color
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelOutcome.h"
@@ -39,6 +40,7 @@
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/Parallax.h"
 #include "HMI/Graphics/SpriteBatch.h"
+#include "HMI/Graphics/TextRenderer.h"
 #include "HMI/Graphics/TextureAtlas.h"
 #include "HMI/Graphics/TextureCache.h"
 #include "HMI/HmiLog.h"
@@ -777,6 +779,12 @@ void GameViewport::tick() {
     const float elapsedSeconds = std::chrono::duration<float>(now - _previousFrame).count();
     _previousFrame = now;
 
+    // Cadence de rendu (LOT-62 TACHE-02) : seulement quand le compteur est actif -- rien n'est
+    // calculé au-delà du test, coût nul quand il est éteint.
+    if (_diagnosticsEnabled) {
+        _frameRateAverage.addSample(elapsedSeconds);
+    }
+
     _gamepad.poll(_input);
 
     // Ouverture de la pause à la manette (bouton B, `EX-CTRL-012`), même geste que « retour »
@@ -791,6 +799,7 @@ void GameViewport::tick() {
     // continue ci-dessous : la scène reste dessinée derrière l'écran de pause.
     if (!_paused) {
         const int steps = _timestep.advance(elapsedSeconds);
+        _lastSimulationSteps = steps;  // pas consommés à cette image (LOT-62 TACHE-02).
         const float fixedDelta = _timestep.fixedDeltaSeconds();
         for (int step = 0; step < steps; ++step) {
             const core::LevelOutcome outcome =
@@ -846,6 +855,7 @@ void GameViewport::renderFrame(float deltaSeconds) {
                      static_cast<float>(clearColor.b) / 255.0f, 1.0f);
     if (_session) {
         _session->render(pixelWidth(), pixelHeight(), _renderMode, _timestep.interpolationAlpha());
+        renderDiagnosticsOverlay(pixelWidth(), pixelHeight());
     } else {
         updateEditCamera();
         // Zoom courant pour la barre d'etat (LOT-57 TACHE-01) : pas de signal natif sur Camera2D,
@@ -870,6 +880,42 @@ void GameViewport::renderFrame(float deltaSeconds) {
                                showTextureOverrides, deltaSeconds, decorOverlay, _layerVisibility);
     }
     _graphics->present();
+}
+
+void GameViewport::renderDiagnosticsOverlay(int viewportWidth, int viewportHeight) {
+    if (!_diagnosticsEnabled || !_session || _loc == nullptr) {
+        return;  // eteint, hors session, ou localisation pas encore chargee (EX-NFR-040).
+    }
+
+    hmi::DiagnosticsMeasurements measurements;
+    measurements.framesPerSecond = _frameRateAverage.framesPerSecond();
+    measurements.sceneStatistics = _session->renderStatistics();
+    measurements.simulationSteps = _lastSimulationSteps;
+    const std::vector<std::string> lines = hmi::composeDiagnosticsHudLines(measurements, *_loc);
+
+    // Meme habillage (ombre + texte) que hmi::GameSession::renderHud, coin haut-DROIT (LOT-62
+    // TACHE-02) pour ne jamais recouvrir le HUD de jeu (budgets), ancre coin haut-gauche.
+    constexpr float MARGIN = 8.0f;
+    constexpr float SCALE = 1.0f;
+    constexpr float LINE_SPACING = 2.0f;
+    constexpr core::Color SHADOW_COLOR{0.0f, 0.0f, 0.0f, 0.75f};
+    constexpr core::Color TEXT_COLOR{1.0f, 1.0f, 1.0f, 1.0f};
+    constexpr hmi::TextAnchor ANCHOR{hmi::TextHorizontalAnchor::Right,
+                                     hmi::TextVerticalAnchor::Top};
+
+    _diagnosticsScene.clear();
+    const float x = static_cast<float>(viewportWidth) - MARGIN;
+    float lineY = MARGIN;
+    for (const std::string& line : lines) {
+        hmi::composeText(_diagnosticsScene, *_font, line, x + 1.0f, lineY + 1.0f, SCALE,
+                         SHADOW_COLOR, ANCHOR);
+        hmi::composeText(_diagnosticsScene, *_font, line, x, lineY, SCALE, TEXT_COLOR, ANCHOR);
+        lineY += static_cast<float>(_font->metrics().lineHeight) * SCALE + LINE_SPACING;
+    }
+    _diagnosticsScene.sort();
+    hmi::submitComposedScene(*_spriteBatch,
+                             hmi::screenProjectionMatrix(viewportWidth, viewportHeight),
+                             _diagnosticsScene);
 }
 
 bool GameViewport::event(QEvent* event) {
@@ -945,6 +991,12 @@ void GameViewport::keyPressEvent(QKeyEvent* event) {
             return;
         }
         if (_paused) {
+            return;
+        }
+        // Compteur de diagnostic (F9, LOT-62 TACHE-02) : touche dédiée non remappable, même statut
+        // que F8 (bascule de rendu) -- jamais transmise au jeu comme entrée (return immédiat).
+        if (!event->isAutoRepeat() && event->key() == Qt::Key_F9) {
+            toggleDiagnosticsOverlay();
             return;
         }
         if (!event->isAutoRepeat()) {
@@ -1114,6 +1166,11 @@ void GameViewport::resetCamera() noexcept {
 
 void GameViewport::toggleRenderMode() {
     setRenderMode(_renderMode == RenderMode::Physique ? RenderMode::Texture : RenderMode::Physique);
+}
+
+void GameViewport::toggleDiagnosticsOverlay() noexcept {
+    _diagnosticsEnabled = !_diagnosticsEnabled;
+    _frameRateAverage.reset();
 }
 
 void GameViewport::stopPlaytest() {

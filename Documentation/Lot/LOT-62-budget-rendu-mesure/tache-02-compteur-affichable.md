@@ -1,7 +1,7 @@
 # TACHE-02 — Compteur de cadence et de primitives affichable {#lot-62-tache-02-compteur-affichable}
 
 **Lot :** [LOT-62](epic.md) · **Emplacement :** `Source/HMI/Game`, `Source/HMI/Graphics` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 `EX-NFR-001` demande 60 images par seconde. Personne ne sait si elle est tenue : rien ne mesure la

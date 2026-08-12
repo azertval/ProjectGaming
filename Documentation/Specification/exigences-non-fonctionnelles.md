@@ -3,14 +3,18 @@
 > Statut : **brouillon**. Transverse à toutes les specs.
 
 ## 1. Performance
-- \anchor EX-NFR-001 **EX-NFR-001** — Le jeu doit maintenir **60 images/seconde** sur une configuration de bureau récente pour les niveaux du MVP.
+- \anchor EX-NFR-001 **EX-NFR-001** — Le jeu doit maintenir **60 images/seconde** sur une configuration de bureau récente pour les niveaux du MVP. Rendue **observable** par le compteur de diagnostic (`F9`, `hmi::DiagnosticsHud`, `LOT-62`) : la cadence dépend de la machine, elle **reste hors de portée d'un contrôle automatique** (une machine virtuelle partagée ne la mesure pas de façon reproductible) — le compteur l'affiche pour être constatée sur sa propre machine de développement, il ne l'assert jamais en CI.
 - \anchor EX-NFR-002 **EX-NFR-002** — La simulation doit fonctionner à **pas de temps fixe** et rester déterministe (mêmes entrées → même résultat).
 - \anchor EX-NFR-003 **EX-NFR-003** — L'empreinte mémoire doit rester stable dans le temps (aucune fuite ; vérifiable via AddressSanitizer). Vérifiée par le job `sanitize` de `ci.yml` (LOT-58) : les trois exécutables de test (`UnitTests`, `IntegrationTests`, `SystemTests`) s'exécutent sous AddressSanitizer à chaque PR.
 - \anchor EX-NFR-005 **EX-NFR-005** — Le rendu ne doit soumettre que les primitives **effectivement
   visibles** : le contenu hors du cadrage de la caméra (`EX-REN-015`, salle courante) est écarté
   avant soumission. Le nombre de primitives émises par image doit rester **borné et observable**,
   l'habillage complet (fond, décors, ombres, tuiles, objets, effets) multipliant le volume par
-  rapport au rendu d'origine. Concrétisé en `LOT-40`.
+  rapport au rendu d'origine. Concrétisé en `LOT-40`. **Vérifiée** par le test de non-régression du
+  volume de primitives (`Source/Test/Unit/HMI/Graphics/test_render_budget.cpp`, `LOT-62`) : chaque
+  niveau livré reste sous un plafond nommé, dans les deux modes de rendu, et le culling écarte une
+  fraction assertée des primitives sur un grand niveau — déterministe, sans GPU (`EX-NFR-004`).
+  Rendue **observable** en jeu par le même compteur de diagnostic que `EX-NFR-001` (`F9`).
 
 ## 2. Architecture & maintenabilité
 - \anchor EX-NFR-010 **EX-NFR-010** — La logique (`Core`) doit être **indépendante** de la présentation (`HMI`) et testable sans fenêtre ni GPU.

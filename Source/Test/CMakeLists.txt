@@ -75,9 +75,11 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_bitmap_font.cpp
     Unit/HMI/Graphics/test_text_renderer.cpp
     Unit/HMI/Graphics/test_shadow_render.cpp
+    Unit/HMI/Graphics/test_render_budget.cpp
     Unit/HMI/Graphics/test_particle_render.cpp
     Unit/HMI/Graphics/test_screen_shake.cpp
     Unit/HMI/Game/test_game_hud.cpp
+    Unit/HMI/Game/test_diagnostics_hud.cpp
     Unit/HMI/Game/test_progression.cpp
     Unit/HMI/Game/test_game_events.cpp
     Unit/HMI/Audio/test_sound_triggers.cpp
@@ -263,6 +265,9 @@ add_executable(UnitTests
     # Choix des lignes du HUD (budgets, nom du tableau) à partir de core::Player/core::Level
     # (LOT-52) : fonction pure, testable hors GPU.
     ../HMI/Game/GameHud.cpp
+    # Moyenne glissante de cadence et lignes du compteur de diagnostic (LOT-62 TACHE-02) : logique
+    # pure (aucune horloge systeme, aucun rendu), meme patron que GameHud.cpp ci-dessus.
+    ../HMI/Game/DiagnosticsHud.cpp
     # Progression persistée (LOT-59 TACHE-05, EX-LVL-014) : logique et persistance JSON pures,
     # aucune dépendance Qt/GPU (fichier/écriture atomique via std::filesystem/std::ofstream) --
     # testable hors GPU, même patron que GameKeyBindings.cpp ci-dessous.
