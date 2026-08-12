@@ -8,7 +8,7 @@ var searchData=
   ['dashesremaining_5',['dashesRemaining',['../structcore_1_1Player.html#ab09b332bfac288bad194d1ca3ecae3ba',1,'core::Player']]],
   ['dashpressed_6',['dashPressed',['../structcore_1_1PlayerInput.html#a554649f1780708614de0ffad89e7c076',1,'core::PlayerInput']]],
   ['dashspeed_7',['dashSpeed',['../structcore_1_1PhysicsConfig.html#a888d96f8f59b21cc05de8aa32ad8567c',1,'core::PhysicsConfig']]],
-  ['dashtimer_8',['dashTimer',['../structcore_1_1Player.html#a2a7cb76eef85ffa779b1a6cb0e47cedf',1,'core::Player']]],
+  ['dashtimer_8',['dashTimer',['../structcore_1_1Player.html#a2a7cb76eef85ffa779b1a6cb0e47cedf',1,'core::Player::dashTimer'],['../structhmi_1_1PlayerEventState.html#a0ae87ac8a662dd1d661ea81dfa53edf5',1,'hmi::PlayerEventState::dashTimer']]],
   ['decor_5fdrag_5fthreshold_9',['DECOR_DRAG_THRESHOLD',['../namespacehmi.html#a3ec3b0d0a4b02829e3cf0fe6f72bf05b',1,'hmi']]],
   ['decor_5fhandle_5fscreen_5fsize_10',['DECOR_HANDLE_SCREEN_SIZE',['../namespacehmi.html#a06830d57e8b32aa87edbc7e6be005d72',1,'hmi']]],
   ['decor_5frotation_5fhandle_5fscreen_5foffset_11',['DECOR_ROTATION_HANDLE_SCREEN_OFFSET',['../namespacehmi.html#a4fff0af1be72396c270a9a711b5ae736',1,'hmi']]],
@@ -21,5 +21,6 @@ var searchData=
   ['dirty_18',['dirty',['../structhmi_1_1LevelStatusInfo.html#a9cd9b8b2b1e60de42886994d2ffb1310',1,'hmi::LevelStatusInfo::dirty'],['../structhmi_1_1PixelEditStatusInfo.html#a5e78865d03928b21b28f7801e71d96ca',1,'hmi::PixelEditStatusInfo::dirty']]],
   ['disconnected_5fpoll_5finterval_19',['DISCONNECTED_POLL_INTERVAL',['../classhmi_1_1GamepadPoller.html#a7240bc976fbcfe00033bdbc223776d58',1,'hmi::GamepadPoller']]],
   ['docksvisible_20',['docksVisible',['../structhmi_1_1ScreenDressing.html#afaadcce2a4848ec507ac6584b3590205',1,'hmi::ScreenDressing']]],
-  ['doorposition_21',['doorPosition',['../structcore_1_1Mechanism.html#aff8f5698a02356618c67d7fafae8b2b7',1,'core::Mechanism']]]
+  ['dooropen_21',['doorOpen',['../structhmi_1_1MechanismEventState.html#a93b52be466073c5f1eb4b61605f36c65',1,'hmi::MechanismEventState']]],
+  ['doorposition_22',['doorPosition',['../structcore_1_1Mechanism.html#aff8f5698a02356618c67d7fafae8b2b7',1,'core::Mechanism']]]
 ];

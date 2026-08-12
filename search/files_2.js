@@ -16,5 +16,8 @@ var searchData=
   ['conventions_2emd_13',['conventions.md',['../conventions_8md.html',1,'']]],
   ['core_2ecpp_14',['Core.cpp',['../Core_8cpp.html',1,'']]],
   ['core_2eh_15',['Core.h',['../Core_8h.html',1,'']]],
-  ['corelog_2eh_16',['CoreLog.h',['../CoreLog_8h.html',1,'']]]
+  ['corelog_2eh_16',['CoreLog.h',['../CoreLog_8h.html',1,'']]],
+  ['credits_2emd_17',['CREDITS.md',['../CREDITS_8md.html',1,'']]],
+  ['creditsscreen_2ecpp_18',['CreditsScreen.cpp',['../CreditsScreen_8cpp.html',1,'']]],
+  ['creditsscreen_2eh_19',['CreditsScreen.h',['../CreditsScreen_8h.html',1,'']]]
 ];

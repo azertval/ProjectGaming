@@ -22,12 +22,13 @@ var searchData=
   ['pixelregion_19',['PixelRegion',['../structhmi_1_1PixelRegion.html',1,'hmi']]],
   ['pixelscreenrect_20',['PixelScreenRect',['../structhmi_1_1PixelScreenRect.html',1,'hmi']]],
   ['player_21',['Player',['../structcore_1_1Player.html',1,'core']]],
-  ['playerinput_22',['PlayerInput',['../structcore_1_1PlayerInput.html',1,'core']]],
-  ['playerspritequad_23',['PlayerSpriteQuad',['../structhmi_1_1PlayerSpriteQuad.html',1,'hmi']]],
-  ['playerspritetag_24',['PlayerSpriteTag',['../structhmi_1_1PlayerSpriteTag.html',1,'hmi']]],
-  ['previousposition_25',['PreviousPosition',['../structhmi_1_1PreviousPosition.html',1,'hmi']]],
-  ['proceduralatlasimage_26',['ProceduralAtlasImage',['../structhmi_1_1ProceduralAtlasImage.html',1,'hmi']]],
-  ['proceduralfont_27',['ProceduralFont',['../structhmi_1_1ProceduralFont.html',1,'hmi']]],
-  ['proceduralfontimage_28',['ProceduralFontImage',['../structhmi_1_1ProceduralFontImage.html',1,'hmi']]],
-  ['progression_29',['Progression',['../classhmi_1_1Progression.html',1,'hmi']]]
+  ['playereventstate_22',['PlayerEventState',['../structhmi_1_1PlayerEventState.html',1,'hmi']]],
+  ['playerinput_23',['PlayerInput',['../structcore_1_1PlayerInput.html',1,'core']]],
+  ['playerspritequad_24',['PlayerSpriteQuad',['../structhmi_1_1PlayerSpriteQuad.html',1,'hmi']]],
+  ['playerspritetag_25',['PlayerSpriteTag',['../structhmi_1_1PlayerSpriteTag.html',1,'hmi']]],
+  ['previousposition_26',['PreviousPosition',['../structhmi_1_1PreviousPosition.html',1,'hmi']]],
+  ['proceduralatlasimage_27',['ProceduralAtlasImage',['../structhmi_1_1ProceduralAtlasImage.html',1,'hmi']]],
+  ['proceduralfont_28',['ProceduralFont',['../structhmi_1_1ProceduralFont.html',1,'hmi']]],
+  ['proceduralfontimage_29',['ProceduralFontImage',['../structhmi_1_1ProceduralFontImage.html',1,'hmi']]],
+  ['progression_30',['Progression',['../classhmi_1_1Progression.html',1,'hmi']]]
 ];

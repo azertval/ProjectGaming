@@ -3,6 +3,7 @@ var classcore_1_1MechanismController =
     [ "MechanismController", "classcore_1_1MechanismController.html#af0a5619d75dbb52d9cb0f27b8d524864", null ],
     [ "collisionMap", "classcore_1_1MechanismController.html#a465aa3ad3194fcb485d656dbe0b292c2", null ],
     [ "dangerLinks", "classcore_1_1MechanismController.html#a04eb177a0e57012f684384151afc8dd5", null ],
+    [ "isContinuous", "classcore_1_1MechanismController.html#abdebc78caac7d3422fde00cb3e0a7574", null ],
     [ "isDangerActive", "classcore_1_1MechanismController.html#a1fef25ec829904453d62b012b3b84f6f", null ],
     [ "isDoorOpen", "classcore_1_1MechanismController.html#af75b708d821d8c882969d7bac6ea2e41", null ],
     [ "mechanisms", "classcore_1_1MechanismController.html#adb0a0f83d8a5302a84bc3c67386c09e7", null ],

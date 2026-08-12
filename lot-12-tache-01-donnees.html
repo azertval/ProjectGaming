@@ -94,41 +94,41 @@ $(function(){initNavTree('lot-12-tache-01-donnees.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-12-niveau-puzzle_2tache-01-donnees"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-12.html#md_Lot_2LOT-12-niveau-puzzle_2epic" title="Lot/LOT-12-niveau-puzzle/epic.md">LOT-12</a> · <b>Emplacement :</b> <span class="tt">Source/Core</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md886"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md894"></a>
 Contexte</h1>
 <p>On déclare le <b>budget de mouvements</b> (<span class="tt">EX-GP-024</span>) en données pures, et on l'expose depuis le niveau (format + chargement), avant la logique.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md887"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md895"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">Player</span></b> (Core/Ecs/Components) : <span class="tt">jumpsRemaining</span> et <span class="tt">dashesRemaining</span> (<span class="tt">int</span>, <b>-1 = illimité</b>), initialisés au spawn depuis le niveau, décomptés par la physique (TACHE-03).</li>
 <li><b><span class="tt">Level</span></b> (Core/Levels) : <span class="tt">jumpBudget</span> et <span class="tt">dashBudget</span> (<span class="tt">int</span>, défaut <b>-1</b>), accès en lecture ; ajout au constructeur avec <b>valeurs par défaut</b> (rétrocompatible).</li>
 <li><b><span class="tt">LevelLoader</span></b> : parser les champs <b>optionnels</b> top-level <span class="tt">jumpBudget</span>/<span class="tt">dashBudget</span> (<span class="tt">root.value("jumpBudget", -1)</span>), les passer au <span class="tt">Level</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md888"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md896"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Player_8h.html" title="Composant marqueur du personnage jouable (données pures).">Source/Core/Ecs/Components/Player.h</a></span>, <span class="tt"><a class="el" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes.">Source/Core/Levels/Level.h</a></span>, <span class="tt"><a class="el" href="LevelLoader_8cpp.html">Source/Core/Levels/LevelLoader.cpp</a></span>.</li>
 <li>Tests unitaires (valeurs par défaut, parsing du budget).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md889"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md897"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">Player</span> par défaut : <span class="tt">jumpsRemaining == -1</span>, <span class="tt">dashesRemaining == -1</span> (illimité).</li>
 <li><span class="tt">Level</span> par défaut : budgets <b>-1</b> ; un <span class="tt">Level</span> construit avec budgets les restitue.</li>
 <li><span class="tt">LevelLoader</span> : un JSON <b>avec</b> <span class="tt">jumpBudget</span>/<span class="tt">dashBudget</span> les charge ; <b>sans</b>, ils valent -1.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md890"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md898"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Données pures</b> ; <span class="tt">-1</span> = illimité (convention documentée).</li>
 <li>Rétrocompatibilité : les niveaux existants (sans budget) restent valides et <b>illimités</b>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md891"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md899"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Champs + parsing ajoutés, documentés, <b>testés</b> (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md892"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md900"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-024</span>, <span class="tt">EX-LVL-002</span>, <span class="tt">EX-LVL-003</span>, <span class="tt">EX-ARCH-011</span>, <span class="tt">EX-NFR-010</span>. </p>
 </div></div><!-- contents -->

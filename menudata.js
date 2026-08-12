@@ -24,6 +24,7 @@
 */
 var menudata={children:[
 {text:"Main Page",url:"index.html"},
+{text:"Related Pages",url:"pages.html"},
 {text:"Namespaces",url:"namespaces.html",children:[
 {text:"Namespace List",url:"namespaces.html"},
 {text:"Namespace Members",url:"namespacemembers.html",children:[
@@ -195,12 +196,14 @@ var menudata={children:[
 {text:"y",url:"functions_vars_y.html#index_y"},
 {text:"z",url:"functions_vars_z.html#index_z"}]},
 {text:"Typedefs",url:"functions_type.html"},
+{text:"Enumerations",url:"functions_enum.html"},
 {text:"Related Symbols",url:"functions_rela.html"}]}]},
 {text:"Files",url:"files.html",children:[
 {text:"File List",url:"files.html"},
 {text:"File Members",url:"globals.html",children:[
 {text:"All",url:"globals.html",children:[
-{text:"c",url:"globals.html#index_c"},
+{text:"a",url:"globals.html#index_a"},
+{text:"c",url:"globals_c.html#index_c"},
 {text:"e",url:"globals_e.html#index_e"},
 {text:"g",url:"globals_g.html#index_g"},
 {text:"h",url:"globals_h.html#index_h"},
@@ -212,6 +215,7 @@ var menudata={children:[
 {text:"m",url:"globals_func.html#index_m"},
 {text:"t",url:"globals_func_t.html#index_t"}]},
 {text:"Macros",url:"globals_defs.html",children:[
+{text:"a",url:"globals_defs.html#index_a"},
 {text:"c",url:"globals_defs.html#index_c"},
 {text:"e",url:"globals_defs.html#index_e"},
 {text:"g",url:"globals_defs.html#index_g"},

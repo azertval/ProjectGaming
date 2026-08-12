@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-04-tache-08-tracabilite-exigences.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-04-documentation-doxygen_2tache-08-tracabilite-exigences"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-04.html#md_Lot_2LOT-04-documentation-doxygen_2epic" title="Lot/LOT-04-documentation-doxygen/epic.md">LOT-04</a> · <b>Emplacement :</b> <span class="tt">Documentation/Specification/</span>, CI · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md504"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md512"></a>
 Contexte</h1>
 <p>Les identifiants d'exigences (<span class="tt">EX-VIS-001</span>, <span class="tt">EX-ARCH-011</span>, …) sont référencés à la fois dans les <b>lots</b> (epics + tâches) et dans le <b>code</b> (commentaires Doxygen de <span class="tt">Core</span>). Les renuméroter casserait ces références. Un ID d'exigence doit donc être un <b>identifiant permanent</b>, pas un marqueur de position. Cette tâche grave cette règle, sécurise les références et outille l'allocation. <b>Aucun ID existant n'est renuméroté</b> (y compris <span class="tt">EX-VIS</span>, laissé tel quel) : à la création d'une exigence, l'utilisateur choisit un numéro libre et le <b>lint CI garantit l'unicité</b> (un doublon fait échouer la CI).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md505"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md513"></a>
 Règle à formaliser (dans conventions.md)</h1>
 <ul>
 <li>Un <span class="tt">EX-…</span> est <b>immuable</b> : alloué une fois, <b>jamais renuméroté</b>, <b>jamais réutilisé</b>.</li>
@@ -105,7 +105,7 @@ Règle à formaliser (dans conventions.md)</h1>
 <li>Le numéro <b>n'encode pas l'ordre</b> : l'ordre de lecture est celui du document, indépendant de l'ID.</li>
 <li>Insérer une exigence = écrire son paragraphe où il doit être + lui donner le prochain ID libre (aucune renumérotation).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md506"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md514"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Documenter la règle</b> ci-dessus dans <span class="tt"><a class="el" href="conventions_8md.html">Documentation/Specification/conventions.md</a></span> (nouvelle section « Identifiants d'exigences »), avec la procédure d'insertion.</li>
@@ -118,7 +118,7 @@ Travail à réaliser</h1>
 </li>
 <li>Brancher le lint dans la CI (job dédié, bloquant en PR).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md507"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md515"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="conventions_8md.html">Documentation/Specification/conventions.md</a></span> (règle + procédure).</li>
@@ -126,26 +126,26 @@ Fichiers impactés</h1>
 <li>Renvois dans les lots (<span class="tt">Documentation/Lot/**</span>) convertis en <span class="tt">@ref</span> le cas échéant.</li>
 <li>Script de lint (ex. <span class="tt">scripts/lint_exigences.py</span>) et son intégration CI (<span class="tt">.github/workflows/</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md508"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md516"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>Chaque <span class="tt">EX-…</span> a <b>exactement une</b> déclaration <span class="tt">\anchor</span> ; <span class="tt">@ref</span> vers un ID inexistant fait échouer la génération Doxygen.</li>
 <li>Le lint échoue sur un ID <b>en double</b> et sur une <b>référence orpheline</b> (testé avec un cas fabriqué), et réussit sur l'état sain du dépôt.</li>
 <li>Le mode « prochain libre » renvoie un numéro non déjà utilisé pour la catégorie demandée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md509"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md517"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne renuméroter aucun ID existant</b> : l'unicité à la création repose sur la vigilance de l'auteur, <b>garantie par le lint CI</b> (échec sur doublon). Le mode « prochain libre » aide à choisir un numéro sûr.</li>
 <li>Le lint doit distinguer une <b>déclaration</b> (<span class="tt">\anchor</span>) d'une <b>référence</b> (<span class="tt">@ref</span> ou texte) pour compter correctement doublons vs orphelins.</li>
 <li>Coordination avec TACHE-07 : <span class="tt">WARN_AS_ERROR</span> transforme un <span class="tt">@ref</span> cassé en échec de build ; le lint couvre en plus les références en <b>texte brut</b> du code.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md510"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md518"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Règle d'immuabilité documentée ; exigences ancrées et référençables par <span class="tt">@ref</span> ; lint CI opérationnel (doublons, orphelins, prochain libre) et bloquant.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md511"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md519"></a>
 Exigences</h1>
 <p><span class="tt">EX-NFR-012</span>, <span class="tt">EX-NFR-013</span> (esprit « zéro avertissement / références vérifiées »). </p>
 </div></div><!-- contents -->

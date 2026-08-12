@@ -12,7 +12,7 @@ var searchData=
   ['flipvertical_9',['flipVertical',['../namespacehmi.html#ac939037edc9bac81094fac90cd542928',1,'hmi']]],
   ['floodfill_10',['floodFill',['../namespacehmi.html#a76e3283d122f8e9b31c1b98d3db8f59f',1,'hmi']]],
   ['flush_11',['flush',['../classhmi_1_1SpriteBatch.html#a65588209fee42a61ee688133f73f63aa',1,'hmi::SpriteBatch']]],
-  ['focusdefaultaction_12',['focusDefaultAction',['../classhmi_1_1LevelCompleteScreen.html#a192b543eda90ad7ec314a10e08602b40',1,'hmi::LevelCompleteScreen::focusDefaultAction()'],['../classhmi_1_1LevelSelectScreen.html#a5be00e3f7d405dfc9b29d51cb1a1abb6',1,'hmi::LevelSelectScreen::focusDefaultAction()'],['../classhmi_1_1PauseScreen.html#a8448455d33afc14068fac4cc58500dbb',1,'hmi::PauseScreen::focusDefaultAction()']]],
+  ['focusdefaultaction_12',['focusDefaultAction',['../classhmi_1_1CreditsScreen.html#a04ddb75605ede228b4f689a54e1faa49',1,'hmi::CreditsScreen::focusDefaultAction()'],['../classhmi_1_1LevelCompleteScreen.html#a192b543eda90ad7ec314a10e08602b40',1,'hmi::LevelCompleteScreen::focusDefaultAction()'],['../classhmi_1_1LevelSelectScreen.html#a5be00e3f7d405dfc9b29d51cb1a1abb6',1,'hmi::LevelSelectScreen::focusDefaultAction()'],['../classhmi_1_1PauseScreen.html#a8448455d33afc14068fac4cc58500dbb',1,'hmi::PauseScreen::focusDefaultAction()']]],
   ['formatlogline_13',['formatLogLine',['../namespacecore.html#aafa85d91ee91c84b123fff01f147615e',1,'core']]],
   ['formatscenestatistics_14',['formatSceneStatistics',['../namespacehmi.html#aabc578b802bb386e63d830e168140fe7',1,'hmi']]],
   ['frameregion_15',['frameRegion',['../classhmi_1_1AnimationCatalog.html#ab4d62573855d3bc8e915704f51d54cbf',1,'hmi::AnimationCatalog']]],

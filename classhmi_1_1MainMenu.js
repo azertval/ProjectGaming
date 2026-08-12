@@ -3,6 +3,7 @@ var classhmi_1_1MainMenu =
     [ "MainMenu", "classhmi_1_1MainMenu.html#aa6ec7e441fc34e25766e6f8d9fe3f24b", null ],
     [ "~MainMenu", "classhmi_1_1MainMenu.html#a14456d1cc71348647b0dcfccea2e4e3d", null ],
     [ "continueRequested", "classhmi_1_1MainMenu.html#af19574a481b96164af18dee2f3e7cea6", null ],
+    [ "creditsRequested", "classhmi_1_1MainMenu.html#a609f3532ab323667d568a8ce1775336a", null ],
     [ "editorRequested", "classhmi_1_1MainMenu.html#a4c98f77783af20fb0bb7c163bc58f87e", null ],
     [ "newGameRequested", "classhmi_1_1MainMenu.html#a7f6d8d9f2f4ea765750d97949760ceb4", null ],
     [ "optionsRequested", "classhmi_1_1MainMenu.html#afe28566f3472f5af7ea7e39e868fdb86", null ],

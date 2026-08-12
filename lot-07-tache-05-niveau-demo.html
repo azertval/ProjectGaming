@@ -94,42 +94,42 @@ $(function(){initNavTree('lot-07-tache-05-niveau-demo.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-07-niveaux_2tache-05-niveau-demo"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-07.html#md_Lot_2LOT-07-niveaux_2epic" title="Lot/LOT-07-niveaux/epic.md">LOT-07</a> · <b>Emplacement :</b> <span class="tt">Source/Elements/Levels</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md668"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md676"></a>
 Contexte</h1>
 <p>Le chargement (TACHE-03/04) a besoin d'un <b>vrai fichier</b> à ouvrir, et l'intégration (TACHE-06) d'un niveau à afficher. Cette tâche fournit <b>un</b> niveau de démonstration valide, versionné dans <span class="tt">Source/Elements/Levels</span> (<span class="tt">EX-LVL-001</span>), et le rend disponible à l'exécution.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md669"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md677"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Créer un fichier de niveau au <b>format JSON</b> (liste de tuiles-objets, <span class="tt">EX-LVL-003</span>), <b>valide</b> au sens de la TACHE-04 : tuiles dans les bornes, une entrée et une sortie, et au moins <b>un mécanisme</b> interrupteur↔porte (<span class="tt">switch</span>/<span class="tt">door</span> liés par identifiant) pour exercer le chargement des liaisons.</li>
 <li>Ajouter un <span class="tt">README</span> à <span class="tt">Source/Elements/Levels</span> (format, types de tuiles, où sont les niveaux).</li>
 <li><b>CMake</b> : copier <span class="tt">Source/Elements/Levels/*</span> à côté de l'exécutable (comme les catalogues de traduction <span class="tt">.lang</span>), pour un chargement par chemin relatif au binaire.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md670"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md678"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Elements/Levels/&lt;nom&gt;.json</span> (nouveau), <span class="tt">Source/Elements/Levels/README.md</span> (nouveau).</li>
 <li><span class="tt">Source/HMI/CMakeLists.txt</span> (copie post-build des niveaux).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md671"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md679"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>Le fichier <b>se charge et se valide</b> sans erreur (via le chargeur/les tests, ou au lancement).</li>
 <li>Le niveau est <b>franchissable sur le papier</b> (une entrée, une sortie atteignable) — la franchissabilité <em>automatisée</em> (<span class="tt">EX-NFR-021</span>) relève d'un lot de gameplay ultérieur.</li>
 <li>Les fichiers de niveaux sont bien <b>copiés</b> à côté de l'exécutable.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md672"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md680"></a>
 Points d'attention</h1>
 <ul>
 <li>Rester <b>simple</b> : un petit niveau (≈ 12×8) illustrant tuiles solides, un danger, une entrée, une sortie et une paire interrupteur/porte.</li>
 <li>Coordonnées <span class="tt">x</span> = colonne, <span class="tt">y</span> = ligne, origine haut-gauche ; liaison <span class="tt">switch.id</span> ↔ <span class="tt">door.opensWith</span> (cf. <span class="tt"><a class="el" href="niveaux_8md.html">niveaux.md</a></span>).</li>
 <li>Un seul niveau ici : l'enchaînement et les 3 niveaux du MVP (<span class="tt">EX-LVL-010</span>…<span class="tt">EX-LVL-012</span>) sont hors périmètre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md673"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md681"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Un niveau de démo valide est fourni et copié à côté de l'exécutable ; documenté.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md674"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md682"></a>
 Exigences</h1>
 <p><span class="tt">EX-LVL-001</span>, <span class="tt">EX-LVL-003</span>, <span class="tt">EX-LVL-012</span> (partiel : un niveau). </p>
 </div></div><!-- contents -->

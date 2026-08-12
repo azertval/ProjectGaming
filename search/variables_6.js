@@ -11,7 +11,7 @@ var searchData=
   ['font_5fmetrics_5ffile_5fname_8',['FONT_METRICS_FILE_NAME',['../classhmi_1_1BitmapFont.html#a3876a7804fde4d2ef00dd1ad75e55f4a',1,'hmi::BitmapFont']]],
   ['font_5fmetrics_5fformat_5fversion_9',['FONT_METRICS_FORMAT_VERSION',['../namespacehmi.html#a2ea02c1e4fc97f09a4b26befcc180342',1,'hmi']]],
   ['fonts_5fsubdirectory_10',['FONTS_SUBDIRECTORY',['../namespacehmi.html#a5d007c47b6f8696b0b71cf94afe65d18',1,'hmi']]],
-  ['format_5fversion_11',['FORMAT_VERSION',['../classhmi_1_1PixelPalette.html#af0f9ba35c5a891faaee4e90fa12fdc5e',1,'hmi::PixelPalette::FORMAT_VERSION'],['../classhmi_1_1AnimationCatalog.html#a2e32d9448dc4a00346eba59a2aa27e75',1,'hmi::AnimationCatalog::FORMAT_VERSION'],['../classhmi_1_1SkinCatalog.html#ad04a32a030e2bb069c16ef4233a7d729',1,'hmi::SkinCatalog::FORMAT_VERSION']]],
+  ['format_5fversion_11',['FORMAT_VERSION',['../classhmi_1_1SoundCatalog.html#a0904fbd25b44f19ea87496deaf32943d',1,'hmi::SoundCatalog::FORMAT_VERSION'],['../classhmi_1_1PixelPalette.html#af0f9ba35c5a891faaee4e90fa12fdc5e',1,'hmi::PixelPalette::FORMAT_VERSION'],['../classhmi_1_1AnimationCatalog.html#a2e32d9448dc4a00346eba59a2aa27e75',1,'hmi::AnimationCatalog::FORMAT_VERSION'],['../classhmi_1_1SkinCatalog.html#ad04a32a030e2bb069c16ef4233a7d729',1,'hmi::SkinCatalog::FORMAT_VERSION']]],
   ['frameduration_12',['frameDuration',['../structcore_1_1AnimationClip.html#a816a1ce26647a4bb356e0f18a1761226',1,'core::AnimationClip']]],
   ['frameheight_13',['frameHeight',['../structhmi_1_1AnimationDescription.html#aeb65e0a5103ba71be4e5158465f20ef2',1,'hmi::AnimationDescription']]],
   ['frameindex_14',['frameIndex',['../structcore_1_1Animation.html#a8d315fb44059a2c141db8653f7417c32',1,'core::Animation']]],

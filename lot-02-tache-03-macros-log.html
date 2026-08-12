@@ -94,43 +94,43 @@ $(function(){initNavTree('lot-02-tache-03-macros-log.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-02-journalisation_2tache-03-macros-log"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-02.html#md_Lot_2LOT-02-journalisation_2epic" title="Lot/LOT-02-journalisation/epic.md">LOT-02</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Diagnostics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md371"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md379"></a>
 Contexte</h1>
 <p>Confort d'utilisation : des macros courtes pour journaliser, capturant automatiquement le contexte (fichier, ligne) et l'horodatage.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md372"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md380"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Macros <span class="tt">PROJECTGAMING_LOG_TRACE/INFO/WARNING/ERROR(message)</span> qui appellent le logger courant avec le niveau correspondant.</li>
 <li>Enrichissement du message : <b>horodatage</b>, <b>niveau</b>, et <b>fichier:ligne</b> (<span class="tt">__FILE__</span>, <span class="tt">__LINE__</span>).</li>
 <li>Format de ligne lisible et stable (ex. <span class="tt">[HH:MM:SS][INFO][fichier:ligne] message</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md373"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md381"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Log_8h.html" title="Macros de journalisation génériques (catégorie, niveau, fichier/ligne, horodatage).">Source/Core/Diagnostics/Log.h</a></span> (macros ; nouveau).</li>
 <li><span class="tt">Source/Core/Diagnostics/Logger.*</span> (formatage de ligne si nécessaire).</li>
 <li><span class="tt">Source/Test/Unit/test_log_format.cpp</span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md374"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md382"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Le message formaté contient le niveau et le texte fournis.</li>
 <li>Le formatage inclut la position source (fichier/ligne) transmise par la macro.</li>
 <li>La partie variable (horodatage) est isolée pour permettre un test déterministe du reste.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md375"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md383"></a>
 Points d'attention</h1>
 <ul>
 <li>Les macros doivent s'évaluer proprement (une seule évaluation des arguments, protection par <span class="tt">do { } while(0)</span> si besoin).</li>
 <li>Conventions : macros en <span class="tt">UPPER_SNAKE_CASE</span>, documentation <span class="tt">.h</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md376"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md384"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Macros fonctionnelles, formatage testé (<span class="tt">ctest</span> vert).</li>
 <li>Compile <span class="tt">/W4 /WX</span>, formaté, documenté Doxygen.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md377"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md385"></a>
 Exigences</h1>
 <p>Conventions §10 ; <span class="tt">EX-NFR-020</span>. </p>
 </div></div><!-- contents -->

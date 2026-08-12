@@ -190,6 +190,8 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 <tr class="memdesc:aef279fdecd9d472d3ae773b0494fe867"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Recommencer le niveau » depuis la pause : même chemin que le redémarrage après échec.  <br /></td></tr>
 <tr class="memitem:a898b017b5296a241af2ee595685c49f6" id="r_a898b017b5296a241af2ee595685c49f6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a898b017b5296a241af2ee595685c49f6">quitPauseToMenu</a> ()</td></tr>
 <tr class="memdesc:a898b017b5296a241af2ee595685c49f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Quitter vers le menu » depuis la pause : demande confirmation (perd la progression du tableau en cours), puis abandonne la partie si confirmé.  <br /></td></tr>
+<tr class="memitem:a2b36a89653f47498553ff68af07c8de2" id="r_a2b36a89653f47498553ff68af07c8de2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2b36a89653f47498553ff68af07c8de2">playInterfaceSound</a> (<a class="el" href="namespacehmi.html#a3a61aed1c8e95c289c829398d48488de">GameEvent</a> event)</td></tr>
+<tr class="memdesc:a2b36a89653f47498553ff68af07c8de2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joue le son associé à <code class="param">event</code> (<span class="tt">hmi::SoundTriggers</span>), sans effet si aucun son ne lui est associé (<span class="tt">LOT-60</span> TACHE-03) &ndash; point d'appel unique pour tous les sons d'interface.  <br /></td></tr>
 <tr class="memitem:a80702adfe62ceb213bca4fbc40a2684a" id="r_a80702adfe62ceb213bca4fbc40a2684a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a80702adfe62ceb213bca4fbc40a2684a">openLevelComplete</a> ()</td></tr>
 <tr class="memdesc:a80702adfe62ceb213bca4fbc40a2684a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="classhmi_1_1GameViewport.html#a9e96b864c23c15765cd8f529a54208de" title="Le tableau courant vient d&#39;être réussi, en partie réelle (LOT-59 TACHE-03) : la simulation est déjà f...">GameViewport::levelSucceeded</a></span> : configure <span class="tt"><a class="el" href="#a7afaff28276c2b437ddf7323c924ed23" title="Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même patron que _pauseScreen ci-dessus (fe...">_levelCompleteScreen</a></span> (nom du tableau, variante fin de séquence via <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html#a20df02fa3115b15ed910cf81019174ee">GameViewport::isLastGameLevel</a></span>) puis ouvre l'écran.  <br /></td></tr>
 <tr class="memitem:a8103c637bedd715efc425b6f4d00be70" id="r_a8103c637bedd715efc425b6f4d00be70"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8103c637bedd715efc425b6f4d00be70">continueFromLevelComplete</a> ()</td></tr>
@@ -210,6 +212,10 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 <tr class="memdesc:ab0630b94a956d5864fc8a29474b635d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Choisir un niveau » (menu) : ouvre <span class="tt"><a class="el" href="#aab0f9b0c9990d3496d32ab706c488519" title="Écran de sélection de niveau (LOT-59 TACHE-06) : une page normale de _stack (jamais un recouvrement –...">_levelSelectScreen</a></span>, peuplé de la séquence (avec état de déverrouillage) et des niveaux personnels du dossier (hors séquence, <span class="tt"><a class="el" href="classhmi_1_1LevelFileOperations.html" title="Opérations sur les fichiers de niveaux d&#39;un dossier, sans dépendance Qt/GPU.">LevelFileOperations</a></span> filtrée).  <br /></td></tr>
 <tr class="memitem:ad55a250e14a07d8fe97ce263e78b6e5a" id="r_ad55a250e14a07d8fe97ce263e78b6e5a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad55a250e14a07d8fe97ce263e78b6e5a">closeLevelSelect</a> ()</td></tr>
 <tr class="memdesc:ad55a250e14a07d8fe97ce263e78b6e5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retour au menu depuis l'écran de sélection de niveau.  <br /></td></tr>
+<tr class="memitem:ad0160f504de7ad658481fd2480488831" id="r_ad0160f504de7ad658481fd2480488831"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad0160f504de7ad658481fd2480488831">openCredits</a> ()</td></tr>
+<tr class="memdesc:ad0160f504de7ad658481fd2480488831"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Crédits » (menu) : ouvre <span class="tt"><a class="el" href="#ab8058881976138d4ce9d4b5c724b8a11" title="Écran de crédits (LOT-60) : même patron que _levelSelectScreen, page normale de _stack.">_credits</a></span> (<span class="tt">LOT-60</span>).  <br /></td></tr>
+<tr class="memitem:a0555e840dd5a6b482a701e423d3f4e14" id="r_a0555e840dd5a6b482a701e423d3f4e14"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0555e840dd5a6b482a701e423d3f4e14">closeCredits</a> ()</td></tr>
+<tr class="memdesc:a0555e840dd5a6b482a701e423d3f4e14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retour au menu depuis l'écran de crédits.  <br /></td></tr>
 <tr class="memitem:a61ba9347fd24263431b87c6f849c76ac" id="r_a61ba9347fd24263431b87c6f849c76ac"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a61ba9347fd24263431b87c6f849c76ac">chooseSequenceLevel</a> (const QString &amp;levelName)</td></tr>
 <tr class="memdesc:a61ba9347fd24263431b87c6f849c76ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un tableau de séquence a été choisi dans <span class="tt"><a class="el" href="#aab0f9b0c9990d3496d32ab706c488519" title="Écran de sélection de niveau (LOT-59 TACHE-06) : une page normale de _stack (jamais un recouvrement –...">_levelSelectScreen</a></span> : <b>revalidé</b> via <span class="tt"><a class="el" href="namespacehmi.html#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">hmi::isLevelUnlocked</a></span> avant tout lancement (défense en profondeur, <span class="tt">EX-IHM-005</span>) &ndash; jamais lancé verrouillé, même si l'écran l'a par erreur laissé passer.  <br /></td></tr>
 <tr class="memitem:a7c35e4571d48b624e337a667fb8db6e1" id="r_a7c35e4571d48b624e337a667fb8db6e1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7c35e4571d48b624e337a667fb8db6e1">playPersonalLevel</a> (const QString &amp;path)</td></tr>
@@ -239,6 +245,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a7afaff28276c2b437ddf7323c924ed23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recouvrement de fin de niveau/séquence (<span class="tt">LOT-59</span> TACHE-03) : même patron que <span class="tt"><a class="el" href="#ac65d1b4ea7fccdd8969abcdf83254cd8" title="Recouvrement de pause (LOT-59 TACHE-02) : fenêtre de haut niveau possédée par this (Qt::Tool | Qt::Fr...">_pauseScreen</a></span> ci-dessus (fenêtre de haut niveau, pas un enfant de <span class="tt"><a class="el" href="#a408483202779acb367aee2733d8b28c7" title="Central : empile menu principal, options et viewport.">_stack</a></span>).  <br /></td></tr>
 <tr class="memitem:aab0f9b0c9990d3496d32ab706c488519" id="r_aab0f9b0c9990d3496d32ab706c488519"><td class="memItemLeft"><a class="el" href="classhmi_1_1LevelSelectScreen.html">LevelSelectScreen</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aab0f9b0c9990d3496d32ab706c488519">_levelSelectScreen</a> = nullptr</td></tr>
 <tr class="memdesc:aab0f9b0c9990d3496d32ab706c488519"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran de sélection de niveau (<span class="tt">LOT-59</span> TACHE-06) : une page normale de <span class="tt"><a class="el" href="#a408483202779acb367aee2733d8b28c7" title="Central : empile menu principal, options et viewport.">_stack</a></span> (jamais un recouvrement &ndash; atteint depuis le menu, pas en jeu, contrairement aux deux précédents).  <br /></td></tr>
+<tr class="memitem:ab8058881976138d4ce9d4b5c724b8a11" id="r_ab8058881976138d4ce9d4b5c724b8a11"><td class="memItemLeft"><a class="el" href="classhmi_1_1CreditsScreen.html">CreditsScreen</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ab8058881976138d4ce9d4b5c724b8a11">_credits</a> = nullptr</td></tr>
+<tr class="memdesc:ab8058881976138d4ce9d4b5c724b8a11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran de crédits (<span class="tt">LOT-60</span>) : même patron que <span class="tt"><a class="el" href="#aab0f9b0c9990d3496d32ab706c488519" title="Écran de sélection de niveau (LOT-59 TACHE-06) : une page normale de _stack (jamais un recouvrement –...">_levelSelectScreen</a></span>, page normale de <span class="tt"><a class="el" href="#a408483202779acb367aee2733d8b28c7" title="Central : empile menu principal, options et viewport.">_stack</a></span>.  <br /></td></tr>
 <tr class="memitem:a1ed57ff25b1be1c311886896b1ae444f" id="r_a1ed57ff25b1be1c311886896b1ae444f"><td class="memItemLeft"><a class="el" href="classhmi_1_1GameViewport.html">GameViewport</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a1ed57ff25b1be1c311886896b1ae444f">_viewport</a></td></tr>
 <tr class="memdesc:a1ed57ff25b1be1c311886896b1ae444f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Surface de rendu D3D11 (possédée par le conteneur central).  <br /></td></tr>
 <tr class="memitem:acdb82ee8e5a56236705ceec1908982ff" id="r_acdb82ee8e5a56236705ceec1908982ff"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditContextTarget.html">EditContextTarget</a> *&#160;</td><td class="memItemRight"><a class="el" href="#acdb82ee8e5a56236705ceec1908982ff">_editContext</a> = nullptr</td></tr>
@@ -300,6 +308,10 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a2d4fd479e6168cd919c7f22208347a5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restaure l'aide contextuelle à l'expiration d'un message transitoire (<span class="tt"><a class="el" href="#a77025d20fbce06f8f0fd55455cc6eca8" title="Affiche message pour timeoutMs dans la barre d&#39;état, puis restaure l&#39;aide contextuelle (refreshStatus...">showTransientStatusMessage</a></span>).  <br /></td></tr>
 <tr class="memitem:a5caf9b64fbcd7d83d4b9473221e6af09" id="r_a5caf9b64fbcd7d83d4b9473221e6af09"><td class="memItemLeft"><a class="el" href="classhmi_1_1Localization.html">Localization</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5caf9b64fbcd7d83d4b9473221e6af09">_loc</a></td></tr>
 <tr class="memdesc:a5caf9b64fbcd7d83d4b9473221e6af09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogue de traduction (i18n), source de tous les textes.  <br /></td></tr>
+<tr class="memitem:a7faaac5cfddbb72f2302f76fbb2abe44" id="r_a7faaac5cfddbb72f2302f76fbb2abe44"><td class="memItemLeft"><a class="el" href="classhmi_1_1AudioEngine.html">hmi::AudioEngine</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7faaac5cfddbb72f2302f76fbb2abe44">_audio</a></td></tr>
+<tr class="memdesc:a7faaac5cfddbb72f2302f76fbb2abe44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moteur audio (<span class="tt">LOT-60</span>) : ouvert au démarrage (<span class="tt">EX-REN-047</span>), dégrade en silence sans périphérique (<span class="tt">EX-NFR-040</span>).  <br /></td></tr>
+<tr class="memitem:acae74ad8bf6c06ab8aec868ab0de3b22" id="r_acae74ad8bf6c06ab8aec868ab0de3b22"><td class="memItemLeft"><a class="el" href="classhmi_1_1SoundCatalog.html">hmi::SoundCatalog</a>&#160;</td><td class="memItemRight"><a class="el" href="#acae74ad8bf6c06ab8aec868ab0de3b22">_sounds</a></td></tr>
+<tr class="memdesc:acae74ad8bf6c06ab8aec868ab0de3b22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogue de sons (<span class="tt">LOT-60</span> TACHE-02), lu une fois au démarrage depuis <span class="tt">Audio/sounds.json</span> et entièrement préchargé dans <span class="tt"><a class="el" href="#a7faaac5cfddbb72f2302f76fbb2abe44" title="Moteur audio (LOT-60) : ouvert au démarrage (EX-REN-047), dégrade en silence sans périphérique (EX-NF...">_audio</a></span>.  <br /></td></tr>
 <tr class="memitem:a48ba153acc890d6de84fe2847b5162a9" id="r_a48ba153acc890d6de84fe2847b5162a9"><td class="memItemLeft"><a class="el" href="classcore_1_1MemoryLogSink.html">core::MemoryLogSink</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a48ba153acc890d6de84fe2847b5162a9">_sessionLog</a></td></tr>
 <tr class="memdesc:a48ba153acc890d6de84fe2847b5162a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sink mémoire des logs (nul en Release).  <br /></td></tr>
 <tr class="memitem:aeb7a7620f7198817fcc5f6549d35d7b9" id="r_aeb7a7620f7198817fcc5f6549d35d7b9"><td class="memItemLeft"><a class="el" href="classhmi_1_1Progression.html">hmi::Progression</a>&#160;</td><td class="memItemRight"><a class="el" href="#aeb7a7620f7198817fcc5f6549d35d7b9">_progression</a></td></tr>
@@ -532,6 +544,33 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Un tableau de séquence a été choisi dans <span class="tt"><a class="el" href="#aab0f9b0c9990d3496d32ab706c488519" title="Écran de sélection de niveau (LOT-59 TACHE-06) : une page normale de _stack (jamais un recouvrement –...">_levelSelectScreen</a></span> : <b>revalidé</b> via <span class="tt"><a class="el" href="namespacehmi.html#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">hmi::isLevelUnlocked</a></span> avant tout lancement (défense en profondeur, <span class="tt">EX-IHM-005</span>) &ndash; jamais lancé verrouillé, même si l'écran l'a par erreur laissé passer. </p>
+
+</div>
+</div>
+<a id="a0555e840dd5a6b482a701e423d3f4e14" name="a0555e840dd5a6b482a701e423d3f4e14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0555e840dd5a6b482a701e423d3f4e14">&#9670;&#160;</a></span>closeCredits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::closeCredits </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retour au menu depuis l'écran de crédits. </p>
 
 </div>
 </div>
@@ -780,6 +819,33 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 
 </div>
 </div>
+<a id="ad0160f504de7ad658481fd2480488831" name="ad0160f504de7ad658481fd2480488831"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0160f504de7ad658481fd2480488831">&#9670;&#160;</a></span>openCredits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::openCredits </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>« Crédits » (menu) : ouvre <span class="tt"><a class="el" href="#ab8058881976138d4ce9d4b5c724b8a11" title="Écran de crédits (LOT-60) : même patron que _levelSelectScreen, page normale de _stack.">_credits</a></span> (<span class="tt">LOT-60</span>). </p>
+
+</div>
+</div>
 <a id="a80702adfe62ceb213bca4fbc40a2684a" name="a80702adfe62ceb213bca4fbc40a2684a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a80702adfe62ceb213bca4fbc40a2684a">&#9670;&#160;</a></span>openLevelComplete()</h2>
 
@@ -994,6 +1060,33 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 
 <p>Nom logique de l'asset ouvert, relatif à <span class="tt">Assets/</span> (ex. </p>
 <p><span class="tt">"Skins/mur.png"</span>) : la clé sous laquelle <span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures Direct3D 11 désignées par leur nom de fichier logique.">hmi::TextureCache</a></span>/<span class="tt"><a class="el" href="classhmi_1_1GameViewport.html#a447c144c52c54657cb29e4b7473e8f3b" title="Rechargement à chaud ciblé d&#39;un seul asset (LOT-43 TACHE-03).">GameViewport::invalidateAsset</a></span> connaissent cet asset — un simple nom de fichier ne suffit pas, le cache est indexé par chemin complet (préfixe de sous-dossier compris). </p>
+
+</div>
+</div>
+<a id="a2b36a89653f47498553ff68af07c8de2" name="a2b36a89653f47498553ff68af07c8de2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b36a89653f47498553ff68af07c8de2">&#9670;&#160;</a></span>playInterfaceSound()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::playInterfaceSound </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a3a61aed1c8e95c289c829398d48488de">GameEvent</a></td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Joue le son associé à <code class="param">event</code> (<span class="tt">hmi::SoundTriggers</span>), sans effet si aucun son ne lui est associé (<span class="tt">LOT-60</span> TACHE-03) &ndash; point d'appel unique pour tous les sons d'interface. </p>
 
 </div>
 </div>
@@ -1884,6 +1977,55 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 
 </div>
 </div>
+<a id="a7faaac5cfddbb72f2302f76fbb2abe44" name="a7faaac5cfddbb72f2302f76fbb2abe44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7faaac5cfddbb72f2302f76fbb2abe44">&#9670;&#160;</a></span>_audio</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1AudioEngine.html">hmi::AudioEngine</a> hmi::MainWindow::_audio</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Moteur audio (<span class="tt">LOT-60</span>) : ouvert au démarrage (<span class="tt">EX-REN-047</span>), dégrade en silence sans périphérique (<span class="tt">EX-NFR-040</span>). </p>
+<p>Partagé avec <span class="tt"><a class="el" href="#a1ed57ff25b1be1c311886896b1ae444f" title="Surface de rendu D3D11 (possédée par le conteneur central).">_viewport</a></span> (<span class="tt">setAudioEngine</span>), qui déclenche les sons de jeu ; les sons d'interface se jouent directement d'ici (<span class="tt"><a class="el" href="#a2b36a89653f47498553ff68af07c8de2" title="Joue le son associé à event (hmi::SoundTriggers), sans effet si aucun son ne lui est associé (LOT-60 ...">playInterfaceSound</a></span>). </p>
+
+</div>
+</div>
+<a id="ab8058881976138d4ce9d4b5c724b8a11" name="ab8058881976138d4ce9d4b5c724b8a11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8058881976138d4ce9d4b5c724b8a11">&#9670;&#160;</a></span>_credits</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1CreditsScreen.html">CreditsScreen</a>* hmi::MainWindow::_credits = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Écran de crédits (<span class="tt">LOT-60</span>) : même patron que <span class="tt"><a class="el" href="#aab0f9b0c9990d3496d32ab706c488519" title="Écran de sélection de niveau (LOT-59 TACHE-06) : une page normale de _stack (jamais un recouvrement –...">_levelSelectScreen</a></span>, page normale de <span class="tt"><a class="el" href="#a408483202779acb367aee2733d8b28c7" title="Central : empile menu principal, options et viewport.">_stack</a></span>. </p>
+
+</div>
+</div>
 <a id="a5f1add76ec84a6e36c0c848293e2afcd" name="a5f1add76ec84a6e36c0c848293e2afcd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5f1add76ec84a6e36c0c848293e2afcd">&#9670;&#160;</a></span>_decors</h2>
 
@@ -2576,6 +2718,30 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 </div><div class="memdoc">
 
 <p>Sink mémoire des logs (nul en Release). </p>
+
+</div>
+</div>
+<a id="acae74ad8bf6c06ab8aec868ab0de3b22" name="acae74ad8bf6c06ab8aec868ab0de3b22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acae74ad8bf6c06ab8aec868ab0de3b22">&#9670;&#160;</a></span>_sounds</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1SoundCatalog.html">hmi::SoundCatalog</a> hmi::MainWindow::_sounds</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Catalogue de sons (<span class="tt">LOT-60</span> TACHE-02), lu une fois au démarrage depuis <span class="tt">Audio/sounds.json</span> et entièrement préchargé dans <span class="tt"><a class="el" href="#a7faaac5cfddbb72f2302f76fbb2abe44" title="Moteur audio (LOT-60) : ouvert au démarrage (EX-REN-047), dégrade en silence sans périphérique (EX-NF...">_audio</a></span>. </p>
 
 </div>
 </div>

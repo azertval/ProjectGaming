@@ -94,7 +94,7 @@ $(function(){initNavTree('lot-57-tache-03-panneau-textures.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-57-editeur-information_2tache-03-panneau-textures"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-57.html#md_Lot_2LOT-57-editeur-information_2epic" title="Lot/LOT-57-editeur-information/epic.md">LOT-57</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span>, <span class="tt">Source/Elements/UI</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2545"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2553"></a>
 Contexte</h1>
 <p>Le panneau Textures est le plus gros fichier de widget du projet et concentre environ un tiers des contrôles de l'éditeur. Ses six onglets ont été ajoutés lot après lot — Skins au <span class="tt">LOT-42</span>, Fond au <span class="tt">LOT-44</span>, Objets au <span class="tt">LOT-45</span>, Animations au <span class="tt">LOT-46</span>, Décors au <span class="tt">LOT-50</span>, Calques au <span class="tt">LOT-51</span> — sans qu'on se demande jamais s'ils relèvent du même sujet. Ils n'en relèvent pas. Trois natures cohabitent :</p>
 <ul>
@@ -103,7 +103,7 @@ Contexte</h1>
 <li><b>Regarder le niveau autrement</b> : Calques décompose le rendu par couche. Ce n'est pas une propriété de texture du tout.</li>
 </ul>
 <p>Le mauvais rangement du dernier onglet se lit dans le code lui-même : il a fallu y afficher un avertissement permanent expliquant qu'il n'affecte jamais le jeu, et il y voisine une case qui double la touche de bascule Physique/Texture — au point qu'une infobulle doit préciser qu'il s'agit de la même bascule vue d'ailleurs. Deux symptômes du même problème.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2546"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2554"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Déplacement du mode d'inspection par calque vers le menu Affichage</b>, où vivent déjà les bascules de panneaux : une entrée par calque, dans l'ordre de dessin, plus « tout afficher ». L'avertissement permanent devient inutile — le menu Affichage dit de lui-même qu'on règle une vue.</li>
@@ -113,7 +113,7 @@ Travail à réaliser</h1>
 <li><b>Traduction</b> de tous les libellés déplacés ou reformulés, dans les deux catalogues ; retrait des clés devenues inutilisées.</li>
 <li><b>Comportement inchangé</b> : le mode d'inspection par calque reste réservé à l'éditeur et sans aucun effet sur la session de jeu ni sur la bascule Physique/Texture (<span class="tt">EX-EDIT-044</span>, <span class="tt">LOT-51</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2547"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2555"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/TexturePanel.{h,cpp}</span>, <span class="tt">Source/Elements/UI/TexturePanel.ui</span>.</li>
@@ -121,7 +121,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Localization/fr.lang</span>, <span class="tt">en.lang</span>.</li>
 <li>Tests existants de visibilité des calques — mis à jour, pas réécrits.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2548"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2556"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Visibilité des calques inchangée</b> : les tests du <span class="tt">LOT-51</span> continuent de passer à l'identique — le déplacement est une affaire de présentation, pas de comportement.</li>
@@ -129,7 +129,7 @@ Tests (obligatoires)</h1>
 <li><b>Sélection croisée</b> : sélectionner un décor au canevas met à jour l'inspecteur, et réciproquement.</li>
 <li>Chaque clé de traduction utilisée existe dans les deux catalogues ; aucune clé orpheline n'est laissée derrière.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2549"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2557"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas confondre les deux mécanismes de vue.</b> La bascule Physique/Texture <b>compose</b> le rendu ; la visibilité par calque le <b>décompose</b>. Le <span class="tt">LOT-51</span> insiste sur cette distinction, et la déplacer dans le menu Affichage ne doit surtout pas les fusionner : ce sont deux entrées distinctes, dont l'une est traitée en TACHE-04.</li>
@@ -137,12 +137,12 @@ Points d'attention</h1>
 <li>Les onglets Objets et Décors portent des actions destructrices (retirer une surcharge, supprimer un décor) : leur passage en inspecteurs ne doit pas les rendre déclenchables sur une sélection vide.</li>
 <li>Vérifier qu'aucune clé de traduction ne devient orpheline : le projet en compte déjà plusieurs, et cette tâche ne doit pas en ajouter.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2550"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2558"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Le mode d'inspection par calque est piloté depuis le menu Affichage, sans avertissement permanent, et son comportement est inchangé ; le panneau Textures ne porte plus que la définition d'apparence, ses inspecteurs suivant la sélection du canevas ; les deux sélecteurs de jeu de skins sont distinguables ; aucune clé de traduction orpheline ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2551"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2559"></a>
 Exigences</h1>
 <p><span class="tt">EX-IHM-062</span> (un état à un seul endroit) ; réutilise <span class="tt">EX-EDIT-044</span> (visibilité des calques, <span class="tt">LOT-51</span>), <span class="tt">EX-EDIT-024</span> (jeux de skins), <span class="tt">EX-EDIT-043</span> (surcharge de texture par case), <span class="tt">EX-DEC-010</span> (édition de décors), <span class="tt">EX-REN-033</span> (traduction). </p>
 </div></div><!-- contents -->

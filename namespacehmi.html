@@ -95,6 +95,12 @@ $(function(){initNavTree('namespacehmi.html','',''); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:AudioEngine" id="r_AudioEngine"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1AudioEngine.html">AudioEngine</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lecture d'échantillons courts à faible latence, avec volume global et repli muet.  <a href="classhmi_1_1AudioEngine.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SoundCatalog" id="r_SoundCatalog"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SoundCatalog.html">SoundCatalog</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogue des sons : <span class="tt">nom d'événement → fichier</span> (relatif à <span class="tt">Source/Elements/Audio/</span>).  <a href="classhmi_1_1SoundCatalog.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SoundCatalogResult" id="r_SoundCatalogResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SoundCatalogResult.html">SoundCatalogResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une lecture de catalogue : soit un <span class="tt"><a class="el" href="classhmi_1_1SoundCatalog.html" title="Catalogue des sons : nom d&#39;événement → fichier (relatif à Source/Elements/Audio/).">SoundCatalog</a></span>, soit une <b>erreur</b> décrite.  <a href="structhmi_1_1SoundCatalogResult.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AssetFileOperations" id="r_AssetFileOperations"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1AssetFileOperations.html">AssetFileOperations</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opérations sur les fichiers d'un dossier d'assets, <b>sans dépendance Qt/GPU</b>.  <a href="classhmi_1_1AssetFileOperations.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AssetReference" id="r_AssetReference"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AssetReference.html">AssetReference</a></td></tr>
@@ -191,6 +197,10 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un sous-groupe : une famille de variantes (formes/tailles/orientations) sous une catégorie.  <a href="structhmi_1_1TileSubgroup.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TileCategory" id="r_TileCategory"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1TileCategory.html">TileCategory</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une catégorie de premier niveau : ses tuiles directes + ses sous-groupes repliables.  <a href="structhmi_1_1TileCategory.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PlayerEventState" id="r_PlayerEventState"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PlayerEventState.html">PlayerEventState</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous-ensemble de <span class="tt"><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></span> pertinent à la détection d'événements.  <a href="structhmi_1_1PlayerEventState.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MechanismEventState" id="r_MechanismEventState"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MechanismEventState.html">MechanismEventState</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État « porte ouverte » de chaque mécanisme, même index que <span class="tt"><a class="el" href="classcore_1_1MechanismController.html#adb0a0f83d8a5302a84bc3c67386c09e7">core::MechanismController::mechanisms()</a></span>.  <a href="structhmi_1_1MechanismEventState.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GameSession" id="r_GameSession"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1GameSession.html">GameSession</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simule et rend <b>un seul niveau</b> (déjà validé, en mémoire), indépendamment de toute infrastructure d'écran.  <a href="classhmi_1_1GameSession.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GameViewport" id="r_GameViewport"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1GameViewport.html">GameViewport</a></td></tr>
@@ -319,6 +329,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description d'une action, indépendante de Qt : de quoi construire un <span class="tt">QAction</span> complet (icône, libellé, raccourci, caractère cochable) sans dupliquer sa définition ailleurs.  <a href="structhmi_1_1EditorActionSpec.html#details">More...</a><br /></td></tr>
 <tr class="memitem:KeyBindingIconEntry" id="r_KeyBindingIconEntry"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1KeyBindingIconEntry.html">KeyBindingIconEntry</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Correspondance entre une action d'éditeur remappable (<span class="tt"><a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585" title="Action d&#39;éditeur logique, remappable indépendamment de la touche physique.">hmi::EditorAction</a></span>, <span class="tt"><a class="el" href="EditorKeyBindings_8h.html" title="Association remappable action d&#39;éditeur -&gt; touche clavier, avec persistance (EX-CTRL-012).">EditorKeyBindings.h</a></span>) et l'identifiant d'action du catalogue qui la rend effective (<span class="tt">LOT-57</span> TACHE-04, <span class="tt">EX-IHM-062</span>).  <a href="structhmi_1_1KeyBindingIconEntry.html#details">More...</a><br /></td></tr>
+<tr class="memitem:CreditsScreen" id="r_CreditsScreen"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CreditsScreen.html">CreditsScreen</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran de crédits (développement, bruitages) atteint depuis le menu principal.  <a href="classhmi_1_1CreditsScreen.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DesignColor" id="r_DesignColor"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DesignColor.html">DesignColor</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Couleur RVBA pure (indépendante de Qt), convertible en chaîne CSS pour la feuille de style et directement décomposable pour construire une <span class="tt">QColor</span>/<span class="tt">QPalette</span>.  <a href="structhmi_1_1DesignColor.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ColorTokens" id="r_ColorTokens"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ColorTokens.html">ColorTokens</a></td></tr>
@@ -377,6 +389,16 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
+<tr class="memitem:a08b7877ee84a5db1b0da3837b70c3af7" id="r_a08b7877ee84a5db1b0da3837b70c3af7"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a08b7877ee84a5db1b0da3837b70c3af7">SoundCatalogError</a> { <br />
+&#160;&#160;<a class="el" href="#a08b7877ee84a5db1b0da3837b70c3af7a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="#a08b7877ee84a5db1b0da3837b70c3af7a2767828026039e8ba7b38973cbb701f2">FileNotFound</a>
+, <a class="el" href="#a08b7877ee84a5db1b0da3837b70c3af7ae41199faa7290c167f70f314c5e6c165">ParseError</a>
+, <a class="el" href="#a08b7877ee84a5db1b0da3837b70c3af7a0f89bc98e9b12bdeda0604e57bdc0518">UnsupportedVersion</a>
+, <br />
+&#160;&#160;<a class="el" href="#a08b7877ee84a5db1b0da3837b70c3af7aa809debdbe0cae246d363461916d924d">MalformedStructure</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a08b7877ee84a5db1b0da3837b70c3af7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catégorie d'échec de lecture d'un <span class="tt">sounds.json</span> (même patron que <span class="tt"><a class="el" href="#ae064c48cb814db754a1228bda7b8d77d" title="Catégorie d&#39;échec de lecture d&#39;un skins.json (même esprit que core::LevelValidationError).">hmi::SkinCatalogError</a></span>/<span class="tt"><a class="el" href="#afee4dd05bda0b2293c4a99a73cb7eb8f" title="Catégorie d&#39;échec de lecture d&#39;une description d&#39;animation (même esprit que hmi::SkinCatalogError/cor...">hmi::AnimationCatalogError</a></span>).  <a href="#a08b7877ee84a5db1b0da3837b70c3af7">More...</a><br /></td></tr>
 <tr class="memitem:a85a2df4671d768ea880f930a5f87e00d" id="r_a85a2df4671d768ea880f930a5f87e00d"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a85a2df4671d768ea880f930a5f87e00d">DecorHandle</a> { <br />
 &#160;&#160;<a class="el" href="#a85a2df4671d768ea880f930a5f87e00da6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="#a85a2df4671d768ea880f930a5f87e00daac101b32dda4448cf13a93fe283dddd8">Body</a>
@@ -470,6 +492,31 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a76066d550faf628786294c82cd2d12a4a1063e38cb53d94d386f21227fcd84717">Remove</a>
  }</td></tr>
 <tr class="memdesc:a76066d550faf628786294c82cd2d12a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action à appliquer sur le brouillon suite à un clic de l'outil « Texture par instance ».  <a href="#a76066d550faf628786294c82cd2d12a4">More...</a><br /></td></tr>
+<tr class="memitem:a3a61aed1c8e95c289c829398d48488de" id="r_a3a61aed1c8e95c289c829398d48488de"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a3a61aed1c8e95c289c829398d48488de">GameEvent</a> { <br />
+&#160;&#160;<a class="el" href="#a3a61aed1c8e95c289c829398d48488dea280e2398821e9b67fa22ab6d512c746b">Jumped</a>
+, <a class="el" href="#a3a61aed1c8e95c289c829398d48488dead686e9ef2eb30c76874d445ae35bccc2">Landed</a>
+, <a class="el" href="#a3a61aed1c8e95c289c829398d48488deaeb656e41b6da91494775ecf47a51da91">Dashed</a>
+, <a class="el" href="#a3a61aed1c8e95c289c829398d48488deae164c7e6f4e61a4633466ea5d59a3f97">WallContactEnter</a>
+, <br />
+&#160;&#160;<a class="el" href="#a3a61aed1c8e95c289c829398d48488dea72a3a593829fd89da615aad7cb957d3a">SwitchToggled</a>
+, <a class="el" href="#a3a61aed1c8e95c289c829398d48488deae1491bc2cd0348e5a6c5ba7ed811895d">DoorOpened</a>
+, <a class="el" href="#a3a61aed1c8e95c289c829398d48488deacff69fd788d6616924dfbb25559ce338">DoorClosed</a>
+, <a class="el" href="#a3a61aed1c8e95c289c829398d48488deaf05c732743513b5ae2ec57800427605c">PressurePlatePressed</a>
+, <br />
+&#160;&#160;<a class="el" href="#a3a61aed1c8e95c289c829398d48488dea1dcbd75ed42921b33c5894d72929b5c4">PressurePlateReleased</a>
+, <a class="el" href="#a3a61aed1c8e95c289c829398d48488dea00f3be69446cf709343350f087ad6bc3">BlockPushed</a>
+, <a class="el" href="#a3a61aed1c8e95c289c829398d48488deab4ee54591aaa4862bf37f75f6839b514">Died</a>
+, <a class="el" href="#a3a61aed1c8e95c289c829398d48488deaf3f8a8d70e59a2f75919906f9429e8c2">LevelCompleted</a>
+, <br />
+&#160;&#160;<a class="el" href="#a3a61aed1c8e95c289c829398d48488deafd86c459659a739b791b3acf8590136e">MenuNavigate</a>
+, <a class="el" href="#a3a61aed1c8e95c289c829398d48488deae6154a82aac2fc1033c897088faff888">MenuConfirm</a>
+, <a class="el" href="#a3a61aed1c8e95c289c829398d48488dea5a7251d0a3e040de33dc48e78d49c010">MenuBack</a>
+, <a class="el" href="#a3a61aed1c8e95c289c829398d48488dea99db5176aa7f82eeb3e4dff344934eeb">PauseOpened</a>
+, <br />
+&#160;&#160;<a class="el" href="#a3a61aed1c8e95c289c829398d48488dea567a1ba73d183dc7f9b7c047a7da7e40">SequenceCompleted</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a3a61aed1c8e95c289c829398d48488de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Événement discret survenu sur un pas de simulation ou une action d'interface.  <a href="#a3a61aed1c8e95c289c829398d48488de">More...</a><br /></td></tr>
 <tr class="memitem:afee4dd05bda0b2293c4a99a73cb7eb8f" id="r_afee4dd05bda0b2293c4a99a73cb7eb8f"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#afee4dd05bda0b2293c4a99a73cb7eb8f">AnimationCatalogError</a> { <br />
 &#160;&#160;<a class="el" href="#afee4dd05bda0b2293c4a99a73cb7eb8fa6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="#afee4dd05bda0b2293c4a99a73cb7eb8fa2767828026039e8ba7b38973cbb701f2">FileNotFound</a>
@@ -719,6 +766,7 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="#a168b24f798c2e6d06beb9472a071528da105b296a83f9c105355403f3332af50f">Pause</a>
 , <a class="el" href="#a168b24f798c2e6d06beb9472a071528da5a916597759e7c491e7d0567658bbb21">NiveauTermine</a>
 , <a class="el" href="#a168b24f798c2e6d06beb9472a071528daab6c96d1fa3464b353f8da4213d53569">LevelSelect</a>
+, <a class="el" href="#a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51">Credits</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a168b24f798c2e6d06beb9472a071528d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran actuellement affiché par la fenêtre principale.  <a href="#a168b24f798c2e6d06beb9472a071528d">More...</a><br /></td></tr>
@@ -742,6 +790,9 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a964211f19cf43757eaaa80c3c29b0e90a9c9c573d9ed480bd96f863bfedcf5e08">OpenLevelSelect</a>
 , <a class="el" href="#a964211f19cf43757eaaa80c3c29b0e90ab8d67e3fbaeb7b592150799fe3c63921">CloseLevelSelect</a>
 , <a class="el" href="#a964211f19cf43757eaaa80c3c29b0e90acf7b8208a0c2708351e67f4ac50d96d5">LevelChosen</a>
+, <br />
+&#160;&#160;<a class="el" href="#a964211f19cf43757eaaa80c3c29b0e90a2a1540e25ac6f65503d2539901c3eb7c">OpenCredits</a>
+, <a class="el" href="#a964211f19cf43757eaaa80c3c29b0e90a64b9ec7c728085981f7746660948ed17">CloseCredits</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a964211f19cf43757eaaa80c3c29b0e90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Événement pouvant déclencher une transition d'écran.  <a href="#a964211f19cf43757eaaa80c3c29b0e90">More...</a><br /></td></tr>
@@ -757,6 +808,8 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a949e50cc6c6b8c2df661c6277ac59506" id="r_a949e50cc6c6b8c2df661c6277ac59506"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a949e50cc6c6b8c2df661c6277ac59506">soundForEvent</a> (<a class="el" href="#a3a61aed1c8e95c289c829398d48488de">GameEvent</a> event)</td></tr>
+<tr class="memdesc:a949e50cc6c6b8c2df661c6277ac59506"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associe un <span class="tt"><a class="el" href="#a3a61aed1c8e95c289c829398d48488de" title="Événement discret survenu sur un pas de simulation ou une action d&#39;interface.">hmi::GameEvent</a></span> à un identifiant de <span class="tt"><a class="el" href="classhmi_1_1SoundCatalog.html" title="Catalogue des sons : nom d&#39;événement → fichier (relatif à Source/Elements/Audio/).">hmi::SoundCatalog</a></span>.  <br /></td></tr>
 <tr class="memitem:a5bc539b762cfd88b17c71d8a44a1a22b" id="r_a5bc539b762cfd88b17c71d8a44a1a22b"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5bc539b762cfd88b17c71d8a44a1a22b">serializeSessionLog</a> (const std::vector&lt; <a class="el" href="structcore_1_1MemoryLogSink_1_1Entry.html">core::MemoryLogSink::Entry</a> &gt; &amp;entries)</td></tr>
 <tr class="memdesc:a5bc539b762cfd88b17c71d8a44a1a22b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble les messages de log en un texte (une ligne par message).  <br /></td></tr>
 <tr class="memitem:a680b600014001a99d296df386e7ed9d8" id="r_a680b600014001a99d296df386e7ed9d8"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a680b600014001a99d296df386e7ed9d8">saveSessionLog</a> (const std::vector&lt; <a class="el" href="structcore_1_1MemoryLogSink_1_1Entry.html">core::MemoryLogSink::Entry</a> &gt; &amp;entries, const std::filesystem::path &amp;path)</td></tr>
@@ -888,6 +941,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:a8158375fa940021f6bb346e7c2b09247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taille en pixels <b>réels</b> pour une taille logique et un facteur d'échelle d'affichage donnés.  <br /></td></tr>
 <tr class="memitem:a324d7671eeb331de4b3459d66be9d0ca" id="r_a324d7671eeb331de4b3459d66be9d0ca"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1TileCategory.html">TileCategory</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a324d7671eeb331de4b3459d66be9d0ca">tileTaxonomy</a> ()</td></tr>
 <tr class="memdesc:a324d7671eeb331de4b3459d66be9d0ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taxonomie complète des types de tuiles peignables, en catégories/sous-groupes.  <br /></td></tr>
+<tr class="memitem:afcb621148a1dc0224b1136f50c952795" id="r_afcb621148a1dc0224b1136f50c952795"><td class="memItemLeft">std::vector&lt; <a class="el" href="#a3a61aed1c8e95c289c829398d48488de">GameEvent</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#afcb621148a1dc0224b1136f50c952795">detectPlayerEvents</a> (const <a class="el" href="structhmi_1_1PlayerEventState.html">PlayerEventState</a> &amp;previous, const <a class="el" href="structhmi_1_1PlayerEventState.html">PlayerEventState</a> &amp;current)</td></tr>
+<tr class="memdesc:afcb621148a1dc0224b1136f50c952795"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détecte les transitions du personnage entre deux pas de simulation consécutifs.  <br /></td></tr>
+<tr class="memitem:afb9ffef4971f7aeeea19cfa0a2cddbb9" id="r_afb9ffef4971f7aeeea19cfa0a2cddbb9"><td class="memItemLeft">std::vector&lt; <a class="el" href="#a3a61aed1c8e95c289c829398d48488de">GameEvent</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#afb9ffef4971f7aeeea19cfa0a2cddbb9">detectMechanismEvents</a> (const <a class="el" href="structhmi_1_1MechanismEventState.html">MechanismEventState</a> &amp;previous, const <a class="el" href="structhmi_1_1MechanismEventState.html">MechanismEventState</a> &amp;current, const std::vector&lt; bool &gt; &amp;isContinuous)</td></tr>
+<tr class="memdesc:afb9ffef4971f7aeeea19cfa0a2cddbb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détecte les transitions des mécanismes entre deux pas de simulation consécutifs.  <br /></td></tr>
+<tr class="memitem:a89b12465488e01b1f3b8bfaa0e7bf26a" id="r_a89b12465488e01b1f3b8bfaa0e7bf26a"><td class="memItemLeft">std::optional&lt; <a class="el" href="#a3a61aed1c8e95c289c829398d48488de">GameEvent</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a89b12465488e01b1f3b8bfaa0e7bf26a">detectOutcomeEvent</a> (<a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa">core::LevelOutcome</a> outcome)</td></tr>
+<tr class="memdesc:a89b12465488e01b1f3b8bfaa0e7bf26a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit l'issue d'un pas de simulation en événement.  <br /></td></tr>
 <tr class="memitem:a8a1c52dc217e915a1ebbd5ec209037d9" id="r_a8a1c52dc217e915a1ebbd5ec209037d9"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8a1c52dc217e915a1ebbd5ec209037d9">gameHudLines</a> (const <a class="el" href="structcore_1_1Player.html">core::Player</a> &amp;player, const std::string &amp;levelName, const <a class="el" href="classhmi_1_1Localization.html">Localization</a> &amp;localization)</td></tr>
 <tr class="memdesc:a8a1c52dc217e915a1ebbd5ec209037d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lignes à afficher pour l'affichage tête haute d'un pas de simulation donné.  <br /></td></tr>
 <tr class="memitem:a9a410292879939089d6bf584f60d60e6" id="r_a9a410292879939089d6bf584f60d60e6"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9a410292879939089d6bf584f60d60e6">isLevelUnlocked</a> (const <a class="el" href="classhmi_1_1Progression.html">Progression</a> &amp;progression, const std::vector&lt; std::string &gt; &amp;sequence, const std::string &amp;levelName)</td></tr>
@@ -1129,6 +1188,8 @@ Variables</h2></td></tr>
 <tr class="memitem:ab72ec3386202539c0f1a9361fb8fa6cf" id="r_ab72ec3386202539c0f1a9361fb8fa6cf"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#ab72ec3386202539c0f1a9361fb8fa6cf">PIXEL_CANVAS_MAX_ZOOM</a> = 32</td></tr>
 <tr class="memitem:af6dd4ff8d5e0ef90e4386088a9b55c07" id="r_af6dd4ff8d5e0ef90e4386088a9b55c07"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#af6dd4ff8d5e0ef90e4386088a9b55c07">PIXEL_CANVAS_GRID_VISIBLE_MIN_ZOOM</a> = 4</td></tr>
 <tr class="memdesc:af6dd4ff8d5e0ef90e4386088a9b55c07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Facteur de zoom à partir duquel la grille de pixels est dessinée : en-deçà, elle ne ferait que du bruit visuel sur des pixels trop petits pour la distinguer du contenu.  <br /></td></tr>
+<tr class="memitem:aab9ebfc2ebacc5718532a560bfd830ea" id="r_aab9ebfc2ebacc5718532a560bfd830ea"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aab9ebfc2ebacc5718532a560bfd830ea">GAME_EVENT_COUNT</a> = static_cast&lt;int&gt;(<a class="el" href="#a3a61aed1c8e95c289c829398d48488dea567a1ba73d183dc7f9b7c047a7da7e40">GameEvent::SequenceCompleted</a>) + 1</td></tr>
+<tr class="memdesc:aab9ebfc2ebacc5718532a560bfd830ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de valeurs de <span class="tt"><a class="el" href="#a3a61aed1c8e95c289c829398d48488de" title="Événement discret survenu sur un pas de simulation ou une action d&#39;interface.">GameEvent</a></span> — pour les tests d'exhaustivité (parcours de l'énumération).  <br /></td></tr>
 <tr class="memitem:a5d007c47b6f8696b0b71cf94afe65d18" id="r_a5d007c47b6f8696b0b71cf94afe65d18"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5d007c47b6f8696b0b71cf94afe65d18">FONTS_SUBDIRECTORY</a> = &quot;Fonts/&quot;</td></tr>
 <tr class="memdesc:a5d007c47b6f8696b0b71cf94afe65d18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous-dossier des assets de police, relatif au dossier d'assets (<span class="tt">LOT-52</span>).  <br /></td></tr>
 <tr class="memitem:ad72608bb6233a89509a4835525f62339" id="r_ad72608bb6233a89509a4835525f62339"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="#ad72608bb6233a89509a4835525f62339">DECORS_SUBDIRECTORY</a> = &quot;Decors/&quot;</td></tr>
@@ -1663,6 +1724,50 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a133516ef8002bd9e4d870db9494f5867ae2523957153e9b5b8defa89d26c2190b" name="a133516ef8002bd9e4d870db9494f5867ae2523957153e9b5b8defa89d26c2190b"></a>AimDown&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a133516ef8002bd9e4d870db9494f5867a101f693f72287a2819a364f64ca1c0ed" name="a133516ef8002bd9e4d870db9494f5867a101f693f72287a2819a364f64ca1c0ed"></a>Jump&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a133516ef8002bd9e4d870db9494f5867a3663598d5c5858b5a6040b1bbed4f187" name="a133516ef8002bd9e4d870db9494f5867a3663598d5c5858b5a6040b1bbed4f187"></a>Dash&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a3a61aed1c8e95c289c829398d48488de" name="a3a61aed1c8e95c289c829398d48488de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a61aed1c8e95c289c829398d48488de">&#9670;&#160;</a></span>GameEvent</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a3a61aed1c8e95c289c829398d48488de">hmi::GameEvent</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Événement discret survenu sur un pas de simulation ou une action d'interface. </p>
+<p>Unifie les transitions de jeu (personnage, mécanismes) et d'interface (menus, écrans du <span class="tt">LOT-59</span>) sous une seule énumération : c'est ce qui permet à <span class="tt">hmi::SoundTriggers</span> de leur associer un son par une table exhaustive unique, et à <span class="tt">LOT-53</span> de réutiliser la même énumération pour ses particules sans dupliquer la détection. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a3a61aed1c8e95c289c829398d48488dea280e2398821e9b67fa22ab6d512c746b" name="a3a61aed1c8e95c289c829398d48488dea280e2398821e9b67fa22ab6d512c746b"></a>Jumped&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3a61aed1c8e95c289c829398d48488dead686e9ef2eb30c76874d445ae35bccc2" name="a3a61aed1c8e95c289c829398d48488dead686e9ef2eb30c76874d445ae35bccc2"></a>Landed&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3a61aed1c8e95c289c829398d48488deaeb656e41b6da91494775ecf47a51da91" name="a3a61aed1c8e95c289c829398d48488deaeb656e41b6da91494775ecf47a51da91"></a>Dashed&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3a61aed1c8e95c289c829398d48488deae164c7e6f4e61a4633466ea5d59a3f97" name="a3a61aed1c8e95c289c829398d48488deae164c7e6f4e61a4633466ea5d59a3f97"></a>WallContactEnter&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3a61aed1c8e95c289c829398d48488dea72a3a593829fd89da615aad7cb957d3a" name="a3a61aed1c8e95c289c829398d48488dea72a3a593829fd89da615aad7cb957d3a"></a>SwitchToggled&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3a61aed1c8e95c289c829398d48488deae1491bc2cd0348e5a6c5ba7ed811895d" name="a3a61aed1c8e95c289c829398d48488deae1491bc2cd0348e5a6c5ba7ed811895d"></a>DoorOpened&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3a61aed1c8e95c289c829398d48488deacff69fd788d6616924dfbb25559ce338" name="a3a61aed1c8e95c289c829398d48488deacff69fd788d6616924dfbb25559ce338"></a>DoorClosed&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3a61aed1c8e95c289c829398d48488deaf05c732743513b5ae2ec57800427605c" name="a3a61aed1c8e95c289c829398d48488deaf05c732743513b5ae2ec57800427605c"></a>PressurePlatePressed&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3a61aed1c8e95c289c829398d48488dea1dcbd75ed42921b33c5894d72929b5c4" name="a3a61aed1c8e95c289c829398d48488dea1dcbd75ed42921b33c5894d72929b5c4"></a>PressurePlateReleased&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3a61aed1c8e95c289c829398d48488dea00f3be69446cf709343350f087ad6bc3" name="a3a61aed1c8e95c289c829398d48488dea00f3be69446cf709343350f087ad6bc3"></a>BlockPushed&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3a61aed1c8e95c289c829398d48488deab4ee54591aaa4862bf37f75f6839b514" name="a3a61aed1c8e95c289c829398d48488deab4ee54591aaa4862bf37f75f6839b514"></a>Died&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3a61aed1c8e95c289c829398d48488deaf3f8a8d70e59a2f75919906f9429e8c2" name="a3a61aed1c8e95c289c829398d48488deaf3f8a8d70e59a2f75919906f9429e8c2"></a>LevelCompleted&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3a61aed1c8e95c289c829398d48488deafd86c459659a739b791b3acf8590136e" name="a3a61aed1c8e95c289c829398d48488deafd86c459659a739b791b3acf8590136e"></a>MenuNavigate&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3a61aed1c8e95c289c829398d48488deae6154a82aac2fc1033c897088faff888" name="a3a61aed1c8e95c289c829398d48488deae6154a82aac2fc1033c897088faff888"></a>MenuConfirm&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3a61aed1c8e95c289c829398d48488dea5a7251d0a3e040de33dc48e78d49c010" name="a3a61aed1c8e95c289c829398d48488dea5a7251d0a3e040de33dc48e78d49c010"></a>MenuBack&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3a61aed1c8e95c289c829398d48488dea99db5176aa7f82eeb3e4dff344934eeb" name="a3a61aed1c8e95c289c829398d48488dea99db5176aa7f82eeb3e4dff344934eeb"></a>PauseOpened&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3a61aed1c8e95c289c829398d48488dea567a1ba73d183dc7f9b7c047a7da7e40" name="a3a61aed1c8e95c289c829398d48488dea567a1ba73d183dc7f9b7c047a7da7e40"></a>SequenceCompleted&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -2305,6 +2410,8 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a964211f19cf43757eaaa80c3c29b0e90a9c9c573d9ed480bd96f863bfedcf5e08" name="a964211f19cf43757eaaa80c3c29b0e90a9c9c573d9ed480bd96f863bfedcf5e08"></a>OpenLevelSelect&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a964211f19cf43757eaaa80c3c29b0e90ab8d67e3fbaeb7b592150799fe3c63921" name="a964211f19cf43757eaaa80c3c29b0e90ab8d67e3fbaeb7b592150799fe3c63921"></a>CloseLevelSelect&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a964211f19cf43757eaaa80c3c29b0e90acf7b8208a0c2708351e67f4ac50d96d5" name="a964211f19cf43757eaaa80c3c29b0e90acf7b8208a0c2708351e67f4ac50d96d5"></a>LevelChosen&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a964211f19cf43757eaaa80c3c29b0e90a2a1540e25ac6f65503d2539901c3eb7c" name="a964211f19cf43757eaaa80c3c29b0e90a2a1540e25ac6f65503d2539901c3eb7c"></a>OpenCredits&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a964211f19cf43757eaaa80c3c29b0e90a64b9ec7c728085981f7746660948ed17" name="a964211f19cf43757eaaa80c3c29b0e90a64b9ec7c728085981f7746660948ed17"></a>CloseCredits&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -2338,6 +2445,7 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528da105b296a83f9c105355403f3332af50f" name="a168b24f798c2e6d06beb9472a071528da105b296a83f9c105355403f3332af50f"></a>Pause&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528da5a916597759e7c491e7d0567658bbb21" name="a168b24f798c2e6d06beb9472a071528da5a916597759e7c491e7d0567658bbb21"></a>NiveauTermine&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528daab6c96d1fa3464b353f8da4213d53569" name="a168b24f798c2e6d06beb9472a071528daab6c96d1fa3464b353f8da4213d53569"></a>LevelSelect&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51" name="a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51"></a>Credits&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -2407,6 +2515,42 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="ac69176e5c8acf86f4990696f7f54f11ea626462c0578a21deb18ab448defe0522" name="ac69176e5c8acf86f4990696f7f54f11ea626462c0578a21deb18ab448defe0522"></a>Bitmask16&#160;</td><td class="fielddoc"><p>Planche de 4×4 cases, dont celle affichée est choisie selon les quatre voisins solides (<span class="tt"><a class="el" href="#a34134b921b6e696d52d483a74483aab1" title="Case de la planche 4×4 correspondant à un masque de voisinage.">hmi::autotileCell</a></span>). </p>
 <p>Dé-répétition et bords distincts de l'intérieur. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a08b7877ee84a5db1b0da3837b70c3af7" name="a08b7877ee84a5db1b0da3837b70c3af7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08b7877ee84a5db1b0da3837b70c3af7">&#9670;&#160;</a></span>SoundCatalogError</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a08b7877ee84a5db1b0da3837b70c3af7">hmi::SoundCatalogError</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Catégorie d'échec de lecture d'un <span class="tt">sounds.json</span> (même patron que <span class="tt"><a class="el" href="#ae064c48cb814db754a1228bda7b8d77d" title="Catégorie d&#39;échec de lecture d&#39;un skins.json (même esprit que core::LevelValidationError).">hmi::SkinCatalogError</a></span>/<span class="tt"><a class="el" href="#afee4dd05bda0b2293c4a99a73cb7eb8f" title="Catégorie d&#39;échec de lecture d&#39;une description d&#39;animation (même esprit que hmi::SkinCatalogError/cor...">hmi::AnimationCatalogError</a></span>). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a08b7877ee84a5db1b0da3837b70c3af7a6adf97f83acf6453d4a6a4b1070f3754" name="a08b7877ee84a5db1b0da3837b70c3af7a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"><p>Pas d'erreur. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a08b7877ee84a5db1b0da3837b70c3af7a2767828026039e8ba7b38973cbb701f2" name="a08b7877ee84a5db1b0da3837b70c3af7a2767828026039e8ba7b38973cbb701f2"></a>FileNotFound&#160;</td><td class="fielddoc"><p>Fichier absent. Cas <b>légitime</b> (catalogue vide), pas une anomalie. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a08b7877ee84a5db1b0da3837b70c3af7ae41199faa7290c167f70f314c5e6c165" name="a08b7877ee84a5db1b0da3837b70c3af7ae41199faa7290c167f70f314c5e6c165"></a>ParseError&#160;</td><td class="fielddoc"><p>JSON malformé, ou racine qui n'est pas un objet. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a08b7877ee84a5db1b0da3837b70c3af7a0f89bc98e9b12bdeda0604e57bdc0518" name="a08b7877ee84a5db1b0da3837b70c3af7a0f89bc98e9b12bdeda0604e57bdc0518"></a>UnsupportedVersion&#160;</td><td class="fielddoc"><p>Numéro de version supérieur à <span class="tt"><a class="el" href="classhmi_1_1SoundCatalog.html#a0904fbd25b44f19ea87496deaf32943d" title="Version du format écrite dans le fichier, et plus élevée qui soit lue.">SoundCatalog::FORMAT_VERSION</a></span>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a08b7877ee84a5db1b0da3837b70c3af7aa809debdbe0cae246d363461916d924d" name="a08b7877ee84a5db1b0da3837b70c3af7aa809debdbe0cae246d363461916d924d"></a>MalformedStructure&#160;</td><td class="fielddoc"><p>Structure inattendue (« sons » absent, entrée invalide…). </p>
 </td></tr>
 </table>
 
@@ -4537,6 +4681,116 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>L'élément visé, ou <span class="tt">std::nullopt</span> si le clic ne touche rien. </dd></dl>
+
+</div>
+</div>
+<a id="afb9ffef4971f7aeeea19cfa0a2cddbb9" name="afb9ffef4971f7aeeea19cfa0a2cddbb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb9ffef4971f7aeeea19cfa0a2cddbb9">&#9670;&#160;</a></span>detectMechanismEvents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="#a3a61aed1c8e95c289c829398d48488de">GameEvent</a> &gt; hmi::detectMechanismEvents </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1MechanismEventState.html">MechanismEventState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>previous</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1MechanismEventState.html">MechanismEventState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>current</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; bool &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>isContinuous</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Détecte les transitions des mécanismes entre deux pas de simulation consécutifs. </p>
+<p>Un même mécanisme (<span class="tt">isDoorOpen</span>) sert à la fois de déclencheur et de porte : une seule transition produit <b>un seul</b> événement (celui du déclencheur), jamais un second pour la porte — sans quoi une simple activation jouerait deux sons superposés. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">previous</td><td>État des mécanismes au pas précédent. </td></tr>
+    <tr><td class="paramname">current</td><td>État des mécanismes au pas courant. </td></tr>
+    <tr><td class="paramname">isContinuous</td><td>Pour chaque mécanisme (même index que <code class="param">previous</code> / <code class="param">current</code>) : true = plaque de pression (joue « pressée »/« relâchée »), false = interrupteur à bascule (joue « basculé »). Un désaccord de taille entre les trois vecteurs ignore l'index en trop plutôt que d'accéder hors bornes. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a89b12465488e01b1f3b8bfaa0e7bf26a" name="a89b12465488e01b1f3b8bfaa0e7bf26a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89b12465488e01b1f3b8bfaa0e7bf26a">&#9670;&#160;</a></span>detectOutcomeEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="#a3a61aed1c8e95c289c829398d48488de">GameEvent</a> &gt; hmi::detectOutcomeEvent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa">core::LevelOutcome</a></td>          <td class="paramname"><span class="paramname"><em>outcome</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Traduit l'issue d'un pas de simulation en événement. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">outcome</td><td>Issue renvoyée par <span class="tt"><a class="el" href="namespacecore.html#a23087f4f32dfa24ad53d7a9811ae351d" title="Détermine l&#39;issue du niveau à partir de la boîte du personnage.">core::evaluateOutcome</a></span> / <span class="tt">core::GameSession::update</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">Died</span> pour <span class="tt">Lost</span>, <span class="tt">LevelCompleted</span> pour <span class="tt">Won</span>, <span class="tt">std::nullopt</span> pour <span class="tt">Playing</span>. </dd></dl>
+
+</div>
+</div>
+<a id="afcb621148a1dc0224b1136f50c952795" name="afcb621148a1dc0224b1136f50c952795"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcb621148a1dc0224b1136f50c952795">&#9670;&#160;</a></span>detectPlayerEvents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="#a3a61aed1c8e95c289c829398d48488de">GameEvent</a> &gt; hmi::detectPlayerEvents </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1PlayerEventState.html">PlayerEventState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>previous</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1PlayerEventState.html">PlayerEventState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>current</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Détecte les transitions du personnage entre deux pas de simulation consécutifs. </p>
+<p>Fonction <b>pure</b> : lit <code class="param">previous</code> et <code class="param">current</code>, n'écrit rien, aucune dépendance Qt ni périphérique (<span class="tt">EX-NFR-010</span>). À appeler <b>une fois par pas fixe</b> (jamais par image de rendu, <span class="tt">EX-REN-021</span>) — le piège exact que le <span class="tt">LOT-33</span> a déjà traité pour les entrées : plusieurs images de rendu dans le même pas ne doivent jamais produire l'événement deux fois. </p><dl class="section return"><dt>Returns</dt><dd>La liste des événements survenus sur ce pas (généralement 0 ou 1 ; un dash au contact d'un mur peut en produire deux : <span class="tt">Dashed</span> et <span class="tt">WallContactEnter</span>). </dd></dl>
 
 </div>
 </div>
@@ -8524,6 +8778,40 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a949e50cc6c6b8c2df661c6277ac59506" name="a949e50cc6c6b8c2df661c6277ac59506"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a949e50cc6c6b8c2df661c6277ac59506">&#9670;&#160;</a></span>soundForEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; std::string &gt; hmi::soundForEvent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a3a61aed1c8e95c289c829398d48488de">GameEvent</a></td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Associe un <span class="tt"><a class="el" href="#a3a61aed1c8e95c289c829398d48488de" title="Événement discret survenu sur un pas de simulation ou une action d&#39;interface.">hmi::GameEvent</a></span> à un identifiant de <span class="tt"><a class="el" href="classhmi_1_1SoundCatalog.html" title="Catalogue des sons : nom d&#39;événement → fichier (relatif à Source/Elements/Audio/).">hmi::SoundCatalog</a></span>. </p>
+<p>Fonction <b>pure</b>, exhaustive (switch sans <span class="tt">default</span> : un événement ajouté sans entrée casse la compilation). Distincte de la <b>détection</b> (<span class="tt"><a class="el" href="GameEvents_8h.html" title="Détection pure des transitions d&#39;état du jeu et de l&#39;IHM (EX-REN-047, LOT-60).">HMI/Game/GameEvents.h</a></span>) : ce qui <b>est arrivé</b> et ce que <b>ça produit</b> sont deux questions séparées, pour que <span class="tt">LOT-53</span> puisse brancher des particules sur la même détection sans la modifier. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>Événement survenu. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>L'identifiant à passer à <span class="tt"><a class="el" href="classhmi_1_1SoundCatalog.html#a144ba8d255be972ca1b5d9cc2e7f048e" title="Résout le fichier assigné à un événement.">hmi::SoundCatalog::resolve</a></span>, ou <span class="tt">std::nullopt</span> si cet événement ne produit <b>intentionnellement</b> aucun son — un silence documenté, pas un oubli (ex. <span class="tt">WallContactEnter</span>, <span class="tt">BlockPushed</span> : aucun bruitage dédié dans ce lot). </dd></dl>
+
+</div>
+</div>
 <a id="af7d9b42fc7c496a35a24169feddc6ab8" name="af7d9b42fc7c496a35a24169feddc6ab8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af7d9b42fc7c496a35a24169feddc6ab8">&#9670;&#160;</a></span>spriteQuadBounds()</h2>
 
@@ -9782,6 +10070,30 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nombre d'actions de jeu remappables (<span class="tt"><a class="el" href="#a133516ef8002bd9e4d870db9494f5867" title="Action de jeu logique, remappable indépendamment de la touche physique qui la déclenche.">GameAction</a></span>). </p>
+
+</div>
+</div>
+<a id="aab9ebfc2ebacc5718532a560bfd830ea" name="aab9ebfc2ebacc5718532a560bfd830ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab9ebfc2ebacc5718532a560bfd830ea">&#9670;&#160;</a></span>GAME_EVENT_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::GAME_EVENT_COUNT = static_cast&lt;int&gt;(<a class="el" href="#a3a61aed1c8e95c289c829398d48488dea567a1ba73d183dc7f9b7c047a7da7e40">GameEvent::SequenceCompleted</a>) + 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre de valeurs de <span class="tt"><a class="el" href="#a3a61aed1c8e95c289c829398d48488de" title="Événement discret survenu sur un pas de simulation ou une action d&#39;interface.">GameEvent</a></span> — pour les tests d'exhaustivité (parcours de l'énumération). </p>
 
 </div>
 </div>

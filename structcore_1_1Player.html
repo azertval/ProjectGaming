@@ -127,6 +127,8 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a303e707a1ca641a73738871981824cdb" id="r_a303e707a1ca641a73738871981824cdb"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a303e707a1ca641a73738871981824cdb">ascentSweepMinX</a> = 0.0f</td></tr>
 <tr class="memdesc:a303e707a1ca641a73738871981824cdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Étendue horizontale (bords gauche/droit, unité monde) couverte par la boîte depuis le <b>début de la montée courante</b> (dernier saut), pas seulement le pas précédent — remise à l'étendue courante à chaque pas où le personnage est au sol ou ne monte pas (<span class="tt">velocity.y &gt;= 0</span>), puis étendue à chaque pas de montée.  <br /></td></tr>
 <tr class="memitem:a1364add72d943586ebc6b36e790bbc58" id="r_a1364add72d943586ebc6b36e790bbc58"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a1364add72d943586ebc6b36e790bbc58">ascentSweepMaxX</a> = 0.0f</td></tr>
+<tr class="memitem:a49c1fc7221a2fe7278429e2404832e89" id="r_a49c1fc7221a2fe7278429e2404832e89"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a49c1fc7221a2fe7278429e2404832e89">justJumped</a> = false</td></tr>
+<tr class="memdesc:a49c1fc7221a2fe7278429e2404832e89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai pendant le pas où un saut (sol, coyote, mur ou aérien) vient de se déclencher ; remis à faux au début du pas suivant.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Marque l'entité <b>contrôlable par le joueur</b> et porte son état de contact au sol. </p>
@@ -306,6 +308,23 @@ Public Attributes</h2></td></tr>
 
 <p>Sauts <b>restants</b> dans le tableau (budget, <span class="tt">EX-GP-024</span>) ; <b>-1 = illimité</b>. </p>
 <p>Décompté par la physique ; initialisé au spawn depuis le niveau. </p>
+
+</div>
+</div>
+<a id="a49c1fc7221a2fe7278429e2404832e89" name="a49c1fc7221a2fe7278429e2404832e89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49c1fc7221a2fe7278429e2404832e89">&#9670;&#160;</a></span>justJumped</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::Player::justJumped = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vrai pendant le pas où un saut (sol, coyote, mur ou aérien) vient de se déclencher ; remis à faux au début du pas suivant. </p>
+<p>Contrairement aux autres champs, ne porte aucun état de simulation persistant — c'est un <b>front</b> à usage externe (<span class="tt">hmi::GameEvents</span>, <span class="tt">LOT-60</span>) : aucune des minuteries existantes (<span class="tt"><a class="el" href="#a57dfc80a1b22f8c10cd6a2cff4b9e47e" title="Temps restant (secondes) de validité d&#39;un saut pré-appuyé avant l&#39;atterrissage (jump buffering) ; rec...">jumpBufferTimer</a></span>...) ne permet de distinguer un saut déclenché d'un buffer simplement expiré sans saut. </p>
 
 </div>
 </div>

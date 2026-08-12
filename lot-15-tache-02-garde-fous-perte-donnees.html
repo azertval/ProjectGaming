@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-15-tache-02-garde-fous-perte-donnees.html','','');
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-15-editeur-industriel_2tache-02-garde-fous-perte-donnees"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-15.html#md_Lot_2LOT-15-editeur-industriel_2epic" title="Lot/LOT-15-editeur-industriel/epic.md">LOT-15</a> · <b>Emplacement :</b> <span class="tt">Core/Levels</span>, <span class="tt">HMI/Interface</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md993"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1001"></a>
 Contexte</h1>
 <p><span class="tt">LevelDraft::resize</span> tronque déjà silencieusement le contenu hors bornes (entrée, sortie, liaisons) — un comportement documenté comme volontaire (« l'avertissement de perte revient à l'appelant <span class="tt">HMI</span> ») mais jamais câblé côté <span class="tt">EditorScreen</span> en LOT-14 TACHE-03. De même, <span class="tt">Échap</span> quitte l'éditeur sans avertir d'éventuelles modifications non enregistrées. Cette tâche pose un mécanisme de confirmation <b>générique</b>, réutilisé par les deux cas (et par TACHE-03 pour l'écrasement de fichier).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md994"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1002"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Requête pure</b> <span class="tt">LevelDraft::wouldResizeDropContent(int width, int height) const</span> (<span class="tt">Core</span>, n'altère rien) : vrai si les nouvelles bornes excluraient l'entrée, la sortie, ou une des deux extrémités d'une liaison de mécanisme.</li>
@@ -106,32 +106,32 @@ Travail à réaliser</h1>
 <li><b>Modifications non enregistrées</b> : drapeau <span class="tt">_dirty</span> sur <span class="tt">EditorScreen</span>, mis à <span class="tt">true</span> par toute mutation du brouillon (peinture, liaison, redimensionnement, annuler/refaire, collage — TACHE-05) et remis à <span class="tt">false</span> après un <span class="tt">saveDraft()</span> réussi. <span class="tt">Échap</span> (hors essai immédiat) avec <span class="tt">_dirty ==
   true</span> pose une <span class="tt">PendingConfirmation</span> (« Quitter sans enregistrer ? ») avant la transition vers le menu ; sans modification en attente, comportement inchangé.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md995"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1003"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="LevelDraft_8h.html" title="Représentation mutable d&#39;un niveau en cours d&#39;édition.">Source/Core/Levels/LevelDraft.h</a></span>/<span class="tt">.cpp</span> (<span class="tt">wouldResizeDropContent</span>).</li>
 <li><span class="tt">Source/HMI/Interface/EditorScreen.h</span>/<span class="tt">.cpp</span> (<span class="tt">PendingConfirmation</span>, <span class="tt">_dirty</span>, câblage redimensionnement/<span class="tt">Échap</span>).</li>
 <li><span class="tt"><a class="el" href="test__level__draft_8cpp.html" title="Tests unitaires du modèle d&#39;édition mutable (LOT-14, EX-EDIT-002 à EX-EDIT-007).">Source/Test/Unit/Core/Levels/test_level_draft.cpp</a></span>, tests système.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md996"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1004"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">wouldResizeDropContent</span> : vrai quand la nouvelle taille exclurait l'entrée/la sortie/une extrémité de liaison ; faux pour un agrandissement ou une réduction qui ne perd rien.</li>
 <li>Redimensionnement destructeur : la grille n'est <b>pas modifiée</b> tant que la confirmation n'est pas acceptée (<span class="tt">Entrée</span>) ; <span class="tt">Échap</span> laisse la grille strictement inchangée.</li>
 <li><span class="tt">_dirty</span> passe à <span class="tt">true</span> après une mutation, à <span class="tt">false</span> après un enregistrement réussi ; <span class="tt">Échap</span> avec <span class="tt">_dirty == true</span> ne quitte pas sans confirmation, <span class="tt">Échap</span> avec <span class="tt">_dirty == false</span> quitte directement (comportement LOT-14 inchangé dans ce cas).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md997"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1005"></a>
 Points d'attention</h1>
 <ul>
 <li><span class="tt">wouldResizeDropContent</span> ne doit dupliquer <b>aucune</b> règle déjà portée par <span class="tt">resize</span>/<span class="tt">toLevel</span> — elle inspecte seulement les positions actuelles contre les nouvelles bornes, sans réimplémenter la validation de <span class="tt">LevelLoader</span>.</li>
 <li>Le mécanisme <span class="tt">PendingConfirmation</span> est conçu pour être réutilisé tel quel par l'avertissement d'écrasement de TACHE-03 : ne pas le spécialiser au seul cas du redimensionnement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md998"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1006"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les deux garde-fous opérationnels et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md999"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1007"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-012</span>. </p>
 </div></div><!-- contents -->

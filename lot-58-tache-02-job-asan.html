@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-58-tache-02-job-asan.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-58-verification-release-analyse_2tache-02-job-asan"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-58.html#md_Lot_2LOT-58-verification-release-analyse_2epic" title="Lot/LOT-58-verification-release-analyse/epic.md">LOT-58</a> · <b>Emplacement :</b> <span class="tt">.github/workflows</span>, <span class="tt">CMakeLists.txt</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2576"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2584"></a>
 Contexte</h1>
 <p>L'option <span class="tt">ENABLE_ASAN</span> est en place depuis le <span class="tt">LOT-01</span> (<span class="tt">CMakeLists.txt</span>, cible interface <span class="tt">project_options</span>). Le <span class="tt">LOT-01</span> demandait « une exécution ponctuelle avec <span class="tt">-DENABLE_ASAN=ON</span> sans rapport d'erreur » — et c'est la dernière fois que le sujet apparaît dans le dépôt.</p>
 <p><span class="tt">EX-NFR-003</span> (« L'empreinte mémoire doit rester stable dans le temps — aucune fuite ; vérifiable via AddressSanitizer ») est <b>orpheline</b> : déclarée dans les exigences non fonctionnelles, référencée par aucun lot. Depuis, cinquante-cinq lots ont ajouté des caches de textures, un atlas procédural, un historique d'annulation à régions, un pipeline de composition de quads et un décodage d'images — tout ce qui manipule des tampons bruts. Rien n'a jamais été instrumenté.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2577"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2585"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Job <span class="tt">sanitize</span></b> dans <span class="tt">ci.yml</span> : configuration <span class="tt">-DENABLE_ASAN=ON</span> (générateur Ninja, x64, environnement MSVC établi par <span class="tt">vcvars64.bat</span> comme le job <span class="tt">build-ninja</span> existant), build des trois cibles de test, puis exécution de <span class="tt">UnitTests</span>, <span class="tt">IntegrationTests</span> et <span class="tt">SystemTests</span>.</li>
@@ -106,7 +106,7 @@ Travail à réaliser</h1>
 <li><b>Traiter les rapports trouvés.</b> Il est probable qu'il y en ait ; c'est le but. Chaque rapport est soit corrigé, soit — s'il vient d'une dépendance tierce ou de l'exécution — consigné explicitement avec sa raison.</li>
 <li><b>Rattacher <span class="tt">EX-NFR-003</span></b> : la référencer depuis cette tâche et l'epic suffit à la sortir de l'orphelinat, mais l'intention est qu'elle soit <b>exécutée</b>, pas seulement citée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2578"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2586"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">.github/workflows/ci.yml</span> — nouveau job.</li>
@@ -114,14 +114,14 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="exigences-non-fonctionnelles_8md.html">Documentation/Specification/exigences-non-fonctionnelles.md</a></span> — <span class="tt">EX-NFR-003</span> mentionne où elle est vérifiée.</li>
 <li>Sources corrigées selon les rapports.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2579"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2587"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Les trois exécutables de test passent sous ASan, sans rapport d'erreur.</li>
 <li><b>Test négatif</b> : une lecture volontairement hors bornes dans un test jetable est bien détectée et fait échouer le job — sans quoi rien ne prouve que l'instrumentation est active.</li>
 <li>Le job reste vert de manière reproductible sur trois exécutions consécutives (un rapport intermittent est un vrai défaut, pas un aléa à ignorer).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2580"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2588"></a>
 Points d'attention</h1>
 <ul>
 <li><b>ASan sous MSVC ne se combine pas avec tout</b> : l'édition de liens incrémentale et certaines options de génération d'informations de débogage sont incompatibles. Le message d'erreur ne nomme pas toujours la cause ; s'attendre à un temps de mise au point sur la configuration.</li>
@@ -129,12 +129,12 @@ Points d'attention</h1>
 <li><b>ASan détecte les débordements et les usages après libération, pas toutes les fuites.</b> Pour l'empreinte mémoire au sens de <span class="tt">EX-NFR-003</span>, viser d'abord la sûreté mémoire, et noter que la stabilité dans la durée reste à vérifier autrement (le budget de rendu mesuré du LOT-62 y contribue).</li>
 <li>Le temps d'exécution est multiplié par deux à trois : vérifier que la durée du job reste acceptable, quitte à n'y exécuter que les tests, jamais l'application.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2581"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2589"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les trois exécutables de test s'exécutent sous AddressSanitizer en CI sans rapport d'erreur, la détection est démontrée active par un test négatif, les rapports trouvés sont corrigés ou consignés, <span class="tt">EX-NFR-003</span> n'est plus orpheline.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2582"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2590"></a>
 Exigences</h1>
 <p><span class="tt">EX-NFR-003</span> (empreinte mémoire, ASan) — rattachée par cette tâche ; réutilise <span class="tt">EX-NFR-041</span> (RAII), <span class="tt">EX-NFR-022</span> (CI), <span class="tt">EX-NFR-010</span> (tests sans GPU), <span class="tt">EX-NFR-020</span> (tests unitaires). </p>
 </div></div><!-- contents -->

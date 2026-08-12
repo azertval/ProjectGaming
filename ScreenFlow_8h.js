@@ -18,7 +18,9 @@ var ScreenFlow_8h =
       [ "hmi::ScreenEvent::ReturnToMenuFromLevelComplete", "namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a9c75b658e80869557fd79c3384167d4a", null ],
       [ "hmi::ScreenEvent::OpenLevelSelect", "namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a9c9c573d9ed480bd96f863bfedcf5e08", null ],
       [ "hmi::ScreenEvent::CloseLevelSelect", "namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90ab8d67e3fbaeb7b592150799fe3c63921", null ],
-      [ "hmi::ScreenEvent::LevelChosen", "namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90acf7b8208a0c2708351e67f4ac50d96d5", null ]
+      [ "hmi::ScreenEvent::LevelChosen", "namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90acf7b8208a0c2708351e67f4ac50d96d5", null ],
+      [ "hmi::ScreenEvent::OpenCredits", "namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a2a1540e25ac6f65503d2539901c3eb7c", null ],
+      [ "hmi::ScreenEvent::CloseCredits", "namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a64b9ec7c728085981f7746660948ed17", null ]
     ] ],
     [ "hmi::ScreenId", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528d", [
       [ "hmi::ScreenId::Menu", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911", null ],
@@ -27,7 +29,8 @@ var ScreenFlow_8h =
       [ "hmi::ScreenId::Options", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8", null ],
       [ "hmi::ScreenId::Pause", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da105b296a83f9c105355403f3332af50f", null ],
       [ "hmi::ScreenId::NiveauTermine", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da5a916597759e7c491e7d0567658bbb21", null ],
-      [ "hmi::ScreenId::LevelSelect", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528daab6c96d1fa3464b353f8da4213d53569", null ]
+      [ "hmi::ScreenId::LevelSelect", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528daab6c96d1fa3464b353f8da4213d53569", null ],
+      [ "hmi::ScreenId::Credits", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51", null ]
     ] ],
     [ "hmi::dressingFor", "namespacehmi.html#a7e42ffeba1ac86e0a292c24dc3b99f94", null ],
     [ "hmi::resolveTransition", "namespacehmi.html#adbeed25b15bad59211fcea357825feec", null ]

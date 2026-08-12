@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-03-tache-05-systemes-world.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-03-fondation-ecs_2tache-05-systemes-world"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-03.html#md_Lot_2LOT-03-fondation-ecs_2epic" title="Lot/LOT-03-fondation-ecs/epic.md">LOT-03</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md429"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md437"></a>
 Contexte</h1>
 <p>Le <span class="tt">World</span> est la <b>façade</b> de l'ECS : il possède les entités (TACHE-02), les pools de composants (TACHE-03), fournit les vues (TACHE-04) et orchestre les <b>systèmes</b>. Les systèmes portent la logique et s'exécutent au <b>pas de temps fixe</b> (<span class="tt">EX-ARCH-030</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md430"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md438"></a>
 Travail à réaliser</h1>
 <ul>
 <li><span class="tt">World</span> :<ul>
@@ -114,14 +114,14 @@ Travail à réaliser</h1>
 </li>
 <li>Intégration avec <span class="tt">FixedTimestep</span> (LOT-01) : l'appelant calcule le nombre de pas et invoque <span class="tt">World::update(fixedDelta)</span> autant de fois.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md431"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md439"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="World_8h.html" title="Façade de l&#39;ECS : entités, composants, vues et orchestration des systèmes.">Source/Core/Ecs/World.h</a></span>, <span class="tt"><a class="el" href="World_8cpp.html">World.cpp</a></span> (nouveau).</li>
 <li><span class="tt"><a class="el" href="ISystem_8h.html" title="Interface d&#39;un système de l&#39;ECS : logique exécutée au pas de temps fixe.">Source/Core/Ecs/ISystem.h</a></span> (nouveau).</li>
 <li><span class="tt">Source/Test/Unit/test_world.cpp</span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md432"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md440"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">addComponent</span>/<span class="tt">getComponent</span>/<span class="tt">hasComponent</span>/<span class="tt">removeComponent</span> cohérents via le <span class="tt">World</span>.</li>
@@ -129,20 +129,20 @@ Tests (obligatoires)</h1>
 <li>Les systèmes enregistrés s'exécutent <b>dans l'ordre</b> ; un système de test compte ses invocations.</li>
 <li><span class="tt">update</span> appelé N fois exécute chaque système N fois (déterminisme du cadencement).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md433"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md441"></a>
 Points d'attention</h1>
 <ul>
 <li>Le <span class="tt">World</span> <b>possède</b> ses ressources (RAII) ; pas d'état global.</li>
 <li>Ordre d'exécution des systèmes <b>déterministe</b> et explicite.</li>
 <li>Conventions : documentation <span class="tt">.h</span> + <span class="tt">.cpp</span>, dépendances <span class="tt">HMI → Core</span> respectées (le <span class="tt">World</span> ignore tout du rendu).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md434"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md442"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Façade complète et testée (<span class="tt">ctest</span> vert) ; orchestration des systèmes déterministe.</li>
 <li>Compile <span class="tt">/W4 /WX</span>, formaté, documenté Doxygen.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md435"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md443"></a>
 Exigences</h1>
 <p><span class="tt">EX-ARCH-010</span>, <span class="tt">EX-ARCH-030</span>, <span class="tt">EX-NFR-010</span>, <span class="tt">EX-NFR-002</span>, <span class="tt">EX-NFR-020</span>. </p>
 </div></div><!-- contents -->

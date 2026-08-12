@@ -11,7 +11,8 @@ var searchData=
   ['initialrotation_8',['initialRotation',['../structhmi_1_1DecorGestureState.html#ac4315a92804bd31d1e64637102d27ddc',1,'hmi::DecorGestureState']]],
   ['initialscale_9',['initialScale',['../structhmi_1_1DecorGestureState.html#afc6f063e736285ed38e02ce48fd5d7df',1,'hmi::DecorGestureState']]],
   ['initialsize_10',['initialSize',['../structhmi_1_1DecorGestureState.html#a61fa4e0463c6e5b88a14adf04aadc9f5',1,'hmi::DecorGestureState']]],
-  ['invalid_5fentity_11',['INVALID_ENTITY',['../namespacecore.html#a2a9202a1a89eacaec610bdc83b0ff272',1,'core']]],
-  ['invalid_5findex_12',['INVALID_INDEX',['../structcore_1_1Entity.html#a215ee621f52074b73615e4c567820e38',1,'core::Entity']]],
-  ['invalid_5fposition_13',['INVALID_POSITION',['../classcore_1_1ComponentPool.html#a1b125a165f29d95bd74bc14cdd40be64',1,'core::ComponentPool']]]
+  ['instances_11',['instances',['../structhmi_1_1AudioEngine_1_1Sample.html#ab37159d7a242ef750ae7d8a8c07d9bab',1,'hmi::AudioEngine::Sample']]],
+  ['invalid_5fentity_12',['INVALID_ENTITY',['../namespacecore.html#a2a9202a1a89eacaec610bdc83b0ff272',1,'core']]],
+  ['invalid_5findex_13',['INVALID_INDEX',['../structcore_1_1Entity.html#a215ee621f52074b73615e4c567820e38',1,'core::Entity']]],
+  ['invalid_5fposition_14',['INVALID_POSITION',['../classcore_1_1ComponentPool.html#a1b125a165f29d95bd74bc14cdd40be64',1,'core::ComponentPool']]]
 ];

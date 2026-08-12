@@ -150,6 +150,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a0dcbcc0d9c69040710cb070afe2e828c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit l'outil d'édition actif (pinceau, rectangle, sélection, lien, texture par instance).  <br /></td></tr>
 <tr class="memitem:a30fb475c885ff369c5710284cf1450eb" id="r_a30fb475c885ff369c5710284cf1450eb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a30fb475c885ff369c5710284cf1450eb">setLocalization</a> (const <a class="el" href="classhmi_1_1Localization.html">Localization</a> *loc) noexcept</td></tr>
 <tr class="memdesc:a30fb475c885ff369c5710284cf1450eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fournit le catalogue de traduction (les messages d'état émis sont alors localisés).  <br /></td></tr>
+<tr class="memitem:a62aff79bac6ddb8e2e50275758af169c" id="r_a62aff79bac6ddb8e2e50275758af169c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a62aff79bac6ddb8e2e50275758af169c">setAudioEngine</a> (<a class="el" href="classhmi_1_1AudioEngine.html">AudioEngine</a> *engine) noexcept</td></tr>
+<tr class="memdesc:a62aff79bac6ddb8e2e50275758af169c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fournit le moteur audio (<span class="tt">LOT-60</span> TACHE-03) : les événements de jeu détectés par <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> (saut, atterrissage, dash, mécanismes, mort, victoire) déclenchent alors un son.  <br /></td></tr>
 <tr class="memitem:a30002a154b0395cdc334fe7313e08219" id="r_a30002a154b0395cdc334fe7313e08219"><td class="memItemLeft"><a class="el" href="classhmi_1_1GameKeyBindings.html">hmi::GameKeyBindings</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a30002a154b0395cdc334fe7313e08219">gameBindings</a> () noexcept</td></tr>
 <tr class="memdesc:a30002a154b0395cdc334fe7313e08219"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accès <b>modifiable</b> aux touches de jeu (pour le remappage) : la session de jeu lit ces mêmes bindings, donc un changement s'applique immédiatement.  <br /></td></tr>
 <tr class="memitem:adcb2ea82e1836a4256705bb63674d533" id="r_adcb2ea82e1836a4256705bb63674d533"><td class="memItemLeft"><a class="el" href="classhmi_1_1GamepadBindings.html">hmi::GamepadBindings</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#adcb2ea82e1836a4256705bb63674d533">gamepadBindings</a> () noexcept</td></tr>
@@ -401,6 +403,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:ab08f60057375f2e16417a18a1cc07d6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dernier zoom notifié (<span class="tt"><a class="el" href="#a30636eb8e2e7cd9e0b6100c3b7831964" title="Le zoom d&#39;édition vient de changer (molette, pan, recadrage) — consommé par la barre d&#39;état (LOT-57 T...">zoomChanged</a></span>), évite l'émission en boucle.  <br /></td></tr>
 <tr class="memitem:ae96e120c86e828f65d27936e5941297d" id="r_ae96e120c86e828f65d27936e5941297d"><td class="memItemLeft">const <a class="el" href="classhmi_1_1Localization.html">Localization</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ae96e120c86e828f65d27936e5941297d">_loc</a> = nullptr</td></tr>
 <tr class="memdesc:ae96e120c86e828f65d27936e5941297d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sélection mémorisée (bornes min/max incluses), pour copier (<span class="tt">Ctrl+C</span>).  <br /></td></tr>
+<tr class="memitem:a56722605e0ce1c86c80d4630b5f441a7" id="r_a56722605e0ce1c86c80d4630b5f441a7"><td class="memItemLeft"><a class="el" href="classhmi_1_1AudioEngine.html">AudioEngine</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a56722605e0ce1c86c80d4630b5f441a7">_audioEngine</a> = nullptr</td></tr>
+<tr class="memdesc:a56722605e0ce1c86c80d4630b5f441a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moteur audio (<span class="tt">LOT-60</span> TACHE-03), non possédé ; nul = sons de jeu désactivés (<span class="tt">EX-NFR-040</span>).  <br /></td></tr>
 <tr class="memitem:a5726c12fdeac921d24dbc81a45e50474" id="r_a5726c12fdeac921d24dbc81a45e50474"><td class="memItemLeft">std::optional&lt; std::pair&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5726c12fdeac921d24dbc81a45e50474">_selection</a></td></tr>
 <tr class="memitem:a2e4573aa2c53032e6c6efcb236c9e7c5" id="r_a2e4573aa2c53032e6c6efcb236c9e7c5"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2e4573aa2c53032e6c6efcb236c9e7c5">_pendingLink</a></td></tr>
 <tr class="memdesc:a2e4573aa2c53032e6c6efcb236c9e7c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case du déclencheur/de la cible en attente d'appariement (outil Lien, premier clic).  <br /></td></tr>
@@ -2782,6 +2786,34 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
+<a id="a62aff79bac6ddb8e2e50275758af169c" name="a62aff79bac6ddb8e2e50275758af169c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62aff79bac6ddb8e2e50275758af169c">&#9670;&#160;</a></span>setAudioEngine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::setAudioEngine </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmi_1_1AudioEngine.html">AudioEngine</a> *</td>          <td class="paramname"><span class="paramname"><em>engine</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fournit le moteur audio (<span class="tt">LOT-60</span> TACHE-03) : les événements de jeu détectés par <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> (saut, atterrissage, dash, mécanismes, mort, victoire) déclenchent alors un son. </p>
+<p><span class="tt">nullptr</span> (défaut) désactive silencieusement les sons de jeu, sans plantage (<span class="tt">EX-NFR-040</span>) — état de démarrage légitime avant que <span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">MainWindow</a></span> n'ait construit son moteur. Non possédé : l'appelant (<span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">MainWindow</a></span>) reste propriétaire. </p>
+
+</div>
+</div>
 <a id="a769a139c89b945142b32378b806d1b49" name="a769a139c89b945142b32378b806d1b49"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a769a139c89b945142b32378b806d1b49">&#9670;&#160;</a></span>setDecorLayer()</h2>
 
@@ -3757,6 +3789,30 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a56722605e0ce1c86c80d4630b5f441a7" name="a56722605e0ce1c86c80d4630b5f441a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56722605e0ce1c86c80d4630b5f441a7">&#9670;&#160;</a></span>_audioEngine</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1AudioEngine.html">AudioEngine</a>* hmi::GameViewport::_audioEngine = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Moteur audio (<span class="tt">LOT-60</span> TACHE-03), non possédé ; nul = sons de jeu désactivés (<span class="tt">EX-NFR-040</span>). </p>
 
 </div>
 </div>

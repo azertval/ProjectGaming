@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-55-tache-01-quad-ombre.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-55-ombres-plan-physique_2tache-01-quad-ombre"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-55.html#md_Lot_2LOT-55-ombres-plan-physique_2epic" title="Lot/LOT-55-ombres-plan-physique/epic.md">LOT-55</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2443"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2451"></a>
 Contexte</h1>
 <p>Le calque <em>Shadow</em> de <em>RenderLayer</em> a été réservé en LOT-40 et n'a jamais été utilisé. Cette tâche est la seule à l'activer, et elle reste volontairement simple : un quad sombre décalé sous chaque tuile solide, dessiné avant la tuile elle-même.</p>
 <p>L'objectif est de <b>lecture</b>, pas d'esthétique : donner du relief au plan physique pour qu'il se détache de ce qui ne l'est pas. C'est le complément du calque de premier plan (LOT-49) — l'un dit « ceci passe devant vous, donc ne vous porte pas », l'autre « ceci est en relief, donc vous porte ».</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2444"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2452"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Émission</b> : pour chaque tuile <b>solide</b> au sens de <span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></span>/<span class="tt">TileMap::isSolid</span> (aucune autre lecture de <span class="tt">Core</span>), un quad sombre semi-transparent, décalé d'un offset constant, sur le calque <em>Shadow</em>, donc <b>avant</b> les tuiles.</li>
@@ -107,18 +107,18 @@ Travail à réaliser</h1>
 <li><b>Culling</b> : les quads d'ombre passent par le culling comme le reste (LOT-40, TACHE-05) — ils doublent le nombre de primitives du plan physique, c'est le principal effet de ce lot sur le budget (<span class="tt">EX-NFR-005</span>).</li>
 <li><b>Silhouettes et blocs réduits : hors de cette tâche.</b> Les pentes et arrondis ne sont pas solides au sens de <span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></span> (résolus par des passes de suivi dédiées) et n'auraient donc aucune ombre ; les blocs réduits n'occupent qu'une fraction de leur case. Les deux sont traités en <a class="el" href="lot-55-tache-03-ombres-silhouettes.html#md_Lot_2LOT-55-ombres-plan-physique_2tache-03-ombres-silhouettes" title="Lot/LOT-55-ombres-plan-physique/tache-03-ombres-silhouettes.md">TACHE-03</a>, qui donne à l'ombre la forme réelle de la tuile. Cette tâche se limite au quad rectangulaire pleine case des types <span class="tt">Solid</span> et <span class="tt">Block</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2445"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2453"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/ShadowRenderer.{h,cpp}</span> (nouveau) : <span class="tt"><a class="el" href="namespacehmi.html#a2e6c3c847f3e8705f25938eb17ecc2b2" title="Compose une ombre décalée pour chaque tuile physique visible, sur RenderLayer::Shadow.">hmi::composeShadows</a></span>, unique pour TACHE-01 et TACHE-03 (voir Réalisation ci-dessous).</li>
 <li><span class="tt">Source/HMI/Graphics/SpriteRenderer.{h,cpp}</span> (appel depuis <span class="tt">SpriteRenderer::render</span>, paramètre <span class="tt">doorCollision</span>), <span class="tt"><a class="el" href="DraftRenderer_8cpp.html">Source/HMI/Graphics/DraftRenderer.cpp</a></span> (appel gardé par <span class="tt">LayerVisibility</span>), <span class="tt"><a class="el" href="GameSession_8cpp.html">Source/HMI/Game/GameSession.cpp</a></span> (transmet <span class="tt">MechanismController::collisionMap()</span>).</li>
 <li><span class="tt"><a class="el" href="test__shadow__render_8cpp.html" title="Tests unitaires des ombres du plan physique (LOT-55, EX-REN-045).">Source/Test/Unit/HMI/Graphics/test_shadow_render.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2446"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2454"></a>
 Réalisation</h1>
 <p><span class="tt"><a class="el" href="namespacehmi.html#a2e6c3c847f3e8705f25938eb17ecc2b2" title="Compose une ombre décalée pour chaque tuile physique visible, sur RenderLayer::Shadow.">hmi::composeShadows</a></span> parcourt les mêmes entités que <span class="tt"><a class="el" href="namespacehmi.html#af1b4dc88cfb3af31fc25a961e7a410b4" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span> (<span class="tt"><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">core::Transform</a></span> + <span class="tt"><a class="el" href="structhmi_1_1TileSkinTag.html" title="Type de tuile et voisinage solide d&#39;une entité affichée, pour la résolution de son skin.">hmi::TileSkinTag</a></span>) et ne retient que celles qui projettent une ombre (<span class="tt">core::isSolid(type) || hmi::hasSilhouette(type)</span>, plus le cas particulier de la porte ci-dessous). La région échantillonnée est directement <span class="tt">hmi::regionForTile(type)</span> — <b>le même</b> atlas procédural que le mode Physique et que le détourage de silhouette (<span class="tt">LOT-42</span>) : cette région est déjà opaque exactement là où la matière est présente (case pleine, ou silhouette de pente/arrondi) et transparente ailleurs, donc teinter le quad en noir semi-transparent donne l'ombre à sa forme réelle sans réimplémenter la géométrie ni ajouter de cache dédié. Un bloc réduit hérite de sa taille réelle via <span class="tt"><a class="el" href="structcore_1_1Transform.html#a944094d20677cd32afa8804686f9c1a9" title="Facteurs d&#39;échelle horizontal et vertical (1 = taille nominale).">core::Transform::scale</a></span> (<span class="tt"><a class="el" href="namespacecore.html#a9b733af18a1507c5dc7b4ffdd88d8b6a" title="Facteur de taille visuel/collision d&#39;une tuile bloc réduite (EX-GP-005).">core::tileVisualScale</a></span>), déjà porté par l'entité comme pour son propre sprite. Une seule fonction couvre donc à la fois TACHE-01 (quad plein) et TACHE-03 (silhouettes, blocs réduits) : la distinction entre les deux n'existe plus en pratique une fois la région réutilisée telle quelle.</p>
 <p>Pour la porte (source de solidité, cf. « Points d'attention ») : <span class="tt">TileSkinTag::type</span> reste <span class="tt">TileType::Door</span> quel que soit l'état du mécanisme (figé au chargement, jamais réécrit) — le choix retenu est donc de suivre l'état courant, via un paramètre optionnel <span class="tt">doorCollision</span> (la grille <span class="tt"><a class="el" href="classcore_1_1MechanismController.html#a465aa3ad3194fcb485d656dbe0b292c2">core::MechanismController::collisionMap()</a></span>) plutôt que le type statique. <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> le fournit toujours ; <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span> (aucune simulation de mécanisme) passe <span class="tt">nullptr</span>, et une porte n'y projette donc jamais d'ombre — état normal de l'éditeur, pas un défaut.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2447"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2455"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Une tuile <span class="tt">Solid</span> ou <span class="tt">Block</span> produit un quad sur le calque <em>Shadow</em>, décalé de l'offset attendu ; une tuile non solide n'en produit aucun — asserté via le <em>QuadRecorder</em>.</li>
@@ -126,19 +126,19 @@ Tests (obligatoires)</h1>
 <li>Les ombres sont émises <b>avant</b> les tuiles dans l'ordre des primitives.</li>
 <li>Sans GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2448"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2456"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Aucun effet sur le gameplay</b> (<span class="tt">EX-ARCH-012</span>) : les ombres sont purement décoratives et ne doivent apparaître dans aucune grille de collision ni boîte de danger.</li>
 <li>Une porte <b>fermée</b> est solide, une porte <b>ouverte</b> ne l'est plus : si l'ombre est calculée depuis la grille de collision (<span class="tt">MechanismController::collisionMap</span>) plutôt que depuis le niveau, elle apparaîtra et disparaîtra avec l'état de la porte. Décider lequel des deux est voulu — suivre l'état est probablement le bon choix ici, contrairement aux raccords automatiques (LOT-42, TACHE-02) où c'est l'inverse. Le noter, car les deux choix opposés dans le même programme méritent une justification explicite.</li>
 <li>Un niveau <b>sans</b> fond ni décor d'arrière-plan n'a aucune surface pour recevoir l'ombre : ce n'est pas un cas d'erreur, aucun traitement particulier n'est requis.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2449"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2457"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les tuiles pleines projettent une ombre sur ce qui se trouve derrière elles, en mode Texture uniquement, avant leur propre dessin ; la source de solidité (grille du niveau ou de collision) est tranchée et documentée ; aucun effet sur le gameplay ; assertions sans GPU vertes ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2450"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2458"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-045</span> (ombres du plan physique) ; réutilise <span class="tt">EX-REN-043</span> (calques), <span class="tt">EX-REN-044</span> (fond), <span class="tt">EX-REN-046</span> (bascule), <span class="tt">EX-DEC-002</span> (couches de décor), <span class="tt">EX-GP-001</span> (tuiles solides), <span class="tt">EX-ARCH-012</span> (rendu sans effet sur la simulation), <span class="tt">EX-NFR-005</span> (culling et budget). </p>
 </div></div><!-- contents -->

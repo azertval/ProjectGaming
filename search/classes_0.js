@@ -16,5 +16,6 @@ var searchData=
   ['assetvalidation_13',['AssetValidation',['../structhmi_1_1AssetValidation.html',1,'hmi']]],
   ['atlasgridposition_14',['AtlasGridPosition',['../structhmi_1_1AtlasGridPosition.html',1,'hmi']]],
   ['atlasregion_15',['AtlasRegion',['../structcore_1_1AtlasRegion.html',1,'core']]],
-  ['autotilecell_16',['AutotileCell',['../structhmi_1_1AutotileCell.html',1,'hmi']]]
+  ['audioengine_16',['AudioEngine',['../classhmi_1_1AudioEngine.html',1,'hmi']]],
+  ['autotilecell_17',['AutotileCell',['../structhmi_1_1AutotileCell.html',1,'hmi']]]
 ];

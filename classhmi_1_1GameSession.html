@@ -112,6 +112,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:af73e9ba375e947026121ce9e52d0e1aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Désigne le catalogue de skins et le jeu à utiliser en mode Texture (<span class="tt">LOT-42</span>).  <br /></td></tr>
 <tr class="memitem:abe7a3f556c45b3b07541f43b6d8461fa" id="r_abe7a3f556c45b3b07541f43b6d8461fa"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#abe7a3f556c45b3b07541f43b6d8461fa">loaded</a> () const</td></tr>
 <tr class="memitem:ab05b61b6e50db6f365702dad1810732f" id="r_ab05b61b6e50db6f365702dad1810732f"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ab05b61b6e50db6f365702dad1810732f">loadError</a> () const</td></tr>
+<tr class="memitem:ab137daa44dbc47ccae327bd8cf3efa12" id="r_ab137daa44dbc47ccae327bd8cf3efa12"><td class="memItemLeft">const std::vector&lt; <a class="el" href="namespacehmi.html#a3a61aed1c8e95c289c829398d48488de">GameEvent</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ab137daa44dbc47ccae327bd8cf3efa12">lastStepEvents</a> () const noexcept</td></tr>
+<tr class="memdesc:ab137daa44dbc47ccae327bd8cf3efa12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Événements de jeu détectés lors du <b>dernier</b> appel à <span class="tt"><a class="el" href="#a890870ab22ce42a6b1d67f20e7209aa2" title="Simule le niveau d&#39;un pas fixe (mécanismes, blocs, physique, animation, dangers).">update()</a></span> (<span class="tt">LOT-60 TACHE-03</span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -183,6 +185,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a8bf7fb9a5061ae37b5918d8668e3d981" id="r_a8bf7fb9a5061ae37b5918d8668e3d981"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1MechanismVisualState.html">MechanismVisualState</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8bf7fb9a5061ae37b5918d8668e3d981">_dangerMoverVisuals</a></td></tr>
 <tr class="memitem:a26dc0fafe6519dee52b2e27800ae82f9" id="r_a26dc0fafe6519dee52b2e27800ae82f9"><td class="memItemLeft">std::set&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a26dc0fafe6519dee52b2e27800ae82f9">_warnedMissingMechanismClips</a></td></tr>
 <tr class="memdesc:a26dc0fafe6519dee52b2e27800ae82f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Couples (asset, clip attendu) deja signales comme manquants : un seul message par combinaison pour toute la session, meme principe que _warnedExcludedAnimations (LOT-47 TACHE-02).  <br /></td></tr>
+<tr class="memitem:a23e693840e957120d54a6ea3aa94038c" id="r_a23e693840e957120d54a6ea3aa94038c"><td class="memItemLeft"><a class="el" href="structhmi_1_1PlayerEventState.html">PlayerEventState</a>&#160;</td><td class="memItemRight"><a class="el" href="#a23e693840e957120d54a6ea3aa94038c">_previousPlayerEventState</a></td></tr>
+<tr class="memitem:ada6626ae59a6387c4d59672fbba2706a" id="r_ada6626ae59a6387c4d59672fbba2706a"><td class="memItemLeft"><a class="el" href="structhmi_1_1MechanismEventState.html">MechanismEventState</a>&#160;</td><td class="memItemRight"><a class="el" href="#ada6626ae59a6387c4d59672fbba2706a">_previousMechanismEventState</a></td></tr>
+<tr class="memitem:a79cd31590d71f5dade80a94be25eb357" id="r_a79cd31590d71f5dade80a94be25eb357"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a79cd31590d71f5dade80a94be25eb357">_gameEventsInitialized</a> = false</td></tr>
+<tr class="memitem:a70365096677c1ede265ae6bf72fcbdf0" id="r_a70365096677c1ede265ae6bf72fcbdf0"><td class="memItemLeft">std::vector&lt; <a class="el" href="namespacehmi.html#a3a61aed1c8e95c289c829398d48488de">GameEvent</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a70365096677c1ede265ae6bf72fcbdf0">_lastStepEvents</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Simule et rend <b>un seul niveau</b> (déjà validé, en mémoire), indépendamment de toute infrastructure d'écran. </p>
@@ -362,6 +368,34 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab137daa44dbc47ccae327bd8cf3efa12" name="ab137daa44dbc47ccae327bd8cf3efa12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab137daa44dbc47ccae327bd8cf3efa12">&#9670;&#160;</a></span>lastStepEvents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="namespacehmi.html#a3a61aed1c8e95c289c829398d48488de">GameEvent</a> &gt; &amp; hmi::GameSession::lastStepEvents </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Événements de jeu détectés lors du <b>dernier</b> appel à <span class="tt"><a class="el" href="#a890870ab22ce42a6b1d67f20e7209aa2" title="Simule le niveau d&#39;un pas fixe (mécanismes, blocs, physique, animation, dangers).">update()</a></span> (<span class="tt">LOT-60 TACHE-03</span>). </p>
+<p>Transitions du personnage et des mécanismes, plus l'issue du pas (<span class="tt">Died</span>/<span class="tt">LevelCompleted</span>). Vide si aucune transition, ou lors du tout premier pas après un chargement (état initial, rien à signaler — même principe que <span class="tt"><a class="el" href="structhmi_1_1MechanismVisualState.html#a76732eae8559e530eb7671cc13933192">MechanismVisualState::initialized</a></span>). Présentation pure : ne modifie jamais la simulation (<span class="tt">EX-ARCH-012</span>), à consommer par l'appelant pour déclencher des sons (<span class="tt">hmi::SoundTriggers</span>) ou, plus tard, des particules (<span class="tt">LOT-53</span>). </p>
 
 </div>
 </div>
@@ -1253,6 +1287,28 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a79cd31590d71f5dade80a94be25eb357" name="a79cd31590d71f5dade80a94be25eb357"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79cd31590d71f5dade80a94be25eb357">&#9670;&#160;</a></span>_gameEventsInitialized</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::GameSession::_gameEventsInitialized = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a42db0eaccb9a6e65f87e4dcf08287151" name="a42db0eaccb9a6e65f87e4dcf08287151"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a42db0eaccb9a6e65f87e4dcf08287151">&#9670;&#160;</a></span>_gamepadBindings</h2>
 
@@ -1296,6 +1352,28 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Scène composée du HUD, distincte de celle de <span class="tt"><a class="el" href="#a7673a4eb5fbc79c45bbbdfe2dd01c0a2">_renderer</a></span> (<span class="tt">LOT-52</span> TACHE-02) : jamais de cadrage de culling actif dessus (<span class="tt"><a class="el" href="classhmi_1_1ComposedScene.html#a55f90d51ee8eb346b47163efd1b78301" title="Restreint la composition aux primitives visibles dans un cadrage donné (EX-NFR-005).">ComposedScene::setVisibleBounds</a></span>), le texte est en espace écran et n'a pas de position monde. </p>
+
+</div>
+</div>
+<a id="a70365096677c1ede265ae6bf72fcbdf0" name="a70365096677c1ede265ae6bf72fcbdf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70365096677c1ede265ae6bf72fcbdf0">&#9670;&#160;</a></span>_lastStepEvents</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="namespacehmi.html#a3a61aed1c8e95c289c829398d48488de">GameEvent</a>&gt; hmi::GameSession::_lastStepEvents</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1486,6 +1564,50 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structcore_1_1Entity.html">core::Entity</a> hmi::GameSession::_player {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ada6626ae59a6387c4d59672fbba2706a" name="ada6626ae59a6387c4d59672fbba2706a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada6626ae59a6387c4d59672fbba2706a">&#9670;&#160;</a></span>_previousMechanismEventState</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1MechanismEventState.html">MechanismEventState</a> hmi::GameSession::_previousMechanismEventState</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a23e693840e957120d54a6ea3aa94038c" name="a23e693840e957120d54a6ea3aa94038c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23e693840e957120d54a6ea3aa94038c">&#9670;&#160;</a></span>_previousPlayerEventState</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1PlayerEventState.html">PlayerEventState</a> hmi::GameSession::_previousPlayerEventState</td>
         </tr>
       </table>
   </td>

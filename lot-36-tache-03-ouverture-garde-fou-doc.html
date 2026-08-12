@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-36-tache-03-ouverture-garde-fou-doc.html','',''); 
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-36-refonte-ihm-qt-niveaux_2tache-03-ouverture-garde-fou-doc"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-36.html#md_Lot_2LOT-36-refonte-ihm-qt-niveaux_2epic" title="Lot/LOT-36-refonte-ihm-qt-niveaux/epic.md">LOT-36</a> · <b>Emplacement :</b> <span class="tt">Source/Editor</span>, <span class="tt">Documentation</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1757"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1765"></a>
 Contexte</h1>
 <p>Relie le panneau « Niveaux » à l'éditeur (LOT-35) : <b>ouvrir</b> un niveau le charge dans le brouillon, en protégeant les <b>modifications non enregistrées</b>, et affiche lisiblement les <b>erreurs de chargement</b>. Clôt le lot par la documentation et la vérification.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1758"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1766"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Ouverture</b> : double-clic / Entrée sur un niveau → <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html#a49dba279ed545b7230ceeb8752e63543" title="Charge un niveau depuis un fichier.">core::LevelLoader::loadFromFile</a></span> → <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a481be057c3f8c05cfe5e19a89d93231c" title="Crée un brouillon à partir d&#39;un niveau déjà chargé (édition d&#39;un fichier existant).">core::LevelDraft::fromLevel</a></span>. En cas d'échec, afficher le message issu de <span class="tt">LevelValidationError</span> (parse, hors bornes, id manquant, entrée/sortie non unique, mécanisme non résolu…) sans crash.</li>
@@ -110,13 +110,13 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1759"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1767"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Editor/</span> (ouverture, garde-fou, indicateurs).</li>
 <li><span class="tt"><a class="el" href="guide-editeur_8md.html">Documentation/Guide/guide-editeur.md</a></span> (ou <span class="tt"><a class="el" href="guide-niveaux_8md.html">guide-niveaux.md</a></span>), <span class="tt"><a class="el" href="editeur-niveaux_8md.html">Documentation/Specification/editeur-niveaux.md</a></span>, cahier de test généré.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1760"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1768"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Logique de garde-fou testable</b> : la décision « faut-il demander confirmation avant d'ouvrir ? » (fonction de l'état <span class="tt">dirty</span>) et le mapping <span class="tt">LevelValidationError</span> → message sont vérifiables sans Qt.</li>
@@ -124,19 +124,19 @@ Tests (obligatoires)</h1>
 <li><b><span class="tt">--check</span> du cahier de test</b> vert.</li>
 <li><b>Vérification manuelle</b> : ouvrir un niveau valide ; ouvrir avec un brouillon modifié (les trois branches Enregistrer/Abandonner/Annuler) ; ouvrir un fichier corrompu (message lisible, pas de crash).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1761"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1769"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne jamais perdre un brouillon</b> : le garde-fou couvre l'ouverture d'un autre niveau, la création, et la fermeture de l'application.</li>
 <li><b>Messages d'erreur compréhensibles</b> : réutiliser la catégorisation <span class="tt">LevelValidationError</span> existante plutôt qu'un message générique.</li>
 <li><b>Doxygen 1.9.8</b> : générer la doc localement avant push.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1762"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1770"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Ouverture fiable avec garde-fou <span class="tt">dirty</span> et erreurs lisibles ; guide et exigences à jour ; tests verts (dont cahier <span class="tt">--check</span>) ; <span class="tt">/W4 /WX</span>, Doxygen, lint verts ; critères du <a class="el" href="lot-36.html#md_Lot_2LOT-36-refonte-ihm-qt-niveaux_2epic" title="Lot/LOT-36-refonte-ihm-qt-niveaux/epic.md">LOT-36</a> satisfaits (vérification manuelle).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1763"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1771"></a>
 Exigences</h1>
 <p><span class="tt">EX-IHM-020</span>/<span class="tt">EX-IHM-021</span> ; reconduit <span class="tt">EX-EDIT-001</span> ; réutilise <span class="tt">EX-EDIT-006</span>/<span class="tt">EX-EDIT-007</span>, <span class="tt">EX-NFR-010</span>, <span class="tt">EX-NFR-040</span>. </p>
 </div></div><!-- contents -->

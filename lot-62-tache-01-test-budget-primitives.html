@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-62-tache-01-test-budget-primitives.html','',''); }
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-62-budget-rendu-mesure_2tache-01-test-budget-primitives"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-62.html#md_Lot_2LOT-62-budget-rendu-mesure_2epic" title="Lot/LOT-62-budget-rendu-mesure/epic.md">LOT-62</a> · <b>Emplacement :</b> <span class="tt">Source/Test</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2767"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2780"></a>
 Contexte</h1>
 <p><span class="tt">LOT-40</span> a rendu le rendu vérifiable sans GPU : <span class="tt"><a class="el" href="classhmi_1_1ComposedScene.html" title="Liste ordonnée des primitives d&#39;une image, indépendante de Direct3D.">hmi::ComposedScene</a></span> produit la liste ordonnée des primitives d'une image, <span class="tt"><a class="el" href="classhmi_1_1QuadRecorder.html" title="Capture la liste des primitives d&#39;une image et répond aux questions qu&#39;un test se pose.">hmi::QuadRecorder</a></span> la capture, et <span class="tt">statistics()</span> en donne les compteurs. Vingt tests utilisent déjà cette capacité pour vérifier l'<b>ordre</b> des calques, la <b>résolution</b> des textures ou l'<b>isolement</b> d'un calque.</p>
 <p>Aucun ne vérifie le <b>volume</b>. C'est pourtant la seule chose que <span class="tt">EX-NFR-005</span> demande de borner, et la seule qui se dégrade silencieusement : un calque émis deux fois, un culling contourné par un nouveau type de primitive, un fond redessiné par salle plutôt que par écran. Rien de tout cela ne casse un test existant — l'ordre reste bon, les textures aussi.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2768"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2781"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Plafond par niveau livré</b>, en constante nommée, pour le nombre de primitives <b>composées</b> et <b>soumises</b> : chaque <span class="tt">demo-*.json</span> est chargé, une caméra de référence est posée (position d'entrée, cadrage standard), la scène est composée, les compteurs sont comparés au plafond.</li>
@@ -107,14 +107,14 @@ Travail à réaliser</h1>
 <li><b>Ventilation par calque</b> disponible dans le message d'échec : savoir que le total a doublé sans savoir quel calque a doublé rend le test pénible à exploiter. <span class="tt"><a class="el" href="classhmi_1_1LayerVisibility.html" title="Jeu de visibilités par calque, pour le mode d&#39;inspection « définition des textures » (LOT-51).">hmi::LayerVisibility</a></span> (<span class="tt">LOT-51</span>) permet déjà d'isoler un calque — le réutiliser.</li>
 <li><b>Test négatif</b> dans la même tâche : composer volontairement un calque deux fois et vérifier que le test échoue. C'est ce qui prouve que le plafond n'est pas simplement très large.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2769"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2782"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Test/Unit/HMI/Graphics/test_render_budget.cpp</span> (nouveau).</li>
 <li><span class="tt">Source/Test/CMakeLists.txt</span>.</li>
 <li><span class="tt">Source/HMI/Graphics/ComposedScene.{h,cpp}</span> — ventilation par calque dans les statistiques, si elle n'est pas déjà accessible.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2770"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2783"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Chaque <span class="tt">demo-*.json</span> livré reste sous son plafond, dans les deux modes de rendu.</li>
@@ -123,7 +123,7 @@ Tests (obligatoires)</h1>
 <li>Les compteurs sont <b>déterministes</b> : deux compositions de la même scène avec la même caméra donnent exactement le même nombre.</li>
 <li>Tests <b>sans GPU</b>, sans Qt.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2771"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2784"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Choisir des plafonds larges.</b> Un plafond serré transforme chaque lot de contenu en mise à jour de constantes, et la constante finit par être ajustée sans réflexion — le test ne vérifie alors plus rien. Viser l'ordre de grandeur, pas la valeur exacte.</li>
@@ -132,12 +132,12 @@ Points d'attention</h1>
 <li>Ce test s'ajoute à <span class="tt">UnitTests</span>, qui compile déjà <span class="tt"><a class="el" href="ComposedScene_8cpp.html">ComposedScene.cpp</a></span>, <span class="tt"><a class="el" href="ShadowRenderer_8cpp.html">ShadowRenderer.cpp</a></span>, <span class="tt"><a class="el" href="BackgroundRenderer_8cpp.html">BackgroundRenderer.cpp</a></span> et les autres composeurs purs — vérifier qu'aucune source supplémentaire touchant le GPU n'est nécessaire.</li>
 <li><b>Ne pas ajuster un plafond pour faire passer le test.</b> Un dépassement est un résultat : il se consigne, et se corrige hors de ce lot.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2772"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2785"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Chaque niveau livré est borné par un plafond nommé dans les deux modes, l'efficacité du culling est assertée, l'échec nomme le calque fautif, le test négatif démontre la sensibilité du contrôle, et tout s'exécute sans GPU de façon déterministe ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2773"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2786"></a>
 Exigences</h1>
 <p>Réutilise <span class="tt">EX-NFR-005</span> (primitives bornées et observables — honorée ici), <span class="tt">EX-NFR-004</span> (vérification sans GPU), <span class="tt">EX-REN-015</span> (cadrage par salle), <span class="tt">EX-REN-043</span> (calques), <span class="tt">EX-NFR-020</span> (tests). </p>
 </div></div><!-- contents -->

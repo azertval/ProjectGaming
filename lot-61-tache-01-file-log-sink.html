@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-61-tache-01-file-log-sink.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-61-diagnostics-version-publiee_2tache-01-file-log-sink"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-61.html#md_Lot_2LOT-61-diagnostics-version-publiee_2epic" title="Lot/LOT-61-diagnostics-version-publiee/epic.md">LOT-61</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Diagnostics</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2736"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2749"></a>
 Contexte</h1>
 <p><span class="tt">Source/Core/Diagnostics/</span> contient deux sinks : <span class="tt">ConsoleLogSink</span> (écrit sur la sortie standard) et <span class="tt">MemoryLogSink</span> (accumule en mémoire, consulté par l'outil de session du <span class="tt">LOT-15</span>). Tous deux implémentent <span class="tt"><a class="el" href="classcore_1_1ILogSink.html" title="Destination vers laquelle un Logger diffuse ses messages.">core::ILogSink</a></span>, dont le contrat est déjà couvert par <span class="tt"><a class="el" href="test__sinks_8cpp.html" title="Tests unitaires des sinks de journalisation.">Source/Test/Unit/Core/Diagnostics/test_sinks.cpp</a></span>.</p>
 <p>Il manque le troisième, celui qui survit à la fermeture du programme. Le format de ligne n'est pas à réinventer : <span class="tt">core::LogFormat</span> le produit déjà, et <span class="tt"><a class="el" href="namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b" title="Assemble les messages de log en un texte (une ligne par message).">hmi::serializeSessionLog</a></span> sait assembler des entrées mémorisées en un texte — c'est exactement ce qu'un fichier doit contenir.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2737"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2750"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">core::FileLogSink</span></b> implémentant <span class="tt"><a class="el" href="classcore_1_1ILogSink.html" title="Destination vers laquelle un Logger diffuse ses messages.">core::ILogSink</a></span> : ouverture à la construction, écriture d'une ligne par message via <span class="tt">core::LogFormat</span>, fermeture garantie par RAII (<span class="tt">EX-NFR-041</span>).</li>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 <li><b>Écriture vidée à intervalle raisonnable</b> : un tampon non vidé perd précisément les derniers messages, c'est-à-dire ceux qui décrivent le défaut. Vider au moins à chaque message de niveau <span class="tt">Error</span>, et à la destruction.</li>
 <li><b>Aucune dépendance nouvelle</b> : <span class="tt">std::filesystem</span> et <span class="tt">std::ofstream</span> suffisent ; le sink vit dans <span class="tt">Core</span>, qui ne connaît ni Qt ni le système graphique.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2738"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2751"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Core/Diagnostics/FileLogSink.{h,cpp}</span> (nouveau).</li>
@@ -115,7 +115,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Core/Diagnostics/README.md</span>.</li>
 <li><span class="tt">Source/Test/Unit/Core/Diagnostics/test_file_log_sink.cpp</span> (nouveau), <span class="tt">Source/Test/CMakeLists.txt</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2739"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2752"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Un message écrit se retrouve dans le fichier, au format produit par <span class="tt">core::LogFormat</span>.</li>
@@ -125,7 +125,7 @@ Tests (obligatoires)</h1>
 <li>Un message de niveau <span class="tt">Error</span> est présent sur disque <b>avant</b> la fin du programme (vidage).</li>
 <li>Tests purs <span class="tt">Core</span>, écrivant dans un répertoire temporaire, nettoyé après coup.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2740"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2753"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le sink ne doit jamais jeter.</b> Il est appelé depuis des chemins de gestion d'erreur ; une exception y transformerait un défaut mineur en plantage.</li>
@@ -134,12 +134,12 @@ Points d'attention</h1>
 <li>Attention au coût : le sink sera actif en Release, où le niveau par défaut sera plus élevé (<span class="tt">TACHE-02</span>) — mais l'écriture doit rester hors du chemin critique de la boucle de rendu.</li>
 <li>Si le sink est un jour partagé entre threads, l'accès devra être sérialisé ; le projet est mono-thread (<span class="tt">EX-ARCH-060</span>), le noter plutôt que de l'implémenter par anticipation.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2741"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2754"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Un sink fichier implémente le contrat <span class="tt">ILogSink</span>, écrit au format existant, borne sa taille et son nombre de fichiers, absorbe silencieusement tout échec d'écriture, ferme par RAII, et est couvert par des tests <span class="tt">Core</span> purs ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2742"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2755"></a>
 Exigences</h1>
 <p><span class="tt">EX-NFR-042</span> (trace exploitable et bornée) ; réutilise <span class="tt">EX-NFR-040</span> (erreur récupérable), <span class="tt">EX-NFR-041</span> (RAII), <span class="tt">EX-NFR-003</span> (empreinte bornée), <span class="tt">EX-NFR-010</span> (<span class="tt">Core</span> sans dépendance système inutile), <span class="tt">EX-NFR-020</span> (tests unitaires), <span class="tt">EX-ARCH-060</span> (mono-thread). </p>
 </div></div><!-- contents -->

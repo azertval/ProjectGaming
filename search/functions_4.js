@@ -34,10 +34,11 @@ var searchData=
   ['erasepixel_31',['erasePixel',['../namespacehmi.html#af51c0f2ec41091ef3e6e9c031098db4b',1,'hmi']]],
   ['evaluateoutcome_32',['evaluateOutcome',['../namespacecore.html#a23087f4f32dfa24ad53d7a9811ae351d',1,'core']]],
   ['event_33',['event',['../classhmi_1_1AssetThumbnailView.html#a6eac7d30fa8ec639d3e50d7f5596144e',1,'hmi::AssetThumbnailView::event()'],['../classhmi_1_1DecorsPanel.html#a596af5469878b83be243f588cfc3f00f',1,'hmi::DecorsPanel::event()'],['../classhmi_1_1PalettePanel.html#a6a63719ecec98fdc59f3728d58ff8ccd',1,'hmi::PalettePanel::event()'],['../classhmi_1_1TexturePanel.html#a2427986c22aee0e6ce3c9a89d95e1d1e',1,'hmi::TexturePanel::event()'],['../classhmi_1_1GameViewport.html#a5d3760d8afacd89cccc12dff1f843a9b',1,'hmi::GameViewport::event()']]],
-  ['executabledirectory_34',['executableDirectory',['../namespacehmi.html#a18648161d8a6c752202b6034613a947b',1,'hmi']]],
-  ['exit_35',['exit',['../classcore_1_1Level.html#a48013f02f41e85d8928b0e2412486273',1,'core::Level::exit()'],['../classcore_1_1LevelDraft.html#a60d7f1dacc1b06479942132d7dedf1fe',1,'core::LevelDraft::exit()']]],
-  ['exittomenurequested_36',['exitToMenuRequested',['../classhmi_1_1GameViewport.html#a02acfb1387ff9e966f73e33f0e666894',1,'hmi::GameViewport']]],
-  ['exposeevent_37',['exposeEvent',['../classhmi_1_1GameViewport.html#a94596a1dc3de04ef62f99131a77dbbca',1,'hmi::GameViewport']]],
-  ['extractpalette_38',['extractPalette',['../namespacehmi.html#a7ba85f23cf2dc7ce24be072c8ae4bc97',1,'hmi']]],
-  ['extractrequested_39',['extractRequested',['../classhmi_1_1PixelPalettePanel.html#aa0875fc8244d629e7f2f9d790e5048d3',1,'hmi::PixelPalettePanel']]]
+  ['eventids_34',['eventIds',['../classhmi_1_1SoundCatalog.html#a35db0f57b99e009d22b9fbf26de3743d',1,'hmi::SoundCatalog']]],
+  ['executabledirectory_35',['executableDirectory',['../namespacehmi.html#a18648161d8a6c752202b6034613a947b',1,'hmi']]],
+  ['exit_36',['exit',['../classcore_1_1Level.html#a48013f02f41e85d8928b0e2412486273',1,'core::Level::exit()'],['../classcore_1_1LevelDraft.html#a60d7f1dacc1b06479942132d7dedf1fe',1,'core::LevelDraft::exit()']]],
+  ['exittomenurequested_37',['exitToMenuRequested',['../classhmi_1_1GameViewport.html#a02acfb1387ff9e966f73e33f0e666894',1,'hmi::GameViewport']]],
+  ['exposeevent_38',['exposeEvent',['../classhmi_1_1GameViewport.html#a94596a1dc3de04ef62f99131a77dbbca',1,'hmi::GameViewport']]],
+  ['extractpalette_39',['extractPalette',['../namespacehmi.html#a7ba85f23cf2dc7ce24be072c8ae4bc97',1,'hmi']]],
+  ['extractrequested_40',['extractRequested',['../classhmi_1_1PixelPalettePanel.html#aa0875fc8244d629e7f2f9d790e5048d3',1,'hmi::PixelPalettePanel']]]
 ];

@@ -56,11 +56,12 @@ var searchData=
   ['assetschanged_53',['assetsChanged',['../classhmi_1_1AssetThumbnailView.html#a9e007378ba6077167bdad01da4d8f89c',1,'hmi::AssetThumbnailView']]],
   ['assetselected_54',['assetSelected',['../classhmi_1_1AssetThumbnailView.html#a1601ba597faa6d6d161d28b311b42041',1,'hmi::AssetThumbnailView']]],
   ['assetthumbnailview_55',['AssetThumbnailView',['../classhmi_1_1AssetThumbnailView.html#ab9ae259d77e9f72ab6edd850a8a4db5b',1,'hmi::AssetThumbnailView']]],
-  ['assign_56',['assign',['../classhmi_1_1SkinCatalog.html#a43cec3c28d32be5f319fcc308ff22818',1,'hmi::SkinCatalog']]],
+  ['assign_56',['assign',['../classhmi_1_1SoundCatalog.html#a77d8937155088d0d54d5f1b22cfdf256',1,'hmi::SoundCatalog::assign()'],['../classhmi_1_1SkinCatalog.html#a43cec3c28d32be5f319fcc308ff22818',1,'hmi::SkinCatalog::assign(const std::string &amp;setName, core::TileType type, SkinEntry entry)']]],
   ['assignments_57',['assignments',['../classhmi_1_1SkinCatalog.html#a4431d43b56291b24b40adcbec80784cd',1,'hmi::SkinCatalog']]],
   ['assignmentschanged_58',['assignmentsChanged',['../classhmi_1_1TexturePanel.html#a8beee864e1295689d194f5e2a3b8d7ed',1,'hmi::TexturePanel']]],
-  ['autotileassemblymasks_59',['autotileAssemblyMasks',['../namespacehmi.html#af8658633ab15f4ba347cc95133627a7e',1,'hmi']]],
-  ['autotilecell_60',['autotileCell',['../namespacehmi.html#a34134b921b6e696d52d483a74483aab1',1,'hmi']]],
-  ['autotileconfigurationlabelkey_61',['autotileConfigurationLabelKey',['../namespacehmi.html#a126525c795b7d17752d39838f2027233',1,'hmi']]],
-  ['autotilerepresentativecell_62',['autotileRepresentativeCell',['../namespacehmi.html#a9e828846d7bde545c8e1ec0a0b1fc73c',1,'hmi']]]
+  ['audioengine_59',['AudioEngine',['../classhmi_1_1AudioEngine.html#a741ad4c0ebb1550b254f7b396a9c9555',1,'hmi::AudioEngine::AudioEngine()'],['../classhmi_1_1AudioEngine.html#a88f8afe1e1c18e9f6ac669b24f31aeeb',1,'hmi::AudioEngine::AudioEngine(ForceMuted)'],['../classhmi_1_1AudioEngine.html#a0adb63a4c0fdc59165bcb6ff891c5787',1,'hmi::AudioEngine::AudioEngine(const AudioEngine &amp;)=delete'],['../classhmi_1_1AudioEngine.html#a28f25a37730ce0b183b792b081e51ce8',1,'hmi::AudioEngine::AudioEngine(AudioEngine &amp;&amp;)=delete']]],
+  ['autotileassemblymasks_60',['autotileAssemblyMasks',['../namespacehmi.html#af8658633ab15f4ba347cc95133627a7e',1,'hmi']]],
+  ['autotilecell_61',['autotileCell',['../namespacehmi.html#a34134b921b6e696d52d483a74483aab1',1,'hmi']]],
+  ['autotileconfigurationlabelkey_62',['autotileConfigurationLabelKey',['../namespacehmi.html#a126525c795b7d17752d39838f2027233',1,'hmi']]],
+  ['autotilerepresentativecell_63',['autotileRepresentativeCell',['../namespacehmi.html#a9e828846d7bde545c8e1ec0a0b1fc73c',1,'hmi']]]
 ];

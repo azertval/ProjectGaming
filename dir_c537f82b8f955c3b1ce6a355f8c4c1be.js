@@ -4,6 +4,8 @@ var dir_c537f82b8f955c3b1ce6a355f8c4c1be =
     [ "ActionCatalog.h", "ActionCatalog_8h.html", "ActionCatalog_8h" ],
     [ "ApplicationTheme.cpp", "ApplicationTheme_8cpp.html", "ApplicationTheme_8cpp" ],
     [ "ApplicationTheme.h", "ApplicationTheme_8h.html", "ApplicationTheme_8h" ],
+    [ "CreditsScreen.cpp", "CreditsScreen_8cpp.html", null ],
+    [ "CreditsScreen.h", "CreditsScreen_8h.html", "CreditsScreen_8h" ],
     [ "DesignTokens.cpp", "DesignTokens_8cpp.html", "DesignTokens_8cpp" ],
     [ "DesignTokens.h", "DesignTokens_8h.html", "DesignTokens_8h" ],
     [ "EditorActions.cpp", "EditorActions_8cpp.html", null ],

@@ -7,5 +7,6 @@ var searchData=
   ['jumpheld_4',['jumpHeld',['../structcore_1_1PlayerInput.html#a8fb113d4f6429ea94935827f5b2e93db',1,'core::PlayerInput']]],
   ['jumppressed_5',['jumpPressed',['../structcore_1_1PlayerInput.html#a3b085dfdd9bfdf1f3f5a743cf9658b23',1,'core::PlayerInput']]],
   ['jumpspeed_6',['jumpSpeed',['../structcore_1_1PhysicsConfig.html#a0c37db23188588851424c06d9183bfa1',1,'core::PhysicsConfig']]],
-  ['jumpsremaining_7',['jumpsRemaining',['../structcore_1_1Player.html#a99d532084d5856cea35317d60ded63e8',1,'core::Player']]]
+  ['jumpsremaining_7',['jumpsRemaining',['../structcore_1_1Player.html#a99d532084d5856cea35317d60ded63e8',1,'core::Player']]],
+  ['justjumped_8',['justJumped',['../structcore_1_1Player.html#a49c1fc7221a2fe7278429e2404832e89',1,'core::Player::justJumped'],['../structhmi_1_1PlayerEventState.html#a8b0ca401bc4163237d3fcaca79f39a9e',1,'hmi::PlayerEventState::justJumped']]]
 ];

@@ -11,5 +11,6 @@ var searchData=
   ['viewportclearcolor_8',['viewportClearColor',['../namespacehmi.html#ac309fd9a7985bf6b3ba59e8fd46362c6',1,'hmi']]],
   ['visible_9',['visible',['../classhmi_1_1LayerVisibility.html#af2c7fae361305eca683260d4fcd4f995',1,'hmi::LayerVisibility']]],
   ['visiblebounds_10',['visibleBounds',['../classhmi_1_1Camera2D.html#a471c631178660b8fcd3d9f8072ef6dfb',1,'hmi::Camera2D']]],
-  ['vsyncenabled_11',['vsyncEnabled',['../classhmi_1_1GameViewport.html#afc6cd76360f0150625ee748f25ddd98f',1,'hmi::GameViewport::vsyncEnabled()'],['../classhmi_1_1GraphicsDevice.html#a49dd7ea62f2e8905c6f2384ae2aa421a',1,'hmi::GraphicsDevice::vsyncEnabled()']]]
+  ['volume_11',['volume',['../classhmi_1_1AudioEngine.html#a1b97d12d3392c7284e221b9ff30d83dc',1,'hmi::AudioEngine']]],
+  ['vsyncenabled_12',['vsyncEnabled',['../classhmi_1_1GameViewport.html#afc6cd76360f0150625ee748f25ddd98f',1,'hmi::GameViewport::vsyncEnabled()'],['../classhmi_1_1GraphicsDevice.html#a49dd7ea62f2e8905c6f2384ae2aa421a',1,'hmi::GraphicsDevice::vsyncEnabled()']]]
 ];

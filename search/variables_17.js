@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['walldirection_0',['wallDirection',['../structcore_1_1Player.html#adff2c3089248a9bc8bcc286dff1550ce',1,'core::Player']]],
+  ['walldirection_0',['wallDirection',['../structcore_1_1Player.html#adff2c3089248a9bc8bcc286dff1550ce',1,'core::Player::wallDirection'],['../structhmi_1_1PlayerEventState.html#afecdd65f0f763d0114a4f83fa803232c',1,'hmi::PlayerEventState::wallDirection']]],
   ['walljumplocktime_1',['wallJumpLockTime',['../structcore_1_1PhysicsConfig.html#a2aed664da44b757c3e23cfe105bb34c7',1,'core::PhysicsConfig']]],
   ['walljumplocktimer_2',['wallJumpLockTimer',['../structcore_1_1Player.html#ab37e8efccea023b2f1d4f6adada4290b',1,'core::Player']]],
   ['walljumpspeedx_3',['wallJumpSpeedX',['../structcore_1_1PhysicsConfig.html#a58542418c2b5c5c883337bd8a23297a7',1,'core::PhysicsConfig']]],

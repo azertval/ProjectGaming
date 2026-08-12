@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-41-tache-01-render-mode.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-41-bascule-physique-texture_2tache-01-render-mode"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-41.html#md_Lot_2LOT-41-bascule-physique-texture_2epic" title="Lot/LOT-41-bascule-physique-texture/epic.md">LOT-41</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Game</span>, <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1922"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1930"></a>
 Contexte</h1>
 <p>Le rendu actuel n'a qu'un mode : la couleur plate par type de tuile, résolue par <span class="tt"><a class="el" href="namespacehmi.html#a597b9471d79c0d524b3dedbf52c2fac6" title="Région d&#39;atlas (couleur procédurale) associée à un type de tuile.">hmi::regionForTile</a></span> (<span class="tt">TileVisuals</span>). À partir de LOT-42, un second mode coexiste — l'habillage par textures. Les deux doivent être disponibles <b>partout</b> où une scène est dessinée : en édition (<span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span>), en essai et en jeu réel (<span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span>).</p>
 <p>Le point d'entrée commun existe déjà : <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">hmi::GameViewport</a></span> est le widget unique derrière ces trois contextes (<span class="tt">EX-IHM-002</span>). C'est donc lui qui porte le mode, et non chaque appelant.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1923"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1931"></a>
 Travail à réaliser</h1>
 <ul>
 <li><em><b>RenderMode</b></em> (<span class="tt"><a class="el" href="RenderMode_8h.html" title="Mode de rendu Physique/Texture et sa persistance (EX-REN-046).">Source/HMI/Graphics/RenderMode.h</a></span>) : <span class="tt">enum class RenderMode { Physique,
@@ -110,32 +110,32 @@ Travail à réaliser</h1>
 </li>
 <li><b>Point de résolution unique</b> : la fonction qui décide de l'apparence d'une tuile reçoit le mode et n'a, à ce stade, que deux branches — <span class="tt">Physique</span> → <span class="tt"><a class="el" href="namespacehmi.html#a597b9471d79c0d524b3dedbf52c2fac6" title="Région d&#39;atlas (couleur procédurale) associée à un type de tuile.">hmi::regionForTile</a></span> (comportement actuel, inchangé) ; <span class="tt">Texture</span> → la texture de repli en damier magenta (LOT-40, TACHE-03), puisqu'aucun skin n'existe encore. Les branches suivantes (skin, surcharge) s'y ajouteront sans changer la forme de ce résolveur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1924"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1932"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="RenderMode_8h.html" title="Mode de rendu Physique/Texture et sa persistance (EX-REN-046).">Source/HMI/Graphics/RenderMode.h</a></span> (nouveau).</li>
 <li><span class="tt">Source/HMI/Graphics/DraftRenderer.{h,cpp}</span>, <span class="tt">Source/HMI/Graphics/SpriteRenderer.{h,cpp}</span>.</li>
 <li><span class="tt">Source/HMI/Game/GameViewport.{h,cpp}</span>, <span class="tt">Source/HMI/Game/GameSession.{h,cpp}</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1925"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1933"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Le résolveur d'apparence est une fonction <b>pure</b> prenant le mode : mode <span class="tt">Physique</span> → région d'atlas attendue pour chaque <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span> ; mode <span class="tt">Texture</span> → repli. Testé sans GPU.</li>
 <li>Non-régression : en mode <span class="tt">Physique</span>, la liste des primitives composées pour une scène de référence est identique à celle d'avant le lot (<em>QuadRecorder</em>, LOT-40).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1926"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1934"></a>
 Points d'attention</h1>
 <ul>
 <li>Le mode est une donnée de <b>présentation</b> : <span class="tt">Core</span> ne doit en aucun cas le connaître. <span class="tt"><a class="el" href="namespacecore.html#a2af6bf1cd31d496a597f6bdf257ce148" title="Peuple un World d&#39;une entité par tuile non vide du niveau.">core::buildLevelScene</a></span> continue de recevoir une fonction de résolution <b>injectée</b> depuis <span class="tt">HMI</span>.</li>
 <li>Ne pas dupliquer le résolveur entre <span class="tt">GameSession</span> et <span class="tt">DraftRenderer</span> : c'est le même point d'appel, c'est ce qui garantit que l'éditeur montre exactement ce que le jeu affichera.</li>
 <li>Changer de mode ne doit <b>pas</b> reconstruire la scène ECS : seule la résolution d'apparence change.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1927"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1935"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Le mode traverse le viewport jusqu'aux deux renderers ; le mode <span class="tt">Physique</span> est inchangé ; le résolveur est unique et testé sans GPU ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1928"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1936"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-046</span> (bascule Physique/Texture) ; réutilise <span class="tt">EX-IHM-002</span> (viewport unique), <span class="tt">EX-REN-043</span> (calques), <span class="tt">EX-NFR-040</span> (repli), <span class="tt">EX-NFR-004</span> (vérification sans GPU). </p>
 </div></div><!-- contents -->

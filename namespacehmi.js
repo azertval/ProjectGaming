@@ -1,5 +1,8 @@
 var namespacehmi =
 [
+    [ "AudioEngine", "classhmi_1_1AudioEngine.html", "classhmi_1_1AudioEngine" ],
+    [ "SoundCatalog", "classhmi_1_1SoundCatalog.html", "classhmi_1_1SoundCatalog" ],
+    [ "SoundCatalogResult", "structhmi_1_1SoundCatalogResult.html", "structhmi_1_1SoundCatalogResult" ],
     [ "AssetFileOperations", "classhmi_1_1AssetFileOperations.html", "classhmi_1_1AssetFileOperations" ],
     [ "AssetReference", "structhmi_1_1AssetReference.html", "structhmi_1_1AssetReference" ],
     [ "AssetThumbnailView", "classhmi_1_1AssetThumbnailView.html", "classhmi_1_1AssetThumbnailView" ],
@@ -48,6 +51,8 @@ var namespacehmi =
     [ "TileEntry", "structhmi_1_1TileEntry.html", "structhmi_1_1TileEntry" ],
     [ "TileSubgroup", "structhmi_1_1TileSubgroup.html", "structhmi_1_1TileSubgroup" ],
     [ "TileCategory", "structhmi_1_1TileCategory.html", "structhmi_1_1TileCategory" ],
+    [ "PlayerEventState", "structhmi_1_1PlayerEventState.html", "structhmi_1_1PlayerEventState" ],
+    [ "MechanismEventState", "structhmi_1_1MechanismEventState.html", "structhmi_1_1MechanismEventState" ],
     [ "GameSession", "classhmi_1_1GameSession.html", "classhmi_1_1GameSession" ],
     [ "GameViewport", "classhmi_1_1GameViewport.html", "classhmi_1_1GameViewport" ],
     [ "Progression", "classhmi_1_1Progression.html", "classhmi_1_1Progression" ],
@@ -112,6 +117,7 @@ var namespacehmi =
     [ "InputState", "classhmi_1_1InputState.html", "classhmi_1_1InputState" ],
     [ "EditorActionSpec", "structhmi_1_1EditorActionSpec.html", "structhmi_1_1EditorActionSpec" ],
     [ "KeyBindingIconEntry", "structhmi_1_1KeyBindingIconEntry.html", "structhmi_1_1KeyBindingIconEntry" ],
+    [ "CreditsScreen", "classhmi_1_1CreditsScreen.html", "classhmi_1_1CreditsScreen" ],
     [ "DesignColor", "structhmi_1_1DesignColor.html", "structhmi_1_1DesignColor" ],
     [ "ColorTokens", "structhmi_1_1ColorTokens.html", "structhmi_1_1ColorTokens" ],
     [ "SpacingTokens", "structhmi_1_1SpacingTokens.html", "structhmi_1_1SpacingTokens" ],
@@ -231,6 +237,25 @@ var namespacehmi =
       [ "AimDown", "namespacehmi.html#a133516ef8002bd9e4d870db9494f5867ae2523957153e9b5b8defa89d26c2190b", null ],
       [ "Jump", "namespacehmi.html#a133516ef8002bd9e4d870db9494f5867a101f693f72287a2819a364f64ca1c0ed", null ],
       [ "Dash", "namespacehmi.html#a133516ef8002bd9e4d870db9494f5867a3663598d5c5858b5a6040b1bbed4f187", null ]
+    ] ],
+    [ "GameEvent", "namespacehmi.html#a3a61aed1c8e95c289c829398d48488de", [
+      [ "Jumped", "namespacehmi.html#a3a61aed1c8e95c289c829398d48488dea280e2398821e9b67fa22ab6d512c746b", null ],
+      [ "Landed", "namespacehmi.html#a3a61aed1c8e95c289c829398d48488dead686e9ef2eb30c76874d445ae35bccc2", null ],
+      [ "Dashed", "namespacehmi.html#a3a61aed1c8e95c289c829398d48488deaeb656e41b6da91494775ecf47a51da91", null ],
+      [ "WallContactEnter", "namespacehmi.html#a3a61aed1c8e95c289c829398d48488deae164c7e6f4e61a4633466ea5d59a3f97", null ],
+      [ "SwitchToggled", "namespacehmi.html#a3a61aed1c8e95c289c829398d48488dea72a3a593829fd89da615aad7cb957d3a", null ],
+      [ "DoorOpened", "namespacehmi.html#a3a61aed1c8e95c289c829398d48488deae1491bc2cd0348e5a6c5ba7ed811895d", null ],
+      [ "DoorClosed", "namespacehmi.html#a3a61aed1c8e95c289c829398d48488deacff69fd788d6616924dfbb25559ce338", null ],
+      [ "PressurePlatePressed", "namespacehmi.html#a3a61aed1c8e95c289c829398d48488deaf05c732743513b5ae2ec57800427605c", null ],
+      [ "PressurePlateReleased", "namespacehmi.html#a3a61aed1c8e95c289c829398d48488dea1dcbd75ed42921b33c5894d72929b5c4", null ],
+      [ "BlockPushed", "namespacehmi.html#a3a61aed1c8e95c289c829398d48488dea00f3be69446cf709343350f087ad6bc3", null ],
+      [ "Died", "namespacehmi.html#a3a61aed1c8e95c289c829398d48488deab4ee54591aaa4862bf37f75f6839b514", null ],
+      [ "LevelCompleted", "namespacehmi.html#a3a61aed1c8e95c289c829398d48488deaf3f8a8d70e59a2f75919906f9429e8c2", null ],
+      [ "MenuNavigate", "namespacehmi.html#a3a61aed1c8e95c289c829398d48488deafd86c459659a739b791b3acf8590136e", null ],
+      [ "MenuConfirm", "namespacehmi.html#a3a61aed1c8e95c289c829398d48488deae6154a82aac2fc1033c897088faff888", null ],
+      [ "MenuBack", "namespacehmi.html#a3a61aed1c8e95c289c829398d48488dea5a7251d0a3e040de33dc48e78d49c010", null ],
+      [ "PauseOpened", "namespacehmi.html#a3a61aed1c8e95c289c829398d48488dea99db5176aa7f82eeb3e4dff344934eeb", null ],
+      [ "SequenceCompleted", "namespacehmi.html#a3a61aed1c8e95c289c829398d48488dea567a1ba73d183dc7f9b7c047a7da7e40", null ]
     ] ],
     [ "GamepadButton", "namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88", [
       [ "Up", "namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a258f49887ef8d14ac268c92b02503aaa", null ],
@@ -407,7 +432,9 @@ var namespacehmi =
       [ "ReturnToMenuFromLevelComplete", "namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a9c75b658e80869557fd79c3384167d4a", null ],
       [ "OpenLevelSelect", "namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a9c9c573d9ed480bd96f863bfedcf5e08", null ],
       [ "CloseLevelSelect", "namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90ab8d67e3fbaeb7b592150799fe3c63921", null ],
-      [ "LevelChosen", "namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90acf7b8208a0c2708351e67f4ac50d96d5", null ]
+      [ "LevelChosen", "namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90acf7b8208a0c2708351e67f4ac50d96d5", null ],
+      [ "OpenCredits", "namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a2a1540e25ac6f65503d2539901c3eb7c", null ],
+      [ "CloseCredits", "namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a64b9ec7c728085981f7746660948ed17", null ]
     ] ],
     [ "ScreenId", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528d", [
       [ "Menu", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911", null ],
@@ -416,7 +443,8 @@ var namespacehmi =
       [ "Options", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8", null ],
       [ "Pause", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da105b296a83f9c105355403f3332af50f", null ],
       [ "NiveauTermine", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da5a916597759e7c491e7d0567658bbb21", null ],
-      [ "LevelSelect", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528daab6c96d1fa3464b353f8da4213d53569", null ]
+      [ "LevelSelect", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528daab6c96d1fa3464b353f8da4213d53569", null ],
+      [ "Credits", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51", null ]
     ] ],
     [ "SkinCatalogError", "namespacehmi.html#ae064c48cb814db754a1228bda7b8d77d", [
       [ "None", "namespacehmi.html#ae064c48cb814db754a1228bda7b8d77da6adf97f83acf6453d4a6a4b1070f3754", null ],
@@ -428,6 +456,13 @@ var namespacehmi =
     [ "SkinMode", "namespacehmi.html#ac69176e5c8acf86f4990696f7f54f11e", [
       [ "Single", "namespacehmi.html#ac69176e5c8acf86f4990696f7f54f11ea66ba162102bbf6ae31b522aec561735e", null ],
       [ "Bitmask16", "namespacehmi.html#ac69176e5c8acf86f4990696f7f54f11ea626462c0578a21deb18ab448defe0522", null ]
+    ] ],
+    [ "SoundCatalogError", "namespacehmi.html#a08b7877ee84a5db1b0da3837b70c3af7", [
+      [ "None", "namespacehmi.html#a08b7877ee84a5db1b0da3837b70c3af7a6adf97f83acf6453d4a6a4b1070f3754", null ],
+      [ "FileNotFound", "namespacehmi.html#a08b7877ee84a5db1b0da3837b70c3af7a2767828026039e8ba7b38973cbb701f2", null ],
+      [ "ParseError", "namespacehmi.html#a08b7877ee84a5db1b0da3837b70c3af7ae41199faa7290c167f70f314c5e6c165", null ],
+      [ "UnsupportedVersion", "namespacehmi.html#a08b7877ee84a5db1b0da3837b70c3af7a0f89bc98e9b12bdeda0604e57bdc0518", null ],
+      [ "MalformedStructure", "namespacehmi.html#a08b7877ee84a5db1b0da3837b70c3af7aa809debdbe0cae246d363461916d924d", null ]
     ] ],
     [ "TextHorizontalAnchor", "namespacehmi.html#ab412a047d226db9cfe040477949a8f3e", [
       [ "Left", "namespacehmi.html#ab412a047d226db9cfe040477949a8f3ea945d5e233cf7d6240f6b783b36a374ff", null ],
@@ -495,6 +530,9 @@ var namespacehmi =
     [ "describeContract", "namespacehmi.html#aa04b1535f9fb0ceb7138c6b6c58c15a9", null ],
     [ "describeReferences", "namespacehmi.html#a5788fed057d46145b1fcb3d9ed9c2ec1", null ],
     [ "designateDecorAt", "namespacehmi.html#a019a3a576b0c838e3ec1eaa6827d1dd7", null ],
+    [ "detectMechanismEvents", "namespacehmi.html#afb9ffef4971f7aeeea19cfa0a2cddbb9", null ],
+    [ "detectOutcomeEvent", "namespacehmi.html#a89b12465488e01b1f3b8bfaa0e7bf26a", null ],
+    [ "detectPlayerEvents", "namespacehmi.html#afcb621148a1dc0224b1136f50c952795", null ],
     [ "drawLine", "namespacehmi.html#a2d1f5025d8c952998d761fcabb5c8aa3", null ],
     [ "dressingFor", "namespacehmi.html#a7e42ffeba1ac86e0a292c24dc3b99f94", null ],
     [ "editorActionCatalog", "namespacehmi.html#a31529e361028e2fae2f4d12dc1d5b8d1", null ],
@@ -604,6 +642,7 @@ var namespacehmi =
     [ "skinModeName", "namespacehmi.html#aacad28238195c8395f4229ab6d861b6d", null ],
     [ "slopeTileGridPosition", "namespacehmi.html#a3a1050ef6cc138977442e9d4206cb3b1", null ],
     [ "solidNeighborMask", "namespacehmi.html#a6d5ae4c4504ac24560454bb394e9ad1a", null ],
+    [ "soundForEvent", "namespacehmi.html#a949e50cc6c6b8c2df661c6277ac59506", null ],
     [ "spriteQuadBounds", "namespacehmi.html#af7d9b42fc7c496a35a24169feddc6ab8", null ],
     [ "submitComposedScene", "namespacehmi.html#a533df804a658915efda4f8f6c918496e", null ],
     [ "substituteStyleSheetTemplate", "namespacehmi.html#a109a8b01a44769d182894f833e7cb054", null ],
@@ -644,6 +683,7 @@ var namespacehmi =
     [ "FONT_METRICS_FORMAT_VERSION", "namespacehmi.html#a2ea02c1e4fc97f09a4b26befcc180342", null ],
     [ "FONTS_SUBDIRECTORY", "namespacehmi.html#a5d007c47b6f8696b0b71cf94afe65d18", null ],
     [ "GAME_ACTION_COUNT", "namespacehmi.html#ab42b3bed825ef5b3664995a516c4eb8d", null ],
+    [ "GAME_EVENT_COUNT", "namespacehmi.html#aab9ebfc2ebacc5718532a560bfd830ea", null ],
     [ "GAMEPAD_BUTTON_COUNT", "namespacehmi.html#aab59d64d595ba17a55cc07311285ba14", null ],
     [ "KEY_BINDING_ICON_COUNT", "namespacehmi.html#a1a8d24174b415e8452f331c030addee6", null ],
     [ "MECHANISM_ANIMATION_TYPES", "namespacehmi.html#a71400cfb82eb06125e98cf974b6dc1be", null ],

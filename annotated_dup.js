@@ -56,6 +56,9 @@ var annotated_dup =
       [ "FixedTimestep", "classcore_1_1FixedTimestep.html", "classcore_1_1FixedTimestep" ]
     ] ],
     [ "hmi", "namespacehmi.html", [
+      [ "AudioEngine", "classhmi_1_1AudioEngine.html", "classhmi_1_1AudioEngine" ],
+      [ "SoundCatalog", "classhmi_1_1SoundCatalog.html", "classhmi_1_1SoundCatalog" ],
+      [ "SoundCatalogResult", "structhmi_1_1SoundCatalogResult.html", "structhmi_1_1SoundCatalogResult" ],
       [ "AssetFileOperations", "classhmi_1_1AssetFileOperations.html", "classhmi_1_1AssetFileOperations" ],
       [ "AssetReference", "structhmi_1_1AssetReference.html", "structhmi_1_1AssetReference" ],
       [ "AssetThumbnailView", "classhmi_1_1AssetThumbnailView.html", "classhmi_1_1AssetThumbnailView" ],
@@ -104,6 +107,8 @@ var annotated_dup =
       [ "TileEntry", "structhmi_1_1TileEntry.html", "structhmi_1_1TileEntry" ],
       [ "TileSubgroup", "structhmi_1_1TileSubgroup.html", "structhmi_1_1TileSubgroup" ],
       [ "TileCategory", "structhmi_1_1TileCategory.html", "structhmi_1_1TileCategory" ],
+      [ "PlayerEventState", "structhmi_1_1PlayerEventState.html", "structhmi_1_1PlayerEventState" ],
+      [ "MechanismEventState", "structhmi_1_1MechanismEventState.html", "structhmi_1_1MechanismEventState" ],
       [ "GameSession", "classhmi_1_1GameSession.html", "classhmi_1_1GameSession" ],
       [ "GameViewport", "classhmi_1_1GameViewport.html", "classhmi_1_1GameViewport" ],
       [ "Progression", "classhmi_1_1Progression.html", "classhmi_1_1Progression" ],
@@ -168,6 +173,7 @@ var annotated_dup =
       [ "InputState", "classhmi_1_1InputState.html", "classhmi_1_1InputState" ],
       [ "EditorActionSpec", "structhmi_1_1EditorActionSpec.html", "structhmi_1_1EditorActionSpec" ],
       [ "KeyBindingIconEntry", "structhmi_1_1KeyBindingIconEntry.html", "structhmi_1_1KeyBindingIconEntry" ],
+      [ "CreditsScreen", "classhmi_1_1CreditsScreen.html", "classhmi_1_1CreditsScreen" ],
       [ "DesignColor", "structhmi_1_1DesignColor.html", "structhmi_1_1DesignColor" ],
       [ "ColorTokens", "structhmi_1_1ColorTokens.html", "structhmi_1_1ColorTokens" ],
       [ "SpacingTokens", "structhmi_1_1SpacingTokens.html", "structhmi_1_1SpacingTokens" ],

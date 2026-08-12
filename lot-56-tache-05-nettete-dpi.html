@@ -94,12 +94,12 @@ $(function(){initNavTree('lot-56-tache-05-nettete-dpi.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-56-systeme-design-ihm_2tache-05-nettete-dpi"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-56.html#md_Lot_2LOT-56-systeme-design-ihm_2epic" title="Lot/LOT-56-systeme-design-ihm/epic.md">LOT-56</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2506"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2514"></a>
 Contexte</h1>
 <p>Le facteur d'échelle d'affichage du système (<span class="tt">devicePixelRatio</span>) n'est pris en compte <b>que</b> par <em>GameViewport</em>, qui dimensionne correctement sa surface Direct3D 11 et convertit les positions de souris. Les trois chemins de vignettes Qt de l'éditeur — <em>PalettePanel</em> (apparence des types de tuiles), <em>AssetThumbnailView</em> (grilles d'assets, quatre instances à l'écran) et <em>TexturePanel</em> (icônes de lignes) — produisent leurs images à une taille exprimée en pixels <b>logiques</b>, sans jamais déclarer leur échelle.</p>
 <p>Sur un écran configuré à 125 % ou 150 % — la configuration par défaut de la plupart des portables récents — Qt agrandit donc ces images par interpolation. Toute la palette et toutes les grilles d'assets sont floues.</p>
 <p>C'est plus qu'un défaut de finition : le contenu affiché est du <b>pixel art</b>, rendu dans le jeu en filtrage <em>nearest</em> (<span class="tt">EX-ARCH-022</span>) précisément pour que chaque pixel reste carré. Une vignette interpolée montre à l'auteur du niveau autre chose que ce que le jeu affichera.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2507"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2515"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Rendu des vignettes à la résolution réelle</b> : produire l'image à la taille demandée <b>multipliée par le facteur d'échelle</b> du support d'affichage, puis déclarer ce facteur sur l'image, de sorte que Qt l'affiche à la bonne taille logique sans la redimensionner.</li>
@@ -109,7 +109,7 @@ Travail à réaliser</h1>
 <li><b>Tailles issues des jetons</b> (TACHE-01), en remplacement des constantes locales à chaque widget.</li>
 <li><b>Calcul exposé, pas enfoui</b> : la fonction pure de dimensionnement doit être utilisable depuis un autre widget que ces trois-là. Le canevas de <a class="el" href="lot-54.html" title="LOT-54 — Atelier pixel art intégré">LOT-54</a> est une quatrième surface de pixel art agrandie au plus proche voisin et devra l'appeler ; une fonction privée à <em>PalettePanel</em> y serait réécrite, et le défaut reviendrait par la porte de service.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2508"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2516"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/PalettePanel.{h,cpp}</span>.</li>
@@ -117,14 +117,14 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/HMI/Editor/TexturePanel.{h,cpp}</span>.</li>
 <li><span class="tt"><a class="el" href="test__thumbnail__geometry_8cpp.html" title="Tests unitaires du dimensionnement des vignettes à l&#39;échelle d&#39;affichage (LOT-56 TACHE-05,...">Source/Test/Unit/HMI/Editor/test_thumbnail_geometry.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2509"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2517"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Dimensionnement</b> : pour une taille logique et un facteur d'échelle donnés, la taille en pixels réels attendue est produite — vérifiée aux facteurs 1, 1,25, 1,5 et 2. Calcul exposé en fonction <b>pure</b>, testé sans GPU ni instance d'application.</li>
 <li><b>Facteur non entier</b> : un facteur de 1,25 ne doit pas produire de dimension nulle ni de nombre de pixels arrondi à zéro pour la plus petite taille d'icône employée.</li>
 <li><b>Aucune taille de vignette codée en dur</b> ne subsiste dans les trois widgets : elles proviennent toutes des jetons.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2510"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2518"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Déclarer le facteur sans agrandir l'image produit une vignette deux fois trop petite ; agrandir sans déclarer le facteur produit une vignette floue.</b> Les deux gestes vont ensemble, et l'oubli de l'un est l'erreur classique.</li>
@@ -133,12 +133,12 @@ Points d'attention</h1>
 <li>Ne pas confondre avec le chemin du viewport : <em>GameViewport</em> gère déjà correctement son échelle, et n'entre pas dans cette tâche.</li>
 <li>Le coût mémoire augmente avec le carré du facteur d'échelle. Vérifier que la palette et les grilles d'assets restent fluides avec un grand nombre d'assets importés.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2511"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2519"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les vignettes de la palette, des grilles d'assets et des lignes du panneau Textures restent nettes à 100 %, 125 % et 150 % d'échelle d'affichage, sans lissage du pixel art ; le déplacement entre écrans d'échelles différentes les régénère ; le calcul de dimension est pur et testé ; aucune taille n'est codée en dur ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2512"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2520"></a>
 Exigences</h1>
 <p><span class="tt">EX-IHM-053</span> (netteté à toute échelle d'affichage) ; réutilise <span class="tt">EX-IHM-051</span> (tailles issues des jetons), <span class="tt">EX-ARCH-022</span> (pixel art net, filtrage <em>nearest</em>), <span class="tt">EX-EDIT-027</span> (la palette affiche l'apparence réelle des tuiles). </p>
 </div></div><!-- contents -->

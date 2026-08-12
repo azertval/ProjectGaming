@@ -13,5 +13,6 @@ var searchData=
   ['componentpool_10',['ComponentPool',['../classcore_1_1ComponentPool.html',1,'core']]],
   ['composedquad_11',['ComposedQuad',['../structhmi_1_1ComposedQuad.html',1,'hmi']]],
   ['composedscene_12',['ComposedScene',['../classhmi_1_1ComposedScene.html',1,'hmi']]],
-  ['consolelogsink_13',['ConsoleLogSink',['../classcore_1_1ConsoleLogSink.html',1,'core']]]
+  ['consolelogsink_13',['ConsoleLogSink',['../classcore_1_1ConsoleLogSink.html',1,'core']]],
+  ['creditsscreen_14',['CreditsScreen',['../classhmi_1_1CreditsScreen.html',1,'hmi']]]
 ];

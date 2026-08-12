@@ -93,9 +93,9 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>972 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>1003 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (880)</h1>
+Tests unitaires (911)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p><b><span class="tt"><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></span></b></p>
@@ -2477,6 +2477,90 @@ Vérifie que <span class="tt">timestep.advance(STEP)</span> vaut <span class="tt
 <h2 class="doxsection"><a class="anchor" id="autotoc_md13"></a>
 HMI</h2>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md14"></a>
+Audio (14)</h3>
+<p><b><span class="tt"><a class="el" href="test__audio__engine_8cpp.html" title="Tests unitaires du moteur audio (LOT-60, EX-REN-047, EX-NFR-040).">test_audio_engine.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>AudioEngine.MutedEngineAcceptsPreloadAndPlayWithoutError</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__audio__engine_8cpp.html" title="Tests unitaires du moteur audio (LOT-60, EX-REN-047, EX-NFR-040).">Source/Test/Unit/HMI/Audio/test_audio_engine.cpp</a>:12</span></sub>  </td><td class="markdownTableBodyNone">Un moteur audio muet accepte precharge et lecture sans erreur.  </td><td class="markdownTableBodyNone">1. Construire un AudioEngine force en etat muet (ForceMuted::Yes).<br  />
+ 2. Precharger un echantillon sur un chemin inexistant.<br  />
+ 3. Jouer cet echantillon, puis un identifiant jamais precharge.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">engine.muted()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>AudioEngine.VolumeIsClampedToUnitRange</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__audio__engine_8cpp.html" title="Tests unitaires du moteur audio (LOT-60, EX-REN-047, EX-NFR-040).">Source/Test/Unit/HMI/Audio/test_audio_engine.cpp</a>:34</span></sub>  </td><td class="markdownTableBodyNone">Le volume du moteur audio est borne a [0, 1].  </td><td class="markdownTableBodyNone">1. Regler un volume negatif, puis un volume superieur a 1, puis une valeur intermediaire.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">engine.volume()</span> vaut <span class="tt">0.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">engine.volume()</span> vaut <span class="tt">1.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">engine.volume()</span> vaut <span class="tt">0.42f</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>AudioEngine.DefaultVolumeIsFull</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__audio__engine_8cpp.html" title="Tests unitaires du moteur audio (LOT-60, EX-REN-047, EX-NFR-040).">Source/Test/Unit/HMI/Audio/test_audio_engine.cpp</a>:58</span></sub>  </td><td class="markdownTableBodyNone">Le volume par defaut du moteur audio est au maximum.  </td><td class="markdownTableBodyNone">1. Construire un AudioEngine sans regler de volume.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">engine.volume()</span> vaut <span class="tt">1.0f</span> (comparaison flottante).  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__sound__catalog_8cpp.html" title="Tests unitaires du catalogue de sons (LOT-60, EX-REN-047, EX-REN-048).">test_sound_catalog.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SoundCatalogTest.CatalogueValideSeCharge</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__sound__catalog_8cpp.html" title="Tests unitaires du catalogue de sons (LOT-60, EX-REN-047, EX-REN-048).">Source/Test/Unit/HMI/Audio/test_sound_catalog.cpp</a>:28</span></sub>  </td><td class="markdownTableBodyNone">Un catalogue de sons valide se lit sans erreur.  </td><td class="markdownTableBodyNone">1. Charger un JSON de catalogue avec deux evenements.<br  />
+ 2. Resoudre chacun des deux evenements.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">result.catalog-&gt;resolve("saut")</span> vaut <span class="tt">"saut.wav"</span>.<br  />
+Vérifie que <span class="tt">result.catalog-&gt;resolve("atterrissage")</span> vaut <span class="tt">"atterrissage.wav"</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SoundCatalogTest.FichierAbsentEstFileNotFound</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__sound__catalog_8cpp.html" title="Tests unitaires du catalogue de sons (LOT-60, EX-REN-047, EX-REN-048).">Source/Test/Unit/HMI/Audio/test_sound_catalog.cpp</a>:46</span></sub>  </td><td class="markdownTableBodyNone">Un fichier de catalogue de sons absent produit un catalogue vide.  </td><td class="markdownTableBodyNone">1. Charger un catalogue depuis un chemin inexistant.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">result.errorCode</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a08b7877ee84a5db1b0da3837b70c3af7a2767828026039e8ba7b38973cbb701f2" title="Fichier absent. Cas légitime (catalogue vide), pas une anomalie.">hmi::SoundCatalogError::FileNotFound</a></span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SoundCatalogTest.EntreeMalformeeEchoueLeChargementEntier</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__sound__catalog_8cpp.html" title="Tests unitaires du catalogue de sons (LOT-60, EX-REN-047, EX-REN-048).">Source/Test/Unit/HMI/Audio/test_sound_catalog.cpp</a>:65</span></sub>  </td><td class="markdownTableBodyNone">Une entree malformee du catalogue de sons fait echouer tout le chargement.  </td><td class="markdownTableBodyNone">1. Charger un JSON dont une entree "sons" n'est pas une chaine.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">result.errorCode</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a08b7877ee84a5db1b0da3837b70c3af7aa809debdbe0cae246d363461916d924d" title="Structure inattendue (« sons » absent, entrée invalide…).">hmi::SoundCatalogError::MalformedStructure</a></span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SoundCatalogTest.EvenementInconnuResoutNullopt</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__sound__catalog_8cpp.html" title="Tests unitaires du catalogue de sons (LOT-60, EX-REN-047, EX-REN-048).">Source/Test/Unit/HMI/Audio/test_sound_catalog.cpp</a>:89</span></sub>  </td><td class="markdownTableBodyNone">Un evenement inconnu du catalogue de sons ne produit aucune erreur.  </td><td class="markdownTableBodyNone">1. Charger le catalogue de reference.<br  />
+ 2. Resoudre un identifiant d'evenement absent du catalogue.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">result.catalog-&gt;resolve("evenement_qui_n_existe_pas")</span> vaut <span class="tt">std::nullopt</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SoundCatalogTest.VersionSuperieureRefusee</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__sound__catalog_8cpp.html" title="Tests unitaires du catalogue de sons (LOT-60, EX-REN-047, EX-REN-048).">Source/Test/Unit/HMI/Audio/test_sound_catalog.cpp</a>:106</span></sub>  </td><td class="markdownTableBodyNone">Une version de format superieure au catalogue de sons connu est refusee.  </td><td class="markdownTableBodyNone">1. Charger un JSON dont le champ "version" depasse SoundCatalog::FORMAT_VERSION.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">result.errorCode</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a08b7877ee84a5db1b0da3837b70c3af7a0f89bc98e9b12bdeda0604e57bdc0518" title="Numéro de version supérieur à SoundCatalog::FORMAT_VERSION.">hmi::SoundCatalogError::UnsupportedVersion</a></span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SoundCatalogTest.CatalogueLivreValide</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__sound__catalog_8cpp.html" title="Tests unitaires du catalogue de sons (LOT-60, EX-REN-047, EX-REN-048).">Source/Test/Unit/HMI/Audio/test_sound_catalog.cpp</a>:126</span></sub>  </td><td class="markdownTableBodyNone">Le fichier de sons livre avec le jeu se lit sans erreur.  </td><td class="markdownTableBodyNone">1. Lire Source/Elements/Audio/sounds.json depuis les sources.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">std::filesystem::exists(path)</span> est vrai.<br  />
+Vérifie que <span class="tt">result.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">result.catalog-&gt;eventIds().empty()</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SoundCatalogTest.AssetsDuCatalogueLivreExistent</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__sound__catalog_8cpp.html" title="Tests unitaires du catalogue de sons (LOT-60, EX-REN-047, EX-REN-048).">Source/Test/Unit/HMI/Audio/test_sound_catalog.cpp</a>:146</span></sub>  </td><td class="markdownTableBodyNone">Chaque son reference par le catalogue livre existe.  </td><td class="markdownTableBodyNone">1. Lire le catalogue livre.<br  />
+ 2. Pour chaque evenement, verifier que le fichier resolu existe dans Source/Elements/Audio.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">file.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">std::filesystem::exists(assetPath)</span> est vrai.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__sound__triggers_8cpp.html" title="Tests unitaires de la table événement → son (LOT-60, EX-REN-047).">test_sound_triggers.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SoundTriggersTest.TableExhaustive</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__sound__triggers_8cpp.html" title="Tests unitaires de la table événement → son (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Audio/test_sound_triggers.cpp</a>:12</span></sub>  </td><td class="markdownTableBodyNone">La table evenement vers son est exhaustive.  </td><td class="markdownTableBodyNone">1. Parcourir toutes les valeurs de GameEvent (0 a GAME_EVENT_COUNT - 1).<br  />
+ 2. Appeler soundForEvent sur chacune.  </td><td class="markdownTableBodyNone">Aucun plantage : le switch interne couvre chaque cas (verifie par construction, pas par relecture &ndash; un GameEvent ajoute sans entree casserait la compilation avant ce test).  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SoundTriggersTest.EvenementsDePersonnageResolvent</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__sound__triggers_8cpp.html" title="Tests unitaires de la table événement → son (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Audio/test_sound_triggers.cpp</a>:32</span></sub>  </td><td class="markdownTableBodyNone">Les evenements de personnage resolvent les bons identifiants de son.  </td><td class="markdownTableBodyNone">1. Resoudre Jumped, Landed, Dashed, Died, LevelCompleted.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::soundForEvent(hmi::GameEvent::Jumped)</span> vaut <span class="tt">"saut"</span>.<br  />
+Vérifie que <span class="tt">hmi::soundForEvent(hmi::GameEvent::Landed)</span> vaut <span class="tt">"atterrissage"</span>.<br  />
+Vérifie que <span class="tt">hmi::soundForEvent(hmi::GameEvent::Dashed)</span> vaut <span class="tt">"dash"</span>.<br  />
+Vérifie que <span class="tt">hmi::soundForEvent(hmi::GameEvent::Died)</span> vaut <span class="tt">"mort"</span>.<br  />
+Vérifie que <span class="tt">hmi::soundForEvent(hmi::GameEvent::LevelCompleted)</span> vaut <span class="tt">"victoire_tableau"</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SoundTriggersTest.EvenementsDeMecanismesResolvent</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__sound__triggers_8cpp.html" title="Tests unitaires de la table événement → son (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Audio/test_sound_triggers.cpp</a>:50</span></sub>  </td><td class="markdownTableBodyNone">Les evenements de mecanismes resolvent les bons identifiants de son.  </td><td class="markdownTableBodyNone">1. Resoudre SwitchToggled, PressurePlatePressed, PressurePlateReleased.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::soundForEvent(hmi::GameEvent::SwitchToggled)</span> vaut <span class="tt">"interrupteur"</span>.<br  />
+Vérifie que <span class="tt">hmi::soundForEvent(hmi::GameEvent::PressurePlatePressed)</span> vaut <span class="tt">"plaque_pression"</span>.<br  />
+Vérifie que <span class="tt">hmi::soundForEvent(hmi::GameEvent::PressurePlateReleased)</span> vaut <span class="tt">"plaque_pression"</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SoundTriggersTest.EvenementsSansBruitageResolventNullopt</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__sound__triggers_8cpp.html" title="Tests unitaires de la table événement → son (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Audio/test_sound_triggers.cpp</a>:65</span></sub>  </td><td class="markdownTableBodyNone">Des evenements sans bruitage dedie resolvent vers std::nullopt.  </td><td class="markdownTableBodyNone">1. Resoudre WallContactEnter et BlockPushed.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::soundForEvent(hmi::GameEvent::WallContactEnter)</span> vaut <span class="tt">std::nullopt</span>.<br  />
+Vérifie que <span class="tt">hmi::soundForEvent(hmi::GameEvent::BlockPushed)</span> vaut <span class="tt">std::nullopt</span>.  </td></tr>
+</table>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
 Diagnostics (2)</h3>
 <p><b><span class="tt"><a class="el" href="test__session__log_8cpp.html" title="Tests unitaires de la sérialisation des logs de session.">test_session_log.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -2491,7 +2575,7 @@ Diagnostics (2)</h3>
 <sub><span class="tt"><a class="el" href="test__session__log_8cpp.html" title="Tests unitaires de la sérialisation des logs de session.">Source/Test/Unit/HMI/Diagnostics/test_session_log.cpp</a>:34</span></sub>  </td><td class="markdownTableBodyNone">Une session sans message produit un texte vide.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b" title="Assemble les messages de log en un texte (une ligne par message).">hmi::serializeSessionLog</a>({})</span> vaut <span class="tt">""</span>.  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
 Editor (176)</h3>
 <p><b><span class="tt"><a class="el" href="test__asset__file__operations_8cpp.html" title="Tests unitaires des opérations fichiers sur les assets (LOT-43 TACHE-02).">test_asset_file_operations.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -3610,8 +3694,73 @@ Vérifie que <span class="tt">entry.label.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">subgroup.label.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">entry.label.empty()</span> est faux.  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
-Game (18)</h3>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
+Game (35)</h3>
+<p><b><span class="tt"><a class="el" href="test__game__events_8cpp.html" title="Tests unitaires de la détection d&#39;événements de jeu (LOT-60, EX-REN-047).">test_game_events.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>GameEventsTest.EtatStableNeProduitAucunEvenement</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__game__events_8cpp.html" title="Tests unitaires de la détection d&#39;événements de jeu (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Game/test_game_events.cpp</a>:28</span></sub>  </td><td class="markdownTableBodyNone">Un etat stable du personnage ne produit aucun evenement.  </td><td class="markdownTableBodyNone">1. Detecter les transitions entre deux etats identiques.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::detectPlayerEvents(state, state).empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>GameEventsTest.SautProduitJumped</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__game__events_8cpp.html" title="Tests unitaires de la détection d&#39;événements de jeu (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Game/test_game_events.cpp</a>:43</span></sub>  </td><td class="markdownTableBodyNone">Un saut produit exactement un evenement Jumped.  </td><td class="markdownTableBodyNone">1. current.justJumped = true, tout le reste inchange.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">events.size()</span> vaut <span class="tt">1U</span>.<br  />
+Vérifie que <span class="tt">events[0]</span> vaut <span class="tt">GameEvent::Jumped</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>GameEventsTest.AtterrissageProduitLanded</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__game__events_8cpp.html" title="Tests unitaires de la détection d&#39;événements de jeu (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Game/test_game_events.cpp</a>:61</span></sub>  </td><td class="markdownTableBodyNone">Un atterrissage produit exactement un evenement Landed.  </td><td class="markdownTableBodyNone">1. previous.grounded = false, current.grounded = true.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">events.size()</span> vaut <span class="tt">1U</span>.<br  />
+Vérifie que <span class="tt">events[0]</span> vaut <span class="tt">GameEvent::Landed</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>GameEventsTest.DecollerNeProduitPasLanded</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__game__events_8cpp.html" title="Tests unitaires de la détection d&#39;événements de jeu (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Game/test_game_events.cpp</a>:79</span></sub>  </td><td class="markdownTableBodyNone">Decoller du sol ne produit pas l'evenement Landed.  </td><td class="markdownTableBodyNone">1. previous.grounded = true, current.grounded = false.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">contains(hmi::detectPlayerEvents(previous, current), GameEvent::Landed)</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>GameEventsTest.DeclenchementDashProduitDashed</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__game__events_8cpp.html" title="Tests unitaires de la détection d&#39;événements de jeu (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Game/test_game_events.cpp</a>:96</span></sub>  </td><td class="markdownTableBodyNone">Un dash produit exactement un evenement Dashed.  </td><td class="markdownTableBodyNone">1. previous.dashTimer = 0, current.dashTimer = 0.2 (dash qui vient de se declencher).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">events.size()</span> vaut <span class="tt">1U</span>.<br  />
+Vérifie que <span class="tt">events[0]</span> vaut <span class="tt">GameEvent::Dashed</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>GameEventsTest.DecompteDashNeReproduitPasDashed</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__game__events_8cpp.html" title="Tests unitaires de la détection d&#39;événements de jeu (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Game/test_game_events.cpp</a>:115</span></sub>  </td><td class="markdownTableBodyNone">Le decompte d'un dash en cours ne re-produit pas Dashed.  </td><td class="markdownTableBodyNone">1. previous.dashTimer = 0.2, current.dashTimer = 0.1 (dash toujours en cours).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::detectPlayerEvents(previous, current).empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>GameEventsTest.ContactMuralProduitWallContactEnter</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__game__events_8cpp.html" title="Tests unitaires de la détection d&#39;événements de jeu (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Game/test_game_events.cpp</a>:132</span></sub>  </td><td class="markdownTableBodyNone">Un contact mural produit exactement un evenement WallContactEnter.  </td><td class="markdownTableBodyNone">1. previous.wallDirection = 0, current.wallDirection = 1.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">events.size()</span> vaut <span class="tt">1U</span>.<br  />
+Vérifie que <span class="tt">events[0]</span> vaut <span class="tt">GameEvent::WallContactEnter</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>GameEventsTest.DashEtMurDansLeMemePasProduisentDeuxEvenements</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__game__events_8cpp.html" title="Tests unitaires de la détection d&#39;événements de jeu (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Game/test_game_events.cpp</a>:150</span></sub>  </td><td class="markdownTableBodyNone">Un dash au contact d'un mur produit Dashed ET WallContactEnter.  </td><td class="markdownTableBodyNone">1. Faire transitionner dashTimer et wallDirection dans le meme pas.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">contains(events, GameEvent::Dashed)</span> est vrai.<br  />
+Vérifie que <span class="tt">contains(events, GameEvent::WallContactEnter)</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>GameEventsTest.InterrupteurBasculeProduitSwitchToggled</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__game__events_8cpp.html" title="Tests unitaires de la détection d&#39;événements de jeu (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Game/test_game_events.cpp</a>:168</span></sub>  </td><td class="markdownTableBodyNone">Un interrupteur bascule produit l'evenement SwitchToggled.  </td><td class="markdownTableBodyNone">1. Un mecanisme non continu passe de ferme a ouvert.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">events.size()</span> vaut <span class="tt">1U</span>.<br  />
+Vérifie que <span class="tt">events[0]</span> vaut <span class="tt">GameEvent::SwitchToggled</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>GameEventsTest.PlaquePresseeProduitPressurePlatePressed</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__game__events_8cpp.html" title="Tests unitaires de la détection d&#39;événements de jeu (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Game/test_game_events.cpp</a>:187</span></sub>  </td><td class="markdownTableBodyNone">Une plaque de pression enfoncee produit PressurePlatePressed.  </td><td class="markdownTableBodyNone">1. Un mecanisme continu passe de ferme a ouvert.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">events.size()</span> vaut <span class="tt">1U</span>.<br  />
+Vérifie que <span class="tt">events[0]</span> vaut <span class="tt">GameEvent::PressurePlatePressed</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>GameEventsTest.PlaqueRelacheeProduitPressurePlateReleased</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__game__events_8cpp.html" title="Tests unitaires de la détection d&#39;événements de jeu (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Game/test_game_events.cpp</a>:206</span></sub>  </td><td class="markdownTableBodyNone">Une plaque de pression relachee produit PressurePlateReleased.  </td><td class="markdownTableBodyNone">1. Un mecanisme continu passe d'ouvert a ferme.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">events.size()</span> vaut <span class="tt">1U</span>.<br  />
+Vérifie que <span class="tt">events[0]</span> vaut <span class="tt">GameEvent::PressurePlateReleased</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>GameEventsTest.MecanismeStableNeProduitRien</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__game__events_8cpp.html" title="Tests unitaires de la détection d&#39;événements de jeu (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Game/test_game_events.cpp</a>:225</span></sub>  </td><td class="markdownTableBodyNone">Un mecanisme stable ne produit aucun evenement.  </td><td class="markdownTableBodyNone">1. previous et current identiques pour un jeu de mecanismes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::detectMechanismEvents(state, state, continuous).empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>GameEventsTest.SeulLeMecanismeQuiChangeProduitUnEvenement</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__game__events_8cpp.html" title="Tests unitaires de la détection d&#39;événements de jeu (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Game/test_game_events.cpp</a>:241</span></sub>  </td><td class="markdownTableBodyNone">Un seul mecanisme sur plusieurs qui change produit un seul evenement.  </td><td class="markdownTableBodyNone">1. Trois mecanismes, un seul change d'etat.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">events.size()</span> vaut <span class="tt">1U</span>.<br  />
+Vérifie que <span class="tt">events[0]</span> vaut <span class="tt">GameEvent::SwitchToggled</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>GameEventsTest.TaillesIncoherentesNIgnorentSansPlanter</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__game__events_8cpp.html" title="Tests unitaires de la détection d&#39;événements de jeu (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Game/test_game_events.cpp</a>:260</span></sub>  </td><td class="markdownTableBodyNone">Des vecteurs de tailles differentes ne provoquent aucun acces hors bornes.  </td><td class="markdownTableBodyNone">1. previous a 2 elements, current en a 3, isContinuous en a 2.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::detectMechanismEvents(previous, current, continuous).empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>GameEventsTest.IssueEnCoursNeProduitRien</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__game__events_8cpp.html" title="Tests unitaires de la détection d&#39;événements de jeu (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Game/test_game_events.cpp</a>:277</span></sub>  </td><td class="markdownTableBodyNone">Une partie en cours ne produit aucun evenement d'issue.  </td><td class="markdownTableBodyNone">1. Traduire <a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaac9dbb2b7c84159b632d71e512eba8428" title="Partie en cours.">core::LevelOutcome::Playing</a>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::detectOutcomeEvent(core::LevelOutcome::Playing)</span> vaut <span class="tt">std::nullopt</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>GameEventsTest.IssueGagneeProduitLevelCompleted</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__game__events_8cpp.html" title="Tests unitaires de la détection d&#39;événements de jeu (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Game/test_game_events.cpp</a>:290</span></sub>  </td><td class="markdownTableBodyNone">Une issue gagnee produit l'evenement LevelCompleted.  </td><td class="markdownTableBodyNone">1. Traduire <a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::detectOutcomeEvent(core::LevelOutcome::Won)</span> vaut <span class="tt">GameEvent::LevelCompleted</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>GameEventsTest.IssuePerdueProduitDied</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__game__events_8cpp.html" title="Tests unitaires de la détection d&#39;événements de jeu (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Game/test_game_events.cpp</a>:303</span></sub>  </td><td class="markdownTableBodyNone">Une issue perdue produit l'evenement Died.  </td><td class="markdownTableBodyNone">1. Traduire <a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaab578b733cbb788fc6ad208314d2c4c2b" title="Le personnage a touché un danger ou est sorti par le bas (EX-GP-031).">core::LevelOutcome::Lost</a>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::detectOutcomeEvent(core::LevelOutcome::Lost)</span> vaut <span class="tt">GameEvent::Died</span>.  </td></tr>
+</table>
 <p><b><span class="tt"><a class="el" href="test__game__hud_8cpp.html" title="Tests unitaires du choix de contenu de l&#39;affichage tête haute (LOT-52 TACHE-03, EX-IHM-003).">test_game_hud.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -3733,7 +3882,7 @@ Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9a410292879
 <sub><span class="tt"><a class="el" href="test__progression_8cpp.html" title="Tests unitaires de la progression de partie persistée (LOT-59 TACHE-05, EX-LVL-014) et de la règle de...">Source/Test/Unit/HMI/Game/test_progression.cpp</a>:309</span></sub>  </td><td class="markdownTableBodyNone">Un tableau verrouillé n'est jamais jouable.  </td><td class="markdownTableBodyNone">1. Ne terminer aucun tableau.<br  />
 2. Interroger <span class="tt">isLevelUnlocked</span> pour un tableau loin dans la séquence.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">hmi::isLevelUnlocked</a>(progression, FIVE_LEVEL_SEQUENCE, "demo-dash.json")</span> est faux.  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
 Graphics (244)</h3>
 <p><b><span class="tt"><a class="el" href="test__animated__tiles_8cpp.html" title="Tests unitaires des tuiles animées (LOT-46 TACHE-05) : horloge partagée par asset,...">test_animated_tiles.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -5274,7 +5423,7 @@ Vérifie que <span class="tt">textures.textureFor(appearance)</span> vaut <span 
 Vérifie que <span class="tt">textures.widthFor(broken)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a75cfef1e5eb0b5569ebd42c004d73ce3" title="Côté, en pixels, du damier de repli généré par défaut (une case, EX-ARCH-021).">hmi::MISSING_TEXTURE_SIZE</a></span>.<br  />
 Vérifie que <span class="tt">textures.heightFor(broken)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a75cfef1e5eb0b5569ebd42c004d73ce3" title="Côté, en pixels, du damier de repli généré par défaut (une case, EX-ARCH-021).">hmi::MISSING_TEXTURE_SIZE</a></span>.  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
 Input (65)</h3>
 <p><b><span class="tt"><a class="el" href="test__editor__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de l&#39;éditeur (EditorKeyBindings, EX-CTRL-012).">test_editor_key_bindings.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -5687,7 +5836,7 @@ Vérifie que <span class="tt">mapWithDefaults(withKeys({<a class="el" href="name
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::X), gameKeyBindings, gamepadBindings) .moveX</span> vaut <span class="tt">-1.0f</span> (comparaison flottante).<br  />
 Vérifie que <span class="tt">hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::Y), gameKeyBindings, gamepadBindings) .moveX</span> vaut <span class="tt">1.0f</span> (comparaison flottante).  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
 Interface (28)</h3>
 <p><b><span class="tt"><a class="el" href="test__application__theme_8cpp.html" title="Tests unitaires du thème de l&#39;IHM : modèle de feuille de style (LOT-56 TACHE-02, EX-IHM-050,...">test_application_theme.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -5870,17 +6019,19 @@ Vérifie que <span class="tt">resolveTransition(niveauTermine, ScreenEvent::Repl
 Vérifie que <span class="tt">resolveTransition(niveauTermine, ScreenEvent::ReturnToMenuFromLevelComplete)-&gt;screen</span> vaut <span class="tt">ScreenId::Menu</span>.<br  />
 Vérifie que <span class="tt">resolveTransition(menu, ScreenEvent::OpenLevelSelect)-&gt;screen</span> vaut <span class="tt">ScreenId::LevelSelect</span>.<br  />
 Vérifie que <span class="tt">resolveTransition(levelSelect, ScreenEvent::LevelChosen)-&gt;screen</span> vaut <span class="tt">ScreenId::Game</span>.<br  />
-Vérifie que <span class="tt">resolveTransition(levelSelect, ScreenEvent::CloseLevelSelect)-&gt;screen</span> vaut <span class="tt">ScreenId::Menu</span>.  </td></tr>
+Vérifie que <span class="tt">resolveTransition(levelSelect, ScreenEvent::CloseLevelSelect)-&gt;screen</span> vaut <span class="tt">ScreenId::Menu</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(menu, ScreenEvent::OpenCredits)-&gt;screen</span> vaut <span class="tt">ScreenId::Credits</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(credits, ScreenEvent::CloseCredits)-&gt;screen</span> vaut <span class="tt">ScreenId::Menu</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ScreenFlowTest.OptionsRevientVersSonEcranDOrigine</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__screen__flow_8cpp.html" title="Tests unitaires de la machine à états des écrans (LOT-59 TACHE-01, EX-GP-041).">Source/Test/Unit/HMI/Interface/test_screen_flow.cpp</a>:76</span></sub>  </td><td class="markdownTableBodyNone">Options revient vers son écran d'origine (Menu ou Pause).  </td><td class="markdownTableBodyNone">1. Ouvrir Options depuis Menu, puis le fermer : vérifier le retour au Menu.<br  />
+<sub><span class="tt"><a class="el" href="test__screen__flow_8cpp.html" title="Tests unitaires de la machine à états des écrans (LOT-59 TACHE-01, EX-GP-041).">Source/Test/Unit/HMI/Interface/test_screen_flow.cpp</a>:79</span></sub>  </td><td class="markdownTableBodyNone">Options revient vers son écran d'origine (Menu ou Pause).  </td><td class="markdownTableBodyNone">1. Ouvrir Options depuis Menu, puis le fermer : vérifier le retour au Menu.<br  />
 2. Ouvrir Options depuis Pause, puis le fermer : vérifier le retour à Pause.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">openedFromMenu.has_value()</span> est vrai.<br  />
 Vérifie que <span class="tt">resolveTransition(*openedFromMenu, ScreenEvent::CloseOptions)-&gt;screen</span> vaut <span class="tt">ScreenId::Menu</span>.<br  />
 Vérifie que <span class="tt">openedFromPause.has_value()</span> est vrai.<br  />
 Vérifie que <span class="tt">resolveTransition(*openedFromPause, ScreenEvent::CloseOptions)-&gt;screen</span> vaut <span class="tt">ScreenId::Pause</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ScreenFlowTest.TransitionInterditeEstRefusee</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__screen__flow_8cpp.html" title="Tests unitaires de la machine à états des écrans (LOT-59 TACHE-01, EX-GP-041).">Source/Test/Unit/HMI/Interface/test_screen_flow.cpp</a>:104</span></sub>  </td><td class="markdownTableBodyNone">Une transition interdite est refusée.  </td><td class="markdownTableBodyNone">1. Tenter Editor -&gt; Pause (via OpenPause).<br  />
+<sub><span class="tt"><a class="el" href="test__screen__flow_8cpp.html" title="Tests unitaires de la machine à états des écrans (LOT-59 TACHE-01, EX-GP-041).">Source/Test/Unit/HMI/Interface/test_screen_flow.cpp</a>:107</span></sub>  </td><td class="markdownTableBodyNone">Une transition interdite est refusée.  </td><td class="markdownTableBodyNone">1. Tenter Editor -&gt; Pause (via OpenPause).<br  />
 2. Tenter Menu -&gt; NiveauTermine (via LevelSucceeded).<br  />
 3. Tenter Menu -&gt; Pause directement.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">resolveTransition(editor, ScreenEvent::OpenPause)</span> vaut <span class="tt">std::nullopt</span>.<br  />
 Vérifie que <span class="tt">resolveTransition(menu, ScreenEvent::LevelSucceeded)</span> vaut <span class="tt">std::nullopt</span>.<br  />
@@ -5888,10 +6039,12 @@ Vérifie que <span class="tt">resolveTransition(menu, ScreenEvent::OpenPause)</s
 Vérifie que <span class="tt">resolveTransition(menu, ScreenEvent::ResumePause)</span> vaut <span class="tt">std::nullopt</span>.<br  />
 Vérifie que <span class="tt">resolveTransition(editor, ScreenEvent::OpenOptions)</span> vaut <span class="tt">std::nullopt</span>.<br  />
 Vérifie que <span class="tt">resolveTransition(editor, ScreenEvent::OpenLevelSelect)</span> vaut <span class="tt">std::nullopt</span>.<br  />
-Vérifie que <span class="tt">resolveTransition(game, ScreenEvent::OpenLevelSelect)</span> vaut <span class="tt">std::nullopt</span>.  </td></tr>
+Vérifie que <span class="tt">resolveTransition(game, ScreenEvent::OpenLevelSelect)</span> vaut <span class="tt">std::nullopt</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(editor, ScreenEvent::OpenCredits)</span> vaut <span class="tt">std::nullopt</span>.<br  />
+Vérifie que <span class="tt">resolveTransition(game, ScreenEvent::OpenCredits)</span> vaut <span class="tt">std::nullopt</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ScreenFlowTest.HabillageDeFenetreEstCeluiAttenduParEcran</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__screen__flow_8cpp.html" title="Tests unitaires de la machine à états des écrans (LOT-59 TACHE-01, EX-GP-041).">Source/Test/Unit/HMI/Interface/test_screen_flow.cpp</a>:132</span></sub>  </td><td class="markdownTableBodyNone">L'habillage de fenêtre est celui attendu pour chaque écran.  </td><td class="markdownTableBodyNone">1. Interroger l'habillage de chacun des sept écrans.<br  />
+<sub><span class="tt"><a class="el" href="test__screen__flow_8cpp.html" title="Tests unitaires de la machine à états des écrans (LOT-59 TACHE-01, EX-GP-041).">Source/Test/Unit/HMI/Interface/test_screen_flow.cpp</a>:138</span></sub>  </td><td class="markdownTableBodyNone">L'habillage de fenêtre est celui attendu pour chaque écran.  </td><td class="markdownTableBodyNone">1. Interroger l'habillage de chacun des sept écrans.<br  />
 2. Vérifier chaque champ.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">menu.docksVisible</span> est faux.<br  />
 Vérifie que <span class="tt">menu.menuBarVisible</span> est faux.<br  />
 Vérifie que <span class="tt">menu.toolBarVisible</span> est faux.<br  />
@@ -5927,6 +6080,13 @@ Vérifie que <span class="tt">levelSelect.pixelToolBarVisible</span> est faux.<b
 Vérifie que <span class="tt">levelSelect.editingCommandsEnabled</span> est faux.<br  />
 Vérifie que <span class="tt">levelSelect.gamepadNavigationActive</span> est vrai.<br  />
 Vérifie que <span class="tt">levelSelect.overlayVisible</span> est faux.<br  />
+Vérifie que <span class="tt">credits.docksVisible</span> est faux.<br  />
+Vérifie que <span class="tt">credits.menuBarVisible</span> est faux.<br  />
+Vérifie que <span class="tt">credits.toolBarVisible</span> est faux.<br  />
+Vérifie que <span class="tt">credits.pixelToolBarVisible</span> est faux.<br  />
+Vérifie que <span class="tt">credits.editingCommandsEnabled</span> est faux.<br  />
+Vérifie que <span class="tt">credits.gamepadNavigationActive</span> est vrai.<br  />
+Vérifie que <span class="tt">credits.overlayVisible</span> est faux.<br  />
 Vérifie que <span class="tt">overlay.docksVisible</span> est faux.<br  />
 Vérifie que <span class="tt">overlay.menuBarVisible</span> est faux.<br  />
 Vérifie que <span class="tt">overlay.toolBarVisible</span> est faux.<br  />
@@ -5936,11 +6096,11 @@ Vérifie que <span class="tt">overlay.gamepadNavigationActive</span> est vrai.<b
 Vérifie que <span class="tt">overlay.overlayVisible</span> est vrai.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ScreenFlowTest.ContinuerOuRejouerDepuisNiveauTermineRameneAGame</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__screen__flow_8cpp.html" title="Tests unitaires de la machine à états des écrans (LOT-59 TACHE-01, EX-GP-041).">Source/Test/Unit/HMI/Interface/test_screen_flow.cpp</a>:201</span></sub>  </td><td class="markdownTableBodyNone">Continuer/Rejouer depuis NiveauTermine ramène à Game.  </td><td class="markdownTableBodyNone">1. Résoudre ContinueAfterLevel depuis NiveauTermine.<br  />
+<sub><span class="tt"><a class="el" href="test__screen__flow_8cpp.html" title="Tests unitaires de la machine à états des écrans (LOT-59 TACHE-01, EX-GP-041).">Source/Test/Unit/HMI/Interface/test_screen_flow.cpp</a>:216</span></sub>  </td><td class="markdownTableBodyNone">Continuer/Rejouer depuis NiveauTermine ramène à Game.  </td><td class="markdownTableBodyNone">1. Résoudre ContinueAfterLevel depuis NiveauTermine.<br  />
 2. Résoudre ReplayLevel depuis NiveauTermine.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">resolveTransition(niveauTermine, ScreenEvent::ContinueAfterLevel)-&gt;screen</span> vaut <span class="tt">ScreenId::Game</span>.<br  />
 Vérifie que <span class="tt">resolveTransition(niveauTermine, ScreenEvent::ReplayLevel)-&gt;screen</span> vaut <span class="tt">ScreenId::Game</span>.  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
 Localization (8)</h3>
 <p><b><span class="tt"><a class="el" href="test__localization_8cpp.html" title="Tests unitaires du catalogue de traduction : analyse, repli, changement de langue.">test_localization.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -5990,9 +6150,9 @@ Vérifie que <span class="tt">localization.activeLanguage()</span> vaut <span cl
 Vérifie que <span class="tt">localization.text("menu.quit")</span> vaut <span class="tt">"Quitter"</span>.<br  />
 Vérifie que <span class="tt">localization.text("menu.continue")</span> vaut <span class="tt">"Continuer"</span>.  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md22"></a>
 Tests d'intégration (89)</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md22"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md23"></a>
 Animation Personnage — <span class="tt">test_animation_personnage.cpp</span> (13)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -6070,7 +6230,7 @@ Vérifie que <span class="tt">world.getComponent&lt;<a class="el" href="structco
 3. Executer un pas.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">world.getComponent&lt;<a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...">core::Animation</a>&gt;(entity).clipIndex</span> vaut <span class="tt"><a class="el" href="namespacecore.html#ab778e77cf62b7d1c11d8038f75cbf020" title="Index du clip « wallslide » (glissade murale, LOT-48) dans core::playerClipSet().">core::PLAYER_CLIP_WALLSLIDE</a></span>.<br  />
 Vérifie que <span class="tt">world.getComponent&lt;<a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...">core::Animation</a>&gt;(entity).clipIndex</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a75463224decffa9f1ac1f5bf99119eef" title="Index du clip « land » (atterrissage, transition jouée une fois, LOT-48) dans core::playerClipSet().">core::PLAYER_CLIP_LAND</a></span>.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md23"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md24"></a>
 Bloc Réduit — <span class="tt">test_bloc_reduit.cpp</span> (2)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -6085,7 +6245,7 @@ Vérifie que <span class="tt">world.getComponent&lt;<a class="el" href="structco
 <sub><span class="tt"><a class="el" href="test__bloc__reduit_8cpp.html" title="Tests d&#39;intégration des blocs à taille réduite (TileType::BlockHalf/BlockQuarter, EX-GP-005) : compos...">Source/Test/Integration/test_bloc_reduit.cpp</a>:154</span></sub>  </td><td class="markdownTableBodyNone">L'espace autour d'un bloc réduit, hors de sa boîte réelle, reste franchissable.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">endX - startX</span> est strictement supérieur à <span class="tt">8.0f</span>.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md24"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md25"></a>
 Boucle Simulation — <span class="tt">test_boucle_simulation.cpp</span> (2)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -6101,7 +6261,7 @@ Vérifie que <span class="tt">position.x</span> vaut <span class="tt">6.0f * tot
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">firstPosition.x</span> vaut <span class="tt">secondPosition.x</span>, à <span class="tt">TOLERANCE</span> près.<br  />
 Vérifie que <span class="tt">firstPosition.y</span> vaut <span class="tt">secondPosition.y</span>, à <span class="tt">TOLERANCE</span> près.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md25"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md26"></a>
 Dangers avancés — <span class="tt">test_danger_avance.cpp</span> (4)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -6127,7 +6287,7 @@ Vérifie que <span class="tt">walkAndCheckIfEverLost(true)</span> est vrai.  </t
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">outcomeAtSpawn(0)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaab578b733cbb788fc6ad208314d2c4c2b" title="Le personnage a touché un danger ou est sorti par le bas (EX-GP-031).">core::LevelOutcome::Lost</a></span>.<br  />
 Vérifie que <span class="tt">outcomeAtSpawn(15)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaac9dbb2b7c84159b632d71e512eba8428" title="Partie en cours.">core::LevelOutcome::Playing</a></span>.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md26"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md27"></a>
 Ecs Mouvement — <span class="tt">test_ecs_mouvement.cpp</span> (4)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -6154,7 +6314,7 @@ Vérifie que <span class="tt">fastPosition.y</span> vaut <span class="tt">4.0f</
 <sub><span class="tt"><a class="el" href="test__ecs__mouvement_8cpp.html" title="Tests d&#39;intégration de l&#39;ECS : entités + composants + système de mouvement assemblés dans un World,...">Source/Test/Integration/test_ecs_mouvement.cpp</a>:114</span></sub>  </td><td class="markdownTableBodyNone">Enregistré dans le World, le système s'exécute via World::update (chaîne complète).  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">position.x</span> vaut <span class="tt">10.0f * steps * STEP</span>, à <span class="tt">TOLERANCE</span> près.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md27"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md28"></a>
 Niveau Ecs — <span class="tt">test_niveau_ecs.cpp</span> (2)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -6175,7 +6335,7 @@ Vérifie que <span class="tt">tilesByPosition.at({1, 1})</span> vaut <span class
 Vérifie que <span class="tt">nonEmptyTiles</span> est strictement supérieur à <span class="tt">0</span>.<br  />
 Vérifie que <span class="tt">entities</span> vaut <span class="tt">nonEmptyTiles</span>.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md28"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md29"></a>
 Physique Personnage — <span class="tt">test_physique_personnage.cpp</span> (62)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -6506,9 +6666,9 @@ Vérifie que <span class="tt">outcome</span> diffère de <span class="tt"><a cla
 <sub><span class="tt"><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:2668</span></sub>  </td><td class="markdownTableBodyNone">Le niveau final combine plusieurs mécaniques en un seul parcours cohérent et reste franchissable.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">playReactiveFile("demo-final.json", script)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></span>.  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md29"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md30"></a>
 Tests système (3)</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md30"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md31"></a>
 Parcours Complet — <span class="tt">test_parcours_complet.cpp</span> (1)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -6519,7 +6679,7 @@ Parcours Complet — <span class="tt">test_parcours_complet.cpp</span> (1)</h2>
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">sequence.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">playLevel(level)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></span>.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md31"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md32"></a>
 Éditeur de niveaux — <span class="tt">test_parcours_edition.cpp</span> (2)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">

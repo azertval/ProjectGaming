@@ -94,12 +94,12 @@ $(function(){initNavTree('lot-65-tache-01-inventaire-garde-fou.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-65-refonte-niveaux-demo_2tache-01-inventaire-garde-fou"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-65.html#md_Lot_2LOT-65-refonte-niveaux-demo_2epic" title="Lot/LOT-65-refonte-niveaux-demo/epic.md">LOT-65</a> · <b>Emplacement :</b> <span class="tt">scripts</span>, <span class="tt">Source/Test</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2881"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2894"></a>
 Contexte</h1>
 <p>Le projet sait déjà se protéger d'une divergence de <b>séquence</b> : <span class="tt">scripts/check_demo_sequence.py</span> échoue si le jeu et le test système n'énumèrent pas les mêmes tableaux. Il ne sait rien dire de la <b>couverture</b> : rien n'empêche qu'un type de tuile livré, testé unitairement, n'apparaisse dans aucun niveau jouable.</p>
 <p>C'est le cas aujourd'hui pour plusieurs mécaniques ajoutées après le <span class="tt">LOT-25</span>, et cette tâche commence par l'établir plutôt que le supposer.</p>
 <p>Ce contrôle est livré <b>en premier</b> et <b>rouge</b> : la liste de ce qu'il refuse devient la spécification de travail des <span class="tt">TACHE-02</span> et <span class="tt">TACHE-03</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2882"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2895"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Inventaire</b> de ce qui doit être couvert : chaque <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span> (hors <span class="tt">Empty</span>), chaque mode de cadrage (<span class="tt">EX-LVL-006</span>), et les variantes significatives portées par des champs — danger temporisé <b>déphasé</b>, danger mobile <b>vertical</b>, budget de mouvements, texture par instance, décor de premier plan.</li>
@@ -108,14 +108,14 @@ Travail à réaliser</h1>
 <li><b>Exclusions explicites et justifiées</b> : si une mécanique ne peut légitimement pas être couverte, elle figure dans une liste d'exclusions <b>nommées et commentées</b>, jamais omise silencieusement.</li>
 <li><b>État initial consigné</b> : la liste des mécaniques non couvertes au début du lot, qui pilote la suite.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2883"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2896"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Test/Systeme/test_couverture_mecaniques.cpp</span> (nouveau).</li>
 <li><span class="tt">Source/Test/CMakeLists.txt</span>.</li>
 <li><span class="tt">scripts/check_demo_sequence.py</span> — si la vérification de couverture y trouve mieux sa place que dans un test, trancher et documenter.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2884"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2897"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Le contrôle <b>échoue</b> au départ, en nommant précisément les mécaniques non couvertes — c'est le résultat attendu de cette tâche, pas un problème.</li>
@@ -124,7 +124,7 @@ Tests (obligatoires)</h1>
 <li>Les exclusions sont <b>toutes</b> commentées ; une exclusion sans justification fait échouer une relecture, à défaut d'un contrôle.</li>
 <li>Test <span class="tt">Core</span> pur, sans GPU, s'appuyant sur les niveaux réellement livrés.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2885"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2898"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas recopier la liste des types.</b> Une liste maintenue à la main se périme au premier lot suivant, et le contrôle devient un ornement.</li>
@@ -132,12 +132,12 @@ Points d'attention</h1>
 <li>La liste d'exclusions est le point de fuite habituel de ce genre de contrôle : la garder très courte, et exiger une justification écrite pour chaque entrée.</li>
 <li>Ce test s'ajoute à <span class="tt">SystemTests</span>, qui compile <span class="tt">Core</span> seul : ne pas y introduire de dépendance <span class="tt">HMI</span>, ce qui exclut de vérifier ici les modes de cadrage s'ils ne sont lisibles que côté présentation — dans ce cas, les vérifier depuis <span class="tt">UnitTests</span>, où <span class="tt"><a class="el" href="RoomGrid_8cpp.html">RoomGrid.cpp</a></span> est déjà compilé.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2886"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2899"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Un contrôle automatique dérivé des énumérations du code échoue tant qu'une mécanique livrée n'apparaît dans aucun niveau de la séquence, avec des exclusions nommées et justifiées ; sa sensibilité est démontrée par un test négatif ; l'état initial est consigné ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2887"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2900"></a>
 Exigences</h1>
 <p><span class="tt">EX-LVL-015</span> (couverture exhaustive vérifiée automatiquement) ; réutilise <span class="tt">EX-NFR-021</span> (test système), <span class="tt">EX-LVL-013</span> (séquence en donnée), <span class="tt">EX-NFR-020</span> (tests), <span class="tt">EX-NFR-010</span> (<span class="tt">Core</span> sans GPU). </p>
 </div></div><!-- contents -->

@@ -96,12 +96,12 @@ $(function(){initNavTree('lot-32.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>terminé</b>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1577"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1585"></a>
 Objectif</h1>
 <p><span class="tt">LOT-16</span> a rendu les grands niveaux <b>visibles</b> (caméra qui zoome pour englober le niveau entier), mais au prix d'un zoom qui rapetisse d'autant plus que le niveau grandit — acceptable jusqu'à un plafond raisonnable (<span class="tt">EX-EDIT-017</span>), pas au-delà. Pour de <b>très grands</b> niveaux, ce lot introduit une seconde stratégie de cadrage, façon <em>Celeste</em> : le niveau reste une <b>grille de tuiles unique</b> (aucun changement de format, aucune limite dans <span class="tt">Core</span>), mais elle est <b>partitionnée</b> en un tableau de <b>salles</b> de taille fixe pour la caméra. En jeu, la caméra ne cadre plus tout le niveau mais <b>une salle à la fois</b>, au zoom pixel art natif — elle bascule <b>nettement</b> sur la salle voisine quand le personnage en franchit la frontière, sans jamais rapetisser le rendu quelle que soit la taille totale du niveau. Le niveau dans son ensemble garde <b>une seule entrée et une seule sortie</b> (invariant <span class="tt">Core</span> inchangé, <span class="tt">EX-LVL-004</span>) ; une salle « intérieure » peut en revanche donner sur <b>plusieurs salles voisines</b> (haut/bas/gauche/droite), dès lors qu'un couloir reste ouvert sur le bord correspondant — aucune nouvelle tuile ni notion de porte inter-salle : la géométrie déjà peinte suffit.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1578"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1586"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1579"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1587"></a>
 Inclus</h2>
 <ul>
 <li><b>Partition en salles</b> (<span class="tt">RoomGrid</span>, nouvelle logique pure) : découpe une grille de tuiles en un tableau de rectangles de taille fixe (constante de code, dernière ligne/colonne éventuellement plus petite si la taille du niveau n'est pas un multiple exact — jamais rognée, toujours entièrement visible). Détermine la salle contenant une position donnée.</li>
@@ -110,7 +110,7 @@ Inclus</h2>
 <li><b>Niveau de démonstration</b> : au moins <span class="tt">2×2</span> salles, avec une salle intermédiaire ouverte sur <b>plusieurs</b> voisines, intégré à la séquence de jeu.</li>
 <li>Documentation (guide de rendu/éditeur) et mise à jour des spécifications concernées.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1580"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1588"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Salles comme entités séparées</b> (fichiers/<span class="tt">TileMap</span> distincts reliés par une tuile « connecteur » explicite) — écarté au profit d'une grille unique partitionnée : aucun nouveau format de fichier, aucune nouvelle tuile, aucune résolution de liaison au chargement (cf. décisions de cadrage). Un lot futur pourrait revisiter ce choix si le besoin de salles <em>réellement</em> indépendantes (rejouables séparément, générées procéduralement, etc.) apparaît.</li>
@@ -120,7 +120,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Édition du découpage en salles</b> (déplacer/redimensionner une salle indépendamment de la grille) — les salles sont une <b>projection</b> dérivée de la taille du niveau et de la constante de taille de salle, pas un objet éditable ; agrandir/rétrécir le niveau (<span class="tt">EX-EDIT-017</span>, déjà livré) suffit à ajouter ou retirer des salles.</li>
 <li><b>Décors, pipeline photo → pixel art</b> — inchangé, toujours hors périmètre (<span class="tt">EX-DEC-*</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1581"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1589"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Une grille unique partitionnée, pas des salles séparées reliées par connecteurs</b> : tranché avec le demandeur. <span class="tt">Core</span> n'a aucune limite de taille depuis <span class="tt">LOT-16</span> et l'invariant « une entrée, une sortie » (<span class="tt">EX-LVL-004</span>) porte déjà sur le niveau entier — le réutiliser tel quel évite tout nouveau format, toute nouvelle tuile, toute résolution de liaison inter-salles. Une salle a « plusieurs entrées/sorties » simplement parce qu'un couloir reste ouvert sur plusieurs bords vers des salles voisines dans la même grille — propriété <b>géométrique</b>, pas un mécanisme à modéliser.</li>
@@ -129,14 +129,14 @@ Décisions de cadrage</h1>
 <li><b>La caméra de l'éditeur reste « niveau entier »</b>, seule celle du jeu passe en cadrage par salle. Un level designer construit et vérifie la cohérence d'ensemble (couloirs alignés, entrée/sortie atteignables) en voyant tout le niveau à la fois ; le cadrage par salle est une expérience de <b>jeu</b>, pas un besoin d'édition. Un simple quadrillage superposé suffit à visualiser les frontières de salles sans changer le pan/zoom existant.</li>
 <li><b><span class="tt">RoomGrid</span> réutilise <span class="tt">Camera2D::fitZoom</span></b> (LOT-16) tel quel, appliqué au rectangle de la salle courante plutôt qu'au niveau entier — aucune duplication de la règle de zoom (entier tant que <span class="tt">≥ 1</span>, fractionnaire seulement si nécessaire).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1582"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1590"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle : <span class="tt">EX-REN-015</span> (cadrage caméra par salle, jeu), <span class="tt">EX-EDIT-023</span> (repère visuel de salles, éditeur).</li>
 <li>Corrigée (portée, pas le sens) : <span class="tt">EX-REN-013</span> (cadrage « niveau entier » scopé aux niveaux tenant dans une seule salle ; au-delà, <span class="tt">EX-REN-015</span> prend le relais).</li>
 <li>Réutilisées (inchangées) : <span class="tt">EX-LVL-004</span> (une entrée/une sortie, invariant niveau entier), <span class="tt">EX-EDIT-017</span> (plafond de taille, toujours applicable au niveau entier), <span class="tt">EX-ARCH-022</span> (zoom pixel art de préférence entier), <span class="tt">EX-NFR-010</span> (logique pure côté <span class="tt">Core</span>/logique de partition).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1583"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1591"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -153,7 +153,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-32-tache-04-demo-documentation-verification.html#md_Lot_2LOT-32-niveaux-a-salles_2tache-04-demo-documentation-verification" title="Lot/LOT-32-niveaux-a-salles/tache-04-demo-documentation-verification.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Niveau de démonstration, documentation et vérification  </td><td class="markdownTableBodyNone"><span class="tt">Source/Elements</span>, <span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1584"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1592"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Un niveau plus grand qu'une salle se joue avec une caméra au <b>zoom pixel art natif</b> (jamais rapetissie pour « tout englober ») : elle cadre la salle du personnage, et bascule <b>nettement</b> sur la salle voisine dès que le personnage en franchit la frontière, dans les quatre directions.</li>
@@ -163,12 +163,12 @@ Critères d'acceptation du lot</h1>
 <li>Dans l'éditeur, le quadrillage des salles est visible en superposition de la grille de tuiles, sans changer le comportement de pan/zoom existant (<span class="tt">EX-EDIT-013</span>).</li>
 <li>Logique nouvelle <b>couverte par des tests</b> (<span class="tt">ctest</span> vert), déterministe, sans GPU pour la partition (<span class="tt">RoomGrid</span>) ; vérification visuelle pour l'intégration caméra/éditeur (dépendance D3D11). Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen (binaire CI 1.9.8 vérifié localement avant push) et lint des exigences verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1585"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1593"></a>
 Dépendances</h1>
 <ul>
 <li>Étend <span class="tt"><a class="el" href="classhmi_1_1Camera2D.html#a197df5a46fa35ccf6c17df58662b16bb" title="Facteur de zoom ajustant un contenu à une surface disponible, sans zone hors champ.">hmi::Camera2D::fitZoom</a></span> (<span class="tt">LOT-16</span>) et le cadrage caméra de <span class="tt">GameScreen</span> (<span class="tt">LOT-05</span>/<span class="tt">09</span>), sans modifier <span class="tt"><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">core::TileMap</a></span>/<span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a></span>/<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span> (<span class="tt">LOT-07</span>/<span class="tt">14</span>) ni l'invariant entrée/sortie (<span class="tt">EX-LVL-004</span>). Le repère visuel de l'éditeur s'appuie sur <span class="tt">EditorScreen::renderGrid</span> (<span class="tt">LOT-14</span>/<span class="tt">15</span>/<span class="tt">16</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1586"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1594"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-32-tache-01-partition-salles.html" title="TACHE-01 — Partition en salles (`RoomGrid`, logique pure)">TACHE-01 — Partition en salles (`RoomGrid`, logique pure)</a></li>

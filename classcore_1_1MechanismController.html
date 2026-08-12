@@ -107,6 +107,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a465aa3ad3194fcb485d656dbe0b292c2" id="r_a465aa3ad3194fcb485d656dbe0b292c2"><td class="memItemLeft">const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a465aa3ad3194fcb485d656dbe0b292c2">collisionMap</a> () const noexcept</td></tr>
 <tr class="memitem:adb0a0f83d8a5302a84bc3c67386c09e7" id="r_adb0a0f83d8a5302a84bc3c67386c09e7"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1Mechanism.html">Mechanism</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#adb0a0f83d8a5302a84bc3c67386c09e7">mechanisms</a> () const noexcept</td></tr>
 <tr class="memitem:af75b708d821d8c882969d7bac6ea2e41" id="r_af75b708d821d8c882969d7bac6ea2e41"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af75b708d821d8c882969d7bac6ea2e41">isDoorOpen</a> (std::size_t index) const</td></tr>
+<tr class="memitem:abdebc78caac7d3422fde00cb3e0a7574" id="r_abdebc78caac7d3422fde00cb3e0a7574"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#abdebc78caac7d3422fde00cb3e0a7574">isContinuous</a> (std::size_t index) const</td></tr>
 <tr class="memitem:a04eb177a0e57012f684384151afc8dd5" id="r_a04eb177a0e57012f684384151afc8dd5"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1DangerLink.html">DangerLink</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a04eb177a0e57012f684384151afc8dd5">dangerLinks</a> () const noexcept</td></tr>
 <tr class="memitem:a1fef25ec829904453d62b012b3b84f6f" id="r_a1fef25ec829904453d62b012b3b84f6f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1fef25ec829904453d62b012b3b84f6f">isDangerActive</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> dangerPosition) const noexcept</td></tr>
 </table><table class="memberdecls">
@@ -218,6 +219,32 @@ DangerSwitched</span>, <span class="tt">EX-GP-052</span>) : même détection fro
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Les liaisons de danger commuté (positions interrupteur/danger, <span class="tt">EX-GP-052</span>). </dd></dl>
+
+</div>
+</div>
+<a id="abdebc78caac7d3422fde00cb3e0a7574" name="abdebc78caac7d3422fde00cb3e0a7574"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdebc78caac7d3422fde00cb3e0a7574">&#9670;&#160;</a></span>isContinuous()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::MechanismController::isContinuous </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true si le mécanisme <code class="param">index</code> est une <b>plaque de pression</b> (activation continue, <span class="tt">EX-GP-025</span>), false si c'est un <b>interrupteur</b> à bascule classique (<span class="tt">EX-GP-020</span>). Distingue les deux sons de déclenchement (<span class="tt">hmi::SoundTriggers</span>, <span class="tt">LOT-60</span>). </dd></dl>
 
 </div>
 </div>
