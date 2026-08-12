@@ -133,6 +133,13 @@ public:
         return _lastStepEvents;
     }
 
+    /// @return Les compteurs de primitives de la **dernière** image rendue (`hmi::SpriteRenderer::
+    /// lastScene`, `EX-NFR-005`) : composées, écartées, soumises, passes de dessin — consommé par
+    /// le compteur de diagnostic (`hmi::DiagnosticsHud`, `LOT-62` TACHE-02).
+    [[nodiscard]] SceneStatistics renderStatistics() const noexcept {
+        return _renderer.lastScene().statistics();
+    }
+
 private:
     void loadLevel(core::Level level);
     void spawnPlayer(core::GridPosition entry);

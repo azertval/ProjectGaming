@@ -831,6 +831,82 @@ Un programme de seize lots (voir [les lots](@ref lots)) a levé ces limites une 
 d'habillage : indépendant de `LOT-55` (aucun des deux ne dépend de l'autre), c'est un effort
 distinct qui **bâtit sur** le personnage et le décor texturés plutôt que d'en faire partie.
 
+## Budget de rendu mesuré (`LOT-62`)
+
+`EX-NFR-005` demande que le nombre de primitives émises par image reste **borné et observable** ;
+`EX-NFR-001` demande **60 images par seconde**. Les deux exigences existaient depuis les premiers
+lots du rendu, sans jamais avoir de moyen de vérification. `LOT-62` leur en donne un — sans
+optimiser quoi que ce soit : ce lot **mesure**.
+
+### Le test de non-régression du volume (`Source/Test/Unit/HMI/Graphics/test_render_budget.cpp`)
+
+Pour chaque niveau livré (les quinze fichiers de `Source/Elements/Levels/sequence-demo.json`), le
+test reconstruit exactement la scène que `hmi::GameSession` composerait — tuiles, décors,
+personnage à l'entrée, caméra cadrée sur la salle de l'entrée — et compare les compteurs de
+`hmi::ComposedScene::statistics()` à un **plafond nommé**, dans les deux modes de rendu (le mode
+Texture, structurellement plus lourd, est celui qui dérive). Le culling est asserté séparément sur
+`demo-salles` (au moins la moitié des primitives écartées) : une borne haute sur le total ne dit pas
+si le culling fonctionne, une borne basse sur ce qu'il écarte, si.
+
+**Faire évoluer un plafond légitimement** : un lot de contenu qui ajoute un calque, agrandit un
+niveau livré, ou change sa salle d'entrée peut légitimement faire grimper les compteurs mesurés.
+Dans ce cas, relever les nouvelles valeurs (`ctest` affiche `considered`/`submitted` réels dans le
+message d'échec, ventilés par calque via `hmi::QuadRecorder::describe`) et choisir un plafond
+**large** au-dessus — de l'ordre de 1,5 à 2 fois la valeur mesurée, pour continuer à attraper un
+facteur deux accidentel sans transformer chaque lot de contenu en mise à jour de constante.
+**Ajuster un plafond pour faire passer un test sans avoir compris pourquoi il a été dépassé est
+exactement ce qu'il ne faut pas faire** : un dépassement est un résultat, il se consigne (voir
+tableau de référence ci-dessous) avant de se corriger, jamais pendant.
+
+### Mesures de référence, à la date du `LOT-62` (2026-08-12)
+
+Composées avec `test_render_budget.cpp`, caméra cadrée sur la salle d'entrée, sans skins chargés
+(tout retombe sur l'atlas procédural en Physique ou le damier en Texture — sans effet sur le
+*volume*, seule chose mesurée ici) :
+
+| Niveau                     | Physique (composées / soumises) | Texture (composées / soumises) |
+|-----------------------------|:-------------------------------:|:-------------------------------:|
+| `demo-deplacement.json`     | 48 / 48                         | 90 / 90                         |
+| `demo-saut.json`             | 44 / 44                         | 85 / 85                         |
+| `demo-double-saut.json`      | 39 / 39                         | 71 / 71                         |
+| `demo-wall-jump.json`        | 25 / 25                         | 47 / 47                         |
+| `demo-dash.json`              | 43 / 43                         | 82 / 82                         |
+| `demo-interrupteur.json`      | 33 / 33                         | 61 / 61                         |
+| `demo-plaque-pression.json`   | 34 / 34                         | 63 / 63                         |
+| `demo-bloc.json`               | 40 / 40                         | 73 / 73                         |
+| `demo-budget.json`             | 31 / 31                         | 59 / 59                         |
+| `demo-pente.json`              | 31 / 31                         | 59 / 59                         |
+| `demo-arrondi.json`            | 31 / 31                         | 59 / 59                         |
+| `demo-bloc-reduit.json`        | 34 / 34                         | 65 / 65                         |
+| `demo-dangers-avances.json`    | 52 / 52                         | 96 / 96                         |
+| `demo-final.json`              | 68 / 46                         | 128 / 89                        |
+| `demo-salles.json`             | 241 / 86                        | 479 / 170                       |
+
+`demo-final` et `demo-salles` sont les deux seuls niveaux livrés dépassant une salle
+(`hmi::RoomGrid::ROOM_WIDTH_TILES` × `ROOM_HEIGHT_TILES`) : c'est là que le culling écarte une
+fraction significative des primitives composées (respectivement 32 % et 64 % en mode Texture).
+Chaque autre niveau livré tient dans sa salle d'entrée sans reste : aucune primitive n'y est jamais
+écartée.
+
+### Compteur de diagnostic en jeu (`F9`)
+
+`hmi::DiagnosticsHud` (`Source/HMI/Game/DiagnosticsHud.{h,cpp}`) compose quatre lignes — cadence de
+rendu (moyenne glissante sur `DIAGNOSTICS_FPS_WINDOW_SECONDS`, jamais une cadence instantanée,
+illisible d'une image à l'autre), primitives composées/soumises, passes de dessin, et pas de
+simulation consommés à la dernière image (une boucle qui rattrape s'y voit immédiatement) — sur le
+patron de `hmi::gameHudLines` (`LOT-52`) : composition **pure**, testée sans rendu
+(`Source/Test/Unit/HMI/Game/test_diagnostics_hud.cpp`), dessinée par le même `hmi::TextRenderer` que
+le HUD de jeu, coin haut-**droit** pour ne jamais recouvrir les budgets de sauts/dashs (coin
+haut-gauche). Activé par **`F9`**, touche dédiée non remappable comme `F8` (bascule de rendu),
+désactivée par défaut et sans coût quand elle l'est (rien n'est mesuré tant qu'elle n'est pas
+activée).
+
+`EX-NFR-001` (60 images par seconde) reste **hors de portée d'un contrôle automatique** : la
+cadence dépend de la machine, une machine virtuelle partagée ne la mesure pas de façon reproductible
+(cf. `epic.md`, décisions de cadrage). `F9` sur `demo-salles` — le niveau livré le plus lourd,
+480 primitives composées en mode Texture avant culling — est le moyen de l'observer soi-même sur sa
+propre machine de développement ; c'est tout ce que ce lot automatise pour elle.
+
 ## Voir aussi
 - `hmi::GraphicsDevice`, `hmi::GameViewport`, `hmi::Camera2D`.
 - `hmi::SpriteBatch`, `hmi::SpriteQuad`, `hmi::LineQuad`, `hmi::TextureAtlas`, `hmi::SpriteRenderer`,

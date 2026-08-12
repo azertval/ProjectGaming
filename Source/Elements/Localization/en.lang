@@ -358,6 +358,12 @@ keybindings.action.texture_tool = Texture tool
 hud.jumps_remaining = Jumps: %1
 hud.dashes_remaining = Dashes: %1
 
+# In-game diagnostics overlay (LOT-62, F9, EX-NFR-001, EX-NFR-005)
+diag.fps = FPS: %1
+diag.primitives = Primitives: %1 composed / %2 submitted
+diag.batches = Batches: %1
+diag.steps = Simulation steps: %1
+
 # Tile palette: categories, subgroups, tiles
 palette.cat.tile = Tile
 palette.cat.interactive = Interactive

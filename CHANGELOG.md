@@ -7,6 +7,17 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-62 — Budget de rendu mesuré** (honore `EX-NFR-005` et `EX-NFR-001`, jamais vérifiées
+  jusqu'ici). Transforme deux exigences déclaratives en garanties assertées, sans rien optimiser.
+  - **Test de non-régression du volume de primitives**
+    (`Source/Test/Unit/HMI/Graphics/test_render_budget.cpp`) : chaque niveau livré reste sous un
+    plafond nommé, composées et soumises, en mode Physique et en mode Texture ; le culling écarte
+    une fraction assertée sur `demo-salles` ; un test négatif démontre qu'une double émission
+    dépasse le plafond. Déterministe, sans GPU (`EX-NFR-004`).
+  - **Compteur de diagnostic en jeu** (`hmi::DiagnosticsHud`, touche **`F9`** non remappable) :
+    cadence de rendu (moyenne glissante), primitives composées/soumises, passes de dessin, pas de
+    simulation consommés — désactivé par défaut, sans effet sur la simulation.
+  - **Mesures de référence datées** consignées dans le [guide du rendu](@ref guide-rendu).
 - **LOT-60 — Audio : socle et bruitages** (lève `EX-REN-040`, marqué ⚠️ depuis sa rédaction ;
   déclare `EX-REN-047`, `EX-REN-048`). Le jeu produit enfin du son.
   - **`hmi::AudioEngine`** (Qt Multimedia, `QSoundEffect`) : détection du périphérique de sortie,

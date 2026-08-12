@@ -136,6 +136,7 @@ add_executable(ProjectGaming
     Game/GameViewport.cpp
     Game/Progression.cpp
     Game/GameHud.cpp
+    Game/DiagnosticsHud.cpp
     Game/GameEvents.cpp
     # Localisation
     Localization/Localization.cpp

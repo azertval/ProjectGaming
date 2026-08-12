@@ -360,6 +360,12 @@ keybindings.action.texture_tool = Outil Texture
 hud.jumps_remaining = Sauts : %1
 hud.dashes_remaining = Dashs : %1
 
+# Compteur de diagnostic en jeu (LOT-62, F9, EX-NFR-001, EX-NFR-005)
+diag.fps = Images/s : %1
+diag.primitives = Primitives : %1 composees / %2 soumises
+diag.batches = Passes : %1
+diag.steps = Pas de simulation : %1
+
 # Palette de tuiles : categories, sous-groupes, tuiles
 palette.cat.tile = Tuile
 palette.cat.interactive = Interactif

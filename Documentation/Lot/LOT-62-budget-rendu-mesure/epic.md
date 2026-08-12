@@ -1,6 +1,6 @@
 # LOT-62 — Budget de rendu mesuré {#lot-62}
 
-> Statut : **non commencé**. Prérequis : [LOT-40](@ref lot-40) (composition, culling, compteurs et
+> Statut : **fait**. Prérequis : [LOT-40](@ref lot-40) (composition, culling, compteurs et
 > *QuadRecorder*). Bénéficie de [LOT-53](@ref lot-53), qui est le premier système capable
 > d'émettre sans borne.
 
@@ -72,9 +72,9 @@ budget qu'on dépasse.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-test-budget-primitives.md) | Test de non-régression du volume de primitives et de l'efficacité du culling | `Source/Test` | ⬜ |
-| [TACHE-02](tache-02-compteur-affichable.md) | Compteur de cadence et de primitives affichable en jeu | `Source/HMI/Game`, `Source/HMI/Graphics` | ⬜ |
-| [TACHE-03](tache-03-documentation-verification.md) | Documentation, mesure de référence et vérification | `Documentation` | ⬜ |
+| [TACHE-01](tache-01-test-budget-primitives.md) | Test de non-régression du volume de primitives et de l'efficacité du culling | `Source/Test` | ✅ |
+| [TACHE-02](tache-02-compteur-affichable.md) | Compteur de cadence et de primitives affichable en jeu | `Source/HMI/Game`, `Source/HMI/Graphics` | ✅ |
+| [TACHE-03](tache-03-documentation-verification.md) | Documentation, mesure de référence et vérification | `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Chaque niveau livré est couvert par un test asserant son volume de primitives sous un plafond

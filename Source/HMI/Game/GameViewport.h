@@ -18,6 +18,7 @@
 #include "HMI/Editor/DecorGesture.h"
 #include "HMI/Editor/EditContextTarget.h"
 #include "HMI/Editor/EditorTool.h"
+#include "HMI/Game/DiagnosticsHud.h"
 #include "HMI/Game/GameSession.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/LayerVisibility.h"
@@ -210,6 +211,17 @@ public:
     /// Bascule le mode de rendu Physique/Texture (`F8`, `EX-REN-046`) ; actif en édition, en essai
     /// et en jeu réel (LOT-56 TACHE-04 : seule commande jamais désactivée par le mode courant).
     void toggleRenderMode();
+
+    /**
+     * @brief Bascule le compteur de diagnostic (cadence, primitives, passes, pas de simulation ;
+     *        `F9`, `LOT-62` TACHE-02, `EX-NFR-001`/`EX-NFR-005`).
+     *
+     * Touche dédiée **non remappable**, même statut que `F8` (`toggleRenderMode`) : désactivé par
+     * défaut, sans effet sur la simulation (`EX-ARCH-012`). La fenêtre de mesure de cadence repart
+     * de zéro à chaque activation (`hmi::FrameRateAverage::reset`) plutôt que de mélanger un temps
+     * accumulé pendant que rien n'était mesuré.
+     */
+    void toggleDiagnosticsOverlay() noexcept;
 
     /// Lance le **jeu** : joue la séquence de niveaux @p levels, à partir de @p startIndex
     /// (0 = depuis le début ; « Continuer »/sélection de niveau, `LOT-59` TACHE-06, reprennent
@@ -485,6 +497,10 @@ private:
     /// l'aperçu des tuiles animées de l'éditeur) ; `0` (défaut) pour un redessin sans avancer
     /// l'aperçu (redimensionnement).
     void renderFrame(float deltaSeconds = 0.0f);
+    /// Compose et soumet le compteur de diagnostic (`LOT-62` TACHE-02), coin haut-droit de l'écran
+    /// -- sans effet si désactivé, hors session, ou avant que la localisation ne soit chargée
+    /// (`EX-NFR-040`, coût nul quand éteint : rien n'est calculé au-delà du test d'entrée).
+    void renderDiagnosticsOverlay(int viewportWidth, int viewportHeight);
     void stopPlaytest();  ///< Termine l'essai et restitue l'éditeur (brouillon intact).
     void loadGameLevel(std::size_t index);  ///< Charge le niveau @p index de la séquence de jeu.
     void updateMousePosition(const QMouseEvent* event);
@@ -590,6 +606,20 @@ private:
     core::FixedTimestep _timestep;
     Clock::time_point _previousFrame;
     bool _loopStarted = false;
+
+    /// Compteur de diagnostic (`F9`, `LOT-62` TACHE-02) : désactivé par défaut (`EX-NFR-040`,
+    /// point de départ sans effet visuel ni coût).
+    bool _diagnosticsEnabled = false;
+    /// Moyenne glissante de la cadence de rendu, alimentée uniquement quand `_diagnosticsEnabled`
+    /// est vrai (rien n'est calculé quand l'affichage est éteint).
+    hmi::FrameRateAverage _frameRateAverage;
+    /// Nombre de pas de simulation consommés au dernier `tick()` -- distinct de la cadence de
+    /// rendu depuis le `LOT-33` (`hmi::DiagnosticsMeasurements::simulationSteps`).
+    int _lastSimulationSteps = 0;
+    /// Scène dédiée du compteur de diagnostic, jamais partagée avec `_session` (dont le HUD de jeu
+    /// vit dans sa propre scène) ni avec le brouillon d'édition -- même isolement que le texte de
+    /// `hmi::GameSession::renderHud` (`LOT-52`).
+    hmi::ComposedScene _diagnosticsScene;
 
     core::LevelDraft _draft;  ///< Brouillon en cours d'édition (source de vérité).
     hmi::Camera2D _camera;    ///< Caméra d'édition (cadre le niveau entier par défaut).

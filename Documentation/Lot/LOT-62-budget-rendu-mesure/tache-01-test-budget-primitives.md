@@ -1,6 +1,6 @@
 # TACHE-01 — Test de non-régression du volume de primitives {#lot-62-tache-01-test-budget-primitives}
 
-**Lot :** [LOT-62](epic.md) · **Emplacement :** `Source/Test` · **Statut :** non commencé
+**Lot :** [LOT-62](epic.md) · **Emplacement :** `Source/Test` · **Statut :** fait
 
 ## Contexte
 `LOT-40` a rendu le rendu vérifiable sans GPU : `hmi::ComposedScene` produit la liste ordonnée des
