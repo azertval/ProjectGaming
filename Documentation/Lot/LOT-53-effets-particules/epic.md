@@ -63,7 +63,7 @@ entre le rendu du jeu et celui d'un jeu fini.
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
 | [TACHE-01](tache-01-emetteur-deterministe.md) | Émetteur et simulation de particules au pas fixe, déterministes, budget borné | `Source/Core/Ecs` | ✅ |
-| [TACHE-02](tache-02-declencheurs.md) | Déclencheurs depuis les transitions d'état du personnage (dash, atterrissage, mort) | `Source/Core/Ecs/Systems`, `Source/HMI/Game` | ⬜ |
+| [TACHE-02](tache-02-declencheurs.md) | Déclencheurs depuis les transitions d'état du personnage (dash, atterrissage, mort) | `Source/Core/Ecs/Systems`, `Source/HMI/Game` | ✅ |
 | [TACHE-03](tache-03-rendu-secousse.md) | Rendu des particules sur les calques *Object*/*Foreground* + secousse d'écran | `Source/HMI/Graphics` | ⬜ |
 
 ## Critères d'acceptation du lot

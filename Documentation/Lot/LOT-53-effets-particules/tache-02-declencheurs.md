@@ -1,6 +1,6 @@
 # TACHE-02 — Déclencheurs depuis les transitions d'état du personnage {#lot-53-tache-02-declencheurs}
 
-**Lot :** [LOT-53](epic.md) · **Emplacement :** `Source/Core/Ecs/Systems`, `Source/HMI/Game` · **Statut :** non commencé
+**Lot :** [LOT-53](epic.md) · **Emplacement :** `Source/Core/Ecs/Systems`, `Source/HMI/Game` · **Statut :** ✅ fait
 
 ## Contexte
 Un émetteur sans déclencheur ne sert à rien. Les événements à marquer sont exactement ceux que le
