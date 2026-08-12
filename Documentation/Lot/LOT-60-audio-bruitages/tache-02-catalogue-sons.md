@@ -1,7 +1,7 @@
 # TACHE-02 — Catalogue de sons et repli silencieux {#lot-60-tache-02-catalogue-sons}
 
 **Lot :** [LOT-60](epic.md) · **Emplacement :** `Source/HMI/Audio`, `Source/Elements/Audio` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 Le projet a un patron bien rodé pour associer un nom logique à un fichier d'asset : `SkinCatalog`
@@ -72,6 +72,25 @@ insupportable. Le repli d'un son absent est le **silence**, plus une entrée de 
 - Vérifier la licence de **chaque** son avant de l'intégrer : le CC-BY exige l'attribution
   (`CREDITS.md` suffit), certaines licences interdisent la redistribution ou l'usage commercial —
   écarter ces dernières plutôt que de les intégrer avec une réserve.
+
+## État
+`hmi::SoundCatalog` (`Source/HMI/Audio`) résout un identifiant d'événement vers un fichier de
+`Source/Elements/Audio/sounds.json`, sur le patron exact de `SkinCatalog` : fichier absent →
+catalogue vide, entrée malformée → échec du chargement **entier** (`SoundCatalogError`), jamais un
+catalogue deviné. Douze événements sont couverts (saut, atterrissage, dash, interrupteur, porte,
+plaque de pression, ramassage, mort, victoire de tableau, fin de séquence, et deux sons
+d'interface). Les bruitages sont de vrais fichiers **CC0** (Kenney, packs *Digital Audio*,
+*Impact Sounds*, *RPG Audio*, *Interface Sounds*), convertis en WAV PCM 16 bits ; `CREDITS.md`
+consigne auteur/source/licence par fichier. Le dossier `Audio/` est copié à côté de l'exécutable
+par le `POST_BUILD`, au même titre que `Levels/`/`Localization/`.
+
+La politique de recouvrement a été ajoutée à `hmi::AudioEngine` (`TACHE-01`) plutôt qu'au
+catalogue : `preload` prépare `MAX_INSTANCES_PER_EVENT` (3) instances par événement, `play` les
+consomme en tourniquet — un événement déclenché en rafale se recouvre sans empiler indéfiniment.
+
+**Non livré par cette tâche** : le préchargement au démarrage et les déclenchements eux-mêmes
+(aucun code n'appelle encore `SoundCatalog`/`AudioEngine` depuis `GameSession`/`MainWindow`) —
+c'est le câblage de `TACHE-03`, qui construit le moteur et relie les transitions d'état aux sons.
 
 ## Définition de fait (DoD)
 - Un catalogue JSON associe événements et fichiers sur le patron des catalogues existants, les

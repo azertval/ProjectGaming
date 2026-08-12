@@ -81,6 +81,10 @@ silencieusement un module non déployé.
 `AudioEngine` sait précharger et jouer un échantillon, mais aucun son n'est encore associé à un
 événement de jeu.
 
+*Complété en `TACHE-02`* : `preload`/`play` préchargent et consomment désormais une petite réserve
+d'instances par identifiant (`MAX_INSTANCES_PER_EVENT`) plutôt qu'une seule — la politique de
+recouvrement prévue par `TACHE-02` concerne le moteur, pas le catalogue.
+
 ## Définition de fait (DoD)
 - `Qt6::Multimedia` est provisionné sur les trois environnements, `hmi::AudioEngine` lit un
   échantillon et dégrade proprement sans périphérique, les tests restent constructibles sans le
