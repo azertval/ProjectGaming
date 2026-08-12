@@ -1,7 +1,8 @@
 # TACHE-03 — Plateforme mobile {#lot-63-tache-03-plateforme-mobile}
 
 **Lot :** [LOT-63](epic.md) · **Emplacement :** `Source/Core/Gameplay`, `Source/Core/Physics` ·
-**Statut :** non commencé
+**Statut :** fait (moteur Core ; câblage `hmi::GameSession`/rendu reporté à la TACHE-04/TACHE-05,
+qui ont besoin d'y poser une entité et un habillage de toute façon)
 
 ## Contexte
 `vision.md` range les plateformes mobiles dans la boîte à outils du genre, « (plus tard) ». C'est la
@@ -59,6 +60,17 @@ déplace dans la grille. Il faut s'en inspirer et en reprendre les invariants.
   puis porter les entités posées dessus, puis appliquer la physique du personnage. Un autre ordre
   produit des défauts subtils et intermittents, très coûteux à diagnostiquer ensuite. Le fixer, le
   documenter, et le tester.
+  **Retenu** : `core::PlatformController::update()` (position déterministe du pas) d'abord ;
+  ensuite `core::CharacterPhysicsSystem::update(..., platforms)` — portage (translation directe si
+  `Player::grounded`), *puis* résolution normale (grille), *puis* collision continue contre chaque
+  plateforme (`core::sweepAabbVsAabb`, même patron que les blocs réduits) — et
+  `core::BlockController::update(..., platforms)`, qui porte de même les blocs reposant dessus
+  (accumulateur infra-case converti en poussée d'une case entière). **Écrasement** : décidé
+  **mortel** (`Player::squished`, plutôt que de mettre la plateforme en pause, ce qui casserait sa
+  position purement fonction du numéro de pas). Câblage dans la boucle de jeu vivante
+  (`hmi::GameSession`, entité de rendu, interpolation d'affichage) volontairement laissé à la
+  TACHE-04/TACHE-05, qui posent de toute façon une entité et un habillage pour les trois nouveaux
+  mécanismes.
 - **Ne pas exclure les plateformes du balayage.** Le piège déjà rencontré sur le suivi de pente
   vaut ici : une boîte pleine case peut être happée par une colonne solide voisine. Les tests
   précis doivent utiliser `core::playerSize()`, pas une taille supposée.

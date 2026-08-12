@@ -9,11 +9,13 @@
         "demo-dash.json",
         "demo-interrupteur.json",
         "demo-plaque-pression.json",
+        "demo-cle.json",
         "demo-bloc.json",
         "demo-budget.json",
         "demo-pente.json",
         "demo-arrondi.json",
         "demo-bloc-reduit.json",
+        "demo-plateforme.json",
         "demo-dangers-avances.json",
         "demo-final.json",
         "demo-salles.json"

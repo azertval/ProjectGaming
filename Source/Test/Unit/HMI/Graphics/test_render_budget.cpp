@@ -178,7 +178,7 @@ struct LevelBudget {
     int submittedCeiling;
 };
 
-/// Les quinze niveaux livrés (`Source/Elements/Levels/sequence-demo.json`, `LOT-25`), avec leur
+/// Les dix-sept niveaux livrés (`Source/Elements/Levels/sequence-demo.json`, `LOT-25`), avec leur
 /// plafond. Un plafond par niveau, jamais global (`demo-salles` et `demo-deplacement` n'ont rien de
 /// comparable) — voir `epic.md`.
 const std::vector<LevelBudget>& deliveredLevelBudgets() {
@@ -190,11 +190,13 @@ const std::vector<LevelBudget>& deliveredLevelBudgets() {
         {"demo-dash.json", 150, 150},
         {"demo-interrupteur.json", 110, 110},
         {"demo-plaque-pression.json", 120, 120},
+        {"demo-cle.json", 120, 120},
         {"demo-bloc.json", 130, 130},
         {"demo-budget.json", 110, 110},
         {"demo-pente.json", 110, 110},
         {"demo-arrondi.json", 110, 110},
         {"demo-bloc-reduit.json", 120, 120},
+        {"demo-plateforme.json", 100, 100},
         {"demo-dangers-avances.json", 170, 170},
         {"demo-final.json", 230, 160},
         {"demo-salles.json", 850, 300},

@@ -65,7 +65,21 @@ namespace core {
  * pression qui lui est lié (`core::DangerLink`) est actif — l'inverse de `Door`, qui devient
  * franchissable quand actif. `DangerBlink` (`EX-GP-053`) est un **danger temporisé** : alterne
  * mortel/inoffensif selon une période fixe et un déphasage propres à la tuile
- * (`core::DangerBlinkConfig`), indépendamment de tout interrupteur.
+ * (`core::DangerBlinkConfig`), indépendamment de tout interrupteur. `Key`/`LockedDoor`
+ * (`EX-GP-023`) sont la seconde paire déclencheur↔cible, résolue par la **même** liaison
+ * `core::Mechanism` que `Switch`/`PressurePlate`↔`Door` (aucune notion de liaison dupliquée) :
+ * `core::MechanismController` distingue leur comportement à la construction, d'après le type de
+ * la tuile déclencheur (comme il le fait déjà pour `_continuous`). Une clé ramassée **consomme**
+ * son mécanisme et ouvre sa porte **définitivement** (jamais de re-fermeture, contrairement à
+ * l'interrupteur) ; une porte verrouillée fermée est solide exactement comme `Door` (géré par la
+ * grille de collision du contrôleur, jamais par `isSolid` ci-dessous). `MovingPlatform`
+ * (`EX-GP-026`) est une **plateforme mobile** : sa position est **continue** (pas alignée sur la
+ * grille comme `Block`), fonction déterministe du numéro de pas fixe
+ * (`core::PlatformController`), qui porte le personnage et les blocs poussables posés dessus. Sa
+ * position dans le fichier n'est que son point de **départ** — comme `DangerMover`, ce modèle ne
+ * représente que cela. N'est jamais solide pour la grille classique (comme les blocs réduits,
+ * `EX-GP-005`) : sa collision réelle est résolue par une passe dédiée boîte-contre-boîte
+ * (`core::sweepAabbVsAabb`), pas par ce test statique.
  */
 enum class TileType {
     Empty,
@@ -98,6 +112,9 @@ enum class TileType {
     DangerMover,
     DangerSwitched,
     DangerBlink,
+    Key,
+    LockedDoor,
+    MovingPlatform,
 };
 
 /**

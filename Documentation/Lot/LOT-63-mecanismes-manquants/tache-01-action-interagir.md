@@ -1,7 +1,7 @@
 # TACHE-01 — Action logique « Interagir » {#lot-63-tache-01-action-interagir}
 
 **Lot :** [LOT-63](epic.md) · **Emplacement :** `Source/Core/Physics`, `Source/HMI/Input` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 Le tableau des contrôles de `Documentation/Specification/controles.md` liste sept actions. Six sont

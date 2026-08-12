@@ -39,6 +39,15 @@ struct DoorLink {
     std::string opensWith;
 };
 
+// Une porte verrouillée lue (EX-GP-023), même forme que DoorLink : la référence (opensWith) est
+// résolue en position de clé plutôt que d'interrupteur, mais elle est OBLIGATOIRE ici (contraire
+// a une porte classique, ou l'absence de mecanisme est une simple tuile) -- voir la resolution
+// dediee plus bas.
+struct LockedDoorLink {
+    GridPosition position;
+    std::string opensWith;
+};
+
 // Un danger commuté lu (EX-GP-052), avec la référence (opensWith) à résoudre en position
 // d'interrupteur — même schéma que DoorLink, tuile cible différente.
 struct DangerSwitchedLink {
@@ -81,10 +90,14 @@ struct TileParseState {
     std::unordered_map<std::string, GridPosition>& switchesById;
     std::vector<DoorLink>& doors;
     std::vector<DangerSwitchedLink>& switchedDangers;
+    std::unordered_map<std::string, GridPosition>& keysById;
+    std::vector<LockedDoorLink>& lockedDoors;
     std::vector<DangerMoverConfig>& moverConfigs;
     std::vector<DangerBlinkConfig>& blinkConfigs;
     std::vector<TileTextureOverride>& textureOverrides;
+    std::vector<MovingPlatformConfig>& platformConfigs;
 };
+
 
 // Traite UNE entrée du tableau `tiles` : pose la tuile dans la grille et alimente les
 // accumulateurs de @p state (portes/dangers à résoudre, décompte entrée/sortie...). Extrait de
@@ -144,6 +157,23 @@ struct TileParseState {
     } else if (*type == TileType::Door) {
         state.doors.push_back(DoorLink{.position = GridPosition{.column = x, .row = y},
                                        .opensWith = tile.value("opensWith", std::string{})});
+    } else if (*type == TileType::Key) {
+        // Meme regle d'identifiant que Switch/PressurePlate (EX-GP-023), mais espace de liaison
+        // distinct (keysById) : une cle doit obligatoirement etre liee, contrairement a un simple
+        // declencheur, verifie plus bas.
+        const std::string id = tile.value("id", std::string{});
+        if (id.empty()) {
+            return failure("Cle sans 'id' en (" + std::to_string(x) + ", " + std::to_string(y) + ")",
+                           LevelValidationError::MissingSwitchId);
+        }
+        if (!state.keysById.emplace(id, GridPosition{.column = x, .row = y}).second) {
+            return failure("Identifiant de cle en double : " + id,
+                           LevelValidationError::DuplicateSwitchId);
+        }
+    } else if (*type == TileType::LockedDoor) {
+        state.lockedDoors.push_back(
+            LockedDoorLink{.position = GridPosition{.column = x, .row = y},
+                           .opensWith = tile.value("opensWith", std::string{})});
     } else if (*type == TileType::DangerSwitched) {
         state.switchedDangers.push_back(
             DangerSwitchedLink{.position = GridPosition{.column = x, .row = y},
@@ -166,6 +196,22 @@ struct TileParseState {
                               .period = tile.value("period", 120),
                               .phase = tile.value("phase", 0),
                               .activeDuration = tile.value("activeDuration", 60)});
+    } else if (*type == TileType::MovingPlatform) {
+        // Second point du parcours (EX-GP-026) : par defaut la meme case que le depart (parcours
+        // nul, plateforme immobile) -- une erreur de configuration plutot qu'un rejet, coherent
+        // avec le reste du format (defauts silencieux, EX-NFR-040).
+        const int endColumn = tile.value("endX", x);
+        const int endRow = tile.value("endY", y);
+        if (!state.map.inBounds(endColumn, endRow)) {
+            return failure("Point d'arrivee de plateforme mobile hors bornes en (" +
+                               std::to_string(x) + ", " + std::to_string(y) + ")",
+                           LevelValidationError::OutOfBounds);
+        }
+        state.platformConfigs.push_back(
+            MovingPlatformConfig{.startPosition = GridPosition{.column = x, .row = y},
+                                 .endPosition = GridPosition{.column = endColumn, .row = endRow},
+                                 .speed = tile.value("speed", 2.0f),
+                                 .phase = tile.value("phase", 0)});
     }
     return std::nullopt;
 }
@@ -291,15 +337,18 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
         std::unordered_map<std::string, GridPosition> switchesById;
         std::vector<DoorLink> doors;
         std::vector<DangerSwitchedLink> switchedDangers;
+        std::unordered_map<std::string, GridPosition> keysById;
+        std::vector<LockedDoorLink> lockedDoors;
         std::vector<DangerMoverConfig> moverConfigs;
         std::vector<DangerBlinkConfig> blinkConfigs;
         std::vector<TileTextureOverride> textureOverrides;
+        std::vector<MovingPlatformConfig> platformConfigs;
 
         // Chaque objet de 'tiles' place une tuile dans la grille.
-        TileParseState tileState{map,          entry,        exit,
-                                 entryCount,   exitCount,    occupiedPositions,
-                                 switchesById, doors,        switchedDangers,
-                                 moverConfigs, blinkConfigs, textureOverrides};
+        TileParseState tileState{
+            map,          entry,        exit,        entryCount, exitCount, occupiedPositions,
+            switchesById, doors,        switchedDangers, keysById, lockedDoors,
+            moverConfigs, blinkConfigs, textureOverrides, platformConfigs};
         for (const nlohmann::json& tile : root.at("tiles")) {
             std::optional<LevelLoadResult> tileError = parseTile(tile, tileState);
             if (tileError) {
@@ -326,6 +375,37 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
             }
             mechanisms.push_back(
                 Mechanism{.switchPosition = found->second, .doorPosition = door.position});
+        }
+
+        // Résout les liaisons clé↔porte verrouillée (EX-GP-023), append à la MÊME liste que
+        // ci-dessus (aucune nouvelle notion de liaison) : `MechanismController` distingue leur
+        // comportement au type de la tuile déclencheur, pas à leur provenance dans ce vecteur.
+        // Contrairement à une porte classique, le lien est OBLIGATOIRE dans les deux sens : une
+        // porte verrouillée sans 'opensWith' (ou vers une clé inexistante) et une clé qu'aucune
+        // porte ne referme sont toutes deux des niveaux invalides.
+        std::set<std::string> usedKeyIds;
+        for (const LockedDoorLink& lockedDoor : lockedDoors) {
+            if (lockedDoor.opensWith.empty()) {
+                return failure("Porte verrouillee sans cle liee en (" +
+                                   std::to_string(lockedDoor.position.column) + ", " +
+                                   std::to_string(lockedDoor.position.row) + ")",
+                               LevelValidationError::UnresolvedMechanism);
+            }
+            const auto found = keysById.find(lockedDoor.opensWith);
+            if (found == keysById.end()) {
+                return failure("Porte verrouillee liee a une cle inexistante : " +
+                                   lockedDoor.opensWith,
+                               LevelValidationError::UnresolvedMechanism);
+            }
+            usedKeyIds.insert(lockedDoor.opensWith);
+            mechanisms.push_back(
+                Mechanism{.switchPosition = found->second, .doorPosition = lockedDoor.position});
+        }
+        for (const auto& keyEntry : keysById) {
+            if (usedKeyIds.find(keyEntry.first) == usedKeyIds.end()) {
+                return failure("Cle sans porte verrouillee liee : " + keyEntry.first,
+                               LevelValidationError::UnresolvedMechanism);
+            }
         }
 
         // Résout les liaisons interrupteur↔danger commuté (EX-GP-052), même règle que ci-dessus :
@@ -357,7 +437,8 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
             .level = Level(std::move(name), std::move(map), entry, exit, std::move(mechanisms),
                            jumpBudget, dashBudget, std::move(dangerLinks), std::move(moverConfigs),
                            std::move(blinkConfigs), std::move(background), std::move(skinSet),
-                           std::move(textureOverrides), std::move(decors)),
+                           std::move(textureOverrides), std::move(decors),
+                           std::move(platformConfigs)),
             .error = {}};
     } catch (const nlohmann::json::exception& error) {
         return failure(std::string("JSON invalide : ") + error.what(),

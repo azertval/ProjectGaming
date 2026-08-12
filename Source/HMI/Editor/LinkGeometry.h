@@ -17,14 +17,18 @@ class LevelDraft;
 
 namespace hmi {
 
-/// @return true si @p type est un déclencheur de liaison (interrupteur ou plaque de pression).
+/// @return true si @p type est un déclencheur de liaison (interrupteur, plaque de pression ou
+///         clé, `EX-GP-023`).
 [[nodiscard]] constexpr bool isTriggerTile(core::TileType type) noexcept {
-    return type == core::TileType::Switch || type == core::TileType::PressurePlate;
+    return type == core::TileType::Switch || type == core::TileType::PressurePlate ||
+           type == core::TileType::Key;
 }
 
-/// @return true si @p type est une cible de liaison (porte ou danger commuté).
+/// @return true si @p type est une cible de liaison (porte, danger commuté ou porte verrouillée,
+///         `EX-GP-023`).
 [[nodiscard]] constexpr bool isLinkTargetTile(core::TileType type) noexcept {
-    return type == core::TileType::Door || type == core::TileType::DangerSwitched;
+    return type == core::TileType::Door || type == core::TileType::DangerSwitched ||
+           type == core::TileType::LockedDoor;
 }
 
 /// @brief Segment reliant le centre d'un déclencheur au centre de sa cible, en unités monde.

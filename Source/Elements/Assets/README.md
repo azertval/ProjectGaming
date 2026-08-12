@@ -9,7 +9,7 @@ copié à côté de l'exécutable au build (patron `Levels`/`Localization`) et c
 - `atlas.png` — l'atlas de tuiles + images d'animation du personnage. Convention de grille
   (inchangée depuis la génération procédurale historique, `hmi::TextureAtlas::TILE_SIZE`/
   `TILES_PER_SIDE`/`PLAYER_FRAME_SIZE`/`PLAYER_FRAME_COLUMNS`) :
-  - une grille de tuiles carrées de 16×16 pixels, `TILES_PER_SIDE` (5) tuiles par côté, dans le
+  - une grille de tuiles carrées de 16×16 pixels, `TILES_PER_SIDE` (6) tuiles par côté, dans le
     coin haut-gauche de l'image ;
   - sous cette grille, une ou plusieurs lignes d'images d'animation du personnage (16×16 chacune,
     même largeur de grille), dans l'ordre `Idle` puis `Run` puis `Jump`
@@ -116,6 +116,8 @@ Convention de noms, un asset par famille :
 | `DangerSwitched` (danger commuté) | `inactive`, `active` |
 | `DangerBlink` (danger temporisé) | `harmless`, `lethal` |
 | `DangerMover` (danger mobile) | `idle` (un seul clip : l'état est porté par la position, pas par une bascule) |
+| `Key` (clé, `EX-GP-023`, `LOT-63`) | `present`, `collected` |
+| `LockedDoor` (porte verrouillée, `EX-GP-023`, `LOT-63`) | `closed`, `open` |
 
 Un asset qui ne fournit pas un clip attendu **n'efface pas** la tuile : le jeu retombe sur le
 premier clip disponible (repli lisible) et journalise l'état et le clip manquants **une seule

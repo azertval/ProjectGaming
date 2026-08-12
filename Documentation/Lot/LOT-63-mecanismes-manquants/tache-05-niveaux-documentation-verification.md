@@ -1,7 +1,8 @@
 # TACHE-05 — Niveaux de démonstration, documentation et vérification {#lot-63-tache-05-niveaux-documentation-verification}
 
 **Lot :** [LOT-63](epic.md) · **Emplacement :** `Source/Elements/Levels`, `Documentation` ·
-**Statut :** non commencé
+**Statut :** fait (CI complète vérifiée localement ; essai manuel réel réservé à l'utilisateur,
+cf. `feedback_no_live_gui_automation.md`)
 
 ## Contexte
 Le `LOT-25` a posé une règle que le projet tient depuis : chaque mécanisme livré a **son** tableau

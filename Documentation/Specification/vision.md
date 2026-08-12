@@ -12,7 +12,7 @@ Jeu **2D de plateforme et puzzle**, en vue de côté, à base de niveaux discret
 - **Plateforme** : Windows (bureau), rendu DirectX.
 
 ### Mécanique de jeu (décidée)
-Le jeu repose sur la **boîte à outils classique** du genre plateforme/puzzle : interrupteurs, portes, clés, blocs poussables, dangers et (plus tard) plateformes mobiles. **Pas de mécanique signature exotique** pour le MVP : la difficulté vient de l'agencement des mécanismes, pas d'un gimmick. Une mécanique distinctive pourra être introduite ultérieurement une fois le socle validé.
+Le jeu repose sur la **boîte à outils classique** du genre plateforme/puzzle : interrupteurs, portes, clés, blocs poussables, dangers et plateformes mobiles. **Pas de mécanique signature exotique** pour le MVP : la difficulté vient de l'agencement des mécanismes, pas d'un gimmick. Une mécanique distinctive pourra être introduite ultérieurement une fois le socle validé.
 
 ## Boucle de gameplay
 1. Le joueur entre dans un niveau (état initial défini).

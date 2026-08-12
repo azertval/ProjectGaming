@@ -175,6 +175,12 @@ bool InputState::gamepadButtonPressed(GamepadButton button) const noexcept {
     return _gamepadButtonsCurrent[index] && !_gamepadButtonsPrevious[index];
 }
 
+// Indique si button (piste manette brute) vient d'être relâché cette frame (front descendant).
+bool InputState::gamepadButtonReleased(GamepadButton button) const noexcept {
+    const std::size_t index = gamepadButtonIndex(button);
+    return !_gamepadButtonsCurrent[index] && _gamepadButtonsPrevious[index];
+}
+
 // Abscisse de la souris, en pixels de la zone client.
 int InputState::mouseX() const noexcept {
     return _mouseX;

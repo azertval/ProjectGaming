@@ -50,6 +50,8 @@ bool isStatefulMechanism(core::TileType type) noexcept {
         case core::TileType::DangerSwitched:
         case core::TileType::DangerBlink:
         case core::TileType::DangerMover:
+        case core::TileType::Key:
+        case core::TileType::LockedDoor:
             return true;
         default:
             return false;
@@ -73,6 +75,12 @@ std::optional<std::string> mechanismTargetClip(core::TileType type, bool active)
         case core::TileType::DangerMover:
             return MECHANISM_CLIP_DANGER_MOVER_IDLE;  // un seul clip, l'etat est porte par la
                                                       // position.
+        case core::TileType::Key:
+            // active == cle ramassee (meme booleen que la porte verrouillee liee, EX-GP-023) :
+            // collected masque la cle, present l'affiche.
+            return active ? MECHANISM_CLIP_KEY_COLLECTED : MECHANISM_CLIP_KEY_PRESENT;
+        case core::TileType::LockedDoor:
+            return active ? MECHANISM_CLIP_LOCKED_DOOR_OPEN : MECHANISM_CLIP_LOCKED_DOOR_CLOSED;
         default:
             return std::nullopt;  // type sans etat : aucune demande de clip.
     }
@@ -103,6 +111,10 @@ std::vector<std::string> mechanismExpectedClips(core::TileType type) {
             return {MECHANISM_CLIP_DANGER_BLINK_HARMLESS, MECHANISM_CLIP_DANGER_BLINK_LETHAL};
         case core::TileType::DangerMover:
             return {MECHANISM_CLIP_DANGER_MOVER_IDLE};
+        case core::TileType::Key:
+            return {MECHANISM_CLIP_KEY_PRESENT, MECHANISM_CLIP_KEY_COLLECTED};
+        case core::TileType::LockedDoor:
+            return {MECHANISM_CLIP_LOCKED_DOOR_CLOSED, MECHANISM_CLIP_LOCKED_DOOR_OPEN};
         default:
             return {};
     }

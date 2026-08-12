@@ -31,13 +31,18 @@ inline constexpr const char* MECHANISM_CLIP_DANGER_SWITCHED_ACTIVE = "active";
 inline constexpr const char* MECHANISM_CLIP_DANGER_BLINK_HARMLESS = "harmless";
 inline constexpr const char* MECHANISM_CLIP_DANGER_BLINK_LETHAL = "lethal";
 inline constexpr const char* MECHANISM_CLIP_DANGER_MOVER_IDLE = "idle";
+inline constexpr const char* MECHANISM_CLIP_KEY_PRESENT = "present";
+inline constexpr const char* MECHANISM_CLIP_KEY_COLLECTED = "collected";
+inline constexpr const char* MECHANISM_CLIP_LOCKED_DOOR_CLOSED = "closed";
+inline constexpr const char* MECHANISM_CLIP_LOCKED_DOOR_OPEN = "open";
 
 /**
  * @brief Indique si un type de tuile est un **mécanisme à état**, dont l'apparence dépend d'une
  *        donnée lue en lecture seule dans `Core` (`EX-ARCH-012`).
  * @param type Type de tuile.
  * @return true pour `Door`, `Switch`, `PressurePlate`, `DangerSwitched`, `DangerBlink`,
- *         `DangerMover` ; false pour tout autre type (aucune demande de clip à produire).
+ *         `DangerMover`, `Key`, `LockedDoor` (`EX-GP-023`, `LOT-63`) ; false pour tout autre type
+ *         (aucune demande de clip à produire).
  */
 [[nodiscard]] bool isStatefulMechanism(core::TileType type) noexcept;
 

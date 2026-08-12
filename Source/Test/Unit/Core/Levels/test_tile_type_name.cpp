@@ -16,7 +16,7 @@ namespace {
 
 // Dernier type de l'enumeration : borne du parcours exhaustif. Ajouter un type apres celui-ci sans
 // mettre a jour cette constante ferait passer les tests a cote du nouveau venu.
-constexpr int LAST_TILE_TYPE = static_cast<int>(core::TileType::DangerBlink);
+constexpr int LAST_TILE_TYPE = static_cast<int>(core::TileType::MovingPlatform);
 
 }  // namespace
 
@@ -25,7 +25,7 @@ constexpr int LAST_TILE_TYPE = static_cast<int>(core::TileType::DangerBlink);
  * \castest{<b>Chaque type de tuile fait l'aller-retour par son nom textuel sans perte.</b><br/>
  * \tcat Unitaire · Nom de type de tuile<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Pour les trente types, convertir le type en nom, puis le nom en type.<br/>
+ * \tetapes 1. Pour tous les types, convertir le type en nom, puis le nom en type.<br/>
  * \tattendu Le type d'origine est retrouve a chaque fois.
  * }
  */
@@ -45,7 +45,7 @@ TEST(TileTypeNameTest, AllerRetourSurTousLesTypes) {
  * \castest{<b>Deux types de tuiles distincts ne portent jamais le meme nom.</b><br/>
  * \tcat Unitaire · Nom de type de tuile<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Collecter les noms des trente types dans un ensemble.<br/>
+ * \tetapes 1. Collecter les noms de tous les types dans un ensemble.<br/>
  * \tattendu L'ensemble contient autant d'elements qu'il y a de types.
  * }
  */
@@ -92,4 +92,7 @@ TEST(TileTypeNameTest, NomsDuFormatDeNiveauInchanges) {
     EXPECT_EQ(core::tileTypeName(core::TileType::SlopeUpRight), "slopeUpRight");
     EXPECT_EQ(core::tileTypeName(core::TileType::ConcaveDownLeft), "concaveDownLeft");
     EXPECT_EQ(core::tileTypeName(core::TileType::DangerBlink), "dangerBlink");
+    EXPECT_EQ(core::tileTypeName(core::TileType::Key), "key");
+    EXPECT_EQ(core::tileTypeName(core::TileType::LockedDoor), "lockedDoor");
+    EXPECT_EQ(core::tileTypeName(core::TileType::MovingPlatform), "movingPlatform");
 }

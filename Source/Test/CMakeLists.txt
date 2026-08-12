@@ -31,6 +31,7 @@ add_executable(UnitTests
     Unit/Core/Gameplay/test_mechanism_controller.cpp
     Unit/Core/Gameplay/test_danger_controller.cpp
     Unit/Core/Gameplay/test_block_controller.cpp
+    Unit/Core/Gameplay/test_platform_controller.cpp
     Unit/Core/Physics/test_swept_collision.cpp
     Unit/Core/Physics/test_slope_geometry.cpp
     Unit/Core/Physics/test_aabb_vs_aabb.cpp
@@ -51,6 +52,7 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_room_grid.cpp
     Unit/HMI/Graphics/test_asset_paths.cpp
     Unit/HMI/Graphics/test_procedural_atlas.cpp
+    Unit/HMI/Graphics/test_tile_visuals.cpp
     Unit/HMI/Graphics/test_texture_atlas.cpp
     Unit/HMI/Graphics/test_animation_catalog.cpp
     Unit/HMI/Graphics/test_animated_tiles.cpp
@@ -380,6 +382,7 @@ add_executable(IntegrationTests
     Integration/test_animation_personnage.cpp
     Integration/test_bloc_reduit.cpp
     Integration/test_danger_avance.cpp
+    Integration/test_plateforme_composition.cpp
 )
 
 target_link_libraries(IntegrationTests PRIVATE

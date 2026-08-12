@@ -18,26 +18,32 @@ std::uint32_t pack(std::uint8_t red, std::uint8_t green, std::uint8_t blue, std:
 }
 
 // Couleur opaque de base d'une tuile, selon son index dans la grille (déterministe). Rangée
-// (`TextureAtlas::TILES_PER_SIDE` par ligne, actuellement `5`) : les quatre premières colonnes de
-// chaque ligne reprennent **exactement** les couleurs historiques (`TILES_PER_SIDE == 4`, avant
-// l'ajout des pentes/arrondis de plafond, `EX-GP-006`) — un simple agrandissement de la grille ne
-// doit jamais redécaler silencieusement les couleurs des tuiles existantes. Les cases au-delà de
-// la colonne 4 (ou de la ligne 4) sont soit réservées (damier de transparence, dernière case),
-// soit remplacées par un masque de forme (`slopeShapePixel`) : leur couleur de base ici n'a pas
-// d'importance, remplie de noir par convention.
+// (`TextureAtlas::TILES_PER_SIDE` par ligne, actuellement `6`) : les cinq premières colonnes de
+// chaque ligne reprennent **exactement** les couleurs historiques (`TILES_PER_SIDE == 5`, avant
+// l'ajout de la sixième colonne pour la plateforme mobile, `EX-GP-026`, `LOT-63`) — un simple
+// agrandissement de la grille ne doit jamais redécaler silencieusement les couleurs des tuiles
+// existantes. Les cases au-delà de la colonne 4 (ou de la ligne 4, avant cet agrandissement) sont
+// soit réservées (damier de transparence, toujours la DERNIÈRE case, qui se déplace donc avec la
+// grille), soit remplacées par un masque de forme (`slopeShapePixel`, leur couleur de base ici n'a
+// pas d'importance, remplie de noir par convention), à l'exception de trois cases occupées par les
+// mécanismes de `LOT-63` (`EX-GP-023`/`EX-GP-026`) : `Key` (4,0), `LockedDoor` (3,4) — déjà libres
+// dans la grille 5×5 — et `MovingPlatform` (5,0), dans la sixième colonne ajoutée pour elle.
 std::uint32_t tileColor(int tileIndex) {
-    static const std::array<std::uint32_t, 25> palette{
+    static const std::array<std::uint32_t, 36> palette{
         // Ligne 0
         pack(200, 60, 60, 255),
         pack(60, 200, 60, 255),
         pack(60, 60, 200, 255),
         pack(200, 200, 60, 255),
-        pack(0, 0, 0, 255),
+        pack(255, 215, 0, 255),   // (4,0) Key : or, distinct du jaune de Switch
+        pack(0, 150, 255, 255),  // (5,0) MovingPlatform : azur, distinct du bleu de Exit/cyan de
+                                 // PressurePlate
         // Ligne 1
         pack(200, 60, 200, 255),
         pack(60, 200, 200, 255),
         pack(230, 140, 40, 255),
         pack(140, 40, 230, 255),
+        pack(0, 0, 0, 255),
         pack(0, 0, 0, 255),
         // Ligne 2
         pack(120, 120, 120, 255),
@@ -45,13 +51,23 @@ std::uint32_t tileColor(int tileIndex) {
         pack(160, 80, 120, 255),
         pack(120, 80, 160, 255),
         pack(0, 0, 0, 255),
+        pack(0, 0, 0, 255),
         // Ligne 3
         pack(200, 200, 200, 255),
         pack(90, 90, 90, 255),
         pack(0, 0, 0, 255),
         pack(0, 0, 0, 255),
         pack(0, 0, 0, 255),
+        pack(0, 0, 0, 255),
         // Ligne 4
+        pack(0, 0, 0, 255),
+        pack(0, 0, 0, 255),
+        pack(0, 0, 0, 255),
+        pack(110, 70, 20, 255),  // (3,4) LockedDoor : brun fonce, distinct de l'orange de Door
+        pack(0, 0, 0, 255),
+        pack(0, 0, 0, 255),
+        // Ligne 5 (nouvelle, reservee)
+        pack(0, 0, 0, 255),
         pack(0, 0, 0, 255),
         pack(0, 0, 0, 255),
         pack(0, 0, 0, 255),

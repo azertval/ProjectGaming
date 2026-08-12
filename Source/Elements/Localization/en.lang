@@ -311,6 +311,7 @@ language.en = English
 credits.title = Credits
 credits.development = Development
 credits.audio = Music and sound effects
+credits.graphics = Graphics
 
 # Viewport status messages
 status.region_copied = Region copied (%1 × %2).
@@ -343,6 +344,7 @@ keybindings.action.aim_up = Aim dash upward
 keybindings.action.aim_down = Aim dash downward
 keybindings.action.jump = Jump
 keybindings.action.dash = Dash
+keybindings.action.interact = Interact
 keybindings.action.save = Save
 keybindings.action.undo = Undo
 keybindings.action.redo = Redo
@@ -385,6 +387,9 @@ palette.tile.quarter = Quarter (¼)
 palette.tile.switch = Switch
 palette.tile.plate = Pressure plate
 palette.tile.door = Door
+palette.tile.key = Key
+palette.tile.locked_door = Locked door
+palette.tile.moving_platform = Moving platform
 palette.tile.danger = Danger
 palette.tile.danger_moving = Moving danger
 palette.tile.danger_switched = Switched danger

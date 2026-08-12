@@ -33,6 +33,11 @@
       "concaveDownRight": { "asset": "slope_stone.png", "mode": "single" },
       "concaveDownLeft": { "asset": "slope_stone.png", "mode": "single" }
     },
+    "kenney": {
+      "key": { "asset": "key.png", "mode": "single" },
+      "lockedDoor": { "asset": "locked_door.png", "mode": "single" },
+      "movingPlatform": { "asset": "platform.png", "mode": "single" }
+    },
     "aucun": {}
   }
 }

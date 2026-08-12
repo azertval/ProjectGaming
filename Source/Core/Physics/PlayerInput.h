@@ -30,6 +30,13 @@ struct PlayerInput {
     float moveY = 0.0f;
     /// **Dash** vient d'être pressé cette frame (front montant) — action dédiée (`EX-CTRL-013`).
     bool dashPressed = false;
+    /// **Interagir** vient d'être pressée cette frame (front montant) — action dédiée
+    /// (`EX-CTRL-022`), complète l'activation par contact des mécanismes sans la remplacer.
+    bool interactPressed = false;
+    /// **Interagir** maintenue.
+    bool interactHeld = false;
+    /// **Interagir** vient d'être relâchée cette frame (front descendant).
+    bool interactReleased = false;
 };
 
 }  // namespace core

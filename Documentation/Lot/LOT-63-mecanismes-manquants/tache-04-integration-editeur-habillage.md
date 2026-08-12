@@ -1,7 +1,7 @@
 # TACHE-04 — Intégration éditeur et habillage {#lot-63-tache-04-integration-editeur-habillage}
 
 **Lot :** [LOT-63](epic.md) · **Emplacement :** `Source/HMI/Editor`, `Source/HMI/Graphics` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 Un mécanisme livré dans `Core` mais absent de la palette n'existe pas : le level designer ne peut ni
@@ -64,6 +64,36 @@ trois nouveaux types, sans en inventer un quatrième.
   erreur « Expected '>' » qui ne mentionne pas le commentaire.
 - Ne pas dupliquer la machine à états du geste de lien : elle est pure, testée, et prévue pour
   accepter de nouvelles paires.
+
+## Réalisé (écarts par rapport au brouillon initial)
+- **Grille procédurale agrandie de 5×5 à 6×6** (`hmi::TextureAtlas::TILES_PER_SIDE`) : la grille
+  5×5 ne laissait que deux cases libres (déjà prises par `Key`/`LockedDoor`), aucune pour
+  `MovingPlatform`. Agrandissement mécanique et sûr (chaque case existante garde ses coordonnées
+  `(colonne, ligne)`, seule la formule d'indexation à plat change) — voir `ProceduralAtlas.cpp` et
+  son test d'exhaustivité (`test_tile_visuals.cpp`, nouveau : vérifie que les trois mécanismes ont
+  des régions procédurales deux à deux distinctes).
+- **Édition des paramètres de plateforme** : ni le danger mobile ni le danger temporisé n'ont en
+  réalité de panneau Qt dédié dans l'éditeur (vérifié : `setMoverConfig`/`setBlinkConfig` ne sont
+  appelés que par les tests, jamais par un widget) — le « patron » à réutiliser est donc
+  `core::LevelDraft::setPlatformConfig` (mutateur + lecture/écriture JSON), pas une UI qui n'existe
+  pas encore pour les précédents non plus. `hmi::DraftRenderer` matérialise malgré tout le parcours
+  (nouveau : `composeMovingPlatformPaths`, trait + flèche, même patron que les liens de mécanismes).
+- **Habillage réel, sous licence libre** : à la demande explicite portée sur ce lot, `key.png`,
+  `locked_door.png` et `platform.png` (jeu de skins `kenney`) sont de vraies illustrations
+  retouchées à partir de sprites **Kenney** (CC0), et non des placeholders générés par script comme
+  le reste du projet — voir `Source/Elements/Assets/CREDITS.md` et l'écran Crédits en jeu (section
+  « Graphismes »). Le jeu par défaut (`test`) reste inchangé.
+- **Bug corrigé en cours de lot : `Source/Elements/Assets/atlas.png` non régénéré.** L'agrandissement
+  de la grille procédurale (5×5 → 6×6, ci-dessus) change la géométrie que `TextureAtlas::loadFromFile`
+  attend, mais le fichier PNG **versionné** n'est pas recalculé automatiquement — seule
+  `ProjectGaming.exe --export-atlas=<chemin>` le fait (`LOT-39`). L'avoir oublié ici a produit trois
+  symptômes distincts en aval, tous constatés en essai manuel : personnage mal recadré en mouvement
+  (lignes de la grille décalées), `Key`/`LockedDoor` lues dans une case hors bornes de l'ancien
+  fichier (invisibles), et les trois nouveaux mécanismes en noir en mode Physique. Régénéré ; ajout
+  d'un test d'intégration (`Source/Test/Integration/test_plateforme_composition.cpp`) qui rejoue le
+  repérage d'entité-tuile et le rafraîchissement visuel **exactement** comme `hmi::GameSession`, seul
+  point du projet qui exerçait cette composition avant ce lot (les tests système/intégration
+  existants ne consomment `core::PlatformController` que via ses boîtes, jamais via une entité).
 
 ## Définition de fait (DoD)
 - Les trois mécanismes se posent, se lient, se paramètrent, s'enregistrent et se rechargent depuis

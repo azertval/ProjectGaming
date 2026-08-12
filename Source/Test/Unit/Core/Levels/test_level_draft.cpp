@@ -141,6 +141,85 @@ TEST(LevelDraftTest, LierPuisDelierUnMecanisme) {
 }
 
 /**
+ * @brief Lier une clé à une porte verrouillée crée un mécanisme, comme un interrupteur↔porte —
+ * même liaison, aucune notion dupliquée (`EX-GP-023`, `LOT-63`).
+ * \castest{<b>Lier une clé à une porte verrouillée crée un mécanisme.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Lier une clé à une porte verrouillée crée un mécanisme dans le même vecteur.
+ * }
+ */
+TEST(LevelDraftTest, LierUneCleAUnePorteVerrouillee) {
+    LevelDraft draft = LevelDraft::empty("N", 4, 4);
+    draft.paintTile(0, 0, TileType::Key);
+    draft.paintTile(3, 3, TileType::LockedDoor);
+
+    draft.linkMechanism(GridPosition{0, 0}, GridPosition{3, 3});
+    ASSERT_EQ(draft.mechanisms().size(), 1u);
+    EXPECT_EQ(draft.mechanisms().front().switchPosition, (GridPosition{0, 0}));
+    EXPECT_EQ(draft.mechanisms().front().doorPosition, (GridPosition{3, 3}));
+}
+
+/**
+ * @brief Poser une clé et une porte verrouillée, les lier, enregistrer (`toLevel`) puis recharger
+ * donne un modèle identique — round-trip complet du geste éditeur (`EX-EDIT-011`, `LOT-63`).
+ * \castest{<b>Poser, lier, enregistrer et recharger une clé/porte verrouillée donne un modèle
+ * identique.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le niveau rechargé porte la même liaison clé↔porte verrouillée que le brouillon.
+ * }
+ */
+TEST(LevelDraftTest, RoundTripEditionCleEtPorteVerrouillee) {
+    LevelDraft draft = LevelDraft::empty("N", 4, 4);
+    draft.setEntry(0, 1);
+    draft.setExit(3, 2);
+    draft.paintTile(1, 0, TileType::Key);
+    draft.paintTile(2, 0, TileType::LockedDoor);
+    draft.linkMechanism(GridPosition{1, 0}, GridPosition{2, 0});
+
+    const core::LevelLoadResult reloaded = draft.toLevel();
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+    ASSERT_EQ(reloaded.level->mechanisms().size(), 1u);
+    EXPECT_EQ(reloaded.level->mechanisms().front().switchPosition, (GridPosition{1, 0}));
+    EXPECT_EQ(reloaded.level->mechanisms().front().doorPosition, (GridPosition{2, 0}));
+    EXPECT_EQ(reloaded.level->tileMap().tile(1, 0), TileType::Key);
+    EXPECT_EQ(reloaded.level->tileMap().tile(2, 0), TileType::LockedDoor);
+}
+
+/**
+ * @brief Poser une plateforme mobile, la paramétrer, enregistrer puis recharger donne un modèle
+ * identique — round-trip complet du geste éditeur (`EX-EDIT-011`, `EX-GP-026`, `LOT-63`).
+ * \castest{<b>Poser, paramétrer, enregistrer et recharger une plateforme mobile donne un modèle
+ * identique.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le niveau rechargé porte la même configuration de plateforme mobile que le brouillon.
+ * }
+ */
+TEST(LevelDraftTest, RoundTripEditionPlateformeMobile) {
+    LevelDraft draft = LevelDraft::empty("N", 5, 5);
+    draft.setEntry(0, 0);
+    draft.setExit(4, 4);
+    draft.paintTile(1, 1, TileType::MovingPlatform);
+    draft.setPlatformConfig(GridPosition{1, 1}, GridPosition{1, 3}, 2.5f, 20);
+
+    const core::LevelLoadResult reloaded = draft.toLevel();
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+    ASSERT_EQ(reloaded.level->platformConfigs().size(), 1u);
+    EXPECT_EQ(reloaded.level->platformConfigs().front().startPosition, (GridPosition{1, 1}));
+    EXPECT_EQ(reloaded.level->platformConfigs().front().endPosition, (GridPosition{1, 3}));
+    EXPECT_FLOAT_EQ(reloaded.level->platformConfigs().front().speed, 2.5f);
+    EXPECT_EQ(reloaded.level->platformConfigs().front().phase, 20);
+}
+
+/**
  * @brief Lier une plaque de pression à une porte crée un mécanisme, comme un interrupteur
  * (`EX-GP-025`).
  * \castest{<b>Lier une plaque de pression à une porte crée un mécanisme.</b><br/>
@@ -935,6 +1014,50 @@ TEST(LevelDraftTest, SetBlinkConfigDefinitLaConfiguration) {
 }
 
 /**
+ * @brief setPlatformConfig définit le second point de parcours, la vitesse et le déphasage d'une
+ * plateforme mobile (`EX-GP-026`).
+ * \castest{<b>setPlatformConfig définit la configuration d'une plateforme mobile.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu setPlatformConfig définit le second point de parcours, la vitesse et le déphasage.
+ * }
+ */
+TEST(LevelDraftTest, SetPlatformConfigDefinitLaConfiguration) {
+    LevelDraft draft = LevelDraft::empty("N", 5, 5);
+    draft.paintTile(1, 1, TileType::MovingPlatform);
+
+    draft.setPlatformConfig(GridPosition{1, 1}, GridPosition{1, 4}, 3.0f, 15);
+
+    ASSERT_EQ(draft.platformConfigs().size(), 1u);
+    EXPECT_EQ(draft.platformConfigs().front().endPosition, (GridPosition{1, 4}));
+    EXPECT_FLOAT_EQ(draft.platformConfigs().front().speed, 3.0f);
+    EXPECT_EQ(draft.platformConfigs().front().phase, 15);
+}
+
+/**
+ * @brief Peindre par-dessus une plateforme mobile configurée retire sa configuration.
+ * \castest{<b>Peindre par-dessus une plateforme mobile configurée retire sa
+ * configuration.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Peindre par-dessus une plateforme mobile configurée retire sa configuration.
+ * }
+ */
+TEST(LevelDraftTest, PeindrePardessusUnePlateformeRetireSaConfiguration) {
+    LevelDraft draft = LevelDraft::empty("N", 5, 5);
+    draft.paintTile(1, 1, TileType::MovingPlatform);
+    draft.setPlatformConfig(GridPosition{1, 1}, GridPosition{1, 4}, 3.0f, 15);
+
+    draft.paintTile(1, 1, TileType::Empty);
+
+    EXPECT_TRUE(draft.platformConfigs().empty());
+}
+
+/**
  * @brief fromLevel restitue les liaisons de danger commuté et les configurations de danger
  * mobile/temporisé d'un niveau déjà chargé (`EX-GP-051`/`EX-GP-052`/`EX-GP-053`).
  * \castest{<b>fromLevel restitue les dangers avancés d'un niveau chargé.</b><br/>
@@ -971,6 +1094,37 @@ TEST(LevelDraftTest, FromLevelRestitueLesDangersAvances) {
 }
 
 /**
+ * @brief fromLevel restitue la configuration d'une plateforme mobile d'un niveau déjà chargé
+ * (`EX-GP-026`).
+ * \castest{<b>fromLevel restitue la configuration d'une plateforme mobile.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu fromLevel restitue le second point de parcours, la vitesse et le déphasage.
+ * }
+ */
+TEST(LevelDraftTest, FromLevelRestitueLaPlateformeMobile) {
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(R"({
+      "width": 5, "height": 5,
+      "tiles": [
+        { "x": 0, "y": 0, "type": "entry" },
+        { "x": 4, "y": 4, "type": "exit" },
+        { "x": 2, "y": 2, "type": "movingPlatform", "endX": 2, "endY": 4, "speed": 3.0, "phase": 10 }
+      ]
+    })");
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const LevelDraft draft = LevelDraft::fromLevel(*loaded.level);
+
+    ASSERT_EQ(draft.platformConfigs().size(), 1u);
+    EXPECT_EQ(draft.platformConfigs().front().startPosition, (GridPosition{2, 2}));
+    EXPECT_EQ(draft.platformConfigs().front().endPosition, (GridPosition{2, 4}));
+    EXPECT_FLOAT_EQ(draft.platformConfigs().front().speed, 3.0f);
+    EXPECT_EQ(draft.platformConfigs().front().phase, 10);
+}
+
+/**
  * @brief Réduire la grille retire les liaisons/configurations de dangers avancés hors bornes,
  * comme pour les mécanismes classiques.
  * \castest{<b>Réduire la grille retire les dangers avancés hors bornes.</b><br/>
@@ -990,10 +1144,13 @@ TEST(LevelDraftTest, ReduireRetireLesDangersAvancesHorsBornes) {
     draft.setMoverConfig(GridPosition{3, 3}, core::DangerMoverAxis::Horizontal, 1);
     draft.paintTile(4, 0, TileType::DangerBlink);
     draft.setBlinkConfig(GridPosition{4, 0}, 90, 15, 30);
+    draft.paintTile(1, 4, TileType::MovingPlatform);
+    draft.setPlatformConfig(GridPosition{1, 4}, GridPosition{4, 4}, 2.0f, 0);
 
     draft.resize(2, 2);
 
     EXPECT_TRUE(draft.dangerLinks().empty());
     EXPECT_TRUE(draft.moverConfigs().empty());
     EXPECT_TRUE(draft.blinkConfigs().empty());
+    EXPECT_TRUE(draft.platformConfigs().empty());
 }

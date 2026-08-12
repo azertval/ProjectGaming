@@ -27,6 +27,8 @@ namespace {
             return "sauter";
         case GameAction::Dash:
             return "dash";
+        case GameAction::Interact:
+            return "interagir";
     }
     return "";
 }
@@ -47,6 +49,8 @@ Key GameKeyBindings::defaultKey(GameAction action) noexcept {
             return Key::Space;
         case GameAction::Dash:
             return Key::Shift;
+        case GameAction::Interact:
+            return Key::E;
     }
     return Key::Escape;  // inatteignable : switch exhaustif sur GameAction ci-dessus.
 }

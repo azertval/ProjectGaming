@@ -265,6 +265,30 @@ void GameSession::loadLevel(core::Level level) {
         }
         _blockEntities.push_back(blockEntity);
     }
+    // Plateformes mobiles (EX-GP-026, LOT-63) : une entite-tuile par plateforme, reperee a sa
+    // position de DEPART -- meme patron que les dangers mobiles/blocs ci-dessus (position
+    // continue, donc interpolee au rendu via PreviousPosition).
+    _platforms.emplace(levelRef);
+    _platformEntities.clear();
+    for (const core::MovingPlatformConfig& config : levelRef.platformConfigs()) {
+        core::Entity platformEntity{};
+        bool found = false;
+        _world.view<core::Transform, core::Sprite>().each(
+            [&](core::Entity entity, core::Transform& transform, core::Sprite&) {
+                if (!found &&
+                    static_cast<int>(transform.position.x) == config.startPosition.column &&
+                    static_cast<int>(transform.position.y) == config.startPosition.row) {
+                    platformEntity = entity;
+                    found = true;
+                }
+            });
+        if (found && _world.hasComponent<core::Transform>(platformEntity)) {
+            _world.addComponent(
+                platformEntity,
+                PreviousPosition{_world.getComponent<core::Transform>(platformEntity).position});
+        }
+        _platformEntities.push_back(platformEntity);
+    }
     spawnPlayer(levelRef.entry());
     HMI_LOG_INFO("Niveau charge : " + levelRef.name() + " (" + std::to_string(_levelWidth) + "x" +
                  std::to_string(_levelHeight) + ")");
@@ -511,10 +535,21 @@ void GameSession::refreshDangerVisuals() {
     }
 }
 
-std::vector<core::Aabb> GameSession::collectActiveDangerBoxes() const {
+void GameSession::refreshPlatformVisuals() {
+    for (std::size_t index = 0; index < _platformEntities.size(); ++index) {
+        const core::Entity platform = _platformEntities[index];
+        if (!_world.hasComponent<core::Transform>(platform)) {
+            continue;  // entite-tuile non reperee (robustesse) : rien a faire
+        }
+        core::Transform& transform = _world.getComponent<core::Transform>(platform);
+        transform.position = _platforms->boxAt(index).min;
+    }
+}
+
+std::vector<core::Aabb> GameSession::collectActiveDangerBoxes() {
     std::vector<core::Aabb> boxes;
     boxes.reserve(_dangers->moverCount() + _level->blinkConfigs().size() +
-                  _level->dangerLinks().size());
+                  _level->dangerLinks().size() + 1);
 
     for (std::size_t index = 0; index < _dangers->moverCount(); ++index) {
         boxes.push_back(_dangers->moverBox(index));
@@ -531,6 +566,16 @@ std::vector<core::Aabb> GameSession::collectActiveDangerBoxes() const {
                                                link.dangerPosition.column,
                                                link.dangerPosition.row));
         }
+    }
+    // Ecrasement par une plateforme mobile (EX-GP-026, LOT-63) : decision de cadrage -- mortel,
+    // signale par core::CharacterPhysicsSystem via Player::squished. La boite du personnage
+    // lui-meme suffit a declencher Lost via evaluateOutcome, sans nouvelle notion de danger.
+    if (_world.hasComponent<core::Player>(_player) &&
+        _world.getComponent<core::Player>(_player).squished) {
+        const core::Transform& squishedTransform = _world.getComponent<core::Transform>(_player);
+        const core::Collider& squishedCollider = _world.getComponent<core::Collider>(_player);
+        boxes.push_back(
+            core::Aabb::fromTopLeftSize(squishedTransform.position, squishedCollider.size));
     }
     return boxes;
 }
@@ -651,13 +696,20 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
     // 1. Entrees -> intention.
     const core::PlayerInput intent = toPlayerInput(input, _gameBindings, _gamepadBindings);
 
-    // 1bis. Blocs poussables (EX-GP-022) : poussee puis chute, resolues AVANT la physique du
+    // 1bis. Plateformes mobiles (EX-GP-026, LOT-63) : deplacees EN PREMIER (ordre de resolution
+    // documente, TACHE-03) -- portage du personnage et des blocs, puis leur propre physique,
+    // consomment sa position DEJA a jour pour ce pas.
+    _platforms->update();
+    refreshPlatformVisuals();
+    const std::vector<core::PlatformSample> platformSamples = _platforms->samples();
+
+    // 1ter. Blocs poussables (EX-GP-022) : poussee puis chute, resolues AVANT la physique du
     // personnage, avec sa boite TELLE QUE LAISSEE par le pas precedent.
     const core::Transform& previousTransform = _world.getComponent<core::Transform>(_player);
     const core::Collider& previousCollider = _world.getComponent<core::Collider>(_player);
     const core::Aabb previousBox =
         core::Aabb::fromTopLeftSize(previousTransform.position, previousCollider.size);
-    _blocks->update(previousBox, intent.moveX, _mechanisms->collisionMap());
+    _blocks->update(previousBox, intent.moveX, _mechanisms->collisionMap(), platformSamples);
     refreshBlockVisuals();
 
     // 2. Physique sur la grille des MECANISMES (portes fermees = solides) completee par la position
@@ -667,7 +719,7 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
     // contact du sol -- c'est donc la derniere valeur disponible qui approxime la vitesse
     // d'impact d'un atterrissage survenant CE pas (intensite de la poussiere, cf. plus bas).
     const float previousVerticalVelocity = _world.getComponent<core::Velocity>(_player).value.y;
-    _physics.update(_world, collision, intent, fixedDelta);
+    _physics.update(_world, collision, intent, fixedDelta, platformSamples);
 
     // 2a. Détection d'événements (LOT-60 TACHE-03) : l'état du personnage est figé par la
     // physique ci-dessus, avant toute autre système -- c'est l'instantané pertinent pour la
@@ -697,7 +749,7 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
     // 4. Mecanismes : contact interrupteurs (front) / poids sur plaque (continu) -> etat des
     // portes.
     const float playerMass = _world.getComponent<core::Player>(_player).mass;
-    _mechanisms->update(box, playerMass);
+    _mechanisms->update(box, playerMass, intent.interactPressed);
 
     // 4a. Détection d'événements, suite de 2a : mécanismes désormais à jour, personnage déjà
     // capturé plus haut (avant que les mécanismes ne puissent influer sur la boîte de collision).

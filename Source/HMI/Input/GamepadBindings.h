@@ -42,7 +42,7 @@ public:
      */
     void setKey(GameAction action, GamepadButton newButton) noexcept;
 
-    /// Restaure les six actions à leurs boutons par défaut (`defaultButton`).
+    /// Restaure les sept actions à leurs boutons par défaut (`defaultButton`).
     void resetToDefaults() noexcept;
 
     /// @return Le bouton par défaut de @p action, indépendant de l'état courant.

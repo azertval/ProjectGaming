@@ -1,8 +1,11 @@
 # LOT-63 — Mécanismes manquants du référentiel {#lot-63}
 
-> Statut : **non commencé**. Prérequis : [LOT-12](@ref lot-12) (mécanismes), [LOT-21](@ref lot-21)
-> (blocs poussables), [LOT-31](@ref lot-31) (dangers avancés). **Découpable** : c'est le lot du
-> programme `0.1.0` qu'on rogne en premier si le calendrier se tend.
+> Statut : **fait**. Prérequis : [LOT-12](@ref lot-12) (mécanismes), [LOT-21](@ref lot-21)
+> (blocs poussables), [LOT-31](@ref lot-31) (dangers avancés). Cinq tâches faites et vérifiées
+> localement (build `/W4 /WX` Debug et Release, `ctest` à 100 % dans les deux configurations,
+> Doxygen sur la version épinglée par la CI, `lint_exigences.py`/`check_demo_sequence.py`/
+> `generate_cahier_test.py --check` verts). Essai manuel réel (jouer les trois niveaux à la
+> manette/au clavier) réservé à l'utilisateur.
 
 ## Objectif
 Livrer les trois mécanismes que les spécifications annoncent depuis le début et que le moteur n'a
@@ -77,11 +80,11 @@ que le jeu contient, avant de publier une version qui se présente comme un jeu.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-action-interagir.md) | Action logique « Interagir », clavier et manette | `Source/Core/Physics`, `Source/HMI/Input` | ⬜ |
-| [TACHE-02](tache-02-cle-porte-verrouillee.md) | Clé ramassable et porte verrouillée | `Source/Core/Levels`, `Source/Core/Gameplay` | ⬜ |
-| [TACHE-03](tache-03-plateforme-mobile.md) | Plateforme mobile déterministe, portant le personnage | `Source/Core/Gameplay`, `Source/Core/Physics` | ⬜ |
-| [TACHE-04](tache-04-integration-editeur-habillage.md) | Intégration éditeur et habillage des trois mécanismes | `Source/HMI/Editor`, `Source/HMI/Graphics` | ⬜ |
-| [TACHE-05](tache-05-niveaux-documentation-verification.md) | Niveaux de démonstration, documentation et vérification | `Source/Elements/Levels`, `Documentation` | ⬜ |
+| [TACHE-01](tache-01-action-interagir.md) | Action logique « Interagir », clavier et manette | `Source/Core/Physics`, `Source/HMI/Input` | ✅ |
+| [TACHE-02](tache-02-cle-porte-verrouillee.md) | Clé ramassable et porte verrouillée | `Source/Core/Levels`, `Source/Core/Gameplay` | ✅ |
+| [TACHE-03](tache-03-plateforme-mobile.md) | Plateforme mobile déterministe, portant le personnage | `Source/Core/Gameplay`, `Source/Core/Physics` | ✅ |
+| [TACHE-04](tache-04-integration-editeur-habillage.md) | Intégration éditeur et habillage des trois mécanismes | `Source/HMI/Editor`, `Source/HMI/Graphics` | ✅ |
+| [TACHE-05](tache-05-niveaux-documentation-verification.md) | Niveaux de démonstration, documentation et vérification | `Source/Elements/Levels`, `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Une clé ramassée ouvre définitivement la porte verrouillée correspondante ; deux paires

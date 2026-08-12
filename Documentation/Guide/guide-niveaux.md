@@ -183,6 +183,27 @@ désormais, mais `MechanismController` ne les interroge pas encore : un bloc pos
 pression ne l'active pas — l'infrastructure de comparaison de poids est prête à l'accueillir, mais
 le câblage bloc → plaque reste une évolution à venir.
 
+### Clé et porte verrouillée (`EX-GP-023`, `LOT-63`)
+
+`TileType::Key`/`LockedDoor` sont une **troisième** paire déclencheur↔cible, résolue par la
+**même** liaison `core::Mechanism` que interrupteur/plaque↔porte ci-dessus — ajoutée au **même**
+vecteur (`Level::mechanisms()`), aucune notion de liaison dupliquée. `MechanismController` fige la
+nature de chaque déclencheur à la construction (comme `_continuous` pour interrupteur/plaque) :
+une clé se distingue par son `TileType::Key` d'origine.
+
+Deux différences de comportement, câblées directement dans `MechanismController::update` :
+
+- **ramassage** : contrairement à l'interrupteur (contact seul), une clé exige le contact **et**
+  le front de l'action « Interagir » (`core::PlayerInput::interactPressed`, `EX-CTRL-022`) —
+  c'est le premier usage réel de cette action ;
+- **irréversibilité** : une fois ramassée, la porte liée s'ouvre et **le reste** — jamais de
+  re-fermeture, contrairement à l'interrupteur qui bascule. `_switchOn[index]` ne repasse donc
+  jamais à `false` une fois vrai pour un mécanisme de type clé.
+
+La grille de collision est mise à jour exactement comme pour une porte classique (`Solid` fermée,
+type d'origine — `Door` ou `LockedDoor` — une fois ouverte), via le même champ `_openType` capturé
+à la construction (avant que le constructeur ne fige toutes les portes en `Solid`).
+
 ## Blocs poussables
 
 `core::BlockController` (logique **pure**, dans `Core/Gameplay`, sans dépendance rendu) fait vivre
@@ -238,6 +259,41 @@ Cohérence stricte entre le rendu et la collision : `hmi::GameSession::refreshBl
 la **même** marge (`(1 - facteur) / 2`) pour positionner et mettre à l'échelle le sprite d'un bloc
 réduit — le sprite affiché correspond donc exactement, par construction, à la boîte réellement
 testée, sans risque de divergence entre deux calculs indépendants.
+
+## Plateformes mobiles (`EX-GP-026`, `LOT-63`)
+
+`core::PlatformController` (logique **pure**, dans `Core/Gameplay`) fait vivre les tuiles
+`TileType::MovingPlatform` : contrairement aux blocs poussables ci-dessus (position **case par
+case**), la position d'une plateforme est **continue**, fonction **déterministe** du nombre de pas
+fixes écoulés depuis le chargement (`EX-NFR-002`) — jamais d'accumulation flottante
+(`position += vitesse * dt`, qui dériverait sur une session longue). Aller-retour **triangulaire**
+entre `MovingPlatformConfig::startPosition` et `endPosition`, à vitesse constante (`speed`, cases
+par seconde), avec un déphasage optionnel (`phase`, en pas fixes — même principe que
+`DangerBlinkConfig::phase`) pour désynchroniser plusieurs plateformes d'un même niveau.
+
+**L'ordre de résolution dans le pas est la décision structurante**, documentée ici parce qu'un
+autre ordre produit des défauts subtils et intermittents (`hmi::GameSession::update`,
+`Source/Test/Systeme/test_parcours_complet.cpp`, même composition) :
+
+1. `PlatformController::update()` avance **en premier** — toutes les plateformes du niveau
+   atteignent leur position de ce pas avant que quoi que ce soit d'autre ne s'exécute.
+2. Les blocs poussables reposant sur une plateforme sont **portés** avec elle
+   (`BlockController::update(..., platforms)`) : un déplacement infra-case est accumulé par bloc
+   et converti en poussée d'une case entière dès qu'il atteint `1.0`, pour rester cohérent avec le
+   reste du contrôleur (jamais de position infra-case pour un bloc).
+3. Le personnage est **porté** s'il reposait sur une plateforme au pas précédent (translation
+   directe de sa position, avant que sa propre physique ne s'applique) — vérifié purement par
+   géométrie (`core::restsOnTopOfPlatform` contre la position de la plateforme **au pas
+   précédent**), sans état à mémoriser d'un pas à l'autre.
+4. La physique du personnage s'applique normalement sur la grille (murs, sols), **puis** sa
+   collision continue contre chaque plateforme est résolue (`core::sweepAabbVsAabb`, même patron
+   que les blocs réduits ci-dessus) — c'est cette seconde passe qui pose le personnage sur le
+   dessus d'une plateforme la première fois (avant que le portage n'ait quoi que ce soit à faire),
+   et qui empêche toute traversée quelle que soit la vitesse de la plateforme.
+
+**Écrasement** : une plateforme montante contre un plafond, avec le personnage entre les deux, est
+**mortelle** (`core::Player::squished`, décision de cadrage retenue) — plutôt que de mettre la
+plateforme en pause, ce qui casserait sa position purement fonction du numéro de pas.
 
 ## Budget de mouvements
 
@@ -378,7 +434,7 @@ même ordre, à la liste rejouée par le test système `Source/Test/Systeme/test
 ## Voir aussi
 - `core::Level`, `core::TileMap`, `core::TileType`, `core::LevelLoader`, `core::LevelLoadResult`.
 - `core::LevelSequence`, `core::LevelSequenceLoader`, `core::LevelSequenceLoadResult`.
-- `core::buildLevelScene`, `core::MechanismController`, `core::BlockController`, `core::DangerController`, `core::dangerHitbox`, `core::evaluateOutcome`, `hmi::GameSession`.
+- `core::buildLevelScene`, `core::MechanismController`, `core::BlockController`, `core::DangerController`, `core::PlatformController`, `core::dangerHitbox`, `core::evaluateOutcome`, `hmi::GameSession`.
 - @ref guide-ecrans — l'écran de fin de niveau qui décide de la suite depuis `LOT-59`, et la
   progression persistée entre deux lancements.
 - @ref guide-physique — comment le balayage consomme `isSolid`/`collisionMap()`.

@@ -84,6 +84,12 @@ std::string tileTypeName(TileType type) {
             return "dangerSwitched";
         case TileType::DangerBlink:
             return "dangerBlink";
+        case TileType::Key:
+            return "key";
+        case TileType::LockedDoor:
+            return "lockedDoor";
+        case TileType::MovingPlatform:
+            return "movingPlatform";
     }
     return "empty";  // inatteignable : le switch ci-dessus couvre tout l'enum.
 }
@@ -97,7 +103,7 @@ std::optional<TileType> parseTileType(std::string_view name) {
         std::unordered_map<std::string, TileType, TransparentStringHash, std::equal_to<>>;
     static const NameTable byName = [] {
         NameTable table;
-        for (int raw = 0; raw <= static_cast<int>(TileType::DangerBlink); ++raw) {
+        for (int raw = 0; raw <= static_cast<int>(TileType::MovingPlatform); ++raw) {
             const auto type = static_cast<TileType>(raw);
             table.emplace(tileTypeName(type), type);
         }

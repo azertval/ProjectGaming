@@ -71,6 +71,9 @@ public:
      *                     override correspondant est émise sans champ `"texture"`.
      * @param decors       Décors libres du niveau (`EX-DEC-001`, LOT-49), émis dans le tableau
      *                     racine optionnel `"decors"`, omis si vide (`EX-LVL-005`).
+     * @param platformConfigs Configurations explicites de plateformes mobiles (`EX-GP-026`), même
+     *                     remarque que @p moverConfigs pour les champs `endX`/`endY`/`speed`/
+     *                     `phase`.
      * @return Le contenu JSON correspondant.
      */
     [[nodiscard]] static std::string buildJson(
@@ -81,7 +84,8 @@ public:
         const std::optional<std::string>& background = std::nullopt,
         const std::optional<std::string>& skinSet = std::nullopt,
         const std::vector<TileTextureOverride>& textureOverrides = {},
-        const std::vector<Decor>& decors = {});
+        const std::vector<Decor>& decors = {},
+        const std::vector<MovingPlatformConfig>& platformConfigs = {});
 };
 
 }  // namespace core
