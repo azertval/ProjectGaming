@@ -171,8 +171,8 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
 
     // Central : menu principal, options et viewport empilés (remplace le centralHost du .ui).
     _menu = new MainMenu();
-    _options =
-        new OptionsPage(_viewport, hmi::executableDirectory() / "Settings" / "keybindings.json");
+    _options = new OptionsPage(_viewport, &_audio,
+                               hmi::executableDirectory() / "Settings" / "keybindings.json");
     _levelSelectScreen = new LevelSelectScreen();
     _stack = new QStackedWidget(this);
     _stack->addWidget(_menu);

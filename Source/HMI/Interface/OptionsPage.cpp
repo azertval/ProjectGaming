@@ -3,11 +3,17 @@
 #include <QCheckBox>
 #include <QComboBox>
 #include <QPushButton>
+#include <QSettings>
 #include <QSignalBlocker>
+#include <QSlider>
 #include <QString>
 #include <QTabWidget>
+#include <algorithm>
+#include <optional>
 #include <utility>
 
+#include "HMI/Audio/AudioEngine.h"
+#include "HMI/Audio/SoundTriggers.h"
 #include "HMI/Game/GameViewport.h"
 #include "HMI/Interface/DesignTokens.h"
 #include "HMI/Interface/EditorKeybindingsWidget.h"
@@ -18,9 +24,15 @@
 
 namespace hmi {
 
-OptionsPage::OptionsPage(GameViewport* viewport, std::filesystem::path keybindingsPath,
-                         QWidget* parent)
-    : QWidget(parent), _ui(std::make_unique<Ui::OptionsPage>()) {
+namespace {
+// Cle de preference du volume, meme portee QSettings que la langue et le mode de rendu
+// (GameViewport.cpp) -- persistee/relue au meme endroit et selon le meme mecanisme (TACHE-04).
+constexpr const char* VOLUME_SETTINGS_KEY = "volume";
+}  // namespace
+
+OptionsPage::OptionsPage(GameViewport* viewport, AudioEngine* audio,
+                         std::filesystem::path keybindingsPath, QWidget* parent)
+    : QWidget(parent), _ui(std::make_unique<Ui::OptionsPage>()), _audio(audio) {
     setObjectName(QStringLiteral("OptionsPage"));  // ciblé par le thème (theme.qss)
     setAttribute(Qt::WA_StyledBackground, true);
     _ui->setupUi(this);
@@ -37,6 +49,33 @@ OptionsPage::OptionsPage(GameViewport* viewport, std::filesystem::path keybindin
             [viewport](bool on) { viewport->setVSync(on); });
     connect(_ui->fullscreenCheck, &QCheckBox::toggled, this,
             [this](bool on) { emit fullscreenRequested(on); });
+
+    // Onglet Audio (LOT-60 TACHE-04) : volume global, persiste dans la meme portee QSettings que
+    // la langue/le mode de rendu -- releve au lancement, applique immediatement au moteur, retenu
+    // pour le lancement suivant.
+    const int savedVolumePercent = std::clamp(
+        QSettings().value(QString::fromLatin1(VOLUME_SETTINGS_KEY), 100).toInt(), 0, 100);
+    _ui->volumeSlider->setValue(savedVolumePercent);
+    if (_audio) {
+        _audio->setVolume(static_cast<float>(savedVolumePercent) / 100.0f);
+    }
+    connect(_ui->volumeSlider, &QSlider::valueChanged, this, [this](int value) {
+        QSettings().setValue(QString::fromLatin1(VOLUME_SETTINGS_KEY), value);
+        if (_audio) {
+            _audio->setVolume(static_cast<float>(value) / 100.0f);
+        }
+    });
+    // Retour sonore AU RELACHEMENT seulement (jamais a chaque pas du curseur, TACHE-04) : sans
+    // quoi le reglage se ferait a l'aveugle, mais un echantillon par pas transformerait le curseur
+    // en mitraillette.
+    connect(_ui->volumeSlider, &QSlider::sliderReleased, this, [this]() {
+        if (!_audio) {
+            return;
+        }
+        if (const std::optional<std::string> soundId = soundForEvent(GameEvent::MenuNavigate)) {
+            _audio->play(*soundId);
+        }
+    });
 
     // Onglet Général (mise en page dans OptionsPage.ui) : langue (index 0 = fr, 1 = en) et logs.
     connect(_ui->languageCombo, &QComboBox::currentIndexChanged, this, [this](int index) {
@@ -81,7 +120,7 @@ void OptionsPage::retranslateUi(const Localization& loc) {
     _ui->resolutionCombo->setItemText(0, t("options.resolution_auto"));
     _ui->fpsLabel->setText(t("options.fps_limit"));
     _ui->fpsCombo->setItemText(0, t("options.unlimited"));
-    _ui->audioLabel->setText(t("options.audio_soon"));
+    _ui->volumeLabel->setText(t("options.volume"));
     _ui->backButton->setText(t("options.back"));
 
     // Onglet Général.

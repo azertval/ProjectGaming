@@ -50,13 +50,15 @@
      </widget>
      <widget class="QWidget" name="audioTab">
       <attribute name="title"><string>Audio</string></attribute>
-      <layout class="QVBoxLayout" name="audioLayout">
-       <item><widget class="QLabel" name="audioLabel"><property name="text"><string>Audio à venir (aucun système audio pour le moment).</string></property></widget></item>
-       <item>
-        <spacer name="audioSpacer">
-         <property name="orientation"><enum>Qt::Vertical</enum></property>
-         <property name="sizeHint" stdset="0"><size><width>0</width><height>0</height></size></property>
-        </spacer>
+      <layout class="QFormLayout" name="audioForm">
+       <item row="0" column="0"><widget class="QLabel" name="volumeLabel"><property name="text"><string>Volume</string></property></widget></item>
+       <item row="0" column="1">
+        <widget class="QSlider" name="volumeSlider">
+         <property name="orientation"><enum>Qt::Horizontal</enum></property>
+         <property name="minimum"><number>0</number></property>
+         <property name="maximum"><number>100</number></property>
+         <property name="value"><number>100</number></property>
+        </widget>
        </item>
       </layout>
      </widget>
