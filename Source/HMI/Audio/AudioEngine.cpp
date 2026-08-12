@@ -34,8 +34,8 @@ AudioEngine::~AudioEngine() = default;
 void AudioEngine::setVolume(float volume) {
     _volume = clampVolume(volume);
     for (auto& entry : _samples) {
-        if (entry.second.effect) {
-            entry.second.effect->setVolume(static_cast<double>(_volume));
+        for (auto& instance : entry.second.instances) {
+            instance->setVolume(static_cast<double>(_volume));
         }
     }
 }
@@ -44,21 +44,29 @@ void AudioEngine::preload(const std::string& id, const std::filesystem::path& fi
     if (_muted) {
         return;
     }
-    auto effect = std::make_unique<QSoundEffect>();
-    effect->setSource(QUrl::fromLocalFile(QString::fromStdString(file.string())));
-    effect->setVolume(static_cast<double>(_volume));
-    _samples[id] = Sample{std::move(effect)};
+    const QUrl source = QUrl::fromLocalFile(QString::fromStdString(file.string()));
+    Sample sample;
+    sample.instances.reserve(MAX_INSTANCES_PER_EVENT);
+    for (std::size_t i = 0; i < MAX_INSTANCES_PER_EVENT; ++i) {
+        auto effect = std::make_unique<QSoundEffect>();
+        effect->setSource(source);
+        effect->setVolume(static_cast<double>(_volume));
+        sample.instances.push_back(std::move(effect));
+    }
+    _samples[id] = std::move(sample);
 }
 
-void AudioEngine::play(const std::string& id) const {
+void AudioEngine::play(const std::string& id) {
     if (_muted) {
         return;
     }
     const auto it = _samples.find(id);
-    if (it == _samples.end() || !it->second.effect) {
+    if (it == _samples.end() || it->second.instances.empty()) {
         return;
     }
-    it->second.effect->play();
+    Sample& sample = it->second;
+    sample.instances[sample.nextInstance]->play();
+    sample.nextInstance = (sample.nextInstance + 1) % sample.instances.size();
 }
 
 }  // namespace hmi

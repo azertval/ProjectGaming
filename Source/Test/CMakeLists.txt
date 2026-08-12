@@ -77,6 +77,7 @@ add_executable(UnitTests
     Unit/HMI/Game/test_progression.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
+    Unit/HMI/Audio/test_sound_catalog.cpp
     Unit/HMI/Interface/test_design_tokens.cpp
     Unit/HMI/Interface/test_application_theme.cpp
     Unit/HMI/Interface/test_editor_actions.cpp
@@ -177,6 +178,9 @@ add_executable(UnitTests
     ../HMI/Localization/Localization.cpp
     # La sérialisation des logs de session est pure (aucune dépendance fenêtre/GPU), testable.
     ../HMI/Diagnostics/SessionLog.cpp
+    # Le catalogue de sons (LOT-60 TACHE-02) est une resolution de chemins pure, sur le patron de
+    # SkinCatalog.cpp : sans dependance Qt/peripherique, testable hors Qt Multimedia (EX-NFR-010).
+    ../HMI/Audio/SoundCatalog.cpp
     # La validation d'un nom de niveau saisi est une fonction pure, testable hors GPU.
     ../HMI/Editor/LevelNameValidation.cpp
     # La taxonomie de la palette Qt (catégories/sous-groupes) est pure, testable hors GPU/Qt.
@@ -340,6 +344,7 @@ target_compile_definitions(UnitTests PRIVATE
     PROJECTGAMING_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels"
     PROJECTGAMING_LOCALIZATION_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Localization"
     PROJECTGAMING_ASSETS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Assets"
+    PROJECTGAMING_AUDIO_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Audio"
     PROJECTGAMING_THEME_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/Themes/theme.qss"
     PROJECTGAMING_MAIN_MENU_UI_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/UI/MainMenu.ui"
     PROJECTGAMING_OPTIONS_PAGE_UI_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/UI/OptionsPage.ui"

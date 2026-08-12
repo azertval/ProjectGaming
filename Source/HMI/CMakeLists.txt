@@ -138,6 +138,7 @@ add_executable(ProjectGaming
     # Localisation
     Localization/Localization.cpp
     # Audio (bruitages, LOT-60)
+    Audio/SoundCatalog.cpp
     Audio/AudioEngine.cpp
     # Diagnostics (enregistrement des journaux de session)
     Diagnostics/SessionLog.cpp
@@ -262,6 +263,11 @@ add_custom_command(TARGET ProjectGaming POST_BUILD
         ${PROJECT_SOURCE_DIR}/Source/Elements/Assets
         $<TARGET_FILE_DIR:ProjectGaming>/Assets
     COMMENT "Copie des assets graphiques (atlas de textures, LOT-39)")
+add_custom_command(TARGET ProjectGaming POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${PROJECT_SOURCE_DIR}/Source/Elements/Audio
+        $<TARGET_FILE_DIR:ProjectGaming>/Audio
+    COMMENT "Copie des bruitages (.wav, LOT-60)")
 
 # Déploiement Qt : copie les DLL Qt (plateforme, styles) à côté de l'exécutable pour que
 # l'utilisateur final n'ait **aucune bibliothèque à installer** — un simple dossier exécutable

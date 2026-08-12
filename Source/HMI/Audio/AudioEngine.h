@@ -1,9 +1,11 @@
 #pragma once
 
+#include <cstddef>
 #include <filesystem>
 #include <memory>
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 class QSoundEffect;
 
@@ -73,9 +75,11 @@ public:
      *
      * À appeler au démarrage pour chaque son du catalogue (`HMI/Audio/SoundCatalog`, TACHE-02) :
      * `QSoundEffect` charge son fichier de façon asynchrone, jouer immédiatement après
-     * construction ne produit rien. Précharger ici, jamais au premier déclenchement.
+     * construction ne produit rien. Précharger ici, jamais au premier déclenchement. Prépare en
+     * réalité `MAX_INSTANCES_PER_EVENT` échantillons identiques (une petite réserve), pour qu'un
+     * même événement déclenché en rafale se recouvre sans s'interrompre lui-même de façon audible.
      * @param id Identifiant logique (ex. "saut"). Un second appel avec le même identifiant
-     *        remplace l'échantillon précédent.
+     *        remplace la réserve précédente.
      * @param file Chemin du fichier WAV. Un fichier absent ne fait pas échouer l'appel : la
      *        lecture ultérieure de cet identifiant restera silencieuse.
      */
@@ -85,14 +89,22 @@ public:
      * @brief Joue l'échantillon préchargé sous cet identifiant.
      *
      * Sans effet si le moteur est muet, si @p id n'a jamais été préchargé, ou si le fichier
-     * associé n'a pas pu être chargé — jamais une erreur pour l'appelant (`EX-NFR-040`).
+     * associé n'a pas pu être chargé — jamais une erreur pour l'appelant (`EX-NFR-040`). Choisit
+     * une instance parmi la réserve préchargée (tourniquet) : un même événement déclenché plus de
+     * `MAX_INSTANCES_PER_EVENT` fois dans le même instant réutilise la plus ancienne plutôt que
+     * d'empiler indéfiniment des lectures superposées.
      * @param id Identifiant préchargé par `preload`.
      */
-    void play(const std::string& id) const;
+    void play(const std::string& id);
 
 private:
+    /// Nombre d'instances préchargées par événement — plafonne le recouvrement audible d'un même
+    /// son déclenché en rafale, sans l'empêcher complètement (`TACHE-02`).
+    static constexpr std::size_t MAX_INSTANCES_PER_EVENT = 3;
+
     struct Sample {
-        std::unique_ptr<QSoundEffect> effect;
+        std::vector<std::unique_ptr<QSoundEffect>> instances;
+        std::size_t nextInstance = 0;  ///< Tourniquet : prochaine instance a reutiliser.
     };
 
     std::unordered_map<std::string, Sample> _samples;

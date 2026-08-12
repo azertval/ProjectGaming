@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**972 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**982 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (880)
+## Tests unitaires (890)
 
 ### Core
 
@@ -530,6 +530,28 @@
 | **FixedTimestepTest.PauseSansAppelNAccumuleAucunPas** (Critique)<br/><sub>`Source/Test/Unit/Core/Time/test_fixed_timestep.cpp:119`</sub> | Une pause simulée (aucun appel à advance()) n'accumule aucun pas. | 1. Avancer normalement de quelques pas.<br/>2. Simuler une pause de longue durée en n'appelant PAS advance() (aucun appel, pas un appel à zéro).<br/>3. Reprendre avec un petit delta, comme après réarmement de l'horloge de référence. | Vérifie que `timestep.advance(STEP * 3.0f)` vaut `3`.<br/>Vérifie que `timestep.advance(STEP)` vaut `1`. |
 
 ### HMI
+
+#### Audio (10)
+
+**`test_audio_engine.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **AudioEngine.MutedEngineAcceptsPreloadAndPlayWithoutError** (Critique)<br/><sub>`Source/Test/Unit/HMI/Audio/test_audio_engine.cpp:12`</sub> | Un moteur audio muet accepte precharge et lecture sans erreur. | 1. Construire un AudioEngine force en etat muet (ForceMuted::Yes).<br/> 2. Precharger un echantillon sur un chemin inexistant.<br/> 3. Jouer cet echantillon, puis un identifiant jamais precharge. | Vérifie que `engine.muted()` est vrai. |
+| **AudioEngine.VolumeIsClampedToUnitRange** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Audio/test_audio_engine.cpp:34`</sub> | Le volume du moteur audio est borne a [0, 1]. | 1. Regler un volume negatif, puis un volume superieur a 1, puis une valeur intermediaire. | Vérifie que `engine.volume()` vaut `0.0f` (comparaison flottante).<br/>Vérifie que `engine.volume()` vaut `1.0f` (comparaison flottante).<br/>Vérifie que `engine.volume()` vaut `0.42f` (comparaison flottante). |
+| **AudioEngine.DefaultVolumeIsFull** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Audio/test_audio_engine.cpp:58`</sub> | Le volume par defaut du moteur audio est au maximum. | 1. Construire un AudioEngine sans regler de volume. | Vérifie que `engine.volume()` vaut `1.0f` (comparaison flottante). |
+
+**`test_sound_catalog.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **SoundCatalogTest.CatalogueValideSeCharge** (Critique)<br/><sub>`Source/Test/Unit/HMI/Audio/test_sound_catalog.cpp:28`</sub> | Un catalogue de sons valide se lit sans erreur. | 1. Charger un JSON de catalogue avec deux evenements.<br/> 2. Resoudre chacun des deux evenements. | Vérifie que `result.ok()` est vrai.<br/>Vérifie que `result.catalog->resolve("saut")` vaut `"saut.wav"`.<br/>Vérifie que `result.catalog->resolve("atterrissage")` vaut `"atterrissage.wav"`. |
+| **SoundCatalogTest.FichierAbsentEstFileNotFound** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Audio/test_sound_catalog.cpp:46`</sub> | Un fichier de catalogue de sons absent produit un catalogue vide. | 1. Charger un catalogue depuis un chemin inexistant. | Vérifie que `result.ok()` est faux.<br/>Vérifie que `result.errorCode` vaut `hmi::SoundCatalogError::FileNotFound`. |
+| **SoundCatalogTest.EntreeMalformeeEchoueLeChargementEntier** (Critique)<br/><sub>`Source/Test/Unit/HMI/Audio/test_sound_catalog.cpp:65`</sub> | Une entree malformee du catalogue de sons fait echouer tout le chargement. | 1. Charger un JSON dont une entree "sons" n'est pas une chaine. | Vérifie que `result.ok()` est faux.<br/>Vérifie que `result.errorCode` vaut `hmi::SoundCatalogError::MalformedStructure`. |
+| **SoundCatalogTest.EvenementInconnuResoutNullopt** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Audio/test_sound_catalog.cpp:89`</sub> | Un evenement inconnu du catalogue de sons ne produit aucune erreur. | 1. Charger le catalogue de reference.<br/> 2. Resoudre un identifiant d'evenement absent du catalogue. | Vérifie que `result.ok()` est vrai.<br/>Vérifie que `result.catalog->resolve("evenement_qui_n_existe_pas")` vaut `std::nullopt`. |
+| **SoundCatalogTest.VersionSuperieureRefusee** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Audio/test_sound_catalog.cpp:106`</sub> | Une version de format superieure au catalogue de sons connu est refusee. | 1. Charger un JSON dont le champ "version" depasse SoundCatalog::FORMAT_VERSION. | Vérifie que `result.ok()` est faux.<br/>Vérifie que `result.errorCode` vaut `hmi::SoundCatalogError::UnsupportedVersion`. |
+| **SoundCatalogTest.CatalogueLivreValide** (Critique)<br/><sub>`Source/Test/Unit/HMI/Audio/test_sound_catalog.cpp:126`</sub> | Le fichier de sons livre avec le jeu se lit sans erreur. | 1. Lire Source/Elements/Audio/sounds.json depuis les sources. | Vérifie que `std::filesystem::exists(path)` est vrai.<br/>Vérifie que `result.ok()` est vrai.<br/>Vérifie que `result.catalog->eventIds().empty()` est faux. |
+| **SoundCatalogTest.AssetsDuCatalogueLivreExistent** (Critique)<br/><sub>`Source/Test/Unit/HMI/Audio/test_sound_catalog.cpp:146`</sub> | Chaque son reference par le catalogue livre existe. | 1. Lire le catalogue livre.<br/> 2. Pour chaque evenement, verifier que le fichier resolu existe dans Source/Elements/Audio. | Vérifie que `result.ok()` est vrai.<br/>Vérifie que `file.has_value()` est vrai.<br/>Vérifie que `std::filesystem::exists(assetPath)` est vrai. |
 
 #### Diagnostics (2)
 
