@@ -60,7 +60,7 @@ if(_qt_hints)
     list(APPEND CMAKE_PREFIX_PATH ${_qt_hints})
 endif()
 
-find_package(Qt6 QUIET COMPONENTS Widgets Gui)
+find_package(Qt6 QUIET COMPONENTS Widgets Gui Multimedia)
 if(NOT Qt6_FOUND)
     # Avertissement et non simple statut : sans Qt il n'y a **aucun exécutable**, seulement les
     # tests. Passer inaperçu est précisément ce qui rendait l'absence d'exe difficile à diagnostiquer.
@@ -135,8 +135,13 @@ add_executable(ProjectGaming
     Game/GameViewport.cpp
     Game/Progression.cpp
     Game/GameHud.cpp
+    Game/GameEvents.cpp
     # Localisation
     Localization/Localization.cpp
+    # Audio (bruitages, LOT-60)
+    Audio/SoundCatalog.cpp
+    Audio/SoundTriggers.cpp
+    Audio/AudioEngine.cpp
     # Diagnostics (enregistrement des journaux de session)
     Diagnostics/SessionLog.cpp
     # Interface (fenêtre, menu, options, remappage)
@@ -155,6 +160,7 @@ add_executable(ProjectGaming
     Interface/PauseScreen.cpp
     Interface/LevelCompleteScreen.cpp
     Interface/LevelSelectScreen.cpp
+    Interface/CreditsScreen.cpp
     Interface/OptionsPage.cpp
     Interface/KeybindingsWidget.cpp
     Interface/EditorKeybindingsWidget.cpp
@@ -202,6 +208,7 @@ add_executable(ProjectGaming
     ${ELEMENTS_UI}/PauseScreen.ui
     ${ELEMENTS_UI}/LevelCompleteScreen.ui
     ${ELEMENTS_UI}/LevelSelectScreen.ui
+    ${ELEMENTS_UI}/CreditsScreen.ui
     ${ELEMENTS_UI}/OptionsPage.ui
     ${ELEMENTS_UI}/DecorsPanel.ui
     ${ELEMENTS_UI}/TexturePanel.ui
@@ -220,6 +227,7 @@ target_link_libraries(ProjectGaming PRIVATE
     Core
     Qt6::Widgets
     Qt6::Gui
+    Qt6::Multimedia
     d3d11
     dxgi
     d3dcompiler
@@ -259,6 +267,11 @@ add_custom_command(TARGET ProjectGaming POST_BUILD
         ${PROJECT_SOURCE_DIR}/Source/Elements/Assets
         $<TARGET_FILE_DIR:ProjectGaming>/Assets
     COMMENT "Copie des assets graphiques (atlas de textures, LOT-39)")
+add_custom_command(TARGET ProjectGaming POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${PROJECT_SOURCE_DIR}/Source/Elements/Audio
+        $<TARGET_FILE_DIR:ProjectGaming>/Audio
+    COMMENT "Copie des bruitages (.wav, LOT-60)")
 
 # Déploiement Qt : copie les DLL Qt (plateforme, styles) à côté de l'exécutable pour que
 # l'utilisateur final n'ait **aucune bibliothèque à installer** — un simple dossier exécutable

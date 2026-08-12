@@ -7,6 +7,26 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-60 — Audio : socle et bruitages** (lève `EX-REN-040`, marqué ⚠️ depuis sa rédaction ;
+  déclare `EX-REN-047`, `EX-REN-048`). Le jeu produit enfin du son.
+  - **`hmi::AudioEngine`** (Qt Multimedia, `QSoundEffect`) : détection du périphérique de sortie,
+    repli **muet** sans plantage (`EX-NFR-040`), volume borné, tourniquet de trois instances par
+    événement (un déclenchement en rafale se recouvre sans s'interrompre lui-même).
+    `Qt6::Multimedia` provisionné comme composant additionnel de Qt (même garde que
+    `Widgets`/`Gui`), sur les six points `install-qt-action` de `ci.yml`/`release.yml`.
+  - **`hmi::SoundCatalog`** : nom d'événement → fichier (`Source/Elements/Audio/sounds.json`),
+    même patron que `hmi::SkinCatalog` (fichier absent → catalogue vide, entrée malformée → échec
+    entier, jamais deviné). Douze bruitages **réels**, libres de droit (CC0, Kenney), remplacent
+    l'idée initiale de sons procéduraux — crédits dans `Source/Elements/Audio/CREDITS.md`.
+  - **`hmi::GameEvents`/`hmi::SoundTriggers`** : détection pure des transitions de jeu (saut,
+    atterrissage, dash, mécanismes, mort, victoire) au pas fixe, table événement → son exhaustive,
+    réutilisable telle quelle par un futur système de particules (`LOT-53`). Deux accesseurs
+    ajoutés à `Core` pour exposer ce qu'il est seul à savoir : `core::Player::justJumped` (front
+    de saut, aucune combinaison des champs existants n'était fiable) et
+    `core::MechanismController::isContinuous` (distinction interrupteur/plaque).
+  - **Volume réglable et persisté** (`QSettings`, même portée que la langue/le mode de rendu),
+    effet immédiat, retour sonore au relâchement du curseur.
+  - **Écran Crédits** dans le menu principal (développement, bruitages).
 - **LOT-59 — Boucle de jeu complète : pause, fin de niveau, progression** (`EX-IHM-004`,
   `EX-IHM-005`, `EX-LVL-013`, `EX-LVL-014` ; lève `EX-REN-031` et `EX-GP-040`, tous deux marqués ⚠️
   depuis leur rédaction). Premier lot de **contenu** du programme `0.1.0` : le moteur était

@@ -60,6 +60,12 @@ struct Player {
     /// atteint (`core::resolveCeilingSlopeFollow`, `EX-GP-007`).
     float ascentSweepMinX = 0.0f;
     float ascentSweepMaxX = 0.0f;
+    /// Vrai pendant le pas où un saut (sol, coyote, mur ou aérien) vient de se déclencher ; remis
+    /// à faux au début du pas suivant. Contrairement aux autres champs, ne porte aucun état de
+    /// simulation persistant — c'est un **front** à usage externe (`hmi::GameEvents`, `LOT-60`) :
+    /// aucune des minuteries existantes (`jumpBufferTimer`...) ne permet de distinguer un saut
+    /// déclenché d'un buffer simplement expiré sans saut.
+    bool justJumped = false;
 };
 
 }  // namespace core

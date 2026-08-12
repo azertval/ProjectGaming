@@ -10,6 +10,7 @@ menu.new_game = Nouvelle partie
 menu.select_level = Choisir un niveau
 menu.edit_mode = Mode Édition
 menu.options = Options
+menu.credits = Crédits
 menu.quit = Quitter
 menu.new_game_confirm_title = Nouvelle partie ?
 menu.new_game_confirm_text = La progression actuelle sera effacée. Commencer une nouvelle partie ?
@@ -296,7 +297,7 @@ options.resolution = Résolution
 options.resolution_auto = Automatique (fenêtre)
 options.fps_limit = Limite d'images/s
 options.unlimited = Illimité
-options.audio_soon = Audio à venir (aucun système audio pour le moment).
+options.volume = Volume
 options.language = Langue
 options.logs = Journaux
 options.save_logs = Enregistrer les journaux de session
@@ -307,6 +308,11 @@ options.gamepad_connected = Manette : connectée
 options.gamepad_disconnected = Manette : non connectée
 language.fr = Français
 language.en = English
+
+# Ecran Credits (LOT-60)
+credits.title = Crédits
+credits.development = Développement
+credits.audio = Musique et bruitages
 
 # Messages d'etat du viewport
 status.region_copied = Zone copiée (%1 × %2).

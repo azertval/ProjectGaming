@@ -1,7 +1,7 @@
 # TACHE-05 — Documentation et vérification {#lot-60-tache-05-documentation-verification}
 
 **Lot :** [LOT-60](epic.md) · **Emplacement :** `Source/Test`, `Documentation` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 Ce lot introduit un **domaine** absent du projet depuis le début, et une **dépendance** de plus.
@@ -51,6 +51,26 @@ composants et bientôt faux pour trois.
   génération sur la version épinglée de la CI sans rien dire en local.
 - Attention aux commentaires de code contenant `**gauche**/**droite**` : la séquence `**/` ferme un
   bloc `/** */` en plein milieu et produit des erreurs de compilation sans rapport apparent.
+
+## État
+`EX-REN-040` ne porte plus ⚠️ dans `rendu-technique.md` ; `EX-REN-047`/`EX-REN-048` y sont décrites
+comme livrées, avec les symboles réels (`hmi::AudioEngine`, `core::Player::justJumped`,
+`core::MechanismController::isContinuous`). Nouveau `Documentation/Guide/guide-audio.md`,
+référencé depuis `guide.md`. Manuel utilisateur (`jouer.md`) : septième entrée de menu
+(Crédits), volume dans la description du menu d'options. `README.md` : bruitages dans les
+fonctionnalités, et un prérequis Qt6/Multimedia ajouté aux prérequis de build — qui ne
+documentaient **aucun** module Qt jusqu'ici, pas même `Widgets`/`Gui` (gap plus large que ce lot,
+corrigé à l'occasion). `CHANGELOG.md` : entrée LOT-60 complète. Cahier de test régénéré
+(1003 cas), `lint_exigences.py`/`check_demo_sequence.py`/`build_docs.py` (Doxygen local 1.17.0 —
+la version épinglée par la CI, 1.16.1, reste l'arbitre final) verts.
+
+Deux avertissements Doxygen (paramètres non documentés sur `detectMechanismEvents` et le
+constructeur d'`OptionsPage`) découverts en générant la doc localement, corrigés dans la foulée.
+
+**Non fait par moi, délibérément** : l'essai manuel (jouer un tableau complet, régler/couper le
+volume, lancer le zip de release sur une machine sans Qt) — ce lot suit la même règle que les
+précédents : pas d'automatisation GUI ad hoc en cours de tâche, l'essai réel revient à l'utilisateur
+au moment prévu.
 
 ## Définition de fait (DoD)
 - `EX-REN-040` ne porte plus de ⚠️, les deux nouvelles exigences sont déclarées, le guide audio

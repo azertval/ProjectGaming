@@ -50,3 +50,4 @@ affiche. Cette frontière est ce qui rend le moteur analysable domaine par domai
 - @subpage guide-ecrans — la **navigation** Qt : menu, jeu, éditeur et options (pages empilées, signaux).
 - @subpage guide-ihm-qt — la **refonte IHM vers Qt** : socle applicatif, viewport Direct3D 11, boucle et entrées Qt.
 - @subpage guide-design-ihm — le **système de design** et l'**architecture de l'information** : jetons, thème, actions, barre d'état.
+- @subpage guide-audio — l'**audio** : moteur Qt Multimedia, catalogue de sons, détection des transitions et table événement → son.

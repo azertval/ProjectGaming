@@ -100,6 +100,13 @@ GameSession::GameSession(SpriteBatch& batch, const TextureAtlas& atlas, TextureC
 void GameSession::loadLevel(core::Level level) {
     _world = core::World{};  // repart d'un monde vierge (aucune entite du niveau precedent)
     _loadError.clear();
+    // Detection d'evenements (LOT-60 TACHE-03) : un (re)chargement change l'etat sous les pieds de
+    // la detection (personnage/mecanismes remis) -- sans ce reset, le premier pas du niveau
+    // rechargé se comparerait a l'etat du niveau precedent et fabriquerait de faux evenements.
+    // NE PAS vider _lastStepEvents ici : reload() est appele DEPUIS update(), apres que
+    // l'evenement Died y a ete pousse -- le vider ici l'effacerait avant que l'appelant ne l'ait
+    // jamais vu (mort et rechargement se suivent dans le meme pas).
+    _gameEventsInitialized = false;
 
     _level = std::move(level);              // conserve le niveau pour la simulation et le reset
     const core::Level& levelRef = *_level;  // level est deplace : plus lu au-dela de cette ligne
@@ -644,6 +651,12 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
     const core::TileMap collision = _blocks->collisionMap(_mechanisms->collisionMap());
     _physics.update(_world, collision, intent, fixedDelta);
 
+    // 2a. Détection d'événements (LOT-60 TACHE-03) : l'état du personnage est figé par la
+    // physique ci-dessus, avant toute autre système -- c'est l'instantané pertinent pour la
+    // détection, prise une seule fois par pas fixe (jamais par image de rendu, EX-REN-021).
+    const PlayerEventState currentPlayerEventState =
+        PlayerEventState::capture(_world.getComponent<core::Player>(_player));
+
     // 2bis. Blocs a TAILLE REDUITE (EX-GP-005) : leur boite REELLE (centree, plus petite qu'une
     // case) n'est jamais posee dans `collision` ci-dessus. Composee ici via un balayage boite-boite
     // dedie (core::sweepAabbVsAabb), sur le deplacement REEL obtenu par la physique sur grille.
@@ -668,6 +681,33 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
     const float playerMass = _world.getComponent<core::Player>(_player).mass;
     _mechanisms->update(box, playerMass);
 
+    // 4a. Détection d'événements, suite de 2a : mécanismes désormais à jour, personnage déjà
+    // capturé plus haut (avant que les mécanismes ne puissent influer sur la boîte de collision).
+    const MechanismEventState currentMechanismEventState =
+        MechanismEventState::capture(*_mechanisms);
+    _lastStepEvents.clear();
+    if (_gameEventsInitialized) {
+        const std::vector<GameEvent> playerEvents =
+            detectPlayerEvents(_previousPlayerEventState, currentPlayerEventState);
+        _lastStepEvents.insert(_lastStepEvents.end(), playerEvents.begin(), playerEvents.end());
+
+        std::vector<bool> continuousMechanisms;
+        continuousMechanisms.reserve(_mechanisms->mechanisms().size());
+        for (std::size_t index = 0; index < _mechanisms->mechanisms().size(); ++index) {
+            continuousMechanisms.push_back(_mechanisms->isContinuous(index));
+        }
+        const std::vector<GameEvent> mechanismEvents = detectMechanismEvents(
+            _previousMechanismEventState, currentMechanismEventState, continuousMechanisms);
+        _lastStepEvents.insert(_lastStepEvents.end(), mechanismEvents.begin(),
+                               mechanismEvents.end());
+    } else {
+        // Tout premier pas apres un (re)chargement : rejoint l'etat courant sans transition, meme
+        // principe que MechanismVisualState::initialized (LOT-47).
+        _gameEventsInitialized = true;
+    }
+    _previousPlayerEventState = currentPlayerEventState;
+    _previousMechanismEventState = currentMechanismEventState;
+
     // 4bis. Dangers mobile/temporise (EX-GP-051/053) : avance le compteur deterministe, puis
     // replace les sprites des dangers mobiles (position simulee, pas un artifice visuel).
     _dangers->update();
@@ -683,6 +723,11 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
     //    l'appelant decide (enchainer, revenir au menu, terminer un essai...).
     const core::LevelOutcome outcome =
         core::evaluateOutcome(box, *_level, collectActiveDangerBoxes());
+    // Evenement d'issue (LOT-60 TACHE-03) : calcule et memorise AVANT reload(), qui remet le
+    // personnage et les mecanismes a l'etat d'entree -- apres, "Died" ne serait plus observable.
+    if (const std::optional<GameEvent> outcomeEvent = detectOutcomeEvent(outcome)) {
+        _lastStepEvents.push_back(*outcomeEvent);
+    }
     if (outcome == core::LevelOutcome::Lost) {
         reload();
     }

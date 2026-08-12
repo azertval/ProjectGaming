@@ -46,6 +46,7 @@ signals:
     void selectLevelRequested();
     void editorRequested();
     void optionsRequested();
+    void creditsRequested();
     void quitRequested();
 
 private:

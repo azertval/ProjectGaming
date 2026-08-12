@@ -48,6 +48,7 @@
 
 #include "Core/Diagnostics/MemoryLogSink.h"
 #include "Core/Levels/LevelSequence.h"
+#include "HMI/Audio/SoundTriggers.h"
 #include "HMI/Diagnostics/SessionLog.h"
 #include "HMI/Editor/AssetReferences.h"
 #include "HMI/Editor/DecorsPanel.h"
@@ -69,6 +70,7 @@
 #include "HMI/HmiLog.h"
 #include "HMI/Input/GamepadButton.h"
 #include "HMI/Interface/ApplicationTheme.h"
+#include "HMI/Interface/CreditsScreen.h"
 #include "HMI/Interface/DesignTokens.h"
 #include "HMI/Interface/EditorActions.h"
 #include "HMI/Interface/LevelCompleteScreen.h"
@@ -147,6 +149,22 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     _viewport->setLocalization(&_loc);
     _editContext = _viewport;  ///< Seule implémentation aujourd'hui (LOT-57 TACHE-04).
 
+    // Audio (LOT-60) : catalogue lu une fois, chaque son préchargé -- jamais au premier
+    // déclenchement (QSoundEffect charge son fichier de façon asynchrone, TACHE-01). Absent ou
+    // illisible : catalogue vide, le jeu reste jouable en silence (EX-NFR-040).
+    const std::filesystem::path audioDirectory = hmi::executableDirectory() / "Audio";
+    if (const hmi::SoundCatalogResult result =
+            hmi::SoundCatalog::loadFromFile(audioDirectory / "sounds.json");
+        result.ok()) {
+        _sounds = std::move(*result.catalog);
+    }
+    for (const std::string& eventId : _sounds.eventIds()) {
+        if (const std::optional<std::string> file = _sounds.resolve(eventId)) {
+            _audio.preload(eventId, audioDirectory / *file);
+        }
+    }
+    _viewport->setAudioEngine(&_audio);
+
     // `createWindowContainer` embarque la fenêtre native du viewport et en prend la propriété.
     _editorContainer = QWidget::createWindowContainer(_viewport, this);
     _editorContainer->setMinimumSize(320, 240);
@@ -154,13 +172,15 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
 
     // Central : menu principal, options et viewport empilés (remplace le centralHost du .ui).
     _menu = new MainMenu();
-    _options =
-        new OptionsPage(_viewport, hmi::executableDirectory() / "Settings" / "keybindings.json");
+    _options = new OptionsPage(_viewport, &_audio,
+                               hmi::executableDirectory() / "Settings" / "keybindings.json");
     _levelSelectScreen = new LevelSelectScreen();
+    _credits = new CreditsScreen();
     _stack = new QStackedWidget(this);
     _stack->addWidget(_menu);
     _stack->addWidget(_options);
     _stack->addWidget(_levelSelectScreen);
+    _stack->addWidget(_credits);
     _stack->addWidget(_editorContainer);
     setCentralWidget(_stack);
     connect(_levelSelectScreen, &LevelSelectScreen::backRequested, this,
@@ -169,6 +189,7 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
             &MainWindow::chooseSequenceLevel);
     connect(_levelSelectScreen, &LevelSelectScreen::personalLevelChosen, this,
             &MainWindow::playPersonalLevel);
+    connect(_credits, &CreditsScreen::backRequested, this, &MainWindow::closeCredits);
 
     // Recouvrement de pause (LOT-59 TACHE-02) : fenêtre de HAUT NIVEAU possédée par `this`
     // (Qt::Dialog -- pas d'entrée dans la barre des tâches vu qu'elle a un propriétaire, reste
@@ -362,6 +383,7 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_menu, &MainMenu::newGameRequested, this, &MainWindow::newGame);
     connect(_menu, &MainMenu::selectLevelRequested, this, &MainWindow::openLevelSelect);
     connect(_menu, &MainMenu::optionsRequested, this, &MainWindow::showOptions);
+    connect(_menu, &MainMenu::creditsRequested, this, &MainWindow::openCredits);
     connect(_menu, &MainMenu::quitRequested, this, &MainWindow::close);
     // Retour au menu à la fin d'une partie (ou Échap en mode jeu).
     connect(_viewport, &GameViewport::exitToMenuRequested, this, &MainWindow::showMenu);
@@ -442,6 +464,9 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
         case ScreenId::LevelSelect:
             _stack->setCurrentWidget(_levelSelectScreen);
             break;
+        case ScreenId::Credits:
+            _stack->setCurrentWidget(_credits);
+            break;
         case ScreenId::Editor:
         case ScreenId::Game:
         case ScreenId::Pause:
@@ -495,6 +520,8 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
         _editorContainer->setFocus();
     } else if (screen == ScreenId::LevelSelect) {
         _levelSelectScreen->focusDefaultAction();
+    } else if (screen == ScreenId::Credits) {
+        _credits->focusDefaultAction();
     }
 
     const ScreenDressing dressing = hmi::dressingFor(screen);
@@ -526,6 +553,12 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
 void MainWindow::moveEvent(QMoveEvent* event) {
     QMainWindow::moveEvent(event);
     syncOverlayGeometry();
+}
+
+void MainWindow::playInterfaceSound(GameEvent event) {
+    if (const std::optional<std::string> soundId = soundForEvent(event)) {
+        _audio.play(*soundId);
+    }
 }
 
 void MainWindow::openPause() {
@@ -584,6 +617,9 @@ void MainWindow::openLevelComplete() {
         return;
     }
     HMI_LOG_INFO("Navigation : tableau reussi.");
+    // Son de victoire (LOT-60 TACHE-03) : fin de sequence prime sur simple fin de tableau -- un
+    // seul son, jamais les deux superposes pour la meme reussite.
+    playInterfaceSound(sequenceComplete ? GameEvent::SequenceCompleted : GameEvent::LevelCompleted);
 
     // Progression persistée (LOT-59 TACHE-05, EX-LVL-014) : marquée ICI, une seule fois par
     // réussite, avant tout chargement du tableau suivant -- point d'écriture unique (ni
@@ -756,6 +792,20 @@ void MainWindow::closeLevelSelect() {
         return;
     }
     HMI_LOG_INFO("Navigation : retour au menu depuis la selection de niveau.");
+}
+
+void MainWindow::openCredits() {
+    if (!transitionScreen(ScreenEvent::OpenCredits)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : credits.");
+}
+
+void MainWindow::closeCredits() {
+    if (!transitionScreen(ScreenEvent::CloseCredits)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : retour au menu depuis les credits.");
 }
 
 void MainWindow::chooseSequenceLevel(const QString& levelName) {
@@ -1349,13 +1399,16 @@ void MainWindow::pollMenuGamepad() {
     if (_menuPadInput.gamepadButtonPressed(GamepadButton::Down) ||
         _menuPadInput.gamepadButtonPressed(GamepadButton::Right)) {
         post(Qt::Key_Tab, Qt::NoModifier);
+        playInterfaceSound(GameEvent::MenuNavigate);
     }
     if (_menuPadInput.gamepadButtonPressed(GamepadButton::Up) ||
         _menuPadInput.gamepadButtonPressed(GamepadButton::Left)) {
         post(Qt::Key_Backtab, Qt::ShiftModifier);
+        playInterfaceSound(GameEvent::MenuNavigate);
     }
     if (_menuPadInput.gamepadButtonPressed(GamepadButton::A)) {
         post(Qt::Key_Return, Qt::NoModifier);
+        playInterfaceSound(GameEvent::MenuConfirm);
     }
     // B : retour contextuel (depuis Options vers son écran d'origine, ou reprise depuis la pause
     // -- LOT-59 TACHE-02), sans quitter depuis le menu principal.
@@ -1366,6 +1419,8 @@ void MainWindow::pollMenuGamepad() {
             resumeFromPause();
         } else if (_screenState.screen == ScreenId::LevelSelect) {
             closeLevelSelect();
+        } else if (_screenState.screen == ScreenId::Credits) {
+            closeCredits();
         }
     }
 
@@ -1761,6 +1816,7 @@ void MainWindow::retranslateUi() {
     _pauseScreen->retranslateUi(_loc);
     _levelCompleteScreen->retranslateUi(_loc);
     _levelSelectScreen->retranslateUi(_loc);
+    _credits->retranslateUi(_loc);
     _options->retranslateUi(_loc);
     _palette->retranslateUi(_loc);
     _decors->retranslateUi(_loc);

@@ -57,6 +57,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QPushButton" name="creditsButton">
+     <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
+     <property name="text"><string>Crédits</string></property>
+     <property name="flat"><bool>true</bool></property>
+    </widget>
+   </item>
+   <item>
     <widget class="QPushButton" name="quitButton">
      <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
      <property name="text"><string>Quitter</string></property>

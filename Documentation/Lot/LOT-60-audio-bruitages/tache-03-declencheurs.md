@@ -1,7 +1,7 @@
 # TACHE-03 — Déclencheurs depuis les transitions d'état {#lot-60-tache-03-declencheurs}
 
 **Lot :** [LOT-60](epic.md) · **Emplacement :** `Source/HMI/Game`, `Source/HMI/Interface` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 C'est ici que se joue le respect de `EX-ARCH-012` : la présentation ne modifie jamais la simulation.
@@ -66,6 +66,50 @@ réagissent aux mêmes transitions. Ils sont donc écrits ici sous une forme ré
 - Un dash au contact d'un mur peut produire trois transitions dans le même pas ; décider et
   documenter la priorité plutôt que de jouer trois sons superposés.
 - Ne pas dupliquer cette détection dans `LOT-53` : elle est écrite ici pour être réutilisée.
+
+## État
+`hmi::GameEvent` (`HMI/Game/GameEvents.h`) unifie transitions de jeu et d'interface. Trois
+fonctions pures détectent les transitions de jeu : `detectPlayerEvents` (saut, atterrissage, dash,
+contact mural), `detectMechanismEvents` (interrupteur/plaque, un seul événement par mécanisme —
+la porte partage le booléen du déclencheur mais n'émet jamais un second son) et
+`detectOutcomeEvent` (mort/victoire, depuis `core::LevelOutcome`). `hmi::SoundTriggers::
+soundForEvent` associe chaque valeur à un identifiant de `sounds.json`, table exhaustive (switch
+sans `default`).
+
+**Écarts découverts en cours de route, corrigés plutôt que contournés :**
+- Aucune combinaison des champs existants de `core::Player` ne détectait un saut de façon fiable
+  (`jumpBufferTimer` retombe à zéro aussi bien sur un saut que sur une simple expiration sans
+  saut). Un champ `justJumped` (front explicite, remis à faux en tout début de pas) a été ajouté à
+  `core::Player`, sur le même principe que `dashTimer` — c'est `Core`, seul à savoir qu'un saut
+  vient de se déclencher, qui l'expose, plutôt que de faire deviner la transition à `HMI` à partir
+  de signaux ambigus.
+- `core::MechanismController` n'exposait pas publiquement la distinction interrupteur/plaque de
+  pression (`_continuous`, privé) : un accesseur `isContinuous(index)` a été ajouté.
+
+`hmi::GameSession::lastStepEvents()` expose les événements du dernier `update()` : capturés avant
+`reload()` (sur `Lost`, le rechargement remet aussitôt le personnage et les mécanismes à l'état
+d'entrée — le piège documenté par ce lot, vérifié en pratique lors de l'implémentation : un premier
+essai vidait `_lastStepEvents` dans `loadLevel()`, effaçant `Died` avant que l'appelant ne l'ait
+jamais vu). `hmi::GameViewport::tick()` consomme ces événements après chaque pas fixe et joue le
+son associé via un `hmi::AudioEngine` fourni (non possédé) par `MainWindow`
+(`setAudioEngine`) — sans effet si aucun n'est fourni (`EX-NFR-040`).
+
+`MainWindow` possède `_audio`/`_sounds`, précharge le catalogue au démarrage, et joue les sons
+d'interface directement à ses points de signal existants : `openLevelComplete` (victoire de
+tableau **ou** fin de séquence, jamais les deux), et la navigation/validation à la **manette**
+(`pollMenuGamepad`, seul endroit où une manette produit un front de navigation détectable).
+
+**Non livré / simplifications documentées :**
+- `DoorOpened`/`DoorClosed` existent dans l'énumération (table exhaustive, réutilisables par un
+  futur mécanisme de porte autonome) mais ne sont **jamais émis** par `detectMechanismEvents` :
+  un mécanisme ne produit que l'événement de son déclencheur, pour éviter deux sons superposés sur
+  une seule action physique.
+- `WallContactEnter`, `BlockPushed`, `PauseOpened` résolvent vers `std::nullopt` (silence
+  documenté) : aucun bruitage dédié dans le catalogue de ce lot.
+- La navigation/validation au **clavier et à la souris** (focus Qt natif, clic de bouton) ne joue
+  aucun son dans ce lot — seule la manette, via `pollMenuGamepad`, produit un front explicite à
+  détecter. Étendre aux autres méthodes de saisie demanderait d'instrumenter chaque bouton/dialogue
+  de l'IHM, hors périmètre de cette tâche.
 
 ## Définition de fait (DoD)
 - Les événements de jeu et d'interface sont détectés par une fonction pure et testée, associés aux

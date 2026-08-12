@@ -116,21 +116,25 @@
 - \anchor EX-REN-032 **EX-REN-032** — Le jeu doit afficher du **texte** (titres, indications) via une police bitmap ou vectorielle. Le texte de l'**interface hors-jeu** (menus, options, éditeur) est rendu par Qt depuis `LOT-38`, qui a retiré la police bitmap historique. Le texte **dans la scène rendue** — ancré au jeu, hors de portée des widgets Qt — reste à rétablir : concrétisé en `LOT-52`.
 - \anchor EX-REN-033 **EX-REN-033** — Tout **texte affiché** doit passer par un **catalogue de traduction** : le code référence des **clés** stables, résolues vers une chaîne selon la **langue active**, chargée depuis un **fichier par langue** (français par défaut). Aucun libellé d'interface n'est codé en dur, afin de rendre l'ajout d'une langue trivial (un fichier de plus, sans modification du code). Une clé ou un fichier de langue manquant est traité comme une **erreur récupérable** (repli déterministe), cf. `EX-NFR-040`.
 
-## 5. Audio (⚠️ minimal MVP)
-- \anchor EX-REN-040 **EX-REN-040** (⚠️ souhaité) — Le jeu devrait jouer des **bruitages** (saut, interrupteur, victoire, échec). Prévu en `LOT-60`.
-- \anchor EX-REN-047 **EX-REN-047** — La lecture audio doit vivre **entièrement dans `HMI`** : `Core`
-  expose des **transitions d'état**, `HMI` en déduit les sons à jouer — jamais l'inverse. La
-  simulation reste pure, déterministe et testable **sans périphérique audio** (`EX-NFR-010`), et le
-  son n'a **aucun effet** sur elle (`EX-ARCH-012`). La détection de transitions est une fonction
-  pure, partagée avec les effets visuels (`EX-REN-008`) plutôt que dupliquée. La bibliothèque retenue
-  est **Qt Multimedia**, par cohérence avec le reste de l'interface, déjà intégralement Qt depuis
-  `LOT-38` ; elle est provisionnée sur les trois environnements selon `EX-BUILD-010`. Prévu en
-  `LOT-60`.
-- \anchor EX-REN-048 **EX-REN-048** — Le **volume** doit être réglable depuis les options, prendre
-  effet immédiatement et être **persisté** comme les autres réglages. L'absence de périphérique
-  audio, de catalogue de sons ou d'un fichier référencé est une **erreur récupérable**
-  (`EX-NFR-040`) : le jeu reste pleinement jouable en silence, avec un avertissement journalisé une
-  seule fois par asset. Prévu en `LOT-60`.
+## 5. Audio
+- \anchor EX-REN-040 **EX-REN-040** — Le jeu joue des **bruitages** : saut, atterrissage, dash,
+  interrupteur, plaque de pression, mort, victoire de tableau, fin de séquence, et les sons
+  d'interface (déplacement dans un menu, validation). Livré en `LOT-60`.
+- \anchor EX-REN-047 **EX-REN-047** — La lecture audio vit **entièrement dans `HMI`** : `Core`
+  expose des **transitions d'état** (`core::Player::justJumped`, `core::MechanismController::
+  isDoorOpen`/`isContinuous`, `core::LevelOutcome`), `HMI` en déduit les sons à jouer
+  (`hmi::GameEvents`, `hmi::SoundTriggers`) — jamais l'inverse. La simulation reste pure,
+  déterministe et testable **sans périphérique audio** (`EX-NFR-010`), et le son n'a **aucun
+  effet** sur elle (`EX-ARCH-012`). La détection de transitions est une fonction pure, réutilisable
+  par de futurs effets visuels (`EX-REN-008`) sans être dupliquée. La bibliothèque retenue est
+  **Qt Multimedia** (`hmi::AudioEngine`, `QSoundEffect`), par cohérence avec le reste de
+  l'interface, déjà intégralement Qt depuis `LOT-38` ; elle est provisionnée sur les trois
+  environnements selon `EX-BUILD-010`. Livré en `LOT-60`.
+- \anchor EX-REN-048 **EX-REN-048** — Le **volume** est réglable depuis les options, prend effet
+  immédiatement et est **persisté** (`QSettings`, même portée que la langue et le mode de rendu).
+  L'absence de périphérique audio, de catalogue de sons ou d'un fichier référencé est une **erreur
+  récupérable** (`EX-NFR-040`) : le jeu reste pleinement jouable en silence, avec un avertissement
+  journalisé une seule fois par asset. Livré en `LOT-60`.
 
 ## Traçabilité
 Tout ce qui touche fenêtre, rendu, entrées et interface relève de `Source/HMI` ; la logique de simulation reste dans `Source/Core`. Contraintes de performance : [`exigences-non-fonctionnelles.md`](exigences-non-fonctionnelles.md).

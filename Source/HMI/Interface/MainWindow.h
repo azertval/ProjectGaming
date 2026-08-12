@@ -9,11 +9,14 @@
 #include <string>
 
 #include "Core/Levels/LevelSequence.h"
+#include "HMI/Audio/AudioEngine.h"
+#include "HMI/Audio/SoundCatalog.h"
 #include "HMI/Editor/EditContextTarget.h"
 #include "HMI/Editor/EditorTool.h"
 #include "HMI/Editor/PanelFocus.h"
 #include "HMI/Editor/PixelPalette.h"
 #include "HMI/Editor/PixelTool.h"
+#include "HMI/Game/GameEvents.h"
 #include "HMI/Game/Progression.h"
 #include "HMI/Input/GamepadPoller.h"
 #include "HMI/Input/InputState.h"
@@ -52,6 +55,7 @@ class OptionsPage;
 class PauseScreen;
 class LevelCompleteScreen;
 class LevelSelectScreen;
+class CreditsScreen;
 class PalettePanel;
 class LevelBrowserPanel;
 class LinkPanel;
@@ -217,6 +221,10 @@ private:
     /// tableau en cours), puis abandonne la partie si confirmé.
     void quitPauseToMenu();
 
+    /// Joue le son associé à @p event (`hmi::SoundTriggers`), sans effet si aucun son ne lui est
+    /// associé (`LOT-60` TACHE-03) -- point d'appel unique pour tous les sons d'interface.
+    void playInterfaceSound(GameEvent event);
+
     // Écran de fin de niveau et de fin de séquence (LOT-59 TACHE-03).
     /// `GameViewport::levelSucceeded` : configure `_levelCompleteScreen` (nom du tableau, variante
     /// fin de séquence via `GameViewport::isLastGameLevel`) puis ouvre l'écran.
@@ -255,6 +263,10 @@ private:
     void openLevelSelect();
     /// Retour au menu depuis l'écran de sélection de niveau.
     void closeLevelSelect();
+    /// « Crédits » (menu) : ouvre `_credits` (`LOT-60`).
+    void openCredits();
+    /// Retour au menu depuis l'écran de crédits.
+    void closeCredits();
     /// Un tableau de séquence a été choisi dans `_levelSelectScreen` : **revalidé** via
     /// `hmi::isLevelUnlocked` avant tout lancement (défense en profondeur, `EX-IHM-005`) -- jamais
     /// lancé verrouillé, même si l'écran l'a par erreur laissé passer.
@@ -290,6 +302,9 @@ private:
     /// Écran de sélection de niveau (`LOT-59` TACHE-06) : une page normale de `_stack` (jamais un
     /// recouvrement -- atteint depuis le menu, pas en jeu, contrairement aux deux précédents).
     LevelSelectScreen* _levelSelectScreen = nullptr;
+    /// Écran de crédits (`LOT-60`) : même patron que `_levelSelectScreen`, page normale de
+    /// `_stack`.
+    CreditsScreen* _credits = nullptr;
     GameViewport* _viewport;  ///< Surface de rendu D3D11 (possédée par le conteneur central).
     /// Contexte d'édition actif, cible d'Annuler/Refaire/Copier/Coller (`LOT-57` TACHE-04) : `
     /// _viewport` (niveau) ou `_pixelCanvas` (atelier pixel art, `LOT-54` TACHE-04), selon le
@@ -363,6 +378,13 @@ private:
     QTimer* _statusMessageTimer = nullptr;
 
     Localization _loc;  ///< Catalogue de traduction (i18n), source de tous les textes.
+    /// Moteur audio (`LOT-60`) : ouvert au démarrage (`EX-REN-047`), dégrade en silence sans
+    /// périphérique (`EX-NFR-040`). Partagé avec `_viewport` (`setAudioEngine`), qui déclenche les
+    /// sons de jeu ; les sons d'interface se jouent directement d'ici (`playInterfaceSound`).
+    hmi::AudioEngine _audio;
+    /// Catalogue de sons (`LOT-60` TACHE-02), lu une fois au démarrage depuis `Audio/sounds.json`
+    /// et entièrement préchargé dans `_audio`.
+    hmi::SoundCatalog _sounds;
     core::MemoryLogSink* _sessionLog;  ///< Sink mémoire des logs (nul en Release).
     /// Progression de partie persistée (`LOT-59` TACHE-05, `EX-LVL-014`) : chargée une fois à la
     /// construction, marquée/écrite à chaque réussite de tableau (`openLevelComplete`) -- jamais

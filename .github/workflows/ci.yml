@@ -54,6 +54,9 @@ jobs:
           host: windows
           target: desktop
           arch: win64_msvc2022_64
+          # qtmultimedia : module audio (LOT-60) -- Qt6::Multimedia (QSoundEffect) est un composant
+          # additionnel de l'installation Qt, pas une dependance tierce separee.
+          modules: qtmultimedia
           cache: true
 
       - name: Configure (CMake)
@@ -77,6 +80,17 @@ jobs:
           $exe = 'build/vs/bin/Debug/ProjectGaming.exe'
           if (-not (Test-Path $exe)) { throw "Executable absent : $exe" }
           Write-Host "OK : $exe"
+
+      - name: Verifier que le module audio est deploye (LOT-60)
+        shell: pwsh
+        # windeployqt ne depose Qt6Multimediad.dll que s'il detecte l'usage reel de la bibliotheque
+        # ('d' : suffixe des DLL Qt de configuration Debug) : un build local peut compiler sans
+        # jamais prouver que le zip de release sera sonore. C'est le seul controle qui valide
+        # reellement le deploiement du module (tache-01, DoD).
+        run: |
+          $dll = 'build/vs/bin/Debug/Qt6Multimediad.dll'
+          if (-not (Test-Path $dll)) { throw "Bibliotheque audio non deployee : $dll" }
+          Write-Host "OK : $dll"
 
       - name: Install OpenCppCoverage ${{ env.OPENCPPCOVERAGE_VERSION }}
         run: choco install opencppcoverage --version=${{ env.OPENCPPCOVERAGE_VERSION }} -y --no-progress --allow-downgrade
@@ -142,6 +156,9 @@ jobs:
           host: windows
           target: desktop
           arch: win64_msvc2022_64
+          # qtmultimedia : module audio (LOT-60) -- Qt6::Multimedia (QSoundEffect) est un composant
+          # additionnel de l'installation Qt, pas une dependance tierce separee.
+          modules: qtmultimedia
           cache: true
 
       - name: Configure (CMake)
@@ -180,6 +197,9 @@ jobs:
           host: windows
           target: desktop
           arch: win64_msvc2022_64
+          # qtmultimedia : module audio (LOT-60) -- Qt6::Multimedia (QSoundEffect) est un composant
+          # additionnel de l'installation Qt, pas une dependance tierce separee.
+          modules: qtmultimedia
           cache: true
 
       - name: Install Ninja
@@ -262,6 +282,9 @@ jobs:
           host: windows
           target: desktop
           arch: win64_msvc2022_64
+          # qtmultimedia : module audio (LOT-60) -- Qt6::Multimedia (QSoundEffect) est un composant
+          # additionnel de l'installation Qt, pas une dependance tierce separee.
+          modules: qtmultimedia
           cache: true
 
       - name: Install LLVM (clang-tidy) ${{ env.LLVM_VERSION }}

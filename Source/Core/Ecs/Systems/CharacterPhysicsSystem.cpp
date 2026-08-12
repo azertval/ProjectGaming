@@ -88,11 +88,17 @@ void CharacterPhysicsSystem::applyJump(Player& player, Velocity& velocity) const
         if (player.jumpsRemaining > 0) {
             --player.jumpsRemaining;  // décompte le budget (si limité)
         }
+        player.justJumped = true;
     }
 }
 
 void CharacterPhysicsSystem::resolveVelocity(Player& player, Velocity& velocity,
                                              const PlayerInput& input, float fixedDelta) const {
+    // Front de saut : remis a faux au debut de CE pas, positionne par applyJump() plus bas s'il y
+    // a effectivement saut. Ainsi un lecteur externe (hmi::GameEvents) qui echantillonne player
+    // juste apres update() voit vrai UNIQUEMENT sur le pas ou le saut se declenche.
+    player.justJumped = false;
+
     //   Orientation courante (sert de direction de dash par défaut).
     if (input.moveX != 0.0F) {
         player.facing = (input.moveX > 0.0F) ? 1.0F : -1.0F;

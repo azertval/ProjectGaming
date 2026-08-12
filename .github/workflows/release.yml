@@ -38,6 +38,9 @@ jobs:
           host: windows
           target: desktop
           arch: win64_msvc2022_64
+          # qtmultimedia : module audio (LOT-60) -- Qt6::Multimedia (QSoundEffect) est un composant
+          # additionnel de l'installation Qt, pas une dependance tierce separee.
+          modules: qtmultimedia
           cache: true
 
       - name: Configure (Debug autonome, sans tests)
@@ -86,6 +89,9 @@ jobs:
           host: windows
           target: desktop
           arch: win64_msvc2022_64
+          # qtmultimedia : module audio (LOT-60) -- Qt6::Multimedia (QSoundEffect) est un composant
+          # additionnel de l'installation Qt, pas une dependance tierce separee.
+          modules: qtmultimedia
           cache: true
 
       - name: Configure (Debug autonome, sans tests)

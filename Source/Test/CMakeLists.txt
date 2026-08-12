@@ -75,8 +75,11 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_shadow_render.cpp
     Unit/HMI/Game/test_game_hud.cpp
     Unit/HMI/Game/test_progression.cpp
+    Unit/HMI/Game/test_game_events.cpp
+    Unit/HMI/Audio/test_sound_triggers.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
+    Unit/HMI/Audio/test_sound_catalog.cpp
     Unit/HMI/Interface/test_design_tokens.cpp
     Unit/HMI/Interface/test_application_theme.cpp
     Unit/HMI/Interface/test_editor_actions.cpp
@@ -177,6 +180,14 @@ add_executable(UnitTests
     ../HMI/Localization/Localization.cpp
     # La sérialisation des logs de session est pure (aucune dépendance fenêtre/GPU), testable.
     ../HMI/Diagnostics/SessionLog.cpp
+    # Le catalogue de sons (LOT-60 TACHE-02) est une resolution de chemins pure, sur le patron de
+    # SkinCatalog.cpp : sans dependance Qt/peripherique, testable hors Qt Multimedia (EX-NFR-010).
+    ../HMI/Audio/SoundCatalog.cpp
+    # La detection des transitions de jeu et la table evenement -> son (LOT-60 TACHE-03) sont des
+    # fonctions pures (aucune dependance Qt/peripherique), meme patron que MechanismVisuals.cpp :
+    # testables hors GPU/Qt (EX-NFR-010).
+    ../HMI/Game/GameEvents.cpp
+    ../HMI/Audio/SoundTriggers.cpp
     # La validation d'un nom de niveau saisi est une fonction pure, testable hors GPU.
     ../HMI/Editor/LevelNameValidation.cpp
     # La taxonomie de la palette Qt (catégories/sous-groupes) est pure, testable hors GPU/Qt.
@@ -309,6 +320,21 @@ else()
         "UnitTests : Qt6 introuvable -- test d'encodage/decodage d'image (LOT-54) ignore.")
 endif()
 
+# Le moteur audio (LOT-60 TACHE-01) enveloppe QSoundEffect (Qt Multimedia) : sa dependance a la
+# bibliotheque n'est testable qu'avec le module present. Ajoute conditionnellement, meme garde que
+# Qt6::Gui/TextureLoader.cpp ci-dessus -- sur un poste sans le module, UnitTests continue de se
+# configurer et de construire (DoD de la tache-01 : testable sans Qt6::Multimedia).
+find_package(Qt6 QUIET COMPONENTS Multimedia)
+if(Qt6_FOUND AND TARGET Qt6::Multimedia)
+    target_sources(UnitTests PRIVATE
+        Unit/HMI/Audio/test_audio_engine.cpp
+        ../HMI/Audio/AudioEngine.cpp)
+    target_link_libraries(UnitTests PRIVATE Qt6::Multimedia)
+else()
+    message(STATUS
+        "UnitTests : Qt6::Multimedia introuvable -- test du moteur audio (LOT-60) ignore.")
+endif()
+
 target_link_libraries(UnitTests PRIVATE
     Core
     GTest::gtest_main
@@ -325,6 +351,7 @@ target_compile_definitions(UnitTests PRIVATE
     PROJECTGAMING_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels"
     PROJECTGAMING_LOCALIZATION_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Localization"
     PROJECTGAMING_ASSETS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Assets"
+    PROJECTGAMING_AUDIO_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Audio"
     PROJECTGAMING_THEME_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/Themes/theme.qss"
     PROJECTGAMING_MAIN_MENU_UI_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/UI/MainMenu.ui"
     PROJECTGAMING_OPTIONS_PAGE_UI_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/UI/OptionsPage.ui"

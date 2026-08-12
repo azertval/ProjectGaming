@@ -70,6 +70,13 @@ public:
         return _switchOn[index];
     }
 
+    /// @return true si le mécanisme @p index est une **plaque de pression** (activation continue,
+    ///         `EX-GP-025`), false si c'est un **interrupteur** à bascule classique (`EX-GP-020`).
+    ///         Distingue les deux sons de déclenchement (`hmi::SoundTriggers`, `LOT-60`).
+    [[nodiscard]] bool isContinuous(std::size_t index) const {
+        return _continuous[index];
+    }
+
     /// @return Les liaisons de danger commuté (positions interrupteur/danger, `EX-GP-052`).
     [[nodiscard]] const std::vector<DangerLink>& dangerLinks() const noexcept {
         return _dangerLinks;
