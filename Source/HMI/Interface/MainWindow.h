@@ -55,6 +55,7 @@ class OptionsPage;
 class PauseScreen;
 class LevelCompleteScreen;
 class LevelSelectScreen;
+class CreditsScreen;
 class PalettePanel;
 class LevelBrowserPanel;
 class LinkPanel;
@@ -262,6 +263,10 @@ private:
     void openLevelSelect();
     /// Retour au menu depuis l'écran de sélection de niveau.
     void closeLevelSelect();
+    /// « Crédits » (menu) : ouvre `_credits` (`LOT-60`).
+    void openCredits();
+    /// Retour au menu depuis l'écran de crédits.
+    void closeCredits();
     /// Un tableau de séquence a été choisi dans `_levelSelectScreen` : **revalidé** via
     /// `hmi::isLevelUnlocked` avant tout lancement (défense en profondeur, `EX-IHM-005`) -- jamais
     /// lancé verrouillé, même si l'écran l'a par erreur laissé passer.
@@ -297,6 +302,9 @@ private:
     /// Écran de sélection de niveau (`LOT-59` TACHE-06) : une page normale de `_stack` (jamais un
     /// recouvrement -- atteint depuis le menu, pas en jeu, contrairement aux deux précédents).
     LevelSelectScreen* _levelSelectScreen = nullptr;
+    /// Écran de crédits (`LOT-60`) : même patron que `_levelSelectScreen`, page normale de
+    /// `_stack`.
+    CreditsScreen* _credits = nullptr;
     GameViewport* _viewport;  ///< Surface de rendu D3D11 (possédée par le conteneur central).
     /// Contexte d'édition actif, cible d'Annuler/Refaire/Copier/Coller (`LOT-57` TACHE-04) : `
     /// _viewport` (niveau) ou `_pixelCanvas` (atelier pixel art, `LOT-54` TACHE-04), selon le

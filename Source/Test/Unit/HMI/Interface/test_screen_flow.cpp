@@ -38,6 +38,7 @@ TEST(ScreenFlowTest, TransitionsAutoriseesMenentALEcranAttendu) {
                                     .optionsReturnTo = ScreenId::Menu};
     const ScreenState levelSelect{.screen = ScreenId::LevelSelect,
                                   .optionsReturnTo = ScreenId::Menu};
+    const ScreenState credits{.screen = ScreenId::Credits, .optionsReturnTo = ScreenId::Menu};
     const ScreenState optionsFromMenu{.screen = ScreenId::Options,
                                       .optionsReturnTo = ScreenId::Menu};
     const ScreenState optionsFromPause{.screen = ScreenId::Options,
@@ -68,6 +69,8 @@ TEST(ScreenFlowTest, TransitionsAutoriseesMenentALEcranAttendu) {
     EXPECT_EQ(resolveTransition(levelSelect, ScreenEvent::LevelChosen)->screen, ScreenId::Game);
     EXPECT_EQ(resolveTransition(levelSelect, ScreenEvent::CloseLevelSelect)->screen,
               ScreenId::Menu);
+    EXPECT_EQ(resolveTransition(menu, ScreenEvent::OpenCredits)->screen, ScreenId::Credits);
+    EXPECT_EQ(resolveTransition(credits, ScreenEvent::CloseCredits)->screen, ScreenId::Menu);
 }
 
 /**
@@ -123,6 +126,9 @@ TEST(ScreenFlowTest, TransitionInterditeEstRefusee) {
     // ni en édition.
     EXPECT_EQ(resolveTransition(editor, ScreenEvent::OpenLevelSelect), std::nullopt);
     EXPECT_EQ(resolveTransition(game, ScreenEvent::OpenLevelSelect), std::nullopt);
+    // Crédits (LOT-60) : même règle, atteignable seulement depuis le menu.
+    EXPECT_EQ(resolveTransition(editor, ScreenEvent::OpenCredits), std::nullopt);
+    EXPECT_EQ(resolveTransition(game, ScreenEvent::OpenCredits), std::nullopt);
 }
 
 /**
@@ -181,6 +187,15 @@ TEST(ScreenFlowTest, HabillageDeFenetreEstCeluiAttenduParEcran) {
     EXPECT_FALSE(levelSelect.editingCommandsEnabled);
     EXPECT_TRUE(levelSelect.gamepadNavigationActive);
     EXPECT_FALSE(levelSelect.overlayVisible);
+
+    const ScreenDressing credits = dressingFor(ScreenId::Credits);
+    EXPECT_FALSE(credits.docksVisible);
+    EXPECT_FALSE(credits.menuBarVisible);
+    EXPECT_FALSE(credits.toolBarVisible);
+    EXPECT_FALSE(credits.pixelToolBarVisible);
+    EXPECT_FALSE(credits.editingCommandsEnabled);
+    EXPECT_TRUE(credits.gamepadNavigationActive);
+    EXPECT_FALSE(credits.overlayVisible);
 
     for (const ScreenId overlayScreen : {ScreenId::Pause, ScreenId::NiveauTermine}) {
         const ScreenDressing overlay = dressingFor(overlayScreen);

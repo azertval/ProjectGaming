@@ -24,6 +24,7 @@ MainMenu::MainMenu(QWidget* parent) : QWidget(parent), _ui(std::make_unique<Ui::
     connect(_ui->selectLevelButton, &QPushButton::clicked, this, &MainMenu::selectLevelRequested);
     connect(_ui->editorButton, &QPushButton::clicked, this, &MainMenu::editorRequested);
     connect(_ui->optionsButton, &QPushButton::clicked, this, &MainMenu::optionsRequested);
+    connect(_ui->creditsButton, &QPushButton::clicked, this, &MainMenu::creditsRequested);
     connect(_ui->quitButton, &QPushButton::clicked, this, &MainMenu::quitRequested);
 
     // autoDefault (LOT-59 TACHE-07, bug réel trouvé en jeu sur PauseScreen, même cause ici) : Qt
@@ -44,6 +45,7 @@ void MainMenu::retranslateUi(const Localization& loc) {
     _ui->selectLevelButton->setText(QString::fromStdString(loc.text("menu.select_level")));
     _ui->editorButton->setText(QString::fromStdString(loc.text("menu.edit_mode")));
     _ui->optionsButton->setText(QString::fromStdString(loc.text("menu.options")));
+    _ui->creditsButton->setText(QString::fromStdString(loc.text("menu.credits")));
     _ui->quitButton->setText(QString::fromStdString(loc.text("menu.quit")));
 }
 

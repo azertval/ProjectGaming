@@ -30,8 +30,9 @@ ScreenDressing dressingFor(ScreenId screen) noexcept {
                                   .overlayVisible = false};
         case ScreenId::Options:
         case ScreenId::LevelSelect:
+        case ScreenId::Credits:
             // Même habillage que Menu : page du QStackedWidget, jamais un recouvrement (LevelSelect
-            // est atteint depuis le menu, pas en jeu -- LOT-59 TACHE-06).
+            // est atteint depuis le menu, pas en jeu -- LOT-59 TACHE-06 ; Credits de même, LOT-60).
             return ScreenDressing{.docksVisible = false,
                                   .menuBarVisible = false,
                                   .toolBarVisible = false,
@@ -73,6 +74,16 @@ std::optional<ScreenState> resolveTransition(const ScreenState& current,
                 case ScreenEvent::OpenLevelSelect:
                     return ScreenState{.screen = ScreenId::LevelSelect,
                                        .optionsReturnTo = ScreenId::Menu};
+                case ScreenEvent::OpenCredits:
+                    return ScreenState{.screen = ScreenId::Credits,
+                                       .optionsReturnTo = ScreenId::Menu};
+                default:
+                    return std::nullopt;
+            }
+        case ScreenId::Credits:
+            switch (event) {
+                case ScreenEvent::CloseCredits:
+                    return ScreenState{.screen = ScreenId::Menu, .optionsReturnTo = ScreenId::Menu};
                 default:
                     return std::nullopt;
             }

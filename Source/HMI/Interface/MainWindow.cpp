@@ -70,6 +70,7 @@
 #include "HMI/HmiLog.h"
 #include "HMI/Input/GamepadButton.h"
 #include "HMI/Interface/ApplicationTheme.h"
+#include "HMI/Interface/CreditsScreen.h"
 #include "HMI/Interface/DesignTokens.h"
 #include "HMI/Interface/EditorActions.h"
 #include "HMI/Interface/LevelCompleteScreen.h"
@@ -174,10 +175,12 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     _options = new OptionsPage(_viewport, &_audio,
                                hmi::executableDirectory() / "Settings" / "keybindings.json");
     _levelSelectScreen = new LevelSelectScreen();
+    _credits = new CreditsScreen();
     _stack = new QStackedWidget(this);
     _stack->addWidget(_menu);
     _stack->addWidget(_options);
     _stack->addWidget(_levelSelectScreen);
+    _stack->addWidget(_credits);
     _stack->addWidget(_editorContainer);
     setCentralWidget(_stack);
     connect(_levelSelectScreen, &LevelSelectScreen::backRequested, this,
@@ -186,6 +189,7 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
             &MainWindow::chooseSequenceLevel);
     connect(_levelSelectScreen, &LevelSelectScreen::personalLevelChosen, this,
             &MainWindow::playPersonalLevel);
+    connect(_credits, &CreditsScreen::backRequested, this, &MainWindow::closeCredits);
 
     // Recouvrement de pause (LOT-59 TACHE-02) : fenêtre de HAUT NIVEAU possédée par `this`
     // (Qt::Dialog -- pas d'entrée dans la barre des tâches vu qu'elle a un propriétaire, reste
@@ -379,6 +383,7 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_menu, &MainMenu::newGameRequested, this, &MainWindow::newGame);
     connect(_menu, &MainMenu::selectLevelRequested, this, &MainWindow::openLevelSelect);
     connect(_menu, &MainMenu::optionsRequested, this, &MainWindow::showOptions);
+    connect(_menu, &MainMenu::creditsRequested, this, &MainWindow::openCredits);
     connect(_menu, &MainMenu::quitRequested, this, &MainWindow::close);
     // Retour au menu à la fin d'une partie (ou Échap en mode jeu).
     connect(_viewport, &GameViewport::exitToMenuRequested, this, &MainWindow::showMenu);
@@ -459,6 +464,9 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
         case ScreenId::LevelSelect:
             _stack->setCurrentWidget(_levelSelectScreen);
             break;
+        case ScreenId::Credits:
+            _stack->setCurrentWidget(_credits);
+            break;
         case ScreenId::Editor:
         case ScreenId::Game:
         case ScreenId::Pause:
@@ -512,6 +520,8 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
         _editorContainer->setFocus();
     } else if (screen == ScreenId::LevelSelect) {
         _levelSelectScreen->focusDefaultAction();
+    } else if (screen == ScreenId::Credits) {
+        _credits->focusDefaultAction();
     }
 
     const ScreenDressing dressing = hmi::dressingFor(screen);
@@ -782,6 +792,20 @@ void MainWindow::closeLevelSelect() {
         return;
     }
     HMI_LOG_INFO("Navigation : retour au menu depuis la selection de niveau.");
+}
+
+void MainWindow::openCredits() {
+    if (!transitionScreen(ScreenEvent::OpenCredits)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : credits.");
+}
+
+void MainWindow::closeCredits() {
+    if (!transitionScreen(ScreenEvent::CloseCredits)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : retour au menu depuis les credits.");
 }
 
 void MainWindow::chooseSequenceLevel(const QString& levelName) {
@@ -1395,6 +1419,8 @@ void MainWindow::pollMenuGamepad() {
             resumeFromPause();
         } else if (_screenState.screen == ScreenId::LevelSelect) {
             closeLevelSelect();
+        } else if (_screenState.screen == ScreenId::Credits) {
+            closeCredits();
         }
     }
 
@@ -1790,6 +1816,7 @@ void MainWindow::retranslateUi() {
     _pauseScreen->retranslateUi(_loc);
     _levelCompleteScreen->retranslateUi(_loc);
     _levelSelectScreen->retranslateUi(_loc);
+    _credits->retranslateUi(_loc);
     _options->retranslateUi(_loc);
     _palette->retranslateUi(_loc);
     _decors->retranslateUi(_loc);

@@ -9,6 +9,7 @@ menu.new_game = New Game
 menu.select_level = Select Level
 menu.edit_mode = Edit Mode
 menu.options = Options
+menu.credits = Credits
 menu.quit = Quit
 menu.new_game_confirm_title = New game?
 menu.new_game_confirm_text = Current progress will be erased. Start a new game?
@@ -305,6 +306,11 @@ options.gamepad_connected = Gamepad: connected
 options.gamepad_disconnected = Gamepad: not connected
 language.fr = Français
 language.en = English
+
+# Credits screen (LOT-60)
+credits.title = Credits
+credits.development = Development
+credits.audio = Music and sound effects
 
 # Viewport status messages
 status.region_copied = Region copied (%1 × %2).
