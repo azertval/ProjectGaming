@@ -98,7 +98,6 @@ struct TileParseState {
     std::vector<MovingPlatformConfig>& platformConfigs;
 };
 
-
 // Traite UNE entrée du tableau `tiles` : pose la tuile dans la grille et alimente les
 // accumulateurs de @p state (portes/dangers à résoudre, décompte entrée/sortie...). Extrait de
 // LevelLoader::loadFromString ci-dessous (seule sa taille, pas son comportement) : std::nullopt
@@ -163,8 +162,9 @@ struct TileParseState {
         // declencheur, verifie plus bas.
         const std::string id = tile.value("id", std::string{});
         if (id.empty()) {
-            return failure("Cle sans 'id' en (" + std::to_string(x) + ", " + std::to_string(y) + ")",
-                           LevelValidationError::MissingSwitchId);
+            return failure(
+                "Cle sans 'id' en (" + std::to_string(x) + ", " + std::to_string(y) + ")",
+                LevelValidationError::MissingSwitchId);
         }
         if (!state.keysById.emplace(id, GridPosition{.column = x, .row = y}).second) {
             return failure("Identifiant de cle en double : " + id,
@@ -345,10 +345,21 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
         std::vector<MovingPlatformConfig> platformConfigs;
 
         // Chaque objet de 'tiles' place une tuile dans la grille.
-        TileParseState tileState{
-            map,          entry,        exit,        entryCount, exitCount, occupiedPositions,
-            switchesById, doors,        switchedDangers, keysById, lockedDoors,
-            moverConfigs, blinkConfigs, textureOverrides, platformConfigs};
+        TileParseState tileState{map,
+                                 entry,
+                                 exit,
+                                 entryCount,
+                                 exitCount,
+                                 occupiedPositions,
+                                 switchesById,
+                                 doors,
+                                 switchedDangers,
+                                 keysById,
+                                 lockedDoors,
+                                 moverConfigs,
+                                 blinkConfigs,
+                                 textureOverrides,
+                                 platformConfigs};
         for (const nlohmann::json& tile : root.at("tiles")) {
             std::optional<LevelLoadResult> tileError = parseTile(tile, tileState);
             if (tileError) {
@@ -393,9 +404,9 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
             }
             const auto found = keysById.find(lockedDoor.opensWith);
             if (found == keysById.end()) {
-                return failure("Porte verrouillee liee a une cle inexistante : " +
-                                   lockedDoor.opensWith,
-                               LevelValidationError::UnresolvedMechanism);
+                return failure(
+                    "Porte verrouillee liee a une cle inexistante : " + lockedDoor.opensWith,
+                    LevelValidationError::UnresolvedMechanism);
             }
             usedKeyIds.insert(lockedDoor.opensWith);
             mechanisms.push_back(
@@ -434,11 +445,11 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                          std::to_string(height) + ", " + std::to_string(mechanisms.size()) +
                          " mecanisme(s))");
         return LevelLoadResult{
-            .level = Level(std::move(name), std::move(map), entry, exit, std::move(mechanisms),
-                           jumpBudget, dashBudget, std::move(dangerLinks), std::move(moverConfigs),
-                           std::move(blinkConfigs), std::move(background), std::move(skinSet),
-                           std::move(textureOverrides), std::move(decors),
-                           std::move(platformConfigs)),
+            .level =
+                Level(std::move(name), std::move(map), entry, exit, std::move(mechanisms),
+                      jumpBudget, dashBudget, std::move(dangerLinks), std::move(moverConfigs),
+                      std::move(blinkConfigs), std::move(background), std::move(skinSet),
+                      std::move(textureOverrides), std::move(decors), std::move(platformConfigs)),
             .error = {}};
     } catch (const nlohmann::json::exception& error) {
         return failure(std::string("JSON invalide : ") + error.what(),

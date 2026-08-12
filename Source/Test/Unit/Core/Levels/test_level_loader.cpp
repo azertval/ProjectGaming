@@ -772,7 +772,8 @@ TEST(LevelLoaderTest, CleEtPorteVerrouilleeSeChargeEtSeResout) {
 /**
  * @brief Deux paires clé/porte verrouillée indépendantes dans le même tableau ne s'influencent
  *        pas l'une l'autre.
- * \castest{<b>Deux paires clé/porte verrouillée indépendantes coexistent sans interférence.</b><br/>
+ * \castest{<b>Deux paires clé/porte verrouillée indépendantes coexistent sans
+ * interférence.</b><br/>
  * \tcat Unitaire · Level Loader<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et

@@ -35,7 +35,7 @@ std::uint32_t tileColor(int tileIndex) {
         pack(60, 200, 60, 255),
         pack(60, 60, 200, 255),
         pack(200, 200, 60, 255),
-        pack(255, 215, 0, 255),   // (4,0) Key : or, distinct du jaune de Switch
+        pack(255, 215, 0, 255),  // (4,0) Key : or, distinct du jaune de Switch
         pack(0, 150, 255, 255),  // (5,0) MovingPlatform : azur, distinct du bleu de Exit/cyan de
                                  // PressurePlate
         // Ligne 1

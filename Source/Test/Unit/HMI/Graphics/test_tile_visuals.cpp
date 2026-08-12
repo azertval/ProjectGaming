@@ -38,8 +38,8 @@ bool sameRegion(const core::AtlasRegion& a, const core::AtlasRegion& b) {
  */
 TEST(TileVisualsTest, NouveauxMecanismesLOT63OntDesRegionsDistinctes) {
     const std::vector<core::TileType> types = {
-        core::TileType::Key,      core::TileType::LockedDoor, core::TileType::MovingPlatform,
-        core::TileType::Switch,   core::TileType::PressurePlate, core::TileType::Door,
+        core::TileType::Key,    core::TileType::LockedDoor,    core::TileType::MovingPlatform,
+        core::TileType::Switch, core::TileType::PressurePlate, core::TileType::Door,
         core::TileType::Block,
     };
 

@@ -328,7 +328,8 @@ core::LevelOutcome playReactiveFile(const char* file, const ReactiveInput& input
         const core::Aabb box = core::Aabb::fromTopLeftSize(transform.position, collider.size);
         mechanisms.update(box, 1.0f, in.interactPressed);
 
-        // Ecrasement par une plateforme mobile (EX-GP-026) : mortel, comme hmi::GameSession::update.
+        // Ecrasement par une plateforme mobile (EX-GP-026) : mortel, comme
+        // hmi::GameSession::update.
         std::vector<core::Aabb> extraDangerBoxes;
         if (world.getComponent<core::Player>(player).squished) {
             extraDangerBoxes.push_back(box);
@@ -2724,11 +2725,11 @@ core::Level makePlatformLevel(int startCol, int startRow, int endCol, int endRow
                               float speed = 2.0f) {
     core::TileMap map(20, 20);
     map.setTile(startCol, startRow, core::TileType::MovingPlatform);
-    std::vector<core::MovingPlatformConfig> platformConfigs{core::MovingPlatformConfig{
-        .startPosition = core::GridPosition{startCol, startRow},
-        .endPosition = core::GridPosition{endCol, endRow},
-        .speed = speed,
-        .phase = 0}};
+    std::vector<core::MovingPlatformConfig> platformConfigs{
+        core::MovingPlatformConfig{.startPosition = core::GridPosition{startCol, startRow},
+                                   .endPosition = core::GridPosition{endCol, endRow},
+                                   .speed = speed,
+                                   .phase = 0}};
     return core::Level("plateforme-integration", std::move(map), core::GridPosition{0, 0},
                        core::GridPosition{19, 19}, {}, -1, -1, {}, {}, {}, std::nullopt,
                        std::nullopt, {}, {}, std::move(platformConfigs));
@@ -2738,7 +2739,8 @@ core::Level makePlatformLevel(int startCol, int startRow, int endCol, int endRow
 
 /**
  * @brief Un personnage au sol sur une plateforme mobile horizontale est porté avec elle : son
- * décalage par rapport à la plateforme reste nul, sans glissement cumulé sur cent pas (`EX-GP-026`).
+ * décalage par rapport à la plateforme reste nul, sans glissement cumulé sur cent pas
+ * (`EX-GP-026`).
  * \castest{<b>Une plateforme mobile horizontale porte le personnage sans glissement.</b><br/>
  * \tcat Integration · Physique Personnage<br/>
  * \tcrit Bloquant<br/>
@@ -2830,10 +2832,9 @@ TEST(PhysiquePersonnageIntegration, AucuneTraverseeAVitesseMaximale) {
         const core::Aabb playerBox = core::Aabb::fromTopLeftSize(
             world.getComponent<core::Transform>(player).position, core::Vector2{1.0f, 1.0f});
         const core::Aabb platformBox = platforms.boxAt(0);
-        const bool overlapping = playerBox.min.x < platformBox.max.x &&
-                                 playerBox.max.x > platformBox.min.x &&
-                                 playerBox.min.y < platformBox.max.y &&
-                                 playerBox.max.y > platformBox.min.y;
+        const bool overlapping =
+            playerBox.min.x < platformBox.max.x && playerBox.max.x > platformBox.min.x &&
+            playerBox.min.y < platformBox.max.y && playerBox.max.y > platformBox.min.y;
         EXPECT_FALSE(overlapping) << "pas " << i;
     }
 }
@@ -2895,8 +2896,8 @@ TEST(PhysiquePersonnageIntegration, BlocPousseSurPlateformeEstPorte) {
 
     core::PlatformController platforms(platformLevel);
     core::BlockController blocks(level);
-    const core::Aabb noPlayerContact = core::Aabb::fromTopLeftSize(core::Vector2{-5.0f, -5.0f},
-                                                                    core::Vector2{1.0f, 1.0f});
+    const core::Aabb noPlayerContact =
+        core::Aabb::fromTopLeftSize(core::Vector2{-5.0f, -5.0f}, core::Vector2{1.0f, 1.0f});
 
     const int startColumn = blocks.positions().front().column;
     for (int i = 0; i < 100; ++i) {

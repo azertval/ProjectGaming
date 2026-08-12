@@ -30,8 +30,11 @@ core::Level loadDemoPlateforme() {
     const core::LevelLoadResult result = core::LevelLoader::loadFromFile(path);
     if (!result.ok()) {
         ADD_FAILURE() << "Echec de chargement de demo-plateforme.json : " << result.error;
-        return core::Level{"invalide", core::TileMap{1, 1}, core::GridPosition{0, 0},
-                           core::GridPosition{0, 0}, {}};
+        return core::Level{"invalide",
+                           core::TileMap{1, 1},
+                           core::GridPosition{0, 0},
+                           core::GridPosition{0, 0},
+                           {}};
     }
     return *result.level;
 }

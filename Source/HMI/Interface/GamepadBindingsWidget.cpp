@@ -20,8 +20,8 @@ namespace {
 
 // Clés de traduction des actions (même ordre que `hmi::GameAction`, partagées avec le clavier).
 constexpr std::array<const char*, hmi::GAME_ACTION_COUNT> ACTION_KEYS{
-    "keybindings.action.left",     "keybindings.action.right",    "keybindings.action.aim_up",
-    "keybindings.action.aim_down", "keybindings.action.jump",     "keybindings.action.dash",
+    "keybindings.action.left",     "keybindings.action.right", "keybindings.action.aim_up",
+    "keybindings.action.aim_down", "keybindings.action.jump",  "keybindings.action.dash",
     "keybindings.action.interact"};
 
 [[nodiscard]] hmi::GameAction actionAt(int index) {

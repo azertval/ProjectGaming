@@ -139,8 +139,7 @@ public:
      * conception par défaut (`MovingPlatformConfig`), appliquées par `LevelLoader` au rechargement.
      * @pre La case @p position porte une `MovingPlatform`.
      */
-    void setPlatformConfig(GridPosition position, GridPosition endPosition, float speed,
-                           int phase);
+    void setPlatformConfig(GridPosition position, GridPosition endPosition, float speed, int phase);
 
     /**
      * @brief Assigne (ou remplace) la texture affichée pour **une case précise** (`EX-EDIT-043`),

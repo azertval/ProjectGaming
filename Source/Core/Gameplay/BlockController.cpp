@@ -150,8 +150,9 @@ void BlockController::carryBlocksOnPlatforms(const TileMap& base,
                 const int direction = accumulated > 0.0F ? 1 : -1;
                 const GridPosition current = _positions[index];
                 const GridPosition target =
-                    axis == 0 ? GridPosition{.column = current.column + direction, .row = current.row}
-                             : GridPosition{.column = current.column, .row = current.row + direction};
+                    axis == 0
+                        ? GridPosition{.column = current.column + direction, .row = current.row}
+                        : GridPosition{.column = current.column, .row = current.row + direction};
                 if (!isFree(target, base, index)) {
                     accumulated = 0.0F;  // bloque : le reliquat ne s'accumule pas indefiniment
                     break;

@@ -121,8 +121,8 @@ private:
                                ///< ouverture définitive), figé au chargement comme `_continuous`.
     std::vector<TileType>
         _openType;  ///< Type de tuile « porte ouverte » de chaque mécanisme (`Door` ou
-                   ///< `LockedDoor`), capturé avant que le constructeur ne fige la case en
-                   ///< `Solid` — la grille de collision y revient quand le mécanisme s'active.
+                    ///< `LockedDoor`), capturé avant que le constructeur ne fige la case en
+                    ///< `Solid` — la grille de collision y revient quand le mécanisme s'active.
     std::vector<DangerLink> _dangerLinks;  ///< Liaisons déclencheur↔danger commuté.
     std::vector<bool> _dangerActive;       ///< État de chaque danger commuté (actif = mortel ?).
     std::vector<bool> _playerOnDangerTriggerPrev;  ///< Front, même principe que

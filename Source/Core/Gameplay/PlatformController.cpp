@@ -44,8 +44,7 @@ Aabb PlatformController::boxAtStep(std::size_t index, long long stepCount) const
         // 0, cycle = 2 * distance. Meme formule que DangerController::moverBox, generalisee a un
         // segment 2D quelconque plutot qu'un seul axe.
         const float distancePerStep = config.speed * FIXED_DELTA_SECONDS;
-        const float totalDistance =
-            static_cast<float>(stepCount + config.phase) * distancePerStep;
+        const float totalDistance = static_cast<float>(stepCount + config.phase) * distancePerStep;
         const float cycleLength = distance * 2.0F;
         float phase = std::fmod(totalDistance, cycleLength);
         if (phase < 0.0F) {

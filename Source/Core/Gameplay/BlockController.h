@@ -80,7 +80,7 @@ public:
      *                      inchangé pour tout niveau sans plateforme).
      */
     void update(const Aabb& playerBox, float moveIntentX, const TileMap& baseCollision,
-               const std::vector<PlatformSample>& platforms = {});
+                const std::vector<PlatformSample>& platforms = {});
 
     /// @return Une copie de @p base où chaque case occupée par un bloc **plein** (`Block`) est
     ///         rendue solide. Les blocs réduits (`BlockHalf`/`BlockQuarter`) restent francs dans

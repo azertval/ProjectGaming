@@ -205,8 +205,8 @@ TEST(GameKeyBindingsTest, LoadValeurHorsBornesIgnoree) {
  * }
  */
 TEST(GameKeyBindingsTest, LoadFichierAnterieurSansInteragirPrendLaValeurParDefaut) {
-    const std::filesystem::path path = std::filesystem::temp_directory_path() /
-                                       "projectgaming_test_game_bindings_anterieur.json";
+    const std::filesystem::path path =
+        std::filesystem::temp_directory_path() / "projectgaming_test_game_bindings_anterieur.json";
     {
         std::ofstream file(path, std::ios::binary);
         // Section "jeu" telle qu'ecrite avant LOT-63 : aucune entree "interagir".

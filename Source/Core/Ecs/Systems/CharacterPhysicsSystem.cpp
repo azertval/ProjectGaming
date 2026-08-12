@@ -47,7 +47,8 @@ CharacterPhysicsSystem::CharacterPhysicsSystem(PhysicsConfig config) : _config(c
 
 // Applique un pas de simulation aux personnages (voir en-tête).
 void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const PlayerInput& input,
-                                    float fixedDelta, const std::vector<PlatformSample>& platforms) const {
+                                    float fixedDelta,
+                                    const std::vector<PlatformSample>& platforms) const {
     world.view<Player, Transform, Velocity, Collider>().each(
         [&](Entity, Player& player, Transform& transform, Velocity& velocity, Collider& collider) {
             player.squished = false;
@@ -65,9 +66,9 @@ void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const Pl
 // (box courante contre previousBox de l'échantillon) : aucun état à mémoriser d'un pas à l'autre,
 // player.grounded (calculé au pas précédent, par la grille OU une plateforme) suffit à savoir
 // qu'un contact existait quelque part.
-void CharacterPhysicsSystem::applyPlatformPortage(Player& player, Transform& transform,
-                                                   const Collider& collider, const TileMap& tiles,
-                                                   const std::vector<PlatformSample>& platforms) const {
+void CharacterPhysicsSystem::applyPlatformPortage(
+    Player& player, Transform& transform, const Collider& collider, const TileMap& tiles,
+    const std::vector<PlatformSample>& platforms) const {
     if (!player.grounded || platforms.empty()) {
         return;
     }
@@ -109,9 +110,9 @@ void CharacterPhysicsSystem::applyPlatformPortage(Player& player, Transform& tra
 // Resout la collision continue contre chaque plateforme, apres le balayage sur grille (voir
 // en-tete). Meme composition que hmi::GameSession::resolveReducedBlockCollision : la resolution la
 // PLUS STRICTE (la plus proche du depart) l'emporte par axe, entre toutes les plateformes.
-void CharacterPhysicsSystem::resolvePlatformCollision(Player& player, Transform& transform,
-                                                       Velocity& velocity, const Aabb& stepStartBox,
-                                                       const std::vector<PlatformSample>& platforms) const {
+void CharacterPhysicsSystem::resolvePlatformCollision(
+    Player& player, Transform& transform, Velocity& velocity, const Aabb& stepStartBox,
+    const std::vector<PlatformSample>& platforms) const {
     if (platforms.empty()) {
         return;
     }
@@ -123,15 +124,13 @@ void CharacterPhysicsSystem::resolvePlatformCollision(Player& player, Transform&
     Vector2 bestNormal{};
     for (const PlatformSample& sample : platforms) {
         const SweepResult result = sweepAabbVsAabb(stepStartBox, delta, sample.currentBox);
-        if (result.normal.x != 0.0F &&
-            std::abs(result.position.x - stepStartBox.min.x) <
-                std::abs(bestPosition.x - stepStartBox.min.x)) {
+        if (result.normal.x != 0.0F && std::abs(result.position.x - stepStartBox.min.x) <
+                                           std::abs(bestPosition.x - stepStartBox.min.x)) {
             bestPosition.x = result.position.x;
             bestNormal.x = result.normal.x;
         }
-        if (result.normal.y != 0.0F &&
-            std::abs(result.position.y - stepStartBox.min.y) <
-                std::abs(bestPosition.y - stepStartBox.min.y)) {
+        if (result.normal.y != 0.0F && std::abs(result.position.y - stepStartBox.min.y) <
+                                           std::abs(bestPosition.y - stepStartBox.min.y)) {
             bestPosition.y = result.position.y;
             bestNormal.y = result.normal.y;
         }

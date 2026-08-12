@@ -24,11 +24,11 @@ namespace {
 core::Level makeLevelWithPlatform(int endColumn, int endRow, float speed = 2.0f, int phase = 0) {
     core::TileMap map(8, 8);
     map.setTile(1, 1, core::TileType::MovingPlatform);
-    std::vector<core::MovingPlatformConfig> platformConfigs{core::MovingPlatformConfig{
-        .startPosition = core::GridPosition{1, 1},
-        .endPosition = core::GridPosition{endColumn, endRow},
-        .speed = speed,
-        .phase = phase}};
+    std::vector<core::MovingPlatformConfig> platformConfigs{
+        core::MovingPlatformConfig{.startPosition = core::GridPosition{1, 1},
+                                   .endPosition = core::GridPosition{endColumn, endRow},
+                                   .speed = speed,
+                                   .phase = phase}};
     return core::Level("plateforme", std::move(map), core::GridPosition{0, 0},
                        core::GridPosition{7, 7}, {}, -1, -1, {}, {}, {}, std::nullopt, std::nullopt,
                        {}, {}, std::move(platformConfigs));
@@ -109,7 +109,7 @@ TEST(PlatformControllerTest, AllerRetourHorizontalDeterministe) {
  */
 TEST(PlatformControllerTest, AllerRetourVerticalDeterministe) {
     core::PlatformController controller(makeLevelWithPlatform(1, 3));  // distance 2, vitesse 2/s
-    for (int i = 0; i < 60; ++i) {  // 1s : au bout de l'aller
+    for (int i = 0; i < 60; ++i) {                                     // 1s : au bout de l'aller
         controller.update();
     }
     const core::Aabb box = controller.boxAt(0);
@@ -215,9 +215,11 @@ TEST(PlatformControllerTest, ParcoursNulImmobiliseLaPlateforme) {
  */
 TEST(PlatformControllerTest, RestsOnTopOfPlatformDistingueLAppuiDuContact) {
     const core::Aabb platform = boxAt(2, 2);
-    EXPECT_TRUE(core::restsOnTopOfPlatform(boxAt(2, 1), platform));   // pose juste dessus
-    EXPECT_FALSE(core::restsOnTopOfPlatform(boxAt(4, 1), platform));  // aucun chevauchement horizontal
-    EXPECT_FALSE(core::restsOnTopOfPlatform(boxAt(2, 2), platform));  // a cote (meme ligne), pas dessus
+    EXPECT_TRUE(core::restsOnTopOfPlatform(boxAt(2, 1), platform));  // pose juste dessus
+    EXPECT_FALSE(
+        core::restsOnTopOfPlatform(boxAt(4, 1), platform));  // aucun chevauchement horizontal
+    EXPECT_FALSE(
+        core::restsOnTopOfPlatform(boxAt(2, 2), platform));  // a cote (meme ligne), pas dessus
 }
 
 /**
