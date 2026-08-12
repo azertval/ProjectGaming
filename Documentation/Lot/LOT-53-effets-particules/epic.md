@@ -64,7 +64,7 @@ entre le rendu du jeu et celui d'un jeu fini.
 |-------|----------|-------------|:----:|
 | [TACHE-01](tache-01-emetteur-deterministe.md) | Émetteur et simulation de particules au pas fixe, déterministes, budget borné | `Source/Core/Ecs` | ✅ |
 | [TACHE-02](tache-02-declencheurs.md) | Déclencheurs depuis les transitions d'état du personnage (dash, atterrissage, mort) | `Source/Core/Ecs/Systems`, `Source/HMI/Game` | ✅ |
-| [TACHE-03](tache-03-rendu-secousse.md) | Rendu des particules sur les calques *Object*/*Foreground* + secousse d'écran | `Source/HMI/Graphics` | ⬜ |
+| [TACHE-03](tache-03-rendu-secousse.md) | Rendu des particules sur les calques *Object*/*Foreground* + secousse d'écran | `Source/HMI/Graphics` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Un dash, un atterrissage et une mort produisent chacun un effet visuel distinct, en mode Texture.

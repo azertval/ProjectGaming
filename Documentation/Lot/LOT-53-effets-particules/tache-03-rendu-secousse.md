@@ -1,6 +1,6 @@
 # TACHE-03 — Rendu des particules et secousse d'écran {#lot-53-tache-03-rendu-secousse}
 
-**Lot :** [LOT-53](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-53](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** ✅ fait
 
 ## Contexte
 Les particules simulées (TACHE-01) et déclenchées (TACHE-02) doivent être dessinées, et la secousse
