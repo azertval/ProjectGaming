@@ -48,6 +48,7 @@
 
 #include "Core/Diagnostics/MemoryLogSink.h"
 #include "Core/Levels/LevelSequence.h"
+#include "HMI/Audio/SoundTriggers.h"
 #include "HMI/Diagnostics/SessionLog.h"
 #include "HMI/Editor/AssetReferences.h"
 #include "HMI/Editor/DecorsPanel.h"
@@ -146,6 +147,22 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     }
     _viewport->setLocalization(&_loc);
     _editContext = _viewport;  ///< Seule implémentation aujourd'hui (LOT-57 TACHE-04).
+
+    // Audio (LOT-60) : catalogue lu une fois, chaque son préchargé -- jamais au premier
+    // déclenchement (QSoundEffect charge son fichier de façon asynchrone, TACHE-01). Absent ou
+    // illisible : catalogue vide, le jeu reste jouable en silence (EX-NFR-040).
+    const std::filesystem::path audioDirectory = hmi::executableDirectory() / "Audio";
+    if (const hmi::SoundCatalogResult result =
+            hmi::SoundCatalog::loadFromFile(audioDirectory / "sounds.json");
+        result.ok()) {
+        _sounds = std::move(*result.catalog);
+    }
+    for (const std::string& eventId : _sounds.eventIds()) {
+        if (const std::optional<std::string> file = _sounds.resolve(eventId)) {
+            _audio.preload(eventId, audioDirectory / *file);
+        }
+    }
+    _viewport->setAudioEngine(&_audio);
 
     // `createWindowContainer` embarque la fenêtre native du viewport et en prend la propriété.
     _editorContainer = QWidget::createWindowContainer(_viewport, this);
@@ -528,6 +545,12 @@ void MainWindow::moveEvent(QMoveEvent* event) {
     syncOverlayGeometry();
 }
 
+void MainWindow::playInterfaceSound(GameEvent event) {
+    if (const std::optional<std::string> soundId = soundForEvent(event)) {
+        _audio.play(*soundId);
+    }
+}
+
 void MainWindow::openPause() {
     if (!transitionScreen(ScreenEvent::OpenPause)) {
         return;
@@ -584,6 +607,9 @@ void MainWindow::openLevelComplete() {
         return;
     }
     HMI_LOG_INFO("Navigation : tableau reussi.");
+    // Son de victoire (LOT-60 TACHE-03) : fin de sequence prime sur simple fin de tableau -- un
+    // seul son, jamais les deux superposes pour la meme reussite.
+    playInterfaceSound(sequenceComplete ? GameEvent::SequenceCompleted : GameEvent::LevelCompleted);
 
     // Progression persistée (LOT-59 TACHE-05, EX-LVL-014) : marquée ICI, une seule fois par
     // réussite, avant tout chargement du tableau suivant -- point d'écriture unique (ni
@@ -1349,13 +1375,16 @@ void MainWindow::pollMenuGamepad() {
     if (_menuPadInput.gamepadButtonPressed(GamepadButton::Down) ||
         _menuPadInput.gamepadButtonPressed(GamepadButton::Right)) {
         post(Qt::Key_Tab, Qt::NoModifier);
+        playInterfaceSound(GameEvent::MenuNavigate);
     }
     if (_menuPadInput.gamepadButtonPressed(GamepadButton::Up) ||
         _menuPadInput.gamepadButtonPressed(GamepadButton::Left)) {
         post(Qt::Key_Backtab, Qt::ShiftModifier);
+        playInterfaceSound(GameEvent::MenuNavigate);
     }
     if (_menuPadInput.gamepadButtonPressed(GamepadButton::A)) {
         post(Qt::Key_Return, Qt::NoModifier);
+        playInterfaceSound(GameEvent::MenuConfirm);
     }
     // B : retour contextuel (depuis Options vers son écran d'origine, ou reprise depuis la pause
     // -- LOT-59 TACHE-02), sans quitter depuis le menu principal.

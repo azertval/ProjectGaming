@@ -43,6 +43,7 @@ class TextureCache;
 class DraftRenderer;
 class Localization;
 class BitmapFont;
+class AudioEngine;
 }  // namespace hmi
 
 namespace hmi {
@@ -116,6 +117,17 @@ public:
     /// Fournit le catalogue de traduction (les messages d'état émis sont alors localisés).
     void setLocalization(const Localization* loc) noexcept {
         _loc = loc;
+    }
+
+    /**
+     * @brief Fournit le moteur audio (`LOT-60` TACHE-03) : les événements de jeu détectés par
+     *        `hmi::GameSession` (saut, atterrissage, dash, mécanismes, mort, victoire) déclenchent
+     *        alors un son. `nullptr` (défaut) désactive silencieusement les sons de jeu, sans
+     *        plantage (`EX-NFR-040`) — état de démarrage légitime avant que `MainWindow` n'ait
+     *        construit son moteur. Non possédé : l'appelant (`MainWindow`) reste propriétaire.
+     */
+    void setAudioEngine(AudioEngine* engine) noexcept {
+        _audioEngine = engine;
     }
 
     /// Accès **modifiable** aux touches de jeu (pour le remappage) : la session de jeu lit ces
@@ -624,6 +636,8 @@ private:
         0.0f;  ///< Dernier zoom notifié (`zoomChanged`), évite l'émission en boucle.
     /// Sélection mémorisée (bornes min/max incluses), pour copier (`Ctrl+C`).
     const Localization* _loc = nullptr;  ///< Catalogue pour localiser les messages d'état.
+    /// Moteur audio (`LOT-60` TACHE-03), non possédé ; nul = sons de jeu désactivés (`EX-NFR-040`).
+    AudioEngine* _audioEngine = nullptr;
 
     std::optional<std::pair<core::GridPosition, core::GridPosition>> _selection;
     /// Case du déclencheur/de la cible en attente d'appariement (outil Lien, premier clic).

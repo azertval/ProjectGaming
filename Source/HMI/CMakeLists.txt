@@ -135,10 +135,12 @@ add_executable(ProjectGaming
     Game/GameViewport.cpp
     Game/Progression.cpp
     Game/GameHud.cpp
+    Game/GameEvents.cpp
     # Localisation
     Localization/Localization.cpp
     # Audio (bruitages, LOT-60)
     Audio/SoundCatalog.cpp
+    Audio/SoundTriggers.cpp
     Audio/AudioEngine.cpp
     # Diagnostics (enregistrement des journaux de session)
     Diagnostics/SessionLog.cpp

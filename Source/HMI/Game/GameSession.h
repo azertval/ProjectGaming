@@ -16,6 +16,7 @@
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelOutcome.h"
 #include "Core/Physics/Aabb.h"
+#include "HMI/Game/GameEvents.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/MechanismVisuals.h"
 #include "HMI/Graphics/RoomGrid.h"
@@ -116,6 +117,19 @@ public:
     /// @return Message d'erreur si le chargement a échoué, chaîne vide sinon.
     [[nodiscard]] const std::string& loadError() const {
         return _loadError;
+    }
+
+    /**
+     * @brief Événements de jeu détectés lors du **dernier** appel à `update()` (`LOT-60 TACHE-03`).
+     *
+     * Transitions du personnage et des mécanismes, plus l'issue du pas (`Died`/`LevelCompleted`).
+     * Vide si aucune transition, ou lors du tout premier pas après un chargement (état initial,
+     * rien à signaler — même principe que `MechanismVisualState::initialized`). Présentation pure :
+     * ne modifie jamais la simulation (`EX-ARCH-012`), à consommer par l'appelant pour déclencher
+     * des sons (`hmi::SoundTriggers`) ou, plus tard, des particules (`LOT-53`).
+     */
+    [[nodiscard]] const std::vector<GameEvent>& lastStepEvents() const noexcept {
+        return _lastStepEvents;
     }
 
 private:
@@ -221,6 +235,14 @@ private:
     /// combinaison pour toute la session, meme principe que _warnedExcludedAnimations (LOT-47
     /// TACHE-02).
     std::set<std::string> _warnedMissingMechanismClips;
+
+    // Détection d'événements (LOT-60 TACHE-03) : snapshots du pas précédent, pour ne diffuser une
+    // transition qu'au pas où elle a réellement lieu (même discipline que MechanismVisualState
+    // ci-dessus -- previousXxx/initialized).
+    PlayerEventState _previousPlayerEventState;
+    MechanismEventState _previousMechanismEventState;
+    bool _gameEventsInitialized = false;
+    std::vector<GameEvent> _lastStepEvents;
 };
 
 }  // namespace hmi

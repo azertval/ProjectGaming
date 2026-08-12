@@ -20,6 +20,8 @@
 #include "Core/Levels/LevelWriter.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Math/Vector2.h"
+#include "HMI/Audio/AudioEngine.h"
+#include "HMI/Audio/SoundTriggers.h"
 #include "HMI/Editor/DecorGesture.h"
 #include "HMI/Editor/LevelFileOperations.h"
 #include "HMI/Editor/LevelNameValidation.h"
@@ -791,7 +793,18 @@ void GameViewport::tick() {
         const int steps = _timestep.advance(elapsedSeconds);
         const float fixedDelta = _timestep.fixedDeltaSeconds();
         for (int step = 0; step < steps; ++step) {
-            if (_session && _session->update(_input, fixedDelta) == core::LevelOutcome::Won) {
+            const core::LevelOutcome outcome =
+                _session ? _session->update(_input, fixedDelta) : core::LevelOutcome::Playing;
+            // Sons de jeu (LOT-60 TACHE-03) : un evenement par pas, jamais par image de rendu --
+            // lastStepEvents() reflete exactement CE pas, celui qui vient de s'executer.
+            if (_session && _audioEngine) {
+                for (const GameEvent gameEvent : _session->lastStepEvents()) {
+                    if (const std::optional<std::string> soundId = soundForEvent(gameEvent)) {
+                        _audioEngine->play(*soundId);
+                    }
+                }
+            }
+            if (_session && outcome == core::LevelOutcome::Won) {
                 _input.beginFrame();
                 if (_gameMode) {
                     // Fige la scène et signale la réussite : c'est l'écran de fin de niveau qui

@@ -75,6 +75,8 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_shadow_render.cpp
     Unit/HMI/Game/test_game_hud.cpp
     Unit/HMI/Game/test_progression.cpp
+    Unit/HMI/Game/test_game_events.cpp
+    Unit/HMI/Audio/test_sound_triggers.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
     Unit/HMI/Audio/test_sound_catalog.cpp
@@ -181,6 +183,11 @@ add_executable(UnitTests
     # Le catalogue de sons (LOT-60 TACHE-02) est une resolution de chemins pure, sur le patron de
     # SkinCatalog.cpp : sans dependance Qt/peripherique, testable hors Qt Multimedia (EX-NFR-010).
     ../HMI/Audio/SoundCatalog.cpp
+    # La detection des transitions de jeu et la table evenement -> son (LOT-60 TACHE-03) sont des
+    # fonctions pures (aucune dependance Qt/peripherique), meme patron que MechanismVisuals.cpp :
+    # testables hors GPU/Qt (EX-NFR-010).
+    ../HMI/Game/GameEvents.cpp
+    ../HMI/Audio/SoundTriggers.cpp
     # La validation d'un nom de niveau saisi est une fonction pure, testable hors GPU.
     ../HMI/Editor/LevelNameValidation.cpp
     # La taxonomie de la palette Qt (catégories/sous-groupes) est pure, testable hors GPU/Qt.

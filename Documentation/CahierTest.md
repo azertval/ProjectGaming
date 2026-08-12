@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**982 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**1003 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (890)
+## Tests unitaires (911)
 
 ### Core
 
@@ -531,7 +531,7 @@
 
 ### HMI
 
-#### Audio (10)
+#### Audio (14)
 
 **`test_audio_engine.cpp`**
 
@@ -552,6 +552,15 @@
 | **SoundCatalogTest.VersionSuperieureRefusee** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Audio/test_sound_catalog.cpp:106`</sub> | Une version de format superieure au catalogue de sons connu est refusee. | 1. Charger un JSON dont le champ "version" depasse SoundCatalog::FORMAT_VERSION. | Vérifie que `result.ok()` est faux.<br/>Vérifie que `result.errorCode` vaut `hmi::SoundCatalogError::UnsupportedVersion`. |
 | **SoundCatalogTest.CatalogueLivreValide** (Critique)<br/><sub>`Source/Test/Unit/HMI/Audio/test_sound_catalog.cpp:126`</sub> | Le fichier de sons livre avec le jeu se lit sans erreur. | 1. Lire Source/Elements/Audio/sounds.json depuis les sources. | Vérifie que `std::filesystem::exists(path)` est vrai.<br/>Vérifie que `result.ok()` est vrai.<br/>Vérifie que `result.catalog->eventIds().empty()` est faux. |
 | **SoundCatalogTest.AssetsDuCatalogueLivreExistent** (Critique)<br/><sub>`Source/Test/Unit/HMI/Audio/test_sound_catalog.cpp:146`</sub> | Chaque son reference par le catalogue livre existe. | 1. Lire le catalogue livre.<br/> 2. Pour chaque evenement, verifier que le fichier resolu existe dans Source/Elements/Audio. | Vérifie que `result.ok()` est vrai.<br/>Vérifie que `file.has_value()` est vrai.<br/>Vérifie que `std::filesystem::exists(assetPath)` est vrai. |
+
+**`test_sound_triggers.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **SoundTriggersTest.TableExhaustive** (Critique)<br/><sub>`Source/Test/Unit/HMI/Audio/test_sound_triggers.cpp:12`</sub> | La table evenement vers son est exhaustive. | 1. Parcourir toutes les valeurs de GameEvent (0 a GAME_EVENT_COUNT - 1).<br/> 2. Appeler soundForEvent sur chacune. | Aucun plantage : le switch interne couvre chaque cas (verifie par construction, pas par relecture -- un GameEvent ajoute sans entree casserait la compilation avant ce test). |
+| **SoundTriggersTest.EvenementsDePersonnageResolvent** (Critique)<br/><sub>`Source/Test/Unit/HMI/Audio/test_sound_triggers.cpp:32`</sub> | Les evenements de personnage resolvent les bons identifiants de son. | 1. Resoudre Jumped, Landed, Dashed, Died, LevelCompleted. | Vérifie que `hmi::soundForEvent(hmi::GameEvent::Jumped)` vaut `"saut"`.<br/>Vérifie que `hmi::soundForEvent(hmi::GameEvent::Landed)` vaut `"atterrissage"`.<br/>Vérifie que `hmi::soundForEvent(hmi::GameEvent::Dashed)` vaut `"dash"`.<br/>Vérifie que `hmi::soundForEvent(hmi::GameEvent::Died)` vaut `"mort"`.<br/>Vérifie que `hmi::soundForEvent(hmi::GameEvent::LevelCompleted)` vaut `"victoire_tableau"`. |
+| **SoundTriggersTest.EvenementsDeMecanismesResolvent** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Audio/test_sound_triggers.cpp:50`</sub> | Les evenements de mecanismes resolvent les bons identifiants de son. | 1. Resoudre SwitchToggled, PressurePlatePressed, PressurePlateReleased. | Vérifie que `hmi::soundForEvent(hmi::GameEvent::SwitchToggled)` vaut `"interrupteur"`.<br/>Vérifie que `hmi::soundForEvent(hmi::GameEvent::PressurePlatePressed)` vaut `"plaque_pression"`.<br/>Vérifie que `hmi::soundForEvent(hmi::GameEvent::PressurePlateReleased)` vaut `"plaque_pression"`. |
+| **SoundTriggersTest.EvenementsSansBruitageResolventNullopt** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Audio/test_sound_triggers.cpp:65`</sub> | Des evenements sans bruitage dedie resolvent vers std::nullopt. | 1. Resoudre WallContactEnter et BlockPushed. | Vérifie que `hmi::soundForEvent(hmi::GameEvent::WallContactEnter)` vaut `std::nullopt`.<br/>Vérifie que `hmi::soundForEvent(hmi::GameEvent::BlockPushed)` vaut `std::nullopt`. |
 
 #### Diagnostics (2)
 
@@ -860,7 +869,29 @@
 | **TileTaxonomy.ChaqueTypeFigureExactementUneFois** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_tile_taxonomy.cpp:37`</sub> | Chaque type de tuile figure exactement une fois dans la taxonomie. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `types.size()` vaut `TILE_TYPE_COUNT`.<br/>Vérifie que `unique.size()` vaut `types.size()`.<br/>Vérifie que `unique.size()` vaut `TILE_TYPE_COUNT`. |
 | **TileTaxonomy.ChaqueEntreeAUnLibelle** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_tile_taxonomy.cpp:59`</sub> | Chaque catégorie, sous-groupe et tuile de la taxonomie porte un libellé non vide. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `category.label.empty()` est faux.<br/>Vérifie que `entry.label.empty()` est faux.<br/>Vérifie que `subgroup.label.empty()` est faux.<br/>Vérifie que `entry.label.empty()` est faux. |
 
-#### Game (18)
+#### Game (35)
+
+**`test_game_events.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **GameEventsTest.EtatStableNeProduitAucunEvenement** (Critique)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_events.cpp:28`</sub> | Un etat stable du personnage ne produit aucun evenement. | 1. Detecter les transitions entre deux etats identiques. | Vérifie que `hmi::detectPlayerEvents(state, state).empty()` est vrai. |
+| **GameEventsTest.SautProduitJumped** (Critique)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_events.cpp:43`</sub> | Un saut produit exactement un evenement Jumped. | 1. current.justJumped = true, tout le reste inchange. | Vérifie que `events.size()` vaut `1U`.<br/>Vérifie que `events[0]` vaut `GameEvent::Jumped`. |
+| **GameEventsTest.AtterrissageProduitLanded** (Critique)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_events.cpp:61`</sub> | Un atterrissage produit exactement un evenement Landed. | 1. previous.grounded = false, current.grounded = true. | Vérifie que `events.size()` vaut `1U`.<br/>Vérifie que `events[0]` vaut `GameEvent::Landed`. |
+| **GameEventsTest.DecollerNeProduitPasLanded** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_events.cpp:79`</sub> | Decoller du sol ne produit pas l'evenement Landed. | 1. previous.grounded = true, current.grounded = false. | Vérifie que `contains(hmi::detectPlayerEvents(previous, current), GameEvent::Landed)` est faux. |
+| **GameEventsTest.DeclenchementDashProduitDashed** (Critique)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_events.cpp:96`</sub> | Un dash produit exactement un evenement Dashed. | 1. previous.dashTimer = 0, current.dashTimer = 0.2 (dash qui vient de se declencher). | Vérifie que `events.size()` vaut `1U`.<br/>Vérifie que `events[0]` vaut `GameEvent::Dashed`. |
+| **GameEventsTest.DecompteDashNeReproduitPasDashed** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_events.cpp:115`</sub> | Le decompte d'un dash en cours ne re-produit pas Dashed. | 1. previous.dashTimer = 0.2, current.dashTimer = 0.1 (dash toujours en cours). | Vérifie que `hmi::detectPlayerEvents(previous, current).empty()` est vrai. |
+| **GameEventsTest.ContactMuralProduitWallContactEnter** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_events.cpp:132`</sub> | Un contact mural produit exactement un evenement WallContactEnter. | 1. previous.wallDirection = 0, current.wallDirection = 1. | Vérifie que `events.size()` vaut `1U`.<br/>Vérifie que `events[0]` vaut `GameEvent::WallContactEnter`. |
+| **GameEventsTest.DashEtMurDansLeMemePasProduisentDeuxEvenements** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_events.cpp:150`</sub> | Un dash au contact d'un mur produit Dashed ET WallContactEnter. | 1. Faire transitionner dashTimer et wallDirection dans le meme pas. | Vérifie que `contains(events, GameEvent::Dashed)` est vrai.<br/>Vérifie que `contains(events, GameEvent::WallContactEnter)` est vrai. |
+| **GameEventsTest.InterrupteurBasculeProduitSwitchToggled** (Critique)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_events.cpp:168`</sub> | Un interrupteur bascule produit l'evenement SwitchToggled. | 1. Un mecanisme non continu passe de ferme a ouvert. | Vérifie que `events.size()` vaut `1U`.<br/>Vérifie que `events[0]` vaut `GameEvent::SwitchToggled`. |
+| **GameEventsTest.PlaquePresseeProduitPressurePlatePressed** (Critique)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_events.cpp:187`</sub> | Une plaque de pression enfoncee produit PressurePlatePressed. | 1. Un mecanisme continu passe de ferme a ouvert. | Vérifie que `events.size()` vaut `1U`.<br/>Vérifie que `events[0]` vaut `GameEvent::PressurePlatePressed`. |
+| **GameEventsTest.PlaqueRelacheeProduitPressurePlateReleased** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_events.cpp:206`</sub> | Une plaque de pression relachee produit PressurePlateReleased. | 1. Un mecanisme continu passe d'ouvert a ferme. | Vérifie que `events.size()` vaut `1U`.<br/>Vérifie que `events[0]` vaut `GameEvent::PressurePlateReleased`. |
+| **GameEventsTest.MecanismeStableNeProduitRien** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_events.cpp:225`</sub> | Un mecanisme stable ne produit aucun evenement. | 1. previous et current identiques pour un jeu de mecanismes. | Vérifie que `hmi::detectMechanismEvents(state, state, continuous).empty()` est vrai. |
+| **GameEventsTest.SeulLeMecanismeQuiChangeProduitUnEvenement** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_events.cpp:241`</sub> | Un seul mecanisme sur plusieurs qui change produit un seul evenement. | 1. Trois mecanismes, un seul change d'etat. | Vérifie que `events.size()` vaut `1U`.<br/>Vérifie que `events[0]` vaut `GameEvent::SwitchToggled`. |
+| **GameEventsTest.TaillesIncoherentesNIgnorentSansPlanter** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_events.cpp:260`</sub> | Des vecteurs de tailles differentes ne provoquent aucun acces hors bornes. | 1. previous a 2 elements, current en a 3, isContinuous en a 2. | Vérifie que `hmi::detectMechanismEvents(previous, current, continuous).empty()` est vrai. |
+| **GameEventsTest.IssueEnCoursNeProduitRien** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_events.cpp:277`</sub> | Une partie en cours ne produit aucun evenement d'issue. | 1. Traduire core::LevelOutcome::Playing. | Vérifie que `hmi::detectOutcomeEvent(core::LevelOutcome::Playing)` vaut `std::nullopt`. |
+| **GameEventsTest.IssueGagneeProduitLevelCompleted** (Critique)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_events.cpp:290`</sub> | Une issue gagnee produit l'evenement LevelCompleted. | 1. Traduire core::LevelOutcome::Won. | Vérifie que `hmi::detectOutcomeEvent(core::LevelOutcome::Won)` vaut `GameEvent::LevelCompleted`. |
+| **GameEventsTest.IssuePerdueProduitDied** (Critique)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_events.cpp:303`</sub> | Une issue perdue produit l'evenement Died. | 1. Traduire core::LevelOutcome::Lost. | Vérifie que `hmi::detectOutcomeEvent(core::LevelOutcome::Lost)` vaut `GameEvent::Died`. |
 
 **`test_game_hud.cpp`**
 
