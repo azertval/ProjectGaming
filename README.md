@@ -47,8 +47,11 @@ Le moteur physique est complet et **jouable** :
 - **Éditeur de niveaux** intégré : peinture à la souris, outils rectangle/sélection, liaison de
   mécanismes, undo/redo, essai immédiat, guide non-codeur pour partager un niveau via Git.
 - **Enchaînement de niveaux** en séquence (titre → niveaux → titre), **menu** multilingue (fr/en),
-  **menu d'options** (V-Sync, langue), jouable/navigable au **clavier, à la souris et à la
+  **menu d'options** (V-Sync, volume, langue), jouable/navigable au **clavier, à la souris et à la
   manette** (XInput).
+- **Bruitages** (Qt Multimedia) : saut, atterrissage, dash, mécanismes, mort, victoire de tableau,
+  navigation de menu — volume réglable et persisté, jeu pleinement jouable en silence sans
+  périphérique audio.
 
 Le moteur est **habillé** (programme `LOT-40` → `LOT-55`) :
 
@@ -104,6 +107,12 @@ générés dans `build/`).
 ### Prérequis
 - Visual Studio 2022+ avec la charge de travail **« Développement Desktop en C++ »**
   (inclut CMake, Ninja et le compilateur MSVC).
+- **Qt6** (`Widgets`, `Gui`, `Multimedia` — module audio, `LOT-60`), détecté automatiquement
+  (`CMAKE_PREFIX_PATH`, cf. `Source/HMI/CMakeLists.txt`) s'il est installé à l'emplacement
+  conventionnel de l'[installateur officiel](https://www.qt.io/download-qt-installer) ou via
+  [`aqtinstall`](https://github.com/miurahr/aqtinstall) (`-m qtmultimedia` pour le module audio).
+  Sans Qt, la cible `ProjectGaming` est **ignorée** (avertissement explicite) : seuls les tests se
+  construisent.
 
 ### Depuis Visual Studio (recommandé)
 1. `Fichier > Ouvrir > Dossier…` puis sélectionner la racine du dépôt.

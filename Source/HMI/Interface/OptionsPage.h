@@ -41,6 +41,7 @@ public:
      *                        réel (`MainWindow` le construit avant la page). Le curseur de volume
      *                        n'a d'effet que si non nul.
      * @param keybindingsPath Chemin de persistance des remappages.
+     * @param parent          Widget parent Qt (propriété standard, `nullptr` par défaut).
      */
     OptionsPage(GameViewport* viewport, AudioEngine* audio, std::filesystem::path keybindingsPath,
                 QWidget* parent = nullptr);

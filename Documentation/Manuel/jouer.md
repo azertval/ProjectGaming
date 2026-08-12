@@ -5,13 +5,13 @@ comprendre les mécaniques rencontrées dans les niveaux.
 
 ## Le menu principal
 
-Six entrées, navigables aux flèches **↑**/**↓** (ou à la souris) et validées par **Entrée**
+Sept entrées, navigables aux flèches **↑**/**↓** (ou à la souris) et validées par **Entrée**
 (ou clic) : **Continuer** (reprend au tableau atteint ; grisée tant qu'aucune partie n'a été
 commencée), **Nouvelle partie** (recommence au premier tableau — demande confirmation si une
 progression existe, puisqu'elle sera effacée), **Choisir un niveau** (voir plus bas), **Mode
-Édition** (voir [créer un niveau](@ref manuel-partager-niveau)), **Options**, **Quitter**. Un
-bouton **drapeau** en bas à droite bascule la langue de l'interface (français/anglais) à tout
-moment.
+Édition** (voir [créer un niveau](@ref manuel-partager-niveau)), **Options**, **Crédits**
+(développement et bruitages), **Quitter**. Un bouton **drapeau** en bas à droite bascule la langue
+de l'interface (français/anglais) à tout moment.
 
 ## Contrôles en jeu
 
@@ -72,6 +72,7 @@ Certains niveaux ajoutent des **mécanismes** à résoudre :
 
 ## Le menu d'options
 
-Accessible depuis le menu principal : bascule le **V-Sync**, la **langue**, affiche l'état de
-connexion de la **manette**, et propose un retour au menu. Navigable au clavier, à la souris ou
-à la manette, comme le reste de l'interface.
+Accessible depuis le menu principal ou depuis la pause : bascule le **V-Sync**, règle le
+**volume** (un son d'essai se joue au relâchement du curseur, pour régler sans le faire à
+l'aveugle), change la **langue**, affiche l'état de connexion de la **manette**, et propose un
+retour au menu. Navigable au clavier, à la souris ou à la manette, comme le reste de l'interface.

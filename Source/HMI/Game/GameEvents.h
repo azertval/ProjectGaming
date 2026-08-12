@@ -107,6 +107,8 @@ struct MechanismEventState {
  * Un même mécanisme (`isDoorOpen`) sert à la fois de déclencheur et de porte : une seule
  * transition produit **un seul** événement (celui du déclencheur), jamais un second pour la
  * porte — sans quoi une simple activation jouerait deux sons superposés.
+ * @param previous État des mécanismes au pas précédent.
+ * @param current État des mécanismes au pas courant.
  * @param isContinuous Pour chaque mécanisme (même index que @p previous / @p current) : true =
  *        plaque de pression (joue « pressée »/« relâchée »), false = interrupteur à bascule
  *        (joue « basculé »). Un désaccord de taille entre les trois vecteurs ignore l'index en
