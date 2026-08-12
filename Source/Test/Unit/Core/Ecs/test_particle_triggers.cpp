@@ -51,8 +51,7 @@ TEST(ParticleTriggersTest, IntensiteAtterrissageProportionnelleALaVitesseDImpact
 
     core::World worldMid;
     core::ParticleSystem systemMid;
-    const float midSpeed =
-        (core::LANDING_MIN_IMPACT_SPEED + core::LANDING_MAX_IMPACT_SPEED) * 0.5f;
+    const float midSpeed = (core::LANDING_MIN_IMPACT_SPEED + core::LANDING_MAX_IMPACT_SPEED) * 0.5f;
     systemMid.emitLanding(worldMid, core::Vector2{}, midSpeed);
 
     core::World worldMax;

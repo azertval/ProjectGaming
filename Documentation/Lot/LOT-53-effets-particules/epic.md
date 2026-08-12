@@ -1,6 +1,6 @@
 # LOT-53 — Effets et particules {#lot-53}
 
-> Statut : **en cours**. Prérequis : [LOT-46](@ref lot-46) (moteur d'animation),
+> Statut : **fait**. Prérequis : [LOT-46](@ref lot-46) (moteur d'animation),
 > [LOT-48](@ref lot-48) (personnage texturé).
 
 ## Objectif

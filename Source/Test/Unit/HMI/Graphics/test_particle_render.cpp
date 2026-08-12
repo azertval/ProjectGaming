@@ -26,8 +26,8 @@ hmi::SceneTextures testTextures() {
 core::Entity addParticle(core::World& world, core::Vector2 position, float life, float maxLife,
                          core::ParticleKind kind) {
     const core::Entity entity = world.createEntity();
-    world.addComponent(entity, core::Particle{position, core::Vector2{0.0f, 0.0f}, life, maxLife,
-                                              kind});
+    world.addComponent(entity,
+                       core::Particle{position, core::Vector2{0.0f, 0.0f}, life, maxLife, kind});
     return entity;
 }
 

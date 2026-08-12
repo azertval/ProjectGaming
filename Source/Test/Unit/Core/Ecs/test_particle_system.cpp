@@ -19,8 +19,8 @@ namespace {
 // Effet a duree de vie et vitesse FIXES (min == max) : rend la trajectoire et l'instant de
 // disparition d'une particule exactement previsibles, sans que l'alea n'y interfere.
 constexpr core::ParticleEffect FIXED_EFFECT{
-    /*count*/ 1, /*speedMin*/ 2.0f, /*speedMax*/ 2.0f,
-    /*lifeMin*/ 0.5f, /*lifeMax*/ 0.5f, /*spreadRadians*/ 0.0f};
+    /*count*/ 1,      /*speedMin*/ 2.0f, /*speedMax*/ 2.0f,
+    /*lifeMin*/ 0.5f, /*lifeMax*/ 0.5f,  /*spreadRadians*/ 0.0f};
 
 std::vector<core::Particle> snapshot(core::World& world) {
     std::vector<core::Particle> particles;
@@ -46,8 +46,8 @@ std::vector<core::Particle> snapshot(core::World& world) {
  */
 TEST(ParticleSystemTest, DeterminismeMemeSequenceMemesParticules) {
     constexpr core::ParticleEffect DISPERSED_EFFECT{
-        /*count*/ 6, /*speedMin*/ 1.0f, /*speedMax*/ 4.0f,
-        /*lifeMin*/ 0.3f, /*lifeMax*/ 1.2f, /*spreadRadians*/ 1.5f};
+        /*count*/ 6,      /*speedMin*/ 1.0f, /*speedMax*/ 4.0f,
+        /*lifeMin*/ 0.3f, /*lifeMax*/ 1.2f,  /*spreadRadians*/ 1.5f};
     constexpr float FIXED_DELTA = 1.0f / 60.0f;
 
     core::World worldA;
@@ -57,12 +57,12 @@ TEST(ParticleSystemTest, DeterminismeMemeSequenceMemesParticules) {
 
     const auto runSequence = [&](core::World& world, core::ParticleSystem& system) {
         system.spawn(world, DISPERSED_EFFECT, core::Vector2{1.0f, 2.0f}, core::Vector2{0.3f, -1.0f},
-                   core::ParticleKind::LandingDust);
+                     core::ParticleKind::LandingDust);
         for (int step = 0; step < 5; ++step) {
             system.update(world, FIXED_DELTA);
         }
-        system.spawn(world, DISPERSED_EFFECT, core::Vector2{-2.0f, 0.5f}, core::Vector2{-1.0f, 0.0f},
-                   core::ParticleKind::DashTrail);
+        system.spawn(world, DISPERSED_EFFECT, core::Vector2{-2.0f, 0.5f},
+                     core::Vector2{-1.0f, 0.0f}, core::ParticleKind::DashTrail);
         for (int step = 0; step < 5; ++step) {
             system.update(world, FIXED_DELTA);
         }
@@ -102,7 +102,7 @@ TEST(ParticleSystemTest, BudgetJamaisDepasseRecycleLaPlusAncienne) {
     constexpr int EXTRA_EMISSIONS = 5;
     for (int i = 0; i < core::MAX_PARTICLES + EXTRA_EMISSIONS; ++i) {
         system.spawn(world, FIXED_EFFECT, core::Vector2{static_cast<float>(i), 0.0f},
-                   core::Vector2{1.0f, 0.0f}, core::ParticleKind::Death);
+                     core::Vector2{1.0f, 0.0f}, core::ParticleKind::Death);
     }
 
     EXPECT_EQ(system.aliveCount(), core::MAX_PARTICLES);
@@ -110,7 +110,7 @@ TEST(ParticleSystemTest, BudgetJamaisDepasseRecycleLaPlusAncienne) {
     ASSERT_EQ(particles.size(), static_cast<std::size_t>(core::MAX_PARTICLES));
     for (const core::Particle& particle : particles) {
         EXPECT_GE(particle.position.x,
-                 static_cast<float>(EXTRA_EMISSIONS));  // les 5 plus vieilles ont disparu
+                  static_cast<float>(EXTRA_EMISSIONS));  // les 5 plus vieilles ont disparu
     }
 }
 
@@ -128,14 +128,14 @@ TEST(ParticleSystemTest, BudgetJamaisDepasseRecycleLaPlusAncienne) {
  */
 TEST(ParticleSystemTest, DureeDeVieDisparaitAuPasAttendu) {
     constexpr core::ParticleEffect ONE_SECOND_EFFECT{
-        /*count*/ 1, /*speedMin*/ 2.0f, /*speedMax*/ 2.0f,
-        /*lifeMin*/ 1.0f, /*lifeMax*/ 1.0f, /*spreadRadians*/ 0.0f};
+        /*count*/ 1,      /*speedMin*/ 2.0f, /*speedMax*/ 2.0f,
+        /*lifeMin*/ 1.0f, /*lifeMax*/ 1.0f,  /*spreadRadians*/ 0.0f};
     core::World world;
     core::ParticleSystem system;
     constexpr float FIXED_DELTA = 0.25f;  // exactement representable : aucune derive flottante
 
     system.spawn(world, ONE_SECOND_EFFECT, core::Vector2{0.0f, 0.0f}, core::Vector2{1.0f, 0.0f},
-               core::ParticleKind::LandingDust);
+                 core::ParticleKind::LandingDust);
     ASSERT_EQ(system.aliveCount(), 1);
 
     for (int step = 0; step < 3; ++step) {
@@ -168,10 +168,10 @@ TEST(ParticleSystemTest, AucunEffetSurLesEntitesDeGameplay) {
     world.addComponent(player, original);
 
     constexpr core::ParticleEffect BURST{
-        /*count*/ 20, /*speedMin*/ 0.5f, /*speedMax*/ 3.0f,
-        /*lifeMin*/ 0.2f, /*lifeMax*/ 0.8f, /*spreadRadians*/ 3.14159f};
+        /*count*/ 20,     /*speedMin*/ 0.5f, /*speedMax*/ 3.0f,
+        /*lifeMin*/ 0.2f, /*lifeMax*/ 0.8f,  /*spreadRadians*/ 3.14159f};
     system.spawn(world, BURST, core::Vector2{0.0f, 0.0f}, core::Vector2{1.0f, 0.0f},
-               core::ParticleKind::Death);
+                 core::ParticleKind::Death);
     for (int step = 0; step < 10; ++step) {
         system.update(world, 1.0f / 60.0f);
     }
@@ -196,7 +196,7 @@ TEST(ParticleSystemTest, ClearVideToutesLesParticulesVivantes) {
     core::World world;
     core::ParticleSystem system;
     system.spawn(world, FIXED_EFFECT, core::Vector2{0.0f, 0.0f}, core::Vector2{1.0f, 0.0f},
-               core::ParticleKind::Death);
+                 core::ParticleKind::Death);
     ASSERT_EQ(system.aliveCount(), 1);
 
     system.clear(world);

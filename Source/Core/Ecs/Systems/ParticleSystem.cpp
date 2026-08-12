@@ -14,8 +14,8 @@ namespace {
 // chaque pas fixe ou le dash est actif) -- quelques particules par pas suffisent, un flux dense
 // nait de la repetition, pas d'un gros paquet ponctuel.
 constexpr ParticleEffect DASH_TRAIL_EFFECT{
-    /*count*/ 2, /*speedMin*/ 0.3f, /*speedMax*/ 0.8f,
-    /*lifeMin*/ 0.15f, /*lifeMax*/ 0.3f, /*spreadRadians*/ 0.5f};
+    /*count*/ 2,       /*speedMin*/ 0.3f, /*speedMax*/ 0.8f,
+    /*lifeMin*/ 0.15f, /*lifeMax*/ 0.3f,  /*spreadRadians*/ 0.5f};
 
 // Bouffee de poussiere a l'atterrissage : vitesse/duree de vie fixes, seul le NOMBRE varie avec
 // l'intensite de l'impact (emitLanding calcule le compte, puis construit l'effet).
@@ -29,8 +29,8 @@ constexpr float LANDING_DUST_SPREAD_RADIANS = 0.9f;
 // sans effet, voir ParticleSystem::emit).
 constexpr float FULL_CIRCLE_RADIANS = 3.14159265358979323846f;
 constexpr ParticleEffect DEATH_BURST_EFFECT{
-    /*count*/ 16, /*speedMin*/ 1.0f, /*speedMax*/ 3.0f,
-    /*lifeMin*/ 0.25f, /*lifeMax*/ 0.6f, /*spreadRadians*/ FULL_CIRCLE_RADIANS};
+    /*count*/ 16,      /*speedMin*/ 1.0f, /*speedMax*/ 3.0f,
+    /*lifeMin*/ 0.25f, /*lifeMax*/ 0.6f,  /*spreadRadians*/ FULL_CIRCLE_RADIANS};
 
 }  // namespace
 
@@ -78,8 +78,7 @@ void ParticleSystem::emitLanding(World& world, Vector2 position, float impactSpe
         return;  // petit pas : aucun effet (evite un nuage de poussiere permanent).
     }
     const float range = LANDING_MAX_IMPACT_SPEED - LANDING_MIN_IMPACT_SPEED;
-    const float intensity =
-        (std::min)(1.0f, (impactSpeed - LANDING_MIN_IMPACT_SPEED) / range);
+    const float intensity = (std::min)(1.0f, (impactSpeed - LANDING_MIN_IMPACT_SPEED) / range);
     const int countRange = LANDING_DUST_MAX_COUNT - LANDING_DUST_MIN_COUNT;
     const int count =
         LANDING_DUST_MIN_COUNT + static_cast<int>(intensity * static_cast<float>(countRange));

@@ -110,7 +110,7 @@ public:
      * @param kind      Effet visuel porté par chaque particule émise (présentation, `HMI`).
      */
     void spawn(World& world, const ParticleEffect& effect, Vector2 origin, Vector2 direction,
-              ParticleKind kind);
+               ParticleKind kind);
 
     /**
      * @brief Traînée de dash : à appeler à **chaque pas fixe** où `core::Player::dashTimer > 0`
