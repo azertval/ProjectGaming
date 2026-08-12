@@ -56,12 +56,12 @@ TEST(ParticleSystemTest, DeterminismeMemeSequenceMemesParticules) {
     core::ParticleSystem systemB;
 
     const auto runSequence = [&](core::World& world, core::ParticleSystem& system) {
-        system.emit(world, DISPERSED_EFFECT, core::Vector2{1.0f, 2.0f}, core::Vector2{0.3f, -1.0f},
+        system.spawn(world, DISPERSED_EFFECT, core::Vector2{1.0f, 2.0f}, core::Vector2{0.3f, -1.0f},
                    core::ParticleKind::LandingDust);
         for (int step = 0; step < 5; ++step) {
             system.update(world, FIXED_DELTA);
         }
-        system.emit(world, DISPERSED_EFFECT, core::Vector2{-2.0f, 0.5f}, core::Vector2{-1.0f, 0.0f},
+        system.spawn(world, DISPERSED_EFFECT, core::Vector2{-2.0f, 0.5f}, core::Vector2{-1.0f, 0.0f},
                    core::ParticleKind::DashTrail);
         for (int step = 0; step < 5; ++step) {
             system.update(world, FIXED_DELTA);
@@ -101,7 +101,7 @@ TEST(ParticleSystemTest, BudgetJamaisDepasseRecycleLaPlusAncienne) {
 
     constexpr int EXTRA_EMISSIONS = 5;
     for (int i = 0; i < core::MAX_PARTICLES + EXTRA_EMISSIONS; ++i) {
-        system.emit(world, FIXED_EFFECT, core::Vector2{static_cast<float>(i), 0.0f},
+        system.spawn(world, FIXED_EFFECT, core::Vector2{static_cast<float>(i), 0.0f},
                    core::Vector2{1.0f, 0.0f}, core::ParticleKind::Death);
     }
 
@@ -134,7 +134,7 @@ TEST(ParticleSystemTest, DureeDeVieDisparaitAuPasAttendu) {
     core::ParticleSystem system;
     constexpr float FIXED_DELTA = 0.25f;  // exactement representable : aucune derive flottante
 
-    system.emit(world, ONE_SECOND_EFFECT, core::Vector2{0.0f, 0.0f}, core::Vector2{1.0f, 0.0f},
+    system.spawn(world, ONE_SECOND_EFFECT, core::Vector2{0.0f, 0.0f}, core::Vector2{1.0f, 0.0f},
                core::ParticleKind::LandingDust);
     ASSERT_EQ(system.aliveCount(), 1);
 
@@ -170,7 +170,7 @@ TEST(ParticleSystemTest, AucunEffetSurLesEntitesDeGameplay) {
     constexpr core::ParticleEffect BURST{
         /*count*/ 20, /*speedMin*/ 0.5f, /*speedMax*/ 3.0f,
         /*lifeMin*/ 0.2f, /*lifeMax*/ 0.8f, /*spreadRadians*/ 3.14159f};
-    system.emit(world, BURST, core::Vector2{0.0f, 0.0f}, core::Vector2{1.0f, 0.0f},
+    system.spawn(world, BURST, core::Vector2{0.0f, 0.0f}, core::Vector2{1.0f, 0.0f},
                core::ParticleKind::Death);
     for (int step = 0; step < 10; ++step) {
         system.update(world, 1.0f / 60.0f);
@@ -195,7 +195,7 @@ TEST(ParticleSystemTest, AucunEffetSurLesEntitesDeGameplay) {
 TEST(ParticleSystemTest, ClearVideToutesLesParticulesVivantes) {
     core::World world;
     core::ParticleSystem system;
-    system.emit(world, FIXED_EFFECT, core::Vector2{0.0f, 0.0f}, core::Vector2{1.0f, 0.0f},
+    system.spawn(world, FIXED_EFFECT, core::Vector2{0.0f, 0.0f}, core::Vector2{1.0f, 0.0f},
                core::ParticleKind::Death);
     ASSERT_EQ(system.aliveCount(), 1);
 

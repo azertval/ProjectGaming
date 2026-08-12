@@ -1,5 +1,6 @@
 #include "HMI/Game/GameSession.h"
 
+#include <algorithm>
 #include <cmath>
 #include <cstddef>
 #include <string>
@@ -98,6 +99,11 @@ GameSession::GameSession(SpriteBatch& batch, const TextureAtlas& atlas, TextureC
 // (Re)construit la scene pour un niveau deja charge et valide : monde neuf + grille + personnage
 // a l'entree. Coeur commun a la construction et aux rechargements (echec).
 void GameSession::loadLevel(core::Level level) {
+    // Particules (LOT-53 TACHE-02) : videes AVANT de reinitialiser _world -- les entites qu'elles
+    // detiennent encore appartiennent a l'ANCIEN monde, sur le point d'etre remplace ci-dessous.
+    // Un ordre inverse laisserait des handles perimes que le nouveau monde (index/generation
+    // repartis a zero) pourrait faire coincider avec de toutes autres entites.
+    _particles.clear(_world);
     _world = core::World{};  // repart d'un monde vierge (aucune entite du niveau precedent)
     _loadError.clear();
     // Detection d'evenements (LOT-60 TACHE-03) : un (re)chargement change l'etat sous les pieds de
@@ -634,6 +640,11 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
     //    position "precedente" AVANT que ce pas ne la modifie (voir render()).
     snapshotPreviousPositions();
 
+    // 0bis. Particules (LOT-53 TACHE-01/02) : avance celles emises aux pas precedents AVANT que
+    // ce pas n'en emette de nouvelles (age puis emet, jamais l'inverse -- une particule tout
+    // juste emise ce pas ne doit pas etre vieillie du meme coup).
+    _particles.update(_world, fixedDelta);
+
     // 1. Entrees -> intention.
     const core::PlayerInput intent = toPlayerInput(input, _gameBindings, _gamepadBindings);
 
@@ -649,6 +660,10 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
     // 2. Physique sur la grille des MECANISMES (portes fermees = solides) completee par la position
     //    COURANTE des blocs (resolue ci-dessus).
     const core::TileMap collision = _blocks->collisionMap(_mechanisms->collisionMap());
+    // Vitesse verticale AVANT ce pas (LOT-53 TACHE-02) : la physique remet velocity.y a zero au
+    // contact du sol -- c'est donc la derniere valeur disponible qui approxime la vitesse
+    // d'impact d'un atterrissage survenant CE pas (intensite de la poussiere, cf. plus bas).
+    const float previousVerticalVelocity = _world.getComponent<core::Velocity>(_player).value.y;
     _physics.update(_world, collision, intent, fixedDelta);
 
     // 2a. Détection d'événements (LOT-60 TACHE-03) : l'état du personnage est figé par la
@@ -708,6 +723,25 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
     _previousPlayerEventState = currentPlayerEventState;
     _previousMechanismEventState = currentMechanismEventState;
 
+    // 4a bis. Particules du personnage (LOT-53 TACHE-02) : trainee de dash CONTINUE (etat
+    // COURANT du minuteur, pas un evenement -- emise a chaque pas ou le dash est actif, jamais
+    // seulement a son declenchement) et bouffee de poussiere sur l'evenement Landed de ce pas
+    // (intensite fonction de previousVerticalVelocity, capturee avant que la physique ne la
+    // remette a zero). Reutilise _lastStepEvents deja detecte ci-dessus, sans reimplementer la
+    // detection de transition (deja faite deux fois dans le projet, LOT-47/LOT-60).
+    {
+        const core::Player& particlePlayer = _world.getComponent<core::Player>(_player);
+        if (particlePlayer.dashTimer > 0.0f) {
+            _particles.emitDashTrail(_world, transform.position, particlePlayer.facing);
+        }
+        const bool landedThisStep = std::find(_lastStepEvents.begin(), _lastStepEvents.end(),
+                                              GameEvent::Landed) != _lastStepEvents.end();
+        if (landedThisStep) {
+            _particles.emitLanding(_world, transform.position,
+                                   (std::max)(0.0f, previousVerticalVelocity));
+        }
+    }
+
     // 4bis. Dangers mobile/temporise (EX-GP-051/053) : avance le compteur deterministe, puis
     // replace les sprites des dangers mobiles (position simulee, pas un artifice visuel).
     _dangers->update();
@@ -729,6 +763,10 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
         _lastStepEvents.push_back(*outcomeEvent);
     }
     if (outcome == core::LevelOutcome::Lost) {
+        // Eclatement a la mort (LOT-53 TACHE-02) : emis AVANT reload(), pour la meme raison que
+        // l'evenement Died ci-dessus -- reload() remet le personnage a l'entree, la position de
+        // mort ne serait plus observable apres.
+        _particles.emitDeath(_world, (box.min + box.max) * 0.5f);
         reload();
     }
     return outcome;

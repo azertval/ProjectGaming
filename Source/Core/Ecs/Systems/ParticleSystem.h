@@ -20,11 +20,22 @@ class World;
 /// Graine par défaut de `core::ParticleSystem` -- fixe et documentée, **jamais** l'horloge
 /// système (`EX-NFR-002`) : deux sessions démarrées avec cette graine et soumises à la même
 /// séquence d'entrées produisent exactement les mêmes particules.
-inline constexpr std::uint64_t DEFAULT_PARTICLE_SEED = 0x50415254'49434C45ULL;
+inline constexpr std::uint64_t DEFAULT_PARTICLE_SEED = 0x504152544943454CULL;
 
-/// Nombre maximal de particules simultanément vivantes (`EX-NFR-005`) : au-delà, `emit()` recycle
+/// Nombre maximal de particules simultanément vivantes (`EX-NFR-005`) : au-delà, `spawn()` recycle
 /// les plus anciennes plutôt que d'allouer sans borne.
 inline constexpr int MAX_PARTICLES = 256;
+
+/// Vitesse d'impact (`LOT-53` TACHE-02) en-dessous de laquelle un atterrissage ne produit
+/// **aucune** poussière -- sans ce seuil, chaque petit pas en émettrait.
+inline constexpr float LANDING_MIN_IMPACT_SPEED = 4.0f;
+/// Vitesse d'impact au-delà de laquelle l'intensité de la poussière plafonne (`LANDING_DUST_MAX_
+/// COUNT`) : une chute extrême ne produit pas un nuage toujours plus dense.
+inline constexpr float LANDING_MAX_IMPACT_SPEED = 14.0f;
+/// Nombre de particules de poussière au seuil `LANDING_MIN_IMPACT_SPEED` (intensité minimale).
+inline constexpr int LANDING_DUST_MIN_COUNT = 3;
+/// Nombre de particules de poussière au plafond `LANDING_MAX_IMPACT_SPEED` (intensité maximale).
+inline constexpr int LANDING_DUST_MAX_COUNT = 10;
 
 /**
  * @brief Données décrivant un effet de particules : combien, à quelle vitesse, pendant combien de
@@ -32,7 +43,7 @@ inline constexpr int MAX_PARTICLES = 256;
  *        de nombres magiques dispersés dans le code (`LOT-53` TACHE-01).
  */
 struct ParticleEffect {
-    /// Nombre de particules émises par appel à `ParticleSystem::emit`.
+    /// Nombre de particules émises par appel à `ParticleSystem::spawn`.
     int count = 0;
     /// Vitesse initiale minimale, en unités monde par seconde.
     float speedMin = 0.0f;
@@ -61,7 +72,7 @@ struct ParticleEffect {
  * jamais un générateur par défaut. Deux exécutions de la même séquence d'appels produisent donc
  * exactement les mêmes particules.
  *
- * **Budget borné** (`EX-NFR-005`) : au-delà de `MAX_PARTICLES` vivantes, `emit()` recycle la plus
+ * **Budget borné** (`EX-NFR-005`) : au-delà de `MAX_PARTICLES` vivantes, `spawn()` recycle la plus
  * **ancienne** (front de `_order`) plutôt que d'allouer sans limite -- décision déterministe,
  * jamais dépendante d'un ordre d'itération instable.
  *
@@ -90,7 +101,7 @@ public:
      * `[-spreadRadians, +spreadRadians]` autour de la direction de base) et sa durée de vie dans
      * `[lifeMin, lifeMax]`, d'un générateur reseedé pour elle (voir en-tête de la classe) : le
      * résultat ne dépend que de (graine de base, pas courant, identifiant d'entité), jamais de
-     * l'ordre ou du nombre d'appels à `emit` au sein du même pas.
+     * l'ordre ou du nombre d'appels à `spawn` au sein du même pas.
      * @param world     Monde ECS recevant les entités-particules.
      * @param effect    Effet à émettre (constantes nommées côté appelant).
      * @param origin    Position d'émission, en unités monde.
@@ -98,8 +109,37 @@ public:
      *                  `effect.spreadRadians >= π` (dispersion en cercle complet).
      * @param kind      Effet visuel porté par chaque particule émise (présentation, `HMI`).
      */
-    void emit(World& world, const ParticleEffect& effect, Vector2 origin, Vector2 direction,
-             ParticleKind kind);
+    void spawn(World& world, const ParticleEffect& effect, Vector2 origin, Vector2 direction,
+              ParticleKind kind);
+
+    /**
+     * @brief Traînée de dash : à appeler à **chaque pas fixe** où `core::Player::dashTimer > 0`
+     *        (émission **continue**, pas ponctuelle, `LOT-53` TACHE-02) -- jamais un champ ajouté
+     *        à `core::Player` pour détecter le début du dash, l'appelant lit le minuteur existant.
+     * @param world    Monde ECS recevant les particules.
+     * @param position Position du personnage, en unités monde.
+     * @param facing   Orientation courante du personnage (`core::Player::facing`, -1/+1) : la
+     *                 traînée part de l'arrière du mouvement (opposé à l'orientation).
+     */
+    void emitDashTrail(World& world, Vector2 position, float facing);
+
+    /**
+     * @brief Bouffée de poussière à l'atterrissage, d'intensité fonction de la vitesse d'impact.
+     *
+     * Sans effet en-dessous de `LANDING_MIN_IMPACT_SPEED` (un petit pas ne doit produire aucune
+     * poussière) ; au-delà de `LANDING_MAX_IMPACT_SPEED`, l'effet plafonne à `LANDING_DUST_MAX_
+     * COUNT` particules -- une chute longue produit ainsi plus de poussière qu'un petit saut,
+     * sans devenir illisible pour une chute extrême.
+     * @param world       Monde ECS recevant les particules.
+     * @param position    Position du personnage à l'atterrissage, en unités monde.
+     * @param impactSpeed Vitesse verticale (positive, vers le bas) au moment de l'impact.
+     */
+    void emitLanding(World& world, Vector2 position, float impactSpeed);
+
+    /// Éclatement à la mort du personnage : rafale en cercle complet.
+    /// @param world    Monde ECS recevant les particules.
+    /// @param position Position du personnage au moment de l'échec, en unités monde.
+    void emitDeath(World& world, Vector2 position);
 
     /// Détruit toutes les particules vivantes (rechargement de niveau, `LOT-53` TACHE-02).
     void clear(World& world);

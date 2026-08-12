@@ -16,6 +16,7 @@ add_executable(UnitTests
     Unit/Core/Ecs/test_sprite.cpp
     Unit/Core/Ecs/test_player_components.cpp
     Unit/Core/Ecs/test_particle_system.cpp
+    Unit/Core/Ecs/test_particle_triggers.cpp
     Unit/Core/Levels/test_level.cpp
     Unit/Core/Levels/test_level_loader.cpp
     Unit/Core/Levels/test_level_sequence.cpp
