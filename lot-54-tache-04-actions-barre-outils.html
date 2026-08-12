@@ -94,7 +94,7 @@ $(function(){initNavTree('lot-54-tache-04-actions-barre-outils.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-54-atelier-pixel-art_2tache-04-actions-barre-outils"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-54.html#md_Lot_2LOT-54-atelier-pixel-art_2epic" title="Lot/LOT-54-atelier-pixel-art/epic.md">LOT-54</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Interface</span>, <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2410"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2414"></a>
 Contexte</h1>
 <p>La tâche par laquelle l'atelier devient un citoyen de l'éditeur plutôt qu'une fenêtre à part. Elle n'existait pas dans le cadrage initial du lot : le canevas y arrivait avec ses propres boutons, sa propre palette d'outils et aucun affichage d'état — c'est-à-dire en reproduisant les trois défauts que <a class="el" href="lot-56.html" title="LOT-56 — Système de design de l&#39;IHM Qt">LOT-56</a> et <a class="el" href="lot-57.html" title="LOT-57 — Architecture de l&#39;information de l&#39;éditeur">LOT-57</a> viennent de corriger. Tout ce dont elle a besoin existe désormais et n'a qu'à être réutilisé.</p>
 <p>Trois mécanismes en particulier :</p>
@@ -104,7 +104,7 @@ Contexte</h1>
 <li><span class="tt">hmi::PanelFocus</span> (TACHE-02 de LOT-57) : la correspondance pure outil → panneau à mettre en avant, et la règle « suivre l'outil actif tant que l'utilisateur n'a rien imposé ».</li>
 </ul>
 <p>Le point le plus délicat du lot se joue ici : l'application a désormais <b>deux historiques</b>, celui de <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span> et celui du canevas (TACHE-02). Le cadrage initial traitait ce conflit comme un simple point d'attention sur le focus. Avec les actions, il devient une question de conception, et sa réponse est meilleure : <b>une seule</b> paire d'actions Annuler/Refaire, dont la cible est le contexte d'édition actif, et dont le libellé nomme l'opération concernée.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2411"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2415"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Outils du canevas comme actions</b> : pinceau, gomme, pot de peinture, pipette — et, si la TACHE-06 est réalisée, sélection — enregistrés dans <span class="tt"><a class="el" href="classhmi_1_1EditorActions.html" title="Construit et possède les QAction du catalogue (HMI/Interface/ActionCatalog.h) : chaque outil et chaqu...">hmi::EditorActions</a></span>, en <b>groupe exclusif</b> distinct de celui des outils de niveau.</li>
@@ -117,7 +117,7 @@ Travail à réaliser</h1>
 <li><b>Insertion dans le regroupement des panneaux</b> : le panneau d'historique et le canevas entrent dans la disposition en onglets de LOT-57 et dans la table <span class="tt">hmi::PanelFocus</span>, en respectant la règle de mise en avant — suggestion tant que l'utilisateur n'a rien imposé, silence ensuite.</li>
 <li><b>Traduction</b> : libellés, infobulles et aides dans les deux catalogues ; les infobulles affichent le raccourci de l'action sans qu'il soit saisi une seconde fois.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2412"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2416"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/EditorActions.{h,cpp}</span> (créé en <span class="tt">LOT-56</span>) — actions du canevas, groupe exclusif, Annuler/Refaire à cible contextuelle.</li>
@@ -130,7 +130,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Localization/fr.lang</span>, <span class="tt">en.lang</span>.</li>
 <li><span class="tt"><a class="el" href="test__editor__actions_8cpp.html" title="Tests unitaires du catalogue d&#39;actions et de la géométrie des icônes de l&#39;éditeur (LOT-56 TACHE-04,...">Source/Test/Unit/HMI/Interface/test_editor_actions.cpp</a></span> (complété), <span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a></span> (complété), <span class="tt"><a class="el" href="test__panel__focus_8cpp.html" title="Tests unitaires de la correspondance outil → panneau (LOT-57 TACHE-02, EX-IHM-061).">Source/Test/Unit/HMI/Editor/test_panel_focus.cpp</a></span> (complété).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2413"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2417"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Cible d'Annuler</b> : avec le contexte canevas actif, annuler retire la dernière opération de pixels et <b>ne touche pas</b> au brouillon de niveau ; avec le contexte niveau actif, l'inverse. Le test qui décrit le défaut évité.</li>
@@ -143,7 +143,7 @@ Tests (obligatoires)</h1>
 <li><b>Mise en avant</b> : la table <span class="tt">hmi::PanelFocus</span> couvre les outils de canevas ; après une sélection manuelle d'onglet, un changement d'outil ne déplace plus la mise en avant.</li>
 <li>Chaque clé de traduction ajoutée existe dans les deux catalogues.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2414"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2418"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Deux paires d'actions Annuler/Refaire seraient un doublon</b>, exactement ce qu'<span class="tt">EX-IHM-062</span> interdit. La bonne réponse n'est pas d'arbitrer par le focus au dernier moment, mais de n'avoir qu'une action et de lui désigner sa cible quand le contexte d'édition change.</li>
@@ -151,12 +151,12 @@ Points d'attention</h1>
 <li>Le viewport peut changer d'outil par une touche ; l'action cochée doit suivre, comme la resynchronisation déjà en place entre <em>GameViewport</em> et <em>ToolPanel</em>.</li>
 <li>Les icônes des outils de canevas doivent rester lisibles à la plus petite taille d'icône des jetons : une pipette dessinée trop finement disparaît à 16 pixels logiques.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2415"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2419"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les outils du canevas sont des actions exclusives dans une barre d'outils à icônes dessinées par code ; une seule paire Annuler/Refaire existe, à cible contextuelle et à libellé nommé ; la barre d'état affiche l'état de l'atelier via le modèle pur existant, étendu et non dupliqué ; le panneau d'historique permet le retour à un point antérieur ; les panneaux entrent dans le regroupement et la mise en avant ; chaînes traduites dans les deux catalogues ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2416"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2420"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-045</span> (outil de dessin pixel art) ; réutilise <span class="tt">EX-IHM-055</span> (commandes exposées comme actions), <span class="tt">EX-IHM-060</span> (état de travail affiché en permanence), <span class="tt">EX-IHM-061</span> (panneaux groupés suivant l'outil actif), <span class="tt">EX-IHM-062</span> (un état ou une commande à un seul endroit), <span class="tt">EX-EDIT-015</span> (découvrabilité des commandes), <span class="tt">EX-CTRL-012</span> (raccourcis d'éditeur remappables), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-NFR-010</span> (testable sans GPU). </p>
 </div></div><!-- contents -->

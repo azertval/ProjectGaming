@@ -1,5 +1,7 @@
 var dir_e63fac7525d4addf9f5e759ec10d14ef =
 [
+    [ "DiagnosticsHud.cpp", "DiagnosticsHud_8cpp.html", "DiagnosticsHud_8cpp" ],
+    [ "DiagnosticsHud.h", "DiagnosticsHud_8h.html", "DiagnosticsHud_8h" ],
     [ "GameEvents.cpp", "GameEvents_8cpp.html", "GameEvents_8cpp" ],
     [ "GameEvents.h", "GameEvents_8h.html", "GameEvents_8h" ],
     [ "GameHud.cpp", "GameHud_8cpp.html", "GameHud_8cpp" ],

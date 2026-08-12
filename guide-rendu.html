@@ -303,6 +303,55 @@ Le programme d'habillage, livré (<span class="tt">LOT-40</span> → <span class
 </ul>
 <p><span class="tt">LOT-53</span> (effets et particules, décrit plus haut dans cette page) n'appartient pas à ce programme d'habillage : indépendant de <span class="tt">LOT-55</span> (aucun des deux ne dépend de l'autre), c'est un effort distinct qui <b>bâtit sur</b> le personnage et le décor texturés plutôt que d'en faire partie.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md217"></a>
+Budget de rendu mesuré (<span class="tt">LOT-62</span>)</h1>
+<p><span class="tt">EX-NFR-005</span> demande que le nombre de primitives émises par image reste <b>borné et observable</b> ; <span class="tt">EX-NFR-001</span> demande <b>60 images par seconde</b>. Les deux exigences existaient depuis les premiers lots du rendu, sans jamais avoir de moyen de vérification. <span class="tt">LOT-62</span> leur en donne un — sans optimiser quoi que ce soit : ce lot <b>mesure</b>.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md218"></a>
+Le test de non-régression du volume (<span class="tt">Source/Test/Unit/HMI/Graphics/test_render_budget.cpp</span>)</h2>
+<p>Pour chaque niveau livré (les quinze fichiers de <span class="tt">Source/Elements/Levels/sequence-demo.json</span>), le test reconstruit exactement la scène que <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> composerait — tuiles, décors, personnage à l'entrée, caméra cadrée sur la salle de l'entrée — et compare les compteurs de <span class="tt"><a class="el" href="classhmi_1_1ComposedScene.html#a43dde3d9e70aac31ab47a430e516124d">hmi::ComposedScene::statistics()</a></span> à un <b>plafond nommé</b>, dans les deux modes de rendu (le mode Texture, structurellement plus lourd, est celui qui dérive). Le culling est asserté séparément sur <span class="tt">demo-salles</span> (au moins la moitié des primitives écartées) : une borne haute sur le total ne dit pas si le culling fonctionne, une borne basse sur ce qu'il écarte, si.</p>
+<p><b>Faire évoluer un plafond légitimement</b> : un lot de contenu qui ajoute un calque, agrandit un niveau livré, ou change sa salle d'entrée peut légitimement faire grimper les compteurs mesurés. Dans ce cas, relever les nouvelles valeurs (<span class="tt">ctest</span> affiche <span class="tt">considered</span>/<span class="tt">submitted</span> réels dans le message d'échec, ventilés par calque via <span class="tt"><a class="el" href="classhmi_1_1QuadRecorder.html#af96b37a9440c9b0bb60437cbbdc30732" title="Résumé lisible de la capture, à joindre au message d&#39;échec d&#39;une assertion.">hmi::QuadRecorder::describe</a></span>) et choisir un plafond <b>large</b> au-dessus — de l'ordre de 1,5 à 2 fois la valeur mesurée, pour continuer à attraper un facteur deux accidentel sans transformer chaque lot de contenu en mise à jour de constante. <b>Ajuster un plafond pour faire passer un test sans avoir compris pourquoi il a été dépassé est exactement ce qu'il ne faut pas faire</b> : un dépassement est un résultat, il se consigne (voir tableau de référence ci-dessous) avant de se corriger, jamais pendant.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md219"></a>
+Mesures de référence, à la date du <span class="tt">LOT-62</span> (2026-08-12)</h2>
+<p>Composées avec <span class="tt"><a class="el" href="test__render__budget_8cpp.html" title="Test de non-régression du volume de primitives et de l&#39;efficacité du culling (LOT-62 TACHE-01,...">test_render_budget.cpp</a></span>, caméra cadrée sur la salle d'entrée, sans skins chargés (tout retombe sur l'atlas procédural en Physique ou le damier en Texture — sans effet sur le <em>volume</em>, seule chose mesurée ici) :</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Niveau  </th><th class="markdownTableHeadCenter">Physique (composées / soumises)  </th><th class="markdownTableHeadCenter">Texture (composées / soumises)  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">demo-deplacement.json</span>  </td><td class="markdownTableBodyCenter">48 / 48  </td><td class="markdownTableBodyCenter">90 / 90  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">demo-saut.json</span>  </td><td class="markdownTableBodyCenter">44 / 44  </td><td class="markdownTableBodyCenter">85 / 85  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">demo-double-saut.json</span>  </td><td class="markdownTableBodyCenter">39 / 39  </td><td class="markdownTableBodyCenter">71 / 71  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">demo-wall-jump.json</span>  </td><td class="markdownTableBodyCenter">25 / 25  </td><td class="markdownTableBodyCenter">47 / 47  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">demo-dash.json</span>  </td><td class="markdownTableBodyCenter">43 / 43  </td><td class="markdownTableBodyCenter">82 / 82  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">demo-interrupteur.json</span>  </td><td class="markdownTableBodyCenter">33 / 33  </td><td class="markdownTableBodyCenter">61 / 61  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">demo-plaque-pression.json</span>  </td><td class="markdownTableBodyCenter">34 / 34  </td><td class="markdownTableBodyCenter">63 / 63  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">demo-bloc.json</span>  </td><td class="markdownTableBodyCenter">40 / 40  </td><td class="markdownTableBodyCenter">73 / 73  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">demo-budget.json</span>  </td><td class="markdownTableBodyCenter">31 / 31  </td><td class="markdownTableBodyCenter">59 / 59  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">demo-pente.json</span>  </td><td class="markdownTableBodyCenter">31 / 31  </td><td class="markdownTableBodyCenter">59 / 59  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">demo-arrondi.json</span>  </td><td class="markdownTableBodyCenter">31 / 31  </td><td class="markdownTableBodyCenter">59 / 59  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">demo-bloc-reduit.json</span>  </td><td class="markdownTableBodyCenter">34 / 34  </td><td class="markdownTableBodyCenter">65 / 65  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">demo-dangers-avances.json</span>  </td><td class="markdownTableBodyCenter">52 / 52  </td><td class="markdownTableBodyCenter">96 / 96  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">demo-final.json</span>  </td><td class="markdownTableBodyCenter">68 / 46  </td><td class="markdownTableBodyCenter">128 / 89  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">demo-salles.json</span>  </td><td class="markdownTableBodyCenter">241 / 86  </td><td class="markdownTableBodyCenter">479 / 170  </td></tr>
+</table>
+<p><span class="tt">demo-final</span> et <span class="tt">demo-salles</span> sont les deux seuls niveaux livrés dépassant une salle (<span class="tt"><a class="el" href="classhmi_1_1RoomGrid.html#a3641300883e783d130eb0d100e049ef6" title="Largeur d&#39;une salle, en cases (EX-REN-015).">hmi::RoomGrid::ROOM_WIDTH_TILES</a></span> × <span class="tt">ROOM_HEIGHT_TILES</span>) : c'est là que le culling écarte une fraction significative des primitives composées (respectivement 32 % et 64 % en mode Texture). Chaque autre niveau livré tient dans sa salle d'entrée sans reste : aucune primitive n'y est jamais écartée.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md220"></a>
+Compteur de diagnostic en jeu (<span class="tt">F9</span>)</h2>
+<p><span class="tt">hmi::DiagnosticsHud</span> (<span class="tt">Source/HMI/Game/DiagnosticsHud.{h,cpp}</span>) compose quatre lignes — cadence de rendu (moyenne glissante sur <span class="tt">DIAGNOSTICS_FPS_WINDOW_SECONDS</span>, jamais une cadence instantanée, illisible d'une image à l'autre), primitives composées/soumises, passes de dessin, et pas de simulation consommés à la dernière image (une boucle qui rattrape s'y voit immédiatement) — sur le patron de <span class="tt"><a class="el" href="namespacehmi.html#a8a1c52dc217e915a1ebbd5ec209037d9" title="Lignes à afficher pour l&#39;affichage tête haute d&#39;un pas de simulation donné.">hmi::gameHudLines</a></span> (<span class="tt">LOT-52</span>) : composition <b>pure</b>, testée sans rendu (<span class="tt"><a class="el" href="test__diagnostics__hud_8cpp.html" title="Tests unitaires de la moyenne glissante de cadence et du choix de contenu du compteur de diagnostic (...">Source/Test/Unit/HMI/Game/test_diagnostics_hud.cpp</a></span>), dessinée par le même <span class="tt">hmi::TextRenderer</span> que le HUD de jeu, coin haut-**droit** pour ne jamais recouvrir les budgets de sauts/dashs (coin haut-gauche). Activé par <b><span class="tt">F9</span></b>, touche dédiée non remappable comme <span class="tt">F8</span> (bascule de rendu), désactivée par défaut et sans coût quand elle l'est (rien n'est mesuré tant qu'elle n'est pas activée).</p>
+<p><span class="tt">EX-NFR-001</span> (60 images par seconde) reste <b>hors de portée d'un contrôle automatique</b> : la cadence dépend de la machine, une machine virtuelle partagée ne la mesure pas de façon reproductible (cf. <span class="tt">epic.md</span>, décisions de cadrage). <span class="tt">F9</span> sur <span class="tt">demo-salles</span> — le niveau livré le plus lourd, 480 primitives composées en mode Texture avant culling — est le moyen de l'observer soi-même sur sa propre machine de développement ; c'est tout ce que ce lot automatise pour elle.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md221"></a>
 Voir aussi</h1>
 <ul>
 <li><span class="tt"><a class="el" href="classhmi_1_1GraphicsDevice.html" title="Encapsule le device Direct3D 11, sa swap chain et la cible de rendu (RAII).">hmi::GraphicsDevice</a></span>, <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">hmi::GameViewport</a></span>, <span class="tt"><a class="el" href="classhmi_1_1Camera2D.html" title="Caméra 2D orthographique : projette le monde vers l&#39;écran pour le rendu.">hmi::Camera2D</a></span>.</li>

@@ -93,9 +93,9 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>1021 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>1034 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (929)</h1>
+Tests unitaires (942)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p><b><span class="tt"><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></span></b></p>
@@ -3767,7 +3767,56 @@ Vérifie que <span class="tt">subgroup.label.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">entry.label.empty()</span> est faux.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
-Game (35)</h3>
+Game (44)</h3>
+<p><b><span class="tt"><a class="el" href="test__diagnostics__hud_8cpp.html" title="Tests unitaires de la moyenne glissante de cadence et du choix de contenu du compteur de diagnostic (...">test_diagnostics_hud.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>FrameRateAverageTest.SansEchantillonLaCadenceVautZero</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__diagnostics__hud_8cpp.html" title="Tests unitaires de la moyenne glissante de cadence et du choix de contenu du compteur de diagnostic (...">Source/Test/Unit/HMI/Game/test_diagnostics_hud.cpp</a>:30</span></sub>  </td><td class="markdownTableBodyNone">Sans echantillon, la cadence moyenne vaut zero.  </td><td class="markdownTableBodyNone">1. Construire une moyenne glissante neuve.<br  />
+2. Lire la cadence.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">average.framesPerSecond()</span> vaut <span class="tt">0.0f</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>FrameRateAverageTest.CadenceStableConvergeVersLInverseDeLaDureeDImage</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__diagnostics__hud_8cpp.html" title="Tests unitaires de la moyenne glissante de cadence et du choix de contenu du compteur de diagnostic (...">Source/Test/Unit/HMI/Game/test_diagnostics_hud.cpp</a>:44</span></sub>  </td><td class="markdownTableBodyNone">Une cadence stable converge vers l'inverse de la duree d'image.  </td><td class="markdownTableBodyNone">1. Ajouter de nombreux echantillons de 1/60 seconde.<br  />
+2. Lire la cadence moyenne.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">average.framesPerSecond()</span> vaut <span class="tt">60.0f</span>, à <span class="tt">0.5f</span> près.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>FrameRateAverageTest.MoyenneExacteSurUneSuiteDeDureesConnues</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__diagnostics__hud_8cpp.html" title="Tests unitaires de la moyenne glissante de cadence et du choix de contenu du compteur de diagnostic (...">Source/Test/Unit/HMI/Game/test_diagnostics_hud.cpp</a>:63</span></sub>  </td><td class="markdownTableBodyNone">La moyenne glissante est exacte sur une suite de durees connues.  </td><td class="markdownTableBodyNone">1. Ajouter trois echantillons de 0,1 seconde (0,3s &lt; fenetre).<br  />
+2. Lire la cadence.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">average.framesPerSecond()</span> vaut <span class="tt">10.0f</span>, à <span class="tt">1e-3f</span> près.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>FrameRateAverageTest.RafaleAncienneSortDeLaFenetre</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__diagnostics__hud_8cpp.html" title="Tests unitaires de la moyenne glissante de cadence et du choix de contenu du compteur de diagnostic (...">Source/Test/Unit/HMI/Game/test_diagnostics_hud.cpp</a>:82</span></sub>  </td><td class="markdownTableBodyNone">Une rafale ancienne sort de la fenetre et n'influence plus la moyenne.  </td><td class="markdownTableBodyNone">1. Ajouter une image tres lente (1 seconde).<br  />
+2. Ajouter ensuite de nombreuses images rapides (1/120 seconde) jusqu'a largement depasser la fenetre.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">average.framesPerSecond()</span> vaut <span class="tt">120.0f</span>, à <span class="tt">1.0f</span> près.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>FrameRateAverageTest.ResetOublieTousLesEchantillons</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__diagnostics__hud_8cpp.html" title="Tests unitaires de la moyenne glissante de cadence et du choix de contenu du compteur de diagnostic (...">Source/Test/Unit/HMI/Game/test_diagnostics_hud.cpp</a>:102</span></sub>  </td><td class="markdownTableBodyNone">reset oublie tous les echantillons accumules.  </td><td class="markdownTableBodyNone">1. Ajouter des echantillons.<br  />
+2. Appeler reset.<br  />
+3. Lire la cadence.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">average.framesPerSecond()</span> est strictement supérieur à <span class="tt">0.0f</span>.<br  />
+Vérifie que <span class="tt">average.framesPerSecond()</span> vaut <span class="tt">0.0f</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>FrameRateAverageTest.DureeNulleOuNegativeEstIgnoree</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__diagnostics__hud_8cpp.html" title="Tests unitaires de la moyenne glissante de cadence et du choix de contenu du compteur de diagnostic (...">Source/Test/Unit/HMI/Game/test_diagnostics_hud.cpp</a>:123</span></sub>  </td><td class="markdownTableBodyNone">Une duree nulle ou negative est ignoree.  </td><td class="markdownTableBodyNone">1. Ajouter un echantillon negatif puis nul sur une moyenne neuve.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">average.framesPerSecond()</span> vaut <span class="tt">0.0f</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>DiagnosticsHudTest.MesuresConnuesProduisentLesQuatreLignesAttendues</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__diagnostics__hud_8cpp.html" title="Tests unitaires de la moyenne glissante de cadence et du choix de contenu du compteur de diagnostic (...">Source/Test/Unit/HMI/Game/test_diagnostics_hud.cpp</a>:139</span></sub>  </td><td class="markdownTableBodyNone">Des valeurs mesurees produisent les quatre lignes attendues.  </td><td class="markdownTableBodyNone">1. Composer les lignes a partir de mesures connues.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">lines.size()</span> vaut <span class="tt">4u</span>.<br  />
+Vérifie que <span class="tt">lines[0]</span> vaut <span class="tt">"Images/s : 59.6"</span>.<br  />
+Vérifie que <span class="tt">lines[1]</span> vaut <span class="tt">"Primitives : 128 composees / 96 soumises"</span>.<br  />
+Vérifie que <span class="tt">lines[2]</span> vaut <span class="tt">"Passes : 5"</span>.<br  />
+Vérifie que <span class="tt">lines[3]</span> vaut <span class="tt">"Pas de simulation : 1"</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>DiagnosticsHudTest.AucuneImageMesureeProduitDesLignesValides</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__diagnostics__hud_8cpp.html" title="Tests unitaires de la moyenne glissante de cadence et du choix de contenu du compteur de diagnostic (...">Source/Test/Unit/HMI/Game/test_diagnostics_hud.cpp</a>:169</span></sub>  </td><td class="markdownTableBodyNone">Aucune image mesuree produit des lignes valides.  </td><td class="markdownTableBodyNone">1. Composer les lignes a partir de mesures toutes nulles (etat de depart).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">lines.size()</span> vaut <span class="tt">4u</span>.<br  />
+Vérifie que <span class="tt">lines[0]</span> vaut <span class="tt">"Images/s : 0.0"</span>.<br  />
+Vérifie que <span class="tt">lines[1]</span> vaut <span class="tt">"Primitives : 0 composees / 0 soumises"</span>.<br  />
+Vérifie que <span class="tt">lines[2]</span> vaut <span class="tt">"Passes : 0"</span>.<br  />
+Vérifie que <span class="tt">lines[3]</span> vaut <span class="tt">"Pas de simulation : 0"</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>DiagnosticsHudTest.ClesDeTraductionExistentDansLesDeuxCatalogues</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__diagnostics__hud_8cpp.html" title="Tests unitaires de la moyenne glissante de cadence et du choix de contenu du compteur de diagnostic (...">Source/Test/Unit/HMI/Game/test_diagnostics_hud.cpp</a>:192</span></sub>  </td><td class="markdownTableBodyNone">Les cles de traduction du compteur existent dans les deux catalogues livres.  </td><td class="markdownTableBodyNone">1. Charger fr.lang puis en.lang depuis les catalogues livres.<br  />
+2. Resoudre les cles du compteur de diagnostic.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">localization.loadDefaultLanguage(language)</span> est vrai.<br  />
+Vérifie que <span class="tt">localization.text(key)</span> diffère de <span class="tt">key</span>.  </td></tr>
+</table>
 <p><b><span class="tt"><a class="el" href="test__game__events_8cpp.html" title="Tests unitaires de la détection d&#39;événements de jeu (LOT-60, EX-REN-047).">test_game_events.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -3955,7 +4004,7 @@ Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9a410292879
 2. Interroger <span class="tt">isLevelUnlocked</span> pour un tableau loin dans la séquence.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">hmi::isLevelUnlocked</a>(progression, FIVE_LEVEL_SEQUENCE, "demo-dash.json")</span> est faux.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
-Graphics (252)</h3>
+Graphics (256)</h3>
 <p><b><span class="tt"><a class="el" href="test__animated__tiles_8cpp.html" title="Tests unitaires des tuiles animées (LOT-46 TACHE-05) : horloge partagée par asset,...">test_animated_tiles.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4885,6 +4934,33 @@ Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a636da1d35e805b00eae0fcd8333f9234" title="Personnage joueur.">hmi::RenderLayer::Player</a></span> est strictement inférieur à <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a45bd1d5b32931106efbf1a82fe6a732f" title="Décors de premier plan, dessinés par-dessus le personnage (LOT-49, EX-DEC-002).">hmi::RenderLayer::Foreground</a></span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a45bd1d5b32931106efbf1a82fe6a732f" title="Décors de premier plan, dessinés par-dessus le personnage (LOT-49, EX-DEC-002).">hmi::RenderLayer::Foreground</a></span> est strictement inférieur à <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a71ff71526d15db86eb50fcac245d183b" title="Texte et interface en scène (LOT-52, EX-REN-031).">hmi::RenderLayer::UI</a></span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a71ff71526d15db86eb50fcac245d183b" title="Texte et interface en scène (LOT-52, EX-REN-031).">hmi::RenderLayer::UI</a></span> est strictement inférieur à <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a94f3616c83f30ab5a328e602bbb7d751" title="Aides d&#39;édition : grille de repère, liens de mécanismes, aperçu de sélection.">hmi::RenderLayer::EditorOverlay</a></span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__render__budget_8cpp.html" title="Test de non-régression du volume de primitives et de l&#39;efficacité du culling (LOT-62 TACHE-01,...">test_render_budget.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>RenderBudgetTest.ChaqueNiveauLivreResteSousSonPlafond</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__render__budget_8cpp.html" title="Test de non-régression du volume de primitives et de l&#39;efficacité du culling (LOT-62 TACHE-01,...">Source/Test/Unit/HMI/Graphics/test_render_budget.cpp</a>:210</span></sub>  </td><td class="markdownTableBodyNone">Chaque niveau livre reste sous son plafond, dans les deux modes de rendu.  </td><td class="markdownTableBodyNone">1. Charger chaque niveau livre.<br  />
+2. Composer sa scene sur la salle d'entree, en mode Physique puis Texture.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">stats.considered</span> est inférieur ou égal à <span class="tt">budget.consideredCeiling</span>.<br  />
+Vérifie que <span class="tt">stats.submitted</span> est inférieur ou égal à <span class="tt">budget.submittedCeiling</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>RenderBudgetTest.CalqueComposeDeuxFoisDepasseLePlafond</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__render__budget_8cpp.html" title="Test de non-régression du volume de primitives et de l&#39;efficacité du culling (LOT-62 TACHE-01,...">Source/Test/Unit/HMI/Graphics/test_render_budget.cpp</a>:253</span></sub>  </td><td class="markdownTableBodyNone">Composer un calque deux fois depasse le plafond du niveau.  </td><td class="markdownTableBodyNone">1. Composer normalement demo-deplacement en mode Texture.<br  />
+2. Composer une seconde fois dans la meme scene (double emission).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">singleSubmitted</span> est inférieur ou égal à <span class="tt">budget.submittedCeiling</span>.<br  />
+Vérifie que <span class="tt">doubledSubmitted</span> vaut <span class="tt">singleSubmitted * 2</span>.<br  />
+Vérifie que <span class="tt">doubledSubmitted</span> est strictement supérieur à <span class="tt">budget.submittedCeiling</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>RenderBudgetTest.CullingEcarteUneFractionSignificativeSurUnGrandNiveau</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__render__budget_8cpp.html" title="Test de non-régression du volume de primitives et de l&#39;efficacité du culling (LOT-62 TACHE-01,...">Source/Test/Unit/HMI/Graphics/test_render_budget.cpp</a>:290</span></sub>  </td><td class="markdownTableBodyNone">Le culling ecarte une fraction significative sur un grand niveau.  </td><td class="markdownTableBodyNone">1. Charger demo-salles (plusieurs salles).<br  />
+2. Composer sa scene sur la salle d'entree, en mode Texture.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">stats.considered</span> est strictement supérieur à <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">culledFraction</span> est supérieur ou égal à <span class="tt">MINIMUM_CULLED_FRACTION</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>RenderBudgetTest.DeuxCompositionsDeLaMemeSceneDonnentLeMemeVolume</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__render__budget_8cpp.html" title="Test de non-régression du volume de primitives et de l&#39;efficacité du culling (LOT-62 TACHE-01,...">Source/Test/Unit/HMI/Graphics/test_render_budget.cpp</a>:319</span></sub>  </td><td class="markdownTableBodyNone">Deux compositions de la meme scene donnent le meme volume.  </td><td class="markdownTableBodyNone">1. Composer deux fois la scene de demo-salles, en mode Texture.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">first.statistics().considered</span> vaut <span class="tt">second.statistics().considered</span>.<br  />
+Vérifie que <span class="tt">first.statistics().culled</span> vaut <span class="tt">second.statistics().culled</span>.<br  />
+Vérifie que <span class="tt">first.statistics().submitted</span> vaut <span class="tt">second.statistics().submitted</span>.<br  />
+Vérifie que <span class="tt">first.statistics().batches</span> vaut <span class="tt">second.statistics().batches</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__render__culling_8cpp.html" title="Tests unitaires du culling par cadrage caméra (LOT-40, EX-NFR-005, EX-REN-015).">test_render_culling.cpp</a></span></b></p>
 <table class="markdownTable">

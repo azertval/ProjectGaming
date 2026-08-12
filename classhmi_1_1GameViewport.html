@@ -185,6 +185,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a4e56de8b6d247c368e7ae8d37b7cf9b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réinitialise le cadrage manuel au cadrage automatique (touche <span class="tt">0</span>).  <br /></td></tr>
 <tr class="memitem:a724dc8e925c0167dbac0224249d6f3fb" id="r_a724dc8e925c0167dbac0224249d6f3fb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a724dc8e925c0167dbac0224249d6f3fb">toggleRenderMode</a> ()</td></tr>
 <tr class="memdesc:a724dc8e925c0167dbac0224249d6f3fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bascule le mode de rendu Physique/Texture (<span class="tt">F8</span>, <span class="tt">EX-REN-046</span>) ; actif en édition, en essai et en jeu réel (LOT-56 TACHE-04 : seule commande jamais désactivée par le mode courant).  <br /></td></tr>
+<tr class="memitem:adf120d3bee60d68392dc6c1d3bd1e626" id="r_adf120d3bee60d68392dc6c1d3bd1e626"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adf120d3bee60d68392dc6c1d3bd1e626">toggleDiagnosticsOverlay</a> () noexcept</td></tr>
+<tr class="memdesc:adf120d3bee60d68392dc6c1d3bd1e626"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bascule le compteur de diagnostic (cadence, primitives, passes, pas de simulation ; <span class="tt">F9</span>, <span class="tt">LOT-62</span> TACHE-02, <span class="tt">EX-NFR-001</span>/<span class="tt">EX-NFR-005</span>).  <br /></td></tr>
 <tr class="memitem:a9f91ee29d551621f64b5cc826d41db57" id="r_a9f91ee29d551621f64b5cc826d41db57"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9f91ee29d551621f64b5cc826d41db57">startGame</a> (std::vector&lt; std::filesystem::path &gt; levels, std::size_t startIndex=0)</td></tr>
 <tr class="memdesc:a9f91ee29d551621f64b5cc826d41db57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lance le <b>jeu</b> : joue la séquence de niveaux <code class="param">levels</code>, à partir de <code class="param">startIndex</code> (0 = depuis le début ; « Continuer »/sélection de niveau, <span class="tt">LOT-59</span> TACHE-06, reprennent plus loin).  <br /></td></tr>
 <tr class="memitem:afe2eacdf273a7c4a371040605e8ab9ea" id="r_afe2eacdf273a7c4a371040605e8ab9ea"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afe2eacdf273a7c4a371040605e8ab9ea">pauseSimulation</a> () noexcept</td></tr>
@@ -280,6 +282,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a9ffcd8a18e982d581b30126ab08407fd" id="r_a9ffcd8a18e982d581b30126ab08407fd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9ffcd8a18e982d581b30126ab08407fd">tick</a> ()</td></tr>
 <tr class="memitem:acabefda16573458d0d6d86bd29b400e4" id="r_acabefda16573458d0d6d86bd29b400e4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acabefda16573458d0d6d86bd29b400e4">renderFrame</a> (float deltaSeconds=0.0f)</td></tr>
 <tr class="memdesc:acabefda16573458d0d6d86bd29b400e4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code class="param">deltaSeconds</code> : temps réel écoulé depuis l'image précédente (LOT-46 TACHE-05, avance l'aperçu des tuiles animées de l'éditeur) ; <span class="tt">0</span> (défaut) pour un redessin sans avancer l'aperçu (redimensionnement).  <br /></td></tr>
+<tr class="memitem:a740b15fef3dea457881dafea9e533187" id="r_a740b15fef3dea457881dafea9e533187"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a740b15fef3dea457881dafea9e533187">renderDiagnosticsOverlay</a> (int viewportWidth, int viewportHeight)</td></tr>
+<tr class="memdesc:a740b15fef3dea457881dafea9e533187"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose et soumet le compteur de diagnostic (<span class="tt">LOT-62</span> TACHE-02), coin haut-droit de l'écran &ndash; sans effet si désactivé, hors session, ou avant que la localisation ne soit chargée (<span class="tt">EX-NFR-040</span>, coût nul quand éteint : rien n'est calculé au-delà du test d'entrée).  <br /></td></tr>
 <tr class="memitem:ae0c7a5dd8a430f39cbc0fbd1e200a574" id="r_ae0c7a5dd8a430f39cbc0fbd1e200a574"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae0c7a5dd8a430f39cbc0fbd1e200a574">stopPlaytest</a> ()</td></tr>
 <tr class="memdesc:ae0c7a5dd8a430f39cbc0fbd1e200a574"><td class="mdescLeft">&#160;</td><td class="mdescRight">Termine l'essai et restitue l'éditeur (brouillon intact).  <br /></td></tr>
 <tr class="memitem:ae1a38ed54a427056246e325402516f72" id="r_ae1a38ed54a427056246e325402516f72"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae1a38ed54a427056246e325402516f72">loadGameLevel</a> (std::size_t index)</td></tr>
@@ -357,6 +361,14 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a801d3afa491e3af6eabdb4cb62e2fc0b" id="r_a801d3afa491e3af6eabdb4cb62e2fc0b"><td class="memItemLeft"><a class="el" href="classcore_1_1FixedTimestep.html">core::FixedTimestep</a>&#160;</td><td class="memItemRight"><a class="el" href="#a801d3afa491e3af6eabdb4cb62e2fc0b">_timestep</a></td></tr>
 <tr class="memitem:a3fc8dc73d01e346896da05e3e0644750" id="r_a3fc8dc73d01e346896da05e3e0644750"><td class="memItemLeft">Clock::time_point&#160;</td><td class="memItemRight"><a class="el" href="#a3fc8dc73d01e346896da05e3e0644750">_previousFrame</a></td></tr>
 <tr class="memitem:a0ca76db775aeffb827ad59bbffae05c9" id="r_a0ca76db775aeffb827ad59bbffae05c9"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0ca76db775aeffb827ad59bbffae05c9">_loopStarted</a> = false</td></tr>
+<tr class="memitem:a0c50142a61c2823731332c95c587e3ae" id="r_a0c50142a61c2823731332c95c587e3ae"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0c50142a61c2823731332c95c587e3ae">_diagnosticsEnabled</a> = false</td></tr>
+<tr class="memdesc:a0c50142a61c2823731332c95c587e3ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compteur de diagnostic (<span class="tt">F9</span>, <span class="tt">LOT-62</span> TACHE-02) : désactivé par défaut (<span class="tt">EX-NFR-040</span>, point de départ sans effet visuel ni coût).  <br /></td></tr>
+<tr class="memitem:ae7cbee33340359aeea915deb28375c38" id="r_ae7cbee33340359aeea915deb28375c38"><td class="memItemLeft"><a class="el" href="classhmi_1_1FrameRateAverage.html">hmi::FrameRateAverage</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae7cbee33340359aeea915deb28375c38">_frameRateAverage</a></td></tr>
+<tr class="memdesc:ae7cbee33340359aeea915deb28375c38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moyenne glissante de la cadence de rendu, alimentée uniquement quand <span class="tt"><a class="el" href="#a0c50142a61c2823731332c95c587e3ae" title="Compteur de diagnostic (F9, LOT-62 TACHE-02) : désactivé par défaut (EX-NFR-040, point de départ sans...">_diagnosticsEnabled</a></span> est vrai (rien n'est calculé quand l'affichage est éteint).  <br /></td></tr>
+<tr class="memitem:a9f45d7a136c288d135d46834cbe9f2c9" id="r_a9f45d7a136c288d135d46834cbe9f2c9"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a9f45d7a136c288d135d46834cbe9f2c9">_lastSimulationSteps</a> = 0</td></tr>
+<tr class="memdesc:a9f45d7a136c288d135d46834cbe9f2c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de pas de simulation consommés au dernier <span class="tt"><a class="el" href="#a9ffcd8a18e982d581b30126ab08407fd">tick()</a></span> &ndash; distinct de la cadence de rendu depuis le <span class="tt">LOT-33</span> (<span class="tt"><a class="el" href="structhmi_1_1DiagnosticsMeasurements.html#a0676efd9a3bc7443d2ff90d30e376225" title="Nombre de pas de simulation consommés à la dernière image (core::FixedTimestep::advance) : révèle imm...">hmi::DiagnosticsMeasurements::simulationSteps</a></span>).  <br /></td></tr>
+<tr class="memitem:abdcf9746af0d898a6ee2d585037af537" id="r_abdcf9746af0d898a6ee2d585037af537"><td class="memItemLeft"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a>&#160;</td><td class="memItemRight"><a class="el" href="#abdcf9746af0d898a6ee2d585037af537">_diagnosticsScene</a></td></tr>
+<tr class="memdesc:abdcf9746af0d898a6ee2d585037af537"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scène dédiée du compteur de diagnostic, jamais partagée avec <span class="tt"><a class="el" href="#aff4b0205eeb55f40afa51e0b0788ba08" title="Session de jeu de l&#39;essai immédiat ; nulle en mode édition (essai ajouté au LOT-35 TACHE-04).">_session</a></span> (dont le HUD de jeu vit dans sa propre scène) ni avec le brouillon d'édition &ndash; même isolement que le texte de <span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a7600fad72568c7816ca4c523d1b7cac7" title="Compose et soumet l&#39;affichage tête haute (budgets, nom du tableau), en espace écran,...">hmi::GameSession::renderHud</a></span> (<span class="tt">LOT-52</span>).  <br /></td></tr>
 <tr class="memitem:a0965909558a6381fb2a51b90605b2320" id="r_a0965909558a6381fb2a51b90605b2320"><td class="memItemLeft"><a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0965909558a6381fb2a51b90605b2320">_draft</a></td></tr>
 <tr class="memdesc:a0965909558a6381fb2a51b90605b2320"><td class="mdescLeft">&#160;</td><td class="mdescRight">Brouillon en cours d'édition (source de vérité).  <br /></td></tr>
 <tr class="memitem:a2782bf43e96eb616154febf6f247267b" id="r_a2782bf43e96eb616154febf6f247267b"><td class="memItemLeft"><a class="el" href="classhmi_1_1Camera2D.html">hmi::Camera2D</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2782bf43e96eb616154febf6f247267b">_camera</a></td></tr>
@@ -2341,6 +2353,37 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
+<a id="a740b15fef3dea457881dafea9e533187" name="a740b15fef3dea457881dafea9e533187"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a740b15fef3dea457881dafea9e533187">&#9670;&#160;</a></span>renderDiagnosticsOverlay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::renderDiagnosticsOverlay </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>viewportWidth</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>viewportHeight</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compose et soumet le compteur de diagnostic (<span class="tt">LOT-62</span> TACHE-02), coin haut-droit de l'écran &ndash; sans effet si désactivé, hors session, ou avant que la localisation ne soit chargée (<span class="tt">EX-NFR-040</span>, coût nul quand éteint : rien n'est calculé au-delà du test d'entrée). </p>
+
+</div>
+</div>
 <a id="acabefda16573458d0d6d86bd29b400e4" name="acabefda16573458d0d6d86bd29b400e4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acabefda16573458d0d6d86bd29b400e4">&#9670;&#160;</a></span>renderFrame()</h2>
 
@@ -3339,6 +3382,34 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
+<a id="adf120d3bee60d68392dc6c1d3bd1e626" name="adf120d3bee60d68392dc6c1d3bd1e626"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf120d3bee60d68392dc6c1d3bd1e626">&#9670;&#160;</a></span>toggleDiagnosticsOverlay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::toggleDiagnosticsOverlay </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bascule le compteur de diagnostic (cadence, primitives, passes, pas de simulation ; <span class="tt">F9</span>, <span class="tt">LOT-62</span> TACHE-02, <span class="tt">EX-NFR-001</span>/<span class="tt">EX-NFR-005</span>). </p>
+<p>Touche dédiée <b>non remappable</b>, même statut que <span class="tt">F8</span> (<span class="tt"><a class="el" href="#a724dc8e925c0167dbac0224249d6f3fb" title="Bascule le mode de rendu Physique/Texture (F8, EX-REN-046) ; actif en édition, en essai et en jeu rée...">toggleRenderMode</a></span>) : désactivé par défaut, sans effet sur la simulation (<span class="tt">EX-ARCH-012</span>). La fenêtre de mesure de cadence repart de zéro à chaque activation (<span class="tt"><a class="el" href="classhmi_1_1FrameRateAverage.html#ad263b33841646013a503fb2e4d7e47ca" title="Oublie tous les échantillons (bascule affichage éteint → allumé, TACHE-02 : repartir d&#39;une fenêtre vi...">hmi::FrameRateAverage::reset</a></span>) plutôt que de mélanger un temps accumulé pendant que rien n'était mesuré. </p>
+
+</div>
+</div>
 <a id="a40aa119bc6b5b56d6ebf8a2adc27f88e" name="a40aa119bc6b5b56d6ebf8a2adc27f88e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a40aa119bc6b5b56d6ebf8a2adc27f88e">&#9670;&#160;</a></span>toggleGrid()</h2>
 
@@ -3961,6 +4032,54 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
+<a id="a0c50142a61c2823731332c95c587e3ae" name="a0c50142a61c2823731332c95c587e3ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c50142a61c2823731332c95c587e3ae">&#9670;&#160;</a></span>_diagnosticsEnabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::GameViewport::_diagnosticsEnabled = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compteur de diagnostic (<span class="tt">F9</span>, <span class="tt">LOT-62</span> TACHE-02) : désactivé par défaut (<span class="tt">EX-NFR-040</span>, point de départ sans effet visuel ni coût). </p>
+
+</div>
+</div>
+<a id="abdcf9746af0d898a6ee2d585037af537" name="abdcf9746af0d898a6ee2d585037af537"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdcf9746af0d898a6ee2d585037af537">&#9670;&#160;</a></span>_diagnosticsScene</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a> hmi::GameViewport::_diagnosticsScene</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Scène dédiée du compteur de diagnostic, jamais partagée avec <span class="tt"><a class="el" href="#aff4b0205eeb55f40afa51e0b0788ba08" title="Session de jeu de l&#39;essai immédiat ; nulle en mode édition (essai ajouté au LOT-35 TACHE-04).">_session</a></span> (dont le HUD de jeu vit dans sa propre scène) ni avec le brouillon d'édition &ndash; même isolement que le texte de <span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a7600fad72568c7816ca4c523d1b7cac7" title="Compose et soumet l&#39;affichage tête haute (budgets, nom du tableau), en espace écran,...">hmi::GameSession::renderHud</a></span> (<span class="tt">LOT-52</span>). </p>
+
+</div>
+</div>
 <a id="a62199be6d416e126151236adb24da5a5" name="a62199be6d416e126151236adb24da5a5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a62199be6d416e126151236adb24da5a5">&#9670;&#160;</a></span>_dirty</h2>
 
@@ -4148,6 +4267,30 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div><div class="memdoc">
 
 <p>Police bitmap de l'affichage tête haute (<span class="tt">LOT-52</span>), chargée une fois au démarrage comme <span class="tt"><a class="el" href="#a59a93eb0995d3ebd1f0547b569ff0b9c">_atlas</a></span> (pas de rechargement à chaud). </p>
+
+</div>
+</div>
+<a id="ae7cbee33340359aeea915deb28375c38" name="ae7cbee33340359aeea915deb28375c38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7cbee33340359aeea915deb28375c38">&#9670;&#160;</a></span>_frameRateAverage</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1FrameRateAverage.html">hmi::FrameRateAverage</a> hmi::GameViewport::_frameRateAverage</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Moyenne glissante de la cadence de rendu, alimentée uniquement quand <span class="tt"><a class="el" href="#a0c50142a61c2823731332c95c587e3ae" title="Compteur de diagnostic (F9, LOT-62 TACHE-02) : désactivé par défaut (EX-NFR-040, point de départ sans...">_diagnosticsEnabled</a></span> est vrai (rien n'est calculé quand l'affichage est éteint). </p>
 
 </div>
 </div>
@@ -4404,6 +4547,30 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 <div class="line">0.0f</div>
 </div><!-- fragment -->
 <p>Dernier zoom notifié (<span class="tt"><a class="el" href="#a30636eb8e2e7cd9e0b6100c3b7831964" title="Le zoom d&#39;édition vient de changer (molette, pan, recadrage) — consommé par la barre d&#39;état (LOT-57 T...">zoomChanged</a></span>), évite l'émission en boucle. </p>
+
+</div>
+</div>
+<a id="a9f45d7a136c288d135d46834cbe9f2c9" name="a9f45d7a136c288d135d46834cbe9f2c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f45d7a136c288d135d46834cbe9f2c9">&#9670;&#160;</a></span>_lastSimulationSteps</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::GameViewport::_lastSimulationSteps = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre de pas de simulation consommés au dernier <span class="tt"><a class="el" href="#a9ffcd8a18e982d581b30126ab08407fd">tick()</a></span> &ndash; distinct de la cadence de rendu depuis le <span class="tt">LOT-33</span> (<span class="tt"><a class="el" href="structhmi_1_1DiagnosticsMeasurements.html#a0676efd9a3bc7443d2ff90d30e376225" title="Nombre de pas de simulation consommés à la dernière image (core::FixedTimestep::advance) : révèle imm...">hmi::DiagnosticsMeasurements::simulationSteps</a></span>). </p>
 
 </div>
 </div>

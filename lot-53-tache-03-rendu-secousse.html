@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-53-tache-03-rendu-secousse.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-53-effets-particules_2tache-03-rendu-secousse"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-53.html#md_Lot_2LOT-53-effets-particules_2epic" title="Lot/LOT-53-effets-particules/epic.md">LOT-53</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> ✅ fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2372"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2376"></a>
 Contexte</h1>
 <p>Les particules simulées (TACHE-01) et déclenchées (TACHE-02) doivent être dessinées, et la secousse d'écran — le seul effet qui n'est pas une particule — appliquée.</p>
 <p>Le rendu ne demande rien de nouveau : un quad par particule, sur des calques déjà existants. La secousse, en revanche, touche la caméra, ce qui mérite une précaution explicite.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2373"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2377"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Rendu des particules</b> : un quad par particule vivante, teinté selon sa durée de vie restante (disparition en fondu), sur le calque <em>Object</em> ou <em>Foreground</em> selon l'effet — une traînée de dash passe derrière le personnage, une bouffée de poussière devant.</li>
@@ -112,7 +112,7 @@ Travail à réaliser</h1>
 </li>
 <li><b>Culling</b> : les particules passent par le culling comme le reste (LOT-40, TACHE-05).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2374"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2378"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/ParticleRenderer.{h,cpp}</span> (nouveau) ou extension de <span class="tt">SpriteRenderer</span>.</li>
@@ -120,7 +120,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/HMI/Game/GameSession.{h,cpp}</span>.</li>
 <li><span class="tt"><a class="el" href="test__screen__shake_8cpp.html" title="Tests unitaires de la secousse d&#39;écran (LOT-53 TACHE-03, EX-REN-008).">Source/Test/Unit/HMI/Graphics/test_screen_shake.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2375"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2379"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Un quad par particule vivante, sur le calque attendu — asserté via le <em>QuadRecorder</em>.</li>
@@ -129,19 +129,19 @@ Tests (obligatoires)</h1>
 <li>La secousse ne modifie pas la salle cadrée (pas de bascule de salle provoquée par le décalage).</li>
 <li>Sans GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2376"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2380"></a>
 Points d'attention</h1>
 <ul>
 <li><b>La secousse ne doit jamais provoquer de bascule de salle.</b> La caméra bascule sur la position du personnage, pas sur son propre rectangle ; le vérifier explicitement, car un décalage appliqué au mauvais endroit produirait un clignotement de salle à chaque atterrissage.</li>
 <li>Un effet trop marqué nuit à la lisibilité. En cas de doute, réduire : il est plus facile d'augmenter une constante plus tard que de diagnostiquer un ressenti dégradé.</li>
 <li>Vérifier l'interaction avec l'interpolation de rendu (<span class="tt"><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">hmi::PreviousPosition</a></span>) : la secousse s'applique après, sur la caméra, pas sur les positions interpolées.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2377"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2381"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les particules sont dessinées sur le bon calque avec disparition en fondu, uniquement en mode Texture ; la secousse est brève, nette, sans effet sur la simulation ni sur le cadrage par salle ; assertions sans GPU vertes ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2378"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2382"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-008</span> (effets visuels) ; réutilise <span class="tt">EX-REN-043</span> (calques), <span class="tt">EX-REN-046</span> (bascule), <span class="tt">EX-REN-015</span> (cadrage par salle), <span class="tt">EX-ARCH-022</span> (netteté), <span class="tt">EX-ARCH-012</span> (rendu sans effet sur la simulation), <span class="tt">EX-NFR-005</span> (culling et budget). </p>
 </div></div><!-- contents -->

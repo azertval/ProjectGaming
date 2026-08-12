@@ -47,6 +47,7 @@ var hierarchy =
     [ "hmi::DesignColor", "structhmi_1_1DesignColor.html", null ],
     [ "hmi::DesignTokens", "structhmi_1_1DesignTokens.html", null ],
     [ "core::DeterministicRandom", "classcore_1_1DeterministicRandom.html", null ],
+    [ "hmi::DiagnosticsMeasurements", "structhmi_1_1DiagnosticsMeasurements.html", null ],
     [ "hmi::DraftRenderer", "classhmi_1_1DraftRenderer.html", null ],
     [ "hmi::EditContextTarget", "classhmi_1_1EditContextTarget.html", [
       [ "hmi::GameViewport", "classhmi_1_1GameViewport.html", null ],
@@ -65,6 +66,7 @@ var hierarchy =
     [ "hmi::FontFamilyResolution", "structhmi_1_1FontFamilyResolution.html", null ],
     [ "hmi::FontMetrics", "structhmi_1_1FontMetrics.html", null ],
     [ "hmi::FontMetricsResult", "structhmi_1_1FontMetricsResult.html", null ],
+    [ "hmi::FrameRateAverage", "classhmi_1_1FrameRateAverage.html", null ],
     [ "hmi::GameKeyBindings", "classhmi_1_1GameKeyBindings.html", null ],
     [ "hmi::GamepadBindings", "classhmi_1_1GamepadBindings.html", null ],
     [ "hmi::GamepadPoller", "classhmi_1_1GamepadPoller.html", null ],

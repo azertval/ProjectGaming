@@ -16,5 +16,6 @@ var searchData=
   ['frameheight_13',['frameHeight',['../structhmi_1_1AnimationDescription.html#aeb65e0a5103ba71be4e5158465f20ef2',1,'hmi::AnimationDescription']]],
   ['frameindex_14',['frameIndex',['../structcore_1_1Animation.html#a8d315fb44059a2c141db8653f7417c32',1,'core::Animation']]],
   ['frames_15',['frames',['../structcore_1_1AnimationClip.html#a4d3c673e04630c780aeceb031707a127',1,'core::AnimationClip']]],
-  ['framewidth_16',['frameWidth',['../structhmi_1_1AnimationDescription.html#a18d25eef98c2ac2863e7d87b35bd4909',1,'hmi::AnimationDescription']]]
+  ['framespersecond_16',['framesPerSecond',['../structhmi_1_1DiagnosticsMeasurements.html#aa4012ca819a87e7db6625662fdde6438',1,'hmi::DiagnosticsMeasurements']]],
+  ['framewidth_17',['frameWidth',['../structhmi_1_1AnimationDescription.html#a18d25eef98c2ac2863e7d87b35bd4909',1,'hmi::AnimationDescription']]]
 ];

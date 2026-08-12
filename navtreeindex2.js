@@ -1,5 +1,8 @@
 var NAVTREEINDEX2 =
 {
+"ThemeIcons_8h.html":[11,0,3,2,6,37],
+"ThemeIcons_8h_source.html":[11,0,3,2,6,37],
+"ThemeResolution_8cpp.html":[11,0,3,2,6,38],
 "ThemeResolution_8h.html":[11,0,3,2,6,39],
 "ThemeResolution_8h_source.html":[11,0,3,2,6,39],
 "ThumbnailGeometry_8cpp.html":[11,0,3,2,2,67],
@@ -246,8 +249,5 @@ var NAVTREEINDEX2 =
 "classcore_1_1ILogSink.html":[10,0,0,2],
 "classcore_1_1ILogSink.html#a733cb4c0fc2eca07e037b5ef7faf54d5":[9,0,0,2,0],
 "classcore_1_1ILogSink.html#a733cb4c0fc2eca07e037b5ef7faf54d5":[10,0,0,2,0],
-"classcore_1_1ILogSink.html#ab0e09a7994cb3ee96744c6ebb1755585":[9,0,0,2,1],
-"classcore_1_1ILogSink.html#ab0e09a7994cb3ee96744c6ebb1755585":[10,0,0,2,1],
-"classcore_1_1ISystem.html":[9,0,0,20],
-"classcore_1_1ISystem.html":[10,0,0,20]
+"classcore_1_1ILogSink.html#ab0e09a7994cb3ee96744c6ebb1755585":[9,0,0,2,1]
 };

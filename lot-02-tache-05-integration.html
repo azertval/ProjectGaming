@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-02-tache-05-integration.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-02-journalisation_2tache-05-integration"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-02.html#md_Lot_2LOT-02-journalisation_2epic" title="Lot/LOT-02-journalisation/epic.md">LOT-02</a> · <b>Emplacement :</b> <span class="tt">Source/HMI</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md397"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md401"></a>
 Contexte</h1>
 <p>Dernière tâche : rendre le logger réellement utilisé par l'application et documenter son usage pour les prochains lots.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md398"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md402"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Fournir un <b>point d'accès</b> au logger de l'application (instance configurée au démarrage avec un <span class="tt">ConsoleLogSink</span>).</li>
@@ -105,27 +105,27 @@ Travail à réaliser</h1>
 <li>Journaliser les grandes étapes du démarrage (création fenêtre, initialisation Direct3D) en <span class="tt">Info</span>.</li>
 <li>Documenter dans <span class="tt">Source/Core/Diagnostics/README.md</span> l'usage des macros de log et d'assertion (exemples).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md399"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md403"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span>.</li>
 <li><span class="tt">Source/Core/Diagnostics/README.md</span> (mise à jour avec exemples).</li>
 <li><span class="tt">CHANGELOG.md</span> (section <em>Non publié</em>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md400"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md404"></a>
 Vérification</h1>
 <ul>
 <li><b>Manuelle</b> : au lancement, les messages <span class="tt">Info</span> de démarrage apparaissent ; en cas d'échec d'initialisation, un message <span class="tt">Error</span> clair est journalisé.</li>
 <li><b>Automatique</b> : <span class="tt">ctest</span> vert, build <span class="tt">/W4 /WX</span> sans avertissement, <b>CI verte</b> sur la PR.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md401"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md405"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span> n'utilise plus d'I/O directe pour les erreurs (passe par le logger).</li>
 <li>Tous les critères d'acceptation de l'<a class="el" href="lot-02.html#md_Lot_2LOT-02-journalisation_2epic" title="Lot/LOT-02-journalisation/epic.md">epic</a> satisfaits.</li>
 <li><span class="tt">CHANGELOG.md</span> mis à jour ; documentation Doxygen générable sans erreur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md402"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md406"></a>
 Exigences</h1>
 <p>Conventions §10 ; <span class="tt">EX-NFR-040</span>, <span class="tt">EX-NFR-013</span>. </p>
 </div></div><!-- contents -->

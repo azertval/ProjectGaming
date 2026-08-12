@@ -114,6 +114,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab05b61b6e50db6f365702dad1810732f" id="r_ab05b61b6e50db6f365702dad1810732f"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ab05b61b6e50db6f365702dad1810732f">loadError</a> () const</td></tr>
 <tr class="memitem:ab137daa44dbc47ccae327bd8cf3efa12" id="r_ab137daa44dbc47ccae327bd8cf3efa12"><td class="memItemLeft">const std::vector&lt; <a class="el" href="namespacehmi.html#a3a61aed1c8e95c289c829398d48488de">GameEvent</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ab137daa44dbc47ccae327bd8cf3efa12">lastStepEvents</a> () const noexcept</td></tr>
 <tr class="memdesc:ab137daa44dbc47ccae327bd8cf3efa12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Événements de jeu détectés lors du <b>dernier</b> appel à <span class="tt"><a class="el" href="#a890870ab22ce42a6b1d67f20e7209aa2" title="Simule le niveau d&#39;un pas fixe (mécanismes, blocs, physique, animation, dangers).">update()</a></span> (<span class="tt">LOT-60 TACHE-03</span>).  <br /></td></tr>
+<tr class="memitem:a2f5660be0b2198e0bacd2a7ffb167fa7" id="r_a2f5660be0b2198e0bacd2a7ffb167fa7"><td class="memItemLeft"><a class="el" href="structhmi_1_1SceneStatistics.html">SceneStatistics</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2f5660be0b2198e0bacd2a7ffb167fa7">renderStatistics</a> () const noexcept</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -665,6 +666,33 @@ Private Attributes</h2></td></tr>
 
 <p>Compose et soumet l'affichage tête haute (budgets, nom du tableau), en espace écran, sur sa propre projection (<span class="tt"><a class="el" href="namespacehmi.html#a9fbb2bf9b95887bf5bf16e14e750bac4" title="Construit la projection écran → clip du calque UI, indépendante de Camera2D.">hmi::screenProjectionMatrix</a></span>) — jamais affecté par le zoom de la caméra ni par son culling (<span class="tt">LOT-52</span> TACHE-02/03). </p>
 <p>Sans effet si <span class="tt"><a class="el" href="#ac533af7faac79b9027367dda3df0b639">_localization</a></span> est nul. </p>
+
+</div>
+</div>
+<a id="a2f5660be0b2198e0bacd2a7ffb167fa7" name="a2f5660be0b2198e0bacd2a7ffb167fa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f5660be0b2198e0bacd2a7ffb167fa7">&#9670;&#160;</a></span>renderStatistics()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1SceneStatistics.html">SceneStatistics</a> hmi::GameSession::renderStatistics </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les compteurs de primitives de la <b>dernière</b> image rendue (<span class="tt"><a class="el" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par calque puis par texture.">hmi::SpriteRenderer</a>::
+lastScene</span>, <span class="tt">EX-NFR-005</span>) : composées, écartées, soumises, passes de dessin — consommé par le compteur de diagnostic (<span class="tt">hmi::DiagnosticsHud</span>, <span class="tt">LOT-62</span> TACHE-02). </dd></dl>
 
 </div>
 </div>

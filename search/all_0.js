@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['0_0',['Programme &lt;span class=&quot;tt&quot;&gt;0.1.0&lt;/span&gt;',['../lots.html#autotoc_md2965',1,'']]],
-  ['0_201_200_1',['Programme &lt;span class=&quot;tt&quot;&gt;0.1.0&lt;/span&gt;',['../lots.html#autotoc_md2965',1,'']]],
+  ['0_0',['Programme &lt;span class=&quot;tt&quot;&gt;0.1.0&lt;/span&gt;',['../lots.html#autotoc_md2969',1,'']]],
+  ['0_201_200_1',['Programme &lt;span class=&quot;tt&quot;&gt;0.1.0&lt;/span&gt;',['../lots.html#autotoc_md2969',1,'']]],
   ['0_201_200_20et_20vérification_20finale_2',['TACHE-04 — Bascule `0.1.0` et vérification finale',['../lot-66-tache-04-bascule-0-1-0.html',1,'lot-66']]],
   ['0_204×0_208_20sprite_3',['TACHE-03 — Personnage humanoïde (spawn 0,4×0,8, sprite)',['../lot-11-tache-03-personnage-humanoide.html',1,'lot-11']]],
   ['0_20et_20vérification_20finale_4',['TACHE-04 — Bascule `0.1.0` et vérification finale',['../lot-66-tache-04-bascule-0-1-0.html',1,'lot-66']]],
@@ -75,7 +75,7 @@ var searchData=
   ['01_20—_20types_20mathématiques_20de_20core_72',['TACHE-01 — Types mathématiques de Core',['../lot-03-tache-01-math-core.html',1,'lot-03']]],
   ['01_20—_20widget_20de_20vignettes_20partagé_73',['TACHE-01 — Widget de vignettes partagé',['../lot-43-tache-01-widget-vignettes.html',1,'lot-43']]],
   ['019_74',['Vitesse terminale newtonienne (EX-GP-019)',['../guide-physique.html#autotoc_md180',1,'']]],
-  ['02_75',['Avertissements connus à corriger avant WARN_AS_ERROR (relevés en TACHE-02)',['../lot-04-tache-07-ci-docs.html#autotoc_md511',1,'']]],
+  ['02_75',['Avertissements connus à corriger avant WARN_AS_ERROR (relevés en TACHE-02)',['../lot-04-tache-07-ci-docs.html#autotoc_md515',1,'']]],
   ['02_20—_20écran_20éditeur_20_3a_20grille_20cliquable_20palette_20de_20tuiles_76',['TACHE-02 — Écran éditeur : grille cliquable + palette de tuiles',['../lot-14-tache-02-ecran-editeur-palette.html',1,'lot-14']]],
   ['02_20—_20écran_20de_20pause_20et_20suspension_20du_20pas_20fixe_77',['TACHE-02 — Écran de pause et suspension du pas fixe',['../lot-59-tache-02-ecran-pause.html',1,'lot-59']]],
   ['02_20—_20éditeur_20et_20rendu_78',['02 — Éditeur et rendu',['../lot-23-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-26-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-28-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu']]],
@@ -283,7 +283,8 @@ var searchData=
   ['08_20—_20nettoyage_20documentaire_280',['TACHE-08 — Nettoyage documentaire',['../lot-15-tache-08-nettoyage-documentation.html',1,'lot-15']]],
   ['08_20—_20sélecteur_20de_20langue_281',['TACHE-08 — Sélecteur de langue',['../lot-06-tache-08-selecteur-langue.html',1,'lot-06']]],
   ['08_20—_20traçabilité_20des_20exigences_20ids_20stables_20ancres_20doxygen_20lint_20ci_282',['TACHE-08 — Traçabilité des exigences (IDs stables, ancres Doxygen, lint CI)',['../lot-04-tache-08-tracabilite-exigences.html',1,'lot-04']]],
-  ['08_2009_283',['Amendement post-essai manuel (2026-08-09)',['../lot-57.html#autotoc_md2538',1,'']]],
-  ['09_284',['Amendement post-essai manuel (2026-08-09)',['../lot-57.html#autotoc_md2538',1,'']]],
-  ['09_20—_20saut_20game_20feel_20et_20enchaînement_20de_20niveaux_285',['LOT-09 — Saut, game feel et enchaînement de niveaux',['../lot-09.html',1,'lots']]]
+  ['08_2009_283',['Amendement post-essai manuel (2026-08-09)',['../lot-57.html#autotoc_md2542',1,'']]],
+  ['08_2012_284',['Mesures de référence, à la date du &lt;span class=&quot;tt&quot;&gt;LOT-62&lt;/span&gt; (2026-08-12)',['../guide-rendu.html#autotoc_md219',1,'']]],
+  ['09_285',['Amendement post-essai manuel (2026-08-09)',['../lot-57.html#autotoc_md2542',1,'']]],
+  ['09_20—_20saut_20game_20feel_20et_20enchaînement_20de_20niveaux_286',['LOT-09 — Saut, game feel et enchaînement de niveaux',['../lot-09.html',1,'lots']]]
 ];

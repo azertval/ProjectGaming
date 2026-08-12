@@ -94,14 +94,14 @@ $(function(){initNavTree('lot-41-tache-02-touche-f8-persistance.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-41-bascule-physique-texture_2tache-02-touche-f8-persistance"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-41.html#md_Lot_2LOT-41-bascule-physique-texture_2epic" title="Lot/LOT-41-bascule-physique-texture/epic.md">LOT-41</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Game</span>, <span class="tt">Source/HMI/Interface</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1941"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1945"></a>
 Contexte</h1>
 <p>Le mode introduit en TACHE-01 doit être basculable par le joueur comme par le level designer, et retrouvé au lancement suivant. Deux mécanismes existent déjà et doivent être réutilisés tels quels :</p>
 <ul>
 <li>une <b>touche non remappable</b> gérée en dur dans <span class="tt">GameViewport::keyPressEvent</span> — précédent exact : <span class="tt">Qt::Key_F10</span>, qui bascule la grille de repère de l'éditeur ;</li>
 <li>une <b>préférence persistée</b> via <span class="tt">QSettings</span> — précédent exact : la disposition des docks (<span class="tt">MainWindow::saveLayout</span>/<span class="tt">restoreLayout</span>, <span class="tt">EX-IHM-011</span>) et la langue active.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1942"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1946"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">F8</span></b> dans <span class="tt">GameViewport::keyPressEvent</span>, en dur, bascule <span class="tt">RenderMode</span>. Actif en édition, en essai et en jeu réel.</li>
@@ -109,31 +109,31 @@ Travail à réaliser</h1>
 <li><b>Défaut <span class="tt">Texture</span></b> dans toutes les configurations de build. <b>Supprimer</b> toute branche <span class="tt"><a class="el" href="namespacecore.html#ada3f6bef6b32bd54ea16d550e0769fb1" title="Vrai dans les builds de développement (Debug), faux en Release.">core::kDeveloperBuild</a></span> liée au mode de rendu (le cadrage initial en prévoyait une).</li>
 <li><b>Persistance</b> : lire le mode au démarrage et l'écrire à chaque bascule, via <span class="tt">QSettings</span>, sous une clé nommée. Une valeur absente ou invalide retombe silencieusement sur <span class="tt">Texture</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1943"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1947"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Game/GameViewport.{h,cpp}</span>.</li>
 <li><span class="tt">Source/HMI/Interface/MainWindow.{h,cpp}</span> (lecture/écriture de la préférence, selon l'endroit où <span class="tt">QSettings</span> est déjà utilisé).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1944"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1948"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Conversion mode ↔ valeur persistée : aller-retour, valeur absente, valeur invalide → défaut. Fonction <b>pure</b>, testée sans Qt ni GPU.</li>
 <li>Vérification que <span class="tt">F8</span> n'apparaît dans aucune table de remappage : contrôle sur les enums d'actions et sur les valeurs par défaut.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1945"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1949"></a>
 Points d'attention</h1>
 <ul>
 <li><span class="tt">F8</span> ne doit pas entrer en conflit avec un raccourci Qt de la fenêtre principale ni être capturé par un widget ayant le focus. Vérifier le comportement quand un dock a le focus clavier.</li>
 <li>La bascule ne doit <b>rien</b> changer à la simulation : aucun pas fixe supplémentaire, aucune réinitialisation de niveau.</li>
 <li>Écrire la préférence à chaque bascule est acceptable (<span class="tt">QSettings</span> bufferise) ; ne pas l'écrire dans la boucle de rendu.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1946"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1950"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">F8</span> bascule dans les trois contextes, hors tables de remappage ; le défaut est <span class="tt">Texture</span> partout ; le choix survit à un redémarrage ; conversion testée ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1947"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1951"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-046</span> (bascule, défaut unique, persistance) ; réutilise <span class="tt">EX-IHM-011</span> (persistance des préférences d'interface), <span class="tt">EX-CTRL-012</span> (remappage — dont cette touche est explicitement exclue). </p>
 </div></div><!-- contents -->

@@ -96,14 +96,14 @@ $(function(){initNavTree('lot-46.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-40.html" title="LOT-40 — Fondations : registre de textures, calques, culling, testabilité">LOT-40</a> (<em>TextureCache</em>, contrat d'asset), <a class="el" href="lot-42.html" title="LOT-42 — Skin des tuiles : jeux de skins et raccords automatiques">LOT-42</a> (skins), <a class="el" href="lot-45.html" title="LOT-45 — Objet interactif : texture par instance">LOT-45</a> (assets par instance). Prérequis de <a class="el" href="lot-47.html" title="LOT-47 — États visuels des mécanismes">LOT-47</a> et <a class="el" href="lot-48.html" title="LOT-48 — Personnage : skin et animations depuis fichier">LOT-48</a>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2093"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2097"></a>
 Objectif</h1>
 <p>Rendre le monde <b>vivant</b>. C'est le trou le plus large du cadrage initial du programme : il prévoyait d'habiller les tuiles et d'assigner des textures par case, mais <b>aucun lot n'animait quoi que ce soit</b>. Une porte texturée serait restée une image fixe en s'ouvrant.</p>
 <p>L'animation existe aujourd'hui, mais uniquement pour le personnage et <b>codée en dur</b> : <span class="tt"><a class="el" href="structcore_1_1AnimationClip.html" title="Clip d&#39;animation : une suite d&#39;images, une durée par image, une manière de finir.">core::AnimationClip</a></span> est un <span class="tt">enum { Idle, Run, Jump }</span>, les durées d'image sont des constantes de compilation, et <span class="tt"><a class="el" href="classcore_1_1AnimationSystem.html" title="Fait progresser l&#39;animation de toute entité portant core::Animation, et projette l&#39;état physique du p...">core::AnimationSystem</a></span> ne parcourt que les entités portant <span class="tt"><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></span>. Aucune tuile, aucun mécanisme, aucun décor ne peut être animé.</p>
 <p>Ce lot remplace ce dispositif par un moteur <b>piloté par données</b>, sans rien changer au rendu visible du personnage.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2094"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2098"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2095"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2099"></a>
 Inclus</h2>
 <ul>
 <li><b>Un clip devient une donnée</b> : nom, suite d'indices d'images, durée par image, bouclé ou joué une fois. <span class="tt"><a class="el" href="structcore_1_1AnimationClip.html" title="Clip d&#39;animation : une suite d&#39;images, une durée par image, une manière de finir.">core::AnimationClip</a></span> cesse d'être un <span class="tt">enum</span> d'états figés.</li>
@@ -114,7 +114,7 @@ Inclus</h2>
 <li><b>Clips joués une fois</b> (<span class="tt">OneShot</span>) avec clip de repli à la fin : le mécanisme dont LOT-47 a besoin pour les transitions ouverture/fermeture.</li>
 <li><b>Migration des clips du personnage</b> dans le nouveau format, à comportement <b>strictement identique</b> : les durées actuelles (repos 0,5 s ; course 0,1 s) et l'ordre des images (<span class="tt">flatPlayerFrameIndex</span>) sont reconduits tels quels. L'habillage du personnage depuis un fichier externe relève de LOT-48.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2096"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2100"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li>Le <b>branchement</b> des clips sur l'état logique des mécanismes (LOT-47) et sur celui du personnage au-delà de l'existant (LOT-48) : ce lot fournit le moteur, pas les règles métier.</li>
@@ -122,7 +122,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li>Machine à états d'animation avec conditions de transition : le choix du clip reste une <b>projection</b> de l'état de la simulation, comme l'actuel <span class="tt">targetClip()</span>. Une machine à états serait une abstraction non justifiée pour une dizaine de clips.</li>
 <li>Édition des animations dans l'éditeur : le fichier <span class="tt">.anim.json</span> s'écrit à la main pour ce lot ; une UI dédiée relève de LOT-47 (section « Animations » du panneau) pour l'affectation, et de LOT-54 pour la création des images.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2097"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2101"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Données plutôt que code</b> : la seule autre option — ajouter des valeurs à l'<span class="tt">enum</span> existant à chaque nouvel objet animé — ferait de <span class="tt">Core</span> un catalogue d'apparences, en contradiction directe avec <span class="tt">EX-ARCH-012</span> (la simulation ignore le rendu).</li>
@@ -131,14 +131,14 @@ Décisions de cadrage</h1>
 <li><b>Progression au pas fixe, pas au temps réel</b> : l'animation reste dans la simulation. Le déterminisme (<span class="tt">EX-NFR-002</span>) prime sur la fluidité à cadence variable ; l'interpolation de rendu existante (<span class="tt"><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">hmi::PreviousPosition</a></span>) traite déjà le découplage.</li>
 <li><b>Aucune régression visible sur le personnage</b> : ce lot est une refonte d'infrastructure ; ses critères d'acceptation l'imposent explicitement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2098"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2102"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle : <span class="tt">EX-REN-005</span> (animations décrites par des données, applicables à toute entité, progression au pas fixe).</li>
 <li>Amendée : <span class="tt">EX-REN-012</span> (animations par séquence d'images, généralisées).</li>
 <li>Réutilisées : <span class="tt">EX-REN-021</span>/<span class="tt">EX-NFR-002</span> (pas fixe, déterminisme), <span class="tt">EX-ARCH-012</span> (rendu sans effet sur la simulation), <span class="tt">EX-REN-007</span> (contrat d'asset), <span class="tt">EX-NFR-040</span> (repli), <span class="tt">EX-NFR-010</span>/<span class="tt">EX-NFR-020</span> (testabilité sans GPU).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2099"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2103"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -157,7 +157,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-46-tache-05-tuiles-animees.html#md_Lot_2LOT-46-moteur-animation_2tache-05-tuiles-animees" title="Lot/LOT-46-moteur-animation/tache-05-tuiles-animees.md">TACHE-05</a>  </td><td class="markdownTableBodyNone">Skins de tuiles animés (eau, lave, torche)  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Graphics</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2100"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2104"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Le personnage s'anime <b>exactement</b> comme avant le lot : mêmes images, mêmes durées, même ordre — asserté par test, pas constaté à l'œil.</li>
@@ -167,10 +167,10 @@ Critères d'acceptation du lot</h1>
 <li>Deux exécutions de la même séquence d'entrées produisent la même suite d'images (déterminisme).</li>
 <li>Le modèle de clip, la progression et la lecture du format sont testés sans GPU ; build <span class="tt">/W4 /WX</span>, Doxygen, lint verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2101"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2105"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-40.html" title="LOT-40 — Fondations : registre de textures, calques, culling, testabilité">LOT-40</a> (<em>TextureCache</em>, contrat d'asset), <a class="el" href="lot-42.html" title="LOT-42 — Skin des tuiles : jeux de skins et raccords automatiques">LOT-42</a> (skins) et <a class="el" href="lot-45.html" title="LOT-45 — Objet interactif : texture par instance">LOT-45</a> (assets par instance). Remplace le dispositif d'animation figé de <a class="el" href="lot-18.html" title="LOT-18 — Animation du personnage (repos, course, saut)">LOT-18</a>. Prérequis de <a class="el" href="lot-47.html" title="LOT-47 — États visuels des mécanismes">LOT-47</a> (états des mécanismes), <a class="el" href="lot-48.html" title="LOT-48 — Personnage : skin et animations depuis fichier">LOT-48</a> (personnage) et bénéfique à <a class="el" href="lot-53.html" title="LOT-53 — Effets et particules">LOT-53</a> (effets).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2102"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2106"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-46-tache-01-modele-clip.html" title="TACHE-01 — Le clip devient une donnée">TACHE-01 — Le clip devient une donnée</a></li>

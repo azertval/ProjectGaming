@@ -16,7 +16,8 @@ var searchData=
   ['formatlogline_13',['formatLogLine',['../namespacecore.html#aafa85d91ee91c84b123fff01f147615e',1,'core']]],
   ['formatscenestatistics_14',['formatSceneStatistics',['../namespacehmi.html#aabc578b802bb386e63d830e168140fe7',1,'hmi']]],
   ['frameregion_15',['frameRegion',['../classhmi_1_1AnimationCatalog.html#ab4d62573855d3bc8e915704f51d54cbf',1,'hmi::AnimationCatalog']]],
-  ['fromlevel_16',['fromLevel',['../classcore_1_1LevelDraft.html#a481be057c3f8c05cfe5e19a89d93231c',1,'core::LevelDraft']]],
-  ['fromtopleftsize_17',['fromTopLeftSize',['../structcore_1_1Aabb.html#a966b1b2360e090262a2f4c690dc7972e',1,'core::Aabb']]],
-  ['fullscreenrequested_18',['fullscreenRequested',['../classhmi_1_1OptionsPage.html#aea889b2f7ac2f5ae67da6bf2a1ffbdae',1,'hmi::OptionsPage']]]
+  ['framespersecond_16',['framesPerSecond',['../classhmi_1_1FrameRateAverage.html#a5ead75e1aa711777bf9d12eb4e24484c',1,'hmi::FrameRateAverage']]],
+  ['fromlevel_17',['fromLevel',['../classcore_1_1LevelDraft.html#a481be057c3f8c05cfe5e19a89d93231c',1,'core::LevelDraft']]],
+  ['fromtopleftsize_18',['fromTopLeftSize',['../structcore_1_1Aabb.html#a966b1b2360e090262a2f4c690dc7972e',1,'core::Aabb']]],
+  ['fullscreenrequested_19',['fullscreenRequested',['../classhmi_1_1OptionsPage.html#aea889b2f7ac2f5ae67da6bf2a1ffbdae',1,'hmi::OptionsPage']]]
 ];

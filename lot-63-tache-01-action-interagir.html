@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-63-tache-01-action-interagir.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-63-mecanismes-manquants_2tache-01-action-interagir"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-63.html#md_Lot_2LOT-63-mecanismes-manquants_2epic" title="Lot/LOT-63-mecanismes-manquants/epic.md">LOT-63</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Physics</span>, <span class="tt">Source/HMI/Input</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2815"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2819"></a>
 Contexte</h1>
 <p>Le tableau des contrôles de <span class="tt"><a class="el" href="controles_8md.html">Documentation/Specification/controles.md</a></span> liste sept actions. Six sont implémentées et remappables. La septième — « Interagir (⚠️ souhaité, non implémenté) », <b>E</b> au clavier et <b>X</b> à la manette — n'existe pas, et n'a même pas d'identifiant d'exigence : c'est la seule ligne du tableau sans ancre.</p>
 <p>Sa conséquence est concrète : un interrupteur ne s'actionne que par <b>contact</b>. <span class="tt">EX-GP-020</span> l'autorise (« contact <b>ou</b> action dédiée »), mais tout mécanisme demandant une <b>intention</b> — et la clé de la <span class="tt">TACHE-02</span> en est un — reste hors de portée.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2816"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2820"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Ajouter l'action</b> à <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span> (<span class="tt"><a class="el" href="PlayerInput_8h.html" title="Intention de déplacement du personnage, neutre vis-à-vis de l&#39;entrée physique.">Source/Core/Physics/PlayerInput.h</a></span>), à côté des actions existantes : c'est une <b>intention</b>, donc elle appartient à <span class="tt">Core</span>, comme le saut et le dash.</li>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 <li><b>Nom traduisible</b> de l'action dans les deux catalogues, pour l'affichage dans les écrans de remappage.</li>
 <li><b>Ne rien changer au comportement existant</b> : aucun mécanisme actuel ne consomme cette action à l'issue de cette tâche. C'est la <span class="tt">TACHE-02</span> qui lui donnera son premier usage.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2817"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2821"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="PlayerInput_8h.html" title="Intention de déplacement du personnage, neutre vis-à-vis de l&#39;entrée physique.">Source/Core/Physics/PlayerInput.h</a></span>.</li>
@@ -116,7 +116,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Localization/{fr,en}.lang</span>.</li>
 <li><span class="tt"><a class="el" href="test__player__input__mapper_8cpp.html" title="Tests unitaires de la traduction clavier/manette → intention (toPlayerInput).">Source/Test/Unit/HMI/Input/test_player_input_mapper.cpp</a></span>, <span class="tt"><a class="el" href="test__game__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de jeu (GameKeyBindings, EX-CTRL-012).">test_game_key_bindings.cpp</a></span>, <span class="tt"><a class="el" href="test__gamepad__bindings_8cpp.html" title="Tests unitaires du remappage manette (GamepadBindings, EX-CTRL-002, EX-CTRL-012).">test_gamepad_bindings.cpp</a></span> (étendus).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2818"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2822"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>L'action distingue <b>pressée</b>, <b>maintenue</b> et <b>relâchée</b> dans un pas, comme les autres (<span class="tt">EX-CTRL-011</span>).</li>
@@ -125,7 +125,7 @@ Tests (obligatoires)</h1>
 <li>Un fichier de remappage écrit <b>avant</b> ce lot (sans l'action) se relit sans erreur, l'action prenant sa valeur par défaut — c'est le cas de compatibilité qui casse en silence.</li>
 <li>Le nom de l'action est présent dans les <b>deux</b> catalogues de traduction.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2819"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2823"></a>
 Points d'attention</h1>
 <ul>
 <li><b>La compatibilité du fichier de remappage existant est le vrai risque.</b> Un utilisateur ayant déjà <span class="tt">Settings/keybindings.json</span> ne doit pas perdre ses réglages ni voir l'application refuser le fichier. La lecture est déjà tolérante ; le vérifier explicitement par un test.</li>
@@ -133,12 +133,12 @@ Points d'attention</h1>
 <li>Grossir <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span> ou <span class="tt"><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">hmi::InputState</a></span> change la disposition d'une classe très incluse : une build incrémentale peut se comporter étrangement. Reconstruire avec <span class="tt">--clean-first</span> avant de chercher un bogue.</li>
 <li>Vérifier qu'aucune touche par défaut n'entre en conflit avec un raccourci d'éditeur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2820"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2824"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>L'action « Interagir » existe dans <span class="tt">Core</span>, est mappée avec ses fronts, est remappable clavier et manette avec <b>E</b>/**X** par défaut, apparaît dans les écrans de remappage, est traduite, ne change aucun comportement existant, et un fichier de réglages antérieur reste lisible ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2821"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2825"></a>
 Exigences</h1>
 <p><span class="tt">EX-CTRL-022</span> (action logique « Interagir ») ; réutilise <span class="tt">EX-CTRL-010</span> (actions logiques), <span class="tt">EX-CTRL-011</span> (fronts), <span class="tt">EX-CTRL-012</span> (remappage), <span class="tt">EX-GP-020</span> (activation par contact ou action dédiée), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-NFR-040</span> (lecture tolérante). </p>
 </div></div><!-- contents -->

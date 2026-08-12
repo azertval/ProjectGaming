@@ -18,5 +18,6 @@ var searchData=
   ['designcolor_15',['DesignColor',['../structhmi_1_1DesignColor.html',1,'hmi']]],
   ['designtokens_16',['DesignTokens',['../structhmi_1_1DesignTokens.html',1,'hmi']]],
   ['deterministicrandom_17',['DeterministicRandom',['../classcore_1_1DeterministicRandom.html',1,'core']]],
-  ['draftrenderer_18',['DraftRenderer',['../classhmi_1_1DraftRenderer.html',1,'hmi']]]
+  ['diagnosticsmeasurements_18',['DiagnosticsMeasurements',['../structhmi_1_1DiagnosticsMeasurements.html',1,'hmi']]],
+  ['draftrenderer_19',['DraftRenderer',['../classhmi_1_1DraftRenderer.html',1,'hmi']]]
 ];

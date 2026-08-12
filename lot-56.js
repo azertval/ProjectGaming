@@ -1,68 +1,68 @@
 var lot_56 =
 [
-    [ "Objectif", "lot-56.html#autotoc_md2480", null ],
-    [ "Périmètre", "lot-56.html#autotoc_md2481", [
-      [ "Inclus", "lot-56.html#autotoc_md2482", null ],
-      [ "Exclus (hors périmètre de ce lot)", "lot-56.html#autotoc_md2483", null ]
+    [ "Objectif", "lot-56.html#autotoc_md2484", null ],
+    [ "Périmètre", "lot-56.html#autotoc_md2485", [
+      [ "Inclus", "lot-56.html#autotoc_md2486", null ],
+      [ "Exclus (hors périmètre de ce lot)", "lot-56.html#autotoc_md2487", null ]
     ] ],
-    [ "Décisions de cadrage", "lot-56.html#autotoc_md2484", null ],
-    [ "Exigences couvertes", "lot-56.html#autotoc_md2485", null ],
-    [ "Découpage", "lot-56.html#autotoc_md2486", null ],
-    [ "Critères d'acceptation du lot", "lot-56.html#autotoc_md2487", null ],
-    [ "Dépendances", "lot-56.html#autotoc_md2488", null ],
-    [ "Navigation des tâches", "lot-56.html#autotoc_md2489", null ],
+    [ "Décisions de cadrage", "lot-56.html#autotoc_md2488", null ],
+    [ "Exigences couvertes", "lot-56.html#autotoc_md2489", null ],
+    [ "Découpage", "lot-56.html#autotoc_md2490", null ],
+    [ "Critères d'acceptation du lot", "lot-56.html#autotoc_md2491", null ],
+    [ "Dépendances", "lot-56.html#autotoc_md2492", null ],
+    [ "Navigation des tâches", "lot-56.html#autotoc_md2493", null ],
     [ "TACHE-01 — Socle de style : style Qt, palette applicative et jetons de design", "lot-56-tache-01-socle-style.html", [
-      [ "Contexte", "lot-56-tache-01-socle-style.html#autotoc_md2490", null ],
-      [ "Travail à réaliser", "lot-56-tache-01-socle-style.html#autotoc_md2491", null ],
-      [ "Fichiers impactés", "lot-56-tache-01-socle-style.html#autotoc_md2492", null ],
-      [ "Tests (obligatoires)", "lot-56-tache-01-socle-style.html#autotoc_md2493", null ],
-      [ "Points d'attention", "lot-56-tache-01-socle-style.html#autotoc_md2494", null ],
-      [ "Définition de fait (DoD)", "lot-56-tache-01-socle-style.html#autotoc_md2495", null ],
-      [ "Exigences", "lot-56-tache-01-socle-style.html#autotoc_md2496", null ]
+      [ "Contexte", "lot-56-tache-01-socle-style.html#autotoc_md2494", null ],
+      [ "Travail à réaliser", "lot-56-tache-01-socle-style.html#autotoc_md2495", null ],
+      [ "Fichiers impactés", "lot-56-tache-01-socle-style.html#autotoc_md2496", null ],
+      [ "Tests (obligatoires)", "lot-56-tache-01-socle-style.html#autotoc_md2497", null ],
+      [ "Points d'attention", "lot-56-tache-01-socle-style.html#autotoc_md2498", null ],
+      [ "Définition de fait (DoD)", "lot-56-tache-01-socle-style.html#autotoc_md2499", null ],
+      [ "Exigences", "lot-56-tache-01-socle-style.html#autotoc_md2500", null ]
     ] ],
     [ "TACHE-02 — Thème couvrant toute l'application", "lot-56-tache-02-theme-global.html", [
-      [ "Contexte", "lot-56-tache-02-theme-global.html#autotoc_md2497", null ],
-      [ "Travail à réaliser", "lot-56-tache-02-theme-global.html#autotoc_md2498", null ],
-      [ "Fichiers impactés", "lot-56-tache-02-theme-global.html#autotoc_md2499", null ],
-      [ "Tests (obligatoires)", "lot-56-tache-02-theme-global.html#autotoc_md2500", null ],
-      [ "Points d'attention", "lot-56-tache-02-theme-global.html#autotoc_md2501", null ],
-      [ "Définition de fait (DoD)", "lot-56-tache-02-theme-global.html#autotoc_md2502", null ],
-      [ "Exigences", "lot-56-tache-02-theme-global.html#autotoc_md2503", null ]
+      [ "Contexte", "lot-56-tache-02-theme-global.html#autotoc_md2501", null ],
+      [ "Travail à réaliser", "lot-56-tache-02-theme-global.html#autotoc_md2502", null ],
+      [ "Fichiers impactés", "lot-56-tache-02-theme-global.html#autotoc_md2503", null ],
+      [ "Tests (obligatoires)", "lot-56-tache-02-theme-global.html#autotoc_md2504", null ],
+      [ "Points d'attention", "lot-56-tache-02-theme-global.html#autotoc_md2505", null ],
+      [ "Définition de fait (DoD)", "lot-56-tache-02-theme-global.html#autotoc_md2506", null ],
+      [ "Exigences", "lot-56-tache-02-theme-global.html#autotoc_md2507", null ]
     ] ],
     [ "TACHE-03 — Police embarquée et typographie à source unique", "lot-56-tache-03-typographie-police.html", [
-      [ "Contexte", "lot-56-tache-03-typographie-police.html#autotoc_md2504", null ],
-      [ "Travail à réaliser", "lot-56-tache-03-typographie-police.html#autotoc_md2505", null ],
-      [ "Fichiers impactés", "lot-56-tache-03-typographie-police.html#autotoc_md2506", null ],
-      [ "Tests (obligatoires)", "lot-56-tache-03-typographie-police.html#autotoc_md2507", null ],
-      [ "Points d'attention", "lot-56-tache-03-typographie-police.html#autotoc_md2508", null ],
-      [ "Définition de fait (DoD)", "lot-56-tache-03-typographie-police.html#autotoc_md2509", null ],
-      [ "Exigences", "lot-56-tache-03-typographie-police.html#autotoc_md2510", null ]
+      [ "Contexte", "lot-56-tache-03-typographie-police.html#autotoc_md2508", null ],
+      [ "Travail à réaliser", "lot-56-tache-03-typographie-police.html#autotoc_md2509", null ],
+      [ "Fichiers impactés", "lot-56-tache-03-typographie-police.html#autotoc_md2510", null ],
+      [ "Tests (obligatoires)", "lot-56-tache-03-typographie-police.html#autotoc_md2511", null ],
+      [ "Points d'attention", "lot-56-tache-03-typographie-police.html#autotoc_md2512", null ],
+      [ "Définition de fait (DoD)", "lot-56-tache-03-typographie-police.html#autotoc_md2513", null ],
+      [ "Exigences", "lot-56-tache-03-typographie-police.html#autotoc_md2514", null ]
     ] ],
     [ "TACHE-04 — Icônes dessinées par code et barre d'outils à actions", "lot-56-tache-04-icones-barre-outils.html", [
-      [ "Contexte", "lot-56-tache-04-icones-barre-outils.html#autotoc_md2511", null ],
-      [ "Travail à réaliser", "lot-56-tache-04-icones-barre-outils.html#autotoc_md2512", null ],
-      [ "Fichiers impactés", "lot-56-tache-04-icones-barre-outils.html#autotoc_md2513", null ],
-      [ "Tests (obligatoires)", "lot-56-tache-04-icones-barre-outils.html#autotoc_md2514", null ],
-      [ "Points d'attention", "lot-56-tache-04-icones-barre-outils.html#autotoc_md2515", null ],
-      [ "Définition de fait (DoD)", "lot-56-tache-04-icones-barre-outils.html#autotoc_md2516", null ],
-      [ "Exigences", "lot-56-tache-04-icones-barre-outils.html#autotoc_md2517", null ]
+      [ "Contexte", "lot-56-tache-04-icones-barre-outils.html#autotoc_md2515", null ],
+      [ "Travail à réaliser", "lot-56-tache-04-icones-barre-outils.html#autotoc_md2516", null ],
+      [ "Fichiers impactés", "lot-56-tache-04-icones-barre-outils.html#autotoc_md2517", null ],
+      [ "Tests (obligatoires)", "lot-56-tache-04-icones-barre-outils.html#autotoc_md2518", null ],
+      [ "Points d'attention", "lot-56-tache-04-icones-barre-outils.html#autotoc_md2519", null ],
+      [ "Définition de fait (DoD)", "lot-56-tache-04-icones-barre-outils.html#autotoc_md2520", null ],
+      [ "Exigences", "lot-56-tache-04-icones-barre-outils.html#autotoc_md2521", null ]
     ] ],
     [ "TACHE-05 — Netteté des vignettes à toute échelle d'affichage", "lot-56-tache-05-nettete-dpi.html", [
-      [ "Contexte", "lot-56-tache-05-nettete-dpi.html#autotoc_md2518", null ],
-      [ "Travail à réaliser", "lot-56-tache-05-nettete-dpi.html#autotoc_md2519", null ],
-      [ "Fichiers impactés", "lot-56-tache-05-nettete-dpi.html#autotoc_md2520", null ],
-      [ "Tests (obligatoires)", "lot-56-tache-05-nettete-dpi.html#autotoc_md2521", null ],
-      [ "Points d'attention", "lot-56-tache-05-nettete-dpi.html#autotoc_md2522", null ],
-      [ "Définition de fait (DoD)", "lot-56-tache-05-nettete-dpi.html#autotoc_md2523", null ],
-      [ "Exigences", "lot-56-tache-05-nettete-dpi.html#autotoc_md2524", null ]
+      [ "Contexte", "lot-56-tache-05-nettete-dpi.html#autotoc_md2522", null ],
+      [ "Travail à réaliser", "lot-56-tache-05-nettete-dpi.html#autotoc_md2523", null ],
+      [ "Fichiers impactés", "lot-56-tache-05-nettete-dpi.html#autotoc_md2524", null ],
+      [ "Tests (obligatoires)", "lot-56-tache-05-nettete-dpi.html#autotoc_md2525", null ],
+      [ "Points d'attention", "lot-56-tache-05-nettete-dpi.html#autotoc_md2526", null ],
+      [ "Définition de fait (DoD)", "lot-56-tache-05-nettete-dpi.html#autotoc_md2527", null ],
+      [ "Exigences", "lot-56-tache-05-nettete-dpi.html#autotoc_md2528", null ]
     ] ],
     [ "TACHE-06 — Thème clair et sombre de l'éditeur", "lot-56-tache-06-theme-clair-sombre.html", [
-      [ "Contexte", "lot-56-tache-06-theme-clair-sombre.html#autotoc_md2525", null ],
-      [ "Travail à réaliser", "lot-56-tache-06-theme-clair-sombre.html#autotoc_md2526", null ],
-      [ "Fichiers impactés", "lot-56-tache-06-theme-clair-sombre.html#autotoc_md2527", null ],
-      [ "Tests (obligatoires)", "lot-56-tache-06-theme-clair-sombre.html#autotoc_md2528", null ],
-      [ "Points d'attention", "lot-56-tache-06-theme-clair-sombre.html#autotoc_md2529", null ],
-      [ "Définition de fait (DoD)", "lot-56-tache-06-theme-clair-sombre.html#autotoc_md2530", null ],
-      [ "Exigences", "lot-56-tache-06-theme-clair-sombre.html#autotoc_md2531", null ]
+      [ "Contexte", "lot-56-tache-06-theme-clair-sombre.html#autotoc_md2529", null ],
+      [ "Travail à réaliser", "lot-56-tache-06-theme-clair-sombre.html#autotoc_md2530", null ],
+      [ "Fichiers impactés", "lot-56-tache-06-theme-clair-sombre.html#autotoc_md2531", null ],
+      [ "Tests (obligatoires)", "lot-56-tache-06-theme-clair-sombre.html#autotoc_md2532", null ],
+      [ "Points d'attention", "lot-56-tache-06-theme-clair-sombre.html#autotoc_md2533", null ],
+      [ "Définition de fait (DoD)", "lot-56-tache-06-theme-clair-sombre.html#autotoc_md2534", null ],
+      [ "Exigences", "lot-56-tache-06-theme-clair-sombre.html#autotoc_md2535", null ]
     ] ]
 ];

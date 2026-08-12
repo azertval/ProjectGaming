@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-12-tache-02-mecanismes.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-12-niveau-puzzle_2tache-02-mecanismes"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-12.html#md_Lot_2LOT-12-niveau-puzzle_2epic" title="Lot/LOT-12-niveau-puzzle/epic.md">LOT-12</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Gameplay</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md905"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md909"></a>
 Contexte</h1>
 <p>Les liaisons interrupteur↔porte sont <b>chargées</b> depuis le LOT-07 mais <b>inertes</b>. Cette tâche leur donne un <b>comportement</b> (<span class="tt">EX-GP-020</span>, <span class="tt">EX-GP-021</span>), en logique <b>pure</b> et testable : la collision consommera une <b>grille reflétant l'état des portes</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md906"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md910"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">MechanismController</span></b> (Core/Gameplay), construit depuis un <span class="tt">Level</span> :<ul>
@@ -109,13 +109,13 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md907"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md911"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="MechanismController_8h.html" title="Comportement des mécanismes interrupteur↔porte : état + grille de collision.">Source/Core/Gameplay/MechanismController.h</a></span>/<span class="tt">.cpp</span> (nouveau), <span class="tt">Source/Core/CMakeLists.txt</span>.</li>
 <li>Tests unitaires.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md908"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md912"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Ouverture</b> : la porte est <b>solide</b> au départ ; après contact de l'interrupteur, la porte devient <b>franchissable</b> (<span class="tt">!isSolid</span>).</li>
@@ -123,19 +123,19 @@ Tests (obligatoires)</h1>
 <li><b>Liaison</b> : c'est bien la porte <b>liée</b> (par position) qui change, pas une autre.</li>
 <li><b>Déterminisme</b> (<span class="tt">EX-NFR-002</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md909"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md913"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas muter</b> le <span class="tt">TileMap</span> du <span class="tt">Level</span> (source de vérité) : travailler sur la <b>copie</b>.</li>
 <li>Recouvrement boîte↔tuile cohérent avec le repère (origine haut-gauche, tuile = 1 unité).</li>
 <li>Front d'activation : mémoriser l'état « sur l'interrupteur » du pas précédent.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md910"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md914"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">MechanismController</span> fonctionnel, documenté et <b>testé</b> (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md911"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md915"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-020</span>, <span class="tt">EX-GP-021</span>, <span class="tt">EX-NFR-002</span>, <span class="tt">EX-ARCH-011</span>, <span class="tt">EX-NFR-010</span>. </p>
 </div></div><!-- contents -->

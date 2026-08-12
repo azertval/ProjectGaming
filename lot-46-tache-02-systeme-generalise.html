@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-46-tache-02-systeme-generalise.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-46-moteur-animation_2tache-02-systeme-generalise"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-46.html#md_Lot_2LOT-46-moteur-animation_2epic" title="Lot/LOT-46-moteur-animation/epic.md">LOT-46</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs/Systems</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2110"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2114"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classcore_1_1AnimationSystem.html#af5da04fcf16d71fb7d6181377e8251a8" title="Applique un pas de simulation d&#39;animation à toutes les entités animées.">core::AnimationSystem::update</a></span> parcourt aujourd'hui <span class="tt">view&lt;Player, Velocity, Animation&gt;</span> : par construction, <b>seul le personnage</b> peut être animé. Une porte, une torche ou une plaque portant un composant <span class="tt">Animation</span> seraient simplement ignorées.</p>
 <p>Le système fait par ailleurs deux choses distinctes qu'il faut séparer : <b>choisir</b> le clip (projection de l'état physique du personnage, via <span class="tt">targetClip()</span>) et <b>faire avancer</b> l'animation (accumulation du temps, changement d'image, bouclage). Seule la seconde est générale.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2111"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2115"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Séparer les deux responsabilités</b> :<ul>
@@ -112,13 +112,13 @@ Travail à réaliser</h1>
 <li><b>Clip joué une fois</b> : à la dernière image, bascule sur le clip suivant déclaré, sans sauter d'image ni rejouer la dernière.</li>
 <li>Conserver la boucle <span class="tt">while (elapsed &gt;= duree)</span> actuelle, qui gère correctement un pas fixe plus long qu'une durée d'image.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2112"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2116"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Core/Ecs/Systems/AnimationSystem.{h,cpp}</span>.</li>
 <li><span class="tt">Source/Test/Unit/Core/Ecs/test_animation_system.cpp</span> (étendu).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2113"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2117"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Progression d'un clip bouclé : l'index revient à zéro après la dernière image, sans image sautée.</li>
@@ -128,19 +128,19 @@ Tests (obligatoires)</h1>
 <li><b>Déterminisme</b> : deux exécutions identiques produisent la même suite d'indices.</li>
 <li>Une entité non-joueur portant <span class="tt">Animation</span> s'anime ; le personnage conserve son comportement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2114"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2118"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas rendre la progression dépendante du temps réel</b>, même « pour la fluidité » : ce serait la première brèche dans le déterminisme, et l'interpolation de rendu (<span class="tt"><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">hmi::PreviousPosition</a></span>) traite déjà le découplage entre pas fixe et fréquence d'affichage.</li>
 <li>Le système ne doit <b>pas</b> connaître le nombre d'entités animées à l'avance : une porte animée n'existe pas au démarrage, elle est créée avec la scène.</li>
 <li>Ordre d'exécution : la progression doit avoir lieu <b>après</b> la physique du même pas, comme aujourd'hui (<span class="tt">GameSession::update</span>), pour que le clip reflète l'état de fin de pas.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2115"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2119"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Toute entité portant <span class="tt">Animation</span> progresse au pas fixe ; les clips bouclés et joués une fois se comportent comme spécifié ; le personnage est inchangé ; déterminisme asserté ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2116"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2120"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-005</span> (animations par données, toute entité) ; réutilise <span class="tt">EX-REN-021</span> (pas fixe), <span class="tt">EX-NFR-002</span> (déterminisme), <span class="tt">EX-NFR-020</span> (tests unitaires du gameplay <span class="tt">Core</span>). </p>
 </div></div><!-- contents -->

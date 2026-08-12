@@ -1,8 +1,8 @@
 var guide =
 [
-    [ "Comment lire ce guide", "guide.html#autotoc_md218", null ],
-    [ "Architecture en deux couches", "guide.html#autotoc_md219", null ],
-    [ "Plan du guide", "guide.html#autotoc_md220", null ],
+    [ "Comment lire ce guide", "guide.html#autotoc_md222", null ],
+    [ "Architecture en deux couches", "guide.html#autotoc_md223", null ],
+    [ "Plan du guide", "guide.html#autotoc_md224", null ],
     [ "Boucle de jeu et pas de temps fixe", "guide-boucle.html", [
       [ "Qu'est-ce qu'une boucle de jeu ?", "guide-boucle.html#autotoc_md50", null ],
       [ "Le piège du framerate variable", "guide-boucle.html#autotoc_md51", null ],
@@ -134,7 +134,12 @@ var guide =
       ] ],
       [ "Assembler la frame complète", "guide-rendu.html#autotoc_md215", null ],
       [ "Le programme d'habillage, livré (<span class=\"tt\">LOT-40</span> → <span class=\"tt\">LOT-55</span>)", "guide-rendu.html#autotoc_md216", null ],
-      [ "Voir aussi", "guide-rendu.html#autotoc_md217", null ]
+      [ "Budget de rendu mesuré (<span class=\"tt\">LOT-62</span>)", "guide-rendu.html#autotoc_md217", [
+        [ "Le test de non-régression du volume (<span class=\"tt\">Source/Test/Unit/HMI/Graphics/test_render_budget.cpp</span>)", "guide-rendu.html#autotoc_md218", null ],
+        [ "Mesures de référence, à la date du <span class=\"tt\">LOT-62</span> (2026-08-12)", "guide-rendu.html#autotoc_md219", null ],
+        [ "Compteur de diagnostic en jeu (<span class=\"tt\">F9</span>)", "guide-rendu.html#autotoc_md220", null ]
+      ] ],
+      [ "Voir aussi", "guide-rendu.html#autotoc_md221", null ]
     ] ],
     [ "Journalisation et assertions", "guide-journalisation.html", [
       [ "Pourquoi journaliser dans un jeu vidéo", "guide-journalisation.html#autotoc_md132", null ],

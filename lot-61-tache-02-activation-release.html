@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-61-tache-02-activation-release.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-61-diagnostics-version-publiee_2tache-02-activation-release"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-61.html#md_Lot_2LOT-61-diagnostics-version-publiee_2epic" title="Lot/LOT-61-diagnostics-version-publiee/epic.md">LOT-61</a> · <b>Emplacement :</b> <span class="tt">Source/HMI</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2760"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2764"></a>
 Contexte</h1>
 <p>La <span class="tt">TACHE-01</span> fournit l'outil ; celle-ci prend la décision qui manque. Dans <span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span>, le bloc <span class="tt">if constexpr (<a class="el" href="namespacecore.html#ada3f6bef6b32bd54ea16d550e0769fb1" title="Vrai dans les builds de développement (Debug), faux en Release.">core::kDeveloperBuild</a>)</span> ajoute console et mémoire en développement et <b>rien du tout</b> ailleurs. Ce n'est pas un oubli : le commentaire justifie explicitement de n'installer ni console (l'exécutable n'en a pas) ni sink mémoire (croissance inutile). Le raisonnement est bon, sa conclusion est trop large.</p>
 <p>Le second manque est le <b>contexte</b>. Même journalisés, les messages ne servent qu'à moitié si l'on ignore la version, la configuration et le matériel : ce sont les trois premières questions qu'on pose devant un rapport de défaut.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2761"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2765"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Installer <span class="tt">core::FileLogSink</span> dans tous les cas</b>, à côté de l'exécutable (<span class="tt"><a class="el" href="namespacehmi.html#a18648161d8a6c752202b6034613a947b" title="Dossier contenant l&#39;exécutable en cours, pour localiser les ressources copiées à côté (niveaux,...">hmi::executableDirectory()</a></span>, dans un sous-dossier <span class="tt">Logs/</span>). La console et le sink mémoire restent réservés au développement — leur justification actuelle est correcte et n'est pas remise en cause.</li>
@@ -113,7 +113,7 @@ Travail à réaliser</h1>
 </li>
 <li><b>Journaliser aussi l'arrêt</b>, avec le code de sortie — la ligne existe déjà, vérifier qu'elle atteint le fichier (donc que le sink est détruit après elle).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2762"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2766"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span>.</li>
@@ -121,7 +121,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/HMI/Diagnostics/StartupContext.{h,cpp}</span> (nouveau) — assemblage du texte de contexte, fonction pure et testable.</li>
 <li><span class="tt">Source/Test/Unit/HMI/Diagnostics/test_startup_context.cpp</span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2763"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2767"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>L'assemblage du contexte est une <b>fonction pure</b> testée : à entrées données (version, configuration, adaptateur, manette, langue), texte attendu. C'est la seule partie testable sans matériel, et elle suffit.</li>
@@ -129,7 +129,7 @@ Tests (obligatoires)</h1>
 <li>Un dossier de journaux impossible à créer laisse l'application démarrer normalement.</li>
 <li>Les builds de développement conservent leurs deux sinks <b>et</b> gagnent le fichier ; le comportement de l'outil de session du <span class="tt">LOT-15</span> est inchangé.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2764"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2768"></a>
 Points d'attention</h1>
 <ul>
 <li><b>L'ordre de destruction compte</b> : le message d'arrêt doit être écrit avant que le sink ne soit détruit, sinon la dernière ligne — souvent la plus utile — manque toujours.</li>
@@ -138,12 +138,12 @@ Points d'attention</h1>
 <li><span class="tt">--export-atlas=</span> sort du programme avant l'ouverture de la fenêtre : vérifier que ce chemin n'écrit pas un journal inutile, ou qu'il en écrit un cohérent.</li>
 <li>Le comportement visé ne s'observe <b>qu'en Release</b> : le job livré par <a class="el" href="lot-58.html" title="LOT-58 — Vérification Release, sanitizer et analyse statique">LOT-58</a> est ce qui rend cette tâche vérifiable autrement qu'à la main.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2765"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2769"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Toute exécution, développement comme Release, écrit un journal fichier contenant un contexte de démarrage complet et le message d'arrêt ; le niveau par défaut est adapté à la configuration et reste surchargeable ; un dossier inaccessible ne bloque rien ; le contexte est assemblé par une fonction pure testée ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2766"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2770"></a>
 Exigences</h1>
 <p><span class="tt">EX-NFR-042</span> (trace exploitable) ; réutilise <span class="tt">EX-NFR-040</span> (erreur récupérable), <span class="tt">EX-NFR-013</span> (compilation sans avertissement), <span class="tt">EX-NFR-010</span> (logique testable), <span class="tt">EX-BUILD-010</span> (déploiement à côté de l'exécutable), <span class="tt">EX-NFR-030</span> (version issue du build CMake). </p>
 </div></div><!-- contents -->

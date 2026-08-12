@@ -19,6 +19,8 @@ var searchData=
   ['designtokens_2ecpp_16',['DesignTokens.cpp',['../DesignTokens_8cpp.html',1,'']]],
   ['designtokens_2eh_17',['DesignTokens.h',['../DesignTokens_8h.html',1,'']]],
   ['deterministicrandom_2eh_18',['DeterministicRandom.h',['../DeterministicRandom_8h.html',1,'']]],
-  ['draftrenderer_2ecpp_19',['DraftRenderer.cpp',['../DraftRenderer_8cpp.html',1,'']]],
-  ['draftrenderer_2eh_20',['DraftRenderer.h',['../DraftRenderer_8h.html',1,'']]]
+  ['diagnosticshud_2ecpp_19',['DiagnosticsHud.cpp',['../DiagnosticsHud_8cpp.html',1,'']]],
+  ['diagnosticshud_2eh_20',['DiagnosticsHud.h',['../DiagnosticsHud_8h.html',1,'']]],
+  ['draftrenderer_2ecpp_21',['DraftRenderer.cpp',['../DraftRenderer_8cpp.html',1,'']]],
+  ['draftrenderer_2eh_22',['DraftRenderer.h',['../DraftRenderer_8h.html',1,'']]]
 ];

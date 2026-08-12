@@ -20,10 +20,11 @@ var searchData=
   ['default_5frender_5flayer_17',['DEFAULT_RENDER_LAYER',['../namespacehmi.html#ab6e44ad3d54b0383ef13f332d290df46',1,'hmi']]],
   ['default_5frender_5fmode_18',['DEFAULT_RENDER_MODE',['../namespacehmi.html#a6757e25cf3a1020826327afe0dd194d3',1,'hmi']]],
   ['description_19',['description',['../structhmi_1_1AnimationDescriptionResult.html#a3cdcee7012ff94ee9d1035738c33edaf',1,'hmi::AnimationDescriptionResult']]],
-  ['dirty_20',['dirty',['../structhmi_1_1LevelStatusInfo.html#a9cd9b8b2b1e60de42886994d2ffb1310',1,'hmi::LevelStatusInfo::dirty'],['../structhmi_1_1PixelEditStatusInfo.html#a5e78865d03928b21b28f7801e71d96ca',1,'hmi::PixelEditStatusInfo::dirty']]],
-  ['disconnected_5fpoll_5finterval_21',['DISCONNECTED_POLL_INTERVAL',['../classhmi_1_1GamepadPoller.html#a7240bc976fbcfe00033bdbc223776d58',1,'hmi::GamepadPoller']]],
-  ['docksvisible_22',['docksVisible',['../structhmi_1_1ScreenDressing.html#afaadcce2a4848ec507ac6584b3590205',1,'hmi::ScreenDressing']]],
-  ['dooropen_23',['doorOpen',['../structhmi_1_1MechanismEventState.html#a93b52be466073c5f1eb4b61605f36c65',1,'hmi::MechanismEventState']]],
-  ['doorposition_24',['doorPosition',['../structcore_1_1Mechanism.html#aff8f5698a02356618c67d7fafae8b2b7',1,'core::Mechanism']]],
-  ['duration_25',['duration',['../structhmi_1_1ScreenShakeState.html#a0af939241aae31f584200a4f23d21cd7',1,'hmi::ScreenShakeState']]]
+  ['diagnostics_5ffps_5fwindow_5fseconds_20',['DIAGNOSTICS_FPS_WINDOW_SECONDS',['../namespacehmi.html#afe37194ec48fcceeedcad65b760773b9',1,'hmi']]],
+  ['dirty_21',['dirty',['../structhmi_1_1LevelStatusInfo.html#a9cd9b8b2b1e60de42886994d2ffb1310',1,'hmi::LevelStatusInfo::dirty'],['../structhmi_1_1PixelEditStatusInfo.html#a5e78865d03928b21b28f7801e71d96ca',1,'hmi::PixelEditStatusInfo::dirty']]],
+  ['disconnected_5fpoll_5finterval_22',['DISCONNECTED_POLL_INTERVAL',['../classhmi_1_1GamepadPoller.html#a7240bc976fbcfe00033bdbc223776d58',1,'hmi::GamepadPoller']]],
+  ['docksvisible_23',['docksVisible',['../structhmi_1_1ScreenDressing.html#afaadcce2a4848ec507ac6584b3590205',1,'hmi::ScreenDressing']]],
+  ['dooropen_24',['doorOpen',['../structhmi_1_1MechanismEventState.html#a93b52be466073c5f1eb4b61605f36c65',1,'hmi::MechanismEventState']]],
+  ['doorposition_25',['doorPosition',['../structcore_1_1Mechanism.html#aff8f5698a02356618c67d7fafae8b2b7',1,'core::Mechanism']]],
+  ['duration_26',['duration',['../structhmi_1_1ScreenShakeState.html#a0af939241aae31f584200a4f23d21cd7',1,'hmi::ScreenShakeState']]]
 ];

@@ -111,6 +111,8 @@ var annotated_dup =
       [ "TileEntry", "structhmi_1_1TileEntry.html", "structhmi_1_1TileEntry" ],
       [ "TileSubgroup", "structhmi_1_1TileSubgroup.html", "structhmi_1_1TileSubgroup" ],
       [ "TileCategory", "structhmi_1_1TileCategory.html", "structhmi_1_1TileCategory" ],
+      [ "FrameRateAverage", "classhmi_1_1FrameRateAverage.html", "classhmi_1_1FrameRateAverage" ],
+      [ "DiagnosticsMeasurements", "structhmi_1_1DiagnosticsMeasurements.html", "structhmi_1_1DiagnosticsMeasurements" ],
       [ "PlayerEventState", "structhmi_1_1PlayerEventState.html", "structhmi_1_1PlayerEventState" ],
       [ "MechanismEventState", "structhmi_1_1MechanismEventState.html", "structhmi_1_1MechanismEventState" ],
       [ "GameSession", "classhmi_1_1GameSession.html", "classhmi_1_1GameSession" ],

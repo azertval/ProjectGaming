@@ -197,6 +197,10 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un sous-groupe : une famille de variantes (formes/tailles/orientations) sous une catégorie.  <a href="structhmi_1_1TileSubgroup.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TileCategory" id="r_TileCategory"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1TileCategory.html">TileCategory</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une catégorie de premier niveau : ses tuiles directes + ses sous-groupes repliables.  <a href="structhmi_1_1TileCategory.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FrameRateAverage" id="r_FrameRateAverage"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1FrameRateAverage.html">FrameRateAverage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moyenne glissante de la cadence de rendu, sur une fenêtre courte.  <a href="classhmi_1_1FrameRateAverage.html#details">More...</a><br /></td></tr>
+<tr class="memitem:DiagnosticsMeasurements" id="r_DiagnosticsMeasurements"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DiagnosticsMeasurements.html">DiagnosticsMeasurements</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valeurs mesurées pour une image de diagnostic (<span class="tt">LOT-62</span> TACHE-02).  <a href="structhmi_1_1DiagnosticsMeasurements.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PlayerEventState" id="r_PlayerEventState"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PlayerEventState.html">PlayerEventState</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous-ensemble de <span class="tt"><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></span> pertinent à la détection d'événements.  <a href="structhmi_1_1PlayerEventState.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MechanismEventState" id="r_MechanismEventState"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MechanismEventState.html">MechanismEventState</a></td></tr>
@@ -943,6 +947,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a8158375fa940021f6bb346e7c2b09247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taille en pixels <b>réels</b> pour une taille logique et un facteur d'échelle d'affichage donnés.  <br /></td></tr>
 <tr class="memitem:a324d7671eeb331de4b3459d66be9d0ca" id="r_a324d7671eeb331de4b3459d66be9d0ca"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1TileCategory.html">TileCategory</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a324d7671eeb331de4b3459d66be9d0ca">tileTaxonomy</a> ()</td></tr>
 <tr class="memdesc:a324d7671eeb331de4b3459d66be9d0ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taxonomie complète des types de tuiles peignables, en catégories/sous-groupes.  <br /></td></tr>
+<tr class="memitem:a2d6fb50a5f3f5828b38c4b60f526f97b" id="r_a2d6fb50a5f3f5828b38c4b60f526f97b"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2d6fb50a5f3f5828b38c4b60f526f97b">composeDiagnosticsHudLines</a> (const <a class="el" href="structhmi_1_1DiagnosticsMeasurements.html">DiagnosticsMeasurements</a> &amp;measurements, const <a class="el" href="classhmi_1_1Localization.html">Localization</a> &amp;localization)</td></tr>
+<tr class="memdesc:a2d6fb50a5f3f5828b38c4b60f526f97b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose les lignes du compteur de diagnostic à partir de valeurs déjà mesurées.  <br /></td></tr>
 <tr class="memitem:afcb621148a1dc0224b1136f50c952795" id="r_afcb621148a1dc0224b1136f50c952795"><td class="memItemLeft">std::vector&lt; <a class="el" href="#a3a61aed1c8e95c289c829398d48488de">GameEvent</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#afcb621148a1dc0224b1136f50c952795">detectPlayerEvents</a> (const <a class="el" href="structhmi_1_1PlayerEventState.html">PlayerEventState</a> &amp;previous, const <a class="el" href="structhmi_1_1PlayerEventState.html">PlayerEventState</a> &amp;current)</td></tr>
 <tr class="memdesc:afcb621148a1dc0224b1136f50c952795"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détecte les transitions du personnage entre deux pas de simulation consécutifs.  <br /></td></tr>
 <tr class="memitem:afb9ffef4971f7aeeea19cfa0a2cddbb9" id="r_afb9ffef4971f7aeeea19cfa0a2cddbb9"><td class="memItemLeft">std::vector&lt; <a class="el" href="#a3a61aed1c8e95c289c829398d48488de">GameEvent</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#afb9ffef4971f7aeeea19cfa0a2cddbb9">detectMechanismEvents</a> (const <a class="el" href="structhmi_1_1MechanismEventState.html">MechanismEventState</a> &amp;previous, const <a class="el" href="structhmi_1_1MechanismEventState.html">MechanismEventState</a> &amp;current, const std::vector&lt; bool &gt; &amp;isContinuous)</td></tr>
@@ -1198,6 +1204,8 @@ Variables</h2></td></tr>
 <tr class="memitem:ab72ec3386202539c0f1a9361fb8fa6cf" id="r_ab72ec3386202539c0f1a9361fb8fa6cf"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#ab72ec3386202539c0f1a9361fb8fa6cf">PIXEL_CANVAS_MAX_ZOOM</a> = 32</td></tr>
 <tr class="memitem:af6dd4ff8d5e0ef90e4386088a9b55c07" id="r_af6dd4ff8d5e0ef90e4386088a9b55c07"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#af6dd4ff8d5e0ef90e4386088a9b55c07">PIXEL_CANVAS_GRID_VISIBLE_MIN_ZOOM</a> = 4</td></tr>
 <tr class="memdesc:af6dd4ff8d5e0ef90e4386088a9b55c07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Facteur de zoom à partir duquel la grille de pixels est dessinée : en-deçà, elle ne ferait que du bruit visuel sur des pixels trop petits pour la distinguer du contenu.  <br /></td></tr>
+<tr class="memitem:afe37194ec48fcceeedcad65b760773b9" id="r_afe37194ec48fcceeedcad65b760773b9"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#afe37194ec48fcceeedcad65b760773b9">DIAGNOSTICS_FPS_WINDOW_SECONDS</a> = 0.5f</td></tr>
+<tr class="memdesc:afe37194ec48fcceeedcad65b760773b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fenêtre de la moyenne glissante de cadence, en secondes : assez courte pour rester réactive à une vraie dégradation, assez longue pour lisser le bruit d'une image à l'autre.  <br /></td></tr>
 <tr class="memitem:aab9ebfc2ebacc5718532a560bfd830ea" id="r_aab9ebfc2ebacc5718532a560bfd830ea"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aab9ebfc2ebacc5718532a560bfd830ea">GAME_EVENT_COUNT</a> = static_cast&lt;int&gt;(<a class="el" href="#a3a61aed1c8e95c289c829398d48488dea567a1ba73d183dc7f9b7c047a7da7e40">GameEvent::SequenceCompleted</a>) + 1</td></tr>
 <tr class="memdesc:aab9ebfc2ebacc5718532a560bfd830ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de valeurs de <span class="tt"><a class="el" href="#a3a61aed1c8e95c289c829398d48488de" title="Événement discret survenu sur un pas de simulation ou une action d&#39;interface.">GameEvent</a></span> — pour les tests d'exhaustivité (parcours de l'énumération).  <br /></td></tr>
 <tr class="memitem:a5d007c47b6f8696b0b71cf94afe65d18" id="r_a5d007c47b6f8696b0b71cf94afe65d18"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5d007c47b6f8696b0b71cf94afe65d18">FONTS_SUBDIRECTORY</a> = &quot;Fonts/&quot;</td></tr>
@@ -3898,6 +3906,45 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a2d6fb50a5f3f5828b38c4b60f526f97b" name="a2d6fb50a5f3f5828b38c4b60f526f97b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d6fb50a5f3f5828b38c4b60f526f97b">&#9670;&#160;</a></span>composeDiagnosticsHudLines()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; hmi::composeDiagnosticsHudLines </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1DiagnosticsMeasurements.html">DiagnosticsMeasurements</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>measurements</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1Localization.html">Localization</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>localization</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compose les lignes du compteur de diagnostic à partir de valeurs déjà mesurées. </p>
+<p>Fonction <b>pure</b> (<span class="tt">EX-NFR-010</span>), sur le patron de <span class="tt"><a class="el" href="#a8a1c52dc217e915a1ebbd5ec209037d9" title="Lignes à afficher pour l&#39;affichage tête haute d&#39;un pas de simulation donné.">hmi::gameHudLines</a></span> : le calcul (quelles lignes, quel texte) est testable sans rendu ; seul le dessin (<span class="tt"><a class="el" href="#a2c8293a59cb710c2a12f8c459eb645f2" title="Compose une chaîne en quads sur le calque UI, ancrée à une position écran.">hmi::composeText</a></span>, à l'appelant) ne l'est pas. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">measurements</td><td>Valeurs mesurées pour l'image courante. </td></tr>
+    <tr><td class="paramname">localization</td><td>Catalogue de traduction, pour les libellés (<span class="tt">EX-REN-033</span>) — aucune chaîne en dur. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Les lignes à afficher, dans l'ordre : cadence, primitives (composées puis soumises), passes de dessin, pas de simulation. </dd></dl>
 
 </div>
 </div>
@@ -10151,6 +10198,31 @@ Variables</h2></td></tr>
 
 <p>Mode appliqué au premier lancement et à défaut de préférence exploitable. </p>
 <p><span class="tt">Texture</span> dans <b>toutes</b> les configurations de build (<span class="tt">EX-REN-046</span>) : deux binaires du même code ne doivent jamais afficher un rendu différent par défaut, sous peine de rendre ambiguë toute capture d'écran ou vérification visuelle. </p>
+
+</div>
+</div>
+<a id="afe37194ec48fcceeedcad65b760773b9" name="afe37194ec48fcceeedcad65b760773b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe37194ec48fcceeedcad65b760773b9">&#9670;&#160;</a></span>DIAGNOSTICS_FPS_WINDOW_SECONDS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::DIAGNOSTICS_FPS_WINDOW_SECONDS = 0.5f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fenêtre de la moyenne glissante de cadence, en secondes : assez courte pour rester réactive à une vraie dégradation, assez longue pour lisser le bruit d'une image à l'autre. </p>
+<p>Une cadence <b>instantanée</b> (<span class="tt">1 / dt</span> sur une seule image) saute dans tous les sens et n'informerait sur rien (cf. <span class="tt">epic.md</span>, points d'attention). </p>
 
 </div>
 </div>
