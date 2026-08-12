@@ -5,10 +5,14 @@
 
 ## Contexte
 Le projet a un patron bien rodé pour associer un nom logique à un fichier d'asset : `SkinCatalog`
-(`LOT-42`), `AnimationCatalog` (`LOT-46`) et `PixelPalette` (`LOT-54`) lisent tous un JSON, traitent
-le fichier absent comme un catalogue vide et **ignorent une entrée malformée plutôt que d'abandonner
-le catalogue entier**. Le catalogue de sons suit ce patron ; l'écrire autrement serait la seule
-erreur possible ici.
+(`LOT-42`) et `AnimationCatalog` (`LOT-46`) lisent tous deux un JSON et traitent le fichier
+**absent** comme un catalogue vide — un cas légitime, pas une anomalie. Une entrée **malformée**,
+en revanche, fait échouer le chargement **entier** avec un code d'erreur programmatique
+(`MalformedStructure`) plutôt que d'être devinée ou silencieusement ignorée : les deux catalogues
+existants se comportent ainsi (vérifié dans leur code, pas seulement leur doc), et une entrée
+partiellement valide charge un catalogue en apparence correct dont un event silencieux ne serait
+diagnostiqué que par un joueur. Le catalogue de sons suit ce même patron ; l'écrire autrement
+serait la seule erreur possible ici.
 
 Le repli, en revanche, diffère. Pour une texture manquante, `LOT-40` produit un damier magenta :
 visible, donc signalant. Pour un son manquant, l'équivalent — un bip de remplacement — serait
@@ -44,8 +48,8 @@ insupportable. Le repli d'un son absent est le **silence**, plus une entrée de 
 
 ## Tests (obligatoires)
 - Catalogue **absent** → catalogue vide, aucune erreur.
-- Entrée **malformée** → cette entrée seule est ignorée, les autres restent chargées (c'est la
-  garantie que donne déjà `SkinCatalog`, et le test qui la vérifie).
+- Entrée **malformée** → le chargement échoue entièrement avec `SoundCatalogError::MalformedStructure`
+  (même garantie que `SkinCatalog`/`AnimationCatalog` : jamais un catalogue partiellement deviné).
 - Événement **inconnu** → aucun son, aucune exception.
 - Le catalogue **livré** référence des fichiers qui existent tous — le test qui attrape une faute de
   frappe dans le contenu.
