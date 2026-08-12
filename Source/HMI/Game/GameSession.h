@@ -8,6 +8,7 @@
 
 #include "Core/Ecs/Systems/AnimationSystem.h"
 #include "Core/Ecs/Systems/CharacterPhysicsSystem.h"
+#include "Core/Ecs/Systems/ParticleSystem.h"
 #include "Core/Ecs/World.h"
 #include "Core/Gameplay/BlockController.h"
 #include "Core/Gameplay/DangerController.h"
@@ -203,6 +204,12 @@ private:
     std::vector<core::Entity> _blockEntities;
     core::CharacterPhysicsSystem _physics;
     core::AnimationSystem _animation;
+    /// Particules du personnage (dash, atterrissage, mort ; `LOT-53` TACHE-02) : simulées au pas
+    /// fixe, vidées à chaque (re)chargement (`loadLevel`) comme le reste de l'état de session.
+    core::ParticleSystem _particles;
+    /// Secousse d'écran courante (`LOT-53` TACHE-03) : déclenchée à un atterrissage lourd et à la
+    /// mort, avancée au pas fixe, appliquée à la caméra de rendu uniquement (`render()`).
+    ScreenShakeState _screenShake;
     core::Entity _player{};
     int _levelWidth = 0;
     int _levelHeight = 0;

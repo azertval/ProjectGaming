@@ -121,6 +121,7 @@ add_executable(ProjectGaming
     Graphics/QuadRecorder.cpp
     Graphics/BackgroundRenderer.cpp
     Graphics/ShadowRenderer.cpp
+    Graphics/ParticleRenderer.cpp
     Graphics/SpriteRenderer.cpp
     Graphics/DraftRenderer.cpp
     Graphics/TileVisuals.cpp

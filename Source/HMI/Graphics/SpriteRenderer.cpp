@@ -8,6 +8,7 @@
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/DecorVisuals.h"
 #include "HMI/Graphics/GraphicsLog.h"
+#include "HMI/Graphics/ParticleRenderer.h"
 #include "HMI/Graphics/PlayerSprite.h"
 #include "HMI/Graphics/ShadowRenderer.h"
 #include "HMI/Graphics/TextureAtlas.h"
@@ -239,6 +240,9 @@ void SpriteRenderer::render(core::World& world, const Camera2D& camera, RenderMo
                       levelHeight, mode);
     composeShadows(_scene, world, mode, textures, interpolationAlpha, doorCollision);
     composeWorldSprites(_scene, world, mode, textures, interpolationAlpha, &camera);
+    // Particules du personnage (LOT-53 TACHE-03) : meme scene, apres les sprites -- l'ordre de
+    // composition n'importe pas, ComposedScene::sort() reordonne par calque/texture/sortOrder.
+    composeParticles(_scene, world, mode, textures);
     _scene.sort();
     logStatisticsIfChanged();
     submitComposedScene(*_batch, camera.projectionMatrix(), _scene);

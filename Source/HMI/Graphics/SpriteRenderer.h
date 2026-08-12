@@ -10,6 +10,7 @@
 #include <DirectXMath.h>
 
 #include "Core/Ecs/Components/Animation.h"
+#include "Core/Levels/Level.h"
 #include "HMI/Graphics/BackgroundRenderer.h"
 #include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/SkinCatalog.h"
@@ -22,9 +23,6 @@
 
 namespace core {
 class World;
-class TileMap;
-struct TileTextureOverride;
-struct Decor;
 }  // namespace core
 
 namespace hmi {

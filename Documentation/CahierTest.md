@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**1003 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**1021 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (911)
+## Tests unitaires (929)
 
 ### Core
 
@@ -53,7 +53,7 @@
 | **MemoryLogSinkTest.ConserveNiveauEtTexteDansLOrdre** (Majeur)<br/><sub>`Source/Test/Unit/Core/Diagnostics/test_sinks.cpp:12`</sub> | Le sink mémoire conserve fidèlement niveau et texte, dans l'ordre. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `sink.entries().size()` vaut `2u`.<br/>Vérifie que `sink.entries()[0].level` vaut `core::LogLevel::Info`.<br/>Vérifie que `sink.entries()[0].message` vaut `"premier"`.<br/>Vérifie que `sink.entries()[1].level` vaut `core::LogLevel::Error`.<br/>Vérifie que `sink.entries()[1].message` vaut `"second"`. |
 | **MemoryLogSinkTest.ClearVideLesMessages** (Majeur)<br/><sub>`Source/Test/Unit/Core/Diagnostics/test_sinks.cpp:34`</sub> | clear vide les messages mémorisés. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `sink.entries().empty()` est vrai. |
 
-#### Ecs (41)
+#### Ecs (51)
 
 **`test_animation_clip.cpp`**
 
@@ -89,6 +89,26 @@
 | **EntityManagerTest.DestructionHandlePerimeSansEffet** (Majeur)<br/><sub>`Source/Test/Unit/Core/Ecs/test_entity_manager.cpp:83`</sub> | Détruire un handle périmé est sans effet (idempotent) et ne touche pas l'entité vivante qui occupe désormais le même index. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `manager.isAlive(live)` est vrai.<br/>Vérifie que `manager.aliveCount()` vaut `1u`. |
 | **EntityManagerTest.EntiteInvalideJamaisVivante** (Majeur)<br/><sub>`Source/Test/Unit/Core/Ecs/test_entity_manager.cpp:107`</sub> | L'entité invalide conventionnelle n'est jamais vivante. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `manager.isAlive(core::INVALID_ENTITY)` est faux.<br/>Vérifie que `manager.isAlive(created)` est vrai.<br/>Vérifie que `manager.isAlive(core::INVALID_ENTITY)` est faux. |
 | **EntityManagerTest.EgaliteHandleInvalide** (Majeur)<br/><sub>`Source/Test/Unit/Core/Ecs/test_entity_manager.cpp:125`</sub> | Le handle invalide se compare comme tel. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `core::INVALID_ENTITY` vaut `core::INVALID_ENTITY`.<br/>Vérifie que `core::INVALID_ENTITY.index` vaut `core::Entity::INVALID_INDEX`. |
+
+**`test_particle_system.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ParticleSystemTest.DeterminismeMemeSequenceMemesParticules** (Critique)<br/><sub>`Source/Test/Unit/Core/Ecs/test_particle_system.cpp:37`</sub> | Déterminisme : même séquence -> mêmes particules. | 1. Deux `ParticleSystem`/`World` construits à l'identique (graine par défaut).<br/> 2. Rejouer sur chacun la même séquence : émettre un effet dispersé, avancer plusieurs pas, émettre à nouveau, avancer encore. | Vérifie que `systemA.aliveCount()` vaut `systemB.aliveCount()`.<br/>Vérifie que `particlesA.size()` vaut `particlesB.size()`.<br/>Vérifie que `particlesA[i].position.x` vaut `particlesB[i].position.x` (comparaison flottante).<br/>Vérifie que `particlesA[i].position.y` vaut `particlesB[i].position.y` (comparaison flottante).<br/>Vérifie que `particlesA[i].velocity.x` vaut `particlesB[i].velocity.x` (comparaison flottante).<br/>Vérifie que `particlesA[i].velocity.y` vaut `particlesB[i].velocity.y` (comparaison flottante).<br/>Vérifie que `particlesA[i].life` vaut `particlesB[i].life` (comparaison flottante). |
+| **ParticleSystemTest.BudgetJamaisDepasseRecycleLaPlusAncienne** (Critique)<br/><sub>`Source/Test/Unit/Core/Ecs/test_particle_system.cpp:89`</sub> | Budget : jamais dépassé, recyclage de la plus ancienne. | 1. Émettre `MAX_PARTICLES + 5` particules individuelles, une origine distincte chacune (x = 0, 1, 2...).<br/>2. Lire le nombre de particules vivantes et leurs origines. | Vérifie que `system.aliveCount()` vaut `core::MAX_PARTICLES`.<br/>Vérifie que `particles.size()` vaut `static_cast<std::size_t>(core::MAX_PARTICLES)`.<br/>Vérifie que `particle.position.x` est supérieur ou égal à `static_cast<float>(EXTRA_EMISSIONS)`. |
+| **ParticleSystemTest.DureeDeVieDisparaitAuPasAttendu** (Majeur)<br/><sub>`Source/Test/Unit/Core/Ecs/test_particle_system.cpp:120`</sub> | Durée de vie : disparition au pas attendu. | 1. Émettre une particule de durée de vie fixe 1,0 s.<br/>2. Avancer de 0,25 s par pas (fixedDelta, exactement représentable en flottant), trois fois.<br/>3. Avancer un quatrième pas. | Vérifie que `system.aliveCount()` vaut `1`.<br/>Vérifie que `system.aliveCount()` vaut `1`.<br/>Vérifie que `stillAlive.size()` vaut `1u`.<br/>Vérifie que `stillAlive.front().life` vaut `0.25f` (comparaison flottante).<br/>Vérifie que `system.aliveCount()` vaut `0`. |
+| **ParticleSystemTest.AucunEffetSurLesEntitesDeGameplay** (Critique)<br/><sub>`Source/Test/Unit/Core/Ecs/test_particle_system.cpp:155`</sub> | Aucun effet sur le gameplay. | 1. Peupler un `core::Player` dans le monde.<br/>2. Émettre et simuler des particules plusieurs pas. | Vérifie que `after.grounded` vaut `original.grounded`.<br/>Vérifie que `after.dashTimer` vaut `original.dashTimer` (comparaison flottante).<br/>Vérifie que `after.mass` vaut `original.mass` (comparaison flottante).<br/>Vérifie que `after.jumpsRemaining` vaut `original.jumpsRemaining`. |
+| **ParticleSystemTest.ClearVideToutesLesParticulesVivantes** (Majeur)<br/><sub>`Source/Test/Unit/Core/Ecs/test_particle_system.cpp:188`</sub> | clear() vide toutes les particules vivantes. | 1. Émettre plusieurs particules.<br/>2. Appeler `clear()`. | Vérifie que `system.aliveCount()` vaut `1`.<br/>Vérifie que `system.aliveCount()` vaut `0`.<br/>Vérifie que `snapshot(world).empty()` est vrai. |
+
+**`test_particle_triggers.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ParticleTriggersTest.AtterrissageSousLeSeuilAucunEffet** (Critique)<br/><sub>`Source/Test/Unit/Core/Ecs/test_particle_triggers.cpp:17`</sub> | Atterrissage sous le seuil : aucun effet. | 1. Appeler `emitLanding` avec une vitesse d'impact strictement inférieure au seuil. | Vérifie que `system.aliveCount()` vaut `0`. |
+| **ParticleTriggersTest.IntensiteAtterrissageProportionnelleALaVitesseDImpact** (Critique)<br/><sub>`Source/Test/Unit/Core/Ecs/test_particle_triggers.cpp:37`</sub> | Intensité d'atterrissage proportionnelle à la vitesse d'impact. | 1. Émettre au seuil minimal.<br/>2. Émettre à mi-intervalle (mondes séparés).<br/> 3. Émettre au-delà du plafond. | Vérifie que `systemMin.aliveCount()` vaut `core::LANDING_DUST_MIN_COUNT`.<br/>Vérifie que `systemMax.aliveCount()` vaut `core::LANDING_DUST_MAX_COUNT`.<br/>Vérifie que `systemMid.aliveCount()` est strictement supérieur à `systemMin.aliveCount()`.<br/>Vérifie que `systemMid.aliveCount()` est strictement inférieur à `systemMax.aliveCount()`.<br/>Vérifie que `systemExtreme.aliveCount()` vaut `core::LANDING_DUST_MAX_COUNT`. |
+| **ParticleTriggersTest.TraineeDeDashEmissionContinueUnAppelParPas** (Critique)<br/><sub>`Source/Test/Unit/Core/Ecs/test_particle_triggers.cpp:76`</sub> | Traînée de dash : émission continue, un appel par pas. | 1. Appeler `emitDashTrail` puis `update` quatre fois de suite (simulant quatre pas de dash). | Vérifie que `system.aliveCount()` est strictement supérieur à `previousCount`. |
+| **ParticleTriggersTest.MortProduitUneRafaleDeParticulesDeType** (Majeur)<br/><sub>`Source/Test/Unit/Core/Ecs/test_particle_triggers.cpp:102`</sub> | Mort : rafale ponctuelle de particules. | 1. Appeler `emitDeath` une fois. | Vérifie que `system.aliveCount()` est strictement supérieur à `1`.<br/>Vérifie que `particle.kind` vaut `core::ParticleKind::Death`. |
+| **ParticleTriggersTest.RechargementAucuneParticuleResiduelle** (Majeur)<br/><sub>`Source/Test/Unit/Core/Ecs/test_particle_triggers.cpp:124`</sub> | Rechargement : aucune particule résiduelle. | 1. Émettre un éclatement de mort.<br/>2. Appeler `clear` (rechargement). | Vérifie que `system.aliveCount()` est strictement supérieur à `0`.<br/>Vérifie que `system.aliveCount()` vaut `0`. |
 
 **`test_player_components.cpp`**
 
@@ -921,7 +941,7 @@
 | **ProgressionUnlockTest.SequenceEntierementTermineeTousJouables** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_progression.cpp:287`</sub> | Séquence entièrement terminée : tous les tableaux sont jouables. | 1. Marquer tous les tableaux de la séquence terminés.<br/>2. Interroger `isLevelUnlocked` pour chacun. | Vérifie que `hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, level)` est vrai. |
 | **ProgressionUnlockTest.TableauVerrouilleNEstJamaisJouable** (Critique)<br/><sub>`Source/Test/Unit/HMI/Game/test_progression.cpp:309`</sub> | Un tableau verrouillé n'est jamais jouable. | 1. Ne terminer aucun tableau.<br/>2. Interroger `isLevelUnlocked` pour un tableau loin dans la séquence. | Vérifie que `hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, "demo-dash.json")` est faux. |
 
-#### Graphics (244)
+#### Graphics (252)
 
 **`test_animated_tiles.cpp`**
 
@@ -1116,6 +1136,14 @@
 | **ParallaxTest.DecorParallaxeVisibleNEstPasEcarte** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_parallax.cpp:218`</sub> | Un decor parallaxe visible n'est pas ecarte par le culling. | 1. Composer un decor hors cadre a sa position simulee mais dont le facteur arriere-plan le ramene dans le cadrage. | Vérifie que `scene.size()` vaut `0u`.<br/>Vérifie que `scene.size()` vaut `1u`. |
 | **ParallaxTest.DecorParallaxeHorsCadreEstEcarte** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_parallax.cpp:257`</sub> | Un decor parallaxe hors cadre est ecarte par le culling. | 1. Composer un decor dans le cadrage a sa position simulee mais dont le facteur premier plan le pousse hors du cadrage. | Vérifie que `scene.size()` vaut `1u`.<br/>Vérifie que `scene.size()` vaut `0u`. |
 
+**`test_particle_render.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ParticleRenderTest.UneParticuleUnQuadCentreOpaciteProportionnelle** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_particle_render.cpp:39`</sub> | Une particule -> un quad centré, opacité = life/maxLife. | 1. Peupler une particule à mi-vie (life = maxLife / 2).<br/>2. Composer en mode Texture. | Vérifie que `recorder.size()` vaut `1u`.<br/>Vérifie que `quad.sprite.x` vaut `3.0f - hmi::PARTICLE_QUAD_SIZE * 0.5f` (comparaison flottante).<br/>Vérifie que `quad.sprite.y` vaut `2.0f - hmi::PARTICLE_QUAD_SIZE * 0.5f` (comparaison flottante).<br/>Vérifie que `quad.sprite.width` vaut `hmi::PARTICLE_QUAD_SIZE` (comparaison flottante).<br/>Vérifie que `quad.sprite.height` vaut `hmi::PARTICLE_QUAD_SIZE` (comparaison flottante).<br/>Vérifie que `quad.sprite.a` vaut `0.5f` (comparaison flottante). |
+| **ParticleRenderTest.CalqueSelonLEffet** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_particle_render.cpp:69`</sub> | Calque selon l'effet : Object pour le dash, Foreground pour le reste. | 1. Peupler une particule de chaque type.<br/>2. Composer en mode Texture. | Vérifie que `recorder.size()` vaut `3u`.<br/>Vérifie que `recorder.countOnLayer(hmi::RenderLayer::Object)` vaut `1`.<br/>Vérifie que `recorder.countOnLayer(hmi::RenderLayer::Foreground)` vaut `2`. |
+| **ParticleRenderTest.ModePhysiqueAucunQuad** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_particle_render.cpp:95`</sub> | Mode Physique : aucun quad de particule. | 1. Peupler une particule vivante.<br/>2. Composer en mode Physique. | Vérifie que `scene.size()` vaut `0u`. |
+
 **`test_player_sprite.cpp`**
 
 | Titre (criticité) | Brief | Étapes | Résultat attendu |
@@ -1194,6 +1222,16 @@
 | **RoomGridTest.NiveauNonMultipleRogneLaDerniereSalle** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_room_grid.cpp:65`</sub> | Un niveau non multiple de la taille de salle rogne la dernière colonne/ligne. | 1. Construire un `RoomGrid` pour un niveau dépassant de quelques cases un multiple de la taille de salle.<br/>2. Vérifier le rectangle de la dernière salle sur chaque axe. | Vérifie que `grid.columns()` vaut `2`.<br/>Vérifie que `grid.rows()` vaut `2`.<br/>Vérifie que `last.column` vaut `hmi::RoomGrid::ROOM_WIDTH_TILES`.<br/>Vérifie que `last.row` vaut `hmi::RoomGrid::ROOM_HEIGHT_TILES`.<br/>Vérifie que `last.width` vaut `extraWidth`.<br/>Vérifie que `last.height` vaut `extraHeight`. |
 | **RoomGridTest.RoomIndexAtQuatreCoins** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_room_grid.cpp:94`</sub> | `roomIndexAt` renvoie l'indice de salle correct aux quatre coins et au centre. | 1. Construire un `RoomGrid` de 2x2 salles.<br/>2. Interroger `roomIndexAt` à des positions choisies dans chacune des quatre salles. | Vérifie que `grid.roomIndexAt(core::GridPosition{0, 0})` vaut `(core::GridPosition{0, 0})`.<br/>Vérifie que `grid.roomIndexAt(core::GridPosition{width - 1, 0})` vaut `(core::GridPosition{1, 0})`.<br/>Vérifie que `grid.roomIndexAt(core::GridPosition{0, height - 1})` vaut `(core::GridPosition{0, 1})`.<br/>Vérifie que `grid.roomIndexAt(core::GridPosition{width - 1, height - 1})` vaut `(core::GridPosition{1, 1})`. |
 | **RoomGridTest.PositionHorsBornesEstBornee** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_room_grid.cpp:117`</sub> | Une position hors des bornes du niveau est bornée à la salle la plus proche. | 1. Construire un `RoomGrid` pour un petit niveau.<br/>2. Interroger `roomIndexAt` avec des coordonnées négatives puis très supérieures aux bornes. | Vérifie que `grid.roomIndexAt(core::GridPosition{-100, -100})` vaut `(core::GridPosition{0, 0})`.<br/>Vérifie que `grid.roomIndexAt(core::GridPosition{1000, 1000})` vaut `(core::GridPosition{0, 0})`. |
+
+**`test_screen_shake.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ScreenShakeTest.EtatParDefautAucunDecalage** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_screen_shake.cpp:18`</sub> | État par défaut : aucun décalage. | 1. Construire un `hmi::ScreenShakeState` par défaut.<br/>2. Lire son décalage. | Vérifie que `offset.x` vaut `0.0f` (comparaison flottante).<br/>Vérifie que `offset.y` vaut `0.0f` (comparaison flottante). |
+| **ScreenShakeTest.DecroitLineairementJusquAZeroALaDureePrevue** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_screen_shake.cpp:35`</sub> | Décroissance jusqu'à zéro dans la durée prévue. | 1. Déclencher une secousse (amplitude 4, durée 0,2 s).<br/>2. Lire le décalage au déclenchement, à mi-durée, à la durée exacte, puis bien au-delà. | Vérifie que `hmi::screenShakeOffset(state).y` vaut `4.0f` (comparaison flottante).<br/>Vérifie que `hmi::screenShakeOffset(state).y` vaut `2.0f` (comparaison flottante).<br/>Vérifie que `hmi::screenShakeOffset(state).y` vaut `0.0f` (comparaison flottante).<br/>Vérifie que `hmi::screenShakeOffset(state).y` vaut `0.0f` (comparaison flottante). |
+| **ScreenShakeTest.DecalageArrondiAuPixelEntier** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_screen_shake.cpp:62`</sub> | Décalage arrondi au pixel entier. | 1. Déclencher une secousse (amplitude 5, durée 0,3 s).<br/>2. Avancer d'un tiers de la durée (décalage brut 3,33). | Vérifie que `hmi::screenShakeOffset(state).y` vaut `3.0f` (comparaison flottante). |
+| **ScreenShakeTest.AucunDecalageHorizontal** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_screen_shake.cpp:80`</sub> | Aucun décalage horizontal. | 1. Déclencher une secousse.<br/>2. Lire le décalage à plusieurs instants. | Vérifie que `hmi::screenShakeOffset(state).x` vaut `0.0f` (comparaison flottante).<br/>Vérifie que `hmi::screenShakeOffset(state).x` vaut `0.0f` (comparaison flottante). |
+| **ScreenShakeTest.NeModifieNiLeCentreNiLeCadrageVisible** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_screen_shake.cpp:100`</sub> | La secousse ne modifie ni le centre ni le cadrage visible. | 1. Poser un centre/zoom sur une caméra, noter `center()`/`visibleBounds()`.<br/> 2. Appliquer un décalage de secousse non nul. | Vérifie que `camera.center().x` vaut `centerBefore.x` (comparaison flottante).<br/>Vérifie que `camera.center().y` vaut `centerBefore.y` (comparaison flottante).<br/>Vérifie que `camera.zoom()` vaut `2.0f` (comparaison flottante).<br/>Vérifie que `boundsAfter.position.x` vaut `boundsBefore.position.x` (comparaison flottante).<br/>Vérifie que `boundsAfter.position.y` vaut `boundsBefore.position.y` (comparaison flottante).<br/>Vérifie que `boundsAfter.size.x` vaut `boundsBefore.size.x` (comparaison flottante).<br/>Vérifie que `boundsAfter.size.y` vaut `boundsBefore.size.y` (comparaison flottante). |
 
 **`test_shadow_render.cpp`**
 

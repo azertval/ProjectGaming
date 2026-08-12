@@ -1,6 +1,6 @@
 # TACHE-01 — Émetteur de particules déterministe {#lot-53-tache-01-emetteur-deterministe}
 
-**Lot :** [LOT-53](epic.md) · **Emplacement :** `Source/Core/Ecs` · **Statut :** non commencé
+**Lot :** [LOT-53](epic.md) · **Emplacement :** `Source/Core/Ecs` · **Statut :** ✅ fait
 
 ## Contexte
 Un système de particules est le premier endroit d'un moteur où l'on est tenté d'utiliser l'horloge

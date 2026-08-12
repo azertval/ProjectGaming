@@ -719,6 +719,61 @@ collisions, déjà sans ambiguïté par la couleur plate) et sans le moindre eff
 addSprite`), et l'axe `Shadow` de `hmi::LayerVisibility` (`LOT-51`) les masque grossièrement dans
 l'éditeur, comme `Background`/`Decor`/`Foreground`.
 
+## Particules et secousse d'écran (`LOT-53`)
+
+Une fois le personnage et le décor texturés (`LOT-48`, `LOT-49`), l'absence d'effets devient la
+principale différence entre ce rendu et celui d'un jeu fini : un dash ne se distingue d'une course
+que par la vitesse, un atterrissage après une longue chute est identique à un pas. `LOT-53` ajoute
+un retour visuel bref à quatre transitions déjà exposées par `core::Player` : dash, atterrissage,
+mort — sans jamais toucher au gameplay (`EX-ARCH-012`).
+
+### L'émetteur, dans `Core`, déterministe (`core::ParticleSystem`)
+
+Une simulation de particules est l'endroit classique où l'on est tenté d'utiliser l'horloge système
+et un générateur aléatoire non maîtrisé — c'est plus simple à écrire, et « ce n'est que du visuel ».
+Ce serait ici une régression : le projet tient le déterminisme au pas fixe depuis `LOT-01`
+(`EX-NFR-002`). `core::ParticleSystem` simule donc les particules (`core::Particle` : position,
+vitesse, durée de vie) comme des entités `core::World` ordinaires, au pas fixe, et tire tout son
+aléa (vitesse, angle de dispersion, durée de vie) d'un `core::DeterministicRandom` **reseedé pour
+chaque particule** à partir d'un triplet reproductible — graine de base, numéro de pas, identifiant
+de l'entité (`core::deriveSeed`) — jamais l'horloge. Deux exécutions de la même séquence d'entrées
+produisent ainsi exactement les mêmes particules.
+
+Le nombre de particules vivantes est borné (`core::MAX_PARTICLES`, `EX-NFR-005`) : au-delà, la plus
+**ancienne** est recyclée — mais jamais en s'appuyant sur l'ordre d'itération du sparse set de
+l'ECS (instable après un retrait, `core::ComponentPool`) : `ParticleSystem` tient sa propre file
+d'émission (FIFO) comme seule source de vérité pour l'intégration et le recyclage.
+
+### Les déclencheurs, câblés dans `hmi::GameSession`
+
+`core::ParticleSystem::emitDashTrail`/`emitLanding`/`emitDeath` sont des **émissions**, pas des
+**détections** : la détection des transitions du personnage réutilise `hmi::detectPlayerEvents`
+(`LOT-60`) déjà calculée par `hmi::GameSession`, sans la dupliquer une troisième fois dans le
+projet (après `LOT-47` et `LOT-60`). La traînée de dash est une exception : elle s'émet à **chaque**
+pas où `core::Player::dashTimer > 0` (émission continue, pas un événement ponctuel), tandis que la
+poussière à l'atterrissage voit son intensité (nombre de particules) croître avec la vitesse
+d'impact, nulle en dessous d'un seuil nommé (`core::LANDING_MIN_IMPACT_SPEED`) — un petit saut ne
+soulève pas de poussière.
+
+### Le rendu (`hmi::ParticleRenderer`) et la secousse d'écran (`hmi::Camera2D`)
+
+`hmi::composeParticles` (`HMI/Graphics/ParticleRenderer.h`), appelé par `hmi::SpriteRenderer::render`
+comme `hmi::composeShadows`, dessine un quad par particule vivante — un simple carré teinté
+(région opaque unie de l'atlas, `hmi::TextureAtlas::tile(0, 0)`, pas d'asset dédié), dont l'opacité
+suit `life / maxLife` (fondu en fin de vie). Le calque dépend de l'effet : la traînée de dash passe
+sur `RenderLayer::Object` (**derrière** le personnage), la poussière et l'éclat de mort sur
+`RenderLayer::Foreground` (**devant**) — actif uniquement en `RenderMode::Texture`, comme les
+ombres.
+
+La secousse d'écran (atterrissage **lourd**, mort) est le seul effet du lot qui n'est pas une
+particule : `hmi::ScreenShakeState` décroît linéairement vers zéro sur une durée brève et
+volontairement conservatrice (`hmi::SCREEN_SHAKE_DURATION`), et son décalage courant
+(`hmi::screenShakeOffset`, arrondi au pixel écran entier, `EX-ARCH-022`) n'est appliqué qu'à
+`Camera2D::projectionMatrix` via `setShakeOffsetPixels` — **jamais** à `Camera2D::_center`. C'est
+cette séparation qui garantit, par construction, que la secousse ne peut ni provoquer de bascule de
+salle (`updateCurrentRoom`, pilotée par la position du personnage, jamais par la caméra) ni fausser
+le culling (`visibleBounds`, dérivé du seul `_center`).
+
 ## Assembler la frame complète
 
 Dans le viewport (`hmi::GameViewport::renderFrame`), l'ordre d'une frame de rendu est :
@@ -772,10 +827,9 @@ Un programme de seize lots (voir [les lots](@ref lots)) a levé ces limites une 
 - **`LOT-55`** — les ombres du plan physique (`hmi::composeShadows`, `RenderLayer::Shadow`,
   décrites plus haut dans cette page).
 
-`LOT-53` (effets et particules, retour visuel des mouvements du personnage) reste **non commencé** :
-indépendant de `LOT-55` (aucun des deux ne dépend de l'autre), il n'est pas couvert par cette page
-tant qu'il n'est pas livré, conformément à la règle du projet — cette documentation ne décrit que le
-code déjà implémenté.
+`LOT-53` (effets et particules, décrit plus haut dans cette page) n'appartient pas à ce programme
+d'habillage : indépendant de `LOT-55` (aucun des deux ne dépend de l'autre), c'est un effort
+distinct qui **bâtit sur** le personnage et le décor texturés plutôt que d'en faire partie.
 
 ## Voir aussi
 - `hmi::GraphicsDevice`, `hmi::GameViewport`, `hmi::Camera2D`.
@@ -793,6 +847,8 @@ code déjà implémenté.
   repli procédural (`LOT-39`, `EX-REN-041`/`EX-REN-042`).
 - `hmi::LinkGeometry`, `hmi::LinkGesture`, `hmi::LinkPanel` — liens de mécanismes (`LOT-37`, voir
   @ref guide-editeur).
+- `core::ParticleSystem`, `core::Particle`, `core::DeterministicRandom`, `hmi::ParticleRenderer`,
+  `hmi::ScreenShakeState` — particules et secousse d'écran (`LOT-53`, `EX-REN-008`).
 - `core::Decor`, `core::DecorLayer`, `hmi::DecorVisualTag`, `hmi::decorRenderLayer`,
   `hmi::resolveDecorAppearance`, `hmi::parallaxFactor`, `hmi::parallaxRenderPosition`,
   `hmi::parallaxModelPosition` — décors libres et parallaxe (`LOT-49`,
