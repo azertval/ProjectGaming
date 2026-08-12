@@ -75,6 +75,8 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_bitmap_font.cpp
     Unit/HMI/Graphics/test_text_renderer.cpp
     Unit/HMI/Graphics/test_shadow_render.cpp
+    Unit/HMI/Graphics/test_particle_render.cpp
+    Unit/HMI/Graphics/test_screen_shake.cpp
     Unit/HMI/Game/test_game_hud.cpp
     Unit/HMI/Game/test_progression.cpp
     Unit/HMI/Game/test_game_events.cpp
@@ -166,6 +168,10 @@ add_executable(UnitTests
     # Les ombres du plan physique (LOT-55) ne font que composer des quads a partir de l'ECS et de
     # l'atlas procedural (regions deja calculees) -- pure, sans GPU, meme patron que ci-dessus.
     ../HMI/Graphics/ShadowRenderer.cpp
+    # Le rendu des particules (LOT-53 TACHE-03) ne fait que composer des quads a partir de l'ECS
+    # et d'une region d'atlas deja calculee (TextureAtlas::tile, pure arithmetique de grille,
+    # cf. TextureAtlasRegions.cpp ci-dessous) -- meme patron que ShadowRenderer.cpp, sans GPU.
+    ../HMI/Graphics/ParticleRenderer.cpp
     # L'état des entrées est indépendant de la fenêtre (aucun <Windows.h>) : sa
     # source est compilée dans les tests pour valider les fronts en isolation.
     ../HMI/Input/InputState.cpp

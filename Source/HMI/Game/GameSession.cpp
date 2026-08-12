@@ -104,6 +104,7 @@ void GameSession::loadLevel(core::Level level) {
     // Un ordre inverse laisserait des handles perimes que le nouveau monde (index/generation
     // repartis a zero) pourrait faire coincider avec de toutes autres entites.
     _particles.clear(_world);
+    _screenShake = ScreenShakeState{};  // aucune secousse residuelle sur le niveau rechargé
     _world = core::World{};  // repart d'un monde vierge (aucune entite du niveau precedent)
     _loadError.clear();
     // Detection d'evenements (LOT-60 TACHE-03) : un (re)chargement change l'etat sous les pieds de
@@ -644,6 +645,8 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
     // ce pas n'en emette de nouvelles (age puis emet, jamais l'inverse -- une particule tout
     // juste emise ce pas ne doit pas etre vieillie du meme coup).
     _particles.update(_world, fixedDelta);
+    // 0ter. Secousse d'ecran (LOT-53 TACHE-03) : decroissance au pas fixe, comme les particules.
+    advanceScreenShake(_screenShake, fixedDelta);
 
     // 1. Entrees -> intention.
     const core::PlayerInput intent = toPlayerInput(input, _gameBindings, _gamepadBindings);
@@ -737,8 +740,16 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
         const bool landedThisStep = std::find(_lastStepEvents.begin(), _lastStepEvents.end(),
                                               GameEvent::Landed) != _lastStepEvents.end();
         if (landedThisStep) {
-            _particles.emitLanding(_world, transform.position,
-                                   (std::max)(0.0f, previousVerticalVelocity));
+            const float impactSpeed = (std::max)(0.0f, previousVerticalVelocity);
+            _particles.emitLanding(_world, transform.position, impactSpeed);
+            // Secousse (LOT-53 TACHE-03) reservee a l'atterrissage LOURD : reutilise le seuil
+            // d'intensite maximale de la poussiere (core::LANDING_MAX_IMPACT_SPEED) plutot que
+            // d'introduire un second seuil -- un atterrissage qui sature deja l'intensite de la
+            // poussiere est, par construction, un atterrissage lourd.
+            if (impactSpeed >= core::LANDING_MAX_IMPACT_SPEED) {
+                triggerScreenShake(_screenShake, LANDING_SHAKE_AMPLITUDE_PIXELS,
+                                   SCREEN_SHAKE_DURATION);
+            }
         }
     }
 
@@ -767,6 +778,7 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
         // l'evenement Died ci-dessus -- reload() remet le personnage a l'entree, la position de
         // mort ne serait plus observable apres.
         _particles.emitDeath(_world, (box.min + box.max) * 0.5f);
+        triggerScreenShake(_screenShake, DEATH_SHAKE_AMPLITUDE_PIXELS, SCREEN_SHAKE_DURATION);
         reload();
     }
     return outcome;
@@ -790,6 +802,11 @@ void GameSession::render(int viewportWidth, int viewportHeight, RenderMode mode,
         static_cast<float>(viewportWidth), static_cast<float>(viewportHeight),
         static_cast<float>(roomBounds.width), static_cast<float>(roomBounds.height), 0.92f);
     _camera.setZoom(zoom);
+    // Secousse d'ecran (LOT-53 TACHE-03) : decalage courant applique a la CAMERA DE RENDU
+    // uniquement (Camera2D::setShakeOffsetPixels), jamais a _center -- sans effet sur le culling
+    // ni sur la logique de cadrage par salle (updateCurrentRoom, pilotee par la position du
+    // personnage).
+    _camera.setShakeOffsetPixels(screenShakeOffset(_screenShake));
 
     // Interpolation de rendu (EX-ARCH-031) entre le pas precedent et le pas courant. La grille de
     // collision des mecanismes (portes) tranche l'ombre d'une porte d'apres son etat COURANT
