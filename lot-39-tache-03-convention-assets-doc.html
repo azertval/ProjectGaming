@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-39-tache-03-convention-assets-doc.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-39-refonte-ihm-qt-textures_2tache-03-convention-assets-doc"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-39.html#md_Lot_2LOT-39-refonte-ihm-qt-textures_2epic" title="Lot/LOT-39-refonte-ihm-qt-textures/epic.md">LOT-39</a> · <b>Emplacement :</b> <span class="tt">Source/Elements</span>, <span class="tt">Source/Editor</span>, <span class="tt">Documentation</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1867"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1871"></a>
 Contexte</h1>
 <p>Finalise le pipeline de textures fichiers : <b>convention d'assets</b> claire (où poser les fichiers, comment les recharger), <b>aperçu</b> optionnel dans l'éditeur, puis <b>documentation et vérification</b> de clôture du lot (et du programme de refonte).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1868"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1872"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Convention d'assets</b> : formaliser le dossier <span class="tt">Assets/</span> (structure, nommage, format PNG), sa copie à côté de l'exécutable (POST_BUILD, comme <span class="tt">Levels</span>/<span class="tt">Localization</span>) et son déploiement en release.</li>
@@ -110,36 +110,36 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1869"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1873"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Elements/Assets/</span> (assets de base + README de convention).</li>
 <li><span class="tt">Source/Editor/</span> (rechargement / aperçu optionnels).</li>
 <li><span class="tt"><a class="el" href="guide-rendu_8md.html">Documentation/Guide/guide-rendu.md</a></span>, <span class="tt"><a class="el" href="rendu-technique_8md.html">Documentation/Specification/rendu-technique.md</a></span>, cahier de test généré.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1870"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1874"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Non-régression</b> : mapping de régions (TACHE-02) et résolution d'assets (TACHE-01) restent testés et verts.</li>
 <li><b><span class="tt">--check</span> du cahier de test</b> et <b>lint des exigences</b> verts.</li>
 <li><b>Vérification manuelle</b> : déposer/remplacer un fichier d'asset et constater l'effet (au relancement et, si implémenté, au rechargement à chaud) ; asset manquant → repli sans crash.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1871"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1875"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Éditable hors code</b> : remplacer le fichier d'asset doit suffire à changer l'apparence (objectif du demandeur) — le documenter explicitement.</li>
 <li><b>Rester dans le périmètre</b> : pas de DDS/mipmaps/packing auto, pas de décors riches (<span class="tt">EX-DEC-*</span>) — hors périmètre.</li>
 <li><b>Doxygen 1.9.8</b> : générer la doc localement avant push.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1872"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1876"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Convention d'assets documentée et opérationnelle (copie + déploiement), aperçu/rechargement optionnels livrés si retenus ; guide rendu et exigences à jour ; tests verts (dont cahier <span class="tt">--check</span>) ; <span class="tt">/W4 /WX</span>, Doxygen, lint verts ; critères du <a class="el" href="lot-39.html#md_Lot_2LOT-39-refonte-ihm-qt-textures_2epic" title="Lot/LOT-39-refonte-ihm-qt-textures/epic.md">LOT-39</a> satisfaits (vérification manuelle).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1873"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1877"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-041</span>/<span class="tt">EX-REN-042</span> ; <span class="tt">EX-NFR-040</span> (repli), <span class="tt">EX-NFR-010</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1874"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1878"></a>
 Réalisé</h1>
 <p>Convention documentée dans <span class="tt">Source/Elements/Assets/README.md</span> (l'ancien dossier réservé <span class="tt">Textures/</span>, jamais peuplé, est plié dans <span class="tt">Assets/</span> — voir <span class="tt">Source/Elements/README.md</span>). Pas de rechargement à chaud ni d'aperçu dock (optionnels, non retenus à ce stade — hors périmètre minimal du lot, le besoin premier du demandeur étant de pouvoir remplacer le fichier). À la place, un outil de développement headless régénère l'atlas de référence depuis la génération procédurale : <span class="tt">ProjectGaming.exe --export-atlas=&lt;chemin&gt;.png</span> (<span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span>), documenté dans <span class="tt"><a class="el" href="guide-rendu_8md.html">Documentation/Guide/guide-rendu.md</a></span> (section « Le pipeline de textures depuis fichiers, et son repli procédural »). <span class="tt">scripts/lint_exigences.py</span> et <span class="tt">scripts/generate_cahier_test.py --check</span> verts ; build <span class="tt">/W4 /WX</span> propre (<span class="tt">ProjectGaming</span>, <span class="tt">UnitTests</span>, <span class="tt">IntegrationTests</span>, <span class="tt">SystemTests</span>) ; 385+81+3 tests verts ; chargement fichier et repli procédural vérifiés manuellement (device D3D11 WARP headless, sans fenêtre). </p>
 </div></div><!-- contents -->

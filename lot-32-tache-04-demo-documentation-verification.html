@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-32-tache-04-demo-documentation-verification.html',
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-32-niveaux-a-salles_2tache-04-demo-documentation-verification"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-32.html#md_Lot_2LOT-32-niveaux-a-salles_2epic" title="Lot/LOT-32-niveaux-a-salles/epic.md">LOT-32</a> · <b>Emplacement :</b> <span class="tt">Source/Elements</span>, <span class="tt">Documentation</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1616"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1620"></a>
 Contexte</h1>
 <p>Dernière tâche du lot : livrer le contenu qui <b>prouve</b> le découpage en salles (<span class="tt">RoomGrid</span>, TACHE-01/02/03) en conditions réelles, et aligner la documentation sur ce qui a été livré, comme pour chaque lot précédent.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1617"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1621"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Niveau de démonstration <span class="tt">demo-salles.json</span></b> (<span class="tt">Source/Elements/Levels</span>) :<ul>
@@ -117,7 +117,7 @@ Travail à réaliser</h1>
 <li><b>Doxygen</b> : génération locale complète (<span class="tt">doxygen Doxyfile</span> depuis <span class="tt">Documentation/</span>) avant de pousser, avec le <b>binaire de la CI (1.9.8)</b>, pas la version locale — piège déjà rencontré deux fois sur ce dépôt (LOT-15, LOT-31) : un span <span class="tt"> `Fichier.cpp::Nom` </span> ou un caractère <span class="tt">&lt;</span>/<span class="tt">&gt;</span> littéral dans un span en accent grave passe le Doxygen local mais casse la CI.</li>
 <li><b><span class="tt">scripts/lint_exigences.py</span></b> : doit rester vert (nouvelles exigences déclarées une fois, <span class="tt">EX-REN-013</span> réutilisée sans nouvelle déclaration, aucune référence orpheline).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1618"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1622"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Elements/Levels/demo-salles.json</span> (nouveau).</li>
@@ -126,7 +126,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="rendu-technique_8md.html">Documentation/Specification/rendu-technique.md</a></span>, <span class="tt"><a class="el" href="editeur-niveaux_8md.html">Documentation/Specification/editeur-niveaux.md</a></span>, <span class="tt"><a class="el" href="niveaux_8md.html">Documentation/Specification/niveaux.md</a></span>.</li>
 <li><span class="tt">CHANGELOG.md</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1619"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1623"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">python scripts/lint_exigences.py</span> retourne un code de sortie <span class="tt">0</span>.</li>
@@ -134,18 +134,18 @@ Tests (obligatoires)</h1>
 <li>Un test <b>système</b> (<span class="tt">Source/Test/Systeme</span>, même patron que les niveaux de démonstration existants) rejoue <span class="tt">demo-salles.json</span> bout en bout (entrée → sortie, en franchissant au moins deux frontières de salles) — preuve que le niveau est franchissable et que le passage de salle en jeu n'introduit aucun blocage physique (la caméra elle-même n'est pas observable par ce test, c'est la simulation <span class="tt">Core</span> sous-jacente qui l'est).</li>
 <li>Essai manuel en jeu : les quatre franchissements de frontière (haut/bas/gauche/droite) du niveau de démonstration produisent une coupure nette de caméra, sans zone hors champ ni tremblement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1620"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1624"></a>
 Points d'attention</h1>
 <ul>
 <li>Cette tâche clôt le lot : vérifier que les critères d'acceptation d'<span class="tt">epic.md</span> sont tous effectivement remplis avant de le marquer terminé (statut + cases ✅ du tableau des tâches).</li>
 <li>Ne pas décrire l'historique de conception (« on a hésité entre X et Y ») dans les commentaires de code — cette nuance reste dans <span class="tt">epic.md</span> (décisions de cadrage), pas dans le code livré.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1621"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1625"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Niveau de démonstration livré et intégré à la séquence ; documentation cohérente avec le code livré ; lint des exigences et génération Doxygen locale (binaire CI) verts ; <span class="tt">CHANGELOG.md</span> à jour ; <span class="tt">epic.md</span> marqué <b>terminé</b>, chaque tâche marquée ✅.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1622"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1626"></a>
 Exigences</h1>
 <p><span class="tt">EX-LVL-004</span> (invariant entrée/sortie, vérifié par le niveau de démonstration), <span class="tt">EX-REN-015</span>, <span class="tt">EX-EDIT-023</span> — aucune exigence propre nouvelle au-delà de celles déjà couvertes par TACHE-01/02/03. </p>
 </div></div><!-- contents -->

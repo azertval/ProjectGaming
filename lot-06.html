@@ -96,13 +96,13 @@ $(function(){initNavTree('lot-06.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>terminé</b>. Au lancement, l'exécutable ouvre un <b>menu principal</b> navigable (clavier + souris) piloté par une structure d'<b>écrans</b>, avec les briques introduites en chemin : entrées clavier/souris, rendu de texte et catalogue de traduction (i18n). Un <b>sélecteur de langue</b> (bouton drapeau, fr/en) complète l'i18n (TACHE-08). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md572"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md576"></a>
 Objectif</h1>
 <p>Afficher au démarrage un <b>menu principal</b> navigable proposant trois options — <b>« Charger niveau »</b>, <b>« Mode Edition »</b> et <b>« Quitter »</b> — et router l'application vers l'écran correspondant. En préalable, poser les briques manquantes : un module d'<b>entrées</b> (clavier + souris), un <b>rendu de texte</b> (police bitmap) et un <b>catalogue de traduction</b> (i18n) par lequel passent tous les textes affichés.</p>
 <p>À l'issue du lot : au lancement, l'exécutable ouvre le menu ; on navigue au clavier et à la souris ; « Quitter » ferme l'application, « Charger niveau » ouvre la scène de démonstration (niveau provisoire) et « Mode Edition » un écran « à venir », tous deux avec retour au menu par <b>Échap</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md573"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md577"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md574"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md578"></a>
 Inclus</h2>
 <ul>
 <li><b>Entrées</b> : état clavier et souris exposé par <span class="tt">Window</span>, avec distinction <b>pressée / maintenue / relâchée</b> (<span class="tt">EX-CTRL-011</span>), échantillonné une fois par frame (<span class="tt">EX-CTRL-021</span>).</li>
@@ -113,7 +113,7 @@ Inclus</h2>
 <li><b>Écrans cibles</b> : « Charger niveau » réutilise la scène de démo du LOT-05 (niveau provisoire) ; « Mode Edition » affiche un écran « à venir » ; retour au menu par Échap.</li>
 <li><b>Intégration <span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span></b> : la boucle pilote l'écran courant ; la scène codée en dur quitte <span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span> pour l'écran de jeu.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md575"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md579"></a>
 Exclus (lots ultérieurs)</h2>
 <ul>
 <li><b>Chargement de niveaux depuis fichier</b> (« Charger niveau » ouvre la démo, pas un fichier).</li>
@@ -121,7 +121,7 @@ Exclus (lots ultérieurs)</h2>
 <li>Écrans de <b>pause</b> et de <b>fin de niveau</b> (<span class="tt">EX-REN-031</span>).</li>
 <li>Manette (<span class="tt">EX-CTRL-002</span>), remapping des touches (<span class="tt">EX-CTRL-012</span>), audio.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md576"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md580"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Texte</b> : police <b>bitmap</b> intégrée (dessinée via <span class="tt">SpriteBatch</span>), cohérente avec le pixel art et l'esprit « from scratch ».</li>
@@ -129,14 +129,14 @@ Décisions de cadrage</h1>
 <li><b>Navigation</b> : <b>clavier + souris</b> (flèches/Entrée et survol/clic).</li>
 <li><b>Actions</b> : « Charger niveau » → scène de démo (niveau provisoire) ; « Mode Edition » → écran « à venir » ; « Quitter » → fermeture. Retour menu par Échap.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md577"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md581"></a>
 Exigences couvertes</h1>
 <ul>
 <li><span class="tt">EX-REN-030</span> (menu principal), <span class="tt">EX-REN-032</span> (texte), <span class="tt">EX-REN-033</span> (catalogue de traduction), <span class="tt">EX-ARCH-012</span> (le rendu lit l'état).</li>
 <li><span class="tt">EX-CTRL-011</span> (pressée/maintenue/relâchée), <span class="tt">EX-CTRL-021</span> (entrées échantillonnées une fois par frame, en amont de la logique).</li>
 <li><span class="tt">EX-NFR-040</span> (fichier/​clé de traduction manquant traité comme erreur récupérable).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md578"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md582"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -161,7 +161,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-06-tache-08-selecteur-langue.html#md_Lot_2LOT-06-menu-principal_2tache-08-selecteur-langue" title="Lot/LOT-06-menu-principal/tache-08-selecteur-langue.md">TACHE-08</a>  </td><td class="markdownTableBodyNone">Sélecteur de langue (bouton drapeau fr/en)  </td><td class="markdownTableBodyNone"><span class="tt">HMI/Interface</span>, <span class="tt">HMI/Graphics</span>  </td><td class="markdownTableBodyCenter">✅ Fait  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md579"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md583"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Au lancement, l'exécutable affiche le <b>menu principal</b> avec les trois options.</li>
@@ -171,13 +171,13 @@ Critères d'acceptation du lot</h1>
 <li>Tous les textes affichés proviennent du <b>catalogue de traduction</b> (aucun littéral d'UI en dur) ; charger un autre fichier de langue change les textes sans recompiler.</li>
 <li>Build <span class="tt">/W4 /WX</span> sans avertissement, tests verts (logique testable : entrées, catalogue de traduction, sélection de menu), documentation Doxygen à jour, <span class="tt">CHANGELOG.md</span> mis à jour.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md580"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md584"></a>
 Dépendances</h1>
 <ul>
 <li>Réutilise le rendu 2D de <a class="el" href="lot-05.html" title="LOT-05 — Rendu 2D : atlas, sprites &amp; caméra">LOT-05</a> (<span class="tt">SpriteBatch</span>, <span class="tt">Camera2D</span>, <span class="tt">SpriteRenderer</span>, scène de démo) et l'ECS de <a class="el" href="lot-03.html" title="LOT-03 — Fondation ECS &amp; mathématiques Core">LOT-03</a>.</li>
 <li>S'appuie sur <span class="tt">hmi::Window</span> (LOT-01) pour la capture des événements d'entrée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md581"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md585"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-06-tache-01-entrees-clavier-souris.html" title="TACHE-01 — Entrées clavier &amp; souris">TACHE-01 — Entrées clavier &amp; souris</a></li>

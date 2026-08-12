@@ -166,6 +166,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a24601fb7a9766888c41012468830bcb0" id="r_a24601fb7a9766888c41012468830bcb0"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Entity.html">core::Entity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a24601fb7a9766888c41012468830bcb0">_blockEntities</a></td></tr>
 <tr class="memitem:a27cd1a6dbfd60f9c927262fd5bf8e580" id="r_a27cd1a6dbfd60f9c927262fd5bf8e580"><td class="memItemLeft"><a class="el" href="classcore_1_1CharacterPhysicsSystem.html">core::CharacterPhysicsSystem</a>&#160;</td><td class="memItemRight"><a class="el" href="#a27cd1a6dbfd60f9c927262fd5bf8e580">_physics</a></td></tr>
 <tr class="memitem:a569da45ea0b788515624b18e06d3d46e" id="r_a569da45ea0b788515624b18e06d3d46e"><td class="memItemLeft"><a class="el" href="classcore_1_1AnimationSystem.html">core::AnimationSystem</a>&#160;</td><td class="memItemRight"><a class="el" href="#a569da45ea0b788515624b18e06d3d46e">_animation</a></td></tr>
+<tr class="memitem:aeea433d545cbb7bce04fe2b9f26b9531" id="r_aeea433d545cbb7bce04fe2b9f26b9531"><td class="memItemLeft"><a class="el" href="classcore_1_1ParticleSystem.html">core::ParticleSystem</a>&#160;</td><td class="memItemRight"><a class="el" href="#aeea433d545cbb7bce04fe2b9f26b9531">_particles</a></td></tr>
+<tr class="memdesc:aeea433d545cbb7bce04fe2b9f26b9531"><td class="mdescLeft">&#160;</td><td class="mdescRight">Particules du personnage (dash, atterrissage, mort ; <span class="tt">LOT-53</span> TACHE-02) : simulées au pas fixe, vidées à chaque (re)chargement (<span class="tt"><a class="el" href="#a64603ed7de0dfef91052394d9e59b9a0">loadLevel</a></span>) comme le reste de l'état de session.  <br /></td></tr>
+<tr class="memitem:aeead5d48e53ad19a1e692da8f44dc2c1" id="r_aeead5d48e53ad19a1e692da8f44dc2c1"><td class="memItemLeft"><a class="el" href="structhmi_1_1ScreenShakeState.html">ScreenShakeState</a>&#160;</td><td class="memItemRight"><a class="el" href="#aeead5d48e53ad19a1e692da8f44dc2c1">_screenShake</a></td></tr>
+<tr class="memdesc:aeead5d48e53ad19a1e692da8f44dc2c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Secousse d'écran courante (<span class="tt">LOT-53</span> TACHE-03) : déclenchée à un atterrissage lourd et à la mort, avancée au pas fixe, appliquée à la caméra de rendu uniquement (<span class="tt"><a class="el" href="#a8c26c9a8cbd1841bd091a5eb2299017a" title="Dessine la scène du niveau (rien si le chargement a échoué).">render()</a></span>).  <br /></td></tr>
 <tr class="memitem:a03b4d354a896209d942166a919b06a96" id="r_a03b4d354a896209d942166a919b06a96"><td class="memItemLeft"><a class="el" href="structcore_1_1Entity.html">core::Entity</a>&#160;</td><td class="memItemRight"><a class="el" href="#a03b4d354a896209d942166a919b06a96">_player</a> {}</td></tr>
 <tr class="memitem:a24dd6fafb4f13659c541081bb3894e76" id="r_a24dd6fafb4f13659c541081bb3894e76"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a24dd6fafb4f13659c541081bb3894e76">_levelWidth</a> = 0</td></tr>
 <tr class="memitem:ad1b7cca3b6b5a03d273f1697305d0aa5" id="r_ad1b7cca3b6b5a03d273f1697305d0aa5"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ad1b7cca3b6b5a03d273f1697305d0aa5">_levelHeight</a> = 0</td></tr>
@@ -1531,6 +1535,30 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aeea433d545cbb7bce04fe2b9f26b9531" name="aeea433d545cbb7bce04fe2b9f26b9531"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeea433d545cbb7bce04fe2b9f26b9531">&#9670;&#160;</a></span>_particles</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1ParticleSystem.html">core::ParticleSystem</a> hmi::GameSession::_particles</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Particules du personnage (dash, atterrissage, mort ; <span class="tt">LOT-53</span> TACHE-02) : simulées au pas fixe, vidées à chaque (re)chargement (<span class="tt"><a class="el" href="#a64603ed7de0dfef91052394d9e59b9a0">loadLevel</a></span>) comme le reste de l'état de session. </p>
+
+</div>
+</div>
 <a id="a27cd1a6dbfd60f9c927262fd5bf8e580" name="a27cd1a6dbfd60f9c927262fd5bf8e580"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a27cd1a6dbfd60f9c927262fd5bf8e580">&#9670;&#160;</a></span>_physics</h2>
 
@@ -1660,6 +1688,30 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="aeead5d48e53ad19a1e692da8f44dc2c1" name="aeead5d48e53ad19a1e692da8f44dc2c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeead5d48e53ad19a1e692da8f44dc2c1">&#9670;&#160;</a></span>_screenShake</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1ScreenShakeState.html">ScreenShakeState</a> hmi::GameSession::_screenShake</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Secousse d'écran courante (<span class="tt">LOT-53</span> TACHE-03) : déclenchée à un atterrissage lourd et à la mort, avancée au pas fixe, appliquée à la caméra de rendu uniquement (<span class="tt"><a class="el" href="#a8c26c9a8cbd1841bd091a5eb2299017a" title="Dessine la scène du niveau (rien si le chargement a échoué).">render()</a></span>). </p>
 
 </div>
 </div>

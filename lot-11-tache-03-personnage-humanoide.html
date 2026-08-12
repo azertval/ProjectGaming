@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-11-tache-03-personnage-humanoide.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-11-ressenti-avance_2tache-03-personnage-humanoide"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-11.html#md_Lot_2LOT-11-ressenti-avance_2epic" title="Lot/LOT-11-ressenti-avance/epic.md">LOT-11</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Interface</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md870"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md874"></a>
 Contexte</h1>
 <p>Le personnage n'est plus un carré 1×1 : il devient <b>humanoïde</b> (0,4 × 0,8). Le <span class="tt">GameScreen</span> doit l'apparaître à cette taille — <b>collision</b> (Collider) <b>et</b> rendu (Transform.scale + sprite) — et <b>centré</b> dans la tuile d'entrée (<span class="tt"><a class="el" href="PlayerSpawn_8h.html" title="Taille du personnage jouable (humanoïde) et placement centré au spawn.">Core/Physics/PlayerSpawn.h</a></span>, TACHE-01).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md871"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md875"></a>
 Travail à réaliser</h1>
 <p>Dans <span class="tt">GameScreen::spawnPlayer</span> :</p><ul>
 <li>Position : <span class="tt"><a class="el" href="namespacecore.html#a478b06d0135ab7cd314b90791cfe7ba0" title="Coin haut-gauche du personnage centré dans la tuile (column, row).">core::playerSpawnPosition</a>(entry.column, entry.row)</span> (centrée dans la tuile).</li>
@@ -105,31 +105,31 @@ Travail à réaliser</h1>
 <li><span class="tt">Transform.scale</span> : <span class="tt"><a class="el" href="namespacecore.html#a6b2b8e5dc4a0b610cc1225c14e1ce5cb">core::playerSize()</a></span> pour que le <b>sprite</b> corresponde à la boîte (rendu humanoïde, <span class="tt">EX-REN-011</span>).</li>
 <li>Conserver le reste (Velocity, Player, région/couche du sprite).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md872"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md876"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/GameScreen.cpp</span> (spawn).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md873"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md877"></a>
 Vérification (visuelle, pas de test unitaire — brique GPU)</h1>
 <ul>
 <li>Le personnage apparaît <b>plus fin et plus haut</b> (silhouette), centré dans la tuile d'entrée.</li>
 <li>Il tombe, se pose, se déplace et interagit comme avant (les mécaniques sont indépendantes de la taille, gérées par le balayage).</li>
 <li>Capture de contrôle jointe à la revue.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md874"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md878"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Cohérence collision/rendu</b> : <span class="tt">Collider</span> et <span class="tt">Transform.scale</span> utilisent la <b>même</b> source (<span class="tt">playerSize()</span>), pas de valeurs dupliquées.</li>
 <li><b>Spawn</b> : centré, sans coincer le personnage dans une tuile (marges symétriques).</li>
 <li>Aucune logique de simulation nouvelle ici — le <span class="tt">GameScreen</span> orchestre ; la taille est une donnée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md875"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md879"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Personnage 0,4 × 0,8 en collision et au rendu, centré ; <b>vérifié visuellement</b> ; build <span class="tt">/W4 /WX</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md876"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md880"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-011</span>, <span class="tt">EX-ARCH-011</span>, <span class="tt">EX-ARCH-012</span>. </p>
 </div></div><!-- contents -->

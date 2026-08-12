@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-64-tache-01-mode-cadrage-format.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-64-cadrage-camera-choisi_2tache-01-mode-cadrage-format"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-64.html#md_Lot_2LOT-64-cadrage-camera-choisi_2epic" title="Lot/LOT-64-cadrage-camera-choisi/epic.md">LOT-64</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Levels</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2856"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2860"></a>
 Contexte</h1>
 <p>Le cadrage n'existe nulle part dans le modèle de niveau. Il est <b>déduit</b> à l'exécution, dans <span class="tt">HMI</span>, d'une comparaison entre les dimensions du niveau et deux constantes de compilation (<span class="tt"><a class="el" href="classhmi_1_1RoomGrid.html#a3641300883e783d130eb0d100e049ef6" title="Largeur d&#39;une salle, en cases (EX-REN-015).">hmi::RoomGrid::ROOM_WIDTH_TILES</a></span> = 24, <span class="tt">ROOM_HEIGHT_TILES</span> = 14). Le designer n'a aucun moyen de l'exprimer, et le moteur aucun moyen de le lire.</p>
 <p>Cette tâche en fait une <b>donnée</b>, avec la contrainte qui prime sur toutes les autres : un niveau existant, qui ne déclare rien, doit se comporter <b>exactement</b> comme aujourd'hui.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2857"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2861"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Champ de cadrage</b> dans le modèle de niveau (<span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a></span>) : mode parmi <em>niveau entier</em>, <em>par salle</em>, <em>suivi</em>, plus les paramètres propres au mode retenu (taille de salle pour <em>par salle</em>).</li>
@@ -108,7 +108,7 @@ Travail à réaliser</h1>
 <li><b>Taille de salle par niveau</b> : les constantes de <span class="tt"><a class="el" href="classhmi_1_1RoomGrid.html" title="Partitionne une grille de niveau en un tableau de salles de taille fixe, façon Celeste (LOT-32).">hmi::RoomGrid</a></span> deviennent des <b>valeurs par défaut</b>, pas la seule vérité. <span class="tt"><a class="el" href="classhmi_1_1RoomGrid.html" title="Partitionne une grille de niveau en un tableau de salles de taille fixe, façon Celeste (LOT-32).">hmi::RoomGrid</a></span> reçoit la taille au lieu de la connaître.</li>
 <li><b>Le cadrage vit dans <span class="tt">Core</span></b> parce que c'est une donnée de niveau ; son <b>application</b> reste dans <span class="tt">HMI</span> — même partage que le reste du format.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2858"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2862"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes.">Source/Core/Levels/Level.h</a></span>, <span class="tt"><a class="el" href="LevelLoader_8cpp.html">LevelLoader.cpp</a></span>, <span class="tt"><a class="el" href="LevelWriter_8cpp.html">LevelWriter.cpp</a></span>, <span class="tt">LevelDraft.{h,cpp}</span>.</li>
@@ -117,7 +117,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a></span>, <span class="tt"><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">test_level_writer.cpp</a></span>, <span class="tt"><a class="el" href="test__level__draft_8cpp.html" title="Tests unitaires du modèle d&#39;édition mutable (LOT-14, EX-EDIT-002 à EX-EDIT-007).">test_level_draft.cpp</a></span>, <span class="tt"><a class="el" href="test__room__grid_8cpp.html" title="Tests unitaires de la partition d&#39;un niveau en salles (RoomGrid, LOT-32).">Source/Test/Unit/HMI/Graphics/test_room_grid.cpp</a></span> (étendus).</li>
 <li><span class="tt">Source/Test/Unit/Core/Levels/test_camera_framing.cpp</span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2859"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2863"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Compatibilité — le test central</b> : chacun des quinze niveaux livrés, chargé <b>sans</b> champ de cadrage, donne le mode et les paramètres qui reproduisent son comportement actuel.</li>
@@ -126,7 +126,7 @@ Tests (obligatoires)</h1>
 <li>Une taille de salle personnalisée est bien celle qu'utilise <span class="tt"><a class="el" href="classhmi_1_1RoomGrid.html" title="Partitionne une grille de niveau en un tableau de salles de taille fixe, façon Celeste (LOT-32).">hmi::RoomGrid</a></span> ; la partition reste correcte aux bords.</li>
 <li>Tests <span class="tt">Core</span> purs, sans GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2860"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2864"></a>
 Points d'attention</h1>
 <ul>
 <li><b>La règle de repli est le cœur de la tâche.</b> L'écrire à un seul endroit, nommé, et la tester contre les niveaux réellement livrés : c'est la seule façon de garantir qu'aucun tableau ne change de comportement.</li>
@@ -135,12 +135,12 @@ Points d'attention</h1>
 <li>Rendre la taille de salle variable touche <span class="tt"><a class="el" href="classhmi_1_1RoomGrid.html" title="Partitionne une grille de niveau en un tableau de salles de taille fixe, façon Celeste (LOT-32).">hmi::RoomGrid</a></span>, utilisé par la caméra <b>et</b> par le repère visuel de salles dans l'éditeur : les deux doivent recevoir la même valeur.</li>
 <li>Ne pas introduire de dépendance de <span class="tt">Core</span> vers <span class="tt">HMI</span> : <span class="tt"><a class="el" href="classhmi_1_1RoomGrid.html" title="Partitionne une grille de niveau en un tableau de salles de taille fixe, façon Celeste (LOT-32).">hmi::RoomGrid</a></span> reste dans <span class="tt">HMI</span> et reçoit la donnée, <span class="tt">Core</span> ne l'appelle pas.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2861"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2865"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Le mode de cadrage est une donnée du niveau, sérialisée, versionnée et validée ; la règle de repli reproduit à l'identique le comportement des niveaux existants, prouvé sur les quinze tableaux livrés ; la taille de salle est réglable ; tests <span class="tt">Core</span> purs ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2862"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2866"></a>
 Exigences</h1>
 <p><span class="tt">EX-LVL-006</span> (le niveau porte son mode de cadrage) ; réutilise <span class="tt">EX-LVL-004</span> (validation), <span class="tt">EX-LVL-005</span> (version de format), <span class="tt">EX-REN-015</span> (cadrage par salle), <span class="tt">EX-NFR-040</span> (erreur récupérable), <span class="tt">EX-NFR-010</span> (<span class="tt">Core</span> testable sans GPU), <span class="tt">EX-NFR-020</span> (tests unitaires). </p>
 </div></div><!-- contents -->

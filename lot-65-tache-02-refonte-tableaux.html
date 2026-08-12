@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-65-tache-02-refonte-tableaux.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-65-refonte-niveaux-demo_2tache-02-refonte-tableaux"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-65.html#md_Lot_2LOT-65-refonte-niveaux-demo_2epic" title="Lot/LOT-65-refonte-niveaux-demo/epic.md">LOT-65</a> · <b>Emplacement :</b> <span class="tt">Source/Elements/Levels</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2901"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2905"></a>
 Contexte</h1>
 <p>Les quinze tableaux livrés sont des <b>bancs d'essai</b> : une grille de tuiles nue, sans fond, sans décor, sans skin explicite, sans cadrage choisi. Ils remplissent parfaitement le rôle que le <span class="tt">LOT-25</span> leur donnait — démontrer qu'une mécanique fonctionne — et ne montrent rien du travail des seize lots d'habillage qui ont suivi.</p>
 <p>C'est le contenu qui accompagne le binaire téléchargé. Un joueur qui lance la <span class="tt">0.1.0</span> juge le jeu là-dessus.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2902"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2906"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Habiller chaque tableau</b> : fond de niveau (<span class="tt">EX-REN-044</span>), décors d'arrière-plan et de premier plan avec parallaxe (<span class="tt">EX-DEC-002</span>), skins de tuiles et raccords automatiques, animations là où elles existent. Réutiliser les assets du dépôt et les scripts de génération ; aucun art original.</li>
@@ -108,7 +108,7 @@ Travail à réaliser</h1>
 <li><b>Conserver l'esprit d'isolement</b> : ces tableaux restent des démonstrations d'une mécanique. Les combinaisons appartiennent à la <span class="tt">TACHE-03</span>.</li>
 <li><b>Renommer si nécessaire</b> : la séquence étant une donnée (<span class="tt">LOT-59</span>), un renommage ne coûte plus qu'une entrée du fichier de séquence.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2903"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2907"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Elements/Levels/demo-*.json</span> (tous), fichier de séquence.</li>
@@ -116,7 +116,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span> — séquence rejouée.</li>
 <li><span class="tt">Source/Elements/Levels/README.md</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2904"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2908"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Chaque tableau reste <b>franchissable</b> de bout en bout (<span class="tt">EX-NFR-021</span>) — après refonte, pas avant.</li>
@@ -125,7 +125,7 @@ Tests (obligatoires)</h1>
 <li><span class="tt">python scripts/check_demo_sequence.py</span> reste vert après renommages et réordonnancements.</li>
 <li>Le budget de primitives de chaque tableau reste sous son plafond (<a class="el" href="lot-62.html" title="LOT-62 — Budget de rendu mesuré">LOT-62</a>) — c'est la première fois que du contenu réellement habillé est mesuré, et le moment où un dépassement apparaîtra s'il doit apparaître.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2905"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2909"></a>
 Points d'attention</h1>
 <ul>
 <li><b>La franchissabilité est fragile.</b> Modifier la géométrie d'un tableau pour l'habiller peut le rendre infranchissable de façon subtile — un saut qui passait de justesse. Rejouer le test système après <b>chaque</b> tableau, pas à la fin.</li>
@@ -134,12 +134,12 @@ Points d'attention</h1>
 <li>Un tableau habillé mais illisible est un échec : le fond et les décors ne doivent jamais rendre ambiguë la lecture du plan physique. La bascule <span class="tt">F8</span> et les ombres du <span class="tt">LOT-55</span> sont là pour arbitrer.</li>
 <li>Attention au volume : chaque fond est une image versionnée. Réutiliser plutôt que multiplier.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2906"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2910"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les quinze tableaux sont habillés, portent un cadrage choisi, suivent une progression revue à une mécanique par tableau, restent franchissables, valides, sous leur budget de primitives, et le garde-fou de séquence est vert ; les défauts découverts sont consignés sans être corrigés.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2907"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2911"></a>
 Exigences</h1>
 <p>Réutilise <span class="tt">EX-LVL-012</span> (niveaux de démonstration), <span class="tt">EX-LVL-006</span> (cadrage), <span class="tt">EX-LVL-013</span> (séquence en donnée), <span class="tt">EX-LVL-004</span> (validation), <span class="tt">EX-NFR-021</span> (franchissabilité), <span class="tt">EX-REN-044</span> (fond), <span class="tt">EX-DEC-002</span> (couches de décor), <span class="tt">EX-REN-005</span> (animations), <span class="tt">EX-NFR-005</span> (budget de primitives). </p>
 </div></div><!-- contents -->

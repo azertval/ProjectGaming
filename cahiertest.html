@@ -93,9 +93,9 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>1003 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>1021 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (911)</h1>
+Tests unitaires (929)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p><b><span class="tt"><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></span></b></p>
@@ -217,7 +217,7 @@ Vérifie que <span class="tt">sink.entries()[1].message</span> vaut <span class=
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">sink.entries().empty()</span> est vrai.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md7"></a>
-Ecs (41)</h3>
+Ecs (51)</h3>
 <p><b><span class="tt"><a class="el" href="test__animation__clip_8cpp.html" title="Tests unitaires du modèle de clip d&#39;animation (core::AnimationClip/core::ClipSet, LOT-46 TACHE-01) : ...">test_animation_clip.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -354,6 +354,78 @@ Vérifie que <span class="tt">manager.isAlive(core::INVALID_ENTITY)</span> est f
 <sub><span class="tt"><a class="el" href="test__entity__manager_8cpp.html" title="Tests unitaires du gestionnaire de cycle de vie des entités.">Source/Test/Unit/Core/Ecs/test_entity_manager.cpp</a>:125</span></sub>  </td><td class="markdownTableBodyNone">Le handle invalide se compare comme tel.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacecore.html#a2a9202a1a89eacaec610bdc83b0ff272" title="Entité invalide conventionnelle : ne désigne jamais une entité vivante.">core::INVALID_ENTITY</a></span> vaut <span class="tt"><a class="el" href="namespacecore.html#a2a9202a1a89eacaec610bdc83b0ff272" title="Entité invalide conventionnelle : ne désigne jamais une entité vivante.">core::INVALID_ENTITY</a></span>.<br  />
 Vérifie que <span class="tt">core::INVALID_ENTITY.index</span> vaut <span class="tt"><a class="el" href="structcore_1_1Entity.html#a215ee621f52074b73615e4c567820e38" title="Valeur d&#39;index réservée pour désigner l&#39;entité invalide.">core::Entity::INVALID_INDEX</a></span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__particle__system_8cpp.html" title="Tests unitaires de l&#39;émetteur de particules déterministe (LOT-53 TACHE-01, EX-REN-008).">test_particle_system.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ParticleSystemTest.DeterminismeMemeSequenceMemesParticules</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__particle__system_8cpp.html" title="Tests unitaires de l&#39;émetteur de particules déterministe (LOT-53 TACHE-01, EX-REN-008).">Source/Test/Unit/Core/Ecs/test_particle_system.cpp</a>:37</span></sub>  </td><td class="markdownTableBodyNone">Déterminisme : même séquence -&gt; mêmes particules.  </td><td class="markdownTableBodyNone">1. Deux <span class="tt">ParticleSystem</span>/<span class="tt">World</span> construits à l'identique (graine par défaut).<br  />
+ 2. Rejouer sur chacun la même séquence : émettre un effet dispersé, avancer plusieurs pas, émettre à nouveau, avancer encore.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">systemA.aliveCount()</span> vaut <span class="tt">systemB.aliveCount()</span>.<br  />
+Vérifie que <span class="tt">particlesA.size()</span> vaut <span class="tt">particlesB.size()</span>.<br  />
+Vérifie que <span class="tt">particlesA[i].position.x</span> vaut <span class="tt">particlesB[i].position.x</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">particlesA[i].position.y</span> vaut <span class="tt">particlesB[i].position.y</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">particlesA[i].velocity.x</span> vaut <span class="tt">particlesB[i].velocity.x</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">particlesA[i].velocity.y</span> vaut <span class="tt">particlesB[i].velocity.y</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">particlesA[i].life</span> vaut <span class="tt">particlesB[i].life</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ParticleSystemTest.BudgetJamaisDepasseRecycleLaPlusAncienne</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__particle__system_8cpp.html" title="Tests unitaires de l&#39;émetteur de particules déterministe (LOT-53 TACHE-01, EX-REN-008).">Source/Test/Unit/Core/Ecs/test_particle_system.cpp</a>:89</span></sub>  </td><td class="markdownTableBodyNone">Budget : jamais dépassé, recyclage de la plus ancienne.  </td><td class="markdownTableBodyNone">1. Émettre <span class="tt">MAX_PARTICLES + 5</span> particules individuelles, une origine distincte chacune (x = 0, 1, 2...).<br  />
+2. Lire le nombre de particules vivantes et leurs origines.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">system.aliveCount()</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a111487c1e65133a09f9f0aeb582b7e17" title="Nombre maximal de particules simultanément vivantes (EX-NFR-005) : au-delà, spawn() recycle les plus ...">core::MAX_PARTICLES</a></span>.<br  />
+Vérifie que <span class="tt">particles.size()</span> vaut <span class="tt">static_cast&lt;std::size_t&gt;(<a class="el" href="namespacecore.html#a111487c1e65133a09f9f0aeb582b7e17" title="Nombre maximal de particules simultanément vivantes (EX-NFR-005) : au-delà, spawn() recycle les plus ...">core::MAX_PARTICLES</a>)</span>.<br  />
+Vérifie que <span class="tt">particle.position.x</span> est supérieur ou égal à <span class="tt">static_cast&lt;float&gt;(EXTRA_EMISSIONS)</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ParticleSystemTest.DureeDeVieDisparaitAuPasAttendu</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__particle__system_8cpp.html" title="Tests unitaires de l&#39;émetteur de particules déterministe (LOT-53 TACHE-01, EX-REN-008).">Source/Test/Unit/Core/Ecs/test_particle_system.cpp</a>:120</span></sub>  </td><td class="markdownTableBodyNone">Durée de vie : disparition au pas attendu.  </td><td class="markdownTableBodyNone">1. Émettre une particule de durée de vie fixe 1,0 s.<br  />
+2. Avancer de 0,25 s par pas (fixedDelta, exactement représentable en flottant), trois fois.<br  />
+3. Avancer un quatrième pas.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">system.aliveCount()</span> vaut <span class="tt">1</span>.<br  />
+Vérifie que <span class="tt">system.aliveCount()</span> vaut <span class="tt">1</span>.<br  />
+Vérifie que <span class="tt">stillAlive.size()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">stillAlive.front().life</span> vaut <span class="tt">0.25f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">system.aliveCount()</span> vaut <span class="tt">0</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ParticleSystemTest.AucunEffetSurLesEntitesDeGameplay</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__particle__system_8cpp.html" title="Tests unitaires de l&#39;émetteur de particules déterministe (LOT-53 TACHE-01, EX-REN-008).">Source/Test/Unit/Core/Ecs/test_particle_system.cpp</a>:155</span></sub>  </td><td class="markdownTableBodyNone">Aucun effet sur le gameplay.  </td><td class="markdownTableBodyNone">1. Peupler un <span class="tt"><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></span> dans le monde.<br  />
+2. Émettre et simuler des particules plusieurs pas.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">after.grounded</span> vaut <span class="tt">original.grounded</span>.<br  />
+Vérifie que <span class="tt">after.dashTimer</span> vaut <span class="tt">original.dashTimer</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">after.mass</span> vaut <span class="tt">original.mass</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">after.jumpsRemaining</span> vaut <span class="tt">original.jumpsRemaining</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ParticleSystemTest.ClearVideToutesLesParticulesVivantes</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__particle__system_8cpp.html" title="Tests unitaires de l&#39;émetteur de particules déterministe (LOT-53 TACHE-01, EX-REN-008).">Source/Test/Unit/Core/Ecs/test_particle_system.cpp</a>:188</span></sub>  </td><td class="markdownTableBodyNone">clear() vide toutes les particules vivantes.  </td><td class="markdownTableBodyNone">1. Émettre plusieurs particules.<br  />
+2. Appeler <span class="tt">clear()</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">system.aliveCount()</span> vaut <span class="tt">1</span>.<br  />
+Vérifie que <span class="tt">system.aliveCount()</span> vaut <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">snapshot(world).empty()</span> est vrai.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__particle__triggers_8cpp.html" title="Tests unitaires des déclencheurs de particules du personnage (LOT-53 TACHE-02, EX-REN-008).">test_particle_triggers.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ParticleTriggersTest.AtterrissageSousLeSeuilAucunEffet</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__particle__triggers_8cpp.html" title="Tests unitaires des déclencheurs de particules du personnage (LOT-53 TACHE-02, EX-REN-008).">Source/Test/Unit/Core/Ecs/test_particle_triggers.cpp</a>:17</span></sub>  </td><td class="markdownTableBodyNone">Atterrissage sous le seuil : aucun effet.  </td><td class="markdownTableBodyNone">1. Appeler <span class="tt">emitLanding</span> avec une vitesse d'impact strictement inférieure au seuil.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">system.aliveCount()</span> vaut <span class="tt">0</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ParticleTriggersTest.IntensiteAtterrissageProportionnelleALaVitesseDImpact</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__particle__triggers_8cpp.html" title="Tests unitaires des déclencheurs de particules du personnage (LOT-53 TACHE-02, EX-REN-008).">Source/Test/Unit/Core/Ecs/test_particle_triggers.cpp</a>:37</span></sub>  </td><td class="markdownTableBodyNone">Intensité d'atterrissage proportionnelle à la vitesse d'impact.  </td><td class="markdownTableBodyNone">1. Émettre au seuil minimal.<br  />
+2. Émettre à mi-intervalle (mondes séparés).<br  />
+ 3. Émettre au-delà du plafond.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">systemMin.aliveCount()</span> vaut <span class="tt"><a class="el" href="namespacecore.html#aba5e54d19d0541ded5d32fd4b613b923" title="Nombre de particules de poussière au seuil LANDING_MIN_IMPACT_SPEED (intensité minimale).">core::LANDING_DUST_MIN_COUNT</a></span>.<br  />
+Vérifie que <span class="tt">systemMax.aliveCount()</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a44e318ce9f22d51c4119883030e4f60b" title="Nombre de particules de poussière au plafond LANDING_MAX_IMPACT_SPEED (intensité maximale).">core::LANDING_DUST_MAX_COUNT</a></span>.<br  />
+Vérifie que <span class="tt">systemMid.aliveCount()</span> est strictement supérieur à <span class="tt">systemMin.aliveCount()</span>.<br  />
+Vérifie que <span class="tt">systemMid.aliveCount()</span> est strictement inférieur à <span class="tt">systemMax.aliveCount()</span>.<br  />
+Vérifie que <span class="tt">systemExtreme.aliveCount()</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a44e318ce9f22d51c4119883030e4f60b" title="Nombre de particules de poussière au plafond LANDING_MAX_IMPACT_SPEED (intensité maximale).">core::LANDING_DUST_MAX_COUNT</a></span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ParticleTriggersTest.TraineeDeDashEmissionContinueUnAppelParPas</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__particle__triggers_8cpp.html" title="Tests unitaires des déclencheurs de particules du personnage (LOT-53 TACHE-02, EX-REN-008).">Source/Test/Unit/Core/Ecs/test_particle_triggers.cpp</a>:76</span></sub>  </td><td class="markdownTableBodyNone">Traînée de dash : émission continue, un appel par pas.  </td><td class="markdownTableBodyNone">1. Appeler <span class="tt">emitDashTrail</span> puis <span class="tt">update</span> quatre fois de suite (simulant quatre pas de dash).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">system.aliveCount()</span> est strictement supérieur à <span class="tt">previousCount</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ParticleTriggersTest.MortProduitUneRafaleDeParticulesDeType</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__particle__triggers_8cpp.html" title="Tests unitaires des déclencheurs de particules du personnage (LOT-53 TACHE-02, EX-REN-008).">Source/Test/Unit/Core/Ecs/test_particle_triggers.cpp</a>:102</span></sub>  </td><td class="markdownTableBodyNone">Mort : rafale ponctuelle de particules.  </td><td class="markdownTableBodyNone">1. Appeler <span class="tt">emitDeath</span> une fois.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">system.aliveCount()</span> est strictement supérieur à <span class="tt">1</span>.<br  />
+Vérifie que <span class="tt">particle.kind</span> vaut <span class="tt"><a class="el" href="namespacecore.html#aa6799b2e10b4cf31b2527af8a390ce2ca6097f89e3092d4ccd249c9d479785c1f" title="Éclatement à la mort du personnage.">core::ParticleKind::Death</a></span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ParticleTriggersTest.RechargementAucuneParticuleResiduelle</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__particle__triggers_8cpp.html" title="Tests unitaires des déclencheurs de particules du personnage (LOT-53 TACHE-02, EX-REN-008).">Source/Test/Unit/Core/Ecs/test_particle_triggers.cpp</a>:124</span></sub>  </td><td class="markdownTableBodyNone">Rechargement : aucune particule résiduelle.  </td><td class="markdownTableBodyNone">1. Émettre un éclatement de mort.<br  />
+2. Appeler <span class="tt">clear</span> (rechargement).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">system.aliveCount()</span> est strictement supérieur à <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">system.aliveCount()</span> vaut <span class="tt">0</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__player__components_8cpp.html" title="Tests unitaires des composants du personnage (données pures) : valeurs par défaut.">test_player_components.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -3883,7 +3955,7 @@ Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9a410292879
 2. Interroger <span class="tt">isLevelUnlocked</span> pour un tableau loin dans la séquence.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">hmi::isLevelUnlocked</a>(progression, FIVE_LEVEL_SEQUENCE, "demo-dash.json")</span> est faux.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
-Graphics (244)</h3>
+Graphics (252)</h3>
 <p><b><span class="tt"><a class="el" href="test__animated__tiles_8cpp.html" title="Tests unitaires des tuiles animées (LOT-46 TACHE-05) : horloge partagée par asset,...">test_animated_tiles.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4619,6 +4691,30 @@ Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">1u</span
 <sub><span class="tt"><a class="el" href="test__parallax_8cpp.html" title="Tests unitaires du facteur de parallaxe par couche et du décalage relatif à la salle courante (LOT-49...">Source/Test/Unit/HMI/Graphics/test_parallax.cpp</a>:257</span></sub>  </td><td class="markdownTableBodyNone">Un decor parallaxe hors cadre est ecarte par le culling.  </td><td class="markdownTableBodyNone">1. Composer un decor dans le cadrage a sa position simulee mais dont le facteur premier plan le pousse hors du cadrage.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">1u</span>.<br  />
 Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">0u</span>.  </td></tr>
 </table>
+<p><b><span class="tt"><a class="el" href="test__particle__render_8cpp.html" title="Tests unitaires du rendu des particules (LOT-53 TACHE-03, EX-REN-008).">test_particle_render.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ParticleRenderTest.UneParticuleUnQuadCentreOpaciteProportionnelle</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__particle__render_8cpp.html" title="Tests unitaires du rendu des particules (LOT-53 TACHE-03, EX-REN-008).">Source/Test/Unit/HMI/Graphics/test_particle_render.cpp</a>:39</span></sub>  </td><td class="markdownTableBodyNone">Une particule -&gt; un quad centré, opacité = life/maxLife.  </td><td class="markdownTableBodyNone">1. Peupler une particule à mi-vie (life = maxLife / 2).<br  />
+2. Composer en mode Texture.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">recorder.size()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">quad.sprite.x</span> vaut <span class="tt">3.0f - <a class="el" href="namespacehmi.html#ae5973dd2d98049262bf4fb2bd91357a3" title="Côté du carré teinté d&#39;une particule, en unités monde (LOT-53 TACHE-03 : « un simple carré teinté suf...">hmi::PARTICLE_QUAD_SIZE</a> * 0.5f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">quad.sprite.y</span> vaut <span class="tt">2.0f - <a class="el" href="namespacehmi.html#ae5973dd2d98049262bf4fb2bd91357a3" title="Côté du carré teinté d&#39;une particule, en unités monde (LOT-53 TACHE-03 : « un simple carré teinté suf...">hmi::PARTICLE_QUAD_SIZE</a> * 0.5f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">quad.sprite.width</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ae5973dd2d98049262bf4fb2bd91357a3" title="Côté du carré teinté d&#39;une particule, en unités monde (LOT-53 TACHE-03 : « un simple carré teinté suf...">hmi::PARTICLE_QUAD_SIZE</a></span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">quad.sprite.height</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ae5973dd2d98049262bf4fb2bd91357a3" title="Côté du carré teinté d&#39;une particule, en unités monde (LOT-53 TACHE-03 : « un simple carré teinté suf...">hmi::PARTICLE_QUAD_SIZE</a></span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">quad.sprite.a</span> vaut <span class="tt">0.5f</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ParticleRenderTest.CalqueSelonLEffet</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__particle__render_8cpp.html" title="Tests unitaires du rendu des particules (LOT-53 TACHE-03, EX-REN-008).">Source/Test/Unit/HMI/Graphics/test_particle_render.cpp</a>:69</span></sub>  </td><td class="markdownTableBodyNone">Calque selon l'effet : Object pour le dash, Foreground pour le reste.  </td><td class="markdownTableBodyNone">1. Peupler une particule de chaque type.<br  />
+2. Composer en mode Texture.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">recorder.size()</span> vaut <span class="tt">3u</span>.<br  />
+Vérifie que <span class="tt">recorder.countOnLayer(hmi::RenderLayer::Object)</span> vaut <span class="tt">1</span>.<br  />
+Vérifie que <span class="tt">recorder.countOnLayer(hmi::RenderLayer::Foreground)</span> vaut <span class="tt">2</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ParticleRenderTest.ModePhysiqueAucunQuad</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__particle__render_8cpp.html" title="Tests unitaires du rendu des particules (LOT-53 TACHE-03, EX-REN-008).">Source/Test/Unit/HMI/Graphics/test_particle_render.cpp</a>:95</span></sub>  </td><td class="markdownTableBodyNone">Mode Physique : aucun quad de particule.  </td><td class="markdownTableBodyNone">1. Peupler une particule vivante.<br  />
+2. Composer en mode Physique.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">0u</span>.  </td></tr>
+</table>
 <p><b><span class="tt"><a class="el" href="test__player__sprite_8cpp.html" title="Tests unitaires de l&#39;habillage du personnage : ancrage image/hitbox, repli entre clips et retournemen...">test_player_sprite.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -4974,6 +5070,42 @@ Vérifie que <span class="tt">grid.roomIndexAt(<a class="el" href="structcore_1_
 <sub><span class="tt"><a class="el" href="test__room__grid_8cpp.html" title="Tests unitaires de la partition d&#39;un niveau en salles (RoomGrid, LOT-32).">Source/Test/Unit/HMI/Graphics/test_room_grid.cpp</a>:117</span></sub>  </td><td class="markdownTableBodyNone">Une position hors des bornes du niveau est bornée à la salle la plus proche.  </td><td class="markdownTableBodyNone">1. Construire un <span class="tt">RoomGrid</span> pour un petit niveau.<br  />
 2. Interroger <span class="tt">roomIndexAt</span> avec des coordonnées négatives puis très supérieures aux bornes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">grid.roomIndexAt(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{-100, -100})</span> vaut <span class="tt">(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{0, 0})</span>.<br  />
 Vérifie que <span class="tt">grid.roomIndexAt(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{1000, 1000})</span> vaut <span class="tt">(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{0, 0})</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__screen__shake_8cpp.html" title="Tests unitaires de la secousse d&#39;écran (LOT-53 TACHE-03, EX-REN-008).">test_screen_shake.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ScreenShakeTest.EtatParDefautAucunDecalage</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__screen__shake_8cpp.html" title="Tests unitaires de la secousse d&#39;écran (LOT-53 TACHE-03, EX-REN-008).">Source/Test/Unit/HMI/Graphics/test_screen_shake.cpp</a>:18</span></sub>  </td><td class="markdownTableBodyNone">État par défaut : aucun décalage.  </td><td class="markdownTableBodyNone">1. Construire un <span class="tt"><a class="el" href="structhmi_1_1ScreenShakeState.html" title="État déterministe d&#39;une secousse d&#39;écran en cours de décroissance vers zéro.">hmi::ScreenShakeState</a></span> par défaut.<br  />
+2. Lire son décalage.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">offset.x</span> vaut <span class="tt">0.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">offset.y</span> vaut <span class="tt">0.0f</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ScreenShakeTest.DecroitLineairementJusquAZeroALaDureePrevue</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__screen__shake_8cpp.html" title="Tests unitaires de la secousse d&#39;écran (LOT-53 TACHE-03, EX-REN-008).">Source/Test/Unit/HMI/Graphics/test_screen_shake.cpp</a>:35</span></sub>  </td><td class="markdownTableBodyNone">Décroissance jusqu'à zéro dans la durée prévue.  </td><td class="markdownTableBodyNone">1. Déclencher une secousse (amplitude 4, durée 0,2 s).<br  />
+2. Lire le décalage au déclenchement, à mi-durée, à la durée exacte, puis bien au-delà.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::screenShakeOffset(state).y</span> vaut <span class="tt">4.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">hmi::screenShakeOffset(state).y</span> vaut <span class="tt">2.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">hmi::screenShakeOffset(state).y</span> vaut <span class="tt">0.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">hmi::screenShakeOffset(state).y</span> vaut <span class="tt">0.0f</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ScreenShakeTest.DecalageArrondiAuPixelEntier</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__screen__shake_8cpp.html" title="Tests unitaires de la secousse d&#39;écran (LOT-53 TACHE-03, EX-REN-008).">Source/Test/Unit/HMI/Graphics/test_screen_shake.cpp</a>:62</span></sub>  </td><td class="markdownTableBodyNone">Décalage arrondi au pixel entier.  </td><td class="markdownTableBodyNone">1. Déclencher une secousse (amplitude 5, durée 0,3 s).<br  />
+2. Avancer d'un tiers de la durée (décalage brut 3,33).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::screenShakeOffset(state).y</span> vaut <span class="tt">3.0f</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ScreenShakeTest.AucunDecalageHorizontal</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__screen__shake_8cpp.html" title="Tests unitaires de la secousse d&#39;écran (LOT-53 TACHE-03, EX-REN-008).">Source/Test/Unit/HMI/Graphics/test_screen_shake.cpp</a>:80</span></sub>  </td><td class="markdownTableBodyNone">Aucun décalage horizontal.  </td><td class="markdownTableBodyNone">1. Déclencher une secousse.<br  />
+2. Lire le décalage à plusieurs instants.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::screenShakeOffset(state).x</span> vaut <span class="tt">0.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">hmi::screenShakeOffset(state).x</span> vaut <span class="tt">0.0f</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ScreenShakeTest.NeModifieNiLeCentreNiLeCadrageVisible</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__screen__shake_8cpp.html" title="Tests unitaires de la secousse d&#39;écran (LOT-53 TACHE-03, EX-REN-008).">Source/Test/Unit/HMI/Graphics/test_screen_shake.cpp</a>:100</span></sub>  </td><td class="markdownTableBodyNone">La secousse ne modifie ni le centre ni le cadrage visible.  </td><td class="markdownTableBodyNone">1. Poser un centre/zoom sur une caméra, noter <span class="tt">center()</span>/<span class="tt">visibleBounds()</span>.<br  />
+ 2. Appliquer un décalage de secousse non nul.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">camera.center().x</span> vaut <span class="tt">centerBefore.x</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">camera.center().y</span> vaut <span class="tt">centerBefore.y</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">camera.zoom()</span> vaut <span class="tt">2.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">boundsAfter.position.x</span> vaut <span class="tt">boundsBefore.position.x</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">boundsAfter.position.y</span> vaut <span class="tt">boundsBefore.position.y</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">boundsAfter.size.x</span> vaut <span class="tt">boundsBefore.size.x</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">boundsAfter.size.y</span> vaut <span class="tt">boundsBefore.size.y</span> (comparaison flottante).  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__shadow__render_8cpp.html" title="Tests unitaires des ombres du plan physique (LOT-55, EX-REN-045).">test_shadow_render.cpp</a></span></b></p>
 <table class="markdownTable">

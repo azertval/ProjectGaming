@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-43-tache-01-widget-vignettes.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-43-bibliotheque-assets_2tache-01-widget-vignettes"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-43.html#md_Lot_2LOT-43-bibliotheque-assets_2epic" title="Lot/LOT-43-bibliotheque-assets/epic.md">LOT-43</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2006"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2010"></a>
 Contexte</h1>
 <p>Le panneau « Textures » livré en LOT-42 sélectionne les assets par <b>liste de noms de fichiers</b>. C'était le minimum acceptable pour une seule section ; ce ne l'est plus dès qu'il y en a cinq (skins, fond, objets, animations, décors) et que le level designer doit reconnaître une image parmi une trentaine.</p>
 <p>Le décodage nécessaire existe déjà : <span class="tt"><a class="el" href="namespacehmi.html#a22c3bcff9f77b4c4df7938a08c036dfd" title="Décode un fichier image (PNG au minimum) en pixels RGBA.">hmi::decodeImageFile</a></span> (LOT-39) produit des pixels RGBA à partir d'un fichier, indépendamment de Direct3D 11.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2007"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2011"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">AssetThumbnailView</span></b> (<span class="tt">QWidget</span>) : grille de vignettes avec nom, sélection simple, filtrage par texte, et signal de sélection. Réutilisable tel quel par toutes les sections.</li>
@@ -108,32 +108,32 @@ Travail à réaliser</h1>
 <li><b>Intégration en place</b> dans les sections existantes du panneau « Textures », <b>sans</b> changer leur modèle de données ni le câblage du dock.</li>
 <li>Vignette de repli pour un fichier illisible, cohérente avec le damier magenta du rendu.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2008"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2012"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/AssetThumbnailView.{h,cpp}</span> (nouveau).</li>
 <li><span class="tt">Source/HMI/Editor/TexturePanel.{h,cpp}</span> (remplacement du sélecteur textuel).</li>
 <li><span class="tt"><a class="el" href="test__asset__library_8cpp.html" title="Tests unitaires du balayage/filtrage partagé par le panneau « Textures » (LOT-43 TACHE-01).">Source/Test/Unit/HMI/Editor/test_asset_library.cpp</a></span> (nouveau, partie pure).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2009"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2013"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Le <b>balayage et le filtrage</b> de la liste d'assets (extensions retenues, tri, filtre texte) sont une fonction pure, testée sans Qt.</li>
 <li>Le rendu du widget lui-même relève de la vérification visuelle, comme les autres panneaux Qt.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2010"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2014"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas introduire un second décodeur.</b> <span class="tt">decodeImageFile</span> est le point unique ; le <em>TextureCache</em> D3D11 (LOT-40) et ce widget en sont deux consommateurs indépendants.</li>
 <li>Décoder de façon <b>paresseuse</b> : ne pas charger trente images à l'ouverture du panneau, mais au fur et à mesure de leur affichage.</li>
 <li>Le widget ne doit <b>pas</b> connaître la sémantique des sections (skin, fond, objet) : il liste un dossier et émet une sélection. La sémantique reste dans les sections.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2011"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2015"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les sections du panneau affichent des vignettes nettes au lieu de noms de fichiers, sans changement de comportement fonctionnel ; le widget est indépendant du device graphique ; le balayage est testé sans Qt ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2012"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2016"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-026</span> (gestion des fichiers d'assets) ; réutilise <span class="tt">EX-REN-041</span> (décodage image), <span class="tt">EX-EDIT-042</span> (sections concernées), <span class="tt">EX-ARCH-022</span> (<em>nearest</em>), <span class="tt">EX-NFR-040</span> (repli). </p>
 </div></div><!-- contents -->

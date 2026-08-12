@@ -120,6 +120,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État d'animation courant d'une entité : quel jeu de clips, quel clip, quelle image, depuis combien de temps.  <a href="structcore_1_1Animation.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Collider" id="r_Collider"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Collider.html">Collider</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Étendue physique d'une entité pour la collision : une boîte <b>alignée aux axes</b> (AABB).  <a href="structcore_1_1Collider.html#details">More...</a><br /></td></tr>
+<tr class="memitem:Particle" id="r_Particle"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Particle.html">Particle</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Particule visuelle pure : position, vitesse, durée de vie &ndash; aucun effet de gameplay (<span class="tt">EX-ARCH-012</span>).  <a href="structcore_1_1Particle.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Player" id="r_Player"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Player.html">Player</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque l'entité <b>contrôlable par le joueur</b> et porte son état de contact au sol.  <a href="structcore_1_1Player.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AtlasRegion" id="r_AtlasRegion"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1AtlasRegion.html">AtlasRegion</a></td></tr>
@@ -144,6 +146,10 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait évoluer le personnage jouable d'un pas fixe : intention horizontale, gravité continue, collisions <b>continues</b> contre les tuiles solides, et état « au sol ».  <a href="classcore_1_1CharacterPhysicsSystem.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MovementSystem" id="r_MovementSystem"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1MovementSystem.html">MovementSystem</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait avancer chaque entité mobile selon sa vitesse, au pas de temps fixe.  <a href="classcore_1_1MovementSystem.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ParticleEffect" id="r_ParticleEffect"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1ParticleEffect.html">ParticleEffect</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Données décrivant un effet de particules : combien, à quelle vitesse, pendant combien de temps, avec quelle dispersion angulaire &ndash; en constantes nommées côté appelant, jamais de nombres magiques dispersés dans le code (<span class="tt">LOT-53</span> TACHE-01).  <a href="structcore_1_1ParticleEffect.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ParticleSystem" id="r_ParticleSystem"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1ParticleSystem.html">ParticleSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émet et simule des particules visuelles au pas fixe, strictement déterministe.  <a href="classcore_1_1ParticleSystem.html#details">More...</a><br /></td></tr>
 <tr class="memitem:View" id="r_View"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1View.html">View</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sélection en lecture-écriture des entités possédant tous les composants demandés.  <a href="classcore_1_1View.html#details">More...</a><br /></td></tr>
 <tr class="memitem:World" id="r_World"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1World.html">World</a></td></tr>
@@ -186,6 +192,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sérialise un niveau vers le format JSON défini par <span class="tt">EX-LVL-003</span>.  <a href="classcore_1_1LevelWriter.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TileMap" id="r_TileMap"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1TileMap.html">TileMap</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grille dense de tuiles typées (<span class="tt">EX-GP-001</span>), origine haut-gauche.  <a href="classcore_1_1TileMap.html#details">More...</a><br /></td></tr>
+<tr class="memitem:DeterministicRandom" id="r_DeterministicRandom"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1DeterministicRandom.html">DeterministicRandom</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Générateur pseudo-aléatoire léger (SplitMix64), à graine explicite.  <a href="classcore_1_1DeterministicRandom.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Rect" id="r_Rect"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Rect.html">Rect</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle aligné sur les axes (AABB) en unités monde.  <a href="structcore_1_1Rect.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Vector2" id="r_Vector2"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Vector2.html">Vector2</a></td></tr>
@@ -222,6 +230,11 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a71fba78b647ce3be2a8b78f79c84f522ac7fc2ee61fad0e2bba6754efdee31481">OneShot</a>
  }</td></tr>
 <tr class="memdesc:a71fba78b647ce3be2a8b78f79c84f522"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manière dont un clip se termine à la dernière image.  <a href="#a71fba78b647ce3be2a8b78f79c84f522">More...</a><br /></td></tr>
+<tr class="memitem:aa6799b2e10b4cf31b2527af8a390ce2c" id="r_aa6799b2e10b4cf31b2527af8a390ce2c"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aa6799b2e10b4cf31b2527af8a390ce2c">ParticleKind</a> { <a class="el" href="#aa6799b2e10b4cf31b2527af8a390ce2ca5035aee0b4665a2808f4a262c62e3e0c">DashTrail</a>
+, <a class="el" href="#aa6799b2e10b4cf31b2527af8a390ce2ca0cdb0f6c72187ce44ad0d64103920653">LandingDust</a>
+, <a class="el" href="#aa6799b2e10b4cf31b2527af8a390ce2ca6097f89e3092d4ccd249c9d479785c1f">Death</a>
+ }</td></tr>
+<tr class="memdesc:aa6799b2e10b4cf31b2527af8a390ce2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Effet visuel à l'origine d'une particule &ndash; tag opaque pour <span class="tt">Core</span>, exploité par le rendu (<span class="tt">HMI</span>) pour choisir calque, teinte et texture (<span class="tt">LOT-53</span> TACHE-03), sans que <span class="tt">Core</span> n'ait à connaître ces notions de présentation (<span class="tt">EX-NFR-011</span>).  <a href="#aa6799b2e10b4cf31b2527af8a390ce2c">More...</a><br /></td></tr>
 <tr class="memitem:a44c22576c7f052fd73b6de57de7ecc20" id="r_a44c22576c7f052fd73b6de57de7ecc20"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a44c22576c7f052fd73b6de57de7ecc20">DecorLayer</a> { <a class="el" href="#a44c22576c7f052fd73b6de57de7ecc20aa9ded1e5ce5d75814730bb4caaf49419">Background</a>
 , <a class="el" href="#a44c22576c7f052fd73b6de57de7ecc20ae953e8671da3a0647c0939df8ebe8e44">Decor</a>
 , <a class="el" href="#a44c22576c7f052fd73b6de57de7ecc20a45bd1d5b32931106efbf1a82fe6a732f">Foreground</a>
@@ -347,6 +360,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a43329559445927c3a2d55531287292d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit un type de tuile en son nom textuel.  <br /></td></tr>
 <tr class="memitem:ad675f8ce2e7f29908cbe3e7701336ef8" id="r_ad675f8ce2e7f29908cbe3e7701336ef8"><td class="memItemLeft">std::optional&lt; <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad675f8ce2e7f29908cbe3e7701336ef8">parseTileType</a> (std::string_view name)</td></tr>
 <tr class="memdesc:ad675f8ce2e7f29908cbe3e7701336ef8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit un nom textuel en type de tuile.  <br /></td></tr>
+<tr class="memitem:aabea08fea40eec17f439cef7c5a34e56" id="r_aabea08fea40eec17f439cef7c5a34e56"><td class="memItemLeft">constexpr std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#aabea08fea40eec17f439cef7c5a34e56">splitMix64</a> (std::uint64_t value) noexcept</td></tr>
+<tr class="memdesc:aabea08fea40eec17f439cef7c5a34e56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mélange (SplitMix64) un entier 64 bits en une valeur bien distribuée.  <br /></td></tr>
+<tr class="memitem:a743d1073227b83fb7f8a727a4e0829ae" id="r_a743d1073227b83fb7f8a727a4e0829ae"><td class="memItemLeft">constexpr std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#a743d1073227b83fb7f8a727a4e0829ae">deriveSeed</a> (std::uint64_t baseSeed, std::uint64_t step, std::uint64_t entityId) noexcept</td></tr>
+<tr class="memdesc:a743d1073227b83fb7f8a727a4e0829ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combine une graine de base, un numéro de pas et un identifiant reproductible en une graine unique, propre à ce triplet (<span class="tt">LOT-53</span> TACHE-01).  <br /></td></tr>
 <tr class="memitem:a69640dd3c9f3f8778a7c7621839c3794" id="r_a69640dd3c9f3f8778a7c7621839c3794"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a69640dd3c9f3f8778a7c7621839c3794">approximatelyEqual</a> (float lhs, float rhs, float tolerance=<a class="el" href="#a49c6e01fbd8905740993109a36f65c11">EPSILON</a>)</td></tr>
 <tr class="memdesc:a69640dd3c9f3f8778a7c7621839c3794"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare deux flottants à une tolérance relative-absolue près.  <br /></td></tr>
 <tr class="memitem:a0bc000366ab7d8c9d1a897385b813a68" id="r_a0bc000366ab7d8c9d1a897385b813a68"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0bc000366ab7d8c9d1a897385b813a68">operator+</a> (const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;lhs, const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;rhs)</td></tr>
@@ -396,6 +413,19 @@ Variables</h2></td></tr>
 <tr class="memdesc:ab778e77cf62b7d1c11d8038f75cbf020"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index du clip « wallslide » (glissade murale, <span class="tt">LOT-48</span>) dans <span class="tt"><a class="el" href="#a15c89d2a138a59d257f395dcf95efc26" title="Jeu de clips du personnage, migré tel quel depuis l&#39;ancien dispositif figé (LOT-18),...">core::playerClipSet()</a></span>.  <br /></td></tr>
 <tr class="memitem:a29878d049f4e3e4ea35da414d6783daf" id="r_a29878d049f4e3e4ea35da414d6783daf"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a29878d049f4e3e4ea35da414d6783daf">PLAYER_CLIP_DASH</a> = 6</td></tr>
 <tr class="memdesc:a29878d049f4e3e4ea35da414d6783daf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index du clip « dash » dans <span class="tt"><a class="el" href="#a15c89d2a138a59d257f395dcf95efc26" title="Jeu de clips du personnage, migré tel quel depuis l&#39;ancien dispositif figé (LOT-18),...">core::playerClipSet()</a></span> (voir <span class="tt"><a class="el" href="#a2b3cb5d42063608aa724d3b47aab0a6e" title="Index du clip « idle » dans core::playerClipSet() — ordre stable, seule source de vérité partagée ave...">PLAYER_CLIP_IDLE</a></span>).  <br /></td></tr>
+<tr class="memitem:af218f154fa492105df009ecf2b84d61f" id="r_af218f154fa492105df009ecf2b84d61f"><td class="memItemLeft">constexpr std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#af218f154fa492105df009ecf2b84d61f">DEFAULT_PARTICLE_SEED</a> = 0x504152544943454CULL</td></tr>
+<tr class="memdesc:af218f154fa492105df009ecf2b84d61f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Graine par défaut de <span class="tt"><a class="el" href="classcore_1_1ParticleSystem.html" title="Émet et simule des particules visuelles au pas fixe, strictement déterministe.">core::ParticleSystem</a></span> &ndash; fixe et documentée, <b>jamais</b> l'horloge système (<span class="tt">EX-NFR-002</span>) : deux sessions démarrées avec cette graine et soumises à la même séquence d'entrées produisent exactement les mêmes particules.  <br /></td></tr>
+<tr class="memitem:a111487c1e65133a09f9f0aeb582b7e17" id="r_a111487c1e65133a09f9f0aeb582b7e17"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a111487c1e65133a09f9f0aeb582b7e17">MAX_PARTICLES</a> = 256</td></tr>
+<tr class="memdesc:a111487c1e65133a09f9f0aeb582b7e17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre maximal de particules simultanément vivantes (<span class="tt">EX-NFR-005</span>) : au-delà, <span class="tt">spawn()</span> recycle les plus anciennes plutôt que d'allouer sans borne.  <br /></td></tr>
+<tr class="memitem:a4436c8349be20efa9139c98f7101a87d" id="r_a4436c8349be20efa9139c98f7101a87d"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a4436c8349be20efa9139c98f7101a87d">LANDING_MIN_IMPACT_SPEED</a> = 4.0f</td></tr>
+<tr class="memdesc:a4436c8349be20efa9139c98f7101a87d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vitesse d'impact (<span class="tt">LOT-53</span> TACHE-02) en-dessous de laquelle un atterrissage ne produit <b>aucune</b> poussière &ndash; sans ce seuil, chaque petit pas en émettrait.  <br /></td></tr>
+<tr class="memitem:a2f9bf6d59b037b9aa946013451473361" id="r_a2f9bf6d59b037b9aa946013451473361"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a2f9bf6d59b037b9aa946013451473361">LANDING_MAX_IMPACT_SPEED</a> = 14.0f</td></tr>
+<tr class="memdesc:a2f9bf6d59b037b9aa946013451473361"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vitesse d'impact au-delà de laquelle l'intensité de la poussière plafonne (<span class="tt">LANDING_DUST_MAX_
+COUNT</span>) : une chute extrême ne produit pas un nuage toujours plus dense.  <br /></td></tr>
+<tr class="memitem:aba5e54d19d0541ded5d32fd4b613b923" id="r_aba5e54d19d0541ded5d32fd4b613b923"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aba5e54d19d0541ded5d32fd4b613b923">LANDING_DUST_MIN_COUNT</a> = 3</td></tr>
+<tr class="memdesc:aba5e54d19d0541ded5d32fd4b613b923"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de particules de poussière au seuil <span class="tt"><a class="el" href="#a4436c8349be20efa9139c98f7101a87d" title="Vitesse d&#39;impact (LOT-53 TACHE-02) en-dessous de laquelle un atterrissage ne produit aucune poussière...">LANDING_MIN_IMPACT_SPEED</a></span> (intensité minimale).  <br /></td></tr>
+<tr class="memitem:a44e318ce9f22d51c4119883030e4f60b" id="r_a44e318ce9f22d51c4119883030e4f60b"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a44e318ce9f22d51c4119883030e4f60b">LANDING_DUST_MAX_COUNT</a> = 10</td></tr>
+<tr class="memdesc:a44e318ce9f22d51c4119883030e4f60b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de particules de poussière au plafond <span class="tt"><a class="el" href="#a2f9bf6d59b037b9aa946013451473361" title="Vitesse d&#39;impact au-delà de laquelle l&#39;intensité de la poussière plafonne (LANDING_DUST_MAX_ COUNT) :...">LANDING_MAX_IMPACT_SPEED</a></span> (intensité maximale).  <br /></td></tr>
 <tr class="memitem:aa10b66433e2fea5a1103518ca7015a3a" id="r_aa10b66433e2fea5a1103518ca7015a3a"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#aa10b66433e2fea5a1103518ca7015a3a">kDangerEdgeThickness</a> = 0.25f</td></tr>
 <tr class="memdesc:aa10b66433e2fea5a1103518ca7015a3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Épaisseur (fraction d'une case) de la bande mortelle d'un danger <b>directionnel</b> (<span class="tt">DangerUp</span>/<span class="tt">DangerDown</span>/<span class="tt">DangerLeft</span>/<span class="tt">DangerRight</span>, <span class="tt">EX-GP-050</span>).  <br /></td></tr>
 <tr class="memitem:a4e9944a74ac070775a2730be05705abb" id="r_a4e9944a74ac070775a2730be05705abb"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a4e9944a74ac070775a2730be05705abb">kLevelFormatVersion</a> = 1</td></tr>
@@ -672,6 +702,38 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="aa9b5a444ee11933c91d5e3235aa5b5e3a0eaadb4fcb48a0a0ed7bc9868be9fbaa" name="aa9b5a444ee11933c91d5e3235aa5b5e3a0eaadb4fcb48a0a0ed7bc9868be9fbaa"></a>Warning&#160;</td><td class="fielddoc"><p>Anomalie non bloquante. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="aa9b5a444ee11933c91d5e3235aa5b5e3a902b0d55fddef6f8d651fe1035b7d4bd" name="aa9b5a444ee11933c91d5e3235aa5b5e3a902b0d55fddef6f8d651fe1035b7d4bd"></a>Error&#160;</td><td class="fielddoc"><p>Erreur nécessitant attention. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="aa6799b2e10b4cf31b2527af8a390ce2c" name="aa6799b2e10b4cf31b2527af8a390ce2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6799b2e10b4cf31b2527af8a390ce2c">&#9670;&#160;</a></span>ParticleKind</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#aa6799b2e10b4cf31b2527af8a390ce2c">core::ParticleKind</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Effet visuel à l'origine d'une particule &ndash; tag opaque pour <span class="tt">Core</span>, exploité par le rendu (<span class="tt">HMI</span>) pour choisir calque, teinte et texture (<span class="tt">LOT-53</span> TACHE-03), sans que <span class="tt">Core</span> n'ait à connaître ces notions de présentation (<span class="tt">EX-NFR-011</span>). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa6799b2e10b4cf31b2527af8a390ce2ca5035aee0b4665a2808f4a262c62e3e0c" name="aa6799b2e10b4cf31b2527af8a390ce2ca5035aee0b4665a2808f4a262c62e3e0c"></a>DashTrail&#160;</td><td class="fielddoc"><p>Traînée continue émise pendant un dash (<span class="tt">LOT-53</span> TACHE-02). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa6799b2e10b4cf31b2527af8a390ce2ca0cdb0f6c72187ce44ad0d64103920653" name="aa6799b2e10b4cf31b2527af8a390ce2ca0cdb0f6c72187ce44ad0d64103920653"></a>LandingDust&#160;</td><td class="fielddoc"><p>Bouffée de poussière à l'atterrissage. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa6799b2e10b4cf31b2527af8a390ce2ca6097f89e3092d4ccd249c9d479785c1f" name="aa6799b2e10b4cf31b2527af8a390ce2ca6097f89e3092d4ccd249c9d479785c1f"></a>Death&#160;</td><td class="fielddoc"><p>Éclatement à la mort du personnage. </p>
 </td></tr>
 </table>
 
@@ -1004,6 +1066,51 @@ slopeSurfaceHeight(type miroir, localX)</span>), pas une famille de formules dup
 
 <p>Journaliseur global de l'application (utilisé par les macros de log). </p>
 <dl class="section return"><dt>Returns</dt><dd>Référence vers l'instance unique. </dd></dl>
+
+</div>
+</div>
+<a id="a743d1073227b83fb7f8a727a4e0829ae" name="a743d1073227b83fb7f8a727a4e0829ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a743d1073227b83fb7f8a727a4e0829ae">&#9670;&#160;</a></span>deriveSeed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint64_t core::deriveSeed </td>
+          <td>(</td>
+          <td class="paramtype">std::uint64_t</td>          <td class="paramname"><span class="paramname"><em>baseSeed</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint64_t</td>          <td class="paramname"><span class="paramname"><em>step</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint64_t</td>          <td class="paramname"><span class="paramname"><em>entityId</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Combine une graine de base, un numéro de pas et un identifiant reproductible en une graine unique, propre à ce triplet (<span class="tt">LOT-53</span> TACHE-01). </p>
+<p>Reproductible quel que soit l'ordre ou le nombre d'appels : deux tirages faits pour le même triplet (graine, pas, identifiant) produisent toujours la même graine dérivée, jamais dépendante d'un compteur mutable partagé entre appels. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">baseSeed</td><td>Graine de base, explicite. </td></tr>
+    <tr><td class="paramname">step</td><td>Numéro de pas de simulation courant. </td></tr>
+    <tr><td class="paramname">entityId</td><td>Identifiant reproductible (<span class="tt"><a class="el" href="structcore_1_1Entity.html#a8549b4984fb56b9cb482921c204267c6">core::Entity::index</a></span>, par exemple). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Une graine dérivée, propre à ce triplet. </dd></dl>
 
 </div>
 </div>
@@ -1944,6 +2051,40 @@ slopeSurfaceHeight(type miroir, localX)</span>), pas une famille de formules dup
 
 </div>
 </div>
+<a id="aabea08fea40eec17f439cef7c5a34e56" name="aabea08fea40eec17f439cef7c5a34e56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabea08fea40eec17f439cef7c5a34e56">&#9670;&#160;</a></span>splitMix64()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint64_t core::splitMix64 </td>
+          <td>(</td>
+          <td class="paramtype">std::uint64_t</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mélange (SplitMix64) un entier 64 bits en une valeur bien distribuée. </p>
+<p>Fonction pure et sans état : sert à combiner plusieurs valeurs reproductibles (graine de base, numéro de pas, identifiant d'entité) en une graine unique par tirage, sans jamais lire l'horloge système ni un générateur par défaut (<span class="tt">EX-NFR-002</span>). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>Valeur à mélanger. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La valeur mélangée. </dd></dl>
+
+</div>
+</div>
 <a id="a4ca635df367666624247837feb2af5a5" name="a4ca635df367666624247837feb2af5a5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4ca635df367666624247837feb2af5a5">&#9670;&#160;</a></span>sweepAabb()</h2>
 
@@ -2143,6 +2284,30 @@ slopeSurfaceHeight(type miroir, localX)</span>), pas une famille de formules dup
 </div>
 </div>
 <a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="af218f154fa492105df009ecf2b84d61f" name="af218f154fa492105df009ecf2b84d61f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af218f154fa492105df009ecf2b84d61f">&#9670;&#160;</a></span>DEFAULT_PARTICLE_SEED</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint64_t core::DEFAULT_PARTICLE_SEED = 0x504152544943454CULL</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Graine par défaut de <span class="tt"><a class="el" href="classcore_1_1ParticleSystem.html" title="Émet et simule des particules visuelles au pas fixe, strictement déterministe.">core::ParticleSystem</a></span> &ndash; fixe et documentée, <b>jamais</b> l'horloge système (<span class="tt">EX-NFR-002</span>) : deux sessions démarrées avec cette graine et soumises à la même séquence d'entrées produisent exactement les mêmes particules. </p>
+
+</div>
+</div>
 <a id="a49c6e01fbd8905740993109a36f65c11" name="a49c6e01fbd8905740993109a36f65c11"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a49c6e01fbd8905740993109a36f65c11">&#9670;&#160;</a></span>EPSILON</h2>
 
@@ -2335,6 +2500,127 @@ slopeSurfaceHeight(type miroir, localX)</span>), pas une famille de formules dup
 </div><div class="memdoc">
 
 <p>Largeur du personnage, en unités monde (une tuile = 1 unité). </p>
+
+</div>
+</div>
+<a id="a44e318ce9f22d51c4119883030e4f60b" name="a44e318ce9f22d51c4119883030e4f60b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44e318ce9f22d51c4119883030e4f60b">&#9670;&#160;</a></span>LANDING_DUST_MAX_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::LANDING_DUST_MAX_COUNT = 10</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre de particules de poussière au plafond <span class="tt"><a class="el" href="#a2f9bf6d59b037b9aa946013451473361" title="Vitesse d&#39;impact au-delà de laquelle l&#39;intensité de la poussière plafonne (LANDING_DUST_MAX_ COUNT) :...">LANDING_MAX_IMPACT_SPEED</a></span> (intensité maximale). </p>
+
+</div>
+</div>
+<a id="aba5e54d19d0541ded5d32fd4b613b923" name="aba5e54d19d0541ded5d32fd4b613b923"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba5e54d19d0541ded5d32fd4b613b923">&#9670;&#160;</a></span>LANDING_DUST_MIN_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::LANDING_DUST_MIN_COUNT = 3</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre de particules de poussière au seuil <span class="tt"><a class="el" href="#a4436c8349be20efa9139c98f7101a87d" title="Vitesse d&#39;impact (LOT-53 TACHE-02) en-dessous de laquelle un atterrissage ne produit aucune poussière...">LANDING_MIN_IMPACT_SPEED</a></span> (intensité minimale). </p>
+
+</div>
+</div>
+<a id="a2f9bf6d59b037b9aa946013451473361" name="a2f9bf6d59b037b9aa946013451473361"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f9bf6d59b037b9aa946013451473361">&#9670;&#160;</a></span>LANDING_MAX_IMPACT_SPEED</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::LANDING_MAX_IMPACT_SPEED = 14.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vitesse d'impact au-delà de laquelle l'intensité de la poussière plafonne (<span class="tt">LANDING_DUST_MAX_
+COUNT</span>) : une chute extrême ne produit pas un nuage toujours plus dense. </p>
+
+</div>
+</div>
+<a id="a4436c8349be20efa9139c98f7101a87d" name="a4436c8349be20efa9139c98f7101a87d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4436c8349be20efa9139c98f7101a87d">&#9670;&#160;</a></span>LANDING_MIN_IMPACT_SPEED</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::LANDING_MIN_IMPACT_SPEED = 4.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vitesse d'impact (<span class="tt">LOT-53</span> TACHE-02) en-dessous de laquelle un atterrissage ne produit <b>aucune</b> poussière &ndash; sans ce seuil, chaque petit pas en émettrait. </p>
+
+</div>
+</div>
+<a id="a111487c1e65133a09f9f0aeb582b7e17" name="a111487c1e65133a09f9f0aeb582b7e17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a111487c1e65133a09f9f0aeb582b7e17">&#9670;&#160;</a></span>MAX_PARTICLES</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::MAX_PARTICLES = 256</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre maximal de particules simultanément vivantes (<span class="tt">EX-NFR-005</span>) : au-delà, <span class="tt">spawn()</span> recycle les plus anciennes plutôt que d'allouer sans borne. </p>
 
 </div>
 </div>

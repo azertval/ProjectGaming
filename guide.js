@@ -1,8 +1,8 @@
 var guide =
 [
-    [ "Comment lire ce guide", "guide.html#autotoc_md214", null ],
-    [ "Architecture en deux couches", "guide.html#autotoc_md215", null ],
-    [ "Plan du guide", "guide.html#autotoc_md216", null ],
+    [ "Comment lire ce guide", "guide.html#autotoc_md218", null ],
+    [ "Architecture en deux couches", "guide.html#autotoc_md219", null ],
+    [ "Plan du guide", "guide.html#autotoc_md220", null ],
     [ "Boucle de jeu et pas de temps fixe", "guide-boucle.html", [
       [ "Qu'est-ce qu'une boucle de jeu ?", "guide-boucle.html#autotoc_md50", null ],
       [ "Le piège du framerate variable", "guide-boucle.html#autotoc_md51", null ],
@@ -127,9 +127,14 @@ var guide =
       ] ],
       [ "Le texte dans la scène : <span class=\"tt\">hmi::BitmapFont</span> et <span class=\"tt\">hmi::TextRenderer</span> (<span class=\"tt\">LOT-52</span>)", "guide-rendu.html#autotoc_md209", null ],
       [ "Ombres du plan physique (<span class=\"tt\">LOT-55</span>)", "guide-rendu.html#autotoc_md210", null ],
-      [ "Assembler la frame complète", "guide-rendu.html#autotoc_md211", null ],
-      [ "Le programme d'habillage, livré (<span class=\"tt\">LOT-40</span> → <span class=\"tt\">LOT-55</span>)", "guide-rendu.html#autotoc_md212", null ],
-      [ "Voir aussi", "guide-rendu.html#autotoc_md213", null ]
+      [ "Particules et secousse d'écran (<span class=\"tt\">LOT-53</span>)", "guide-rendu.html#autotoc_md211", [
+        [ "L'émetteur, dans <span class=\"tt\">Core</span>, déterministe (<span class=\"tt\">core::ParticleSystem</span>)", "guide-rendu.html#autotoc_md212", null ],
+        [ "Les déclencheurs, câblés dans <span class=\"tt\">hmi::GameSession</span>", "guide-rendu.html#autotoc_md213", null ],
+        [ "Le rendu (<span class=\"tt\">hmi::ParticleRenderer</span>) et la secousse d'écran (<span class=\"tt\">hmi::Camera2D</span>)", "guide-rendu.html#autotoc_md214", null ]
+      ] ],
+      [ "Assembler la frame complète", "guide-rendu.html#autotoc_md215", null ],
+      [ "Le programme d'habillage, livré (<span class=\"tt\">LOT-40</span> → <span class=\"tt\">LOT-55</span>)", "guide-rendu.html#autotoc_md216", null ],
+      [ "Voir aussi", "guide-rendu.html#autotoc_md217", null ]
     ] ],
     [ "Journalisation et assertions", "guide-journalisation.html", [
       [ "Pourquoi journaliser dans un jeu vidéo", "guide-journalisation.html#autotoc_md132", null ],

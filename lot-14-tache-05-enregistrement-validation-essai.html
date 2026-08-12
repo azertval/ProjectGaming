@@ -97,24 +97,24 @@ $(function(){initNavTree('lot-14-tache-05-enregistrement-validation-essai.html',
 <blockquote class="doxtable">
 <p><b>Ajustement de périmètre à l'implémentation</b> : le <b>chargement d'un fichier existant</b> dans l'éditeur (choix nouveau niveau / niveau existant) est finalement traité en TACHE-06, qui possède déjà cette responsabilité (« sélection nouveau/existant ») dans son découpage — évite de la dupliquer entre deux tâches. Cette tâche livre : enregistrement (<span class="tt">Ctrl+S</span>), validation avec message non-codeur, et <b>essai immédiat</b> (<span class="tt">P</span>), implémenté par une session de jeu <b>intégrée</b> (un <span class="tt">GameScreen</span> embarqué dans <span class="tt">EditorScreen</span>, piloté par délégation d'<span class="tt">update</span>/<span class="tt">render</span>) plutôt que par une transition <span class="tt">ScreenManager</span> — <span class="tt">ScreenManager</span> détruit l'écran quitté à chaque transition (<span class="tt">_current = factory(target)</span>), ce qui aurait perdu le brouillon et l'historique undo/redo à chaque essai ; la délégation interne les préserve intégralement, sans changement d'architecture de <span class="tt">ScreenManager</span>/<span class="tt">ScreenTransition</span>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md969"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md973"></a>
 Contexte</h1>
 <p>Éditer un niveau ne sert à rien s'il ne peut pas être <b>enregistré</b> de façon fiable, ni <b>essayé</b> sans quitter l'éditeur. Cette tâche relie l'écran éditeur à la sérialisation/validation de TACHE-01 et au <span class="tt">GameScreen</span> existant (LOT-09) pour l'essai immédiat (<span class="tt">EX-EDIT-008</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md970"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md974"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Enregistrement</b> : une action (raccourci clavier + éventuel bouton) convertit le <span class="tt">LevelDraft</span> courant via <span class="tt">toLevel()</span> (TACHE-01) ; en cas d'<b>échec de validation</b>, affiche le message d'erreur <b>à l'écran</b>, en langage compréhensible par un non-codeur (pas de jargon technique — traduire les causes de <span class="tt">EX-LVL-004</span> en phrases claires : « il manque une sortie », « l'interrupteur X n'est relié à aucune porte », …) ; en cas de succès, écrit le JSON (TACHE-01) dans <span class="tt">Source/Elements/Levels/&lt;nom&gt;.json</span>.</li>
 <li><b>Chargement</b> : ouvrir un fichier existant de <span class="tt">Source/Elements/Levels</span> construit un <span class="tt">LevelDraft</span> via <span class="tt">LevelDraft::fromLevel</span> (après passage par <span class="tt">LevelLoader</span>) — un échec de chargement (fichier corrompu) est <b>récupérable</b> (<span class="tt">EX-NFR-040</span>), affiché sans faire planter l'éditeur.</li>
 <li><b>Essai immédiat</b> : une action (raccourci dédié) fait basculer l'application vers un écran de jeu chargeant le niveau <b>actuellement édité</b> (converti à la volée, pas nécessairement déjà enregistré) ; à la sortie de cet essai (Échap ou fin de niveau), <b>retour à l'éditeur</b> avec le <span class="tt">LevelDraft</span> et son historique undo/redo <b>intacts</b>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md971"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md975"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/EditorScreen.h</span>/<span class="tt">.cpp</span>.</li>
 <li>Éventuel ajustement de <span class="tt">Source/HMI/Interface/GameScreen.h</span>/<span class="tt">.cpp</span> ou <span class="tt">IScreen</span>/<span class="tt">ScreenTransition</span> si l'essai immédiat nécessite de transmettre un niveau <b>en mémoire</b> plutôt qu'un chemin de fichier (<span class="tt">GameScreen</span> charge aujourd'hui des niveaux par <b>chemin</b> uniquement, LOT-09) — à trancher : ajouter une construction de <span class="tt">GameScreen</span> acceptant un <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a></span> déjà en mémoire, plutôt que forcer un enregistrement temporaire sur disque avant l'essai.</li>
 <li>Tests d'intégration (<span class="tt">Source/Test/Integration/</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md972"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md976"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Enregistrer un <span class="tt">LevelDraft</span> <b>valide</b> produit un fichier qui se <b>recharge à l'identique</b> (round-trip bout-en-bout, au-delà du test unitaire de TACHE-01 — ici via le vrai chemin enregistrement/chargement de l'éditeur).</li>
@@ -122,18 +122,18 @@ Tests (obligatoires)</h1>
 <li>Charger un fichier de niveau <b>corrompu</b> affiche une erreur récupérable, sans plantage.</li>
 <li>Lancer l'essai immédiat charge bien le niveau en cours d'édition dans le jeu ; revenir à l'éditeur restitue l'état d'édition (grille, historique) précédent.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md973"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md977"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Aucune perte de travail non enregistré</b> lors d'un essai immédiat : l'aller-retour éditeur → jeu → éditeur ne doit jamais réinitialiser le <span class="tt">LevelDraft</span> en cours.</li>
 <li>Les messages de validation affichés doivent être <b>actionnables</b> pour un non-développeur — éviter de simplement afficher <span class="tt">LevelLoadResult::error</span> brut si son libellé est trop technique ; prévoir une traduction/reformulation ciblée si nécessaire.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md974"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md978"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Enregistrement, chargement, validation et essai immédiat opérationnels et testés (<span class="tt">ctest</span> vert), vérifiés dans l'application ; build <span class="tt">/W4 /WX</span> ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md975"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md979"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-006</span>, <span class="tt">EX-EDIT-007</span>, <span class="tt">EX-EDIT-008</span>, <span class="tt">EX-EDIT-011</span>, <span class="tt">EX-LVL-004</span>, <span class="tt">EX-NFR-040</span>. </p>
 </div></div><!-- contents -->

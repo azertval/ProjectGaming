@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-43-tache-02-gestion-fichiers.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-43-bibliotheque-assets_2tache-02-gestion-fichiers"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-43.html#md_Lot_2LOT-43-bibliotheque-assets_2epic" title="Lot/LOT-43-bibliotheque-assets/epic.md">LOT-43</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2013"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2017"></a>
 Contexte</h1>
 <p>Pour habiller un niveau, l'auteur doit aujourd'hui quitter l'application, copier un PNG dans le bon sous-dossier avec l'explorateur de fichiers, puis revenir. C'est le genre de friction qui, répétée des centaines de fois sur six lots, coûte bien plus que la fonctionnalité qui l'évite.</p>
 <p>Le précédent exact existe pour les niveaux : <span class="tt"><a class="el" href="classhmi_1_1LevelFileOperations.html" title="Opérations sur les fichiers de niveaux d&#39;un dossier, sans dépendance Qt/GPU.">hmi::LevelFileOperations</a></span> (créer, renommer, dupliquer, supprimer) et <span class="tt">hmi::LevelNameValidation</span>, tous deux <b>purs et testés</b>, pilotés par <span class="tt">LevelBrowserPanel</span>. Cette tâche en est le pendant pour les assets.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2014"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2018"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">AssetFileOperations</span></b> (pur, sur le modèle de <span class="tt">LevelFileOperations</span>) : importer un fichier externe dans un sous-dossier d'assets, renommer, dupliquer, supprimer. Chaque opération renvoie un résultat exploitable, <b>jamais</b> d'exception.</li>
@@ -108,7 +108,7 @@ Travail à réaliser</h1>
 <li><b>Avertissement nommant les références</b>, avec confirmation explicite. On <b>avertit</b>, on ne migre pas (décision de cadrage) : réécrire toutes les références supposerait de rouvrir et réenregistrer chaque niveau.</li>
 <li>Intégration au panneau « Textures » : actions contextuelles sur la grille de vignettes.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2015"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2019"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/AssetFileOperations.{h,cpp}</span> (nouveau).</li>
@@ -116,14 +116,14 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/HMI/Editor/TexturePanel.{h,cpp}</span>, <span class="tt">Source/HMI/Editor/AssetThumbnailView.{h,cpp}</span>.</li>
 <li><span class="tt"><a class="el" href="test__asset__file__operations_8cpp.html" title="Tests unitaires des opérations fichiers sur les assets (LOT-43 TACHE-02).">Source/Test/Unit/HMI/Editor/test_asset_file_operations.cpp</a></span>, <span class="tt"><a class="el" href="test__asset__references_8cpp.html" title="Tests unitaires de la détection des références à un asset (LOT-43 TACHE-02).">test_asset_references.cpp</a></span> (nouveaux).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2016"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2020"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Chaque opération de fichier : cas nominal, nom invalide, collision, fichier source absent, cible en lecture seule — <b>sans exception</b>, sur un dossier temporaire.</li>
 <li>Validation à l'import : dimensions conformes acceptées, non conformes refusées avec un message nommant l'attendu.</li>
 <li><b>Détection des références</b> : asset cité par un niveau, par <span class="tt">skins.json</span>, par les deux, par aucun ; asset au nom proche mais différent (pas de faux positif). Fonction pure, testée sans Qt.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2017"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2021"></a>
 Points d'attention</h1>
 <ul>
 <li>La détection des références doit lire les <b>fichiers de niveaux sur disque</b>, pas seulement le niveau ouvert dans l'éditeur — c'est précisément le cas où l'utilisateur ne peut pas savoir.</li>
@@ -131,12 +131,12 @@ Points d'attention</h1>
 <li>L'import doit <b>copier</b>, jamais déplacer : le fichier source appartient à l'utilisateur.</li>
 <li>Réutiliser <span class="tt"><a class="el" href="classhmi_1_1AssetPaths.html" title="Résout des noms d&#39;assets logiques vers des chemins de fichiers, dans un dossier donné.">hmi::AssetPaths</a></span> pour toute résolution de chemin ; aucun chemin en dur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2018"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2022"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Importer, renommer, dupliquer et supprimer un asset depuis l'application fonctionne ; un asset invalide est refusé à l'import avec un message exploitable ; renommer ou supprimer un asset référencé avertit en nommant les références ; toute la logique est pure et testée ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2019"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2023"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-026</span> (gestion des fichiers d'assets) ; réutilise <span class="tt">EX-REN-007</span> (contrat d'asset), <span class="tt">EX-EDIT-042</span> (associations concernées), <span class="tt">EX-NFR-040</span> (erreur récupérable), <span class="tt">EX-NFR-010</span> (testable sans GPU), <span class="tt">EX-EDIT-021</span> (garde-fous contre la perte de travail). </p>
 </div></div><!-- contents -->

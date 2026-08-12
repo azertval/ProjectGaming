@@ -14,7 +14,7 @@ var searchData=
   ['column_11',['column',['../structcore_1_1GridPosition.html#ab0574e45a221418d1a0ea6e1b67c6bc0',1,'core::GridPosition::column'],['../structhmi_1_1RoomBounds.html#a92ab7b8ca1892eb132580cd282f8ca3b',1,'hmi::RoomBounds::column'],['../structhmi_1_1AutotileCell.html#aec8849facc712ea3a1d296b911df4250',1,'hmi::AutotileCell::column'],['../structhmi_1_1AtlasGridPosition.html#aaa94f43780aa3d3571bb673cb4bf55b6',1,'hmi::AtlasGridPosition::column']]],
   ['considered_12',['considered',['../structhmi_1_1SceneStatistics.html#acd46778c69e1a9ae0093a0701d426976',1,'hmi::SceneStatistics']]],
   ['controlminwidth_13',['controlMinWidth',['../structhmi_1_1SizeTokens.html#ae19213d66c31d01cdd23368a4afde150',1,'hmi::SizeTokens']]],
-  ['count_14',['count',['../structhmi_1_1PixelPaletteExtractionEntry.html#acbd0a5b11d3ad7bfef9b7de2d4be79d9',1,'hmi::PixelPaletteExtractionEntry']]],
+  ['count_14',['count',['../structcore_1_1ParticleEffect.html#a767dd83c16b7b0072422769da07eb5e4',1,'core::ParticleEffect::count'],['../structhmi_1_1PixelPaletteExtractionEntry.html#acbd0a5b11d3ad7bfef9b7de2d4be79d9',1,'hmi::PixelPaletteExtractionEntry::count']]],
   ['coyotetime_15',['coyoteTime',['../structcore_1_1PhysicsConfig.html#ac73ce3de3e423e272cad5f348e524bbe',1,'core::PhysicsConfig']]],
   ['coyotetimer_16',['coyoteTimer',['../structcore_1_1Player.html#a69f291499ab2b7c27220c071a590b97a',1,'core::Player']]],
   ['culled_17',['culled',['../structhmi_1_1SceneStatistics.html#a944649e434a4fab1f0a72e0fbf23f1cf',1,'hmi::SceneStatistics']]],

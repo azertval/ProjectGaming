@@ -96,7 +96,7 @@ $(function(){initNavTree('lot-11.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>terminé</b>. Ce lot affine le <b>ressenti</b> du personnage du LOT-10 : une <b>silhouette humanoïde</b> (0,4 × 0,8 tuile au lieu d'un carré 1×1), une <b>gravité asymétrique</b> (chute plus rapide que la montée) et deux finitions verticales — <b>flottement à l'apex</b> et <b>fast-fall</b> (<span class="tt">EX-GP-018</span>). La physique horizontale (<span class="tt">EX-GP-010</span>) reste inchangée. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md846"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md850"></a>
 Objectif</h1>
 <p>Rendre le personnage plus crédible et plus agréable à contrôler, sans changer les mécaniques :</p>
 <ul>
@@ -106,9 +106,9 @@ Objectif</h1>
 <li><b>Fast-fall</b> : maintenir <b>bas</b> en l'air accélère la chute (réutilise <span class="tt">moveY</span>, déjà mappé).</li>
 </ul>
 <p>Toute la logique reste <b>pure et déterministe au pas fixe</b> dans <span class="tt">Core</span> (<span class="tt">EX-NFR-002</span>, <span class="tt">EX-ARCH-011</span>), testée sans GPU. Les niveaux et leurs preuves de franchissabilité sont <b>rééquilibrés</b> à la nouvelle taille de personnage.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md847"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md851"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md848"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md852"></a>
 Inclus</h2>
 <ul>
 <li><b>Spec</b> : <span class="tt">EX-GP-018</span> (gravité asymétrique + finitions verticales), déjà ajoutée au cadrage.</li>
@@ -117,14 +117,14 @@ Inclus</h2>
 <li><b>Personnage humanoïde (HMI)</b> : le <span class="tt">GameScreen</span> fait apparaître le personnage en 0,4 × 0,8 (collision <b>et</b> sprite), centré dans la tuile d'entrée.</li>
 <li><b>Rééquilibrage + preuves</b> : les niveaux <span class="tt">demo</span>/<span class="tt">demo2</span>/<span class="tt">demo3</span> sont ajustés si besoin pour la nouvelle taille ; les tests de franchissabilité (intégration) et le parcours <b>système</b> utilisent la <b>vraie taille</b> du personnage.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md849"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md853"></a>
 Exclus (lots ultérieurs)</h2>
 <ul>
 <li><b>Accélération/friction horizontale</b> (contredirait <span class="tt">EX-GP-010</span>) ; <b>coup de saut variable horizontal</b>.</li>
 <li><b>Animations</b> (<span class="tt">EX-REN-012</span>), squash &amp; stretch, décalage sprite ↔ hitbox.</li>
 <li><b>Niveau puzzle</b> (mécanismes), gravité asymétrique appliquée au wall jump/dash (raffinements).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md850"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md854"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Taille 0,4 × 0,8</b>, <b>centrée</b> horizontalement dans la tuile, pieds près du bas ; le <b>sprite suit la boîte</b> (pas de décalage hitbox/visuel pour l'instant). Dimensions et placement dans un en-tête partagé <span class="tt"><a class="el" href="PlayerSpawn_8h.html" title="Taille du personnage jouable (humanoïde) et placement centré au spawn.">Core/Physics/PlayerSpawn.h</a></span> (utilisé par le jeu <b>et</b> les tests).</li>
@@ -133,13 +133,13 @@ Décisions de cadrage</h1>
 <li><b>Fast-fall via <span class="tt">moveY</span></b> (déjà mappé au LOT-10 pour la visée du dash) : maintenir bas en l'air.</li>
 <li><b>Rééquilibrage guidé par les tests</b> : on ajuste les niveaux jusqu'à ce que les preuves de franchissabilité <b>à la vraie taille</b> repassent au vert (pas de magie, mesure).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md851"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md855"></a>
 Exigences couvertes</h1>
 <ul>
 <li><span class="tt">EX-GP-018</span> (gravité asymétrique + apex hang + fast-fall), <span class="tt">EX-GP-011</span> (retombée à gravité constante, précisée).</li>
 <li><span class="tt">EX-NFR-002</span> (pas fixe déterministe), <span class="tt">EX-NFR-010</span>/<span class="tt">EX-NFR-020</span> (testabilité, tests), <span class="tt">EX-ARCH-011</span> (composants = données pures), <span class="tt">EX-REN-011</span> (sprite du personnage).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md852"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md856"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -156,7 +156,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-11-tache-04-reequilibrage.html#md_Lot_2LOT-11-ressenti-avance_2tache-04-reequilibrage" title="Lot/LOT-11-ressenti-avance/tache-04-reequilibrage.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Rééquilibrage des niveaux + preuves à la vraie taille  </td><td class="markdownTableBodyNone"><span class="tt">Elements/Levels</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md853"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md857"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Le personnage est <b>humanoïde</b> (0,4 × 0,8) en collision <b>et</b> au rendu, centré au spawn.</li>
@@ -165,12 +165,12 @@ Critères d'acceptation du lot</h1>
 <li>La logique est <b>couverte par des tests</b> (<span class="tt">ctest</span> vert), déterministe au pas fixe.</li>
 <li>Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et <span class="tt">CHANGELOG.md</span> à jour, <span class="tt">lint</span> des exigences vert.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md854"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md858"></a>
 Dépendances</h1>
 <ul>
 <li>Prolonge le LOT-10 : mêmes <span class="tt">CharacterPhysicsSystem</span>, <span class="tt">PhysicsConfig</span>, <span class="tt">Collider</span>, <span class="tt">GameScreen</span>, <span class="tt">LevelSequence</span> ; <span class="tt">moveY</span> (mapping du LOT-10) sert au fast-fall.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md855"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md859"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-11-tache-01-donnees.html" title="TACHE-01 — Données : réglages de *feel* + taille/placement du personnage">TACHE-01 — Données : réglages de *feel* + taille/placement du personnage</a></li>

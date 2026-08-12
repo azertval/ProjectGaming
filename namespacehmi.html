@@ -227,6 +227,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Police bitmap chargée depuis <span class="tt">Assets/Fonts/</span>, avec repli <b>procédural</b> (<span class="tt">EX-NFR-040</span>).  <a href="classhmi_1_1BitmapFont.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CacheRegistry" id="r_CacheRegistry"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CacheRegistry.html">CacheRegistry</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mémoïsation par clé logique : charge au premier accès, retient aussi un <b>échec</b>, et s'invalide par clé ou entièrement.  <a href="classhmi_1_1CacheRegistry.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ScreenShakeState" id="r_ScreenShakeState"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ScreenShakeState.html">ScreenShakeState</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État déterministe d'une secousse d'écran en cours de décroissance vers zéro.  <a href="structhmi_1_1ScreenShakeState.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Camera2D" id="r_Camera2D"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Caméra 2D orthographique : projette le monde vers l'écran pour le rendu.  <a href="classhmi_1_1Camera2D.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ComposedQuad" id="r_ComposedQuad"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a></td></tr>
@@ -963,6 +965,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:af173b9ae3dd18469f5ac8bc13fb3dcb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule le recadrage UV d'une image pour couvrir un rectangle cible sans déformation.  <br /></td></tr>
 <tr class="memitem:a78c747bc4cd322fc326e0801bbd294d5" id="r_a78c747bc4cd322fc326e0801bbd294d5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a78c747bc4cd322fc326e0801bbd294d5">composeBackground</a> (<a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const <a class="el" href="structhmi_1_1BackgroundTexture.html">BackgroundTexture</a> &amp;background, int levelWidth, int levelHeight, <a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode)</td></tr>
 <tr class="memdesc:a78c747bc4cd322fc326e0801bbd294d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose le fond du niveau sur <span class="tt"><a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919aa9ded1e5ce5d75814730bb4caaf49419" title="Image de fond du niveau (LOT-44, EX-REN-044).">RenderLayer::Background</a></span>, s'il y a lieu.  <br /></td></tr>
+<tr class="memitem:a818f4f148a4770efc762293601c6753b" id="r_a818f4f148a4770efc762293601c6753b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a818f4f148a4770efc762293601c6753b">triggerScreenShake</a> (<a class="el" href="structhmi_1_1ScreenShakeState.html">ScreenShakeState</a> &amp;state, float amplitudePixels, float duration) noexcept</td></tr>
+<tr class="memdesc:a818f4f148a4770efc762293601c6753b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déclenche (ou relance) une secousse d'écran.  <br /></td></tr>
+<tr class="memitem:a28ef61716fdead033cc97c06177e98f1" id="r_a28ef61716fdead033cc97c06177e98f1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a28ef61716fdead033cc97c06177e98f1">advanceScreenShake</a> (<a class="el" href="structhmi_1_1ScreenShakeState.html">ScreenShakeState</a> &amp;state, float fixedDelta) noexcept</td></tr>
+<tr class="memdesc:a28ef61716fdead033cc97c06177e98f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Avance une secousse d'écran d'un pas fixe.  <br /></td></tr>
+<tr class="memitem:a5c8d96a16939fabe2248617af0ffb90b" id="r_a5c8d96a16939fabe2248617af0ffb90b"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5c8d96a16939fabe2248617af0ffb90b">screenShakeOffset</a> (const <a class="el" href="structhmi_1_1ScreenShakeState.html">ScreenShakeState</a> &amp;state) noexcept</td></tr>
+<tr class="memdesc:a5c8d96a16939fabe2248617af0ffb90b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décalage courant d'une secousse d'écran, en pixels <b>entiers</b> (<span class="tt">EX-ARCH-022</span>).  <br /></td></tr>
 <tr class="memitem:aabc578b802bb386e63d830e168140fe7" id="r_aabc578b802bb386e63d830e168140fe7"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aabc578b802bb386e63d830e168140fe7">formatSceneStatistics</a> (const <a class="el" href="structhmi_1_1SceneStatistics.html">SceneStatistics</a> &amp;statistics)</td></tr>
 <tr class="memdesc:aabc578b802bb386e63d830e168140fe7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résumé des compteurs d'une image, pour la journalisation de diagnostic (<span class="tt">EX-NFR-005</span>).  <br /></td></tr>
 <tr class="memitem:af7d9b42fc7c496a35a24169feddc6ab8" id="r_af7d9b42fc7c496a35a24169feddc6ab8"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#af7d9b42fc7c496a35a24169feddc6ab8">spriteQuadBounds</a> (const <a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a> &amp;quad) noexcept</td></tr>
@@ -999,6 +1007,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a55d947fd87c323efd9d2e1b7c1ed0fa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse de <span class="tt"><a class="el" href="#a8558cd4ffaa070fd58be27ca40926c53" title="Calcule la position de rendu d&#39;un décor, décalée par sa parallaxe.">parallaxRenderPosition</a></span> : retrouve la position <b>simulée</b> équivalente à un point exprimé en espace de rendu (<span class="tt">LOT-50</span> TACHE-02).  <br /></td></tr>
 <tr class="memitem:a1e5980df41367af8a056278ffa933ea8" id="r_a1e5980df41367af8a056278ffa933ea8"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1e5980df41367af8a056278ffa933ea8">roundToScreenPixel</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> worldPosition, float pixelsPerWorldUnit) noexcept</td></tr>
 <tr class="memdesc:a1e5980df41367af8a056278ffa933ea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arrondit une position monde au pixel écran le plus proche, pour un zoom pixel art net.  <br /></td></tr>
+<tr class="memitem:a0e0b1b7dafaa9acda0412e8729095470" id="r_a0e0b1b7dafaa9acda0412e8729095470"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0e0b1b7dafaa9acda0412e8729095470">composeParticles</a> (<a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, <a class="el" href="classcore_1_1World.html">core::World</a> &amp;world, <a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;textures)</td></tr>
+<tr class="memdesc:a0e0b1b7dafaa9acda0412e8729095470"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose un quad par particule vivante, teinté selon la durée de vie restante et le calque de son effet.  <br /></td></tr>
 <tr class="memitem:a0a13a6b4cbedcfe953e4532f97cd953c" id="r_a0a13a6b4cbedcfe953e4532f97cd953c"><td class="memItemLeft"><a class="el" href="structhmi_1_1PlayerSpriteQuad.html">PlayerSpriteQuad</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0a13a6b4cbedcfe953e4532f97cd953c">computePlayerSpriteQuad</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> imageSizePixels, <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hitboxSize)</td></tr>
 <tr class="memdesc:a0a13a6b4cbedcfe953e4532f97cd953c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule le quad d'affichage du personnage à partir de la taille de l'image et de la hitbox, par ancrage <b>centre-bas</b> (<span class="tt">LOT-48</span> TACHE-01).  <br /></td></tr>
 <tr class="memitem:ad9d86326e8a24c761d2b3c04e378a0a1" id="r_ad9d86326e8a24c761d2b3c04e378a0a1"><td class="memItemLeft">const std::vector&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad9d86326e8a24c761d2b3c04e378a0a1">proceduralPlayerClipNames</a> ()</td></tr>
@@ -1192,6 +1202,12 @@ Variables</h2></td></tr>
 <tr class="memdesc:aab9ebfc2ebacc5718532a560bfd830ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de valeurs de <span class="tt"><a class="el" href="#a3a61aed1c8e95c289c829398d48488de" title="Événement discret survenu sur un pas de simulation ou une action d&#39;interface.">GameEvent</a></span> — pour les tests d'exhaustivité (parcours de l'énumération).  <br /></td></tr>
 <tr class="memitem:a5d007c47b6f8696b0b71cf94afe65d18" id="r_a5d007c47b6f8696b0b71cf94afe65d18"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5d007c47b6f8696b0b71cf94afe65d18">FONTS_SUBDIRECTORY</a> = &quot;Fonts/&quot;</td></tr>
 <tr class="memdesc:a5d007c47b6f8696b0b71cf94afe65d18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous-dossier des assets de police, relatif au dossier d'assets (<span class="tt">LOT-52</span>).  <br /></td></tr>
+<tr class="memitem:a4498c346debb5bb213dbe5742ddc7b19" id="r_a4498c346debb5bb213dbe5742ddc7b19"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a4498c346debb5bb213dbe5742ddc7b19">LANDING_SHAKE_AMPLITUDE_PIXELS</a> = 2.0f</td></tr>
+<tr class="memdesc:a4498c346debb5bb213dbe5742ddc7b19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Amplitude conservatrice de la secousse d'écran à un atterrissage lourd (<span class="tt">LOT-53</span> TACHE-03) : discrète, un jeu de plateforme précis devient injouable si l'écran bouge trop.  <br /></td></tr>
+<tr class="memitem:ac67c57b9d29f38f461615f1e356b929f" id="r_ac67c57b9d29f38f461615f1e356b929f"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#ac67c57b9d29f38f461615f1e356b929f">DEATH_SHAKE_AMPLITUDE_PIXELS</a> = 3.0f</td></tr>
+<tr class="memdesc:ac67c57b9d29f38f461615f1e356b929f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Amplitude de la secousse à la mort du personnage : légèrement plus marquée que l'atterrissage.  <br /></td></tr>
+<tr class="memitem:aad0ce653270973d848de764b4fa308d1" id="r_aad0ce653270973d848de764b4fa308d1"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#aad0ce653270973d848de764b4fa308d1">SCREEN_SHAKE_DURATION</a> = 0.2f</td></tr>
+<tr class="memdesc:aad0ce653270973d848de764b4fa308d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Durée de toute secousse d'écran, en secondes &ndash; brève par construction.  <br /></td></tr>
 <tr class="memitem:ad72608bb6233a89509a4835525f62339" id="r_ad72608bb6233a89509a4835525f62339"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="#ad72608bb6233a89509a4835525f62339">DECORS_SUBDIRECTORY</a> = &quot;Decors/&quot;</td></tr>
 <tr class="memdesc:ad72608bb6233a89509a4835525f62339"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous-dossier des décors, relatif au dossier d'assets (<span class="tt">LOT-49</span>).  <br /></td></tr>
 <tr class="memitem:a8d75d16f31a44e7347ea403ce66aaff3" id="r_a8d75d16f31a44e7347ea403ce66aaff3"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a8d75d16f31a44e7347ea403ce66aaff3">RENDER_LAYER_COUNT</a></td></tr>
@@ -1220,6 +1236,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:aa760534a8b88b2cb6682308554504fc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Facteur de la couche <span class="tt"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20ae953e8671da3a0647c0939df8ebe8e44" title="Décor : entre les tuiles et le personnage.">core::DecorLayer::Decor</a></span> : <b>solidaire</b> du niveau (valeur de référence, <span class="tt">EX-DEC-006</span>) — un décor de cette couche ne subit jamais de décalage de parallaxe.  <br /></td></tr>
 <tr class="memitem:a90f19fb74cf5fbd041fb171696d66837" id="r_a90f19fb74cf5fbd041fb171696d66837"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a90f19fb74cf5fbd041fb171696d66837">PARALLAX_FACTOR_FOREGROUND</a> = 1.15f</td></tr>
 <tr class="memdesc:a90f19fb74cf5fbd041fb171696d66837"><td class="mdescLeft">&#160;</td><td class="mdescRight">Facteur de la couche <span class="tt"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20a45bd1d5b32931106efbf1a82fe6a732f" title="Premier plan : au-dessus du personnage (EX-DEC-002).">core::DecorLayer::Foreground</a></span> : défile <b>plus vite</b> que le niveau.  <br /></td></tr>
+<tr class="memitem:ae5973dd2d98049262bf4fb2bd91357a3" id="r_ae5973dd2d98049262bf4fb2bd91357a3"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#ae5973dd2d98049262bf4fb2bd91357a3">PARTICLE_QUAD_SIZE</a> = 0.12f</td></tr>
+<tr class="memdesc:ae5973dd2d98049262bf4fb2bd91357a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté du carré teinté d'une particule, en unités monde (<span class="tt">LOT-53</span> TACHE-03 : « un simple carré teinté suffit pour un premier jet », pas d'asset dédié).  <br /></td></tr>
 <tr class="memitem:a3056f1e4372f3a240ed0fcb1715237fd" id="r_a3056f1e4372f3a240ed0fcb1715237fd"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="#a3056f1e4372f3a240ed0fcb1715237fd">PLAYER_SUBDIRECTORY</a> = &quot;Player/&quot;</td></tr>
 <tr class="memdesc:a3056f1e4372f3a240ed0fcb1715237fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous-dossier de la spritesheet du personnage, relatif au dossier d'assets (<span class="tt">LOT-48</span>).  <br /></td></tr>
 <tr class="memitem:af9d5162737bdb5221fd49e4eeed58380" id="r_af9d5162737bdb5221fd49e4eeed58380"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="#af9d5162737bdb5221fd49e4eeed58380">PLAYER_SHEET_FILE_NAME</a> = &quot;player.png&quot;</td></tr>
@@ -2716,6 +2734,44 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a28ef61716fdead033cc97c06177e98f1" name="a28ef61716fdead033cc97c06177e98f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28ef61716fdead033cc97c06177e98f1">&#9670;&#160;</a></span>advanceScreenShake()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::advanceScreenShake </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1ScreenShakeState.html">ScreenShakeState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>state</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>fixedDelta</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Avance une secousse d'écran d'un pas fixe. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>État à avancer ; sans effet si déjà terminée (<span class="tt">elapsed &gt;= duration</span>). </td></tr>
+    <tr><td class="paramname">fixedDelta</td><td>Durée du pas, en secondes. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a400619b6396af0caf3768b3778730809" name="a400619b6396af0caf3768b3778730809"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a400619b6396af0caf3768b3778730809">&#9670;&#160;</a></span>advanceTileAnimations()</h2>
 
@@ -3839,6 +3895,49 @@ Variables</h2></td></tr>
     <tr><td class="paramname">levelWidth</td><td>Largeur du niveau, en unités monde (une case = une unité). </td></tr>
     <tr><td class="paramname">levelHeight</td><td>Hauteur du niveau, en unités monde. </td></tr>
     <tr><td class="paramname">mode</td><td>Mode de rendu courant ; sans effet hors <span class="tt"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54aa3e8ae43188ae76d38f414b2bdb0077b" title="Habillage par textures, construit lot après lot à partir de LOT-42.">RenderMode::Texture</a></span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0e0b1b7dafaa9acda0412e8729095470" name="a0e0b1b7dafaa9acda0412e8729095470"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e0b1b7dafaa9acda0412e8729095470">&#9670;&#160;</a></span>composeParticles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::composeParticles </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>scene</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classcore_1_1World.html">core::World</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>world</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>textures</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compose un quad par particule vivante, teinté selon la durée de vie restante et le calque de son effet. </p>
+<p>Parcourt les entités portant un <span class="tt"><a class="el" href="structcore_1_1Particle.html" title="Particule visuelle pure : position, vitesse, durée de vie – aucun effet de gameplay (EX-ARCH-012).">core::Particle</a></span> (<span class="tt">LOT-53</span> TACHE-01/02) et empile un <span class="tt"><a class="el" href="structhmi_1_1SpriteQuad.html" title="Un quad texturé à dessiner : rectangle en unités monde, région de texture (coordonnées normalisées) e...">hmi::SpriteQuad</a></span> centré sur chacune, échantillonnant une région <b>opaque unie</b> de l'atlas (<span class="tt">hmi::TextureAtlas::tile(0, 0)</span>, même patron que les segments unis de <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span>) : aucun asset dédié n'est introduit, la teinte porte entièrement l'apparence de l'effet. L'opacité vaut <span class="tt">life / maxLife</span> (<span class="tt"><a class="el" href="structcore_1_1Particle.html" title="Particule visuelle pure : position, vitesse, durée de vie – aucun effet de gameplay (EX-ARCH-012).">core::Particle</a></span>) : une particule fraîchement émise est pleine, elle s'estompe jusqu'à disparaître avec la simulation. Le calque dépend de l'effet (<span class="tt"><a class="el" href="namespacecore.html#aa6799b2e10b4cf31b2527af8a390ce2c" title="Effet visuel à l&#39;origine d&#39;une particule – tag opaque pour Core, exploité par le rendu (HMI) pour cho...">core::ParticleKind</a></span>) : une traînée de dash passe <b>derrière</b> le personnage (<span class="tt"><a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919a497031794414a552435f90151ac3b54b" title="Objets interactifs (interrupteurs, portes, dangers) (LOT-45/LOT-47).">RenderLayer::Object</a></span>), une bouffée de poussière ou un éclat de mort <b>devant</b> (<span class="tt"><a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919a45bd1d5b32931106efbf1a82fe6a732f" title="Décors de premier plan, dessinés par-dessus le personnage (LOT-49, EX-DEC-002).">RenderLayer::Foreground</a></span>), conformément au périmètre du lot.</p>
+<p>Lecture <b>seule</b> de l'ECS (<span class="tt">EX-ARCH-012</span>), sans effet en dehors de <span class="tt"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54aa3e8ae43188ae76d38f414b2bdb0077b" title="Habillage par textures, construit lot après lot à partir de LOT-42.">RenderMode::Texture</a></span> (<span class="tt">EX-REN-046</span>) — le mode Physique reste la lecture nue des collisions, sans effet visuel. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scene</td><td>Scène à remplir (non vidée : la composition peut être cumulative). </td></tr>
+    <tr><td class="paramname">world</td><td>Monde dont on lit <span class="tt"><a class="el" href="structcore_1_1Particle.html" title="Particule visuelle pure : position, vitesse, durée de vie – aucun effet de gameplay (EX-ARCH-012).">core::Particle</a></span>. </td></tr>
+    <tr><td class="paramname">mode</td><td>Mode de rendu courant. </td></tr>
+    <tr><td class="paramname">textures</td><td>Textures liables (seul <span class="tt"><a class="el" href="structhmi_1_1SceneTextures.html#a7d9763188484890ea78646b52d3a9820" title="Atlas du jeu (hmi::TextureAtlas::textureView).">hmi::SceneTextures::atlas</a></span> est utilisé). </td></tr>
   </table>
   </dd>
 </dl>
@@ -8475,6 +8574,40 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a5c8d96a16939fabe2248617af0ffb90b" name="a5c8d96a16939fabe2248617af0ffb90b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c8d96a16939fabe2248617af0ffb90b">&#9670;&#160;</a></span>screenShakeOffset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hmi::screenShakeOffset </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1ScreenShakeState.html">ScreenShakeState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>state</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Décalage courant d'une secousse d'écran, en pixels <b>entiers</b> (<span class="tt">EX-ARCH-022</span>). </p>
+<p>Décroît <b>linéairement</b> de <span class="tt">amplitudePixels</span> à zéro sur <span class="tt">duration</span>, sur l'axe vertical uniquement &ndash; une discrétion volontaire (cf. <span class="tt">epic.md</span>) plutôt qu'une oscillation qui ajouterait un axe de plus à lire. Nul une fois la secousse terminée. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>Secousse dont on lit le décalage courant. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le décalage à appliquer à la <b>projection de rendu uniquement</b> (jamais à <span class="tt">_center</span>, ni à la logique de cadrage par salle, ni à une position simulée). </dd></dl>
+
+</div>
+</div>
 <a id="a5c512277fe15943410e76fb97e3b0353" name="a5c512277fe15943410e76fb97e3b0353"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5c512277fe15943410e76fb97e3b0353">&#9670;&#160;</a></span>screenToImagePixel()</h2>
 
@@ -9413,6 +9546,50 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a818f4f148a4770efc762293601c6753b" name="a818f4f148a4770efc762293601c6753b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a818f4f148a4770efc762293601c6753b">&#9670;&#160;</a></span>triggerScreenShake()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::triggerScreenShake </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1ScreenShakeState.html">ScreenShakeState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>state</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>amplitudePixels</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>duration</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Déclenche (ou relance) une secousse d'écran. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>État à réarmer. </td></tr>
+    <tr><td class="paramname">amplitudePixels</td><td>Amplitude au déclenchement, en pixels écran (constante nommée côté appelant, ex. <span class="tt"><a class="el" href="#a4498c346debb5bb213dbe5742ddc7b19" title="Amplitude conservatrice de la secousse d&#39;écran à un atterrissage lourd (LOT-53 TACHE-03) : discrète,...">LANDING_SHAKE_AMPLITUDE_PIXELS</a></span>). </td></tr>
+    <tr><td class="paramname">duration</td><td>Durée totale, en secondes (ex. <span class="tt"><a class="el" href="#aad0ce653270973d848de764b4fa308d1" title="Durée de toute secousse d&#39;écran, en secondes – brève par construction.">SCREEN_SHAKE_DURATION</a></span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="acb440eec2a1a3d3cc760795b9875ae8e" name="acb440eec2a1a3d3cc760795b9875ae8e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acb440eec2a1a3d3cc760795b9875ae8e">&#9670;&#160;</a></span>trimLevelName()</h2>
 
@@ -9808,6 +9985,30 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ac67c57b9d29f38f461615f1e356b929f" name="ac67c57b9d29f38f461615f1e356b929f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac67c57b9d29f38f461615f1e356b929f">&#9670;&#160;</a></span>DEATH_SHAKE_AMPLITUDE_PIXELS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::DEATH_SHAKE_AMPLITUDE_PIXELS = 3.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Amplitude de la secousse à la mort du personnage : légèrement plus marquée que l'atterrissage. </p>
+
+</div>
+</div>
 <a id="a3ec3b0d0a4b02829e3cf0fe6f72bf05b" name="a3ec3b0d0a4b02829e3cf0fe6f72bf05b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3ec3b0d0a4b02829e3cf0fe6f72bf05b">&#9670;&#160;</a></span>DECOR_DRAG_THRESHOLD</h2>
 
@@ -10142,6 +10343,30 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nombre d'actions d'éditeur remappables ayant une commande effective (<span class="tt"><a class="el" href="#af2f4a1af04682540c1b84611a24aa42c" title="Nombre d&#39;actions d&#39;éditeur remappables (EditorAction).">EDITOR_ACTION_COUNT</a></span> moins <span class="tt">TextureAssignTool</span>). </p>
+
+</div>
+</div>
+<a id="a4498c346debb5bb213dbe5742ddc7b19" name="a4498c346debb5bb213dbe5742ddc7b19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4498c346debb5bb213dbe5742ddc7b19">&#9670;&#160;</a></span>LANDING_SHAKE_AMPLITUDE_PIXELS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::LANDING_SHAKE_AMPLITUDE_PIXELS = 2.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Amplitude conservatrice de la secousse d'écran à un atterrissage lourd (<span class="tt">LOT-53</span> TACHE-03) : discrète, un jeu de plateforme précis devient injouable si l'écran bouge trop. </p>
 
 </div>
 </div>
@@ -10635,6 +10860,30 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ae5973dd2d98049262bf4fb2bd91357a3" name="ae5973dd2d98049262bf4fb2bd91357a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5973dd2d98049262bf4fb2bd91357a3">&#9670;&#160;</a></span>PARTICLE_QUAD_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::PARTICLE_QUAD_SIZE = 0.12f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Côté du carré teinté d'une particule, en unités monde (<span class="tt">LOT-53</span> TACHE-03 : « un simple carré teinté suffit pour un premier jet », pas d'asset dédié). </p>
+
+</div>
+</div>
 <a id="af6dd4ff8d5e0ef90e4386088a9b55c07" name="af6dd4ff8d5e0ef90e4386088a9b55c07"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af6dd4ff8d5e0ef90e4386088a9b55c07">&#9670;&#160;</a></span>PIXEL_CANVAS_GRID_VISIBLE_MIN_ZOOM</h2>
 
@@ -10874,6 +11123,30 @@ Variables</h2></td></tr>
 <div class="ttc" id="anamespacehmi_html_a9b5452f2d3a1019a3229b90a4f000919a94f3616c83f30ab5a328e602bbb7d751"><div class="ttname"><a href="#a9b5452f2d3a1019a3229b90a4f000919a94f3616c83f30ab5a328e602bbb7d751">hmi::RenderLayer::EditorOverlay</a></div><div class="ttdeci">@ EditorOverlay</div><div class="ttdoc">Aides d&#39;édition : grille de repère, liens de mécanismes, aperçu de sélection.</div><div class="ttdef"><b>Definition</b> RenderLayer.h:51</div></div>
 </div><!-- fragment -->
 <p>Nombre de valeurs de <span class="tt"><a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919" title="Calques de dessin, du plus arrière au plus avant (EX-REN-014, EX-DEC-002).">hmi::RenderLayer</a></span> — dimensionne un tableau indexé par la valeur plutôt que par une liste de champs écrite à la main (voir <span class="tt"><a class="el" href="classhmi_1_1LayerVisibility.html" title="Jeu de visibilités par calque, pour le mode d&#39;inspection « définition des textures » (LOT-51).">hmi::LayerVisibility</a></span>). </p>
+
+</div>
+</div>
+<a id="aad0ce653270973d848de764b4fa308d1" name="aad0ce653270973d848de764b4fa308d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad0ce653270973d848de764b4fa308d1">&#9670;&#160;</a></span>SCREEN_SHAKE_DURATION</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::SCREEN_SHAKE_DURATION = 0.2f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Durée de toute secousse d'écran, en secondes &ndash; brève par construction. </p>
 
 </div>
 </div>
