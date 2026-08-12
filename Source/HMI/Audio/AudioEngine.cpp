@@ -35,7 +35,7 @@ void AudioEngine::setVolume(float volume) {
     _volume = clampVolume(volume);
     for (auto& entry : _samples) {
         for (auto& instance : entry.second.instances) {
-            instance->setVolume(static_cast<double>(_volume));
+            instance->setVolume(_volume);
         }
     }
 }
@@ -50,7 +50,7 @@ void AudioEngine::preload(const std::string& id, const std::filesystem::path& fi
     for (std::size_t i = 0; i < MAX_INSTANCES_PER_EVENT; ++i) {
         auto effect = std::make_unique<QSoundEffect>();
         effect->setSource(source);
-        effect->setVolume(static_cast<double>(_volume));
+        effect->setVolume(_volume);
         sample.instances.push_back(std::move(effect));
     }
     _samples[id] = std::move(sample);
