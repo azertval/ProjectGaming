@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-05-tache-02-pipeline-quads-textures.html','',''); 
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-05-rendu-2d_2tache-02-pipeline-quads-textures"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-05.html#md_Lot_2LOT-05-rendu-2d_2epic" title="Lot/LOT-05-rendu-2d/epic.md">LOT-05</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md545"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md548"></a>
 Contexte</h1>
 <p><span class="tt">GraphicsDevice</span> sait effacer et présenter, mais ne dessine rien. Cette tâche pose le <b>pipeline de rendu 2D</b> : dessiner des rectangles texturés (quads) avec transparence et un échantillonnage adapté au pixel art.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md546"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md549"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Shaders HLSL</b> (vertex + pixel) compilés à l'exécution via <span class="tt">D3DCompile</span> : le vertex shader applique une matrice (projection écran + caméra) ; le pixel shader échantillonne la texture d'atlas et applique la teinte.</li>
@@ -105,33 +105,33 @@ Travail à réaliser</h1>
 <li><b>États</b> : <em>blend state</em> alpha (transparence, <span class="tt">EX-REN-011</span>), <em>sampler</em> <b>point/nearest</b> (<span class="tt">EX-ARCH-022</span>), rasterizer 2D (pas de depth test, ou depth désactivé).</li>
 <li>Une classe <span class="tt">SpriteBatch</span> (ou <span class="tt">QuadRenderer</span>) : <span class="tt">begin()/draw(quad)/end()</span> accumulant les quads et émettant les <em>draw calls</em> (batch par texture d'atlas).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md547"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md550"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="SpriteBatch_8h.html" title="Pipeline de rendu 2D : accumule des quads texturés et les dessine par lots.">Source/HMI/Graphics/SpriteBatch.h</a></span>, <span class="tt"><a class="el" href="SpriteBatch_8cpp.html">SpriteBatch.cpp</a></span> (nouveau).</li>
 <li>Shaders HLSL (inline dans le <span class="tt">.cpp</span> ou <span class="tt">Source/HMI/Graphics/*.hlsl</span>).</li>
 <li><span class="tt">Source/HMI/CMakeLists.txt</span> (nouvelles sources).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md548"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md551"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>Un quad texturé s'affiche à une position/taille données (vérification visuelle via la démo de TACHE-06).</li>
 <li>La transparence fonctionne (zones alpha de l'atlas) ; l'échantillonnage est net (nearest).</li>
 <li>Aucune fuite de ressource DirectX (RAII, <span class="tt">ComPtr</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md549"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md552"></a>
 Points d'attention</h1>
 <ul>
 <li>RAII obligatoire sur toutes les ressources D3D (<span class="tt">ID3D11Buffer</span>, shaders, states) via <span class="tt">Microsoft::WRL::ComPtr</span> ; aucun <span class="tt">init()</span>/<span class="tt">cleanup()</span> manuel.</li>
 <li><span class="tt">Core</span> reste ignorant de ce pipeline (dépendance <span class="tt">HMI → Core</span> uniquement).</li>
 <li>Gérer les erreurs d'initialisation (device, compilation shader) par exception à la frontière de démarrage (cf. politique d'erreurs).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md550"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md553"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Pipeline de quads texturés fonctionnel (blend + nearest), RAII, documenté ; build <span class="tt">/W4 /WX</span> sans avertissement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md551"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md554"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-002</span>, <span class="tt">EX-REN-011</span>, <span class="tt">EX-ARCH-022</span>, <span class="tt">EX-NFR-041</span>. </p>
 </div></div><!-- contents -->

@@ -239,7 +239,8 @@ var namespacehmi =
       [ "AimUp", "namespacehmi.html#a133516ef8002bd9e4d870db9494f5867abb02cde961b6c807814d8ae6946359ea", null ],
       [ "AimDown", "namespacehmi.html#a133516ef8002bd9e4d870db9494f5867ae2523957153e9b5b8defa89d26c2190b", null ],
       [ "Jump", "namespacehmi.html#a133516ef8002bd9e4d870db9494f5867a101f693f72287a2819a364f64ca1c0ed", null ],
-      [ "Dash", "namespacehmi.html#a133516ef8002bd9e4d870db9494f5867a3663598d5c5858b5a6040b1bbed4f187", null ]
+      [ "Dash", "namespacehmi.html#a133516ef8002bd9e4d870db9494f5867a3663598d5c5858b5a6040b1bbed4f187", null ],
+      [ "Interact", "namespacehmi.html#a133516ef8002bd9e4d870db9494f5867aefbc873e4634f3db63d62377d36e5f56", null ]
     ] ],
     [ "GameEvent", "namespacehmi.html#a3a61aed1c8e95c289c829398d48488de", [
       [ "Jumped", "namespacehmi.html#a3a61aed1c8e95c289c829398d48488dea280e2398821e9b67fa22ab6d512c746b", null ],
@@ -324,6 +325,7 @@ var namespacehmi =
       [ "A", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29", null ],
       [ "C", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a0d61f8370cad1d412f80b84d143e1257", null ],
       [ "D", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5", null ],
+      [ "E", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a3a3ea00cfc35332cedf6e5e9a32e94da", null ],
       [ "P", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a44c29edb103a2872f519ad0c9a0fdaaa", null ],
       [ "Q", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee", null ],
       [ "R", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48ae1e1d3d40573127e9ee0480caf1283d6", null ],
@@ -707,6 +709,10 @@ var namespacehmi =
     [ "MECHANISM_CLIP_DOOR_CLOSING", "namespacehmi.html#a846678ae501557ed45ba0990582586d7", null ],
     [ "MECHANISM_CLIP_DOOR_OPEN", "namespacehmi.html#af5ef94c6c6db4926588946b675dd9ee3", null ],
     [ "MECHANISM_CLIP_DOOR_OPENING", "namespacehmi.html#a300d76e8ed6b73b7dba74ce128204700", null ],
+    [ "MECHANISM_CLIP_KEY_COLLECTED", "namespacehmi.html#a7b70f6e57f2e0389dde592c1ae82a5bd", null ],
+    [ "MECHANISM_CLIP_KEY_PRESENT", "namespacehmi.html#ab1f6d3bb9654c55a42a467b93a6fc36f", null ],
+    [ "MECHANISM_CLIP_LOCKED_DOOR_CLOSED", "namespacehmi.html#ac49c95d78f56bb5fcebbe7dedbacee04", null ],
+    [ "MECHANISM_CLIP_LOCKED_DOOR_OPEN", "namespacehmi.html#a4c1d8fca2d2a913317f6dfcec2db8698", null ],
     [ "MECHANISM_CLIP_PLATE_PRESSED", "namespacehmi.html#a8a617709d23679922bd8098dc4afee0f", null ],
     [ "MECHANISM_CLIP_PLATE_RELEASED", "namespacehmi.html#a3539267126754138eae099565325811e", null ],
     [ "MECHANISM_CLIP_SWITCH_ACTIVE", "namespacehmi.html#ab23937c0e128070e181891b2a9a7eae1", null ],

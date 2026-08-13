@@ -94,7 +94,7 @@ $(function(){initNavTree('lot-55-tache-03-ombres-silhouettes.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-55-ombres-plan-physique_2tache-03-ombres-silhouettes"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-55.html#md_Lot_2LOT-55-ombres-plan-physique_2epic" title="Lot/LOT-55-ombres-plan-physique/epic.md">LOT-55</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2475"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2478"></a>
 Contexte</h1>
 <p>La TACHE-01 émet un quad d'ombre rectangulaire pour chaque tuile <b>solide</b> au sens de <span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></span>. Cela laisse deux familles de tuiles sans ombre correcte :</p>
 <ul>
@@ -102,13 +102,13 @@ Contexte</h1>
 <li><b>les blocs réduits</b> <span class="tt">BlockHalf</span> et <span class="tt">BlockQuarter</span> : solides, mais n'occupant qu'une fraction de leur case. Un quad d'ombre pleine case serait visiblement trop grand.</li>
 </ul>
 <p>Le résultat serait incohérent, et l'incohérence porterait précisément sur ce que le lot cherche à rendre lisible : ce qui est physique.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2476"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2479"></a>
 Un prédicat de solidité partielle n'est pas la solution</h1>
 <p>L'intuition naturelle est d'ajouter à <span class="tt">Core</span> un <span class="tt">isSolidHalf</span> ou équivalent. C'est à écarter, pour deux raisons.</p>
 <p><b>Ce n'est pas la bonne question.</b> Une ombre est la projection d'une <b>forme</b>, pas d'un degré de solidité. Savoir qu'une pente est « à moitié solide » ne dit rien de l'endroit où elle l'est — c'est la silhouette qu'il faut, et un booléen ne la porte pas.</p>
 <p><b>Tout existe déjà, et du bon côté de la frontière.</b> La forme des douze silhouettes est calculée par des fonctions <b>pures de <span class="tt">Core</span></b> — <span class="tt"><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></span>, <span class="tt"><a class="el" href="namespacecore.html#aef7136a2093c38f28dc2f24fedfae124" title="Hauteur de la silhouette d&#39;une pente/arrondi de plafond (EX-GP-006), au même repère que slopeSurfaceH...">core::ceilingSlopeHeight</a></span>, <span class="tt"><a class="el" href="namespacecore.html#a391389199b2161535d2aa57f225ef65f">core::isCeilingSlope</a></span> — que <em>hmi::slopeShapePixel</em> (<span class="tt"><a class="el" href="ProceduralAtlas_8cpp.html">ProceduralAtlas.cpp</a></span>) utilise déjà pour produire le masque « dedans / dehors » de chaque type, et que le <span class="tt">LOT-42</span> (TACHE-03) factorise en un <span class="tt">SlopeMask</span> pur et mis en cache pour détourer les skins. La taille des blocs réduits est donnée par <span class="tt"><a class="el" href="namespacecore.html#a9b733af18a1507c5dc7b4ffdd88d8b6a" title="Facteur de taille visuel/collision d&#39;une tuile bloc réduite (EX-GP-005).">core::tileVisualScale</a></span>, décrite dans le code comme la source de vérité partagée entre le visuel et la collision.</p>
 <p>Ajouter un prédicat de solidité <b>pour un besoin purement visuel</b> ferait entrer une préoccupation de présentation dans la simulation (<span class="tt">EX-ARCH-012</span>), pour une information que <span class="tt">Core</span> expose déjà sous une forme plus riche.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2477"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2480"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Ombre de silhouette</b> : pour les douze types à silhouette, l'ombre n'est plus un quad uni mais la <b>même silhouette</b>, remplie de la couleur d'ombre et décalée du même offset que les autres. Réutiliser le <span class="tt">SlopeMask</span> de <span class="tt">LOT-42</span> (TACHE-03) : produire, par type, une variante « ombre » du masque, mise en cache comme toute texture.</li>
@@ -116,16 +116,16 @@ Travail à réaliser</h1>
 <li><b>Blocs poussables en mouvement</b> : leur ombre suit leur position courante, comme leur sprite (<span class="tt">GameSession::refreshBlockVisuals</span>).</li>
 <li><b>Dangers directionnels</b> : ils ne sont pas solides et n'ont pas à projeter d'ombre ; le vérifier explicitement plutôt que de le supposer.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2478"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2481"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/ShadowRenderer.{h,cpp}</span> — voir « Réalisation » de <a class="el" href="lot-55-tache-01-quad-ombre.html#md_Lot_2LOT-55-ombres-plan-physique_2tache-01-quad-ombre" title="Lot/LOT-55-ombres-plan-physique/tache-01-quad-ombre.md">TACHE-01</a>.</li>
 <li><span class="tt"><a class="el" href="test__shadow__render_8cpp.html" title="Tests unitaires des ombres du plan physique (LOT-55, EX-REN-045).">Source/Test/Unit/HMI/Graphics/test_shadow_render.cpp</a></span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2479"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2482"></a>
 Réalisation</h1>
 <p>Contrairement à l'anticipation ci-dessus, aucune variante d'ombre du <span class="tt">SlopeMask</span> n'a été mise en cache dans <span class="tt">TextureCache</span> : <span class="tt">hmi::regionForTile(type)</span> pointe déjà, dans l'atlas procédural, vers une région détourée à la silhouette exacte (<span class="tt"><a class="el" href="namespacehmi.html#a4c1e8f8b25b6e5fe20c207887cd1dc33" title="Indique si un pixel appartient à la matière d&#39;une tuile à silhouette.">hmi::isInsideSilhouette</a></span>, la même fonction que <span class="tt">hmi::SlopeMask</span>) — la réutiliser telle quelle pour l'ombre (teintée en noir semi-transparent) est strictement équivalente à en dériver une variante, sans code ni cache supplémentaires. Voir « Réalisation » de <a class="el" href="lot-55-tache-01-quad-ombre.html#md_Lot_2LOT-55-ombres-plan-physique_2tache-01-quad-ombre" title="Lot/LOT-55-ombres-plan-physique/tache-01-quad-ombre.md">TACHE-01</a> pour l'implémentation unique qui couvre les deux tâches.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2480"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2483"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Pour chacun des douze types à silhouette : l'ombre émise a la <b>même forme</b> que la silhouette de la tuile, décalée de l'offset — comparaison au masque de référence, sans GPU.</li>
@@ -133,7 +133,7 @@ Tests (obligatoires)</h1>
 <li>Un bloc poussable déplacé voit son ombre suivre.</li>
 <li>Aucune ombre pour les dangers, l'entrée, la sortie et les tuiles vides.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2481"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2484"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Une seule source de forme.</b> Le masque d'ombre doit dériver du même <span class="tt">SlopeMask</span> que le détourage des skins ; deux implémentations divergeraient, et l'ombre cesserait de correspondre à la tuile qu'elle accompagne — exactement le défaut que cette tâche corrige.</li>
@@ -141,12 +141,12 @@ Points d'attention</h1>
 <li>Cette tâche fait dépendre <span class="tt">LOT-55</span> de <span class="tt">LOT-42</span>, ce qui n'était pas le cas de la TACHE-01 seule. C'est acceptable puisque <span class="tt">LOT-42</span> est très en amont dans la séquence.</li>
 <li>Les ombres restent <b>purement visuelles</b> : aucun masque d'ombre ne doit être lu par la physique ni approcher la grille de collision.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2482"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2485"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les pentes et arrondis projettent une ombre à leur forme réelle ; les blocs réduits une ombre à leur taille réelle ; aucune ombre pour ce qui n'est pas physique ; aucun nouveau prédicat de solidité dans <span class="tt">Core</span> ; formes assertées sans GPU ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2483"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2486"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-045</span> (ombres du plan physique) ; réutilise <span class="tt">EX-GP-003</span>/<span class="tt">EX-GP-004</span>/<span class="tt">EX-GP-006</span>/<span class="tt">EX-GP-007</span> (silhouettes de pentes et arrondis), <span class="tt">EX-GP-005</span> (blocs à taille réduite), <span class="tt">EX-EDIT-042</span> (masquage de silhouette du <span class="tt">LOT-42</span>), <span class="tt">EX-ARCH-012</span> (rendu sans effet sur la simulation), <span class="tt">EX-NFR-004</span> (vérification sans GPU). </p>
 </div></div><!-- contents -->

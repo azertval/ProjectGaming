@@ -5,6 +5,7 @@ var classhmi_1_1DraftRenderer =
     [ "composeGrid", "classhmi_1_1DraftRenderer.html#af8652cf98d80fba9a8296521245b20e6", null ],
     [ "composeHighlight", "classhmi_1_1DraftRenderer.html#a25e74134b58cd46d21a696664f0b0596", null ],
     [ "composeLinks", "classhmi_1_1DraftRenderer.html#a6407efa6e5ef2c0c1818b76d99c7bc24", null ],
+    [ "composeMovingPlatformPaths", "classhmi_1_1DraftRenderer.html#a8d268f5108750b852e06ae34fa95d538", null ],
     [ "composeTextureOverrideMarkers", "classhmi_1_1DraftRenderer.html#a314511c7371520ca8ffd2fa9af1127d4", null ],
     [ "invalidate", "classhmi_1_1DraftRenderer.html#a866ad56f7e8a029aaff1b8b72210c30a", null ],
     [ "lastScene", "classhmi_1_1DraftRenderer.html#acbb89fb6d31cb5718dece21322b1630c", null ],

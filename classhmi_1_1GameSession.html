@@ -125,13 +125,15 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a0be991537db6f5099f91d51684a98257" id="r_a0be991537db6f5099f91d51684a98257"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0be991537db6f5099f91d51684a98257">resolveReducedBlockCollision</a> (const <a class="el" href="structcore_1_1Aabb.html">core::Aabb</a> &amp;previousBox)</td></tr>
 <tr class="memdesc:a0be991537db6f5099f91d51684a98257"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout la collision des blocs à taille RÉDUITE (<span class="tt">EX-GP-005</span>) contre le personnage : leur boîte réelle (centrée, plus petite qu'une case) n'est jamais posée sur la grille de collision, donc jamais vue par la physique sur grille &ndash; balayage boîte-boîte dédié (<span class="tt"><a class="el" href="namespacecore.html#a0019562e8e9658def020086ee4d49425" title="Déplace box de delta en s&#39;arrêtant au premier contact avec obstacle, une boîte fixe unique (pas une g...">core::sweepAabbVsAabb</a></span>) sur le déplacement obtenu par cette dernière.  <br /></td></tr>
 <tr class="memitem:a872c364ddc81ce08e017c066ab4bb564" id="r_a872c364ddc81ce08e017c066ab4bb564"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a872c364ddc81ce08e017c066ab4bb564">refreshDangerVisuals</a> ()</td></tr>
+<tr class="memitem:a43560771bed59659c4bd82016fb8127b" id="r_a43560771bed59659c4bd82016fb8127b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a43560771bed59659c4bd82016fb8127b">refreshPlatformVisuals</a> ()</td></tr>
+<tr class="memdesc:a43560771bed59659c4bd82016fb8127b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replace chaque entité-tuile de plateforme mobile à sa position COURANTE (<span class="tt">EX-GP-026</span>, <span class="tt">LOT-63</span>), même patron que <span class="tt"><a class="el" href="#a872c364ddc81ce08e017c066ab4bb564">refreshDangerVisuals</a></span> pour un danger mobile.  <br /></td></tr>
 <tr class="memitem:a2a575a6cc519a25b3a6bee83876d11bb" id="r_a2a575a6cc519a25b3a6bee83876d11bb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2a575a6cc519a25b3a6bee83876d11bb">updateMechanismVisuals</a> (float fixedDelta)</td></tr>
 <tr class="memdesc:a2a575a6cc519a25b3a6bee83876d11bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apparence des mécanismes pilotée par leur état logique (<span class="tt">LOT-47</span>, <span class="tt">EX-REN-006</span>) : projette l'état de chaque mécanisme suivi sur un clip (correspondance + transitions), au <b>pas fixe</b> — la simulation n'en dépend jamais, seule l'apparence en résulte (<span class="tt">EX-ARCH-012</span>).  <br /></td></tr>
 <tr class="memitem:a4577277ae3fbf8339c2cbfae5f3ca1db" id="r_a4577277ae3fbf8339c2cbfae5f3ca1db"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4577277ae3fbf8339c2cbfae5f3ca1db">applyMechanismVisual</a> (<a class="el" href="structcore_1_1Entity.html">core::Entity</a> entity, bool active, <a class="el" href="structhmi_1_1MechanismVisualState.html">MechanismVisualState</a> &amp;state, const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;textures, float fixedDelta)</td></tr>
 <tr class="memdesc:a4577277ae3fbf8339c2cbfae5f3ca1db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique la correspondance état → clip à <b>une</b> entité-tuile de mécanisme : résout l'asset effectivement lié (via le point de résolution unique <span class="tt"><a class="el" href="namespacehmi.html#a703532077ec14c39205ccde5efbfb6bc" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">hmi::resolveTileAppearance</a></span>, jamais dupliqué ici), avance son horloge propre et écrit l'image courante sur son <span class="tt"><a class="el" href="structhmi_1_1TileSkinTag.html" title="Type de tuile et voisinage solide d&#39;une entité affichée, pour la résolution de son skin.">TileSkinTag</a></span> (<span class="tt">LOT-47</span> TACHE-02).  <br /></td></tr>
 <tr class="memitem:a145412952ef3851d1811c5f3563df655" id="r_a145412952ef3851d1811c5f3563df655"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a145412952ef3851d1811c5f3563df655">refreshMechanismDiagnosticTint</a> (<a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode)</td></tr>
 <tr class="memdesc:a145412952ef3851d1811c5f3563df655"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modulation d'opacité de <b>diagnostic</b>, réservée au mode Physique (<span class="tt">LOT-47</span> TACHE-03) : ce mode n'a pas d'assets animés et doit conserver un moyen de distinguer un mécanisme actif d'un mécanisme inactif.  <br /></td></tr>
-<tr class="memitem:ac10c3bdbe4a4715de7320c888fb34ffc" id="r_ac10c3bdbe4a4715de7320c888fb34ffc"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Aabb.html">core::Aabb</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac10c3bdbe4a4715de7320c888fb34ffc">collectActiveDangerBoxes</a> () const</td></tr>
+<tr class="memitem:a9f1833d9f4e7866a77066ebe43ce727e" id="r_a9f1833d9f4e7866a77066ebe43ce727e"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Aabb.html">core::Aabb</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9f1833d9f4e7866a77066ebe43ce727e">collectActiveDangerBoxes</a> ()</td></tr>
 <tr class="memitem:a8eeeb9edf5dcfa6ee6cbb928e7e05a56" id="r_a8eeeb9edf5dcfa6ee6cbb928e7e05a56"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8eeeb9edf5dcfa6ee6cbb928e7e05a56">refreshPlayerSprite</a> ()</td></tr>
 <tr class="memitem:aff76760d9036a937f3b5f9cc83bc109a" id="r_aff76760d9036a937f3b5f9cc83bc109a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aff76760d9036a937f3b5f9cc83bc109a">centerCameraOnRoom</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> roomIndex)</td></tr>
 <tr class="memitem:a626952821cb4fc9a0144a4bdf6b9eaaf" id="r_a626952821cb4fc9a0144a4bdf6b9eaaf"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a626952821cb4fc9a0144a4bdf6b9eaaf">updateCurrentRoom</a> ()</td></tr>
@@ -161,6 +163,9 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:acc0e74d080c43350649b3580a5d574ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entité-tuile du déclencheur (interrupteur/plaque de pression) de chaque mécanisme, même ordre que <span class="tt"><a class="el" href="#ae86ee3a6eb41ee50f77652c6ba24a8cb">_doorEntities</a></span> (<span class="tt">LOT-47</span> : le déclencheur change aussi d'apparence, plus seulement la porte qu'il actionne).  <br /></td></tr>
 <tr class="memitem:a704567d8e068fe547c071d3718bbe263" id="r_a704567d8e068fe547c071d3718bbe263"><td class="memItemLeft">std::optional&lt; <a class="el" href="classcore_1_1BlockController.html">core::BlockController</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a704567d8e068fe547c071d3718bbe263">_blocks</a></td></tr>
 <tr class="memitem:a75f6316bb7007ec4c6d5a3c23d43b97b" id="r_a75f6316bb7007ec4c6d5a3c23d43b97b"><td class="memItemLeft">std::optional&lt; <a class="el" href="classcore_1_1DangerController.html">core::DangerController</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a75f6316bb7007ec4c6d5a3c23d43b97b">_dangers</a></td></tr>
+<tr class="memitem:aca2d5eda97dfe78bcc5fcf7ea6161b44" id="r_aca2d5eda97dfe78bcc5fcf7ea6161b44"><td class="memItemLeft">std::optional&lt; <a class="el" href="classcore_1_1PlatformController.html">core::PlatformController</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aca2d5eda97dfe78bcc5fcf7ea6161b44">_platforms</a></td></tr>
+<tr class="memitem:a50cb7e93c41899e6e1d981500f121c94" id="r_a50cb7e93c41899e6e1d981500f121c94"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Entity.html">core::Entity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a50cb7e93c41899e6e1d981500f121c94">_platformEntities</a></td></tr>
+<tr class="memdesc:a50cb7e93c41899e6e1d981500f121c94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entité-tuile de chaque plateforme mobile, même ordre que <span class="tt"><a class="el" href="classcore_1_1Level.html#a275f59e0e83694c5bac2f8b9000cc9f2">core::Level::platformConfigs()</a></span> (<span class="tt">EX-GP-026</span>, <span class="tt">LOT-63</span>).  <br /></td></tr>
 <tr class="memitem:af755f8c1e80831f2d69c64d18bca52e9" id="r_af755f8c1e80831f2d69c64d18bca52e9"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Entity.html">core::Entity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af755f8c1e80831f2d69c64d18bca52e9">_moverEntities</a></td></tr>
 <tr class="memitem:acebf42823674c41eb144c5b734dd898c" id="r_acebf42823674c41eb144c5b734dd898c"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Entity.html">core::Entity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acebf42823674c41eb144c5b734dd898c">_dangerSwitchedEntities</a></td></tr>
 <tr class="memitem:a4626f94bae8605ca5ec679db25e96527" id="r_a4626f94bae8605ca5ec679db25e96527"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Entity.html">core::Entity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4626f94bae8605ca5ec679db25e96527">_dangerBlinkEntities</a></td></tr>
@@ -351,8 +356,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ac10c3bdbe4a4715de7320c888fb34ffc" name="ac10c3bdbe4a4715de7320c888fb34ffc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac10c3bdbe4a4715de7320c888fb34ffc">&#9670;&#160;</a></span>collectActiveDangerBoxes()</h2>
+<a id="a9f1833d9f4e7866a77066ebe43ce727e" name="a9f1833d9f4e7866a77066ebe43ce727e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f1833d9f4e7866a77066ebe43ce727e">&#9670;&#160;</a></span>collectActiveDangerBoxes()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -364,7 +369,7 @@ Private Attributes</h2></td></tr>
           <td class="memname">std::vector&lt; <a class="el" href="structcore_1_1Aabb.html">core::Aabb</a> &gt; hmi::GameSession::collectActiveDangerBoxes </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
   </td>
@@ -556,6 +561,33 @@ Private Attributes</h2></td></tr>
 
 <p>Modulation d'opacité de <b>diagnostic</b>, réservée au mode Physique (<span class="tt">LOT-47</span> TACHE-03) : ce mode n'a pas d'assets animés et doit conserver un moyen de distinguer un mécanisme actif d'un mécanisme inactif. </p>
 <p>Appelée à chaque <span class="tt"><a class="el" href="#a8c26c9a8cbd1841bd091a5eb2299017a" title="Dessine la scène du niveau (rien si le chargement a échoué).">render()</a></span> (décision purement visuelle, dépendante du mode courant) ; force l'alpha à 1 en mode Texture, où l'état se voit désormais au clip. </p>
+
+</div>
+</div>
+<a id="a43560771bed59659c4bd82016fb8127b" name="a43560771bed59659c4bd82016fb8127b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43560771bed59659c4bd82016fb8127b">&#9670;&#160;</a></span>refreshPlatformVisuals()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameSession::refreshPlatformVisuals </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Replace chaque entité-tuile de plateforme mobile à sa position COURANTE (<span class="tt">EX-GP-026</span>, <span class="tt">LOT-63</span>), même patron que <span class="tt"><a class="el" href="#a872c364ddc81ce08e017c066ab4bb564">refreshDangerVisuals</a></span> pour un danger mobile. </p>
 
 </div>
 </div>
@@ -1598,6 +1630,52 @@ lastScene</span>, <span class="tt">EX-NFR-005</span>) : composées, écartées, 
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classcore_1_1CharacterPhysicsSystem.html">core::CharacterPhysicsSystem</a> hmi::GameSession::_physics</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a50cb7e93c41899e6e1d981500f121c94" name="a50cb7e93c41899e6e1d981500f121c94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50cb7e93c41899e6e1d981500f121c94">&#9670;&#160;</a></span>_platformEntities</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1Entity.html">core::Entity</a>&gt; hmi::GameSession::_platformEntities</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Entité-tuile de chaque plateforme mobile, même ordre que <span class="tt"><a class="el" href="classcore_1_1Level.html#a275f59e0e83694c5bac2f8b9000cc9f2">core::Level::platformConfigs()</a></span> (<span class="tt">EX-GP-026</span>, <span class="tt">LOT-63</span>). </p>
+
+</div>
+</div>
+<a id="aca2d5eda97dfe78bcc5fcf7ea6161b44" name="aca2d5eda97dfe78bcc5fcf7ea6161b44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca2d5eda97dfe78bcc5fcf7ea6161b44">&#9670;&#160;</a></span>_platforms</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="classcore_1_1PlatformController.html">core::PlatformController</a>&gt; hmi::GameSession::_platforms</td>
         </tr>
       </table>
   </td>

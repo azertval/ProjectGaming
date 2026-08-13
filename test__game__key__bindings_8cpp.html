@@ -103,7 +103,7 @@ $(function(){initNavTree('test__game__key__bindings_8cpp.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a67cbbe60da9f16ecd8e82d8acd8677cf" id="r_a67cbbe60da9f16ecd8e82d8acd8677cf"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a67cbbe60da9f16ecd8e82d8acd8677cf">TEST</a> (GameKeyBindingsTest, ValeursParDefautALaConstruction)</td></tr>
-<tr class="memdesc:a67cbbe60da9f16ecd8e82d8acd8677cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les six actions ont leurs valeurs par défaut (flèches/Espace/Maj) à la construction.  <br /></td></tr>
+<tr class="memdesc:a67cbbe60da9f16ecd8e82d8acd8677cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les sept actions ont leurs valeurs par défaut (flèches/Espace/Maj/E) à la construction.  <br /></td></tr>
 <tr class="memitem:a6ff92a69964ea05402ca818b3a2f2942" id="r_a6ff92a69964ea05402ca818b3a2f2942"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6ff92a69964ea05402ca818b3a2f2942">TEST</a> (GameKeyBindingsTest, SetKeySurToucheLibre)</td></tr>
 <tr class="memdesc:a6ff92a69964ea05402ca818b3a2f2942"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">setKey</span> sur une touche libre lie l'action sans toucher aux autres.  <br /></td></tr>
 <tr class="memitem:aafa6af76e305a04acf9acb540df3a998" id="r_aafa6af76e305a04acf9acb540df3a998"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aafa6af76e305a04acf9acb540df3a998">TEST</a> (GameKeyBindingsTest, SetKeyEchangeSurConflit)</td></tr>
@@ -118,6 +118,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:aefabd82b32fad6abdbd816b5e62c40ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charger un fichier JSON corrompu renvoie les valeurs par défaut, sans exception.  <br /></td></tr>
 <tr class="memitem:ab825dbef4e8bc2a997451916276705b6" id="r_ab825dbef4e8bc2a997451916276705b6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab825dbef4e8bc2a997451916276705b6">TEST</a> (GameKeyBindingsTest, LoadValeurHorsBornesIgnoree)</td></tr>
 <tr class="memdesc:ab825dbef4e8bc2a997451916276705b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une valeur hors bornes dans le fichier est ignorée : l'action garde sa valeur par défaut.  <br /></td></tr>
+<tr class="memitem:affd8db24689b1965415c924666edc7e8" id="r_affd8db24689b1965415c924666edc7e8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#affd8db24689b1965415c924666edc7e8">TEST</a> (GameKeyBindingsTest, LoadFichierAnterieurSansInteragirPrendLaValeurParDefaut)</td></tr>
+<tr class="memdesc:affd8db24689b1965415c924666edc7e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un fichier écrit avant ce lot (section « jeu » sans « interagir ») se relit sans erreur, l'action prenant sa valeur par défaut.  <br /></td></tr>
 <tr class="memitem:a3015e9af37a7f12bbdf9a42bba46e0ee" id="r_a3015e9af37a7f12bbdf9a42bba46e0ee"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3015e9af37a7f12bbdf9a42bba46e0ee">TEST</a> (GameKeyBindingsTest, SavePreserveLaSectionEditeur)</td></tr>
 <tr class="memdesc:a3015e9af37a7f12bbdf9a42bba46e0ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sauvegarder les touches de jeu préserve une section « editeur » déjà présente.  <br /></td></tr>
 </table>
@@ -125,7 +127,7 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Tests unitaires du remappage des touches de jeu (<span class="tt">GameKeyBindings</span>, <span class="tt">EX-CTRL-012</span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a3a88b346a37691c7f3ca2e1a7f01d5fa" name="a3a88b346a37691c7f3ca2e1a7f01d5fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a88b346a37691c7f3ca2e1a7f01d5fa">&#9670;&#160;</a></span>TEST() <span class="overload">[1/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a88b346a37691c7f3ca2e1a7f01d5fa">&#9670;&#160;</a></span>TEST() <span class="overload">[1/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -154,8 +156,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="affd8db24689b1965415c924666edc7e8" name="affd8db24689b1965415c924666edc7e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affd8db24689b1965415c924666edc7e8">&#9670;&#160;</a></span>TEST() <span class="overload">[2/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">GameKeyBindingsTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LoadFichierAnterieurSansInteragirPrendLaValeurParDefaut</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un fichier écrit avant ce lot (section « jeu » sans « interagir ») se relit sans erreur, l'action prenant sa valeur par défaut. </p>
+<p><b>Cas de test :</b> <b>Un fichier écrit avant ce lot (sans « interagir ») se relit sans erreur, l'action prenant sa valeur par défaut.</b><br  />
+ <b>Categorie :</b> Unitaire · Game Key Bindings<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Un fichier « jeu » antérieur à <span class="tt">LOT-63</span> (sans « interagir ») se relit sans erreur, Interagir prenant sa touche par défaut (E), et les autres actions restent inchangées. </p>
+
+</div>
+</div>
 <a id="aefabd82b32fad6abdbd816b5e62c40ff" name="aefabd82b32fad6abdbd816b5e62c40ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aefabd82b32fad6abdbd816b5e62c40ff">&#9670;&#160;</a></span>TEST() <span class="overload">[2/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aefabd82b32fad6abdbd816b5e62c40ff">&#9670;&#160;</a></span>TEST() <span class="overload">[3/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -185,7 +217,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ab825dbef4e8bc2a997451916276705b6" name="ab825dbef4e8bc2a997451916276705b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab825dbef4e8bc2a997451916276705b6">&#9670;&#160;</a></span>TEST() <span class="overload">[3/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab825dbef4e8bc2a997451916276705b6">&#9670;&#160;</a></span>TEST() <span class="overload">[4/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -215,7 +247,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa09fdf4ef3a36a76b4b77511b4cb4fcd" name="aa09fdf4ef3a36a76b4b77511b4cb4fcd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa09fdf4ef3a36a76b4b77511b4cb4fcd">&#9670;&#160;</a></span>TEST() <span class="overload">[4/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa09fdf4ef3a36a76b4b77511b4cb4fcd">&#9670;&#160;</a></span>TEST() <span class="overload">[5/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -245,7 +277,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="afbfca5ac4478df0123b5f200e6230439" name="afbfca5ac4478df0123b5f200e6230439"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbfca5ac4478df0123b5f200e6230439">&#9670;&#160;</a></span>TEST() <span class="overload">[5/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afbfca5ac4478df0123b5f200e6230439">&#9670;&#160;</a></span>TEST() <span class="overload">[6/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -275,7 +307,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a3015e9af37a7f12bbdf9a42bba46e0ee" name="a3015e9af37a7f12bbdf9a42bba46e0ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3015e9af37a7f12bbdf9a42bba46e0ee">&#9670;&#160;</a></span>TEST() <span class="overload">[6/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3015e9af37a7f12bbdf9a42bba46e0ee">&#9670;&#160;</a></span>TEST() <span class="overload">[7/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -305,7 +337,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aafa6af76e305a04acf9acb540df3a998" name="aafa6af76e305a04acf9acb540df3a998"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aafa6af76e305a04acf9acb540df3a998">&#9670;&#160;</a></span>TEST() <span class="overload">[7/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aafa6af76e305a04acf9acb540df3a998">&#9670;&#160;</a></span>TEST() <span class="overload">[8/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -335,7 +367,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a6ff92a69964ea05402ca818b3a2f2942" name="a6ff92a69964ea05402ca818b3a2f2942"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ff92a69964ea05402ca818b3a2f2942">&#9670;&#160;</a></span>TEST() <span class="overload">[8/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ff92a69964ea05402ca818b3a2f2942">&#9670;&#160;</a></span>TEST() <span class="overload">[9/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -365,7 +397,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a67cbbe60da9f16ecd8e82d8acd8677cf" name="a67cbbe60da9f16ecd8e82d8acd8677cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67cbbe60da9f16ecd8e82d8acd8677cf">&#9670;&#160;</a></span>TEST() <span class="overload">[9/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a67cbbe60da9f16ecd8e82d8acd8677cf">&#9670;&#160;</a></span>TEST() <span class="overload">[10/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -383,14 +415,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Les six actions ont leurs valeurs par défaut (flèches/Espace/Maj) à la construction. </p>
-<p><b>Cas de test :</b> <b>Les six actions ont leurs valeurs par défaut (flèches/Espace/Maj) à la construction.</b><br  />
+<p>Les sept actions ont leurs valeurs par défaut (flèches/Espace/Maj/E) à la construction. </p>
+<p><b>Cas de test :</b> <b>Les sept actions ont leurs valeurs par défaut (flèches/Espace/Maj/E) à la construction.</b><br  />
  <b>Categorie :</b> Unitaire · Game Key Bindings<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Les six actions ont leurs valeurs par défaut (flèches/Espace/Maj) à la construction. </p>
+ <b>Resultat attendu :</b> Les sept actions ont leurs valeurs par défaut (flèches/Espace/Maj/E) à la construction. </p>
 
 </div>
 </div>

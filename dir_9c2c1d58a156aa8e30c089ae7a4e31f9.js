@@ -31,5 +31,6 @@ var dir_9c2c1d58a156aa8e30c089ae7a4e31f9 =
     [ "test_texture_atlas.cpp", "test__texture__atlas_8cpp.html", "test__texture__atlas_8cpp" ],
     [ "test_texture_resolution.cpp", "test__texture__resolution_8cpp.html", "test__texture__resolution_8cpp" ],
     [ "test_tile_autotile.cpp", "test__tile__autotile_8cpp.html", "test__tile__autotile_8cpp" ],
-    [ "test_tile_skin_resolution.cpp", "test__tile__skin__resolution_8cpp.html", "test__tile__skin__resolution_8cpp" ]
+    [ "test_tile_skin_resolution.cpp", "test__tile__skin__resolution_8cpp.html", "test__tile__skin__resolution_8cpp" ],
+    [ "test_tile_visuals.cpp", "test__tile__visuals_8cpp.html", "test__tile__visuals_8cpp" ]
 ];

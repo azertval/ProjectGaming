@@ -126,6 +126,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a3512d9ab97fdf0700f1ea9234f2f4ef3"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">gamepadConnected</span> reflète le dernier <span class="tt">setGamepadConnected</span> appelé.  <br /></td></tr>
 <tr class="memitem:a1d14a5636e572dc508004a875b1ab60a" id="r_a1d14a5636e572dc508004a875b1ab60a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1d14a5636e572dc508004a875b1ab60a">TEST</a> (InputStateTest, FrontMontantBoutonManetteBrut)</td></tr>
 <tr class="memdesc:a1d14a5636e572dc508004a875b1ab60a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bouton manette (piste brute) passé d'« absent » à « présent » est « pressé » exactement une frame, comme une touche clavier.  <br /></td></tr>
+<tr class="memitem:a86f7359d38d8eed9cd0ce1118aebf948" id="r_a86f7359d38d8eed9cd0ce1118aebf948"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a86f7359d38d8eed9cd0ce1118aebf948">TEST</a> (InputStateTest, FrontDescendantBoutonManetteBrut)</td></tr>
+<tr class="memdesc:a86f7359d38d8eed9cd0ce1118aebf948"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bouton manette (piste brute) relâché après avoir été enfoncé est « relâché » exactement une frame (<span class="tt">LOT-63</span>, action Interagir).  <br /></td></tr>
 <tr class="memitem:a4244badb84b38bb1cc59f41f3b62e1e5" id="r_a4244badb84b38bb1cc59f41f3b62e1e5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4244badb84b38bb1cc59f41f3b62e1e5">TEST</a> (InputStateTest, PisteBrutIndependanteDeLaFusionKey)</td></tr>
 <tr class="memdesc:a4244badb84b38bb1cc59f41f3b62e1e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">La piste manette brute (<span class="tt">GamepadButton</span>) est indépendante de la fusion clavier/manette existante sur <span class="tt">Key</span> : l'une n'affecte jamais l'autre.  <br /></td></tr>
 <tr class="memitem:a8d8b26cac3ac268359ec15eb1ab327cf" id="r_a8d8b26cac3ac268359ec15eb1ab327cf"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8d8b26cac3ac268359ec15eb1ab327cf">TEST</a> (InputStateTest, RelacheToutSansFront)</td></tr>
@@ -135,7 +137,7 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Tests unitaires de l'état des entrées : fronts clavier/souris et position. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a9673354fc013b4ab816c4cdb8422855f" name="a9673354fc013b4ab816c4cdb8422855f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9673354fc013b4ab816c4cdb8422855f">&#9670;&#160;</a></span>TEST() <span class="overload">[1/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9673354fc013b4ab816c4cdb8422855f">&#9670;&#160;</a></span>TEST() <span class="overload">[1/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -165,7 +167,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa8e6d3ad41aa204883ebcd46b5406b41" name="aa8e6d3ad41aa204883ebcd46b5406b41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8e6d3ad41aa204883ebcd46b5406b41">&#9670;&#160;</a></span>TEST() <span class="overload">[2/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8e6d3ad41aa204883ebcd46b5406b41">&#9670;&#160;</a></span>TEST() <span class="overload">[2/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -195,7 +197,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a79c5319fd973997de0845a0a282b0284" name="a79c5319fd973997de0845a0a282b0284"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79c5319fd973997de0845a0a282b0284">&#9670;&#160;</a></span>TEST() <span class="overload">[3/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a79c5319fd973997de0845a0a282b0284">&#9670;&#160;</a></span>TEST() <span class="overload">[3/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -224,8 +226,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a86f7359d38d8eed9cd0ce1118aebf948" name="a86f7359d38d8eed9cd0ce1118aebf948"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86f7359d38d8eed9cd0ce1118aebf948">&#9670;&#160;</a></span>TEST() <span class="overload">[4/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InputStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FrontDescendantBoutonManetteBrut</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un bouton manette (piste brute) relâché après avoir été enfoncé est « relâché » exactement une frame (<span class="tt">LOT-63</span>, action Interagir). </p>
+<p><b>Cas de test :</b> <b>Un bouton manette (piste brute) est « relâché » exactement une frame.</b><br  />
+ <b>Categorie :</b> Unitaire · Input State<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> <span class="tt">gamepadButtonReleased</span> est vrai la frame où le bouton passe d'enfoncé à relâché, faux avant et après. </p>
+
+</div>
+</div>
 <a id="a59ca224b39b7856470d0747f7900b16b" name="a59ca224b39b7856470d0747f7900b16b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59ca224b39b7856470d0747f7900b16b">&#9670;&#160;</a></span>TEST() <span class="overload">[4/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a59ca224b39b7856470d0747f7900b16b">&#9670;&#160;</a></span>TEST() <span class="overload">[5/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -255,7 +287,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a1d14a5636e572dc508004a875b1ab60a" name="a1d14a5636e572dc508004a875b1ab60a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d14a5636e572dc508004a875b1ab60a">&#9670;&#160;</a></span>TEST() <span class="overload">[5/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d14a5636e572dc508004a875b1ab60a">&#9670;&#160;</a></span>TEST() <span class="overload">[6/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -285,7 +317,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a45cf3dc465b7f8ead7c72522f7ac8198" name="a45cf3dc465b7f8ead7c72522f7ac8198"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45cf3dc465b7f8ead7c72522f7ac8198">&#9670;&#160;</a></span>TEST() <span class="overload">[6/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a45cf3dc465b7f8ead7c72522f7ac8198">&#9670;&#160;</a></span>TEST() <span class="overload">[7/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -315,7 +347,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a3512d9ab97fdf0700f1ea9234f2f4ef3" name="a3512d9ab97fdf0700f1ea9234f2f4ef3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3512d9ab97fdf0700f1ea9234f2f4ef3">&#9670;&#160;</a></span>TEST() <span class="overload">[7/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3512d9ab97fdf0700f1ea9234f2f4ef3">&#9670;&#160;</a></span>TEST() <span class="overload">[8/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -345,7 +377,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a81215d1d3cac78f80bac142dacc0b34c" name="a81215d1d3cac78f80bac142dacc0b34c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81215d1d3cac78f80bac142dacc0b34c">&#9670;&#160;</a></span>TEST() <span class="overload">[8/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a81215d1d3cac78f80bac142dacc0b34c">&#9670;&#160;</a></span>TEST() <span class="overload">[9/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -375,7 +407,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae21cb188be633f1aa74cf4ce20725d0d" name="ae21cb188be633f1aa74cf4ce20725d0d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae21cb188be633f1aa74cf4ce20725d0d">&#9670;&#160;</a></span>TEST() <span class="overload">[9/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae21cb188be633f1aa74cf4ce20725d0d">&#9670;&#160;</a></span>TEST() <span class="overload">[10/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -405,7 +437,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae57915787a98a32bfb0d9684be82e96a" name="ae57915787a98a32bfb0d9684be82e96a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae57915787a98a32bfb0d9684be82e96a">&#9670;&#160;</a></span>TEST() <span class="overload">[10/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae57915787a98a32bfb0d9684be82e96a">&#9670;&#160;</a></span>TEST() <span class="overload">[11/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -435,7 +467,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7efa418563f5fae1a48faf4078d6892f" name="a7efa418563f5fae1a48faf4078d6892f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7efa418563f5fae1a48faf4078d6892f">&#9670;&#160;</a></span>TEST() <span class="overload">[11/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7efa418563f5fae1a48faf4078d6892f">&#9670;&#160;</a></span>TEST() <span class="overload">[12/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -465,7 +497,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a4244badb84b38bb1cc59f41f3b62e1e5" name="a4244badb84b38bb1cc59f41f3b62e1e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4244badb84b38bb1cc59f41f3b62e1e5">&#9670;&#160;</a></span>TEST() <span class="overload">[12/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4244badb84b38bb1cc59f41f3b62e1e5">&#9670;&#160;</a></span>TEST() <span class="overload">[13/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -495,7 +527,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aed2efe7e5c68c8a62502bad7f424c558" name="aed2efe7e5c68c8a62502bad7f424c558"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed2efe7e5c68c8a62502bad7f424c558">&#9670;&#160;</a></span>TEST() <span class="overload">[13/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aed2efe7e5c68c8a62502bad7f424c558">&#9670;&#160;</a></span>TEST() <span class="overload">[14/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -525,7 +557,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a8d8b26cac3ac268359ec15eb1ab327cf" name="a8d8b26cac3ac268359ec15eb1ab327cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d8b26cac3ac268359ec15eb1ab327cf">&#9670;&#160;</a></span>TEST() <span class="overload">[14/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d8b26cac3ac268359ec15eb1ab327cf">&#9670;&#160;</a></span>TEST() <span class="overload">[15/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -555,7 +587,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af9db81acd915bcdeb71f1ac1fafc3185" name="af9db81acd915bcdeb71f1ac1fafc3185"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9db81acd915bcdeb71f1ac1fafc3185">&#9670;&#160;</a></span>TEST() <span class="overload">[15/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af9db81acd915bcdeb71f1ac1fafc3185">&#9670;&#160;</a></span>TEST() <span class="overload">[16/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

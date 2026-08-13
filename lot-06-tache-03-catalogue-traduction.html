@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-06-tache-03-catalogue-traduction.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-06-menu-principal_2tache-03-catalogue-traduction"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-06.html#md_Lot_2LOT-06-menu-principal_2epic" title="Lot/LOT-06-menu-principal/epic.md">LOT-06</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Localization</span>, <span class="tt">Source/Elements/Localization</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md604"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md607"></a>
 Contexte</h1>
 <p>Le menu (TACHE-05) et l'écran éditeur (TACHE-06) affichent des libellés. Plutôt que de coder ces textes <b>en dur</b> dans les écrans, on les fait passer par un <b>catalogue de traduction</b> : chaque texte affiché est désigné par une <b>clé</b> stable, résolue vers une chaîne selon la <b>langue active</b>. Ajouter une langue devient trivial (un fichier de plus, aucun code à changer) et prépare l'internationalisation du jeu et, plus tard, de l'éditeur.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md605"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md608"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Format du catalogue</b> : un <b>fichier texte par langue</b> (<span class="tt">fr.lang</span>, puis <span class="tt">en.lang</span>, …), <b>une paire <span class="tt">clé = valeur</span> par ligne</b>, encodage <b>UTF-8</b>, commentaires en <span class="tt">#</span> et lignes vides ignorés. Choisi volontairement simple (pas de dépendance JSON à ce stade — le JSON est réservé aux niveaux, cf. <span class="tt">EX-LVL-003</span>) et éditable à la main.</li>
@@ -112,14 +112,14 @@ Travail à réaliser</h1>
 <li><b>Clés stables</b> : les écrans référencent <b>uniquement des clés</b>, jamais un littéral d'UI.</li>
 <li><b>CMake</b> : copier <span class="tt">Source/Elements/Localization/*.lang</span> à côté de l'exécutable (comme les autres assets), pour un chargement par chemin relatif au démarrage.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md606"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md609"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Localization_8h.html" title="Catalogue de traduction : résolution des textes d&#39;interface par clé et par langue.">Source/HMI/Localization/Localization.h</a></span>, <span class="tt"><a class="el" href="Localization_8cpp.html">Localization.cpp</a></span> (nouveau).</li>
 <li><span class="tt">Source/Elements/Localization/fr.lang</span> (nouveau).</li>
 <li><span class="tt">Source/HMI/CMakeLists.txt</span> (source + copie des <span class="tt">.lang</span>), <span class="tt">Source/Test/CMakeLists.txt</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md607"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md610"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Une <b>clé existante</b> renvoie la valeur attendue de la langue chargée.</li>
@@ -128,7 +128,7 @@ Tests (obligatoires)</h1>
 <li><b>Changement de langue</b> : après <span class="tt">loadLanguage</span>, <span class="tt">text(clé)</span> renvoie la valeur de la nouvelle langue ; une clé manquante dans cette langue retombe sur la langue par défaut.</li>
 <li>Le catalogue est testable <b>sans fenêtre ni GPU</b> (logique pure, <span class="tt">EX-NFR-010</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md608"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md611"></a>
 Points d'attention</h1>
 <ul>
 <li><b>UTF-8 de bout en bout</b> : les accents doivent survivre du fichier au rendu (cohérence avec la police, TACHE-02).</li>
@@ -137,12 +137,12 @@ Points d'attention</h1>
 <li>Pas de sur-ingénierie : ni pluriels, ni genres, ni interpolation d'arguments pour ce lot (extensions futures possibles) — hors périmètre.</li>
 <li>Séparer <b>données</b> (<span class="tt">.lang</span>) et <b>code</b> (chargeur) : source unique de vérité des textes.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md609"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md612"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Catalogue chargé depuis fichier, <span class="tt">text(clé)</span> avec repli, changement de langue fonctionnels et testés (<span class="tt">ctest</span> vert) ; <b>langue française</b> complète pour les libellés du lot ; build <span class="tt">/W4 /WX</span> sans avertissement, documenté.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md610"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md613"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-033</span>, <span class="tt">EX-REN-032</span>, <span class="tt">EX-NFR-010</span>, <span class="tt">EX-NFR-040</span>. </p>
 </div></div><!-- contents -->

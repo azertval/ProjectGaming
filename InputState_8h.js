@@ -17,6 +17,7 @@ var InputState_8h =
       [ "hmi::Key::A", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29", null ],
       [ "hmi::Key::C", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a0d61f8370cad1d412f80b84d143e1257", null ],
       [ "hmi::Key::D", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5", null ],
+      [ "hmi::Key::E", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a3a3ea00cfc35332cedf6e5e9a32e94da", null ],
       [ "hmi::Key::P", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a44c29edb103a2872f519ad0c9a0fdaaa", null ],
       [ "hmi::Key::Q", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee", null ],
       [ "hmi::Key::R", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48ae1e1d3d40573127e9ee0480caf1283d6", null ],

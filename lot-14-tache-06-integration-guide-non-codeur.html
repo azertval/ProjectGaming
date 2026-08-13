@@ -97,10 +97,10 @@ $(function(){initNavTree('lot-14-tache-06-integration-guide-non-codeur.html','',
 <blockquote class="doxtable">
 <p><b>Ajustement de périmètre à l'implémentation</b> : le sous-menu nouveau/existant est un <b>sélecteur interne à <span class="tt">EditorScreen</span></b> (<span class="tt">hmi::LevelPicker</span>), affiché avant l'édition, plutôt qu'un état de <span class="tt">MenuScreen</span> — évite d'exposer une liste de fichiers (donnée d'édition) dans la logique du menu principal. Navigation <b>clavier uniquement</b> (<span class="tt">↑</span>/<span class="tt">↓</span> + <span class="tt">Entrée</span>, comme <span class="tt">MenuModel</span>) : pas de liste cliquable à la souris pour ce sélecteur, cohérent avec le nombre réduit d'entrées attendu et évite une nouvelle géométrie de clic à maintenir pour un gain marginal. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md984"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md987"></a>
 Contexte</h1>
 <p>Dernière tâche du lot : brancher le mode éditeur au <b>menu réel</b> (l'entrée <span class="tt">menu.mode_edition</span> existe déjà, LOT-06, mais mène au placeholder), prouver le parcours complet par un test <b>système</b>, et fournir aux non-codeurs le mode d'emploi du partage de niveaux par Git (<span class="tt">EX-EDIT-022</span>) — seul élément de ce lot qui n'est <b>pas</b> du code.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md985"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md988"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Menu → éditeur</b> : <span class="tt">menu.mode_edition</span> bascule vers un <span class="tt">EditorScreen</span> qui propose le choix <b>nouveau niveau</b> (dimensions par défaut ou saisies) ou <b>niveau existant</b> (liste des fichiers de <span class="tt">Source/Elements/Levels</span>) avant d'entrer en édition — remplace la construction « toujours vierge » provisoire de TACHE-02.</li>
@@ -108,7 +108,7 @@ Travail à réaliser</h1>
 <li><b>Tests système</b> : un parcours bout-en-bout dans <span class="tt">Source/Test/Systeme/</span> — ouvrir l'éditeur, peindre un niveau minimal jouable (entrée, sortie, quelques tuiles), l'enregistrer, le recharger, l'essayer, revenir à l'éditeur — sans couche GPU, dans le même esprit que les tests système existants du jeu (LOT-09).</li>
 <li><b><span class="tt">CHANGELOG.md</span></b> : entrée décrivant le lot, une fois les six tâches terminées.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md986"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md989"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/EditorScreen.h</span>/<span class="tt">.cpp</span>, <span class="tt">Source/HMI/Interface/MenuScreen.h</span>/<span class="tt">.cpp</span> (ou équivalent pour le sous-menu nouveau/existant).</li>
@@ -117,24 +117,24 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Test/Systeme/</span> (nouveau parcours éditeur).</li>
 <li><span class="tt">CHANGELOG.md</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md987"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md990"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Test système : peindre → enregistrer → recharger → essayer → retour éditeur, sans écart d'état (assertions sur le <span class="tt">LevelDraft</span>/fichier produit à chaque étape).</li>
 <li>Sélection <b>nouveau niveau</b> produit un <span class="tt">LevelDraft</span> vierge des dimensions demandées ; sélection d'un fichier <b>existant</b> produit un <span class="tt">LevelDraft</span> fidèle à son contenu.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md988"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md991"></a>
 Points d'attention</h1>
 <ul>
 <li>Le guide non-codeur est un <b>livrable documentaire</b>, pas du code — mais fait partie des critères d'acceptation du lot (<span class="tt">EX-EDIT-022</span>) au même titre que les tâches précédentes.</li>
 <li>Vérifier qu'aucune régression n'affecte le parcours <b>jeu</b> existant (menu → jeu → menu) en branchant le nouveau sous-menu de l'éditeur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md989"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md992"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Parcours menu → éditeur → jeu → éditeur opérationnel et couvert par un test système ; guide non-codeur publié ; <span class="tt">CHANGELOG.md</span> à jour ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen et <span class="tt">lint</span> des exigences verts — <b>critères d'acceptation du lot</b> (voir <span class="tt">epic.md</span>) tous satisfaits.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md990"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md993"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-001</span>, <span class="tt">EX-EDIT-020</span>, <span class="tt">EX-EDIT-022</span>, <span class="tt">EX-EDIT-030</span>, <span class="tt">EX-LVL-010</span>. </p>
 </div></div><!-- contents -->

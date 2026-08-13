@@ -94,12 +94,12 @@ $(function(){initNavTree('lot-54-tache-02-operations-historique.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-54-atelier-pixel-art_2tache-02-operations-historique"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-54.html#md_Lot_2LOT-54-atelier-pixel-art_2epic" title="Lot/LOT-54-atelier-pixel-art/epic.md">LOT-54</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2400"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2403"></a>
 Contexte</h1>
 <p>Le cœur de l'atelier, sous sa forme la plus testable : ce que fait chaque outil sur un tampon de pixels, et comment on revient en arrière. Rien de tout cela n'a besoin de Qt, d'un widget ou d'un GPU ; le canevas (TACHE-03) et les actions (TACHE-04) se contenteront ensuite d'appeler ces fonctions.</p>
 <p>Cette séparation n'est pas un principe abstrait : c'est ce qui permet de couvrir par des tests les deux pièges classiques d'un canevas pixel art — le glisser rapide qui laisse des trous, et le remplissage récursif qui déborde la pile — sans jamais instancier d'application.</p>
 <p>L'historique, lui, porte une contrainte nouvelle par rapport au cadrage initial du lot : chaque opération est <b>nommée</b>. Ce nom sert deux fois — dans le libellé de l'action « Annuler <em>…</em> » (TACHE-04, sur les actions de <a class="el" href="lot-56.html" title="LOT-56 — Système de design de l&#39;IHM Qt">LOT-56</a>) et dans le panneau d'historique visuel. Sans lui, l'action afficherait « Annuler » sans dire quoi, ce qui est précisément l'ambiguïté que la cohabitation de deux historiques crée.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2401"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2404"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Opérations sur un tampon RGBA</b> : poser un pixel, effacer (mettre à transparent), tracer la <b>ligne entre deux positions</b> successives, <b>remplir une zone contiguë</b> de même couleur, <b>prélever</b> la couleur sous une position. Toutes en fonctions libres sur un tampon et ses dimensions, sans état global.</li>
@@ -109,7 +109,7 @@ Travail à réaliser</h1>
 <li><b>Retour à un point antérieur</b> : annuler jusqu'à une entrée donnée de la liste, en une opération, plutôt que par annulations successives.</li>
 <li><b>Coût mémoire borné</b> : mémoriser la région modifiée par une opération plutôt qu'une copie complète de l'image, et plafonner la profondeur de l'historique.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2402"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2405"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/PixelOperations.{h,cpp}</span> (nouveau) — opérations pures sur un tampon.</li>
@@ -118,7 +118,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="test__pixel__operations_8cpp.html" title="Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02, EX-EDIT-045).">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</a></span> (nouveau).</li>
 <li><span class="tt"><a class="el" href="test__pixel__history_8cpp.html" title="Tests unitaires de l&#39;historique nommé annuler/refaire du canevas pixel art (LOT-54 TACHE-02,...">Source/Test/Unit/HMI/Editor/test_pixel_history.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2403"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2406"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Remplissage par zone contiguë</b> : zone fermée, zone ouverte débouchant sur un bord, remplissage sur la couleur déjà présente (aucun changement, et surtout pas de boucle infinie), image d'un seul pixel, image entièrement d'une seule couleur.</li>
@@ -129,7 +129,7 @@ Tests (obligatoires)</h1>
 <li><b>Profondeur plafonnée</b> : au-delà de la limite, les entrées les plus anciennes sont oubliées sans corrompre l'état courant.</li>
 <li>Opérations <b>pures</b>, testées sans Qt ni GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2404"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2407"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le tracé entre positions n'est pas optionnel.</b> Sans lui, un glisser rapide produit des pixels isolés — c'est le défaut le plus visible d'un canevas pixel art fait naïvement.</li>
@@ -137,12 +137,12 @@ Points d'attention</h1>
 <li><b>Une opération est un geste, pas un pixel.</b> Un coup de pinceau maintenu produit <b>une</b> entrée d'historique, sinon annuler devient inutilisable et l'aperçu live (TACHE-08) invalide le cache à chaque déplacement de souris.</li>
 <li>Le format des pixels reste <span class="tt">Format_RGBA8888</span>, non prémultiplié, comme au décodage et à l'encodage (TACHE-01) : mélanger les conventions dégraderait les bords des sprites à chaque aller-retour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2405"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2408"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les opérations de pinceau, gomme, ligne, remplissage et pipette existent en fonctions pures et sont testées sans Qt ; l'historique est local, nommé, plafonné, et permet le retour à un point antérieur ; les clés de traduction existent dans les deux catalogues ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2406"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2409"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-045</span> (outil de dessin pixel art) ; réutilise <span class="tt">EX-EDIT-030</span> (éditeur intégré), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-NFR-010</span> (testable sans GPU). </p>
 </div></div><!-- contents -->

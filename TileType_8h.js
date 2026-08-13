@@ -30,7 +30,10 @@ var TileType_8h =
       [ "core::TileType::DangerRight", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6f4cfddfc749babd4a7cc2a9e4ef0bdb", null ],
       [ "core::TileType::DangerMover", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a9be1e41bc76e39e2d71d0bc55947b66d", null ],
       [ "core::TileType::DangerSwitched", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875aa09137c172f1670a9e45c4e3826f71fb", null ],
-      [ "core::TileType::DangerBlink", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae24085adb8d13b6f13d9011fab1980de", null ]
+      [ "core::TileType::DangerBlink", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae24085adb8d13b6f13d9011fab1980de", null ],
+      [ "core::TileType::Key", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a897356954c2cd3d41b221e3f24f99bba", null ],
+      [ "core::TileType::LockedDoor", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6029de17465e002643abfb52e2cb4c97", null ],
+      [ "core::TileType::MovingPlatform", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a3bcc08b00f6aaac65d7a125de705dd4b", null ]
     ] ],
     [ "core::isSolid", "namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb", null ],
     [ "core::tileVisualScale", "namespacecore.html#a9b733af18a1507c5dc7b4ffdd88d8b6a", null ]

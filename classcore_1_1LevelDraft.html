@@ -121,6 +121,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ae2df4ef55bd85c10d0d139e9590a7fde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit l'axe et la portée d'un danger mobile (<span class="tt">EX-GP-051</span>).  <br /></td></tr>
 <tr class="memitem:ab8a12378f12ab51439fd692cde093bcc" id="r_ab8a12378f12ab51439fd692cde093bcc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab8a12378f12ab51439fd692cde093bcc">setBlinkConfig</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> position, int period, int phase, int activeDuration)</td></tr>
 <tr class="memdesc:ab8a12378f12ab51439fd692cde093bcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit la période, le déphasage et la durée active d'un danger temporisé (<span class="tt">EX-GP-053</span>).  <br /></td></tr>
+<tr class="memitem:a6ff2592a05d61d82d2fff045efc96321" id="r_a6ff2592a05d61d82d2fff045efc96321"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6ff2592a05d61d82d2fff045efc96321">setPlatformConfig</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> position, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> endPosition, float speed, int phase)</td></tr>
+<tr class="memdesc:a6ff2592a05d61d82d2fff045efc96321"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit le second point de parcours, la vitesse et le déphasage d'une plateforme mobile (<span class="tt">EX-GP-026</span>).  <br /></td></tr>
 <tr class="memitem:a6820058154fd9e3f777c5fd843b7b0cb" id="r_a6820058154fd9e3f777c5fd843b7b0cb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6820058154fd9e3f777c5fd843b7b0cb">setTextureOverride</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> position, std::string assetName)</td></tr>
 <tr class="memdesc:a6820058154fd9e3f777c5fd843b7b0cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigne (ou remplace) la texture affichée pour <b>une case précise</b> (<span class="tt">EX-EDIT-043</span>), prioritaire sur le skin de son type (LOT-42).  <br /></td></tr>
 <tr class="memitem:a6a0636029b5b633d7b93b2ebca0d80c8" id="r_a6a0636029b5b633d7b93b2ebca0d80c8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6a0636029b5b633d7b93b2ebca0d80c8">removeTextureOverride</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> position)</td></tr>
@@ -173,6 +175,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abe14e1da77a3425a405a8f6830a7cc66" id="r_abe14e1da77a3425a405a8f6830a7cc66"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1DangerLink.html">DangerLink</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#abe14e1da77a3425a405a8f6830a7cc66">dangerLinks</a> () const noexcept</td></tr>
 <tr class="memitem:ac6a71a9a20011b0d7cbd0c612916b7c8" id="r_ac6a71a9a20011b0d7cbd0c612916b7c8"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1DangerMoverConfig.html">DangerMoverConfig</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ac6a71a9a20011b0d7cbd0c612916b7c8">moverConfigs</a> () const noexcept</td></tr>
 <tr class="memitem:ad7a21f008704e147cb459f4ee5cf2a02" id="r_ad7a21f008704e147cb459f4ee5cf2a02"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1DangerBlinkConfig.html">DangerBlinkConfig</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad7a21f008704e147cb459f4ee5cf2a02">blinkConfigs</a> () const noexcept</td></tr>
+<tr class="memitem:aecfd269545c8989b66c1812104551a51" id="r_aecfd269545c8989b66c1812104551a51"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1MovingPlatformConfig.html">MovingPlatformConfig</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aecfd269545c8989b66c1812104551a51">platformConfigs</a> () const noexcept</td></tr>
 <tr class="memitem:af2eb7b9effb3254a92e30abba631eba9" id="r_af2eb7b9effb3254a92e30abba631eba9"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1TileTextureOverride.html">TileTextureOverride</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#af2eb7b9effb3254a92e30abba631eba9">textureOverrides</a> () const noexcept</td></tr>
 <tr class="memitem:a1d49b3c7088c0f8928c8a2aaadee665e" id="r_a1d49b3c7088c0f8928c8a2aaadee665e"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1Decor.html">Decor</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a1d49b3c7088c0f8928c8a2aaadee665e">decors</a> () const noexcept</td></tr>
 <tr class="memitem:a5c63e9d12c9473f4aa8693b04f3293ff" id="r_a5c63e9d12c9473f4aa8693b04f3293ff"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a5c63e9d12c9473f4aa8693b04f3293ff">jumpBudget</a> () const noexcept</td></tr>
@@ -223,6 +226,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ae457b861d1482369c3d63cf424b073a6" id="r_ae457b861d1482369c3d63cf424b073a6"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae457b861d1482369c3d63cf424b073a6">_skinSet</a></td></tr>
 <tr class="memitem:a1549c812b59d506266ccdefb5356b752" id="r_a1549c812b59d506266ccdefb5356b752"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1TileTextureOverride.html">TileTextureOverride</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1549c812b59d506266ccdefb5356b752">_textureOverrides</a></td></tr>
 <tr class="memitem:a13dd782e9b0882563e3c7bc01d5adfd4" id="r_a13dd782e9b0882563e3c7bc01d5adfd4"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Decor.html">Decor</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a13dd782e9b0882563e3c7bc01d5adfd4">_decors</a></td></tr>
+<tr class="memitem:a6937fc3d89a86200a42b9ebe4beb5ded" id="r_a6937fc3d89a86200a42b9ebe4beb5ded"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1MovingPlatformConfig.html">MovingPlatformConfig</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6937fc3d89a86200a42b9ebe4beb5ded">_platformConfigs</a></td></tr>
 <tr class="memitem:a86779d05f96a388738e19979489d7a63" id="r_a86779d05f96a388738e19979489d7a63"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1LevelDraft_1_1State.html">State</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a86779d05f96a388738e19979489d7a63">_undoHistory</a></td></tr>
 <tr class="memitem:a886d07163934d6b0f0f5b8f9da13c410" id="r_a886d07163934d6b0f0f5b8f9da13c410"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1LevelDraft_1_1State.html">State</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a886d07163934d6b0f0f5b8f9da13c410">_redoHistory</a></td></tr>
 </table>
@@ -689,7 +693,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Lie un interrupteur/plaque de pression à une <b>porte</b> ou à un <b>danger commuté</b> (<span class="tt">EX-EDIT-003</span>, <span class="tt">EX-GP-052</span>), selon le type de tuile posé en <code class="param">targetPosition</code>. </p>
-<p>Remplace toute liaison existante pour <code class="param">targetPosition</code> (une cible n'a qu'un seul déclencheur associé) ; plusieurs cibles peuvent en revanche partager le même déclencheur. Même geste éditeur pour les deux cibles (clic déclencheur, clic cible) — la liaison résultante est rangée dans <span class="tt"><a class="el" href="#afd9f6ad59cb50ecb09377b4a3b2874d2">mechanisms()</a></span> (cible <span class="tt">Door</span>) ou <span class="tt"><a class="el" href="#abe14e1da77a3425a405a8f6830a7cc66">dangerLinks()</a></span> (cible <span class="tt">DangerSwitched</span>) selon ce que porte réellement <code class="param">targetPosition</code>. </p><dl class="section pre"><dt>Precondition</dt><dd>La case <code class="param">switchPosition</code> porte un <span class="tt">Switch</span>/<span class="tt">PressurePlate</span>, la case <code class="param">targetPosition</code> porte une <span class="tt">Door</span> <b>ou</b> un <span class="tt">DangerSwitched</span>. </dd></dl>
+<p>Remplace toute liaison existante pour <code class="param">targetPosition</code> (une cible n'a qu'un seul déclencheur associé) ; plusieurs cibles peuvent en revanche partager le même déclencheur. Même geste éditeur pour les deux cibles (clic déclencheur, clic cible) — la liaison résultante est rangée dans <span class="tt"><a class="el" href="#afd9f6ad59cb50ecb09377b4a3b2874d2">mechanisms()</a></span> (cible <span class="tt">Door</span>) ou <span class="tt"><a class="el" href="#abe14e1da77a3425a405a8f6830a7cc66">dangerLinks()</a></span> (cible <span class="tt">DangerSwitched</span>) selon ce que porte réellement <code class="param">targetPosition</code>. </p><dl class="section pre"><dt>Precondition</dt><dd>La case <code class="param">switchPosition</code> porte un <span class="tt">Switch</span>/<span class="tt">PressurePlate</span>/<span class="tt">Key</span>, la case <code class="param">targetPosition</code> porte une <span class="tt">Door</span>/<span class="tt">LockedDoor</span> <b>ou</b> un <span class="tt">DangerSwitched</span>. </dd></dl>
 
 </div>
 </div>
@@ -907,6 +911,32 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Logique de <span class="tt"><a class="el" href="#ab10397c5b66b6997de6adff24cca19d2" title="Peint le type de tuile type en (column, row).">paintTile</a></span>, sans <span class="tt"><a class="el" href="#a949cfb0148244f0ba05257d4f523f51d" title="Empile l&#39;état courant sur la pile d&#39;annulation ; à appeler avant toute mutation undoable.">pushUndo()</a></span> : réutilisée cellule par cellule par <span class="tt"><a class="el" href="#a7fb667e044067f5e9bf16f747d3f5f8e" title="Applique un bloc rectangulaire de types de tuiles à partir de (originColumn, originRow).">paintRegion</a></span> pour n'empiler qu'un seul snapshot par opération de bloc. </p>
+
+</div>
+</div>
+<a id="aecfd269545c8989b66c1812104551a51" name="aecfd269545c8989b66c1812104551a51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecfd269545c8989b66c1812104551a51">&#9670;&#160;</a></span>platformConfigs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="structcore_1_1MovingPlatformConfig.html">MovingPlatformConfig</a> &gt; &amp; core::LevelDraft::platformConfigs </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les configurations de plateforme mobile posées explicitement (<span class="tt">EX-GP-026</span>). </dd></dl>
 
 </div>
 </div>
@@ -1506,6 +1536,40 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a6ff2592a05d61d82d2fff045efc96321" name="a6ff2592a05d61d82d2fff045efc96321"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ff2592a05d61d82d2fff045efc96321">&#9670;&#160;</a></span>setPlatformConfig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::setPlatformConfig </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>endPosition</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>speed</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>phase</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définit le second point de parcours, la vitesse et le déphasage d'une plateforme mobile (<span class="tt">EX-GP-026</span>). </p>
+<p>Remplace toute configuration existante pour <code class="param">position</code>. Mêmes remarques que <span class="tt"><a class="el" href="#ae2df4ef55bd85c10d0d139e9590a7fde" title="Définit l&#39;axe et la portée d&#39;un danger mobile (EX-GP-051).">setMoverConfig</a></span>/<span class="tt"><a class="el" href="#ab8a12378f12ab51439fd692cde093bcc" title="Définit la période, le déphasage et la durée active d&#39;un danger temporisé (EX-GP-053).">setBlinkConfig</a></span> : sans appel, une <span class="tt">MovingPlatform</span> garde les valeurs de conception par défaut (<span class="tt"><a class="el" href="structcore_1_1MovingPlatformConfig.html" title="Paramètres d&#39;une plateforme mobile (TileType::MovingPlatform, EX-GP-026) : aller- retour linéaire dét...">MovingPlatformConfig</a></span>), appliquées par <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">LevelLoader</a></span> au rechargement. </p><dl class="section pre"><dt>Precondition</dt><dd>La case <code class="param">position</code> porte une <span class="tt">MovingPlatform</span>. </dd></dl>
+
+</div>
+</div>
 <a id="ae33a484d3d22515294b55c47efb85b58" name="ae33a484d3d22515294b55c47efb85b58"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae33a484d3d22515294b55c47efb85b58">&#9670;&#160;</a></span>setSkinSet()</h2>
 
@@ -1999,6 +2063,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::string core::LevelDraft::_name</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6937fc3d89a86200a42b9ebe4beb5ded" name="a6937fc3d89a86200a42b9ebe4beb5ded"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6937fc3d89a86200a42b9ebe4beb5ded">&#9670;&#160;</a></span>_platformConfigs</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1MovingPlatformConfig.html">MovingPlatformConfig</a>&gt; core::LevelDraft::_platformConfigs</td>
         </tr>
       </table>
   </td>

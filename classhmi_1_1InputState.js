@@ -4,6 +4,7 @@ var classhmi_1_1InputState =
     [ "beginFrame", "classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab", null ],
     [ "gamepadButtonDown", "classhmi_1_1InputState.html#a3ce30e4669945efe5db386ea42f9abe5", null ],
     [ "gamepadButtonPressed", "classhmi_1_1InputState.html#a5b38fccaac8b028b0d53ea192292649c", null ],
+    [ "gamepadButtonReleased", "classhmi_1_1InputState.html#a241024415a5f5e786f341fb655fcfa06", null ],
     [ "gamepadConnected", "classhmi_1_1InputState.html#a833fa9bf0471616d04f6ab95568e90f4", null ],
     [ "keyDown", "classhmi_1_1InputState.html#a1f60f694446239cdcc190b792c89d130", null ],
     [ "keyPressed", "classhmi_1_1InputState.html#a31d4d382e571e231ef0d13937e2b1f4f", null ],

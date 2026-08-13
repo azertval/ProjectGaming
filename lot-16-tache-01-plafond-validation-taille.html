@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-16-tache-01-plafond-validation-taille.html','','')
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-16-niveaux-plus-grands_2tache-01-plafond-validation-taille"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-16.html#md_Lot_2LOT-16-niveaux-plus-grands_2epic" title="Lot/LOT-16-niveaux-plus-grands/epic.md">LOT-16</a> · <b>Emplacement :</b> <span class="tt">HMI/Editor</span>, <span class="tt">HMI/Input</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1070"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1073"></a>
 Contexte</h1>
 <p><span class="tt">Core</span> (<span class="tt">TileMap</span>, <span class="tt">LevelDraft</span>) n'impose aucune taille maximale — seule l'ergonomie du redimensionnement (une case par appui de flèche) limitait de fait la taille atteignable. La boîte de dialogue de TACHE-02 a besoin d'analyser un texte libre (<span class="tt">largeur x hauteur</span>) et de le valider ; un plafond est nécessaire pour éviter qu'une saisie erronée (ou des flèches maintenues trop longtemps) ne produise une grille démesurée.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1071"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1074"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">hmi::LevelSizeValidation</span></b> (nouveau, <span class="tt">Source/HMI/Editor/</span>, sur le modèle de <span class="tt">LevelNameValidation</span> de LOT-15) :<ul>
@@ -108,32 +108,32 @@ Travail à réaliser</h1>
 </li>
 <li><b><span class="tt">EditorScreen::requestResize</span></b> (existant, LOT-15) : borne systématiquement <span class="tt">width</span>/<span class="tt">height</span> à <span class="tt">[1, MAX_LEVEL_DIMENSION]</span> avant tout appel à <span class="tt">LevelDraft::resize</span>/<span class="tt">wouldResizeDropContent</span> — les flèches ne doivent plus pouvoir dépasser le plafond (elles s'arrêtent silencieusement à la borne, comme elles s'arrêtent déjà silencieusement à <span class="tt">1</span> en réduisant).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1072"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1075"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/LevelSizeValidation.h</span>/<span class="tt">.cpp</span> (nouveau).</li>
 <li><span class="tt">Source/HMI/Interface/EditorScreen.cpp</span> (bornage dans <span class="tt">requestResize</span>).</li>
 <li>Tests unitaires (<span class="tt">Source/Test/Unit/HMI/Editor/test_level_size_validation.cpp</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1073"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1076"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">parseLevelSize</span> : <span class="tt">"40x30"</span>, <span class="tt">"40 x 30"</span>, <span class="tt">"40X30"</span> acceptés et renvoient <span class="tt">(40, 30)</span> ; texte vide, sans séparateur, avec une valeur non numérique, nulle, négative, ou dépassant <span class="tt">MAX_LEVEL_DIMENSION</span> refusés (<span class="tt">nullopt</span>).</li>
 <li><span class="tt">isValidLevelSize</span> cohérent avec <span class="tt">parseLevelSize</span> (vrai/faux selon la présence d'une valeur).</li>
 <li><span class="tt">requestResize</span> appelé avec une largeur/hauteur dépassant <span class="tt">MAX_LEVEL_DIMENSION</span> la borne à cette valeur avant d'agir (vérifiable via l'état résultant de <span class="tt">LevelDraft</span> — voir TACHE-02/03 pour le câblage complet de la boîte de dialogue qui consomme ce validateur).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1074"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1077"></a>
 Points d'attention</h1>
 <ul>
 <li><span class="tt">MAX_LEVEL_DIMENSION</span> est <b>un seul</b> point de vérité, importé aussi bien par le validateur de la boîte de dialogue que par <span class="tt">requestResize</span> — ne pas dupliquer la constante.</li>
 <li>Le plafond ne touche à aucune règle de <span class="tt">Core</span> : <span class="tt">LevelDraft::resize</span>/<span class="tt">TileMap</span> restent inchangés et sans limite (<span class="tt">EX-NFR-010</span>), cohérent avec la décision de cadrage de l'épic (le plafond est un garde-fou d'usage porté par <span class="tt">HMI</span>, pas une invariante de donnée).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1075"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1078"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Plafond et validation du format disponibles et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1076"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1079"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-017</span> (partie « plafond »). </p>
 </div></div><!-- contents -->

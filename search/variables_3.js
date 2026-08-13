@@ -19,5 +19,6 @@ var searchData=
   ['coyotetimer_16',['coyoteTimer',['../structcore_1_1Player.html#a69f291499ab2b7c27220c071a590b97a',1,'core::Player']]],
   ['culled_17',['culled',['../structhmi_1_1SceneStatistics.html#a944649e434a4fab1f0a72e0fbf23f1cf',1,'hmi::SceneStatistics']]],
   ['culling_5fmargin_5funits_18',['CULLING_MARGIN_UNITS',['../classhmi_1_1ComposedScene.html#ad8dd91b7cee4c5d987aae7b22fac4d7e',1,'hmi::ComposedScene']]],
-  ['currentcolor_19',['currentColor',['../structhmi_1_1PixelEditStatusInfo.html#a4439cd114f4790a5f175c570b41039b1',1,'hmi::PixelEditStatusInfo']]]
+  ['currentbox_19',['currentBox',['../structcore_1_1PlatformSample.html#ad32bdce0264790530202e4ba996332ab',1,'core::PlatformSample']]],
+  ['currentcolor_20',['currentColor',['../structhmi_1_1PixelEditStatusInfo.html#a4439cd114f4790a5f175c570b41039b1',1,'hmi::PixelEditStatusInfo']]]
 ];

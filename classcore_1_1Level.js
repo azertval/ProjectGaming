@@ -1,6 +1,6 @@
 var classcore_1_1Level =
 [
-    [ "Level", "classcore_1_1Level.html#a2bacad9adf93628a7cfa1d73728788d4", null ],
+    [ "Level", "classcore_1_1Level.html#a71159f188b8d655e01609fbe0006f69c", null ],
     [ "background", "classcore_1_1Level.html#a8eb90b383f0aa69b2674aea4c416681f", null ],
     [ "blinkConfigs", "classcore_1_1Level.html#a9e1c9105ee90597836bf6addcbb0d98d", null ],
     [ "dangerLinks", "classcore_1_1Level.html#ac843149dd61590cf118ab6339a65e470", null ],
@@ -12,6 +12,7 @@ var classcore_1_1Level =
     [ "mechanisms", "classcore_1_1Level.html#a2a38db06b24c085d46e05e4d02a66e09", null ],
     [ "moverConfigs", "classcore_1_1Level.html#a4cae6fe32995982eebc6c73c4bfbae10", null ],
     [ "name", "classcore_1_1Level.html#a5980749eacb886074a65f8e06f51fb59", null ],
+    [ "platformConfigs", "classcore_1_1Level.html#a275f59e0e83694c5bac2f8b9000cc9f2", null ],
     [ "skinSet", "classcore_1_1Level.html#a8d161da24a222053000c9ec45669dfc2", null ],
     [ "textureOverrides", "classcore_1_1Level.html#aa562b98400ba2c32e4d0a130c2f8c6e1", null ],
     [ "tileMap", "classcore_1_1Level.html#af42df8d6a33bdaa7aedf5b2aafd728ef", null ],
@@ -26,6 +27,7 @@ var classcore_1_1Level =
     [ "_mechanisms", "classcore_1_1Level.html#a0a2cadc567615ea7c452624534a17573", null ],
     [ "_moverConfigs", "classcore_1_1Level.html#ad8da1bb1d67dfb8dfcae3aaf357bacfb", null ],
     [ "_name", "classcore_1_1Level.html#a7783acfe25a83f5df8e60c257ece69d9", null ],
+    [ "_platformConfigs", "classcore_1_1Level.html#a60d4cecf64698105b66e4c3e764c184e", null ],
     [ "_skinSet", "classcore_1_1Level.html#aa6c9ea29b3fa298fa480ec4a3aa66f2a", null ],
     [ "_textureOverrides", "classcore_1_1Level.html#af2a28ca83cce29bbc16308578cea4aeb", null ],
     [ "_tileMap", "classcore_1_1Level.html#a39c02aac063492852131eca383eb1e1a", null ]

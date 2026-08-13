@@ -94,42 +94,42 @@ $(function(){initNavTree('lot-07-tache-01-dependance-json.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-07-niveaux_2tache-01-dependance-json"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-07.html#md_Lot_2LOT-07-niveaux_2epic" title="Lot/LOT-07-niveaux/epic.md">LOT-07</a> · <b>Emplacement :</b> <span class="tt">External/</span>, CMake · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md656"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md659"></a>
 Contexte</h1>
 <p>Le format de niveau est un <b>JSON structuré</b> (liste de tuiles-objets, <span class="tt">EX-LVL-003</span>). Il faut donc parser du JSON. Plutôt qu'un parser maison, le lot s'appuie sur <b>nlohmann/json</b> (<em>header-only</em>, éprouvée), première dépendance tierce de <b>production</b> du projet.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md657"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md660"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Ajouter <b>nlohmann/json</b> via <b>FetchContent</b>, <b>épinglée</b> à une version précise (tag/commit) — jamais une branche mobile (<span class="tt">EX-NFR-031</span>).</li>
 <li>Exposer la cible d'interface (<span class="tt">nlohmann_json::nlohmann_json</span>) et la lier au module qui en a besoin (<b><span class="tt">Core</span></b>, cible du chargement de niveaux).</li>
 <li>Vérifier que l'inclusion et un parse minimal (<span class="tt">nlohmann::json::parse("{}")</span>) compilent.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md658"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md661"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">CMakeLists.txt</span> racine (ou <span class="tt">External/CMakeLists.txt</span>) : déclaration FetchContent épinglée.</li>
 <li><span class="tt">Source/Core/CMakeLists.txt</span> : lien de la dépendance à <span class="tt">Core</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md659"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md662"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>Le projet <b>configure et compile</b> avec la dépendance récupérée.</li>
 <li>Un usage minimal de <span class="tt">nlohmann::json</span> compile (couvert concrètement par le chargeur, TACHE-03).</li>
 <li>La version est <b>épinglée</b> (reproductible sur un autre poste, <span class="tt">EX-NFR-030</span>/<span class="tt">EX-NFR-031</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md660"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md663"></a>
 Points d'attention</h1>
 <ul>
 <li><em>Header-only</em> : n'entame pas la testabilité de <span class="tt">Core</span> sans fenêtre ni GPU (<span class="tt">EX-NFR-010</span>).</li>
 <li>Isoler la récupération (FetchContent) comme les autres dépendances (GoogleTest) ; ne pas vendoriser les sources dans le dépôt.</li>
 <li>Éviter d'exposer <span class="tt">nlohmann/json</span> dans les <b>en-têtes publics</b> de <span class="tt">Core</span> (l'inclure seulement dans les <span class="tt">.cpp</span> de chargement) pour ne pas propager la dépendance aux appelants.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md661"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md664"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Dépendance disponible et liée à <span class="tt">Core</span>, version épinglée ; build <span class="tt">/W4 /WX</span> vert.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md662"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md665"></a>
 Exigences</h1>
 <p><span class="tt">EX-NFR-031</span>, <span class="tt">EX-NFR-030</span>, <span class="tt">EX-NFR-010</span>. </p>
 </div></div><!-- contents -->

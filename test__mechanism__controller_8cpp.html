@@ -124,12 +124,22 @@ Functions</h2></td></tr>
 <tr class="memdesc:a9ef28fe775444e73f729b320e161b003"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un danger commuté lié à une plaque de pression est actif tant que le poids y repose, comme une porte — activation continue (<span class="tt">EX-GP-025</span>/<span class="tt">EX-GP-052</span>).  <br /></td></tr>
 <tr class="memitem:af0d5fdc18f5507d92a354532b88d39aa" id="r_af0d5fdc18f5507d92a354532b88d39aa"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af0d5fdc18f5507d92a354532b88d39aa">TEST</a> (MechanismControllerTest, DangerActiveFauxSansLiaison)</td></tr>
 <tr class="memdesc:af0d5fdc18f5507d92a354532b88d39aa"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">isDangerActive</span> renvoie faux pour une position qui ne correspond à aucune liaison connue (robustesse).  <br /></td></tr>
+<tr class="memitem:ae9ab7b7422e37c4b0d09a0f17b76fb55" id="r_ae9ab7b7422e37c4b0d09a0f17b76fb55"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae9ab7b7422e37c4b0d09a0f17b76fb55">TEST</a> (MechanismControllerTest, ContactSeulNOuvrePasLaPorteVerrouillee)</td></tr>
+<tr class="memdesc:ae9ab7b7422e37c4b0d09a0f17b76fb55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le simple contact sur la clé, sans « Interagir », n'ouvre pas la porte verrouillée — contrairement à l'interrupteur (<span class="tt">EX-GP-023</span>, <span class="tt">EX-CTRL-022</span>).  <br /></td></tr>
+<tr class="memitem:a410c060a7505cd82bca5549523b4aec0" id="r_a410c060a7505cd82bca5549523b4aec0"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a410c060a7505cd82bca5549523b4aec0">TEST</a> (MechanismControllerTest, ContactEtInteragirRamasseLaCleEtOuvreDefinitivement)</td></tr>
+<tr class="memdesc:a410c060a7505cd82bca5549523b4aec0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contact + « Interagir » ramasse la clé et ouvre définitivement la porte verrouillée.  <br /></td></tr>
+<tr class="memitem:aa389c6f1ef0a0b39cb2bf6537a1c8f59" id="r_aa389c6f1ef0a0b39cb2bf6537a1c8f59"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa389c6f1ef0a0b39cb2bf6537a1c8f59">TEST</a> (MechanismControllerTest, InteragirSansContactNeRamassePasLaCle)</td></tr>
+<tr class="memdesc:aa389c6f1ef0a0b39cb2bf6537a1c8f59"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Interagir » sans être au contact de la clé ne ramasse rien.  <br /></td></tr>
+<tr class="memitem:a0d7a0408e04cfecc72aa52cf5bcc35f7" id="r_a0d7a0408e04cfecc72aa52cf5bcc35f7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0d7a0408e04cfecc72aa52cf5bcc35f7">TEST</a> (MechanismControllerTest, DeuxPairesCleEtPorteIndependantes)</td></tr>
+<tr class="memdesc:a0d7a0408e04cfecc72aa52cf5bcc35f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deux paires clé/porte verrouillée indépendantes ne s'influencent pas : ramasser l'une n'ouvre pas l'autre.  <br /></td></tr>
+<tr class="memitem:a59b5c278f71243d2da7a73a95dce03d7" id="r_a59b5c278f71243d2da7a73a95dce03d7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a59b5c278f71243d2da7a73a95dce03d7">TEST</a> (MechanismControllerTest, RechargementReinitialiseCleEtPorte)</td></tr>
+<tr class="memdesc:a59b5c278f71243d2da7a73a95dce03d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruire le contrôleur (rechargement du niveau) remet la clé et la porte dans leur état initial (<span class="tt">EX-GP-024</span>, même principe que le budget de mouvements).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires des mécanismes interrupteur↔porte (<span class="tt">MechanismController</span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a559051c9aeba73678f0b9ec80aa6e233" name="a559051c9aeba73678f0b9ec80aa6e233"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a559051c9aeba73678f0b9ec80aa6e233">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a559051c9aeba73678f0b9ec80aa6e233">&#9670;&#160;</a></span>TEST() <span class="overload">[1/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -158,8 +168,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a410c060a7505cd82bca5549523b4aec0" name="a410c060a7505cd82bca5549523b4aec0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a410c060a7505cd82bca5549523b4aec0">&#9670;&#160;</a></span>TEST() <span class="overload">[2/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MechanismControllerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContactEtInteragirRamasseLaCleEtOuvreDefinitivement</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Contact + « Interagir » ramasse la clé et ouvre définitivement la porte verrouillée. </p>
+<p><b>Cas de test :</b> <b>Contact + Interagir ramasse la clé et ouvre définitivement la porte verrouillée.</b><br  />
+ <b>Categorie :</b> Unitaire · Mechanism Controller<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> La porte s'ouvre au contact + Interagir, et reste ouverte quoi qu'il arrive ensuite. </p>
+
+</div>
+</div>
 <a id="a49940b49e95c5c4cf1fa58f900bdd47f" name="a49940b49e95c5c4cf1fa58f900bdd47f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49940b49e95c5c4cf1fa58f900bdd47f">&#9670;&#160;</a></span>TEST() <span class="overload">[2/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a49940b49e95c5c4cf1fa58f900bdd47f">&#9670;&#160;</a></span>TEST() <span class="overload">[3/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -188,8 +228,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ae9ab7b7422e37c4b0d09a0f17b76fb55" name="ae9ab7b7422e37c4b0d09a0f17b76fb55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9ab7b7422e37c4b0d09a0f17b76fb55">&#9670;&#160;</a></span>TEST() <span class="overload">[4/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MechanismControllerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContactSeulNOuvrePasLaPorteVerrouillee</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le simple contact sur la clé, sans « Interagir », n'ouvre pas la porte verrouillée — contrairement à l'interrupteur (<span class="tt">EX-GP-023</span>, <span class="tt">EX-CTRL-022</span>). </p>
+<p><b>Cas de test :</b> <b>Le simple contact sur la clé n'ouvre pas la porte verrouillée.</b><br  />
+ <b>Categorie :</b> Unitaire · Mechanism Controller<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le contact seul (sans Interagir) n'ouvre pas la porte verrouillée. </p>
+
+</div>
+</div>
 <a id="af0d5fdc18f5507d92a354532b88d39aa" name="af0d5fdc18f5507d92a354532b88d39aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af0d5fdc18f5507d92a354532b88d39aa">&#9670;&#160;</a></span>TEST() <span class="overload">[3/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af0d5fdc18f5507d92a354532b88d39aa">&#9670;&#160;</a></span>TEST() <span class="overload">[5/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -219,7 +289,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a9ef28fe775444e73f729b320e161b003" name="a9ef28fe775444e73f729b320e161b003"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ef28fe775444e73f729b320e161b003">&#9670;&#160;</a></span>TEST() <span class="overload">[4/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ef28fe775444e73f729b320e161b003">&#9670;&#160;</a></span>TEST() <span class="overload">[6/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -249,7 +319,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a1a5f92e47dc96f8915c4236cb37527c7" name="a1a5f92e47dc96f8915c4236cb37527c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a5f92e47dc96f8915c4236cb37527c7">&#9670;&#160;</a></span>TEST() <span class="overload">[5/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a5f92e47dc96f8915c4236cb37527c7">&#9670;&#160;</a></span>TEST() <span class="overload">[7/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -278,8 +348,68 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a0d7a0408e04cfecc72aa52cf5bcc35f7" name="a0d7a0408e04cfecc72aa52cf5bcc35f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d7a0408e04cfecc72aa52cf5bcc35f7">&#9670;&#160;</a></span>TEST() <span class="overload">[8/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MechanismControllerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DeuxPairesCleEtPorteIndependantes</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deux paires clé/porte verrouillée indépendantes ne s'influencent pas : ramasser l'une n'ouvre pas l'autre. </p>
+<p><b>Cas de test :</b> <b>Deux paires clé/porte verrouillée indépendantes ne s'influencent pas.</b><br  />
+ <b>Categorie :</b> Unitaire · Mechanism Controller<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Ramasser la première clé ouvre uniquement sa porte, l'autre paire reste fermée. </p>
+
+</div>
+</div>
+<a id="aa389c6f1ef0a0b39cb2bf6537a1c8f59" name="aa389c6f1ef0a0b39cb2bf6537a1c8f59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa389c6f1ef0a0b39cb2bf6537a1c8f59">&#9670;&#160;</a></span>TEST() <span class="overload">[9/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MechanismControllerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">InteragirSansContactNeRamassePasLaCle</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>« Interagir » sans être au contact de la clé ne ramasse rien. </p>
+<p><b>Cas de test :</b> <b>Interagir sans contact ne ramasse pas la clé.</b><br  />
+ <b>Categorie :</b> Unitaire · Mechanism Controller<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Interagir loin de la clé n'a aucun effet. </p>
+
+</div>
+</div>
 <a id="a6ee7f442f4206905ddecd3e806361610" name="a6ee7f442f4206905ddecd3e806361610"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ee7f442f4206905ddecd3e806361610">&#9670;&#160;</a></span>TEST() <span class="overload">[6/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ee7f442f4206905ddecd3e806361610">&#9670;&#160;</a></span>TEST() <span class="overload">[10/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -309,7 +439,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a8f317530c36a6e4c5a34d91df3ff9bba" name="a8f317530c36a6e4c5a34d91df3ff9bba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f317530c36a6e4c5a34d91df3ff9bba">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f317530c36a6e4c5a34d91df3ff9bba">&#9670;&#160;</a></span>TEST() <span class="overload">[11/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -338,8 +468,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a59b5c278f71243d2da7a73a95dce03d7" name="a59b5c278f71243d2da7a73a95dce03d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59b5c278f71243d2da7a73a95dce03d7">&#9670;&#160;</a></span>TEST() <span class="overload">[12/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MechanismControllerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RechargementReinitialiseCleEtPorte</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reconstruire le contrôleur (rechargement du niveau) remet la clé et la porte dans leur état initial (<span class="tt">EX-GP-024</span>, même principe que le budget de mouvements). </p>
+<p><b>Cas de test :</b> <b>Reconstruire le contrôleur remet la clé et la porte dans leur état initial.</b><br  />
+ <b>Categorie :</b> Unitaire · Mechanism Controller<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Un nouveau contrôleur construit sur le même niveau redémarre porte fermée, clé non ramassée. </p>
+
+</div>
+</div>
 <a id="a703121b2b1a576161b54faa1e3b48675" name="a703121b2b1a576161b54faa1e3b48675"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a703121b2b1a576161b54faa1e3b48675">&#9670;&#160;</a></span>TEST() <span class="overload">[8/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a703121b2b1a576161b54faa1e3b48675">&#9670;&#160;</a></span>TEST() <span class="overload">[13/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

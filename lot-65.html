@@ -96,7 +96,7 @@ $(function(){initNavTree('lot-65.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>non commencé</b>. Prérequis : <a class="el" href="lot-63.html" title="LOT-63 — Mécanismes manquants du référentiel">LOT-63</a> (mécanismes manquants), <a class="el" href="lot-64.html" title="LOT-64 — Cadrage de caméra choisi par le level designer">LOT-64</a> (cadrage de caméra), <a class="el" href="lot-59.html" title="LOT-59 — Boucle de jeu complète : pause, fin de niveau, progression">LOT-59</a> (séquence en donnée de contenu). <b>Dernier lot de contenu</b> du programme <span class="tt">0.1.0</span>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2892"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2896"></a>
 Objectif</h1>
 <p>Refaire le contenu livré pour qu'il <b>exploite</b> et <b>teste</b> toutes les mécaniques du moteur.</p>
 <p>Les quinze tableaux actuels ont été conçus au <span class="tt">LOT-25</span>, quand le moteur en était à <span class="tt">demo-salles</span>. Depuis, quinze lots ont ajouté : dangers directionnels, mobiles, commutés et temporisés (<span class="tt">LOT-31</span>), fonds de niveau, décors libres avec parallaxe, calque de premier plan (<span class="tt">LOT-44</span>, <span class="tt">LOT-49</span>), skins et raccords automatiques (<span class="tt">LOT-42</span>), textures par instance (<span class="tt">LOT-45</span>), animations pilotées par données (<span class="tt">LOT-46</span>, <span class="tt">LOT-47</span>), ombres du plan physique (<span class="tt">LOT-55</span>) — et le programme <span class="tt">0.1.0</span> y ajoutera clé, porte verrouillée, action « Interagir », plateforme mobile (<span class="tt">LOT-63</span>) et trois modes de cadrage (<span class="tt">LOT-64</span>).</p>
@@ -105,9 +105,9 @@ Objectif</h1>
 <li><b>Des mécaniques livrées, testées unitairement, et jamais jouées.</b> Rien ne garantit qu'un type de tuile ou un mode de cadrage apparaisse dans un seul tableau franchi par le test système. Une mécanique qui n'est dans aucun niveau n'est vérifiée qu'en isolation — jamais dans une partie réelle.</li>
 <li><b>Une vitrine qui ne montre pas le jeu.</b> Les tableaux sont des bancs d'essai fonctionnels : nus, sans fond, sans décor, sans habillage. Le programme d'habillage <span class="tt">LOT-40</span> → <span class="tt">LOT-55</span> est entièrement livré et <b>invisible</b> dans le contenu qui accompagne le binaire.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2893"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2897"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2894"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2898"></a>
 Inclus</h2>
 <ul>
 <li><b>Inventaire exhaustif</b> des mécaniques : tous les <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span>, tous les modes de cadrage, tous les paramètres significatifs (danger temporisé déphasé, bloc réduit, budget de mouvements…).</li>
@@ -116,7 +116,7 @@ Inclus</h2>
 <li><b>Tableaux manquants</b> pour les mécaniques non couvertes.</li>
 <li><b>Tableaux de synthèse</b> combinant plusieurs mécaniques, là où les tableaux actuels les isolent toutes.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2895"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2899"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li>Nouvelles mécaniques : ce lot <b>utilise</b> ce qui existe, il n'ajoute rien au moteur. Toute mécanique manquante relève du <a class="el" href="lot-63.html" title="LOT-63 — Mécanismes manquants du référentiel">LOT-63</a>.</li>
@@ -124,7 +124,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li>Création d'assets d'art originaux : l'habillage réutilise les skins, décors et fonds existants, complétés par les scripts de génération procédurale du dépôt.</li>
 <li>Campagne scénarisée, narration, progression de difficulté calibrée par des joueurs tiers.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2896"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2900"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Le garde-fou d'abord, le contenu ensuite.</b> Écrire les tableaux puis constater la couverture, c'est se fier à une relecture. Le contrôle automatique est livré en <span class="tt">TACHE-01</span>, <b>rouge</b>, et c'est lui qui pilote le reste du lot : la liste de ce qu'il refuse est la liste du travail.</li>
@@ -133,13 +133,13 @@ Décisions de cadrage</h1>
 <li><b>Une mécanique à la fois, puis des synthèses.</b> C'est la ligne directrice déjà écrite dans <span class="tt"><a class="el" href="niveaux_8md.html">niveaux.md</a></span> ; les tableaux actuels respectent la première moitié (isolement) et pas la seconde (combinaison), alors que c'est la combinaison qui fait un jeu — et qui trouve les défauts d'interaction entre mécanismes.</li>
 <li><b>Placé en dernier parmi les lots de contenu</b>, parce qu'il consomme tout ce que les autres produisent : mécanismes du <span class="tt">LOT-63</span>, cadrage du <span class="tt">LOT-64</span>, écrans et progression du <span class="tt">LOT-59</span>, son du <span class="tt">LOT-60</span>, effets du <span class="tt">LOT-53</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2897"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2901"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle : <span class="tt">EX-LVL-015</span> (couverture exhaustive des mécaniques par le contenu livré, vérifiée automatiquement).</li>
 <li>Réutilisées : <span class="tt">EX-LVL-012</span> (niveaux de démonstration à difficulté croissante), <span class="tt">EX-LVL-013</span> (séquence en donnée), <span class="tt">EX-LVL-006</span> (cadrage porté par le niveau), <span class="tt">EX-NFR-021</span> (test système de franchissabilité), <span class="tt">EX-GP-020</span> à <span class="tt">EX-GP-026</span> (mécanismes), <span class="tt">EX-GP-050</span> à <span class="tt">EX-GP-053</span> (dangers avancés), <span class="tt">EX-REN-044</span> (fond de niveau), <span class="tt">EX-DEC-002</span> (couches de décor), <span class="tt">EX-REN-005</span> (animations par données), <span class="tt">EX-REN-045</span> (ombres), <span class="tt">EX-VIS-005</span> (au moins trois niveaux enchaînés).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2898"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2902"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -156,7 +156,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-65-tache-04-documentation-verification.html#md_Lot_2LOT-65-refonte-niveaux-demo_2tache-04-documentation-verification" title="Lot/LOT-65-refonte-niveaux-demo/tache-04-documentation-verification.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Documentation et vérification  </td><td class="markdownTableBodyNone"><span class="tt">Source/Test</span>, <span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">⬜  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2899"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2903"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Le garde-fou de couverture est <b>vert</b> : chaque type de tuile et chaque mode de cadrage livrés apparaissent dans au moins un tableau franchi par le test système.</li>
@@ -167,10 +167,10 @@ Critères d'acceptation du lot</h1>
 <li>Les défauts découverts en jouant sont consignés, avec leur reproduction, sans être corrigés dans ce lot.</li>
 <li>Build <span class="tt">/W4 /WX</span>, <span class="tt">ctest</span> à 100 %, Doxygen et lints verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2900"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2904"></a>
 Dépendances</h1>
 <p>Consomme <a class="el" href="lot-59.html" title="LOT-59 — Boucle de jeu complète : pause, fin de niveau, progression">LOT-59</a> (séquence en donnée, progression), <a class="el" href="lot-60.html" title="LOT-60 — Audio : socle et bruitages">LOT-60</a> (son), <a class="el" href="lot-53.html" title="LOT-53 — Effets et particules">LOT-53</a> (effets), <a class="el" href="lot-63.html" title="LOT-63 — Mécanismes manquants du référentiel">LOT-63</a> (mécanismes) et <a class="el" href="lot-64.html" title="LOT-64 — Cadrage de caméra choisi par le level designer">LOT-64</a> (cadrage). Bâtit sur <a class="el" href="lot-25.html" title="LOT-25 — Refactoring complet des niveaux démo">LOT-25</a>, dont il reprend et étend la démarche. Précède <a class="el" href="lot-66.html" title="LOT-66 — Reproductibilité et référentiel">LOT-66</a>, qui clôt le programme.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2901"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2905"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-65-tache-01-inventaire-garde-fou.html" title="TACHE-01 — Inventaire des mécaniques et garde-fou de couverture">TACHE-01 — Inventaire des mécaniques et garde-fou de couverture</a></li>

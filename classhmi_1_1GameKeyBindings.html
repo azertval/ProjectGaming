@@ -101,12 +101,12 @@ $(function(){initNavTree('classhmi_1_1GameKeyBindings.html','','classhmi_1_1Game
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a3432600dde80046479c098693a7fe3a1" id="r_a3432600dde80046479c098693a7fe3a1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3432600dde80046479c098693a7fe3a1">GameKeyBindings</a> ()</td></tr>
-<tr class="memdesc:a3432600dde80046479c098693a7fe3a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit avec les valeurs par défaut (flèches/Espace/Maj, cf. <span class="tt"><a class="el" href="PlayerInputMapper_8cpp.html">PlayerInputMapper.cpp</a></span>).  <br /></td></tr>
+<tr class="memdesc:a3432600dde80046479c098693a7fe3a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit avec les valeurs par défaut (flèches/Espace/Maj/E, cf. <span class="tt"><a class="el" href="PlayerInputMapper_8cpp.html">PlayerInputMapper.cpp</a></span>).  <br /></td></tr>
 <tr class="memitem:a598a666a329ac0f1d438b0cc2a7e3cf3" id="r_a598a666a329ac0f1d438b0cc2a7e3cf3"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a>&#160;</td><td class="memItemRight"><a class="el" href="#a598a666a329ac0f1d438b0cc2a7e3cf3">key</a> (<a class="el" href="namespacehmi.html#a133516ef8002bd9e4d870db9494f5867">GameAction</a> action) const noexcept</td></tr>
 <tr class="memitem:ae7bf36c7de90cf8abafb5955b8b1470c" id="r_ae7bf36c7de90cf8abafb5955b8b1470c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae7bf36c7de90cf8abafb5955b8b1470c">setKey</a> (<a class="el" href="namespacehmi.html#a133516ef8002bd9e4d870db9494f5867">GameAction</a> action, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> newKey) noexcept</td></tr>
 <tr class="memdesc:ae7bf36c7de90cf8abafb5955b8b1470c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lie <code class="param">action</code> à <code class="param">newKey</code>.  <br /></td></tr>
 <tr class="memitem:a824abc78720652ff4fa0b24573b5b807" id="r_a824abc78720652ff4fa0b24573b5b807"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a824abc78720652ff4fa0b24573b5b807">resetToDefaults</a> () noexcept</td></tr>
-<tr class="memdesc:a824abc78720652ff4fa0b24573b5b807"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restaure les six actions à leurs touches par défaut (<span class="tt"><a class="el" href="#ad2a61b672b2329285186aa6155ddc2db">defaultKey</a></span>).  <br /></td></tr>
+<tr class="memdesc:a824abc78720652ff4fa0b24573b5b807"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restaure les sept actions à leurs touches par défaut (<span class="tt"><a class="el" href="#ad2a61b672b2329285186aa6155ddc2db">defaultKey</a></span>).  <br /></td></tr>
 <tr class="memitem:afbe5d66a276ac24e83e5c6701d598004" id="r_afbe5d66a276ac24e83e5c6701d598004"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#afbe5d66a276ac24e83e5c6701d598004">save</a> (const std::filesystem::path &amp;path) const</td></tr>
 <tr class="memdesc:afbe5d66a276ac24e83e5c6701d598004"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sauvegarde dans la section <span class="tt">"jeu"</span> de <code class="param">path</code>, en préservant une section <span class="tt">"editeur"</span> déjà présente (écrite par <span class="tt"><a class="el" href="classhmi_1_1EditorKeyBindings.html#a4491f60b26ffe6336b1112aae0ff6f61" title="Sauvegarde dans la section &quot;editeur&quot; de path, en préservant une section &quot;jeu&quot; déjà présente (écrite p...">EditorKeyBindings::save</a></span>).  <br /></td></tr>
 </table><table class="memberdecls">
@@ -139,7 +139,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construit avec les valeurs par défaut (flèches/Espace/Maj, cf. <span class="tt"><a class="el" href="PlayerInputMapper_8cpp.html">PlayerInputMapper.cpp</a></span>). </p>
+<p>Construit avec les valeurs par défaut (flèches/Espace/Maj/E, cf. <span class="tt"><a class="el" href="PlayerInputMapper_8cpp.html">PlayerInputMapper.cpp</a></span>). </p>
 
 </div>
 </div>
@@ -247,7 +247,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Restaure les six actions à leurs touches par défaut (<span class="tt"><a class="el" href="#ad2a61b672b2329285186aa6155ddc2db">defaultKey</a></span>). </p>
+<p>Restaure les sept actions à leurs touches par défaut (<span class="tt"><a class="el" href="#ad2a61b672b2329285186aa6155ddc2db">defaultKey</a></span>). </p>
 
 </div>
 </div>

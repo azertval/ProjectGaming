@@ -645,6 +645,7 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="#a133516ef8002bd9e4d870db9494f5867a101f693f72287a2819a364f64ca1c0ed">Jump</a>
 , <a class="el" href="#a133516ef8002bd9e4d870db9494f5867a3663598d5c5858b5a6040b1bbed4f187">Dash</a>
+, <a class="el" href="#a133516ef8002bd9e4d870db9494f5867aefbc873e4634f3db63d62377d36e5f56">Interact</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a133516ef8002bd9e4d870db9494f5867"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action de jeu logique, remappable indépendamment de la touche physique qui la déclenche.  <a href="#a133516ef8002bd9e4d870db9494f5867">More...</a><br /></td></tr>
@@ -683,19 +684,20 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="#a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29">A</a> = 0x41
 , <a class="el" href="#a83c98e56e30eafa606048853f7962e48a0d61f8370cad1d412f80b84d143e1257">C</a> = 0x43
 , <a class="el" href="#a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5">D</a> = 0x44
-, <a class="el" href="#a83c98e56e30eafa606048853f7962e48a44c29edb103a2872f519ad0c9a0fdaaa">P</a> = 0x50
+, <a class="el" href="#a83c98e56e30eafa606048853f7962e48a3a3ea00cfc35332cedf6e5e9a32e94da">E</a> = 0x45
 , <br />
-&#160;&#160;<a class="el" href="#a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee">Q</a> = 0x51
+&#160;&#160;<a class="el" href="#a83c98e56e30eafa606048853f7962e48a44c29edb103a2872f519ad0c9a0fdaaa">P</a> = 0x50
+, <a class="el" href="#a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee">Q</a> = 0x51
 , <a class="el" href="#a83c98e56e30eafa606048853f7962e48ae1e1d3d40573127e9ee0480caf1283d6">R</a> = 0x52
 , <a class="el" href="#a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e">S</a> = 0x53
-, <a class="el" href="#a83c98e56e30eafa606048853f7962e48ab9ece18c950afbfa6b0fdbfa4ff731d3">T</a> = 0x54
 , <br />
-&#160;&#160;<a class="el" href="#a83c98e56e30eafa606048853f7962e48a5206560a306a2e085a437fd258eb57ce">V</a> = 0x56
+&#160;&#160;<a class="el" href="#a83c98e56e30eafa606048853f7962e48ab9ece18c950afbfa6b0fdbfa4ff731d3">T</a> = 0x54
+, <a class="el" href="#a83c98e56e30eafa606048853f7962e48a5206560a306a2e085a437fd258eb57ce">V</a> = 0x56
 , <a class="el" href="#a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276">W</a> = 0x57
 , <a class="el" href="#a83c98e56e30eafa606048853f7962e48a57cec4137b614c87cb4e24a3d003a3e0">Y</a> = 0x59
-, <a class="el" href="#a83c98e56e30eafa606048853f7962e48a21c2e59531c8710156d34a3c30ac81d5">Z</a> = 0x5A
 , <br />
-&#160;&#160;<a class="el" href="#a83c98e56e30eafa606048853f7962e48ae1dffc8709f31a4987c8a88334107e89">F1</a> = 0x70
+&#160;&#160;<a class="el" href="#a83c98e56e30eafa606048853f7962e48a21c2e59531c8710156d34a3c30ac81d5">Z</a> = 0x5A
+, <a class="el" href="#a83c98e56e30eafa606048853f7962e48ae1dffc8709f31a4987c8a88334107e89">F1</a> = 0x70
 , <a class="el" href="#a83c98e56e30eafa606048853f7962e48afe5c3684dce76cdd9f7f42430868aa74">F2</a> = 0x71
 , <a class="el" href="#a83c98e56e30eafa606048853f7962e48ab213ce22ca6ad4eda8db82966b9b6e5a">F10</a> = 0x79
 <br />
@@ -1194,7 +1196,7 @@ Variables</h2></td></tr>
 <tr class="memitem:a3ec3b0d0a4b02829e3cf0fe6f72bf05b" id="r_a3ec3b0d0a4b02829e3cf0fe6f72bf05b"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a3ec3b0d0a4b02829e3cf0fe6f72bf05b">DECOR_DRAG_THRESHOLD</a> = 0.1f</td></tr>
 <tr class="memdesc:a3ec3b0d0a4b02829e3cf0fe6f72bf05b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seuil de déplacement (unités monde) distinguant un clic (sélection simple) d'un glisser (manipulation) — sans lui, poser puis relâcher sans bouger produirait un micro-déplacement.  <br /></td></tr>
 <tr class="memitem:a71400cfb82eb06125e98cf974b6dc1be" id="r_a71400cfb82eb06125e98cf974b6dc1be"><td class="memItemLeft">constexpr <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a>&#160;</td><td class="memItemRight"><a class="el" href="#a71400cfb82eb06125e98cf974b6dc1be">MECHANISM_ANIMATION_TYPES</a> []</td></tr>
-<tr class="memdesc:a71400cfb82eb06125e98cf974b6dc1be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les six familles de mécanismes à état dont l'apparence est pilotée par un clip (<span class="tt">LOT-47</span>), dans l'ordre où elles sont proposées par la section « Animations ».  <br /></td></tr>
+<tr class="memdesc:a71400cfb82eb06125e98cf974b6dc1be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les familles de mécanismes à état dont l'apparence est pilotée par un clip (<span class="tt">LOT-47</span>), dans l'ordre où elles sont proposées par la section « Animations ».  <br /></td></tr>
 <tr class="memitem:aa22d8fa67dd7b945de1a25413ef6532e" id="r_aa22d8fa67dd7b945de1a25413ef6532e"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aa22d8fa67dd7b945de1a25413ef6532e">PANEL_FOCUS_CATALOG_COUNT</a> = 2</td></tr>
 <tr class="memdesc:aa22d8fa67dd7b945de1a25413ef6532e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'entrées de la table (tous les outils n'ont pas de panneau dédié).  <br /></td></tr>
 <tr class="memitem:a36f90c7ddc69068df41623c0e9cdfbfa" id="r_a36f90c7ddc69068df41623c0e9cdfbfa"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a36f90c7ddc69068df41623c0e9cdfbfa">PIXEL_PANEL_FOCUS_CATALOG_COUNT</a> = 5</td></tr>
@@ -1234,6 +1236,10 @@ Variables</h2></td></tr>
 <tr class="memitem:a6194b73bf7ba4768f2bbaccbfaeb72ea" id="r_a6194b73bf7ba4768f2bbaccbfaeb72ea"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a6194b73bf7ba4768f2bbaccbfaeb72ea">MECHANISM_CLIP_DANGER_BLINK_HARMLESS</a> = &quot;harmless&quot;</td></tr>
 <tr class="memitem:a98ca4f5688bc7745232e8eb5a8c6d789" id="r_a98ca4f5688bc7745232e8eb5a8c6d789"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a98ca4f5688bc7745232e8eb5a8c6d789">MECHANISM_CLIP_DANGER_BLINK_LETHAL</a> = &quot;lethal&quot;</td></tr>
 <tr class="memitem:ad6061faeaa0415f901323570684554a2" id="r_ad6061faeaa0415f901323570684554a2"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#ad6061faeaa0415f901323570684554a2">MECHANISM_CLIP_DANGER_MOVER_IDLE</a> = &quot;idle&quot;</td></tr>
+<tr class="memitem:ab1f6d3bb9654c55a42a467b93a6fc36f" id="r_ab1f6d3bb9654c55a42a467b93a6fc36f"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#ab1f6d3bb9654c55a42a467b93a6fc36f">MECHANISM_CLIP_KEY_PRESENT</a> = &quot;present&quot;</td></tr>
+<tr class="memitem:a7b70f6e57f2e0389dde592c1ae82a5bd" id="r_a7b70f6e57f2e0389dde592c1ae82a5bd"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a7b70f6e57f2e0389dde592c1ae82a5bd">MECHANISM_CLIP_KEY_COLLECTED</a> = &quot;collected&quot;</td></tr>
+<tr class="memitem:ac49c95d78f56bb5fcebbe7dedbacee04" id="r_ac49c95d78f56bb5fcebbe7dedbacee04"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#ac49c95d78f56bb5fcebbe7dedbacee04">MECHANISM_CLIP_LOCKED_DOOR_CLOSED</a> = &quot;closed&quot;</td></tr>
+<tr class="memitem:a4c1d8fca2d2a913317f6dfcec2db8698" id="r_a4c1d8fca2d2a913317f6dfcec2db8698"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a4c1d8fca2d2a913317f6dfcec2db8698">MECHANISM_CLIP_LOCKED_DOOR_OPEN</a> = &quot;open&quot;</td></tr>
 <tr class="memitem:a75cfef1e5eb0b5569ebd42c004d73ce3" id="r_a75cfef1e5eb0b5569ebd42c004d73ce3"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a75cfef1e5eb0b5569ebd42c004d73ce3">MISSING_TEXTURE_SIZE</a> = 16</td></tr>
 <tr class="memdesc:a75cfef1e5eb0b5569ebd42c004d73ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté, en pixels, du damier de repli généré par défaut (une case, <span class="tt">EX-ARCH-021</span>).  <br /></td></tr>
 <tr class="memitem:a7cc024ad45faf8aabf192a70d2090ac6" id="r_a7cc024ad45faf8aabf192a70d2090ac6"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a7cc024ad45faf8aabf192a70d2090ac6">MISSING_TEXTURE_CHECKER_SIZE</a> = 4</td></tr>
@@ -1283,7 +1289,7 @@ Variables</h2></td></tr>
 <tr class="memdesc:a58aec3b5e8b7ff780934f969eb35febb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de configurations de voisinage distinctes.  <br /></td></tr>
 <tr class="memitem:af2f4a1af04682540c1b84611a24aa42c" id="r_af2f4a1af04682540c1b84611a24aa42c"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#af2f4a1af04682540c1b84611a24aa42c">EDITOR_ACTION_COUNT</a> = 10</td></tr>
 <tr class="memdesc:af2f4a1af04682540c1b84611a24aa42c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'actions d'éditeur remappables (<span class="tt"><a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585" title="Action d&#39;éditeur logique, remappable indépendamment de la touche physique.">EditorAction</a></span>).  <br /></td></tr>
-<tr class="memitem:ab42b3bed825ef5b3664995a516c4eb8d" id="r_ab42b3bed825ef5b3664995a516c4eb8d"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#ab42b3bed825ef5b3664995a516c4eb8d">GAME_ACTION_COUNT</a> = 6</td></tr>
+<tr class="memitem:ab42b3bed825ef5b3664995a516c4eb8d" id="r_ab42b3bed825ef5b3664995a516c4eb8d"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#ab42b3bed825ef5b3664995a516c4eb8d">GAME_ACTION_COUNT</a> = 7</td></tr>
 <tr class="memdesc:ab42b3bed825ef5b3664995a516c4eb8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'actions de jeu remappables (<span class="tt"><a class="el" href="#a133516ef8002bd9e4d870db9494f5867" title="Action de jeu logique, remappable indépendamment de la touche physique qui la déclenche.">GameAction</a></span>).  <br /></td></tr>
 <tr class="memitem:aab59d64d595ba17a55cc07311285ba14" id="r_aab59d64d595ba17a55cc07311285ba14"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aab59d64d595ba17a55cc07311285ba14">GAMEPAD_BUTTON_COUNT</a> = 10</td></tr>
 <tr class="memdesc:aab59d64d595ba17a55cc07311285ba14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de boutons manette remappables (<span class="tt"><a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88" title="Bouton (ou direction) manette remappable à une action de jeu (EX-CTRL-002, LOT-30).">GamepadButton</a></span>).  <br /></td></tr>
@@ -1742,7 +1748,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Action de jeu logique, remappable indépendamment de la touche physique qui la déclenche. </p>
-<p>Miroir des six lectures de <span class="tt"><a class="el" href="PlayerInputMapper_8cpp.html">PlayerInputMapper.cpp</a></span>. Chaque action a une touche <b>unique</b> et pleinement remappable — aucun alias fixe : un alias câblé en dur sur une touche donnée entrerait en collision dès qu'une <b>autre</b> action est remappée sur cette même touche, les deux se déclenchant à la fois (silencieusement annulé pour une paire opposée comme Gauche/Droite, voir <span class="tt"><a class="el" href="PlayerInputMapper_8cpp.html">PlayerInputMapper.cpp</a></span>). </p>
+<p>Miroir des sept lectures de <span class="tt"><a class="el" href="PlayerInputMapper_8cpp.html">PlayerInputMapper.cpp</a></span>. Chaque action a une touche <b>unique</b> et pleinement remappable — aucun alias fixe : un alias câblé en dur sur une touche donnée entrerait en collision dès qu'une <b>autre</b> action est remappée sur cette même touche, les deux se déclenchant à la fois (silencieusement annulé pour une paire opposée comme Gauche/Droite, voir <span class="tt"><a class="el" href="PlayerInputMapper_8cpp.html">PlayerInputMapper.cpp</a></span>). </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a133516ef8002bd9e4d870db9494f5867ae8a98c6fabdea857c20c91e9bfd318ca" name="a133516ef8002bd9e4d870db9494f5867ae8a98c6fabdea857c20c91e9bfd318ca"></a>MoveLeft&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a133516ef8002bd9e4d870db9494f5867a78af9b7fcdf1574f729de1454e15257b" name="a133516ef8002bd9e4d870db9494f5867a78af9b7fcdf1574f729de1454e15257b"></a>MoveRight&#160;</td><td class="fielddoc"></td></tr>
@@ -1750,6 +1756,7 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a133516ef8002bd9e4d870db9494f5867ae2523957153e9b5b8defa89d26c2190b" name="a133516ef8002bd9e4d870db9494f5867ae2523957153e9b5b8defa89d26c2190b"></a>AimDown&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a133516ef8002bd9e4d870db9494f5867a101f693f72287a2819a364f64ca1c0ed" name="a133516ef8002bd9e4d870db9494f5867a101f693f72287a2819a364f64ca1c0ed"></a>Jump&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a133516ef8002bd9e4d870db9494f5867a3663598d5c5858b5a6040b1bbed4f187" name="a133516ef8002bd9e4d870db9494f5867a3663598d5c5858b5a6040b1bbed4f187"></a>Dash&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a133516ef8002bd9e4d870db9494f5867aefbc873e4634f3db63d62377d36e5f56" name="a133516ef8002bd9e4d870db9494f5867aefbc873e4634f3db63d62377d36e5f56"></a>Interact&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -1957,6 +1964,7 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29" name="a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29"></a>A&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a0d61f8370cad1d412f80b84d143e1257" name="a83c98e56e30eafa606048853f7962e48a0d61f8370cad1d412f80b84d143e1257"></a>C&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5" name="a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5"></a>D&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a3a3ea00cfc35332cedf6e5e9a32e94da" name="a83c98e56e30eafa606048853f7962e48a3a3ea00cfc35332cedf6e5e9a32e94da"></a>E&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a44c29edb103a2872f519ad0c9a0fdaaa" name="a83c98e56e30eafa606048853f7962e48a44c29edb103a2872f519ad0c9a0fdaaa"></a>P&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee" name="a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee"></a>Q&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48ae1e1d3d40573127e9ee0480caf1283d6" name="a83c98e56e30eafa606048853f7962e48ae1e1d3d40573127e9ee0480caf1283d6"></a>R&#160;</td><td class="fielddoc"></td></tr>
@@ -3563,7 +3571,7 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Une ligne par famille de <span class="tt"><a class="el" href="#a71400cfb82eb06125e98cf974b6dc1be" title="Les six familles de mécanismes à état dont l&#39;apparence est pilotée par un clip (LOT-47),...">MECHANISM_ANIMATION_TYPES</a></span>, dans cet ordre. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Une ligne par famille de <span class="tt"><a class="el" href="#a71400cfb82eb06125e98cf974b6dc1be" title="Les familles de mécanismes à état dont l&#39;apparence est pilotée par un clip (LOT-47),...">MECHANISM_ANIMATION_TYPES</a></span>, dans cet ordre. </dd></dl>
 
 </div>
 </div>
@@ -6205,7 +6213,7 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>true si <code class="param">type</code> est une cible de liaison (porte ou danger commuté). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true si <code class="param">type</code> est une cible de liaison (porte, danger commuté ou porte verrouillée, <span class="tt">EX-GP-023</span>). </dd></dl>
 
 </div>
 </div>
@@ -6239,7 +6247,7 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true pour <span class="tt">Door</span>, <span class="tt">Switch</span>, <span class="tt">PressurePlate</span>, <span class="tt">DangerSwitched</span>, <span class="tt">DangerBlink</span>, <span class="tt">DangerMover</span> ; false pour tout autre type (aucune demande de clip à produire). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true pour <span class="tt">Door</span>, <span class="tt">Switch</span>, <span class="tt">PressurePlate</span>, <span class="tt">DangerSwitched</span>, <span class="tt">DangerBlink</span>, <span class="tt">DangerMover</span>, <span class="tt"><a class="el" href="#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">Key</a></span>, <span class="tt">LockedDoor</span> (<span class="tt">EX-GP-023</span>, <span class="tt">LOT-63</span>) ; false pour tout autre type (aucune demande de clip à produire). </dd></dl>
 
 </div>
 </div>
@@ -6265,7 +6273,7 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>true si <code class="param">type</code> est un déclencheur de liaison (interrupteur ou plaque de pression). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true si <code class="param">type</code> est un déclencheur de liaison (interrupteur, plaque de pression ou clé, <span class="tt">EX-GP-023</span>). </dd></dl>
 
 </div>
 </div>
@@ -10332,7 +10340,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int hmi::GAME_ACTION_COUNT = 6</td>
+          <td class="memname">int hmi::GAME_ACTION_COUNT = 7</td>
         </tr>
       </table>
   </td>
@@ -10462,17 +10470,21 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">                                                          = {</div>
-<div class="line">    <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1">core::TileType::Door</a>,           <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b">core::TileType::Switch</a>,      <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86">core::TileType::PressurePlate</a>,</div>
-<div class="line">    <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875aa09137c172f1670a9e45c4e3826f71fb">core::TileType::DangerSwitched</a>, <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae24085adb8d13b6f13d9011fab1980de">core::TileType::DangerBlink</a>, <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a9be1e41bc76e39e2d71d0bc55947b66d">core::TileType::DangerMover</a>,</div>
+<div class="line">    <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1">core::TileType::Door</a>,          <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b">core::TileType::Switch</a>,</div>
+<div class="line">    <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86">core::TileType::PressurePlate</a>, <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875aa09137c172f1670a9e45c4e3826f71fb">core::TileType::DangerSwitched</a>,</div>
+<div class="line">    <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae24085adb8d13b6f13d9011fab1980de">core::TileType::DangerBlink</a>,   <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a9be1e41bc76e39e2d71d0bc55947b66d">core::TileType::DangerMover</a>,</div>
+<div class="line">    <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a897356954c2cd3d41b221e3f24f99bba">core::TileType::Key</a>,           <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6029de17465e002643abfb52e2cb4c97">core::TileType::LockedDoor</a>,</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86">core::TileType::PressurePlate</a></div><div class="ttdeci">@ PressurePlate</div><div class="ttdef"><b>Definition</b> TileType.h:78</div></div>
-<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a9be1e41bc76e39e2d71d0bc55947b66d"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a9be1e41bc76e39e2d71d0bc55947b66d">core::TileType::DangerMover</a></div><div class="ttdeci">@ DangerMover</div><div class="ttdef"><b>Definition</b> TileType.h:98</div></div>
-<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875aa09137c172f1670a9e45c4e3826f71fb"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875aa09137c172f1670a9e45c4e3826f71fb">core::TileType::DangerSwitched</a></div><div class="ttdeci">@ DangerSwitched</div><div class="ttdef"><b>Definition</b> TileType.h:99</div></div>
-<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b">core::TileType::Switch</a></div><div class="ttdeci">@ Switch</div><div class="ttdef"><b>Definition</b> TileType.h:76</div></div>
-<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ae24085adb8d13b6f13d9011fab1980de"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae24085adb8d13b6f13d9011fab1980de">core::TileType::DangerBlink</a></div><div class="ttdeci">@ DangerBlink</div><div class="ttdef"><b>Definition</b> TileType.h:100</div></div>
-<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1">core::TileType::Door</a></div><div class="ttdeci">@ Door</div><div class="ttdef"><b>Definition</b> TileType.h:77</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86">core::TileType::PressurePlate</a></div><div class="ttdeci">@ PressurePlate</div><div class="ttdef"><b>Definition</b> TileType.h:92</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a6029de17465e002643abfb52e2cb4c97"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6029de17465e002643abfb52e2cb4c97">core::TileType::LockedDoor</a></div><div class="ttdeci">@ LockedDoor</div><div class="ttdef"><b>Definition</b> TileType.h:116</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a897356954c2cd3d41b221e3f24f99bba"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a897356954c2cd3d41b221e3f24f99bba">core::TileType::Key</a></div><div class="ttdeci">@ Key</div><div class="ttdef"><b>Definition</b> TileType.h:115</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a9be1e41bc76e39e2d71d0bc55947b66d"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a9be1e41bc76e39e2d71d0bc55947b66d">core::TileType::DangerMover</a></div><div class="ttdeci">@ DangerMover</div><div class="ttdef"><b>Definition</b> TileType.h:112</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875aa09137c172f1670a9e45c4e3826f71fb"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875aa09137c172f1670a9e45c4e3826f71fb">core::TileType::DangerSwitched</a></div><div class="ttdeci">@ DangerSwitched</div><div class="ttdef"><b>Definition</b> TileType.h:113</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b">core::TileType::Switch</a></div><div class="ttdeci">@ Switch</div><div class="ttdef"><b>Definition</b> TileType.h:90</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ae24085adb8d13b6f13d9011fab1980de"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae24085adb8d13b6f13d9011fab1980de">core::TileType::DangerBlink</a></div><div class="ttdeci">@ DangerBlink</div><div class="ttdef"><b>Definition</b> TileType.h:114</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1">core::TileType::Door</a></div><div class="ttdeci">@ Door</div><div class="ttdef"><b>Definition</b> TileType.h:91</div></div>
 </div><!-- fragment -->
-<p>Les six familles de mécanismes à état dont l'apparence est pilotée par un clip (<span class="tt">LOT-47</span>), dans l'ordre où elles sont proposées par la section « Animations ». </p>
+<p>Les familles de mécanismes à état dont l'apparence est pilotée par un clip (<span class="tt">LOT-47</span>), dans l'ordre où elles sont proposées par la section « Animations ». </p>
 
 </div>
 </div>
@@ -10665,6 +10677,94 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">const char* hmi::MECHANISM_CLIP_DOOR_OPENING = &quot;opening&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7b70f6e57f2e0389dde592c1ae82a5bd" name="a7b70f6e57f2e0389dde592c1ae82a5bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b70f6e57f2e0389dde592c1ae82a5bd">&#9670;&#160;</a></span>MECHANISM_CLIP_KEY_COLLECTED</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* hmi::MECHANISM_CLIP_KEY_COLLECTED = &quot;collected&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab1f6d3bb9654c55a42a467b93a6fc36f" name="ab1f6d3bb9654c55a42a467b93a6fc36f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1f6d3bb9654c55a42a467b93a6fc36f">&#9670;&#160;</a></span>MECHANISM_CLIP_KEY_PRESENT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* hmi::MECHANISM_CLIP_KEY_PRESENT = &quot;present&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac49c95d78f56bb5fcebbe7dedbacee04" name="ac49c95d78f56bb5fcebbe7dedbacee04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac49c95d78f56bb5fcebbe7dedbacee04">&#9670;&#160;</a></span>MECHANISM_CLIP_LOCKED_DOOR_CLOSED</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* hmi::MECHANISM_CLIP_LOCKED_DOOR_CLOSED = &quot;closed&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4c1d8fca2d2a913317f6dfcec2db8698" name="a4c1d8fca2d2a913317f6dfcec2db8698"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c1d8fca2d2a913317f6dfcec2db8698">&#9670;&#160;</a></span>MECHANISM_CLIP_LOCKED_DOOR_OPEN</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* hmi::MECHANISM_CLIP_LOCKED_DOOR_OPEN = &quot;open&quot;</td>
         </tr>
       </table>
   </td>
@@ -11346,18 +11446,18 @@ Variables</h2></td></tr>
 <div class="line">    <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ac3788beeaeebff60bbe61cfec12b6f60">core::TileType::ConcaveUpRight</a>,   <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a87b7d5e6f98d176a866a072d25e63c55">core::TileType::ConcaveUpLeft</a>,</div>
 <div class="line">    <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a8d3cc14a525220bed75962c275dbb33a">core::TileType::ConcaveDownRight</a>, <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ac18882beab092f98847290af4d9d91d7">core::TileType::ConcaveDownLeft</a>,</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a20468175811d78065c822520dd14c54b"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a20468175811d78065c822520dd14c54b">core::TileType::SlopeDownRight</a></div><div class="ttdeci">@ SlopeDownRight</div><div class="ttdef"><b>Definition</b> TileType.h:86</div></div>
-<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a6963fec4d3928056fb763a8d4c82883b"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6963fec4d3928056fb763a8d4c82883b">core::TileType::RoundedUpLeft</a></div><div class="ttdeci">@ RoundedUpLeft</div><div class="ttdef"><b>Definition</b> TileType.h:83</div></div>
-<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a6d03d7bc46f5ed6091e390a1c7f49baf"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6d03d7bc46f5ed6091e390a1c7f49baf">core::TileType::RoundedDownLeft</a></div><div class="ttdeci">@ RoundedDownLeft</div><div class="ttdef"><b>Definition</b> TileType.h:89</div></div>
-<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a84e112227c7b90d17dcb8a6e1004843f"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a84e112227c7b90d17dcb8a6e1004843f">core::TileType::RoundedDownRight</a></div><div class="ttdeci">@ RoundedDownRight</div><div class="ttdef"><b>Definition</b> TileType.h:88</div></div>
-<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a87b7d5e6f98d176a866a072d25e63c55"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a87b7d5e6f98d176a866a072d25e63c55">core::TileType::ConcaveUpLeft</a></div><div class="ttdeci">@ ConcaveUpLeft</div><div class="ttdef"><b>Definition</b> TileType.h:91</div></div>
-<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a8d3cc14a525220bed75962c275dbb33a"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a8d3cc14a525220bed75962c275dbb33a">core::TileType::ConcaveDownRight</a></div><div class="ttdeci">@ ConcaveDownRight</div><div class="ttdef"><b>Definition</b> TileType.h:92</div></div>
-<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ab81d2eb0ab13b40ec1728b800be095df"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ab81d2eb0ab13b40ec1728b800be095df">core::TileType::SlopeUpLeft</a></div><div class="ttdeci">@ SlopeUpLeft</div><div class="ttdef"><b>Definition</b> TileType.h:81</div></div>
-<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875abcf1fc088fbcb56f1dd49a1e0c1d9ed7"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875abcf1fc088fbcb56f1dd49a1e0c1d9ed7">core::TileType::SlopeDownLeft</a></div><div class="ttdeci">@ SlopeDownLeft</div><div class="ttdef"><b>Definition</b> TileType.h:87</div></div>
-<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ac18882beab092f98847290af4d9d91d7"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ac18882beab092f98847290af4d9d91d7">core::TileType::ConcaveDownLeft</a></div><div class="ttdeci">@ ConcaveDownLeft</div><div class="ttdef"><b>Definition</b> TileType.h:93</div></div>
-<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ac3788beeaeebff60bbe61cfec12b6f60"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ac3788beeaeebff60bbe61cfec12b6f60">core::TileType::ConcaveUpRight</a></div><div class="ttdeci">@ ConcaveUpRight</div><div class="ttdef"><b>Definition</b> TileType.h:90</div></div>
-<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ad2cf32fa44b3bf07a5a273efbd0d4015"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ad2cf32fa44b3bf07a5a273efbd0d4015">core::TileType::SlopeUpRight</a></div><div class="ttdeci">@ SlopeUpRight</div><div class="ttdef"><b>Definition</b> TileType.h:80</div></div>
-<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ae818c3e2caa396d31600b85dc40f70e4"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae818c3e2caa396d31600b85dc40f70e4">core::TileType::RoundedUpRight</a></div><div class="ttdeci">@ RoundedUpRight</div><div class="ttdef"><b>Definition</b> TileType.h:82</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a20468175811d78065c822520dd14c54b"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a20468175811d78065c822520dd14c54b">core::TileType::SlopeDownRight</a></div><div class="ttdeci">@ SlopeDownRight</div><div class="ttdef"><b>Definition</b> TileType.h:100</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a6963fec4d3928056fb763a8d4c82883b"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6963fec4d3928056fb763a8d4c82883b">core::TileType::RoundedUpLeft</a></div><div class="ttdeci">@ RoundedUpLeft</div><div class="ttdef"><b>Definition</b> TileType.h:97</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a6d03d7bc46f5ed6091e390a1c7f49baf"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6d03d7bc46f5ed6091e390a1c7f49baf">core::TileType::RoundedDownLeft</a></div><div class="ttdeci">@ RoundedDownLeft</div><div class="ttdef"><b>Definition</b> TileType.h:103</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a84e112227c7b90d17dcb8a6e1004843f"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a84e112227c7b90d17dcb8a6e1004843f">core::TileType::RoundedDownRight</a></div><div class="ttdeci">@ RoundedDownRight</div><div class="ttdef"><b>Definition</b> TileType.h:102</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a87b7d5e6f98d176a866a072d25e63c55"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a87b7d5e6f98d176a866a072d25e63c55">core::TileType::ConcaveUpLeft</a></div><div class="ttdeci">@ ConcaveUpLeft</div><div class="ttdef"><b>Definition</b> TileType.h:105</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a8d3cc14a525220bed75962c275dbb33a"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a8d3cc14a525220bed75962c275dbb33a">core::TileType::ConcaveDownRight</a></div><div class="ttdeci">@ ConcaveDownRight</div><div class="ttdef"><b>Definition</b> TileType.h:106</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ab81d2eb0ab13b40ec1728b800be095df"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ab81d2eb0ab13b40ec1728b800be095df">core::TileType::SlopeUpLeft</a></div><div class="ttdeci">@ SlopeUpLeft</div><div class="ttdef"><b>Definition</b> TileType.h:95</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875abcf1fc088fbcb56f1dd49a1e0c1d9ed7"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875abcf1fc088fbcb56f1dd49a1e0c1d9ed7">core::TileType::SlopeDownLeft</a></div><div class="ttdeci">@ SlopeDownLeft</div><div class="ttdef"><b>Definition</b> TileType.h:101</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ac18882beab092f98847290af4d9d91d7"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ac18882beab092f98847290af4d9d91d7">core::TileType::ConcaveDownLeft</a></div><div class="ttdeci">@ ConcaveDownLeft</div><div class="ttdef"><b>Definition</b> TileType.h:107</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ac3788beeaeebff60bbe61cfec12b6f60"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ac3788beeaeebff60bbe61cfec12b6f60">core::TileType::ConcaveUpRight</a></div><div class="ttdeci">@ ConcaveUpRight</div><div class="ttdef"><b>Definition</b> TileType.h:104</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ad2cf32fa44b3bf07a5a273efbd0d4015"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ad2cf32fa44b3bf07a5a273efbd0d4015">core::TileType::SlopeUpRight</a></div><div class="ttdeci">@ SlopeUpRight</div><div class="ttdef"><b>Definition</b> TileType.h:94</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ae818c3e2caa396d31600b85dc40f70e4"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae818c3e2caa396d31600b85dc40f70e4">core::TileType::RoundedUpRight</a></div><div class="ttdeci">@ RoundedUpRight</div><div class="ttdef"><b>Definition</b> TileType.h:96</div></div>
 </div><!-- fragment -->
 <p>Les douze types de tuiles à silhouette <b>inclinée ou courbe</b>. </p>
 <p>Pentes et arrondis, convexes et concaves, au sol comme au plafond (<span class="tt">EX-GP-003</span>, <span class="tt">EX-GP-004</span>, <span class="tt">EX-GP-006</span>, <span class="tt">EX-GP-007</span>). Seule liste à parcourir : <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span> n'est pas énumérable en C++, et ces douze types sont les seuls dont l'apparence n'est pas un carré plein. </p>

@@ -94,7 +94,7 @@ $(function(){initNavTree('lot-46-tache-01-modele-clip.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-46-moteur-animation_2tache-01-modele-clip"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-46.html#md_Lot_2LOT-46-moteur-animation_2epic" title="Lot/LOT-46-moteur-animation/epic.md">LOT-46</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2107"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2110"></a>
 Contexte</h1>
 <p>L'animation actuelle est <b>entièrement figée dans le code</b> :</p>
 <ul>
@@ -104,7 +104,7 @@ Contexte</h1>
 <li>tous les clips bouclent, sans exception possible.</li>
 </ul>
 <p>Animer une porte reviendrait donc à ajouter des valeurs à un <span class="tt">enum</span> de <span class="tt">Core</span> et des constantes de durée pour chaque objet du jeu — c'est-à-dire à faire de la simulation un catalogue d'apparences, en contradiction avec <span class="tt">EX-ARCH-012</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2108"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2111"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Modèle de clip</b> (données pures, <span class="tt">Core</span>) : un nom, une suite d'indices d'images, une durée par image, et un mode de fin — <b>bouclé</b> ou <b>joué une fois</b> avec clip suivant.</li>
@@ -113,33 +113,33 @@ Travail à réaliser</h1>
 <li><b>Suppression des constantes figées</b> de <span class="tt"><a class="el" href="Animation_8h.html" title="Composant d&#39;état d&#39;animation par séquence d&#39;images (données pures).">Animation.h</a></span> (nombres d'images et durées), remplacées par les données des clips.</li>
 <li><b>Accès sûr</b> : demander un clip inexistant ne doit ni planter ni lever — repli déterministe sur un clip par défaut ou la première image.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2109"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2112"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Animation_8h.html" title="Composant d&#39;état d&#39;animation par séquence d&#39;images (données pures).">Source/Core/Ecs/Components/Animation.h</a></span>, <span class="tt">Source/Core/Ecs/AnimationClip.{h,cpp}</span> (nouveau).</li>
 <li><span class="tt">Source/Core/CMakeLists.txt</span>.</li>
 <li><span class="tt"><a class="el" href="test__animation__clip_8cpp.html" title="Tests unitaires du modèle de clip d&#39;animation (core::AnimationClip/core::ClipSet, LOT-46 TACHE-01) : ...">Source/Test/Unit/Core/Ecs/test_animation_clip.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2110"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2113"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Construction et interrogation d'un jeu de clips : clip existant, clip inexistant → repli.</li>
 <li>Un clip à une seule image, un clip à durées inégales, un clip joué une fois avec clip suivant.</li>
 <li>Données pures : ni GPU, ni fichier, ni Qt.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2111"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2114"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas introduire de machine à états.</b> Le choix du clip reste une <b>projection</b> de l'état de simulation, comme l'actuel <span class="tt">targetClip()</span> ; des conditions de transition déclaratives seraient une abstraction non justifiée pour une dizaine de clips, et déplaceraient de la logique de gameplay dans des fichiers de données.</li>
 <li>Le nom de clip est une chaîne : prévoir dès maintenant comment éviter les comparaisons de chaînes à chaque pas fixe (résolution en index à la construction, par exemple).</li>
 <li><span class="tt">Core</span> ne doit connaître ni la spritesheet, ni la taille des images, ni le fichier d'origine : un clip décrit des <b>indices</b>, la traduction en région de texture est le travail de <span class="tt">HMI</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2112"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2115"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Un clip est une donnée constructible et interrogeable ; <span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...">core::Animation</a></span> n'a plus aucune constante de durée ni de nombre d'images ; l'accès à un clip inexistant est sûr ; tests purs verts ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2113"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2116"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-005</span> (animations décrites par des données) ; amende <span class="tt">EX-REN-012</span> (animations par séquence d'images) ; réutilise <span class="tt">EX-ARCH-012</span> (<span class="tt">Core</span> ignore le rendu), <span class="tt">EX-NFR-010</span> (testable sans GPU). </p>
 </div></div><!-- contents -->

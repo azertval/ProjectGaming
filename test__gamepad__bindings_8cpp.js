@@ -1,6 +1,7 @@
 var test__gamepad__bindings_8cpp =
 [
     [ "TEST", "test__gamepad__bindings_8cpp.html#ac7dfa200f86c748154d8e93d1a6aeac4", null ],
+    [ "TEST", "test__gamepad__bindings_8cpp.html#aebc5a7b94d1aac564eeb728e8f9134ca", null ],
     [ "TEST", "test__gamepad__bindings_8cpp.html#a705b1f54fac495d00e565877b1dac977", null ],
     [ "TEST", "test__gamepad__bindings_8cpp.html#a9a48593fd691ef318e81f2aa7935e60f", null ],
     [ "TEST", "test__gamepad__bindings_8cpp.html#a90c831d400bb01fb4182a269e3664c0a", null ],

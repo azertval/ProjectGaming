@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-08-tache-01-composants-personnage.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-08-gameplay-personnage_2tache-01-composants-personnage"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-08.html#md_Lot_2LOT-08-gameplay-personnage_2epic" title="Lot/LOT-08-gameplay-personnage/epic.md">LOT-08</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md708"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md711"></a>
 Contexte</h1>
 <p>La physique (TACHE-03) opère sur des <b>données pures</b> (<span class="tt">EX-ARCH-011</span>). Avant de la coder, il faut décrire le personnage comme un jeu de composants et définir la <b>frontière d'entrée</b> neutre que <span class="tt">HMI</span> remplira (TACHE-05) et que <span class="tt">Core</span> consommera, sans que <span class="tt">Core</span> ne dépende de <span class="tt">HMI</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md709"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md712"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">Collider</span></b> (composant) : boîte englobante <b>AABB</b> en unités monde (<span class="tt">Vector2 size</span>, ancrée sur la position du <span class="tt">Transform</span>). Donnée pure.</li>
@@ -105,32 +105,32 @@ Travail à réaliser</h1>
 <li><b><span class="tt">PlayerInput</span></b> (struct pure, <span class="tt">Core/Ecs</span> ou <span class="tt">Core/Physics</span>) : <b>intention</b> de déplacement neutre — <span class="tt">float moveX</span> dans <span class="tt">[-1, 1]</span> (négatif = gauche, positif = droite). Aucune notion de touche ni de manette : c'est le contrat que <span class="tt">HMI</span> traduit (<span class="tt">EX-CTRL-010</span>). Un champ de saut n'est <b>pas</b> ajouté ici (hors périmètre), mais la structure est prévue pour évoluer.</li>
 <li>Réutilise <span class="tt">Transform</span> (position) et <span class="tt">Velocity</span> (vitesse) existants (LOT-03).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md710"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md713"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Collider_8h.html" title="Composant de boîte de collision (AABB) d&#39;une entité (données pures).">Source/Core/Ecs/Components/Collider.h</a></span>, <span class="tt"><a class="el" href="Player_8h.html" title="Composant marqueur du personnage jouable (données pures).">Player.h</a></span> (nouveaux).</li>
 <li><span class="tt"><a class="el" href="PlayerInput_8h.html" title="Intention de déplacement du personnage, neutre vis-à-vis de l&#39;entrée physique.">Source/Core/Physics/PlayerInput.h</a></span> (nouveau) — ou <span class="tt">Core/Ecs/Components/</span> selon cohérence.</li>
 <li><span class="tt">Source/Core/CMakeLists.txt</span> (si sources), <span class="tt">Source/Test/CMakeLists.txt</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md711"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md714"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Valeurs par défaut cohérentes (<span class="tt">Collider::size</span> nul, <span class="tt">Player::grounded == false</span>, <span class="tt">PlayerInput::moveX == 0</span>).</li>
 <li>Construction/agrégation des composants (structs agrégats), lecture des champs.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md712"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md715"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Données pures</b> : aucun type DirectX, aucune logique, aucun accès fichier ni <span class="tt">&lt;Windows.h&gt;</span>.</li>
 <li><span class="tt">PlayerInput</span> doit rester <b>agnostique de l'entrée physique</b> : c'est ce qui rend la simulation testable et permettra manette/remappage plus tard sans toucher <span class="tt">Core</span>.</li>
 <li>Repère du projet : origine <b>haut-gauche</b>, <span class="tt">[colonne, ligne]</span>, <span class="tt">y</span> croissant vers le bas — la gravité pousse donc vers les <span class="tt">y</span> <b>positifs</b> (cohérent avec <span class="tt">EX-ARCH-020</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md713"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md716"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Composants et <span class="tt">PlayerInput</span> définis, documentés (Doxygen en en-tête) et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md714"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md717"></a>
 Exigences</h1>
 <p><span class="tt">EX-ARCH-011</span>, <span class="tt">EX-CTRL-010</span>, <span class="tt">EX-NFR-010</span>. </p>
 </div></div><!-- contents -->

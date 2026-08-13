@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-05-tache-06-cablage-world-demo.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-05-rendu-2d_2tache-06-cablage-world-demo"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-05.html#md_Lot_2LOT-05-rendu-2d_2epic" title="Lot/LOT-05-rendu-2d/epic.md">LOT-05</a> · <b>Emplacement :</b> <span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md573"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md576"></a>
 Contexte</h1>
 <p>Tâche d'assemblage. Aujourd'hui la boucle de <span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span> a un emplacement de mise à jour <b>vide</b> (« arrive au LOT-03 ») et n'affiche rien. On y branche le <span class="tt">World</span> et le rendu, et on construit une petite scène pour <b>voir</b> le résultat.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md574"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md577"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Instancier un <span class="tt"><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">core::World</a></span>, y enregistrer les systèmes de simulation (au moins le <span class="tt">MovementSystem</span> de démo), et appeler <span class="tt">world.update(fixedDelta)</span> pour <b>chaque pas fixe</b> restitué par <span class="tt">FixedTimestep</span> (remplace le <span class="tt">// vide</span>).</li>
@@ -105,32 +105,32 @@ Travail à réaliser</h1>
 <li><b>Scène de démonstration</b> codée en dur : créer quelques entités formant une <b>grille de tuiles</b> (<span class="tt">Transform</span> + <span class="tt">Sprite</span> de couche fond) et <b>un sprite</b> mobile (couche entités, avec <span class="tt">Velocity</span> pour le voir bouger via le <span class="tt">MovementSystem</span>).</li>
 <li>Répercuter le redimensionnement sur la caméra et la swap chain.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md575"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md578"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span>.</li>
 <li>Éventuel petit assembleur de scène de démo (<span class="tt">Source/HMI/...</span>), sinon inline dans <span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md576"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md579"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>L'exécutable ouvre une fenêtre affichant la grille de tuiles et le sprite ; le sprite <b>se déplace</b> (simulation à pas fixe active).</li>
 <li>Le déplacement est <b>déterministe</b> (même durée simulée → même position).</li>
 <li>Fermeture propre (croix / Échap) ; aucune fuite ni erreur au redimensionnement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md577"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md580"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Séparation</b> claire : la simulation (<span class="tt">World::update</span>) précède le rendu (lecture seule) ; le rendu ne fait pas avancer la logique.</li>
 <li>Scène <b>codée en dur</b> : le chargement depuis un fichier de niveau est un lot ultérieur.</li>
 <li>Vérifier le rendu réel de bout en bout (lancer l'exécutable), pas seulement la compilation.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md578"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md581"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Chaîne complète <b>ECS → simulation à pas fixe → rendu</b> visible et déterministe ; tous les critères d'acceptation de l'<a class="el" href="lot-05.html#md_Lot_2LOT-05-rendu-2d_2epic" title="Lot/LOT-05-rendu-2d/epic.md">epic</a> satisfaits ; build <span class="tt">/W4 /WX</span>, CI verte, Doxygen et <span class="tt">CHANGELOG.md</span> à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md579"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md582"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-020</span>, <span class="tt">EX-REN-021</span>, <span class="tt">EX-REN-022</span>, <span class="tt">EX-ARCH-030</span>, <span class="tt">EX-NFR-002</span>. </p>
 </div></div><!-- contents -->

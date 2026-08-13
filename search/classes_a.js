@@ -8,5 +8,6 @@ var searchData=
   ['mechanismeventstate_5',['MechanismEventState',['../structhmi_1_1MechanismEventState.html',1,'hmi']]],
   ['mechanismvisualstate_6',['MechanismVisualState',['../structhmi_1_1MechanismVisualState.html',1,'hmi']]],
   ['memorylogsink_7',['MemoryLogSink',['../classcore_1_1MemoryLogSink.html',1,'core']]],
-  ['movementsystem_8',['MovementSystem',['../classcore_1_1MovementSystem.html',1,'core']]]
+  ['movementsystem_8',['MovementSystem',['../classcore_1_1MovementSystem.html',1,'core']]],
+  ['movingplatformconfig_9',['MovingPlatformConfig',['../structcore_1_1MovingPlatformConfig.html',1,'core']]]
 ];

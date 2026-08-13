@@ -110,6 +110,12 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:abcac0b75aeffc17a50a48e9a6208c1e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intention de <b>visée verticale</b> (pour la direction du dash) : -1 haut, +1 bas, 0.  <br /></td></tr>
 <tr class="memitem:a554649f1780708614de0ffad89e7c076" id="r_a554649f1780708614de0ffad89e7c076"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a554649f1780708614de0ffad89e7c076">dashPressed</a> = false</td></tr>
 <tr class="memdesc:a554649f1780708614de0ffad89e7c076"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>Dash</b> vient d'être pressé cette frame (front montant) — action dédiée (<span class="tt">EX-CTRL-013</span>).  <br /></td></tr>
+<tr class="memitem:a82259f11fc02e6548e64cbdf2a2acae9" id="r_a82259f11fc02e6548e64cbdf2a2acae9"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a82259f11fc02e6548e64cbdf2a2acae9">interactPressed</a> = false</td></tr>
+<tr class="memdesc:a82259f11fc02e6548e64cbdf2a2acae9"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>Interagir</b> vient d'être pressée cette frame (front montant) — action dédiée (<span class="tt">EX-CTRL-022</span>), complète l'activation par contact des mécanismes sans la remplacer.  <br /></td></tr>
+<tr class="memitem:a4bbea3e0e16a22ae2486edab64d61999" id="r_a4bbea3e0e16a22ae2486edab64d61999"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a4bbea3e0e16a22ae2486edab64d61999">interactHeld</a> = false</td></tr>
+<tr class="memdesc:a4bbea3e0e16a22ae2486edab64d61999"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>Interagir</b> maintenue.  <br /></td></tr>
+<tr class="memitem:a548432079d9a6adff1b9f2032a35e72b" id="r_a548432079d9a6adff1b9f2032a35e72b"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a548432079d9a6adff1b9f2032a35e72b">interactReleased</a> = false</td></tr>
+<tr class="memdesc:a548432079d9a6adff1b9f2032a35e72b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>Interagir</b> vient d'être relâchée cette frame (front descendant).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><b>Intention</b> de déplacement transmise à la physique, dissociée de toute touche. </p>
@@ -128,6 +134,54 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p><b>Dash</b> vient d'être pressé cette frame (front montant) — action dédiée (<span class="tt">EX-CTRL-013</span>). </p>
+
+</div>
+</div>
+<a id="a4bbea3e0e16a22ae2486edab64d61999" name="a4bbea3e0e16a22ae2486edab64d61999"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bbea3e0e16a22ae2486edab64d61999">&#9670;&#160;</a></span>interactHeld</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::PlayerInput::interactHeld = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><b>Interagir</b> maintenue. </p>
+
+</div>
+</div>
+<a id="a82259f11fc02e6548e64cbdf2a2acae9" name="a82259f11fc02e6548e64cbdf2a2acae9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82259f11fc02e6548e64cbdf2a2acae9">&#9670;&#160;</a></span>interactPressed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::PlayerInput::interactPressed = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><b>Interagir</b> vient d'être pressée cette frame (front montant) — action dédiée (<span class="tt">EX-CTRL-022</span>), complète l'activation par contact des mécanismes sans la remplacer. </p>
+
+</div>
+</div>
+<a id="a548432079d9a6adff1b9f2032a35e72b" name="a548432079d9a6adff1b9f2032a35e72b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a548432079d9a6adff1b9f2032a35e72b">&#9670;&#160;</a></span>interactReleased</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::PlayerInput::interactReleased = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><b>Interagir</b> vient d'être relâchée cette frame (front descendant). </p>
 
 </div>
 </div>

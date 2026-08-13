@@ -4,6 +4,7 @@ var Level_8h =
     [ "core::DangerLink", "structcore_1_1DangerLink.html", "structcore_1_1DangerLink" ],
     [ "core::DangerMoverConfig", "structcore_1_1DangerMoverConfig.html", "structcore_1_1DangerMoverConfig" ],
     [ "core::DangerBlinkConfig", "structcore_1_1DangerBlinkConfig.html", "structcore_1_1DangerBlinkConfig" ],
+    [ "core::MovingPlatformConfig", "structcore_1_1MovingPlatformConfig.html", "structcore_1_1MovingPlatformConfig" ],
     [ "core::TileTextureOverride", "structcore_1_1TileTextureOverride.html", "structcore_1_1TileTextureOverride" ],
     [ "core::Level", "classcore_1_1Level.html", "classcore_1_1Level" ],
     [ "core::DangerMoverAxis", "namespacecore.html#a691dfee41b7946ec78288271f8925d51", [

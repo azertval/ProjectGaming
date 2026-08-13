@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-58-tache-03-clang-tidy.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-58-verification-release-analyse_2tache-03-clang-tidy"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-58.html#md_Lot_2LOT-58-verification-release-analyse_2epic" title="Lot/LOT-58-verification-release-analyse/epic.md">LOT-58</a> · <b>Emplacement :</b> <span class="tt">CMakeLists.txt</span>, <span class="tt">.clang-tidy</span>, <span class="tt">.github/workflows</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2599"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2602"></a>
 Contexte</h1>
 <p><span class="tt">.clang-tidy</span> est un fichier sérieux : <span class="tt">bugprone-*</span>, <span class="tt">cppcoreguidelines-*</span>, <span class="tt">modernize-*</span>, <span class="tt">performance-*</span>, <span class="tt">readability-*</span>, et toute la table de nommage du projet (namespaces en <span class="tt">lower_case</span>, membres privés préfixés <span class="tt">_</span>, <span class="tt">constexpr</span> en <span class="tt">UPPER_CASE</span>…). <span class="tt"><a class="el" href="conventions_8md.html">conventions.md</a></span> le présente comme de l'outillage « en place », et <span class="tt"><a class="el" href="exigences-non-fonctionnelles_8md.html">exigences-non-fonctionnelles.md</a></span> s'appuie dessus pour justifier que les exigences transverses sont tenues.</p>
 <p>Il n'est exécuté <b>nulle part</b> : aucun <span class="tt">CXX_CLANG_TIDY</span> dans le CMake, aucun job CI, aucune mention dans <span class="tt">CONTRIBUTING.md</span> parmi les étapes avant PR. Sur 61 000 lignes, il n'a jamais rien signalé — pas parce que le code est parfait, mais parce qu'on ne le lui a jamais demandé.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2600"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2603"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Produire <span class="tt">compile_commands.json</span></b> : <span class="tt">CMAKE_EXPORT_COMPILE_COMMANDS=ON</span> sur le preset Ninja (le générateur Visual Studio ne le produit pas).</li>
@@ -108,7 +108,7 @@ Travail à réaliser</h1>
 <li><b>Ajuster <span class="tt">.clang-tidy</span> si nécessaire</b>, en documentant chaque désactivation par sa raison — le fichier en donne déjà l'exemple pour <span class="tt">modernize-use-trailing-return-type</span> et les nombres magiques.</li>
 <li><b>Ne pas analyser les dépendances</b> : <span class="tt">HeaderFilterRegex: 'Source/.*'</span> est déjà correct, vérifier qu'il tient face aux en-têtes générés par Qt (<span class="tt">moc_*</span>, <span class="tt">ui_*</span>), qui doivent être exclus.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2601"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2604"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">CMakePresets.json</span> — export des commandes de compilation.</li>
@@ -117,14 +117,14 @@ Fichiers impactés</h1>
 <li><span class="tt">CONTRIBUTING.md</span> — l'étape existe dans la liste avant PR.</li>
 <li>Sources corrigées lors du triage.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2602"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2605"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Test négatif</b> : un code violant une règle d'une famille bloquante (un membre privé sans préfixe <span class="tt">_</span>, par exemple) fait échouer le job.</li>
 <li>Le job passe sur l'état de <span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span> après triage.</li>
 <li>Les en-têtes générés par Qt et le contenu de <span class="tt">External/</span> ne sont pas analysés — vérifié sur la sortie, pas supposé.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2603"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2606"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Attendre un mur au premier lancement.</b> <span class="tt">cppcoreguidelines-*</span> et <span class="tt">readability-*</span> sur un projet de cette taille produisent des centaines de remontées, dont beaucoup sont du bruit sur du code délibéré. Le rendre bloquant d'emblée conduit à le désactiver dans la semaine ; c'est le seul vrai risque de la tâche.</li>
@@ -132,7 +132,7 @@ Points d'attention</h1>
 <li>Le job tourne sur Linux (<span class="tt">clang-tidy</span> y est trivial à installer) mais le code est Windows/MSVC : les en-têtes Direct3D et Windows ne seront pas disponibles. Deux options — restreindre l'analyse aux sources sans dépendance système (celles déjà compilées dans <span class="tt">UnitTests</span>, qui sont nombreuses), ou exécuter sur <span class="tt">windows-2022</span> avec <span class="tt">clang-tidy</span> de l'installation LLVM. <b>Trancher à l'implémentation et documenter le choix.</b></li>
 <li>Le triage produit des corrections mécaniques : les faire dans des commits séparés du câblage, pour qu'une régression reste bissectable.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2604"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2607"></a>
 État du triage (LOT-58, passe complète sur 129 fichiers <span class="tt">Source/*.cpp</span> hors <span class="tt">Source/Test</span>)</h1>
 <ul>
 <li><b>Choix tranché</b> : job sur <span class="tt">windows-2022</span>, LLVM installé via Chocolatey et <b>épinglé</b> (<span class="tt">LLVM_VERSION</span> dans <span class="tt">ci.yml</span>, même raison que <span class="tt">DOXYGEN_VERSION</span>) — le code dépend de Direct3D 11 et de <span class="tt">Windows.h</span>, indisponibles sous Linux.</li>
@@ -141,7 +141,7 @@ Points d'attention</h1>
 <li><b>Limite connue de la vérification locale</b> : 17 fichiers (<span class="tt"><a class="el" href="SpriteBatch_8cpp.html">SpriteBatch.cpp</a></span>, <span class="tt"><a class="el" href="GameViewport_8cpp.html">GameViewport.cpp</a></span>, <span class="tt"><a class="el" href="Camera2D_8cpp.html">Camera2D.cpp</a></span>, <span class="tt"><a class="el" href="MainMenu_8cpp.html">MainMenu.cpp</a></span>, <span class="tt"><a class="el" href="MainWindow_8cpp.html">MainWindow.cpp</a></span>, <span class="tt"><a class="el" href="OptionsPage_8cpp.html">OptionsPage.cpp</a></span>…) déclenchent une erreur de compilation à l'analyse (<span class="tt">cpuid.h</span> introuvable depuis <span class="tt">DirectXMath.h</span> en mode <span class="tt">clang-cl</span>, <span class="tt">ui_*.h</span> généré par AUTOUIC absent du <span class="tt">compile_commands.json</span> local) : clang-tidy <b>récupère</b> et continue d'analyser le reste du fichier (confirmé sur <span class="tt"><a class="el" href="SpriteBatch_8cpp.html">SpriteBatch.cpp</a></span>, dont les 5 remontées <span class="tt">invalid-enum-default-initialization</span> ont bien été détectées malgré l'erreur), mais la couverture de ces fichiers n'est pas garantie à 100 % en local.</li>
 <li><b>Confirmé en CI (branche <span class="tt">fix/clang-tidy-triage</span>)</b> : le job <span class="tt">clang-tidy</span> ne lançait aucun build avant l'analyse (seulement <span class="tt">cmake</span> de configuration), donc AUTOUIC ne générait jamais les <span class="tt">ui_*.h</span> — chaque fichier avec un formulaire <span class="tt">.ui</span> (<span class="tt"><a class="el" href="MainWindow_8cpp.html">MainWindow.cpp</a></span>, <span class="tt"><a class="el" href="DecorsPanel_8cpp.html">DecorsPanel.cpp</a></span>…) échouait avec « file not found », une erreur de configuration CI et non un défaut du code. Corrigé par l'ajout d'une étape <span class="tt">cmake --build</span> entre la configuration et l'analyse.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2605"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2608"></a>
 Complément (branche <span class="tt">fix/clang-tidy-triage</span>, hors budget initial de ce lot)</h2>
 <p>Le triage complet des familles <span class="tt">readability-*</span>/<span class="tt">cppcoreguidelines-*</span>/<span class="tt">modernize-*</span>/ <span class="tt">performance-*</span>, explicitement laissé de côté ci-dessus (998/704/531/21 remontées à l'époque), a été fait dans un second temps :</p><ul>
 <li><b>Phase mécanique</b> : ~1050 remontées sur 18 checks sûrs et sans ambiguïté sémantique (suffixes de littéraux, initialiseurs désignés, parenthèses, accolades, <span class="tt">auto</span>, <span class="tt">std::ranges</span>, initialisation de membres/variables, <span class="tt">const</span>/<span class="tt">static</span>…) corrigées par <span class="tt">clang-tidy --fix</span>, revues et vérifiées compilables une par une.</li>
@@ -151,13 +151,13 @@ Complément (branche <span class="tt">fix/clang-tidy-triage</span>, hors budget 
 <li><b>Limite d'environnement découverte pendant ce travail</b> : le clang-tidy 18.1.8 épinglé par la CI ne compile pas les en-têtes MSVC de ce poste de développement (toolset trop récent pour ce clang, <span class="tt">__builtin_verbose_trap</span> absent de clang 18) — tout ce complément a donc été vérifié avec le clang-tidy 22.1.3 fourni par Visual Studio (celui qui correspond réellement à ce toolset), à confirmer sur la première exécution CI de la branche.</li>
 <li><b>Rescan de confirmation</b> : une fois les trois passes ci-dessus posées, un scan complet a été relancé pour vérifier l'absence de régression. Il a fait remonter quatre points mineurs, tous causés par ce complément lui-même (jamais par du code préexistant) : des listes d'initialisation désignées non exhaustives dans <span class="tt"><a class="el" href="AnimationCatalog_8cpp.html">AnimationCatalog.cpp</a></span> (élevées en erreur par clang, coupant l'analyse du reste du fichier), un <span class="tt">std::array</span> non initialisé dans <span class="tt"><a class="el" href="ExecutableDirectory_8cpp.html">ExecutableDirectory.cpp</a></span>, un septième idiome à documenter (<span class="tt">avoid-const-or-ref-data-members</span>, 12 remontées sur un seul "parameter object" de références dans <span class="tt"><a class="el" href="LevelLoader_8cpp.html">LevelLoader.cpp</a></span>), et deux derniers tableaux C dans <span class="tt"><a class="el" href="MainWindow_8cpp.html">MainWindow.cpp</a></span>. Tous corrigés et revérifiés.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2606"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2609"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">clang-tidy</span> s'exécute sur chaque PR, au moins <span class="tt">bugprone-*</span> est à zéro et bloquant, le reste est consigné avec sa raison, une violation est démontrée refusée, <span class="tt">CONTRIBUTING.md</span> dit la vérité.</li>
 <li>Vérifié localement : test négatif (division entière assignée à un flottant, <span class="tt">bugprone-integer-division</span>) fait échouer <span class="tt">clang-tidy</span> (code de sortie 1) tandis qu'une remontée <span class="tt">readability-math-missing-parentheses</span> dans le même fichier reste un avertissement non bloquant — la politique par famille fonctionne comme prévu. Retiré après vérification.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2607"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2610"></a>
 Exigences</h1>
 <p><span class="tt">EX-NFR-024</span> (analyse statique vérifiée automatiquement) ; réutilise <span class="tt">EX-NFR-012</span> (conventions), <span class="tt">EX-NFR-013</span> (sans avertissement), <span class="tt">EX-NFR-022</span> (CI). </p>
 </div></div><!-- contents -->

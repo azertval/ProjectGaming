@@ -5,6 +5,7 @@ var test__level__writer_8cpp =
     [ "TEST", "test__level__writer_8cpp.html#adbcd37e977093979b380dcb4e89223c1", null ],
     [ "TEST", "test__level__writer_8cpp.html#aa8d67496fbeca91cb650819de1eff770", null ],
     [ "TEST", "test__level__writer_8cpp.html#af35896f7efd723541c3ff4bb55ba2e6d", null ],
+    [ "TEST", "test__level__writer_8cpp.html#a4c665b5e760d7ba0fce6a73ee60d1802", null ],
     [ "TEST", "test__level__writer_8cpp.html#acd74726ff284246b6b7c4df612ac5a23", null ],
     [ "TEST", "test__level__writer_8cpp.html#ab8da6d2ae8b2f07e8fd969752e39c0df", null ],
     [ "TEST", "test__level__writer_8cpp.html#a9c97557731a891e08890b707fd5284a4", null ],

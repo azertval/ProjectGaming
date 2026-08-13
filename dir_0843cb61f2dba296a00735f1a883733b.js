@@ -5,6 +5,7 @@ var dir_0843cb61f2dba296a00735f1a883733b =
     [ "AabbVsAabb.h", "AabbVsAabb_8h.html", "AabbVsAabb_8h" ],
     [ "PhysicsConfig.h", "PhysicsConfig_8h.html", "PhysicsConfig_8h" ],
     [ "PhysicsLog.h", "PhysicsLog_8h.html", "PhysicsLog_8h" ],
+    [ "PlatformSample.h", "PlatformSample_8h.html", "PlatformSample_8h" ],
     [ "PlayerInput.h", "PlayerInput_8h.html", "PlayerInput_8h" ],
     [ "PlayerSpawn.h", "PlayerSpawn_8h.html", "PlayerSpawn_8h" ],
     [ "SlopeGeometry.cpp", "SlopeGeometry_8cpp.html", "SlopeGeometry_8cpp" ],

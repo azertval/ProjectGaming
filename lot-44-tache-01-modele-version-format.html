@@ -94,12 +94,12 @@ $(function(){initNavTree('lot-44-tache-01-modele-version-format.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-44-fond-de-niveau_2tache-01-modele-version-format"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-44.html#md_Lot_2LOT-44-fond-de-niveau_2epic" title="Lot/LOT-44-fond-de-niveau/epic.md">LOT-44</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Levels</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2045"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2048"></a>
 Contexte</h1>
 <p>C'est la <b>première</b> extension de <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a></span> du programme d'habillage, et elle en installe le patron pour les deux suivantes (texture par case en LOT-45, décors en LOT-49).</p>
 <p>Deux champs y sont ajoutés ensemble parce qu'ils ont exactement la même nature — une chaîne optionnelle désignant une ressource de présentation : l'asset de <b>fond</b> et le nom du <b>jeu de skins</b> du niveau (<span class="tt">EX-EDIT-024</span>, dont le format a été posé en LOT-42 sans pouvoir être rattaché à un niveau).</p>
 <p>S'y ajoute le <b>numéro de version</b> du format (<span class="tt">EX-LVL-005</span>) : trois lots vont modifier le schéma JSON, et l'introduire au premier changement coûte un champ, l'introduire au troisième coûte une migration.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2046"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2049"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a></span></b> : deux accesseurs <span class="tt">std::optional&lt;std::string&gt;</span> — asset de fond, nom du jeu de skins. Le <span class="tt">Level</span> reste immuable.</li>
@@ -108,13 +108,13 @@ Travail à réaliser</h1>
 <li><b><span class="tt">LevelLoader</span></b> : lit <span class="tt">"version"</span> ; un fichier <b>sans</b> version est traité comme la version initiale, <b>sans erreur ni avertissement</b>. Une version <b>supérieure</b> à celle gérée est signalée comme une erreur exploitable (<span class="tt">LevelValidationError</span>) — c'est l'unique raison d'être du champ.</li>
 <li><b><span class="tt">toLevel()</span></b> de <span class="tt">LevelDraft</span> propage les deux champs.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2047"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2050"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes.">Source/Core/Levels/Level.h</a></span>, <span class="tt">LevelDraft.{h,cpp}</span>, <span class="tt"><a class="el" href="LevelLoader_8cpp.html">LevelLoader.cpp</a></span>, <span class="tt"><a class="el" href="LevelWriter_8cpp.html">LevelWriter.cpp</a></span>.</li>
 <li><span class="tt">Source/Test/Unit/Core/Levels/</span> — tests de round-trip, de version et d'annulation.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2048"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2051"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Rétrocompatibilité</b> : les quinze niveaux de démonstration existants, sans <span class="tt">"version"</span> ni nouveaux champs, se chargent à l'identique — aucune erreur, aucun avertissement, même contenu.</li>
@@ -123,19 +123,19 @@ Tests (obligatoires)</h1>
 <li>Annulation/rétablissement d'un changement de fond et de jeu de skins.</li>
 <li>Tout dans <span class="tt">Core</span>, sans GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2049"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2052"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ce sont des chaînes, jamais des handles.</b> <span class="tt">Core</span> ne doit connaître ni dossier d'assets, ni format d'image, ni mode de rendu (<span class="tt">EX-NFR-011</span>).</li>
 <li>La validation de niveau (<span class="tt">EX-LVL-004</span>) ne doit <b>pas</b> vérifier l'existence du fichier de fond : <span class="tt">Core</span> n'a pas accès au dossier d'assets, et un niveau dont le fond est introuvable reste un niveau valide (le rendu affichera le repli). C'est une distinction à ne pas confondre.</li>
 <li>Ne pas renuméroter ni réordonner les champs existants du JSON : la lisibilité des diffs de niveaux compte pour le suivi de version.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2050"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2053"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les deux champs existent, transitent par le JSON de façon rétrocompatible, sont couverts par l'annulation, et le format porte une version dont l'incompatibilité est détectée ; tests <span class="tt">Core</span> verts ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2051"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2054"></a>
 Exigences</h1>
 <p><span class="tt">EX-LVL-005</span> (version du format), <span class="tt">EX-REN-044</span> (fond de niveau), <span class="tt">EX-EDIT-024</span> (jeu de skins par niveau) ; réutilise <span class="tt">EX-LVL-003</span> (format JSON), <span class="tt">EX-LVL-004</span> (validation), <span class="tt">EX-EDIT-005</span> (annuler/refaire), <span class="tt">EX-NFR-011</span> (pas de dépendance <span class="tt">Core → HMI</span>). </p>
 </div></div><!-- contents -->

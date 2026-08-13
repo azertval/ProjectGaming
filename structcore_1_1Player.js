@@ -13,6 +13,7 @@ var structcore_1_1Player =
     [ "jumpsRemaining", "structcore_1_1Player.html#a99d532084d5856cea35317d60ded63e8", null ],
     [ "justJumped", "structcore_1_1Player.html#a49c1fc7221a2fe7278429e2404832e89", null ],
     [ "mass", "structcore_1_1Player.html#a1cdc8a540dc2c37ec5413e40afdac7f6", null ],
+    [ "squished", "structcore_1_1Player.html#a39d12f09a2ae70d648ec96c5ec094d51", null ],
     [ "wallDirection", "structcore_1_1Player.html#adff2c3089248a9bc8bcc286dff1550ce", null ],
     [ "wallJumpLockTimer", "structcore_1_1Player.html#ab37e8efccea023b2f1d4f6adada4290b", null ]
 ];

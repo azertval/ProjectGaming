@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-66-tache-02-version-source-unique.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-66-reproductibilite-referentiel_2tache-02-version-source-unique"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-66.html#md_Lot_2LOT-66-reproductibilite-referentiel_2epic" title="Lot/LOT-66-reproductibilite-referentiel/epic.md">LOT-66</a> · <b>Emplacement :</b> <span class="tt">scripts/build_docs.py</span>, <span class="tt">Documentation/Doxyfile</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2947"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2951"></a>
 Contexte</h1>
 <p>Le <span class="tt">CMakeLists.txt</span> racine porte un commentaire sans ambiguïté : <span class="tt">VERSION</span> est « la <b>source unique de vérité</b> du numéro de version ». C'est vrai pour le code — <span class="tt"><a class="el" href="classcore_1_1Engine.html#a80c1e60da14c218b7846ff3201a325a6" title="Retourne la version du moteur, telle que déclarée par le système de build.">core::Engine::version()</a></span> la reçoit par définition de compilation. Ce ne l'est pas pour la documentation : <span class="tt">Documentation/Doxyfile</span> contient <span class="tt">PROJECT_NUMBER = 0.0.5</span>, une <b>seconde</b> écriture du même nombre.</p>
 <p><span class="tt">scripts/build_docs.py</span> compare les deux et échoue si elles divergent. C'est mieux que rien, et c'est le mauvais remède : le contrôle transforme un oubli en échec de CI au lieu de le rendre impossible. <span class="tt">CONTRIBUTING.md</span> en fait d'ailleurs une étape manuelle du processus de publication (« Aligner le <span class="tt">PROJECT_NUMBER</span> du <span class="tt">Documentation/Doxyfile</span> »), c'est-à-dire une étape qu'on peut oublier — au moment précis où l'on est occupé à autre chose.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2948"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2952"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Retirer la valeur en dur</b> du <span class="tt">Doxyfile</span> : <span class="tt">PROJECT_NUMBER</span> est alimenté par <span class="tt">build_docs.py</span> depuis <span class="tt">project(VERSION)</span>, par substitution avant l'appel à Doxygen (fichier de configuration temporaire, ou paramètre passé sur l'entrée standard — Doxygen accepte les deux).</li>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 <li><b>Vérifier les autres écritures</b> du numéro dans le dépôt : s'assurer qu'il n'en reste aucune ailleurs (README, workflows, page d'accueil de la documentation).</li>
 <li><b>Ne pas versionner d'artefact généré</b> : le <span class="tt">Doxyfile</span> reste versionné, sans le numéro ; c'est le fichier de configuration effectif, temporaire, qui le porte.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2949"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2953"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">scripts/build_docs.py</span>.</li>
@@ -115,7 +115,7 @@ Fichiers impactés</h1>
 <li><span class="tt">CONTRIBUTING.md</span>, <span class="tt">CMakeLists.txt</span> (commentaire à mettre à jour).</li>
 <li><span class="tt">.gitignore</span> si un fichier de configuration temporaire est produit dans l'arborescence.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2950"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2954"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>La documentation générée affiche le numéro de <span class="tt">project(VERSION)</span> — vérifié sur la sortie, pas supposé.</li>
@@ -124,7 +124,7 @@ Tests (obligatoires)</h1>
 <li><span class="tt">python scripts/build_docs.py</span> reste vert avec la version Doxygen épinglée par <span class="tt">ci.yml</span>.</li>
 <li>Le job <span class="tt">docs</span> de la CI passe.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2951"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2955"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le <span class="tt">Doxyfile</span> a d'autres consommateurs potentiels</b> : lancer <span class="tt">doxygen</span> à la main depuis <span class="tt">Documentation/</span> doit continuer de fonctionner, avec un numéro vide plutôt qu'un numéro faux. Un <span class="tt">PROJECT_NUMBER</span> vide est acceptable ; un numéro périmé ne l'est pas.</li>
@@ -132,12 +132,12 @@ Points d'attention</h1>
 <li>La version de Doxygen de la CI est épinglée (<span class="tt">DOXYGEN_VERSION</span>) et diffère de celle d'un poste typique : vérifier avec <b>celle de la CI</b>, pas avec la locale, sinon le contrôle ne prédit rien.</li>
 <li>Le script est déjà couvert par le job <span class="tt">docs</span> : le garder simple, il n'a pas de tests unitaires.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2952"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2956"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Le numéro de version n'est écrit qu'à un seul endroit du dépôt, la documentation le reçoit par génération, l'étape manuelle a disparu de <span class="tt">CONTRIBUTING.md</span>, le commentaire du <span class="tt">CMakeLists.txt</span> est devenu exact, et la génération est vérifiée avec la version Doxygen de la CI.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2953"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2957"></a>
 Exigences</h1>
 <p>Réutilise <span class="tt">EX-NFR-030</span> (build reproductible via CMake), <span class="tt">EX-NFR-031</span> (versions épinglées), <span class="tt">EX-NFR-012</span> (conventions). </p>
 </div></div><!-- contents -->

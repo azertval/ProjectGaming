@@ -97,10 +97,10 @@ $(function(){initNavTree('lot-37-tache-03-panneau-liens-doc.html','',''); });
 <blockquote class="doxtable">
 <p>Réalisé dans <span class="tt">Source/HMI/Editor/LinkPanel.{h,cpp}</span> (dock, <span class="tt">QTableView</span>/<span class="tt">QStandardItemModel</span>, alimenté par <span class="tt"><a class="el" href="namespacehmi.html#a5308a5fca2e3f3a42451aaf1719d3ab4" title="Construit la liste des liaisons d&#39;un brouillon, dans un ordre déterministe.">hmi::buildLinkRows</a></span>) et <span class="tt">Source/HMI/Interface/MainWindow.{h,cpp}</span> + <span class="tt">Source/Elements/UI/MainWindow.ui</span> (dock <span class="tt">LinksPanel</span>, <span class="tt">LAYOUT_VERSION</span> 2 → 3). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1804"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1807"></a>
 Contexte</h1>
 <p>Complète la lisibilité des liaisons par une <b>vue tabulaire</b> dockée : lister toutes les liaisons du niveau, mettre en surbrillance celle sélectionnée dans le viewport, et en supprimer. Clôt le lot par la documentation et la vérification.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1805"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1808"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Dock « Liens »</b> (<span class="tt">QDockWidget</span>) : liste/table (<span class="tt">QTableView</span> ou <span class="tt">QListView</span>) des liaisons du brouillon — pour chaque entrée : type (mécanisme / danger commuté), coordonnées du déclencheur et de la cible, éventuel libellé lisible.<ul>
@@ -117,13 +117,13 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1806"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1809"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Editor/LinkPanel.{h,cpp}</span> (dock, vue, modèle de liens).</li>
 <li><span class="tt"><a class="el" href="guide-editeur_8md.html">Documentation/Guide/guide-editeur.md</a></span>, <span class="tt"><a class="el" href="editeur-niveaux_8md.html">Documentation/Specification/editeur-niveaux.md</a></span>, cahier de test généré.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1807"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1810"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Modèle de liens testable</b> : construire une liste d'affichage à partir d'un <span class="tt">LevelDraft</span> donné (nombre d'entrées, contenu, ordre déterministe) sans Qt ; la suppression retire la bonne entrée.</li>
@@ -131,19 +131,19 @@ Tests (obligatoires)</h1>
 <li><b><span class="tt">--check</span> du cahier de test</b> vert.</li>
 <li><b>Vérification manuelle</b> : le panneau liste les liens ; sélectionner surligne la flèche ; supprimer met à jour liste et viewport ; cohérence après chargement d'un niveau existant.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1808"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1811"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le panneau est une vue, pas un état</b> : il lit <span class="tt">LevelDraft</span> et déclenche <span class="tt">unlinkMechanism</span> ; aucune copie de l'état des liaisons.</li>
 <li><b>Cohérence bidirectionnelle</b> viewport ↔ panneau à maintenir sur chaque mutation.</li>
 <li><b>Doxygen 1.9.8</b> : générer la doc localement avant push.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1809"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1812"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Panneau « Liens » listant/surlignant/supprimant les liaisons, cohérent avec le viewport ; modèle <b>testé</b> ; guide et exigences à jour ; tests verts (dont cahier <span class="tt">--check</span>) ; <span class="tt">/W4 /WX</span>, Doxygen, lint verts ; critères du <a class="el" href="lot-37.html#md_Lot_2LOT-37-refonte-ihm-qt-liens_2epic" title="Lot/LOT-37-refonte-ihm-qt-liens/epic.md">LOT-37</a> satisfaits (vérification manuelle).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1810"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1813"></a>
 Exigences</h1>
 <p><span class="tt">EX-IHM-031</span> (panneau listant/éditant les liaisons) ; <span class="tt">EX-IHM-030</span> ; reconduit <span class="tt">EX-EDIT-003</span> ; <span class="tt">EX-NFR-010</span>. </p>
 </div></div><!-- contents -->

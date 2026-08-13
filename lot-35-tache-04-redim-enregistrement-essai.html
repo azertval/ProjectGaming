@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-35-tache-04-redim-enregistrement-essai.html','',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-35-refonte-ihm-qt-editeur_2tache-04-redim-enregistrement-essai"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-35.html#md_Lot_2LOT-35-refonte-ihm-qt-editeur_2epic" title="Lot/LOT-35-refonte-ihm-qt-editeur/epic.md">LOT-35</a> · <b>Emplacement :</b> <span class="tt">Source/Editor</span>, <span class="tt">Documentation</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1742"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1745"></a>
 Contexte</h1>
 <p>Complète l'éditeur Qt avec les actions « niveau » restantes (redimensionner, enregistrer, essayer), puis <b>clôt le lot par la documentation et la vérification</b>. Ces actions réutilisent les chemins <span class="tt">Core</span>/<span class="tt">HMI</span> existants ; la nouveauté est leur présentation en actions/dialogues Qt.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1743"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1746"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Redimensionnement</b> : dialogue Qt (<span class="tt">QDialog</span> avec deux <span class="tt">QSpinBox</span> largeur/hauteur, plafond <span class="tt">MAX_LEVEL_DIMENSION</span>) remplaçant la saisie texte <span class="tt">Ctrl+R</span> ; appelle <span class="tt">LevelDraft::resize</span> ; si destructeur (<span class="tt">wouldResizeDropContent</span>), <b>confirmation</b> (<span class="tt">QMessageBox</span>) avant application.</li>
@@ -111,13 +111,13 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1744"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1747"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Editor/</span> (dialogue de redimensionnement, actions Enregistrer/Essai, barre d'état).</li>
 <li><span class="tt"><a class="el" href="guide-editeur_8md.html">Documentation/Guide/guide-editeur.md</a></span>, <span class="tt"><a class="el" href="editeur-niveaux_8md.html">Documentation/Specification/editeur-niveaux.md</a></span>, cahier de test généré.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1745"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1748"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Non-régression</b> : <span class="tt">LevelDraft::resize</span>/<span class="tt">toLevel</span> et <span class="tt">LevelWriter</span> sont déjà testés (<span class="tt">Core</span>) — vérifier qu'ils restent verts et non dupliqués. Un même contenu enregistré produit un fichier <b>identique</b> à l'éditeur historique (sérialisation <span class="tt">LevelWriter</span> inchangée).</li>
@@ -125,19 +125,19 @@ Tests (obligatoires)</h1>
 <li><b><span class="tt">--check</span> du cahier de test</b> vert en CI (<span class="tt">lint-exigences</span>).</li>
 <li><b>Vérification manuelle</b> : redimensionner (avec/sans perte), enregistrer (valide/invalide/ écrasement), essayer puis revenir.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1746"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1749"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Garde-fous de perte de données</b> : conserver les confirmations existantes (redimensionnement destructeur, écrasement, quitter avec <span class="tt">dirty</span>).</li>
 <li><b>Essai n'altère jamais le brouillon</b> : parité stricte avec <span class="tt">EditorScreen</span> (l'essai lit un <span class="tt">Level</span> en mémoire, n'écrit rien).</li>
 <li><b>Doxygen 1.9.8</b> : générer la doc localement avant push.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1747"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1750"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Redimensionner/enregistrer/essayer fonctionnent avec leurs garde-fous ; guide éditeur et exigences à jour ; tests verts (dont cahier <span class="tt">--check</span>) ; <span class="tt">/W4 /WX</span>, Doxygen, lint verts ; critères du <a class="el" href="lot-35.html#md_Lot_2LOT-35-refonte-ihm-qt-editeur_2epic" title="Lot/LOT-35-refonte-ihm-qt-editeur/epic.md">LOT-35</a> satisfaits (vérification manuelle).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1748"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1751"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-005</span> (redimensionnement), <span class="tt">EX-EDIT-006</span>/<span class="tt">EX-EDIT-007</span> (enregistrement/validation), <span class="tt">EX-EDIT-008</span> (essai immédiat), <span class="tt">EX-EDIT-017</span> (plafond de taille) — présentation Qt ; <span class="tt">EX-IHM-010</span>/ <span class="tt">EX-IHM-011</span>. </p>
 </div></div><!-- contents -->
