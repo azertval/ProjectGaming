@@ -11,6 +11,7 @@
 #include <vector>
 
 #include "Core/Ecs/Components/Animation.h"
+#include "Core/Levels/CameraFraming.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/TileType.h"
@@ -98,6 +99,14 @@ public:
     void setLevelProperties(const std::optional<std::string>& background,
                             const std::optional<std::string>& skinSet);
 
+    /**
+     * @brief Synchronise la section « Cadrage » avec le niveau courant (`EX-EDIT-028`, LOT-64).
+     *
+     * Même sens que `setLevelProperties` : l'appelant pousse l'état, la section ne le possède pas.
+     * @param cameraFraming Cadrage résolu du niveau courant (`core::LevelDraft::cameraFraming`).
+     */
+    void setLevelCameraFraming(const core::CameraFramingConfig& cameraFraming);
+
     /// @return Le nom du jeu de skins actuellement sélectionné.
     [[nodiscard]] const std::string& currentSet() const noexcept {
         return _currentSet;
@@ -143,6 +152,10 @@ signals:
     /// Émis quand l'utilisateur choisit le jeu de skins **du niveau** (`LOT-44`), distinct du jeu
     /// courant d'édition : nom du jeu, vide pour « jeu par défaut ».
     void levelSkinSetChanged(const QString& setName);
+    /// Émis quand l'utilisateur choisit un nouveau cadrage de caméra dans la section « Cadrage »
+    /// (`EX-EDIT-028`, LOT-64) : mode et, pour le mode *par salle*, taille de salle (`std::nullopt`
+    /// = taille par défaut).
+    void cameraFramingChanged(core::CameraFramingConfig cameraFraming);
     /// Émis quand l'utilisateur choisit un asset dans la grille « Objets » (`LOT-45`) : asset actif
     /// de l'outil « Texture par instance » ; vide si aucun n'est sélectionné.
     void textureOverrideAssetSelected(const QString& fileName);
@@ -164,6 +177,13 @@ private:
     /// Reconstruit la liste du sélecteur de jeu de skins **du niveau** (section « Fond »), à partir
     /// des jeux du catalogue, plus l'entrée « jeu par défaut ».
     void rebuildLevelSkinSetSelector();
+    /// Reconstruit le sélecteur de mode de la section « Cadrage » (3 entrées fixes, traduites) et
+    /// synchronise la visibilité des champs de taille de salle avec `_levelCameraFraming.mode`.
+    void rebuildCameraFramingSelector();
+    /// Émet `cameraFramingChanged` à partir de l'état courant des trois widgets de la section
+    /// « Cadrage » -- point d'appel unique des trois gestionnaires de changement (mode, largeur,
+    /// hauteur), pour ne jamais dupliquer la construction du `core::CameraFramingConfig` résultant.
+    void emitCameraFramingChanged();
     /// Reconstruit le tableau des surcharges depuis `_objectRows` (tri stable par position, déjà
     /// posé par `refreshObjects`).
     void rebuildObjectRows();
@@ -213,6 +233,9 @@ private:
     /// rechargement/reconstruction qui perdrait la sélection courante des widgets (grille, combo).
     std::optional<std::string> _levelBackground;
     std::optional<std::string> _levelSkinSet;
+    /// Dernière valeur poussée par `setLevelCameraFraming` (LOT-64) : réappliquée après toute
+    /// reconstruction du sélecteur (langue), même principe que `_levelBackground`/`_levelSkinSet`.
+    core::CameraFramingConfig _levelCameraFraming;
     bool _updating = false;  ///< Garde de réentrance pendant la reconstruction du modèle.
     const Localization* _loc = nullptr;  ///< Catalogue courant (nul avant première retraduction).
     /// Fichier de skin (vide pour « aucun ») -> vignette décodée. Vidé par `reloadAssets`.

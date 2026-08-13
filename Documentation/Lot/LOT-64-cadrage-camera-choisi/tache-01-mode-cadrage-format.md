@@ -1,6 +1,6 @@
 # TACHE-01 — Mode de cadrage dans le format de niveau {#lot-64-tache-01-mode-cadrage-format}
 
-**Lot :** [LOT-64](epic.md) · **Emplacement :** `Source/Core/Levels` · **Statut :** non commencé
+**Lot :** [LOT-64](epic.md) · **Emplacement :** `Source/Core/Levels` · **Statut :** fait
 
 ## Contexte
 Le cadrage n'existe nulle part dans le modèle de niveau. Il est **déduit** à l'exécution, dans

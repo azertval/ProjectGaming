@@ -7,6 +7,7 @@
 
 #include <gtest/gtest.h>
 
+#include "Core/Levels/CameraFraming.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/TileType.h"
 
@@ -148,6 +149,115 @@ TEST(LevelLoaderTest, SansFondNiJeuDeSkinsLesDeuxChampsSontAbsents) {
     ASSERT_TRUE(result.ok()) << result.error;
     EXPECT_FALSE(result.level->background().has_value());
     EXPECT_FALSE(result.level->skinSet().has_value());
+}
+
+/**
+ * @brief Un niveau déclarant un mode de cadrage explicite le restitue tel quel, y compris une
+ * taille de salle personnalisée pour le mode *par salle* (`EX-LVL-006`).
+ * \castest{<b>Un mode de cadrage déclaré explicitement est restitué tel quel.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Charger un niveau déclarant le mode *par salle* avec une taille personnalisée.<br/>
+ * 2. Vérifier le cadrage résolu.<br/>
+ * \tattendu Le mode et la taille de salle déclarés sont restitués sans modification.
+ * }
+ */
+TEST(LevelLoaderTest, ModeDeCadrageDeclareExplicitementEstRestitue) {
+    constexpr const char* LEVEL = R"({
+      "width": 30, "height": 20,
+      "cameraFraming": { "mode": "perRoom", "roomWidthTiles": 10, "roomHeightTiles": 8 },
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" }
+      ]
+    })";
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(result.ok()) << result.error;
+    EXPECT_EQ(result.level->cameraFraming().mode, core::CameraFramingMode::PerRoom);
+    ASSERT_TRUE(result.level->cameraFraming().roomWidthTiles.has_value());
+    EXPECT_EQ(*result.level->cameraFraming().roomWidthTiles, 10);
+    ASSERT_TRUE(result.level->cameraFraming().roomHeightTiles.has_value());
+    EXPECT_EQ(*result.level->cameraFraming().roomHeightTiles, 8);
+}
+
+/**
+ * @brief Un niveau sans champ `cameraFraming` reproduit exactement la règle historique : niveau
+ * entier s'il tient dans une salle de taille par défaut, par salle sinon (`EX-LVL-006`, critère
+ * d'acceptation numéro un du lot).
+ * \castest{<b>L'absence de cameraFraming reproduit la règle historique.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Charger un petit niveau (tient dans une salle) sans champ `cameraFraming`.<br/>
+ * 2. Charger un grand niveau (dépasse une salle) sans champ `cameraFraming`.<br/>
+ * \tattendu Le petit niveau résout en mode *niveau entier* ; le grand résout en mode *par salle*,
+ * avec une taille de salle par défaut (absente, pas explicitement 24×14).
+ * }
+ */
+TEST(LevelLoaderTest, AbsenceDeCameraFramingReproduitLaRegleHistorique) {
+    constexpr const char* SMALL_LEVEL = R"({
+      "width": 10, "height": 8,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" }
+      ]
+    })";
+    const core::LevelLoadResult small = core::LevelLoader::loadFromString(SMALL_LEVEL);
+    ASSERT_TRUE(small.ok()) << small.error;
+    EXPECT_EQ(small.level->cameraFraming().mode, core::CameraFramingMode::WholeLevel);
+
+    constexpr const char* LARGE_LEVEL = R"({
+      "width": 30, "height": 20,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" }
+      ]
+    })";
+    const core::LevelLoadResult large = core::LevelLoader::loadFromString(LARGE_LEVEL);
+    ASSERT_TRUE(large.ok()) << large.error;
+    EXPECT_EQ(large.level->cameraFraming().mode, core::CameraFramingMode::PerRoom);
+    EXPECT_FALSE(large.level->cameraFraming().roomWidthTiles.has_value());
+    EXPECT_FALSE(large.level->cameraFraming().roomHeightTiles.has_value());
+}
+
+/**
+ * @brief Un cadrage invalide (mode inconnu, taille de salle nulle ou supérieure au niveau,
+ * paramètre étranger au mode) échoue avec une erreur nommant le champ fautif (`EX-LVL-004`).
+ * \castest{<b>Un cadrage invalide échoue avec une erreur exploitable.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Charger successivement un niveau par variante d'erreur (mode inconnu, taille
+ * nulle, taille supérieure au niveau, paramètre étranger au mode).<br/>
+ * \tattendu Chaque variante échoue avec `LevelValidationError::InvalidCameraFraming`.
+ * }
+ */
+TEST(LevelLoaderTest, CadrageInvalideEchoueAvecErreurExploitable) {
+    constexpr const char* UNKNOWN_MODE = R"({
+      "width": 10, "height": 8,
+      "cameraFraming": { "mode": "zoomInfini" },
+      "tiles": [ { "x": 1, "y": 1, "type": "entry" }, { "x": 3, "y": 2, "type": "exit" } ]
+    })";
+    constexpr const char* ZERO_ROOM_WIDTH = R"({
+      "width": 10, "height": 8,
+      "cameraFraming": { "mode": "perRoom", "roomWidthTiles": 0 },
+      "tiles": [ { "x": 1, "y": 1, "type": "entry" }, { "x": 3, "y": 2, "type": "exit" } ]
+    })";
+    constexpr const char* ROOM_WIDTH_EXCEEDS_LEVEL = R"({
+      "width": 10, "height": 8,
+      "cameraFraming": { "mode": "perRoom", "roomWidthTiles": 11 },
+      "tiles": [ { "x": 1, "y": 1, "type": "entry" }, { "x": 3, "y": 2, "type": "exit" } ]
+    })";
+    constexpr const char* FOREIGN_PARAMETER = R"({
+      "width": 10, "height": 8,
+      "cameraFraming": { "mode": "wholeLevel", "roomWidthTiles": 5 },
+      "tiles": [ { "x": 1, "y": 1, "type": "entry" }, { "x": 3, "y": 2, "type": "exit" } ]
+    })";
+
+    for (const char* levelJson :
+         {UNKNOWN_MODE, ZERO_ROOM_WIDTH, ROOM_WIDTH_EXCEEDS_LEVEL, FOREIGN_PARAMETER}) {
+        const core::LevelLoadResult result = core::LevelLoader::loadFromString(levelJson);
+        EXPECT_FALSE(result.ok());
+        EXPECT_EQ(result.errorCode, core::LevelValidationError::InvalidCameraFraming);
+    }
 }
 
 /**

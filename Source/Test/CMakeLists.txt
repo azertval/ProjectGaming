@@ -18,6 +18,7 @@ add_executable(UnitTests
     Unit/Core/Ecs/test_particle_system.cpp
     Unit/Core/Ecs/test_particle_triggers.cpp
     Unit/Core/Levels/test_level.cpp
+    Unit/Core/Levels/test_camera_framing.cpp
     Unit/Core/Levels/test_level_loader.cpp
     Unit/Core/Levels/test_level_sequence.cpp
     Unit/Core/Levels/test_level_writer.cpp
@@ -50,6 +51,7 @@ add_executable(UnitTests
     Unit/HMI/Input/test_gamepad_button_name.cpp
     Unit/HMI/Graphics/test_camera2d.cpp
     Unit/HMI/Graphics/test_room_grid.cpp
+    Unit/HMI/Graphics/test_follow_camera.cpp
     Unit/HMI/Graphics/test_asset_paths.cpp
     Unit/HMI/Graphics/test_procedural_atlas.cpp
     Unit/HMI/Graphics/test_tile_visuals.cpp
@@ -122,6 +124,9 @@ add_executable(UnitTests
     # La partition d'un niveau en salles (LOT-32) est une logique pure (aucune dépendance
     # rendu) : testable hors GPU.
     ../HMI/Graphics/RoomGrid.cpp
+    # La caméra de suivi (LOT-64 TACHE-02 : zone morte, anticipation, lissage, bornage) est une
+    # fonction pure, sans dépendance rendu : testable hors GPU, même patron que RoomGrid.cpp.
+    ../HMI/Graphics/FollowCamera.cpp
     # La résolution de chemins d'assets (LOT-39) est une logique pure (std::filesystem),
     # testable hors GPU/Qt.
     ../HMI/Graphics/AssetPaths.cpp

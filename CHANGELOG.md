@@ -7,6 +7,23 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-64 — Cadrage de caméra choisi par le level designer** (déclare `EX-LVL-006`, `EX-REN-016`,
+  `EX-EDIT-028` ; reformule `EX-REN-015`). Le cadrage devient une **donnée du niveau**, plus une
+  règle en dur déduite de ses dimensions.
+  - **Trois modes** (`core::CameraFramingMode`) : *niveau entier*, *par salle* (comportement
+    historique, désormais explicite), *suivi du personnage* — le mode qui manquait au moteur.
+  - **Caméra de suivi** (`hmi::FollowCamera`, `Source/HMI/Graphics`) : zone morte, anticipation
+    s'inversant progressivement, lissage cadencé sur le pas fixe, bornage aux limites du niveau
+    (centrage sur l'axe trop étroit), centre aligné au pixel — fonction pure, testée sans GPU.
+  - **Taille de salle réglable par niveau** (`hmi::RoomGrid` reçoit désormais la taille en
+    paramètre ; les anciennes constantes n'en restent que la valeur par défaut).
+  - **Repli compatible** (`core::resolveCameraFraming`) : un niveau sans champ `cameraFraming`
+    déclaré se joue **exactement** comme avant ce lot — les quinze tableaux livrés et le test
+    système restent inchangés. Version de format `1` → `2` (`EX-LVL-005`).
+  - **Choix et prévisualisation dans l'éditeur** (section « Cadrage » du panneau Textures) : les
+    trois modes se voient dans le canevas (cadre du niveau, grille de salles à taille variable,
+    rectangle de suivi avec zone morte matérialisée), le mode courant reste visible dans la barre
+    d'état, le changement de mode est annulable.
 - **LOT-63 — Mécanismes manquants du référentiel** (lève `EX-GP-023`, marqué « ⚠️ optionnel MVP »
   depuis la rédaction des spécifications ; déclare `EX-CTRL-022` et `EX-GP-026`). Réduit l'écart
   entre ce que le référentiel promettait et ce que le jeu contenait.

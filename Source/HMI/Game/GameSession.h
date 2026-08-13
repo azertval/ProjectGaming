@@ -14,12 +14,14 @@
 #include "Core/Gameplay/DangerController.h"
 #include "Core/Gameplay/MechanismController.h"
 #include "Core/Gameplay/PlatformController.h"
+#include "Core/Levels/CameraFraming.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelOutcome.h"
 #include "Core/Physics/Aabb.h"
 #include "HMI/Game/GameEvents.h"
 #include "HMI/Graphics/Camera2D.h"
+#include "HMI/Graphics/FollowCamera.h"
 #include "HMI/Graphics/MechanismVisuals.h"
 #include "HMI/Graphics/RoomGrid.h"
 #include "HMI/Graphics/SpriteRenderer.h"
@@ -176,6 +178,16 @@ private:
     void refreshPlayerSprite();
     void centerCameraOnRoom(core::GridPosition roomIndex);
     void updateCurrentRoom();
+    /// Centre la caméra sur le niveau entier (mode `WholeLevel`, LOT-64) : centre fixe, posé une
+    /// fois au chargement -- symétrique à `centerCameraOnRoom`, jamais recalculé au pas fixe.
+    void centerCameraOnWholeLevel();
+    /// Avance la caméra de suivi d'un pas fixe (mode `Follow`, LOT-64 TACHE-02) : lit la position
+    /// simulée du personnage, sans jamais l'écrire (`EX-ARCH-012`).
+    void updateFollowCamera(float fixedDelta);
+    /// Sélectionne le zoom et le centre effectifs de `_camera` selon le mode de cadrage résolu du
+    /// niveau (`core::CameraFramingMode`, LOT-64) : seul point d'application du cadrage, appelé
+    /// une fois par image depuis `render()`.
+    void applyCameraFraming(int viewportWidth, int viewportHeight, float interpolationAlpha);
     /// Avance l'horloge d'animation partagée des tuiles animées (`LOT-46` TACHE-05), au **pas
     /// fixe** : une entrée de `_tileAnimations` par asset animé du jeu de skins courant, en mode
     /// `SkinMode::Single` sans silhouette (`bitmask16` et silhouette détourée excluent
@@ -230,6 +242,17 @@ private:
     int _levelHeight = 0;
     std::optional<RoomGrid> _roomGrid;
     core::GridPosition _currentRoomIndex{};
+    /// Cadrage de caméra résolu du niveau courant (LOT-64), copié une fois au chargement --
+    /// n'affecte jamais la simulation (`EX-ARCH-012`), seulement `applyCameraFraming`/
+    /// `updateFollowCamera`.
+    core::CameraFramingConfig _cameraFraming;
+    /// État de la caméra de suivi (mode `Follow`), avancé au pas fixe par `updateFollowCamera`.
+    FollowCameraState _followCameraState;
+    /// Centre de la caméra de suivi au pas fixe PRÉCÉDENT, capturé par `snapshotPreviousPositions`
+    /// -- même patron que `PreviousPosition` pour les entités : `render()` interpole entre les deux
+    /// pour rester synchrone avec le personnage (lui-même interpolé), sinon il tremblerait par
+    /// rapport au décor (`tache-02`).
+    core::Vector2 _previousFollowCenter{};
     std::string _loadError;
 
     // Habillage des tuiles (LOT-46 TACHE-05) : copie locale de ce que setSkins() transmet aussi a

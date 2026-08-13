@@ -19,15 +19,17 @@
   personnage » ne correspondait déjà plus à l'implémentation, une caméra fixe cadrant le tableau
   depuis LOT-08) ; au-delà d'une salle, `EX-REN-015` prend le relais et ce contenu devient la
   **salle courante**.
-- \anchor EX-REN-015 **EX-REN-015** — Pour un niveau plus grand qu'une **salle** (constante de
-  taille fixe, `LOT-32`), la caméra ne cadre plus le niveau entier mais la **salle** contenant le
-  personnage, au zoom pixel art natif (`EX-REN-013`, appliqué au rectangle de la salle plutôt qu'au
-  niveau) : elle bascule **nettement** sur la salle voisine dès que le personnage en franchit la
-  frontière, sans jamais suivre le personnage en continu ni rapetisser le rendu quelle que soit la
-  taille totale du niveau. Le niveau reste une **grille de tuiles unique** (aucun format, aucune
-  nouvelle tuile) : une salle a « plusieurs entrées/sorties » simplement parce qu'un couloir reste
-  ouvert sur plusieurs de ses bords vers des salles voisines — propriété géométrique, pas un
-  mécanisme.
+- \anchor EX-REN-015 **EX-REN-015** — En **mode par salle** (`EX-REN-016`), pour un niveau plus
+  grand qu'une **salle** (taille par défaut ou réglée par le niveau, `LOT-64`), la caméra ne cadre
+  plus le niveau entier mais la **salle** contenant le personnage, au zoom pixel art natif
+  (`EX-REN-013`, appliqué au rectangle de la salle plutôt qu'au niveau) : elle bascule **nettement**
+  sur la salle voisine dès que le personnage en franchit la frontière, sans jamais suivre le
+  personnage en continu ni rapetisser le rendu quelle que soit la taille totale du niveau — la
+  décision de conception d'origine (`LOT-32`), que le mode **suivi** (`EX-REN-016`) complète sans la
+  remettre en cause, pour les tableaux qui veulent au contraire un cadrage continu. Le niveau reste
+  une **grille de tuiles unique** (aucun format, aucune nouvelle tuile) : une salle a « plusieurs
+  entrées/sorties » simplement parce qu'un couloir reste ouvert sur plusieurs de ses bords vers des
+  salles voisines — propriété géométrique, pas un mécanisme.
 - \anchor EX-REN-016 **EX-REN-016** — Le cadrage de la caméra doit offrir **trois modes**, choisis
   par le niveau (`EX-LVL-006`) et non déduits de ses dimensions : **niveau entier** (`EX-REN-013`),
   **par salle** (`EX-REN-015`) et **suivi du personnage**. Ce dernier — absent du moteur jusqu'ici —
@@ -36,7 +38,7 @@
   sur le **pas fixe** (`EX-REN-021`) et non sur la fréquence de rendu, et un **bornage** aux limites
   du niveau — un axe plus étroit que le cadrage étant **centré** plutôt que borné. Le centre retenu
   reste aligné sur la grille de pixels et le zoom **entier** (`EX-ARCH-022`), sous peine de rendre
-  flou tout le pixel art. Aucun effet sur la simulation (`EX-ARCH-012`). Prévu en `LOT-64`.
+  flou tout le pixel art. Aucun effet sur la simulation (`EX-ARCH-012`). Concrétisé en `LOT-64`.
 - \anchor EX-REN-014 **EX-REN-014** — Le rendu doit gérer un ordre de dessin par **couches**,
   défini par un **ordonnancement unique et explicite**, dont aucun calque concurrent ne peut
   s'écarter : **fond**, **décor d'arrière-plan**, **ombres**, **tuiles physiques**, **objets**,

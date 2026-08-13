@@ -347,6 +347,13 @@ public:
      */
     void setLevelSkinSet(std::optional<std::string> skinSet);
 
+    /**
+     * @brief Change le cadrage de caméra du niveau courant (section « Cadrage », `EX-EDIT-028`,
+     *        LOT-64).
+     * @param cameraFraming Nouveau cadrage résolu (mode et, pour *par salle*, taille de salle).
+     */
+    void setLevelCameraFraming(core::CameraFramingConfig cameraFraming);
+
     /// @return Le mode de rendu courant, commun à l'édition, à l'essai et au jeu réel.
     [[nodiscard]] RenderMode renderMode() const noexcept {
         return _renderMode;

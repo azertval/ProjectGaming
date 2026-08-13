@@ -31,6 +31,7 @@ LevelDraft LevelDraft::fromLevel(const Level& level) {
     draft._textureOverrides = level.textureOverrides();
     draft._decors = level.decors();
     draft._platformConfigs = level.platformConfigs();
+    draft._cameraFraming = level.cameraFraming();
     return draft;
 }
 
@@ -366,6 +367,11 @@ void LevelDraft::setSkinSet(std::optional<std::string> skinSet) {
     _skinSet = std::move(skinSet);
 }
 
+void LevelDraft::setCameraFraming(CameraFramingConfig cameraFraming) {
+    pushUndo();
+    _cameraFraming = cameraFraming;
+}
+
 void LevelDraft::resize(int width, int height) {
     pushUndo();
     TileMap resized(width, height);
@@ -489,7 +495,8 @@ LevelDraft::State LevelDraft::snapshot() const {
                  .skinSet = _skinSet,
                  .textureOverrides = _textureOverrides,
                  .decors = _decors,
-                 .platformConfigs = _platformConfigs};
+                 .platformConfigs = _platformConfigs,
+                 .cameraFraming = _cameraFraming};
 }
 
 void LevelDraft::restore(State state) {
@@ -508,6 +515,7 @@ void LevelDraft::restore(State state) {
     _textureOverrides = std::move(state.textureOverrides);
     _decors = std::move(state.decors);
     _platformConfigs = std::move(state.platformConfigs);
+    _cameraFraming = state.cameraFraming;
 }
 
 void LevelDraft::pushUndo() {
@@ -516,9 +524,10 @@ void LevelDraft::pushUndo() {
 }
 
 LevelLoadResult LevelDraft::toLevel() const {
-    const std::string json = LevelWriter::buildJson(
-        _name, _tileMap, _mechanisms, _jumpBudget, _dashBudget, _dangerLinks, _moverConfigs,
-        _blinkConfigs, _background, _skinSet, _textureOverrides, _decors, _platformConfigs);
+    const std::string json =
+        LevelWriter::buildJson(_name, _tileMap, _mechanisms, _jumpBudget, _dashBudget, _dangerLinks,
+                               _moverConfigs, _blinkConfigs, _background, _skinSet,
+                               _textureOverrides, _decors, _platformConfigs, _cameraFraming);
     return LevelLoader::loadFromString(json);
 }
 

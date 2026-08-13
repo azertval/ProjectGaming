@@ -17,6 +17,7 @@
 #include "Core/Levels/LevelScene.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
+#include "Core/Math/Rect.h"
 #include "Core/Math/Vector2.h"
 #include "Core/Physics/Aabb.h"
 #include "Core/Physics/AabbVsAabb.h"
@@ -27,6 +28,7 @@
 #include "HMI/Graphics/BitmapFont.h"
 #include "HMI/Graphics/DecorVisuals.h"
 #include "HMI/Graphics/MechanismVisuals.h"
+#include "HMI/Graphics/Parallax.h"
 #include "HMI/Graphics/PlayerSprite.h"
 #include "HMI/Graphics/PlayerSpriteTag.h"
 #include "HMI/Graphics/PreviousPosition.h"
@@ -77,6 +79,11 @@ PlayerClipKind proceduralClipKindFor(const std::string& clipName) {
     }
     return PlayerClipKind::Idle;
 }
+
+// Zoom et marge visuelle communs aux trois modes de cadrage (LOT-64) : meme valeur que celle
+// utilisee par le mode par salle avant ce lot (LOT-32), reprise pour les deux autres modes --
+// aucune raison visuelle de faire varier la marge selon le mode retenu.
+constexpr float CAMERA_FIT_MARGIN = 0.92f;
 }  // namespace
 
 GameSession::GameSession(SpriteBatch& batch, const TextureAtlas& atlas, TextureCache& cache,
@@ -119,11 +126,36 @@ void GameSession::loadLevel(core::Level level) {
     const core::Level& levelRef = *_level;  // level est deplace : plus lu au-dela de cette ligne
     _levelWidth = levelRef.tileMap().width();
     _levelHeight = levelRef.tileMap().height();
-    // Partition en salles (LOT-32) : reconstruite pour ce niveau, camera immediatement cadree sur
-    // la salle de l'ENTREE (pas de salle "en retard" d'une frame apres un (re)chargement).
-    _roomGrid.emplace(_levelWidth, _levelHeight);
+    // Cadrage de camera (LOT-64) : copie une fois, resolu par LevelLoader -- jamais recalcule
+    // ici, la regle de repli vit a un seul endroit (core::resolveCameraFraming).
+    _cameraFraming = levelRef.cameraFraming();
+    // Partition en salles (LOT-32), a la taille RESOLUE du niveau (LOT-64 : reglable, valeurs par
+    // defaut sinon) : reconstruite pour ce niveau, camera immediatement cadree sur la salle de
+    // l'ENTREE (pas de salle "en retard" d'une frame apres un (re)chargement) -- meme si le mode
+    // retenu n'est pas "par salle", la partition reste bon marche a construire et sert de repere
+    // a l'editeur (TACHE-03).
+    _roomGrid.emplace(_levelWidth, _levelHeight,
+                      _cameraFraming.roomWidthTiles.value_or(core::kDefaultRoomWidthTiles),
+                      _cameraFraming.roomHeightTiles.value_or(core::kDefaultRoomHeightTiles));
     _currentRoomIndex = _roomGrid->roomIndexAt(levelRef.entry());
-    centerCameraOnRoom(_currentRoomIndex);
+    // Caméra de suivi (LOT-64 TACHE-02) : réinitialisée à chaque chargement, elle démarrera sur le
+    // personnage à l'entrée dès le premier `update()` (état non initialisé).
+    _followCameraState = FollowCameraState{};
+    _previousFollowCenter = core::Vector2{static_cast<float>(levelRef.entry().column) + 0.5f,
+                                          static_cast<float>(levelRef.entry().row) + 0.5f};
+    switch (_cameraFraming.mode) {
+        case core::CameraFramingMode::WholeLevel:
+            centerCameraOnWholeLevel();
+            break;
+        case core::CameraFramingMode::PerRoom:
+            centerCameraOnRoom(_currentRoomIndex);
+            break;
+        case core::CameraFramingMode::Follow:
+            // Amorcé au premier update() ; place un centre raisonnable (l'entrée) pour un
+            // éventuel rendu avant le premier pas fixe (chargement à mi-frame).
+            _camera.setCenter(_previousFollowCenter);
+            break;
+    }
     // La correspondance type -> region d'atlas (rendu) est injectee dans la projection pure, et
     // chaque entite tuile recoit sa marque d'habillage (type + voisinage solide, LOT-42). Le
     // masque ne depend que de la grille du niveau : le calculer ici, une fois, evite de le
@@ -654,6 +686,10 @@ void GameSession::snapshotPreviousPositions() {
         [](core::Entity, const core::Transform& transform, PreviousPosition& previous) {
             previous.value = transform.position;
         });
+    // Meme principe pour la camera de suivi (LOT-64 TACHE-02) : fige le centre du pas PRECEDENT
+    // avant que ce pas ne le fasse avancer (updateFollowCamera), pour que render() interpole entre
+    // les deux comme il le fait deja pour chaque PreviousPosition.
+    _previousFollowCenter = _followCameraState.center;
 }
 
 void GameSession::centerCameraOnRoom(core::GridPosition roomIndex) {
@@ -673,6 +709,85 @@ void GameSession::updateCurrentRoom() {
     if (roomIndex != _currentRoomIndex) {
         _currentRoomIndex = roomIndex;
         centerCameraOnRoom(_currentRoomIndex);
+    }
+}
+
+// Centre la camera sur le niveau entier (mode WholeLevel, LOT-64) : centre fixe, pose une fois au
+// chargement -- symetrique a centerCameraOnRoom, jamais recalcule au pas fixe (voir en-tete).
+void GameSession::centerCameraOnWholeLevel() {
+    _camera.setCenter(core::Vector2{static_cast<float>(_levelWidth) * 0.5f,
+                                    static_cast<float>(_levelHeight) * 0.5f});
+}
+
+// Avance la camera de suivi d'un pas fixe (mode Follow, LOT-64 TACHE-02, voir en-tete).
+void GameSession::updateFollowCamera(float fixedDelta) {
+    const core::Transform& transform = _world.getComponent<core::Transform>(_player);
+    const core::Collider& collider = _world.getComponent<core::Collider>(_player);
+    // Position SIMULEE du personnage (pas interpolee) : le suivi (zone morte, anticipation,
+    // lissage) doit rester deterministe au pas fixe (EX-NFR-002) -- c'est render() qui interpole
+    // le CENTRE DE CAMERA resultant entre deux pas, exactement comme il interpole deja la position
+    // affichee du personnage (PreviousPosition). Melanger les deux ici desynchroniserait le suivi
+    // de la simulation qu'il est cense suivre.
+    const core::Vector2 characterCenter = transform.position + collider.size * 0.5f;
+    const core::Player& player = _world.getComponent<core::Player>(_player);
+    const core::Rect levelBounds{
+        core::Vector2{0.0f, 0.0f},
+        core::Vector2{static_cast<float>(_levelWidth), static_cast<float>(_levelHeight)}};
+    // Cadrage de la camera de suivi (LOT-64) : meme taille que la salle par defaut du mode par
+    // salle -- une surface deja eprouvee comme "ce qui tient a l'ecran", jamais dupliquee.
+    const core::Vector2 viewHalfExtent{static_cast<float>(core::kDefaultRoomWidthTiles) * 0.5f,
+                                       static_cast<float>(core::kDefaultRoomHeightTiles) * 0.5f};
+    _followCameraState = advanceFollowCamera(_followCameraState, characterCenter, player.facing,
+                                             levelBounds, viewHalfExtent, fixedDelta);
+}
+
+// Selectionne le zoom et le centre effectifs de _camera selon le mode de cadrage resolu (LOT-64,
+// voir en-tete). Point d'application UNIQUE du cadrage : les trois modes y sont traites a plat,
+// aucune regle de cadrage n'est dupliquee ailleurs dans render().
+void GameSession::applyCameraFraming(int viewportWidth, int viewportHeight,
+                                     float interpolationAlpha) {
+    switch (_cameraFraming.mode) {
+        case core::CameraFramingMode::WholeLevel: {
+            const float zoom = Camera2D::fitZoom(
+                static_cast<float>(viewportWidth), static_cast<float>(viewportHeight),
+                static_cast<float>(_levelWidth), static_cast<float>(_levelHeight),
+                CAMERA_FIT_MARGIN);
+            _camera.setZoom(zoom);
+            // Centre deja pose une fois au chargement (centerCameraOnWholeLevel) : fixe, rien a
+            // refaire ici.
+            break;
+        }
+        case core::CameraFramingMode::PerRoom: {
+            const RoomBounds roomBounds = _roomGrid->roomBounds(_currentRoomIndex);
+            const float zoom = Camera2D::fitZoom(
+                static_cast<float>(viewportWidth), static_cast<float>(viewportHeight),
+                static_cast<float>(roomBounds.width), static_cast<float>(roomBounds.height),
+                CAMERA_FIT_MARGIN);
+            _camera.setZoom(zoom);
+            // Centre deja pose par centerCameraOnRoom (updateCurrentRoom, au franchissement d'une
+            // frontiere de salle) : rien a refaire ici.
+            break;
+        }
+        case core::CameraFramingMode::Follow: {
+            const float zoom = Camera2D::fitZoom(
+                static_cast<float>(viewportWidth), static_cast<float>(viewportHeight),
+                static_cast<float>(core::kDefaultRoomWidthTiles),
+                static_cast<float>(core::kDefaultRoomHeightTiles), CAMERA_FIT_MARGIN);
+            _camera.setZoom(zoom);
+            // Interpole entre le centre du pas fixe PRECEDENT et celui du pas COURANT, comme
+            // chaque entite interpole entre PreviousPosition et sa position simulee (EX-ARCH-031)
+            // -- sans quoi le personnage, rendu lisse, tremblerait par rapport a un decor cale sur
+            // un centre qui ne bouge que par sauts discrets (tache-02, piege documente).
+            const core::Vector2 interpolated =
+                _previousFollowCenter +
+                (_followCameraState.center - _previousFollowCenter) * interpolationAlpha;
+            // Alignement pixel (EX-ARCH-022) : sans lui, un centre de camera fractionnaire
+            // echantillonne chaque texture entre deux texels et rend tout le pixel art flou --
+            // reutilise la meme fonction que la parallaxe des decors (hmi::roundToScreenPixel).
+            const float pixelsPerWorldUnit = Camera2D::PIXELS_PER_UNIT * zoom;
+            _camera.setCenter(hmi::roundToScreenPixel(interpolated, pixelsPerWorldUnit));
+            break;
+        }
     }
 }
 
@@ -743,8 +858,19 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
     const core::Collider& collider = _world.getComponent<core::Collider>(_player);
     const core::Aabb box = core::Aabb::fromTopLeftSize(transform.position, collider.size);
 
-    // 3bis. Camera : bascule de salle (LOT-32, EX-REN-015) -- coupure nette si franchissement.
-    updateCurrentRoom();
+    // 3bis. Camera : selon le mode de cadrage resolu du niveau (LOT-64). Bascule de salle nette
+    // (LOT-32, EX-REN-015) en mode par salle ; centre fixe en mode niveau entier (pose au
+    // chargement, rien a refaire ici) ; suivi avance au pas fixe en mode suivi.
+    switch (_cameraFraming.mode) {
+        case core::CameraFramingMode::WholeLevel:
+            break;
+        case core::CameraFramingMode::PerRoom:
+            updateCurrentRoom();
+            break;
+        case core::CameraFramingMode::Follow:
+            updateFollowCamera(fixedDelta);
+            break;
+    }
 
     // 4. Mecanismes : contact interrupteurs (front) / poids sur plaque (continu) -> etat des
     // portes.
@@ -848,16 +974,11 @@ void GameSession::render(int viewportWidth, int viewportHeight, RenderMode mode,
     refreshMechanismDiagnosticTint(mode);
 
     _camera.setViewportSize(viewportWidth, viewportHeight);
-    // Zoom pour faire tenir la SALLE COURANTE dans la fenetre (LOT-32, EX-REN-015).
-    const RoomBounds roomBounds = _roomGrid->roomBounds(_currentRoomIndex);
-    const float zoom = Camera2D::fitZoom(
-        static_cast<float>(viewportWidth), static_cast<float>(viewportHeight),
-        static_cast<float>(roomBounds.width), static_cast<float>(roomBounds.height), 0.92f);
-    _camera.setZoom(zoom);
+    applyCameraFraming(viewportWidth, viewportHeight, interpolationAlpha);
     // Secousse d'ecran (LOT-53 TACHE-03) : decalage courant applique a la CAMERA DE RENDU
     // uniquement (Camera2D::setShakeOffsetPixels), jamais a _center -- sans effet sur le culling
-    // ni sur la logique de cadrage par salle (updateCurrentRoom, pilotee par la position du
-    // personnage).
+    // ni sur la logique de cadrage (par salle ou de suivi, toutes deux pilotees par la position du
+    // personnage, jamais par la secousse).
     _camera.setShakeOffsetPixels(screenShakeOffset(_screenShake));
 
     // Interpolation de rendu (EX-ARCH-031) entre le pas precedent et le pas courant. La grille de

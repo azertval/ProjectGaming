@@ -15,6 +15,7 @@
 #include <QModelIndex>
 #include <QPushButton>
 #include <QSignalBlocker>
+#include <QSpinBox>
 #include <QStandardItem>
 #include <QStandardItemModel>
 #include <QString>
@@ -26,6 +27,7 @@
 #include <QVBoxLayout>
 #include <QVariant>
 #include <algorithm>
+#include <array>
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
@@ -115,6 +117,27 @@ const int ROW_ICON_SIZE = editorDarkTokens().size.iconMedium;
 [[nodiscard]] QString t(const Localization* loc, const char* key) {
     return loc != nullptr ? QString::fromStdString(loc->text(key)) : QString::fromLatin1(key);
 }
+
+// Libelle traduit d'un mode de cadrage (section « Cadrage », LOT-64) : cle par mode, jamais un
+// identifiant technique affiche a l'ecran (EX-VIS-006).
+[[nodiscard]] QString cameraFramingModeLabel(const Localization* loc,
+                                             core::CameraFramingMode mode) {
+    switch (mode) {
+        case core::CameraFramingMode::WholeLevel:
+            return t(loc, "camera_framing.whole_level");
+        case core::CameraFramingMode::PerRoom:
+            return t(loc, "camera_framing.per_room");
+        case core::CameraFramingMode::Follow:
+            return t(loc, "camera_framing.follow");
+    }
+    return t(loc, "camera_framing.whole_level");
+}
+
+// Ordre fixe des trois entrees du selecteur de mode -- meme ordre partout (selecteur, previsu,
+// barre d'etat) pour qu'un index de combo se traduise toujours vers le meme mode.
+constexpr std::array<core::CameraFramingMode, 3> CAMERA_FRAMING_MODES{
+    core::CameraFramingMode::WholeLevel, core::CameraFramingMode::PerRoom,
+    core::CameraFramingMode::Follow};
 
 // Texte de diagnostic d'une ligne de la section « Animations » (LOT-47) : vide sans asset assigne
 // -- rien a diagnostiquer -- « complet » si tous les clips attendus sont presents, sinon la liste
@@ -261,6 +284,20 @@ TexturePanel::TexturePanel(std::filesystem::path skinsDirectory, std::filesystem
         emit levelSkinSetChanged(text == defaultSetLabel(_loc) ? QString() : text);
     });
 
+    // Section « Cadrage » (LOT-64, EX-EDIT-028) : la taille de salle n'a de sens qu'en mode
+    // *par salle* -- masquee pour les deux autres modes plutot que grisee, pour ne pas laisser
+    // deviner un reglage sans effet (meme choix que le hint "mode Texture requis" de la
+    // section « Fond »).
+    for (const core::CameraFramingMode mode : CAMERA_FRAMING_MODES) {
+        _ui->cameraFramingModeSelector->addItem(cameraFramingModeLabel(_loc, mode));
+    }
+    connect(_ui->cameraFramingModeSelector, &QComboBox::currentIndexChanged, this,
+            [this](int) { emitCameraFramingChanged(); });
+    connect(_ui->cameraFramingRoomWidthSpin, &QSpinBox::valueChanged, this,
+            [this](int) { emitCameraFramingChanged(); });
+    connect(_ui->cameraFramingRoomHeightSpin, &QSpinBox::valueChanged, this,
+            [this](int) { emitCameraFramingChanged(); });
+
     // Section « Objets » (LOT-45) : grille de vignettes pour choisir l'asset actif de l'outil
     // « Texture par instance » (aucune entree "(aucun)" -- selectionner une case vide n'a pas de
     // sens, on choisit toujours un asset avant d'assigner), plus le tableau des surcharges deja
@@ -319,6 +356,11 @@ void TexturePanel::setLevelProperties(const std::optional<std::string>& backgrou
     rebuildLevelSkinSetSelector();  // bloque son propre signal en interne
 }
 
+void TexturePanel::setLevelCameraFraming(const core::CameraFramingConfig& cameraFraming) {
+    _levelCameraFraming = cameraFraming;
+    rebuildCameraFramingSelector();  // bloque son propre signal en interne
+}
+
 void TexturePanel::retranslateUi(const Localization& loc) {
     _loc = &loc;
     _ui->setLabel->setText(QString::fromStdString(loc.text("textures.skin_set")));
@@ -330,14 +372,26 @@ void TexturePanel::retranslateUi(const Localization& loc) {
     _ui->reloadButton->setToolTip(QString::fromStdString(loc.text("textures.reload_tooltip")));
     _ui->sections->setTabText(0, QString::fromStdString(loc.text("textures.section_skins")));
     _ui->sections->setTabText(1, QString::fromStdString(loc.text("textures.section_background")));
-    _ui->sections->setTabText(2, QString::fromStdString(loc.text("textures.section_objects")));
-    _ui->sections->setTabText(3, QString::fromStdString(loc.text("textures.section_animations")));
+    _ui->sections->setTabText(2,
+                              QString::fromStdString(loc.text("textures.section_camera_framing")));
+    _ui->sections->setTabText(3, QString::fromStdString(loc.text("textures.section_objects")));
+    _ui->sections->setTabText(4, QString::fromStdString(loc.text("textures.section_animations")));
     _ui->backgroundModeHintLabel->setText(
         QString::fromStdString(loc.text("textures.background_mode_hint")));
     _ui->backgroundLabel->setText(QString::fromStdString(loc.text("textures.background_label")));
     _ui->levelSkinSetLabel->setText(QString::fromStdString(loc.text("textures.level_skin_set")));
     _ui->levelSkinSetLabel->setToolTip(
         QString::fromStdString(loc.text("textures.level_skin_set_tooltip")));
+    _ui->cameraFramingModeLabel->setText(
+        QString::fromStdString(loc.text("textures.camera_framing_mode")));
+    _ui->cameraFramingRoomWidthLabel->setText(
+        QString::fromStdString(loc.text("textures.camera_framing_room_width")));
+    _ui->cameraFramingRoomHeightLabel->setText(
+        QString::fromStdString(loc.text("textures.camera_framing_room_height")));
+    _ui->cameraFramingRoomWidthSpin->setSpecialValueText(
+        QString::fromStdString(loc.text("textures.camera_framing_room_default")));
+    _ui->cameraFramingRoomHeightSpin->setSpecialValueText(
+        QString::fromStdString(loc.text("textures.camera_framing_room_default")));
     _ui->objectsAssetLabel->setText(
         QString::fromStdString(loc.text("textures.objects_asset_label")));
     _ui->objectsListLabel->setText(QString::fromStdString(loc.text("textures.objects_list_label")));
@@ -354,7 +408,8 @@ void TexturePanel::retranslateUi(const Localization& loc) {
     _backgroundView->retranslateUi(loc);
     _objectView->retranslateUi(loc);
     rebuildTree();
-    rebuildLevelSkinSetSelector();  // le libelle "jeu par defaut" vient de changer de langue
+    rebuildLevelSkinSetSelector();   // le libelle "jeu par defaut" vient de changer de langue
+    rebuildCameraFramingSelector();  // les libelles de mode viennent de changer de langue
     rebuildObjectRows();
     rebuildAnimationsTree();
 }
@@ -550,6 +605,57 @@ void TexturePanel::rebuildLevelSkinSetSelector() {
         _levelSkinSet ? QString::fromStdString(*_levelSkinSet) : defaultSetLabel(_loc);
     const int index = _ui->levelSkinSetSelector->findText(target);
     _ui->levelSkinSetSelector->setCurrentIndex(index >= 0 ? index : 0);
+}
+
+// Reconstruit le selecteur de mode et resynchronise les champs de taille de salle (LOT-64, voir
+// en-tete) : bloque son propre signal (comme rebuildLevelSkinSetSelector) pour ne jamais reemettre
+// cameraFramingChanged lors d'une synchronisation programmatique.
+void TexturePanel::rebuildCameraFramingSelector() {
+    {
+        const QSignalBlocker modeBlocker(_ui->cameraFramingModeSelector);
+        _ui->cameraFramingModeSelector->clear();
+        for (const core::CameraFramingMode mode : CAMERA_FRAMING_MODES) {
+            _ui->cameraFramingModeSelector->addItem(cameraFramingModeLabel(_loc, mode));
+        }
+        const auto found = std::find(CAMERA_FRAMING_MODES.begin(), CAMERA_FRAMING_MODES.end(),
+                                     _levelCameraFraming.mode);
+        const int index = found == CAMERA_FRAMING_MODES.end()
+                              ? 0
+                              : static_cast<int>(found - CAMERA_FRAMING_MODES.begin());
+        _ui->cameraFramingModeSelector->setCurrentIndex(index);
+    }
+    {
+        const QSignalBlocker widthBlocker(_ui->cameraFramingRoomWidthSpin);
+        const QSignalBlocker heightBlocker(_ui->cameraFramingRoomHeightSpin);
+        _ui->cameraFramingRoomWidthSpin->setValue(_levelCameraFraming.roomWidthTiles.value_or(0));
+        _ui->cameraFramingRoomHeightSpin->setValue(_levelCameraFraming.roomHeightTiles.value_or(0));
+    }
+    // La taille de salle n'a de sens qu'en mode "par salle" (voir en-tete du constructeur).
+    _ui->cameraFramingRoomSizeWidget->setVisible(_levelCameraFraming.mode ==
+                                                 core::CameraFramingMode::PerRoom);
+}
+
+// Construit le core::CameraFramingConfig resultant de l'etat courant des trois widgets et
+// l'emet -- point d'appel unique (voir en-tete), jamais reconstruit ailleurs.
+void TexturePanel::emitCameraFramingChanged() {
+    const int modeIndex = _ui->cameraFramingModeSelector->currentIndex();
+    if (modeIndex < 0 || static_cast<std::size_t>(modeIndex) >= CAMERA_FRAMING_MODES.size()) {
+        return;  // selecteur pas encore peuple (construction) : rien a emettre.
+    }
+    core::CameraFramingConfig cameraFraming;
+    cameraFraming.mode = CAMERA_FRAMING_MODES[static_cast<std::size_t>(modeIndex)];
+    _ui->cameraFramingRoomSizeWidget->setVisible(cameraFraming.mode ==
+                                                 core::CameraFramingMode::PerRoom);
+    if (cameraFraming.mode == core::CameraFramingMode::PerRoom) {
+        const int width = _ui->cameraFramingRoomWidthSpin->value();
+        const int height = _ui->cameraFramingRoomHeightSpin->value();
+        // 0 = "Par defaut" (specialValueText) : reste std::nullopt, jamais une taille de zero
+        // case (validee comme invalide par core::validateCameraFramingConfig).
+        cameraFraming.roomWidthTiles = width > 0 ? std::optional<int>(width) : std::nullopt;
+        cameraFraming.roomHeightTiles = height > 0 ? std::optional<int>(height) : std::nullopt;
+    }
+    _levelCameraFraming = cameraFraming;
+    emit cameraFramingChanged(cameraFraming);
 }
 
 bool TexturePanel::event(QEvent* event) {

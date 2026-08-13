@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+#include "Core/Levels/CameraFraming.h"
 #include "Core/Levels/Level.h"
 
 /**
@@ -74,6 +75,11 @@ public:
      * @param platformConfigs Configurations explicites de plateformes mobiles (`EX-GP-026`), même
      *                     remarque que @p moverConfigs pour les champs `endX`/`endY`/`speed`/
      *                     `phase`.
+     * @param cameraFraming Cadrage de caméra résolu (`EX-LVL-006`) ; le champ `"cameraFraming"`
+     *                     n'est émis que s'il **diverge** de ce que la règle de repli
+     *                     (`resolveCameraFraming`) recalculerait pour ces dimensions -- un niveau
+     *                     dont le cadrage résolu coïncide avec le repli reste sans le champ, comme
+     *                     avant ce lot (`EX-LVL-006`, aucune régression de round-trip).
      * @return Le contenu JSON correspondant.
      */
     [[nodiscard]] static std::string buildJson(
@@ -85,7 +91,8 @@ public:
         const std::optional<std::string>& skinSet = std::nullopt,
         const std::vector<TileTextureOverride>& textureOverrides = {},
         const std::vector<Decor>& decors = {},
-        const std::vector<MovingPlatformConfig>& platformConfigs = {});
+        const std::vector<MovingPlatformConfig>& platformConfigs = {},
+        const CameraFramingConfig& cameraFraming = {});
 };
 
 }  // namespace core

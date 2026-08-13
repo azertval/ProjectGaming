@@ -174,7 +174,7 @@ pouvoir habiller le niveau avec de vraies textures — sans jamais perdre la lec
   changement de mode est une opération d'édition **annulable** (`EX-EDIT-005`) et le mode courant est
   visible en permanence dans la barre d'état (`EX-IHM-062`). Sans cela, le cadrage resterait
   accessible aux seuls éditeurs de JSON, ce que l'existence même de l'éditeur (`EX-VIS-006`) exclut.
-  Prévu en `LOT-64`.
+  Concrétisé en `LOT-64`.
 - \anchor EX-EDIT-043 **EX-EDIT-043** — L'éditeur doit permettre d'assigner une **texture propre à
   une case précise** (« objet interactif », ex. une porte particulière), par un geste de clic dédié,
   prioritaire sur l'association globale (`EX-EDIT-042`) pour cette case. Concrétisé en `LOT-45`.

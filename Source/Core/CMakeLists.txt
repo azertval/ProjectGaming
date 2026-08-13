@@ -12,6 +12,7 @@ add_library(Core STATIC
     Ecs/Systems/ParticleSystem.cpp
     Levels/TileMap.cpp
     Levels/TileTypeName.cpp
+    Levels/CameraFraming.cpp
     Levels/LevelLoader.cpp
     Levels/LevelSequence.cpp
     Levels/LevelWriter.cpp

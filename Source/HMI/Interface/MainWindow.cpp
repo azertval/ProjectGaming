@@ -277,6 +277,7 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
         _links->refresh(_viewport->draft());
         _textures->setLevelProperties(_viewport->draft().background(),
                                       _viewport->draft().skinSet());
+        _textures->setLevelCameraFraming(_viewport->draft().cameraFraming());
         _textures->refreshObjects(_viewport->draft());
         _decors->refreshDecors(_viewport->draft(), _viewport->selectedDecorIndex());
         refreshStatusHelp();  // nom du niveau et indicateur de modification (LOT-57 TACHE-01).
@@ -335,6 +336,7 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     // donc l'image suivante suffit a montrer le resultat (LOT-42).
     _textures->setCatalog(&_viewport->skinCatalog());
     _textures->setLevelProperties(_viewport->draft().background(), _viewport->draft().skinSet());
+    _textures->setLevelCameraFraming(_viewport->draft().cameraFraming());
 
     // Section « Fond » (LOT-44) : les deux modifications passent par le viewport (seul
     // proprietaire du brouillon), exactement comme le panneau Liens ci-dessus.
@@ -346,6 +348,9 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
         _viewport->setLevelSkinSet(name.isEmpty() ? std::nullopt
                                                   : std::make_optional(name.toStdString()));
     });
+    // Section « Cadrage » (LOT-64, EX-EDIT-028) : meme separation.
+    connect(_textures, &TexturePanel::cameraFramingChanged, _viewport,
+            &GameViewport::setLevelCameraFraming);
 
     // Palette fidele au canevas (EX-EDIT-027) : elle interroge le MEME catalogue, et se rafraichit
     // aux trois evenements qui rendent ses vignettes obsoletes -- bascule de mode, changement de
@@ -1300,8 +1305,9 @@ void MainWindow::buildUi() {
     _statusZoom = new QLabel(this);
     _statusZoom->setMinimumWidth(fontMetrics().horizontalAdvance(QStringLiteral("Zoom : 999%")));
     _statusColor = new QLabel(this);  // Couleur courante de l'atelier pixel art (LOT-54 TACHE-04).
-    for (QLabel* const zone :
-         {_statusLevel, _statusDirty, _statusTool, _statusHover, _statusZoom, _statusColor}) {
+    _statusCameraFraming = new QLabel(this);  // Cadrage de camera du niveau (EX-EDIT-028, LOT-64).
+    for (QLabel* const zone : {_statusLevel, _statusDirty, _statusTool, _statusHover, _statusZoom,
+                               _statusColor, _statusCameraFraming}) {
         statusBar()->addPermanentWidget(zone);
     }
     _statusMessageTimer = new QTimer(this);
@@ -1455,6 +1461,7 @@ void MainWindow::refreshStatusHelp() {
             level.tool = _viewport->activeTool();
             level.hoveredCell = _viewport->hoveredCell();
             level.zoom = _viewport->zoom();
+            level.cameraFraming = _viewport->draft().cameraFraming().mode;
             context.level = level;
         }
     }
@@ -1465,6 +1472,7 @@ void MainWindow::refreshStatusHelp() {
     _statusHover->setText(QString::fromStdString(lines.permanent[3]));
     _statusZoom->setText(QString::fromStdString(lines.permanent[4]));
     _statusColor->setText(QString::fromStdString(lines.permanent[5]));
+    _statusCameraFraming->setText(QString::fromStdString(lines.permanent[6]));
     statusBar()->showMessage(QString::fromStdString(lines.help));
 }
 

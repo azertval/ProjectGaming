@@ -1,7 +1,8 @@
 # TACHE-04 — Documentation et vérification {#lot-64-tache-04-documentation-verification}
 
 **Lot :** [LOT-64](epic.md) · **Emplacement :** `Source/Test`, `Documentation` ·
-**Statut :** non commencé
+**Statut :** fait (vérification automatisée complète ; essai manuel restant à faire par le level
+designer avant fusion, voir DoD)
 
 ## Contexte
 Ce lot modifie une exigence **livrée**, ce qui est rare et demande de la précision. `EX-REN-015`

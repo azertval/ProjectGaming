@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+#include "Core/Levels/CameraFraming.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
@@ -329,6 +330,12 @@ public:
      */
     void setSkinSet(std::optional<std::string> skinSet);
 
+    /**
+     * @brief Change le cadrage de caméra du niveau (`EX-LVL-006`, `EX-EDIT-028`), annulable.
+     * @param cameraFraming Nouveau cadrage résolu (mode et, pour *par salle*, taille de salle).
+     */
+    void setCameraFraming(CameraFramingConfig cameraFraming);
+
     /// @return Le nom courant du niveau.
     [[nodiscard]] const std::string& name() const noexcept {
         return _name;
@@ -404,6 +411,11 @@ public:
         return _skinSet;
     }
 
+    /// @return Le cadrage de caméra courant du niveau (`EX-LVL-006`).
+    [[nodiscard]] const CameraFramingConfig& cameraFraming() const noexcept {
+        return _cameraFraming;
+    }
+
     /**
      * @brief Convertit le brouillon en `Level` **validé** (`EX-EDIT-007`), en repassant par la
      *        même validation que `LevelLoader` (sérialise puis recharge : aucune règle
@@ -451,6 +463,7 @@ private:
         std::vector<TileTextureOverride> textureOverrides;
         std::vector<Decor> decors;
         std::vector<MovingPlatformConfig> platformConfigs;
+        CameraFramingConfig cameraFraming;
     };
 
     /// Capture l'état courant (pour empiler dans l'historique undo/redo).
@@ -478,6 +491,7 @@ private:
     std::vector<TileTextureOverride> _textureOverrides;
     std::vector<Decor> _decors;
     std::vector<MovingPlatformConfig> _platformConfigs;
+    CameraFramingConfig _cameraFraming;
     std::vector<State> _undoHistory;
     std::vector<State> _redoHistory;
 };

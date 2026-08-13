@@ -663,6 +663,12 @@ void GameViewport::setLevelSkinSet(std::optional<std::string> skinSet) {
     markDraftMutated();
 }
 
+void GameViewport::setLevelCameraFraming(core::CameraFramingConfig cameraFraming) {
+    _draft.setCameraFraming(cameraFraming);
+    _dirty = true;
+    markDraftMutated();
+}
+
 void GameViewport::setSkinSet(const std::string& setName) {
     // Le catalogue est deja a jour (le panneau agit dessus directement) : il n'y a que le jeu
     // courant a propager, et l'image suivante montrera le resultat. Aucune scene a reconstruire.

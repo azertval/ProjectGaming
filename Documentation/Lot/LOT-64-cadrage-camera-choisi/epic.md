@@ -1,6 +1,9 @@
 # LOT-64 — Cadrage de caméra choisi par le level designer {#lot-64}
 
-> Statut : **non commencé**. Prérequis : [LOT-32](@ref lot-32) (partition en salles),
+> Statut : **fait** (vérification automatisée : build `/W4 /WX`, 1102 tests `ctest` à 100 %, lint
+> d'exigences, cahier de test régénéré, Doxygen vert sur la version épinglée par la CI ; l'essai
+> manuel des trois modes reste à faire avant fusion, voir tache-04). Prérequis :
+> [LOT-32](@ref lot-32) (partition en salles),
 > [LOT-16](@ref lot-16) (caméra niveau entier), [LOT-57](@ref lot-57) (architecture de
 > l'information de l'éditeur).
 
@@ -80,10 +83,10 @@ Deux conséquences.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-mode-cadrage-format.md) | Mode de cadrage dans le format de niveau, validation et repli compatible | `Source/Core/Levels` | ⬜ |
-| [TACHE-02](tache-02-camera-suivi.md) | Caméra de suivi : zone morte, anticipation, bornage | `Source/HMI/Graphics` | ⬜ |
-| [TACHE-03](tache-03-choix-previsualisation-editeur.md) | Choix et prévisualisation du cadrage dans l'éditeur | `Source/HMI/Editor` | ⬜ |
-| [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Source/Test`, `Documentation` | ⬜ |
+| [TACHE-01](tache-01-mode-cadrage-format.md) | Mode de cadrage dans le format de niveau, validation et repli compatible | `Source/Core/Levels` | ✅ |
+| [TACHE-02](tache-02-camera-suivi.md) | Caméra de suivi : zone morte, anticipation, bornage | `Source/HMI/Graphics` | ✅ |
+| [TACHE-03](tache-03-choix-previsualisation-editeur.md) | Choix et prévisualisation du cadrage dans l'éditeur | `Source/HMI/Editor` | ✅ |
+| [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Source/Test`, `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Un niveau **sans** mode déclaré se joue exactement comme aujourd'hui — les quinze tableaux

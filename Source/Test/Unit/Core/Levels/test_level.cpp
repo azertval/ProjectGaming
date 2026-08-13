@@ -5,6 +5,7 @@
 
 #include <gtest/gtest.h>
 
+#include "Core/Levels/CameraFraming.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
@@ -230,4 +231,31 @@ TEST(LevelTest, RestitueSonFondEtSonJeuDeSkinsOuLeurAbsence) {
     EXPECT_EQ(*avecFond.background(), "forest.png");
     ASSERT_TRUE(avecFond.skinSet().has_value());
     EXPECT_EQ(*avecFond.skinSet(), "foret");
+}
+
+/**
+ * @brief Un Level construit sans cadrage explicite (hors `LevelLoader`) a le cadrage par défaut
+ * (*niveau entier*) ; construit avec un cadrage, il le restitue tel quel (`EX-LVL-006`).
+ * \castest{<b>Un Level restitue son cadrage de caméra, ou le défaut à défaut d'un cadrage
+ * fourni.</b><br/>
+ * \tcat Unitaire · Level<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un Level restitue son cadrage de caméra, ou le défaut à défaut d'un cadrage fourni.
+ * }
+ */
+TEST(LevelTest, RestitueSonCadrageDeCameraOuLeDefaut) {
+    core::TileMap map(3, 3);
+    map.setTile(0, 0, core::TileType::Entry);
+    map.setTile(2, 2, core::TileType::Exit);
+
+    const core::Level defaut("N", map, core::GridPosition{0, 0}, core::GridPosition{2, 2}, {});
+    EXPECT_EQ(defaut.cameraFraming().mode, core::CameraFramingMode::WholeLevel);
+
+    const core::CameraFramingConfig follow{.mode = core::CameraFramingMode::Follow};
+    const core::Level avecCadrage("N", std::move(map), core::GridPosition{0, 0},
+                                  core::GridPosition{2, 2}, {}, -1, -1, {}, {}, {}, std::nullopt,
+                                  std::nullopt, {}, {}, {}, follow);
+    EXPECT_EQ(avecCadrage.cameraFraming().mode, core::CameraFramingMode::Follow);
 }

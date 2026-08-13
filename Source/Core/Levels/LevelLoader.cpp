@@ -10,6 +10,7 @@
 
 #include <nlohmann/json.hpp>
 
+#include "Core/Levels/CameraFraming.h"
 #include "Core/Levels/LevelsLog.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
@@ -245,6 +246,41 @@ struct TileParseState {
     return std::nullopt;
 }
 
+// Traite le champ racine optionnel "cameraFraming" (EX-LVL-006, LOT-64) : absent = aucun cadrage
+// declare (@p declared reste vide, la regle de repli s'appliquera). Valide immediatement contre
+// les dimensions du niveau (EX-LVL-004) -- le mode inconnu est distingue des autres erreurs de
+// validation ici, faute de pouvoir construire un CameraFramingConfig sans mode reconnu. Extrait de
+// LevelLoader::loadFromString : std::nullopt en cas de succes, sinon l'echec a renvoyer
+// immediatement.
+[[nodiscard]] std::optional<LevelLoadResult> parseCameraFraming(
+    const nlohmann::json& root, int width, int height,
+    std::optional<CameraFramingConfig>& declared) {
+    if (!root.contains("cameraFraming")) {
+        return std::nullopt;
+    }
+    const nlohmann::json& framingJson = root.at("cameraFraming");
+    const std::string modeName = framingJson.value("mode", std::string{});
+    const std::optional<CameraFramingMode> mode = parseCameraFramingMode(modeName);
+    if (!mode) {
+        return failure("cameraFraming.mode inconnu : " + modeName,
+                       LevelValidationError::InvalidCameraFraming);
+    }
+    CameraFramingConfig config;
+    config.mode = *mode;
+    if (framingJson.contains("roomWidthTiles")) {
+        config.roomWidthTiles = framingJson.at("roomWidthTiles").get<int>();
+    }
+    if (framingJson.contains("roomHeightTiles")) {
+        config.roomHeightTiles = framingJson.at("roomHeightTiles").get<int>();
+    }
+    if (const std::optional<std::string> error =
+            validateCameraFramingConfig(config, width, height)) {
+        return failure(*error, LevelValidationError::InvalidCameraFraming);
+    }
+    declared = config;
+    return std::nullopt;
+}
+
 // Valide les champs d'en-tête obligatoires (width/height/tiles, dimensions strictement positives,
 // version de format gérée) et extrait @p width/@p height. Extrait de
 // LevelLoader::loadFromString : std::nullopt en cas de succès, sinon l'échec à renvoyer
@@ -326,6 +362,15 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
         std::optional<std::string> skinSet;
         if (root.contains("skinSet")) {
             skinSet = root.at("skinSet").get<std::string>();
+        }
+        // Cadrage de camera (EX-LVL-006, LOT-64) : declare (valide contre width/height) ou absent
+        // -- resolu plus bas, une fois toutes les tuiles lues (la regle de repli ne depend que des
+        // dimensions, deja connues ici, mais resoudre au meme endroit que la construction du
+        // niveau garde la regle a un seul site d'appel).
+        std::optional<CameraFramingConfig> declaredCameraFraming;
+        if (std::optional<LevelLoadResult> framingError =
+                parseCameraFraming(root, width, height, declaredCameraFraming)) {
+            return std::move(*framingError);
         }
         TileMap map(width, height);
 
@@ -441,15 +486,20 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
             return std::move(*decorsError);
         }
 
+        // Regle de repli (EX-LVL-006) appliquee ici, au point unique de construction du niveau :
+        // un champ absent reproduit exactement le comportement historique (core::CameraFraming.h).
+        const CameraFramingConfig cameraFraming =
+            resolveCameraFraming(declaredCameraFraming, width, height);
+
         LEVELS_LOG_TRACE("Niveau charge : '" + name + "' (" + std::to_string(width) + "x" +
                          std::to_string(height) + ", " + std::to_string(mechanisms.size()) +
                          " mecanisme(s))");
         return LevelLoadResult{
-            .level =
-                Level(std::move(name), std::move(map), entry, exit, std::move(mechanisms),
-                      jumpBudget, dashBudget, std::move(dangerLinks), std::move(moverConfigs),
-                      std::move(blinkConfigs), std::move(background), std::move(skinSet),
-                      std::move(textureOverrides), std::move(decors), std::move(platformConfigs)),
+            .level = Level(std::move(name), std::move(map), entry, exit, std::move(mechanisms),
+                           jumpBudget, dashBudget, std::move(dangerLinks), std::move(moverConfigs),
+                           std::move(blinkConfigs), std::move(background), std::move(skinSet),
+                           std::move(textureOverrides), std::move(decors),
+                           std::move(platformConfigs), cameraFraming),
             .error = {}};
     } catch (const nlohmann::json::exception& error) {
         return failure(std::string("JSON invalide : ") + error.what(),

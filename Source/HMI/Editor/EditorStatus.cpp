@@ -34,6 +34,20 @@ std::string formatTwo(const std::string& templateText, int first, int second) {
     return replacePlaceholder(formatOne(templateText, first), "%2", std::to_string(second));
 }
 
+// Cle de traduction du libelle d'un mode de cadrage (LOT-64) -- memes cles que TexturePanel.cpp
+// (section « Cadrage »), reprises ici plutot que dupliquees : un seul point de vocabulaire.
+const char* cameraFramingLabelKey(core::CameraFramingMode mode) {
+    switch (mode) {
+        case core::CameraFramingMode::WholeLevel:
+            return "camera_framing.whole_level";
+        case core::CameraFramingMode::PerRoom:
+            return "camera_framing.per_room";
+        case core::CameraFramingMode::Follow:
+            return "camera_framing.follow";
+    }
+    return "camera_framing.whole_level";
+}
+
 // Cle de traduction du libelle court d'un outil (deja utilisees par EditorActions).
 const char* toolLabelKey(EditorTool tool) {
     switch (tool) {
@@ -125,8 +139,9 @@ std::string formatColorHex(std::uint32_t color) {
 EditorStatusLines editorStatusLines(const EditorStatusContext& context,
                                     const Localization& localization) {
     EditorStatusLines lines;
-    // niveau/asset, modifie, outil, case/pixel survole, zoom, couleur courante (atelier seulement).
-    lines.permanent.assign(6, std::string{});
+    // niveau/asset, modifie, outil, case/pixel survole, zoom, couleur courante (atelier
+    // seulement), cadrage de camera (contexte niveau seulement).
+    lines.permanent.assign(7, std::string{});
 
     if (context.pixelEdit) {
         const PixelEditStatusInfo& pixel = *context.pixelEdit;
@@ -169,6 +184,8 @@ EditorStatusLines editorStatusLines(const EditorStatusContext& context,
     const int zoomPercent = static_cast<int>(std::lround(level.zoom * 100.0F));
     lines.permanent[4] = formatOne(localization.text("status.zone.zoom"), zoomPercent);
     // permanent[5] (couleur) reste vide : sans objet hors atelier pixel art.
+    lines.permanent[6] = formatOne(localization.text("status.zone.camera_framing"),
+                                   localization.text(cameraFramingLabelKey(level.cameraFraming)));
 
     lines.help = localization.text(toolHelpKey(level.tool));
     return lines;

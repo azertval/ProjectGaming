@@ -139,6 +139,13 @@ private:
     /// du geste de décors (`LOT-50` TACHE-03), sinon l'auteur ne comprend pas pourquoi sa position
     /// « saute ».
     void composeGrid(const core::LevelDraft& draft, bool accentuate);
+    /// Compose la prévisualisation du cadrage de caméra du niveau (`EX-EDIT-028`, LOT-64) sur le
+    /// calque d'édition : le cadre du niveau entier, la grille de salles à taille résolue
+    /// (`hmi::RoomGrid`), ou le rectangle visible et la zone morte matérialisée du mode suivi
+    /// (centré sur l'entrée). Composée **inconditionnellement**, comme les liens de mécanismes et
+    /// les poignées de décors — pas une aide de placement (`showGrid`), une information sur ce que
+    /// montrera la caméra en jeu.
+    void composeCameraFraming(const core::LevelDraft& draft);
     /// Compose les liens de mécanismes (flèches déclencheur → cible) sur le calque d'édition.
     void composeLinks(const core::LevelDraft& draft, const LinkOverlayState& overlay);
     /// Compose le parcours de chaque plateforme mobile (trait + pointe de flèche, `EX-GP-026`,

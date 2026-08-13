@@ -36,6 +36,9 @@ enum class LevelValidationError {
                                ///< inexistant.
     FileNotFound,              ///< Fichier de niveau introuvable sur disque.
     UnsupportedFormatVersion,  ///< `"version"` du fichier supérieure à celle gérée (`EX-LVL-005`).
+    InvalidCameraFraming,      ///< Cadrage de caméra invalide (`EX-LVL-006`) : mode inconnu, taille
+                               ///< de salle nulle/supérieure au niveau, ou paramètre étranger au
+                               ///< mode retenu.
 };
 
 /**
@@ -45,8 +48,12 @@ enum class LevelValidationError {
  * comme la version initiale (0), sans erreur ni avertissement — rétrocompatibilité des niveaux
  * antérieurs à ce champ (`LOT-44`). Une version supérieure à celle-ci est une erreur exploitable
  * (`LevelValidationError::UnsupportedFormatVersion`), pas une lecture au mieux.
+ *
+ * Version 2 (`LOT-64`) : ajout du champ optionnel `"cameraFraming"` (`EX-LVL-006`). Un fichier de
+ * version antérieure, sans ce champ, se charge sans erreur -- la règle de repli
+ * (`core::resolveCameraFraming`) reproduit exactement le comportement historique.
  */
-inline constexpr int kLevelFormatVersion = 1;
+inline constexpr int kLevelFormatVersion = 2;
 
 /**
  * @brief Résultat d'un chargement de niveau : soit un `Level`, soit une **erreur** décrite.

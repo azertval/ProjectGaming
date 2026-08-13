@@ -18,7 +18,7 @@
   personnage — et non une règle déduite des dimensions. Un fichier **sans** mode déclaré conserve
   **exactement** le comportement historique (niveau entier s'il tient dans une salle, cadrage par
   salle sinon) : la rétrocompatibilité des niveaux existants reste un invariant (`EX-LVL-005`).
-  Prévu en `LOT-64`.
+  Concrétisé en `LOT-64`.
 
 ### Format retenu (JSON, liste de tuiles-objets)
 Types de tuiles : `entry` (entrée), `exit` (sortie), `solid` (solide), `danger`, `switch`

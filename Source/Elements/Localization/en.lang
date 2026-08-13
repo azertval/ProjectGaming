@@ -99,6 +99,16 @@ textures.level_skin_set = Level skin set
 textures.level_skin_set_tooltip = Skin set used by THIS level, distinct from the "Skin set" selector above (current editing set).
 textures.default_set = (default set)
 
+# "Camera framing" section of the Textures panel (LOT-64)
+textures.section_camera_framing = Camera framing
+textures.camera_framing_mode = Framing mode
+textures.camera_framing_room_width = Room width
+textures.camera_framing_room_height = Room height
+textures.camera_framing_room_default = Default
+camera_framing.whole_level = Whole level
+camera_framing.per_room = Per room
+camera_framing.follow = Follow character
+
 # "Objects" section of the Textures panel (LOT-45)
 textures.section_objects = Objects
 textures.objects_asset_label = Asset to assign
@@ -142,6 +152,7 @@ status.zone.asset = Asset: %1
 status.zone.dirty = Modified
 status.zone.hover = (%1, %2)
 status.zone.zoom = Zoom: %1%
+status.zone.camera_framing = Framing: %1
 status.zone.color = Color: %1
 status.zone.color_constrained = Color: %1 (constrained to palette)
 status.help_paint = Paint: left click/drag · Ctrl+Z/Y: undo/redo

@@ -11,12 +11,16 @@ int ceilDiv(int value, int roomSize) {
 }
 }  // namespace
 
-// Construit la partition pour un niveau de levelWidth x levelHeight cases.
-RoomGrid::RoomGrid(int levelWidth, int levelHeight)
+// Construit la partition pour un niveau de levelWidth x levelHeight cases, a la taille de salle
+// donnee (LOT-64 : reglable par niveau, ROOM_WIDTH_TILES/ROOM_HEIGHT_TILES n'en sont plus que la
+// valeur par defaut).
+RoomGrid::RoomGrid(int levelWidth, int levelHeight, int roomWidthTiles, int roomHeightTiles)
     : _levelWidth(levelWidth),
       _levelHeight(levelHeight),
-      _columns(ceilDiv(levelWidth, ROOM_WIDTH_TILES)),
-      _rows(ceilDiv(levelHeight, ROOM_HEIGHT_TILES)) {}
+      _roomWidthTiles(roomWidthTiles),
+      _roomHeightTiles(roomHeightTiles),
+      _columns(ceilDiv(levelWidth, roomWidthTiles)),
+      _rows(ceilDiv(levelHeight, roomHeightTiles)) {}
 
 // Indice (colonne, ligne) de la salle contenant tile, bornee aux salles existantes.
 core::GridPosition RoomGrid::roomIndexAt(core::GridPosition tile) const noexcept {
@@ -25,17 +29,17 @@ core::GridPosition RoomGrid::roomIndexAt(core::GridPosition tile) const noexcept
     // non negatives, retombant toujours dans une salle existante.
     const int column = std::clamp(tile.column, 0, _levelWidth - 1);
     const int row = std::clamp(tile.row, 0, _levelHeight - 1);
-    return core::GridPosition{.column = column / ROOM_WIDTH_TILES, .row = row / ROOM_HEIGHT_TILES};
+    return core::GridPosition{.column = column / _roomWidthTiles, .row = row / _roomHeightTiles};
 }
 
 // Rectangle (en cases) de la salle d'indice roomIndex, rogne aux bornes du niveau.
 RoomBounds RoomGrid::roomBounds(core::GridPosition roomIndex) const noexcept {
-    const int originColumn = roomIndex.column * ROOM_WIDTH_TILES;
-    const int originRow = roomIndex.row * ROOM_HEIGHT_TILES;
+    const int originColumn = roomIndex.column * _roomWidthTiles;
+    const int originRow = roomIndex.row * _roomHeightTiles;
     return RoomBounds{.column = originColumn,
                       .row = originRow,
-                      .width = (std::min)(ROOM_WIDTH_TILES, _levelWidth - originColumn),
-                      .height = (std::min)(ROOM_HEIGHT_TILES, _levelHeight - originRow)};
+                      .width = (std::min)(_roomWidthTiles, _levelWidth - originColumn),
+                      .height = (std::min)(_roomHeightTiles, _levelHeight - originRow)};
 }
 
 }  // namespace hmi

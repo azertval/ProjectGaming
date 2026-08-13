@@ -5,6 +5,7 @@
 
 #include <gtest/gtest.h>
 
+#include "Core/Levels/CameraFraming.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/LevelDraft.h"
 #include "Core/Levels/LevelLoader.h"
@@ -658,6 +659,30 @@ TEST(LevelDraftTest, UndoRedoApresChangementDeFondEtDeJeuDeSkins) {
     ASSERT_TRUE(draft.redo());  // refait setBackground
     ASSERT_TRUE(draft.background().has_value());
     EXPECT_EQ(*draft.background(), "forest.png");
+}
+
+/**
+ * @brief Un brouillon vierge a le cadrage par défaut (niveau entier) ; `setCameraFraming` change
+ * le mode et l'annulation restitue le précédent (`EX-LVL-006`, `EX-EDIT-028`).
+ * \castest{<b>setCameraFraming change le mode de cadrage et s'annule.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Créer un brouillon vierge et vérifier son cadrage par défaut.<br/>2. Appeler
+ * `setCameraFraming` avec le mode *suivi*.<br/>3. Annuler.<br/>
+ * \tattendu Le cadrage par défaut d'un brouillon vierge est *niveau entier* ; `setCameraFraming`
+ * remplace le mode courant ; l'annulation restitue le cadrage précédent.
+ * }
+ */
+TEST(LevelDraftTest, SetCameraFramingChangeLeModeEtSAnnule) {
+    LevelDraft draft = LevelDraft::empty("N", 3, 3);
+    EXPECT_EQ(draft.cameraFraming().mode, core::CameraFramingMode::WholeLevel);
+
+    draft.setCameraFraming(core::CameraFramingConfig{.mode = core::CameraFramingMode::Follow});
+    EXPECT_EQ(draft.cameraFraming().mode, core::CameraFramingMode::Follow);
+    ASSERT_TRUE(draft.canUndo());
+
+    ASSERT_TRUE(draft.undo());
+    EXPECT_EQ(draft.cameraFraming().mode, core::CameraFramingMode::WholeLevel);
 }
 
 /**
