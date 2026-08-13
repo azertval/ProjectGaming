@@ -1,6 +1,9 @@
 #pragma once
 
+#include <vector>
+
 #include "Core/Physics/PhysicsConfig.h"
+#include "Core/Physics/PlatformSample.h"
 
 /**
  * @file Core/Ecs/Systems/CharacterPhysicsSystem.h
@@ -33,6 +36,14 @@ struct Collider;
  * et de l'intention d'entrée : il expose donc sa propre signature d'`update`. Toute la logique vit
  * ici ; les composants restent des **données pures** (`EX-ARCH-011`). Déterministe au pas fixe
  * (`EX-NFR-002`).
+ *
+ * **Plateformes mobiles** (`TileType::MovingPlatform`, `EX-GP-026`, optionnel via @p platforms) :
+ * un personnage au sol sur une plateforme est **porté** avec elle (translation directe, avant que
+ * sa propre physique ne s'applique), puis sa collision avec chaque plateforme est résolue en
+ * continu (`sweepAabbVsAabb`, même principe que les blocs réduits, `EX-GP-005`) après le balayage
+ * sur grille — la résolution la plus stricte des deux l'emporte, par construction. Un personnage
+ * écrasé entre une plateforme montante et un plafond meurt (`Player::squished`), plutôt que de
+ * bloquer la plateforme (qui resterait fonction pure du numéro de pas, `EX-NFR-002`).
  */
 class CharacterPhysicsSystem {
 public:
@@ -50,11 +61,39 @@ public:
      * bloquantes.
      * @param input      Intention de déplacement de la frame (dissociée des touches).
      * @param fixedDelta Durée du pas de simulation, en secondes.
+     * @param platforms  Échantillons de position des plateformes mobiles pour ce pas
+     *                   (`core::PlatformController::samples`) ; vide par défaut (comportement
+     *                   inchangé pour tout niveau sans plateforme, `EX-GP-026`).
      */
-    void update(World& world, const TileMap& tiles, const PlayerInput& input,
-                float fixedDelta) const;
+    void update(World& world, const TileMap& tiles, const PlayerInput& input, float fixedDelta,
+                const std::vector<PlatformSample>& platforms = {}) const;
 
 private:
+    /// Porte le personnage avec la plateforme sur laquelle il repose (s'il en repose une), avant
+    /// que sa propre physique ne s'applique -- translation directe de `transform.position`. Marque
+    /// `player.squished` si la translation l'embarque dans une tuile solide (écrasement plafond,
+    /// `EX-GP-026`).
+    void applyPlatformPortage(Player& player, Transform& transform, const Collider& collider,
+                              const TileMap& tiles,
+                              const std::vector<PlatformSample>& platforms) const;
+    /**
+     * @brief Résout la collision continue du personnage contre chaque plateforme
+     *        (`sweepAabbVsAabb`), après le balayage sur grille -- même patron que
+     *        `hmi::GameSession::resolveReducedBlockCollision` pour les blocs réduits
+     *        (`EX-GP-005`), embarqué ici pour rester testable directement
+     *        (`Source/Test/Integration/test_physique_personnage.cpp`).
+     * @param player        Personnage dont l'état `grounded` est mis à jour en cas de contact.
+     * @param transform     Position mutée en place si une plateforme bloque le déplacement.
+     * @param velocity      Vitesse annulée sur les axes bloqués par une plateforme.
+     * @param stepStartBox  Boîte du personnage au DÉBUT de ce pas (après portage, avant le
+     *                      balayage sur grille) : sert de référence pour le déplacement réellement
+     *                      obtenu par la grille, composé ici avec chaque plateforme.
+     * @param platforms     Échantillons de position des plateformes mobiles pour ce pas.
+     */
+    void resolvePlatformCollision(Player& player, Transform& transform, Velocity& velocity,
+                                  const Aabb& stepStartBox,
+                                  const std::vector<PlatformSample>& platforms) const;
+
     /// Étapes 0/0a-0d/1/2/2b/2bis de update() (voir son .cpp) : à partir de l'intention d'entrée
     /// et des minuteries de game feel du personnage, détermine la vitesse voulue pour ce pas
     /// (saut, dash, gravité effective, wall slide) -- ne touche ni `Transform` ni les tuiles,

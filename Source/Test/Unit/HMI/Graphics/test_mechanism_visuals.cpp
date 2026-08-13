@@ -104,6 +104,38 @@ TEST(MechanismVisualsTest, DangerMoverHasSingleClipIrrespectiveOfActive) {
 }
 
 /**
+ * @brief La clé demande le clip « présente » quand elle n'a pas encore été ramassée, « ramassée »
+ * une fois consommée — même booléen que la porte verrouillée qui lui est liée (`EX-GP-023`).
+ * \castest{<b>La clé demande le clip présente ou ramassée selon son état.</b><br/>
+ * \tcat Unitaire · Apparence des mécanismes<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
+TEST(MechanismVisualsTest, KeyTargetClips) {
+    EXPECT_EQ(mechanismTargetClip(core::TileType::Key, false), MECHANISM_CLIP_KEY_PRESENT);
+    EXPECT_EQ(mechanismTargetClip(core::TileType::Key, true), MECHANISM_CLIP_KEY_COLLECTED);
+}
+
+/**
+ * @brief La porte verrouillée demande le clip fermée ou ouverte selon son état, comme la porte
+ * classique mais avec ses propres noms de clip (`EX-GP-023`).
+ * \castest{<b>La porte verrouillée demande le clip fermée ou ouverte selon son état.</b><br/>
+ * \tcat Unitaire · Apparence des mécanismes<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
+TEST(MechanismVisualsTest, LockedDoorTargetClips) {
+    EXPECT_EQ(mechanismTargetClip(core::TileType::LockedDoor, false),
+              MECHANISM_CLIP_LOCKED_DOOR_CLOSED);
+    EXPECT_EQ(mechanismTargetClip(core::TileType::LockedDoor, true),
+              MECHANISM_CLIP_LOCKED_DOOR_OPEN);
+}
+
+/**
  * @brief Une tuile sans état ne demande aucun clip et n'est pas reconnue comme mécanisme : c'est ce
  * qui évite d'installer une horloge d'animation sur chaque mur du niveau.
  * \castest{<b>Une tuile sans état ne demande aucun clip et n'est pas un mécanisme.</b><br/>
@@ -122,9 +154,9 @@ TEST(MechanismVisualsTest, StatelessTileProducesNoClipRequest) {
 }
 
 /**
- * @brief Les six familles à état sont toutes reconnues comme mécanismes : le pendant positif du
+ * @brief Les huit familles à état sont toutes reconnues comme mécanismes : le pendant positif du
  * test précédent, sans lequel le prédicat pourrait être trop restrictif sans que rien ne le montre.
- * \castest{<b>Les six familles de mécanismes à état sont reconnues.</b><br/>
+ * \castest{<b>Les huit familles de mécanismes à état sont reconnues.</b><br/>
  * \tcat Unitaire · Apparence des mécanismes<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
@@ -138,6 +170,8 @@ TEST(MechanismVisualsTest, StatefulMechanismsAreRecognized) {
     EXPECT_TRUE(isStatefulMechanism(core::TileType::DangerSwitched));
     EXPECT_TRUE(isStatefulMechanism(core::TileType::DangerBlink));
     EXPECT_TRUE(isStatefulMechanism(core::TileType::DangerMover));
+    EXPECT_TRUE(isStatefulMechanism(core::TileType::Key));
+    EXPECT_TRUE(isStatefulMechanism(core::TileType::LockedDoor));
 }
 
 /**
@@ -182,6 +216,8 @@ TEST(MechanismVisualsTest, OnlyDoorTransitionsOtherFamiliesSnapDirectly) {
     EXPECT_FALSE(mechanismTransitionClip(core::TileType::DangerSwitched, false, true).has_value());
     EXPECT_FALSE(mechanismTransitionClip(core::TileType::DangerBlink, false, true).has_value());
     EXPECT_FALSE(mechanismTransitionClip(core::TileType::DangerMover, false, true).has_value());
+    EXPECT_FALSE(mechanismTransitionClip(core::TileType::Key, false, true).has_value());
+    EXPECT_FALSE(mechanismTransitionClip(core::TileType::LockedDoor, false, true).has_value());
 }
 
 /**
@@ -203,6 +239,11 @@ TEST(MechanismVisualsTest, ExpectedClipsMatchTargetAndTransitionNames) {
                                         MECHANISM_CLIP_DOOR_OPEN, MECHANISM_CLIP_DOOR_CLOSING}));
     EXPECT_EQ(mechanismExpectedClips(core::TileType::DangerMover),
               (std::vector<std::string>{MECHANISM_CLIP_DANGER_MOVER_IDLE}));
+    EXPECT_EQ(mechanismExpectedClips(core::TileType::Key),
+              (std::vector<std::string>{MECHANISM_CLIP_KEY_PRESENT, MECHANISM_CLIP_KEY_COLLECTED}));
+    EXPECT_EQ(mechanismExpectedClips(core::TileType::LockedDoor),
+              (std::vector<std::string>{MECHANISM_CLIP_LOCKED_DOOR_CLOSED,
+                                        MECHANISM_CLIP_LOCKED_DOOR_OPEN}));
     EXPECT_TRUE(mechanismExpectedClips(core::TileType::Solid).empty());
 }
 

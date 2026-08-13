@@ -101,8 +101,8 @@ public:
      * Même geste éditeur pour les deux cibles (clic déclencheur, clic cible) — la liaison
      * résultante est rangée dans `mechanisms()` (cible `Door`) ou `dangerLinks()` (cible
      * `DangerSwitched`) selon ce que porte réellement @p targetPosition.
-     * @pre La case @p switchPosition porte un `Switch`/`PressurePlate`, la case @p targetPosition
-     *      porte une `Door` **ou** un `DangerSwitched`.
+     * @pre La case @p switchPosition porte un `Switch`/`PressurePlate`/`Key`, la case
+     *      @p targetPosition porte une `Door`/`LockedDoor` **ou** un `DangerSwitched`.
      */
     void linkMechanism(GridPosition switchPosition, GridPosition targetPosition);
 
@@ -129,6 +129,17 @@ public:
      * @pre La case @p position porte un `DangerBlink`.
      */
     void setBlinkConfig(GridPosition position, int period, int phase, int activeDuration);
+
+    /**
+     * @brief Définit le second point de parcours, la vitesse et le déphasage d'une plateforme
+     *        mobile (`EX-GP-026`).
+     *
+     * Remplace toute configuration existante pour @p position. Mêmes remarques que
+     * `setMoverConfig`/`setBlinkConfig` : sans appel, une `MovingPlatform` garde les valeurs de
+     * conception par défaut (`MovingPlatformConfig`), appliquées par `LevelLoader` au rechargement.
+     * @pre La case @p position porte une `MovingPlatform`.
+     */
+    void setPlatformConfig(GridPosition position, GridPosition endPosition, float speed, int phase);
 
     /**
      * @brief Assigne (ou remplace) la texture affichée pour **une case précise** (`EX-EDIT-043`),
@@ -358,6 +369,11 @@ public:
         return _blinkConfigs;
     }
 
+    /// @return Les configurations de plateforme mobile posées explicitement (`EX-GP-026`).
+    [[nodiscard]] const std::vector<MovingPlatformConfig>& platformConfigs() const noexcept {
+        return _platformConfigs;
+    }
+
     /// @return Les textures assignées par instance du niveau (`EX-EDIT-043`).
     [[nodiscard]] const std::vector<TileTextureOverride>& textureOverrides() const noexcept {
         return _textureOverrides;
@@ -434,6 +450,7 @@ private:
         std::optional<std::string> skinSet;
         std::vector<TileTextureOverride> textureOverrides;
         std::vector<Decor> decors;
+        std::vector<MovingPlatformConfig> platformConfigs;
     };
 
     /// Capture l'état courant (pour empiler dans l'historique undo/redo).
@@ -460,6 +477,7 @@ private:
     std::optional<std::string> _skinSet;
     std::vector<TileTextureOverride> _textureOverrides;
     std::vector<Decor> _decors;
+    std::vector<MovingPlatformConfig> _platformConfigs;
     std::vector<State> _undoHistory;
     std::vector<State> _redoHistory;
 };

@@ -39,6 +39,7 @@ enum class Key : std::uint16_t {
     A = 0x41,   // touches lettres (codes VK_*) pour les schémas ZQSD / WASD
     C = 0x43,   // Ctrl+C : copier une zone (éditeur, LOT-15)
     D = 0x44,
+    E = 0x45,  // Interagir, touche clavier par défaut (jeu, LOT-63)
     P = 0x50,  // Essai immédiat du niveau en cours d'édition (éditeur, LOT-14)
     Q = 0x51,
     R = 0x52,  // Ctrl+R : redimensionner par saisie directe (éditeur, LOT-16)
@@ -193,6 +194,9 @@ public:
 
     /// @return true si @p button (piste manette brute) **vient d'être enfoncé** cette frame.
     [[nodiscard]] bool gamepadButtonPressed(GamepadButton button) const noexcept;
+
+    /// @return true si @p button (piste manette brute) **vient d'être relâché** cette frame.
+    [[nodiscard]] bool gamepadButtonReleased(GamepadButton button) const noexcept;
 
     /// @return Abscisse de la souris, en pixels de la zone client.
     [[nodiscard]] int mouseX() const noexcept;

@@ -15,7 +15,7 @@ Les entrées sont traduites en **actions logiques** (pas de code métier lié à
 | Aller à droite | → (remappable, `LOT-29`) | Stick gauche / D-pad droite (remappable, `LOT-30`) |
 | Sauter | Espace (remappable, `LOT-29`) | A (remappable, `LOT-30`) |
 | Dash (8 directions) | Maj (remappable, `LOT-29`) | Épaule droite (remappable, `LOT-30`) |
-| Interagir (⚠️ non implémenté, prévu en `LOT-63` — cf. `EX-CTRL-022`) | E (remappable) | X (remappable) |
+| Interagir (`EX-CTRL-022`) | E (remappable) | X (remappable) |
 | Quitter vers le menu (jeu) | Échap | B / Start |
 | Valider (menu) | Entrée | A |
 | Retour (menu) | Échap | B |
@@ -29,7 +29,8 @@ Les entrées sont traduites en **actions logiques** (pas de code métier lié à
   (`EX-CTRL-012`) et distinguant ses fronts (`EX-CTRL-011`). Elle **complète** l'activation par
   contact des mécanismes, qu'elle ne remplace pas (`EX-GP-020` autorise les deux) : les niveaux
   livrés restent franchissables à l'identique. Un fichier de remappage antérieur reste lisible,
-  l'action y prenant sa valeur par défaut. Prévu en `LOT-63`.
+  l'action y prenant sa valeur par défaut. Premier usage : le ramassage de la **clé**
+  (`EX-GP-023`, `LOT-63`).
 
 ## 3. Réactivité
 - \anchor EX-CTRL-020 **EX-CTRL-020** — La latence entrée → action ne doit pas dépasser **une frame** de simulation. Depuis `LOT-33`, garanti **à tout framerate de rendu** : les fronts (pressée/relâchée) sont consommés par **pas de simulation**, non par frame de rendu — un appui capturé sur une frame réelle sans pas (rendu > 60 Hz) n'est plus perdu.

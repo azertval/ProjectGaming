@@ -16,10 +16,18 @@ namespace core {
 
 namespace {
 
-// Vrai pour les tuiles "déclencheur" liables à une porte (interrupteur ou plaque de pression,
-// EX-GP-020/EX-GP-025) : les deux partagent la même règle d'identifiant (LevelLoader.cpp).
+// Vrai pour les tuiles "déclencheur" liables à une cible (interrupteur, plaque de pression ou
+// clé, EX-GP-020/EX-GP-025/EX-GP-023) : toutes partagent la même règle d'identifiant
+// (LevelLoader.cpp).
 [[nodiscard]] bool isTriggerType(TileType type) {
-    return type == TileType::Switch || type == TileType::PressurePlate;
+    return type == TileType::Switch || type == TileType::PressurePlate || type == TileType::Key;
+}
+
+// Vrai pour les tuiles "cible" d'une liaison de mécanisme (porte classique ou porte verrouillée) :
+// les deux se résolvent depuis le même vecteur `mechanisms` (LevelLoader.cpp), écrivent le même
+// champ 'opensWith'.
+[[nodiscard]] bool isDoorLikeType(TileType type) {
+    return type == TileType::Door || type == TileType::LockedDoor;
 }
 
 // Nom JSON d'une DecorLayer (LOT-49, EX-DEC-002), symétrique à decorLayerFromName ci-dessous
@@ -42,7 +50,7 @@ std::string LevelWriter::toJsonString(const Level& level) {
     return buildJson(level.name(), level.tileMap(), level.mechanisms(), level.jumpBudget(),
                      level.dashBudget(), level.dangerLinks(), level.moverConfigs(),
                      level.blinkConfigs(), level.background(), level.skinSet(),
-                     level.textureOverrides(), level.decors());
+                     level.textureOverrides(), level.decors(), level.platformConfigs());
 }
 
 bool LevelWriter::saveToFile(const Level& level, const std::filesystem::path& path) {
@@ -63,7 +71,8 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
                                    const std::optional<std::string>& background,
                                    const std::optional<std::string>& skinSet,
                                    const std::vector<TileTextureOverride>& textureOverrides,
-                                   const std::vector<Decor>& decors) {
+                                   const std::vector<Decor>& decors,
+                                   const std::vector<MovingPlatformConfig>& platformConfigs) {
     nlohmann::json root;
     root["version"] = kLevelFormatVersion;
     root["name"] = name;
@@ -131,6 +140,13 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
         blinkByPosition.emplace(std::make_pair(config.position.column, config.position.row),
                                 config);
     }
+    // Position de plateforme mobile -> configuration explicite, si posee (EX-GP-026), meme schema
+    // que moverByPosition/blinkByPosition ci-dessus.
+    std::map<std::pair<int, int>, MovingPlatformConfig> platformByPosition;
+    for (const MovingPlatformConfig& config : platformConfigs) {
+        platformByPosition.emplace(
+            std::make_pair(config.startPosition.column, config.startPosition.row), config);
+    }
 
     // Position -> nom d'asset de la texture assignee par instance (EX-EDIT-043), independamment
     // du type de la tuile a cette position.
@@ -156,7 +172,7 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
                 if (found != switchIds.end()) {
                     tile["id"] = found->second;
                 }
-            } else if (type == TileType::Door) {
+            } else if (isDoorLikeType(type)) {
                 const auto found = doorOpensWith.find(std::make_pair(column, row));
                 if (found != doorOpensWith.end()) {
                     tile["opensWith"] = found->second;
@@ -179,6 +195,14 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
                     tile["period"] = found->second.period;
                     tile["phase"] = found->second.phase;
                     tile["activeDuration"] = found->second.activeDuration;
+                }
+            } else if (type == TileType::MovingPlatform) {
+                const auto found = platformByPosition.find(std::make_pair(column, row));
+                if (found != platformByPosition.end()) {
+                    tile["endX"] = found->second.endPosition.column;
+                    tile["endY"] = found->second.endPosition.row;
+                    tile["speed"] = found->second.speed;
+                    tile["phase"] = found->second.phase;
                 }
             }
             // Texture assignee par instance (EX-EDIT-043) : independante du type, peut

@@ -42,6 +42,9 @@ constexpr std::int32_t OVERLAY_ORDER_DECOR_OUTLINE_DARK = 4;
 constexpr std::int32_t OVERLAY_ORDER_DECOR_OUTLINE_BRIGHT = 5;
 constexpr std::int32_t OVERLAY_ORDER_DECOR_HANDLE_DARK = 6;
 constexpr std::int32_t OVERLAY_ORDER_DECOR_HANDLE_BRIGHT = 7;
+// Parcours de plateforme mobile (LOT-63) : au-dessus des poignees de décor, dernier calque
+// d'édition -- un repère de placement, jamais masqué par une sélection en cours.
+constexpr std::int32_t OVERLAY_ORDER_PLATFORM_PATH = 8;
 }  // namespace
 
 DraftRenderer::DraftRenderer(SpriteBatch& batch, const TextureAtlas& atlas, TextureCache& cache)
@@ -110,6 +113,7 @@ void DraftRenderer::render(
         composeGrid(draft, decorOverlay.snapToGrid);
     }
     composeLinks(draft, linkOverlay);
+    composeMovingPlatformPaths(draft);
     if (showTextureOverrides) {
         composeTextureOverrideMarkers(draft);
     }
@@ -343,6 +347,63 @@ void DraftRenderer::composeLinks(const core::LevelDraft& draft, const LinkOverla
         const ArrowHead head = arrowHead(line.a, line.b);
         addLine(segment(line.b, head.left, thickness, r, g, b, alpha));
         addLine(segment(line.b, head.right, thickness, r, g, b, alpha));
+    }
+}
+
+// Materialise le parcours de chaque plateforme mobile (LOT-63, EX-GP-026) : un trait fin entre
+// son point de depart et son second point, teinte azur (meme famille que la couleur procedurale
+// de MovingPlatform, TileVisuals.cpp), avec une pointe de fleche au second point -- lisible sans
+// se confondre avec les liens de mecanismes (bleu/orange, composeLinks ci-dessus).
+void DraftRenderer::composeMovingPlatformPaths(const core::LevelDraft& draft) {
+    if (draft.platformConfigs().empty()) {
+        return;
+    }
+
+    const core::AtlasRegion solid = _atlas.tile(0, 0);  // region opaque unie (teintee).
+    const float atlasWidth = static_cast<float>(_atlas.width());
+    const float atlasHeight = static_cast<float>(_atlas.height());
+    const float u0 = static_cast<float>(solid.x) / atlasWidth;
+    const float v0 = static_cast<float>(solid.y) / atlasHeight;
+    const float u1 = static_cast<float>(solid.x + solid.width) / atlasWidth;
+    const float v1 = static_cast<float>(solid.y + solid.height) / atlasHeight;
+
+    constexpr float THICKNESS = 0.04f;
+    constexpr float R = 0.0f;
+    constexpr float G = 0.6f;
+    constexpr float BLUE = 1.0f;
+    constexpr float ALPHA = 0.6f;
+
+    const auto addLine = [&](core::Vector2 a, core::Vector2 b) {
+        LineQuad quad;
+        quad.ax = a.x;
+        quad.ay = a.y;
+        quad.bx = b.x;
+        quad.by = b.y;
+        quad.thickness = THICKNESS;
+        quad.u0 = u0;
+        quad.v0 = v0;
+        quad.u1 = u1;
+        quad.v1 = v1;
+        quad.r = R;
+        quad.g = G;
+        quad.b = BLUE;
+        quad.a = ALPHA;
+        _scene.addLine(RenderLayer::EditorOverlay, _atlas.textureView(),
+                       OVERLAY_ORDER_PLATFORM_PATH, quad);
+    };
+
+    for (const core::MovingPlatformConfig& config : draft.platformConfigs()) {
+        const core::Vector2 start{static_cast<float>(config.startPosition.column) + 0.5f,
+                                  static_cast<float>(config.startPosition.row) + 0.5f};
+        const core::Vector2 end{static_cast<float>(config.endPosition.column) + 0.5f,
+                                static_cast<float>(config.endPosition.row) + 0.5f};
+        if (start == end) {
+            continue;  // parcours nul (plateforme immobile) : rien a materialiser.
+        }
+        addLine(start, end);
+        const ArrowHead head = arrowHead(start, end);
+        addLine(end, head.left);
+        addLine(end, head.right);
     }
 }
 

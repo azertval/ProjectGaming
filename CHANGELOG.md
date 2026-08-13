@@ -7,6 +7,32 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-63 — Mécanismes manquants du référentiel** (lève `EX-GP-023`, marqué « ⚠️ optionnel MVP »
+  depuis la rédaction des spécifications ; déclare `EX-CTRL-022` et `EX-GP-026`). Réduit l'écart
+  entre ce que le référentiel promettait et ce que le jeu contenait.
+  - **Action logique « Interagir »** (`core::PlayerInput::interactPressed`, touches par défaut
+    **E**/**X**, remappables indépendamment au clavier et à la manette) : complète l'activation
+    par contact des mécanismes sans la remplacer ; premier usage, le ramassage d'une clé.
+  - **Clé et porte verrouillée** (`TileType::Key`/`LockedDoor`) : liaison résolue par la **même**
+    infrastructure `core::Mechanism` qu'interrupteur/plaque↔porte (aucune notion de liaison
+    dupliquée) ; ramassage par contact **et** « Interagir » ; ouverture **définitive**
+    (contrairement à la porte d'un interrupteur).
+  - **Plateforme mobile** (`TileType::MovingPlatform`, `core::PlatformController`) : aller-retour
+    déterministe entre deux points (fonction du numéro de pas fixe, jamais du temps réel ni d'une
+    accumulation), portant le personnage et les blocs poussables sans traversée, glissement ni
+    tremblement à l'affichage ; écrasement contre un plafond mortel (décision de cadrage).
+  - **Intégration éditeur complète** des trois mécanismes (palette, liaison, paramétrage, rendu de
+    brouillon avec parcours matérialisé) et **habillage réel sous licence libre** (CC0, Kenney,
+    jeu de skins `kenney`) — crédits dans `Source/Elements/Assets/CREDITS.md` et l'écran Crédits.
+  - **Trois niveaux de démonstration** (`demo-cle.json`, `demo-plateforme.json`, action
+    « Interagir » exercée) insérés dans la séquence livrée.
+  - **Corrigé en cours de lot** : l'agrandissement de la grille procédurale (`TextureAtlas` 5×5 →
+    6×6, pour loger `MovingPlatform`) laissait `Source/Elements/Assets/atlas.png` **désynchronisé**
+    du code (fichier versionné, jamais recalculé automatiquement, `LOT-39`) — personnage mal recadré
+    en mouvement, `Key`/`LockedDoor` invisibles, mécanismes du lot en noir en mode Physique.
+    Régénéré (`--export-atlas`) ; couvert par un nouveau test d'intégration
+    (`test_plateforme_composition.cpp`) qui exerce le repérage d'entité-tuile et le rafraîchissement
+    visuel d'une plateforme mobile exactement comme `hmi::GameSession`, jusqu'ici jamais testés.
 - **LOT-62 — Budget de rendu mesuré** (honore `EX-NFR-005` et `EX-NFR-001`, jamais vérifiées
   jusqu'ici). Transforme deux exigences déclaratives en garanties assertées, sans rien optimiser.
   - **Test de non-régression du volume de primitives**

@@ -141,6 +141,9 @@ private:
     void composeGrid(const core::LevelDraft& draft, bool accentuate);
     /// Compose les liens de mécanismes (flèches déclencheur → cible) sur le calque d'édition.
     void composeLinks(const core::LevelDraft& draft, const LinkOverlayState& overlay);
+    /// Compose le parcours de chaque plateforme mobile (trait + pointe de flèche, `EX-GP-026`,
+    /// `LOT-63`) sur le calque d'édition.
+    void composeMovingPlatformPaths(const core::LevelDraft& draft);
     /// Compose le voile d'aperçu d'une zone (outil Rectangle/Sélection) sur le calque d'édition.
     void composeHighlight(const core::GridPosition& minimum, const core::GridPosition& maximum);
     /// Signale les cases portant une surcharge de texture par instance sur le calque d'édition

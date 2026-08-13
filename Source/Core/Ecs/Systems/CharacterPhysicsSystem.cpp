@@ -11,6 +11,7 @@
 #include "Core/Ecs/World.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Physics/Aabb.h"
+#include "Core/Physics/AabbVsAabb.h"
 #include "Core/Physics/PhysicsLog.h"
 #include "Core/Physics/PlayerInput.h"
 #include "Core/Physics/SlopeGeometry.h"
@@ -18,17 +19,135 @@
 
 namespace core {
 
+namespace {
+
+// Tolerance de contact "repose sur le dessus" d'une plateforme -- meme ordre de grandeur que
+// core::BlockController::PUSH_TOUCH_TOLERANCE (bords qui se touchent, pas qui se chevauchent).
+constexpr float PLATFORM_REST_TOLERANCE = 0.05F;
+
+// Chevauchement horizontal entre deux boites (aire strictement positive sur l'axe X).
+[[nodiscard]] bool overlapsHorizontally(const Aabb& a, const Aabb& b) {
+    return a.min.x < b.max.x && a.max.x > b.min.x;
+}
+
+// box repose-t-elle sur le DESSUS de platformBox (chevauchement horizontal, bord bas de box au
+// contact du bord haut de platformBox) ? Duplique core::restsOnTopOfPlatform (Gameplay,
+// PlatformController.h) plutot que d'y inclure une dependance : Ecs/Systems ne depend jamais de
+// Gameplay (sens inverse de la dependance etablie, PlatformController -> Ecs/Physics).
+[[nodiscard]] bool restsOnTopOf(const Aabb& box, const Aabb& platformBox) {
+    if (!overlapsHorizontally(box, platformBox)) {
+        return false;
+    }
+    return std::abs(box.max.y - platformBox.min.y) <= PLATFORM_REST_TOLERANCE;
+}
+
+}  // namespace
+
 CharacterPhysicsSystem::CharacterPhysicsSystem(PhysicsConfig config) : _config(config) {}
 
 // Applique un pas de simulation aux personnages (voir en-tête).
 void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const PlayerInput& input,
-                                    float fixedDelta) const {
+                                    float fixedDelta,
+                                    const std::vector<PlatformSample>& platforms) const {
     world.view<Player, Transform, Velocity, Collider>().each(
         [&](Entity, Player& player, Transform& transform, Velocity& velocity, Collider& collider) {
+            player.squished = false;
+            applyPlatformPortage(player, transform, collider, tiles, platforms);
+            const Aabb stepStartBox = Aabb::fromTopLeftSize(transform.position, collider.size);
             resolveVelocity(player, velocity, input, fixedDelta);
             resolveCollisionAndState(player, transform, velocity, collider, tiles, input,
                                      fixedDelta);
+            resolvePlatformCollision(player, transform, velocity, stepStartBox, platforms);
         });
+}
+
+// Porte le personnage avec la plateforme sur laquelle il repose, avant que sa propre physique ne
+// s'applique (voir en-tête). Le "reposait sur la plateforme" se redérive purement de la géométrie
+// (box courante contre previousBox de l'échantillon) : aucun état à mémoriser d'un pas à l'autre,
+// player.grounded (calculé au pas précédent, par la grille OU une plateforme) suffit à savoir
+// qu'un contact existait quelque part.
+void CharacterPhysicsSystem::applyPlatformPortage(
+    Player& player, Transform& transform, const Collider& collider, const TileMap& tiles,
+    const std::vector<PlatformSample>& platforms) const {
+    if (!player.grounded || platforms.empty()) {
+        return;
+    }
+    const Aabb box = Aabb::fromTopLeftSize(transform.position, collider.size);
+    for (const PlatformSample& sample : platforms) {
+        if (!restsOnTopOf(box, sample.previousBox)) {
+            continue;
+        }
+        transform.position += sample.currentBox.min - sample.previousBox.min;
+        break;  // une seule plateforme peut porter le personnage a la fois
+    }
+
+    // Ecrasement (EX-GP-026) : la translation ci-dessus vient-elle d'embarquer le personnage dans
+    // une tuile solide (plateforme montante contre un plafond) ? Decision de cadrage : mortel,
+    // signale via Player::squished plutot que de bloquer la plateforme (qui resterait fonction
+    // pure du numero de pas, EX-NFR-002).
+    const Aabb carriedBox = Aabb::fromTopLeftSize(transform.position, collider.size);
+    const int firstColumn = static_cast<int>(std::floor(carriedBox.min.x));
+    const int lastColumn = static_cast<int>(std::ceil(carriedBox.max.x)) - 1;
+    const int firstRow = static_cast<int>(std::floor(carriedBox.min.y));
+    const int lastRow = static_cast<int>(std::ceil(carriedBox.max.y)) - 1;
+    for (int row = firstRow; row <= lastRow && !player.squished; ++row) {
+        for (int column = firstColumn; column <= lastColumn; ++column) {
+            if (!tiles.inBounds(column, row) || !tiles.isSolid(column, row)) {
+                continue;
+            }
+            const bool overlaps = carriedBox.min.x < static_cast<float>(column) + 1.0F &&
+                                  carriedBox.max.x > static_cast<float>(column) &&
+                                  carriedBox.min.y < static_cast<float>(row) + 1.0F &&
+                                  carriedBox.max.y > static_cast<float>(row);
+            if (overlaps) {
+                player.squished = true;
+                break;
+            }
+        }
+    }
+}
+
+// Resout la collision continue contre chaque plateforme, apres le balayage sur grille (voir
+// en-tete). Meme composition que hmi::GameSession::resolveReducedBlockCollision : la resolution la
+// PLUS STRICTE (la plus proche du depart) l'emporte par axe, entre toutes les plateformes.
+void CharacterPhysicsSystem::resolvePlatformCollision(
+    Player& player, Transform& transform, Velocity& velocity, const Aabb& stepStartBox,
+    const std::vector<PlatformSample>& platforms) const {
+    if (platforms.empty()) {
+        return;
+    }
+    const Vector2 delta = transform.position - stepStartBox.min;
+    if (delta.x == 0.0F && delta.y == 0.0F) {
+        return;
+    }
+    Vector2 bestPosition = transform.position;
+    Vector2 bestNormal{};
+    for (const PlatformSample& sample : platforms) {
+        const SweepResult result = sweepAabbVsAabb(stepStartBox, delta, sample.currentBox);
+        if (result.normal.x != 0.0F && std::abs(result.position.x - stepStartBox.min.x) <
+                                           std::abs(bestPosition.x - stepStartBox.min.x)) {
+            bestPosition.x = result.position.x;
+            bestNormal.x = result.normal.x;
+        }
+        if (result.normal.y != 0.0F && std::abs(result.position.y - stepStartBox.min.y) <
+                                           std::abs(bestPosition.y - stepStartBox.min.y)) {
+            bestPosition.y = result.position.y;
+            bestNormal.y = result.normal.y;
+        }
+    }
+    if (bestNormal.x == 0.0F && bestNormal.y == 0.0F) {
+        return;
+    }
+    transform.position = bestPosition;
+    if (bestNormal.x != 0.0F) {
+        velocity.value.x = 0.0F;
+    }
+    if (bestNormal.y != 0.0F) {
+        velocity.value.y = 0.0F;
+        if (bestNormal.y < 0.0F) {
+            player.grounded = true;  // pose sur le dessus d'une plateforme
+        }
+    }
 }
 
 bool CharacterPhysicsSystem::applyDash(Player& player, Velocity& velocity, const PlayerInput& input,

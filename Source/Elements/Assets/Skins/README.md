@@ -87,3 +87,20 @@ assignés), ceux-ci **sont** assignés dans le jeu `test` de `../skins.json` : c
 défaut qui rend visible, dès le premier lancement, la correspondance état → clip du `LOT-47` (voir
 `Documentation/Lot/LOT-47-etats-visuels-mecanismes/`) — un artiste les remplacera sans toucher au
 code, exactement comme les autres skins de ce dossier.
+
+## Jeu `kenney` : premiers assets **réels**, sous licence libre (`LOT-63`)
+
+Contrairement à tout ce qui précède (schématique, généré par script), `key.png`, `locked_door.png`
+et `platform.png` sont de **vraies illustrations**, retouchées à partir de sprites publiés par
+**Kenney** (www.kenney.nl) sous licence **CC0 1.0 Universal** (domaine public) — voir
+`../CREDITS.md` pour le détail fichier par fichier (sprite d'origine, pack, retouche appliquée).
+
+| Fichier | Contrat | Type assigné (jeu `kenney`) |
+|---|---|---|
+| `key.png` + `key.anim.json` | 16×32 (2 cases), clips `present`/`collected` | `key` |
+| `locked_door.png` + `locked_door.anim.json` | 16×32 (2 cases), clips `closed`/`open` | `lockedDoor` |
+| `platform.png` | 16×16 | `movingPlatform` |
+
+Ce jeu ne couvre que les trois nouveaux mécanismes du `LOT-63` (`EX-GP-023`/`EX-GP-026`) — les
+autres types y retombent sur le damier magenta (état normal, `EX-NFR-040`), tant qu'ils n'y sont
+pas assignés à leur tour. Le jeu par défaut (`"defaut"` de `../skins.json`) reste `test`, inchangé.

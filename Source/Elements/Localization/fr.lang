@@ -313,6 +313,7 @@ language.en = English
 credits.title = Crédits
 credits.development = Développement
 credits.audio = Musique et bruitages
+credits.graphics = Graphismes
 
 # Messages d'etat du viewport
 status.region_copied = Zone copiée (%1 × %2).
@@ -345,6 +346,7 @@ keybindings.action.aim_up = Viser le dash vers le haut
 keybindings.action.aim_down = Viser le dash vers le bas
 keybindings.action.jump = Sauter
 keybindings.action.dash = Dash
+keybindings.action.interact = Interagir
 keybindings.action.save = Sauvegarder
 keybindings.action.undo = Annuler
 keybindings.action.redo = Refaire
@@ -387,6 +389,9 @@ palette.tile.quarter = Quart (¼)
 palette.tile.switch = Interrupteur
 palette.tile.plate = Plaque de pression
 palette.tile.door = Porte
+palette.tile.key = Clé
+palette.tile.locked_door = Porte verrouillée
+palette.tile.moving_platform = Plateforme mobile
 palette.tile.danger = Danger
 palette.tile.danger_moving = Danger mobile
 palette.tile.danger_switched = Danger commuté

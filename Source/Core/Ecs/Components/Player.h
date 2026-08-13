@@ -66,6 +66,12 @@ struct Player {
     /// aucune des minuteries existantes (`jumpBufferTimer`...) ne permet de distinguer un saut
     /// déclenché d'un buffer simplement expiré sans saut.
     bool justJumped = false;
+    /// Vrai pendant le pas où le personnage a été **écrasé** par une plateforme mobile contre un
+    /// plafond (`EX-GP-026`, cas d'écrasement — décision de cadrage : mortel, comme un danger).
+    /// Même nature que `justJumped` : un front à usage externe, remis à faux au début du pas
+    /// suivant, sans effet sur la simulation elle-même (l'appelant traduit ce champ en issue
+    /// `LevelOutcome::Lost`, `core::evaluateOutcome`).
+    bool squished = false;
 };
 
 }  // namespace core

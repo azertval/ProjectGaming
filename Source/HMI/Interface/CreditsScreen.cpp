@@ -32,6 +32,7 @@ void CreditsScreen::retranslateUi(const Localization& loc) {
     _ui->creditsTitle->setText(t("credits.title"));
     _ui->developmentLabel->setText(t("credits.development"));
     _ui->audioLabel->setText(t("credits.audio"));
+    _ui->graphicsLabel->setText(t("credits.graphics"));
     _ui->backButton->setText(t("options.back"));
 }
 

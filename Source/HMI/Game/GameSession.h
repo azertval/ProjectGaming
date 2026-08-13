@@ -13,6 +13,7 @@
 #include "Core/Gameplay/BlockController.h"
 #include "Core/Gameplay/DangerController.h"
 #include "Core/Gameplay/MechanismController.h"
+#include "Core/Gameplay/PlatformController.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelOutcome.h"
@@ -152,6 +153,9 @@ private:
     /// personnage n'a pas bougé ce pas (@p previousBox égale sa position courante).
     void resolveReducedBlockCollision(const core::Aabb& previousBox);
     void refreshDangerVisuals();
+    /// Replace chaque entité-tuile de plateforme mobile à sa position COURANTE (`EX-GP-026`,
+    /// `LOT-63`), même patron que `refreshDangerVisuals` pour un danger mobile.
+    void refreshPlatformVisuals();
     /// Apparence des mécanismes pilotée par leur état logique (`LOT-47`, `EX-REN-006`) : projette
     /// l'état de chaque mécanisme suivi sur un clip (correspondance + transitions), au **pas fixe**
     /// — la simulation n'en dépend jamais, seule l'apparence en résulte (`EX-ARCH-012`).
@@ -168,7 +172,7 @@ private:
     /// d'un mécanisme inactif. Appelée à chaque `render()` (décision purement visuelle, dépendante
     /// du mode courant) ; force l'alpha à 1 en mode Texture, où l'état se voit désormais au clip.
     void refreshMechanismDiagnosticTint(RenderMode mode);
-    [[nodiscard]] std::vector<core::Aabb> collectActiveDangerBoxes() const;
+    [[nodiscard]] std::vector<core::Aabb> collectActiveDangerBoxes();
     void refreshPlayerSprite();
     void centerCameraOnRoom(core::GridPosition roomIndex);
     void updateCurrentRoom();
@@ -205,6 +209,10 @@ private:
     std::vector<core::Entity> _switchEntities;
     std::optional<core::BlockController> _blocks;
     std::optional<core::DangerController> _dangers;
+    std::optional<core::PlatformController> _platforms;
+    /// Entité-tuile de chaque plateforme mobile, même ordre que `core::Level::platformConfigs()`
+    /// (`EX-GP-026`, `LOT-63`).
+    std::vector<core::Entity> _platformEntities;
     std::vector<core::Entity> _moverEntities;
     std::vector<core::Entity> _dangerSwitchedEntities;
     std::vector<core::Entity> _dangerBlinkEntities;

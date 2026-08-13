@@ -4,6 +4,7 @@
 #include <string>
 
 #include "Core/Gameplay/GameplayLog.h"
+#include "Core/Gameplay/PlatformController.h"
 #include "Core/Physics/Aabb.h"
 #include "Core/Physics/SlopeGeometry.h"
 
@@ -47,6 +48,7 @@ BlockController::BlockController(const Level& level) {
         }
     }
     _fallTimers.assign(_positions.size(), 0);
+    _platformCarryAccumulator.assign(_positions.size(), Vector2{});
 }
 
 Aabb BlockController::boxAt(std::size_t index) const {
@@ -82,8 +84,10 @@ bool BlockController::isFree(GridPosition target, const TileMap& base,
     return true;
 }
 
-void BlockController::update(const Aabb& playerBox, float moveIntentX, const TileMap& base) {
+void BlockController::update(const Aabb& playerBox, float moveIntentX, const TileMap& base,
+                             const std::vector<PlatformSample>& platforms) {
     pushBlocks(playerBox, moveIntentX, base);
+    carryBlocksOnPlatforms(base, platforms);
     dropBlocks(base);
 }
 
@@ -113,6 +117,49 @@ void BlockController::pushBlocks(const Aabb& playerBox, float moveIntentX, const
             GAMEPLAY_LOG_TRACE("Bloc #" + std::to_string(index) + " pousse vers (" +
                                std::to_string(target.column) + ", " + std::to_string(target.row) +
                                ")");
+        }
+    }
+}
+
+void BlockController::carryBlocksOnPlatforms(const TileMap& base,
+                                             const std::vector<PlatformSample>& platforms) {
+    for (std::size_t index = 0; index < _positions.size(); ++index) {
+        const Aabb box = blockBox(_positions[index], _scales[index]);
+        bool supported = false;
+        for (const PlatformSample& sample : platforms) {
+            if (!restsOnTopOfPlatform(box, sample.previousBox)) {
+                continue;
+            }
+            supported = true;
+            _fallTimers[index] = 0;  // porte : jamais considere non soutenu ce pas-ci
+            _platformCarryAccumulator[index] += sample.currentBox.min - sample.previousBox.min;
+            break;  // une seule plateforme porte un bloc a la fois
+        }
+        if (!supported) {
+            _platformCarryAccumulator[index] = Vector2{};
+            continue;
+        }
+
+        // Convertit le deplacement infra-case accumule en poussee(s) d'une case entiere, des que
+        // le seuil est atteint -- meme granularite que le reste du controleur (jamais de position
+        // infra-case pour un bloc). Le reliquat est conserve, jamais perdu.
+        for (int axis = 0; axis < 2; ++axis) {
+            float& accumulated =
+                axis == 0 ? _platformCarryAccumulator[index].x : _platformCarryAccumulator[index].y;
+            while (std::fabs(accumulated) >= 1.0F) {
+                const int direction = accumulated > 0.0F ? 1 : -1;
+                const GridPosition current = _positions[index];
+                const GridPosition target =
+                    axis == 0
+                        ? GridPosition{.column = current.column + direction, .row = current.row}
+                        : GridPosition{.column = current.column, .row = current.row + direction};
+                if (!isFree(target, base, index)) {
+                    accumulated = 0.0F;  // bloque : le reliquat ne s'accumule pas indefiniment
+                    break;
+                }
+                _positions[index] = target;
+                accumulated -= static_cast<float>(direction);
+            }
         }
     }
 }

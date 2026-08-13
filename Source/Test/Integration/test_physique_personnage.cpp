@@ -25,6 +25,7 @@
 #include "Core/Ecs/World.h"
 #include "Core/Gameplay/BlockController.h"
 #include "Core/Gameplay/MechanismController.h"
+#include "Core/Gameplay/PlatformController.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelOutcome.h"
@@ -266,6 +267,7 @@ core::LevelOutcome playReactiveFile(const char* file, const ReactiveInput& input
     core::CharacterPhysicsSystem system;
     core::BlockController blocks(level);
     core::MechanismController mechanisms(level);
+    core::PlatformController platforms(level);
 
     core::LevelOutcome outcome = core::LevelOutcome::Playing;
     for (int step = 0; step < maxSteps && outcome == core::LevelOutcome::Playing; ++step) {
@@ -277,10 +279,14 @@ core::LevelOutcome playReactiveFile(const char* file, const ReactiveInput& input
             input(step, world.getComponent<core::Player>(player), previousTransform.position.x,
                   previousTransform.position.y);
 
+        // Plateformes mobiles (EX-GP-026) : deplacees EN PREMIER, comme hmi::GameSession::update.
+        platforms.update();
+        const std::vector<core::PlatformSample> platformSamples = platforms.samples();
+
         const core::TileMap mechanismMap = mechanisms.collisionMap();
-        blocks.update(previousBox, in.moveX, mechanismMap);
+        blocks.update(previousBox, in.moveX, mechanismMap, platformSamples);
         const core::TileMap collision = blocks.collisionMap(mechanismMap);
-        system.update(world, collision, in, STEP);
+        system.update(world, collision, in, STEP, platformSamples);
 
         // Composition boîte-boîte pour les blocs réduits (EX-GP-005), comme GameSession::update.
         core::Transform& transform = world.getComponent<core::Transform>(player);
@@ -320,8 +326,15 @@ core::LevelOutcome playReactiveFile(const char* file, const ReactiveInput& input
         }
 
         const core::Aabb box = core::Aabb::fromTopLeftSize(transform.position, collider.size);
-        mechanisms.update(box);
-        outcome = core::evaluateOutcome(box, level);
+        mechanisms.update(box, 1.0f, in.interactPressed);
+
+        // Ecrasement par une plateforme mobile (EX-GP-026) : mortel, comme
+        // hmi::GameSession::update.
+        std::vector<core::Aabb> extraDangerBoxes;
+        if (world.getComponent<core::Player>(player).squished) {
+            extraDangerBoxes.push_back(box);
+        }
+        outcome = core::evaluateOutcome(box, level, extraDangerBoxes);
     }
     return outcome;
 }
@@ -2702,4 +2715,197 @@ TEST(PhysiquePersonnageIntegration, NiveauFinalFranchissable) {
         return in;
     };
     EXPECT_EQ(playReactiveFile("demo-final.json", script), core::LevelOutcome::Won);
+}
+
+namespace {
+
+// Niveau minimal (grille vide) portant une seule plateforme mobile de (startCol,startRow) a
+// (endCol,endRow), a la vitesse donnee (cases/s).
+core::Level makePlatformLevel(int startCol, int startRow, int endCol, int endRow,
+                              float speed = 2.0f) {
+    core::TileMap map(20, 20);
+    map.setTile(startCol, startRow, core::TileType::MovingPlatform);
+    std::vector<core::MovingPlatformConfig> platformConfigs{
+        core::MovingPlatformConfig{.startPosition = core::GridPosition{startCol, startRow},
+                                   .endPosition = core::GridPosition{endCol, endRow},
+                                   .speed = speed,
+                                   .phase = 0}};
+    return core::Level("plateforme-integration", std::move(map), core::GridPosition{0, 0},
+                       core::GridPosition{19, 19}, {}, -1, -1, {}, {}, {}, std::nullopt,
+                       std::nullopt, {}, {}, std::move(platformConfigs));
+}
+
+}  // namespace
+
+/**
+ * @brief Un personnage au sol sur une plateforme mobile horizontale est porté avec elle : son
+ * décalage par rapport à la plateforme reste nul, sans glissement cumulé sur cent pas
+ * (`EX-GP-026`).
+ * \castest{<b>Une plateforme mobile horizontale porte le personnage sans glissement.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le personnage reste exactement aligné avec la plateforme à chaque pas, sans dérive.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, PlateformeHorizontalePorteSansGlissement) {
+    core::World world;
+    const core::Level level = makePlatformLevel(2, 5, 10, 5);
+    core::PlatformController platforms(level);
+    core::TileMap tiles(20, 20);  // grille vide : seule la plateforme (hors grille) porte
+    core::CharacterPhysicsSystem system;
+
+    // Personnage pose exactement sur le dessus de la plateforme a sa position de depart (2,5),
+    // deja marque au sol (scenario : le portage etait deja engage avant le debut du test).
+    const core::Entity player = spawnPlayer(world, 2.0f, 4.0f);
+    world.getComponent<core::Player>(player).grounded = true;
+
+    for (int i = 0; i < 100; ++i) {
+        platforms.update();  // la plateforme bouge D'ABORD (ordre de resolution du pas, TACHE-03)
+        system.update(world, tiles, core::PlayerInput{}, STEP, platforms.samples());
+
+        const float playerX = world.getComponent<core::Transform>(player).position.x;
+        const float platformX = platforms.boxAt(0).min.x;
+        EXPECT_NEAR(playerX, platformX, TOLERANCE) << "pas " << i;
+        EXPECT_TRUE(world.getComponent<core::Player>(player).grounded) << "pas " << i;
+    }
+}
+
+/**
+ * @brief Un personnage au sol sur une plateforme mobile verticale la suit sans s'enfoncer ni s'en
+ * décoller, en montée comme en descente (`EX-GP-026`).
+ * \castest{<b>Une plateforme mobile verticale porte le personnage sans enfoncement ni
+ * décollement.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le bord bas du personnage reste exactement au niveau du dessus de la plateforme.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, PlateformeVerticalePorteSansEnfoncementNiDecollement) {
+    core::World world;
+    const core::Level level = makePlatformLevel(3, 5, 3, 1);  // monte de 4 cases
+    core::PlatformController platforms(level);
+    core::TileMap tiles(20, 20);
+    core::CharacterPhysicsSystem system;
+
+    const core::Entity player = spawnPlayer(world, 3.0f, 4.0f);  // pose sur le dessus (y=5)
+    world.getComponent<core::Player>(player).grounded = true;
+
+    for (int i = 0; i < 150; ++i) {  // couvre montee ET descente (cycle = 2s = 120 pas a 2 cases/s)
+        platforms.update();
+        system.update(world, tiles, core::PlayerInput{}, STEP, platforms.samples());
+
+        const float playerBottom = world.getComponent<core::Transform>(player).position.y + 1.0f;
+        const float platformTop = platforms.boxAt(0).min.y;
+        EXPECT_NEAR(playerBottom, platformTop, TOLERANCE) << "pas " << i;
+    }
+}
+
+/**
+ * @brief Aucune traversée : à la vitesse de plateforme la plus élevée retenue, le personnage n'est
+ * jamais traversé par la plateforme (`EX-GP-014`, préservé pour un obstacle mobile).
+ * \castest{<b>Aucune traversée à vitesse de plateforme maximale.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le personnage n'est jamais retrouvé chevauchant la plateforme.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, AucuneTraverseeAVitesseMaximale) {
+    core::World world;
+    // Plateforme rapide fonçant droit sur un personnage immobile a proximite de son parcours.
+    const core::Level level = makePlatformLevel(0, 5, 12, 5, /*speed=*/8.0f);
+    core::PlatformController platforms(level);
+    core::TileMap tiles(20, 20);
+    core::CharacterPhysicsSystem system;
+
+    const core::Entity player = spawnPlayer(world, 6.0f, 5.0f);  // sur le trajet de la plateforme
+
+    for (int i = 0; i < 200; ++i) {
+        platforms.update();
+        system.update(world, tiles, core::PlayerInput{}, STEP, platforms.samples());
+
+        const core::Aabb playerBox = core::Aabb::fromTopLeftSize(
+            world.getComponent<core::Transform>(player).position, core::Vector2{1.0f, 1.0f});
+        const core::Aabb platformBox = platforms.boxAt(0);
+        const bool overlapping =
+            playerBox.min.x < platformBox.max.x && playerBox.max.x > platformBox.min.x &&
+            playerBox.min.y < platformBox.max.y && playerBox.max.y > platformBox.min.y;
+        EXPECT_FALSE(overlapping) << "pas " << i;
+    }
+}
+
+/**
+ * @brief Écrasement : une plateforme montante contre un plafond avec le personnage entre les deux
+ * est mortelle (`Player::squished`) — décision de cadrage retenue (`TACHE-03`).
+ * \castest{<b>Une plateforme montante contre un plafond écrase le personnage.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu `Player::squished` devient vrai avant que la plateforme n'atteigne le plafond.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, EcrasementContreUnPlafondEstMortel) {
+    core::World world;
+    // Plateforme montant de la ligne 8 vers la ligne 0 ; plafond solide en ligne 1 (juste au-dessus
+    // du point d'arrivee) pour laisser au personnage porte le temps de se faire ecraser.
+    const core::Level level = makePlatformLevel(3, 8, 3, 0, /*speed=*/2.0f);
+    core::PlatformController platforms(level);
+    core::TileMap tiles(20, 20);
+    for (int col = 0; col < 20; ++col) {
+        tiles.setTile(col, 1, core::TileType::Solid);  // plafond bas
+    }
+    core::CharacterPhysicsSystem system;
+
+    const core::Entity player = spawnPlayer(world, 3.0f, 7.0f);  // pose sur le dessus (y=8)
+    world.getComponent<core::Player>(player).grounded = true;
+
+    bool squished = false;
+    for (int i = 0; i < 300 && !squished; ++i) {
+        platforms.update();
+        system.update(world, tiles, core::PlayerInput{}, STEP, platforms.samples());
+        squished = world.getComponent<core::Player>(player).squished;
+    }
+    EXPECT_TRUE(squished);
+}
+
+/**
+ * @brief Un bloc poussable posé sur une plateforme mobile horizontale est porté avec elle
+ * (`core::BlockController`, `EX-GP-026`/`EX-GP-022`).
+ * \castest{<b>Un bloc poussable posé sur une plateforme est porté.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu La colonne du bloc progresse dans le sens de la plateforme, sans jamais tomber.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, BlocPousseSurPlateformeEstPorte) {
+    core::TileMap map(20, 20);
+    // Bloc pose sur le DESSUS de la plateforme (ligne 4, une case au-dessus de la plateforme en
+    // ligne 5) -- pas a la meme case (la plateforme n'est pas dans la grille, EX-GP-005).
+    map.setTile(4, 4, core::TileType::Block);
+    const core::Level level("bloc-plateforme", map, core::GridPosition{0, 0},
+                            core::GridPosition{19, 19}, {});
+    const core::Level platformLevel = makePlatformLevel(4, 5, 12, 5);
+
+    core::PlatformController platforms(platformLevel);
+    core::BlockController blocks(level);
+    const core::Aabb noPlayerContact =
+        core::Aabb::fromTopLeftSize(core::Vector2{-5.0f, -5.0f}, core::Vector2{1.0f, 1.0f});
+
+    const int startColumn = blocks.positions().front().column;
+    for (int i = 0; i < 100; ++i) {
+        platforms.update();
+        blocks.update(noPlayerContact, /*moveIntentX=*/0.0f, map, platforms.samples());
+    }
+    // La plateforme a parcouru 8 cases en 100 pas (2 cases/s, 1.67s) : le bloc doit avoir progresse
+    // dans le meme sens, jamais etre tombe (reste sur la meme ligne).
+    EXPECT_GT(blocks.positions().front().column, startColumn);
+    EXPECT_EQ(blocks.positions().front().row, 4);
 }

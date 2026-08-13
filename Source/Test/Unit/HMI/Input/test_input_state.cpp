@@ -352,6 +352,32 @@ TEST(InputStateTest, FrontMontantBoutonManetteBrut) {
 }
 
 /**
+ * @brief Un bouton manette (piste brute) relâché après avoir été enfoncé est « relâché »
+ *        exactement une frame (`LOT-63`, action Interagir).
+ * \castest{<b>Un bouton manette (piste brute) est « relâché » exactement une frame.</b><br/>
+ * \tcat Unitaire · Input State<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu `gamepadButtonReleased` est vrai la frame où le bouton passe d'enfoncé à relâché,
+ * faux avant et après.
+ * }
+ */
+TEST(InputStateTest, FrontDescendantBoutonManetteBrut) {
+    hmi::InputState input;
+
+    input.onGamepadButtonDown(hmi::GamepadButton::X);
+    input.beginFrame();
+    EXPECT_FALSE(input.gamepadButtonReleased(hmi::GamepadButton::X));
+
+    input.onGamepadButtonUp(hmi::GamepadButton::X);
+    EXPECT_TRUE(input.gamepadButtonReleased(hmi::GamepadButton::X));
+
+    input.beginFrame();
+    EXPECT_FALSE(input.gamepadButtonReleased(hmi::GamepadButton::X));
+}
+
+/**
  * @brief La piste manette brute (`GamepadButton`) est indépendante de la fusion clavier/manette
  *        existante sur `Key` : l'une n'affecte jamais l'autre.
  * \castest{<b>La piste manette brute est indépendante de la fusion clavier/manette sur

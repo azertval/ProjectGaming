@@ -1,7 +1,7 @@
 # TACHE-02 — Clé ramassable et porte verrouillée {#lot-63-tache-02-cle-porte-verrouillee}
 
 **Lot :** [LOT-63](epic.md) · **Emplacement :** `Source/Core/Levels`, `Source/Core/Gameplay` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 `EX-GP-023` — « Une **clé** collectée doit ouvrir une **porte verrouillée** correspondante » — porte
@@ -24,6 +24,10 @@ endroits du tableau.
 - **Mode de ramassage** : au contact, ou par l'action « Interagir » de la `TACHE-01` — trancher au
   cadrage de l'implémentation et le documenter. Le contact est cohérent avec le reste du jeu ;
   l'action donne son premier usage à la `TACHE-01`.
+  **Décidé : contact ET « Interagir »**, les deux à la fois (`core::MechanismController::update`,
+  contrairement à l'interrupteur qui n'exige que le contact) — c'est ce qui donne à l'action son
+  premier usage réel (`EX-CTRL-022`) plutôt qu'un doublon du contact déjà utilisé par les
+  interrupteurs/plaques.
 - **État réinitialisé** au (re)chargement du niveau, comme le budget de mouvements (`EX-GP-024`) :
   mourir après avoir pris la clé doit remettre la clé en place.
 - **Grille de collision** : une porte verrouillée est **solide** tant qu'elle est fermée, et cesse

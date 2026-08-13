@@ -86,6 +86,27 @@ struct DangerBlinkConfig {
 };
 
 /**
+ * @brief Paramètres d'une plateforme mobile (`TileType::MovingPlatform`, `EX-GP-026`) : aller-
+ *        retour linéaire déterministe entre deux points, à vitesse constante.
+ *
+ * Même patron que `DangerMoverConfig`/`DangerBlinkConfig` : vit dans un vecteur annexe de `Level`,
+ * keyé par position, `TileMap` ne portant qu'un `TileType` par case. `startPosition` est la
+ * position de la tuile dans le fichier (point de départ) ; `endPosition` est le second point du
+ * parcours — un simple aller-retour entre les deux suffit au besoin (pas de chemin multi-points,
+ * cf. `epic.md`). `phase`, en pas fixes, reprend le patron du danger temporisé
+ * (`DangerBlinkConfig::phase`, `EX-GP-053`) pour désynchroniser plusieurs plateformes.
+ */
+struct MovingPlatformConfig {
+    GridPosition startPosition;
+    GridPosition endPosition;
+    /// Vitesse constante du parcours, en cases par seconde (`EX-GP-026`).
+    float speed = 2.0f;
+    /// Décalage initial dans le cycle aller-retour, en pas fixes (même principe que
+    /// `DangerBlinkConfig::phase`).
+    int phase = 0;
+};
+
+/**
  * @brief Texture assignée explicitement à **une case précise**, prioritaire sur le skin de son
  *        type (`EX-EDIT-043`, LOT-42).
  *
@@ -120,6 +141,8 @@ public:
      * @param moverConfigs Paramètres des dangers mobiles (`EX-GP-051`), un par tuile `DangerMover`.
      * @param blinkConfigs Paramètres des dangers temporisés (`EX-GP-053`), un par tuile
      *                     `DangerBlink`.
+     * @param platformConfigs Paramètres des plateformes mobiles (`EX-GP-026`), un par tuile
+     *                     `MovingPlatform`.
      * @param background   Nom de l'asset de fond du niveau (`EX-REN-044`), vide si aucun. Une
      *                     chaîne, jamais un handle de texture : `Core` ignore tout du rendu.
      * @param skinSet      Nom du jeu de skins du niveau (`EX-EDIT-024`), vide pour le jeu par
@@ -136,7 +159,8 @@ public:
           std::vector<DangerBlinkConfig> blinkConfigs = {},
           std::optional<std::string> background = std::nullopt,
           std::optional<std::string> skinSet = std::nullopt,
-          std::vector<TileTextureOverride> textureOverrides = {}, std::vector<Decor> decors = {})
+          std::vector<TileTextureOverride> textureOverrides = {}, std::vector<Decor> decors = {},
+          std::vector<MovingPlatformConfig> platformConfigs = {})
         : _name(std::move(name)),
           _tileMap(std::move(tileMap)),
           _entry(entry),
@@ -150,7 +174,8 @@ public:
           _background(std::move(background)),
           _skinSet(std::move(skinSet)),
           _textureOverrides(std::move(textureOverrides)),
-          _decors(std::move(decors)) {}
+          _decors(std::move(decors)),
+          _platformConfigs(std::move(platformConfigs)) {}
 
     /// @return Le nom du niveau.
     [[nodiscard]] const std::string& name() const noexcept {
@@ -225,6 +250,11 @@ public:
         return _decors;
     }
 
+    /// @return Les paramètres des plateformes mobiles du niveau (`EX-GP-026`).
+    [[nodiscard]] const std::vector<MovingPlatformConfig>& platformConfigs() const noexcept {
+        return _platformConfigs;
+    }
+
 private:
     std::string _name;
     TileMap _tileMap;
@@ -240,6 +270,7 @@ private:
     std::optional<std::string> _skinSet;
     std::vector<TileTextureOverride> _textureOverrides;
     std::vector<Decor> _decors;
+    std::vector<MovingPlatformConfig> _platformConfigs;
 };
 
 }  // namespace core

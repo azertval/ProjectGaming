@@ -26,7 +26,8 @@ std::vector<core::TileType> flatten(const std::vector<hmi::TileCategory>& taxono
 }
 
 // Nombre total de valeurs de l'énumération core::TileType (dernière valeur + 1).
-constexpr std::size_t TILE_TYPE_COUNT = static_cast<std::size_t>(core::TileType::DangerBlink) + 1;
+constexpr std::size_t TILE_TYPE_COUNT =
+    static_cast<std::size_t>(core::TileType::MovingPlatform) + 1;
 
 }  // namespace
 

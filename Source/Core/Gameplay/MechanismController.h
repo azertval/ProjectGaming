@@ -5,6 +5,7 @@
 
 #include "Core/Levels/Level.h"
 #include "Core/Levels/TileMap.h"
+#include "Core/Levels/TileType.h"
 
 /**
  * @file Core/Gameplay/MechanismController.h
@@ -37,6 +38,14 @@ struct Aabb;
  * commuté n'a **aucun effet** sur la grille de collision (il n'est jamais solide), seul son état
  * **actif/inactif** est exposé (`isDangerActive`), consommé par `core::evaluateOutcome` via les
  * boîtes supplémentaires assemblées par l'appelant (`hmi::GameSession`).
+ *
+ * **Clé/porte verrouillée** (`TileType::Key`/`TileType::LockedDoor`, `EX-GP-023`) : troisième
+ * comportement de déclencheur, résolu depuis la **même** liste `mechanisms()` que
+ * interrupteur/plaque↔porte (`LevelLoader` les y ajoute toutes deux, aucune notion de liaison
+ * dupliquée). Une clé se ramasse au contact **et** à l'action « Interagir »
+ * (`core::PlayerInput::interactPressed`, `EX-CTRL-022` — son premier usage) ; le contact seul ne
+ * suffit pas, à la différence de l'interrupteur. Une fois ramassée, la porte liée s'ouvre
+ * **définitivement** : contrairement à l'interrupteur, l'état ne bascule plus jamais en arrière.
  */
 class MechanismController {
 public:
@@ -45,15 +54,21 @@ public:
 
     /**
      * @brief Met à jour les mécanismes pour un pas : bascule les interrupteurs touchés (front),
-     *        ouvre/referme les plaques de pression selon le poids présent, applique l'état des
-     *        portes dans la grille de collision, et met à jour l'activation des dangers commutés.
-     * @param playerBox  Boîte englobante du personnage, en unités monde.
-     * @param playerMass Masse du personnage (`core::Player::mass`, `EX-GP-019`), comparée au seuil
-     *                    des plaques de pression (`MIN_TRIGGER_MASS`) ; sans effet sur les
-     *                    interrupteurs classiques. Valeur par défaut = masse par défaut du
-     *                    personnage (compatibilité des appels existants).
+     *        ouvre/referme les plaques de pression selon le poids présent, ramasse les clés
+     *        touchées avec « Interagir », applique l'état des portes/portes verrouillées dans la
+     *        grille de collision, et met à jour l'activation des dangers commutés.
+     * @param playerBox       Boîte englobante du personnage, en unités monde.
+     * @param playerMass      Masse du personnage (`core::Player::mass`, `EX-GP-019`), comparée au
+     *                        seuil des plaques de pression (`MIN_TRIGGER_MASS`) ; sans effet sur
+     *                        les interrupteurs classiques ou les clés. Valeur par défaut = masse
+     *                        par défaut du personnage (compatibilité des appels existants).
+     * @param interactPressed Front de l'action « Interagir » (`core::PlayerInput::
+     *                        interactPressed`, `EX-CTRL-022`) pour ce pas ; seul déclencheur du
+     *                        ramassage d'une clé (le contact seul ne suffit pas). Sans effet sur
+     *                        les autres mécanismes. Valeur par défaut = faux (compatibilité des
+     *                        appels existants, aucun niveau sans clé n'est affecté).
      */
-    void update(const Aabb& playerBox, float playerMass = 1.0f);
+    void update(const Aabb& playerBox, float playerMass = 1.0f, bool interactPressed = false);
 
     /// @return La grille de collision courante (portes à jour), à passer à la physique.
     [[nodiscard]] const TileMap& collisionMap() const noexcept {
@@ -102,6 +117,12 @@ private:
         _playerOnSwitchPrev;  ///< Le personnage était-il sur le déclencheur au pas précédent ?
     std::vector<bool> _continuous;  ///< true = plaque de pression (activation continue), figé au
                                     ///< chargement ; false = interrupteur à bascule classique.
+    std::vector<bool> _isKey;  ///< true = déclencheur `TileType::Key` (ramassage par Interagir,
+                               ///< ouverture définitive), figé au chargement comme `_continuous`.
+    std::vector<TileType>
+        _openType;  ///< Type de tuile « porte ouverte » de chaque mécanisme (`Door` ou
+                    ///< `LockedDoor`), capturé avant que le constructeur ne fige la case en
+                    ///< `Solid` — la grille de collision y revient quand le mécanisme s'active.
     std::vector<DangerLink> _dangerLinks;  ///< Liaisons déclencheur↔danger commuté.
     std::vector<bool> _dangerActive;       ///< État de chaque danger commuté (actif = mortel ?).
     std::vector<bool> _playerOnDangerTriggerPrev;  ///< Front, même principe que

@@ -29,6 +29,8 @@ namespace {
             return "sauter";
         case GameAction::Dash:
             return "dash";
+        case GameAction::Interact:
+            return "interagir";
     }
     return "";
 }
@@ -112,6 +114,8 @@ GamepadButton GamepadBindings::defaultButton(GameAction action) noexcept {
             return GamepadButton::A;
         case GameAction::Dash:
             return GamepadButton::RightShoulder;
+        case GameAction::Interact:
+            return GamepadButton::X;
     }
     return GamepadButton::A;  // inatteignable : switch exhaustif sur GameAction ci-dessus.
 }

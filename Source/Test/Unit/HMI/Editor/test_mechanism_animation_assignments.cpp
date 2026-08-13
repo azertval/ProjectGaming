@@ -57,10 +57,10 @@ const hmi::MechanismAnimationRow* findRow(const std::vector<hmi::MechanismAnimat
 
 /**
  * @brief Une ligne par famille de mecanisme, dans l'ordre attendu.
- * \castest{<b>La section Animations propose exactement les six familles de mecanismes a
+ * \castest{<b>La section Animations propose exactement les familles de mecanismes a
  * etat.</b><br/> \tcat Unitaire · Panneau Textures (Animations)<br/> \tcrit Critique<br/>
  * \tetapes 1. Construire les lignes pour un catalogue vide.<br/>
- * \tattendu Six lignes, une par famille de MECHANISM_ANIMATION_TYPES, sans asset assigne.
+ * \tattendu Une ligne par famille de MECHANISM_ANIMATION_TYPES, sans asset assigne.
  * }
  */
 TEST(MechanismAnimationAssignmentsTest, UneLigneParFamille) {

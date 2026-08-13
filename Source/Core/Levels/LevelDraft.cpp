@@ -30,6 +30,7 @@ LevelDraft LevelDraft::fromLevel(const Level& level) {
     draft._skinSet = level.skinSet();
     draft._textureOverrides = level.textureOverrides();
     draft._decors = level.decors();
+    draft._platformConfigs = level.platformConfigs();
     return draft;
 }
 
@@ -119,15 +120,17 @@ void LevelDraft::linkMechanism(GridPosition switchPosition, GridPosition targetP
         _tileMap.inBounds(switchPosition.column, switchPosition.row)
             ? _tileMap.tile(switchPosition.column, switchPosition.row)
             : TileType::Empty;
-    PROJECTGAMING_ASSERT(switchTile == TileType::Switch || switchTile == TileType::PressurePlate,
+    PROJECTGAMING_ASSERT(switchTile == TileType::Switch || switchTile == TileType::PressurePlate ||
+                             switchTile == TileType::Key,
                          "linkMechanism : la position source ne porte pas de declencheur "
-                         "(interrupteur ou plaque de pression)");
+                         "(interrupteur, plaque de pression ou cle)");
     const TileType targetTile = _tileMap.inBounds(targetPosition.column, targetPosition.row)
                                     ? _tileMap.tile(targetPosition.column, targetPosition.row)
                                     : TileType::Empty;
-    PROJECTGAMING_ASSERT(targetTile == TileType::Door || targetTile == TileType::DangerSwitched,
-                         "linkMechanism : la position cible ne porte pas de porte ni de danger "
-                         "commute");
+    PROJECTGAMING_ASSERT(targetTile == TileType::Door || targetTile == TileType::DangerSwitched ||
+                             targetTile == TileType::LockedDoor,
+                         "linkMechanism : la position cible ne porte pas de porte, de porte "
+                         "verrouillee ni de danger commute");
 
     pushUndo();
     // Retrait direct (sans passer par unlinkMechanism, qui empilerait un second snapshot) :
@@ -138,7 +141,9 @@ void LevelDraft::linkMechanism(GridPosition switchPosition, GridPosition targetP
     std::erase_if(_dangerLinks, [targetPosition](const DangerLink& link) {
         return link.dangerPosition == targetPosition;
     });
-    if (targetTile == TileType::Door) {
+    if (targetTile == TileType::Door || targetTile == TileType::LockedDoor) {
+        // Meme vecteur pour Door ET LockedDoor (aucune notion de liaison dupliquee, LOT-63
+        // TACHE-02) : core::MechanismController distingue leur comportement a la construction.
         _mechanisms.push_back(
             Mechanism{.switchPosition = switchPosition, .doorPosition = targetPosition});
     } else {
@@ -179,6 +184,20 @@ void LevelDraft::setBlinkConfig(GridPosition position, int period, int phase, in
     });
     _blinkConfigs.push_back(DangerBlinkConfig{
         .position = position, .period = period, .phase = phase, .activeDuration = activeDuration});
+}
+
+void LevelDraft::setPlatformConfig(GridPosition position, GridPosition endPosition, float speed,
+                                   int phase) {
+    PROJECTGAMING_ASSERT(
+        _tileMap.inBounds(position.column, position.row) &&
+            _tileMap.tile(position.column, position.row) == TileType::MovingPlatform,
+        "setPlatformConfig : la position ne porte pas une MovingPlatform");
+    pushUndo();
+    std::erase_if(_platformConfigs, [position](const MovingPlatformConfig& config) {
+        return config.startPosition == position;
+    });
+    _platformConfigs.push_back(MovingPlatformConfig{
+        .startPosition = position, .endPosition = endPosition, .speed = speed, .phase = phase});
 }
 
 void LevelDraft::setTextureOverride(GridPosition position, std::string assetName) {
@@ -379,6 +398,10 @@ void LevelDraft::resize(int width, int height) {
     std::erase_if(_blinkConfigs, [this](const DangerBlinkConfig& config) {
         return !_tileMap.inBounds(config.position.column, config.position.row);
     });
+    std::erase_if(_platformConfigs, [this](const MovingPlatformConfig& config) {
+        return !_tileMap.inBounds(config.startPosition.column, config.startPosition.row) ||
+               !_tileMap.inBounds(config.endPosition.column, config.endPosition.row);
+    });
     std::erase_if(_textureOverrides, [this](const TileTextureOverride& override) {
         return !_tileMap.inBounds(override.position.column, override.position.row);
     });
@@ -415,6 +438,11 @@ bool LevelDraft::wouldResizeDropContent(int width, int height) const noexcept {
     }
     for (const DangerBlinkConfig& config : _blinkConfigs) {
         if (outOfBounds(config.position)) {
+            return true;
+        }
+    }
+    for (const MovingPlatformConfig& config : _platformConfigs) {
+        if (outOfBounds(config.startPosition) || outOfBounds(config.endPosition)) {
             return true;
         }
     }
@@ -460,7 +488,8 @@ LevelDraft::State LevelDraft::snapshot() const {
                  .background = _background,
                  .skinSet = _skinSet,
                  .textureOverrides = _textureOverrides,
-                 .decors = _decors};
+                 .decors = _decors,
+                 .platformConfigs = _platformConfigs};
 }
 
 void LevelDraft::restore(State state) {
@@ -478,6 +507,7 @@ void LevelDraft::restore(State state) {
     _skinSet = std::move(state.skinSet);
     _textureOverrides = std::move(state.textureOverrides);
     _decors = std::move(state.decors);
+    _platformConfigs = std::move(state.platformConfigs);
 }
 
 void LevelDraft::pushUndo() {
@@ -488,7 +518,7 @@ void LevelDraft::pushUndo() {
 LevelLoadResult LevelDraft::toLevel() const {
     const std::string json = LevelWriter::buildJson(
         _name, _tileMap, _mechanisms, _jumpBudget, _dashBudget, _dangerLinks, _moverConfigs,
-        _blinkConfigs, _background, _skinSet, _textureOverrides, _decors);
+        _blinkConfigs, _background, _skinSet, _textureOverrides, _decors, _platformConfigs);
     return LevelLoader::loadFromString(json);
 }
 
@@ -504,6 +534,9 @@ void LevelDraft::removeLinkedDataAt(GridPosition position, bool keepTextureOverr
     });
     std::erase_if(_blinkConfigs, [position](const DangerBlinkConfig& config) {
         return config.position == position;
+    });
+    std::erase_if(_platformConfigs, [position](const MovingPlatformConfig& config) {
+        return config.startPosition == position;
     });
     if (!keepTextureOverride) {
         std::erase_if(_textureOverrides, [position](const TileTextureOverride& override) {

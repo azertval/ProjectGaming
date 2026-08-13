@@ -743,6 +743,179 @@ TEST(LevelLoaderTest, PorteSansLiaisonEstValide) {
 }
 
 /**
+ * @brief Une clé liée à une porte verrouillée se charge et résout la liaison dans `mechanisms()`,
+ *        à égalité avec interrupteur↔porte (`EX-GP-023`).
+ * \castest{<b>Une clé liée à une porte verrouillée se charge et résout la liaison.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu La clé et la porte verrouillée se chargent, la liaison apparaît dans `mechanisms()`.
+ * }
+ */
+TEST(LevelLoaderTest, CleEtPorteVerrouilleeSeChargeEtSeResout) {
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 2, "y": 0, "type": "key", "id": "k1" },
+        { "x": 3, "y": 0, "type": "lockedDoor", "opensWith": "k1" }
+      ]
+    })");
+    ASSERT_TRUE(result.ok()) << result.error;
+    ASSERT_EQ(result.level->mechanisms().size(), 1U);
+    EXPECT_EQ(result.level->mechanisms()[0].switchPosition, (core::GridPosition{2, 0}));
+    EXPECT_EQ(result.level->mechanisms()[0].doorPosition, (core::GridPosition{3, 0}));
+}
+
+/**
+ * @brief Deux paires clé/porte verrouillée indépendantes dans le même tableau ne s'influencent
+ *        pas l'une l'autre.
+ * \castest{<b>Deux paires clé/porte verrouillée indépendantes coexistent sans
+ * interférence.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Les deux liaisons sont résolues chacune vers leur propre porte.
+ * }
+ */
+TEST(LevelLoaderTest, DeuxPairesCleEtPorteIndependantes) {
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
+      "width": 6, "height": 3,
+      "tiles": [
+        { "x": 0, "y": 1, "type": "entry" },
+        { "x": 5, "y": 2, "type": "exit" },
+        { "x": 1, "y": 0, "type": "key", "id": "k1" },
+        { "x": 2, "y": 0, "type": "lockedDoor", "opensWith": "k1" },
+        { "x": 3, "y": 0, "type": "key", "id": "k2" },
+        { "x": 4, "y": 0, "type": "lockedDoor", "opensWith": "k2" }
+      ]
+    })");
+    ASSERT_TRUE(result.ok()) << result.error;
+    ASSERT_EQ(result.level->mechanisms().size(), 2U);
+}
+
+/**
+ * @brief Une clé sans identifiant est rejetée, comme un interrupteur sans identifiant.
+ * \castest{<b>Une clé sans 'id' est rejetée.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une clé sans 'id' est rejetée.
+ * }
+ */
+TEST(LevelLoaderTest, CleSansIdRejetee) {
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 2, "y": 0, "type": "key" }
+      ]
+    })");
+    EXPECT_FALSE(result.ok());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::MissingSwitchId);
+}
+
+/**
+ * @brief Deux clés avec le même identifiant sont rejetées.
+ * \castest{<b>Deux clés avec le même identifiant sont rejetées.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Deux clés avec le même identifiant sont rejetées.
+ * }
+ */
+TEST(LevelLoaderTest, IdentifiantCleEnDoubleRejete) {
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 2, "y": 0, "type": "key", "id": "k1" },
+        { "x": 3, "y": 0, "type": "key", "id": "k1" }
+      ]
+    })");
+    EXPECT_FALSE(result.ok());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::DuplicateSwitchId);
+}
+
+/**
+ * @brief Une porte verrouillée sans 'opensWith' est rejetée — contrairement à une porte classique,
+ *        le lien est obligatoire (`EX-GP-023`).
+ * \castest{<b>Une porte verrouillée sans clé liée est rejetée.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une porte verrouillée sans 'opensWith' est rejetée.
+ * }
+ */
+TEST(LevelLoaderTest, PorteVerrouilleeSansCleRejetee) {
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 3, "y": 0, "type": "lockedDoor" }
+      ]
+    })");
+    EXPECT_FALSE(result.ok());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::UnresolvedMechanism);
+}
+
+/**
+ * @brief Une porte verrouillée liée à une clé inexistante est rejetée.
+ * \castest{<b>Une porte verrouillée liée à une clé inexistante est rejetée.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une porte verrouillée liée à une clé inexistante est rejetée.
+ * }
+ */
+TEST(LevelLoaderTest, PorteVerrouilleeLieeAUneCleInexistanteRejetee) {
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 3, "y": 0, "type": "lockedDoor", "opensWith": "inconnue" }
+      ]
+    })");
+    EXPECT_FALSE(result.ok());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::UnresolvedMechanism);
+}
+
+/**
+ * @brief Une clé sans porte verrouillée liée est rejetée — contrairement à un interrupteur, qui
+ *        peut rester sans porte.
+ * \castest{<b>Une clé sans porte verrouillée liée est rejetée.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une clé sans porte verrouillée liée est rejetée.
+ * }
+ */
+TEST(LevelLoaderTest, CleSansPorteVerrouilleeLieeRejetee) {
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 2, "y": 0, "type": "key", "id": "k1" }
+      ]
+    })");
+    EXPECT_FALSE(result.ok());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::UnresolvedMechanism);
+}
+
+/**
  * @brief Le niveau de démonstration livré (Source/Elements/Levels) se charge et se valide.
  * \castest{<b>Le niveau de démonstration livré (Source/Elements/Levels) se charge et se
  * valide.</b><br/>
@@ -1026,17 +1199,17 @@ TEST(LevelLoaderTest, ChargeUnDangerTemporiseValeursExplicites) {
 }
 
 /**
- * @brief Les quinze niveaux de démonstration livrés, aucun ne portant de champ `"version"`, se
+ * @brief Les dix-sept niveaux de démonstration livrés, aucun ne portant de champ `"version"`, se
  * chargent tous sans erreur ni avertissement (`EX-LVL-005`, rétrocompatibilité, critère
  * d'acceptation du LOT-44).
- * \castest{<b>Les quinze niveaux de demonstration livres se chargent sans erreur.</b><br/>
+ * \castest{<b>Les dix-sept niveaux de demonstration livres se chargent sans erreur.</b><br/>
  * \tcat Unitaire · Level Loader<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Balayer le dossier des niveaux livres.<br/>2. Charger chaque fichier.<br/>
  * \tattendu Chaque niveau se charge sans erreur, avec errorCode == None.
  * }
  */
-TEST(LevelLoaderTest, LesQuinzeNiveauxDeDemoSeChargentSansErreur) {
+TEST(LevelLoaderTest, LesDixSeptNiveauxDeDemoSeChargentSansErreur) {
     const std::filesystem::path levelsDir(PROJECTGAMING_LEVELS_DIR);
     int checked = 0;
     for (const std::filesystem::directory_entry& entry :
@@ -1054,5 +1227,5 @@ TEST(LevelLoaderTest, LesQuinzeNiveauxDeDemoSeChargentSansErreur) {
             << entry.path().filename().string();
         ++checked;
     }
-    EXPECT_EQ(checked, 15);
+    EXPECT_EQ(checked, 17);
 }

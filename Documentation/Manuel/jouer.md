@@ -21,6 +21,7 @@ de l'interface (français/anglais) à tout moment.
 | Sauter (hauteur variable selon la durée d'appui) | **Espace** ou **W** | **A** |
 | Dash (8 directions, selon les touches directionnelles maintenues) | **Maj** | Épaule droite (**RB**) |
 | Viser le dash vers le haut / le bas | **↑** / **↓** | Stick gauche / D-pad |
+| Interagir (ramasser une clé) | **E** | **X** |
 | Voir le niveau tel qu'il est construit | **F8** | — |
 | Afficher le compteur de diagnostic (cadence, primitives) | **F9** | — |
 | Mettre en pause | **Échap** | **B** ou **Start** |
@@ -74,7 +75,13 @@ Certains niveaux ajoutent des **mécanismes** à résoudre :
   y repose, et la referme dès qu'il en part ;
 - un **bloc** peut être poussé horizontalement en marchant contre lui (s'il y a de la place pour
   qu'il avance), et tombe s'il n'est plus soutenu par le dessous — utile pour franchir un
-  obstacle ou atteindre un endroit hors de portée du saut seul.
+  obstacle ou atteindre un endroit hors de portée du saut seul ;
+- une **clé** se ramasse en s'en approchant et en appuyant sur **Interagir** ; elle ouvre
+  **définitivement** la **porte verrouillée** qui lui correspond (elle ne se referme jamais,
+  contrairement à la porte d'un interrupteur) ;
+- une **plateforme mobile** fait un aller-retour entre deux points ; s'y tenir dessus suffit à
+  être **porté** avec elle — attention à ne pas rester en dessous d'une plateforme qui monte vers
+  un plafond.
 
 ## Le menu d'options
 

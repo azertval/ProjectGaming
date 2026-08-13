@@ -112,6 +112,44 @@ TEST(LevelWriterTest, PlaqueDePressionSurvitAuRoundTrip) {
 }
 
 /**
+ * @brief Une clé et une porte verrouillée survivent au round-trip (sérialisation puis
+ *        rechargement), `TileType` et liaison préservés (`EX-GP-023`).
+ * \castest{<b>Une clé et une porte verrouillée survivent au round-trip.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu La clé et la porte verrouillée survivent au round-trip : `TileType` et liaison
+ * préservés.
+ * }
+ */
+TEST(LevelWriterTest, CleEtPorteVerrouilleeSurvitAuRoundTrip) {
+    constexpr const char* LEVEL = R"({
+      "name": "Cle",
+      "width": 4,
+      "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 2, "y": 0, "type": "key", "id": "k1" },
+        { "x": 3, "y": 0, "type": "lockedDoor", "opensWith": "k1" }
+      ]
+    })";
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const std::string json = core::LevelWriter::toJsonString(*loaded.level);
+    const core::LevelLoadResult reloaded = core::LevelLoader::loadFromString(json);
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+
+    EXPECT_EQ(reloaded.level->tileMap().tile(2, 0), core::TileType::Key);
+    EXPECT_EQ(reloaded.level->tileMap().tile(3, 0), core::TileType::LockedDoor);
+    ASSERT_EQ(reloaded.level->mechanisms().size(), 1u);
+    EXPECT_EQ(reloaded.level->mechanisms().front().switchPosition, (core::GridPosition{2, 0}));
+    EXPECT_EQ(reloaded.level->mechanisms().front().doorPosition, (core::GridPosition{3, 0}));
+}
+
+/**
  * @brief Un bloc poussable survit au round-trip (sérialisation puis rechargement), `TileType`
  * préservé (`EX-GP-022`).
  * \castest{<b>Un bloc poussable survit au round-trip.</b><br/>

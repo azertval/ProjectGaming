@@ -32,6 +32,7 @@
 #include "Core/Ecs/World.h"
 #include "Core/Gameplay/BlockController.h"
 #include "Core/Gameplay/MechanismController.h"
+#include "Core/Gameplay/PlatformController.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
@@ -91,6 +92,7 @@ core::LevelOutcome playLevel(const ScriptedLevel& scripted, int maxSteps = 3000)
     core::CharacterPhysicsSystem system;
     core::BlockController blocks(level);
     core::MechanismController mechanisms(level);
+    core::PlatformController platforms(level);
 
     core::LevelOutcome outcome = core::LevelOutcome::Playing;
     for (int step = 0; step < maxSteps && outcome == core::LevelOutcome::Playing; ++step) {
@@ -102,10 +104,15 @@ core::LevelOutcome playLevel(const ScriptedLevel& scripted, int maxSteps = 3000)
             scripted.input(step, world.getComponent<core::Player>(player),
                            previousTransform.position.x, previousTransform.position.y);
 
+        // Plateformes mobiles (EX-GP-026) : deplacees EN PREMIER (ordre de resolution documente,
+        // LOT-63 TACHE-03), comme hmi::GameSession::update.
+        platforms.update();
+        const std::vector<core::PlatformSample> platformSamples = platforms.samples();
+
         const core::TileMap mechanismMap = mechanisms.collisionMap();
-        blocks.update(previousBox, in.moveX, mechanismMap);
+        blocks.update(previousBox, in.moveX, mechanismMap, platformSamples);
         const core::TileMap collision = blocks.collisionMap(mechanismMap);
-        system.update(world, collision, in, STEP);
+        system.update(world, collision, in, STEP, platformSamples);
 
         // Composition boîte-boîte pour les blocs réduits (EX-GP-005) : le déplacement REEL obtenu
         // par la grille est retesté contre chaque bloc réduit, la restriction la plus stricte
@@ -147,8 +154,15 @@ core::LevelOutcome playLevel(const ScriptedLevel& scripted, int maxSteps = 3000)
         }
 
         const core::Aabb box = core::Aabb::fromTopLeftSize(transform.position, collider.size);
-        mechanisms.update(box);
-        outcome = core::evaluateOutcome(box, level);
+        mechanisms.update(box, 1.0f, in.interactPressed);
+
+        // Ecrasement par une plateforme mobile (EX-GP-026) : mortel, comme hmi::GameSession::update
+        // (Player::squished traduit en boite de danger supplementaire pour evaluateOutcome).
+        std::vector<core::Aabb> extraDangerBoxes;
+        if (world.getComponent<core::Player>(player).squished) {
+            extraDangerBoxes.push_back(box);
+        }
+        outcome = core::evaluateOutcome(box, level, extraDangerBoxes);
     }
     return outcome;
 }
@@ -277,7 +291,16 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
              }
              return in;
          }},
-        // 8. Bloc poussable (EX-GP-022) : poussé contre le mur, sert de marche pour le franchir.
+        // 8. Clé ↔ porte verrouillée (EX-GP-023, LOT-63) : ramassage par contact ET « Interagir »
+        //    (EX-CTRL-022, seul déclencheur du ramassage) en passant sur la clé, puis la porte
+        //    verrouillée ouverte définitivement jusqu'à la sortie.
+        {"demo-cle.json",
+         [](int, const core::Player&, float x, float) {
+             core::PlayerInput in{1.0f};
+             in.interactPressed = (x >= 4.5f && x <= 6.5f);  // recouvre largement la case clé
+             return in;
+         }},
+        // 9. Bloc poussable (EX-GP-022) : poussé contre le mur, sert de marche pour le franchir.
         {"demo-bloc.json",
          [&blocClimbed, &blocCleared](int, const core::Player& player, float x, float y) {
              core::PlayerInput in{1.0f};
@@ -291,13 +314,13 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
              }
              return in;
          }},
-        // 9. Budget de sauts (EX-GP-024) : deux marches ascendantes, exactement deux sauts prévus.
+        // 10. Budget de sauts (EX-GP-024) : deux marches ascendantes, exactement deux sauts prévus.
         {"demo-budget.json", rightAndJumpOncePerLanding()},
-        // 10. Pente (EX-GP-003, LOT-22) : palier surélevé atteint en marchant, sans saut.
+        // 11. Pente (EX-GP-003, LOT-22) : palier surélevé atteint en marchant, sans saut.
         {"demo-pente.json", rightOnly()},
-        // 11. Arrondi (EX-GP-004, LOT-23) : variante courbe de la pente, même principe.
+        // 12. Arrondi (EX-GP-004, LOT-23) : variante courbe de la pente, même principe.
         {"demo-arrondi.json", rightOnly()},
-        // 12. Bloc à taille réduite (EX-GP-005, LOT-24) : poussé dans la fosse, comble le chemin à
+        // 13. Bloc à taille réduite (EX-GP-005, LOT-24) : poussé dans la fosse, comble le chemin à
         //     sa hauteur ; un petit saut franchit le léger ressaut laissé par sa boîte réduite.
         {"demo-bloc-reduit.json",
          [](int, const core::Player& player, float, float) {
@@ -306,14 +329,19 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
              in.jumpHeld = true;
              return in;
          }},
-        // 13. Dangers avancés (EX-GP-050/051/052/053, LOT-31) : directionnel, mobile, commuté et
+        // 14. Plateforme mobile (EX-GP-026, LOT-63) : le personnage tombe dessus dès l'apparition
+        //     puis se laisse porter jusqu'à la sortie, sans aucune entrée (portage pur) — la
+        //     traversée serait mortelle sans elle (aucun sol entre les deux bords).
+        {"demo-plateforme.json",
+         [](int, const core::Player&, float, float) { return core::PlayerInput{}; }},
+        // 15. Dangers avancés (EX-GP-050/051/052/053, LOT-31) : directionnel, mobile, commuté et
         //     temporisé sont chacun posés sur une alcôve surélevée **optionnelle**, hors du
         //     couloir principal (au sol) qui mène directement à la sortie — comme les autres
         //     niveaux de cette séquence, aucun scénario de mort n'est exercé ici (déjà couvert aux
         //     niveaux Unit/Integration, `test_danger_controller.cpp`/`test_danger_avance.cpp`) ;
         //     ce niveau ne vérifie que le chargement et la franchissabilité du couloir principal.
         {"demo-dangers-avances.json", rightOnly()},
-        // 14. Niveau final : combine dash, pente, bloc poussable, interrupteur/porte et double
+        // 16. Niveau final : combine dash, pente, bloc poussable, interrupteur/porte et double
         //     saut en un seul parcours cohérent.
         {"demo-final.json",
          [&finalSecondJumpDone](int, const core::Player& player, float x, float) {
@@ -339,7 +367,7 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
              }
              return in;
          }},
-        // 15. Niveaux à salles (LOT-32, EX-REN-015) : niveau bien plus grand qu'une salle, en 2×2
+        // 17. Niveaux à salles (LOT-32, EX-REN-015) : niveau bien plus grand qu'une salle, en 2×2
         //     salles ; le trajet marche à plat (aucun saut) jusqu'au bord de la première salle,
         //     tombe dans un puits muré (aucune dérive horizontale possible) jusqu'à la salle du
         //     bas, puis marche jusqu'à la sortie — franchit deux frontières de salles.

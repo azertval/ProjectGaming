@@ -49,6 +49,26 @@
     </widget>
    </item>
    <item>
+    <spacer name="graphicsSpacer">
+     <property name="orientation"><enum>Qt::Vertical</enum></property>
+     <property name="sizeType"><enum>QSizePolicy::Fixed</enum></property>
+     <property name="sizeHint" stdset="0"><size><width>0</width><height>24</height></size></property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QLabel" name="graphicsLabel">
+     <property name="text"><string>Graphismes</string></property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="graphicsCredit">
+     <!-- Noms propres et licence : jamais traduits. Detail complet dans
+          Source/Elements/Assets/CREDITS.md (fichier par fichier). -->
+     <property name="wordWrap"><bool>true</bool></property>
+     <property name="text"><string>Kenney (www.kenney.nl) — Platformer Pack Remastered, Platformer Pack: Industrial — licence CC0 1.0 Universal (domaine public)</string></property>
+    </widget>
+   </item>
+   <item>
     <spacer name="bottomSpacer">
      <property name="orientation"><enum>Qt::Vertical</enum></property>
      <property name="sizeHint" stdset="0"><size><width>0</width><height>0</height></size></property>

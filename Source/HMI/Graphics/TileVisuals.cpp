@@ -34,6 +34,12 @@ core::AtlasRegion regionForTile(core::TileType type) {
                 1, 1);  // cyan (libere par LOT-17 : ancien placeholder du personnage)
         case core::TileType::Door:
             return TextureAtlas::tile(2, 1);  // orange
+        case core::TileType::Key:
+            return TextureAtlas::tile(4, 0);  // or (EX-GP-023, LOT-63)
+        case core::TileType::LockedDoor:
+            return TextureAtlas::tile(3, 4);  // brun fonce (EX-GP-023, LOT-63)
+        case core::TileType::MovingPlatform:
+            return TextureAtlas::tile(5, 0);  // azur (EX-GP-026, LOT-63 : grille agrandie a 6x6)
         case core::TileType::Block:
             return TextureAtlas::tile(3, 1);  // violet
         case core::TileType::SlopeUpRight:
