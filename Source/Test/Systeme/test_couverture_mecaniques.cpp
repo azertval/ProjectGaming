@@ -10,14 +10,18 @@
  * `core::CameraFramingMode`), jamais d'une liste recopiée à la main — une liste recopiée se périme
  * en silence au premier type ajouté sans qu'on pense à la mettre à jour.
  *
- * « Couvert » signifie seulement « présent dans un niveau de la séquence livrée » : ce contrôle ne
- * vérifie pas la franchissabilité (rôle du test système, `ParcoursCompletSysteme`,
- * `EX-NFR-021`) — une mécanique posée dans un coin inaccessible serait « couverte » sans jamais
- * être jouée. Les deux contrôles sont nécessaires et complémentaires, jamais l'un substitut de
- * l'autre.
+ * « Couvert » signifie ici « posé au moins `MIN_OCCURRENCES` fois dans la séquence livrée »
+ * (`LOT-65` TACHE-05). La version initiale de ce garde-fou se contentait de la **présence**, et
+ * cela n'a pas suffi : la séquence livrée en `TACHE-03` le satisfaisait avec un exemplaire unique
+ * de presque chaque mécanique, dont plusieurs hors d'atteinte du personnage. Le seuil
+ * d'occurrences répare la première moitié du défaut ; la seconde — « posé » ne vaut pas
+ * « atteignable » — relève du test système (`ParcoursCompletSysteme`, `EX-NFR-021`), qui relève
+ * désormais la trajectoire réelle et refuse une mécanique hors de portée. Les deux contrôles sont
+ * nécessaires et complémentaires, jamais l'un substitut de l'autre.
  */
 
 #include <filesystem>
+#include <map>
 #include <set>
 #include <sstream>
 #include <string>
@@ -76,15 +80,36 @@ std::set<core::TileType> excludedTileTypes() {
     return {};
 }
 
+/**
+ * @brief Nombre minimal d'occurrences d'un type de tuile dans l'ensemble de la séquence
+ *        (`LOT-65` TACHE-05, doctrine de profondeur — `niveaux.md` Sec. 3).
+ *
+ * Une occurrence unique prouve qu'un type se **charge**, pas qu'il se **joue** : c'est exactement
+ * l'état qu'avait produit la première séquence du `LOT-65`, où 941 tuiles `Solid` côtoyaient un
+ * exemplaire unique de presque chaque mécanique. Trois suffisent à distinguer « posé » de
+ * « pratiqué » (montrer, pratiquer, varier) sans imposer de remplissage. Constante nommée plutôt
+ * que littéral dispersé : le seuil est un choix de conception, pas une vérité.
+ */
+constexpr int MIN_OCCURRENCES = 3;
+
 // État de couverture accumulé en parcourant la séquence livrée.
 struct CoverageState {
-    std::set<core::TileType> presentTypes;
+    std::map<core::TileType, int> typeCounts;  // occurrences cumulées, pas simple présence.
     std::set<core::CameraFramingMode> presentFramingModes;
-    bool dangerBlinkDephased = false;   // au moins un DangerBlink avec phase != 0.
-    bool dangerMoverVertical = false;   // au moins un DangerMover avec axis == Vertical.
-    bool movementBudgetBounded = false; // au moins un niveau avec jumpBudget ou dashBudget borné.
+    bool dangerBlinkDephased = false;  // au moins un DangerBlink avec phase != 0.
+    bool dangerMoverVertical = false;  // au moins un DangerMover avec axis == Vertical.
+    // Les deux budgets sont comptés SÉPARÉMENT : un « jumpBudget ou dashBudget » laissait passer
+    // une séquence entière sans le moindre budget de dash, ce qui était le cas jusqu'au LOT-65
+    // TACHE-05.
+    bool jumpBudgetBounded = false;
+    bool dashBudgetBounded = false;
     bool instanceTextureOverride = false;  // au moins une texture assignée par instance.
     bool foregroundDecor = false;          // au moins un décor de premier plan.
+    // Variantes de cadrage du LOT-64 invisibles d'un contrôle portant sur le seul `mode` :
+    // rectangles de caméra dessinés à la main (EX-LVL-007) et taille de salle/suivi choisie par le
+    // niveau plutôt que subie (EX-REN-017).
+    bool cameraZonesDeclared = false;
+    bool explicitRoomSize = false;
 };
 
 // Parcourt la séquence livrée (même fichier que le jeu et `test_parcours_complet.cpp`) et relève
@@ -115,12 +140,22 @@ CoverageState scanDeliveredSequence() {
         const core::TileMap& map = level.tileMap();
         for (int row = 0; row < map.height(); ++row) {
             for (int column = 0; column < map.width(); ++column) {
-                state.presentTypes.insert(map.tile(column, row));
+                ++state.typeCounts[map.tile(column, row)];
             }
         }
-        state.presentFramingModes.insert(level.cameraFraming().mode);
-        if (level.jumpBudget() >= 0 || level.dashBudget() >= 0) {
-            state.movementBudgetBounded = true;
+        const core::CameraFramingConfig& framing = level.cameraFraming();
+        state.presentFramingModes.insert(framing.mode);
+        if (!framing.zones.empty()) {
+            state.cameraZonesDeclared = true;
+        }
+        if (framing.roomWidthTiles.has_value() || framing.roomHeightTiles.has_value()) {
+            state.explicitRoomSize = true;
+        }
+        if (level.jumpBudget() >= 0) {
+            state.jumpBudgetBounded = true;
+        }
+        if (level.dashBudget() >= 0) {
+            state.dashBudgetBounded = true;
         }
         if (!level.textureOverrides().empty()) {
             state.instanceTextureOverride = true;
@@ -144,20 +179,25 @@ CoverageState scanDeliveredSequence() {
     return state;
 }
 
-// Types attendus mais absents de `covered`, exclusions nommées mises à part -- fonction pure,
-// testée directement (test négatif) sans dépendre de niveaux réels sur disque.
-std::vector<core::TileType> missingTileTypes(const std::set<core::TileType>& covered,
-                                             const std::set<core::TileType>& excluded) {
-    std::vector<core::TileType> missing;
+// Types attendus dont les occurrences cumulées restent sous `minOccurrences`, exclusions nommées
+// mises à part -- fonction pure, testée directement (test négatif) sans dépendre de niveaux réels
+// sur disque. Un type absent compte zéro occurrence : « manquant » et « posé une seule fois » sont
+// le même défaut à des degrés différents, et le même contrôle les couvre.
+std::vector<core::TileType> insufficientTileTypes(const std::map<core::TileType, int>& counts,
+                                                  const std::set<core::TileType>& excluded,
+                                                  int minOccurrences = MIN_OCCURRENCES) {
+    std::vector<core::TileType> insufficient;
     for (const core::TileType type : allContentTileTypes()) {
         if (excluded.contains(type)) {
             continue;
         }
-        if (!covered.contains(type)) {
-            missing.push_back(type);
+        const auto found = counts.find(type);
+        const int count = found == counts.end() ? 0 : found->second;
+        if (count < minOccurrences) {
+            insufficient.push_back(type);
         }
     }
-    return missing;
+    return insufficient;
 }
 
 std::vector<core::CameraFramingMode> missingFramingModes(
@@ -174,11 +214,13 @@ std::vector<core::CameraFramingMode> missingFramingModes(
 std::string describeMissing(const CoverageState& state) {
     std::ostringstream out;
     const std::vector<core::TileType> missingTypes =
-        missingTileTypes(state.presentTypes, excludedTileTypes());
+        insufficientTileTypes(state.typeCounts, excludedTileTypes());
     if (!missingTypes.empty()) {
-        out << "types de tuile non couverts : ";
+        out << "types de tuile posés moins de " << MIN_OCCURRENCES << " fois : ";
         for (const core::TileType type : missingTypes) {
-            out << core::tileTypeName(type) << " ";
+            const auto found = state.typeCounts.find(type);
+            out << core::tileTypeName(type) << "(" << (found == state.typeCounts.end() ? 0 : found->second)
+                << ") ";
         }
         out << "; ";
     }
@@ -197,14 +239,24 @@ std::string describeMissing(const CoverageState& state) {
     if (!state.dangerMoverVertical) {
         out << "aucun DangerMover vertical ; ";
     }
-    if (!state.movementBudgetBounded) {
-        out << "aucun budget de mouvements borne (jumpBudget/dashBudget) ; ";
+    if (!state.jumpBudgetBounded) {
+        out << "aucun budget de sauts borne (jumpBudget) ; ";
+    }
+    if (!state.dashBudgetBounded) {
+        out << "aucun budget de dashs borne (dashBudget) ; ";
     }
     if (!state.instanceTextureOverride) {
         out << "aucune texture par instance ; ";
     }
     if (!state.foregroundDecor) {
         out << "aucun decor de premier plan ; ";
+    }
+    if (!state.cameraZonesDeclared) {
+        out << "aucune zone de camera dessinee (cameraFraming.zones) ; ";
+    }
+    if (!state.explicitRoomSize) {
+        out << "aucune taille de salle/suivi choisie par un niveau (roomWidthTiles/"
+               "roomHeightTiles) ; ";
     }
     return out.str();
 }
@@ -239,12 +291,13 @@ TEST(CouvertureMecaniques, InventaireDeriveDeLEnumeration) {
 }
 
 /**
- * @brief Test négatif : retirer d'un ensemble couvert la seule occurrence d'un type le fait
- * apparaître comme manquant, sans toucher à l'inventaire lui-même (`allContentTileTypes`) --
- * démontre que le garde-fou est sensible à une régression de couverture, indépendamment de tout
- * fichier de niveau réel sur disque.
- * \castest{<b>Retirer d'un tableau la seule occurrence d'un type de tuile fait échouer le
- * garde-fou de couverture, qui le nomme précisément.</b><br/>
+ * @brief Test négatif : retirer les occurrences d'un type, ou n'en laisser qu'une, le fait
+ * apparaître comme insuffisamment couvert, sans toucher à l'inventaire lui-même
+ * (`allContentTileTypes`) -- démontre que le garde-fou est sensible à une régression de couverture
+ * **comme** à une régression de profondeur, indépendamment de tout fichier de niveau réel sur
+ * disque. La frontière du seuil est vérifiée dans les deux sens.
+ * \castest{<b>Retirer les occurrences d'un type de tuile, ou n'en laisser qu'une, fait
+ * échouer le garde-fou de couverture, qui le nomme précisément.</b><br/>
  * \tcat Systeme · Couverture Mecaniques<br/>
  * \tcrit Bloquant<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
@@ -254,15 +307,27 @@ TEST(CouvertureMecaniques, InventaireDeriveDeLEnumeration) {
  * }
  */
 TEST(CouvertureMecaniques, GardeFouSensibleAUneMecaniqueManquante) {
-    std::set<core::TileType> covered;
+    std::map<core::TileType, int> counts;
     for (const core::TileType type : allContentTileTypes()) {
-        covered.insert(type);
+        counts[type] = MIN_OCCURRENCES;
     }
-    covered.erase(core::TileType::Solid);  // seule occurrence retirée.
+    counts.erase(core::TileType::Solid);  // toutes les occurrences retirées.
 
-    const std::vector<core::TileType> missing = missingTileTypes(covered, excludedTileTypes());
+    const std::vector<core::TileType> missing = insufficientTileTypes(counts, excludedTileTypes());
     ASSERT_EQ(missing.size(), 1U);
     EXPECT_EQ(missing.front(), core::TileType::Solid);
+
+    // Profondeur (LOT-65 TACHE-05) : un type POSÉ, mais une seule fois, est signalé exactement
+    // comme un type absent -- c'est le défaut que le contrôle par simple présence laissait passer.
+    counts[core::TileType::Solid] = MIN_OCCURRENCES;
+    counts[core::TileType::Switch] = 1;
+    const std::vector<core::TileType> shallow = insufficientTileTypes(counts, excludedTileTypes());
+    ASSERT_EQ(shallow.size(), 1U);
+    EXPECT_EQ(shallow.front(), core::TileType::Switch);
+
+    // Et le seuil est bien une frontière : à MIN_OCCURRENCES pile, plus rien n'est signalé.
+    counts[core::TileType::Switch] = MIN_OCCURRENCES;
+    EXPECT_TRUE(insufficientTileTypes(counts, excludedTileTypes()).empty());
 
     // Même démonstration côté modes de cadrage.
     std::set<core::CameraFramingMode> coveredModes = {core::CameraFramingMode::WholeLevel,
@@ -275,30 +340,32 @@ TEST(CouvertureMecaniques, GardeFouSensibleAUneMecaniqueManquante) {
 }
 
 /**
- * @brief Garde-fou principal : chaque type de tuile, chaque mode de cadrage et chaque variante
- * significative (danger temporisé déphasé, danger mobile vertical, budget de mouvements borné,
- * texture par instance, décor de premier plan) livrés apparaissent dans au moins un niveau de la
- * séquence réellement livrée (`sequence-demo.json`) -- pas dans un test unitaire isolé.
- * \castest{<b>Chaque mécanique livrée (type de tuile, mode de cadrage, variante significative)
- * apparaît dans au moins un niveau de la séquence livrée.</b><br/>
+ * @brief Garde-fou principal : chaque type de tuile livré est posé au moins `MIN_OCCURRENCES` fois
+ * dans la séquence réellement livrée (`sequence-demo.json`), chaque mode de cadrage y apparaît, et
+ * chaque variante significative est employée — danger temporisé déphasé, danger mobile vertical,
+ * budget de sauts **et** budget de dashs (comptés séparément), texture par instance, décor de
+ * premier plan, zones de caméra dessinées et taille de salle choisie par le niveau.
+ * \castest{<b>Chaque type de tuile livré est posé au moins trois fois dans la séquence, et chaque
+ * mode de cadrage comme chaque variante significative y est employé.</b><br/>
  * \tcat Systeme · Couverture Mecaniques<br/>
  * \tcrit Bloquant<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
- * \tattendu Chaque mécanique livrée (type de tuile, mode de cadrage, variante significative)
- * apparaît dans au moins un niveau de la séquence livrée.
+ * \tattendu Chaque type de tuile livré est posé au moins trois fois dans la séquence, et chaque
+ * mode de cadrage comme chaque variante significative y est employé.
  * }
  */
 TEST(CouvertureMecaniques, ChaqueMecaniqueLivreeEstCouverteParLaSequence) {
     const CoverageState state = scanDeliveredSequence();
     const std::vector<core::TileType> missingTypes =
-        missingTileTypes(state.presentTypes, excludedTileTypes());
+        insufficientTileTypes(state.typeCounts, excludedTileTypes());
     const std::vector<core::CameraFramingMode> missingModes =
         missingFramingModes(state.presentFramingModes);
 
     const bool allCovered = missingTypes.empty() && missingModes.empty() &&
                             state.dangerBlinkDephased && state.dangerMoverVertical &&
-                            state.movementBudgetBounded && state.instanceTextureOverride &&
-                            state.foregroundDecor;
+                            state.jumpBudgetBounded && state.dashBudgetBounded &&
+                            state.instanceTextureOverride && state.foregroundDecor &&
+                            state.cameraZonesDeclared && state.explicitRoomSize;
     EXPECT_TRUE(allCovered) << describeMissing(state);
 }

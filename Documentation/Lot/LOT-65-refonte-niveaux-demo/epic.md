@@ -1,7 +1,7 @@
 # LOT-65 — Refonte des niveaux de démonstration {#lot-65}
 
-> Statut : **en cours** — TACHE-01 à TACHE-03 faites, TACHE-04 en cours (tout fait sauf le parcours
-> manuel complet, réservé à un humain). Prérequis : [LOT-63](@ref lot-63) (mécanismes manquants),
+> Statut : **en cours** — TACHE-00 à TACHE-04 faites (couverture), TACHE-05 à TACHE-10 ouvertes
+> (profondeur, cf. « Second temps du lot »). Prérequis : [LOT-63](@ref lot-63) (mécanismes manquants),
 > [LOT-64](@ref lot-64) (cadrage de caméra), [LOT-59](@ref lot-59) (séquence en donnée de contenu).
 > **Dernier lot de contenu** du programme `0.1.0`.
 
@@ -98,7 +98,38 @@ Le contenu n'a pas suivi. Il en résulte deux problèmes distincts :
 | [TACHE-01](tache-01-inventaire-garde-fou.md) | Inventaire des mécaniques et garde-fou de couverture | `scripts`, `Source/Test` | ✅ |
 | [TACHE-02](tache-02-refonte-tableaux.md) | Refonte des tableaux existants : progression et habillage | `Source/Elements/Levels` | ✅ |
 | [TACHE-03](tache-03-tableaux-manquants-syntheses.md) | Tableaux manquants et tableaux de synthèse | `Source/Elements/Levels` | ✅ |
-| [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Source/Test`, `Documentation` | 🔄 |
+| [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Source/Test`, `Documentation` | ✅ |
+| [TACHE-05](tache-05-doctrine-gardes-fous-profondeur.md) | Doctrine de conception et garde-fous de profondeur | `Documentation/Specification`, `Source/Test` | 🔄 |
+| [TACHE-06](tache-06-croisements-mecaniques.md) | Croisements de mécaniques et corrections moteur associées | `Source/Core/Gameplay`, `Source/Test/Integration` | ⬜ |
+| [TACHE-07](tache-07-actes-mouvement-mecanismes.md) | Actes I et II : mouvement et mécanismes | `Source/Elements/Levels`, `Source/HMI/Game` | ⬜ |
+| [TACHE-08](tache-08-actes-terrain-dangers.md) | Actes III et IV : terrain, dangers et plateformes | `Source/Elements/Levels` | ⬜ |
+| [TACHE-09](tache-09-syntheses-final.md) | Tableaux de synthèse et final multi-salles | `Source/Elements/Levels` | ⬜ |
+| [TACHE-10](tache-10-documentation-verification-finale.md) | Documentation et vérification finale | `Documentation`, `Source/Elements/Levels` | ⬜ |
+
+### Second temps du lot : de la couverture à la profondeur
+
+Les `TACHE-00` à `TACHE-04` ont rendu le garde-fou de couverture **vert** : chaque type de tuile et
+chaque mode de cadrage livrés apparaissent dans un tableau franchi par le test système. Une revue
+des vingt-deux tableaux obtenus établit que cela ne suffisait pas — et que la `TACHE-01` l'avait
+elle-même annoncé (« couvert ≠ franchi ») sans qu'on en tire les conséquences :
+
+- **10 tableaux sur 22** se franchissent sans jouer : neuf en maintenant « droite », et
+  `demo-plateforme` sans **aucune** entrée.
+- Chaque mécanique n'existe qu'en **une seule instance** dans toute la séquence.
+- Quatre tableaux posent leur sujet **hors d'atteinte** : plafonds inclinés, concaves de plafond et
+  la totalité des dangers avancés, interrupteur compris — le `dangerSwitched` livré ne peut donc
+  jamais être commuté.
+- `dashBudget`, les `zones` de caméra (`EX-LVL-007`) et la taille de salle par niveau
+  (`EX-REN-017`) ne sont employés par **aucun** tableau.
+- `demo-final` combine quatre mécaniques sans qu'aucune n'en croise une autre, et n'est pas le
+  dernier tableau joué.
+
+Les critères d'acceptation n°2 et n°4 (franchissabilité, synthèses) étaient donc satisfaits à la
+lettre et pas dans leur intention. Les `TACHE-05` à `TACHE-10` reprennent le lot là : une doctrine
+de conception écrite, des garde-fous qui mesurent l'**usage** et non la présence, et une refonte
+complète pilotée par eux. Deux corrections moteur bornées y sont assumées (porte écrasante mortelle,
+bloc pouvant presser une plaque) : sans elles, ni le tutoriel de la clé ni l'énigme du final ne
+tiennent — c'est un assouplissement délibéré du cadrage « ce lot n'ajoute rien au moteur ».
 
 ## Critères d'acceptation du lot
 1. Le garde-fou de couverture est **vert** : chaque type de tuile et chaque mode de cadrage livrés
@@ -124,3 +155,9 @@ Consomme [LOT-59](@ref lot-59) (séquence en donnée, progression), [LOT-60](@re
 - @subpage lot-65-tache-02-refonte-tableaux
 - @subpage lot-65-tache-03-tableaux-manquants-syntheses
 - @subpage lot-65-tache-04-documentation-verification
+- @subpage lot-65-tache-05-doctrine-gardes-fous-profondeur
+- @subpage lot-65-tache-06-croisements-mecaniques
+- @subpage lot-65-tache-07-actes-mouvement-mecanismes
+- @subpage lot-65-tache-08-actes-terrain-dangers
+- @subpage lot-65-tache-09-syntheses-final
+- @subpage lot-65-tache-10-documentation-verification-finale

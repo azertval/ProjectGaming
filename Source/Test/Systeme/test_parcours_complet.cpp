@@ -20,6 +20,8 @@
 #include <cstddef>
 #include <filesystem>
 #include <functional>
+#include <set>
+#include <string>
 #include <vector>
 
 #include <gtest/gtest.h>
@@ -37,7 +39,9 @@
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelOutcome.h"
+#include "Core/Levels/LevelSequence.h"
 #include "Core/Levels/TileMap.h"
+#include "Core/Levels/TileType.h"
 #include "Core/Math/Vector2.h"
 #include "Core/Physics/Aabb.h"
 #include "Core/Physics/AabbVsAabb.h"
@@ -76,12 +80,22 @@ core::Entity spawn(core::World& world, core::GridPosition at) {
 // Composition complète, comme `hmi::GameSession::update` : mécanismes (interrupteurs/portes) et
 // blocs poussables (pleins ET réduits, `EX-GP-005` — balayage boîte-boîte après la grille) sont
 // résolus à chaque pas, que le niveau les utilise ou non (no-op sans mécanisme/bloc).
-core::LevelOutcome playLevel(const ScriptedLevel& scripted, int maxSteps = 3000) {
+// Trace d'un rejeu : issue, et centre du personnage à chaque pas. La trajectoire alimente le
+// garde-fou de proximité (LOT-65 TACHE-05) : une mécanique posée hors de portée du chemin
+// réellement parcouru n'est pas démontrée, même si le fichier la contient.
+struct PlayTrace {
+    core::LevelOutcome outcome = core::LevelOutcome::Playing;
+    std::vector<core::Vector2> centers;
+};
+
+PlayTrace playLevelTraced(const ScriptedLevel& scripted, int maxSteps = 3000) {
+    PlayTrace trace;
     const std::filesystem::path path =
         std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / scripted.file;
     const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(path);
     if (!loaded.ok()) {
-        return core::LevelOutcome::Lost;  // fichier absent/invalide → échec du parcours
+        trace.outcome = core::LevelOutcome::Lost;  // fichier absent/invalide → échec du parcours
+        return trace;
     }
     const core::Level& level = *loaded.level;
 
@@ -154,6 +168,7 @@ core::LevelOutcome playLevel(const ScriptedLevel& scripted, int maxSteps = 3000)
         }
 
         const core::Aabb box = core::Aabb::fromTopLeftSize(transform.position, collider.size);
+        trace.centers.push_back((box.min + box.max) * 0.5f);
         mechanisms.update(box, 1.0f, in.interactPressed);
 
         // Ecrasement par une plateforme mobile (EX-GP-026) : mortel, comme hmi::GameSession::update
@@ -164,7 +179,86 @@ core::LevelOutcome playLevel(const ScriptedLevel& scripted, int maxSteps = 3000)
         }
         outcome = core::evaluateOutcome(box, level, extraDangerBoxes);
     }
-    return outcome;
+    trace.outcome = outcome;
+    return trace;
+}
+
+// Issue seule : la trace complète n'intéresse que les garde-fous de la TACHE-05.
+core::LevelOutcome playLevel(const ScriptedLevel& scripted, int maxSteps = 3000) {
+    return playLevelTraced(scripted, maxSteps).outcome;
+}
+
+// Portee, en tuiles, du garde-fou de proximite (LOT-65 TACHE-05). Calibree sur la hauteur d'un
+// saut SIMPLE -- environ 2,4 tuiles avec les valeurs de core::PhysicsConfig (jumpSpeed 15,
+// gravity 50, flottement d'apex 0,5) -- et non sur celle d'un double saut : une mecanique qu'il
+// faut deja savoir enchainer deux sauts pour effleurer n'est pas sur le chemin. La marge au-dela
+// de 2,4 laisse passer le hors-chemin volontaire (un secret facultatif reste legitime) ; ce qui
+// est refuse, c'est l'INATTEIGNABLE.
+constexpr float REACH_TILES = 2.5f;
+
+// Tuiles porteuses d'une mecanique : tout sauf le vide, le decor solide et les deux bornes du
+// parcours. Derive de core::TileType par exclusion plutot que par liste positive -- un type
+// ajoute au moteur entre donc dans le controle sans qu'on ait a y penser.
+[[nodiscard]] bool isMechanicTile(core::TileType type) noexcept {
+    return type != core::TileType::Empty && type != core::TileType::Solid &&
+           type != core::TileType::Entry && type != core::TileType::Exit;
+}
+
+// Positions des tuiles de mecanique d'un niveau livre, releves sur le fichier reellement charge.
+std::vector<core::GridPosition> mechanicTilesOf(const char* file) {
+    std::vector<core::GridPosition> cells;
+    const std::filesystem::path path = std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / file;
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(path);
+    if (!loaded.ok()) {
+        return cells;
+    }
+    const core::TileMap& map = loaded.level->tileMap();
+    for (int row = 0; row < map.height(); ++row) {
+        for (int column = 0; column < map.width(); ++column) {
+            if (isMechanicTile(map.tile(column, row))) {
+                cells.push_back(core::GridPosition{.column = column, .row = row});
+            }
+        }
+    }
+    return cells;
+}
+
+// Vrai si @p cell passe a portee d'un saut d'au moins une position occupee par le personnage.
+// Fonction pure, testable sans niveau reel (cf. test negatif).
+[[nodiscard]] bool withinReach(core::GridPosition cell, const std::vector<core::Vector2>& centers) {
+    const float cellX = static_cast<float>(cell.column) + 0.5f;
+    const float cellY = static_cast<float>(cell.row) + 0.5f;
+    for (const core::Vector2& center : centers) {
+        if (std::fabs(center.x - cellX) <= REACH_TILES &&
+            std::fabs(center.y - cellY) <= REACH_TILES) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Fichiers de la sequence livree, dans l'ordre. Lus du MEME fichier que le jeu plutot que
+// recopies : un tableau ajoute demain tombe sous les garde-fous sans intervention.
+std::vector<std::string> deliveredSequenceFiles() {
+    const std::filesystem::path sequencePath =
+        std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / "sequence-demo.json";
+    const core::LevelSequenceLoadResult result =
+        core::LevelSequenceLoader::loadFromFile(sequencePath);
+    if (!result.ok()) {
+        return {};
+    }
+    return result.sequence->levels;
+}
+
+// Exclusions NOMMEES ET JUSTIFIEES du garde-fou anti-couloir -- meme discipline que
+// `excludedTileTypes()` (test_couverture_mecaniques.cpp) : une exclusion sans justification ecrite
+// est le point de fuite habituel de ce genre de controle.
+std::set<std::string> corridorExemptLevels() {
+    // demo-deplacement : premier tableau, dont le sujet EST de marcher, tomber et atterrir. Il ne
+    // demande volontairement aucune autre entree -- c'est son role de tutoriel implicite
+    // (niveaux.md Sec. 3). Aucune autre exclusion n'est legitime : un tableau franchissable en
+    // maintenant "droite" ne demontre pas sa mecanique, il la decore.
+    return {"demo-deplacement.json"};
 }
 
 // Script constant : avancer à droite, rien d'autre (déplacement, pente, arrondi, interrupteur —
@@ -212,15 +306,19 @@ ReactiveInput rightAndDash() {
  * @brief Parcours complet : chaque niveau de la séquence est franchi (`Won`) dans l'ordre, puis «
  * retour au titre ». Reproduit la boucle titre → niveau 1 → niveau 2 → … → titre du jeu, sur
  * l'intégralité des mécaniques livrées (`LOT-01` à `LOT-24`).
- * \castest{<b>Parcours complet : chaque niveau de la séquence est franchi (`Won`) dans l'ordre,
- * puis « retour au titre ». Reproduit la boucle titre → niveau 1 → niveau 2 → titre du
- * jeu.</b><br/>
+ *
+ * Le rejeu sert aussi de garde-fou de **proximité** (`LOT-65` TACHE-05) : la trajectoire réellement
+ * parcourue est relevée, et chaque tuile de mécanique du tableau doit passer à portée d'un saut
+ * d'une position occupée. Une mécanique hors d'atteinte est « couverte » sans jamais être jouée —
+ * le trou que la `TACHE-01` avait annoncé sans le combler.
+ * \castest{<b>Parcours complet : chaque niveau de la séquence est franchi (`Won`) dans l'ordre, et
+ * aucune de ses tuiles de mécanique n'est hors de portée du trajet parcouru.</b><br/>
  * \tcat Systeme · Parcours Complet<br/>
  * \tcrit Bloquant<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
- * \tattendu Parcours complet : chaque niveau de la séquence est franchi (`Won`) dans l'ordre, puis
- * « retour au titre ». Reproduit la boucle titre → niveau 1 → niveau 2 → titre du jeu.
+ * \tattendu Parcours complet : chaque niveau de la séquence est franchi (`Won`) dans l'ordre, et
+ * aucune de ses tuiles de mécanique n'est hors de portée du trajet parcouru.
  * }
  */
 TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
@@ -435,7 +533,84 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
 
     ASSERT_FALSE(sequence.empty());
     for (const ScriptedLevel& level : sequence) {
-        EXPECT_EQ(playLevel(level), core::LevelOutcome::Won) << "niveau : " << level.file;
+        const PlayTrace trace = playLevelTraced(level);
+        EXPECT_EQ(trace.outcome, core::LevelOutcome::Won) << "niveau : " << level.file;
+
+        // Garde-fou de proximite (LOT-65 TACHE-05) : une mecanique posee hors de portee du trajet
+        // reellement parcouru n'est pas demontree, meme si le fichier la contient et meme si le
+        // garde-fou de couverture la compte comme presente.
+        for (const core::GridPosition cell : mechanicTilesOf(level.file)) {
+            EXPECT_TRUE(withinReach(cell, trace.centers))
+                << "mecanique hors de portee du trajet : " << level.file << " en (" << cell.column
+                << ", " << cell.row << ")";
+        }
     }
     // Tous les niveaux franchis dans l'ordre → fin de séquence (retour au titre).
+}
+
+/**
+ * @brief Garde-fou anti-couloir (`LOT-65` TACHE-05) : aucun tableau de la séquence livrée ne se
+ * franchit en maintenant simplement « droite ». Un tableau qui se termine sans autre entrée ne
+ * démontre pas sa mécanique — il la décore ; c'est le défaut exact qu'une revue a relevé sur dix
+ * des vingt-deux tableaux de la première séquence du `LOT-65`. Les exclusions sont nommées et
+ * justifiées (`corridorExemptLevels`).
+ * \castest{<b>Aucun tableau de la séquence livrée n'est franchissable en maintenant « droite »,
+ * hors exclusions nommées.</b><br/>
+ * \tcat Systeme · Parcours Complet<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Aucun tableau de la séquence livrée n'est franchissable en maintenant « droite », hors
+ * exclusions nommées.
+ * }
+ */
+TEST(ParcoursCompletSysteme, AucunTableauNEstFranchissableEnMaintenantDroite) {
+    const std::vector<std::string> files = deliveredSequenceFiles();
+    ASSERT_FALSE(files.empty()) << "sequence livree absente ou invalide";
+    const std::set<std::string> exempt = corridorExemptLevels();
+    for (const std::string& file : files) {
+        if (exempt.contains(file)) {
+            continue;
+        }
+        EXPECT_NE(playLevel({file.c_str(), rightOnly()}), core::LevelOutcome::Won)
+            << "tableau franchi en maintenant droite : " << file;
+    }
+}
+
+/**
+ * @brief Test négatif du garde-fou de proximité : une tuile posée au-delà de la portée d'un saut
+ * au-dessus du trajet est signalée, alors que la même tuile posée sur le trajet ne l'est pas —
+ * démontre la sensibilité du contrôle sans dépendre d'aucun fichier de niveau réel.
+ * \castest{<b>Une tuile de mécanique posée hors de portée d'un saut au-dessus du trajet est
+ * signalée par le garde-fou de proximité ; la même tuile sur le trajet ne l'est pas.</b><br/>
+ * \tcat Systeme · Parcours Complet<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une tuile de mécanique posée hors de portée d'un saut au-dessus du trajet est signalée
+ * par le garde-fou de proximité ; la même tuile sur le trajet ne l'est pas.
+ * }
+ */
+TEST(ParcoursCompletSysteme, GardeFouDeProximiteSignaleUneMecaniqueHorsDePortee) {
+    // Trajet au sol : le personnage longe la ligne 6 en avançant de la colonne 1 à la colonne 10.
+    std::vector<core::Vector2> centers;
+    for (int column = 1; column <= 10; ++column) {
+        centers.push_back(core::Vector2{static_cast<float>(column) + 0.5f, 6.5f});
+    }
+
+    // Sur le trajet : à une case au-dessus, largement à portée.
+    EXPECT_TRUE(withinReach(core::GridPosition{.column = 5, .row = 5}, centers));
+    // Hors de portée : la géométrie exacte de demo-plafond livré (tuile en ligne 2, sol en ligne 7).
+    EXPECT_FALSE(withinReach(core::GridPosition{.column = 5, .row = 2}, centers));
+    // Hors de portée horizontalement : au-delà de la fin du trajet.
+    EXPECT_FALSE(withinReach(core::GridPosition{.column = 20, .row = 6}, centers));
+
+    // L'inventaire des tuiles de mécanique exclut le décor et les bornes, jamais le reste.
+    EXPECT_FALSE(isMechanicTile(core::TileType::Empty));
+    EXPECT_FALSE(isMechanicTile(core::TileType::Solid));
+    EXPECT_FALSE(isMechanicTile(core::TileType::Entry));
+    EXPECT_FALSE(isMechanicTile(core::TileType::Exit));
+    EXPECT_TRUE(isMechanicTile(core::TileType::Switch));
+    EXPECT_TRUE(isMechanicTile(core::TileType::SlopeDownRight));
+    EXPECT_TRUE(isMechanicTile(core::TileType::DangerBlink));
 }

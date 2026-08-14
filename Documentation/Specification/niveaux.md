@@ -107,6 +107,32 @@ d'autres mécanismes. L'exemple omet les tuiles `solid` des bords pour rester li
 - Aucune situation sans issue (le joueur ne doit jamais être bloqué définitivement sans échec possible).
 - Chaque niveau doit être **franchissable** — vérifié par un test système sur les niveaux du MVP.
 
+### Doctrine de profondeur (`LOT-65` TACHE-05)
+
+Les trois lignes ci-dessus disent ce qu'un tableau ne doit pas être ; elles ne disent pas ce qu'il
+doit **exiger**. Un tableau peut les respecter toutes et n'enseigner rien : il suffit que sa
+mécanique soit posée à côté d'un chemin que l'on parcourt sans elle. C'est ce qui s'est produit avec
+la première séquence du `LOT-65`, dont dix tableaux sur vingt-deux se franchissaient en maintenant
+« droite ». Les quatre règles suivantes complètent donc les précédentes et sont **vérifiées
+automatiquement** (`EX-LVL-015`, `Source/Test/Systeme`).
+
+1. **Chemin critique.** La mécanique d'un tableau est la *seule* façon d'en atteindre la sortie.
+   Un tableau franchissable sans employer son sujet ne le démontre pas — il le décore.
+2. **Répétition.** Une mécanique se pose au moins **trois** fois dans le tableau qui l'introduit :
+   une première fois sans risque pour la montrer, une deuxième pour la pratiquer, une troisième pour
+   la varier. Une occurrence unique prouve qu'elle se charge, pas qu'elle se joue.
+3. **Contrainte de capacité.** Le double saut, le wall jump et le dash sont acquis définitivement dès
+   les premiers tableaux et permettent de passer par-dessus la plupart des énigmes. Un tableau borne
+   donc explicitement ce qu'il autorise (`jumpBudget`/`dashBudget`, `EX-GP-024`) plutôt que de
+   compter sur la bonne volonté du joueur.
+4. **Introduire avant d'employer.** Aucune mécanique mortelle ou bloquante n'apparaît sur le chemin
+   critique avant le tableau qui l'a présentée sans risque. Le jeu n'ayant pas de texte d'indice, la
+   première rencontre avec un danger doit être évitable et lisible.
+
+Corollaire pour les mécaniques de **plafond** et de **danger** : une tuile posée hors de portée du
+personnage (un saut simple monte d'environ 2,4 tuiles) ne démontre rien, quand bien même elle
+apparaît dans le fichier. La proximité au trajet réellement parcouru fait partie du contrôle.
+
 ## Traçabilité
 Le chargement et la validation relèvent de `Source/Core` ; les fichiers de niveaux et l'atlas sont dans `Source/Elements`. Types de tuiles : [`gameplay.md`](gameplay.md).
 
