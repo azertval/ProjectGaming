@@ -57,6 +57,18 @@ garde-fou, puis le contenu, seront construits. Elle ne mesure aucune couverture 
   n'existe — c'est attendu, documenté ici, et accepté pour la durée de la préparation. Cette tâche
   se fait sur la branche dédiée du lot, jamais fusionnée en l'état : la CI ne redevient un critère
   qu'à la fin de `TACHE-03`.
+  - **Liste rouge exacte, constatée en exécutant `ctest --preset ninja` après la suppression**
+    (26 échecs sur 1114, tous et seulement liés au contenu retiré — aucune régression sur la banque
+    d'assets) : `CameraFramingTest.NiveauxLivresReproduisentLeurComportementActuel`,
+    `LevelLoaderTest.NiveauDeDemoLivreValide`/`LesDixSeptNiveauxDeDemoSeChargentSansErreur`,
+    `LevelSequenceLoaderTest.SequenceDeDemoLivreeValide`,
+    `LevelWriterTest.NiveauPuzzleLivreSurvieAuRoundTrip`, les quatre cas de `RenderBudgetTest`
+    portant sur les niveaux livrés, `NiveauEcsIntegration.FichierDemoVersMonde`, les quatorze cas
+    `PhysiquePersonnageIntegration.Niveau*Franchissable*`,
+    `PlateformeCompositionTest.EntiteTuileSuitLaPositionSimulee`, et
+    `ParcoursCompletSysteme.FranchitTouteLaSequence`. Cette liste **rétrécit** au fil de
+    `TACHE-02`/`TACHE-03` à mesure que les tableaux sont recréés ; elle doit revenir à zéro à la fin
+    de `TACHE-03` (critère d'acceptation du lot).
 
 ## Fichiers impactés
 - `scripts/generate_test_backgrounds.py`, `generate_test_decors.py`, `generate_test_objects.py`
