@@ -1,7 +1,7 @@
 {
   "name": "Saut",
   "width": 12,
-  "height": 8,
+  "height": 7,
   "background": "test_sky.png",
   "cameraFraming": {
     "mode": "wholeLevel"
@@ -43,11 +43,6 @@
       "type": "solid"
     },
     {
-      "x": 0,
-      "y": 7,
-      "type": "solid"
-    },
-    {
       "x": 11,
       "y": 0,
       "type": "solid"
@@ -83,157 +78,71 @@
       "type": "solid"
     },
     {
-      "x": 11,
-      "y": 7,
-      "type": "solid"
-    },
-    {
       "x": 1,
-      "y": 0,
+      "y": 5,
       "type": "solid"
     },
     {
       "x": 2,
-      "y": 0,
+      "y": 5,
       "type": "solid"
     },
     {
       "x": 3,
-      "y": 0,
+      "y": 5,
       "type": "solid"
     },
     {
       "x": 4,
-      "y": 0,
-      "type": "solid"
-    },
-    {
-      "x": 5,
-      "y": 0,
+      "y": 5,
       "type": "solid"
     },
     {
       "x": 6,
-      "y": 0,
+      "y": 5,
       "type": "solid"
     },
     {
       "x": 7,
-      "y": 0,
+      "y": 5,
       "type": "solid"
     },
     {
       "x": 8,
-      "y": 0,
+      "y": 5,
       "type": "solid"
     },
     {
       "x": 9,
-      "y": 0,
+      "y": 5,
       "type": "solid"
-    },
-    {
-      "x": 10,
-      "y": 0,
-      "type": "solid"
-    },
-    {
-      "x": 1,
-      "y": 7,
-      "type": "solid"
-    },
-    {
-      "x": 2,
-      "y": 7,
-      "type": "solid"
-    },
-    {
-      "x": 3,
-      "y": 7,
-      "type": "solid"
-    },
-    {
-      "x": 4,
-      "y": 7,
-      "type": "solid"
-    },
-    {
-      "x": 5,
-      "y": 7,
-      "type": "solid"
-    },
-    {
-      "x": 6,
-      "y": 7,
-      "type": "solid"
-    },
-    {
-      "x": 7,
-      "y": 7,
-      "type": "solid"
-    },
-    {
-      "x": 8,
-      "y": 7,
-      "type": "solid"
-    },
-    {
-      "x": 9,
-      "y": 7,
-      "type": "solid"
-    },
-    {
-      "x": 10,
-      "y": 7,
-      "type": "solid"
-    },
-    {
-      "x": 6,
-      "y": 6,
-      "type": "solid"
-    },
-    {
-      "x": 7,
-      "y": 6,
-      "type": "solid"
-    },
-    {
-      "x": 8,
-      "y": 6,
-      "type": "solid"
-    },
-    {
-      "x": 9,
-      "y": 6,
-      "type": "solid"
-    },
-    {
-      "x": 10,
-      "y": 6,
-      "type": "solid"
-    },
-    {
-      "x": 1,
-      "y": 1,
-      "type": "entry"
     },
     {
       "x": 10,
       "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 5,
+      "y": 5,
+      "type": "danger"
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "type": "entry"
+    },
+    {
+      "x": 9,
+      "y": 4,
       "type": "exit"
     }
   ],
   "decors": [
     {
       "asset": "cloud.png",
-      "x": 3.0,
-      "y": 1.0,
-      "layer": "background"
-    },
-    {
-      "asset": "rock.png",
-      "x": 9.5,
-      "y": 6.3,
+      "x": 6.0,
+      "y": 0.8,
       "layer": "background"
     }
   ]

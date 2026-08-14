@@ -232,15 +232,17 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
     bool plaquePressionJumped = false;
     bool blocClimbed = false;
     bool blocCleared = false;
-    bool finalSecondJumpDone = false;
+    bool budgetGap1Jumped = false;
+    bool budgetGap2Jumped = false;
+    bool finalDoubleJumpDone = false;
 
     const std::vector<ScriptedLevel> sequence = {
         // 1. Déplacement, chute, sol : escalier descendant, aucun saut nécessaire.
         {"demo-deplacement.json", rightOnly()},
         // 2. Saut simple : un fossé franchissable seulement en sautant.
         {"demo-saut.json", rightAndJump()},
-        // 3. Double saut (EX-GP-015) : un mur trop haut pour un seul saut, franchi en enchaînant
-        //    saut au sol puis saut aérien juste avant le mur.
+        // 3. Double saut (EX-GP-015) : un palier surélevé, hors de portée d'un seul saut, franchi
+        //    en enchaînant saut au sol puis saut aérien juste avant le bord.
         {"demo-double-saut.json",
          [&doubleSautSecondJumpDone](int, const core::Player& player, float x, float) {
              core::PlayerInput in{1.0f};
@@ -282,7 +284,7 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
         {"demo-plaque-pression.json",
          [&plaquePressionJumped](int, const core::Player& player, float x, float) {
              core::PlayerInput in{1.0f};
-             if (!plaquePressionJumped && player.grounded && x >= 5.5f) {
+             if (!plaquePressionJumped && player.grounded && x >= 4.5f) {
                  in.jumpPressed = true;
                  in.jumpHeld = true;
                  plaquePressionJumped = true;
@@ -297,25 +299,44 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
         {"demo-cle.json",
          [](int, const core::Player&, float x, float) {
              core::PlayerInput in{1.0f};
-             in.interactPressed = (x >= 4.5f && x <= 6.5f);  // recouvre largement la case clé
+             in.interactPressed = (x >= 3.5f && x <= 5.5f);  // recouvre largement la case clé
              return in;
          }},
-        // 9. Bloc poussable (EX-GP-022) : poussé contre le mur, sert de marche pour le franchir.
+        // 9. Bloc poussable (EX-GP-022) : poussé contre un mur, sert de marche pour le franchir
+        //    (aucune fosse à combler : le bloc glisse sur un sol continu, sans chute à
+        //    synchroniser avec l'arrivée du personnage).
         {"demo-bloc.json",
          [&blocClimbed, &blocCleared](int, const core::Player& player, float x, float y) {
              core::PlayerInput in{1.0f};
              in.jumpHeld = true;
-             if (!blocClimbed && player.grounded && x >= 6.2f && y > 5.5f) {
-                 in.jumpPressed = true;
+             if (!blocClimbed && player.grounded && x >= 6.3f && y > 4.5f) {
+                 in.jumpPressed = true;  // grimpe sur le bloc pousse contre le mur
                  blocClimbed = true;
-             } else if (blocClimbed && !blocCleared && player.grounded && y <= 5.5f) {
-                 in.jumpPressed = true;
+             } else if (blocClimbed && !blocCleared && player.grounded && y <= 4.5f) {
+                 in.jumpPressed = true;  // depuis le bloc, franchit le mur
                  blocCleared = true;
              }
              return in;
          }},
-        // 10. Budget de sauts (EX-GP-024) : deux marches ascendantes, exactement deux sauts prévus.
-        {"demo-budget.json", rightAndJumpOncePerLanding()},
+        // 10. Budget de sauts (EX-GP-024) : deux marches ascendantes, deux sauts nécessaires pour
+        //     un budget borné à quatre (marge d'un saut).
+        // Deux sauts déclenchés une fois chacun (drapeaux), juste au bord de chaque fossé -- pas
+        // plus tôt : décoller trop en amont consomme la portée horizontale du saut sur du sol déjà
+        // solide, laissant trop peu d'élan pour franchir le fossé (constaté : un saut déclenché à
+        // 2+ cases du bord retombe dans le vide plutôt que sur le palier suivant).
+        {"demo-budget.json",
+         [&budgetGap1Jumped, &budgetGap2Jumped](int, const core::Player& player, float x, float) {
+             core::PlayerInput in{1.0f};
+             in.jumpHeld = true;
+             if (!budgetGap1Jumped && player.grounded && x >= 6.3f) {
+                 in.jumpPressed = true;
+                 budgetGap1Jumped = true;
+             } else if (budgetGap1Jumped && !budgetGap2Jumped && player.grounded && x >= 13.0f) {
+                 in.jumpPressed = true;
+                 budgetGap2Jumped = true;
+             }
+             return in;
+         }},
         // 11. Pente (EX-GP-003, LOT-22) : palier surélevé atteint en marchant, sans saut.
         {"demo-pente.json", rightOnly()},
         // 12. Pente gauche (EX-GP-003, LOT-65) : SlopeUpLeft/RoundedUpLeft/ConcaveUpLeft — miroir
@@ -373,36 +394,42 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
         //     principe que les dangers avancés ci-dessus — alcôves flottantes hors du couloir
         //     principal, jamais atteintes par un déplacement au sol.
         {"demo-dangers-directionnels.json", rightOnly()},
-        // 21. Niveau final : combine dash, pente, bloc poussable, interrupteur/porte et double
-        //     saut en un seul parcours cohérent.
+        // 21. Niveau final : synthèse combinant quatre mécaniques en un seul parcours continu
+        //     (cadrage suivi), chacune reprenant exactement la géométrie de son tableau dédié
+        //     (demo-dash/demo-pente/demo-interrupteur/demo-double-saut), séparées par de larges
+        //     couloirs plats — dash, pente, interrupteur/porte, double saut. La plateforme mobile
+        //     n'est délibérément pas combinée ici : sa seule présence dans le fichier casse la
+        //     résolution de collision pendant le suivi de pente, même immobile et loin du joueur —
+        //     défaut moteur consigné (CHANGELOG), pas corrigé dans ce lot ; déjà couverte
+        //     isolément par demo-plateforme.json.
         {"demo-final.json",
-         [&finalSecondJumpDone](int, const core::Player& player, float x, float) {
+         [&finalDoubleJumpDone](int, const core::Player& player, float x, float) {
              core::PlayerInput in{1.0f};
              if (x < 10.0f) {
+                 // segment A : dash sous le plafond bas, au-dessus de la fosse.
                  in.dashPressed = true;
-             } else if (x < 13.0f) {
-                 // transition + pente : marcher sans sauter (suivi de pente).
-             } else if (x < 27.0f) {
-                 in.jumpPressed = player.grounded;
+             } else if (x < 45.0f) {
+                 // couloirs + segments B (pente) et D (interrupteur/porte) : marcher suffit.
+             } else if (x < 57.0f) {
+                 // segment G : double saut vers le palier surélevé.
                  in.jumpHeld = true;
-             } else {
-                 if (player.grounded && x < 27.6f) {
-                     // pas encore pres du mur final : continuer a marcher.
+                 if (player.grounded && x < 46.6f) {
+                     // pas encore pres du bord : marcher.
                  } else if (player.grounded) {
                      in.jumpPressed = true;
-                     finalSecondJumpDone = false;
-                 } else if (!finalSecondJumpDone && x >= 28.2f) {
+                     finalDoubleJumpDone = false;
+                 } else if (!finalDoubleJumpDone && x >= 47.2f) {
                      in.jumpPressed = true;
-                     finalSecondJumpDone = true;
+                     finalDoubleJumpDone = true;
                  }
-                 in.jumpHeld = true;
              }
+             // couloir final : aucune entrée supplémentaire nécessaire au-delà de x = 57.
              return in;
          }},
-        // 22. Niveaux à salles (LOT-32, EX-REN-015) : niveau bien plus grand qu'une salle, en 2×2
-        //     salles ; le trajet marche à plat (aucun saut) jusqu'au bord de la première salle,
-        //     tombe dans un puits muré (aucune dérive horizontale possible) jusqu'à la salle du
-        //     bas, puis marche jusqu'à la sortie — franchit deux frontières de salles.
+        // 22. Niveaux à salles (LOT-32, EX-REN-015) : niveau plus haut qu'une salle par défaut,
+        //     deux salles empilées ; le trajet marche à plat (aucun saut) jusqu'au bord de la
+        //     salle du haut, tombe dans un puits muré (aucune dérive horizontale possible)
+        //     jusqu'à la salle du bas, puis marche jusqu'à la sortie.
         {"demo-salles.json", rightOnly()},
     };
 

@@ -1839,8 +1839,8 @@ TEST(PhysiquePersonnageIntegration, NiveauPlaquePressionFranchissable) {
     const ReactiveInput script = [&jumped](int, const core::Player& player, float x, float) {
         core::PlayerInput in;
         in.moveX = 1.0f;
-        if (!jumped && player.grounded && x >= 5.5f) {
-            // Des l'arrivee contre le mur (case 6), la plaque (case 5) est deja recouverte
+        if (!jumped && player.grounded && x >= 4.5f) {
+            // Des l'arrivee contre le mur (case 5), la plaque (case 4) est deja recouverte
             // depuis plusieurs pas : la porte au-dessus du mur est ouverte, le saut peut passer.
             in.jumpPressed = true;
             in.jumpHeld = true;
@@ -2638,7 +2638,8 @@ TEST(PhysiquePersonnageIntegration, NiveauWallJumpFranchissable) {
 
 /**
  * @brief Le niveau bloc poussable est franchissable en poussant le bloc contre le mur pour s'en
- * servir de marche (`EX-GP-022`).
+ * servir de marche (`EX-GP-022`) — un sol continu, aucune fosse à synchroniser avec la chute du
+ * bloc.
  * \castest{<b>Le niveau bloc poussable est franchissable en poussant le bloc contre le mur pour
  * s'en servir de marche.</b><br/>
  * \tcat Integration · Physique Personnage<br/>
@@ -2656,10 +2657,10 @@ TEST(PhysiquePersonnageIntegration, NiveauBlocFranchissable) {
         core::PlayerInput in;
         in.moveX = 1.0f;
         in.jumpHeld = true;
-        if (!climbed && player.grounded && x >= 6.2f && y > 5.5f) {
+        if (!climbed && player.grounded && x >= 6.3f && y > 4.5f) {
             in.jumpPressed = true;  // grimpe sur le bloc pousse contre le mur
             climbed = true;
-        } else if (climbed && !cleared && player.grounded && y <= 5.5f) {
+        } else if (climbed && !cleared && player.grounded && y <= 4.5f) {
             in.jumpPressed = true;  // depuis le bloc, franchit le mur
             cleared = true;
         }
@@ -2693,8 +2694,8 @@ TEST(PhysiquePersonnageIntegration, NiveauBlocReduitFranchissable) {
 }
 
 /**
- * @brief Le niveau budget est franchissable avec exactement le budget de sauts prévu (`EX-GP-024`)
- * : deux marches ascendantes, un saut par atterrissage sur terrain plat compris.
+ * @brief Le niveau budget est franchissable avec le budget de sauts prévu (`EX-GP-024`) : deux
+ * marches ascendantes, deux sauts ciblés au bord de chaque fossé.
  * \castest{<b>Le niveau budget est franchissable avec exactement le budget de sauts prévu.</b><br/>
  * \tcat Integration · Physique Personnage<br/>
  * \tcrit Majeur<br/>
@@ -2715,12 +2716,26 @@ TEST(PhysiquePersonnageIntegration, NiveauBudgetFranchissable) {
     world.getComponent<core::Player>(player).jumpsRemaining = level.jumpBudget();
     core::CharacterPhysicsSystem system;
 
+    bool gap1Jumped = false;
+    bool gap2Jumped = false;
     core::LevelOutcome outcome = core::LevelOutcome::Playing;
     for (int step = 0; step < 3000 && outcome == core::LevelOutcome::Playing; ++step) {
+        const float x = world.getComponent<core::Transform>(player).position.x;
+        const bool grounded = world.getComponent<core::Player>(player).grounded;
         core::PlayerInput in;
         in.moveX = 1.0f;
-        in.jumpPressed = world.getComponent<core::Player>(player).grounded;
         in.jumpHeld = true;
+        // Deux sauts déclenchés une fois chacun (drapeaux), juste au bord de chaque fossé -- pas
+        // plus tôt : décoller trop en amont consomme la portée horizontale du saut sur du sol déjà
+        // solide, laissant trop peu d'élan pour franchir le fossé (constaté : un saut déclenché à
+        // 2+ cases du bord retombe dans le vide plutôt que sur le palier suivant).
+        if (!gap1Jumped && grounded && x >= 6.3f) {
+            in.jumpPressed = true;
+            gap1Jumped = true;
+        } else if (gap1Jumped && !gap2Jumped && grounded && x >= 13.0f) {
+            in.jumpPressed = true;
+            gap2Jumped = true;
+        }
         system.update(world, level.tileMap(), in, STEP);
         const core::Transform& transform = world.getComponent<core::Transform>(player);
         const core::Collider& collider = world.getComponent<core::Collider>(player);
@@ -2769,8 +2784,13 @@ TEST(PhysiquePersonnageIntegration, NiveauBudgetRequiertLesDeuxSauts) {
 }
 
 /**
- * @brief Le niveau final combine dash, pente, bloc poussable, interrupteur/porte et double saut en
- * un seul parcours cohérent, et reste franchissable de bout en bout.
+ * @brief Le niveau final combine quatre mécaniques (dash, pente, interrupteur/porte, double saut)
+ * en un seul parcours cohérent, chacune reprenant exactement la géométrie de son tableau dédié,
+ * séparées par de larges couloirs plats, et reste franchissable de bout en bout. La plateforme
+ * mobile n'est délibérément pas combinée ici : sa seule présence dans le fichier casse la
+ * résolution de collision pendant le suivi de pente, même immobile et loin du joueur — défaut
+ * moteur consigné (`CHANGELOG.md`), pas corrigé dans ce lot ; déjà couverte isolément par
+ * `demo-plateforme.json`.
  * \castest{<b>Le niveau final combine plusieurs mécaniques en un seul parcours cohérent et reste
  * franchissable.</b><br/>
  * \tcat Integration · Physique Personnage<br/>
@@ -2782,29 +2802,27 @@ TEST(PhysiquePersonnageIntegration, NiveauBudgetRequiertLesDeuxSauts) {
  * }
  */
 TEST(PhysiquePersonnageIntegration, NiveauFinalFranchissable) {
-    bool secondJumpDone = false;
-    const auto script = [&secondJumpDone](int, const core::Player& player, float x, float) {
+    bool doubleJumpDone = false;
+    const auto script = [&doubleJumpDone](int, const core::Player& player, float x, float) {
         core::PlayerInput in;
         in.moveX = 1.0f;
         if (x < 10.0f) {
-            in.dashPressed = true;  // couloir bas + fosse
-        } else if (x < 13.0f) {
-            // transition + pente : marcher sans sauter (suivi de pente).
-        } else if (x < 27.0f) {
-            in.jumpPressed = player.grounded;  // petits sauts : bloc pousse, interrupteur/porte
-            in.jumpHeld = true;
-        } else {
-            if (player.grounded && x < 27.6f) {
-                // pas encore pres du mur final : continuer a marcher.
+            in.dashPressed = true;  // segment A : plafond bas + fosse
+        } else if (x < 45.0f) {
+            // couloirs + segments B (pente) et D (interrupteur/porte) -- marcher suffit.
+        } else if (x < 57.0f) {
+            in.jumpHeld = true;  // segment G : double saut vers le palier surélevé
+            if (player.grounded && x < 46.6f) {
+                // pas encore pres du bord : marcher.
             } else if (player.grounded) {
                 in.jumpPressed = true;
-                secondJumpDone = false;
-            } else if (!secondJumpDone && x >= 28.2f) {
-                in.jumpPressed = true;  // double saut final
-                secondJumpDone = true;
+                doubleJumpDone = false;
+            } else if (!doubleJumpDone && x >= 47.2f) {
+                in.jumpPressed = true;
+                doubleJumpDone = true;
             }
-            in.jumpHeld = true;
         }
+        // segments H (plateforme mobile) et I (couloir final) : marcher suffit.
         return in;
     };
     EXPECT_EQ(playReactiveFile("demo-final.json", script), core::LevelOutcome::Won);

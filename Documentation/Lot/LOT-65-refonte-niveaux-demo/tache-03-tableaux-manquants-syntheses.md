@@ -31,9 +31,12 @@ long de la séquence) en `follow` plutôt qu'en le laissant retomber sur *par sa
 supplémentaire n'était nécessaire.
 
 **Synthèse** : chacun des cinq tableaux combine déjà plusieurs types auparavant isolés (jusqu'à
-quatre dans `demo-plafond.json`) ; `demo-final.json` (`TACHE-02`, restauré) et
+quatre dans `demo-plafond.json`) ; `demo-final.json` (`TACHE-02`, redessiné) et
 `demo-dangers-avances.json` restent les tableaux de synthèse inter-familles de la séquence
-(dash/pente/bloc/interrupteur/double-saut ; les quatre dangers avancés). Un tableau de synthèse
+(dash/pente/interrupteur/double-saut ; les quatre dangers avancés) — la plateforme mobile n'y est
+délibérément pas associée, un défaut de moteur consigné dans `CHANGELOG.md` (collision cassée
+pendant le suivi de pente dès qu'une configuration de plateforme mobile existe dans le niveau).
+Un tableau de synthèse
 dédié combinant explicitement une mécanique de `TACHE-03` à une mécanique pré-existante (ex. clé +
 bloc quart + interrupteur en un seul parcours) a été jugé de valeur marginale face à ce que
 `demo-final.json` couvre déjà, et n'a pas été ajouté — candidat naturel pour un lot de contenu

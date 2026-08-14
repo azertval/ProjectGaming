@@ -1,6 +1,21 @@
 # TACHE-02 — Refonte des tableaux existants {#lot-65-tache-02-refonte-tableaux}
 
-**Lot :** [LOT-65](epic.md) · **Emplacement :** `Source/Elements/Levels` · **Statut :** non commencé
+**Lot :** [LOT-65](epic.md) · **Emplacement :** `Source/Elements/Levels` · **Statut :** fait
+
+## Réalisé
+Les dix-sept tableaux ont été redessinés (nouvelle géométrie, jamais recopiée depuis
+l'historique git), habillés (fond, décors, jeu de skins `kenney` pour trois d'entre eux), et
+portent un cadrage explicite — seize en niveau entier, `demo-salles.json` par salle,
+`demo-final.json` en suivi. Chaque tableau a été vérifié individuellement par `ctest`, en
+itérant sur la géométrie et les scripts d'entrée jusqu'au franchissement (voir les commentaires
+de `Source/Test/Systeme/test_parcours_complet.cpp`, un par tableau).
+
+**Défaut de moteur découvert et consigné (`CHANGELOG.md`), pas corrigé ici** : la seule présence
+d'une configuration de plateforme mobile dans un niveau — même immobile, même loin du
+personnage — casse la résolution de collision pendant le suivi d'une pente ailleurs dans le même
+niveau. Isolé par bissection (retirer uniquement la tuile `movingPlatform` d'une copie de
+travail suffit à faire disparaître l'échec). `demo-final.json` n'associe donc pas la plateforme
+mobile aux autres mécaniques ; le mécanisme reste couvert isolément par `demo-plateforme.json`.
 
 ## Contexte
 Les dix-sept tableaux hérités du `LOT-25` étaient des **bancs d'essai** : une grille de tuiles nue,

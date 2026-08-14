@@ -78,7 +78,12 @@ d'autres mécanismes. L'exemple omet les tuiles `solid` des bords pour rester li
 ## 2. Progression
 - \anchor EX-LVL-010 **EX-LVL-010** — Le jeu doit charger les niveaux dans un **ordre défini** (liste ordonnée).
 - \anchor EX-LVL-011 **EX-LVL-011** — À la réussite d'un niveau, le jeu doit charger automatiquement le suivant ; après le dernier, revenir au menu (ou écran de fin).
-- \anchor EX-LVL-012 **EX-LVL-012** — Le MVP doit fournir **3 niveaux** de difficulté croissante illustrant : déplacement/saut, danger, puzzle interrupteur↔porte.
+- \anchor EX-LVL-012 **EX-LVL-012** — Le jeu doit fournir des niveaux de démonstration à
+  **difficulté croissante**, une mécanique introduite à la fois puis combinée dans des tableaux de
+  synthèse (`EX-LVL-015`). Le « 3 niveaux » du MVP (déplacement/saut, danger, puzzle
+  interrupteur↔porte) ne décrit plus le contenu livré depuis longtemps ; la séquence courante,
+  vingt-deux tableaux couvrant l'intégralité des mécaniques du moteur, est décrite par
+  `Source/Elements/Levels/README.md`. Concrétisé en `LOT-25`, étendu en `LOT-65`.
 - \anchor EX-LVL-013 **EX-LVL-013** — La **séquence** de niveaux jouée doit être une **donnée de
   contenu** (fichier de `Source/Elements/Levels`), jamais un littéral du code : réordonner, ajouter
   ou retirer un tableau ne doit demander aucune recompilation. Même exigence de validation et de
@@ -95,7 +100,7 @@ d'autres mécanismes. L'exemple omet les tuiles `solid` des bords pour rester li
   **automatique** et **dérivée des énumérations du code**, de sorte qu'ajouter une mécanique sans
   tableau qui l'emploie échoue sans qu'un inventaire ait à être tenu à la main ; les exclusions
   légitimes sont **nommées et justifiées**. Une mécanique absente de tout niveau n'est vérifiée
-  qu'en isolation, jamais dans une partie réelle. Prévu en `LOT-65`.
+  qu'en isolation, jamais dans une partie réelle. Concrétisé en `LOT-65`.
 
 ## 3. Conception (lignes directrices)
 - Introduire une mécanique à la fois ; le premier niveau sert de tutoriel implicite (sans texte).

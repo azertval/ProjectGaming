@@ -477,6 +477,40 @@ explicitement de ce qu'il propose d'ouvrir.
 même ordre, à la liste rejouée par le test système `Source/Test/Systeme/test_parcours_complet.cpp`
 — un décalage entre les deux est précisément le défaut qui a déclenché `LOT-25`.
 
+## Garde-fou de couverture des mécaniques (`EX-LVL-015`, `LOT-65`)
+
+`scripts/check_demo_sequence.py` protège l'**ordre** de la séquence ; il ne dit rien de sa
+**couverture** : rien n'empêchait, avant ce lot, qu'un type de tuile livré et testé unitairement
+n'apparaisse dans **aucun** tableau réellement joué. `Source/Test/Systeme/
+test_couverture_mecaniques.cpp` comble ce trou.
+
+**Ce qu'il vérifie exactement — et ce qu'il ne vérifie pas.** Le garde-fou parcourt la séquence
+livrée (`sequence-demo.json`) et relève, pour chaque tableau chargé avec succès, les types de
+`core::TileType` présents dans sa `TileMap`, le mode de `core::CameraFramingMode` résolu, et cinq
+variantes significatives portées par des champs plutôt que par le type (danger temporisé
+**déphasé**, danger mobile **vertical**, budget de mouvements **borné**, texture assignée **par
+instance**, décor de **premier plan**). Le test échoue, en nommant précisément ce qui manque, si un
+type, un mode ou une variante livrés n'apparaît dans aucun tableau. C'est une vérification de
+**présence**, pas de **franchissabilité** : une mécanique posée dans un coin inaccessible du
+tableau serait « couverte » sans jamais être jouée — c'est le test système
+(`ParcoursCompletSysteme.FranchitTouteLaSequence`, `EX-NFR-021`) qui vérifie que chaque tableau se
+termine réellement. Les deux sont nécessaires et complémentaires.
+
+**Dérivé de l'énumération, jamais recopié.** L'inventaire des types (`allContentTileTypes` dans le
+fichier de test) parcourt `core::TileType` par entier (`0` à `MovingPlatform`, sa dernière valeur)
+— même technique que `core::parseTileType` (`Core/Levels/TileTypeName.cpp`). Ajouter un type **avant**
+`MovingPlatform` dans l'énumération est pris en compte sans aucune modification du garde-fou ; en
+ajouter un **après** exige de bouger cette borne, mais c'est déjà le cas pour `parseTileType`
+lui-même — ce n'est pas une limite propre à ce garde-fou. Les modes de cadrage, eux, restent une
+liste explicite (trois valeurs, jamais recopiées ailleurs dans ce module) : un petit `enum` stable
+n'a pas besoin de la même précaution.
+
+**Exclusions.** Une mécanique légitimement impossible à couvrir figurerait dans
+`excludedTileTypes()`, nommée et commentée — aujourd'hui cette liste est **vide** : chaque type de
+`core::TileType` correspond à un contenu plaçable dans un tableau de démonstration. Si une
+exclusion devient un jour nécessaire, c'est l'emplacement où l'ajouter, jamais un contournement
+ailleurs dans le test.
+
 ## Voir aussi
 - `core::Level`, `core::TileMap`, `core::TileType`, `core::LevelLoader`, `core::LevelLoadResult`.
 - `core::LevelSequence`, `core::LevelSequenceLoader`, `core::LevelSequenceLoadResult`.
@@ -485,3 +519,4 @@ même ordre, à la liste rejouée par le test système `Source/Test/Systeme/test
   progression persistée entre deux lancements.
 - @ref guide-physique — comment le balayage consomme `isSolid`/`collisionMap()`.
 - @ref guide-ecs — le composant `core::Player` qui porte les compteurs de budget.
+- `Source/Test/Systeme/test_couverture_mecaniques.cpp` — le garde-fou de couverture (`EX-LVL-015`).

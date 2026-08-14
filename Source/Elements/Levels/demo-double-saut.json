@@ -133,59 +133,24 @@
       "type": "solid"
     },
     {
-      "x": 8,
-      "y": 7,
-      "type": "solid"
-    },
-    {
       "x": 9,
       "y": 4,
-      "type": "solid"
-    },
-    {
-      "x": 9,
-      "y": 5,
-      "type": "solid"
-    },
-    {
-      "x": 9,
-      "y": 6,
-      "type": "solid"
-    },
-    {
-      "x": 9,
-      "y": 7,
       "type": "solid"
     },
     {
       "x": 10,
       "y": 4,
       "type": "solid"
-    },
-    {
-      "x": 12,
-      "y": 4,
-      "type": "solid"
-    },
-    {
-      "x": 9,
-      "y": 8,
-      "type": "danger"
-    },
-    {
-      "x": 10,
-      "y": 8,
-      "type": "danger"
     },
     {
       "x": 11,
-      "y": 8,
-      "type": "danger"
+      "y": 4,
+      "type": "solid"
     },
     {
       "x": 12,
-      "y": 8,
-      "type": "danger"
+      "y": 4,
+      "type": "solid"
     },
     {
       "x": 1,
@@ -194,7 +159,7 @@
     },
     {
       "x": 11,
-      "y": 4,
+      "y": 3,
       "type": "exit"
     }
   ],
@@ -204,12 +169,6 @@
       "x": 2.0,
       "y": 6.4,
       "layer": "background"
-    },
-    {
-      "asset": "kenney_chain.png",
-      "x": 10.5,
-      "y": 2.5,
-      "layer": "foreground"
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "name": "Budget de sauts",
-  "width": 14,
-  "height": 8,
+  "width": 22,
+  "height": 9,
   "background": "test_sky.png",
   "cameraFraming": {
     "mode": "wholeLevel"
@@ -49,43 +49,53 @@
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 0,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 21,
       "y": 0,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 21,
       "y": 1,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 21,
       "y": 2,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 21,
       "y": 3,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 21,
       "y": 4,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 21,
       "y": 5,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 21,
       "y": 6,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 21,
       "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 21,
+      "y": 8,
       "type": "solid"
     },
     {
@@ -105,46 +115,76 @@
     },
     {
       "x": 4,
-      "y": 6,
+      "y": 7,
       "type": "solid"
     },
     {
       "x": 5,
-      "y": 6,
+      "y": 7,
       "type": "solid"
     },
     {
       "x": 6,
-      "y": 6,
-      "type": "solid"
-    },
-    {
-      "x": 7,
-      "y": 6,
+      "y": 7,
       "type": "solid"
     },
     {
       "x": 8,
-      "y": 5,
+      "y": 6,
       "type": "solid"
     },
     {
       "x": 9,
-      "y": 5,
+      "y": 6,
       "type": "solid"
     },
     {
       "x": 10,
-      "y": 5,
+      "y": 6,
       "type": "solid"
     },
     {
       "x": 11,
-      "y": 5,
+      "y": 6,
       "type": "solid"
     },
     {
       "x": 12,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 13,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 15,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 16,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 17,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 18,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 19,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 20,
       "y": 5,
       "type": "solid"
     },
@@ -154,7 +194,7 @@
       "type": "entry"
     },
     {
-      "x": 11,
+      "x": 17,
       "y": 4,
       "type": "exit"
     }

@@ -132,13 +132,13 @@
     {
       "asset": "kenney_torch.png",
       "x": 0.3,
-      "y": 3.5,
+      "y": 4.5,
       "layer": "foreground"
     },
     {
       "asset": "kenney_torch.png",
       "x": 2.7,
-      "y": 3.5,
+      "y": 4.5,
       "layer": "foreground"
     }
   ]

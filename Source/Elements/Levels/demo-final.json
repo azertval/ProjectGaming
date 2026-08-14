@@ -1,7 +1,7 @@
 {
   "name": "Final",
-  "width": 34,
-  "height": 9,
+  "width": 62,
+  "height": 10,
   "background": "test_night.png",
   "cameraFraming": {
     "mode": "follow"
@@ -53,139 +53,154 @@
       "type": "solid"
     },
     {
-      "x": 33,
+      "x": 0,
+      "y": 9,
+      "type": "solid"
+    },
+    {
+      "x": 61,
       "y": 0,
       "type": "solid"
     },
     {
-      "x": 33,
+      "x": 61,
       "y": 1,
       "type": "solid"
     },
     {
-      "x": 33,
+      "x": 61,
       "y": 2,
       "type": "solid"
     },
     {
-      "x": 33,
+      "x": 61,
       "y": 3,
       "type": "solid"
     },
     {
-      "x": 33,
+      "x": 61,
       "y": 4,
       "type": "solid"
     },
     {
-      "x": 33,
+      "x": 61,
       "y": 5,
       "type": "solid"
     },
     {
-      "x": 33,
+      "x": 61,
       "y": 6,
       "type": "solid"
     },
     {
-      "x": 33,
+      "x": 61,
       "y": 7,
       "type": "solid"
     },
     {
-      "x": 33,
+      "x": 61,
       "y": 8,
       "type": "solid"
     },
     {
+      "x": 61,
+      "y": 9,
+      "type": "solid"
+    },
+    {
       "x": 1,
-      "y": 7,
+      "y": 2,
       "type": "solid"
     },
     {
       "x": 2,
-      "y": 7,
+      "y": 2,
       "type": "solid"
     },
     {
       "x": 3,
-      "y": 7,
+      "y": 2,
       "type": "solid"
     },
     {
       "x": 4,
-      "y": 5,
+      "y": 2,
       "type": "solid"
     },
     {
       "x": 5,
-      "y": 5,
+      "y": 2,
       "type": "solid"
     },
     {
       "x": 6,
-      "y": 5,
+      "y": 2,
       "type": "solid"
     },
     {
       "x": 7,
-      "y": 5,
+      "y": 2,
       "type": "solid"
     },
     {
       "x": 8,
-      "y": 5,
+      "y": 2,
       "type": "solid"
     },
     {
       "x": 9,
-      "y": 5,
+      "y": 2,
+      "type": "solid"
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 6,
       "type": "solid"
     },
     {
       "x": 4,
-      "y": 7,
-      "type": "solid"
-    },
-    {
-      "x": 5,
-      "y": 7,
-      "type": "solid"
-    },
-    {
-      "x": 6,
-      "y": 7,
+      "y": 6,
       "type": "solid"
     },
     {
       "x": 7,
-      "y": 7,
-      "type": "danger"
+      "y": 6,
+      "type": "solid"
     },
     {
       "x": 8,
-      "y": 7,
+      "y": 6,
       "type": "solid"
     },
     {
       "x": 9,
-      "y": 7,
+      "y": 6,
       "type": "solid"
     },
     {
       "x": 10,
-      "y": 7,
+      "y": 6,
       "type": "solid"
     },
     {
       "x": 11,
-      "y": 7,
+      "y": 6,
       "type": "solid"
     },
     {
       "x": 12,
       "y": 6,
-      "type": "slopeUpRight"
+      "type": "solid"
     },
     {
       "x": 13,
@@ -199,82 +214,72 @@
     },
     {
       "x": 15,
-      "y": 6,
-      "type": "solid"
+      "y": 5,
+      "type": "slopeUpRight"
     },
     {
       "x": 16,
-      "y": 7,
+      "y": 5,
       "type": "solid"
     },
     {
       "x": 17,
-      "y": 6,
+      "y": 5,
       "type": "solid"
     },
     {
       "x": 18,
-      "y": 6,
+      "y": 5,
       "type": "solid"
     },
     {
       "x": 19,
-      "y": 6,
+      "y": 5,
       "type": "solid"
     },
     {
       "x": 20,
-      "y": 6,
+      "y": 5,
       "type": "solid"
     },
     {
       "x": 21,
-      "y": 6,
+      "y": 5,
       "type": "solid"
     },
     {
       "x": 22,
-      "y": 6,
+      "y": 5,
       "type": "solid"
     },
     {
       "x": 23,
-      "y": 6,
+      "y": 5,
       "type": "solid"
     },
     {
       "x": 24,
-      "y": 6,
+      "y": 5,
       "type": "solid"
     },
     {
       "x": 25,
-      "y": 6,
+      "y": 5,
       "type": "solid"
     },
     {
       "x": 26,
-      "y": 6,
+      "y": 5,
       "type": "solid"
     },
     {
       "x": 27,
-      "y": 6,
+      "y": 5,
       "type": "solid"
     },
     {
       "x": 28,
-      "y": 6,
-      "type": "solid"
-    },
-    {
-      "x": 29,
-      "y": 3,
-      "type": "solid"
-    },
-    {
-      "x": 29,
-      "y": 4,
+      "y": 5,
       "type": "solid"
     },
     {
@@ -283,65 +288,175 @@
       "type": "solid"
     },
     {
-      "x": 29,
-      "y": 6,
-      "type": "solid"
-    },
-    {
       "x": 30,
-      "y": 3,
+      "y": 5,
       "type": "solid"
-    },
-    {
-      "x": 32,
-      "y": 3,
-      "type": "solid"
-    },
-    {
-      "x": 29,
-      "y": 7,
-      "type": "danger"
-    },
-    {
-      "x": 30,
-      "y": 7,
-      "type": "danger"
     },
     {
       "x": 31,
-      "y": 7,
-      "type": "danger"
+      "y": 5,
+      "type": "solid"
     },
     {
       "x": 32,
-      "y": 7,
-      "type": "danger"
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 33,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 34,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 35,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 36,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 37,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 38,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 39,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 40,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 41,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 42,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 43,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 44,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 45,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 46,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 47,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 49,
+      "y": 2,
+      "type": "solid"
+    },
+    {
+      "x": 50,
+      "y": 2,
+      "type": "solid"
+    },
+    {
+      "x": 51,
+      "y": 2,
+      "type": "solid"
+    },
+    {
+      "x": 52,
+      "y": 2,
+      "type": "solid"
+    },
+    {
+      "x": 53,
+      "y": 2,
+      "type": "solid"
+    },
+    {
+      "x": 54,
+      "y": 2,
+      "type": "solid"
+    },
+    {
+      "x": 55,
+      "y": 2,
+      "type": "solid"
+    },
+    {
+      "x": 56,
+      "y": 2,
+      "type": "solid"
+    },
+    {
+      "x": 57,
+      "y": 2,
+      "type": "solid"
+    },
+    {
+      "x": 58,
+      "y": 2,
+      "type": "solid"
+    },
+    {
+      "x": 59,
+      "y": 2,
+      "type": "solid"
+    },
+    {
+      "x": 60,
+      "y": 2,
+      "type": "solid"
     },
     {
       "x": 1,
-      "y": 6,
+      "y": 5,
       "type": "entry"
     },
     {
-      "x": 15,
-      "y": 5,
-      "type": "block"
-    },
-    {
-      "x": 22,
-      "y": 5,
+      "x": 32,
+      "y": 4,
       "type": "switch",
       "id": "s1"
     },
     {
-      "x": 25,
-      "y": 5,
+      "x": 35,
+      "y": 4,
       "type": "door",
       "opensWith": "s1"
     },
     {
-      "x": 31,
-      "y": 2,
+      "x": 58,
+      "y": 1,
       "type": "exit"
     }
   ],
@@ -354,8 +469,14 @@
     },
     {
       "asset": "branch.png",
-      "x": 1.0,
-      "y": 6.2,
+      "x": 35.0,
+      "y": 4.2,
+      "layer": "foreground"
+    },
+    {
+      "asset": "kenney_chain.png",
+      "x": 50.0,
+      "y": 0.0,
       "layer": "foreground"
     }
   ]

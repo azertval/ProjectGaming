@@ -1,6 +1,6 @@
 {
   "name": "Pente",
-  "width": 14,
+  "width": 15,
   "height": 8,
   "background": "test_sky.png",
   "cameraFraming": {
@@ -48,42 +48,42 @@
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 14,
       "y": 0,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 14,
       "y": 1,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 14,
       "y": 2,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 14,
       "y": 3,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 14,
       "y": 4,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 14,
       "y": 5,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 14,
       "y": 6,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 14,
       "y": 7,
       "type": "solid"
     },
@@ -144,6 +144,11 @@
     },
     {
       "x": 12,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 13,
       "y": 5,
       "type": "solid"
     },

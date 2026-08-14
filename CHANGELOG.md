@@ -7,6 +7,45 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-65 — Refonte des niveaux de démonstration** (concrétise `EX-LVL-015` ; actualise
+  `EX-LVL-012`, dont le « 3 niveaux » du MVP ne décrivait plus rien depuis longtemps). Dernier lot
+  de contenu du programme `0.1.0` : refaire les tableaux livrés pour qu'ils exploitent et testent
+  toutes les mécaniques du moteur, plutôt que les quinze bancs d'essai nus hérités du `LOT-25`.
+  - **Garde-fou de couverture** (`Source/Test/Systeme/test_couverture_mecaniques.cpp`,
+    `EX-LVL-015`) : un contrôle échoue, en nommant précisément ce qui manque, si un type de tuile,
+    un mode de cadrage ou une variante significative (danger temporisé déphasé, danger mobile
+    vertical, budget de mouvements borné, texture par instance, décor de premier plan) n'apparaît
+    dans aucun tableau de la séquence livrée — dérivé des énumérations du code (même technique que
+    `core::parseTileType`), jamais d'une liste recopiée à la main.
+  - **Banque d'assets renforcée avant la refonte du contenu** : deux fonds supplémentaires (nuit,
+    souterrain), cinq décors et deux objets d'instance en plus, une première spritesheet de
+    personnage (`Player/player.png`, absente jusqu'ici — le jeu retombait systématiquement sur la
+    silhouette procédurale), tous générés par script (schématiques, sans dépendance externe, même
+    esprit que l'existant). Le jeu de skins `kenney` (real art CC0, `LOT-63`) étoffé de trois types
+    supplémentaires (`danger`, `switch`, `door`) et d'un premier fond réel, retouchés depuis les
+    mêmes packs Kenney déjà crédités.
+  - **Dix-sept tableaux redessinés** (nouvelle géométrie, jamais recopiée depuis l'historique git
+    — repartir d'une page blanche pour chacun, pas seulement pour la séquence) et habillés : fond,
+    décors, jeu de skins `kenney` pour trois d'entre eux, et cadrage de caméra **choisi
+    explicitement** plutôt que subi — `demo-final.json` (le parcours continu le plus long de la
+    séquence) passe ainsi en cadrage *suivi* plutôt que de retomber sur *par salle* du seul fait de
+    ses dimensions. Chaque tableau vérifié individuellement par le test système, en itérant sur la
+    géométrie jusqu'au franchissement plutôt qu'en le supposant.
+  - **Cinq tableaux supplémentaires**, groupés par famille plutôt qu'un par type, couvrant les
+    quatorze types de tuile qu'aucun tableau n'employait encore : pentes/arrondis/concaves montant
+    vers la **gauche** (`demo-pente-gauche.json`), les quatre variantes de **plafond** incliné
+    (`demo-plafond.json`), arrondis **concaves** de sol et de plafond (`demo-concave.json`), bloc
+    poussable à taille **quart** (`demo-bloc-quart.json`), dangers directionnels bas/gauche/droite
+    (`demo-dangers-directionnels.json`). Séquence portée de dix-sept à **vingt-deux** tableaux.
+  - **Registre des défauts** : un défaut de moteur découvert en construisant cette séquence, isolé
+    par bissection, **consigné et non corrigé** ici (décision de cadrage du lot) — la seule
+    présence d'une configuration de `movingPlatform` dans un niveau, même immobile et loin du
+    personnage, casse la résolution de collision pendant le suivi d'une pente ailleurs dans ce même
+    niveau. `demo-final.json` n'associe donc pas la plateforme mobile aux autres mécaniques
+    combinées ; `demo-plateforme.json` continue de la couvrir isolément. Aucun autre défaut
+    découvert en rejouant (scripté, `ctest` à 100 %, 1122 tests) cette séquence. Le parcours
+    **manuel** complet (binaire Release, manette, son) — le moment où ce lot attend le plus souvent
+    d'en trouver, d'après l'expérience des lots précédents — reste à faire.
 - **LOT-64 — Cadrage de caméra choisi par le level designer** (déclare `EX-LVL-006`, `EX-REN-016`,
   `EX-EDIT-028`, `EX-LVL-007`, `EX-REN-017`, `EX-EDIT-029` ; reformule `EX-REN-015`). Le cadrage
   devient une **donnée du niveau**, plus une règle en dur déduite de ses dimensions.

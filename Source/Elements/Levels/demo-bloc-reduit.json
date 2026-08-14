@@ -1,6 +1,6 @@
 {
   "name": "Bloc a taille reduite",
-  "width": 14,
+  "width": 13,
   "height": 9,
   "background": "test_sky.png",
   "cameraFraming": {
@@ -53,47 +53,47 @@
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 12,
       "y": 0,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 12,
       "y": 1,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 12,
       "y": 2,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 12,
       "y": 3,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 12,
       "y": 4,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 12,
       "y": 5,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 12,
       "y": 6,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 12,
       "y": 7,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 12,
       "y": 8,
       "type": "solid"
     },
@@ -148,11 +148,6 @@
       "type": "solid"
     },
     {
-      "x": 12,
-      "y": 7,
-      "type": "solid"
-    },
-    {
       "x": 5,
       "y": 8,
       "type": "solid"
@@ -168,7 +163,7 @@
       "type": "blockHalf"
     },
     {
-      "x": 11,
+      "x": 10,
       "y": 6,
       "type": "exit"
     }
