@@ -1,0 +1,287 @@
+{
+  "name": "Dangers avances",
+  "width": 20,
+  "height": 9,
+  "background": "test_cave.png",
+  "cameraFraming": {
+    "mode": "wholeLevel"
+  },
+  "tiles": [
+    {
+      "x": 0,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 19,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 19,
+      "y": 1,
+      "type": "solid"
+    },
+    {
+      "x": 19,
+      "y": 2,
+      "type": "solid"
+    },
+    {
+      "x": 19,
+      "y": 3,
+      "type": "solid"
+    },
+    {
+      "x": 19,
+      "y": 4,
+      "type": "solid"
+    },
+    {
+      "x": 19,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 19,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 19,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 19,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 4,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 5,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 6,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 7,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 8,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 9,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 10,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 11,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 12,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 13,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 14,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 15,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 16,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 17,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 18,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 4,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 5,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 4,
+      "y": 4,
+      "type": "dangerUp"
+    },
+    {
+      "x": 8,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 9,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "type": "dangerMover",
+      "axis": "horizontal",
+      "range": 1
+    },
+    {
+      "x": 12,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 13,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 12,
+      "y": 4,
+      "type": "switch",
+      "id": "s1"
+    },
+    {
+      "x": 13,
+      "y": 4,
+      "type": "dangerSwitched",
+      "opensWith": "s1"
+    },
+    {
+      "x": 15,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 16,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 15,
+      "y": 4,
+      "type": "dangerBlink",
+      "period": 90,
+      "phase": 0,
+      "activeDuration": 45
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "type": "entry"
+    },
+    {
+      "x": 18,
+      "y": 6,
+      "type": "exit"
+    }
+  ],
+  "decors": [
+    {
+      "asset": "rock.png",
+      "x": 2.0,
+      "y": 6.5,
+      "layer": "background"
+    },
+    {
+      "asset": "rock.png",
+      "x": 17.0,
+      "y": 6.5,
+      "layer": "background"
+    }
+  ]
+}

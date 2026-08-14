@@ -172,9 +172,11 @@ TEST(CameraFramingTest, ValidationDesZonesNommeLeChampFautif) {
 
 namespace {
 
-// Un niveau livré et le mode attendu de sa règle de repli (aucun des dix-sept ne déclare de
-// cadrage explicite à ce jour) -- même liste, dans le même esprit, que le parcours complet
-// (Source/Test/Systeme/test_parcours_complet.cpp) : toute divergence de dimensions doit se
+// Un niveau livré et son mode de cadrage attendu. Chaque niveau déclare désormais un cadrage
+// explicite (LOT-65 TACHE-02, EX-LVL-006) plutôt que de dépendre de la règle de repli par
+// dimensions -- ce test vérifie le choix effectivement livré, pas la règle elle-même (couverte par
+// ailleurs dans ce fichier avec des dimensions synthétiques). Même liste, dans le même esprit, que
+// le parcours complet (Source/Test/Systeme/test_parcours_complet.cpp) : toute divergence doit se
 // retrouver ici.
 struct ExpectedFraming {
     const char* file;
@@ -184,17 +186,19 @@ struct ExpectedFraming {
 }  // namespace
 
 /**
- * @brief Chacun des dix-sept niveaux livrés, chargé sans champ de cadrage, résout le mode qui
- * reproduit exactement son comportement actuel -- le critère d'acceptation numéro un du lot.
- * \castest{<b>Chaque niveau livré résout le cadrage qui reproduit son comportement actuel.</b>
+ * @brief Chacun des dix-sept niveaux livrés déclare désormais un cadrage **explicite**
+ * (`LOT-65` TACHE-02) : seize tiennent dans une salle par défaut et se voient entiers,
+ * `demo-salles.json` (48×28) garde la coupure nette *par salle*, `demo-final.json` (34×9) --
+ * la traversée la plus longue de la séquence -- **suit** le personnage plutôt que de subir le
+ * repli automatique *par salle* qu'imposeraient ses seules dimensions.
+ * \castest{<b>Chaque niveau livré déclare le cadrage explicitement choisi pour son contenu.</b>
  * <br/>
  * \tcat Unitaire · Camera Framing<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Charger chacun des dix-sept niveaux livrés (`Source/Elements/Levels`).<br/>2.
  * Vérifier le mode de cadrage résolu de chacun.<br/>
- * \tattendu Les niveaux qui tiennent dans une salle par défaut (24×14) résolvent en *niveau
- * entier* ; `demo-final.json` (34×9) et `demo-salles.json` (48×28), qui la dépassent, résolvent en
- * *par salle*, sans taille personnalisée.
+ * \tattendu Seize niveaux résolvent en *niveau entier*, `demo-salles.json` en *par salle*,
+ * `demo-final.json` en *suivi*, sans taille de salle personnalisée.
  * }
  */
 TEST(CameraFramingTest, NiveauxLivresReproduisentLeurComportementActuel) {
@@ -214,7 +218,7 @@ TEST(CameraFramingTest, NiveauxLivresReproduisentLeurComportementActuel) {
         {"demo-bloc-reduit.json", core::CameraFramingMode::WholeLevel},
         {"demo-plateforme.json", core::CameraFramingMode::WholeLevel},
         {"demo-dangers-avances.json", core::CameraFramingMode::WholeLevel},
-        {"demo-final.json", core::CameraFramingMode::PerRoom},
+        {"demo-final.json", core::CameraFramingMode::Follow},
         {"demo-salles.json", core::CameraFramingMode::PerRoom},
     };
 

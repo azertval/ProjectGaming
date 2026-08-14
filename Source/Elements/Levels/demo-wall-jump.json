@@ -1,0 +1,145 @@
+{
+  "name": "Wall jump",
+  "width": 4,
+  "height": 10,
+  "background": "test_cave.png",
+  "cameraFraming": {
+    "mode": "wholeLevel"
+  },
+  "tiles": [
+    {
+      "x": 0,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 9,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 9,
+      "type": "solid"
+    },
+    {
+      "x": 1,
+      "y": 9,
+      "type": "solid"
+    },
+    {
+      "x": 2,
+      "y": 9,
+      "type": "solid"
+    },
+    {
+      "x": 1,
+      "y": 8,
+      "type": "entry"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "type": "exit"
+    }
+  ],
+  "decors": [
+    {
+      "asset": "kenney_torch.png",
+      "x": 0.3,
+      "y": 3.5,
+      "layer": "foreground"
+    },
+    {
+      "asset": "kenney_torch.png",
+      "x": 2.7,
+      "y": 3.5,
+      "layer": "foreground"
+    }
+  ]
+}
