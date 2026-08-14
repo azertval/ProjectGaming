@@ -1,5 +1,7 @@
 var dir_e9bc3547f945e106b199f4f7c7c6d92f =
 [
+    [ "CameraFraming.cpp", "CameraFraming_8cpp.html", "CameraFraming_8cpp" ],
+    [ "CameraFraming.h", "CameraFraming_8h.html", "CameraFraming_8h" ],
     [ "DangerGeometry.cpp", "DangerGeometry_8cpp.html", "DangerGeometry_8cpp" ],
     [ "DangerGeometry.h", "DangerGeometry_8h.html", "DangerGeometry_8h" ],
     [ "Decor.h", "Decor_8h.html", "Decor_8h" ],

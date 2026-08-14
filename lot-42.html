@@ -96,7 +96,7 @@ $(function(){initNavTree('lot-42.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-40.html" title="LOT-40 — Fondations : registre de textures, calques, culling, testabilité">LOT-40</a>, <a class="el" href="lot-41.html" title="LOT-41 — Bascule Physique/Texture (`F8`, non remappable)">LOT-41</a>. Répond à la demande d'origine (« définir les textures utilisées par un bloc »). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1962"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1965"></a>
 Objectif</h1>
 <p>Permettre au level designer d'associer une texture réelle à chaque type de tuile — le cœur de la demande initiale. Le lot va délibérément plus loin que « un PNG par type » sur deux points, parce que les deux sont des décisions de <b>format</b> qu'on ne peut pas prendre après coup sans refonte :</p>
 <ul>
@@ -104,9 +104,9 @@ Objectif</h1>
 <li><b>Raccords automatiques</b> (<span class="tt">EX-EDIT-025</span>). Une image unique par type répète la même case partout : la grille reste visible et le dessus d'une plateforme est identique à son intérieur — c'est le rendu physique actuel, en couleur. Le rendu choisit donc l'image dans une <b>planche</b> selon les tuiles solides voisines.</li>
 </ul>
 <p>C'est aussi le lot qui introduit le panneau Qt <b>« Textures »</b>, conçu dès maintenant pour être réutilisé (pas remplacé) par LOT-43/44/45/50.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1963"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1966"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1964"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1967"></a>
 Inclus</h2>
 <ul>
 <li><b><span class="tt">skins.json</span></b> : fichier de configuration <b>hors <span class="tt">Core</span></b>, jamais lu ni écrit par <span class="tt">Level</span>/<span class="tt">LevelDraft</span>. Structure : un <span class="tt">"version"</span> de format, puis des <b>jeux de skins nommés</b>, chacun associant un <span class="tt">TileType</span> à <span class="tt">{ "asset": &lt;fichier&gt;, "mode": "single" | "bitmask16" }</span>. Copié à côté de l'exécutable comme <span class="tt">Levels</span>/<span class="tt">Localization</span> (<span class="tt">Source/Elements/Assets/skins.json</span> = version livrée par défaut). L'éditeur <b>écrit</b> au chemin déployé (<span class="tt">executableDirectory()/Assets/skins.json</span>), exactement comme l'enregistrement d'un niveau (<span class="tt"><a class="el" href="LevelFileOperations_8cpp.html">Source/HMI/Editor/LevelFileOperations.cpp</a></span>) — aucun nouveau mécanisme d'écriture à inventer.</li>
@@ -120,7 +120,7 @@ Inclus</h2>
 <li>Toute UI de ce panneau passe par le catalogue de traduction (<span class="tt">_loc.text</span>, aucun libellé en dur).</li>
 <li>Dossier <span class="tt">Assets/Skins/</span> + commande <span class="tt">POST_BUILD</span> dans <span class="tt">Source/HMI/CMakeLists.txt</span>.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1965"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1968"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Désignation du jeu de skins par un niveau</b> : le format des jeux est posé ici, mais le champ <span class="tt">skinSet</span> sur <span class="tt">Level</span> relève de LOT-44 (premier lot qui touche <span class="tt">Core</span> et le format JSON). Ce lot utilise le jeu par défaut.</li>
@@ -129,7 +129,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li>Rechargement à chaud (LOT-43).</li>
 <li>Variantes aléatoires par position (autre stratégie de dé-répétition) : <span class="tt">single</span> et <span class="tt">bitmask16</span> couvrent le besoin ; le champ <span class="tt">mode</span> accueillera une troisième valeur si le besoin apparaît, sans changer le format.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1966"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1969"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Frontière <span class="tt">Core</span>/<span class="tt">HMI</span> non négociable</b> : <span class="tt">skins.json</span> est une configuration de présentation, jamais une donnée de simulation — ne transite jamais par <span class="tt">LevelDraft</span> ni son undo/redo. Seule la <b>désignation</b> du jeu par un niveau (LOT-44) est une donnée de niveau, et ce n'est qu'une chaîne.</li>
@@ -139,14 +139,14 @@ Décisions de cadrage</h1>
 <li><b>Mise à l'échelle des blocs réduits gratuite</b> : <span class="tt">BlockHalf</span>/<span class="tt">BlockQuarter</span> (<span class="tt"><a class="el" href="namespacecore.html#a9b733af18a1507c5dc7b4ffdd88d8b6a" title="Facteur de taille visuel/collision d&#39;une tuile bloc réduite (EX-GP-005).">core::tileVisualScale</a></span>) fonctionnent sans code supplémentaire — <span class="tt">SpriteRenderer</span> applique déjà l'échelle du <span class="tt">Transform</span> quelle que soit la source de la texture.</li>
 <li><b>Un seul panneau « Textures »</b>, pas un panneau par couche : décision transverse au programme, prise ici puisque c'est le premier panneau créé.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1967"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1970"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelles : <span class="tt">EX-EDIT-024</span> (jeux de skins nommés), <span class="tt">EX-EDIT-025</span> (raccords automatiques), <span class="tt">EX-EDIT-027</span> (palette fidèle au rendu).</li>
 <li>Amendée : <span class="tt">EX-EDIT-042</span> (association type de tuile → texture, avec mode de rendu).</li>
 <li>Réutilisées : <span class="tt">EX-REN-043</span> (rendu multi-textures), <span class="tt">EX-REN-046</span> (bascule Physique/Texture), <span class="tt">EX-REN-007</span> (contrat d'asset), <span class="tt">EX-NFR-040</span> (repli), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-NFR-004</span> (vérification sans GPU).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1968"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1971"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -165,7 +165,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-42-tache-05-palette-fidele.html#md_Lot_2LOT-42-skin-tuiles-autotiling_2tache-05-palette-fidele" title="Lot/LOT-42-skin-tuiles-autotiling/tache-05-palette-fidele.md">TACHE-05</a>  </td><td class="markdownTableBodyNone">Palette de l'éditeur fidèle au mode de rendu courant  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Editor</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1969"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1972"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Assigner un skin à un type de tuile depuis le panneau « Textures » le rend visible dans le niveau et dans l'éditeur, en mode Texture uniquement.</li>
@@ -177,10 +177,10 @@ Critères d'acceptation du lot</h1>
 <li>Toute nouvelle UI passe par le catalogue de traduction.</li>
 <li>Résolution <span class="tt">skins.json</span> et table de raccords testées sans GPU ; build <span class="tt">/W4 /WX</span>, Doxygen, lint verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1970"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1973"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-40.html" title="LOT-40 — Fondations : registre de textures, calques, culling, testabilité">LOT-40</a> (calques, <em>TextureCache</em>, contrat d'asset, <em>QuadRecorder</em>) et <a class="el" href="lot-41.html" title="LOT-41 — Bascule Physique/Texture (`F8`, non remappable)">LOT-41</a> (bascule). Réutilise <span class="tt"><a class="el" href="classhmi_1_1AssetPaths.html" title="Résout des noms d&#39;assets logiques vers des chemins de fichiers, dans un dossier donné.">hmi::AssetPaths</a></span> (LOT-39) et la géométrie de pentes de <span class="tt">Core</span>. Ne modifie pas <span class="tt">Level</span>/<span class="tt">LevelDraft</span>. Prépare <a class="el" href="lot-43.html" title="LOT-43 — Bibliothèque d&#39;assets : vignettes, import, rechargement à chaud">LOT-43</a>, <a class="el" href="lot-44.html" title="LOT-44 — Fond de niveau et versionnement du format">LOT-44</a>, <a class="el" href="lot-45.html" title="LOT-45 — Objet interactif : texture par instance">LOT-45</a>, <a class="el" href="lot-50.html" title="LOT-50 — Décors : placement et manipulation dans l&#39;éditeur">LOT-50</a> (panneau « Textures » réutilisé) et <a class="el" href="lot-54.html" title="LOT-54 — Atelier pixel art intégré">LOT-54</a> (mode planche de l'atelier).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1971"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1974"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-42-tache-01-skins-json.html" title="TACHE-01 — `skins.json` : format versionné et jeux de skins">TACHE-01 — `skins.json` : format versionné et jeux de skins</a></li>

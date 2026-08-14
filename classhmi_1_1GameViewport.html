@@ -228,6 +228,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:acfc8846bf80901c47e4639b84142f52c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigne l'asset de fond du niveau courant (section « Fond », <span class="tt">LOT-44</span>).  <br /></td></tr>
 <tr class="memitem:aadfe43ddd5e59b2aff37d65d26796d80" id="r_aadfe43ddd5e59b2aff37d65d26796d80"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aadfe43ddd5e59b2aff37d65d26796d80">setLevelSkinSet</a> (std::optional&lt; std::string &gt; skinSet)</td></tr>
 <tr class="memdesc:aadfe43ddd5e59b2aff37d65d26796d80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigne le jeu de skins du niveau courant (section « Fond », <span class="tt">LOT-44</span>).  <br /></td></tr>
+<tr class="memitem:ac9d29fd7694a4c9ee0f4ab9d6089d4fc" id="r_ac9d29fd7694a4c9ee0f4ab9d6089d4fc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac9d29fd7694a4c9ee0f4ab9d6089d4fc">setLevelCameraFraming</a> (<a class="el" href="structcore_1_1CameraFramingConfig.html">core::CameraFramingConfig</a> cameraFraming)</td></tr>
+<tr class="memdesc:ac9d29fd7694a4c9ee0f4ab9d6089d4fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change le cadrage de caméra du niveau courant (section « Cadrage », <span class="tt">EX-EDIT-028</span>, LOT-64).  <br /></td></tr>
+<tr class="memitem:af8f39457b2ff518310cc2bb7d1071043" id="r_af8f39457b2ff518310cc2bb7d1071043"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af8f39457b2ff518310cc2bb7d1071043">removeCameraZone</a> (std::size_t index)</td></tr>
+<tr class="memdesc:af8f39457b2ff518310cc2bb7d1071043"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire la zone de caméra au rang <code class="param">index</code> (section « Cadrage », <span class="tt">EX-LVL-007</span>, <span class="tt">EX-EDIT-029</span>) ; sans effet si hors bornes.  <br /></td></tr>
 <tr class="memitem:a5f1055b69e7ae6b225e46936159184af" id="r_a5f1055b69e7ae6b225e46936159184af"><td class="memItemLeft"><a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5f1055b69e7ae6b225e46936159184af">renderMode</a> () const noexcept</td></tr>
 <tr class="memitem:a401e5d33501960bfd5b314a730a1eedf" id="r_a401e5d33501960bfd5b314a730a1eedf"><td class="memItemLeft">const <a class="el" href="classhmi_1_1LayerVisibility.html">LayerVisibility</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a401e5d33501960bfd5b314a730a1eedf">layerVisibility</a> () const noexcept</td></tr>
 <tr class="memdesc:a401e5d33501960bfd5b314a730a1eedf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jeu de visibilités par calque du mode d'inspection « définition des textures » (<span class="tt">LOT-51</span>, <span class="tt">EX-EDIT-044</span>) — édition uniquement, jamais lu par <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span>.  <br /></td></tr>
@@ -303,6 +307,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:af8d20efafa7b555b66981bf5db54c77d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint le type actif à la case sous <code class="param">event</code>, si valide (invalide la scène rendue).  <br /></td></tr>
 <tr class="memitem:a8f9ad2fa0a4e59d658741479f2a9db28" id="r_a8f9ad2fa0a4e59d658741479f2a9db28"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8f9ad2fa0a4e59d658741479f2a9db28">applyRectangle</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> a, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> b)</td></tr>
 <tr class="memdesc:a8f9ad2fa0a4e59d658741479f2a9db28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remplit le rectangle (bornes <code class="param">a</code>, <code class="param">b</code> incluses) du type actif (outil Rectangle).  <br /></td></tr>
+<tr class="memitem:a536cf887cadecab5dcd3936aa31264f7" id="r_a536cf887cadecab5dcd3936aa31264f7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a536cf887cadecab5dcd3936aa31264f7">addCameraZoneFromDrag</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> a, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> b)</td></tr>
+<tr class="memdesc:a536cf887cadecab5dcd3936aa31264f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute une zone de caméra couvrant le rectangle (bornes <code class="param">a</code>, <code class="param">b</code> incluses, outil <span class="tt">CameraZone</span>, <span class="tt">EX-LVL-007</span>, <span class="tt">EX-EDIT-029</span>) au cadrage du niveau.  <br /></td></tr>
 <tr class="memitem:aaddcfbde9e6f6c04cac024c460dfd088" id="r_aaddcfbde9e6f6c04cac024c460dfd088"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aaddcfbde9e6f6c04cac024c460dfd088">copySelection</a> ()</td></tr>
 <tr class="memdesc:aaddcfbde9e6f6c04cac024c460dfd088"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copie la zone sélectionnée dans le presse-papiers local (<span class="tt">Ctrl+C</span>).  <br /></td></tr>
 <tr class="memitem:a86d870ceb456a975b976f234e0a36cbf" id="r_a86d870ceb456a975b976f234e0a36cbf"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a86d870ceb456a975b976f234e0a36cbf">pasteClipboard</a> ()</td></tr>
@@ -575,6 +581,37 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>L'outil d'édition actif. </dd></dl>
+
+</div>
+</div>
+<a id="a536cf887cadecab5dcd3936aa31264f7" name="a536cf887cadecab5dcd3936aa31264f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a536cf887cadecab5dcd3936aa31264f7">&#9670;&#160;</a></span>addCameraZoneFromDrag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::addCameraZoneFromDrag </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ajoute une zone de caméra couvrant le rectangle (bornes <code class="param">a</code>, <code class="param">b</code> incluses, outil <span class="tt">CameraZone</span>, <span class="tt">EX-LVL-007</span>, <span class="tt">EX-EDIT-029</span>) au cadrage du niveau. </p>
 
 </div>
 </div>
@@ -2289,6 +2326,31 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
+<a id="af8f39457b2ff518310cc2bb7d1071043" name="af8f39457b2ff518310cc2bb7d1071043"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8f39457b2ff518310cc2bb7d1071043">&#9670;&#160;</a></span>removeCameraZone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::removeCameraZone </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retire la zone de caméra au rang <code class="param">index</code> (section « Cadrage », <span class="tt">EX-LVL-007</span>, <span class="tt">EX-EDIT-029</span>) ; sans effet si hors bornes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>Rang dans <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a0c8ca795b62277f4d0c78036bc16844e">core::LevelDraft::cameraFraming()</a>.zones</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="abb82d7356f42831c6aa6aa245195f1d4" name="abb82d7356f42831c6aa6aa245195f1d4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abb82d7356f42831c6aa6aa245195f1d4">&#9670;&#160;</a></span>removeDecor()</h2>
 
@@ -2997,6 +3059,31 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">background</td><td>Nom de l'asset (<span class="tt">Assets/Backgrounds/*.png</span>), ou absent pour retirer le fond posé. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac9d29fd7694a4c9ee0f4ab9d6089d4fc" name="ac9d29fd7694a4c9ee0f4ab9d6089d4fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9d29fd7694a4c9ee0f4ab9d6089d4fc">&#9670;&#160;</a></span>setLevelCameraFraming()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::setLevelCameraFraming </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1CameraFramingConfig.html">core::CameraFramingConfig</a></td>          <td class="paramname"><span class="paramname"><em>cameraFraming</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change le cadrage de caméra du niveau courant (section « Cadrage », <span class="tt">EX-EDIT-028</span>, LOT-64). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cameraFraming</td><td>Nouveau cadrage résolu (mode et, pour <em>par salle</em>, taille de salle). </td></tr>
   </table>
   </dd>
 </dl>

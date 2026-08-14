@@ -107,8 +107,8 @@ $(function(){initNavTree('test__editor__actions_8cpp.html','',''); });
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0ca9ef63e365603efbe26567866b2c04" id="r_a0ca9ef63e365603efbe26567866b2c04"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0ca9ef63e365603efbe26567866b2c04">TEST</a> (EditorActionsTest, LesSixOutilsFormentUneBijectionAvecEditorTool)</td></tr>
-<tr class="memdesc:a0ca9ef63e365603efbe26567866b2c04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les six outils du catalogue forment une bijection exacte avec <span class="tt"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou la barre d&#39;outils (hmi::EditorActions,...">hmi::EditorTool</a></span> : un outil, une action, aucun manquant ni dupliqué.  <br /></td></tr>
+<tr class="memitem:aaca2cede7cd12d4c01d0e20ee118b14c" id="r_aaca2cede7cd12d4c01d0e20ee118b14c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aaca2cede7cd12d4c01d0e20ee118b14c">TEST</a> (EditorActionsTest, LesSeptOutilsFormentUneBijectionAvecEditorTool)</td></tr>
+<tr class="memdesc:aaca2cede7cd12d4c01d0e20ee118b14c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les sept outils du catalogue forment une bijection exacte avec <span class="tt"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou la barre d&#39;outils (hmi::EditorActions,...">hmi::EditorTool</a></span> : un outil, une action, aucun manquant ni dupliqué.  <br /></td></tr>
 <tr class="memitem:a12f1bb713d1df5c54be686ce9363a01f" id="r_a12f1bb713d1df5c54be686ce9363a01f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a12f1bb713d1df5c54be686ce9363a01f">TEST</a> (EditorActionsTest, LesCinqOutilsDeCanevasFormentUneBijectionAvecPixelTool)</td></tr>
 <tr class="memdesc:a12f1bb713d1df5c54be686ce9363a01f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les quatre outils du canevas pixel art forment une bijection exacte avec <span class="tt"><a class="el" href="namespacehmi.html#a9cb51e9b7642963a83312d94737fe571" title="Outil actif du canevas pixel art — détermine ce que produisent les gestes de souris (hmi::PixelCanvas...">hmi::PixelTool</a></span> (<span class="tt">LOT-54</span> TACHE-04) — même garantie que pour les six outils de niveau, et le groupe <span class="tt">PixelTools</span> reste <b>distinct</b> de <span class="tt">LevelTools</span> (aucun outil de canevas n'appartient au groupe des outils de niveau).  <br /></td></tr>
 <tr class="memitem:aa7529760807d8cbc852e45461ba5f907" id="r_aa7529760807d8cbc852e45461ba5f907"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa7529760807d8cbc852e45461ba5f907">TEST</a> (EditorActionsTest, DefinitionUniqueDeRaccourci)</td></tr>
@@ -275,8 +275,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a0ca9ef63e365603efbe26567866b2c04" name="a0ca9ef63e365603efbe26567866b2c04"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ca9ef63e365603efbe26567866b2c04">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
+<a id="aaca2cede7cd12d4c01d0e20ee118b14c" name="aaca2cede7cd12d4c01d0e20ee118b14c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaca2cede7cd12d4c01d0e20ee118b14c">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -289,18 +289,18 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">LesSixOutilsFormentUneBijectionAvecEditorTool</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">LesSeptOutilsFormentUneBijectionAvecEditorTool</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Les six outils du catalogue forment une bijection exacte avec <span class="tt"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou la barre d&#39;outils (hmi::EditorActions,...">hmi::EditorTool</a></span> : un outil, une action, aucun manquant ni dupliqué. </p>
-<p>C'est ce qui garantit l'exclusivité réelle (le groupe Qt <span class="tt">QActionGroup</span>, construit à partir de ce même catalogue, <a class="el" href="EditorActions_8cpp.html">EditorActions.cpp</a>) : deux actions pour le même outil casseraient la resynchronisation par touche dédiée. <b>Cas de test :</b> <b>Les six outils du catalogue forment une bijection avec EditorTool.</b><br  />
+<p>Les sept outils du catalogue forment une bijection exacte avec <span class="tt"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou la barre d&#39;outils (hmi::EditorActions,...">hmi::EditorTool</a></span> : un outil, une action, aucun manquant ni dupliqué. </p>
+<p>C'est ce qui garantit l'exclusivité réelle (le groupe Qt <span class="tt">QActionGroup</span>, construit à partir de ce même catalogue, <a class="el" href="EditorActions_8cpp.html">EditorActions.cpp</a>) : deux actions pour le même outil casseraient la resynchronisation par touche dédiée. <b>Cas de test :</b> <b>Les sept outils du catalogue forment une bijection avec EditorTool.</b><br  />
  <b>Categorie :</b> Unitaire · Actions de l'editeur<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
  1. Pour chaque <a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou la barre d&#39;outils (hmi::EditorActions,...">hmi::EditorTool</a>, resoudre l'action puis reconvertir vers l'outil.<br  />
- <b>Resultat attendu :</b> L'aller-retour restitue l'outil d'origine, pour chacun des six. </p>
+ <b>Resultat attendu :</b> L'aller-retour restitue l'outil d'origine, pour chacun des sept. </p>
 
 </div>
 </div>

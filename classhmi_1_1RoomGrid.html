@@ -100,8 +100,10 @@ $(function(){initNavTree('classhmi_1_1RoomGrid.html','','classhmi_1_1RoomGrid-me
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:abcaf70b702b1b8489f5bacdff1b55f0e" id="r_abcaf70b702b1b8489f5bacdff1b55f0e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abcaf70b702b1b8489f5bacdff1b55f0e">RoomGrid</a> (int levelWidth, int levelHeight)</td></tr>
-<tr class="memdesc:abcaf70b702b1b8489f5bacdff1b55f0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit la partition pour un niveau de <code class="param">levelWidth</code> × <code class="param">levelHeight</code> cases.  <br /></td></tr>
+<tr class="memitem:a52d048c4aa825b8b9379e8a397c2f686" id="r_a52d048c4aa825b8b9379e8a397c2f686"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a52d048c4aa825b8b9379e8a397c2f686">RoomGrid</a> (int levelWidth, int levelHeight, int <a class="el" href="#a58bda6ab0986f4599c95022be60b496c">roomWidthTiles</a>=<a class="el" href="#a3641300883e783d130eb0d100e049ef6">ROOM_WIDTH_TILES</a>, int <a class="el" href="#a7dad9ed70c6e700beae769149e0885f7">roomHeightTiles</a>=<a class="el" href="#a0b955c9993b7ea1652cec0f9c8cae916">ROOM_HEIGHT_TILES</a>)</td></tr>
+<tr class="memdesc:a52d048c4aa825b8b9379e8a397c2f686"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit la partition pour un niveau de <code class="param">levelWidth</code> × <code class="param">levelHeight</code> cases.  <br /></td></tr>
+<tr class="memitem:a58bda6ab0986f4599c95022be60b496c" id="r_a58bda6ab0986f4599c95022be60b496c"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a58bda6ab0986f4599c95022be60b496c">roomWidthTiles</a> () const noexcept</td></tr>
+<tr class="memitem:a7dad9ed70c6e700beae769149e0885f7" id="r_a7dad9ed70c6e700beae769149e0885f7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a7dad9ed70c6e700beae769149e0885f7">roomHeightTiles</a> () const noexcept</td></tr>
 <tr class="memitem:a5cbc1f2305e79413dc5d16776fc66105" id="r_a5cbc1f2305e79413dc5d16776fc66105"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a5cbc1f2305e79413dc5d16776fc66105">columns</a> () const noexcept</td></tr>
 <tr class="memitem:a29d559696ed713fbfc5cafae728100d9" id="r_a29d559696ed713fbfc5cafae728100d9"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a29d559696ed713fbfc5cafae728100d9">rows</a> () const noexcept</td></tr>
 <tr class="memitem:a0b3f6f2a6364246ea1d9c3ea2470da85" id="r_a0b3f6f2a6364246ea1d9c3ea2470da85"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0b3f6f2a6364246ea1d9c3ea2470da85">roomIndexAt</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> tile) const noexcept</td></tr>
@@ -112,25 +114,27 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a3641300883e783d130eb0d100e049ef6" id="r_a3641300883e783d130eb0d100e049ef6"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a3641300883e783d130eb0d100e049ef6">ROOM_WIDTH_TILES</a> = 24</td></tr>
-<tr class="memdesc:a3641300883e783d130eb0d100e049ef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur d'une salle, en cases (<span class="tt">EX-REN-015</span>).  <br /></td></tr>
+<tr class="memdesc:a3641300883e783d130eb0d100e049ef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur de salle par défaut, en cases (<span class="tt">EX-REN-015</span>) — mêmes valeurs que <span class="tt"><a class="el" href="namespacecore.html#a79045c3b980c73b69626fdf0630e30bc" title="Taille de salle par défaut du mode par salle, en cases.">core::kDefaultRoomWidthTiles</a></span> (<span class="tt">Core</span>, LOT-64) : deux constantes distinctes plutôt qu'une dépendance de <span class="tt">HMI</span> vers <span class="tt">Core</span> pour une seule valeur (<span class="tt"><a class="el" href="classhmi_1_1RoomGrid.html" title="Partitionne une grille de niveau en un tableau de salles de taille fixe, façon Celeste (LOT-32).">RoomGrid</a></span> précède <span class="tt">Core::Levels</span> historiquement) ; <span class="tt"><a class="el" href="test__camera__framing_8cpp.html" title="Tests unitaires du cadrage de caméra porté par le niveau : modes, règle de repli et validation (EX-LV...">Source/Test/Unit/Core/Levels/test_camera_framing.cpp</a></span> vérifie qu'elles restent égales.  <br /></td></tr>
 <tr class="memitem:a0b955c9993b7ea1652cec0f9c8cae916" id="r_a0b955c9993b7ea1652cec0f9c8cae916"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a0b955c9993b7ea1652cec0f9c8cae916">ROOM_HEIGHT_TILES</a> = 14</td></tr>
-<tr class="memdesc:a0b955c9993b7ea1652cec0f9c8cae916"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur d'une salle, en cases (<span class="tt">EX-REN-015</span>).  <br /></td></tr>
+<tr class="memdesc:a0b955c9993b7ea1652cec0f9c8cae916"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur de salle par défaut, en cases (<span class="tt">EX-REN-015</span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:af40e22067e610f9dd90ebf2039ebb1b4" id="r_af40e22067e610f9dd90ebf2039ebb1b4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#af40e22067e610f9dd90ebf2039ebb1b4">_levelWidth</a></td></tr>
 <tr class="memitem:a035856f74f671e945ad01a5779f13de4" id="r_a035856f74f671e945ad01a5779f13de4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a035856f74f671e945ad01a5779f13de4">_levelHeight</a></td></tr>
+<tr class="memitem:a8ede6b3c92a5bfa35b735f63b694bf2b" id="r_a8ede6b3c92a5bfa35b735f63b694bf2b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a8ede6b3c92a5bfa35b735f63b694bf2b">_roomWidthTiles</a></td></tr>
+<tr class="memitem:a7c76bb67fb277fc4e57fb760f5cb0b10" id="r_a7c76bb67fb277fc4e57fb760f5cb0b10"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a7c76bb67fb277fc4e57fb760f5cb0b10">_roomHeightTiles</a></td></tr>
 <tr class="memitem:a565487bc95a7dd24918d61e1eae2af8f" id="r_a565487bc95a7dd24918d61e1eae2af8f"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a565487bc95a7dd24918d61e1eae2af8f">_columns</a></td></tr>
 <tr class="memitem:a0833c8b05dd0d1fea0d8c418a7ceaa20" id="r_a0833c8b05dd0d1fea0d8c418a7ceaa20"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0833c8b05dd0d1fea0d8c418a7ceaa20">_rows</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Partitionne une grille de niveau en un tableau de <b>salles</b> de taille fixe, façon <em>Celeste</em> (<span class="tt">LOT-32</span>). </p>
 <p>Le niveau reste une grille de tuiles <b>unique</b> (<span class="tt"><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">core::TileMap</a></span>, <span class="tt">LOT-07</span>/<span class="tt">16</span>, sans limite de taille) ; <span class="tt"><a class="el" href="classhmi_1_1RoomGrid.html" title="Partitionne une grille de niveau en un tableau de salles de taille fixe, façon Celeste (LOT-32).">RoomGrid</a></span> n'en est qu'une <b>projection géométrique</b> dérivée, utilisée par la caméra du jeu (cadrage sur la salle courante) et le repère visuel de l'éditeur — aucune donnée de niveau n'est dupliquée ni modifiée.</p>
-<p>La taille de salle est une <b>constante partagée par tout le jeu</b> (pas un champ par niveau, décision de cadrage <span class="tt">LOT-32</span>). Si les dimensions du niveau ne sont pas un multiple exact de la taille de salle, la dernière colonne/ligne de salles est <b>rognée</b> à la taille réelle restante — jamais agrandie au-delà des bornes du niveau.</p>
+<p>La taille de salle est <b>réglable par niveau</b> depuis le <span class="tt">LOT-64</span> (<span class="tt"><a class="el" href="structcore_1_1CameraFramingConfig.html" title="Cadrage de caméra résolu d&#39;un niveau : le mode retenu et ses paramètres.">core::CameraFramingConfig</a></span>, mode <em>par salle</em>) ; <span class="tt"><a class="el" href="#a3641300883e783d130eb0d100e049ef6" title="Largeur de salle par défaut, en cases (EX-REN-015) — mêmes valeurs que core::kDefaultRoomWidthTiles (...">ROOM_WIDTH_TILES</a></span>/<span class="tt"><a class="el" href="#a0b955c9993b7ea1652cec0f9c8cae916" title="Hauteur de salle par défaut, en cases (EX-REN-015).">ROOM_HEIGHT_TILES</a></span> n'en restent que la <b>valeur par défaut</b>, plus la seule vérité. Si les dimensions du niveau ne sont pas un multiple exact de la taille de salle retenue, la dernière colonne/ligne de salles est <b>rognée</b> à la taille réelle restante — jamais agrandie au-delà des bornes du niveau.</p>
 <p>Logique <b>pure</b>, sans dépendance rendu — testable sans GPU (<span class="tt">EX-NFR-010</span>). </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="abcaf70b702b1b8489f5bacdff1b55f0e" name="abcaf70b702b1b8489f5bacdff1b55f0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abcaf70b702b1b8489f5bacdff1b55f0e">&#9670;&#160;</a></span>RoomGrid()</h2>
+<a id="a52d048c4aa825b8b9379e8a397c2f686" name="a52d048c4aa825b8b9379e8a397c2f686"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52d048c4aa825b8b9379e8a397c2f686">&#9670;&#160;</a></span>RoomGrid()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -143,7 +147,17 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>levelHeight</em></span>&#160;)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>levelHeight</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>roomWidthTiles</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a3641300883e783d130eb0d100e049ef6">ROOM_WIDTH_TILES</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>roomHeightTiles</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a0b955c9993b7ea1652cec0f9c8cae916">ROOM_HEIGHT_TILES</a></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -153,6 +167,8 @@ Private Attributes</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">levelWidth</td><td>Largeur du niveau, en cases (&gt; 0). </td></tr>
     <tr><td class="paramname">levelHeight</td><td>Hauteur du niveau, en cases (&gt; 0). </td></tr>
+    <tr><td class="paramname"><a class="el" href="#a58bda6ab0986f4599c95022be60b496c">roomWidthTiles</a></td><td>Largeur de salle à utiliser, en cases (&gt; 0) ; <span class="tt"><a class="el" href="#a3641300883e783d130eb0d100e049ef6" title="Largeur de salle par défaut, en cases (EX-REN-015) — mêmes valeurs que core::kDefaultRoomWidthTiles (...">ROOM_WIDTH_TILES</a></span> par défaut (<span class="tt">LOT-64</span> : taille personnalisable par niveau). </td></tr>
+    <tr><td class="paramname"><a class="el" href="#a7dad9ed70c6e700beae769149e0885f7">roomHeightTiles</a></td><td>Hauteur de salle à utiliser, en cases (&gt; 0) ; <span class="tt"><a class="el" href="#a0b955c9993b7ea1652cec0f9c8cae916" title="Hauteur de salle par défaut, en cases (EX-REN-015).">ROOM_HEIGHT_TILES</a></span> par défaut. </td></tr>
   </table>
   </dd>
 </dl>
@@ -221,6 +237,32 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a7dad9ed70c6e700beae769149e0885f7" name="a7dad9ed70c6e700beae769149e0885f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dad9ed70c6e700beae769149e0885f7">&#9670;&#160;</a></span>roomHeightTiles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::RoomGrid::roomHeightTiles </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La hauteur de salle utilisée par cette partition, en cases. </dd></dl>
+
+</div>
+</div>
 <a id="a0b3f6f2a6364246ea1d9c3ea2470da85" name="a0b3f6f2a6364246ea1d9c3ea2470da85"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0b3f6f2a6364246ea1d9c3ea2470da85">&#9670;&#160;</a></span>roomIndexAt()</h2>
 
@@ -252,6 +294,32 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>L'indice de la salle contenant (ou la plus proche de) <code class="param">tile</code>. </dd></dl>
+
+</div>
+</div>
+<a id="a58bda6ab0986f4599c95022be60b496c" name="a58bda6ab0986f4599c95022be60b496c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58bda6ab0986f4599c95022be60b496c">&#9670;&#160;</a></span>roomWidthTiles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::RoomGrid::roomWidthTiles </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La largeur de salle utilisée par cette partition, en cases. </dd></dl>
 
 </div>
 </div>
@@ -348,6 +416,50 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a7c76bb67fb277fc4e57fb760f5cb0b10" name="a7c76bb67fb277fc4e57fb760f5cb0b10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c76bb67fb277fc4e57fb760f5cb0b10">&#9670;&#160;</a></span>_roomHeightTiles</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::RoomGrid::_roomHeightTiles</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8ede6b3c92a5bfa35b735f63b694bf2b" name="a8ede6b3c92a5bfa35b735f63b694bf2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ede6b3c92a5bfa35b735f63b694bf2b">&#9670;&#160;</a></span>_roomWidthTiles</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::RoomGrid::_roomWidthTiles</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a0833c8b05dd0d1fea0d8c418a7ceaa20" name="a0833c8b05dd0d1fea0d8c418a7ceaa20"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0833c8b05dd0d1fea0d8c418a7ceaa20">&#9670;&#160;</a></span>_rows</h2>
 
@@ -390,7 +502,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Hauteur d'une salle, en cases (<span class="tt">EX-REN-015</span>). </p>
+<p>Hauteur de salle par défaut, en cases (<span class="tt">EX-REN-015</span>). </p>
 
 </div>
 </div>
@@ -414,7 +526,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Largeur d'une salle, en cases (<span class="tt">EX-REN-015</span>). </p>
+<p>Largeur de salle par défaut, en cases (<span class="tt">EX-REN-015</span>) — mêmes valeurs que <span class="tt"><a class="el" href="namespacecore.html#a79045c3b980c73b69626fdf0630e30bc" title="Taille de salle par défaut du mode par salle, en cases.">core::kDefaultRoomWidthTiles</a></span> (<span class="tt">Core</span>, LOT-64) : deux constantes distinctes plutôt qu'une dépendance de <span class="tt">HMI</span> vers <span class="tt">Core</span> pour une seule valeur (<span class="tt"><a class="el" href="classhmi_1_1RoomGrid.html" title="Partitionne une grille de niveau en un tableau de salles de taille fixe, façon Celeste (LOT-32).">RoomGrid</a></span> précède <span class="tt">Core::Levels</span> historiquement) ; <span class="tt"><a class="el" href="test__camera__framing_8cpp.html" title="Tests unitaires du cadrage de caméra porté par le niveau : modes, règle de repli et validation (EX-LV...">Source/Test/Unit/Core/Levels/test_camera_framing.cpp</a></span> vérifie qu'elles restent égales. </p>
 
 </div>
 </div>

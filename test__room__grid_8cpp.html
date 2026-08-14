@@ -111,12 +111,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:a4831e32bbb41d9906b836f6d03c8767a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">roomIndexAt</span> renvoie l'indice de salle correct aux quatre coins et au centre.  <br /></td></tr>
 <tr class="memitem:a6e74408aad4a40815a0069bf043c9a56" id="r_a6e74408aad4a40815a0069bf043c9a56"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6e74408aad4a40815a0069bf043c9a56">TEST</a> (RoomGridTest, PositionHorsBornesEstBornee)</td></tr>
 <tr class="memdesc:a6e74408aad4a40815a0069bf043c9a56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une position hors des bornes du niveau est bornée à la salle la plus proche.  <br /></td></tr>
+<tr class="memitem:afec2335847875fbdd83fc6a7279fa9c9" id="r_afec2335847875fbdd83fc6a7279fa9c9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afec2335847875fbdd83fc6a7279fa9c9">TEST</a> (RoomGridTest, TailleDeSallePersonnaliseePartitionneSelonCetteTaille)</td></tr>
+<tr class="memdesc:afec2335847875fbdd83fc6a7279fa9c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit sans taille explicite, <span class="tt">RoomGrid</span> utilise <span class="tt">ROOM_WIDTH_TILES</span>/<span class="tt">ROOM_HEIGHT_TILES</span> comme valeurs par défaut ; une taille personnalisée (<span class="tt">LOT-64</span>) partitionne selon celle-ci, avec la même règle de troncature au bord du niveau.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de la partition d'un niveau en salles (<span class="tt">RoomGrid</span>, LOT-32). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ab2709fc8faee5946c9cec466a229ebc5" name="ab2709fc8faee5946c9cec466a229ebc5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2709fc8faee5946c9cec466a229ebc5">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2709fc8faee5946c9cec466a229ebc5">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -146,7 +148,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa93a6ec1617b2808634b80557be545e4" name="aa93a6ec1617b2808634b80557be545e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa93a6ec1617b2808634b80557be545e4">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa93a6ec1617b2808634b80557be545e4">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -176,7 +178,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a30660f3b4b10e952b806f44a8a95cb66" name="a30660f3b4b10e952b806f44a8a95cb66"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a30660f3b4b10e952b806f44a8a95cb66">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a30660f3b4b10e952b806f44a8a95cb66">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -206,7 +208,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a6e74408aad4a40815a0069bf043c9a56" name="a6e74408aad4a40815a0069bf043c9a56"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e74408aad4a40815a0069bf043c9a56">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e74408aad4a40815a0069bf043c9a56">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -236,7 +238,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a4831e32bbb41d9906b836f6d03c8767a" name="a4831e32bbb41d9906b836f6d03c8767a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4831e32bbb41d9906b836f6d03c8767a">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4831e32bbb41d9906b836f6d03c8767a">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -262,6 +264,37 @@ Functions</h2></td></tr>
  1. Construire un <span class="tt">RoomGrid</span> de 2x2 salles.<br  />
 2. Interroger <span class="tt">roomIndexAt</span> à des positions choisies dans chacune des quatre salles.<br  />
  <b>Resultat attendu :</b> Chaque position renvoie l'indice de la salle qui la contient réellement. </p>
+
+</div>
+</div>
+<a id="afec2335847875fbdd83fc6a7279fa9c9" name="afec2335847875fbdd83fc6a7279fa9c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afec2335847875fbdd83fc6a7279fa9c9">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">RoomGridTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TailleDeSallePersonnaliseePartitionneSelonCetteTaille</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construit sans taille explicite, <span class="tt">RoomGrid</span> utilise <span class="tt">ROOM_WIDTH_TILES</span>/<span class="tt">ROOM_HEIGHT_TILES</span> comme valeurs par défaut ; une taille personnalisée (<span class="tt">LOT-64</span>) partitionne selon celle-ci, avec la même règle de troncature au bord du niveau. </p>
+<p><b>Cas de test :</b> <b>Une taille de salle personnalisée partitionne selon cette taille.</b><br  />
+ <b>Categorie :</b> Unitaire · RoomGrid<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Construire un <span class="tt">RoomGrid</span> sans taille explicite, vérifier <span class="tt">roomWidthTiles()</span>/ <span class="tt">roomHeightTiles()</span>.<br  />
+2. Construire un <span class="tt">RoomGrid</span> avec une taille personnalisée non multiple du niveau.<br  />
+3. Vérifier le nombre de salles et la troncature de la dernière.<br  />
+ <b>Resultat attendu :</b> Sans taille explicite, la partition utilise <span class="tt">ROOM_WIDTH_TILES</span>/<span class="tt">ROOM_HEIGHT_TILES</span> ; avec une taille personnalisée, le nombre de salles et leur rognage suivent cette taille, pas la valeur par défaut. </p>
 
 </div>
 </div>

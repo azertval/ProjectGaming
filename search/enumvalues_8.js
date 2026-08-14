@@ -5,6 +5,7 @@ var searchData=
   ['incoherentframesize_2',['IncoherentFrameSize',['../namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fa55fe492f57807b35fd5489f61b967b20',1,'hmi']]],
   ['info_3',['Info',['../namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3a4059b0251f66a18cb56f544728796875',1,'core']]],
   ['interact_4',['Interact',['../namespacehmi.html#a133516ef8002bd9e4d870db9494f5867aefbc873e4634f3db63d62377d36e5f56',1,'hmi']]],
-  ['invalidentrycount_5',['InvalidEntryCount',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05ea747c9c1db8d4106f81293eec9bff',1,'core']]],
-  ['invalidexitcount_6',['InvalidExitCount',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ab32719130f8dc09d1e17c52f6198aefc',1,'core']]]
+  ['invalidcameraframing_5',['InvalidCameraFraming',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a8ebb0d1c1c8fab3e269157f5b98a862e',1,'core']]],
+  ['invalidentrycount_6',['InvalidEntryCount',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05ea747c9c1db8d4106f81293eec9bff',1,'core']]],
+  ['invalidexitcount_7',['InvalidExitCount',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ab32719130f8dc09d1e17c52f6198aefc',1,'core']]]
 ];

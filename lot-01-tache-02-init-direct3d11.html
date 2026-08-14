@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-01-tache-02-init-direct3d11.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-01-fenetre-boucle-jeu_2tache-02-init-direct3d11"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-01.html#md_Lot_2LOT-01-fenetre-boucle-jeu_2epic" title="Lot/LOT-01-fenetre-boucle-jeu/epic.md">LOT-01</a> · <b>Module :</b> <span class="tt">Source/HMI</span> · <b>Statut :</b> terminé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md343"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md346"></a>
 Contexte</h1>
 <p>Une fois la fenêtre disponible (TACHE-01), il faut initialiser le pipeline Direct3D 11 qui servira de base au rendu 2D des lots suivants.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md344"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md347"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Créer une classe <span class="tt">GraphicsDevice</span> (RAII) encapsulant :<ul>
@@ -110,27 +110,27 @@ Travail à réaliser</h1>
 <li>Activer le <b>niveau de debug</b> Direct3D en configuration Debug uniquement (<span class="tt">D3D11_CREATE_DEVICE_DEBUG</span>).</li>
 <li>Exposer les méthodes nécessaires à TACHE-04 : accès au contexte, à la render target view, à la swap chain, et une méthode de <b>redimensionnement</b> des buffers.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md345"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md348"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/GraphicsDevice.h</span>, <span class="tt">Source/HMI/GraphicsDevice.cpp</span> (nouveau).</li>
 <li><span class="tt">Source/HMI/CMakeLists.txt</span> (liaison <span class="tt">d3d11</span>, <span class="tt">dxgi</span>, <span class="tt">d3dcompiler</span> selon besoin).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md346"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md349"></a>
 Points d'attention</h1>
 <ul>
 <li><b>RAII strict</b> (<span class="tt">EX-NFR-041</span>) : aucune libération manuelle, tout via <span class="tt">ComPtr</span>/destructeur.</li>
 <li>Vérifier chaque <span class="tt">HRESULT</span> ; une erreur d'initialisation est <b>irrécupérable</b> → exception à la frontière de démarrage (cf. politique d'erreurs des conventions).</li>
 <li>En Debug, aucune fuite signalée par la couche de debug D3D à la fermeture.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md347"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md350"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Le device et la swap chain s'initialisent sur la fenêtre sans erreur <span class="tt">HRESULT</span>.</li>
 <li>La couche de debug D3D ne rapporte ni erreur ni fuite en Debug.</li>
 <li>Compile <span class="tt">/W4 /WX</span>, formaté, API documentée en Doxygen.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md348"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md351"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-002</span>, <span class="tt">EX-NFR-041</span>. </p>
 </div></div><!-- contents -->

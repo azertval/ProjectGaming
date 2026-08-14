@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-59-tache-04-sequence-en-donnee.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-59-boucle-de-jeu_2tache-04-sequence-en-donnee"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-59.html#md_Lot_2LOT-59-boucle-de-jeu_2epic" title="Lot/LOT-59-boucle-de-jeu/epic.md">LOT-59</a> · <b>Emplacement :</b> <span class="tt">Source/Elements/Levels</span>, <span class="tt">Source/Core/Levels</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2668"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2671"></a>
 Contexte</h1>
 <p>La séquence jouée est un <b>littéral C++</b> : quinze chemins énumérés dans <span class="tt">MainWindow::startGame</span> (<span class="tt"><a class="el" href="MainWindow_8cpp.html">Source/HMI/Interface/MainWindow.cpp</a></span>, l. 380-399). Réordonner deux tableaux, en retirer un ou en ajouter un impose de recompiler l'application — alors que <span class="tt">EX-LVL-001</span> pose depuis le début que le contenu d'un niveau est une <b>donnée externe</b>, jamais du code.</p>
 <p>Cette duplication a déjà coûté un garde-fou : <span class="tt">scripts/check_demo_sequence.py</span> existe uniquement pour vérifier que le littéral de <span class="tt"><a class="el" href="MainWindow_8cpp.html">MainWindow.cpp</a></span> et celui de <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span> ne divergent pas. Le script reste utile ; ce qu'il compare doit changer.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2669"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2672"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Fichier de séquence</b> dans <span class="tt">Source/Elements/Levels</span> (JSON, comme les niveaux) : liste ordonnée de noms de fichiers de niveaux, avec un titre de séquence traduisible par clé.</li>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 <li><b>Retirer le littéral</b> de <span class="tt"><a class="el" href="MainWindow_8cpp.html">MainWindow.cpp</a></span> : plus aucun nom de fichier de niveau dans <span class="tt">Source/HMI</span>.</li>
 <li><b>Adapter <span class="tt">scripts/check_demo_sequence.py</span></b> : il compare désormais le fichier de séquence au test système, au lieu de deux littéraux C++. Sa raison d'être — qu'un niveau jouable soit toujours couvert par le test système — est inchangée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2670"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2673"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Elements/Levels/sequence-demo.json</span> (nouveau).</li>
@@ -120,7 +120,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="LevelFileOperations_8cpp.html">Source/HMI/Editor/LevelFileOperations.cpp</a></span> et son test — exclusion du préfixe réservé <span class="tt">sequence-</span> de la liste des niveaux (effet de bord découvert en testant, cf. État ci-dessous).</li>
 <li><span class="tt">Source/Elements/Localization/{fr,en}.lang</span> — libellés d'échec de chargement de la séquence.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2671"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2674"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Une séquence valide se charge dans l'ordre exact du fichier.</li>
@@ -128,19 +128,19 @@ Tests (obligatoires)</h1>
 <li>La séquence <b>livrée</b> se charge et référence des fichiers qui existent tous — c'est le test qui attrape une faute de frappe dans le contenu.</li>
 <li><span class="tt">scripts/check_demo_sequence.py</span> échoue si l'on retire un niveau du fichier sans toucher au test système (vérifié en l'exécutant sur une copie modifiée).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2672"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2675"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le chemin doit rester relatif au dossier de niveaux</b> et ne jamais permettre d'échapper à celui-ci : un <span class="tt">..</span> dans une entrée est une entrée invalide, pas un chemin à suivre.</li>
 <li>Le déploiement copie déjà <span class="tt">Levels/</span> à côté de l'exécutable (<span class="tt">POST_BUILD</span>, <span class="tt">Source/HMI/CMakeLists.txt</span>) : vérifier que le nouveau fichier est bien embarqué dans le zip de release, sans quoi l'application publiée démarre sans aucune séquence.</li>
 <li><span class="tt">nlohmann::json::parse(json, nullptr, false)</span> — mode non lançant, comme partout ailleurs dans le projet ; <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">core::LevelLoader</a></span> est le modèle exact à suivre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2673"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2676"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>La séquence jouée provient d'un fichier de contenu validé, aucun nom de niveau ne subsiste dans <span class="tt">Source/HMI</span>, les fichiers manquants ou malformés sont des erreurs récupérables, le garde-fou de synchronisation est adapté et vérifié ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2674"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2677"></a>
 État</h1>
 <p><span class="tt"><a class="el" href="classcore_1_1LevelSequenceLoader.html" title="Charge une séquence de niveaux au format JSON ({version, titleKey, levels: [...]}),...">core::LevelSequenceLoader</a></span> suit exactement le patron de <span class="tt">LevelLoader</span> (parsing non lançant, <span class="tt">try</span>/<span class="tt">catch</span> sur <span class="tt">nlohmann::json::exception</span>, <span class="tt">LevelSequenceLoadResult</span> de même forme que <span class="tt">LevelLoadResult</span>, version de format indépendante <span class="tt">kLevelSequenceFormatVersion</span>). La vérification d'existence des niveaux référencés (« niveau référencé mais absent ») se fait dans <span class="tt">loadFromFile</span> uniquement — <span class="tt">loadFromString</span> n'a pas de dossier de base à résoudre, donc ne peut pas la faire ; elle résout chaque entrée relativement au <b>dossier du fichier de séquence lui-même</b>, qui est aussi celui des niveaux (<span class="tt">Source/Elements/Levels</span>).</p>
 <p><span class="tt">MainWindow::showGame()</span> résout maintenant la séquence AVANT la transition d'écran : un fichier de séquence absent/invalide laisse l'application sur le menu (message d'erreur modal), plutôt que d'ouvrir un écran de jeu sans rien à jouer.</p>
@@ -148,7 +148,7 @@ Définition de fait (DoD)</h1>
 <li>Le test <span class="tt">LevelLoaderTest.LesQuinzeNiveauxDeDemoSeChargentSansErreur</span> (balayait tout <span class="tt">.json</span> du dossier) — restreint au préfixe <span class="tt">demo-</span>, comme <span class="tt">scripts/check_demo_sequence.py</span> le fait déjà.</li>
 <li><span class="tt"><a class="el" href="classhmi_1_1LevelFileOperations.html#a0f2a3f81e7b378c50c4448c292ec2499">hmi::LevelFileOperations::list()</a></span>, qui alimente le panneau Niveaux de l'éditeur — un fichier de séquence y serait apparu comme un niveau ouvrable, et son ouverture aurait échoué (mauvais format). <span class="tt">sequence-</span> est désormais un préfixe de nom de fichier <b>réservé</b> dans ce dossier, explicitement exclu de la liste et documenté dans <span class="tt">Source/Elements/Levels/README.md</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2675"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2678"></a>
 Exigences</h1>
 <p><span class="tt">EX-LVL-013</span> (séquence en donnée de contenu) ; réutilise <span class="tt">EX-LVL-001</span> (contenu externe), <span class="tt">EX-LVL-004</span> (validation), <span class="tt">EX-LVL-005</span> (version de format), <span class="tt">EX-LVL-010</span> (ordre défini), <span class="tt">EX-NFR-040</span> (erreur récupérable), <span class="tt">EX-NFR-010</span> (<span class="tt">Core</span> sans GPU). </p>
 </div></div><!-- contents -->

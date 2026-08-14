@@ -97,6 +97,7 @@ $(function(){initNavTree('test__parcours__edition_8cpp.html','',''); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="CameraFraming_8h_source.html">Core/Levels/CameraFraming.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelDraft_8h_source.html">Core/Levels/LevelDraft.h</a>&quot;</code><br />
@@ -113,12 +114,16 @@ Functions</h2></td></tr>
 <tr class="memdesc:a362b90b162702b4ff1a57479977bb8d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parcours complet d'édition : peindre, lier un mécanisme, annuler une erreur, redimensionner, enregistrer, recharger, et confirmer que le niveau produit est directement jouable — exactement ce qu'un level designer fait dans l'éditeur (<span class="tt">EX-EDIT-002</span> à <span class="tt">EX-EDIT-011</span>).  <br /></td></tr>
 <tr class="memitem:a238fa2624bce6095da8415aebe28cd68" id="r_a238fa2624bce6095da8415aebe28cd68"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a238fa2624bce6095da8415aebe28cd68">TEST</a> (ParcoursEditionSysteme, EditeConfigureEnregistreEtRechargeLesDangersAvances)</td></tr>
 <tr class="memdesc:a238fa2624bce6095da8415aebe28cd68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parcours complet d'édition des dangers avancés : peindre les sept nouveaux types, lier un danger commuté à un interrupteur, configurer un danger mobile et un danger temporisé, enregistrer, recharger — round-trip fidèle de bout en bout (<span class="tt">EX-GP-050</span> à <span class="tt">053</span>, <span class="tt">EX-EDIT-011</span>).  <br /></td></tr>
+<tr class="memitem:a093fb8c93daee0cccead8f1999cd2348" id="r_a093fb8c93daee0cccead8f1999cd2348"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a093fb8c93daee0cccead8f1999cd2348">TEST</a> (ParcoursEditionSysteme, EditeAnnuleEnregistreEtRechargeLeCadrageDeCamera)</td></tr>
+<tr class="memdesc:a093fb8c93daee0cccead8f1999cd2348"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parcours complet d'édition du cadrage de caméra : choisir un mode, l'annuler, en choisir un autre avec une taille de salle personnalisée, enregistrer, recharger &ndash; exactement le geste du sélecteur de la section « Cadrage » (<span class="tt">EX-EDIT-028</span>, LOT-64).  <br /></td></tr>
+<tr class="memitem:aaae545da91190c6abb8f6d3b79b77f1d" id="r_aaae545da91190c6abb8f6d3b79b77f1d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aaae545da91190c6abb8f6d3b79b77f1d">TEST</a> (ParcoursEditionSysteme, EditeDessineDesZonesDeCameraEnregistreEtRecharge)</td></tr>
+<tr class="memdesc:aaae545da91190c6abb8f6d3b79b77f1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parcours complet d'édition des zones de caméra dessinées à la main : passer en mode <em>par salle</em>, dessiner deux zones (outil « Zone de caméra »), retirer l'une d'elles par erreur puis annuler ce retrait, enregistrer, recharger (<span class="tt">EX-LVL-007</span>, <span class="tt">EX-EDIT-029</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Parcours système : créer un niveau dans l'éditeur, l'enregistrer, le recharger, et vérifier qu'il est immédiatement jouable — sans la couche GPU (LOT-14). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a362b90b162702b4ff1a57479977bb8d0" name="a362b90b162702b4ff1a57479977bb8d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a362b90b162702b4ff1a57479977bb8d0">&#9670;&#160;</a></span>TEST() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a362b90b162702b4ff1a57479977bb8d0">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -150,8 +155,40 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a093fb8c93daee0cccead8f1999cd2348" name="a093fb8c93daee0cccead8f1999cd2348"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a093fb8c93daee0cccead8f1999cd2348">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ParcoursEditionSysteme</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EditeAnnuleEnregistreEtRechargeLeCadrageDeCamera</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Parcours complet d'édition du cadrage de caméra : choisir un mode, l'annuler, en choisir un autre avec une taille de salle personnalisée, enregistrer, recharger &ndash; exactement le geste du sélecteur de la section « Cadrage » (<span class="tt">EX-EDIT-028</span>, LOT-64). </p>
+<p><b>Cas de test :</b> <b>Parcours complet d'édition du cadrage de caméra : choisir, annuler, enregistrer, recharger.</b><br  />
+ <b>Categorie :</b> Système · Éditeur de niveaux<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Choisir le mode <em>suivi</em> sur un brouillon.<br  />
+2. Annuler (<span class="tt">undo</span>) : retour au cadrage par défaut.<br  />
+3. Choisir le mode <em>par salle</em> avec une taille personnalisée.<br  />
+4. Enregistrer sur disque, recharger.<br  />
+ <b>Resultat attendu :</b> Le niveau rechargé restitue exactement le mode et la taille de salle choisis en dernier ; l'annulation intermédiaire n'y figure pas (historique linéaire normal). </p>
+
+</div>
+</div>
 <a id="a238fa2624bce6095da8415aebe28cd68" name="a238fa2624bce6095da8415aebe28cd68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a238fa2624bce6095da8415aebe28cd68">&#9670;&#160;</a></span>TEST() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a238fa2624bce6095da8415aebe28cd68">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -179,6 +216,37 @@ Functions</h2></td></tr>
 3. Configurer l'axe/la portée d'un danger mobile et la période/le déphasage d'un danger temporisé.<br  />
 4. Enregistrer sur disque, recharger.<br  />
  <b>Resultat attendu :</b> Le niveau rechargé restitue exactement les sept types, la liaison de danger commuté et les deux configurations explicites. </p>
+
+</div>
+</div>
+<a id="aaae545da91190c6abb8f6d3b79b77f1d" name="aaae545da91190c6abb8f6d3b79b77f1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaae545da91190c6abb8f6d3b79b77f1d">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ParcoursEditionSysteme</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EditeDessineDesZonesDeCameraEnregistreEtRecharge</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Parcours complet d'édition des zones de caméra dessinées à la main : passer en mode <em>par salle</em>, dessiner deux zones (outil « Zone de caméra »), retirer l'une d'elles par erreur puis annuler ce retrait, enregistrer, recharger (<span class="tt">EX-LVL-007</span>, <span class="tt">EX-EDIT-029</span>). </p>
+<p><b>Cas de test :</b> <b>Parcours complet d'édition des zones de caméra dessinées à la main.</b><br  />
+ <b>Categorie :</b> Système · Éditeur de niveaux<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Passer en mode <em>par salle</em>, dessiner deux zones.<br  />
+2. Retirer la première par erreur, annuler le retrait.<br  />
+3. Enregistrer sur disque, recharger.<br  />
+ <b>Resultat attendu :</b> Le niveau rechargé restitue les deux zones, dans le même ordre, avec leurs bornes exactes. </p>
 
 </div>
 </div>

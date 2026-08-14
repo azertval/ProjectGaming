@@ -94,6 +94,7 @@ var classhmi_1_1MainWindow =
     [ "_sessionLog", "classhmi_1_1MainWindow.html#a48ba153acc890d6de84fe2847b5162a9", null ],
     [ "_sounds", "classhmi_1_1MainWindow.html#acae74ad8bf6c06ab8aec868ab0de3b22", null ],
     [ "_stack", "classhmi_1_1MainWindow.html#a408483202779acb367aee2733d8b28c7", null ],
+    [ "_statusCameraFraming", "classhmi_1_1MainWindow.html#acf7d0c1b8c6c9f77858c847276140b68", null ],
     [ "_statusColor", "classhmi_1_1MainWindow.html#a36d71bc9d8b83de33fdead9b658943fb", null ],
     [ "_statusDirty", "classhmi_1_1MainWindow.html#aab94b7069d9eace8a98eba480934326c", null ],
     [ "_statusHover", "classhmi_1_1MainWindow.html#a7131e45a37b5aba9918d58d9f34643d1", null ],

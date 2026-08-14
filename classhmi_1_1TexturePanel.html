@@ -114,6 +114,10 @@ Signals</h2></td></tr>
 <tr class="memdesc:a68512ca2144f0717636c1f48d3b5ffd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand l'utilisateur choisit un fond dans la section « Fond » (<span class="tt">LOT-44</span>) : nom de l'asset, vide pour « aucun fond ».  <br /></td></tr>
 <tr class="memitem:a14735adac3bd42b177a10ec98e2cf527" id="r_a14735adac3bd42b177a10ec98e2cf527"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a14735adac3bd42b177a10ec98e2cf527">levelSkinSetChanged</a> (const QString &amp;setName)</td></tr>
 <tr class="memdesc:a14735adac3bd42b177a10ec98e2cf527"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand l'utilisateur choisit le jeu de skins <b>du niveau</b> (<span class="tt">LOT-44</span>), distinct du jeu courant d'édition : nom du jeu, vide pour « jeu par défaut ».  <br /></td></tr>
+<tr class="memitem:ab30acbd069d5ac57a2a198da85c3582c" id="r_ab30acbd069d5ac57a2a198da85c3582c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab30acbd069d5ac57a2a198da85c3582c">cameraFramingChanged</a> (<a class="el" href="structcore_1_1CameraFramingConfig.html">core::CameraFramingConfig</a> cameraFraming)</td></tr>
+<tr class="memdesc:ab30acbd069d5ac57a2a198da85c3582c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand l'utilisateur choisit un nouveau cadrage de caméra dans la section « Cadrage » (<span class="tt">EX-EDIT-028</span>, LOT-64) : mode et, pour le mode <em>par salle</em>, taille de salle (<span class="tt">std::nullopt</span> = taille par défaut).  <br /></td></tr>
+<tr class="memitem:a730600ff1751b050f9113874019f5848" id="r_a730600ff1751b050f9113874019f5848"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a730600ff1751b050f9113874019f5848">cameraZoneRemoveRequested</a> (std::size_t index)</td></tr>
+<tr class="memdesc:a730600ff1751b050f9113874019f5848"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis par le bouton « Retirer » du tableau des zones de caméra dessinées à la main (<span class="tt">EX-LVL-007</span>, <span class="tt">EX-EDIT-029</span>) pour la ligne sélectionnée.  <br /></td></tr>
 <tr class="memitem:a8029bfffc687b414735af2a5dbb1fc15" id="r_a8029bfffc687b414735af2a5dbb1fc15"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8029bfffc687b414735af2a5dbb1fc15">textureOverrideAssetSelected</a> (const QString &amp;fileName)</td></tr>
 <tr class="memdesc:a8029bfffc687b414735af2a5dbb1fc15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand l'utilisateur choisit un asset dans la grille « Objets » (<span class="tt">LOT-45</span>) : asset actif de l'outil « Texture par instance » ; vide si aucun n'est sélectionné.  <br /></td></tr>
 <tr class="memitem:ad88da6cdd120fad270eb8cd56fcd7d1e" id="r_ad88da6cdd120fad270eb8cd56fcd7d1e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad88da6cdd120fad270eb8cd56fcd7d1e">textureOverrideSelectionChanged</a> (std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; position)</td></tr>
@@ -130,6 +134,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ab68661f6c1fb3a92bca60bff222f6423"><td class="mdescLeft">&#160;</td><td class="mdescRight">Confie au panneau le catalogue à éditer.  <br /></td></tr>
 <tr class="memitem:ad8ba70ed6f484d3a30ffc3235b13d6e1" id="r_ad8ba70ed6f484d3a30ffc3235b13d6e1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad8ba70ed6f484d3a30ffc3235b13d6e1">setLevelProperties</a> (const std::optional&lt; std::string &gt; &amp;background, const std::optional&lt; std::string &gt; &amp;skinSet)</td></tr>
 <tr class="memdesc:ad8ba70ed6f484d3a30ffc3235b13d6e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Synchronise la section « Fond » avec le niveau courant (<span class="tt">LOT-44</span>).  <br /></td></tr>
+<tr class="memitem:ac27939226babd8dbc1a04c25b569f5d5" id="r_ac27939226babd8dbc1a04c25b569f5d5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac27939226babd8dbc1a04c25b569f5d5">setLevelCameraFraming</a> (const <a class="el" href="structcore_1_1CameraFramingConfig.html">core::CameraFramingConfig</a> &amp;cameraFraming)</td></tr>
+<tr class="memdesc:ac27939226babd8dbc1a04c25b569f5d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Synchronise la section « Cadrage » avec le niveau courant (<span class="tt">EX-EDIT-028</span>, LOT-64).  <br /></td></tr>
 <tr class="memitem:a0e91d775329d3d2c60ddf558379d76d3" id="r_a0e91d775329d3d2c60ddf558379d76d3"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a0e91d775329d3d2c60ddf558379d76d3">currentSet</a> () const noexcept</td></tr>
 <tr class="memitem:a3117139a9fc1fac2d1a5331c36f88694" id="r_a3117139a9fc1fac2d1a5331c36f88694"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3117139a9fc1fac2d1a5331c36f88694">retranslateUi</a> (const <a class="el" href="classhmi_1_1Localization.html">Localization</a> &amp;loc)</td></tr>
 <tr class="memdesc:a3117139a9fc1fac2d1a5331c36f88694"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique la langue active (titre des sections, en-têtes de colonnes, libellés de types).  <br /></td></tr>
@@ -154,6 +160,14 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a4af3d78ff3009ccd51e057588acaf63e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vignette d'un fichier de skin (vide pour « aucun »), décodée au premier besoin puis mise en cache — repli en damier magenta si absent/illisible (cohérent avec le rendu, <span class="tt">LOT-40</span>).  <br /></td></tr>
 <tr class="memitem:a8191178ea4259916e0bfc4729c69d48e" id="r_a8191178ea4259916e0bfc4729c69d48e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8191178ea4259916e0bfc4729c69d48e">rebuildLevelSkinSetSelector</a> ()</td></tr>
 <tr class="memdesc:a8191178ea4259916e0bfc4729c69d48e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruit la liste du sélecteur de jeu de skins <b>du niveau</b> (section « Fond »), à partir des jeux du catalogue, plus l'entrée « jeu par défaut ».  <br /></td></tr>
+<tr class="memitem:a99a1d457db880316a72a7e9a9aaf43cc" id="r_a99a1d457db880316a72a7e9a9aaf43cc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a99a1d457db880316a72a7e9a9aaf43cc">rebuildCameraFramingSelector</a> ()</td></tr>
+<tr class="memdesc:a99a1d457db880316a72a7e9a9aaf43cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruit le sélecteur de mode de la section « Cadrage » (3 entrées fixes, traduites) et synchronise la visibilité des champs de taille de vue (<span class="tt">PerRoom</span>/<span class="tt">Follow</span>, <span class="tt">EX-REN-017</span>) et du tableau des zones (<span class="tt">PerRoom</span> uniquement) avec <span class="tt">_levelCameraFraming.mode</span>.  <br /></td></tr>
+<tr class="memitem:a342dcbbe97b65a159d8af8478ee25f22" id="r_a342dcbbe97b65a159d8af8478ee25f22"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a342dcbbe97b65a159d8af8478ee25f22">rebuildCameraFramingZonesTable</a> ()</td></tr>
+<tr class="memdesc:a342dcbbe97b65a159d8af8478ee25f22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruit le tableau des zones de caméra dessinées à la main depuis <span class="tt">_levelCameraFraming.zones</span> (<span class="tt">EX-LVL-007</span>), même patron que <span class="tt"><a class="el" href="#a493879465156760b5b52ca39ec9ccca7" title="Reconstruit le tableau des surcharges depuis _objectRows (tri stable par position,...">rebuildObjectRows</a></span>.  <br /></td></tr>
+<tr class="memitem:aafed4d6610241a773462517d7c984041" id="r_aafed4d6610241a773462517d7c984041"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aafed4d6610241a773462517d7c984041">emitCameraFramingChanged</a> ()</td></tr>
+<tr class="memdesc:aafed4d6610241a773462517d7c984041"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émet <span class="tt"><a class="el" href="#ab30acbd069d5ac57a2a198da85c3582c" title="Émis quand l&#39;utilisateur choisit un nouveau cadrage de caméra dans la section « Cadrage » (EX-EDIT-02...">cameraFramingChanged</a></span> à partir de l'état courant des widgets de mode/taille de la section « Cadrage » &ndash; point d'appel unique de leurs gestionnaires de changement, pour ne jamais dupliquer la construction du <span class="tt"><a class="el" href="structcore_1_1CameraFramingConfig.html" title="Cadrage de caméra résolu d&#39;un niveau : le mode retenu et ses paramètres.">core::CameraFramingConfig</a></span> résultant.  <br /></td></tr>
+<tr class="memitem:abe9e0c36a924e4f865d8b998f420ca11" id="r_abe9e0c36a924e4f865d8b998f420ca11"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abe9e0c36a924e4f865d8b998f420ca11">onCameraFramingZonesSelectionChanged</a> ()</td></tr>
+<tr class="memitem:add00443d0aa7887c4af7dc9e000e1385" id="r_add00443d0aa7887c4af7dc9e000e1385"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#add00443d0aa7887c4af7dc9e000e1385">onCameraFramingZonesRemoveClicked</a> ()</td></tr>
 <tr class="memitem:a493879465156760b5b52ca39ec9ccca7" id="r_a493879465156760b5b52ca39ec9ccca7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a493879465156760b5b52ca39ec9ccca7">rebuildObjectRows</a> ()</td></tr>
 <tr class="memdesc:a493879465156760b5b52ca39ec9ccca7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruit le tableau des surcharges depuis <span class="tt"><a class="el" href="#a1aa7e19c118c96feaa951cb7063140ad" title="Surcharges affichées par le tableau, indexées comme ses lignes (LOT-45).">_objectRows</a></span> (tri stable par position, déjà posé par <span class="tt"><a class="el" href="#ab06e11a3895938523f95c28d2884d26a" title="Resynchronise la section « Objets » avec le brouillon courant (LOT-45).">refreshObjects</a></span>).  <br /></td></tr>
 <tr class="memitem:a1a464e0a2180e8fd80d1f9c9cd8ff56a" id="r_a1a464e0a2180e8fd80d1f9c9cd8ff56a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1a464e0a2180e8fd80d1f9c9cd8ff56a">onObjectsSelectionChanged</a> ()</td></tr>
@@ -177,6 +191,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:acf031fb663a7e4279d6411082d743944"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grille de vignettes de <span class="tt">Assets/Objects/</span> (LOT-45).  <br /></td></tr>
 <tr class="memitem:acba4631e26bc2ce0b919ee9676d4275f" id="r_acba4631e26bc2ce0b919ee9676d4275f"><td class="memItemLeft">QStandardItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#acba4631e26bc2ce0b919ee9676d4275f">_objectsModel</a></td></tr>
 <tr class="memdesc:acba4631e26bc2ce0b919ee9676d4275f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modèle du tableau des surcharges (LOT-45).  <br /></td></tr>
+<tr class="memitem:a907e9deb4bdf64daf379456d0ec832f4" id="r_a907e9deb4bdf64daf379456d0ec832f4"><td class="memItemLeft">QStandardItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#a907e9deb4bdf64daf379456d0ec832f4">_cameraFramingZonesModel</a></td></tr>
+<tr class="memdesc:a907e9deb4bdf64daf379456d0ec832f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modèle du tableau des zones de caméra dessinées à la main (LOT-64).  <br /></td></tr>
 <tr class="memitem:afea9d88ada3a99e41160194c821c3e05" id="r_afea9d88ada3a99e41160194c821c3e05"><td class="memItemLeft">QStandardItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#afea9d88ada3a99e41160194c821c3e05">_animationsModel</a></td></tr>
 <tr class="memdesc:afea9d88ada3a99e41160194c821c3e05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modèle de l'arbre de la section « Animations » (LOT-47).  <br /></td></tr>
 <tr class="memitem:a4b2b9263dd65b896be2f989e36e94c45" id="r_a4b2b9263dd65b896be2f989e36e94c45"><td class="memItemLeft">QTimer *&#160;</td><td class="memItemRight"><a class="el" href="#a4b2b9263dd65b896be2f989e36e94c45">_animationPreviewTimer</a></td></tr>
@@ -199,6 +215,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a7d3776990d11880d96ae05010bba1579" id="r_a7d3776990d11880d96ae05010bba1579"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7d3776990d11880d96ae05010bba1579">_levelBackground</a></td></tr>
 <tr class="memdesc:a7d3776990d11880d96ae05010bba1579"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dernières valeurs poussées par <span class="tt"><a class="el" href="#ad8ba70ed6f484d3a30ffc3235b13d6e1" title="Synchronise la section « Fond » avec le niveau courant (LOT-44).">setLevelProperties</a></span> (LOT-44) : reappliquées après tout rechargement/reconstruction qui perdrait la sélection courante des widgets (grille, combo).  <br /></td></tr>
 <tr class="memitem:adc38e5378ec00a5d2278bb96fe43aaf5" id="r_adc38e5378ec00a5d2278bb96fe43aaf5"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adc38e5378ec00a5d2278bb96fe43aaf5">_levelSkinSet</a></td></tr>
+<tr class="memitem:ac3f4414f7eab70ae7f72c877f5bd6320" id="r_ac3f4414f7eab70ae7f72c877f5bd6320"><td class="memItemLeft"><a class="el" href="structcore_1_1CameraFramingConfig.html">core::CameraFramingConfig</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac3f4414f7eab70ae7f72c877f5bd6320">_levelCameraFraming</a></td></tr>
+<tr class="memdesc:ac3f4414f7eab70ae7f72c877f5bd6320"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dernière valeur poussée par <span class="tt"><a class="el" href="#ac27939226babd8dbc1a04c25b569f5d5" title="Synchronise la section « Cadrage » avec le niveau courant (EX-EDIT-028, LOT-64).">setLevelCameraFraming</a></span> (LOT-64) : réappliquée après toute reconstruction du sélecteur (langue), même principe que <span class="tt"><a class="el" href="#a7d3776990d11880d96ae05010bba1579" title="Dernières valeurs poussées par setLevelProperties (LOT-44) : reappliquées après tout rechargement/rec...">_levelBackground</a></span>/<span class="tt"><a class="el" href="#adc38e5378ec00a5d2278bb96fe43aaf5">_levelSkinSet</a></span>.  <br /></td></tr>
 <tr class="memitem:ac317d14b1a5d2d5d67ea0048b84fb0b4" id="r_ac317d14b1a5d2d5d67ea0048b84fb0b4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ac317d14b1a5d2d5d67ea0048b84fb0b4">_updating</a> = false</td></tr>
 <tr class="memdesc:ac317d14b1a5d2d5d67ea0048b84fb0b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Garde de réentrance pendant la reconstruction du modèle.  <br /></td></tr>
 <tr class="memitem:a6616dfc18655f4200948ccc9efe8cf72" id="r_a6616dfc18655f4200948ccc9efe8cf72"><td class="memItemLeft">const <a class="el" href="classhmi_1_1Localization.html">Localization</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a6616dfc18655f4200948ccc9efe8cf72">_loc</a> = nullptr</td></tr>
@@ -348,6 +366,60 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ab30acbd069d5ac57a2a198da85c3582c" name="ab30acbd069d5ac57a2a198da85c3582c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab30acbd069d5ac57a2a198da85c3582c">&#9670;&#160;</a></span>cameraFramingChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::cameraFramingChanged </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1CameraFramingConfig.html">core::CameraFramingConfig</a></td>          <td class="paramname"><span class="paramname"><em>cameraFraming</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis quand l'utilisateur choisit un nouveau cadrage de caméra dans la section « Cadrage » (<span class="tt">EX-EDIT-028</span>, LOT-64) : mode et, pour le mode <em>par salle</em>, taille de salle (<span class="tt">std::nullopt</span> = taille par défaut). </p>
+
+</div>
+</div>
+<a id="a730600ff1751b050f9113874019f5848" name="a730600ff1751b050f9113874019f5848"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a730600ff1751b050f9113874019f5848">&#9670;&#160;</a></span>cameraZoneRemoveRequested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::cameraZoneRemoveRequested </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis par le bouton « Retirer » du tableau des zones de caméra dessinées à la main (<span class="tt">EX-LVL-007</span>, <span class="tt">EX-EDIT-029</span>) pour la ligne sélectionnée. </p>
+
+</div>
+</div>
 <a id="a0e91d775329d3d2c60ddf558379d76d3" name="a0e91d775329d3d2c60ddf558379d76d3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0e91d775329d3d2c60ddf558379d76d3">&#9670;&#160;</a></span>currentSet()</h2>
 
@@ -371,6 +443,34 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Le nom du jeu de skins actuellement sélectionné. </dd></dl>
+
+</div>
+</div>
+<a id="aafed4d6610241a773462517d7c984041" name="aafed4d6610241a773462517d7c984041"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafed4d6610241a773462517d7c984041">&#9670;&#160;</a></span>emitCameraFramingChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::emitCameraFramingChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émet <span class="tt"><a class="el" href="#ab30acbd069d5ac57a2a198da85c3582c" title="Émis quand l&#39;utilisateur choisit un nouveau cadrage de caméra dans la section « Cadrage » (EX-EDIT-02...">cameraFramingChanged</a></span> à partir de l'état courant des widgets de mode/taille de la section « Cadrage » &ndash; point d'appel unique de leurs gestionnaires de changement, pour ne jamais dupliquer la construction du <span class="tt"><a class="el" href="structcore_1_1CameraFramingConfig.html" title="Cadrage de caméra résolu d&#39;un niveau : le mode retenu et ses paramètres.">core::CameraFramingConfig</a></span> résultant. </p>
+<p>Les zones dessinées à la main ne sont jamais modifiées ici (mutées directement via <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">GameViewport</a></span>). </p>
 
 </div>
 </div>
@@ -507,6 +607,56 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="add00443d0aa7887c4af7dc9e000e1385" name="add00443d0aa7887c4af7dc9e000e1385"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add00443d0aa7887c4af7dc9e000e1385">&#9670;&#160;</a></span>onCameraFramingZonesRemoveClicked()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::onCameraFramingZonesRemoveClicked </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abe9e0c36a924e4f865d8b998f420ca11" name="abe9e0c36a924e4f865d8b998f420ca11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe9e0c36a924e4f865d8b998f420ca11">&#9670;&#160;</a></span>onCameraFramingZonesSelectionChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::onCameraFramingZonesSelectionChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="adb7d2eba98a66372205d288d69553fb8" name="adb7d2eba98a66372205d288d69553fb8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adb7d2eba98a66372205d288d69553fb8">&#9670;&#160;</a></span>onItemChanged()</h2>
 
@@ -631,6 +781,60 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reconstruit l'arbre de la section « Animations » (<span class="tt">LOT-47</span> TACHE-04) depuis le catalogue et le diagnostic de clips manquants (<span class="tt"><a class="el" href="namespacehmi.html#abe8227bea2ef2342d62abed6e4704b0e" title="Construit les lignes de la section « Animations », diagnostic de clips manquants compris.">hmi::buildMechanismAnimationRows</a></span>). </p>
+
+</div>
+</div>
+<a id="a99a1d457db880316a72a7e9a9aaf43cc" name="a99a1d457db880316a72a7e9a9aaf43cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99a1d457db880316a72a7e9a9aaf43cc">&#9670;&#160;</a></span>rebuildCameraFramingSelector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::rebuildCameraFramingSelector </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reconstruit le sélecteur de mode de la section « Cadrage » (3 entrées fixes, traduites) et synchronise la visibilité des champs de taille de vue (<span class="tt">PerRoom</span>/<span class="tt">Follow</span>, <span class="tt">EX-REN-017</span>) et du tableau des zones (<span class="tt">PerRoom</span> uniquement) avec <span class="tt">_levelCameraFraming.mode</span>. </p>
+
+</div>
+</div>
+<a id="a342dcbbe97b65a159d8af8478ee25f22" name="a342dcbbe97b65a159d8af8478ee25f22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a342dcbbe97b65a159d8af8478ee25f22">&#9670;&#160;</a></span>rebuildCameraFramingZonesTable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::rebuildCameraFramingZonesTable </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reconstruit le tableau des zones de caméra dessinées à la main depuis <span class="tt">_levelCameraFraming.zones</span> (<span class="tt">EX-LVL-007</span>), même patron que <span class="tt"><a class="el" href="#a493879465156760b5b52ca39ec9ccca7" title="Reconstruit le tableau des surcharges depuis _objectRows (tri stable par position,...">rebuildObjectRows</a></span>. </p>
 
 </div>
 </div>
@@ -848,6 +1052,31 @@ Private Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">catalog</td><td>Catalogue, non possédé, qui doit survivre au panneau. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac27939226babd8dbc1a04c25b569f5d5" name="ac27939226babd8dbc1a04c25b569f5d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac27939226babd8dbc1a04c25b569f5d5">&#9670;&#160;</a></span>setLevelCameraFraming()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::setLevelCameraFraming </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1CameraFramingConfig.html">core::CameraFramingConfig</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cameraFraming</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Synchronise la section « Cadrage » avec le niveau courant (<span class="tt">EX-EDIT-028</span>, LOT-64). </p>
+<p>Même sens que <span class="tt"><a class="el" href="#ad8ba70ed6f484d3a30ffc3235b13d6e1" title="Synchronise la section « Fond » avec le niveau courant (LOT-44).">setLevelProperties</a></span> : l'appelant pousse l'état, la section ne le possède pas. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cameraFraming</td><td>Cadrage résolu du niveau courant (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a0c8ca795b62277f4d0c78036bc16844e">core::LevelDraft::cameraFraming</a></span>). </td></tr>
   </table>
   </dd>
 </dl>
@@ -1186,6 +1415,30 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a907e9deb4bdf64daf379456d0ec832f4" name="a907e9deb4bdf64daf379456d0ec832f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a907e9deb4bdf64daf379456d0ec832f4">&#9670;&#160;</a></span>_cameraFramingZonesModel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStandardItemModel* hmi::TexturePanel::_cameraFramingZonesModel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Modèle du tableau des zones de caméra dessinées à la main (LOT-64). </p>
+
+</div>
+</div>
 <a id="a8686f12685ae19a07b1b5307c1933e65" name="a8686f12685ae19a07b1b5307c1933e65"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8686f12685ae19a07b1b5307c1933e65">&#9670;&#160;</a></span>_catalog</h2>
 
@@ -1275,6 +1528,30 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Dernières valeurs poussées par <span class="tt"><a class="el" href="#ad8ba70ed6f484d3a30ffc3235b13d6e1" title="Synchronise la section « Fond » avec le niveau courant (LOT-44).">setLevelProperties</a></span> (LOT-44) : reappliquées après tout rechargement/reconstruction qui perdrait la sélection courante des widgets (grille, combo). </p>
+
+</div>
+</div>
+<a id="ac3f4414f7eab70ae7f72c877f5bd6320" name="ac3f4414f7eab70ae7f72c877f5bd6320"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3f4414f7eab70ae7f72c877f5bd6320">&#9670;&#160;</a></span>_levelCameraFraming</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1CameraFramingConfig.html">core::CameraFramingConfig</a> hmi::TexturePanel::_levelCameraFraming</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dernière valeur poussée par <span class="tt"><a class="el" href="#ac27939226babd8dbc1a04c25b569f5d5" title="Synchronise la section « Cadrage » avec le niveau courant (EX-EDIT-028, LOT-64).">setLevelCameraFraming</a></span> (LOT-64) : réappliquée après toute reconstruction du sélecteur (langue), même principe que <span class="tt"><a class="el" href="#a7d3776990d11880d96ae05010bba1579" title="Dernières valeurs poussées par setLevelProperties (LOT-44) : reappliquées après tout rechargement/rec...">_levelBackground</a></span>/<span class="tt"><a class="el" href="#adc38e5378ec00a5d2278bb96fe43aaf5">_levelSkinSet</a></span>. </p>
 
 </div>
 </div>

@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-63-tache-05-niveaux-documentation-verification.htm
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-63-mecanismes-manquants_2tache-05-niveaux-documentation-verification"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-63.html#md_Lot_2LOT-63-mecanismes-manquants_2epic" title="Lot/LOT-63-mecanismes-manquants/epic.md">LOT-63</a> · <b>Emplacement :</b> <span class="tt">Source/Elements/Levels</span>, <span class="tt">Documentation</span> · <b>Statut :</b> fait (CI complète vérifiée localement ; essai manuel réel réservé à l'utilisateur, cf. <span class="tt">feedback_no_live_gui_automation.md</span>)</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2851"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2854"></a>
 Contexte</h1>
 <p>Le <span class="tt">LOT-25</span> a posé une règle que le projet tient depuis : chaque mécanisme livré a <b>son</b> tableau de démonstration, la séquence les enchaîne dans un ordre pédagogique, et un garde-fou (<span class="tt">scripts/check_demo_sequence.py</span>) empêche qu'un niveau jouable échappe au test système.</p>
 <p>Trois mécanismes arrivent : trois tableaux, et la mise à jour des documents que ce lot rend faux — dont le tableau des contrôles, qui annonce « Interagir » comme non implémentée depuis le début.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2852"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2855"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Trois niveaux de démonstration</b>, un par mécanisme livré : <span class="tt">demo-cle.json</span>, <span class="tt">demo-plateforme.json</span>, et l'intégration de l'action « Interagir » dans l'un d'eux. Chacun isole son mécanisme, comme le veut la conception du <span class="tt">LOT-25</span>.</li>
@@ -114,7 +114,7 @@ Travail à réaliser</h1>
 <li><b>Guide du développeur</b> : les trois mécanismes dans <span class="tt"><a class="el" href="guide-niveaux_8md.html">guide-niveaux.md</a></span> et, pour la plateforme, l'<b>ordre de résolution</b> dans le pas — c'est l'information que la prochaine personne cherchera.</li>
 <li><b>Cahier de test</b> régénéré ; chaque nouveau <span class="tt"><a class="el" href="test__animation__personnage_8cpp.html#a7869699d21aa0764adb7b4f64fd228f2" title="Au sol et immobile, le clip est Idle et l&#39;image alterne 0/1 après chaque durée d&#39;image.">TEST()</a></span> porte son bloc <span class="tt">\castest{}</span> écrit en même temps que lui.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2853"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2856"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Elements/Levels/demo-cle.json</span>, <span class="tt">demo-plateforme.json</span> (nouveaux), fichier de séquence, <span class="tt">README.md</span>.</li>
@@ -123,7 +123,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="jouer_8md.html">Documentation/Manuel/jouer.md</a></span>, <span class="tt"><a class="el" href="guide-niveaux_8md.html">Documentation/Guide/guide-niveaux.md</a></span>, <span class="tt">CHANGELOG.md</span>.</li>
 <li><span class="tt"><a class="el" href="CahierTest_8md.html">Documentation/CahierTest.md</a></span> (régénéré).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2854"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2857"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Chaque nouveau tableau est <b>franchissable</b> de bout en bout par le test système.</li>
@@ -134,7 +134,7 @@ Tests (obligatoires)</h1>
 <li><span class="tt">python scripts/build_docs.py</span> avec la version Doxygen épinglée par <span class="tt">ci.yml</span>.</li>
 <li><span class="tt">ctest --preset vs</span> à 100 %, <b>et</b> le job Release de <a class="el" href="lot-58.html" title="LOT-58 — Vérification Release, sanitizer et analyse statique">LOT-58</a>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2855"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2858"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Si une tâche a été rognée, ne pas documenter ce qui n'existe pas.</b> La plateforme mobile est la candidate au retrait ; dans ce cas <span class="tt">EX-GP-026</span> n'est pas déclarée, le niveau n'est pas ajouté, et <span class="tt"><a class="el" href="vision_8md.html">vision.md</a></span> reste inchangée. Un référentiel qui promet plus que le binaire est pire qu'un référentiel en retard.</li>
@@ -143,12 +143,12 @@ Points d'attention</h1>
 <li>Éviter <span class="tt"> `fichier.cpp::Nom` </span> dans la documentation Doxygen : le <span class="tt">::</span> dans un span casse la génération sur la version épinglée de la CI sans rien dire en local.</li>
 <li><b>Essai manuel</b> au moment prévu par le lot : jouer les trois tableaux, y compris les cas désagréables (mourir la clé en main, sauter d'une plateforme montante, rester sous une plateforme qui monte).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2856"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2859"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Trois tableaux de démonstration sont livrés, insérés dans la séquence et franchis par le test système ; les mentions ⚠️ levées le sont réellement ; les deux nouvelles exigences sont déclarées ; manuel et guide décrivent le livré ; le cahier est régénéré ; la CI complète est verte ; l'essai manuel est fait.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2857"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2860"></a>
 Exigences</h1>
 <p><span class="tt">EX-CTRL-022</span>, <span class="tt">EX-GP-026</span> (déclarées ici) ; lève <span class="tt">EX-GP-023</span> ; réutilise <span class="tt">EX-NFR-021</span> (test système de franchissabilité), <span class="tt">EX-LVL-012</span> (niveaux de démonstration), <span class="tt">EX-LVL-013</span> (séquence en donnée), <span class="tt">EX-NFR-012</span> (conventions), <span class="tt">EX-NFR-022</span> (CI verte). </p>
 </div></div><!-- contents -->

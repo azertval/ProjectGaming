@@ -94,13 +94,13 @@ $(function(){initNavTree('lot-56-tache-01-socle-style.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-56-systeme-design-ihm_2tache-01-socle-style"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-56.html#md_Lot_2LOT-56-systeme-design-ihm_2epic" title="Lot/LOT-56-systeme-design-ihm/epic.md">LOT-56</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Interface</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2497"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2500"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span> charge une feuille de style et rien d'autre : l'application ne choisit jamais son style Qt, et s'exécute donc sur le style <b>natif</b> de la plate-forme. Ce style dessine la plupart des contrôles via l'API du système et ignore une large part de la feuille de style — c'est la raison pour laquelle le thème existant a dû être restreint par <span class="tt">objectName</span> au menu et aux options.</p>
 <p>Aucune <span class="tt">QPalette</span> n'est définie nulle part dans <span class="tt">Source/HMI</span>. Les couleurs qui ne passent pas par la feuille de style — fonds de vues, texte désactivé, couleur de sélection, infobulles, boîtes de dialogue standard — viennent donc directement du système d'exploitation.</p>
 <p>Les grandeurs d'habillage sont par ailleurs éparpillées : taille de vignette dans <em>AssetThumbnailView</em>, autre taille de vignette dans <em>PalettePanel</em>, taille d'icône de ligne dans <em>TexturePanel</em>, et deux widgets de remappage jumeaux (<em>KeybindingsWidget</em> et <em>GamepadBindingsWidget</em>) dont les largeurs minimales diffèrent sans raison. La couleur d'effacement du viewport, définie dans <em>GameViewport</em>, est <b>proche mais différente</b> du fond de la feuille de style : la jointure entre le canevas Direct3D 11 et les widgets qui l'entourent est visible.</p>
 <p>Cette tâche est le socle : les cinq suivantes en dépendent.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2498"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2501"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Jetons de design</b> dans un en-tête unique : couleurs nommées <b>par rôle</b> (fond, surface, surface alternée, bordure, texte, texte atténué, accent, accent au survol, erreur), échelle d'espacement, échelle typographique, tailles d'icônes et de vignettes, largeurs de contrôles usuelles. Nommer par rôle et non par teinte — un jeton <span class="tt">accent</span> survit à un changement de couleur, un jeton <span class="tt">ambre</span> non, et la tâche 6 introduira un second jeu de valeurs pour le thème clair.</li>
@@ -116,7 +116,7 @@ Travail à réaliser</h1>
 <li><b>Remplacement des constantes de style locales</b> des widgets par les jetons correspondants, en unifiant au passage les deux largeurs minimales divergentes des widgets de remappage.</li>
 <li><b>Conversion pure</b> jeton → chaîne de couleur, exposée comme fonction testable sans instance d'application ni GPU (elle servira aussi à produire la feuille de style en TACHE-02).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2499"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2502"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="DesignTokens_8h.html" title="Jetons de design de l&#39;IHM Qt (LOT-56, EX-IHM-050, EX-IHM-051) : source unique des couleurs,...">Source/HMI/Interface/DesignTokens.h</a></span> (nouveau) — les jetons et leur conversion.</li>
@@ -126,7 +126,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="AssetThumbnailView_8cpp.html">Source/HMI/Editor/AssetThumbnailView.cpp</a></span>, <span class="tt"><a class="el" href="PalettePanel_8cpp.html">Source/HMI/Editor/PalettePanel.cpp</a></span>, <span class="tt"><a class="el" href="TexturePanel_8cpp.html">Source/HMI/Editor/TexturePanel.cpp</a></span>, <span class="tt"><a class="el" href="KeybindingsWidget_8cpp.html">Source/HMI/Interface/KeybindingsWidget.cpp</a></span>, <span class="tt"><a class="el" href="GamepadBindingsWidget_8cpp.html">Source/HMI/Interface/GamepadBindingsWidget.cpp</a></span> — constantes locales remplacées par les jetons.</li>
 <li><span class="tt"><a class="el" href="test__design__tokens_8cpp.html" title="Tests unitaires des jetons de design de l&#39;IHM (LOT-56 TACHE-01, EX-IHM-050, EX-IHM-051).">Source/Test/Unit/HMI/Interface/test_design_tokens.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2500"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2503"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Conversion de couleur</b> : chaque jeton produit une chaîne de couleur valide et stable ; la conversion est <b>pure</b> (même entrée, même sortie), testée sans instance d'application.</li>
@@ -134,7 +134,7 @@ Tests (obligatoires)</h1>
 <li><b>Symétrie des deux portées</b> : les jeux de jetons invariant et variable définissent exactement le même ensemble de rôles, d'échelles et de tailles — un test qui échoue si un rôle est ajouté à l'un sans l'autre. Sans lui, la TACHE-06 découvrirait la divergence trop tard.</li>
 <li><b>Aucun doublon de grandeur</b> : les widgets de remappage exposent la même largeur minimale.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2501"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2504"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le style doit être choisi avant la création du moindre widget</b> : appliqué après, il ne se propage pas aux widgets déjà construits.</li>
@@ -144,12 +144,12 @@ Points d'attention</h1>
 <li><b>La frontière entre les deux portées se pose maintenant, pas en TACHE-06.</b> Un habillage conçu comme un jeu unique de couleurs ne se scinde pas après coup sans réécrire la feuille de style : la TACHE-06 doit n'avoir qu'à fournir un second jeu de valeurs.</li>
 <li><b>Ne pas faire de l'identité un « thème sombre » parmi d'autres.</b> Le fond sombre et l'accent ambre du menu appartiennent à l'apparence du jeu ; les exposer comme un thème inviterait tôt ou tard à les rendre réglables, ce que ce lot exclut.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2502"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2505"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>L'application choisit explicitement son style et applique des palettes complètes dérivées d'un jeu unique de jetons, séparé en portée invariante et portée variable de structure identique ; la couleur d'effacement du viewport suit la portée du mode courant et des tests le garantissent ; aucune constante de style ne subsiste dans le code des widgets concernés ; les boîtes de dialogue standard ont été revues ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2503"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2506"></a>
 Exigences</h1>
 <p><span class="tt">EX-IHM-050</span> (style maîtrisé, deux portées d'habillage), <span class="tt">EX-IHM-051</span> (source unique des grandeurs d'habillage) ; prépare <span class="tt">EX-IHM-054</span> (thème clair/sombre de l'éditeur) ; réutilise <span class="tt">EX-IHM-001</span> (interface hors-jeu en Qt), <span class="tt">EX-NFR-010</span> (<span class="tt">Core</span> indépendant de la présentation). </p>
 </div></div><!-- contents -->

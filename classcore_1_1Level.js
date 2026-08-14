@@ -1,8 +1,9 @@
 var classcore_1_1Level =
 [
-    [ "Level", "classcore_1_1Level.html#a71159f188b8d655e01609fbe0006f69c", null ],
+    [ "Level", "classcore_1_1Level.html#abf72e4c3f7faf64b41f2b2def2eff97f", null ],
     [ "background", "classcore_1_1Level.html#a8eb90b383f0aa69b2674aea4c416681f", null ],
     [ "blinkConfigs", "classcore_1_1Level.html#a9e1c9105ee90597836bf6addcbb0d98d", null ],
+    [ "cameraFraming", "classcore_1_1Level.html#a8d56f4ba26c846f832b6490994908cdf", null ],
     [ "dangerLinks", "classcore_1_1Level.html#ac843149dd61590cf118ab6339a65e470", null ],
     [ "dashBudget", "classcore_1_1Level.html#a38abc958ccecd93027b728d680c4649d", null ],
     [ "decors", "classcore_1_1Level.html#a677096397aa22dd5a7e3a8ce371a7e9d", null ],
@@ -18,6 +19,7 @@ var classcore_1_1Level =
     [ "tileMap", "classcore_1_1Level.html#af42df8d6a33bdaa7aedf5b2aafd728ef", null ],
     [ "_background", "classcore_1_1Level.html#aaf8f4ab21758836b96c34acab1a6f12d", null ],
     [ "_blinkConfigs", "classcore_1_1Level.html#abd32b32f40b636b0adc934fc70d9c6b4", null ],
+    [ "_cameraFraming", "classcore_1_1Level.html#aa2d0bfc11b30b801e20a80a8aac1251d", null ],
     [ "_dangerLinks", "classcore_1_1Level.html#a5ef3a5dd968618ce18b29f28094eda09", null ],
     [ "_dashBudget", "classcore_1_1Level.html#a53b19e727268358e358529a51e37c322", null ],
     [ "_decors", "classcore_1_1Level.html#ae063d18199ae13f7057ba009c9f74e27", null ],

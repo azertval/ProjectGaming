@@ -94,12 +94,12 @@ $(function(){initNavTree('lot-56-tache-03-typographie-police.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-56-systeme-design-ihm_2tache-03-typographie-police"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-56.html#md_Lot_2LOT-56-systeme-design-ihm_2epic" title="Lot/LOT-56-systeme-design-ihm/epic.md">LOT-56</a> · <b>Emplacement :</b> <span class="tt">Source/Elements</span>, <span class="tt">Source/HMI/Interface</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2511"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2514"></a>
 Contexte</h1>
 <p>La typographie de l'interface a <b>deux sources de vérité</b> qui se contredisent. Les fichiers <span class="tt">Source/Elements/UI/MainMenu.ui</span> et <span class="tt">Source/Elements/UI/OptionsPage.ui</span> figent des tailles de police et des marges dans leurs propriétés ; la feuille de style redéfinit ensuite une famille et une taille pour les mêmes contrôles. Selon la propriété considérée, c'est l'un ou l'autre qui l'emporte — comportement que personne ne peut prédire à la lecture.</p>
 <p>Plus gênant : la famille imposée par la feuille de style n'est disponible <b>que sous Windows</b>. L'interface dépend donc d'une police installée sur le système hôte, sans repli déclaré. Le dossier <span class="tt">Source/Elements/Assets/Fonts/</span> existe pourtant déjà — créé au <span class="tt">LOT-52</span> — et ne contient qu'un fichier d'explication.</p>
 <p>Le projet a par ailleurs un précédent net sur la question du repli : <span class="tt"><a class="el" href="structhmi_1_1ProceduralFont.html" title="Atlas de police procédural complet : ses pixels et les métriques qui les décrivent.">hmi::ProceduralFont</a></span> (<span class="tt">LOT-52</span>) garantit que le jeu reste lisible <b>sans aucun asset de police</b> (<span class="tt">EX-NFR-040</span>). L'interface hors-jeu doit offrir la même garantie, par le mécanisme propre à Qt.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2512"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2515"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Échelle typographique dans les jetons</b> (TACHE-01) : un petit nombre de niveaux nommés par rôle (titre d'écran, titre de section, corps, libellé secondaire, monospace), chacun avec sa taille et sa graisse. Pas de taille ponctuelle en dehors de l'échelle.</li>
@@ -109,7 +109,7 @@ Travail à réaliser</h1>
 <li><b>Vérification du choix de police</b> : la famille retenue doit couvrir les caractères accentués français employés par le catalogue de traduction, et rester lisible aux petites tailles des libellés de panneaux.</li>
 <li><b>Licence</b> : la police retenue doit être redistribuable avec l'application ; sa licence est déposée à côté du fichier et mentionnée dans le fichier d'explication du dossier.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2513"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2516"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Elements/Assets/Fonts/</span> — fichier de police, sa licence, mise à jour du fichier d'explication.</li>
@@ -119,14 +119,14 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Themes/theme.qss</span> — famille et tailles issues des jetons.</li>
 <li><span class="tt"><a class="el" href="test__application__theme_8cpp.html" title="Tests unitaires du thème de l&#39;IHM : modèle de feuille de style (LOT-56 TACHE-02, EX-IHM-050,...">Source/Test/Unit/HMI/Interface/test_application_theme.cpp</a></span> — complété.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2514"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2517"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Résolution de la famille</b> : police disponible → la famille embarquée est retenue ; police absente → une famille générique est demandée et un avertissement est journalisé. Décision exposée en fonction <b>pure</b> (entrée : la police a-t-elle pu être enregistrée ; sortie : la famille à employer), testée sans instance d'application.</li>
 <li><b>Échelle typographique</b> : chaque niveau produit une taille strictement positive, et les niveaux sont ordonnés du plus grand au plus petit — un test qui échoue si une modification casse la hiérarchie visuelle.</li>
 <li><b>Aucune taille de police résiduelle dans les fichiers d'interface</b> : test lisant les deux fichiers <span class="tt">.ui</span> et échouant si une propriété de police y réapparaît.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2515"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2518"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas coder en dur un second nom de police comme repli.</b> Nommer une police de repli reproduit le défaut qu'on corrige : c'est à Qt qu'il faut demander une famille générique.</li>
@@ -135,12 +135,12 @@ Points d'attention</h1>
 <li>Retirer les marges des fichiers <span class="tt">.ui</span> change la composition des deux écrans : les revoir visuellement fait partie de la tâche.</li>
 <li>La police de l'interface n'a <b>aucun rapport</b> avec la police bitmap du HUD (<span class="tt">LOT-52</span>), qui vit dans le pipeline Direct3D 11. Deux mécanismes distincts, deux fichiers distincts.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2516"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2519"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>L'interface s'affiche correctement sans aucune police installée sur le système hôte ; la typographie a une source de vérité unique et aucune taille ne subsiste dans les fichiers <span class="tt">.ui</span> ; le repli est testé et journalisé ; la licence de la police est déposée ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2517"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2520"></a>
 Exigences</h1>
 <p><span class="tt">EX-IHM-052</span> (typographie unique, police embarquée avec repli) ; réutilise <span class="tt">EX-IHM-050</span> (thème), <span class="tt">EX-REN-033</span> (traduction — couverture des caractères accentués), <span class="tt">EX-NFR-040</span> (repli en l'absence d'asset). </p>
 </div></div><!-- contents -->

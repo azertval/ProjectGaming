@@ -14,7 +14,8 @@ var LevelLoader_8h =
       [ "core::LevelValidationError::InvalidExitCount", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ab32719130f8dc09d1e17c52f6198aefc", null ],
       [ "core::LevelValidationError::UnresolvedMechanism", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05250c1ea0ea6727aa6506464d5af1bb", null ],
       [ "core::LevelValidationError::FileNotFound", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a2767828026039e8ba7b38973cbb701f2", null ],
-      [ "core::LevelValidationError::UnsupportedFormatVersion", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a7d194788f42fea83b92833f89101a8f4", null ]
+      [ "core::LevelValidationError::UnsupportedFormatVersion", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a7d194788f42fea83b92833f89101a8f4", null ],
+      [ "core::LevelValidationError::InvalidCameraFraming", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a8ebb0d1c1c8fab3e269157f5b98a862e", null ]
     ] ],
     [ "core::kLevelFormatVersion", "namespacecore.html#a4e9944a74ac070775a2730be05705abb", null ]
 ];

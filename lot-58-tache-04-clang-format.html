@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-58-tache-04-clang-format.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-58-verification-release-analyse_2tache-04-clang-format"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-58.html#md_Lot_2LOT-58-verification-release-analyse_2epic" title="Lot/LOT-58-verification-release-analyse/epic.md">LOT-58</a> · <b>Emplacement :</b> <span class="tt">.github/workflows</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2611"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2614"></a>
 Contexte</h1>
 <p><span class="tt">CONTRIBUTING.md</span> ouvre sur « Le code doit être formaté (<span class="tt">clang-format</span>) […] avant tout commit », et le répète dans la liste des vérifications avant PR. <span class="tt"><a class="el" href="conventions_8md.html">conventions.md</a></span> décrit <span class="tt">.clang-format</span> comme appliqué automatiquement par Visual Studio. Aucun contrôle ne le vérifie : la règle tient uniquement parce que l'IDE d'un contributeur unique la respecte.</p>
 <p>C'est la moins grave des trois vérifications manquantes de ce lot, et la moins chère à combler.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2612"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2615"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Job <span class="tt">format</span></b> dans <span class="tt">ci.yml</span>, sur Linux : <span class="tt">clang-format --dry-run --Werror</span> sur les fichiers <span class="tt">.cpp</span>/<span class="tt">.h</span> de <span class="tt">Source/</span>, hors <span class="tt">External/</span>.</li>
@@ -106,34 +106,34 @@ Travail à réaliser</h1>
 <li><b>Documenter la commande locale</b> dans <span class="tt">CONTRIBUTING.md</span>, pour que la vérification soit reproductible avant de pousser.</li>
 <li><b>Contrôle, jamais réécriture</b> : le job signale, il ne pousse pas de commit de reformatage.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2613"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2616"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">.github/workflows/ci.yml</span> — nouveau job et variable de version épinglée.</li>
 <li><span class="tt">CONTRIBUTING.md</span> — commande locale.</li>
 <li>Sources reformatées si l'état actuel s'écarte du fichier de style.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2614"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2617"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Le job passe sur l'état de <span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span> après un éventuel reformatage initial.</li>
 <li><b>Test négatif</b> : une indentation volontairement fausse fait échouer le job.</li>
 <li>La commande documentée dans <span class="tt">CONTRIBUTING.md</span>, exécutée localement avec la version épinglée, donne le même verdict que la CI.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2615"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2618"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Un reformatage initial du dépôt entier est possible</b> : s'il a lieu, le faire dans un commit <b>séparé et unique</b>, sans aucun changement de comportement, pour ne pas polluer l'historique des lots ni les futurs <span class="tt">git blame</span>.</li>
 <li>La version de <span class="tt">clang-format</span> de l'image Ubuntu change avec l'image : c'est précisément le piège déjà rencontré avec Doxygen (<span class="tt">DOXYGEN_VERSION</span> est épinglée pour cette raison, commentée dans <span class="tt">ci.yml</span>). Ne pas répéter l'erreur.</li>
 <li>Les fichiers générés par Qt (<span class="tt">moc_*</span>, <span class="tt">ui_*</span>, <span class="tt">qrc_*</span>) ne sont pas du code du projet : les exclure explicitement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2616"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2619"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Le formatage est vérifié sur chaque PR avec une version épinglée, un écart est démontré refusé, la commande locale équivalente est documentée, et l'éventuel reformatage initial est isolé dans son propre commit.</li>
 <li>Vérifié localement (LOT-58) : <span class="tt">clang-format 18.1.8</span> (paquet PyPI, binaires officiels LLVM — le <span class="tt">clang-format</span> fourni par cette installation de Visual Studio est une édition preview LLVM 22.1.3 qui ne prédit pas le verdict de la CI). 192 fichiers <span class="tt">Source/*.cpp,*.h</span> s'écartaient du style : reformatés dans un commit séparé et unique, <span class="tt">ctest --preset ninja</span> confirmé à 100 % (943 tests) après coup. Test négatif (indentation et espacement volontairement faux dans un constructeur) fait échouer <span class="tt">clang-format --dry-run --Werror</span>, puis retiré.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2617"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2620"></a>
 Exigences</h1>
 <p><span class="tt">EX-NFR-024</span> (formatage vérifié automatiquement) ; réutilise <span class="tt">EX-NFR-012</span> (conventions), <span class="tt">EX-NFR-022</span> (CI), <span class="tt">EX-NFR-031</span> (dépendances et outils épinglés). </p>
 </div></div><!-- contents -->

@@ -96,7 +96,7 @@ $(function(){initNavTree('lot-40.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-39.html" title="LOT-39 — Refonte IHM (Qt) : textures depuis fichiers (loader + assets)">LOT-39</a> (chargement de textures depuis fichiers). Premier lot du programme d'habillage <span class="tt">LOT-40</span> → <span class="tt">LOT-55</span> ; prérequis de tous les suivants. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1886"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1889"></a>
 Objectif</h1>
 <p>Lever les verrous qui bloquent l'ensemble du programme, <b>sans changer un seul pixel affiché aujourd'hui</b>. Quatre verrous, tous structurels :</p>
 <ol type="1">
@@ -105,9 +105,9 @@ Objectif</h1>
 <li>Le rendu n'est <b>pas vérifiable</b> autrement qu'à l'œil, alors que le programme va empiler six couches dont l'ordre et la priorité de résolution sont exactement le genre de règle qui casse silencieusement.</li>
 <li>Le rendu soumet <b>tout le niveau</b> à chaque image, sans culling, avec un plafond de <span class="tt">MAXIMUM_QUADS = 2048</span> par lot — alors que le programme va multiplier le volume de primitives sur des niveaux de grande taille (<span class="tt">LOT-16</span>).</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1887"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1890"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1888"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1891"></a>
 Inclus</h2>
 <ul>
 <li><em><b>TextureCache</b></em> : registre de textures chargées à la demande par <b>nom logique</b>, construit directement sur <em>TextureLoader</em>/<span class="tt"><a class="el" href="classhmi_1_1AssetPaths.html" title="Résout des noms d&#39;assets logiques vers des chemins de fichiers, dans un dossier donné.">hmi::AssetPaths</a></span> (LOT-39) — décodage, upload D3D11 et résolution de chemin sont déjà génériques, seule la mise en cache par nom est nouvelle. RAII (<span class="tt">ComPtr</span>), repli sans exception si un asset est absent/illisible (<span class="tt">EX-NFR-040</span>). <b><span class="tt">invalidate(name)</span> et <span class="tt">invalidateAll()</span> font partie de l'API dès l'origine</b> : le rechargement à chaud (LOT-43) et l'aperçu live de l'atelier (LOT-54) en dépendent, et les greffer après coup obligerait à modifier une API déjà consommée par quatre lots.</li>
@@ -118,7 +118,7 @@ Inclus</h2>
 <li><em><b>QuadRecorder</b></em> (<span class="tt">EX-NFR-004</span>) : couche d'inspection capturant la liste des <span class="tt">SpriteQuad</span>/ <span class="tt">LineQuad</span> soumis pour une scène donnée, sans GPU. Rend assertables l'ordre des calques, le regroupement par texture, et — pour les lots suivants — la priorité de résolution, la règle de raccords, l'isolement d'un calque, la présence des ombres.</li>
 <li><b>Culling par salle</b> (<span class="tt">EX-NFR-005</span>) : n'émettre que les primitives intersectant le cadrage de la caméra, en réutilisant <span class="tt"><a class="el" href="classhmi_1_1RoomGrid.html#ac8fa1ab565c014e794a14e6b7a146843" title="Rectangle (en cases) de la salle d&#39;indice roomIndex.">hmi::RoomGrid::roomBounds</a></span> (LOT-32) — aucune nouvelle notion de spatialité.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1889"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1892"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li>Aucune nouvelle couche visible (fond, décor, skin, objets) — ce lot ne change <b>aucun</b> pixel affiché aujourd'hui.</li>
@@ -127,7 +127,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li>Optimisation par atlas dynamique/packing : hors périmètre. Le culling traite la vraie cause du volume ; plusieurs passes <span class="tt">begin/end</span> par image restent largement assez rapides à l'échelle d'une salle. À revisiter seulement si un profilage futur montre un problème réel.</li>
 <li>Éviction ou budget mémoire du cache : les assets restent bornés ; <span class="tt">invalidate</span> sert au rechargement, pas à une politique de libération.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1890"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1893"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Plusieurs passes <span class="tt">begin/end</span> plutôt qu'un atlas partagé dynamique</b> : simplicité, coût des changements d'état D3D11 négligeable à l'échelle d'une salle, <span class="tt">SpriteBatch</span> reste inchangé.</li>
@@ -136,14 +136,14 @@ Décisions de cadrage</h1>
 <li><b>La testabilité est une fonctionnalité du lot, pas un bonus</b> : un critère d'acceptation formulé en « pixel-identique » ou « ordre correct » est invérifiable à l'œil. Le <em>QuadRecorder</em> le rend assertable, ici et dans tous les lots suivants (<span class="tt">EX-NFR-004</span>).</li>
 <li><b>Culling maintenant, pas plus tard</b> : introduit tant que le rendu est encore simple et que la non-régression est facile à établir ; l'ajouter après six couches serait un chantier de débogage visuel.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1891"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1894"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelles : <span class="tt">EX-REN-043</span> (rendu multi-textures par calques), <span class="tt">EX-REN-007</span> (contrat d'asset et validation), <span class="tt">EX-NFR-004</span> (rendu vérifiable sans GPU), <span class="tt">EX-NFR-005</span> (culling et budget).</li>
 <li>Amendée : <span class="tt">EX-REN-014</span> (ordonnancement de calques explicite, premier plan au-dessus du personnage).</li>
 <li>Réutilisées : <span class="tt">EX-NFR-040</span> (repli sans plantage), <span class="tt">EX-NFR-010</span> (logique testable sans GPU), <span class="tt">EX-ARCH-022</span> (filtrage <em>nearest</em>, inchangé), <span class="tt">EX-REN-015</span> (cadrage par salle, base du culling).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1892"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1895"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -162,7 +162,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-40-tache-05-culling-salle.html#md_Lot_2LOT-40-fondations-rendu-textures_2tache-05-culling-salle" title="Lot/LOT-40-fondations-rendu-textures/tache-05-culling-salle.md">TACHE-05</a>  </td><td class="markdownTableBodyNone">Culling par salle visible + observation du nombre de primitives  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Graphics</span>, <span class="tt">Source/Test</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1893"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1896"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Le rendu (jeu et éditeur) est <b>inchangé</b> : la liste des primitives soumises pour une scène donnée est identique à celle d'avant le lot, <b>assertée</b> par le <em>QuadRecorder</em> — hors primitives écartées par le culling, qui font l'objet de leur propre test.</li>
@@ -173,10 +173,10 @@ Critères d'acceptation du lot</h1>
 <li>Un asset aux dimensions non conformes est refusé avec un message nommant le fichier et l'attendu, et affiche le damier — sans interrompre le rendu.</li>
 <li>Build <span class="tt">/W4 /WX</span>, Doxygen et lint verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1894"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1897"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-39.html" title="LOT-39 — Refonte IHM (Qt) : textures depuis fichiers (loader + assets)">LOT-39</a> (<em>TextureLoader</em>, <span class="tt"><a class="el" href="classhmi_1_1AssetPaths.html" title="Résout des noms d&#39;assets logiques vers des chemins de fichiers, dans un dossier donné.">hmi::AssetPaths</a></span>, <span class="tt"><a class="el" href="namespacehmi.html#a0fa1fc503abd25e16f2e3d52f6c8d540" title="Génère, en mémoire, l&#39;atlas procédural historique (grille de tuiles + images du personnage),...">hmi::buildProceduralAtlasImage</a></span>) et <a class="el" href="lot-32.html" title="LOT-32 — Niveaux à salles (façon Celeste)">LOT-32</a> (<span class="tt"><a class="el" href="classhmi_1_1RoomGrid.html" title="Partitionne une grille de niveau en un tableau de salles de taille fixe, façon Celeste (LOT-32).">hmi::RoomGrid</a></span>, base du culling). Ne modifie pas <span class="tt">Core</span>. Prérequis de <a class="el" href="lot-41.html" title="LOT-41 — Bascule Physique/Texture (`F8`, non remappable)">LOT-41</a> à <a class="el" href="lot-55.html" title="LOT-55 — Ombres du plan physique">LOT-55</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1895"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1898"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-40-tache-01-texture-cache.html" title="TACHE-01 — *TextureCache* : registre par nom logique, invalidation, contrat d&#39;asset">TACHE-01 — *TextureCache* : registre par nom logique, invalidation, contrat d'asset</a></li>

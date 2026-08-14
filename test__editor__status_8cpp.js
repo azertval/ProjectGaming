@@ -9,5 +9,6 @@ var test__editor__status_8cpp =
     [ "TEST", "test__editor__status_8cpp.html#a2cef0e6a8023b218c6dc61ffbc0b58a6", null ],
     [ "TEST", "test__editor__status_8cpp.html#a3ed1cc3deb395e72ce7f2725226fe874", null ],
     [ "TEST", "test__editor__status_8cpp.html#ac43f0e765535e43f45e58d539c0a2d82", null ],
-    [ "TEST", "test__editor__status_8cpp.html#a3c4ee13d1a20fd2780b861bcd327e41d", null ]
+    [ "TEST", "test__editor__status_8cpp.html#a3c4ee13d1a20fd2780b861bcd327e41d", null ],
+    [ "TEST", "test__editor__status_8cpp.html#a03dc8ffa97f99fc9e20911fa5ae19ce1", null ]
 ];

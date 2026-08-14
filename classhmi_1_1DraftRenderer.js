@@ -1,6 +1,7 @@
 var classhmi_1_1DraftRenderer =
 [
     [ "DraftRenderer", "classhmi_1_1DraftRenderer.html#ab7ac8e70c8f5d62819348a53803663a3", null ],
+    [ "composeCameraFraming", "classhmi_1_1DraftRenderer.html#ac3b8c03706fcba4f7050260941a2faa9", null ],
     [ "composeDecorSelection", "classhmi_1_1DraftRenderer.html#ab1adcc77d7af91dc8999566af02e003b", null ],
     [ "composeGrid", "classhmi_1_1DraftRenderer.html#af8652cf98d80fba9a8296521245b20e6", null ],
     [ "composeHighlight", "classhmi_1_1DraftRenderer.html#a25e74134b58cd46d21a696664f0b0596", null ],

@@ -137,6 +137,16 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a8eeeb9edf5dcfa6ee6cbb928e7e05a56" id="r_a8eeeb9edf5dcfa6ee6cbb928e7e05a56"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8eeeb9edf5dcfa6ee6cbb928e7e05a56">refreshPlayerSprite</a> ()</td></tr>
 <tr class="memitem:aff76760d9036a937f3b5f9cc83bc109a" id="r_aff76760d9036a937f3b5f9cc83bc109a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aff76760d9036a937f3b5f9cc83bc109a">centerCameraOnRoom</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> roomIndex)</td></tr>
 <tr class="memitem:a626952821cb4fc9a0144a4bdf6b9eaaf" id="r_a626952821cb4fc9a0144a4bdf6b9eaaf"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a626952821cb4fc9a0144a4bdf6b9eaaf">updateCurrentRoom</a> ()</td></tr>
+<tr class="memitem:a559adaf55d6ff596f6903f72b7403950" id="r_a559adaf55d6ff596f6903f72b7403950"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a559adaf55d6ff596f6903f72b7403950">centerCameraOnZone</a> (const <a class="el" href="structcore_1_1CameraZone.html">core::CameraZone</a> &amp;zone)</td></tr>
+<tr class="memdesc:a559adaf55d6ff596f6903f72b7403950"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centre la caméra sur une zone dessinée à la main (mode <span class="tt">PerRoom</span>, <span class="tt">_cameraFraming.zones</span> non vide, <span class="tt">EX-LVL-007</span>) : symétrique à <span class="tt"><a class="el" href="#aff76760d9036a937f3b5f9cc83bc109a">centerCameraOnRoom</a></span>, pour le découpage manuel plutôt qu'automatique.  <br /></td></tr>
+<tr class="memitem:a3070fe308ff868f747fd5fe8ac8098d4" id="r_a3070fe308ff868f747fd5fe8ac8098d4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3070fe308ff868f747fd5fe8ac8098d4">updateCurrentCameraZone</a> ()</td></tr>
+<tr class="memdesc:a3070fe308ff868f747fd5fe8ac8098d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Équivalent de <span class="tt"><a class="el" href="#a626952821cb4fc9a0144a4bdf6b9eaaf">updateCurrentRoom</a></span> quand <span class="tt">_cameraFraming.zones</span> est non vide : résout la zone active (<span class="tt"><a class="el" href="namespacehmi.html#a105226a84e7eee6e32a6d20a57502b5b" title="Indice de la zone active de zones à position.">hmi::activeCameraZoneIndex</a></span>) plutôt que l'indice de grille de <span class="tt"><a class="el" href="#adb642e446ac548c28b5833442efd175d">_roomGrid</a></span>.  <br /></td></tr>
+<tr class="memitem:a51f9e105074974f6c8d3f8f1242f90ce" id="r_a51f9e105074974f6c8d3f8f1242f90ce"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a51f9e105074974f6c8d3f8f1242f90ce">centerCameraOnWholeLevel</a> ()</td></tr>
+<tr class="memdesc:a51f9e105074974f6c8d3f8f1242f90ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centre la caméra sur le niveau entier (mode <span class="tt">WholeLevel</span>, LOT-64) : centre fixe, posé une fois au chargement &ndash; symétrique à <span class="tt"><a class="el" href="#aff76760d9036a937f3b5f9cc83bc109a">centerCameraOnRoom</a></span>, jamais recalculé au pas fixe.  <br /></td></tr>
+<tr class="memitem:a4a9b995c4a2d996892cab9da455532c9" id="r_a4a9b995c4a2d996892cab9da455532c9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4a9b995c4a2d996892cab9da455532c9">updateFollowCamera</a> (float fixedDelta)</td></tr>
+<tr class="memdesc:a4a9b995c4a2d996892cab9da455532c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Avance la caméra de suivi d'un pas fixe (mode <span class="tt">Follow</span>, LOT-64 TACHE-02) : lit la position simulée du personnage, sans jamais l'écrire (<span class="tt">EX-ARCH-012</span>).  <br /></td></tr>
+<tr class="memitem:a27c40698b1b5387000408d0f7a1c6458" id="r_a27c40698b1b5387000408d0f7a1c6458"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a27c40698b1b5387000408d0f7a1c6458">applyCameraFraming</a> (int viewportWidth, int viewportHeight, float interpolationAlpha)</td></tr>
+<tr class="memdesc:a27c40698b1b5387000408d0f7a1c6458"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sélectionne le zoom et le centre effectifs de <span class="tt"><a class="el" href="#aa7cbc29a084978c4d5666d63deb1cbc3">_camera</a></span> selon le mode de cadrage résolu du niveau (<span class="tt"><a class="el" href="namespacecore.html#a5c6444096b9bc21a78b1f1157e9070b6" title="Mode de cadrage de caméra d&#39;un niveau (EX-REN-016) : décision de conception, pas une règle déduite de...">core::CameraFramingMode</a></span>, LOT-64) : seul point d'application du cadrage, appelé une fois par image depuis <span class="tt"><a class="el" href="#a8c26c9a8cbd1841bd091a5eb2299017a" title="Dessine la scène du niveau (rien si le chargement a échoué).">render()</a></span>.  <br /></td></tr>
 <tr class="memitem:a930a2413f190c4c2ce9bfdea2ea4eadb" id="r_a930a2413f190c4c2ce9bfdea2ea4eadb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a930a2413f190c4c2ce9bfdea2ea4eadb">updateTileAnimations</a> (float fixedDelta)</td></tr>
 <tr class="memdesc:a930a2413f190c4c2ce9bfdea2ea4eadb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Avance l'horloge d'animation partagée des tuiles animées (<span class="tt">LOT-46</span> TACHE-05), au <b>pas fixe</b> : une entrée de <span class="tt"><a class="el" href="#a6ab22efca0e53c493f10c9afa18943ba" title="Horloge d&#39;animation partagee, une entree par asset de tuile anime (nom de fichier -&gt; etat).">_tileAnimations</a></span> par asset animé du jeu de skins courant, en mode <span class="tt"><a class="el" href="namespacehmi.html#ac69176e5c8acf86f4990696f7f54f11ea66ba162102bbf6ae31b522aec561735e" title="Image unique, utilisée telle quelle.">SkinMode::Single</a></span> sans silhouette (<span class="tt">bitmask16</span> et silhouette détourée excluent l'animation, signalé une fois par asset via <span class="tt"><a class="el" href="#a62f1df42a4460ab63c9628f0b4399556" title="Assets pour lesquels la combinaison (bitmask16 ou silhouette) + animation a deja ete signalee : evite...">_warnedExcludedAnimations</a></span>).  <br /></td></tr>
 <tr class="memitem:a7600fad72568c7816ca4c523d1b7cac7" id="r_a7600fad72568c7816ca4c523d1b7cac7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7600fad72568c7816ca4c523d1b7cac7">renderHud</a> (int viewportWidth, int viewportHeight)</td></tr>
@@ -181,6 +191,14 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ad1b7cca3b6b5a03d273f1697305d0aa5" id="r_ad1b7cca3b6b5a03d273f1697305d0aa5"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ad1b7cca3b6b5a03d273f1697305d0aa5">_levelHeight</a> = 0</td></tr>
 <tr class="memitem:adb642e446ac548c28b5833442efd175d" id="r_adb642e446ac548c28b5833442efd175d"><td class="memItemLeft">std::optional&lt; <a class="el" href="classhmi_1_1RoomGrid.html">RoomGrid</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adb642e446ac548c28b5833442efd175d">_roomGrid</a></td></tr>
 <tr class="memitem:a49972cbb0c2ec56a6f3e53031fcad0d4" id="r_a49972cbb0c2ec56a6f3e53031fcad0d4"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a49972cbb0c2ec56a6f3e53031fcad0d4">_currentRoomIndex</a> {}</td></tr>
+<tr class="memitem:ac0cc19d9ce3dc394c5cd06aac5d4ad20" id="r_ac0cc19d9ce3dc394c5cd06aac5d4ad20"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac0cc19d9ce3dc394c5cd06aac5d4ad20">_currentZoneIndex</a></td></tr>
+<tr class="memdesc:ac0cc19d9ce3dc394c5cd06aac5d4ad20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zone de caméra active courante (mode <span class="tt">PerRoom</span> avec zones dessinées à la main, <span class="tt">EX-LVL-007</span>) ; <span class="tt">std::nullopt</span> = aucune zone ne contient le personnage (repli niveau entier).  <br /></td></tr>
+<tr class="memitem:a1a9c65f70ce2a208b5c39277c78424a7" id="r_a1a9c65f70ce2a208b5c39277c78424a7"><td class="memItemLeft"><a class="el" href="structcore_1_1CameraFramingConfig.html">core::CameraFramingConfig</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1a9c65f70ce2a208b5c39277c78424a7">_cameraFraming</a></td></tr>
+<tr class="memdesc:a1a9c65f70ce2a208b5c39277c78424a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cadrage de caméra résolu du niveau courant (LOT-64), copié une fois au chargement &ndash; n'affecte jamais la simulation (<span class="tt">EX-ARCH-012</span>), seulement <span class="tt"><a class="el" href="#a27c40698b1b5387000408d0f7a1c6458" title="Sélectionne le zoom et le centre effectifs de _camera selon le mode de cadrage résolu du niveau (core...">applyCameraFraming</a></span>/ <span class="tt"><a class="el" href="#a4a9b995c4a2d996892cab9da455532c9" title="Avance la caméra de suivi d&#39;un pas fixe (mode Follow, LOT-64 TACHE-02) : lit la position simulée du p...">updateFollowCamera</a></span>.  <br /></td></tr>
+<tr class="memitem:aada5ea6b928c5df2bf27a145fbbecf4f" id="r_aada5ea6b928c5df2bf27a145fbbecf4f"><td class="memItemLeft"><a class="el" href="structhmi_1_1FollowCameraState.html">FollowCameraState</a>&#160;</td><td class="memItemRight"><a class="el" href="#aada5ea6b928c5df2bf27a145fbbecf4f">_followCameraState</a></td></tr>
+<tr class="memdesc:aada5ea6b928c5df2bf27a145fbbecf4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">État de la caméra de suivi (mode <span class="tt">Follow</span>), avancé au pas fixe par <span class="tt"><a class="el" href="#a4a9b995c4a2d996892cab9da455532c9" title="Avance la caméra de suivi d&#39;un pas fixe (mode Follow, LOT-64 TACHE-02) : lit la position simulée du p...">updateFollowCamera</a></span>.  <br /></td></tr>
+<tr class="memitem:acd9a3b1a602cd55c593ccb3573e9b6f1" id="r_acd9a3b1a602cd55c593ccb3573e9b6f1"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#acd9a3b1a602cd55c593ccb3573e9b6f1">_previousFollowCenter</a> {}</td></tr>
+<tr class="memdesc:acd9a3b1a602cd55c593ccb3573e9b6f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centre de la caméra de suivi au pas fixe PRÉCÉDENT, capturé par <span class="tt"><a class="el" href="#a6bb897af2e39b7bb5bbf7507d4f7b6ad">snapshotPreviousPositions</a></span> &ndash; même patron que <span class="tt"><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">PreviousPosition</a></span> pour les entités : <span class="tt"><a class="el" href="#a8c26c9a8cbd1841bd091a5eb2299017a" title="Dessine la scène du niveau (rien si le chargement a échoué).">render()</a></span> interpole entre les deux pour rester synchrone avec le personnage (lui-même interpolé), sinon il tremblerait par rapport au décor (<span class="tt">tache-02</span>).  <br /></td></tr>
 <tr class="memitem:ad20c8ef76ddb3dcedbc99c7d3823b25c" id="r_ad20c8ef76ddb3dcedbc99c7d3823b25c"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ad20c8ef76ddb3dcedbc99c7d3823b25c">_loadError</a></td></tr>
 <tr class="memitem:a0110e225fa5b4d77ca2cbf144a6b7aea" id="r_a0110e225fa5b4d77ca2cbf144a6b7aea"><td class="memItemLeft">const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a0110e225fa5b4d77ca2cbf144a6b7aea">_tileSkins</a> = nullptr</td></tr>
 <tr class="memitem:a556b38af0cd3684293a4742cd1e18f47" id="r_a556b38af0cd3684293a4742cd1e18f47"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a556b38af0cd3684293a4742cd1e18f47">_tileSkinSet</a></td></tr>
@@ -284,6 +302,42 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a27c40698b1b5387000408d0f7a1c6458" name="a27c40698b1b5387000408d0f7a1c6458"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27c40698b1b5387000408d0f7a1c6458">&#9670;&#160;</a></span>applyCameraFraming()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameSession::applyCameraFraming </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>viewportWidth</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>viewportHeight</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>interpolationAlpha</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sélectionne le zoom et le centre effectifs de <span class="tt"><a class="el" href="#aa7cbc29a084978c4d5666d63deb1cbc3">_camera</a></span> selon le mode de cadrage résolu du niveau (<span class="tt"><a class="el" href="namespacecore.html#a5c6444096b9bc21a78b1f1157e9070b6" title="Mode de cadrage de caméra d&#39;un niveau (EX-REN-016) : décision de conception, pas une règle déduite de...">core::CameraFramingMode</a></span>, LOT-64) : seul point d'application du cadrage, appelé une fois par image depuis <span class="tt"><a class="el" href="#a8c26c9a8cbd1841bd091a5eb2299017a" title="Dessine la scène du niveau (rien si le chargement a échoué).">render()</a></span>. </p>
+
+</div>
+</div>
 <a id="a4577277ae3fbf8339c2cbfae5f3ca1db" name="a4577277ae3fbf8339c2cbfae5f3ca1db"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4577277ae3fbf8339c2cbfae5f3ca1db">&#9670;&#160;</a></span>applyMechanismVisual()</h2>
 
@@ -353,6 +407,60 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a51f9e105074974f6c8d3f8f1242f90ce" name="a51f9e105074974f6c8d3f8f1242f90ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51f9e105074974f6c8d3f8f1242f90ce">&#9670;&#160;</a></span>centerCameraOnWholeLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameSession::centerCameraOnWholeLevel </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Centre la caméra sur le niveau entier (mode <span class="tt">WholeLevel</span>, LOT-64) : centre fixe, posé une fois au chargement &ndash; symétrique à <span class="tt"><a class="el" href="#aff76760d9036a937f3b5f9cc83bc109a">centerCameraOnRoom</a></span>, jamais recalculé au pas fixe. </p>
+
+</div>
+</div>
+<a id="a559adaf55d6ff596f6903f72b7403950" name="a559adaf55d6ff596f6903f72b7403950"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a559adaf55d6ff596f6903f72b7403950">&#9670;&#160;</a></span>centerCameraOnZone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameSession::centerCameraOnZone </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1CameraZone.html">core::CameraZone</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>zone</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Centre la caméra sur une zone dessinée à la main (mode <span class="tt">PerRoom</span>, <span class="tt">_cameraFraming.zones</span> non vide, <span class="tt">EX-LVL-007</span>) : symétrique à <span class="tt"><a class="el" href="#aff76760d9036a937f3b5f9cc83bc109a">centerCameraOnRoom</a></span>, pour le découpage manuel plutôt qu'automatique. </p>
 
 </div>
 </div>
@@ -875,6 +983,34 @@ lastScene</span>, <span class="tt">EX-NFR-005</span>) : composées, écartées, 
 
 </div>
 </div>
+<a id="a3070fe308ff868f747fd5fe8ac8098d4" name="a3070fe308ff868f747fd5fe8ac8098d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3070fe308ff868f747fd5fe8ac8098d4">&#9670;&#160;</a></span>updateCurrentCameraZone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameSession::updateCurrentCameraZone </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Équivalent de <span class="tt"><a class="el" href="#a626952821cb4fc9a0144a4bdf6b9eaaf">updateCurrentRoom</a></span> quand <span class="tt">_cameraFraming.zones</span> est non vide : résout la zone active (<span class="tt"><a class="el" href="namespacehmi.html#a105226a84e7eee6e32a6d20a57502b5b" title="Indice de la zone active de zones à position.">hmi::activeCameraZoneIndex</a></span>) plutôt que l'indice de grille de <span class="tt"><a class="el" href="#adb642e446ac548c28b5833442efd175d">_roomGrid</a></span>. </p>
+<p>Repli sur <span class="tt"><a class="el" href="#a51f9e105074974f6c8d3f8f1242f90ce" title="Centre la caméra sur le niveau entier (mode WholeLevel, LOT-64) : centre fixe, posé une fois au charg...">centerCameraOnWholeLevel</a></span> si aucune zone ne contient le personnage (jamais un état indéfini). </p>
+
+</div>
+</div>
 <a id="a626952821cb4fc9a0144a4bdf6b9eaaf" name="a626952821cb4fc9a0144a4bdf6b9eaaf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a626952821cb4fc9a0144a4bdf6b9eaaf">&#9670;&#160;</a></span>updateCurrentRoom()</h2>
 
@@ -897,6 +1033,33 @@ lastScene</span>, <span class="tt">EX-NFR-005</span>) : composées, écartées, 
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4a9b995c4a2d996892cab9da455532c9" name="a4a9b995c4a2d996892cab9da455532c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a9b995c4a2d996892cab9da455532c9">&#9670;&#160;</a></span>updateFollowCamera()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameSession::updateFollowCamera </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>fixedDelta</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Avance la caméra de suivi d'un pas fixe (mode <span class="tt">Follow</span>, LOT-64 TACHE-02) : lit la position simulée du personnage, sans jamais l'écrire (<span class="tt">EX-ARCH-012</span>). </p>
 
 </div>
 </div>
@@ -1109,6 +1272,30 @@ lastScene</span>, <span class="tt">EX-NFR-005</span>) : composées, écartées, 
 
 </div>
 </div>
+<a id="a1a9c65f70ce2a208b5c39277c78424a7" name="a1a9c65f70ce2a208b5c39277c78424a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a9c65f70ce2a208b5c39277c78424a7">&#9670;&#160;</a></span>_cameraFraming</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1CameraFramingConfig.html">core::CameraFramingConfig</a> hmi::GameSession::_cameraFraming</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cadrage de caméra résolu du niveau courant (LOT-64), copié une fois au chargement &ndash; n'affecte jamais la simulation (<span class="tt">EX-ARCH-012</span>), seulement <span class="tt"><a class="el" href="#a27c40698b1b5387000408d0f7a1c6458" title="Sélectionne le zoom et le centre effectifs de _camera selon le mode de cadrage résolu du niveau (core...">applyCameraFraming</a></span>/ <span class="tt"><a class="el" href="#a4a9b995c4a2d996892cab9da455532c9" title="Avance la caméra de suivi d&#39;un pas fixe (mode Follow, LOT-64 TACHE-02) : lit la position simulée du p...">updateFollowCamera</a></span>. </p>
+
+</div>
+</div>
 <a id="a49972cbb0c2ec56a6f3e53031fcad0d4" name="a49972cbb0c2ec56a6f3e53031fcad0d4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a49972cbb0c2ec56a6f3e53031fcad0d4">&#9670;&#160;</a></span>_currentRoomIndex</h2>
 
@@ -1128,6 +1315,31 @@ lastScene</span>, <span class="tt">EX-NFR-005</span>) : composées, écartées, 
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac0cc19d9ce3dc394c5cd06aac5d4ad20" name="ac0cc19d9ce3dc394c5cd06aac5d4ad20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0cc19d9ce3dc394c5cd06aac5d4ad20">&#9670;&#160;</a></span>_currentZoneIndex</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; hmi::GameSession::_currentZoneIndex</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Zone de caméra active courante (mode <span class="tt">PerRoom</span> avec zones dessinées à la main, <span class="tt">EX-LVL-007</span>) ; <span class="tt">std::nullopt</span> = aucune zone ne contient le personnage (repli niveau entier). </p>
+<p>Seulement significatif quand <span class="tt">_cameraFraming.zones</span> est non vide &ndash; sinon <span class="tt"><a class="el" href="#adb642e446ac548c28b5833442efd175d">_roomGrid</a></span>/ <span class="tt"><a class="el" href="#a49972cbb0c2ec56a6f3e53031fcad0d4">_currentRoomIndex</a></span> font foi (découpage automatique en grille, inchangé). </p>
 
 </div>
 </div>
@@ -1304,6 +1516,30 @@ lastScene</span>, <span class="tt">EX-NFR-005</span>) : composées, écartées, 
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="aada5ea6b928c5df2bf27a145fbbecf4f" name="aada5ea6b928c5df2bf27a145fbbecf4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aada5ea6b928c5df2bf27a145fbbecf4f">&#9670;&#160;</a></span>_followCameraState</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1FollowCameraState.html">FollowCameraState</a> hmi::GameSession::_followCameraState</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>État de la caméra de suivi (mode <span class="tt">Follow</span>), avancé au pas fixe par <span class="tt"><a class="el" href="#a4a9b995c4a2d996892cab9da455532c9" title="Avance la caméra de suivi d&#39;un pas fixe (mode Follow, LOT-64 TACHE-02) : lit la position simulée du p...">updateFollowCamera</a></span>. </p>
 
 </div>
 </div>
@@ -1706,6 +1942,30 @@ lastScene</span>, <span class="tt">EX-NFR-005</span>) : composées, écartées, 
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="acd9a3b1a602cd55c593ccb3573e9b6f1" name="acd9a3b1a602cd55c593ccb3573e9b6f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd9a3b1a602cd55c593ccb3573e9b6f1">&#9670;&#160;</a></span>_previousFollowCenter</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hmi::GameSession::_previousFollowCenter {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Centre de la caméra de suivi au pas fixe PRÉCÉDENT, capturé par <span class="tt"><a class="el" href="#a6bb897af2e39b7bb5bbf7507d4f7b6ad">snapshotPreviousPositions</a></span> &ndash; même patron que <span class="tt"><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">PreviousPosition</a></span> pour les entités : <span class="tt"><a class="el" href="#a8c26c9a8cbd1841bd091a5eb2299017a" title="Dessine la scène du niveau (rien si le chargement a échoué).">render()</a></span> interpole entre les deux pour rester synchrone avec le personnage (lui-même interpolé), sinon il tremblerait par rapport au décor (<span class="tt">tache-02</span>). </p>
 
 </div>
 </div>

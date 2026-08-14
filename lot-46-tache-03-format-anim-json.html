@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-46-tache-03-format-anim-json.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-46-moteur-animation_2tache-03-format-anim-json"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-46.html#md_Lot_2LOT-46-moteur-animation_2epic" title="Lot/LOT-46-moteur-animation/epic.md">LOT-46</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2124"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2127"></a>
 Contexte</h1>
 <p>Les clips sont désormais des données (TACHE-01), mais rien ne les décrit encore : il faut un format de fichier, et décider <b>où</b> il vit.</p>
 <p>Une animation est une propriété <b>de l'image</b>, pas du niveau qui l'utilise ni de l'association type → fichier : un même asset animé assigné à dix cases n'a qu'une description. Le fichier accompagne donc l'asset.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2125"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2128"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Format <span class="tt">nom-asset.anim.json</span></b>, à côté du PNG, décrivant la spritesheet et ses clips : <div class="fragment"><div class="line">{</div>
@@ -117,14 +117,14 @@ Travail à réaliser</h1>
 <li><b>Traduction index d'image → région de texture</b> : à partir de la taille d'image déclarée et de la largeur de la spritesheet. Fonction <b>pure</b>, testable.</li>
 <li><b>Validation</b> : cohérence entre les dimensions du PNG et la taille d'image déclarée, index hors bornes, clip suivant inexistant, version inconnue — vérifiée à la lecture, via le contrat d'asset de LOT-40.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2126"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2129"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/AnimationCatalog.{h,cpp}</span> (nouveau).</li>
 <li><span class="tt">Source/HMI/Graphics/TextureCache.{h,cpp}</span> (invalidation conjointe).</li>
 <li><span class="tt"><a class="el" href="test__animation__catalog_8cpp.html" title="Tests unitaires du format nom-asset.anim.json (hmi::AnimationCatalog, LOT-46 TACHE-03) : lecture,...">Source/Test/Unit/HMI/Graphics/test_animation_catalog.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2127"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2130"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Round-trip de lecture : clips multiples, durée par défaut, clip joué une fois avec suivant.</li>
@@ -133,19 +133,19 @@ Tests (obligatoires)</h1>
 <li>Calcul index → région : première image, dernière image, spritesheet à une seule ligne.</li>
 <li>Tout est <b>pur</b> : ni GPU, ni Qt.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2128"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2131"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas mettre la description dans <span class="tt">skins.json</span></b> : elle serait dupliquée pour chaque type utilisant le même asset, et perdue si l'asset est assigné par surcharge (LOT-45) plutôt que par skin.</li>
 <li>Le format porte sa propre <span class="tt">version</span>, pour la même raison que celui des niveaux.</li>
 <li>La durée est en <b>secondes</b> dans le fichier, mais la progression est en <b>pas fixes</b> : la conversion doit être faite une fois, à la lecture, et documentée — sinon une modification du pas fixe changerait silencieusement toutes les vitesses d'animation.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2129"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2132"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Une description d'animation est lue, validée et mise en cache ; un asset sans description est une image fixe silencieuse ; les erreurs sont exploitables et sans exception ; tests purs verts ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2130"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2133"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-005</span> (animations décrites par des données) ; réutilise <span class="tt">EX-REN-007</span> (contrat d'asset), <span class="tt">EX-REN-041</span> (décodage image), <span class="tt">EX-NFR-040</span> (erreur récupérable), <span class="tt">EX-NFR-010</span> (testable sans GPU). </p>
 </div></div><!-- contents -->

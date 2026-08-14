@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-63-tache-04-integration-editeur-habillage.html',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-63-mecanismes-manquants_2tache-04-integration-editeur-habillage"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-63.html#md_Lot_2LOT-63-mecanismes-manquants_2epic" title="Lot/LOT-63-mecanismes-manquants/epic.md">LOT-63</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span>, <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2843"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2846"></a>
 Contexte</h1>
 <p>Un mécanisme livré dans <span class="tt">Core</span> mais absent de la palette n'existe pas : le level designer ne peut ni le poser, ni le lier, ni le voir. Le projet a un chemin d'intégration parfaitement établi — tous les lots de mécanismes depuis le <span class="tt">LOT-12</span> l'ont emprunté — et cette tâche consiste à le suivre pour trois nouveaux types, sans en inventer un quatrième.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2844"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2847"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Taxonomie et palette</b> : <span class="tt">hmi::TileTaxonomy</span> classe les trois nouveaux types dans les catégories existantes (mécanismes) ; ils apparaissent dans la palette en accordéon (<span class="tt">LOT-27</span>) avec leur vignette.</li>
@@ -109,7 +109,7 @@ Travail à réaliser</h1>
 <li><b>Assets</b> générés par le script existant (<span class="tt">scripts/generate_mechanism_animations.py</span> et les <span class="tt">generate_test_*.py</span>), pour rester cohérent avec le reste du contenu.</li>
 <li><b>Repli procédural</b> : les trois types doivent rester jouables et distinguables <b>sans aucun fichier d'image</b>, comme tout le reste depuis le <span class="tt">LOT-40</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2845"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2848"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/TileTaxonomy.{h,cpp}</span>, <span class="tt">TaxonomyLabels.{h,cpp}</span>, <span class="tt"><a class="el" href="PaletteAppearance_8cpp.html">PaletteAppearance.cpp</a></span>, <span class="tt"><a class="el" href="LinkGesture_8cpp.html">LinkGesture.cpp</a></span>, <span class="tt"><a class="el" href="LinkPanel_8cpp.html">LinkPanel.cpp</a></span>.</li>
@@ -118,7 +118,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Localization/{fr,en}.lang</span>.</li>
 <li>Tests étendus : <span class="tt"><a class="el" href="test__tile__taxonomy_8cpp.html">test_tile_taxonomy.cpp</a></span>, <span class="tt"><a class="el" href="test__link__gesture_8cpp.html">test_link_gesture.cpp</a></span>, <span class="tt"><a class="el" href="test__mechanism__visuals_8cpp.html">test_mechanism_visuals.cpp</a></span>, <span class="tt"><a class="el" href="test__procedural__atlas_8cpp.html" title="Tests unitaires de la génération procédurale de l&#39;atlas de repli (LOT-39, EX-NFR-040).">test_procedural_atlas.cpp</a></span>, <span class="tt"><a class="el" href="test__palette__appearance_8cpp.html" title="Tests unitaires du choix de vignette de la palette (LOT-42 TACHE-05, EX-EDIT-027).">test_palette_appearance.cpp</a></span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2846"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2849"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Les trois types apparaissent dans la taxonomie, dans la bonne catégorie, avec un libellé traduit dans les <b>deux</b> catalogues.</li>
@@ -128,7 +128,7 @@ Tests (obligatoires)</h1>
 <li>La vignette de palette et le rendu du canevas appliquent la <b>même</b> priorité de résolution d'apparence (<span class="tt">hmi::PaletteAppearance</span> existe pour garantir qu'ils ne divergent pas).</li>
 <li>Round-trip d'édition : poser, lier, enregistrer, recharger — modèle identique.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2847"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2850"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le piège de chemin d'asset</b> déjà rencontré avec <span class="tt">TextureCache</span> : <span class="tt">getAnimation</span>, <span class="tt">get</span> et <span class="tt">getMasked</span> doivent recevoir le <b>même</b> chemin, préfixe de sous-dossier compris, pour un même asset. Les tests « sans GPU » ne couvrent pas cette glu d'intégration — c'est un point à vérifier à l'essai.</li>
@@ -136,7 +136,7 @@ Points d'attention</h1>
 <li>Attention aux commentaires XML des fichiers <span class="tt">.ui</span> : un double tiret <span class="tt">--</span> casse <span class="tt">uic</span> avec une erreur « Expected '&gt;' » qui ne mentionne pas le commentaire.</li>
 <li>Ne pas dupliquer la machine à états du geste de lien : elle est pure, testée, et prévue pour accepter de nouvelles paires.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2848"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2851"></a>
 Réalisé (écarts par rapport au brouillon initial)</h1>
 <ul>
 <li><b>Grille procédurale agrandie de 5×5 à 6×6</b> (<span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html#af4e63cbf4c417709c3a22399de752c67" title="Nombre de tuiles par ligne et par colonne dans la grille de tuiles générée.">hmi::TextureAtlas::TILES_PER_SIDE</a></span>) : la grille 5×5 ne laissait que deux cases libres (déjà prises par <span class="tt">Key</span>/<span class="tt">LockedDoor</span>), aucune pour <span class="tt">MovingPlatform</span>. Agrandissement mécanique et sûr (chaque case existante garde ses coordonnées <span class="tt">(colonne, ligne)</span>, seule la formule d'indexation à plat change) — voir <span class="tt"><a class="el" href="ProceduralAtlas_8cpp.html">ProceduralAtlas.cpp</a></span> et son test d'exhaustivité (<span class="tt"><a class="el" href="test__tile__visuals_8cpp.html" title="Tests unitaires de la correspondance type de tuile -&gt; région d&#39;atlas procédurale (hmi::regionForTile)...">test_tile_visuals.cpp</a></span>, nouveau : vérifie que les trois mécanismes ont des régions procédurales deux à deux distinctes).</li>
@@ -144,12 +144,12 @@ Réalisé (écarts par rapport au brouillon initial)</h1>
 <li><b>Habillage réel, sous licence libre</b> : à la demande explicite portée sur ce lot, <span class="tt">key.png</span>, <span class="tt">locked_door.png</span> et <span class="tt">platform.png</span> (jeu de skins <span class="tt">kenney</span>) sont de vraies illustrations retouchées à partir de sprites <b>Kenney</b> (CC0), et non des placeholders générés par script comme le reste du projet — voir <span class="tt"><a class="el" href="Assets_2CREDITS_8md.html">Source/Elements/Assets/CREDITS.md</a></span> et l'écran Crédits en jeu (section « Graphismes »). Le jeu par défaut (<span class="tt">test</span>) reste inchangé.</li>
 <li><b>Bug corrigé en cours de lot : <span class="tt">Source/Elements/Assets/atlas.png</span> non régénéré.</b> L'agrandissement de la grille procédurale (5×5 → 6×6, ci-dessus) change la géométrie que <span class="tt">TextureAtlas::loadFromFile</span> attend, mais le fichier PNG <b>versionné</b> n'est pas recalculé automatiquement — seule <span class="tt">ProjectGaming.exe --export-atlas=&lt;chemin&gt;</span> le fait (<span class="tt">LOT-39</span>). L'avoir oublié ici a produit trois symptômes distincts en aval, tous constatés en essai manuel : personnage mal recadré en mouvement (lignes de la grille décalées), <span class="tt">Key</span>/<span class="tt">LockedDoor</span> lues dans une case hors bornes de l'ancien fichier (invisibles), et les trois nouveaux mécanismes en noir en mode Physique. Régénéré ; ajout d'un test d'intégration (<span class="tt"><a class="el" href="test__plateforme__composition_8cpp.html" title="Test d&#39;intégration de la composition ECS d&#39;une plateforme mobile (EX-GP-026, LOT-63) : reproduit EXAC...">Source/Test/Integration/test_plateforme_composition.cpp</a></span>) qui rejoue le repérage d'entité-tuile et le rafraîchissement visuel <b>exactement</b> comme <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span>, seul point du projet qui exerçait cette composition avant ce lot (les tests système/intégration existants ne consomment <span class="tt"><a class="el" href="classcore_1_1PlatformController.html" title="Fait vivre les plateformes mobiles d&#39;un niveau (TileType::MovingPlatform, EX-GP-026).">core::PlatformController</a></span> que via ses boîtes, jamais via une entité).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2849"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2852"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les trois mécanismes se posent, se lient, se paramètrent, s'enregistrent et se rechargent depuis l'éditeur, sont habillés selon leur état, restent distinguables sans aucun asset, et sont couverts par des tests purs ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2850"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2853"></a>
 Exigences</h1>
 <p>Réutilise <span class="tt">EX-CTRL-022</span>, <span class="tt">EX-GP-023</span>, <span class="tt">EX-GP-026</span> (les trois mécanismes), <span class="tt">EX-EDIT-010</span> (réutilisation du modèle de <span class="tt">Core</span>), <span class="tt">EX-REN-005</span> (animation par données), <span class="tt">EX-REN-006</span> (apparence selon l'état), <span class="tt">EX-REN-007</span> (validation des assets), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-NFR-004</span> (vérification sans GPU). </p>
 </div></div><!-- contents -->

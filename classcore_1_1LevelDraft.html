@@ -167,6 +167,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:afaced983e3b9e6538a4b83d57a11adc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigne l'asset de fond du niveau (<span class="tt">EX-REN-044</span>), annulable.  <br /></td></tr>
 <tr class="memitem:ae33a484d3d22515294b55c47efb85b58" id="r_ae33a484d3d22515294b55c47efb85b58"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae33a484d3d22515294b55c47efb85b58">setSkinSet</a> (std::optional&lt; std::string &gt; <a class="el" href="#a67618564911cd89f947a0d2b1c47f774">skinSet</a>)</td></tr>
 <tr class="memdesc:ae33a484d3d22515294b55c47efb85b58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigne le jeu de skins du niveau (<span class="tt">EX-EDIT-024</span>), annulable.  <br /></td></tr>
+<tr class="memitem:a4b60099290d8f5f443895f3386d11b86" id="r_a4b60099290d8f5f443895f3386d11b86"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4b60099290d8f5f443895f3386d11b86">setCameraFraming</a> (<a class="el" href="structcore_1_1CameraFramingConfig.html">CameraFramingConfig</a> <a class="el" href="#a0c8ca795b62277f4d0c78036bc16844e">cameraFraming</a>)</td></tr>
+<tr class="memdesc:a4b60099290d8f5f443895f3386d11b86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change le cadrage de caméra du niveau (<span class="tt">EX-LVL-006</span>, <span class="tt">EX-EDIT-028</span>), annulable.  <br /></td></tr>
+<tr class="memitem:a157e5169728a74a48731e290c459bd47" id="r_a157e5169728a74a48731e290c459bd47"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a157e5169728a74a48731e290c459bd47">addCameraZone</a> (<a class="el" href="structcore_1_1CameraZone.html">CameraZone</a> zone)</td></tr>
+<tr class="memdesc:a157e5169728a74a48731e290c459bd47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute une zone de caméra dessinée à la main en fin de liste (mode <span class="tt">PerRoom</span>, <span class="tt">EX-LVL-007</span>, <span class="tt">EX-EDIT-029</span>), annulable.  <br /></td></tr>
+<tr class="memitem:a4c37c4afaa5db571265a268a1222a01a" id="r_a4c37c4afaa5db571265a268a1222a01a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4c37c4afaa5db571265a268a1222a01a">removeCameraZone</a> (std::size_t index)</td></tr>
+<tr class="memdesc:a4c37c4afaa5db571265a268a1222a01a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire la zone de caméra au rang <code class="param">index</code> (<span class="tt">EX-LVL-007</span>, <span class="tt">EX-EDIT-029</span>), annulable.  <br /></td></tr>
 <tr class="memitem:a7ac47bce808a2ac8e8fce362411269cf" id="r_a7ac47bce808a2ac8e8fce362411269cf"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a7ac47bce808a2ac8e8fce362411269cf">name</a> () const noexcept</td></tr>
 <tr class="memitem:acc48e2f45fb3db53de09e30f60f75845" id="r_acc48e2f45fb3db53de09e30f60f75845"><td class="memItemLeft">const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#acc48e2f45fb3db53de09e30f60f75845">tileMap</a> () const noexcept</td></tr>
 <tr class="memitem:a7614f7f0cdaea145907831e56781182b" id="r_a7614f7f0cdaea145907831e56781182b"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7614f7f0cdaea145907831e56781182b">entry</a> () const noexcept</td></tr>
@@ -182,6 +188,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac8048001ee2bf60309c234ff6f717ff4" id="r_ac8048001ee2bf60309c234ff6f717ff4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac8048001ee2bf60309c234ff6f717ff4">dashBudget</a> () const noexcept</td></tr>
 <tr class="memitem:ae10fca65c113da45ec8bf89846979889" id="r_ae10fca65c113da45ec8bf89846979889"><td class="memItemLeft">const std::optional&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ae10fca65c113da45ec8bf89846979889">background</a> () const noexcept</td></tr>
 <tr class="memitem:a67618564911cd89f947a0d2b1c47f774" id="r_a67618564911cd89f947a0d2b1c47f774"><td class="memItemLeft">const std::optional&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a67618564911cd89f947a0d2b1c47f774">skinSet</a> () const noexcept</td></tr>
+<tr class="memitem:a0c8ca795b62277f4d0c78036bc16844e" id="r_a0c8ca795b62277f4d0c78036bc16844e"><td class="memItemLeft">const <a class="el" href="structcore_1_1CameraFramingConfig.html">CameraFramingConfig</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a0c8ca795b62277f4d0c78036bc16844e">cameraFraming</a> () const noexcept</td></tr>
 <tr class="memitem:a0017cadc8caea0b43ba08b120ce76bb0" id="r_a0017cadc8caea0b43ba08b120ce76bb0"><td class="memItemLeft"><a class="el" href="structcore_1_1LevelLoadResult.html">LevelLoadResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0017cadc8caea0b43ba08b120ce76bb0">toLevel</a> () const</td></tr>
 <tr class="memdesc:a0017cadc8caea0b43ba08b120ce76bb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit le brouillon en <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">Level</a></span> <b>validé</b> (<span class="tt">EX-EDIT-007</span>), en repassant par la même validation que <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">LevelLoader</a></span> (sérialise puis recharge : aucune règle dupliquée, <span class="tt">EX-EDIT-010</span>).  <br /></td></tr>
 </table><table class="memberdecls">
@@ -227,6 +234,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a1549c812b59d506266ccdefb5356b752" id="r_a1549c812b59d506266ccdefb5356b752"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1TileTextureOverride.html">TileTextureOverride</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1549c812b59d506266ccdefb5356b752">_textureOverrides</a></td></tr>
 <tr class="memitem:a13dd782e9b0882563e3c7bc01d5adfd4" id="r_a13dd782e9b0882563e3c7bc01d5adfd4"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Decor.html">Decor</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a13dd782e9b0882563e3c7bc01d5adfd4">_decors</a></td></tr>
 <tr class="memitem:a6937fc3d89a86200a42b9ebe4beb5ded" id="r_a6937fc3d89a86200a42b9ebe4beb5ded"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1MovingPlatformConfig.html">MovingPlatformConfig</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6937fc3d89a86200a42b9ebe4beb5ded">_platformConfigs</a></td></tr>
+<tr class="memitem:a95450e54584320ce22aac77e1acea933" id="r_a95450e54584320ce22aac77e1acea933"><td class="memItemLeft"><a class="el" href="structcore_1_1CameraFramingConfig.html">CameraFramingConfig</a>&#160;</td><td class="memItemRight"><a class="el" href="#a95450e54584320ce22aac77e1acea933">_cameraFraming</a></td></tr>
 <tr class="memitem:a86779d05f96a388738e19979489d7a63" id="r_a86779d05f96a388738e19979489d7a63"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1LevelDraft_1_1State.html">State</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a86779d05f96a388738e19979489d7a63">_undoHistory</a></td></tr>
 <tr class="memitem:a886d07163934d6b0f0f5b8f9da13c410" id="r_a886d07163934d6b0f0f5b8f9da13c410"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1LevelDraft_1_1State.html">State</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a886d07163934d6b0f0f5b8f9da13c410">_redoHistory</a></td></tr>
 </table>
@@ -266,6 +274,31 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a157e5169728a74a48731e290c459bd47" name="a157e5169728a74a48731e290c459bd47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a157e5169728a74a48731e290c459bd47">&#9670;&#160;</a></span>addCameraZone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::addCameraZone </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1CameraZone.html">CameraZone</a></td>          <td class="paramname"><span class="paramname"><em>zone</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ajoute une zone de caméra dessinée à la main en fin de liste (mode <span class="tt">PerRoom</span>, <span class="tt">EX-LVL-007</span>, <span class="tt">EX-EDIT-029</span>), annulable. </p>
+<p>L'ordre d'ajout fixe la priorité en cas de chevauchement (<span class="tt">core::activeCameraZoneIndex</span> côté <span class="tt">HMI</span>, même convention que <span class="tt"><a class="el" href="#aa42de621ae8ab7c2380d8467b4c4f7ce" title="Ajoute un décor libre en fin de vecteur (EX-DEC-001, EX-EDIT-010).">addDecor</a></span>) : une zone ajoutée après une autre ne prend le dessus que là où l'autre ne la couvre pas. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">zone</td><td>Zone à ajouter, en cases. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="aa42de621ae8ab7c2380d8467b4c4f7ce" name="aa42de621ae8ab7c2380d8467b4c4f7ce"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa42de621ae8ab7c2380d8467b4c4f7ce">&#9670;&#160;</a></span>addDecor()</h2>
 
@@ -385,6 +418,32 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Amène le décor au rang <code class="param">index</code> au premier rang (le plus en avant) de sa couche. </p>
+
+</div>
+</div>
+<a id="a0c8ca795b62277f4d0c78036bc16844e" name="a0c8ca795b62277f4d0c78036bc16844e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c8ca795b62277f4d0c78036bc16844e">&#9670;&#160;</a></span>cameraFraming()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structcore_1_1CameraFramingConfig.html">CameraFramingConfig</a> &amp; core::LevelDraft::cameraFraming </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le cadrage de caméra courant du niveau (<span class="tt">EX-LVL-006</span>). </dd></dl>
 
 </div>
 </div>
@@ -988,6 +1047,31 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a4c37c4afaa5db571265a268a1222a01a" name="a4c37c4afaa5db571265a268a1222a01a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c37c4afaa5db571265a268a1222a01a">&#9670;&#160;</a></span>removeCameraZone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::removeCameraZone </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retire la zone de caméra au rang <code class="param">index</code> (<span class="tt">EX-LVL-007</span>, <span class="tt">EX-EDIT-029</span>), annulable. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>Rang dans <span class="tt"><a class="el" href="#a0c8ca795b62277f4d0c78036bc16844e">cameraFraming()</a>.zones</span> ; sans effet si hors bornes. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="aedf72e83d2c50fa8a082296cda3f1c20" name="aedf72e83d2c50fa8a082296cda3f1c20"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aedf72e83d2c50fa8a082296cda3f1c20">&#9670;&#160;</a></span>removeDecor()</h2>
 
@@ -1284,6 +1368,31 @@ Private Attributes</h2></td></tr>
 
 <p>Définit la période, le déphasage et la durée active d'un danger temporisé (<span class="tt">EX-GP-053</span>). </p>
 <p>Mêmes remarques que <span class="tt"><a class="el" href="#ae2df4ef55bd85c10d0d139e9590a7fde" title="Définit l&#39;axe et la portée d&#39;un danger mobile (EX-GP-051).">setMoverConfig</a></span> : sans appel, valeurs de conception par défaut. </p><dl class="section pre"><dt>Precondition</dt><dd>La case <code class="param">position</code> porte un <span class="tt">DangerBlink</span>. </dd></dl>
+
+</div>
+</div>
+<a id="a4b60099290d8f5f443895f3386d11b86" name="a4b60099290d8f5f443895f3386d11b86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b60099290d8f5f443895f3386d11b86">&#9670;&#160;</a></span>setCameraFraming()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::setCameraFraming </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1CameraFramingConfig.html">CameraFramingConfig</a></td>          <td class="paramname"><span class="paramname"><em>cameraFraming</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change le cadrage de caméra du niveau (<span class="tt">EX-LVL-006</span>, <span class="tt">EX-EDIT-028</span>), annulable. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"><a class="el" href="#a0c8ca795b62277f4d0c78036bc16844e">cameraFraming</a></td><td>Nouveau cadrage résolu (mode et, pour <em>par salle</em>, taille de salle). </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1865,6 +1974,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1DangerBlinkConfig.html">DangerBlinkConfig</a>&gt; core::LevelDraft::_blinkConfigs</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a95450e54584320ce22aac77e1acea933" name="a95450e54584320ce22aac77e1acea933"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95450e54584320ce22aac77e1acea933">&#9670;&#160;</a></span>_cameraFraming</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1CameraFramingConfig.html">CameraFramingConfig</a> core::LevelDraft::_cameraFraming</td>
         </tr>
       </table>
   </td>

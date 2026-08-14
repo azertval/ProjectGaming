@@ -2,6 +2,7 @@ var structcore_1_1LevelDraft_1_1State =
 [
     [ "background", "structcore_1_1LevelDraft_1_1State.html#a16b9838d49f1c786323a5ae999daf0e1", null ],
     [ "blinkConfigs", "structcore_1_1LevelDraft_1_1State.html#a0e83d09e4558721ba3b7dcd98df310b7", null ],
+    [ "cameraFraming", "structcore_1_1LevelDraft_1_1State.html#ab567ae70615b4bcf67fb55eb91410032", null ],
     [ "dangerLinks", "structcore_1_1LevelDraft_1_1State.html#a491e2daab2787587c105a3be946507ad", null ],
     [ "dashBudget", "structcore_1_1LevelDraft_1_1State.html#a97e1b651a1a85bd4e03ea4ea172a4494", null ],
     [ "decors", "structcore_1_1LevelDraft_1_1State.html#ac0d62450e833efe00d584f6b95c4a8f3", null ],

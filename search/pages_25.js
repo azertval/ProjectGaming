@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['«_20éditeur_20intégré_20»_0',['10. Contrainte « éditeur intégré »',['../spec-architecture.html#autotoc_md237',1,'']]],
+  ['«_20éditeur_20intégré_20»_0',['10. Contrainte « éditeur intégré »',['../spec-architecture.html#autotoc_md240',1,'']]],
   ['«_20animations_20»_20du_20panneau_20«_20textures_20»_1',['TACHE-04 — Section « Animations » du panneau « Textures »',['../lot-47-tache-04-section-animations.html',1,'lot-47']]],
-  ['«_20batcher_20»_20plutôt_20que_20dessiner_20un_20sprite_20à_20la_20fois_2',['Pourquoi « batcher » plutôt que dessiner un sprite à la fois',['../guide-rendu.html#autotoc_md195',1,'']]],
+  ['«_20batcher_20»_20plutôt_20que_20dessiner_20un_20sprite_20à_20la_20fois_2',['Pourquoi « batcher » plutôt que dessiner un sprite à la fois',['../guide-rendu.html#autotoc_md198',1,'']]],
   ['«_20charger_20niveau_20»_3',['TACHE-06 — Rendu du niveau + intégration « Charger niveau »',['../lot-07-tache-06-rendu-integration.html',1,'lot-07']]],
   ['«_20décors_20»_20du_20panneau_20«_20textures_20»_4',['TACHE-04 — Section « Décors » du panneau « Textures »',['../lot-50-tache-04-section-decors.html',1,'lot-50']]],
   ['«_20définition_20des_20textures_20»_20_3a_20auditer_20les_20calques_20sans_20les_20confondre_20avec_20f8_20lot_2051_5',['Le mode « définition des textures » : auditer les calques sans les confondre avec &lt;span class=&quot;tt&quot;&gt;F8&lt;/span&gt; (&lt;span class=&quot;tt&quot;&gt;LOT-51&lt;/span&gt;)',['../guide-editeur.html#autotoc_md108',1,'']]],
@@ -14,8 +14,9 @@ var searchData=
   ['«_20liens_20»_20liste_20surbrillance_20suppression_20documentation_20vérification_11',['TACHE-03 — Panneau « Liens » (liste, surbrillance, suppression) ; documentation &amp;amp; vérification',['../lot-37-tache-03-panneau-liens-doc.html',1,'lot-37']]],
   ['«_20niveaux_20»_20modèle_20fichiers_20liste_20recherche_20filtre_12',['TACHE-01 — Panneau « Niveaux » (modèle fichiers + liste + recherche/filtre)',['../lot-36-tache-01-panneau-niveaux-recherche.html',1,'lot-36']]],
   ['«_20objets_20»_20et_20priorité_20de_20résolution_13',['TACHE-03 — Section « Objets » et priorité de résolution',['../lot-45-tache-03-section-objets-priorite.html',1,'lot-45']]],
-  ['«_20parkour_20»_20preuve_20système_14',['TACHE-06 — Niveau de démo « parkour » + preuve système',['../lot-10-tache-06-niveau-parkour.html',1,'lot-10']]],
-  ['«_20spirale_20de_20la_20mort_20»_15',['La « spirale de la mort »',['../guide-boucle.html#autotoc_md56',1,'']]],
-  ['«_20textures_20»_16',['« Textures »',['../lot-47-tache-04-section-animations.html',1,'TACHE-04 — Section « Animations » du panneau « Textures »'],['../lot-50-tache-04-section-decors.html',1,'TACHE-04 — Section « Décors » du panneau « Textures »']]],
-  ['«_20textures_20»_20section_20skins_17',['TACHE-04 — Panneau Qt « Textures » (section Skins)',['../lot-42-tache-04-panneau-textures.html',1,'lot-42']]]
+  ['«_20par_20salle_20»_14',['Mélanger plusieurs tailles de caméra dans un même niveau (mode « Par salle »)',['../manuel-partager-niveau.html#autotoc_md2995',1,'']]],
+  ['«_20parkour_20»_20preuve_20système_15',['TACHE-06 — Niveau de démo « parkour » + preuve système',['../lot-10-tache-06-niveau-parkour.html',1,'lot-10']]],
+  ['«_20spirale_20de_20la_20mort_20»_16',['La « spirale de la mort »',['../guide-boucle.html#autotoc_md56',1,'']]],
+  ['«_20textures_20»_17',['« Textures »',['../lot-47-tache-04-section-animations.html',1,'TACHE-04 — Section « Animations » du panneau « Textures »'],['../lot-50-tache-04-section-decors.html',1,'TACHE-04 — Section « Décors » du panneau « Textures »']]],
+  ['«_20textures_20»_20section_20skins_18',['TACHE-04 — Panneau Qt « Textures » (section Skins)',['../lot-42-tache-04-panneau-textures.html',1,'lot-42']]]
 ];

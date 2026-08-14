@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-65-tache-03-tableaux-manquants-syntheses.html','',
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-65-refonte-niveaux-demo_2tache-03-tableaux-manquants-syntheses"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-65.html#md_Lot_2LOT-65-refonte-niveaux-demo_2epic" title="Lot/LOT-65-refonte-niveaux-demo/epic.md">LOT-65</a> · <b>Emplacement :</b> <span class="tt">Source/Elements/Levels</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2920"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2930"></a>
 Contexte</h1>
 <p>La <span class="tt">TACHE-01</span> a produit la liste des mécaniques que le contenu livré n'emploie nulle part ; la <span class="tt">TACHE-02</span> a remis à niveau les tableaux existants. Restent deux manques.</p>
 <p>D'abord les <b>mécaniques sans tableau</b> — celles que le garde-fou refuse encore. Ensuite, un manque de nature différente : la séquence isole <b>toutes</b> ses mécaniques et n'en combine aucune. Or <span class="tt"><a class="el" href="niveaux_8md.html">niveaux.md</a></span> demande une difficulté croissante, et un jeu de puzzle-plateforme naît de la <b>combinaison</b> — un bloc à pousser sur une plaque pendant qu'un danger temporisé balaie le passage. C'est aussi là que se trouvent les défauts d'interaction entre mécanismes, qu'aucun test unitaire ne cherche.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2921"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2931"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Un tableau par mécanique non couverte</b>, jusqu'à ce que le garde-fou de la <span class="tt">TACHE-01</span> passe au vert. La liste est donnée par le contrôle, pas par une relecture.</li>
@@ -108,14 +108,14 @@ Travail à réaliser</h1>
 <li><b>Insertion dans la séquence</b> (donnée de contenu depuis le <span class="tt">LOT-59</span>) et dans le test système.</li>
 <li><b>Vérifier les lignes directrices</b> sur chaque nouveau tableau : une seule nouveauté à la fois, aucune situation sans issue.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2922"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2932"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Elements/Levels/*.json</span> (nouveaux), fichier de séquence.</li>
 <li><span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span>.</li>
 <li><span class="tt">Source/Elements/Levels/README.md</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2923"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2933"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Le garde-fou de couverture passe au vert</b> — c'est le critère de fin de cette tâche.</li>
@@ -125,7 +125,7 @@ Tests (obligatoires)</h1>
 <li><span class="tt">python scripts/check_demo_sequence.py</span> vert.</li>
 <li>Budget de primitives respecté sur les tableaux de synthèse, qui sont les plus chargés (<a class="el" href="lot-62.html" title="LOT-62 — Budget de rendu mesuré">LOT-62</a>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2924"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2934"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Les tableaux de synthèse sont ceux qui trouveront les défauts.</b> C'est leur intérêt et leur risque : un mécanisme qui interagit mal avec un autre se manifestera ici, souvent comme une franchissabilité intermittente. Consigner, ne pas corriger dans ce lot, et si un tableau dépend d'un défaut non corrigé, le retirer de la séquence plutôt que de laisser un test système instable.</li>
@@ -133,12 +133,12 @@ Points d'attention</h1>
 <li>Ne pas viser la difficulté maximale : ces tableaux démontrent et vérifient, ils ne sont pas une campagne calibrée.</li>
 <li>La séquence s'allonge sensiblement : vérifier que la progression persistée (<a class="el" href="lot-59.html" title="LOT-59 — Boucle de jeu complète : pause, fin de niveau, progression">LOT-59</a>) reste lisible dans l'écran de sélection de niveau.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2925"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2935"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Le garde-fou de couverture est vert, chaque mécanique et chaque mode de cadrage sont employés au moins une fois, des tableaux de synthèse combinent plusieurs mécaniques en fin de séquence, tous les tableaux sont franchissables de façon reproductible, et les défauts découverts sont consignés.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2926"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2936"></a>
 Exigences</h1>
 <p><span class="tt">EX-LVL-015</span> (couverture exhaustive) ; réutilise <span class="tt">EX-LVL-012</span> (difficulté croissante), <span class="tt">EX-LVL-006</span> (cadrage), <span class="tt">EX-LVL-013</span> (séquence en donnée), <span class="tt">EX-NFR-021</span> (franchissabilité), <span class="tt">EX-GP-020</span> à <span class="tt">EX-GP-026</span> (mécanismes), <span class="tt">EX-GP-050</span> à <span class="tt">EX-GP-053</span> (dangers avancés), <span class="tt">EX-GP-024</span> (budget de mouvements). </p>
 </div></div><!-- contents -->
