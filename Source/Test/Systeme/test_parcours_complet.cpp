@@ -318,9 +318,27 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
         {"demo-budget.json", rightAndJumpOncePerLanding()},
         // 11. Pente (EX-GP-003, LOT-22) : palier surélevé atteint en marchant, sans saut.
         {"demo-pente.json", rightOnly()},
-        // 12. Arrondi (EX-GP-004, LOT-23) : variante courbe de la pente, même principe.
+        // 12. Pente gauche (EX-GP-003, LOT-65) : SlopeUpLeft/RoundedUpLeft/ConcaveUpLeft — miroir
+        //     de la pente/l'arrondi, trois paliers **descendants** en marchant vers la droite (la
+        //     variante "gauche" monte vers la gauche, donc descend dans ce sens de marche), sans
+        //     saut — même suivi de surface que les variantes "droite", déjà prouvé symétrique par
+        //     les tests unitaires (`SuitUnePenteDescendanteEnMarchant`).
+        {"demo-pente-gauche.json", rightOnly()},
+        // 13. Arrondi (EX-GP-004, LOT-23) : variante courbe de la pente, même principe.
         {"demo-arrondi.json", rightOnly()},
-        // 13. Bloc à taille réduite (EX-GP-005, LOT-24) : poussé dans la fosse, comble le chemin à
+        // 14. Arrondis concaves (EX-GP-007, LOT-65) : ConcaveUpRight au sol (même principe que
+        //     l'arrondi convexe, courbure inversée) puis ConcaveDownRight/ConcaveDownLeft en
+        //     plafond, posés avec un dégagement généreux au-dessus du chemin plat qui suit —
+        //     jamais touchés en marchant, leur silhouette est déjà exhaustivement prouvée au
+        //     niveau Integration (`ConcaveDePlafondBloqueSelonSaSilhouette` et consorts).
+        {"demo-concave.json", rightOnly()},
+        // 15. Plafond incliné (EX-GP-006, LOT-65) : SlopeDownRight/SlopeDownLeft/
+        //     RoundedDownRight/RoundedDownLeft, posés en plafond avec un dégagement généreux
+        //     au-dessus d'un couloir plat — présents et traversés visuellement, jamais touchés en
+        //     marchant (même esprit que les dangers avancés ci-dessous : la silhouette de blocage
+        //     est prouvée ailleurs, ce niveau prouve le chargement et la traversée).
+        {"demo-plafond.json", rightOnly()},
+        // 16. Bloc à taille réduite (EX-GP-005, LOT-24) : poussé dans la fosse, comble le chemin à
         //     sa hauteur ; un petit saut franchit le léger ressaut laissé par sa boîte réduite.
         {"demo-bloc-reduit.json",
          [](int, const core::Player& player, float, float) {
@@ -329,19 +347,33 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
              in.jumpHeld = true;
              return in;
          }},
-        // 14. Plateforme mobile (EX-GP-026, LOT-63) : le personnage tombe dessus dès l'apparition
+        // 17. Bloc à taille quart (EX-GP-005, LOT-65) : même principe que le bloc réduit, sur
+        //     terrain plat sans fosse — la poussée ne fait qu'écarter le bloc du chemin, un petit
+        //     saut par atterrissage suffit dans tous les cas.
+        {"demo-bloc-quart.json",
+         [](int, const core::Player& player, float, float) {
+             core::PlayerInput in{1.0f};
+             in.jumpPressed = player.grounded;
+             in.jumpHeld = true;
+             return in;
+         }},
+        // 18. Plateforme mobile (EX-GP-026, LOT-63) : le personnage tombe dessus dès l'apparition
         //     puis se laisse porter jusqu'à la sortie, sans aucune entrée (portage pur) — la
         //     traversée serait mortelle sans elle (aucun sol entre les deux bords).
         {"demo-plateforme.json",
          [](int, const core::Player&, float, float) { return core::PlayerInput{}; }},
-        // 15. Dangers avancés (EX-GP-050/051/052/053, LOT-31) : directionnel, mobile, commuté et
+        // 19. Dangers avancés (EX-GP-050/051/052/053, LOT-31) : directionnel, mobile, commuté et
         //     temporisé sont chacun posés sur une alcôve surélevée **optionnelle**, hors du
         //     couloir principal (au sol) qui mène directement à la sortie — comme les autres
         //     niveaux de cette séquence, aucun scénario de mort n'est exercé ici (déjà couvert aux
         //     niveaux Unit/Integration, `test_danger_controller.cpp`/`test_danger_avance.cpp`) ;
         //     ce niveau ne vérifie que le chargement et la franchissabilité du couloir principal.
         {"demo-dangers-avances.json", rightOnly()},
-        // 16. Niveau final : combine dash, pente, bloc poussable, interrupteur/porte et double
+        // 20. Dangers directionnels (EX-GP-050, LOT-65) : DangerDown/DangerLeft/DangerRight, même
+        //     principe que les dangers avancés ci-dessus — alcôves flottantes hors du couloir
+        //     principal, jamais atteintes par un déplacement au sol.
+        {"demo-dangers-directionnels.json", rightOnly()},
+        // 21. Niveau final : combine dash, pente, bloc poussable, interrupteur/porte et double
         //     saut en un seul parcours cohérent.
         {"demo-final.json",
          [&finalSecondJumpDone](int, const core::Player& player, float x, float) {
@@ -367,7 +399,7 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
              }
              return in;
          }},
-        // 17. Niveaux à salles (LOT-32, EX-REN-015) : niveau bien plus grand qu'une salle, en 2×2
+        // 22. Niveaux à salles (LOT-32, EX-REN-015) : niveau bien plus grand qu'une salle, en 2×2
         //     salles ; le trajet marche à plat (aucun saut) jusqu'au bord de la première salle,
         //     tombe dans un puits muré (aucune dérive horizontale possible) jusqu'à la salle du
         //     bas, puis marche jusqu'à la sortie — franchit deux frontières de salles.

@@ -1888,6 +1888,99 @@ TEST(PhysiquePersonnageIntegration, NiveauArrondiFranchissable) {
 }
 
 /**
+ * @brief Le niveau pente gauche est franchissable en marchant, sans saut : trois paliers
+ * descendants (`SlopeUpLeft`, `RoundedUpLeft`, `ConcaveUpLeft`, `LOT-65`) suivis comme leurs
+ * équivalents "droite" déjà couverts, symétrie déjà prouvée au niveau Integration
+ * (`SuitUnePenteDescendanteEnMarchant`).
+ * \castest{<b>Le niveau pente gauche est franchissable en marchant, sans saut.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le niveau pente gauche est franchissable en marchant, sans saut.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, NiveauPenteGaucheFranchissable) {
+    const auto rightOnly = [](int) { return core::PlayerInput{1.0f}; };
+    EXPECT_EQ(playLevelFile("demo-pente-gauche.json", rightOnly), core::LevelOutcome::Won);
+}
+
+/**
+ * @brief Le niveau arrondis concaves est franchissable en marchant : un arrondi concave de sol
+ * mène au palier surélevé, deux arrondis concaves de plafond surplombent le chemin plat qui suit
+ * avec un dégagement généreux, jamais touchés (`EX-GP-007`).
+ * \castest{<b>Le niveau arrondis concaves est franchissable en marchant, sans saut.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le niveau arrondis concaves est franchissable en marchant, sans saut.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, NiveauConcaveFranchissable) {
+    const auto rightOnly = [](int) { return core::PlayerInput{1.0f}; };
+    EXPECT_EQ(playLevelFile("demo-concave.json", rightOnly), core::LevelOutcome::Won);
+}
+
+/**
+ * @brief Le niveau plafond incliné est franchissable en marchant sur un couloir plat : les quatre
+ * variantes de plafond (`SlopeDownRight`/`SlopeDownLeft`/`RoundedDownRight`/`RoundedDownLeft`,
+ * `EX-GP-006`) surplombent le chemin avec un dégagement généreux, jamais touchées.
+ * \castest{<b>Le niveau plafond incliné est franchissable en marchant, sans saut.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le niveau plafond incliné est franchissable en marchant, sans saut.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, NiveauPlafondFranchissable) {
+    const auto rightOnly = [](int) { return core::PlayerInput{1.0f}; };
+    EXPECT_EQ(playLevelFile("demo-plafond.json", rightOnly), core::LevelOutcome::Won);
+}
+
+/**
+ * @brief Le niveau dangers directionnels est franchissable en marchant sur le couloir principal :
+ * `DangerDown`/`DangerLeft`/`DangerRight` (`EX-GP-050`) sont chacun posés sur une alcôve flottante
+ * hors du couloir, jamais atteinte par un déplacement au sol — même principe que
+ * `demo-dangers-avances.json`.
+ * \castest{<b>Le niveau dangers directionnels est franchissable en marchant, sans saut.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le niveau dangers directionnels est franchissable en marchant, sans saut.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, NiveauDangersDirectionnelsFranchissable) {
+    const auto rightOnly = [](int) { return core::PlayerInput{1.0f}; };
+    EXPECT_EQ(playLevelFile("demo-dangers-directionnels.json", rightOnly), core::LevelOutcome::Won);
+}
+
+/**
+ * @brief Le niveau bloc à taille quart est franchissable : même principe que le bloc à taille
+ * réduite (`EX-GP-005`), sur terrain plat plutôt que dans une fosse — la poussée écarte
+ * simplement le bloc du chemin.
+ * \castest{<b>Le niveau bloc à taille quart est franchissable.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le niveau bloc à taille quart est franchissable.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, NiveauBlocQuartFranchissable) {
+    const auto script = [](int, const core::Player& player, float, float) {
+        core::PlayerInput in;
+        in.moveX = 1.0f;
+        in.jumpPressed = player.grounded;
+        in.jumpHeld = true;
+        return in;
+    };
+    EXPECT_EQ(playReactiveFile("demo-bloc-quart.json", script), core::LevelOutcome::Won);
+}
+
+/**
  * @brief Une pente de **plafond** (`SlopeDownRight`, `EX-GP-006`) bloque un saut selon sa
  * silhouette réelle, pas comme un carré plein uniforme : sous son bord fin (silhouette quasi
  * vide), le personnage monte bien plus haut que sous son bord épais (silhouette quasi pleine).

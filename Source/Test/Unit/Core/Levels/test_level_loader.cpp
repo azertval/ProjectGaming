@@ -1343,17 +1343,20 @@ TEST(LevelLoaderTest, ChargeUnDangerTemporiseValeursExplicites) {
 }
 
 /**
- * @brief Les dix-sept niveaux de démonstration livrés, aucun ne portant de champ `"version"`, se
- * chargent tous sans erreur ni avertissement (`EX-LVL-005`, rétrocompatibilité, critère
- * d'acceptation du LOT-44).
- * \castest{<b>Les dix-sept niveaux de demonstration livres se chargent sans erreur.</b><br/>
+ * @brief Les niveaux de démonstration livrés, aucun ne portant de champ `"version"`, se chargent
+ * tous sans erreur ni avertissement (`EX-LVL-005`, rétrocompatibilité, critère d'acceptation du
+ * LOT-44). Le compte lui-même n'est **pas** figé ici : il dérive du dossier balayé, pour ne pas se
+ * périmer à chaque tableau ajouté ou retiré (`LOT-65`, où il est passé de quinze à dix-sept puis
+ * vingt-deux sans qu'aucun test dédié n'en soit informé avant coup).
+ * \castest{<b>Les niveaux de demonstration livres se chargent tous sans erreur.</b><br/>
  * \tcat Unitaire · Level Loader<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Balayer le dossier des niveaux livres.<br/>2. Charger chaque fichier.<br/>
- * \tattendu Chaque niveau se charge sans erreur, avec errorCode == None.
+ * \tattendu Chaque niveau se charge sans erreur, avec errorCode == None, et au moins un niveau a
+ * été balayé.
  * }
  */
-TEST(LevelLoaderTest, LesDixSeptNiveauxDeDemoSeChargentSansErreur) {
+TEST(LevelLoaderTest, LesNiveauxDeDemoSeChargentSansErreur) {
     const std::filesystem::path levelsDir(PROJECTGAMING_LEVELS_DIR);
     int checked = 0;
     for (const std::filesystem::directory_entry& entry :
@@ -1371,5 +1374,5 @@ TEST(LevelLoaderTest, LesDixSeptNiveauxDeDemoSeChargentSansErreur) {
             << entry.path().filename().string();
         ++checked;
     }
-    EXPECT_EQ(checked, 17);
+    EXPECT_GT(checked, 0);
 }

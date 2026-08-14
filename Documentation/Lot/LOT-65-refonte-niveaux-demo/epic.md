@@ -96,7 +96,7 @@ Le contenu n'a pas suivi. Il en résulte deux problèmes distincts :
 | [TACHE-00](tache-00-preparation-assets-niveaux.md) | Préparation : banque d'assets renforcée et remise à zéro des niveaux | `Source/Elements/Assets`, `scripts`, `Source/Elements/Levels` | ✅ |
 | [TACHE-01](tache-01-inventaire-garde-fou.md) | Inventaire des mécaniques et garde-fou de couverture | `scripts`, `Source/Test` | ✅ |
 | [TACHE-02](tache-02-refonte-tableaux.md) | Refonte des tableaux existants : progression et habillage | `Source/Elements/Levels` | ⬜ |
-| [TACHE-03](tache-03-tableaux-manquants-syntheses.md) | Tableaux manquants et tableaux de synthèse | `Source/Elements/Levels` | ⬜ |
+| [TACHE-03](tache-03-tableaux-manquants-syntheses.md) | Tableaux manquants et tableaux de synthèse | `Source/Elements/Levels` | ✅ |
 | [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Source/Test`, `Documentation` | ⬜ |
 
 ## Critères d'acceptation du lot

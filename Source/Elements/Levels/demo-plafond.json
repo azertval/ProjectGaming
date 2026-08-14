@@ -1,6 +1,6 @@
 {
-  "name": "Dangers avances",
-  "width": 20,
+  "name": "Plafond incline",
+  "width": 22,
   "height": 9,
   "background": "test_cave.png",
   "cameraFraming": {
@@ -53,47 +53,47 @@
       "type": "solid"
     },
     {
-      "x": 19,
+      "x": 21,
       "y": 0,
       "type": "solid"
     },
     {
-      "x": 19,
+      "x": 21,
       "y": 1,
       "type": "solid"
     },
     {
-      "x": 19,
+      "x": 21,
       "y": 2,
       "type": "solid"
     },
     {
-      "x": 19,
+      "x": 21,
       "y": 3,
       "type": "solid"
     },
     {
-      "x": 19,
+      "x": 21,
       "y": 4,
       "type": "solid"
     },
     {
-      "x": 19,
+      "x": 21,
       "y": 5,
       "type": "solid"
     },
     {
-      "x": 19,
+      "x": 21,
       "y": 6,
       "type": "solid"
     },
     {
-      "x": 19,
+      "x": 21,
       "y": 7,
       "type": "solid"
     },
     {
-      "x": 19,
+      "x": 21,
       "y": 8,
       "type": "solid"
     },
@@ -188,76 +188,34 @@
       "type": "solid"
     },
     {
-      "x": 4,
-      "y": 5,
+      "x": 19,
+      "y": 7,
       "type": "solid"
     },
     {
-      "x": 5,
-      "y": 5,
+      "x": 20,
+      "y": 7,
       "type": "solid"
     },
     {
       "x": 4,
-      "y": 4,
-      "type": "dangerUp"
+      "y": 2,
+      "type": "slopeDownRight"
     },
     {
       "x": 8,
-      "y": 5,
-      "type": "solid"
-    },
-    {
-      "x": 9,
-      "y": 5,
-      "type": "solid"
-    },
-    {
-      "x": 8,
-      "y": 4,
-      "type": "dangerMover",
-      "axis": "vertical",
-      "range": 1
+      "y": 2,
+      "type": "slopeDownLeft"
     },
     {
       "x": 12,
-      "y": 5,
-      "type": "solid"
-    },
-    {
-      "x": 13,
-      "y": 5,
-      "type": "solid"
-    },
-    {
-      "x": 12,
-      "y": 4,
-      "type": "switch",
-      "id": "s1"
-    },
-    {
-      "x": 13,
-      "y": 4,
-      "type": "dangerSwitched",
-      "opensWith": "s1"
-    },
-    {
-      "x": 15,
-      "y": 5,
-      "type": "solid"
+      "y": 2,
+      "type": "roundedDownRight"
     },
     {
       "x": 16,
-      "y": 5,
-      "type": "solid"
-    },
-    {
-      "x": 15,
-      "y": 4,
-      "type": "dangerBlink",
-      "period": 90,
-      "phase": 30,
-      "activeDuration": 45
+      "y": 2,
+      "type": "roundedDownLeft"
     },
     {
       "x": 1,
@@ -265,7 +223,7 @@
       "type": "entry"
     },
     {
-      "x": 18,
+      "x": 19,
       "y": 6,
       "type": "exit"
     }
@@ -274,12 +232,6 @@
     {
       "asset": "rock.png",
       "x": 2.0,
-      "y": 6.5,
-      "layer": "background"
-    },
-    {
-      "asset": "rock.png",
-      "x": 17.0,
       "y": 6.5,
       "layer": "background"
     }

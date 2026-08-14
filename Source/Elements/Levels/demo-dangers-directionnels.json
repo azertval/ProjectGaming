@@ -1,6 +1,6 @@
 {
-  "name": "Dangers avances",
-  "width": 20,
+  "name": "Dangers directionnels",
+  "width": 16,
   "height": 9,
   "background": "test_cave.png",
   "cameraFraming": {
@@ -53,47 +53,47 @@
       "type": "solid"
     },
     {
-      "x": 19,
+      "x": 15,
       "y": 0,
       "type": "solid"
     },
     {
-      "x": 19,
+      "x": 15,
       "y": 1,
       "type": "solid"
     },
     {
-      "x": 19,
+      "x": 15,
       "y": 2,
       "type": "solid"
     },
     {
-      "x": 19,
+      "x": 15,
       "y": 3,
       "type": "solid"
     },
     {
-      "x": 19,
+      "x": 15,
       "y": 4,
       "type": "solid"
     },
     {
-      "x": 19,
+      "x": 15,
       "y": 5,
       "type": "solid"
     },
     {
-      "x": 19,
+      "x": 15,
       "y": 6,
       "type": "solid"
     },
     {
-      "x": 19,
+      "x": 15,
       "y": 7,
       "type": "solid"
     },
     {
-      "x": 19,
+      "x": 15,
       "y": 8,
       "type": "solid"
     },
@@ -168,96 +168,49 @@
       "type": "solid"
     },
     {
-      "x": 15,
-      "y": 7,
-      "type": "solid"
-    },
-    {
-      "x": 16,
-      "y": 7,
-      "type": "solid"
-    },
-    {
-      "x": 17,
-      "y": 7,
-      "type": "solid"
-    },
-    {
-      "x": 18,
-      "y": 7,
+      "x": 3,
+      "y": 3,
       "type": "solid"
     },
     {
       "x": 4,
-      "y": 5,
-      "type": "solid"
-    },
-    {
-      "x": 5,
-      "y": 5,
+      "y": 3,
       "type": "solid"
     },
     {
       "x": 4,
       "y": 4,
-      "type": "dangerUp"
+      "type": "dangerDown"
     },
     {
       "x": 8,
-      "y": 5,
+      "y": 3,
+      "type": "solid"
+    },
+    {
+      "x": 8,
+      "y": 4,
       "type": "solid"
     },
     {
       "x": 9,
-      "y": 5,
-      "type": "solid"
-    },
-    {
-      "x": 8,
-      "y": 4,
-      "type": "dangerMover",
-      "axis": "vertical",
-      "range": 1
+      "y": 3,
+      "type": "dangerLeft"
     },
     {
       "x": 12,
-      "y": 5,
-      "type": "solid"
-    },
-    {
-      "x": 13,
-      "y": 5,
+      "y": 3,
       "type": "solid"
     },
     {
       "x": 12,
       "y": 4,
-      "type": "switch",
-      "id": "s1"
-    },
-    {
-      "x": 13,
-      "y": 4,
-      "type": "dangerSwitched",
-      "opensWith": "s1"
-    },
-    {
-      "x": 15,
-      "y": 5,
       "type": "solid"
     },
     {
-      "x": 16,
-      "y": 5,
-      "type": "solid"
-    },
-    {
-      "x": 15,
-      "y": 4,
-      "type": "dangerBlink",
-      "period": 90,
-      "phase": 30,
-      "activeDuration": 45
+      "x": 11,
+      "y": 3,
+      "type": "dangerRight"
     },
     {
       "x": 1,
@@ -265,23 +218,17 @@
       "type": "entry"
     },
     {
-      "x": 18,
+      "x": 13,
       "y": 6,
       "type": "exit"
     }
   ],
   "decors": [
     {
-      "asset": "rock.png",
+      "asset": "kenney_torch.png",
       "x": 2.0,
-      "y": 6.5,
-      "layer": "background"
-    },
-    {
-      "asset": "rock.png",
-      "x": 17.0,
-      "y": 6.5,
-      "layer": "background"
+      "y": 5.5,
+      "layer": "foreground"
     }
   ]
 }

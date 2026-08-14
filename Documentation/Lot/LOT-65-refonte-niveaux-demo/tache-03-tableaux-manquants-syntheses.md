@@ -1,6 +1,45 @@
 # TACHE-03 — Tableaux manquants et tableaux de synthèse {#lot-65-tache-03-tableaux-manquants-syntheses}
 
-**Lot :** [LOT-65](epic.md) · **Emplacement :** `Source/Elements/Levels` · **Statut :** non commencé
+**Lot :** [LOT-65](epic.md) · **Emplacement :** `Source/Elements/Levels` · **Statut :** fait
+
+## Réalisé
+Cinq tableaux couvrent les quatorze types de tuile encore manquants après `TACHE-02`, regroupés
+par famille plutôt qu'un tableau par type (progression à côté de leur variante "droite"/pleine
+déjà connue) :
+- `demo-pente-gauche.json` — `SlopeUpLeft`/`RoundedUpLeft`/`ConcaveUpLeft` : trois paliers
+  **descendants** en marchant (miroir des variantes "droite"), sans saut.
+- `demo-plafond.json` — `SlopeDownRight`/`SlopeDownLeft`/`RoundedDownRight`/`RoundedDownLeft` :
+  posés en plafond avec un dégagement généreux au-dessus d'un couloir plat, jamais touchés en
+  marchant — leur silhouette de blocage réelle est déjà exhaustivement prouvée au niveau
+  Integration (`PlafondInclineBloqueSelonSaSilhouette` et consorts).
+- `demo-concave.json` — `ConcaveUpRight` (sol, marché) et `ConcaveDownRight`/`ConcaveDownLeft`
+  (plafond, dégagement généreux).
+- `demo-bloc-quart.json` — `BlockQuarter`, terrain plat plutôt qu'une fosse (contrairement au
+  bloc réduit) : la poussée écarte simplement le bloc, aucune fosse à combler à une hauteur qui
+  dépendrait de l'échelle du bloc.
+- `demo-dangers-directionnels.json` — `DangerDown`/`DangerLeft`/`DangerRight`, alcôves flottantes
+  hors du couloir principal, même principe que `demo-dangers-avances.json` (`TACHE-02`).
+
+Les trois variantes significatives encore non couvertes après ces cinq tableaux (déphasage d'un
+`DangerBlink`, `DangerMover` vertical, texture par instance) ont été obtenues par des ajustements
+cosmétiques sans risque sur les alcôves déjà isolées de `demo-dangers-avances.json` et un habillage
+`texture` sur le bloc de `demo-bloc-quart.json`, plutôt que par de nouveaux tableaux.
+
+Le mode de cadrage **suivi** (`Follow`), seul mode encore non couvert après `TACHE-01`, a été
+obtenu en `TACHE-02` en déclarant explicitement `demo-final.json` (le parcours continu le plus
+long de la séquence) en `follow` plutôt qu'en le laissant retomber sur *par salle* — aucun tableau
+supplémentaire n'était nécessaire.
+
+**Synthèse** : chacun des cinq tableaux combine déjà plusieurs types auparavant isolés (jusqu'à
+quatre dans `demo-plafond.json`) ; `demo-final.json` (`TACHE-02`, restauré) et
+`demo-dangers-avances.json` restent les tableaux de synthèse inter-familles de la séquence
+(dash/pente/bloc/interrupteur/double-saut ; les quatre dangers avancés). Un tableau de synthèse
+dédié combinant explicitement une mécanique de `TACHE-03` à une mécanique pré-existante (ex. clé +
+bloc quart + interrupteur en un seul parcours) a été jugé de valeur marginale face à ce que
+`demo-final.json` couvre déjà, et n'a pas été ajouté — candidat naturel pour un lot de contenu
+ultérieur si souhaité.
+
+Garde-fou de couverture (`TACHE-01`) **vert** : `ctest --preset ninja` à 100 % (1122/1122).
 
 ## Contexte
 La `TACHE-01` a produit la liste des mécaniques que le contenu livré n'emploie nulle part ; la
