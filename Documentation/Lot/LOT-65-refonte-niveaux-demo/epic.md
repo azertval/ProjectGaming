@@ -1,6 +1,7 @@
 # LOT-65 — Refonte des niveaux de démonstration {#lot-65}
 
-> Statut : **non commencé**. Prérequis : [LOT-63](@ref lot-63) (mécanismes manquants),
+> Statut : **en cours** — TACHE-01 à TACHE-03 faites, TACHE-04 en cours (tout fait sauf le parcours
+> manuel complet, réservé à un humain). Prérequis : [LOT-63](@ref lot-63) (mécanismes manquants),
 > [LOT-64](@ref lot-64) (cadrage de caméra), [LOT-59](@ref lot-59) (séquence en donnée de contenu).
 > **Dernier lot de contenu** du programme `0.1.0`.
 
@@ -97,7 +98,7 @@ Le contenu n'a pas suivi. Il en résulte deux problèmes distincts :
 | [TACHE-01](tache-01-inventaire-garde-fou.md) | Inventaire des mécaniques et garde-fou de couverture | `scripts`, `Source/Test` | ✅ |
 | [TACHE-02](tache-02-refonte-tableaux.md) | Refonte des tableaux existants : progression et habillage | `Source/Elements/Levels` | ✅ |
 | [TACHE-03](tache-03-tableaux-manquants-syntheses.md) | Tableaux manquants et tableaux de synthèse | `Source/Elements/Levels` | ✅ |
-| [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Source/Test`, `Documentation` | ⬜ |
+| [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Source/Test`, `Documentation` | 🔄 |
 
 ## Critères d'acceptation du lot
 1. Le garde-fou de couverture est **vert** : chaque type de tuile et chaque mode de cadrage livrés

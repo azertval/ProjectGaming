@@ -1,7 +1,30 @@
 # TACHE-04 — Documentation et vérification {#lot-65-tache-04-documentation-verification}
 
 **Lot :** [LOT-65](epic.md) · **Emplacement :** `Source/Test`, `Documentation` ·
-**Statut :** non commencé
+**Statut :** 🔄 en cours — tout fait sauf le parcours manuel
+
+## Réalisé
+- `EX-LVL-015` déclarée (`niveaux.md`, `TACHE-01`) ; `EX-LVL-012` actualisée (ne promet plus « 3
+  niveaux »).
+- `Source/Elements/Levels/README.md` : inventaire des vingt-deux tableaux, mécanique démontrée par
+  chacun, cadrage retenu.
+- `Documentation/Guide/guide-niveaux.md` : section garde-fou de couverture (ce qu'il vérifie
+  exactement, comment justifier une exclusion) et avertissement sur le défaut plateforme
+  mobile/pente.
+- `Documentation/Manuel/jouer.md` : déjà complet pour les mécanismes du `LOT-63` (clé, porte
+  verrouillée, plateforme mobile) — vérifié, aucune modification nécessaire.
+- Registre des défauts (`CHANGELOG.md`, section *Non publié*) : le défaut plateforme mobile/pente,
+  isolé par bissection, consigné avec sa reproduction.
+- Cahier de test régénéré (1122 cas) ; `python scripts/generate_cahier_test.py --check` vert.
+- CI locale complète vérifiée verte : `lint_exigences.py`, `check_demo_sequence.py`,
+  `build_docs.py` (Doxygen), `ctest --preset ninja` à 100 % (1122/1122).
+
+## Reste à faire
+- **Parcours manuel complet** (binaire Release, manette branchée, son activé), du menu à l'écran de
+  fin — hors de portée de cette session (pas d'automatisation d'interface en direct pour vérifier,
+  convention du dépôt). C'est le moment où ce lot attend le plus souvent de trouver des défauts,
+  d'après l'expérience des lots précédents ; à faire par un humain avant de considérer le lot
+  réellement clos.
 
 ## Contexte
 Ce lot est le dernier avant la clôture du programme, et le premier depuis longtemps à faire jouer
