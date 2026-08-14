@@ -523,28 +523,55 @@ std::vector<ScriptedLevel> scriptedSequence() {
              }
              return in;
          }},
-        // 11. Pente (EX-GP-003, LOT-22) : palier surélevé atteint en marchant, sans saut.
-        {"demo-pente.json", rightOnly()},
-        // 12. Pente gauche (EX-GP-003, LOT-65) : SlopeUpLeft/RoundedUpLeft/ConcaveUpLeft — miroir
-        //     de la pente/l'arrondi, trois paliers **descendants** en marchant vers la droite (la
-        //     variante "gauche" monte vers la gauche, donc descend dans ce sens de marche), sans
-        //     saut — même suivi de surface que les variantes "droite", déjà prouvé symétrique par
-        //     les tests unitaires (`SuitUnePenteDescendanteEnMarchant`).
-        {"demo-pente-gauche.json", rightOnly()},
-        // 13. Arrondi (EX-GP-004, LOT-23) : variante courbe de la pente, même principe.
-        {"demo-arrondi.json", rightOnly()},
-        // 14. Arrondis concaves (EX-GP-007, LOT-65) : ConcaveUpRight au sol (même principe que
-        //     l'arrondi convexe, courbure inversée) puis ConcaveDownRight/ConcaveDownLeft en
-        //     plafond, posés avec un dégagement généreux au-dessus du chemin plat qui suit —
-        //     jamais touchés en marchant, leur silhouette est déjà exhaustivement prouvée au
-        //     niveau Integration (`ConcaveDePlafondBloqueSelonSaSilhouette` et consorts).
-        {"demo-concave.json", rightOnly()},
-        // 15. Plafond incliné (EX-GP-006, LOT-65) : SlopeDownRight/SlopeDownLeft/
-        //     RoundedDownRight/RoundedDownLeft, posés en plafond avec un dégagement généreux
-        //     au-dessus d'un couloir plat — présents et traversés visuellement, jamais touchés en
-        //     marchant (même esprit que les dangers avancés ci-dessous : la silhouette de blocage
-        //     est prouvée ailleurs, ce niveau prouve le chargement et la traversée).
-        {"demo-plafond.json", rightOnly()},
+        // 14. Pentes et arrondis (EX-GP-003/004) : fusionne l'ancien demo-arrondi, qui reprenait le
+        //     meme trace a une tuile pres. Trois marches inclinees a monter, une fosse a franchir --
+        //     c'est elle qui interdit de traverser le tableau en marchant --, puis une descente par
+        //     une pente et un arrondi orientes a gauche. Aucun dash : une pente franchissable a la
+        //     marche ne l'est pas au dash (defaut moteur consigne, TACHE-06).
+        {"demo-pente.json",
+         [](int, const core::Player& player, float x, float) {
+             core::PlayerInput in{1.0f};
+             in.jumpHeld = true;
+             in.jumpPressed = player.grounded && atLedge(x, 15.0f, 0.6f);
+             return in;
+         }},
+        // 15. Pentes vers la gauche (EX-GP-003/004) : miroir exact du precedent. On entre a DROITE
+        //     et la sortie est a gauche -- maintenir « droite » n'y mene nulle part, ce qui est
+        //     precisement le propos de quatre silhouettes orientees a gauche.
+        {"demo-pente-gauche.json",
+         [](int, const core::Player& player, float x, float) {
+             core::PlayerInput in{-1.0f};
+             in.jumpHeld = true;
+             // Fosse franchie vers la GAUCHE : le bord utile est celui de gauche de la plateforme.
+             in.jumpPressed = player.grounded && x >= 13.0f && x <= 13.7f;
+             return in;
+         }},
+        // 16. Arrondis concaves (EX-GP-007) : les concaves de SOL se montent et se descendent sur
+        //     le chemin (trois montees, trois descentes), les concaves de PLAFOND bordent le
+        //     couloir juste au-dessus de la tete -- et la fosse a franchir est placee sous eux,
+        //     pour que le saut vienne buter dans leur silhouette. Ils flottaient jusqu'ici a deux
+        //     hauteurs de saut au-dessus du chemin.
+        {"demo-concave.json",
+         [](int, const core::Player& player, float x, float) {
+             core::PlayerInput in{1.0f};
+             in.jumpHeld = true;
+             in.jumpPressed = player.grounded && atLedge(x, 8.0f, 0.6f);
+             return in;
+         }},
+        // 17. Plafond incline (EX-GP-006) : les quatre variantes bordent le couloir juste au-dessus
+        //     de la tete, et chaque fosse a franchir est surmontee d'une silhouette qui raccourcit
+        //     le saut -- il faut passer SOUS elle. Elles etaient jusqu'ici en ligne 2 au-dessus d'un
+        //     couloir en ligne 7, soit deux fois la hauteur d'un saut : le tableau se traversait en
+        //     ligne droite sans jamais approcher son sujet.
+        {"demo-plafond.json",
+         [](int, const core::Player& player, float x, float) {
+             core::PlayerInput in{1.0f};
+             in.jumpHeld = true;
+             in.jumpPressed = player.grounded && (atLedge(x, 6.0f, 0.6f) ||
+                                                  atLedge(x, 11.0f, 0.6f) ||
+                                                  atLedge(x, 16.0f, 0.6f));
+             return in;
+         }},
         // 18. Plateforme mobile (EX-GP-026, LOT-63) : le personnage tombe dessus dès l'apparition
         //     puis se laisse porter jusqu'à la sortie, sans aucune entrée (portage pur) — la
         //     traversée serait mortelle sans elle (aucun sol entre les deux bords).
