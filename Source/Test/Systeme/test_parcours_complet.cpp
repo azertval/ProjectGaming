@@ -169,12 +169,23 @@ PlayTrace playLevelTraced(const ScriptedLevel& scripted, int maxSteps = 3000) {
 
         const core::Aabb box = core::Aabb::fromTopLeftSize(transform.position, collider.size);
         trace.centers.push_back((box.min + box.max) * 0.5f);
-        mechanisms.update(box, 1.0f, in.interactPressed);
 
-        // Ecrasement par une plateforme mobile (EX-GP-026) : mortel, comme hmi::GameSession::update
-        // (Player::squished traduit en boite de danger supplementaire pour evaluateOutcome).
+        // Poids des blocs poussables sur les mecanismes a activation continue (EX-GP-025, LOT-65
+        // TACHE-06) : meme composition que hmi::GameSession::update, sans quoi un tableau qui pose
+        // un bloc sur une plaque se jouerait differemment ici et en jeu.
+        std::vector<core::TriggerWeight> blockWeights;
+        blockWeights.reserve(blocks.positions().size());
+        for (std::size_t index = 0; index < blocks.positions().size(); ++index) {
+            blockWeights.push_back(
+                core::TriggerWeight{.box = blocks.boxAt(index), .mass = blocks.massAt(index)});
+        }
+        mechanisms.update(box, 1.0f, in.interactPressed, blockWeights);
+
+        // Ecrasement par une plateforme mobile (EX-GP-026) ou par une porte qui se referme
+        // (EX-GP-021) : mortel, comme hmi::GameSession::update (traduit en boite de danger
+        // supplementaire pour evaluateOutcome).
         std::vector<core::Aabb> extraDangerBoxes;
-        if (world.getComponent<core::Player>(player).squished) {
+        if (world.getComponent<core::Player>(player).squished || mechanisms.crushedPlayer()) {
             extraDangerBoxes.push_back(box);
         }
         outcome = core::evaluateOutcome(box, level, extraDangerBoxes);

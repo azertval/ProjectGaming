@@ -7,6 +7,49 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-65 (second temps) — De la couverture à la profondeur.** Le garde-fou de couverture livré en
+  `TACHE-01` était vert, et le contenu qu'il validait ne tenait pourtant aucune des promesses de
+  `EX-LVL-012` : une revue des vingt-deux tableaux a établi que **onze d'entre eux ne demandent rien
+  au joueur** (dix se franchissent en maintenant « droite », `demo-plateforme` sans aucune entrée),
+  que chaque mécanique n'existe qu'en **un seul exemplaire**, et que **treize tuiles de mécanique
+  sont physiquement hors d'atteinte** — dont les quatre plafonds inclinés de `demo-plafond` et
+  l'interrupteur de `demo-dangers-avances`, ce qui rendait son danger commuté impossible à commuter.
+  La `TACHE-01` avait pourtant écrit la limite (« couvert ≠ franchi ») sans en tirer les
+  conséquences.
+  - **Quatre garde-fous qui mesurent l'usage, pas la présence** (`TACHE-05`) : aucun tableau
+    franchissable en maintenant « droite » (hors exclusion nommée) ; un type de tuile posé au moins
+    trois fois dans la séquence ; `jumpBudget` et `dashBudget` comptés **séparément** (le « ou »
+    précédent laissait passer une séquence entière sans budget de dash) ; zones de caméra et taille
+    de salle par niveau, invisibles d'un contrôle portant sur le seul mode de cadrage. Le rejeu
+    scripté relève désormais la **trajectoire réelle** et refuse une mécanique hors de portée.
+    Doctrine correspondante écrite dans `niveaux.md`, Sec. 3.
+  - **Deux corrections moteur assumées** (`TACHE-06`), assouplissement délibéré et borné du cadrage
+    « ce lot n'ajoute rien au moteur » — sans elles, ni le tutoriel de la clé ni l'énigme du tableau
+    final ne tiennent : une porte qui se **referme sur le personnage** est désormais **mortelle**
+    (`EX-GP-021`, via `core::Player::squished` déjà en place pour les plateformes) au lieu de le
+    laisser encastré dans un mur sans échec possible — ce que `demo-plaque-pression` provoquait à
+    **chaque partie** ; et un **bloc poussable peut enfoncer une plaque de pression** (`EX-GP-025`,
+    seuil `MIN_TRIGGER_MASS` déjà présent), ce qui débloque l'idiome de puzzle le plus classique du
+    genre, jusqu'ici hors d'atteinte parce que le contrôleur ne recevait que la boîte du joueur. Un
+    bloc réduit reste trop léger : la distinction est visible dans le tableau.
+  - **Batterie de croisements de mécaniques** (`Source/Test/Integration/test_croisements_mecaniques.cpp`) :
+    douze combinaisons qui n'étaient testées nulle part — dash contre un bloc plein puis réduit,
+    dash sous un plafond incliné, dash sur une plaque, bloc sur plaque, bloc trop léger, porte
+    écrasante, bloc poussé sur un danger, plateforme traversant une porte fermée, plateforme
+    emportant un bloc, deux déclencheurs sur une même porte.
+
+### Registre des défauts (consignés, non corrigés)
+- **Une pente franchissable à la marche ne l'est pas au dash.** Sur la silhouette exacte des
+  tableaux de pente livrés (pente à 45° suivie d'un palier plein), un personnage qui **dashe** se
+  fige au sommet : il bute contre la colonne pleine du palier avec les pieds encore 0,15 case trop
+  bas, et n'en repart jamais. La même géométrie se franchit sans difficulté à la marche. Le suivi de
+  surface (`core::resolveSlopeFollow`) n'avait jamais été éprouvé qu'à 0,05 case par pas ; un dash
+  en parcourt 0,25. Caractérisé par
+  `CroisementsMecaniques.DashSurUnePenteResteBloqueAuSommetDefautConsigne`, qui vérifie d'abord que
+  la géométrie se franchit à la marche pour prouver qu'il mesure bien le dash. Conséquence sur le
+  contenu : aucun tableau ne rend un dash **obligatoire** dans une montée de pente vers un palier.
+
+### Ajouté (premier temps)
 - **LOT-65 — Refonte des niveaux de démonstration** (concrétise `EX-LVL-015` ; actualise
   `EX-LVL-012`, dont le « 3 niveaux » du MVP ne décrivait plus rien depuis longtemps). Dernier lot
   de contenu du programme `0.1.0` : refaire les tableaux livrés pour qu'ils exploitent et testent

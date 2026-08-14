@@ -616,8 +616,11 @@ std::vector<core::Aabb> GameSession::collectActiveDangerBoxes() {
     // Ecrasement par une plateforme mobile (EX-GP-026, LOT-63) : decision de cadrage -- mortel,
     // signale par core::CharacterPhysicsSystem via Player::squished. La boite du personnage
     // lui-meme suffit a declencher Lost via evaluateOutcome, sans nouvelle notion de danger.
+    // Ecrasement par une PORTE qui se referme (EX-GP-021, LOT-65 TACHE-06) : meme decision et meme
+    // traduction que ci-dessus. Sans cela, le personnage reste encastre dans un mur sans echec
+    // possible -- la « situation sans issue » que la conception des niveaux interdit.
     if (_world.hasComponent<core::Player>(_player) &&
-        _world.getComponent<core::Player>(_player).squished) {
+        (_world.getComponent<core::Player>(_player).squished || _mechanisms->crushedPlayer())) {
         const core::Transform& squishedTransform = _world.getComponent<core::Transform>(_player);
         const core::Collider& squishedCollider = _world.getComponent<core::Collider>(_player);
         boxes.push_back(
@@ -942,9 +945,16 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
     }
 
     // 4. Mecanismes : contact interrupteurs (front) / poids sur plaque (continu) -> etat des
-    // portes.
+    // portes. Les blocs poussables comptent comme des poids (EX-GP-025, LOT-65 TACHE-06) : c'est ce
+    // qui permet d'en poser un sur une plaque et de repartir, la porte restant ouverte.
     const float playerMass = _world.getComponent<core::Player>(_player).mass;
-    _mechanisms->update(box, playerMass, intent.interactPressed);
+    std::vector<core::TriggerWeight> blockWeights;
+    blockWeights.reserve(_blocks->positions().size());
+    for (std::size_t index = 0; index < _blocks->positions().size(); ++index) {
+        blockWeights.push_back(
+            core::TriggerWeight{.box = _blocks->boxAt(index), .mass = _blocks->massAt(index)});
+    }
+    _mechanisms->update(box, playerMass, intent.interactPressed, blockWeights);
 
     // 4a. Détection d'événements, suite de 2a : mécanismes désormais à jour, personnage déjà
     // capturé plus haut (avant que les mécanismes ne puissent influer sur la boîte de collision).

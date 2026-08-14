@@ -94,6 +94,28 @@ fichier de niveau) :
 - L'ordre de résolution dans le pas fixe (plateformes, puis blocs, puis physique, puis mécanismes)
   est déjà documenté et reproduit à l'identique par le test système : ne pas le réinventer.
 
+## Résultat constaté
+Douze croisements livrés ; **onze figent un comportement correct**, **un révèle un défaut**.
+
+**Défaut trouvé — une pente franchissable à la marche ne l'est pas au dash.** Sur la silhouette
+exacte des tableaux de pente livrés (pente à 45° suivie d'un palier plein), un personnage qui dashe
+se fige au sommet : il bute contre la colonne pleine du palier avec les pieds encore 0,15 case trop
+bas. Le test le **caractérise** plutôt que de le corriger — conformément au cadrage du lot — et
+vérifie d'abord que la même géométrie se franchit à la marche, faute de quoi on ne saurait pas s'il
+mesure un défaut ou une géométrie mal choisie. Consigné au `CHANGELOG`. **Conséquence pour
+`TACHE-07`/`TACHE-08` : aucun tableau ne rend un dash obligatoire dans une montée de pente vers un
+palier.**
+
+**Comportements figés au passage**, jusque-là non spécifiés : un dash n'est jamais arrêté par une
+plaque (elle s'active malgré la brièveté du contact) ; un bloc poussé sur un danger ne le neutralise
+pas ; une plateforme mobile n'est jamais retenue par une porte fermée (sa position est une fonction
+du numéro de pas, pas le résultat d'une collision) ; deux déclencheurs liés à une même porte
+coexistent sans que le contrôleur ne se contredise.
+
+**Les deux corrections moteur sont validées de bout en bout** : un bloc posé sur une plaque tient la
+porte ouverte **après** le départ du personnage, un bloc réduit reste trop léger pour l'enfoncer, et
+une porte qui se referme sur le personnage provoque l'échec au lieu de l'encastrer.
+
 ## Définition de fait (DoD)
 - Les deux corrections moteur sont livrées, spécifiées et testées ; la batterie de croisements
   couvre les dix combinaisons listées ; chaque test porte son `\castest{}` ; tout défaut découvert
