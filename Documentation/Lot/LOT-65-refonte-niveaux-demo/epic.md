@@ -7,7 +7,9 @@
 ## Objectif
 Refaire le contenu livré pour qu'il **exploite** et **teste** toutes les mécaniques du moteur.
 
-Les quinze tableaux actuels ont été conçus au `LOT-25`, quand le moteur en était à `demo-salles`.
+Les dix-sept tableaux actuels ont été conçus au `LOT-25`, quand le moteur en était à
+`demo-salles` — le `LOT-63`, fusionné depuis, en a porté le nombre de quinze à dix-sept
+(`demo-cle`, `demo-plateforme`).
 Depuis, quinze lots ont ajouté : dangers directionnels, mobiles, commutés et temporisés
 (`LOT-31`), fonds de niveau, décors libres avec parallaxe, calque de premier plan (`LOT-44`,
 `LOT-49`), skins et raccords automatiques (`LOT-42`), textures par instance (`LOT-45`), animations
@@ -50,6 +52,12 @@ Le contenu n'a pas suivi. Il en résulte deux problèmes distincts :
 - Campagne scénarisée, narration, progression de difficulté calibrée par des joueurs tiers.
 
 ## Décisions de cadrage
+- **Base de travail remise à zéro avant le garde-fou (`TACHE-00`).** La banque d'assets était trop
+  pauvre pour habiller quoi que ce soit (un seul fond, deux décors, un jeu de skins réels limité à
+  trois types), et réviser les dix-sept tableaux hérités du `LOT-25` tableau par tableau aurait
+  ancré chaque décision dans la géométrie existante plutôt que dans ce que `TACHE-01` exige. La
+  banque est donc renforcée et les tableaux existants retirés **avant** le garde-fou, sur la
+  branche dédiée du lot — la CI n'est pas verte pendant cette étape, et ce n'est pas son critère.
 - **Le garde-fou d'abord, le contenu ensuite.** Écrire les tableaux puis constater la couverture,
   c'est se fier à une relecture. Le contrôle automatique est livré en `TACHE-01`, **rouge**, et
   c'est lui qui pilote le reste du lot : la liste de ce qu'il refuse est la liste du travail.
@@ -57,9 +65,11 @@ Le contenu n'a pas suivi. Il en résulte deux problèmes distincts :
   ensemble fera émerger des défauts — c'est même son intérêt principal. Ils sont consignés et
   traités hors du lot : mélanger création de contenu et corrections de moteur rendrait les deux
   impossibles à relire, et un échec du test système inexploitable.
-- **Refondre plutôt qu'ajouter.** Empiler de nouveaux tableaux sur les quinze existants donnerait
-  une séquence longue et incohérente, où les premiers tableaux sont nus et les derniers habillés.
-  La séquence étant devenue une **donnée** (`LOT-59`), la remanier ne coûte plus de recompilation.
+- **Refondre plutôt qu'ajouter.** Empiler de nouveaux tableaux sur les dix-sept existants aurait
+  donné une séquence longue et incohérente, où les premiers tableaux sont nus et les derniers
+  habillés — c'est pourquoi `TACHE-00` les retire tous avant que `TACHE-02`/`TACHE-03` en
+  recréent, en s'appuyant sur ce que `TACHE-01` exige plutôt que sur la géométrie héritée. La
+  séquence étant devenue une **donnée** (`LOT-59`), la reconstruire ne coûte plus de recompilation.
 - **Une mécanique à la fois, puis des synthèses.** C'est la ligne directrice déjà écrite dans
   `niveaux.md` ; les tableaux actuels respectent la première moitié (isolement) et pas la seconde
   (combinaison), alors que c'est la combinaison qui fait un jeu — et qui trouve les défauts
@@ -83,6 +93,7 @@ Le contenu n'a pas suivi. Il en résulte deux problèmes distincts :
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
+| [TACHE-00](tache-00-preparation-assets-niveaux.md) | Préparation : banque d'assets renforcée et remise à zéro des niveaux | `Source/Elements/Assets`, `scripts`, `Source/Elements/Levels` | ⬜ |
 | [TACHE-01](tache-01-inventaire-garde-fou.md) | Inventaire des mécaniques et garde-fou de couverture | `scripts`, `Source/Test` | ⬜ |
 | [TACHE-02](tache-02-refonte-tableaux.md) | Refonte des tableaux existants : progression et habillage | `Source/Elements/Levels` | ⬜ |
 | [TACHE-03](tache-03-tableaux-manquants-syntheses.md) | Tableaux manquants et tableaux de synthèse | `Source/Elements/Levels` | ⬜ |
@@ -107,6 +118,7 @@ Consomme [LOT-59](@ref lot-59) (séquence en donnée, progression), [LOT-60](@re
 [LOT-66](@ref lot-66), qui clôt le programme.
 
 ## Navigation des tâches
+- @subpage lot-65-tache-00-preparation-assets-niveaux
 - @subpage lot-65-tache-01-inventaire-garde-fou
 - @subpage lot-65-tache-02-refonte-tableaux
 - @subpage lot-65-tache-03-tableaux-manquants-syntheses

@@ -3,16 +3,19 @@
 **Lot :** [LOT-65](epic.md) · **Emplacement :** `Source/Elements/Levels` · **Statut :** non commencé
 
 ## Contexte
-Les quinze tableaux livrés sont des **bancs d'essai** : une grille de tuiles nue, sans fond, sans
-décor, sans skin explicite, sans cadrage choisi. Ils remplissent parfaitement le rôle que le
-`LOT-25` leur donnait — démontrer qu'une mécanique fonctionne — et ne montrent rien du travail des
-seize lots d'habillage qui ont suivi.
+Les dix-sept tableaux hérités du `LOT-25` étaient des **bancs d'essai** : une grille de tuiles nue,
+sans fond, sans décor, sans skin explicite, sans cadrage choisi. Ils remplissaient parfaitement le
+rôle que le `LOT-25` leur donnait — démontrer qu'une mécanique fonctionne — et ne montraient rien du
+travail des seize lots d'habillage qui ont suivi. `TACHE-00` les a retirés, avec la séquence qui les
+ordonnait : cette tâche ne les **édite** donc pas, elle en **recrée** l'essentiel — au minimum une
+introduction par mécanique déjà couverte avant `TACHE-00` — avec la banque d'assets renforcée par
+`TACHE-00` et le cadrage du `LOT-64`, plutôt que d'hériter de leur géométrie d'origine.
 
 C'est le contenu qui accompagne le binaire téléchargé. Un joueur qui lance la `0.1.0` juge le jeu
 là-dessus.
 
 ## Travail à réaliser
-- **Habiller chaque tableau** : fond de niveau (`EX-REN-044`), décors d'arrière-plan et de premier
+- **Recréer et habiller chaque tableau** : fond de niveau (`EX-REN-044`), décors d'arrière-plan et de premier
   plan avec parallaxe (`EX-DEC-002`), skins de tuiles et raccords automatiques, animations là où
   elles existent. Réutiliser les assets du dépôt et les scripts de génération ; aucun art original.
 - **Choisir explicitement le cadrage** de chaque tableau (`EX-LVL-006`, `LOT-64`) plutôt que de
@@ -25,11 +28,11 @@ là-dessus.
   blocage définitif sans échec possible.
 - **Conserver l'esprit d'isolement** : ces tableaux restent des démonstrations d'une mécanique. Les
   combinaisons appartiennent à la `TACHE-03`.
-- **Renommer si nécessaire** : la séquence étant une donnée (`LOT-59`), un renommage ne coûte plus
-  qu'une entrée du fichier de séquence.
+- **Nommer librement** : la séquence étant une donnée (`LOT-59`) et les fichiers d'origine retirés
+  par `TACHE-00`, un nom différent de celui d'avant ne coûte qu'une entrée du fichier de séquence.
 
 ## Fichiers impactés
-- `Source/Elements/Levels/demo-*.json` (tous), fichier de séquence.
+- `Source/Elements/Levels/demo-*.json` (recréés), fichier de séquence.
 - `Source/Elements/Assets/skins.json`, `Source/Elements/Assets/Backgrounds/`, `Decors/` — assets
   complémentaires générés si besoin.
 - `Source/Test/Systeme/test_parcours_complet.cpp` — séquence rejouée.
@@ -60,7 +63,8 @@ là-dessus.
 - Attention au volume : chaque fond est une image versionnée. Réutiliser plutôt que multiplier.
 
 ## Définition de fait (DoD)
-- Les quinze tableaux sont habillés, portent un cadrage choisi, suivent une progression revue à une
+- Les tableaux recréés couvrent au moins les dix-sept rôles hérités, sont habillés, portent un
+  cadrage choisi, suivent une progression revue à une
   mécanique par tableau, restent franchissables, valides, sous leur budget de primitives, et le
   garde-fou de séquence est vert ; les défauts découverts sont consignés sans être corrigés.
 
