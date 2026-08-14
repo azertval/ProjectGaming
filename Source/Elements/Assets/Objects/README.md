@@ -25,3 +25,9 @@ python scripts/generate_test_objects.py
 ```
 
 Un artiste les remplacera par les vrais assets, sans toucher au code.
+
+## Objets `kenney_*.png` : premiers objets réels, sous licence libre (`LOT-65`)
+
+`kenney_coin.png` et `kenney_gem.png` (16×16 chacun) sont de véritables illustrations retouchées
+depuis des sprites **Kenney** (www.kenney.nl) sous licence **CC0 1.0 Universal** — voir
+`../CREDITS.md` pour le détail.

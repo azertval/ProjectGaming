@@ -31,3 +31,17 @@ python scripts/generate_test_decors.py
 | `sign.png` | 14×20 | premier plan |
 
 Un artiste les remplacera par les vrais assets, sans toucher au code.
+
+## Décors `kenney_*.png` : premiers décors réels, sous licence libre (`LOT-65`)
+
+Quatre décors, à la différence des cinq ci-dessus, sont de véritables illustrations retouchées
+depuis des sprites **Kenney** (www.kenney.nl) sous licence **CC0 1.0 Universal** — voir
+`../CREDITS.md` pour le détail. Aucun jeu (`skins.json` ne structure pas `Decors/` en `jeux`) : ils
+sont sélectionnables directement, au même titre que les décors de test.
+
+| Fichier | Dimensions | Couche prévue |
+|---|---|---|
+| `kenney_fence.png` | 32×24 | premier plan |
+| `kenney_torch.png` | 14×32 | premier plan |
+| `kenney_chain.png` | 9×32 | premier plan |
+| `kenney_ladder.png` | 16×16 | arrière-plan |

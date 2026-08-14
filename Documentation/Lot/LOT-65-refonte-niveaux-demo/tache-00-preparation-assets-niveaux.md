@@ -44,6 +44,20 @@ garde-fou, puis le contenu, seront construits. Elle ne mesure aucune couverture 
   `LANCZOS` vers 16×16 ou 64×64 `bitmask16`, entrée `CREDITS.md` par fichier, source du pack).
   Priorité aux types les plus visibles dans les tableaux à venir : sol (`solid`, `bitmask16`),
   danger (`danger`), porte (`door`), interrupteur (`switch`), plaque (`pressurePlate`), fond.
+  Réalisé pour `danger`/`door`/`switch`/fond ; **`solid` (`bitmask16`) et `pressurePlate` restent
+  non couverts** — le premier faute de source Kenney offrant les seize combinaisons de voisinage
+  exactes du contrat (`Skins/README.md`, section `bitmask16`) sans recomposition manuelle dont la
+  correction ne peut se vérifier qu'en la voyant tourner dans le jeu — un essai manuel hors du
+  moment prévu par le lot (`TACHE-04`), donc écarté ici —, le second faute de sprite au bon sens
+  dans les packs déjà importés. Deux voies
+  possibles si un lot ultérieur veut les couvrir : composer `bitmask16` à la main à partir de pièces
+  Kenney distinctes puis le vérifier au moment du parcours manuel déjà prévu en `TACHE-04`, ou
+  rester procédural (comme `stone.png` du jeu `test`) en reprenant la palette Kenney plutôt que ses
+  sprites.
+- **Étoffer aussi `Decors/`/`Objects/`** avec des sprites Kenney des mêmes packs (clôture, torche,
+  chaîne, échelle, pièce, gemme) : même protocole, dimensions libres pour `Decors/` (calées sur la
+  largeur ou la hauteur pour rester proches de la densité de la grille de 16 px), carré 16×16
+  imposé pour `Objects/`.
 - **Aucun art dessiné à la main dans ce lot** : génération par script ou retouche mécanique d'assets
   CC0 existants, jamais de création originale — même exclusion que celle déjà écrite dans l'epic
   pour `TACHE-02`/`TACHE-03`, étendue à cette tâche.
