@@ -52,6 +52,7 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_camera2d.cpp
     Unit/HMI/Graphics/test_room_grid.cpp
     Unit/HMI/Graphics/test_follow_camera.cpp
+    Unit/HMI/Graphics/test_camera_zones.cpp
     Unit/HMI/Graphics/test_asset_paths.cpp
     Unit/HMI/Graphics/test_procedural_atlas.cpp
     Unit/HMI/Graphics/test_tile_visuals.cpp
@@ -127,6 +128,9 @@ add_executable(UnitTests
     # La caméra de suivi (LOT-64 TACHE-02 : zone morte, anticipation, lissage, bornage) est une
     # fonction pure, sans dépendance rendu : testable hors GPU, même patron que RoomGrid.cpp.
     ../HMI/Graphics/FollowCamera.cpp
+    # La resolution de la zone de camera active parmi des zones dessinees a la main (LOT-64bis)
+    # est une fonction pure, meme patron que RoomGrid.cpp : testable hors GPU.
+    ../HMI/Graphics/CameraZones.cpp
     # La résolution de chemins d'assets (LOT-39) est une logique pure (std::filesystem),
     # testable hors GPU/Qt.
     ../HMI/Graphics/AssetPaths.cpp

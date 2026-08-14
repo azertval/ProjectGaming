@@ -71,10 +71,31 @@ aperçu immédiat dans le canevas (un cadre en pointillés de couleur) :
   distinctes.
 - **Suivi du personnage** — la caméra accompagne le joueur en continu, comme dans la plupart des
   jeux de plateforme. Convient à un tableau **long et linéaire** (une course, un couloir), où
-  montrer tout d'un coup n'aurait pas de sens.
+  montrer tout d'un coup n'aurait pas de sens. Un champ **Taille de la caméra** (largeur/hauteur en
+  cases) permet de régler ce qu'elle montre autour du joueur ; laissé vide, la taille par défaut
+  s'applique.
 
 Un niveau créé avant l'existence de ce réglage se comporte **exactement comme avant** (niveau
 entier ou par salle selon sa taille) : rien à faire pour les niveaux déjà publiés.
+
+#### Mélanger plusieurs tailles de caméra dans un même niveau (mode « Par salle »)
+
+Le quadrillage automatique du mode **Par salle** impose une seule taille de « salle » pour tout le
+tableau. Pour mélanger des tailles différentes — par exemple une grande pièce d'ensemble et un
+couloir étroit dans le même niveau — dessinez vos propres zones de caméra :
+
+1. Choisissez le mode **Par salle**.
+2. Dans la barre d'outils, sélectionnez l'outil **Zone de caméra**.
+3. Cliquez-glissez sur le canevas pour dessiner un rectangle : il devient une zone de caméra dès
+   que vous relâchez le bouton de la souris. Répétez pour chaque zone souhaitée.
+4. Le tableau **Zones de caméra**, dans l'onglet **Cadrage**, liste toutes les zones dessinées
+   (position et taille). Pour en retirer une, sélectionnez-la dans ce tableau puis cliquez sur
+   **Retirer** — le dessin sur le canevas ne se retire pas au clic, seulement depuis ce tableau.
+
+Chaque geste (dessiner une zone, en retirer une) s'annule normalement avec **Ctrl+Z**. Si deux
+zones se chevauchent, c'est celle dessinée **en premier** qui l'emporte à cet endroit. Tant
+qu'aucune zone n'est dessinée, le quadrillage automatique décrit ci-dessus reste inchangé — dessiner
+des zones est une option, pas une obligation.
 
 Le niveau est enregistré à côté de l'exécutable, dans le dossier `Levels`. Dans l'**éditeur**,
 quelle que soit sa taille, un niveau reste **entièrement visible** à l'ouverture (la caméra dézoome

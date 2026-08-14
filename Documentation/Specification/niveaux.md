@@ -19,6 +19,13 @@
   **exactement** le comportement historique (niveau entier s'il tient dans une salle, cadrage par
   salle sinon) : la rétrocompatibilité des niveaux existants reste un invariant (`EX-LVL-005`).
   Concrétisé en `LOT-64`.
+- \anchor EX-LVL-007 **EX-LVL-007** — En **mode par salle** (`EX-REN-015`), un niveau doit pouvoir
+  porter une **liste de zones de caméra** dessinées à la main (rectangles en tuiles) plutôt que de
+  subir une grille uniforme unique : la caméra retient la **première** zone de la liste couvrant la
+  position du personnage, avec repli sur le **niveau entier** si aucune zone ne le couvre — ce qui
+  permet de mélanger plusieurs tailles de caméra dans un même niveau, sans transitions ni
+  déclencheurs, la liste étant vide par défaut (comportement de grille automatique inchangé,
+  `EX-LVL-006`). Concrétisé en `LOT-64`.
 
 ### Format retenu (JSON, liste de tuiles-objets)
 Types de tuiles : `entry` (entrée), `exit` (sortie), `solid` (solide), `danger`, `switch`

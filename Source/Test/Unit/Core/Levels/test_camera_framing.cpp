@@ -91,15 +91,17 @@ TEST(CameraFramingTest, RegleDeRepliReproduitLaRegleHistoriqueAuxBornes) {
 }
 
 /**
- * @brief La validation nomme le champ fautif : mode inconnu déjà exclu en amont, taille de salle
- * nulle/négative, taille supérieure au niveau, paramètre étranger au mode retenu (`EX-LVL-004`).
+ * @brief La validation nomme le champ fautif : taille de vue nulle/négative, taille supérieure au
+ * niveau, paramètre étranger au mode retenu (`EX-LVL-004`). `roomWidthTiles`/`roomHeightTiles`
+ * sont valides pour `PerRoom` **et** `Follow` (la taille de vue du suivi, `EX-REN-017`).
  * \castest{<b>La validation nomme le champ fautif pour chaque cas invalide.</b><br/>
  * \tcat Unitaire · Camera Framing<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Valider une taille de salle nulle, puis supérieure au niveau, puis un paramètre de
- * salle sur un mode qui n'est pas *par salle*.<br/>
- * \tattendu Chaque cas renvoie un message d'erreur non vide ; un cadrage cohérent ne renvoie
- * aucune erreur.
+ * taille de vue sur le mode *niveau entier*.<br/>2. Valider une taille de vue sur le mode
+ * *suivi*.<br/>
+ * \tattendu Chaque cas invalide renvoie un message d'erreur non vide ; un cadrage cohérent (dont
+ * une taille de vue en mode suivi) ne renvoie aucune erreur.
  * }
  */
 TEST(CameraFramingTest, ValidationNommeLeChampFautif) {
@@ -111,13 +113,61 @@ TEST(CameraFramingTest, ValidationNommeLeChampFautif) {
                                                  .roomHeightTiles = 30};
     EXPECT_TRUE(core::validateCameraFramingConfig(exceedsLevel, 20, 20).has_value());
 
-    const core::CameraFramingConfig foreignParameter{.mode = core::CameraFramingMode::Follow,
+    const core::CameraFramingConfig foreignParameter{.mode = core::CameraFramingMode::WholeLevel,
                                                      .roomWidthTiles = 10};
     EXPECT_TRUE(core::validateCameraFramingConfig(foreignParameter, 20, 20).has_value());
 
     const core::CameraFramingConfig valid{
         .mode = core::CameraFramingMode::PerRoom, .roomWidthTiles = 10, .roomHeightTiles = 10};
     EXPECT_FALSE(core::validateCameraFramingConfig(valid, 20, 20).has_value());
+
+    // La taille de vue est desormais valide en mode suivi (EX-REN-017) : reglable comme en mode
+    // par salle, ce n'est plus un parametre etranger.
+    const core::CameraFramingConfig followWithSize{
+        .mode = core::CameraFramingMode::Follow, .roomWidthTiles = 10, .roomHeightTiles = 8};
+    EXPECT_FALSE(core::validateCameraFramingConfig(followWithSize, 20, 20).has_value());
+}
+
+/**
+ * @brief Les zones de caméra dessinées à la main sont valides uniquement en mode *par salle*,
+ * entièrement dans les bornes du niveau, et de taille non nulle (`EX-LVL-004`, `EX-LVL-007`).
+ * \castest{<b>La validation des zones de caméra nomme le champ fautif.</b><br/>
+ * \tcat Unitaire · Camera Framing<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Valider une zone sur un mode qui n'est pas *par salle*.<br/>2. Valider une zone de
+ * largeur nulle, une zone à position négative, une zone dépassant le niveau.<br/>3. Valider un
+ * cadrage *par salle* avec des zones valides, y compris chevauchantes.<br/>
+ * \tattendu Chaque cas invalide échoue ; un cadrage cohérent, zones chevauchantes comprises,
+ * réussit.
+ * }
+ */
+TEST(CameraFramingTest, ValidationDesZonesNommeLeChampFautif) {
+    const core::CameraFramingConfig wrongMode{
+        .mode = core::CameraFramingMode::WholeLevel,
+        .zones = {core::CameraZone{.x = 0, .y = 0, .width = 5, .height = 5}}};
+    EXPECT_TRUE(core::validateCameraFramingConfig(wrongMode, 20, 20).has_value());
+
+    const core::CameraFramingConfig zeroWidth{
+        .mode = core::CameraFramingMode::PerRoom,
+        .zones = {core::CameraZone{.x = 0, .y = 0, .width = 0, .height = 5}}};
+    EXPECT_TRUE(core::validateCameraFramingConfig(zeroWidth, 20, 20).has_value());
+
+    const core::CameraFramingConfig negativePosition{
+        .mode = core::CameraFramingMode::PerRoom,
+        .zones = {core::CameraZone{.x = -1, .y = 0, .width = 5, .height = 5}}};
+    EXPECT_TRUE(core::validateCameraFramingConfig(negativePosition, 20, 20).has_value());
+
+    const core::CameraFramingConfig exceedsLevel{
+        .mode = core::CameraFramingMode::PerRoom,
+        .zones = {core::CameraZone{.x = 15, .y = 0, .width = 10, .height = 5}}};
+    EXPECT_TRUE(core::validateCameraFramingConfig(exceedsLevel, 20, 20).has_value());
+
+    // Zones chevauchantes : valide (la priorite se joue a la resolution, pas a la validation).
+    const core::CameraFramingConfig overlapping{
+        .mode = core::CameraFramingMode::PerRoom,
+        .zones = {core::CameraZone{.x = 0, .y = 0, .width = 10, .height = 10},
+                  core::CameraZone{.x = 5, .y = 5, .width = 10, .height = 10}}};
+    EXPECT_FALSE(core::validateCameraFramingConfig(overlapping, 20, 20).has_value());
 }
 
 namespace {

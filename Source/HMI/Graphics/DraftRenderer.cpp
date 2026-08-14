@@ -305,6 +305,19 @@ void DraftRenderer::composeCameraFraming(const core::LevelDraft& draft) {
                        FRAME_THICKNESS, CYAN_R, CYAN_G, CYAN_B, 0.6f);
             break;
         case core::CameraFramingMode::PerRoom: {
+            if (!framing.zones.empty()) {
+                // Zones dessinees a la main (EX-LVL-007) : remplacent entierement la grille
+                // automatique -- un rectangle par zone, dans l'ordre de la liste (la premiere
+                // zone qui contient une position gagne en cas de chevauchement, hmi::
+                // activeCameraZoneIndex, non visible ici : la previsualisation montre simplement
+                // les rectangles tels que dessines).
+                for (const core::CameraZone& zone : framing.zones) {
+                    strokeRect(static_cast<float>(zone.x), static_cast<float>(zone.y),
+                               static_cast<float>(zone.width), static_cast<float>(zone.height),
+                               FRAME_THICKNESS, CYAN_R, CYAN_G, CYAN_B, 0.5f);
+                }
+                break;
+            }
             // Reutilise hmi::RoomGrid (LOT-32) a la taille resolue -- jamais une seconde
             // implementation du decoupage en salles (tache-03).
             const int roomWidthTiles =

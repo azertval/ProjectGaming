@@ -39,6 +39,10 @@
   du niveau — un axe plus étroit que le cadrage étant **centré** plutôt que borné. Le centre retenu
   reste aligné sur la grille de pixels et le zoom **entier** (`EX-ARCH-022`), sous peine de rendre
   flou tout le pixel art. Aucun effet sur la simulation (`EX-ARCH-012`). Concrétisé en `LOT-64`.
+- \anchor EX-REN-017 **EX-REN-017** — En **mode suivi** (`EX-REN-016`), la taille de la zone de
+  caméra doit être **réglable par niveau**, avec les mêmes champs que la taille de salle du mode
+  *par salle* (`EX-REN-015`), plutôt que de retenir en dur la taille de salle par défaut : un
+  niveau sans taille déclarée conserve la taille par défaut actuelle. Concrétisé en `LOT-64`.
 - \anchor EX-REN-014 **EX-REN-014** — Le rendu doit gérer un ordre de dessin par **couches**,
   défini par un **ordonnancement unique et explicite**, dont aucun calque concurrent ne peut
   s'écarter : **fond**, **décor d'arrière-plan**, **ombres**, **tuiles physiques**, **objets**,

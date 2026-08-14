@@ -336,6 +336,23 @@ public:
      */
     void setCameraFraming(CameraFramingConfig cameraFraming);
 
+    /**
+     * @brief Ajoute une zone de caméra dessinée à la main en fin de liste (mode `PerRoom`,
+     *        `EX-LVL-007`, `EX-EDIT-029`), annulable.
+     *
+     * L'ordre d'ajout fixe la priorité en cas de chevauchement (`core::activeCameraZoneIndex`
+     * côté `HMI`, même convention que `addDecor`) : une zone ajoutée après une autre ne prend le
+     * dessus que là où l'autre ne la couvre pas.
+     * @param zone Zone à ajouter, en cases.
+     */
+    void addCameraZone(CameraZone zone);
+
+    /**
+     * @brief Retire la zone de caméra au rang @p index (`EX-LVL-007`, `EX-EDIT-029`), annulable.
+     * @param index Rang dans `cameraFraming().zones` ; sans effet si hors bornes.
+     */
+    void removeCameraZone(std::size_t index);
+
     /// @return Le nom courant du niveau.
     [[nodiscard]] const std::string& name() const noexcept {
         return _name;

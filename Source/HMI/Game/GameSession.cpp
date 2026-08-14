@@ -143,12 +143,26 @@ void GameSession::loadLevel(core::Level level) {
     _followCameraState = FollowCameraState{};
     _previousFollowCenter = core::Vector2{static_cast<float>(levelRef.entry().column) + 0.5f,
                                           static_cast<float>(levelRef.entry().row) + 0.5f};
+    // Zone de camera active (mode par salle avec zones dessinees a la main, EX-LVL-007) : resolue
+    // ici comme _currentRoomIndex ci-dessus, pour ne pas dependre d'un premier update() avant le
+    // premier rendu.
+    _currentZoneIndex = _cameraFraming.zones.empty()
+                            ? std::nullopt
+                            : activeCameraZoneIndex(_cameraFraming.zones, levelRef.entry());
     switch (_cameraFraming.mode) {
         case core::CameraFramingMode::WholeLevel:
             centerCameraOnWholeLevel();
             break;
         case core::CameraFramingMode::PerRoom:
-            centerCameraOnRoom(_currentRoomIndex);
+            if (!_cameraFraming.zones.empty()) {
+                if (_currentZoneIndex) {
+                    centerCameraOnZone(_cameraFraming.zones[*_currentZoneIndex]);
+                } else {
+                    centerCameraOnWholeLevel();
+                }
+            } else {
+                centerCameraOnRoom(_currentRoomIndex);
+            }
             break;
         case core::CameraFramingMode::Follow:
             // Amorcé au premier update() ; place un centre raisonnable (l'entrée) pour un
@@ -719,6 +733,34 @@ void GameSession::centerCameraOnWholeLevel() {
                                     static_cast<float>(_levelHeight) * 0.5f});
 }
 
+// Centre la camera sur une zone dessinee a la main (EX-LVL-007, voir en-tete).
+void GameSession::centerCameraOnZone(const core::CameraZone& zone) {
+    _camera.setCenter(
+        core::Vector2{static_cast<float>(zone.x) + static_cast<float>(zone.width) * 0.5f,
+                      static_cast<float>(zone.y) + static_cast<float>(zone.height) * 0.5f});
+}
+
+// Equivalent de updateCurrentRoom pour les zones dessinees a la main (EX-LVL-007, voir en-tete).
+void GameSession::updateCurrentCameraZone() {
+    const core::Transform& transform = _world.getComponent<core::Transform>(_player);
+    const core::Collider& collider = _world.getComponent<core::Collider>(_player);
+    const core::Vector2 center = transform.position + collider.size * 0.5f;
+    const core::GridPosition tile{static_cast<int>(std::floor(center.x)),
+                                  static_cast<int>(std::floor(center.y))};
+    const std::optional<std::size_t> zoneIndex = activeCameraZoneIndex(_cameraFraming.zones, tile);
+    if (zoneIndex == _currentZoneIndex) {
+        return;
+    }
+    _currentZoneIndex = zoneIndex;
+    if (zoneIndex) {
+        centerCameraOnZone(_cameraFraming.zones[*zoneIndex]);
+    } else {
+        // Aucune zone ne contient le personnage (trou entre les zones dessinees par l'auteur) :
+        // repli sur le niveau entier, jamais un etat indefini.
+        centerCameraOnWholeLevel();
+    }
+}
+
 // Avance la camera de suivi d'un pas fixe (mode Follow, LOT-64 TACHE-02, voir en-tete).
 void GameSession::updateFollowCamera(float fixedDelta) {
     const core::Transform& transform = _world.getComponent<core::Transform>(_player);
@@ -733,10 +775,13 @@ void GameSession::updateFollowCamera(float fixedDelta) {
     const core::Rect levelBounds{
         core::Vector2{0.0f, 0.0f},
         core::Vector2{static_cast<float>(_levelWidth), static_cast<float>(_levelHeight)}};
-    // Cadrage de la camera de suivi (LOT-64) : meme taille que la salle par defaut du mode par
-    // salle -- une surface deja eprouvee comme "ce qui tient a l'ecran", jamais dupliquee.
-    const core::Vector2 viewHalfExtent{static_cast<float>(core::kDefaultRoomWidthTiles) * 0.5f,
-                                       static_cast<float>(core::kDefaultRoomHeightTiles) * 0.5f};
+    // Cadrage de la camera de suivi : taille reglable par niveau (EX-REN-017, memes champs que la
+    // taille de salle du mode par salle -- valeur par defaut si non declaree).
+    const core::Vector2 viewHalfExtent{
+        static_cast<float>(_cameraFraming.roomWidthTiles.value_or(core::kDefaultRoomWidthTiles)) *
+            0.5f,
+        static_cast<float>(_cameraFraming.roomHeightTiles.value_or(core::kDefaultRoomHeightTiles)) *
+            0.5f};
     _followCameraState = advanceFollowCamera(_followCameraState, characterCenter, player.facing,
                                              levelBounds, viewHalfExtent, fixedDelta);
 }
@@ -758,21 +803,41 @@ void GameSession::applyCameraFraming(int viewportWidth, int viewportHeight,
             break;
         }
         case core::CameraFramingMode::PerRoom: {
-            const RoomBounds roomBounds = _roomGrid->roomBounds(_currentRoomIndex);
+            // Rectangle a cadrer : la zone dessinee a la main active (EX-LVL-007), le niveau entier
+            // en repli (aucune zone ne contient le personnage), ou la salle de la grille
+            // automatique -- selon que _cameraFraming.zones est non vide ou non. Le centre, lui,
+            // est deja pose par updateCurrentRoom/updateCurrentCameraZone au franchissement d'une
+            // frontiere : rien a refaire ici.
+            int width = 0;
+            int height = 0;
+            if (!_cameraFraming.zones.empty()) {
+                if (_currentZoneIndex) {
+                    const core::CameraZone& zone = _cameraFraming.zones[*_currentZoneIndex];
+                    width = zone.width;
+                    height = zone.height;
+                } else {
+                    width = _levelWidth;
+                    height = _levelHeight;
+                }
+            } else {
+                const RoomBounds roomBounds = _roomGrid->roomBounds(_currentRoomIndex);
+                width = roomBounds.width;
+                height = roomBounds.height;
+            }
             const float zoom = Camera2D::fitZoom(
                 static_cast<float>(viewportWidth), static_cast<float>(viewportHeight),
-                static_cast<float>(roomBounds.width), static_cast<float>(roomBounds.height),
-                CAMERA_FIT_MARGIN);
+                static_cast<float>(width), static_cast<float>(height), CAMERA_FIT_MARGIN);
             _camera.setZoom(zoom);
-            // Centre deja pose par centerCameraOnRoom (updateCurrentRoom, au franchissement d'une
-            // frontiere de salle) : rien a refaire ici.
             break;
         }
         case core::CameraFramingMode::Follow: {
             const float zoom = Camera2D::fitZoom(
                 static_cast<float>(viewportWidth), static_cast<float>(viewportHeight),
-                static_cast<float>(core::kDefaultRoomWidthTiles),
-                static_cast<float>(core::kDefaultRoomHeightTiles), CAMERA_FIT_MARGIN);
+                static_cast<float>(
+                    _cameraFraming.roomWidthTiles.value_or(core::kDefaultRoomWidthTiles)),
+                static_cast<float>(
+                    _cameraFraming.roomHeightTiles.value_or(core::kDefaultRoomHeightTiles)),
+                CAMERA_FIT_MARGIN);
             _camera.setZoom(zoom);
             // Interpole entre le centre du pas fixe PRECEDENT et celui du pas COURANT, comme
             // chaque entite interpole entre PreviousPosition et sa position simulee (EX-ARCH-031)
@@ -865,7 +930,11 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
         case core::CameraFramingMode::WholeLevel:
             break;
         case core::CameraFramingMode::PerRoom:
-            updateCurrentRoom();
+            if (!_cameraFraming.zones.empty()) {
+                updateCurrentCameraZone();
+            } else {
+                updateCurrentRoom();
+            }
             break;
         case core::CameraFramingMode::Follow:
             updateFollowCamera(fixedDelta);

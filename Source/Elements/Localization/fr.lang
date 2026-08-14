@@ -103,12 +103,18 @@ textures.default_set = (jeu par défaut)
 # Section « Cadrage » du panneau Textures (LOT-64)
 textures.section_camera_framing = Cadrage
 textures.camera_framing_mode = Mode de cadrage
-textures.camera_framing_room_width = Largeur de salle
-textures.camera_framing_room_height = Hauteur de salle
+textures.camera_framing_room_width = Largeur de vue
+textures.camera_framing_room_height = Hauteur de vue
 textures.camera_framing_room_default = Par défaut
 camera_framing.whole_level = Niveau entier
 camera_framing.per_room = Par salle
 camera_framing.follow = Suivi du personnage
+textures.camera_framing_zones_hint = Glisser sur le canevas avec l'outil « Zone de caméra » pour en ajouter une.
+textures.camera_framing_zones_remove = Retirer
+textures.camera_framing_zones_column_x = X
+textures.camera_framing_zones_column_y = Y
+textures.camera_framing_zones_column_width = Largeur
+textures.camera_framing_zones_column_height = Hauteur
 
 # Section « Objets » du panneau Textures (LOT-45)
 textures.section_objects = Objets
@@ -163,6 +169,7 @@ status.help_selection = Sélection : glisser pour délimiter · Ctrl+C/V : copie
 status.help_link = Lien : cliquer un déclencheur puis sa cible · recliquer la même paire délie
 status.help_texture_assign = Texture : clic gauche assigne, reclic ou clic droit retire
 status.help_decor = Décor : cliquer une zone vide pour poser, cliquer un décor pour le manipuler
+status.help_camera_zone = Zone de caméra : glisser pour dessiner une zone (mode par salle) ; la retirer depuis la section « Cadrage »
 status.help_pixel_brush = Pinceau : clic gauche/glisser peint · Ctrl+Z/Y : annuler/refaire
 status.help_pixel_eraser = Gomme : clic gauche/glisser efface · Ctrl+Z/Y : annuler/refaire
 status.help_pixel_fill = Pot de peinture : clic remplit la zone connexe
@@ -188,6 +195,7 @@ tool.selection = Sélection
 tool.link = Lien
 tool.texture_assign = Texture
 tool.decor = Décor
+tool.camera_zone = Zone de caméra
 tool.decor_layer_background = Arrière-plan
 tool.decor_layer_decor = Décor
 tool.decor_layer_foreground = Premier plan

@@ -30,6 +30,8 @@ nuance sans laisser croire que la décision du `LOT-32` était mauvaise.
   temps que lui.
 - **Vérification manuelle**, au moment prévu : un tableau dans chacun des trois modes, en observant
   particulièrement la netteté du pixel art en mode suivi et le comportement aux bords du niveau.
+  Étendue par [TACHE-05](tache-05-zones-camera-taille-suivi.md) : dessiner des zones de tailles
+  différentes dans un même niveau et vérifier la bascule entre elles au canevas comme en jeu.
 
 ## Fichiers impactés
 - `Documentation/Specification/{rendu-technique,niveaux,editeur-niveaux}.md`.

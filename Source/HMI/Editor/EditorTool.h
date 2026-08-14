@@ -28,7 +28,12 @@ namespace hmi {
  * la bibliothèque de décors (aucun décor sous le curseur, aucune sélection) ; clic droit ou touche
  * « Suppr » retire le décor visé/sélectionné ; `Échap` abandonne un glisser en cours sans y
  * toucher.
+ * `CameraZone` (`LOT-64`, `EX-LVL-007`, `EX-EDIT-029`) dessine une zone de caméra du mode *par
+ * salle* : un glisser (comme `Rectangle`) définit un rectangle de cases, ajouté à
+ * `core::CameraFramingConfig::zones` au relâchement (`core::LevelDraft::addCameraZone`) ; les
+ * zones existantes se retirent depuis le tableau de la section « Cadrage » du panneau Textures,
+ * pas depuis le canevas.
  */
-enum class EditorTool { Paint, Rectangle, Selection, Link, TextureAssign, Decor };
+enum class EditorTool { Paint, Rectangle, Selection, Link, TextureAssign, Decor, CameraZone };
 
 }  // namespace hmi

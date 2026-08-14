@@ -3,6 +3,7 @@
 #include <QImage>
 #include <QPixmap>
 #include <QWidget>
+#include <cstddef>
 #include <filesystem>
 #include <memory>
 #include <optional>
@@ -156,6 +157,9 @@ signals:
     /// (`EX-EDIT-028`, LOT-64) : mode et, pour le mode *par salle*, taille de salle (`std::nullopt`
     /// = taille par défaut).
     void cameraFramingChanged(core::CameraFramingConfig cameraFraming);
+    /// Émis par le bouton « Retirer » du tableau des zones de caméra dessinées à la main
+    /// (`EX-LVL-007`, `EX-EDIT-029`) pour la ligne sélectionnée.
+    void cameraZoneRemoveRequested(std::size_t index);
     /// Émis quand l'utilisateur choisit un asset dans la grille « Objets » (`LOT-45`) : asset actif
     /// de l'outil « Texture par instance » ; vide si aucun n'est sélectionné.
     void textureOverrideAssetSelected(const QString& fileName);
@@ -178,12 +182,19 @@ private:
     /// des jeux du catalogue, plus l'entrée « jeu par défaut ».
     void rebuildLevelSkinSetSelector();
     /// Reconstruit le sélecteur de mode de la section « Cadrage » (3 entrées fixes, traduites) et
-    /// synchronise la visibilité des champs de taille de salle avec `_levelCameraFraming.mode`.
+    /// synchronise la visibilité des champs de taille de vue (`PerRoom`/`Follow`, `EX-REN-017`) et
+    /// du tableau des zones (`PerRoom` uniquement) avec `_levelCameraFraming.mode`.
     void rebuildCameraFramingSelector();
-    /// Émet `cameraFramingChanged` à partir de l'état courant des trois widgets de la section
-    /// « Cadrage » -- point d'appel unique des trois gestionnaires de changement (mode, largeur,
-    /// hauteur), pour ne jamais dupliquer la construction du `core::CameraFramingConfig` résultant.
+    /// Reconstruit le tableau des zones de caméra dessinées à la main depuis
+    /// `_levelCameraFraming.zones` (`EX-LVL-007`), même patron que `rebuildObjectRows`.
+    void rebuildCameraFramingZonesTable();
+    /// Émet `cameraFramingChanged` à partir de l'état courant des widgets de mode/taille de la
+    /// section « Cadrage » -- point d'appel unique de leurs gestionnaires de changement, pour ne
+    /// jamais dupliquer la construction du `core::CameraFramingConfig` résultant. Les zones
+    /// dessinées à la main ne sont jamais modifiées ici (mutées directement via `GameViewport`).
     void emitCameraFramingChanged();
+    void onCameraFramingZonesSelectionChanged();
+    void onCameraFramingZonesRemoveClicked();
     /// Reconstruit le tableau des surcharges depuis `_objectRows` (tri stable par position, déjà
     /// posé par `refreshObjects`).
     void rebuildObjectRows();
@@ -209,6 +220,8 @@ private:
         _backgroundView;                ///< Grille de vignettes de `Assets/Backgrounds/` (LOT-44).
     AssetThumbnailView* _objectView;    ///< Grille de vignettes de `Assets/Objects/` (LOT-45).
     QStandardItemModel* _objectsModel;  ///< Modèle du tableau des surcharges (LOT-45).
+    /// Modèle du tableau des zones de caméra dessinées à la main (LOT-64).
+    QStandardItemModel* _cameraFramingZonesModel;
     QStandardItemModel*
         _animationsModel;            ///< Modèle de l'arbre de la section « Animations » (LOT-47).
     QTimer* _animationPreviewTimer;  ///< Fait avancer l'aperçu de la section « Animations ».

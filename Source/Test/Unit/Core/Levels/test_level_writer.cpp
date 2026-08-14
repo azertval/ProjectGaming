@@ -698,9 +698,11 @@ TEST(LevelWriterTest, ChacunDesTroisModesDeCadrageSurvitAuRoundTrip) {
         { "x": 3, "y": 2, "type": "exit" }
       ]
     })";
+    // La taille de vue du mode suivi (EX-REN-017, memes champs que la taille de salle du mode par
+    // salle) doit elle aussi survivre au round-trip.
     constexpr const char* FOLLOW = R"({
       "width": 10, "height": 8,
-      "cameraFraming": { "mode": "follow" },
+      "cameraFraming": { "mode": "follow", "roomWidthTiles": 8, "roomHeightTiles": 6 },
       "tiles": [
         { "x": 1, "y": 1, "type": "entry" },
         { "x": 3, "y": 2, "type": "exit" }
@@ -721,6 +723,39 @@ TEST(LevelWriterTest, ChacunDesTroisModesDeCadrageSurvitAuRoundTrip) {
         EXPECT_EQ(reloaded.level->cameraFraming().roomHeightTiles,
                   loaded.level->cameraFraming().roomHeightTiles);
     }
+}
+
+/**
+ * @brief Des zones de caméra dessinées à la main survivent à un aller-retour JSON, dans le même
+ * ordre (`EX-LVL-007`).
+ * \castest{<b>Les zones de caméra dessinées à la main survivent au round-trip.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Charger un niveau déclarant deux zones de caméra.<br/>2. Sérialiser puis
+ * recharger.<br/>
+ * \tattendu Les zones rechargées sont identiques, dans le même ordre.
+ * }
+ */
+TEST(LevelWriterTest, ZonesDeCameraSurviventAuRoundTrip) {
+    constexpr const char* LEVEL = R"({
+      "width": 30, "height": 20,
+      "cameraFraming": { "mode": "perRoom", "zones": [
+        { "x": 0, "y": 0, "width": 24, "height": 14 },
+        { "x": 24, "y": 0, "width": 6, "height": 20 }
+      ] },
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" }
+      ]
+    })";
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const std::string json = core::LevelWriter::toJsonString(*loaded.level);
+    const core::LevelLoadResult reloaded = core::LevelLoader::loadFromString(json);
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+
+    EXPECT_EQ(reloaded.level->cameraFraming().zones, loaded.level->cameraFraming().zones);
 }
 
 /**

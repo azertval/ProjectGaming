@@ -372,6 +372,19 @@ void LevelDraft::setCameraFraming(CameraFramingConfig cameraFraming) {
     _cameraFraming = cameraFraming;
 }
 
+void LevelDraft::addCameraZone(CameraZone zone) {
+    pushUndo();
+    _cameraFraming.zones.push_back(zone);
+}
+
+void LevelDraft::removeCameraZone(std::size_t index) {
+    if (index >= _cameraFraming.zones.size()) {
+        return;
+    }
+    pushUndo();
+    _cameraFraming.zones.erase(_cameraFraming.zones.begin() + static_cast<std::ptrdiff_t>(index));
+}
+
 void LevelDraft::resize(int width, int height) {
     pushUndo();
     TileMap resized(width, height);

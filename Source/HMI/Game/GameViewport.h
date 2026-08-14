@@ -354,6 +354,13 @@ public:
      */
     void setLevelCameraFraming(core::CameraFramingConfig cameraFraming);
 
+    /**
+     * @brief Retire la zone de caméra au rang @p index (section « Cadrage », `EX-LVL-007`,
+     *        `EX-EDIT-029`) ; sans effet si hors bornes.
+     * @param index Rang dans `core::LevelDraft::cameraFraming().zones`.
+     */
+    void removeCameraZone(std::size_t index);
+
     /// @return Le mode de rendu courant, commun à l'édition, à l'essai et au jeu réel.
     [[nodiscard]] RenderMode renderMode() const noexcept {
         return _renderMode;
@@ -533,6 +540,9 @@ private:
     void paintAt(const QMouseEvent* event);
     /// Remplit le rectangle (bornes @p a, @p b incluses) du type actif (outil Rectangle).
     void applyRectangle(core::GridPosition a, core::GridPosition b);
+    /// Ajoute une zone de caméra couvrant le rectangle (bornes @p a, @p b incluses, outil
+    /// `CameraZone`, `EX-LVL-007`, `EX-EDIT-029`) au cadrage du niveau.
+    void addCameraZoneFromDrag(core::GridPosition a, core::GridPosition b);
     /// Copie la zone sélectionnée dans le presse-papiers local (`Ctrl+C`).
     void copySelection();
     /// Colle le presse-papiers à la case survolée (`Ctrl+V`).

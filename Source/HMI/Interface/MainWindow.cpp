@@ -351,6 +351,8 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     // Section « Cadrage » (LOT-64, EX-EDIT-028) : meme separation.
     connect(_textures, &TexturePanel::cameraFramingChanged, _viewport,
             &GameViewport::setLevelCameraFraming);
+    connect(_textures, &TexturePanel::cameraZoneRemoveRequested, _viewport,
+            &GameViewport::removeCameraZone);
 
     // Palette fidele au canevas (EX-EDIT-027) : elle interroge le MEME catalogue, et se rafraichit
     // aux trois evenements qui rendent ses vignettes obsoletes -- bascule de mode, changement de
@@ -949,7 +951,8 @@ void MainWindow::buildUi() {
 
     for (const hmi::EditorTool tool :
          {hmi::EditorTool::Paint, hmi::EditorTool::Rectangle, hmi::EditorTool::Selection,
-          hmi::EditorTool::Link, hmi::EditorTool::TextureAssign, hmi::EditorTool::Decor}) {
+          hmi::EditorTool::Link, hmi::EditorTool::TextureAssign, hmi::EditorTool::Decor,
+          hmi::EditorTool::CameraZone}) {
         connect(_actions->toolAction(tool), &QAction::toggled, _viewport, [this, tool](bool on) {
             if (on) {
                 _viewport->setTool(tool);

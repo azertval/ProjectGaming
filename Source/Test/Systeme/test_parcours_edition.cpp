@@ -211,3 +211,53 @@ TEST(ParcoursEditionSysteme, EditeAnnuleEnregistreEtRechargeLeCadrageDeCamera) {
     ASSERT_TRUE(level.cameraFraming().roomHeightTiles.has_value());
     EXPECT_EQ(*level.cameraFraming().roomHeightTiles, 8);
 }
+
+/**
+ * @brief Parcours complet d'édition des zones de caméra dessinées à la main : passer en mode *par
+ * salle*, dessiner deux zones (outil « Zone de caméra »), retirer l'une d'elles par erreur puis
+ * annuler ce retrait, enregistrer, recharger (`EX-LVL-007`, `EX-EDIT-029`).
+ * \castest{<b>Parcours complet d'édition des zones de caméra dessinées à la main.</b><br/>
+ * \tcat Système · Éditeur de niveaux<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Passer en mode *par salle*, dessiner deux zones.<br/>2. Retirer la première par
+ * erreur, annuler le retrait.<br/>3. Enregistrer sur disque, recharger.<br/>
+ * \tattendu Le niveau rechargé restitue les deux zones, dans le même ordre, avec leurs bornes
+ * exactes.
+ * }
+ */
+TEST(ParcoursEditionSysteme, EditeDessineDesZonesDeCameraEnregistreEtRecharge) {
+    // 1. Le level designer choisit le mode "par salle" puis dessine deux zones sur le canevas.
+    core::LevelDraft draft = core::LevelDraft::empty("Zones (edition)", 30, 20);
+    draft.setEntry(0, 0);
+    draft.setExit(29, 19);
+    draft.setCameraFraming(core::CameraFramingConfig{.mode = core::CameraFramingMode::PerRoom});
+    draft.addCameraZone(core::CameraZone{.x = 0, .y = 0, .width = 20, .height = 20});
+    draft.addCameraZone(core::CameraZone{.x = 20, .y = 0, .width = 10, .height = 20});
+    ASSERT_EQ(draft.cameraFraming().zones.size(), 2u);
+
+    // 2. Retrait par erreur de la premiere zone (bouton "Retirer" du tableau), puis annulation
+    // (EX-EDIT-005).
+    draft.removeCameraZone(0);
+    ASSERT_EQ(draft.cameraFraming().zones.size(), 1u);
+    ASSERT_TRUE(draft.undo());
+    ASSERT_EQ(draft.cameraFraming().zones.size(), 2u);
+
+    // 3. Enregistrement puis rechargement (round-trip disque, EX-EDIT-011).
+    const core::LevelLoadResult validated = draft.toLevel();
+    ASSERT_TRUE(validated.ok()) << validated.error;
+
+    const std::filesystem::path path =
+        std::filesystem::temp_directory_path() / "projectgaming_systeme_edition_zones.json";
+    ASSERT_TRUE(core::LevelWriter::saveToFile(*validated.level, path));
+
+    const core::LevelLoadResult reloaded = core::LevelLoader::loadFromFile(path);
+    std::filesystem::remove(path);
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+
+    const core::Level& level = *reloaded.level;
+    ASSERT_EQ(level.cameraFraming().zones.size(), 2u);
+    EXPECT_EQ(level.cameraFraming().zones[0],
+              (core::CameraZone{.x = 0, .y = 0, .width = 20, .height = 20}));
+    EXPECT_EQ(level.cameraFraming().zones[1],
+              (core::CameraZone{.x = 20, .y = 0, .width = 10, .height = 20}));
+}

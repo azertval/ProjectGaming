@@ -686,6 +686,56 @@ TEST(LevelDraftTest, SetCameraFramingChangeLeModeEtSAnnule) {
 }
 
 /**
+ * @brief `addCameraZone` ajoute une zone en fin de liste, annulable ; `removeCameraZone` la
+ * retire, également annulable (`EX-LVL-007`, `EX-EDIT-029`).
+ * \castest{<b>addCameraZone/removeCameraZone ajoutent et retirent une zone, annulables.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Ajouter deux zones sur un brouillon vierge.<br/>2. Retirer la première.<br/>3.
+ * Annuler le retrait, puis annuler les deux ajouts.<br/>
+ * \tattendu Chaque étape restitue l'état attendu ; l'annulation complète revient à une liste
+ * vide.
+ * }
+ */
+TEST(LevelDraftTest, AddEtRemoveCameraZoneSontAnnulables) {
+    LevelDraft draft = LevelDraft::empty("N", 30, 20);
+    EXPECT_TRUE(draft.cameraFraming().zones.empty());
+
+    draft.addCameraZone(core::CameraZone{.x = 0, .y = 0, .width = 10, .height = 10});
+    draft.addCameraZone(core::CameraZone{.x = 10, .y = 0, .width = 10, .height = 10});
+    ASSERT_EQ(draft.cameraFraming().zones.size(), 2u);
+    EXPECT_EQ(draft.cameraFraming().zones[0].x, 0);
+    EXPECT_EQ(draft.cameraFraming().zones[1].x, 10);
+
+    draft.removeCameraZone(0);
+    ASSERT_EQ(draft.cameraFraming().zones.size(), 1u);
+    EXPECT_EQ(draft.cameraFraming().zones[0].x, 10);  // la seconde zone reste, l'index se decale
+
+    ASSERT_TRUE(draft.undo());  // annule removeCameraZone
+    ASSERT_EQ(draft.cameraFraming().zones.size(), 2u);
+
+    ASSERT_TRUE(draft.undo());  // annule le second addCameraZone
+    ASSERT_TRUE(draft.undo());  // annule le premier addCameraZone
+    EXPECT_TRUE(draft.cameraFraming().zones.empty());
+}
+
+/**
+ * @brief `removeCameraZone` sur un index hors bornes reste sans effet (`EX-NFR-040`).
+ * \castest{<b>removeCameraZone sur un index hors bornes reste sans effet.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Appeler `removeCameraZone` avec un index hors bornes sur une liste vide.<br/>
+ * \tattendu Aucun effet : la liste reste vide, aucune entrée d'historique n'est empilée.
+ * }
+ */
+TEST(LevelDraftTest, RemoveCameraZoneHorsBornesSansEffet) {
+    LevelDraft draft = LevelDraft::empty("N", 30, 20);
+    draft.removeCameraZone(0);
+    EXPECT_TRUE(draft.cameraFraming().zones.empty());
+    EXPECT_FALSE(draft.canUndo());
+}
+
+/**
  * @brief paintRegion applique un bloc homogène comme une succession de paintTile équivalente.
  * \castest{<b>paintRegion applique un bloc homogène comme une succession de paintTile
  * équivalente.</b><br/>

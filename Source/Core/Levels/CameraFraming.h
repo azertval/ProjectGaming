@@ -3,6 +3,7 @@
 #include <optional>
 #include <string>
 #include <string_view>
+#include <vector>
 
 /**
  * @file Core/Levels/CameraFraming.h
@@ -39,17 +40,43 @@ inline constexpr int kDefaultRoomWidthTiles = 24;
 inline constexpr int kDefaultRoomHeightTiles = 14;
 
 /**
- * @brief Cadrage de caméra résolu d'un niveau : le mode retenu et, pour le mode *par salle*, une
- *        taille de salle éventuellement personnalisée.
+ * @brief Rectangle de caméra dessiné à la main par le level designer (mode *par salle*), en cases.
  *
- * `roomWidthTiles`/`roomHeightTiles` n'ont de sens qu'en mode `PerRoom` ; `std::nullopt` signifie
+ * Quand `CameraFramingConfig::zones` en porte au moins un, il **remplace entièrement** le
+ * découpage automatique en grille uniforme (`roomWidthTiles`/`roomHeightTiles`) : c'est ce qui
+ * permet de mélanger plusieurs tailles de caméra dans un même niveau, chaque zone étant une
+ * salle de la taille voulue par l'auteur plutôt qu'une cellule d'une grille régulière.
+ */
+struct CameraZone {
+    int x = 0;
+    int y = 0;
+    int width = 1;
+    int height = 1;
+
+    [[nodiscard]] bool operator==(const CameraZone&) const noexcept = default;
+};
+
+/**
+ * @brief Cadrage de caméra résolu d'un niveau : le mode retenu et ses paramètres.
+ *
+ * `roomWidthTiles`/`roomHeightTiles` ont deux usages selon le mode : en `PerRoom`, la taille de
+ * chaque salle du découpage **automatique** en grille (ignorée si `zones` est non vide) ; en
+ * `Follow`, la taille fixe de la zone visible par la caméra de suivi. `std::nullopt` signifie
  * « taille par défaut » (`kDefaultRoomWidthTiles`/`kDefaultRoomHeightTiles`), jamais une taille de
- * zéro case.
+ * zéro case. Sans objet dans les deux cas pour `WholeLevel`.
  */
 struct CameraFramingConfig {
     CameraFramingMode mode = CameraFramingMode::WholeLevel;
     std::optional<int> roomWidthTiles;
     std::optional<int> roomHeightTiles;
+    /**
+     * Zones de caméra dessinées à la main (mode `PerRoom` uniquement) : si non vide, remplace
+     * entièrement le découpage automatique en grille — la **première** zone de la liste qui
+     * contient la position du personnage est active (l'ordre porte donc la priorité en cas de
+     * chevauchement, même convention que la superposition des décors) ; si aucune zone ne la
+     * contient, repli sur le cadrage niveau entier (jamais un état indéfini).
+     */
+    std::vector<CameraZone> zones;
 
     [[nodiscard]] bool operator==(const CameraFramingConfig&) const noexcept = default;
 };
@@ -70,8 +97,9 @@ struct CameraFramingConfig {
     const std::optional<CameraFramingConfig>& declared, int levelWidth, int levelHeight) noexcept;
 
 /**
- * @brief Valide un cadrage déclaré (`EX-LVL-004`) : taille de salle nulle/négative, supérieure au
- *        niveau, ou paramètre étranger au mode retenu.
+ * @brief Valide un cadrage déclaré (`EX-LVL-004`) : taille de vue nulle/négative ou supérieure au
+ *        niveau, zone hors bornes ou de taille nulle, ou paramètre étranger au mode retenu
+ *        (`roomWidthTiles`/`roomHeightTiles` hors `PerRoom`/`Follow`, `zones` hors `PerRoom`).
  * @param config      Cadrage déclaré à valider.
  * @param levelWidth  Largeur du niveau, en cases.
  * @param levelHeight Hauteur du niveau, en cases.

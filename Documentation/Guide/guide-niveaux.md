@@ -135,12 +135,13 @@ détaillée dans @ref guide-rendu, cette section ne couvre que sa place dans le 
 "cameraFraming": { "mode": "perRoom", "roomWidthTiles": 20, "roomHeightTiles": 12 }
 ```
 
-`mode` vaut `"wholeLevel"`, `"perRoom"` ou `"follow"` ; `roomWidthTiles`/`roomHeightTiles` ne sont
-lus qu'en mode `"perRoom"` et restent optionnels (taille de salle par défaut si absents). **Champ
-absent** — tous les niveaux antérieurs à ce lot — le chargeur applique la **règle de repli**
-(`core::resolveCameraFraming`) : elle reproduit exactement le comportement historique (`"wholeLevel"`
-si le niveau tient dans une salle de taille par défaut, `"perRoom"` sinon), pour que la
-rétrocompatibilité des niveaux existants reste garantie (`EX-LVL-005`). C'est pour ce champ que le
+`mode` vaut `"wholeLevel"`, `"perRoom"` ou `"follow"` ; `roomWidthTiles`/`roomHeightTiles` sont lus
+en mode `"perRoom"` **et** `"follow"` (`EX-REN-017` : la taille de vue du suivi réutilise les mêmes
+champs que la taille de salle) et restent optionnels dans les deux cas (taille par défaut si
+absents). **Champ absent** — tous les niveaux antérieurs à ce lot — le chargeur applique la **règle
+de repli** (`core::resolveCameraFraming`) : elle reproduit exactement le comportement historique
+(`"wholeLevel"` si le niveau tient dans une salle de taille par défaut, `"perRoom"` sinon), pour que
+la rétrocompatibilité des niveaux existants reste garantie (`EX-LVL-005`). C'est pour ce champ que le
 numéro de version de format est passé de `1` à `2` (`core::kLevelFormatVersion`) — le mécanisme de
 repli lui-même n'exigeait pas ce bump (un champ absent se lit déjà sans erreur), mais la convention
 du projet est de tracer chaque champ significatif ajouté au format.
@@ -148,6 +149,26 @@ du projet est de tracer chaque champ significatif ajouté au format.
 `core::LevelWriter` n'émet le champ que si le cadrage **diverge** de ce que la règle de repli
 recalculerait pour les dimensions du niveau : un niveau jamais retouché sur ce point reste sans le
 champ après un aller-retour éditeur, exactement comme avant ce lot.
+
+En mode `"perRoom"`, un tableau optionnel `"zones"` (`EX-LVL-007`) porte des rectangles de caméra
+dessinés à la main par le level designer, chacun `{ "x", "y", "width", "height" }` en tuiles :
+
+```json
+"cameraFraming": {
+  "mode": "perRoom",
+  "zones": [
+    { "x": 0, "y": 0, "width": 20, "height": 12 },
+    { "x": 20, "y": 0, "width": 10, "height": 12 }
+  ]
+}
+```
+
+Ce tableau permet de **mélanger plusieurs tailles de caméra** dans un même niveau, là où
+`roomWidthTiles`/`roomHeightTiles` seuls n'en autorisent qu'une, uniforme sur tout le niveau. La
+résolution de la zone active (la **première** de la liste couvrant la position du personnage) est
+un mécanisme de `HMI`, détaillé dans @ref guide-rendu — ce champ n'est ici qu'une **donnée**,
+absente par défaut : un niveau sans `"zones"` (ou avec un tableau vide) garde exactement le
+comportement de grille automatique `roomWidthTiles`/`roomHeightTiles` décrit ci-dessus.
 
 ## De la grille aux entités : \ref core::buildLevelScene "buildLevelScene"
 

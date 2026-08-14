@@ -8,8 +8,8 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ### Ajouté
 - **LOT-64 — Cadrage de caméra choisi par le level designer** (déclare `EX-LVL-006`, `EX-REN-016`,
-  `EX-EDIT-028` ; reformule `EX-REN-015`). Le cadrage devient une **donnée du niveau**, plus une
-  règle en dur déduite de ses dimensions.
+  `EX-EDIT-028`, `EX-LVL-007`, `EX-REN-017`, `EX-EDIT-029` ; reformule `EX-REN-015`). Le cadrage
+  devient une **donnée du niveau**, plus une règle en dur déduite de ses dimensions.
   - **Trois modes** (`core::CameraFramingMode`) : *niveau entier*, *par salle* (comportement
     historique, désormais explicite), *suivi du personnage* — le mode qui manquait au moteur.
   - **Caméra de suivi** (`hmi::FollowCamera`, `Source/HMI/Graphics`) : zone morte, anticipation
@@ -30,6 +30,16 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     du niveau. Neutralisée spécifiquement pour ce mode (`hmi::composeWorldSprites`, paramètre
     `applyDecorParallax`) : les trois couches restent strictement fixes dans le niveau, comme dans
     les deux autres modes de cadrage.
+  - **Zones de caméra dessinées à la main** (`core::CameraZone`, `EX-LVL-007`) : en mode *par
+    salle*, le level designer dessine ses propres rectangles de caméra directement sur le canevas
+    (nouvel outil « Zone de caméra »), ce qui permet de **mélanger plusieurs tailles de caméra dans
+    un même niveau** — la grille automatique à taille unique n'est plus qu'un cas particulier
+    (liste de zones vide). Priorité à la première zone couvrant le personnage en cas de
+    chevauchement, repli sur le niveau entier hors de toute zone ; ajout/retrait annulables,
+    tableau récapitulatif dans la section « Cadrage ».
+  - **Taille de la caméra de suivi réglable par niveau** (`EX-REN-017`) : le mode *suivi* réutilise
+    les mêmes champs que la taille de salle du mode *par salle*, au lieu de la constante par défaut
+    codée en dur.
 - **LOT-63 — Mécanismes manquants du référentiel** (lève `EX-GP-023`, marqué « ⚠️ optionnel MVP »
   depuis la rédaction des spécifications ; déclare `EX-CTRL-022` et `EX-GP-026`). Réduit l'écart
   entre ce que le référentiel promettait et ce que le jeu contenait.

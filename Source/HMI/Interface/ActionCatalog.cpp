@@ -40,6 +40,11 @@ const std::array<EditorActionSpec, EDITOR_ACTION_CATALOG_COUNT>& editorActionCat
          .shortcut = "",
          .checkable = true,
          .group = EditorActionGroup::LevelTools},
+        {.id = IconId::ToolCameraZone,
+         .labelKey = "tool.camera_zone",
+         .shortcut = "",
+         .checkable = true,
+         .group = EditorActionGroup::LevelTools},
         // Outils du canevas pixel art (LOT-54 TACHE-04) : groupe exclusif SEPARE des outils de
         // niveau ci-dessus -- les deux groupes ne s'excluent jamais entre eux. Aucun raccourci
         // clavier dedie aujourd'hui (choix par la barre d'outils du canevas uniquement).
@@ -200,6 +205,8 @@ std::optional<EditorTool> editorActionTool(IconId id) {
             return EditorTool::TextureAssign;
         case IconId::ToolDecor:
             return EditorTool::Decor;
+        case IconId::ToolCameraZone:
+            return EditorTool::CameraZone;
         default:
             return std::nullopt;
     }
@@ -219,6 +226,8 @@ IconId editorActionForTool(EditorTool tool) {
             return IconId::ToolTextureAssign;
         case EditorTool::Decor:
             return IconId::ToolDecor;
+        case EditorTool::CameraZone:
+            return IconId::ToolCameraZone;
     }
     return IconId::ToolPaint;
 }

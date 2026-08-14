@@ -184,8 +184,34 @@ Le centre finalement retenu est **aligné sur la grille de pixels** à l'échell
 l'interpolation ci-dessus : un centre fractionnaire échantillonnerait chaque texture entre deux
 texels et ruinerait la netteté du pixel art que tout le projet protège depuis le `LOT-05`. Le zoom
 reste **entier** dans les trois modes (`EX-ARCH-022`), calculé par la même `Camera2D::fitZoom` que
-les deux autres modes, appliquée à une surface de référence fixe (la taille de salle par défaut) en
-mode suivi, faute de rectangle de contenu naturel à ajuster.
+les deux autres modes, appliquée à une surface de référence — la taille de vue du mode suivi
+(`EX-REN-017`, voir ci-dessous), faute de rectangle de contenu naturel à ajuster.
+
+### Mélanger plusieurs tailles de caméra : zones dessinées à la main et taille de suivi réglable (`EX-LVL-007`, `EX-REN-017`)
+
+La grille automatique du mode *par salle* ci-dessus impose une **seule** taille de salle pour tout
+le niveau. `core::CameraFramingConfig::zones` (une liste de `core::CameraZone`, rectangles en
+tuiles) lève cette limite : un niveau peut porter des zones de caméra de tailles **différentes**,
+dessinées par le level designer directement sur le canevas de l'éditeur (@ref guide-editeur) plutôt
+que calculées. Liste vide par défaut : sans zone dessinée, le comportement de grille automatique
+décrit plus haut reste **inchangé**, `zones` n'étant qu'une donnée optionnelle en plus, jamais une
+modification du calcul par défaut.
+
+`hmi::activeCameraZoneIndex` (`Source/HMI/Graphics/CameraZones.h`, fonction pure, sans GPU) résout
+la zone active : la **première** zone de la liste dont le rectangle contient la position du
+personnage (bornes hautes/gauches incluses, basses/droites exclues) l'emporte — même convention
+de priorité par ordre que la superposition des décors (@ref guide-editeur). Aucune zone ne
+contient le personnage (trou entre deux zones dessinées) → repli sur le **niveau entier**, jamais
+un état indéfini. `hmi::GameSession` résout la zone active au chargement et à chaque bascule,
+exactement comme elle résout déjà la salle active de la grille automatique
+(`RoomGrid::roomIndexAt`) ; les deux mécanismes ne coexistent jamais pour un même niveau, le choix
+entre l'un et l'autre se faisant simplement sur `zones.empty()`.
+
+Le mode `Follow` réutilise les **mêmes champs** que la taille de salle du mode *par salle*
+(`roomWidthTiles`/`roomHeightTiles`) pour sa propre taille de vue, plutôt que de retenir en dur la
+taille de salle par défaut : un niveau qui veut un suivi plus large ou plus étroit que cette
+valeur par défaut le déclare, sans champ dédié supplémentaire — même donnée, deux usages
+(`core::validateCameraFramingConfig` l'accepte pour les deux modes).
 
 ## Le pipeline de dessin de sprites : \ref hmi::SpriteBatch "hmi::SpriteBatch"
 

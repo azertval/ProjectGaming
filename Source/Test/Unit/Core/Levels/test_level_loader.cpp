@@ -181,6 +181,40 @@ TEST(LevelLoaderTest, ModeDeCadrageDeclareExplicitementEstRestitue) {
 }
 
 /**
+ * @brief Un niveau déclarant des zones de caméra dessinées à la main (mode *par salle*) les
+ * restitue dans l'ordre exact du fichier (`EX-LVL-007`).
+ * \castest{<b>Les zones de caméra dessinées à la main sont restituées dans l'ordre du fichier.
+ * </b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Charger un niveau déclarant deux zones de caméra.<br/>2. Vérifier leur nombre, leur
+ * ordre et leurs bornes.<br/>
+ * \tattendu Les deux zones sont restituées dans l'ordre exact du fichier, avec leurs bornes
+ * exactes.
+ * }
+ */
+TEST(LevelLoaderTest, ZonesDeCameraDeclareesSontRestitueesDansLOrdre) {
+    constexpr const char* LEVEL = R"({
+      "width": 30, "height": 20,
+      "cameraFraming": { "mode": "perRoom", "zones": [
+        { "x": 0, "y": 0, "width": 24, "height": 14 },
+        { "x": 24, "y": 0, "width": 6, "height": 20 }
+      ] },
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" }
+      ]
+    })";
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(result.ok()) << result.error;
+    ASSERT_EQ(result.level->cameraFraming().zones.size(), 2u);
+    EXPECT_EQ(result.level->cameraFraming().zones[0],
+              (core::CameraZone{.x = 0, .y = 0, .width = 24, .height = 14}));
+    EXPECT_EQ(result.level->cameraFraming().zones[1],
+              (core::CameraZone{.x = 24, .y = 0, .width = 6, .height = 20}));
+}
+
+/**
  * @brief Un niveau sans champ `cameraFraming` reproduit exactement la règle historique : niveau
  * entier s'il tient dans une salle de taille par défaut, par salle sinon (`EX-LVL-006`, critère
  * d'acceptation numéro un du lot).

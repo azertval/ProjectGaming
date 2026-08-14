@@ -1,5 +1,7 @@
 #include "Core/Levels/CameraFraming.h"
 
+#include <cstddef>
+
 namespace core {
 
 // Nom JSON du mode (voir en-tete).
@@ -46,12 +48,40 @@ CameraFramingConfig resolveCameraFraming(const std::optional<CameraFramingConfig
 // Valide un cadrage declare (EX-LVL-004, voir en-tete).
 std::optional<std::string> validateCameraFramingConfig(const CameraFramingConfig& config,
                                                        int levelWidth, int levelHeight) {
-    if (config.mode != CameraFramingMode::PerRoom) {
+    // Zones dessinees a la main : mode PerRoom uniquement, chacune entierement dans le niveau et
+    // de taille non nulle.
+    if (config.mode != CameraFramingMode::PerRoom && !config.zones.empty()) {
+        return "cameraFraming.zones renseigne pour un mode qui n'est pas 'perRoom'";
+    }
+    for (std::size_t index = 0; index < config.zones.size(); ++index) {
+        const CameraZone& zone = config.zones[index];
+        const std::string prefix = "cameraFraming.zones[" + std::to_string(index) + "]";
+        if (zone.width <= 0) {
+            return prefix + ".width doit etre superieur a zero";
+        }
+        if (zone.height <= 0) {
+            return prefix + ".height doit etre superieur a zero";
+        }
+        if (zone.x < 0 || zone.y < 0) {
+            return prefix + " a une position negative";
+        }
+        if (zone.x + zone.width > levelWidth) {
+            return prefix + " depasse la largeur du niveau";
+        }
+        if (zone.y + zone.height > levelHeight) {
+            return prefix + " depasse la hauteur du niveau";
+        }
+    }
+
+    // Taille de vue : mode PerRoom (salle de la grille automatique) ou Follow (zone de suivi).
+    if (config.mode != CameraFramingMode::PerRoom && config.mode != CameraFramingMode::Follow) {
         if (config.roomWidthTiles) {
-            return "cameraFraming.roomWidthTiles renseigne pour un mode qui n'est pas 'perRoom'";
+            return "cameraFraming.roomWidthTiles renseigne pour un mode qui n'est ni 'perRoom' ni "
+                   "'follow'";
         }
         if (config.roomHeightTiles) {
-            return "cameraFraming.roomHeightTiles renseigne pour un mode qui n'est pas 'perRoom'";
+            return "cameraFraming.roomHeightTiles renseigne pour un mode qui n'est ni 'perRoom' "
+                   "ni 'follow'";
         }
         return std::nullopt;
     }

@@ -105,6 +105,18 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
         if (cameraFraming.roomHeightTiles) {
             framingJson["roomHeightTiles"] = *cameraFraming.roomHeightTiles;
         }
+        if (!cameraFraming.zones.empty()) {
+            nlohmann::json zonesJson = nlohmann::json::array();
+            for (const CameraZone& zone : cameraFraming.zones) {
+                nlohmann::json zoneJson;
+                zoneJson["x"] = zone.x;
+                zoneJson["y"] = zone.y;
+                zoneJson["width"] = zone.width;
+                zoneJson["height"] = zone.height;
+                zonesJson.push_back(std::move(zoneJson));
+            }
+            framingJson["zones"] = std::move(zonesJson);
+        }
         root["cameraFraming"] = std::move(framingJson);
     }
 

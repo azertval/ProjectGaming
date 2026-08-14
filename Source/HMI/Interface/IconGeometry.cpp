@@ -113,6 +113,40 @@ IconGeometry iconGeometry(IconId id) {
             return IconGeometry{{IconStroke{
                 .points = star, .closed = true, .filled = true, .color = IconColorRole::Accent}}};
         }
+        case IconId::ToolCameraZone:
+            // Cadre de visee (memes coins en L que ToolSelection) avec un objectif au centre
+            // (disque plein, accent) : distingue visuellement "dessiner une zone de camera" de
+            // "selectionner une zone de contenu".
+            return IconGeometry{{
+                IconStroke{
+                    .points = {IconPoint{.x = 0.15F, .y = 0.32F}, IconPoint{.x = 0.15F, .y = 0.15F},
+                               IconPoint{.x = 0.32F, .y = 0.15F}},
+                    .closed = false,
+                    .filled = false,
+                    .color = IconColorRole::Foreground},
+                IconStroke{
+                    .points = {IconPoint{.x = 0.68F, .y = 0.15F}, IconPoint{.x = 0.85F, .y = 0.15F},
+                               IconPoint{.x = 0.85F, .y = 0.32F}},
+                    .closed = false,
+                    .filled = false,
+                    .color = IconColorRole::Foreground},
+                IconStroke{
+                    .points = {IconPoint{.x = 0.85F, .y = 0.68F}, IconPoint{.x = 0.85F, .y = 0.85F},
+                               IconPoint{.x = 0.68F, .y = 0.85F}},
+                    .closed = false,
+                    .filled = false,
+                    .color = IconColorRole::Foreground},
+                IconStroke{
+                    .points = {IconPoint{.x = 0.32F, .y = 0.85F}, IconPoint{.x = 0.15F, .y = 0.85F},
+                               IconPoint{.x = 0.15F, .y = 0.68F}},
+                    .closed = false,
+                    .filled = false,
+                    .color = IconColorRole::Foreground},
+                IconStroke{.points = circlePoints(0.5F, 0.5F, 0.12F),
+                           .closed = true,
+                           .filled = true,
+                           .color = IconColorRole::Accent},
+            }};
         case IconId::Save:
             return IconGeometry{{
                 rectStroke(0.20F, 0.15F, 0.60F, 0.70F, false, IconColorRole::Foreground),

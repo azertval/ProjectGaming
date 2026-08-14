@@ -273,6 +273,20 @@ struct TileParseState {
     if (framingJson.contains("roomHeightTiles")) {
         config.roomHeightTiles = framingJson.at("roomHeightTiles").get<int>();
     }
+    // Zones de camera dessinees a la main (mode PerRoom uniquement) : liste d'objets {x, y, width,
+    // height}, en cases. Absente = vecteur vide (decoupage automatique en grille inchange).
+    if (framingJson.contains("zones")) {
+        if (!framingJson.at("zones").is_array()) {
+            return failure("cameraFraming.zones doit etre une liste",
+                           LevelValidationError::InvalidCameraFraming);
+        }
+        for (const nlohmann::json& zoneJson : framingJson.at("zones")) {
+            config.zones.push_back(CameraZone{.x = zoneJson.value("x", 0),
+                                              .y = zoneJson.value("y", 0),
+                                              .width = zoneJson.value("width", 1),
+                                              .height = zoneJson.value("height", 1)});
+        }
+    }
     if (const std::optional<std::string> error =
             validateCameraFramingConfig(config, width, height)) {
         return failure(*error, LevelValidationError::InvalidCameraFraming);
