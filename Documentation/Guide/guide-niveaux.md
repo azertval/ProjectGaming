@@ -341,6 +341,17 @@ autre ordre produit des défauts subtils et intermittents (`hmi::GameSession::up
 **mortelle** (`core::Player::squished`, décision de cadrage retenue) — plutôt que de mettre la
 plateforme en pause, ce qui casserait sa position purement fonction du numéro de pas.
 
+> ⚠️ **Défaut connu, non corrigé (`LOT-65`, consigné dans `CHANGELOG.md`)** : la seule
+> **présence** d'une configuration `MovingPlatformConfig` dans un niveau — même **immobile**
+> (`speed = 0`) et géométriquement **loin** du personnage — casse la résolution de collision
+> pendant qu'un autre personnage suit une **pente** ailleurs dans ce même niveau (constaté :
+> une chute erronée en pleine ascension d'une pente, alors qu'aucune plateforme n'est en jeu à
+> cet endroit). Isolé par bissection (retirer uniquement la tuile `movingPlatform` d'une copie de
+> niveau suffit à faire disparaître l'échec) ; racine non creusée plus loin, décision de cadrage du
+> `LOT-65` (consigner, pas corriger en cours de refonte de contenu). En pratique : éviter de
+> combiner une plateforme mobile et une pente dans un même fichier de niveau tant que ce défaut
+> n'est pas corrigé.
+
 ## Budget de mouvements
 
 Un tableau **puzzle** peut vouloir limiter délibérément le nombre de sauts et/ou de dashs
