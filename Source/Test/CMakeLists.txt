@@ -407,6 +407,7 @@ target_compile_definitions(IntegrationTests PRIVATE
 
 # Tests système : un parcours de jeu complet sur le contenu livré, sans la couche GPU.
 add_executable(SystemTests
+    Systeme/test_couverture_mecaniques.cpp
     Systeme/test_parcours_complet.cpp
     Systeme/test_parcours_edition.cpp
 )

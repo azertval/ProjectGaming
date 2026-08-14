@@ -1,6 +1,6 @@
 # Cahier de test {#cahiertest}
 
-**1114 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**1117 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
 ## Tests unitaires (1014)
 
@@ -1774,7 +1774,15 @@
 |---|---|---|---|
 | **PlateformeCompositionTest.EntiteTuileSuitLaPositionSimulee** (Bloquant)<br/><sub>`Source/Test/Integration/test_plateforme_composition.cpp:64`</sub> | L'entite-tuile d'une plateforme mobile suit sa position simulee. | 1. Charger demo-plateforme.json et construire la scene (`core::buildLevelScene`).<br/> 2. Reperer l'entite-tuile de la plateforme a sa position de depart.<br/>3. Avancer `core::PlatformController` de plusieurs pas, en reappliquant `boxAt` a l'entite comme le ferait `hmi::GameSession::refreshPlatformVisuals`. | Vérifie que `level.platformConfigs().empty()` est faux.<br/>Vérifie que `world.hasComponent<core::Transform>(platform)` est vrai.<br/>Vérifie que `transform.position.x` vaut `controller.boxAt(0).min.x`.<br/>Vérifie que `transform.position.y` vaut `controller.boxAt(0).min.y`.<br/>Vérifie que `moved` est vrai. |
 
-## Tests système (5)
+## Tests système (8)
+
+### Couverture Mecaniques — `test_couverture_mecaniques.cpp` (3)
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **CouvertureMecaniques.InventaireDeriveDeLEnumeration** (Majeur)<br/><sub>`Source/Test/Systeme/test_couverture_mecaniques.cpp:219`</sub> | L'inventaire des types de tuile dérive de l'énumération du code : chaque type produit a un nom qui se relit exactement au même type. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `types.empty()` est faux.<br/>Vérifie que `type` diffère de `core::TileType::Empty`.<br/>Vérifie que `roundTrip.has_value()` est vrai.<br/>Vérifie que `*roundTrip` vaut `type`. |
+| **CouvertureMecaniques.GardeFouSensibleAUneMecaniqueManquante** (Bloquant)<br/><sub>`Source/Test/Systeme/test_couverture_mecaniques.cpp:246`</sub> | Retirer d'un tableau la seule occurrence d'un type de tuile fait échouer le garde-fou de couverture, qui le nomme précisément. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `missing.size()` vaut `1U`.<br/>Vérifie que `missing.front()` vaut `core::TileType::Solid`.<br/>Vérifie que `missingModes.size()` vaut `1U`.<br/>Vérifie que `missingModes.front()` vaut `core::CameraFramingMode::Follow`. |
+| **CouvertureMecaniques.ChaqueMecaniqueLivreeEstCouverteParLaSequence** (Bloquant)<br/><sub>`Source/Test/Systeme/test_couverture_mecaniques.cpp:282`</sub> | Chaque mécanique livrée (type de tuile, mode de cadrage, variante significative) apparaît dans au moins un niveau de la séquence livrée. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `allCovered` est vrai. |
 
 ### Parcours Complet — `test_parcours_complet.cpp` (1)
 
