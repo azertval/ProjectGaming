@@ -35,14 +35,21 @@ Chargés à l'exécution par `core::LevelLoader` (copiés à côté de l'exécut
 
 ## Séquence démo (`LOT-25`, en donnée de contenu depuis `LOT-59` TACHE-04)
 
-`demo-*.json` (15 fichiers) forme la séquence jouée par le jeu (`ScreenId::Game`) : un niveau par
-mécanique (ou petit groupe cohérent), ordre de difficulté croissante, terminée par
-`demo-final.json`/`demo-salles.json` qui les combinent. L'**ordre joué** est celui de
-`sequence-demo.json`, à côté des niveaux dans ce même dossier — pas un littéral dans
-`Source/HMI` (`EX-LVL-013` : le contenu ne s'écrit jamais dans le code). `Source/Test/Systeme/
-test_parcours_complet.cpp` rejoue exactement la même liste, dans le même ordre — un script CI,
-`scripts/check_demo_sequence.py`, échoue si les deux divergent. Détail du tableau mécanique →
-niveau : `Documentation/Lot/LOT-25-niveaux-demo-exhaustifs/tache-01-inventaire-conception.md`.
+**Remise à zéro en préparation du `LOT-65`** (`TACHE-00`) : les dix-sept tableaux hérités du
+`LOT-25` et `sequence-demo.json` (`levels: []`) ont été retirés pour repartir d'une base non
+biaisée par leur géométrie d'origine, une fois la banque d'assets renforcée. Les tableaux et la
+séquence sont reconstruits par `TACHE-01` (garde-fou de couverture) à `TACHE-03` (tableaux
+manquants et de synthèse) du même lot — voir `Documentation/Lot/LOT-65-refonte-niveaux-demo/`.
+`Source/Test/Systeme/test_parcours_complet.cpp` et `scripts/check_demo_sequence.py` échouent tant
+que cette reconstruction n'est pas faite : c'est attendu pendant cette préparation, sur la branche
+dédiée du lot.
+
+Une fois reconstruite, la séquence forme le contenu joué par le jeu (`ScreenId::Game`) : un niveau
+par mécanique (ou petit groupe cohérent), ordre de difficulté croissante, terminé par des tableaux
+de synthèse qui les combinent. L'**ordre joué** est celui de `sequence-demo.json`, à côté des
+niveaux dans ce même dossier — pas un littéral dans `Source/HMI` (`EX-LVL-013` : le contenu ne
+s'écrit jamais dans le code). `test_parcours_complet.cpp` rejoue exactement la même liste, dans le
+même ordre — un script CI, `scripts/check_demo_sequence.py`, échoue si les deux divergent.
 
 ### `sequence-demo.json`
 Objet JSON : `version` (`EX-LVL-005`, absente = version initiale), `titleKey` (clé de traduction du
