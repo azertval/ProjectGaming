@@ -14,12 +14,20 @@ contrairement au fond de niveau, un décor **désigné** est toujours censé exi
 
 ## Contenu actuel : décors de **test**
 
-`bush.png` (22×18) et `branch.png` (40×12) sont **schématiques** et servent à vérifier le
-placement, la superposition par couche et la traversabilité des décors, pas à habiller le jeu.
-Générés par script, donc reproductibles et modifiables sans éditeur d'image :
+Cinq décors, **schématiques**, servent à vérifier le placement, la superposition par couche et la
+traversabilité des décors, pas à habiller le jeu. Générés par script, donc reproductibles et
+modifiables sans éditeur d'image :
 
 ```
 python scripts/generate_test_decors.py
 ```
+
+| Fichier | Dimensions | Couche prévue |
+|---|---|---|
+| `bush.png` | 22×18 | arrière-plan |
+| `rock.png` | 20×14 | arrière-plan |
+| `cloud.png` | 32×14 | arrière-plan |
+| `branch.png` | 40×12 | premier plan |
+| `sign.png` | 14×20 | premier plan |
 
 Un artiste les remplacera par les vrais assets, sans toucher au code.

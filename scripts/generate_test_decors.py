@@ -93,9 +93,53 @@ def branch() -> Image:
     return image
 
 
+def rock() -> Image:
+    """Rocher : decor d'ARRIERE-PLAN, amas de blocs gris, dimensions libres (20x14)."""
+    stone: Color = (110, 108, 118, 255)
+    shadow: Color = (72, 70, 80, 255)
+    highlight: Color = (150, 148, 158, 255)
+
+    image = Image(20, 14, TRANSPARENT)
+    image.fill_rect(2, 6, 16, 8, stone)
+    image.fill_rect(0, 9, 20, 5, stone)
+    image.fill_rect(0, 12, 20, 2, shadow)
+    image.fill_rect(3, 6, 6, 2, highlight)
+    return image
+
+
+def cloud() -> Image:
+    """Nuage : decor d'ARRIERE-PLAN, silhouette bombee claire, dimensions libres (32x14)."""
+    body: Color = (240, 244, 250, 220)
+    shadow: Color = (206, 214, 226, 200)
+
+    image = Image(32, 14, TRANSPARENT)
+    image.fill_rect(4, 6, 24, 6, body)
+    image.fill_rect(8, 2, 12, 6, body)
+    image.fill_rect(18, 3, 10, 6, body)
+    image.fill_rect(4, 10, 24, 2, shadow)
+    return image
+
+
+def sign() -> Image:
+    """Panneau : decor de PREMIER PLAN, poteau + planche, dimensions libres (14x20)."""
+    post: Color = (92, 62, 34, 255)
+    board: Color = (176, 138, 84, 255)
+    board_dark: Color = (128, 96, 56, 255)
+
+    image = Image(14, 20, TRANSPARENT)
+    image.fill_rect(6, 8, 2, 12, post)
+    image.fill_rect(0, 0, 14, 9, board)
+    image.fill_rect(0, 0, 14, 2, board_dark)
+    image.fill_rect(0, 7, 14, 2, board_dark)
+    return image
+
+
 DECORS = {
     "bush.png": bush,
     "branch.png": branch,
+    "rock.png": rock,
+    "cloud.png": cloud,
+    "sign.png": sign,
 }
 
 

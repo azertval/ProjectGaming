@@ -15,9 +15,10 @@ retombe sur le damier magenta, avec un avertissement journalisé nommant l'asset
 
 ## Contenu actuel : textures de **test**
 
-`door_red.png` et `crate_blue.png` sont **schématiques** et servent à vérifier l'assignation par
-instance (priorité sur le skin du type), pas à habiller le jeu. Générées par script, donc
-reproductibles et modifiables sans éditeur d'image :
+Quatre textures (`door_red.png`, `crate_blue.png`, `barrel_brown.png`, `sign_yellow.png`, chacune
+16×16), **schématiques**, servent à vérifier l'assignation par instance (priorité sur le skin du
+type), pas à habiller le jeu. Générées par script, donc reproductibles et modifiables sans éditeur
+d'image :
 
 ```
 python scripts/generate_test_objects.py

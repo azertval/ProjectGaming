@@ -97,9 +97,42 @@ def crate_blue() -> Image:
     return cell
 
 
+def barrel_brown() -> Image:
+    """Tonneau brun : troisieme exemple, forme arrondie plutot que carree comme les deux premieres."""
+    wood: Color = (110, 74, 40, 255)
+    band: Color = (60, 40, 20, 255)
+    light: Color = (150, 108, 62, 255)
+
+    cell = Image(TILE, TILE, TRANSPARENT)
+    cell.fill_rect(2, 1, TILE - 4, TILE - 2, wood)
+    cell.fill_rect(1, 3, TILE - 2, TILE - 6, wood)
+    for y in (2, TILE // 2, TILE - 3):
+        cell.fill_rect(1, y, TILE - 2, 1, band)
+    cell.fill_rect(4, 3, 2, TILE - 6, light)
+    return cell
+
+
+def sign_yellow() -> Image:
+    """Panneau jaune : quatrieme exemple, motif d'avertissement contrastant avec les autres."""
+    plate: Color = (222, 188, 64, 255)
+    border: Color = (60, 50, 20, 255)
+    mark: Color = (60, 50, 20, 255)
+
+    cell = Image(TILE, TILE, plate)
+    cell.fill_rect(0, 0, TILE, 2, border)
+    cell.fill_rect(0, TILE - 2, TILE, 2, border)
+    cell.fill_rect(0, 0, 2, TILE, border)
+    cell.fill_rect(TILE - 2, 0, 2, TILE, border)
+    cell.fill_rect(TILE // 2 - 1, 4, 2, 6, mark)
+    cell.fill_rect(TILE // 2 - 1, 11, 2, 2, mark)
+    return cell
+
+
 OBJECTS = {
     "door_red.png": door_red,
     "crate_blue.png": crate_blue,
+    "barrel_brown.png": barrel_brown,
+    "sign_yellow.png": sign_yellow,
 }
 
 

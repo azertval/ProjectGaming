@@ -101,6 +101,15 @@ et `platform.png` sont de **vraies illustrations**, retouchées à partir de spr
 | `locked_door.png` + `locked_door.anim.json` | 16×32 (2 cases), clips `closed`/`open` | `lockedDoor` |
 | `platform.png` | 16×16 | `movingPlatform` |
 
-Ce jeu ne couvre que les trois nouveaux mécanismes du `LOT-63` (`EX-GP-023`/`EX-GP-026`) — les
-autres types y retombent sur le damier magenta (état normal, `EX-NFR-040`), tant qu'ils n'y sont
-pas assignés à leur tour. Le jeu par défaut (`"defaut"` de `../skins.json`) reste `test`, inchangé.
+Étoffé en `LOT-65`, en préparation de la refonte des niveaux, avec trois types supplémentaires
+issus des mêmes packs Kenney :
+
+| Fichier | Contrat | Type assigné (jeu `kenney`) |
+|---|---|---|
+| `kenney_spikes.png` | 16×16 | `danger` |
+| `kenney_switch.png` + `.anim.json` | 16×32 (2 cases), clips `inactive`/`active` | `switch` |
+| `kenney_door.png` + `.anim.json` | 16×32 (2 cases), clips `closed`/`open` | `door` |
+
+Ce jeu ne couvre encore qu'une partie de `core::TileType` — les autres types y retombent sur le
+damier magenta (état normal, `EX-NFR-040`), tant qu'ils n'y sont pas assignés à leur tour. Le jeu
+par défaut (`"defaut"` de `../skins.json`) reste `test`, inchangé.
