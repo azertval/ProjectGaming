@@ -263,6 +263,28 @@ void GameViewport::applyRectangle(core::GridPosition a, core::GridPosition b) {
     markDraftMutated();
 }
 
+// Ajoute une zone de camera dessinee a la main (outil CameraZone, EX-LVL-007, EX-EDIT-029) : meme
+// decoupe min/max que applyRectangle ci-dessus, mais ajoutee au cadrage plutot que peinte sur la
+// grille.
+void GameViewport::addCameraZoneFromDrag(core::GridPosition a, core::GridPosition b) {
+    const int minColumn = std::min(a.column, b.column);
+    const int maxColumn = std::max(a.column, b.column);
+    const int minRow = std::min(a.row, b.row);
+    const int maxRow = std::max(a.row, b.row);
+    _draft.addCameraZone(core::CameraZone{.x = minColumn,
+                                          .y = minRow,
+                                          .width = maxColumn - minColumn + 1,
+                                          .height = maxRow - minRow + 1});
+    _dirty = true;
+    markDraftMutated();
+}
+
+void GameViewport::removeCameraZone(std::size_t index) {
+    _draft.removeCameraZone(index);
+    _dirty = true;
+    markDraftMutated();
+}
+
 void GameViewport::copySelection() {
     if (!_selection) {
         return;
@@ -659,6 +681,12 @@ void GameViewport::setLevelBackground(std::optional<std::string> background) {
 
 void GameViewport::setLevelSkinSet(std::optional<std::string> skinSet) {
     _draft.setSkinSet(std::move(skinSet));
+    _dirty = true;
+    markDraftMutated();
+}
+
+void GameViewport::setLevelCameraFraming(core::CameraFramingConfig cameraFraming) {
+    _draft.setCameraFraming(cameraFraming);
     _dirty = true;
     markDraftMutated();
 }
@@ -1344,6 +1372,7 @@ void GameViewport::mousePressEvent(QMouseEvent* event) {
             break;
         case hmi::EditorTool::Rectangle:
         case hmi::EditorTool::Selection:
+        case hmi::EditorTool::CameraZone:
             _dragging = true;
             _dragStart = clampedCell(event);
             _dragCurrent = _dragStart;
@@ -1394,6 +1423,8 @@ void GameViewport::mouseReleaseEvent(QMouseEvent* event) {
                                                   std::min(_dragStart.row, _dragCurrent.row)},
                                core::GridPosition{std::max(_dragStart.column, _dragCurrent.column),
                                                   std::max(_dragStart.row, _dragCurrent.row)});
+        } else if (_tool == hmi::EditorTool::CameraZone) {
+            addCameraZoneFromDrag(_dragStart, _dragCurrent);
         }
         _dragging = false;
     }

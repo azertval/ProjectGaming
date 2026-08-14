@@ -23,18 +23,24 @@ hmi::Localization testLocalization() {
                                     {"status.zone.zoom", "Zoom : %1%"},
                                     {"status.zone.color", "Couleur : %1"},
                                     {"status.zone.color_constrained", "Couleur : %1 (contrainte)"},
+                                    {"status.zone.camera_framing", "Cadrage : %1"},
+                                    {"camera_framing.whole_level", "Niveau entier"},
+                                    {"camera_framing.per_room", "Par salle"},
+                                    {"camera_framing.follow", "Suivi du personnage"},
                                     {"tool.brush", "Pinceau"},
                                     {"tool.rectangle", "Rectangle"},
                                     {"tool.selection", "Selection"},
                                     {"tool.link", "Lien"},
                                     {"tool.texture_assign", "Texture"},
                                     {"tool.decor", "Decor"},
+                                    {"tool.camera_zone", "Zone de camera"},
                                     {"status.help_paint", "Aide pinceau"},
                                     {"status.help_rectangle", "Aide rectangle"},
                                     {"status.help_selection", "Aide selection"},
                                     {"status.help_link", "Aide lien"},
                                     {"status.help_texture_assign", "Aide texture"},
                                     {"status.help_decor", "Aide decor"},
+                                    {"status.help_camera_zone", "Aide zone de camera"},
                                     {"pixel_tool.brush", "Pinceau"},
                                     {"pixel_tool.eraser", "Gomme"},
                                     {"pixel_tool.fill", "Pot de peinture"},
@@ -77,15 +83,15 @@ hmi::PixelEditStatusInfo basePixelEdit() {
  * \tcat Unitaire · Barre d'etat de l'editeur<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Construire un contexte sans niveau.<br/>2. Calculer les lignes.<br/>
- * \tattendu Les six zones permanentes et l'aide sont vides.
+ * \tattendu Les sept zones permanentes et l'aide sont vides.
  * }
  */
 TEST(EditorStatusTest, AucunNiveauOuvertNAfficheRien) {
     const hmi::EditorStatusLines lines =
         hmi::editorStatusLines(hmi::EditorStatusContext{}, testLocalization());
 
-    // Six zones depuis LOT-54 TACHE-04 (ajout de la couleur courante, atelier pixel art seulement).
-    ASSERT_EQ(lines.permanent.size(), 6u);
+    // Sept zones depuis LOT-64 (ajout du cadrage de camera, contexte niveau seulement).
+    ASSERT_EQ(lines.permanent.size(), 7u);
     for (const std::string& zone : lines.permanent) {
         EXPECT_EQ(zone, "");
     }
@@ -133,6 +139,35 @@ TEST(EditorStatusTest, IndicateurDeModificationSuitLEtatDirty) {
     const hmi::Localization localization = testLocalization();
     EXPECT_EQ(hmi::editorStatusLines(dirtyContext, localization).permanent[1], "Modifie");
     EXPECT_EQ(hmi::editorStatusLines(cleanContext, localization).permanent[1], "");
+}
+
+/**
+ * @brief La zone de cadrage affiche le mode courant, traduit -- présente en permanence
+ * (`EX-EDIT-028`), jamais seulement au survol ou sur demande.
+ * \castest{<b>La zone de cadrage affiche le mode courant, traduit.</b><br/>
+ * \tcat Unitaire · Barre d'etat de l'editeur<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Calculer les lignes pour un niveau en mode *par salle*, puis *suivi*.<br/>2.
+ * Comparer la zone de cadrage (index 6).<br/>
+ * \tattendu La zone reflète le mode courant, traduit, pour chacun des deux modes.
+ * }
+ */
+TEST(EditorStatusTest, ZoneDeCadrageAfficheLeModeCourant) {
+    const hmi::Localization localization = testLocalization();
+
+    hmi::LevelStatusInfo perRoom = baseLevel();
+    perRoom.cameraFraming = core::CameraFramingMode::PerRoom;
+    hmi::EditorStatusContext perRoomContext;
+    perRoomContext.level = perRoom;
+    EXPECT_EQ(hmi::editorStatusLines(perRoomContext, localization).permanent[6],
+              "Cadrage : Par salle");
+
+    hmi::LevelStatusInfo follow = baseLevel();
+    follow.cameraFraming = core::CameraFramingMode::Follow;
+    hmi::EditorStatusContext followContext;
+    followContext.level = follow;
+    EXPECT_EQ(hmi::editorStatusLines(followContext, localization).permanent[6],
+              "Cadrage : Suivi du personnage");
 }
 
 /**
@@ -303,6 +338,10 @@ TEST(EditorStatusTest, ClesDeTraductionExistentDansLesDeuxCatalogues) {
                                 "status.zone.zoom",
                                 "status.zone.color",
                                 "status.zone.color_constrained",
+                                "status.zone.camera_framing",
+                                "camera_framing.whole_level",
+                                "camera_framing.per_room",
+                                "camera_framing.follow",
                                 "status.help_paint",
                                 "status.help_rectangle",
                                 "status.help_selection",
@@ -313,7 +352,9 @@ TEST(EditorStatusTest, ClesDeTraductionExistentDansLesDeuxCatalogues) {
                                 "status.help_pixel_eraser",
                                 "status.help_pixel_fill",
                                 "status.help_pixel_eyedropper",
-                                "status.help_pixel_selection"};
+                                "status.help_pixel_selection",
+                                "tool.camera_zone",
+                                "status.help_camera_zone"};
     for (const std::string& language : {"fr", "en"}) {
         hmi::Localization localization(directory);
         ASSERT_TRUE(localization.loadDefaultLanguage(language)) << language;

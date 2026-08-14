@@ -4,6 +4,7 @@
 
 #include "Core/Ecs/Components/Sprite.h"  // core::AtlasRegion, core::Color
 #include "Core/Ecs/Components/Transform.h"
+#include "Core/Levels/CameraFraming.h"
 #include "Core/Levels/Decor.h"
 #include "Core/Levels/LevelDraft.h"
 #include "Core/Levels/TileMap.h"
@@ -15,6 +16,7 @@
 #include "HMI/Graphics/AssetContract.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/DecorVisuals.h"
+#include "HMI/Graphics/FollowCamera.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/Parallax.h"
 #include "HMI/Graphics/RoomGrid.h"
@@ -33,18 +35,21 @@ namespace {
 // les liens, les liens sous l'apercu de selection. Ces valeurs jouent le role de
 // `core::Sprite::layer` pour des primitives qui ne viennent d'aucune entite.
 constexpr std::int32_t OVERLAY_ORDER_GRID = 0;
-constexpr std::int32_t OVERLAY_ORDER_LINKS = 1;
-constexpr std::int32_t OVERLAY_ORDER_HIGHLIGHT = 2;
-constexpr std::int32_t OVERLAY_ORDER_TEXTURE_OVERRIDES = 3;
+// Previsualisation du cadrage de camera (LOT-64) : juste au-dessus de la grille de repere, sous
+// tout le reste -- un grand rectangle qui ne doit jamais masquer un lien ou une poignee.
+constexpr std::int32_t OVERLAY_ORDER_CAMERA_FRAMING = 1;
+constexpr std::int32_t OVERLAY_ORDER_LINKS = 2;
+constexpr std::int32_t OVERLAY_ORDER_HIGHLIGHT = 3;
+constexpr std::int32_t OVERLAY_ORDER_TEXTURE_OVERRIDES = 4;
 // Cadre de selection : contour double couleur (sombre puis clair, dessine par-dessus) pour rester
 // lisible sur tout fond (LOT-50 TACHE-03), puis les poignees, encore au-dessus (memes deux tons).
-constexpr std::int32_t OVERLAY_ORDER_DECOR_OUTLINE_DARK = 4;
-constexpr std::int32_t OVERLAY_ORDER_DECOR_OUTLINE_BRIGHT = 5;
-constexpr std::int32_t OVERLAY_ORDER_DECOR_HANDLE_DARK = 6;
-constexpr std::int32_t OVERLAY_ORDER_DECOR_HANDLE_BRIGHT = 7;
+constexpr std::int32_t OVERLAY_ORDER_DECOR_OUTLINE_DARK = 5;
+constexpr std::int32_t OVERLAY_ORDER_DECOR_OUTLINE_BRIGHT = 6;
+constexpr std::int32_t OVERLAY_ORDER_DECOR_HANDLE_DARK = 7;
+constexpr std::int32_t OVERLAY_ORDER_DECOR_HANDLE_BRIGHT = 8;
 // Parcours de plateforme mobile (LOT-63) : au-dessus des poignees de décor, dernier calque
 // d'édition -- un repère de placement, jamais masqué par une sélection en cours.
-constexpr std::int32_t OVERLAY_ORDER_PLATFORM_PATH = 8;
+constexpr std::int32_t OVERLAY_ORDER_PLATFORM_PATH = 9;
 }  // namespace
 
 DraftRenderer::DraftRenderer(SpriteBatch& batch, const TextureAtlas& atlas, TextureCache& cache)
@@ -112,6 +117,7 @@ void DraftRenderer::render(
     if (showGrid) {
         composeGrid(draft, decorOverlay.snapToGrid);
     }
+    composeCameraFraming(draft);
     composeLinks(draft, linkOverlay);
     composeMovingPlatformPaths(draft);
     if (showTextureOverrides) {
@@ -223,16 +229,143 @@ void DraftRenderer::composeGrid(const core::LevelDraft& draft, bool accentuate) 
                      lineAlpha));
     }
 
-    // Frontieres de salles (RoomGrid, LOT-32) : plus epaisses, teinte ambre.
+    // Frontieres de salles (RoomGrid, LOT-32), a la taille RESOLUE du niveau (LOT-64 : reglable,
+    // valeurs par defaut sinon -- jamais les seules constantes desormais, memes remarque que
+    // composeCameraFraming ci-dessous pour le mode "par salle") : plus epaisses, teinte ambre.
+    const core::CameraFramingConfig& framing = draft.cameraFraming();
+    const int roomWidthTiles = framing.roomWidthTiles.value_or(core::kDefaultRoomWidthTiles);
+    const int roomHeightTiles = framing.roomHeightTiles.value_or(core::kDefaultRoomHeightTiles);
     constexpr float ROOM_LINE = 0.09f;
     const float roomLineAlpha = accentuate ? 0.75f : 0.5f;
-    for (int column = 0; column * RoomGrid::ROOM_WIDTH_TILES <= width; ++column) {
-        const float x = static_cast<float>(std::min(column * RoomGrid::ROOM_WIDTH_TILES, width));
+    for (int column = 0; column * roomWidthTiles <= width; ++column) {
+        const float x = static_cast<float>(std::min(column * roomWidthTiles, width));
         add(lineQuad(x - ROOM_LINE * 0.5f, 0.0f, ROOM_LINE, h, 1.0f, 0.85f, 0.3f, roomLineAlpha));
     }
-    for (int row = 0; row * RoomGrid::ROOM_HEIGHT_TILES <= height; ++row) {
-        const float y = static_cast<float>(std::min(row * RoomGrid::ROOM_HEIGHT_TILES, height));
+    for (int row = 0; row * roomHeightTiles <= height; ++row) {
+        const float y = static_cast<float>(std::min(row * roomHeightTiles, height));
         add(lineQuad(0.0f, y - ROOM_LINE * 0.5f, w, ROOM_LINE, 1.0f, 0.85f, 0.3f, roomLineAlpha));
+    }
+}
+
+// Compose la previsualisation du cadrage de camera du niveau (EX-EDIT-028, LOT-64, voir en-tete) :
+// composee INCONDITIONNELLEMENT (comme composeLinks/composeDecorSelection), pas derriere le
+// bascule F10 -- ce n'est pas une aide de placement mais une information sur ce que montrera la
+// camera en jeu.
+void DraftRenderer::composeCameraFraming(const core::LevelDraft& draft) {
+    const int width = draft.tileMap().width();
+    const int height = draft.tileMap().height();
+    const core::AtlasRegion solid = _atlas.tile(0, 0);
+    const float atlasWidth = static_cast<float>(_atlas.width());
+    const float atlasHeight = static_cast<float>(_atlas.height());
+
+    const auto lineQuad = [&](float x, float y, float w, float h, float r, float g, float b,
+                              float a) {
+        SpriteQuad quad;
+        quad.x = x;
+        quad.y = y;
+        quad.width = w;
+        quad.height = h;
+        quad.u0 = static_cast<float>(solid.x) / atlasWidth;
+        quad.v0 = static_cast<float>(solid.y) / atlasHeight;
+        quad.u1 = static_cast<float>(solid.x + solid.width) / atlasWidth;
+        quad.v1 = static_cast<float>(solid.y + solid.height) / atlasHeight;
+        quad.r = r;
+        quad.g = g;
+        quad.b = b;
+        quad.a = a;
+        return quad;
+    };
+    const auto add = [&](const SpriteQuad& quad) {
+        _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureView(),
+                         OVERLAY_ORDER_CAMERA_FRAMING, quad);
+    };
+    // Rectangle CREUX (quatre bords) : plus lisible qu'un voile plein sur une grande zone, et
+    // distinguable de l'ambre de la grille de salles (teinte cyan).
+    const auto strokeRect = [&](float x, float y, float w, float h, float thickness, float r,
+                                float g, float b, float a) {
+        add(lineQuad(x - thickness * 0.5f, y - thickness * 0.5f, w + thickness, thickness, r, g, b,
+                     a));
+        add(lineQuad(x - thickness * 0.5f, y + h - thickness * 0.5f, w + thickness, thickness, r, g,
+                     b, a));
+        add(lineQuad(x - thickness * 0.5f, y - thickness * 0.5f, thickness, h + thickness, r, g, b,
+                     a));
+        add(lineQuad(x + w - thickness * 0.5f, y - thickness * 0.5f, thickness, h + thickness, r, g,
+                     b, a));
+    };
+
+    constexpr float FRAME_THICKNESS = 0.12f;
+    constexpr float CYAN_R = 0.35f;
+    constexpr float CYAN_G = 0.85f;
+    constexpr float CYAN_B = 1.0f;
+
+    const core::CameraFramingConfig& framing = draft.cameraFraming();
+    switch (framing.mode) {
+        case core::CameraFramingMode::WholeLevel:
+            strokeRect(0.0f, 0.0f, static_cast<float>(width), static_cast<float>(height),
+                       FRAME_THICKNESS, CYAN_R, CYAN_G, CYAN_B, 0.6f);
+            break;
+        case core::CameraFramingMode::PerRoom: {
+            if (!framing.zones.empty()) {
+                // Zones dessinees a la main (EX-LVL-007) : remplacent entierement la grille
+                // automatique -- un rectangle par zone, dans l'ordre de la liste (la premiere
+                // zone qui contient une position gagne en cas de chevauchement, hmi::
+                // activeCameraZoneIndex, non visible ici : la previsualisation montre simplement
+                // les rectangles tels que dessines).
+                for (const core::CameraZone& zone : framing.zones) {
+                    strokeRect(static_cast<float>(zone.x), static_cast<float>(zone.y),
+                               static_cast<float>(zone.width), static_cast<float>(zone.height),
+                               FRAME_THICKNESS, CYAN_R, CYAN_G, CYAN_B, 0.5f);
+                }
+                break;
+            }
+            // Reutilise hmi::RoomGrid (LOT-32) a la taille resolue -- jamais une seconde
+            // implementation du decoupage en salles (tache-03).
+            const int roomWidthTiles =
+                framing.roomWidthTiles.value_or(core::kDefaultRoomWidthTiles);
+            const int roomHeightTiles =
+                framing.roomHeightTiles.value_or(core::kDefaultRoomHeightTiles);
+            const RoomGrid rooms(width, height, roomWidthTiles, roomHeightTiles);
+            for (int row = 0; row < rooms.rows(); ++row) {
+                for (int column = 0; column < rooms.columns(); ++column) {
+                    const RoomBounds bounds = rooms.roomBounds(core::GridPosition{column, row});
+                    strokeRect(static_cast<float>(bounds.column), static_cast<float>(bounds.row),
+                               static_cast<float>(bounds.width), static_cast<float>(bounds.height),
+                               FRAME_THICKNESS, CYAN_R, CYAN_G, CYAN_B, 0.5f);
+                }
+            }
+            break;
+        }
+        case core::CameraFramingMode::Follow: {
+            const std::optional<core::GridPosition> entry = draft.entry();
+            if (!entry) {
+                break;  // pas d'entree posee : rien de significatif a previsualiser (tache-03).
+            }
+            const float viewWidth = static_cast<float>(core::kDefaultRoomWidthTiles);
+            const float viewHeight = static_cast<float>(core::kDefaultRoomHeightTiles);
+            // Meme regle de bornage/centrage qu'hmi::advanceFollowCamera (FollowCamera.cpp) : un
+            // axe plus etroit que le cadrage centre plutot que borne -- previsualisation fidele au
+            // comportement reel, pas une approximation.
+            const auto clampCenter = [](float center, float levelSize, float viewSize) {
+                if (levelSize <= viewSize) {
+                    return levelSize * 0.5f;
+                }
+                return std::clamp(center, viewSize * 0.5f, levelSize - viewSize * 0.5f);
+            };
+            const float centerX = clampCenter(static_cast<float>(entry->column) + 0.5f,
+                                              static_cast<float>(width), viewWidth);
+            const float centerY = clampCenter(static_cast<float>(entry->row) + 0.5f,
+                                              static_cast<float>(height), viewHeight);
+            strokeRect(centerX - viewWidth * 0.5f, centerY - viewHeight * 0.5f, viewWidth,
+                       viewHeight, FRAME_THICKNESS, CYAN_R, CYAN_G, CYAN_B, 0.6f);
+            // Zone morte materialisee (tache-03) : plus fine, meme teinte, plus opaque (repere
+            // secondaire a l'interieur du rectangle visible).
+            strokeRect(centerX - FOLLOW_DEAD_ZONE_HALF_WIDTH_UNITS,
+                       centerY - FOLLOW_DEAD_ZONE_HALF_HEIGHT_UNITS,
+                       FOLLOW_DEAD_ZONE_HALF_WIDTH_UNITS * 2.0f,
+                       FOLLOW_DEAD_ZONE_HALF_HEIGHT_UNITS * 2.0f, FRAME_THICKNESS * 0.6f, CYAN_R,
+                       CYAN_G, CYAN_B, 0.85f);
+            break;
+        }
     }
 }
 

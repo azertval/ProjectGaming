@@ -85,6 +85,99 @@
        </item>
       </layout>
      </widget>
+     <!-- Section « Cadrage » (LOT-64) : mode de camera DU NIVEAU courant (niveau entier
+          / par salle / suivi), meme patron de propriete de niveau que « Fond » ci-dessus, pas une
+          configuration globale. La taille de vue est visible pour les modes « par salle » (taille
+          de la grille automatique, ignoree si des zones sont dessinees) et « suivi » (taille fixe
+          de la camera) ; les zones dessinees a la main ne sont visibles/modifiables que pour le
+          mode « par salle » (bascule programmatique dans TexturePanel.cpp). -->
+     <widget class="QWidget" name="cameraFramingTab">
+      <attribute name="title"><string>Cadrage</string></attribute>
+      <layout class="QVBoxLayout" name="cameraFramingLayout">
+       <item>
+        <layout class="QHBoxLayout" name="cameraFramingModeLayout">
+         <item>
+          <widget class="QLabel" name="cameraFramingModeLabel">
+           <property name="text"><string>Mode de cadrage</string></property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="cameraFramingModeSelector"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QWidget" name="cameraFramingRoomSizeWidget">
+         <layout class="QHBoxLayout" name="cameraFramingRoomSizeLayout">
+          <property name="leftMargin"><number>0</number></property>
+          <property name="topMargin"><number>0</number></property>
+          <property name="rightMargin"><number>0</number></property>
+          <property name="bottomMargin"><number>0</number></property>
+          <item>
+           <widget class="QLabel" name="cameraFramingRoomWidthLabel">
+            <property name="text"><string>Largeur de vue</string></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="cameraFramingRoomWidthSpin">
+            <property name="minimum"><number>0</number></property>
+            <property name="maximum"><number>999</number></property>
+            <property name="specialValueText"><string>Par défaut</string></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="cameraFramingRoomHeightLabel">
+            <property name="text"><string>Hauteur de vue</string></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="cameraFramingRoomHeightSpin">
+            <property name="minimum"><number>0</number></property>
+            <property name="maximum"><number>999</number></property>
+            <property name="specialValueText"><string>Par défaut</string></property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="cameraFramingZonesWidget">
+         <layout class="QVBoxLayout" name="cameraFramingZonesLayout">
+          <property name="leftMargin"><number>0</number></property>
+          <property name="topMargin"><number>0</number></property>
+          <property name="rightMargin"><number>0</number></property>
+          <property name="bottomMargin"><number>0</number></property>
+          <item>
+           <widget class="QLabel" name="cameraFramingZonesHintLabel">
+            <property name="text">
+             <string>Glisser sur le canevas avec l'outil « Zone de caméra » pour en ajouter une.</string>
+            </property>
+            <property name="wordWrap"><bool>true</bool></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTableView" name="cameraFramingZonesTable">
+            <property name="selectionBehavior"><enum>QAbstractItemView::SelectRows</enum></property>
+            <property name="selectionMode"><enum>QAbstractItemView::SingleSelection</enum></property>
+            <property name="editTriggers"><set>QAbstractItemView::NoEditTriggers</set></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="cameraFramingZonesRemoveButton">
+            <property name="text"><string>Retirer</string></property>
+            <property name="enabled"><bool>false</bool></property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="cameraFramingSpacer">
+         <property name="orientation"><enum>Qt::Vertical</enum></property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
      <!-- Section « Objets » (LOT-45) : texture par instance, prioritaire sur le skin du type
           (EX-EDIT-043). Meme patron de section embarquee que « Fond » ci-dessus, sans panneau
           separe. -->

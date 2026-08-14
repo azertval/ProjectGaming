@@ -6,6 +6,7 @@
 #include <utility>
 #include <vector>
 
+#include "Core/Levels/CameraFraming.h"
 #include "Core/Levels/GridPosition.h"
 #include "HMI/Editor/EditorTool.h"
 #include "HMI/Editor/PixelTool.h"
@@ -27,6 +28,8 @@ struct LevelStatusInfo {
     EditorTool tool = EditorTool::Paint;            ///< Outil d'édition actif.
     std::optional<core::GridPosition> hoveredCell;  ///< Case survolée, si le curseur est dessus.
     float zoom = 1.0f;                              ///< Facteur de zoom courant.
+    /// Mode de cadrage courant du niveau (`EX-EDIT-028`, LOT-64) : ce qui informe est permanent.
+    core::CameraFramingMode cameraFraming = core::CameraFramingMode::WholeLevel;
 };
 
 /// État affiché pour un asset en cours d'édition dans l'atelier pixel art (barre d'état, `LOT-54`
@@ -57,9 +60,10 @@ struct EditorStatusContext {
 /// Lignes à afficher pour la barre d'état de l'éditeur, à un instant donné.
 struct EditorStatusLines {
     /// Zones permanentes, dans l'ordre d'affichage : niveau/asset, modifications non enregistrées,
-    /// outil actif, case/pixel survolé, zoom, couleur courante (atelier pixel art seulement). Une
-    /// zone vide (chaîne vide) quand l'information n'a pas de sens pour le contexte courant —
-    /// jamais de libellé de remplacement.
+    /// outil actif, case/pixel survolé, zoom, couleur courante (atelier pixel art seulement),
+    /// cadrage de caméra (contexte niveau seulement, `EX-EDIT-028`). Une zone vide (chaîne vide)
+    /// quand l'information n'a pas de sens pour le contexte courant — jamais de libellé de
+    /// remplacement.
     std::vector<std::string> permanent;
     /// Aide contextuelle à l'outil actif ; vide hors contexte de niveau ou d'atelier.
     std::string help;

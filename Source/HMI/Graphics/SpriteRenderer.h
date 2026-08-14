@@ -183,6 +183,11 @@ public:
      *                    MechanismController::collisionMap`, `LOT-55`), pour que l'ombre d'une
      *                    porte suive son état ouverte/fermée plutôt que son type statique ;
      *                    `nullptr` (défaut) exclut les portes de l'ombrage.
+     * @param applyDecorParallax Transmis tel quel à `hmi::composeWorldSprites` (`EX-DEC-006`,
+     *                    LOT-64) : `false` neutralise la parallaxe des décors (tous composés comme
+     *                    la couche `Decor`, facteur `1.0`) sans désactiver leur pixel-alignement ni
+     *                    le culling. `hmi::GameSession` le met à `false` en mode de cadrage
+     *                    *suivi*, seul mode où la caméra défile en continu.
      */
     void render(core::World& world, const Camera2D& camera, RenderMode mode,
                 float interpolationAlpha, const std::optional<std::string>& background = {},
@@ -190,7 +195,7 @@ public:
                 const std::vector<core::TileTextureOverride>& textureOverrides = {},
                 const std::unordered_map<std::string, core::Animation>& tileAnimations = {},
                 const std::vector<core::Decor>& decors = {},
-                const core::TileMap* doorCollision = nullptr);
+                const core::TileMap* doorCollision = nullptr, bool applyDecorParallax = true);
 
     /// @return La scène composée à la dernière image (primitives soumises et compteurs).
     [[nodiscard]] const ComposedScene& lastScene() const noexcept {

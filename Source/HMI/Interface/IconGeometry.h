@@ -22,6 +22,7 @@ enum class IconId {
     ToolLink,
     ToolTextureAssign,
     ToolDecor,
+    ToolCameraZone,
     Save,
     Playtest,
     Undo,

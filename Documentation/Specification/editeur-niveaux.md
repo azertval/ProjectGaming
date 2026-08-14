@@ -174,7 +174,12 @@ pouvoir habiller le niveau avec de vraies textures — sans jamais perdre la lec
   changement de mode est une opération d'édition **annulable** (`EX-EDIT-005`) et le mode courant est
   visible en permanence dans la barre d'état (`EX-IHM-062`). Sans cela, le cadrage resterait
   accessible aux seuls éditeurs de JSON, ce que l'existence même de l'éditeur (`EX-VIS-006`) exclut.
-  Prévu en `LOT-64`.
+  Concrétisé en `LOT-64`.
+- \anchor EX-EDIT-029 **EX-EDIT-029** — L'éditeur doit permettre de **dessiner et retirer** les
+  zones de caméra du mode *par salle* (`EX-LVL-007`) directement sur le canevas, par un outil dédié
+  au même titre que les autres outils de dessin (rectangle, sélection), avec un tableau
+  récapitulatif dans la section « Cadrage ». Chaque ajout ou retrait est une opération d'édition
+  **annulable** (`EX-EDIT-005`). Concrétisé en `LOT-64`.
 - \anchor EX-EDIT-043 **EX-EDIT-043** — L'éditeur doit permettre d'assigner une **texture propre à
   une case précise** (« objet interactif », ex. une porte particulière), par un geste de clic dédié,
   prioritaire sur l'association globale (`EX-EDIT-042`) pour cette case. Concrétisé en `LOT-45`.

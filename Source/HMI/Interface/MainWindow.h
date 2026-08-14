@@ -373,6 +373,9 @@ private:
     QLabel* _statusZoom = nullptr;
     /// Couleur courante de l'atelier pixel art (`LOT-54` TACHE-04) ; vide hors contexte d'atelier.
     QLabel* _statusColor = nullptr;
+    /// Mode de cadrage de caméra du niveau courant (`EX-EDIT-028`, LOT-64) ; vide hors contexte de
+    /// niveau.
+    QLabel* _statusCameraFraming = nullptr;
     /// Restaure l'aide contextuelle à l'expiration d'un message transitoire
     /// (`showTransientStatusMessage`).
     QTimer* _statusMessageTimer = nullptr;

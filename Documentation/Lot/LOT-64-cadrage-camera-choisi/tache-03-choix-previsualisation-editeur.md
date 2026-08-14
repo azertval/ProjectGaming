@@ -1,6 +1,6 @@
 # TACHE-03 — Choix et prévisualisation du cadrage dans l'éditeur {#lot-64-tache-03-choix-previsualisation-editeur}
 
-**Lot :** [LOT-64](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** non commencé
+**Lot :** [LOT-64](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** fait
 
 ## Contexte
 Les deux tâches précédentes rendent le cadrage **exprimable** et **applicable**. Sans celle-ci, il

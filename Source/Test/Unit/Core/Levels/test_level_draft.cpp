@@ -5,6 +5,7 @@
 
 #include <gtest/gtest.h>
 
+#include "Core/Levels/CameraFraming.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/LevelDraft.h"
 #include "Core/Levels/LevelLoader.h"
@@ -658,6 +659,80 @@ TEST(LevelDraftTest, UndoRedoApresChangementDeFondEtDeJeuDeSkins) {
     ASSERT_TRUE(draft.redo());  // refait setBackground
     ASSERT_TRUE(draft.background().has_value());
     EXPECT_EQ(*draft.background(), "forest.png");
+}
+
+/**
+ * @brief Un brouillon vierge a le cadrage par défaut (niveau entier) ; `setCameraFraming` change
+ * le mode et l'annulation restitue le précédent (`EX-LVL-006`, `EX-EDIT-028`).
+ * \castest{<b>setCameraFraming change le mode de cadrage et s'annule.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Créer un brouillon vierge et vérifier son cadrage par défaut.<br/>2. Appeler
+ * `setCameraFraming` avec le mode *suivi*.<br/>3. Annuler.<br/>
+ * \tattendu Le cadrage par défaut d'un brouillon vierge est *niveau entier* ; `setCameraFraming`
+ * remplace le mode courant ; l'annulation restitue le cadrage précédent.
+ * }
+ */
+TEST(LevelDraftTest, SetCameraFramingChangeLeModeEtSAnnule) {
+    LevelDraft draft = LevelDraft::empty("N", 3, 3);
+    EXPECT_EQ(draft.cameraFraming().mode, core::CameraFramingMode::WholeLevel);
+
+    draft.setCameraFraming(core::CameraFramingConfig{.mode = core::CameraFramingMode::Follow});
+    EXPECT_EQ(draft.cameraFraming().mode, core::CameraFramingMode::Follow);
+    ASSERT_TRUE(draft.canUndo());
+
+    ASSERT_TRUE(draft.undo());
+    EXPECT_EQ(draft.cameraFraming().mode, core::CameraFramingMode::WholeLevel);
+}
+
+/**
+ * @brief `addCameraZone` ajoute une zone en fin de liste, annulable ; `removeCameraZone` la
+ * retire, également annulable (`EX-LVL-007`, `EX-EDIT-029`).
+ * \castest{<b>addCameraZone/removeCameraZone ajoutent et retirent une zone, annulables.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Ajouter deux zones sur un brouillon vierge.<br/>2. Retirer la première.<br/>3.
+ * Annuler le retrait, puis annuler les deux ajouts.<br/>
+ * \tattendu Chaque étape restitue l'état attendu ; l'annulation complète revient à une liste
+ * vide.
+ * }
+ */
+TEST(LevelDraftTest, AddEtRemoveCameraZoneSontAnnulables) {
+    LevelDraft draft = LevelDraft::empty("N", 30, 20);
+    EXPECT_TRUE(draft.cameraFraming().zones.empty());
+
+    draft.addCameraZone(core::CameraZone{.x = 0, .y = 0, .width = 10, .height = 10});
+    draft.addCameraZone(core::CameraZone{.x = 10, .y = 0, .width = 10, .height = 10});
+    ASSERT_EQ(draft.cameraFraming().zones.size(), 2u);
+    EXPECT_EQ(draft.cameraFraming().zones[0].x, 0);
+    EXPECT_EQ(draft.cameraFraming().zones[1].x, 10);
+
+    draft.removeCameraZone(0);
+    ASSERT_EQ(draft.cameraFraming().zones.size(), 1u);
+    EXPECT_EQ(draft.cameraFraming().zones[0].x, 10);  // la seconde zone reste, l'index se decale
+
+    ASSERT_TRUE(draft.undo());  // annule removeCameraZone
+    ASSERT_EQ(draft.cameraFraming().zones.size(), 2u);
+
+    ASSERT_TRUE(draft.undo());  // annule le second addCameraZone
+    ASSERT_TRUE(draft.undo());  // annule le premier addCameraZone
+    EXPECT_TRUE(draft.cameraFraming().zones.empty());
+}
+
+/**
+ * @brief `removeCameraZone` sur un index hors bornes reste sans effet (`EX-NFR-040`).
+ * \castest{<b>removeCameraZone sur un index hors bornes reste sans effet.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Appeler `removeCameraZone` avec un index hors bornes sur une liste vide.<br/>
+ * \tattendu Aucun effet : la liste reste vide, aucune entrée d'historique n'est empilée.
+ * }
+ */
+TEST(LevelDraftTest, RemoveCameraZoneHorsBornesSansEffet) {
+    LevelDraft draft = LevelDraft::empty("N", 30, 20);
+    draft.removeCameraZone(0);
+    EXPECT_TRUE(draft.cameraFraming().zones.empty());
+    EXPECT_FALSE(draft.canUndo());
 }
 
 /**

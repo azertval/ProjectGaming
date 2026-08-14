@@ -231,7 +231,7 @@ void SpriteRenderer::render(core::World& world, const Camera2D& camera, RenderMo
                             const std::vector<core::TileTextureOverride>& textureOverrides,
                             const std::unordered_map<std::string, core::Animation>& tileAnimations,
                             const std::vector<core::Decor>& decors,
-                            const core::TileMap* doorCollision) {
+                            const core::TileMap* doorCollision, bool applyDecorParallax) {
     _scene.clear();
     _scene.setVisibleBounds(camera.visibleBounds());
     const SceneTextures textures =
@@ -239,7 +239,8 @@ void SpriteRenderer::render(core::World& world, const Camera2D& camera, RenderMo
     composeBackground(_scene, resolveBackgroundTexture(background, *_cache), levelWidth,
                       levelHeight, mode);
     composeShadows(_scene, world, mode, textures, interpolationAlpha, doorCollision);
-    composeWorldSprites(_scene, world, mode, textures, interpolationAlpha, &camera);
+    composeWorldSprites(_scene, world, mode, textures, interpolationAlpha, &camera,
+                        LayerVisibility{}, applyDecorParallax);
     // Particules du personnage (LOT-53 TACHE-03) : meme scene, apres les sprites -- l'ordre de
     // composition n'importe pas, ComposedScene::sort() reordonne par calque/texture/sortOrder.
     composeParticles(_scene, world, mode, textures);

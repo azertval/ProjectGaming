@@ -50,7 +50,8 @@ std::string LevelWriter::toJsonString(const Level& level) {
     return buildJson(level.name(), level.tileMap(), level.mechanisms(), level.jumpBudget(),
                      level.dashBudget(), level.dangerLinks(), level.moverConfigs(),
                      level.blinkConfigs(), level.background(), level.skinSet(),
-                     level.textureOverrides(), level.decors(), level.platformConfigs());
+                     level.textureOverrides(), level.decors(), level.platformConfigs(),
+                     level.cameraFraming());
 }
 
 bool LevelWriter::saveToFile(const Level& level, const std::filesystem::path& path) {
@@ -72,7 +73,8 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
                                    const std::optional<std::string>& skinSet,
                                    const std::vector<TileTextureOverride>& textureOverrides,
                                    const std::vector<Decor>& decors,
-                                   const std::vector<MovingPlatformConfig>& platformConfigs) {
+                                   const std::vector<MovingPlatformConfig>& platformConfigs,
+                                   const CameraFramingConfig& cameraFraming) {
     nlohmann::json root;
     root["version"] = kLevelFormatVersion;
     root["name"] = name;
@@ -89,6 +91,33 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
     }
     if (skinSet) {
         root["skinSet"] = *skinSet;
+    }
+    // Cadrage de camera (EX-LVL-006, LOT-64) : omis quand il coincide avec ce que la regle de
+    // repli recalculerait pour ces dimensions -- meme convention "omis si defaut" que jumpBudget/
+    // dashBudget/background/skinSet ci-dessus, condition necessaire pour qu'un niveau jamais
+    // retouche sur ce point reste sans le champ apres un aller-retour editeur.
+    if (cameraFraming != resolveCameraFraming(std::nullopt, tileMap.width(), tileMap.height())) {
+        nlohmann::json framingJson;
+        framingJson["mode"] = std::string(cameraFramingModeName(cameraFraming.mode));
+        if (cameraFraming.roomWidthTiles) {
+            framingJson["roomWidthTiles"] = *cameraFraming.roomWidthTiles;
+        }
+        if (cameraFraming.roomHeightTiles) {
+            framingJson["roomHeightTiles"] = *cameraFraming.roomHeightTiles;
+        }
+        if (!cameraFraming.zones.empty()) {
+            nlohmann::json zonesJson = nlohmann::json::array();
+            for (const CameraZone& zone : cameraFraming.zones) {
+                nlohmann::json zoneJson;
+                zoneJson["x"] = zone.x;
+                zoneJson["y"] = zone.y;
+                zoneJson["width"] = zone.width;
+                zoneJson["height"] = zone.height;
+                zonesJson.push_back(std::move(zoneJson));
+            }
+            framingJson["zones"] = std::move(zonesJson);
+        }
+        root["cameraFraming"] = std::move(framingJson);
     }
 
     // Identifiants de déclencheurs (interrupteur ou plaque de pression) régénérés de façon

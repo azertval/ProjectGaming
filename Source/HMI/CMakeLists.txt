@@ -117,6 +117,8 @@ add_executable(ProjectGaming
     Graphics/TextureAtlasRegions.cpp
     Graphics/Camera2D.cpp
     Graphics/RoomGrid.cpp
+    Graphics/FollowCamera.cpp
+    Graphics/CameraZones.cpp
     Graphics/ComposedScene.cpp
     Graphics/QuadRecorder.cpp
     Graphics/BackgroundRenderer.cpp

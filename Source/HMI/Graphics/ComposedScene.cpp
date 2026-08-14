@@ -286,7 +286,8 @@ std::optional<SpriteAppearance> resolveSpriteAppearance(
 // Compose les entites affichables d'un monde ECS en primitives (lecture seule de l'ECS).
 void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mode,
                          const SceneTextures& textures, float interpolationAlpha,
-                         const Camera2D* camera, const LayerVisibility& visibility) {
+                         const Camera2D* camera, const LayerVisibility& visibility,
+                         bool applyDecorParallax) {
     // Lecture seule de l'ECS : les composants sont pris par reference constante.
     world.view<core::Transform, core::Sprite>().each(
         [&](core::Entity entity, const core::Transform& transform, const core::Sprite& sprite) {
@@ -354,8 +355,13 @@ void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mo
             // DEJA decalee, comme l'exige la tache (une couche parallaxee n'occupe pas le meme
             // rectangle monde que le niveau).
             if (decorTag != nullptr && camera != nullptr) {
-                position = parallaxRenderPosition(position, parallaxFactor(decorTag->layer),
-                                                  camera->visibleBounds());
+                // Mode suivi (LOT-64) : la parallaxe neutralisee (facteur 1.0, comme la couche
+                // Decor) plutot que retiree -- le decor reste pixel-aligne et soumis au culling
+                // via la camera, seul le decalage differentiel entre couches disparait (voir
+                // en-tete, composeWorldSprites).
+                const float factor =
+                    applyDecorParallax ? parallaxFactor(decorTag->layer) : PARALLAX_FACTOR_DECOR;
+                position = parallaxRenderPosition(position, factor, camera->visibleBounds());
                 position = roundToScreenPixel(position, Camera2D::PIXELS_PER_UNIT * camera->zoom());
             }
 

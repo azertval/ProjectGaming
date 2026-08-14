@@ -668,3 +668,119 @@ TEST(LevelWriterTest, DangerTemporiseSurvitAuRoundTripAvecSaConfiguration) {
     EXPECT_EQ(config.phase, 15);
     EXPECT_EQ(config.activeDuration, 30);
 }
+
+/**
+ * @brief Chacun des trois modes de cadrage, avec une taille de salle personnalisée pour le mode
+ * *par salle*, survit à un aller-retour JSON à l'identique (`EX-LVL-006`).
+ * \castest{<b>Chacun des trois modes de cadrage survit au round-trip.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Charger un niveau déclarant chacun des trois modes de cadrage.<br/>2. Sérialiser
+ * puis recharger.<br/>
+ * \tattendu Le cadrage résolu du niveau rechargé est identique à celui du niveau d'origine,
+ * y compris la taille de salle personnalisée du mode *par salle*.
+ * }
+ */
+TEST(LevelWriterTest, ChacunDesTroisModesDeCadrageSurvitAuRoundTrip) {
+    constexpr const char* WHOLE_LEVEL = R"({
+      "width": 30, "height": 20,
+      "cameraFraming": { "mode": "wholeLevel" },
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" }
+      ]
+    })";
+    constexpr const char* PER_ROOM = R"({
+      "width": 30, "height": 20,
+      "cameraFraming": { "mode": "perRoom", "roomWidthTiles": 10, "roomHeightTiles": 8 },
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" }
+      ]
+    })";
+    // La taille de vue du mode suivi (EX-REN-017, memes champs que la taille de salle du mode par
+    // salle) doit elle aussi survivre au round-trip.
+    constexpr const char* FOLLOW = R"({
+      "width": 10, "height": 8,
+      "cameraFraming": { "mode": "follow", "roomWidthTiles": 8, "roomHeightTiles": 6 },
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" }
+      ]
+    })";
+
+    for (const char* levelJson : {WHOLE_LEVEL, PER_ROOM, FOLLOW}) {
+        const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(levelJson);
+        ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+        const std::string json = core::LevelWriter::toJsonString(*loaded.level);
+        const core::LevelLoadResult reloaded = core::LevelLoader::loadFromString(json);
+        ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+
+        EXPECT_EQ(reloaded.level->cameraFraming().mode, loaded.level->cameraFraming().mode);
+        EXPECT_EQ(reloaded.level->cameraFraming().roomWidthTiles,
+                  loaded.level->cameraFraming().roomWidthTiles);
+        EXPECT_EQ(reloaded.level->cameraFraming().roomHeightTiles,
+                  loaded.level->cameraFraming().roomHeightTiles);
+    }
+}
+
+/**
+ * @brief Des zones de caméra dessinées à la main survivent à un aller-retour JSON, dans le même
+ * ordre (`EX-LVL-007`).
+ * \castest{<b>Les zones de caméra dessinées à la main survivent au round-trip.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Charger un niveau déclarant deux zones de caméra.<br/>2. Sérialiser puis
+ * recharger.<br/>
+ * \tattendu Les zones rechargées sont identiques, dans le même ordre.
+ * }
+ */
+TEST(LevelWriterTest, ZonesDeCameraSurviventAuRoundTrip) {
+    constexpr const char* LEVEL = R"({
+      "width": 30, "height": 20,
+      "cameraFraming": { "mode": "perRoom", "zones": [
+        { "x": 0, "y": 0, "width": 24, "height": 14 },
+        { "x": 24, "y": 0, "width": 6, "height": 20 }
+      ] },
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" }
+      ]
+    })";
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const std::string json = core::LevelWriter::toJsonString(*loaded.level);
+    const core::LevelLoadResult reloaded = core::LevelLoader::loadFromString(json);
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+
+    EXPECT_EQ(reloaded.level->cameraFraming().zones, loaded.level->cameraFraming().zones);
+}
+
+/**
+ * @brief Un niveau dont le cadrage résolu coïncide avec la règle de repli est réécrit **sans** le
+ * champ `"cameraFraming"` : aucune régression de round-trip pour les niveaux jamais retouchés sur
+ * ce point (`EX-LVL-006`).
+ * \castest{<b>Un cadrage identique au repli reste omis du JSON écrit.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Charger un petit niveau sans champ `cameraFraming` (repli : niveau entier).<br/>
+ * 2. Sérialiser.<br/>
+ * \tattendu Le JSON produit ne contient pas le champ `"cameraFraming"`.
+ * }
+ */
+TEST(LevelWriterTest, CadrageIdentiqueAuRepliResteOmisDuJson) {
+    constexpr const char* LEVEL = R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" }
+      ]
+    })";
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const std::string json = core::LevelWriter::toJsonString(*loaded.level);
+    EXPECT_EQ(json.find("cameraFraming"), std::string::npos);
+}

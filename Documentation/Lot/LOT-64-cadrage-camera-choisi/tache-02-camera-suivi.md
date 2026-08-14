@@ -1,6 +1,6 @@
 # TACHE-02 — Caméra de suivi {#lot-64-tache-02-camera-suivi}
 
-**Lot :** [LOT-64](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-64](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 C'est le mode qui **manque au moteur**, et la tâche substantielle du lot. `hmi::Camera2D` sait

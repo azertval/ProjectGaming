@@ -88,10 +88,12 @@ quoi que ce soit ; c'est le rôle de `hmi::Camera2D`. Deux paramètres gouvernen
   contours voulue par ce style visuel.
 
 La caméra a aussi un **centre** (`setCenter`, en unités monde) : le point qui apparaît au milieu de
-l'écran. Ni le jeu (`GameSession`) ni l'éditeur (mode édition du viewport) ne font suivre ce centre en continu au personnage
-(`EX-REN-013`) : il est recalculé par **cadrage**, sur le milieu du contenu à englober — le niveau
-entier dans l'éditeur, ou la **salle courante** en jeu si le niveau en compte plusieurs (voir
-ci-dessous). `projectionMatrix()` combine centre, échelle
+l'écran. L'éditeur (mode édition du viewport) ne fait jamais suivre ce centre en continu au
+personnage : il cadre toujours le niveau entier, avec pan/zoom manuel (`EX-EDIT-013`). En jeu, le
+centre est recalculé par **cadrage**, selon le mode choisi par le niveau (`EX-REN-016`, trois
+modes détaillés ci-dessous) : le milieu du niveau entier, celui de la **salle courante**, ou un
+suivi continu du personnage — le seul des trois qui fait effectivement bouger le centre à chaque
+pas. `projectionMatrix()` combine centre, échelle
 et dimensions de la fenêtre (le *viewport*) en une **matrice de projection orthographique** : une
 transformation mathématique standard en rendu 2D/3D qui convertit une position monde en position
 « clip » — l'espace normalisé que le GPU attend en sortie du *vertex shader* (voir plus bas). C'est
@@ -116,6 +118,100 @@ seule salle retombe exactement sur le cadrage « niveau entier » de LOT-16, san
 `RoomGrid` produit alors une unique salle couvrant le niveau. L'éditeur, lui, garde son cadrage
 « niveau entier » avec pan/zoom manuel (`EX-EDIT-013`) — seul un quadrillage superposé (`F10`)
 indique les frontières de salles, sans changer sa caméra (@ref guide-editeur).
+
+### Le cadrage choisi par le niveau : trois modes (`LOT-64`)
+
+Avant `LOT-64`, le choix entre « niveau entier » et « par salle » ci-dessus était une règle **unique
+et en dur**, déduite des dimensions du niveau (tient dans une salle ou non) — invisible depuis
+l'éditeur, et sans échappatoire pour un niveau qui aurait voulu l'un ou l'autre indépendamment de sa
+taille. `core::CameraFramingConfig` (`Source/Core/Levels/CameraFraming.h`) en fait une **donnée du
+niveau** (`EX-LVL-006`), au même titre que ses tuiles : trois modes, `WholeLevel`, `PerRoom` et
+`Follow` (`EX-REN-016`), choisis par le level designer dans la section « Cadrage » de l'éditeur (@ref
+guide-editeur), pas déduits.
+
+**Règle de repli** (`core::resolveCameraFraming`) : un niveau qui ne déclare aucun champ
+`cameraFraming` — tous les niveaux antérieurs à ce lot — se comporte **exactement** comme avant :
+`WholeLevel` s'il tient dans une salle de taille par défaut, `PerRoom` sinon. C'est le seul endroit
+qui incarne cette règle ; ni `hmi::GameSession` ni l'éditeur ne la recalculent — ils lisent toujours
+un cadrage déjà **résolu** (`core::Level::cameraFraming()`), jamais un champ « peut-être absent ».
+La taille de salle du mode *par salle* est elle-même réglable par niveau (`core::CameraFramingConfig
+::roomWidthTiles`/`roomHeightTiles`) ; `hmi::RoomGrid::ROOM_WIDTH_TILES`/`ROOM_HEIGHT_TILES`
+(`LOT-32`) n'en restent que la valeur par défaut, `RoomGrid` recevant désormais la taille en
+paramètre de construction plutôt que de la connaître en dur.
+
+**Le mode `Follow`** (`hmi::FollowCamera.h`) est le seul des trois qui manquait réellement au
+moteur : les deux autres ne faisaient qu'exposer une règle qui existait déjà. Il accompagne le
+personnage avec quatre mécanismes combinés, chacun répondant à un défaut connu de cette famille de
+caméra :
+
+- une **zone morte** (`FOLLOW_DEAD_ZONE_HALF_WIDTH_UNITS`/`HEIGHT_UNITS`) : le personnage se déplace
+  librement dans un petit rectangle centré sur le point suivi (l'**ancre**) sans faire bouger la
+  caméra ; l'ancre elle-même ne se déplace que lorsque le personnage sort de ce rectangle, tout
+  juste assez pour l'y ramener au bord — c'est ce qui supprime le tremblement permanent d'une
+  caméra qui collerait exactement à la position du personnage ;
+- une **anticipation** (`FOLLOW_ANTICIPATION_DISTANCE_UNITS`) : le centre visé est décalé devant le
+  personnage, dans le sens de son déplacement (`core::Player::facing`), pour qu'on voie où l'on va.
+  Ce décalage s'**inverse progressivement** au changement de sens (son propre lissage exponentiel,
+  `FOLLOW_ANTICIPATION_TIME_CONSTANT_SECONDS`), jamais d'un coup — une inversion instantanée donne
+  le mal de mer ;
+- un **lissage** exponentiel (`FOLLOW_SMOOTHING_TIME_CONSTANT_SECONDS`) vers ce centre visé, à temps
+  de réponse **constant** (indépendant du pas) : `centre += (cible − centre) × (1 − e^(−dt/τ))` ;
+- un **bornage** aux limites du niveau : la caméra ne montre jamais hors de la grille. Le cas
+  particulier — un niveau plus étroit que le cadrage sur un axe — **centre** la caméra sur cet axe
+  plutôt que de la border, sinon elle resterait collée à un bord en permanence.
+
+`hmi::advanceFollowCamera` est une **fonction pure** (aucune horloge système, aucune dépendance
+GPU), testée exhaustivement sans GPU (`Source/Test/Unit/HMI/Graphics/test_follow_camera.cpp`) —
+même statut que `hmi::RoomGrid`/`hmi::Parallax`. Elle avance l'état d'un pas et renvoie un nouveau
+centre déjà borné ; deux pièges, propres à cette famille de caméra, méritent d'être nommés :
+
+1. **Le lissage doit être cadencé sur le pas fixe, jamais sur la fréquence de rendu**
+   (`EX-REN-021`) : `hmi::GameSession::updateFollowCamera` avance l'état une seule fois par pas de
+   simulation, avec `fixedDelta` — jamais avec un delta de frame. Une caméra lissée par image se
+   comporterait différemment à 60 et à 144 Hz, un défaut de déterminisme visuel classique de cette
+   architecture à pas fixe découplé du rendu (@ref guide-boucle).
+2. **Le centre de caméra doit lui-même être interpolé au rendu**, exactement comme une entité
+   portant `hmi::PreviousPosition` (section précédente) : `GameSession::applyCameraFraming` calcule
+   `lerp(centre du pas précédent, centre du pas courant, alpha)` avant d'appeler `setCenter`. Sans
+   cette étape, le personnage — rendu lisse par interpolation — semblerait **trembler** par rapport
+   à un décor calé sur un centre de caméra qui ne bouge que par sauts discrets, une fois par pas
+   fixe. C'est le prolongement direct du mécanisme déjà en place pour les entités mobiles : la
+   caméra de suivi est, elle aussi, une position qui change au pas fixe et doit donc, elle aussi,
+   être interpolée pour l'affichage.
+
+Le centre finalement retenu est **aligné sur la grille de pixels** à l'échelle de rendu courante
+(`hmi::roundToScreenPixel`, la même fonction que la parallaxe des décors ci-dessous), **après**
+l'interpolation ci-dessus : un centre fractionnaire échantillonnerait chaque texture entre deux
+texels et ruinerait la netteté du pixel art que tout le projet protège depuis le `LOT-05`. Le zoom
+reste **entier** dans les trois modes (`EX-ARCH-022`), calculé par la même `Camera2D::fitZoom` que
+les deux autres modes, appliquée à une surface de référence — la taille de vue du mode suivi
+(`EX-REN-017`, voir ci-dessous), faute de rectangle de contenu naturel à ajuster.
+
+### Mélanger plusieurs tailles de caméra : zones dessinées à la main et taille de suivi réglable (`EX-LVL-007`, `EX-REN-017`)
+
+La grille automatique du mode *par salle* ci-dessus impose une **seule** taille de salle pour tout
+le niveau. `core::CameraFramingConfig::zones` (une liste de `core::CameraZone`, rectangles en
+tuiles) lève cette limite : un niveau peut porter des zones de caméra de tailles **différentes**,
+dessinées par le level designer directement sur le canevas de l'éditeur (@ref guide-editeur) plutôt
+que calculées. Liste vide par défaut : sans zone dessinée, le comportement de grille automatique
+décrit plus haut reste **inchangé**, `zones` n'étant qu'une donnée optionnelle en plus, jamais une
+modification du calcul par défaut.
+
+`hmi::activeCameraZoneIndex` (`Source/HMI/Graphics/CameraZones.h`, fonction pure, sans GPU) résout
+la zone active : la **première** zone de la liste dont le rectangle contient la position du
+personnage (bornes hautes/gauches incluses, basses/droites exclues) l'emporte — même convention
+de priorité par ordre que la superposition des décors (@ref guide-editeur). Aucune zone ne
+contient le personnage (trou entre deux zones dessinées) → repli sur le **niveau entier**, jamais
+un état indéfini. `hmi::GameSession` résout la zone active au chargement et à chaque bascule,
+exactement comme elle résout déjà la salle active de la grille automatique
+(`RoomGrid::roomIndexAt`) ; les deux mécanismes ne coexistent jamais pour un même niveau, le choix
+entre l'un et l'autre se faisant simplement sur `zones.empty()`.
+
+Le mode `Follow` réutilise les **mêmes champs** que la taille de salle du mode *par salle*
+(`roomWidthTiles`/`roomHeightTiles`) pour sa propre taille de vue, plutôt que de retenir en dur la
+taille de salle par défaut : un niveau qui veut un suivi plus large ou plus étroit que cette
+valeur par défaut le déclare, sans champ dédié supplémentaire — même donnée, deux usages
+(`core::validateCameraFramingConfig` l'accepte pour les deux modes).
 
 ## Le pipeline de dessin de sprites : \ref hmi::SpriteBatch "hmi::SpriteBatch"
 
@@ -491,9 +587,13 @@ entités réellement mobiles (personnage, dangers mobiles, blocs poussables) re�
 Au rendu, `SpriteRenderer::render` reçoit le **facteur d'interpolation** `[0, 1[` du cadenceur
 (`core::FixedTimestep::interpolationAlpha`, passé en paramètre par `hmi::GameSession::render`) et dessine chaque
 entité portant le composant à `lerp(position précédente, position courante, alpha)` ; les tuiles
-fixes, sans le composant, sont dessinées à leur position courante, inchangées. La caméra, elle, n'est
-**pas** interpolée : elle bascule déjà par coupure nette entre salles (`LOT-32`), sans suivi continu.
-L'interpolation ne touche que l'**affichage** — la logique de jeu (collisions, fin de niveau)
+fixes, sans le composant, sont dessinées à leur position courante, inchangées. La caméra, en mode
+*niveau entier* ou *par salle*, n'est **pas** interpolée : elle bascule par coupure nette entre
+salles (`LOT-32`) ou reste fixe, sans suivi continu. En mode *suivi* (`LOT-64`, détaillé plus haut),
+c'est l'inverse : c'est justement l'**absence** d'interpolation du centre de caméra qui produirait
+un artefact, puisque ce mode fait bouger le centre à **chaque** pas fixe — voir « Le cadrage choisi
+par le niveau » ci-dessus pour ce cas particulier. L'interpolation ne touche que l'**affichage** —
+la logique de jeu (collisions, fin de niveau)
 continue de lire les positions **simulées** exactes, le déterminisme est préservé (`EX-NFR-002`).
 
 ### Décors libres et parallaxe (`LOT-49`)
@@ -535,19 +635,34 @@ plus grande que `(largeur, hauteur)` brut dès qu'elle est non nulle.
 **Parallaxe** (`EX-DEC-006`, `hmi::Parallax.h`) : chaque couche porte un facteur de défilement
 (`hmi::parallaxFactor`), `1.0` pour `Decor` (solidaire du niveau, valeur de référence), inférieur
 pour `Background`, supérieur pour `Foreground`. Le point délicat n'est pas la formule mais son
-ancrage : la caméra de ce jeu ne défile jamais en continu, elle cadre une salle et **bascule
-nettement** sur la suivante (`hmi::RoomGrid`, `LOT-32`). Un décalage calculé en espace niveau
-absolu ferait donc sauter visiblement le décor à chaque bascule. La parallaxe est donc calculée
-**relativement au centre de la salle courante** (`hmi::Camera2D::visibleBounds`) :
-`hmi::parallaxRenderPosition` renvoie `centre + (position − centre) × facteur` — nulle à facteur
-`1.0`, et telle que deux décors à la même position **relative** dans deux salles différentes
-tombent exactement à la même position écran, quelle que soit la salle. Le décor se replace donc à
-chaque bascule, au moment exact où toute l'image change déjà — invisible, là où le décalage
-absolu aurait été un artefact. `hmi::roundToScreenPixel` referme l'écart introduit par un
-décalage fractionnaire (le zoom pixel art reste net, `EX-ARCH-022`), et `hmi::composeWorldSprites`
-applique la parallaxe **avant** de composer le quad — le culling (`hmi::ComposedScene::addSprite`)
-juge donc la position déjà décalée, une couche parallaxée n'occupant pas le même rectangle monde
-que le niveau.
+ancrage : jusqu'au `LOT-64`, la caméra de ce jeu ne défilait **jamais** en continu — elle cadre une
+salle et **bascule nettement** sur la suivante (`hmi::RoomGrid`, `LOT-32`), ou reste fixe (niveau
+entier). Un décalage calculé en espace niveau absolu ferait donc sauter visiblement le décor à
+chaque bascule. La parallaxe est donc calculée **relativement au centre du cadrage courant**
+(`hmi::Camera2D::visibleBounds`) : `hmi::parallaxRenderPosition` renvoie
+`centre + (position − centre) × facteur` — nulle à facteur `1.0`, et telle que deux décors à la
+même position **relative** dans deux salles différentes tombent exactement à la même position
+écran, quelle que soit la salle. Le décor se replace donc à chaque bascule, au moment exact où
+toute l'image change déjà — invisible, là où le décalage absolu aurait été un artefact.
+`hmi::roundToScreenPixel` referme l'écart introduit par un décalage fractionnaire (le zoom pixel
+art reste net, `EX-ARCH-022`), et `hmi::composeWorldSprites` applique la parallaxe **avant** de
+composer le quad — le culling (`hmi::ComposedScene::addSprite`) juge donc la position déjà
+décalée, une couche parallaxée n'occupant pas le même rectangle monde que le niveau.
+
+**Neutralisée en mode de cadrage *suivi*** (`core::CameraFramingMode::Follow`, `LOT-64`) : c'est le
+**seul** mode où la caméra défile réellement en continu (les deux autres restent fixes ou
+basculent net, comme ci-dessus) — appliquer la même formule y ferait apparaître, pour la première
+fois, un décalage différentiel entre couches qui était jusqu'ici toujours resté invisible (aucune
+caméra ne bougeait assez pour le révéler). Concrètement, un décor Fond (facteur `0.5`) semblerait
+**suivre la caméra** plutôt que rester solidaire du niveau — l'inverse de ce que « Fond »/« Premier
+plan » sont censés représenter par défaut pour un décor sans intention de parallaxe délibérée.
+`hmi::composeWorldSprites` reçoit donc un paramètre `applyDecorParallax` (`hmi::SpriteRenderer::
+render` le transmet) que `hmi::GameSession::render` met à `false` précisément quand le cadrage
+résolu du niveau est `Follow` : chaque décor est alors composé comme s'il portait le facteur `1.0`
+de la couche `Decor`, quelle que soit sa couche réelle — toujours pixel-aligné et soumis au
+culling via la caméra, seul le **décalage** de parallaxe disparaît. La couche reste donc un pur
+critère d'**ordre de dessin** en mode suivi (avant/après le personnage), jamais un vecteur de
+mouvement.
 
 Le placement dans l'éditeur (`LOT-49` TACHE-04) était volontairement **minimal** : poser un décor
 à la position exacte du clic, ou le retirer. La manipulation complète — sélectionner, déplacer,

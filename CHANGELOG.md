@@ -7,6 +7,39 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-64 — Cadrage de caméra choisi par le level designer** (déclare `EX-LVL-006`, `EX-REN-016`,
+  `EX-EDIT-028`, `EX-LVL-007`, `EX-REN-017`, `EX-EDIT-029` ; reformule `EX-REN-015`). Le cadrage
+  devient une **donnée du niveau**, plus une règle en dur déduite de ses dimensions.
+  - **Trois modes** (`core::CameraFramingMode`) : *niveau entier*, *par salle* (comportement
+    historique, désormais explicite), *suivi du personnage* — le mode qui manquait au moteur.
+  - **Caméra de suivi** (`hmi::FollowCamera`, `Source/HMI/Graphics`) : zone morte, anticipation
+    s'inversant progressivement, lissage cadencé sur le pas fixe, bornage aux limites du niveau
+    (centrage sur l'axe trop étroit), centre aligné au pixel — fonction pure, testée sans GPU.
+  - **Taille de salle réglable par niveau** (`hmi::RoomGrid` reçoit désormais la taille en
+    paramètre ; les anciennes constantes n'en restent que la valeur par défaut).
+  - **Repli compatible** (`core::resolveCameraFraming`) : un niveau sans champ `cameraFraming`
+    déclaré se joue **exactement** comme avant ce lot — les quinze tableaux livrés et le test
+    système restent inchangés. Version de format `1` → `2` (`EX-LVL-005`).
+  - **Choix et prévisualisation dans l'éditeur** (section « Cadrage » du panneau Textures) : les
+    trois modes se voient dans le canevas (cadre du niveau, grille de salles à taille variable,
+    rectangle de suivi avec zone morte matérialisée), le mode courant reste visible dans la barre
+    d'état, le changement de mode est annulable.
+  - **Corrigé pendant l'essai manuel** : la parallaxe des décors (`EX-DEC-006`, `LOT-49`), jusqu'ici
+    invisible faute de caméra défilant en continu, apparaissait pour la première fois en mode
+    *suivi* — un décor Fond/Premier plan semblait « suivre » la caméra au lieu de rester solidaire
+    du niveau. Neutralisée spécifiquement pour ce mode (`hmi::composeWorldSprites`, paramètre
+    `applyDecorParallax`) : les trois couches restent strictement fixes dans le niveau, comme dans
+    les deux autres modes de cadrage.
+  - **Zones de caméra dessinées à la main** (`core::CameraZone`, `EX-LVL-007`) : en mode *par
+    salle*, le level designer dessine ses propres rectangles de caméra directement sur le canevas
+    (nouvel outil « Zone de caméra »), ce qui permet de **mélanger plusieurs tailles de caméra dans
+    un même niveau** — la grille automatique à taille unique n'est plus qu'un cas particulier
+    (liste de zones vide). Priorité à la première zone couvrant le personnage en cas de
+    chevauchement, repli sur le niveau entier hors de toute zone ; ajout/retrait annulables,
+    tableau récapitulatif dans la section « Cadrage ».
+  - **Taille de la caméra de suivi réglable par niveau** (`EX-REN-017`) : le mode *suivi* réutilise
+    les mêmes champs que la taille de salle du mode *par salle*, au lieu de la constante par défaut
+    codée en dur.
 - **LOT-63 — Mécanismes manquants du référentiel** (lève `EX-GP-023`, marqué « ⚠️ optionnel MVP »
   depuis la rédaction des spécifications ; déclare `EX-CTRL-022` et `EX-GP-026`). Réduit l'écart
   entre ce que le référentiel promettait et ce que le jeu contenait.

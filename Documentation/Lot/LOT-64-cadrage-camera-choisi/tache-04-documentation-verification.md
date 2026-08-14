@@ -1,7 +1,8 @@
 # TACHE-04 — Documentation et vérification {#lot-64-tache-04-documentation-verification}
 
 **Lot :** [LOT-64](epic.md) · **Emplacement :** `Source/Test`, `Documentation` ·
-**Statut :** non commencé
+**Statut :** fait (vérification automatisée complète ; essai manuel restant à faire par le level
+designer avant fusion, voir DoD)
 
 ## Contexte
 Ce lot modifie une exigence **livrée**, ce qui est rare et demande de la précision. `EX-REN-015`
@@ -29,6 +30,8 @@ nuance sans laisser croire que la décision du `LOT-32` était mauvaise.
   temps que lui.
 - **Vérification manuelle**, au moment prévu : un tableau dans chacun des trois modes, en observant
   particulièrement la netteté du pixel art en mode suivi et le comportement aux bords du niveau.
+  Étendue par [TACHE-05](tache-05-zones-camera-taille-suivi.md) : dessiner des zones de tailles
+  différentes dans un même niveau et vérifier la bascule entre elles au canevas comme en jeu.
 
 ## Fichiers impactés
 - `Documentation/Specification/{rendu-technique,niveaux,editeur-niveaux}.md`.
@@ -55,6 +58,12 @@ nuance sans laisser croire que la décision du `LOT-32` était mauvaise.
   génération sur la version épinglée de la CI sans rien dire en local.
 - Le manuel s'adresse à un non-codeur : « ce tableau se voit d'un coup d'œil » plutôt que « mode de
   cadrage statique ».
+- **Trouvé pendant l'essai manuel** : la parallaxe des décors (`EX-DEC-006`) n'avait jamais eu
+  d'effet visible avant ce lot (aucune caméra ne défilait en continu) ; le mode *suivi* la rend
+  visible pour la première fois, et un décor Fond/Premier plan semble alors « suivre » la caméra.
+  Neutralisée spécifiquement pour ce mode (`hmi::composeWorldSprites`, `applyDecorParallax`) —
+  signe qu'une caractéristique dormante d'un lot antérieur peut redevenir active à l'improviste
+  quand une nouvelle caméra change une hypothèse implicite (« la caméra ne défile jamais »).
 
 ## Définition de fait (DoD)
 - Les trois nouvelles exigences sont déclarées, `EX-REN-015` est reformulée en conservant sa

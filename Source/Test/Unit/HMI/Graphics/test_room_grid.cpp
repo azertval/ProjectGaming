@@ -130,3 +130,38 @@ TEST(RoomGridTest, PositionHorsBornesEstBornee) {
     EXPECT_EQ(grid.roomIndexAt(core::GridPosition{-100, -100}), (core::GridPosition{0, 0}));
     EXPECT_EQ(grid.roomIndexAt(core::GridPosition{1000, 1000}), (core::GridPosition{0, 0}));
 }
+
+/**
+ * @brief Construit sans taille explicite, `RoomGrid` utilise `ROOM_WIDTH_TILES`/`ROOM_HEIGHT_TILES`
+ * comme valeurs par défaut ; une taille personnalisée (`LOT-64`) partitionne selon celle-ci, avec
+ * la même règle de troncature au bord du niveau.
+ * \castest{<b>Une taille de salle personnalisée partitionne selon cette taille.</b><br/>
+ * \tcat Unitaire · RoomGrid<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Construire un `RoomGrid` sans taille explicite, vérifier `roomWidthTiles()`/
+ * `roomHeightTiles()`.<br/>2. Construire un `RoomGrid` avec une taille personnalisée non multiple
+ * du niveau.<br/>3. Vérifier le nombre de salles et la troncature de la dernière.<br/>
+ * \tattendu Sans taille explicite, la partition utilise `ROOM_WIDTH_TILES`/`ROOM_HEIGHT_TILES` ;
+ * avec une taille personnalisée, le nombre de salles et leur rognage suivent cette taille, pas la
+ * valeur par défaut.
+ * }
+ */
+TEST(RoomGridTest, TailleDeSallePersonnaliseePartitionneSelonCetteTaille) {
+    const hmi::RoomGrid defaultSized(10, 6);
+    EXPECT_EQ(defaultSized.roomWidthTiles(), hmi::RoomGrid::ROOM_WIDTH_TILES);
+    EXPECT_EQ(defaultSized.roomHeightTiles(), hmi::RoomGrid::ROOM_HEIGHT_TILES);
+
+    constexpr int customWidth = 10;
+    constexpr int customHeight = 8;
+    const hmi::RoomGrid custom(24, 20, customWidth, customHeight);
+    EXPECT_EQ(custom.roomWidthTiles(), customWidth);
+    EXPECT_EQ(custom.roomHeightTiles(), customHeight);
+    EXPECT_EQ(custom.columns(), 3);  // ceil(24 / 10)
+    EXPECT_EQ(custom.rows(), 3);     // ceil(20 / 8)
+
+    const hmi::RoomBounds last = custom.roomBounds(core::GridPosition{2, 2});
+    EXPECT_EQ(last.column, customWidth * 2);
+    EXPECT_EQ(last.row, customHeight * 2);
+    EXPECT_EQ(last.width, 24 - customWidth * 2);    // rognee a la largeur restante
+    EXPECT_EQ(last.height, 20 - customHeight * 2);  // rognee a la hauteur restante
+}

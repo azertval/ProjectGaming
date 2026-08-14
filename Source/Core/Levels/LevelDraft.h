@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+#include "Core/Levels/CameraFraming.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
@@ -329,6 +330,29 @@ public:
      */
     void setSkinSet(std::optional<std::string> skinSet);
 
+    /**
+     * @brief Change le cadrage de caméra du niveau (`EX-LVL-006`, `EX-EDIT-028`), annulable.
+     * @param cameraFraming Nouveau cadrage résolu (mode et, pour *par salle*, taille de salle).
+     */
+    void setCameraFraming(CameraFramingConfig cameraFraming);
+
+    /**
+     * @brief Ajoute une zone de caméra dessinée à la main en fin de liste (mode `PerRoom`,
+     *        `EX-LVL-007`, `EX-EDIT-029`), annulable.
+     *
+     * L'ordre d'ajout fixe la priorité en cas de chevauchement (`core::activeCameraZoneIndex`
+     * côté `HMI`, même convention que `addDecor`) : une zone ajoutée après une autre ne prend le
+     * dessus que là où l'autre ne la couvre pas.
+     * @param zone Zone à ajouter, en cases.
+     */
+    void addCameraZone(CameraZone zone);
+
+    /**
+     * @brief Retire la zone de caméra au rang @p index (`EX-LVL-007`, `EX-EDIT-029`), annulable.
+     * @param index Rang dans `cameraFraming().zones` ; sans effet si hors bornes.
+     */
+    void removeCameraZone(std::size_t index);
+
     /// @return Le nom courant du niveau.
     [[nodiscard]] const std::string& name() const noexcept {
         return _name;
@@ -404,6 +428,11 @@ public:
         return _skinSet;
     }
 
+    /// @return Le cadrage de caméra courant du niveau (`EX-LVL-006`).
+    [[nodiscard]] const CameraFramingConfig& cameraFraming() const noexcept {
+        return _cameraFraming;
+    }
+
     /**
      * @brief Convertit le brouillon en `Level` **validé** (`EX-EDIT-007`), en repassant par la
      *        même validation que `LevelLoader` (sérialise puis recharge : aucune règle
@@ -451,6 +480,7 @@ private:
         std::vector<TileTextureOverride> textureOverrides;
         std::vector<Decor> decors;
         std::vector<MovingPlatformConfig> platformConfigs;
+        CameraFramingConfig cameraFraming;
     };
 
     /// Capture l'état courant (pour empiler dans l'historique undo/redo).
@@ -478,6 +508,7 @@ private:
     std::vector<TileTextureOverride> _textureOverrides;
     std::vector<Decor> _decors;
     std::vector<MovingPlatformConfig> _platformConfigs;
+    CameraFramingConfig _cameraFraming;
     std::vector<State> _undoHistory;
     std::vector<State> _redoHistory;
 };

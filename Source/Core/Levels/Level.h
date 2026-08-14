@@ -5,6 +5,7 @@
 #include <utility>
 #include <vector>
 
+#include "Core/Levels/CameraFraming.h"
 #include "Core/Levels/Decor.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/TileMap.h"
@@ -151,6 +152,11 @@ public:
      *                     le skin de leur type.
      * @param decors       Décors libres du niveau (`EX-DEC-001`, LOT-49), dans leur ordre de
      *                     superposition intra-couche.
+     * @param cameraFraming Cadrage de caméra **résolu** du niveau (`EX-LVL-006`, LOT-64) : déjà
+     *                     passé par `resolveCameraFraming` côté chargeur, jamais un champ brut
+     *                     "peut-être absent" -- valeur par défaut (`WholeLevel`) légitime pour un
+     *                     niveau construit directement (hors `LevelLoader`), cohérente avec un
+     *                     petit niveau qui tient dans une salle.
      */
     Level(std::string name, TileMap tileMap, GridPosition entry, GridPosition exit,
           std::vector<Mechanism> mechanisms, int jumpBudget = -1, int dashBudget = -1,
@@ -160,7 +166,8 @@ public:
           std::optional<std::string> background = std::nullopt,
           std::optional<std::string> skinSet = std::nullopt,
           std::vector<TileTextureOverride> textureOverrides = {}, std::vector<Decor> decors = {},
-          std::vector<MovingPlatformConfig> platformConfigs = {})
+          std::vector<MovingPlatformConfig> platformConfigs = {},
+          CameraFramingConfig cameraFraming = {})
         : _name(std::move(name)),
           _tileMap(std::move(tileMap)),
           _entry(entry),
@@ -175,7 +182,8 @@ public:
           _skinSet(std::move(skinSet)),
           _textureOverrides(std::move(textureOverrides)),
           _decors(std::move(decors)),
-          _platformConfigs(std::move(platformConfigs)) {}
+          _platformConfigs(std::move(platformConfigs)),
+          _cameraFraming(cameraFraming) {}
 
     /// @return Le nom du niveau.
     [[nodiscard]] const std::string& name() const noexcept {
@@ -255,6 +263,13 @@ public:
         return _platformConfigs;
     }
 
+    /// @return Le cadrage de caméra **résolu** du niveau (`EX-LVL-006`), jamais un champ optionnel
+    /// "peut-être absent" : la règle de repli (`resolveCameraFraming`) a déjà été appliquée par le
+    /// chargeur avant de construire ce `Level`.
+    [[nodiscard]] const CameraFramingConfig& cameraFraming() const noexcept {
+        return _cameraFraming;
+    }
+
 private:
     std::string _name;
     TileMap _tileMap;
@@ -271,6 +286,7 @@ private:
     std::vector<TileTextureOverride> _textureOverrides;
     std::vector<Decor> _decors;
     std::vector<MovingPlatformConfig> _platformConfigs;
+    CameraFramingConfig _cameraFraming;
 };
 
 }  // namespace core

@@ -28,21 +28,22 @@ namespace {
 }  // namespace
 
 /**
- * @brief Les six outils du catalogue forment une bijection exacte avec `hmi::EditorTool` : un
+ * @brief Les sept outils du catalogue forment une bijection exacte avec `hmi::EditorTool` : un
  *        outil, une action, aucun manquant ni dupliqué. C'est ce qui garantit l'exclusivité réelle
  *        (le groupe Qt `QActionGroup`, construit à partir de ce même catalogue, EditorActions.cpp)
  *        : deux actions pour le même outil casseraient la resynchronisation par touche dédiée.
- * \castest{<b>Les six outils du catalogue forment une bijection avec EditorTool.</b><br/>
+ * \castest{<b>Les sept outils du catalogue forment une bijection avec EditorTool.</b><br/>
  * \tcat Unitaire · Actions de l'editeur<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Pour chaque hmi::EditorTool, resoudre l'action puis reconvertir vers l'outil.<br/>
- * \tattendu L'aller-retour restitue l'outil d'origine, pour chacun des six.
+ * \tattendu L'aller-retour restitue l'outil d'origine, pour chacun des sept.
  * }
  */
-TEST(EditorActionsTest, LesSixOutilsFormentUneBijectionAvecEditorTool) {
+TEST(EditorActionsTest, LesSeptOutilsFormentUneBijectionAvecEditorTool) {
     constexpr hmi::EditorTool tools[] = {hmi::EditorTool::Paint,         hmi::EditorTool::Rectangle,
                                          hmi::EditorTool::Selection,     hmi::EditorTool::Link,
-                                         hmi::EditorTool::TextureAssign, hmi::EditorTool::Decor};
+                                         hmi::EditorTool::TextureAssign, hmi::EditorTool::Decor,
+                                         hmi::EditorTool::CameraZone};
     std::set<hmi::IconId> seen;
     for (hmi::EditorTool tool : tools) {
         const hmi::IconId id = hmi::editorActionForTool(tool);
@@ -51,7 +52,7 @@ TEST(EditorActionsTest, LesSixOutilsFormentUneBijectionAvecEditorTool) {
         ASSERT_TRUE(roundTrip.has_value());
         EXPECT_EQ(*roundTrip, tool);
     }
-    EXPECT_EQ(seen.size(), 6u);
+    EXPECT_EQ(seen.size(), 7u);
 }
 
 /**
