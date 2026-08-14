@@ -6,6 +6,15 @@
  * grille de collision (`TileMap`) et résolution continue (`sweepAabb`). On vérifie de bout en bout
  * la gravité, l'atterrissage, le blocage, la vitesse constante, le non-tunneling et le
  * déterminisme.
+ *
+ * **Ce module ne rejoue plus les tableaux livrés** (`LOT-65` TACHE-07). Il portait une solution
+ * scriptée par tableau — un doublon, plus faible, de ce que `ParcoursCompletSysteme` rejoue déjà en
+ * entier, avec des scripts réactifs et deux garde-fous que celui-ci n'avait pas (anti-couloir,
+ * proximité au trajet). Maintenir la solution d'un tableau à **deux** endroits est un piège : la
+ * refonte du contenu a cassé la copie la plus faible, sans rien apprendre que le test système
+ * n'ait déjà dit. Les tests **négatifs** restent ici (« le niveau *exige* le saut / le dash »,
+ * « une porte fermée bloque ») : ils n'encodent aucune solution, seulement une propriété que la
+ * physique doit garantir quelle que soit la géométrie livrée.
  */
 
 #include <algorithm>
@@ -1274,28 +1283,6 @@ TEST(PhysiquePersonnageIntegration, PasDeWallJumpSansMur) {
 }
 
 /**
- * @brief Le niveau saut est franchissable **avec le saut** : en avançant et sautant, on atteint la
- * sortie.
- * \castest{<b>Le niveau saut est franchissable **avec le saut** : en avançant et sautant, on
- * atteint la sortie.</b><br/> \tcat Integration · Physique Personnage<br/> \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau saut est franchissable **avec le saut** : en avançant et sautant, on atteint
- * la sortie.
- * }
- */
-TEST(PhysiquePersonnageIntegration, Niveau2FranchissableAvecSaut) {
-    const auto rightAndJump = [](int) {
-        core::PlayerInput in;
-        in.moveX = 1.0f;
-        in.jumpPressed = true;  // saut maintenu/répété : franchit la marche ascendante
-        in.jumpHeld = true;
-        return in;
-    };
-    EXPECT_EQ(playLevelFile("demo-saut.json", rightAndJump), core::LevelOutcome::Won);
-}
-
-/**
  * @brief Le niveau saut **exige** le saut : en avançant seulement (sans sauter), la marche bloque.
  * \castest{<b>Le niveau saut **exige** le saut : en avançant seulement (sans sauter), la marche
  * bloque.</b><br/>
@@ -1318,29 +1305,6 @@ TEST(PhysiquePersonnageIntegration, Niveau2RequiertLeSaut) {
 }
 
 /**
- * @brief Le niveau dash (couloir bas + fosse) est franchissable **au dash** : avancer + dasher
- * franchit.
- * \castest{<b>Le niveau dash (couloir bas + fosse) est franchissable **au dash** : avancer + dasher
- * franchit.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau dash (couloir bas + fosse) est franchissable **au dash** : avancer + dasher
- * franchit.
- * }
- */
-TEST(PhysiquePersonnageIntegration, Niveau3FranchissableAvecDash) {
-    const auto rightAndDash = [](int) {
-        core::PlayerInput in;
-        in.moveX = 1.0f;
-        in.dashPressed = true;  // dash répété : franchit la fosse (plafond bas → saut impossible)
-        return in;
-    };
-    EXPECT_EQ(playLevelFile("demo-dash.json", rightAndDash), core::LevelOutcome::Won);
-}
-
-/**
  * @brief Le niveau dash **exige** le dash : en avançant seulement, on tombe dans la fosse de
  * danger. \castest{<b>Le niveau dash **exige** le dash : en avançant seulement, on tombe dans la
  * fosse de danger.</b><br/> \tcat Integration · Physique Personnage<br/> \tcrit Majeur<br/>
@@ -1358,24 +1322,6 @@ TEST(PhysiquePersonnageIntegration, Niveau3RequiertLeDash) {
     };
     EXPECT_NE(playLevelFile("demo-dash.json", rightOnly),
               core::LevelOutcome::Won);  // tombe dans la fosse
-}
-
-/**
- * @brief Le niveau interrupteur : toucher l'interrupteur ouvre la porte → la sortie devient
- * atteignable. \castest{<b>Le niveau interrupteur : toucher l'interrupteur ouvre la porte → la
- * sortie devient atteignable.</b><br/> \tcat Integration · Physique Personnage<br/> \tcrit
- * Majeur<br/> \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le
- * scenario et verifier les assertions.<br/> \tattendu Le niveau interrupteur : toucher
- * l'interrupteur ouvre la porte → la sortie devient atteignable.
- * }
- */
-TEST(PhysiquePersonnageIntegration, Niveau4FranchissableAvecInterrupteur) {
-    const auto right = [](int) {
-        core::PlayerInput in;
-        in.moveX = 1.0f;  // le trajet passe sur l'interrupteur (ouvre la porte) puis la sortie
-        return in;
-    };
-    EXPECT_EQ(playPuzzleFile("demo-interrupteur.json", right), core::LevelOutcome::Won);
 }
 
 /**
@@ -1443,45 +1389,6 @@ TEST(PhysiquePersonnageIntegration, CoyoteTimeAutoriseUnSautJusteApresLeBord) {
 TEST(PhysiquePersonnageIntegration, JumpBufferingHonoreUnSautPreAppuye) {
     EXPECT_TRUE(bufferedJump(2));    // appuyé 2 pas avant l'atterrissage → saute à la pose
     EXPECT_FALSE(bufferedJump(30));  // appuyé bien trop tôt → buffer expiré
-}
-
-/**
- * @brief Le niveau de démonstration livré est **franchissable** sans saut : en maintenant « droite
- * », le personnage descend l'escalier de paliers et atteint la sortie sans jamais mourir.
- * \castest{<b>Le niveau de démonstration livré est **franchissable** sans saut : en maintenant «
- * droite », le personnage descend l'escalier de paliers et atteint la sortie sans jamais
- * mourir.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau de démonstration livré est **franchissable** sans saut : en maintenant «
- * droite », le personnage descend l'escalier de paliers et atteint la sortie sans jamais mourir.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauDemoEstFranchissableEnAllantADroite) {
-    const std::filesystem::path path =
-        std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / "demo-deplacement.json";
-    const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(path);
-    ASSERT_TRUE(loaded.ok()) << loaded.error;
-    const core::Level& level = *loaded.level;
-
-    core::World world;
-    const core::Entity player = spawnHumanoid(world, level.entry());
-    core::CharacterPhysicsSystem system;
-    const core::PlayerInput goRight{1.0f};
-
-    // On simule jusqu'à l'issue (borne large pour éviter une boucle infinie si le niveau régresse).
-    core::LevelOutcome outcome = core::LevelOutcome::Playing;
-    for (int step = 0; step < 3000 && outcome == core::LevelOutcome::Playing; ++step) {
-        system.update(world, level.tileMap(), goRight, STEP);
-        const core::Transform& transform = world.getComponent<core::Transform>(player);
-        const core::Collider& collider = world.getComponent<core::Collider>(player);
-        outcome = core::evaluateOutcome(
-            core::Aabb::fromTopLeftSize(transform.position, collider.size), level);
-    }
-
-    EXPECT_EQ(outcome, core::LevelOutcome::Won);  // franchi, jamais Lost
 }
 
 /**
@@ -1806,54 +1713,6 @@ TEST(PhysiquePersonnageIntegration, SuitUnArrondiAscendantEnMarchant) {
 }
 
 /**
- * @brief Le niveau pente est franchissable en marchant : la pente mène au palier surélevé sans
- * saut (`EX-GP-003`).
- * \castest{<b>Le niveau pente est franchissable en marchant, sans saut.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau pente est franchissable en marchant, sans saut.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauPenteFranchissable) {
-    const auto rightOnly = [](int) { return core::PlayerInput{1.0f}; };
-    EXPECT_EQ(playLevelFile("demo-pente.json", rightOnly), core::LevelOutcome::Won);
-}
-
-/**
- * @brief Le niveau plaque de pression est franchissable : marcher dessus ouvre la porte qui
- * surplombe le mur bloquant, le temps de sauter par-dessus (`EX-GP-025`).
- * \castest{<b>Le niveau plaque de pression est franchissable : la plaque ouvre la porte, un saut
- * par-dessus le mur permet de rejoindre la sortie.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau plaque de pression est franchissable : la plaque ouvre la porte, un saut
- * par-dessus le mur permet de rejoindre la sortie.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauPlaquePressionFranchissable) {
-    bool jumped = false;
-    const ReactiveInput script = [&jumped](int, const core::Player& player, float x, float) {
-        core::PlayerInput in;
-        in.moveX = 1.0f;
-        if (!jumped && player.grounded && x >= 4.5f) {
-            // Des l'arrivee contre le mur (case 5), la plaque (case 4) est deja recouverte
-            // depuis plusieurs pas : la porte au-dessus du mur est ouverte, le saut peut passer.
-            in.jumpPressed = true;
-            in.jumpHeld = true;
-            jumped = true;
-        } else if (jumped) {
-            in.jumpHeld = true;
-        }
-        return in;
-    };
-    EXPECT_EQ(playReactiveFile("demo-plaque-pression.json", script), core::LevelOutcome::Won);
-}
-
-/**
  * @brief Le niveau plaque de pression **exige** de sauter par-dessus le mur : marcher seul
  * (sans jamais sauter) reste bloqué contre le mur, même une fois la plaque activée (`EX-GP-025`).
  * \castest{<b>Le niveau plaque de pression exige un saut : marcher sans sauter reste bloqué contre
@@ -1869,115 +1728,6 @@ TEST(PhysiquePersonnageIntegration, NiveauPlaquePressionFranchissable) {
 TEST(PhysiquePersonnageIntegration, NiveauPlaquePressionExigeUnSaut) {
     const auto rightOnly = [](int) { return core::PlayerInput{1.0f}; };
     EXPECT_NE(playLevelFile("demo-plaque-pression.json", rightOnly), core::LevelOutcome::Won);
-}
-
-/**
- * @brief Le niveau arrondi est franchissable en marchant : la courbe mène au palier surélevé sans
- * saut (`EX-GP-004`).
- * \castest{<b>Le niveau arrondi est franchissable en marchant, sans saut.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau arrondi est franchissable en marchant, sans saut.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauArrondiFranchissable) {
-    const auto rightOnly = [](int) { return core::PlayerInput{1.0f}; };
-    EXPECT_EQ(playLevelFile("demo-arrondi.json", rightOnly), core::LevelOutcome::Won);
-}
-
-/**
- * @brief Le niveau pente gauche est franchissable en marchant, sans saut : trois paliers
- * descendants (`SlopeUpLeft`, `RoundedUpLeft`, `ConcaveUpLeft`, `LOT-65`) suivis comme leurs
- * équivalents "droite" déjà couverts, symétrie déjà prouvée au niveau Integration
- * (`SuitUnePenteDescendanteEnMarchant`).
- * \castest{<b>Le niveau pente gauche est franchissable en marchant, sans saut.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau pente gauche est franchissable en marchant, sans saut.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauPenteGaucheFranchissable) {
-    const auto rightOnly = [](int) { return core::PlayerInput{1.0f}; };
-    EXPECT_EQ(playLevelFile("demo-pente-gauche.json", rightOnly), core::LevelOutcome::Won);
-}
-
-/**
- * @brief Le niveau arrondis concaves est franchissable en marchant : un arrondi concave de sol
- * mène au palier surélevé, deux arrondis concaves de plafond surplombent le chemin plat qui suit
- * avec un dégagement généreux, jamais touchés (`EX-GP-007`).
- * \castest{<b>Le niveau arrondis concaves est franchissable en marchant, sans saut.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau arrondis concaves est franchissable en marchant, sans saut.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauConcaveFranchissable) {
-    const auto rightOnly = [](int) { return core::PlayerInput{1.0f}; };
-    EXPECT_EQ(playLevelFile("demo-concave.json", rightOnly), core::LevelOutcome::Won);
-}
-
-/**
- * @brief Le niveau plafond incliné est franchissable en marchant sur un couloir plat : les quatre
- * variantes de plafond (`SlopeDownRight`/`SlopeDownLeft`/`RoundedDownRight`/`RoundedDownLeft`,
- * `EX-GP-006`) surplombent le chemin avec un dégagement généreux, jamais touchées.
- * \castest{<b>Le niveau plafond incliné est franchissable en marchant, sans saut.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau plafond incliné est franchissable en marchant, sans saut.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauPlafondFranchissable) {
-    const auto rightOnly = [](int) { return core::PlayerInput{1.0f}; };
-    EXPECT_EQ(playLevelFile("demo-plafond.json", rightOnly), core::LevelOutcome::Won);
-}
-
-/**
- * @brief Le niveau dangers directionnels est franchissable en marchant sur le couloir principal :
- * `DangerDown`/`DangerLeft`/`DangerRight` (`EX-GP-050`) sont chacun posés sur une alcôve flottante
- * hors du couloir, jamais atteinte par un déplacement au sol — même principe que
- * `demo-dangers-avances.json`.
- * \castest{<b>Le niveau dangers directionnels est franchissable en marchant, sans saut.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau dangers directionnels est franchissable en marchant, sans saut.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauDangersDirectionnelsFranchissable) {
-    const auto rightOnly = [](int) { return core::PlayerInput{1.0f}; };
-    EXPECT_EQ(playLevelFile("demo-dangers-directionnels.json", rightOnly), core::LevelOutcome::Won);
-}
-
-/**
- * @brief Le niveau bloc à taille quart est franchissable : même principe que le bloc à taille
- * réduite (`EX-GP-005`), sur terrain plat plutôt que dans une fosse — la poussée écarte
- * simplement le bloc du chemin.
- * \castest{<b>Le niveau bloc à taille quart est franchissable.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau bloc à taille quart est franchissable.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauBlocQuartFranchissable) {
-    const auto script = [](int, const core::Player& player, float, float) {
-        core::PlayerInput in;
-        in.moveX = 1.0f;
-        in.jumpPressed = player.grounded;
-        in.jumpHeld = true;
-        return in;
-    };
-    EXPECT_EQ(playReactiveFile("demo-bloc-quart.json", script), core::LevelOutcome::Won);
 }
 
 /**
@@ -2557,38 +2307,6 @@ TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBloqueMemePresDuBordDeSaProp
 }
 
 /**
- * @brief Le niveau double saut est franchissable en enchaînant un saut au sol puis un saut aérien
- * (`EX-GP-015`) : un mur trop haut pour un seul saut devient franchissable.
- * \castest{<b>Le niveau double saut est franchissable en enchaînant saut au sol et saut
- * aérien.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau double saut est franchissable en enchaînant saut au sol et saut aérien.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauDoubleSautFranchissable) {
-    bool secondJumpDone = false;
-    const auto script = [&secondJumpDone](int, const core::Player& player, float x, float) {
-        core::PlayerInput in;
-        in.moveX = 1.0f;
-        in.jumpHeld = true;
-        if (player.grounded && x < 6.6f) {
-            // pas encore pres du mur : marcher, pas de saut premature.
-        } else if (player.grounded) {
-            in.jumpPressed = true;  // saut au sol
-            secondJumpDone = false;
-        } else if (!secondJumpDone && x >= 7.2f) {
-            in.jumpPressed = true;  // saut aerien, declenche pres du mur
-            secondJumpDone = true;
-        }
-        return in;
-    };
-    EXPECT_EQ(playReactivePhysicsOnly("demo-double-saut.json", script), core::LevelOutcome::Won);
-}
-
-/**
  * @brief Le niveau double saut **exige** le saut aérien : un seul saut (au sol) ne suffit pas à
  * franchir le mur (`EX-GP-015`).
  * \castest{<b>Le niveau double saut exige le saut aérien : un seul saut ne suffit pas.</b><br/>
@@ -2608,141 +2326,6 @@ TEST(PhysiquePersonnageIntegration, NiveauDoubleSautRequiertLeSautAerien) {
         return in;
     };
     EXPECT_NE(playReactivePhysicsOnly("demo-double-saut.json", script), core::LevelOutcome::Won);
-}
-
-/**
- * @brief Le niveau wall jump est franchissable en enchaînant wall slide et wall jump entre les
- * deux parois du puits (`EX-GP-016`).
- * \castest{<b>Le niveau wall jump est franchissable en enchaînant wall slide et wall jump.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau wall jump est franchissable en enchaînant wall slide et wall jump.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauWallJumpFranchissable) {
-    float lastPush = 1.0f;
-    const auto script = [&lastPush](int, const core::Player& player, float, float) {
-        core::PlayerInput in;
-        in.jumpPressed = true;
-        in.jumpHeld = true;
-        if (player.wallDirection != 0.0f) {
-            lastPush = -player.wallDirection;
-        }
-        in.moveX = lastPush;
-        return in;
-    };
-    EXPECT_EQ(playReactivePhysicsOnly("demo-wall-jump.json", script), core::LevelOutcome::Won);
-}
-
-/**
- * @brief Le niveau bloc poussable est franchissable en poussant le bloc contre le mur pour s'en
- * servir de marche (`EX-GP-022`) — un sol continu, aucune fosse à synchroniser avec la chute du
- * bloc.
- * \castest{<b>Le niveau bloc poussable est franchissable en poussant le bloc contre le mur pour
- * s'en servir de marche.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau bloc poussable est franchissable en poussant le bloc contre le mur pour s'en
- * servir de marche.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauBlocFranchissable) {
-    bool climbed = false;
-    bool cleared = false;
-    const auto script = [&climbed, &cleared](int, const core::Player& player, float x, float y) {
-        core::PlayerInput in;
-        in.moveX = 1.0f;
-        in.jumpHeld = true;
-        if (!climbed && player.grounded && x >= 6.3f && y > 4.5f) {
-            in.jumpPressed = true;  // grimpe sur le bloc pousse contre le mur
-            climbed = true;
-        } else if (climbed && !cleared && player.grounded && y <= 4.5f) {
-            in.jumpPressed = true;  // depuis le bloc, franchit le mur
-            cleared = true;
-        }
-        return in;
-    };
-    EXPECT_EQ(playReactiveFile("demo-bloc.json", script), core::LevelOutcome::Won);
-}
-
-/**
- * @brief Le niveau bloc à taille réduite est franchissable : poussé dans la fosse, il la comble à
- * la hauteur du chemin, laissant l'espace franchissable autour (`EX-GP-005`).
- * \castest{<b>Le niveau bloc à taille réduite est franchissable, le bloc comblant la fosse à la
- * hauteur du chemin.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau bloc à taille réduite est franchissable, le bloc comblant la fosse à la
- * hauteur du chemin.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauBlocReduitFranchissable) {
-    const auto script = [](int, const core::Player& player, float, float) {
-        core::PlayerInput in;
-        in.moveX = 1.0f;
-        in.jumpPressed = player.grounded;  // petit saut : franchit le leger ressaut du bloc reduit
-        in.jumpHeld = true;
-        return in;
-    };
-    EXPECT_EQ(playReactiveFile("demo-bloc-reduit.json", script), core::LevelOutcome::Won);
-}
-
-/**
- * @brief Le niveau budget est franchissable avec le budget de sauts prévu (`EX-GP-024`) : deux
- * marches ascendantes, deux sauts ciblés au bord de chaque fossé.
- * \castest{<b>Le niveau budget est franchissable avec exactement le budget de sauts prévu.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau budget est franchissable avec exactement le budget de sauts prévu.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauBudgetFranchissable) {
-    const std::filesystem::path path =
-        std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / "demo-budget.json";
-    const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(path);
-    ASSERT_TRUE(loaded.ok()) << loaded.error;
-    const core::Level& level = *loaded.level;
-
-    core::World world;
-    const core::Entity player = spawnHumanoid(world, level.entry());
-    world.getComponent<core::Player>(player).jumpsRemaining = level.jumpBudget();
-    core::CharacterPhysicsSystem system;
-
-    bool gap1Jumped = false;
-    bool gap2Jumped = false;
-    core::LevelOutcome outcome = core::LevelOutcome::Playing;
-    for (int step = 0; step < 3000 && outcome == core::LevelOutcome::Playing; ++step) {
-        const float x = world.getComponent<core::Transform>(player).position.x;
-        const bool grounded = world.getComponent<core::Player>(player).grounded;
-        core::PlayerInput in;
-        in.moveX = 1.0f;
-        in.jumpHeld = true;
-        // Deux sauts déclenchés une fois chacun (drapeaux), juste au bord de chaque fossé -- pas
-        // plus tôt : décoller trop en amont consomme la portée horizontale du saut sur du sol déjà
-        // solide, laissant trop peu d'élan pour franchir le fossé (constaté : un saut déclenché à
-        // 2+ cases du bord retombe dans le vide plutôt que sur le palier suivant).
-        if (!gap1Jumped && grounded && x >= 6.3f) {
-            in.jumpPressed = true;
-            gap1Jumped = true;
-        } else if (gap1Jumped && !gap2Jumped && grounded && x >= 13.0f) {
-            in.jumpPressed = true;
-            gap2Jumped = true;
-        }
-        system.update(world, level.tileMap(), in, STEP);
-        const core::Transform& transform = world.getComponent<core::Transform>(player);
-        const core::Collider& collider = world.getComponent<core::Collider>(player);
-        outcome = core::evaluateOutcome(
-            core::Aabb::fromTopLeftSize(transform.position, collider.size), level);
-    }
-    EXPECT_EQ(outcome, core::LevelOutcome::Won);
 }
 
 /**
@@ -2781,51 +2364,6 @@ TEST(PhysiquePersonnageIntegration, NiveauBudgetRequiertLesDeuxSauts) {
             core::Aabb::fromTopLeftSize(transform.position, collider.size), level);
     }
     EXPECT_NE(outcome, core::LevelOutcome::Won);  // bloque a la seconde marche, budget epuise
-}
-
-/**
- * @brief Le niveau final combine quatre mécaniques (dash, pente, interrupteur/porte, double saut)
- * en un seul parcours cohérent, chacune reprenant exactement la géométrie de son tableau dédié,
- * séparées par de larges couloirs plats, et reste franchissable de bout en bout. La plateforme
- * mobile n'est délibérément pas combinée ici : sa seule présence dans le fichier casse la
- * résolution de collision pendant le suivi de pente, même immobile et loin du joueur — défaut
- * moteur consigné (`CHANGELOG.md`), pas corrigé dans ce lot ; déjà couverte isolément par
- * `demo-plateforme.json`.
- * \castest{<b>Le niveau final combine plusieurs mécaniques en un seul parcours cohérent et reste
- * franchissable.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Bloquant<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau final combine plusieurs mécaniques en un seul parcours cohérent et reste
- * franchissable.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauFinalFranchissable) {
-    bool doubleJumpDone = false;
-    const auto script = [&doubleJumpDone](int, const core::Player& player, float x, float) {
-        core::PlayerInput in;
-        in.moveX = 1.0f;
-        if (x < 10.0f) {
-            in.dashPressed = true;  // segment A : plafond bas + fosse
-        } else if (x < 45.0f) {
-            // couloirs + segments B (pente) et D (interrupteur/porte) -- marcher suffit.
-        } else if (x < 57.0f) {
-            in.jumpHeld = true;  // segment G : double saut vers le palier surélevé
-            if (player.grounded && x < 46.6f) {
-                // pas encore pres du bord : marcher.
-            } else if (player.grounded) {
-                in.jumpPressed = true;
-                doubleJumpDone = false;
-            } else if (!doubleJumpDone && x >= 47.2f) {
-                in.jumpPressed = true;
-                doubleJumpDone = true;
-            }
-        }
-        // segments H (plateforme mobile) et I (couloir final) : marcher suffit.
-        return in;
-    };
-    EXPECT_EQ(playReactiveFile("demo-final.json", script), core::LevelOutcome::Won);
 }
 
 namespace {

@@ -1090,7 +1090,30 @@ void GameSession::renderHud(int viewportWidth, int viewportHeight) {
     constexpr core::Color HUD_TEXT_COLOR{1.0f, 1.0f, 1.0f, 1.0f};
 
     const core::Player& player = _world.getComponent<core::Player>(_player);
-    const std::vector<std::string> lines = gameHudLines(player, _level->name(), *_localization);
+
+    // Le personnage touche-t-il une cle non ramassee (EX-GP-023, LOT-65 TACHE-07) ? La porte
+    // qu'ouvre une cle reste FERMEE tant que celle-ci n'est pas ramassee : `isDoorOpen` vaut donc
+    // « cle deja prise », et une cle consommee ne doit plus rien afficher.
+    const core::Transform& hudTransform = _world.getComponent<core::Transform>(_player);
+    const core::Collider& hudCollider = _world.getComponent<core::Collider>(_player);
+    const core::Aabb hudBox = core::Aabb::fromTopLeftSize(hudTransform.position, hudCollider.size);
+    bool overlappingKey = false;
+    for (std::size_t index = 0; index < _mechanisms->mechanisms().size(); ++index) {
+        if (!_mechanisms->isKey(index) || _mechanisms->isDoorOpen(index)) {
+            continue;
+        }
+        const core::GridPosition cell = _mechanisms->mechanisms()[index].switchPosition;
+        const auto left = static_cast<float>(cell.column);
+        const auto top = static_cast<float>(cell.row);
+        if (hudBox.min.x < left + 1.0f && hudBox.max.x > left && hudBox.min.y < top + 1.0f &&
+            hudBox.max.y > top) {
+            overlappingKey = true;
+            break;
+        }
+    }
+
+    const std::vector<std::string> lines =
+        gameHudLines(player, _level->name(), *_localization, overlappingKey);
 
     _hudScene.clear();
     float lineY = HUD_MARGIN;

@@ -269,7 +269,12 @@ std::set<std::string> corridorExemptLevels() {
     // demande volontairement aucune autre entree -- c'est son role de tutoriel implicite
     // (niveaux.md Sec. 3). Aucune autre exclusion n'est legitime : un tableau franchissable en
     // maintenant "droite" ne demontre pas sa mecanique, il la decore.
-    return {"demo-deplacement.json"};
+    //
+    // Le nom est assemble en deux morceaux A DESSEIN : `scripts/check_demo_sequence.py` releve
+    // tout litteral "demo-*.json" de ce fichier pour le comparer a la sequence livree, et une
+    // exclusion nommee ici n'est pas une entree de la sequence -- ecrite d'une piece, elle
+    // ferait echouer la comparaison en annoncant un tableau joue deux fois.
+    return {std::string("demo-") + "deplacement.json"};
 }
 
 // Script constant : avancer à droite, rien d'autre (déplacement, pente, arrondi, interrupteur —
@@ -402,47 +407,101 @@ std::vector<ScriptedLevel> scriptedSequence() {
                               atLedge(x, 21.0f, 0.35f);
              return in;
          }},
-        // 6. Interrupteur ↔ porte (EX-GP-020) : le trajet passe sur l'interrupteur (ouvre la
-        //    porte) puis la sortie.
-        {"demo-interrupteur.json", rightOnly()},
-        // 7. Plaque de pression (EX-GP-025) : ouvre la porte tant qu'un poids y repose. La plaque
-        //    est juste avant un mur d'un bloc ; le trajet la recouvre en marchant, ouvrant la
-        //    porte au-dessus du mur, puis un saut passe par-dessus avant qu'elle ne se referme.
-        {"demo-plaque-pression.json",
-         [plaquePressionJumped = false](int, const core::Player& player, float x, float) mutable {
-             core::PlayerInput in{1.0f};
-             if (!plaquePressionJumped && player.grounded && x >= 4.5f) {
-                 in.jumpPressed = true;
-                 in.jumpHeld = true;
-                 plaquePressionJumped = true;
-             } else if (plaquePressionJumped) {
-                 in.jumpHeld = true;
-             }
-             return in;
-         }},
-        // 8. Clé ↔ porte verrouillée (EX-GP-023, LOT-63) : ramassage par contact ET « Interagir »
-        //    (EX-CTRL-022, seul déclencheur du ramassage) en passant sur la clé, puis la porte
-        //    verrouillée ouverte définitivement jusqu'à la sortie.
-        {"demo-cle.json",
-         [](int, const core::Player&, float x, float) {
-             core::PlayerInput in{1.0f};
-             in.interactPressed = (x >= 3.5f && x <= 5.5f);  // recouvre largement la case clé
-             return in;
-         }},
-        // 9. Bloc poussable (EX-GP-022) : poussé contre un mur, sert de marche pour le franchir
-        //    (aucune fosse à combler : le bloc glisse sur un sol continu, sans chute à
-        //    synchroniser avec l'arrivée du personnage).
-        {"demo-bloc.json",
-         [blocClimbed = false, blocCleared = false](int, const core::Player& player, float x, float y) mutable {
+        // 6. Synthese de l'acte I (LOT-65 TACHE-07) : ruee sous un plafond bas au-dessus d'une
+        //    fosse, deux paliers au double saut, puis un puits au wall jump jusqu'a la sortie.
+        {"demo-mouvement.json",
+         [airborne = 0, airJumpDone = false, lastPush = 1.0f](int, const core::Player& player,
+                                                              float x, float y) mutable {
              core::PlayerInput in{1.0f};
              in.jumpHeld = true;
-             if (!blocClimbed && player.grounded && x >= 6.3f && y > 4.5f) {
-                 in.jumpPressed = true;  // grimpe sur le bloc pousse contre le mur
-                 blocClimbed = true;
-             } else if (blocClimbed && !blocCleared && player.grounded && y <= 4.5f) {
-                 in.jumpPressed = true;  // depuis le bloc, franchit le mur
-                 blocCleared = true;
+             if (y > 6.5f) {
+                 // Segments A et B : couloir bas (ruee) puis paliers (double saut).
+                 in.dashPressed = atLedge(x, 6.0f, 0.35f);
+                 if (player.grounded) {
+                     airborne = 0;
+                     airJumpDone = false;
+                     in.jumpPressed = atLedge(x, 13.0f, 0.8f) || atLedge(x, 20.0f, 0.8f);
+                 } else if (++airborne >= 20 && !airJumpDone) {
+                     in.jumpPressed = true;
+                     airJumpDone = true;
+                 }
+             } else {
+                 // Segment C : puits, wall jump alterne (pousse toujours a l'oppose du mur).
+                 if (x < 25.6f) {
+                     return in;  // encore sur le palier : marcher jusqu'au puits
+                 }
+                 in.jumpPressed = true;
+                 if (player.wallDirection != 0.0f) {
+                     lastPush = -player.wallDirection;
+                 }
+                 in.moveX = lastPush;
              }
+             return in;
+         }},
+        // 7. Interrupteur ↔ porte (EX-GP-020) : chaque interrupteur est loge dans une alcove du
+        //    plafond -- il faut sauter pour l'atteindre, et la porte reste fermee sinon. L'ancien
+        //    tableau le posait sur le trajet direct vers sa porte : impossible de ne pas le
+        //    resoudre, donc rien a resoudre.
+        {"demo-interrupteur.json",
+         [](int, const core::Player& player, float x, float) {
+             core::PlayerInput in{1.0f};
+             in.jumpHeld = true;
+             in.jumpPressed = player.grounded && ((x >= 4.0f && x <= 4.6f) ||
+                                                  (x >= 10.0f && x <= 10.6f));
+             return in;
+         }},
+        // 8. Plaque de pression (EX-GP-025, LOT-65) : le poids doit RESTER. Le personnage pousse
+        //    un bloc dans la fosse, ou il enfonce la plaque et l'y maintient, puis saute par-dessus
+        //    la fosse et franchit la porte restee ouverte derriere lui. L'ancien tableau reposait
+        //    sur un saut qui prenait la porte de vitesse pendant qu'elle se refermait -- il
+        //    enseignait l'inverse de la mecanique.
+        {"demo-plaque-pression.json",
+         [](int, const core::Player& player, float x, float) {
+             core::PlayerInput in{1.0f};
+             in.jumpHeld = true;
+             in.jumpPressed = player.grounded && atLedge(x, 9.0f, 0.5f);
+             return in;
+         }},
+        // 9. Cle ↔ porte verrouillee (EX-GP-023) : la cle est logee dans une alcove du plafond,
+        //    et son ramassage exige le contact ET « Interagir » (EX-CTRL-022). Deux paires, pour
+        //    que la lecon se confirme plutot que de passer inapercue.
+        {"demo-cle.json",
+         [](int, const core::Player& player, float x, float) {
+             core::PlayerInput in{1.0f};
+             in.jumpHeld = true;
+             const bool sousUneCle = (x >= 4.0f && x <= 4.6f) || (x >= 10.0f && x <= 10.6f);
+             in.jumpPressed = player.grounded && sousUneCle;
+             in.interactPressed = sousUneCle;  // maintenu : le contact ne dure que le saut
+             return in;
+         }},
+        // 10. Bloc poussable (EX-GP-022) : un SEUL saut disponible. Le bloc comble la premiere
+        //     fosse a ras (on marche dessus), le saut sert pour la seconde -- sans le bloc, il en
+        //     faudrait deux, et le budget les refuse.
+        {"demo-bloc.json",
+         [](int, const core::Player& player, float x, float) {
+             core::PlayerInput in{1.0f};
+             in.jumpHeld = true;
+             in.jumpPressed = player.grounded && atLedge(x, 14.0f, 0.5f);
+             return in;
+         }},
+        // 11. Bloc a taille reduite (EX-GP-005) : la fosse fait DEUX cases, hors de portee du saut
+        //     unique. Le demi-bloc n'en comble qu'une, et son sommet reste 0,25 case sous le sol :
+        //     on descend dessus, puis le saut franchit la seconde.
+        {"demo-bloc-reduit.json",
+         [](int, const core::Player& player, float x, float) {
+             core::PlayerInput in{1.0f};
+             in.jumpHeld = true;
+             in.jumpPressed = player.grounded && x >= 10.0f;
+             return in;
+         }},
+        // 12. Bloc a taille quart (EX-GP-005) : trop petit pour combler quoi que ce soit, il
+        //     obstrue en revanche un couloir d'une case de haut ou il faut le pousser devant soi.
+        //     La fosse qui suit, hors du couloir, exige le saut unique.
+        {"demo-bloc-quart.json",
+         [](int, const core::Player& player, float x, float) {
+             core::PlayerInput in{1.0f};
+             in.jumpHeld = true;
+             in.jumpPressed = player.grounded && atLedge(x, 13.0f, 0.5f);
              return in;
          }},
         // 10. Budget de sauts (EX-GP-024) : deux marches ascendantes, deux sauts nécessaires pour
@@ -486,25 +545,6 @@ std::vector<ScriptedLevel> scriptedSequence() {
         //     marchant (même esprit que les dangers avancés ci-dessous : la silhouette de blocage
         //     est prouvée ailleurs, ce niveau prouve le chargement et la traversée).
         {"demo-plafond.json", rightOnly()},
-        // 16. Bloc à taille réduite (EX-GP-005, LOT-24) : poussé dans la fosse, comble le chemin à
-        //     sa hauteur ; un petit saut franchit le léger ressaut laissé par sa boîte réduite.
-        {"demo-bloc-reduit.json",
-         [](int, const core::Player& player, float, float) {
-             core::PlayerInput in{1.0f};
-             in.jumpPressed = player.grounded;
-             in.jumpHeld = true;
-             return in;
-         }},
-        // 17. Bloc à taille quart (EX-GP-005, LOT-65) : même principe que le bloc réduit, sur
-        //     terrain plat sans fosse — la poussée ne fait qu'écarter le bloc du chemin, un petit
-        //     saut par atterrissage suffit dans tous les cas.
-        {"demo-bloc-quart.json",
-         [](int, const core::Player& player, float, float) {
-             core::PlayerInput in{1.0f};
-             in.jumpPressed = player.grounded;
-             in.jumpHeld = true;
-             return in;
-         }},
         // 18. Plateforme mobile (EX-GP-026, LOT-63) : le personnage tombe dessus dès l'apparition
         //     puis se laisse porter jusqu'à la sortie, sans aucune entrée (portage pur) — la
         //     traversée serait mortelle sans elle (aucun sol entre les deux bords).

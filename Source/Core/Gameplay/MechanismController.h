@@ -133,6 +133,14 @@ public:
         return _continuous[index];
     }
 
+    /// @return true si le mécanisme @p index est une **clé** (`TileType::Key`, `EX-GP-023`), dont
+    ///         le ramassage exige l'action « Interagir » en plus du contact. Symétrique de
+    ///         `isContinuous` : même donnée figée au chargement, exposée pour que l'affichage tête
+    ///         haute puisse rappeler cette action au contact (`hmi::gameHudLines`, `LOT-65`).
+    [[nodiscard]] bool isKey(std::size_t index) const {
+        return _isKey[index];
+    }
+
     /// @return Les liaisons de danger commuté (positions interrupteur/danger, `EX-GP-052`).
     [[nodiscard]] const std::vector<DangerLink>& dangerLinks() const noexcept {
         return _dangerLinks;
