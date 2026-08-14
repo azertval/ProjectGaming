@@ -24,6 +24,12 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     trois modes se voient dans le canevas (cadre du niveau, grille de salles à taille variable,
     rectangle de suivi avec zone morte matérialisée), le mode courant reste visible dans la barre
     d'état, le changement de mode est annulable.
+  - **Corrigé pendant l'essai manuel** : la parallaxe des décors (`EX-DEC-006`, `LOT-49`), jusqu'ici
+    invisible faute de caméra défilant en continu, apparaissait pour la première fois en mode
+    *suivi* — un décor Fond/Premier plan semblait « suivre » la caméra au lieu de rester solidaire
+    du niveau. Neutralisée spécifiquement pour ce mode (`hmi::composeWorldSprites`, paramètre
+    `applyDecorParallax`) : les trois couches restent strictement fixes dans le niveau, comme dans
+    les deux autres modes de cadrage.
 - **LOT-63 — Mécanismes manquants du référentiel** (lève `EX-GP-023`, marqué « ⚠️ optionnel MVP »
   depuis la rédaction des spécifications ; déclare `EX-CTRL-022` et `EX-GP-026`). Réduit l'écart
   entre ce que le référentiel promettait et ce que le jeu contenait.

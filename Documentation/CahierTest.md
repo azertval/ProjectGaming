@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**1102 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**1103 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (1003)
+## Tests unitaires (1004)
 
 ### Core
 
@@ -1007,7 +1007,7 @@
 | **ProgressionUnlockTest.SequenceEntierementTermineeTousJouables** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_progression.cpp:287`</sub> | Séquence entièrement terminée : tous les tableaux sont jouables. | 1. Marquer tous les tableaux de la séquence terminés.<br/>2. Interroger `isLevelUnlocked` pour chacun. | Vérifie que `hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, level)` est vrai. |
 | **ProgressionUnlockTest.TableauVerrouilleNEstJamaisJouable** (Critique)<br/><sub>`Source/Test/Unit/HMI/Game/test_progression.cpp:309`</sub> | Un tableau verrouillé n'est jamais jouable. | 1. Ne terminer aucun tableau.<br/>2. Interroger `isLevelUnlocked` pour un tableau loin dans la séquence. | Vérifie que `hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, "demo-dash.json")` est faux. |
 
-#### Graphics (267)
+#### Graphics (268)
 
 **`test_animated_tiles.cpp`**
 
@@ -1215,6 +1215,7 @@
 | **ParallaxTest.ParallaxModelPositionFacteurUnLaissePositionInchangee** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_parallax.cpp:197`</sub> | parallaxModelPosition a facteur 1 laisse la position inchangee. | 1. Appliquer parallaxModelPosition a facteur 1.0. | Vérifie que `model.x` vaut `renderPosition.x` (comparaison flottante).<br/>Vérifie que `model.y` vaut `renderPosition.y` (comparaison flottante). |
 | **ParallaxTest.DecorParallaxeVisibleNEstPasEcarte** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_parallax.cpp:218`</sub> | Un decor parallaxe visible n'est pas ecarte par le culling. | 1. Composer un decor hors cadre a sa position simulee mais dont le facteur arriere-plan le ramene dans le cadrage. | Vérifie que `scene.size()` vaut `0u`.<br/>Vérifie que `scene.size()` vaut `1u`. |
 | **ParallaxTest.DecorParallaxeHorsCadreEstEcarte** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_parallax.cpp:257`</sub> | Un decor parallaxe hors cadre est ecarte par le culling. | 1. Composer un decor dans le cadrage a sa position simulee mais dont le facteur premier plan le pousse hors du cadrage. | Vérifie que `scene.size()` vaut `1u`.<br/>Vérifie que `scene.size()` vaut `0u`. |
+| **ParallaxTest.ApplyDecorParallaxFauxNeutraliseLeDecalage** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_parallax.cpp:297`</sub> | applyDecorParallax=false neutralise le decalage de parallaxe. | 1. Composer un décor de couche Fond, décalé du centre de la caméra, avec `applyDecorParallax` vrai puis faux.<br/>2. Comparer la position du quad composé à la position simulée du décor. | Vérifie que `scene.size()` vaut `1u`.<br/>Vérifie que `scene.quads()[0].sprite.x` diffère de `decorPosition.x`.<br/>Vérifie que `scene.size()` vaut `1u`.<br/>Vérifie que `scene.quads()[0].sprite.x` vaut `decorPosition.x` (comparaison flottante).<br/>Vérifie que `scene.quads()[0].sprite.y` vaut `decorPosition.y` (comparaison flottante). |
 
 **`test_particle_render.cpp`**
 

@@ -250,10 +250,22 @@ private:
  *                           (`hmi::LayerVisibility`, `LOT-51`, `EX-EDIT-044`) : tout visible par
  *                           défaut, donc sans effet pour `hmi::GameSession` qui ne le fournit
  *                           jamais.
+ * @param applyDecorParallax Si faux, chaque décor est composé comme s'il était de couche
+ *                           `core::DecorLayer::Decor` (facteur `1.0`), quelle que soit sa couche
+ *                           réelle -- toujours pixel-aligné (`hmi::roundToScreenPixel`) et toujours
+ *                           soumis au culling via `camera`, seul le **décalage** de parallaxe est
+ *                           neutralisé. `true` par défaut (comportement historique, `EX-DEC-006`).
+ *                           `hmi::GameSession` le met à `false` en mode de cadrage *suivi*
+ *                           (`core::CameraFramingMode::Follow`, LOT-64) : la parallaxe n'était
+ *                           jusqu'ici jamais visible (aucune caméra ne défilait en continu), et la
+ *                           rendre visible sous ce mode ferait paraître les décors Fond/Premier
+ *                           plan « suivre » la caméra au lieu de rester solidaires du niveau comme
+ *                           tout le reste du contenu.
  */
 void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mode,
                          const SceneTextures& textures, float interpolationAlpha,
                          const Camera2D* camera = nullptr,
-                         const LayerVisibility& visibility = LayerVisibility{});
+                         const LayerVisibility& visibility = LayerVisibility{},
+                         bool applyDecorParallax = true);
 
 }  // namespace hmi

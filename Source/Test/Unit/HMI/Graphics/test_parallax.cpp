@@ -289,3 +289,44 @@ TEST(ParallaxTest, DecorParallaxeHorsCadreEstEcarte) {
         EXPECT_EQ(scene.size(), 0u);
     }
 }
+
+/**
+ * @brief `applyDecorParallax = false` (mode de cadrage *suivi*, LOT-64) neutralise le décalage de
+ * parallaxe des couches Fond/Premier plan -- le décor reste composé à sa position simulée exacte,
+ * comme la couche `Decor`, sans pour autant désactiver son alignement au pixel écran.
+ * \castest{<b>applyDecorParallax=false neutralise le decalage de parallaxe.</b><br/>
+ * \tcat Unitaire · Parallax<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Composer un décor de couche Fond, décalé du centre de la caméra, avec
+ * `applyDecorParallax` vrai puis faux.<br/>2. Comparer la position du quad composé à la position
+ * simulée du décor.<br/>
+ * \tattendu Avec `true` (défaut), la position composée diffère de la position simulée (parallaxe
+ * appliquée) ; avec `false`, elle lui est exactement égale (aucun décalage), comme la couche
+ * `Decor`.
+ * }
+ */
+TEST(ParallaxTest, ApplyDecorParallaxFauxNeutraliseLeDecalage) {
+    const core::Vector2 center{100.0f, 100.0f};
+    const hmi::Camera2D camera = referenceCamera(center);
+    const core::Vector2 decorPosition{104.0f, 100.0f};  // decale du centre : la parallaxe agirait.
+
+    {
+        core::World world;
+        addDecorEntity(world, decorPosition, DecorLayer::Background);
+        hmi::ComposedScene scene;
+        hmi::composeWorldSprites(scene, world, hmi::RenderMode::Texture, testTextures(), 0.0f,
+                                 &camera, hmi::LayerVisibility{}, /*applyDecorParallax=*/true);
+        ASSERT_EQ(scene.size(), 1u);
+        EXPECT_NE(scene.quads()[0].sprite.x, decorPosition.x);
+    }
+    {
+        core::World world;
+        addDecorEntity(world, decorPosition, DecorLayer::Background);
+        hmi::ComposedScene scene;
+        hmi::composeWorldSprites(scene, world, hmi::RenderMode::Texture, testTextures(), 0.0f,
+                                 &camera, hmi::LayerVisibility{}, /*applyDecorParallax=*/false);
+        ASSERT_EQ(scene.size(), 1u);
+        EXPECT_FLOAT_EQ(scene.quads()[0].sprite.x, decorPosition.x);
+        EXPECT_FLOAT_EQ(scene.quads()[0].sprite.y, decorPosition.y);
+    }
+}

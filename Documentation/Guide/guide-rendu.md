@@ -609,19 +609,34 @@ plus grande que `(largeur, hauteur)` brut dès qu'elle est non nulle.
 **Parallaxe** (`EX-DEC-006`, `hmi::Parallax.h`) : chaque couche porte un facteur de défilement
 (`hmi::parallaxFactor`), `1.0` pour `Decor` (solidaire du niveau, valeur de référence), inférieur
 pour `Background`, supérieur pour `Foreground`. Le point délicat n'est pas la formule mais son
-ancrage : la caméra de ce jeu ne défile jamais en continu, elle cadre une salle et **bascule
-nettement** sur la suivante (`hmi::RoomGrid`, `LOT-32`). Un décalage calculé en espace niveau
-absolu ferait donc sauter visiblement le décor à chaque bascule. La parallaxe est donc calculée
-**relativement au centre de la salle courante** (`hmi::Camera2D::visibleBounds`) :
-`hmi::parallaxRenderPosition` renvoie `centre + (position − centre) × facteur` — nulle à facteur
-`1.0`, et telle que deux décors à la même position **relative** dans deux salles différentes
-tombent exactement à la même position écran, quelle que soit la salle. Le décor se replace donc à
-chaque bascule, au moment exact où toute l'image change déjà — invisible, là où le décalage
-absolu aurait été un artefact. `hmi::roundToScreenPixel` referme l'écart introduit par un
-décalage fractionnaire (le zoom pixel art reste net, `EX-ARCH-022`), et `hmi::composeWorldSprites`
-applique la parallaxe **avant** de composer le quad — le culling (`hmi::ComposedScene::addSprite`)
-juge donc la position déjà décalée, une couche parallaxée n'occupant pas le même rectangle monde
-que le niveau.
+ancrage : jusqu'au `LOT-64`, la caméra de ce jeu ne défilait **jamais** en continu — elle cadre une
+salle et **bascule nettement** sur la suivante (`hmi::RoomGrid`, `LOT-32`), ou reste fixe (niveau
+entier). Un décalage calculé en espace niveau absolu ferait donc sauter visiblement le décor à
+chaque bascule. La parallaxe est donc calculée **relativement au centre du cadrage courant**
+(`hmi::Camera2D::visibleBounds`) : `hmi::parallaxRenderPosition` renvoie
+`centre + (position − centre) × facteur` — nulle à facteur `1.0`, et telle que deux décors à la
+même position **relative** dans deux salles différentes tombent exactement à la même position
+écran, quelle que soit la salle. Le décor se replace donc à chaque bascule, au moment exact où
+toute l'image change déjà — invisible, là où le décalage absolu aurait été un artefact.
+`hmi::roundToScreenPixel` referme l'écart introduit par un décalage fractionnaire (le zoom pixel
+art reste net, `EX-ARCH-022`), et `hmi::composeWorldSprites` applique la parallaxe **avant** de
+composer le quad — le culling (`hmi::ComposedScene::addSprite`) juge donc la position déjà
+décalée, une couche parallaxée n'occupant pas le même rectangle monde que le niveau.
+
+**Neutralisée en mode de cadrage *suivi*** (`core::CameraFramingMode::Follow`, `LOT-64`) : c'est le
+**seul** mode où la caméra défile réellement en continu (les deux autres restent fixes ou
+basculent net, comme ci-dessus) — appliquer la même formule y ferait apparaître, pour la première
+fois, un décalage différentiel entre couches qui était jusqu'ici toujours resté invisible (aucune
+caméra ne bougeait assez pour le révéler). Concrètement, un décor Fond (facteur `0.5`) semblerait
+**suivre la caméra** plutôt que rester solidaire du niveau — l'inverse de ce que « Fond »/« Premier
+plan » sont censés représenter par défaut pour un décor sans intention de parallaxe délibérée.
+`hmi::composeWorldSprites` reçoit donc un paramètre `applyDecorParallax` (`hmi::SpriteRenderer::
+render` le transmet) que `hmi::GameSession::render` met à `false` précisément quand le cadrage
+résolu du niveau est `Follow` : chaque décor est alors composé comme s'il portait le facteur `1.0`
+de la couche `Decor`, quelle que soit sa couche réelle — toujours pixel-aligné et soumis au
+culling via la caméra, seul le **décalage** de parallaxe disparaît. La couche reste donc un pur
+critère d'**ordre de dessin** en mode suivi (avant/après le personnage), jamais un vecteur de
+mouvement.
 
 Le placement dans l'éditeur (`LOT-49` TACHE-04) était volontairement **minimal** : poser un décor
 à la position exacte du clic, ou le retirer. La manipulation complète — sélectionner, déplacer,

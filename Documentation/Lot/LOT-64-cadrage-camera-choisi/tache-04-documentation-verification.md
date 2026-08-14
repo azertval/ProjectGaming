@@ -56,6 +56,12 @@ nuance sans laisser croire que la décision du `LOT-32` était mauvaise.
   génération sur la version épinglée de la CI sans rien dire en local.
 - Le manuel s'adresse à un non-codeur : « ce tableau se voit d'un coup d'œil » plutôt que « mode de
   cadrage statique ».
+- **Trouvé pendant l'essai manuel** : la parallaxe des décors (`EX-DEC-006`) n'avait jamais eu
+  d'effet visible avant ce lot (aucune caméra ne défilait en continu) ; le mode *suivi* la rend
+  visible pour la première fois, et un décor Fond/Premier plan semble alors « suivre » la caméra.
+  Neutralisée spécifiquement pour ce mode (`hmi::composeWorldSprites`, `applyDecorParallax`) —
+  signe qu'une caractéristique dormante d'un lot antérieur peut redevenir active à l'improviste
+  quand une nouvelle caméra change une hypothèse implicite (« la caméra ne défile jamais »).
 
 ## Définition de fait (DoD)
 - Les trois nouvelles exigences sont déclarées, `EX-REN-015` est reformulée en conservant sa

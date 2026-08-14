@@ -984,9 +984,14 @@ void GameSession::render(int viewportWidth, int viewportHeight, RenderMode mode,
     // Interpolation de rendu (EX-ARCH-031) entre le pas precedent et le pas courant. La grille de
     // collision des mecanismes (portes) tranche l'ombre d'une porte d'apres son etat COURANT
     // (LOT-55) : TileSkinTag::type reste TileType::Door quel que soit cet etat.
+    // Parallaxe des decors (EX-DEC-006) neutralisee en mode suivi (LOT-64) : c'est le seul mode ou
+    // la camera defile en continu -- la parallaxe, jusqu'ici toujours invisible (aucune camera ne
+    // bougeait sans coupure nette), ferait sinon paraitre les decors Fond/Premier plan "suivre" la
+    // camera au lieu de rester solidaires du niveau comme le reste du contenu.
+    const bool applyDecorParallax = _cameraFraming.mode != core::CameraFramingMode::Follow;
     _renderer.render(_world, _camera, mode, interpolationAlpha, _level->background(), _levelWidth,
                      _levelHeight, _level->textureOverrides(), _tileAnimations, _level->decors(),
-                     _mechanisms ? &_mechanisms->collisionMap() : nullptr);
+                     _mechanisms ? &_mechanisms->collisionMap() : nullptr, applyDecorParallax);
 
     renderHud(viewportWidth, viewportHeight);
 }
