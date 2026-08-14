@@ -76,10 +76,6 @@ core::Entity spawn(core::World& world, core::GridPosition at) {
     return entity;
 }
 
-// Rejoue un niveau jusqu'à son issue (borne large pour éviter une boucle infinie si ça régresse).
-// Composition complète, comme `hmi::GameSession::update` : mécanismes (interrupteurs/portes) et
-// blocs poussables (pleins ET réduits, `EX-GP-005` — balayage boîte-boîte après la grille) sont
-// résolus à chaque pas, que le niveau les utilise ou non (no-op sans mécanisme/bloc).
 // Trace d'un rejeu : issue, et centre du personnage à chaque pas. La trajectoire alimente le
 // garde-fou de proximité (LOT-65 TACHE-05) : une mécanique posée hors de portée du chemin
 // réellement parcouru n'est pas démontrée, même si le fichier la contient.
@@ -88,6 +84,10 @@ struct PlayTrace {
     std::vector<core::Vector2> centers;
 };
 
+// Rejoue un niveau jusqu'à son issue (borne large pour éviter une boucle infinie si ça régresse).
+// Composition complète, comme `hmi::GameSession::update` : plateformes, blocs poussables (pleins
+// ET réduits, `EX-GP-005` — balayage boîte-boîte après la grille) et mécanismes (dont le poids des
+// blocs sur les plaques) sont résolus à chaque pas, que le niveau les utilise ou non.
 PlayTrace playLevelTraced(const ScriptedLevel& scripted, int maxSteps = 3000) {
     PlayTrace trace;
     const std::filesystem::path path =
@@ -302,6 +302,14 @@ ReactiveInput rightAndJumpOncePerLanding() {
     };
 }
 
+// Vrai quand le personnage approche le bord droit @p edge (en cases) d'une plateforme, dans une
+// fenetre de @p window cases. Declencher un saut ou une ruee AVANT cette fenetre gaspille la portee
+// horizontale sur du sol encore solide -- constat deja fait au LOT-65 TACHE-02 sur demo-budget, et
+// qui vaut pour toute fosse.
+bool atLedge(float x, float edge, float window) {
+    return x >= edge - window && x <= edge - 0.05f;
+}
+
 // Script constant : avancer et dasher en continu (couloir bas + fosse).
 ReactiveInput rightAndDash() {
     return [](int, const core::Player&, float, float) {
@@ -310,8 +318,6 @@ ReactiveInput rightAndDash() {
         return in;
     };
 }
-
-}  // namespace
 
 /**
  * @brief Parcours complet : chaque niveau de la séquence est franchi (`Won`) dans l'ordre, puis «
@@ -332,38 +338,42 @@ ReactiveInput rightAndDash() {
  * aucune de ses tuiles de mécanique n'est hors de portée du trajet parcouru.
  * }
  */
-TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
-    // États mutables des scripts réactifs (une variable par niveau qui en a besoin) : capturés par
-    // référence ci-dessous, jamais par valeur statique, pour rester surs même si ce test était un
-    // jour rejoué plusieurs fois dans le même processus.
-    bool doubleSautSecondJumpDone = false;
-    float wallJumpLastPush = 1.0f;
-    bool plaquePressionJumped = false;
-    bool blocClimbed = false;
-    bool blocCleared = false;
-    bool budgetGap1Jumped = false;
-    bool budgetGap2Jumped = false;
-    bool finalDoubleJumpDone = false;
-
-    const std::vector<ScriptedLevel> sequence = {
+// La séquence jouée et son scénario d'entrées, un par tableau. Fonction plutôt que littéral dans
+// le test : les garde-fous de la TACHE-05 la rejouent eux aussi, et chaque appel rend des scripts
+// à l'état NEUF (chaque lambda possède son état par capture-valeur `mutable`, jamais partagé).
+std::vector<ScriptedLevel> scriptedSequence() {
+    return {
         // 1. Déplacement, chute, sol : escalier descendant, aucun saut nécessaire.
         {"demo-deplacement.json", rightOnly()},
-        // 2. Saut simple : un fossé franchissable seulement en sautant.
-        {"demo-saut.json", rightAndJump()},
-        // 3. Double saut (EX-GP-015) : un palier surélevé, hors de portée d'un seul saut, franchi
-        //    en enchaînant saut au sol puis saut aérien juste avant le bord.
-        {"demo-double-saut.json",
-         [&doubleSautSecondJumpDone](int, const core::Player& player, float x, float) {
+        // 2. Saut simple : TROIS fosses de difficulte croissante -- la premiere a un fond dont on
+        //    ressort, les deux suivantes sont garnies de pics. Un saut par fosse, declenche au
+        //    bord : sauter en continu ferait consommer le saut aerien juste apres le decollage et
+        //    retomber court.
+        {"demo-saut.json",
+         [](int, const core::Player& player, float x, float) {
              core::PlayerInput in{1.0f};
              in.jumpHeld = true;
-             if (player.grounded && x < 6.6f) {
-                 // pas encore pres du mur : marcher, pas de saut premature.
-             } else if (player.grounded) {
-                 in.jumpPressed = true;
-                 doubleSautSecondJumpDone = false;
-             } else if (!doubleSautSecondJumpDone && x >= 7.2f) {
-                 in.jumpPressed = true;
-                 doubleSautSecondJumpDone = true;
+             in.jumpPressed = player.grounded && (atLedge(x, 6.0f, 0.6f) || atLedge(x, 12.0f, 0.6f) ||
+                                                  atLedge(x, 18.0f, 0.6f));
+             return in;
+         }},
+        // 3. Double saut (EX-GP-015) : DEUX paliers a trois cases, hors de portee d'un saut simple
+        //    (2,4 cases). Saut au bord de chaque palier, puis saut aerien pres de l'apex -- un
+        //    saut aerien declenche trop tot ne monterait pas assez haut.
+        {"demo-double-saut.json",
+         [airborne = 0, airJumpDone = false](int, const core::Player& player, float x,
+                                             float) mutable {
+             core::PlayerInput in{1.0f};
+             in.jumpHeld = true;
+             if (player.grounded) {
+                 airborne = 0;
+                 airJumpDone = false;
+                 // Sauter au BORD seulement : decoller trop tot consomme la portee horizontale
+                 // sur du sol deja solide.
+                 in.jumpPressed = (x >= 6.2f && x <= 6.9f) || (x >= 12.2f && x <= 12.9f);
+             } else if (++airborne >= 20 && !airJumpDone) {
+                 in.jumpPressed = true;  // ~0,33 s : proche de l'apex du premier saut
+                 airJumpDone = true;
              }
              return in;
          }},
@@ -371,7 +381,7 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
         //    entre les deux parois (script réactif : pousse toujours à l'opposé du dernier mur
         //    touché).
         {"demo-wall-jump.json",
-         [&wallJumpLastPush](int, const core::Player& player, float, float) {
+         [wallJumpLastPush = 1.0f](int, const core::Player& player, float, float) mutable {
              core::PlayerInput in;
              in.jumpPressed = true;
              in.jumpHeld = true;
@@ -381,9 +391,17 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
              in.moveX = wallJumpLastPush;
              return in;
          }},
-        // 5. Dash (EX-GP-017) : couloir bas (saut impossible) + fosse, franchi en avançant et
-        //    dashant.
-        {"demo-dash.json", rightAndDash()},
+        // 5. Dash (EX-GP-017) : couloir d'une case de haut (le saut y est impossible, et le budget
+        //    de sauts est nul), troue de TROIS fosses de deux cases garnies de pics. La ruee part
+        //    au bord de chaque fosse : declenchee plus tot, elle est deja finie au moment de
+        //    decoller, et le budget ne la recharge qu'au contact du sol.
+        {"demo-dash.json",
+         [](int, const core::Player&, float x, float) {
+             core::PlayerInput in{1.0f};
+             in.dashPressed = atLedge(x, 5.0f, 0.35f) || atLedge(x, 13.0f, 0.35f) ||
+                              atLedge(x, 21.0f, 0.35f);
+             return in;
+         }},
         // 6. Interrupteur ↔ porte (EX-GP-020) : le trajet passe sur l'interrupteur (ouvre la
         //    porte) puis la sortie.
         {"demo-interrupteur.json", rightOnly()},
@@ -391,7 +409,7 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
         //    est juste avant un mur d'un bloc ; le trajet la recouvre en marchant, ouvrant la
         //    porte au-dessus du mur, puis un saut passe par-dessus avant qu'elle ne se referme.
         {"demo-plaque-pression.json",
-         [&plaquePressionJumped](int, const core::Player& player, float x, float) {
+         [plaquePressionJumped = false](int, const core::Player& player, float x, float) mutable {
              core::PlayerInput in{1.0f};
              if (!plaquePressionJumped && player.grounded && x >= 4.5f) {
                  in.jumpPressed = true;
@@ -415,7 +433,7 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
         //    (aucune fosse à combler : le bloc glisse sur un sol continu, sans chute à
         //    synchroniser avec l'arrivée du personnage).
         {"demo-bloc.json",
-         [&blocClimbed, &blocCleared](int, const core::Player& player, float x, float y) {
+         [blocClimbed = false, blocCleared = false](int, const core::Player& player, float x, float y) mutable {
              core::PlayerInput in{1.0f};
              in.jumpHeld = true;
              if (!blocClimbed && player.grounded && x >= 6.3f && y > 4.5f) {
@@ -434,7 +452,7 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
         // solide, laissant trop peu d'élan pour franchir le fossé (constaté : un saut déclenché à
         // 2+ cases du bord retombe dans le vide plutôt que sur le palier suivant).
         {"demo-budget.json",
-         [&budgetGap1Jumped, &budgetGap2Jumped](int, const core::Player& player, float x, float) {
+         [budgetGap1Jumped = false, budgetGap2Jumped = false](int, const core::Player& player, float x, float) mutable {
              core::PlayerInput in{1.0f};
              in.jumpHeld = true;
              if (!budgetGap1Jumped && player.grounded && x >= 6.3f) {
@@ -512,7 +530,7 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
         //     défaut moteur consigné (CHANGELOG), pas corrigé dans ce lot ; déjà couverte
         //     isolément par demo-plateforme.json.
         {"demo-final.json",
-         [&finalDoubleJumpDone](int, const core::Player& player, float x, float) {
+         [finalDoubleJumpDone = false](int, const core::Player& player, float x, float) mutable {
              core::PlayerInput in{1.0f};
              if (x < 10.0f) {
                  // segment A : dash sous le plafond bas, au-dessus de la fosse.
@@ -541,11 +559,41 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
         //     jusqu'à la salle du bas, puis marche jusqu'à la sortie.
         {"demo-salles.json", rightOnly()},
     };
+}
 
+}  // namespace
+
+/**
+ * @brief Parcours complet : chaque niveau de la séquence est franchi (`Won`) dans l'ordre, puis «
+ * retour au titre ». Reproduit la boucle titre → niveau 1 → niveau 2 → … → titre du jeu, sur
+ * l'intégralité des mécaniques livrées.
+ *
+ * Le rejeu sert aussi de garde-fou de **proximité** (`LOT-65` TACHE-05) : la trajectoire réellement
+ * parcourue est relevée, et chaque tuile de mécanique du tableau doit passer à portée d'un saut
+ * d'une position occupée. Une mécanique hors d'atteinte est « couverte » sans jamais être jouée —
+ * le trou que la `TACHE-01` avait annoncé sans le combler.
+ * \castest{<b>Parcours complet : chaque niveau de la séquence est franchi (`Won`) dans l'ordre, et
+ * aucune de ses tuiles de mécanique n'est hors de portée du trajet parcouru.</b><br/>
+ * \tcat Systeme · Parcours Complet<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Parcours complet : chaque niveau de la séquence est franchi (`Won`) dans l'ordre, et
+ * aucune de ses tuiles de mécanique n'est hors de portée du trajet parcouru.
+ * }
+ */
+TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
+    const std::vector<ScriptedLevel> sequence = scriptedSequence();
     ASSERT_FALSE(sequence.empty());
     for (const ScriptedLevel& level : sequence) {
         const PlayTrace trace = playLevelTraced(level);
-        EXPECT_EQ(trace.outcome, core::LevelOutcome::Won) << "niveau : " << level.file;
+        // Le message porte la position atteinte : redessiner un tableau demande de savoir OU le
+        // scenario s'arrete, pas seulement qu'il echoue.
+        const core::Vector2 last =
+            trace.centers.empty() ? core::Vector2{} : trace.centers.back();
+        EXPECT_EQ(trace.outcome, core::LevelOutcome::Won)
+            << "niveau : " << level.file << " (arret en x=" << last.x << " y=" << last.y
+            << " apres " << trace.centers.size() << " pas)";
 
         // Garde-fou de proximite (LOT-65 TACHE-05) : une mecanique posee hors de portee du trajet
         // reellement parcouru n'est pas demontree, meme si le fichier la contient et meme si le

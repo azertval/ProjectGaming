@@ -1,7 +1,8 @@
 {
   "name": "Double saut",
-  "width": 14,
-  "height": 9,
+  "width": 20,
+  "height": 12,
+  "dashBudget": 0,
   "background": "test_sky.png",
   "cameraFraming": {
     "mode": "wholeLevel"
@@ -13,43 +14,63 @@
       "type": "solid"
     },
     {
-      "x": 0,
-      "y": 1,
+      "x": 1,
+      "y": 0,
       "type": "solid"
     },
     {
-      "x": 0,
-      "y": 2,
+      "x": 2,
+      "y": 0,
       "type": "solid"
     },
     {
-      "x": 0,
-      "y": 3,
+      "x": 3,
+      "y": 0,
       "type": "solid"
     },
     {
-      "x": 0,
-      "y": 4,
+      "x": 4,
+      "y": 0,
       "type": "solid"
     },
     {
-      "x": 0,
-      "y": 5,
+      "x": 5,
+      "y": 0,
       "type": "solid"
     },
     {
-      "x": 0,
-      "y": 6,
+      "x": 6,
+      "y": 0,
       "type": "solid"
     },
     {
-      "x": 0,
-      "y": 7,
+      "x": 7,
+      "y": 0,
       "type": "solid"
     },
     {
-      "x": 0,
-      "y": 8,
+      "x": 8,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 10,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 11,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 12,
+      "y": 0,
       "type": "solid"
     },
     {
@@ -58,117 +79,248 @@
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 14,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 15,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 16,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 17,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 18,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 19,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 0,
       "y": 1,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 19,
+      "y": 1,
+      "type": "solid"
+    },
+    {
+      "x": 0,
       "y": 2,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 19,
+      "y": 2,
+      "type": "solid"
+    },
+    {
+      "x": 0,
       "y": 3,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 19,
+      "y": 3,
+      "type": "solid"
+    },
+    {
+      "x": 0,
       "y": 4,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 16,
+      "y": 4,
+      "type": "exit"
+    },
+    {
+      "x": 19,
+      "y": 4,
+      "type": "solid"
+    },
+    {
+      "x": 0,
       "y": 5,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 14,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 15,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 16,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 17,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 18,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 19,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 0,
       "y": 6,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 19,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 0,
       "y": 7,
       "type": "solid"
     },
     {
-      "x": 13,
+      "x": 19,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 0,
       "y": 8,
       "type": "solid"
     },
     {
-      "x": 1,
-      "y": 7,
-      "type": "solid"
-    },
-    {
-      "x": 2,
-      "y": 7,
-      "type": "solid"
-    },
-    {
-      "x": 3,
-      "y": 7,
-      "type": "solid"
-    },
-    {
-      "x": 4,
-      "y": 7,
-      "type": "solid"
-    },
-    {
-      "x": 5,
-      "y": 7,
-      "type": "solid"
-    },
-    {
-      "x": 6,
-      "y": 7,
-      "type": "solid"
-    },
-    {
-      "x": 7,
-      "y": 7,
+      "x": 8,
+      "y": 8,
       "type": "solid"
     },
     {
       "x": 9,
-      "y": 4,
+      "y": 8,
       "type": "solid"
     },
     {
       "x": 10,
-      "y": 4,
+      "y": 8,
       "type": "solid"
     },
     {
       "x": 11,
-      "y": 4,
+      "y": 8,
       "type": "solid"
     },
     {
       "x": 12,
-      "y": 4,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 19,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 9,
+      "type": "solid"
+    },
+    {
+      "x": 19,
+      "y": 9,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 10,
       "type": "solid"
     },
     {
       "x": 1,
-      "y": 6,
+      "y": 10,
       "type": "entry"
     },
     {
-      "x": 11,
-      "y": 3,
-      "type": "exit"
+      "x": 19,
+      "y": 10,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 11,
+      "type": "solid"
+    },
+    {
+      "x": 1,
+      "y": 11,
+      "type": "solid"
+    },
+    {
+      "x": 2,
+      "y": 11,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 11,
+      "type": "solid"
+    },
+    {
+      "x": 4,
+      "y": 11,
+      "type": "solid"
+    },
+    {
+      "x": 5,
+      "y": 11,
+      "type": "solid"
+    },
+    {
+      "x": 6,
+      "y": 11,
+      "type": "solid"
+    },
+    {
+      "x": 19,
+      "y": 11,
+      "type": "solid"
     }
   ],
   "decors": [
     {
-      "asset": "bush.png",
-      "x": 2.0,
-      "y": 6.4,
+      "asset": "cloud.png",
+      "x": 6.0,
+      "y": 1.5,
       "layer": "background"
+    },
+    {
+      "asset": "branch.png",
+      "x": 9.0,
+      "y": 6.3,
+      "layer": "foreground"
     }
   ]
 }

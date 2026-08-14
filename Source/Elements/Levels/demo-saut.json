@@ -1,7 +1,7 @@
 {
   "name": "Saut",
-  "width": 12,
-  "height": 7,
+  "width": 24,
+  "height": 9,
   "background": "test_sky.png",
   "cameraFraming": {
     "mode": "wholeLevel"
@@ -13,33 +13,53 @@
       "type": "solid"
     },
     {
-      "x": 0,
-      "y": 1,
+      "x": 1,
+      "y": 0,
       "type": "solid"
     },
     {
-      "x": 0,
-      "y": 2,
+      "x": 2,
+      "y": 0,
       "type": "solid"
     },
     {
-      "x": 0,
-      "y": 3,
+      "x": 3,
+      "y": 0,
       "type": "solid"
     },
     {
-      "x": 0,
-      "y": 4,
+      "x": 4,
+      "y": 0,
       "type": "solid"
     },
     {
-      "x": 0,
-      "y": 5,
+      "x": 5,
+      "y": 0,
       "type": "solid"
     },
     {
-      "x": 0,
-      "y": 6,
+      "x": 6,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 10,
+      "y": 0,
       "type": "solid"
     },
     {
@@ -48,28 +68,173 @@
       "type": "solid"
     },
     {
-      "x": 11,
+      "x": 12,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 13,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 14,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 15,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 16,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 17,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 18,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 19,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 20,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 21,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 22,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 23,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 0,
       "y": 1,
       "type": "solid"
     },
     {
-      "x": 11,
+      "x": 23,
+      "y": 1,
+      "type": "solid"
+    },
+    {
+      "x": 0,
       "y": 2,
       "type": "solid"
     },
     {
-      "x": 11,
+      "x": 23,
+      "y": 2,
+      "type": "solid"
+    },
+    {
+      "x": 0,
       "y": 3,
       "type": "solid"
     },
     {
-      "x": 11,
+      "x": 23,
+      "y": 3,
+      "type": "solid"
+    },
+    {
+      "x": 0,
       "y": 4,
       "type": "solid"
     },
     {
-      "x": 11,
+      "x": 23,
+      "y": 4,
+      "type": "solid"
+    },
+    {
+      "x": 0,
       "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 1,
+      "y": 5,
+      "type": "entry"
+    },
+    {
+      "x": 22,
+      "y": 5,
+      "type": "exit"
+    },
+    {
+      "x": 23,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 4,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 5,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 7,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 8,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 9,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 10,
+      "y": 6,
       "type": "solid"
     },
     {
@@ -78,71 +243,212 @@
       "type": "solid"
     },
     {
-      "x": 1,
-      "y": 5,
+      "x": 13,
+      "y": 6,
       "type": "solid"
     },
     {
-      "x": 2,
-      "y": 5,
+      "x": 14,
+      "y": 6,
       "type": "solid"
     },
     {
-      "x": 3,
-      "y": 5,
+      "x": 15,
+      "y": 6,
       "type": "solid"
     },
     {
-      "x": 4,
-      "y": 5,
+      "x": 16,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 17,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 19,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 20,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 21,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 22,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 23,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 7,
       "type": "solid"
     },
     {
       "x": 6,
-      "y": 5,
+      "y": 7,
       "type": "solid"
     },
     {
-      "x": 7,
-      "y": 5,
+      "x": 12,
+      "y": 7,
+      "type": "danger"
+    },
+    {
+      "x": 18,
+      "y": 7,
+      "type": "danger"
+    },
+    {
+      "x": 23,
+      "y": 7,
       "type": "solid"
     },
     {
-      "x": 8,
-      "y": 5,
+      "x": 0,
+      "y": 8,
       "type": "solid"
     },
     {
-      "x": 9,
-      "y": 5,
+      "x": 1,
+      "y": 8,
       "type": "solid"
     },
     {
-      "x": 10,
-      "y": 5,
+      "x": 2,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 4,
+      "y": 8,
       "type": "solid"
     },
     {
       "x": 5,
-      "y": 5,
-      "type": "danger"
+      "y": 8,
+      "type": "solid"
     },
     {
-      "x": 1,
-      "y": 4,
-      "type": "entry"
+      "x": 6,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 7,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 8,
+      "y": 8,
+      "type": "solid"
     },
     {
       "x": 9,
-      "y": 4,
-      "type": "exit"
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 10,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 11,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 12,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 13,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 14,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 15,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 16,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 17,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 18,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 19,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 20,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 21,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 22,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 23,
+      "y": 8,
+      "type": "solid"
     }
   ],
   "decors": [
     {
-      "asset": "cloud.png",
-      "x": 6.0,
-      "y": 0.8,
+      "asset": "sign.png",
+      "x": 2.5,
+      "y": 5.2,
+      "layer": "background"
+    },
+    {
+      "asset": "rock.png",
+      "x": 16.0,
+      "y": 5.3,
       "layer": "background"
     }
   ]
