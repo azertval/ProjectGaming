@@ -2,7 +2,7 @@
   "name": "Bloc a taille reduite",
   "width": 20,
   "height": 11,
-  "jumpBudget": 1,
+  "jumpBudget": 2,
   "background": "test_sky.png",
   "cameraFraming": {
     "mode": "wholeLevel"
@@ -194,6 +194,11 @@
       "type": "blockHalf"
     },
     {
+      "x": 13,
+      "y": 8,
+      "type": "blockHalf"
+    },
+    {
       "x": 18,
       "y": 8,
       "type": "exit"
@@ -265,16 +270,6 @@
     },
     {
       "x": 14,
-      "y": 9,
-      "type": "solid"
-    },
-    {
-      "x": 15,
-      "y": 9,
-      "type": "solid"
-    },
-    {
-      "x": 16,
       "y": 9,
       "type": "solid"
     },
@@ -365,11 +360,6 @@
     },
     {
       "x": 15,
-      "y": 10,
-      "type": "solid"
-    },
-    {
-      "x": 16,
       "y": 10,
       "type": "solid"
     },

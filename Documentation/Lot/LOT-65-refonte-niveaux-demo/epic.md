@@ -105,7 +105,7 @@ Le contenu n'a pas suivi. Il en résulte deux problèmes distincts :
 | [TACHE-06](tache-06-croisements-mecaniques.md) | Croisements de mécaniques et corrections moteur associées | `Source/Core/Gameplay`, `Source/Test/Integration` | ✅ |
 | [TACHE-07](tache-07-actes-mouvement-mecanismes.md) | Actes I et II : mouvement et mécanismes | `Source/Elements/Levels`, `Source/HMI/Game` | ✅ |
 | [TACHE-08](tache-08-actes-terrain-dangers.md) | Actes III et IV : terrain, dangers et plateformes | `Source/Elements/Levels` | ✅ |
-| [TACHE-09](tache-09-syntheses-final.md) | Tableaux de synthèse et final multi-salles | `Source/Elements/Levels` | ⬜ |
+| [TACHE-09](tache-09-syntheses-final.md) | Tableaux de synthèse et final multi-salles | `Source/Elements/Levels` | ✅ |
 | [TACHE-10](tache-10-documentation-verification-finale.md) | Documentation et vérification finale | `Documentation`, `Source/Elements/Levels` | ⬜ |
 
 ### Second temps du lot : de la couverture à la profondeur

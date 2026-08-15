@@ -114,112 +114,12 @@
       "type": "solid"
     },
     {
-      "x": 1,
-      "y": 1,
-      "type": "solid"
-    },
-    {
-      "x": 2,
-      "y": 1,
-      "type": "solid"
-    },
-    {
-      "x": 3,
-      "y": 1,
-      "type": "solid"
-    },
-    {
-      "x": 4,
-      "y": 1,
-      "type": "solid"
-    },
-    {
-      "x": 5,
-      "y": 1,
-      "type": "solid"
-    },
-    {
-      "x": 6,
-      "y": 1,
-      "type": "solid"
-    },
-    {
-      "x": 7,
-      "y": 1,
-      "type": "solid"
-    },
-    {
-      "x": 8,
-      "y": 1,
-      "type": "solid"
-    },
-    {
-      "x": 9,
-      "y": 1,
-      "type": "solid"
-    },
-    {
-      "x": 10,
-      "y": 1,
-      "type": "solid"
-    },
-    {
       "x": 19,
       "y": 1,
       "type": "solid"
     },
     {
       "x": 0,
-      "y": 2,
-      "type": "solid"
-    },
-    {
-      "x": 1,
-      "y": 2,
-      "type": "solid"
-    },
-    {
-      "x": 2,
-      "y": 2,
-      "type": "solid"
-    },
-    {
-      "x": 3,
-      "y": 2,
-      "type": "solid"
-    },
-    {
-      "x": 4,
-      "y": 2,
-      "type": "solid"
-    },
-    {
-      "x": 5,
-      "y": 2,
-      "type": "solid"
-    },
-    {
-      "x": 6,
-      "y": 2,
-      "type": "solid"
-    },
-    {
-      "x": 7,
-      "y": 2,
-      "type": "solid"
-    },
-    {
-      "x": 8,
-      "y": 2,
-      "type": "solid"
-    },
-    {
-      "x": 9,
-      "y": 2,
-      "type": "solid"
-    },
-    {
-      "x": 10,
       "y": 2,
       "type": "solid"
     },
@@ -243,6 +143,11 @@
       "y": 3,
       "type": "blockQuarter",
       "texture": "barrel_brown.png"
+    },
+    {
+      "x": 14,
+      "y": 3,
+      "type": "blockQuarter"
     },
     {
       "x": 18,
@@ -310,12 +215,12 @@
       "type": "solid"
     },
     {
-      "x": 11,
+      "x": 12,
       "y": 4,
       "type": "solid"
     },
     {
-      "x": 12,
+      "x": 13,
       "y": 4,
       "type": "solid"
     },

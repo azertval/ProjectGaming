@@ -6,7 +6,9 @@
   "dashBudget": 2,
   "background": "test_night.png",
   "cameraFraming": {
-    "mode": "wholeLevel"
+    "mode": "follow",
+    "roomWidthTiles": 20,
+    "roomHeightTiles": 12
   },
   "tiles": [
     {

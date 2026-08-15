@@ -181,24 +181,27 @@ namespace {
 struct ExpectedFraming {
     const char* file;
     core::CameraFramingMode mode;
+    /// Le niveau règle-t-il lui-même sa taille de salle / de suivi (`EX-REN-017`) ? Aucun tableau
+    /// ne le faisait avant le `LOT-65` TACHE-09 : la mécanique était livrée et jamais employée,
+    /// ce qu'un contrôle portant sur le seul `mode` ne pouvait pas voir.
+    bool customRoomSize = false;
 };
 
 }  // namespace
 
 /**
- * @brief Chacun des dix-sept niveaux livrés déclare désormais un cadrage **explicite**
- * (`LOT-65` TACHE-02) : seize tiennent dans une salle par défaut et se voient entiers,
- * `demo-salles.json` (48×28) garde la coupure nette *par salle*, `demo-final.json` (34×9) --
- * la traversée la plus longue de la séquence -- **suit** le personnage plutôt que de subir le
- * repli automatique *par salle* qu'imposeraient ses seules dimensions.
+ * @brief Chaque niveau livré déclare un cadrage **explicite** (`LOT-65`) : la plupart tiennent
+ * dans une salle par défaut et se voient entiers, `demo-mouvement.json` -- la traversée continue
+ * la plus longue -- **suit** le personnage, et `demo-final.json` découpe ses quatre salles *par
+ * salle*, avec des zones dessinées à la main et une taille de salle qui lui est propre.
  * \castest{<b>Chaque niveau livré déclare le cadrage explicitement choisi pour son contenu.</b>
  * <br/>
  * \tcat Unitaire · Camera Framing<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Charger chacun des dix-sept niveaux livrés (`Source/Elements/Levels`).<br/>2.
- * Vérifier le mode de cadrage résolu de chacun.<br/>
- * \tattendu Seize niveaux résolvent en *niveau entier*, `demo-salles.json` en *par salle*,
- * `demo-final.json` en *suivi*, sans taille de salle personnalisée.
+ * \tetapes 1. Charger les niveaux livrés (`Source/Elements/Levels`).<br/>2. Vérifier le mode de
+ * cadrage résolu de chacun.<br/>
+ * \tattendu La plupart résolvent en *niveau entier*, `demo-mouvement.json` en *suivi* et
+ * `demo-final.json` en *par salle*.
  * }
  */
 TEST(CameraFramingTest, NiveauxLivresReproduisentLeurComportementActuel) {
@@ -208,7 +211,7 @@ TEST(CameraFramingTest, NiveauxLivresReproduisentLeurComportementActuel) {
         {"demo-double-saut.json", core::CameraFramingMode::WholeLevel},
         {"demo-wall-jump.json", core::CameraFramingMode::WholeLevel},
         {"demo-dash.json", core::CameraFramingMode::WholeLevel},
-        {"demo-mouvement.json", core::CameraFramingMode::WholeLevel},
+        {"demo-mouvement.json", core::CameraFramingMode::Follow, /*customRoomSize=*/true},
         {"demo-interrupteur.json", core::CameraFramingMode::WholeLevel},
         {"demo-plaque-pression.json", core::CameraFramingMode::WholeLevel},
         {"demo-cle.json", core::CameraFramingMode::WholeLevel},
@@ -218,8 +221,7 @@ TEST(CameraFramingTest, NiveauxLivresReproduisentLeurComportementActuel) {
         {"demo-bloc-reduit.json", core::CameraFramingMode::WholeLevel},
         {"demo-plateforme.json", core::CameraFramingMode::WholeLevel},
         {"demo-dangers-avances.json", core::CameraFramingMode::WholeLevel},
-        {"demo-final.json", core::CameraFramingMode::Follow},
-        {"demo-salles.json", core::CameraFramingMode::PerRoom},
+        {"demo-final.json", core::CameraFramingMode::PerRoom, /*customRoomSize=*/true},
     };
 
     for (const ExpectedFraming& expected : levels) {
@@ -228,9 +230,11 @@ TEST(CameraFramingTest, NiveauxLivresReproduisentLeurComportementActuel) {
         const core::LevelLoadResult result = core::LevelLoader::loadFromFile(path);
         ASSERT_TRUE(result.ok()) << expected.file << " : " << result.error;
         EXPECT_EQ(result.level->cameraFraming().mode, expected.mode) << expected.file;
-        // Aucun de ces niveaux ne declare de cadrage : la taille de salle resolue reste celle par
-        // defaut (absente), jamais une valeur figee.
-        EXPECT_FALSE(result.level->cameraFraming().roomWidthTiles.has_value()) << expected.file;
-        EXPECT_FALSE(result.level->cameraFraming().roomHeightTiles.has_value()) << expected.file;
+        // Taille de salle : declaree seulement la ou le tableau la choisit, jamais subie ailleurs.
+        EXPECT_EQ(result.level->cameraFraming().roomWidthTiles.has_value(), expected.customRoomSize)
+            << expected.file;
+        EXPECT_EQ(result.level->cameraFraming().roomHeightTiles.has_value(),
+                  expected.customRoomSize)
+            << expected.file;
     }
 }

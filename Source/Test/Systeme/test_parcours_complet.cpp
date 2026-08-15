@@ -540,7 +540,8 @@ std::vector<ScriptedLevel> scriptedSequence() {
          [](int, const core::Player& player, float x, float) {
              core::PlayerInput in{1.0f};
              in.jumpHeld = true;
-             in.jumpPressed = player.grounded && x >= 10.0f;
+             in.jumpPressed = player.grounded && ((x >= 9.8f && x <= 10.8f) ||
+                                                  (x >= 14.8f && x <= 15.8f));
              return in;
          }},
         // 12. Bloc a taille quart (EX-GP-005) : trop petit pour combler quoi que ce soit, il
@@ -550,7 +551,10 @@ std::vector<ScriptedLevel> scriptedSequence() {
          [](int, const core::Player& player, float x, float) {
              core::PlayerInput in{1.0f};
              in.jumpHeld = true;
-             in.jumpPressed = player.grounded && atLedge(x, 13.0f, 0.5f);
+             // Le premier quart de bloc, pousse, tombe dans la fosse (case 11) sans la combler --
+             // il est bien trop petit. Le seul saut du tableau sert a la franchir ; le second
+             // quart se degage ensuite en marchant.
+             in.jumpPressed = player.grounded && atLedge(x, 11.0f, 0.6f);
              return in;
          }},
         // 14. Pentes et arrondis (EX-GP-003/004) : fusionne l'ancien demo-arrondi, qui reprenait le
@@ -693,43 +697,69 @@ std::vector<ScriptedLevel> scriptedSequence() {
              in.dashPressed = atLedge(x, 29.0f, 0.35f) || atLedge(x, 35.0f, 0.35f);
              return in;
          }},
-        // 21. Niveau final : synthèse combinant quatre mécaniques en un seul parcours continu
-        //     (cadrage suivi), chacune reprenant exactement la géométrie de son tableau dédié
-        //     (demo-dash/demo-pente/demo-interrupteur/demo-double-saut), séparées par de larges
-        //     couloirs plats — dash, pente, interrupteur/porte, double saut. La plateforme mobile
-        //     n'est délibérément pas combinée ici : sa seule présence dans le fichier casse la
-        //     résolution de collision pendant le suivi de pente, même immobile et loin du joueur —
-        //     défaut moteur consigné (CHANGELOG), pas corrigé dans ce lot ; déjà couverte
-        //     isolément par demo-plateforme.json.
-        {"demo-final.json",
-         [finalDoubleJumpDone = false](int, const core::Player& player, float x, float) mutable {
+        // 22. Synthese (LOT-65 TACHE-09) : mecanismes, terrain et dangers ENTRELACES plutot que
+        //     juxtaposes. Une meme porte est commandee par DEUX declencheurs -- un interrupteur et
+        //     une plaque --, croisement etabli en TACHE-06 et jamais mis en scene ; un demi-bloc
+        //     comble ensuite une fosse gardee par des pics, et un arrondi mene a la sortie.
+        {"demo-synthese.json",
+         [](int, const core::Player& player, float x, float) {
              core::PlayerInput in{1.0f};
-             if (x < 10.0f) {
-                 // segment A : dash sous le plafond bas, au-dessus de la fosse.
-                 in.dashPressed = true;
-             } else if (x < 45.0f) {
-                 // couloirs + segments B (pente) et D (interrupteur/porte) : marcher suffit.
-             } else if (x < 57.0f) {
-                 // segment G : double saut vers le palier surélevé.
-                 in.jumpHeld = true;
-                 if (player.grounded && x < 46.6f) {
-                     // pas encore pres du bord : marcher.
-                 } else if (player.grounded) {
-                     in.jumpPressed = true;
-                     finalDoubleJumpDone = false;
-                 } else if (!finalDoubleJumpDone && x >= 47.2f) {
-                     in.jumpPressed = true;
-                     finalDoubleJumpDone = true;
-                 }
-             }
-             // couloir final : aucune entrée supplémentaire nécessaire au-delà de x = 57.
+             in.jumpHeld = true;
+             // Trois sauts : toucher l'interrupteur du plafond (case 4), franchir la fosse ou le
+             // bloc est tombe sur la plaque (case 17), puis les pics du couloir (case 25).
+             in.jumpPressed = player.grounded && (atLedge(x, 4.0f, 0.7f) ||
+                                                  atLedge(x, 17.0f, 0.6f) ||
+                                                  atLedge(x, 25.0f, 0.6f));
              return in;
          }},
-        // 22. Niveaux à salles (LOT-32, EX-REN-015) : niveau plus haut qu'une salle par défaut,
-        //     deux salles empilées ; le trajet marche à plat (aucun saut) jusqu'au bord de la
-        //     salle du haut, tombe dans un puits muré (aucune dérive horizontale possible)
-        //     jusqu'à la salle du bas, puis marche jusqu'à la sortie.
-        {"demo-salles.json", rightOnly()},
+        // 23. Final multi-salles (LOT-65 TACHE-09) : absorbe l'ancien demo-salles, qui portait 272
+        //     tuiles et ZERO mecanique, dont 40 % scellees sous le sol -- et qui etait joue APRES
+        //     le final. Quatre salles, une enigme par salle, cadrage par salle avec des ZONES
+        //     dessinees a la main et une taille de salle propre au niveau (EX-LVL-007, EX-REN-017,
+        //     les deux variantes du LOT-64 qu'aucun tableau n'employait).
+        //
+        //     A (haut gauche) : poser le bloc sur la plaque tient la porte ouverte, et il faut
+        //     repartir SANS lui -- le poids doit rester, c'est tout le propos de EX-GP-025.
+        //     B (haut droite) : arrondis a gravir, quart de bloc a degager, puis un puits.
+        //     C (bas droite)  : la cle, gardee par trois dangers temporises dephases.
+        //     D (bas gauche)  : la porte verrouillee, puis la sortie.
+        {"demo-final.json",
+         [](int step, const core::Player& player, float x, float y) {
+             core::PlayerInput in{1.0f};
+             in.jumpHeld = true;
+             if (y < 10.5f) {
+                 // Bande haute. Pousser le bloc de la case 9 jusqu'a la plaque (case 13), puis
+                 // SAUTER PAR-DESSUS lui : continuer a marcher le pousserait hors de la plaque et
+                 // refermerait la porte -- c'est exactement la lecon du tableau, le poids doit
+                 // rester. Un saut ne pousse rien (aucun recouvrement vertical pendant le survol).
+                 if (player.grounded && x >= 11.7f && x <= 12.2f) {
+                     in.jumpPressed = true;
+                 }
+                 // Puis la marche du couloir (case 23) avant les arrondis.
+                 in.jumpPressed = in.jumpPressed || (player.grounded && atLedge(x, 23.0f, 0.5f));
+                 return in;
+             }
+
+             // Bande basse : marcher vers la GAUCHE, cle d'abord, dangers temporises ensuite.
+             in.moveX = -1.0f;
+             in.interactPressed = (x >= 42.5f && x <= 44.0f);  // recouvre largement la case cle
+
+             constexpr int PERIOD = 180;
+             constexpr int ACTIVE = 50;
+             constexpr int CROSSING = 40;  // pas necessaires pour degager la case
+             const int phases[3] = {120, 60, 0};
+             const float holds[3] = {40.6f, 29.6f, 18.6f};
+             for (int index = 0; index < 3; ++index) {
+                 if (x < holds[index] || x > holds[index] + 0.3f) {
+                     continue;
+                 }
+                 if (blinkActive(step, phases[index], PERIOD, ACTIVE) ||
+                     blinkActive(step + CROSSING, phases[index], PERIOD, ACTIVE)) {
+                     in.moveX = 0.0f;  // patienter : la case est (ou redevient) mortelle
+                 }
+             }
+             return in;
+         }},
     };
 }
 
