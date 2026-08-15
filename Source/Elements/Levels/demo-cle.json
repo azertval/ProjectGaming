@@ -419,6 +419,12 @@
       "x": 2.0,
       "y": 2.2,
       "layer": "background"
+    },
+    {
+      "asset": "grass_tuft.png",
+      "x": 16.0,
+      "y": 3.4,
+      "layer": "background"
     }
   ]
 }

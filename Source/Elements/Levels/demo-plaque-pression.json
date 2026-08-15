@@ -2,7 +2,7 @@
   "name": "Plaque de pression",
   "width": 22,
   "height": 7,
-  "background": "kenney_grass.png",
+  "background": "test_industrial.png",
   "skinSet": "kenney",
   "cameraFraming": {
     "mode": "wholeLevel"
@@ -514,6 +514,18 @@
       "x": 3.0,
       "y": 2.2,
       "layer": "background"
+    },
+    {
+      "asset": "gear.png",
+      "x": 17.0,
+      "y": 0.4,
+      "layer": "background"
+    },
+    {
+      "asset": "lantern.png",
+      "x": 8.0,
+      "y": 0.2,
+      "layer": "foreground"
     }
   ]
 }

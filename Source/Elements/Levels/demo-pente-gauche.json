@@ -3,7 +3,7 @@
   "width": 28,
   "height": 12,
   "dashBudget": 0,
-  "background": "test_sky.png",
+  "background": "test_sunset.png",
   "cameraFraming": {
     "mode": "wholeLevel"
   },
@@ -406,6 +406,12 @@
       "x": 6.0,
       "y": 6.3,
       "layer": "foreground"
+    },
+    {
+      "asset": "grass_tuft.png",
+      "x": 8.0,
+      "y": 10.4,
+      "layer": "background"
     }
   ]
 }

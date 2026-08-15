@@ -2,7 +2,7 @@
   "name": "Plateforme mobile",
   "width": 18,
   "height": 13,
-  "background": "test_night.png",
+  "background": "test_industrial.png",
   "cameraFraming": {
     "mode": "wholeLevel"
   },
@@ -298,6 +298,18 @@
       "x": 8.0,
       "y": 1.0,
       "layer": "foreground"
+    },
+    {
+      "asset": "gear.png",
+      "x": 13.0,
+      "y": 1.0,
+      "layer": "background"
+    },
+    {
+      "asset": "pillar.png",
+      "x": 15.5,
+      "y": 7.0,
+      "layer": "background"
     }
   ]
 }

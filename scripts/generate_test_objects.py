@@ -128,11 +128,82 @@ def sign_yellow() -> Image:
     return cell
 
 
+def crate_green() -> Image:
+    """Caisse verte : variante de teinte, pour distinguer deux blocs poussables du meme tableau."""
+    wood: Color = (72, 118, 66, 255)
+    dark: Color = (38, 68, 36, 255)
+    light: Color = (116, 168, 106, 255)
+
+    cell = Image(TILE, TILE, wood)
+    cell.fill_rect(0, 0, TILE, 1, light)
+    cell.fill_rect(0, 0, 1, TILE, light)
+    cell.fill_rect(0, TILE - 1, TILE, 1, dark)
+    cell.fill_rect(TILE - 1, 0, 1, TILE, dark)
+    cell.fill_rect(2, TILE // 2 - 1, TILE - 4, 2, dark)
+    return cell
+
+
+def stone_block() -> Image:
+    """Bloc de pierre : appareillage en briques decalees, contraste avec les caisses en bois."""
+    stone: Color = (132, 128, 136, 255)
+    joint: Color = (86, 82, 90, 255)
+    light: Color = (166, 162, 172, 255)
+
+    cell = Image(TILE, TILE, stone)
+    for row, y in enumerate(range(0, TILE, 4)):
+        cell.fill_rect(0, y, TILE, 1, joint)
+        offset = 0 if row % 2 == 0 else TILE // 2
+        cell.fill_rect(offset, y, 1, 4, joint)
+        cell.fill_rect((offset + TILE // 2) % TILE, y, 1, 4, joint)
+        cell.fill_rect(1, y + 1, TILE - 2, 1, light)
+    return cell
+
+
+def metal_plate() -> Image:
+    """Plaque metallique : tole rivetee, note industrielle assortie au fond `test_industrial`."""
+    metal: Color = (108, 116, 130, 255)
+    dark: Color = (66, 72, 84, 255)
+    rivet: Color = (156, 164, 178, 255)
+
+    cell = Image(TILE, TILE, metal)
+    cell.fill_rect(0, 0, TILE, 1, rivet)
+    cell.fill_rect(0, TILE - 1, TILE, 1, dark)
+    cell.fill_rect(0, 0, 1, TILE, rivet)
+    cell.fill_rect(TILE - 1, 0, 1, TILE, dark)
+    for y in (2, TILE - 4):
+        for x in (2, TILE - 4):
+            cell.fill_rect(x, y, 2, 2, rivet)
+    return cell
+
+
+def ice_block() -> Image:
+    """Bloc de glace : bleu clair translucide, quatrieme famille visuelle de bloc poussable."""
+    ice: Color = (152, 206, 232, 235)
+    bright: Color = (206, 238, 250, 235)
+    dark: Color = (96, 154, 190, 235)
+
+    cell = Image(TILE, TILE, ice)
+    cell.fill_rect(0, 0, TILE, 1, bright)
+    cell.fill_rect(0, 0, 1, TILE, bright)
+    cell.fill_rect(0, TILE - 1, TILE, 1, dark)
+    cell.fill_rect(TILE - 1, 0, 1, TILE, dark)
+    # Deux eclats obliques : la lecture « translucide » vient du contraste, pas de l'alpha seul.
+    for i in range(TILE - 6):
+        cell.set(3 + i, 3 + i, bright)
+    for i in range(5):
+        cell.set(TILE - 5 + i, 3 + i, bright)
+    return cell
+
+
 OBJECTS = {
     "door_red.png": door_red,
     "crate_blue.png": crate_blue,
     "barrel_brown.png": barrel_brown,
     "sign_yellow.png": sign_yellow,
+    "crate_green.png": crate_green,
+    "stone_block.png": stone_block,
+    "metal_plate.png": metal_plate,
+    "ice_block.png": ice_block,
 }
 
 

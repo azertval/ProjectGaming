@@ -6,37 +6,41 @@
     "idle": {
       "frames": [
         0,
-        1
+        1,
+        0,
+        2
       ],
-      "frameDuration": 0.5,
+      "frameDuration": 0.45,
       "loop": true
     },
     "run": {
       "frames": [
-        2,
         3,
         4,
-        5
+        5,
+        6,
+        7,
+        8
       ],
-      "frameDuration": 0.1,
+      "frameDuration": 0.08,
       "loop": true
     },
     "jump": {
       "frames": [
-        6
+        9
       ],
       "loop": true
     },
     "fall": {
       "frames": [
-        7
+        10
       ],
       "loop": true
     },
     "land": {
       "frames": [
-        8,
-        9
+        11,
+        12
       ],
       "frameDuration": 0.08,
       "loop": false,
@@ -44,13 +48,13 @@
     },
     "wallslide": {
       "frames": [
-        10
+        13
       ],
       "loop": true
     },
     "dash": {
       "frames": [
-        11
+        14
       ],
       "loop": true
     }

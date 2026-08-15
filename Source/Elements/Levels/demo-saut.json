@@ -2,7 +2,7 @@
   "name": "Saut",
   "width": 24,
   "height": 9,
-  "background": "test_sky.png",
+  "background": "test_forest.png",
   "cameraFraming": {
     "mode": "wholeLevel"
   },
@@ -450,6 +450,18 @@
       "x": 16.0,
       "y": 5.3,
       "layer": "background"
+    },
+    {
+      "asset": "grass_tuft.png",
+      "x": 3.0,
+      "y": 5.4,
+      "layer": "background"
+    },
+    {
+      "asset": "vine.png",
+      "x": 15.0,
+      "y": 0.5,
+      "layer": "foreground"
     }
   ]
 }

@@ -29,6 +29,18 @@ python scripts/generate_test_decors.py
 | `cloud.png` | 32×14 | arrière-plan |
 | `branch.png` | 40×12 | premier plan |
 | `sign.png` | 14×20 | premier plan |
+| `mushroom.png` | 16×18 | arrière-plan |
+| `crystal.png` | 14×22 | arrière-plan |
+| `grass_tuft.png` | 18×10 | arrière-plan |
+| `pillar.png` | 20×40 | arrière-plan |
+| `gear.png` | 24×24 | arrière-plan |
+| `stalactite.png` | 12×26 | premier plan |
+| `vine.png` | 12×34 | premier plan |
+| `lantern.png` | 14×24 | premier plan |
+
+Les huit derniers ont été ajoutés au second temps du `LOT-65` : cinq décors ne suffisaient pas à
+habiller vingt-deux tableaux d'ambiances distinctes (forêt, dunes, grotte, usine) sans que la même
+poignée d'images ne réapparaisse partout.
 
 Un artiste les remplacera par les vrais assets, sans toucher au code.
 

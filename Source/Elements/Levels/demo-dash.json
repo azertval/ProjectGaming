@@ -3,7 +3,7 @@
   "width": 26,
   "height": 7,
   "jumpBudget": 0,
-  "background": "test_cave.png",
+  "background": "test_industrial.png",
   "cameraFraming": {
     "mode": "wholeLevel"
   },
@@ -581,6 +581,18 @@
       "x": 19.0,
       "y": 3.3,
       "layer": "background"
+    },
+    {
+      "asset": "gear.png",
+      "x": 9.0,
+      "y": 1.0,
+      "layer": "background"
+    },
+    {
+      "asset": "lantern.png",
+      "x": 18.0,
+      "y": 0.2,
+      "layer": "foreground"
     }
   ]
 }

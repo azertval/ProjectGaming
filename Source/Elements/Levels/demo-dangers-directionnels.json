@@ -819,6 +819,18 @@
       "x": 3.0,
       "y": 8.2,
       "layer": "background"
+    },
+    {
+      "asset": "stalactite.png",
+      "x": 12.0,
+      "y": 0.0,
+      "layer": "foreground"
+    },
+    {
+      "asset": "crystal.png",
+      "x": 28.0,
+      "y": 7.5,
+      "layer": "background"
     }
   ]
 }

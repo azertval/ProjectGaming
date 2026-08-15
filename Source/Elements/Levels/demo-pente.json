@@ -3,7 +3,7 @@
   "width": 28,
   "height": 12,
   "dashBudget": 0,
-  "background": "test_sky.png",
+  "background": "test_forest.png",
   "cameraFraming": {
     "mode": "wholeLevel"
   },
@@ -405,6 +405,18 @@
       "asset": "cloud.png",
       "x": 18.0,
       "y": 2.0,
+      "layer": "background"
+    },
+    {
+      "asset": "mushroom.png",
+      "x": 6.0,
+      "y": 10.2,
+      "layer": "background"
+    },
+    {
+      "asset": "grass_tuft.png",
+      "x": 22.0,
+      "y": 8.4,
       "layer": "background"
     }
   ]

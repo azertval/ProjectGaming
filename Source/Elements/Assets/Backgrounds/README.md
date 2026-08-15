@@ -27,6 +27,9 @@ python scripts/generate_test_backgrounds.py
 | `test_sky.png` | ciel diurne, soleil, bande de sol |
 | `test_night.png` | ciel nocturne, lune, étoiles, silhouette de collines |
 | `test_cave.png` | souterrain, stalactites, points de lueur |
+| `test_forest.png` | forêt, deux rangées de troncs, rais de lumière |
+| `test_sunset.png` | crépuscule, soleil bas, dunes superposées |
+| `test_industrial.png` | halle industrielle, poutrelles rivetées, conduits |
 
 Chacun partage le même cadre de bordure et les mêmes graduations centrées, qui rendent le
 recadrage bien visible : sur un niveau d'un ratio différent, le cadre doit rester entier et

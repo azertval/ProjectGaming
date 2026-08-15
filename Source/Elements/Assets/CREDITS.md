@@ -16,6 +16,14 @@ transparente, sans être forcés à un carré.
 Le CC0 n'exige aucune attribution, mais ce dépôt s'engage à créditer les auteurs malgré tout, même
 principe que `Source/Elements/Audio/CREDITS.md` (`LOT-60`).
 
+**Élargissement du second temps du `LOT-65`** — huit décors (`mushroom`, `crystal`, `stalactite`,
+`vine`, `grass_tuft`, `lantern`, `pillar`, `gear`), trois fonds (`test_forest`, `test_sunset`,
+`test_industrial`), quatre objets (`crate_green`, `stone_block`, `metal_plate`, `ice_block`) et la
+refonte du personnage sont **entièrement générés par script**, sans source externe : rien à créditer
+au-delà du dépôt lui-même. La génération procédurale a été préférée à l'import d'assets libres
+supplémentaires pour deux raisons — elle reste reproductible (`python scripts/generate_test_*.py`
+régénère l'intégralité à l'identique) et elle n'ajoute aucune dépendance de licence à suivre.
+
 | Fichier livré | Retouche | Sprite d'origine | Pack Kenney | Auteur | Licence |
 |---|---|---|---|---|---|
 | `Skins/key.png` (image 0/2) | recadrée, réduite à 16×16 | `keyYellow.png` | Platformer Pack Remastered | Kenney | CC0 1.0 |

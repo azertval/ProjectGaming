@@ -15,7 +15,9 @@ retombe sur le damier magenta, avec un avertissement journalisé nommant l'asset
 
 ## Contenu actuel : textures de **test**
 
-Quatre textures (`door_red.png`, `crate_blue.png`, `barrel_brown.png`, `sign_yellow.png`, chacune
+Huit textures (`door_red.png`, `crate_blue.png`, `barrel_brown.png`, `sign_yellow.png`, puis
+`crate_green.png`, `stone_block.png`, `metal_plate.png` et `ice_block.png`, ajoutées au second temps
+du `LOT-65` pour distinguer visuellement plusieurs blocs poussables d'un même tableau, chacune
 16×16), **schématiques**, servent à vérifier l'assignation par instance (priorité sur le skin du
 type), pas à habiller le jeu. Générées par script, donc reproductibles et modifiables sans éditeur
 d'image :

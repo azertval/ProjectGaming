@@ -199,10 +199,103 @@ def cave_depths() -> Image:
     return image
 
 
+def forest_depths() -> Image:
+    """Fond forestier : degrade vert, deux rangees de troncs en silhouette (profondeur)."""
+    canopy: Color = (38, 74, 52, 255)
+    floor_color: Color = (22, 44, 32, 255)
+    far_trunk: Color = (30, 58, 44, 255)
+    near_trunk: Color = (18, 36, 28, 255)
+    shaft: Color = (188, 214, 150, 60)
+
+    image = Image(WIDTH, HEIGHT)
+    for y in range(HEIGHT):
+        color = lerp_color(canopy, floor_color, y / max(HEIGHT - 1, 1))
+        image.fill_rect(0, y, WIDTH, 1, color)
+
+    # Deux rangees de troncs : la rangee lointaine est plus claire et plus fine que la proche,
+    # ce qui rend la profondeur lisible sans parallaxe (le fond, lui, ne defile pas).
+    for x in range(16, WIDTH - 8, 44):
+        image.fill_rect(x, HEIGHT // 3, 5, HEIGHT, far_trunk)
+    for x in range(4, WIDTH - 10, 62):
+        image.fill_rect(x, HEIGHT // 5, 10, HEIGHT, near_trunk)
+
+    # Rais de lumiere obliques, semi-transparents : deterministes, comme les etoiles de night_sky.
+    for i in range(5):
+        start = 30 + i * 58
+        for row in range(HEIGHT // 2):
+            image.fill_rect(start + row // 2, row, 3, 1, shaft)
+
+    frame_and_ticks(image, (230, 240, 220, 255), (230, 240, 220, 160))
+    return image
+
+
+def sunset_dunes() -> Image:
+    """Fond crepusculaire : degrade chaud, soleil bas et dunes superposees."""
+    sky_high: Color = (86, 52, 108, 255)
+    sky_low: Color = (238, 150, 90, 255)
+    sun: Color = (252, 226, 150, 255)
+    dune_far: Color = (176, 108, 78, 255)
+    dune_near: Color = (118, 66, 54, 255)
+
+    image = Image(WIDTH, HEIGHT)
+    for y in range(HEIGHT):
+        color = lerp_color(sky_high, sky_low, y / max(HEIGHT - 1, 1))
+        image.fill_rect(0, y, WIDTH, 1, color)
+
+    # Soleil bas sur l'horizon, disque simple (meme construction que sky_gradient).
+    sun_x, sun_y, radius = WIDTH // 2, HEIGHT * 2 // 3, HEIGHT // 6
+    for y in range(HEIGHT):
+        for x in range(WIDTH):
+            if (x - sun_x) ** 2 + (y - sun_y) ** 2 <= radius**2:
+                image.set(x, y, sun)
+
+    # Dunes : deux bandes bombees, la plus proche plus sombre et plus haute.
+    for x in range(WIDTH):
+        far = HEIGHT * 2 // 3 + 12 - abs((x % 140) - 70) // 5
+        image.fill_rect(x, far, 1, HEIGHT - far, dune_far)
+    for x in range(WIDTH):
+        near = HEIGHT * 3 // 4 + 8 - abs((x % 100) - 50) // 4
+        image.fill_rect(x, near, 1, HEIGHT - near, dune_near)
+
+    frame_and_ticks(image, (40, 24, 40, 255), (40, 24, 40, 170))
+    return image
+
+
+def industrial_hall() -> Image:
+    """Fond industriel : degrade froid, poutrelles et conduits, pour les tableaux de mecanismes."""
+    high: Color = (52, 58, 70, 255)
+    low: Color = (28, 32, 40, 255)
+    beam: Color = (68, 74, 88, 255)
+    pipe: Color = (44, 50, 62, 255)
+    rivet: Color = (96, 102, 116, 255)
+
+    image = Image(WIDTH, HEIGHT)
+    for y in range(HEIGHT):
+        color = lerp_color(high, low, y / max(HEIGHT - 1, 1))
+        image.fill_rect(0, y, WIDTH, 1, color)
+
+    # Poutrelles verticales regulierement espacees, avec leurs rivets.
+    for x in range(24, WIDTH - 12, 52):
+        image.fill_rect(x, 0, 8, HEIGHT, beam)
+        for y in range(10, HEIGHT, 22):
+            image.fill_rect(x + 2, y, 4, 3, rivet)
+
+    # Conduits horizontaux, en arriere des poutrelles pour une lecture de plan.
+    for y in (HEIGHT // 4, HEIGHT * 3 // 5):
+        image.fill_rect(0, y, WIDTH, 6, pipe)
+        image.fill_rect(0, y, WIDTH, 1, rivet)
+
+    frame_and_ticks(image, (200, 208, 220, 255), (200, 208, 220, 160))
+    return image
+
+
 BACKGROUNDS = {
     "test_sky.png": sky_gradient,
     "test_night.png": night_sky,
     "test_cave.png": cave_depths,
+    "test_forest.png": forest_depths,
+    "test_sunset.png": sunset_dunes,
+    "test_industrial.png": industrial_hall,
 }
 
 
