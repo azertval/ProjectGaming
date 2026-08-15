@@ -37,6 +37,34 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     dash sous un plafond incliné, dash sur une plaque, bloc sur plaque, bloc trop léger, porte
     écrasante, bloc poussé sur un danger, plateforme traversant une porte fermée, plateforme
     emportant un bloc, deux déclencheurs sur une même porte.
+  - **Vingt-deux tableaux redessinés**, chacun conçu pour que sa mécanique soit la **seule** issue.
+    Les interrupteurs passent dans des alcôves du plafond qu'il faut atteindre en sautant ; les
+    plafonds inclinés et les dangers directionnels **bordent** le couloir au lieu de flotter à deux
+    hauteurs de saut au-dessus ; les blocs deviennent indispensables parce que le budget de sauts ne
+    suffit plus à les contourner ; `demo-plaque-pression` repose sur un bloc posé sur la plaque au
+    lieu d'un saut qui prend la porte de vitesse. Deux tableaux disparaissent : `demo-arrondi`
+    (fusionné dans `demo-pente`, dont il reprenait le tracé à une tuile près) et `demo-salles`
+    (272 tuiles, zéro mécanique, 40 % de sa surface scellée sous le sol — et joué **après** le
+    final), absorbé par le nouveau final multi-salles. Deux tableaux naissent : `demo-mouvement`
+    (synthèse de l'acte de mouvement) et `demo-synthese`.
+  - **Un vrai tableau final** : quatre salles, une énigme composée par salle, la clé gardée par des
+    dangers temporisés déphasés, et les deux variantes de cadrage du `LOT-64` qu'aucun tableau
+    n'employait — zones de caméra dessinées à la main (`EX-LVL-007`) et taille de salle propre au
+    niveau (`EX-REN-017`).
+  - **Invite « Interagir »** (`hmi::gameHudLines`) : rappel contextuel au contact d'une clé non
+    ramassée. Le ramassage exige une entrée qu'aucun autre tableau ne demande et que le jeu ne peut
+    pas expliquer ; sans invite, un joueur qui l'ignore reste bloqué devant la porte verrouillée
+    sans aucun retour.
+  - **Banque d'assets élargie**, entièrement générée par script : huit décors, trois fonds (forêt,
+    crépuscule, industriel), quatre objets. Le **personnage** est refait — il était illisible devant
+    une tuile de teinte voisine : cerne calculé depuis la silhouette, visage, ombrage, bottes,
+    écrasement/étirement, et six phases de course distinctes là où le cycle précédent en comptait
+    quatre dont **deux identiques**.
+  - **Doublons de test retirés** : `test_physique_personnage.cpp` ne rejoue plus les tableaux
+    livrés. Il portait une solution scriptée par tableau, doublon plus faible de
+    `ParcoursCompletSysteme` qui les rejoue tous avec deux garde-fous de plus ; la refonte a cassé
+    la copie la plus faible sans rien apprendre. Les tests **négatifs** restent : ils n'encodent
+    aucune solution.
 
 ### Registre des défauts (consignés, non corrigés)
 - **Une pente franchissable à la marche ne l'est pas au dash.** Sur la silhouette exacte des
