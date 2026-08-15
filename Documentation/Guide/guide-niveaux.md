@@ -522,6 +522,32 @@ n'a pas besoin de la même précaution.
 exclusion devient un jour nécessaire, c'est l'emplacement où l'ajouter, jamais un contournement
 ailleurs dans le test.
 
+### De la couverture à la profondeur (second temps du `LOT-65`)
+
+Le garde-fou ci-dessus, écrit en `TACHE-01`, avait lui-même annoncé sa limite (« couvert ≠
+franchi ») sans la combler. Il est devenu **vert** sur un contenu où onze tableaux sur vingt-deux ne
+demandaient rien au joueur, où chaque mécanique n'existait qu'en **un** exemplaire, et où treize
+tuiles de mécanique étaient **hors d'atteinte** du personnage — dont l'interrupteur d'un danger
+commuté, qui ne pouvait donc jamais être commuté. Trois contrôles supplémentaires ont été ajoutés,
+et le premier a été durci. Ils mesurent tous l'**usage**, non la présence :
+
+| Contrôle | Où | Ce qu'il refuse |
+|---|---|---|
+| **Profondeur** | `test_couverture_mecaniques.cpp` | Un type de tuile posé moins de `MIN_OCCURRENCES` (trois) fois dans toute la séquence. Une occurrence unique prouve qu'un type se *charge*, pas qu'il se *joue*. |
+| **Budgets séparés** | idem | Une séquence sans budget de sauts, **ou** sans budget de dashs. Le « ou » d'origine laissait passer une séquence entière sans le moindre `dashBudget`. |
+| **Variantes de cadrage** | idem | Une séquence sans zone de caméra dessinée (`EX-LVL-007`) ou sans taille de salle choisie par un niveau (`EX-REN-017`) — invisibles d'un contrôle portant sur le seul `mode`. |
+| **Anti-couloir** | `test_parcours_complet.cpp` | Un tableau franchi en maintenant simplement « droite », hors exclusion nommée (`corridorExemptLevels`). |
+| **Proximité au trajet** | idem | Une tuile de mécanique hors de portée d'un saut (`REACH_TILES`) du chemin réellement parcouru, relevé pendant le rejeu. |
+
+Le seuil de proximité est calibré sur un saut **simple** et non sur un double saut : une mécanique
+qu'il faut déjà savoir enchaîner deux sauts pour effleurer n'est pas sur le chemin. La marge
+au-delà laisse passer le hors-chemin volontaire (un secret facultatif reste légitime) ; ce qui est
+refusé, c'est l'**inatteignable**.
+
+La doctrine de conception que ces contrôles rendent vérifiable — chemin critique, répétition,
+contrainte de capacité, introduction avant emploi — est écrite dans
+`Documentation/Specification/niveaux.md`, Sec. 3.
+
 ## Voir aussi
 - `core::Level`, `core::TileMap`, `core::TileType`, `core::LevelLoader`, `core::LevelLoadResult`.
 - `core::LevelSequence`, `core::LevelSequenceLoader`, `core::LevelSequenceLoadResult`.

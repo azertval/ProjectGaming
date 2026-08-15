@@ -50,44 +50,69 @@ synthèse qui les combinent. L'**ordre joué** est celui de `sequence-demo.json`
 dans ce même dossier — pas un littéral dans `Source/HMI` (`EX-LVL-013` : le contenu ne s'écrit
 jamais dans le code). `Source/Test/Systeme/test_parcours_complet.cpp` rejoue exactement la même
 liste, dans le même ordre — un script CI, `scripts/check_demo_sequence.py`, échoue si les deux
-divergent. Un garde-fou distinct (`Source/Test/Systeme/test_couverture_mecaniques.cpp`,
-`EX-LVL-015`) échoue si un type de tuile, un mode de cadrage ou une variante significative livrés
-n'apparaît dans aucun tableau de cette séquence — voir `Documentation/Guide/guide-niveaux.md`.
+divergent.
+
+**Quatre garde-fous** protègent le contenu, et ils mesurent l'**usage** plutôt que la simple
+présence — un contrôle par présence était vert alors que la moitié des tableaux ne demandaient rien
+au joueur :
+
+1. **Couverture et profondeur** (`test_couverture_mecaniques.cpp`, `EX-LVL-015`) : chaque type de
+   tuile est posé au moins **trois** fois dans la séquence, chaque mode de cadrage apparaît, et
+   chaque variante significative est employée — danger temporisé déphasé, danger mobile vertical,
+   budget de sauts **et** budget de dashs comptés séparément, texture par instance, décor de premier
+   plan, zones de caméra dessinées, taille de salle choisie par le niveau.
+2. **Anti-couloir** (`test_parcours_complet.cpp`) : aucun tableau ne se franchit en maintenant
+   « droite », hors exclusion nommée et justifiée (`demo-deplacement`, dont c'est le sujet).
+3. **Proximité au trajet** (même fichier) : chaque tuile de mécanique passe à portée d'un saut du
+   chemin réellement parcouru — une mécanique hors d'atteinte est « couverte » sans être jouée.
+4. **Franchissabilité** (même fichier, `EX-NFR-021`) : chaque tableau est franchi par un scénario
+   d'entrées déterministe qui **emploie** sa mécanique.
+
+Voir `Documentation/Guide/guide-niveaux.md` et la doctrine de conception dans
+`Documentation/Specification/niveaux.md`, Sec. 3.
 
 ### Inventaire des vingt-deux tableaux
 
-Le `LOT-65` a entièrement refondu cette séquence : les dix-sept tableaux hérités du `LOT-25`
-(bancs d'essai nus) ont été retirés (`TACHE-00`), habillés en les restaurant à l'identique côté
-géométrie (`TACHE-02`), puis complétés de cinq tableaux couvrant les mécaniques encore absentes de
-tout tableau (`TACHE-03`).
+Le `LOT-65` a refondu cette séquence en **deux temps**. Le premier (`TACHE-00` à `TACHE-04`) a
+remplacé les dix-sept bancs d'essai nus hérités du `LOT-25` par des tableaux habillés couvrant
+chaque type de tuile. Le second (`TACHE-05` à `TACHE-09`) les a redessinés pour que chaque mécanique
+soit **exigée** et non décorative : une revue avait établi que onze tableaux sur vingt-deux ne
+demandaient rien au joueur, que chaque mécanique n'existait qu'en un exemplaire, et que treize
+tuiles étaient hors d'atteinte du personnage.
 
-| # | Tableau | Mécanique(s) démontrée(s) | Cadrage |
-|---|---|---|---|
-| 1 | `demo-deplacement.json` | Déplacement, chute, sol ; premier tableau, tutoriel implicite | Niveau entier |
-| 2 | `demo-saut.json` | Saut simple (`EX-GP-014`) | Niveau entier |
-| 3 | `demo-double-saut.json` | Double saut (`EX-GP-015`) | Niveau entier |
-| 4 | `demo-wall-jump.json` | Wall slide/wall jump (`EX-GP-016`) | Niveau entier |
-| 5 | `demo-dash.json` | Dash (`EX-GP-017`) | Niveau entier |
-| 6 | `demo-interrupteur.json` | Interrupteur ↔ porte (`EX-GP-020`) — skins `kenney` | Niveau entier |
-| 7 | `demo-plaque-pression.json` | Plaque de pression ↔ porte (`EX-GP-025`) — skins `kenney` | Niveau entier |
-| 8 | `demo-cle.json` | Clé ↔ porte verrouillée (`EX-GP-023`) — skins `kenney` | Niveau entier |
-| 9 | `demo-bloc.json` | Bloc poussable, taille pleine (`EX-GP-022`) | Niveau entier |
-| 10 | `demo-budget.json` | Budget de sauts borné (`EX-GP-024`) | Niveau entier |
-| 11 | `demo-pente.json` | Pente/arrondi, sol, montant vers la droite (`EX-GP-003`/`004`) | Niveau entier |
-| 12 | `demo-pente-gauche.json` | Pente/arrondi/concave, sol, montant vers la gauche (`LOT-65`) | Niveau entier |
-| 13 | `demo-arrondi.json` | Arrondi convexe de sol (`EX-GP-004`) | Niveau entier |
-| 14 | `demo-concave.json` | Arrondi concave, sol et plafond (`EX-GP-007`, `LOT-65`) | Niveau entier |
-| 15 | `demo-plafond.json` | Pente/arrondi de **plafond**, quatre variantes (`EX-GP-006`, `LOT-65`) | Niveau entier |
-| 16 | `demo-bloc-reduit.json` | Bloc poussable réduit `×0.5`, comble une fosse (`EX-GP-005`) | Niveau entier |
-| 17 | `demo-bloc-quart.json` | Bloc poussable réduit `×0.25`, terrain plat (`LOT-65`) — texture par instance | Niveau entier |
-| 18 | `demo-plateforme.json` | Plateforme mobile (`EX-GP-026`) | Niveau entier |
-| 19 | `demo-dangers-avances.json` | Danger directionnel haut, mobile (vertical), commuté, temporisé déphasé (`EX-GP-050`–`053`) | Niveau entier |
-| 20 | `demo-dangers-directionnels.json` | Danger directionnel bas/gauche/droite (`EX-GP-050`, `LOT-65`) | Niveau entier |
-| 21 | `demo-final.json` | Synthèse : dash, pente, interrupteur/porte, double saut | **Suivi** (parcours continu le plus long) |
-| 22 | `demo-salles.json` | Synthèse structurelle : deux salles, chute entre elles (`LOT-32`) | **Par salle** |
+Quatre garde-fous automatiques tiennent désormais ces promesses — voir la doctrine de profondeur
+dans `Documentation/Specification/niveaux.md`, Sec. 3.
 
-Détail des défauts constatés en construisant cette séquence (aucun n'affecte la franchissabilité
-des tableaux livrés) : voir `CHANGELOG.md`, section *Non publié*.
+| # | Tableau | Mécanique(s) exigée(s) | Cadrage | Budgets |
+|---|---|---|---|---|
+| 1 | `demo-deplacement.json` | Marche, chute, atterrissage ; aucune mort possible | Niveau entier | — |
+| 2 | `demo-saut.json` | Saut (`EX-GP-014`) ; le `danger` de base introduit en fond de fosse | Niveau entier | — |
+| 3 | `demo-double-saut.json` | Double saut (`EX-GP-015`), paliers hors de portée d'un saut simple | Niveau entier | 0 dash |
+| 4 | `demo-wall-jump.json` | Wall slide/wall jump (`EX-GP-016`), deux puits | Niveau entier | 0 dash |
+| 5 | `demo-dash.json` | Dash (`EX-GP-017`), couloir bas et fosses garnies de pics | Niveau entier | 0 saut |
+| 6 | `demo-mouvement.json` | **Synthèse d'acte** : dash, double saut, wall jump enchaînés | **Suivi** | 14 sauts, 2 dashs |
+| 7 | `demo-interrupteur.json` | Interrupteur ↔ porte (`EX-GP-020`), alcôves du plafond — skins `kenney` | Niveau entier | — |
+| 8 | `demo-plaque-pression.json` | Plaque de pression (`EX-GP-025`) : un **bloc** y tient la porte ouverte | Niveau entier | — |
+| 9 | `demo-cle.json` | Clé ↔ porte verrouillée (`EX-GP-023`), deux paires, invite « Interagir » | Niveau entier | — |
+| 10 | `demo-bloc.json` | Bloc poussable (`EX-GP-022`) comblant une fosse | Niveau entier | 1 saut |
+| 11 | `demo-bloc-reduit.json` | Bloc `×0.5` (`EX-GP-005`), deux fosses | Niveau entier | 2 sauts |
+| 12 | `demo-bloc-quart.json` | Bloc `×0.25` (`EX-GP-005`) — texture par instance | Niveau entier | 1 saut |
+| 13 | `demo-pente.json` | Pentes **et** arrondis de sol (`EX-GP-003`/`004`), montée et descente | Niveau entier | 0 dash |
+| 14 | `demo-pente-gauche.json` | Variantes montant vers la **gauche** ; l'entrée est à droite | Niveau entier | 0 dash |
+| 15 | `demo-concave.json` | Arrondis concaves (`EX-GP-007`), sol sur le chemin et plafond bas | Niveau entier | 0 dash |
+| 16 | `demo-plafond.json` | Les quatre plafonds inclinés (`EX-GP-006`) bordant le couloir | Niveau entier | 0 dash |
+| 17 | `demo-dangers-directionnels.json` | Les quatre orientations (`EX-GP-050`) **sur** le chemin | Niveau entier | — |
+| 18 | `demo-dangers-avances.json` | Danger mobile, commuté, temporisé déphasé (`EX-GP-051`–`053`) | Niveau entier | — |
+| 19 | `demo-plateforme.json` | Plateforme mobile (`EX-GP-026`), verticale, portant un bloc | Niveau entier | — |
+| 20 | `demo-budget.json` | Budget de mouvements (`EX-GP-024`) : le trajet consomme tout | Niveau entier | 4 sauts, 2 dashs |
+| 21 | `demo-synthese.json` | Mécanismes, terrain et dangers **entrelacés** | Niveau entier | 6 sauts, 1 dash |
+| 22 | `demo-final.json` | **Final multi-salles** : une énigme par salle, zones de caméra dessinées | **Par salle** | 30 sauts, 4 dashs |
+
+`demo-arrondi.json` (fusionné dans `demo-pente`) et `demo-salles.json` (absorbé par le final, qui
+porte désormais le cadrage *par salle*) ont été supprimés au second temps.
+
+Détail des défauts constatés en construisant cette séquence : voir `CHANGELOG.md`, section
+*Non publié*.
 
 ### `sequence-demo.json`
 Objet JSON : `version` (`EX-LVL-005`, absente = version initiale), `titleKey` (clé de traduction du

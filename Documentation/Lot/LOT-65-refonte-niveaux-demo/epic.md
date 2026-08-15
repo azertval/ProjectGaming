@@ -1,7 +1,7 @@
 # LOT-65 — Refonte des niveaux de démonstration {#lot-65}
 
-> Statut : **en cours** — TACHE-00 à TACHE-04 faites (couverture), TACHE-05 à TACHE-10 ouvertes
-> (profondeur, cf. « Second temps du lot »). Prérequis : [LOT-63](@ref lot-63) (mécanismes manquants),
+> Statut : **en cours** — TACHE-00 à TACHE-09 faites, TACHE-10 en cours (tout fait sauf le
+> parcours manuel complet, réservé à un humain). Prérequis : [LOT-63](@ref lot-63) (mécanismes manquants),
 > [LOT-64](@ref lot-64) (cadrage de caméra), [LOT-59](@ref lot-59) (séquence en donnée de contenu).
 > **Dernier lot de contenu** du programme `0.1.0`.
 
@@ -106,7 +106,7 @@ Le contenu n'a pas suivi. Il en résulte deux problèmes distincts :
 | [TACHE-07](tache-07-actes-mouvement-mecanismes.md) | Actes I et II : mouvement et mécanismes | `Source/Elements/Levels`, `Source/HMI/Game` | ✅ |
 | [TACHE-08](tache-08-actes-terrain-dangers.md) | Actes III et IV : terrain, dangers et plateformes | `Source/Elements/Levels` | ✅ |
 | [TACHE-09](tache-09-syntheses-final.md) | Tableaux de synthèse et final multi-salles | `Source/Elements/Levels` | ✅ |
-| [TACHE-10](tache-10-documentation-verification-finale.md) | Documentation et vérification finale | `Documentation`, `Source/Elements/Levels` | ⬜ |
+| [TACHE-10](tache-10-documentation-verification-finale.md) | Documentation et vérification finale | `Documentation`, `Source/Elements/Levels` | 🔄 |
 
 ### Second temps du lot : de la couverture à la profondeur
 
