@@ -14,14 +14,14 @@
         "demo-bloc.json",
         "demo-bloc-reduit.json",
         "demo-bloc-quart.json",
-        "demo-budget.json",
         "demo-pente.json",
         "demo-pente-gauche.json",
         "demo-concave.json",
         "demo-plafond.json",
-        "demo-plateforme.json",
-        "demo-dangers-avances.json",
         "demo-dangers-directionnels.json",
+        "demo-dangers-avances.json",
+        "demo-plateforme.json",
+        "demo-budget.json",
         "demo-final.json",
         "demo-salles.json"
     ]

@@ -33,8 +33,10 @@
 #include "Core/Ecs/Systems/CharacterPhysicsSystem.h"
 #include "Core/Ecs/World.h"
 #include "Core/Gameplay/BlockController.h"
+#include "Core/Gameplay/DangerController.h"
 #include "Core/Gameplay/MechanismController.h"
 #include "Core/Gameplay/PlatformController.h"
+#include "Core/Levels/DangerGeometry.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
@@ -107,6 +109,7 @@ PlayTrace playLevelTraced(const ScriptedLevel& scripted, int maxSteps = 3000) {
     core::BlockController blocks(level);
     core::MechanismController mechanisms(level);
     core::PlatformController platforms(level);
+    core::DangerController dangers(level);
 
     core::LevelOutcome outcome = core::LevelOutcome::Playing;
     for (int step = 0; step < maxSteps && outcome == core::LevelOutcome::Playing; ++step) {
@@ -181,10 +184,33 @@ PlayTrace playLevelTraced(const ScriptedLevel& scripted, int maxSteps = 3000) {
         }
         mechanisms.update(box, 1.0f, in.interactPressed, blockWeights);
 
+        // Dangers A ETAT (EX-GP-051/052/053) : mobile, temporise et commute ne sont PAS resolus
+        // par core::evaluateOutcome, qui ne connait que les dangers statiques -- leur boite doit
+        // etre assemblee par l'appelant. hmi::GameSession le fait (collectActiveDangerBoxes) ; ce
+        // test ne le faisait pas, si bien qu'un tableau posant un danger temporise sur le chemin
+        // aurait ete franchi ici et mortel en jeu. Meme composition, meme ordre.
+        dangers.update();
+        std::vector<core::Aabb> extraDangerBoxes;
+        for (std::size_t index = 0; index < dangers.moverCount(); ++index) {
+            extraDangerBoxes.push_back(dangers.moverBox(index));
+        }
+        for (const core::DangerBlinkConfig& config : level.blinkConfigs()) {
+            if (dangers.isBlinkActive(config.position)) {
+                extraDangerBoxes.push_back(core::dangerHitbox(
+                    core::TileType::DangerBlink, config.position.column, config.position.row));
+            }
+        }
+        for (const core::DangerLink& link : level.dangerLinks()) {
+            if (mechanisms.isDangerActive(link.dangerPosition)) {
+                extraDangerBoxes.push_back(core::dangerHitbox(core::TileType::DangerSwitched,
+                                                              link.dangerPosition.column,
+                                                              link.dangerPosition.row));
+            }
+        }
+
         // Ecrasement par une plateforme mobile (EX-GP-026) ou par une porte qui se referme
         // (EX-GP-021) : mortel, comme hmi::GameSession::update (traduit en boite de danger
         // supplementaire pour evaluateOutcome).
-        std::vector<core::Aabb> extraDangerBoxes;
         if (world.getComponent<core::Player>(player).squished || mechanisms.crushedPlayer()) {
             extraDangerBoxes.push_back(box);
         }
@@ -313,6 +339,29 @@ ReactiveInput rightAndJumpOncePerLanding() {
 // qui vaut pour toute fosse.
 bool atLedge(float x, float edge, float window) {
     return x >= edge - window && x <= edge - 0.05f;
+}
+
+// Un danger temporise est-il mortel au pas @p step ? Meme formule que
+// `core::DangerController::isBlinkActive`. Un tableau qui pose un danger temporise SUR le chemin
+// exige d'attendre sa fenetre inoffensive, ce qu'aucune entree reactive ne peut deviner depuis la
+// seule position du personnage : le script doit pouvoir le calculer.
+bool blinkActive(int step, int phase, int period, int activeDuration) {
+    const int cursor = (((step - phase) % period) + period) % period;
+    return cursor < activeDuration;
+}
+
+// Distance parcourue par une plateforme mobile le long de son segment au pas @p step, meme formule
+// que `core::PlatformController::boxAtStep` (aller-retour triangulaire 0 -> distance -> 0). Meme
+// raison que ci-dessus : attendre qu'une plateforme revienne ne se deduit pas de la position du
+// personnage.
+float platformOffset(int step, float speed, float distance) {
+    const float travelled = static_cast<float>(step) * speed / 60.0f;
+    const float cycle = distance * 2.0f;
+    float phase = std::fmod(travelled, cycle);
+    if (phase < 0.0f) {
+        phase += cycle;
+    }
+    return phase <= distance ? phase : cycle - phase;
 }
 
 // Script constant : avancer et dasher en continu (couloir bas + fosse).
@@ -504,25 +553,6 @@ std::vector<ScriptedLevel> scriptedSequence() {
              in.jumpPressed = player.grounded && atLedge(x, 13.0f, 0.5f);
              return in;
          }},
-        // 10. Budget de sauts (EX-GP-024) : deux marches ascendantes, deux sauts nécessaires pour
-        //     un budget borné à quatre (marge d'un saut).
-        // Deux sauts déclenchés une fois chacun (drapeaux), juste au bord de chaque fossé -- pas
-        // plus tôt : décoller trop en amont consomme la portée horizontale du saut sur du sol déjà
-        // solide, laissant trop peu d'élan pour franchir le fossé (constaté : un saut déclenché à
-        // 2+ cases du bord retombe dans le vide plutôt que sur le palier suivant).
-        {"demo-budget.json",
-         [budgetGap1Jumped = false, budgetGap2Jumped = false](int, const core::Player& player, float x, float) mutable {
-             core::PlayerInput in{1.0f};
-             in.jumpHeld = true;
-             if (!budgetGap1Jumped && player.grounded && x >= 6.3f) {
-                 in.jumpPressed = true;
-                 budgetGap1Jumped = true;
-             } else if (budgetGap1Jumped && !budgetGap2Jumped && player.grounded && x >= 13.0f) {
-                 in.jumpPressed = true;
-                 budgetGap2Jumped = true;
-             }
-             return in;
-         }},
         // 14. Pentes et arrondis (EX-GP-003/004) : fusionne l'ancien demo-arrondi, qui reprenait le
         //     meme trace a une tuile pres. Trois marches inclinees a monter, une fosse a franchir --
         //     c'est elle qui interdit de traverser le tableau en marchant --, puis une descente par
@@ -572,22 +602,97 @@ std::vector<ScriptedLevel> scriptedSequence() {
                                                   atLedge(x, 16.0f, 0.6f));
              return in;
          }},
-        // 18. Plateforme mobile (EX-GP-026, LOT-63) : le personnage tombe dessus dès l'apparition
-        //     puis se laisse porter jusqu'à la sortie, sans aucune entrée (portage pur) — la
-        //     traversée serait mortelle sans elle (aucun sol entre les deux bords).
+        // 18. Dangers directionnels (EX-GP-050) : les quatre orientations bordent le couloir. Les
+        //     pointes vers le HAUT sont des fosses mortelles a franchir ; celles qui pendent du
+        //     plafond et celles qui garnissent la rangee haute rendent le saut dangereux ailleurs.
+        //     Marcher est sur, sauter au mauvais endroit ne l'est pas -- c'est la lecon, et elle
+        //     etait jusqu'ici impossible a recevoir : les quatre variantes flottaient dans des
+        //     alcoves que le personnage ne pouvait pas atteindre.
+        {"demo-dangers-directionnels.json",
+         [](int, const core::Player& player, float x, float) {
+             core::PlayerInput in{1.0f};
+             in.jumpHeld = true;
+             in.jumpPressed = player.grounded && (atLedge(x, 7.0f, 0.6f) ||
+                                                  atLedge(x, 15.0f, 0.6f) ||
+                                                  atLedge(x, 23.0f, 0.6f));
+             return in;
+         }},
+        // 19. Dangers avances (EX-GP-051/052/053) : l'interrupteur ARME les dangers commutes places
+        //     plus loin sur le chemin -- il faut donc sauter par-dessus lui, pas marcher dessus.
+        //     Trois dangers temporises jalonnent ensuite le couloir : chacun impose d'attendre sa
+        //     fenetre inoffensive, calculee ici avec la meme formule que le controleur. Les dangers
+        //     mobiles patrouillent la rangee haute, juste au-dessus de la tete.
+        {"demo-dangers-avances.json",
+         [](int step, const core::Player& player, float x, float) {
+             core::PlayerInput in{1.0f};
+             in.jumpHeld = true;
+             // Sauter par-dessus l'interrupteur (case 5) sans le toucher : l'armer condamne la
+             // suite du couloir.
+             in.jumpPressed = player.grounded && atLedge(x, 5.0f, 0.5f);
+
+             // Attendre devant chaque danger temporise que sa fenetre mortelle soit passee, avec
+             // assez de marge pour traverser la case avant qu'elle ne revienne.
+             constexpr int PERIOD = 180;
+             constexpr int ACTIVE = 45;
+             constexpr int CROSSING = 40;  // pas necessaires pour degager la case
+             const int phases[3] = {0, 60, 120};
+             const float holds[3] = {13.4f, 19.4f, 25.4f};
+             for (int index = 0; index < 3; ++index) {
+                 if (x < holds[index] || x > holds[index] + 0.2f) {
+                     continue;
+                 }
+                 if (blinkActive(step, phases[index], PERIOD, ACTIVE) ||
+                     blinkActive(step + CROSSING, phases[index], PERIOD, ACTIVE)) {
+                     in.moveX = 0.0f;  // patienter : la case est (ou redevient) mortelle
+                 }
+             }
+             return in;
+         }},
+        // 20. Plateforme mobile (EX-GP-026) : trois plateformes en ascenseur au-dessus du vide,
+        //     dont une verticale et une portant un bloc poussable -- le portage d'un bloc est exige
+        //     par EX-GP-026 et n'etait mis en scene par aucun tableau. Manquer une plateforme est
+        //     mortel : il n'y a aucun sol entre les paliers. L'ancien tableau se franchissait sans
+        //     AUCUNE entree.
         {"demo-plateforme.json",
-         [](int, const core::Player&, float, float) { return core::PlayerInput{}; }},
-        // 19. Dangers avancés (EX-GP-050/051/052/053, LOT-31) : directionnel, mobile, commuté et
-        //     temporisé sont chacun posés sur une alcôve surélevée **optionnelle**, hors du
-        //     couloir principal (au sol) qui mène directement à la sortie — comme les autres
-        //     niveaux de cette séquence, aucun scénario de mort n'est exercé ici (déjà couvert aux
-        //     niveaux Unit/Integration, `test_danger_controller.cpp`/`test_danger_avance.cpp`) ;
-        //     ce niveau ne vérifie que le chargement et la franchissabilité du couloir principal.
-        {"demo-dangers-avances.json", rightOnly()},
-        // 20. Dangers directionnels (EX-GP-050, LOT-65) : DangerDown/DangerLeft/DangerRight, même
-        //     principe que les dangers avancés ci-dessus — alcôves flottantes hors du couloir
-        //     principal, jamais atteintes par un déplacement au sol.
-        {"demo-dangers-directionnels.json", rightOnly()},
+         [](int step, const core::Player& player, float x, float y) {
+             core::PlayerInput in;
+             in.jumpHeld = true;
+             if (x < 4.6f) {
+                 // Porte par l'ascenseur des l'apparition : ne rien faire jusqu'en haut, puis
+                 // sauter vers le palier intermediaire.
+                 if (y <= 5.4f) {
+                     in.moveX = 1.0f;
+                     in.jumpPressed = player.grounded;
+                 }
+             } else if (x < 7.5f) {
+                 in.moveX = 1.0f;  // palier intermediaire
+             } else if (x < 8.0f) {
+                 // Attendre que la plateforme horizontale revienne a son point de depart.
+                 in.moveX = platformOffset(step, 1.0f, 4.0f) < 0.25f ? 1.0f : 0.0f;
+             } else if (platformOffset(step, 1.0f, 4.0f) > 3.6f) {
+                 in.moveX = 1.0f;  // arrivee au bout : rejoindre le palier de sortie
+             }
+             return in;
+         }},
+        // 21. Budget de mouvements (EX-GP-024) : le trajet demande EXACTEMENT quatre sauts puis deux
+        //     un budget borné à quatre (marge d'un saut).
+        // Deux sauts déclenchés une fois chacun (drapeaux), juste au bord de chaque fossé -- pas
+        // plus tôt : décoller trop en amont consomme la portée horizontale du saut sur du sol déjà
+        // solide, laissant trop peu d'élan pour franchir le fossé (constaté : un saut déclenché à
+        // 2+ cases du bord retombe dans le vide plutôt que sur le palier suivant).
+        {"demo-budget.json",
+         [](int, const core::Player& player, float x, float) {
+             core::PlayerInput in{1.0f};
+             in.jumpHeld = true;
+             // Quatre marches ascendantes, un saut chacune -- exactement le budget.
+             in.jumpPressed = player.grounded && (atLedge(x, 6.0f, 0.6f) ||
+                                                  atLedge(x, 12.0f, 0.6f) ||
+                                                  atLedge(x, 18.0f, 0.6f) ||
+                                                  atLedge(x, 24.0f, 0.6f));
+             // Puis un couloir d'une case de haut : deux fosses, deux ruees -- le reste du budget.
+             in.dashPressed = atLedge(x, 29.0f, 0.35f) || atLedge(x, 35.0f, 0.35f);
+             return in;
+         }},
         // 21. Niveau final : synthèse combinant quatre mécaniques en un seul parcours continu
         //     (cadrage suivi), chacune reprenant exactement la géométrie de son tableau dédié
         //     (demo-dash/demo-pente/demo-interrupteur/demo-double-saut), séparées par de larges
