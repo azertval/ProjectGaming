@@ -1,7 +1,7 @@
 # TACHE-02 — Numéro de version généré {#lot-66-tache-02-version-source-unique}
 
 **Lot :** [LOT-66](epic.md) · **Emplacement :** `scripts/build_docs.py`, `Documentation/Doxyfile` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 Le `CMakeLists.txt` racine porte un commentaire sans ambiguïté : `VERSION` est « la **source unique

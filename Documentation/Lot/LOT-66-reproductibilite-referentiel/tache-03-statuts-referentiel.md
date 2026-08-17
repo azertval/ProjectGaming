@@ -1,7 +1,7 @@
 # TACHE-03 — Statuts des spécifications et exigences orphelines {#lot-66-tache-03-statuts-referentiel}
 
 **Lot :** [LOT-66](epic.md) · **Emplacement :** `Documentation/Specification` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 Huit fichiers de spécification sur dix portent la mention « Statut : **brouillon** » —

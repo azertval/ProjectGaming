@@ -6,7 +6,67 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+## [0.1.0] - 2026-08-17
+
+> Sixième jalon, et premier qui **annonce un jeu** plutôt qu'un moteur : les jalons `0.0.x`
+> construisaient les briques, celui-ci les assemble en une expérience qui se termine, qui se
+> retient et qui se fait entendre.
+>
+> On peut désormais **mettre le jeu en pause**, voir **la fin d'un tableau** marquée clairement, et
+> **retrouver sa progression** au tableau exact où on l'a quittée plutôt que de repartir du premier
+> niveau à chaque lancement (`LOT-59`). Sauter, atterrir, dasher, activer un interrupteur, mourir et
+> gagner un tableau **font du bruit** — volume réglable et persisté, jeu pleinement jouable en
+> silence (`LOT-60`). Des **effets de particules** accompagnent les mouvements du personnage
+> (`LOT-53`). Trois mécanismes que les spécifications annonçaient depuis le début arrivent enfin :
+> l'action « Interagir », les clés et portes verrouillées, les plateformes mobiles (`LOT-63`). Le
+> level designer choisit désormais le **cadrage de caméra** d'un niveau plutôt que de le subir
+> (`LOT-64`). Un défaut rencontré par un joueur sur la version publiée laisse maintenant une
+> **trace exploitable** (`LOT-61`). Le budget de rendu et l'empreinte mémoire, jusque-là de simples
+> promesses, sont désormais **mesurés à chaque build** (`LOT-62`).
+>
+> Les vingt-deux tableaux de démonstration ont été **entièrement redessinés** pour que chacun
+> exploite réellement sa mécanique plutôt que la contourner, banque d'assets et personnage refaits
+> en conséquence (`LOT-65`).
+>
+> Ce jalon règle enfin les trois derniers écarts qui séparaient le dépôt d'une publication propre :
+> Qt épinglé et vérifié sur les trois environnements, numéro de version qui n'existe plus qu'à un
+> seul endroit, et référentiel de spécifications qui dit la vérité sur ce qui est livré (`LOT-66`).
+>
+> **1119 tests** (943 au jalon précédent).
+
 ### Ajouté
+- **LOT-66 TACHE-04 — Bascule `0.1.0` et vérification finale.** `project(VERSION)` passe à `0.1.0`,
+  seul endroit où le numéro est écrit (`TACHE-02`). `README.md` mis à jour pour décrire le jeu
+  livré (pause, progression, son, effets, mécanismes ajoutés) plutôt que le moteur du jalon
+  précédent. Notes de release vérifiées (`scripts/extract_release_notes.py v0.1.0`).
+- **LOT-66 TACHE-03 — Statuts des spécifications et exigences orphelines.** Huit fichiers sur dix
+  restaient marqués « brouillon », certains depuis vingt lots, alors qu'ils décrivent un système
+  livré. Chacun porte désormais un statut réel, daté (`0.1.0`), sur le modèle déjà appliqué à
+  `decors.md`/`editeur-niveaux.md`. `EX-ARCH-001`/`060`/`070` et `EX-NFR-032` sont documentés comme
+  des **invariants transverses** (respectés par tout lot sans être cités) ; `EX-DEC-031` comme
+  **post-MVP** ; `EX-VIS-002` à `EX-VIS-007` reçoivent chacun un renvoi vers l'exigence détaillée
+  qui le concrétise (et réciproquement). Les deux points ⚠️ restants (réglage fin du ressenti,
+  `gameplay.md`) sont explicitement reportés au-delà de `0.1.0`, pas laissés en suspens.
+  `scripts/lint_exigences.py` détecte désormais aussi les exigences **déclarées mais jamais
+  référencées** (au lieu de seulement les références orphelines), avec une liste explicite et
+  documentée d'exemptions pour les invariants et le post-MVP — même logique que la vérification déjà
+  automatique ailleurs dans ce lot plutôt qu'une revue manuelle.
+- **LOT-66 TACHE-02 — Numéro de version généré, plus jamais recopié.** Le `Doxyfile` portait sa
+  propre copie du `PROJECT_NUMBER`, vérifiée (et non générée) par `scripts/build_docs.py` : un
+  oubli devenait un échec de CI au lieu d'être rendu impossible. Le `Doxyfile` versionné ne porte
+  plus de numéro (`PROJECT_NUMBER` vide) ; le script l'injecte depuis `project(VERSION)` en le
+  passant à Doxygen sur l'entrée standard (`doxygen -`), sans écrire de fichier temporaire.
+  Bumper `project(VERSION)` suffit désormais — l'étape manuelle a disparu de `CONTRIBUTING.md`.
+- **LOT-66 TACHE-01 — Qt épinglé et vérifié sur les trois environnements** (`EX-BUILD-010`). La CI
+  et la release installaient Qt `6.8.1` explicitement ; le poste local retenait silencieusement la
+  version la **plus récente** trouvée sur le disque, sans que rien ne signale un écart. Le CMake
+  déclare désormais `QT_VERSION_MINIMUM` (source unique), l'utilise comme version minimale de
+  `find_package(Qt6 ...)`, avertit (sans bloquer) si la version trouvée diffère de celle de la CI,
+  et journalise la version retenue (configuration) ainsi que celle contre laquelle le binaire a été
+  compilé (`QT_VERSION_STR`, journal de session LOT-61 — utile en rapport de défaut). La cohérence
+  entre `QT_VERSION_MINIMUM` (CMake) et `env.QT_VERSION` (`ci.yml`, `release.yml`) est vérifiée
+  automatiquement par `scripts/check_qt_version_pin.py` (job `lint-exigences`), plutôt que par
+  relecture.
 - **LOT-65 (second temps) — De la couverture à la profondeur.** Le garde-fou de couverture livré en
   `TACHE-01` était vert, et le contenu qu'il validait ne tenait pourtant aucune des promesses de
   `EX-LVL-012` : une revue des vingt-deux tableaux a établi que **onze d'entre eux ne demandent rien

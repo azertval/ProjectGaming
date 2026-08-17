@@ -1,8 +1,8 @@
 # Interface utilisateur (IHM) {#spec-interface-ihm}
 
-> Statut : **brouillon**. Cadre la refonte de l'interface hors-jeu (programme `LOT-34` → `LOT-39`),
+> Statut : **livré** (`0.1.0`). Refonte de l'interface hors-jeu (programme `LOT-34` → `LOT-39`),
 > étendue par le **système de design** (section 6, `LOT-56`) et l'**architecture de l'information de
-> l'éditeur** (section 7, `LOT-57`).
+> l'éditeur** (section 7, `LOT-57`) — toutes livrées.
 > Dépend de [`rendu-technique.md`](rendu-technique.md) et [`editeur-niveaux.md`](editeur-niveaux.md).
 
 L'interface **hors-jeu** (menus, options, remappage, éditeur de niveaux) est distincte du **rendu

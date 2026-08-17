@@ -1,6 +1,9 @@
 # Architecture (décisions dimensionnantes) {#spec-architecture}
 
-> Statut : **brouillon**. Décisions **structurantes**, chères à modifier après coup : tout lot doit les respecter. Transverse à toutes les specs.
+> Statut : **livré** (`0.1.0`). Décisions **structurantes**, tenues depuis `LOT-01` (sens des
+> dépendances, ECS, frontière simulation ↔ rendu) et confirmées jusqu'à la refonte Qt de l'IHM
+> hors-jeu (`LOT-34` → `LOT-39`, voir Traçabilité ci-dessous). Aucune n'a été remise en cause par le
+> programme `0.1.0`. Transverse à toutes les specs.
 
 ## 1. Modules & dépendances
 - `Core` (simulation, indépendant du système), `HMI` (fenêtre, rendu, entrées, éditeur), `Elements` (assets), `Test`.
@@ -64,5 +67,10 @@ Les décors (cf. [`decors.md`](decors.md)) sont manipulables **à la conception 
 
 ## Traçabilité
 Ces décisions conditionnent tous les lots. Détail des décors et du pipeline pixel art : [`decors.md`](decors.md). Exigences non fonctionnelles associées : [`exigences-non-fonctionnelles.md`](exigences-non-fonctionnelles.md).
+
+`EX-ARCH-001`, `EX-ARCH-060` et `EX-ARCH-070` sont des **invariants transverses** : chaque lot les
+respecte par construction (sens des dépendances, boucle mono-thread, communication directe) sans
+avoir besoin de les citer nommément dans son « Exigences couvertes ». Qu'ils n'apparaissent dans
+aucun lot n'est donc pas une exigence orpheline (`LOT-66`).
 
 > **Refonte IHM (`LOT-34` → `LOT-39`)** : l'interface **hors-jeu** (éditeur, menus, options) migre vers **Qt**, tandis que le **rendu in-game reste Direct3D 11** (`EX-ARCH-050`), embarqué dans un viewport Qt. Depuis le `LOT-38`, l'IHM « maison » et l'exécutable historique ont été retirés : `Source/HMI` porte désormais **l'unique application** (`ProjectGaming`, cible Qt) — code réparti par domaine (`Platform/`, `Input/`, `Graphics/`, `Game/`, `Localization/`, `Interface/`, `Editor/`) — et les **assets Qt déclaratifs** (`.ui`, `.qrc`, thème `.qss`) vivent dans `Source/Elements` (`UI/`, `Themes/`). La frontière `HMI → Core` (`EX-ARCH-010`) et la frontière simulation ↔ rendu (`EX-ARCH-030`/`031`) sont **inchangées**. Voir [`interface-ihm.md`](@ref spec-interface-ihm) (`EX-IHM-*`) et [`guide-ihm-qt`](@ref guide-ihm-qt).

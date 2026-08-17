@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.21)
 
 # VERSION est la **source unique de vérité** du numéro de version : `core::Engine::version()` le
-# reçoit par définition de compilation (Source/Core/CMakeLists.txt) et `scripts/build_docs.py`
-# vérifie que le `PROJECT_NUMBER` du Doxyfile lui correspond. Bumper ici, et nulle part ailleurs,
-# avant de poser le tag `vX.Y.Z`.
+# reçoit par définition de compilation (Source/Core/CMakeLists.txt), et `scripts/build_docs.py`
+# l'injecte dans le `PROJECT_NUMBER` de Doxygen à la génération (le Doxyfile versionné ne le porte
+# pas). Bumper ici, et nulle part ailleurs, avant de poser le tag `vX.Y.Z`.
 project(ProjectGaming
-    VERSION 0.0.5
+    VERSION 0.1.0
     DESCRIPTION "Jeu 2D de plateforme/puzzle en C++/DirectX"
     LANGUAGES CXX)
 

@@ -1,6 +1,7 @@
 # Contrôles & entrées {#spec-controles}
 
-> Statut : **brouillon**. Dépend de [`gameplay.md`](gameplay.md).
+> Statut : **livré** (`0.1.0`). Clavier, souris et manette (XInput) jouables/navigables, remappage
+> inclus. Dépend de [`gameplay.md`](gameplay.md).
 
 ## 1. Périphériques
 - \anchor EX-CTRL-001 **EX-CTRL-001** — Le jeu doit être jouable **entièrement au clavier**.

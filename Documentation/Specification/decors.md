@@ -8,7 +8,7 @@
 > planifiée.
 
 ## Vision
-Les décors sont issus de **photos réelles converties en pixel art**, plaçables et transformables. Ils sont manipulables par le **level designer** (dans l'éditeur) et, **à terme, par le joueur** (mécanique de gameplay).
+Les décors sont issus de **photos réelles converties en pixel art**, plaçables et transformables. Ils sont manipulables par le **level designer** (dans l'éditeur) et, **à terme, par le joueur** (mécanique de gameplay). Concrétise l'objectif produit `EX-VIS-007` (`vision.md`).
 
 ## 1. Système de décors
 - \anchor EX-DEC-001 **EX-DEC-001** — Un décor est un **objet libre** (non calé sur la grille de tuiles) doté d'un **transform** (position, échelle, rotation optionnelle) en unités monde.
@@ -39,7 +39,8 @@ permet au joueur de distinguer d'un coup d'œil le décor du physique.
 
 ## 3. Pipeline photo → pixel art (intégré à l'éditeur)
 - \anchor EX-DEC-030 **EX-DEC-030** — L'éditeur permet de **charger une photo** et de la **convertir en pixel art** (pixellisation, réduction de palette) — traitement **intégré à l'outil**.
-- \anchor EX-DEC-031 **EX-DEC-031** — Les **paramètres de conversion** sont ajustables (taille de pixel / résolution cible, palette).
+- \anchor EX-DEC-031 **EX-DEC-031** — Les **paramètres de conversion** sont ajustables (taille de pixel / résolution cible, palette). **Post-MVP** : fait partie de la section 3, hors périmètre du
+  programme `0.1.0` (cf. chapeau de statut ci-dessus) ; non traité par ce lot (`LOT-66`).
 - \anchor EX-DEC-032 **EX-DEC-032** — L'image pixel art résultante est enregistrée comme **asset** dans `Source/Elements` et référencée par le décor.
 
 > Dépendance à prévoir : une capacité de **traitement d'image** côté éditeur (bibliothèque à ajouter dans `External/`, par ex. `stb_image` pour le chargement) — décision de dépendance prise au lot correspondant.
