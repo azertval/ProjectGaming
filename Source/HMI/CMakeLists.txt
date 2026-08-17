@@ -256,26 +256,28 @@ endif()
 
 # Copie des assets à côté de l'exécutable, pour que l'éditeur charge niveaux et traductions
 # relativement à son binaire.
-add_custom_command(TARGET ProjectGaming POST_BUILD
+#
+# Cible séparée (et non des POST_BUILD sur ProjectGaming) : sous Ninja, un POST_BUILD est fondu
+# dans l'arête de build de l'exécutable et n'est rejoué que si celle-ci l'est — c'est-à-dire quand
+# un .obj change. Modifier uniquement un fichier sous Source/Elements/{Levels,Assets,...} ne
+# touche aucun .obj, donc l'exécutable reste « à jour » aux yeux de Ninja et la copie est silencieusement
+# sautée, même via un `cmake --build` complet, sans cible restreinte. Une cible dédiée sans sortie
+# déclarée est toujours considérée sale par Ninja et s'exécute donc à chaque build.
+add_custom_target(CopyGameData ALL
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${PROJECT_SOURCE_DIR}/Source/Elements/Localization
         $<TARGET_FILE_DIR:ProjectGaming>/Localization
-    COMMENT "Copie des catalogues de traduction (.lang)")
-add_custom_command(TARGET ProjectGaming POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${PROJECT_SOURCE_DIR}/Source/Elements/Levels
         $<TARGET_FILE_DIR:ProjectGaming>/Levels
-    COMMENT "Copie des niveaux (.json)")
-add_custom_command(TARGET ProjectGaming POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${PROJECT_SOURCE_DIR}/Source/Elements/Assets
         $<TARGET_FILE_DIR:ProjectGaming>/Assets
-    COMMENT "Copie des assets graphiques (atlas de textures, LOT-39)")
-add_custom_command(TARGET ProjectGaming POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${PROJECT_SOURCE_DIR}/Source/Elements/Audio
         $<TARGET_FILE_DIR:ProjectGaming>/Audio
-    COMMENT "Copie des bruitages (.wav, LOT-60)")
+    COMMENT "Copie des données de jeu (traductions, niveaux, assets, audio)")
+add_dependencies(ProjectGaming CopyGameData)
 
 # Déploiement Qt : copie les DLL Qt (plateforme, styles) à côté de l'exécutable pour que
 # l'utilisateur final n'ait **aucune bibliothèque à installer** — un simple dossier exécutable
