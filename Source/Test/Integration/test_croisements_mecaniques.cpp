@@ -67,8 +67,8 @@ struct Scene {
     void spawn(int column, int row) {
         player = world.createEntity();
         const core::Vector2 size = core::playerSize();
-        world.addComponent(
-            player, core::Transform{core::playerSpawnPosition(column, row), size, 0.0f});
+        world.addComponent(player,
+                           core::Transform{core::playerSpawnPosition(column, row), size, 0.0f});
         world.addComponent(player, core::Velocity{});
         world.addComponent(player, core::Collider{size});
         world.addComponent(player, core::Player{});
@@ -355,9 +355,8 @@ TEST(CroisementsMecaniques, DashSurUnePlaqueLActiveAuPassage) {
     floorAt(tiles, 5);
     tiles.setTile(6, 4, core::TileType::PressurePlate);
     tiles.setTile(12, 2, core::TileType::Door);
-    const std::vector<core::Mechanism> mechanisms{
-        core::Mechanism{.switchPosition = core::GridPosition{6, 4},
-                        .doorPosition = core::GridPosition{12, 2}}};
+    const std::vector<core::Mechanism> mechanisms{core::Mechanism{
+        .switchPosition = core::GridPosition{6, 4}, .doorPosition = core::GridPosition{12, 2}}};
     core::Level level("dash-plaque", tiles, core::GridPosition{1, 4}, core::GridPosition{15, 4},
                       mechanisms);
     Scene scene(level);
@@ -397,9 +396,8 @@ TEST(CroisementsMecaniques, BlocSurPlaqueTientLaPorteOuverteApresLeDepart) {
     tiles.setTile(4, 4, core::TileType::Block);
     tiles.setTile(8, 4, core::TileType::PressurePlate);
     tiles.setTile(12, 2, core::TileType::Door);
-    const std::vector<core::Mechanism> mechanisms{
-        core::Mechanism{.switchPosition = core::GridPosition{8, 4},
-                        .doorPosition = core::GridPosition{12, 2}}};
+    const std::vector<core::Mechanism> mechanisms{core::Mechanism{
+        .switchPosition = core::GridPosition{8, 4}, .doorPosition = core::GridPosition{12, 2}}};
     core::Level level("bloc-plaque", tiles, core::GridPosition{1, 4}, core::GridPosition{15, 4},
                       mechanisms);
     Scene scene(level);
@@ -426,7 +424,8 @@ TEST(CroisementsMecaniques, BlocSurPlaqueTientLaPorteOuverteApresLeDepart) {
  * léger pour enfoncer une plaque (masse = facteur de taille, cf. `core::BlockController::massAt`).
  * La règle est lisible pour le level designer — seul un bloc plein fait le poids — et distingue les
  * caisses par leur taille plutôt que par une propriété invisible.
- * \castest{<b>Un bloc réduit posé sur une plaque de pression est trop léger pour l'enfoncer.</b><br/>
+ * \castest{<b>Un bloc réduit posé sur une plaque de pression est trop léger pour
+ * l'enfoncer.</b><br/>
  * \tcat Integration · Croisements<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
@@ -440,9 +439,8 @@ TEST(CroisementsMecaniques, BlocReduitTropLegerPourEnfoncerLaPlaque) {
     tiles.setTile(4, 4, core::TileType::BlockHalf);
     tiles.setTile(8, 4, core::TileType::PressurePlate);
     tiles.setTile(12, 2, core::TileType::Door);
-    const std::vector<core::Mechanism> mechanisms{
-        core::Mechanism{.switchPosition = core::GridPosition{8, 4},
-                        .doorPosition = core::GridPosition{12, 2}}};
+    const std::vector<core::Mechanism> mechanisms{core::Mechanism{
+        .switchPosition = core::GridPosition{8, 4}, .doorPosition = core::GridPosition{12, 2}}};
     core::Level level("bloc-leger-plaque", tiles, core::GridPosition{1, 4},
                       core::GridPosition{15, 4}, mechanisms);
     Scene scene(level);
@@ -481,11 +479,10 @@ TEST(CroisementsMecaniques, PorteQuiSeRefermeSurLePersonnageEstMortelle) {
     floorAt(tiles, 5);
     tiles.setTile(3, 4, core::TileType::PressurePlate);
     tiles.setTile(4, 4, core::TileType::Door);  // porte juste apres la plaque, sur le chemin
-    const std::vector<core::Mechanism> mechanisms{
-        core::Mechanism{.switchPosition = core::GridPosition{3, 4},
-                        .doorPosition = core::GridPosition{4, 4}}};
-    core::Level level("porte-ecrasante", tiles, core::GridPosition{1, 4},
-                      core::GridPosition{11, 4}, mechanisms);
+    const std::vector<core::Mechanism> mechanisms{core::Mechanism{
+        .switchPosition = core::GridPosition{3, 4}, .doorPosition = core::GridPosition{4, 4}}};
+    core::Level level("porte-ecrasante", tiles, core::GridPosition{1, 4}, core::GridPosition{11, 4},
+                      mechanisms);
     Scene scene(level);
     scene.spawn(1, 4);
 
@@ -554,9 +551,8 @@ TEST(CroisementsMecaniques, PlateformeMobileTraverseUnePorteFermee) {
     tiles.setTile(3, 4, core::TileType::Switch);
     tiles.setTile(8, 4, core::TileType::Door);  // fermee au depart, sur le trajet de la plateforme
     tiles.setTile(2, 4, core::TileType::MovingPlatform);
-    const std::vector<core::Mechanism> mechanisms{
-        core::Mechanism{.switchPosition = core::GridPosition{3, 4},
-                        .doorPosition = core::GridPosition{8, 4}}};
+    const std::vector<core::Mechanism> mechanisms{core::Mechanism{
+        .switchPosition = core::GridPosition{3, 4}, .doorPosition = core::GridPosition{8, 4}}};
     const std::vector<core::MovingPlatformConfig> platforms{
         core::MovingPlatformConfig{.startPosition = core::GridPosition{2, 4},
                                    .endPosition = core::GridPosition{12, 4},
@@ -599,9 +595,9 @@ TEST(CroisementsMecaniques, PlateformeMobileEmporteLeBlocPose) {
         core::MovingPlatformConfig{.startPosition = core::GridPosition{2, 5},
                                    .endPosition = core::GridPosition{12, 5},
                                    .speed = 3.0f}};
-    core::Level level("plateforme-bloc", tiles, core::GridPosition{1, 6},
-                      core::GridPosition{15, 6}, std::vector<core::Mechanism>{}, -1, -1, {}, {}, {},
-                      std::nullopt, std::nullopt, {}, {}, platforms);
+    core::Level level("plateforme-bloc", tiles, core::GridPosition{1, 6}, core::GridPosition{15, 6},
+                      std::vector<core::Mechanism>{}, -1, -1, {}, {}, {}, std::nullopt,
+                      std::nullopt, {}, {}, platforms);
     Scene scene(level);
     scene.spawn(1, 6);
 

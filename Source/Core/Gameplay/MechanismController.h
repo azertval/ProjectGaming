@@ -28,8 +28,8 @@ namespace core {
  * produites.
  */
 struct TriggerWeight {
-    Aabb box;          ///< Boîte réelle du poids, en unités monde.
-    float mass = 1.0F; ///< Masse, comparée au même seuil que celle du personnage.
+    Aabb box;           ///< Boîte réelle du poids, en unités monde.
+    float mass = 1.0F;  ///< Masse, comparée au même seuil que celle du personnage.
 };
 
 /**

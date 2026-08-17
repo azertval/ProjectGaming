@@ -16,10 +16,9 @@ namespace {
 
 hmi::Localization testLocalization() {
     hmi::Localization localization;
-    localization.setDefaultCatalog(
-        "fr", {{"hud.jumps_remaining", "Sauts : %1"},
-               {"hud.dashes_remaining", "Dashs : %1"},
-               {"hud.interact_prompt", "Interagir pour ramasser"}});
+    localization.setDefaultCatalog("fr", {{"hud.jumps_remaining", "Sauts : %1"},
+                                          {"hud.dashes_remaining", "Dashs : %1"},
+                                          {"hud.interact_prompt", "Interagir pour ramasser"}});
     return localization;
 }
 

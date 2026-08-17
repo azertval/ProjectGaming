@@ -407,8 +407,9 @@ std::vector<ScriptedLevel> scriptedSequence() {
          [](int, const core::Player& player, float x, float) {
              core::PlayerInput in{1.0f};
              in.jumpHeld = true;
-             in.jumpPressed = player.grounded && (atLedge(x, 6.0f, 0.6f) || atLedge(x, 12.0f, 0.6f) ||
-                                                  atLedge(x, 18.0f, 0.6f));
+             in.jumpPressed =
+                 player.grounded &&
+                 (atLedge(x, 6.0f, 0.6f) || atLedge(x, 12.0f, 0.6f) || atLedge(x, 18.0f, 0.6f));
              return in;
          }},
         // 3. Double saut (EX-GP-015) : DEUX paliers a trois cases, hors de portee d'un saut simple
@@ -452,8 +453,8 @@ std::vector<ScriptedLevel> scriptedSequence() {
         {"demo-dash.json",
          [](int, const core::Player&, float x, float) {
              core::PlayerInput in{1.0f};
-             in.dashPressed = atLedge(x, 5.0f, 0.35f) || atLedge(x, 13.0f, 0.35f) ||
-                              atLedge(x, 21.0f, 0.35f);
+             in.dashPressed =
+                 atLedge(x, 5.0f, 0.35f) || atLedge(x, 13.0f, 0.35f) || atLedge(x, 21.0f, 0.35f);
              return in;
          }},
         // 6. Synthese de l'acte I (LOT-65 TACHE-07) : ruee sous un plafond bas au-dessus d'une
@@ -495,8 +496,8 @@ std::vector<ScriptedLevel> scriptedSequence() {
          [](int, const core::Player& player, float x, float) {
              core::PlayerInput in{1.0f};
              in.jumpHeld = true;
-             in.jumpPressed = player.grounded && ((x >= 4.0f && x <= 4.6f) ||
-                                                  (x >= 10.0f && x <= 10.6f));
+             in.jumpPressed =
+                 player.grounded && ((x >= 4.0f && x <= 4.6f) || (x >= 10.0f && x <= 10.6f));
              return in;
          }},
         // 8. Plaque de pression (EX-GP-025, LOT-65) : le poids doit RESTER. Le personnage pousse
@@ -540,8 +541,8 @@ std::vector<ScriptedLevel> scriptedSequence() {
          [](int, const core::Player& player, float x, float) {
              core::PlayerInput in{1.0f};
              in.jumpHeld = true;
-             in.jumpPressed = player.grounded && ((x >= 9.8f && x <= 10.8f) ||
-                                                  (x >= 14.8f && x <= 15.8f));
+             in.jumpPressed =
+                 player.grounded && ((x >= 9.8f && x <= 10.8f) || (x >= 14.8f && x <= 15.8f));
              return in;
          }},
         // 12. Bloc a taille quart (EX-GP-005) : trop petit pour combler quoi que ce soit, il
@@ -558,7 +559,8 @@ std::vector<ScriptedLevel> scriptedSequence() {
              return in;
          }},
         // 14. Pentes et arrondis (EX-GP-003/004) : fusionne l'ancien demo-arrondi, qui reprenait le
-        //     meme trace a une tuile pres. Trois marches inclinees a monter, une fosse a franchir --
+        //     meme trace a une tuile pres. Trois marches inclinees a monter, une fosse a franchir
+        //     --
         //     c'est elle qui interdit de traverser le tableau en marchant --, puis une descente par
         //     une pente et un arrondi orientes a gauche. Aucun dash : une pente franchissable a la
         //     marche ne l'est pas au dash (defaut moteur consigne, TACHE-06).
@@ -594,16 +596,17 @@ std::vector<ScriptedLevel> scriptedSequence() {
          }},
         // 17. Plafond incline (EX-GP-006) : les quatre variantes bordent le couloir juste au-dessus
         //     de la tete, et chaque fosse a franchir est surmontee d'une silhouette qui raccourcit
-        //     le saut -- il faut passer SOUS elle. Elles etaient jusqu'ici en ligne 2 au-dessus d'un
+        //     le saut -- il faut passer SOUS elle. Elles etaient jusqu'ici en ligne 2 au-dessus
+        //     d'un
         //     couloir en ligne 7, soit deux fois la hauteur d'un saut : le tableau se traversait en
         //     ligne droite sans jamais approcher son sujet.
         {"demo-plafond.json",
          [](int, const core::Player& player, float x, float) {
              core::PlayerInput in{1.0f};
              in.jumpHeld = true;
-             in.jumpPressed = player.grounded && (atLedge(x, 6.0f, 0.6f) ||
-                                                  atLedge(x, 11.0f, 0.6f) ||
-                                                  atLedge(x, 16.0f, 0.6f));
+             in.jumpPressed =
+                 player.grounded &&
+                 (atLedge(x, 6.0f, 0.6f) || atLedge(x, 11.0f, 0.6f) || atLedge(x, 16.0f, 0.6f));
              return in;
          }},
         // 18. Dangers directionnels (EX-GP-050) : les quatre orientations bordent le couloir. Les
@@ -616,9 +619,9 @@ std::vector<ScriptedLevel> scriptedSequence() {
          [](int, const core::Player& player, float x, float) {
              core::PlayerInput in{1.0f};
              in.jumpHeld = true;
-             in.jumpPressed = player.grounded && (atLedge(x, 7.0f, 0.6f) ||
-                                                  atLedge(x, 15.0f, 0.6f) ||
-                                                  atLedge(x, 23.0f, 0.6f));
+             in.jumpPressed =
+                 player.grounded &&
+                 (atLedge(x, 7.0f, 0.6f) || atLedge(x, 15.0f, 0.6f) || atLedge(x, 23.0f, 0.6f));
              return in;
          }},
         // 19. Dangers avances (EX-GP-051/052/053) : l'interrupteur ARME les dangers commutes places
@@ -678,7 +681,8 @@ std::vector<ScriptedLevel> scriptedSequence() {
              }
              return in;
          }},
-        // 21. Budget de mouvements (EX-GP-024) : le trajet demande EXACTEMENT quatre sauts puis deux
+        // 21. Budget de mouvements (EX-GP-024) : le trajet demande EXACTEMENT quatre sauts puis
+        // deux
         //     un budget borné à quatre (marge d'un saut).
         // Deux sauts déclenchés une fois chacun (drapeaux), juste au bord de chaque fossé -- pas
         // plus tôt : décoller trop en amont consomme la portée horizontale du saut sur du sol déjà
@@ -689,10 +693,9 @@ std::vector<ScriptedLevel> scriptedSequence() {
              core::PlayerInput in{1.0f};
              in.jumpHeld = true;
              // Quatre marches ascendantes, un saut chacune -- exactement le budget.
-             in.jumpPressed = player.grounded && (atLedge(x, 6.0f, 0.6f) ||
-                                                  atLedge(x, 12.0f, 0.6f) ||
-                                                  atLedge(x, 18.0f, 0.6f) ||
-                                                  atLedge(x, 24.0f, 0.6f));
+             in.jumpPressed =
+                 player.grounded && (atLedge(x, 6.0f, 0.6f) || atLedge(x, 12.0f, 0.6f) ||
+                                     atLedge(x, 18.0f, 0.6f) || atLedge(x, 24.0f, 0.6f));
              // Puis un couloir d'une case de haut : deux fosses, deux ruees -- le reste du budget.
              in.dashPressed = atLedge(x, 29.0f, 0.35f) || atLedge(x, 35.0f, 0.35f);
              return in;
@@ -707,9 +710,9 @@ std::vector<ScriptedLevel> scriptedSequence() {
              in.jumpHeld = true;
              // Trois sauts : toucher l'interrupteur du plafond (case 4), franchir la fosse ou le
              // bloc est tombe sur la plaque (case 17), puis les pics du couloir (case 25).
-             in.jumpPressed = player.grounded && (atLedge(x, 4.0f, 0.7f) ||
-                                                  atLedge(x, 17.0f, 0.6f) ||
-                                                  atLedge(x, 25.0f, 0.6f));
+             in.jumpPressed =
+                 player.grounded &&
+                 (atLedge(x, 4.0f, 0.7f) || atLedge(x, 17.0f, 0.6f) || atLedge(x, 25.0f, 0.6f));
              return in;
          }},
         // 23. Final multi-salles (LOT-65 TACHE-09) : absorbe l'ancien demo-salles, qui portait 272
@@ -791,8 +794,7 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
         const PlayTrace trace = playLevelTraced(level);
         // Le message porte la position atteinte : redessiner un tableau demande de savoir OU le
         // scenario s'arrete, pas seulement qu'il echoue.
-        const core::Vector2 last =
-            trace.centers.empty() ? core::Vector2{} : trace.centers.back();
+        const core::Vector2 last = trace.centers.empty() ? core::Vector2{} : trace.centers.back();
         EXPECT_EQ(trace.outcome, core::LevelOutcome::Won)
             << "niveau : " << level.file << " (arret en x=" << last.x << " y=" << last.y
             << " apres " << trace.centers.size() << " pas)";
@@ -861,7 +863,8 @@ TEST(ParcoursCompletSysteme, GardeFouDeProximiteSignaleUneMecaniqueHorsDePortee)
 
     // Sur le trajet : à une case au-dessus, largement à portée.
     EXPECT_TRUE(withinReach(core::GridPosition{.column = 5, .row = 5}, centers));
-    // Hors de portée : la géométrie exacte de demo-plafond livré (tuile en ligne 2, sol en ligne 7).
+    // Hors de portée : la géométrie exacte de demo-plafond livré (tuile en ligne 2, sol en ligne
+    // 7).
     EXPECT_FALSE(withinReach(core::GridPosition{.column = 5, .row = 2}, centers));
     // Hors de portée horizontalement : au-delà de la fin du trajet.
     EXPECT_FALSE(withinReach(core::GridPosition{.column = 20, .row = 6}, centers));

@@ -128,7 +128,8 @@ CoverageState scanDeliveredSequence() {
     }
 
     for (const std::string& file : sequenceResult.sequence->levels) {
-        const std::filesystem::path levelPath = std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / file;
+        const std::filesystem::path levelPath =
+            std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / file;
         const core::LevelLoadResult levelResult = core::LevelLoader::loadFromFile(levelPath);
         if (!levelResult.ok()) {
             // Un niveau invalide est un défaut distinct, déjà signalé ailleurs (chargement,
@@ -219,8 +220,8 @@ std::string describeMissing(const CoverageState& state) {
         out << "types de tuile posés moins de " << MIN_OCCURRENCES << " fois : ";
         for (const core::TileType type : missingTypes) {
             const auto found = state.typeCounts.find(type);
-            out << core::tileTypeName(type) << "(" << (found == state.typeCounts.end() ? 0 : found->second)
-                << ") ";
+            out << core::tileTypeName(type) << "("
+                << (found == state.typeCounts.end() ? 0 : found->second) << ") ";
         }
         out << "; ";
     }
@@ -331,8 +332,8 @@ TEST(CouvertureMecaniques, GardeFouSensibleAUneMecaniqueManquante) {
 
     // Même démonstration côté modes de cadrage.
     std::set<core::CameraFramingMode> coveredModes = {core::CameraFramingMode::WholeLevel,
-                                                       core::CameraFramingMode::PerRoom,
-                                                       core::CameraFramingMode::Follow};
+                                                      core::CameraFramingMode::PerRoom,
+                                                      core::CameraFramingMode::Follow};
     coveredModes.erase(core::CameraFramingMode::Follow);
     const std::vector<core::CameraFramingMode> missingModes = missingFramingModes(coveredModes);
     ASSERT_EQ(missingModes.size(), 1U);
