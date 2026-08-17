@@ -42,16 +42,23 @@ Le moteur physique est complet et **jouable** :
 - **Collisions** par **balayage continu** (swept AABB) : aucune traversée à vitesse élevée.
 - **Niveaux** en tuiles typées, de taille arbitraire, chargés depuis des fichiers **JSON**, avec
   **validation**.
-- **Mécanismes** interrupteur ↔ porte, **plaque de pression**, et **budget de mouvements**
-  (sauts/dashs limités par tableau) pour des tableaux **puzzle**.
+- **Mécanismes** interrupteur ↔ porte, **plaque de pression**, **clé et porte verrouillée**,
+  **plateforme mobile**, action **Interagir**, et **budget de mouvements** (sauts/dashs limités par
+  tableau) pour des tableaux **puzzle**.
 - **Éditeur de niveaux** intégré : peinture à la souris, outils rectangle/sélection, liaison de
-  mécanismes, undo/redo, essai immédiat, guide non-codeur pour partager un niveau via Git.
-- **Enchaînement de niveaux** en séquence (titre → niveaux → titre), **menu** multilingue (fr/en),
+  mécanismes, undo/redo, essai immédiat, guide non-codeur pour partager un niveau via Git ; le level
+  designer choisit le **cadrage de caméra** (par salle, niveau entier ou suivi) tableau par tableau.
+- **Enchaînement de niveaux** en séquence (titre → niveaux → titre), **pause** en cours de partie,
+  **progression persistée** (reprise au tableau exact, y compris après avoir quitté), vingt-deux
+  tableaux de démonstration couvrant l'intégralité des mécaniques, **menu** multilingue (fr/en),
   **menu d'options** (V-Sync, volume, langue), jouable/navigable au **clavier, à la souris et à la
   manette** (XInput).
 - **Bruitages** (Qt Multimedia) : saut, atterrissage, dash, mécanismes, mort, victoire de tableau,
   navigation de menu — volume réglable et persisté, jeu pleinement jouable en silence sans
-  périphérique audio.
+  périphérique audio. **Effets de particules** sur les mouvements du personnage (saut, atterrissage,
+  dash).
+- **Diagnostics** : compteur de budget de rendu affichable (`F9`), et journal de session
+  enregistré sur disque — un défaut rencontré par un joueur laisse une trace exploitable.
 
 Le moteur est **habillé** (programme `LOT-40` → `LOT-55`) :
 

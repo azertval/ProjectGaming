@@ -6,7 +6,39 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+## [0.1.0] - 2026-08-17
+
+> Sixième jalon, et premier qui **annonce un jeu** plutôt qu'un moteur : les jalons `0.0.x`
+> construisaient les briques, celui-ci les assemble en une expérience qui se termine, qui se
+> retient et qui se fait entendre.
+>
+> On peut désormais **mettre le jeu en pause**, voir **la fin d'un tableau** marquée clairement, et
+> **retrouver sa progression** au tableau exact où on l'a quittée plutôt que de repartir du premier
+> niveau à chaque lancement (`LOT-59`). Sauter, atterrir, dasher, activer un interrupteur, mourir et
+> gagner un tableau **font du bruit** — volume réglable et persisté, jeu pleinement jouable en
+> silence (`LOT-60`). Des **effets de particules** accompagnent les mouvements du personnage
+> (`LOT-53`). Trois mécanismes que les spécifications annonçaient depuis le début arrivent enfin :
+> l'action « Interagir », les clés et portes verrouillées, les plateformes mobiles (`LOT-63`). Le
+> level designer choisit désormais le **cadrage de caméra** d'un niveau plutôt que de le subir
+> (`LOT-64`). Un défaut rencontré par un joueur sur la version publiée laisse maintenant une
+> **trace exploitable** (`LOT-61`). Le budget de rendu et l'empreinte mémoire, jusque-là de simples
+> promesses, sont désormais **mesurés à chaque build** (`LOT-62`).
+>
+> Les vingt-deux tableaux de démonstration ont été **entièrement redessinés** pour que chacun
+> exploite réellement sa mécanique plutôt que la contourner, banque d'assets et personnage refaits
+> en conséquence (`LOT-65`).
+>
+> Ce jalon règle enfin les trois derniers écarts qui séparaient le dépôt d'une publication propre :
+> Qt épinglé et vérifié sur les trois environnements, numéro de version qui n'existe plus qu'à un
+> seul endroit, et référentiel de spécifications qui dit la vérité sur ce qui est livré (`LOT-66`).
+>
+> **1119 tests** (943 au jalon précédent).
+
 ### Ajouté
+- **LOT-66 TACHE-04 — Bascule `0.1.0` et vérification finale.** `project(VERSION)` passe à `0.1.0`,
+  seul endroit où le numéro est écrit (`TACHE-02`). `README.md` mis à jour pour décrire le jeu
+  livré (pause, progression, son, effets, mécanismes ajoutés) plutôt que le moteur du jalon
+  précédent. Notes de release vérifiées (`scripts/extract_release_notes.py v0.1.0`).
 - **LOT-66 TACHE-03 — Statuts des spécifications et exigences orphelines.** Huit fichiers sur dix
   restaient marqués « brouillon », certains depuis vingt lots, alors qu'ils décrivent un système
   livré. Chacun porte désormais un statut réel, daté (`0.1.0`), sur le modèle déjà appliqué à

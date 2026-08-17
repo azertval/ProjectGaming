@@ -1,8 +1,10 @@
 # LOT-66 — Reproductibilité et référentiel {#lot-66}
 
-> Statut : **non commencé**. Prérequis : tous les autres lots du programme `0.1.0`
-> ([LOT-58](@ref lot-58) → [LOT-65](@ref lot-65), et [LOT-53](@ref lot-53)) — c'est le **dernier lot
-> avant le tag `v0.1.0`**.
+> Statut : **fait** (vérification automatisée : build Debug/Release, `ctest` à 100 %, lint
+> d'exigences, cahier de test régénéré, séquence démo synchronisée, Doxygen vert ; l'essai réel du
+> zip Release hors machine de développement reste à faire avant de poser le tag, voir TACHE-04).
+> Prérequis : tous les autres lots du programme `0.1.0` ([LOT-58](@ref lot-58) → [LOT-65](@ref
+> lot-65), et [LOT-53](@ref lot-53)) — c'est le **dernier lot avant le tag `v0.1.0`**.
 
 ## Objectif
 Remettre le dépôt en état d'être publié : que la version se construise à l'identique partout, que
@@ -84,7 +86,7 @@ S'y ajoutent six exigences déclarées et jamais référencées, et la bascule d
 | [TACHE-01](tache-01-qt-epingle.md) | Qt épinglé et vérifié sur les trois environnements | `Source/HMI/CMakeLists.txt`, `.github/workflows` | ✅ |
 | [TACHE-02](tache-02-version-source-unique.md) | Numéro de version généré, plus jamais recopié | `scripts/build_docs.py`, `Documentation/Doxyfile` | ✅ |
 | [TACHE-03](tache-03-statuts-referentiel.md) | Statuts des spécifications et exigences orphelines | `Documentation/Specification` | ✅ |
-| [TACHE-04](tache-04-bascule-0-1-0.md) | Bascule `0.1.0` et vérification finale | `CMakeLists.txt`, `CHANGELOG.md` | ⬜ |
+| [TACHE-04](tache-04-bascule-0-1-0.md) | Bascule `0.1.0` et vérification finale | `CMakeLists.txt`, `CHANGELOG.md` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Construire sur un poste dont la version de Qt diffère de celle de la CI produit un message

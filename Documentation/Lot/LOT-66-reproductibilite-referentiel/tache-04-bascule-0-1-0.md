@@ -1,7 +1,8 @@
 # TACHE-04 — Bascule `0.1.0` et vérification finale {#lot-66-tache-04-bascule-0-1-0}
 
 **Lot :** [LOT-66](epic.md) · **Emplacement :** `CMakeLists.txt`, `CHANGELOG.md` ·
-**Statut :** non commencé
+**Statut :** fait (vérification automatisée ; essai réel du zip Release hors machine de
+développement réservé à l'utilisateur avant de poser le tag, voir DoD)
 
 ## Contexte
 Dernière tâche du programme. Le processus de publication est décrit dans `CONTRIBUTING.md` et il
