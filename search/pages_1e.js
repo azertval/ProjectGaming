@@ -335,7 +335,7 @@ var searchData=
   ['testable_332',['testable',['../lot-39-tache-01-loader-image-assets.html',1,'TACHE-01 — Loader image → texture D3D11 (`QImage`/`stb_image`) + résolution d&apos;assets testable'],['../lot-37-tache-01-primitive-ligne-geometrie.html',1,'TACHE-01 — Primitive de ligne/flèche (pipeline) + géométrie des traits (logique testable)'],['../lot-36-tache-02-operations-fichiers.html',1,'TACHE-02 — Opérations fichiers (créer/renommer/dupliquer/supprimer) + couche testable'],['../lot-01-tache-03-boucle-pas-fixe.html',1,'TACHE-03 — Boucle à pas de temps fixe (testable)']]],
   ['tester_20tout_20le_20trajet_20pas_20seulement_20l_20arrivée_333',['La solution : tester tout le trajet, pas seulement l&apos;arrivée',['../guide-physique.html#autotoc_md178',1,'']]],
   ['tests_334',['8. Tests',['../spec-conventions.html#autotoc_md266',1,'']]],
-  ['tests_335',['tests',['../spec-gameplay.html#autotoc_md304',1,'Ressenti (game feel) — ⚠️ à affiner par tests'],['../lot-09-tache-05-enchainement-niveaux.html#autotoc_md802',1,'Vérification / tests']]],
+  ['tests_335',['Vérification / tests',['../lot-09-tache-05-enchainement-niveaux.html#autotoc_md802',1,'']]],
   ['tests_20d_20intégration_2094_336',['Tests d&apos;intégration (94)',['../cahiertest.html#autotoc_md22',1,'']]],
   ['tests_20de_20croisement_337',['Batterie de tests de croisement',['../lot-65-tache-06-croisements-mecaniques.html#autotoc_md2975',1,'']]],
   ['tests_20documentation_20menu_20options_20contrôles_20vérification_338',['TACHE-04 — Nettoyage des tests, documentation (menu/options/contrôles) &amp;amp; vérification',['../lot-38-tache-04-nettoyage-tests-doc.html',1,'lot-38']]],

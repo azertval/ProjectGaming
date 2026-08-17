@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['0_0',['Programme &lt;span class=&quot;tt&quot;&gt;0.1.0&lt;/span&gt;',['../lots.html#autotoc_md3056',1,'']]],
-  ['0_201_200_1',['Programme &lt;span class=&quot;tt&quot;&gt;0.1.0&lt;/span&gt;',['../lots.html#autotoc_md3056',1,'']]],
+  ['0_0',['0',['../lots.html#autotoc_md3056',1,'Programme &lt;span class=&quot;tt&quot;&gt;0.1.0&lt;/span&gt;'],['../spec-gameplay.html#autotoc_md304',1,'Ressenti (game feel) — ⚠️ réglage fin reporté au-delà de &lt;span class=&quot;tt&quot;&gt;0.1.0&lt;/span&gt;']]],
+  ['0_201_200_1',['0 1 0',['../lots.html#autotoc_md3056',1,'Programme &lt;span class=&quot;tt&quot;&gt;0.1.0&lt;/span&gt;'],['../spec-gameplay.html#autotoc_md304',1,'Ressenti (game feel) — ⚠️ réglage fin reporté au-delà de &lt;span class=&quot;tt&quot;&gt;0.1.0&lt;/span&gt;']]],
   ['0_201_200_20et_20vérification_20finale_2',['TACHE-04 — Bascule `0.1.0` et vérification finale',['../lot-66-tache-04-bascule-0-1-0.html',1,'lot-66']]],
   ['0_204×0_208_20sprite_3',['TACHE-03 — Personnage humanoïde (spawn 0,4×0,8, sprite)',['../lot-11-tache-03-personnage-humanoide.html',1,'lot-11']]],
   ['0_20et_20vérification_20finale_4',['TACHE-04 — Bascule `0.1.0` et vérification finale',['../lot-66-tache-04-bascule-0-1-0.html',1,'lot-66']]],

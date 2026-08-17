@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.0</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,7 +94,7 @@ $(function(){initNavTree('lot-66.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-66-reproductibilite-referentiel_2epic"></a></p>
 <blockquote class="doxtable">
-<p>Statut : <b>non commencé</b>. Prérequis : tous les autres lots du programme <span class="tt">0.1.0</span> (<a class="el" href="lot-58.html" title="LOT-58 — Vérification Release, sanitizer et analyse statique">LOT-58</a> → <a class="el" href="lot-65.html" title="LOT-65 — Refonte des niveaux de démonstration">LOT-65</a>, et <a class="el" href="lot-53.html" title="LOT-53 — Effets et particules">LOT-53</a>) — c'est le <b>dernier lot avant le tag <span class="tt">v0.1.0</span></b>. </p>
+<p>Statut : <b>fait</b> (vérification automatisée : build Debug/Release, <span class="tt">ctest</span> à 100 %, lint d'exigences, cahier de test régénéré, séquence démo synchronisée, Doxygen vert ; l'essai réel du zip Release hors machine de développement reste à faire avant de poser le tag, voir TACHE-04). Prérequis : tous les autres lots du programme <span class="tt">0.1.0</span> (<a class="el" href="lot-58.html" title="LOT-58 — Vérification Release, sanitizer et analyse statique">LOT-58</a> → [LOT-65](<a class="el" href="lot-65.html" title="LOT-65 — Refonte des niveaux de démonstration">LOT-65 — Refonte des niveaux de démonstration</a>), et <a class="el" href="lot-53.html" title="LOT-53 — Effets et particules">LOT-53</a>) — c'est le <b>dernier lot avant le tag <span class="tt">v0.1.0</span></b>. </p>
 </blockquote>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md3017"></a>
 Objectif</h1>
@@ -149,13 +149,13 @@ Découpage</h1>
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Tâche  </th><th class="markdownTableHeadNone">Intitulé  </th><th class="markdownTableHeadNone">Emplacement  </th><th class="markdownTableHeadCenter">État  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="lot-66-tache-01-qt-epingle.html#md_Lot_2LOT-66-reproductibilite-referentiel_2tache-01-qt-epingle" title="Lot/LOT-66-reproductibilite-referentiel/tache-01-qt-epingle.md">TACHE-01</a>  </td><td class="markdownTableBodyNone">Qt épinglé et vérifié sur les trois environnements  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/CMakeLists.txt</span>, <span class="tt">.github/workflows</span>  </td><td class="markdownTableBodyCenter">⬜  </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="lot-66-tache-01-qt-epingle.html#md_Lot_2LOT-66-reproductibilite-referentiel_2tache-01-qt-epingle" title="Lot/LOT-66-reproductibilite-referentiel/tache-01-qt-epingle.md">TACHE-01</a>  </td><td class="markdownTableBodyNone">Qt épinglé et vérifié sur les trois environnements  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/CMakeLists.txt</span>, <span class="tt">.github/workflows</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a class="el" href="lot-66-tache-02-version-source-unique.html#md_Lot_2LOT-66-reproductibilite-referentiel_2tache-02-version-source-unique" title="Lot/LOT-66-reproductibilite-referentiel/tache-02-version-source-unique.md">TACHE-02</a>  </td><td class="markdownTableBodyNone">Numéro de version généré, plus jamais recopié  </td><td class="markdownTableBodyNone"><span class="tt">scripts/build_docs.py</span>, <span class="tt">Documentation/Doxyfile</span>  </td><td class="markdownTableBodyCenter">⬜  </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="lot-66-tache-02-version-source-unique.html#md_Lot_2LOT-66-reproductibilite-referentiel_2tache-02-version-source-unique" title="Lot/LOT-66-reproductibilite-referentiel/tache-02-version-source-unique.md">TACHE-02</a>  </td><td class="markdownTableBodyNone">Numéro de version généré, plus jamais recopié  </td><td class="markdownTableBodyNone"><span class="tt">scripts/build_docs.py</span>, <span class="tt">Documentation/Doxyfile</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="lot-66-tache-03-statuts-referentiel.html#md_Lot_2LOT-66-reproductibilite-referentiel_2tache-03-statuts-referentiel" title="Lot/LOT-66-reproductibilite-referentiel/tache-03-statuts-referentiel.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Statuts des spécifications et exigences orphelines  </td><td class="markdownTableBodyNone"><span class="tt">Documentation/Specification</span>  </td><td class="markdownTableBodyCenter">⬜  </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="lot-66-tache-03-statuts-referentiel.html#md_Lot_2LOT-66-reproductibilite-referentiel_2tache-03-statuts-referentiel" title="Lot/LOT-66-reproductibilite-referentiel/tache-03-statuts-referentiel.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Statuts des spécifications et exigences orphelines  </td><td class="markdownTableBodyNone"><span class="tt">Documentation/Specification</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a class="el" href="lot-66-tache-04-bascule-0-1-0.html#md_Lot_2LOT-66-reproductibilite-referentiel_2tache-04-bascule-0-1-0" title="Lot/LOT-66-reproductibilite-referentiel/tache-04-bascule-0-1-0.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Bascule <span class="tt">0.1.0</span> et vérification finale  </td><td class="markdownTableBodyNone"><span class="tt">CMakeLists.txt</span>, <span class="tt">CHANGELOG.md</span>  </td><td class="markdownTableBodyCenter">⬜  </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="lot-66-tache-04-bascule-0-1-0.html#md_Lot_2LOT-66-reproductibilite-referentiel_2tache-04-bascule-0-1-0" title="Lot/LOT-66-reproductibilite-referentiel/tache-04-bascule-0-1-0.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Bascule <span class="tt">0.1.0</span> et vérification finale  </td><td class="markdownTableBodyNone"><span class="tt">CMakeLists.txt</span>, <span class="tt">CHANGELOG.md</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md3024"></a>
 Critères d'acceptation du lot</h1>

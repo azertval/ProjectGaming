@@ -17,7 +17,7 @@ var specifications =
       ] ],
       [ "2. Personnage &amp; déplacement", "spec-gameplay.html#autotoc_md302", [
         [ "Mécaniques aériennes avancées (au-delà du MVP)", "spec-gameplay.html#autotoc_md303", null ],
-        [ "Ressenti (game feel) — ⚠️ à affiner par tests", "spec-gameplay.html#autotoc_md304", null ]
+        [ "Ressenti (game feel) — ⚠️ réglage fin reporté au-delà de <span class=\"tt\">0.1.0</span>", "spec-gameplay.html#autotoc_md304", null ]
       ] ],
       [ "3. Mécanismes de puzzle", "spec-gameplay.html#autotoc_md305", null ],
       [ "4. Conditions de fin de niveau", "spec-gameplay.html#autotoc_md306", null ],

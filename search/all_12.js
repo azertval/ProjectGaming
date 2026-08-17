@@ -14,7 +14,7 @@ var searchData=
   ['game_11',['Game',['../namespacehmi.html#a168b24f798c2e6d06beb9472a071528da63d72051e901c069f8aa1b32aa0c43bb',1,'hmi']]],
   ['game_2045_12',['Game (45)',['../cahiertest.html#autotoc_md17',1,'']]],
   ['game_20feel_13',['4. Saut et &lt;em&gt;game feel&lt;/em&gt;',['../guide-physique.html#autotoc_md189',1,'']]],
-  ['game_20feel_20—_20⚠️_20à_20affiner_20par_20tests_14',['Ressenti (game feel) — ⚠️ à affiner par tests',['../spec-gameplay.html#autotoc_md304',1,'']]],
+  ['game_20feel_20—_20⚠️_20réglage_20fin_20reporté_20au_20delà_20de_200_201_200_14',['Ressenti (game feel) — ⚠️ réglage fin reporté au-delà de &lt;span class=&quot;tt&quot;&gt;0.1.0&lt;/span&gt;',['../spec-gameplay.html#autotoc_md304',1,'']]],
   ['game_20feel_20et_20enchaînement_20de_20niveaux_15',['LOT-09 — Saut, game feel et enchaînement de niveaux',['../lot-09.html',1,'lots']]],
   ['game_5faction_5fcount_16',['GAME_ACTION_COUNT',['../namespacehmi.html#ab42b3bed825ef5b3664995a516c4eb8d',1,'hmi']]],
   ['game_5fevent_5fcount_17',['GAME_EVENT_COUNT',['../namespacehmi.html#aab9ebfc2ebacc5718532a560bfd830ea',1,'hmi']]],

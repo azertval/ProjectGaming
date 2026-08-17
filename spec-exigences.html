@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.0</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,7 +94,7 @@ $(function(){initNavTree('spec-exigences.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Specification_2exigences-non-fonctionnelles"></a></p>
 <blockquote class="doxtable">
-<p>Statut : <b>brouillon</b>. Transverse à toutes les specs. </p>
+<p>Statut : <b>livré</b> (<span class="tt">0.1.0</span>). Outillage qualité effectivement exécuté à chaque PR depuis <span class="tt">LOT-58</span> (CI Debug <b>et</b> Release, clang-tidy, clang-format, ASan, couverture agrégée, contrôles de reproductibilité du <span class="tt">LOT-66</span>). Transverse à toutes les specs. </p>
 </blockquote>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md293"></a>
 1. Performance</h1>
@@ -139,11 +139,12 @@ $(function(){initNavTree('spec-exigences.html','',''); });
 <h1 class="doxsection"><a class="anchor" id="autotoc_md298"></a>
 6. Build &amp; dépendances</h1>
 <ul>
-<li><a class="anchor" id="EX-BUILD-010"></a><b>EX-BUILD-010</b> — Une dépendance tierce <b>non gérable par <span class="tt">FetchContent</span></b> (SDK volumineux tel que <b>Qt</b>) doit être <b>provisionnée et documentée de façon reproductible</b> sur les trois environnements : poste local (installeur officiel ou <span class="tt">aqtinstall</span>), <b>CI</b> (étape d'installation dans le workflow, sur le runner épinglé) et <b>release</b> (déploiement des bibliothèques dynamiques requises à côté de l'exécutable, ex. <span class="tt">windeployqt</span>). La version est <b>épinglée</b> (<span class="tt">EX-NFR-031</span>) et la licence documentée. Introduit en <span class="tt">LOT-34</span>.</li>
+<li><a class="anchor" id="EX-BUILD-010"></a><b>EX-BUILD-010</b> — Une dépendance tierce <b>non gérable par <span class="tt">FetchContent</span></b> (SDK volumineux tel que <b>Qt</b>) doit être <b>provisionnée et documentée de façon reproductible</b> sur les trois environnements : poste local (installeur officiel ou <span class="tt">aqtinstall</span>), <b>CI</b> (étape d'installation dans le workflow, sur le runner épinglé) et <b>release</b> (déploiement des bibliothèques dynamiques requises à côté de l'exécutable, ex. <span class="tt">windeployqt</span>). La version est <b>épinglée</b> (<span class="tt">EX-NFR-031</span>) et la licence documentée. Introduit en <span class="tt">LOT-34</span>. Le poste local déclare une version minimale (<span class="tt">QT_VERSION_MINIMUM</span>, <span class="tt">Source/HMI/CMakeLists.txt</span>) alignée sur celle de la CI et vérifiée automatiquement contre elle (<span class="tt">scripts/check_qt_version_pin.py</span>) ; un écart local produit un avertissement explicite plutôt qu'une divergence silencieuse (<span class="tt">LOT-66</span>).</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md299"></a>
 Traçabilité</h1>
-<p>Ces exigences transverses conditionnent l'acceptation de chaque lot. Depuis le <span class="tt">LOT-58</span>, elles s'appuient sur de l'outillage <b>effectivement exécuté</b> à chaque PR (CMake, CI Debug <b>et</b> Release, clang-tidy, clang-format, ASan, couverture agrégée) et non plus seulement configuré : voir le tableau « Outillage qualité » de <a class="el" href="spec-conventions.html#md_Specification_2conventions" title="Specification/conventions.md"><span class="tt">conventions.md</span></a> pour le job qui vérifie chaque outil. </p>
+<p>Ces exigences transverses conditionnent l'acceptation de chaque lot. Depuis le <span class="tt">LOT-58</span>, elles s'appuient sur de l'outillage <b>effectivement exécuté</b> à chaque PR (CMake, CI Debug <b>et</b> Release, clang-tidy, clang-format, ASan, couverture agrégée) et non plus seulement configuré : voir le tableau « Outillage qualité » de <a class="el" href="spec-conventions.html#md_Specification_2conventions" title="Specification/conventions.md"><span class="tt">conventions.md</span></a> pour le job qui vérifie chaque outil.</p>
+<p><span class="tt">EX-NFR-032</span> (cible Windows/DirectX) est, comme les exigences ci-dessus, un <b>invariant transverse</b> : aucun lot n'a besoin de le citer pour le respecter, ce silence n'est pas une exigence orpheline (<span class="tt">LOT-66</span>). </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

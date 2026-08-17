@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.0</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,7 +94,7 @@ $(function(){initNavTree('spec-architecture.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Specification_2architecture"></a></p>
 <blockquote class="doxtable">
-<p>Statut : <b>brouillon</b>. Décisions <b>structurantes</b>, chères à modifier après coup : tout lot doit les respecter. Transverse à toutes les specs. </p>
+<p>Statut : <b>livré</b> (<span class="tt">0.1.0</span>). Décisions <b>structurantes</b>, tenues depuis <span class="tt">LOT-01</span> (sens des dépendances, ECS, frontière simulation ↔ rendu) et confirmées jusqu'à la refonte Qt de l'IHM hors-jeu (<span class="tt">LOT-34</span> → <span class="tt">LOT-39</span>, voir Traçabilité ci-dessous). Aucune n'a été remise en cause par le programme <span class="tt">0.1.0</span>. Transverse à toutes les specs. </p>
 </blockquote>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md235"></a>
 1. Modules &amp; dépendances</h1>
@@ -175,6 +175,7 @@ $(function(){initNavTree('spec-architecture.html','',''); });
 <h1 class="doxsection"><a class="anchor" id="autotoc_md246"></a>
 Traçabilité</h1>
 <p>Ces décisions conditionnent tous les lots. Détail des décors et du pipeline pixel art : <a class="el" href="spec-decors.html#md_Specification_2decors" title="Specification/decors.md"><span class="tt">decors.md</span></a>. Exigences non fonctionnelles associées : <a class="el" href="spec-exigences.html#md_Specification_2exigences-non-fonctionnelles" title="Specification/exigences-non-fonctionnelles.md"><span class="tt">exigences-non-fonctionnelles.md</span></a>.</p>
+<p><span class="tt">EX-ARCH-001</span>, <span class="tt">EX-ARCH-060</span> et <span class="tt">EX-ARCH-070</span> sont des <b>invariants transverses</b> : chaque lot les respecte par construction (sens des dépendances, boucle mono-thread, communication directe) sans avoir besoin de les citer nommément dans son « Exigences couvertes ». Qu'ils n'apparaissent dans aucun lot n'est donc pas une exigence orpheline (<span class="tt">LOT-66</span>).</p>
 <blockquote class="doxtable">
 <p><b>Refonte IHM (<span class="tt">LOT-34</span> → <span class="tt">LOT-39</span>)</b> : l'interface <b>hors-jeu</b> (éditeur, menus, options) migre vers <b>Qt</b>, tandis que le <b>rendu in-game reste Direct3D 11</b> (<span class="tt">EX-ARCH-050</span>), embarqué dans un viewport Qt. Depuis le <span class="tt">LOT-38</span>, l'IHM « maison » et l'exécutable historique ont été retirés : <span class="tt">Source/HMI</span> porte désormais <b>l'unique application</b> (<span class="tt">ProjectGaming</span>, cible Qt) — code réparti par domaine (<span class="tt">Platform/</span>, <span class="tt">Input/</span>, <span class="tt">Graphics/</span>, <span class="tt">Game/</span>, <span class="tt">Localization/</span>, <span class="tt">Interface/</span>, <span class="tt">Editor/</span>) — et les <b>assets Qt déclaratifs</b> (<span class="tt">.ui</span>, <span class="tt">.qrc</span>, thème <span class="tt">.qss</span>) vivent dans <span class="tt">Source/Elements</span> (<span class="tt">UI/</span>, <span class="tt">Themes/</span>). La frontière <span class="tt">HMI → Core</span> (<span class="tt">EX-ARCH-010</span>) et la frontière simulation ↔ rendu (<span class="tt">EX-ARCH-030</span>/<span class="tt">031</span>) sont <b>inchangées</b>. Voir <a class="el" href="spec-interface-ihm.html" title="Interface utilisateur (IHM)"><span class="tt">interface-ihm.md</span></a> (<span class="tt">EX-IHM-*</span>) et <a class="el" href="guide-ihm-qt.html" title="IHM Qt (refonte) — socle applicatif &amp; viewport Direct3D 11"><span class="tt">guide-ihm-qt</span></a>. </p>
 </blockquote>

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.0</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,7 +94,7 @@ $(function(){initNavTree('spec-gameplay.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Specification_2gameplay"></a></p>
 <blockquote class="doxtable">
-<p>Statut : <b>brouillon</b>. Dépend de <a class="el" href="spec-vision.html#md_Specification_2vision" title="Specification/vision.md"><span class="tt">vision.md</span></a>. </p>
+<p>Statut : <b>livré</b> (<span class="tt">0.1.0</span>). Mécaniques du MVP (déplacement, saut, mécanismes de puzzle, conditions de fin) et mécaniques aériennes avancées (double saut, wall jump, dash) toutes implémentées et couvertes par la séquence de démonstration (<span class="tt">LOT-65</span>). Reste ouvert : le <b>réglage fin du ressenti</b> (Sec. 2, valeurs marquées ⚠️ dans <span class="tt"><a class="el" href="PhysicsConfig_8h.html" title="Constantes de réglage de la physique du personnage (données pures).">Source/Core/Physics/PhysicsConfig.h</a></span>) n'est pas figé — reporté au-delà de <span class="tt">0.1.0</span>, le jeu restant jouable avec les valeurs actuelles. Dépend de <a class="el" href="spec-vision.html#md_Specification_2vision" title="Specification/vision.md"><span class="tt">vision.md</span></a>. </p>
 </blockquote>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md300"></a>
 1. Monde en tuiles</h1>
@@ -145,7 +145,7 @@ Dangers avancés (<span class="tt">LOT-31</span>)</h2>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md302"></a>
 2. Personnage &amp; déplacement</h1>
 <ul>
-<li><a class="anchor" id="EX-GP-010"></a><b>EX-GP-010</b> — Le personnage doit se déplacer horizontalement à vitesse constante (⚠️ ~6 tuiles/s).</li>
+<li><a class="anchor" id="EX-GP-010"></a><b>EX-GP-010</b> — Le personnage doit se déplacer horizontalement à vitesse constante (~3 tuiles/s en jeu, <span class="tt"><a class="el" href="PhysicsConfig_8h.html" title="Constantes de réglage de la physique du personnage (données pures).">Source/Core/Physics/PhysicsConfig.h</a></span> <span class="tt">moveSpeed</span> — ⚠️ réglage fin non figé, reporté au-delà de <span class="tt">0.1.0</span>).</li>
 <li><a class="anchor" id="EX-GP-011"></a><b>EX-GP-011</b> — Le personnage doit sauter : impulsion verticale puis retombée sous gravité constante.</li>
 <li><a class="anchor" id="EX-GP-012"></a><b>EX-GP-012</b> — La gravité doit s'appliquer en continu tant que le personnage n'est pas au sol.</li>
 <li><a class="anchor" id="EX-GP-013"></a><b>EX-GP-013</b> — Le personnage ne doit pouvoir sauter que lorsqu'il est <b>au sol</b> (pas de double saut au MVP).</li>
@@ -163,14 +163,11 @@ Mécaniques aériennes avancées (au-delà du MVP)</h2>
 <li><a class="anchor" id="EX-GP-019"></a><b>EX-GP-019</b> — Le personnage doit avoir une <b>masse</b> ; la vitesse de chute doit résulter de l'équilibre entre le <b>poids</b> (masse × gravité effective) et une <b>traînée</b> proportionnelle à la vitesse, faisant émerger une <b>vitesse terminale</b> progressive plutôt qu'un plafond arbitraire. La montée du saut n'est pas concernée (gravité simple, <span class="tt">EX-GP-011</span>).</li>
 </ul>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md304"></a>
-Ressenti (game feel) — ⚠️ à affiner par tests</h2>
-<ul>
-<li>Hauteur de saut : ~2,5 tuiles ; apex atteint en ~0,35 s.</li>
-<li>Tolérances de confort recommandées : <em>coyote time</em> (~80 ms) et <em>jump buffering</em> (~120 ms).</li>
-</ul>
+Ressenti (game feel) — ⚠️ réglage fin reporté au-delà de <span class="tt">0.1.0</span></h2>
+<p>Cible visée, non encore atteinte : hauteur de saut ~2,5 tuiles, apex en ~0,35 s. Valeurs en jeu (<span class="tt"><a class="el" href="PhysicsConfig_8h.html" title="Constantes de réglage de la physique du personnage (données pures).">Source/Core/Physics/PhysicsConfig.h</a></span>) : ~2,25 tuiles, apex ~0,3 s — jouable et couvert par la séquence de démonstration (<span class="tt">LOT-65</span>), mais le fichier de constantes marque encore chaque valeur « à affiner ». <em>Coyote time</em> (~80 ms) et <em>jump buffering</em> (~120 ms) sont en revanche <b>au paramètre visé</b> depuis <span class="tt">LOT-09</span>.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md305"></a>
 3. Mécanismes de puzzle</h1>
-<ul>
+<p>Concrétise l'objectif produit <span class="tt">EX-VIS-003</span> (<span class="tt"><a class="el" href="vision_8md.html">vision.md</a></span>).</p><ul>
 <li><a class="anchor" id="EX-GP-020"></a><b>EX-GP-020</b> — Un <b>interrupteur</b> doit changer d'état quand le personnage l'active (contact ou action dédiée).</li>
 <li><a class="anchor" id="EX-GP-021"></a><b>EX-GP-021</b> — Une <b>porte</b> liée à un interrupteur doit s'ouvrir/se fermer selon l'état de celui-ci. Une porte qui se <b>referme sur le personnage</b> provoque l'<b>échec</b> du niveau, exactement comme un écrasement sous une plateforme mobile (<span class="tt">EX-GP-026</span>) — jamais un personnage encastré dans un mur, ce qui serait une situation sans issue (<span class="tt"><a class="el" href="niveaux_8md.html">niveaux.md</a></span>, Sec. 3). Complété en <span class="tt">LOT-65</span>.</li>
 <li><a class="anchor" id="EX-GP-022"></a><b>EX-GP-022</b> — Un <b>bloc poussable</b> doit pouvoir être déplacé horizontalement par le personnage et retomber sous gravité. Une case de pente/arrondi (<span class="tt">EX-GP-003</span>/<span class="tt">EX-GP-004</span>/<span class="tt">EX-GP-006</span>/<span class="tt">EX-GP-007</span>) est traitée comme un <b>obstacle simple</b> (comme une case solide) pour la poussée et la chute — le contrôleur de blocs n'a aucune notion de suivi de surface, contrairement au personnage.</li>
@@ -182,7 +179,7 @@ Ressenti (game feel) — ⚠️ à affiner par tests</h2>
 <p>Chaque mécanisme est déterministe : à état d'entrée identique, comportement identique (facilite tests et rejouabilité).</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md306"></a>
 4. Conditions de fin de niveau</h1>
-<ul>
+<p>Concrétise les objectifs <span class="tt">EX-VIS-002</span> (succès) et <span class="tt">EX-VIS-004</span> (échec/redémarrage), <span class="tt"><a class="el" href="vision_8md.html">vision.md</a></span>.</p><ul>
 <li><a class="anchor" id="EX-GP-030"></a><b>EX-GP-030</b> — Atteindre la tuile de <b>sortie</b> termine le niveau en <b>succès</b>.</li>
 <li><a class="anchor" id="EX-GP-031"></a><b>EX-GP-031</b> — Le contact avec un <b>danger</b> ou la sortie des limites basses du niveau provoque l'<b>échec</b>.</li>
 <li><a class="anchor" id="EX-GP-032"></a><b>EX-GP-032</b> — En cas d'échec, le niveau doit <b>redémarrer</b> à son état initial sans quitter le jeu.</li>

@@ -1,7 +1,7 @@
 var searchData=
 [
   ['1_0',['Plateforme mobile — &lt;span class=&quot;tt&quot;&gt;test_plateforme_composition.cpp&lt;/span&gt; (1)',['../cahiertest.html#autotoc_md31',1,'']]],
-  ['1_200_1',['Programme &lt;span class=&quot;tt&quot;&gt;0.1.0&lt;/span&gt;',['../lots.html#autotoc_md3056',1,'']]],
+  ['1_200_1',['1 0',['../lots.html#autotoc_md3056',1,'Programme &lt;span class=&quot;tt&quot;&gt;0.1.0&lt;/span&gt;'],['../spec-gameplay.html#autotoc_md304',1,'Ressenti (game feel) — ⚠️ réglage fin reporté au-delà de &lt;span class=&quot;tt&quot;&gt;0.1.0&lt;/span&gt;']]],
   ['1_200_20et_20vérification_20finale_2',['TACHE-04 — Bascule `0.1.0` et vérification finale',['../lot-66-tache-04-bascule-0-1-0.html',1,'lot-66']]],
   ['1_20cible_20technique_3',['1. Cible technique',['../spec-rendu-technique.html#autotoc_md323',1,'']]],
   ['1_20collision_20par_20balayage_20continu_20swept_20aabb_4',['1. Collision par balayage continu (swept AABB)',['../guide-physique.html#autotoc_md176',1,'']]],

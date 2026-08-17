@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.0</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,7 +94,7 @@ $(function(){initNavTree('spec-interface-ihm.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Specification_2interface-ihm"></a></p>
 <blockquote class="doxtable">
-<p>Statut : <b>brouillon</b>. Cadre la refonte de l'interface hors-jeu (programme <span class="tt">LOT-34</span> → <span class="tt">LOT-39</span>), étendue par le <b>système de design</b> (section 6, <span class="tt">LOT-56</span>) et l'<b>architecture de l'information de l'éditeur</b> (section 7, <span class="tt">LOT-57</span>). Dépend de <a class="el" href="spec-rendu-technique.html#md_Specification_2rendu-technique" title="Specification/rendu-technique.md"><span class="tt">rendu-technique.md</span></a> et <a class="el" href="spec-editeur.html#md_Specification_2editeur-niveaux" title="Specification/editeur-niveaux.md"><span class="tt">editeur-niveaux.md</span></a>. </p>
+<p>Statut : <b>livré</b> (<span class="tt">0.1.0</span>). Refonte de l'interface hors-jeu (programme <span class="tt">LOT-34</span> → <span class="tt">LOT-39</span>), étendue par le <b>système de design</b> (section 6, <span class="tt">LOT-56</span>) et l'<b>architecture de l'information de l'éditeur</b> (section 7, <span class="tt">LOT-57</span>) — toutes livrées. Dépend de <a class="el" href="spec-rendu-technique.html#md_Specification_2rendu-technique" title="Specification/rendu-technique.md"><span class="tt">rendu-technique.md</span></a> et <a class="el" href="spec-editeur.html#md_Specification_2editeur-niveaux" title="Specification/editeur-niveaux.md"><span class="tt">editeur-niveaux.md</span></a>. </p>
 </blockquote>
 <p>L'interface <b>hors-jeu</b> (menus, options, remappage, éditeur de niveaux) est distincte du <b>rendu in-game</b>. Ce dernier reste en Direct3D 11 (<span class="tt">EX-REN-002</span>) ; l'interface, elle, repose sur un <b>framework d'UI dédié (Qt)</b>, pour une application maintenable, à fenêtres réglables, remplaçant l'UI « maison » dessinée quad par quad. <span class="tt">Core</span> demeure indépendant de la présentation (<span class="tt">EX-NFR-010</span>).</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md309"></a>

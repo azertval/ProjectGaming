@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.0</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -98,7 +98,7 @@ $(function(){initNavTree('spec-decors.html','',''); });
 </blockquote>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md271"></a>
 Vision</h1>
-<p>Les décors sont issus de <b>photos réelles converties en pixel art</b>, plaçables et transformables. Ils sont manipulables par le <b>level designer</b> (dans l'éditeur) et, <b>à terme, par le joueur</b> (mécanique de gameplay).</p>
+<p>Les décors sont issus de <b>photos réelles converties en pixel art</b>, plaçables et transformables. Ils sont manipulables par le <b>level designer</b> (dans l'éditeur) et, <b>à terme, par le joueur</b> (mécanique de gameplay). Concrétise l'objectif produit <span class="tt">EX-VIS-007</span> (<span class="tt"><a class="el" href="vision_8md.html">vision.md</a></span>).</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md272"></a>
 1. Système de décors</h1>
 <ul>
@@ -127,7 +127,7 @@ En jeu (mécanique, à terme)</h2>
 3. Pipeline photo → pixel art (intégré à l'éditeur)</h1>
 <ul>
 <li><a class="anchor" id="EX-DEC-030"></a><b>EX-DEC-030</b> — L'éditeur permet de <b>charger une photo</b> et de la <b>convertir en pixel art</b> (pixellisation, réduction de palette) — traitement <b>intégré à l'outil</b>.</li>
-<li><a class="anchor" id="EX-DEC-031"></a><b>EX-DEC-031</b> — Les <b>paramètres de conversion</b> sont ajustables (taille de pixel / résolution cible, palette).</li>
+<li><a class="anchor" id="EX-DEC-031"></a><b>EX-DEC-031</b> — Les <b>paramètres de conversion</b> sont ajustables (taille de pixel / résolution cible, palette). <b>Post-MVP</b> : fait partie de la section 3, hors périmètre du programme <span class="tt">0.1.0</span> (cf. chapeau de statut ci-dessus) ; non traité par ce lot (<span class="tt">LOT-66</span>).</li>
 <li><a class="anchor" id="EX-DEC-032"></a><b>EX-DEC-032</b> — L'image pixel art résultante est enregistrée comme <b>asset</b> dans <span class="tt">Source/Elements</span> et référencée par le décor.</li>
 </ul>
 <blockquote class="doxtable">

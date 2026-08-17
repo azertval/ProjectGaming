@@ -11,7 +11,7 @@ var searchData=
   ['—_20émetteur_20de_20particules_20déterministe_8',['TACHE-01 — Émetteur de particules déterministe',['../lot-53-tache-01-emetteur-deterministe.html',1,'lot-53']]],
   ['—_20états_20d_20application_20écrans_9',['TACHE-04 — États d&apos;application (écrans)',['../lot-06-tache-04-etats-application.html',1,'lot-06']]],
   ['—_20états_20visuels_20des_20mécanismes_10',['LOT-47 — États visuels des mécanismes',['../lot-47.html',1,'lots']]],
-  ['—_20⚠️_20à_20affiner_20par_20tests_11',['Ressenti (game feel) — ⚠️ à affiner par tests',['../spec-gameplay.html#autotoc_md304',1,'']]],
+  ['—_20⚠️_20réglage_20fin_20reporté_20au_20delà_20de_200_201_200_11',['Ressenti (game feel) — ⚠️ réglage fin reporté au-delà de &lt;span class=&quot;tt&quot;&gt;0.1.0&lt;/span&gt;',['../spec-gameplay.html#autotoc_md304',1,'']]],
   ['—_20actes_20i_20et_20ii_20_3a_20mouvement_20et_20mécanismes_12',['TACHE-07 — Actes I et II : mouvement et mécanismes',['../lot-65-tache-07-actes-mouvement-mecanismes.html',1,'lot-65']]],
   ['—_20actes_20iii_20et_20iv_20_3a_20terrain_20dangers_20et_20plateformes_13',['TACHE-08 — Actes III et IV : terrain, dangers et plateformes',['../lot-65-tache-08-actes-terrain-dangers.html',1,'lot-65']]],
   ['—_20action_20logique_20«_20interagir_20»_14',['TACHE-01 — Action logique « Interagir »',['../lot-63-tache-01-action-interagir.html',1,'lot-63']]],
