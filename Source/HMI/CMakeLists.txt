@@ -23,6 +23,13 @@ if(NOT BUILD_EDITOR_QT)
     return()
 endif()
 
+# --- Version de référence (EX-BUILD-010) ---
+# Seul endroit où la version de Qt est écrite dans le CMake : la CI (`.github/workflows/ci.yml`,
+# `release.yml`) l'installe explicitement à cette même valeur (`env.QT_VERSION`), vérifié
+# automatiquement par `scripts/check_qt_version_pin.py` (job `lint-exigences`) pour que les deux
+# ne divergent jamais silencieusement.
+set(QT_VERSION_MINIMUM "6.8.1")
+
 # --- Découverte de Qt sans configuration manuelle ---
 # find_package() ne consulte que CMAKE_PREFIX_PATH. Or l'installateur officiel Qt place ses
 # versions dans <racine>/<version>/<compilateur> — un emplacement que CMake ne connaît pas. Sur un
@@ -60,17 +67,39 @@ if(_qt_hints)
     list(APPEND CMAKE_PREFIX_PATH ${_qt_hints})
 endif()
 
-find_package(Qt6 QUIET COMPONENTS Widgets Gui Multimedia)
+find_package(Qt6 ${QT_VERSION_MINIMUM} QUIET COMPONENTS Widgets Gui Multimedia)
 if(NOT Qt6_FOUND)
+    # Deuxième essai, sans contrainte de version, seulement pour distinguer dans le message
+    # « rien d'installé » de « une version installée, mais trop ancienne » — sinon les deux
+    # produisent le même NOT Qt6_FOUND et le second cas serait diagnostiqué à tort comme le premier.
+    find_package(Qt6 QUIET COMPONENTS Widgets Gui Multimedia)
     # Avertissement et non simple statut : sans Qt il n'y a **aucun exécutable**, seulement les
     # tests. Passer inaperçu est précisément ce qui rendait l'absence d'exe difficile à diagnostiquer.
-    message(WARNING
-        "ProjectGaming : Qt6 introuvable, cible ignorée — AUCUN EXÉCUTABLE ne sera produit.\n"
-        "Emplacements examinés : ${_qt_hints}\n"
-        "Corriger en installant Qt via l'installateur officiel, ou en désignant l'installation :\n"
-        "  cmake --preset ninja -DCMAKE_PREFIX_PATH=<chemin>/msvc2022_64\n"
-        "Passer -DBUILD_EDITOR_QT=OFF pour ne construire que les tests, sans cet avertissement.")
+    if(Qt6_FOUND)
+        message(WARNING
+            "ProjectGaming : Qt6 ${Qt6_VERSION} trouvé (${Qt6_DIR}), mais inférieur à la version "
+            "minimale requise ${QT_VERSION_MINIMUM} — cible ignorée, AUCUN EXÉCUTABLE ne sera produit.\n"
+            "Installer au moins Qt ${QT_VERSION_MINIMUM} (ou désigner une autre installation via "
+            "-DCMAKE_PREFIX_PATH), ou passer -DBUILD_EDITOR_QT=OFF pour ne construire que les tests.")
+    else()
+        message(WARNING
+            "ProjectGaming : Qt6 introuvable, cible ignorée — AUCUN EXÉCUTABLE ne sera produit.\n"
+            "Version minimale requise : ${QT_VERSION_MINIMUM}.\n"
+            "Emplacements examinés : ${_qt_hints}\n"
+            "Corriger en installant Qt via l'installateur officiel, ou en désignant l'installation :\n"
+            "  cmake --preset ninja -DCMAKE_PREFIX_PATH=<chemin>/msvc2022_64\n"
+            "Passer -DBUILD_EDITOR_QT=OFF pour ne construire que les tests, sans cet avertissement.")
+    endif()
     return()
+endif()
+
+if(NOT Qt6_VERSION VERSION_EQUAL QT_VERSION_MINIMUM)
+    # Avertissement, pas erreur (cf. TACHE-01) : interdire de construire sur une version voisine
+    # coûterait plus qu'il ne rapporterait. Le but est qu'un écart soit visible, pas interdit.
+    message(WARNING
+        "ProjectGaming : Qt6 ${Qt6_VERSION} trouvé (${Qt6_DIR}), différent de la version de "
+        "référence ${QT_VERSION_MINIMUM} (celle validée par la CI) — le build peut diverger de la "
+        "CI sans que rien d'autre ne le signale.")
 endif()
 
 message(STATUS "ProjectGaming : Qt6 ${Qt6_VERSION} trouvé (${Qt6_DIR}).")

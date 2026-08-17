@@ -81,7 +81,7 @@ S'y ajoutent six exigences déclarées et jamais référencées, et la bascule d
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-qt-epingle.md) | Qt épinglé et vérifié sur les trois environnements | `Source/HMI/CMakeLists.txt`, `.github/workflows` | ⬜ |
+| [TACHE-01](tache-01-qt-epingle.md) | Qt épinglé et vérifié sur les trois environnements | `Source/HMI/CMakeLists.txt`, `.github/workflows` | ✅ |
 | [TACHE-02](tache-02-version-source-unique.md) | Numéro de version généré, plus jamais recopié | `scripts/build_docs.py`, `Documentation/Doxyfile` | ⬜ |
 | [TACHE-03](tache-03-statuts-referentiel.md) | Statuts des spécifications et exigences orphelines | `Documentation/Specification` | ⬜ |
 | [TACHE-04](tache-04-bascule-0-1-0.md) | Bascule `0.1.0` et vérification finale | `CMakeLists.txt`, `CHANGELOG.md` | ⬜ |

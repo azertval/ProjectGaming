@@ -107,9 +107,11 @@ générés dans `build/`).
 ### Prérequis
 - Visual Studio 2022+ avec la charge de travail **« Développement Desktop en C++ »**
   (inclut CMake, Ninja et le compilateur MSVC).
-- **Qt6** (`Widgets`, `Gui`, `Multimedia` — module audio, `LOT-60`), détecté automatiquement
-  (`CMAKE_PREFIX_PATH`, cf. `Source/HMI/CMakeLists.txt`) s'il est installé à l'emplacement
-  conventionnel de l'[installateur officiel](https://www.qt.io/download-qt-installer) ou via
+- **Qt6** (`Widgets`, `Gui`, `Multimedia` — module audio, `LOT-60`), version **6.8.1 ou
+  supérieure** (celle validée par la CI — un écart produit un avertissement à la configuration,
+  pas un échec), détecté automatiquement (`CMAKE_PREFIX_PATH`, cf.
+  `Source/HMI/CMakeLists.txt`) s'il est installé à l'emplacement conventionnel de
+  l'[installateur officiel](https://www.qt.io/download-qt-installer) ou via
   [`aqtinstall`](https://github.com/miurahr/aqtinstall) (`-m qtmultimedia` pour le module audio).
   Sans Qt, la cible `ProjectGaming` est **ignorée** (avertissement explicite) : seuls les tests se
   construisent.

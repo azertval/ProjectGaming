@@ -18,6 +18,7 @@
 #include <string_view>
 
 #include "Core/BuildConfig.h"
+#include "Core/Core.h"
 #include "Core/Diagnostics/ConsoleLogSink.h"
 #include "Core/Diagnostics/LogLevel.h"
 #include "Core/Diagnostics/LogLevelParse.h"
@@ -121,6 +122,11 @@ int main(int argc, char** argv) {
     if (invalidLogLevel) {
         HMI_LOG_WARNING("Niveau de log fourni invalide : valeur ignoree.");
     }
+    // Version du binaire et de Qt contre lequel il a ete compile (QT_VERSION_STR, fourni par les
+    // en-tetes Qt) : capture dans le journal de session (LOT-61) pour qu'un rapport de defaut dise
+    // contre quel Qt le binaire signale a ete construit, sans dependre d'une reproduction locale.
+    HMI_LOG_INFO(std::string("ProjectGaming ") + core::Engine::version() + " (compile avec Qt " +
+                 QT_VERSION_STR + ").");
 
     QApplication application(argc, argv);
     // Style choisi avant tout widget (LOT-56) : appliqué après, il ne se propage pas aux widgets

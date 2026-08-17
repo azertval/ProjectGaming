@@ -63,7 +63,10 @@
   les trois environnements : poste local (installeur officiel ou `aqtinstall`), **CI** (étape
   d'installation dans le workflow, sur le runner épinglé) et **release** (déploiement des bibliothèques
   dynamiques requises à côté de l'exécutable, ex. `windeployqt`). La version est **épinglée**
-  (`EX-NFR-031`) et la licence documentée. Introduit en `LOT-34`.
+  (`EX-NFR-031`) et la licence documentée. Introduit en `LOT-34`. Le poste local déclare une
+  version minimale (`QT_VERSION_MINIMUM`, `Source/HMI/CMakeLists.txt`) alignée sur celle de la CI
+  et vérifiée automatiquement contre elle (`scripts/check_qt_version_pin.py`) ; un écart local
+  produit un avertissement explicite plutôt qu'une divergence silencieuse (`LOT-66`).
 
 ## Traçabilité
 Ces exigences transverses conditionnent l'acceptation de chaque lot. Depuis le `LOT-58`, elles

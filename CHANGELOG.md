@@ -7,6 +7,16 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-66 TACHE-01 — Qt épinglé et vérifié sur les trois environnements** (`EX-BUILD-010`). La CI
+  et la release installaient Qt `6.8.1` explicitement ; le poste local retenait silencieusement la
+  version la **plus récente** trouvée sur le disque, sans que rien ne signale un écart. Le CMake
+  déclare désormais `QT_VERSION_MINIMUM` (source unique), l'utilise comme version minimale de
+  `find_package(Qt6 ...)`, avertit (sans bloquer) si la version trouvée diffère de celle de la CI,
+  et journalise la version retenue (configuration) ainsi que celle contre laquelle le binaire a été
+  compilé (`QT_VERSION_STR`, journal de session LOT-61 — utile en rapport de défaut). La cohérence
+  entre `QT_VERSION_MINIMUM` (CMake) et `env.QT_VERSION` (`ci.yml`, `release.yml`) est vérifiée
+  automatiquement par `scripts/check_qt_version_pin.py` (job `lint-exigences`), plutôt que par
+  relecture.
 - **LOT-65 (second temps) — De la couverture à la profondeur.** Le garde-fou de couverture livré en
   `TACHE-01` était vert, et le contenu qu'il validait ne tenait pourtant aucune des promesses de
   `EX-LVL-012` : une revue des vingt-deux tableaux a établi que **onze d'entre eux ne demandent rien

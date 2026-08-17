@@ -73,3 +73,6 @@ La portée correspond en général au module (`core`, `hmi`, `elements`, `test`,
    non bloquantes (triage complet hors périmètre du `LOT-58`, voir
    `Documentation/Lot/LOT-58-verification-release-analyse/tache-03-clang-tidy.md`).
 6. Le `CHANGELOG.md` (section *Unreleased*) est mis à jour si pertinent.
+7. Si `QT_VERSION_MINIMUM` (`Source/HMI/CMakeLists.txt`) a changé, `env.QT_VERSION` de `ci.yml` et
+   `release.yml` doit être bumpé à l'identique — vérifié automatiquement par
+   `python scripts/check_qt_version_pin.py` (job `lint-exigences`), pas seulement par relecture.

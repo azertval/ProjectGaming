@@ -1,7 +1,7 @@
 # TACHE-01 — Qt épinglé sur les trois environnements {#lot-66-tache-01-qt-epingle}
 
 **Lot :** [LOT-66](epic.md) · **Emplacement :** `Source/HMI/CMakeLists.txt`, `.github/workflows` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 `EX-BUILD-010` demande qu'une dépendance non gérable par `FetchContent` — Qt, explicitement — soit
