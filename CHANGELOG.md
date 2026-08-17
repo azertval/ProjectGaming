@@ -7,6 +7,12 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-66 TACHE-02 — Numéro de version généré, plus jamais recopié.** Le `Doxyfile` portait sa
+  propre copie du `PROJECT_NUMBER`, vérifiée (et non générée) par `scripts/build_docs.py` : un
+  oubli devenait un échec de CI au lieu d'être rendu impossible. Le `Doxyfile` versionné ne porte
+  plus de numéro (`PROJECT_NUMBER` vide) ; le script l'injecte depuis `project(VERSION)` en le
+  passant à Doxygen sur l'entrée standard (`doxygen -`), sans écrire de fichier temporaire.
+  Bumper `project(VERSION)` suffit désormais — l'étape manuelle a disparu de `CONTRIBUTING.md`.
 - **LOT-66 TACHE-01 — Qt épinglé et vérifié sur les trois environnements** (`EX-BUILD-010`). La CI
   et la release installaient Qt `6.8.1` explicitement ; le poste local retenait silencieusement la
   version la **plus récente** trouvée sur le disque, sans que rien ne signale un écart. Le CMake

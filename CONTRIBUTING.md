@@ -43,8 +43,8 @@ La portée correspond en général au module (`core`, `hmi`, `elements`, `test`,
 
 ## Publier une version
 1. Bumper `VERSION` dans le `project()` du `CMakeLists.txt` racine — **seul** endroit où le numéro
-   est écrit : il alimente `core::Engine::version()` à la compilation. Aligner le `PROJECT_NUMBER`
-   du `Documentation/Doxyfile` (`scripts/build_docs.py` échoue si les deux divergent).
+   est écrit : il alimente `core::Engine::version()` à la compilation, et `scripts/build_docs.py`
+   l'injecte dans la documentation générée. Rien d'autre à aligner à la main.
 2. Dans `CHANGELOG.md`, transformer `## [Non publié]` en `## [X.Y.Z] - AAAA-MM-JJ`, lui ajouter un
    chapeau de jalon, et rouvrir un `## [Non publié]` vide au-dessus.
 3. Vérifier les notes que produira la release :
