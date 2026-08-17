@@ -1,6 +1,8 @@
 # Rendu & cible technique {#spec-rendu-technique}
 
-> Statut : **brouillon**. Dépend de [`vision.md`](vision.md).
+> Statut : **livré** (`0.1.0`). Pipeline Direct3D 11 (quads/atlas/caméra 2D), rendu de texte,
+> boucle à pas fixe, budget de rendu mesuré (`LOT-62`) et bruitages (`LOT-60`, Sec. 5) tous en
+> place. Dépend de [`vision.md`](vision.md).
 
 ## 1. Cible technique
 - \anchor EX-REN-001 **EX-REN-001** — Le jeu doit fonctionner sous **Windows 10/11 (x64)**.

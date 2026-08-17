@@ -1,6 +1,8 @@
 # Exigences non fonctionnelles {#spec-exigences}
 
-> Statut : **brouillon**. Transverse à toutes les specs.
+> Statut : **livré** (`0.1.0`). Outillage qualité effectivement exécuté à chaque PR depuis `LOT-58`
+> (CI Debug **et** Release, clang-tidy, clang-format, ASan, couverture agrégée, contrôles de
+> reproductibilité du `LOT-66`). Transverse à toutes les specs.
 
 ## 1. Performance
 - \anchor EX-NFR-001 **EX-NFR-001** — Le jeu doit maintenir **60 images/seconde** sur une configuration de bureau récente pour les niveaux du MVP. Rendue **observable** par le compteur de diagnostic (`F9`, `hmi::DiagnosticsHud`, `LOT-62`) : la cadence dépend de la machine, elle **reste hors de portée d'un contrôle automatique** (une machine virtuelle partagée ne la mesure pas de façon reproductible) — le compteur l'affiche pour être constatée sur sa propre machine de développement, il ne l'assert jamais en CI.
@@ -74,3 +76,7 @@ s'appuient sur de l'outillage **effectivement exécuté** à chaque PR (CMake, C
 Release, clang-tidy, clang-format, ASan, couverture agrégée) et non plus seulement configuré :
 voir le tableau « Outillage qualité » de [`conventions.md`](conventions.md) pour le job qui vérifie
 chaque outil.
+
+`EX-NFR-032` (cible Windows/DirectX) est, comme les exigences ci-dessus, un **invariant
+transverse** : aucun lot n'a besoin de le citer pour le respecter, ce silence n'est pas une
+exigence orpheline (`LOT-66`).

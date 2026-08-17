@@ -1,6 +1,8 @@
 # Niveaux & contenu {#spec-niveaux}
 
-> Statut : **brouillon**. Dépend de [`gameplay.md`](gameplay.md).
+> Statut : **livré** (`0.1.0`). Format JSON, chargement, validation, chaînage de niveaux, progression
+> persistée (`EX-LVL-014`, `LOT-59`) et couverture de mécaniques garde-fou (`EX-LVL-015`, `LOT-65`)
+> tous en place. Dépend de [`gameplay.md`](gameplay.md).
 
 ## 1. Représentation des niveaux
 - \anchor EX-LVL-001 **EX-LVL-001** — Un niveau doit être décrit par un **fichier de données** externe (pas en dur dans le code), placé dans `Source/Elements`.

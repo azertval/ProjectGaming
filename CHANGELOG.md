@@ -7,6 +7,18 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-66 TACHE-03 — Statuts des spécifications et exigences orphelines.** Huit fichiers sur dix
+  restaient marqués « brouillon », certains depuis vingt lots, alors qu'ils décrivent un système
+  livré. Chacun porte désormais un statut réel, daté (`0.1.0`), sur le modèle déjà appliqué à
+  `decors.md`/`editeur-niveaux.md`. `EX-ARCH-001`/`060`/`070` et `EX-NFR-032` sont documentés comme
+  des **invariants transverses** (respectés par tout lot sans être cités) ; `EX-DEC-031` comme
+  **post-MVP** ; `EX-VIS-002` à `EX-VIS-007` reçoivent chacun un renvoi vers l'exigence détaillée
+  qui le concrétise (et réciproquement). Les deux points ⚠️ restants (réglage fin du ressenti,
+  `gameplay.md`) sont explicitement reportés au-delà de `0.1.0`, pas laissés en suspens.
+  `scripts/lint_exigences.py` détecte désormais aussi les exigences **déclarées mais jamais
+  référencées** (au lieu de seulement les références orphelines), avec une liste explicite et
+  documentée d'exemptions pour les invariants et le post-MVP — même logique que la vérification déjà
+  automatique ailleurs dans ce lot plutôt qu'une revue manuelle.
 - **LOT-66 TACHE-02 — Numéro de version généré, plus jamais recopié.** Le `Doxyfile` portait sa
   propre copie du `PROJECT_NUMBER`, vérifiée (et non générée) par `scripts/build_docs.py` : un
   oubli devenait un échec de CI au lieu d'être rendu impossible. Le `Doxyfile` versionné ne porte

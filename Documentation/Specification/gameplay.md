@@ -1,6 +1,11 @@
 # Gameplay {#spec-gameplay}
 
-> Statut : **brouillon**. Dépend de [`vision.md`](vision.md).
+> Statut : **livré** (`0.1.0`). Mécaniques du MVP (déplacement, saut, mécanismes de puzzle,
+> conditions de fin) et mécaniques aériennes avancées (double saut, wall jump, dash) toutes
+> implémentées et couvertes par la séquence de démonstration (`LOT-65`). Reste ouvert : le
+> **réglage fin du ressenti** (Sec. 2, valeurs marquées ⚠️ dans `Source/Core/Physics/PhysicsConfig.h`)
+> n'est pas figé — reporté au-delà de `0.1.0`, le jeu restant jouable avec les valeurs actuelles.
+> Dépend de [`vision.md`](vision.md).
 
 ## 1. Monde en tuiles
 Le niveau est une **grille de tuiles** de taille fixe : **16 × 16 px** par tuile. Chaque cellule porte un type.
@@ -48,7 +53,7 @@ Le niveau est une **grille de tuiles** de taille fixe : **16 × 16 px** par tuil
   niveau).
 
 ## 2. Personnage & déplacement
-- \anchor EX-GP-010 **EX-GP-010** — Le personnage doit se déplacer horizontalement à vitesse constante (⚠️ ~6 tuiles/s).
+- \anchor EX-GP-010 **EX-GP-010** — Le personnage doit se déplacer horizontalement à vitesse constante (~3 tuiles/s en jeu, `Source/Core/Physics/PhysicsConfig.h` `moveSpeed` — ⚠️ réglage fin non figé, reporté au-delà de `0.1.0`).
 - \anchor EX-GP-011 **EX-GP-011** — Le personnage doit sauter : impulsion verticale puis retombée sous gravité constante.
 - \anchor EX-GP-012 **EX-GP-012** — La gravité doit s'appliquer en continu tant que le personnage n'est pas au sol.
 - \anchor EX-GP-013 **EX-GP-013** — Le personnage ne doit pouvoir sauter que lorsqu'il est **au sol** (pas de double saut au MVP).
@@ -62,11 +67,15 @@ Le niveau est une **grille de tuiles** de taille fixe : **16 × 16 px** par tuil
 - \anchor EX-GP-018 **EX-GP-018** — Le ressenti vertical doit être affiné : **gravité de chute renforcée** (chute plus rapide que la montée), **flottement à l'apex** (gravité réduite quand la vitesse verticale est faible) et **fast-fall** (chute accélérée en maintenant « bas »). La retombée reste sous gravité **constante** (à multiplicateur près), conformément à `EX-GP-011`.
 - \anchor EX-GP-019 **EX-GP-019** — Le personnage doit avoir une **masse** ; la vitesse de chute doit résulter de l'équilibre entre le **poids** (masse × gravité effective) et une **traînée** proportionnelle à la vitesse, faisant émerger une **vitesse terminale** progressive plutôt qu'un plafond arbitraire. La montée du saut n'est pas concernée (gravité simple, `EX-GP-011`).
 
-### Ressenti (game feel) — ⚠️ à affiner par tests
-- Hauteur de saut : ~2,5 tuiles ; apex atteint en ~0,35 s.
-- Tolérances de confort recommandées : *coyote time* (~80 ms) et *jump buffering* (~120 ms).
+### Ressenti (game feel) — ⚠️ réglage fin reporté au-delà de `0.1.0`
+Cible visée, non encore atteinte : hauteur de saut ~2,5 tuiles, apex en ~0,35 s. Valeurs en jeu
+(`Source/Core/Physics/PhysicsConfig.h`) : ~2,25 tuiles, apex ~0,3 s — jouable et couvert par la
+séquence de démonstration (`LOT-65`), mais le fichier de constantes marque encore chaque valeur
+« à affiner ». *Coyote time* (~80 ms) et *jump buffering* (~120 ms) sont en revanche **au
+paramètre visé** depuis `LOT-09`.
 
 ## 3. Mécanismes de puzzle
+Concrétise l'objectif produit `EX-VIS-003` (`vision.md`).
 - \anchor EX-GP-020 **EX-GP-020** — Un **interrupteur** doit changer d'état quand le personnage l'active (contact ou action dédiée).
 - \anchor EX-GP-021 **EX-GP-021** — Une **porte** liée à un interrupteur doit s'ouvrir/se fermer selon l'état de celui-ci. Une porte qui se **referme sur le personnage** provoque l'**échec** du niveau, exactement comme un écrasement sous une plateforme mobile (`EX-GP-026`) — jamais un personnage encastré dans un mur, ce qui serait une situation sans issue (`niveaux.md`, Sec. 3). Complété en `LOT-65`.
 - \anchor EX-GP-022 **EX-GP-022** — Un **bloc poussable** doit pouvoir être déplacé horizontalement par le personnage et retomber sous gravité. Une case de pente/arrondi (`EX-GP-003`/`EX-GP-004`/`EX-GP-006`/`EX-GP-007`) est traitée comme un **obstacle simple** (comme une case solide) pour la poussée et la chute — le contrôleur de blocs n'a aucune notion de suivi de surface, contrairement au personnage.
@@ -85,6 +94,7 @@ Le niveau est une **grille de tuiles** de taille fixe : **16 × 16 px** par tuil
 Chaque mécanisme est déterministe : à état d'entrée identique, comportement identique (facilite tests et rejouabilité).
 
 ## 4. Conditions de fin de niveau
+Concrétise les objectifs `EX-VIS-002` (succès) et `EX-VIS-004` (échec/redémarrage), `vision.md`.
 - \anchor EX-GP-030 **EX-GP-030** — Atteindre la tuile de **sortie** termine le niveau en **succès**.
 - \anchor EX-GP-031 **EX-GP-031** — Le contact avec un **danger** ou la sortie des limites basses du niveau provoque l'**échec**.
 - \anchor EX-GP-032 **EX-GP-032** — En cas d'échec, le niveau doit **redémarrer** à son état initial sans quitter le jeu.
