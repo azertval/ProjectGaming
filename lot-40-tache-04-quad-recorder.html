@@ -94,18 +94,18 @@ $(function(){initNavTree('lot-40-tache-04-quad-recorder.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-40-fondations-rendu-textures_2tache-04-quad-recorder"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-40.html#md_Lot_2LOT-40-fondations-rendu-textures_2epic" title="Lot/LOT-40-fondations-rendu-textures/epic.md">LOT-40</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span>, <span class="tt">Source/Test</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1920"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1925"></a>
 Contexte</h1>
 <p>Le programme d'habillage empile, lot après lot, six couches de rendu dont l'<b>ordre</b>, la <b>priorité de résolution</b> (surcharge par case &gt; skin &gt; repli) et l'<b>isolement</b> en mode aperçu sont autant de règles qui cassent silencieusement. Or tous les critères d'acceptation rédigés jusqu'ici — « rendu pixel-identique », « identique bit à bit », « ordre de calque attendu » — sont formulés comme des <b>vérifications manuelles</b>, dans un projet qui compte par ailleurs plus de quatre cents cas de test et une exigence explicite de testabilité hors GPU (<span class="tt">EX-NFR-010</span>).</p>
 <p>Tout le rendu passe par un unique goulot : <span class="tt">hmi::SpriteBatch::draw(SpriteQuad)</span> et <span class="tt">draw(LineQuad)</span>. Capturer ce flux suffit à rendre ces règles <b>assertables</b> sans GPU, sans capture d'écran et sans comparaison d'images.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1921"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1926"></a>
 Travail à réaliser</h1>
 <ul>
 <li><em><b>QuadRecorder</b></em> (<span class="tt">Source/HMI/Graphics/QuadRecorder.{h,cpp}</span>) : collecte ordonnée des primitives soumises pour une image, chaque entrée conservant au minimum le <em>RenderLayer</em>, l'identité de la texture liée, et la primitive elle-même (<span class="tt">SpriteQuad</span>/<span class="tt">LineQuad</span>).</li>
 <li><b>Point d'insertion</b> : le flux de composition de <span class="tt">SpriteRenderer</span>/<span class="tt">DraftRenderer</span> doit pouvoir produire sa liste de primitives <b>sans</b> device D3D11. Séparer la <b>composition</b> (calcul des quads, tri, regroupement — logique pure) de la <b>soumission</b> (<span class="tt">SpriteBatch</span>, GPU), la composition devenant la partie testable. C'est la même séparation que celle déjà pratiquée entre <em>ProceduralAtlas</em> (pur, testé) et <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, chargée depuis un fichier image avec repli procédural (EX-REN-04...">hmi::TextureAtlas</a></span> (GPU).</li>
 <li><b>Fonctions d'assertion réutilisables</b> côté test : ordre des calques respecté, regroupement par texture contigu, absence/présence d'une primitive à une position donnée, nombre de primitives par calque.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1922"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1927"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/QuadRecorder.{h,cpp}</span> (nouveau).</li>
@@ -113,26 +113,26 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="test__quad__recorder_8cpp.html" title="Tests unitaires de la composition du rendu et de sa capture sans GPU (LOT-40, EX-NFR-004,...">Source/Test/Unit/HMI/Graphics/test_quad_recorder.cpp</a></span> (nouveau).</li>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> (ajout des <span class="tt">.cpp</span> purs recompilés par les tests).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1923"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1928"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Scène de référence : ordre des calques et regroupement par texture assertés sur la liste capturée.</li>
 <li>Scène à deux textures et trois calques : vérifier qu'aucun quad d'un calque supérieur n'est soumis avant un quad d'un calque inférieur, quel que soit l'ordre d'insertion.</li>
 <li>Non-régression du rendu existant : la liste capturée pour une scène donnée est celle attendue avant modification (test de référence, à conserver pour tous les lots suivants).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1924"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1929"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Aucun coût en production</b> : le <em>QuadRecorder</em> est un outil de test et de diagnostic, pas un détour permanent du rendu. Il ne doit ni allouer ni copier quoi que ce soit sur le chemin normal.</li>
 <li>Ne pas transformer cette tâche en moteur de comparaison d'images : on assertionne des <b>listes de primitives</b>, pas des pixels — c'est précisément ce qui la rend possible sans GPU.</li>
 <li>La séparation composition/soumission ne doit modifier <b>aucune</b> signature publique de <span class="tt">SpriteBatch</span> (critère du lot).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1925"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1930"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>La composition du rendu est testable sans GPU ; les critères « ordre de calque » et « non-régression » de ce lot et des suivants sont des assertions, plus des vérifications à l'œil ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1926"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1931"></a>
 Exigences</h1>
 <p><span class="tt">EX-NFR-004</span> (rendu vérifiable sans GPU) ; réutilise <span class="tt">EX-NFR-010</span> (testabilité), <span class="tt">EX-REN-043</span> (calques et multi-textures). </p>
 </div></div><!-- contents -->

@@ -94,14 +94,14 @@ $(function(){initNavTree('lot-66-tache-01-qt-epingle.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-66-reproductibilite-referentiel_2tache-01-qt-epingle"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-66.html#md_Lot_2LOT-66-reproductibilite-referentiel_2epic" title="Lot/LOT-66-reproductibilite-referentiel/epic.md">LOT-66</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/CMakeLists.txt</span>, <span class="tt">.github/workflows</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2954"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3027"></a>
 Contexte</h1>
 <p><span class="tt">EX-BUILD-010</span> demande qu'une dépendance non gérable par <span class="tt">FetchContent</span> — Qt, explicitement — soit provisionnée de façon reproductible sur les <b>trois</b> environnements, avec une version <b>épinglée</b>.</p>
 <p>Deux le sont : <span class="tt">ci.yml</span> et <span class="tt">release.yml</span> installent <span class="tt">6.8.1</span> via <span class="tt">install-qt-action</span>. Le troisième, le poste local, ne l'est pas. <span class="tt">Source/HMI/CMakeLists.txt</span> complète la recherche par les emplacements conventionnels de l'installateur officiel :</p>
 <div class="fragment"><div class="line">file(GLOB _qt_installs &quot;$ENV{SystemDrive}/Qt/*/msvc*_64&quot; &quot;C:/Qt/*/msvc*_64&quot; …)</div>
 <div class="line">list(SORT _qt_installs COMPARE NATURAL ORDER DESCENDING)</div>
 </div><!-- fragment --><p>Ce mécanisme est bon — il a résolu un vrai problème, celui de la cible ignorée en silence sur un poste neuf — mais son tri décroissant retient la version <b>la plus récente installée</b>. Un développeur ayant Qt 6.10 construit contre 6.10 ; la CI valide contre 6.8.1 ; et rien, nulle part, ne le dit. Le <span class="tt">LOT-60</span> aggrave l'enjeu en ajoutant un module.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2955"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3028"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Déclarer la version de référence</b> à un seul endroit du CMake, et l'utiliser comme <b>version minimale</b> dans <span class="tt">find_package(Qt6 ...)</span>.</li>
@@ -110,7 +110,7 @@ Travail à réaliser</h1>
 <li><b>Vérifier la cohérence CI ↔ CMake</b> : la version épinglée dans les workflows et celle du CMake doivent être la même. Un contrôle léger (script existant ou étape de workflow) évite qu'elles divergent silencieusement — c'est exactement l'erreur que <span class="tt">build_docs.py</span> prévient déjà pour le numéro de version.</li>
 <li><b>Documenter</b> l'installation locale de la bonne version, modules compris.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2956"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3029"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/CMakeLists.txt</span>.</li>
@@ -118,7 +118,7 @@ Fichiers impactés</h1>
 <li><span class="tt">README.md</span> (prérequis), <span class="tt">CONTRIBUTING.md</span>.</li>
 <li><span class="tt"><a class="el" href="exigences-non-fonctionnelles_8md.html">Documentation/Specification/exigences-non-fonctionnelles.md</a></span> — <span class="tt">EX-BUILD-010</span> mentionne le contrôle.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2957"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3030"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Configurer avec une version de Qt différente de la référence produit l'avertissement attendu, et la configuration <b>aboutit</b> quand même.</li>
@@ -126,7 +126,7 @@ Tests (obligatoires)</h1>
 <li>La version épinglée dans les workflows et celle du CMake sont identiques — vérifié automatiquement, pas par relecture.</li>
 <li>Le comportement de découverte automatique sur un poste neuf est <b>inchangé</b> : la cible n'est toujours pas ignorée en silence, et le message d'aide existant reste affiché quand Qt est absent.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2958"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3031"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas casser la découverte automatique.</b> Le bloc de recherche existe parce qu'un poste neuf produisait un build « réussi » sans exécutable. Cette tâche ajoute une vérification de version, et ne touche pas à la recherche elle-même.</li>
@@ -134,12 +134,12 @@ Points d'attention</h1>
 <li>Ne pas coder la version en dur à quatre endroits : c'est reproduire, pour Qt, le problème que la <span class="tt">TACHE-02</span> corrige pour le numéro de version.</li>
 <li><span class="tt">install-qt-action</span> apparaît <b>quatre fois</b> entre les deux workflows : les traiter tous.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2959"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3032"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>La version de Qt est déclarée une fois, exigée comme minimale, signalée en cas d'écart avec la CI, journalisée au démarrage, et la cohérence CI ↔ CMake est vérifiée automatiquement ; la découverte automatique sur poste neuf est inchangée ; documenté.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2960"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3033"></a>
 Exigences</h1>
 <p>Réutilise <span class="tt">EX-BUILD-010</span> (provisionnement reproductible et épinglé), <span class="tt">EX-NFR-031</span> (dépendances épinglées), <span class="tt">EX-NFR-030</span> (build via CMake reproductible), <span class="tt">EX-NFR-042</span> (contexte journalisé). </p>
 </div></div><!-- contents -->

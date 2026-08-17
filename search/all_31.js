@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['⚠️_20à_20affiner_20par_20tests_0',['Ressenti (game feel) — ⚠️ à affiner par tests',['../spec-gameplay.html#autotoc_md300',1,'']]],
-  ['⚠️_20décision_20préalable_20_3a_20ecs_20maison_20vs_20bibliothèque_1',['⚠️ Décision préalable : ECS maison vs bibliothèque',['../lot-03.html#autotoc_md414',1,'']]]
+  ['⚠️_20à_20affiner_20par_20tests_0',['Ressenti (game feel) — ⚠️ à affiner par tests',['../spec-gameplay.html#autotoc_md304',1,'']]],
+  ['⚠️_20décision_20préalable_20_3a_20ecs_20maison_20vs_20bibliothèque_1',['⚠️ Décision préalable : ECS maison vs bibliothèque',['../lot-03.html#autotoc_md419',1,'']]]
 ];

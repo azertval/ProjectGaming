@@ -221,6 +221,7 @@ var hierarchy =
     [ "hmi::TileSubgroup", "structhmi_1_1TileSubgroup.html", null ],
     [ "core::TileTextureOverride", "structcore_1_1TileTextureOverride.html", null ],
     [ "core::Transform", "structcore_1_1Transform.html", null ],
+    [ "core::TriggerWeight", "structcore_1_1TriggerWeight.html", null ],
     [ "hmi::TypographyLevel", "structhmi_1_1TypographyLevel.html", null ],
     [ "hmi::TypographyTokens", "structhmi_1_1TypographyTokens.html", null ],
     [ "core::Vector2", "structcore_1_1Vector2.html", null ],

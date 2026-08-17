@@ -1,5 +1,15 @@
 var NAVTREEINDEX11 =
 {
+"classhmi_1_1Localization.html#ad057331aa23a4fd54d27cf76b6ab0993":[11,0,1,146,12],
+"classhmi_1_1Localization.html#adc9055b64a1c8d6947ed2d0b53def92b":[10,0,1,146,11],
+"classhmi_1_1Localization.html#adc9055b64a1c8d6947ed2d0b53def92b":[11,0,1,146,11],
+"classhmi_1_1Localization.html#ae68549c47a1ee0e2668438131052d938":[10,0,1,146,5],
+"classhmi_1_1Localization.html#ae68549c47a1ee0e2668438131052d938":[11,0,1,146,5],
+"classhmi_1_1MainMenu.html":[10,0,1,139],
+"classhmi_1_1MainMenu.html":[11,0,1,139],
+"classhmi_1_1MainMenu.html#a04db267a3cb26f734247a30dae4f85bf":[10,0,1,139,10],
+"classhmi_1_1MainMenu.html#a04db267a3cb26f734247a30dae4f85bf":[11,0,1,139,10],
+"classhmi_1_1MainMenu.html#a14456d1cc71348647b0dcfccea2e4e3d":[10,0,1,139,1],
 "classhmi_1_1MainMenu.html#a14456d1cc71348647b0dcfccea2e4e3d":[11,0,1,139,1],
 "classhmi_1_1MainMenu.html#a412d6af7eb35e8a587ac1e996a1429fb":[10,0,1,139,9],
 "classhmi_1_1MainMenu.html#a412d6af7eb35e8a587ac1e996a1429fb":[11,0,1,139,9],
@@ -239,15 +249,5 @@ var NAVTREEINDEX11 =
 "classhmi_1_1MainWindow.html#aef279fdecd9d472d3ae773b0494fe867":[11,0,1,140,35],
 "classhmi_1_1MainWindow.html#aef651eacf7d4b0696a0ec0bfbc1d0483":[10,0,1,140,55],
 "classhmi_1_1MainWindow.html#aef651eacf7d4b0696a0ec0bfbc1d0483":[11,0,1,140,55],
-"classhmi_1_1MainWindow.html#aef77702f265c861ebec3ef8c62c9cbf9":[10,0,1,140,36],
-"classhmi_1_1MainWindow.html#aef77702f265c861ebec3ef8c62c9cbf9":[11,0,1,140,36],
-"classhmi_1_1MainWindow.html#af1127880bfad8cb9a4e49eb5c072ca08":[10,0,1,140,79],
-"classhmi_1_1MainWindow.html#af1127880bfad8cb9a4e49eb5c072ca08":[11,0,1,140,79],
-"classhmi_1_1MainWindow.html#af383ac40d93b51725b361d72e2342292":[10,0,1,140,102],
-"classhmi_1_1MainWindow.html#af383ac40d93b51725b361d72e2342292":[11,0,1,140,102],
-"classhmi_1_1MainWindow.html#aff2cc741a88013d0821f5ed556409b71":[10,0,1,140,68],
-"classhmi_1_1MainWindow.html#aff2cc741a88013d0821f5ed556409b71":[11,0,1,140,68],
-"classhmi_1_1OptionsPage.html":[10,0,1,141],
-"classhmi_1_1OptionsPage.html":[11,0,1,141],
-"classhmi_1_1OptionsPage.html#a0053e3dcff3ab69fe7dc59d6e22ecd19":[10,0,1,141,2]
+"classhmi_1_1MainWindow.html#aef77702f265c861ebec3ef8c62c9cbf9":[10,0,1,140,36]
 };

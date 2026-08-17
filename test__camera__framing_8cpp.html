@@ -116,7 +116,7 @@ Functions</h2></td></tr>
 <tr class="memitem:aa92cbb1ac7fef314b12e8f447b6b5d44" id="r_aa92cbb1ac7fef314b12e8f447b6b5d44"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa92cbb1ac7fef314b12e8f447b6b5d44">TEST</a> (CameraFramingTest, ValidationDesZonesNommeLeChampFautif)</td></tr>
 <tr class="memdesc:aa92cbb1ac7fef314b12e8f447b6b5d44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les zones de caméra dessinées à la main sont valides uniquement en mode <em>par salle</em>, entièrement dans les bornes du niveau, et de taille non nulle (<span class="tt">EX-LVL-004</span>, <span class="tt">EX-LVL-007</span>).  <br /></td></tr>
 <tr class="memitem:a7f5836a0a1e868f1215708e88523666b" id="r_a7f5836a0a1e868f1215708e88523666b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7f5836a0a1e868f1215708e88523666b">TEST</a> (CameraFramingTest, NiveauxLivresReproduisentLeurComportementActuel)</td></tr>
-<tr class="memdesc:a7f5836a0a1e868f1215708e88523666b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chacun des dix-sept niveaux livrés, chargé sans champ de cadrage, résout le mode qui reproduit exactement son comportement actuel &ndash; le critère d'acceptation numéro un du lot.  <br /></td></tr>
+<tr class="memdesc:a7f5836a0a1e868f1215708e88523666b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chaque niveau livré déclare un cadrage <b>explicite</b> (<span class="tt">LOT-65</span>) : la plupart tiennent dans une salle par défaut et se voient entiers, <span class="tt">demo-mouvement.json</span> &ndash; la traversée continue la plus longue &ndash; <b>suit</b> le personnage, et <span class="tt">demo-final.json</span> découpe ses quatre salles <em>par salle</em>, avec des zones dessinées à la main et une taille de salle qui lui est propre.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires du cadrage de caméra porté par le niveau : modes, règle de repli et validation (<span class="tt">EX-LVL-006</span>, <span class="tt">EX-REN-016</span>, LOT-64). </p>
@@ -169,14 +169,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Chacun des dix-sept niveaux livrés, chargé sans champ de cadrage, résout le mode qui reproduit exactement son comportement actuel &ndash; le critère d'acceptation numéro un du lot. </p>
-<p><b>Cas de test :</b> <b>Chaque niveau livré résout le cadrage qui reproduit son comportement actuel.</b> <br  />
+<p>Chaque niveau livré déclare un cadrage <b>explicite</b> (<span class="tt">LOT-65</span>) : la plupart tiennent dans une salle par défaut et se voient entiers, <span class="tt">demo-mouvement.json</span> &ndash; la traversée continue la plus longue &ndash; <b>suit</b> le personnage, et <span class="tt">demo-final.json</span> découpe ses quatre salles <em>par salle</em>, avec des zones dessinées à la main et une taille de salle qui lui est propre. </p>
+<p><b>Cas de test :</b> <b>Chaque niveau livré déclare le cadrage explicitement choisi pour son contenu.</b> <br  />
  <b>Categorie :</b> Unitaire · Camera Framing<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Charger chacun des dix-sept niveaux livrés (<span class="tt">Source/Elements/Levels</span>).<br  />
+ 1. Charger les niveaux livrés (<span class="tt">Source/Elements/Levels</span>).<br  />
 2. Vérifier le mode de cadrage résolu de chacun.<br  />
- <b>Resultat attendu :</b> Les niveaux qui tiennent dans une salle par défaut (24×14) résolvent en <em>niveau entier</em> ; <span class="tt">demo-final.json</span> (34×9) et <span class="tt">demo-salles.json</span> (48×28), qui la dépassent, résolvent en <em>par salle</em>, sans taille personnalisée. </p>
+ <b>Resultat attendu :</b> La plupart résolvent en <em>niveau entier</em>, <span class="tt">demo-mouvement.json</span> en <em>suivi</em> et <span class="tt">demo-final.json</span> en <em>par salle</em>. </p>
 
 </div>
 </div>

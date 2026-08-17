@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-14-tache-02-ecran-editeur-palette.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-14-editeur-niveaux_2tache-02-ecran-editeur-palette"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-14.html#md_Lot_2LOT-14-editeur-niveaux_2epic" title="Lot/LOT-14-editeur-niveaux/epic.md">LOT-14</a> · <b>Emplacement :</b> <span class="tt">HMI/Editor</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md962"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md967"></a>
 Contexte</h1>
 <p><span class="tt">EditorScreen</span> (LOT-06) n'est aujourd'hui qu'un texte « à venir ». Cette tâche pose le <b>socle interactif</b> du mode éditeur : afficher la grille d'un <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span> (TACHE-01), convertir la position souris en case de grille, et peindre des tuiles depuis une <b>palette</b> de types — le cœur du WYSIWYG (<span class="tt">EX-EDIT-002</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md963"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md968"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Rendu de la grille</b> : réutiliser <span class="tt"><a class="el" href="classhmi_1_1Camera2D.html" title="Caméra 2D orthographique : projette le monde vers l&#39;écran pour le rendu.">hmi::Camera2D</a></span>/<span class="tt"><a class="el" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par calque puis par texture.">hmi::SpriteRenderer</a></span>/<span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, chargée depuis un fichier image avec repli procédural (EX-REN-04...">hmi::TextureAtlas</a></span> (LOT-05) pour afficher le <span class="tt">TileMap</span> du <span class="tt">LevelDraft</span> courant, comme le fait <span class="tt">GameScreen</span> pour un niveau joué — même correspondance type de tuile → région d'atlas.</li>
@@ -106,33 +106,33 @@ Travail à réaliser</h1>
 <li><b>Peinture</b> : clic (et glisser-clic pour peindre en continu) sur la grille applique le type actif via <span class="tt">LevelDraft::paintTile</span> — sauf pour <span class="tt">Entry</span>/<span class="tt">Exit</span>/<span class="tt">Switch</span>/<span class="tt">Door</span>, gérés en TACHE-03 (poser une tuile simple ici, liaison/unicité dans la tâche suivante).</li>
 <li><b>Nouveau <span class="tt">hmi::EditorScreen</span></b> : possède un <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span> (créé vierge par défaut à ce stade ; le choix nouveau/existant arrive en TACHE-06), le rendu de la grille, la palette et l'interaction souris ; <b>Échap</b> revient au menu (comme le placeholder actuel).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md964"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md969"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/EditorScreen.h</span>/<span class="tt">.cpp</span> (remplace le placeholder).</li>
 <li><span class="tt">Source/HMI/Editor/</span> : nouveaux fichiers pour la palette et la conversion souris → grille (ex. <span class="tt">TilePalette.h</span>/<span class="tt">.cpp</span>, <span class="tt">EditorCursor.h</span>/<span class="tt">.cpp</span>) — logique d'interaction, pas de dépendance directe au rendu quand c'est possible, pour rester testable.</li>
 <li>Tests unitaires (<span class="tt">Source/Test/Unit/HMI/Editor/</span>, nouveau dossier).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md965"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md970"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Conversion position souris (pixels) → <span class="tt">GridPosition</span>, y compris hors bornes de la grille (aucune case retournée / case rejetée proprement).</li>
 <li>Sélection de la palette : cliquer une entrée change le type actif ; hors zone palette, sans effet.</li>
 <li>Peindre une case via le type actif modifie bien le <span class="tt">LevelDraft</span> sous-jacent (test d'intégration simulant une séquence clic/glisser).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md966"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md971"></a>
 Points d'attention</h1>
 <ul>
 <li>Séparer <b>interaction</b> (testable sans GPU) et <b>rendu</b> (dépend de Direct3D), comme le reste de <span class="tt">HMI</span> — la logique de sélection de case/palette ne doit pas nécessiter de fenêtre pour être testée (<span class="tt">EX-NFR-010</span>).</li>
 <li>Réutiliser les ressources de rendu du <span class="tt">RenderContext</span> existant (atlas, police, lot de sprites) — aucune ressource dupliquée entre <span class="tt">GameScreen</span> et <span class="tt">EditorScreen</span>.</li>
 <li>Le rendu reste en <b>lecture seule</b> vis-à-vis du modèle : c'est l'interaction souris qui mute le <span class="tt">LevelDraft</span>, jamais le rendu lui-même (<span class="tt">EX-ARCH-012</span>, par analogie).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md967"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md972"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Grille affichée et peignable à la souris depuis une palette, testé (<span class="tt">ctest</span> vert pour la logique d'interaction), vérifié visuellement dans l'application ; build <span class="tt">/W4 /WX</span> ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md968"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md973"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-001</span>, <span class="tt">EX-EDIT-002</span>, <span class="tt">EX-EDIT-030</span>, <span class="tt">EX-EDIT-031</span>, <span class="tt">EX-ARCH-020</span>, <span class="tt">EX-ARCH-021</span>, <span class="tt">EX-NFR-010</span>. </p>
 </div></div><!-- contents -->

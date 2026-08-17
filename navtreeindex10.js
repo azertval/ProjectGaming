@@ -1,5 +1,15 @@
 var NAVTREEINDEX10 =
 {
+"classhmi_1_1InputState.html#a751949d554b36318ae4677b639b95723":[11,0,1,118,32],
+"classhmi_1_1InputState.html#a76e9822764fcba7189cf9d0ffa8d9c92":[10,0,1,118,24],
+"classhmi_1_1InputState.html#a76e9822764fcba7189cf9d0ffa8d9c92":[11,0,1,118,24],
+"classhmi_1_1InputState.html#a7cb5d25a39a4327cd74eae88a20d49ce":[10,0,1,118,17],
+"classhmi_1_1InputState.html#a7cb5d25a39a4327cd74eae88a20d49ce":[11,0,1,118,17],
+"classhmi_1_1InputState.html#a7d36fdb64d478ef67dacee6c869432b9":[10,0,1,118,13],
+"classhmi_1_1InputState.html#a7d36fdb64d478ef67dacee6c869432b9":[11,0,1,118,13],
+"classhmi_1_1InputState.html#a7f0a7108d61b34be561c8566a3b3181e":[10,0,1,118,29],
+"classhmi_1_1InputState.html#a7f0a7108d61b34be561c8566a3b3181e":[11,0,1,118,29],
+"classhmi_1_1InputState.html#a8168408e70f27916878b8057227ef7ff":[10,0,1,118,28],
 "classhmi_1_1InputState.html#a8168408e70f27916878b8057227ef7ff":[11,0,1,118,28],
 "classhmi_1_1InputState.html#a825c3827af5730d0c05b65f6c8a86798":[10,0,1,118,11],
 "classhmi_1_1InputState.html#a825c3827af5730d0c05b65f6c8a86798":[11,0,1,118,11],
@@ -239,15 +249,5 @@ var NAVTREEINDEX10 =
 "classhmi_1_1Localization.html#ab6c28ac0406171f49ae2d7ca01d4bbf2":[11,0,1,146,9],
 "classhmi_1_1Localization.html#ac8a16c078c1232817cfc131e0a047303":[10,0,1,146,10],
 "classhmi_1_1Localization.html#ac8a16c078c1232817cfc131e0a047303":[11,0,1,146,10],
-"classhmi_1_1Localization.html#ad057331aa23a4fd54d27cf76b6ab0993":[10,0,1,146,12],
-"classhmi_1_1Localization.html#ad057331aa23a4fd54d27cf76b6ab0993":[11,0,1,146,12],
-"classhmi_1_1Localization.html#adc9055b64a1c8d6947ed2d0b53def92b":[10,0,1,146,11],
-"classhmi_1_1Localization.html#adc9055b64a1c8d6947ed2d0b53def92b":[11,0,1,146,11],
-"classhmi_1_1Localization.html#ae68549c47a1ee0e2668438131052d938":[10,0,1,146,5],
-"classhmi_1_1Localization.html#ae68549c47a1ee0e2668438131052d938":[11,0,1,146,5],
-"classhmi_1_1MainMenu.html":[10,0,1,139],
-"classhmi_1_1MainMenu.html":[11,0,1,139],
-"classhmi_1_1MainMenu.html#a04db267a3cb26f734247a30dae4f85bf":[10,0,1,139,10],
-"classhmi_1_1MainMenu.html#a04db267a3cb26f734247a30dae4f85bf":[11,0,1,139,10],
-"classhmi_1_1MainMenu.html#a14456d1cc71348647b0dcfccea2e4e3d":[10,0,1,139,1]
+"classhmi_1_1Localization.html#ad057331aa23a4fd54d27cf76b6ab0993":[10,0,1,146,12]
 };

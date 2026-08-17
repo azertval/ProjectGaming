@@ -203,8 +203,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a38daa4a2c18bb7995b56b27502f7d686"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un danger temporisé sans champs explicites reçoit les valeurs de conception par défaut (<span class="tt">EX-GP-053</span>).  <br /></td></tr>
 <tr class="memitem:aa6cdb6b9df71552cb553b9eee4f1feed" id="r_aa6cdb6b9df71552cb553b9eee4f1feed"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa6cdb6b9df71552cb553b9eee4f1feed">TEST</a> (LevelLoaderTest, ChargeUnDangerTemporiseValeursExplicites)</td></tr>
 <tr class="memdesc:aa6cdb6b9df71552cb553b9eee4f1feed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un danger temporisé avec période/déphasage/durée active explicites les préserve (<span class="tt">EX-GP-053</span>).  <br /></td></tr>
-<tr class="memitem:aff0184f7b0dd2df046f722acc94b3981" id="r_aff0184f7b0dd2df046f722acc94b3981"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aff0184f7b0dd2df046f722acc94b3981">TEST</a> (LevelLoaderTest, LesDixSeptNiveauxDeDemoSeChargentSansErreur)</td></tr>
-<tr class="memdesc:aff0184f7b0dd2df046f722acc94b3981"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dix-sept niveaux de démonstration livrés, aucun ne portant de champ <span class="tt">"version"</span>, se chargent tous sans erreur ni avertissement (<span class="tt">EX-LVL-005</span>, rétrocompatibilité, critère d'acceptation du LOT-44).  <br /></td></tr>
+<tr class="memitem:a2806551a8fa87f5bd64365a760c9341f" id="r_a2806551a8fa87f5bd64365a760c9341f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2806551a8fa87f5bd64365a760c9341f">TEST</a> (LevelLoaderTest, LesNiveauxDeDemoSeChargentSansErreur)</td></tr>
+<tr class="memdesc:a2806551a8fa87f5bd64365a760c9341f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les niveaux de démonstration livrés, aucun ne portant de champ <span class="tt">"version"</span>, se chargent tous sans erreur ni avertissement (<span class="tt">EX-LVL-005</span>, rétrocompatibilité, critère d'acceptation du LOT-44).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires du chargement de niveau (format JSON, erreurs récupérables). </p>
@@ -1140,8 +1140,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aff0184f7b0dd2df046f722acc94b3981" name="aff0184f7b0dd2df046f722acc94b3981"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff0184f7b0dd2df046f722acc94b3981">&#9670;&#160;</a></span>TEST() <span class="overload">[32/51]</span></h2>
+<a id="a2806551a8fa87f5bd64365a760c9341f" name="a2806551a8fa87f5bd64365a760c9341f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2806551a8fa87f5bd64365a760c9341f">&#9670;&#160;</a></span>TEST() <span class="overload">[32/51]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1154,19 +1154,19 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">LesDixSeptNiveauxDeDemoSeChargentSansErreur</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">LesNiveauxDeDemoSeChargentSansErreur</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Les dix-sept niveaux de démonstration livrés, aucun ne portant de champ <span class="tt">"version"</span>, se chargent tous sans erreur ni avertissement (<span class="tt">EX-LVL-005</span>, rétrocompatibilité, critère d'acceptation du LOT-44). </p>
-<p><b>Cas de test :</b> <b>Les dix-sept niveaux de demonstration livres se chargent sans erreur.</b><br  />
+<p>Les niveaux de démonstration livrés, aucun ne portant de champ <span class="tt">"version"</span>, se chargent tous sans erreur ni avertissement (<span class="tt">EX-LVL-005</span>, rétrocompatibilité, critère d'acceptation du LOT-44). </p>
+<p>Le compte lui-même n'est <b>pas</b> figé ici : il dérive du dossier balayé, pour ne pas se périmer à chaque tableau ajouté ou retiré (<span class="tt">LOT-65</span>, où il est passé de quinze à dix-sept puis vingt-deux sans qu'aucun test dédié n'en soit informé avant coup). <b>Cas de test :</b> <b>Les niveaux de demonstration livres se chargent tous sans erreur.</b><br  />
  <b>Categorie :</b> Unitaire · Level Loader<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
  1. Balayer le dossier des niveaux livres.<br  />
 2. Charger chaque fichier.<br  />
- <b>Resultat attendu :</b> Chaque niveau se charge sans erreur, avec errorCode == None. </p>
+ <b>Resultat attendu :</b> Chaque niveau se charge sans erreur, avec errorCode == None, et au moins un niveau a été balayé. </p>
 
 </div>
 </div>

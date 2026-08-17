@@ -108,6 +108,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8c99052caaca4ae7ac2e9f461856ff66" id="r_a8c99052caaca4ae7ac2e9f461856ff66"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a8c99052caaca4ae7ac2e9f461856ff66">positions</a> () const noexcept</td></tr>
 <tr class="memitem:a201e8be3e68dba9199b0177230e3201f" id="r_a201e8be3e68dba9199b0177230e3201f"><td class="memItemLeft">const std::vector&lt; float &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a201e8be3e68dba9199b0177230e3201f">scales</a> () const noexcept</td></tr>
 <tr class="memitem:ace9150fb416f7dae1e95b6eb1b7225fe" id="r_ace9150fb416f7dae1e95b6eb1b7225fe"><td class="memItemLeft"><a class="el" href="structcore_1_1Aabb.html">Aabb</a>&#160;</td><td class="memItemRight"><a class="el" href="#ace9150fb416f7dae1e95b6eb1b7225fe">boxAt</a> (std::size_t index) const</td></tr>
+<tr class="memitem:a418b992f1bbbe9519b248e03f215676e" id="r_a418b992f1bbbe9519b248e03f215676e"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a418b992f1bbbe9519b248e03f215676e">massAt</a> (std::size_t index) const</td></tr>
+<tr class="memdesc:a418b992f1bbbe9519b248e03f215676e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Masse du bloc d'indice <code class="param">index</code>, pour les mécanismes à activation continue (<span class="tt">EX-GP-025</span>, <span class="tt">LOT-65</span> TACHE-06).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -314,6 +316,40 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true si <code class="param">target</code> est dans les bornes, non solide et non pente/arrondi (<span class="tt"><a class="el" href="namespacecore.html#aaa7b295b62e61a2f387f7b2775836d90">core::isFollowableSurface</a></span>/<span class="tt"><a class="el" href="namespacecore.html#a391389199b2161535d2aa57f225ef65f">core::isCeilingSlope</a></span>, voir en-tête de la classe) dans <code class="param">base</code>, et non occupée par un bloc autre que celui d'indice <code class="param">excluding</code>. </dd></dl>
+
+</div>
+</div>
+<a id="a418b992f1bbbe9519b248e03f215676e" name="a418b992f1bbbe9519b248e03f215676e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a418b992f1bbbe9519b248e03f215676e">&#9670;&#160;</a></span>massAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::BlockController::massAt </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Masse du bloc d'indice <code class="param">index</code>, pour les mécanismes à activation continue (<span class="tt">EX-GP-025</span>, <span class="tt">LOT-65</span> TACHE-06). </p>
+<p>Vaut le <b>facteur de taille</b> du bloc (<span class="tt"><a class="el" href="#a201e8be3e68dba9199b0177230e3201f">scales()</a></span>), et non son aire : un bloc plein pèse <span class="tt">1</span>, un demi <span class="tt">0.5</span>, un quart <span class="tt">0.25</span>. Le seuil des plaques de pression étant calé sur la masse par défaut du personnage, cela donne une règle lisible pour le level designer — <b>seul un bloc plein enfonce une plaque</b> — et un levier d'énigme : distinguer les caisses par leur taille plutôt que par une propriété invisible. Source unique de cette règle : les deux appelants qui composent le pas fixe (<span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> et le test système) la lisent ici plutôt que de la recalculer chacun de son côté. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>Indice du bloc, même ordre que <span class="tt"><a class="el" href="#a8c99052caaca4ae7ac2e9f461856ff66">positions()</a></span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La masse du bloc, comparable au seuil des plaques. </dd></dl>
 
 </div>
 </div>

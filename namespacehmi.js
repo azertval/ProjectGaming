@@ -570,7 +570,7 @@ var namespacehmi =
     [ "flipVertical", "namespacehmi.html#ac939037edc9bac81094fac90cd542928", null ],
     [ "floodFill", "namespacehmi.html#a76e3283d122f8e9b31c1b98d3db8f59f", null ],
     [ "formatSceneStatistics", "namespacehmi.html#aabc578b802bb386e63d830e168140fe7", null ],
-    [ "gameHudLines", "namespacehmi.html#a8a1c52dc217e915a1ebbd5ec209037d9", null ],
+    [ "gameHudLines", "namespacehmi.html#a03f731727d8be34206fa2313dad908ab", null ],
     [ "gamepadButtonDisplayName", "namespacehmi.html#ae5554638874ee3372dad502cfe2e594e", null ],
     [ "hasSilhouette", "namespacehmi.html#a8a000913259074c63f34b46b7d67864e", null ],
     [ "hitTestDecorHandles", "namespacehmi.html#a375ceba0ca2cc74fa38e49f139bb1b44", null ],

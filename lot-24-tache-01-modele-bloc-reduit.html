@@ -94,17 +94,17 @@ $(function(){initNavTree('lot-24-tache-01-modele-bloc-reduit.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-24-blocs-taille-fractionnaire_2tache-01-modele-bloc-reduit"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-24.html#md_Lot_2LOT-24-blocs-taille-fractionnaire_2epic" title="Lot/LOT-24-blocs-taille-fractionnaire/epic.md">LOT-24</a> · <b>Emplacement :</b> <span class="tt">Core/Levels</span>, <span class="tt">Core/Gameplay</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1338"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1343"></a>
 Contexte</h1>
 <p>Pose le vocabulaire (types de tuiles, facteur de taille) avant la routine de collision propre (TACHE-02) — sur le modèle de <span class="tt">LOT-21</span> (<span class="tt">Block</span>) et <span class="tt">LOT-22</span>/<span class="tt">LOT-23</span> (types + géométrie séparés de la résolution physique).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1339"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1344"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Core/Levels/TileType.h</a></span></b> : deux nouvelles valeurs, <span class="tt">BlockHalf</span> et <span class="tt">BlockQuarter</span>. <span class="tt">isSolid</span> renvoie <span class="tt">true</span> pour les deux (comme <span class="tt">Block</span> : solides tant qu'ils n'ont pas été résolus par <span class="tt">BlockController</span>, voir <span class="tt">LOT-21</span>).</li>
 <li><b><span class="tt">Core/Gameplay/BlockController</span></b> : reconnaît les trois types de bloc (<span class="tt">Block</span>, <span class="tt">BlockHalf</span>, <span class="tt">BlockQuarter</span>) à la construction, et associe à chaque position un <b>facteur de taille</b> (<span class="tt">1.0</span>/<span class="tt">0.5</span>/<span class="tt">0.25</span>) — probablement un <span class="tt">std::vector&lt;float&gt; _scales</span> parallèle à <span class="tt">_positions</span> (même index), sur le modèle de <span class="tt">_fallTimers</span>.</li>
 <li><b><span class="tt"><a class="el" href="LevelLoader_8cpp.html">Core/Levels/LevelLoader.cpp</a></span>/<span class="tt"><a class="el" href="LevelWriter_8cpp.html">LevelWriter.cpp</a></span></b> : reconnaît/sérialise <span class="tt">"blockHalf"</span>/<span class="tt">"blockQuarter"</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1340"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1345"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Source/Core/Levels/TileType.h</a></span>.</li>
@@ -112,24 +112,24 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="LevelLoader_8cpp.html">Source/Core/Levels/LevelLoader.cpp</a></span>, <span class="tt"><a class="el" href="LevelWriter_8cpp.html">LevelWriter.cpp</a></span>.</li>
 <li>Tests : <span class="tt"><a class="el" href="test__block__controller_8cpp.html" title="Tests unitaires des blocs poussables (BlockController, EX-GP-022).">Source/Test/Unit/Core/Gameplay/test_block_controller.cpp</a></span> (nouveaux cas taille), <span class="tt"><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">test_level_loader.cpp</a></span>, <span class="tt"><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">test_level_writer.cpp</a></span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1341"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1346"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Un niveau avec les trois types de bloc (<span class="tt">Block</span>/<span class="tt">BlockHalf</span>/<span class="tt">BlockQuarter</span>) charge chacun avec le facteur de taille attendu.</li>
 <li>Poussée et chute d'un bloc réduit suivent exactement la même logique <b>case par case</b> qu'un bloc plein (réutilisation directe des tests de <span class="tt">LOT-21</span>, appliqués aux nouveaux types).</li>
 <li>Round-trip JSON préserve le type (donc le facteur de taille, dérivé du type à la relecture).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1342"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1347"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le facteur de taille ne change rien à la poussée/chute elle-même</b> (toujours case par case, voir décision de cadrage de l'épic) — seule la boîte de collision utilisée par TACHE-02 diffère. Ne pas introduire de position continue ici : ce serait une régression vers la complexité que <span class="tt">LOT-21</span> a justement évitée pour les mécanismes de ce moteur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1343"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1348"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Types de bloc réduit chargeables/sérialisables, facteur de taille exposé par <span class="tt">BlockController</span> ; poussée/chute identiques à un bloc plein.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1344"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1349"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-005</span> (déjà déclarée dans <span class="tt"><a class="el" href="gameplay_8md.html">gameplay.md</a></span>, modèle de données). </p>
 </div></div><!-- contents -->

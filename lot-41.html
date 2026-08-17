@@ -96,12 +96,12 @@ $(function(){initNavTree('lot-41.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-40.html" title="LOT-40 — Fondations : registre de textures, calques, culling, testabilité">LOT-40</a> (fondations du rendu). Prépare <a class="el" href="lot-42.html" title="LOT-42 — Skin des tuiles : jeux de skins et raccords automatiques">LOT-42</a> → <a class="el" href="lot-55.html" title="LOT-55 — Ombres du plan physique">LOT-55</a>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1934"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1939"></a>
 Objectif</h1>
 <p>Introduire la commande qui bascule, en édition <b>et</b> en jeu réel, entre le rendu <b>Physique</b> (couleur plate par type de tuile, celui d'aujourd'hui — lecture directe des collisions) et le rendu <b>Texture</b> (habillage complet, construit lot après lot à partir de LOT-42). Sans cette bascule, rien de ce que les lots suivants ajoutent n'est consultable ni comparable au rendu physique existant.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1935"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1940"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1936"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1941"></a>
 Inclus</h2>
 <ul>
 <li><em><b>RenderMode { Physique, Texture }</b></em> (namespace <span class="tt"><a class="el" href="namespacehmi.html">hmi</a></span>, nom équivalent possible), propagé depuis <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">hmi::GameViewport</a></span> (widget unique derrière édition, essai et jeu réel, <span class="tt">EX-IHM-002</span>) jusqu'à <span class="tt">DraftRenderer::render</span> et <span class="tt">GameSession::render</span>/<span class="tt">SpriteRenderer::render</span>.</li>
@@ -110,13 +110,13 @@ Inclus</h2>
 <li>En mode Texture, <b>tout</b> s'affiche avec le repli en damier magenta (LOT-40, TACHE-03) tant qu'aucun skin n'existe encore — comportement honnête et attendu, pas un bug, jusqu'à LOT-42.</li>
 <li>Le mode Physique reste <b>identique</b> au rendu actuel, dans tous les cas, ce qui est <b>asserté</b> via le <em>QuadRecorder</em> (LOT-40, TACHE-04) et non constaté à l'œil.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1937"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1942"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li>Aucune donnée de skin, de fond, de décor ou d'objet — ce lot ne fait que câbler la bascule et le point de résolution déjà préparé en LOT-40.</li>
 <li>Aucun 3ᵉ mode (ex. superposition physique+texture) : binaire pour ce lot. Le contrôle <b>fin</b> par calque relève de LOT-51, et il est délibérément distinct.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1938"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1943"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b><span class="tt">GameViewport</span> unique</b> porte la bascule : couvre automatiquement édition, essai et jeu réel sans double implémentation (<span class="tt">EX-IHM-002</span>).</li>
@@ -125,13 +125,13 @@ Décisions de cadrage</h1>
 <li><b>Persistance retenue</b> — décision également <b>révisée</b>. Le cadrage initial l'écartait « par simplicité », alors que <span class="tt">QSettings</span> est déjà câblé et que le coût réel est marginal ; à l'usage, reperdre son mode d'affichage à chaque lancement est une friction quotidienne pendant treize lots.</li>
 <li><b>Résolution de calque non concernée</b> : ce lot introduit uniquement le drapeau de mode ; le point de résolution « surcharge &gt; skin &gt; damier » n'a encore qu'une seule branche active (damier), les suivantes arrivent lot après lot sans changer la forme de ce résolveur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1939"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1944"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Amendée : <span class="tt">EX-REN-046</span> (bascule Physique/Texture, <span class="tt">F8</span>, non remappable, défaut Texture unique et persistance du choix).</li>
 <li>Réutilisées : <span class="tt">EX-REN-043</span> (rendu multi-textures, LOT-40), <span class="tt">EX-NFR-040</span> (repli), <span class="tt">EX-IHM-002</span> (viewport unique), <span class="tt">EX-NFR-004</span> (vérification sans GPU), <span class="tt">EX-IHM-011</span> (persistance des préférences d'interface).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1940"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1945"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -146,7 +146,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-41-tache-03-non-regression-documentation.html#md_Lot_2LOT-41-bascule-physique-texture_2tache-03-non-regression-documentation" title="Lot/LOT-41-bascule-physique-texture/tache-03-non-regression-documentation.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Non-régression du mode Physique (assertions <em>QuadRecorder</em>) + documentation  </td><td class="markdownTableBodyNone"><span class="tt">Source/Test</span>, <span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1941"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1946"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li><span class="tt">F8</span> bascule le rendu en édition, en essai et en jeu réel, sans passer par les tables de remappage.</li>
@@ -155,10 +155,10 @@ Critères d'acceptation du lot</h1>
 <li>Aucune entrée <span class="tt">F8</span> n'apparaît dans les enums, le JSON ou l'UI de remappage.</li>
 <li>Build <span class="tt">/W4 /WX</span>, Doxygen et lint verts ; bascule vérifiée visuellement dans les trois contextes (édition, essai, jeu réel).</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1942"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1947"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-40.html" title="LOT-40 — Fondations : registre de textures, calques, culling, testabilité">LOT-40</a> (calques, résolveur de texture, <em>QuadRecorder</em>). Ne modifie pas <span class="tt">Core</span>. Prérequis de <a class="el" href="lot-42.html" title="LOT-42 — Skin des tuiles : jeux de skins et raccords automatiques">LOT-42</a> à <a class="el" href="lot-55.html" title="LOT-55 — Ombres du plan physique">LOT-55</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1943"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1948"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-41-tache-01-render-mode.html" title="TACHE-01 — *RenderMode* et câblage du viewport">TACHE-01 — *RenderMode* et câblage du viewport</a></li>

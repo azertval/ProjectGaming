@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-36-tache-01-panneau-niveaux-recherche.html','','')
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-36-refonte-ihm-qt-niveaux_2tache-01-panneau-niveaux-recherche"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-36.html#md_Lot_2LOT-36-refonte-ihm-qt-niveaux_2epic" title="Lot/LOT-36-refonte-ihm-qt-niveaux/epic.md">LOT-36</a> · <b>Emplacement :</b> <span class="tt">Source/Editor</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1765"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1770"></a>
 Contexte</h1>
 <p>Le choix de niveau historique (<span class="tt">hmi::LevelPicker</span>) est une simple liste défilante affichée <b>au démarrage</b> de l'éditeur. Le demandeur anticipe qu'elle « va vite devenir illisible ». Cette tâche introduit un <b>panneau docké « Niveaux »</b> toujours visible, listant les fichiers du dossier <span class="tt">Levels</span> avec <b>recherche/filtre</b>, base des opérations de fichiers (TACHE-02) et de l'ouverture (TACHE-03).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1766"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1771"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Dock « Niveaux »</b> (<span class="tt">QDockWidget</span>) contenant une vue liste (<span class="tt">QListView</span>, ou <span class="tt">QTreeView</span> si colonnes nom/taille/date) sur le dossier <span class="tt">Levels</span> (<span class="tt"><a class="el" href="namespacehmi.html#a18648161d8a6c752202b6034613a947b" title="Dossier contenant l&#39;exécutable en cours, pour localiser les ressources copiées à côté (niveaux,...">hmi::executableDirectory()</a> / "Levels"</span>).</li>
@@ -106,31 +106,31 @@ Travail à réaliser</h1>
 <li><b>Rafraîchissement à chaud</b> : refléter les créations/suppressions externes (surveillance <span class="tt">QFileSystemModel</span> native, ou rafraîchissement à l'activation de la fenêtre).</li>
 <li><b>Sélection courante</b> mise en évidence ; double-clic/Entrée réservés à l'ouverture (TACHE-03).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1767"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1772"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Editor/LevelBrowserPanel.{h,cpp}</span> (dock, vue, modèle, filtre).</li>
 <li>Éventuel <span class="tt">Source/Editor/LevelListModel.{h,cpp}</span> si modèle dédié.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1768"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1773"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Logique de filtrage testable</b> : si un modèle/filtre dédié est écrit, tester le filtrage (une requête ne retient que les niveaux correspondants) et le tri sur une liste de noms en mémoire, sans Qt fenêtré.</li>
 <li><b>Vérification manuelle</b> : le panneau liste les niveaux du dossier ; taper dans la recherche filtre la liste ; ajouter/retirer un fichier hors de l'appli met la liste à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1769"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1774"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Localiser <span class="tt">Levels</span></b> via <span class="tt"><a class="el" href="namespacehmi.html#a18648161d8a6c752202b6034613a947b" title="Dossier contenant l&#39;exécutable en cours, pour localiser les ressources copiées à côté (niveaux,...">hmi::executableDirectory()</a></span> (parité avec <span class="tt">LevelPicker::forDirectory</span>), pas un chemin en dur.</li>
 <li><b>Coût de lecture des noms internes</b> : si on affiche le nom du niveau (pas le nom de fichier), éviter de recharger tous les niveaux en continu (cache, lecture paresseuse).</li>
 <li><b>Le sélecteur au démarrage</b> (<span class="tt">LevelPicker</span>) peut être retiré au profit du panneau permanent, ou conservé transitoirement — décider dans le lot (cohérence UX).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1770"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1775"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Panneau « Niveaux » listant et filtrant les niveaux, rafraîchi à chaud ; logique de filtre testée ; <span class="tt">/W4 /WX</span> propre ; vérification manuelle OK.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1771"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1776"></a>
 Exigences</h1>
 <p><span class="tt">EX-IHM-020</span> (panneau de gestion des niveaux avec recherche) ; reconduit <span class="tt">EX-EDIT-001</span> (choix d'un niveau existant/nouveau). </p>
 </div></div><!-- contents -->

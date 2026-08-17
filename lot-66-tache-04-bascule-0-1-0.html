@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-66-tache-04-bascule-0-1-0.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-66-reproductibilite-referentiel_2tache-04-bascule-0-1-0"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-66.html#md_Lot_2LOT-66-reproductibilite-referentiel_2epic" title="Lot/LOT-66-reproductibilite-referentiel/epic.md">LOT-66</a> · <b>Emplacement :</b> <span class="tt">CMakeLists.txt</span>, <span class="tt">CHANGELOG.md</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2975"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3048"></a>
 Contexte</h1>
 <p>Dernière tâche du programme. Le processus de publication est décrit dans <span class="tt">CONTRIBUTING.md</span> et il fonctionne — la <span class="tt">0.0.5</span> en est la preuve. Ce qui change ici est la <b>nature</b> du jalon : les <span class="tt">0.0.x</span> jalonnaient la construction du moteur, la <span class="tt">0.1.0</span> annonce un jeu. Le chapeau du <span class="tt">CHANGELOG.md</span> doit le dire, et l'ensemble doit être vérifié sur le binaire réellement publié, pas sur le build local.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2976"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3049"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Bumper <span class="tt">project(VERSION)</span></b> à <span class="tt">0.1.0</span> dans le <span class="tt">CMakeLists.txt</span> racine — désormais le seul endroit, grâce à la <span class="tt">TACHE-02</span>.</li>
@@ -107,12 +107,12 @@ Travail à réaliser</h1>
 <li><b>Recompter les tests</b> : le chapeau du <span class="tt">CHANGELOG.md</span> annonce traditionnellement le total (943 à la <span class="tt">0.0.5</span>). Le relever réellement plutôt que l'estimer.</li>
 <li><b>Vérification de bout en bout sur le zip publié</b>, une fois la préversion roulante reconstruite : lancer le <b>Release</b> sur une machine sans outil de développement, jouer la séquence en quittant et relançant en cours de route, vérifier pause, fin de niveau, son, effets, progression, et l'existence d'un journal exploitable.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2977"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3050"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">CMakeLists.txt</span>, <span class="tt">CHANGELOG.md</span>, <span class="tt">README.md</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2978"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3051"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">python scripts/extract_release_notes.py v0.1.0</span> produit des notes complètes et lisibles.</li>
@@ -122,7 +122,7 @@ Tests (obligatoires)</h1>
 <li><span class="tt">gh pr checks</span> — <b>tous</b> les contrôles verts avant merge, pas seulement ceux qu'on a l'habitude de regarder.</li>
 <li>Essai réel du zip Release, hors machine de développement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2979"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3052"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le tag vient après le merge</b>, sur le commit de merge, conformément à <span class="tt">CONTRIBUTING.md</span>. Poser le tag avant, c'est publier un état qui n'est pas celui de <span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span>.</li>
@@ -131,12 +131,12 @@ Points d'attention</h1>
 <li>Si un lot du programme a été rogné, le chapeau et le <span class="tt">README.md</span> décrivent le livré — pas le planifié.</li>
 <li>La préversion roulante <span class="tt">debug-latest</span> est reconstruite à chaque push sur <span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span> : elle est le moyen le plus simple d'essayer l'état final avant de tagger.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2980"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3053"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">project(VERSION)</span> vaut <span class="tt">0.1.0</span>, le <span class="tt">CHANGELOG.md</span> porte une section datée avec son chapeau de jalon et un <span class="tt">Non publié</span> vide rouvert, le <span class="tt">README.md</span> décrit le jeu livré, les notes de release sont vérifiées, toute la CI est verte, et le zip Release a été essayé de bout en bout sur une machine sans outil de développement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2981"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3054"></a>
 Exigences</h1>
 <p>Réutilise <span class="tt">EX-NFR-030</span> (build reproductible), <span class="tt">EX-NFR-031</span> (versions épinglées), <span class="tt">EX-NFR-022</span> (CI verte), <span class="tt">EX-BUILD-010</span> (déploiement autonome), <span class="tt">EX-NFR-042</span> (journal exploitable). </p>
 </div></div><!-- contents -->

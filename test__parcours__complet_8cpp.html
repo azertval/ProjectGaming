@@ -99,6 +99,8 @@ $(function(){initNavTree('test__parcours__complet_8cpp.html','',''); });
 <code>#include &lt;cstddef&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;functional&gt;</code><br />
+<code>#include &lt;set&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="Collider_8h_source.html">Core/Ecs/Components/Collider.h</a>&quot;</code><br />
@@ -108,13 +110,17 @@ $(function(){initNavTree('test__parcours__complet_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="CharacterPhysicsSystem_8h_source.html">Core/Ecs/Systems/CharacterPhysicsSystem.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="World_8h_source.html">Core/Ecs/World.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="BlockController_8h_source.html">Core/Gameplay/BlockController.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="DangerController_8h_source.html">Core/Gameplay/DangerController.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="MechanismController_8h_source.html">Core/Gameplay/MechanismController.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PlatformController_8h_source.html">Core/Gameplay/PlatformController.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="DangerGeometry_8h_source.html">Core/Levels/DangerGeometry.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelOutcome_8h_source.html">Core/Levels/LevelOutcome.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelSequence_8h_source.html">Core/Levels/LevelSequence.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Vector2_8h_source.html">Core/Math/Vector2.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Aabb_8h_source.html">Core/Physics/Aabb.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="AabbVsAabb_8h_source.html">Core/Physics/AabbVsAabb.h</a>&quot;</code><br />
@@ -125,14 +131,48 @@ $(function(){initNavTree('test__parcours__complet_8cpp.html','',''); });
 Functions</h2></td></tr>
 <tr class="memitem:af2359f723477064fe6474dea0eef51fb" id="r_af2359f723477064fe6474dea0eef51fb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af2359f723477064fe6474dea0eef51fb">TEST</a> (ParcoursCompletSysteme, FranchitTouteLaSequence)</td></tr>
 <tr class="memdesc:af2359f723477064fe6474dea0eef51fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parcours complet : chaque niveau de la séquence est franchi (<span class="tt">Won</span>) dans l'ordre, puis « retour au titre ».  <br /></td></tr>
+<tr class="memitem:a7e251419bd61b6ba994380d9e1ec3022" id="r_a7e251419bd61b6ba994380d9e1ec3022"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7e251419bd61b6ba994380d9e1ec3022">TEST</a> (ParcoursCompletSysteme, AucunTableauNEstFranchissableEnMaintenantDroite)</td></tr>
+<tr class="memdesc:a7e251419bd61b6ba994380d9e1ec3022"><td class="mdescLeft">&#160;</td><td class="mdescRight">Garde-fou anti-couloir (<span class="tt">LOT-65</span> TACHE-05) : aucun tableau de la séquence livrée ne se franchit en maintenant simplement « droite ».  <br /></td></tr>
+<tr class="memitem:af649cead3218362649d99f2280f46c23" id="r_af649cead3218362649d99f2280f46c23"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af649cead3218362649d99f2280f46c23">TEST</a> (ParcoursCompletSysteme, GardeFouDeProximiteSignaleUneMecaniqueHorsDePortee)</td></tr>
+<tr class="memdesc:af649cead3218362649d99f2280f46c23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test négatif du garde-fou de proximité : une tuile posée au-delà de la portée d'un saut au-dessus du trajet est signalée, alors que la même tuile posée sur le trajet ne l'est pas — démontre la sensibilité du contrôle sans dépendre d'aucun fichier de niveau réel.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »), sur les fichiers livrés, sans la couche GPU. </p>
 <p>Pour chaque niveau de la séquence, on charge le fichier réel, on fait apparaître le personnage à l'entrée et on rejoue un scénario d'entrées <b>déterministe</b> (au pas fixe) jusqu'à la sortie (<span class="tt">Won</span>). Franchir tous les niveaux dans l'ordre représente le parcours complet du jeu. La couche fenêtre/rendu est exclue (vérifiée visuellement) ; on teste ici la simulation et l'enchaînement.</p>
 <p>Cette liste <b>doit</b> rester identique, dans le même ordre, à celle jouée par <span class="tt"><a class="el" href="MainWindow_8cpp.html">Source/HMI/Interface/MainWindow.cpp</a></span> (<span class="tt">MainWindow::startGame</span>) — un décalage entre les deux (un niveau chargé en jeu mais absent d'ici, ou l'inverse) est précisément le défaut qui a déclenché <span class="tt">LOT-25</span> (<span class="tt">demo5.json</span> manquait ici). <span class="tt">scripts/check_demo_sequence.py</span> (CI) compare les deux listes automatiquement. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a7e251419bd61b6ba994380d9e1ec3022" name="a7e251419bd61b6ba994380d9e1ec3022"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e251419bd61b6ba994380d9e1ec3022">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ParcoursCompletSysteme</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AucunTableauNEstFranchissableEnMaintenantDroite</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Garde-fou anti-couloir (<span class="tt">LOT-65</span> TACHE-05) : aucun tableau de la séquence livrée ne se franchit en maintenant simplement « droite ». </p>
+<p>Un tableau qui se termine sans autre entrée ne démontre pas sa mécanique — il la décore ; c'est le défaut exact qu'une revue a relevé sur dix des vingt-deux tableaux de la première séquence du <span class="tt">LOT-65</span>. Les exclusions sont nommées et justifiées (<span class="tt">corridorExemptLevels</span>). <b>Cas de test :</b> <b>Aucun tableau de la séquence livrée n'est franchissable en maintenant « droite », hors exclusions nommées.</b><br  />
+ <b>Categorie :</b> Systeme · Parcours Complet<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Aucun tableau de la séquence livrée n'est franchissable en maintenant « droite », hors exclusions nommées. </p>
+
+</div>
+</div>
 <a id="af2359f723477064fe6474dea0eef51fb" name="af2359f723477064fe6474dea0eef51fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2359f723477064fe6474dea0eef51fb">&#9670;&#160;</a></span>TEST()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af2359f723477064fe6474dea0eef51fb">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -151,13 +191,44 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Parcours complet : chaque niveau de la séquence est franchi (<span class="tt">Won</span>) dans l'ordre, puis « retour au titre ». </p>
-<p>Reproduit la boucle titre → niveau 1 → niveau 2 → … → titre du jeu, sur l'intégralité des mécaniques livrées (<span class="tt">LOT-01</span> à <span class="tt">LOT-24</span>). <b>Cas de test :</b> <b>Parcours complet : chaque niveau de la séquence est franchi (<span class="tt">Won</span>) dans l'ordre, puis « retour au titre ». Reproduit la boucle titre → niveau 1 → niveau 2 → titre du jeu.</b><br  />
+<p>Reproduit la boucle titre → niveau 1 → niveau 2 → … → titre du jeu, sur l'intégralité des mécaniques livrées.</p>
+<p>Le rejeu sert aussi de garde-fou de <b>proximité</b> (<span class="tt">LOT-65</span> TACHE-05) : la trajectoire réellement parcourue est relevée, et chaque tuile de mécanique du tableau doit passer à portée d'un saut d'une position occupée. Une mécanique hors d'atteinte est « couverte » sans jamais être jouée — le trou que la <span class="tt">TACHE-01</span> avait annoncé sans le combler. <b>Cas de test :</b> <b>Parcours complet : chaque niveau de la séquence est franchi (<span class="tt">Won</span>) dans l'ordre, et aucune de ses tuiles de mécanique n'est hors de portée du trajet parcouru.</b><br  />
  <b>Categorie :</b> Systeme · Parcours Complet<br  />
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Parcours complet : chaque niveau de la séquence est franchi (<span class="tt">Won</span>) dans l'ordre, puis « retour au titre ». Reproduit la boucle titre → niveau 1 → niveau 2 → titre du jeu. </p>
+ <b>Resultat attendu :</b> Parcours complet : chaque niveau de la séquence est franchi (<span class="tt">Won</span>) dans l'ordre, et aucune de ses tuiles de mécanique n'est hors de portée du trajet parcouru. </p>
+
+</div>
+</div>
+<a id="af649cead3218362649d99f2280f46c23" name="af649cead3218362649d99f2280f46c23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af649cead3218362649d99f2280f46c23">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ParcoursCompletSysteme</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GardeFouDeProximiteSignaleUneMecaniqueHorsDePortee</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Test négatif du garde-fou de proximité : une tuile posée au-delà de la portée d'un saut au-dessus du trajet est signalée, alors que la même tuile posée sur le trajet ne l'est pas — démontre la sensibilité du contrôle sans dépendre d'aucun fichier de niveau réel. </p>
+<p><b>Cas de test :</b> <b>Une tuile de mécanique posée hors de portée d'un saut au-dessus du trajet est signalée par le garde-fou de proximité ; la même tuile sur le trajet ne l'est pas.</b><br  />
+ <b>Categorie :</b> Systeme · Parcours Complet<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Une tuile de mécanique posée hors de portée d'un saut au-dessus du trajet est signalée par le garde-fou de proximité ; la même tuile sur le trajet ne l'est pas. </p>
 
 </div>
 </div>

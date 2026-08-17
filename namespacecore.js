@@ -30,6 +30,7 @@ var namespacecore =
     [ "World", "classcore_1_1World.html", "classcore_1_1World" ],
     [ "BlockController", "classcore_1_1BlockController.html", "classcore_1_1BlockController" ],
     [ "DangerController", "classcore_1_1DangerController.html", "classcore_1_1DangerController" ],
+    [ "TriggerWeight", "structcore_1_1TriggerWeight.html", "structcore_1_1TriggerWeight" ],
     [ "MechanismController", "classcore_1_1MechanismController.html", "classcore_1_1MechanismController" ],
     [ "PlatformController", "classcore_1_1PlatformController.html", "classcore_1_1PlatformController" ],
     [ "CameraZone", "structcore_1_1CameraZone.html", "structcore_1_1CameraZone" ],

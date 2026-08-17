@@ -1,5 +1,15 @@
 var NAVTREEINDEX12 =
 {
+"classhmi_1_1MainWindow.html#aef77702f265c861ebec3ef8c62c9cbf9":[11,0,1,140,36],
+"classhmi_1_1MainWindow.html#af1127880bfad8cb9a4e49eb5c072ca08":[10,0,1,140,79],
+"classhmi_1_1MainWindow.html#af1127880bfad8cb9a4e49eb5c072ca08":[11,0,1,140,79],
+"classhmi_1_1MainWindow.html#af383ac40d93b51725b361d72e2342292":[10,0,1,140,102],
+"classhmi_1_1MainWindow.html#af383ac40d93b51725b361d72e2342292":[11,0,1,140,102],
+"classhmi_1_1MainWindow.html#aff2cc741a88013d0821f5ed556409b71":[10,0,1,140,68],
+"classhmi_1_1MainWindow.html#aff2cc741a88013d0821f5ed556409b71":[11,0,1,140,68],
+"classhmi_1_1OptionsPage.html":[10,0,1,141],
+"classhmi_1_1OptionsPage.html":[11,0,1,141],
+"classhmi_1_1OptionsPage.html#a0053e3dcff3ab69fe7dc59d6e22ecd19":[10,0,1,141,2],
 "classhmi_1_1OptionsPage.html#a0053e3dcff3ab69fe7dc59d6e22ecd19":[11,0,1,141,2],
 "classhmi_1_1OptionsPage.html#a0a50dd2655a0e8d5a15ff38dc7b83153":[10,0,1,141,5],
 "classhmi_1_1OptionsPage.html#a0a50dd2655a0e8d5a15ff38dc7b83153":[11,0,1,141,5],
@@ -239,15 +249,5 @@ var NAVTREEINDEX12 =
 "classhmi_1_1PixelCanvas.html#adb76e8a7a66d908cf48b6af50aa65de7":[11,0,1,31,19],
 "classhmi_1_1PixelCanvas.html#ae4447191b999d3a8f7bffb6b66228cfe":[10,0,1,31,69],
 "classhmi_1_1PixelCanvas.html#ae4447191b999d3a8f7bffb6b66228cfe":[11,0,1,31,69],
-"classhmi_1_1PixelCanvas.html#ae53a0e06b6f6915b8c575b380cd22d8b":[10,0,1,31,13],
-"classhmi_1_1PixelCanvas.html#ae53a0e06b6f6915b8c575b380cd22d8b":[11,0,1,31,13],
-"classhmi_1_1PixelCanvas.html#ae639cfea8f11adf0aee8206790dc3226":[10,0,1,31,12],
-"classhmi_1_1PixelCanvas.html#ae639cfea8f11adf0aee8206790dc3226":[11,0,1,31,12],
-"classhmi_1_1PixelCanvas.html#af1b9fb2c02faf1057daa50862cf91d90":[10,0,1,31,34],
-"classhmi_1_1PixelCanvas.html#af1b9fb2c02faf1057daa50862cf91d90":[11,0,1,31,34],
-"classhmi_1_1PixelCanvas.html#af4eed2cd20aaaaebf737dd068dfee492":[10,0,1,31,44],
-"classhmi_1_1PixelCanvas.html#af4eed2cd20aaaaebf737dd068dfee492":[11,0,1,31,44],
-"classhmi_1_1PixelCanvas.html#af84e3476f88bb723dcaffca716e97419":[10,0,1,31,20],
-"classhmi_1_1PixelCanvas.html#af84e3476f88bb723dcaffca716e97419":[11,0,1,31,20],
-"classhmi_1_1PixelCanvas.html#afecb40b6d9f656c7029519d8141ce54a":[10,0,1,31,5]
+"classhmi_1_1PixelCanvas.html#ae53a0e06b6f6915b8c575b380cd22d8b":[10,0,1,31,13]
 };

@@ -102,12 +102,15 @@ $(function(){initNavTree('classcore_1_1MechanismController.html','','classcore_1
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af0a5619d75dbb52d9cb0f27b8d524864" id="r_af0a5619d75dbb52d9cb0f27b8d524864"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af0a5619d75dbb52d9cb0f27b8d524864">MechanismController</a> (const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level)</td></tr>
 <tr class="memdesc:af0a5619d75dbb52d9cb0f27b8d524864"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le contrôleur depuis <code class="param">level</code> : portes <b>fermées</b> (solides) au départ.  <br /></td></tr>
-<tr class="memitem:a55506e26379ef7f55b4484f228e453cd" id="r_a55506e26379ef7f55b4484f228e453cd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a55506e26379ef7f55b4484f228e453cd">update</a> (const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;playerBox, float playerMass=1.0f, bool interactPressed=false)</td></tr>
-<tr class="memdesc:a55506e26379ef7f55b4484f228e453cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour les mécanismes pour un pas : bascule les interrupteurs touchés (front), ouvre/referme les plaques de pression selon le poids présent, ramasse les clés touchées avec « Interagir », applique l'état des portes/portes verrouillées dans la grille de collision, et met à jour l'activation des dangers commutés.  <br /></td></tr>
+<tr class="memitem:ae58f158d3609cc2c267ce0f77e62d7a5" id="r_ae58f158d3609cc2c267ce0f77e62d7a5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae58f158d3609cc2c267ce0f77e62d7a5">update</a> (const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;playerBox, float playerMass=1.0f, bool interactPressed=false, const std::vector&lt; <a class="el" href="structcore_1_1TriggerWeight.html">TriggerWeight</a> &gt; &amp;weights={})</td></tr>
+<tr class="memdesc:ae58f158d3609cc2c267ce0f77e62d7a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour les mécanismes pour un pas : bascule les interrupteurs touchés (front), ouvre/referme les plaques de pression selon le poids présent, ramasse les clés touchées avec « Interagir », applique l'état des portes/portes verrouillées dans la grille de collision, et met à jour l'activation des dangers commutés.  <br /></td></tr>
+<tr class="memitem:af3a7b595d504c05feee6339ff2c00304" id="r_af3a7b595d504c05feee6339ff2c00304"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af3a7b595d504c05feee6339ff2c00304">crushedPlayer</a> () const noexcept</td></tr>
+<tr class="memdesc:af3a7b595d504c05feee6339ff2c00304"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une porte s'est-elle <b>refermée sur le personnage</b> au dernier <span class="tt"><a class="el" href="#ae58f158d3609cc2c267ce0f77e62d7a5" title="Met à jour les mécanismes pour un pas : bascule les interrupteurs touchés (front),...">update</a></span> (<span class="tt">EX-GP-021</span>, <span class="tt">LOT-65</span> TACHE-06) ?  <br /></td></tr>
 <tr class="memitem:a465aa3ad3194fcb485d656dbe0b292c2" id="r_a465aa3ad3194fcb485d656dbe0b292c2"><td class="memItemLeft">const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a465aa3ad3194fcb485d656dbe0b292c2">collisionMap</a> () const noexcept</td></tr>
 <tr class="memitem:adb0a0f83d8a5302a84bc3c67386c09e7" id="r_adb0a0f83d8a5302a84bc3c67386c09e7"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1Mechanism.html">Mechanism</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#adb0a0f83d8a5302a84bc3c67386c09e7">mechanisms</a> () const noexcept</td></tr>
 <tr class="memitem:af75b708d821d8c882969d7bac6ea2e41" id="r_af75b708d821d8c882969d7bac6ea2e41"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af75b708d821d8c882969d7bac6ea2e41">isDoorOpen</a> (std::size_t index) const</td></tr>
 <tr class="memitem:abdebc78caac7d3422fde00cb3e0a7574" id="r_abdebc78caac7d3422fde00cb3e0a7574"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#abdebc78caac7d3422fde00cb3e0a7574">isContinuous</a> (std::size_t index) const</td></tr>
+<tr class="memitem:a96f020f6cd83b43d380229e91868d0c4" id="r_a96f020f6cd83b43d380229e91868d0c4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a96f020f6cd83b43d380229e91868d0c4">isKey</a> (std::size_t index) const</td></tr>
 <tr class="memitem:a04eb177a0e57012f684384151afc8dd5" id="r_a04eb177a0e57012f684384151afc8dd5"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1DangerLink.html">DangerLink</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a04eb177a0e57012f684384151afc8dd5">dangerLinks</a> () const noexcept</td></tr>
 <tr class="memitem:a1fef25ec829904453d62b012b3b84f6f" id="r_a1fef25ec829904453d62b012b3b84f6f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1fef25ec829904453d62b012b3b84f6f">isDangerActive</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> dangerPosition) const noexcept</td></tr>
 </table><table class="memberdecls">
@@ -135,12 +138,14 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:af036a0fde66d281eeb013269fab3ba17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Front, même principe que <span class="tt"><a class="el" href="#a8fa8f13181226a5ac87f4d6be9902227" title="Le personnage était-il sur le déclencheur au pas précédent ?">_playerOnSwitchPrev</a></span>, pour <span class="tt"><a class="el" href="#a2896499d66f166d0bedc53fc895ed433" title="Liaisons déclencheur↔danger commuté.">_dangerLinks</a></span>.  <br /></td></tr>
 <tr class="memitem:a0e2797bf95cea9d97ef756b6612df4e9" id="r_a0e2797bf95cea9d97ef756b6612df4e9"><td class="memItemLeft">std::vector&lt; bool &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0e2797bf95cea9d97ef756b6612df4e9">_dangerContinuous</a></td></tr>
 <tr class="memdesc:a0e2797bf95cea9d97ef756b6612df4e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">true = plaque de pression, même principe que <span class="tt"><a class="el" href="#ab1931cd8166cc70b22896b338017a538" title="true = plaque de pression (activation continue), figé au chargement ; false = interrupteur à bascule ...">_continuous</a></span>, pour <span class="tt"><a class="el" href="#a2896499d66f166d0bedc53fc895ed433" title="Liaisons déclencheur↔danger commuté.">_dangerLinks</a></span>.  <br /></td></tr>
+<tr class="memitem:a8e07e801035a5fdd7915864fdc6afb11" id="r_a8e07e801035a5fdd7915864fdc6afb11"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8e07e801035a5fdd7915864fdc6afb11">_crushedPlayer</a> = false</td></tr>
+<tr class="memdesc:a8e07e801035a5fdd7915864fdc6afb11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une porte s'est refermée sur le personnage au dernier pas.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Fait vivre les mécanismes <b>interrupteur/plaque ↔ porte</b> d'un niveau (<span class="tt">EX-GP-020</span>, <span class="tt">EX-GP-021</span>, <span class="tt">EX-GP-025</span>). </p>
 <p>Logique <b>pure</b> (aucun rendu ni fenêtre). Deux comportements de déclencheur, selon la tuile d'origine (figée au chargement) :</p><ul>
 <li><b>Interrupteur</b> (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b">TileType::Switch</a></span>) : quand la boîte du personnage <b>recouvre</b> la case au <b>front</b> (première frame de contact), l'état de la porte liée <b>bascule</b> et persiste.</li>
-<li><b>Plaque de pression</b> (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86">TileType::PressurePlate</a></span>, <span class="tt">EX-GP-025</span>) : la porte reste <b>ouverte</b> tant qu'un poids suffisant y repose (comparé à <span class="tt">MIN_TRIGGER_MASS</span>), et se <b>referme</b> dès que ce n'est plus le cas — activation <b>continue</b>, pas de front.</li>
+<li><b>Plaque de pression</b> (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86">TileType::PressurePlate</a></span>, <span class="tt">EX-GP-025</span>) : la porte reste <b>ouverte</b> tant qu'un poids suffisant y repose (comparé à <span class="tt">MIN_TRIGGER_MASS</span>), et se <b>referme</b> dès que ce n'est plus le cas — activation <b>continue</b>, pas de front. Ce poids peut être celui du personnage <b>ou</b> celui d'un <b>bloc poussable</b> (<span class="tt"><a class="el" href="structcore_1_1TriggerWeight.html" title="Poids posé sur un déclencheur par autre chose que le personnage (EX-GP-025, LOT-65 TACHE-06).">core::TriggerWeight</a></span>, <span class="tt">EX-GP-022</span>) : c'est ce qui rend possible de poser un poids et de <b>repartir</b>, la porte restant ouverte derrière soi.</li>
 </ul>
 <p>Une porte <b>fermée</b> est <b>solide</b> (bloque), <b>ouverte</b> est franchissable. Le contrôleur maintient une <b>copie mutable</b> du <span class="tt"><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">TileMap</a></span> (grille de <b>collision</b>) que la physique consomme, laissant la carte du <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">Level</a></span> intacte (source de vérité). Déterministe au pas fixe (<span class="tt">EX-NFR-002</span>).</p>
 <p>Résout aussi les liaisons <b>déclencheur ↔ danger commuté</b> (<span class="tt"><a class="el" href="structcore_1_1DangerLink.html" title="Liaison d&#39;un interrupteur/plaque de pression à un danger commuté (TileType::DangerSwitched,...">DangerLink</a></span>, <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">TileType</a>::
@@ -198,6 +203,34 @@ DangerSwitched</span>, <span class="tt">EX-GP-052</span>) : même détection fro
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>La grille de collision courante (portes à jour), à passer à la physique. </dd></dl>
+
+</div>
+</div>
+<a id="af3a7b595d504c05feee6339ff2c00304" name="af3a7b595d504c05feee6339ff2c00304"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3a7b595d504c05feee6339ff2c00304">&#9670;&#160;</a></span>crushedPlayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::MechanismController::crushedPlayer </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Une porte s'est-elle <b>refermée sur le personnage</b> au dernier <span class="tt"><a class="el" href="#ae58f158d3609cc2c267ce0f77e62d7a5" title="Met à jour les mécanismes pour un pas : bascule les interrupteurs touchés (front),...">update</a></span> (<span class="tt">EX-GP-021</span>, <span class="tt">LOT-65</span> TACHE-06) ? </p>
+<p>L'écrasement est <b>mortel</b>, exactement comme sous une plateforme mobile (<span class="tt">EX-GP-026</span>) : l'appelant (<span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span>) traduit ce drapeau en boîte de danger supplémentaire pour <span class="tt"><a class="el" href="namespacecore.html#a23087f4f32dfa24ad53d7a9811ae351d" title="Détermine l&#39;issue du niveau à partir de la boîte du personnage.">core::evaluateOutcome</a></span>, du même geste qu'il le fait déjà pour <span class="tt"><a class="el" href="structcore_1_1Player.html#a39d12f09a2ae70d648ec96c5ec094d51" title="Vrai pendant le pas où le personnage a été écrasé par une plateforme mobile contre un plafond (EX-GP-...">core::Player::squished</a></span>. Sans cela, une porte qui redevient solide sur le personnage le laisse <b>encastré</b> dans un mur, sans échec possible — précisément la « situation sans issue » que la conception des niveaux interdit (<span class="tt"><a class="el" href="niveaux_8md.html">Documentation/Specification/niveaux.md</a></span>, Sec. 3). </p><dl class="section return"><dt>Returns</dt><dd>true si au moins une porte s'est fermée sur la boîte passée au dernier <span class="tt"><a class="el" href="#ae58f158d3609cc2c267ce0f77e62d7a5" title="Met à jour les mécanismes pour un pas : bascule les interrupteurs touchés (front),...">update</a></span>. </dd></dl>
 
 </div>
 </div>
@@ -305,6 +338,32 @@ DangerSwitched</span>, <span class="tt">EX-GP-052</span>) : même détection fro
 
 </div>
 </div>
+<a id="a96f020f6cd83b43d380229e91868d0c4" name="a96f020f6cd83b43d380229e91868d0c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96f020f6cd83b43d380229e91868d0c4">&#9670;&#160;</a></span>isKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::MechanismController::isKey </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true si le mécanisme <code class="param">index</code> est une <b>clé</b> (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a897356954c2cd3d41b221e3f24f99bba">TileType::Key</a></span>, <span class="tt">EX-GP-023</span>), dont le ramassage exige l'action « Interagir » en plus du contact. Symétrique de <span class="tt"><a class="el" href="#abdebc78caac7d3422fde00cb3e0a7574">isContinuous</a></span> : même donnée figée au chargement, exposée pour que l'affichage tête haute puisse rappeler cette action au contact (<span class="tt"><a class="el" href="namespacehmi.html#a03f731727d8be34206fa2313dad908ab" title="Lignes à afficher pour l&#39;affichage tête haute d&#39;un pas de simulation donné.">hmi::gameHudLines</a></span>, <span class="tt">LOT-65</span>). </dd></dl>
+
+</div>
+</div>
 <a id="adb0a0f83d8a5302a84bc3c67386c09e7" name="adb0a0f83d8a5302a84bc3c67386c09e7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adb0a0f83d8a5302a84bc3c67386c09e7">&#9670;&#160;</a></span>mechanisms()</h2>
 
@@ -331,8 +390,8 @@ DangerSwitched</span>, <span class="tt">EX-GP-052</span>) : même détection fro
 
 </div>
 </div>
-<a id="a55506e26379ef7f55b4484f228e453cd" name="a55506e26379ef7f55b4484f228e453cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55506e26379ef7f55b4484f228e453cd">&#9670;&#160;</a></span>update()</h2>
+<a id="ae58f158d3609cc2c267ce0f77e62d7a5" name="ae58f158d3609cc2c267ce0f77e62d7a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae58f158d3609cc2c267ce0f77e62d7a5">&#9670;&#160;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -350,7 +409,12 @@ DangerSwitched</span>, <span class="tt">EX-GP-052</span>) : même détection fro
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>interactPressed</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>interactPressed</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1TriggerWeight.html">TriggerWeight</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>weights</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -362,6 +426,7 @@ DangerSwitched</span>, <span class="tt">EX-GP-052</span>) : même détection fro
     <tr><td class="paramname">playerMass</td><td>Masse du personnage (<span class="tt"><a class="el" href="structcore_1_1Player.html#a1cdc8a540dc2c37ec5413e40afdac7f6" title="Masse du personnage, en unité de jeu arbitraire (EX-GP-019).">core::Player::mass</a></span>, <span class="tt">EX-GP-019</span>), comparée au seuil des plaques de pression (<span class="tt">MIN_TRIGGER_MASS</span>) ; sans effet sur les interrupteurs classiques ou les clés. Valeur par défaut = masse par défaut du personnage (compatibilité des appels existants). </td></tr>
     <tr><td class="paramname">interactPressed</td><td>Front de l'action « Interagir » (<span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a>::
                        interactPressed</span>, <span class="tt">EX-CTRL-022</span>) pour ce pas ; seul déclencheur du ramassage d'une clé (le contact seul ne suffit pas). Sans effet sur les autres mécanismes. Valeur par défaut = faux (compatibilité des appels existants, aucun niveau sans clé n'est affecté). </td></tr>
+    <tr><td class="paramname">weights</td><td>Poids <b>autres que le personnage</b> posés sur les déclencheurs ce pas (blocs poussables, <span class="tt">EX-GP-022</span>) — voir <span class="tt"><a class="el" href="structcore_1_1TriggerWeight.html" title="Poids posé sur un déclencheur par autre chose que le personnage (EX-GP-025, LOT-65 TACHE-06).">core::TriggerWeight</a></span>. Ne concerne que les plaques de pression et les dangers commutés à activation continue : un bloc ne bascule pas un interrupteur et ne ramasse pas une clé. Vide par défaut (compatibilité des appels existants). </td></tr>
   </table>
   </dd>
 </dl>
@@ -414,6 +479,30 @@ DangerSwitched</span>, <span class="tt">EX-GP-052</span>) : même détection fro
 </div><div class="memdoc">
 
 <p>true = plaque de pression (activation continue), figé au chargement ; false = interrupteur à bascule classique. </p>
+
+</div>
+</div>
+<a id="a8e07e801035a5fdd7915864fdc6afb11" name="a8e07e801035a5fdd7915864fdc6afb11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e07e801035a5fdd7915864fdc6afb11">&#9670;&#160;</a></span>_crushedPlayer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::MechanismController::_crushedPlayer = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Une porte s'est refermée sur le personnage au dernier pas. </p>
 
 </div>
 </div>

@@ -96,13 +96,13 @@ $(function(){initNavTree('lot-54.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b> (deux points d'entrée/fonctionnalités secondaires non livrés, cf. amendements de TACHE-05 et TACHE-08). Prérequis : <a class="el" href="lot-42.html" title="LOT-42 — Skin des tuiles : jeux de skins et raccords automatiques">LOT-42</a> (convention <span class="tt">Assets/Skins/</span>, planches à raccords), <a class="el" href="lot-43.html" title="LOT-43 — Bibliothèque d&#39;assets : vignettes, import, rechargement à chaud">LOT-43</a> (bibliothèque et rechargement à chaud), <a class="el" href="lot-56.html" title="LOT-56 — Système de design de l&#39;IHM Qt">LOT-56</a> (jetons de design, style maîtrisé, actions et barre d'outils, netteté à toute échelle) et <a class="el" href="lot-57.html" title="LOT-57 — Architecture de l&#39;information de l&#39;éditeur">LOT-57</a> (barre d'état structurée, regroupement des panneaux, déduplication des commandes). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2389"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2394"></a>
 Objectif</h1>
 <p>Permettre de créer et modifier les fichiers d'assets de texture (skins, planches, fonds, objets, décors, images d'animation) <b>sans quitter l'application</b>, avec un canevas pixel art — et en voyant immédiatement le résultat dans le niveau.</p>
 <p>Ce lot était initialement cadré comme un premier jet minimal, avant que <a class="el" href="lot-56.html" title="LOT-56 — Système de design de l&#39;IHM Qt">LOT-56</a> et <a class="el" href="lot-57.html" title="LOT-57 — Architecture de l&#39;information de l&#39;éditeur">LOT-57</a> n'existent. Il s'exécute désormais <b>derrière eux</b> et bâtit sur ce qu'ils livrent : le canevas n'a plus à inventer son habillage, ses commandes ni son affichage d'état, et le périmètre récupère en fonctions d'édition ce qu'il n'a plus à dépenser en plomberie d'interface.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2390"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2395"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2391"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2396"></a>
 Inclus</h2>
 <ul>
 <li><b>Canevas</b> <span class="tt">QWidget</span> + <span class="tt">QImage</span> + <span class="tt">QPainter</span> : peindre et effacer au pixel près (grille alignée), <b>pot de peinture</b> (remplissage par zone contiguë), pipette, zoom, annuler/refaire <b>local</b> — propre au canevas, totalement indépendant de l'historique de <span class="tt">LevelDraft</span>.</li>
@@ -119,7 +119,7 @@ Inclus</h2>
 <li><b>Garde-fou d'écrasement</b> : enregistrer par-dessus un asset référencé par des niveaux ou par un jeu de skins demande confirmation, en nommant les références concernées (détection déjà livrée en LOT-43).</li>
 <li>Toute UI passe par le catalogue de traduction.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2392"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2397"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Calques dans le canevas</b>, dégradés, anticrénelage : sans objet pour du pixel art de tuiles 16×16, et coûteux — extensions possibles dans un lot ultérieur si le besoin se confirme à l'usage. Les transformations, elles, <b>entrent</b> dans le périmètre (TACHE-06) : ce sont des fonctions pures sur un tampon, exposées comme des actions, donc peu coûteuses une fois le socle du LOT-56 posé.</li>
@@ -128,7 +128,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li>Toute intégration d'une bibliothèque externe (cf. décision de cadrage).</li>
 <li><b>Réorganisation du panneau Textures</b> et **découpage de *TexturePanel*** : LOT-57 s'en charge ; l'atelier s'y branche par un point d'entrée, sans le restructurer une seconde fois.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2393"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2398"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>L'ordre d'exécution est le vrai levier de ce lot.</b> Exécuté avant <a class="el" href="lot-56.html" title="LOT-56 — Système de design de l&#39;IHM Qt">LOT-56</a> et <a class="el" href="lot-57.html" title="LOT-57 — Architecture de l&#39;information de l&#39;éditeur">LOT-57</a>, l'atelier aurait livré un sixième panneau au rendu natif garni de boutons radio empilés, une seconde paire de <span class="tt">Ctrl+Z</span> en conflit avec celle du niveau, un quatrième chemin de vignettes floues à l'échelle 125 %, et un second modèle d'affichage d'état — soit précisément les quatre défauts que ces deux lots corrigent, à retoucher ensuite deux fois. Exécuté derrière, son habillage est essentiellement gratuit, et le budget ainsi libéré finance les outils de région, les palettes et l'historique visuel. Le numéro <span class="tt">LOT-54</span> est <b>conservé</b> : la règle de <a class="el" href="lots.html#md_Lot_2lots" title="Lot/lots.md"><span class="tt">lots.md</span></a> veut qu'un lot planifié garde son identifiant même si son ordre d'exécution change.</li>
@@ -140,14 +140,14 @@ Décisions de cadrage</h1>
 <li><b>Huit tâches, avec un ordre de resserrement annoncé.</b> Le lot dépasse le grain habituel ; si son volume doit être réduit, l'ordre de retrait est : <b>TACHE-07</b> (palettes), puis <b>TACHE-06</b> (outils de région), puis le panneau d'historique de la <b>TACHE-04</b>. Aucun de ces retraits n'invalide le reste, et le socle des tâches 01 à 05 plus 08 correspond au périmètre initialement cadré, habillage compris.</li>
 <li><b>Amende le non-objectif « pas d'édition d'assets graphiques »</b> de <a class="el" href="spec-editeur.html#md_Specification_2editeur-niveaux" title="Specification/editeur-niveaux.md"><span class="tt">editeur-niveaux.md</span></a> (section 5) de façon ciblée : l'éditeur de niveaux continue d'agencer des tuiles existantes sans générer de sprites procéduraux ; seul ce canevas dédié édite les fichiers d'assets eux-mêmes.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2394"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2399"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Amendée : <span class="tt">EX-EDIT-045</span> (outil de dessin pixel art intégré, avec aperçu du rendu dans le niveau).</li>
 <li>Réutilisées, issues du socle d'habillage : <span class="tt">EX-IHM-050</span> (thème couvrant l'IHM, en deux portées), <span class="tt">EX-IHM-051</span> (source unique des grandeurs), <span class="tt">EX-IHM-053</span> (netteté à toute échelle d'affichage), <span class="tt">EX-IHM-055</span> (commandes exposées comme actions), <span class="tt">EX-IHM-060</span> (état de travail affiché en permanence), <span class="tt">EX-IHM-062</span> (un état ou une commande à un seul endroit).</li>
 <li>Réutilisées : <span class="tt">EX-EDIT-013</span> (déplacement et zoom), <span class="tt">EX-EDIT-021</span> (garde-fous contre la perte de travail), <span class="tt">EX-EDIT-024</span>/<span class="tt">EX-EDIT-025</span> (jeux de skins, planches à raccords), <span class="tt">EX-EDIT-026</span> (gestion des fichiers d'assets), <span class="tt">EX-REN-005</span> (animations par données), <span class="tt">EX-REN-007</span> (contrat d'asset), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-REN-041</span> (décodage image), <span class="tt">EX-ARCH-022</span> (pixel art net), <span class="tt">EX-NFR-010</span> (testable sans GPU), <span class="tt">EX-NFR-040</span> (erreur récupérable).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2395"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2400"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -172,7 +172,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-54-tache-08-apercu-live-planche.html#md_Lot_2LOT-54-atelier-pixel-art_2tache-08-apercu-live-planche" title="Lot/LOT-54-atelier-pixel-art/tache-08-apercu-live-planche.md">TACHE-08</a>  </td><td class="markdownTableBodyNone">Aperçu live, mode planche à raccords, aperçu de raccord et d'animation  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Editor</span>, <span class="tt">Source/HMI/Graphics</span>  </td><td class="markdownTableBodyCenter">✅ (aperçu d'animation non livré, cf. amendement)  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2396"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2401"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Créer, peindre et enregistrer un nouvel asset PNG depuis le canevas, puis le retrouver assignable dans le panneau « Textures » sans redémarrer.</li>
@@ -190,10 +190,10 @@ Critères d'acceptation du lot</h1>
 <li>Le panneau d'historique liste les opérations nommées et permet de revenir à un point antérieur.</li>
 <li>Build <span class="tt">/W4 /WX</span>, Doxygen, lint verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2397"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2402"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-42.html" title="LOT-42 — Skin des tuiles : jeux de skins et raccords automatiques">LOT-42</a> (convention de dossiers, planches à raccords) et <a class="el" href="lot-43.html" title="LOT-43 — Bibliothèque d&#39;assets : vignettes, import, rechargement à chaud">LOT-43</a> (bibliothèque, détection de références, rechargement à chaud). Réutilise <em>TextureLoader</em>/<span class="tt"><a class="el" href="classhmi_1_1AssetPaths.html" title="Résout des noms d&#39;assets logiques vers des chemins de fichiers, dans un dossier donné.">hmi::AssetPaths</a></span> (LOT-39) et <span class="tt">TextureCache::invalidate</span> (<a class="el" href="lot-40.html" title="LOT-40 — Fondations : registre de textures, calques, culling, testabilité">LOT-40</a>). Dépend désormais de <a class="el" href="lot-56.html" title="LOT-56 — Système de design de l&#39;IHM Qt">LOT-56</a> — jetons, palette applicative, actions, icônes dessinées par code, dimensionnement à l'échelle d'affichage — et de <a class="el" href="lot-57.html" title="LOT-57 — Architecture de l&#39;information de l&#39;éditeur">LOT-57</a> — modèle pur de la barre d'état, table de mise en avant des panneaux, actions d'éditeur remappables enfin branchées, et panneau Textures recentré qui accueille son point d'entrée.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2398"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2403"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-54-tache-01-encodage-image.html" title="TACHE-01 — Encodage et enregistrement d&#39;image">TACHE-01 — Encodage et enregistrement d'image</a></li>

@@ -1,5 +1,15 @@
 var NAVTREEINDEX13 =
 {
+"classhmi_1_1PixelCanvas.html#ae53a0e06b6f6915b8c575b380cd22d8b":[11,0,1,31,13],
+"classhmi_1_1PixelCanvas.html#ae639cfea8f11adf0aee8206790dc3226":[10,0,1,31,12],
+"classhmi_1_1PixelCanvas.html#ae639cfea8f11adf0aee8206790dc3226":[11,0,1,31,12],
+"classhmi_1_1PixelCanvas.html#af1b9fb2c02faf1057daa50862cf91d90":[10,0,1,31,34],
+"classhmi_1_1PixelCanvas.html#af1b9fb2c02faf1057daa50862cf91d90":[11,0,1,31,34],
+"classhmi_1_1PixelCanvas.html#af4eed2cd20aaaaebf737dd068dfee492":[10,0,1,31,44],
+"classhmi_1_1PixelCanvas.html#af4eed2cd20aaaaebf737dd068dfee492":[11,0,1,31,44],
+"classhmi_1_1PixelCanvas.html#af84e3476f88bb723dcaffca716e97419":[10,0,1,31,20],
+"classhmi_1_1PixelCanvas.html#af84e3476f88bb723dcaffca716e97419":[11,0,1,31,20],
+"classhmi_1_1PixelCanvas.html#afecb40b6d9f656c7029519d8141ce54a":[10,0,1,31,5],
 "classhmi_1_1PixelCanvas.html#afecb40b6d9f656c7029519d8141ce54a":[11,0,1,31,5],
 "classhmi_1_1PixelHistory.html":[10,0,1,36],
 "classhmi_1_1PixelHistory.html":[11,0,1,36],
@@ -239,15 +249,5 @@ var NAVTREEINDEX13 =
 "classhmi_1_1SkinCatalog.html#a6692b9ddf19d7cd445c1d6051efe0f43":[11,0,1,99,9],
 "classhmi_1_1SkinCatalog.html#a805bf3c8532ee836cd9799ef339d5617":[10,0,1,99,8],
 "classhmi_1_1SkinCatalog.html#a805bf3c8532ee836cd9799ef339d5617":[11,0,1,99,8],
-"classhmi_1_1SkinCatalog.html#a8f1d179f7e5acb2da78035b13c783c0a":[10,0,1,99,5],
-"classhmi_1_1SkinCatalog.html#a8f1d179f7e5acb2da78035b13c783c0a":[11,0,1,99,5],
-"classhmi_1_1SkinCatalog.html#abbbffe68f2623ef82157bdb2adf4153b":[10,0,1,99,6],
-"classhmi_1_1SkinCatalog.html#abbbffe68f2623ef82157bdb2adf4153b":[11,0,1,99,6],
-"classhmi_1_1SkinCatalog.html#ac07d0738f279872fa3ffa5de8eb9d3e5":[10,0,1,99,12],
-"classhmi_1_1SkinCatalog.html#ac07d0738f279872fa3ffa5de8eb9d3e5":[11,0,1,99,12],
-"classhmi_1_1SkinCatalog.html#ad04a32a030e2bb069c16ef4233a7d729":[10,0,1,99,14],
-"classhmi_1_1SkinCatalog.html#ad04a32a030e2bb069c16ef4233a7d729":[11,0,1,99,14],
-"classhmi_1_1SkinCatalog.html#ae46642f5bab819040f3934c5aac39554":[10,0,1,99,3],
-"classhmi_1_1SkinCatalog.html#ae46642f5bab819040f3934c5aac39554":[11,0,1,99,3],
-"classhmi_1_1SkinCatalog.html#af4e709bd00f9bd7c3b2799cb94358abb":[10,0,1,99,4]
+"classhmi_1_1SkinCatalog.html#a8f1d179f7e5acb2da78035b13c783c0a":[10,0,1,99,5]
 };

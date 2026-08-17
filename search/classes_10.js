@@ -14,6 +14,7 @@ var searchData=
   ['tilesubgroup_11',['TileSubgroup',['../structhmi_1_1TileSubgroup.html',1,'hmi']]],
   ['tiletextureoverride_12',['TileTextureOverride',['../structcore_1_1TileTextureOverride.html',1,'core']]],
   ['transform_13',['Transform',['../structcore_1_1Transform.html',1,'core']]],
-  ['typographylevel_14',['TypographyLevel',['../structhmi_1_1TypographyLevel.html',1,'hmi']]],
-  ['typographytokens_15',['TypographyTokens',['../structhmi_1_1TypographyTokens.html',1,'hmi']]]
+  ['triggerweight_14',['TriggerWeight',['../structcore_1_1TriggerWeight.html',1,'core']]],
+  ['typographylevel_15',['TypographyLevel',['../structhmi_1_1TypographyLevel.html',1,'hmi']]],
+  ['typographytokens_16',['TypographyTokens',['../structhmi_1_1TypographyTokens.html',1,'hmi']]]
 ];

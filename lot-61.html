@@ -96,7 +96,7 @@ $(function(){initNavTree('lot-61.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>non commencé</b>. Prérequis : aucun. À livrer <b>avant</b> le tag <span class="tt">v0.1.0</span> : son intérêt commence le jour où quelqu'un d'extérieur exécute le jeu. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2753"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2758"></a>
 Objectif</h1>
 <p>Faire qu'un défaut rencontré par un joueur sur la version publiée laisse une <b>trace</b>.</p>
 <p>Aujourd'hui il n'en laisse aucune. <span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main()</a></span> n'installe de sinks que dans les builds de développement :</p>
@@ -106,9 +106,9 @@ Objectif</h1>
 <div class="line">}</div>
 </div><!-- fragment --><p>En Release — c'est-à-dire dans l'archive que télécharge un non-développeur — le journaliseur n'a <b>aucun sink</b>. Tous les <span class="tt">HMI_LOG_*</span> et <span class="tt">CORE_LOG_*</span> du programme partent dans le vide. Le commentaire qui justifie ce choix est exact sur ses prémisses (« l'exécutable n'a pas de console et une croissance mémoire serait inutile ») et incomplet sur sa conclusion : il n'existe pas que la console et la mémoire.</p>
 <p>Le projet dispose pourtant de tout le nécessaire : une interface <span class="tt"><a class="el" href="classcore_1_1ILogSink.html" title="Destination vers laquelle un Logger diffuse ses messages.">core::ILogSink</a></span>, deux implémentations, un format de ligne testé (<span class="tt">core::LogFormat</span>) et même une sérialisation de session prête à l'emploi (<span class="tt"><a class="el" href="namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b" title="Assemble les messages de log en un texte (une ligne par message).">hmi::serializeSessionLog</a></span>, <span class="tt">LOT-15</span>). Il manque un sink fichier — et la décision de l'activer.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2754"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2759"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2755"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2760"></a>
 Inclus</h2>
 <ul>
 <li><b><span class="tt">core::FileLogSink</span></b> : écriture des messages dans un fichier, sur le contrat <span class="tt"><a class="el" href="classcore_1_1ILogSink.html" title="Destination vers laquelle un Logger diffuse ses messages.">core::ILogSink</a></span> existant.</li>
@@ -117,7 +117,7 @@ Inclus</h2>
 <li><b>Contexte de démarrage</b> journalisé une fois : version du moteur (<span class="tt"><a class="el" href="classcore_1_1Engine.html#a80c1e60da14c218b7846ff3201a325a6" title="Retourne la version du moteur, telle que déclarée par le système de build.">core::Engine::version()</a></span>), configuration, adaptateur graphique, présence d'une manette. Ce sont les informations qu'on demande systématiquement dans un rapport de défaut.</li>
 <li><b>Emplacement documenté</b> dans le manuel utilisateur, pour qu'un joueur sache quoi joindre.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2756"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2761"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li>Télémétrie, envoi automatique, service distant : aucune donnée ne quitte la machine.</li>
@@ -125,7 +125,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li>Interface de consultation des journaux dans l'application (le bouton de développement existant suffit).</li>
 <li>Journalisation par image ou par pas : le volume doit rester négligeable.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2757"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2762"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Un fichier, pas une console.</b> Rendre une console en Release changerait l'expérience de lancement pour tout le monde afin de servir un cas rare. Un fichier ne se voit que si on le cherche.</li>
@@ -134,13 +134,13 @@ Décisions de cadrage</h1>
 <li><b>Ne pas réutiliser <span class="tt">MemoryLogSink</span> en Release.</b> Sa croissance non bornée est exactement ce que le commentaire de <span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main()</a></span> écarte, à raison. Le sink fichier écrit et oublie.</li>
 <li><b>Écrire hors du chemin critique</b>, sans jamais faire échouer le jeu : un disque plein ou un dossier en lecture seule dégradent la journalisation, pas la partie (<span class="tt">EX-NFR-040</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2758"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2763"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle : <span class="tt">EX-NFR-042</span> (une version publiée produit une trace exploitable, bornée et locale).</li>
 <li>Réutilisées : <span class="tt">EX-NFR-040</span> (erreur récupérable), <span class="tt">EX-NFR-041</span> (RAII), <span class="tt">EX-NFR-003</span> (empreinte mémoire stable — un journal non borné y contreviendrait), <span class="tt">EX-NFR-013</span> (compilation sans avertissement), <span class="tt">EX-NFR-012</span> (conventions, dont la politique d'erreurs).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2759"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2764"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -155,7 +155,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-61-tache-03-documentation-verification.html#md_Lot_2LOT-61-diagnostics-version-publiee_2tache-03-documentation-verification" title="Lot/LOT-61-diagnostics-version-publiee/tache-03-documentation-verification.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Documentation et vérification  </td><td class="markdownTableBodyNone"><span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">⬜  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2760"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2765"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Le zip de release, lancé sur une machine sans outil de développement, écrit un fichier de journal lisible contenant la version, la configuration et le contexte matériel.</li>
@@ -166,10 +166,10 @@ Critères d'acceptation du lot</h1>
 <li>Le manuel indique où trouver le fichier et quoi en faire.</li>
 <li>Build <span class="tt">/W4 /WX</span>, <span class="tt">ctest</span> à 100 %, Doxygen et lints verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2761"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2766"></a>
 Dépendances</h1>
 <p>Aucun prérequis. Bâtit sur la journalisation du <a class="el" href="lot-02.html" title="LOT-02 — Journalisation &amp; diagnostics">LOT-02</a> et la sérialisation de session du <a class="el" href="lot-15.html" title="LOT-15 — Éditeur de niveaux : robustesse et confort d&#39;édition">LOT-15</a>. Bénéficie de <a class="el" href="lot-58.html" title="LOT-58 — Vérification Release, sanitizer et analyse statique">LOT-58</a> (le job Release rend vérifiable un comportement qui ne s'observe qu'en Release).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2762"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2767"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-61-tache-01-file-log-sink.html" title="TACHE-01 — `core::FileLogSink`">TACHE-01 — `core::FileLogSink`</a></li>

@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-11-tache-01-donnees.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-11-ressenti-avance_2tache-01-donnees"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-11.html#md_Lot_2LOT-11-ressenti-avance_2epic" title="Lot/LOT-11-ressenti-avance/epic.md">LOT-11</a> · <b>Emplacement :</b> <span class="tt">Source/Core</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md870"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md875"></a>
 Contexte</h1>
 <p>On déclare d'abord les <b>réglages</b> de la gravité asymétrique et la <b>taille</b> du personnage, en données pures (<span class="tt">EX-ARCH-011</span>), avant la logique et le rendu.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md871"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md876"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">PhysicsConfig</span></b> (Core/Physics) — réglages ⚠️ à affiner :<ul>
@@ -114,31 +114,31 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md872"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md877"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="PhysicsConfig_8h.html" title="Constantes de réglage de la physique du personnage (données pures).">Source/Core/Physics/PhysicsConfig.h</a></span>, <span class="tt"><a class="el" href="PlayerSpawn_8h.html" title="Taille du personnage jouable (humanoïde) et placement centré au spawn.">Source/Core/Physics/PlayerSpawn.h</a></span> (nouveau).</li>
 <li>Tests unitaires (valeurs par défaut, placement centré).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md873"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md878"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">PhysicsConfig</span> : <span class="tt">fallGravityMultiplier &gt; 1</span>, <span class="tt">0 &lt; apexGravityMultiplier &lt; 1</span>, <span class="tt">apexThreshold &gt; 0</span>, <span class="tt">fastFallMultiplier &gt; 1</span>.</li>
 <li><span class="tt">PlayerSpawn</span> : <span class="tt">playerSize()</span> = (0,4 ; 0,8) ; <span class="tt">playerSpawnPosition(c, r)</span> <b>centre</b> la boîte dans la tuile (marges symétriques : <span class="tt">x = c + (1-0,4)/2</span>, <span class="tt">y = r + (1-0,8)/2</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md874"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md879"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Données pures</b> : aucune logique, aucun DirectX. Unités monde, <span class="tt">y</span> vers le bas.</li>
 <li><span class="tt">Vector2</span> n'est pas <span class="tt">constexpr</span> : exposer des <span class="tt">constexpr float</span> + fonctions <b>inline</b> renvoyant des <span class="tt">Vector2</span> (pas de <span class="tt">constexpr Vector2</span>).</li>
 <li>Rétrocompatible : n'ajouter que des champs/constantes.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md875"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md880"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Réglages et constantes de spawn ajoutés, documentés et <b>testés</b> (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md876"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md881"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-018</span>, <span class="tt">EX-ARCH-011</span>, <span class="tt">EX-NFR-010</span>. </p>
 </div></div><!-- contents -->

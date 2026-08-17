@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-58-tache-05-couverture.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-58-verification-release-analyse_2tache-05-couverture"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-58.html#md_Lot_2LOT-58-verification-release-analyse_2epic" title="Lot/LOT-58-verification-release-analyse/epic.md">LOT-58</a> · <b>Emplacement :</b> <span class="tt">.github/workflows</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2621"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2626"></a>
 Contexte</h1>
 <p>L'étape <span class="tt">Coverage</span> de <span class="tt">ci.yml</span> exécute OpenCppCoverage sur <b><span class="tt">UnitTests.exe</span> uniquement</b>, exporte un rapport Cobertura et HTML, et l'<b>envoie en artefact</b>. Rien ne le lit, rien ne le compare, rien n'échoue jamais à cause de lui.</p>
 <p>Deux conséquences. D'abord, la couverture affichée est fausse par construction : les 89 tests d'intégration et les 3 tests système — c'est-à-dire toute la physique du personnage vérifiée de bout en bout, et la franchissabilité des niveaux livrés — n'y figurent pas. Ensuite, <span class="tt">EX-NFR-022</span> demande que la CI exécute « build, tests <b>et couverture</b> » ; produire un chiffre que personne ne regarde n'est pas l'exécuter.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2622"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2627"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Instrumenter les trois exécutables</b> : <span class="tt">UnitTests</span>, <span class="tt">IntegrationTests</span> et <span class="tt">SystemTests</span>, agrégés en un rapport unique (OpenCppCoverage sait fusionner plusieurs exécutions).</li>
@@ -107,20 +107,20 @@ Travail à réaliser</h1>
 <li><b>Consigner la valeur de référence et sa date</b> dans le workflow, en commentaire, pour que la prochaine personne sache d'où vient le nombre.</li>
 <li><b>Exclure <span class="tt">Source/Test</span></b> du calcul (déjà fait via <span class="tt">--excluded_sources</span>) et vérifier que <span class="tt">External/</span> en est bien absent.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2623"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2628"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">.github/workflows/ci.yml</span> — étape de couverture.</li>
 <li><span class="tt"><a class="el" href="exigences-non-fonctionnelles_8md.html">Documentation/Specification/exigences-non-fonctionnelles.md</a></span> — <span class="tt">EX-NFR-022</span> précise ce qui est mesuré et que le seuil bloque.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2624"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2629"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Le rapport agrégé inclut des lignes couvertes par <span class="tt">IntegrationTests</span> et par <span class="tt">SystemTests</span> que <span class="tt">UnitTests</span> seul ne couvrait pas — vérifié sur un fichier identifié (par exemple <span class="tt"><a class="el" href="CharacterPhysicsSystem_8cpp.html">Source/Core/Ecs/Systems/CharacterPhysicsSystem.cpp</a></span>), sinon l'agrégation ne fonctionne pas.</li>
 <li><b>Test négatif</b> : un seuil temporairement placé au-dessus de la valeur mesurée fait échouer le job.</li>
 <li>Le job reste dans une durée acceptable une fois les trois exécutables instrumentés.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2625"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2630"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas viser haut.</b> Un seuil ambitieux posé le jour de la mise en place se contourne dès la première PR gênée. Le rôle du chiffre est d'interdire une chute, pas de forcer une hausse : c'est une décision de cadrage du lot, pas un arbitrage à refaire ici.</li>
@@ -128,7 +128,7 @@ Points d'attention</h1>
 <li>OpenCppCoverage est installé via Chocolatey sans version épinglée dans le workflow actuel — l'épingler, pour la même raison que Doxygen et <span class="tt">clang-format</span>.</li>
 <li>La couverture de <span class="tt">Source/HMI</span> restera structurellement basse : la moitié du dossier est du widget Qt et du Direct3D non testable sans machine graphique. C'est attendu et documenté par <span class="tt">EX-NFR-004</span>/<span class="tt">EX-NFR-010</span> ; le seuil doit en tenir compte plutôt que de pousser à écrire des tests de façade.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2626"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2631"></a>
 État de la mesure (LOT-58)</h1>
 <ul>
 <li><b>Mécanisme</b> : <span class="tt">ci.yml</span> exporte <span class="tt">UnitTests</span>, <span class="tt">IntegrationTests</span> et <span class="tt">SystemTests</span> en binaire intermédiaire (<span class="tt">--export_type binary:...</span>), puis les fusionne (<span class="tt">--input_coverage</span>) en un rapport Cobertura unique ; une étape dédiée compare <span class="tt">line-rate</span> au seuil et fait échouer le job en dessous. <span class="tt">OpenCppCoverage</span> épinglé (<span class="tt">OPENCPPCOVERAGE_VERSION: 0.9.9.0</span>).</li>
@@ -137,13 +137,13 @@ Points d'attention</h1>
 <li><b>Test négatif</b> : un seuil temporairement placé à 95 % (au-dessus des 93.66 % mesurés) fait échouer la comparaison — vérifié par calcul direct sur <span class="tt">coverage.xml</span>, logique identique à celle du job CI.</li>
 <li>OpenCppCoverage a pu être installé après une élévation UAC accordée manuellement (l'installeur Inno Setup ne peut pas s'élever de façon non interactive dans cet environnement).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2627"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2632"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>La couverture agrège les trois exécutables, un seuil documenté et daté fait échouer la CI en cas de chute, la démonstration du blocage est faite, l'outil de couverture est épinglé.</li>
 <li>Atteinte, avec une réserve : la mesure ci-dessus vient d'un build <b>Ninja</b> local, pas du preset <span class="tt">vs</span> exact de la CI. À confirmer (ou ajuster le seuil) sur la première exécution réelle du job <span class="tt">build-test-coverage</span> en CI.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2628"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2633"></a>
 Exigences</h1>
 <p>Réutilise <span class="tt">EX-NFR-022</span> (CI : build, tests et couverture), <span class="tt">EX-NFR-020</span> (tests unitaires <span class="tt">Core</span>), <span class="tt">EX-NFR-021</span> (test système de franchissabilité), <span class="tt">EX-NFR-004</span> (rendu vérifiable sans GPU), <span class="tt">EX-NFR-031</span> (outils épinglés). </p>
 </div></div><!-- contents -->

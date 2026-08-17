@@ -94,12 +94,12 @@ $(function(){initNavTree('lot-57-tache-01-barre-etat.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-57-editeur-information_2tache-01-barre-etat"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-57.html#md_Lot_2LOT-57-editeur-information_2epic" title="Lot/LOT-57-editeur-information/epic.md">LOT-57</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Interface</span>, <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2553"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2558"></a>
 Contexte</h1>
 <p>La barre d'état de l'éditeur affiche une chaîne unique, <span class="tt">status.edit_help</span>, qui concatène sept raccourcis. Elle est identique quel que soit l'outil actif, et posée une seule fois à l'entrée en mode éditeur. Tout message transitoire — texture assignée, décor posé, zone copiée, niveau enregistré — la remplace pour cinq secondes, après quoi <b>la barre reste vide</b> : rien ne la restaure, hors changement de langue.</p>
 <p>Pendant ce temps, l'information réellement utile existe déjà dans le code et n'est affichée nulle part : le viewport connaît son indicateur de modifications non enregistrées, la case survolée et son facteur de zoom ; la fenêtre connaît le niveau ouvert et l'outil actif. Il n'y a rien à calculer, seulement à montrer.</p>
-<p>Le <span class="tt">LOT-52</span> a établi le patron applicable ici : <span class="tt"><a class="el" href="namespacehmi.html#a8a1c52dc217e915a1ebbd5ec209037d9" title="Lignes à afficher pour l&#39;affichage tête haute d&#39;un pas de simulation donné.">hmi::gameHudLines</a></span> décide <b>quoi</b> afficher dans une fonction pure, testée sans GPU, et le rendu se contente de la suivre. La même séparation vaut pour la barre d'état, à ceci près que le rendu est un widget Qt et non la scène.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2554"></a>
+<p>Le <span class="tt">LOT-52</span> a établi le patron applicable ici : <span class="tt"><a class="el" href="namespacehmi.html#a03f731727d8be34206fa2313dad908ab" title="Lignes à afficher pour l&#39;affichage tête haute d&#39;un pas de simulation donné.">hmi::gameHudLines</a></span> décide <b>quoi</b> afficher dans une fonction pure, testée sans GPU, et le rendu se contente de la suivre. La même séparation vaut pour la barre d'état, à ceci près que le rendu est un widget Qt et non la scène.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2559"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Zones permanentes</b> dans la barre d'état : niveau ouvert, indicateur de <b>modifications non enregistrées</b>, outil actif, case survolée (colonne, ligne), facteur de zoom. Une zone vide quand l'information n'a pas de sens — curseur hors de la grille, aucun niveau ouvert — plutôt qu'un libellé de remplacement.</li>
@@ -110,7 +110,7 @@ Travail à réaliser</h1>
 <li><b>Raccordement aux signaux existants</b> de changement d'outil, de survol, de zoom et de modification, plutôt qu'un rafraîchissement périodique.</li>
 <li><b>Ouvert à un second contexte d'édition</b> : l'atelier pixel art de <a class="el" href="lot-54.html" title="LOT-54 — Atelier pixel art intégré">LOT-54</a> affichera dans la même barre l'asset ouvert, son état modifié, l'outil de canevas actif, le pixel survolé, le zoom et la couleur courante. C'est la même barre, la même règle de restauration après message et la même exigence de pureté ; la décision doit donc accepter un contexte d'édition d'asset à côté du contexte niveau, plutôt que de figer sa signature sur ce dernier et d'obliger LOT-54 à créer un second modèle.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2555"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2560"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/EditorStatus.{h,cpp}</span> (nouveau) — décision pure du contenu.</li>
@@ -119,7 +119,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Localization/fr.lang</span>, <span class="tt">en.lang</span>.</li>
 <li><span class="tt"><a class="el" href="test__editor__status_8cpp.html" title="Tests unitaires du choix de contenu de la barre d&#39;état de l&#39;éditeur (LOT-57 TACHE-01,...">Source/Test/Unit/HMI/Editor/test_editor_status.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2556"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2561"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Contenu par outil</b> : chaque outil produit son aide propre ; changer d'outil change l'aide.</li>
@@ -129,7 +129,7 @@ Tests (obligatoires)</h1>
 <li>Chaque clé de traduction utilisée existe dans les deux catalogues.</li>
 <li>Décision <b>pure</b>, testée sans Qt ni GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2557"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2562"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas afficher l'état dans la scène rendue.</b> Le <span class="tt">LOT-52</span> a livré un moteur de texte sur le calque d'interface du pipeline Direct3D 11, mais il n'est branché que sur la session de jeu ; l'éditeur passe par son propre rendu de brouillon. L'état d'édition s'affiche dans des widgets Qt — deux chemins distincts, à ne pas confondre.</li>
@@ -138,12 +138,12 @@ Points d'attention</h1>
 <li>Afficher les coordonnées dans le même ordre que le reste de l'éditeur — le panneau des liens présente déjà des positions, la convention doit être identique.</li>
 <li>Vérifier que le passage en mode jeu et le retour au menu n'exposent pas une barre d'état d'édition résiduelle.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2558"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2563"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Le niveau ouvert, les modifications non enregistrées, l'outil actif, la case survolée et le zoom sont visibles en permanence en édition ; l'aide dépend de l'outil et revient après tout message transitoire ; la décision de contenu est pure et testée sans Qt ; libellés dans les deux langues ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2559"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2564"></a>
 Exigences</h1>
 <p><span class="tt">EX-IHM-060</span> (état affiché en permanence, aide contextuelle) ; réutilise <span class="tt">EX-EDIT-013</span> (déplacement et zoom), <span class="tt">EX-EDIT-012</span> (modifications non enregistrées), <span class="tt">EX-REN-033</span> (traduction). </p>
 </div></div><!-- contents -->

@@ -6,6 +6,7 @@ var classcore_1_1BlockController =
     [ "collisionMap", "classcore_1_1BlockController.html#a76514947992556f8b153ac603d58dc08", null ],
     [ "dropBlocks", "classcore_1_1BlockController.html#a26c5b394ff976688bc1932b0b9a33df1", null ],
     [ "isFree", "classcore_1_1BlockController.html#ae5d19a4dc18ad9c51e5bc78623df190b", null ],
+    [ "massAt", "classcore_1_1BlockController.html#a418b992f1bbbe9519b248e03f215676e", null ],
     [ "positions", "classcore_1_1BlockController.html#a8c99052caaca4ae7ac2e9f461856ff66", null ],
     [ "pushBlocks", "classcore_1_1BlockController.html#aa4b0ed0452dd103740061bedd65042cd", null ],
     [ "scales", "classcore_1_1BlockController.html#a201e8be3e68dba9199b0177230e3201f", null ],

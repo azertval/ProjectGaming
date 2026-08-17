@@ -12,7 +12,8 @@ var searchData=
   ['bottomleft_9',['bottomLeft',['../structhmi_1_1DecorHandleLayout.html#a56d9d743dabdb43345fda8aa004871c2',1,'hmi::DecorHandleLayout']]],
   ['bottomright_10',['bottomRight',['../structhmi_1_1DecorHandleLayout.html#acf73f9b2b6a86bd3a032929bf2d05cf0',1,'hmi::DecorHandleLayout']]],
   ['bottomy_11',['bottomY',['../structcore_1_1SlopeFollowResult.html#a67675a0a2b2290e4398b009fd40d7ec3',1,'core::SlopeFollowResult']]],
-  ['button_5fcount_12',['BUTTON_COUNT',['../classhmi_1_1InputState.html#a692a4d893cae9b15948b3d1081bbafeb',1,'hmi::InputState']]],
-  ['bx_13',['bx',['../structhmi_1_1LineQuad.html#a203b268e3040f841fa7089fc58391d22',1,'hmi::LineQuad']]],
-  ['by_14',['by',['../structhmi_1_1LineQuad.html#aea263b042537c77e3ffbebe64b772a27',1,'hmi::LineQuad']]]
+  ['box_12',['box',['../structcore_1_1TriggerWeight.html#ab974e361606ec4249ab88f8e305c2480',1,'core::TriggerWeight']]],
+  ['button_5fcount_13',['BUTTON_COUNT',['../classhmi_1_1InputState.html#a692a4d893cae9b15948b3d1081bbafeb',1,'hmi::InputState']]],
+  ['bx_14',['bx',['../structhmi_1_1LineQuad.html#a203b268e3040f841fa7089fc58391d22',1,'hmi::LineQuad']]],
+  ['by_15',['by',['../structhmi_1_1LineQuad.html#aea263b042537c77e3ffbebe64b772a27',1,'hmi::LineQuad']]]
 ];

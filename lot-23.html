@@ -96,37 +96,37 @@ $(function(){initNavTree('lot-23.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>terminé</b>. Une variante <b>courbe</b> de la pente de <span class="tt">LOT-22</span> (<span class="tt">EX-GP-004</span>) : un quart de cercle plutôt qu'un plan incliné, avec le même principe de suivi de surface. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1297"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1302"></a>
 Objectif</h1>
 <p><span class="tt">EX-GP-004</span> demande une tuile <b>arrondie</b> offrant le même suivi de surface que la pente (<span class="tt">EX-GP-003</span>), avec un profil <b>courbe</b>. Ce lot est délibérément séquencé <b>après</b> <span class="tt">LOT-22</span> : il réutilise l'infrastructure de suivi de surface (fonction de hauteur par type de tuile, passe de résolution après le balayage classique) posée par ce dernier, plutôt que d'en construire une seconde. Le risque physique propre à ce lot est donc <b>beaucoup plus faible</b> que celui de <span class="tt">LOT-22</span> — la partie déjà validée (isoler la pente/l'arrondi du balayage horizontal, caler la position verticale) ne change pas de principe, seule la <b>formule</b> de hauteur change.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1298"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1303"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1299"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1304"></a>
 Inclus</h2>
 <ul>
 <li>Deux nouvelles tuiles : <span class="tt">RoundedUpRight</span> et <span class="tt">RoundedUpLeft</span> — même orientation que les pentes de <span class="tt">LOT-22</span>, mais un profil de <b>quart de cercle</b> plutôt que linéaire.</li>
 <li>Réutilisation de la passe de suivi de surface de <span class="tt">LOT-22</span> : <span class="tt">slopeSurfaceHeight</span> (ou son équivalent renommé) devient un point d'extension géré pour les quatre types (deux pentes, deux arrondis).</li>
 <li>Chargement/écriture JSON, palette de l'éditeur, rendu (approximation du quart de cercle en pixel art généré en code).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1300"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1305"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Cercle complet ou rayon variable</b> — un seul rayon (celui d'une case pleine), comme pour les pentes à 45° de <span class="tt">LOT-22</span>.</li>
 <li><b>Arrondi en plafond</b> — uniquement au sol, symétrique à l'exclusion équivalente de <span class="tt">LOT-22</span>.</li>
 <li><b>Blocs à taille fractionnaire</b> (<span class="tt">EX-GP-005</span>, <span class="tt">LOT-24</span>) — lot séparé, sans lien direct avec la forme de la surface.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1301"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1306"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Même architecture que <span class="tt">LOT-22</span>, seule la formule change.</b> La fonction de hauteur par type de tuile (introduite en <span class="tt">LOT-22-TACHE-01</span>) gagne deux nouveaux cas ; la passe de résolution ajoutée en <span class="tt">LOT-22-TACHE-02</span> n'est <b>pas réécrite</b>, seulement étendue à reconnaître ces nouveaux types comme « suivables ». Si ce lot demandait de retoucher la passe de résolution elle-même, ce serait le signe que l'abstraction posée par <span class="tt">LOT-22</span> était mal choisie — à corriger en priorité plutôt qu'à contourner.</li>
 <li><b>Formule du quart de cercle</b> : pour une case occupant <span class="tt">[0, 1]</span> en <span class="tt">x</span> et en <span class="tt">y</span> (repère local), <span class="tt">RoundedUpRight</span> (haut à droite, creux en bas à gauche) a pour hauteur de surface <span class="tt">h(x) = 1 - sqrt(1 - (1 - x)²)</span> ; <span class="tt">RoundedUpLeft</span> est le symétrique (<span class="tt">h(x) = 1 - sqrt(1 - x²)</span>). Ces formules sont à vérifier par un test unitaire dédié comparant quelques points remarquables (bords et centre) à des valeurs calculées à la main, avant de les faire confiance en jeu.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1302"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1307"></a>
 Exigences couvertes</h1>
 <ul>
 <li><span class="tt">EX-GP-004</span> — implémentée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1303"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1308"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -141,19 +141,19 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-23-tache-03-documentation-verification.html#md_Lot_2LOT-23-collision-arrondie_2tache-03-documentation-verification" title="Lot/LOT-23-collision-arrondie/tache-03-documentation-verification.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Documentation et vérification  </td><td class="markdownTableBodyNone"><span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1304"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1309"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Le personnage suit une tuile arrondie en marchant dessus, avec une courbe visuellement et physiquement distincte d'une pente linéaire.</li>
 <li><b>Aucune régression</b> sur la physique existante, y compris les pentes de <span class="tt">LOT-22</span> (mêmes tests de non-régression que <span class="tt">LOT-22</span>, plus les siens propres).</li>
 <li>Logique nouvelle couverte par des tests (formule de courbe, suivi en jeu). Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1305"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1310"></a>
 Dépendances</h1>
 <ul>
 <li><b>Dépend de <span class="tt">LOT-22</span></b> (réutilise entièrement son infrastructure de suivi de surface) — ne doit pas être commencé avant que <span class="tt">LOT-22</span> soit terminé.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1306"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1311"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-23-tache-01-modele-tuile-arrondie.html" title="TACHE-01 — Modèle de tuile et formule de courbe">TACHE-01 — Modèle de tuile et formule de courbe</a></li>

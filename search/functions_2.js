@@ -85,13 +85,14 @@ var searchData=
   ['createtexture_82',['createTexture',['../namespacehmi.html#a98f0f2d822288b333e00905f4cc60165',1,'hmi']]],
   ['creditsrequested_83',['creditsRequested',['../classhmi_1_1MainMenu.html#a609f3532ab323667d568a8ce1775336a',1,'hmi::MainMenu']]],
   ['creditsscreen_84',['CreditsScreen',['../classhmi_1_1CreditsScreen.html#af65fcc2b898892ad175fb99241cdb36c',1,'hmi::CreditsScreen']]],
-  ['cullingbounds_85',['cullingBounds',['../classhmi_1_1ComposedScene.html#a0a4e00be708093fbbf214379c1f73a99',1,'hmi::ComposedScene']]],
-  ['currentcolor_86',['currentColor',['../classhmi_1_1PixelCanvas.html#a27ca1145bb3b1660cb0a7b5d0c6ad6ec',1,'hmi::PixelCanvas']]],
-  ['currentcolorchanged_87',['currentColorChanged',['../classhmi_1_1PixelCanvas.html#a994d90d57b63f04e462d404f3d698246',1,'hmi::PixelCanvas']]],
-  ['currenteditortokens_88',['currentEditorTokens',['../namespacehmi.html#a26a0827c46d5301e7690c51a9e6fc159',1,'hmi']]],
-  ['currentframeregion_89',['currentFrameRegion',['../classhmi_1_1AnimationCatalog.html#acaa3b6c738038d1eac95c8267c0e8979',1,'hmi::AnimationCatalog']]],
-  ['currentgamelevelname_90',['currentGameLevelName',['../classhmi_1_1GameViewport.html#aeec3860cb0502393027e03493158a0a1',1,'hmi::GameViewport']]],
-  ['currentlevel_91',['currentLevel',['../classhmi_1_1Progression.html#a3e89eaef88420921b419e42b7bf8afd6',1,'hmi::Progression']]],
-  ['currentset_92',['currentSet',['../classhmi_1_1TexturePanel.html#a0e91d775329d3d2c60ddf558379d76d3',1,'hmi::TexturePanel']]],
-  ['currenttimestamp_93',['currentTimestamp',['../namespacecore.html#a485afe76bcf660ec5db7d91f924f87a4',1,'core']]]
+  ['crushedplayer_85',['crushedPlayer',['../classcore_1_1MechanismController.html#af3a7b595d504c05feee6339ff2c00304',1,'core::MechanismController']]],
+  ['cullingbounds_86',['cullingBounds',['../classhmi_1_1ComposedScene.html#a0a4e00be708093fbbf214379c1f73a99',1,'hmi::ComposedScene']]],
+  ['currentcolor_87',['currentColor',['../classhmi_1_1PixelCanvas.html#a27ca1145bb3b1660cb0a7b5d0c6ad6ec',1,'hmi::PixelCanvas']]],
+  ['currentcolorchanged_88',['currentColorChanged',['../classhmi_1_1PixelCanvas.html#a994d90d57b63f04e462d404f3d698246',1,'hmi::PixelCanvas']]],
+  ['currenteditortokens_89',['currentEditorTokens',['../namespacehmi.html#a26a0827c46d5301e7690c51a9e6fc159',1,'hmi']]],
+  ['currentframeregion_90',['currentFrameRegion',['../classhmi_1_1AnimationCatalog.html#acaa3b6c738038d1eac95c8267c0e8979',1,'hmi::AnimationCatalog']]],
+  ['currentgamelevelname_91',['currentGameLevelName',['../classhmi_1_1GameViewport.html#aeec3860cb0502393027e03493158a0a1',1,'hmi::GameViewport']]],
+  ['currentlevel_92',['currentLevel',['../classhmi_1_1Progression.html#a3e89eaef88420921b419e42b7bf8afd6',1,'hmi::Progression']]],
+  ['currentset_93',['currentSet',['../classhmi_1_1TexturePanel.html#a0e91d775329d3d2c60ddf558379d76d3',1,'hmi::TexturePanel']]],
+  ['currenttimestamp_94',['currentTimestamp',['../namespacecore.html#a485afe76bcf660ec5db7d91f924f87a4',1,'core']]]
 ];
