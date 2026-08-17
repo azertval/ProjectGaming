@@ -97,9 +97,113 @@ def crate_blue() -> Image:
     return cell
 
 
+def barrel_brown() -> Image:
+    """Tonneau brun : troisieme exemple, forme arrondie plutot que carree comme les deux premieres."""
+    wood: Color = (110, 74, 40, 255)
+    band: Color = (60, 40, 20, 255)
+    light: Color = (150, 108, 62, 255)
+
+    cell = Image(TILE, TILE, TRANSPARENT)
+    cell.fill_rect(2, 1, TILE - 4, TILE - 2, wood)
+    cell.fill_rect(1, 3, TILE - 2, TILE - 6, wood)
+    for y in (2, TILE // 2, TILE - 3):
+        cell.fill_rect(1, y, TILE - 2, 1, band)
+    cell.fill_rect(4, 3, 2, TILE - 6, light)
+    return cell
+
+
+def sign_yellow() -> Image:
+    """Panneau jaune : quatrieme exemple, motif d'avertissement contrastant avec les autres."""
+    plate: Color = (222, 188, 64, 255)
+    border: Color = (60, 50, 20, 255)
+    mark: Color = (60, 50, 20, 255)
+
+    cell = Image(TILE, TILE, plate)
+    cell.fill_rect(0, 0, TILE, 2, border)
+    cell.fill_rect(0, TILE - 2, TILE, 2, border)
+    cell.fill_rect(0, 0, 2, TILE, border)
+    cell.fill_rect(TILE - 2, 0, 2, TILE, border)
+    cell.fill_rect(TILE // 2 - 1, 4, 2, 6, mark)
+    cell.fill_rect(TILE // 2 - 1, 11, 2, 2, mark)
+    return cell
+
+
+def crate_green() -> Image:
+    """Caisse verte : variante de teinte, pour distinguer deux blocs poussables du meme tableau."""
+    wood: Color = (72, 118, 66, 255)
+    dark: Color = (38, 68, 36, 255)
+    light: Color = (116, 168, 106, 255)
+
+    cell = Image(TILE, TILE, wood)
+    cell.fill_rect(0, 0, TILE, 1, light)
+    cell.fill_rect(0, 0, 1, TILE, light)
+    cell.fill_rect(0, TILE - 1, TILE, 1, dark)
+    cell.fill_rect(TILE - 1, 0, 1, TILE, dark)
+    cell.fill_rect(2, TILE // 2 - 1, TILE - 4, 2, dark)
+    return cell
+
+
+def stone_block() -> Image:
+    """Bloc de pierre : appareillage en briques decalees, contraste avec les caisses en bois."""
+    stone: Color = (132, 128, 136, 255)
+    joint: Color = (86, 82, 90, 255)
+    light: Color = (166, 162, 172, 255)
+
+    cell = Image(TILE, TILE, stone)
+    for row, y in enumerate(range(0, TILE, 4)):
+        cell.fill_rect(0, y, TILE, 1, joint)
+        offset = 0 if row % 2 == 0 else TILE // 2
+        cell.fill_rect(offset, y, 1, 4, joint)
+        cell.fill_rect((offset + TILE // 2) % TILE, y, 1, 4, joint)
+        cell.fill_rect(1, y + 1, TILE - 2, 1, light)
+    return cell
+
+
+def metal_plate() -> Image:
+    """Plaque metallique : tole rivetee, note industrielle assortie au fond `test_industrial`."""
+    metal: Color = (108, 116, 130, 255)
+    dark: Color = (66, 72, 84, 255)
+    rivet: Color = (156, 164, 178, 255)
+
+    cell = Image(TILE, TILE, metal)
+    cell.fill_rect(0, 0, TILE, 1, rivet)
+    cell.fill_rect(0, TILE - 1, TILE, 1, dark)
+    cell.fill_rect(0, 0, 1, TILE, rivet)
+    cell.fill_rect(TILE - 1, 0, 1, TILE, dark)
+    for y in (2, TILE - 4):
+        for x in (2, TILE - 4):
+            cell.fill_rect(x, y, 2, 2, rivet)
+    return cell
+
+
+def ice_block() -> Image:
+    """Bloc de glace : bleu clair translucide, quatrieme famille visuelle de bloc poussable."""
+    ice: Color = (152, 206, 232, 235)
+    bright: Color = (206, 238, 250, 235)
+    dark: Color = (96, 154, 190, 235)
+
+    cell = Image(TILE, TILE, ice)
+    cell.fill_rect(0, 0, TILE, 1, bright)
+    cell.fill_rect(0, 0, 1, TILE, bright)
+    cell.fill_rect(0, TILE - 1, TILE, 1, dark)
+    cell.fill_rect(TILE - 1, 0, 1, TILE, dark)
+    # Deux eclats obliques : la lecture « translucide » vient du contraste, pas de l'alpha seul.
+    for i in range(TILE - 6):
+        cell.set(3 + i, 3 + i, bright)
+    for i in range(5):
+        cell.set(TILE - 5 + i, 3 + i, bright)
+    return cell
+
+
 OBJECTS = {
     "door_red.png": door_red,
     "crate_blue.png": crate_blue,
+    "barrel_brown.png": barrel_brown,
+    "sign_yellow.png": sign_yellow,
+    "crate_green.png": crate_green,
+    "stone_block.png": stone_block,
+    "metal_plate.png": metal_plate,
+    "ice_block.png": ice_block,
 }
 
 

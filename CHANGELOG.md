@@ -7,6 +7,116 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-65 (second temps) — De la couverture à la profondeur.** Le garde-fou de couverture livré en
+  `TACHE-01` était vert, et le contenu qu'il validait ne tenait pourtant aucune des promesses de
+  `EX-LVL-012` : une revue des vingt-deux tableaux a établi que **onze d'entre eux ne demandent rien
+  au joueur** (dix se franchissent en maintenant « droite », `demo-plateforme` sans aucune entrée),
+  que chaque mécanique n'existe qu'en **un seul exemplaire**, et que **treize tuiles de mécanique
+  sont physiquement hors d'atteinte** — dont les quatre plafonds inclinés de `demo-plafond` et
+  l'interrupteur de `demo-dangers-avances`, ce qui rendait son danger commuté impossible à commuter.
+  La `TACHE-01` avait pourtant écrit la limite (« couvert ≠ franchi ») sans en tirer les
+  conséquences.
+  - **Quatre garde-fous qui mesurent l'usage, pas la présence** (`TACHE-05`) : aucun tableau
+    franchissable en maintenant « droite » (hors exclusion nommée) ; un type de tuile posé au moins
+    trois fois dans la séquence ; `jumpBudget` et `dashBudget` comptés **séparément** (le « ou »
+    précédent laissait passer une séquence entière sans budget de dash) ; zones de caméra et taille
+    de salle par niveau, invisibles d'un contrôle portant sur le seul mode de cadrage. Le rejeu
+    scripté relève désormais la **trajectoire réelle** et refuse une mécanique hors de portée.
+    Doctrine correspondante écrite dans `niveaux.md`, Sec. 3.
+  - **Deux corrections moteur assumées** (`TACHE-06`), assouplissement délibéré et borné du cadrage
+    « ce lot n'ajoute rien au moteur » — sans elles, ni le tutoriel de la clé ni l'énigme du tableau
+    final ne tiennent : une porte qui se **referme sur le personnage** est désormais **mortelle**
+    (`EX-GP-021`, via `core::Player::squished` déjà en place pour les plateformes) au lieu de le
+    laisser encastré dans un mur sans échec possible — ce que `demo-plaque-pression` provoquait à
+    **chaque partie** ; et un **bloc poussable peut enfoncer une plaque de pression** (`EX-GP-025`,
+    seuil `MIN_TRIGGER_MASS` déjà présent), ce qui débloque l'idiome de puzzle le plus classique du
+    genre, jusqu'ici hors d'atteinte parce que le contrôleur ne recevait que la boîte du joueur. Un
+    bloc réduit reste trop léger : la distinction est visible dans le tableau.
+  - **Batterie de croisements de mécaniques** (`Source/Test/Integration/test_croisements_mecaniques.cpp`) :
+    douze combinaisons qui n'étaient testées nulle part — dash contre un bloc plein puis réduit,
+    dash sous un plafond incliné, dash sur une plaque, bloc sur plaque, bloc trop léger, porte
+    écrasante, bloc poussé sur un danger, plateforme traversant une porte fermée, plateforme
+    emportant un bloc, deux déclencheurs sur une même porte.
+  - **Vingt-deux tableaux redessinés**, chacun conçu pour que sa mécanique soit la **seule** issue.
+    Les interrupteurs passent dans des alcôves du plafond qu'il faut atteindre en sautant ; les
+    plafonds inclinés et les dangers directionnels **bordent** le couloir au lieu de flotter à deux
+    hauteurs de saut au-dessus ; les blocs deviennent indispensables parce que le budget de sauts ne
+    suffit plus à les contourner ; `demo-plaque-pression` repose sur un bloc posé sur la plaque au
+    lieu d'un saut qui prend la porte de vitesse. Deux tableaux disparaissent : `demo-arrondi`
+    (fusionné dans `demo-pente`, dont il reprenait le tracé à une tuile près) et `demo-salles`
+    (272 tuiles, zéro mécanique, 40 % de sa surface scellée sous le sol — et joué **après** le
+    final), absorbé par le nouveau final multi-salles. Deux tableaux naissent : `demo-mouvement`
+    (synthèse de l'acte de mouvement) et `demo-synthese`.
+  - **Un vrai tableau final** : quatre salles, une énigme composée par salle, la clé gardée par des
+    dangers temporisés déphasés, et les deux variantes de cadrage du `LOT-64` qu'aucun tableau
+    n'employait — zones de caméra dessinées à la main (`EX-LVL-007`) et taille de salle propre au
+    niveau (`EX-REN-017`).
+  - **Invite « Interagir »** (`hmi::gameHudLines`) : rappel contextuel au contact d'une clé non
+    ramassée. Le ramassage exige une entrée qu'aucun autre tableau ne demande et que le jeu ne peut
+    pas expliquer ; sans invite, un joueur qui l'ignore reste bloqué devant la porte verrouillée
+    sans aucun retour.
+  - **Banque d'assets élargie**, entièrement générée par script : huit décors, trois fonds (forêt,
+    crépuscule, industriel), quatre objets. Le **personnage** est refait — il était illisible devant
+    une tuile de teinte voisine : cerne calculé depuis la silhouette, visage, ombrage, bottes,
+    écrasement/étirement, et six phases de course distinctes là où le cycle précédent en comptait
+    quatre dont **deux identiques**.
+  - **Doublons de test retirés** : `test_physique_personnage.cpp` ne rejoue plus les tableaux
+    livrés. Il portait une solution scriptée par tableau, doublon plus faible de
+    `ParcoursCompletSysteme` qui les rejoue tous avec deux garde-fous de plus ; la refonte a cassé
+    la copie la plus faible sans rien apprendre. Les tests **négatifs** restent : ils n'encodent
+    aucune solution.
+
+### Registre des défauts (consignés, non corrigés)
+- **Une pente franchissable à la marche ne l'est pas au dash.** Sur la silhouette exacte des
+  tableaux de pente livrés (pente à 45° suivie d'un palier plein), un personnage qui **dashe** se
+  fige au sommet : il bute contre la colonne pleine du palier avec les pieds encore 0,15 case trop
+  bas, et n'en repart jamais. La même géométrie se franchit sans difficulté à la marche. Le suivi de
+  surface (`core::resolveSlopeFollow`) n'avait jamais été éprouvé qu'à 0,05 case par pas ; un dash
+  en parcourt 0,25. Caractérisé par
+  `CroisementsMecaniques.DashSurUnePenteResteBloqueAuSommetDefautConsigne`, qui vérifie d'abord que
+  la géométrie se franchit à la marche pour prouver qu'il mesure bien le dash. Conséquence sur le
+  contenu : aucun tableau ne rend un dash **obligatoire** dans une montée de pente vers un palier.
+
+### Ajouté (premier temps)
+- **LOT-65 — Refonte des niveaux de démonstration** (concrétise `EX-LVL-015` ; actualise
+  `EX-LVL-012`, dont le « 3 niveaux » du MVP ne décrivait plus rien depuis longtemps). Dernier lot
+  de contenu du programme `0.1.0` : refaire les tableaux livrés pour qu'ils exploitent et testent
+  toutes les mécaniques du moteur, plutôt que les quinze bancs d'essai nus hérités du `LOT-25`.
+  - **Garde-fou de couverture** (`Source/Test/Systeme/test_couverture_mecaniques.cpp`,
+    `EX-LVL-015`) : un contrôle échoue, en nommant précisément ce qui manque, si un type de tuile,
+    un mode de cadrage ou une variante significative (danger temporisé déphasé, danger mobile
+    vertical, budget de mouvements borné, texture par instance, décor de premier plan) n'apparaît
+    dans aucun tableau de la séquence livrée — dérivé des énumérations du code (même technique que
+    `core::parseTileType`), jamais d'une liste recopiée à la main.
+  - **Banque d'assets renforcée avant la refonte du contenu** : deux fonds supplémentaires (nuit,
+    souterrain), cinq décors et deux objets d'instance en plus, une première spritesheet de
+    personnage (`Player/player.png`, absente jusqu'ici — le jeu retombait systématiquement sur la
+    silhouette procédurale), tous générés par script (schématiques, sans dépendance externe, même
+    esprit que l'existant). Le jeu de skins `kenney` (real art CC0, `LOT-63`) étoffé de trois types
+    supplémentaires (`danger`, `switch`, `door`) et d'un premier fond réel, retouchés depuis les
+    mêmes packs Kenney déjà crédités.
+  - **Dix-sept tableaux redessinés** (nouvelle géométrie, jamais recopiée depuis l'historique git
+    — repartir d'une page blanche pour chacun, pas seulement pour la séquence) et habillés : fond,
+    décors, jeu de skins `kenney` pour trois d'entre eux, et cadrage de caméra **choisi
+    explicitement** plutôt que subi — `demo-final.json` (le parcours continu le plus long de la
+    séquence) passe ainsi en cadrage *suivi* plutôt que de retomber sur *par salle* du seul fait de
+    ses dimensions. Chaque tableau vérifié individuellement par le test système, en itérant sur la
+    géométrie jusqu'au franchissement plutôt qu'en le supposant.
+  - **Cinq tableaux supplémentaires**, groupés par famille plutôt qu'un par type, couvrant les
+    quatorze types de tuile qu'aucun tableau n'employait encore : pentes/arrondis/concaves montant
+    vers la **gauche** (`demo-pente-gauche.json`), les quatre variantes de **plafond** incliné
+    (`demo-plafond.json`), arrondis **concaves** de sol et de plafond (`demo-concave.json`), bloc
+    poussable à taille **quart** (`demo-bloc-quart.json`), dangers directionnels bas/gauche/droite
+    (`demo-dangers-directionnels.json`). Séquence portée de dix-sept à **vingt-deux** tableaux.
+  - **Registre des défauts** : un défaut de moteur découvert en construisant cette séquence, isolé
+    par bissection, **consigné et non corrigé** ici (décision de cadrage du lot) — la seule
+    présence d'une configuration de `movingPlatform` dans un niveau, même immobile et loin du
+    personnage, casse la résolution de collision pendant le suivi d'une pente ailleurs dans ce même
+    niveau. `demo-final.json` n'associe donc pas la plateforme mobile aux autres mécaniques
+    combinées ; `demo-plateforme.json` continue de la couvrir isolément. Aucun autre défaut
+    découvert en rejouant (scripté, `ctest` à 100 %, 1122 tests) cette séquence. Le parcours
+    **manuel** complet (binaire Release, manette, son) — le moment où ce lot attend le plus souvent
+    d'en trouver, d'après l'expérience des lots précédents — reste à faire.
 - **LOT-64 — Cadrage de caméra choisi par le level designer** (déclare `EX-LVL-006`, `EX-REN-016`,
   `EX-EDIT-028`, `EX-LVL-007`, `EX-REN-017`, `EX-EDIT-029` ; reformule `EX-REN-015`). Le cadrage
   devient une **donnée du niveau**, plus une règle en dur déduite de ses dimensions.

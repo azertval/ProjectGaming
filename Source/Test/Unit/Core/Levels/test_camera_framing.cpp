@@ -172,29 +172,36 @@ TEST(CameraFramingTest, ValidationDesZonesNommeLeChampFautif) {
 
 namespace {
 
-// Un niveau livré et le mode attendu de sa règle de repli (aucun des dix-sept ne déclare de
-// cadrage explicite à ce jour) -- même liste, dans le même esprit, que le parcours complet
-// (Source/Test/Systeme/test_parcours_complet.cpp) : toute divergence de dimensions doit se
+// Un niveau livré et son mode de cadrage attendu. Chaque niveau déclare désormais un cadrage
+// explicite (LOT-65 TACHE-02, EX-LVL-006) plutôt que de dépendre de la règle de repli par
+// dimensions -- ce test vérifie le choix effectivement livré, pas la règle elle-même (couverte par
+// ailleurs dans ce fichier avec des dimensions synthétiques). Même liste, dans le même esprit, que
+// le parcours complet (Source/Test/Systeme/test_parcours_complet.cpp) : toute divergence doit se
 // retrouver ici.
 struct ExpectedFraming {
     const char* file;
     core::CameraFramingMode mode;
+    /// Le niveau règle-t-il lui-même sa taille de salle / de suivi (`EX-REN-017`) ? Aucun tableau
+    /// ne le faisait avant le `LOT-65` TACHE-09 : la mécanique était livrée et jamais employée,
+    /// ce qu'un contrôle portant sur le seul `mode` ne pouvait pas voir.
+    bool customRoomSize = false;
 };
 
 }  // namespace
 
 /**
- * @brief Chacun des dix-sept niveaux livrés, chargé sans champ de cadrage, résout le mode qui
- * reproduit exactement son comportement actuel -- le critère d'acceptation numéro un du lot.
- * \castest{<b>Chaque niveau livré résout le cadrage qui reproduit son comportement actuel.</b>
+ * @brief Chaque niveau livré déclare un cadrage **explicite** (`LOT-65`) : la plupart tiennent
+ * dans une salle par défaut et se voient entiers, `demo-mouvement.json` -- la traversée continue
+ * la plus longue -- **suit** le personnage, et `demo-final.json` découpe ses quatre salles *par
+ * salle*, avec des zones dessinées à la main et une taille de salle qui lui est propre.
+ * \castest{<b>Chaque niveau livré déclare le cadrage explicitement choisi pour son contenu.</b>
  * <br/>
  * \tcat Unitaire · Camera Framing<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Charger chacun des dix-sept niveaux livrés (`Source/Elements/Levels`).<br/>2.
- * Vérifier le mode de cadrage résolu de chacun.<br/>
- * \tattendu Les niveaux qui tiennent dans une salle par défaut (24×14) résolvent en *niveau
- * entier* ; `demo-final.json` (34×9) et `demo-salles.json` (48×28), qui la dépassent, résolvent en
- * *par salle*, sans taille personnalisée.
+ * \tetapes 1. Charger les niveaux livrés (`Source/Elements/Levels`).<br/>2. Vérifier le mode de
+ * cadrage résolu de chacun.<br/>
+ * \tattendu La plupart résolvent en *niveau entier*, `demo-mouvement.json` en *suivi* et
+ * `demo-final.json` en *par salle*.
  * }
  */
 TEST(CameraFramingTest, NiveauxLivresReproduisentLeurComportementActuel) {
@@ -204,18 +211,17 @@ TEST(CameraFramingTest, NiveauxLivresReproduisentLeurComportementActuel) {
         {"demo-double-saut.json", core::CameraFramingMode::WholeLevel},
         {"demo-wall-jump.json", core::CameraFramingMode::WholeLevel},
         {"demo-dash.json", core::CameraFramingMode::WholeLevel},
+        {"demo-mouvement.json", core::CameraFramingMode::Follow, /*customRoomSize=*/true},
         {"demo-interrupteur.json", core::CameraFramingMode::WholeLevel},
         {"demo-plaque-pression.json", core::CameraFramingMode::WholeLevel},
         {"demo-cle.json", core::CameraFramingMode::WholeLevel},
         {"demo-bloc.json", core::CameraFramingMode::WholeLevel},
         {"demo-budget.json", core::CameraFramingMode::WholeLevel},
         {"demo-pente.json", core::CameraFramingMode::WholeLevel},
-        {"demo-arrondi.json", core::CameraFramingMode::WholeLevel},
         {"demo-bloc-reduit.json", core::CameraFramingMode::WholeLevel},
         {"demo-plateforme.json", core::CameraFramingMode::WholeLevel},
         {"demo-dangers-avances.json", core::CameraFramingMode::WholeLevel},
-        {"demo-final.json", core::CameraFramingMode::PerRoom},
-        {"demo-salles.json", core::CameraFramingMode::PerRoom},
+        {"demo-final.json", core::CameraFramingMode::PerRoom, /*customRoomSize=*/true},
     };
 
     for (const ExpectedFraming& expected : levels) {
@@ -224,9 +230,11 @@ TEST(CameraFramingTest, NiveauxLivresReproduisentLeurComportementActuel) {
         const core::LevelLoadResult result = core::LevelLoader::loadFromFile(path);
         ASSERT_TRUE(result.ok()) << expected.file << " : " << result.error;
         EXPECT_EQ(result.level->cameraFraming().mode, expected.mode) << expected.file;
-        // Aucun de ces niveaux ne declare de cadrage : la taille de salle resolue reste celle par
-        // defaut (absente), jamais une valeur figee.
-        EXPECT_FALSE(result.level->cameraFraming().roomWidthTiles.has_value()) << expected.file;
-        EXPECT_FALSE(result.level->cameraFraming().roomHeightTiles.has_value()) << expected.file;
+        // Taille de salle : declaree seulement la ou le tableau la choisit, jamais subie ailleurs.
+        EXPECT_EQ(result.level->cameraFraming().roomWidthTiles.has_value(), expected.customRoomSize)
+            << expected.file;
+        EXPECT_EQ(result.level->cameraFraming().roomHeightTiles.has_value(),
+                  expected.customRoomSize)
+            << expected.file;
     }
 }

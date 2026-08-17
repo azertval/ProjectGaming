@@ -1,31 +1,228 @@
 {
   "name": "Wall jump",
   "width": 4,
-  "height": 10,
+  "height": 16,
+  "dashBudget": 0,
+  "background": "test_cave.png",
+  "cameraFraming": {
+    "mode": "wholeLevel"
+  },
   "tiles": [
-    { "x": 0, "y": 0, "type": "solid" },
-    { "x": 0, "y": 1, "type": "solid" },
-    { "x": 0, "y": 2, "type": "solid" },
-    { "x": 0, "y": 3, "type": "solid" },
-    { "x": 0, "y": 4, "type": "solid" },
-    { "x": 0, "y": 5, "type": "solid" },
-    { "x": 0, "y": 6, "type": "solid" },
-    { "x": 0, "y": 7, "type": "solid" },
-    { "x": 0, "y": 8, "type": "solid" },
-    { "x": 0, "y": 9, "type": "solid" },
-    { "x": 3, "y": 0, "type": "solid" },
-    { "x": 3, "y": 1, "type": "solid" },
-    { "x": 3, "y": 2, "type": "solid" },
-    { "x": 3, "y": 3, "type": "solid" },
-    { "x": 3, "y": 4, "type": "solid" },
-    { "x": 3, "y": 5, "type": "solid" },
-    { "x": 3, "y": 6, "type": "solid" },
-    { "x": 3, "y": 7, "type": "solid" },
-    { "x": 3, "y": 8, "type": "solid" },
-    { "x": 3, "y": 9, "type": "solid" },
-    { "x": 1, "y": 9, "type": "solid" },
-    { "x": 2, "y": 9, "type": "solid" },
-    { "x": 1, "y": 8, "type": "entry" },
-    { "x": 1, "y": 1, "type": "exit" }
+    {
+      "x": 0,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "type": "solid"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "type": "exit"
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 5,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 8,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 9,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 9,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 10,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 10,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 11,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 11,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 12,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 12,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 13,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 13,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 14,
+      "type": "solid"
+    },
+    {
+      "x": 1,
+      "y": 14,
+      "type": "entry"
+    },
+    {
+      "x": 3,
+      "y": 14,
+      "type": "solid"
+    },
+    {
+      "x": 0,
+      "y": 15,
+      "type": "solid"
+    },
+    {
+      "x": 1,
+      "y": 15,
+      "type": "solid"
+    },
+    {
+      "x": 2,
+      "y": 15,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 15,
+      "type": "solid"
+    }
+  ],
+  "decors": [
+    {
+      "asset": "kenney_torch.png",
+      "x": 1.2,
+      "y": 9.0,
+      "layer": "background"
+    },
+    {
+      "asset": "kenney_chain.png",
+      "x": 2.0,
+      "y": 3.0,
+      "layer": "foreground"
+    },
+    {
+      "asset": "crystal.png",
+      "x": 1.2,
+      "y": 11.0,
+      "layer": "background"
+    },
+    {
+      "asset": "stalactite.png",
+      "x": 2.0,
+      "y": 0.0,
+      "layer": "foreground"
+    }
   ]
 }

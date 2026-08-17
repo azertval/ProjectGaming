@@ -6,6 +6,7 @@
 #include "Core/Levels/Level.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
+#include "Core/Physics/Aabb.h"
 
 /**
  * @file Core/Gameplay/MechanismController.h
@@ -14,7 +15,22 @@
 
 namespace core {
 
-struct Aabb;
+/**
+ * @brief Poids posé sur un déclencheur par autre chose que le personnage (`EX-GP-025`, `LOT-65`
+ *        TACHE-06).
+ *
+ * Jusqu'ici, `MechanismController` ne recevait que la boîte du **joueur** : la formule « poids
+ * suffisant » de `EX-GP-025` était donc sans objet, et l'idiome de puzzle le plus classique du
+ * genre — poser un poids sur une plaque pour tenir une porte ouverte **et repartir** — était hors
+ * d'atteinte. Ce type porte ce qu'il faut pour qu'un **bloc poussable** (`EX-GP-022`) compte comme
+ * un poids : sa boîte réelle et sa masse. Volontairement minimal et sans lien avec
+ * `core::BlockController`, pour que ce contrôleur reste ignorant de la manière dont ces boîtes sont
+ * produites.
+ */
+struct TriggerWeight {
+    Aabb box;           ///< Boîte réelle du poids, en unités monde.
+    float mass = 1.0F;  ///< Masse, comparée au même seuil que celle du personnage.
+};
 
 /**
  * @brief Fait vivre les mécanismes **interrupteur/plaque ↔ porte** d'un niveau (`EX-GP-020`,
@@ -26,7 +42,9 @@ struct Aabb;
  *   **front** (première frame de contact), l'état de la porte liée **bascule** et persiste.
  * - **Plaque de pression** (`TileType::PressurePlate`, `EX-GP-025`) : la porte reste **ouverte**
  *   tant qu'un poids suffisant y repose (comparé à `MIN_TRIGGER_MASS`), et se **referme** dès que
- *   ce n'est plus le cas — activation **continue**, pas de front.
+ *   ce n'est plus le cas — activation **continue**, pas de front. Ce poids peut être celui du
+ *   personnage **ou** celui d'un **bloc poussable** (`core::TriggerWeight`, `EX-GP-022`) : c'est ce
+ *   qui rend possible de poser un poids et de **repartir**, la porte restant ouverte derrière soi.
  *
  * Une porte **fermée** est **solide** (bloque), **ouverte** est franchissable. Le contrôleur
  * maintient une **copie mutable** du `TileMap` (grille de **collision**) que la physique consomme,
@@ -67,8 +85,31 @@ public:
      *                        ramassage d'une clé (le contact seul ne suffit pas). Sans effet sur
      *                        les autres mécanismes. Valeur par défaut = faux (compatibilité des
      *                        appels existants, aucun niveau sans clé n'est affecté).
+     * @param weights         Poids **autres que le personnage** posés sur les déclencheurs ce pas
+     *                        (blocs poussables, `EX-GP-022`) — voir `core::TriggerWeight`. Ne
+     *                        concerne que les plaques de pression et les dangers commutés à
+     *                        activation continue : un bloc ne bascule pas un interrupteur et ne
+     *                        ramasse pas une clé. Vide par défaut (compatibilité des appels
+     *                        existants).
      */
-    void update(const Aabb& playerBox, float playerMass = 1.0f, bool interactPressed = false);
+    void update(const Aabb& playerBox, float playerMass = 1.0f, bool interactPressed = false,
+                const std::vector<TriggerWeight>& weights = {});
+
+    /**
+     * @brief Une porte s'est-elle **refermée sur le personnage** au dernier `update` (`EX-GP-021`,
+     *        `LOT-65` TACHE-06) ?
+     *
+     * L'écrasement est **mortel**, exactement comme sous une plateforme mobile (`EX-GP-026`) :
+     * l'appelant (`hmi::GameSession`) traduit ce drapeau en boîte de danger supplémentaire pour
+     * `core::evaluateOutcome`, du même geste qu'il le fait déjà pour `core::Player::squished`.
+     * Sans cela, une porte qui redevient solide sur le personnage le laisse **encastré** dans un
+     * mur, sans échec possible — précisément la « situation sans issue » que la conception des
+     * niveaux interdit (`Documentation/Specification/niveaux.md`, Sec. 3).
+     * @return true si au moins une porte s'est fermée sur la boîte passée au dernier `update`.
+     */
+    [[nodiscard]] bool crushedPlayer() const noexcept {
+        return _crushedPlayer;
+    }
 
     /// @return La grille de collision courante (portes à jour), à passer à la physique.
     [[nodiscard]] const TileMap& collisionMap() const noexcept {
@@ -90,6 +131,14 @@ public:
     ///         Distingue les deux sons de déclenchement (`hmi::SoundTriggers`, `LOT-60`).
     [[nodiscard]] bool isContinuous(std::size_t index) const {
         return _continuous[index];
+    }
+
+    /// @return true si le mécanisme @p index est une **clé** (`TileType::Key`, `EX-GP-023`), dont
+    ///         le ramassage exige l'action « Interagir » en plus du contact. Symétrique de
+    ///         `isContinuous` : même donnée figée au chargement, exposée pour que l'affichage tête
+    ///         haute puisse rappeler cette action au contact (`hmi::gameHudLines`, `LOT-65`).
+    [[nodiscard]] bool isKey(std::size_t index) const {
+        return _isKey[index];
     }
 
     /// @return Les liaisons de danger commuté (positions interrupteur/danger, `EX-GP-052`).
@@ -129,6 +178,7 @@ private:
                                                    ///< `_playerOnSwitchPrev`, pour `_dangerLinks`.
     std::vector<bool> _dangerContinuous;           ///< true = plaque de pression, même principe que
                                                    ///< `_continuous`, pour `_dangerLinks`.
+    bool _crushedPlayer = false;  ///< Une porte s'est refermée sur le personnage au dernier pas.
 };
 
 }  // namespace core

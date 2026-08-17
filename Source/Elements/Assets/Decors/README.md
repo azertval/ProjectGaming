@@ -14,12 +14,46 @@ contrairement au fond de niveau, un décor **désigné** est toujours censé exi
 
 ## Contenu actuel : décors de **test**
 
-`bush.png` (22×18) et `branch.png` (40×12) sont **schématiques** et servent à vérifier le
-placement, la superposition par couche et la traversabilité des décors, pas à habiller le jeu.
-Générés par script, donc reproductibles et modifiables sans éditeur d'image :
+Cinq décors, **schématiques**, servent à vérifier le placement, la superposition par couche et la
+traversabilité des décors, pas à habiller le jeu. Générés par script, donc reproductibles et
+modifiables sans éditeur d'image :
 
 ```
 python scripts/generate_test_decors.py
 ```
 
+| Fichier | Dimensions | Couche prévue |
+|---|---|---|
+| `bush.png` | 22×18 | arrière-plan |
+| `rock.png` | 20×14 | arrière-plan |
+| `cloud.png` | 32×14 | arrière-plan |
+| `branch.png` | 40×12 | premier plan |
+| `sign.png` | 14×20 | premier plan |
+| `mushroom.png` | 16×18 | arrière-plan |
+| `crystal.png` | 14×22 | arrière-plan |
+| `grass_tuft.png` | 18×10 | arrière-plan |
+| `pillar.png` | 20×40 | arrière-plan |
+| `gear.png` | 24×24 | arrière-plan |
+| `stalactite.png` | 12×26 | premier plan |
+| `vine.png` | 12×34 | premier plan |
+| `lantern.png` | 14×24 | premier plan |
+
+Les huit derniers ont été ajoutés au second temps du `LOT-65` : cinq décors ne suffisaient pas à
+habiller vingt-deux tableaux d'ambiances distinctes (forêt, dunes, grotte, usine) sans que la même
+poignée d'images ne réapparaisse partout.
+
 Un artiste les remplacera par les vrais assets, sans toucher au code.
+
+## Décors `kenney_*.png` : premiers décors réels, sous licence libre (`LOT-65`)
+
+Quatre décors, à la différence des cinq ci-dessus, sont de véritables illustrations retouchées
+depuis des sprites **Kenney** (www.kenney.nl) sous licence **CC0 1.0 Universal** — voir
+`../CREDITS.md` pour le détail. Aucun jeu (`skins.json` ne structure pas `Decors/` en `jeux`) : ils
+sont sélectionnables directement, au même titre que les décors de test.
+
+| Fichier | Dimensions | Couche prévue |
+|---|---|---|
+| `kenney_fence.png` | 32×24 | premier plan |
+| `kenney_torch.png` | 14×32 | premier plan |
+| `kenney_chain.png` | 9×32 | premier plan |
+| `kenney_ladder.png` | 16×16 | arrière-plan |

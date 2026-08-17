@@ -22,6 +22,18 @@ bool overlapsCell(const Aabb& box, GridPosition cell) {
 // « prête à l'emploi » sans configuration tant qu'aucune autre masse n'existe dans le jeu.
 constexpr float MIN_TRIGGER_MASS = 1.0F;
 
+// Un poids autre que le personnage repose-t-il sur @p cell avec une masse suffisante ? (LOT-65
+// TACHE-06.) Un poids trop leger touche la plaque sans l'enfoncer, exactement comme un personnage
+// trop leger -- meme seuil, meme regle, pas de cas particulier pour les blocs.
+bool weightRestsOn(const std::vector<TriggerWeight>& weights, GridPosition cell) {
+    for (const TriggerWeight& weight : weights) {
+        if (weight.mass >= MIN_TRIGGER_MASS && overlapsCell(weight.box, cell)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 }  // namespace
 
 MechanismController::MechanismController(const Level& level)
@@ -60,7 +72,9 @@ MechanismController::MechanismController(const Level& level)
     }
 }
 
-void MechanismController::update(const Aabb& playerBox, float playerMass, bool interactPressed) {
+void MechanismController::update(const Aabb& playerBox, float playerMass, bool interactPressed,
+                                 const std::vector<TriggerWeight>& weights) {
+    _crushedPlayer = false;  // etat d'un pas, jamais cumule d'un pas sur l'autre.
     for (std::size_t index = 0; index < _mechanisms.size(); ++index) {
         const Mechanism& mechanism = _mechanisms[index];
         const bool onSwitch = overlapsCell(playerBox, mechanism.switchPosition);
@@ -82,11 +96,15 @@ void MechanismController::update(const Aabb& playerBox, float playerMass, bool i
             // Plaque de pression (EX-GP-025) : ouverte tant qu'un poids suffisant y repose,
             // refermee des qu'il en repart — activation CONTINUE, reevaluee a chaque pas (pas de
             // front). Le poids n'intervient QUE pour ce type de declencheur.
-            const bool shouldBeOpen = onSwitch && playerMass >= MIN_TRIGGER_MASS;
+            const bool shouldBeOpen = (onSwitch && playerMass >= MIN_TRIGGER_MASS) ||
+                                      weightRestsOn(weights, mechanism.switchPosition);
             if (shouldBeOpen != _switchOn[index]) {
                 _switchOn[index] = shouldBeOpen;
                 _collision.setTile(door.column, door.row,
                                    _switchOn[index] ? _openType[index] : TileType::Solid);
+                if (!_switchOn[index] && overlapsCell(playerBox, door)) {
+                    _crushedPlayer = true;  // la porte se referme sur le personnage : mortel.
+                }
                 GAMEPLAY_LOG_TRACE("Plaque de pression #" + std::to_string(index) + " -> porte (" +
                                    std::to_string(door.column) + ", " + std::to_string(door.row) +
                                    ") " + (_switchOn[index] ? "ouverte" : "fermee"));
@@ -98,6 +116,9 @@ void MechanismController::update(const Aabb& playerBox, float playerMass, bool i
                 _switchOn[index] = !_switchOn[index];
                 _collision.setTile(door.column, door.row,
                                    _switchOn[index] ? _openType[index] : TileType::Solid);
+                if (!_switchOn[index] && overlapsCell(playerBox, door)) {
+                    _crushedPlayer = true;  // la porte se referme sur le personnage : mortel.
+                }
                 GAMEPLAY_LOG_TRACE("Interrupteur #" + std::to_string(index) + " -> porte (" +
                                    std::to_string(door.column) + ", " + std::to_string(door.row) +
                                    ") " + (_switchOn[index] ? "ouverte" : "fermee"));
@@ -113,7 +134,8 @@ void MechanismController::update(const Aabb& playerBox, float playerMass, bool i
         const bool onTrigger = overlapsCell(playerBox, link.triggerPosition);
 
         if (_dangerContinuous[index]) {
-            _dangerActive[index] = onTrigger && playerMass >= MIN_TRIGGER_MASS;
+            _dangerActive[index] = (onTrigger && playerMass >= MIN_TRIGGER_MASS) ||
+                                   weightRestsOn(weights, link.triggerPosition);
         } else if (onTrigger && !_playerOnDangerTriggerPrev[index]) {
             _dangerActive[index] = !_dangerActive[index];
         }

@@ -15,12 +15,21 @@ retombe sur le damier magenta, avec un avertissement journalisé nommant l'asset
 
 ## Contenu actuel : textures de **test**
 
-`door_red.png` et `crate_blue.png` sont **schématiques** et servent à vérifier l'assignation par
-instance (priorité sur le skin du type), pas à habiller le jeu. Générées par script, donc
-reproductibles et modifiables sans éditeur d'image :
+Huit textures (`door_red.png`, `crate_blue.png`, `barrel_brown.png`, `sign_yellow.png`, puis
+`crate_green.png`, `stone_block.png`, `metal_plate.png` et `ice_block.png`, ajoutées au second temps
+du `LOT-65` pour distinguer visuellement plusieurs blocs poussables d'un même tableau, chacune
+16×16), **schématiques**, servent à vérifier l'assignation par instance (priorité sur le skin du
+type), pas à habiller le jeu. Générées par script, donc reproductibles et modifiables sans éditeur
+d'image :
 
 ```
 python scripts/generate_test_objects.py
 ```
 
 Un artiste les remplacera par les vrais assets, sans toucher au code.
+
+## Objets `kenney_*.png` : premiers objets réels, sous licence libre (`LOT-65`)
+
+`kenney_coin.png` et `kenney_gem.png` (16×16 chacun) sont de véritables illustrations retouchées
+depuis des sprites **Kenney** (www.kenney.nl) sous licence **CC0 1.0 Universal** — voir
+`../CREDITS.md` pour le détail.

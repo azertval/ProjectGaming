@@ -33,11 +33,20 @@ class Localization;
  *                     un libellé traduit).
  * @param localization Catalogue de traduction, pour les libellés « Sauts »/« Dashs » (`EX-REN-033`)
  *                     — aucune chaîne en dur, y compris les libellés courts.
- * @return Les lignes à afficher, dans l'ordre : budgets (sauts puis dashs, seulement s'ils sont
- *         finis), puis le nom du tableau.
+ * @param overlappingKey Le personnage touche-t-il une **clé non ramassée** (`EX-GP-023`) ? Si oui,
+ *                     une invite rappelle l'action « Interagir » (`EX-CTRL-022`). Ramasser une clé
+ *                     exige le contact **et** cette action — la seule entrée du jeu qu'aucun autre
+ *                     tableau ne demande. Sans invite, un joueur qui l'ignore reste bloqué devant
+ *                     la porte verrouillée sans aucun retour, ce qu'interdit la conception des
+ *                     niveaux (`niveaux.md`, Sec. 3). Le tutoriel restant « sans texte », c'est la
+ *                     seule exception, et elle est **contextuelle**. Faux par défaut : un tableau
+ *                     sans clé n'affiche jamais rien.
+ * @return Les lignes à afficher, dans l'ordre : invite « Interagir » le cas échéant, budgets
+ *         (sauts puis dashs, seulement s'ils sont finis), puis le nom du tableau.
  */
 [[nodiscard]] std::vector<std::string> gameHudLines(const core::Player& player,
                                                     const std::string& levelName,
-                                                    const Localization& localization);
+                                                    const Localization& localization,
+                                                    bool overlappingKey = false);
 
 }  // namespace hmi

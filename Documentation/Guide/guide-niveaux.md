@@ -341,6 +341,17 @@ autre ordre produit des défauts subtils et intermittents (`hmi::GameSession::up
 **mortelle** (`core::Player::squished`, décision de cadrage retenue) — plutôt que de mettre la
 plateforme en pause, ce qui casserait sa position purement fonction du numéro de pas.
 
+> ⚠️ **Défaut connu, non corrigé (`LOT-65`, consigné dans `CHANGELOG.md`)** : la seule
+> **présence** d'une configuration `MovingPlatformConfig` dans un niveau — même **immobile**
+> (`speed = 0`) et géométriquement **loin** du personnage — casse la résolution de collision
+> pendant qu'un autre personnage suit une **pente** ailleurs dans ce même niveau (constaté :
+> une chute erronée en pleine ascension d'une pente, alors qu'aucune plateforme n'est en jeu à
+> cet endroit). Isolé par bissection (retirer uniquement la tuile `movingPlatform` d'une copie de
+> niveau suffit à faire disparaître l'échec) ; racine non creusée plus loin, décision de cadrage du
+> `LOT-65` (consigner, pas corriger en cours de refonte de contenu). En pratique : éviter de
+> combiner une plateforme mobile et une pente dans un même fichier de niveau tant que ce défaut
+> n'est pas corrigé.
+
 ## Budget de mouvements
 
 Un tableau **puzzle** peut vouloir limiter délibérément le nombre de sauts et/ou de dashs
@@ -477,6 +488,66 @@ explicitement de ce qu'il propose d'ouvrir.
 même ordre, à la liste rejouée par le test système `Source/Test/Systeme/test_parcours_complet.cpp`
 — un décalage entre les deux est précisément le défaut qui a déclenché `LOT-25`.
 
+## Garde-fou de couverture des mécaniques (`EX-LVL-015`, `LOT-65`)
+
+`scripts/check_demo_sequence.py` protège l'**ordre** de la séquence ; il ne dit rien de sa
+**couverture** : rien n'empêchait, avant ce lot, qu'un type de tuile livré et testé unitairement
+n'apparaisse dans **aucun** tableau réellement joué. `Source/Test/Systeme/
+test_couverture_mecaniques.cpp` comble ce trou.
+
+**Ce qu'il vérifie exactement — et ce qu'il ne vérifie pas.** Le garde-fou parcourt la séquence
+livrée (`sequence-demo.json`) et relève, pour chaque tableau chargé avec succès, les types de
+`core::TileType` présents dans sa `TileMap`, le mode de `core::CameraFramingMode` résolu, et cinq
+variantes significatives portées par des champs plutôt que par le type (danger temporisé
+**déphasé**, danger mobile **vertical**, budget de mouvements **borné**, texture assignée **par
+instance**, décor de **premier plan**). Le test échoue, en nommant précisément ce qui manque, si un
+type, un mode ou une variante livrés n'apparaît dans aucun tableau. C'est une vérification de
+**présence**, pas de **franchissabilité** : une mécanique posée dans un coin inaccessible du
+tableau serait « couverte » sans jamais être jouée — c'est le test système
+(`ParcoursCompletSysteme.FranchitTouteLaSequence`, `EX-NFR-021`) qui vérifie que chaque tableau se
+termine réellement. Les deux sont nécessaires et complémentaires.
+
+**Dérivé de l'énumération, jamais recopié.** L'inventaire des types (`allContentTileTypes` dans le
+fichier de test) parcourt `core::TileType` par entier (`0` à `MovingPlatform`, sa dernière valeur)
+— même technique que `core::parseTileType` (`Core/Levels/TileTypeName.cpp`). Ajouter un type **avant**
+`MovingPlatform` dans l'énumération est pris en compte sans aucune modification du garde-fou ; en
+ajouter un **après** exige de bouger cette borne, mais c'est déjà le cas pour `parseTileType`
+lui-même — ce n'est pas une limite propre à ce garde-fou. Les modes de cadrage, eux, restent une
+liste explicite (trois valeurs, jamais recopiées ailleurs dans ce module) : un petit `enum` stable
+n'a pas besoin de la même précaution.
+
+**Exclusions.** Une mécanique légitimement impossible à couvrir figurerait dans
+`excludedTileTypes()`, nommée et commentée — aujourd'hui cette liste est **vide** : chaque type de
+`core::TileType` correspond à un contenu plaçable dans un tableau de démonstration. Si une
+exclusion devient un jour nécessaire, c'est l'emplacement où l'ajouter, jamais un contournement
+ailleurs dans le test.
+
+### De la couverture à la profondeur (second temps du `LOT-65`)
+
+Le garde-fou ci-dessus, écrit en `TACHE-01`, avait lui-même annoncé sa limite (« couvert ≠
+franchi ») sans la combler. Il est devenu **vert** sur un contenu où onze tableaux sur vingt-deux ne
+demandaient rien au joueur, où chaque mécanique n'existait qu'en **un** exemplaire, et où treize
+tuiles de mécanique étaient **hors d'atteinte** du personnage — dont l'interrupteur d'un danger
+commuté, qui ne pouvait donc jamais être commuté. Trois contrôles supplémentaires ont été ajoutés,
+et le premier a été durci. Ils mesurent tous l'**usage**, non la présence :
+
+| Contrôle | Où | Ce qu'il refuse |
+|---|---|---|
+| **Profondeur** | `test_couverture_mecaniques.cpp` | Un type de tuile posé moins de `MIN_OCCURRENCES` (trois) fois dans toute la séquence. Une occurrence unique prouve qu'un type se *charge*, pas qu'il se *joue*. |
+| **Budgets séparés** | idem | Une séquence sans budget de sauts, **ou** sans budget de dashs. Le « ou » d'origine laissait passer une séquence entière sans le moindre `dashBudget`. |
+| **Variantes de cadrage** | idem | Une séquence sans zone de caméra dessinée (`EX-LVL-007`) ou sans taille de salle choisie par un niveau (`EX-REN-017`) — invisibles d'un contrôle portant sur le seul `mode`. |
+| **Anti-couloir** | `test_parcours_complet.cpp` | Un tableau franchi en maintenant simplement « droite », hors exclusion nommée (`corridorExemptLevels`). |
+| **Proximité au trajet** | idem | Une tuile de mécanique hors de portée d'un saut (`REACH_TILES`) du chemin réellement parcouru, relevé pendant le rejeu. |
+
+Le seuil de proximité est calibré sur un saut **simple** et non sur un double saut : une mécanique
+qu'il faut déjà savoir enchaîner deux sauts pour effleurer n'est pas sur le chemin. La marge
+au-delà laisse passer le hors-chemin volontaire (un secret facultatif reste légitime) ; ce qui est
+refusé, c'est l'**inatteignable**.
+
+La doctrine de conception que ces contrôles rendent vérifiable — chemin critique, répétition,
+contrainte de capacité, introduction avant emploi — est écrite dans
+`Documentation/Specification/niveaux.md`, Sec. 3.
+
 ## Voir aussi
 - `core::Level`, `core::TileMap`, `core::TileType`, `core::LevelLoader`, `core::LevelLoadResult`.
 - `core::LevelSequence`, `core::LevelSequenceLoader`, `core::LevelSequenceLoadResult`.
@@ -485,3 +556,4 @@ même ordre, à la liste rejouée par le test système `Source/Test/Systeme/test
   progression persistée entre deux lancements.
 - @ref guide-physique — comment le balayage consomme `isSolid`/`collisionMap()`.
 - @ref guide-ecs — le composant `core::Player` qui porte les compteurs de budget.
+- `Source/Test/Systeme/test_couverture_mecaniques.cpp` — le garde-fou de couverture (`EX-LVL-015`).

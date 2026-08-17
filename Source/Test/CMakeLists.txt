@@ -392,6 +392,7 @@ add_executable(IntegrationTests
     Integration/test_bloc_reduit.cpp
     Integration/test_danger_avance.cpp
     Integration/test_plateforme_composition.cpp
+    Integration/test_croisements_mecaniques.cpp
 )
 
 target_link_libraries(IntegrationTests PRIVATE
@@ -407,6 +408,7 @@ target_compile_definitions(IntegrationTests PRIVATE
 
 # Tests système : un parcours de jeu complet sur le contenu livré, sans la couche GPU.
 add_executable(SystemTests
+    Systeme/test_couverture_mecaniques.cpp
     Systeme/test_parcours_complet.cpp
     Systeme/test_parcours_edition.cpp
 )

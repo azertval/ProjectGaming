@@ -16,8 +16,9 @@ namespace {
 
 hmi::Localization testLocalization() {
     hmi::Localization localization;
-    localization.setDefaultCatalog(
-        "fr", {{"hud.jumps_remaining", "Sauts : %1"}, {"hud.dashes_remaining", "Dashs : %1"}});
+    localization.setDefaultCatalog("fr", {{"hud.jumps_remaining", "Sauts : %1"},
+                                          {"hud.dashes_remaining", "Dashs : %1"},
+                                          {"hud.interact_prompt", "Interagir pour ramasser"}});
     return localization;
 }
 
@@ -134,5 +135,50 @@ TEST(GameHudTest, ClesDeTraductionExistentDansLesDeuxCatalogues) {
         ASSERT_TRUE(localization.loadDefaultLanguage(language)) << language;
         EXPECT_NE(localization.text("hud.jumps_remaining"), "hud.jumps_remaining") << language;
         EXPECT_NE(localization.text("hud.dashes_remaining"), "hud.dashes_remaining") << language;
+        EXPECT_NE(localization.text("hud.interact_prompt"), "hud.interact_prompt") << language;
     }
+}
+
+/**
+ * @brief Invite « Interagir » (`LOT-65` TACHE-07) : affichée **seulement** au contact d'une clé non
+ * ramassée, et en première ligne.
+ *
+ * Ramasser une clé exige le contact **et** l'action « Interagir » (`EX-GP-023`, `EX-CTRL-022`), la
+ * seule entrée du jeu qu'aucun autre tableau ne demande. Sans invite, un joueur qui l'ignore reste
+ * bloqué devant la porte verrouillée sans aucun retour. L'invite reste **contextuelle** : un
+ * tableau sans clé, ou une clé déjà ramassée, n'affiche rien — le tutoriel demeure « sans texte »
+ * partout ailleurs.
+ * \castest{<b>L'invite « Interagir » n'apparaît qu'au contact d'une clé non ramassée, en première
+ * ligne du HUD.</b><br/>
+ * \tcat Unitaire · HUD de jeu<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Composer le HUD hors contact d'une clé.<br/>2. Le composer au contact d'une clé non
+ * ramassée.<br/>
+ * \tattendu Aucune invite dans le premier cas ; l'invite en première ligne dans le second, sans
+ * modifier les autres lignes.
+ * }
+ */
+TEST(GameHudTest, InviteInteragirSeulementAuContactDUneCle) {
+    core::Player player;  // budgets illimites : seule la ligne du nom subsiste
+    const hmi::Localization localization = testLocalization();
+
+    const std::vector<std::string> sansCle =
+        hmi::gameHudLines(player, "Cle", localization, /*overlappingKey=*/false);
+    ASSERT_EQ(sansCle.size(), 1u);
+    EXPECT_EQ(sansCle[0], "Cle");
+
+    const std::vector<std::string> surUneCle =
+        hmi::gameHudLines(player, "Cle", localization, /*overlappingKey=*/true);
+    ASSERT_EQ(surUneCle.size(), 2u);
+    EXPECT_EQ(surUneCle[0], "Interagir pour ramasser");
+    EXPECT_EQ(surUneCle[1], "Cle");
+
+    // L'invite s'ajoute AVANT les budgets, sans en modifier l'ordre ni le contenu.
+    player.jumpsRemaining = 2;
+    const std::vector<std::string> avecBudget =
+        hmi::gameHudLines(player, "Cle", localization, /*overlappingKey=*/true);
+    ASSERT_EQ(avecBudget.size(), 3u);
+    EXPECT_EQ(avecBudget[0], "Interagir pour ramasser");
+    EXPECT_EQ(avecBudget[1], "Sauts : 2");
+    EXPECT_EQ(avecBudget[2], "Cle");
 }

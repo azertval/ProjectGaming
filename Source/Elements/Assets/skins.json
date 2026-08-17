@@ -36,7 +36,10 @@
     "kenney": {
       "key": { "asset": "key.png", "mode": "single" },
       "lockedDoor": { "asset": "locked_door.png", "mode": "single" },
-      "movingPlatform": { "asset": "platform.png", "mode": "single" }
+      "movingPlatform": { "asset": "platform.png", "mode": "single" },
+      "danger": { "asset": "kenney_spikes.png", "mode": "single" },
+      "switch": { "asset": "kenney_switch.png", "mode": "single" },
+      "door": { "asset": "kenney_door.png", "mode": "single" }
     },
     "aucun": {}
   }

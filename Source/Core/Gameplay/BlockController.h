@@ -103,6 +103,24 @@ public:
     ///         pleine case si `scales()[index] == 1`, sinon centrée et réduite (`EX-GP-005`).
     [[nodiscard]] Aabb boxAt(std::size_t index) const;
 
+    /**
+     * @brief Masse du bloc d'indice @p index, pour les mécanismes à activation continue
+     *        (`EX-GP-025`, `LOT-65` TACHE-06).
+     *
+     * Vaut le **facteur de taille** du bloc (`scales()`), et non son aire : un bloc plein pèse
+     * `1`, un demi `0.5`, un quart `0.25`. Le seuil des plaques de pression étant calé sur la masse
+     * par défaut du personnage, cela donne une règle lisible pour le level designer — **seul un
+     * bloc plein enfonce une plaque** — et un levier d'énigme : distinguer les caisses par leur
+     * taille plutôt que par une propriété invisible. Source unique de cette règle : les deux
+     * appelants qui composent le pas fixe (`hmi::GameSession` et le test système) la lisent ici
+     * plutôt que de la recalculer chacun de son côté.
+     * @param index Indice du bloc, même ordre que `positions()`.
+     * @return La masse du bloc, comparable au seuil des plaques.
+     */
+    [[nodiscard]] float massAt(std::size_t index) const {
+        return _scales[index];
+    }
+
 private:
     /// @return true si @p target est dans les bornes, non solide et non pente/arrondi
     ///         (`core::isFollowableSurface`/`core::isCeilingSlope`, voir en-tête de la classe)

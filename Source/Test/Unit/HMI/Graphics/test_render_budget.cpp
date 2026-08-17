@@ -178,28 +178,32 @@ struct LevelBudget {
     int submittedCeiling;
 };
 
-/// Les dix-sept niveaux livrés (`Source/Elements/Levels/sequence-demo.json`, `LOT-25`), avec leur
-/// plafond. Un plafond par niveau, jamais global (`demo-salles` et `demo-deplacement` n'ont rien de
-/// comparable) — voir `epic.md`.
+/// Les niveaux livrés (`Source/Elements/Levels/sequence-demo.json`, `LOT-25`, refondus `LOT-65`),
+/// avec leur plafond. Un plafond par niveau, jamais global (`demo-final` et `demo-deplacement`
+/// n'ont rien de comparable) — voir `epic.md`.
 const std::vector<LevelBudget>& deliveredLevelBudgets() {
     static const std::vector<LevelBudget> budgets = {
         {"demo-deplacement.json", 160, 160},
-        {"demo-saut.json", 150, 150},
-        {"demo-double-saut.json", 130, 130},
+        {"demo-saut.json", 210, 210},
+        {"demo-double-saut.json", 140, 140},
         {"demo-wall-jump.json", 90, 90},
-        {"demo-dash.json", 150, 150},
-        {"demo-interrupteur.json", 110, 110},
-        {"demo-plaque-pression.json", 120, 120},
-        {"demo-cle.json", 120, 120},
-        {"demo-bloc.json", 130, 130},
-        {"demo-budget.json", 110, 110},
-        {"demo-pente.json", 110, 110},
-        {"demo-arrondi.json", 110, 110},
-        {"demo-bloc-reduit.json", 120, 120},
-        {"demo-plateforme.json", 100, 100},
-        {"demo-dangers-avances.json", 170, 170},
-        {"demo-final.json", 230, 160},
-        {"demo-salles.json", 850, 300},
+        {"demo-dash.json", 260, 260},
+        {"demo-mouvement.json", 300, 300},
+        {"demo-interrupteur.json", 175, 175},
+        {"demo-plaque-pression.json", 235, 235},
+        {"demo-cle.json", 190, 190},
+        {"demo-bloc.json", 190, 190},
+        {"demo-budget.json", 230, 160},
+        {"demo-pente.json", 190, 190},
+        {"demo-pente-gauche.json", 190, 190},
+        {"demo-concave.json", 260, 260},
+        {"demo-plafond.json", 270, 270},
+        {"demo-bloc-reduit.json", 190, 190},
+        {"demo-bloc-quart.json", 215, 215},
+        {"demo-plateforme.json", 140, 140},
+        {"demo-dangers-avances.json", 340, 230},
+        {"demo-dangers-directionnels.json", 380, 270},
+        {"demo-final.json", 650, 300},
     };
     return budgets;
 }
@@ -292,7 +296,7 @@ TEST(RenderBudgetTest, CalqueComposeDeuxFoisDepasseLePlafond) {
  * \castest{<b>Le culling ecarte une fraction significative sur un grand niveau.</b><br/>
  * \tcat Unitaire · Budget de rendu<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Charger demo-salles (plusieurs salles).<br/>2. Composer sa scene sur la salle
+ * \tetapes 1. Charger demo-final (plusieurs salles).<br/>2. Composer sa scene sur la salle
  * d'entree, en mode Texture.<br/>
  * \tattendu Au moins la moitie des primitives examinees sont ecartees par le culling.
  * }
@@ -300,7 +304,7 @@ TEST(RenderBudgetTest, CalqueComposeDeuxFoisDepasseLePlafond) {
 TEST(RenderBudgetTest, CullingEcarteUneFractionSignificativeSurUnGrandNiveau) {
     constexpr float MINIMUM_CULLED_FRACTION = 0.5f;
 
-    const core::Level level = loadDeliveredLevel("demo-salles.json");
+    const core::Level level = loadDeliveredLevel("demo-final.json");
     const hmi::Camera2D camera = referenceCamera(level);
     core::World world = buildWorld(level);
     const hmi::ComposedScene scene =
@@ -321,12 +325,12 @@ TEST(RenderBudgetTest, CullingEcarteUneFractionSignificativeSurUnGrandNiveau) {
  * \castest{<b>Deux compositions de la meme scene donnent le meme volume.</b><br/>
  * \tcat Unitaire · Budget de rendu<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Composer deux fois la scene de demo-salles, en mode Texture.<br/>
+ * \tetapes 1. Composer deux fois la scene de demo-final, en mode Texture.<br/>
  * \tattendu Les compteurs (examinees, ecartees, soumises, passes) sont strictement identiques.
  * }
  */
 TEST(RenderBudgetTest, DeuxCompositionsDeLaMemeSceneDonnentLeMemeVolume) {
-    const core::Level level = loadDeliveredLevel("demo-salles.json");
+    const core::Level level = loadDeliveredLevel("demo-final.json");
     const hmi::Camera2D camera = referenceCamera(level);
 
     core::World firstWorld = buildWorld(level);

@@ -1,6 +1,6 @@
 # TACHE-01 — Inventaire des mécaniques et garde-fou de couverture {#lot-65-tache-01-inventaire-garde-fou}
 
-**Lot :** [LOT-65](epic.md) · **Emplacement :** `scripts`, `Source/Test` · **Statut :** non commencé
+**Lot :** [LOT-65](epic.md) · **Emplacement :** `scripts`, `Source/Test` · **Statut :** fait
 
 ## Contexte
 Le projet sait déjà se protéger d'une divergence de **séquence** : `scripts/check_demo_sequence.py`
@@ -58,8 +58,16 @@ spécification de travail des `TACHE-02` et `TACHE-03`.
 - La liste d'exclusions est le point de fuite habituel de ce genre de contrôle : la garder très
   courte, et exiger une justification écrite pour chaque entrée.
 - Ce test s'ajoute à `SystemTests`, qui compile `Core` seul : ne pas y introduire de dépendance
-  `HMI`, ce qui exclut de vérifier ici les modes de cadrage s'ils ne sont lisibles que côté
-  présentation — dans ce cas, les vérifier depuis `UnitTests`, où `RoomGrid.cpp` est déjà compilé.
+  `HMI`. En pratique, cette limite ne mord pas sur les modes de cadrage : `core::CameraFramingMode`
+  vit dans `Core/Levels/CameraFraming.h` (`LOT-64`), lu depuis `core::Level::cameraFraming()` sans
+  aucune dépendance `HMI` — l'inquiétude initiale de ce point d'attention ne s'est pas confirmée.
+
+## État initial constaté
+Séquence vide au moment d'écrire ce garde-fou (`TACHE-00` venait de la vider) : les **31** types de
+`core::TileType` (hors `Empty`), les **3** modes de cadrage, et les **5** variantes significatives
+(danger temporisé déphasé, danger mobile vertical, budget de mouvements borné, texture par
+instance, décor de premier plan) apparaissent tous comme non couverts — état rouge total, attendu,
+qui pilote entièrement `TACHE-02`/`TACHE-03`.
 
 ## Définition de fait (DoD)
 - Un contrôle automatique dérivé des énumérations du code échoue tant qu'une mécanique livrée
