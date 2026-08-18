@@ -4,10 +4,12 @@
  */
 
 #include <filesystem>
+#include <vector>
 
 #include <gtest/gtest.h>
 
 #include "Core/Levels/CameraFraming.h"
+#include "Core/Levels/GridPosition.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/TileType.h"
 
@@ -1340,6 +1342,123 @@ TEST(LevelLoaderTest, ChargeUnDangerTemporiseValeursExplicites) {
     EXPECT_EQ(config.period, 90);
     EXPECT_EQ(config.phase, 15);
     EXPECT_EQ(config.activeDuration, 30);
+}
+
+/**
+ * @brief Une plateforme mobile porte une route à plusieurs points, avec son mode de bouclage
+ *        (`EX-GP-054`, `EX-LVL-008`).
+ * \castest{<b>Une plateforme mobile porte une route à plusieurs points et son mode.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Charger un niveau dont la plateforme porte deux waypoints et le mode boucle.<br/>2.
+ * Inspecter la configuration obtenue.<br/>
+ * \tattendu La route, le mode, la vitesse et le dephasage sont lus tels quels, la position de la
+ * tuile restant le point de depart implicite.
+ * }
+ */
+TEST(LevelLoaderTest, ChargeUneRouteDePlateformeMultiPoints) {
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
+      "name": "N", "width": 6, "height": 6,
+      "tiles": [
+        { "x": 0, "y": 0, "type": "entry" },
+        { "x": 5, "y": 5, "type": "exit" },
+        { "x": 1, "y": 1, "type": "movingPlatform",
+          "waypoints": [ {"x": 4, "y": 1}, {"x": 4, "y": 3} ],
+          "mode": "loop", "speed": 1.5, "phase": 12 }
+      ]
+    })");
+    ASSERT_TRUE(result.ok()) << result.error;
+    ASSERT_EQ(result.level->platformConfigs().size(), 1u);
+
+    const core::MovingPlatformConfig& config = result.level->platformConfigs().front();
+    EXPECT_EQ(config.startPosition, (core::GridPosition{1, 1}));
+    EXPECT_EQ(config.waypoints, (std::vector<core::GridPosition>{core::GridPosition{4, 1},
+                                                                 core::GridPosition{4, 3}}));
+    EXPECT_EQ(config.mode, core::PlatformPathMode::Loop);
+    EXPECT_FLOAT_EQ(config.speed, 1.5f);
+    EXPECT_EQ(config.phase, 12);
+}
+
+/**
+ * @brief Une plateforme écrite à l'ancienne (`endX`/`endY`, avant la route multi-points) se charge
+ *        comme une route à un seul point — la compatibilité est assurée (`EX-LVL-008`).
+ * \castest{<b>Une plateforme écrite avec endX/endY se charge comme une route à un point.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Charger un niveau dont la plateforme porte endX/endY et aucun waypoints.<br/>2.
+ * Inspecter la route obtenue.<br/>
+ * \tattendu La route contient exactement le point (endX, endY) et le mode vaut aller-retour, soit
+ * le comportement historique a l'identique.
+ * }
+ */
+TEST(LevelLoaderTest, PlateformeAncienFormatEndXEndYResteChargeable) {
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
+      "name": "N", "width": 6, "height": 6,
+      "tiles": [
+        { "x": 0, "y": 0, "type": "entry" },
+        { "x": 5, "y": 5, "type": "exit" },
+        { "x": 1, "y": 1, "type": "movingPlatform", "endX": 4, "endY": 1, "speed": 3.0 }
+      ]
+    })");
+    ASSERT_TRUE(result.ok()) << result.error;
+    ASSERT_EQ(result.level->platformConfigs().size(), 1u);
+
+    const core::MovingPlatformConfig& config = result.level->platformConfigs().front();
+    EXPECT_EQ(config.waypoints, (std::vector<core::GridPosition>{core::GridPosition{4, 1}}));
+    EXPECT_EQ(config.mode, core::PlatformPathMode::PingPong);
+    EXPECT_FLOAT_EQ(config.speed, 3.0f);
+}
+
+/**
+ * @brief Un mode de parcours inconnu retombe silencieusement sur l'aller-retour, comme l'axe d'un
+ *        danger mobile (`EX-NFR-040`).
+ * \castest{<b>Un mode de parcours inconnu retombe sur l'aller-retour.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Charger un niveau dont la plateforme porte un mode non reconnu.<br/>2. Inspecter le
+ * mode obtenu.<br/>
+ * \tattendu Le niveau reste valide et le mode vaut aller-retour.
+ * }
+ */
+TEST(LevelLoaderTest, ModeDeParcoursInconnuRetombeSurAllerRetour) {
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
+      "name": "N", "width": 6, "height": 6,
+      "tiles": [
+        { "x": 0, "y": 0, "type": "entry" },
+        { "x": 5, "y": 5, "type": "exit" },
+        { "x": 1, "y": 1, "type": "movingPlatform",
+          "waypoints": [ {"x": 4, "y": 1} ], "mode": "looop" }
+      ]
+    })");
+    ASSERT_TRUE(result.ok()) << result.error;
+    ASSERT_EQ(result.level->platformConfigs().size(), 1u);
+    EXPECT_EQ(result.level->platformConfigs().front().mode, core::PlatformPathMode::PingPong);
+}
+
+/**
+ * @brief Un point de parcours hors bornes est rejeté avec une erreur récupérable, où qu'il se
+ *        trouve dans la route (`EX-LVL-004`).
+ * \castest{<b>Un point de parcours hors bornes est rejeté.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Charger un niveau dont le DEUXIEME point de route sort de la grille.<br/>2.
+ * Inspecter le resultat.<br/>
+ * \tattendu Le chargement echoue avec errorCode OutOfBounds : la validation ne se limite pas au
+ * premier point de la route.
+ * }
+ */
+TEST(LevelLoaderTest, PointDeParcoursHorsBornesRejete) {
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
+      "name": "N", "width": 6, "height": 6,
+      "tiles": [
+        { "x": 0, "y": 0, "type": "entry" },
+        { "x": 5, "y": 5, "type": "exit" },
+        { "x": 1, "y": 1, "type": "movingPlatform",
+          "waypoints": [ {"x": 4, "y": 1}, {"x": 9, "y": 1} ] }
+      ]
+    })");
+    EXPECT_FALSE(result.ok());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::OutOfBounds);
 }
 
 /**

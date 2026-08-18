@@ -63,6 +63,7 @@
 #include "HMI/Editor/PixelHistoryPanel.h"
 #include "HMI/Editor/PixelPalette.h"
 #include "HMI/Editor/PixelPalettePanel.h"
+#include "HMI/Editor/PropertiesPanel.h"
 #include "HMI/Editor/TexturePanel.h"
 #include "HMI/Game/GameViewport.h"
 #include "HMI/Graphics/AssetContract.h"
@@ -280,6 +281,10 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
         _textures->setLevelCameraFraming(_viewport->draft().cameraFraming());
         _textures->refreshObjects(_viewport->draft());
         _decors->refreshDecors(_viewport->draft(), _viewport->selectedDecorIndex());
+        // Le panneau Proprietes reflete le brouillon ET la selection courante : une mutation peut
+        // changer les deux (retirer un point de parcours, par exemple).
+        _properties->refresh(_viewport->draft(), _viewport->selectedPath(),
+                             _viewport->selectedBlinkCell());
         refreshStatusHelp();  // nom du niveau et indicateur de modification (LOT-57 TACHE-01).
     });
     connect(_links, &LinkPanel::linkSelected, _viewport, &GameViewport::setHighlightedLink);
@@ -348,6 +353,34 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
         _viewport->setLevelSkinSet(name.isEmpty() ? std::nullopt
                                                   : std::make_optional(name.toStdString()));
     });
+    // Panneau « Proprietes » (LOT-67, EX-EDIT-033) : meme separation que les panneaux ci-dessus --
+    // le panneau demande, le viewport (seul proprietaire du brouillon) applique.
+    const auto refreshProperties = [this] {
+        _properties->refresh(_viewport->draft(), _viewport->selectedPath(),
+                             _viewport->selectedBlinkCell());
+    };
+    connect(_viewport, &GameViewport::pathSelectionChanged, this, refreshProperties);
+    connect(_viewport, &GameViewport::blinkSelectionChanged, this, refreshProperties);
+    connect(_properties, &PropertiesPanel::platformSpeedChanged, _viewport,
+            &GameViewport::setPlatformSpeed);
+    connect(_properties, &PropertiesPanel::platformPhaseChanged, _viewport,
+            &GameViewport::setPlatformPhase);
+    connect(_properties, &PropertiesPanel::platformModeChanged, _viewport,
+            &GameViewport::setPlatformMode);
+    connect(_properties, &PropertiesPanel::moverConfigChanged, _viewport,
+            &GameViewport::setMoverConfig);
+    connect(_properties, &PropertiesPanel::blinkConfigChanged, _viewport,
+            &GameViewport::setBlinkConfig);
+    connect(_properties, &PropertiesPanel::jumpBudgetChanged, _viewport,
+            &GameViewport::setLevelJumpBudget);
+    connect(_properties, &PropertiesPanel::dashBudgetChanged, _viewport,
+            &GameViewport::setLevelDashBudget);
+    connect(_properties, &PropertiesPanel::airJumpsChanged, _viewport,
+            &GameViewport::setLevelAirJumps);
+    connect(_properties, &PropertiesPanel::dashChargesChanged, _viewport,
+            &GameViewport::setLevelDashCharges);
+    _properties->refresh(_viewport->draft(), std::nullopt, std::nullopt);  // etat initial
+
     // Section « Cadrage » (LOT-64, EX-EDIT-028) : meme separation.
     connect(_textures, &TexturePanel::cameraFramingChanged, _viewport,
             &GameViewport::setLevelCameraFraming);
@@ -906,6 +939,10 @@ void MainWindow::buildUi() {
                          hmi::executableDirectory() / "Assets" / "Backgrounds",
                          hmi::executableDirectory() / "Assets" / "Objects", _ui->TexturesPanel);
     _ui->TexturesPanel->setWidget(_textures);
+    // Panneau « Proprietes » (LOT-67) : reglages de GAMEPLAY, volontairement separes de
+    // l'habillage porte par le panneau Textures ci-dessus.
+    _properties = new PropertiesPanel(_ui->PropertiesPanel);
+    _ui->PropertiesPanel->setWidget(_properties);
     // Atelier pixel art (LOT-54 TACHE-04) : canevas et historique visuel, meme patron que les
     // panneaux ci-dessus (coquille du .ui, contenu branche en code).
     _pixelCanvas = new PixelCanvas(_ui->PixelCanvasPanel);
@@ -1241,6 +1278,7 @@ void MainWindow::buildUi() {
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->DecorsPanel->toggleViewAction());
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->LinksPanel->toggleViewAction());
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->TexturesPanel->toggleViewAction());
+    _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->PropertiesPanel->toggleViewAction());
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->PixelCanvasPanel->toggleViewAction());
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->PixelHistoryPanel->toggleViewAction());
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->PixelPalettePanel->toggleViewAction());
@@ -1793,6 +1831,8 @@ void MainWindow::retranslateUi() {
     _ui->LevelsPanel->setWindowTitle(text("dock.levels"));
     _ui->LinksPanel->setWindowTitle(text("dock.links"));
     _ui->TexturesPanel->setWindowTitle(text("dock.textures"));
+    _ui->PropertiesPanel->setWindowTitle(text("dock.properties"));
+    _properties->retranslateUi(_loc);
     _ui->PixelCanvasPanel->setWindowTitle(text("dock.pixel_canvas"));
     _ui->PixelHistoryPanel->setWindowTitle(text("dock.pixel_history"));
     _ui->PixelPalettePanel->setWindowTitle(text("dock.pixel_palette"));

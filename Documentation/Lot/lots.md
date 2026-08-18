@@ -85,6 +85,13 @@ c'est un identifiant stable, jamais réordonné.
 - @subpage lot-64
 - @subpage lot-65
 - @subpage lot-66
+- @subpage lot-67
+
+## Apres le programme `0.1.0`
+
+Le [LOT-67](@ref lot-67) ouvre la suite : il ne fait partie d'aucun programme cadre, et repond a un
+manque constate a l'usage de l'editeur — les trajectoires des elements mobiles et les regles de
+mobilite d'un tableau n'etaient editables qu'en modifiant le JSON a la main.
 
 ## Programme `0.1.0`
 

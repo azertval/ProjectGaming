@@ -4,9 +4,12 @@
  */
 
 #include <filesystem>
+#include <string>
+#include <vector>
 
 #include <gtest/gtest.h>
 
+#include "Core/Levels/GridPosition.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelWriter.h"
 #include "Core/Levels/TileType.h"
@@ -783,4 +786,164 @@ TEST(LevelWriterTest, CadrageIdentiqueAuRepliResteOmisDuJson) {
 
     const std::string json = core::LevelWriter::toJsonString(*loaded.level);
     EXPECT_EQ(json.find("cameraFraming"), std::string::npos);
+}
+
+namespace {
+
+// Un niveau 6x6 dont l'unique plateforme mobile porte les champs de route donnes.
+std::string levelWithPlatform(const std::string& platformFields) {
+    return R"({
+      "name": "N", "width": 6, "height": 6,
+      "tiles": [
+        { "x": 0, "y": 0, "type": "entry" },
+        { "x": 5, "y": 5, "type": "exit" },
+        { "x": 1, "y": 1, "type": "movingPlatform")" +
+           platformFields + R"( }
+      ]
+    })";
+}
+
+}  // namespace
+
+/**
+ * @brief La route et le mode d'une plateforme survivent à un aller-retour écriture/relecture
+ *        (`EX-GP-054`, `EX-EDIT-011`).
+ * \castest{<b>La route et le mode d'une plateforme survivent à un aller-retour.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Charger un niveau dont la plateforme suit une route a deux points en mode
+ * boucle.<br/>2. Serialiser puis recharger.<br/>
+ * \tattendu La route, le mode, la vitesse et le dephasage sont identiques a l'original.
+ * }
+ */
+TEST(LevelWriterTest, RouteEtModeDePlateformeSurviventAuRoundTrip) {
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(levelWithPlatform(
+        R"(, "waypoints": [ {"x": 4, "y": 1}, {"x": 4, "y": 3} ], "mode": "loop", "speed": 1.5, "phase": 7)"));
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const core::LevelLoadResult reloaded =
+        core::LevelLoader::loadFromString(core::LevelWriter::toJsonString(*loaded.level));
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+    ASSERT_EQ(reloaded.level->platformConfigs().size(), 1u);
+
+    const core::MovingPlatformConfig& config = reloaded.level->platformConfigs().front();
+    EXPECT_EQ(config.startPosition, (core::GridPosition{1, 1}));
+    EXPECT_EQ(config.waypoints, (std::vector<core::GridPosition>{core::GridPosition{4, 1},
+                                                                 core::GridPosition{4, 3}}));
+    EXPECT_EQ(config.mode, core::PlatformPathMode::Loop);
+    EXPECT_FLOAT_EQ(config.speed, 1.5f);
+    EXPECT_EQ(config.phase, 7);
+}
+
+/**
+ * @brief Le mode aller-retour, valeur par défaut, reste omis du JSON écrit — même convention
+ *        « omis si défaut » que les autres champs du format (`EX-LVL-008`).
+ * \castest{<b>Le mode par défaut reste omis du JSON écrit.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Charger une plateforme en mode aller-retour, puis une en mode boucle.<br/>2.
+ * Serialiser les deux.<br/>
+ * \tattendu Le champ "mode" n'apparait que pour le circuit ferme.
+ * }
+ */
+TEST(LevelWriterTest, ModeParDefautResteOmisDuJson) {
+    const core::LevelLoadResult pingPong = core::LevelLoader::loadFromString(
+        levelWithPlatform(R"(, "waypoints": [ {"x": 4, "y": 1} ])"));
+    ASSERT_TRUE(pingPong.ok()) << pingPong.error;
+    EXPECT_EQ(core::LevelWriter::toJsonString(*pingPong.level).find("\"mode\""), std::string::npos);
+
+    const core::LevelLoadResult loop = core::LevelLoader::loadFromString(
+        levelWithPlatform(R"(, "waypoints": [ {"x": 4, "y": 1} ], "mode": "loop")"));
+    ASSERT_TRUE(loop.ok()) << loop.error;
+    EXPECT_NE(core::LevelWriter::toJsonString(*loop.level).find("\"loop\""), std::string::npos);
+}
+
+/**
+ * @brief Une plateforme immobile (route vide) n'écrit aucun champ de route : ni `waypoints`, ni le
+ *        couple `endX`/`endY` que l'éditeur ne produit plus (`EX-LVL-008`).
+ * \castest{<b>Une plateforme sans route n'écrit aucun champ de route.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Charger une plateforme sans waypoints ni endX/endY.<br/>2. Serialiser.<br/>
+ * \tattendu Le JSON produit ne contient ni "waypoints" ni "endX".
+ * }
+ */
+TEST(LevelWriterTest, PlateformeSansRouteNEcritAucunChampDeRoute) {
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(levelWithPlatform(""));
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const std::string json = core::LevelWriter::toJsonString(*loaded.level);
+    EXPECT_EQ(json.find("waypoints"), std::string::npos);
+    EXPECT_EQ(json.find("endX"), std::string::npos);
+}
+
+/**
+ * @brief Une plateforme lue à l'ancien format (`endX`/`endY`) est réécrite en `waypoints` sans
+ *        changer le parcours : la migration du contenu est portée par la sérialisation elle-même
+ *        (`EX-LVL-008`).
+ * \castest{<b>Une plateforme au format endX/endY est réécrite en waypoints.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Charger une plateforme ecrite avec endX/endY.<br/>2. Serialiser puis
+ * recharger.<br/>
+ * \tattendu Le JSON produit porte "waypoints" et non "endX", et la route rechargee est la meme.
+ * }
+ */
+TEST(LevelWriterTest, PlateformeAncienFormatEstReecriteEnWaypoints) {
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(
+        levelWithPlatform(R"(, "endX": 4, "endY": 1, "speed": 3.0)"));
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const std::string json = core::LevelWriter::toJsonString(*loaded.level);
+    EXPECT_NE(json.find("waypoints"), std::string::npos);
+    EXPECT_EQ(json.find("endX"), std::string::npos);
+
+    const core::LevelLoadResult reloaded = core::LevelLoader::loadFromString(json);
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+    ASSERT_EQ(reloaded.level->platformConfigs().size(), 1u);
+    EXPECT_EQ(reloaded.level->platformConfigs().front().waypoints,
+              (std::vector<core::GridPosition>{core::GridPosition{4, 1}}));
+}
+
+/**
+ * @brief Les capacités du tableau survivent à un aller-retour et restent omises quand le niveau
+ *        s'en remet aux réglages du moteur (`EX-GP-055`).
+ * \castest{<b>Les capacités du tableau survivent à un aller-retour et sont omises par
+ * défaut.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Charger un niveau declarant airJumps et dashCharges, serialiser puis
+ * recharger.<br/>2. Faire de meme avec un niveau qui n'en declare aucun.<br/>
+ * \tattendu Les capacites declarees sont conservees ; sans declaration, les champs n'apparaissent
+ * pas dans le JSON produit et restent absents apres rechargement.
+ * }
+ */
+TEST(LevelWriterTest, CapacitesDuTableauSurviventAuRoundTripEtSontOmisesParDefaut) {
+    constexpr const char* AVEC = R"({
+      "name": "N", "width": 4, "height": 3, "airJumps": 2, "dashCharges": 3,
+      "tiles": [ { "x": 1, "y": 1, "type": "entry" }, { "x": 3, "y": 2, "type": "exit" } ]
+    })";
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(AVEC);
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const core::LevelLoadResult reloaded =
+        core::LevelLoader::loadFromString(core::LevelWriter::toJsonString(*loaded.level));
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+    ASSERT_TRUE(reloaded.level->airJumps().has_value());
+    EXPECT_EQ(*reloaded.level->airJumps(), 2);
+    ASSERT_TRUE(reloaded.level->dashCharges().has_value());
+    EXPECT_EQ(*reloaded.level->dashCharges(), 3);
+
+    constexpr const char* SANS = R"({
+      "name": "N", "width": 4, "height": 3,
+      "tiles": [ { "x": 1, "y": 1, "type": "entry" }, { "x": 3, "y": 2, "type": "exit" } ]
+    })";
+    const core::LevelLoadResult defauts = core::LevelLoader::loadFromString(SANS);
+    ASSERT_TRUE(defauts.ok()) << defauts.error;
+    EXPECT_FALSE(defauts.level->airJumps().has_value());
+    EXPECT_FALSE(defauts.level->dashCharges().has_value());
+
+    const std::string json = core::LevelWriter::toJsonString(*defauts.level);
+    EXPECT_EQ(json.find("airJumps"), std::string::npos);
+    EXPECT_EQ(json.find("dashCharges"), std::string::npos);
 }

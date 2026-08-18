@@ -33,6 +33,7 @@ add_executable(UnitTests
     Unit/Core/Gameplay/test_danger_controller.cpp
     Unit/Core/Gameplay/test_block_controller.cpp
     Unit/Core/Gameplay/test_platform_controller.cpp
+    Unit/Core/Gameplay/test_platform_path.cpp
     Unit/Core/Physics/test_swept_collision.cpp
     Unit/Core/Physics/test_slope_geometry.cpp
     Unit/Core/Physics/test_aabb_vs_aabb.cpp
@@ -109,6 +110,8 @@ add_executable(UnitTests
     Unit/HMI/Editor/test_asset_references.cpp
     Unit/HMI/Editor/test_decor_geometry.cpp
     Unit/HMI/Editor/test_decor_gesture.cpp
+    Unit/HMI/Editor/test_path_geometry.cpp
+    Unit/HMI/Editor/test_path_gesture.cpp
     Unit/HMI/Editor/test_decor_list_model.cpp
     Unit/HMI/Editor/test_mechanism_animation_assignments.cpp
     Unit/HMI/Editor/test_editor_status.cpp
@@ -236,6 +239,10 @@ add_executable(UnitTests
     ../HMI/Editor/DecorGeometry.cpp
     ../HMI/Editor/DecorGesture.cpp
     ../HMI/Editor/DecorListModel.cpp
+    # Geometrie des poignees de parcours et machine a etats du geste de l'outil « Parcours »
+    # (LOT-67) : meme patron pur que DecorGeometry/DecorGesture ci-dessus.
+    ../HMI/Editor/PathGeometry.cpp
+    ../HMI/Editor/PathGesture.cpp
     # Balayage/filtrage d'un dossier d'assets (LOT-43), partagé par AssetThumbnailView : pur,
     # testable hors Qt.
     ../HMI/Editor/AssetLibrary.cpp

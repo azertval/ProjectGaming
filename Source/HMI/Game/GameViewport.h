@@ -18,6 +18,7 @@
 #include "HMI/Editor/DecorGesture.h"
 #include "HMI/Editor/EditContextTarget.h"
 #include "HMI/Editor/EditorTool.h"
+#include "HMI/Editor/PathGesture.h"
 #include "HMI/Game/DiagnosticsHud.h"
 #include "HMI/Game/GameSession.h"
 #include "HMI/Graphics/Camera2D.h"
@@ -297,6 +298,25 @@ public:
         return _decorGesture.selectedIndex;
     }
 
+    /// @return Le parcours actuellement sélectionné (outil « Parcours », `LOT-67`), si un l'est —
+    /// consommé par le panneau « Propriétés » pour savoir quels réglages afficher.
+    [[nodiscard]] std::optional<hmi::PathSelection> selectedPath() const noexcept {
+        return _pathGesture.selected;
+    }
+
+    /// @return La case du danger temporisé sélectionné (`LOT-67`), si un l'est. Un `DangerBlink`
+    /// n'a pas de trajectoire donc pas de `hmi::PathSelection` : l'outil « Parcours » le désigne
+    /// par sa case, pour que ses réglages de timing restent atteignables comme les autres.
+    [[nodiscard]] std::optional<core::GridPosition> selectedBlinkCell() const noexcept {
+        return _selectedBlinkCell;
+    }
+
+    /// @return L'aperçu du geste de parcours en cours (`LOT-67`), absent hors glisser — consommé
+    /// par `hmi::DraftRenderer` pour dessiner la manipulation avant validation.
+    [[nodiscard]] const std::optional<hmi::PathGestureAction>& pathPreview() const noexcept {
+        return _pathPreview;
+    }
+
     /// @return La case actuellement survolée par le curseur, absente si hors de la grille ou si le
     /// curseur a quitté le viewport (`LOT-57` TACHE-01, barre d'état).
     [[nodiscard]] std::optional<core::GridPosition> hoveredCell() const noexcept {
@@ -353,6 +373,19 @@ public:
      * @param cameraFraming Nouveau cadrage résolu (mode et, pour *par salle*, taille de salle).
      */
     void setLevelCameraFraming(core::CameraFramingConfig cameraFraming);
+
+    /// Réglages de gameplay pilotés par le panneau « Propriétés » (`LOT-67`, `EX-EDIT-033`) : le
+    /// viewport reste **seul** propriétaire du brouillon, le panneau ne fait qu'en demander la
+    /// mutation. Chacun est annulable en un pas, comme les autres propriétés de niveau.
+    void setPlatformSpeed(core::GridPosition position, float speed);
+    void setPlatformPhase(core::GridPosition position, int phase);
+    void setPlatformMode(core::GridPosition position, core::PlatformPathMode mode);
+    void setMoverConfig(core::GridPosition position, core::DangerMoverAxis axis, int range);
+    void setBlinkConfig(core::GridPosition position, int period, int phase, int activeDuration);
+    void setLevelJumpBudget(int jumpBudget);
+    void setLevelDashBudget(int dashBudget);
+    void setLevelAirJumps(std::optional<int> airJumps);
+    void setLevelDashCharges(std::optional<int> dashCharges);
 
     /**
      * @brief Retire la zone de caméra au rang @p index (section « Cadrage », `EX-LVL-007`,
@@ -485,6 +518,12 @@ signals:
     /// La sélection de décor vient de changer, par un moyen autre que la section « Décors »
     /// (clic/pose/suppression au canevas, `LOT-50` TACHE-04) — le panneau se resynchronise.
     void decorSelectionChanged(std::optional<std::size_t> index);
+    /// La sélection de parcours vient de changer (clic au canevas, outil « Parcours », `LOT-67`)
+    /// — consommé par le panneau « Propriétés », qui affiche les réglages de l'élément visé.
+    void pathSelectionChanged(std::optional<hmi::PathSelection> selection);
+    /// La case du danger temporisé sélectionné vient de changer (outil « Parcours », `LOT-67`) —
+    /// consommé par le panneau « Propriétés ».
+    void blinkSelectionChanged(std::optional<core::GridPosition> cell);
     /// La case survolée vient de changer (déplacement de souris, ou sortie du viewport) —
     /// consommé par la barre d'état (`LOT-57` TACHE-01), qui évite ainsi un travail continu inutile
     /// en ne recalculant que sur changement réel.
@@ -587,6 +626,23 @@ private:
     /// Applique l'action finale d'un geste de décors (`hmi::endDecorGesture`) aux mutateurs de
     /// TACHE-01 ; sans effet pour `DecorGestureActionKind::None` (simple clic/sélection).
     void applyDecorGestureAction(const hmi::DecorGestureAction& action);
+    /// Poignées du parcours actuellement sélectionné (`hmi::pathHandleLayout` pour une
+    /// plateforme, `hmi::moverHandleLayout` pour un danger mobile), vides si aucun ne l'est.
+    [[nodiscard]] std::vector<hmi::PathHandle> selectedPathHandles() const;
+    /// Appui (outil « Parcours », `LOT-67`) : désigne le parcours et la poignée sous le clic, et
+    /// arme le geste (`hmi::beginPathGesture`) ; un clic dans le vide désélectionne.
+    void handlePathPress(const QMouseEvent* event);
+    /// Glisser en cours (outil « Parcours ») : fait progresser le geste et met à jour l'aperçu,
+    /// sans jamais muter `_draft`.
+    void handlePathMove(const QMouseEvent* event);
+    /// Relâchement (outil « Parcours ») : termine le geste et applique l'action finale (un seul
+    /// appel, donc une seule entrée d'historique par geste) ; clic droit retire le point visé.
+    void handlePathRelease(const QMouseEvent* event, bool rightClick);
+    /// Abandonne un glisser de parcours en cours (`Échap`) : aucune mutation du brouillon.
+    void cancelPathGesture();
+    /// Applique l'action finale d'un geste de parcours aux mutateurs de `core::LevelDraft` ; sans
+    /// effet pour `PathGestureActionKind::None` (simple clic de sélection).
+    void applyPathGestureAction(const hmi::PathGestureAction& action);
     /// @return true si (@p switchPosition, @p targetPosition) est déjà une liaison du brouillon.
     [[nodiscard]] bool linkExists(core::GridPosition switchPosition,
                                   core::GridPosition targetPosition) const;
@@ -671,6 +727,15 @@ private:
     /// seul `hmi::DraftRenderer` le consomme pour afficher la manipulation avant validation.
     /// `std::nullopt` hors glisser.
     std::optional<hmi::DecorGestureAction> _decorPreview;
+    /// État du geste de parcours (`LOT-67`) ; `selected` porte la sélection courante de l'éditeur,
+    /// au-delà de la durée d'un seul geste.
+    hmi::PathGestureState _pathGesture;
+    /// Aperçu courant du geste de parcours — jamais écrit dans `_draft`, seul `hmi::DraftRenderer`
+    /// le consomme pour afficher la manipulation avant validation. `std::nullopt` hors glisser.
+    std::optional<hmi::PathGestureAction> _pathPreview;
+    /// Case du danger temporisé sélectionné (`LOT-67`), si un l'est — sélection parallèle à celle
+    /// de `_pathGesture`, les deux s'excluant mutuellement.
+    std::optional<core::GridPosition> _selectedBlinkCell;
     hmi::EditorTool _tool = hmi::EditorTool::Paint;  ///< Outil d'édition actif (barre d'outils).
     bool _painting = false;             ///< Un glisser de peinture (Pinceau) est en cours.
     bool _dragging = false;             ///< Un glisser Rectangle/Sélection est en cours.

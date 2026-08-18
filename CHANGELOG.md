@@ -6,6 +6,37 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+### Ajouté
+- **Route multi-points pour les plateformes mobiles** (`LOT-67`, `EX-GP-054`) : une plateforme suit
+  désormais une suite de points de passage, parcourue en aller-retour ou en **circuit fermé**, à
+  vitesse constante — là où elle ne pouvait relier que deux points.
+- **Outil « Parcours » dans l'éditeur** (`EX-EDIT-032`) : les trajectoires se manipulent directement
+  au canevas, par des poignées glissables — déplacer, insérer ou retirer un point d'une route,
+  redéfinir l'axe et la portée d'un danger mobile. Chaque geste complet ne coûte qu'une annulation.
+- **Panneau « Propriétés »** (`EX-EDIT-033`) : vitesse, déphasage et mode d'une plateforme ; axe et
+  portée d'un danger mobile ; période, déphasage et durée active d'un danger temporisé ; règles du
+  tableau. Ces réglages existaient dans le modèle depuis le `LOT-63` mais **aucun n'était atteignable
+  depuis l'éditeur** : il fallait éditer le JSON à la main.
+- **Capacités de mobilité par tableau** (`EX-GP-055`) : un niveau peut redéfinir le nombre de sauts
+  aériens et de **charges de dash**, rechargés à chaque atterrissage — à distinguer des budgets de
+  `EX-GP-024`, consommables une fois pour toutes sur le tableau. Le dash porte désormais un compteur
+  de charges et non plus un booléen ; sa valeur par défaut reproduit le comportement historique.
+
+### Modifié
+- Le format de niveau porte `waypoints` et `mode` pour les plateformes, ainsi que `airJumps` et
+  `dashCharges` à la racine (`EX-LVL-008`). Le couple `endX`/`endY` reste **lu** : un fichier
+  antérieur se charge et se joue à l'identique. `demo-plateforme.json` conserve volontairement une
+  plateforme à l'ancien format, pour que la compatibilité soit prouvée par le contenu livré.
+
+### Corrigé
+- **Dérive de position des plateformes en session longue** : la distance parcourue était cumulée en
+  simple précision, ce qui perdait le bit de poids faible au-delà d'environ 16,7 millions de pas
+  (~77 h de jeu) et décalait visiblement la plateforme. Le calcul passe en double précision, et un
+  test fige le comportement à vingt millions de pas.
+- **Budgets de sauts et de dashs non annulables** : `LevelDraft::setJumpBudget` et `setDashBudget`
+  n'empilaient pas de pas d'annulation, contrairement à toutes les autres propriétés de niveau
+  (fond, jeu de skins, cadrage). `Ctrl+Z` ignorait donc silencieusement ces changements.
+
 ## [0.1.0] - 2026-08-17
 
 > Sixième jalon, et premier qui **annonce un jeu** plutôt qu'un moteur : les jalons `0.0.x`

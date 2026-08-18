@@ -29,6 +29,13 @@
   déclencheurs, la liste étant vide par défaut (comportement de grille automatique inchangé,
   `EX-LVL-006`). Concrétisé en `LOT-64`.
 
+- \anchor EX-LVL-008 **EX-LVL-008** — Le format de niveau doit porter la **route** des plateformes
+  mobiles (points de passage et mode de parcours, `EX-GP-054`) et les **capacités** du tableau
+  (`EX-GP-055`), avec **repli compatible** : un fichier écrit avant le multi-points (couple
+  `endX`/`endY`, aucune capacité déclarée) se charge et se joue **à l'identique**, la
+  rétrocompatibilité des niveaux existants restant un invariant (`EX-LVL-005`). Concrétisé en
+  `LOT-67`.
+
 ### Format retenu (JSON, liste de tuiles-objets)
 Types de tuiles : `entry` (entrée), `exit` (sortie), `solid` (solide), `danger`, `switch`
 (interrupteur), `pressurePlate` (plaque de pression, activation continue tant qu'un poids y

@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <vector>
 
+#include "Core/Gameplay/PlatformPath.h"
 #include "Core/Levels/Level.h"
 #include "Core/Physics/Aabb.h"
 #include "Core/Physics/PlatformSample.h"
@@ -26,9 +27,11 @@ class TileMap;
  * **déterministe** du nombre de pas fixes écoulés depuis le chargement (`EX-NFR-002`) — jamais
  * d'accumulation flottante (`position += vitesse * dt`), qui dériverait sur une session longue.
  *
- * Aller-retour **linéaire** entre `MovingPlatformConfig::startPosition` et `endPosition`, à
- * vitesse constante (`speed`, cases par seconde) : onde triangulaire, même principe que
- * `DangerController::moverBox` mais généralisée à un segment 2D quelconque (pas seulement un axe).
+ * Parcours **linéaire** de la route de `MovingPlatformConfig` (`startPosition` puis `waypoints`) à
+ * vitesse constante (`speed`, cases par seconde), en aller-retour ou en circuit fermé selon
+ * `mode` — même principe que `DangerController::moverBox`, généralisé d'un axe unique à un
+ * polyligne 2D quelconque (`EX-GP-054`). La géométrie est portée par `core::PlatformPath`,
+ * partagée avec l'overlay d'édition pour que le trajet dessiné soit celui réellement parcouru.
  *
  * Le contrôleur ne résout **aucune** collision lui-même : il n'expose que la boîte courante et la
  * boîte au pas précédent de chaque plateforme. L'appelant (`hmi::GameSession`) compose la
@@ -80,6 +83,8 @@ private:
     [[nodiscard]] Aabb boxAtStep(std::size_t index, long long stepCount) const noexcept;
 
     std::vector<MovingPlatformConfig> _configs;
+    /// Routes précalculées, une par entrée de `_configs` et dans le même ordre (`EX-GP-054`).
+    std::vector<PlatformPath> _paths;
     long long _stepCount = 0;  ///< Nombre de pas fixes écoulés depuis le chargement.
 };
 

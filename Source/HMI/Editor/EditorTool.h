@@ -33,7 +33,16 @@ namespace hmi {
  * `core::CameraFramingConfig::zones` au relâchement (`core::LevelDraft::addCameraZone`) ; les
  * zones existantes se retirent depuis le tableau de la section « Cadrage » du panneau Textures,
  * pas depuis le canevas.
+ * `Path` (`LOT-67`, `EX-EDIT-032`) manipule la trajectoire des éléments mobiles : cliquer la case
+ * d'une plateforme mobile ou d'un danger mobile sélectionne son parcours et en affiche les
+ * poignées ; glisser une poignée de point le déplace sur la case visée ; glisser le losange au
+ * milieu d'un segment y **insère** un point et le déplace du même geste ; clic droit sur une
+ * poignée retire ce point ; `Échap` abandonne un glisser en cours sans toucher au brouillon — voir
+ * `hmi::PathGesture`. Le point de **départ** n'a pas de poignée : c'est la tuile elle-même, qu'on
+ * déplace en la repeignant. Pour un danger mobile, l'unique poignée d'extrémité redéfinit à la
+ * fois l'axe et la portée. Vitesse, déphasage et mode de bouclage se règlent dans le panneau
+ * Propriétés, pas au canevas.
  */
-enum class EditorTool { Paint, Rectangle, Selection, Link, TextureAssign, Decor, CameraZone };
+enum class EditorTool { Paint, Rectangle, Selection, Link, TextureAssign, Decor, CameraZone, Path };
 
 }  // namespace hmi

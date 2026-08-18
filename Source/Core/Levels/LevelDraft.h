@@ -132,15 +132,67 @@ public:
     void setBlinkConfig(GridPosition position, int period, int phase, int activeDuration);
 
     /**
-     * @brief Définit le second point de parcours, la vitesse et le déphasage d'une plateforme
+     * @brief Définit la route complète, le mode, la vitesse et le déphasage d'une plateforme
      *        mobile (`EX-GP-026`).
      *
      * Remplace toute configuration existante pour @p position. Mêmes remarques que
      * `setMoverConfig`/`setBlinkConfig` : sans appel, une `MovingPlatform` garde les valeurs de
      * conception par défaut (`MovingPlatformConfig`), appliquées par `LevelLoader` au rechargement.
+     * @param waypoints Points **suivants** de la route, dans l'ordre ; @p position en est le point
+     *                  de départ implicite et ne doit pas y figurer. Vide = plateforme immobile.
      * @pre La case @p position porte une `MovingPlatform`.
      */
-    void setPlatformConfig(GridPosition position, GridPosition endPosition, float speed, int phase);
+    void setPlatformConfig(GridPosition position, std::vector<GridPosition> waypoints,
+                           PlatformPathMode mode, float speed, int phase);
+
+    /**
+     * @brief Ajoute un point à la fin de la route de la plateforme en @p position (`EX-GP-026`).
+     *
+     * Crée la configuration si la plateforme n'en avait pas encore (le nouveau point devient alors
+     * l'unique waypoint, soit l'aller-retour à deux points historique). Annulable en un seul pas.
+     * @pre La case @p position porte une `MovingPlatform`.
+     */
+    void addPlatformWaypoint(GridPosition position, GridPosition waypoint);
+
+    /**
+     * @brief Insère @p waypoint au rang @p index de la route de la plateforme en @p position.
+     *
+     * Sert le geste « cliquer un segment pour y ajouter un point » de l'éditeur : @p index est le
+     * rang qu'occupera le point inséré. Sans effet si la plateforme n'a pas de configuration ou si
+     * @p index dépasse la taille de la route.
+     * @pre La case @p position porte une `MovingPlatform`.
+     */
+    void insertPlatformWaypoint(GridPosition position, std::size_t index, GridPosition waypoint);
+
+    /**
+     * @brief Déplace le point de rang @p index de la route de la plateforme en @p position.
+     *
+     * Sert le glisser d'une poignée : un seul snapshot pour tout le geste, empilé à l'appel.
+     * Sans effet si la plateforme n'a pas de configuration ou si @p index est hors de la route.
+     * @pre La case @p position porte une `MovingPlatform`.
+     */
+    void movePlatformWaypoint(GridPosition position, std::size_t index, GridPosition waypoint);
+
+    /**
+     * @brief Retire le point de rang @p index de la route de la plateforme en @p position.
+     *
+     * Sans effet si la plateforme n'a pas de configuration ou si @p index est hors de la route.
+     * Retirer le dernier point laisse une plateforme immobile, jamais une configuration invalide.
+     * @pre La case @p position porte une `MovingPlatform`.
+     */
+    void removePlatformWaypoint(GridPosition position, std::size_t index);
+
+    /// Change le mode de bouclage de la plateforme en @p position (`EX-GP-026`), annulable. Crée
+    /// la configuration si elle n'existait pas. @pre @p position porte une `MovingPlatform`.
+    void setPlatformMode(GridPosition position, PlatformPathMode mode);
+
+    /// Change la vitesse (cases/seconde) de la plateforme en @p position, annulable. Crée la
+    /// configuration si elle n'existait pas. @pre @p position porte une `MovingPlatform`.
+    void setPlatformSpeed(GridPosition position, float speed);
+
+    /// Change le déphasage (pas fixes) de la plateforme en @p position, annulable. Crée la
+    /// configuration si elle n'existait pas. @pre @p position porte une `MovingPlatform`.
+    void setPlatformPhase(GridPosition position, int phase);
 
     /**
      * @brief Assigne (ou remplace) la texture affichée pour **une case précise** (`EX-EDIT-043`),
@@ -302,15 +354,30 @@ public:
         return !_redoHistory.empty();
     }
 
-    /// Définit le budget de sauts (`-1` = illimité).
-    void setJumpBudget(int jumpBudget) noexcept {
-        _jumpBudget = jumpBudget;
-    }
+    /// Définit le budget de sauts consommable sur tout le tableau (`EX-GP-024`, `-1` = illimité),
+    /// annulable. À distinguer de `setAirJumps`, qui règle une capacité rechargée au sol.
+    void setJumpBudget(int jumpBudget);
 
-    /// Définit le budget de dashs (`-1` = illimité).
-    void setDashBudget(int dashBudget) noexcept {
-        _dashBudget = dashBudget;
-    }
+    /// Définit le budget de dashs consommable sur tout le tableau (`EX-GP-024`, `-1` = illimité),
+    /// annulable. À distinguer de `setDashCharges`.
+    void setDashBudget(int dashBudget);
+
+    /**
+     * @brief Définit les sauts **aériens** accordés par ce tableau (`EX-GP-055`), annulable.
+     *
+     * Capacité rechargée à **chaque** contact avec le sol, contrairement au budget de
+     * `setJumpBudget` qui se consomme une fois pour toutes sur l'ensemble du tableau.
+     * @param airJumps Nombre de sauts aériens, ou absent pour s'en remettre au réglage du moteur
+     *                 (`PhysicsConfig::airJumps`).
+     */
+    void setAirJumps(std::optional<int> airJumps);
+
+    /**
+     * @brief Définit les charges de **dash** accordées par ce tableau (`EX-GP-055`), annulable.
+     * @param dashCharges Nombre de dashs utilisables entre deux contacts avec le sol, ou absent
+     *                    pour s'en remettre au réglage du moteur (`PhysicsConfig::dashCharges`).
+     */
+    void setDashCharges(std::optional<int> dashCharges);
 
     /// Renomme le niveau.
     void setName(std::string name) {
@@ -418,6 +485,18 @@ public:
         return _dashBudget;
     }
 
+    /// @return Les sauts aériens accordés par ce tableau (`EX-GP-055`), absent si le niveau s'en
+    /// remet au réglage du moteur.
+    [[nodiscard]] const std::optional<int>& airJumps() const noexcept {
+        return _airJumps;
+    }
+
+    /// @return Les charges de dash accordées par ce tableau (`EX-GP-055`), absent si le niveau
+    /// s'en remet au réglage du moteur.
+    [[nodiscard]] const std::optional<int>& dashCharges() const noexcept {
+        return _dashCharges;
+    }
+
     /// @return L'asset de fond courant (`EX-REN-044`), absent si aucun n'est posé.
     [[nodiscard]] const std::optional<std::string>& background() const noexcept {
         return _background;
@@ -463,6 +542,11 @@ private:
     /// toujours retirées, comme avant ce paramètre.
     void removeLinkedDataAt(GridPosition position, bool keepTextureOverride = false);
 
+    /// Configuration de la plateforme en @p position, **créée aux valeurs par défaut** si absente.
+    /// Empile un unique `pushUndo()` : point de passage commun des mutateurs granulaires de route,
+    /// pour qu'un geste ne coûte jamais plus d'un pas d'annulation.
+    [[nodiscard]] MovingPlatformConfig& platformConfigForEdit(GridPosition position);
+
     /// État complet du brouillon, hors historique (utilisé pour les snapshots undo/redo).
     struct State {
         std::string name;
@@ -481,6 +565,8 @@ private:
         std::vector<Decor> decors;
         std::vector<MovingPlatformConfig> platformConfigs;
         CameraFramingConfig cameraFraming;
+        std::optional<int> airJumps;
+        std::optional<int> dashCharges;
     };
 
     /// Capture l'état courant (pour empiler dans l'historique undo/redo).
@@ -509,6 +595,8 @@ private:
     std::vector<Decor> _decors;
     std::vector<MovingPlatformConfig> _platformConfigs;
     CameraFramingConfig _cameraFraming;
+    std::optional<int> _airJumps;
+    std::optional<int> _dashCharges;
     std::vector<State> _undoHistory;
     std::vector<State> _redoHistory;
 };

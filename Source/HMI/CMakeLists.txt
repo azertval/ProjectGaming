@@ -206,6 +206,7 @@ add_executable(ProjectGaming
     Editor/TileTaxonomy.cpp
     Editor/TaxonomyLabels.cpp
     Editor/TexturePanel.cpp
+    Editor/PropertiesPanel.cpp
     Editor/SkinAssignments.cpp
     Editor/PaletteAppearance.cpp
     Editor/LevelFileOperations.cpp
@@ -215,6 +216,8 @@ add_executable(ProjectGaming
     Editor/TextureAssignGesture.cpp
     Editor/DecorGeometry.cpp
     Editor/DecorGesture.cpp
+    Editor/PathGeometry.cpp
+    Editor/PathGesture.cpp
     Editor/DecorListModel.cpp
     Editor/AssetLibrary.cpp
     Editor/ThumbnailGeometry.cpp
@@ -245,6 +248,7 @@ add_executable(ProjectGaming
     ${ELEMENTS_UI}/OptionsPage.ui
     ${ELEMENTS_UI}/DecorsPanel.ui
     ${ELEMENTS_UI}/TexturePanel.ui
+    ${ELEMENTS_UI}/PropertiesPanel.ui
     ${ELEMENTS_UI}/LevelBrowserPanel.ui
     ${ELEMENTS_UI}/AssetThumbnailView.ui
 )

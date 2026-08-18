@@ -21,7 +21,7 @@
 
 namespace hmi {
 
-/// Groupe d'exclusivité d'une action : les six outils d'édition forment un groupe **exclusif**
+/// Groupe d'exclusivité d'une action : les outils d'édition forment un groupe **exclusif**
 /// (un seul actif à la fois) ; les commandes n'appartiennent à aucun groupe. `PixelTools` (`LOT-54`
 /// TACHE-04) est un second groupe exclusif, **distinct** de `LevelTools` : les outils du canevas
 /// pixel art et ceux du niveau ne s'excluent jamais entre eux, seulement au sein de leur propre
@@ -41,13 +41,13 @@ struct EditorActionSpec {
     EditorActionGroup group;
 };
 
-/// Nombre total d'actions du catalogue (sept outils de niveau, cinq outils de canevas pixel art,
+/// Nombre total d'actions du catalogue (huit outils de niveau, cinq outils de canevas pixel art,
 /// onze commandes principales, quatre commandes de fichier de l'atelier, quatre commandes de
 /// région de l'atelier).
-constexpr int EDITOR_ACTION_CATALOG_COUNT = 31;
+constexpr int EDITOR_ACTION_CATALOG_COUNT = 32;
 
-/// @return Le catalogue complet, dans l'ordre d'affichage voulu de la barre d'outils : les six
-///         outils de niveau (ordre de la palette/du panneau Outils historique), les quatre outils
+/// @return Le catalogue complet, dans l'ordre d'affichage voulu de la barre d'outils : les huit
+///         outils de niveau (ordre de la palette/du panneau Outils historique), les outils
 ///         de canevas pixel art (`LOT-54` TACHE-04), puis les commandes.
 [[nodiscard]] const std::array<EditorActionSpec, EDITOR_ACTION_CATALOG_COUNT>&
 editorActionCatalog();

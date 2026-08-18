@@ -60,6 +60,7 @@ class PalettePanel;
 class LevelBrowserPanel;
 class LinkPanel;
 class TexturePanel;
+class PropertiesPanel;
 class PixelCanvas;
 class PixelHistoryPanel;
 class PixelPalettePanel;
@@ -320,6 +321,8 @@ private:
     DecorsPanel* _decors;
     LinkPanel* _links;        ///< Liste/gestion des liaisons de mécanismes (dock Liens, LOT-37).
     TexturePanel* _textures;  ///< Habillage : jeu de skins et assignations (dock Textures, LOT-42).
+    /// Réglages de gameplay de l'élément sélectionné et du tableau (dock Propriétés, `LOT-67`).
+    PropertiesPanel* _properties;
     /// Canevas de l'atelier pixel art (dock Atelier, LOT-54 TACHE-04) : seconde implémentation de
     /// `EditContextTarget`, cible d'Annuler/Refaire/Copier/Coller quand elle a le focus clavier.
     PixelCanvas* _pixelCanvas;

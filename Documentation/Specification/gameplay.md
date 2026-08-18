@@ -51,6 +51,19 @@ Le niveau est une **grille de tuiles** de taille fixe : **16 × 16 px** par tuil
   une **période fixe**, indépendamment de toute action du personnage ou d'un interrupteur — un
   déphasage par tuile permet des motifs (plusieurs dangers temporisés désynchronisés dans un même
   niveau).
+- \anchor EX-GP-054 **EX-GP-054** — Une **plateforme mobile** doit pouvoir suivre une **route à N
+  points** (la position de sa tuile, puis une suite de points de passage), parcourue soit en
+  **aller-retour** (la route puis son inverse), soit en **circuit fermé** (le dernier point rejoint
+  le premier en ligne droite, ce segment de fermeture faisant partie du cycle). La vitesse est
+  constante sur toute la route, segment de fermeture compris, et la position reste fonction du seul
+  **numéro de pas** (`EX-NFR-002`) — jamais d'accumulation. Une route vide décrit une plateforme
+  immobile, pas un niveau invalide (`EX-NFR-040`). Concrétisé en `LOT-67`.
+- \anchor EX-GP-055 **EX-GP-055** — Un **tableau** doit pouvoir redéfinir les **capacités** de
+  mobilité du personnage rechargées à chaque contact avec le sol : nombre de **sauts aériens**
+  (`EX-GP-015`) et nombre de **charges de dash** (`EX-GP-017`). À distinguer strictement du
+  **budget** de `EX-GP-024`, qui se consomme une fois pour toutes sur l'ensemble du tableau et n'est
+  jamais rechargé. Un tableau qui n'en déclare aucune conserve les réglages du moteur, à
+  l'identique. Concrétisé en `LOT-67`.
 
 ## 2. Personnage & déplacement
 - \anchor EX-GP-010 **EX-GP-010** — Le personnage doit se déplacer horizontalement à vitesse constante (~3 tuiles/s en jeu, `Source/Core/Physics/PhysicsConfig.h` `moveSpeed` — ⚠️ réglage fin non figé, reporté au-delà de `0.1.0`).
@@ -82,8 +95,9 @@ Concrétise l'objectif produit `EX-VIS-003` (`vision.md`).
 - \anchor EX-GP-023 **EX-GP-023** — Une **clé** collectée doit ouvrir une **porte verrouillée** correspondante. Le ramassage exige le contact **et** l'action « Interagir » (`EX-CTRL-022`) — le contact seul, suffisant pour un interrupteur (`EX-GP-020`), ne suffit pas ici. Une fois ouverte, la porte le reste **définitivement** (contrairement à la porte liée à un interrupteur, qui peut se refermer).
 - \anchor EX-GP-024 **EX-GP-024** — Un **tableau** peut **limiter** le nombre de **sauts** et/ou de **dashs** disponibles (budget de mouvements, défini par le niveau) ; à budget épuisé, l'action est **refusée**. Le budget est **réinitialisé** au (re)chargement du niveau. Contrainte de **puzzle**.
 - \anchor EX-GP-025 **EX-GP-025** — Une **plaque de pression** doit maintenir la porte liée **ouverte** tant qu'un poids suffisant y repose, et la **refermer** dès qu'il en repart — activation **continue**, à la différence de l'interrupteur à bascule (`EX-GP-020`), dont le comportement n'est pas affecté. Ce poids peut être celui du **personnage** ou celui d'un **bloc poussable** (`EX-GP-022`) : c'est ce qui rend possible de poser un poids et de **repartir**, la porte restant ouverte. Un bloc de taille réduite (`EX-GP-005`) est trop léger pour l'enfoncer, sa masse valant son facteur de taille — la distinction est **visible** dans le tableau, jamais une propriété cachée. Complété en `LOT-65`.
-- \anchor EX-GP-026 **EX-GP-026** — Une **plateforme mobile** doit parcourir un trajet entre **deux
-  points** à vitesse constante, en **portant** le personnage et les blocs poussables (`EX-GP-022`)
+- \anchor EX-GP-026 **EX-GP-026** — Une **plateforme mobile** doit parcourir un trajet à vitesse
+  constante (une **route** au sens de `EX-GP-054` depuis le `LOT-67` ; deux points jusque-là), en
+  **portant** le personnage et les blocs poussables (`EX-GP-022`)
   qui reposent dessus, sans traversée (`EX-GP-014`), sans glissement cumulé ni décollement. Sa
   position est fonction du **numéro de pas** de simulation — jamais d'une accumulation ni du temps
   réel — de sorte que le déterminisme (`EX-NFR-002`) soit préservé. L'ordre de résolution dans le pas
