@@ -173,6 +173,16 @@ souris, insuffisant à la manette, qui n'a pas de pointeur pour dire où elle en
   masquage est un **changement d'espace**, décidé par l'utilisateur — à ne pas confondre avec la
   mise en avant automatique d'`EX-IHM-061`, qui reste une suggestion et ne masque jamais rien.
 
+- \anchor EX-IHM-074 **EX-IHM-074** — Les surfaces de commande de l'éditeur doivent être
+  **hiérarchisées** : la barre d'outils ne porte que la sélection d'outil et les commandes à usage
+  **continu** ; toute autre commande reste atteignable par la barre de menus et son raccourci.
+  `EX-IHM-055` garantissait déjà qu'une commande placée à plusieurs endroits reste une seule
+  définition ; il restait à arbitrer **lesquelles** méritent une place permanente à l'écran — une
+  barre d'outils portant onze commandes, dont neuf figuraient déjà au menu, est illisible sans
+  qu'aucune ne soit pour autant dupliquée. Cette répartition doit être portée par la **description**
+  de chaque commande, et non décidée par le code qui peuple les barres : une répartition implicite
+  ne se relit pas et dérive au premier ajout.
+
 ## Traçabilité
 Tout ceci relève de `Source/HMI` — depuis le `LOT-38`, l'unique application Qt `ProjectGaming` (rendu
 de jeu Direct3D 11 + widgets Qt répartis par domaine) ; les assets Qt déclaratifs vivent dans
