@@ -153,6 +153,17 @@ souris, insuffisant à la manette, qui n'a pas de pointeur pour dire où elle en
   technique, pas esthétique. Cette identité est **bornée aux écrans du jeu** — le châssis d'édition
   conserve son apparence d'outil de travail et ses thèmes clair/sombre (`EX-IHM-054`), et aucune
   police bitmap ne se répand dans ses tables et ses arbres denses.
+- \anchor EX-IHM-071 **EX-IHM-071** — L'élément **focalisé** d'un écran du jeu doit être signalé par
+  une **marque explicite** (curseur), et non par la seule teinte : la navigation à la manette
+  (`EX-IHM-040`) repose entièrement sur le parcours de focus, qu'une simple nuance de couleur rend
+  difficile à suivre — et impossible pour un joueur qui distingue mal les couleurs. Une feuille de
+  style ne sachant pas ajouter de contenu, cette marque est nécessairement peinte par le contrôle.
+- \anchor EX-IHM-072 **EX-IHM-072** — Aucun écran ne doit exposer de réglage **inopérant**. Un
+  contrôle grisé et non branché coûte plus de confiance qu'il n'apporte d'information : il se retire,
+  ou il se branche. Symétriquement, une capacité qui existe déjà (comptage de cadence, bascule de
+  rendu) s'expose comme réglage plutôt que de rester derrière une touche non documentée — sans jamais
+  en faire un **second** état (`EX-IHM-062`).
+
 ## Traçabilité
 Tout ceci relève de `Source/HMI` — depuis le `LOT-38`, l'unique application Qt `ProjectGaming` (rendu
 de jeu Direct3D 11 + widgets Qt répartis par domaine) ; les assets Qt déclaratifs vivent dans

@@ -1409,6 +1409,13 @@ void GameViewport::toggleRenderMode() {
     setRenderMode(_renderMode == RenderMode::Physique ? RenderMode::Texture : RenderMode::Physique);
 }
 
+void GameViewport::setDiagnosticsOverlayEnabled(bool enabled) noexcept {
+    if (_diagnosticsEnabled == enabled) {
+        return;
+    }
+    toggleDiagnosticsOverlay();
+}
+
 void GameViewport::toggleDiagnosticsOverlay() noexcept {
     _diagnosticsEnabled = !_diagnosticsEnabled;
     _frameRateAverage.reset();

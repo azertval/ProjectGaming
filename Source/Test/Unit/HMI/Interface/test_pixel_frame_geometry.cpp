@@ -163,3 +163,52 @@ TEST(PixelFrameGeometryTest, TaillesDegenereesSansGeometrieInvalide) {
     EXPECT_EQ(tiny.front().width, 2);
     EXPECT_EQ(tiny.front().height, 2);
 }
+
+/**
+ * @brief Le curseur de focus est un triangle plein, symetrique, pointant a droite, et contenu dans
+ *        son carre (`LOT-68`, `EX-IHM-071`). Un curseur qui deborderait mordrait sur le texte de
+ *        l entree, un curseur asymetrique se lirait comme une fleche de travers.
+ * \castest{<b>Le curseur de focus est un triangle symetrique contenu dans son carre.</b><br/>
+ * \tcat Unitaire · Cadre pixel art<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Produire le curseur pour plusieurs tailles multiples de huit.<br/>2. Verifier le
+ * confinement, la symetrie haut/bas et la croissance puis decroissance des rangees.<br/>
+ * \tattendu Tous les paves tiennent dans le carre, les rangees sont symetriques, et la pointe est
+ * a droite.
+ * }
+ */
+TEST(PixelFrameGeometryTest, LeCurseurEstUnTriangleSymetrique) {
+    for (const int size : {8, 16, 24, 40}) {
+        const std::vector<hmi::PixelFrameQuad> caret = hmi::pixelCaretQuads(size);
+        ASSERT_EQ(caret.size(), 8u) << "taille " << size;
+        for (const hmi::PixelFrameQuad& quad : caret) {
+            EXPECT_EQ(quad.role, hmi::PixelFrameRole::Fill);
+            EXPECT_EQ(quad.x, 0) << "le curseur part du bord gauche";
+            EXPECT_GT(quad.width, 0);
+            EXPECT_LE(quad.x + quad.width, size) << "taille " << size;
+            EXPECT_LE(quad.y + quad.height, size) << "taille " << size;
+        }
+        // Symetrie haut/bas : la rangee i et la rangee 7-i ont la meme largeur.
+        for (std::size_t i = 0; i < 4; ++i) {
+            EXPECT_EQ(caret[i].width, caret[7 - i].width) << "taille " << size;
+        }
+        // La pointe est a droite : les rangees croissent jusqu au milieu.
+        EXPECT_LT(caret[0].width, caret[3].width) << "taille " << size;
+    }
+}
+
+/**
+ * @brief Un curseur plus petit que ses huit rangees est VIDE plutot que deforme : mieux vaut
+ *        aucune marque qu une marque illisible.
+ * \castest{<b>Un curseur trop petit pour ses rangees est vide.</b><br/>
+ * \tcat Unitaire · Cadre pixel art<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Demander le curseur pour une taille inferieure a huit, nulle et negative.<br/>
+ * \tattendu Le resultat est vide dans les trois cas.
+ * }
+ */
+TEST(PixelFrameGeometryTest, CurseurTropPetitEstVide) {
+    EXPECT_TRUE(hmi::pixelCaretQuads(7).empty());
+    EXPECT_TRUE(hmi::pixelCaretQuads(0).empty());
+    EXPECT_TRUE(hmi::pixelCaretQuads(-8).empty());
+}

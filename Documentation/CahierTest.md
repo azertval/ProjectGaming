@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**1169 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**1171 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (1064)
+## Tests unitaires (1066)
 
 ### Core
 
@@ -1625,7 +1625,7 @@
 | **PlayerInputMapperTest.BoutonXManetteDeclencheInteragir** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Input/test_player_input_mapper.cpp:404`</sub> | Interagir se déclenche via son bouton manette par défaut (X). | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `input.interactPressed` est vrai. |
 | **PlayerInputMapperTest.RemapperInteragirUtiliseLaNouvelleSource** (Bloquant)<br/><sub>`Source/Test/Unit/HMI/Input/test_player_input_mapper.cpp:422`</sub> | Remapper Interagir réagit à la nouvelle touche/bouton. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::toPlayerInput(withKeys({hmi::Key::F1}), gameKeyBindings, hmi::GamepadBindings{}) .interactPressed` est vrai.<br/>Vérifie que `hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::Y), hmi::GameKeyBindings{}, gamepadBindings) .interactPressed` est vrai. |
 
-#### Interface (40)
+#### Interface (42)
 
 **`test_application_theme.cpp`**
 
@@ -1686,6 +1686,8 @@
 | **PixelFrameGeometryTest.LesCoinsSontEntailles** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Interface/test_pixel_frame_geometry.cpp:75`</sub> | Les quatre coins du cadre ne sont couverts par aucun pave. | 1. Produire la geometrie d'un cadre de 120 x 80 a l'echelle 2.<br/>2. Verifier que le pixel de chaque coin n'appartient a aucun pave. | Vérifie que `covers(0, 0)` est faux.<br/>Vérifie que `covers(WIDTH - 1, 0)` est faux.<br/>Vérifie que `covers(0, HEIGHT - 1)` est faux.<br/>Vérifie que `covers(WIDTH - 1, HEIGHT - 1)` est faux. |
 | **PixelFrameGeometryTest.LesBorduresOpposeesSontSymetriques** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Interface/test_pixel_frame_geometry.cpp:104`</sub> | Les bordures opposees du cadre ont la meme epaisseur. | 1. Produire la geometrie d'un cadre rectangulaire.<br/>2. Mesurer l'epaisseur des quatre barres de contour. | Vérifie que `left` est strictement supérieur à `0`.<br/>Vérifie que `left` vaut `right`.<br/>Vérifie que `top` est strictement supérieur à `0`.<br/>Vérifie que `top` vaut `bottom`. |
 | **PixelFrameGeometryTest.TaillesDegenereesSansGeometrieInvalide** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Interface/test_pixel_frame_geometry.cpp:145`</sub> | Les tailles degenerees produisent le vide ou un aplat, jamais une geometrie invalide. | 1. Demander la geometrie pour une largeur ou une hauteur nulle, puis negative.<br/> 2. Demander celle d'un cadre de 2 x 2 a l'echelle 3. | Vérifie que `hmi::pixelFrameQuads(0, 40, 2).empty()` est vrai.<br/>Vérifie que `hmi::pixelFrameQuads(40, 0, 2).empty()` est vrai.<br/>Vérifie que `hmi::pixelFrameQuads(-10, -10, 2).empty()` est vrai.<br/>Vérifie que `tiny.size()` vaut `1u`.<br/>Vérifie que `tiny.front().role` vaut `hmi::PixelFrameRole::Fill`.<br/>Vérifie que `tiny.front().width` vaut `2`.<br/>Vérifie que `tiny.front().height` vaut `2`. |
+| **PixelFrameGeometryTest.LeCurseurEstUnTriangleSymetrique** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Interface/test_pixel_frame_geometry.cpp:171`</sub> | Le curseur de focus est un triangle symetrique contenu dans son carre. | 1. Produire le curseur pour plusieurs tailles multiples de huit.<br/>2. Verifier le confinement, la symetrie haut/bas et la croissance puis decroissance des rangees. | Vérifie que `caret.size()` vaut `8u`.<br/>Vérifie que `quad.role` vaut `hmi::PixelFrameRole::Fill`.<br/>Vérifie que `quad.x` vaut `0`.<br/>Vérifie que `quad.width` est strictement supérieur à `0`.<br/>Vérifie que `quad.x + quad.width` est inférieur ou égal à `size`.<br/>Vérifie que `quad.y + quad.height` est inférieur ou égal à `size`.<br/>Vérifie que `caret[i].width` vaut `caret[7 - i].width`.<br/>Vérifie que `caret[0].width` est strictement inférieur à `caret[3].width`. |
+| **PixelFrameGeometryTest.CurseurTropPetitEstVide** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Interface/test_pixel_frame_geometry.cpp:203`</sub> | Un curseur trop petit pour ses rangees est vide. | 1. Demander le curseur pour une taille inferieure a huit, nulle et negative. | Vérifie que `hmi::pixelCaretQuads(7).empty()` est vrai.<br/>Vérifie que `hmi::pixelCaretQuads(0).empty()` est vrai.<br/>Vérifie que `hmi::pixelCaretQuads(-8).empty()` est vrai. |
 
 **`test_screen_flow.cpp`**
 

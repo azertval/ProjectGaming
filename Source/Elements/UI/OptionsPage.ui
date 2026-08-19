@@ -28,24 +28,11 @@
        <item row="0" column="1"><widget class="QCheckBox" name="vsyncCheck"><property name="text"><string>Activée</string></property></widget></item>
        <item row="1" column="0"><widget class="QLabel" name="displayLabel"><property name="text"><string>Affichage</string></property></widget></item>
        <item row="1" column="1"><widget class="QCheckBox" name="fullscreenCheck"><property name="text"><string>Plein écran</string></property></widget></item>
-       <item row="2" column="0"><widget class="QLabel" name="resolutionLabel"><property name="text"><string>Résolution</string></property></widget></item>
-       <item row="2" column="1">
-        <widget class="QComboBox" name="resolutionCombo">
-         <property name="enabled"><bool>false</bool></property>
-         <item><property name="text"><string>Automatique (fenêtre)</string></property></item>
-         <item><property name="text"><string>1280 × 720</string></property></item>
-         <item><property name="text"><string>1920 × 1080</string></property></item>
-        </widget>
-       </item>
-       <item row="3" column="0"><widget class="QLabel" name="fpsLabel"><property name="text"><string>Limite d'images/s</string></property></widget></item>
-       <item row="3" column="1">
-        <widget class="QComboBox" name="fpsCombo">
-         <property name="enabled"><bool>false</bool></property>
-         <item><property name="text"><string>Illimité</string></property></item>
-         <item><property name="text"><string>60</string></property></item>
-         <item><property name="text"><string>144</string></property></item>
-        </widget>
-       </item>
+       <!-- Les selecteurs de resolution et de limite d'images/s ont ete RETIRES au LOT-68
+            (EX-IHM-072) : grises et non branches depuis leur creation, ils promettaient un
+            reglage inexistant. A leur place, une bascule qui, elle, agit reellement. -->
+       <item row="2" column="0"><widget class="QLabel" name="diagnosticsLabel"><property name="text"><string>Compteur de diagnostic</string></property></widget></item>
+       <item row="2" column="1"><widget class="QCheckBox" name="diagnosticsCheck"><property name="text"><string>Afficher en haut à droite</string></property></widget></item>
       </layout>
      </widget>
      <widget class="QWidget" name="audioTab">
@@ -87,7 +74,7 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="bottomLayout">
-     <item><widget class="QPushButton" name="backButton"><property name="text"><string>Retour</string></property></widget></item>
+     <item><widget class="hmi::PixelMenuButton" name="backButton"><property name="text"><string>Retour</string></property></widget></item>
      <item>
       <spacer name="backSpacer">
        <property name="orientation"><enum>Qt::Horizontal</enum></property>
@@ -98,6 +85,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>hmi::PixelMenuButton</class>
+   <extends>QPushButton</extends>
+   <header>HMI/Interface/PixelMenuButton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

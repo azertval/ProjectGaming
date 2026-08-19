@@ -60,4 +60,27 @@ std::vector<PixelFrameQuad> pixelFrameQuads(int width, int height, int scale) {
     };
 }
 
+std::vector<PixelFrameQuad> pixelCaretQuads(int size) {
+    // Le dessin fait huit rangees de haut : le curseur est donc tracé par pas de size/8, et un
+    // curseur plus petit que 8 px ne peut pas les porter sans en ecraser certaines.
+    constexpr int ROWS = 8;
+    const int step = size / ROWS;
+    if (step <= 0) {
+        return {};
+    }
+    // Largeur de chaque rangee, en pas : le triangle croit puis decroit symetriquement.
+    constexpr int ROW_WIDTHS[ROWS] = {1, 2, 3, 4, 4, 3, 2, 1};
+
+    std::vector<PixelFrameQuad> quads;
+    quads.reserve(ROWS);
+    for (int row = 0; row < ROWS; ++row) {
+        quads.push_back(PixelFrameQuad{.role = PixelFrameRole::Fill,
+                                       .x = 0,
+                                       .y = row * step,
+                                       .width = ROW_WIDTHS[row] * step,
+                                       .height = step});
+    }
+    return quads;
+}
+
 }  // namespace hmi

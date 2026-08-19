@@ -212,6 +212,25 @@
     background: ${identity.color.accentHover};
 }
 
+/* Retour de l'ecran Options : c'est une ENTREE DE MENU, pas une commande — elle doit se lire comme
+   celles du menu principal, pas comme le bouton plein d'enregistrement des journaux juste au-dessus.
+   Le selecteur vise la classe promue : Qt remplace "::" par "--" dans le nom de type QSS, et cette
+   regle l'emporte sur la precedente parce qu'elle est plus specifique. */
+#OptionsPage hmi--PixelMenuButton {
+    color: ${identity.color.textMuted};
+    background: transparent;
+    border: none;
+    text-align: left;
+    padding: ${identity.space.small}px ${identity.space.medium}px;
+    font-size: ${identity.size.sectionTitle}px;
+    font-weight: bold;
+}
+#OptionsPage hmi--PixelMenuButton:hover,
+#OptionsPage hmi--PixelMenuButton:focus {
+    color: ${identity.color.accent};
+    background: transparent;
+}
+
 /* ===== Chassis d'edition : tout le reste (VARIABLE) ===== */
 
 /* Panneaux dockables : barre de titre et bordure -- QPalette ne porte pas ces roles. */

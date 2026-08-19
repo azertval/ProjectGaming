@@ -224,6 +224,14 @@ public:
      */
     void toggleDiagnosticsOverlay() noexcept;
 
+    /// @return `true` si le compteur de diagnostic est actuellement affiché.
+    [[nodiscard]] bool diagnosticsOverlayEnabled() const noexcept { return _diagnosticsEnabled; }
+
+    /// Affiche ou masque le compteur de diagnostic. Même état que `toggleDiagnosticsOverlay` et
+    /// que la touche `F9` — **un seul** état, atteint par deux chemins (`EX-IHM-062`), et non deux
+    /// réglages qui pourraient diverger.
+    void setDiagnosticsOverlayEnabled(bool enabled) noexcept;
+
     /// Lance le **jeu** : joue la séquence de niveaux @p levels, à partir de @p startIndex
     /// (0 = depuis le début ; « Continuer »/sélection de niveau, `LOT-59` TACHE-06, reprennent
     /// plus loin). `Échap` ou la fin de la séquence émet `exitToMenuRequested`.

@@ -28,6 +28,9 @@ namespace {
 // Cle de preference du volume, meme portee QSettings que la langue et le mode de rendu
 // (GameViewport.cpp) -- persistee/relue au meme endroit et selon le meme mecanisme (TACHE-04).
 constexpr const char* VOLUME_SETTINGS_KEY = "volume";
+// Compteur de diagnostic (LOT-68) : meme portee QSettings que le volume et la langue -- aucun
+// nouveau mecanisme de persistance a inventer.
+constexpr const char* DIAGNOSTICS_SETTINGS_KEY = "diagnostics_overlay";
 }  // namespace
 
 OptionsPage::OptionsPage(GameViewport* viewport, AudioEngine* audio,
@@ -43,12 +46,26 @@ OptionsPage::OptionsPage(GameViewport* viewport, AudioEngine* audio,
     _ui->verticalLayout->setContentsMargins(spacing.extraLarge * 3, spacing.extraLarge * 2,
                                             spacing.extraLarge * 3, spacing.extraLarge * 2);
 
-    // Onglet Vidéo : V-Sync et plein écran fonctionnels (résolution/FPS présents mais désactivés).
+    // Onglet Vidéo : V-Sync, plein écran et compteur de diagnostic — les trois agissent
+    // réellement, aucun réglage décoratif (`EX-IHM-072`).
     _ui->vsyncCheck->setChecked(viewport->vsyncEnabled());
     connect(_ui->vsyncCheck, &QCheckBox::toggled, viewport,
             [viewport](bool on) { viewport->setVSync(on); });
     connect(_ui->fullscreenCheck, &QCheckBox::toggled, this,
             [this](bool on) { emit fullscreenRequested(on); });
+
+    // Compteur de diagnostic (LOT-68) : le recouvrement existe depuis le LOT-62, en haut à droite,
+    // mais n'était atteignable que par `F9` — invisible pour qui ne lit pas la documentation. Ce
+    // réglage l'expose et le PERSISTE ; la touche reste un second chemin vers le MÊME état, jamais
+    // un second état (`EX-IHM-062`).
+    const bool diagnosticsOn =
+        QSettings().value(QString::fromLatin1(DIAGNOSTICS_SETTINGS_KEY), false).toBool();
+    viewport->setDiagnosticsOverlayEnabled(diagnosticsOn);
+    _ui->diagnosticsCheck->setChecked(diagnosticsOn);
+    connect(_ui->diagnosticsCheck, &QCheckBox::toggled, viewport, [viewport](bool on) {
+        viewport->setDiagnosticsOverlayEnabled(on);
+        QSettings().setValue(QString::fromLatin1(DIAGNOSTICS_SETTINGS_KEY), on);
+    });
 
     // Onglet Audio (LOT-60 TACHE-04) : volume global, persiste dans la meme portee QSettings que
     // la langue/le mode de rendu -- releve au lancement, applique immediatement au moteur, retenu
@@ -116,10 +133,8 @@ void OptionsPage::retranslateUi(const Localization& loc) {
     _ui->vsyncCheck->setText(t("options.enabled"));
     _ui->displayLabel->setText(t("options.display"));
     _ui->fullscreenCheck->setText(t("options.fullscreen"));
-    _ui->resolutionLabel->setText(t("options.resolution"));
-    _ui->resolutionCombo->setItemText(0, t("options.resolution_auto"));
-    _ui->fpsLabel->setText(t("options.fps_limit"));
-    _ui->fpsCombo->setItemText(0, t("options.unlimited"));
+    _ui->diagnosticsLabel->setText(t("options.diagnostics"));
+    _ui->diagnosticsCheck->setText(t("options.diagnostics_show"));
     _ui->volumeLabel->setText(t("options.volume"));
     _ui->backButton->setText(t("options.back"));
 

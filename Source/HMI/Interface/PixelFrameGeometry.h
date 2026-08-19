@@ -60,4 +60,19 @@ struct PixelFrameQuad {
  */
 [[nodiscard]] std::vector<PixelFrameQuad> pixelFrameQuads(int width, int height, int scale);
 
+/**
+ * @brief Pavés du **curseur de focus** — un triangle plein pointant à droite, inscrit dans un carré
+ *        de côté @p size (`LOT-68`, `EX-IHM-071`).
+ *
+ * Tous les pavés portent le rôle `Fill` : le curseur est monochrome, et c'est le peintre qui
+ * décide de sa couleur (l'accent). Un triangle tracé en pavés plutôt qu'en polygone parce qu'un
+ * polygone incliné serait anticrénelé, ce que le pixel art ne tolère pas.
+ *
+ * @param size Côté du carré englobant, en pixels. Ramené au multiple de 8 immédiatement inférieur
+ *             pour que les huit rangées du dessin restent d'épaisseur égale ; en dessous de 8, le
+ *             curseur est vide plutôt que déformé.
+ * @return Les pavés à peindre, relatifs au coin haut-gauche du carré.
+ */
+[[nodiscard]] std::vector<PixelFrameQuad> pixelCaretQuads(int size);
+
 }  // namespace hmi
