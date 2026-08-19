@@ -19,6 +19,7 @@
 #include "HMI/Game/GameEvents.h"
 #include "HMI/Game/Progression.h"
 #include "HMI/Input/GamepadPoller.h"
+#include "HMI/Interface/EditorWorkspace.h"
 #include "HMI/Input/InputState.h"
 #include "HMI/Interface/ScreenFlow.h"
 #include "HMI/Localization/Localization.h"
@@ -96,6 +97,23 @@ protected:
     /// rejoue le theme s'il a change (LOT-68, EX-IHM-070). Sans effet sur le chassis d'edition,
     /// dont les grandeurs ne sont jamais multipliees.
     void applyIdentityScale();
+
+private:
+    /// Applique l'espace de travail @p workspace (`LOT-68`, `EX-IHM-073`) : masque les panneaux de
+    /// l'autre espace, bascule barre d'outils et menu, restaure la disposition propre à cet espace.
+    /// N'enregistre **pas** la disposition qu'on quitte — c'est `switchToWorkspace` qui sait qu'on
+    /// quitte vraiment un espace, et l'initialisation n'a rien à enregistrer.
+    void applyWorkspace(EditorWorkspace workspace);
+
+    /// Bascule sur @p workspace **s'il n'est pas déjà actif**, en synchronisant le sélecteur du
+    /// menu sans réémettre. Point d'entrée unique : `applyWorkspace` applique, celle-ci décide.
+    void switchToWorkspace(EditorWorkspace workspace);
+
+    /// @return La clé `QSettings` de la disposition de @p workspace. Chaque espace persiste la
+    /// sienne : une disposition unique rouvrirait les docks de l'atelier par-dessus l'édition.
+    [[nodiscard]] static QString layoutKeyFor(EditorWorkspace workspace);
+
+protected:
     /// Même resynchronisation que `resizeEvent`, nécessaire en plus de lui : un recouvrement est
     /// une fenêtre de haut niveau positionnée en coordonnées **écran** (`syncOverlayGeometry`),
     /// donc déplacer la fenêtre principale sans la redimensionner (aucun `resizeEvent`) la
@@ -342,6 +360,8 @@ private:
     std::filesystem::path _pixelAssetPath;
     EditorActions*
         _actions;        ///< Outils et commandes principales, barre d'outils (LOT-56 TACHE-04).
+    /// Espace de travail actif (`LOT-68`). Persisté : on rouvre l'éditeur là où on l'a laissé.
+    EditorWorkspace _workspace = EditorWorkspace::Level;
     QToolBar* _toolBar;  ///< Barre d'outils de l'éditeur, alimentée par `_actions`.
     QToolBar* _pixelToolBar;  ///< Barre d'outils du canevas pixel art (LOT-54 TACHE-04).
     QToolButton* _pixelColorButton =

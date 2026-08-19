@@ -46,9 +46,16 @@ level_select.locked_suffix = (locked)
 
 # Main window and menu bar
 window.title = ProjectGaming — Editor
-menubar.application = Application
 menubar.main_menu = Main menu
 menubar.quit = Quit
+menubar.file = File
+menubar.edit = Edit
+menubar.help = Help
+menubar.layers = Layers
+menubar.panels = Panels
+menubar.workspace = Workspace
+menubar.workspace_level = Level editing
+menubar.workspace_pixel_art = Pixel art workshop
 menubar.level = Level
 menubar.resize = Resize…
 menubar.view = View

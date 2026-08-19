@@ -71,6 +71,7 @@
 #include "HMI/HmiLog.h"
 #include "HMI/Input/GamepadButton.h"
 #include "HMI/Interface/ApplicationTheme.h"
+#include "HMI/Interface/EditorWorkspace.h"
 #include "HMI/Interface/PixelArtScale.h"
 #include "HMI/Interface/CreditsScreen.h"
 #include "HMI/Interface/DesignTokens.h"
@@ -90,7 +91,8 @@ namespace {
 // Version de la disposition sérialisée : à incrémenter si l'ensemble des docks change, pour
 // invalider proprement une disposition sauvegardée devenue incompatible (`restoreState`).
 constexpr int LAYOUT_VERSION =
-    7;  // 7 : panneau de palette de l'atelier pixel art rejoint le regroupement (LOT-54 TACHE-07)
+    8;  // 8 : espaces de travail exclusifs, une disposition par espace (LOT-68)
+        // 7 : panneau de palette de l'atelier pixel art rejoint le regroupement (LOT-54 TACHE-07)
         // 6 : atelier pixel art (canevas + historique) rejoint le regroupement Niveaux/Liens
         //     (LOT-54 TACHE-04)
         // 5 : panneau Outils devenu Decors (barre d'outils + inspecteur), Textures sort du
@@ -103,6 +105,8 @@ constexpr char STATE_KEY[] = "mainWindow/state";
 // Réglage de mise en avant automatique des panneaux (LOT-57 TACHE-02) : local à MainWindow, pas
 // une extension d'ApplicationTheme.cpp (qui concerne le thème, pas ce comportement).
 constexpr char FOLLOW_ACTIVE_TOOL_KEY[] = "panels/followActiveTool";
+// Espace de travail actif (LOT-68) : meme portee QSettings que la disposition et le theme.
+constexpr char WORKSPACE_KEY[] = "mainWindow/workspace";
 // Reglage "contraindre a la palette" de l'atelier pixel art (LOT-54 TACHE-07).
 constexpr char CONSTRAIN_TO_PALETTE_KEY[] = "pixelEditor/constrainToPalette";
 
@@ -457,6 +461,14 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     // et c'est la hauteur finale qui decide du facteur. Poser le facteur ici evite que le premier
     // affichage du menu se fasse a l'echelle 1 avant d'etre corrige par le premier resizeEvent.
     applyIdentityScale();
+
+    // Espace de travail persiste (LOT-68) : on rouvre l'editeur la ou on l'a laisse. Applique
+    // APRES restoreLayout, qui restaurerait sinon des docks des deux espaces.
+    const bool startInWorkshop =
+        QSettings().value(QString::fromLatin1(WORKSPACE_KEY), 0).toInt() == 1;
+    _ui->actWorkspacePixelArt->setChecked(startInWorkshop);
+    _ui->actWorkspaceLevel->setChecked(!startInWorkshop);
+    applyWorkspace(startInWorkshop ? EditorWorkspace::PixelArt : EditorWorkspace::Level);
 
     showMenu();  // l'application démarre sur le menu principal.
 }
@@ -925,17 +937,13 @@ void MainWindow::buildUi() {
     // : ActionCatalog reste sans dependance Qt (valeurs par defaut litterales), c'est ici que le
     // raccourci REELLEMENT actif est branche sur EditorKeyBindings.
     _actions->applyShortcuts(_viewport->editorBindings(), _loc);
-    // Barre d'outils de l'éditeur : reste globale à la fenêtre principale, hors du panneau Décors
-    // (LOT-57, amendement) -- une seule définition (`EditorActions`), un seul ancrage.
-    _toolBar = addToolBar(QStringLiteral("EditorToolBar"));
-    _toolBar->setObjectName(QStringLiteral("EditorToolBar"));
-    _toolBar->setMovable(false);
+    // Barres d'outils : declarees dans le .ui depuis le LOT-68, plus construites ici. Une seule
+    // est visible a la fois, celle de l'espace de travail actif (applyWorkspace).
+    _toolBar = _ui->EditorToolBar;
     _actions->populateToolBar(*_toolBar);
     // Barre d'outils DEDIEE du canevas pixel art (LOT-54 TACHE-04) : groupe d'actions distinct
     // (EditorActionGroup::PixelTools), jamais melange a la barre d'outils du niveau ci-dessus.
-    _pixelToolBar = addToolBar(QStringLiteral("PixelToolBar"));
-    _pixelToolBar->setObjectName(QStringLiteral("PixelToolBar"));
-    _pixelToolBar->setMovable(false);
+    _pixelToolBar = _ui->PixelToolBar;
     _actions->populatePixelToolBar(*_pixelToolBar);
     // Temoin + bouton du selecteur de couleur courante : cree ici (barre d'outils), mais rempli et
     // branche plus bas, APRES la construction de _pixelCanvas (sinon acces a un pointeur nul).
@@ -992,8 +1000,11 @@ void MainWindow::buildUi() {
     // Textures redevient un dock independant, comme Palette (niveau)/Decors (LOT-57, amendement
     // post-essai manuel). Doit preceder la capture de _defaultState (constructeur, apres
     // buildUi()).
+    // Depuis le LOT-68, la pile ne melange plus deux domaines : les panneaux d'edition de niveau
+    // d'un cote, ceux de l'atelier de l'autre. Un onglet « Atelier » au milieu des panneaux de
+    // niveau invitait a une bascule que l'espace de travail rend desormais explicite.
     tabifyDockWidget(_ui->LevelsPanel, _ui->LinksPanel);
-    tabifyDockWidget(_ui->LinksPanel, _ui->PixelCanvasPanel);
+    tabifyDockWidget(_ui->LinksPanel, _ui->PropertiesPanel);
     tabifyDockWidget(_ui->PixelCanvasPanel, _ui->PixelHistoryPanel);
     tabifyDockWidget(_ui->PixelHistoryPanel, _ui->PixelPalettePanel);
     // Un changement de visibilite d'un de ces docks NON provoque par notre propre code (mise en
@@ -1026,6 +1037,10 @@ void MainWindow::buildUi() {
                 [this, tool = *tool](bool on) {
                     if (on) {
                         _viewport->setTool(tool);
+                        // Choisir un outil amene dans SON espace (LOT-68) : sinon l'outil devient
+                        // actif dans un espace qui ne montre ni son canevas ni ses panneaux, et
+                        // rien a l'ecran ne dit pourquoi il ne repond pas.
+                        switchToWorkspace(hmi::workspaceForTool(tool));
                     }
                 });
     }
@@ -1042,6 +1057,7 @@ void MainWindow::buildUi() {
                         return;
                     }
                     _pixelCanvas->setActiveTool(tool);
+                    switchToWorkspace(hmi::workspaceForPixelTool(tool));
                     refreshStatusHelp();
                     applyPixelPanelFocus(tool);
                 });
@@ -1149,8 +1165,9 @@ void MainWindow::buildUi() {
     connect(_actions->action(hmi::IconId::PixelSaveAs), &QAction::triggered, this,
             [this] { savePixelAsset(true); });
     // Menu dedie (decouvrabilite, EX-EDIT-015), memes actions que la barre d'outils du canevas --
-    // aucune seconde definition.
-    _pixelMenu = menuBar()->addMenu(QString());
+    // aucune seconde definition. Le menu vient du .ui depuis le LOT-68 ; il n'est visible que dans
+    // l'espace « Atelier pixel art ».
+    _pixelMenu = _ui->workshopMenu;
     _pixelMenu->addAction(_actions->action(hmi::IconId::PixelOpen));
     _pixelMenu->addAction(_actions->action(hmi::IconId::PixelCreate));
     _pixelMenu->addAction(_actions->action(hmi::IconId::PixelSave));
@@ -1229,20 +1246,18 @@ void MainWindow::buildUi() {
         dialog.exec();
     });
 
-    // Commandes principales egalement dans le menu "Niveau" (decouvrabilite, EX-EDIT-015) : les
-    // memes actions que la barre d'outils, aucune seconde definition.
-    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::Save));
-    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::Playtest));
-    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::Undo));
-    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::Redo));
-    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::Copy));
-    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::Paste));
-    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::ToggleGrid));
-    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::ResetCamera));
-    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::ToggleRenderMode));
-    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::Rename));
-    _ui->levelMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::ShortcutsOverview));
-    _ui->levelMenu->insertSeparator(_ui->actResize);
+    // Commandes principales, reparties PAR NATURE D'ACTION (LOT-68, EX-IHM-074) et non plus
+    // entassees dans un menu « Niveau » qui n'etait ni fichier ni edition. Toujours les memes
+    // actions que la barre d'outils : aucune seconde definition (EX-IHM-055).
+    _ui->fileMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::Save));
+    _ui->fileMenu->insertAction(_ui->actResize, _actions->action(hmi::IconId::Rename));
+    _ui->editMenu->addAction(_actions->action(hmi::IconId::Undo));
+    _ui->editMenu->addAction(_actions->action(hmi::IconId::Redo));
+    _ui->editMenu->addSeparator();
+    _ui->editMenu->addAction(_actions->action(hmi::IconId::Copy));
+    _ui->editMenu->addAction(_actions->action(hmi::IconId::Paste));
+    _ui->levelMenu->addAction(_actions->action(hmi::IconId::Playtest));
+    _ui->helpMenu->addAction(_actions->action(hmi::IconId::ShortcutsOverview));
 
     // Branchement du fonctionnel sur les actions restantes, déclarées dans le `.ui`.
     connect(_ui->actMainMenu, &QAction::triggered, this, &MainWindow::showMenu);
@@ -1258,14 +1273,13 @@ void MainWindow::buildUi() {
 
     // Thème clair/sombre de l'éditeur (LOT-56 TACHE-06) : réglage Système/Clair/Sombre, persisté,
     // sans effet sur l'identité du jeu (menu principal/Options), qui reste toujours sombre.
-    _themeMenu = new QMenu(this);
-    _themeSystemAction = _themeMenu->addAction(QString());
-    _themeLightAction = _themeMenu->addAction(QString());
-    _themeDarkAction = _themeMenu->addAction(QString());
+    _themeMenu = _ui->themeMenu;
+    _themeSystemAction = _ui->actThemeSystem;
+    _themeLightAction = _ui->actThemeLight;
+    _themeDarkAction = _ui->actThemeDark;
     auto* const themeGroup = new QActionGroup(this);
     themeGroup->setExclusive(true);
     for (QAction* const act : {_themeSystemAction, _themeLightAction, _themeDarkAction}) {
-        act->setCheckable(true);
         act->setActionGroup(themeGroup);
     }
     switch (hmi::editorThemeSetting()) {
@@ -1301,33 +1315,43 @@ void MainWindow::buildUi() {
                     _actions->refreshIcons(hmi::currentEditorTokens());
                 }
             });
-    _ui->viewMenu->insertMenu(_ui->actResetLayout, _themeMenu);
-    _ui->viewMenu->insertSeparator(_ui->actResetLayout);
+    // Commandes de VUE, en tete du menu Affichage : ce sont les seules qui agissent tout de
+    // suite ; tout le reste du menu est un reglage, range en sous-menu.
+    QAction* const firstViewSeparator = _ui->viewMenu->actions().constFirst();
+    _ui->viewMenu->insertAction(firstViewSeparator, _actions->action(hmi::IconId::ResetCamera));
+    _ui->viewMenu->insertAction(firstViewSeparator, _actions->action(hmi::IconId::ToggleGrid));
+    _ui->viewMenu->insertAction(firstViewSeparator,
+                                _actions->action(hmi::IconId::ToggleRenderMode));
 
-    // Bascules de visibilité des docks (dynamiques) : insérées avant « Réinitialiser la disposition
-    // ».
-    _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->PalettePanel->toggleViewAction());
-    _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->LevelsPanel->toggleViewAction());
-    _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->DecorsPanel->toggleViewAction());
-    _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->LinksPanel->toggleViewAction());
-    _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->TexturesPanel->toggleViewAction());
-    _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->PropertiesPanel->toggleViewAction());
-    _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->PixelCanvasPanel->toggleViewAction());
-    _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->PixelHistoryPanel->toggleViewAction());
-    _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->PixelPalettePanel->toggleViewAction());
-    _ui->viewMenu->insertSeparator(_ui->actResetLayout);
+    // Bascules de visibilité des docks : dynamiques, donc ajoutées ici. Elles rejoignent le
+    // sous-menu « Panneaux » plutôt que la racine du menu Affichage, qui alignait vingt-trois
+    // entrées à plat.
+    for (QDockWidget* const dock :
+         {_ui->PalettePanel, _ui->DecorsPanel, _ui->LevelsPanel, _ui->LinksPanel,
+          _ui->PropertiesPanel, _ui->TexturesPanel, _ui->PixelCanvasPanel, _ui->PixelHistoryPanel,
+          _ui->PixelPalettePanel}) {
+        _ui->panelsMenu->insertAction(_ui->panelsMenu->actions().constFirst(),
+                                      dock->toggleViewAction());
+    }
 
     // Mise en avant automatique des panneaux de droite selon l'outil actif (LOT-57 TACHE-02) :
     // reglage persiste, actif par defaut.
-    _actFollowActiveTool = new QAction(this);
-    _actFollowActiveTool->setCheckable(true);
+    // Selecteur d'espace de travail (LOT-68) : groupe exclusif, aucun etat intermediaire.
+    auto* const workspaceGroup = new QActionGroup(this);
+    workspaceGroup->setExclusive(true);
+    _ui->actWorkspaceLevel->setActionGroup(workspaceGroup);
+    _ui->actWorkspacePixelArt->setActionGroup(workspaceGroup);
+    connect(_ui->actWorkspaceLevel, &QAction::triggered, this,
+            [this] { applyWorkspace(hmi::EditorWorkspace::Level); });
+    connect(_ui->actWorkspacePixelArt, &QAction::triggered, this,
+            [this] { applyWorkspace(hmi::EditorWorkspace::PixelArt); });
+
+    _actFollowActiveTool = _ui->actFollowActiveTool;
     _actFollowActiveTool->setChecked(
         QSettings().value(QString::fromLatin1(FOLLOW_ACTIVE_TOOL_KEY), true).toBool());
     connect(_actFollowActiveTool, &QAction::toggled, this, [](bool enabled) {
         QSettings().setValue(QString::fromLatin1(FOLLOW_ACTIVE_TOOL_KEY), enabled);
     });
-    _ui->viewMenu->insertAction(_ui->actResetLayout, _actFollowActiveTool);
-    _ui->viewMenu->insertSeparator(_ui->actResetLayout);
 
     // Mode d'inspection par calque (LOT-57 TACHE-03) : deplace depuis l'onglet Calques du panneau
     // Textures -- DECOMPOSE le rendu pour auditer chaque calque, jamais lu par hmi::GameSession, a
@@ -1338,17 +1362,18 @@ void MainWindow::buildUi() {
         hmi::RenderLayer::Background, hmi::RenderLayer::Decor,  hmi::RenderLayer::Shadow,
         hmi::RenderLayer::Tile,       hmi::RenderLayer::Object, hmi::RenderLayer::Player,
         hmi::RenderLayer::Foreground};
+    const std::array<QAction*, 7> LAYER_ACTIONS{
+        _ui->actLayerBackground, _ui->actLayerDecorBackground, _ui->actLayerShadow,
+        _ui->actLayerTileSkin,   _ui->actLayerObjects,         _ui->actLayerPlayer,
+        _ui->actLayerDecorForeground};
     for (std::size_t i = 0; i < LAYER_ORDER.size(); ++i) {
         const hmi::RenderLayer layer = LAYER_ORDER[i];
-        QAction* const act = new QAction(this);
-        act->setCheckable(true);
-        act->setChecked(true);
+        QAction* const act = LAYER_ACTIONS[i];
         connect(act, &QAction::toggled, _viewport,
                 [this, layer](bool checked) { _viewport->setLayerVisible(layer, checked); });
-        _ui->viewMenu->insertAction(_ui->actResetLayout, act);
         _layerVisibilityActions[i] = act;
     }
-    _actShowAllLayers = new QAction(this);
+    _actShowAllLayers = _ui->actShowAllLayers;
     connect(_actShowAllLayers, &QAction::triggered, this, [this] {
         _viewport->showAllLayers();
         // showAllLayers() n'emet pas de signal par calque : resynchronise les cases sans
@@ -1358,14 +1383,9 @@ void MainWindow::buildUi() {
             act->setChecked(true);
         }
     });
-    _ui->viewMenu->insertAction(_ui->actResetLayout, _actShowAllLayers);
-    // Bascule Physique/Texture (LOT-57 TACHE-04) : l'action existe déjà (IconId::ToggleRenderMode,
-    // LOT-56, toolbar + menu Niveau + F8) -- lui donner une présence ICI, à côté du mode
-    // d'inspection par calque, remplace la case "Physique seul" retirée en TACHE-03 (même état,
-    // une seule définition désormais, EX-IHM-062) sans en créer une seconde.
-    _ui->viewMenu->insertAction(_ui->actResetLayout,
-                                _actions->action(hmi::IconId::ToggleRenderMode));
-    _ui->viewMenu->insertSeparator(_ui->actResetLayout);
+    // Bascule Physique/Texture : posee plus haut avec les autres commandes de vue (LOT-68). Elle
+    // n'apparait plus qu'a CET endroit -- elle figurait jusqu'ici trois fois (barre d'outils, menu
+    // Niveau, menu Affichage), ce qui obligeait a deviner laquelle faisait autorite.
 
     // Barre d'état structurée (LOT-57 TACHE-01) : zones permanentes, ajoutées via
     // addPermanentWidget -- jamais recouvertes par un message transitoire (showMessage), à
@@ -1425,6 +1445,81 @@ void MainWindow::openResizeDialog() {
         }
     }
     _viewport->resizeLevel(width, height);
+}
+
+QString MainWindow::layoutKeyFor(EditorWorkspace workspace) {
+    return workspace == EditorWorkspace::PixelArt ? QStringLiteral("mainWindow/state.pixelart")
+                                                  : QStringLiteral("mainWindow/state.level");
+}
+
+void MainWindow::switchToWorkspace(EditorWorkspace workspace) {
+    if (_workspace == workspace) {
+        return;  // deja la : ne pas resauvegarder ni rejouer une disposition pour rien.
+    }
+    // La disposition de l'espace QUITTE est sauvegardee ICI, et non dans applyWorkspace : c'est
+    // cette methode qui sait qu'on quitte vraiment un espace. A l'initialisation, il n'y a rien a
+    // sauvegarder, et applyWorkspace est appelee directement.
+    QSettings().setValue(layoutKeyFor(_workspace), saveState(LAYOUT_VERSION));
+    // Le selecteur suit l'etat, sans reemettre : c'est le MEME etat atteint par deux chemins
+    // (menu, choix d'outil), jamais deux etats (EX-IHM-062).
+    QAction* const selector =
+        workspace == EditorWorkspace::PixelArt ? _ui->actWorkspacePixelArt : _ui->actWorkspaceLevel;
+    const QSignalBlocker blocker(selector);
+    selector->setChecked(true);
+    applyWorkspace(workspace);
+}
+
+void MainWindow::applyWorkspace(EditorWorkspace workspace) {
+    QSettings settings;
+    _workspace = workspace;
+    settings.setValue(QString::fromLatin1(WORKSPACE_KEY),
+                      workspace == EditorWorkspace::PixelArt ? 1 : 0);
+
+    // Toute la manipulation est gardee : masquer un dock emet visibilityChanged, que le suivi de
+    // panneau prendrait sinon pour un choix d'onglet de l'utilisateur.
+    _suppressPanelFocusTracking = true;
+
+    const hmi::WorkspaceDressing dressing = hmi::dressingForWorkspace(workspace);
+    _toolBar->setVisible(dressing.levelToolBarVisible);
+    _pixelToolBar->setVisible(dressing.pixelToolBarVisible);
+    _pixelMenu->menuAction()->setVisible(dressing.workshopMenuVisible);
+
+    // Panneaux : la table decide, la fenetre applique. Aucune condition ecrite en dur sur un dock.
+    const std::array<std::pair<QDockWidget*, hmi::PanelId>, 9> PANELS{{
+        {_ui->PalettePanel, hmi::PanelId::Palette},
+        {_ui->DecorsPanel, hmi::PanelId::Decors},
+        {_ui->LevelsPanel, hmi::PanelId::Levels},
+        {_ui->LinksPanel, hmi::PanelId::Links},
+        {_ui->PropertiesPanel, hmi::PanelId::Properties},
+        {_ui->TexturesPanel, hmi::PanelId::Textures},
+        {_ui->PixelCanvasPanel, hmi::PanelId::PixelCanvas},
+        {_ui->PixelHistoryPanel, hmi::PanelId::PixelHistory},
+        {_ui->PixelPalettePanel, hmi::PanelId::PixelPalette},
+    }};
+    for (const auto& [dock, panel] : PANELS) {
+        const bool belongsHere = hmi::workspaceForPanel(panel) == workspace;
+        // La bascule de visibilite du menu suit : un panneau d'un autre espace n'a pas a etre
+        // proposable depuis celui-ci.
+        dock->toggleViewAction()->setVisible(belongsHere);
+        dock->setVisible(belongsHere);
+    }
+
+    // Disposition propre a l'espace, si on y est deja venu.
+    const QByteArray state = settings.value(layoutKeyFor(workspace)).toByteArray();
+    if (!state.isEmpty()) {
+        restoreState(state, LAYOUT_VERSION);
+        // restoreState reaffiche les docks tels qu'ils etaient enregistres, y compris ceux de
+        // l'autre espace si une disposition ancienne en portait : on les remasque.
+        for (const auto& [dock, panel] : PANELS) {
+            if (hmi::workspaceForPanel(panel) != workspace) {
+                dock->setVisible(false);
+            }
+        }
+    }
+
+    _suppressPanelFocusTracking = false;
+    _userPickedTab = false;  // nouvel espace : la mise en avant automatique repart.
+    refreshStatusHelp();
 }
 
 void MainWindow::restoreLayout() {
@@ -1871,14 +1966,21 @@ void MainWindow::retranslateUi() {
     _ui->PixelPalettePanel->setWindowTitle(text("dock.pixel_palette"));
     _pixelColorButton->setToolTip(text("pixel.color_picker_title"));
 
-    // Barre de menus.
-    _ui->appMenu->setTitle(text("menubar.application"));
+    // Barre de menus, organisee par nature d'action (LOT-68).
+    _ui->fileMenu->setTitle(text("menubar.file"));
     _ui->actMainMenu->setText(text("menubar.main_menu"));
     _ui->actQuit->setText(text("menubar.quit"));
-    _ui->levelMenu->setTitle(text("menubar.level"));
     _ui->actResize->setText(text("menubar.resize"));
+    _ui->editMenu->setTitle(text("menubar.edit"));
+    _ui->levelMenu->setTitle(text("menubar.level"));
     _pixelMenu->setTitle(text("menubar.pixel"));
+    _ui->helpMenu->setTitle(text("menubar.help"));
     _ui->viewMenu->setTitle(text("menubar.view"));
+    _ui->workspaceMenu->setTitle(text("menubar.workspace"));
+    _ui->actWorkspaceLevel->setText(text("menubar.workspace_level"));
+    _ui->actWorkspacePixelArt->setText(text("menubar.workspace_pixel_art"));
+    _ui->layersMenu->setTitle(text("menubar.layers"));
+    _ui->panelsMenu->setTitle(text("menubar.panels"));
     _themeMenu->setTitle(text("menubar.theme"));
     _themeSystemAction->setText(text("menubar.theme_system"));
     _themeLightAction->setText(text("menubar.theme_light"));

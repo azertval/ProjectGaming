@@ -47,9 +47,16 @@ level_select.locked_suffix = (verrouillé)
 
 # Fenetre principale et barre de menus
 window.title = ProjectGaming — Éditeur
-menubar.application = Application
 menubar.main_menu = Menu principal
 menubar.quit = Quitter
+menubar.file = Fichier
+menubar.edit = Édition
+menubar.help = Aide
+menubar.layers = Calques
+menubar.panels = Panneaux
+menubar.workspace = Espace de travail
+menubar.workspace_level = Édition de niveau
+menubar.workspace_pixel_art = Atelier pixel art
 menubar.level = Niveau
 menubar.resize = Redimensionner…
 menubar.view = Affichage
