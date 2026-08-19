@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**1174 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**1179 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (1069)
+## Tests unitaires (1074)
 
 ### Core
 
@@ -1633,7 +1633,7 @@
 | **PlayerInputMapperTest.BoutonXManetteDeclencheInteragir** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Input/test_player_input_mapper.cpp:404`</sub> | Interagir se déclenche via son bouton manette par défaut (X). | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `input.interactPressed` est vrai. |
 | **PlayerInputMapperTest.RemapperInteragirUtiliseLaNouvelleSource** (Bloquant)<br/><sub>`Source/Test/Unit/HMI/Input/test_player_input_mapper.cpp:422`</sub> | Remapper Interagir réagit à la nouvelle touche/bouton. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::toPlayerInput(withKeys({hmi::Key::F1}), gameKeyBindings, hmi::GamepadBindings{}) .interactPressed` est vrai.<br/>Vérifie que `hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::Y), hmi::GameKeyBindings{}, gamepadBindings) .interactPressed` est vrai. |
 
-#### Interface (42)
+#### Interface (47)
 
 **`test_application_theme.cpp`**
 
@@ -1675,6 +1675,16 @@
 | **EditorActionsTest.GeometrieDesIconesNonVideEtDansLeCadre** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Interface/test_editor_actions.cpp:128`</sub> | La geometrie de chaque icone est non vide et dans le cadre normalise. | 1. Pour chaque action du catalogue, produire sa geometrie.<br/>2. Verifier qu'elle a au moins un trait, et que chaque point est dans [0,1]. | Vérifie que `geometry.strokes.empty()` est faux.<br/>Vérifie que `stroke.points.empty()` est faux.<br/>Vérifie que `point.x` est supérieur ou égal à `0.0f`.<br/>Vérifie que `point.x` est inférieur ou égal à `1.0f`.<br/>Vérifie que `point.y` est supérieur ou égal à `0.0f`.<br/>Vérifie que `point.y` est inférieur ou égal à `1.0f`. |
 | **EditorActionsTest.ChaqueLibelleExisteDansLesDeuxLangues** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Interface/test_editor_actions.cpp:155`</sub> | Chaque cle de libelle du catalogue d'actions existe en francais et en anglais. | 1. Lire fr.lang et en.lang.<br/>2. Verifier que chaque labelKey du catalogue y figure. | Vérifie que `fr.empty()` est faux.<br/>Vérifie que `en.empty()` est faux.<br/>Vérifie que `fr.count(spec.labelKey) > 0` est vrai.<br/>Vérifie que `en.count(spec.labelKey) > 0` est vrai. |
 | **EditorActionsTest.AucuneActionRemappableOrpheline** (Critique)<br/><sub>`Source/Test/Unit/HMI/Interface/test_editor_actions.cpp:178`</sub> | Chaque action d'editeur remappable a une commande effective. | 1. Comparer le nombre d'actions remappables (hors outil) au nombre d'entrees de la table de correspondance.<br/>2. Verifier que chaque entree pointe vers une commande reelle du catalogue et que l'aller-retour restitue l'action d'origine. | Vérifie que `hmi::KEY_BINDING_ICON_COUNT` vaut `hmi::EDITOR_ACTION_COUNT - 1`.<br/>`EXPECT_NO_THROW(static_cast<void>(hmi::editorActionSpec(entry.id)))`<br/>Vérifie que `seen.insert(entry.id).second` est vrai.<br/>Vérifie que `roundTrip.has_value()` est vrai.<br/>Vérifie que `*roundTrip` vaut `entry.action`. |
+
+**`test_editor_workspace.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **EditorWorkspaceTest.ChaquePanneauAppartientAUnSeulEspace** (Critique)<br/><sub>`Source/Test/Unit/HMI/Interface/test_editor_workspace.cpp:43`</sub> | Chaque panneau appartient a exactement un espace de travail. | 1. Parcourir les neuf panneaux et resoudre leur espace.<br/>2. Verifier que le compte couvert vaut PANEL_COUNT et que les deux espaces sont representes. | Vérifie que `seen.insert(panel).second` est vrai.<br/>Vérifie que `seen.size()` vaut `hmi::PANEL_COUNT`.<br/>Vérifie que `levelPanels` est strictement supérieur à `0`.<br/>Vérifie que `pixelPanels` est strictement supérieur à `0`. |
+| **EditorWorkspaceTest.UneSeuleBarreDOutilsParEspace** (Critique)<br/><sub>`Source/Test/Unit/HMI/Interface/test_editor_workspace.cpp:73`</sub> | Les deux barres d'outils ne sont jamais visibles simultanement. | 1. Lire l'habillage des deux espaces.<br/>2. Verifier qu'exactement une barre est visible dans chacun. | Vérifie que `level.levelToolBarVisible` est vrai.<br/>Vérifie que `level.pixelToolBarVisible` est faux.<br/>Vérifie que `pixel.levelToolBarVisible` est faux.<br/>Vérifie que `pixel.pixelToolBarVisible` est vrai. |
+| **EditorWorkspaceTest.MenuAtelierReserveASonEspace** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Interface/test_editor_workspace.cpp:94`</sub> | Le menu de l'atelier n'existe que dans l'espace de l'atelier. | 1. Lire l'habillage des deux espaces. | Vérifie que `hmi::dressingForWorkspace(hmi::EditorWorkspace::Level).workshopMenuVisible` est faux.<br/>Vérifie que `hmi::dressingForWorkspace(hmi::EditorWorkspace::PixelArt).workshopMenuVisible` est vrai. |
+| **EditorWorkspaceTest.LesDeuxFamillesDOutilsSontDisjointes** (Critique)<br/><sub>`Source/Test/Unit/HMI/Interface/test_editor_workspace.cpp:110`</sub> | Chaque famille d'outils mene a son propre espace. | 1. Resoudre l'espace de chacun des huit outils de niveau.<br/>2. Resoudre celui des cinq outils de canevas. | Vérifie que `hmi::workspaceForTool(tool)` vaut `hmi::EditorWorkspace::Level`.<br/>Vérifie que `levelTools` vaut `hmi::EDITOR_TOOL_COUNT`.<br/>Vérifie que `hmi::workspaceForPixelTool(tool)` vaut `hmi::EditorWorkspace::PixelArt`. |
+| **EditorWorkspaceTest.LaMiseEnAvantResteDansSonEspace** (Critique)<br/><sub>`Source/Test/Unit/HMI/Interface/test_editor_workspace.cpp:136`</sub> | La mise en avant ne traverse jamais la frontiere entre espaces. | 1. Parcourir la table outil -> panneau, puis celle des outils de canevas.<br/> 2. Comparer l'espace de l'outil a celui du panneau qu'il met en avant. | Vérifie que `hmi::workspaceForTool(entry.tool)` vaut `hmi::workspaceForPanel(entry.panel)`.<br/>Vérifie que `hmi::workspaceForPixelTool(entry.tool)` vaut `hmi::workspaceForPanel(entry.panel)`. |
 
 **`test_pixel_art_scale.cpp`**
 

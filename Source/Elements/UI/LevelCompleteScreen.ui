@@ -33,29 +33,14 @@
      <property name="sizeHint" stdset="0"><size><width>0</width><height>0</height></size></property>
          </spacer>
         </item>
-        <!-- Bilan du tableau (LOT-68) : trois chiffres, pas un de plus. Au-dela, l'ecran
-             devient un tableau de bord alors qu'il doit se lire en une seconde. -->
+        <!-- Bilan du tableau (LOT-68) : UNE ligne, pas trois colonnes. Trois libelles cote a
+             cote elargissaient la carte bien au-dela de celle de la pause, alors que les deux
+             recouvrements doivent occuper la meme place. -->
         <item>
-         <layout class="QHBoxLayout" name="summaryRow">
-          <item>
-           <widget class="QLabel" name="elapsedLabel">
-            <property name="alignment"><set>Qt::AlignCenter</set></property>
-            <property name="text"><string>Temps 0:00</string></property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="deathsLabel">
-            <property name="alignment"><set>Qt::AlignCenter</set></property>
-            <property name="text"><string>Morts 0</string></property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="jumpsLabel">
-            <property name="alignment"><set>Qt::AlignCenter</set></property>
-            <property name="text"><string>Sauts 0</string></property>
-           </widget>
-          </item>
-         </layout>
+         <widget class="QLabel" name="summaryLabel">
+          <property name="alignment"><set>Qt::AlignCenter</set></property>
+          <property name="text"><string>Temps 0:00 · Morts 0 · Sauts 0</string></property>
+         </widget>
         </item>
         <item>
          <widget class="hmi::PixelMenuButton" name="continueButton">

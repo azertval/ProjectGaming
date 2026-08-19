@@ -160,6 +160,11 @@ struct IdentityBaseScale {
 /// @return L'échelle de base de la portée identité (`LOT-68`).
 [[nodiscard]] const IdentityBaseScale& identityBaseScale() noexcept;
 
+/// @return Le mélange de @p from et @p to, à la proportion @p ratio (0 = @p from, 1 = @p to).
+/// Sert à **dériver** une nuance d'un jeton plutôt qu'à en écrire une nouvelle en dur : une teinte
+/// littérale ne suivrait pas un changement de palette (`EX-IHM-051`). @p ratio est borné à [0, 1].
+[[nodiscard]] DesignColor mixColor(DesignColor from, DesignColor to, float ratio) noexcept;
+
 /// @return Le mot-clé de famille **générique** CSS correspondant à @p role (`monospace` pour
 /// l'identité pixel art, `sans-serif` pour le châssis d'édition). C'est le repli de la feuille de
 /// style quand aucune police embarquée n'a pu être enregistrée : un mot-clé générique, jamais un

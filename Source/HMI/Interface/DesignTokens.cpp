@@ -125,6 +125,18 @@ void addColorValues(std::unordered_map<std::string, std::string>& values, const 
 
 }  // namespace
 
+DesignColor mixColor(DesignColor from, DesignColor to, float ratio) noexcept {
+    const float t = std::clamp(ratio, 0.0f, 1.0f);
+    const auto blend = [t](std::uint8_t a, std::uint8_t b) {
+        const float mixed = (static_cast<float>(a) * (1.0f - t)) + (static_cast<float>(b) * t);
+        return static_cast<std::uint8_t>(mixed + 0.5f);
+    };
+    return DesignColor{.r = blend(from.r, to.r),
+                       .g = blend(from.g, to.g),
+                       .b = blend(from.b, to.b),
+                       .a = blend(from.a, to.a)};
+}
+
 const IdentityBaseScale& identityBaseScale() noexcept {
     static const IdentityBaseScale scale;
     return scale;

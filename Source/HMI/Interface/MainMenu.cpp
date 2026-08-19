@@ -1,8 +1,12 @@
 #include "HMI/Interface/MainMenu.h"
 
+#include <QColor>
+#include <QPainter>
 #include <QPushButton>
 
+#include "HMI/Interface/ApplicationTheme.h"
 #include "HMI/Interface/DesignTokens.h"
+#include "HMI/Interface/MenuBackdropGeometry.h"
 #include "HMI/Localization/Localization.h"
 #include "ui_MainMenu.h"
 
@@ -51,6 +55,71 @@ void MainMenu::retranslateUi(const Localization& loc) {
 
 void MainMenu::setContinueEnabled(bool enabled) {
     _ui->continueButton->setEnabled(enabled);
+}
+
+void MainMenu::paintEvent(QPaintEvent* event) {
+    // Le decor d'abord, les enfants ensuite : QWidget::paintEvent peint le fond de la feuille de
+    // style, sur lequel on pose les paves, et Qt dessine les boutons par-dessus.
+    QWidget::paintEvent(event);
+
+    const ColorTokens& color = identityTokens().color;
+    // Nuances DERIVEES des jetons (hmi::mixColor) plutot qu'ecrites en dur : une teinte litterale
+    // ne suivrait pas un changement de palette (EX-IHM-051).
+    const auto shade = [&color](const DesignColor& to, float ratio) {
+        return mixColor(color.background, to, ratio);
+    };
+
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing, false);  // EX-IHM-053 : aucun bord adouci.
+    for (const BackdropQuad& quad : menuBackdropQuads(width(), height(), identityScale())) {
+        DesignColor fill{};
+        switch (quad.role) {
+            case BackdropRole::SkyHigh:
+                fill = color.background;
+                break;
+            case BackdropRole::SkyMid:
+                fill = shade(color.surface, 0.55f);
+                break;
+            case BackdropRole::SkyLow:
+                fill = shade(color.surfaceAlt, 0.85f);
+                break;
+            case BackdropRole::Star:
+                fill = color.text;
+                break;
+            case BackdropRole::StarDim:
+                fill = color.textMuted;
+                break;
+            case BackdropRole::Moon:
+                fill = color.text;
+                break;
+            case BackdropRole::MoonCrater:
+                fill = mixColor(color.text, color.textMuted, 0.55f);
+                break;
+            case BackdropRole::Silhouette:
+                // Plan le plus lointain : le plus proche du ciel, pour reculer.
+                fill = shade(color.border, 0.55f);
+                break;
+            case BackdropRole::Hill:
+                fill = shade(color.surface, 0.35f);
+                break;
+            case BackdropRole::Ground:
+                fill = shade(color.surface, 0.20f);
+                break;
+            case BackdropRole::GroundEdge:
+                fill = shade(color.border, 0.35f);
+                break;
+            case BackdropRole::Veil:
+                // Bandes SUPERPOSEES : chacune ajoute la meme opacite faible, et leur empilement
+                // produit le fondu par paliers. Une seule bande opaque cacherait le decor.
+                fill = DesignColor{.r = color.background.r,
+                                   .g = color.background.g,
+                                   .b = color.background.b,
+                                   .a = 90};
+                break;
+        }
+        painter.fillRect(quad.x, quad.y, quad.width, quad.height,
+                         QColor(fill.r, fill.g, fill.b, fill.a));
+    }
 }
 
 }  // namespace hmi

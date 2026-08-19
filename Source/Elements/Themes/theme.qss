@@ -123,6 +123,15 @@
     background: ${identity.color.surfaceAlt};
 }
 
+/* Bilan de fin de tableau : taille de LEGENDE, en retrait. Il informe apres coup, il ne doit ni
+   concurrencer le titre ni elargir la carte -- les deux recouvrements (pause, fin de niveau)
+   doivent occuper la meme place. */
+#LevelCompleteScreen QLabel#summaryLabel {
+    color: ${identity.color.textMuted};
+    font-size: ${identity.size.caption}px;
+    padding: ${identity.space.small}px 0;
+}
+
 /* ---- Credits : hierarchie en-tete / nom / licence ---- */
 #CreditsScreen QLabel#developmentLabel,
 #CreditsScreen QLabel#audioLabel,

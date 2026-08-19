@@ -63,18 +63,17 @@ void LevelCompleteScreen::applyTexts() {
     _ui->returnToMenuButton->setText(
         QString::fromStdString(_loc->text("level_complete.return_to_menu")));
 
-    // Bilan du tableau (LOT-68) : trois chiffres, chacun precede de son libelle traduit. Masque
+    // Bilan du tableau (LOT-68) : trois chiffres sur UNE ligne. Trois libelles en colonnes
+    // elargissaient la carte bien au-dela de celle de la pause, alors que les deux recouvrements
+    // doivent occuper la meme place. Chaque chiffre garde son libelle, ce qui evite au passage
+    // toute question d'accord au pluriel. Masque
     // en fin de sequence, ou le message porte sur la sequence entiere et non sur un tableau -- un
     // bilan y designerait le dernier tableau joue, ce que rien ne dirait a l'ecran.
-    _ui->elapsedLabel->setText(
-        QString::fromStdString(_loc->text("level_complete.elapsed")).arg(_elapsed));
-    _ui->deathsLabel->setText(
-        QString::fromStdString(_loc->text("level_complete.deaths")).arg(_deaths));
-    _ui->jumpsLabel->setText(
-        QString::fromStdString(_loc->text("level_complete.jumps")).arg(_jumps));
-    _ui->elapsedLabel->setVisible(!_sequenceComplete);
-    _ui->deathsLabel->setVisible(!_sequenceComplete);
-    _ui->jumpsLabel->setVisible(!_sequenceComplete);
+    _ui->summaryLabel->setText(QString::fromStdString(_loc->text("level_complete.summary"))
+                                   .arg(_elapsed)
+                                   .arg(_deaths)
+                                   .arg(_jumps));
+    _ui->summaryLabel->setVisible(!_sequenceComplete);
 
     // Fin de séquence : ni « Continuer » (rien où mener après le dernier tableau) ni « Rejouer »
     // (le message de fin porte sur la séquence entière, pas un tableau précis) -- seul le retour
