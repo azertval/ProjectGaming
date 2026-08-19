@@ -179,6 +179,10 @@ private:
                                  const PathOverlayState& pathOverlay);
     /// Compose les poignées de @p handles (carrés double ton, même patron que celles des décors).
     void composePathHandles(const std::vector<PathHandle>& handles);
+    /// @return Un quad plein couvrant @p rect, texturé par la région unie de l'atlas et teinté —
+    /// brique commune des aides d'édition rectangulaires (poignées de décors et de parcours).
+    [[nodiscard]] SpriteQuad solidOverlayQuad(const core::Rect& rect, float r, float g, float b,
+                                              float a) const;
     /// Compose le voile d'aperçu d'une zone (outil Rectangle/Sélection) sur le calque d'édition.
     void composeHighlight(const core::GridPosition& minimum, const core::GridPosition& maximum);
     /// Signale les cases portant une surcharge de texture par instance sur le calque d'édition

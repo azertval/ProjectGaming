@@ -583,21 +583,46 @@ void DraftRenderer::composeMovingPlatformPaths(const core::LevelDraft& draft,
 // Poignees d'un parcours : carres double ton (liseré sombre puis coeur clair), exactement le
 // patron de composeDecorSelection -- lisible sur tout fond (EX-EDIT-030). Les milieux de segment
 // se distinguent par leur couleur : ils AJOUTENT un point, les autres en deplacent un.
+// Rectangle plein d'une aide d'edition, texture par la region unie de l'atlas puis teinte. Etait
+// une lambda locale a composeDecorSelection ; extrait en methode quand les poignees de parcours
+// (LOT-67) en ont eu besoin a leur tour -- une seule definition plutot que deux copies vouees a
+// diverger au premier ajustement.
+SpriteQuad DraftRenderer::solidOverlayQuad(const core::Rect& rect, float r, float g, float b,
+                                           float a) const {
+    const core::AtlasRegion solid = _atlas.tile(0, 0);
+    const float atlasWidth = static_cast<float>(_atlas.width());
+    const float atlasHeight = static_cast<float>(_atlas.height());
+    SpriteQuad quad;
+    quad.x = rect.position.x;
+    quad.y = rect.position.y;
+    quad.width = rect.size.x;
+    quad.height = rect.size.y;
+    quad.u0 = static_cast<float>(solid.x) / atlasWidth;
+    quad.v0 = static_cast<float>(solid.y) / atlasHeight;
+    quad.u1 = static_cast<float>(solid.x + solid.width) / atlasWidth;
+    quad.v1 = static_cast<float>(solid.y + solid.height) / atlasHeight;
+    quad.r = r;
+    quad.g = g;
+    quad.b = b;
+    quad.a = a;
+    return quad;
+}
+
 void DraftRenderer::composePathHandles(const std::vector<PathHandle>& handles) {
     for (const PathHandle& handle : handles) {
         constexpr float OUTSET = 0.015f;
-        _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureView(),
-                         OVERLAY_ORDER_DECOR_HANDLE_DARK,
-                         solidQuad(core::Rect{core::Vector2{handle.rect.position.x - OUTSET,
-                                                            handle.rect.position.y - OUTSET},
-                                              core::Vector2{handle.rect.size.x + (OUTSET * 2.0f),
-                                                            handle.rect.size.y + (OUTSET * 2.0f)}},
-                                   0.02f, 0.05f, 0.08f, 0.95f));
+        _scene.addSprite(
+            RenderLayer::EditorOverlay, _atlas.textureView(), OVERLAY_ORDER_DECOR_HANDLE_DARK,
+            solidOverlayQuad(core::Rect{core::Vector2{handle.rect.position.x - OUTSET,
+                                                      handle.rect.position.y - OUTSET},
+                                        core::Vector2{handle.rect.size.x + (OUTSET * 2.0f),
+                                                      handle.rect.size.y + (OUTSET * 2.0f)}},
+                             0.02f, 0.05f, 0.08f, 0.95f));
         const bool midpoint = handle.kind == PathHandleKind::Midpoint;
         _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureView(),
                          OVERLAY_ORDER_DECOR_HANDLE_BRIGHT,
-                         solidQuad(handle.rect, midpoint ? 0.4f : 0.25f, midpoint ? 0.95f : 0.95f,
-                                   midpoint ? 0.35f : 1.0f, 1.0f));
+                         solidOverlayQuad(handle.rect, midpoint ? 0.4f : 0.25f,
+                                          midpoint ? 0.95f : 0.95f, midpoint ? 0.35f : 1.0f, 1.0f));
     }
 }
 
@@ -724,21 +749,8 @@ void DraftRenderer::composeDecorSelection(const core::LevelDraft& draft,
     const float solidV0 = static_cast<float>(solid.y) / atlasHeight;
     const float solidU1 = static_cast<float>(solid.x + solid.width) / atlasWidth;
     const float solidV1 = static_cast<float>(solid.y + solid.height) / atlasHeight;
-    const auto solidQuad = [&](const core::Rect& rect, float r, float g, float b, float a) {
-        SpriteQuad quad;
-        quad.x = rect.position.x;
-        quad.y = rect.position.y;
-        quad.width = rect.size.x;
-        quad.height = rect.size.y;
-        quad.u0 = solidU0;
-        quad.v0 = solidV0;
-        quad.u1 = solidU1;
-        quad.v1 = solidV1;
-        quad.r = r;
-        quad.g = g;
-        quad.b = b;
-        quad.a = a;
-        return quad;
+    const auto solidQuad = [this](const core::Rect& rect, float r, float g, float b, float a) {
+        return solidOverlayQuad(rect, r, g, b, a);
     };
     // Segment epais entre deux points monde, meme region de texture (unie) que solidQuad -- pour
     // un cadre de selection ORIENTE (LOT-50, revision post-livraison de TACHE-03), contrairement a

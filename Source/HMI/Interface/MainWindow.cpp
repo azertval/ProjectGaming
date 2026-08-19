@@ -986,15 +986,23 @@ void MainWindow::buildUi() {
         connect(dock, &QDockWidget::topLevelChanged, this, [this](bool) { _userPickedTab = true; });
     }
 
-    for (const hmi::EditorTool tool :
-         {hmi::EditorTool::Paint, hmi::EditorTool::Rectangle, hmi::EditorTool::Selection,
-          hmi::EditorTool::Link, hmi::EditorTool::TextureAssign, hmi::EditorTool::Decor,
-          hmi::EditorTool::CameraZone}) {
-        connect(_actions->toolAction(tool), &QAction::toggled, _viewport, [this, tool](bool on) {
-            if (on) {
-                _viewport->setTool(tool);
-            }
-        });
+    // Outils de niveau : la liste est DERIVEE du catalogue, jamais recopiee ici. Une liste ecrite
+    // a la main avait laisse l'outil « Parcours » (LOT-67) cochable dans la barre d'outils sans
+    // etre relie au viewport : le bouton s'allumait, l'outil precedent restait actif.
+    for (const hmi::EditorActionSpec& spec : hmi::editorActionCatalog()) {
+        if (spec.group != hmi::EditorActionGroup::LevelTools) {
+            continue;
+        }
+        const std::optional<hmi::EditorTool> tool = hmi::editorActionTool(spec.id);
+        if (!tool) {
+            continue;
+        }
+        connect(_actions->action(spec.id), &QAction::toggled, _viewport,
+                [this, tool = *tool](bool on) {
+                    if (on) {
+                        _viewport->setTool(tool);
+                    }
+                });
     }
     // Outils du canevas pixel art (LOT-54 TACHE-04) : meme patron que les outils de niveau
     // ci-dessus, sur le groupe d'actions distinct EditorActionGroup::PixelTools. Pas de touche
