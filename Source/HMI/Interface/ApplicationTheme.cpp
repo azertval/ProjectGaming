@@ -124,6 +124,13 @@ ResolvedFamilies& resolvedFamilies() {
     return families;
 }
 
+// Facteur d'agrandissement courant des ecrans du jeu (LOT-68). Meme raison d'etre que les familles
+// resolues ci-dessus : buildStyleSheetValues est pur et ne connait pas la fenetre.
+int& identityScaleState() {
+    static int scale = 1;
+    return scale;
+}
+
 // Enregistre une famille et retourne le nom rapporte par Qt, ou une chaine vide. Les graisses
 // supplementaires sont enregistrees pour que Qt puisse les selectionner, mais seul le nom de la
 // graisse reguliere fait foi -- c'est lui qui nomme la famille.
@@ -168,6 +175,19 @@ std::string resolvedIdentityTitleFamily() {
     return resolvedFamilies().identityTitle;
 }
 
+bool setIdentityScale(int scale) {
+    const int clamped = scale < 1 ? 1 : scale;
+    if (identityScaleState() == clamped) {
+        return false;
+    }
+    identityScaleState() = clamped;
+    return true;
+}
+
+int identityScale() {
+    return identityScaleState();
+}
+
 void applyStyleSheet(const DesignTokens& editorTokens) {
     QFile themeFile(QStringLiteral(":/resources/theme.qss"));
     if (!themeFile.open(QFile::ReadOnly | QFile::Text)) {
@@ -179,7 +199,8 @@ void applyStyleSheet(const DesignTokens& editorTokens) {
     // Les familles de police sont ajoutees ICI et non dans buildStyleSheetValues : ce dernier est
     // pur (compile dans UnitTests, sans Qt) et ne peut pas connaitre un nom resolu par
     // QFontDatabase.
-    std::unordered_map<std::string, std::string> values = buildStyleSheetValues(editorTokens);
+    std::unordered_map<std::string, std::string> values =
+        buildStyleSheetValues(editorTokens, identityScaleState());
     const ResolvedFamilies& families = resolvedFamilies();
     // Seule la portee identite nomme sa famille dans la feuille de style : celle du chassis
     // est deja la police PAR DEFAUT de l'application (applyFont), et la reposer en QSS

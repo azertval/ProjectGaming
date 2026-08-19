@@ -132,6 +132,34 @@ struct DesignTokens {
     SizeTokens size;
 };
 
+/// Grandeurs de la portée **identité**, exprimées en pixels **à l'échelle 1** (`LOT-68`,
+/// `EX-IHM-070`). Distinctes de `TypographyTokens`/`SpacingTokens`, qui restent partagées et
+/// **jamais multipliées** : le châssis d'édition est un outil de travail dont les tailles suivent
+/// les réglages du système, les écrans du jeu sont une image agrandie d'un facteur entier.
+///
+/// En **pixels** et non en points : le pixel art se dimensionne en pixels, et un point vaut une
+/// fraction variable de pixel selon la définition de l'écran — le facteur entier n'aurait alors
+/// plus rien d'entier.
+struct IdentityBaseScale {
+    int screenTitle = 23;   ///< Titre d'écran (police de titre).
+    int sectionTitle = 14;  ///< Entrée de menu, titre de section.
+    int body = 10;          ///< Corps de texte, contrôles.
+    int caption = 8;        ///< Libellé secondaire, aide de touche.
+
+    int spaceSmall = 4;
+    int spaceMedium = 6;
+    int spaceLarge = 8;
+    int spaceExtraLarge = 12;
+
+    int frameThickness = 1;  ///< Contour et biseau d'un cadre : un pixel de maquette chacun.
+
+    [[nodiscard]] friend bool operator==(const IdentityBaseScale&,
+                                         const IdentityBaseScale&) noexcept = default;
+};
+
+/// @return L'échelle de base de la portée identité (`LOT-68`).
+[[nodiscard]] const IdentityBaseScale& identityBaseScale() noexcept;
+
 /// @return Le mot-clé de famille **générique** CSS correspondant à @p role (`monospace` pour
 /// l'identité pixel art, `sans-serif` pour le châssis d'édition). C'est le repli de la feuille de
 /// style quand aucune police embarquée n'a pu être enregistrée : un mot-clé générique, jamais un
@@ -180,6 +208,6 @@ struct DesignTokens {
 /// préfixe "identity." sont toujours résolus depuis `identityTokens()` (portée invariante).
 /// Fonction **pure** : ne dépend que des jetons, jamais de l'état de l'application.
 [[nodiscard]] std::unordered_map<std::string, std::string> buildStyleSheetValues(
-    const DesignTokens& editorTokens);
+    const DesignTokens& editorTokens, int identityScale = 1);
 
 }  // namespace hmi

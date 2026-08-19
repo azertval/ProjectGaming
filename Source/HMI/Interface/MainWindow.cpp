@@ -71,6 +71,7 @@
 #include "HMI/HmiLog.h"
 #include "HMI/Input/GamepadButton.h"
 #include "HMI/Interface/ApplicationTheme.h"
+#include "HMI/Interface/PixelArtScale.h"
 #include "HMI/Interface/CreditsScreen.h"
 #include "HMI/Interface/DesignTokens.h"
 #include "HMI/Interface/EditorActions.h"
@@ -452,6 +453,11 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     _defaultState = saveState(LAYOUT_VERSION);
     restoreLayout();
 
+    // APRES restoreLayout : la geometrie restauree peut differer du resize(1280, 720) ci-dessus,
+    // et c'est la hauteur finale qui decide du facteur. Poser le facteur ici evite que le premier
+    // affichage du menu se fasse a l'echelle 1 avant d'etre corrige par le premier resizeEvent.
+    applyIdentityScale();
+
     showMenu();  // l'application démarre sur le menu principal.
 }
 
@@ -588,6 +594,18 @@ void MainWindow::syncOverlayGeometry() {
 void MainWindow::resizeEvent(QResizeEvent* event) {
     QMainWindow::resizeEvent(event);
     syncOverlayGeometry();
+    applyIdentityScale();
+}
+
+void MainWindow::applyIdentityScale() {
+    // Facteur ENTIER des ecrans du jeu (LOT-68, EX-IHM-070), derive de la hauteur LOGIQUE de la
+    // fenetre : Qt applique la mise a l echelle systeme par-dessus. Le theme n est rejoue que
+    // lorsque le facteur CHANGE -- le refaire a chaque pixel de redimensionnement reconstruirait
+    // la feuille de style des dizaines de fois par seconde.
+    if (!hmi::setIdentityScale(hmi::pixelArtScale(height()))) {
+        return;
+    }
+    hmi::reapplyEditorTheme();
 }
 
 void MainWindow::moveEvent(QMoveEvent* event) {

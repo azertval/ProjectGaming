@@ -125,6 +125,11 @@ void addColorValues(std::unordered_map<std::string, std::string>& values, const 
 
 }  // namespace
 
+const IdentityBaseScale& identityBaseScale() noexcept {
+    static const IdentityBaseScale scale;
+    return scale;
+}
+
 const char* genericCssFamily(FontRole role) noexcept {
     switch (role) {
         case FontRole::Identity:
@@ -191,7 +196,7 @@ double contrastRatio(DesignColor a, DesignColor b) noexcept {
 }
 
 std::unordered_map<std::string, std::string> buildStyleSheetValues(
-    const DesignTokens& editorTokens) {
+    const DesignTokens& editorTokens, int identityScale) {
     std::unordered_map<std::string, std::string> values;
     addColorValues(values, "identity.color", identityTokens().color);
     addColorValues(values, "editor.color", editorTokens.color);
@@ -209,6 +214,19 @@ std::unordered_map<std::string, std::string> buildStyleSheetValues(
     // l'ecrase par le nom REELLEMENT enregistre quand il y en a un. Les declarer ici, et non
     // seulement cote Qt, garantit que tout marqueur du modele a une valeur meme hors application
     // -- et qu'une police manquante degrade au lieu de laisser un marqueur non resolu.
+    // Grandeurs de la portee identite : multipliees par le facteur ENTIER (LOT-68). Le facteur
+    // est borne a 1 au minimum -- une valeur nulle ou negative reduirait les ecrans a rien.
+    const int scale = identityScale < 1 ? 1 : identityScale;
+    const IdentityBaseScale& base = identityBaseScale();
+    values["identity.size.screenTitle"] = std::to_string(base.screenTitle * scale);
+    values["identity.size.sectionTitle"] = std::to_string(base.sectionTitle * scale);
+    values["identity.size.body"] = std::to_string(base.body * scale);
+    values["identity.size.caption"] = std::to_string(base.caption * scale);
+    values["identity.space.small"] = std::to_string(base.spaceSmall * scale);
+    values["identity.space.medium"] = std::to_string(base.spaceMedium * scale);
+    values["identity.space.large"] = std::to_string(base.spaceLarge * scale);
+    values["identity.space.extraLarge"] = std::to_string(base.spaceExtraLarge * scale);
+    values["identity.frame.thickness"] = std::to_string(base.frameThickness * scale);
     values["identity.font.body"] = genericCssFamily(identityTokens().typography.family);
     values["identity.font.title"] = genericCssFamily(identityTokens().typography.family);
     values["tokens.typography.screenTitle.pointSize"] =

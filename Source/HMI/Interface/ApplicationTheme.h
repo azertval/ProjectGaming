@@ -58,6 +58,16 @@ void applyFont();
 /// titre très typée serait illisible en corps de texte.
 [[nodiscard]] std::string resolvedIdentityTitleFamily();
 
+/// Fixe le facteur d'agrandissement **entier** des écrans du jeu (`hmi::pixelArtScale`), relu par
+/// `applyStyleSheet` (`LOT-68`, `EX-IHM-070`). Un réglage, pas un calcul : c'est la fenêtre qui
+/// connaît sa hauteur, et elle seule.
+/// @return `true` si la valeur a changé — l'appelant sait alors qu'il doit rejouer le thème.
+bool setIdentityScale(int scale);
+
+/// @return Le facteur d'agrandissement courant des écrans du jeu (1 tant qu'aucune fenêtre ne l'a
+/// fixé).
+[[nodiscard]] int identityScale();
+
 /// @return Le réglage de thème persisté (`QSettings`), `Système` par défaut.
 [[nodiscard]] EditorThemeSetting editorThemeSetting();
 

@@ -4,6 +4,9 @@
  *        `EX-IHM-051`).
  */
 
+#include <string>
+#include <unordered_map>
+
 #include <gtest/gtest.h>
 
 #include "HMI/Interface/DesignTokens.h"
@@ -214,4 +217,42 @@ TEST(DesignTokensTest, ContrasteSymetriqueEtUnitairePourUneMemeCouleur) {
     EXPECT_NEAR(hmi::contrastRatio(hmi::DesignColor{0, 0, 0}, hmi::DesignColor{255, 255, 255}),
                 hmi::contrastRatio(hmi::DesignColor{255, 255, 255}, hmi::DesignColor{0, 0, 0}),
                 1e-9);
+}
+
+/**
+ * @brief Les grandeurs de la portee identite sont multipliees par le facteur entier, et celles du
+ *        chassis d edition ne le sont JAMAIS (`LOT-68`, `EX-IHM-070`). C est toute la regle : les
+ *        ecrans du jeu sont une image agrandie, l editeur est un outil dont les tailles suivent les
+ *        reglages du systeme.
+ * \castest{<b>Seules les grandeurs d identite suivent le facteur d agrandissement.</b><br/>
+ * \tcat Unitaire · Jetons de design<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Produire les valeurs de feuille de style aux facteurs 1, 2 et 3.<br/>2. Comparer les
+ * marqueurs identity.size.* et tokens.spacing.* entre eux.<br/>
+ * \tattendu Les grandeurs d identite valent la base multipliee par le facteur ; celles du chassis
+ * sont identiques aux trois facteurs.
+ * }
+ */
+TEST(DesignTokensTest, SeulesLesGrandeursDIdentiteSuiventLeFacteur) {
+    const hmi::IdentityBaseScale& base = hmi::identityBaseScale();
+    for (const int scale : {1, 2, 3}) {
+        const std::unordered_map<std::string, std::string> values =
+            hmi::buildStyleSheetValues(hmi::editorDarkTokens(), scale);
+        EXPECT_EQ(values.at("identity.size.screenTitle"), std::to_string(base.screenTitle * scale));
+        EXPECT_EQ(values.at("identity.size.sectionTitle"),
+                  std::to_string(base.sectionTitle * scale));
+        EXPECT_EQ(values.at("identity.size.body"), std::to_string(base.body * scale));
+        EXPECT_EQ(values.at("identity.frame.thickness"),
+                  std::to_string(base.frameThickness * scale));
+        // Le chassis d edition ne bouge pas d un pixel, quel que soit le facteur.
+        EXPECT_EQ(values.at("tokens.spacing.small"),
+                  std::to_string(hmi::editorDarkTokens().spacing.small));
+        EXPECT_EQ(values.at("tokens.typography.screenTitle.pointSize"),
+                  std::to_string(hmi::editorDarkTokens().typography.screenTitle.pointSize));
+    }
+    // Un facteur absurde est ramene a 1 plutot que de reduire les ecrans a rien.
+    EXPECT_EQ(hmi::buildStyleSheetValues(hmi::editorDarkTokens(), 0).at("identity.size.body"),
+              std::to_string(base.body));
+    EXPECT_EQ(hmi::buildStyleSheetValues(hmi::editorDarkTokens(), -4).at("identity.size.body"),
+              std::to_string(base.body));
 }

@@ -92,6 +92,10 @@ protected:
     /// `LOT-59` TACHE-02/03) -- fenêtres de haut niveau positionnées à la main, jamais
     /// redimensionnées automatiquement par `_stack`.
     void resizeEvent(QResizeEvent* event) override;
+    /// Recalcule le facteur d'agrandissement des ecrans du jeu depuis la hauteur courante et
+    /// rejoue le theme s'il a change (LOT-68, EX-IHM-070). Sans effet sur le chassis d'edition,
+    /// dont les grandeurs ne sont jamais multipliees.
+    void applyIdentityScale();
     /// Même resynchronisation que `resizeEvent`, nécessaire en plus de lui : un recouvrement est
     /// une fenêtre de haut niveau positionnée en coordonnées **écran** (`syncOverlayGeometry`),
     /// donc déplacer la fenêtre principale sans la redimensionner (aucun `resizeEvent`) la

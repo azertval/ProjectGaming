@@ -18,70 +18,198 @@
    Marqueurs de grandeur (prefixe tokens.spacing.*) partages entre les deux portees (memes
    echelles). */
 
-/* ===== Identite du jeu : menu principal, ecran Options (INVARIANTE) ===== */
+/* ===== Identite du jeu : les SIX ecrans joueur (INVARIANTE) =====
 
-#MainMenu, #OptionsPage {
+   Portee cadree par objectName, et rien d'autre : c'est ce cadrage, et lui seul, qui empeche la
+   police pixel et les cadres a bordure franche de se repandre dans les tables et les arbres denses
+   de l'editeur, ou ils seraient illisibles (LOT-68, EX-IHM-070).
+
+   Toutes les grandeurs viennent des marqueurs identity.size.* / identity.space.* /
+   identity.frame.thickness, DEJA MULTIPLIES par le facteur entier de hmi::pixelArtScale. Les
+   marqueurs tokens.* de la section suivante ne sont jamais multiplies : le chassis d'edition est un
+   outil de travail dont les tailles suivent les reglages du systeme, les ecrans du jeu sont une
+   image agrandie.
+
+   En pixels et jamais en points : un point vaut une fraction variable de pixel selon l'ecran, et le
+   facteur entier n'aurait alors plus rien d'entier. Aucun border-radius nulle part : un coin
+   arrondi produit un degrade d'anticrenelage que le filtrage au plus proche voisin ne rend pas. */
+
+#MainMenu, #OptionsPage, #PauseScreen, #LevelSelectScreen, #LevelCompleteScreen, #CreditsScreen {
     background-color: ${identity.color.background};
-    /* Police des ecrans du jeu (LOT-68) : posee ICI, cadree par objectName, et nulle part
-       ailleurs -- c'est ce qui empeche la police pixel de se repandre dans les tables et les
-       arbres denses de l'editeur, ou elle serait illisible. Le nom vient de la famille
-       REELLEMENT enregistree (hmi::applyFont) ; s'il manque, le marqueur ne porte qu'un
-       mot-cle CSS generique, jamais un second nom de police. */
     font-family: ${identity.font.body};
+    font-size: ${identity.size.body}px;
+    color: ${identity.color.text};
 }
 
+/* Recouvrements (pause, fin de niveau) : fond translucide pose en code, pas ici -- la couleur de
+   fond opaque ci-dessus les rendrait opaques et cacherait la scene figee derriere. */
+#PauseScreen, #LevelCompleteScreen {
+    background-color: transparent;
+}
+
+/* ---- Titres d'ecran : seconde famille, tres typee, reservee a ce seul usage ---- */
 #MainMenu QLabel#menuTitle,
-#OptionsPage QLabel#optionsTitle {
-    color: ${identity.color.text};
-    /* Titres d'ecran : seconde famille, tres typee, reservee a ce seul usage. */
+#OptionsPage QLabel#optionsTitle,
+#PauseScreen QLabel#pauseTitle,
+#LevelSelectScreen QLabel#titleLabel,
+#LevelCompleteScreen QLabel#titleLabel,
+#CreditsScreen QLabel#creditsTitle {
+    color: ${identity.color.accent};
     font-family: ${identity.font.title};
-    font-size: ${tokens.typography.screenTitle.pointSize}pt;
+    font-size: ${identity.size.screenTitle}px;
     font-weight: bold;
 }
 
-#MainMenu QPushButton {
+/* ---- Cartes des recouvrements : cadre pixel, contour puis biseaux ----
+   Les coins ne sont pas entailles ici (une feuille de style ne sait pas les evider) : les cadres a
+   coins entailles sont peints par hmi::PixelFrameWidget, promu dans les .ui. Cette regle habille
+   les conteneurs ordinaires qui n'ont pas besoin d'un cadre a part entiere. */
+#PauseScreen QWidget#menuCard,
+#LevelCompleteScreen QWidget#menuCard {
+    background-color: ${identity.color.surface};
+    border: ${identity.frame.thickness}px solid ${identity.color.outline};
+    border-top-color: ${identity.color.bevelLight};
+    border-left-color: ${identity.color.bevelLight};
+    border-bottom-color: ${identity.color.bevelDark};
+    border-right-color: ${identity.color.bevelDark};
+    padding: ${identity.space.extraLarge}px;
+}
+
+/* ---- Entrees de menu ----
+   La marque de focus est le CURSEUR peint par hmi::PixelMenuButton, pas cette teinte : une feuille
+   de style ne peut pas ajouter de contenu, et la couleur seule est insuffisante a la manette. */
+#MainMenu QPushButton,
+#PauseScreen QPushButton,
+#LevelCompleteScreen QPushButton,
+#LevelSelectScreen QPushButton,
+#CreditsScreen QPushButton {
     color: ${identity.color.textMuted};
     background: transparent;
     border: none;
+    border-radius: 0;
     text-align: left;
-    padding: ${tokens.spacing.small}px 0;
-    font-size: ${tokens.typography.sectionTitle.pointSize}pt;
+    padding: ${identity.space.small}px ${identity.space.medium}px;
+    font-size: ${identity.size.sectionTitle}px;
     font-weight: bold;
 }
-#MainMenu QPushButton:hover,
-#MainMenu QPushButton:focus {
+#MainMenu QPushButton:hover, #MainMenu QPushButton:focus,
+#PauseScreen QPushButton:hover, #PauseScreen QPushButton:focus,
+#LevelCompleteScreen QPushButton:hover, #LevelCompleteScreen QPushButton:focus,
+#LevelSelectScreen QPushButton:hover, #LevelSelectScreen QPushButton:focus,
+#CreditsScreen QPushButton:hover, #CreditsScreen QPushButton:focus {
     color: ${identity.color.accent};
+}
+#MainMenu QPushButton:disabled,
+#PauseScreen QPushButton:disabled,
+#LevelCompleteScreen QPushButton:disabled {
+    color: ${identity.color.border};
 }
 
-#OptionsPage QTabWidget::pane {
-    border: 1px solid ${identity.color.border};
+/* ---- Listes de niveaux ---- */
+#LevelSelectScreen QListWidget {
     background: ${identity.color.surface};
+    border: ${identity.frame.thickness}px solid ${identity.color.outline};
+    border-radius: 0;
+    font-size: ${identity.size.sectionTitle}px;
+    outline: none;
 }
-#OptionsPage QTabBar::tab {
+#LevelSelectScreen QListWidget::item {
+    padding: ${identity.space.small}px ${identity.space.medium}px;
+    color: ${identity.color.textMuted};
+}
+#LevelSelectScreen QListWidget::item:selected,
+#LevelSelectScreen QListWidget::item:hover {
+    color: ${identity.color.accent};
+    background: ${identity.color.surfaceAlt};
+}
+
+/* ---- Credits : hierarchie en-tete / nom / licence ---- */
+#CreditsScreen QLabel#developmentLabel,
+#CreditsScreen QLabel#audioLabel,
+#CreditsScreen QLabel#graphicsLabel {
+    color: ${identity.color.accent};
+    font-size: ${identity.size.body}px;
+    font-weight: bold;
+}
+#CreditsScreen QLabel#audioCredit,
+#CreditsScreen QLabel#graphicsCredit {
+    color: ${identity.color.textMuted};
+    font-size: ${identity.size.caption}px;
+}
+
+/* ---- Onglets ---- */
+#OptionsPage QTabWidget::pane,
+#LevelSelectScreen QTabWidget::pane {
+    border: ${identity.frame.thickness}px solid ${identity.color.outline};
+    background: ${identity.color.surface};
+    border-radius: 0;
+}
+#OptionsPage QTabBar::tab,
+#LevelSelectScreen QTabBar::tab {
     background: ${identity.color.surfaceAlt};
     color: ${identity.color.textMuted};
-    padding: ${tokens.spacing.small}px ${tokens.spacing.large}px;
+    border: ${identity.frame.thickness}px solid ${identity.color.outline};
+    border-bottom: none;
+    border-radius: 0;
+    padding: ${identity.space.small}px ${identity.space.large}px;
+    font-size: ${identity.size.body}px;
+    font-weight: bold;
 }
-#OptionsPage QTabBar::tab:selected {
-    color: ${identity.color.accent};
-    background: ${identity.color.surface};
+#OptionsPage QTabBar::tab:selected,
+#LevelSelectScreen QTabBar::tab:selected {
+    color: ${identity.color.background};
+    background: ${identity.color.accent};
 }
+
+/* ---- Controles de l'ecran Options ---- */
 #OptionsPage QLabel,
 #OptionsPage QCheckBox,
 #OptionsPage QComboBox {
     color: ${identity.color.text};
+    font-size: ${identity.size.body}px;
+}
+#OptionsPage QCheckBox::indicator {
+    width: ${identity.size.body}px;
+    height: ${identity.size.body}px;
+    border: ${identity.frame.thickness}px solid ${identity.color.outline};
+    background: ${identity.color.surfaceAlt};
+    border-radius: 0;
+}
+#OptionsPage QCheckBox::indicator:checked {
+    background: ${identity.color.accent};
+}
+#OptionsPage QComboBox {
+    background: ${identity.color.surfaceAlt};
+    border: ${identity.frame.thickness}px solid ${identity.color.outline};
+    border-radius: 0;
+    padding: ${identity.space.small}px ${identity.space.medium}px;
+}
+#OptionsPage QSlider::groove:horizontal {
+    background: ${identity.color.surfaceAlt};
+    border: ${identity.frame.thickness}px solid ${identity.color.outline};
+    height: ${identity.space.medium}px;
+}
+#OptionsPage QSlider::sub-page:horizontal {
+    background: ${identity.color.accent};
+}
+#OptionsPage QSlider::handle:horizontal {
+    background: ${identity.color.text};
+    border: ${identity.frame.thickness}px solid ${identity.color.outline};
+    width: ${identity.space.medium}px;
+    margin: -${identity.space.small}px 0;
 }
 #OptionsPage QPushButton {
-    color: ${identity.color.textMuted};
-    background: transparent;
-    border: 1px solid ${identity.color.border};
-    border-radius: 3px;
-    padding: ${tokens.spacing.small}px ${tokens.spacing.large}px;
+    color: ${identity.color.background};
+    background: ${identity.color.accent};
+    border: ${identity.frame.thickness}px solid ${identity.color.outline};
+    border-radius: 0;
+    text-align: center;
+    padding: ${identity.space.small}px ${identity.space.large}px;
+    font-size: ${identity.size.body}px;
 }
 #OptionsPage QPushButton:hover,
 #OptionsPage QPushButton:focus {
-    color: ${identity.color.accent};
-    border-color: ${identity.color.accent};
+    background: ${identity.color.accentHover};
 }
 
 /* ===== Chassis d'edition : tout le reste (VARIABLE) ===== */
