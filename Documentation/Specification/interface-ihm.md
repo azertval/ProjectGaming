@@ -164,6 +164,15 @@ souris, insuffisant à la manette, qui n'a pas de pointeur pour dire où elle en
   rendu) s'expose comme réglage plutôt que de rester derrière une touche non documentée — sans jamais
   en faire un **second** état (`EX-IHM-062`).
 
+- \anchor EX-IHM-073 **EX-IHM-073** — L'éditeur doit se présenter en **espaces de travail
+  exclusifs** (édition de niveau, atelier pixel art) : seuls les panneaux, la barre d'outils et les
+  menus de l'espace **actif** sont affichés, la disposition de chaque espace est persistée
+  séparément (`EX-IHM-011`), et sélectionner un outil bascule sur l'espace auquel il appartient.
+  Afficher les deux ensemble laissait en permanence à l'écran une trentaine de contrôles dont les
+  deux tiers étaient hors contexte, les deux activités ne se pratiquant jamais en même temps. Ce
+  masquage est un **changement d'espace**, décidé par l'utilisateur — à ne pas confondre avec la
+  mise en avant automatique d'`EX-IHM-061`, qui reste une suggestion et ne masque jamais rien.
+
 ## Traçabilité
 Tout ceci relève de `Source/HMI` — depuis le `LOT-38`, l'unique application Qt `ProjectGaming` (rendu
 de jeu Direct3D 11 + widgets Qt répartis par domaine) ; les assets Qt déclaratifs vivent dans

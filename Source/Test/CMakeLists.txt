@@ -98,6 +98,7 @@ add_executable(UnitTests
     Unit/HMI/Interface/test_editor_actions.cpp
     Unit/HMI/Interface/test_screen_flow.cpp
     Unit/HMI/Interface/test_pixel_art_scale.cpp
+    Unit/HMI/Interface/test_editor_workspace.cpp
     Unit/HMI/Interface/test_pixel_frame_geometry.cpp
     Unit/HMI/Editor/test_thumbnail_geometry.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
@@ -315,7 +316,9 @@ add_executable(UnitTests
     ../HMI/Interface/IconGeometry.cpp
     ../HMI/Game/LevelRunStats.cpp
     ../HMI/Interface/PixelArtScale.cpp
+    ../HMI/Interface/EditorWorkspace.cpp
     ../HMI/Interface/PixelFrameGeometry.cpp
+    ../HMI/Interface/MenuBackdropGeometry.cpp
     ../HMI/Interface/ActionCatalog.cpp
     # Dimensionnement des vignettes a l'echelle d'affichage (LOT-56 TACHE-05) : arithmetique pure,
     # aucune dependance Qt/GPU.

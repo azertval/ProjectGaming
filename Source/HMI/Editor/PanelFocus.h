@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <cstddef>
 #include <optional>
 
 #include "HMI/Editor/EditorTool.h"
@@ -17,10 +18,28 @@
 
 namespace hmi {
 
-/// Panneau de droite pouvant être mis en avant (regroupés en onglets, TACHE-02).
-/// `PixelCanvas`/`PixelHistory` rejoignent le regroupement en `LOT-54` TACHE-04 : le canevas et
-/// l'historique visuel de l'atelier pixel art.
-enum class PanelId { Levels, Links, Textures, PixelCanvas, PixelHistory };
+/// Panneau dockable de l'éditeur. Couvre les **neuf** docks depuis le `LOT-68` : la mise en avant
+/// automatique (`EX-IHM-061`) n'en concerne toujours qu'une partie, mais la répartition par espace
+/// de travail (`EX-IHM-073`) les concerne tous, et une énumération partielle laisserait des
+/// panneaux sans espace.
+enum class PanelId {
+    // Espace d'edition de niveau.
+    Palette,
+    Decors,
+    Levels,
+    Links,
+    Properties,
+    Textures,
+    // Espace de l'atelier pixel art.
+    PixelCanvas,
+    PixelHistory,
+    PixelPalette,
+};
+
+/// Nombre de panneaux, declare au plus pres de l'enumeration qu'il compte. Sert de garde de
+/// **completude** a la repartition par espace de travail (`hmi::workspaceForPanel`, `LOT-68`) :
+/// un panneau ajoute sans espace resterait affiche dans les deux, ce qu'un test interdit.
+inline constexpr std::size_t PANEL_COUNT = 9;
 
 /// Une entrée de la table : l'outil @p tool met en avant le panneau @p panel.
 struct PanelFocusEntry {
