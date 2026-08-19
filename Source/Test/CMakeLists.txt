@@ -319,6 +319,7 @@ add_executable(UnitTests
     ../HMI/Interface/EditorWorkspace.cpp
     ../HMI/Interface/PixelFrameGeometry.cpp
     ../HMI/Interface/MenuBackdropGeometry.cpp
+    ../HMI/Interface/KeyHintText.cpp
     ../HMI/Interface/ActionCatalog.cpp
     # Dimensionnement des vignettes a l'echelle d'affichage (LOT-56 TACHE-05) : arithmetique pure,
     # aucune dependance Qt/GPU.

@@ -211,6 +211,7 @@ add_executable(ProjectGaming
     Interface/PixelArtScale.cpp
     Interface/PixelFrameGeometry.cpp
     Interface/MenuBackdropGeometry.cpp
+    Interface/KeyHintText.cpp
     # Widgets Qt de l'habillage pixel art (LOT-68) : peintres au-dessus de la geometrie pure
     # ci-dessus, promus dans les .ui. Non compiles dans UnitTests (dependent de Qt).
     Interface/PixelFrameWidget.cpp

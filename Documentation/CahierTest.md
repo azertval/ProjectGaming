@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**1179 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**1181 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (1074)
+## Tests unitaires (1076)
 
 ### Core
 
@@ -1633,7 +1633,7 @@
 | **PlayerInputMapperTest.BoutonXManetteDeclencheInteragir** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Input/test_player_input_mapper.cpp:404`</sub> | Interagir se déclenche via son bouton manette par défaut (X). | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `input.interactPressed` est vrai. |
 | **PlayerInputMapperTest.RemapperInteragirUtiliseLaNouvelleSource** (Bloquant)<br/><sub>`Source/Test/Unit/HMI/Input/test_player_input_mapper.cpp:422`</sub> | Remapper Interagir réagit à la nouvelle touche/bouton. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::toPlayerInput(withKeys({hmi::Key::F1}), gameKeyBindings, hmi::GamepadBindings{}) .interactPressed` est vrai.<br/>Vérifie que `hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::Y), hmi::GameKeyBindings{}, gamepadBindings) .interactPressed` est vrai. |
 
-#### Interface (47)
+#### Interface (49)
 
 **`test_application_theme.cpp`**
 
@@ -1675,6 +1675,8 @@
 | **EditorActionsTest.GeometrieDesIconesNonVideEtDansLeCadre** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Interface/test_editor_actions.cpp:128`</sub> | La geometrie de chaque icone est non vide et dans le cadre normalise. | 1. Pour chaque action du catalogue, produire sa geometrie.<br/>2. Verifier qu'elle a au moins un trait, et que chaque point est dans [0,1]. | Vérifie que `geometry.strokes.empty()` est faux.<br/>Vérifie que `stroke.points.empty()` est faux.<br/>Vérifie que `point.x` est supérieur ou égal à `0.0f`.<br/>Vérifie que `point.x` est inférieur ou égal à `1.0f`.<br/>Vérifie que `point.y` est supérieur ou égal à `0.0f`.<br/>Vérifie que `point.y` est inférieur ou égal à `1.0f`. |
 | **EditorActionsTest.ChaqueLibelleExisteDansLesDeuxLangues** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Interface/test_editor_actions.cpp:155`</sub> | Chaque cle de libelle du catalogue d'actions existe en francais et en anglais. | 1. Lire fr.lang et en.lang.<br/>2. Verifier que chaque labelKey du catalogue y figure. | Vérifie que `fr.empty()` est faux.<br/>Vérifie que `en.empty()` est faux.<br/>Vérifie que `fr.count(spec.labelKey) > 0` est vrai.<br/>Vérifie que `en.count(spec.labelKey) > 0` est vrai. |
 | **EditorActionsTest.AucuneActionRemappableOrpheline** (Critique)<br/><sub>`Source/Test/Unit/HMI/Interface/test_editor_actions.cpp:178`</sub> | Chaque action d'editeur remappable a une commande effective. | 1. Comparer le nombre d'actions remappables (hors outil) au nombre d'entrees de la table de correspondance.<br/>2. Verifier que chaque entree pointe vers une commande reelle du catalogue et que l'aller-retour restitue l'action d'origine. | Vérifie que `hmi::KEY_BINDING_ICON_COUNT` vaut `hmi::EDITOR_ACTION_COUNT - 1`.<br/>`EXPECT_NO_THROW(static_cast<void>(hmi::editorActionSpec(entry.id)))`<br/>Vérifie que `seen.insert(entry.id).second` est vrai.<br/>Vérifie que `roundTrip.has_value()` est vrai.<br/>Vérifie que `*roundTrip` vaut `entry.action`. |
+| **EditorActionsTest.LaBarreDOutilsNePorteQueLEssentiel** (Critique)<br/><sub>`Source/Test/Unit/HMI/Interface/test_editor_actions.cpp:212`</sub> | La barre d'outils ne porte que les outils et un petit nombre de commandes. | 1. Compter les actions de surface ToolBarAndMenu qui ne sont pas des outils, pour l'espace de niveau puis pour l'atelier. | Vérifie que `isTool` est faux.<br/>Vérifie que `levelCommands` est inférieur ou égal à `hmi::TOOLBAR_COMMAND_BUDGET`.<br/>Vérifie que `pixelCommands` est inférieur ou égal à `hmi::TOOLBAR_COMMAND_BUDGET`.<br/>Vérifie que `toolsInToolBar` vaut `static_cast<int>(hmi::EDITOR_TOOL_COUNT) + 5`. |
+| **EditorActionsTest.AucuneActionOrphelineDeSurface** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Interface/test_editor_actions.cpp:252`</sub> | Chaque action du catalogue reste atteignable par au moins une surface. | 1. Parcourir le catalogue et lire la surface de chaque action. | Vérifie que `spec.surface == hmi::ActionSurface::ToolBarAndMenu \|\| spec.surface == hmi::ActionSurface::MenuOnly` est vrai. |
 
 **`test_editor_workspace.cpp`**
 

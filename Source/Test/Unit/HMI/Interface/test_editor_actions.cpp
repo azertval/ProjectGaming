@@ -200,3 +200,66 @@ TEST(EditorActionsTest, AucuneActionRemappableOrpheline) {
         EXPECT_EQ(*roundTrip, entry.action);
     }
 }
+
+/**
+ * @brief La barre d'outils ne porte que la **sélection d'outil** et un petit nombre de commandes à
+ *        usage continu (`LOT-68`, `EX-IHM-074`). Elle en portait onze, dont neuf figuraient déjà au
+ *        menu : c'est cette accumulation, et non une duplication de définition, qui la rendait
+ *        illisible.
+ *
+ * Le plafond `TOOLBAR_COMMAND_BUDGET` est vérifié **par groupe d'outils** : une barre commune aux
+ * deux espaces ne dirait rien de ce que chacun affiche réellement.
+ * \castest{<b>La barre d'outils ne porte que les outils et un petit nombre de commandes.</b><br/>
+ * \tcat Unitaire · Actions de l'editeur<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Compter les actions de surface ToolBarAndMenu qui ne sont pas des outils, pour
+ * l'espace de niveau puis pour l'atelier.<br/>
+ * \tattendu Chaque compte reste sous TOOLBAR_COMMAND_BUDGET, et tous les outils des deux familles
+ * restent en barre d'outils.
+ * }
+ */
+TEST(EditorActionsTest, LaBarreDOutilsNePorteQueLEssentiel) {
+    int levelCommands = 0;
+    int pixelCommands = 0;
+    int toolsInToolBar = 0;
+    for (const hmi::EditorActionSpec& spec : hmi::editorActionCatalog()) {
+        const bool isTool = spec.group == hmi::EditorActionGroup::LevelTools ||
+                            spec.group == hmi::EditorActionGroup::PixelTools;
+        if (spec.surface != hmi::ActionSurface::ToolBarAndMenu) {
+            EXPECT_FALSE(isTool) << "un outil doit rester selectionnable a la barre d'outils";
+            continue;
+        }
+        if (isTool) {
+            ++toolsInToolBar;
+        } else if (spec.group == hmi::EditorActionGroup::PixelCommands) {
+            ++pixelCommands;
+        } else {
+            ++levelCommands;
+        }
+    }
+    EXPECT_LE(levelCommands, hmi::TOOLBAR_COMMAND_BUDGET)
+        << "la barre d'outils du niveau redevient un fourre-tout";
+    EXPECT_LE(pixelCommands, hmi::TOOLBAR_COMMAND_BUDGET)
+        << "la barre d'outils de l'atelier redevient un fourre-tout";
+    EXPECT_EQ(toolsInToolBar, static_cast<int>(hmi::EDITOR_TOOL_COUNT) + 5)
+        << "les huit outils de niveau et les cinq de canevas doivent tous y figurer";
+}
+
+/**
+ * @brief Aucune action n'est **orpheline de surface** : chacune apparaît au moins au menu. Une
+ *        action absente des deux surfaces n'aurait plus que son raccourci — donc, en pratique,
+ *        n'existerait plus pour qui ne le connaît pas (`EX-EDIT-015`).
+ * \castest{<b>Chaque action du catalogue reste atteignable par au moins une surface.</b><br/>
+ * \tcat Unitaire · Actions de l'editeur<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Parcourir le catalogue et lire la surface de chaque action.<br/>
+ * \tattendu Chaque action vaut ToolBarAndMenu ou MenuOnly ; les deux mènent au menu.
+ * }
+ */
+TEST(EditorActionsTest, AucuneActionOrphelineDeSurface) {
+    for (const hmi::EditorActionSpec& spec : hmi::editorActionCatalog()) {
+        EXPECT_TRUE(spec.surface == hmi::ActionSurface::ToolBarAndMenu ||
+                    spec.surface == hmi::ActionSurface::MenuOnly)
+            << "action sans surface : " << spec.labelKey;
+    }
+}

@@ -2,10 +2,15 @@
 
 #include <QListWidget>
 #include <QListWidgetItem>
+#include <QPixmap>
+#include <QPainter>
 #include <QPushButton>
 #include <Qt>
 
 #include "HMI/Game/Progression.h"
+#include "HMI/Interface/ApplicationTheme.h"
+#include "HMI/Interface/DesignTokens.h"
+#include "HMI/Interface/KeyHintText.h"
 #include "HMI/Localization/Localization.h"
 #include "ui_LevelSelectScreen.h"
 
@@ -80,6 +85,50 @@ void LevelSelectScreen::setPersonalLevels(const std::vector<std::filesystem::pat
     }
 }
 
+namespace {
+
+/// Pastille d'etat d'un niveau (LOT-68) : pleine pour termine, pleine a l'accent pour le tableau
+/// atteint, CREUSE pour verrouille. La couleur ne porte jamais l'information seule -- le suffixe
+/// texte la double, pour qui distingue mal les couleurs (meme raison que le curseur de focus,
+/// EX-IHM-071).
+[[nodiscard]] QPixmap statusPixmap(LevelSelectState state) {
+    const int size = identityBaseScale().body * identityScale();
+    QPixmap pixmap(size, size);
+    pixmap.fill(Qt::transparent);
+
+    const ColorTokens& color = identityTokens().color;
+    DesignColor tint{};
+    switch (state) {
+        case LevelSelectState::Completed:
+            tint = color.accentHover;
+            break;
+        case LevelSelectState::Current:
+            tint = color.accent;
+            break;
+        case LevelSelectState::Locked:
+            tint = color.textMuted;
+            break;
+    }
+    const QColor qtTint(tint.r, tint.g, tint.b);
+
+    QPainter painter(&pixmap);
+    painter.setRenderHint(QPainter::Antialiasing, false);  // EX-IHM-053 : aucun bord adouci.
+    if (state == LevelSelectState::Locked) {
+        // Creuse : un contour d'un pixel de maquette, jamais un aplat grise -- une pastille pleine
+        // et terne se confondrait avec une pastille pleine et coloree en niveaux de gris.
+        const int thickness = identityScale();
+        painter.fillRect(0, 0, size, thickness, qtTint);
+        painter.fillRect(0, size - thickness, size, thickness, qtTint);
+        painter.fillRect(0, 0, thickness, size, qtTint);
+        painter.fillRect(size - thickness, 0, thickness, size, qtTint);
+    } else {
+        painter.fillRect(0, 0, size, size, qtTint);
+    }
+    return pixmap;
+}
+
+}  // namespace
+
 void LevelSelectScreen::rebuildSequenceList(const Localization& loc) {
     _ui->sequenceList->clear();
     for (const auto& [levelName, state] : _sequenceEntries) {
@@ -96,7 +145,7 @@ void LevelSelectScreen::rebuildSequenceList(const Localization& loc) {
                          QString::fromStdString(loc.text("level_select.locked_suffix"));
                 break;
         }
-        auto* item = new QListWidgetItem(label, _ui->sequenceList);
+        auto* item = new QListWidgetItem(statusPixmap(state), label, _ui->sequenceList);
         item->setData(Qt::UserRole, QString::fromStdString(levelName));
         if (state == LevelSelectState::Locked) {
             item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
@@ -112,6 +161,15 @@ void LevelSelectScreen::retranslateUi(const Localization& loc) {
     _loc = &loc;
     _ui->titleLabel->setText(QString::fromStdString(loc.text("level_select.title")));
     _ui->backButton->setText(QString::fromStdString(loc.text("level_select.back")));
+    // Rappels de touches (LOT-68) : la navigation a la manette repose sur le
+    // parcours de focus, encore faut-il savoir quelle touche l'avance.
+    _ui->hintsLabel->setText(QString::fromStdString(hmi::keyHintText(
+        {
+             {.key = loc.text("key.up_down"), .action = loc.text("hint.navigate")},
+             {.key = loc.text("key.left_right"), .action = loc.text("hint.tab")},
+             {.key = loc.text("key.confirm"), .action = loc.text("hint.play")},
+        },
+        identityTokens(), identityScale())));
     _ui->tabs->setTabText(0, QString::fromStdString(loc.text("level_select.tab_sequence")));
     _ui->tabs->setTabText(1, QString::fromStdString(loc.text("level_select.tab_personal")));
     rebuildSequenceList(loc);

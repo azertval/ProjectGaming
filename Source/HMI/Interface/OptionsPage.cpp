@@ -15,7 +15,9 @@
 #include "HMI/Audio/AudioEngine.h"
 #include "HMI/Audio/SoundTriggers.h"
 #include "HMI/Game/GameViewport.h"
+#include "HMI/Interface/ApplicationTheme.h"
 #include "HMI/Interface/DesignTokens.h"
+#include "HMI/Interface/KeyHintText.h"
 #include "HMI/Interface/EditorKeybindingsWidget.h"
 #include "HMI/Interface/GamepadBindingsWidget.h"
 #include "HMI/Interface/KeybindingsWidget.h"
@@ -137,6 +139,14 @@ void OptionsPage::retranslateUi(const Localization& loc) {
     _ui->diagnosticsCheck->setText(t("options.diagnostics_show"));
     _ui->volumeLabel->setText(t("options.volume"));
     _ui->backButton->setText(t("options.back"));
+    // Rappels de touches (LOT-68) : la navigation a la manette repose sur le
+    // parcours de focus, encore faut-il savoir quelle touche l'avance.
+    _ui->hintsLabel->setText(QString::fromStdString(hmi::keyHintText(
+        {
+             {.key = loc.text("key.left_right"), .action = loc.text("hint.tab")},
+             {.key = loc.text("key.back"), .action = loc.text("hint.back")},
+        },
+        hmi::identityTokens(), hmi::identityScale())));
 
     // Onglet Général.
     _ui->languageLabel->setText(t("options.language"));

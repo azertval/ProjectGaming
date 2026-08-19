@@ -459,3 +459,16 @@ pixel_editor.operation.flip_vertical = vertical flip
 pixel_editor.operation.rotate_cw = clockwise rotation
 pixel_editor.operation.rotate_ccw = counter-clockwise rotation
 pixel_editor.operation.paste = paste
+
+# Rappels de touches en bas des ecrans du jeu (LOT-68).
+key.up_down = ↑↓
+key.left_right = ←→
+key.confirm = A
+key.back = B
+key.escape = ESC
+hint.navigate = Navigate
+hint.confirm = Confirm
+hint.back = Back
+hint.tab = Tab
+hint.play = Play
+hint.resume = Resume

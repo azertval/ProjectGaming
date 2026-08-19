@@ -461,3 +461,16 @@ pixel_editor.operation.flip_vertical = symétrie verticale
 pixel_editor.operation.rotate_cw = rotation horaire
 pixel_editor.operation.rotate_ccw = rotation antihoraire
 pixel_editor.operation.paste = collage
+
+# Rappels de touches en bas des ecrans du jeu (LOT-68).
+key.up_down = ↑↓
+key.left_right = ←→
+key.confirm = A
+key.back = B
+key.escape = ÉCHAP
+hint.navigate = Naviguer
+hint.confirm = Valider
+hint.back = Retour
+hint.tab = Onglet
+hint.play = Jouer
+hint.resume = Reprendre

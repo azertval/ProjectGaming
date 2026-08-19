@@ -3,6 +3,9 @@
 #include <QKeyEvent>
 #include <QPushButton>
 
+#include "HMI/Interface/ApplicationTheme.h"
+#include "HMI/Interface/DesignTokens.h"
+#include "HMI/Interface/KeyHintText.h"
 #include "HMI/Localization/Localization.h"
 #include "ui_PauseScreen.h"
 
@@ -58,6 +61,14 @@ void PauseScreen::retranslateUi(const Localization& loc) {
     _ui->restartButton->setText(QString::fromStdString(loc.text("pause.restart")));
     _ui->optionsButton->setText(QString::fromStdString(loc.text("pause.options")));
     _ui->quitButton->setText(QString::fromStdString(loc.text("pause.quit_to_menu")));
+    // Rappels de touches (LOT-68) : la navigation a la manette repose sur le
+    // parcours de focus, encore faut-il savoir quelle touche l'avance.
+    _ui->hintsLabel->setText(QString::fromStdString(hmi::keyHintText(
+        {
+             {.key = loc.text("key.escape"), .action = loc.text("hint.resume")},
+             {.key = loc.text("key.back"), .action = loc.text("hint.back")},
+        },
+        hmi::identityTokens(), hmi::identityScale())));
 }
 
 }  // namespace hmi

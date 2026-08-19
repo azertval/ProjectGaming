@@ -30,6 +30,19 @@ namespace hmi {
 /// niveau.
 enum class EditorActionGroup { None, LevelTools, PixelTools, PixelCommands };
 
+/// Surface d'une action (`LOT-68`, `EX-IHM-074`). `EX-IHM-055` posait qu'une commande placée à
+/// plusieurs endroits reste une seule définition ; il restait à arbitrer **lesquelles** méritent
+/// une place permanente à l'écran.
+///
+/// La barre d'outils ne porte que ce qui se déclenche au fil du geste : sélection d'outil,
+/// enregistrement, annulation, essai. Tout le reste vit au menu — atteignable, découvrable
+/// (`EX-EDIT-015`), mais sans occuper l'écran en permanence. C'est la même `QAction` dans les deux
+/// cas : le champ décide de sa *présentation*, jamais de son existence.
+enum class ActionSurface {
+    ToolBarAndMenu,  ///< Barre d'outils **et** menu : usage continu.
+    MenuOnly,        ///< Menu seul (plus son raccourci) : usage ponctuel.
+};
+
 /// Description d'une action, indépendante de Qt : de quoi construire un `QAction` complet (icône,
 /// libellé, raccourci, caractère cochable) sans dupliquer sa définition ailleurs.
 struct EditorActionSpec {
@@ -39,6 +52,9 @@ struct EditorActionSpec {
     const char* shortcut;
     bool checkable;
     EditorActionGroup group;
+    /// Où l'action apparaît. Porté par le catalogue, et non décidé par le code de la fenêtre :
+    /// une répartition implicite ne se relit pas, et dérive au premier ajout.
+    ActionSurface surface;
 };
 
 /// Nombre total d'actions du catalogue (huit outils de niveau, cinq outils de canevas pixel art,
@@ -54,6 +70,11 @@ editorActionCatalog();
 
 /// @return La spécification de l'action @p id.
 [[nodiscard]] const EditorActionSpec& editorActionSpec(IconId id);
+
+/// Nombre d'actions **hors sélection d'outil** admises dans une barre d'outils (`LOT-68`). Sert de
+/// plafond vérifié par test : c'est le nombre au-delà duquel la barre redevient le fourre-tout que
+/// ce lot supprime, et un plafond qu'on relève sans y penser ne protège de rien.
+constexpr int TOOLBAR_COMMAND_BUDGET = 5;
 
 /// @return L'outil associé à l'action @p id, si elle appartient au groupe `LevelTools` ;
 ///         `std::nullopt` pour une commande ou un outil de canevas pixel art.

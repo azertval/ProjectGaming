@@ -83,10 +83,15 @@ QAction* EditorActions::pixelToolAction(PixelTool tool) const {
 void EditorActions::populateToolBar(QToolBar& toolBar) const {
     // Outils de niveau puis commandes, SANS les outils/commandes de canevas pixel art (groupes
     // distincts, barre d'outils dediee -- populatePixelToolBar, LOT-54 TACHE-04/TACHE-05).
+    //
+    // Le filtre sur `surface` (LOT-68, EX-IHM-074) est ce qui ramene la barre a l'essentiel : les
+    // commandes ponctuelles (grille, recadrage, copier/coller, renommer, apercu des raccourcis)
+    // restent atteignables par le menu et leur raccourci, sans occuper l'ecran en permanence.
     bool separatorInserted = false;
     for (const EditorActionSpec& spec : editorActionCatalog()) {
         if (spec.group == EditorActionGroup::PixelTools ||
-            spec.group == EditorActionGroup::PixelCommands) {
+            spec.group == EditorActionGroup::PixelCommands ||
+            spec.surface != ActionSurface::ToolBarAndMenu) {
             continue;
         }
         if (!separatorInserted && spec.group != EditorActionGroup::LevelTools) {
@@ -102,8 +107,9 @@ void EditorActions::populatePixelToolBar(QToolBar& toolBar) const {
     // meme disposition que populateToolBar (outils de niveau puis commandes).
     bool separatorInserted = false;
     for (const EditorActionSpec& spec : editorActionCatalog()) {
-        if (spec.group != EditorActionGroup::PixelTools &&
-            spec.group != EditorActionGroup::PixelCommands) {
+        if ((spec.group != EditorActionGroup::PixelTools &&
+             spec.group != EditorActionGroup::PixelCommands) ||
+            spec.surface != ActionSurface::ToolBarAndMenu) {
             continue;
         }
         if (!separatorInserted && spec.group == EditorActionGroup::PixelCommands) {

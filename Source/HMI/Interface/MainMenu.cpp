@@ -6,6 +6,7 @@
 
 #include "HMI/Interface/ApplicationTheme.h"
 #include "HMI/Interface/DesignTokens.h"
+#include "HMI/Interface/KeyHintText.h"
 #include "HMI/Interface/MenuBackdropGeometry.h"
 #include "HMI/Localization/Localization.h"
 #include "ui_MainMenu.h"
@@ -51,6 +52,12 @@ void MainMenu::retranslateUi(const Localization& loc) {
     _ui->optionsButton->setText(QString::fromStdString(loc.text("menu.options")));
     _ui->creditsButton->setText(QString::fromStdString(loc.text("menu.credits")));
     _ui->quitButton->setText(QString::fromStdString(loc.text("menu.quit")));
+    _ui->hintsLabel->setText(QString::fromStdString(hmi::keyHintText(
+        {
+         {.key = loc.text("key.up_down"), .action = loc.text("hint.navigate")},
+         {.key = loc.text("key.confirm"), .action = loc.text("hint.confirm")},
+        },
+        hmi::identityTokens(), hmi::identityScale())));
 }
 
 void MainMenu::setContinueEnabled(bool enabled) {

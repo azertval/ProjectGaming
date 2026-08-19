@@ -16,53 +16,61 @@
      <property name="sizeHint" stdset="0"><size><width>0</width><height>0</height></size></property>
     </spacer>
    </item>
+   <!-- Contenu dans un cadre pixel (LOT-68) : la maquette pose les trois sections sur une carte,
+        pas a nu sur le fond. -->
    <item>
-    <widget class="QLabel" name="developmentLabel">
-     <property name="text"><string>Développement</string></property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="developmentCredit">
-     <!-- Nom propre : jamais traduit, cf. CreditsScreen::retranslateUi. -->
-     <property name="text"><string>Valentin Eloy</string></property>
-    </widget>
-   </item>
-   <item>
-    <spacer name="sectionSpacer">
-     <property name="orientation"><enum>Qt::Vertical</enum></property>
-     <property name="sizeHint" stdset="0"><size><width>0</width><height>0</height></size></property>
-    </spacer>
-   </item>
-   <item>
-    <widget class="QLabel" name="audioLabel">
-     <property name="text"><string>Musique et bruitages</string></property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="audioCredit">
-     <!-- Noms propres et licence : jamais traduits. Detail complet dans
-          Source/Elements/Audio/CREDITS.md (fichier par fichier). -->
-     <property name="wordWrap"><bool>true</bool></property>
-     <property name="text"><string>Kenney (www.kenney.nl) — Digital Audio, Impact Sounds, RPG Audio, Interface Sounds — licence CC0 1.0 Universal (domaine public)</string></property>
-    </widget>
-   </item>
-   <item>
-    <spacer name="graphicsSpacer">
-     <property name="orientation"><enum>Qt::Vertical</enum></property>
-     <property name="sizeHint" stdset="0"><size><width>0</width><height>0</height></size></property>
-    </spacer>
-   </item>
-   <item>
-    <widget class="QLabel" name="graphicsLabel">
-     <property name="text"><string>Graphismes</string></property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="graphicsCredit">
-     <!-- Noms propres et licence : jamais traduits. Detail complet dans
-          Source/Elements/Assets/CREDITS.md (fichier par fichier). -->
-     <property name="wordWrap"><bool>true</bool></property>
-     <property name="text"><string>Kenney (www.kenney.nl) — Platformer Pack Remastered, Platformer Pack: Industrial — licence CC0 1.0 Universal (domaine public)</string></property>
+    <widget class="hmi::PixelFrameWidget" name="creditsCard">
+     <layout class="QVBoxLayout" name="cardLayout">
+       <item>
+        <widget class="QLabel" name="developmentLabel">
+         <property name="text"><string>Développement</string></property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="developmentCredit">
+         <!-- Nom propre : jamais traduit, cf. CreditsScreen::retranslateUi. -->
+         <property name="text"><string>Valentin Eloy</string></property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="sectionSpacer">
+         <property name="orientation"><enum>Qt::Vertical</enum></property>
+         <property name="sizeHint" stdset="0"><size><width>0</width><height>0</height></size></property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="audioLabel">
+         <property name="text"><string>Musique et bruitages</string></property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="audioCredit">
+         <!-- Noms propres et licence : jamais traduits. Detail complet dans
+              Source/Elements/Audio/CREDITS.md (fichier par fichier). -->
+         <property name="wordWrap"><bool>true</bool></property>
+         <property name="text"><string>Kenney (www.kenney.nl) — Digital Audio, Impact Sounds, RPG Audio, Interface Sounds — licence CC0 1.0 Universal (domaine public)</string></property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="graphicsSpacer">
+         <property name="orientation"><enum>Qt::Vertical</enum></property>
+         <property name="sizeHint" stdset="0"><size><width>0</width><height>0</height></size></property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="graphicsLabel">
+         <property name="text"><string>Graphismes</string></property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="graphicsCredit">
+         <!-- Noms propres et licence : jamais traduits. Detail complet dans
+              Source/Elements/Assets/CREDITS.md (fichier par fichier). -->
+         <property name="wordWrap"><bool>true</bool></property>
+         <property name="text"><string>Kenney (www.kenney.nl) — Platformer Pack Remastered, Platformer Pack: Industrial — licence CC0 1.0 Universal (domaine public)</string></property>
+        </widget>
+       </item>
+    </layout>
     </widget>
    </item>
    <item>
@@ -80,11 +88,24 @@
        <property name="sizeHint" stdset="0"><size><width>0</width><height>0</height></size></property>
       </spacer>
      </item>
+     <item>
+      <widget class="QLabel" name="hintsLabel">
+       <property name="text"><string/></property>
+       <property name="textFormat"><enum>Qt::RichText</enum></property>
+       <property name="alignment"><set>Qt::AlignRight|Qt::AlignVCenter</set></property>
+      </widget>
+     </item>
     </layout>
    </item>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>hmi::PixelFrameWidget</class>
+   <extends>QWidget</extends>
+   <header>HMI/Interface/PixelFrameWidget.h</header>
+   <container>1</container>
+  </customwidget>
   <customwidget>
    <class>hmi::PixelMenuButton</class>
    <extends>QPushButton</extends>

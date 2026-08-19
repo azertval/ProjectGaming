@@ -70,6 +70,15 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="hintsLabel">
+     <!-- Rappels de touches (LOT-68) : texte enrichi compose en code depuis les jetons
+          (hmi::keyHintText). Vide ici : retranslateUi le remplit. -->
+     <property name="text"><string/></property>
+     <property name="textFormat"><enum>Qt::RichText</enum></property>
+     <property name="alignment"><set>Qt::AlignLeft|Qt::AlignVCenter</set></property>
+    </widget>
+   </item>
+   <item>
     <spacer name="bottomSpacer">
      <property name="orientation"><enum>Qt::Vertical</enum></property>
      <property name="sizeHint" stdset="0"><size><width>0</width><height>40</height></size></property>
