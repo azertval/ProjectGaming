@@ -671,6 +671,13 @@ void MainWindow::openLevelComplete() {
     const QString displayName =
         QString::fromStdString(std::filesystem::path(finishedLevel).stem().string());
     _levelCompleteScreen->configure(sequenceComplete, displayName);
+    // Bilan du tableau (LOT-68) : lu AVANT toute transition d'ecran, tant que le viewport porte
+    // encore les compteurs du tableau qui vient d'etre termine.
+    const hmi::LevelRunStats& stats = _viewport->runStats();
+    _levelCompleteScreen->setRunSummary(
+        QString::fromStdString(
+            hmi::formatElapsed(hmi::elapsedSeconds(stats, _viewport->fixedDeltaSeconds()))),
+        stats.deaths, stats.jumps);
     if (!transitionScreen(ScreenEvent::LevelSucceeded)) {
         return;
     }

@@ -1033,6 +1033,11 @@ void GameViewport::tick() {
         for (int step = 0; step < steps; ++step) {
             const core::LevelOutcome outcome =
                 _session ? _session->update(_input, fixedDelta) : core::LevelOutcome::Playing;
+            // Bilan du tableau (LOT-68) : compte au PAS, pour la meme raison que les sons
+            // ci-dessous -- une mesure a l'image dependrait de la cadence de rendu.
+            if (_session && _gameMode) {
+                accumulateStep(_runStats, _session->lastStepEvents());
+            }
             // Sons de jeu (LOT-60 TACHE-03) : un evenement par pas, jamais par image de rendu --
             // lastStepEvents() reflete exactement CE pas, celui qui vient de s'executer.
             if (_session && _audioEngine) {
@@ -1519,6 +1524,9 @@ void GameViewport::loadGameLevel(std::size_t index) {
         return;
     }
     _gameLevel = index;
+    // Bilan remis a zero A CHAQUE entree dans un tableau, rejeu compris : c'est le bilan DE CE
+    // passage, pas un cumul de la session.
+    _runStats = LevelRunStats{};
     HMI_LOG_INFO("Jeu : niveau " + std::to_string(index) +
                  " charge : " + _gameLevels[index].filename().string());
     _session.emplace(*_spriteBatch, *_atlas, *_textureCache, pixelWidth(), pixelHeight(),

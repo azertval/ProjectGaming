@@ -190,6 +190,7 @@ add_executable(ProjectGaming
     Game/GameHud.cpp
     Game/DiagnosticsHud.cpp
     Game/GameEvents.cpp
+    Game/LevelRunStats.cpp
     # Localisation
     Localization/Localization.cpp
     # Audio (bruitages, LOT-60)

@@ -42,6 +42,13 @@ void LevelCompleteScreen::configure(bool sequenceComplete, const QString& levelN
     applyTexts();
 }
 
+void LevelCompleteScreen::setRunSummary(const QString& elapsed, int deaths, int jumps) {
+    _elapsed = elapsed;
+    _deaths = deaths;
+    _jumps = jumps;
+    applyTexts();
+}
+
 void LevelCompleteScreen::retranslateUi(const Localization& loc) {
     _loc = &loc;
     applyTexts();
@@ -55,6 +62,19 @@ void LevelCompleteScreen::applyTexts() {
     _ui->replayButton->setText(QString::fromStdString(_loc->text("level_complete.replay")));
     _ui->returnToMenuButton->setText(
         QString::fromStdString(_loc->text("level_complete.return_to_menu")));
+
+    // Bilan du tableau (LOT-68) : trois chiffres, chacun precede de son libelle traduit. Masque
+    // en fin de sequence, ou le message porte sur la sequence entiere et non sur un tableau -- un
+    // bilan y designerait le dernier tableau joue, ce que rien ne dirait a l'ecran.
+    _ui->elapsedLabel->setText(
+        QString::fromStdString(_loc->text("level_complete.elapsed")).arg(_elapsed));
+    _ui->deathsLabel->setText(
+        QString::fromStdString(_loc->text("level_complete.deaths")).arg(_deaths));
+    _ui->jumpsLabel->setText(
+        QString::fromStdString(_loc->text("level_complete.jumps")).arg(_jumps));
+    _ui->elapsedLabel->setVisible(!_sequenceComplete);
+    _ui->deathsLabel->setVisible(!_sequenceComplete);
+    _ui->jumpsLabel->setVisible(!_sequenceComplete);
 
     // Fin de séquence : ni « Continuer » (rien où mener après le dernier tableau) ni « Rejouer »
     // (le message de fin porte sur la séquence entière, pas un tableau précis) -- seul le retour

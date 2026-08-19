@@ -21,6 +21,7 @@
 #include "HMI/Editor/PathGesture.h"
 #include "HMI/Game/DiagnosticsHud.h"
 #include "HMI/Game/GameSession.h"
+#include "HMI/Game/LevelRunStats.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/LayerVisibility.h"
 #include "HMI/Graphics/RenderMode.h"
@@ -223,6 +224,13 @@ public:
      * accumulé pendant que rien n'était mesuré.
      */
     void toggleDiagnosticsOverlay() noexcept;
+
+    /// @return Le bilan du tableau en cours (`LOT-68`) : pas de simulation, morts, sauts. Remis à
+    /// zéro à chaque entrée dans un tableau, en rejouant comme en avançant.
+    [[nodiscard]] const LevelRunStats& runStats() const noexcept { return _runStats; }
+
+    /// @return La durée d'un pas de simulation, pour convertir `runStats()` en secondes.
+    [[nodiscard]] float fixedDeltaSeconds() const noexcept { return _timestep.fixedDeltaSeconds(); }
 
     /// @return `true` si le compteur de diagnostic est actuellement affiché.
     [[nodiscard]] bool diagnosticsOverlayEnabled() const noexcept { return _diagnosticsEnabled; }
@@ -690,6 +698,8 @@ private:
 
     /// Compteur de diagnostic (`F9`, `LOT-62` TACHE-02) : désactivé par défaut (`EX-NFR-040`,
     /// point de départ sans effet visuel ni coût).
+    /// Bilan du tableau en cours (LOT-68) : alimenté au PAS, jamais à l'image de rendu.
+    LevelRunStats _runStats;
     bool _diagnosticsEnabled = false;
     /// Moyenne glissante de la cadence de rendu, alimentée uniquement quand `_diagnosticsEnabled`
     /// est vrai (rien n'est calculé quand l'affichage est éteint).

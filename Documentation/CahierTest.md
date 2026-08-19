@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**1171 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**1174 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (1066)
+## Tests unitaires (1069)
 
 ### Core
 
@@ -998,7 +998,7 @@
 | **TileTaxonomy.ChaqueTypeFigureExactementUneFois** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_tile_taxonomy.cpp:38`</sub> | Chaque type de tuile figure exactement une fois dans la taxonomie. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `types.size()` vaut `TILE_TYPE_COUNT`.<br/>Vérifie que `unique.size()` vaut `types.size()`.<br/>Vérifie que `unique.size()` vaut `TILE_TYPE_COUNT`. |
 | **TileTaxonomy.ChaqueEntreeAUnLibelle** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_tile_taxonomy.cpp:60`</sub> | Chaque catégorie, sous-groupe et tuile de la taxonomie porte un libellé non vide. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `category.label.empty()` est faux.<br/>Vérifie que `entry.label.empty()` est faux.<br/>Vérifie que `subgroup.label.empty()` est faux.<br/>Vérifie que `entry.label.empty()` est faux. |
 
-#### Game (45)
+#### Game (48)
 
 **`test_diagnostics_hud.cpp`**
 
@@ -1046,6 +1046,14 @@
 | **GameHudTest.CompteurSuitLaDecroissanceDuBudget** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_hud.cpp:100`</sub> | Le compteur affiché suit immédiatement la décroissance du budget. | 1. Composer les lignes avec 3 sauts restants, puis avec 2 (après un saut simulé).<br/> 2. Comparer les deux résultats. | Vérifie que `hmi::gameHudLines(player, "Niveau", localization)[0]` vaut `"Sauts : 3"`.<br/>Vérifie que `hmi::gameHudLines(player, "Niveau", localization)[0]` vaut `"Sauts : 2"`. |
 | **GameHudTest.ClesDeTraductionExistentDansLesDeuxCatalogues** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_hud.cpp:123`</sub> | Les clés de traduction du HUD existent dans les deux catalogues livrés. | 1. Charger fr.lang puis en.lang depuis les catalogues livrés.<br/>2. Résoudre les clés du HUD. | Vérifie que `localization.loadDefaultLanguage(language)` est vrai.<br/>Vérifie que `localization.text("hud.jumps_remaining")` diffère de `"hud.jumps_remaining"`.<br/>Vérifie que `localization.text("hud.dashes_remaining")` diffère de `"hud.dashes_remaining"`.<br/>Vérifie que `localization.text("hud.interact_prompt")` diffère de `"hud.interact_prompt"`. |
 | **GameHudTest.InviteInteragirSeulementAuContactDUneCle** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_game_hud.cpp:151`</sub> | L'invite « Interagir » n'apparaît qu'au contact d'une clé non ramassée, en première ligne du HUD. | 1. Composer le HUD hors contact d'une clé.<br/>2. Le composer au contact d'une clé non ramassée. | Vérifie que `sansCle.size()` vaut `1u`.<br/>Vérifie que `sansCle[0]` vaut `"Cle"`.<br/>Vérifie que `surUneCle.size()` vaut `2u`.<br/>Vérifie que `surUneCle[0]` vaut `"Interagir pour ramasser"`.<br/>Vérifie que `surUneCle[1]` vaut `"Cle"`.<br/>Vérifie que `avecBudget.size()` vaut `3u`.<br/>Vérifie que `avecBudget[0]` vaut `"Interagir pour ramasser"`.<br/>Vérifie que `avecBudget[1]` vaut `"Sauts : 2"`.<br/>Vérifie que `avecBudget[2]` vaut `"Cle"`. |
+
+**`test_level_run_stats.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **LevelRunStatsTest.CompteLesPasLesMortsEtLesSauts** (Critique)<br/><sub>`Source/Test/Unit/HMI/Game/test_level_run_stats.cpp:16`</sub> | Le bilan compte les pas, les morts et les sauts, et rien d'autre. | 1. Accumuler un pas vide, un pas avec un saut, un pas avec une mort, un pas melangeant un saut et des evenements sans rapport. | Vérifie que `stats.simulationSteps` vaut `4`.<br/>Vérifie que `stats.jumps` vaut `2`.<br/>Vérifie que `stats.deaths` vaut `1`. |
+| **LevelRunStatsTest.DureeDeriveeDesPas** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_level_run_stats.cpp:43`</sub> | La duree derive du nombre de pas et du pas fixe. | 1. Convertir 120 pas a 1/60 s.<br/>2. Convertir un bilan vide, puis avec un pas fixe nul et negatif. | Vérifie que `hmi::elapsedSeconds(stats, 1.0f / 60.0f)` vaut `2.0f`, à `1e-4` près.<br/>Vérifie que `hmi::elapsedSeconds(hmi::LevelRunStats{}, 1.0f / 60.0f)` vaut `0.0f`.<br/>Vérifie que `hmi::elapsedSeconds(stats, 0.0f)` vaut `0.0f`.<br/>Vérifie que `hmi::elapsedSeconds(stats, -1.0f)` vaut `0.0f`. |
+| **LevelRunStatsTest.MiseEnFormeTronqueLesSecondes** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_level_run_stats.cpp:65`</sub> | La duree est mise en forme en tronquant les secondes. | 1. Mettre en forme des durees courtes, une duree juste sous la minute ronde, une duree de plus d'une heure et une duree negative. | Vérifie que `hmi::formatElapsed(0.0f)` vaut `"0:00"`.<br/>Vérifie que `hmi::formatElapsed(9.9f)` vaut `"0:09"`.<br/>Vérifie que `hmi::formatElapsed(119.7f)` vaut `"1:59"`.<br/>Vérifie que `hmi::formatElapsed(102.0f)` vaut `"1:42"`.<br/>Vérifie que `hmi::formatElapsed(3661.0f)` vaut `"1:01:01"`.<br/>Vérifie que `hmi::formatElapsed(-5.0f)` vaut `"0:00"`. |
 
 **`test_progression.cpp`**
 

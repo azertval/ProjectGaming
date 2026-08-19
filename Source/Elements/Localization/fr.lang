@@ -30,6 +30,9 @@ level_complete.title_sequence = Séquence terminée !
 level_complete.continue = Continuer
 level_complete.replay = Rejouer
 level_complete.return_to_menu = Retour au menu
+level_complete.elapsed = Temps %1
+level_complete.deaths = Morts %1
+level_complete.jumps = Sauts %1
 
 # Séquence de niveaux (LOT-59 TACHE-04)
 sequence.demo.title = Séquence de démonstration

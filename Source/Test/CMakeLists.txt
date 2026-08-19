@@ -88,6 +88,7 @@ add_executable(UnitTests
     Unit/HMI/Game/test_diagnostics_hud.cpp
     Unit/HMI/Game/test_progression.cpp
     Unit/HMI/Game/test_game_events.cpp
+    Unit/HMI/Game/test_level_run_stats.cpp
     Unit/HMI/Audio/test_sound_triggers.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
@@ -312,6 +313,7 @@ add_executable(UnitTests
     # (listes de primitives, tables statiques), aucune dependance Qt (le rendu QPainter reel reste
     # dans ThemeIcons.cpp/EditorActions.cpp, non compiles ici).
     ../HMI/Interface/IconGeometry.cpp
+    ../HMI/Game/LevelRunStats.cpp
     ../HMI/Interface/PixelArtScale.cpp
     ../HMI/Interface/PixelFrameGeometry.cpp
     ../HMI/Interface/ActionCatalog.cpp
