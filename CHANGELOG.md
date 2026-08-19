@@ -6,6 +6,28 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+### Interface (LOT-68)
+
+- Les six écrans du jeu passent en **pixel art** : police bitmap embarquée (Pixelify Sans, Press
+  Start 2P), cadres à bordure franche et coins entaillés, décor au menu principal, et une échelle
+  d'agrandissement **entière** dérivée de la taille de la fenêtre — l'interface n'est plus figée à
+  une taille visiblement petite dès qu'on dépasse la définition d'un portable.
+- L'élément focalisé porte désormais un **curseur** et non une simple nuance de couleur : la
+  navigation à la manette n'a pas de pointeur pour dire où elle en est.
+- L'écran de fin de tableau affiche un **bilan** : temps, morts et sauts. Le temps est compté en pas
+  de simulation, donc comparable d'une machine à l'autre.
+- L'écran Options perd ses sélecteurs de **résolution** et de **limite d'images/s**, grisés et jamais
+  branchés, et gagne un réglage qui agit : l'affichage du **compteur de diagnostic**, jusqu'ici
+  atteignable par la seule touche `F9`.
+- La barre d'outils de l'éditeur ne porte plus que les outils et quatre commandes à usage continu :
+  elle en portait onze, dont neuf figuraient déjà au menu.
+- La barre de menus est réorganisée **par nature d'action** (Fichier, Édition, Niveau, Affichage,
+  Atelier, Aide), et les réglages nombreux passent en sous-menus — le menu Affichage alignait
+  vingt-trois entrées à plat.
+- L'éditeur se présente en **espaces de travail exclusifs** : édition de niveau ou atelier pixel art.
+  Chacun n'affiche que ses panneaux et sa barre d'outils, et retient sa propre disposition.
+
+
 ### Ajouté
 - **Route multi-points pour les plateformes mobiles** (`LOT-67`, `EX-GP-054`) : une plateforme suit
   désormais une suite de points de passage, parcourue en aller-retour ou en **circuit fermé**, à
