@@ -22,11 +22,19 @@
 
 #MainMenu, #OptionsPage {
     background-color: ${identity.color.background};
+    /* Police des ecrans du jeu (LOT-68) : posee ICI, cadree par objectName, et nulle part
+       ailleurs -- c'est ce qui empeche la police pixel de se repandre dans les tables et les
+       arbres denses de l'editeur, ou elle serait illisible. Le nom vient de la famille
+       REELLEMENT enregistree (hmi::applyFont) ; s'il manque, le marqueur ne porte qu'un
+       mot-cle CSS generique, jamais un second nom de police. */
+    font-family: ${identity.font.body};
 }
 
 #MainMenu QLabel#menuTitle,
 #OptionsPage QLabel#optionsTitle {
     color: ${identity.color.text};
+    /* Titres d'ecran : seconde famille, tres typee, reservee a ce seul usage. */
+    font-family: ${identity.font.title};
     font-size: ${tokens.typography.screenTitle.pointSize}pt;
     font-weight: bold;
 }

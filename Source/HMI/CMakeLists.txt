@@ -205,6 +205,10 @@ add_executable(ProjectGaming
     Interface/ThemeResolution.cpp
     Interface/ApplicationTheme.cpp
     Interface/IconGeometry.cpp
+    # Habillage pixel art des ecrans du jeu (LOT-68) : logique pure, compilee aussi
+    # dans UnitTests (cf. Source/Test/CMakeLists.txt).
+    Interface/PixelArtScale.cpp
+    Interface/PixelFrameGeometry.cpp
     Interface/ThemeIcons.cpp
     Interface/ActionCatalog.cpp
     Interface/EditorActions.cpp

@@ -4,6 +4,7 @@
  *        `EX-IHM-050`, `EX-IHM-051`) et police/typographie (TACHE-03, `EX-IHM-052`).
  */
 
+#include <cstdint>
 #include <fstream>
 #include <regex>
 #include <sstream>
@@ -96,46 +97,42 @@ TEST(ApplicationThemeTest, AucuneCouleurLitteraleDansLeModeleReel) {
  * \castest{<b>Les regles d'identite sont etanches au theme de l'editeur.</b><br/>
  * \tcat Unitaire · Theme de l'IHM<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Substituer le modele reel avec deux jeux de valeurs 'editor.*' distincts, memes
- * valeurs 'identity.*'.<br/>2. Extraire les blocs `#MainMenu`/`#OptionsPage` des deux
- * resultats.<br/> \tattendu Les deux extraits sont identiques au caractere pres.
+ * \tetapes 1. Substituer le modele reel avec deux jeux de jetons d'editeur de couleurs
+ * differentes, les valeurs derivant de buildStyleSheetValues.<br/>2. Extraire les blocs
+ * `#MainMenu`/`#OptionsPage` des deux resultats.<br/> \tattendu Les deux extraits sont identiques
+ * au caractere pres.
  * }
  */
 TEST(ApplicationThemeTest, EtancheiteDesPortees) {
     const std::string themeText = readThemeTemplate();
     ASSERT_FALSE(themeText.empty()) << "theme.qss introuvable a PROJECTGAMING_THEME_PATH";
 
-    const std::unordered_map<std::string, std::string> identity{
-        {"identity.color.background", "#1a1f29"},
-        {"identity.color.surface", "#1e2531"},
-        {"identity.color.surfaceAlt", "#232a36"},
-        {"identity.color.border", "#333a48"},
-        {"identity.color.text", "#f2f2ff"},
-        {"identity.color.textMuted", "#b3b8c7"},
-        {"identity.color.accent", "#ffd133"},
-        {"identity.color.accentHover", "#ffdb5c"},
-        {"identity.color.error", "#ff5c5c"},
-        {"tokens.spacing.extraSmall", "4"},
-        {"tokens.spacing.small", "8"},
-        {"tokens.spacing.medium", "12"},
-        {"tokens.spacing.large", "16"},
-        {"tokens.spacing.extraLarge", "24"},
-        {"tokens.typography.screenTitle.pointSize", "32"},
-        {"tokens.typography.sectionTitle.pointSize", "16"}};
-
-    auto valuesWithEditor = [&](const std::string& suffix) {
-        std::unordered_map<std::string, std::string> values = identity;
-        for (const char* role : {"background", "surface", "surfaceAlt", "border", "text",
-                                 "textMuted", "accent", "accentHover", "error"}) {
-            values[std::string("editor.color.") + role] = std::string("#") + suffix;
-        }
-        return values;
+    // Les valeurs sont DERIVEES de buildStyleSheetValues, jamais recopiees : une liste ecrite a la
+    // main ici devrait etre etendue a chaque marqueur ajoute au modele, et ne le serait pas -- le
+    // test echouerait alors sur un "marqueur inconnu" qui n'a rien a voir avec l'etancheite qu'il
+    // verifie. Seules les couleurs de l'EDITEUR sont forcees, puisque c'est la variable du test.
+    auto valuesWithEditor = [&](std::uint8_t level) {
+        hmi::DesignTokens editorTokens = hmi::editorDarkTokens();
+        const hmi::DesignColor uniform{.r = level, .g = level, .b = level};
+        editorTokens.color.background = uniform;
+        editorTokens.color.surface = uniform;
+        editorTokens.color.surfaceAlt = uniform;
+        editorTokens.color.border = uniform;
+        editorTokens.color.text = uniform;
+        editorTokens.color.textMuted = uniform;
+        editorTokens.color.accent = uniform;
+        editorTokens.color.accentHover = uniform;
+        editorTokens.color.error = uniform;
+        editorTokens.color.outline = uniform;
+        editorTokens.color.bevelLight = uniform;
+        editorTokens.color.bevelDark = uniform;
+        return hmi::buildStyleSheetValues(editorTokens);
     };
 
     const hmi::StyleSheetSubstitutionResult dark =
-        hmi::substituteStyleSheetTemplate(themeText, valuesWithEditor("111111"));
+        hmi::substituteStyleSheetTemplate(themeText, valuesWithEditor(0x11));
     const hmi::StyleSheetSubstitutionResult light =
-        hmi::substituteStyleSheetTemplate(themeText, valuesWithEditor("eeeeee"));
+        hmi::substituteStyleSheetTemplate(themeText, valuesWithEditor(0xee));
     ASSERT_TRUE(dark.ok) << dark.error;
     ASSERT_TRUE(light.ok) << light.error;
 

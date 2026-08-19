@@ -53,6 +53,13 @@ struct ColorTokens {
     DesignColor accent;       ///< Couleur d'accent (sélection, focus, contrôle actif).
     DesignColor accentHover;  ///< Couleur d'accent au survol.
     DesignColor error;        ///< Signalement d'erreur/d'échec.
+    // Rôles du cadre pixel art (LOT-68, EX-IHM-070). Ajoutés aux DEUX portées : la structure est
+    // commune par construction, ce qui garantit qu'un rôle ajouté à l'une existe dans l'autre.
+    // Le châssis d'édition les définit sans les dessiner en cadre — il s'en sert pour ses bordures
+    // et ses séparateurs, où ils tenaient déjà lieu de `border` éclairci/assombri.
+    DesignColor outline;     ///< Contour extérieur d'un cadre : la valeur la plus sombre.
+    DesignColor bevelLight;  ///< Biseau haut/gauche (la lumière vient d'en haut à gauche).
+    DesignColor bevelDark;   ///< Biseau bas/droite.
 };
 
 // Neutralise la macro Windows `small` (`rpcndr.h`, incluse via <Windows.h> -> GraphicsDevice.h
@@ -83,8 +90,16 @@ struct TypographyLevel {
                                          const TypographyLevel&) noexcept = default;
 };
 
+/// Famille de police d'une portée (`LOT-68`, `EX-IHM-070`). La distinction est un **rôle**, pas un
+/// nom de police : `Identity` reste `Identity` le jour où la police pixel embarquée change.
+enum class FontRole {
+    Ui,        ///< Châssis d'édition : police de travail, lisible en petit et en tableau dense.
+    Identity,  ///< Écrans du jeu : police bitmap, rendue sans lissage à échelle entière.
+};
+
 /// Échelle typographique, par **rôle** — jamais de taille ponctuelle en dehors de cette échelle.
 struct TypographyTokens {
+    FontRole family = FontRole::Ui;  ///< Famille employée par la portée.
     TypographyLevel screenTitle;    ///< Titre d'écran (menu principal, Options).
     TypographyLevel sectionTitle;   ///< Titre de section/panneau.
     TypographyLevel body;           ///< Corps de texte, contrôles.
@@ -116,6 +131,12 @@ struct DesignTokens {
     TypographyTokens typography;
     SizeTokens size;
 };
+
+/// @return Le mot-clé de famille **générique** CSS correspondant à @p role (`monospace` pour
+/// l'identité pixel art, `sans-serif` pour le châssis d'édition). C'est le repli de la feuille de
+/// style quand aucune police embarquée n'a pu être enregistrée : un mot-clé générique, jamais un
+/// second nom de police codé en dur (`EX-IHM-052`).
+[[nodiscard]] const char* genericCssFamily(FontRole role) noexcept;
 
 /// Jetons de l'identité du jeu (menu principal, écran Options, jeu) : **invariants**, ne suivent
 /// jamais aucun réglage d'affichage (`EX-IHM-050`).

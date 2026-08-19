@@ -1,7 +1,10 @@
 #pragma once
 
+#include <string>
+
 #include <QPalette>
 
+#include "HMI/Interface/DesignTokens.h"
 #include "HMI/Interface/ThemeResolution.h"
 
 /**
@@ -33,11 +36,27 @@ void applyApplicationStyle();
 /// style (comportement historique de `main.cpp`, non régressé).
 void applyStyleSheet(const DesignTokens& editorTokens);
 
-/// Enregistre la police embarquée (`Assets/Fonts/Inter-{Regular,Bold}.ttf`) auprès de Qt et
-/// l'applique comme police par défaut de l'application. Repli explicite si le fichier est absent
-/// ou refusé par Qt : famille **générique** demandée à Qt (`QFont::StyleHint`), jamais un second
-/// nom de police codé en dur ; avertissement journalisé.
+/// Enregistre les polices embarquées auprès de Qt et applique la famille du **châssis
+/// d'édition** comme police par défaut de l'application (`Assets/Fonts/`) :
+/// - `Inter-{Regular,Bold}.ttf` — `FontRole::Ui`, le châssis d'édition ;
+/// - `PixelifySans-{Regular,Bold}.ttf` et `PressStart2P-Regular.ttf` — `FontRole::Identity`, les
+///   écrans du jeu (`LOT-68`, `EX-IHM-070`), la seconde étant réservée aux titres d'écran.
+///
+/// Repli explicite et **par famille** si un fichier est absent ou refusé par Qt : famille
+/// **générique** (`QFont::StyleHint` ici, mot-clé CSS générique dans la feuille de style), jamais
+/// un second nom de police codé en dur, et jamais la famille d'un autre rôle — une police d'écran
+/// manquante ne doit pas faire retomber le jeu sur la police de l'éditeur. Avertissement journalisé.
 void applyFont();
+
+/// Nom de famille **effectivement** enregistré pour la police de corps de @p role, ou une chaîne
+/// vide si l'enregistrement a échoué (l'appelant emploie alors une famille générique). Renseigné
+/// par `applyFont()` ; vide tant qu'elle n'a pas été appelée.
+[[nodiscard]] std::string resolvedFontFamily(FontRole role);
+
+/// Nom de famille des **titres d'écran** de la portée identité (`Press Start 2P`), ou une chaîne
+/// vide en cas d'échec. Distincte de `resolvedFontFamily(FontRole::Identity)` : une police de
+/// titre très typée serait illisible en corps de texte.
+[[nodiscard]] std::string resolvedIdentityTitleFamily();
 
 /// @return Le réglage de thème persisté (`QSettings`), `Système` par défaut.
 [[nodiscard]] EditorThemeSetting editorThemeSetting();

@@ -136,6 +136,23 @@ l'application le connaît.
   clavier reste un second chemin **légitime** vers une commande, à condition d'être affiché par la
   commande elle-même plutôt que dupliqué en contrôle distinct.
 
+## 8. Identité visuelle des écrans du jeu (LOT-68)
+Le `LOT-56` a donné à l'interface un habillage cohérent, mais **générique** : la portée identité et
+le châssis d'édition partagent la même police et la même échelle typographique, si bien que rien, à
+l'écran, ne distingue le menu d'un jeu de plateforme en pixel art du panneau d'un outil de travail.
+Les titres sont fixés à 32 pt et les entrées de menu à 16 pt quelle que soit la taille de la
+fenêtre, ce qui donne une interface visiblement petite dès qu'on dépasse la définition d'un
+ordinateur portable. Et le focus n'est signalé que par un changement de teinte — suffisant à la
+souris, insuffisant à la manette, qui n'a pas de pointeur pour dire où elle en est.
+
+- \anchor EX-IHM-070 **EX-IHM-070** — Les écrans du **jeu** doivent porter une identité **pixel
+  art** assumée : police bitmap **embarquée** avec l'application (repli sur une famille générique si
+  elle est absente, `EX-IHM-052`) et cadres à **bordure franche**, rendus **sans lissage** à un
+  facteur d'agrandissement **entier** dérivé de la taille de la fenêtre (`EX-IHM-053`). Un facteur
+  fractionnaire rend une bordure d'un pixel tantôt sur un pixel, tantôt sur deux : la contrainte est
+  technique, pas esthétique. Cette identité est **bornée aux écrans du jeu** — le châssis d'édition
+  conserve son apparence d'outil de travail et ses thèmes clair/sombre (`EX-IHM-054`), et aucune
+  police bitmap ne se répand dans ses tables et ses arbres denses.
 ## Traçabilité
 Tout ceci relève de `Source/HMI` — depuis le `LOT-38`, l'unique application Qt `ProjectGaming` (rendu
 de jeu Direct3D 11 + widgets Qt répartis par domaine) ; les assets Qt déclaratifs vivent dans

@@ -55,3 +55,31 @@ avertissement — même garantie que le repli procédural du HUD (`EX-NFR-040`).
 **Licence** : [Inter](https://github.com/rsms/inter) est distribuée sous licence
 [SIL Open Font License 1.1](https://scripts.sil.org/OFL), redistribuable avec l'application ;
 texte complet dans `Inter-LICENSE.txt`, à côté des fichiers.
+
+## Polices de l'interface Qt
+
+Distinctes de l'atlas ci-dessus : celui-ci sert au texte rendu **dans la scene**, celles-ci au texte
+des **widgets**. Elles sont chargees par `hmi::applyFont` (`HMI/Interface/ApplicationTheme.cpp`)
+depuis ce dossier, deploye a cote de l'executable.
+
+| Fichier | Role | Employe par |
+|---|---|---|
+| `Inter-{Regular,Bold}.ttf` | `FontRole::Ui` | Chassis d'edition : panneaux, tables, arbres, boites de dialogue. Police **par defaut** de l'application. |
+| `PixelifySans-{Regular,Bold}.ttf` | `FontRole::Identity` | Corps et entrees de menu des six ecrans du jeu (`LOT-68`, `EX-IHM-070`). |
+| `PressStart2P-Regular.ttf` | `FontRole::Identity` | **Titres d'ecran uniquement** : trop typee pour du corps de texte. |
+
+Les deux familles d'identite sont posees par la feuille de style, cadrees par `objectName`
+(`#MainMenu`, `#OptionsPage`, ...). C'est ce cadrage, et lui seul, qui empeche la police pixel de
+se repandre dans les tables denses de l'editeur, ou elle serait illisible.
+
+**Repli.** Chaque famille est enregistree independamment : si un fichier manque ou est refuse par
+Qt, la feuille de style tombe sur un mot-cle CSS **generique** pour cette famille-la — jamais un
+second nom de police en dur (`EX-IHM-052`), et jamais la famille d'un autre role. Une police
+d'ecran manquante ne doit pas faire retomber le jeu sur la police de l'editeur.
+
+**Licences.** Les trois sont sous SIL Open Font License 1.1, donc redistribuables avec le jeu ;
+chaque `*-LICENSE.txt` accompagne sa famille et doit le rester.
+
+**Accents.** Les trois couvrent `E A E C U OE` accentues et la ponctuation employee par les
+catalogues de traduction. C'est le point de rupture d'une police pixel : beaucoup s'arretent a
+l'ASCII, et le francais devient illisible sans que rien ne le signale.

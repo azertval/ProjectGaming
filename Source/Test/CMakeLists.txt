@@ -96,6 +96,8 @@ add_executable(UnitTests
     Unit/HMI/Interface/test_application_theme.cpp
     Unit/HMI/Interface/test_editor_actions.cpp
     Unit/HMI/Interface/test_screen_flow.cpp
+    Unit/HMI/Interface/test_pixel_art_scale.cpp
+    Unit/HMI/Interface/test_pixel_frame_geometry.cpp
     Unit/HMI/Editor/test_thumbnail_geometry.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
     Unit/HMI/Editor/test_tile_taxonomy.cpp
@@ -310,6 +312,8 @@ add_executable(UnitTests
     # (listes de primitives, tables statiques), aucune dependance Qt (le rendu QPainter reel reste
     # dans ThemeIcons.cpp/EditorActions.cpp, non compiles ici).
     ../HMI/Interface/IconGeometry.cpp
+    ../HMI/Interface/PixelArtScale.cpp
+    ../HMI/Interface/PixelFrameGeometry.cpp
     ../HMI/Interface/ActionCatalog.cpp
     # Dimensionnement des vignettes a l'echelle d'affichage (LOT-56 TACHE-05) : arithmetique pure,
     # aucune dependance Qt/GPU.

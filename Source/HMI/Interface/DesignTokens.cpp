@@ -12,6 +12,8 @@ namespace {
 // Échelles partagées par les deux portées (TACHE-01) : seules les couleurs diffèrent entre elles.
 constexpr SpacingTokens SHARED_SPACING{};
 
+// Echelle typographique partagee par les deux portees. La FAMILLE, elle, ne l'est pas : chaque
+// portee la pose apres appel (LOT-68) -- c'est le seul champ de TypographyTokens qui les separe.
 [[nodiscard]] TypographyTokens sharedTypography() noexcept {
     TypographyTokens typography;
     typography.screenTitle = TypographyLevel{
@@ -30,17 +32,24 @@ constexpr SizeTokens SHARED_SIZE{};
 // (fond sombre, accent ambre), désormais nommées par rôle plutôt qu'éparpillées en littéraux.
 [[nodiscard]] DesignTokens buildIdentityTokens() noexcept {
     DesignTokens tokens;
-    tokens.color.background = DesignColor{.r = 0x1a, .g = 0x1f, .b = 0x29};
+    tokens.color.background = DesignColor{.r = 0x12, .g = 0x16, .b = 0x1f};
     tokens.color.surface = DesignColor{.r = 0x1e, .g = 0x25, .b = 0x31};
-    tokens.color.surfaceAlt = DesignColor{.r = 0x23, .g = 0x2a, .b = 0x36};
-    tokens.color.border = DesignColor{.r = 0x33, .g = 0x3a, .b = 0x48};
+    tokens.color.surfaceAlt = DesignColor{.r = 0x26, .g = 0x2f, .b = 0x3e};
+    tokens.color.border = DesignColor{.r = 0x46, .g = 0x53, .b = 0x6b};
     tokens.color.text = DesignColor{.r = 0xf2, .g = 0xf2, .b = 0xff};
-    tokens.color.textMuted = DesignColor{.r = 0xb3, .g = 0xb8, .b = 0xc7};
+    tokens.color.textMuted = DesignColor{.r = 0x8b, .g = 0x93, .b = 0xa7};
     tokens.color.accent = DesignColor{.r = 0xff, .g = 0xd1, .b = 0x33};
     tokens.color.accentHover = DesignColor{.r = 0xff, .g = 0xdb, .b = 0x5c};
     tokens.color.error = DesignColor{.r = 0xff, .g = 0x5c, .b = 0x5c};
+    // Cadre pixel art : contour tres sombre, biseau clair au-dessus du fond de surface, biseau
+    // sombre entre les deux. L'ecart entre les trois doit rester LISIBLE a un pixel d'epaisseur --
+    // c'est ce qui donne le relief, un cadre monochrome ne se lit pas.
+    tokens.color.outline = DesignColor{.r = 0x0a, .g = 0x0d, .b = 0x13};
+    tokens.color.bevelLight = DesignColor{.r = 0x46, .g = 0x53, .b = 0x6b};
+    tokens.color.bevelDark = DesignColor{.r = 0x10, .g = 0x14, .b = 0x1c};
     tokens.spacing = SHARED_SPACING;
     tokens.typography = sharedTypography();
+    tokens.typography.family = FontRole::Identity;  // police bitmap (LOT-68).
     tokens.size = SHARED_SIZE;
     return tokens;
 }
@@ -59,6 +68,11 @@ constexpr SizeTokens SHARED_SIZE{};
     tokens.color.accent = DesignColor{.r = 0xff, .g = 0xd1, .b = 0x33};
     tokens.color.accentHover = DesignColor{.r = 0xff, .g = 0xdb, .b = 0x5c};
     tokens.color.error = DesignColor{.r = 0xff, .g = 0x6b, .b = 0x6b};
+    // Le chassis ne dessine pas de cadre pixel art : ces trois roles y servent de bordure
+    // eclaircie/assombrie, deja necessaires aux separateurs et aux barres de titre de dock.
+    tokens.color.outline = DesignColor{.r = 0x14, .g = 0x17, .b = 0x1e};
+    tokens.color.bevelLight = DesignColor{.r = 0x4a, .g = 0x52, .b = 0x63};
+    tokens.color.bevelDark = DesignColor{.r = 0x1a, .g = 0x1e, .b = 0x26};
     tokens.spacing = SHARED_SPACING;
     tokens.typography = sharedTypography();
     tokens.size = SHARED_SIZE;
@@ -79,13 +93,19 @@ constexpr SizeTokens SHARED_SIZE{};
     tokens.color.accent = DesignColor{.r = 0xb3, .g = 0x6b, .b = 0x00};
     tokens.color.accentHover = DesignColor{.r = 0xcc, .g = 0x7a, .b = 0x00};
     tokens.color.error = DesignColor{.r = 0xc0, .g = 0x26, .b = 0x26};
+    // Theme clair : le biseau "clair" est plus SOMBRE que la surface (une surface blanche n'a pas
+    // de plus clair qu'elle) -- inverser mecaniquement le theme sombre produirait deux biseaux
+    // invisibles.
+    tokens.color.outline = DesignColor{.r = 0x9d, .g = 0xa4, .b = 0xb0};
+    tokens.color.bevelLight = DesignColor{.r = 0xe1, .g = 0xe5, .b = 0xeb};
+    tokens.color.bevelDark = DesignColor{.r = 0xb5, .g = 0xbc, .b = 0xc6};
     tokens.spacing = SHARED_SPACING;
     tokens.typography = sharedTypography();
     tokens.size = SHARED_SIZE;
     return tokens;
 }
 
-// Ajoute les neuf roles de couleur d'une portee au tableau de substitution, sous le prefixe donne
+// Ajoute les douze roles de couleur d'une portee au tableau de substitution, sous le prefixe donne
 // (ex. "identity.color.background" -> "#1a1f29").
 void addColorValues(std::unordered_map<std::string, std::string>& values, const std::string& prefix,
                     const ColorTokens& color) {
@@ -98,9 +118,24 @@ void addColorValues(std::unordered_map<std::string, std::string>& values, const 
     values[prefix + ".accent"] = toCssColor(color.accent);
     values[prefix + ".accentHover"] = toCssColor(color.accentHover);
     values[prefix + ".error"] = toCssColor(color.error);
+    values[prefix + ".outline"] = toCssColor(color.outline);
+    values[prefix + ".bevelLight"] = toCssColor(color.bevelLight);
+    values[prefix + ".bevelDark"] = toCssColor(color.bevelDark);
 }
 
 }  // namespace
+
+const char* genericCssFamily(FontRole role) noexcept {
+    switch (role) {
+        case FontRole::Identity:
+            // Le pixel art se rapproche davantage d'une chasse fixe que d'une lineale : si la
+            // police embarquee manque, autant que le repli garde des colonnes alignees.
+            return "monospace";
+        case FontRole::Ui:
+            return "sans-serif";
+    }
+    return "sans-serif";
+}
 
 const DesignTokens& identityTokens() noexcept {
     static const DesignTokens tokens = buildIdentityTokens();
@@ -170,6 +205,12 @@ std::unordered_map<std::string, std::string> buildStyleSheetValues(
     values["tokens.spacing.extraLarge"] = std::to_string(spacing.extraLarge);
     // Echelle typographique (LOT-56 TACHE-03) : elle aussi partagee entre les deux portees.
     const TypographyTokens& typography = identityTokens().typography;
+    // Familles de police : valeur par defaut PURE (mot-cle generique). hmi::applyStyleSheet
+    // l'ecrase par le nom REELLEMENT enregistre quand il y en a un. Les declarer ici, et non
+    // seulement cote Qt, garantit que tout marqueur du modele a une valeur meme hors application
+    // -- et qu'une police manquante degrade au lieu de laisser un marqueur non resolu.
+    values["identity.font.body"] = genericCssFamily(identityTokens().typography.family);
+    values["identity.font.title"] = genericCssFamily(identityTokens().typography.family);
     values["tokens.typography.screenTitle.pointSize"] =
         std::to_string(typography.screenTitle.pointSize);
     values["tokens.typography.sectionTitle.pointSize"] =
