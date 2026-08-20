@@ -83,7 +83,7 @@ TEST(LayerVisibilityTest, TousLesCalquesSontVisiblesParDefaut) {
     const hmi::LayerVisibility visibility;
 
     EXPECT_TRUE(visibility.visible(hmi::RenderLayer::Background));
-    EXPECT_TRUE(visibility.visible(hmi::RenderLayer::Decor));
+    EXPECT_TRUE(visibility.visible(hmi::RenderLayer::Plane));
     EXPECT_TRUE(visibility.visible(hmi::RenderLayer::Shadow));
     EXPECT_TRUE(visibility.visible(hmi::RenderLayer::Tile));
     EXPECT_TRUE(visibility.visible(hmi::RenderLayer::Object));
@@ -98,15 +98,15 @@ TEST(LayerVisibilityTest, TousLesCalquesSontVisiblesParDefaut) {
  * \castest{<b>Masquer un calque ne change que ce calque.</b><br/>
  * \tcat Unitaire · Visibilité par calque<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Masquer le calque Décor.<br/>2. Interroger Décor et Personnage.<br/>
+ * \tetapes 1. Masquer le calque Plans.<br/>2. Interroger Plans et Personnage.<br/>
  * \tattendu Décor est masqué, Personnage reste visible.
  * }
  */
 TEST(LayerVisibilityTest, MasquerUnCalqueNeChangeQueCeCalque) {
     hmi::LayerVisibility visibility;
-    visibility.setVisible(hmi::RenderLayer::Decor, false);
+    visibility.setVisible(hmi::RenderLayer::Plane, false);
 
-    EXPECT_FALSE(visibility.visible(hmi::RenderLayer::Decor));
+    EXPECT_FALSE(visibility.visible(hmi::RenderLayer::Plane));
     EXPECT_TRUE(visibility.visible(hmi::RenderLayer::Player));
 }
 

@@ -67,12 +67,12 @@ menubar.follow_active_tool = Follow active tool
 # Per-layer inspection mode (LOT-57 TACHE-03, moved from the Textures panel's Layers tab):
 # DECOMPOSES the render for auditing, distinct from the Game/F8 toggle which COMPOSES it.
 menubar.layer_background = Background
-menubar.layer_decor_background = Background decor
+menubar.layer_plane_behind = Planes behind
 menubar.layer_shadow = Shadows
 menubar.layer_tile_skin = Tile skin
 menubar.layer_objects = Interactive objects
 menubar.layer_player = Character
-menubar.layer_decor_foreground = Foreground decor
+menubar.layer_plane_front = Planes in front
 menubar.layer_show_all = Show all
 menubar.reset_layout = Reset layout
 

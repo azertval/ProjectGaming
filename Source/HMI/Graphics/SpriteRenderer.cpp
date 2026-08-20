@@ -10,6 +10,7 @@
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/ParticleRenderer.h"
+#include "HMI/Graphics/PlaneVisuals.h"
 #include "HMI/Graphics/PlayerSprite.h"
 #include "HMI/Graphics/ShadowRenderer.h"
 #include "HMI/Graphics/TextureAtlas.h"
@@ -48,6 +49,31 @@ void submitComposedScene(SpriteBatch& batch, const DirectX::XMFLOAT4X4& projecti
     if (open) {
         batch.end();
     }
+}
+
+// Resout les images des plans d'un niveau (acces disque/GPU), dans l'ordre de la liste.
+// Implemente ICI et non dans PlaneVisuals.cpp, exactement comme resolveBackgroundTexture vis-a-vis
+// de composeBackground : la composition doit rester compilable et testable sans GPU (EX-NFR-004),
+// ce qu'un appel au cache de textures interdirait.
+std::vector<PlaneTexture> resolvePlaneTextures(TextureCache& cache,
+                                               const std::filesystem::path& directory,
+                                               const std::vector<core::Plane>& planes) {
+    std::vector<PlaneTexture> textures;
+    textures.reserve(planes.size());
+    for (const core::Plane& plane : planes) {
+        const LoadedTexture* loaded = cache.getFromPath(directory / plane.fileName);
+        if (loaded == nullptr) {
+            // Image absente ou illisible : le damier partage rend le manque VISIBLE plutot que
+            // silencieux (EX-NFR-040). L'avertissement a deja ete journalise par le cache.
+            loaded = cache.missingTexture();
+        }
+        if (loaded == nullptr) {
+            textures.push_back(PlaneTexture{});  // meme le damier a echoue : plan muet.
+            continue;
+        }
+        textures.push_back(PlaneTexture{loaded->handle(), loaded->width, loaded->height});
+    }
+    return textures;
 }
 
 // Textures liables par la composition d'une scene : atlas, damier de repli et skins (point unique).
@@ -213,6 +239,7 @@ void SpriteRenderer::render(core::World& world, const Camera2D& camera, RenderMo
                             int levelWidth, int levelHeight,
                             const std::vector<core::TileTextureOverride>& textureOverrides,
                             const std::unordered_map<std::string, core::Animation>& tileAnimations,
+                            const std::vector<core::Plane>& planes,
                             const core::TileMap* doorCollision) {
     _scene.clear();
     _scene.setVisibleBounds(camera.visibleBounds());
@@ -220,6 +247,11 @@ void SpriteRenderer::render(core::World& world, const Camera2D& camera, RenderMo
         sceneTextures(*_atlas, *_cache, _skins, _skinSet, textureOverrides, tileAnimations);
     composeBackground(_scene, resolveBackgroundTexture(background, *_cache), levelWidth,
                       levelHeight, mode);
+    // Plans picturaux AVANT tout le reste et dans l'ordre declare (LOT-69 TACHE-05) : c'est cet
+    // ordre de composition qui porte leur ordre de dessin, le tri intercalant le rang de premiere
+    // apparition de texture entre le calque et le sortOrder. Propriete figee par un test.
+    composePlanes(_scene, planes, resolvePlaneTextures(*_cache, _planesDirectory, planes),
+                  levelWidth, levelHeight, mode);
     composeShadows(_scene, world, mode, textures, interpolationAlpha, doorCollision);
     composeWorldSprites(_scene, world, mode, textures, interpolationAlpha);
     // Particules du personnage (LOT-53 TACHE-03) : meme scene, apres les sprites -- l'ordre de

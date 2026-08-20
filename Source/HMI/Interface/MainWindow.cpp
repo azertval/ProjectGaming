@@ -1347,13 +1347,13 @@ void MainWindow::buildUi() {
     // Texture est traitee en TACHE-04). Cases dans l'ORDRE DE DESSIN (hmi::RenderLayer,
     // EX-REN-014), toutes cochees par defaut, jamais persistees entre deux sessions.
     constexpr std::array<hmi::RenderLayer, 7> LAYER_ORDER{
-        hmi::RenderLayer::Background, hmi::RenderLayer::Decor,  hmi::RenderLayer::Shadow,
+        hmi::RenderLayer::Background, hmi::RenderLayer::Plane,  hmi::RenderLayer::Shadow,
         hmi::RenderLayer::Tile,       hmi::RenderLayer::Object, hmi::RenderLayer::Player,
         hmi::RenderLayer::Foreground};
-    const std::array<QAction*, 7> LAYER_ACTIONS{
-        _ui->actLayerBackground,     _ui->actLayerDecorBackground, _ui->actLayerShadow,
-        _ui->actLayerTileSkin,       _ui->actLayerObjects,         _ui->actLayerPlayer,
-        _ui->actLayerDecorForeground};
+    const std::array<QAction*, 7> LAYER_ACTIONS{_ui->actLayerBackground, _ui->actLayerPlaneBehind,
+                                                _ui->actLayerShadow,     _ui->actLayerTileSkin,
+                                                _ui->actLayerObjects,    _ui->actLayerPlayer,
+                                                _ui->actLayerPlaneFront};
     for (std::size_t i = 0; i < LAYER_ORDER.size(); ++i) {
         const hmi::RenderLayer layer = LAYER_ORDER[i];
         QAction* const act = LAYER_ACTIONS[i];
@@ -1991,9 +1991,9 @@ void MainWindow::retranslateUi() {
     _themeDarkAction->setText(text("menubar.theme_dark"));
     _actFollowActiveTool->setText(text("menubar.follow_active_tool"));
     static constexpr std::array<const char*, 7> LAYER_ACTION_KEYS{
-        "menubar.layer_background",      "menubar.layer_decor_background", "menubar.layer_shadow",
-        "menubar.layer_tile_skin",       "menubar.layer_objects",          "menubar.layer_player",
-        "menubar.layer_decor_foreground"};
+        "menubar.layer_background", "menubar.layer_plane_behind", "menubar.layer_shadow",
+        "menubar.layer_tile_skin",  "menubar.layer_objects",      "menubar.layer_player",
+        "menubar.layer_plane_front"};
     for (std::size_t i = 0; i < _layerVisibilityActions.size(); ++i) {
         _layerVisibilityActions[i]->setText(text(LAYER_ACTION_KEYS[i]));
     }

@@ -183,6 +183,7 @@ add_executable(ProjectGaming
     Graphics/DraftRenderer.cpp
     Graphics/TileVisuals.cpp
     Graphics/MechanismVisuals.cpp
+    Graphics/PlaneVisuals.cpp
     Graphics/Parallax.cpp
     Graphics/ProceduralFont.cpp
     Graphics/BitmapFont.cpp

@@ -68,12 +68,12 @@ menubar.follow_active_tool = Suivre l'outil actif
 # Mode d'inspection par calque (LOT-57 TACHE-03, deplace depuis l'onglet Calques du panneau
 # Textures) : DECOMPOSE le rendu pour auditer, distinct de la bascule Jeu/F8 qui le COMPOSE.
 menubar.layer_background = Fond
-menubar.layer_decor_background = Décor d'arrière-plan
+menubar.layer_plane_behind = Plans derrière
 menubar.layer_shadow = Ombres
 menubar.layer_tile_skin = Skin des tuiles
 menubar.layer_objects = Objets interactifs
 menubar.layer_player = Personnage
-menubar.layer_decor_foreground = Décor de premier plan
+menubar.layer_plane_front = Plans devant
 menubar.layer_show_all = Tout afficher
 menubar.reset_layout = Réinitialiser la disposition
 

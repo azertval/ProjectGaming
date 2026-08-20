@@ -79,6 +79,7 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_mechanism_transitions.cpp
     Unit/HMI/Graphics/test_parallax.cpp
     Unit/HMI/Graphics/test_layer_visibility.cpp
+    Unit/HMI/Graphics/test_plane_render.cpp
     Unit/HMI/Graphics/test_bitmap_font.cpp
     Unit/HMI/Graphics/test_text_renderer.cpp
     Unit/HMI/Graphics/test_shadow_render.cpp
@@ -252,6 +253,11 @@ add_executable(UnitTests
     # La correspondance etat logique -> clip des mecanismes (LOT-47) est une fonction pure, sans
     # dependance GPU/Qt/ECS : testable exhaustivement hors GPU.
     ../HMI/Graphics/MechanismVisuals.cpp
+    # La projection profondeur -> calque et la composition des plans picturaux (LOT-69 TACHE-05)
+    # sont des fonctions pures, sans dependance GPU/Qt : testables hors GPU, meme patron que
+    # MechanismVisuals.cpp ci-dessus. Seule resolvePlaneTextures touche au cache, et n'est pas
+    # exercee par les tests unitaires.
+    ../HMI/Graphics/PlaneVisuals.cpp
     # Le calcul du decalage de parallaxe (LOT-49 TACHE-03, generalise au LOT-69) est fait de
     # fonctions pures, sans dependance GPU : testables hors GPU.
     ../HMI/Graphics/Parallax.cpp

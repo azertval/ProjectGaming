@@ -81,12 +81,12 @@
    <widget class="QMenu" name="layersMenu">
     <property name="title"><string>Calques</string></property>
     <addaction name="actLayerBackground"/>
-    <addaction name="actLayerDecorBackground"/>
+    <addaction name="actLayerPlaneBehind"/>
     <addaction name="actLayerShadow"/>
     <addaction name="actLayerTileSkin"/>
     <addaction name="actLayerObjects"/>
     <addaction name="actLayerPlayer"/>
-    <addaction name="actLayerDecorForeground"/>
+    <addaction name="actLayerPlaneFront"/>
     <addaction name="separator"/>
     <addaction name="actShowAllLayers"/>
    </widget>
@@ -194,10 +194,10 @@
    <property name="checked"><bool>true</bool></property>
    <property name="text"><string>Fond</string></property>
   </action>
-  <action name="actLayerDecorBackground">
+  <action name="actLayerPlaneBehind">
    <property name="checkable"><bool>true</bool></property>
    <property name="checked"><bool>true</bool></property>
-   <property name="text"><string>Décor d'arrière-plan</string></property>
+   <property name="text"><string>Plans derrière</string></property>
   </action>
   <action name="actLayerShadow">
    <property name="checkable"><bool>true</bool></property>
@@ -219,10 +219,10 @@
    <property name="checked"><bool>true</bool></property>
    <property name="text"><string>Personnage</string></property>
   </action>
-  <action name="actLayerDecorForeground">
+  <action name="actLayerPlaneFront">
    <property name="checkable"><bool>true</bool></property>
    <property name="checked"><bool>true</bool></property>
-   <property name="text"><string>Décor de premier plan</string></property>
+   <property name="text"><string>Plans devant</string></property>
   </action>
  </widget>
  <resources/>

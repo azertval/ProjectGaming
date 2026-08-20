@@ -148,6 +148,8 @@ void GameViewport::createResources() {
     _textureCache = std::make_unique<hmi::TextureCache>(
         _rhiContext, hmi::AssetPaths{hmi::executableDirectory() / "Assets"});
     _draftRenderer = std::make_unique<hmi::DraftRenderer>(*_spriteBatch, *_atlas, *_textureCache);
+    // Images des plans (LOT-69 TACHE-05) : a cote des niveaux, comme en jeu.
+    _draftRenderer->setPlanesDirectory(hmi::executableDirectory() / "Levels" / "Plans");
 
     // Catalogue des skins (LOT-42), lu a cote de l'executable comme les niveaux et les traductions.
     // Fichier absent ou illisible : catalogue vide, tout retombe sur le damier -- un etat de depart

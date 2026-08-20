@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <filesystem>
 #include <optional>
 #include <string>
 
@@ -118,6 +119,23 @@ public:
      */
     [[nodiscard]] const AnimationDescription* getAnimation(const std::string& fileName,
                                                            int textureWidth, int textureHeight);
+
+    /**
+     * @brief Obtient la texture d'un fichier désigné par son **chemin**, hors du dossier d'assets.
+     *
+     * Les **plans picturaux** (`LOT-69`) sont des données de **niveau**, pas des assets
+     * réutilisables : leurs images vivent à côté des niveaux, et aucune famille
+     * (`hmi::AssetFamily`) ne leur impose de dimensions — c'est le format du niveau qui les borne
+     * (`EX-DEC-044`), au chargement, avant même qu'on arrive ici. D'où cette entrée distincte de
+     * `get`, qui résout un nom logique sous `Assets/` et valide un contrat de dimensions.
+     *
+     * Mémoïsation et invalidation identiques à `get` (échec compris), sous le chemin **absolu**
+     * comme clé : deux niveaux peuvent nommer leurs plans pareillement sans se marcher dessus.
+     * @param path Chemin du fichier image.
+     * @return La texture chargée (propriété du cache), ou `nullptr` si le fichier est absent ou
+     *         illisible — jamais d'exception (`EX-NFR-040`).
+     */
+    [[nodiscard]] const LoadedTexture* getFromPath(const std::filesystem::path& path);
 
     /**
      * @brief Retire une entrée du cache, de sorte que le prochain `get` relise le fichier.

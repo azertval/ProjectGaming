@@ -316,13 +316,13 @@ TEST(QuadRecorderTest, CalqueParDefautSansTag) {
  * \tcat Unitaire · Quad Recorder<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Comparer les valeurs declarees de l'enumeration des calques.<br/>
- * \tattendu L'ordre fond -> decor -> ombres -> tuiles -> objets -> personnage -> premier plan ->
+ * \tattendu L'ordre fond -> plans -> ombres -> tuiles -> objets -> personnage -> premier plan ->
  * interface -> edition est respecte.
  * }
  */
 TEST(QuadRecorderTest, OrdonnancementDeclare) {
-    EXPECT_LT(hmi::RenderLayer::Background, hmi::RenderLayer::Decor);
-    EXPECT_LT(hmi::RenderLayer::Decor, hmi::RenderLayer::Shadow);
+    EXPECT_LT(hmi::RenderLayer::Background, hmi::RenderLayer::Plane);
+    EXPECT_LT(hmi::RenderLayer::Plane, hmi::RenderLayer::Shadow);
     EXPECT_LT(hmi::RenderLayer::Shadow, hmi::RenderLayer::Tile);
     EXPECT_LT(hmi::RenderLayer::Tile, hmi::RenderLayer::Object);
     EXPECT_LT(hmi::RenderLayer::Object, hmi::RenderLayer::Player);

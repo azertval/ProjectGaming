@@ -1,6 +1,6 @@
 # TACHE-05 — Composition et rendu des plans {#lot-69-tache-05-composition-plans}
 
-**Lot :** [LOT-69](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-69](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 `hmi::RenderLayer` est déclaré comme **le seul ordonnancement de calques du projet** (`EX-REN-014`),

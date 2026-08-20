@@ -609,7 +609,7 @@ travail.
 délègue à `HMI`, via le même patron d'injection que `onTileEntity`, l'attache de
 `hmi::DecorVisualTag` (nom d'asset + couche d'origine). `hmi::decorRenderLayer` projette les trois
 couches vers les **deux** calques réservés dès `LOT-40` : `Background` **et** `Decor` (côté
-`Core`) partagent le même `RenderLayer::Decor` (un seul calque « arrière-plan » existe), seul
+`Core`) partagent le même `RenderLayer::Plane` (un seul calque « derrière les tuiles » existe), seul
 `Foreground` a son propre calque, au-dessus du personnage — c'est le contrat de lecture du lot :
 ce qui passe devant le personnage ne le porte pas et ne le bloque pas.
 

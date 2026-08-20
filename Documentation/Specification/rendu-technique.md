@@ -47,12 +47,14 @@
   niveau sans taille déclarée conserve la taille par défaut actuelle. Concrétisé en `LOT-64`.
 - \anchor EX-REN-014 **EX-REN-014** — Le rendu doit gérer un ordre de dessin par **couches**,
   défini par un **ordonnancement unique et explicite**, dont aucun calque concurrent ne peut
-  s'écarter : **fond**, **décor d'arrière-plan**, **ombres**, **tuiles physiques**, **objets**,
-  **personnage**, **décor de premier plan**, **interface**, **aides d'édition**. Le calque de
-  **premier plan** est dessiné **au-dessus du personnage** : c'est le moyen de lecture immédiate
-  qui distingue le décor traversable du décor physique (`EX-DEC-002`). Précisé en `LOT-40`.
+  s'écarter : **fond**, **plans derrière**, **ombres**, **tuiles physiques**, **objets**,
+  **personnage**, **plans devant**, **interface**, **aides d'édition**. Le calque de **premier
+  plan** est dessiné **au-dessus du personnage** : c'est le moyen de lecture immédiate qui distingue
+  le décor traversable du décor physique (`EX-DEC-042`). Précisé en `LOT-40`. Les deux calques de
+  décor ont été renommés **plans** en `LOT-69`, avec le système qu'ils portent — laisser un calque
+  au nom d'un système retiré serait exactement la dette que cette exigence cherche à éviter.
 - \anchor EX-REN-041 **EX-REN-041** — Le rendu doit pouvoir **charger ses textures depuis des
-  fichiers image** (PNG au minimum), décodés en pixels RGBA puis créés en texture Direct3D 11, en plus
+  fichiers image** (PNG au minimum), décodés en pixels RGBA puis créés en texture GPU, en plus
   de la génération procédurale historique. Le filtrage reste *nearest* (pixel art, `EX-ARCH-022`).
   Concrétisé en `LOT-39`.
 - \anchor EX-REN-042 **EX-REN-042** — Les **assets graphiques** (atlas de tuiles) doivent être

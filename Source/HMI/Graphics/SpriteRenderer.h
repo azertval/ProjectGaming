@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <filesystem>
 #include <optional>
 #include <set>
 #include <string>
@@ -14,8 +15,10 @@
 
 #include "Core/Ecs/Components/Animation.h"
 #include "Core/Levels/Level.h"
+#include "Core/Levels/Plane.h"
 #include "HMI/Graphics/BackgroundRenderer.h"
 #include "HMI/Graphics/ComposedScene.h"
+#include "HMI/Graphics/PlaneVisuals.h"
 #include "HMI/Graphics/SkinCatalog.h"
 #include "HMI/Graphics/SpriteBatch.h"
 
@@ -174,6 +177,10 @@ public:
      *                    `LOT-45`), transmises telles quelles à `hmi::sceneTextures`.
      * @param tileAnimations Horloge d'animation partagée par asset de tuile (`LOT-46` TACHE-05),
      *                    transmise telle quelle à `hmi::sceneTextures`.
+     * @param planes      Plans picturaux du niveau courant (`EX-DEC-040`, `LOT-69`), composés
+     *                    avant tout le reste et dans l'ordre déclaré — c'est cet ordre de
+     *                    composition qui porte leur ordre de dessin (cf. `hmi::composePlanes`).
+     *                    Leurs images sont résolues sous `planesDirectory()`.
      * @param doorCollision Grille de collision courante des mécanismes (`core::
      *                    MechanismController::collisionMap`, `LOT-55`), pour que l'ombre d'une
      *                    porte suive son état ouverte/fermée plutôt que son type statique ;
@@ -184,7 +191,19 @@ public:
                 int levelWidth = 0, int levelHeight = 0,
                 const std::vector<core::TileTextureOverride>& textureOverrides = {},
                 const std::unordered_map<std::string, core::Animation>& tileAnimations = {},
+                const std::vector<core::Plane>& planes = {},
                 const core::TileMap* doorCollision = nullptr);
+
+    /**
+     * @brief Fixe le dossier où résoudre les images de plans (`Levels/Plans`).
+     *
+     * Un plan est une donnée de **niveau**, pas un asset : son image ne vit pas sous `Assets/` et
+     * ne passe donc pas par la résolution de noms logiques du cache.
+     * @param directory Dossier des images de plans.
+     */
+    void setPlanesDirectory(std::filesystem::path directory) {
+        _planesDirectory = std::move(directory);
+    }
 
     /// @return La scène composée à la dernière image (primitives soumises et compteurs).
     [[nodiscard]] const ComposedScene& lastScene() const noexcept {
@@ -211,6 +230,8 @@ private:
     /// `GraphicsLog` proscrit sur un chemin de dessin.
     void logStatisticsIfChanged();
 
+    /// Dossier des images de plans (`setPlanesDirectory`), vide tant qu'aucun n'est fixé.
+    std::filesystem::path _planesDirectory;
     SpriteBatch* _batch;                  // non possédé
     const TextureAtlas* _atlas;           // non possédé
     TextureCache* _cache;                 // non possédé

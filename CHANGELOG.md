@@ -54,6 +54,20 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ### Rendu (LOT-69)
 
+- **Les plans picturaux se composent et se dessinent** (`EX-REN-049`) : un quad par plan couvrant
+  le niveau entier, dans l'ordre déclaré, avec son opacité. La densité ne change **pas** la
+  géométrie — un plan à 8 px/unité couvre la même surface qu'un plan natif, en plus grossier :
+  c'est un compromis de mémoire, pas de cadrage.
+- Le calque `Decor` devient **`Plane`**, et les entrées de menu correspondantes « Plans derrière » /
+  « Plans devant ». Laisser un calque porter le nom d'un système retiré aurait été précisément la
+  dette que `EX-REN-014` cherche à éviter.
+- **Visibilité par plan** dans l'éditeur (`EX-DEC-045`) : masquage individuel et **isolement** d'un
+  plan, non persistés — une aide d'édition, pas une propriété du niveau.
+- Une propriété invisible à la lecture est désormais **figée par un test** : les plans ne
+  ressortent dans l'ordre du niveau que parce qu'ils sont composés en premier et dans l'ordre, le
+  tri de la scène intercalant le rang de première apparition de texture entre le calque et le tri
+  fin. Sans ce test, un simple réordonnancement d'appels l'aurait cassée en silence.
+
 - **Le rendu passe sur QRhi** (`EX-REN-050`). La cible technique ne change pas — QRhi retient
   **Direct3D 11** par défaut sous Windows (`EX-REN-002`, amendée) — mais l'API n'est plus appelée
   directement : `hmi::GraphicsDevice` (device, swap chain, présentation) est **supprimé**, Qt en

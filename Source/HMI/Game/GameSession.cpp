@@ -45,6 +45,7 @@
 #include "HMI/Input/InputState.h"
 #include "HMI/Input/PlayerInputMapper.h"
 #include "HMI/Localization/Localization.h"
+#include "HMI/Platform/ExecutableDirectory.h"
 
 namespace hmi {
 
@@ -101,6 +102,9 @@ GameSession::GameSession(SpriteBatch& batch, const TextureAtlas& atlas, TextureC
       _localization(localization),
       _camera(viewportWidth, viewportHeight),
       _renderer(batch, atlas, cache) {
+    // Images des plans (LOT-69 TACHE-05) : a cote des niveaux, pas sous Assets/ -- un plan est une
+    // donnee de niveau, jamais un asset reutilisable.
+    _renderer.setPlanesDirectory(executableDirectory() / "Levels" / "Plans");
     loadLevel(std::move(level));
 }
 
@@ -1074,7 +1078,7 @@ void GameSession::render(int viewportWidth, int viewportHeight, RenderMode mode,
     // collision des mecanismes (portes) tranche l'ombre d'une porte d'apres son etat COURANT
     // (LOT-55) : TileSkinTag::type reste TileType::Door quel que soit cet etat.
     _renderer.render(_world, _camera, mode, interpolationAlpha, _level->background(), _levelWidth,
-                     _levelHeight, _level->textureOverrides(), _tileAnimations,
+                     _levelHeight, _level->textureOverrides(), _tileAnimations, _level->planes(),
                      _mechanisms ? &_mechanisms->collisionMap() : nullptr);
 
     renderHud(viewportWidth, viewportHeight);

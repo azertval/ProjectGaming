@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <filesystem>
 #include <optional>
 #include <set>
 #include <string>
@@ -16,6 +17,7 @@
 #include "Core/Levels/GridPosition.h"
 #include "HMI/Editor/PathGesture.h"
 #include "HMI/Graphics/LayerVisibility.h"
+#include "HMI/Graphics/PlaneVisibility.h"
 #include "HMI/Graphics/SpriteRenderer.h"
 
 /**
@@ -110,7 +112,17 @@ public:
                 const std::optional<std::pair<core::GridPosition, core::GridPosition>>& highlight,
                 const LinkOverlayState& linkOverlay, RenderMode mode,
                 bool showTextureOverrides = false, float deltaSeconds = 0.0f,
-                const LayerVisibility& visibility = {}, const PathOverlayState& pathOverlay = {});
+                const LayerVisibility& visibility = {}, const PathOverlayState& pathOverlay = {},
+                const PlaneVisibility& planeVisibility = {});
+
+    /**
+     * @brief Fixe le dossier où résoudre les images de plans (`Levels/Plans`), comme
+     *        `hmi::SpriteRenderer::setPlanesDirectory`.
+     * @param directory Dossier des images de plans.
+     */
+    void setPlanesDirectory(std::filesystem::path directory) {
+        _planesDirectory = std::move(directory);
+    }
 
     /// Marque la scène comme périmée : elle sera reconstruite au prochain `render` (à appeler après
     /// toute mutation du brouillon — peinture, undo/redo, chargement, redimensionnement).
@@ -173,6 +185,8 @@ private:
     /// Signale les cases portant une surcharge de texture par instance sur le calque d'édition
     /// (`EX-EDIT-043`, `LOT-45`).
     void composeTextureOverrideMarkers(const core::LevelDraft& draft);
+    /// Dossier des images de plans (`setPlanesDirectory`), vide tant qu'aucun n'est fixé.
+    std::filesystem::path _planesDirectory;
     SpriteBatch& _batch;
     const TextureAtlas& _atlas;
     TextureCache& _cache;

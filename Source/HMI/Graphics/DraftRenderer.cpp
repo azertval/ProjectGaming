@@ -21,6 +21,7 @@
 #include "HMI/Graphics/FollowCamera.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/Parallax.h"
+#include "HMI/Graphics/PlaneVisuals.h"
 #include "HMI/Graphics/RoomGrid.h"
 #include "HMI/Graphics/ShadowRenderer.h"
 #include "HMI/Graphics/SpriteBatch.h"
@@ -65,7 +66,8 @@ void DraftRenderer::render(
     const core::LevelDraft& draft, const Camera2D& camera, bool showGrid,
     const std::optional<std::pair<core::GridPosition, core::GridPosition>>& highlight,
     const LinkOverlayState& linkOverlay, RenderMode mode, bool showTextureOverrides,
-    float deltaSeconds, const LayerVisibility& visibility, const PathOverlayState& pathOverlay) {
+    float deltaSeconds, const LayerVisibility& visibility, const PathOverlayState& pathOverlay,
+    const PlaneVisibility& planeVisibility) {
     if (_dirty) {
         rebuild(draft);
         _dirty = false;
@@ -87,6 +89,11 @@ void DraftRenderer::render(
         composeBackground(_scene, resolveBackgroundTexture(draft.background(), _cache),
                           draft.tileMap().width(), draft.tileMap().height(), mode);
     }
+    // Plans picturaux (LOT-69 TACHE-05) : juste apres le fond et avant les tuiles, dans l'ordre
+    // declare. Le mode d'inspection peut en masquer ou en isoler un (EX-DEC-045).
+    composePlanes(_scene, draft.planes(),
+                  resolvePlaneTextures(_cache, _planesDirectory, draft.planes()),
+                  draft.tileMap().width(), draft.tileMap().height(), mode, planeVisibility);
     const SceneTextures textures =
         sceneTextures(_atlas, _cache, _skins, _skinSet, draft.textureOverrides(), _tileAnimations);
     // Calque Ombre (LOT-55) : meme raison de gate a l'appel que Fond ci-dessus -- aucune simulation
