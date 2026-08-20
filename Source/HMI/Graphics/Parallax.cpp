@@ -7,19 +7,6 @@
 
 namespace hmi {
 
-// Facteur de defilement de la couche d'un decor (EX-DEC-006, voir en-tete).
-float parallaxFactor(core::DecorLayer layer) noexcept {
-    switch (layer) {
-        case core::DecorLayer::Background:
-            return PARALLAX_FACTOR_BACKGROUND;
-        case core::DecorLayer::Decor:
-            return PARALLAX_FACTOR_DECOR;
-        case core::DecorLayer::Foreground:
-            return PARALLAX_FACTOR_FOREGROUND;
-    }
-    return PARALLAX_FACTOR_DECOR;
-}
-
 // Position de rendu d'un decor decalee par sa parallaxe, relative au centre de la salle (voir
 // en-tete) : centre + (position - centre) * facteur -- inchangee a facteur 1.0.
 core::Vector2 parallaxRenderPosition(core::Vector2 decorPosition, float factor,

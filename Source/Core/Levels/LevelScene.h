@@ -8,7 +8,6 @@
 
 #include "Core/Ecs/Components/Sprite.h"  // core::AtlasRegion
 #include "Core/Ecs/Entity.h"
-#include "Core/Levels/Decor.h"
 #include "Core/Levels/TileType.h"
 
 /**
@@ -39,19 +38,12 @@ class Level;
  *                      notion d'habillage (`EX-NFR-011`) — même principe d'injection que
  *                      @p regionForTile. Vide par défaut.
  *
- * Peuple également une entité par **décor libre** (`EX-DEC-001`, LOT-49), après les tuiles :
- * `Transform` en unités monde flottantes (position/échelle/rotation du décor, **jamais** calées sur
- * la grille), et `Sprite` dont `layer` porte le rang du décor dans `level.decors()` (tri fin
- * intra-calque, TACHE-02). `Core` ne pose aucune région d'atlas ni apparence : la résolution
- * d'asset est entièrement injectée via @p onDecorEntity, même principe que @p onTileEntity.
- * @param onDecorEntity Rappel invoqué après la création de chaque entité décor, avec le décor
- *                      source et son rang dans `level.decors()`. Permet à `HMI` d'y attacher ses
- *                      propres composants (`hmi::DecorVisualTag`, `hmi::RenderLayerTag`) sans que
- *                      `Core` connaisse la notion d'apparence. Vide par défaut.
+ * Ne peuple **que** les tuiles. Les plans picturaux (`EX-DEC-040`, LOT-69) qui ont remplacé les
+ * décors-sprites ne sont **pas** des entités : ce sont des données d'habillage du niveau, composées
+ * directement par `HMI` sans passer par l'ECS.
  */
 void buildLevelScene(
     World& world, const Level& level, const std::function<AtlasRegion(TileType)>& regionForTile,
-    const std::function<void(Entity, TileType, int, int)>& onTileEntity = {},
-    const std::function<void(Entity, const Decor&, std::size_t)>& onDecorEntity = {});
+    const std::function<void(Entity, TileType, int, int)>& onTileEntity = {});
 
 }  // namespace core

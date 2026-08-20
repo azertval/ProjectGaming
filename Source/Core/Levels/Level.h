@@ -9,7 +9,6 @@
 #include <vector>
 
 #include "Core/Levels/CameraFraming.h"
-#include "Core/Levels/Decor.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Plane.h"
 #include "Core/Levels/TileMap.h"
@@ -173,8 +172,6 @@ public:
      *                     défaut.
      * @param textureOverrides Textures assignées par instance (`EX-EDIT-043`), prioritaires sur
      *                     le skin de leur type.
-     * @param decors       Décors libres du niveau (`EX-DEC-001`, LOT-49), dans leur ordre de
-     *                     superposition intra-couche.
      * @param cameraFraming Cadrage de caméra **résolu** du niveau (`EX-LVL-006`, LOT-64) : déjà
      *                     passé par `resolveCameraFraming` côté chargeur, jamais un champ brut
      *                     "peut-être absent" -- valeur par défaut (`WholeLevel`) légitime pour un
@@ -188,7 +185,7 @@ public:
      *                     (`EX-GP-055`) ; absent = valeur du moteur. Même distinction vis-à-vis
      *                     de @p dashBudget.
      * @param planes       Plans picturaux du niveau (`EX-DEC-040`, LOT-69), dans leur ordre de
-     *                     superposition. Remplacent @p decors, retirés par le `LOT-69`.
+     *                     superposition.
      * @param parallaxEnabled `true` si la parallaxe des plans s'applique (`EX-DEC-043`) ; le mode
      *                     de cadrage peut la neutraliser par-dessus ce drapeau.
      *
@@ -203,7 +200,7 @@ public:
           std::vector<DangerBlinkConfig> blinkConfigs = {},
           std::optional<std::string> background = std::nullopt,
           std::optional<std::string> skinSet = std::nullopt,
-          std::vector<TileTextureOverride> textureOverrides = {}, std::vector<Decor> decors = {},
+          std::vector<TileTextureOverride> textureOverrides = {},
           std::vector<MovingPlatformConfig> platformConfigs = {},
           CameraFramingConfig cameraFraming = {}, std::optional<int> airJumps = std::nullopt,
           std::optional<int> dashCharges = std::nullopt, std::vector<Plane> planes = {},
@@ -221,7 +218,6 @@ public:
           _background(std::move(background)),
           _skinSet(std::move(skinSet)),
           _textureOverrides(std::move(textureOverrides)),
-          _decors(std::move(decors)),
           _platformConfigs(std::move(platformConfigs)),
           _cameraFraming(cameraFraming),
           _airJumps(airJumps),
@@ -296,12 +292,6 @@ public:
         return _textureOverrides;
     }
 
-    /// @return Les décors libres du niveau (`EX-DEC-001`), dans leur ordre de superposition
-    /// intra-couche.
-    [[nodiscard]] const std::vector<Decor>& decors() const noexcept {
-        return _decors;
-    }
-
     /// @return Les **plans picturaux** du niveau (`EX-DEC-040`), dans leur ordre de superposition.
     [[nodiscard]] const std::vector<Plane>& planes() const noexcept {
         return _planes;
@@ -354,7 +344,6 @@ private:
     std::optional<std::string> _background;
     std::optional<std::string> _skinSet;
     std::vector<TileTextureOverride> _textureOverrides;
-    std::vector<Decor> _decors;
     std::vector<MovingPlatformConfig> _platformConfigs;
     CameraFramingConfig _cameraFraming;
     std::optional<int> _airJumps;

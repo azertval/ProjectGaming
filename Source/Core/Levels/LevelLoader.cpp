@@ -76,20 +76,6 @@ struct DangerSwitchedLink {
                                                                  : PlatformPathMode::PingPong;
 }
 
-// Convertit le champ "layer" d'un décor ("background"/"decor"/"foreground") ; valeur de
-// conception par défaut (Decor) si absent ou non reconnu -- symétrique à decorLayerName
-// (LevelWriter.cpp).
-[[nodiscard]] DecorLayer parseDecorLayer(const nlohmann::json& decor) {
-    const std::string layer = decor.value("layer", std::string{"decor"});
-    if (layer == "background") {
-        return DecorLayer::Background;
-    }
-    if (layer == "foreground") {
-        return DecorLayer::Foreground;
-    }
-    return DecorLayer::Decor;
-}
-
 // Convertit le champ "depth" d'un plan ("behind"/"front") ; valeur par défaut (Behind) si absent
 // ou non reconnu -- même tolérance que parseDecorLayer et parsePlatformPathMode, et symétrique à
 // planeDepthName (LevelWriter.cpp).
@@ -315,33 +301,21 @@ struct TileParseState {
     return std::nullopt;
 }
 
-// Traite le tableau racine optionnel "decors" (EX-DEC-001, LOT-49) : absent = aucun décor
-// (rétrocompatibilité, EX-LVL-005), auquel cas @p decors reste vide. L'ordre du tableau est
-// préservé tel quel (rang = superposition intra-couche, TACHE-01), aucune validation d'existence
-// de l'asset (EX-NFR-011 : Core ignore tout du dossier d'assets). Extrait de
-// LevelLoader::loadFromString ci-dessous : std::nullopt en cas de succès, sinon l'échec à
-// renvoyer immédiatement.
-[[nodiscard]] std::optional<LevelLoadResult> parseDecors(const nlohmann::json& root,
-                                                         std::vector<Decor>& decors) {
-    if (!root.contains("decors")) {
-        return std::nullopt;
+// Le champ racine "decors" (LOT-49) est OBSOLETE depuis le LOT-69, qui remplace les
+// decors-sprites par des plans picturaux (EX-DEC-040). Un fichier qui le porte encore reste
+// VALIDE : on l'ignore en journalisant, jamais en echouant.
+//
+// Un champ obsolete n'est pas une donnee *invalide* -- EX-LVL-004 vise la validite -- et le
+// rejeter rendrait illisible tout niveau personnel anterieur, a rebours de l'invariant
+// EX-LVL-005. Convertir automatiquement un assemblage de sprites en surface peinte serait par
+// ailleurs impossible sans rasterisation : mieux vaut ignorer franchement que mentir sur le
+// resultat. LevelWriter ne le reemet jamais, donc charger puis enregistrer migre le fichier.
+void warnOnObsoleteDecors(const nlohmann::json& root, const std::string& levelName) {
+    if (root.contains("decors")) {
+        LEVELS_LOG_WARNING("Niveau '" + levelName +
+                           "' : champ 'decors' obsolete depuis le LOT-69, ignore. "
+                           "Utiliser 'planes' (plans picturaux).");
     }
-    if (!root.at("decors").is_array()) {
-        return failure("Le champ 'decors' doit etre une liste", LevelValidationError::ParseError);
-    }
-    for (const nlohmann::json& decorJson : root.at("decors")) {
-        Decor decor;
-        decor.assetName = decorJson.at("asset").get<std::string>();
-        decor.position.x = decorJson.at("x").get<float>();
-        decor.position.y = decorJson.at("y").get<float>();
-        decor.scale.x = decorJson.value("scaleX", 1.0F);
-        decor.scale.y = decorJson.value("scaleY", 1.0F);
-        decor.rotation = decorJson.value("rotation", 0.0F);
-        decor.layer = parseDecorLayer(decorJson);
-        decor.manipulable = decorJson.value("manipulable", false);
-        decors.push_back(std::move(decor));
-    }
-    return std::nullopt;
 }
 
 // Traite le champ racine optionnel "cameraFraming" (EX-LVL-006, LOT-64) : absent = aucun cadrage
@@ -604,10 +578,7 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                 DangerLink{.triggerPosition = found->second, .dangerPosition = danger.position});
         }
 
-        std::vector<Decor> decors;
-        if (std::optional<LevelLoadResult> decorsError = parseDecors(root, decors)) {
-            return std::move(*decorsError);
-        }
+        warnOnObsoleteDecors(root, name);
 
         std::vector<Plane> planes;
         if (std::optional<LevelLoadResult> planesError = parsePlanes(root, width, height, planes)) {
@@ -631,7 +602,7 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                 Level(std::move(name), std::move(map), entry, exit, std::move(mechanisms),
                       jumpBudget, dashBudget, std::move(dangerLinks), std::move(moverConfigs),
                       std::move(blinkConfigs), std::move(background), std::move(skinSet),
-                      std::move(textureOverrides), std::move(decors), std::move(platformConfigs),
+                      std::move(textureOverrides), std::move(platformConfigs),
                       cameraFraming, airJumps, dashCharges, std::move(planes), parallaxEnabled),
             .error = {}};
     } catch (const nlohmann::json::exception& error) {

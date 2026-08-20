@@ -181,7 +181,6 @@ add_executable(ProjectGaming
     Graphics/DraftRenderer.cpp
     Graphics/TileVisuals.cpp
     Graphics/MechanismVisuals.cpp
-    Graphics/DecorVisuals.cpp
     Graphics/Parallax.cpp
     Graphics/ProceduralFont.cpp
     Graphics/BitmapFont.cpp
@@ -236,7 +235,6 @@ add_executable(ProjectGaming
     Interface/GamepadBindingsWidget.cpp
     # Éditeur de niveau
     Editor/PalettePanel.cpp
-    Editor/DecorsPanel.cpp
     Editor/LevelBrowserPanel.cpp
     Editor/LinkPanel.cpp
     Editor/TileTaxonomy.cpp
@@ -250,11 +248,8 @@ add_executable(ProjectGaming
     Editor/LinkGeometry.cpp
     Editor/LinkGesture.cpp
     Editor/TextureAssignGesture.cpp
-    Editor/DecorGeometry.cpp
-    Editor/DecorGesture.cpp
     Editor/PathGeometry.cpp
     Editor/PathGesture.cpp
-    Editor/DecorListModel.cpp
     Editor/AssetLibrary.cpp
     Editor/ThumbnailGeometry.cpp
     Editor/AssetThumbnailView.cpp
@@ -282,7 +277,6 @@ add_executable(ProjectGaming
     ${ELEMENTS_UI}/LevelSelectScreen.ui
     ${ELEMENTS_UI}/CreditsScreen.ui
     ${ELEMENTS_UI}/OptionsPage.ui
-    ${ELEMENTS_UI}/DecorsPanel.ui
     ${ELEMENTS_UI}/TexturePanel.ui
     ${ELEMENTS_UI}/PropertiesPanel.ui
     ${ELEMENTS_UI}/LevelBrowserPanel.ui

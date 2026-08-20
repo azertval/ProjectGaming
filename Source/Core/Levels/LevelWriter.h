@@ -73,8 +73,6 @@ public:
      * @param skinSet      Nom du jeu de skins du niveau (`EX-EDIT-024`), omis du JSON si absent.
      * @param textureOverrides Textures assignées par instance (`EX-EDIT-043`) ; une tuile sans
      *                     override correspondant est émise sans champ `"texture"`.
-     * @param decors       Décors libres du niveau (`EX-DEC-001`, LOT-49), émis dans le tableau
-     *                     racine optionnel `"decors"`, omis si vide (`EX-LVL-005`).
      * @param planes       Plans picturaux du niveau (`EX-DEC-040`, LOT-69), émis dans le tableau
      *                     racine optionnel `"planes"`, omis si vide. Chaque champ à sa valeur par
      *                     défaut est omis (convention du `LOT-67`).
@@ -103,7 +101,6 @@ public:
         const std::optional<std::string>& background = std::nullopt,
         const std::optional<std::string>& skinSet = std::nullopt,
         const std::vector<TileTextureOverride>& textureOverrides = {},
-        const std::vector<Decor>& decors = {},
         const std::vector<MovingPlatformConfig>& platformConfigs = {},
         const CameraFramingConfig& cameraFraming = {},
         const std::optional<int>& airJumps = std::nullopt,

@@ -31,8 +31,6 @@ add_executable(UnitTests
     Unit/Core/Levels/test_danger_geometry.cpp
     Unit/Core/Levels/test_tile_type_name.cpp
     Unit/Core/Levels/test_tile_texture_override.cpp
-    Unit/Core/Levels/test_decor.cpp
-    Unit/Core/Levels/test_decor_mutations.cpp
     Unit/Core/Gameplay/test_mechanism_controller.cpp
     Unit/Core/Gameplay/test_danger_controller.cpp
     Unit/Core/Gameplay/test_block_controller.cpp
@@ -79,7 +77,6 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_cache_registry.cpp
     Unit/HMI/Graphics/test_mechanism_visuals.cpp
     Unit/HMI/Graphics/test_mechanism_transitions.cpp
-    Unit/HMI/Graphics/test_decor_visuals.cpp
     Unit/HMI/Graphics/test_parallax.cpp
     Unit/HMI/Graphics/test_layer_visibility.cpp
     Unit/HMI/Graphics/test_bitmap_font.cpp
@@ -117,11 +114,8 @@ add_executable(UnitTests
     Unit/HMI/Editor/test_asset_library.cpp
     Unit/HMI/Editor/test_asset_file_operations.cpp
     Unit/HMI/Editor/test_asset_references.cpp
-    Unit/HMI/Editor/test_decor_geometry.cpp
-    Unit/HMI/Editor/test_decor_gesture.cpp
     Unit/HMI/Editor/test_path_geometry.cpp
     Unit/HMI/Editor/test_path_gesture.cpp
-    Unit/HMI/Editor/test_decor_list_model.cpp
     Unit/HMI/Editor/test_mechanism_animation_assignments.cpp
     Unit/HMI/Editor/test_editor_status.cpp
     Unit/HMI/Editor/test_panel_focus.cpp
@@ -245,9 +239,6 @@ add_executable(UnitTests
     # La geometrie partagee du corps/des poignees de decors (LOT-50) et le geste pur de
     # manipulation sont des fonctions/machine a etats pures, sans dependance GPU/Qt : testables
     # hors GPU, meme patron que LinkGesture/LinkGeometry (LOT-37).
-    ../HMI/Editor/DecorGeometry.cpp
-    ../HMI/Editor/DecorGesture.cpp
-    ../HMI/Editor/DecorListModel.cpp
     # Geometrie des poignees de parcours et machine a etats du geste de l'outil « Parcours »
     # (LOT-67) : meme patron pur que DecorGeometry/DecorGesture ci-dessus.
     ../HMI/Editor/PathGeometry.cpp
@@ -266,7 +257,6 @@ add_executable(UnitTests
     # La projection couche -> calque et la resolution d'apparence des decors (LOT-49) sont des
     # fonctions pures, sans dependance GPU/Qt : testables hors GPU, meme patron que
     # MechanismVisuals.cpp ci-dessus.
-    ../HMI/Graphics/DecorVisuals.cpp
     # Le facteur de parallaxe par couche et le calcul du decalage (LOT-49 TACHE-03) sont des
     # fonctions pures, sans dependance GPU : testables hors GPU.
     ../HMI/Graphics/Parallax.cpp

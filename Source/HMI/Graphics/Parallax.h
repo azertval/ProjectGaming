@@ -3,32 +3,22 @@
 
 #pragma once
 
-#include "Core/Levels/Decor.h"
 #include "Core/Math/Rect.h"
 #include "Core/Math/Vector2.h"
 
 /**
  * @file HMI/Graphics/Parallax.h
- * @brief Facteur de défilement par couche et calcul du décalage de parallaxe (`EX-DEC-006`,
- *        LOT-49 TACHE-03).
+ * @brief Calcul du décalage de parallaxe (`EX-DEC-043`, LOT-69).
+ *
+ * Le facteur n'est plus une constante par couche : il est **porté par le plan** (`core::Plane`),
+ * donc réglable niveau par niveau. Ces fonctions ne connaissent qu'un `float` — elles ignorent
+ * d'où il vient.
  */
 
 namespace hmi {
 
-/// Facteur de la couche `core::DecorLayer::Background` : défile **moins vite** que le niveau.
-inline constexpr float PARALLAX_FACTOR_BACKGROUND = 0.5f;
-/// Facteur de la couche `core::DecorLayer::Decor` : **solidaire** du niveau (valeur de référence,
-/// `EX-DEC-006`) — un décor de cette couche ne subit jamais de décalage de parallaxe.
-inline constexpr float PARALLAX_FACTOR_DECOR = 1.0f;
-/// Facteur de la couche `core::DecorLayer::Foreground` : défile **plus vite** que le niveau.
-inline constexpr float PARALLAX_FACTOR_FOREGROUND = 1.15f;
-
-/**
- * @brief Facteur de défilement de la couche d'un décor (`EX-DEC-006`).
- * @param layer Couche du décor.
- * @return Le facteur associé (constante nommée, jamais une valeur magique en aval).
- */
-[[nodiscard]] float parallaxFactor(core::DecorLayer layer) noexcept;
+/// Facteur **neutre** : le contenu est solidaire du niveau et ne subit aucun décalage.
+inline constexpr float PARALLAX_FACTOR_NONE = 1.0f;
 
 /**
  * @brief Calcule la position de **rendu** d'un décor, décalée par sa parallaxe.

@@ -33,20 +33,6 @@ namespace {
     return type == TileType::Door || type == TileType::LockedDoor;
 }
 
-// Nom JSON d'une DecorLayer (LOT-49, EX-DEC-002), symétrique à decorLayerFromName ci-dessous
-// (LevelLoader.cpp).
-[[nodiscard]] const char* decorLayerName(DecorLayer layer) {
-    switch (layer) {
-        case DecorLayer::Background:
-            return "background";
-        case DecorLayer::Decor:
-            return "decor";
-        case DecorLayer::Foreground:
-            return "foreground";
-    }
-    return "decor";
-}
-
 // Nom JSON d'un PlaneDepth (LOT-69, EX-DEC-042), symétrique à parsePlaneDepth (LevelLoader.cpp).
 // La profondeur par défaut (Behind) n'est jamais écrite (voir buildJson) : ce nom ne sert donc en
 // pratique que pour Front, mais le switch reste exhaustif pour que l'ajout d'une valeur soit
@@ -80,7 +66,7 @@ std::string LevelWriter::toJsonString(const Level& level) {
     return buildJson(level.name(), level.tileMap(), level.mechanisms(), level.jumpBudget(),
                      level.dashBudget(), level.dangerLinks(), level.moverConfigs(),
                      level.blinkConfigs(), level.background(), level.skinSet(),
-                     level.textureOverrides(), level.decors(), level.platformConfigs(),
+                     level.textureOverrides(), level.platformConfigs(),
                      level.cameraFraming(), level.airJumps(), level.dashCharges(), level.planes(),
                      level.parallaxEnabled());
 }
@@ -101,7 +87,7 @@ std::string LevelWriter::buildJson(
     const std::vector<DangerMoverConfig>& moverConfigs,
     const std::vector<DangerBlinkConfig>& blinkConfigs,
     const std::optional<std::string>& background, const std::optional<std::string>& skinSet,
-    const std::vector<TileTextureOverride>& textureOverrides, const std::vector<Decor>& decors,
+    const std::vector<TileTextureOverride>& textureOverrides,
     const std::vector<MovingPlatformConfig>& platformConfigs,
     const CameraFramingConfig& cameraFraming, const std::optional<int>& airJumps,
     const std::optional<int>& dashCharges, const std::vector<Plane>& planes, bool parallaxEnabled) {
@@ -297,31 +283,6 @@ std::string LevelWriter::buildJson(
         }
     }
     root["tiles"] = std::move(tiles);
-
-    // Tableau racine optionnel "decors" (EX-DEC-001, LOT-49), omis si vide (retrocompatibilite,
-    // EX-LVL-005) : l'ordre du vecteur est preserve (rang = superposition intra-couche).
-    if (!decors.empty()) {
-        nlohmann::json decorsJson = nlohmann::json::array();
-        for (const Decor& decor : decors) {
-            nlohmann::json entry;
-            entry["asset"] = decor.assetName;
-            entry["x"] = decor.position.x;
-            entry["y"] = decor.position.y;
-            if (decor.scale.x != 1.0F || decor.scale.y != 1.0F) {
-                entry["scaleX"] = decor.scale.x;
-                entry["scaleY"] = decor.scale.y;
-            }
-            if (decor.rotation != 0.0F) {
-                entry["rotation"] = decor.rotation;
-            }
-            entry["layer"] = decorLayerName(decor.layer);
-            if (decor.manipulable) {
-                entry["manipulable"] = true;
-            }
-            decorsJson.push_back(std::move(entry));
-        }
-        root["decors"] = std::move(decorsJson);
-    }
 
     // Tableau racine optionnel "planes" (EX-DEC-040, LOT-69), omis si vide : l'ordre du vecteur
     // est preserve (rang = superposition). Chaque champ a sa valeur par defaut est omis, comme
