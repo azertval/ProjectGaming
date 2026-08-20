@@ -132,7 +132,7 @@ void DraftRenderer::composeHighlight(const core::GridPosition& minimum,
     quad.g = 0.7f;
     quad.b = 1.0f;
     quad.a = 0.28f;  // voile bleu semi-transparent (apercu rectangle/selection)
-    _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureView(), OVERLAY_ORDER_HIGHLIGHT,
+    _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureHandle(), OVERLAY_ORDER_HIGHLIGHT,
                      quad);
 }
 
@@ -158,7 +158,7 @@ void DraftRenderer::composeTextureOverrideMarkers(const core::LevelDraft& draft)
         quad.g = 0.85f;
         quad.b = 0.1f;
         quad.a = 0.9f;  // jaune dore, oppose au bleu du voile de selection/rectangle
-        _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureView(),
+        _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureHandle(),
                          OVERLAY_ORDER_TEXTURE_OVERRIDES, quad);
     }
 }
@@ -191,7 +191,7 @@ void DraftRenderer::composeGrid(const core::LevelDraft& draft) {
         return quad;
     };
     const auto add = [&](const SpriteQuad& quad) {
-        _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureView(), OVERLAY_ORDER_GRID,
+        _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureHandle(), OVERLAY_ORDER_GRID,
                          quad);
     };
 
@@ -256,7 +256,7 @@ void DraftRenderer::composeCameraFraming(const core::LevelDraft& draft) {
         return quad;
     };
     const auto add = [&](const SpriteQuad& quad) {
-        _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureView(),
+        _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureHandle(),
                          OVERLAY_ORDER_CAMERA_FRAMING, quad);
     };
     // Rectangle CREUX (quatre bords) : plus lisible qu'un voile plein sur une grande zone, et
@@ -403,7 +403,8 @@ void DraftRenderer::composeLinks(const core::LevelDraft& draft, const LinkOverla
         return quad;
     };
     const auto addLine = [&](const LineQuad& quad) {
-        _scene.addLine(RenderLayer::EditorOverlay, _atlas.textureView(), OVERLAY_ORDER_LINKS, quad);
+        _scene.addLine(RenderLayer::EditorOverlay, _atlas.textureHandle(), OVERLAY_ORDER_LINKS,
+                       quad);
     };
 
     constexpr float LINE_THICKNESS = 0.045f;
@@ -425,7 +426,7 @@ void DraftRenderer::composeLinks(const core::LevelDraft& draft, const LinkOverla
         pendingQuad.g = 0.9f;
         pendingQuad.b = 0.2f;
         pendingQuad.a = 0.35f;
-        _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureView(), OVERLAY_ORDER_LINKS,
+        _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureHandle(), OVERLAY_ORDER_LINKS,
                          pendingQuad);
 
         // Trait provisoire vers la case survolee, si distincte (retour visuel du geste en cours).
@@ -518,7 +519,7 @@ void DraftRenderer::composeMovingPlatformPaths(const core::LevelDraft& draft,
         quad.g = G;
         quad.b = BLUE;
         quad.a = ALPHA;
-        _scene.addLine(RenderLayer::EditorOverlay, _atlas.textureView(),
+        _scene.addLine(RenderLayer::EditorOverlay, _atlas.textureHandle(),
                        OVERLAY_ORDER_PLATFORM_PATH, quad);
     };
 
@@ -583,7 +584,7 @@ void DraftRenderer::composePathHandles(const std::vector<PathHandle>& handles) {
     for (const PathHandle& handle : handles) {
         constexpr float OUTSET = 0.015f;
         _scene.addSprite(
-            RenderLayer::EditorOverlay, _atlas.textureView(), OVERLAY_ORDER_HANDLE_DARK,
+            RenderLayer::EditorOverlay, _atlas.textureHandle(), OVERLAY_ORDER_HANDLE_DARK,
             solidOverlayQuad(core::Rect{core::Vector2{handle.rect.position.x - OUTSET,
                                                       handle.rect.position.y - OUTSET},
                                         core::Vector2{handle.rect.size.x + (OUTSET * 2.0f),
@@ -593,7 +594,7 @@ void DraftRenderer::composePathHandles(const std::vector<PathHandle>& handles) {
         // poignee designe un point A CREER, pas un point acquis (LOT-68).
         const bool midpoint =
             handle.kind == PathHandleKind::Midpoint || handle.kind == PathHandleKind::Origin;
-        _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureView(),
+        _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureHandle(),
                          OVERLAY_ORDER_HANDLE_BRIGHT,
                          solidOverlayQuad(handle.rect, midpoint ? 0.4f : 0.25f, 0.95f,
                                           midpoint ? 0.35f : 1.0f, 1.0f));
@@ -629,7 +630,7 @@ void DraftRenderer::composeDangerMoverPaths(const core::LevelDraft& draft,
         quad.g = 0.35f;
         quad.b = 0.2f;
         quad.a = 0.6f;
-        _scene.addLine(RenderLayer::EditorOverlay, _atlas.textureView(), OVERLAY_ORDER_MOVER_PATH,
+        _scene.addLine(RenderLayer::EditorOverlay, _atlas.textureHandle(), OVERLAY_ORDER_MOVER_PATH,
                        quad);
     };
 

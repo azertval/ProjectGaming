@@ -1,6 +1,6 @@
 # LOT-69 — Plans picturaux, parallaxe réglable et mode création {#lot-69}
 
-> Statut : **en cours** (TACHE-01, TACHE-03 et TACHE-04 faites). Prérequis : [LOT-49](@ref lot-49) et [LOT-50](@ref lot-50)
+> Statut : **en cours** (TACHE-01 à TACHE-04 faites). Prérequis : [LOT-49](@ref lot-49) et [LOT-50](@ref lot-50)
 > (le système qu'il remplace), [LOT-54](@ref lot-54) (atelier pixel art, réutilisé tel quel),
 > [LOT-51](@ref lot-51) (visibilité par calque), [LOT-64](@ref lot-64) (modes de cadrage),
 > `LOT-68` (espaces de travail de l'éditeur — documenté par ses exigences, sans dossier dédié).
@@ -111,7 +111,7 @@ retirées ») : `EX-DEC-001`, `EX-DEC-002`, `EX-DEC-004`, `EX-DEC-005`, `EX-DEC-
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
 | TACHE-01 | Passage à Qt 6.11 et provisionnement reproductible | `Source/HMI`, `.github/workflows`, `Documentation` | ✅ |
-| TACHE-02 | Rendu sur QRhi et fin de la fenêtre native | `Source/HMI/{Graphics,Game,Interface}` | ⬜ |
+| TACHE-02 | Rendu sur QRhi et fin de la fenêtre native | `Source/HMI/{Graphics,Game,Interface}` | ✅ |
 | TACHE-03 | Modèle de plan, format de niveau et brouillon annulable | `Source/Core/Levels` | ✅ |
 | TACHE-04 | Retrait du système de décors | `Source/{Core,HMI,Test,Elements}` | ✅ |
 | TACHE-05 | Composition et rendu des plans | `Source/HMI/Graphics` | ⬜ |

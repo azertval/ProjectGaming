@@ -1,7 +1,7 @@
 # TACHE-02 — Rendu sur QRhi et fin de la fenêtre native {#lot-69-tache-02-rendu-qrhi}
 
 **Lot :** [LOT-69](epic.md) · **Emplacement :** `Source/HMI/{Graphics,Game,Interface}` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 `hmi::GameViewport` est une **`QWindow` native** embarquée par `QWidget::createWindowContainer`

@@ -45,8 +45,9 @@ plutôt que par convention : un rôle ajouté à l'une existe nécessairement da
 verrouille par ailleurs leur **étanchéité** — l'identité du jeu doit rester rigoureusement
 inchangée quel que soit le thème actif du châssis, y compris après une bascule à chaud.
 
-> Piège de plate-forme consigné dans l'en-tête : `<Windows.h>` (via `GraphicsDevice.h`) définit une
-> macro `small`, qui casserait silencieusement `SpacingTokens::small`. Le fichier la neutralise.
+> Piège de plate-forme consigné dans l'en-tête : `<Windows.h>` définit une macro `small`, qui
+> casserait silencieusement `SpacingTokens::small`. Le fichier la neutralise — garde conservée
+> après le portage QRhi, l'en-tête pouvant encore être tiré indirectement.
 
 ## De jetons purs à une application habillée
 

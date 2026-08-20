@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**1125 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**1127 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (1020)
+## Tests unitaires (1022)
 
 ### Core
 
@@ -1007,7 +1007,7 @@
 | **ProgressionUnlockTest.SequenceEntierementTermineeTousJouables** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_progression.cpp:290`</sub> | Séquence entièrement terminée : tous les tableaux sont jouables. | 1. Marquer tous les tableaux de la séquence terminés.<br/>2. Interroger `isLevelUnlocked` pour chacun. | Vérifie que `hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, level)` est vrai. |
 | **ProgressionUnlockTest.TableauVerrouilleNEstJamaisJouable** (Critique)<br/><sub>`Source/Test/Unit/HMI/Game/test_progression.cpp:312`</sub> | Un tableau verrouillé n'est jamais jouable. | 1. Ne terminer aucun tableau.<br/>2. Interroger `isLevelUnlocked` pour un tableau loin dans la séquence. | Vérifie que `hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, "demo-dash.json")` est faux. |
 
-#### Graphics (261)
+#### Graphics (263)
 
 **`test_animated_tiles.cpp`**
 
@@ -1295,6 +1295,13 @@
 | **RenderModeTest.ModeTextureConserveLaGeometrie** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_render_mode.cpp:220`</sub> | Le mode Texture lie le damier sans changer la geometrie composee. | 1. Composer la scene de reference dans les deux modes.<br/>2. Comparer textures, positions et tailles. | Vérifie que `physique.size()` vaut `texture.size()`.<br/>Vérifie que `texture[i].texture` vaut `testTextures().missing`.<br/>Vérifie que `texture[i].layer` vaut `physique[i].layer`.<br/>Vérifie que `texture[i].sprite.x` vaut `physique[i].sprite.x` (comparaison flottante).<br/>Vérifie que `texture[i].sprite.y` vaut `physique[i].sprite.y` (comparaison flottante).<br/>Vérifie que `texture[i].sprite.width` vaut `physique[i].sprite.width` (comparaison flottante).<br/>Vérifie que `texture[i].sprite.height` vaut `physique[i].sprite.height` (comparaison flottante). |
 | **RenderModeTest.BasculeSansEffetRemanent** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_render_mode.cpp:253`</sub> | La bascule Physique -> Texture -> Physique est sans effet remanent. | 1. Composer en Physique, puis en Texture, puis de nouveau en Physique.<br/>2. Comparer la premiere et la troisieme liste. | Vérifie que `before.size()` vaut `after.size()`.<br/>Vérifie que `after[i].texture` vaut `before[i].texture`.<br/>Vérifie que `after[i].layer` vaut `before[i].layer`.<br/>Vérifie que `after[i].sortOrder` vaut `before[i].sortOrder`.<br/>Vérifie que `after[i].sprite.x` vaut `before[i].sprite.x` (comparaison flottante).<br/>Vérifie que `after[i].sprite.u0` vaut `before[i].sprite.u0` (comparaison flottante).<br/>Vérifie que `after[i].sprite.v1` vaut `before[i].sprite.v1` (comparaison flottante). |
 | **RenderModeTest.F8HorsDesTablesDeRemappage** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_render_mode.cpp:292`</sub> | F8 n'apparait dans aucune table de remappage. | 1. Parcourir les touches par defaut de toutes les actions de jeu et d'edition. | Vérifie que `static_cast<int>(key)` diffère de `VIRTUAL_KEY_F8`.<br/>Vérifie que `static_cast<int>(key)` diffère de `VIRTUAL_KEY_F8`. |
+
+**`test_rhi_offscreen.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **RhiOffscreenTest.ZoomEntierResteNetEnFiltrageNearest** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_rhi_offscreen.cpp:89`</sub> | Le rendu QRhi conserve le pixel art net a zoom entier. | 1. Rendre hors ecran une texture temoin 4x4 agrandie 4 fois.<br/>2. Relire les pixels de la cible. | Vérifie que `target->create()` est vrai.<br/>Vérifie que `renderTarget->create()` est vrai.<br/>Vérifie que `rhi->beginOffscreenFrame(&commandBuffer)` vaut `QRhi::FrameOpSuccess`.<br/>Vérifie que `source.has_value()` est vrai.<br/>Vérifie que `rhi->endOffscreenFrame()` vaut `QRhi::FrameOpSuccess`.<br/>Vérifie que `readback.pixelSize` vaut `QSize(TARGET_SIZE, TARGET_SIZE)`.<br/>Vérifie que `pixel.red()` vaut `red`.<br/>Vérifie que `pixel.green()` vaut `green`.<br/>Vérifie que `pixel.blue()` vaut `blue`. |
+| **RhiOffscreenTest.TeinteMultiplieeEtEffacementConserve** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_rhi_offscreen.cpp:180`</sub> | La teinte multiplie la texture et l'effacement subsiste hors du quad. | 1. Rendre hors ecran un quad teinte couvrant un quart de la cible.<br/>2. Relire un pixel dans le quad et un pixel hors du quad. | Vérifie que `target->create()` est vrai.<br/>Vérifie que `renderTarget->create()` est vrai.<br/>Vérifie que `rhi->beginOffscreenFrame(&commandBuffer)` vaut `QRhi::FrameOpSuccess`.<br/>Vérifie que `source.has_value()` est vrai.<br/>Vérifie que `rhi->endOffscreenFrame()` vaut `QRhi::FrameOpSuccess`.<br/>Vérifie que `inside.red()` vaut `0`.<br/>Vérifie que `inside.green()` vaut `255`.<br/>Vérifie que `inside.blue()` vaut `0`.<br/>Vérifie que `outside.red()` vaut `0`.<br/>Vérifie que `outside.green()` vaut `0`.<br/>Vérifie que `outside.blue()` vaut `255`. |
 
 **`test_room_grid.cpp`**
 

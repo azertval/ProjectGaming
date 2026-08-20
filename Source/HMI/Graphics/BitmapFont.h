@@ -3,13 +3,14 @@
 
 #pragma once
 
+#include <memory>
 #include <string>
 #include <string_view>
 
-#include <d3d11.h>
-#include <wrl/client.h>
-
 #include "HMI/Graphics/ProceduralFont.h"
+#include "HMI/Graphics/RenderLayer.h"
+
+class QRhiTexture;
 
 /**
  * @file HMI/Graphics/BitmapFont.h
@@ -17,6 +18,8 @@
  */
 
 namespace hmi {
+
+struct RhiContext;
 
 /// Sous-dossier des assets de police, relatif au dossier d'assets (`LOT-52`).
 inline const std::string FONTS_SUBDIRECTORY = "Fonts/";
@@ -30,8 +33,8 @@ inline const std::string FONTS_SUBDIRECTORY = "Fonts/";
  * (`hmi::validateFontMetricsAgainstTexture`). Si l'un des deux est absent, illisible ou
  * incohérent, retombe sans plantage sur `hmi::buildProceduralFont` (`LOT-52`), sur le modèle de
  * `hmi::TextureAtlas` vis-à-vis de `hmi::buildProceduralAtlasImage` : possède sa **propre**
- * ressource Direct3D (RAII, `ComPtr`), chargée une fois au démarrage — pas de rechargement à
- * chaud (comme l'atlas de tuiles, hors du périmètre de `LOT-43` TACHE-03).
+ * texture GPU (RAII), chargée une fois au démarrage — pas de rechargement à chaud (comme l'atlas
+ * de tuiles, hors du périmètre de `LOT-43` TACHE-03).
  */
 class BitmapFont {
 public:
@@ -41,15 +44,14 @@ public:
     static constexpr const char* FONT_METRICS_FILE_NAME = "font.json";
 
     /**
-     * @brief Charge la police (fichier, avec repli procédural) et crée la ressource Direct3D
-     *        associée.
-     * @param device Device Direct3D 11 (crée la texture et sa vue de ressource).
+     * @brief Charge la police (fichier, avec repli procédural) et crée la texture GPU associée.
+     * @param context Interface de rendu et lot de mises à jour de l'image courante.
      */
-    explicit BitmapFont(ID3D11Device* device);
+    explicit BitmapFont(const RhiContext& context);
 
-    /// @return La vue de ressource de la texture de police (non possédée par l'appelant).
-    [[nodiscard]] ID3D11ShaderResourceView* textureView() const {
-        return _view.Get();
+    /// @return L'identité opaque de la texture de police (non possédée par l'appelant).
+    [[nodiscard]] TextureHandle textureHandle() const {
+        return _texture.get();
     }
 
     /// @return Largeur de l'atlas de glyphes, en pixels.
@@ -75,15 +77,14 @@ public:
 private:
     /// Essaie de charger `Assets/Fonts/font.png` + `font.json`. @return true si les deux ont été
     /// chargés, validés, et la texture créée avec succès.
-    bool loadFromAssets(ID3D11Device* device);
+    bool loadFromAssets(const RhiContext& context);
     /// Génère la police procédurale (`hmi::buildProceduralFont`) et crée la texture associée.
-    void generateProcedural(ID3D11Device* device);
+    void generateProcedural(const RhiContext& context);
 
     FontMetrics _metrics;
     int _textureWidth = 0;
     int _textureHeight = 0;
-    Microsoft::WRL::ComPtr<ID3D11Texture2D> _texture;
-    Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> _view;
+    std::shared_ptr<QRhiTexture> _texture;
 };
 
 }  // namespace hmi

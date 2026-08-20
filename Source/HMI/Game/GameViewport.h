@@ -3,8 +3,8 @@
 
 #pragma once
 
+#include <QRhiWidget>
 #include <QString>
-#include <QWindow>
 #include <chrono>
 #include <filesystem>
 #include <memory>
@@ -26,6 +26,7 @@
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/LayerVisibility.h"
 #include "HMI/Graphics/RenderMode.h"
+#include "HMI/Graphics/RhiContext.h"
 #include "HMI/Graphics/SkinCatalog.h"
 #include "HMI/Input/EditorKeyBindings.h"
 #include "HMI/Input/GameKeyBindings.h"
@@ -35,12 +36,11 @@
 
 /**
  * @file HMI/Game/GameViewport.h
- * @brief Viewport de l'éditeur : rendu Direct3D 11 du brouillon d'édition et de l'essai
- * (LOT-34/35).
+ * @brief Viewport de l'éditeur : rendu du brouillon d'édition et de l'essai sur QRhi
+ * (LOT-34/35, porté au LOT-69 TACHE-02).
  */
 
 namespace hmi {
-class GraphicsDevice;
 class SpriteBatch;
 class TextureAtlas;
 class TextureCache;
@@ -53,7 +53,18 @@ class AudioEngine;
 namespace hmi {
 
 /**
- * @brief Fenêtre native (`QWindow`) où Direct3D 11 présente, embarquée dans Qt.
+ * @brief Widget de rendu (`QRhiWidget`) où la scène est dessinée, composé avec le reste de
+ *        l'interface.
+ *
+ * **Widget, et non fenêtre native, depuis le `LOT-69` TACHE-02** (`EX-REN-050`). L'ancien montage
+ * — une `QWindow` embarquée par `QWidget::createWindowContainer` — a coûté deux défauts réels au
+ * `LOT-59` : un écran de pause qui ne s'affichait jamais de façon fiable par-dessus la fenêtre
+ * native, puis un contournement `Qt::Tool` qui empêchait `activateWindow()`. `QRhiWidget` rend
+ * dans une texture d'appui composée avec les autres widgets : l'empilement redevient celui,
+ * ordinaire, de Qt, et les recouvrements (pause, fin de niveau) redeviennent de simples enfants.
+ *
+ * La cible technique ne change pas : QRhi retient **Direct3D 11** par défaut sous Windows
+ * (`EX-REN-002`, amendée — *au travers de QRhi* plutôt qu'en appelant l'API directement).
  *
  * **Mode édition** (LOT-35) : affiche le brouillon (`core::LevelDraft`) via `hmi::DraftRenderer`,
  * caméra cadrant le niveau entier par défaut. Le clic/glisser gauche **peint** le type de tuile
@@ -69,11 +80,11 @@ namespace hmi {
  * que d'un appel direct — le seuil de dispatch que le futur atelier pixel art (`LOT-54`)
  * réutilisera pour sa propre cible, sans le réécrire.
  */
-class GameViewport : public QWindow, public EditContextTarget {
+class GameViewport : public QRhiWidget, public EditContextTarget {
     Q_OBJECT
 
 public:
-    explicit GameViewport(QWindow* parent = nullptr);
+    explicit GameViewport(QWidget* parent = nullptr);
     ~GameViewport() override;
 
     GameViewport(const GameViewport&) = delete;
@@ -275,7 +286,9 @@ public:
     /// le dernier (`isLastGameLevel`) : l'écran ne propose alors pas ce bouton.
     void advanceToNextLevel();
 
-    /// Active/désactive la synchronisation verticale (`EX-REN-022`) ; appliqué au device D3D11.
+    /// Active/désactive la synchronisation verticale (`EX-REN-022`). Depuis le portage QRhi, la
+    /// présentation appartient au compositeur de Qt : le réglage est conservé et rapporté, mais
+    /// c'est Qt qui cale l'image sur le rafraîchissement.
     void setVSync(bool enabled) noexcept;
     /// @return true si la V-Sync est active.
     [[nodiscard]] bool vsyncEnabled() const noexcept {
@@ -504,16 +517,24 @@ signals:
     /// Le zoom d'édition vient de changer (molette, pan, recadrage) — consommé par la barre d'état
     /// (`LOT-57` TACHE-01).
     void zoomChanged(float zoom);
-    /// Le device Direct3D 11 et le catalogue de skins viennent d'être (re)créés (`ensureResources`)
-    /// — tout ce qui a lu `skinCatalog()` **avant** la première exposition de la fenêtre (le
-    /// câblage de `MainWindow`, à la construction) l'a lu vide et doit se reconstruire une fois ce
-    /// signal reçu, sous peine de vignettes/arbre de skins sans texture au lancement de l'éditeur.
+    /// Les ressources graphiques et le catalogue de skins viennent d'être (re)créés
+    /// (`QRhiWidget::initialize`) — tout ce qui a lu `skinCatalog()` **avant** la première
+    /// initialisation (le câblage de `MainWindow`, à la construction) l'a lu vide et doit se
+    /// reconstruire une fois ce signal reçu, sous peine de vignettes/arbre de skins sans texture au
+    /// lancement de l'éditeur. Émis à nouveau si `QRhiWidget` recrée son interface de rendu (le
+    /// widget a changé de fenêtre de haut niveau) : les textures sont alors perdues avec elle.
     void resourcesReady();
 
 protected:
+    /// Crée (ou recrée) les ressources graphiques quand `QRhiWidget` fournit son interface de
+    /// rendu, et à chaque fois qu'il en change (`EX-NFR-040` : perte de ressources prévue, pas
+    /// supposée impossible).
+    void initialize(QRhiCommandBuffer* commandBuffer) override;
+    /// Dessine une image : avance la simulation, compose la scène, puis la soumet.
+    void render(QRhiCommandBuffer* commandBuffer) override;
+    /// Libère les ressources graphiques quand `QRhiWidget` défait son interface de rendu.
+    void releaseResources() override;
     bool event(QEvent* event) override;
-    void exposeEvent(QExposeEvent*) override;
-    void resizeEvent(QResizeEvent*) override;
     void keyPressEvent(QKeyEvent* event) override;
     void keyReleaseEvent(QKeyEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;
@@ -522,12 +543,15 @@ protected:
     void wheelEvent(QWheelEvent* event) override;
 
 private:
-    void ensureResources();
-    void tick();
+    /// Crée l'atlas, la police, le cache de textures et le pipeline de dessin sur l'interface de
+    /// rendu courante, puis ouvre le brouillon de départ. Appelée par `initialize`.
+    void createResources();
+    /// Avance la simulation d'une image (entrées, pas fixes, sons) — sans rien dessiner.
+    void tick(float elapsedSeconds);
+    /// Compose et soumet une image sur @p commandBuffer.
     /// @p deltaSeconds : temps réel écoulé depuis l'image précédente (LOT-46 TACHE-05, avance
-    /// l'aperçu des tuiles animées de l'éditeur) ; `0` (défaut) pour un redessin sans avancer
-    /// l'aperçu (redimensionnement).
-    void renderFrame(float deltaSeconds = 0.0f);
+    /// l'aperçu des tuiles animées de l'éditeur).
+    void renderFrame(QRhiCommandBuffer* commandBuffer, float deltaSeconds);
     /// Compose et soumet le compteur de diagnostic (`LOT-62` TACHE-02), coin haut-droit de l'écran
     /// -- sans effet si désactivé, hors session, ou avant que la localisation ne soit chargée
     /// (`EX-NFR-040`, coût nul quand éteint : rien n'est calculé au-delà du test d'entrée).
@@ -609,7 +633,9 @@ private:
 
     using Clock = std::chrono::steady_clock;
 
-    std::unique_ptr<hmi::GraphicsDevice> _graphics;
+    /// Interface de rendu courante et lot de mises à jour de l'image en cours, partagés avec
+    /// tout ce qui crée des textures (atlas, cache, police).
+    hmi::RhiContext _rhiContext;
     std::unique_ptr<hmi::SpriteBatch> _spriteBatch;
     std::unique_ptr<hmi::TextureAtlas> _atlas;
     std::unique_ptr<hmi::TextureCache> _textureCache;
@@ -708,7 +734,7 @@ private:
     /// Jeu de visibilités par calque du mode d'inspection « définition des textures » (`LOT-51`) —
     /// tout visible par défaut, jamais persisté (TACHE-01), édition uniquement.
     LayerVisibility _layerVisibility;
-    bool _vsync = true;      ///< Synchronisation verticale (appliquée au device D3D11).
+    bool _vsync = true;      ///< Synchronisation verticale demandée (cf. `setVSyncEnabled`).
     bool _gameMode = false;  ///< La session courante est une **partie** (menu Jouer) et
                              ///< non un essai depuis l'éditeur (enchaînement/retour menu).
     /// Écran de pause affiché (`LOT-59` TACHE-02) : `tick()` n'avance plus l'accumulateur de pas

@@ -122,11 +122,11 @@ private:
     workspacePanels() const;
 
 protected:
-    /// Même resynchronisation que `resizeEvent`, nécessaire en plus de lui : un recouvrement est
-    /// une fenêtre de haut niveau positionnée en coordonnées **écran** (`syncOverlayGeometry`),
-    /// donc déplacer la fenêtre principale sans la redimensionner (aucun `resizeEvent`) la
-    /// désaligne quand même.
     void moveEvent(QMoveEvent* event) override;
+    /// Suit la taille du viewport pour les recouvrements qui s'y superposent (pause, fin de
+    /// niveau) : enfants ordinaires depuis le `LOT-69` TACHE-02, ils se redimensionnent avec leur
+    /// parent plutôt que d'être repositionnés en coordonnées écran.
+    bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
     /// Crée les panneaux (contenu des docks du `.ui`) et branche les actions de la barre de menus.
@@ -240,11 +240,6 @@ private:
     /// pure) puis applique l'habillage générique de @p screen (`hmi::dressingFor`) : docks,
     /// barres, commandes d'édition, navigation manette, minuteur de statut.
     void applyScreenDressing(hmi::ScreenId screen);
-    /// Positionne `_pauseScreen`/`_levelCompleteScreen` (fenêtres de haut niveau) pour recouvrir
-    /// exactement `_editorContainer` **en coordonnées écran** (`LOT-59` TACHE-02/03/07) -- appelé
-    /// à la création et à chaque déplacement/redimensionnement de la fenêtre principale
-    /// (`moveEvent`/`resizeEvent`).
-    void syncOverlayGeometry();
 
     // Écran de pause (LOT-59 TACHE-02).
     /// `Échap`/bouton manette B en jeu réel (`GameViewport::pauseRequested`) : ouvre la pause.
@@ -320,17 +315,15 @@ private:
     /// Écran courant et écran de retour d'Options (`LOT-59` TACHE-01, `EX-GP-041`) : seule source
     /// de vérité sur la navigation, mise à jour uniquement par `transitionScreen`.
     hmi::ScreenState _screenState;
-    QStackedWidget* _stack;     ///< Central : empile menu principal, options et viewport.
-    MainMenu* _menu;            ///< Menu principal (page d'accueil).
-    OptionsPage* _options;      ///< Page Options à onglets.
-    QWidget* _editorContainer;  ///< Conteneur natif du viewport (page éditeur/jeu).
-    /// Recouvrement de pause (`LOT-59` TACHE-02) : fenêtre de **haut niveau** possédée par `this`
-    /// (`Qt::Tool | Qt::FramelessWindowHint`, fond translucide), jamais une page ni un enfant de
-    /// `_stack` -- une fenêtre native embarquée via `QWidget::createWindowContainer`
-    /// (`_editorContainer`) peint toujours par-dessus ses **frères** Qt ordinaires, quel que soit
-    /// leur `raise()` : seule une fenêtre de haut niveau distincte se superpose de façon fiable
-    /// (limitation documentée de Qt, constatée en jeu : `TACHE-07`). Géométrie synchronisée en
-    /// coordonnées **écran** (`syncOverlayGeometry`), visibilité pilotée par `applyScreenDressing`.
+    QStackedWidget* _stack;  ///< Central : empile menu principal, options et viewport.
+    MainMenu* _menu;         ///< Menu principal (page d'accueil).
+    OptionsPage* _options;   ///< Page Options à onglets.
+    /// Recouvrement de pause (`LOT-59` TACHE-02) : **widget enfant ordinaire** du viewport
+    /// depuis le `LOT-69` TACHE-02. Il fut une fenêtre de haut niveau tant que le viewport était
+    /// une fenêtre native embarquée (`QWidget::createWindowContainer`), qui peignait toujours
+    /// par-dessus ses frères Qt : le portage sur `QRhiWidget` efface cette contrainte, et avec
+    /// elle la géométrie synchronisée en coordonnées écran. Visibilité pilotée par
+    /// `applyScreenDressing`, géométrie suivie par le filtre d'événements posé sur le viewport.
     PauseScreen* _pauseScreen = nullptr;
     /// Recouvrement de fin de niveau/séquence (`LOT-59` TACHE-03) : même patron que
     /// `_pauseScreen` ci-dessus (fenêtre de haut niveau, pas un enfant de `_stack`).

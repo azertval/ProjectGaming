@@ -82,7 +82,7 @@ struct SkinTexture {
  * (`EX-NFR-004`).
  */
 struct SceneTextures {
-    /// Atlas du jeu (`hmi::TextureAtlas::textureView`).
+    /// Atlas du jeu (`hmi::TextureAtlas::textureHandle`).
     TextureHandle atlas = nullptr;
     /// Largeur de l'atlas, en pixels.
     int atlasWidth = 0;

@@ -107,7 +107,7 @@
 ## 3. Boucle & temps
 - \anchor EX-REN-020 **EX-REN-020** — Le jeu doit tourner à **60 images/seconde** cible.
 - \anchor EX-REN-021 **EX-REN-021** — La logique doit être mise à jour à **pas de temps fixe** (simulation déterministe), le rendu pouvant être découplé.
-- \anchor EX-REN-022 **EX-REN-022** — Le rendu doit synchroniser la présentation (V-Sync activable) pour éviter le *tearing*.
+- \anchor EX-REN-022 **EX-REN-022** — Le rendu doit synchroniser la présentation (V-Sync activable) pour éviter le *tearing*. Depuis le `LOT-69` TACHE-02, la présentation appartient au **compositeur de Qt** (`EX-REN-050`) : elle est donc toujours synchronisée, et le réglage exposé dans les Options est conservé mais sans effet — écart assumé, à trancher si le besoin d'une présentation immédiate réapparaît.
 - \anchor EX-REN-004 **EX-REN-004** — La présentation doit utiliser le **modèle flip** de DXGI
   (`DXGI_SWAP_EFFECT_FLIP_DISCARD`, au moins deux back buffers) plutôt que l'ancien modèle *blt*
   (`DISCARD`) : sous Windows 10/11, le flip model présente le back buffer **sans copie

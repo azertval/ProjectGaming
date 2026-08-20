@@ -13,8 +13,8 @@
 namespace hmi {
 
 // Construit un cache vide pour un device et un dossier d'assets donnes.
-TextureCache::TextureCache(ID3D11Device* device, AssetPaths paths)
-    : _device(device), _paths(std::move(paths)) {}
+TextureCache::TextureCache(const RhiContext& context, AssetPaths paths)
+    : _context(context), _paths(std::move(paths)) {}
 
 // Charge et valide un asset depuis le disque, sans passer par le cache. Les trois causes d'echec
 // (chemin introuvable, decodage impossible, dimensions non conformes) sont journalisees
@@ -51,7 +51,7 @@ std::optional<LoadedTexture> TextureCache::load(const std::string& fileName, Ass
     }
 
     std::optional<LoadedTexture> texture =
-        createTexture(_device, image->width, image->height, pixels);
+        createTexture(_context, image->width, image->height, pixels);
     if (!texture) {
         GRAPHICS_LOG_WARNING("Creation Direct3D de la texture " + fileName + " impossible.");
         return std::nullopt;
@@ -143,7 +143,7 @@ void TextureCache::invalidateAll() {
 const LoadedTexture* TextureCache::missingTexture() {
     if (!_missingTexture) {
         const ProceduralAtlasImage image = buildMissingTextureImage();
-        _missingTexture = createTexture(_device, image.width, image.height, image.pixels);
+        _missingTexture = createTexture(_context, image.width, image.height, image.pixels);
         if (!_missingTexture) {
             GRAPHICS_LOG_ERROR("Creation de la texture de repli (damier magenta) impossible.");
             return nullptr;

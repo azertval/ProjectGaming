@@ -4,7 +4,6 @@
 #include "HMI/Game/GameViewport.h"
 
 #include <QEvent>
-#include <QExposeEvent>
 #include <QKeyEvent>
 #include <QMouseEvent>
 #include <QPlatformSurfaceEvent>
@@ -34,12 +33,13 @@
 #include "HMI/Editor/PathGesture.h"
 #include "HMI/Editor/TextureAssignGesture.h"
 #include "HMI/Input/QtKeyMap.h"
-// GraphicsDevice tire <Windows.h>/<d3d11.h> (HWND, device D3D11). Inclus après les en-têtes Qt.
+// QRhi est une API privée de QtGui : l'en-tête vit sous rhi/, pas parmi les classes publiques.
+#include <rhi/qrhi.h>
+
 #include "HMI/Graphics/AssetContract.h"
 #include "HMI/Graphics/AssetPaths.h"
 #include "HMI/Graphics/BitmapFont.h"
 #include "HMI/Graphics/DraftRenderer.h"
-#include "HMI/Graphics/GraphicsDevice.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/Parallax.h"
 #include "HMI/Graphics/SpriteBatch.h"
@@ -81,8 +81,8 @@ namespace {
 
 }  // namespace
 
-GameViewport::GameViewport(QWindow* parent)
-    : QWindow(parent),
+GameViewport::GameViewport(QWidget* parent)
+    : QRhiWidget(parent),
       _gameBindings(hmi::GameKeyBindings::load(keybindingsPath())),
       _gamepadBindings(hmi::GamepadBindings::load(keybindingsPath())),
       _editorBindings(hmi::EditorKeyBindings::load(keybindingsPath())),
@@ -128,31 +128,25 @@ void GameViewport::setRenderMode(RenderMode mode) {
 }
 
 int GameViewport::pixelWidth() const {
-    return std::max(1, static_cast<int>(width() * devicePixelRatio()));
+    return std::max(1, static_cast<int>(static_cast<qreal>(width()) * devicePixelRatio()));
 }
 
 int GameViewport::pixelHeight() const {
-    return std::max(1, static_cast<int>(height() * devicePixelRatio()));
+    return std::max(1, static_cast<int>(static_cast<qreal>(height()) * devicePixelRatio()));
 }
 
-void GameViewport::ensureResources() {
-    if (_graphics) {
-        return;
-    }
-    const HWND handle = reinterpret_cast<HWND>(winId());
-    HMI_LOG_INFO("Viewport : initialisation Direct3D 11 (" + std::to_string(pixelWidth()) + "x" +
-                 std::to_string(pixelHeight()) + ").");
-    _graphics = std::make_unique<hmi::GraphicsDevice>(handle, pixelWidth(), pixelHeight());
-    _graphics->setVSyncEnabled(_vsync);
-    _spriteBatch = std::make_unique<hmi::SpriteBatch>(_graphics->device(), _graphics->context());
-    _atlas = std::make_unique<hmi::TextureAtlas>(_graphics->device());
+void GameViewport::createResources() {
+    HMI_LOG_INFO("Viewport : initialisation du rendu sur QRhi (" + std::to_string(pixelWidth()) +
+                 "x" + std::to_string(pixelHeight()) + ").");
+    _spriteBatch = std::make_unique<hmi::SpriteBatch>(_rhiContext.rhi);
+    _atlas = std::make_unique<hmi::TextureAtlas>(_rhiContext);
     // Police bitmap du HUD (LOT-52), chargee une fois comme l'atlas (repli procedural integre,
     // pas de damier de secours a gerer ici).
-    _font = std::make_unique<hmi::BitmapFont>(_graphics->device());
+    _font = std::make_unique<hmi::BitmapFont>(_rhiContext);
     // Registre des textures nommees (LOT-40) : proprietaire du damier de repli du mode Texture,
     // et point d'entree des skins a partir du LOT-42.
     _textureCache = std::make_unique<hmi::TextureCache>(
-        _graphics->device(), hmi::AssetPaths{hmi::executableDirectory() / "Assets"});
+        _rhiContext, hmi::AssetPaths{hmi::executableDirectory() / "Assets"});
     _draftRenderer = std::make_unique<hmi::DraftRenderer>(*_spriteBatch, *_atlas, *_textureCache);
 
     // Catalogue des skins (LOT-42), lu a cote de l'executable comme les niveaux et les traductions.
@@ -740,16 +734,7 @@ void GameViewport::handleLinkClick(const QMouseEvent* event) {
     }
 }
 
-void GameViewport::tick() {
-    if (!isExposed()) {
-        return;
-    }
-    ensureResources();
-
-    const Clock::time_point now = Clock::now();
-    const float elapsedSeconds = std::chrono::duration<float>(now - _previousFrame).count();
-    _previousFrame = now;
-
+void GameViewport::tick(float elapsedSeconds) {
     // Cadence de rendu (LOT-62 TACHE-02) : seulement quand le compteur est actif -- rien n'est
     // calculé au-delà du test, coût nul quand il est éteint.
     if (_diagnosticsEnabled) {
@@ -811,24 +796,69 @@ void GameViewport::tick() {
         // (piège documenté par TACHE-02).
         _input.beginFrame();
     }
-
-    renderFrame(elapsedSeconds);
-    requestUpdate();
 }
 
-void GameViewport::renderFrame(float deltaSeconds) {
-    if (!isExposed()) {
-        return;
+// Crée (ou recrée) les ressources graphiques quand QRhiWidget fournit son interface de rendu.
+void GameViewport::initialize(QRhiCommandBuffer* commandBuffer) {
+    if (_rhiContext.rhi == rhi()) {
+        return;  // même interface : les ressources déjà créées restent valides.
     }
-    ensureResources();
+    // Changement d'interface (première image, ou widget passé sous une autre fenêtre de haut
+    // niveau) : tout ce qui tient une texture est caduc. Ordre de libération : la session et les
+    // rendus AVANT les textures qu'ils référencent.
+    releaseResources();
+    _rhiContext.rhi = rhi();
+    _rhiContext.updates = _rhiContext.rhi->nextResourceUpdateBatch();
+    createResources();
+    // Téléversements accumulés par la création des textures : soumis ici, hors de toute passe.
+    commandBuffer->resourceUpdate(_rhiContext.updates);
+    _rhiContext.updates = nullptr;
+    _previousFrame = Clock::now();
+}
+
+// Libère les ressources graphiques quand QRhiWidget défait son interface de rendu.
+void GameViewport::releaseResources() {
+    _session.reset();
+    _draftRenderer.reset();
+    _textureCache.reset();  // libère les textures avant le pipeline qui les échantillonne
+    _font.reset();
+    _atlas.reset();
+    _spriteBatch.reset();
+    _rhiContext.rhi = nullptr;
+    _rhiContext.updates = nullptr;
+}
+
+// Dessine une image : avance la simulation, compose la scène, puis la soumet.
+void GameViewport::render(QRhiCommandBuffer* commandBuffer) {
+    if (_spriteBatch == nullptr) {
+        return;  // initialize() n'a pas encore pu créer les ressources.
+    }
+    const Clock::time_point now = Clock::now();
+    const float elapsedSeconds = std::chrono::duration<float>(now - _previousFrame).count();
+    _previousFrame = now;
+
+    // Lot de mises à jour de CETTE image : les textures chargées paresseusement pendant la
+    // composition y déposent leurs pixels, et `submit` le soumet avant d'ouvrir sa passe.
+    _rhiContext.updates = _rhiContext.rhi->nextResourceUpdateBatch();
+    tick(elapsedSeconds);
+    renderFrame(commandBuffer, elapsedSeconds);
+    _rhiContext.updates = nullptr;
+
+    // Animation continue : la prochaine image est demandée dès celle-ci terminée, comme le faisait
+    // `requestUpdate()` du temps de la fenêtre native.
+    update();
+}
+
+void GameViewport::renderFrame(QRhiCommandBuffer* commandBuffer, float deltaSeconds) {
+    _spriteBatch->beginFrame();
     // Fond derive des jetons (LOT-56) : portee variable (chassis d'edition, suivant le theme actif
     // de l'editeur, TACHE-06) en edition, portee invariante (identite du jeu) en jeu/essai -- seule
     // surface qui appartient tour a tour aux deux portees (hmi::viewportClearColor).
     const hmi::DesignColor clearColor =
         hmi::viewportClearColor(/*editorMode=*/!_session, hmi::currentEditorTokens());
-    _graphics->clear(static_cast<float>(clearColor.r) / 255.0f,
-                     static_cast<float>(clearColor.g) / 255.0f,
-                     static_cast<float>(clearColor.b) / 255.0f, 1.0f);
+    const float clear[4] = {static_cast<float>(clearColor.r) / 255.0f,
+                            static_cast<float>(clearColor.g) / 255.0f,
+                            static_cast<float>(clearColor.b) / 255.0f, 1.0f};
     if (_session) {
         _session->render(pixelWidth(), pixelHeight(), _renderMode, _timestep.interpolationAlpha());
         renderDiagnosticsOverlay(pixelWidth(), pixelHeight());
@@ -858,7 +888,9 @@ void GameViewport::renderFrame(float deltaSeconds) {
         _draftRenderer->render(_draft, _camera, _showGrid, highlight(), linkOverlay, _renderMode,
                                showTextureOverrides, deltaSeconds, _layerVisibility, pathOverlay);
     }
-    _graphics->present();
+    // Téléversement unique puis passe unique : c'est ici, et nulle part ailleurs, que le GPU voit
+    // l'image (cf. `hmi::SpriteBatch`, enregistrement en deux phases).
+    _spriteBatch->submit(commandBuffer, renderTarget(), _rhiContext.updates, clear);
 }
 
 void GameViewport::renderDiagnosticsOverlay(int viewportWidth, int viewportHeight) {
@@ -899,58 +931,21 @@ void GameViewport::renderDiagnosticsOverlay(int viewportWidth, int viewportHeigh
 
 bool GameViewport::event(QEvent* event) {
     switch (event->type()) {
-        case QEvent::UpdateRequest:
-            tick();
-            return true;
         case QEvent::FocusOut:
             _input.releaseAll();
             break;
         case QEvent::Leave:
             // Le curseur quitte le viewport : la case survolee n'a plus de sens (LOT-57 TACHE-01,
-            // barre d'etat) -- QWindow n'a pas de leaveEvent() dedie comme QWidget, seul event()
-            // recoit QEvent::Leave.
+            // barre d'etat).
             if (_hoverCell) {
                 _hoverCell.reset();
                 emit hoveredCellChanged(std::nullopt);
             }
             break;
-        case QEvent::PlatformSurface:
-            // Libère les ressources Direct3D 11 tant que la surface native existe encore (crash de
-            // fermeture, cf. LOT-34). Ordre : session/renderer avant le device.
-            if (static_cast<QPlatformSurfaceEvent*>(event)->surfaceEventType() ==
-                QPlatformSurfaceEvent::SurfaceAboutToBeDestroyed) {
-                _session.reset();
-                _draftRenderer.reset();
-                _textureCache.reset();  // libere les textures avant le device qui les a creees
-                _atlas.reset();
-                _spriteBatch.reset();
-                _graphics.reset();
-                _loopStarted = false;
-            }
-            break;
         default:
             break;
     }
-    return QWindow::event(event);
-}
-
-void GameViewport::exposeEvent(QExposeEvent*) {
-    if (!isExposed()) {
-        return;
-    }
-    ensureResources();
-    if (!_loopStarted) {
-        _loopStarted = true;
-        _previousFrame = Clock::now();
-    }
-    requestUpdate();
-}
-
-void GameViewport::resizeEvent(QResizeEvent*) {
-    if (_graphics) {
-        _graphics->resize(pixelWidth(), pixelHeight());
-        renderFrame();
-    }
+    return QRhiWidget::event(event);
 }
 
 void GameViewport::keyPressEvent(QKeyEvent* event) {
@@ -1101,7 +1096,10 @@ void GameViewport::startPlaytest() {
             statusText("status.playtest_failed").arg(QString::fromStdString(validated.error)));
         return;
     }
-    ensureResources();
+    if (_spriteBatch == nullptr) {
+        emit statusMessage(statusText("status.playtest_failed"));
+        return;  // rendu pas encore initialise (aucune image dessinee) : rien a essayer.
+    }
     _session.emplace(*_spriteBatch, *_atlas, *_textureCache, pixelWidth(), pixelHeight(),
                      std::move(*validated.level), _gameBindings, _gamepadBindings, *_font, _loc);
     // Meme habillage qu'en edition : l'essai doit montrer exactement le canevas de l'editeur.
@@ -1161,10 +1159,10 @@ void GameViewport::stopPlaytest() {
 
 void GameViewport::setVSync(bool enabled) noexcept {
     _vsync = enabled;
-    HMI_LOG_INFO(std::string("Options : V-Sync ") + (enabled ? "activee." : "desactivee."));
-    if (_graphics) {
-        _graphics->setVSyncEnabled(enabled);
-    }
+    // Depuis le portage QRhi (LOT-69 TACHE-02), la presentation appartient au compositeur de Qt :
+    // le reglage est conserve et journalise, mais aucune swap chain du projet ne l'applique plus.
+    HMI_LOG_INFO(std::string("Options : V-Sync ") + (enabled ? "activee." : "desactivee.") +
+                 " La presentation est calee par Qt depuis le portage QRhi.");
 }
 
 void GameViewport::pauseSimulation() noexcept {
@@ -1221,7 +1219,6 @@ void GameViewport::advanceToNextLevel() {
 }
 
 void GameViewport::startGame(std::vector<std::filesystem::path> levels, std::size_t startIndex) {
-    ensureResources();
     _gameLevels = std::move(levels);
     _gameMode = true;
     HMI_LOG_INFO("Jeu : demarrage de la sequence (" + std::to_string(_gameLevels.size()) +

@@ -8,7 +8,7 @@ Le **jeu** dans l'application Qt : la simulation d'un niveau et le viewport qui 
   (`EX-ARCH-031`). Toute la logique de jeu d'un niveau (scène ECS, physique, mécanismes, blocs,
   dangers, caméra par salle, animation) vit ici, **une seule fois**.
 - `GameViewport` — `QWindow` embarqué (`QWidget::createWindowContainer`) fournissant le `HWND` à
-  `hmi::GraphicsDevice`. Pilote la boucle à pas fixe (`QEvent::UpdateRequest`, discipline d'entrées
+  `QRhiWidget`. Pilote la boucle à pas fixe (une image redemande la suivante, discipline d'entrées
   par pas — `LOT-33`) en **mode jeu** (enchaîne une séquence via `GameSession`) comme en **mode
   édition** (peinture/outils sur `core::LevelDraft`, rendu `hmi::DraftRenderer`, grille `F10`).
 

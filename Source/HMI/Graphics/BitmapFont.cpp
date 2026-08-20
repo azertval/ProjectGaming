@@ -10,22 +10,23 @@
 #include "HMI/Graphics/AssetContract.h"
 #include "HMI/Graphics/AssetPaths.h"
 #include "HMI/Graphics/GraphicsLog.h"
+#include "HMI/Graphics/RhiContext.h"
 #include "HMI/Graphics/TextureLoader.h"
 #include "HMI/Platform/ExecutableDirectory.h"
 
 namespace hmi {
 
-// Charge la police (fichier, avec repli procedural) et cree la ressource Direct3D associee.
-BitmapFont::BitmapFont(ID3D11Device* device) {
-    if (loadFromAssets(device)) {
+// Charge la police (fichier, avec repli procedural) et cree la texture GPU associee.
+BitmapFont::BitmapFont(const RhiContext& context) {
+    if (loadFromAssets(context)) {
         return;
     }
-    generateProcedural(device);
+    generateProcedural(context);
 }
 
 // Essaie de charger Assets/Fonts/font.png + font.json. true si les deux ont ete charges, valides,
 // et la texture creee avec succes.
-bool BitmapFont::loadFromAssets(ID3D11Device* device) {
+bool BitmapFont::loadFromAssets(const RhiContext& context) {
     const AssetPaths assetPaths(executableDirectory() / "Assets");
 
     const std::optional<std::filesystem::path> imagePath =
@@ -35,7 +36,7 @@ bool BitmapFont::loadFromAssets(ID3D11Device* device) {
                           "' absent, repli sur la police procedurale");
         return false;
     }
-    std::optional<LoadedTexture> loaded = loadTextureFromFile(device, *imagePath);
+    std::optional<LoadedTexture> loaded = loadTextureFromFile(context, *imagePath);
     if (!loaded) {
         GRAPHICS_LOG_WARNING("BitmapFont : echec du chargement de '" + imagePath->string() +
                              "', repli sur la police procedurale");
@@ -73,17 +74,16 @@ bool BitmapFont::loadFromAssets(ID3D11Device* device) {
     _textureWidth = loaded->width;
     _textureHeight = loaded->height;
     _texture = std::move(loaded->texture);
-    _view = std::move(loaded->view);
     _metrics = *metricsResult.metrics;
     GRAPHICS_LOG_INFO("BitmapFont : police chargee depuis '" + imagePath->string() + "'");
     return true;
 }
 
-// Genere la police procedurale et cree la ressource Direct3D associee.
-void BitmapFont::generateProcedural(ID3D11Device* device) {
+// Genere la police procedurale et cree la texture GPU associee.
+void BitmapFont::generateProcedural(const RhiContext& context) {
     const ProceduralFont font = buildProceduralFont();
     std::optional<LoadedTexture> loaded =
-        createTexture(device, font.image.width, font.image.height, font.image.pixels);
+        createTexture(context, font.image.width, font.image.height, font.image.pixels);
     if (!loaded) {
         // Echec de creation GPU d'un contenu genere en memoire : erreur d'initialisation non
         // recuperable (device perdu, ressources epuisees), pas un cas metier attendu -- meme
@@ -94,7 +94,6 @@ void BitmapFont::generateProcedural(ID3D11Device* device) {
     _textureWidth = loaded->width;
     _textureHeight = loaded->height;
     _texture = std::move(loaded->texture);
-    _view = std::move(loaded->view);
     _metrics = font.metrics;
     GRAPHICS_LOG_TRACE("BitmapFont : police procedurale generee");
 }

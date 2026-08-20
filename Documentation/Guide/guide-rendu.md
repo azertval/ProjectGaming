@@ -27,50 +27,46 @@ l'écran finit de rafraîchir l'image précédente, ce qui s'appelle la **synchr
 l'écran, au prix d'attendre ce moment si le jeu est plus rapide que l'écran. L'ensemble
 « back buffer(s) + mécanisme d'échange » s'appelle une **swap chain**.
 
-## \ref hmi::GraphicsDevice "hmi::GraphicsDevice" : initialiser Direct3D 11 et présenter l'image
+## QRhi : une couche d'accès au GPU, pas un changement de cible
 
-**Direct3D 11** est l'API bas niveau, fournie par Windows, qui permet de piloter le GPU (créer des
-ressources, envoyer des commandes de dessin, présenter l'image). `hmi::GraphicsDevice` encapsule les
-trois objets fondamentaux que Direct3D 11 expose pour cela :
+Depuis le `LOT-69` TACHE-02, le projet ne parle plus à Direct3D 11 directement : il passe par
+**QRhi**, la couche d'abstraction de rendu de Qt. La cible technique ne change pas — QRhi retient
+Direct3D 11 par défaut sous Windows (`EX-REN-002`, amendée) — mais le device, la *swap chain* et la
+présentation appartiennent désormais à Qt. La classe qui les portait a été **supprimée** plutôt que
+portée : elle n'avait plus rien à porter.
 
-- le **device** (`ID3D11Device`) : sert à **créer** des ressources GPU (textures, shaders,
-  buffers) — il ne dessine rien lui-même ;
-- le **contexte immédiat** (`ID3D11DeviceContext`) : sert à **émettre les commandes** de dessin
-  effectives (« dessine ces triangles avec cette texture ») ;
-- la **swap chain** (`IDXGISwapChain`) : gère le back buffer et la présentation décrite ci-dessus.
+Ce que le projet conserve en propre :
 
-`GraphicsDevice` les initialise à la construction (à partir du `HWND` — le handle natif Win32 de la
-fenêtre, voir plus bas), expose `clear(r, g, b, a)` (remplir tout le back buffer d'une couleur
-unie, l'étape qui précède tout dessin d'une frame — sans elle, chaque frame réafficherait par-dessus
-les pixels de la précédente), `present()` (échanger front/back buffer, avec V-Sync), et `resize(w,
-h)` (recréer les buffers à une nouvelle taille, nécessaire quand la fenêtre change de dimensions —
-les buffers de la swap chain ont une taille fixe, ils ne « s'étirent » pas automatiquement).
+- `hmi::SpriteBatch` : le pipeline 2D (tampons de sommets et d'indices, tampon uniforme,
+  échantillonneur, états de mélange) et l'émission des lots de dessin ;
+- `hmi::TextureLoader` : la création des textures GPU à partir de pixels décodés ;
+- les **shaders**, écrits une fois en GLSL et compilés en `.qsb` par l'outil `qsb` — un `.qsb`
+  contient plusieurs traductions (SPIR-V, HLSL, MSL), ce qui permet à QRhi de choisir son backend à
+  l'exécution sans que le projet livre un shader par API.
 
-Toutes les ressources Direct3D sont détenues via `Microsoft::WRL::ComPtr` (un pointeur intelligent
-pour les objets **COM**, le mécanisme de gestion d'objets utilisé par les API Windows historiques) :
-leur libération est automatique à la destruction, exactement comme un `std::unique_ptr` pour de la
-mémoire ordinaire — c'est ce qui permet à `GraphicsDevice` de n'avoir aucun destructeur explicite à
-écrire (`~GraphicsDevice() = default`).
+Deux contraintes de QRhi façonnent le code, et méritent d'être connues avant de le lire :
 
-La swap chain utilise le **modèle de présentation flip** (`DXGI_SWAP_EFFECT_FLIP_DISCARD`, avec deux
-back buffers — `EX-REN-004`, `LOT-33`) plutôt que l'ancien modèle *blt* (`DISCARD`, un seul buffer).
-Sous Windows 10/11, le flip model présente le back buffer **directement** au compositeur (DWM), sans
-la copie supplémentaire qu'imposait le modèle *blt* : moins de latence entre l'entrée du joueur et
-l'image affichée, et une cadence plus régulière — y compris V-Sync activée. En contrepartie, `Present`
-**dé-lie** la cible de rendu du back buffer à chaque frame ; `GraphicsDevice::clear()` la relie donc
-(`OMSetRenderTargets`) en tête de chaque frame, avant tout dessin.
+1. **Un téléversement ne se déclare pas pendant une passe de rendu.** Les données (sommets,
+   pixels de texture) transitent par un `QRhiResourceUpdateBatch`, soumis **avant** l'ouverture de
+   la passe. `hmi::SpriteBatch` enregistre donc toute l'image côté CPU, puis téléverse une fois et
+   dessine — au lieu de réécrire son tampon entre deux appels de dessin comme le permettait
+   Direct3D 11.
+2. **L'espace de clip du shader est celui d'OpenGL**, quelle que soit la cible : la matrice de
+   projection est multipliée par `QRhi::clipSpaceCorrMatrix()`, qui la ramène à la convention du
+   backend retenu.
 
 ## La surface de dessin : le viewport Qt (`hmi::GameViewport`)
 
-Direct3D a besoin d'une surface Windows où dessiner. Depuis la refonte Qt (@ref guide-ihm-qt), cette
-surface est un **`QWindow` natif** embarqué, `hmi::GameViewport` : Qt en fournit le handle natif
-(`HWND`, littéralement « *handle to a window* », l'identifiant opaque que Windows utilise pour
-désigner une fenêtre) via `QWindow::winId()` — c'est ce `HWND` que `GraphicsDevice` reçoit à sa
-construction pour savoir *où* dessiner, et sur lequel la swap chain présente **directement** (aucun
-`QBackingStore`).
+Depuis le `LOT-69` TACHE-02, le viewport est un **`QRhiWidget`** : un widget ordinaire, qui rend
+dans une texture d'appui composée avec le reste de l'interface. Il n'y a plus de fenêtre native
+embarquée, donc plus de `HWND` à transmettre, et surtout plus la limitation qui l'accompagnait — un
+widget Qt ne se dessinait jamais de façon fiable par-dessus une fenêtre native, ce qui avait coûté
+deux défauts réels au `LOT-59` (écran de pause invisible, puis vol de focus). Les recouvrements du
+jeu sont redevenus de simples widgets enfants.
 
-Le viewport a une seconde responsabilité : il possède l'**event loop** de rendu (tick cadencé par
-`QEvent::UpdateRequest`) et traduit les événements clavier/souris **Qt** en `hmi::InputState` (@ref
+Le viewport a une seconde responsabilité : il possède la **boucle de rendu** (chaque image
+redemande la suivante par `QWidget::update()`, et `QRhiWidget::render` l'exécute) et traduit les
+événements clavier/souris **Qt** en `hmi::InputState` (@ref
 guide-entrees) — c'est pour cela que la capture d'entrée vit au même endroit que le rendu, plutôt que
 dans un module totalement séparé.
 
@@ -1023,7 +1019,7 @@ cadence dépend de la machine, une machine virtuelle partagée ne la mesure pas 
 propre machine de développement ; c'est tout ce que ce lot automatise pour elle.
 
 ## Voir aussi
-- `hmi::GraphicsDevice`, `hmi::GameViewport`, `hmi::Camera2D`.
+- `hmi::SpriteBatch`, `hmi::GameViewport`, `hmi::Camera2D`.
 - `hmi::SpriteBatch`, `hmi::SpriteQuad`, `hmi::LineQuad`, `hmi::TextureAtlas`, `hmi::SpriteRenderer`,
   `hmi::DraftRenderer`.
 - `hmi::RenderLayer`, `hmi::RenderLayerTag`, `hmi::ComposedScene`, `hmi::QuadRecorder`,

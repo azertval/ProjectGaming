@@ -123,7 +123,7 @@ void composeText(ComposedScene& scene, const FontMetrics& metrics, TextureHandle
 void composeText(ComposedScene& scene, const BitmapFont& font, std::string_view text, float x,
                  float y, float scale, const core::Color& tint, TextAnchor anchor,
                  std::int32_t sortOrder) {
-    composeText(scene, font.metrics(), font.textureView(), font.textureWidth(),
+    composeText(scene, font.metrics(), font.textureHandle(), font.textureWidth(),
                 font.textureHeight(), text, x, y, scale, tint, anchor, sortOrder);
 }
 

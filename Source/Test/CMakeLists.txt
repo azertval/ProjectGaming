@@ -340,12 +340,29 @@ add_executable(UnitTests
 # construire (meme garde que BUILD_EDITOR_QT dans Source/HMI/CMakeLists.txt, qui a deja resolu
 # Qt6_DIR en cache si l'application a ete traitee avant ce dossier). Qt est toujours installe en
 # CI (cf. ci.yml) : le test s'y execute donc systematiquement.
-find_package(Qt6 QUIET COMPONENTS Gui)
+# GuiPrivate en plus de Gui depuis le LOT-69 TACHE-02 : TextureLoader.cpp cree desormais des
+# QRhiTexture, et <rhi/qrhi.h> vit dans les en-tetes prives de QtGui. Le test, lui, ne touche que
+# le decodage/encodage d'image -- aucune ressource GPU n'est creee sans QRhi.
+find_package(Qt6 QUIET COMPONENTS Gui GuiPrivate)
 if(Qt6_FOUND)
     target_sources(UnitTests PRIVATE
         Unit/HMI/Graphics/test_image_encode.cpp
-        ../HMI/Graphics/TextureLoader.cpp)
-    target_link_libraries(UnitTests PRIVATE Qt6::Gui)
+        # Non-regression VISUELLE du portage QRhi (LOT-69 TACHE-02) : rendu hors ecran d'un motif
+        # temoin, relu pixel par pixel. Se saute proprement si la machine n'offre aucune interface
+        # QRhi -- c'est le seul test qui protege la nettete du pixel art.
+        Unit/HMI/Graphics/test_rhi_offscreen.cpp
+        ../HMI/Graphics/TextureLoader.cpp
+        ../HMI/Graphics/SpriteBatch.cpp)
+    target_link_libraries(UnitTests PRIVATE Qt6::Gui Qt6::GuiPrivate)
+    # Les shaders du pipeline sont embarques dans UnitTests comme dans l'executable : le test de
+    # rendu hors ecran construit un vrai hmi::SpriteBatch, qui les charge depuis les ressources.
+    qt6_add_shaders(UnitTests "unittests_shaders"
+        PREFIX "/shaders"
+        BASE "${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders"
+        FILES
+            ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/sprite.vert
+            ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/sprite.frag
+    )
 else()
     message(STATUS
         "UnitTests : Qt6 introuvable -- test d'encodage/decodage d'image (LOT-54) ignore.")

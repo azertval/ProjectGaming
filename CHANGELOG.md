@@ -52,6 +52,29 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   journalisé comme obsolète, jamais rejeté (`EX-LVL-005`). Un simple charger-puis-enregistrer suffit
   à migrer le fichier, la réécriture ne contenant plus le champ.
 
+### Rendu (LOT-69)
+
+- **Le rendu passe sur QRhi** (`EX-REN-050`). La cible technique ne change pas — QRhi retient
+  **Direct3D 11** par défaut sous Windows (`EX-REN-002`, amendée) — mais l'API n'est plus appelée
+  directement : `hmi::GraphicsDevice` (device, swap chain, présentation) est **supprimé**, Qt en
+  étant désormais propriétaire, et les shaders sont compilés en `.qsb` puis embarqués.
+- **Le viewport est un widget ordinaire** (`QRhiWidget`), plus une fenêtre native embarquée. C'est
+  le bénéfice concret : l'écran de pause et l'écran de fin de niveau **redeviennent de simples
+  enfants**, là où ils avaient dû devenir des fenêtres de haut niveau à géométrie synchronisée en
+  coordonnées écran pour contourner deux défauts réels du `LOT-59` (écran de pause invisible, puis
+  `Qt::Tool` empêchant `activateWindow()`). Le focus s'obtient à nouveau directement, sans report
+  d'un tour de boucle d'événements.
+- **La netteté du pixel art est désormais testée, pas seulement constatée** : un rendu **hors
+  écran** d'un motif témoin est relu pixel par pixel et comparé à l'exact — un filtrage devenu
+  linéaire, qui passerait sans bruit toute la CI, y échoue.
+- **V-Sync** (`EX-REN-022`) : la présentation appartient au compositeur de Qt, elle est donc
+  toujours synchronisée. Le réglage des Options est conservé mais n'a plus d'effet — écart assumé
+  et documenté dans le référentiel.
+- Un défaut de la première version du portage mérite d'être noté, parce qu'il ne se voyait que sur
+  du contenu **multicolore** : l'image de téléversement d'une texture ne possédait pas ses pixels,
+  et le lot de mises à jour lisait de la mémoire libérée. Le test de rendu hors écran l'a attrapé
+  au premier essai.
+
 ### Outillage (LOT-69)
 
 - **Qt passe de 6.8.1 à 6.11.2.** Qt 6.11 est la première version à fournir **Qt Canvas Painter**

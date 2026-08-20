@@ -59,8 +59,8 @@ enum class RenderLayer : std::int32_t {
  *
  * La composition du rendu ne fait que **comparer** et **regrouper** des textures ; elle n'a
  * jamais besoin d'en connaître le type Direct3D. Ce typage volontairement opaque permet de la
- * garder libre de `<d3d11.h>` (et donc testable sans GPU, `EX-NFR-004`) : côté soumission,
- * `hmi::SpriteRenderer` reconvertit la valeur en `ID3D11ShaderResourceView*`, seule couche qui en
+ * garder libre de toute dépendance GPU (et donc testable sans carte, `EX-NFR-004`) : côté
+ * soumission, `hmi::SpriteBatch` reconvertit la valeur en `QRhiTexture*`, seule couche qui en
  * connaisse le type réel. Une valeur nulle désigne « aucune texture liée ».
  */
 using TextureHandle = void*;

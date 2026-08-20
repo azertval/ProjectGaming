@@ -32,9 +32,9 @@ void submitComposedScene(SpriteBatch& batch, const DirectX::XMFLOAT4X4& projecti
             if (open) {
                 batch.end();
             }
-            // Seule reconversion vers le type Direct3D de toute la chaine de rendu : la
-            // composition ne manipule qu'une identite opaque (cf. hmi::TextureHandle).
-            batch.begin(projection, static_cast<ID3D11ShaderResourceView*>(composed.texture));
+            // L'identite opaque traverse la chaine telle quelle : ni la composition ni la
+            // soumission ne connaissent le type reel de la texture (cf. hmi::TextureHandle).
+            batch.begin(projection, composed.texture);
             current = composed.texture;
             open = true;
         }
@@ -56,12 +56,12 @@ SceneTextures sceneTextures(
     const std::string& skinSet, const std::vector<core::TileTextureOverride>& textureOverrides,
     const std::unordered_map<std::string, core::Animation>& tileAnimations) {
     SceneTextures textures;
-    textures.atlas = atlas.textureView();
+    textures.atlas = atlas.textureHandle();
     textures.atlasWidth = atlas.width();
     textures.atlasHeight = atlas.height();
     // Resolution a la demande : en mode Physique, le damier n'est jamais cree.
     if (const LoadedTexture* missing = cache.missingTexture()) {
-        textures.missing = missing->view.Get();
+        textures.missing = missing->handle();
         textures.missingWidth = missing->width;
         textures.missingHeight = missing->height;
     }
@@ -72,7 +72,7 @@ SceneTextures sceneTextures(
     // repli sur l'atlas si absente/invalide -- meme avertissement deja journalise par le cache).
     if (const LoadedTexture* sheet =
             cache.get(PLAYER_SUBDIRECTORY + PLAYER_SHEET_FILE_NAME, AssetFamily::CharacterSheet)) {
-        textures.characterSheet = sheet->view.Get();
+        textures.characterSheet = sheet->handle();
         textures.characterSheetWidth = sheet->width;
         textures.characterSheetHeight = sheet->height;
     }
@@ -88,7 +88,7 @@ SceneTextures sceneTextures(
         if (loaded == nullptr) {
             continue;  // absent/illisible/refuse : la resolution retombera sur le damier.
         }
-        textures.objects.push_back(SkinTexture{override.assetName, std::nullopt, loaded->view.Get(),
+        textures.objects.push_back(SkinTexture{override.assetName, std::nullopt, loaded->handle(),
                                                loaded->width, loaded->height});
     }
 
@@ -135,8 +135,8 @@ SceneTextures sceneTextures(
             }
         }
 
-        textures.skins.push_back(SkinTexture{entry.asset, maskType, loaded->view.Get(),
-                                             loaded->width, loaded->height, animatedFrame});
+        textures.skins.push_back(SkinTexture{entry.asset, maskType, loaded->handle(), loaded->width,
+                                             loaded->height, animatedFrame});
     }
     return textures;
 }
@@ -154,7 +154,7 @@ BackgroundTexture resolveBackgroundTexture(const std::optional<std::string>& bac
     if (texture == nullptr) {
         return {};  // meme le damier de repli n'a pas pu etre cree (device perdu).
     }
-    return BackgroundTexture{texture->view.Get(), texture->width, texture->height};
+    return BackgroundTexture{texture->handle(), texture->width, texture->height};
 }
 
 // Avance l'horloge d'animation partagee des tuiles animees d'un jeu de skins courant (voir

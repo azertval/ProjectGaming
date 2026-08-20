@@ -129,7 +129,6 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
       _stack(nullptr),
       _menu(nullptr),
       _options(nullptr),
-      _editorContainer(nullptr),
       _viewport(new GameViewport()),
       _palette(nullptr),
       _levels(nullptr),
@@ -177,10 +176,11 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     }
     _viewport->setAudioEngine(&_audio);
 
-    // `createWindowContainer` embarque la fenêtre native du viewport et en prend la propriété.
-    _editorContainer = QWidget::createWindowContainer(_viewport, this);
-    _editorContainer->setMinimumSize(320, 240);
-    _editorContainer->setFocusPolicy(Qt::StrongFocus);
+    // Le viewport est un widget ordinaire depuis le LOT-69 TACHE-02 (QRhiWidget) : il entre
+    // directement dans la pile centrale, sans conteneur de fenêtre native intermédiaire.
+    _viewport->setMinimumSize(320, 240);
+    _viewport->setFocusPolicy(Qt::StrongFocus);
+    _viewport->installEventFilter(this);
 
     // Central : menu principal, options et viewport empilés (remplace le centralHost du .ui).
     _menu = new MainMenu();
@@ -193,7 +193,7 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     _stack->addWidget(_options);
     _stack->addWidget(_levelSelectScreen);
     _stack->addWidget(_credits);
-    _stack->addWidget(_editorContainer);
+    _stack->addWidget(_viewport);
     setCentralWidget(_stack);
     connect(_levelSelectScreen, &LevelSelectScreen::backRequested, this,
             &MainWindow::closeLevelSelect);
@@ -203,21 +203,15 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
             &MainWindow::playPersonalLevel);
     connect(_credits, &CreditsScreen::backRequested, this, &MainWindow::closeCredits);
 
-    // Recouvrement de pause (LOT-59 TACHE-02) : fenêtre de HAUT NIVEAU possédée par `this`
-    // (Qt::Dialog -- pas d'entrée dans la barre des tâches vu qu'elle a un propriétaire, reste
-    // au-dessus de lui sans Qt::WindowStaysOnTopHint), PAS un enfant de _stack. Un widget Qt
-    // ordinaire, même frère du conteneur natif du viewport (_editorContainer,
-    // QWidget::createWindowContainer), ne se dessine JAMAIS de façon fiable par-dessus la fenêtre
-    // native qu'il embarque, quel que soit son raise() -- limitation documentée de Qt, constatée
-    // en jeu (TACHE-07 : l'écran ne s'affichait pas, la simulation restait figée sans rien à
-    // l'écran). PAS Qt::Tool (essayé d'abord, décrit ci-dessous) : sur Windows, Qt affiche une
-    // fenêtre Qt::Tool avec SW_SHOWNOACTIVATE -- par conception, pour les palettes flottantes qui
-    // ne doivent jamais voler le focus -- ce qui empêche `activateWindow()` de fonctionner
-    // (deuxième bug réel trouvé en jeu : Entrée/Échap restaient sans effet). Qt::Dialog n'a pas
-    // cette restriction, une fenêtre de dialogue étant conçue pour recevoir le focus normalement.
-    // Géométrie synchronisée en coordonnées ÉCRAN (syncOverlayGeometry), pas relative à _stack.
-    _pauseScreen = new PauseScreen(this);
-    _pauseScreen->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
+    // Recouvrement de pause (LOT-59 TACHE-02) : widget ENFANT ORDINAIRE du viewport depuis le
+    // LOT-69 TACHE-02. Il avait dû devenir une fenêtre de haut niveau (Qt::Dialog) parce qu'un
+    // widget frère ne se dessinait jamais de façon fiable par-dessus la fenêtre native embarquée
+    // par createWindowContainer -- deux défauts réels payés au LOT-59 (l'écran ne s'affichait pas,
+    // puis Qt::Tool cassait activateWindow() sur Windows). QRhiWidget rendant dans une texture
+    // composée avec le reste de l'interface, l'empilement redevient celui de Qt : un enfant
+    // raise() suffit, le focus s'obtient sans activation de fenêtre, et la géométrie se donne en
+    // coordonnées locales.
+    _pauseScreen = new PauseScreen(_viewport);
     _pauseScreen->setAttribute(Qt::WA_TranslucentBackground);
     _pauseScreen->hide();
     connect(_pauseScreen, &PauseScreen::resumeRequested, this, &MainWindow::resumeFromPause);
@@ -227,9 +221,8 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_viewport, &GameViewport::pauseRequested, this, &MainWindow::openPause);
 
     // Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même patron que _pauseScreen
-    // ci-dessus (fenêtre de haut niveau Qt::Dialog, pas un enfant de _stack).
-    _levelCompleteScreen = new LevelCompleteScreen(this);
-    _levelCompleteScreen->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
+    // ci-dessus (enfant du viewport).
+    _levelCompleteScreen = new LevelCompleteScreen(_viewport);
     _levelCompleteScreen->setAttribute(Qt::WA_TranslucentBackground);
     _levelCompleteScreen->hide();
     connect(_levelCompleteScreen, &LevelCompleteScreen::continueRequested, this,
@@ -532,7 +525,7 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
         case ScreenId::Game:
         case ScreenId::Pause:
         case ScreenId::NiveauTermine:
-            _stack->setCurrentWidget(_editorContainer);
+            _stack->setCurrentWidget(_viewport);
             break;
     }
 
@@ -546,20 +539,14 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
     const bool showPauseOverlay = screen == ScreenId::Pause;
     _pauseScreen->setVisible(showPauseOverlay);
     if (showPauseOverlay) {
-        syncOverlayGeometry();
+        _pauseScreen->setGeometry(_viewport->rect());
         _pauseScreen->raise();
-        _pauseScreen->activateWindow();
-        // focusDefaultAction() différé (LOT-59 TACHE-07, bug réel trouvé à l'essai manuel :
-        // Entrée ne faisait rien dans le menu de pause) : _pauseScreen est une fenêtre de haut
-        // niveau distincte, elle ne partage plus automatiquement l'activation de `this`.
-        // activateWindow() ne fait que POSTER la demande d'activation côté OS -- Qt ne marque la
-        // fenêtre comme réellement active qu'en traitant le WM_ACTIVATE en retour, plus tard dans
-        // la boucle d'événements. Poser le focus clavier dans le même appel, avant ce traitement,
-        // ne prend pas effet côté routage clavier de l'OS (même si `QWidget::hasFocus()` répond
-        // vrai côté Qt) : Entrée/Échap restent routés vers la fenêtre précédemment active. Un
-        // délai de 0 ms (prochain tour de la boucle d'événements) suffit à laisser l'activation se
-        // terminer avant de poser le focus.
-        QTimer::singleShot(0, _pauseScreen, [this] { _pauseScreen->focusDefaultAction(); });
+        // Enfant ordinaire depuis le LOT-69 TACHE-02 : le focus se pose directement, sans
+        // activation de fenêtre ni report d'un tour de boucle. Le détour différé qu'imposait la
+        // fenêtre de haut niveau (LOT-59 TACHE-07 : activateWindow() ne fait que poster la demande
+        // à l'OS, et poser le focus avant son traitement laissait Entrée/Échap routés vers la
+        // fenêtre précédente) n'a plus lieu d'être.
+        _pauseScreen->focusDefaultAction();
     }
 
     // Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même règle que _pauseScreen
@@ -568,17 +555,14 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
     const bool showLevelCompleteOverlay = screen == ScreenId::NiveauTermine;
     _levelCompleteScreen->setVisible(showLevelCompleteOverlay);
     if (showLevelCompleteOverlay) {
-        syncOverlayGeometry();
+        _levelCompleteScreen->setGeometry(_viewport->rect());
         _levelCompleteScreen->raise();
-        _levelCompleteScreen->activateWindow();
-        // Focus différé : cf. commentaire de _pauseScreen ci-dessus (même piège d'activation).
-        QTimer::singleShot(0, _levelCompleteScreen,
-                           [this] { _levelCompleteScreen->focusDefaultAction(); });
+        _levelCompleteScreen->focusDefaultAction();
     }
 
     if (!showPauseOverlay && !showLevelCompleteOverlay &&
         (screen == ScreenId::Editor || screen == ScreenId::Game)) {
-        _editorContainer->setFocus();
+        _viewport->setFocus();
     } else if (screen == ScreenId::LevelSelect) {
         _levelSelectScreen->focusDefaultAction();
     } else if (screen == ScreenId::Credits) {
@@ -601,19 +585,8 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
     refreshStatusHelp();
 }
 
-void MainWindow::syncOverlayGeometry() {
-    // Coordonnées ÉCRAN, pas relatives à _stack : _pauseScreen/_levelCompleteScreen sont des
-    // fenêtres de haut niveau depuis TACHE-07 (cf. leur commentaire de construction), plus des
-    // enfants de _stack -- setGeometry(_stack->rect()) les positionnerait n'importe où (coin
-    // haut-gauche de l'écran, taille de _stack) plutôt que par-dessus le viewport.
-    const QRect overlayRect(_editorContainer->mapToGlobal(QPoint(0, 0)), _editorContainer->size());
-    _pauseScreen->setGeometry(overlayRect);
-    _levelCompleteScreen->setGeometry(overlayRect);
-}
-
 void MainWindow::resizeEvent(QResizeEvent* event) {
     QMainWindow::resizeEvent(event);
-    syncOverlayGeometry();
     applyIdentityScale();
 }
 
@@ -646,7 +619,20 @@ void MainWindow::applyIdentityScale() {
 
 void MainWindow::moveEvent(QMoveEvent* event) {
     QMainWindow::moveEvent(event);
-    syncOverlayGeometry();
+}
+
+bool MainWindow::eventFilter(QObject* watched, QEvent* event) {
+    if (watched == _viewport && event->type() == QEvent::Resize) {
+        // Un recouvrement visible doit couvrir exactement le viewport : le suivre a sa taille
+        // suffit desormais, les deux vivant dans le meme systeme de coordonnees.
+        if (_pauseScreen != nullptr && _pauseScreen->isVisible()) {
+            _pauseScreen->setGeometry(_viewport->rect());
+        }
+        if (_levelCompleteScreen != nullptr && _levelCompleteScreen->isVisible()) {
+            _levelCompleteScreen->setGeometry(_viewport->rect());
+        }
+    }
+    return QMainWindow::eventFilter(watched, event);
 }
 
 void MainWindow::playInterfaceSound(GameEvent event) {
@@ -1632,7 +1618,7 @@ void MainWindow::refreshStatusHelp() {
     // que l'ancien rechargement de `status.edit_help` en changement de langue. Lequel des deux
     // contextes (niveau/atelier) dépend du widget qui a le focus clavier (_editContext, LOT-54
     // TACHE-04) -- jamais les deux en même temps (EX-IHM-062).
-    if (_stack->currentWidget() == _editorContainer && menuBar()->isVisible()) {
+    if (_stack->currentWidget() == _viewport && menuBar()->isVisible()) {
         if (_editContext == static_cast<EditContextTarget*>(_pixelCanvas)) {
             PixelEditStatusInfo pixel;
             pixel.assetName = _pixelCanvas->assetName();

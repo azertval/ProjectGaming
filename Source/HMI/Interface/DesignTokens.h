@@ -65,9 +65,10 @@ struct ColorTokens {
     DesignColor bevelDark;   ///< Biseau bas/droite.
 };
 
-// Neutralise la macro Windows `small` (`rpcndr.h`, incluse via <Windows.h> -> GraphicsDevice.h
-// dans les traductions unites qui touchent Direct3D 11 avant ce fichier, ex. GameViewport.cpp) :
-// `#define small char` casserait sinon silencieusement `SpacingTokens::small` ci-dessous.
+// Neutralise la macro Windows `small` (`rpcndr.h`, incluse via <Windows.h> dans toute unite de
+// traduction qui tire un en-tete Windows avant ce fichier) : `#define small char` casserait sinon
+// silencieusement `SpacingTokens::small` ci-dessous. Garde conservee apres le portage QRhi : le
+// projet n'inclut plus <d3d11.h>, mais rien ne garantit qu'aucun en-tete Windows ne remonte.
 #ifdef small
 #undef small
 #endif

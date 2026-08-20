@@ -70,12 +70,12 @@ if(_qt_hints)
     list(APPEND CMAKE_PREFIX_PATH ${_qt_hints})
 endif()
 
-find_package(Qt6 ${QT_VERSION_MINIMUM} QUIET COMPONENTS Widgets Gui Multimedia)
+find_package(Qt6 ${QT_VERSION_MINIMUM} QUIET COMPONENTS Widgets Gui GuiPrivate Multimedia ShaderTools)
 if(NOT Qt6_FOUND)
     # Deuxième essai, sans contrainte de version, seulement pour distinguer dans le message
     # « rien d'installé » de « une version installée, mais trop ancienne » — sinon les deux
     # produisent le même NOT Qt6_FOUND et le second cas serait diagnostiqué à tort comme le premier.
-    find_package(Qt6 QUIET COMPONENTS Widgets Gui Multimedia)
+    find_package(Qt6 QUIET COMPONENTS Widgets Gui GuiPrivate Multimedia ShaderTools)
     # Avertissement et non simple statut : sans Qt il n'y a **aucun exécutable**, seulement les
     # tests. Passer inaperçu est précisément ce qui rendait l'absence d'exe difficile à diagnostiquer.
     if(Qt6_FOUND)
@@ -92,7 +92,7 @@ if(NOT Qt6_FOUND)
         find_package(Qt6 QUIET COMPONENTS Widgets Gui)
         if(Qt6_FOUND)
             set(_qt_missing "")
-            foreach(_qt_component Widgets Gui Multimedia)
+            foreach(_qt_component Widgets Gui GuiPrivate Multimedia ShaderTools)
                 find_package(Qt6${_qt_component} QUIET)
                 if(NOT Qt6${_qt_component}_FOUND)
                     list(APPEND _qt_missing ${_qt_component})
@@ -101,6 +101,8 @@ if(NOT Qt6_FOUND)
             message(WARNING
                 "ProjectGaming : Qt6 ${Qt6_VERSION} est bien installé (${Qt6_DIR}), mais il manque "
                 "le(s) module(s) : ${_qt_missing} — cible ignorée, AUCUN EXÉCUTABLE ne sera produit.\n"
+                "ShaderTools (l'outil `qsb`) et GuiPrivate (les en-têtes QRhi) sont exigés depuis le "
+                "LOT-69 TACHE-02 : le rendu passe par QRhi, plus par Direct3D 11 en direct.\n"
                 "Ajouter le(s) module(s) manquant(s) avec l'outil de maintenance Qt "
                 "(MaintenanceTool.exe, à la racine de l'installation), puis reconfigurer.\n"
                 "Passer -DBUILD_EDITOR_QT=OFF pour ne construire que les tests, sans cet avertissement.")
@@ -150,8 +152,8 @@ add_executable(ProjectGaming
     Input/GamepadBindings.cpp
     Input/GamepadButtonName.cpp
     Input/QtKeyMap.cpp
-    # Rendu Direct3D 11
-    Graphics/GraphicsDevice.cpp
+    # Rendu 2D sur QRhi (LOT-69 TACHE-02) — cible Direct3D 11 sous Windows (EX-REN-002),
+    # atteinte au travers de QRhi plutôt qu'en appelant l'API directement.
     Graphics/SpriteBatch.cpp
     Graphics/AssetPaths.cpp
     Graphics/TextureLoader.cpp
@@ -283,6 +285,17 @@ add_executable(ProjectGaming
     ${ELEMENTS_UI}/AssetThumbnailView.ui
 )
 
+# Shaders du pipeline 2D, compilés en `.qsb` par `qsb` (module ShaderTools) et embarqués comme
+# ressource Qt. Un `.qsb` porte plusieurs variantes (SPIR-V, HLSL, MSL, GLSL) : c'est ce qui permet
+# à QRhi de choisir son backend à l'exécution sans que le projet ait à livrer un shader par API.
+qt6_add_shaders(ProjectGaming "projectgaming_shaders"
+    PREFIX "/shaders"
+    BASE "${CMAKE_CURRENT_SOURCE_DIR}/Graphics/Shaders"
+    FILES
+        Graphics/Shaders/sprite.vert
+        Graphics/Shaders/sprite.frag
+)
+
 # Racine d'inclusion Source/ (pour les includes "HMI/..." et "Core/...").
 target_include_directories(ProjectGaming PRIVATE ${PROJECT_SOURCE_DIR}/Source)
 
@@ -294,10 +307,10 @@ target_link_libraries(ProjectGaming PRIVATE
     Core
     Qt6::Widgets
     Qt6::Gui
+    # QRhi vit dans les en-têtes privés de QtGui : c'est une API privée, stable en pratique mais
+    # non couverte par la garantie de compatibilité binaire — assumé, QRhiWidget n'existe pas sans.
+    Qt6::GuiPrivate
     Qt6::Multimedia
-    d3d11
-    dxgi
-    d3dcompiler
     xinput
     project_warnings
     project_options
