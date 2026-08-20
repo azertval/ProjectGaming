@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.21)
 # l'injecte dans le `PROJECT_NUMBER` de Doxygen à la génération (le Doxyfile versionné ne le porte
 # pas). Bumper ici, et nulle part ailleurs, avant de poser le tag `vX.Y.Z`.
 project(ProjectGaming
-    VERSION 0.1.0
+    VERSION 0.1.1
     DESCRIPTION "Jeu 2D de plateforme/puzzle en C++/DirectX"
     LANGUAGES CXX)
 
