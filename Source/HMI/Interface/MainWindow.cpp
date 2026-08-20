@@ -67,6 +67,9 @@
 #include "HMI/Editor/PixelHistoryPanel.h"
 #include "HMI/Editor/PixelPalette.h"
 #include "HMI/Editor/PixelPalettePanel.h"
+#include "HMI/Editor/PlaneFileNaming.h"
+#include "HMI/Editor/PlaneReference.h"
+#include "HMI/Editor/PlanesPanel.h"
 #include "HMI/Editor/PropertiesPanel.h"
 #include "HMI/Editor/TexturePanel.h"
 #include "HMI/Game/GameViewport.h"
@@ -283,6 +286,8 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
                                       _viewport->draft().skinSet());
         _textures->setLevelCameraFraming(_viewport->draft().cameraFraming());
         _textures->refreshObjects(_viewport->draft());
+        _planes->refresh(_viewport->draft(), _viewport->selectedPlaneIndex(),
+                         _viewport->planeVisibility());
         // Le panneau Proprietes reflete le brouillon ET la selection courante : une mutation peut
         // changer les deux (retirer un point de parcours, par exemple).
         _properties->refresh(_viewport->draft(), _viewport->selectedPath(),
@@ -307,6 +312,11 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
             &GameViewport::removeTextureOverride);
 
     _textures->refreshObjects(_viewport->draft());  // etat initial (avant tout draftChanged).
+
+    // Panneau « Plans » (LOT-69 TACHE-08) : le panneau ne mute rien, il demande. Le viewport,
+    // seul proprietaire du brouillon, applique -- donc tout passe par l'historique, sauf la
+    // visibilite, qui est une aide d'edition.
+    connectPlanesPanel();
 
     // Panneau Textures : agit sur le catalogue dont le viewport est proprietaire, et lui signale
     // le jeu courant. Aucune scene n'est reconstruite -- l'apparence est resolue a la composition,
@@ -462,7 +472,8 @@ void MainWindow::setDocksVisible(bool visible) {
     // "l'utilisateur a impose un panneau" (LOT-57 TACHE-02).
     _suppressPanelFocusTracking = true;
     for (const auto& [dock, panel] : workspacePanels()) {
-        dock->setVisible(visible && hmi::workspaceForPanel(panel) == _workspace);
+        dock->setVisible(visible &&
+                         hmi::workspaceMaskContains(hmi::workspacesForPanel(panel), _workspace));
     }
     _suppressPanelFocusTracking = false;
 }
@@ -473,6 +484,7 @@ std::array<std::pair<QDockWidget*, hmi::PanelId>, hmi::PANEL_COUNT> MainWindow::
     // premier dock ajoute, et le dock oublie resterait affiche dans les deux espaces.
     return {{
         {_ui->PalettePanel, hmi::PanelId::Palette},
+        {_ui->PlanesPanel, hmi::PanelId::Planes},
         {_ui->LevelsPanel, hmi::PanelId::Levels},
         {_ui->LinksPanel, hmi::PanelId::Links},
         {_ui->PropertiesPanel, hmi::PanelId::Properties},
@@ -583,6 +595,124 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
     setMenuGamepadActive(dressing.gamepadNavigationActive);
     _statusMessageTimer->stop();
     refreshStatusHelp();
+}
+
+void MainWindow::connectPlanesPanel() {
+    const auto refreshPlanes = [this] {
+        _planes->refresh(_viewport->draft(), _viewport->selectedPlaneIndex(),
+                         _viewport->planeVisibility());
+    };
+
+    connect(_planes, &PlanesPanel::planeSelected, _viewport, &GameViewport::selectPlane);
+    connect(_viewport, &GameViewport::planeSelectionChanged, this,
+            [refreshPlanes](std::optional<std::size_t>) { refreshPlanes(); });
+    connect(_planes, &PlanesPanel::addRequested, this, &MainWindow::createPlane);
+    connect(_planes, &PlanesPanel::removeRequested, this, [this](std::size_t index) {
+        _viewport->removePlane(index);
+        // Le FICHIER n'est pas supprime : le brouillon annule l'entree JSON, pas la disparition
+        // d'une image. Un fichier orphelin est moins grave qu'un travail perdu -- et le dire dans
+        // la barre d'etat evite que l'auteur croie avoir tout perdu.
+        showTransientStatusMessage(text("planes.removed"), 4000);
+    });
+    connect(_planes, &PlanesPanel::paintRequested, this, [this](std::size_t index) {
+        _viewport->selectPlane(index);
+        applyWorkspace(hmi::EditorWorkspace::Planes);
+    });
+    connect(_planes, &PlanesPanel::reorderRequested, _viewport, &GameViewport::movePlane);
+    connect(_planes, &PlanesPanel::depthChangeRequested, this,
+            [this, refreshPlanes](std::size_t index, core::PlaneDepth depth) {
+                _viewport->setPlaneDepth(index, depth);
+                refreshPlanes();
+            });
+    connect(_planes, &PlanesPanel::densityChangeRequested, this, &MainWindow::changePlaneDensity);
+    connect(_planes, &PlanesPanel::parallaxChangeRequested, _viewport,
+            &GameViewport::setPlaneParallax);
+    connect(_planes, &PlanesPanel::opacityChangeRequested, _viewport,
+            &GameViewport::setPlaneOpacity);
+    connect(_planes, &PlanesPanel::levelParallaxToggled, _viewport,
+            &GameViewport::setLevelParallaxEnabled);
+    connect(_planes, &PlanesPanel::visibilityToggled, this,
+            [this, refreshPlanes](std::size_t index, bool visible) {
+                _viewport->setPlaneVisible(index, visible);
+                refreshPlanes();
+            });
+    connect(_planes, &PlanesPanel::isolateToggled, this,
+            [this, refreshPlanes](std::size_t index, bool isolate) {
+                _viewport->setPlaneIsolated(index, isolate);
+                refreshPlanes();
+            });
+}
+
+std::filesystem::path MainWindow::planesDirectory() const {
+    return hmi::executableDirectory() / "Levels" / "Plans";
+}
+
+void MainWindow::createPlane() {
+    const core::LevelDraft& draft = _viewport->draft();
+    core::Plane plane;
+    plane.pixelsPerUnit = core::PLANE_NATIVE_PIXELS_PER_UNIT;
+
+    // Nom derive de celui du niveau, unique par suffixe : un dossier de plans doit rester lisible
+    // a l'oeil, et un plan se retrouver sans ouvrir l'editeur.
+    std::vector<std::string> existing;
+    for (const core::Plane& present : draft.planes()) {
+        existing.push_back(present.fileName);
+    }
+    plane.fileName = hmi::uniquePlaneFileName(draft.name(), existing);
+
+    const hmi::PlanePixelSize size =
+        hmi::planePixelSize(draft.tileMap().width(), draft.tileMap().height(), plane.pixelsPerUnit);
+    if (plane.fileName.empty() || size.width <= 0) {
+        showTransientStatusMessage(text("planes.create_failed"), 4000);
+        return;
+    }
+
+    // PNG entierement TRANSPARENT aux dimensions exactes : l'auteur peint dessus, il ne repart pas
+    // d'un fond a effacer.
+    hmi::DecodedImage image;
+    image.width = size.width;
+    image.height = size.height;
+    image.pixels.assign(
+        static_cast<std::size_t>(size.width) * static_cast<std::size_t>(size.height), 0u);
+
+    std::error_code error;
+    std::filesystem::create_directories(planesDirectory(), error);
+    if (!hmi::encodeImageFile(planesDirectory() / plane.fileName, image)) {
+        showTransientStatusMessage(text("planes.create_failed"), 4000);
+        return;
+    }
+
+    const QString fileName = QString::fromStdString(plane.fileName);
+    _viewport->addPlane(std::move(plane));
+    showTransientStatusMessage(text("planes.added").arg(fileName), 3000);
+}
+
+void MainWindow::changePlaneDensity(std::size_t index, int pixelsPerUnit) {
+    const core::LevelDraft& draft = _viewport->draft();
+    if (index >= draft.planes().size()) {
+        return;
+    }
+    const core::Plane& plane = draft.planes()[index];
+    if (plane.pixelsPerUnit == pixelsPerUnit) {
+        return;
+    }
+
+    // L'image suit la densite declaree : sans ce reechantillonnage, le fichier et le format
+    // diraient deux choses differentes, et le controle de coherence (TACHE-10) le refuserait.
+    // La perte est reelle et assumee -- descendre puis remonter ne restitue pas l'original.
+    const std::filesystem::path path = planesDirectory() / plane.fileName;
+    if (const std::optional<hmi::DecodedImage> current = hmi::decodeImageFile(path)) {
+        const hmi::DecodedImage resampled =
+            hmi::resamplePlane(*current, plane.pixelsPerUnit, pixelsPerUnit);
+        if (resampled.width > 0 && !hmi::encodeImageFile(path, resampled)) {
+            showTransientStatusMessage(text("planes.create_failed"), 4000);
+            return;
+        }
+    }
+    _viewport->setPlaneDensity(index, pixelsPerUnit);
+    _viewport->reloadAssets();
+    _planes->refresh(_viewport->draft(), _viewport->selectedPlaneIndex(),
+                     _viewport->planeVisibility());
 }
 
 void MainWindow::resizeEvent(QResizeEvent* event) {
@@ -965,6 +1095,9 @@ void MainWindow::buildUi() {
     // viennent du `.ui` ; leurs widgets, paramétrés (chemins, dépendances), sont créés en code.
     _palette = new PalettePanel(_ui->PalettePanel);
     _ui->PalettePanel->setWidget(_palette);
+    // Panneau « Plans » (LOT-69 TACHE-08) : liste ordonnee des plans picturaux du niveau.
+    _planes = new PlanesPanel(_ui->PlanesPanel);
+    _ui->PlanesPanel->setWidget(_planes);
     _levels = new LevelBrowserPanel(hmi::executableDirectory() / "Levels", _ui->LevelsPanel);
     _ui->LevelsPanel->setWidget(_levels);
     _links = new LinkPanel(_ui->LinksPanel);
@@ -1315,9 +1448,10 @@ void MainWindow::buildUi() {
     // Bascules de visibilité des docks : dynamiques, donc ajoutées ici. Elles rejoignent le
     // sous-menu « Panneaux » plutôt que la racine du menu Affichage, qui alignait vingt-trois
     // entrées à plat.
-    for (QDockWidget* const dock : {_ui->PalettePanel, _ui->LevelsPanel, _ui->LinksPanel,
-                                    _ui->PropertiesPanel, _ui->TexturesPanel, _ui->PixelCanvasPanel,
-                                    _ui->PixelHistoryPanel, _ui->PixelPalettePanel}) {
+    for (QDockWidget* const dock :
+         {_ui->PalettePanel, _ui->PlanesPanel, _ui->LevelsPanel, _ui->LinksPanel,
+          _ui->PropertiesPanel, _ui->TexturesPanel, _ui->PixelCanvasPanel, _ui->PixelHistoryPanel,
+          _ui->PixelPalettePanel}) {
         _ui->panelsMenu->insertAction(_ui->panelsMenu->actions().constFirst(),
                                       dock->toggleViewAction());
     }
@@ -1500,7 +1634,8 @@ void MainWindow::applyWorkspace(EditorWorkspace workspace) {
     // d'espace ne rend pas le chassis d'edition visible, elle dit seulement lequel le serait.
     const bool editing = hmi::dressingFor(_screenState.screen).docksVisible;
     for (const auto& [dock, panel] : PANELS) {
-        const bool belongsHere = hmi::workspaceForPanel(panel) == workspace;
+        const bool belongsHere =
+            hmi::workspaceMaskContains(hmi::workspacesForPanel(panel), workspace);
         // La bascule de visibilite du menu suit : un panneau d'un autre espace n'a pas a etre
         // proposable depuis celui-ci.
         dock->toggleViewAction()->setVisible(belongsHere);
@@ -1514,7 +1649,7 @@ void MainWindow::applyWorkspace(EditorWorkspace workspace) {
         // restoreState reaffiche les docks tels qu'ils etaient enregistres, y compris ceux de
         // l'autre espace si une disposition ancienne en portait : on les remasque.
         for (const auto& [dock, panel] : PANELS) {
-            if (hmi::workspaceForPanel(panel) != workspace) {
+            if (!hmi::workspaceMaskContains(hmi::workspacesForPanel(panel), workspace)) {
                 dock->setVisible(false);
             }
         }
@@ -1960,6 +2095,7 @@ void MainWindow::retranslateUi() {
 
     // Panneaux dockables (les actions « toggle » du menu Affichage suivent le titre du dock).
     _ui->PalettePanel->setWindowTitle(text("dock.palette"));
+    _ui->PlanesPanel->setWindowTitle(text("dock.planes"));
     _ui->LevelsPanel->setWindowTitle(text("dock.levels"));
     _ui->LinksPanel->setWindowTitle(text("dock.links"));
     _ui->TexturesPanel->setWindowTitle(text("dock.textures"));
@@ -2009,6 +2145,7 @@ void MainWindow::retranslateUi() {
     _credits->retranslateUi(_loc);
     _options->retranslateUi(_loc);
     _palette->retranslateUi(_loc);
+    _planes->retranslateUi(_loc);
     _levels->retranslateUi(_loc);
     _links->retranslateUi(_loc);
     _textures->retranslateUi(_loc);

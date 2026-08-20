@@ -265,12 +265,14 @@ add_executable(ProjectGaming
     Editor/PixelHistory.cpp
     Editor/PixelCanvasGeometry.cpp
     Editor/PlaneReference.cpp
+    Editor/PlaneFileNaming.cpp
     Editor/PixelCanvas.cpp
     Editor/PixelHistoryPanel.cpp
     Editor/PixelAssetIO.cpp
     Editor/PixelPalette.cpp
     Editor/PixelPalettePanel.cpp
     Editor/PixelAutotilePreview.cpp
+    Editor/PlanesPanel.cpp
     # Ressource embarquée (thème .qss) — traitée par AUTORCC.
     ${ELEMENTS_UI}/resources.qrc
     # Mises en page Qt Designer — traitées par AUTOUIC (génèrent ui_*.h).
@@ -283,6 +285,7 @@ add_executable(ProjectGaming
     ${ELEMENTS_UI}/OptionsPage.ui
     ${ELEMENTS_UI}/TexturePanel.ui
     ${ELEMENTS_UI}/PropertiesPanel.ui
+    ${ELEMENTS_UI}/PlanesPanel.ui
     ${ELEMENTS_UI}/LevelBrowserPanel.ui
     ${ELEMENTS_UI}/AssetThumbnailView.ui
 )

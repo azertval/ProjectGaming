@@ -25,6 +25,7 @@
 #include "HMI/Game/LevelRunStats.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/LayerVisibility.h"
+#include "HMI/Graphics/PlaneVisibility.h"
 #include "HMI/Graphics/RenderMode.h"
 #include "HMI/Graphics/RhiContext.h"
 #include "HMI/Graphics/SkinCatalog.h"
@@ -310,6 +311,16 @@ public:
         return _draft;
     }
 
+    /// @return Le plan pictural sélectionné dans le panneau « Plans » (`LOT-69`), si un l'est.
+    [[nodiscard]] std::optional<std::size_t> selectedPlaneIndex() const noexcept {
+        return _selectedPlane;
+    }
+
+    /// @return La visibilité courante des plans (aide d'édition, jamais persistée).
+    [[nodiscard]] const PlaneVisibility& planeVisibility() const noexcept {
+        return _planeVisibility;
+    }
+
     /// @return Le parcours actuellement sélectionné (outil « Parcours », `LOT-67`), si un l'est —
     /// consommé par le panneau « Propriétés » pour savoir quels réglages afficher.
     [[nodiscard]] std::optional<hmi::PathSelection> selectedPath() const noexcept {
@@ -480,6 +491,41 @@ public:
      */
     void setRenderMode(RenderMode mode);
 
+    /**
+     * @name Plans picturaux (`EX-EDIT-047`, LOT-69 TACHE-08)
+     *
+     * Tous ces mutateurs passent par `core::LevelDraft`, seul propriétaire : ils sont donc
+     * **annulables** au même titre qu'un coup de pinceau sur les tuiles. La **visibilité**, elle,
+     * n'est pas une propriété du niveau : elle n'empile rien et ne se persiste pas.
+     * @{
+     */
+    /// Sélectionne (ou désélectionne) un plan depuis le panneau.
+    void selectPlane(std::optional<std::size_t> index);
+    /// Ajoute @p plane à la fin de la liste et le sélectionne.
+    void addPlane(core::Plane plane);
+    /// Retire l'entrée du plan @p index. **Le fichier n'est pas supprimé** : le brouillon annule
+    /// l'entrée JSON, pas la disparition d'une image — un fichier orphelin est moins grave qu'un
+    /// travail perdu.
+    void removePlane(std::size_t index);
+    /// Déplace le plan @p index d'un rang ; @p forward le rapproche du dessus de la liste.
+    void movePlane(std::size_t index, bool forward);
+    /// Change la profondeur du plan @p index.
+    void setPlaneDepth(std::size_t index, core::PlaneDepth depth);
+    /// Change la densité déclarée du plan @p index (le rééchantillonnage de l'image est fait par
+    /// l'appelant, qui possède le fichier).
+    void setPlaneDensity(std::size_t index, int pixelsPerUnit);
+    /// Change les facteurs de parallaxe du plan @p index.
+    void setPlaneParallax(std::size_t index, float parallaxX, float parallaxY);
+    /// Change l'opacité du plan @p index.
+    void setPlaneOpacity(std::size_t index, float opacity);
+    /// Change le drapeau de parallaxe du **niveau**.
+    void setLevelParallaxEnabled(bool enabled);
+    /// Masque ou réaffiche le plan @p index (aide d'édition).
+    void setPlaneVisible(std::size_t index, bool visible);
+    /// Isole le plan @p index, ou réaffiche tout si @p isolate est faux.
+    void setPlaneIsolated(std::size_t index, bool isolate);
+    /// @}
+
 signals:
     /// Message d'état à afficher (enregistrement, essai, erreur de validation…).
     void statusMessage(const QString& message);
@@ -504,6 +550,9 @@ signals:
     /// L'outil actif vient de changer par un moyen autre que le panneau Outils (raccourci clavier,
     /// `LOT-45`) — le panneau se resynchronise sans reboucler.
     void toolChanged(hmi::EditorTool tool);
+    /// La sélection de plan vient de changer par un moyen autre que le panneau (retrait,
+    /// réordonnancement) — le panneau se resynchronise sans reboucler.
+    void planeSelectionChanged(std::optional<std::size_t> index);
     /// La sélection de parcours vient de changer (clic au canevas, outil « Parcours », `LOT-67`)
     /// — consommé par le panneau « Propriétés », qui affiche les réglages de l'élément visé.
     void pathSelectionChanged(std::optional<hmi::PathSelection> selection);
@@ -691,6 +740,10 @@ private:
     /// Asset assigné au clic par l'outil « Texture par instance » (`LOT-45`), vide si aucun n'est
     /// sélectionné dans la bibliothèque « Objets ».
     std::optional<std::string> _activeTextureAsset;
+    /// Plan sélectionné dans le panneau « Plans » (`LOT-69`), si un l'est.
+    std::optional<std::size_t> _selectedPlane;
+    /// Visibilité des plans dans l'éditeur : aide d'édition, jamais persistée ni annulable.
+    hmi::PlaneVisibility _planeVisibility;
     /// État du geste de parcours (`LOT-67`) ; `selected` porte la sélection courante de l'éditeur,
     /// au-delà de la durée d'un seul geste.
     hmi::PathGestureState _pathGesture;

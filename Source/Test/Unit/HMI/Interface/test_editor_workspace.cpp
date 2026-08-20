@@ -21,9 +21,16 @@ namespace {
 /// tous. `PANEL_COUNT` ferme la boucle : un panneau ajouté à `PanelId` sans être ajouté ici fait
 /// échouer le premier test, plutôt que de passer inaperçu.
 constexpr hmi::PanelId ALL_PANELS[] = {
-    hmi::PanelId::Palette,      hmi::PanelId::Levels,       hmi::PanelId::Links,
-    hmi::PanelId::Properties,   hmi::PanelId::Textures,     hmi::PanelId::PixelCanvas,
-    hmi::PanelId::PixelHistory, hmi::PanelId::PixelPalette,
+    hmi::PanelId::Palette,     hmi::PanelId::Planes,       hmi::PanelId::Levels,
+    hmi::PanelId::Links,       hmi::PanelId::Properties,   hmi::PanelId::Textures,
+    hmi::PanelId::PixelCanvas, hmi::PanelId::PixelHistory, hmi::PanelId::PixelPalette,
+};
+
+/// Les trois espaces de travail, même rôle de garde que `ALL_PANELS`.
+constexpr hmi::EditorWorkspace ALL_WORKSPACES[] = {
+    hmi::EditorWorkspace::Level,
+    hmi::EditorWorkspace::Planes,
+    hmi::EditorWorkspace::PixelArt,
 };
 
 constexpr hmi::EditorTool ALL_TOOLS[] = {
@@ -40,33 +47,59 @@ constexpr hmi::PixelTool ALL_PIXEL_TOOLS[] = {
 }  // namespace
 
 /**
- * @brief Chaque panneau appartient à **exactement un** espace, et les neuf sont couverts. Un
- *        panneau sans espace resterait affiché dans les deux, ce qui viderait la séparation de
- *        tout son sens — et ne se verrait qu'à l'écran, jamais en relecture.
- * \castest{<b>Chaque panneau appartient a exactement un espace de travail.</b><br/>
+ * @brief Chaque panneau appartient à **au moins un** espace, et les neuf sont couverts.
+ *
+ * La garde a changé de nature au `LOT-69` TACHE-08 : elle vérifiait « exactement un espace », elle
+ * vérifie désormais « **masque non vide** ». Le canevas, l'historique et la palette servent aux
+ * deux espaces de peinture, et les dupliquer donnerait deux canevas et deux historiques à tenir
+ * synchronisés. Un panneau sans aucun espace, lui, resterait affiché partout — ce qui viderait la
+ * séparation de son sens, et ne se verrait qu'à l'écran, jamais en relecture.
+ * \castest{<b>Chaque panneau appartient a au moins un espace de travail.</b><br/>
  * \tcat Unitaire · Espaces de travail<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Parcourir les neuf panneaux et resoudre leur espace.<br/>2. Verifier que le compte
- * couvert vaut PANEL_COUNT et que les deux espaces sont representes.<br/>
- * \tattendu Les neuf panneaux sont couverts, repartis entre les deux espaces.
+ * \tetapes 1. Parcourir les neuf panneaux et resoudre leur masque d'espaces.<br/>2. Verifier que
+ * le compte couvert vaut PANEL_COUNT et que les trois espaces sont representes.<br/>
+ * \tattendu Les neuf panneaux ont un masque non vide, et chaque espace affiche au moins un
+ * panneau.
  * }
  */
-TEST(EditorWorkspaceTest, ChaquePanneauAppartientAUnSeulEspace) {
+TEST(EditorWorkspaceTest, ChaquePanneauAppartientAAuMoinsUnEspace) {
     std::set<hmi::PanelId> seen;
-    int levelPanels = 0;
-    int pixelPanels = 0;
+    std::set<int> workspacesCovered;
     for (const hmi::PanelId panel : ALL_PANELS) {
         EXPECT_TRUE(seen.insert(panel).second) << "panneau enumere deux fois";
-        if (hmi::workspaceForPanel(panel) == hmi::EditorWorkspace::Level) {
-            ++levelPanels;
-        } else {
-            ++pixelPanels;
+        const hmi::EditorWorkspaceMask mask = hmi::workspacesForPanel(panel);
+        EXPECT_NE(mask, 0u) << "un panneau sans espace resterait affiche partout";
+        for (const hmi::EditorWorkspace workspace : ALL_WORKSPACES) {
+            if (hmi::workspaceMaskContains(mask, workspace)) {
+                workspacesCovered.insert(static_cast<int>(workspace));
+            }
         }
     }
     EXPECT_EQ(seen.size(), hmi::PANEL_COUNT)
-        << "un panneau de PanelId n'a pas d'espace : il resterait affiche dans les deux";
-    EXPECT_GT(levelPanels, 0);
-    EXPECT_GT(pixelPanels, 0);
+        << "un panneau de PanelId n'a pas de masque : il resterait affiche partout";
+    EXPECT_EQ(workspacesCovered.size(), hmi::EDITOR_WORKSPACE_COUNT)
+        << "un espace de travail n'affiche aucun panneau";
+}
+
+/**
+ * @brief Le canevas, l'historique et la palette sont **partagés** entre les deux espaces de
+ * peinture — c'est précisément ce que le masque existe pour exprimer.
+ * \castest{<b>Le canevas et ses panneaux servent aux deux espaces de peinture.</b><br/>
+ * \tcat Unitaire · Espaces de travail<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Resoudre le masque du canevas, de l'historique et de la palette.<br/>
+ * \tattendu Chacun contient a la fois l'atelier pixel art et le mode creation.
+ * }
+ */
+TEST(EditorWorkspaceTest, CanevasPartageEntreLesDeuxEspacesDePeinture) {
+    for (const hmi::PanelId panel :
+         {hmi::PanelId::PixelCanvas, hmi::PanelId::PixelHistory, hmi::PanelId::PixelPalette}) {
+        const hmi::EditorWorkspaceMask mask = hmi::workspacesForPanel(panel);
+        EXPECT_TRUE(hmi::workspaceMaskContains(mask, hmi::EditorWorkspace::PixelArt));
+        EXPECT_TRUE(hmi::workspaceMaskContains(mask, hmi::EditorWorkspace::Planes));
+        EXPECT_FALSE(hmi::workspaceMaskContains(mask, hmi::EditorWorkspace::Level));
+    }
 }
 
 /**
@@ -82,12 +115,23 @@ TEST(EditorWorkspaceTest, ChaquePanneauAppartientAUnSeulEspace) {
  * }
  */
 TEST(EditorWorkspaceTest, UneSeuleBarreDOutilsParEspace) {
+    // Exhaustif sur les trois espaces : jamais les deux barres ensemble, jamais aucune -- c'est la
+    // propriete que le LOT-68 existe pour etablir, et que le troisieme espace ne doit pas rompre.
+    for (const hmi::EditorWorkspace workspace : ALL_WORKSPACES) {
+        const hmi::WorkspaceDressing dressing = hmi::dressingForWorkspace(workspace);
+        EXPECT_NE(dressing.levelToolBarVisible, dressing.pixelToolBarVisible)
+            << "espace " << static_cast<int>(workspace);
+    }
+
     const hmi::WorkspaceDressing level = hmi::dressingForWorkspace(hmi::EditorWorkspace::Level);
     EXPECT_TRUE(level.levelToolBarVisible);
-    EXPECT_FALSE(level.pixelToolBarVisible);
+
+    // Mode creation : on y peint une image, on n'y pose pas de tuiles -- ce sont donc les outils de
+    // peinture qui s'affichent, pas ceux du niveau.
+    const hmi::WorkspaceDressing planes = hmi::dressingForWorkspace(hmi::EditorWorkspace::Planes);
+    EXPECT_TRUE(planes.pixelToolBarVisible);
 
     const hmi::WorkspaceDressing pixel = hmi::dressingForWorkspace(hmi::EditorWorkspace::PixelArt);
-    EXPECT_FALSE(pixel.levelToolBarVisible);
     EXPECT_TRUE(pixel.pixelToolBarVisible);
 }
 
@@ -97,13 +141,16 @@ TEST(EditorWorkspaceTest, UneSeuleBarreDOutilsParEspace) {
  * \castest{<b>Le menu de l'atelier n'existe que dans l'espace de l'atelier.</b><br/>
  * \tcat Unitaire · Espaces de travail<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Lire l'habillage des deux espaces.<br/>
- * \tattendu Le menu de l'atelier n'est visible que dans l'espace PixelArt.
+ * \tetapes 1. Lire l'habillage des trois espaces.<br/>
+ * \tattendu Le menu de l'atelier n'est pas visible dans l'espace d'edition de niveau.
  * }
  */
 TEST(EditorWorkspaceTest, MenuAtelierReserveASonEspace) {
     EXPECT_FALSE(hmi::dressingForWorkspace(hmi::EditorWorkspace::Level).workshopMenuVisible);
     EXPECT_TRUE(hmi::dressingForWorkspace(hmi::EditorWorkspace::PixelArt).workshopMenuVisible);
+    // Mode creation : les commandes de l'atelier (annuler, palette, enregistrer l'image) y ont une
+    // cible, le menu a donc lieu d'y etre.
+    EXPECT_TRUE(hmi::dressingForWorkspace(hmi::EditorWorkspace::Planes).workshopMenuVisible);
 }
 
 /**
@@ -146,11 +193,13 @@ TEST(EditorWorkspaceTest, LesDeuxFamillesDOutilsSontDisjointes) {
  */
 TEST(EditorWorkspaceTest, LaMiseEnAvantResteDansSonEspace) {
     for (const hmi::PanelFocusEntry& entry : hmi::panelFocusCatalog()) {
-        EXPECT_EQ(hmi::workspaceForTool(entry.tool), hmi::workspaceForPanel(entry.panel))
-            << "un outil de niveau met en avant un panneau d'un autre espace";
+        EXPECT_TRUE(hmi::workspaceMaskContains(hmi::workspacesForPanel(entry.panel),
+                                               hmi::workspaceForTool(entry.tool)))
+            << "un outil de niveau met en avant un panneau qui n'est pas affiche dans son espace";
     }
     for (const hmi::PixelPanelFocusEntry& entry : hmi::pixelPanelFocusCatalog()) {
-        EXPECT_EQ(hmi::workspaceForPixelTool(entry.tool), hmi::workspaceForPanel(entry.panel))
-            << "un outil de canevas met en avant un panneau d'un autre espace";
+        EXPECT_TRUE(hmi::workspaceMaskContains(hmi::workspacesForPanel(entry.panel),
+                                               hmi::workspaceForPixelTool(entry.tool)))
+            << "un outil de canevas met en avant un panneau qui n'est pas affiche dans son espace";
     }
 }

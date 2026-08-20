@@ -60,6 +60,7 @@ class LevelCompleteScreen;
 class LevelSelectScreen;
 class CreditsScreen;
 class PalettePanel;
+class PlanesPanel;
 class LevelBrowserPanel;
 class LinkPanel;
 class TexturePanel;
@@ -129,6 +130,17 @@ protected:
     bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
+    /// Branche le panneau « Plans » (`LOT-69` TACHE-08) : il demande, le viewport applique.
+    void connectPlanesPanel();
+    /// @return Le dossier des images de plans, à côté des niveaux.
+    [[nodiscard]] std::filesystem::path planesDirectory() const;
+    /// Crée un plan : un PNG entièrement transparent aux dimensions exactes, puis l'entrée dans le
+    /// brouillon. Les deux vont ensemble — une entrée sans fichier afficherait un damier.
+    void createPlane();
+    /// Change la densité d'un plan : **rééchantillonne l'image** puis met à jour la déclaration,
+    /// sans quoi le fichier et le format diraient deux choses différentes.
+    void changePlaneDensity(std::size_t index, int pixelsPerUnit);
+
     /// Crée les panneaux (contenu des docks du `.ui`) et branche les actions de la barre de menus.
     void buildUi();
     void restoreLayout();
@@ -341,6 +353,8 @@ private:
     /// jamais.
     EditContextTarget* _editContext = nullptr;
     PalettePanel* _palette;  ///< Arbre de sélection du type de tuile (contenu du dock Palette).
+    PlanesPanel* _planes =
+        nullptr;  ///< Liste des plans picturaux (`LOT-69`, contenu du dock Plans).
     LevelBrowserPanel*
         _levels;  ///< Liste/gestion des fichiers de niveaux (contenu du dock Niveaux).
     /// Placement/inspection de décors (dock Décors, `LOT-57` amendement) — contenait déjà tout ce

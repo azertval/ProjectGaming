@@ -553,6 +553,98 @@ void GameViewport::cancelPathGesture() {
     _pathPreview.reset();
 }
 
+void GameViewport::selectPlane(std::optional<std::size_t> index) {
+    if (index && *index >= _draft.planes().size()) {
+        return;
+    }
+    _selectedPlane = index;
+    emit planeSelectionChanged(_selectedPlane);
+}
+
+void GameViewport::addPlane(core::Plane plane) {
+    _draft.addPlane(std::move(plane));
+    _selectedPlane = _draft.planes().size() - 1;  // le nouveau plan reste selectionne
+    markDraftMutated();
+    emit planeSelectionChanged(_selectedPlane);
+}
+
+void GameViewport::removePlane(std::size_t index) {
+    if (index >= _draft.planes().size()) {
+        return;
+    }
+    _draft.removePlane(index);
+    // La selection suit le MEME plan quand c'est possible : retirer celui du dessus ne doit pas
+    // faire glisser la selection sur son voisin sans qu'on l'ait demande.
+    if (_selectedPlane == index) {
+        _selectedPlane.reset();
+    } else if (_selectedPlane && *_selectedPlane > index) {
+        *_selectedPlane -= 1;
+    }
+    markDraftMutated();
+    emit planeSelectionChanged(_selectedPlane);
+}
+
+void GameViewport::movePlane(std::size_t index, bool forward) {
+    const std::optional<std::size_t> moved =
+        forward ? _draft.movePlaneForward(index) : _draft.movePlaneBackward(index);
+    if (!moved) {
+        return;
+    }
+    // Le rang change : la selection suit le plan deplace, pas l'ancien rang qui designe desormais
+    // son voisin.
+    _selectedPlane = moved;
+    markDraftMutated();
+    emit planeSelectionChanged(_selectedPlane);
+}
+
+void GameViewport::setPlaneDepth(std::size_t index, core::PlaneDepth depth) {
+    if (_draft.setPlaneDepth(index, depth)) {
+        markDraftMutated();
+    }
+}
+
+void GameViewport::setPlaneDensity(std::size_t index, int pixelsPerUnit) {
+    if (_draft.setPlaneDensity(index, pixelsPerUnit)) {
+        markDraftMutated();
+    }
+}
+
+void GameViewport::setPlaneParallax(std::size_t index, float parallaxX, float parallaxY) {
+    if (_draft.setPlaneParallax(index, parallaxX, parallaxY)) {
+        markDraftMutated();
+    }
+}
+
+void GameViewport::setPlaneOpacity(std::size_t index, float opacity) {
+    if (_draft.setPlaneOpacity(index, opacity)) {
+        markDraftMutated();
+    }
+}
+
+void GameViewport::setLevelParallaxEnabled(bool enabled) {
+    _draft.setParallaxEnabled(enabled);
+    markDraftMutated();
+}
+
+void GameViewport::setPlaneVisible(std::size_t index, bool visible) {
+    // Aide d'edition : aucun pas d'annulation, aucune ecriture dans le brouillon.
+    _planeVisibility.setVisible(index, visible);
+    if (_draftRenderer) {
+        _draftRenderer->invalidate();
+    }
+}
+
+void GameViewport::setPlaneIsolated(std::size_t index, bool isolate) {
+    if (isolate) {
+        _planeVisibility.isolate(index);
+    } else {
+        _planeVisibility.showAll();
+    }
+    if (_draftRenderer) {
+        _draftRenderer->invalidate();
+    }
+}
+
 void GameViewport::setLevelBackground(std::optional<std::string> background) {
     _draft.setBackground(std::move(background));
     _dirty = true;
@@ -888,7 +980,8 @@ void GameViewport::renderFrame(QRhiCommandBuffer* commandBuffer, float deltaSeco
         pathOverlay.worldUnitsPerScreenPixel =
             1.0f / (hmi::Camera2D::PIXELS_PER_UNIT * _camera.zoom());
         _draftRenderer->render(_draft, _camera, _showGrid, highlight(), linkOverlay, _renderMode,
-                               showTextureOverrides, deltaSeconds, _layerVisibility, pathOverlay);
+                               showTextureOverrides, deltaSeconds, _layerVisibility, pathOverlay,
+                               _planeVisibility);
     }
     // Téléversement unique puis passe unique : c'est ici, et nulle part ailleurs, que le GPU voit
     // l'image (cf. `hmi::SpriteBatch`, enregistrement en deux phases).
