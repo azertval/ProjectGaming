@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_decor_visuals.cpp
  * @brief Tests unitaires de la projection couche → calque et du rendu des décors (LOT-49

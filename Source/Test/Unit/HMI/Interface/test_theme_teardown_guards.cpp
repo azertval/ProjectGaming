@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_theme_teardown_guards.cpp
  * @brief Garde-fous contre le plantage **à la fermeture**, régression récurrente du projet

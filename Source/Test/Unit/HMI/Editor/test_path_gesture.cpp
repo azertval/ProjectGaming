@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_path_gesture.cpp
  * @brief Tests unitaires du geste de manipulation de parcours (LOT-67 TACHE-04, `EX-EDIT-032`) —

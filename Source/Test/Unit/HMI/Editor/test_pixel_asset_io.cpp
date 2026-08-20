@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_pixel_asset_io.cpp
  * @brief Tests unitaires des tailles proposées à la création d'un asset dans l'atelier pixel art

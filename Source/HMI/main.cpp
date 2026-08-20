@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file HMI/main.cpp
  * @brief Point d'entrée de l'application Qt (`ProjectGaming`).

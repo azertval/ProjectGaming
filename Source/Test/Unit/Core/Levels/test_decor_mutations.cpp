@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_decor_mutations.cpp
  * @brief Tests unitaires des mutateurs de décors sur `LevelDraft` (LOT-50 TACHE-01,

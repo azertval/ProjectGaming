@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_render_culling.cpp
  * @brief Tests unitaires du culling par cadrage caméra (LOT-40, EX-NFR-005, EX-REN-015).

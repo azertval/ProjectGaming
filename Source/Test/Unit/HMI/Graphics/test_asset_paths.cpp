@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_asset_paths.cpp
  * @brief Tests unitaires de la résolution de chemins d'assets (LOT-39, EX-NFR-010/EX-NFR-040).

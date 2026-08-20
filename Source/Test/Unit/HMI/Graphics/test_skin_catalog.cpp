@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_skin_catalog.cpp
  * @brief Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Valentin Eloy
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Genere des textures d'objets interactifs de TEST pour ProjectGaming (LOT-45).
 
 Ces images sont volontairement schematiques : elles servent a verifier que la surcharge de

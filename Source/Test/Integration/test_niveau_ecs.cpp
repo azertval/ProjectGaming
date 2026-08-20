@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_niveau_ecs.cpp
  * @brief Test d'intégration : d'un fichier de niveau (JSON) jusqu'aux entités de l'ECS.

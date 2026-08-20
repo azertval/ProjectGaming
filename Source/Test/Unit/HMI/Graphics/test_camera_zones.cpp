@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_camera_zones.cpp
  * @brief Tests unitaires de la résolution de zone de caméra active (mode *par salle*, zones

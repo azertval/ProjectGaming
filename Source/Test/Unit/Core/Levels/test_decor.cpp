@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_decor.cpp
  * @brief Tests unitaires du décor libre (LOT-49, `EX-DEC-001`).

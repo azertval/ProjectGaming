@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_tile_visuals.cpp
  * @brief Tests unitaires de la correspondance type de tuile -> région d'atlas procédurale

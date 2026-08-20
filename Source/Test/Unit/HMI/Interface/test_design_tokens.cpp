@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_design_tokens.cpp
  * @brief Tests unitaires des jetons de design de l'IHM (`LOT-56` TACHE-01, `EX-IHM-050`,

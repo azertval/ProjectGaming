@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_pixel_palette.cpp
  * @brief Tests unitaires de la palette de projet, de l'extraction et de la contrainte de couleur

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_plateforme_composition.cpp
  * @brief Test d'intégration de la composition ECS d'une plateforme mobile (`EX-GP-026`,

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_swept_collision.cpp
  * @brief Tests unitaires du balayage AABB continu (`sweepAabb`) contre une grille de tuiles.

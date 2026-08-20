@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_parallax.cpp
  * @brief Tests unitaires du facteur de parallaxe par couche et du décalage relatif à la salle

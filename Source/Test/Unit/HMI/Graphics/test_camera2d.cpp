@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_camera2d.cpp
  * @brief Tests unitaires de la caméra 2D (conversions monde ↔ écran, projection).

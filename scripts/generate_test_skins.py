@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Valentin Eloy
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Genere un jeu de skins de TEST pour ProjectGaming (LOT-42).
 
 Ces images sont volontairement schematiques : elles servent a verifier que le moteur

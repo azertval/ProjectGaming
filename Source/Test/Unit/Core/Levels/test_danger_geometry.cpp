@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_danger_geometry.cpp
  * @brief Tests unitaires de la géométrie des dangers directionnels (`core::dangerHitbox`,

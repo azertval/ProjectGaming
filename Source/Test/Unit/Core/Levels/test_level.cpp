@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_level.cpp
  * @brief Tests unitaires du modèle de niveau : TileMap et Level.

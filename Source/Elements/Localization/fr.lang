@@ -369,6 +369,9 @@ credits.title = Crédits
 credits.development = Développement
 credits.audio = Musique et bruitages
 credits.graphics = Graphismes
+credits.fonts = Polices
+credits.libraries = Bibliothèques
+credits.license = Licence
 
 # Messages d'etat du viewport
 status.region_copied = Zone copiée (%1 × %2).

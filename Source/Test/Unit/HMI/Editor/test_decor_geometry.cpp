@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_decor_geometry.cpp
  * @brief Tests unitaires de la géométrie partagée corps/poignées d'un décor (LOT-50 TACHE-02).

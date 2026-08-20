@@ -6,6 +6,63 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+### Licence
+
+- Le projet passe de « Tous droits réservés » à la **GNU General Public License v3.0 ou ultérieure**
+  (`GPL-3.0-or-later`). `LICENSE` contient désormais le texte officiel, verbatim.
+- Précision utile, car l'intention initiale était « open source, pas d'usage commercial » : ces deux
+  exigences sont **incompatibles**. La définition de l'Open Source interdit de restreindre les
+  domaines d'usage (clause 6), donc aucune licence open source ne peut interdire le commercial. La
+  GPL apporte la garantie voisine, et plus solide en pratique : toute redistribution d'une version
+  modifiée — commerciale ou non — **doit en publier le source** sous la même licence.
+- Nouveau **`THIRD-PARTY-NOTICES.md`** : relevé des dépendances de code (Qt LGPLv3, GoogleTest
+  BSD-3-Clause, nlohmann/json MIT) et index des licences de ressources (CC0, SIL OFL), qui étaient
+  déjà documentées à côté des fichiers concernés mais nulle part rassemblées. Il détaille aussi les
+  trois obligations concrètes que le lien dynamique à Qt impose — et pourquoi passer Qt en lien
+  statique serait une décision de licence, pas d'optimisation.
+- **En-têtes SPDX** (`SPDX-License-Identifier: GPL-3.0-or-later`) sur les 516 fichiers de code du
+  dépôt. Ils marquent le **code, et lui seul** : images, sons, polices et bibliothèques tierces
+  gardent leur propre licence. La précision est écrite dans le README et les notices, parce que
+  l'inverse serait facile à croire et faux.
+- L'écran **Crédits du jeu** gagne trois sections : **polices** (SIL OFL), **bibliothèques**
+  (Qt 6, LGPLv3, lien dynamique) et **licence** du jeu. La LGPLv3 et la SIL OFL exigent cette
+  mention ; surtout, un joueur qui n'ouvrira jamais le dépôt doit pouvoir la lire. Seuls les
+  intitulés de section sont traduits — un nom de licence ne se paraphrase pas.
+
+### Plans picturaux (LOT-69, en cours)
+
+- Le niveau porte désormais une **liste ordonnée de plans** (`EX-DEC-040`) : chaque plan est une
+  image couvrant tout le niveau, dans son propre fichier, avec sa **densité** (16, 8 ou 4 px par
+  unité), ses **facteurs de parallaxe** par axe, son opacité et sa profondeur. L'ordre de la liste
+  est l'ordre de superposition.
+- Le format de niveau gagne `planes` et `parallax` (`EX-LVL-009`). Un niveau sans plan est
+  strictement inchangé, et aucun champ à sa valeur par défaut n'est écrit — un plan solidaire du
+  niveau à densité native ne produit que son nom de fichier.
+- Le coût est **borné par le format** et non laissé à l'usage (`EX-DEC-044`) : nombre de plans
+  plafonné, et refus d'un plan dont la texture dépasserait la limite du matériel. C'est la
+  *combinaison* taille × densité qui est vérifiée, pas la densité seule.
+- Tous les mutateurs de plan du brouillon d'édition sont **annulables et refaisables**, et un
+  mutateur refusé n'empile aucun pas d'historique.
+- Le système de **décors-sprites** (`LOT-49`/`LOT-50`) sera retiré par la suite du lot ; les
+  exigences correspondantes sont marquées retirées dans le référentiel, leurs ancres conservées.
+
+### Outillage (LOT-69)
+
+- **Qt passe de 6.8.1 à 6.11.2.** Qt 6.11 est la première version à fournir **Qt Canvas Painter**
+  (peinture 2D accélérée sur cible QRhi), sur lequel s'appuient les tâches suivantes du `LOT-69`.
+  La CI installe désormais aussi `qtshadertools` (l'outil `qsb`, compilateur de shaders exigé par le
+  rendu QRhi) et `qtcanvaspainter`.
+- Quitter Qt 6.8 **LTS** est assumé : au-delà de 6.8.3, les correctifs de cette branche ne sont
+  publiés que sous licence commerciale — le support long terme ne bénéficiait donc pas à ce projet.
+- La CI provisionne Qt avec un **`aqtinstall` pris depuis git, à un commit épinglé**
+  (`env.AQT_SOURCE`, entrée `aqtsource` de `install-qt-action`). Motif : Qt a changé la disposition
+  de son dépôt à partir de 6.11 et `aqtinstall 3.3.0`, dernière version publiée sur PyPI, ne sait
+  plus l'atteindre ; le correctif amont est mergé mais pas encore publié. Détour **temporaire et
+  documenté**, à retirer dès la parution d'`aqtinstall 3.3.1`.
+- `EX-BUILD-010` est amendée : l'exigence de provisionnement reproductible porte explicitement sur
+  l'**outil de provisionnement lui-même**, qui doit être épinglé à une révision précise et jamais à
+  une branche mobile.
+
 ### Interface (LOT-68)
 
 - Les six écrans du jeu passent en **pixel art** : police bitmap embarquée (Pixelify Sans, Press

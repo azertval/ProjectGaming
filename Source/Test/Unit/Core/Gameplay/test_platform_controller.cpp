@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_platform_controller.cpp
  * @brief Tests unitaires de la plateforme mobile (`core::PlatformController`, `EX-GP-026`).

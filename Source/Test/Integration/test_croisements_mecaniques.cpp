@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_croisements_mecaniques.cpp
  * @brief Tests d'intégration des **croisements** de mécaniques (`LOT-65` TACHE-06).

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_room_grid.cpp
  * @brief Tests unitaires de la partition d'un niveau en salles (`RoomGrid`, LOT-32).

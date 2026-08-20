@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_missing_texture.cpp
  * @brief Tests unitaires du repli « texture manquante » en damier magenta (LOT-40, EX-NFR-040).

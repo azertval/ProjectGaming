@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_pixel_autotile_preview.cpp
  * @brief Tests unitaires du mode planche à raccords de l'atelier pixel art (LOT-54 TACHE-08,

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_diagnostics_hud.cpp
  * @brief Tests unitaires de la moyenne glissante de cadence et du choix de contenu du compteur de

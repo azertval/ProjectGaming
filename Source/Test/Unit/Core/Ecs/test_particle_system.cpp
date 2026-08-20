@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_particle_system.cpp
  * @brief Tests unitaires de l'émetteur de particules déterministe (`LOT-53` TACHE-01,

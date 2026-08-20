@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Valentin Eloy
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Génère la documentation Doxygen, depuis n'importe quel répertoire courant.
 
 Doxygen résout les chemins de son fichier de configuration (``INPUT``,

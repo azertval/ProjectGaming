@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_mechanism_transitions.cpp
  * @brief Tests unitaires des transitions et du repli sur clip manquant (LOT-47 TACHE-02).

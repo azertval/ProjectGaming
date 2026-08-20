@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_game_key_bindings.cpp
  * @brief Tests unitaires du remappage des touches de jeu (`GameKeyBindings`, `EX-CTRL-012`).

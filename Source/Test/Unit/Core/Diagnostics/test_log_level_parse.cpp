@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_log_level_parse.cpp
  * @brief Tests unitaires de l'analyse d'un niveau de log depuis une chaîne.

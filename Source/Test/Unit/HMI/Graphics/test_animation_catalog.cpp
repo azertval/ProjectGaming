@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_animation_catalog.cpp
  * @brief Tests unitaires du format `nom-asset.anim.json` (`hmi::AnimationCatalog`, LOT-46

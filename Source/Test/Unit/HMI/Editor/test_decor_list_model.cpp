@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_decor_list_model.cpp
  * @brief Tests unitaires de la construction des lignes de la section « Décors » (LOT-50

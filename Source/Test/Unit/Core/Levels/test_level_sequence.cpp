@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_level_sequence.cpp
  * @brief Tests unitaires du chargement de séquence de niveaux (LOT-59 TACHE-04, EX-LVL-013).

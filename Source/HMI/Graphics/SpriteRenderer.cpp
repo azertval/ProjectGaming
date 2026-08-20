@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Graphics/SpriteRenderer.h"
 
 #include "Core/Ecs/Systems/AnimationSystem.h"

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_tile_texture_override.cpp
  * @brief Tests unitaires de la texture assignée par instance (LOT-45, `EX-EDIT-043`).

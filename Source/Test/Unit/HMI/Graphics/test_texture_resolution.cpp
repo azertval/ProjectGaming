@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_texture_resolution.cpp
  * @brief Tests unitaires de la priorité de résolution surcharge > skin > damier (LOT-45,

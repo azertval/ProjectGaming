@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Diagnostics/SessionLog.h"
 
 #include <fstream>

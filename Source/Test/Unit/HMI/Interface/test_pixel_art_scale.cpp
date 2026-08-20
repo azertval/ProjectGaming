@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_pixel_art_scale.cpp
  * @brief Tests unitaires du facteur d'agrandissement des écrans du jeu (`LOT-68`, `EX-IHM-070`).

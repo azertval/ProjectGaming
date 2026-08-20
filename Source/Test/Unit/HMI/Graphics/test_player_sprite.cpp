@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_player_sprite.cpp
  * @brief Tests unitaires de l'habillage du personnage : ancrage image/hitbox, repli entre clips

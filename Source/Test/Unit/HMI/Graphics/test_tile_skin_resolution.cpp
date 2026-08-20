@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_tile_skin_resolution.cpp
  * @brief Tests unitaires de la résolution d'apparence par skin (LOT-42, EX-EDIT-042, EX-EDIT-025).

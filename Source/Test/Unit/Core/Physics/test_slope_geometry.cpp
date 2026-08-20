@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_slope_geometry.cpp
  * @brief Tests unitaires de la fonction de hauteur des tuiles suivables (`slopeSurfaceHeight`,

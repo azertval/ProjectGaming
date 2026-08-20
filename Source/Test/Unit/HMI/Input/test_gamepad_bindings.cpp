@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_gamepad_bindings.cpp
  * @brief Tests unitaires du remappage manette (`GamepadBindings`, `EX-CTRL-002`, `EX-CTRL-012`).

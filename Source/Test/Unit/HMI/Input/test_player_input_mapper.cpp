@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_player_input_mapper.cpp
  * @brief Tests unitaires de la traduction clavier/manette → intention (`toPlayerInput`).

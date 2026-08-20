@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_particle_render.cpp
  * @brief Tests unitaires du rendu des particules (`LOT-53` TACHE-03, `EX-REN-008`).

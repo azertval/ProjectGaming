@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_animation_personnage.cpp
  * @brief Tests d'intégration de l'animation du personnage : ECS + système d'animation assemblés.

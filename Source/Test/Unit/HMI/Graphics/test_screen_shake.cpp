@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_screen_shake.cpp
  * @brief Tests unitaires de la secousse d'écran (`LOT-53` TACHE-03, `EX-REN-008`).

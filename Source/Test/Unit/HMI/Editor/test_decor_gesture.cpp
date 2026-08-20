@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_decor_gesture.cpp
  * @brief Tests unitaires de la machine à états du geste de manipulation de décors (LOT-50

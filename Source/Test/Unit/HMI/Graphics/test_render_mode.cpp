@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_render_mode.cpp
  * @brief Tests unitaires de la bascule Physique/Texture (LOT-41, EX-REN-046).

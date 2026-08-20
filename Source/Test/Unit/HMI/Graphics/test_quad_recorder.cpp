@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_quad_recorder.cpp
  * @brief Tests unitaires de la composition du rendu et de sa capture sans GPU

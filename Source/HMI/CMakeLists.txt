@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Valentin Eloy
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 # Couche de présentation HMI : **application Qt** (`ProjectGaming`).
 #
 # Depuis le LOT-38, l'IHM « maison » et l'exécutable historique `ProjectGaming` ont été retirés :

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_level_run_stats.cpp
  * @brief Tests unitaires du bilan d'un tableau joué (`LOT-68`, `EX-IHM-070`).

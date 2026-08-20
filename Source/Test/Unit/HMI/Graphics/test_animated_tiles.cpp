@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_animated_tiles.cpp
  * @brief Tests unitaires des tuiles animées (`LOT-46` TACHE-05) : horloge partagée par asset,

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_physique_personnage.cpp
  * @brief Tests d'intégration de la physique du personnage : ECS + grille + balayage assemblés.

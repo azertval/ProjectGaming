@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Valentin Eloy
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 # Bibliothèque Core : logique et moteur du jeu.
 add_library(Core STATIC
     Core.cpp

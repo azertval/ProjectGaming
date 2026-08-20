@@ -367,6 +367,9 @@ credits.title = Credits
 credits.development = Development
 credits.audio = Music and sound effects
 credits.graphics = Graphics
+credits.fonts = Fonts
+credits.libraries = Libraries
+credits.license = License
 
 # Viewport status messages
 status.region_copied = Region copied (%1 × %2).

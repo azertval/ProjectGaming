@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_panel_focus.cpp
  * @brief Tests unitaires de la correspondance outil → panneau (LOT-57 TACHE-02, EX-IHM-061).

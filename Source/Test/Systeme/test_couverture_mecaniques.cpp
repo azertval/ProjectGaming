@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_couverture_mecaniques.cpp
  * @brief Garde-fou de couverture des mécaniques par le contenu livré (`EX-LVL-015`, `LOT-65`

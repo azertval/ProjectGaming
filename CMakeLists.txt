@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Valentin Eloy
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 cmake_minimum_required(VERSION 3.21)
 
 # VERSION est la **source unique de vérité** du numéro de version : `core::Engine::version()` le

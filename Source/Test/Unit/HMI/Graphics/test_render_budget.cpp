@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_render_budget.cpp
  * @brief Test de non-régression du volume de primitives et de l'efficacité du culling (`LOT-62`

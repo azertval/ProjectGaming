@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_layer_visibility.cpp
  * @brief Tests unitaires du jeu de visibilités par calque du mode d'inspection de l'éditeur

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_editor_workspace.cpp
  * @brief Tests unitaires des espaces de travail de l'éditeur (`LOT-68`, `EX-IHM-073`).

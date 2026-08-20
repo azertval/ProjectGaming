@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_pixel_canvas_geometry.cpp
  * @brief Tests unitaires des conversions pures vue ↔ image du canevas pixel art
