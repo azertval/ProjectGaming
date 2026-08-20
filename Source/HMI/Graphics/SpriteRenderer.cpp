@@ -239,7 +239,7 @@ void SpriteRenderer::render(core::World& world, const Camera2D& camera, RenderMo
                             int levelWidth, int levelHeight,
                             const std::vector<core::TileTextureOverride>& textureOverrides,
                             const std::unordered_map<std::string, core::Animation>& tileAnimations,
-                            const std::vector<core::Plane>& planes,
+                            const std::vector<core::Plane>& planes, bool planeParallax,
                             const core::TileMap* doorCollision) {
     _scene.clear();
     _scene.setVisibleBounds(camera.visibleBounds());
@@ -250,8 +250,12 @@ void SpriteRenderer::render(core::World& world, const Camera2D& camera, RenderMo
     // Plans picturaux AVANT tout le reste et dans l'ordre declare (LOT-69 TACHE-05) : c'est cet
     // ordre de composition qui porte leur ordre de dessin, le tri intercalant le rang de premiere
     // apparition de texture entre le calque et le sortOrder. Propriete figee par un test.
+    PlaneParallax parallax;
+    parallax.active = planeParallax;
+    parallax.cameraBounds = camera.visibleBounds();
+    parallax.pixelsPerWorldUnit = Camera2D::PIXELS_PER_UNIT * camera.zoom();
     composePlanes(_scene, planes, resolvePlaneTextures(*_cache, _planesDirectory, planes),
-                  levelWidth, levelHeight, mode);
+                  levelWidth, levelHeight, mode, PlaneVisibility{}, parallax);
     composeShadows(_scene, world, mode, textures, interpolationAlpha, doorCollision);
     composeWorldSprites(_scene, world, mode, textures, interpolationAlpha);
     // Particules du personnage (LOT-53 TACHE-03) : meme scene, apres les sprites -- l'ordre de

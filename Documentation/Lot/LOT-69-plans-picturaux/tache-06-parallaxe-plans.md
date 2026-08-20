@@ -1,7 +1,7 @@
 # TACHE-06 — Parallaxe portée par le plan {#lot-69-tache-06-parallaxe-plans}
 
 **Lot :** [LOT-69](epic.md) · **Emplacement :** `Source/HMI/{Graphics,Game}` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 `Source/HMI/Graphics/Parallax.h` fige trois constantes — `0.5`, `1.0`, `1.15` — indexées par la

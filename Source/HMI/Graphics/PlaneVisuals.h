@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "Core/Levels/Plane.h"
+#include "Core/Math/Rect.h"
 #include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/PlaneVisibility.h"
 #include "HMI/Graphics/RenderMode.h"
@@ -72,6 +73,23 @@ struct PlaneTexture {
     const std::vector<core::Plane>& planes);
 
 /**
+ * @brief Cadrage courant et échelle, pour le décalage de parallaxe des plans (`EX-DEC-043`).
+ *
+ * Regroupés en une structure plutôt qu'ajoutés un à un à `composePlanes` : les trois valeurs n'ont
+ * de sens qu'ensemble, et une signature qui les sépare invite à en oublier une. `active` à `false`
+ * (le défaut) rend les deux autres sans effet — c'est l'état de l'éditeur et du cadrage *niveau
+ * entier* (`hmi::planeParallaxActive`).
+ */
+struct PlaneParallax {
+    /// La parallaxe s'applique-t-elle ? Décidé par `hmi::planeParallaxActive`.
+    bool active = false;
+    /// Rectangle cadré par la caméra (`hmi::Camera2D::visibleBounds`), en unités monde.
+    core::Rect cameraBounds{};
+    /// Échelle courante (`hmi::Camera2D::PIXELS_PER_UNIT * zoom`), pour l'arrondi au pixel écran.
+    float pixelsPerWorldUnit = 0.0f;
+};
+
+/**
  * @brief Compose les plans picturaux d'un niveau, dans l'ordre déclaré.
  *
  * Fonction **pure** (aucun accès disque/GPU), testable via `hmi::QuadRecorder` (`EX-NFR-004`).
@@ -101,9 +119,12 @@ struct PlaneTexture {
  * @param mode        Mode de rendu courant ; sans effet hors `RenderMode::Texture`.
  * @param visibility  Visibilité par rang (aide d'édition) : tout visible par défaut, donc sans
  *                    effet en jeu.
+ * @param parallax    Cadrage et échelle pour le décalage de parallaxe ; inactif par défaut, le
+ *                    plan est alors composé exactement sur les bornes du niveau.
  */
 void composePlanes(ComposedScene& scene, const std::vector<core::Plane>& planes,
                    const std::vector<PlaneTexture>& textures, int levelWidth, int levelHeight,
-                   RenderMode mode, const PlaneVisibility& visibility = PlaneVisibility{});
+                   RenderMode mode, const PlaneVisibility& visibility = PlaneVisibility{},
+                   const PlaneParallax& parallax = PlaneParallax{});
 
 }  // namespace hmi

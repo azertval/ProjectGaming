@@ -181,6 +181,9 @@ public:
      *                    avant tout le reste et dans l'ordre déclaré — c'est cet ordre de
      *                    composition qui porte leur ordre de dessin (cf. `hmi::composePlanes`).
      *                    Leurs images sont résolues sous `planesDirectory()`.
+     * @param planeParallax Décide du décalage de parallaxe des plans (`hmi::planeParallaxActive`,
+     *                    `EX-DEC-043`) : l'appelant tranche, la table étant une règle du moteur
+     *                    croisée avec un drapeau de niveau, pas une propriété du rendu.
      * @param doorCollision Grille de collision courante des mécanismes (`core::
      *                    MechanismController::collisionMap`, `LOT-55`), pour que l'ombre d'une
      *                    porte suive son état ouverte/fermée plutôt que son type statique ;
@@ -191,7 +194,7 @@ public:
                 int levelWidth = 0, int levelHeight = 0,
                 const std::vector<core::TileTextureOverride>& textureOverrides = {},
                 const std::unordered_map<std::string, core::Animation>& tileAnimations = {},
-                const std::vector<core::Plane>& planes = {},
+                const std::vector<core::Plane>& planes = {}, bool planeParallax = false,
                 const core::TileMap* doorCollision = nullptr);
 
     /**

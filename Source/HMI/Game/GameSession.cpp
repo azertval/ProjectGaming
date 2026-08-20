@@ -1079,6 +1079,7 @@ void GameSession::render(int viewportWidth, int viewportHeight, RenderMode mode,
     // (LOT-55) : TileSkinTag::type reste TileType::Door quel que soit cet etat.
     _renderer.render(_world, _camera, mode, interpolationAlpha, _level->background(), _levelWidth,
                      _levelHeight, _level->textureOverrides(), _tileAnimations, _level->planes(),
+                     hmi::planeParallaxActive(_cameraFraming.mode, _level->parallaxEnabled()),
                      _mechanisms ? &_mechanisms->collisionMap() : nullptr);
 
     renderHud(viewportWidth, viewportHeight);

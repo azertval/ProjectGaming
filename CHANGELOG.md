@@ -61,6 +61,19 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 - Le calque `Decor` devient **`Plane`**, et les entrées de menu correspondantes « Plans derrière » /
   « Plans devant ». Laisser un calque porter le nom d'un système retiré aurait été précisément la
   dette que `EX-REN-014` cherche à éviter.
+- **La parallaxe est portée par le plan** (`EX-DEC-043`), réglable **par axe** et par niveau, à
+  la place des trois constantes figées de l'ancien système. Le décalage reste calculé **relativement
+  au centre de la salle** : c'est précisément ce qui empêche le saut à la bascule de salle
+  (`EX-REN-015`), et un décalage absolu — envisagé au cadrage — rouvrirait ce défaut.
+- Le décalage est **borné** : un plan couvre toujours le cadrage, y compris caméra collée au bord
+  du niveau. L'alternative « que l'artiste peigne des marges » a été écartée — la marge nécessaire
+  dépend du facteur *et* de la taille de salle, et l'erreur ne se verrait qu'en jeu, au bord d'un
+  niveau.
+- **La parallaxe est réactivée en mode de cadrage *suivi***, ce qui **inverse une décision du
+  `LOT-64`. Le motif est net : celui-ci l'avait coupée parce qu'un décor est un objet collé au
+  contenu et paraissait « suivre » la caméra ; un plan est un fond, l'argument tombe. En cadrage
+  *niveau entier*, elle reste neutralisée — la caméra ne bougeant pas, le décalage ne serait qu'un
+  désalignement constant du plan par rapport aux tuiles.
 - **Visibilité par plan** dans l'éditeur (`EX-DEC-045`) : masquage individuel et **isolement** d'un
   plan, non persistés — une aide d'édition, pas une propriété du niveau.
 - Une propriété invisible à la lecture est désormais **figée par un test** : les plans ne
