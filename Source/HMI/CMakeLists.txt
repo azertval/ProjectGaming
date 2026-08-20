@@ -28,7 +28,7 @@ endif()
 # `release.yml`) l'installe explicitement à cette même valeur (`env.QT_VERSION`), vérifié
 # automatiquement par `scripts/check_qt_version_pin.py` (job `lint-exigences`) pour que les deux
 # ne divergent jamais silencieusement.
-set(QT_VERSION_MINIMUM "6.8.1")
+set(QT_VERSION_MINIMUM "6.11.2")
 
 # --- Découverte de Qt sans configuration manuelle ---
 # find_package() ne consulte que CMAKE_PREFIX_PATH. Or l'installateur officiel Qt place ses
