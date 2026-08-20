@@ -437,6 +437,125 @@ std::optional<std::size_t> LevelDraft::sendDecorToBack(std::size_t index) {
     return firstSameLayer;
 }
 
+// --- Plans picturaux (EX-DEC-040, LOT-69) ---
+//
+// Tous ces mutateurs suivent la meme discipline que ceux des decors : un rang hors bornes ne fait
+// RIEN et n'empile RIEN (sinon annuler un geste sans effet consommerait un pas d'historique), et
+// une valeur refusee n'empile pas davantage. Le pushUndo() vient donc toujours APRES les
+// validations, jamais avant.
+//
+// Le deplacement ne raisonne pas par couche, contrairement aux decors : le rang dans la liste EST
+// l'ordre de superposition, la profondeur etant une propriete independante (EX-DEC-042).
+
+void LevelDraft::addPlane(Plane plane) {
+    pushUndo();
+    _planes.push_back(std::move(plane));
+}
+
+void LevelDraft::removePlane(std::size_t index) {
+    if (index >= _planes.size()) {
+        return;
+    }
+    pushUndo();
+    _planes.erase(_planes.begin() + static_cast<std::ptrdiff_t>(index));
+}
+
+bool LevelDraft::setPlaneDensity(std::size_t index, int pixelsPerUnit) {
+    if (index >= _planes.size() || !isValidPlaneDensity(pixelsPerUnit)) {
+        return false;
+    }
+    pushUndo();
+    _planes[index].pixelsPerUnit = pixelsPerUnit;
+    return true;
+}
+
+bool LevelDraft::setPlaneParallax(std::size_t index, float parallaxX, float parallaxY) {
+    if (index >= _planes.size() || !std::isfinite(parallaxX) || !std::isfinite(parallaxY)) {
+        return false;
+    }
+    pushUndo();
+    _planes[index].parallaxX = parallaxX;
+    _planes[index].parallaxY = parallaxY;
+    return true;
+}
+
+bool LevelDraft::setPlaneOpacity(std::size_t index, float opacity) {
+    // Comparaisons ecrites en positif pour rejeter aussi NaN, qui echoue toute comparaison.
+    if (index >= _planes.size() || !(opacity >= 0.0F) || !(opacity <= 1.0F)) {
+        return false;
+    }
+    pushUndo();
+    _planes[index].opacity = opacity;
+    return true;
+}
+
+bool LevelDraft::setPlaneDepth(std::size_t index, PlaneDepth depth) {
+    if (index >= _planes.size()) {
+        return false;
+    }
+    pushUndo();
+    _planes[index].depth = depth;
+    return true;
+}
+
+std::optional<std::size_t> LevelDraft::movePlaneForward(std::size_t index) {
+    if (index >= _planes.size()) {
+        return std::nullopt;
+    }
+    if (index + 1 == _planes.size()) {
+        return index;  // deja le plus en avant : succes sans effet, rien d'empile.
+    }
+    pushUndo();
+    std::swap(_planes[index], _planes[index + 1]);
+    return index + 1;
+}
+
+std::optional<std::size_t> LevelDraft::movePlaneBackward(std::size_t index) {
+    if (index >= _planes.size()) {
+        return std::nullopt;
+    }
+    if (index == 0) {
+        return index;  // deja le plus en arriere.
+    }
+    pushUndo();
+    std::swap(_planes[index], _planes[index - 1]);
+    return index - 1;
+}
+
+std::optional<std::size_t> LevelDraft::movePlaneToFront(std::size_t index) {
+    if (index >= _planes.size()) {
+        return std::nullopt;
+    }
+    const std::size_t last = _planes.size() - 1;
+    if (index == last) {
+        return index;
+    }
+    pushUndo();
+    Plane moved = std::move(_planes[index]);
+    _planes.erase(_planes.begin() + static_cast<std::ptrdiff_t>(index));
+    _planes.push_back(std::move(moved));
+    return last;
+}
+
+std::optional<std::size_t> LevelDraft::movePlaneToBack(std::size_t index) {
+    if (index >= _planes.size()) {
+        return std::nullopt;
+    }
+    if (index == 0) {
+        return index;
+    }
+    pushUndo();
+    Plane moved = std::move(_planes[index]);
+    _planes.erase(_planes.begin() + static_cast<std::ptrdiff_t>(index));
+    _planes.insert(_planes.begin(), std::move(moved));
+    return 0;
+}
+
+void LevelDraft::setParallaxEnabled(bool enabled) {
+    pushUndo();
+    _parallaxEnabled = enabled;
+}
+
 void LevelDraft::setBackground(std::optional<std::string> background) {
     pushUndo();
     _background = std::move(background);
@@ -621,7 +740,9 @@ LevelDraft::State LevelDraft::snapshot() const {
                  .platformConfigs = _platformConfigs,
                  .cameraFraming = _cameraFraming,
                  .airJumps = _airJumps,
-                 .dashCharges = _dashCharges};
+                 .dashCharges = _dashCharges,
+                 .planes = _planes,
+                 .parallaxEnabled = _parallaxEnabled};
 }
 
 void LevelDraft::restore(State state) {
@@ -643,6 +764,8 @@ void LevelDraft::restore(State state) {
     _cameraFraming = state.cameraFraming;
     _airJumps = state.airJumps;
     _dashCharges = state.dashCharges;
+    _planes = std::move(state.planes);
+    _parallaxEnabled = state.parallaxEnabled;
 }
 
 void LevelDraft::pushUndo() {
@@ -654,7 +777,7 @@ LevelLoadResult LevelDraft::toLevel() const {
     const std::string json = LevelWriter::buildJson(
         _name, _tileMap, _mechanisms, _jumpBudget, _dashBudget, _dangerLinks, _moverConfigs,
         _blinkConfigs, _background, _skinSet, _textureOverrides, _decors, _platformConfigs,
-        _cameraFraming, _airJumps, _dashCharges);
+        _cameraFraming, _airJumps, _dashCharges, _planes, _parallaxEnabled);
     return LevelLoader::loadFromString(json);
 }
 

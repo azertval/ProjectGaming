@@ -72,6 +72,11 @@ public:
      *                     override correspondant est émise sans champ `"texture"`.
      * @param decors       Décors libres du niveau (`EX-DEC-001`, LOT-49), émis dans le tableau
      *                     racine optionnel `"decors"`, omis si vide (`EX-LVL-005`).
+     * @param planes       Plans picturaux du niveau (`EX-DEC-040`, LOT-69), émis dans le tableau
+     *                     racine optionnel `"planes"`, omis si vide. Chaque champ à sa valeur par
+     *                     défaut est omis (convention du `LOT-67`).
+     * @param parallaxEnabled Drapeau de parallaxe du niveau (`EX-DEC-043`) ; omis quand il vaut
+     *                     `true`, sa valeur par défaut.
      * @param platformConfigs Configurations explicites de plateformes mobiles (`EX-GP-026`), même
      *                     remarque que @p moverConfigs pour les champs `waypoints`/`mode`/`speed`/
      *                     `phase`. La route est toujours écrite en `waypoints` : le couple
@@ -99,7 +104,8 @@ public:
         const std::vector<MovingPlatformConfig>& platformConfigs = {},
         const CameraFramingConfig& cameraFraming = {},
         const std::optional<int>& airJumps = std::nullopt,
-        const std::optional<int>& dashCharges = std::nullopt);
+        const std::optional<int>& dashCharges = std::nullopt, const std::vector<Plane>& planes = {},
+        bool parallaxEnabled = true);
 };
 
 }  // namespace core

@@ -86,8 +86,15 @@ c'est un identifiant stable, jamais réordonné.
 - @subpage lot-65
 - @subpage lot-66
 - @subpage lot-67
+- @subpage lot-69
 
 ## Apres le programme `0.1.0`
+
+Le [LOT-69](@ref lot-69) est le premier lot d'ampleur d'apres-programme, et le premier a **retirer**
+un systeme livre plutot qu'a en ajouter un : les decors-sprites du `LOT-49`/`LOT-50` cedent la place
+a des **plans picturaux** peints dans l'editeur, avec parallaxe reglable. Contrairement aux
+`LOT-67`/`LOT-68`, il a un **dossier de lot dedie** : sa surface (dix taches, dont le portage du
+rendu sur QRhi et le retrait d'un sous-systeme entier) le justifie amplement.
 
 Le `LOT-68` poursuit dans la meme veine : refonte de l'interface, en deux volets — degraissage
 des surfaces de commande de l'editeur et identite pixel art des ecrans du jeu (`EX-IHM-070` a

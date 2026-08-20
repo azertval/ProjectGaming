@@ -8,6 +8,7 @@
 #include "Core/Levels/CameraFraming.h"
 #include "Core/Levels/Decor.h"
 #include "Core/Levels/GridPosition.h"
+#include "Core/Levels/Plane.h"
 #include "Core/Levels/TileMap.h"
 
 /**
@@ -183,6 +184,14 @@ public:
      * @param dashCharges  Nombre de dashs utilisables entre deux contacts avec le sol
      *                     (`EX-GP-055`) ; absent = valeur du moteur. Même distinction vis-à-vis
      *                     de @p dashBudget.
+     * @param planes       Plans picturaux du niveau (`EX-DEC-040`, LOT-69), dans leur ordre de
+     *                     superposition. Remplacent @p decors, retirés par le `LOT-69`.
+     * @param parallaxEnabled `true` si la parallaxe des plans s'applique (`EX-DEC-043`) ; le mode
+     *                     de cadrage peut la neutraliser par-dessus ce drapeau.
+     *
+     * @note Ce constructeur atteint **19 paramètres**. Un agrégat `LevelData` devient nécessaire ;
+     *       le `LOT-69` ne le fait pas — sa surface est déjà maximale — mais la dette est actée
+     *       dans son epic.
      */
     Level(std::string name, TileMap tileMap, GridPosition entry, GridPosition exit,
           std::vector<Mechanism> mechanisms, int jumpBudget = -1, int dashBudget = -1,
@@ -194,7 +203,8 @@ public:
           std::vector<TileTextureOverride> textureOverrides = {}, std::vector<Decor> decors = {},
           std::vector<MovingPlatformConfig> platformConfigs = {},
           CameraFramingConfig cameraFraming = {}, std::optional<int> airJumps = std::nullopt,
-          std::optional<int> dashCharges = std::nullopt)
+          std::optional<int> dashCharges = std::nullopt, std::vector<Plane> planes = {},
+          bool parallaxEnabled = true)
         : _name(std::move(name)),
           _tileMap(std::move(tileMap)),
           _entry(entry),
@@ -212,7 +222,9 @@ public:
           _platformConfigs(std::move(platformConfigs)),
           _cameraFraming(cameraFraming),
           _airJumps(airJumps),
-          _dashCharges(dashCharges) {}
+          _dashCharges(dashCharges),
+          _planes(std::move(planes)),
+          _parallaxEnabled(parallaxEnabled) {}
 
     /// @return Le nom du niveau.
     [[nodiscard]] const std::string& name() const noexcept {
@@ -287,6 +299,18 @@ public:
         return _decors;
     }
 
+    /// @return Les **plans picturaux** du niveau (`EX-DEC-040`), dans leur ordre de superposition.
+    [[nodiscard]] const std::vector<Plane>& planes() const noexcept {
+        return _planes;
+    }
+
+    /// @return `true` si la **parallaxe** des plans s'applique dans ce niveau (`EX-DEC-043`).
+    /// Le mode de cadrage peut la neutraliser malgré ce drapeau : c'est une règle du moteur, pas
+    /// une propriété du niveau (`hmi::planeParallaxActive`).
+    [[nodiscard]] bool parallaxEnabled() const noexcept {
+        return _parallaxEnabled;
+    }
+
     /// @return Les paramètres des plateformes mobiles du niveau (`EX-GP-026`).
     [[nodiscard]] const std::vector<MovingPlatformConfig>& platformConfigs() const noexcept {
         return _platformConfigs;
@@ -332,6 +356,8 @@ private:
     CameraFramingConfig _cameraFraming;
     std::optional<int> _airJumps;
     std::optional<int> _dashCharges;
+    std::vector<Plane> _planes;
+    bool _parallaxEnabled = true;
 };
 
 }  // namespace core

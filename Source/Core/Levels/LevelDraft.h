@@ -310,6 +310,62 @@ public:
     std::optional<std::size_t> sendDecorToBack(std::size_t index);
 
     /**
+     * @name Plans picturaux (`EX-DEC-040`, LOT-69)
+     *
+     * Tous ces mutateurs empilent **un** pas d'annulation (`pushUndo`) et sont donc annulables
+     * *et* refaisables. Un rang hors bornes est **sans effet** et n'empile rien — même convention
+     * que les mutateurs de décor et de parcours.
+     *
+     * Contrairement aux décors, les plans ne sont pas regroupés par couche pour le
+     * réordonnancement : leur rang dans la liste **est** l'ordre de superposition, et la
+     * profondeur (`core::PlaneDepth`) est une propriété indépendante. Monter un plan le rapproche
+     * donc du premier plan de la liste, quelle que soit sa profondeur.
+     * @{
+     */
+
+    /// Ajoute @p plane en fin de liste (le plus en avant).
+    void addPlane(Plane plane);
+
+    /// Retire le plan au rang @p index. Ne touche **jamais** au fichier PNG : le brouillon annule
+    /// une entrée, il ne restaurerait pas un fichier supprimé (voir `LOT-69` TACHE-08).
+    void removePlane(std::size_t index);
+
+    /// Change la densité du plan au rang @p index (`EX-DEC-041`).
+    /// @return `false` si @p index est hors bornes ou si @p pixelsPerUnit n'est pas une densité
+    ///         valide (`core::isValidPlaneDensity`) — auquel cas rien n'est empilé.
+    bool setPlaneDensity(std::size_t index, int pixelsPerUnit);
+
+    /// Change les facteurs de parallaxe du plan au rang @p index (`EX-DEC-043`).
+    /// @return `false` si @p index est hors bornes ou si un facteur n'est pas fini.
+    bool setPlaneParallax(std::size_t index, float parallaxX, float parallaxY);
+
+    /// Change l'opacité du plan au rang @p index.
+    /// @return `false` si @p index est hors bornes ou si @p opacity sort de `[0, 1]`.
+    bool setPlaneOpacity(std::size_t index, float opacity);
+
+    /// Change la profondeur du plan au rang @p index (`EX-DEC-042`).
+    /// @return `false` si @p index est hors bornes.
+    bool setPlaneDepth(std::size_t index, PlaneDepth depth);
+
+    /// Avance le plan au rang @p index d'un cran ; sans effet s'il est déjà le dernier.
+    /// @return Le nouveau rang, ou `std::nullopt` si @p index est hors bornes.
+    std::optional<std::size_t> movePlaneForward(std::size_t index);
+
+    /// Recule le plan au rang @p index d'un cran ; sans effet s'il est déjà le premier.
+    std::optional<std::size_t> movePlaneBackward(std::size_t index);
+
+    /// Amène le plan au rang @p index au dernier rang (le plus en avant).
+    std::optional<std::size_t> movePlaneToFront(std::size_t index);
+
+    /// Envoie le plan au rang @p index au premier rang (le plus en arrière).
+    std::optional<std::size_t> movePlaneToBack(std::size_t index);
+
+    /// Active ou désactive la parallaxe des plans pour ce niveau (`EX-DEC-043`).
+    void setParallaxEnabled(bool enabled);
+
+    /** @} */
+
+    /**
      * @brief Redimensionne la grille (`EX-EDIT-005`).
      *
      * Agrandir complète les nouvelles cases en `Empty` ; réduire **tronque** silencieusement le
@@ -481,6 +537,16 @@ public:
         return _decors;
     }
 
+    /// @return Les plans picturaux courants (`EX-DEC-040`), dans leur ordre de superposition.
+    [[nodiscard]] const std::vector<Plane>& planes() const noexcept {
+        return _planes;
+    }
+
+    /// @return `true` si la parallaxe des plans est active pour ce niveau (`EX-DEC-043`).
+    [[nodiscard]] bool parallaxEnabled() const noexcept {
+        return _parallaxEnabled;
+    }
+
     /// @return Le budget de sauts courant (`-1` = illimité).
     [[nodiscard]] int jumpBudget() const noexcept {
         return _jumpBudget;
@@ -573,6 +639,8 @@ private:
         CameraFramingConfig cameraFraming;
         std::optional<int> airJumps;
         std::optional<int> dashCharges;
+        std::vector<Plane> planes;
+        bool parallaxEnabled;
     };
 
     /// Capture l'état courant (pour empiler dans l'historique undo/redo).
@@ -603,6 +671,8 @@ private:
     CameraFramingConfig _cameraFraming;
     std::optional<int> _airJumps;
     std::optional<int> _dashCharges;
+    std::vector<Plane> _planes;
+    bool _parallaxEnabled = true;
     std::vector<State> _undoHistory;
     std::vector<State> _redoHistory;
 };

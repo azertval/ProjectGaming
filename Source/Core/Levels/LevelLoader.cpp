@@ -1,5 +1,6 @@
 #include "Core/Levels/LevelLoader.h"
 
+#include <cmath>
 #include <fstream>
 #include <set>
 #include <sstream>
@@ -84,6 +85,79 @@ struct DangerSwitchedLink {
         return DecorLayer::Foreground;
     }
     return DecorLayer::Decor;
+}
+
+// Convertit le champ "depth" d'un plan ("behind"/"front") ; valeur par défaut (Behind) si absent
+// ou non reconnu -- même tolérance que parseDecorLayer et parsePlatformPathMode, et symétrique à
+// planeDepthName (LevelWriter.cpp).
+[[nodiscard]] PlaneDepth parsePlaneDepth(const nlohmann::json& plane) {
+    return plane.value("depth", std::string{"behind"}) == "front" ? PlaneDepth::Front
+                                                                  : PlaneDepth::Behind;
+}
+
+// Traite le tableau racine optionnel "planes" (EX-DEC-040, LOT-69) : absent = aucun plan
+// (rétrocompatibilité, EX-LVL-005). L'ordre du tableau est préservé tel quel (rang =
+// superposition, EX-DEC-040), et aucune existence de fichier n'est vérifiée (EX-NFR-011 : Core
+// ignore tout du dossier des plans) -- un plan introuvable se replie en damier côté HMI
+// (EX-NFR-040).
+//
+// Les garde-fous de coût (EX-DEC-044) sont appliqués ICI, au chargement, et non laissés à
+// l'usage : rien n'empêcherait autrement seize plans à densité native sur un grand niveau, soit
+// plusieurs centaines de mégaoctets de texture.
+[[nodiscard]] std::optional<LevelLoadResult> parsePlanes(const nlohmann::json& root, int width,
+                                                         int height, std::vector<Plane>& planes) {
+    if (!root.contains("planes")) {
+        return std::nullopt;
+    }
+    if (!root.at("planes").is_array()) {
+        return failure("Le champ 'planes' doit etre une liste", LevelValidationError::ParseError);
+    }
+    if (root.at("planes").size() > MAX_PLANES_PER_LEVEL) {
+        return failure("Trop de plans : " + std::to_string(root.at("planes").size()) +
+                           " (maximum " + std::to_string(MAX_PLANES_PER_LEVEL) + ")",
+                       LevelValidationError::ParseError);
+    }
+    for (const nlohmann::json& planeJson : root.at("planes")) {
+        Plane plane;
+        plane.fileName = planeJson.at("file").get<std::string>();
+        if (plane.fileName.empty()) {
+            return failure("Le champ 'file' d'un plan ne doit pas etre vide",
+                           LevelValidationError::ParseError);
+        }
+        plane.pixelsPerUnit = planeJson.value("pixelsPerUnit", PLANE_NATIVE_PIXELS_PER_UNIT);
+        if (!isValidPlaneDensity(plane.pixelsPerUnit)) {
+            return failure("Densite de plan invalide : " + std::to_string(plane.pixelsPerUnit) +
+                               " (attendu 4, 8 ou 16)",
+                           LevelValidationError::ParseError);
+        }
+        // Une densite valide peut quand meme depasser ce que le materiel accepte, sur un grand
+        // niveau : c'est la combinaison taille x densite qui compte, pas la densite seule.
+        if (static_cast<long long>(width) * plane.pixelsPerUnit > MAX_PLANE_TEXTURE_EXTENT ||
+            static_cast<long long>(height) * plane.pixelsPerUnit > MAX_PLANE_TEXTURE_EXTENT) {
+            return failure("Plan '" + plane.fileName + "' trop grand : " + std::to_string(width) +
+                               "x" + std::to_string(height) + " cases a " +
+                               std::to_string(plane.pixelsPerUnit) +
+                               " px/unite depasse la limite de texture (" +
+                               std::to_string(MAX_PLANE_TEXTURE_EXTENT) + " px)",
+                           LevelValidationError::ParseError);
+        }
+        plane.parallaxX = planeJson.value("parallaxX", 1.0F);
+        // parallaxY retombe sur parallaxX plutot que sur 1.0 : un plan qui declare un seul facteur
+        // veut presque toujours le meme sur les deux axes, et l'ecrire deux fois serait du bruit.
+        plane.parallaxY = planeJson.value("parallaxY", plane.parallaxX);
+        if (!std::isfinite(plane.parallaxX) || !std::isfinite(plane.parallaxY)) {
+            return failure("Facteur de parallaxe non fini pour le plan '" + plane.fileName + "'",
+                           LevelValidationError::ParseError);
+        }
+        plane.opacity = planeJson.value("opacity", 1.0F);
+        if (!(plane.opacity >= 0.0F) || !(plane.opacity <= 1.0F)) {
+            return failure("Opacite hors de [0,1] pour le plan '" + plane.fileName + "'",
+                           LevelValidationError::ParseError);
+        }
+        plane.depth = parsePlaneDepth(planeJson);
+        planes.push_back(std::move(plane));
+    }
+    return std::nullopt;
 }
 
 // Accumulateurs remplis case par case par parseTile() ci-dessous -- toutes des références vers
@@ -532,6 +606,15 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
             return std::move(*decorsError);
         }
 
+        std::vector<Plane> planes;
+        if (std::optional<LevelLoadResult> planesError = parsePlanes(root, width, height, planes)) {
+            return std::move(*planesError);
+        }
+        // Drapeau de parallaxe (EX-DEC-043) : vrai par defaut, comme le veut la convention « le
+        // defaut n'est jamais ecrit » -- un niveau anterieur au LOT-69 se comporte donc comme un
+        // niveau qui l'active, ce qui est sans effet tant qu'il n'a aucun plan.
+        const bool parallaxEnabled = root.value("parallax", true);
+
         // Regle de repli (EX-LVL-006) appliquee ici, au point unique de construction du niveau :
         // un champ absent reproduit exactement le comportement historique (core::CameraFraming.h).
         const CameraFramingConfig cameraFraming =
@@ -541,11 +624,12 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                          std::to_string(height) + ", " + std::to_string(mechanisms.size()) +
                          " mecanisme(s))");
         return LevelLoadResult{
-            .level = Level(std::move(name), std::move(map), entry, exit, std::move(mechanisms),
-                           jumpBudget, dashBudget, std::move(dangerLinks), std::move(moverConfigs),
-                           std::move(blinkConfigs), std::move(background), std::move(skinSet),
-                           std::move(textureOverrides), std::move(decors),
-                           std::move(platformConfigs), cameraFraming, airJumps, dashCharges),
+            .level =
+                Level(std::move(name), std::move(map), entry, exit, std::move(mechanisms),
+                      jumpBudget, dashBudget, std::move(dangerLinks), std::move(moverConfigs),
+                      std::move(blinkConfigs), std::move(background), std::move(skinSet),
+                      std::move(textureOverrides), std::move(decors), std::move(platformConfigs),
+                      cameraFraming, airJumps, dashCharges, std::move(planes), parallaxEnabled),
             .error = {}};
     } catch (const nlohmann::json::exception& error) {
         return failure(std::string("JSON invalide : ") + error.what(),

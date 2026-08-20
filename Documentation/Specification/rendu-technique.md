@@ -6,7 +6,7 @@
 
 ## 1. Cible technique
 - \anchor EX-REN-001 **EX-REN-001** — Le jeu doit fonctionner sous **Windows 10/11 (x64)**.
-- \anchor EX-REN-002 **EX-REN-002** — Le rendu doit s'appuyer sur **Direct3D 11** (bon compromis simplicité/capacités pour de la 2D ; Direct3D 12 écarté car surdimensionné au MVP).
+- \anchor EX-REN-002 **EX-REN-002** — Le rendu doit s'appuyer sur **Direct3D 11** (bon compromis simplicité/capacités pour de la 2D ; Direct3D 12 écarté car surdimensionné au MVP). Depuis le `LOT-69`, l'API n'est plus appelée directement mais **au travers de QRhi** (`EX-REN-050`), qui retient Direct3D 11 par défaut sous Windows : la cible technique est inchangée, seule la couche d'accès l'est.
 - \anchor EX-REN-003 **EX-REN-003** — La fenêtre doit être créée via l'API Win32, redimensionnable, avec titre et icône.
 
 ## 2. Rendu 2D
@@ -143,6 +143,21 @@
   L'absence de périphérique audio, de catalogue de sons ou d'un fichier référencé est une **erreur
   récupérable** (`EX-NFR-040`) : le jeu reste pleinement jouable en silence, avec un avertissement
   journalisé une seule fois par asset. Livré en `LOT-60`.
+
+- \anchor EX-REN-049 **EX-REN-049** — Les **plans picturaux** (`EX-DEC-040`) doivent se composer
+  dans l'**ordonnancement unique** de `EX-REN-014`, **sans y ajouter de valeur par plan** : leur
+  nombre est libre, les énumérer figerait dans le rendu ce que le format déclare variable. Les plans
+  de fond occupent le calque de décor, ceux de devant le calque de premier plan, et leur **rang dans
+  la liste du niveau** fournit le tri fin **à l'intérieur** du calque. Concrétisé en `LOT-69`.
+- \anchor EX-REN-050 **EX-REN-050** — Le rendu doit être présenté dans un **widget composé avec
+  l'interface** (`QRhiWidget`, qui dessine dans une texture d'appui) et non dans une **fenêtre
+  native** embarquée. Motif : un widget frère d'une fenêtre native ne se dessine jamais de façon
+  fiable par-dessus elle, ce qui a déjà coûté deux défauts réels en `LOT-59` (écran de pause
+  invisible, puis focus volé par `Qt::Tool`) et imposait un contournement par fenêtre de haut niveau
+  à géométrie synchronisée. Les aides d'édition du mode création (`EX-EDIT-046`) en dépendent
+  directement. Le rendu reste **Direct3D 11** (`EX-REN-002`), QRhi retenant ce backend par défaut
+  sous Windows, et le filtrage reste *nearest* au zoom entier (`EX-ARCH-022`) — un portage qui
+  rendrait le pixel art flou serait un échec. Concrétisé en `LOT-69`.
 
 ## Traçabilité
 Tout ce qui touche fenêtre, rendu, entrées et interface relève de `Source/HMI` ; la logique de simulation reste dans `Source/Core`. Contraintes de performance : [`exigences-non-fonctionnelles.md`](exigences-non-fonctionnelles.md).
