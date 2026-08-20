@@ -1,5 +1,0 @@
-[08:21:08][INFO][HMI][main.cpp:121] Demarrage de ProjectGaming (niveau de log : TRACE).
-[08:21:08][INFO][HMI][main.cpp:129] ProjectGaming 0.1.0 (compile avec Qt 6.8.1).
-[08:21:08][TRACE][Core][FixedTimestep.cpp:15] Cadenceur a pas fixe : 0.016667 s/pas (max 5 pas/appel)
-[08:21:12][INFO][HMI][MainWindow.cpp:758] Navigation : menu principal.
-[08:21:16][INFO][HMI][main.cpp:170] Arret de ProjectGaming (code 0).

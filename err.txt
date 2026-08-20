@@ -1,8 +1,0 @@
-Available HW decoding frameworks:
-     d3d11va
-     dxva2
-     d3d12va
-Available HW encoding frameworks:
-     d3d11va
-     dxva2
-     d3d12va
