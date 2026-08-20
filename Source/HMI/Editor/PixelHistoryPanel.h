@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+#include <memory>
 #include <cstddef>
 
 #include "HMI/Editor/PixelHistory.h"
@@ -11,6 +12,10 @@ class QListWidget;
  * @file HMI/Editor/PixelHistoryPanel.h
  * @brief Panneau d'historique visuel de l'atelier pixel art (`LOT-54` TACHE-04, `EX-IHM-060`).
  */
+
+namespace Ui {
+class PixelHistoryPanel;
+}
 
 namespace hmi {
 
@@ -31,6 +36,9 @@ class PixelHistoryPanel : public QWidget {
 public:
     explicit PixelHistoryPanel(QWidget* parent = nullptr);
 
+    /// Hors-ligne : `std::unique_ptr<Ui::PixelHistoryPanel>` porte un type incomplet.
+    ~PixelHistoryPanel() override;
+
     /// Reconstruit la liste depuis @p history (après toute mutation : geste, annuler, refaire).
     void refresh(const PixelHistory& history);
 
@@ -45,6 +53,9 @@ signals:
 private:
     void onItemActivated();
 
+    /// Mise en page issue de `PixelHistoryPanel.ui` (`LOT-68`) : le C++ ne branche plus que le
+    /// fonctionnel, conformément à la convention du projet.
+    std::unique_ptr<Ui::PixelHistoryPanel> _ui;
     QListWidget* _list;
     const Localization* _loc = nullptr;
     std::vector<PixelHistoryEntry> _entries;  ///< Dernier contenu affiché (retranslateUi le relit).

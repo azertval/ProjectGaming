@@ -31,6 +31,7 @@
 #include "HMI/Graphics/TileVisuals.h"
 #include "HMI/Interface/DesignTokens.h"
 #include "HMI/Localization/Localization.h"
+#include "ui_PalettePanel.h"
 
 namespace hmi {
 
@@ -81,8 +82,11 @@ const int THUMBNAIL_SIZE = editorDarkTokens().size.paletteThumbnail;
 }  // namespace
 
 PalettePanel::PalettePanel(QWidget* parent)
-    : QWidget(parent), _tree(new QTreeView(this)), _model(new QStandardItemModel(this)) {
-    _tree->setHeaderHidden(true);
+    : QWidget(parent),
+      _ui(std::make_unique<Ui::PalettePanel>()),
+      _model(new QStandardItemModel(this)) {
+    _ui->setupUi(this);
+    _tree = _ui->tree;
     _tree->setModel(_model);
     _tree->setSelectionMode(QAbstractItemView::SingleSelection);
 
@@ -91,11 +95,9 @@ PalettePanel::PalettePanel(QWidget* parent)
 
     connect(_tree->selectionModel(), &QItemSelectionModel::currentChanged, this,
             [this](const QModelIndex& current, const QModelIndex&) { onCurrentChanged(current); });
-
-    auto* const layout = new QVBoxLayout(this);
-    layout->setContentsMargins(0, 0, 0, 0);
-    layout->addWidget(_tree);
 }
+
+PalettePanel::~PalettePanel() = default;
 
 void PalettePanel::buildModel() {
     for (const TileCategory& category : tileTaxonomy()) {

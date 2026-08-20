@@ -16,6 +16,7 @@
 #include <QFormLayout>
 #include <QGuiApplication>
 #include <QIcon>
+#include <QHeaderView>
 #include <QInputDialog>
 #include <QKeyEvent>
 #include <QLabel>
@@ -35,6 +36,7 @@
 #include <QStatusBar>
 #include <QString>
 #include <QStyleHints>
+#include <QTableWidget>
 #include <QTimer>
 #include <QToolBar>
 #include <QToolButton>
@@ -83,6 +85,8 @@
 #include "HMI/Interface/PauseScreen.h"
 #include "HMI/Platform/ExecutableDirectory.h"
 #include "ui_MainWindow.h"
+#include "ui_ResizeDialog.h"
+#include "ui_ShortcutsDialog.h"
 
 namespace hmi {
 
@@ -1253,24 +1257,8 @@ void MainWindow::buildUi() {
     // Aperçu des raccourcis (LOT-57 TACHE-04, concretise EX-EDIT-015) : lit les raccourcis
     // EFFECTIFS des actions a l'ouverture, jamais un texte fige -- toujours a jour apres un
     // remappage.
-    connect(_actions->action(hmi::IconId::ShortcutsOverview), &QAction::triggered, this, [this] {
-        QDialog dialog(this);
-        dialog.setWindowTitle(text("dialog.shortcuts_title"));
-        auto* const layout = new QVBoxLayout(&dialog);
-        for (const hmi::EditorActionSpec& spec : hmi::editorActionCatalog()) {
-            QAction* const act = _actions->action(spec.id);
-            if (act->shortcut().isEmpty()) {
-                continue;
-            }
-            layout->addWidget(new QLabel(act->text() + QStringLiteral(" — ") +
-                                             act->shortcut().toString(QKeySequence::NativeText),
-                                         &dialog));
-        }
-        auto* const buttons = new QDialogButtonBox(QDialogButtonBox::Ok, &dialog);
-        layout->addWidget(buttons);
-        connect(buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
-        dialog.exec();
-    });
+    connect(_actions->action(hmi::IconId::ShortcutsOverview), &QAction::triggered, this,
+            [this] { openShortcutsDialog(); });
 
     // Commandes principales, reparties PAR NATURE D'ACTION (LOT-68, EX-IHM-074) et non plus
     // entassees dans un menu « Niveau » qui n'etait ni fichier ni edition. Toujours les memes
@@ -1436,32 +1424,24 @@ void MainWindow::buildUi() {
 }
 
 void MainWindow::openResizeDialog() {
-    constexpr int MAX_DIMENSION = 100;  // plafond de taille de niveau (EX-EDIT-017).
-
+    // Mise en page dans ResizeDialog.ui (LOT-68) : ici, seulement les bornes, la taille courante et
+    // la confirmation d'une perte de contenu.
     QDialog dialog(this);
+    Ui::ResizeDialog ui;
+    ui.setupUi(&dialog);
     dialog.setWindowTitle(text("dialog.resize_title"));
-
-    auto* const widthSpin = new QSpinBox(&dialog);
-    widthSpin->setRange(1, MAX_DIMENSION);
-    widthSpin->setValue(_viewport->levelWidth());
-    auto* const heightSpin = new QSpinBox(&dialog);
-    heightSpin->setRange(1, MAX_DIMENSION);
-    heightSpin->setValue(_viewport->levelHeight());
-
-    auto* const form = new QFormLayout(&dialog);
-    form->addRow(text("dialog.width"), widthSpin);
-    form->addRow(text("dialog.height"), heightSpin);
-    auto* const buttons =
-        new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
-    form->addRow(buttons);
-    connect(buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
-    connect(buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+    ui.widthLabel->setText(text("dialog.width"));
+    ui.heightLabel->setText(text("dialog.height"));
+    ui.widthSpin->setValue(_viewport->levelWidth());
+    ui.heightSpin->setValue(_viewport->levelHeight());
+    connect(ui.buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+    connect(ui.buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
 
     if (dialog.exec() != QDialog::Accepted) {
         return;
     }
-    const int width = widthSpin->value();
-    const int height = heightSpin->value();
+    const int width = ui.widthSpin->value();
+    const int height = ui.heightSpin->value();
     // Confirmation si le redimensionnement supprimerait du contenu déjà posé (EX-EDIT-012).
     if (_viewport->wouldResizeDrop(width, height)) {
         const QMessageBox::StandardButton answer = QMessageBox::question(
@@ -1471,6 +1451,35 @@ void MainWindow::openResizeDialog() {
         }
     }
     _viewport->resizeLevel(width, height);
+}
+
+void MainWindow::openShortcutsDialog() {
+    // Lit les raccourcis EFFECTIFS des actions a l'ouverture, jamais un texte fige : l'apercu reste
+    // juste apres un remappage (LOT-57 TACHE-04, EX-EDIT-015). Les commandes SANS raccourci sont
+    // omises -- une ligne vide n'apprendrait rien.
+    QDialog dialog(this);
+    Ui::ShortcutsDialog ui;
+    ui.setupUi(&dialog);
+    dialog.setWindowTitle(text("dialog.shortcuts_title"));
+    ui.table->setHorizontalHeaderLabels(
+        {text("dialog.shortcuts_command"), text("dialog.shortcuts_key")});
+    ui.table->horizontalHeader()->setStretchLastSection(true);
+    ui.table->verticalHeader()->setVisible(false);
+
+    for (const hmi::EditorActionSpec& spec : hmi::editorActionCatalog()) {
+        QAction* const act = _actions->action(spec.id);
+        if (act->shortcut().isEmpty()) {
+            continue;
+        }
+        const int row = ui.table->rowCount();
+        ui.table->insertRow(row);
+        ui.table->setItem(row, 0, new QTableWidgetItem(act->text()));
+        ui.table->setItem(
+            row, 1, new QTableWidgetItem(act->shortcut().toString(QKeySequence::NativeText)));
+    }
+    ui.table->resizeColumnsToContents();
+    connect(ui.buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+    dialog.exec();
 }
 
 QString MainWindow::layoutKeyFor(EditorWorkspace workspace) {

@@ -135,6 +135,11 @@ private:
     /// destructeur).
     void openResizeDialog();
 
+    /// Ouvre l'aperçu des raccourcis (`ShortcutsDialog.ui`). Le tableau est rempli depuis les
+    /// raccourcis **effectifs** des actions, jamais un texte figé : il reste juste après un
+    /// remappage.
+    void openShortcutsDialog();
+
     /// Applique la langue active à tous les textes de l'IHM (fenêtre, menus, docks, panneaux).
     void retranslateUi();
     /// Recalcule et réaffiche la barre d'état (zones permanentes + aide contextuelle) depuis l'état

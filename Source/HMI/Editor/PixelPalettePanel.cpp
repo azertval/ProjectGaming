@@ -1,5 +1,7 @@
 #include "HMI/Editor/PixelPalettePanel.h"
 
+#include "ui_PixelPalettePanel.h"
+
 #include <QCheckBox>
 #include <QColor>
 #include <QHBoxLayout>
@@ -35,15 +37,17 @@ QIcon swatchIcon(std::uint32_t color) {
 }  // namespace
 
 PixelPalettePanel::PixelPalettePanel(QWidget* parent)
-    : QWidget(parent),
-      _list(new QListWidget(this)),
-      _addButton(new QPushButton(this)),
-      _removeButton(new QPushButton(this)),
-      _renameButton(new QPushButton(this)),
-      _moveUpButton(new QPushButton(this)),
-      _moveDownButton(new QPushButton(this)),
-      _extractButton(new QPushButton(this)),
-      _constrainCheck(new QCheckBox(this)) {
+    : QWidget(parent), _ui(std::make_unique<Ui::PixelPalettePanel>()) {
+    _ui->setupUi(this);
+    _list = _ui->list;
+    _addButton = _ui->addButton;
+    _removeButton = _ui->removeButton;
+    _renameButton = _ui->renameButton;
+    _moveUpButton = _ui->moveUpButton;
+    _moveDownButton = _ui->moveDownButton;
+    _extractButton = _ui->extractButton;
+    _constrainCheck = _ui->constrainCheck;
+
     connect(_list, &QListWidget::itemSelectionChanged, this, [this] { updateButtonsEnabled(); });
     connect(_list, &QListWidget::itemActivated, this,
             [this](QListWidgetItem* item) { onItemActivated(_list->row(item)); });
@@ -56,22 +60,10 @@ PixelPalettePanel::PixelPalettePanel(QWidget* parent)
     connect(_constrainCheck, &QCheckBox::toggled, this,
             [this](bool enabled) { emit constrainToggled(enabled); });
 
-    auto* const buttonRow = new QHBoxLayout();
-    buttonRow->addWidget(_addButton);
-    buttonRow->addWidget(_removeButton);
-    buttonRow->addWidget(_renameButton);
-    buttonRow->addWidget(_moveUpButton);
-    buttonRow->addWidget(_moveDownButton);
-    buttonRow->addWidget(_extractButton);
-
-    auto* const layout = new QVBoxLayout(this);
-    layout->setContentsMargins(0, 0, 0, 0);
-    layout->addWidget(_list);
-    layout->addLayout(buttonRow);
-    layout->addWidget(_constrainCheck);
-
     updateButtonsEnabled();
 }
+
+PixelPalettePanel::~PixelPalettePanel() = default;
 
 void PixelPalettePanel::refresh(const PixelPalette& palette) {
     _entries = palette.entries();

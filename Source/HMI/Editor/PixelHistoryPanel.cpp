@@ -1,5 +1,7 @@
 #include "HMI/Editor/PixelHistoryPanel.h"
 
+#include "ui_PixelHistoryPanel.h"
+
 #include <QListWidget>
 #include <QListWidgetItem>
 #include <QString>
@@ -10,14 +12,14 @@
 namespace hmi {
 
 PixelHistoryPanel::PixelHistoryPanel(QWidget* parent)
-    : QWidget(parent), _list(new QListWidget(this)) {
+    : QWidget(parent), _ui(std::make_unique<Ui::PixelHistoryPanel>()) {
+    _ui->setupUi(this);
+    _list = _ui->list;
     connect(_list, &QListWidget::itemActivated, this,
             [this](QListWidgetItem*) { onItemActivated(); });
-
-    auto* const layout = new QVBoxLayout(this);
-    layout->setContentsMargins(0, 0, 0, 0);
-    layout->addWidget(_list);
 }
+
+PixelHistoryPanel::~PixelHistoryPanel() = default;
 
 void PixelHistoryPanel::refresh(const PixelHistory& history) {
     _entries = history.appliedEntries();
