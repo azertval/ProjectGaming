@@ -31,8 +31,18 @@ std::vector<PathHandle> pathHandleLayout(const core::MovingPlatformConfig& confi
                                          float worldUnitsPerScreenPixel) {
     const std::vector<core::Vector2> centers = pathPointCenters(config);
     std::vector<PathHandle> handles;
+    if (centers.empty()) {
+        return handles;  // configuration degeneree : rien a dessiner.
+    }
     if (centers.size() < 2) {
-        return handles;  // route vide : aucun point a manipuler, aucun segment a couper.
+        // Route VIDE : ni point a deplacer, ni segment a couper. Une seule poignee, sur la tuile
+        // de depart, dont le glisser cree le PREMIER point de passage (LOT-68). Sans elle, une
+        // plateforme fraichement peinte n'offre rien a saisir et son parcours reste impossible a
+        // commencer -- defaut constate a l'essai.
+        handles.push_back(PathHandle{.kind = PathHandleKind::Origin,
+                                     .index = 0,
+                                     .rect = handleRect(centers.front(), worldUnitsPerScreenPixel)});
+        return handles;
     }
     handles.reserve(centers.size() * 2);
 
@@ -83,7 +93,8 @@ std::optional<PathHandle> hitTestPathHandles(core::Vector2 point,
                                              const std::vector<PathHandle>& handles) noexcept {
     // Deux passes plutot qu'une : sur une route courte, un milieu de segment peut recouvrir un
     // point existant, et DEPLACER un point est le geste attendu par defaut.
-    for (PathHandleKind kind : {PathHandleKind::Waypoint, PathHandleKind::Midpoint}) {
+    for (PathHandleKind kind :
+         {PathHandleKind::Waypoint, PathHandleKind::Midpoint, PathHandleKind::Origin}) {
         const auto found =
             std::find_if(handles.begin(), handles.end(), [kind, point](const PathHandle& handle) {
                 return handle.kind == kind && handle.rect.contains(point);

@@ -42,9 +42,12 @@ namespace {
     if (state.selected->kind == PathTargetKind::Mover) {
         return moverAction(state, worldPosition);
     }
-    return PathGestureAction{.kind = state.handle.kind == PathHandleKind::Midpoint
-                                         ? PathGestureActionKind::InsertWaypoint
-                                         : PathGestureActionKind::MoveWaypoint,
+    // Amorce et milieu de segment INSERENT tous deux un point ; seule une poignee de point
+    // existant en deplace un.
+    const bool inserts = state.handle.kind == PathHandleKind::Midpoint ||
+                         state.handle.kind == PathHandleKind::Origin;
+    return PathGestureAction{.kind = inserts ? PathGestureActionKind::InsertWaypoint
+                                             : PathGestureActionKind::MoveWaypoint,
                              .target = *state.selected,
                              .waypointIndex = state.handle.index,
                              .position = cellAt(worldPosition)};
@@ -89,7 +92,8 @@ void beginPathGesture(PathGestureState& state, const PathHit& hit, core::Vector2
     state.pressPosition = worldPosition;
     state.moverStart = moverStart;
     // Un clic sur la case de depart (aucune poignee visee) ne fait que selectionner : rester Idle
-    // evite qu'un glisser depuis la tuile ne deplace un point au hasard.
+    // evite qu'un glisser depuis la tuile ne deplace un point au hasard. L'amorce d'une route vide
+    // (LOT-68) est en revanche une VRAIE poignee : la glisser cree le premier point.
     state.phase = hit.handle.kind == PathHandleKind::None ? PathGesturePhase::Idle
                                                           : PathGesturePhase::Pressed;
 }

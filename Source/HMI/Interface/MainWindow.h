@@ -113,6 +113,12 @@ private:
     /// sienne : une disposition unique rouvrirait les docks de l'atelier par-dessus l'édition.
     [[nodiscard]] static QString layoutKeyFor(EditorWorkspace workspace);
 
+    /// @return La table des neuf panneaux et de leur identité, relue par `setDocksVisible` **et**
+    /// par `applyWorkspace`. Une seule table : deux listes divergeraient au premier dock ajouté, et
+    /// le dock oublié resterait affiché dans les deux espaces.
+    [[nodiscard]] std::array<std::pair<QDockWidget*, hmi::PanelId>, hmi::PANEL_COUNT>
+    workspacePanels() const;
+
 protected:
     /// Même resynchronisation que `resizeEvent`, nécessaire en plus de lui : un recouvrement est
     /// une fenêtre de haut niveau positionnée en coordonnées **écran** (`syncOverlayGeometry`),

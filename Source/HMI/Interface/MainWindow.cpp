@@ -474,6 +474,10 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
 }
 
 void MainWindow::setDocksVisible(bool visible) {
+    // Depuis le LOT-68, un dock n'est visible que si le chassis d'edition l'est ET s'il appartient
+    // a l'espace de travail actif : les deux conditions se composent. Les traiter separement
+    // faisait rouvrir les neuf docks des qu'on entrait dans l'editeur, annulant tout le masquage
+    // par espace -- defaut constate a l'essai.
     // TOUS les docks, retrouves dynamiquement, plutot qu'une liste ecrite a la main : celle-ci
     // laissait echapper silencieusement chaque dock ajoute ensuite, qui restait alors affiche
     // par-dessus le menu principal et le jeu (constate avec le dock « Textures » du LOT-42).
@@ -481,10 +485,27 @@ void MainWindow::setDocksVisible(bool visible) {
     // Bascule de mode (edition/jeu/menu), pas un choix d'onglet : ne doit pas etre pris pour un
     // "l'utilisateur a impose un panneau" (LOT-57 TACHE-02).
     _suppressPanelFocusTracking = true;
-    for (QDockWidget* const dock : findChildren<QDockWidget*>()) {
-        dock->setVisible(visible);
+    for (const auto& [dock, panel] : workspacePanels()) {
+        dock->setVisible(visible && hmi::workspaceForPanel(panel) == _workspace);
     }
     _suppressPanelFocusTracking = false;
+}
+
+std::array<std::pair<QDockWidget*, hmi::PanelId>, hmi::PANEL_COUNT> MainWindow::workspacePanels()
+    const {
+    // Table unique, relue par setDocksVisible ET par applyWorkspace : deux listes divergeraient au
+    // premier dock ajoute, et le dock oublie resterait affiche dans les deux espaces.
+    return {{
+        {_ui->PalettePanel, hmi::PanelId::Palette},
+        {_ui->DecorsPanel, hmi::PanelId::Decors},
+        {_ui->LevelsPanel, hmi::PanelId::Levels},
+        {_ui->LinksPanel, hmi::PanelId::Links},
+        {_ui->PropertiesPanel, hmi::PanelId::Properties},
+        {_ui->TexturesPanel, hmi::PanelId::Textures},
+        {_ui->PixelCanvasPanel, hmi::PanelId::PixelCanvas},
+        {_ui->PixelHistoryPanel, hmi::PanelId::PixelHistory},
+        {_ui->PixelPalettePanel, hmi::PanelId::PixelPalette},
+    }};
 }
 
 bool MainWindow::transitionScreen(ScreenEvent event) {
@@ -585,8 +606,13 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
     const ScreenDressing dressing = hmi::dressingFor(screen);
     setDocksVisible(dressing.docksVisible);
     menuBar()->setVisible(dressing.menuBarVisible);
-    _toolBar->setVisible(dressing.toolBarVisible);
-    _pixelToolBar->setVisible(dressing.pixelToolBarVisible);
+    // Barres d'outils : mode ET espace de travail. dressing.pixelToolBarVisible dit que le
+    // chassis d'edition est a l'ecran, hmi::dressingForWorkspace dit laquelle des deux barres --
+    // les composer evite de rouvrir la barre de l'atelier en pleine edition de niveau.
+    const hmi::WorkspaceDressing workspaceDressing = hmi::dressingForWorkspace(_workspace);
+    _toolBar->setVisible(dressing.toolBarVisible && workspaceDressing.levelToolBarVisible);
+    _pixelToolBar->setVisible(dressing.pixelToolBarVisible &&
+                              workspaceDressing.pixelToolBarVisible);
     _actions->setEditingCommandsEnabled(dressing.editingCommandsEnabled);
     setMenuGamepadActive(dressing.gamepadNavigationActive);
     _statusMessageTimer->stop();
@@ -1480,28 +1506,22 @@ void MainWindow::applyWorkspace(EditorWorkspace workspace) {
     _suppressPanelFocusTracking = true;
 
     const hmi::WorkspaceDressing dressing = hmi::dressingForWorkspace(workspace);
-    _toolBar->setVisible(dressing.levelToolBarVisible);
-    _pixelToolBar->setVisible(dressing.pixelToolBarVisible);
+    const bool toolBarsAllowed = hmi::dressingFor(_screenState.screen).toolBarVisible;
+    _toolBar->setVisible(dressing.levelToolBarVisible && toolBarsAllowed);
+    _pixelToolBar->setVisible(dressing.pixelToolBarVisible && toolBarsAllowed);
     _pixelMenu->menuAction()->setVisible(dressing.workshopMenuVisible);
 
     // Panneaux : la table decide, la fenetre applique. Aucune condition ecrite en dur sur un dock.
-    const std::array<std::pair<QDockWidget*, hmi::PanelId>, 9> PANELS{{
-        {_ui->PalettePanel, hmi::PanelId::Palette},
-        {_ui->DecorsPanel, hmi::PanelId::Decors},
-        {_ui->LevelsPanel, hmi::PanelId::Levels},
-        {_ui->LinksPanel, hmi::PanelId::Links},
-        {_ui->PropertiesPanel, hmi::PanelId::Properties},
-        {_ui->TexturesPanel, hmi::PanelId::Textures},
-        {_ui->PixelCanvasPanel, hmi::PanelId::PixelCanvas},
-        {_ui->PixelHistoryPanel, hmi::PanelId::PixelHistory},
-        {_ui->PixelPalettePanel, hmi::PanelId::PixelPalette},
-    }};
+    const auto PANELS = workspacePanels();
+    // Hors mode edition (menu principal, jeu), aucun dock ne doit reapparaitre : la bascule
+    // d'espace ne rend pas le chassis d'edition visible, elle dit seulement lequel le serait.
+    const bool editing = hmi::dressingFor(_screenState.screen).docksVisible;
     for (const auto& [dock, panel] : PANELS) {
         const bool belongsHere = hmi::workspaceForPanel(panel) == workspace;
         // La bascule de visibilite du menu suit : un panneau d'un autre espace n'a pas a etre
         // proposable depuis celui-ci.
         dock->toggleViewAction()->setVisible(belongsHere);
-        dock->setVisible(belongsHere);
+        dock->setVisible(belongsHere && editing);
     }
 
     // Disposition propre a l'espace, si on y est deja venu.

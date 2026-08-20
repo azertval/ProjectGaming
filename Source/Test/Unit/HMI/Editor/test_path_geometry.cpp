@@ -151,15 +151,36 @@ TEST(PathGeometryTest, DangerMobileExposeUnePoigneeDExtremite) {
 }
 
 /**
- * @brief Une plateforme sans route n'expose aucune poignée : il n'y a ni point à déplacer ni
- *        segment à couper (`EX-NFR-040`).
- * \castest{<b>Une plateforme sans route n'expose aucune poignée.</b><br/>
+ * @brief Une plateforme sans route expose **une** poignée d'amorce, sur sa tuile de départ
+ *        (`LOT-68`).
+ *
+ * Ce test disait l'inverse jusqu'au `LOT-68` : il figeait l'absence de poignée comme un
+ * comportement voulu. C'était le défaut — sans point à déplacer ni segment à couper, une plateforme
+ * fraîchement peinte n'offrait rien à saisir, et son parcours ne pouvait jamais être commencé.
+ * L'amorce ne **déplace** pas le départ (on le déplace en repeignant la tuile) : elle crée le
+ * premier point de passage, ce qui laisse entière la règle « le point de départ n'a pas de
+ * poignée ».
+ * \castest{<b>Une plateforme sans route expose une poignee d'amorce sur son depart.</b><br/>
  * \tcat Unitaire · Path Geometry<br/>
- * \tcrit Mineur<br/>
- * \tetapes 1. Calculer les poignees d'une plateforme sans waypoint.<br/>
- * \tattendu La liste est vide, sans plantage.
+ * \tcrit Critique<br/>
+ * \tetapes 1. Calculer les poignees d'une plateforme sans waypoint.<br/>2. Verifier la nature de
+ * l'unique poignee et sa position.<br/>
+ * \tattendu Une seule poignee, de nature Origin, centree sur la tuile de depart.
  * }
  */
-TEST(PathGeometryTest, PlateformeSansRouteNExposeAucunePoignee) {
-    EXPECT_TRUE(hmi::pathHandleLayout(platform({}), 0.02f).empty());
+TEST(PathGeometryTest, PlateformeSansRouteExposeUnePoigneeDAmorce) {
+    const std::vector<hmi::PathHandle> handles = hmi::pathHandleLayout(platform({}), 0.02f);
+
+    ASSERT_EQ(handles.size(), 1u)
+        << "sans poignee, le parcours d'une plateforme fraichement peinte ne peut pas etre commence";
+    EXPECT_EQ(handles.front().kind, hmi::PathHandleKind::Origin);
+    EXPECT_EQ(handles.front().index, 0u);
+    // Centree sur la tuile de depart de la fixture, comme toute poignee de point.
+    const hmi::PathHandle& handle = handles.front();
+    const float centerX = handle.rect.position.x + (handle.rect.size.x * 0.5f);
+    const float centerY = handle.rect.position.y + (handle.rect.size.y * 0.5f);
+    const std::vector<core::Vector2> centers = hmi::pathPointCenters(platform({}));
+    ASSERT_FALSE(centers.empty());
+    EXPECT_NEAR(centerX, centers.front().x, 1e-4f);
+    EXPECT_NEAR(centerY, centers.front().y, 1e-4f);
 }

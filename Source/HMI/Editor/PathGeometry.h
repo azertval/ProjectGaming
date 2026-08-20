@@ -30,6 +30,14 @@ enum class PathHandleKind {
     /// Milieu d'un segment : le glisser **insère** un point à cet endroit et le déplace du même
     /// geste — patron classique des éditeurs de courbe, qui évite un mode « ajouter » séparé.
     Midpoint,
+    /// **Amorce** d'une route encore vide, posée sur la tuile de départ (`LOT-68`). Sans elle, une
+    /// plateforme fraîchement peinte n'offre rien à saisir — ni point à déplacer, ni segment à
+    /// couper — et son parcours ne peut jamais être commencé.
+    ///
+    /// La glisser n'a **pas** pour effet de déplacer le départ, qui se déplace en repeignant la
+    /// tuile : elle crée le premier point de passage. La règle « le point de départ n'a pas de
+    /// poignée » reste donc entière, puisque rien ici ne le déplace.
+    Origin,
 };
 
 /**
