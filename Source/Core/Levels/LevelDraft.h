@@ -138,8 +138,14 @@ public:
      * Remplace toute configuration existante pour @p position. Mêmes remarques que
      * `setMoverConfig`/`setBlinkConfig` : sans appel, une `MovingPlatform` garde les valeurs de
      * conception par défaut (`MovingPlatformConfig`), appliquées par `LevelLoader` au rechargement.
+     * @param position  Case portant la plateforme, et point de **départ** de sa route.
      * @param waypoints Points **suivants** de la route, dans l'ordre ; @p position en est le point
      *                  de départ implicite et ne doit pas y figurer. Vide = plateforme immobile.
+     * @param mode      Aller-retour ou circuit fermé. Un circuit ferme la route sur son départ ;
+     *                  sans point de passage, il n'y a rien à fermer et le mode est sans effet.
+     * @param speed     Vitesse de parcours, en cases par seconde, constante sur toute la route.
+     * @param phase     Déphasage en pas de simulation : décale le départ dans le cycle, ce qui
+     *                  permet de désynchroniser deux plateformes de routes identiques.
      * @pre La case @p position porte une `MovingPlatform`.
      */
     void setPlatformConfig(GridPosition position, std::vector<GridPosition> waypoints,

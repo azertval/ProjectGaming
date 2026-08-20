@@ -129,7 +129,10 @@ DesignColor mixColor(DesignColor from, DesignColor to, float ratio) noexcept {
     const float t = std::clamp(ratio, 0.0f, 1.0f);
     const auto blend = [t](std::uint8_t a, std::uint8_t b) {
         const float mixed = (static_cast<float>(a) * (1.0f - t)) + (static_cast<float>(b) * t);
-        return static_cast<std::uint8_t>(mixed + 0.5f);
+        // std::lround plutot qu'un + 0.5 tronque : ce dernier arrondit mal les valeurs negatives
+        // et depend du mode d'arrondi courant. Les composantes sont positives ici, mais la forme
+        // fautive se recopie.
+        return static_cast<std::uint8_t>(std::lround(mixed));
     };
     return DesignColor{.r = blend(from.r, to.r),
                        .g = blend(from.g, to.g),

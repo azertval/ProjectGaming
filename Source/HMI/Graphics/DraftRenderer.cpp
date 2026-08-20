@@ -624,8 +624,8 @@ void DraftRenderer::composePathHandles(const std::vector<PathHandle>& handles) {
             handle.kind == PathHandleKind::Midpoint || handle.kind == PathHandleKind::Origin;
         _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureView(),
                          OVERLAY_ORDER_DECOR_HANDLE_BRIGHT,
-                         solidOverlayQuad(handle.rect, midpoint ? 0.4f : 0.25f,
-                                          midpoint ? 0.95f : 0.95f, midpoint ? 0.35f : 1.0f, 1.0f));
+                         solidOverlayQuad(handle.rect, midpoint ? 0.4f : 0.25f, 0.95f,
+                                          midpoint ? 0.35f : 1.0f, 1.0f));
     }
 }
 
