@@ -78,7 +78,6 @@ menubar.reset_layout = Reset layout
 
 # Dock panels
 dock.palette = Palette
-dock.decors = Decors
 dock.levels = Levels
 dock.links = Links
 dock.textures = Textures
@@ -139,14 +138,6 @@ textures.animations_preview = Preview
 textures.animations_complete = Complete
 textures.animations_missing = Missing
 
-# Decor inspector of the Decors panel (LOT-50, moved from the Textures panel in LOT-57)
-decors.column_asset = Asset
-decors.column_layer = Layer
-decors.forward = Bring forward
-decors.backward = Send backward
-decors.center = Center
-decors.remove = Remove
-decors.missing_asset = Asset not found in Assets/Decors/
 
 # Shared asset library (LOT-43)
 assets.search = Search…
@@ -175,7 +166,6 @@ status.help_rectangle = Rectangle: drag to paint an area · Ctrl+Z/Y: undo/redo
 status.help_selection = Selection: drag to select · Ctrl+C/V: copy/paste
 status.help_link = Link: click a trigger then its target · re-clicking the same pair unlinks
 status.help_texture_assign = Texture: left click assigns, re-click or right click removes
-status.help_decor = Decor: click empty space to place, click a decor to manipulate it
 status.help_camera_zone = Camera zone: drag to draw a zone (per-room mode); remove it from the "Framing" section
 status.path_waypoint_removed = Path point removed
 properties.selection_group = Selected element
@@ -211,9 +201,6 @@ status.help_pixel_selection = Selection: drag to select or move · Ctrl+C/V: cop
 status.texture_assigned = Texture assigned: %1
 status.texture_removed = Texture removed.
 status.texture_no_asset_selected = No asset selected: pick one in the "Objects" tab of the Textures panel.
-status.decor_placed = Decor placed: %1
-status.decor_removed = Decor removed.
-status.decor_no_asset_selected = No decor selected: pick one in the Tools panel.
 dialog.unsaved_title = Unsaved changes
 dialog.unsaved_text = The current level has unsaved changes. Quit anyway?
 dialog.resize_title = Resize level
@@ -227,13 +214,8 @@ tool.rectangle = Rectangle
 tool.selection = Selection
 tool.link = Link
 tool.texture_assign = Texture
-tool.decor = Decor
 tool.camera_zone = Camera zone
 tool.path = Path
-tool.decor_layer_background = Background
-tool.decor_layer_decor = Decor
-tool.decor_layer_foreground = Foreground
-tool.decor_snap_to_grid = Snap to grid
 
 # Pixel art canvas tools (LOT-54 TACHE-04): exclusive group distinct from the level tools above,
 # also reused as the short label in the status bar (hmi::EditorStatus).

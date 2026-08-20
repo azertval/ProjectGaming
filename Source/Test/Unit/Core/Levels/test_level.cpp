@@ -259,6 +259,6 @@ TEST(LevelTest, RestitueSonCadrageDeCameraOuLeDefaut) {
     const core::CameraFramingConfig follow{.mode = core::CameraFramingMode::Follow};
     const core::Level avecCadrage("N", std::move(map), core::GridPosition{0, 0},
                                   core::GridPosition{2, 2}, {}, -1, -1, {}, {}, {}, std::nullopt,
-                                  std::nullopt, {}, {}, {}, follow);
+                                  std::nullopt, {}, {}, follow);
     EXPECT_EQ(avecCadrage.cameraFraming().mode, core::CameraFramingMode::Follow);
 }

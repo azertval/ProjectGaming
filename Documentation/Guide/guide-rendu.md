@@ -134,8 +134,8 @@ guide-editeur), pas déduits.
 `WholeLevel` s'il tient dans une salle de taille par défaut, `PerRoom` sinon. C'est le seul endroit
 qui incarne cette règle ; ni `hmi::GameSession` ni l'éditeur ne la recalculent — ils lisent toujours
 un cadrage déjà **résolu** (`core::Level::cameraFraming()`), jamais un champ « peut-être absent ».
-La taille de salle du mode *par salle* est elle-même réglable par niveau (`core::CameraFramingConfig
-::roomWidthTiles`/`roomHeightTiles`) ; `hmi::RoomGrid::ROOM_WIDTH_TILES`/`ROOM_HEIGHT_TILES`
+La taille de salle du mode *par salle* est elle-même réglable par niveau
+(`core::CameraFramingConfig::roomWidthTiles` et `roomHeightTiles`) ; `hmi::RoomGrid::ROOM_WIDTH_TILES`/`ROOM_HEIGHT_TILES`
 (`LOT-32`) n'en restent que la valeur par défaut, `RoomGrid` recevant désormais la taille en
 paramètre de construction plutôt que de la connaître en dur.
 

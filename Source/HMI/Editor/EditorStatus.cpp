@@ -64,8 +64,6 @@ const char* toolLabelKey(EditorTool tool) {
             return "tool.link";
         case EditorTool::TextureAssign:
             return "tool.texture_assign";
-        case EditorTool::Decor:
-            return "tool.decor";
         case EditorTool::CameraZone:
             return "tool.camera_zone";
         case EditorTool::Path:
@@ -87,8 +85,6 @@ const char* toolHelpKey(EditorTool tool) {
             return "status.help_link";
         case EditorTool::TextureAssign:
             return "status.help_texture_assign";
-        case EditorTool::Decor:
-            return "status.help_decor";
         case EditorTool::CameraZone:
             return "status.help_camera_zone";
         case EditorTool::Path:

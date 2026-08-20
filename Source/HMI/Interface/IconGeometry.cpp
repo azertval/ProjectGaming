@@ -101,21 +101,6 @@ IconGeometry iconGeometry(IconId id) {
                 rectStroke(0.15F, 0.15F, 0.70F, 0.70F, false, IconColorRole::Foreground),
                 rectStroke(0.35F, 0.35F, 0.30F, 0.30F, true, IconColorRole::Accent),
             }};
-        case IconId::ToolDecor: {
-            // Etoile a cinq branches : dix points alternant rayon exterieur/interieur.
-            std::vector<IconPoint> star;
-            star.reserve(10);
-            constexpr float OUTER_RADIUS = 0.40F;
-            constexpr float INNER_RADIUS = 0.16F;
-            for (int i = 0; i < 10; ++i) {
-                const float radius = (i % 2 == 0) ? OUTER_RADIUS : INNER_RADIUS;
-                const float angle = (-PI / 2.0F) + (PI * static_cast<float>(i) / 5.0F);
-                star.push_back(IconPoint{.x = 0.5F + (radius * std::cos(angle)),
-                                         .y = 0.5F + (radius * std::sin(angle))});
-            }
-            return IconGeometry{{IconStroke{
-                .points = star, .closed = true, .filled = true, .color = IconColorRole::Accent}}};
-        }
         case IconId::ToolCameraZone:
             // Cadre de visee (memes coins en L que ToolSelection) avec un objectif au centre
             // (disque plein, accent) : distingue visuellement "dessiner une zone de camera" de

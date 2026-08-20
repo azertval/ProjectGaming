@@ -236,11 +236,9 @@ add_executable(UnitTests
     # Geste pur de l'outil « Texture par instance » (LOT-45) : meme patron que LinkGesture.cpp,
     # testable hors Qt/GPU.
     ../HMI/Editor/TextureAssignGesture.cpp
-    # La geometrie partagee du corps/des poignees de decors (LOT-50) et le geste pur de
-    # manipulation sont des fonctions/machine a etats pures, sans dependance GPU/Qt : testables
-    # hors GPU, meme patron que LinkGesture/LinkGeometry (LOT-37).
     # Geometrie des poignees de parcours et machine a etats du geste de l'outil « Parcours »
-    # (LOT-67) : meme patron pur que DecorGeometry/DecorGesture ci-dessus.
+    # (LOT-67) : fonctions et machine a etats pures, sans dependance GPU/Qt, meme patron que
+    # LinkGesture/LinkGeometry (LOT-37).
     ../HMI/Editor/PathGeometry.cpp
     ../HMI/Editor/PathGesture.cpp
     # Balayage/filtrage d'un dossier d'assets (LOT-43), partagé par AssetThumbnailView : pur,
@@ -254,10 +252,7 @@ add_executable(UnitTests
     # La correspondance etat logique -> clip des mecanismes (LOT-47) est une fonction pure, sans
     # dependance GPU/Qt/ECS : testable exhaustivement hors GPU.
     ../HMI/Graphics/MechanismVisuals.cpp
-    # La projection couche -> calque et la resolution d'apparence des decors (LOT-49) sont des
-    # fonctions pures, sans dependance GPU/Qt : testables hors GPU, meme patron que
-    # MechanismVisuals.cpp ci-dessus.
-    # Le facteur de parallaxe par couche et le calcul du decalage (LOT-49 TACHE-03) sont des
+    # Le calcul du decalage de parallaxe (LOT-49 TACHE-03, generalise au LOT-69) est fait de
     # fonctions pures, sans dependance GPU : testables hors GPU.
     ../HMI/Graphics/Parallax.cpp
     # Les lignes du panneau « Textures » / section Animations et leur diagnostic de clips

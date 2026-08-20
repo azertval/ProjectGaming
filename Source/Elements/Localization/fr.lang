@@ -79,7 +79,6 @@ menubar.reset_layout = Réinitialiser la disposition
 
 # Panneaux dockables
 dock.palette = Palette
-dock.decors = Décors
 dock.levels = Niveaux
 dock.links = Liens
 dock.textures = Textures
@@ -140,15 +139,6 @@ textures.animations_preview = Aperçu
 textures.animations_complete = Complet
 textures.animations_missing = Manquants
 
-# Inspecteur de décors du panneau Décors (LOT-50, déplacé du panneau Textures en LOT-57)
-decors.column_asset = Asset
-decors.column_layer = Couche
-decors.forward = Avancer
-decors.backward = Reculer
-decors.center = Centrer
-decors.remove = Supprimer
-decors.missing_asset = Asset introuvable dans Assets/Decors/
-
 
 # Bibliotheque d'assets partagee (LOT-43)
 assets.search = Rechercher…
@@ -177,7 +167,6 @@ status.help_rectangle = Rectangle : glisser pour peindre une zone · Ctrl+Z/Y : 
 status.help_selection = Sélection : glisser pour délimiter · Ctrl+C/V : copier/coller
 status.help_link = Lien : cliquer un déclencheur puis sa cible · recliquer la même paire délie
 status.help_texture_assign = Texture : clic gauche assigne, reclic ou clic droit retire
-status.help_decor = Décor : cliquer une zone vide pour poser, cliquer un décor pour le manipuler
 status.help_camera_zone = Zone de caméra : glisser pour dessiner une zone (mode par salle) ; la retirer depuis la section « Cadrage »
 status.path_waypoint_removed = Point de parcours retiré
 properties.selection_group = Élément sélectionné
@@ -213,9 +202,6 @@ status.help_pixel_selection = Sélection : glisser délimite ou déplace · Ctrl
 status.texture_assigned = Texture assignée : %1
 status.texture_removed = Texture retirée.
 status.texture_no_asset_selected = Aucun asset sélectionné : choisissez-en un dans l'onglet « Objets » du panneau Textures.
-status.decor_placed = Décor posé : %1
-status.decor_removed = Décor retiré.
-status.decor_no_asset_selected = Aucun décor sélectionné : choisissez-en un dans le panneau Outils.
 dialog.unsaved_title = Modifications non enregistrées
 dialog.unsaved_text = Le niveau courant a des modifications non enregistrées. Quitter quand même ?
 dialog.resize_title = Redimensionner le niveau
@@ -229,13 +215,8 @@ tool.rectangle = Rectangle
 tool.selection = Sélection
 tool.link = Lien
 tool.texture_assign = Texture
-tool.decor = Décor
 tool.camera_zone = Zone de caméra
 tool.path = Parcours
-tool.decor_layer_background = Arrière-plan
-tool.decor_layer_decor = Décor
-tool.decor_layer_foreground = Premier plan
-tool.decor_snap_to_grid = Aimanter à la grille
 
 # Outils du canevas pixel art (LOT-54 TACHE-04) : groupe exclusif distinct des outils de niveau
 # ci-dessus, reutilises aussi comme libelle court dans la barre d'etat (hmi::EditorStatus).

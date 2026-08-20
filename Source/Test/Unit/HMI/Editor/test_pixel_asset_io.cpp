@@ -25,10 +25,9 @@
  */
 TEST(PixelAssetIOTest, ChaqueTailleProposeeEstConforme) {
     constexpr hmi::AssetFamily families[] = {
-        hmi::AssetFamily::Atlas,          hmi::AssetFamily::TileSkin,
-        hmi::AssetFamily::AutotileSheet,  hmi::AssetFamily::Object,
-        hmi::AssetFamily::CharacterSheet, hmi::AssetFamily::Background,
-        hmi::AssetFamily::Decor,          hmi::AssetFamily::Font};
+        hmi::AssetFamily::Atlas,  hmi::AssetFamily::TileSkin,       hmi::AssetFamily::AutotileSheet,
+        hmi::AssetFamily::Object, hmi::AssetFamily::CharacterSheet, hmi::AssetFamily::Background,
+        hmi::AssetFamily::Font};
     for (const hmi::AssetFamily family : families) {
         for (const auto& [width, height] : hmi::validAssetSizes(family)) {
             const hmi::AssetValidation validation =
@@ -45,13 +44,12 @@ TEST(PixelAssetIOTest, ChaqueTailleProposeeEstConforme) {
  * \castest{<b>Une famille a dimensions libres ne propose aucune taille.</b><br/>
  * \tcat Unitaire · IO d'asset pixel art<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Produire les tailles proposees pour Fond, Decor et Police.<br/>
+ * \tetapes 1. Produire les tailles proposees pour Fond et Police.<br/>
  * \tattendu Les trois listes sont vides.
  * }
  */
 TEST(PixelAssetIOTest, FamilleADimensionsLibresNeProposeAucuneTaille) {
     EXPECT_TRUE(hmi::validAssetSizes(hmi::AssetFamily::Background).empty());
-    EXPECT_TRUE(hmi::validAssetSizes(hmi::AssetFamily::Decor).empty());
     EXPECT_TRUE(hmi::validAssetSizes(hmi::AssetFamily::Font).empty());
 }
 

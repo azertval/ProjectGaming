@@ -22,7 +22,6 @@ WorkspaceDressing dressingForWorkspace(EditorWorkspace workspace) noexcept {
 EditorWorkspace workspaceForPanel(PanelId panel) noexcept {
     switch (panel) {
         case PanelId::Palette:
-        case PanelId::Decors:
         case PanelId::Levels:
         case PanelId::Links:
         case PanelId::Properties:

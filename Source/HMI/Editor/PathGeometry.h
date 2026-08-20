@@ -15,7 +15,7 @@
  * @file HMI/Editor/PathGeometry.h
  * @brief Géométrie **partagée** des poignées d'un parcours (LOT-67), pure et testable.
  *
- * Même parti que `hmi::DecorGeometry` : source unique pour le rendu (`hmi::DraftRenderer`) et pour
+ * Source unique pour le rendu (`hmi::DraftRenderer`) et pour
  * la détection (`hmi::PathGesture`). Si chacun calculait ses propres rectangles, ils finiraient par
  * diverger et les poignées cesseraient de répondre là où elles s'affichent.
  *
@@ -58,7 +58,7 @@ struct PathHandle {
 };
 
 /// Taille écran (en pixels) d'une poignée de parcours, **constante quel que soit le zoom** — même
-/// raison et même valeur que `DECOR_HANDLE_SCREEN_SIZE` : sinon les poignées deviennent
+/// taille écran constante des poignées : sinon les poignées deviennent
 /// inutilisables aux extrêmes de zoom.
 inline constexpr float PATH_HANDLE_SCREEN_SIZE = 10.0f;
 

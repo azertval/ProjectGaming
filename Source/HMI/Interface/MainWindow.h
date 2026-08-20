@@ -51,7 +51,6 @@ class MemoryLogSink;
 
 namespace hmi {
 
-class DecorsPanel;
 class EditorActions;
 class GameViewport;
 class MainMenu;
@@ -354,7 +353,6 @@ private:
     /// Placement/inspection de décors (dock Décors, `LOT-57` amendement) — contenait déjà tout ce
     /// qui concerne les décors (`ToolPanel`, `LOT-56` TACHE-04) avant d'y accueillir aussi
     /// l'inspecteur déplacé du panneau Textures. La barre d'outils reste hors de ce panneau.
-    DecorsPanel* _decors;
     LinkPanel* _links;        ///< Liste/gestion des liaisons de mécanismes (dock Liens, LOT-37).
     TexturePanel* _textures;  ///< Habillage : jeu de skins et assignations (dock Textures, LOT-42).
     /// Réglages de gameplay de l'élément sélectionné et du tableau (dock Propriétés, `LOT-67`).

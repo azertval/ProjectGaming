@@ -116,11 +116,6 @@ struct SceneTextures {
     /// détourée à une silhouette, contrairement à un skin de type).
     std::vector<SkinTexture> objects;
 
-    /// Décors libres chargés (`EX-DEC-001`, `LOT-49`), adressés par index. Mêmes remarques que
-    /// `objects` (`maskType` toujours vide, dimensions **réelles** du fichier plutôt qu'une case) :
-    /// contrairement à un skin, un décor n'est jamais contraint à la taille d'une case.
-    std::vector<SkinTexture> decors;
-
     /**
      * @brief Index du skin chargé pour un asset et un type de tuile donnés.
      *
@@ -155,20 +150,6 @@ struct SceneTextures {
     [[nodiscard]] int objectIndexOf(std::string_view asset) const noexcept {
         for (std::size_t index = 0; index < objects.size(); ++index) {
             if (objects[index].asset == asset) {
-                return static_cast<int>(index);
-            }
-        }
-        return -1;
-    }
-
-    /**
-     * @brief Index du décor chargé pour un asset donné (`EX-DEC-001`, `LOT-49`).
-     * @param asset Nom du fichier cherché.
-     * @return Son index dans `decors`, ou `-1` si non chargé.
-     */
-    [[nodiscard]] int decorIndexOf(std::string_view asset) const noexcept {
-        for (std::size_t index = 0; index < decors.size(); ++index) {
-            if (decors[index].asset == asset) {
                 return static_cast<int>(index);
             }
         }
@@ -253,8 +234,8 @@ private:
  * **pure** (aucune dépendance GPU), appelée à la **composition** et non à la construction de la
  * scène : basculer de mode ne reconstruit donc jamais l'ECS, seule la résolution change.
  *
- * Ordre de priorité en mode Texture : **surcharge par instance (`LOT-45`) > skin de tuile
- * (`LOT-42`) > damier**.
+ * Ordre de priorité en mode Texture : **surcharge par instance, puis skin de tuile, puis damier**
+ * (`LOT-45` et `LOT-42`).
  * - `RenderMode::Physique` → la région d'atlas déjà portée par le `core::Sprite`, c'est-à-dire le
  *   résultat de `hmi::regionForTile` — comportement strictement inchangé, quel que soit le reste ;
  * - `RenderMode::Texture` + entité portant une surcharge (`hmi::TileSkinTag::overrideAsset`)

@@ -52,6 +52,21 @@ constexpr const char* LEVEL_WITH_PLANES = R"({
   ]
 })";
 
+/// Niveau portant l'ancien champ racine `decors` (LOT-49/LOT-50), retiré au LOT-69.
+constexpr const char* LEVEL_WITH_OBSOLETE_DECORS = R"({
+  "name": "P",
+  "width": 4,
+  "height": 3,
+  "decors": [
+    { "asset": "tree.png", "x": 1.5, "y": 2.0, "layer": "background" },
+    { "asset": "rock.png", "x": 2.5, "y": 1.0 }
+  ],
+  "tiles": [
+    { "x": 1, "y": 1, "type": "entry" },
+    { "x": 3, "y": 2, "type": "exit" }
+  ]
+})";
+
 /// Construit un brouillon portant @p count plans nommés `p0.png`, `p1.png`, …
 [[nodiscard]] LevelDraft draftWithPlanes(std::size_t count) {
     LevelDraft draft = LevelDraft::empty("N", 8, 6);
@@ -301,6 +316,31 @@ TEST(PlaneTest, ChargementDesPlans) {
 
     // Drapeau absent : la parallaxe est active par defaut.
     EXPECT_TRUE(loaded.level->parallaxEnabled());
+}
+
+/**
+ * @brief Le champ obsolète `decors` est **ignoré**, jamais rejeté : un niveau personnel écrit
+ * avant le `LOT-69` reste lisible (`EX-LVL-005`), et un simple charger-puis-enregistrer le migre.
+ * \castest{<b>Le champ obsolete decors est ignore, et disparait a la reecriture.</b><br/>
+ * \tcat Unitaire · Plan<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Charger un niveau portant encore le champ racine decors.<br/>2. Reecrire le niveau
+ * charge.<br/>
+ * \tattendu Le chargement reussit, planes() est vide, et le JSON reecrit ne contient plus decors.
+ * }
+ */
+TEST(PlaneTest, ChampObsoleteDecorsIgnoreEtNonReecrit) {
+    const core::LevelLoadResult loaded =
+        core::LevelLoader::loadFromString(LEVEL_WITH_OBSOLETE_DECORS);
+
+    // Un champ obsolete n'est pas une donnee INVALIDE (EX-LVL-004 vise la validite) : rejeter
+    // rendrait illisible tout niveau personnel anterieur, a rebours de EX-LVL-005.
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+    EXPECT_TRUE(loaded.level->planes().empty());
+
+    // La reecriture migre le fichier : le champ disparait, sans que l'auteur ait rien a faire.
+    const std::string json = core::LevelWriter::toJsonString(*loaded.level);
+    EXPECT_EQ(json.find("\"decors\""), std::string::npos);
 }
 
 /**

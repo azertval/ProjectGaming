@@ -82,8 +82,6 @@ inline const std::string BACKGROUNDS_SUBDIRECTORY = "Backgrounds/";
 /// Sous-dossier des textures d'objets interactifs, relatif au dossier d'assets (`LOT-45`).
 inline const std::string OBJECTS_SUBDIRECTORY = "Objects/";
 
-// hmi::DECORS_SUBDIRECTORY (LOT-49) est déclaré dans HMI/Graphics/DecorVisuals.h.
-
 /**
  * @brief Textures liables par la composition d'une scène : atlas, damier de repli et skins.
  *
@@ -103,17 +101,13 @@ inline const std::string OBJECTS_SUBDIRECTORY = "Objects/";
  *                 `GameSession::updateTileAnimations`, avancée au **pas fixe**) : un skin en mode
  *                 `SkinMode::Single`, sans silhouette, dont l'asset est animé et présent dans
  *                 cette table échantillonne l'image **courante** plutôt que l'image entière.
- * @param decors   Décors libres du niveau courant (`EX-DEC-001`, `LOT-49`) ; chaque asset distinct
- *                 est chargé une fois (`hmi::SceneTextures::decors`), même principe que
- *                 @p textureOverrides.
  * @return Les textures et leurs dimensions, prêtes pour `hmi::composeWorldSprites`.
  */
 [[nodiscard]] SceneTextures sceneTextures(
     const TextureAtlas& atlas, TextureCache& cache, const SkinCatalog* skins = nullptr,
     const std::string& skinSet = {},
     const std::vector<core::TileTextureOverride>& textureOverrides = {},
-    const std::unordered_map<std::string, core::Animation>& tileAnimations = {},
-    const std::vector<core::Decor>& decors = {});
+    const std::unordered_map<std::string, core::Animation>& tileAnimations = {});
 
 /**
  * @brief Résout la texture de fond d'un niveau (accès `TextureCache`/GPU, `LOT-44`).
@@ -180,25 +174,17 @@ public:
      *                    `LOT-45`), transmises telles quelles à `hmi::sceneTextures`.
      * @param tileAnimations Horloge d'animation partagée par asset de tuile (`LOT-46` TACHE-05),
      *                    transmise telle quelle à `hmi::sceneTextures`.
-     * @param decors      Décors libres du niveau courant (`EX-DEC-001`, `LOT-49`), transmis tels
-     *                    quels à `hmi::sceneTextures`.
      * @param doorCollision Grille de collision courante des mécanismes (`core::
      *                    MechanismController::collisionMap`, `LOT-55`), pour que l'ombre d'une
      *                    porte suive son état ouverte/fermée plutôt que son type statique ;
      *                    `nullptr` (défaut) exclut les portes de l'ombrage.
-     * @param applyDecorParallax Transmis tel quel à `hmi::composeWorldSprites` (`EX-DEC-006`,
-     *                    LOT-64) : `false` neutralise la parallaxe des décors (tous composés comme
-     *                    la couche `Decor`, facteur `1.0`) sans désactiver leur pixel-alignement ni
-     *                    le culling. `hmi::GameSession` le met à `false` en mode de cadrage
-     *                    *suivi*, seul mode où la caméra défile en continu.
      */
     void render(core::World& world, const Camera2D& camera, RenderMode mode,
                 float interpolationAlpha, const std::optional<std::string>& background = {},
                 int levelWidth = 0, int levelHeight = 0,
                 const std::vector<core::TileTextureOverride>& textureOverrides = {},
                 const std::unordered_map<std::string, core::Animation>& tileAnimations = {},
-                const std::vector<core::Decor>& decors = {},
-                const core::TileMap* doorCollision = nullptr, bool applyDecorParallax = true);
+                const core::TileMap* doorCollision = nullptr);
 
     /// @return La scène composée à la dernière image (primitives soumises et compteurs).
     [[nodiscard]] const ComposedScene& lastScene() const noexcept {

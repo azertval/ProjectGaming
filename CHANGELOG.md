@@ -43,8 +43,14 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   *combinaison* taille × densité qui est vérifiée, pas la densité seule.
 - Tous les mutateurs de plan du brouillon d'édition sont **annulables et refaisables**, et un
   mutateur refusé n'empile aucun pas d'historique.
-- Le système de **décors-sprites** (`LOT-49`/`LOT-50`) sera retiré par la suite du lot ; les
-  exigences correspondantes sont marquées retirées dans le référentiel, leurs ancres conservées.
+- Le système de **décors-sprites** (`LOT-49`/`LOT-50`) est **retiré** : modèle, format, rendu,
+  outil de canevas, panneau dédié, gestes et assets de placement. Il n'existe plus de motif
+  décoratif ponctuel réutilisable — un même élément présent dans dix niveaux se peint (ou se colle)
+  dans chaque plan. Les exigences correspondantes sont marquées retirées dans le référentiel,
+  leurs ancres conservées.
+- Un niveau portant encore le champ `decors` **se charge sans erreur** : le champ est ignoré et
+  journalisé comme obsolète, jamais rejeté (`EX-LVL-005`). Un simple charger-puis-enregistrer suffit
+  à migrer le fichier, la réécriture ne contenant plus le champ.
 
 ### Outillage (LOT-69)
 

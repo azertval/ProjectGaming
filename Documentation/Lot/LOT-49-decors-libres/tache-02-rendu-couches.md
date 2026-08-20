@@ -3,7 +3,7 @@
 **Lot :** [LOT-49](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
-Les calques `Decor` et `Foreground` ont été réservés dans *RenderLayer* en LOT-40 sans être
+Les calques `Decor` et `Foreground` ont été réservés dans *%RenderLayer* en LOT-40 sans être
 utilisés. Cette tâche les active — et avec eux, la propriété qui fait tout l'intérêt du lot : le
 calque `Foreground` est **au-dessus** de `Player`.
 
@@ -12,12 +12,12 @@ personnage ne le porte pas et ne le bloque pas. Cette convention de lecture est 
 demande aucun apprentissage.
 
 ## Travail à réaliser
-- **Construction de scène** : chaque *core::Decor* du niveau donne une entité portant
+- **Construction de scène** : chaque *%core::Decor* du niveau donne une entité portant
   `core::Transform` (position, échelle, rotation) et `core::Sprite`, créée par
   `core::buildLevelScene` comme les tuiles. L'ordre dans le vecteur alimente `Sprite::layer` (tri
   fin **à l'intérieur** d'une couche).
-- **Projection couche → calque** : *core::DecorLayer* vers les valeurs correspondantes de
-  *RenderLayer*, côté `HMI`. Fonction pure, triviale mais explicite — c'est le point où la frontière
+- **Projection couche → calque** : *%core::DecorLayer* vers les valeurs correspondantes de
+  *%RenderLayer*, côté `HMI`. Fonction pure, triviale mais explicite — c'est le point où la frontière
   `Core`/`HMI` est tenue.
 - **Mode Texture uniquement** : aucun décor en mode Physique, qui doit rester la lecture nue des
   collisions.

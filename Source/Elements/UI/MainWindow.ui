@@ -120,11 +120,6 @@
    <attribute name="dockWidgetArea"><number>1</number></attribute>
    <widget class="QWidget" name="paletteContents"/>
   </widget>
-  <widget class="QDockWidget" name="DecorsPanel">
-   <property name="windowTitle"><string>Décors</string></property>
-   <attribute name="dockWidgetArea"><number>1</number></attribute>
-   <widget class="QWidget" name="decorsContents"/>
-  </widget>
   <widget class="QDockWidget" name="LevelsPanel">
    <property name="windowTitle"><string>Niveaux</string></property>
    <attribute name="dockWidgetArea"><number>2</number></attribute>

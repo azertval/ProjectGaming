@@ -15,7 +15,7 @@
  * @file HMI/Editor/PathGesture.h
  * @brief Machine à états du geste de manipulation de parcours (LOT-67), pure et testable.
  *
- * Même parti que `hmi::DecorGesture` : désignation, distinction clic/glisser et calcul de l'action
+ * Parti pris : désignation, distinction clic/glisser et calcul de l'action
  * sont des fonctions déterministes sur des données, sans Qt ni GPU — le viewport n'en est que le
  * routeur d'événements. Le geste **ne mute rien** : il décrit une action, l'appelant l'applique aux
  * mutateurs de `core::LevelDraft`. Un geste complet produit **une seule** action finale, donc un
@@ -46,7 +46,7 @@ struct PathHit {
 };
 
 /// Seuil de déplacement (unités monde) distinguant un clic (sélection simple) d'un glisser — même
-/// rôle et même valeur que `DECOR_DRAG_THRESHOLD`.
+/// seuil au-delà duquel un appui devient un glisser plutôt qu'un clic.
 inline constexpr float PATH_DRAG_THRESHOLD = 0.1f;
 
 /// Nature de l'action produite par le geste.
@@ -77,7 +77,7 @@ enum class PathGesturePhase {
 };
 
 /**
- * @brief État complet du geste, possédé par l'appelant (même patron que `DecorGestureState`).
+ * @brief État complet du geste, possédé par l'appelant.
  *
  * `selected` **persiste** au-delà d'un geste terminé : c'est la sélection courante de l'éditeur,
  * distincte de la phase du geste — c'est elle qui pilote l'affichage des poignées et le contenu du

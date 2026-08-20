@@ -122,5 +122,5 @@ TEST(NiveauEcsIntegration, FichierDemoVersMonde) {
     // Une entité par tuile non vide, plus une par décor libre (LOT-49) : demo-deplacement.json en
     // porte désormais deux (LOT-65 TACHE-02, habillage), tous deux Transform+Sprite comme les
     // tuiles (core::buildLevelScene).
-    EXPECT_EQ(entities, nonEmptyTiles + static_cast<int>(result.level->decors().size()));
+    EXPECT_EQ(entities, nonEmptyTiles);
 }

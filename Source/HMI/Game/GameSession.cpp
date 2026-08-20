@@ -16,7 +16,6 @@
 #include "Core/Ecs/Components/Transform.h"
 #include "Core/Ecs/Components/Velocity.h"
 #include "Core/Levels/DangerGeometry.h"
-#include "Core/Levels/Decor.h"
 #include "Core/Levels/LevelScene.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
@@ -29,7 +28,6 @@
 #include "HMI/Game/GameHud.h"
 #include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/BitmapFont.h"
-#include "HMI/Graphics/DecorVisuals.h"
 #include "HMI/Graphics/MechanismVisuals.h"
 #include "HMI/Graphics/Parallax.h"
 #include "HMI/Graphics/PlayerSprite.h"
@@ -186,12 +184,6 @@ void GameSession::loadLevel(core::Level level) {
                                 TileSkinTag{type, solidNeighborMask(sceneMap, column, row),
                                             textureOverrideAt(levelRef.textureOverrides(),
                                                               core::GridPosition{column, row})});
-        },
-        [this](core::Entity entity, const core::Decor& decor, std::size_t) {
-            // Marque de presentation (nom d'asset) + calque de rendu projete (EX-DEC-002,
-            // LOT-49) : Core ne connait ni les assets ni hmi::RenderLayer (EX-NFR-011).
-            _world.addComponent(entity, DecorVisualTag{decor.assetName, decor.layer});
-            _world.addComponent(entity, RenderLayerTag{decorRenderLayer(decor.layer)});
         });
     // Mecanismes : etat interrupteurs/portes + grille de collision (portes fermees = solides).
     _mechanisms.emplace(levelRef);
@@ -862,14 +854,14 @@ void GameSession::applyCameraFraming(int viewportWidth, int viewportHeight,
             _camera.setZoom(zoom);
             // Interpole entre le centre du pas fixe PRECEDENT et celui du pas COURANT, comme
             // chaque entite interpole entre PreviousPosition et sa position simulee (EX-ARCH-031)
-            // -- sans quoi le personnage, rendu lisse, tremblerait par rapport a un decor cale sur
-            // un centre qui ne bouge que par sauts discrets (tache-02, piege documente).
+            // -- sans quoi le personnage, rendu lisse, tremblerait par rapport au contenu cale
+            // sur un centre qui ne bouge que par sauts discrets (tache-02, piege documente).
             const core::Vector2 interpolated =
                 _previousFollowCenter +
                 (_followCameraState.center - _previousFollowCenter) * interpolationAlpha;
             // Alignement pixel (EX-ARCH-022) : sans lui, un centre de camera fractionnaire
-            // echantillonne chaque texture entre deux texels et rend tout le pixel art flou --
-            // reutilise la meme fonction que la parallaxe des decors (hmi::roundToScreenPixel).
+            // echantillonne chaque texture entre deux texels et rend tout le pixel art flou
+            // (hmi::roundToScreenPixel).
             const float pixelsPerWorldUnit = Camera2D::PIXELS_PER_UNIT * zoom;
             _camera.setCenter(hmi::roundToScreenPixel(interpolated, pixelsPerWorldUnit));
             break;
@@ -1081,14 +1073,9 @@ void GameSession::render(int viewportWidth, int viewportHeight, RenderMode mode,
     // Interpolation de rendu (EX-ARCH-031) entre le pas precedent et le pas courant. La grille de
     // collision des mecanismes (portes) tranche l'ombre d'une porte d'apres son etat COURANT
     // (LOT-55) : TileSkinTag::type reste TileType::Door quel que soit cet etat.
-    // Parallaxe des decors (EX-DEC-006) neutralisee en mode suivi (LOT-64) : c'est le seul mode ou
-    // la camera defile en continu -- la parallaxe, jusqu'ici toujours invisible (aucune camera ne
-    // bougeait sans coupure nette), ferait sinon paraitre les decors Fond/Premier plan "suivre" la
-    // camera au lieu de rester solidaires du niveau comme le reste du contenu.
-    const bool applyDecorParallax = _cameraFraming.mode != core::CameraFramingMode::Follow;
     _renderer.render(_world, _camera, mode, interpolationAlpha, _level->background(), _levelWidth,
-                     _levelHeight, _level->textureOverrides(), _tileAnimations, _level->decors(),
-                     _mechanisms ? &_mechanisms->collisionMap() : nullptr, applyDecorParallax);
+                     _levelHeight, _level->textureOverrides(), _tileAnimations,
+                     _mechanisms ? &_mechanisms->collisionMap() : nullptr);
 
     renderHud(viewportWidth, viewportHeight);
 }

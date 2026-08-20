@@ -39,8 +39,8 @@ TEST(PanelFocusTest, OutilTextureMetEnAvantLePanneauTextures) {
 }
 
 /**
- * @brief Les outils sans panneau dedie (Pinceau, Rectangle, Selection, Decor) ne mettent rien en
- *        avant : leurs controles vivent ailleurs (palette, panneau Decors non tabifie).
+ * @brief Les outils sans panneau dedie (Pinceau, Rectangle, Selection) ne mettent rien en
+ *        avant : leurs controles vivent ailleurs (la palette).
  * \castest{<b>Les outils sans panneau dedie ne mettent rien en avant.</b><br/>
  * \tcat Unitaire · Mise en avant des panneaux<br/>
  * \tcrit Majeur<br/>
@@ -50,8 +50,8 @@ TEST(PanelFocusTest, OutilTextureMetEnAvantLePanneauTextures) {
  * }
  */
 TEST(PanelFocusTest, OutilsSansPanneauDedieNeMettentRienEnAvant) {
-    for (const hmi::EditorTool tool : {hmi::EditorTool::Paint, hmi::EditorTool::Rectangle,
-                                       hmi::EditorTool::Selection, hmi::EditorTool::Decor}) {
+    for (const hmi::EditorTool tool :
+         {hmi::EditorTool::Paint, hmi::EditorTool::Rectangle, hmi::EditorTool::Selection}) {
         EXPECT_EQ(hmi::panelForTool(tool), std::nullopt) << "outil " << static_cast<int>(tool);
     }
 }

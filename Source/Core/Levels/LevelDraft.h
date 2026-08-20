@@ -218,8 +218,6 @@ public:
     void removeTextureOverride(GridPosition position);
 
     /**
-
-    /**
      * @name Plans picturaux (`EX-DEC-040`, LOT-69)
      *
      * Tous ces mutateurs empilent **un** pas d'annulation (`pushUndo`) et sont donc annulables

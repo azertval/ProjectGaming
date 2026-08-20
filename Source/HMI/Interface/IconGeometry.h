@@ -24,7 +24,6 @@ enum class IconId {
     ToolSelection,
     ToolLink,
     ToolTextureAssign,
-    ToolDecor,
     ToolCameraZone,
     ToolPath,
     Save,

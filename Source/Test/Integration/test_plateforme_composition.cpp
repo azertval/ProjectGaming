@@ -81,7 +81,7 @@ TEST(PlateformeCompositionTest, EntiteTuileSuitLaPositionSimulee) {
 
     core::World world;
     core::buildLevelScene(
-        world, level, [](core::TileType) { return core::AtlasRegion{}; }, nullptr, nullptr);
+        world, level, [](core::TileType) { return core::AtlasRegion{}; }, nullptr);
 
     const core::Entity platform = findPlatformEntity(world, config.startPosition);
     ASSERT_TRUE(world.hasComponent<core::Transform>(platform));

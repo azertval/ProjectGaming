@@ -12,13 +12,11 @@
 #include <utility>
 #include <vector>
 
-#include "Core/Levels/Decor.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/LevelDraft.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Math/Rect.h"
 #include "Core/Time/FixedTimestep.h"
-#include "HMI/Editor/DecorGesture.h"
 #include "HMI/Editor/EditContextTarget.h"
 #include "HMI/Editor/EditorTool.h"
 #include "HMI/Editor/PathGesture.h"
@@ -90,24 +88,6 @@ public:
     /// sélection de la bibliothèque « Objets » ; vide si aucun asset n'est sélectionné.
     void setActiveTextureAsset(std::optional<std::string> asset) noexcept {
         _activeTextureAsset = std::move(asset);
-    }
-
-    /// Définit l'asset posé au clic par l'outil Décor (`LOT-49`), relié à la sélection de la
-    /// bibliothèque de décors du panneau « Outils » ; vide si aucun asset n'est sélectionné.
-    void setActiveDecorAsset(std::optional<std::string> asset) noexcept {
-        _activeDecorAsset = std::move(asset);
-    }
-
-    /// Définit la couche du décor posé au clic (`LOT-49`, `EX-DEC-002`), reliée au sélecteur de
-    /// couche du panneau « Outils ».
-    void setActiveDecorLayer(core::DecorLayer layer) noexcept {
-        _activeDecorLayer = layer;
-    }
-
-    /// Active/désactive l'aimantation sur la grille du geste de décors (`LOT-50`, `EX-DEC-001`) —
-    /// optionnelle et jamais imposée, un décor reste libre par construction.
-    void setDecorSnapToGrid(bool enabled) noexcept {
-        _decorSnapToGrid = enabled;
     }
 
     /**
@@ -317,12 +297,6 @@ public:
         return _draft;
     }
 
-    /// @return Le décor actuellement sélectionné (rang dans `draft().decors()`), si un l'est —
-    /// consommé par la section « Décors » du panneau « Textures » (`LOT-50` TACHE-04).
-    [[nodiscard]] std::optional<std::size_t> selectedDecorIndex() const noexcept {
-        return _decorGesture.selectedIndex;
-    }
-
     /// @return Le parcours actuellement sélectionné (outil « Parcours », `LOT-67`), si un l'est —
     /// consommé par le panneau « Propriétés » pour savoir quels réglages afficher.
     [[nodiscard]] std::optional<hmi::PathSelection> selectedPath() const noexcept {
@@ -377,7 +351,7 @@ public:
 
     /**
      * @brief Assigne l'asset de fond du niveau courant (section « Fond », `LOT-44`).
-     * @param background Nom de l'asset (`Assets/Backgrounds/*.png`), ou absent pour retirer le
+     * @param background Nom du fichier `.png` dans `Assets/Backgrounds`, ou absent pour retirer le
      *                    fond posé.
      */
     void setLevelBackground(std::optional<std::string> background);
@@ -493,29 +467,6 @@ public:
      */
     void setRenderMode(RenderMode mode);
 
-    /**
-     * @brief Sélectionne (ou désélectionne) un décor depuis la section « Décors » du panneau
-     *        « Textures » (`LOT-50` TACHE-04) — l'autre sens de la sélection croisée avec le
-     *        canevas (`hmi::DecorGesture`, TACHE-02).
-     * @param index Rang du décor à sélectionner, ou `std::nullopt` pour désélectionner.
-     */
-    void selectDecor(std::optional<std::size_t> index);
-
-    /// Réordonne le décor @p index d'un cran vers l'avant de sa couche (bouton « Avancer » de la
-    /// section « Décors »), annulable (`core::LevelDraft::bringDecorForward`).
-    void bringDecorForward(std::size_t index);
-    /// Symétrique de `bringDecorForward` (bouton « Reculer »).
-    void sendDecorBackward(std::size_t index);
-    /// Change la couche du décor @p index (section « Décors »), annulable
-    /// (`core::LevelDraft::setDecorLayer`).
-    void setDecorLayer(std::size_t index, core::DecorLayer layer);
-    /// Supprime le décor @p index (bouton « Supprimer » de la section « Décors »).
-    void removeDecor(std::size_t index);
-    /// Recadre la caméra d'édition sur le décor @p index (bouton « Centrer »), à son zoom courant
-    /// — un décor hors du cadrage automatique (grand niveau) redevient ainsi atteignable sans
-    /// avoir à le chercher à la souris.
-    void centerCameraOnDecor(std::size_t index);
-
 signals:
     /// Message d'état à afficher (enregistrement, essai, erreur de validation…).
     void statusMessage(const QString& message);
@@ -540,9 +491,6 @@ signals:
     /// L'outil actif vient de changer par un moyen autre que le panneau Outils (raccourci clavier,
     /// `LOT-45`) — le panneau se resynchronise sans reboucler.
     void toolChanged(hmi::EditorTool tool);
-    /// La sélection de décor vient de changer, par un moyen autre que la section « Décors »
-    /// (clic/pose/suppression au canevas, `LOT-50` TACHE-04) — le panneau se resynchronise.
-    void decorSelectionChanged(std::optional<std::size_t> index);
     /// La sélection de parcours vient de changer (clic au canevas, outil « Parcours », `LOT-67`)
     /// — consommé par le panneau « Propriétés », qui affiche les réglages de l'élément visé.
     void pathSelectionChanged(std::optional<hmi::PathSelection> selection);
@@ -629,33 +577,6 @@ private:
     /// grille (`EX-DEC-001`) — contrairement à `cellAt`/`clampedCell`, utilisées par les autres
     /// outils.
     [[nodiscard]] core::Vector2 worldPositionAt(const QMouseEvent* event);
-    /// Dimensions réelles (en pixels) de l'asset d'un décor, damier de repli si introuvable —
-    /// résolution directe via `_textureCache`, même repli que `hmi::resolveDecorAppearance`
-    /// (`LOT-49`) mais sans construire une `hmi::SceneTextures` complète.
-    [[nodiscard]] core::Vector2 decorPixelSize(const std::string& assetName) const;
-    /// Rectangles englobants de tous les décors du brouillon courant (`hmi::decorWorldBounds`),
-    /// alignés avec `_draft.decors()` — pour la désignation et le geste de l'outil Décor
-    /// (`LOT-50` TACHE-02).
-    [[nodiscard]] std::vector<core::Rect> decorBoundsForGesture() const;
-    /// Poignées du décor actuellement sélectionné (`hmi::decorHandleLayout`), si un l'est.
-    [[nodiscard]] std::optional<hmi::DecorHandleLayout> selectedDecorHandles() const;
-    /// Appui (outil Décor, `LOT-50` TACHE-02) : désigne l'élément sous le clic. Un décor/une
-    /// poignée désigné(e) arme le geste de manipulation (`hmi::beginDecorGesture`) ; sinon, pose un
-    /// nouveau décor si un asset est sélectionné dans la bibliothèque (`LOT-49`), ou déselectionne.
-    void handleDecorPress(const QMouseEvent* event);
-    /// Glisser en cours (outil Décor) : fait progresser le geste, met à jour l'aperçu
-    /// (`LOT-50` TACHE-03) sans jamais muter `_draft`.
-    void handleDecorMove(const QMouseEvent* event);
-    /// Relâchement (outil Décor) : termine le geste et applique l'action finale aux mutateurs de
-    /// TACHE-01 (un seul appel, donc une seule entrée d'historique par geste complet) ; clic droit
-    /// retire le décor visé.
-    void handleDecorRelease(const QMouseEvent* event, bool rightClick);
-    /// Abandonne un glisser de décor en cours (`Échap`, `LOT-50` TACHE-02) : restaure l'aperçu,
-    /// aucune mutation du brouillon (rien n'y avait été écrit pendant le glisser).
-    void cancelDecorGesture();
-    /// Applique l'action finale d'un geste de décors (`hmi::endDecorGesture`) aux mutateurs de
-    /// TACHE-01 ; sans effet pour `DecorGestureActionKind::None` (simple clic/sélection).
-    void applyDecorGestureAction(const hmi::DecorGestureAction& action);
     /// Poignées du parcours actuellement sélectionné (`hmi::pathHandleLayout` pour une
     /// plateforme, `hmi::moverHandleLayout` pour un danger mobile), vides si aucun ne l'est.
     [[nodiscard]] std::vector<hmi::PathHandle> selectedPathHandles() const;
@@ -744,21 +665,6 @@ private:
     /// Asset assigné au clic par l'outil « Texture par instance » (`LOT-45`), vide si aucun n'est
     /// sélectionné dans la bibliothèque « Objets ».
     std::optional<std::string> _activeTextureAsset;
-    /// Asset posé au clic par l'outil Décor (`LOT-49`), vide si aucun n'est sélectionné dans la
-    /// bibliothèque de décors.
-    std::optional<std::string> _activeDecorAsset;
-    /// Couche du décor posé au clic (`LOT-49`, `EX-DEC-002`) ; `Decor` par défaut (couche de
-    /// référence, `EX-DEC-006`).
-    core::DecorLayer _activeDecorLayer = core::DecorLayer::Decor;
-    /// État du geste de manipulation de décors (`LOT-50` TACHE-02) ; `selectedIndex` porte la
-    /// sélection courante de l'éditeur, au-delà de la durée d'un seul geste.
-    hmi::DecorGestureState _decorGesture;
-    /// Aimantation sur la grille du geste de décors (`LOT-50`), optionnelle, désactivée par défaut.
-    bool _decorSnapToGrid = false;
-    /// Aperçu courant du geste de décors en cours (`LOT-50` TACHE-03) — jamais écrit dans `_draft`,
-    /// seul `hmi::DraftRenderer` le consomme pour afficher la manipulation avant validation.
-    /// `std::nullopt` hors glisser.
-    std::optional<hmi::DecorGestureAction> _decorPreview;
     /// État du geste de parcours (`LOT-67`) ; `selected` porte la sélection courante de l'éditeur,
     /// au-delà de la durée d'un seul geste.
     hmi::PathGestureState _pathGesture;

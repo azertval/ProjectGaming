@@ -17,7 +17,6 @@
 #include "Core/Ecs/Components/Sprite.h"
 #include "Core/Ecs/Components/Transform.h"
 #include "Core/Ecs/World.h"
-#include "Core/Levels/Decor.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelScene.h"
@@ -26,7 +25,6 @@
 #include "HMI/Graphics/BackgroundRenderer.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/ComposedScene.h"
-#include "HMI/Graphics/DecorVisuals.h"
 #include "HMI/Graphics/ParticleRenderer.h"
 #include "HMI/Graphics/PlayerSpriteTag.h"
 #include "HMI/Graphics/QuadRecorder.h"
@@ -41,7 +39,7 @@
 namespace {
 
 // Textures factices : la composition ne fait que comparer des identites (cf. test_quad_recorder).
-// Aucun skin ni decor n'est charge : tout retombe sur l'atlas (Physique) ou le damier (Texture,
+// Aucun skin n'est charge : tout retombe sur l'atlas (Physique) ou le damier (Texture,
 // EX-NFR-040) -- comportement normal du programme d'habillage, sans consequence sur le VOLUME de
 // primitives, seule chose que ce test mesure.
 int atlasStorage = 0;
@@ -80,7 +78,7 @@ core::Level loadDeliveredLevel(const std::string& fileName) {
 }
 
 /// Peuple un monde a partir d'un niveau, EXACTEMENT comme hmi::GameSession::loadLevel (tuiles +
-/// decors + personnage a l'entree), sans aucune dependance GPU : c'est ce qui rend la scene
+/// tuiles + personnage a l'entree), sans aucune dependance GPU : c'est ce qui rend la scene
 /// composee representative de ce que le joueur voit reellement.
 core::World buildWorld(const core::Level& level) {
     core::World world;
@@ -92,10 +90,6 @@ core::World buildWorld(const core::Level& level) {
                 entity, hmi::TileSkinTag{type, hmi::solidNeighborMask(map, column, row),
                                          hmi::textureOverrideAt(level.textureOverrides(),
                                                                 core::GridPosition{column, row})});
-        },
-        [&](core::Entity entity, const core::Decor& decor, std::size_t) {
-            world.addComponent(entity, hmi::DecorVisualTag{decor.assetName, decor.layer});
-            world.addComponent(entity, hmi::RenderLayerTag{hmi::decorRenderLayer(decor.layer)});
         });
 
     // Personnage a l'entree, meme construction que hmi::GameSession::spawnPlayer (les champs
@@ -143,7 +137,7 @@ hmi::Camera2D referenceCamera(const core::Level& level) {
 /// particules (aucune ici). Appelable plusieurs fois de suite sur la meme scene pour simuler une
 /// emission en double (cf. le test negatif).
 void composeIntoScene(hmi::ComposedScene& scene, core::World& world, const core::Level& level,
-                      hmi::RenderMode mode, const hmi::Camera2D& camera) {
+                      hmi::RenderMode mode) {
     const hmi::SceneTextures textures = testTextures();
 
     hmi::BackgroundTexture background;
@@ -153,7 +147,7 @@ void composeIntoScene(hmi::ComposedScene& scene, core::World& world, const core:
     hmi::composeBackground(scene, background, level.tileMap().width(), level.tileMap().height(),
                            mode);
     hmi::composeShadows(scene, world, mode, textures, 0.0f);
-    hmi::composeWorldSprites(scene, world, mode, textures, 0.0f, &camera);
+    hmi::composeWorldSprites(scene, world, mode, textures, 0.0f);
     hmi::composeParticles(scene, world, mode, textures);
 }
 
@@ -162,7 +156,7 @@ hmi::ComposedScene composeLevelScene(core::World& world, const core::Level& leve
                                      hmi::RenderMode mode, const hmi::Camera2D& camera) {
     hmi::ComposedScene scene;
     scene.setVisibleBounds(camera.visibleBounds());
-    composeIntoScene(scene, world, level, mode, camera);
+    composeIntoScene(scene, world, level, mode);
     scene.sort();
     return scene;
 }
@@ -244,13 +238,11 @@ TEST(RenderBudgetTest, ChaqueNiveauLivreResteSousSonPlafond) {
                 << "Primitives examinees au-dela du plafond -- ventilation par calque :\n"
                 << recorder.describe() << "\nTile=" << recorder.countOnLayer(hmi::RenderLayer::Tile)
                 << " Shadow=" << recorder.countOnLayer(hmi::RenderLayer::Shadow)
-                << " Decor=" << recorder.countOnLayer(hmi::RenderLayer::Decor)
                 << " Player=" << recorder.countOnLayer(hmi::RenderLayer::Player);
             EXPECT_LE(stats.submitted, budget.submittedCeiling)
                 << "Primitives soumises au-dela du plafond -- ventilation par calque :\n"
                 << recorder.describe() << "\nTile=" << recorder.countOnLayer(hmi::RenderLayer::Tile)
                 << " Shadow=" << recorder.countOnLayer(hmi::RenderLayer::Shadow)
-                << " Decor=" << recorder.countOnLayer(hmi::RenderLayer::Decor)
                 << " Player=" << recorder.countOnLayer(hmi::RenderLayer::Player);
         }
     }
@@ -276,7 +268,7 @@ TEST(RenderBudgetTest, CalqueComposeDeuxFoisDepasseLePlafond) {
 
     hmi::ComposedScene scene;
     scene.setVisibleBounds(camera.visibleBounds());
-    composeIntoScene(scene, world, level, hmi::RenderMode::Texture, camera);
+    composeIntoScene(scene, world, level, hmi::RenderMode::Texture);
     const int singleSubmitted = scene.statistics().submitted;
     ASSERT_LE(singleSubmitted, budget.submittedCeiling)
         << "La composition simple devrait deja rester sous le plafond.";
@@ -285,7 +277,7 @@ TEST(RenderBudgetTest, CalqueComposeDeuxFoisDepasseLePlafond) {
     // par ecran, un calque emis deux fois) : jamais videe entre les deux passes, exactement comme
     // un tel bug le ferait a l'insu de l'appelant (composeBackground/composeShadows/
     // composeWorldSprites/composeParticles sont tous cumulatifs par contrat).
-    composeIntoScene(scene, world, level, hmi::RenderMode::Texture, camera);
+    composeIntoScene(scene, world, level, hmi::RenderMode::Texture);
     const int doubledSubmitted = scene.statistics().submitted;
 
     EXPECT_EQ(doubledSubmitted, singleSubmitted * 2);

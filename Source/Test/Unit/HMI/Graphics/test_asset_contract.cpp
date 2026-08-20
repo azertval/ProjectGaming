@@ -183,8 +183,7 @@ TEST(AssetContractTest, AtlasLivreConforme) {
 TEST(AssetContractTest, ToutesLesFamillesSontNommees) {
     const hmi::AssetFamily families[] = {
         hmi::AssetFamily::Atlas,      hmi::AssetFamily::TileSkin, hmi::AssetFamily::AutotileSheet,
-        hmi::AssetFamily::Background, hmi::AssetFamily::Object,   hmi::AssetFamily::CharacterSheet,
-        hmi::AssetFamily::Decor};
+        hmi::AssetFamily::Background, hmi::AssetFamily::Object,   hmi::AssetFamily::CharacterSheet};
 
     for (const hmi::AssetFamily family : families) {
         const std::string name = hmi::assetFamilyName(family);

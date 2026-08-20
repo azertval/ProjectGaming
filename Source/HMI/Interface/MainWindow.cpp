@@ -56,7 +56,6 @@
 #include "HMI/Audio/SoundTriggers.h"
 #include "HMI/Diagnostics/SessionLog.h"
 #include "HMI/Editor/AssetReferences.h"
-#include "HMI/Editor/DecorsPanel.h"
 #include "HMI/Editor/EditorStatus.h"
 #include "HMI/Editor/LevelBrowserPanel.h"
 #include "HMI/Editor/LevelFileOperations.h"
@@ -98,7 +97,8 @@ namespace {
 // Version de la disposition sérialisée : à incrémenter si l'ensemble des docks change, pour
 // invalider proprement une disposition sauvegardée devenue incompatible (`restoreState`).
 constexpr int LAYOUT_VERSION =
-    8;  // 8 : espaces de travail exclusifs, une disposition par espace (LOT-68)
+    9;  // 9 : retrait du panneau Décors avec le système de décors (LOT-69 TACHE-04)
+        // 8 : espaces de travail exclusifs, une disposition par espace (LOT-68)
         // 7 : panneau de palette de l'atelier pixel art rejoint le regroupement (LOT-54 TACHE-07)
         // 6 : atelier pixel art (canevas + historique) rejoint le regroupement Niveaux/Liens
         //     (LOT-54 TACHE-04)
@@ -133,7 +133,6 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
       _viewport(new GameViewport()),
       _palette(nullptr),
       _levels(nullptr),
-      _decors(nullptr),
       _links(nullptr),
       _textures(nullptr),
       _pixelCanvas(nullptr),
@@ -253,9 +252,8 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_palette, &PalettePanel::tileSelected, _viewport,
             [this](core::TileType type) { _viewport->setActiveTile(type); });
     // Raccourci clavier de l'outil « Texture par instance » (LOT-45, « touche dédiée ») :
-    // resynchronise le panneau Décors (visibilité du sélecteur de placement) et la barre d'outils
-    // (LOT-56 TACHE-04), sans reboucler (setActiveTool n'émet rien).
-    connect(_viewport, &GameViewport::toolChanged, _decors, &DecorsPanel::setActiveTool);
+    // resynchronise la barre d'outils (LOT-56 TACHE-04), sans reboucler (setActiveTool n'émet
+    // rien).
     connect(_viewport, &GameViewport::toolChanged, _actions, &EditorActions::setActiveTool);
     // Les messages d'état du viewport (enregistrement, essai, erreurs) s'affichent en bas, puis
     // laissent la main à l'aide contextuelle (LOT-57 TACHE-01).
@@ -292,7 +290,6 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
                                       _viewport->draft().skinSet());
         _textures->setLevelCameraFraming(_viewport->draft().cameraFraming());
         _textures->refreshObjects(_viewport->draft());
-        _decors->refreshDecors(_viewport->draft(), _viewport->selectedDecorIndex());
         // Le panneau Proprietes reflete le brouillon ET la selection courante : une mutation peut
         // changer les deux (retirer un point de parcours, par exemple).
         _properties->refresh(_viewport->draft(), _viewport->selectedPath(),
@@ -316,37 +313,7 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_textures, &TexturePanel::textureOverrideRemoveRequested, _viewport,
             &GameViewport::removeTextureOverride);
 
-    // Outil Décor (LOT-49 TACHE-04) : choisir un asset/une couche dans le panneau Décors arme le
-    // clic de placement du viewport, même séparation que la section « Objets » ci-dessus.
-    connect(_decors, &DecorsPanel::decorAssetSelected, _viewport, [this](const QString& fileName) {
-        _viewport->setActiveDecorAsset(
-            fileName.isEmpty() ? std::nullopt : std::make_optional(fileName.toStdString()));
-    });
-    connect(_decors, &DecorsPanel::decorLayerSelected, _viewport,
-            &GameViewport::setActiveDecorLayer);
-    connect(_decors, &DecorsPanel::decorSnapToGridChanged, _viewport,
-            &GameViewport::setDecorSnapToGrid);
     _textures->refreshObjects(_viewport->draft());  // etat initial (avant tout draftChanged).
-
-    // Inspecteur de décors (LOT-50 TACHE-04, déplacé dans le panneau Décors LOT-57) : sélection
-    // croisée avec le canevas -- une seule source (`hmi::GameViewport::selectedDecorIndex`), les
-    // deux vues ne font que la refléter. Les actions de la liste (réordonner/changer de
-    // couche/supprimer/centrer) passent par les mêmes mutateurs que le canevas, donc annulables.
-    connect(_decors, &DecorsPanel::decorSelected, _viewport, &GameViewport::selectDecor);
-    connect(_viewport, &GameViewport::decorSelectionChanged, this,
-            [this](std::optional<std::size_t> index) {
-                _decors->refreshDecors(_viewport->draft(), index);
-            });
-    connect(_decors, &DecorsPanel::decorForwardRequested, _viewport,
-            &GameViewport::bringDecorForward);
-    connect(_decors, &DecorsPanel::decorBackwardRequested, _viewport,
-            &GameViewport::sendDecorBackward);
-    connect(_decors, &DecorsPanel::decorLayerChangeRequested, _viewport,
-            &GameViewport::setDecorLayer);
-    connect(_decors, &DecorsPanel::decorRemoveRequested, _viewport, &GameViewport::removeDecor);
-    connect(_decors, &DecorsPanel::decorCenterRequested, _viewport,
-            &GameViewport::centerCameraOnDecor);
-    _decors->refreshDecors(_viewport->draft(), _viewport->selectedDecorIndex());
 
     // Panneau Textures : agit sur le catalogue dont le viewport est proprietaire, et lui signale
     // le jeu courant. Aucune scene n'est reconstruite -- l'apparence est resolue a la composition,
@@ -432,7 +399,6 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_textures, &TexturePanel::reloadRequested, this, [this] {
         _viewport->reloadAssets();
         _textures->reloadAssets();
-        _decors->reloadDecorThumbnails();  // LOT-57 : vignettes de l'inspecteur de decors.
         _palette->clearThumbnailCache();
         _palette->refreshThumbnails(_viewport->renderMode(), _textures->currentSet());
         showTransientStatusMessage(text("textures.reload_done"), 3000);
@@ -514,7 +480,6 @@ std::array<std::pair<QDockWidget*, hmi::PanelId>, hmi::PANEL_COUNT> MainWindow::
     // premier dock ajoute, et le dock oublie resterait affiche dans les deux espaces.
     return {{
         {_ui->PalettePanel, hmi::PanelId::Palette},
-        {_ui->DecorsPanel, hmi::PanelId::Decors},
         {_ui->LevelsPanel, hmi::PanelId::Levels},
         {_ui->LinksPanel, hmi::PanelId::Links},
         {_ui->PropertiesPanel, hmi::PanelId::Properties},
@@ -1010,15 +975,10 @@ void MainWindow::buildUi() {
     _pixelColorButton = new QToolButton(this);
     _pixelToolBar->addWidget(_pixelColorButton);
 
-    // Contenu des docks : les coquilles (`PalettePanel`/`DecorsPanel`/`LevelsPanel`) et leur
-    // agencement viennent du `.ui` ; leurs widgets, paramétrés (chemins, dépendances), sont créés
-    // en code.
+    // Contenu des docks : les coquilles (`PalettePanel`/`LevelsPanel`) et leur agencement
+    // viennent du `.ui` ; leurs widgets, paramétrés (chemins, dépendances), sont créés en code.
     _palette = new PalettePanel(_ui->PalettePanel);
     _ui->PalettePanel->setWidget(_palette);
-    // Panneau Décors (LOT-57, amendement) : placement + inspecteur, regroupés -- l'ancien panneau
-    // « Outils » ne portait déjà plus que le décor (LOT-56 TACHE-04).
-    _decors = new DecorsPanel(hmi::executableDirectory() / "Assets" / "Decors", _ui->DecorsPanel);
-    _ui->DecorsPanel->setWidget(_decors);
     _levels = new LevelBrowserPanel(hmi::executableDirectory() / "Levels", _ui->LevelsPanel);
     _ui->LevelsPanel->setWidget(_levels);
     _links = new LinkPanel(_ui->LinksPanel);
@@ -1056,8 +1016,8 @@ void MainWindow::buildUi() {
     // Regroupement par defaut des panneaux Niveaux/Liens/Atelier/Historique/Palette en onglets
     // (LOT-57 TACHE-02, etendu LOT-54 TACHE-04/TACHE-07) : chacun reste individuellement
     // deplacable/detachable/refermable (EX-IHM-010), seule la disposition par defaut change.
-    // Textures redevient un dock independant, comme Palette (niveau)/Decors (LOT-57, amendement
-    // post-essai manuel). Doit preceder la capture de _defaultState (constructeur, apres
+    // Textures redevient un dock independant, comme Palette (LOT-57, amendement post-essai
+    // manuel). Doit preceder la capture de _defaultState (constructeur, apres
     // buildUi()).
     // Depuis le LOT-68, la pile ne melange plus deux domaines : les panneaux d'edition de niveau
     // d'un cote, ceux de l'atelier de l'autre. Un onglet « Atelier » au milieu des panneaux de
@@ -1369,10 +1329,9 @@ void MainWindow::buildUi() {
     // Bascules de visibilité des docks : dynamiques, donc ajoutées ici. Elles rejoignent le
     // sous-menu « Panneaux » plutôt que la racine du menu Affichage, qui alignait vingt-trois
     // entrées à plat.
-    for (QDockWidget* const dock :
-         {_ui->PalettePanel, _ui->DecorsPanel, _ui->LevelsPanel, _ui->LinksPanel,
-          _ui->PropertiesPanel, _ui->TexturesPanel, _ui->PixelCanvasPanel, _ui->PixelHistoryPanel,
-          _ui->PixelPalettePanel}) {
+    for (QDockWidget* const dock : {_ui->PalettePanel, _ui->LevelsPanel, _ui->LinksPanel,
+                                    _ui->PropertiesPanel, _ui->TexturesPanel, _ui->PixelCanvasPanel,
+                                    _ui->PixelHistoryPanel, _ui->PixelPalettePanel}) {
         _ui->panelsMenu->insertAction(_ui->panelsMenu->actions().constFirst(),
                                       dock->toggleViewAction());
     }
@@ -1720,7 +1679,7 @@ void MainWindow::applyPanelFocus(hmi::EditorTool tool) {
     }
     const std::optional<hmi::PanelId> panel = hmi::panelForTool(tool);
     if (!panel) {
-        return;  // cet outil n'a pas de panneau dedie (ex. Decor : panneau Outils, jamais masque).
+        return;  // cet outil n'a pas de panneau dedie.
     }
     raisePanel(*panel);
 }
@@ -1866,9 +1825,9 @@ void MainWindow::openPixelAssetCreateDialog() {
 
     // Familles creables depuis l'atelier : Atlas exclu (fichier historique unique, jamais recree a
     // la main) et Font exclu (decoupe par ses metriques, hors perimetre d'un canevas generique).
-    static constexpr std::array<hmi::AssetFamily, 6> FAMILIES{
+    static constexpr std::array<hmi::AssetFamily, 5> FAMILIES{
         hmi::AssetFamily::TileSkin,       hmi::AssetFamily::AutotileSheet, hmi::AssetFamily::Object,
-        hmi::AssetFamily::CharacterSheet, hmi::AssetFamily::Background,    hmi::AssetFamily::Decor,
+        hmi::AssetFamily::CharacterSheet, hmi::AssetFamily::Background,
     };
 
     QDialog dialog(this);
@@ -1983,12 +1942,11 @@ void MainWindow::savePixelAsset(bool saveAs) {
     _pixelCanvas->setAssetName(target.filename().string());
     _pixelCanvas->markSaved();
     // Invalidation CIBLEE du niveau (LOT-40/LOT-43/TACHE-08) : un seul asset a relire, jamais tout
-    // le TextureCache. Les caches de vignettes des panneaux (Textures/Decors/Palette), eux,
+    // le TextureCache. Les caches de vignettes des panneaux (Textures/Palette), eux,
     // n'exposent qu'un rechargement complet -- acceptable ici, sur un enregistrement explicite
     // plutot qu'a chaque geste (updateLivePreview, plus haut, ne les touche pas).
     _viewport->invalidateAsset(pixelAssetCacheKey());
     _textures->reloadAssets();
-    _decors->reloadDecorThumbnails();
     _palette->clearThumbnailCache();
     _palette->refreshThumbnails(_viewport->renderMode(), _textures->currentSet());
     showTransientStatusMessage(
@@ -2016,7 +1974,6 @@ void MainWindow::retranslateUi() {
 
     // Panneaux dockables (les actions « toggle » du menu Affichage suivent le titre du dock).
     _ui->PalettePanel->setWindowTitle(text("dock.palette"));
-    _ui->DecorsPanel->setWindowTitle(text("dock.decors"));
     _ui->LevelsPanel->setWindowTitle(text("dock.levels"));
     _ui->LinksPanel->setWindowTitle(text("dock.links"));
     _ui->TexturesPanel->setWindowTitle(text("dock.textures"));
@@ -2066,7 +2023,6 @@ void MainWindow::retranslateUi() {
     _credits->retranslateUi(_loc);
     _options->retranslateUi(_loc);
     _palette->retranslateUi(_loc);
-    _decors->retranslateUi(_loc);
     _levels->retranslateUi(_loc);
     _links->retranslateUi(_loc);
     _textures->retranslateUi(_loc);

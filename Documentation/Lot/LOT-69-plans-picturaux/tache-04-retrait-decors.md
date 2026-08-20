@@ -1,7 +1,7 @@
 # TACHE-04 — Retrait du système de décors {#lot-69-tache-04-retrait-decors}
 
 **Lot :** [LOT-69](epic.md) · **Emplacement :** `Source/{Core,HMI,Test,Elements}` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 Le cadrage a tranché un **remplacement net** : maintenir décors et plans en parallèle doublerait le

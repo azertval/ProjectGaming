@@ -51,7 +51,7 @@ std::vector<std::pair<int, int>> validAssetSizes(AssetFamily family) {
         }
         return sizes;
     }
-    return {};  // dimensions libres (fond, decor, police) : saisie libre a la charge de l'appelant.
+    return {};  // dimensions libres (fond, police) : saisie libre a la charge de l'appelant.
 }
 
 }  // namespace hmi

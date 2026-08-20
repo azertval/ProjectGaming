@@ -43,12 +43,6 @@ const std::array<EditorActionSpec, EDITOR_ACTION_CATALOG_COUNT>& editorActionCat
          .checkable = true,
          .group = EditorActionGroup::LevelTools,
          .surface = ActionSurface::ToolBarAndMenu},
-        {.id = IconId::ToolDecor,
-         .labelKey = "tool.decor",
-         .shortcut = "",
-         .checkable = true,
-         .group = EditorActionGroup::LevelTools,
-         .surface = ActionSurface::ToolBarAndMenu},
         {.id = IconId::ToolCameraZone,
          .labelKey = "tool.camera_zone",
          .shortcut = "",
@@ -243,8 +237,6 @@ std::optional<EditorTool> editorActionTool(IconId id) {
             return EditorTool::Link;
         case IconId::ToolTextureAssign:
             return EditorTool::TextureAssign;
-        case IconId::ToolDecor:
-            return EditorTool::Decor;
         case IconId::ToolCameraZone:
             return EditorTool::CameraZone;
         case IconId::ToolPath:
@@ -266,8 +258,6 @@ IconId editorActionForTool(EditorTool tool) {
             return IconId::ToolLink;
         case EditorTool::TextureAssign:
             return IconId::ToolTextureAssign;
-        case EditorTool::Decor:
-            return IconId::ToolDecor;
         case EditorTool::CameraZone:
             return IconId::ToolCameraZone;
         case EditorTool::Path:

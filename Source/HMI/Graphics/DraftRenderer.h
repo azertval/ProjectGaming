@@ -14,7 +14,6 @@
 #include "Core/Ecs/Entity.h"
 #include "Core/Ecs/World.h"
 #include "Core/Levels/GridPosition.h"
-#include "HMI/Editor/DecorGesture.h"
 #include "HMI/Editor/PathGesture.h"
 #include "HMI/Graphics/LayerVisibility.h"
 #include "HMI/Graphics/SpriteRenderer.h"
@@ -49,21 +48,6 @@ struct LinkOverlayState {
     std::optional<core::GridPosition> pendingLink;
     /// Liaison sélectionnée dans le panneau « Liens » (déclencheur, cible) : mise en surbrillance.
     std::optional<std::pair<core::GridPosition, core::GridPosition>> selectedLink;
-};
-
-/**
- * @brief État d'affichage de la manipulation de décors (`LOT-50` TACHE-02/03), fourni par le
- *        viewport à chaque rendu — jamais écrit dans le brouillon, purement présentatif.
- */
-struct DecorOverlayState {
-    /// Décor actuellement sélectionné (rang dans `core::LevelDraft::decors()`), si un l'est.
-    std::optional<std::size_t> selectedIndex;
-    /// Action d'**aperçu** du geste en cours (`hmi::updateDecorGesture`), appliquée par-dessus le
-    /// décor sélectionné pour l'affichage **sans** toucher au brouillon — c'est ce qui permet de
-    /// montrer une manipulation « avant validation » (TACHE-03). `std::nullopt` hors glisser.
-    std::optional<DecorGestureAction> preview;
-    /// Aimantation sur la grille active (indication visuelle : grille de repère accentuée).
-    bool snapToGrid = false;
 };
 
 /**
@@ -117,18 +101,16 @@ public:
     /// @p deltaSeconds avance l'aperçu des tuiles animées (`LOT-46` TACHE-05) en **temps réel** —
     /// contrairement à la simulation (`hmi::GameSession`), l'aperçu d'édition n'a aucune exigence
     /// de déterminisme (`EX-NFR-002` ne s'applique qu'en jeu) ; `0` (par défaut) fige l'animation.
-    /// @p decorOverlay pilote le cadre de sélection, les poignées et l'aperçu de manipulation des
-    /// décors (`LOT-50` TACHE-02/03) — décor par défaut (aucune sélection) si omis. Ces aides,
-    /// comme le reste du calque `RenderLayer::EditorOverlay`, ne sont **jamais** composées en jeu
-    /// ni en essai (`hmi::GameSession` ne passe jamais par `DraftRenderer`). @p visibility pilote
+    /// Les aides d'édition, comme le reste du calque `RenderLayer::EditorOverlay`, ne sont
+    /// **jamais** composées en jeu ni en essai (`hmi::GameSession` ne passe jamais par
+    /// `DraftRenderer`). @p visibility pilote
     /// le mode d'inspection « définition des textures » (`LOT-51`, `EX-EDIT-044`) — tout visible
     /// par défaut, sans effet sur les aides d'édition ci-dessus (jamais un calque de contenu).
     void render(const core::LevelDraft& draft, const Camera2D& camera, bool showGrid,
                 const std::optional<std::pair<core::GridPosition, core::GridPosition>>& highlight,
                 const LinkOverlayState& linkOverlay, RenderMode mode,
                 bool showTextureOverrides = false, float deltaSeconds = 0.0f,
-                const DecorOverlayState& decorOverlay = {}, const LayerVisibility& visibility = {},
-                const PathOverlayState& pathOverlay = {});
+                const LayerVisibility& visibility = {}, const PathOverlayState& pathOverlay = {});
 
     /// Marque la scène comme périmée : elle sera reconstruite au prochain `render` (à appeler après
     /// toute mutation du brouillon — peinture, undo/redo, chargement, redimensionnement).
@@ -160,7 +142,7 @@ private:
     /// @p accentuate, les lignes sont plus opaques — indication visuelle de l'aimantation active
     /// du geste de décors (`LOT-50` TACHE-03), sinon l'auteur ne comprend pas pourquoi sa position
     /// « saute ».
-    void composeGrid(const core::LevelDraft& draft, bool accentuate);
+    void composeGrid(const core::LevelDraft& draft);
     /// Compose la prévisualisation du cadrage de caméra du niveau (`EX-EDIT-028`, LOT-64) sur le
     /// calque d'édition : le cadre du niveau entier, la grille de salles à taille résolue
     /// (`hmi::RoomGrid`), ou le rectangle visible et la zone morte matérialisée du mode suivi
@@ -183,7 +165,7 @@ private:
     /// Compose les poignées de @p handles (carrés double ton, même patron que celles des décors).
     void composePathHandles(const std::vector<PathHandle>& handles);
     /// @return Un quad plein couvrant @p rect, texturé par la région unie de l'atlas et teinté —
-    /// brique commune des aides d'édition rectangulaires (poignées de décors et de parcours).
+    /// brique commune des aides d'édition rectangulaires (poignées de parcours).
     [[nodiscard]] SpriteQuad solidOverlayQuad(const core::Rect& rect, float r, float g, float b,
                                               float a) const;
     /// Compose le voile d'aperçu d'une zone (outil Rectangle/Sélection) sur le calque d'édition.
@@ -191,13 +173,6 @@ private:
     /// Signale les cases portant une surcharge de texture par instance sur le calque d'édition
     /// (`EX-EDIT-043`, `LOT-45`).
     void composeTextureOverrideMarkers(const core::LevelDraft& draft);
-    /// Compose le cadre de sélection et les poignées du décor sélectionné (`LOT-50` TACHE-03),
-    /// à sa position d'**aperçu** si un glisser est en cours (`DecorOverlayState::preview`) — sans
-    /// jamais lire ni écrire `_draft` au-delà de la copie locale nécessaire à l'aperçu. Sans effet
-    /// si aucun décor n'est sélectionné.
-    void composeDecorSelection(const core::LevelDraft& draft, const DecorOverlayState& decorOverlay,
-                               const Camera2D& camera);
-
     SpriteBatch& _batch;
     const TextureAtlas& _atlas;
     TextureCache& _cache;
@@ -205,11 +180,6 @@ private:
     std::string _skinSet;
     ComposedScene _scene;
     core::World _world;
-    /// Entités de décor de `_world`, dans le même ordre que `core::LevelDraft::decors()`
-    /// (peuplé par `rebuild`) — permet d'appliquer l'aperçu d'un geste en cours (`LOT-50`
-    /// TACHE-03) directement à l'entité concernée, sans reconstruire toute la scène à chaque
-    /// image glissée.
-    std::vector<core::Entity> _decorEntities;
     bool _dirty = true;
     /// Horloge d'animation partagee par asset (LOT-46 TACHE-05), avancee en temps reel a chaque
     /// render() -- distincte de celle de GameSession (pas fixe) : l'apercu d'edition n'a pas
