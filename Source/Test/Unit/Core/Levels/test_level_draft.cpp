@@ -1093,6 +1093,50 @@ TEST(LevelDraftTest, SetBlinkConfigDefinitLaConfiguration) {
 }
 
 /**
+ * @brief Peindre une plateforme mobile crée immédiatement sa configuration par défaut, sans
+ * attendre un enregistrement/rechargement (`EX-GP-026`, `EX-EDIT-032`).
+ * \castest{<b>Peindre une plateforme mobile crée immédiatement sa configuration par
+ * défaut.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Peindre une tuile de plateforme mobile dans un brouillon vierge.<br/>2. Vérifier que
+ * sa configuration existe déjà.<br/>
+ * \tattendu La plateforme figure dans `platformConfigs()` avec une route vide, avant tout
+ * enregistrement -- sans cette entrée, l'outil « Parcours » (`hmi::designatePathAt`) ne peut pas la
+ * désigner et son parcours ne peut jamais être commencé.
+ * }
+ */
+TEST(LevelDraftTest, PeindreUnePlateformeCreeSaConfigurationParDefaut) {
+    LevelDraft draft = LevelDraft::empty("N", 5, 5);
+
+    draft.paintTile(1, 1, TileType::MovingPlatform);
+
+    ASSERT_EQ(draft.platformConfigs().size(), 1u);
+    EXPECT_EQ(draft.platformConfigs().front().startPosition, (GridPosition{1, 1}));
+    EXPECT_TRUE(draft.platformConfigs().front().waypoints.empty());
+}
+
+/**
+ * @brief Peindre un danger mobile crée immédiatement sa configuration par défaut, même raison que
+ * pour une plateforme mobile (`EX-GP-051`, `EX-EDIT-032`).
+ * \castest{<b>Peindre un danger mobile crée immédiatement sa configuration par défaut.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Peindre une tuile de danger mobile dans un brouillon vierge.<br/>2. Vérifier que sa
+ * configuration existe déjà.<br/>
+ * \tattendu Le danger mobile figure dans `moverConfigs()` avant tout enregistrement.
+ * }
+ */
+TEST(LevelDraftTest, PeindreUnDangerMobileCreeSaConfigurationParDefaut) {
+    LevelDraft draft = LevelDraft::empty("N", 5, 5);
+
+    draft.paintTile(1, 1, TileType::DangerMover);
+
+    ASSERT_EQ(draft.moverConfigs().size(), 1u);
+    EXPECT_EQ(draft.moverConfigs().front().startPosition, (GridPosition{1, 1}));
+}
+
+/**
  * @brief setPlatformConfig définit le second point de parcours, la vitesse et le déphasage d'une
  * plateforme mobile (`EX-GP-026`).
  * \castest{<b>setPlatformConfig définit la configuration d'une plateforme mobile.</b><br/>

@@ -411,6 +411,16 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
         _palette->refreshThumbnails(mode, _textures->currentSet());
     });
 
+    // Le catalogue de skins n'est reellement charge qu'a la premiere exposition du canevas
+    // (`GameViewport::ensureResources`, differe l'initialisation Direct3D) -- posterieure a ce
+    // cablage, execute a la construction de la fenetre. Sans ce rafraichissement, l'arbre de
+    // textures et la palette s'ouvrent vides et le restent jusqu'a la premiere bascule de mode ou
+    // de jeu de skins (vieux defaut : "pas de texture au lancement du mode edition").
+    connect(_viewport, &GameViewport::resourcesReady, this, [this] {
+        _textures->setCatalog(&_viewport->skinCatalog());
+        _palette->refreshThumbnails(_viewport->renderMode(), _textures->currentSet());
+    });
+
     // Rechargement a chaud (LOT-43 TACHE-03) : un asset modifie/renomme/ajoute hors de
     // l'application n'est repris qu'a la demande explicite -- une surveillance automatique de
     // dossier a ete ecartee (editeurs d'image externes ecrivant en plusieurs passes, risque de

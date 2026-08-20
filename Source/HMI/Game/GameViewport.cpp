@@ -175,6 +175,12 @@ void GameViewport::ensureResources() {
     } else {
         HMI_LOG_WARNING("Editeur : echec du chargement du niveau de demo : " + result.error);
     }
+
+    // MainWindow cable ses panneaux (palette, arbre de skins) a la construction, avant que la
+    // fenetre ne soit exposee -- donc avant que ce catalogue ne soit charge. `resourcesReady`
+    // leur donne l'occasion de se reconstruire une fois `_skins` reellement peuple, faute de quoi
+    // l'editeur s'ouvre sans aucune texture jusqu'a la premiere bascule de mode/jeu de skins.
+    emit resourcesReady();
 }
 
 void GameViewport::updateEditCamera() {

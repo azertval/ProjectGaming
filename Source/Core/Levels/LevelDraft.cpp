@@ -83,6 +83,17 @@ void LevelDraft::paintTileInternal(int column, int row, TileType type) {
     const bool sameType = _tileMap.tile(column, row) == type;
     removeLinkedDataAt(position, /*keepTextureOverride=*/sameType);
     _tileMap.setTile(column, row, type);
+
+    // Meme defaut que LevelLoader (EX-GP-026/EX-GP-051) : une plateforme ou un danger mobile
+    // fraichement pose porte IMMEDIATEMENT sa configuration par defaut. Sans cette entree, l'outil
+    // Parcours ne le trouve dans aucun des vecteurs qu'il parcourt (hmi::designatePathAt) tant que
+    // le niveau n'a pas ete sauvegarde puis recharge (seul LevelLoader la creait jusqu'ici) : la
+    // tuile reste invisible pour la selection, et son parcours impossible a commencer.
+    if (type == TileType::MovingPlatform) {
+        _platformConfigs.push_back(MovingPlatformConfig{.startPosition = position});
+    } else if (type == TileType::DangerMover) {
+        _moverConfigs.push_back(DangerMoverConfig{.startPosition = position});
+    }
 }
 
 void LevelDraft::setEntry(int column, int row) {

@@ -58,6 +58,25 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 - **Budgets de sauts et de dashs non annulables** : `LevelDraft::setJumpBudget` et `setDashBudget`
   n'empilaient pas de pas d'annulation, contrairement à toutes les autres propriétés de niveau
   (fond, jeu de skins, cadrage). `Ctrl+Z` ignorait donc silencieusement ces changements.
+- **Plateforme/danger mobile fraîchement posé sans parcours possible** (`EX-GP-026`/`EX-GP-051`,
+  `EX-EDIT-032`) : `LevelDraft::paintTile` ne créait sa configuration de route qu'au premier
+  enregistrement/rechargement du niveau (seul `LevelLoader` la créait par défaut). Tant que ce
+  round-trip n'avait pas eu lieu, l'outil « Parcours » ne trouvait la tuile dans aucun des vecteurs
+  qu'il parcourt et ne pouvait donc pas la désigner : impossible de démarrer son parcours sans
+  d'abord sauvegarder puis recharger. La pose crée désormais la configuration par défaut
+  immédiatement, comme `LevelLoader`.
+- **Trois types de tuiles sans texture par défaut** : clé, porte verrouillée et plateforme mobile
+  n'avaient d'entrée que dans le jeu de skins `kenney`, pas dans `test` (le jeu par défaut,
+  `skins.json`) — damier de repli systématique tant que le niveau ne redéfinissait pas son jeu de
+  skins. Les trois assets existaient déjà (`key.png`, `locked_door.png`, `platform.png`) ; il ne
+  manquait que les entrées.
+- **Palette et arbre de textures vides au lancement de l'éditeur** : le câblage de `MainWindow`
+  (à la construction) lisait le catalogue de skins avant que `GameViewport::ensureResources` ne
+  l'ait chargé (différé à la première exposition du canevas Direct3D), donc dans un état encore
+  vide. La palette de blocs et l'arbre de la section « Textures » s'ouvraient sans aucune vignette,
+  jusqu'à la première bascule de mode de rendu ou de jeu de skins qui les rafraîchissait par
+  ailleurs. `GameViewport` émet désormais `resourcesReady` une fois le catalogue réellement chargé,
+  et `MainWindow` s'y reconstruit.
 
 ## [0.1.0] - 2026-08-17
 

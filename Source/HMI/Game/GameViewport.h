@@ -553,6 +553,11 @@ signals:
     /// Le zoom d'édition vient de changer (molette, pan, recadrage) — consommé par la barre d'état
     /// (`LOT-57` TACHE-01).
     void zoomChanged(float zoom);
+    /// Le device Direct3D 11 et le catalogue de skins viennent d'être (re)créés (`ensureResources`)
+    /// — tout ce qui a lu `skinCatalog()` **avant** la première exposition de la fenêtre (le
+    /// câblage de `MainWindow`, à la construction) l'a lu vide et doit se reconstruire une fois ce
+    /// signal reçu, sous peine de vignettes/arbre de skins sans texture au lancement de l'éditeur.
+    void resourcesReady();
 
 protected:
     bool event(QEvent* event) override;
