@@ -15,8 +15,8 @@
 #include <QFontMetrics>
 #include <QFormLayout>
 #include <QGuiApplication>
-#include <QIcon>
 #include <QHeaderView>
+#include <QIcon>
 #include <QInputDialog>
 #include <QKeyEvent>
 #include <QLabel>
@@ -73,16 +73,16 @@
 #include "HMI/HmiLog.h"
 #include "HMI/Input/GamepadButton.h"
 #include "HMI/Interface/ApplicationTheme.h"
-#include "HMI/Interface/EditorWorkspace.h"
-#include "HMI/Interface/PixelArtScale.h"
 #include "HMI/Interface/CreditsScreen.h"
 #include "HMI/Interface/DesignTokens.h"
 #include "HMI/Interface/EditorActions.h"
+#include "HMI/Interface/EditorWorkspace.h"
 #include "HMI/Interface/LevelCompleteScreen.h"
 #include "HMI/Interface/LevelSelectScreen.h"
 #include "HMI/Interface/MainMenu.h"
 #include "HMI/Interface/OptionsPage.h"
 #include "HMI/Interface/PauseScreen.h"
+#include "HMI/Interface/PixelArtScale.h"
 #include "HMI/Platform/ExecutableDirectory.h"
 #include "ui_MainWindow.h"
 #include "ui_ResizeDialog.h"
@@ -1377,8 +1377,8 @@ void MainWindow::buildUi() {
         hmi::RenderLayer::Tile,       hmi::RenderLayer::Object, hmi::RenderLayer::Player,
         hmi::RenderLayer::Foreground};
     const std::array<QAction*, 7> LAYER_ACTIONS{
-        _ui->actLayerBackground, _ui->actLayerDecorBackground, _ui->actLayerShadow,
-        _ui->actLayerTileSkin,   _ui->actLayerObjects,         _ui->actLayerPlayer,
+        _ui->actLayerBackground,     _ui->actLayerDecorBackground, _ui->actLayerShadow,
+        _ui->actLayerTileSkin,       _ui->actLayerObjects,         _ui->actLayerPlayer,
         _ui->actLayerDecorForeground};
     for (std::size_t i = 0; i < LAYER_ORDER.size(); ++i) {
         const hmi::RenderLayer layer = LAYER_ORDER[i];
@@ -1474,8 +1474,8 @@ void MainWindow::openShortcutsDialog() {
         const int row = ui.table->rowCount();
         ui.table->insertRow(row);
         ui.table->setItem(row, 0, new QTableWidgetItem(act->text()));
-        ui.table->setItem(
-            row, 1, new QTableWidgetItem(act->shortcut().toString(QKeySequence::NativeText)));
+        ui.table->setItem(row, 1,
+                          new QTableWidgetItem(act->shortcut().toString(QKeySequence::NativeText)));
     }
     ui.table->resizeColumnsToContents();
     connect(ui.buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);

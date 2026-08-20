@@ -70,7 +70,7 @@ interrupteur ouvre quelle porte sans comparer des couleurs). Deux ajouts corrige
   (`Source/HMI/Editor/LinkGeometry.h`), pure et testée sans GPU (`EX-NFR-010`) ; le tracé
   lui-même réutilise la primitive de segment orienté ajoutée à `hmi::SpriteBatch` (voir
   @ref guide-rendu).
-- **Outil « Lien »** (`hmi::EditorTool::Link`, panneau Outils) : cliquer un déclencheur
+- **Outil « Lien »** (`hmi::EditorTool::Link`, barre d'outils) : cliquer un déclencheur
   (interrupteur/plaque) passe en **attente de cible** (case signalée par un voile jaune, trait
   provisoire vers la souris) ; cliquer une cible (porte/danger commuté) **crée** la liaison
   (`LevelDraft::linkMechanism`) ; refaire la même paire la **supprime** (`unlinkMechanism`,
@@ -130,8 +130,42 @@ viewport. Le problème d'occlusion disparaît par construction :
   d'options propres à l'outil Décor vit désormais dans le panneau **Décors** (`hmi::DecorsPanel`),
   qui regroupe aussi l'inspecteur des décors posés (voir @ref guide-design-ihm).
 
+Depuis le `LOT-68`, cette barre d'outils ne porte **que** la sélection d'outil et quatre commandes
+à usage continu — enregistrer, annuler, refaire, essayer. Tout le reste vit dans la barre de menus,
+organisée par nature d'action (Fichier, Édition, Niveau, Affichage, Atelier, Aide). Et l'éditeur se
+présente en **deux espaces de travail exclusifs**, édition de niveau ou atelier pixel art, chacun
+n'affichant que ses propres panneaux : le détail de ces arbitrages est en @ref guide-design-ihm.
+
 Le viewport ne reçoit donc que des **clics de grille** ; il n'a plus à arbitrer entre « peindre » et
 « cliquer un panneau ». Détail de ces widgets Qt : @ref guide-ihm-qt.
+
+### L'outil « Parcours » : dessiner la route d'un élément mobile
+
+`hmi::EditorTool::Path` (`LOT-67`) donne au *level designer* la maîtrise des trajectoires, qui
+imposaient jusque-là d'ouvrir le JSON à la main. Le geste tient en deux temps :
+
+1. **cliquer la tuile de départ** d'une plateforme mobile ou d'un danger mobile la sélectionne — la
+   tuile elle-même sert de zone de sélection, il n'y a pas de poignée dessus ;
+2. **glisser une poignée** modifie la route : une poignée de **point** déplace ce point (clic droit
+   le retire), une poignée de **milieu de segment** en insère un nouveau et le déplace du même
+   geste — le patron des éditeurs de courbe, qui évite un mode « ajouter » séparé.
+
+Une route encore **vide** est le cas qu'on rencontre en premier, et il n'avait pas de réponse
+jusqu'au `LOT-68` : sans point à déplacer ni segment à couper, une plateforme fraîchement peinte
+n'offrait rien à saisir, et son parcours ne pouvait jamais être *commencé* — seulement modifié s'il
+existait déjà. Elle expose désormais une poignée d'**amorce** sur sa tuile de départ, dont le
+glisser crée le premier point de passage.
+
+> L'amorce ne déplace pas le départ : on le déplace en **repeignant** la tuile. La règle « le point
+> de départ n'a pas de poignée » reste donc entière — lui en donner une créerait deux façons
+> contradictoires de faire la même chose.
+
+Les poignées gardent une taille **écran** constante (`hmi::pathHandleLayout`) : leur taille en
+unités monde suit l'échelle de la caméra, sans quoi elles deviendraient inutilisables aux extrêmes
+de zoom. Un geste complet ne produit qu'**une** action, donc un seul pas d'annulation.
+
+Les réglages qui ne se dessinent pas — vitesse, déphasage, mode de parcours, période d'un danger
+temporisé, règles du tableau — vivent dans le panneau **Propriétés** (`hmi::PropertiesPanel`).
 
 ### Trois outils, une même grille : \ref hmi::EditorTool "EditorTool"
 

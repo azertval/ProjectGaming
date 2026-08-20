@@ -54,8 +54,8 @@ void MainMenu::retranslateUi(const Localization& loc) {
     _ui->quitButton->setText(QString::fromStdString(loc.text("menu.quit")));
     _ui->hintsLabel->setText(QString::fromStdString(hmi::keyHintText(
         {
-         {.key = loc.text("key.up_down"), .action = loc.text("hint.navigate")},
-         {.key = loc.text("key.confirm"), .action = loc.text("hint.confirm")},
+            {.key = loc.text("key.up_down"), .action = loc.text("hint.navigate")},
+            {.key = loc.text("key.confirm"), .action = loc.text("hint.confirm")},
         },
         hmi::identityTokens(), hmi::identityScale())));
 }

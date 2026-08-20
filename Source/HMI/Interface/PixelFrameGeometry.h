@@ -35,8 +35,8 @@ struct PixelFrameQuad {
     int width;
     int height;
 
-    [[nodiscard]] friend bool operator==(const PixelFrameQuad&, const PixelFrameQuad&) noexcept =
-        default;
+    [[nodiscard]] friend bool operator==(const PixelFrameQuad&,
+                                         const PixelFrameQuad&) noexcept = default;
 };
 
 /**

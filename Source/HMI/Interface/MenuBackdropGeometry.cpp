@@ -30,8 +30,20 @@ constexpr std::array<StarPosition, 9> STARS{{
 
 /// Silhouettes de l'horizon : largeur et hauteur en pas de grille, lues en boucle sur la largeur.
 constexpr std::array<std::pair<int, int>, 14> SILHOUETTES{{
-    {3, 2}, {1, 5}, {2, 3}, {4, 1}, {1, 4}, {1, 3}, {5, 2},
-    {3, 3}, {1, 5}, {7, 2}, {2, 4}, {4, 1}, {1, 3}, {5, 2},
+    {3, 2},
+    {1, 5},
+    {2, 3},
+    {4, 1},
+    {1, 4},
+    {1, 3},
+    {5, 2},
+    {3, 3},
+    {1, 5},
+    {7, 2},
+    {2, 4},
+    {4, 1},
+    {1, 3},
+    {5, 2},
 }};
 
 /// Collines de plan intermediaire : largeur et hauteur en pas de grille.
@@ -40,8 +52,22 @@ constexpr std::array<std::pair<int, int>, 5> HILLS{{{8, 2}, {6, 3}, {10, 1}, {7,
 /// Disque lunaire, en rangees de 16 : depart et largeur de chaque rangee. Un cercle trace en pixels
 /// entiers, jamais un rayon arrondi -- un border-radius produirait un bord anticrenele.
 constexpr std::array<std::pair<int, int>, 16> MOON_ROWS{{
-    {5, 6}, {3, 10}, {2, 12}, {1, 14}, {1, 14}, {0, 16}, {0, 16}, {0, 16},
-    {0, 16}, {0, 16}, {0, 16}, {1, 14}, {1, 14}, {2, 12}, {3, 10}, {5, 6},
+    {5, 6},
+    {3, 10},
+    {2, 12},
+    {1, 14},
+    {1, 14},
+    {0, 16},
+    {0, 16},
+    {0, 16},
+    {0, 16},
+    {0, 16},
+    {0, 16},
+    {1, 14},
+    {1, 14},
+    {2, 12},
+    {3, 10},
+    {5, 6},
 }};
 
 }  // namespace
@@ -85,10 +111,10 @@ std::vector<BackdropQuad> menuBackdropQuads(int width, int height, int scale) {
                              moonPixel});
         }
         // Trois crateres, poses sur des rangees pleines pour ne jamais deborder du disque.
-        quads.push_back({BackdropRole::MoonCrater, moonX + (4 * moonPixel),
-                         moonY + (5 * moonPixel), 2 * moonPixel, 2 * moonPixel});
-        quads.push_back({BackdropRole::MoonCrater, moonX + (9 * moonPixel),
-                         moonY + (7 * moonPixel), 3 * moonPixel, 2 * moonPixel});
+        quads.push_back({BackdropRole::MoonCrater, moonX + (4 * moonPixel), moonY + (5 * moonPixel),
+                         2 * moonPixel, 2 * moonPixel});
+        quads.push_back({BackdropRole::MoonCrater, moonX + (9 * moonPixel), moonY + (7 * moonPixel),
+                         3 * moonPixel, 2 * moonPixel});
         quads.push_back({BackdropRole::MoonCrater, moonX + (6 * moonPixel),
                          moonY + (10 * moonPixel), 2 * moonPixel, moonPixel});
     }
@@ -100,8 +126,8 @@ std::vector<BackdropQuad> menuBackdropQuads(int width, int height, int scale) {
         const auto [cellsWide, cellsHigh] = SILHOUETTES[index % SILHOUETTES.size()];
         const int blockWidth = cellsWide * step;
         const int blockHeight = cellsHigh * step;
-        quads.push_back({BackdropRole::Silhouette, x, horizon - blockHeight, blockWidth,
-                         blockHeight});
+        quads.push_back(
+            {BackdropRole::Silhouette, x, horizon - blockHeight, blockWidth, blockHeight});
         x += blockWidth;
         ++index;
     }

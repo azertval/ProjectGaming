@@ -1,8 +1,8 @@
 #pragma once
 
 #include <QWidget>
-#include <memory>
 #include <cstddef>
+#include <memory>
 
 #include "HMI/Editor/PixelHistory.h"
 

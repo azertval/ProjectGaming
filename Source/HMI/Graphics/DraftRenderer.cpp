@@ -620,8 +620,8 @@ void DraftRenderer::composePathHandles(const std::vector<PathHandle>& handles) {
                              0.02f, 0.05f, 0.08f, 0.95f));
         // L'amorce d'une route vide se dessine comme un milieu de segment : dans les deux cas, la
         // poignee designe un point A CREER, pas un point acquis (LOT-68).
-        const bool midpoint = handle.kind == PathHandleKind::Midpoint ||
-                              handle.kind == PathHandleKind::Origin;
+        const bool midpoint =
+            handle.kind == PathHandleKind::Midpoint || handle.kind == PathHandleKind::Origin;
         _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureView(),
                          OVERLAY_ORDER_DECOR_HANDLE_BRIGHT,
                          solidOverlayQuad(handle.rect, midpoint ? 0.4f : 0.25f,

@@ -100,11 +100,11 @@ enum class FontRole {
 /// Échelle typographique, par **rôle** — jamais de taille ponctuelle en dehors de cette échelle.
 struct TypographyTokens {
     FontRole family = FontRole::Ui;  ///< Famille employée par la portée.
-    TypographyLevel screenTitle;    ///< Titre d'écran (menu principal, Options).
-    TypographyLevel sectionTitle;   ///< Titre de section/panneau.
-    TypographyLevel body;           ///< Corps de texte, contrôles.
-    TypographyLevel caption;        ///< Libellé secondaire, infobulle.
-    TypographyLevel monospaceBody;  ///< Texte à chasse fixe (identité du menu principal).
+    TypographyLevel screenTitle;     ///< Titre d'écran (menu principal, Options).
+    TypographyLevel sectionTitle;    ///< Titre de section/panneau.
+    TypographyLevel body;            ///< Corps de texte, contrôles.
+    TypographyLevel caption;         ///< Libellé secondaire, infobulle.
+    TypographyLevel monospaceBody;   ///< Texte à chasse fixe (identité du menu principal).
 
     [[nodiscard]] friend bool operator==(const TypographyTokens&,
                                          const TypographyTokens&) noexcept = default;

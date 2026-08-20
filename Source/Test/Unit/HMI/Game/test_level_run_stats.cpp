@@ -27,9 +27,8 @@ TEST(LevelRunStatsTest, CompteLesPasLesMortsEtLesSauts) {
     hmi::accumulateStep(stats, {});
     hmi::accumulateStep(stats, {hmi::GameEvent::Jumped});
     hmi::accumulateStep(stats, {hmi::GameEvent::Died});
-    hmi::accumulateStep(stats,
-                        {hmi::GameEvent::Jumped, hmi::GameEvent::MenuNavigate,
-                         hmi::GameEvent::LevelCompleted});
+    hmi::accumulateStep(stats, {hmi::GameEvent::Jumped, hmi::GameEvent::MenuNavigate,
+                                hmi::GameEvent::LevelCompleted});
 
     EXPECT_EQ(stats.simulationSteps, 4);
     EXPECT_EQ(stats.jumps, 2);

@@ -1,8 +1,7 @@
 #pragma once
 
-#include <string>
-
 #include <QPalette>
+#include <string>
 
 #include "HMI/Interface/DesignTokens.h"
 #include "HMI/Interface/ThemeResolution.h"
@@ -45,7 +44,8 @@ void applyStyleSheet(const DesignTokens& editorTokens);
 /// Repli explicite et **par famille** si un fichier est absent ou refusé par Qt : famille
 /// **générique** (`QFont::StyleHint` ici, mot-clé CSS générique dans la feuille de style), jamais
 /// un second nom de police codé en dur, et jamais la famille d'un autre rôle — une police d'écran
-/// manquante ne doit pas faire retomber le jeu sur la police de l'éditeur. Avertissement journalisé.
+/// manquante ne doit pas faire retomber le jeu sur la police de l'éditeur. Avertissement
+/// journalisé.
 void applyFont();
 
 /// Nom de famille **effectivement** enregistré pour la police de corps de @p role, ou une chaîne

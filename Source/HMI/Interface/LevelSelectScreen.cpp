@@ -2,8 +2,8 @@
 
 #include <QListWidget>
 #include <QListWidgetItem>
-#include <QPixmap>
 #include <QPainter>
+#include <QPixmap>
 #include <QPushButton>
 #include <Qt>
 
@@ -165,9 +165,9 @@ void LevelSelectScreen::retranslateUi(const Localization& loc) {
     // parcours de focus, encore faut-il savoir quelle touche l'avance.
     _ui->hintsLabel->setText(QString::fromStdString(hmi::keyHintText(
         {
-             {.key = loc.text("key.up_down"), .action = loc.text("hint.navigate")},
-             {.key = loc.text("key.left_right"), .action = loc.text("hint.tab")},
-             {.key = loc.text("key.confirm"), .action = loc.text("hint.play")},
+            {.key = loc.text("key.up_down"), .action = loc.text("hint.navigate")},
+            {.key = loc.text("key.left_right"), .action = loc.text("hint.tab")},
+            {.key = loc.text("key.confirm"), .action = loc.text("hint.play")},
         },
         identityTokens(), identityScale())));
     _ui->tabs->setTabText(0, QString::fromStdString(loc.text("level_select.tab_sequence")));

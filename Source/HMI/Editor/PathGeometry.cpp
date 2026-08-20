@@ -39,9 +39,10 @@ std::vector<PathHandle> pathHandleLayout(const core::MovingPlatformConfig& confi
         // de depart, dont le glisser cree le PREMIER point de passage (LOT-68). Sans elle, une
         // plateforme fraichement peinte n'offre rien a saisir et son parcours reste impossible a
         // commencer -- defaut constate a l'essai.
-        handles.push_back(PathHandle{.kind = PathHandleKind::Origin,
-                                     .index = 0,
-                                     .rect = handleRect(centers.front(), worldUnitsPerScreenPixel)});
+        handles.push_back(
+            PathHandle{.kind = PathHandleKind::Origin,
+                       .index = 0,
+                       .rect = handleRect(centers.front(), worldUnitsPerScreenPixel)});
         return handles;
     }
     handles.reserve(centers.size() * 2);

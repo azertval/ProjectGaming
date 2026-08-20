@@ -24,13 +24,13 @@ constexpr hmi::PanelId ALL_PANELS[] = {
 };
 
 constexpr hmi::EditorTool ALL_TOOLS[] = {
-    hmi::EditorTool::Paint,  hmi::EditorTool::Rectangle,  hmi::EditorTool::Selection,
-    hmi::EditorTool::Link,   hmi::EditorTool::TextureAssign, hmi::EditorTool::Decor,
+    hmi::EditorTool::Paint,      hmi::EditorTool::Rectangle,     hmi::EditorTool::Selection,
+    hmi::EditorTool::Link,       hmi::EditorTool::TextureAssign, hmi::EditorTool::Decor,
     hmi::EditorTool::CameraZone, hmi::EditorTool::Path,
 };
 
 constexpr hmi::PixelTool ALL_PIXEL_TOOLS[] = {
-    hmi::PixelTool::Brush, hmi::PixelTool::Eraser, hmi::PixelTool::Fill,
+    hmi::PixelTool::Brush,      hmi::PixelTool::Eraser,    hmi::PixelTool::Fill,
     hmi::PixelTool::Eyedropper, hmi::PixelTool::Selection,
 };
 

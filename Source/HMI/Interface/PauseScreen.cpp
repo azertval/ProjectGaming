@@ -65,8 +65,8 @@ void PauseScreen::retranslateUi(const Localization& loc) {
     // parcours de focus, encore faut-il savoir quelle touche l'avance.
     _ui->hintsLabel->setText(QString::fromStdString(hmi::keyHintText(
         {
-             {.key = loc.text("key.escape"), .action = loc.text("hint.resume")},
-             {.key = loc.text("key.back"), .action = loc.text("hint.back")},
+            {.key = loc.text("key.escape"), .action = loc.text("hint.resume")},
+            {.key = loc.text("key.back"), .action = loc.text("hint.back")},
         },
         hmi::identityTokens(), hmi::identityScale())));
 }

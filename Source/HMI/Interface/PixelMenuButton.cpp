@@ -1,10 +1,9 @@
 #include "HMI/Interface/PixelMenuButton.h"
 
-#include <algorithm>
-#include <vector>
-
 #include <QColor>
 #include <QPainter>
+#include <algorithm>
+#include <vector>
 
 #include "HMI/Interface/ApplicationTheme.h"
 #include "HMI/Interface/DesignTokens.h"

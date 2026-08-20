@@ -14,11 +14,8 @@ std::vector<PixelFrameQuad> pixelFrameQuads(int width, int height, int scale) {
     const int thickness = std::min({std::max(scale, 1), width / 4, height / 4});
     if (thickness <= 0) {
         // Cadre plus petit que ses propres bordures : un aplat, jamais un debordement.
-        return {PixelFrameQuad{.role = PixelFrameRole::Fill,
-                               .x = 0,
-                               .y = 0,
-                               .width = width,
-                               .height = height}};
+        return {PixelFrameQuad{
+            .role = PixelFrameRole::Fill, .x = 0, .y = 0, .width = width, .height = height}};
     }
 
     const int t = thickness;

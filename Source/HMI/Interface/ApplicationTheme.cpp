@@ -138,9 +138,8 @@ int& identityScaleState() {
                                          const std::filesystem::path& bold) {
     const int regularId =
         QFontDatabase::addApplicationFont(QString::fromStdString(regular.string()));
-    const bool boldOk =
-        bold.empty() ||
-        QFontDatabase::addApplicationFont(QString::fromStdString(bold.string())) != -1;
+    const bool boldOk = bold.empty() || QFontDatabase::addApplicationFont(
+                                            QString::fromStdString(bold.string())) != -1;
 
     std::string family;
     if (regularId != -1) {

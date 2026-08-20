@@ -28,8 +28,8 @@ struct LevelRunStats {
     int deaths = 0;           ///< Morts du personnage, la dernière comprise s'il y en a eu une.
     int jumps = 0;            ///< Sauts déclenchés, aériens compris.
 
-    [[nodiscard]] friend bool operator==(const LevelRunStats&, const LevelRunStats&) noexcept =
-        default;
+    [[nodiscard]] friend bool operator==(const LevelRunStats&,
+                                         const LevelRunStats&) noexcept = default;
 };
 
 /**
@@ -53,8 +53,8 @@ void accumulateStep(LevelRunStats& stats, const std::vector<GameEvent>& stepEven
 /**
  * @brief Met une durée en forme `m:ss`, ou `h:mm:ss` au-delà de l'heure.
  *
- * Les secondes sont **tronquées** et non arrondies : afficher `2:00` pour une partie de 1 min 59,7 s
- * laisserait croire qu'on a atteint la minute ronde. Une durée négative est traitée comme nulle.
+ * Les secondes sont **tronquées** et non arrondies : afficher `2:00` pour une partie de 1 min 59,7
+ * s laisserait croire qu'on a atteint la minute ronde. Une durée négative est traitée comme nulle.
  */
 [[nodiscard]] std::string formatElapsed(float seconds);
 

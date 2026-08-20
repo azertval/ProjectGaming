@@ -1,9 +1,9 @@
 #pragma once
 
 #include <QWidget>
-#include <memory>
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 
 #include "HMI/Editor/PixelPalette.h"
 

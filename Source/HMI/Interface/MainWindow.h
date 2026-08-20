@@ -19,8 +19,8 @@
 #include "HMI/Game/GameEvents.h"
 #include "HMI/Game/Progression.h"
 #include "HMI/Input/GamepadPoller.h"
-#include "HMI/Interface/EditorWorkspace.h"
 #include "HMI/Input/InputState.h"
+#include "HMI/Interface/EditorWorkspace.h"
 #include "HMI/Interface/ScreenFlow.h"
 #include "HMI/Localization/Localization.h"
 
@@ -370,10 +370,10 @@ private:
     /// pour l'affichage ; ce chemin sert à `savePixelAsset` pour retrouver le dossier.
     std::filesystem::path _pixelAssetPath;
     EditorActions*
-        _actions;        ///< Outils et commandes principales, barre d'outils (LOT-56 TACHE-04).
+        _actions;  ///< Outils et commandes principales, barre d'outils (LOT-56 TACHE-04).
     /// Espace de travail actif (`LOT-68`). Persisté : on rouvre l'éditeur là où on l'a laissé.
     EditorWorkspace _workspace = EditorWorkspace::Level;
-    QToolBar* _toolBar;  ///< Barre d'outils de l'éditeur, alimentée par `_actions`.
+    QToolBar* _toolBar;       ///< Barre d'outils de l'éditeur, alimentée par `_actions`.
     QToolBar* _pixelToolBar;  ///< Barre d'outils du canevas pixel art (LOT-54 TACHE-04).
     QToolButton* _pixelColorButton =
         nullptr;  ///< Témoin + sélecteur de couleur courante (canevas).

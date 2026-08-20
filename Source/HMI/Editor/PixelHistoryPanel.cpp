@@ -1,13 +1,12 @@
 #include "HMI/Editor/PixelHistoryPanel.h"
 
-#include "ui_PixelHistoryPanel.h"
-
 #include <QListWidget>
 #include <QListWidgetItem>
 #include <QString>
 #include <QVBoxLayout>
 
 #include "HMI/Localization/Localization.h"
+#include "ui_PixelHistoryPanel.h"
 
 namespace hmi {
 

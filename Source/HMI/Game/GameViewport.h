@@ -227,13 +227,19 @@ public:
 
     /// @return Le bilan du tableau en cours (`LOT-68`) : pas de simulation, morts, sauts. Remis à
     /// zéro à chaque entrée dans un tableau, en rejouant comme en avançant.
-    [[nodiscard]] const LevelRunStats& runStats() const noexcept { return _runStats; }
+    [[nodiscard]] const LevelRunStats& runStats() const noexcept {
+        return _runStats;
+    }
 
     /// @return La durée d'un pas de simulation, pour convertir `runStats()` en secondes.
-    [[nodiscard]] float fixedDeltaSeconds() const noexcept { return _timestep.fixedDeltaSeconds(); }
+    [[nodiscard]] float fixedDeltaSeconds() const noexcept {
+        return _timestep.fixedDeltaSeconds();
+    }
 
     /// @return `true` si le compteur de diagnostic est actuellement affiché.
-    [[nodiscard]] bool diagnosticsOverlayEnabled() const noexcept { return _diagnosticsEnabled; }
+    [[nodiscard]] bool diagnosticsOverlayEnabled() const noexcept {
+        return _diagnosticsEnabled;
+    }
 
     /// Affiche ou masque le compteur de diagnostic. Même état que `toggleDiagnosticsOverlay` et
     /// que la touche `F9` — **un seul** état, atteint par deux chemins (`EX-IHM-062`), et non deux

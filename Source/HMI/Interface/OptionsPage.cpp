@@ -17,9 +17,9 @@
 #include "HMI/Game/GameViewport.h"
 #include "HMI/Interface/ApplicationTheme.h"
 #include "HMI/Interface/DesignTokens.h"
-#include "HMI/Interface/KeyHintText.h"
 #include "HMI/Interface/EditorKeybindingsWidget.h"
 #include "HMI/Interface/GamepadBindingsWidget.h"
+#include "HMI/Interface/KeyHintText.h"
 #include "HMI/Interface/KeybindingsWidget.h"
 #include "HMI/Localization/Localization.h"
 #include "ui_OptionsPage.h"
@@ -143,8 +143,8 @@ void OptionsPage::retranslateUi(const Localization& loc) {
     // parcours de focus, encore faut-il savoir quelle touche l'avance.
     _ui->hintsLabel->setText(QString::fromStdString(hmi::keyHintText(
         {
-             {.key = loc.text("key.left_right"), .action = loc.text("hint.tab")},
-             {.key = loc.text("key.back"), .action = loc.text("hint.back")},
+            {.key = loc.text("key.left_right"), .action = loc.text("hint.tab")},
+            {.key = loc.text("key.back"), .action = loc.text("hint.back")},
         },
         hmi::identityTokens(), hmi::identityScale())));
 

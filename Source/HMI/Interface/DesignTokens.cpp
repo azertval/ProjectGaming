@@ -207,8 +207,8 @@ double contrastRatio(DesignColor a, DesignColor b) noexcept {
     return (lighter + 0.05) / (darker + 0.05);
 }
 
-std::unordered_map<std::string, std::string> buildStyleSheetValues(
-    const DesignTokens& editorTokens, int identityScale) {
+std::unordered_map<std::string, std::string> buildStyleSheetValues(const DesignTokens& editorTokens,
+                                                                   int identityScale) {
     std::unordered_map<std::string, std::string> values;
     addColorValues(values, "identity.color", identityTokens().color);
     addColorValues(values, "editor.color", editorTokens.color);

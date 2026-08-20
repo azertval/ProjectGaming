@@ -74,7 +74,8 @@ TEST(DesignTokensTest, CouleurViewportSuitLaPorteeDuMode) {
  * \tcat Unitaire · Jetons de design<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Comparer espacement, niveaux typographiques et tailles des deux portees.<br/>
- * \tattendu Les echelles sont identiques entre les deux portees ; seule la famille de police differe.
+ * \tattendu Les echelles sont identiques entre les deux portees ; seule la famille de police
+ * differe.
  * }
  */
 TEST(DesignTokensTest, LesDeuxPorteesPartagentLesMemesEchelles) {
@@ -182,8 +183,10 @@ TEST(DesignTokensTest, AucunDoublonDeLargeurMinimale) {
  * \castest{<b>Chaque jeu de jetons satisfait un seuil de contraste texte/fond.</b><br/>
  * \tcat Unitaire · Jetons de design<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Calculer le contraste texte/fond et texte-attenue/fond pour les deux themes d'editeur, puis pour l'identite.<br/>
- * \tattendu Le texte principal depasse 4.5:1 et le texte attenue depasse 3:1, dans les trois jeux de jetons.
+ * \tetapes 1. Calculer le contraste texte/fond et texte-attenue/fond pour les deux themes
+ * d'editeur, puis pour l'identite.<br/>
+ * \tattendu Le texte principal depasse 4.5:1 et le texte attenue depasse 3:1, dans les trois jeux
+ * de jetons.
  * }
  */
 TEST(DesignTokensTest, ChaqueThemeSatisfaitLeSeuilDeContraste) {

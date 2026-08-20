@@ -28,7 +28,9 @@ public:
     /// relief. Réservée aux fenêtres modales (pause, fin de niveau), où elle signale que l'écran
     /// se superpose au jeu au lieu de le remplacer.
     void setAccented(bool accented);
-    [[nodiscard]] bool isAccented() const { return _accented; }
+    [[nodiscard]] bool isAccented() const {
+        return _accented;
+    }
 
 protected:
     void paintEvent(QPaintEvent* event) override;

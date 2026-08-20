@@ -1,7 +1,5 @@
 #include "HMI/Editor/PixelPalettePanel.h"
 
-#include "ui_PixelPalettePanel.h"
-
 #include <QCheckBox>
 #include <QColor>
 #include <QHBoxLayout>
@@ -15,6 +13,7 @@
 #include <QVBoxLayout>
 
 #include "HMI/Localization/Localization.h"
+#include "ui_PixelPalettePanel.h"
 
 namespace hmi {
 

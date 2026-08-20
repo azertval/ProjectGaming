@@ -46,8 +46,8 @@ struct BackdropQuad {
     int width;
     int height;
 
-    [[nodiscard]] friend bool operator==(const BackdropQuad&, const BackdropQuad&) noexcept =
-        default;
+    [[nodiscard]] friend bool operator==(const BackdropQuad&,
+                                         const BackdropQuad&) noexcept = default;
 };
 
 /// Part de la largeur couverte par le voile de lisibilité, sous le titre et les entrées de menu.

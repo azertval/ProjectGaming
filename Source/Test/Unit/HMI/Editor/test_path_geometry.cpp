@@ -171,8 +171,8 @@ TEST(PathGeometryTest, DangerMobileExposeUnePoigneeDExtremite) {
 TEST(PathGeometryTest, PlateformeSansRouteExposeUnePoigneeDAmorce) {
     const std::vector<hmi::PathHandle> handles = hmi::pathHandleLayout(platform({}), 0.02f);
 
-    ASSERT_EQ(handles.size(), 1u)
-        << "sans poignee, le parcours d'une plateforme fraichement peinte ne peut pas etre commence";
+    ASSERT_EQ(handles.size(), 1u) << "sans poignee, le parcours d'une plateforme fraichement "
+                                     "peinte ne peut pas etre commence";
     EXPECT_EQ(handles.front().kind, hmi::PathHandleKind::Origin);
     EXPECT_EQ(handles.front().index, 0u);
     // Centree sur la tuile de depart de la fixture, comme toute poignee de point.
