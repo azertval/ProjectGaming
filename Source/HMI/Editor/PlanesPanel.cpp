@@ -198,6 +198,16 @@ void PlanesPanel::refreshSettings(const core::LevelDraft& draft,
     _ui->frontButton->setEnabled(hasSelection);
     _ui->behindButton->setEnabled(hasSelection);
     if (!hasSelection) {
+        // Champs ramenes aux valeurs par defaut d'un plan, pas laisses sur ce qu'ils affichaient.
+        // Grises, ils restent lisibles : y laisser « Parallaxe 0,01 · Opacite 0,00 » -- les bornes
+        // basses des champs -- se lit comme une configuration que quelqu'un aurait choisie.
+        const core::Plane defaults;
+        _ui->densityCombo->setCurrentIndex(_ui->densityCombo->findData(defaults.pixelsPerUnit));
+        _ui->depthCombo->setCurrentIndex(
+            _ui->depthCombo->findData(static_cast<int>(defaults.depth)));
+        _ui->parallaxXSpin->setValue(static_cast<double>(defaults.parallaxX));
+        _ui->parallaxYSpin->setValue(static_cast<double>(defaults.parallaxY));
+        _ui->opacitySpin->setValue(static_cast<double>(defaults.opacity));
         return;
     }
 

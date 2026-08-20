@@ -29,7 +29,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   mention ; surtout, un joueur qui n'ouvrira jamais le dépôt doit pouvoir la lire. Seuls les
   intitulés de section sont traduits — un nom de licence ne se paraphrase pas.
 
-### Plans picturaux (LOT-69, en cours)
+### Plans picturaux (LOT-69)
 
 - Le niveau porte désormais une **liste ordonnée de plans** (`EX-DEC-040`) : chaque plan est une
   image couvrant tout le niveau, dans son propre fichier, avec sa **densité** (16, 8 ou 4 px par
@@ -137,6 +137,112 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 - `EX-BUILD-010` est amendée : l'exigence de provisionnement reproductible porte explicitement sur
   l'**outil de provisionnement lui-même**, qui doit être épinglé à une révision précise et jamais à
   une branche mobile.
+
+### Mode création (LOT-69)
+
+- **Troisième espace de travail** dans l'éditeur (`EX-EDIT-046`), à côté de l'édition de niveau et
+  de l'atelier pixel art. Y entrer masque ce qui n'y sert pas et fait apparaître le canevas : c'est
+  cette structure du `LOT-68`, et non un énième bouton, qui rend le mode praticable.
+- Conséquence sur la table qui décide où vit un panneau : elle rendait **un** espace par panneau —
+  « chaque panneau appartient à exactement un espace » — et cela ne tient plus, canevas, historique
+  et palette servant aux **deux** espaces de peinture. Elle rend désormais un **masque**, et la
+  garde de complétude passe de « exactement un » à « masque non vide ». Dupliquer les docks aurait
+  donné deux canevas et deux historiques à tenir synchronisés.
+- **Panneau « Plans »** (`EX-EDIT-047`), à la place de l'ancien panneau « Décors » : liste ordonnée
+  avec densité, profondeur, parallaxe par axe, opacité, œil de visibilité et isolement, boutons de
+  réordonnancement, et un bouton « Peindre » qui bascule dans le mode création avec le plan chargé.
+- **Cycle de vie des fichiers** : « Ajouter » crée un PNG entièrement transparent aux dimensions
+  exactes qu'impose la densité, nommé d'après le niveau et rendu unique par un suffixe numérique
+  croissant — jamais un identifiant aléatoire, pour qu'un dossier de plans reste lisible à l'œil.
+  Changer la densité rééchantillonne l'image et la réécrit.
+- **Retirer un plan ne supprime jamais son fichier.** Le brouillon sait annuler une entrée JSON, pas
+  la disparition d'une image : un PNG orphelin est moins grave qu'un dessin perdu. Écrit dans la
+  documentation utilisateur plutôt que laissé à découvrir.
+- Dans le mode création, **`Ctrl+S` enregistre le PNG** ; l'enregistrement de niveau écrit le JSON.
+  Deux notions de « modifié » distinctes depuis le `LOT-54`, donc deux garde-fous de perte de
+  travail. Un coup de pinceau dans un plan n'apparaît **jamais** dans l'historique d'édition du
+  niveau, ni réciproquement.
+- La barre d'état annonce la résolution du plan, sa densité et son **poids mémoire** —
+  le chiffre même que le budget du dépôt plafonne.
+- L'espace de travail est désormais persisté **par son nom** et non par un indice : le `LOT-68`
+  écrivait `0`/`1`, et insérer « Plans » entre les deux aurait fait rouvrir en mode création
+  l'éditeur laissé dans l'atelier. Le mode création, lui, n'est jamais restauré au démarrage — il
+  suppose un niveau ouvert et un plan sélectionné.
+
+### Budget de rendu (LOT-69)
+
+- Le budget mesuré du `LOT-62` gagne un **second axe** : la **mémoire de texture** des plans
+  (`EX-NFR-043`), à côté des compteurs de primitives et dans la même structure de statistiques.
+  Motif : un plan n'ajoute qu'**une** primitive mais occupe une texture à l'échelle du niveau — un
+  plafond exprimé en primitives ne le verrait jamais grossir, alors qu'un niveau 200 × 100 à densité
+  native coûterait 20 Mo **par plan**.
+- Ce plafond-là n'est **pas** décliné par niveau comme celui des primitives : le volume de
+  primitives dépend du contenu posé par l'auteur, la mémoire de plans ne dépend que de la taille du
+  niveau et des densités déclarées.
+- Il est calibré pour **refuser avant la limite de format** : 16 Mio laissent passer douze plans
+  natifs sur le plus grand tableau du dépôt, là où le format en autorise seize. Un test le vérifie
+  dans ce sens-là — un garde-fou qu'on n'a jamais vu refuser ne prouve rien.
+- Un test fige la propriété qui distingue les plans des tuiles : leur coût en primitives et en
+  passes est **invariant en taille de niveau**, alors que leur mémoire suit la surface.
+
+### Contenu (LOT-69)
+
+- **Les vingt-deux tableaux livrés passent aux plans picturaux.** Le cadrage du lot annonçait
+  `demo-final` comme seul niveau porteur de décors : c'était faux, tous en portaient (soixante-deux
+  entrées au total). Chacun reçoit un **fond** à densité 8, et ceux qui avaient un décor de premier
+  plan un second plan à densité native.
+- Les décors sont **reportés à leurs positions d'origine**, avec la même géométrie que l'ancien
+  rendu. L'intention visuelle de chaque tableau est préservée ; ce n'est pas pour autant une fresque
+  peinte qui exploiterait vraiment la profondeur — cela reste un acte de *level design*, hors de ce
+  lot d'outillage.
+- Les images sont **générées, jamais dessinées à la main** (`scripts/generate_demo_plans.py`) :
+  reproductibilité, dans la ligne du `LOT-66`. `Source/Elements/Assets/Decors/` et son générateur
+  disparaissent ; les quatre motifs Kenney qu'il contenait sont **conservés** comme *sources* du
+  générateur (`scripts/motifs/`) — les supprimer aurait rendu le script injouable, donc non
+  reproductible.
+- **Des facteurs de parallaxe ne sont déclarés que sur `demo-final` et `demo-mouvement`**, les deux
+  seuls niveaux dont la caméra défile. Ailleurs, le cadrage *niveau entier* la neutralise :
+  déclarer un facteur y aurait été une promesse que rien ne tient.
+- Le garde-fou de couverture des mécaniques exigeait déjà, dans sa documentation, un « décor de
+  premier plan » — sans que le code ne le vérifie. Il vérifie désormais réellement la présence d'un
+  **plan devant le personnage** et d'une **parallaxe réglée**.
+- Deux tests système nouveaux : **aucun niveau du dépôt ne porte encore `decors`**, et **tout plan
+  référencé existe aux dimensions attendues**. Ni `Core` (qui ne vérifie pas l'existence d'un
+  fichier) ni `HMI` (qui replie sur un damier) ne signaleraient l'un ou l'autre.
+
+### Corrections (LOT-69)
+
+- **La manette n'était plus détectée depuis les écrans d'interface.** Le sondage XInput est espacé
+  tant qu'aucune manette n'est présente — interroger un slot vide coûte cher et provoque des
+  micro-saccades — mais cet espacement se comptait en **nombre d'appels**. Or le sondage est
+  déclenché tantôt par la boucle de rendu (une fois par image), tantôt par un temporisateur
+  d'interface (150 ms au menu, 500 ms dans les Options) : le même compteur donnait donc un délai de
+  détection allant de deux secondes à **une minute** selon l'appelant. L'espacement est désormais
+  décidé en **temps réel**, ce qui borne la détection quelle que soit la cadence.
+- **Ouvrir un niveau habillé dans l'éditeur perdait tous ses plans.** Le brouillon d'édition
+  (`LevelDraft::fromLevel`) ne recopiait ni la liste des plans ni le drapeau de parallaxe : le
+  niveau s'ouvrait, s'éditait et s'enregistrait normalement — mais **sans son habillage**, effacé
+  en silence. Aucun message, aucun échec : un champ simplement absent ne fait rien échouer, ce qui
+  est exactement la classe de défaut qu'aucun test de comportement n'attrape. Deux tests le figent
+  désormais, dont un aller-retour niveau → brouillon → niveau.
+- **Les boutons des boîtes de dialogue étaient en anglais** dans une interface française : « Yes »
+  et « No » viennent de Qt, pas du catalogue du projet, et Qt les rend en anglais tant qu'aucun
+  `QTranslator` n'est installé. Le catalogue `qtbase_<langue>.qm` est désormais chargé et déployé
+  à côté de l'exécutable — les deux seuls dont l'IHM propose la langue, pas la trentaine que
+  `windeployqt` copierait.
+- Dans le mode création, la barre d'état annonçait le **niveau** et son zoom de caméra pendant
+  qu'on peignait une image, tant que le focus clavier n'était pas entré dans le canevas. L'espace
+  n'ayant pas d'autre sujet, elle parle désormais du plan sans attendre le focus — et dit « Plan »
+  plutôt qu'« Asset », un plan n'étant réutilisable par aucun autre niveau.
+- Les réglages du plan sélectionné affichaient les **bornes basses** de leurs champs
+  (« Parallaxe 0,01 · Opacité 0,00 ») quand aucun plan n'était sélectionné, ce qui se lisait comme
+  une configuration choisie. Ils montrent les valeurs par défaut d'un plan. Le facteur de parallaxe
+  accepte par ailleurs **0** : un plan strictement immobile est un réglage légitime.
+- **Lancer une partie depuis le menu affichait le niveau en mode édition.** Le portage QRhi a rendu
+  la création des ressources graphiques paresseuse : elle a lieu à la **première image**, donc
+  *après* le démarrage de la partie, et elle commence par libérer ce qui tenait une texture — dont
+  la session de jeu qui venait d'être créée. Le viewport retombait alors silencieusement sur le
+  brouillon d'édition. La session est désormais **remontée** une fois les ressources disponibles.
 
 ### Interface (LOT-68)
 

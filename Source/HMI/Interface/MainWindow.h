@@ -115,6 +115,15 @@ private:
     /// @return La clé `QSettings` de la disposition de @p workspace. Chaque espace persiste la
     /// sienne : une disposition unique rouvrirait les docks de l'atelier par-dessus l'édition.
     [[nodiscard]] static QString layoutKeyFor(EditorWorkspace workspace);
+    /// @return Le nom sous lequel @p workspace est persisté. Un **nom**, jamais l'indice de
+    ///         l'énumération : le `LOT-68` écrivait 0/1, et insérer « Plans » entre les deux
+    ///         aurait fait rouvrir en mode création l'éditeur laissé dans l'atelier.
+    [[nodiscard]] static QString workspaceSettingsName(EditorWorkspace workspace);
+    /// @return L'espace nommé @p name ; l'édition de niveau si le nom est inconnu (y compris les
+    ///         anciens `0`/`1` du `LOT-68`).
+    [[nodiscard]] static EditorWorkspace workspaceFromSettingsName(const QString& name);
+    /// @return L'entrée de menu exclusive qui sélectionne @p workspace.
+    [[nodiscard]] QAction* workspaceSelector(EditorWorkspace workspace) const;
 
     /// @return La table des neuf panneaux et de leur identité, relue par `setDocksVisible` **et**
     /// par `applyWorkspace`. Une seule table : deux listes divergeraient au premier dock ajouté, et
@@ -205,6 +214,28 @@ private:
     /// que le niveau affiché reflète l'édition en cours — sans effet tant qu'aucun chemin n'est
     /// associé (asset pas encore enregistré une première fois, TACHE-05).
     void updateLivePreview();
+
+    // Mode création : peinture d'un plan pictural dans le canevas (LOT-69 TACHE-08).
+    /// Charge le PNG du plan @p index dans `_pixelCanvas`, avec ses repères (pelure d'oignon des
+    /// tuiles sous le plan, plans voisins aplatis dessous et dessus, grille de tuiles). Sans effet
+    /// — et le canevas est refermé — si le rang n'existe pas. Le garde-fou de perte de travail est
+    /// à la charge de l'appelant : cette méthode écrase le contenu du canevas.
+    void loadPlaneIntoCanvas(std::size_t index);
+    /// Écrit l'image du canevas dans le PNG du plan ouvert (`Ctrl+S` dans l'espace « Plans »).
+    /// Sans effet si aucun plan n'y est chargé.
+    void savePlaneImage();
+    /// Vide le canevas de son plan et retire les repères — l'atelier pixel art retrouve alors son
+    /// comportement du `LOT-54`, sans repère hérité du mode création.
+    void closePlaneInCanvas();
+    /// Reconstruit les repères du plan ouvert depuis le brouillon courant : appelé après toute
+    /// mutation qui les périme (ordre, densité, opacité, visibilité, taille du niveau).
+    void refreshPlaneReferences();
+    /// @return `true` si l'on peut poursuivre : rien à perdre dans le canevas, ou perte confirmée.
+    ///         Même garde que `confirmDiscardPixelChanges`, message propre au plan — un plan perdu
+    ///         est un dessin perdu, pas un asset qu'on retrouve dans la bibliothèque.
+    [[nodiscard]] bool confirmDiscardPlaneChanges();
+    /// @return Le chemin du PNG du plan de rang @p index, vide si le rang n'existe pas.
+    [[nodiscard]] std::filesystem::path planeFilePath(std::size_t index) const;
 
     /// Ouvre un sélecteur de couleur (`QColorDialog`) pour choisir librement la couleur courante du
     /// canevas — seul moyen d'atteindre une couleur absente à la fois de l'image ouverte (pipette)
@@ -377,6 +408,11 @@ private:
     /// enregistré (LOT-54 TACHE-05) — `PixelCanvas::assetName()` n'en garde que le nom de fichier,
     /// pour l'affichage ; ce chemin sert à `savePixelAsset` pour retrouver le dossier.
     std::filesystem::path _pixelAssetPath;
+    /// Rang du plan actuellement peint dans `_pixelCanvas` (mode création, `LOT-69` TACHE-08) ;
+    /// absent dès que le canevas sert à l'atelier pixel art. C'est ce qui distingue les deux
+    /// usages du **même** canevas : où `Ctrl+S` écrit, quels repères afficher, et ce que la barre
+    /// d'état annonce. Un plan et un asset n'y sont jamais ouverts en même temps.
+    std::optional<std::size_t> _paintedPlane;
     EditorActions*
         _actions;  ///< Outils et commandes principales, barre d'outils (LOT-56 TACHE-04).
     /// Espace de travail actif (`LOT-68`). Persisté : on rouvre l'éditeur là où on l'a laissé.

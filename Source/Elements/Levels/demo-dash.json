@@ -569,30 +569,14 @@
       "type": "solid"
     }
   ],
-  "decors": [
+  "planes": [
     {
-      "asset": "kenney_torch.png",
-      "x": 8.0,
-      "y": 3.0,
-      "layer": "background"
+      "file": "demo-dash-fond.png",
+      "pixelsPerUnit": 8
     },
     {
-      "asset": "rock.png",
-      "x": 19.0,
-      "y": 3.3,
-      "layer": "background"
-    },
-    {
-      "asset": "gear.png",
-      "x": 9.0,
-      "y": 1.0,
-      "layer": "background"
-    },
-    {
-      "asset": "lantern.png",
-      "x": 18.0,
-      "y": 0.2,
-      "layer": "foreground"
+      "file": "demo-dash-devant.png",
+      "depth": "front"
     }
   ]
 }

@@ -36,6 +36,12 @@ LevelDraft LevelDraft::fromLevel(const Level& level) {
     draft._cameraFraming = level.cameraFraming();
     draft._airJumps = level.airJumps();
     draft._dashCharges = level.dashCharges();
+    // Plans picturaux et drapeau de parallaxe (LOT-69). Les oublier ici ne casse rien
+    // visiblement : le brouillon s'ouvre, s'edite et s'enregistre -- mais il se reenregistre SANS
+    // ses plans, donc ouvrir un niveau habille puis le sauver en effacait tout l'habillage. Defaut
+    // constate a l'essai, invisible en relecture parce que le champ manquant ne fait rien echouer.
+    draft._planes = level.planes();
+    draft._parallaxEnabled = level.parallaxEnabled();
     return draft;
 }
 
@@ -635,8 +641,8 @@ void LevelDraft::pushUndo() {
 LevelLoadResult LevelDraft::toLevel() const {
     const std::string json = LevelWriter::buildJson(
         _name, _tileMap, _mechanisms, _jumpBudget, _dashBudget, _dangerLinks, _moverConfigs,
-        _blinkConfigs, _background, _skinSet, _textureOverrides, _platformConfigs,
-        _cameraFraming, _airJumps, _dashCharges, _planes, _parallaxEnabled);
+        _blinkConfigs, _background, _skinSet, _textureOverrides, _platformConfigs, _cameraFraming,
+        _airJumps, _dashCharges, _planes, _parallaxEnabled);
     return LevelLoader::loadFromString(json);
 }
 

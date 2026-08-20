@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <cstddef>
 #include <filesystem>
 #include <string>
 #include <vector>
@@ -126,5 +127,38 @@ void composePlanes(ComposedScene& scene, const std::vector<core::Plane>& planes,
                    const std::vector<PlaneTexture>& textures, int levelWidth, int levelHeight,
                    RenderMode mode, const PlaneVisibility& visibility = PlaneVisibility{},
                    const PlaneParallax& parallax = PlaneParallax{});
+
+/// Octets par texel d'une texture de plan : `R8G8B8A8_UNORM`, comme toute texture du projet.
+inline constexpr std::size_t PLANE_TEXTURE_BYTES_PER_PIXEL = 4;
+
+/**
+ * @brief Mémoire de texture qu'un plan **exige du format**, en octets (`EX-NFR-043`).
+ *
+ * Dérivée de la taille du niveau et de la densité (`hmi::planePixelSize`) — donc de ce que le
+ * niveau *déclare*, jamais de ce qui se trouve sur le disque. C'est le sens utile pour un budget :
+ * un plan dont l'image manque coûterait le damier de repli, ce qui masquerait précisément le coût
+ * qu'on veut plafonner.
+ *
+ * Le budget du `LOT-62` plafonne des **primitives par niveau**. Les plans le prennent à
+ * contre-pied : ils ajoutent un seul quad chacun, mais occupent une texture à l'échelle du niveau.
+ * Un plafond exprimé en primitives laisserait donc passer un niveau 200 × 100 à densité native, à
+ * 20 Mo **par plan**. D'où ce second axe.
+ * @param plane       Plan mesuré.
+ * @param levelWidth  Largeur du niveau, en cases.
+ * @param levelHeight Hauteur du niveau, en cases.
+ * @return Son poids en octets ; `0` si la densité ou les dimensions sont hors format.
+ */
+[[nodiscard]] std::size_t planeTextureMemoryBytes(const core::Plane& plane, int levelWidth,
+                                                  int levelHeight) noexcept;
+
+/**
+ * @brief Somme de `hmi::planeTextureMemoryBytes` sur tous les plans d'un niveau.
+ * @param planes      Plans du niveau.
+ * @param levelWidth  Largeur du niveau, en cases.
+ * @param levelHeight Hauteur du niveau, en cases.
+ * @return Le poids total en octets.
+ */
+[[nodiscard]] std::size_t planesTextureMemoryBytes(const std::vector<core::Plane>& planes,
+                                                   int levelWidth, int levelHeight) noexcept;
 
 }  // namespace hmi

@@ -394,24 +394,14 @@
       "type": "solid"
     }
   ],
-  "decors": [
+  "planes": [
     {
-      "asset": "rock.png",
-      "x": 20.0,
-      "y": 9.3,
-      "layer": "background"
+      "file": "demo-pente-gauche-fond.png",
+      "pixelsPerUnit": 8
     },
     {
-      "asset": "branch.png",
-      "x": 6.0,
-      "y": 6.3,
-      "layer": "foreground"
-    },
-    {
-      "asset": "grass_tuft.png",
-      "x": 8.0,
-      "y": 10.4,
-      "layer": "background"
+      "file": "demo-pente-gauche-devant.png",
+      "depth": "front"
     }
   ]
 }

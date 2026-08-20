@@ -9,9 +9,10 @@ Niveaux du jeu, un fichier **JSON** par niveau (`EX-LVL-001`, `EX-LVL-003`).
   prioritaire sur le skin de son type, indépendante du type lui-même.
 - Champs racine optionnels d'habillage (`LOT-65`, aucun n'affecte la géométrie/collision) :
   `"background"` (nom d'asset de `Assets/Backgrounds/`, `EX-REN-044`), `"skinSet"` (nom d'un jeu de
-  `skins.json`, `EX-EDIT-024` — absent = jeu par défaut), `"decors"` (liste d'objets `{ "asset",
-  "x", "y", "layer" }`, `EX-DEC-001`/`EX-DEC-002`, position en unités monde **flottantes**, jamais
-  calée sur la grille), et `"cameraFraming"` (`{ "mode", "roomWidthTiles"?, "roomHeightTiles"?,
+  `skins.json`, `EX-EDIT-024` — absent = jeu par défaut), `"planes"` (liste **ordonnée** d'objets
+  `{ "file", "pixelsPerUnit"?, "parallaxX"?, "parallaxY"?, "opacity"?, "depth"? }`, `EX-DEC-040` à
+  `EX-DEC-043`, `LOT-69` — voir « Plans picturaux » ci-dessous), `"parallax"` (booléen, `true` par
+  défaut), et `"cameraFraming"` (`{ "mode", "roomWidthTiles"?, "roomHeightTiles"?,
   "zones"? }`, `EX-LVL-006`, `LOT-64` — `mode` vaut `"wholeLevel"`/`"perRoom"`/`"follow"`, absent =
   règle de repli par dimensions, cf. `core::resolveCameraFraming`).
 - Types de tuiles : `entry`, `exit`, `solid`, `danger`, `switch`, `pressurePlate`, `door`,
@@ -71,8 +72,8 @@ au joueur :
 1. **Couverture et profondeur** (`test_couverture_mecaniques.cpp`, `EX-LVL-015`) : chaque type de
    tuile est posé au moins **trois** fois dans la séquence, chaque mode de cadrage apparaît, et
    chaque variante significative est employée — danger temporisé déphasé, danger mobile vertical,
-   budget de sauts **et** budget de dashs comptés séparément, texture par instance, décor de premier
-   plan, zones de caméra dessinées, taille de salle choisie par le niveau.
+   budget de sauts **et** budget de dashs comptés séparément, texture par instance, plan pictural de
+   premier plan, zones de caméra dessinées, taille de salle choisie par le niveau.
 2. **Anti-couloir** (`test_parcours_complet.cpp`) : aucun tableau ne se franchit en maintenant
    « droite », hors exclusion nommée et justifiée (`demo-deplacement`, dont c'est le sujet).
 3. **Proximité au trajet** (même fichier) : chaque tuile de mécanique passe à portée d'un saut du
@@ -125,6 +126,24 @@ porte désormais le cadrage *par salle*) ont été supprimés au second temps.
 
 Détail des défauts constatés en construisant cette séquence : voir `CHANGELOG.md`, section
 *Non publié*.
+
+### Plans picturaux (`Plans/`)
+
+Depuis le `LOT-69`, l'habillage d'un niveau n'est plus un assemblage d'images posées mais une
+**surface peinte** : un ou plusieurs **plans**, chacun un PNG couvrant le niveau entier, rangés
+dans le sous-dossier `Plans/` et référencés par nom depuis le champ `"planes"` du niveau.
+
+- **L'ordre de la liste est significatif** : il décide de la superposition à profondeur égale.
+- `pixelsPerUnit` (4, 8 ou 16 ; 16 par défaut, la densité native) fixe les dimensions **exactes**
+  du PNG : `width × pixelsPerUnit` par `height × pixelsPerUnit`. Un plan mal dimensionné n'est pas
+  une erreur de chargement — c'est `Source/Test/Systeme/test_plans_livres.cpp` qui l'attrape.
+- `depth` vaut `"behind"` (défaut, derrière les tuiles) ou `"front"` (devant le personnage).
+- `parallaxX`/`parallaxY` ne produisent un effet que si la caméra **défile** : en cadrage
+  *niveau entier*, le moteur les neutralise et l'éditeur grise la case en l'expliquant.
+
+Les plans livrés sont **générés**, jamais dessinés à la main : `python scripts/generate_demo_plans.py`
+les reconstruit à l'identique (reproductibilité, `LOT-66`). Leurs motifs sources vivent dans
+`scripts/motifs/`.
 
 ### `sequence-demo.json`
 Objet JSON : `version` (`EX-LVL-005`, absente = version initiale), `titleKey` (clé de traduction du

@@ -7,7 +7,7 @@
 ## Le problème : quitter l'application pour changer un pixel
 
 Depuis le `LOT-42`, l'apparence d'un niveau tient dans des fichiers image : planches de skins,
-fonds, objets, décors, images d'animation. Le `LOT-43` a donné de quoi les **importer**, les
+fonds, objets, plans picturaux, images d'animation. Le `LOT-43` a donné de quoi les **importer**, les
 renommer, les recharger à chaud — mais pas de quoi les **modifier**. Corriger un pixel mal placé
 demandait d'ouvrir un éditeur externe, enregistrer, revenir, attendre le rechargement, constater,
 recommencer. Sur un raccord automatique à seize cases, où la justesse d'un bord ne se voit qu'une
@@ -126,7 +126,7 @@ au précédent.
 une courte progression de tailles **dérivées** du contrat d'asset (`hmi::assetDimensionContract`,
 `EX-REN-007`) — jamais une seconde description des mêmes règles. L'intention est de rendre une
 création non conforme **impossible**, plutôt que de la refuser après coup au chargement. Une
-famille à dimensions libres (fond, décor, police) renvoie une liste vide : l'appelant offre alors
+famille à dimensions libres (fond, police) renvoie une liste vide : l'appelant offre alors
 une saisie libre.
 
 ## Voir le raccord avant de l'avoir posé

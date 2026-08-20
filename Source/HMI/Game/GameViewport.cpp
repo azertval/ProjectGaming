@@ -897,6 +897,14 @@ void GameViewport::initialize(QRhiCommandBuffer* commandBuffer) {
     if (_rhiContext.rhi == rhi()) {
         return;  // même interface : les ressources déjà créées restent valides.
     }
+    // Une session en cours ne survit pas a la liberation ci-dessous (elle tient l'atlas, la police
+    // et le lot de sprites) : on retient ce qu'il faudra REMONTER, sinon l'ecran retombe
+    // silencieusement sur le brouillon -- defaut reel constate au portage QRhi, ou « Jouer »
+    // depuis le menu affichait le niveau en mode edition. Le cas nominal n'est meme pas un
+    // changement d'interface tardif : c'est la TOUTE PREMIERE image. Le viewport n'est peint
+    // qu'une fois affiche, donc initialize() passe APRES startGame(), qui a deja demande la
+    // session.
+    const bool restorePlaytest = _session.has_value() && !_gameMode;
     // Changement d'interface (première image, ou widget passé sous une autre fenêtre de haut
     // niveau) : tout ce qui tient une texture est caduc. Ordre de libération : la session et les
     // rendus AVANT les textures qu'ils référencent.
@@ -907,6 +915,15 @@ void GameViewport::initialize(QRhiCommandBuffer* commandBuffer) {
     // Téléversements accumulés par la création des textures : soumis ici, hors de toute passe.
     commandBuffer->resourceUpdate(_rhiContext.updates);
     _rhiContext.updates = nullptr;
+    // Remontage de la session, une fois les ressources disponibles. Le tableau repart de son
+    // debut : l'avancee dans la salle n'est pas rejouable, et la reprendre a mi-course exigerait
+    // de serialiser toute la simulation pour un cas qui ne se produit qu'a la premiere image ou
+    // au changement d'interface de rendu.
+    if (_gameMode) {
+        loadGameLevel(_gameLevel);
+    } else if (restorePlaytest) {
+        startPlaytest();
+    }
     _previousFrame = Clock::now();
 }
 
@@ -1343,6 +1360,14 @@ void GameViewport::loadGameLevel(std::size_t index) {
     _runStats = LevelRunStats{};
     HMI_LOG_INFO("Jeu : niveau " + std::to_string(index) +
                  " charge : " + _gameLevels[index].filename().string());
+    if (_spriteBatch == nullptr) {
+        // Les ressources de rendu n'existent pas encore : QRhiWidget ne les cree qu'a la premiere
+        // image, et le viewport n'est peint qu'une fois affiche -- donc APRES ce chemin quand on
+        // lance une partie depuis le menu. Le tableau reste designe (`_gameMode`, `_gameLevel`) et
+        // `initialize()` remonte la session des qu'il le peut. Emplacer ici lierait une reference
+        // a un lot de sprites nul.
+        return;
+    }
     _session.emplace(*_spriteBatch, *_atlas, *_textureCache, pixelWidth(), pixelHeight(),
                      std::move(*loaded.level), _gameBindings, _gamepadBindings, *_font, _loc);
     _session->setSkins(&_skins, _skinSet);

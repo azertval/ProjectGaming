@@ -1,6 +1,6 @@
 # Plans picturaux & pipeline pixel art {#spec-decors}
 
-> Statut : **en cours** (`LOT-69`). Le système de **décors-sprites** (`LOT-49`/`LOT-50`) est
+> Statut : **livré** (`LOT-69`). Le système de **décors-sprites** (`LOT-49`/`LOT-50`) est
 > **retiré** et remplacé par des **plans picturaux** : un décor n'est plus un objet posé, c'est une
 > surface peinte à l'échelle du niveau. Les exigences retirées sont conservées en fin de page
 > (section [Exigences retirées](#dec-retirees)), leur texte intact, pour que les documents des lots

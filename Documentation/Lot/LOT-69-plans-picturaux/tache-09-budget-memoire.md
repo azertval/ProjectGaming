@@ -1,7 +1,7 @@
 # TACHE-09 — Budget de mémoire de texture {#lot-69-tache-09-budget-memoire}
 
 **Lot :** [LOT-69](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/Test` ·
-**Statut :** non commencé
+**Statut :** livré
 
 ## Contexte
 Le budget de rendu du `LOT-62` est un plafond de **primitives par niveau livré**

@@ -24,6 +24,13 @@ void ComposedScene::clear() noexcept {
     _textureOrder.clear();
     _considered = 0;
     _culled = 0;
+    _textureBytes = 0;
+}
+
+// Memoire de texture d'une primitive deja ajoutee (EX-NFR-043) : simple accumulation, l'emetteur
+// decide seul de ce qui compte (voir l'en-tete -- aujourd'hui les seuls plans picturaux).
+void ComposedScene::addTextureBytes(std::size_t bytes) noexcept {
+    _textureBytes += bytes;
 }
 
 // Restreint la composition aux primitives visibles dans un cadrage donne (EX-NFR-005). Le
@@ -143,6 +150,7 @@ SceneStatistics ComposedScene::statistics() const noexcept {
     stats.culled = _culled;
     stats.submitted = static_cast<int>(_quads.size());
     stats.batches = batchCount();
+    stats.textureBytes = _textureBytes;
     return stats;
 }
 
@@ -151,7 +159,8 @@ std::string formatSceneStatistics(const SceneStatistics& statistics) {
     return "Rendu : " + std::to_string(statistics.considered) + " primitive(s) composee(s), " +
            std::to_string(statistics.culled) + " ecartee(s) hors cadrage, " +
            std::to_string(statistics.submitted) + " soumise(s) en " +
-           std::to_string(statistics.batches) + " passe(s).";
+           std::to_string(statistics.batches) + " passe(s), " +
+           std::to_string(statistics.textureBytes / 1024) + " Kio de plans.";
 }
 
 // Boite englobante d'un rectangle texture, en unites monde -- tient compte de la rotation

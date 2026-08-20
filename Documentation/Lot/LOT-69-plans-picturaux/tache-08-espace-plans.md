@@ -1,7 +1,7 @@
 # TACHE-08 — Espace « Plans », panneau et cycle de vie des fichiers {#lot-69-tache-08-espace-plans}
 
 **Lot :** [LOT-69](epic.md) · **Emplacement :** `Source/HMI/{Editor,Interface}`,
-`Source/Elements/UI` · **Statut :** non commencé
+`Source/Elements/UI` · **Statut :** livré
 
 ## Contexte
 Le `LOT-68` a introduit des **espaces de travail exclusifs** (`hmi::EditorWorkspace`) : édition de

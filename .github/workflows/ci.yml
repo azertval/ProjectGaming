@@ -415,6 +415,13 @@ jobs:
       - name: Sequence de niveaux demo (LOT-25) synchronisee
         run: python3 scripts/check_demo_sequence.py
 
+      # Les plans picturaux livres sont GENERES (LOT-69) : commites pour que le jeu tourne sans
+      # Python, mais reproductibles depuis les sources. Sans ce controle, une retouche du
+      # generateur pourrait ne jamais atteindre les images -- ou l'inverse, une image editee a la
+      # main ne plus se reconstruire. Les deux videraient le choix de la reproductibilite.
+      - name: Plans picturaux livres reproductibles (LOT-69)
+        run: python3 scripts/generate_demo_plans.py --check
+
   docs:
     # Génère la documentation Doxygen (garde-fou WARN_AS_ERROR) pour valider la
     # doc dès la PR, avec la même version de Doxygen que le déploiement (docs.yml).

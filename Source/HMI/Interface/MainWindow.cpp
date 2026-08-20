@@ -74,6 +74,7 @@
 #include "HMI/Editor/TexturePanel.h"
 #include "HMI/Game/GameViewport.h"
 #include "HMI/Graphics/AssetContract.h"
+#include "HMI/Graphics/PlaneVisuals.h"
 #include "HMI/Graphics/TextureLoader.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Input/GamepadButton.h"
@@ -117,6 +118,9 @@ constexpr char STATE_KEY[] = "mainWindow/state";
 constexpr char FOLLOW_ACTIVE_TOOL_KEY[] = "panels/followActiveTool";
 // Espace de travail actif (LOT-68) : meme portee QSettings que la disposition et le theme.
 constexpr char WORKSPACE_KEY[] = "mainWindow/workspace";
+/// Opacite des reperes du mode creation (pelure d'oignon, plans voisins) : assez visible pour
+/// situer, assez efface pour qu'on ne confonde jamais un repere avec ce qu'on peint.
+constexpr float PLANE_REFERENCE_OPACITY = 0.45f;
 // Reglage "contraindre a la palette" de l'atelier pixel art (LOT-54 TACHE-07).
 constexpr char CONSTRAIN_TO_PALETTE_KEY[] = "pixelEditor/constrainToPalette";
 
@@ -450,11 +454,15 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
 
     // Espace de travail persiste (LOT-68) : on rouvre l'editeur la ou on l'a laisse. Applique
     // APRES restoreLayout, qui restaurerait sinon des docks des deux espaces.
-    const bool startInWorkshop =
-        QSettings().value(QString::fromLatin1(WORKSPACE_KEY), 0).toInt() == 1;
-    _ui->actWorkspacePixelArt->setChecked(startInWorkshop);
-    _ui->actWorkspaceLevel->setChecked(!startInWorkshop);
-    applyWorkspace(startInWorkshop ? EditorWorkspace::PixelArt : EditorWorkspace::Level);
+    // Le mode creation n'est JAMAIS restaure au demarrage, meme si l'editeur y a ete laisse : il
+    // suppose un niveau ouvert et un plan selectionne, dont rien ne garantit qu'ils existent
+    // encore. On rouvre alors sur l'edition de niveau, d'ou « Peindre » y ramene en un clic.
+    const EditorWorkspace restored =
+        workspaceFromSettingsName(QSettings().value(QString::fromLatin1(WORKSPACE_KEY)).toString());
+    const EditorWorkspace startWorkspace =
+        restored == EditorWorkspace::Planes ? EditorWorkspace::Level : restored;
+    workspaceSelector(startWorkspace)->setChecked(true);
+    applyWorkspace(startWorkspace);
 
     showMenu();  // l'application démarre sur le menu principal.
 }
@@ -601,6 +609,10 @@ void MainWindow::connectPlanesPanel() {
     const auto refreshPlanes = [this] {
         _planes->refresh(_viewport->draft(), _viewport->selectedPlaneIndex(),
                          _viewport->planeVisibility());
+        // Les reperes du mode creation montrent les plans VOISINS : toute mutation qui change leur
+        // ordre, leur opacite ou leur visibilite les perime. Les rafraichir ici couvre chaque
+        // mutation d'un seul geste, plutot qu'une ligne oubliee sur la neuvieme.
+        refreshPlaneReferences();
     };
 
     connect(_planes, &PlanesPanel::planeSelected, _viewport, &GameViewport::selectPlane);
@@ -616,7 +628,15 @@ void MainWindow::connectPlanesPanel() {
     });
     connect(_planes, &PlanesPanel::paintRequested, this, [this](std::size_t index) {
         _viewport->selectPlane(index);
-        applyWorkspace(hmi::EditorWorkspace::Planes);
+        if (_workspace == hmi::EditorWorkspace::Planes) {
+            // Deja en mode creation : switchToWorkspace ne ferait rien (meme espace), c'est donc
+            // ici que le changement de plan doit charger le nouveau sujet dans le canevas.
+            if (_paintedPlane != index && confirmDiscardPlaneChanges()) {
+                loadPlaneIntoCanvas(index);
+            }
+            return;
+        }
+        switchToWorkspace(hmi::EditorWorkspace::Planes);
     });
     connect(_planes, &PlanesPanel::reorderRequested, _viewport, &GameViewport::movePlane);
     connect(_planes, &PlanesPanel::depthChangeRequested, this,
@@ -713,6 +733,181 @@ void MainWindow::changePlaneDensity(std::size_t index, int pixelsPerUnit) {
     _viewport->reloadAssets();
     _planes->refresh(_viewport->draft(), _viewport->selectedPlaneIndex(),
                      _viewport->planeVisibility());
+    // Le plan peint vient peut-etre de changer de resolution sous le canevas : le relire est plus
+    // sur que de rehausser l'image en place, l'image de reference du disque etant l'autorite.
+    if (_paintedPlane == index) {
+        loadPlaneIntoCanvas(index);
+    }
+}
+
+std::filesystem::path MainWindow::planeFilePath(std::size_t index) const {
+    const std::vector<core::Plane>& planes = _viewport->draft().planes();
+    if (index >= planes.size()) {
+        return {};
+    }
+    return planesDirectory() / planes[index].fileName;
+}
+
+void MainWindow::loadPlaneIntoCanvas(std::size_t index) {
+    const std::filesystem::path path = planeFilePath(index);
+    if (path.empty()) {
+        closePlaneInCanvas();
+        return;
+    }
+    const core::Plane& plane = _viewport->draft().planes()[index];
+
+    // Image absente ou illisible : on repart d'une surface TRANSPARENTE aux dimensions attendues
+    // plutot que de refuser d'ouvrir. Le fichier a pu etre supprime hors de l'editeur, et un plan
+    // qu'on ne peut plus peindre serait une impasse -- l'enregistrement le recreera (EX-NFR-040).
+    const hmi::PlanePixelSize size =
+        hmi::planePixelSize(_viewport->levelWidth(), _viewport->levelHeight(), plane.pixelsPerUnit);
+    std::optional<hmi::DecodedImage> image = hmi::decodeImageFile(path);
+    if (!image || image->width != size.width || image->height != size.height) {
+        if (size.width <= 0) {
+            closePlaneInCanvas();
+            showTransientStatusMessage(text("planes.paint_failed"), 4000);
+            return;
+        }
+        hmi::DecodedImage blank;
+        blank.width = size.width;
+        blank.height = size.height;
+        blank.pixels.assign(
+            static_cast<std::size_t>(size.width) * static_cast<std::size_t>(size.height), 0u);
+        image = std::move(blank);
+    }
+
+    // setImage vide l'historique : un coup de pinceau dans un plan n'apparait JAMAIS dans
+    // l'historique d'edition du niveau, ni reciproquement (critere d'acceptation du lot). Les deux
+    // piles sont deja distinctes -- LevelDraft d'un cote, PixelHistory de l'autre -- et changer de
+    // sujet dans le canevas repart d'une pile vierge.
+    _pixelCanvas->setImage(std::move(*image));
+    _pixelCanvas->setAssetName(plane.fileName);
+    _pixelAssetPath.clear();  // un plan n'est pas un asset : Ctrl+S passe par savePlaneImage.
+    _paintedPlane = index;
+    refreshPlaneReferences();
+    syncPaletteToCanvas();
+    refreshStatusHelp();
+}
+
+void MainWindow::refreshPlaneReferences() {
+    if (!_paintedPlane) {
+        return;
+    }
+    const core::LevelDraft& draft = _viewport->draft();
+    const std::vector<core::Plane>& planes = draft.planes();
+
+    // Le rang du plan peint est re-resolu par son NOM DE FICHIER a chaque rafraichissement, jamais
+    // conserve tel quel : monter ou descendre un plan change les rangs, et un rang memorise
+    // designerait alors le voisin -- on peindrait dans une image et on en verrait une autre. Le
+    // nom, lui, suit le plan. S'il a disparu de la liste, le plan a ete retire : on referme.
+    const std::string& painted = _pixelCanvas->assetName();
+    const auto found = std::ranges::find_if(
+        planes, [&painted](const core::Plane& plane) { return plane.fileName == painted; });
+    if (found == planes.end()) {
+        closePlaneInCanvas();
+        return;
+    }
+    _paintedPlane = static_cast<std::size_t>(std::distance(planes.begin(), found));
+    const int density = found->pixelsPerUnit;
+
+    // Les plans voisins, aplatis de part et d'autre du plan peint : ceux qui le precedent sous
+    // l'image editee, ceux qui le suivent au-dessus. C'est ce qui rend l'ordre de la liste visible
+    // pendant qu'on peint, plutot qu'apres coup a l'essai.
+    std::vector<hmi::PlaneLayer> below;
+    std::vector<hmi::PlaneLayer> above;
+    std::vector<std::optional<hmi::DecodedImage>> images(planes.size());
+    for (std::size_t rank = 0; rank < planes.size(); ++rank) {
+        if (rank == *_paintedPlane) {
+            continue;
+        }
+        images[rank] = hmi::decodeImageFile(planeFilePath(rank));
+        if (!images[rank]) {
+            continue;
+        }
+        hmi::PlaneLayer layer;
+        layer.image = &*images[rank];
+        layer.pixelsPerUnit = planes[rank].pixelsPerUnit;
+        layer.opacity = planes[rank].opacity;
+        layer.visible = _viewport->planeVisibility().visible(rank);
+        (rank < *_paintedPlane ? below : above).push_back(layer);
+    }
+
+    const int width = _viewport->levelWidth();
+    const int height = _viewport->levelHeight();
+    // Pelure d'oignon des tuiles SOUS les plans arriere : la geometrie du niveau est le repere le
+    // plus lointain, tout le reste se peint par-dessus.
+    hmi::DecodedImage underlay = hmi::buildTileOnionSkin(draft, density);
+    if (!below.empty()) {
+        std::vector<hmi::PlaneLayer> stack;
+        hmi::PlaneLayer tiles;
+        tiles.image = &underlay;
+        tiles.pixelsPerUnit = density;
+        stack.push_back(tiles);
+        stack.insert(stack.end(), below.begin(), below.end());
+        underlay = hmi::flattenPlanes(stack, density, width, height);
+    }
+    _pixelCanvas->setUnderlay(std::move(underlay), PLANE_REFERENCE_OPACITY);
+    _pixelCanvas->setOverlay(hmi::flattenPlanes(above, density, width, height),
+                             PLANE_REFERENCE_OPACITY);
+    // Grille de TUILES, distincte de la grille de pixels : sur un plan, c'est elle qui permet de
+    // viser une case. Son pas est la densite meme du plan (un pixel par unite x densite).
+    _pixelCanvas->setReferenceGridStep(density);
+}
+
+void MainWindow::closePlaneInCanvas() {
+    if (!_paintedPlane) {
+        return;
+    }
+    _paintedPlane.reset();
+    _pixelCanvas->setImage(hmi::DecodedImage{});
+    _pixelCanvas->setAssetName({});
+    // Les reperes appartiennent au mode creation : les laisser derriere soi les ferait apparaitre
+    // dans l'atelier pixel art, qui n'en a jamais demande (LOT-54 inchange).
+    _pixelCanvas->setUnderlay(hmi::DecodedImage{});
+    _pixelCanvas->setOverlay(hmi::DecodedImage{});
+    _pixelCanvas->setReferenceGridStep(0);
+    refreshStatusHelp();
+}
+
+void MainWindow::savePlaneImage() {
+    if (!_paintedPlane) {
+        return;
+    }
+    const std::filesystem::path path = planeFilePath(*_paintedPlane);
+    if (path.empty()) {
+        closePlaneInCanvas();
+        return;
+    }
+    std::error_code error;
+    std::filesystem::create_directories(path.parent_path(), error);
+    if (!hmi::encodeImageFile(path, _pixelCanvas->image())) {
+        showTransientStatusMessage(text("planes.save_failed"), 4000);
+        return;
+    }
+    _pixelCanvas->markSaved();
+    // Le niveau affiche derriere doit montrer ce qu'on vient d'enregistrer : sans cette
+    // invalidation, le viewport garderait la texture chargee a l'ouverture du niveau.
+    _viewport->reloadAssets();
+    showTransientStatusMessage(
+        text("planes.saved").arg(QString::fromStdString(path.filename().string())), 3000);
+    refreshStatusHelp();
+}
+
+bool MainWindow::confirmDiscardPlaneChanges() {
+    if (!_paintedPlane || !_pixelCanvas->isDirty()) {
+        return true;
+    }
+    const QMessageBox::StandardButton answer =
+        QMessageBox::question(this, text("planes.discard_title"), text("planes.discard_text"),
+                              QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    if (answer == QMessageBox::Cancel) {
+        return false;
+    }
+    if (answer == QMessageBox::Save) {
+        savePlaneImage();
+        return !_pixelCanvas->isDirty();  // l'ecriture a pu echouer : ne rien perdre alors.
+    }
+    return true;
 }
 
 void MainWindow::resizeEvent(QResizeEvent* event) {
@@ -1327,8 +1522,16 @@ void MainWindow::buildUi() {
     _pixelMenu->addAction(_actions->action(hmi::IconId::PixelRotateClockwise));
     _pixelMenu->addAction(_actions->action(hmi::IconId::PixelRotateCounterClockwise));
 
-    connect(_actions->action(hmi::IconId::Save), &QAction::triggered, _viewport,
-            [this] { _viewport->save(); });
+    // Ctrl+S ecrit ce que l'espace courant edite : le PNG du plan en mode creation, le JSON du
+    // niveau partout ailleurs (LOT-69 TACHE-08). Deux notions de « modifie » distinctes depuis le
+    // LOT-54 -- le canevas et le brouillon -- donc deux enregistrements distincts.
+    connect(_actions->action(hmi::IconId::Save), &QAction::triggered, this, [this] {
+        if (_workspace == hmi::EditorWorkspace::Planes) {
+            savePlaneImage();
+            return;
+        }
+        _viewport->save();
+    });
     connect(_actions->action(hmi::IconId::Playtest), &QAction::triggered, _viewport,
             [this] { _viewport->startPlaytest(); });
     // Annuler/Refaire/Copier/Coller dispatchent via le contexte d'edition actif (_editContext,
@@ -1461,12 +1664,18 @@ void MainWindow::buildUi() {
     // Selecteur d'espace de travail (LOT-68) : groupe exclusif, aucun etat intermediaire.
     auto* const workspaceGroup = new QActionGroup(this);
     workspaceGroup->setExclusive(true);
-    _ui->actWorkspaceLevel->setActionGroup(workspaceGroup);
-    _ui->actWorkspacePixelArt->setActionGroup(workspaceGroup);
-    connect(_ui->actWorkspaceLevel, &QAction::triggered, this,
-            [this] { applyWorkspace(hmi::EditorWorkspace::Level); });
-    connect(_ui->actWorkspacePixelArt, &QAction::triggered, this,
-            [this] { applyWorkspace(hmi::EditorWorkspace::PixelArt); });
+    // Les trois entrees derivees de l'enumeration, jamais recopiees une a une : c'est ce qui a
+    // laisse l'outil « Parcours » debranche au LOT-67, et un espace oublie ici ne se verrait qu'a
+    // l'usage. Elles passent toutes par switchToWorkspace -- point d'entree unique, qui seul sait
+    // enregistrer la disposition qu'on quitte et changer le sujet du canevas.
+    for (const hmi::EditorWorkspace workspace :
+         {hmi::EditorWorkspace::Level, hmi::EditorWorkspace::Planes,
+          hmi::EditorWorkspace::PixelArt}) {
+        QAction* const selector = workspaceSelector(workspace);
+        selector->setActionGroup(workspaceGroup);
+        connect(selector, &QAction::triggered, this,
+                [this, workspace] { switchToWorkspace(workspace); });
+    }
 
     _actFollowActiveTool = _ui->actFollowActiveTool;
     _actFollowActiveTool->setChecked(
@@ -1591,13 +1800,83 @@ void MainWindow::openShortcutsDialog() {
 }
 
 QString MainWindow::layoutKeyFor(EditorWorkspace workspace) {
-    return workspace == EditorWorkspace::PixelArt ? QStringLiteral("mainWindow/state.pixelart")
-                                                  : QStringLiteral("mainWindow/state.level");
+    switch (workspace) {
+        case EditorWorkspace::Level:
+            return QStringLiteral("mainWindow/state.level");
+        case EditorWorkspace::Planes:
+            return QStringLiteral("mainWindow/state.planes");
+        case EditorWorkspace::PixelArt:
+            return QStringLiteral("mainWindow/state.pixelart");
+    }
+    return QStringLiteral("mainWindow/state.level");
+}
+
+// Nom persiste d'un espace de travail. Un NOM, pas l'indice de l'enumeration : le LOT-68 ecrivait
+// 0/1, et l'insertion de « Plans » entre les deux aurait fait rouvrir en mode creation l'editeur
+// laisse dans l'atelier. Un nom inconnu (dont ces anciens 0/1) retombe sur l'edition de niveau.
+QString MainWindow::workspaceSettingsName(EditorWorkspace workspace) {
+    switch (workspace) {
+        case EditorWorkspace::Level:
+            return QStringLiteral("level");
+        case EditorWorkspace::Planes:
+            return QStringLiteral("planes");
+        case EditorWorkspace::PixelArt:
+            return QStringLiteral("pixelart");
+    }
+    return QStringLiteral("level");
+}
+
+EditorWorkspace MainWindow::workspaceFromSettingsName(const QString& name) {
+    if (name == QStringLiteral("planes")) {
+        return EditorWorkspace::Planes;
+    }
+    if (name == QStringLiteral("pixelart")) {
+        return EditorWorkspace::PixelArt;
+    }
+    return EditorWorkspace::Level;
+}
+
+QAction* MainWindow::workspaceSelector(EditorWorkspace workspace) const {
+    switch (workspace) {
+        case EditorWorkspace::Level:
+            return _ui->actWorkspaceLevel;
+        case EditorWorkspace::Planes:
+            return _ui->actWorkspacePlanes;
+        case EditorWorkspace::PixelArt:
+            return _ui->actWorkspacePixelArt;
+    }
+    return _ui->actWorkspaceLevel;
 }
 
 void MainWindow::switchToWorkspace(EditorWorkspace workspace) {
     if (_workspace == workspace) {
         return;  // deja la : ne pas resauvegarder ni rejouer une disposition pour rien.
+    }
+    // Bascule annulee par un garde-fou : l'entree de menu s'est deja cochee toute seule (elles
+    // sont exclusives dans un QActionGroup), il faut donc rendre la coche a l'espace ou l'on reste
+    // -- sinon le menu annoncerait un espace different de celui qui est affiche.
+    const auto cancel = [this] {
+        QAction* const stay = workspaceSelector(_workspace);
+        const QSignalBlocker blocker(stay);
+        stay->setChecked(true);
+    };
+    // Le canevas est PARTAGE par les deux espaces de peinture (LOT-69 TACHE-08) : changer d'espace
+    // change son sujet, donc peut perdre ce qui n'y est pas enregistre. Le garde-fou est pose ici,
+    // une fois, plutot que sur chacun des chemins qui menent a un espace.
+    if (workspace == EditorWorkspace::Planes) {
+        // Un plan OU un asset, jamais les deux : le canevas n'a qu'un sujet a la fois, et poser
+        // les deux gardes en serie ferait poser deux fois la meme question.
+        if (_paintedPlane ? !confirmDiscardPlaneChanges() : !confirmDiscardPixelChanges()) {
+            cancel();
+            return;
+        }
+    } else if (_paintedPlane && workspace == EditorWorkspace::PixelArt) {
+        // L'atelier ne doit jamais retrouver un plan dans le canevas : Ctrl+S y ecrirait un asset.
+        if (!confirmDiscardPlaneChanges()) {
+            cancel();
+            return;
+        }
+        closePlaneInCanvas();
     }
     // La disposition de l'espace QUITTE est sauvegardee ICI, et non dans applyWorkspace : c'est
     // cette methode qui sait qu'on quitte vraiment un espace. A l'initialisation, il n'y a rien a
@@ -1605,18 +1884,27 @@ void MainWindow::switchToWorkspace(EditorWorkspace workspace) {
     QSettings().setValue(layoutKeyFor(_workspace), saveState(LAYOUT_VERSION));
     // Le selecteur suit l'etat, sans reemettre : c'est le MEME etat atteint par deux chemins
     // (menu, choix d'outil), jamais deux etats (EX-IHM-062).
-    QAction* const selector =
-        workspace == EditorWorkspace::PixelArt ? _ui->actWorkspacePixelArt : _ui->actWorkspaceLevel;
+    QAction* const selector = workspaceSelector(workspace);
     const QSignalBlocker blocker(selector);
     selector->setChecked(true);
     applyWorkspace(workspace);
+
+    // Charger le plan APRES l'habillage : le canevas doit etre visible quand il recoit son image,
+    // sinon son premier cadrage se calcule sur une taille de widget qui n'est pas encore la sienne.
+    if (workspace == EditorWorkspace::Planes) {
+        if (const std::optional<std::size_t> selected = _viewport->selectedPlaneIndex()) {
+            loadPlaneIntoCanvas(*selected);
+        } else {
+            closePlaneInCanvas();
+            showTransientStatusMessage(text("planes.none_selected"), 4000);
+        }
+    }
 }
 
 void MainWindow::applyWorkspace(EditorWorkspace workspace) {
     QSettings settings;
     _workspace = workspace;
-    settings.setValue(QString::fromLatin1(WORKSPACE_KEY),
-                      workspace == EditorWorkspace::PixelArt ? 1 : 0);
+    settings.setValue(QString::fromLatin1(WORKSPACE_KEY), workspaceSettingsName(workspace));
 
     // Toute la manipulation est gardee : masquer un dock emet visibilityChanged, que le suivi de
     // panneau prendrait sinon pour un choix d'onglet de l'utilisateur.
@@ -1754,7 +2042,12 @@ void MainWindow::refreshStatusHelp() {
     // contextes (niveau/atelier) dépend du widget qui a le focus clavier (_editContext, LOT-54
     // TACHE-04) -- jamais les deux en même temps (EX-IHM-062).
     if (_stack->currentWidget() == _viewport && menuBar()->isVisible()) {
-        if (_editContext == static_cast<EditContextTarget*>(_pixelCanvas)) {
+        // En mode creation, la barre parle du PLAN meme si le focus clavier n'est pas encore dans
+        // le canevas : l'espace n'a pas d'autre sujet, et annoncer le niveau et son zoom de camera
+        // pendant qu'on peint une image se lit comme un defaut (constate a l'essai). Ailleurs, la
+        // regle du LOT-54 est inchangee -- c'est le widget focalise qui decide.
+        const bool paintingPlane = _workspace == hmi::EditorWorkspace::Planes && _paintedPlane;
+        if (paintingPlane || _editContext == static_cast<EditContextTarget*>(_pixelCanvas)) {
             PixelEditStatusInfo pixel;
             pixel.assetName = _pixelCanvas->assetName();
             pixel.dirty = _pixelCanvas->isDirty();
@@ -1763,6 +2056,19 @@ void MainWindow::refreshStatusHelp() {
             pixel.zoom = _pixelCanvas->view().zoom;
             pixel.currentColor = _pixelCanvas->currentColor();
             pixel.paletteConstrained = _pixelCanvas->paletteConstrained();
+            // Mode creation : le canevas peint un plan, pas un asset. Trois informations de plus
+            // -- resolution, densite, poids memoire (EX-NFR-043) -- et rien d'autre ne change :
+            // meme canevas, memes outils, meme couleur courante.
+            if (_paintedPlane && *_paintedPlane < _viewport->draft().planes().size()) {
+                const core::Plane& plane = _viewport->draft().planes()[*_paintedPlane];
+                hmi::PlaneEditStatusInfo planeInfo;
+                planeInfo.widthPixels = _pixelCanvas->image().width;
+                planeInfo.heightPixels = _pixelCanvas->image().height;
+                planeInfo.pixelsPerUnit = plane.pixelsPerUnit;
+                planeInfo.textureBytes = hmi::planeTextureMemoryBytes(
+                    plane, _viewport->levelWidth(), _viewport->levelHeight());
+                pixel.plane = planeInfo;
+            }
             context.pixelEdit = pixel;
         } else {
             LevelStatusInfo level;
@@ -2118,6 +2424,7 @@ void MainWindow::retranslateUi() {
     _ui->viewMenu->setTitle(text("menubar.view"));
     _ui->workspaceMenu->setTitle(text("menubar.workspace"));
     _ui->actWorkspaceLevel->setText(text("menubar.workspace_level"));
+    _ui->actWorkspacePlanes->setText(text("menubar.workspace_planes"));
     _ui->actWorkspacePixelArt->setText(text("menubar.workspace_pixel_art"));
     _ui->layersMenu->setTitle(text("menubar.layers"));
     _ui->panelsMenu->setTitle(text("menubar.panels"));

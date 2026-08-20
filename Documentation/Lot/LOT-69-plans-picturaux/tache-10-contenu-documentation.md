@@ -1,28 +1,43 @@
 # TACHE-10 — Contenu, documentation et référentiel {#lot-69-tache-10-contenu-documentation}
 
 **Lot :** [LOT-69](epic.md) · **Emplacement :** `Source/Elements/Levels`, `Documentation` ·
-**Statut :** non commencé
+**Statut :** livré
 
 ## Contexte
-`demo-final.json` est le **seul** niveau livré à porter des décors — sept entrées. Il faut préserver
-son intention visuelle sans prétendre à une conversion mécanique : un assemblage de sprites ne
-devient pas une fresque peinte par transformation automatique.
+> **Correction en cours de tâche.** Le cadrage annonçait `demo-final.json` comme **seul** niveau
+> porteur de décors. C'est faux : **les vingt-deux** niveaux livrés en portent (soixante-deux
+> entrées au total, refondues au `LOT-65`), `demo-final` étant simplement le plus fourni avec sept.
+> Le report vaut donc pour tous, et la migration a été étendue en conséquence — laisser vingt et un
+> tableaux se dépouiller silencieusement de leur habillage aurait été la régression que ce lot
+> existe pour éviter.
+
+Il faut préserver leur intention visuelle sans prétendre à une conversion mécanique : un assemblage
+de sprites ne devient pas une fresque peinte par transformation automatique.
 
 Le volet référentiel est contraint par `scripts/lint_exigences.py` : chaque exigence déclarée
 **exactement une fois**, aucune référence orpheline, et toute exigence déclarée référencée quelque
 part.
 
 ## Travail à réaliser
-- **Migrer `demo-final.json`** : retirer `decors`, déclarer deux plans — un fond à densité 8 avec un
-  facteur inférieur à 1, un plan de devant à densité native avec un facteur supérieur à 1 — et le
-  drapeau de parallaxe.
-- **Générer les PNG** par un script (`scripts/generate_demo_plans.py`) qui **compose les assets de
-  décor retirés à leurs anciennes positions** dans une image aux dimensions du niveau. L'intention
-  visuelle est préservée et le résultat est **reproductible** (`LOT-66`), ce qu'une image dessinée à
-  la main et commitée ne serait pas. Puis supprimer `Source/Elements/Assets/Decors/` et le générateur
-  d'assets de décors.
-- Vérifier `check_demo_sequence.py` et la séquence : aucun autre niveau ne porte de décors, mais la
-  **présence et les dimensions** des PNG référencés doivent être contrôlées.
+- **Migrer les vingt-deux niveaux** : retirer `decors`, déclarer un **fond** à densité 8 et — pour
+  les seuls niveaux qui portaient des décors de premier plan — un **plan de devant** à densité
+  native. Livrer partout un plan de devant presque vide coûterait une texture pleine taille et une
+  passe de rendu par image (`TACHE-09`) pour ne rien montrer.
+- **Facteurs de parallaxe sur `demo-final` et `demo-mouvement` seulement** — les deux seuls niveaux
+  dont la caméra **défile** (*par salle* et *suivi*). Ailleurs, le cadrage *niveau entier* neutralise
+  la parallaxe (`hmi::planeParallaxActive`) : déclarer un facteur y serait une promesse que rien ne
+  tient.
+- **Générer les PNG** par un script (`scripts/generate_demo_plans.py`) qui peint un fond dérivé du
+  **thème** de chaque niveau, puis y **reporte ses décors à leurs anciennes positions** — même
+  géométrie que l'ancien rendu (coin haut-gauche sur la position, taille `pixels / 16` unités). Le
+  résultat est **reproductible** (`LOT-66`), ce qu'une image dessinée à la main et commitée ne serait
+  pas. Puis supprimer `Source/Elements/Assets/Decors/` et le générateur d'assets de décors.
+- **Conserver les motifs Kenney comme entrées du générateur** (`scripts/motifs/`) : quatre des
+  motifs reportés sont des images, pas du code. Les supprimer avec le reste du dossier rendrait le
+  script injouable — un générateur privé de ses sources n'est plus reproductible, ce qui lui ôte sa
+  seule raison d'exister. Les motifs procéduraux, eux, vivent désormais dans le script.
+- Vérifier `check_demo_sequence.py` et la séquence, et contrôler la **présence et les dimensions**
+  des PNG référencés.
 - **Référentiel** — la stratégie est déjà en place depuis le cadrage et doit être **maintenue** :
   aucune ancre supprimée, aucune renumérotation ; les exigences retirées vivent dans la section
   dédiée de [`decors.md`](@ref spec-decors), leur texte d'origine intact, chacune précédée du motif
@@ -38,16 +53,19 @@ part.
 - Régénérer le cahier de test et relancer les quatre linters.
 
 ## Fichiers impactés
-`Source/Elements/Levels/demo-final.json`, `Source/Elements/Levels/Plans/*` (nouveaux),
-`scripts/generate_demo_plans.py` (nouveau), `Documentation/Specification/*`,
+`Source/Elements/Levels/demo-*.json`, `Source/Elements/Levels/Plans/*` (nouveaux),
+`scripts/generate_demo_plans.py` et `scripts/motifs/*` (nouveaux),
+`Source/Elements/Assets/{Decors/*, CREDITS.md, README.md}`, `Documentation/Specification/*`,
 `Documentation/Guide/*`, `Documentation/Lot/lots.md`,
 `Documentation/Lot/LOT-69-plans-picturaux/*`, `CHANGELOG.md`.
 
 ## Tests (obligatoires)
-- `test_parcours_complet.cpp` / `test_couverture_mecaniques.cpp` : `demo-final` charge, se joue, et
-  ses deux plans sont présents et résolus.
-- Test système : **aucun niveau du dépôt ne contient `decors`**.
-- Test système : **tout plan référencé existe et a les dimensions attendues** pour sa densité.
+- `test_parcours_complet.cpp` / `test_couverture_mecaniques.cpp` : les niveaux livrés chargent et se
+  jouent inchangés — la migration ne touche que l'habillage.
+- `test_plans_livres.cpp` (nouveau) : **aucun niveau du dépôt ne contient `decors`**, et **tout plan
+  référencé existe aux dimensions attendues** pour sa densité. Le contrôle porte sur les fichiers du
+  dépôt : ni `Core` (qui ne vérifie pas l'existence, `EX-NFR-011`) ni `HMI` (qui replie sur un
+  damier, `EX-NFR-040`) ne signaleraient un plan manquant.
 
 ## Points d'attention
 La stratégie « exigences retirées » doit être **validée en exécutant le lint**, pas supposée : c'est

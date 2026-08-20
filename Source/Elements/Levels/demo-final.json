@@ -1225,48 +1225,16 @@
       "type": "solid"
     }
   ],
-  "decors": [
+  "planes": [
     {
-      "asset": "kenney_torch.png",
-      "x": 3.0,
-      "y": 9.2,
-      "layer": "background"
+      "file": "demo-final-fond.png",
+      "pixelsPerUnit": 8,
+      "parallaxX": 0.5
     },
     {
-      "asset": "kenney_chain.png",
-      "x": 30.0,
-      "y": 2.0,
-      "layer": "foreground"
-    },
-    {
-      "asset": "kenney_ladder.png",
-      "x": 47.0,
-      "y": 14.0,
-      "layer": "background"
-    },
-    {
-      "asset": "pillar.png",
-      "x": 22.0,
-      "y": 4.5,
-      "layer": "background"
-    },
-    {
-      "asset": "gear.png",
-      "x": 41.0,
-      "y": 3.0,
-      "layer": "background"
-    },
-    {
-      "asset": "lantern.png",
-      "x": 8.0,
-      "y": 12.5,
-      "layer": "foreground"
-    },
-    {
-      "asset": "crystal.png",
-      "x": 34.0,
-      "y": 21.5,
-      "layer": "background"
+      "file": "demo-final-devant.png",
+      "parallaxX": 1.15,
+      "depth": "front"
     }
   ]
 }

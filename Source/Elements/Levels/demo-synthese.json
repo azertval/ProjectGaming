@@ -1028,30 +1028,14 @@
       "type": "solid"
     }
   ],
-  "decors": [
+  "planes": [
     {
-      "asset": "kenney_torch.png",
-      "x": 2.0,
-      "y": 6.2,
-      "layer": "background"
+      "file": "demo-synthese-fond.png",
+      "pixelsPerUnit": 8
     },
     {
-      "asset": "branch.png",
-      "x": 24.0,
-      "y": 5.3,
-      "layer": "foreground"
-    },
-    {
-      "asset": "pillar.png",
-      "x": 30.0,
-      "y": 2.5,
-      "layer": "background"
-    },
-    {
-      "asset": "lantern.png",
-      "x": 12.0,
-      "y": 0.2,
-      "layer": "foreground"
+      "file": "demo-synthese-devant.png",
+      "depth": "front"
     }
   ]
 }

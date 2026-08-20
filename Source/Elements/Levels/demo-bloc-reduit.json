@@ -379,12 +379,10 @@
       "type": "solid"
     }
   ],
-  "decors": [
+  "planes": [
     {
-      "asset": "bush.png",
-      "x": 15.0,
-      "y": 7.2,
-      "layer": "background"
+      "file": "demo-bloc-reduit-fond.png",
+      "pixelsPerUnit": 8
     }
   ]
 }

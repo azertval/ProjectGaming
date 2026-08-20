@@ -389,12 +389,10 @@
       "type": "solid"
     }
   ],
-  "decors": [
+  "planes": [
     {
-      "asset": "rock.png",
-      "x": 14.0,
-      "y": 7.3,
-      "layer": "background"
+      "file": "demo-bloc-fond.png",
+      "pixelsPerUnit": 8
     }
   ]
 }

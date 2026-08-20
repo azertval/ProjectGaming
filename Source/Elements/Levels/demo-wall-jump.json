@@ -199,30 +199,14 @@
       "type": "solid"
     }
   ],
-  "decors": [
+  "planes": [
     {
-      "asset": "kenney_torch.png",
-      "x": 1.2,
-      "y": 9.0,
-      "layer": "background"
+      "file": "demo-wall-jump-fond.png",
+      "pixelsPerUnit": 8
     },
     {
-      "asset": "kenney_chain.png",
-      "x": 2.0,
-      "y": 3.0,
-      "layer": "foreground"
-    },
-    {
-      "asset": "crystal.png",
-      "x": 1.2,
-      "y": 11.0,
-      "layer": "background"
-    },
-    {
-      "asset": "stalactite.png",
-      "x": 2.0,
-      "y": 0.0,
-      "layer": "foreground"
+      "file": "demo-wall-jump-devant.png",
+      "depth": "front"
     }
   ]
 }

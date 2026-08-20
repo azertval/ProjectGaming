@@ -36,6 +36,7 @@
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelSequence.h"
+#include "Core/Levels/Plane.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Levels/TileTypeName.h"
@@ -111,6 +112,12 @@ struct CoverageState {
     // niveau plutôt que subie (EX-REN-017).
     bool cameraZonesDeclared = false;
     bool explicitRoomSize = false;
+    // Plans picturaux (LOT-69) : le decor n'est plus pose, il est peint. Deux variantes qu'un
+    // controle de simple presence laisserait passer -- un plan DEVANT le personnage (la lecture qui
+    // distingue le decor traversable du decor physique, EX-DEC-042) et une PARALLAXE reglee (qui
+    // n'a d'effet que la ou la camera defile, EX-DEC-043).
+    bool frontPlaneDeclared = false;
+    bool planeParallaxTuned = false;
 };
 
 // Parcourt la séquence livrée (même fichier que le jeu et `test_parcours_complet.cpp`) et relève
@@ -170,6 +177,14 @@ CoverageState scanDeliveredSequence() {
         for (const core::DangerMoverConfig& mover : level.moverConfigs()) {
             if (mover.axis == core::DangerMoverAxis::Vertical) {
                 state.dangerMoverVertical = true;
+            }
+        }
+        for (const core::Plane& plane : level.planes()) {
+            if (plane.depth == core::PlaneDepth::Front) {
+                state.frontPlaneDeclared = true;
+            }
+            if (plane.parallaxX != 1.0F || plane.parallaxY != 1.0F) {
+                state.planeParallaxTuned = true;
             }
         }
     }
@@ -251,6 +266,12 @@ std::string describeMissing(const CoverageState& state) {
     if (!state.explicitRoomSize) {
         out << "aucune taille de salle/suivi choisie par un niveau (roomWidthTiles/"
                "roomHeightTiles) ; ";
+    }
+    if (!state.frontPlaneDeclared) {
+        out << "aucun plan pictural devant le personnage (planes[].depth = front) ; ";
+    }
+    if (!state.planeParallaxTuned) {
+        out << "aucune parallaxe de plan reglee (planes[].parallaxX/parallaxY) ; ";
     }
     return out.str();
 }
@@ -337,8 +358,9 @@ TEST(CouvertureMecaniques, GardeFouSensibleAUneMecaniqueManquante) {
  * @brief Garde-fou principal : chaque type de tuile livré est posé au moins `MIN_OCCURRENCES` fois
  * dans la séquence réellement livrée (`sequence-demo.json`), chaque mode de cadrage y apparaît, et
  * chaque variante significative est employée — danger temporisé déphasé, danger mobile vertical,
- * budget de sauts **et** budget de dashs (comptés séparément), texture par instance, décor de
- * premier plan, zones de caméra dessinées et taille de salle choisie par le niveau.
+ * budget de sauts **et** budget de dashs (comptés séparément), texture par instance, plan pictural
+ * de premier plan et parallaxe réglée, zones de caméra dessinées et taille de salle choisie par le
+ * niveau.
  * \castest{<b>Chaque type de tuile livré est posé au moins trois fois dans la séquence, et chaque
  * mode de cadrage comme chaque variante significative y est employé.</b><br/>
  * \tcat Systeme · Couverture Mecaniques<br/>
@@ -359,6 +381,7 @@ TEST(CouvertureMecaniques, ChaqueMecaniqueLivreeEstCouverteParLaSequence) {
     const bool allCovered =
         missingTypes.empty() && missingModes.empty() && state.dangerBlinkDephased &&
         state.dangerMoverVertical && state.jumpBudgetBounded && state.dashBudgetBounded &&
-        state.instanceTextureOverride && state.cameraZonesDeclared && state.explicitRoomSize;
+        state.instanceTextureOverride && state.cameraZonesDeclared && state.explicitRoomSize &&
+        state.frontPlaneDeclared && state.planeParallaxTuned;
     EXPECT_TRUE(allCovered) << describeMissing(state);
 }

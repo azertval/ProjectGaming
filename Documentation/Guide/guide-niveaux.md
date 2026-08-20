@@ -534,7 +534,7 @@ livrée (`sequence-demo.json`) et relève, pour chaque tableau chargé avec succ
 `core::TileType` présents dans sa `TileMap`, le mode de `core::CameraFramingMode` résolu, et cinq
 variantes significatives portées par des champs plutôt que par le type (danger temporisé
 **déphasé**, danger mobile **vertical**, budget de mouvements **borné**, texture assignée **par
-instance**, décor de **premier plan**). Le test échoue, en nommant précisément ce qui manque, si un
+instance**, plan pictural de **premier plan**, parallaxe de plan **réglée**). Le test échoue, en nommant précisément ce qui manque, si un
 type, un mode ou une variante livrés n'apparaît dans aucun tableau. C'est une vérification de
 **présence**, pas de **franchissabilité** : une mécanique posée dans un coin inaccessible du
 tableau serait « couverte » sans jamais être jouée — c'est le test système

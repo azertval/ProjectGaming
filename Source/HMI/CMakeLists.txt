@@ -372,6 +372,29 @@ if(WINDEPLOYQT_EXE)
             --no-translations --compiler-runtime
             "$<TARGET_FILE:ProjectGaming>"
         COMMENT "Déploiement des DLL Qt + runtime à côté de l'exécutable (windeployqt)")
+
+    # `--no-translations` ci-dessus reste le bon réglage : windeployqt déploierait la trentaine de
+    # catalogues de Qt, alors que l'IHM du projet a le sien. Mais **les boutons standard des boîtes
+    # de dialogue** (« Oui »/« Non »/« Annuler ») viennent de Qt, pas du catalogue du projet, et
+    # restent en anglais sans son `qtbase_<langue>.qm` — une boîte française à boutons anglais, ce
+    # qui s'est vu à l'essai (`LOT-69`). On copie donc **les deux seuls** catalogues dont l'IHM
+    # propose la langue. Fichier absent : la copie est silencieusement ignorée (`copy_if_different`
+    # sur une liste vide), et le programme retombe sur l'anglais (`EX-NFR-040`).
+    get_target_property(_qt_core_location Qt6::Core IMPORTED_LOCATION_RELEASE)
+    if(NOT _qt_core_location)
+        get_target_property(_qt_core_location Qt6::Core IMPORTED_LOCATION)
+    endif()
+    get_filename_component(_qt_prefix "${_qt_bin_dir}" DIRECTORY)
+    set(_qt_translations_dir "${_qt_prefix}/translations")
+    foreach(_lang fr en)
+        if(EXISTS "${_qt_translations_dir}/qtbase_${_lang}.qm")
+            add_custom_command(TARGET ProjectGaming POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                    "${_qt_translations_dir}/qtbase_${_lang}.qm"
+                    "$<TARGET_FILE_DIR:ProjectGaming>/Translations/qtbase_${_lang}.qm"
+                COMMENT "Copie du catalogue Qt qtbase_${_lang}.qm")
+        endif()
+    endforeach()
 else()
     message(STATUS "ProjectGaming : windeployqt introuvable, DLL Qt non déployées "
         "automatiquement (exécution possible depuis un environnement Qt).")

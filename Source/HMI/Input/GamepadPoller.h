@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <chrono>
+
 #include "HMI/Input/InputState.h"
 
 /**
@@ -12,6 +14,32 @@
 
 namespace hmi {
 
+/// Délai minimal entre deux sondages XInput d'un slot resté **déconnecté** (anti-saccade).
+inline constexpr std::chrono::milliseconds GAMEPAD_DISCONNECTED_PROBE_PERIOD{2000};
+
+/**
+ * @brief Faut-il re-sonder XInput maintenant ?
+ *
+ * `XInputGetState` est notablement coûteux sur un slot vide (le pilote énumère les périphériques à
+ * chaque appel) : sonder sans relâche une manette absente provoque des micro-saccades chez un
+ * joueur clavier (`LOT-33`). L'espacement est donc décidé **en temps réel**, jamais en nombre
+ * d'appels : le sondage est déclenché tantôt par la boucle de rendu (une fois par image), tantôt
+ * par un temporisateur d'interface (150 ms pour la navigation de menu, 500 ms pour l'onglet des
+ * options). Un compteur d'appels donnait donc des délais de détection allant de deux secondes à
+ * **une minute** selon l'appelant — une manette branchée en cours de route n'était jamais vue
+ * depuis les écrans d'interface (défaut réel constaté, `LOT-69`).
+ *
+ * Fonction **pure** (`EX-NFR-010`) : décidée ici, testable sans manette ni fenêtre.
+ * @param wasConnected    État de connexion du dernier sondage effectif.
+ * @param sinceLastProbe  Temps écoulé depuis ce sondage.
+ * @return `true` si le sondage doit avoir lieu : toujours quand une manette est présente, sinon
+ *         une fois par `hmi::GAMEPAD_DISCONNECTED_PROBE_PERIOD`.
+ */
+[[nodiscard]] constexpr bool gamepadProbeDue(
+    bool wasConnected, std::chrono::steady_clock::duration sinceLastProbe) noexcept {
+    return wasConnected || sinceLastProbe >= GAMEPAD_DISCONNECTED_PROBE_PERIOD;
+}
+
 /**
  * @brief Sonde la manette (XInput, joueur 0) et fusionne son état dans un `InputState`.
  *
@@ -19,10 +47,9 @@ namespace hmi {
  * (`onGamepadKeyDown`/`onGamepadKeyUp`, fixe, navigation de menu — aucune touche clavier n'est
  * écrasée) et l'état brut par `GamepadButton` (remappable via `GamepadBindings`, `EX-CTRL-002`).
  *
- * Objet **à état** (dernier état de connexion + compteur d'anti-saccade), à appeler **une fois par
- * frame** avant que la logique ne consomme les entrées. Le sondage est *throttlé* tant que la
- * manette reste déconnectée (`XInputGetState` est coûteux sur un slot vide — micro-saccades chez un
- * joueur clavier, `LOT-33`).
+ * Objet **à état** (dernier état de connexion + horodatage du dernier sondage), à appeler **une
+ * fois par frame** avant que la logique ne consomme les entrées. Le sondage est espacé tant que la
+ * manette reste déconnectée (`hmi::gamepadProbeDue`).
  *
  * Extrait de l'ancienne fenêtre Win32 (`LOT-34`) pour être utilisé par le viewport Qt, sans
  * dépendre d'aucune fenêtre.
@@ -33,11 +60,10 @@ public:
     void poll(InputState& input);
 
 private:
-    /// Nombre de frames entre deux sondages XInput d'un slot resté déconnecté (anti-saccade).
-    static constexpr int DISCONNECTED_POLL_INTERVAL = 120;
-
     bool _wasConnected = false;  ///< Pour ne journaliser qu'un changement de connexion.
-    int _pollCountdown = 0;      ///< Frames restantes avant de re-sonder une manette absente.
+    /// Instant du dernier sondage XInput effectif ; l'époque tant qu'aucun n'a eu lieu, pour que
+    /// le tout premier appel sonde immédiatement.
+    std::chrono::steady_clock::time_point _lastProbe{};
 };
 
 }  // namespace hmi

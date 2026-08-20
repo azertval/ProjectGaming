@@ -51,6 +51,7 @@ add_executable(UnitTests
     Unit/HMI/Input/test_editor_key_bindings.cpp
     Unit/HMI/Input/test_key_name.cpp
     Unit/HMI/Input/test_gamepad_bindings.cpp
+    Unit/HMI/Input/test_gamepad_probe.cpp
     Unit/HMI/Input/test_gamepad_button_name.cpp
     Unit/HMI/Graphics/test_camera2d.cpp
     Unit/HMI/Graphics/test_room_grid.cpp
@@ -448,6 +449,7 @@ add_executable(SystemTests
     Systeme/test_couverture_mecaniques.cpp
     Systeme/test_parcours_complet.cpp
     Systeme/test_parcours_edition.cpp
+    Systeme/test_plans_livres.cpp
 )
 
 target_link_libraries(SystemTests PRIVATE

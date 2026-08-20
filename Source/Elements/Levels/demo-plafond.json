@@ -564,24 +564,14 @@
       "type": "solid"
     }
   ],
-  "decors": [
+  "planes": [
     {
-      "asset": "kenney_torch.png",
-      "x": 12.0,
-      "y": 4.2,
-      "layer": "background"
+      "file": "demo-plafond-fond.png",
+      "pixelsPerUnit": 8
     },
     {
-      "asset": "stalactite.png",
-      "x": 6.0,
-      "y": 2.0,
-      "layer": "foreground"
-    },
-    {
-      "asset": "crystal.png",
-      "x": 20.0,
-      "y": 5.5,
-      "layer": "background"
+      "file": "demo-plafond-devant.png",
+      "depth": "front"
     }
   ]
 }

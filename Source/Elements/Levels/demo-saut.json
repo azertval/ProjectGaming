@@ -438,30 +438,14 @@
       "type": "solid"
     }
   ],
-  "decors": [
+  "planes": [
     {
-      "asset": "sign.png",
-      "x": 2.5,
-      "y": 5.2,
-      "layer": "background"
+      "file": "demo-saut-fond.png",
+      "pixelsPerUnit": 8
     },
     {
-      "asset": "rock.png",
-      "x": 16.0,
-      "y": 5.3,
-      "layer": "background"
-    },
-    {
-      "asset": "grass_tuft.png",
-      "x": 3.0,
-      "y": 5.4,
-      "layer": "background"
-    },
-    {
-      "asset": "vine.png",
-      "x": 15.0,
-      "y": 0.5,
-      "layer": "foreground"
+      "file": "demo-saut-devant.png",
+      "depth": "front"
     }
   ]
 }

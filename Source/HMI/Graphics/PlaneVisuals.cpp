@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <cstdint>
 
+#include "HMI/Editor/PlaneFileNaming.h"
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/Parallax.h"
 
@@ -79,7 +80,31 @@ void composePlanes(ComposedScene& scene, const std::vector<core::Plane>& planes,
         // partagent la meme image, cas ou le rang de texture ne les departage pas.
         scene.addSprite(planeRenderLayer(plane.depth), texture.texture,
                         static_cast<std::int32_t>(rank), quad);
+        // Second axe du budget (EX-NFR-043) : ce qui est REELLEMENT lie, repli en damier compris.
+        // Le poids exige par le format, lui, se lit sans GPU (hmi::planesTextureMemoryBytes) --
+        // deux questions distinctes, et c'est la seconde que plafonne le test de budget.
+        scene.addTextureBytes(static_cast<std::size_t>((std::max)(texture.width, 0)) *
+                              static_cast<std::size_t>((std::max)(texture.height, 0)) *
+                              PLANE_TEXTURE_BYTES_PER_PIXEL);
     }
+}
+
+// Memoire de texture qu'un plan exige du format.
+std::size_t planeTextureMemoryBytes(const core::Plane& plane, int levelWidth,
+                                    int levelHeight) noexcept {
+    const PlanePixelSize size = planePixelSize(levelWidth, levelHeight, plane.pixelsPerUnit);
+    return static_cast<std::size_t>(size.width) * static_cast<std::size_t>(size.height) *
+           PLANE_TEXTURE_BYTES_PER_PIXEL;
+}
+
+// Somme sur tous les plans d'un niveau.
+std::size_t planesTextureMemoryBytes(const std::vector<core::Plane>& planes, int levelWidth,
+                                     int levelHeight) noexcept {
+    std::size_t total = 0;
+    for (const core::Plane& plane : planes) {
+        total += planeTextureMemoryBytes(plane, levelWidth, levelHeight);
+    }
+    return total;
 }
 
 }  // namespace hmi
