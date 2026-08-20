@@ -31,7 +31,19 @@ Niveaux du jeu, un fichier **JSON** par niveau (`EX-LVL-001`, `EX-LVL-003`).
   `dangerSwitched` (danger **commuté**, mortel quand son déclencheur lié est actif, champ
   `opensWith` comme `door`, `EX-GP-052`), `dangerBlink` (danger **temporisé**, alterne mortel/
   inoffensif selon une période fixe, champs optionnels `period`/`phase`/`activeDuration`,
-  `EX-GP-053`).
+  `EX-GP-053`), `movingPlatform` (plateforme **mobile**, `EX-GP-026`).
+- **Route d'une plateforme mobile** (`EX-GP-054`, `LOT-67`) : la position de la tuile est le point
+  de départ, `waypoints` liste les points **suivants** (`[{ "x": …, "y": … }, …]`), et `mode` vaut
+  `"pingpong"` (défaut, omis) ou `"loop"` (circuit fermé, le dernier point rejoignant le premier).
+  `speed` (cases/seconde) et `phase` (décalage initial, en pas fixes) restent optionnels. Le couple
+  `endX`/`endY` d'avant le multi-points reste **lu** — un fichier qui l'emploie se charge et se joue
+  à l'identique (`EX-LVL-008`) — mais l'éditeur ne le réécrit plus. `demo-plateforme.json` illustre
+  volontairement les deux écritures.
+- **Règles du tableau**, à la racine du fichier, tous optionnels : `jumpBudget`/`dashBudget`
+  (`EX-GP-024`) plafonnent le nombre total de sauts/dashs **consommables sur tout le tableau**
+  (`-1` = illimité, jamais rechargé) ; `airJumps`/`dashCharges` (`EX-GP-055`) redéfinissent les
+  **capacités rechargées à chaque atterrissage**. Deux notions distinctes : un budget épuisé le
+  reste jusqu'au rechargement du niveau, une capacité se recharge dès qu'on touche le sol.
 - Coordonnées `x` = colonne, `y` = ligne, origine **haut-gauche** ; toute tuile doit rester dans
   les bornes `width × height`.
 - **Mécanismes** : un `switch` (bascule au contact) ou une `pressurePlate` (activation continue,

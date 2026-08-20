@@ -2,6 +2,7 @@
 
 #include <cmath>
 
+#include "Core/Gameplay/PlatformPath.h"
 #include "Core/Levels/TileMap.h"
 
 namespace core {
@@ -9,8 +10,10 @@ namespace core {
 namespace {
 
 // Duree d'un pas fixe : le jeu tourne a 60 pas/s (core::FixedTimestep), meme hypothese que
-// core::DangerController pour les dangers mobiles (EX-GP-051).
-constexpr float FIXED_DELTA_SECONDS = 1.0F / 60.0F;
+// core::DangerController pour les dangers mobiles (EX-GP-051). En double : la distance parcourue
+// est cumulee sur des millions de pas (voir boxAtStep), un 1/60 arrondi en float y introduirait
+// une derive systematique.
+constexpr double FIXED_DELTA_SECONDS = 1.0 / 60.0;
 
 // Tolerance de contact "repose sur le dessus" : meme ordre de grandeur que
 // BlockController::PUSH_TOUCH_TOLERANCE (bords qui se touchent, pas qui se chevauchent).
@@ -23,37 +26,28 @@ constexpr float REST_TOUCH_TOLERANCE = 0.05F;
 
 }  // namespace
 
-PlatformController::PlatformController(const Level& level) : _configs(level.platformConfigs()) {}
+PlatformController::PlatformController(const Level& level) : _configs(level.platformConfigs()) {
+    // Routes precalculees une fois pour toutes : boxAtStep est appelee plusieurs fois par pas et
+    // par consommateur (portage du personnage, des blocs, interpolation d'affichage), on ne
+    // recalcule jamais les longueurs de segments a l'execution.
+    _paths.reserve(_configs.size());
+    for (const MovingPlatformConfig& config : _configs) {
+        _paths.push_back(buildPlatformPath(config));
+    }
+}
 
 void PlatformController::update() noexcept {
     ++_stepCount;
 }
 
 Aabb PlatformController::boxAtStep(std::size_t index, long long stepCount) const noexcept {
-    const MovingPlatformConfig& config = _configs[index];
-    const Vector2 start{static_cast<float>(config.startPosition.column),
-                        static_cast<float>(config.startPosition.row)};
-    const Vector2 end{static_cast<float>(config.endPosition.column),
-                      static_cast<float>(config.endPosition.row)};
-    const Vector2 segment = end - start;
-    const float distance = segment.length();
-
-    Vector2 topLeft = start;
-    if (distance > 0.0F) {
-        // Aller-retour triangulaire deterministe le long du segment start->end : 0 -> distance ->
-        // 0, cycle = 2 * distance. Meme formule que DangerController::moverBox, generalisee a un
-        // segment 2D quelconque plutot qu'un seul axe.
-        const float distancePerStep = config.speed * FIXED_DELTA_SECONDS;
-        const float totalDistance = static_cast<float>(stepCount + config.phase) * distancePerStep;
-        const float cycleLength = distance * 2.0F;
-        float phase = std::fmod(totalDistance, cycleLength);
-        if (phase < 0.0F) {
-            phase += cycleLength;
-        }
-        const float offset = phase <= distance ? phase : cycleLength - phase;
-        topLeft = start + (segment * (offset / distance));
-    }
-    return Aabb::fromTopLeftSize(topLeft, Vector2{1.0F, 1.0F});
+    // Distance parcourue depuis le chargement, en DOUBLE : convertir (stepCount + phase) en float
+    // perdrait le bit de poids faible des ~16,7 millions de pas (~77 h de jeu), ce qui decalerait
+    // visiblement la plateforme en fin de longue session. Seule la position finale repasse en
+    // float. Aucune accumulation d'un pas a l'autre : fonction pure de stepCount (EX-NFR-002).
+    const double travelled = static_cast<double>(stepCount + _configs[index].phase) *
+                             (static_cast<double>(_configs[index].speed) * FIXED_DELTA_SECONDS);
+    return Aabb::fromTopLeftSize(platformPositionAt(_paths[index], travelled), Vector2{1.0F, 1.0F});
 }
 
 Aabb PlatformController::boxAt(std::size_t index) const noexcept {

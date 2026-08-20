@@ -3,6 +3,8 @@
  * @brief Tests unitaires du modèle d'édition mutable (LOT-14, EX-EDIT-002 à EX-EDIT-007).
  */
 
+#include <vector>
+
 #include <gtest/gtest.h>
 
 #include "Core/Levels/CameraFraming.h"
@@ -209,13 +211,15 @@ TEST(LevelDraftTest, RoundTripEditionPlateformeMobile) {
     draft.setEntry(0, 0);
     draft.setExit(4, 4);
     draft.paintTile(1, 1, TileType::MovingPlatform);
-    draft.setPlatformConfig(GridPosition{1, 1}, GridPosition{1, 3}, 2.5f, 20);
+    draft.setPlatformConfig(GridPosition{1, 1}, {GridPosition{1, 3}},
+                            core::PlatformPathMode::PingPong, 2.5f, 20);
 
     const core::LevelLoadResult reloaded = draft.toLevel();
     ASSERT_TRUE(reloaded.ok()) << reloaded.error;
     ASSERT_EQ(reloaded.level->platformConfigs().size(), 1u);
     EXPECT_EQ(reloaded.level->platformConfigs().front().startPosition, (GridPosition{1, 1}));
-    EXPECT_EQ(reloaded.level->platformConfigs().front().endPosition, (GridPosition{1, 3}));
+    EXPECT_EQ(reloaded.level->platformConfigs().front().waypoints,
+              (std::vector<GridPosition>{GridPosition{1, 3}}));
     EXPECT_FLOAT_EQ(reloaded.level->platformConfigs().front().speed, 2.5f);
     EXPECT_EQ(reloaded.level->platformConfigs().front().phase, 20);
 }
@@ -1089,6 +1093,50 @@ TEST(LevelDraftTest, SetBlinkConfigDefinitLaConfiguration) {
 }
 
 /**
+ * @brief Peindre une plateforme mobile crée immédiatement sa configuration par défaut, sans
+ * attendre un enregistrement/rechargement (`EX-GP-026`, `EX-EDIT-032`).
+ * \castest{<b>Peindre une plateforme mobile crée immédiatement sa configuration par
+ * défaut.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Peindre une tuile de plateforme mobile dans un brouillon vierge.<br/>2. Vérifier que
+ * sa configuration existe déjà.<br/>
+ * \tattendu La plateforme figure dans `platformConfigs()` avec une route vide, avant tout
+ * enregistrement -- sans cette entrée, l'outil « Parcours » (`hmi::designatePathAt`) ne peut pas la
+ * désigner et son parcours ne peut jamais être commencé.
+ * }
+ */
+TEST(LevelDraftTest, PeindreUnePlateformeCreeSaConfigurationParDefaut) {
+    LevelDraft draft = LevelDraft::empty("N", 5, 5);
+
+    draft.paintTile(1, 1, TileType::MovingPlatform);
+
+    ASSERT_EQ(draft.platformConfigs().size(), 1u);
+    EXPECT_EQ(draft.platformConfigs().front().startPosition, (GridPosition{1, 1}));
+    EXPECT_TRUE(draft.platformConfigs().front().waypoints.empty());
+}
+
+/**
+ * @brief Peindre un danger mobile crée immédiatement sa configuration par défaut, même raison que
+ * pour une plateforme mobile (`EX-GP-051`, `EX-EDIT-032`).
+ * \castest{<b>Peindre un danger mobile crée immédiatement sa configuration par défaut.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Peindre une tuile de danger mobile dans un brouillon vierge.<br/>2. Vérifier que sa
+ * configuration existe déjà.<br/>
+ * \tattendu Le danger mobile figure dans `moverConfigs()` avant tout enregistrement.
+ * }
+ */
+TEST(LevelDraftTest, PeindreUnDangerMobileCreeSaConfigurationParDefaut) {
+    LevelDraft draft = LevelDraft::empty("N", 5, 5);
+
+    draft.paintTile(1, 1, TileType::DangerMover);
+
+    ASSERT_EQ(draft.moverConfigs().size(), 1u);
+    EXPECT_EQ(draft.moverConfigs().front().startPosition, (GridPosition{1, 1}));
+}
+
+/**
  * @brief setPlatformConfig définit le second point de parcours, la vitesse et le déphasage d'une
  * plateforme mobile (`EX-GP-026`).
  * \castest{<b>setPlatformConfig définit la configuration d'une plateforme mobile.</b><br/>
@@ -1103,10 +1151,12 @@ TEST(LevelDraftTest, SetPlatformConfigDefinitLaConfiguration) {
     LevelDraft draft = LevelDraft::empty("N", 5, 5);
     draft.paintTile(1, 1, TileType::MovingPlatform);
 
-    draft.setPlatformConfig(GridPosition{1, 1}, GridPosition{1, 4}, 3.0f, 15);
+    draft.setPlatformConfig(GridPosition{1, 1}, {GridPosition{1, 4}},
+                            core::PlatformPathMode::PingPong, 3.0f, 15);
 
     ASSERT_EQ(draft.platformConfigs().size(), 1u);
-    EXPECT_EQ(draft.platformConfigs().front().endPosition, (GridPosition{1, 4}));
+    EXPECT_EQ(draft.platformConfigs().front().waypoints,
+              (std::vector<GridPosition>{GridPosition{1, 4}}));
     EXPECT_FLOAT_EQ(draft.platformConfigs().front().speed, 3.0f);
     EXPECT_EQ(draft.platformConfigs().front().phase, 15);
 }
@@ -1125,7 +1175,8 @@ TEST(LevelDraftTest, SetPlatformConfigDefinitLaConfiguration) {
 TEST(LevelDraftTest, PeindrePardessusUnePlateformeRetireSaConfiguration) {
     LevelDraft draft = LevelDraft::empty("N", 5, 5);
     draft.paintTile(1, 1, TileType::MovingPlatform);
-    draft.setPlatformConfig(GridPosition{1, 1}, GridPosition{1, 4}, 3.0f, 15);
+    draft.setPlatformConfig(GridPosition{1, 1}, {GridPosition{1, 4}},
+                            core::PlatformPathMode::PingPong, 3.0f, 15);
 
     draft.paintTile(1, 1, TileType::Empty);
 
@@ -1194,7 +1245,8 @@ TEST(LevelDraftTest, FromLevelRestitueLaPlateformeMobile) {
 
     ASSERT_EQ(draft.platformConfigs().size(), 1u);
     EXPECT_EQ(draft.platformConfigs().front().startPosition, (GridPosition{2, 2}));
-    EXPECT_EQ(draft.platformConfigs().front().endPosition, (GridPosition{2, 4}));
+    EXPECT_EQ(draft.platformConfigs().front().waypoints,
+              (std::vector<GridPosition>{GridPosition{2, 4}}));
     EXPECT_FLOAT_EQ(draft.platformConfigs().front().speed, 3.0f);
     EXPECT_EQ(draft.platformConfigs().front().phase, 10);
 }
@@ -1220,7 +1272,8 @@ TEST(LevelDraftTest, ReduireRetireLesDangersAvancesHorsBornes) {
     draft.paintTile(4, 0, TileType::DangerBlink);
     draft.setBlinkConfig(GridPosition{4, 0}, 90, 15, 30);
     draft.paintTile(1, 4, TileType::MovingPlatform);
-    draft.setPlatformConfig(GridPosition{1, 4}, GridPosition{4, 4}, 2.0f, 0);
+    draft.setPlatformConfig(GridPosition{1, 4}, {GridPosition{4, 4}},
+                            core::PlatformPathMode::PingPong, 2.0f, 0);
 
     draft.resize(2, 2);
 
@@ -1228,4 +1281,166 @@ TEST(LevelDraftTest, ReduireRetireLesDangersAvancesHorsBornes) {
     EXPECT_TRUE(draft.moverConfigs().empty());
     EXPECT_TRUE(draft.blinkConfigs().empty());
     EXPECT_TRUE(draft.platformConfigs().empty());
+}
+
+/**
+ * @brief Les mutateurs de route construisent un parcours point par point, chacun annulable en un
+ *        seul pas (`EX-GP-054`, `EX-EDIT-005`).
+ * \castest{<b>Les mutateurs de route construisent un parcours annulable point par point.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Ajouter deux points a une plateforme sans configuration prealable.<br/>2. Inserer,
+ * deplacer puis retirer un point.<br/>3. Annuler une fois.<br/>
+ * \tattendu Chaque mutateur agit sur la route et une seule annulation defait exactement le dernier
+ * geste, jamais plus.
+ * }
+ */
+TEST(LevelDraftTest, MutateursDeRouteConstruisentUnParcoursAnnulable) {
+    LevelDraft draft = LevelDraft::empty("N", 8, 8);
+    draft.paintTile(1, 1, TileType::MovingPlatform);
+
+    // Aucune configuration prealable : le premier ajout la cree aux valeurs par defaut.
+    draft.addPlatformWaypoint(GridPosition{1, 1}, GridPosition{4, 1});
+    draft.addPlatformWaypoint(GridPosition{1, 1}, GridPosition{4, 4});
+    ASSERT_EQ(draft.platformConfigs().size(), 1u);
+    EXPECT_EQ(draft.platformConfigs().front().waypoints,
+              (std::vector<GridPosition>{GridPosition{4, 1}, GridPosition{4, 4}}));
+
+    // Insertion au milieu : le geste « cliquer un segment pour y ajouter un point ».
+    draft.insertPlatformWaypoint(GridPosition{1, 1}, 1, GridPosition{6, 1});
+    EXPECT_EQ(
+        draft.platformConfigs().front().waypoints,
+        (std::vector<GridPosition>{GridPosition{4, 1}, GridPosition{6, 1}, GridPosition{4, 4}}));
+
+    draft.movePlatformWaypoint(GridPosition{1, 1}, 1, GridPosition{7, 1});
+    EXPECT_EQ(draft.platformConfigs().front().waypoints[1], (GridPosition{7, 1}));
+
+    draft.removePlatformWaypoint(GridPosition{1, 1}, 1);
+    EXPECT_EQ(draft.platformConfigs().front().waypoints,
+              (std::vector<GridPosition>{GridPosition{4, 1}, GridPosition{4, 4}}));
+
+    // UN seul pas d'annulation par geste : la suppression est defaite, l'insertion reste.
+    draft.undo();
+    EXPECT_EQ(
+        draft.platformConfigs().front().waypoints,
+        (std::vector<GridPosition>{GridPosition{4, 1}, GridPosition{7, 1}, GridPosition{4, 4}}));
+}
+
+/**
+ * @brief Un rang hors de la route laisse le parcours intact plutôt que de le corrompre
+ *        (`EX-NFR-040`).
+ * \castest{<b>Un rang hors de la route laisse le parcours intact.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Poser une route a un point.<br/>2. Tenter de deplacer et de retirer un rang
+ * inexistant.<br/>
+ * \tattendu La route reste inchangee, sans plantage.
+ * }
+ */
+TEST(LevelDraftTest, RangHorsDeLaRouteLaisseLeParcoursIntact) {
+    LevelDraft draft = LevelDraft::empty("N", 8, 8);
+    draft.paintTile(1, 1, TileType::MovingPlatform);
+    draft.addPlatformWaypoint(GridPosition{1, 1}, GridPosition{4, 1});
+
+    draft.movePlatformWaypoint(GridPosition{1, 1}, 5, GridPosition{7, 7});
+    draft.removePlatformWaypoint(GridPosition{1, 1}, 5);
+    draft.insertPlatformWaypoint(GridPosition{1, 1}, 9, GridPosition{7, 7});
+
+    EXPECT_EQ(draft.platformConfigs().front().waypoints,
+              (std::vector<GridPosition>{GridPosition{4, 1}}));
+}
+
+/**
+ * @brief Le mode, la vitesse et le déphasage se règlent indépendamment de la route, et sont
+ *        annulables (`EX-GP-054`, `EX-EDIT-005`).
+ * \castest{<b>Mode, vitesse et déphasage se règlent indépendamment et sont annulables.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Regler le mode, la vitesse puis le dephasage d'une plateforme.<br/>2. Annuler une
+ * fois.<br/>
+ * \tattendu Les trois reglages sont pris en compte et la derniere annulation ne defait que le
+ * dephasage.
+ * }
+ */
+TEST(LevelDraftTest, ModeVitesseEtDephasageSeReglentIndependamment) {
+    LevelDraft draft = LevelDraft::empty("N", 8, 8);
+    draft.paintTile(1, 1, TileType::MovingPlatform);
+
+    draft.setPlatformMode(GridPosition{1, 1}, core::PlatformPathMode::Loop);
+    draft.setPlatformSpeed(GridPosition{1, 1}, 4.5f);
+    draft.setPlatformPhase(GridPosition{1, 1}, 24);
+
+    ASSERT_EQ(draft.platformConfigs().size(), 1u);
+    EXPECT_EQ(draft.platformConfigs().front().mode, core::PlatformPathMode::Loop);
+    EXPECT_FLOAT_EQ(draft.platformConfigs().front().speed, 4.5f);
+    EXPECT_EQ(draft.platformConfigs().front().phase, 24);
+
+    draft.undo();
+    EXPECT_EQ(draft.platformConfigs().front().phase, 0);
+    EXPECT_FLOAT_EQ(draft.platformConfigs().front().speed, 4.5f);
+    EXPECT_EQ(draft.platformConfigs().front().mode, core::PlatformPathMode::Loop);
+}
+
+/**
+ * @brief Les quatre réglages de tableau — deux budgets consommables et deux capacités rechargées
+ *        au sol — sont annulables comme toute autre propriété de niveau (`EX-GP-024`,
+ *        `EX-GP-055`, `EX-EDIT-005`).
+ * \castest{<b>Les quatre réglages de tableau sont annulables.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Regler les deux budgets puis les deux capacites.<br/>2. Annuler quatre fois.<br/>
+ * \tattendu Chaque annulation restaure la valeur precedente ; les budgets, longtemps non
+ * annulables contrairement aux autres proprietes de niveau, le sont desormais.
+ * }
+ */
+TEST(LevelDraftTest, ReglagesDeTableauSontAnnulables) {
+    LevelDraft draft = LevelDraft::empty("N", 5, 5);
+    ASSERT_EQ(draft.jumpBudget(), -1);
+    ASSERT_FALSE(draft.airJumps().has_value());
+
+    draft.setJumpBudget(5);
+    draft.setDashBudget(2);
+    draft.setAirJumps(2);
+    draft.setDashCharges(3);
+
+    EXPECT_EQ(draft.jumpBudget(), 5);
+    EXPECT_EQ(draft.dashBudget(), 2);
+    ASSERT_TRUE(draft.airJumps().has_value());
+    EXPECT_EQ(*draft.airJumps(), 2);
+    ASSERT_TRUE(draft.dashCharges().has_value());
+    EXPECT_EQ(*draft.dashCharges(), 3);
+
+    draft.undo();
+    EXPECT_FALSE(draft.dashCharges().has_value());
+    draft.undo();
+    EXPECT_FALSE(draft.airJumps().has_value());
+    draft.undo();
+    EXPECT_EQ(draft.dashBudget(), -1);
+    draft.undo();
+    EXPECT_EQ(draft.jumpBudget(), -1);
+}
+
+/**
+ * @brief Les capacités du tableau survivent à la conversion du brouillon en niveau jouable
+ *        (`EX-GP-055`, `EX-EDIT-007`).
+ * \castest{<b>Les capacités du tableau survivent à la conversion en niveau jouable.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Regler les capacites sur un brouillon complet.<br/>2. Convertir en niveau.<br/>
+ * \tattendu Le niveau obtenu porte les memes capacites.
+ * }
+ */
+TEST(LevelDraftTest, CapacitesSurviventALaConversionEnNiveau) {
+    LevelDraft draft = LevelDraft::empty("N", 5, 5);
+    draft.setEntry(0, 0);
+    draft.setExit(4, 4);
+    draft.setAirJumps(2);
+    draft.setDashCharges(3);
+
+    const core::LevelLoadResult reloaded = draft.toLevel();
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+    ASSERT_TRUE(reloaded.level->airJumps().has_value());
+    EXPECT_EQ(*reloaded.level->airJumps(), 2);
+    ASSERT_TRUE(reloaded.level->dashCharges().has_value());
+    EXPECT_EQ(*reloaded.level->dashCharges(), 3);
 }

@@ -41,6 +41,10 @@ public:
     /// @p levelName est le nom du tableau réussi (ignoré en fin de séquence). Réapplique aussitôt
     /// les textes si `retranslateUi` a déjà été appelé.
     void configure(bool sequenceComplete, const QString& levelName);
+
+    /// Renseigne le bilan du tableau (`LOT-68`) : durée mise en forme, morts, sauts. Appelée avant
+    /// `configure` ou après, indifféremment — les deux écrivent des libellés distincts.
+    void setRunSummary(const QString& elapsed, int deaths, int jumps);
     /// Applique la langue active aux libellés, y compris le titre dynamique (dernière
     /// configuration passée à `configure`, langue par défaut au tout premier appel).
     void retranslateUi(const Localization& loc);
@@ -62,6 +66,11 @@ private:
     const Localization* _loc = nullptr;
     bool _sequenceComplete = false;
     QString _levelName;
+    /// Bilan du tableau (`LOT-68`), retenu pour être réécrit à chaque changement de langue —
+    /// comme `_levelName` : les libellés sont traduits, les chiffres non.
+    QString _elapsed;
+    int _deaths = 0;
+    int _jumps = 0;
 };
 
 }  // namespace hmi

@@ -82,13 +82,34 @@ if(NOT Qt6_FOUND)
             "Installer au moins Qt ${QT_VERSION_MINIMUM} (ou désigner une autre installation via "
             "-DCMAKE_PREFIX_PATH), ou passer -DBUILD_EDITOR_QT=OFF pour ne construire que les tests.")
     else()
-        message(WARNING
-            "ProjectGaming : Qt6 introuvable, cible ignorée — AUCUN EXÉCUTABLE ne sera produit.\n"
-            "Version minimale requise : ${QT_VERSION_MINIMUM}.\n"
-            "Emplacements examinés : ${_qt_hints}\n"
-            "Corriger en installant Qt via l'installateur officiel, ou en désignant l'installation :\n"
-            "  cmake --preset ninja -DCMAKE_PREFIX_PATH=<chemin>/msvc2022_64\n"
-            "Passer -DBUILD_EDITOR_QT=OFF pour ne construire que les tests, sans cet avertissement.")
+        # Troisième cas, distinct des deux précédents : Qt est bien installé, mais il lui manque un
+        # MODULE (typiquement Multimedia, un composant additionnel que l'installateur officiel ne
+        # coche pas par défaut). find_package échoue alors en bloc, et annoncer « Qt6 introuvable »
+        # envoie chercher au mauvais endroit — le cas a réellement coûté une session de diagnostic.
+        find_package(Qt6 QUIET COMPONENTS Widgets Gui)
+        if(Qt6_FOUND)
+            set(_qt_missing "")
+            foreach(_qt_component Widgets Gui Multimedia)
+                find_package(Qt6${_qt_component} QUIET)
+                if(NOT Qt6${_qt_component}_FOUND)
+                    list(APPEND _qt_missing ${_qt_component})
+                endif()
+            endforeach()
+            message(WARNING
+                "ProjectGaming : Qt6 ${Qt6_VERSION} est bien installé (${Qt6_DIR}), mais il manque "
+                "le(s) module(s) : ${_qt_missing} — cible ignorée, AUCUN EXÉCUTABLE ne sera produit.\n"
+                "Ajouter le(s) module(s) manquant(s) avec l'outil de maintenance Qt "
+                "(MaintenanceTool.exe, à la racine de l'installation), puis reconfigurer.\n"
+                "Passer -DBUILD_EDITOR_QT=OFF pour ne construire que les tests, sans cet avertissement.")
+        else()
+            message(WARNING
+                "ProjectGaming : Qt6 introuvable, cible ignorée — AUCUN EXÉCUTABLE ne sera produit.\n"
+                "Version minimale requise : ${QT_VERSION_MINIMUM}.\n"
+                "Emplacements examinés : ${_qt_hints}\n"
+                "Corriger en installant Qt via l'installateur officiel, ou en désignant l'installation :\n"
+                "  cmake --preset ninja -DCMAKE_PREFIX_PATH=<chemin>/msvc2022_64\n"
+                "Passer -DBUILD_EDITOR_QT=OFF pour ne construire que les tests, sans cet avertissement.")
+        endif()
     endif()
     return()
 endif()
@@ -169,6 +190,7 @@ add_executable(ProjectGaming
     Game/GameHud.cpp
     Game/DiagnosticsHud.cpp
     Game/GameEvents.cpp
+    Game/LevelRunStats.cpp
     # Localisation
     Localization/Localization.cpp
     # Audio (bruitages, LOT-60)
@@ -184,10 +206,21 @@ add_executable(ProjectGaming
     Interface/ThemeResolution.cpp
     Interface/ApplicationTheme.cpp
     Interface/IconGeometry.cpp
+    # Habillage pixel art des ecrans du jeu (LOT-68) : logique pure, compilee aussi
+    # dans UnitTests (cf. Source/Test/CMakeLists.txt).
+    Interface/PixelArtScale.cpp
+    Interface/PixelFrameGeometry.cpp
+    Interface/MenuBackdropGeometry.cpp
+    Interface/KeyHintText.cpp
+    # Widgets Qt de l'habillage pixel art (LOT-68) : peintres au-dessus de la geometrie pure
+    # ci-dessus, promus dans les .ui. Non compiles dans UnitTests (dependent de Qt).
+    Interface/PixelFrameWidget.cpp
+    Interface/PixelMenuButton.cpp
     Interface/ThemeIcons.cpp
     Interface/ActionCatalog.cpp
     Interface/EditorActions.cpp
     Interface/ScreenFlow.cpp
+    Interface/EditorWorkspace.cpp
     Interface/MainWindow.cpp
     Interface/MainMenu.cpp
     Interface/PauseScreen.cpp
@@ -206,6 +239,7 @@ add_executable(ProjectGaming
     Editor/TileTaxonomy.cpp
     Editor/TaxonomyLabels.cpp
     Editor/TexturePanel.cpp
+    Editor/PropertiesPanel.cpp
     Editor/SkinAssignments.cpp
     Editor/PaletteAppearance.cpp
     Editor/LevelFileOperations.cpp
@@ -215,6 +249,8 @@ add_executable(ProjectGaming
     Editor/TextureAssignGesture.cpp
     Editor/DecorGeometry.cpp
     Editor/DecorGesture.cpp
+    Editor/PathGeometry.cpp
+    Editor/PathGesture.cpp
     Editor/DecorListModel.cpp
     Editor/AssetLibrary.cpp
     Editor/ThumbnailGeometry.cpp
@@ -245,6 +281,7 @@ add_executable(ProjectGaming
     ${ELEMENTS_UI}/OptionsPage.ui
     ${ELEMENTS_UI}/DecorsPanel.ui
     ${ELEMENTS_UI}/TexturePanel.ui
+    ${ELEMENTS_UI}/PropertiesPanel.ui
     ${ELEMENTS_UI}/LevelBrowserPanel.ui
     ${ELEMENTS_UI}/AssetThumbnailView.ui
 )

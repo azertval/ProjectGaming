@@ -155,7 +155,7 @@ bool CharacterPhysicsSystem::applyDash(Player& player, Velocity& velocity, const
     //   0d. Dash (EX-GP-017) : ruée directionnelle si disponible et pas déjà en dash.
     //       Direction = (moveX, moveY) normalisée (8 directions) ; à défaut l'orientation.
     //       Refusé si le budget de dashs du tableau est épuisé (EX-GP-024 ; -1 = illimité).
-    if (input.dashPressed && player.dashAvailable && player.dashTimer <= 0.0F &&
+    if (input.dashPressed && player.dashChargesRemaining > 0 && player.dashTimer <= 0.0F &&
         player.dashesRemaining != 0) {
         Vector2 direction{input.moveX, input.moveY};
         if (direction.x == 0.0F && direction.y == 0.0F) {
@@ -163,7 +163,7 @@ bool CharacterPhysicsSystem::applyDash(Player& player, Velocity& velocity, const
         }
         velocity.value = direction.normalized() * _config.dashSpeed;
         player.dashTimer = _config.dashDuration;
-        player.dashAvailable = false;  // consommé, rechargé au prochain contact du sol
+        --player.dashChargesRemaining;  // consommée, rechargée au prochain contact du sol
         if (player.dashesRemaining > 0) {
             --player.dashesRemaining;  // décompte le budget (si limité)
         }
@@ -226,8 +226,8 @@ void CharacterPhysicsSystem::resolveVelocity(Player& player, Velocity& velocity,
     //      - coyote time : rechargé au sol, décompté en l'air (sauter juste après un bord) ;
     if (player.grounded) {
         player.coyoteTimer = _config.coyoteTime;
-        player.airJumpsRemaining = _config.airJumps;  // recharge du double saut (EX-GP-015)
-        player.dashAvailable = true;                  // recharge du dash (EX-GP-017)
+        player.airJumpsRemaining = _config.airJumps;        // double saut (EX-GP-015)
+        player.dashChargesRemaining = _config.dashCharges;  // charges de dash (EX-GP-017)
     } else {
         player.coyoteTimer = std::max(0.0F, player.coyoteTimer - fixedDelta);
     }

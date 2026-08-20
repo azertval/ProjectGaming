@@ -176,8 +176,7 @@
       "x": 8,
       "y": 6,
       "type": "movingPlatform",
-      "endX": 12,
-      "endY": 6,
+      "waypoints": [ { "x": 12, "y": 6 } ],
       "speed": 1.0
     },
     {
@@ -264,8 +263,7 @@
       "x": 3,
       "y": 11,
       "type": "movingPlatform",
-      "endX": 3,
-      "endY": 6,
+      "waypoints": [ { "x": 3, "y": 6 } ],
       "speed": 1.0
     },
     {

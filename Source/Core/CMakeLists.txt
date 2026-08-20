@@ -24,6 +24,7 @@ add_library(Core STATIC
     Gameplay/BlockController.cpp
     Gameplay/DangerController.cpp
     Gameplay/PlatformController.cpp
+    Gameplay/PlatformPath.cpp
     Physics/SweptCollision.cpp
     Physics/SlopeGeometry.cpp
     Physics/AabbVsAabb.cpp

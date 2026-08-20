@@ -33,6 +33,7 @@ add_executable(UnitTests
     Unit/Core/Gameplay/test_danger_controller.cpp
     Unit/Core/Gameplay/test_block_controller.cpp
     Unit/Core/Gameplay/test_platform_controller.cpp
+    Unit/Core/Gameplay/test_platform_path.cpp
     Unit/Core/Physics/test_swept_collision.cpp
     Unit/Core/Physics/test_slope_geometry.cpp
     Unit/Core/Physics/test_aabb_vs_aabb.cpp
@@ -87,14 +88,19 @@ add_executable(UnitTests
     Unit/HMI/Game/test_diagnostics_hud.cpp
     Unit/HMI/Game/test_progression.cpp
     Unit/HMI/Game/test_game_events.cpp
+    Unit/HMI/Game/test_level_run_stats.cpp
     Unit/HMI/Audio/test_sound_triggers.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
     Unit/HMI/Audio/test_sound_catalog.cpp
     Unit/HMI/Interface/test_design_tokens.cpp
     Unit/HMI/Interface/test_application_theme.cpp
+    Unit/HMI/Interface/test_theme_teardown_guards.cpp
     Unit/HMI/Interface/test_editor_actions.cpp
     Unit/HMI/Interface/test_screen_flow.cpp
+    Unit/HMI/Interface/test_pixel_art_scale.cpp
+    Unit/HMI/Interface/test_editor_workspace.cpp
+    Unit/HMI/Interface/test_pixel_frame_geometry.cpp
     Unit/HMI/Editor/test_thumbnail_geometry.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
     Unit/HMI/Editor/test_tile_taxonomy.cpp
@@ -109,6 +115,8 @@ add_executable(UnitTests
     Unit/HMI/Editor/test_asset_references.cpp
     Unit/HMI/Editor/test_decor_geometry.cpp
     Unit/HMI/Editor/test_decor_gesture.cpp
+    Unit/HMI/Editor/test_path_geometry.cpp
+    Unit/HMI/Editor/test_path_gesture.cpp
     Unit/HMI/Editor/test_decor_list_model.cpp
     Unit/HMI/Editor/test_mechanism_animation_assignments.cpp
     Unit/HMI/Editor/test_editor_status.cpp
@@ -236,6 +244,10 @@ add_executable(UnitTests
     ../HMI/Editor/DecorGeometry.cpp
     ../HMI/Editor/DecorGesture.cpp
     ../HMI/Editor/DecorListModel.cpp
+    # Geometrie des poignees de parcours et machine a etats du geste de l'outil « Parcours »
+    # (LOT-67) : meme patron pur que DecorGeometry/DecorGesture ci-dessus.
+    ../HMI/Editor/PathGeometry.cpp
+    ../HMI/Editor/PathGesture.cpp
     # Balayage/filtrage d'un dossier d'assets (LOT-43), partagé par AssetThumbnailView : pur,
     # testable hors Qt.
     ../HMI/Editor/AssetLibrary.cpp
@@ -303,6 +315,12 @@ add_executable(UnitTests
     # (listes de primitives, tables statiques), aucune dependance Qt (le rendu QPainter reel reste
     # dans ThemeIcons.cpp/EditorActions.cpp, non compiles ici).
     ../HMI/Interface/IconGeometry.cpp
+    ../HMI/Game/LevelRunStats.cpp
+    ../HMI/Interface/PixelArtScale.cpp
+    ../HMI/Interface/EditorWorkspace.cpp
+    ../HMI/Interface/PixelFrameGeometry.cpp
+    ../HMI/Interface/MenuBackdropGeometry.cpp
+    ../HMI/Interface/KeyHintText.cpp
     ../HMI/Interface/ActionCatalog.cpp
     # Dimensionnement des vignettes a l'echelle d'affichage (LOT-56 TACHE-05) : arithmetique pure,
     # aucune dependance Qt/GPU.

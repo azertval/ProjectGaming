@@ -5,13 +5,26 @@ l'éditeur de niveau. Les mises en page sont décrites hors code dans `Elements/
 et le thème dans `Elements/Themes/theme.qss`.
 
 - `MainWindow` — fenêtre principale : `QStackedWidget` (menu / options / éditeur) et panneaux
-  dockables (`QDockWidget` — Palette, Outils, Niveaux, Liens) autour du viewport central. Persiste
-  la disposition via `QSettings` (`EX-IHM-011`) et lance la séquence de jeu (`startGame`).
+  dockables (`QDockWidget`) autour du viewport central. Depuis le `LOT-68`, ces panneaux sont
+  répartis en **deux espaces de travail exclusifs** (`EditorWorkspace`, `EX-IHM-073`) : édition de
+  niveau ou atelier pixel art, chacun persistant **sa** disposition (`EX-IHM-011`). Lance aussi la
+  séquence de jeu (`startGame`).
+- `EditorWorkspace` — table **pure** de la répartition panneaux/barres/menus entre les deux espaces.
+- `ActionCatalog` / `EditorActions` — les commandes de l'éditeur comme actions réutilisables
+  (`EX-IHM-055`). Depuis le `LOT-68`, chaque action déclare sa **surface** (`ActionSurface`) : la
+  barre d'outils ne porte que les outils et les commandes à usage continu, le reste vit au menu
+  (`EX-IHM-074`).
 - `MainMenu` — menu principal (Jouer / Éditeur / Options / Quitter), depuis `MainMenu.ui`.
-- `OptionsPage` — options en onglets, depuis `OptionsPage.ui` : **V-Sync** (`EX-REN-022`), un onglet
-  **Général** (sélecteur de **langue** `EX-REN-033` + bouton **« Enregistrer les journaux »**) et le
-  remappage clavier/manette (onglets ajoutés en code). Résolution/FPS sont présents mais désactivés,
-  l'audio est un espace réservé. Émet `languageChanged`/`saveLogsRequested` vers `MainWindow`.
+- `OptionsPage` — options en onglets, depuis `OptionsPage.ui` : **V-Sync** (`EX-REN-022`),
+  l'affichage du **compteur de diagnostic** (`LOT-68`), le **volume**, un onglet **Général**
+  (sélecteur de **langue** `EX-REN-033` + bouton **« Enregistrer les journaux »**) et le remappage
+  clavier/manette (onglets ajoutés en code). Les sélecteurs de résolution et de limite d'images/s
+  ont été **retirés** au `LOT-68` : grisés et non branchés, ils promettaient un réglage inexistant
+  (`EX-IHM-072`). Émet `languageChanged`/`saveLogsRequested` vers `MainWindow`.
+- `PixelArtScale`, `PixelFrameGeometry`, `MenuBackdropGeometry`, `KeyHintText` — géométries et
+  textes **purs** de l'habillage pixel art des écrans du jeu (`EX-IHM-070`), peints par
+  `PixelFrameWidget`, `PixelMenuButton` et `MainMenu`. Même découpage que les icônes du `LOT-56` :
+  une fonction pure décide *quoi* dessiner, un peintre Qt décide *comment*.
 - `KeybindingsWidget` / `GamepadBindingsWidget` — capture et affichage du remappage des touches et
   des boutons de manette (délèguent à `hmi::GameKeyBindings` / `EditorKeyBindings` /
   `GamepadBindings`, logique pure testée). Le remappage manette affiche aussi l'**état de connexion**

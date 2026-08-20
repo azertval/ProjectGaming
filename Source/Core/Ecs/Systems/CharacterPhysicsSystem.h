@@ -55,6 +55,24 @@ public:
     explicit CharacterPhysicsSystem(PhysicsConfig config = {});
 
     /**
+     * @brief Remplace les réglages de physique (`EX-GP-055`).
+     *
+     * Sert au chargement d'un tableau qui redéfinit les capacités du personnage (sauts aériens,
+     * charges de dash) : le système n'a **aucun** état interne — tout l'état de simulation vit
+     * dans les composants ECS — donc échanger sa configuration est sans effet de bord, là où le
+     * reconstruire en cours de vie de l'appelant serait un geste inutilement lourd.
+     * @param config Nouvelles constantes de physique.
+     */
+    void setConfig(PhysicsConfig config) noexcept {
+        _config = config;
+    }
+
+    /// @return Les réglages de physique courants.
+    [[nodiscard]] const PhysicsConfig& config() const noexcept {
+        return _config;
+    }
+
+    /**
      * @brief Applique un pas de simulation à toutes les entités « personnage ».
      * @param world      Monde ECS (entités Player + Transform + Velocity + Collider).
      * @param tiles      Grille de collision : `isSolid(colonne, ligne)` désigne les tuiles

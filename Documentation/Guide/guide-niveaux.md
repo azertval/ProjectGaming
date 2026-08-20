@@ -312,10 +312,28 @@ testée, sans risque de divergence entre deux calculs indépendants.
 `TileType::MovingPlatform` : contrairement aux blocs poussables ci-dessus (position **case par
 case**), la position d'une plateforme est **continue**, fonction **déterministe** du nombre de pas
 fixes écoulés depuis le chargement (`EX-NFR-002`) — jamais d'accumulation flottante
-(`position += vitesse * dt`, qui dériverait sur une session longue). Aller-retour **triangulaire**
-entre `MovingPlatformConfig::startPosition` et `endPosition`, à vitesse constante (`speed`, cases
-par seconde), avec un déphasage optionnel (`phase`, en pas fixes — même principe que
-`DangerBlinkConfig::phase`) pour désynchroniser plusieurs plateformes d'un même niveau.
+(`position += vitesse * dt`, qui dériverait sur une session longue).
+
+Depuis le `LOT-67` (`EX-GP-054`), le trajet est une **route à N points** : `startPosition` est le
+point de départ, `MovingPlatformConfig::waypoints` liste les points suivants, et `mode` choisit
+entre l'**aller-retour** (la route puis son inverse, comportement historique généralisé) et le
+**circuit fermé** (`Loop` : le dernier point rejoint le premier en ligne droite, ce segment de
+fermeture faisant partie du cycle et se parcourant à la même vitesse). La vitesse (`speed`, cases
+par seconde) est constante sur toute la route, et le déphasage optionnel (`phase`, en pas fixes —
+même principe que `DangerBlinkConfig::phase`) désynchronise plusieurs plateformes d'un même niveau.
+
+La géométrie vit dans `core::PlatformPath` (`Core/Gameplay/PlatformPath.h`), **partagé** avec
+l'overlay d'édition : le trajet dessiné dans l'éditeur est littéralement celui que le gameplay
+parcourt, jamais une réimplémentation parallèle. Les longueurs cumulées sont précalculées au
+chargement (`boxAtStep` est appelée plusieurs fois par pas et par consommateur) et la distance
+parcourue est cumulée en **double précision** : convertie en `float`, elle perdrait le bit de poids
+faible au-delà d'environ 16,7 millions de pas (~77 h), ce qui décalerait visiblement la plateforme
+en fin de longue session. Un segment de longueur nulle (point dupliqué) est traversé sans incident,
+et une route vide décrit une plateforme immobile plutôt qu'un niveau invalide (`EX-NFR-040`).
+
+Un fichier écrit avant le multi-points (couple `endX`/`endY`) reste **lu** tel quel et converti en
+route à un point : son comportement est inchangé (`EX-LVL-008`). L'éditeur, lui, réécrit toujours en
+`waypoints`.
 
 **L'ordre de résolution dans le pas est la décision structurante**, documentée ici parce qu'un
 autre ordre produit des défauts subtils et intermittents (`hmi::GameSession::update`,
@@ -352,7 +370,23 @@ plateforme en pause, ce qui casserait sa position purement fonction du numéro d
 > combiner une plateforme mobile et une pente dans un même fichier de niveau tant que ce défaut
 > n'est pas corrigé.
 
-## Budget de mouvements
+## Budget de mouvements et capacités du tableau
+
+Deux notions **distinctes**, à ne jamais confondre — c'est la confusion la plus facile à faire ici,
+et le panneau « Propriétés » de l'éditeur les sépare en deux groupes explicitement libellés pour
+cette raison :
+
+| | Champs JSON | Sémantique |
+|---|---|---|
+| **Budget** (`EX-GP-024`) | `jumpBudget`, `dashBudget` | Total consommable sur **tout le tableau**, jamais rechargé ; `-1` = illimité. Réinitialisé au (re)chargement du niveau. |
+| **Capacité** (`EX-GP-055`, `LOT-67`) | `airJumps`, `dashCharges` | Nombre de sauts aériens / de dashs **rechargés à chaque contact avec le sol** ; absent = réglage du moteur (`core::PhysicsConfig`). |
+
+Les capacités sont appliquées par `hmi::GameSession::loadLevel`, qui construit une
+`core::PhysicsConfig` dérivée du niveau et la pose sur le système de physique
+(`CharacterPhysicsSystem::setConfig`) **avant** de faire apparaître le personnage — sa recharge
+initiale en dépend. Le dash porte désormais un compteur de charges
+(`core::Player::dashChargesRemaining`) et non plus un booléen : un tableau peut en accorder
+plusieurs par saut. Valeur par défaut `1`, soit le comportement historique à l'identique.
 
 Un tableau **puzzle** peut vouloir limiter délibérément le nombre de sauts et/ou de dashs
 disponibles, pour forcer le joueur à les utiliser avec parcimonie plutôt que librement

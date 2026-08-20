@@ -555,7 +555,7 @@ TEST(CroisementsMecaniques, PlateformeMobileTraverseUnePorteFermee) {
         .switchPosition = core::GridPosition{3, 4}, .doorPosition = core::GridPosition{8, 4}}};
     const std::vector<core::MovingPlatformConfig> platforms{
         core::MovingPlatformConfig{.startPosition = core::GridPosition{2, 4},
-                                   .endPosition = core::GridPosition{12, 4},
+                                   .waypoints = {core::GridPosition{12, 4}},
                                    .speed = 4.0f}};
     // Aucune pente dans ce niveau : un movingPlatform present casse le suivi de pente ailleurs
     // dans le meme fichier (defaut moteur consigne au LOT-65).
@@ -593,7 +593,7 @@ TEST(CroisementsMecaniques, PlateformeMobileEmporteLeBlocPose) {
     tiles.setTile(2, 4, core::TileType::Block);  // pose juste au-dessus de la plateforme
     const std::vector<core::MovingPlatformConfig> platforms{
         core::MovingPlatformConfig{.startPosition = core::GridPosition{2, 5},
-                                   .endPosition = core::GridPosition{12, 5},
+                                   .waypoints = {core::GridPosition{12, 5}},
                                    .speed = 3.0f}};
     core::Level level("plateforme-bloc", tiles, core::GridPosition{1, 6}, core::GridPosition{15, 6},
                       std::vector<core::Mechanism>{}, -1, -1, {}, {}, {}, std::nullopt,

@@ -180,6 +180,20 @@ pouvoir habiller le niveau avec de vraies textures — sans jamais perdre la lec
   au même titre que les autres outils de dessin (rectangle, sélection), avec un tableau
   récapitulatif dans la section « Cadrage ». Chaque ajout ou retrait est une opération d'édition
   **annulable** (`EX-EDIT-005`). Concrétisé en `LOT-64`.
+- \anchor EX-EDIT-032 **EX-EDIT-032** — L'éditeur doit permettre de **manipuler directement au
+  canevas** la trajectoire des éléments mobiles : déplacer, insérer et retirer les points de la
+  route d'une plateforme mobile (`EX-GP-054`), redéfinir l'axe et la portée d'un danger mobile
+  (`EX-GP-051`), au moyen de **poignées glissables** de taille écran constante. Chaque geste complet
+  est **une seule** opération annulable (`EX-EDIT-005`), jamais une par position intermédiaire.
+  Sans cela, ces trajectoires resteraient accessibles aux seuls éditeurs de JSON, ce que l'existence
+  même de l'éditeur (`EX-VIS-006`) exclut. Concrétisé en `LOT-67`.
+- \anchor EX-EDIT-033 **EX-EDIT-033** — L'éditeur doit exposer, dans un panneau dédié, les
+  **paramètres de temporisation** des éléments mobiles (vitesse, déphasage et mode de parcours d'une
+  plateforme ; axe et portée d'un danger mobile ; période, déphasage et durée active d'un danger
+  temporisé) ainsi que les **règles du tableau** (budgets de `EX-GP-024` et capacités de
+  `EX-GP-055`), sous une forme éditable et **annulable** (`EX-EDIT-005`). Les deux notions de règles
+  doivent être présentées **distinctement**, un budget consommable ne se confondant pas avec une
+  capacité rechargée. Concrétisé en `LOT-67`.
 - \anchor EX-EDIT-043 **EX-EDIT-043** — L'éditeur doit permettre d'assigner une **texture propre à
   une case précise** (« objet interactif », ex. une porte particulière), par un geste de clic dédié,
   prioritaire sur l'association globale (`EX-EDIT-042`) pour cette case. Concrétisé en `LOT-45`.

@@ -26,7 +26,24 @@ core::Level makeLevelWithPlatform(int endColumn, int endRow, float speed = 2.0f,
     map.setTile(1, 1, core::TileType::MovingPlatform);
     std::vector<core::MovingPlatformConfig> platformConfigs{
         core::MovingPlatformConfig{.startPosition = core::GridPosition{1, 1},
-                                   .endPosition = core::GridPosition{endColumn, endRow},
+                                   .waypoints = {core::GridPosition{endColumn, endRow}},
+                                   .speed = speed,
+                                   .phase = phase}};
+    return core::Level("plateforme", std::move(map), core::GridPosition{0, 0},
+                       core::GridPosition{7, 7}, {}, -1, -1, {}, {}, {}, std::nullopt, std::nullopt,
+                       {}, {}, std::move(platformConfigs));
+}
+
+// Niveau minimal 8x8 avec une seule plateforme mobile en (1,1) suivant la route donnee (points
+// APRES le depart), dans le mode et a la vitesse donnes.
+core::Level makeLevelWithPath(std::vector<core::GridPosition> waypoints,
+                              core::PlatformPathMode mode, float speed = 2.0f, int phase = 0) {
+    core::TileMap map(8, 8);
+    map.setTile(1, 1, core::TileType::MovingPlatform);
+    std::vector<core::MovingPlatformConfig> platformConfigs{
+        core::MovingPlatformConfig{.startPosition = core::GridPosition{1, 1},
+                                   .waypoints = std::move(waypoints),
+                                   .mode = mode,
                                    .speed = speed,
                                    .phase = phase}};
     return core::Level("plateforme", std::move(map), core::GridPosition{0, 0},
@@ -239,4 +256,187 @@ TEST(PlatformControllerTest, IsSquishedByPlatformDetecteLEcrasement) {
 
     EXPECT_TRUE(core::isSquishedByPlatform(boxAt(2, 0), map));   // chevauche le plafond
     EXPECT_FALSE(core::isSquishedByPlatform(boxAt(2, 2), map));  // espace libre, loin du plafond
+}
+
+/**
+ * @brief Une route à trois points est parcourue segment par segment à vitesse constante, puis
+ *        refaite à l'envers (aller-retour généralisé, `EX-GP-054`).
+ * \castest{<b>Une route à trois points est parcourue puis refaite à l'envers.</b><br/>
+ * \tcat Unitaire · Platform Controller<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Poser une route en L (1,1) vers (3,1) puis (3,4), a vitesse 2 cases/s.<br/>2.
+ * Avancer pas a pas et relever la position aux instants remarquables de l'aller puis du
+ * retour.<br/>
+ * \tattendu La plateforme suit chaque segment a vitesse constante, atteint le dernier point au
+ * bout de l'aller, puis revient au depart en repassant par le coin.
+ * }
+ */
+TEST(PlatformControllerTest, RouteATroisPointsEstParcourueEnAllerRetour) {
+    // Route en L : 2 cases vers la droite puis 3 cases vers le bas, soit 5 cases d'aller.
+    core::PlatformController controller(makeLevelWithPath(
+        {core::GridPosition{3, 1}, core::GridPosition{3, 4}}, core::PlatformPathMode::PingPong));
+
+    const auto advance = [&](int steps) {
+        for (int i = 0; i < steps; ++i) {
+            controller.update();
+        }
+    };
+
+    advance(30);  // 0,5 s a 2 cases/s = 1 case : encore sur le premier segment
+    EXPECT_NEAR(controller.boxAt(0).min.x, 2.0f, 1e-4f);
+    EXPECT_NEAR(controller.boxAt(0).min.y, 1.0f, 1e-4f);
+
+    advance(30);  // 1 s = 2 cases : pile sur le coin, le waypoint intermediaire
+    EXPECT_NEAR(controller.boxAt(0).min.x, 3.0f, 1e-4f);
+    EXPECT_NEAR(controller.boxAt(0).min.y, 1.0f, 1e-4f);
+
+    advance(30);  // 1,5 s = 3 cases : une case apres le coin, sur le second segment
+    EXPECT_NEAR(controller.boxAt(0).min.x, 3.0f, 1e-4f);
+    EXPECT_NEAR(controller.boxAt(0).min.y, 2.0f, 1e-4f);
+
+    advance(60);  // 2,5 s = 5 cases : bout de l'aller
+    EXPECT_NEAR(controller.boxAt(0).min.x, 3.0f, 1e-4f);
+    EXPECT_NEAR(controller.boxAt(0).min.y, 4.0f, 1e-4f);
+
+    advance(90);  // 4 s = 8 cases : 3 cases de retour, de nouveau sur le coin
+    EXPECT_NEAR(controller.boxAt(0).min.x, 3.0f, 1e-4f);
+    EXPECT_NEAR(controller.boxAt(0).min.y, 1.0f, 1e-4f);
+
+    advance(60);  // 5 s = 10 cases = un cycle complet : retour exact au depart
+    EXPECT_NEAR(controller.boxAt(0).min.x, 1.0f, 1e-4f);
+    EXPECT_NEAR(controller.boxAt(0).min.y, 1.0f, 1e-4f);
+}
+
+/**
+ * @brief En mode circuit fermé, la plateforme revient au départ par le segment de fermeture sans
+ *        jamais rebrousser chemin (`EX-GP-054`).
+ * \castest{<b>Un circuit fermé se parcourt toujours dans le même sens.</b><br/>
+ * \tcat Unitaire · Platform Controller<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Poser un carre (1,1), (3,1), (3,3), (1,3) en mode boucle.<br/>2. Avancer d'un cycle
+ * complet en relevant la position sur le segment de fermeture.<br/>
+ * \tattendu La plateforme emprunte le segment de fermeture puis retrouve exactement sa position de
+ * depart apres un cycle, sans repasser a l'envers par les points intermediaires.
+ * }
+ */
+TEST(PlatformControllerTest, CircuitFermeNeRebrousseJamaisChemin) {
+    // Carre de 2 cases de cote : 2 + 2 + 2 pour l'aller, + 2 de fermeture = perimetre 8 cases.
+    core::PlatformController controller(makeLevelWithPath(
+        {core::GridPosition{3, 1}, core::GridPosition{3, 3}, core::GridPosition{1, 3}},
+        core::PlatformPathMode::Loop));
+
+    const auto advance = [&](int steps) {
+        for (int i = 0; i < steps; ++i) {
+            controller.update();
+        }
+    };
+
+    advance(90);  // 1,5 s a 2 cases/s = 3 cases : un segment et demi, sur le cote droit
+    EXPECT_NEAR(controller.boxAt(0).min.x, 3.0f, 1e-4f);
+    EXPECT_NEAR(controller.boxAt(0).min.y, 2.0f, 1e-4f);
+
+    advance(90);  // 3 s = 6 cases : dernier point du carre atteint
+    EXPECT_NEAR(controller.boxAt(0).min.x, 1.0f, 1e-4f);
+    EXPECT_NEAR(controller.boxAt(0).min.y, 3.0f, 1e-4f);
+
+    advance(30);  // 3,5 s = 7 cases : EN PLEIN sur le segment de fermeture, pas un retour arriere
+    EXPECT_NEAR(controller.boxAt(0).min.x, 1.0f, 1e-4f);
+    EXPECT_NEAR(controller.boxAt(0).min.y, 2.0f, 1e-4f);
+
+    advance(30);  // 4 s = 8 cases = perimetre complet : retour exact au depart
+    EXPECT_NEAR(controller.boxAt(0).min.x, 1.0f, 1e-4f);
+    EXPECT_NEAR(controller.boxAt(0).min.y, 1.0f, 1e-4f);
+}
+
+/**
+ * @brief Une route dégénérée (aucun point, ou points confondus avec le départ) laisse la
+ *        plateforme immobile plutôt que de diviser par une longueur nulle (`EX-NFR-040`).
+ * \castest{<b>Une route dégénérée laisse la plateforme immobile.</b><br/>
+ * \tcat Unitaire · Platform Controller<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Construire une plateforme sans waypoint, puis une autre dont tous les waypoints
+ * valent la position de depart.<br/>2. Avancer de plusieurs pas fixes.<br/>
+ * \tattendu Les deux restent a leur position de depart, sans division par zero.
+ * }
+ */
+TEST(PlatformControllerTest, RouteDegenereeLaissePlateformeImmobile) {
+    const auto run = [](std::vector<core::GridPosition> waypoints) {
+        core::PlatformController controller(
+            makeLevelWithPath(std::move(waypoints), core::PlatformPathMode::PingPong));
+        for (int i = 0; i < 120; ++i) {
+            controller.update();
+        }
+        return controller.boxAt(0);
+    };
+
+    const core::Aabb sansWaypoint = run({});
+    EXPECT_FLOAT_EQ(sansWaypoint.min.x, 1.0f);
+    EXPECT_FLOAT_EQ(sansWaypoint.min.y, 1.0f);
+
+    // Deux points confondus avec le depart : la route existe mais sa longueur est nulle.
+    const core::Aabb pointsConfondus = run({core::GridPosition{1, 1}, core::GridPosition{1, 1}});
+    EXPECT_FLOAT_EQ(pointsConfondus.min.x, 1.0f);
+    EXPECT_FLOAT_EQ(pointsConfondus.min.y, 1.0f);
+}
+
+/**
+ * @brief Un point dupliqué au milieu d'une route ne produit ni division par zéro ni saut : le
+ *        segment de longueur nulle est simplement traversé (`EX-NFR-040`).
+ * \castest{<b>Un point dupliqué au milieu d'une route est traversé sans incident.</b><br/>
+ * \tcat Unitaire · Platform Controller<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Poser une route (1,1), (3,1), (3,1), (5,1) avec un point duplique.<br/>2. Relever la
+ * position de part et d'autre du point duplique.<br/>
+ * \tattendu La plateforme progresse a vitesse constante, comme si le doublon n'existait pas.
+ * }
+ */
+TEST(PlatformControllerTest, PointDupliqueNeCassePasLeParcours) {
+    core::PlatformController controller(makeLevelWithPath(
+        {core::GridPosition{3, 1}, core::GridPosition{3, 1}, core::GridPosition{5, 1}},
+        core::PlatformPathMode::PingPong));
+
+    for (int i = 0; i < 60; ++i) {
+        controller.update();
+    }
+    // 1 s a 2 cases/s = 2 cases : pile sur le point duplique.
+    EXPECT_NEAR(controller.boxAt(0).min.x, 3.0f, 1e-4f);
+
+    for (int i = 0; i < 30; ++i) {
+        controller.update();
+    }
+    // 1,5 s = 3 cases : la progression a continue normalement au-dela du doublon.
+    EXPECT_NEAR(controller.boxAt(0).min.x, 4.0f, 1e-4f);
+}
+
+/**
+ * @brief La position reste exacte après des millions de pas fixes : le parcours est une fonction
+ *        pure du numéro de pas, calculée sans perte de précision (`EX-NFR-002`).
+ * \castest{<b>La position ne dérive pas après des millions de pas fixes.</b><br/>
+ * \tcat Unitaire · Platform Controller<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Poser une plateforme dont le cycle dure un nombre entier de pas.<br/>2. Comparer la
+ * position apres un tres grand nombre de cycles entiers a celle du meme reste de cycle.<br/>
+ * \tattendu Les deux positions coincident : aucune derive accumulee, contrairement a un calcul
+ * mene en simple precision qui perdrait le bit de poids faible au-dela de ~16,7 millions de pas.
+ * }
+ */
+TEST(PlatformControllerTest, AucuneDeriveApresDesMillionsDePas) {
+    // Aller-retour de 2 cases a 2 cases/s : cycle = 4 cases = 2 s = 120 pas fixes, exactement.
+    const core::Level level =
+        makeLevelWithPath({core::GridPosition{3, 1}}, core::PlatformPathMode::PingPong);
+    constexpr int TOTAL_STEPS = 20000000;  // bien au-dela des ~16,7 M ou un compteur float saute
+    constexpr int CYCLE_STEPS = 120;
+
+    core::PlatformController reference(level);
+    for (int i = 0; i < TOTAL_STEPS % CYCLE_STEPS; ++i) {
+        reference.update();
+    }
+
+    core::PlatformController longRun(level);
+    for (int i = 0; i < TOTAL_STEPS; ++i) {
+        longRun.update();
+    }
+
+    EXPECT_NEAR(longRun.boxAt(0).min.x, reference.boxAt(0).min.x, 1e-4f);
+    EXPECT_NEAR(longRun.boxAt(0).min.y, reference.boxAt(0).min.y, 1e-4f);
 }

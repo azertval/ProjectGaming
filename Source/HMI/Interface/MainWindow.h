@@ -20,6 +20,7 @@
 #include "HMI/Game/Progression.h"
 #include "HMI/Input/GamepadPoller.h"
 #include "HMI/Input/InputState.h"
+#include "HMI/Interface/EditorWorkspace.h"
 #include "HMI/Interface/ScreenFlow.h"
 #include "HMI/Localization/Localization.h"
 
@@ -60,6 +61,7 @@ class PalettePanel;
 class LevelBrowserPanel;
 class LinkPanel;
 class TexturePanel;
+class PropertiesPanel;
 class PixelCanvas;
 class PixelHistoryPanel;
 class PixelPalettePanel;
@@ -91,6 +93,33 @@ protected:
     /// `LOT-59` TACHE-02/03) -- fenêtres de haut niveau positionnées à la main, jamais
     /// redimensionnées automatiquement par `_stack`.
     void resizeEvent(QResizeEvent* event) override;
+    /// Recalcule le facteur d'agrandissement des ecrans du jeu depuis la hauteur courante et
+    /// rejoue le theme s'il a change (LOT-68, EX-IHM-070). Sans effet sur le chassis d'edition,
+    /// dont les grandeurs ne sont jamais multipliees.
+    void applyIdentityScale();
+
+private:
+    /// Applique l'espace de travail @p workspace (`LOT-68`, `EX-IHM-073`) : masque les panneaux de
+    /// l'autre espace, bascule barre d'outils et menu, restaure la disposition propre à cet espace.
+    /// N'enregistre **pas** la disposition qu'on quitte — c'est `switchToWorkspace` qui sait qu'on
+    /// quitte vraiment un espace, et l'initialisation n'a rien à enregistrer.
+    void applyWorkspace(EditorWorkspace workspace);
+
+    /// Bascule sur @p workspace **s'il n'est pas déjà actif**, en synchronisant le sélecteur du
+    /// menu sans réémettre. Point d'entrée unique : `applyWorkspace` applique, celle-ci décide.
+    void switchToWorkspace(EditorWorkspace workspace);
+
+    /// @return La clé `QSettings` de la disposition de @p workspace. Chaque espace persiste la
+    /// sienne : une disposition unique rouvrirait les docks de l'atelier par-dessus l'édition.
+    [[nodiscard]] static QString layoutKeyFor(EditorWorkspace workspace);
+
+    /// @return La table des neuf panneaux et de leur identité, relue par `setDocksVisible` **et**
+    /// par `applyWorkspace`. Une seule table : deux listes divergeraient au premier dock ajouté, et
+    /// le dock oublié resterait affiché dans les deux espaces.
+    [[nodiscard]] std::array<std::pair<QDockWidget*, hmi::PanelId>, hmi::PANEL_COUNT>
+    workspacePanels() const;
+
+protected:
     /// Même resynchronisation que `resizeEvent`, nécessaire en plus de lui : un recouvrement est
     /// une fenêtre de haut niveau positionnée en coordonnées **écran** (`syncOverlayGeometry`),
     /// donc déplacer la fenêtre principale sans la redimensionner (aucun `resizeEvent`) la
@@ -105,6 +134,11 @@ private:
     /// Ouvre la boîte de dialogue de redimensionnement du niveau (avec confirmation si
     /// destructeur).
     void openResizeDialog();
+
+    /// Ouvre l'aperçu des raccourcis (`ShortcutsDialog.ui`). Le tableau est rempli depuis les
+    /// raccourcis **effectifs** des actions, jamais un texte figé : il reste juste après un
+    /// remappage.
+    void openShortcutsDialog();
 
     /// Applique la langue active à tous les textes de l'IHM (fenêtre, menus, docks, panneaux).
     void retranslateUi();
@@ -320,6 +354,8 @@ private:
     DecorsPanel* _decors;
     LinkPanel* _links;        ///< Liste/gestion des liaisons de mécanismes (dock Liens, LOT-37).
     TexturePanel* _textures;  ///< Habillage : jeu de skins et assignations (dock Textures, LOT-42).
+    /// Réglages de gameplay de l'élément sélectionné et du tableau (dock Propriétés, `LOT-67`).
+    PropertiesPanel* _properties;
     /// Canevas de l'atelier pixel art (dock Atelier, LOT-54 TACHE-04) : seconde implémentation de
     /// `EditContextTarget`, cible d'Annuler/Refaire/Copier/Coller quand elle a le focus clavier.
     PixelCanvas* _pixelCanvas;
@@ -334,8 +370,13 @@ private:
     /// pour l'affichage ; ce chemin sert à `savePixelAsset` pour retrouver le dossier.
     std::filesystem::path _pixelAssetPath;
     EditorActions*
-        _actions;        ///< Outils et commandes principales, barre d'outils (LOT-56 TACHE-04).
-    QToolBar* _toolBar;  ///< Barre d'outils de l'éditeur, alimentée par `_actions`.
+        _actions;  ///< Outils et commandes principales, barre d'outils (LOT-56 TACHE-04).
+    /// Espace de travail actif (`LOT-68`). Persisté : on rouvre l'éditeur là où on l'a laissé.
+    /// Vrai dès que la fenêtre a reçu sa demande de fermeture. Coupe les traitements différés qui
+    /// toucheraient au thème ou à la disposition pendant le démontage.
+    bool _closing = false;
+    EditorWorkspace _workspace = EditorWorkspace::Level;
+    QToolBar* _toolBar;       ///< Barre d'outils de l'éditeur, alimentée par `_actions`.
     QToolBar* _pixelToolBar;  ///< Barre d'outils du canevas pixel art (LOT-54 TACHE-04).
     QToolButton* _pixelColorButton =
         nullptr;  ///< Témoin + sélecteur de couleur courante (canevas).

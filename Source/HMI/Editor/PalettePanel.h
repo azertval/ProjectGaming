@@ -3,6 +3,7 @@
 #include <QPixmap>
 #include <QWidget>
 #include <filesystem>
+#include <memory>
 #include <string>
 #include <unordered_map>
 
@@ -19,6 +20,10 @@ class QEvent;
 class QModelIndex;
 class QStandardItemModel;
 class QTreeView;
+
+namespace Ui {
+class PalettePanel;
+}
 
 namespace hmi {
 
@@ -38,6 +43,9 @@ class PalettePanel : public QWidget {
 
 public:
     explicit PalettePanel(QWidget* parent = nullptr);
+
+    /// Hors-ligne : `std::unique_ptr<Ui::PalettePanel>` porte un type incomplet.
+    ~PalettePanel() override;
 
     /// @return Le type de tuile actuellement sélectionné (`Solid` par défaut).
     [[nodiscard]] core::TileType selectedTile() const noexcept {
@@ -87,6 +95,9 @@ private:
     /// Vignette d'un type dans le mode courant, décodée au premier besoin puis mise en cache.
     [[nodiscard]] QPixmap thumbnailFor(core::TileType type);
 
+    /// Mise en page issue de `PalettePanel.ui` (`LOT-68`) : le C++ ne branche plus que le
+    /// fonctionnel, conformément à la convention du projet.
+    std::unique_ptr<Ui::PalettePanel> _ui;
     QTreeView* _tree;
     QStandardItemModel* _model;
     core::TileType _selected = core::TileType::Solid;

@@ -16,7 +16,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="backButton">
+      <widget class="hmi::PixelMenuButton" name="backButton">
        <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
        <property name="text"><string>Retour</string></property>
        <property name="flat"><bool>true</bool></property>
@@ -44,8 +44,22 @@
      </widget>
     </widget>
    </item>
+   <item>
+    <widget class="QLabel" name="hintsLabel">
+     <property name="text"><string/></property>
+     <property name="textFormat"><enum>Qt::RichText</enum></property>
+     <property name="alignment"><set>Qt::AlignRight|Qt::AlignVCenter</set></property>
+    </widget>
+   </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>hmi::PixelMenuButton</class>
+   <extends>QPushButton</extends>
+   <header>HMI/Interface/PixelMenuButton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

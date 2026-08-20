@@ -335,6 +335,19 @@ void GameSession::loadLevel(core::Level level) {
         }
         _platformEntities.push_back(platformEntity);
     }
+    // Capacites du tableau (EX-GP-055) : un niveau peut redefinir le nombre de sauts aeriens et de
+    // charges de dash, tous deux recharges au contact du sol -- a distinguer des BUDGETS poses sur
+    // le personnage dans spawnPlayer, qui se consomment une fois pour toutes. Sans champ, on garde
+    // les reglages du moteur. Applique AVANT spawnPlayer, dont la recharge initiale en depend.
+    core::PhysicsConfig physicsConfig;
+    if (levelRef.airJumps()) {
+        physicsConfig.airJumps = *levelRef.airJumps();
+    }
+    if (levelRef.dashCharges()) {
+        physicsConfig.dashCharges = *levelRef.dashCharges();
+    }
+    _physics.setConfig(physicsConfig);
+
     spawnPlayer(levelRef.entry());
     HMI_LOG_INFO("Niveau charge : " + levelRef.name() + " (" + std::to_string(_levelWidth) + "x" +
                  std::to_string(_levelHeight) + ")");
@@ -355,6 +368,8 @@ void GameSession::spawnPlayer(core::GridPosition entry) {
     _world.addComponent(_player, core::Velocity{});
     _world.addComponent(_player, core::Collider{size});
     // Budget de mouvements du tableau (EX-GP-024) : -1 = illimite si le niveau n'en fixe pas.
+    // Total consommable sur tout le tableau, distinct des CAPACITES rechargees a chaque
+    // atterrissage (EX-GP-055), portees par la PhysicsConfig posee dans loadLevel.
     core::Player playerComponent;
     playerComponent.jumpsRemaining = _level->jumpBudget();
     playerComponent.dashesRemaining = _level->dashBudget();

@@ -15,12 +15,11 @@
    <item>
     <spacer name="titleSpacer">
      <property name="orientation"><enum>Qt::Vertical</enum></property>
-     <property name="sizeType"><enum>QSizePolicy::Fixed</enum></property>
-     <property name="sizeHint" stdset="0"><size><width>0</width><height>40</height></size></property>
+     <property name="sizeHint" stdset="0"><size><width>0</width><height>0</height></size></property>
     </spacer>
    </item>
    <item>
-    <widget class="QPushButton" name="continueButton">
+    <widget class="hmi::PixelMenuButton" name="continueButton">
      <!-- Grise sans progression (MainMenu::setContinueEnabled, LOT-59 TACHE-06) : pas de
           "enabled" fige ici, l'etat depend de Progression::currentLevel a l'execution. -->
      <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
@@ -29,45 +28,54 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="newGameButton">
+    <widget class="hmi::PixelMenuButton" name="newGameButton">
      <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
      <property name="text"><string>Nouvelle partie</string></property>
      <property name="flat"><bool>true</bool></property>
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="selectLevelButton">
+    <widget class="hmi::PixelMenuButton" name="selectLevelButton">
      <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
      <property name="text"><string>Choisir un niveau</string></property>
      <property name="flat"><bool>true</bool></property>
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="editorButton">
+    <widget class="hmi::PixelMenuButton" name="editorButton">
      <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
      <property name="text"><string>Éditeur de niveaux</string></property>
      <property name="flat"><bool>true</bool></property>
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="optionsButton">
+    <widget class="hmi::PixelMenuButton" name="optionsButton">
      <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
      <property name="text"><string>Options</string></property>
      <property name="flat"><bool>true</bool></property>
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="creditsButton">
+    <widget class="hmi::PixelMenuButton" name="creditsButton">
      <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
      <property name="text"><string>Crédits</string></property>
      <property name="flat"><bool>true</bool></property>
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="quitButton">
+    <widget class="hmi::PixelMenuButton" name="quitButton">
      <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
      <property name="text"><string>Quitter</string></property>
      <property name="flat"><bool>true</bool></property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="hintsLabel">
+     <!-- Rappels de touches (LOT-68) : texte enrichi compose en code depuis les jetons
+          (hmi::keyHintText). Vide ici : retranslateUi le remplit. -->
+     <property name="text"><string/></property>
+     <property name="textFormat"><enum>Qt::RichText</enum></property>
+     <property name="alignment"><set>Qt::AlignLeft|Qt::AlignVCenter</set></property>
     </widget>
    </item>
    <item>
@@ -78,6 +86,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>hmi::PixelMenuButton</class>
+   <extends>QPushButton</extends>
+   <header>HMI/Interface/PixelMenuButton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

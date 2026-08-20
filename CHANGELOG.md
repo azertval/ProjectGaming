@@ -6,6 +6,78 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+### Interface (LOT-68)
+
+- Les six écrans du jeu passent en **pixel art** : police bitmap embarquée (Pixelify Sans, Press
+  Start 2P), cadres à bordure franche et coins entaillés, décor au menu principal, et une échelle
+  d'agrandissement **entière** dérivée de la taille de la fenêtre — l'interface n'est plus figée à
+  une taille visiblement petite dès qu'on dépasse la définition d'un portable.
+- L'élément focalisé porte désormais un **curseur** et non une simple nuance de couleur : la
+  navigation à la manette n'a pas de pointeur pour dire où elle en est.
+- L'écran de fin de tableau affiche un **bilan** : temps, morts et sauts. Le temps est compté en pas
+  de simulation, donc comparable d'une machine à l'autre.
+- L'écran Options perd ses sélecteurs de **résolution** et de **limite d'images/s**, grisés et jamais
+  branchés, et gagne un réglage qui agit : l'affichage du **compteur de diagnostic**, jusqu'ici
+  atteignable par la seule touche `F9`.
+- La barre d'outils de l'éditeur ne porte plus que les outils et quatre commandes à usage continu :
+  elle en portait onze, dont neuf figuraient déjà au menu.
+- La barre de menus est réorganisée **par nature d'action** (Fichier, Édition, Niveau, Affichage,
+  Atelier, Aide), et les réglages nombreux passent en sous-menus — le menu Affichage alignait
+  vingt-trois entrées à plat.
+- L'éditeur se présente en **espaces de travail exclusifs** : édition de niveau ou atelier pixel art.
+  Chacun n'affiche que ses panneaux et sa barre d'outils, et retient sa propre disposition.
+
+
+### Ajouté
+- **Route multi-points pour les plateformes mobiles** (`LOT-67`, `EX-GP-054`) : une plateforme suit
+  désormais une suite de points de passage, parcourue en aller-retour ou en **circuit fermé**, à
+  vitesse constante — là où elle ne pouvait relier que deux points.
+- **Outil « Parcours » dans l'éditeur** (`EX-EDIT-032`) : les trajectoires se manipulent directement
+  au canevas, par des poignées glissables — déplacer, insérer ou retirer un point d'une route,
+  redéfinir l'axe et la portée d'un danger mobile. Chaque geste complet ne coûte qu'une annulation.
+- **Panneau « Propriétés »** (`EX-EDIT-033`) : vitesse, déphasage et mode d'une plateforme ; axe et
+  portée d'un danger mobile ; période, déphasage et durée active d'un danger temporisé ; règles du
+  tableau. Ces réglages existaient dans le modèle depuis le `LOT-63` mais **aucun n'était atteignable
+  depuis l'éditeur** : il fallait éditer le JSON à la main.
+- **Capacités de mobilité par tableau** (`EX-GP-055`) : un niveau peut redéfinir le nombre de sauts
+  aériens et de **charges de dash**, rechargés à chaque atterrissage — à distinguer des budgets de
+  `EX-GP-024`, consommables une fois pour toutes sur le tableau. Le dash porte désormais un compteur
+  de charges et non plus un booléen ; sa valeur par défaut reproduit le comportement historique.
+
+### Modifié
+- Le format de niveau porte `waypoints` et `mode` pour les plateformes, ainsi que `airJumps` et
+  `dashCharges` à la racine (`EX-LVL-008`). Le couple `endX`/`endY` reste **lu** : un fichier
+  antérieur se charge et se joue à l'identique. `demo-plateforme.json` conserve volontairement une
+  plateforme à l'ancien format, pour que la compatibilité soit prouvée par le contenu livré.
+
+### Corrigé
+- **Dérive de position des plateformes en session longue** : la distance parcourue était cumulée en
+  simple précision, ce qui perdait le bit de poids faible au-delà d'environ 16,7 millions de pas
+  (~77 h de jeu) et décalait visiblement la plateforme. Le calcul passe en double précision, et un
+  test fige le comportement à vingt millions de pas.
+- **Budgets de sauts et de dashs non annulables** : `LevelDraft::setJumpBudget` et `setDashBudget`
+  n'empilaient pas de pas d'annulation, contrairement à toutes les autres propriétés de niveau
+  (fond, jeu de skins, cadrage). `Ctrl+Z` ignorait donc silencieusement ces changements.
+- **Plateforme/danger mobile fraîchement posé sans parcours possible** (`EX-GP-026`/`EX-GP-051`,
+  `EX-EDIT-032`) : `LevelDraft::paintTile` ne créait sa configuration de route qu'au premier
+  enregistrement/rechargement du niveau (seul `LevelLoader` la créait par défaut). Tant que ce
+  round-trip n'avait pas eu lieu, l'outil « Parcours » ne trouvait la tuile dans aucun des vecteurs
+  qu'il parcourt et ne pouvait donc pas la désigner : impossible de démarrer son parcours sans
+  d'abord sauvegarder puis recharger. La pose crée désormais la configuration par défaut
+  immédiatement, comme `LevelLoader`.
+- **Trois types de tuiles sans texture par défaut** : clé, porte verrouillée et plateforme mobile
+  n'avaient d'entrée que dans le jeu de skins `kenney`, pas dans `test` (le jeu par défaut,
+  `skins.json`) — damier de repli systématique tant que le niveau ne redéfinissait pas son jeu de
+  skins. Les trois assets existaient déjà (`key.png`, `locked_door.png`, `platform.png`) ; il ne
+  manquait que les entrées.
+- **Palette et arbre de textures vides au lancement de l'éditeur** : le câblage de `MainWindow`
+  (à la construction) lisait le catalogue de skins avant que `GameViewport::ensureResources` ne
+  l'ait chargé (différé à la première exposition du canevas Direct3D), donc dans un état encore
+  vide. La palette de blocs et l'arbre de la section « Textures » s'ouvraient sans aucune vignette,
+  jusqu'à la première bascule de mode de rendu ou de jeu de skins qui les rafraîchissait par
+  ailleurs. `GameViewport` émet désormais `resourcesReady` une fois le catalogue réellement chargé,
+  et `MainWindow` s'y reconstruit.
+
 ## [0.1.0] - 2026-08-17
 
 > Sixième jalon, et premier qui **annonce un jeu** plutôt qu'un moteur : les jalons `0.0.x`

@@ -85,6 +85,18 @@ c'est un identifiant stable, jamais réordonné.
 - @subpage lot-64
 - @subpage lot-65
 - @subpage lot-66
+- @subpage lot-67
+
+## Apres le programme `0.1.0`
+
+Le `LOT-68` poursuit dans la meme veine : refonte de l'interface, en deux volets — degraissage
+des surfaces de commande de l'editeur et identite pixel art des ecrans du jeu (`EX-IHM-070` a
+`EX-IHM-074`). Comme le `LOT-67`, il repond a un manque constate a l'usage plutot qu'a un programme
+cadre ; il est documente par ses exigences et les guides, sans dossier de lot dedie.
+
+Le [LOT-67](@ref lot-67) ouvre la suite : il ne fait partie d'aucun programme cadre, et repond a un
+manque constate a l'usage de l'editeur — les trajectoires des elements mobiles et les regles de
+mobilite d'un tableau n'etaient editables qu'en modifiant le JSON a la main.
 
 ## Programme `0.1.0`
 

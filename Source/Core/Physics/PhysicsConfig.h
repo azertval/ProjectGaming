@@ -48,6 +48,9 @@ struct PhysicsConfig {
     float dashSpeed = 15.0f;
     /// Durée (secondes) du dash ; distance ≈ dashSpeed × dashDuration. ⚠️.
     float dashDuration = 0.15f;
+    /// Nombre de dashs utilisables entre deux contacts avec le sol (`EX-GP-017`, `EX-GP-055`).
+    /// Défaut 1 : un seul dash par saut, le comportement historique.
+    int dashCharges = 1;
     /// Multiplicateur de gravité en **chute** (> 1) : la chute est plus rapide que la montée
     /// (`EX-GP-018`). ⚠️ à affiner (~1,8).
     float fallGravityMultiplier = 1.8f;

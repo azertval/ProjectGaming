@@ -1059,7 +1059,7 @@ TEST(PhysiquePersonnageIntegration, DashUneSeuleFoisEnLAir) {
         ++guard;
     }
     ASSERT_FALSE(world.getComponent<core::Player>(player).grounded);
-    ASSERT_TRUE(world.getComponent<core::Player>(player).dashAvailable);
+    ASSERT_GT(world.getComponent<core::Player>(player).dashChargesRemaining, 0);
 
     // 1er dash en l'air (horizontal).
     core::PlayerInput dash;
@@ -1071,7 +1071,7 @@ TEST(PhysiquePersonnageIntegration, DashUneSeuleFoisEnLAir) {
     for (int i = 0; i < 15; ++i) {  // fin du dash, toujours en chute dans le vide
         system.update(world, tiles, core::PlayerInput{}, STEP);
     }
-    ASSERT_FALSE(world.getComponent<core::Player>(player).dashAvailable);  // consommé
+    ASSERT_EQ(world.getComponent<core::Player>(player).dashChargesRemaining, 0);  // consommée
     ASSERT_FALSE(world.getComponent<core::Player>(player).grounded);
 
     // 2e dash refusé (indisponible jusqu'au retour au sol).
@@ -1079,6 +1079,61 @@ TEST(PhysiquePersonnageIntegration, DashUneSeuleFoisEnLAir) {
     dash2.dashPressed = true;
     dash2.moveX = 1.0f;
     system.update(world, tiles, dash2, STEP);
+    EXPECT_LT(world.getComponent<core::Velocity>(player).value.x, config.dashSpeed * 0.9f);
+}
+
+/**
+ * @brief Un tableau accordant deux charges de dash en autorise deux d'affilée en l'air, puis
+ *        refuse la troisième jusqu'au retour au sol (`EX-GP-055`).
+ * \castest{<b>Deux charges de dash autorisent deux ruées en l'air, pas trois.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Configurer la physique avec deux charges de dash et quitter le sol.<br/>2. Dasher
+ * deux fois en l'air, en laissant chaque ruee se terminer.<br/>3. Tenter une troisieme ruee.<br/>
+ * \tattendu Les deux premieres ruees atteignent la vitesse de dash, la troisieme est refusee : le
+ * nombre de charges est bien celui du tableau et non le reglage par defaut du moteur.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, DeuxChargesDeDashAutorisentDeuxRueesEnLAir) {
+    core::World world;
+    core::TileMap tiles(30, 60);
+    for (int col = 0; col <= 4; ++col) {  // plateforme a gauche, le vide a droite
+        tiles.setTile(col, 30, core::TileType::Solid);
+    }
+    const core::Entity player = spawnPlayer(world, 1.0f, 28.0f);
+    core::PhysicsConfig config;
+    config.dashCharges = 2;  // ce que ferait un niveau portant "dashCharges": 2
+    core::CharacterPhysicsSystem system(config);
+    for (int i = 0; i < 400; ++i) {  // se poser (charges rechargees au sol)
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+    const core::PlayerInput right{1.0f};
+    int guard = 0;
+    while (world.getComponent<core::Player>(player).grounded && guard < 600) {
+        system.update(world, tiles, right, STEP);
+        ++guard;
+    }
+    ASSERT_FALSE(world.getComponent<core::Player>(player).grounded);
+    ASSERT_EQ(world.getComponent<core::Player>(player).dashChargesRemaining, 2);
+
+    core::PlayerInput dash;
+    dash.dashPressed = true;
+    dash.moveX = 1.0f;
+
+    // Deux ruees successives, chacune suivie de la fin de son minuteur.
+    for (int attempt = 0; attempt < 2; ++attempt) {
+        system.update(world, tiles, dash, STEP);
+        EXPECT_GT(world.getComponent<core::Velocity>(player).value.x, config.dashSpeed * 0.9f)
+            << "ruee n" << attempt + 1;
+        for (int i = 0; i < 15; ++i) {
+            system.update(world, tiles, core::PlayerInput{}, STEP);
+        }
+    }
+    ASSERT_EQ(world.getComponent<core::Player>(player).dashChargesRemaining, 0);
+    ASSERT_FALSE(world.getComponent<core::Player>(player).grounded);
+
+    // Troisieme ruee refusee : les deux charges du tableau sont epuisees.
+    system.update(world, tiles, dash, STEP);
     EXPECT_LT(world.getComponent<core::Velocity>(player).value.x, config.dashSpeed * 0.9f);
 }
 
@@ -2376,7 +2431,7 @@ core::Level makePlatformLevel(int startCol, int startRow, int endCol, int endRow
     map.setTile(startCol, startRow, core::TileType::MovingPlatform);
     std::vector<core::MovingPlatformConfig> platformConfigs{
         core::MovingPlatformConfig{.startPosition = core::GridPosition{startCol, startRow},
-                                   .endPosition = core::GridPosition{endCol, endRow},
+                                   .waypoints = {core::GridPosition{endCol, endRow}},
                                    .speed = speed,
                                    .phase = 0}};
     return core::Level("plateforme-integration", std::move(map), core::GridPosition{0, 0},

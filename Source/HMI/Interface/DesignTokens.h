@@ -53,6 +53,13 @@ struct ColorTokens {
     DesignColor accent;       ///< Couleur d'accent (sélection, focus, contrôle actif).
     DesignColor accentHover;  ///< Couleur d'accent au survol.
     DesignColor error;        ///< Signalement d'erreur/d'échec.
+    // Rôles du cadre pixel art (LOT-68, EX-IHM-070). Ajoutés aux DEUX portées : la structure est
+    // commune par construction, ce qui garantit qu'un rôle ajouté à l'une existe dans l'autre.
+    // Le châssis d'édition les définit sans les dessiner en cadre — il s'en sert pour ses bordures
+    // et ses séparateurs, où ils tenaient déjà lieu de `border` éclairci/assombri.
+    DesignColor outline;     ///< Contour extérieur d'un cadre : la valeur la plus sombre.
+    DesignColor bevelLight;  ///< Biseau haut/gauche (la lumière vient d'en haut à gauche).
+    DesignColor bevelDark;   ///< Biseau bas/droite.
 };
 
 // Neutralise la macro Windows `small` (`rpcndr.h`, incluse via <Windows.h> -> GraphicsDevice.h
@@ -83,13 +90,21 @@ struct TypographyLevel {
                                          const TypographyLevel&) noexcept = default;
 };
 
+/// Famille de police d'une portée (`LOT-68`, `EX-IHM-070`). La distinction est un **rôle**, pas un
+/// nom de police : `Identity` reste `Identity` le jour où la police pixel embarquée change.
+enum class FontRole {
+    Ui,        ///< Châssis d'édition : police de travail, lisible en petit et en tableau dense.
+    Identity,  ///< Écrans du jeu : police bitmap, rendue sans lissage à échelle entière.
+};
+
 /// Échelle typographique, par **rôle** — jamais de taille ponctuelle en dehors de cette échelle.
 struct TypographyTokens {
-    TypographyLevel screenTitle;    ///< Titre d'écran (menu principal, Options).
-    TypographyLevel sectionTitle;   ///< Titre de section/panneau.
-    TypographyLevel body;           ///< Corps de texte, contrôles.
-    TypographyLevel caption;        ///< Libellé secondaire, infobulle.
-    TypographyLevel monospaceBody;  ///< Texte à chasse fixe (identité du menu principal).
+    FontRole family = FontRole::Ui;  ///< Famille employée par la portée.
+    TypographyLevel screenTitle;     ///< Titre d'écran (menu principal, Options).
+    TypographyLevel sectionTitle;    ///< Titre de section/panneau.
+    TypographyLevel body;            ///< Corps de texte, contrôles.
+    TypographyLevel caption;         ///< Libellé secondaire, infobulle.
+    TypographyLevel monospaceBody;   ///< Texte à chasse fixe (identité du menu principal).
 
     [[nodiscard]] friend bool operator==(const TypographyTokens&,
                                          const TypographyTokens&) noexcept = default;
@@ -116,6 +131,45 @@ struct DesignTokens {
     TypographyTokens typography;
     SizeTokens size;
 };
+
+/// Grandeurs de la portée **identité**, exprimées en pixels **à l'échelle 1** (`LOT-68`,
+/// `EX-IHM-070`). Distinctes de `TypographyTokens`/`SpacingTokens`, qui restent partagées et
+/// **jamais multipliées** : le châssis d'édition est un outil de travail dont les tailles suivent
+/// les réglages du système, les écrans du jeu sont une image agrandie d'un facteur entier.
+///
+/// En **pixels** et non en points : le pixel art se dimensionne en pixels, et un point vaut une
+/// fraction variable de pixel selon la définition de l'écran — le facteur entier n'aurait alors
+/// plus rien d'entier.
+struct IdentityBaseScale {
+    int screenTitle = 23;   ///< Titre d'écran (police de titre).
+    int sectionTitle = 14;  ///< Entrée de menu, titre de section.
+    int body = 10;          ///< Corps de texte, contrôles.
+    int caption = 8;        ///< Libellé secondaire, aide de touche.
+
+    int spaceSmall = 4;
+    int spaceMedium = 6;
+    int spaceLarge = 8;
+    int spaceExtraLarge = 12;
+
+    int frameThickness = 1;  ///< Contour et biseau d'un cadre : un pixel de maquette chacun.
+
+    [[nodiscard]] friend bool operator==(const IdentityBaseScale&,
+                                         const IdentityBaseScale&) noexcept = default;
+};
+
+/// @return L'échelle de base de la portée identité (`LOT-68`).
+[[nodiscard]] const IdentityBaseScale& identityBaseScale() noexcept;
+
+/// @return Le mélange de @p from et @p to, à la proportion @p ratio (0 = @p from, 1 = @p to).
+/// Sert à **dériver** une nuance d'un jeton plutôt qu'à en écrire une nouvelle en dur : une teinte
+/// littérale ne suivrait pas un changement de palette (`EX-IHM-051`). @p ratio est borné à [0, 1].
+[[nodiscard]] DesignColor mixColor(DesignColor from, DesignColor to, float ratio) noexcept;
+
+/// @return Le mot-clé de famille **générique** CSS correspondant à @p role (`monospace` pour
+/// l'identité pixel art, `sans-serif` pour le châssis d'édition). C'est le repli de la feuille de
+/// style quand aucune police embarquée n'a pu être enregistrée : un mot-clé générique, jamais un
+/// second nom de police codé en dur (`EX-IHM-052`).
+[[nodiscard]] const char* genericCssFamily(FontRole role) noexcept;
 
 /// Jetons de l'identité du jeu (menu principal, écran Options, jeu) : **invariants**, ne suivent
 /// jamais aucun réglage d'affichage (`EX-IHM-050`).
@@ -159,6 +213,6 @@ struct DesignTokens {
 /// préfixe "identity." sont toujours résolus depuis `identityTokens()` (portée invariante).
 /// Fonction **pure** : ne dépend que des jetons, jamais de l'état de l'application.
 [[nodiscard]] std::unordered_map<std::string, std::string> buildStyleSheetValues(
-    const DesignTokens& editorTokens);
+    const DesignTokens& editorTokens, int identityScale = 1);
 
 }  // namespace hmi

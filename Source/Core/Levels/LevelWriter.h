@@ -73,13 +73,18 @@ public:
      * @param decors       Décors libres du niveau (`EX-DEC-001`, LOT-49), émis dans le tableau
      *                     racine optionnel `"decors"`, omis si vide (`EX-LVL-005`).
      * @param platformConfigs Configurations explicites de plateformes mobiles (`EX-GP-026`), même
-     *                     remarque que @p moverConfigs pour les champs `endX`/`endY`/`speed`/
-     *                     `phase`.
+     *                     remarque que @p moverConfigs pour les champs `waypoints`/`mode`/`speed`/
+     *                     `phase`. La route est toujours écrite en `waypoints` : le couple
+     *                     `endX`/`endY` d'avant le multi-points reste **lu** par `LevelLoader`
+     *                     mais n'est plus jamais produit (`EX-LVL-008`).
      * @param cameraFraming Cadrage de caméra résolu (`EX-LVL-006`) ; le champ `"cameraFraming"`
      *                     n'est émis que s'il **diverge** de ce que la règle de repli
      *                     (`resolveCameraFraming`) recalculerait pour ces dimensions -- un niveau
      *                     dont le cadrage résolu coïncide avec le repli reste sans le champ, comme
      *                     avant ce lot (`EX-LVL-006`, aucune régression de round-trip).
+     * @param airJumps     Sauts aériens accordés par le tableau (`EX-GP-055`) ; champ omis si
+     *                     absent (le niveau s'en remet alors au réglage du moteur).
+     * @param dashCharges  Charges de dash accordées par le tableau (`EX-GP-055`) ; même règle.
      * @return Le contenu JSON correspondant.
      */
     [[nodiscard]] static std::string buildJson(
@@ -92,7 +97,9 @@ public:
         const std::vector<TileTextureOverride>& textureOverrides = {},
         const std::vector<Decor>& decors = {},
         const std::vector<MovingPlatformConfig>& platformConfigs = {},
-        const CameraFramingConfig& cameraFraming = {});
+        const CameraFramingConfig& cameraFraming = {},
+        const std::optional<int>& airJumps = std::nullopt,
+        const std::optional<int>& dashCharges = std::nullopt);
 };
 
 }  // namespace core

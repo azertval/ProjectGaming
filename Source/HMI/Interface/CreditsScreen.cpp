@@ -2,7 +2,9 @@
 
 #include <QPushButton>
 
+#include "HMI/Interface/ApplicationTheme.h"
 #include "HMI/Interface/DesignTokens.h"
+#include "HMI/Interface/KeyHintText.h"
 #include "HMI/Localization/Localization.h"
 #include "ui_CreditsScreen.h"
 
@@ -34,6 +36,13 @@ void CreditsScreen::retranslateUi(const Localization& loc) {
     _ui->audioLabel->setText(t("credits.audio"));
     _ui->graphicsLabel->setText(t("credits.graphics"));
     _ui->backButton->setText(t("options.back"));
+    // Rappels de touches (LOT-68) : la navigation a la manette repose sur le
+    // parcours de focus, encore faut-il savoir quelle touche l'avance.
+    _ui->hintsLabel->setText(QString::fromStdString(hmi::keyHintText(
+        {
+            {.key = loc.text("key.back"), .action = loc.text("hint.back")},
+        },
+        hmi::identityTokens(), hmi::identityScale())));
 }
 
 void CreditsScreen::focusDefaultAction() {

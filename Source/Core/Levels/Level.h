@@ -87,23 +87,42 @@ struct DangerBlinkConfig {
 };
 
 /**
- * @brief Paramètres d'une plateforme mobile (`TileType::MovingPlatform`, `EX-GP-026`) : aller-
- *        retour linéaire déterministe entre deux points, à vitesse constante.
+ * @brief Mode de bouclage du parcours d'une plateforme mobile (`EX-GP-026`, LOT-67).
+ *
+ * `PingPong` (défaut) parcourt la route dans un sens puis la refait à l'envers (A→B→C→B→A…) :
+ * c'est le comportement historique, généralisé du segment à deux points au polyligne. `Loop`
+ * ferme le circuit en reliant le dernier point au premier en ligne droite (A→B→C→A…) — le segment
+ * de fermeture fait partie du cycle et se parcourt à la même vitesse que les autres.
+ */
+enum class PlatformPathMode {
+    PingPong,
+    Loop,
+};
+
+/**
+ * @brief Paramètres d'une plateforme mobile (`TileType::MovingPlatform`, `EX-GP-026`) : route
+ *        multi-points parcourue à vitesse constante, de façon linéaire et déterministe.
  *
  * Même patron que `DangerMoverConfig`/`DangerBlinkConfig` : vit dans un vecteur annexe de `Level`,
  * keyé par position, `TileMap` ne portant qu'un `TileType` par case. `startPosition` est la
- * position de la tuile dans le fichier (point de départ) ; `endPosition` est le second point du
- * parcours — un simple aller-retour entre les deux suffit au besoin (pas de chemin multi-points,
- * cf. `epic.md`). `phase`, en pas fixes, reprend le patron du danger temporisé
- * (`DangerBlinkConfig::phase`, `EX-GP-053`) pour désynchroniser plusieurs plateformes.
+ * position de la tuile dans le fichier : elle est le **premier point** de la route et n'est jamais
+ * répétée dans `waypoints`, qui ne contient que les points **suivants**, dans l'ordre de parcours.
+ * Une route vide (aucun waypoint, ou tous confondus avec le départ) décrit une plateforme
+ * immobile — une erreur de conception tolérée, pas un niveau invalide (`EX-NFR-040`).
+ *
+ * `phase`, en pas fixes, reprend le patron du danger temporisé (`DangerBlinkConfig::phase`,
+ * `EX-GP-053`) pour désynchroniser plusieurs plateformes d'un même niveau.
  */
 struct MovingPlatformConfig {
     GridPosition startPosition;
-    GridPosition endPosition;
+    /// Points suivants de la route, dans l'ordre ; `startPosition` en est le point de départ
+    /// implicite et n'y figure pas. Un seul waypoint = l'aller-retour à deux points historique.
+    std::vector<GridPosition> waypoints;
+    /// Bouclage du parcours : aller-retour (défaut) ou circuit fermé.
+    PlatformPathMode mode = PlatformPathMode::PingPong;
     /// Vitesse constante du parcours, en cases par seconde (`EX-GP-026`).
     float speed = 2.0f;
-    /// Décalage initial dans le cycle aller-retour, en pas fixes (même principe que
-    /// `DangerBlinkConfig::phase`).
+    /// Décalage initial dans le cycle, en pas fixes (même principe que `DangerBlinkConfig::phase`).
     int phase = 0;
 };
 
@@ -157,6 +176,13 @@ public:
      *                     "peut-être absent" -- valeur par défaut (`WholeLevel`) légitime pour un
      *                     niveau construit directement (hors `LevelLoader`), cohérente avec un
      *                     petit niveau qui tient dans une salle.
+     * @param airJumps     Nombre de sauts **aériens** accordés par ce tableau (`EX-GP-055`),
+     *                     rechargés à chaque contact avec le sol ; absent = valeur du moteur
+     *                     (`PhysicsConfig::airJumps`). À ne pas confondre avec @p jumpBudget, qui
+     *                     est un total consommable sur tout le tableau et jamais rechargé.
+     * @param dashCharges  Nombre de dashs utilisables entre deux contacts avec le sol
+     *                     (`EX-GP-055`) ; absent = valeur du moteur. Même distinction vis-à-vis
+     *                     de @p dashBudget.
      */
     Level(std::string name, TileMap tileMap, GridPosition entry, GridPosition exit,
           std::vector<Mechanism> mechanisms, int jumpBudget = -1, int dashBudget = -1,
@@ -167,7 +193,8 @@ public:
           std::optional<std::string> skinSet = std::nullopt,
           std::vector<TileTextureOverride> textureOverrides = {}, std::vector<Decor> decors = {},
           std::vector<MovingPlatformConfig> platformConfigs = {},
-          CameraFramingConfig cameraFraming = {})
+          CameraFramingConfig cameraFraming = {}, std::optional<int> airJumps = std::nullopt,
+          std::optional<int> dashCharges = std::nullopt)
         : _name(std::move(name)),
           _tileMap(std::move(tileMap)),
           _entry(entry),
@@ -183,7 +210,9 @@ public:
           _textureOverrides(std::move(textureOverrides)),
           _decors(std::move(decors)),
           _platformConfigs(std::move(platformConfigs)),
-          _cameraFraming(cameraFraming) {}
+          _cameraFraming(cameraFraming),
+          _airJumps(airJumps),
+          _dashCharges(dashCharges) {}
 
     /// @return Le nom du niveau.
     [[nodiscard]] const std::string& name() const noexcept {
@@ -270,6 +299,20 @@ public:
         return _cameraFraming;
     }
 
+    /// @return Les sauts **aériens** accordés par ce tableau (`EX-GP-055`), rechargés à chaque
+    /// contact avec le sol ; absent si le niveau s'en remet au réglage du moteur. Distinct de
+    /// `jumpBudget()`, qui est un total consommable sur tout le tableau.
+    [[nodiscard]] const std::optional<int>& airJumps() const noexcept {
+        return _airJumps;
+    }
+
+    /// @return Les charges de **dash** accordées par ce tableau entre deux contacts avec le sol
+    /// (`EX-GP-055`) ; absent si le niveau s'en remet au réglage du moteur. Distinct de
+    /// `dashBudget()`, qui est un total consommable sur tout le tableau.
+    [[nodiscard]] const std::optional<int>& dashCharges() const noexcept {
+        return _dashCharges;
+    }
+
 private:
     std::string _name;
     TileMap _tileMap;
@@ -287,6 +330,8 @@ private:
     std::vector<Decor> _decors;
     std::vector<MovingPlatformConfig> _platformConfigs;
     CameraFramingConfig _cameraFraming;
+    std::optional<int> _airJumps;
+    std::optional<int> _dashCharges;
 };
 
 }  // namespace core

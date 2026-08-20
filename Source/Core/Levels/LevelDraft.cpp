@@ -32,6 +32,8 @@ LevelDraft LevelDraft::fromLevel(const Level& level) {
     draft._decors = level.decors();
     draft._platformConfigs = level.platformConfigs();
     draft._cameraFraming = level.cameraFraming();
+    draft._airJumps = level.airJumps();
+    draft._dashCharges = level.dashCharges();
     return draft;
 }
 
@@ -81,6 +83,17 @@ void LevelDraft::paintTileInternal(int column, int row, TileType type) {
     const bool sameType = _tileMap.tile(column, row) == type;
     removeLinkedDataAt(position, /*keepTextureOverride=*/sameType);
     _tileMap.setTile(column, row, type);
+
+    // Meme defaut que LevelLoader (EX-GP-026/EX-GP-051) : une plateforme ou un danger mobile
+    // fraichement pose porte IMMEDIATEMENT sa configuration par defaut. Sans cette entree, l'outil
+    // Parcours ne le trouve dans aucun des vecteurs qu'il parcourt (hmi::designatePathAt) tant que
+    // le niveau n'a pas ete sauvegarde puis recharge (seul LevelLoader la creait jusqu'ici) : la
+    // tuile reste invisible pour la selection, et son parcours impossible a commencer.
+    if (type == TileType::MovingPlatform) {
+        _platformConfigs.push_back(MovingPlatformConfig{.startPosition = position});
+    } else if (type == TileType::DangerMover) {
+        _moverConfigs.push_back(DangerMoverConfig{.startPosition = position});
+    }
 }
 
 void LevelDraft::setEntry(int column, int row) {
@@ -187,8 +200,8 @@ void LevelDraft::setBlinkConfig(GridPosition position, int period, int phase, in
         .position = position, .period = period, .phase = phase, .activeDuration = activeDuration});
 }
 
-void LevelDraft::setPlatformConfig(GridPosition position, GridPosition endPosition, float speed,
-                                   int phase) {
+void LevelDraft::setPlatformConfig(GridPosition position, std::vector<GridPosition> waypoints,
+                                   PlatformPathMode mode, float speed, int phase) {
     PROJECTGAMING_ASSERT(
         _tileMap.inBounds(position.column, position.row) &&
             _tileMap.tile(position.column, position.row) == TileType::MovingPlatform,
@@ -197,8 +210,75 @@ void LevelDraft::setPlatformConfig(GridPosition position, GridPosition endPositi
     std::erase_if(_platformConfigs, [position](const MovingPlatformConfig& config) {
         return config.startPosition == position;
     });
-    _platformConfigs.push_back(MovingPlatformConfig{
-        .startPosition = position, .endPosition = endPosition, .speed = speed, .phase = phase});
+    _platformConfigs.push_back(MovingPlatformConfig{.startPosition = position,
+                                                    .waypoints = std::move(waypoints),
+                                                    .mode = mode,
+                                                    .speed = speed,
+                                                    .phase = phase});
+}
+
+// Renvoie la configuration de la plateforme en `position`, en la creant aux valeurs de conception
+// par defaut si elle n'existait pas encore. Empile UN snapshot (pushUndo) avant toute mutation :
+// tous les mutateurs granulaires ci-dessous passent par ici, ce qui garantit un seul pas d'annu-
+// lation par geste utilisateur meme quand le geste cree la configuration au passage.
+MovingPlatformConfig& LevelDraft::platformConfigForEdit(GridPosition position) {
+    PROJECTGAMING_ASSERT(
+        _tileMap.inBounds(position.column, position.row) &&
+            _tileMap.tile(position.column, position.row) == TileType::MovingPlatform,
+        "platformConfigForEdit : la position ne porte pas une MovingPlatform");
+    pushUndo();
+    const auto found = std::find_if(_platformConfigs.begin(), _platformConfigs.end(),
+                                    [position](const MovingPlatformConfig& config) {
+                                        return config.startPosition == position;
+                                    });
+    if (found != _platformConfigs.end()) {
+        return *found;
+    }
+    _platformConfigs.push_back(MovingPlatformConfig{.startPosition = position});
+    return _platformConfigs.back();
+}
+
+void LevelDraft::addPlatformWaypoint(GridPosition position, GridPosition waypoint) {
+    platformConfigForEdit(position).waypoints.push_back(waypoint);
+}
+
+void LevelDraft::insertPlatformWaypoint(GridPosition position, std::size_t index,
+                                        GridPosition waypoint) {
+    MovingPlatformConfig& config = platformConfigForEdit(position);
+    if (index > config.waypoints.size()) {
+        return;
+    }
+    config.waypoints.insert(config.waypoints.begin() + static_cast<std::ptrdiff_t>(index),
+                            waypoint);
+}
+
+void LevelDraft::movePlatformWaypoint(GridPosition position, std::size_t index,
+                                      GridPosition waypoint) {
+    MovingPlatformConfig& config = platformConfigForEdit(position);
+    if (index >= config.waypoints.size()) {
+        return;
+    }
+    config.waypoints[index] = waypoint;
+}
+
+void LevelDraft::removePlatformWaypoint(GridPosition position, std::size_t index) {
+    MovingPlatformConfig& config = platformConfigForEdit(position);
+    if (index >= config.waypoints.size()) {
+        return;
+    }
+    config.waypoints.erase(config.waypoints.begin() + static_cast<std::ptrdiff_t>(index));
+}
+
+void LevelDraft::setPlatformMode(GridPosition position, PlatformPathMode mode) {
+    platformConfigForEdit(position).mode = mode;
+}
+
+void LevelDraft::setPlatformSpeed(GridPosition position, float speed) {
+    platformConfigForEdit(position).speed = speed;
+}
+
+void LevelDraft::setPlatformPhase(GridPosition position, int phase) {
+    platformConfigForEdit(position).phase = phase;
 }
 
 void LevelDraft::setTextureOverride(GridPosition position, std::string assetName) {
@@ -367,6 +447,29 @@ void LevelDraft::setSkinSet(std::optional<std::string> skinSet) {
     _skinSet = std::move(skinSet);
 }
 
+// Budgets et capacites : tous les quatre annulables comme les autres proprietes de niveau
+// (fond, jeu de skins, cadrage). Les deux budgets ne l'etaient PAS avant ce lot -- seul manque
+// dans la famille, corrige ici (LOT-67).
+void LevelDraft::setJumpBudget(int jumpBudget) {
+    pushUndo();
+    _jumpBudget = jumpBudget;
+}
+
+void LevelDraft::setDashBudget(int dashBudget) {
+    pushUndo();
+    _dashBudget = dashBudget;
+}
+
+void LevelDraft::setAirJumps(std::optional<int> airJumps) {
+    pushUndo();
+    _airJumps = airJumps;
+}
+
+void LevelDraft::setDashCharges(std::optional<int> dashCharges) {
+    pushUndo();
+    _dashCharges = dashCharges;
+}
+
 void LevelDraft::setCameraFraming(CameraFramingConfig cameraFraming) {
     pushUndo();
     _cameraFraming = cameraFraming;
@@ -417,9 +520,15 @@ void LevelDraft::resize(int width, int height) {
     std::erase_if(_blinkConfigs, [this](const DangerBlinkConfig& config) {
         return !_tileMap.inBounds(config.position.column, config.position.row);
     });
+    // Une route est indivisible : si son depart OU l'un de ses points sort du niveau retaille, la
+    // configuration entiere part -- amputer la route donnerait un parcours silencieusement
+    // different de celui dessine par le level designer.
     std::erase_if(_platformConfigs, [this](const MovingPlatformConfig& config) {
         return !_tileMap.inBounds(config.startPosition.column, config.startPosition.row) ||
-               !_tileMap.inBounds(config.endPosition.column, config.endPosition.row);
+               std::any_of(config.waypoints.begin(), config.waypoints.end(),
+                           [this](const GridPosition& waypoint) {
+                               return !_tileMap.inBounds(waypoint.column, waypoint.row);
+                           });
     });
     std::erase_if(_textureOverrides, [this](const TileTextureOverride& override) {
         return !_tileMap.inBounds(override.position.column, override.position.row);
@@ -461,7 +570,8 @@ bool LevelDraft::wouldResizeDropContent(int width, int height) const noexcept {
         }
     }
     for (const MovingPlatformConfig& config : _platformConfigs) {
-        if (outOfBounds(config.startPosition) || outOfBounds(config.endPosition)) {
+        if (outOfBounds(config.startPosition) ||
+            std::any_of(config.waypoints.begin(), config.waypoints.end(), outOfBounds)) {
             return true;
         }
     }
@@ -509,7 +619,9 @@ LevelDraft::State LevelDraft::snapshot() const {
                  .textureOverrides = _textureOverrides,
                  .decors = _decors,
                  .platformConfigs = _platformConfigs,
-                 .cameraFraming = _cameraFraming};
+                 .cameraFraming = _cameraFraming,
+                 .airJumps = _airJumps,
+                 .dashCharges = _dashCharges};
 }
 
 void LevelDraft::restore(State state) {
@@ -529,6 +641,8 @@ void LevelDraft::restore(State state) {
     _decors = std::move(state.decors);
     _platformConfigs = std::move(state.platformConfigs);
     _cameraFraming = state.cameraFraming;
+    _airJumps = state.airJumps;
+    _dashCharges = state.dashCharges;
 }
 
 void LevelDraft::pushUndo() {
@@ -537,10 +651,10 @@ void LevelDraft::pushUndo() {
 }
 
 LevelLoadResult LevelDraft::toLevel() const {
-    const std::string json =
-        LevelWriter::buildJson(_name, _tileMap, _mechanisms, _jumpBudget, _dashBudget, _dangerLinks,
-                               _moverConfigs, _blinkConfigs, _background, _skinSet,
-                               _textureOverrides, _decors, _platformConfigs, _cameraFraming);
+    const std::string json = LevelWriter::buildJson(
+        _name, _tileMap, _mechanisms, _jumpBudget, _dashBudget, _dangerLinks, _moverConfigs,
+        _blinkConfigs, _background, _skinSet, _textureOverrides, _decors, _platformConfigs,
+        _cameraFraming, _airJumps, _dashCharges);
     return LevelLoader::loadFromString(json);
 }
 

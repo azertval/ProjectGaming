@@ -173,6 +173,72 @@ Tout doublon apparent n'en est pas un : les deux sélecteurs de couche de décor
 couche du décor sélectionné existant. Ils ont été renommés explicitement et rassemblés dans le
 panneau Décors, l'ambiguïté se levant à l'écran plutôt que dans la documentation.
 
+## Deux identités, deux règles d'échelle (LOT-68)
+
+Le `LOT-56` avait donné aux deux portées la **même** échelle typographique. C'était cohérent tant
+qu'aucune des deux ne cherchait à être autre chose qu'un habillage correct ; ça ne l'est plus dès
+que les écrans du jeu revendiquent une identité **pixel art**.
+
+La règle tient en une phrase : **le châssis d'édition suit les réglages du système, les écrans du
+jeu sont une image agrandie d'un facteur entier.**
+
+\ref hmi::pixelArtScale "pixelArtScale" décide de ce facteur depuis la hauteur **logique** de la
+fenêtre — jamais la hauteur réelle : Qt applique la mise à l'échelle du système par-dessus, et
+multiplier une seconde fois donnerait une interface deux fois trop grande sur un écran réglé à
+200 %. La division est entière et non arrondie : une fenêtre de 700 px passerait sinon à l'échelle 2,
+pour laquelle il manque 20 px, et la dernière entrée du menu disparaîtrait sous le bord.
+
+\ref hmi::IdentityBaseScale "IdentityBaseScale" porte les grandeurs de la portée identité **en
+pixels à l'échelle 1**, que la feuille de style reçoit déjà multipliées. En pixels et non en points :
+un point vaut une fraction variable de pixel selon l'écran, et le facteur entier n'aurait alors plus
+rien d'entier.
+
+> Piège évité : multiplier les jetons **partagés** paraissait plus simple. Ils valent déjà 32 pt pour
+> un titre — les doubler aurait donné 64 pt à 720p, soit l'excès inverse du problème de départ.
+
+### Ce qu'une feuille de style ne sait pas faire
+
+Deux éléments du pixel art échappent à `theme.qss`, et c'est pourquoi ils sont **peints** :
+
+- le **cadre à coins entaillés** (\ref hmi::PixelFrameWidget "PixelFrameWidget") : une bordure QSS
+  ne peut pas évider ses quatre angles, et c'est cette entaille — pas l'épaisseur du trait — qui
+  distingue un cadre pixel art d'un rectangle ;
+- la **marque de focus** (\ref hmi::PixelMenuButton "PixelMenuButton") : une feuille de style change
+  une teinte, elle n'ajoute pas de contenu. Or la teinte seule ne dit pas où l'on en est à la
+  manette, faute de pointeur, et ne dit rien du tout à qui distingue mal les couleurs (`EX-IHM-071`).
+
+Les deux suivent le patron des icônes du `LOT-56` : une géométrie **pure et testable** décide *quoi*
+dessiner, un peintre Qt décide *comment*. Aucun fichier d'image n'est livré — un cadre en PNG
+figerait ses couleurs hors des jetons et devrait être réexporté à chaque changement de palette.
+
+## Hiérarchie des surfaces, et espaces de travail (LOT-68)
+
+Le `LOT-57` avait supprimé les **doubles définitions** ; il restait la **saturation**, qui est un
+problème distinct. Une commande peut n'exister qu'une fois en code et rester exposée à trois endroits
+à l'écran : `ToggleRenderMode` figurait en barre d'outils, au menu Niveau **et** au menu Affichage.
+
+Deux arbitrages en découlent.
+
+**La barre d'outils n'est pas un menu.** \ref hmi::ActionSurface "ActionSurface", porté par le
+catalogue d'actions, dit de chaque commande si elle mérite une place permanente à l'écran. La barre
+ne garde que la sélection d'outil et ce qui se déclenche au fil du geste ; le reste vit au menu, avec
+son raccourci. Un test plafonne le nombre de commandes admises par barre : un plafond qu'on relève
+sans y penser ne protège de rien.
+
+**Deux espaces, jamais superposés.** L'éditeur affichait ses neuf docks et ses deux barres d'outils
+simultanément — une trentaine de contrôles permanents — alors que l'édition de niveau et l'atelier
+pixel art ne se pratiquent jamais ensemble. \ref hmi::dressingForWorkspace "dressingForWorkspace" et
+\ref hmi::workspaceForPanel "workspaceForPanel" répartissent panneaux, barres et menus entre deux
+espaces exclusifs, chacun persistant **sa** disposition.
+
+> À ne pas confondre avec la mise en avant d'`EX-IHM-061`, qui reste une suggestion et ne masque
+> jamais rien. Changer d'espace est un acte explicite de l'utilisateur : c'est ce qui rend le
+> masquage légitime ici, et lui seul.
+
+Sélectionner un outil bascule sur son espace (`workspaceForTool`). Sans cela, l'outil devient actif
+dans un espace qui ne montre ni son canevas ni ses panneaux, et rien à l'écran ne dit pourquoi il ne
+répond pas.
+
 ## Voir aussi
 - @ref guide-ihm-qt — le socle applicatif Qt, le viewport Direct3D 11, la boucle et les entrées.
 - @ref guide-atelier-pixel-art — l'atelier qui hérite de ces jetons, actions et zones d'état.

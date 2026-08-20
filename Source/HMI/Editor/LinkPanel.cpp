@@ -12,6 +12,7 @@
 
 #include "Core/Levels/LevelDraft.h"
 #include "HMI/Localization/Localization.h"
+#include "ui_LinkPanel.h"
 
 namespace hmi {
 
@@ -28,30 +29,26 @@ QString positionText(core::GridPosition position) {
 
 LinkPanel::LinkPanel(QWidget* parent)
     : QWidget(parent),
-      _table(new QTableView(this)),
-      _model(new QStandardItemModel(0, COLUMN_COUNT, this)),
-      _deleteButton(new QPushButton(this)) {
+      _ui(std::make_unique<Ui::LinkPanel>()),
+      _model(new QStandardItemModel(0, COLUMN_COUNT, this)) {
+    _ui->setupUi(this);
+    _table = _ui->table;
+    _deleteButton = _ui->deleteButton;
+
     _table->setModel(_model);
-    _table->setSelectionBehavior(QAbstractItemView::SelectRows);
-    _table->setSelectionMode(QAbstractItemView::SingleSelection);
-    _table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    // Comportement de selection et en-tetes : du fonctionnel, pas de la mise en page -- il reste
+    // donc ici, la ou le .ui ne porte que la structure.
     _table->horizontalHeader()->setStretchLastSection(true);
     _table->verticalHeader()->setVisible(false);
     _model->setHorizontalHeaderLabels(
         {QStringLiteral("Type"), QStringLiteral("Déclencheur"), QStringLiteral("Cible")});
 
-    _deleteButton->setText(QStringLiteral("Supprimer"));
-    _deleteButton->setEnabled(false);
-
     connect(_table->selectionModel(), &QItemSelectionModel::selectionChanged, this,
             [this] { onSelectionChanged(); });
     connect(_deleteButton, &QPushButton::clicked, this, [this] { onDeleteClicked(); });
-
-    auto* const layout = new QVBoxLayout(this);
-    layout->setContentsMargins(0, 0, 0, 0);
-    layout->addWidget(_table);
-    layout->addWidget(_deleteButton);
 }
+
+LinkPanel::~LinkPanel() = default;
 
 void LinkPanel::refresh(const core::LevelDraft& draft) {
     _rows = buildLinkRows(draft);

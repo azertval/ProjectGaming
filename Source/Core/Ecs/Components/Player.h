@@ -36,9 +36,10 @@ struct Player {
     /// Temps restant (secondes) de **verrouillage** du contrôle horizontal après un wall jump
     /// (la vitesse d'éjection persiste tant qu'il n'est pas écoulé).
     float wallJumpLockTimer = 0.0f;
-    /// Le **dash** est-il disponible ? Consommé à l'usage, rechargé au contact du sol
-    /// (`EX-GP-017`).
-    bool dashAvailable = false;
+    /// Charges de **dash** restantes avant de retoucher le sol (`EX-GP-017`, `EX-GP-055`) ;
+    /// consommées une par dash, toutes rechargées au contact du sol. Un compteur, et non plus un
+    /// booléen : un tableau peut accorder plusieurs dashs par saut (`PhysicsConfig::dashCharges`).
+    int dashChargesRemaining = 0;
     /// Durée restante (secondes) du dash en cours ; > 0 pendant la ruée (gravité suspendue).
     float dashTimer = 0.0f;
     /// Sauts **restants** dans le tableau (budget, `EX-GP-024`) ; **-1 = illimité**. Décompté par

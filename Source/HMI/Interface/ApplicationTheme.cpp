@@ -13,6 +13,7 @@
 #include <QStyleFactory>
 #include <QStyleHints>
 #include <filesystem>
+#include <unordered_map>
 
 #include "HMI/HmiLog.h"
 #include "HMI/Interface/DesignTokens.h"
@@ -106,30 +107,39 @@ QPalette buildApplicationPalette(const DesignTokens& tokens) {
     return palette;
 }
 
-void applyStyleSheet(const DesignTokens& editorTokens) {
-    QFile themeFile(QStringLiteral(":/resources/theme.qss"));
-    if (!themeFile.open(QFile::ReadOnly | QFile::Text)) {
-        HMI_LOG_WARNING(
-            "Theme d'interface introuvable (:/resources/theme.qss) : style par defaut.");
-        return;
-    }
-    const std::string templateText = QString::fromUtf8(themeFile.readAll()).toStdString();
-    const StyleSheetSubstitutionResult substituted =
-        substituteStyleSheetTemplate(templateText, buildStyleSheetValues(editorTokens));
-    if (!substituted.ok) {
-        HMI_LOG_WARNING("Theme d'interface invalide (" + substituted.error +
-                        ") : style par defaut.");
-        return;
-    }
-    qApp->setStyleSheet(QString::fromStdString(substituted.text));
+namespace {
+
+// Familles REELLEMENT enregistrees par applyFont(), relues par applyStyleSheet(). Vides tant que
+// applyFont() n'a pas tourne, ou si Qt a refuse le fichier : la feuille de style bascule alors sur
+// un mot-cle CSS generique. Cet etat est le seul moyen de faire descendre un nom resolu par Qt
+// dans buildStyleSheetValues, qui est une fonction PURE et doit le rester.
+struct ResolvedFamilies {
+    std::string ui;
+    std::string identityBody;
+    std::string identityTitle;
+};
+
+ResolvedFamilies& resolvedFamilies() {
+    static ResolvedFamilies families;
+    return families;
 }
 
-void applyFont() {
-    const std::filesystem::path fontsDirectory = executableDirectory() / "Assets" / "Fonts";
-    const int regularId = QFontDatabase::addApplicationFont(
-        QString::fromStdString((fontsDirectory / "Inter-Regular.ttf").string()));
-    const int boldId = QFontDatabase::addApplicationFont(
-        QString::fromStdString((fontsDirectory / "Inter-Bold.ttf").string()));
+// Facteur d'agrandissement courant des ecrans du jeu (LOT-68). Meme raison d'etre que les familles
+// resolues ci-dessus : buildStyleSheetValues est pur et ne connait pas la fenetre.
+int& identityScaleState() {
+    static int scale = 1;
+    return scale;
+}
+
+// Enregistre une famille et retourne le nom rapporte par Qt, ou une chaine vide. Les graisses
+// supplementaires sont enregistrees pour que Qt puisse les selectionner, mais seul le nom de la
+// graisse reguliere fait foi -- c'est lui qui nomme la famille.
+[[nodiscard]] std::string registerFamily(const std::filesystem::path& regular,
+                                         const std::filesystem::path& bold) {
+    const int regularId =
+        QFontDatabase::addApplicationFont(QString::fromStdString(regular.string()));
+    const bool boldOk = bold.empty() || QFontDatabase::addApplicationFont(
+                                            QString::fromStdString(bold.string())) != -1;
 
     std::string family;
     if (regularId != -1) {
@@ -139,18 +149,109 @@ void applyFont() {
         }
     }
     const FontFamilyResolution resolution =
-        resolveFontFamily(regularId != -1 && boldId != -1 && !family.empty(), family);
+        resolveFontFamily(regularId != -1 && boldOk && !family.empty(), family);
+    return resolution.useEmbeddedFamily ? resolution.embeddedFamily : std::string{};
+}
 
+// Nom de famille a ecrire dans la feuille de style : le nom resolu s'il existe, sinon un mot-cle
+// CSS GENERIQUE. Jamais un second nom de police litteral (EX-IHM-052), et jamais celui d'un autre
+// role -- une police d'ecran manquante ne doit pas faire retomber le jeu sur celle de l'editeur.
+[[nodiscard]] std::string cssFamily(const std::string& resolved, FontRole role) {
+    const char* const generic = genericCssFamily(role);
+    if (resolved.empty()) {
+        return generic;
+    }
+    return "\"" + resolved + "\", " + generic;
+}
+
+}  // namespace
+
+std::string resolvedFontFamily(FontRole role) {
+    return role == FontRole::Identity ? resolvedFamilies().identityBody : resolvedFamilies().ui;
+}
+
+std::string resolvedIdentityTitleFamily() {
+    return resolvedFamilies().identityTitle;
+}
+
+bool setIdentityScale(int scale) {
+    const int clamped = scale < 1 ? 1 : scale;
+    if (identityScaleState() == clamped) {
+        return false;
+    }
+    identityScaleState() = clamped;
+    return true;
+}
+
+int identityScale() {
+    return identityScaleState();
+}
+
+void applyStyleSheet(const DesignTokens& editorTokens) {
+    QFile themeFile(QStringLiteral(":/resources/theme.qss"));
+    if (!themeFile.open(QFile::ReadOnly | QFile::Text)) {
+        HMI_LOG_WARNING(
+            "Theme d'interface introuvable (:/resources/theme.qss) : style par defaut.");
+        return;
+    }
+    const std::string templateText = QString::fromUtf8(themeFile.readAll()).toStdString();
+    // Les familles de police sont ajoutees ICI et non dans buildStyleSheetValues : ce dernier est
+    // pur (compile dans UnitTests, sans Qt) et ne peut pas connaitre un nom resolu par
+    // QFontDatabase.
+    std::unordered_map<std::string, std::string> values =
+        buildStyleSheetValues(editorTokens, identityScaleState());
+    const ResolvedFamilies& families = resolvedFamilies();
+    // Seule la portee identite nomme sa famille dans la feuille de style : celle du chassis
+    // est deja la police PAR DEFAUT de l'application (applyFont), et la reposer en QSS
+    // ecraserait les polices que certains widgets se donnent eux-memes.
+    values["identity.font.body"] = cssFamily(families.identityBody, FontRole::Identity);
+    values["identity.font.title"] = cssFamily(families.identityTitle, FontRole::Identity);
+    const StyleSheetSubstitutionResult substituted =
+        substituteStyleSheetTemplate(templateText, values);
+    if (!substituted.ok) {
+        HMI_LOG_WARNING("Theme d'interface invalide (" + substituted.error +
+                        ") : style par defaut.");
+        return;
+    }
+    qApp->setStyleSheet(QString::fromStdString(substituted.text));
+}
+
+void applyFont() {
+    const std::filesystem::path fonts = executableDirectory() / "Assets" / "Fonts";
+    ResolvedFamilies& families = resolvedFamilies();
+    families.ui = registerFamily(fonts / "Inter-Regular.ttf", fonts / "Inter-Bold.ttf");
+    // Portee identite (LOT-68) : corps en Pixelify Sans, titres en Press Start 2P. Les deux sont
+    // enregistrees independamment -- l'echec de l'une n'entraine pas l'autre.
+    families.identityBody =
+        registerFamily(fonts / "PixelifySans-Regular.ttf", fonts / "PixelifySans-Bold.ttf");
+    families.identityTitle = registerFamily(fonts / "PressStart2P-Regular.ttf", {});
+
+    if (families.ui.empty()) {
+        HMI_LOG_WARNING(
+            "Police du chassis introuvable ou invalide (Assets/Fonts/Inter-*.ttf) : famille "
+            "generique.");
+    }
+    if (families.identityBody.empty()) {
+        HMI_LOG_WARNING(
+            "Police des ecrans du jeu introuvable ou invalide "
+            "(Assets/Fonts/PixelifySans-*.ttf) : famille generique.");
+    }
+    if (families.identityTitle.empty()) {
+        HMI_LOG_WARNING(
+            "Police des titres d'ecran introuvable ou invalide "
+            "(Assets/Fonts/PressStart2P-Regular.ttf) : famille generique.");
+    }
+
+    // Police PAR DEFAUT de l'application = celle du chassis d'edition. Les ecrans du jeu recoivent
+    // la leur par la feuille de style (portee identite, cadree par objectName) : c'est la seule
+    // facon de ne pas repandre la police pixel dans les tables et les arbres denses de l'editeur.
     QFont font;
-    if (resolution.useEmbeddedFamily) {
-        font = QFont(QString::fromStdString(resolution.embeddedFamily));
-    } else {
+    if (families.ui.empty()) {
         // Famille generique demandee a Qt : jamais un second nom de police code en dur (voir
         // hmi::resolveFontFamily).
         font.setStyleHint(QFont::SansSerif);
-        HMI_LOG_WARNING(
-            "Police embarquee introuvable ou invalide (Assets/Fonts/Inter-*.ttf) : famille "
-            "generique.");
+    } else {
+        font = QFont(QString::fromStdString(families.ui));
     }
     font.setPointSize(identityTokens().typography.body.pointSize);
     QApplication::setFont(font);

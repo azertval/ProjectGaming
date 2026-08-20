@@ -64,6 +64,14 @@ struct DangerSwitchedLink {
                : DangerMoverAxis::Horizontal;
 }
 
+// Convertit le champ optionnel "mode" d'une movingPlatform ("pingpong"/"loop") ; valeur de
+// conception par défaut (aller-retour) si absent ou non reconnu -- symétrique à
+// platformPathModeName (LevelWriter.cpp).
+[[nodiscard]] PlatformPathMode parsePlatformPathMode(const nlohmann::json& tile) {
+    return tile.value("mode", std::string{"pingpong"}) == "loop" ? PlatformPathMode::Loop
+                                                                 : PlatformPathMode::PingPong;
+}
+
 // Convertit le champ "layer" d'un décor ("background"/"decor"/"foreground") ; valeur de
 // conception par défaut (Decor) si absent ou non reconnu -- symétrique à decorLayerName
 // (LevelWriter.cpp).
@@ -198,19 +206,32 @@ struct TileParseState {
                               .phase = tile.value("phase", 0),
                               .activeDuration = tile.value("activeDuration", 60)});
     } else if (*type == TileType::MovingPlatform) {
-        // Second point du parcours (EX-GP-026) : par defaut la meme case que le depart (parcours
-        // nul, plateforme immobile) -- une erreur de configuration plutot qu'un rejet, coherent
-        // avec le reste du format (defauts silencieux, EX-NFR-040).
-        const int endColumn = tile.value("endX", x);
-        const int endRow = tile.value("endY", y);
-        if (!state.map.inBounds(endColumn, endRow)) {
-            return failure("Point d'arrivee de plateforme mobile hors bornes en (" +
-                               std::to_string(x) + ", " + std::to_string(y) + ")",
-                           LevelValidationError::OutOfBounds);
+        // Route de la plateforme (EX-GP-026, LOT-67). Deux ecritures acceptees : le tableau
+        // "waypoints" (points suivants, dans l'ordre) ou, pour les niveaux anterieurs au
+        // multi-points, le couple "endX"/"endY" -- lu comme un waypoint unique. Aucune des deux
+        // n'est obligatoire : sans route, la plateforme est immobile (erreur de configuration
+        // toleree plutot qu'un rejet, defauts silencieux, EX-NFR-040).
+        std::vector<GridPosition> waypoints;
+        if (tile.contains("waypoints")) {
+            for (const nlohmann::json& waypoint : tile.at("waypoints")) {
+                waypoints.push_back(
+                    GridPosition{.column = waypoint.value("x", x), .row = waypoint.value("y", y)});
+            }
+        } else if (tile.contains("endX") || tile.contains("endY")) {
+            waypoints.push_back(
+                GridPosition{.column = tile.value("endX", x), .row = tile.value("endY", y)});
+        }
+        for (const GridPosition& waypoint : waypoints) {
+            if (!state.map.inBounds(waypoint.column, waypoint.row)) {
+                return failure("Point de parcours de plateforme mobile hors bornes en (" +
+                                   std::to_string(x) + ", " + std::to_string(y) + ")",
+                               LevelValidationError::OutOfBounds);
+            }
         }
         state.platformConfigs.push_back(
             MovingPlatformConfig{.startPosition = GridPosition{.column = x, .row = y},
-                                 .endPosition = GridPosition{.column = endColumn, .row = endRow},
+                                 .waypoints = std::move(waypoints),
+                                 .mode = parsePlatformPathMode(tile),
                                  .speed = tile.value("speed", 2.0f),
                                  .phase = tile.value("phase", 0)});
     }
@@ -364,9 +385,20 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
         }
 
         std::string name = root.value("name", std::string{});
-        // Budgets de mouvements optionnels (EX-GP-024) ; -1 = illimite.
+        // Budgets de mouvements optionnels (EX-GP-024) ; -1 = illimite. A ne pas confondre avec
+        // les CAPACITES ci-dessous : un budget est un total consommable sur tout le tableau,
+        // jamais recharge, alors qu'une capacite se recharge a chaque contact avec le sol.
         const int jumpBudget = root.value("jumpBudget", -1);
         const int dashBudget = root.value("dashBudget", -1);
+        // Capacites du tableau (EX-GP-055) : absentes = reglages du moteur (PhysicsConfig).
+        std::optional<int> airJumps;
+        if (root.contains("airJumps")) {
+            airJumps = root.at("airJumps").get<int>();
+        }
+        std::optional<int> dashCharges;
+        if (root.contains("dashCharges")) {
+            dashCharges = root.at("dashCharges").get<int>();
+        }
         // Asset de fond et jeu de skins du niveau (EX-REN-044/EX-EDIT-024) : chaines optionnelles,
         // Core ignore tout du dossier d'assets et du mode de rendu (EX-NFR-011).
         std::optional<std::string> background;
@@ -513,7 +545,7 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                            jumpBudget, dashBudget, std::move(dangerLinks), std::move(moverConfigs),
                            std::move(blinkConfigs), std::move(background), std::move(skinSet),
                            std::move(textureOverrides), std::move(decors),
-                           std::move(platformConfigs), cameraFraming),
+                           std::move(platformConfigs), cameraFraming, airJumps, dashCharges),
             .error = {}};
     } catch (const nlohmann::json::exception& error) {
         return failure(std::string("JSON invalide : ") + error.what(),

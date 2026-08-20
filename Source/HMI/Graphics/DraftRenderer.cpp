@@ -4,6 +4,7 @@
 
 #include "Core/Ecs/Components/Sprite.h"  // core::AtlasRegion, core::Color
 #include "Core/Ecs/Components/Transform.h"
+#include "Core/Gameplay/PlatformPath.h"
 #include "Core/Levels/CameraFraming.h"
 #include "Core/Levels/Decor.h"
 #include "Core/Levels/LevelDraft.h"
@@ -13,6 +14,7 @@
 #include "Core/Math/Vector2.h"
 #include "HMI/Editor/DecorGeometry.h"
 #include "HMI/Editor/LinkGeometry.h"
+#include "HMI/Editor/PathGeometry.h"
 #include "HMI/Graphics/AssetContract.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/DecorVisuals.h"
@@ -50,6 +52,11 @@ constexpr std::int32_t OVERLAY_ORDER_DECOR_HANDLE_BRIGHT = 8;
 // Parcours de plateforme mobile (LOT-63) : au-dessus des poignees de décor, dernier calque
 // d'édition -- un repère de placement, jamais masqué par une sélection en cours.
 constexpr std::int32_t OVERLAY_ORDER_PLATFORM_PATH = 9;
+// Course d'un danger mobile (LOT-67) : juste au-dessus du parcours des plateformes, teinte
+// distincte -- les deux peuvent se croiser sans qu'on confonde le sur quoi on marche et le qui
+// tue. Les poignees de parcours reutilisent les ordres des poignees de decors : jamais les deux
+// outils actifs en meme temps, donc aucun risque de superposition.
+constexpr std::int32_t OVERLAY_ORDER_MOVER_PATH = 10;
 }  // namespace
 
 DraftRenderer::DraftRenderer(SpriteBatch& batch, const TextureAtlas& atlas, TextureCache& cache)
@@ -59,7 +66,8 @@ void DraftRenderer::render(
     const core::LevelDraft& draft, const Camera2D& camera, bool showGrid,
     const std::optional<std::pair<core::GridPosition, core::GridPosition>>& highlight,
     const LinkOverlayState& linkOverlay, RenderMode mode, bool showTextureOverrides,
-    float deltaSeconds, const DecorOverlayState& decorOverlay, const LayerVisibility& visibility) {
+    float deltaSeconds, const DecorOverlayState& decorOverlay, const LayerVisibility& visibility,
+    const PathOverlayState& pathOverlay) {
     if (_dirty) {
         rebuild(draft);
         _dirty = false;
@@ -119,7 +127,8 @@ void DraftRenderer::render(
     }
     composeCameraFraming(draft);
     composeLinks(draft, linkOverlay);
-    composeMovingPlatformPaths(draft);
+    composeMovingPlatformPaths(draft, pathOverlay);
+    composeDangerMoverPaths(draft, pathOverlay);
     if (showTextureOverrides) {
         composeTextureOverrideMarkers(draft);
     }
@@ -487,9 +496,26 @@ void DraftRenderer::composeLinks(const core::LevelDraft& draft, const LinkOverla
 // son point de depart et son second point, teinte azur (meme famille que la couleur procedurale
 // de MovingPlatform, TileVisuals.cpp), avec une pointe de fleche au second point -- lisible sans
 // se confondre avec les liens de mecanismes (bleu/orange, composeLinks ci-dessus).
-void DraftRenderer::composeMovingPlatformPaths(const core::LevelDraft& draft) {
+void DraftRenderer::composeMovingPlatformPaths(const core::LevelDraft& draft,
+                                               const PathOverlayState& pathOverlay) {
     if (draft.platformConfigs().empty()) {
         return;
+    }
+    // Apercu du geste en cours (LOT-67) : applique sur une COPIE locale de la configuration visee,
+    // jamais sur le brouillon -- le glisser ne devient une mutation qu'au relachement.
+    std::vector<core::MovingPlatformConfig> configs = draft.platformConfigs();
+    if (pathOverlay.preview && pathOverlay.preview->target.kind == PathTargetKind::Platform &&
+        pathOverlay.preview->target.index < configs.size()) {
+        const PathGestureAction& preview = *pathOverlay.preview;
+        std::vector<core::GridPosition>& waypoints = configs[preview.target.index].waypoints;
+        if (preview.kind == PathGestureActionKind::MoveWaypoint &&
+            preview.waypointIndex < waypoints.size()) {
+            waypoints[preview.waypointIndex] = preview.position;
+        } else if (preview.kind == PathGestureActionKind::InsertWaypoint &&
+                   preview.waypointIndex <= waypoints.size()) {
+            waypoints.insert(waypoints.begin() + static_cast<std::ptrdiff_t>(preview.waypointIndex),
+                             preview.position);
+        }
     }
 
     const core::AtlasRegion solid = _atlas.tile(0, 0);  // region opaque unie (teintee).
@@ -525,18 +551,142 @@ void DraftRenderer::composeMovingPlatformPaths(const core::LevelDraft& draft) {
                        OVERLAY_ORDER_PLATFORM_PATH, quad);
     };
 
-    for (const core::MovingPlatformConfig& config : draft.platformConfigs()) {
-        const core::Vector2 start{static_cast<float>(config.startPosition.column) + 0.5f,
-                                  static_cast<float>(config.startPosition.row) + 0.5f};
-        const core::Vector2 end{static_cast<float>(config.endPosition.column) + 0.5f,
-                                static_cast<float>(config.endPosition.row) + 0.5f};
-        if (start == end) {
-            continue;  // parcours nul (plateforme immobile) : rien a materialiser.
+    for (const core::MovingPlatformConfig& config : configs) {
+        // Meme polyligne que celle reellement parcourue par le gameplay (core::PlatformPath) :
+        // aucune reimplementation parallele de la trajectoire cote rendu. Les points sont des
+        // coins haut-gauche de case, recentres ici pour relier les centres.
+        const std::vector<core::Vector2> points = core::platformPathPoints(config);
+        for (std::size_t index = 1; index < points.size(); ++index) {
+            const core::Vector2 from{points[index - 1].x + 0.5f, points[index - 1].y + 0.5f};
+            const core::Vector2 to{points[index].x + 0.5f, points[index].y + 0.5f};
+            if (from == to) {
+                continue;  // segment nul (point duplique) : rien a materialiser.
+            }
+            addLine(from, to);
+            // Une pointe par segment : elle donne le SENS de parcours, indispensable des que la
+            // route depasse deux points (et seule facon de distinguer un circuit ferme a l'oeil).
+            const ArrowHead head = arrowHead(from, to);
+            addLine(to, head.left);
+            addLine(to, head.right);
         }
-        addLine(start, end);
-        const ArrowHead head = arrowHead(start, end);
-        addLine(end, head.left);
-        addLine(end, head.right);
+    }
+
+    // Poignees du parcours SELECTIONNE uniquement : les afficher sur tous les parcours saturerait
+    // le canevas des qu'un niveau en compte plusieurs.
+    if (pathOverlay.selected && pathOverlay.selected->kind == PathTargetKind::Platform &&
+        pathOverlay.selected->index < configs.size()) {
+        composePathHandles(pathHandleLayout(configs[pathOverlay.selected->index],
+                                            pathOverlay.worldUnitsPerScreenPixel));
+    }
+}
+
+// Poignees d'un parcours : carres double ton (liseré sombre puis coeur clair), exactement le
+// patron de composeDecorSelection -- lisible sur tout fond (EX-EDIT-030). Les milieux de segment
+// se distinguent par leur couleur : ils AJOUTENT un point, les autres en deplacent un.
+// Rectangle plein d'une aide d'edition, texture par la region unie de l'atlas puis teinte. Etait
+// une lambda locale a composeDecorSelection ; extrait en methode quand les poignees de parcours
+// (LOT-67) en ont eu besoin a leur tour -- une seule definition plutot que deux copies vouees a
+// diverger au premier ajustement.
+SpriteQuad DraftRenderer::solidOverlayQuad(const core::Rect& rect, float r, float g, float b,
+                                           float a) const {
+    const core::AtlasRegion solid = _atlas.tile(0, 0);
+    const float atlasWidth = static_cast<float>(_atlas.width());
+    const float atlasHeight = static_cast<float>(_atlas.height());
+    SpriteQuad quad;
+    quad.x = rect.position.x;
+    quad.y = rect.position.y;
+    quad.width = rect.size.x;
+    quad.height = rect.size.y;
+    quad.u0 = static_cast<float>(solid.x) / atlasWidth;
+    quad.v0 = static_cast<float>(solid.y) / atlasHeight;
+    quad.u1 = static_cast<float>(solid.x + solid.width) / atlasWidth;
+    quad.v1 = static_cast<float>(solid.y + solid.height) / atlasHeight;
+    quad.r = r;
+    quad.g = g;
+    quad.b = b;
+    quad.a = a;
+    return quad;
+}
+
+void DraftRenderer::composePathHandles(const std::vector<PathHandle>& handles) {
+    for (const PathHandle& handle : handles) {
+        constexpr float OUTSET = 0.015f;
+        _scene.addSprite(
+            RenderLayer::EditorOverlay, _atlas.textureView(), OVERLAY_ORDER_DECOR_HANDLE_DARK,
+            solidOverlayQuad(core::Rect{core::Vector2{handle.rect.position.x - OUTSET,
+                                                      handle.rect.position.y - OUTSET},
+                                        core::Vector2{handle.rect.size.x + (OUTSET * 2.0f),
+                                                      handle.rect.size.y + (OUTSET * 2.0f)}},
+                             0.02f, 0.05f, 0.08f, 0.95f));
+        // L'amorce d'une route vide se dessine comme un milieu de segment : dans les deux cas, la
+        // poignee designe un point A CREER, pas un point acquis (LOT-68).
+        const bool midpoint =
+            handle.kind == PathHandleKind::Midpoint || handle.kind == PathHandleKind::Origin;
+        _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureView(),
+                         OVERLAY_ORDER_DECOR_HANDLE_BRIGHT,
+                         solidOverlayQuad(handle.rect, midpoint ? 0.4f : 0.25f, 0.95f,
+                                          midpoint ? 0.35f : 1.0f, 1.0f));
+    }
+}
+
+// Materialise la course aller-retour de chaque danger mobile (LOT-67, EX-GP-051) : un trait de sa
+// case de depart a son extremite, teinte rouge-orangee (famille danger, distincte de l'azur des
+// plateformes et du bleu/orange des liens), avec une pointe a CHAQUE bout -- la course est un
+// aller-retour, pas un sens unique.
+void DraftRenderer::composeDangerMoverPaths(const core::LevelDraft& draft,
+                                            const PathOverlayState& pathOverlay) {
+    if (draft.moverConfigs().empty()) {
+        return;
+    }
+    const core::AtlasRegion solid = _atlas.tile(0, 0);
+    const float atlasWidth = static_cast<float>(_atlas.width());
+    const float atlasHeight = static_cast<float>(_atlas.height());
+
+    constexpr float THICKNESS = 0.04f;
+    const auto addLine = [&](core::Vector2 a, core::Vector2 b) {
+        LineQuad quad;
+        quad.ax = a.x;
+        quad.ay = a.y;
+        quad.bx = b.x;
+        quad.by = b.y;
+        quad.thickness = THICKNESS;
+        quad.u0 = static_cast<float>(solid.x) / atlasWidth;
+        quad.v0 = static_cast<float>(solid.y) / atlasHeight;
+        quad.u1 = static_cast<float>(solid.x + solid.width) / atlasWidth;
+        quad.v1 = static_cast<float>(solid.y + solid.height) / atlasHeight;
+        quad.r = 1.0f;
+        quad.g = 0.35f;
+        quad.b = 0.2f;
+        quad.a = 0.6f;
+        _scene.addLine(RenderLayer::EditorOverlay, _atlas.textureView(), OVERLAY_ORDER_MOVER_PATH,
+                       quad);
+    };
+
+    for (const core::DangerMoverConfig& config : draft.moverConfigs()) {
+        const core::Vector2 from{static_cast<float>(config.startPosition.column) + 0.5f,
+                                 static_cast<float>(config.startPosition.row) + 0.5f};
+        const core::Vector2 to{from.x + (config.axis == core::DangerMoverAxis::Horizontal
+                                             ? static_cast<float>(config.range)
+                                             : 0.0f),
+                               from.y + (config.axis == core::DangerMoverAxis::Vertical
+                                             ? static_cast<float>(config.range)
+                                             : 0.0f)};
+        if (from == to) {
+            continue;  // portee nulle : danger immobile, rien a materialiser.
+        }
+        addLine(from, to);
+        const ArrowHead forward = arrowHead(from, to);
+        addLine(to, forward.left);
+        addLine(to, forward.right);
+        const ArrowHead backward = arrowHead(to, from);
+        addLine(from, backward.left);
+        addLine(from, backward.right);
+    }
+
+    if (pathOverlay.selected && pathOverlay.selected->kind == PathTargetKind::Mover &&
+        pathOverlay.selected->index < draft.moverConfigs().size()) {
+        composePathHandles({moverHandleLayout(draft.moverConfigs()[pathOverlay.selected->index],
+                                              pathOverlay.worldUnitsPerScreenPixel)});
     }
 }
 
@@ -602,21 +752,8 @@ void DraftRenderer::composeDecorSelection(const core::LevelDraft& draft,
     const float solidV0 = static_cast<float>(solid.y) / atlasHeight;
     const float solidU1 = static_cast<float>(solid.x + solid.width) / atlasWidth;
     const float solidV1 = static_cast<float>(solid.y + solid.height) / atlasHeight;
-    const auto solidQuad = [&](const core::Rect& rect, float r, float g, float b, float a) {
-        SpriteQuad quad;
-        quad.x = rect.position.x;
-        quad.y = rect.position.y;
-        quad.width = rect.size.x;
-        quad.height = rect.size.y;
-        quad.u0 = solidU0;
-        quad.v0 = solidV0;
-        quad.u1 = solidU1;
-        quad.v1 = solidV1;
-        quad.r = r;
-        quad.g = g;
-        quad.b = b;
-        quad.a = a;
-        return quad;
+    const auto solidQuad = [this](const core::Rect& rect, float r, float g, float b, float a) {
+        return solidOverlayQuad(rect, r, g, b, a);
     };
     // Segment epais entre deux points monde, meme region de texture (unie) que solidQuad -- pour
     // un cadre de selection ORIENTE (LOT-50, revision post-livraison de TACHE-03), contrairement a

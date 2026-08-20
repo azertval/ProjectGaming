@@ -136,6 +136,53 @@ l'application le connaît.
   clavier reste un second chemin **légitime** vers une commande, à condition d'être affiché par la
   commande elle-même plutôt que dupliqué en contrôle distinct.
 
+## 8. Identité visuelle des écrans du jeu (LOT-68)
+Le `LOT-56` a donné à l'interface un habillage cohérent, mais **générique** : la portée identité et
+le châssis d'édition partagent la même police et la même échelle typographique, si bien que rien, à
+l'écran, ne distingue le menu d'un jeu de plateforme en pixel art du panneau d'un outil de travail.
+Les titres sont fixés à 32 pt et les entrées de menu à 16 pt quelle que soit la taille de la
+fenêtre, ce qui donne une interface visiblement petite dès qu'on dépasse la définition d'un
+ordinateur portable. Et le focus n'est signalé que par un changement de teinte — suffisant à la
+souris, insuffisant à la manette, qui n'a pas de pointeur pour dire où elle en est.
+
+- \anchor EX-IHM-070 **EX-IHM-070** — Les écrans du **jeu** doivent porter une identité **pixel
+  art** assumée : police bitmap **embarquée** avec l'application (repli sur une famille générique si
+  elle est absente, `EX-IHM-052`) et cadres à **bordure franche**, rendus **sans lissage** à un
+  facteur d'agrandissement **entier** dérivé de la taille de la fenêtre (`EX-IHM-053`). Un facteur
+  fractionnaire rend une bordure d'un pixel tantôt sur un pixel, tantôt sur deux : la contrainte est
+  technique, pas esthétique. Cette identité est **bornée aux écrans du jeu** — le châssis d'édition
+  conserve son apparence d'outil de travail et ses thèmes clair/sombre (`EX-IHM-054`), et aucune
+  police bitmap ne se répand dans ses tables et ses arbres denses.
+- \anchor EX-IHM-071 **EX-IHM-071** — L'élément **focalisé** d'un écran du jeu doit être signalé par
+  une **marque explicite** (curseur), et non par la seule teinte : la navigation à la manette
+  (`EX-IHM-040`) repose entièrement sur le parcours de focus, qu'une simple nuance de couleur rend
+  difficile à suivre — et impossible pour un joueur qui distingue mal les couleurs. Une feuille de
+  style ne sachant pas ajouter de contenu, cette marque est nécessairement peinte par le contrôle.
+- \anchor EX-IHM-072 **EX-IHM-072** — Aucun écran ne doit exposer de réglage **inopérant**. Un
+  contrôle grisé et non branché coûte plus de confiance qu'il n'apporte d'information : il se retire,
+  ou il se branche. Symétriquement, une capacité qui existe déjà (comptage de cadence, bascule de
+  rendu) s'expose comme réglage plutôt que de rester derrière une touche non documentée — sans jamais
+  en faire un **second** état (`EX-IHM-062`).
+
+- \anchor EX-IHM-073 **EX-IHM-073** — L'éditeur doit se présenter en **espaces de travail
+  exclusifs** (édition de niveau, atelier pixel art) : seuls les panneaux, la barre d'outils et les
+  menus de l'espace **actif** sont affichés, la disposition de chaque espace est persistée
+  séparément (`EX-IHM-011`), et sélectionner un outil bascule sur l'espace auquel il appartient.
+  Afficher les deux ensemble laissait en permanence à l'écran une trentaine de contrôles dont les
+  deux tiers étaient hors contexte, les deux activités ne se pratiquant jamais en même temps. Ce
+  masquage est un **changement d'espace**, décidé par l'utilisateur — à ne pas confondre avec la
+  mise en avant automatique d'`EX-IHM-061`, qui reste une suggestion et ne masque jamais rien.
+
+- \anchor EX-IHM-074 **EX-IHM-074** — Les surfaces de commande de l'éditeur doivent être
+  **hiérarchisées** : la barre d'outils ne porte que la sélection d'outil et les commandes à usage
+  **continu** ; toute autre commande reste atteignable par la barre de menus et son raccourci.
+  `EX-IHM-055` garantissait déjà qu'une commande placée à plusieurs endroits reste une seule
+  définition ; il restait à arbitrer **lesquelles** méritent une place permanente à l'écran — une
+  barre d'outils portant onze commandes, dont neuf figuraient déjà au menu, est illisible sans
+  qu'aucune ne soit pour autant dupliquée. Cette répartition doit être portée par la **description**
+  de chaque commande, et non décidée par le code qui peuple les barres : une répartition implicite
+  ne se relit pas et dérive au premier ajout.
+
 ## Traçabilité
 Tout ceci relève de `Source/HMI` — depuis le `LOT-38`, l'unique application Qt `ProjectGaming` (rendu
 de jeu Direct3D 11 + widgets Qt répartis par domaine) ; les assets Qt déclaratifs vivent dans

@@ -49,6 +49,12 @@ signals:
     void creditsRequested();
     void quitRequested();
 
+protected:
+    /// Peint le décor pixel art du menu (`LOT-68`, `EX-IHM-070`) **derrière** les enfants : ciel
+    /// en bandes, lune, silhouettes et sol, plus un voile de lisibilité sous le texte. La géométrie
+    /// vient de `hmi::menuBackdropQuads` (pure) ; seules les couleurs sont résolues ici.
+    void paintEvent(QPaintEvent* event) override;
+
 private:
     std::unique_ptr<Ui::MainMenu> _ui;
 };

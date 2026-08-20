@@ -3,6 +3,7 @@
 #include <QWidget>
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 
 #include "HMI/Editor/PixelPalette.h"
 
@@ -14,6 +15,10 @@ class QPushButton;
  * @file HMI/Editor/PixelPalettePanel.h
  * @brief Panneau d'édition de la palette de projet de l'atelier pixel art (`LOT-54` TACHE-07).
  */
+
+namespace Ui {
+class PixelPalettePanel;
+}
 
 namespace hmi {
 
@@ -35,6 +40,9 @@ class PixelPalettePanel : public QWidget {
 
 public:
     explicit PixelPalettePanel(QWidget* parent = nullptr);
+
+    /// Hors-ligne : `std::unique_ptr<Ui::PixelPalettePanel>` porte un type incomplet.
+    ~PixelPalettePanel() override;
 
     /// Reconstruit la liste depuis @p palette (après toute mutation).
     void refresh(const PixelPalette& palette);
@@ -70,6 +78,9 @@ private:
     void onItemActivated(int row);
     void updateButtonsEnabled();
 
+    /// Mise en page issue de `PixelPalettePanel.ui` (`LOT-68`) : le C++ ne branche plus que le
+    /// fonctionnel, conformément à la convention du projet.
+    std::unique_ptr<Ui::PixelPalettePanel> _ui;
     QListWidget* _list;
     QPushButton* _addButton;
     QPushButton* _removeButton;
