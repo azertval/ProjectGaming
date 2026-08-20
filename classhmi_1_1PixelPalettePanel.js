@@ -1,6 +1,7 @@
 var classhmi_1_1PixelPalettePanel =
 [
     [ "PixelPalettePanel", "classhmi_1_1PixelPalettePanel.html#a3dc1270837b8c6c8fa9eb6674a003840", null ],
+    [ "~PixelPalettePanel", "classhmi_1_1PixelPalettePanel.html#a52d40f7b00ff6084d50f0780b1f3edbe", null ],
     [ "addRequested", "classhmi_1_1PixelPalettePanel.html#a03dd26f754a8cb1b32b64aa244540f26", null ],
     [ "colorActivated", "classhmi_1_1PixelPalettePanel.html#a49706d46cfb2f645529278276be21413", null ],
     [ "constrainEnabled", "classhmi_1_1PixelPalettePanel.html#a31fb34aa4810ae4fc1c1d4596b8d8b95", null ],
@@ -27,5 +28,6 @@ var classhmi_1_1PixelPalettePanel =
     [ "_moveDownButton", "classhmi_1_1PixelPalettePanel.html#a3782a0396c27f27e5eed59d7d9db1401", null ],
     [ "_moveUpButton", "classhmi_1_1PixelPalettePanel.html#a8a90b6c031416d343c7d9c9dccbd2d83", null ],
     [ "_removeButton", "classhmi_1_1PixelPalettePanel.html#a503ff6d0b1d64ef2a548a30356959b60", null ],
-    [ "_renameButton", "classhmi_1_1PixelPalettePanel.html#a885d1f1f640a54767500e07a0e1ab9ba", null ]
+    [ "_renameButton", "classhmi_1_1PixelPalettePanel.html#a885d1f1f640a54767500e07a0e1ab9ba", null ],
+    [ "_ui", "classhmi_1_1PixelPalettePanel.html#aa351b273b0be96a868c1c5994e461a3d", null ]
 ];

@@ -33,6 +33,7 @@ var namespacecore =
     [ "TriggerWeight", "structcore_1_1TriggerWeight.html", "structcore_1_1TriggerWeight" ],
     [ "MechanismController", "classcore_1_1MechanismController.html", "classcore_1_1MechanismController" ],
     [ "PlatformController", "classcore_1_1PlatformController.html", "classcore_1_1PlatformController" ],
+    [ "PlatformPath", "structcore_1_1PlatformPath.html", "structcore_1_1PlatformPath" ],
     [ "CameraZone", "structcore_1_1CameraZone.html", "structcore_1_1CameraZone" ],
     [ "CameraFramingConfig", "structcore_1_1CameraFramingConfig.html", "structcore_1_1CameraFramingConfig" ],
     [ "Decor", "structcore_1_1Decor.html", "structcore_1_1Decor" ],
@@ -121,6 +122,10 @@ var namespacecore =
       [ "LandingDust", "namespacecore.html#aa6799b2e10b4cf31b2527af8a390ce2ca0cdb0f6c72187ce44ad0d64103920653", null ],
       [ "Death", "namespacecore.html#aa6799b2e10b4cf31b2527af8a390ce2ca6097f89e3092d4ccd249c9d479785c1f", null ]
     ] ],
+    [ "PlatformPathMode", "namespacecore.html#a8a429a2ce785ee89ff543488b51750b1", [
+      [ "PingPong", "namespacecore.html#a8a429a2ce785ee89ff543488b51750b1a99e52704462d3580db3528cad7ea9660", null ],
+      [ "Loop", "namespacecore.html#a8a429a2ce785ee89ff543488b51750b1a89d7b10cb4238977d2b523dfd9ea7745", null ]
+    ] ],
     [ "TileType", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875", [
       [ "Empty", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07", null ],
       [ "Solid", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa", null ],
@@ -159,6 +164,7 @@ var namespacecore =
     [ "advanceAnimation", "namespacecore.html#a209ceac8415ddadd8463746b94934eed", null ],
     [ "approximatelyEqual", "namespacecore.html#a69640dd3c9f3f8778a7c7621839c3794", null ],
     [ "buildLevelScene", "namespacecore.html#a2af6bf1cd31d496a597f6bdf257ce148", null ],
+    [ "buildPlatformPath", "namespacecore.html#aa952d3ee1972c33658bdeae20d63fcba", null ],
     [ "cameraFramingModeName", "namespacecore.html#a0d231b385924c096dc5f94d17639e679", null ],
     [ "ceilingSlopeHeight", "namespacecore.html#aef7136a2093c38f28dc2f24fedfae124", null ],
     [ "currentTimestamp", "namespacecore.html#a485afe76bcf660ec5db7d91f924f87a4", null ],
@@ -187,6 +193,8 @@ var namespacecore =
     [ "parseCameraFramingMode", "namespacecore.html#acae8699b6c75742b88007ea470bf54ea", null ],
     [ "parseLogLevel", "namespacecore.html#ae8ce294afb9bbebacf6676020a0e223a", null ],
     [ "parseTileType", "namespacecore.html#ad675f8ce2e7f29908cbe3e7701336ef8", null ],
+    [ "platformPathPoints", "namespacecore.html#a3d27d948b6c91a74b94a1aaeb947f79b", null ],
+    [ "platformPositionAt", "namespacecore.html#aa6e914a274a901675b495bc235848419", null ],
     [ "playerClipSet", "namespacecore.html#a15c89d2a138a59d257f395dcf95efc26", null ],
     [ "playerSize", "namespacecore.html#a6b2b8e5dc4a0b610cc1225c14e1ce5cb", null ],
     [ "playerSpawnPosition", "namespacecore.html#a478b06d0135ab7cd314b90791cfe7ba0", null ],

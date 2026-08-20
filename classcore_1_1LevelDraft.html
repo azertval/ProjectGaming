@@ -121,8 +121,22 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ae2df4ef55bd85c10d0d139e9590a7fde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit l'axe et la portée d'un danger mobile (<span class="tt">EX-GP-051</span>).  <br /></td></tr>
 <tr class="memitem:ab8a12378f12ab51439fd692cde093bcc" id="r_ab8a12378f12ab51439fd692cde093bcc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab8a12378f12ab51439fd692cde093bcc">setBlinkConfig</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> position, int period, int phase, int activeDuration)</td></tr>
 <tr class="memdesc:ab8a12378f12ab51439fd692cde093bcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit la période, le déphasage et la durée active d'un danger temporisé (<span class="tt">EX-GP-053</span>).  <br /></td></tr>
-<tr class="memitem:a6ff2592a05d61d82d2fff045efc96321" id="r_a6ff2592a05d61d82d2fff045efc96321"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6ff2592a05d61d82d2fff045efc96321">setPlatformConfig</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> position, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> endPosition, float speed, int phase)</td></tr>
-<tr class="memdesc:a6ff2592a05d61d82d2fff045efc96321"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit le second point de parcours, la vitesse et le déphasage d'une plateforme mobile (<span class="tt">EX-GP-026</span>).  <br /></td></tr>
+<tr class="memitem:a4e53d560a32aa5f88e02f834aba8b776" id="r_a4e53d560a32aa5f88e02f834aba8b776"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4e53d560a32aa5f88e02f834aba8b776">setPlatformConfig</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> position, std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt; waypoints, <a class="el" href="namespacecore.html#a8a429a2ce785ee89ff543488b51750b1">PlatformPathMode</a> mode, float speed, int phase)</td></tr>
+<tr class="memdesc:a4e53d560a32aa5f88e02f834aba8b776"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit la route complète, le mode, la vitesse et le déphasage d'une plateforme mobile (<span class="tt">EX-GP-026</span>).  <br /></td></tr>
+<tr class="memitem:a52131fc3008886306a53cad83f82713c" id="r_a52131fc3008886306a53cad83f82713c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a52131fc3008886306a53cad83f82713c">addPlatformWaypoint</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> position, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> waypoint)</td></tr>
+<tr class="memdesc:a52131fc3008886306a53cad83f82713c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un point à la fin de la route de la plateforme en <code class="param">position</code> (<span class="tt">EX-GP-026</span>).  <br /></td></tr>
+<tr class="memitem:a2afe1a6ac6219fdf445e832641fbfc4d" id="r_a2afe1a6ac6219fdf445e832641fbfc4d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2afe1a6ac6219fdf445e832641fbfc4d">insertPlatformWaypoint</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> position, std::size_t index, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> waypoint)</td></tr>
+<tr class="memdesc:a2afe1a6ac6219fdf445e832641fbfc4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insère <code class="param">waypoint</code> au rang <code class="param">index</code> de la route de la plateforme en <code class="param">position</code>.  <br /></td></tr>
+<tr class="memitem:aab027e6da55d8146f2069f59969cddfa" id="r_aab027e6da55d8146f2069f59969cddfa"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aab027e6da55d8146f2069f59969cddfa">movePlatformWaypoint</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> position, std::size_t index, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> waypoint)</td></tr>
+<tr class="memdesc:aab027e6da55d8146f2069f59969cddfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déplace le point de rang <code class="param">index</code> de la route de la plateforme en <code class="param">position</code>.  <br /></td></tr>
+<tr class="memitem:a2a66bc015409d3cf18d4f4bf9bf2b14c" id="r_a2a66bc015409d3cf18d4f4bf9bf2b14c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2a66bc015409d3cf18d4f4bf9bf2b14c">removePlatformWaypoint</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> position, std::size_t index)</td></tr>
+<tr class="memdesc:a2a66bc015409d3cf18d4f4bf9bf2b14c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire le point de rang <code class="param">index</code> de la route de la plateforme en <code class="param">position</code>.  <br /></td></tr>
+<tr class="memitem:aad603e41ee55e1e3cf88a2ba70d533af" id="r_aad603e41ee55e1e3cf88a2ba70d533af"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aad603e41ee55e1e3cf88a2ba70d533af">setPlatformMode</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> position, <a class="el" href="namespacecore.html#a8a429a2ce785ee89ff543488b51750b1">PlatformPathMode</a> mode)</td></tr>
+<tr class="memdesc:aad603e41ee55e1e3cf88a2ba70d533af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change le mode de bouclage de la plateforme en <code class="param">position</code> (<span class="tt">EX-GP-026</span>), annulable.  <br /></td></tr>
+<tr class="memitem:afee4254935d2a505dc79101bb7d3afce" id="r_afee4254935d2a505dc79101bb7d3afce"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afee4254935d2a505dc79101bb7d3afce">setPlatformSpeed</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> position, float speed)</td></tr>
+<tr class="memdesc:afee4254935d2a505dc79101bb7d3afce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change la vitesse (cases/seconde) de la plateforme en <code class="param">position</code>, annulable.  <br /></td></tr>
+<tr class="memitem:aeb07e6e2bc210160dbba94f648119846" id="r_aeb07e6e2bc210160dbba94f648119846"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aeb07e6e2bc210160dbba94f648119846">setPlatformPhase</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> position, int phase)</td></tr>
+<tr class="memdesc:aeb07e6e2bc210160dbba94f648119846"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change le déphasage (pas fixes) de la plateforme en <code class="param">position</code>, annulable.  <br /></td></tr>
 <tr class="memitem:a6820058154fd9e3f777c5fd843b7b0cb" id="r_a6820058154fd9e3f777c5fd843b7b0cb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6820058154fd9e3f777c5fd843b7b0cb">setTextureOverride</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> position, std::string assetName)</td></tr>
 <tr class="memdesc:a6820058154fd9e3f777c5fd843b7b0cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigne (ou remplace) la texture affichée pour <b>une case précise</b> (<span class="tt">EX-EDIT-043</span>), prioritaire sur le skin de son type (LOT-42).  <br /></td></tr>
 <tr class="memitem:a6a0636029b5b633d7b93b2ebca0d80c8" id="r_a6a0636029b5b633d7b93b2ebca0d80c8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6a0636029b5b633d7b93b2ebca0d80c8">removeTextureOverride</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> position)</td></tr>
@@ -157,10 +171,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a4c48b964ac9310a3b90a3d364aae97aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refait la dernière mutation annulée.  <br /></td></tr>
 <tr class="memitem:ade4c8fce925ab627dc202c9dcb5fc030" id="r_ade4c8fce925ab627dc202c9dcb5fc030"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ade4c8fce925ab627dc202c9dcb5fc030">canUndo</a> () const noexcept</td></tr>
 <tr class="memitem:a78972ab0e9f816d4d2b036ca25dafe12" id="r_a78972ab0e9f816d4d2b036ca25dafe12"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a78972ab0e9f816d4d2b036ca25dafe12">canRedo</a> () const noexcept</td></tr>
-<tr class="memitem:a6bc2d83836d4a00ba59360002ba556ac" id="r_a6bc2d83836d4a00ba59360002ba556ac"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6bc2d83836d4a00ba59360002ba556ac">setJumpBudget</a> (int <a class="el" href="#a5c63e9d12c9473f4aa8693b04f3293ff">jumpBudget</a>) noexcept</td></tr>
-<tr class="memdesc:a6bc2d83836d4a00ba59360002ba556ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit le budget de sauts (<span class="tt">-1</span> = illimité).  <br /></td></tr>
-<tr class="memitem:a30ce05ac3504f6052e888647232e251d" id="r_a30ce05ac3504f6052e888647232e251d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a30ce05ac3504f6052e888647232e251d">setDashBudget</a> (int <a class="el" href="#ac8048001ee2bf60309c234ff6f717ff4">dashBudget</a>) noexcept</td></tr>
-<tr class="memdesc:a30ce05ac3504f6052e888647232e251d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit le budget de dashs (<span class="tt">-1</span> = illimité).  <br /></td></tr>
+<tr class="memitem:a4b8912aa4f61e86f038125dd17e87779" id="r_a4b8912aa4f61e86f038125dd17e87779"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4b8912aa4f61e86f038125dd17e87779">setJumpBudget</a> (int <a class="el" href="#a5c63e9d12c9473f4aa8693b04f3293ff">jumpBudget</a>)</td></tr>
+<tr class="memdesc:a4b8912aa4f61e86f038125dd17e87779"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit le budget de sauts consommable sur tout le tableau (<span class="tt">EX-GP-024</span>, <span class="tt">-1</span> = illimité), annulable.  <br /></td></tr>
+<tr class="memitem:af0a2007488e8976cc27cc84afec0964d" id="r_af0a2007488e8976cc27cc84afec0964d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af0a2007488e8976cc27cc84afec0964d">setDashBudget</a> (int <a class="el" href="#ac8048001ee2bf60309c234ff6f717ff4">dashBudget</a>)</td></tr>
+<tr class="memdesc:af0a2007488e8976cc27cc84afec0964d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit le budget de dashs consommable sur tout le tableau (<span class="tt">EX-GP-024</span>, <span class="tt">-1</span> = illimité), annulable.  <br /></td></tr>
+<tr class="memitem:a49cbb1417d959535b3a4bfb4034f5b12" id="r_a49cbb1417d959535b3a4bfb4034f5b12"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a49cbb1417d959535b3a4bfb4034f5b12">setAirJumps</a> (std::optional&lt; int &gt; <a class="el" href="#ac0f3398bfd87d2d89062783dce9874c2">airJumps</a>)</td></tr>
+<tr class="memdesc:a49cbb1417d959535b3a4bfb4034f5b12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit les sauts <b>aériens</b> accordés par ce tableau (<span class="tt">EX-GP-055</span>), annulable.  <br /></td></tr>
+<tr class="memitem:a5874757d02f417033f270de2fd7cb31f" id="r_a5874757d02f417033f270de2fd7cb31f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5874757d02f417033f270de2fd7cb31f">setDashCharges</a> (std::optional&lt; int &gt; <a class="el" href="#a9a0f0b8f4f4df52d93cc7ebff3a9bdfe">dashCharges</a>)</td></tr>
+<tr class="memdesc:a5874757d02f417033f270de2fd7cb31f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit les charges de <b>dash</b> accordées par ce tableau (<span class="tt">EX-GP-055</span>), annulable.  <br /></td></tr>
 <tr class="memitem:af06a5338ba049934b8b217c6e0345546" id="r_af06a5338ba049934b8b217c6e0345546"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af06a5338ba049934b8b217c6e0345546">setName</a> (std::string <a class="el" href="#a7ac47bce808a2ac8e8fce362411269cf">name</a>)</td></tr>
 <tr class="memdesc:af06a5338ba049934b8b217c6e0345546"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme le niveau.  <br /></td></tr>
 <tr class="memitem:afaced983e3b9e6538a4b83d57a11adc1" id="r_afaced983e3b9e6538a4b83d57a11adc1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afaced983e3b9e6538a4b83d57a11adc1">setBackground</a> (std::optional&lt; std::string &gt; <a class="el" href="#ae10fca65c113da45ec8bf89846979889">background</a>)</td></tr>
@@ -186,6 +204,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1d49b3c7088c0f8928c8a2aaadee665e" id="r_a1d49b3c7088c0f8928c8a2aaadee665e"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1Decor.html">Decor</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a1d49b3c7088c0f8928c8a2aaadee665e">decors</a> () const noexcept</td></tr>
 <tr class="memitem:a5c63e9d12c9473f4aa8693b04f3293ff" id="r_a5c63e9d12c9473f4aa8693b04f3293ff"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a5c63e9d12c9473f4aa8693b04f3293ff">jumpBudget</a> () const noexcept</td></tr>
 <tr class="memitem:ac8048001ee2bf60309c234ff6f717ff4" id="r_ac8048001ee2bf60309c234ff6f717ff4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac8048001ee2bf60309c234ff6f717ff4">dashBudget</a> () const noexcept</td></tr>
+<tr class="memitem:ac0f3398bfd87d2d89062783dce9874c2" id="r_ac0f3398bfd87d2d89062783dce9874c2"><td class="memItemLeft">const std::optional&lt; int &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ac0f3398bfd87d2d89062783dce9874c2">airJumps</a> () const noexcept</td></tr>
+<tr class="memitem:a9a0f0b8f4f4df52d93cc7ebff3a9bdfe" id="r_a9a0f0b8f4f4df52d93cc7ebff3a9bdfe"><td class="memItemLeft">const std::optional&lt; int &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a9a0f0b8f4f4df52d93cc7ebff3a9bdfe">dashCharges</a> () const noexcept</td></tr>
 <tr class="memitem:ae10fca65c113da45ec8bf89846979889" id="r_ae10fca65c113da45ec8bf89846979889"><td class="memItemLeft">const std::optional&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ae10fca65c113da45ec8bf89846979889">background</a> () const noexcept</td></tr>
 <tr class="memitem:a67618564911cd89f947a0d2b1c47f774" id="r_a67618564911cd89f947a0d2b1c47f774"><td class="memItemLeft">const std::optional&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a67618564911cd89f947a0d2b1c47f774">skinSet</a> () const noexcept</td></tr>
 <tr class="memitem:a0c8ca795b62277f4d0c78036bc16844e" id="r_a0c8ca795b62277f4d0c78036bc16844e"><td class="memItemLeft">const <a class="el" href="structcore_1_1CameraFramingConfig.html">CameraFramingConfig</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a0c8ca795b62277f4d0c78036bc16844e">cameraFraming</a> () const noexcept</td></tr>
@@ -210,6 +230,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a2200dadec2de3ffe91fff274306a8be5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logique de <span class="tt"><a class="el" href="#a43da8f9a68020121dfad59756c579b7a" title="Place la sortie en (column, row) ; déplace l&#39;occurrence existante s&#39;il y en avait une (unicité,...">setExit</a></span>, sans <span class="tt"><a class="el" href="#a949cfb0148244f0ba05257d4f523f51d" title="Empile l&#39;état courant sur la pile d&#39;annulation ; à appeler avant toute mutation undoable.">pushUndo()</a></span>.  <br /></td></tr>
 <tr class="memitem:ac6222b6123bc9c12d22976c642ab0275" id="r_ac6222b6123bc9c12d22976c642ab0275"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac6222b6123bc9c12d22976c642ab0275">removeLinkedDataAt</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> position, bool keepTextureOverride=false)</td></tr>
 <tr class="memdesc:ac6222b6123bc9c12d22976c642ab0275"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire toute liaison/configuration référençant <code class="param">position</code> (déclencheur, porte, danger commuté, configuration de danger mobile/temporisé, ou override de texture) — appelé avant de reposer un autre type sur une case qui en portait une, pour ne jamais laisser d'entrée orpheline.  <br /></td></tr>
+<tr class="memitem:a9109efae5727f8e4c5f8620bd1651fb0" id="r_a9109efae5727f8e4c5f8620bd1651fb0"><td class="memItemLeft"><a class="el" href="structcore_1_1MovingPlatformConfig.html">MovingPlatformConfig</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a9109efae5727f8e4c5f8620bd1651fb0">platformConfigForEdit</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> position)</td></tr>
+<tr class="memdesc:a9109efae5727f8e4c5f8620bd1651fb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration de la plateforme en <code class="param">position</code>, <b>créée aux valeurs par défaut</b> si absente.  <br /></td></tr>
 <tr class="memitem:a89fced43d78e2f2fcd89fd03b75373bc" id="r_a89fced43d78e2f2fcd89fd03b75373bc"><td class="memItemLeft"><a class="el" href="structcore_1_1LevelDraft_1_1State.html">State</a>&#160;</td><td class="memItemRight"><a class="el" href="#a89fced43d78e2f2fcd89fd03b75373bc">snapshot</a> () const</td></tr>
 <tr class="memdesc:a89fced43d78e2f2fcd89fd03b75373bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Capture l'état courant (pour empiler dans l'historique undo/redo).  <br /></td></tr>
 <tr class="memitem:a320a399e76d85ed27d70875d6b410f93" id="r_a320a399e76d85ed27d70875d6b410f93"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a320a399e76d85ed27d70875d6b410f93">restore</a> (<a class="el" href="structcore_1_1LevelDraft_1_1State.html">State</a> state)</td></tr>
@@ -235,6 +257,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a13dd782e9b0882563e3c7bc01d5adfd4" id="r_a13dd782e9b0882563e3c7bc01d5adfd4"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Decor.html">Decor</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a13dd782e9b0882563e3c7bc01d5adfd4">_decors</a></td></tr>
 <tr class="memitem:a6937fc3d89a86200a42b9ebe4beb5ded" id="r_a6937fc3d89a86200a42b9ebe4beb5ded"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1MovingPlatformConfig.html">MovingPlatformConfig</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6937fc3d89a86200a42b9ebe4beb5ded">_platformConfigs</a></td></tr>
 <tr class="memitem:a95450e54584320ce22aac77e1acea933" id="r_a95450e54584320ce22aac77e1acea933"><td class="memItemLeft"><a class="el" href="structcore_1_1CameraFramingConfig.html">CameraFramingConfig</a>&#160;</td><td class="memItemRight"><a class="el" href="#a95450e54584320ce22aac77e1acea933">_cameraFraming</a></td></tr>
+<tr class="memitem:af46552e2646927ecfcade09077486d73" id="r_af46552e2646927ecfcade09077486d73"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af46552e2646927ecfcade09077486d73">_airJumps</a></td></tr>
+<tr class="memitem:a6125a0812a35694142f3d2111a8468a6" id="r_a6125a0812a35694142f3d2111a8468a6"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6125a0812a35694142f3d2111a8468a6">_dashCharges</a></td></tr>
 <tr class="memitem:a86779d05f96a388738e19979489d7a63" id="r_a86779d05f96a388738e19979489d7a63"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1LevelDraft_1_1State.html">State</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a86779d05f96a388738e19979489d7a63">_undoHistory</a></td></tr>
 <tr class="memitem:a886d07163934d6b0f0f5b8f9da13c410" id="r_a886d07163934d6b0f0f5b8f9da13c410"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1LevelDraft_1_1State.html">State</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a886d07163934d6b0f0f5b8f9da13c410">_redoHistory</a></td></tr>
 </table>
@@ -321,6 +345,56 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a52131fc3008886306a53cad83f82713c" name="a52131fc3008886306a53cad83f82713c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52131fc3008886306a53cad83f82713c">&#9670;&#160;</a></span>addPlatformWaypoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::addPlatformWaypoint </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>waypoint</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ajoute un point à la fin de la route de la plateforme en <code class="param">position</code> (<span class="tt">EX-GP-026</span>). </p>
+<p>Crée la configuration si la plateforme n'en avait pas encore (le nouveau point devient alors l'unique waypoint, soit l'aller-retour à deux points historique). Annulable en un seul pas. </p><dl class="section pre"><dt>Precondition</dt><dd>La case <code class="param">position</code> porte une <span class="tt">MovingPlatform</span>. </dd></dl>
+
+</div>
+</div>
+<a id="ac0f3398bfd87d2d89062783dce9874c2" name="ac0f3398bfd87d2d89062783dce9874c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0f3398bfd87d2d89062783dce9874c2">&#9670;&#160;</a></span>airJumps()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::optional&lt; int &gt; &amp; core::LevelDraft::airJumps </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les sauts aériens accordés par ce tableau (<span class="tt">EX-GP-055</span>), absent si le niveau s'en remet au réglage du moteur. </dd></dl>
 
 </div>
 </div>
@@ -551,6 +625,32 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a9a0f0b8f4f4df52d93cc7ebff3a9bdfe" name="a9a0f0b8f4f4df52d93cc7ebff3a9bdfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a0f0b8f4f4df52d93cc7ebff3a9bdfe">&#9670;&#160;</a></span>dashCharges()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::optional&lt; int &gt; &amp; core::LevelDraft::dashCharges </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les charges de dash accordées par ce tableau (<span class="tt">EX-GP-055</span>), absent si le niveau s'en remet au réglage du moteur. </dd></dl>
+
+</div>
+</div>
 <a id="a1d49b3c7088c0f8928c8a2aaadee665e" name="a1d49b3c7088c0f8928c8a2aaadee665e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1d49b3c7088c0f8928c8a2aaadee665e">&#9670;&#160;</a></span>decors()</h2>
 
@@ -706,6 +806,35 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a2afe1a6ac6219fdf445e832641fbfc4d" name="a2afe1a6ac6219fdf445e832641fbfc4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2afe1a6ac6219fdf445e832641fbfc4d">&#9670;&#160;</a></span>insertPlatformWaypoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::insertPlatformWaypoint </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>waypoint</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Insère <code class="param">waypoint</code> au rang <code class="param">index</code> de la route de la plateforme en <code class="param">position</code>. </p>
+<p>Sert le geste « cliquer un segment pour y ajouter un point » de l'éditeur : <code class="param">index</code> est le rang qu'occupera le point inséré. Sans effet si la plateforme n'a pas de configuration ou si <code class="param">index</code> dépasse la taille de la route. </p><dl class="section pre"><dt>Precondition</dt><dd>La case <code class="param">position</code> porte une <span class="tt">MovingPlatform</span>. </dd></dl>
+
+</div>
+</div>
 <a id="a5c63e9d12c9473f4aa8693b04f3293ff" name="a5c63e9d12c9473f4aa8693b04f3293ff"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5c63e9d12c9473f4aa8693b04f3293ff">&#9670;&#160;</a></span>jumpBudget()</h2>
 
@@ -810,6 +939,35 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si appliqué ; <span class="tt">false</span> si <code class="param">index</code> est hors bornes (sans effet, <span class="tt">EX-NFR-040</span>). </dd></dl>
+
+</div>
+</div>
+<a id="aab027e6da55d8146f2069f59969cddfa" name="aab027e6da55d8146f2069f59969cddfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab027e6da55d8146f2069f59969cddfa">&#9670;&#160;</a></span>movePlatformWaypoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::movePlatformWaypoint </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>waypoint</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Déplace le point de rang <code class="param">index</code> de la route de la plateforme en <code class="param">position</code>. </p>
+<p>Sert le glisser d'une poignée : un seul snapshot pour tout le geste, empilé à l'appel. Sans effet si la plateforme n'a pas de configuration ou si <code class="param">index</code> est hors de la route. </p><dl class="section pre"><dt>Precondition</dt><dd>La case <code class="param">position</code> porte une <span class="tt">MovingPlatform</span>. </dd></dl>
 
 </div>
 </div>
@@ -973,6 +1131,34 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a9109efae5727f8e4c5f8620bd1651fb0" name="a9109efae5727f8e4c5f8620bd1651fb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9109efae5727f8e4c5f8620bd1651fb0">&#9670;&#160;</a></span>platformConfigForEdit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1MovingPlatformConfig.html">MovingPlatformConfig</a> &amp; core::LevelDraft::platformConfigForEdit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>position</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Configuration de la plateforme en <code class="param">position</code>, <b>créée aux valeurs par défaut</b> si absente. </p>
+<p>Empile un unique <span class="tt"><a class="el" href="#a949cfb0148244f0ba05257d4f523f51d" title="Empile l&#39;état courant sur la pile d&#39;annulation ; à appeler avant toute mutation undoable.">pushUndo()</a></span> : point de passage commun des mutateurs granulaires de route, pour qu'un geste ne coûte jamais plus d'un pas d'annulation. </p>
+
+</div>
+</div>
 <a id="aecfd269545c8989b66c1812104551a51" name="aecfd269545c8989b66c1812104551a51"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aecfd269545c8989b66c1812104551a51">&#9670;&#160;</a></span>platformConfigs()</h2>
 
@@ -1126,6 +1312,30 @@ Private Attributes</h2></td></tr>
 
 <p>Retire toute liaison/configuration référençant <code class="param">position</code> (déclencheur, porte, danger commuté, configuration de danger mobile/temporisé, ou override de texture) — appelé avant de reposer un autre type sur une case qui en portait une, pour ne jamais laisser d'entrée orpheline. </p>
 <p><code class="param">keepTextureOverride</code> préserve l'override de texture (repeindre le <b>même</b> type ne doit pas effacer un habillage, <span class="tt">EX-EDIT-043</span>) ; les autres données annexes sont toujours retirées, comme avant ce paramètre. </p>
+
+</div>
+</div>
+<a id="a2a66bc015409d3cf18d4f4bf9bf2b14c" name="a2a66bc015409d3cf18d4f4bf9bf2b14c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a66bc015409d3cf18d4f4bf9bf2b14c">&#9670;&#160;</a></span>removePlatformWaypoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::removePlatformWaypoint </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retire le point de rang <code class="param">index</code> de la route de la plateforme en <code class="param">position</code>. </p>
+<p>Sans effet si la plateforme n'a pas de configuration ou si <code class="param">index</code> est hors de la route. Retirer le dernier point laisse une plateforme immobile, jamais une configuration invalide. </p><dl class="section pre"><dt>Precondition</dt><dd>La case <code class="param">position</code> porte une <span class="tt">MovingPlatform</span>. </dd></dl>
 
 </div>
 </div>
@@ -1312,6 +1522,31 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a49cbb1417d959535b3a4bfb4034f5b12" name="a49cbb1417d959535b3a4bfb4034f5b12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49cbb1417d959535b3a4bfb4034f5b12">&#9670;&#160;</a></span>setAirJumps()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::setAirJumps </td>
+          <td>(</td>
+          <td class="paramtype">std::optional&lt; int &gt;</td>          <td class="paramname"><span class="paramname"><em>airJumps</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définit les sauts <b>aériens</b> accordés par ce tableau (<span class="tt">EX-GP-055</span>), annulable. </p>
+<p>Capacité rechargée à <b>chaque</b> contact avec le sol, contrairement au budget de <span class="tt"><a class="el" href="#a4b8912aa4f61e86f038125dd17e87779" title="Définit le budget de sauts consommable sur tout le tableau (EX-GP-024, -1 = illimité),...">setJumpBudget</a></span> qui se consomme une fois pour toutes sur l'ensemble du tableau. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"><a class="el" href="#ac0f3398bfd87d2d89062783dce9874c2">airJumps</a></td><td>Nombre de sauts aériens, ou absent pour s'en remettre au réglage du moteur (<span class="tt"><a class="el" href="structcore_1_1PhysicsConfig.html#aece7832fe12221342224bb69afc9e273" title="Nombre de sauts aériens supplémentaires (double/multi saut, EX-GP-015). Défaut 1.">PhysicsConfig::airJumps</a></span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="afaced983e3b9e6538a4b83d57a11adc1" name="afaced983e3b9e6538a4b83d57a11adc1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afaced983e3b9e6538a4b83d57a11adc1">&#9670;&#160;</a></span>setBackground()</h2>
 
@@ -1396,14 +1631,11 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a30ce05ac3504f6052e888647232e251d" name="a30ce05ac3504f6052e888647232e251d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a30ce05ac3504f6052e888647232e251d">&#9670;&#160;</a></span>setDashBudget()</h2>
+<a id="af0a2007488e8976cc27cc84afec0964d" name="af0a2007488e8976cc27cc84afec0964d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0a2007488e8976cc27cc84afec0964d">&#9670;&#160;</a></span>setDashBudget()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void core::LevelDraft::setDashBudget </td>
@@ -1412,14 +1644,35 @@ Private Attributes</h2></td></tr>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Définit le budget de dashs (<span class="tt">-1</span> = illimité). </p>
+<p>Définit le budget de dashs consommable sur tout le tableau (<span class="tt">EX-GP-024</span>, <span class="tt">-1</span> = illimité), annulable. </p>
+<p>À distinguer de <span class="tt"><a class="el" href="#a5874757d02f417033f270de2fd7cb31f" title="Définit les charges de dash accordées par ce tableau (EX-GP-055), annulable.">setDashCharges</a></span>. </p>
+
+</div>
+</div>
+<a id="a5874757d02f417033f270de2fd7cb31f" name="a5874757d02f417033f270de2fd7cb31f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5874757d02f417033f270de2fd7cb31f">&#9670;&#160;</a></span>setDashCharges()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::setDashCharges </td>
+          <td>(</td>
+          <td class="paramtype">std::optional&lt; int &gt;</td>          <td class="paramname"><span class="paramname"><em>dashCharges</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définit les charges de <b>dash</b> accordées par ce tableau (<span class="tt">EX-GP-055</span>), annulable. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"><a class="el" href="#a9a0f0b8f4f4df52d93cc7ebff3a9bdfe">dashCharges</a></td><td>Nombre de dashs utilisables entre deux contacts avec le sol, ou absent pour s'en remettre au réglage du moteur (<span class="tt"><a class="el" href="structcore_1_1PhysicsConfig.html#ac5e250214b0f7a815ad9006c960f1a09" title="Nombre de dashs utilisables entre deux contacts avec le sol (EX-GP-017, EX-GP-055).">PhysicsConfig::dashCharges</a></span>). </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1562,14 +1815,11 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a6bc2d83836d4a00ba59360002ba556ac" name="a6bc2d83836d4a00ba59360002ba556ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bc2d83836d4a00ba59360002ba556ac">&#9670;&#160;</a></span>setJumpBudget()</h2>
+<a id="a4b8912aa4f61e86f038125dd17e87779" name="a4b8912aa4f61e86f038125dd17e87779"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b8912aa4f61e86f038125dd17e87779">&#9670;&#160;</a></span>setJumpBudget()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void core::LevelDraft::setJumpBudget </td>
@@ -1578,14 +1828,10 @@ Private Attributes</h2></td></tr>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Définit le budget de sauts (<span class="tt">-1</span> = illimité). </p>
+<p>Définit le budget de sauts consommable sur tout le tableau (<span class="tt">EX-GP-024</span>, <span class="tt">-1</span> = illimité), annulable. </p>
+<p>À distinguer de <span class="tt"><a class="el" href="#a49cbb1417d959535b3a4bfb4034f5b12" title="Définit les sauts aériens accordés par ce tableau (EX-GP-055), annulable.">setAirJumps</a></span>, qui règle une capacité rechargée au sol. </p>
 
 </div>
 </div>
@@ -1645,8 +1891,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a6ff2592a05d61d82d2fff045efc96321" name="a6ff2592a05d61d82d2fff045efc96321"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ff2592a05d61d82d2fff045efc96321">&#9670;&#160;</a></span>setPlatformConfig()</h2>
+<a id="a4e53d560a32aa5f88e02f834aba8b776" name="a4e53d560a32aa5f88e02f834aba8b776"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e53d560a32aa5f88e02f834aba8b776">&#9670;&#160;</a></span>setPlatformConfig()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1659,7 +1905,12 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>endPosition</em></span>, </td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>waypoints</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a8a429a2ce785ee89ff543488b51750b1">PlatformPathMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1674,8 +1925,90 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Définit le second point de parcours, la vitesse et le déphasage d'une plateforme mobile (<span class="tt">EX-GP-026</span>). </p>
-<p>Remplace toute configuration existante pour <code class="param">position</code>. Mêmes remarques que <span class="tt"><a class="el" href="#ae2df4ef55bd85c10d0d139e9590a7fde" title="Définit l&#39;axe et la portée d&#39;un danger mobile (EX-GP-051).">setMoverConfig</a></span>/<span class="tt"><a class="el" href="#ab8a12378f12ab51439fd692cde093bcc" title="Définit la période, le déphasage et la durée active d&#39;un danger temporisé (EX-GP-053).">setBlinkConfig</a></span> : sans appel, une <span class="tt">MovingPlatform</span> garde les valeurs de conception par défaut (<span class="tt"><a class="el" href="structcore_1_1MovingPlatformConfig.html" title="Paramètres d&#39;une plateforme mobile (TileType::MovingPlatform, EX-GP-026) : aller- retour linéaire dét...">MovingPlatformConfig</a></span>), appliquées par <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">LevelLoader</a></span> au rechargement. </p><dl class="section pre"><dt>Precondition</dt><dd>La case <code class="param">position</code> porte une <span class="tt">MovingPlatform</span>. </dd></dl>
+<p>Définit la route complète, le mode, la vitesse et le déphasage d'une plateforme mobile (<span class="tt">EX-GP-026</span>). </p>
+<p>Remplace toute configuration existante pour <code class="param">position</code>. Mêmes remarques que <span class="tt"><a class="el" href="#ae2df4ef55bd85c10d0d139e9590a7fde" title="Définit l&#39;axe et la portée d&#39;un danger mobile (EX-GP-051).">setMoverConfig</a></span>/<span class="tt"><a class="el" href="#ab8a12378f12ab51439fd692cde093bcc" title="Définit la période, le déphasage et la durée active d&#39;un danger temporisé (EX-GP-053).">setBlinkConfig</a></span> : sans appel, une <span class="tt">MovingPlatform</span> garde les valeurs de conception par défaut (<span class="tt"><a class="el" href="structcore_1_1MovingPlatformConfig.html" title="Paramètres d&#39;une plateforme mobile (TileType::MovingPlatform, EX-GP-026) : route multi-points parcour...">MovingPlatformConfig</a></span>), appliquées par <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">LevelLoader</a></span> au rechargement. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>Case portant la plateforme, et point de <b>départ</b> de sa route. </td></tr>
+    <tr><td class="paramname">waypoints</td><td>Points <b>suivants</b> de la route, dans l'ordre ; <code class="param">position</code> en est le point de départ implicite et ne doit pas y figurer. Vide = plateforme immobile. </td></tr>
+    <tr><td class="paramname">mode</td><td>Aller-retour ou circuit fermé. Un circuit ferme la route sur son départ ; sans point de passage, il n'y a rien à fermer et le mode est sans effet. </td></tr>
+    <tr><td class="paramname">speed</td><td>Vitesse de parcours, en cases par seconde, constante sur toute la route. </td></tr>
+    <tr><td class="paramname">phase</td><td>Déphasage en pas de simulation : décale le départ dans le cycle, ce qui permet de désynchroniser deux plateformes de routes identiques. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>La case <code class="param">position</code> porte une <span class="tt">MovingPlatform</span>. </dd></dl>
+
+</div>
+</div>
+<a id="aad603e41ee55e1e3cf88a2ba70d533af" name="aad603e41ee55e1e3cf88a2ba70d533af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad603e41ee55e1e3cf88a2ba70d533af">&#9670;&#160;</a></span>setPlatformMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::setPlatformMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a8a429a2ce785ee89ff543488b51750b1">PlatformPathMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change le mode de bouclage de la plateforme en <code class="param">position</code> (<span class="tt">EX-GP-026</span>), annulable. </p>
+<p>Crée la configuration si elle n'existait pas. </p><dl class="section pre"><dt>Precondition</dt><dd><code class="param">position</code> porte une <span class="tt">MovingPlatform</span>. </dd></dl>
+
+</div>
+</div>
+<a id="aeb07e6e2bc210160dbba94f648119846" name="aeb07e6e2bc210160dbba94f648119846"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb07e6e2bc210160dbba94f648119846">&#9670;&#160;</a></span>setPlatformPhase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::setPlatformPhase </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>phase</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change le déphasage (pas fixes) de la plateforme en <code class="param">position</code>, annulable. </p>
+<p>Crée la configuration si elle n'existait pas. </p><dl class="section pre"><dt>Precondition</dt><dd><code class="param">position</code> porte une <span class="tt">MovingPlatform</span>. </dd></dl>
+
+</div>
+</div>
+<a id="afee4254935d2a505dc79101bb7d3afce" name="afee4254935d2a505dc79101bb7d3afce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afee4254935d2a505dc79101bb7d3afce">&#9670;&#160;</a></span>setPlatformSpeed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::setPlatformSpeed </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>speed</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change la vitesse (cases/seconde) de la plateforme en <code class="param">position</code>, annulable. </p>
+<p>Crée la configuration si elle n'existait pas. </p><dl class="section pre"><dt>Precondition</dt><dd><code class="param">position</code> porte une <span class="tt">MovingPlatform</span>. </dd></dl>
 
 </div>
 </div>
@@ -1941,6 +2274,28 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="af46552e2646927ecfcade09077486d73" name="af46552e2646927ecfcade09077486d73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af46552e2646927ecfcade09077486d73">&#9670;&#160;</a></span>_airJumps</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;int&gt; core::LevelDraft::_airJumps</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a092ed94e8ecc1a8aee79de183afe6338" name="a092ed94e8ecc1a8aee79de183afe6338"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a092ed94e8ecc1a8aee79de183afe6338">&#9670;&#160;</a></span>_background</h2>
 
@@ -2040,6 +2395,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">int core::LevelDraft::_dashBudget = -1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6125a0812a35694142f3d2111a8468a6" name="a6125a0812a35694142f3d2111a8468a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6125a0812a35694142f3d2111a8468a6">&#9670;&#160;</a></span>_dashCharges</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;int&gt; core::LevelDraft::_dashCharges</td>
         </tr>
       </table>
   </td>

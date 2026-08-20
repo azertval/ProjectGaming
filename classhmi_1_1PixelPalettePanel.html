@@ -124,6 +124,8 @@ Signals</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a3dc1270837b8c6c8fa9eb6674a003840" id="r_a3dc1270837b8c6c8fa9eb6674a003840"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3dc1270837b8c6c8fa9eb6674a003840">PixelPalettePanel</a> (QWidget *parent=nullptr)</td></tr>
+<tr class="memitem:a52d40f7b00ff6084d50f0780b1f3edbe" id="r_a52d40f7b00ff6084d50f0780b1f3edbe"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a52d40f7b00ff6084d50f0780b1f3edbe">~PixelPalettePanel</a> () override</td></tr>
+<tr class="memdesc:a52d40f7b00ff6084d50f0780b1f3edbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hors-ligne : <span class="tt">std::unique_ptr&lt;Ui::PixelPalettePanel&gt;</span> porte un type incomplet.  <br /></td></tr>
 <tr class="memitem:a899770ed82523e0976ae7ab0a1e3be7c" id="r_a899770ed82523e0976ae7ab0a1e3be7c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a899770ed82523e0976ae7ab0a1e3be7c">refresh</a> (const <a class="el" href="classhmi_1_1PixelPalette.html">PixelPalette</a> &amp;palette)</td></tr>
 <tr class="memdesc:a899770ed82523e0976ae7ab0a1e3be7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruit la liste depuis <code class="param">palette</code> (après toute mutation).  <br /></td></tr>
 <tr class="memitem:a6106e600c7bb4f5b737a3eca739283bb" id="r_a6106e600c7bb4f5b737a3eca739283bb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6106e600c7bb4f5b737a3eca739283bb">retranslateUi</a> (const <a class="el" href="classhmi_1_1Localization.html">Localization</a> &amp;loc)</td></tr>
@@ -143,6 +145,8 @@ Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:aa351b273b0be96a868c1c5994e461a3d" id="r_aa351b273b0be96a868c1c5994e461a3d"><td class="memItemLeft">std::unique_ptr&lt; Ui::PixelPalettePanel &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa351b273b0be96a868c1c5994e461a3d">_ui</a></td></tr>
+<tr class="memdesc:aa351b273b0be96a868c1c5994e461a3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mise en page issue de <span class="tt">PixelPalettePanel.ui</span> (<span class="tt">LOT-68</span>) : le C++ ne branche plus que le fonctionnel, conformément à la convention du projet.  <br /></td></tr>
 <tr class="memitem:a564777aa81c13d9a1e160ff75f4765ca" id="r_a564777aa81c13d9a1e160ff75f4765ca"><td class="memItemLeft">QListWidget *&#160;</td><td class="memItemRight"><a class="el" href="#a564777aa81c13d9a1e160ff75f4765ca">_list</a></td></tr>
 <tr class="memitem:aaa9c3e3c4a821a07bcde35e340540a81" id="r_aaa9c3e3c4a821a07bcde35e340540a81"><td class="memItemLeft">QPushButton *&#160;</td><td class="memItemRight"><a class="el" href="#aaa9c3e3c4a821a07bcde35e340540a81">_addButton</a></td></tr>
 <tr class="memitem:a503ff6d0b1d64ef2a548a30356959b60" id="r_a503ff6d0b1d64ef2a548a30356959b60"><td class="memItemLeft">QPushButton *&#160;</td><td class="memItemRight"><a class="el" href="#a503ff6d0b1d64ef2a548a30356959b60">_removeButton</a></td></tr>
@@ -181,6 +185,33 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a52d40f7b00ff6084d50f0780b1f3edbe" name="a52d40f7b00ff6084d50f0780b1f3edbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52d40f7b00ff6084d50f0780b1f3edbe">&#9670;&#160;</a></span>~PixelPalettePanel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::PixelPalettePanel::~PixelPalettePanel </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel default">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Hors-ligne : <span class="tt">std::unique_ptr&lt;Ui::PixelPalettePanel&gt;</span> porte un type incomplet. </p>
 
 </div>
 </div>
@@ -830,6 +861,30 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa351b273b0be96a868c1c5994e461a3d" name="aa351b273b0be96a868c1c5994e461a3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa351b273b0be96a868c1c5994e461a3d">&#9670;&#160;</a></span>_ui</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;Ui::PixelPalettePanel&gt; hmi::PixelPalettePanel::_ui</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mise en page issue de <span class="tt">PixelPalettePanel.ui</span> (<span class="tt">LOT-68</span>) : le C++ ne branche plus que le fonctionnel, conformément à la convention du projet. </p>
 
 </div>
 </div>

@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-04-tache-07-ci-docs.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-04-documentation-doxygen_2tache-07-ci-docs"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-04.html#md_Lot_2LOT-04-documentation-doxygen_2epic" title="Lot/LOT-04-documentation-doxygen/epic.md">LOT-04</a> · <b>Emplacement :</b> <span class="tt">.github/workflows/docs.yml</span>, <span class="tt">Documentation/Doxyfile</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md523"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md528"></a>
 Contexte</h1>
 <p>La CI documentaire (<span class="tt">docs.yml</span>) génère la Doxygen sur <span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span> et la publie sur <span class="tt">gh-pages</span>. Une fois toutes les pages en place et propres, on ajoute un <b>garde-fou qualité</b> : la génération échoue au moindre avertissement, dans l'esprit du <span class="tt">/W4 /WX</span> côté code.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md524"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md529"></a>
 Travail à réaliser</h1>
 <ul>
 <li><span class="tt">Documentation/Doxyfile</span> : <span class="tt">WARN_AS_ERROR = YES</span> (ou <span class="tt">FAIL_ON_WARNINGS</span>), <span class="tt">QUIET = YES</span>, <span class="tt">WARN_NO_PARAMDOC = YES</span> selon le niveau d'exigence souhaité.</li>
@@ -105,14 +105,14 @@ Travail à réaliser</h1>
 <li>Corriger les éventuels avertissements résiduels révélés par le garde-fou (références, ancres, symboles non documentés).</li>
 <li>Vérifier que le site publié contient bien accueil + spécifications + lots + manuel + référence de code.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md525"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md530"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Documentation/Doxyfile</span>.</li>
 <li><span class="tt">.github/workflows/docs.yml</span>.</li>
 <li>Corrections de doc code révélées (voir ci-dessous).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md526"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md531"></a>
 Avertissements connus à corriger avant WARN_AS_ERROR (relevés en TACHE-02)</h1>
 <p>Doxygen signale un même <span class="tt">@param</span> documenté <b>différemment</b> dans le <span class="tt">.h</span> et le <span class="tt">.cpp</span> (« multiple</p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -124,25 +124,25 @@ Avertissements connus à corriger avant WARN_AS_ERROR (relevés en TACHE-02)</h1
   </table>
   </dd>
 </dl>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md527"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md532"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>En local, <span class="tt">doxygen Doxyfile</span> avec <span class="tt">WARN_AS_ERROR</span> retourne un <b>code de sortie non nul</b> en présence d'un avertissement (test négatif), et <b>0</b> une fois tout propre.</li>
 <li>Le job <span class="tt">docs.yml</span> échoue si la génération avertit.</li>
 <li>Après merge sur <span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span>, <span class="tt">gh-pages</span> sert un site complet et navigable.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md528"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md533"></a>
 Points d'attention</h1>
 <ul>
 <li>Activer <span class="tt">WARN_AS_ERROR</span> <b>en dernier</b>, une fois TACHE-02→06 terminées, pour ne pas bloquer le travail intermédiaire.</li>
 <li>Distinguer avertissements légitimes (à corriger) et bruit éventuel (ex. fichiers <span class="tt">Source/**/README.md</span> non voulus comme pages) — ajuster <span class="tt">INPUT</span>/<span class="tt">EXCLUDE</span> plutôt que de baisser le niveau d'exigence.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md529"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md534"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Génération sans avertissement, garde-fou actif en CI, site complet publié sur <span class="tt">gh-pages</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md530"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md535"></a>
 Exigences</h1>
 <p><span class="tt">EX-NFR-012</span>, <span class="tt">EX-NFR-013</span> (esprit « zéro avertissement »). </p>
 </div></div><!-- contents -->

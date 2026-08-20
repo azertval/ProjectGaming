@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-50-tache-03-selection-poignees.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-50-decors-edition_2tache-03-selection-poignees"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-50.html#md_Lot_2LOT-50-decors-edition_2epic" title="Lot/LOT-50-decors-edition/epic.md">LOT-50</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span>, <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2286"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2291"></a>
 Contexte</h1>
 <p>Le geste de TACHE-02 est aveugle sans retour visuel : l'auteur doit voir quel décor est sélectionné, où sont les poignées, et si l'aimantation est active.</p>
 <p>L'éditeur dispose déjà des primitives nécessaires : <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span> dessine une grille, des voiles de surbrillance et des flèches de liaison, avec un segment orienté (<span class="tt"><a class="el" href="structhmi_1_1LineQuad.html" title="Un segment épais à dessiner : deux extrémités en unités monde, une épaisseur (perpendiculaire au segm...">hmi::LineQuad</a></span>, <span class="tt">LOT-37</span>) et l'astuce consistant à teinter une région d'atlas opaque pour obtenir un rectangle uni. Rien de nouveau n'est requis côté pipeline.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2287"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2292"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Cadre de sélection</b> autour du décor sélectionné, et <b>poignées</b> de redimensionnement aux coins plus une poignée de rotation, dessinés sur le calque <em>EditorOverlay</em> de <em>RenderLayer</em> (LOT-40).</li>
@@ -107,40 +107,40 @@ Travail à réaliser</h1>
 <li><b>Indication d'aimantation</b> : quand elle est active, matérialiser l'alignement (par exemple en accentuant la grille) — sinon l'auteur ne comprend pas pourquoi sa position « saute ».</li>
 <li><b>Jamais en jeu</b> : ces aides n'apparaissent ni en mode jeu, ni en mode essai. C'est le rôle du calque <em>EditorOverlay</em>, qui n'est composé qu'en édition.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2288"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2293"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/DraftRenderer.{h,cpp}</span>.</li>
 <li><span class="tt">Source/HMI/Editor/DecorGesture.{h,cpp}</span> (géométrie des poignées, partie pure).</li>
 <li><span class="tt">Source/Test/Unit/HMI/Editor/test_decor_handles.cpp</span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2289"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2294"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Géométrie des poignées</b> : pour un décor donné et un zoom donné, les rectangles de poignées sont aux bonnes positions et de taille écran constante — fonction pure, plusieurs zooms testés.</li>
 <li>Cohérence entre la poignée <b>dessinée</b> et la poignée <b>détectée</b> par le geste (TACHE-02) : ce sont les mêmes rectangles, calculés une seule fois.</li>
 <li>Aucun quad d'aide d'édition en mode jeu ou essai — asserté via le <em>QuadRecorder</em>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2290"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2295"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Une seule source pour la géométrie des poignées.</b> Si le rendu et la détection calculent chacun leur rectangle, ils divergeront au premier ajustement de taille, et les poignées ne répondront plus là où elles s'affichent.</li>
 <li>Les aides doivent rester lisibles <b>sur tous les fonds</b> : un cadre clair sur un décor clair disparaît. Prévoir un contraste suffisant (contour à double couleur, ou pointillés).</li>
 <li>Ne pas dessiner de poignées pour un décor situé sur une couche masquée (LOT-51).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2291"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2296"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Le décor sélectionné est encadré, ses poignées sont visibles et de taille constante à l'écran, l'aperçu suit le geste, l'aimantation est signalée, et rien n'apparaît en jeu ; la géométrie est partagée avec la détection et testée ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2292"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2297"></a>
 Correctifs post-livraison</h1>
 <ul>
 <li><b>Cadre désolidarisé du décor (couches Arrière-plan/Premier plan).</b> <span class="tt">DraftRenderer::composeDecorSelection</span> calculait le cadre/les poignées à partir de la position <b>modèle</b> du décor, jamais décalée par sa parallaxe (<span class="tt">LOT-49</span> TACHE-03) — contrairement au sprite réellement rendu. Corrigé en appliquant la même conversion que <span class="tt"><a class="el" href="namespacehmi.html#abcde42e0b994400c95163a44b713703b" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span> (<span class="tt"><a class="el" href="namespacehmi.html#a8558cd4ffaa070fd58be27ca40926c53" title="Calcule la position de rendu d&#39;un décor, décalée par sa parallaxe.">hmi::parallaxRenderPosition</a></span> + <span class="tt"><a class="el" href="namespacehmi.html#a1e5980df41367af8a056278ffa933ea8" title="Arrondit une position monde au pixel écran le plus proche, pour un zoom pixel art net.">hmi::roundToScreenPixel</a></span>), en dernier, une fois l'aperçu de geste éventuel résolu. Voir aussi le correctif jumeau de désignation/geste, <a class="el" href="lot-50-tache-02-outil-geste.html" title="TACHE-02 — Outil de décors et geste pur de manipulation">TACHE-02 — Outil de décors et geste pur de manipulation</a>.</li>
 <li><b>Poignée de rotation sans effet visible.</b> LOT-49 TACHE-02 avait délibérément choisi d'ignorer <span class="tt"><a class="el" href="structcore_1_1Transform.html#a445458d76abe4de694e70ad88441d93f" title="Rotation autour de l&#39;origine de l&#39;entité, en radians.">core::Transform::rotation</a></span> au rendu (pipeline de quads alignés aux axes) ; la poignée de rotation de cette tâche pivotait donc bien le décor en mémoire, mais rien ne le montrait à l'écran — geste fonctionnellement inutilisable en pratique. Revu : <span class="tt"><a class="el" href="structhmi_1_1SpriteQuad.html" title="Un quad texturé à dessiner : rectangle en unités monde, région de texture (coordonnées normalisées) e...">hmi::SpriteQuad</a></span> porte désormais une rotation optionnelle, tournée autour du centre du quad par <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html#adf3e122b7b78551672d6e8642941383d" title="Ajoute un quad au lot courant.">hmi::SpriteBatch::draw</a></span> (même patron que <span class="tt"><a class="el" href="structhmi_1_1LineQuad.html" title="Un segment épais à dessiner : deux extrémités en unités monde, une épaisseur (perpendiculaire au segm...">hmi::LineQuad</a></span>, <span class="tt">LOT-37</span>) ; le culling (<span class="tt"><a class="el" href="namespacehmi.html#af7d9b42fc7c496a35a24169feddc6ab8" title="Boîte englobante d&#39;un rectangle texturé, en unités monde.">hmi::spriteQuadBounds</a></span>) en tient compte.</li>
 <li><b>Cadre de sélection resté droit pendant une rotation.</b> Une fois la rotation visible sur le décor (correctif ci-dessus), le cadre/les poignées — restés délibérément alignés aux axes à la livraison initiale — donnaient l'impression trompeuse que la rotation n'avait pas pris : le décor tournait sous un cadre immobile. Revu : <span class="tt"><a class="el" href="namespacehmi.html#af95438c94c3a4b38580c7af806bd6c94" title="Point tourné autour du centre de bounds, du même angle que l&#39;affichage du décor (LOT-50,...">hmi::decorRotatedPoint</a></span> (<span class="tt"><a class="el" href="DecorGeometry_8h.html" title="Géométrie partagée du corps et des poignées d&#39;un décor (LOT-50), pure et testable.">HMI/Editor/DecorGeometry.h</a></span>) tourne tout point autour du <b>centre</b> du rectangle englobant, du même angle que le décor (même formule que <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html#adf3e122b7b78551672d6e8642941383d" title="Ajoute un quad au lot courant.">hmi::SpriteBatch::draw</a></span>) ; <span class="tt">decorHandleLayout</span> l'utilise pour les <b>centres</b> des cinq poignées (les carrés eux-mêmes restent non tournés — repère de coin lisible même sur un décor pivoté, simplification assumée) et <span class="tt">DraftRenderer::composeDecorSelection</span> pour les quatre coins du cadre, désormais dessiné avec des segments orientés (<span class="tt"><a class="el" href="structhmi_1_1LineQuad.html" title="Un segment épais à dessiner : deux extrémités en unités monde, une épaisseur (perpendiculaire au segm...">hmi::LineQuad</a></span>) plutôt que des bandes alignées aux axes. La désignation du <b>corps</b> du décor (hors poignées) reste, elle, testée contre le rectangle englobant non tourné (<span class="tt"><a class="el" href="namespacehmi.html#a019a3a576b0c838e3ec1eaa6827d1dd7" title="Désigne l&#39;élément sous point : quel décor, et quelle poignée le cas échéant.">hmi::designateDecorAt</a></span>) — zone cliquable légèrement plus généreuse que la silhouette pivotée, jamais plus restrictive, donc sans régression fonctionnelle.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2293"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2298"></a>
 Exigences</h1>
 <p><span class="tt">EX-DEC-010</span> (manipulation de décors), <span class="tt">EX-EDIT-040</span> (édition de décors) ; réutilise <span class="tt">EX-REN-043</span> (calques), <span class="tt">EX-EDIT-030</span> (éditeur intégré), <span class="tt">EX-ARCH-022</span> (netteté), <span class="tt">EX-NFR-004</span> (vérification sans GPU). </p>
 </div></div><!-- contents -->

@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-31-tache-04-documentation-verification.html','',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-31-blocs-danger-avances_2tache-04-documentation-verification"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-31.html#md_Lot_2LOT-31-blocs-danger-avances_2epic" title="Lot/LOT-31-blocs-danger-avances/epic.md">LOT-31</a> · <b>Emplacement :</b> <span class="tt">Documentation</span> · <b>Statut :</b> ✅</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1598"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1603"></a>
 Contexte</h1>
 <p>Dernière tâche : aligne la documentation sur le comportement réellement livré par TACHE-01/02/03 — conformément au principe du projet, la documentation (<span class="tt">Guide</span>, format de niveau) ne décrit que du code déjà implémenté, jamais en avance sur lui.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1599"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1604"></a>
 Travail réalisé</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="gameplay_8md.html">Documentation/Specification/gameplay.md</a></span></b> : marqueurs ⚠️ « non implémenté » retirés de <span class="tt">EX-GP-050</span>–<span class="tt">EX-GP-053</span> et de la sous-section « Dangers avancés » (comportement livré, TACHE-01 à 03).</li>
@@ -110,7 +110,7 @@ Travail réalisé</h1>
 <li><b>Doxygen</b>, <b>Cahier de test</b>, <b>lint des exigences</b> : lancés localement (<span class="tt">python
   scripts/lint_exigences.py</span>, <span class="tt">python scripts/generate_cahier_test.py</span>, <span class="tt">python scripts/check_demo_sequence.py</span>) — tous verts. Doxygen d'abord vérifié seulement avec le binaire <b>local</b> (1.17.0, zéro avertissement), poussé sans le binaire <b>1.9.8 exact de la CI</b> — la CI a échoué sur <span class="tt"><a class="el" href="tache-03-integration-editeur_8md.html">tache-03-integration-editeur.md</a></span> : un span citait le chemin du fichier contenant <span class="tt">buildLevelScene</span> suivi d'un double deux-points et du nom de la fonction, exactement le piège connu (mémoire <span class="tt">project_doxygen_colon_link_pitfall</span>) — repéré par la CI, pas par le 1.17.0 local, confirmant la mémoire <span class="tt">project_ci_local_reproduction</span>. Corrigé en citant seulement le symbole réellement documenté et son fichier séparément. Puis <b>revérifié avec le binaire 1.9.8 exact</b> (téléchargé depuis <span class="tt">www.doxygen.nl/files/</span>) : <span class="tt">0</span>, aucune ligne de sortie. Relu aussi pour l'autre piège connu, deux astérisques fermantes suivies d'un slash refermant un commentaire prématurément (mémoire <span class="tt">project_bold_slash_comment_closing_pitfall</span>, découvert pendant ce lot) — aucune occurrence restante.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1600"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1605"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="gameplay_8md.html">Documentation/Specification/gameplay.md</a></span>, <span class="tt"><a class="el" href="niveaux_8md.html">niveaux.md</a></span>, <span class="tt"><a class="el" href="editeur-niveaux_8md.html">editeur-niveaux.md</a></span>.</li>
@@ -120,7 +120,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="CahierTest_8md.html">Documentation/CahierTest.md</a></span> (régénéré).</li>
 <li><span class="tt">CHANGELOG.md</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1601"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1606"></a>
 Tests (réalisés)</h1>
 <ul>
 <li><span class="tt">python scripts/lint_exigences.py</span> : <span class="tt">0</span> (138 exigences déclarées, 111 référencées).</li>
@@ -129,13 +129,13 @@ Tests (réalisés)</h1>
 <li>Doxygen : <span class="tt">0</span> aux deux binaires, local (1.17.0) <b>et</b> 1.9.8 exact de la CI.</li>
 <li>Build complet <span class="tt">/W4 /WX</span> et suite de tests complète (453 Unit + 81 Integration + 3 Système) vertes, sans régression.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1602"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1607"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Documentation cohérente avec le comportement livré ; <span class="tt">epic.md</span> marqué <b>terminé</b>, chaque tâche marquée ✅.</li>
 <li>Doxygen vérifié avec le binaire <b>1.9.8 exact de la CI</b>, pas seulement le binaire local — fait (après un premier push qui a révélé l'écart, cf. ci-dessus).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1603"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1608"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-050</span>, <span class="tt">EX-GP-051</span>, <span class="tt">EX-GP-052</span>, <span class="tt">EX-GP-053</span>, <span class="tt">EX-LVL-002</span>, <span class="tt">EX-LVL-004</span>, <span class="tt">EX-EDIT-001</span>, <span class="tt">EX-EDIT-002</span>, <span class="tt">EX-EDIT-003</span>. </p>
 </div></div><!-- contents -->

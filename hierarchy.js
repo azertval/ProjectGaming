@@ -16,6 +16,7 @@ var hierarchy =
     [ "core::AtlasRegion", "structcore_1_1AtlasRegion.html", null ],
     [ "hmi::AudioEngine", "classhmi_1_1AudioEngine.html", null ],
     [ "hmi::AutotileCell", "structhmi_1_1AutotileCell.html", null ],
+    [ "hmi::BackdropQuad", "structhmi_1_1BackdropQuad.html", null ],
     [ "hmi::BackgroundFit", "structhmi_1_1BackgroundFit.html", null ],
     [ "hmi::BackgroundTexture", "structhmi_1_1BackgroundTexture.html", null ],
     [ "hmi::BitmapFont", "classhmi_1_1BitmapFont.html", null ],
@@ -83,6 +84,7 @@ var hierarchy =
     [ "hmi::IconGeometry", "structhmi_1_1IconGeometry.html", null ],
     [ "hmi::IconPoint", "structhmi_1_1IconPoint.html", null ],
     [ "hmi::IconStroke", "structhmi_1_1IconStroke.html", null ],
+    [ "hmi::IdentityBaseScale", "structhmi_1_1IdentityBaseScale.html", null ],
     [ "core::ILogSink", "classcore_1_1ILogSink.html", [
       [ "core::ConsoleLogSink", "classcore_1_1ConsoleLogSink.html", null ],
       [ "core::MemoryLogSink", "classcore_1_1MemoryLogSink.html", null ]
@@ -94,12 +96,14 @@ var hierarchy =
     ] ],
     [ "core::View&lt; Components &gt;::Iterator", "classcore_1_1View_1_1Iterator.html", null ],
     [ "hmi::KeyBindingIconEntry", "structhmi_1_1KeyBindingIconEntry.html", null ],
+    [ "hmi::KeyHint", "structhmi_1_1KeyHint.html", null ],
     [ "hmi::LayerVisibility", "classhmi_1_1LayerVisibility.html", null ],
     [ "core::Level", "classcore_1_1Level.html", null ],
     [ "core::LevelDraft", "classcore_1_1LevelDraft.html", null ],
     [ "hmi::LevelFileOperations", "classhmi_1_1LevelFileOperations.html", null ],
     [ "core::LevelLoader", "classcore_1_1LevelLoader.html", null ],
     [ "core::LevelLoadResult", "structcore_1_1LevelLoadResult.html", null ],
+    [ "hmi::LevelRunStats", "structhmi_1_1LevelRunStats.html", null ],
     [ "core::LevelSequence", "structcore_1_1LevelSequence.html", null ],
     [ "core::LevelSequenceLoader", "classcore_1_1LevelSequenceLoader.html", null ],
     [ "core::LevelSequenceLoadResult", "structcore_1_1LevelSequenceLoadResult.html", null ],
@@ -124,12 +128,19 @@ var hierarchy =
     [ "core::Particle", "structcore_1_1Particle.html", null ],
     [ "core::ParticleEffect", "structcore_1_1ParticleEffect.html", null ],
     [ "core::ParticleSystem", "classcore_1_1ParticleSystem.html", null ],
+    [ "hmi::PathGestureAction", "structhmi_1_1PathGestureAction.html", null ],
+    [ "hmi::PathGestureState", "structhmi_1_1PathGestureState.html", null ],
+    [ "hmi::PathHandle", "structhmi_1_1PathHandle.html", null ],
+    [ "hmi::PathHit", "structhmi_1_1PathHit.html", null ],
+    [ "hmi::PathOverlayState", "structhmi_1_1PathOverlayState.html", null ],
+    [ "hmi::PathSelection", "structhmi_1_1PathSelection.html", null ],
     [ "hmi::PendingLink", "structhmi_1_1PendingLink.html", null ],
     [ "core::PhysicsConfig", "structcore_1_1PhysicsConfig.html", null ],
     [ "hmi::PixelCanvasRealSize", "structhmi_1_1PixelCanvasRealSize.html", null ],
     [ "hmi::PixelCanvasView", "structhmi_1_1PixelCanvasView.html", null ],
     [ "hmi::PixelClipboard", "structhmi_1_1PixelClipboard.html", null ],
     [ "hmi::PixelEditStatusInfo", "structhmi_1_1PixelEditStatusInfo.html", null ],
+    [ "hmi::PixelFrameQuad", "structhmi_1_1PixelFrameQuad.html", null ],
     [ "hmi::PixelHistory", "classhmi_1_1PixelHistory.html", null ],
     [ "hmi::PixelHistoryEntry", "structhmi_1_1PixelHistoryEntry.html", null ],
     [ "hmi::PixelPalette", "classhmi_1_1PixelPalette.html", null ],
@@ -139,6 +150,7 @@ var hierarchy =
     [ "hmi::PixelRegion", "structhmi_1_1PixelRegion.html", null ],
     [ "hmi::PixelScreenRect", "structhmi_1_1PixelScreenRect.html", null ],
     [ "core::PlatformController", "classcore_1_1PlatformController.html", null ],
+    [ "core::PlatformPath", "structcore_1_1PlatformPath.html", null ],
     [ "core::PlatformSample", "structcore_1_1PlatformSample.html", null ],
     [ "core::Player", "structcore_1_1Player.html", null ],
     [ "hmi::PlayerEventState", "structhmi_1_1PlayerEventState.html", null ],
@@ -155,6 +167,9 @@ var hierarchy =
     ] ],
     [ "QObject", null, [
       [ "hmi::EditorActions", "classhmi_1_1EditorActions.html", null ]
+    ] ],
+    [ "QPushButton", null, [
+      [ "hmi::PixelMenuButton", "classhmi_1_1PixelMenuButton.html", null ]
     ] ],
     [ "hmi::QuadRecorder", "classhmi_1_1QuadRecorder.html", null ],
     [ "QWidget", null, [
@@ -173,8 +188,10 @@ var hierarchy =
       [ "hmi::PalettePanel", "classhmi_1_1PalettePanel.html", null ],
       [ "hmi::PauseScreen", "classhmi_1_1PauseScreen.html", null ],
       [ "hmi::PixelCanvas", "classhmi_1_1PixelCanvas.html", null ],
+      [ "hmi::PixelFrameWidget", "classhmi_1_1PixelFrameWidget.html", null ],
       [ "hmi::PixelHistoryPanel", "classhmi_1_1PixelHistoryPanel.html", null ],
       [ "hmi::PixelPalettePanel", "classhmi_1_1PixelPalettePanel.html", null ],
+      [ "hmi::PropertiesPanel", "classhmi_1_1PropertiesPanel.html", null ],
       [ "hmi::TexturePanel", "classhmi_1_1TexturePanel.html", null ]
     ] ],
     [ "QWindow", null, [
@@ -182,6 +199,7 @@ var hierarchy =
     ] ],
     [ "core::Rect", "structcore_1_1Rect.html", null ],
     [ "hmi::RenderLayerTag", "structhmi_1_1RenderLayerTag.html", null ],
+    [ "aisolver::Rng", "classaisolver_1_1Rng.html", null ],
     [ "hmi::RoomBounds", "structhmi_1_1RoomBounds.html", null ],
     [ "hmi::RoomGrid", "classhmi_1_1RoomGrid.html", null ],
     [ "hmi::AudioEngine::Sample", "structhmi_1_1AudioEngine_1_1Sample.html", null ],
@@ -228,5 +246,6 @@ var hierarchy =
     [ "core::Velocity", "structcore_1_1Velocity.html", null ],
     [ "hmi::SpriteBatch::Vertex", "structhmi_1_1SpriteBatch_1_1Vertex.html", null ],
     [ "core::View&lt; Components &gt;", "classcore_1_1View.html", null ],
+    [ "hmi::WorkspaceDressing", "structhmi_1_1WorkspaceDressing.html", null ],
     [ "core::World", "classcore_1_1World.html", null ]
 ];

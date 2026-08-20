@@ -1,7 +1,7 @@
 var searchData=
 [
   ['cameraframing_0',['cameraFraming',['../structcore_1_1LevelDraft_1_1State.html#ab567ae70615b4bcf67fb55eb91410032',1,'core::LevelDraft::State::cameraFraming'],['../structhmi_1_1LevelStatusInfo.html#a82fc1304ab3c156e416019ad6c75a4c2',1,'hmi::LevelStatusInfo::cameraFraming']]],
-  ['caption_1',['caption',['../structhmi_1_1TypographyTokens.html#a6b423df559fc0f6d2de914ab8f90dd42',1,'hmi::TypographyTokens']]],
+  ['caption_1',['caption',['../structhmi_1_1TypographyTokens.html#a6b423df559fc0f6d2de914ab8f90dd42',1,'hmi::TypographyTokens::caption'],['../structhmi_1_1IdentityBaseScale.html#aea532703597d84a7999adfa21105dc4b',1,'hmi::IdentityBaseScale::caption']]],
   ['catalog_2',['catalog',['../structhmi_1_1SoundCatalogResult.html#abf27ad28af384e04e64b2dcbbb9e980a',1,'hmi::SoundCatalogResult::catalog'],['../structhmi_1_1SkinCatalogResult.html#af1719aa7be547951dd4792e4fb62366c',1,'hmi::SkinCatalogResult::catalog']]],
   ['cell_3',['cell',['../structhmi_1_1PendingLink.html#ad011ebec683574bef2f7f5f4d7d77805',1,'hmi::PendingLink::cell'],['../structhmi_1_1LinkGestureDecision.html#a494369edc05024a90942ad9de10e0e88',1,'hmi::LinkGestureDecision::cell'],['../structhmi_1_1TextureAssignDecision.html#a3e52eea7f22dff609d734df17bda8c1e',1,'hmi::TextureAssignDecision::cell']]],
   ['center_4',['center',['../structhmi_1_1FollowCameraState.html#a5ab4f23e086f01bf22e626878c555ed0',1,'hmi::FollowCameraState']]],
@@ -21,6 +21,8 @@ var searchData=
   ['coyotetimer_18',['coyoteTimer',['../structcore_1_1Player.html#a69f291499ab2b7c27220c071a590b97a',1,'core::Player']]],
   ['culled_19',['culled',['../structhmi_1_1SceneStatistics.html#a944649e434a4fab1f0a72e0fbf23f1cf',1,'hmi::SceneStatistics']]],
   ['culling_5fmargin_5funits_20',['CULLING_MARGIN_UNITS',['../classhmi_1_1ComposedScene.html#ad8dd91b7cee4c5d987aae7b22fac4d7e',1,'hmi::ComposedScene']]],
-  ['currentbox_21',['currentBox',['../structcore_1_1PlatformSample.html#ad32bdce0264790530202e4ba996332ab',1,'core::PlatformSample']]],
-  ['currentcolor_22',['currentColor',['../structhmi_1_1PixelEditStatusInfo.html#a4439cd114f4790a5f175c570b41039b1',1,'hmi::PixelEditStatusInfo']]]
+  ['cumulative_21',['cumulative',['../structcore_1_1PlatformPath.html#a01f65240e81c4eb3cb6dc0cd3dc41ba8',1,'core::PlatformPath']]],
+  ['currentbox_22',['currentBox',['../structcore_1_1PlatformSample.html#ad32bdce0264790530202e4ba996332ab',1,'core::PlatformSample']]],
+  ['currentcolor_23',['currentColor',['../structhmi_1_1PixelEditStatusInfo.html#a4439cd114f4790a5f175c570b41039b1',1,'hmi::PixelEditStatusInfo']]],
+  ['cyclelength_24',['cycleLength',['../structcore_1_1PlatformPath.html#aa2b670f0857f0f0ba3f337d73163fa90',1,'core::PlatformPath']]]
 ];

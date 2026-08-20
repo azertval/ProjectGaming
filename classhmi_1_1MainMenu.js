@@ -7,6 +7,7 @@ var classhmi_1_1MainMenu =
     [ "editorRequested", "classhmi_1_1MainMenu.html#a4c98f77783af20fb0bb7c163bc58f87e", null ],
     [ "newGameRequested", "classhmi_1_1MainMenu.html#a7f6d8d9f2f4ea765750d97949760ceb4", null ],
     [ "optionsRequested", "classhmi_1_1MainMenu.html#afe28566f3472f5af7ea7e39e868fdb86", null ],
+    [ "paintEvent", "classhmi_1_1MainMenu.html#a116d066889196acb482c00b43612b788", null ],
     [ "quitRequested", "classhmi_1_1MainMenu.html#a613231f169c10a6c80de6f3edd5b470b", null ],
     [ "retranslateUi", "classhmi_1_1MainMenu.html#a6ea568ee837e5b07a5bbb69824421183", null ],
     [ "selectLevelRequested", "classhmi_1_1MainMenu.html#a412d6af7eb35e8a587ac1e996a1429fb", null ],

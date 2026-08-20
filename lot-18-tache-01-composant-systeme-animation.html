@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-18-tache-01-composant-systeme-animation.html','','
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-18-animation-personnage_2tache-01-composant-systeme-animation"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-18.html#md_Lot_2LOT-18-animation-personnage_2epic" title="Lot/LOT-18-animation-personnage/epic.md">LOT-18</a> · <b>Emplacement :</b> <span class="tt">Core/Ecs</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1143"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1148"></a>
 Contexte</h1>
 <p>Le personnage n'a aujourd'hui aucun état d'animation : <span class="tt">GameScreen::spawnPlayer</span> fixe une région d'atlas une seule fois, au spawn. Ce lot introduit l'état qui permettra au rendu de choisir la bonne image à chaque frame, en pur <span class="tt">Core</span> (<span class="tt">EX-ARCH-011</span>), sur le modèle de <span class="tt">CharacterPhysicsSystem</span>/<span class="tt">MovementSystem</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1144"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1149"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="structcore_1_1AnimationClip.html" title="Clip d&#39;animation : une suite d&#39;images, une durée par image, une manière de finir.">core::AnimationClip</a></span></b> (nouvel enum, <span class="tt"><a class="el" href="Animation_8h.html" title="Composant d&#39;état d&#39;animation par séquence d&#39;images (données pures).">Source/Core/Ecs/Components/Animation.h</a></span>) : <span class="tt">Idle</span>, <span class="tt">Run</span>, <span class="tt">Jump</span>.</li>
@@ -109,7 +109,7 @@ Travail à réaliser</h1>
 </ol>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1145"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1150"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Animation_8h.html" title="Composant d&#39;état d&#39;animation par séquence d&#39;images (données pures).">Source/Core/Ecs/Components/Animation.h</a></span> (nouveau).</li>
@@ -117,7 +117,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Core/CMakeLists.txt</span> (ajout de <span class="tt"><a class="el" href="AnimationSystem_8cpp.html">Ecs/Systems/AnimationSystem.cpp</a></span>).</li>
 <li>Tests : <span class="tt"><a class="el" href="test__animation__personnage_8cpp.html" title="Tests d&#39;intégration de l&#39;animation du personnage : ECS + système d&#39;animation assemblés.">Source/Test/Integration/test_animation_personnage.cpp</a></span> (nouveau, sur le modèle de <span class="tt"><a class="el" href="test__ecs__mouvement_8cpp.html" title="Tests d&#39;intégration de l&#39;ECS : entités + composants + système de mouvement assemblés dans un World,...">test_ecs_mouvement.cpp</a></span>/<span class="tt"><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">test_physique_personnage.cpp</a></span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1146"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1151"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Au sol, vitesse horizontale nulle → clip <span class="tt">Idle</span>, l'image alterne 0/1 après chaque durée d'image écoulée (pas avant).</li>
@@ -126,19 +126,19 @@ Tests (obligatoires)</h1>
 <li>Changement de clip en cours d'animation (ex. <span class="tt">Run</span> → <span class="tt">Jump</span> en décollant) : <span class="tt">frameIndex</span> et <span class="tt">elapsed</span> repartent à zéro immédiatement, pas de saut d'image incohérent.</li>
 <li>Une entité sans composant <span class="tt">Animation</span> n'est pas affectée (le système ne plante pas, ne lui en ajoute pas).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1147"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1152"></a>
 Points d'attention</h1>
 <ul>
 <li><b><span class="tt">IDLE_FRAME_COUNT</span>/<span class="tt">RUN_FRAME_COUNT</span>/<span class="tt">JUMP_FRAME_COUNT</span> sont la seule source de vérité</b> du nombre d'images par clip : TACHE-02 les réutilise pour dimensionner/indexer la grille de l'atlas — ne pas coder ces nombres en dur une seconde fois côté <span class="tt">HMI</span>.</li>
 <li><b>Le système doit s'exécuter après <span class="tt">CharacterPhysicsSystem</span></b> dans <span class="tt">GameScreen::update</span> (TACHE-02) : il lit <span class="tt">Player::grounded</span>, calculé par la physique <b>pour ce même pas</b> — l'exécuter avant lirait l'état du pas précédent (décalage d'une frame, peu visible mais incorrect).</li>
 <li>Le seuil (epsilon) distinguant « immobile » de « en mouvement » doit tolérer le bruit flottant sans jamais déclencher <span class="tt">Run</span> pour un personnage réellement immobile (<span class="tt">velocity.value.x</span> peut être exactement <span class="tt">0.0f</span> en pratique, mais un epsilon reste plus sûr qu'une égalité stricte).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1148"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1153"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...">core::Animation</a></span>/<span class="tt"><a class="el" href="classcore_1_1AnimationSystem.html" title="Fait progresser l&#39;animation de toute entité portant core::Animation, et projette l&#39;état physique du p...">core::AnimationSystem</a></span> disponibles, testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1149"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1154"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-012</span> (logique de sélection de clip/image, partie <span class="tt">Core</span>). </p>
 </div></div><!-- contents -->

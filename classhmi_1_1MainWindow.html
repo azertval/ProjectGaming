@@ -115,17 +115,26 @@ Protected Member Functions</h2></td></tr>
 <tr class="memdesc:a6dab05769a6e7f213d8e55d9a6b2d446"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sauvegarde la disposition avant fermeture.  <br /></td></tr>
 <tr class="memitem:a0c75214acd44c6e1bef12db335abd37f" id="r_a0c75214acd44c6e1bef12db335abd37f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0c75214acd44c6e1bef12db335abd37f">resizeEvent</a> (QResizeEvent *event) override</td></tr>
 <tr class="memdesc:a0c75214acd44c6e1bef12db335abd37f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resynchronise la géométrie des recouvrements d'écran (<span class="tt"><a class="el" href="#ac65d1b4ea7fccdd8969abcdf83254cd8" title="Recouvrement de pause (LOT-59 TACHE-02) : fenêtre de haut niveau possédée par this (Qt::Tool | Qt::Fr...">_pauseScreen</a></span>/<span class="tt"><a class="el" href="#a7afaff28276c2b437ddf7323c924ed23" title="Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même patron que _pauseScreen ci-dessus (fe...">_levelCompleteScreen</a></span>, <span class="tt">LOT-59</span> TACHE-02/03) &ndash; fenêtres de haut niveau positionnées à la main, jamais redimensionnées automatiquement par <span class="tt"><a class="el" href="#a408483202779acb367aee2733d8b28c7" title="Central : empile menu principal, options et viewport.">_stack</a></span>.  <br /></td></tr>
+<tr class="memitem:a0b2365c292ecebf9df8e3feb8083c24e" id="r_a0b2365c292ecebf9df8e3feb8083c24e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0b2365c292ecebf9df8e3feb8083c24e">applyIdentityScale</a> ()</td></tr>
+<tr class="memdesc:a0b2365c292ecebf9df8e3feb8083c24e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalcule le facteur d'agrandissement des ecrans du jeu depuis la hauteur courante et rejoue le theme s'il a change (LOT-68, EX-IHM-070).  <br /></td></tr>
 <tr class="memitem:a8f4ec20153d8d14d3ab9a602f56a466b" id="r_a8f4ec20153d8d14d3ab9a602f56a466b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8f4ec20153d8d14d3ab9a602f56a466b">moveEvent</a> (QMoveEvent *event) override</td></tr>
 <tr class="memdesc:a8f4ec20153d8d14d3ab9a602f56a466b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Même resynchronisation que <span class="tt"><a class="el" href="#a0c75214acd44c6e1bef12db335abd37f" title="Resynchronise la géométrie des recouvrements d&#39;écran (_pauseScreen/_levelCompleteScreen,...">resizeEvent</a></span>, nécessaire en plus de lui : un recouvrement est une fenêtre de haut niveau positionnée en coordonnées <b>écran</b> (<span class="tt"><a class="el" href="#a3c0c05a1d1a9c7b062644a4bbba9e2c4" title="Positionne _pauseScreen/_levelCompleteScreen (fenêtres de haut niveau) pour recouvrir exactement _edi...">syncOverlayGeometry</a></span>), donc déplacer la fenêtre principale sans la redimensionner (aucun <span class="tt"><a class="el" href="#a0c75214acd44c6e1bef12db335abd37f" title="Resynchronise la géométrie des recouvrements d&#39;écran (_pauseScreen/_levelCompleteScreen,...">resizeEvent</a></span>) la désaligne quand même.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
+<tr class="memitem:a99822a539e006f30711402f737385bff" id="r_a99822a539e006f30711402f737385bff"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a99822a539e006f30711402f737385bff">applyWorkspace</a> (<a class="el" href="namespacehmi.html#afc2e687c85989440c76b94c012a1b91d">EditorWorkspace</a> workspace)</td></tr>
+<tr class="memdesc:a99822a539e006f30711402f737385bff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique l'espace de travail <code class="param">workspace</code> (<span class="tt">LOT-68</span>, <span class="tt">EX-IHM-073</span>) : masque les panneaux de l'autre espace, bascule barre d'outils et menu, restaure la disposition propre à cet espace.  <br /></td></tr>
+<tr class="memitem:a59c679aa42691272befe551088c8b4e3" id="r_a59c679aa42691272befe551088c8b4e3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a59c679aa42691272befe551088c8b4e3">switchToWorkspace</a> (<a class="el" href="namespacehmi.html#afc2e687c85989440c76b94c012a1b91d">EditorWorkspace</a> workspace)</td></tr>
+<tr class="memdesc:a59c679aa42691272befe551088c8b4e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bascule sur <code class="param">workspace</code> <b>s'il n'est pas déjà actif</b>, en synchronisant le sélecteur du menu sans réémettre.  <br /></td></tr>
+<tr class="memitem:a75703620647423eab281de7ea851ec34" id="r_a75703620647423eab281de7ea851ec34"><td class="memItemLeft">std::array&lt; std::pair&lt; QDockWidget *, <a class="el" href="namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726">hmi::PanelId</a> &gt;, <a class="el" href="namespacehmi.html#af04ce56b73b71704b41ee6d8cfe4e2e2">hmi::PANEL_COUNT</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a75703620647423eab281de7ea851ec34">workspacePanels</a> () const</td></tr>
 <tr class="memitem:a2be2a6b71ee9770ab402e16bf8d61666" id="r_a2be2a6b71ee9770ab402e16bf8d61666"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2be2a6b71ee9770ab402e16bf8d61666">buildUi</a> ()</td></tr>
 <tr class="memdesc:a2be2a6b71ee9770ab402e16bf8d61666"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée les panneaux (contenu des docks du <span class="tt">.ui</span>) et branche les actions de la barre de menus.  <br /></td></tr>
 <tr class="memitem:aef77702f265c861ebec3ef8c62c9cbf9" id="r_aef77702f265c861ebec3ef8c62c9cbf9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aef77702f265c861ebec3ef8c62c9cbf9">restoreLayout</a> ()</td></tr>
 <tr class="memitem:a3b35aad4874b9a25e9c680e44945fec4" id="r_a3b35aad4874b9a25e9c680e44945fec4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3b35aad4874b9a25e9c680e44945fec4">saveLayout</a> ()</td></tr>
 <tr class="memitem:abb2b5a4ae54723c485af101667fc2f23" id="r_abb2b5a4ae54723c485af101667fc2f23"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abb2b5a4ae54723c485af101667fc2f23">openResizeDialog</a> ()</td></tr>
 <tr class="memdesc:abb2b5a4ae54723c485af101667fc2f23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre la boîte de dialogue de redimensionnement du niveau (avec confirmation si destructeur).  <br /></td></tr>
+<tr class="memitem:a0c0f25275caa45e3ab0fdab1575520f0" id="r_a0c0f25275caa45e3ab0fdab1575520f0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0c0f25275caa45e3ab0fdab1575520f0">openShortcutsDialog</a> ()</td></tr>
+<tr class="memdesc:a0c0f25275caa45e3ab0fdab1575520f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre l'aperçu des raccourcis (<span class="tt">ShortcutsDialog.ui</span>).  <br /></td></tr>
 <tr class="memitem:a1ed419815e2ff1739411e9b7597f6734" id="r_a1ed419815e2ff1739411e9b7597f6734"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1ed419815e2ff1739411e9b7597f6734">retranslateUi</a> ()</td></tr>
 <tr class="memdesc:a1ed419815e2ff1739411e9b7597f6734"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique la langue active à tous les textes de l'IHM (fenêtre, menus, docks, panneaux).  <br /></td></tr>
 <tr class="memitem:ace1ef846c7704477a23af655b4f78e74" id="r_ace1ef846c7704477a23af655b4f78e74"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ace1ef846c7704477a23af655b4f78e74">refreshStatusHelp</a> ()</td></tr>
@@ -137,7 +146,7 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a8cbad498c7c99b413ae8352e9ab30f06" id="r_a8cbad498c7c99b413ae8352e9ab30f06"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8cbad498c7c99b413ae8352e9ab30f06">applyPixelPanelFocus</a> (<a class="el" href="namespacehmi.html#a9cb51e9b7642963a83312d94737fe571">hmi::PixelTool</a> tool)</td></tr>
 <tr class="memdesc:a8cbad498c7c99b413ae8352e9ab30f06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Équivalent pour les outils du canevas pixel art (<span class="tt"><a class="el" href="namespacehmi.html#ab2bc0ec0306fbff43f717277d659cd16">hmi::panelForPixelTool</a></span>, <span class="tt">LOT-54</span> TACHE-04) — même garde, même règle de non-masquage.  <br /></td></tr>
 <tr class="memitem:a79815fd4671818f84de9e9b199526451" id="r_a79815fd4671818f84de9e9b199526451"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a79815fd4671818f84de9e9b199526451">raisePanel</a> (<a class="el" href="namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726">hmi::PanelId</a> panel)</td></tr>
-<tr class="memdesc:a79815fd4671818f84de9e9b199526451"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met en avant <code class="param">panel</code> (résolution <span class="tt"><a class="el" href="namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726" title="Panneau de droite pouvant être mis en avant (regroupés en onglets, TACHE-02).">PanelId</a></span> -&gt; <span class="tt">QDockWidget*</span>), sans jamais voler le focus clavier — factorisé entre <span class="tt"><a class="el" href="#a79a0a32f6374cffe570e60650baadca4" title="Met en avant le panneau associé à tool (hmi::panelForTool), si le réglage est actif et que l&#39;utilisat...">applyPanelFocus</a></span> et <span class="tt"><a class="el" href="#a8cbad498c7c99b413ae8352e9ab30f06" title="Équivalent pour les outils du canevas pixel art (hmi::panelForPixelTool, LOT-54 TACHE-04) — même gard...">applyPixelPanelFocus</a></span>.  <br /></td></tr>
+<tr class="memdesc:a79815fd4671818f84de9e9b199526451"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met en avant <code class="param">panel</code> (résolution <span class="tt"><a class="el" href="namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726" title="Panneau dockable de l&#39;éditeur.">PanelId</a></span> -&gt; <span class="tt">QDockWidget*</span>), sans jamais voler le focus clavier — factorisé entre <span class="tt"><a class="el" href="#a79a0a32f6374cffe570e60650baadca4" title="Met en avant le panneau associé à tool (hmi::panelForTool), si le réglage est actif et que l&#39;utilisat...">applyPanelFocus</a></span> et <span class="tt"><a class="el" href="#a8cbad498c7c99b413ae8352e9ab30f06" title="Équivalent pour les outils du canevas pixel art (hmi::panelForPixelTool, LOT-54 TACHE-04) — même gard...">applyPixelPanelFocus</a></span>.  <br /></td></tr>
 <tr class="memitem:aef651eacf7d4b0696a0ec0bfbc1d0483" id="r_aef651eacf7d4b0696a0ec0bfbc1d0483"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aef651eacf7d4b0696a0ec0bfbc1d0483">updateActiveEditContext</a> (QWidget *focused)</td></tr>
 <tr class="memdesc:aef651eacf7d4b0696a0ec0bfbc1d0483"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réassigne le contexte d'édition actif (<span class="tt"><a class="el" href="#acdb82ee8e5a56236705ceec1908982ff" title="Contexte d&#39;édition actif, cible d&#39;Annuler/Refaire/Copier/Coller (LOT-57 TACHE-04) :  _viewport (nivea...">_editContext</a></span>) et le contexte de la barre d'état selon le widget qui vient de recevoir le focus clavier (<span class="tt">LOT-54</span> TACHE-04, <span class="tt">EX-IHM-062</span>) : le canevas pixel art si le focus y entre, le niveau sinon.  <br /></td></tr>
 <tr class="memitem:aab330acfe884d7b8fef9583592f41a03" id="r_aab330acfe884d7b8fef9583592f41a03"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aab330acfe884d7b8fef9583592f41a03">confirmDiscardPixelChanges</a> ()</td></tr>
@@ -225,6 +234,10 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 <tr class="memitem:abc4f7778f8b77b1299e9793cdd205944" id="r_abc4f7778f8b77b1299e9793cdd205944"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abc4f7778f8b77b1299e9793cdd205944">setMenuGamepadActive</a> (bool active)</td></tr>
 <tr class="memdesc:abc4f7778f8b77b1299e9793cdd205944"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active/désactive la navigation manette des menus (inactive en jeu/édition).  <br /></td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-static-methods" class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:aaed7c2d32c2c0fcfd68f9bdf62c7b4bb" id="r_aaed7c2d32c2c0fcfd68f9bdf62c7b4bb"><td class="memItemLeft">static QString&#160;</td><td class="memItemRight"><a class="el" href="#aaed7c2d32c2c0fcfd68f9bdf62c7b4bb">layoutKeyFor</a> (<a class="el" href="namespacehmi.html#afc2e687c85989440c76b94c012a1b91d">EditorWorkspace</a> workspace)</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:abbf193c38db62a49872c5a57b1b61cce" id="r_abbf193c38db62a49872c5a57b1b61cce"><td class="memItemLeft">std::unique_ptr&lt; Ui::EditorMainWindow &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abbf193c38db62a49872c5a57b1b61cce">_ui</a></td></tr>
@@ -262,6 +275,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a25b7f8b81604897b4eb8e29bdf3fd85e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liste/gestion des liaisons de mécanismes (dock Liens, LOT-37).  <br /></td></tr>
 <tr class="memitem:a5602a56b2b14b4139a7512c0acf75a3e" id="r_a5602a56b2b14b4139a7512c0acf75a3e"><td class="memItemLeft"><a class="el" href="classhmi_1_1TexturePanel.html">TexturePanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a5602a56b2b14b4139a7512c0acf75a3e">_textures</a></td></tr>
 <tr class="memdesc:a5602a56b2b14b4139a7512c0acf75a3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Habillage : jeu de skins et assignations (dock Textures, LOT-42).  <br /></td></tr>
+<tr class="memitem:ae735c11c42b0bd492a6e969e94a970c4" id="r_ae735c11c42b0bd492a6e969e94a970c4"><td class="memItemLeft"><a class="el" href="classhmi_1_1PropertiesPanel.html">PropertiesPanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ae735c11c42b0bd492a6e969e94a970c4">_properties</a></td></tr>
+<tr class="memdesc:ae735c11c42b0bd492a6e969e94a970c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réglages de gameplay de l'élément sélectionné et du tableau (dock Propriétés, <span class="tt">LOT-67</span>).  <br /></td></tr>
 <tr class="memitem:a82d3a9dc41ae7d2ec973430715219e5e" id="r_a82d3a9dc41ae7d2ec973430715219e5e"><td class="memItemLeft"><a class="el" href="classhmi_1_1PixelCanvas.html">PixelCanvas</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a82d3a9dc41ae7d2ec973430715219e5e">_pixelCanvas</a></td></tr>
 <tr class="memdesc:a82d3a9dc41ae7d2ec973430715219e5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Canevas de l'atelier pixel art (dock Atelier, LOT-54 TACHE-04) : seconde implémentation de <span class="tt"><a class="el" href="classhmi_1_1EditContextTarget.html" title="Interface pure implémentée par le contexte d&#39;édition actif.">EditContextTarget</a></span>, cible d'Annuler/Refaire/Copier/Coller quand elle a le focus clavier.  <br /></td></tr>
 <tr class="memitem:ada4e70102abcb89f966532432b0dfa79" id="r_ada4e70102abcb89f966532432b0dfa79"><td class="memItemLeft"><a class="el" href="classhmi_1_1PixelHistoryPanel.html">PixelHistoryPanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ada4e70102abcb89f966532432b0dfa79">_pixelHistoryPanel</a></td></tr>
@@ -274,6 +289,9 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a8693f7156ad8338ea1e88913cf266855"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chemin complet du fichier de l'asset ouvert dans l'atelier, vide si aucun ou pas encore enregistré (LOT-54 TACHE-05) — <span class="tt"><a class="el" href="classhmi_1_1PixelCanvas.html#ad6eeb984190cd8c1ea473a2eb85c98a4">PixelCanvas::assetName()</a></span> n'en garde que le nom de fichier, pour l'affichage ; ce chemin sert à <span class="tt"><a class="el" href="#a642e967ee46ac21ec8880d51589e93da" title="Enregistre l&#39;asset ouvert.">savePixelAsset</a></span> pour retrouver le dossier.  <br /></td></tr>
 <tr class="memitem:aa11ea4bf8bdc5815fc36bee49cd1c0ed" id="r_aa11ea4bf8bdc5815fc36bee49cd1c0ed"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditorActions.html">EditorActions</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa11ea4bf8bdc5815fc36bee49cd1c0ed">_actions</a></td></tr>
 <tr class="memdesc:aa11ea4bf8bdc5815fc36bee49cd1c0ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outils et commandes principales, barre d'outils (LOT-56 TACHE-04).  <br /></td></tr>
+<tr class="memitem:ace98668ce84ee3ba4f9a9ae17ff17a67" id="r_ace98668ce84ee3ba4f9a9ae17ff17a67"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ace98668ce84ee3ba4f9a9ae17ff17a67">_closing</a> = false</td></tr>
+<tr class="memdesc:ace98668ce84ee3ba4f9a9ae17ff17a67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace de travail actif (<span class="tt">LOT-68</span>).  <br /></td></tr>
+<tr class="memitem:ab63833717c37aaa1a0c3622f2827677e" id="r_ab63833717c37aaa1a0c3622f2827677e"><td class="memItemLeft"><a class="el" href="namespacehmi.html#afc2e687c85989440c76b94c012a1b91d">EditorWorkspace</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab63833717c37aaa1a0c3622f2827677e">_workspace</a> = <a class="el" href="namespacehmi.html#afc2e687c85989440c76b94c012a1b91daa0db49ba470c1c9ae2128c3470339153">EditorWorkspace::Level</a></td></tr>
 <tr class="memitem:ab33c6cdb6968b9fb8550383780597a57" id="r_ab33c6cdb6968b9fb8550383780597a57"><td class="memItemLeft">QToolBar *&#160;</td><td class="memItemRight"><a class="el" href="#ab33c6cdb6968b9fb8550383780597a57">_toolBar</a></td></tr>
 <tr class="memdesc:ab33c6cdb6968b9fb8550383780597a57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Barre d'outils de l'éditeur, alimentée par <span class="tt"><a class="el" href="#aa11ea4bf8bdc5815fc36bee49cd1c0ed" title="Outils et commandes principales, barre d&#39;outils (LOT-56 TACHE-04).">_actions</a></span>.  <br /></td></tr>
 <tr class="memitem:a3ad6d124626e17702946ecd76561c760" id="r_a3ad6d124626e17702946ecd76561c760"><td class="memItemLeft">QToolBar *&#160;</td><td class="memItemRight"><a class="el" href="#a3ad6d124626e17702946ecd76561c760">_pixelToolBar</a></td></tr>
@@ -387,6 +405,34 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a0b2365c292ecebf9df8e3feb8083c24e" name="a0b2365c292ecebf9df8e3feb8083c24e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b2365c292ecebf9df8e3feb8083c24e">&#9670;&#160;</a></span>applyIdentityScale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::applyIdentityScale </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Recalcule le facteur d'agrandissement des ecrans du jeu depuis la hauteur courante et rejoue le theme s'il a change (LOT-68, EX-IHM-070). </p>
+<p>Sans effet sur le chassis d'edition, dont les grandeurs ne sont jamais multipliees. </p>
+
+</div>
+</div>
 <a id="a79a0a32f6374cffe570e60650baadca4" name="a79a0a32f6374cffe570e60650baadca4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a79a0a32f6374cffe570e60650baadca4">&#9670;&#160;</a></span>applyPanelFocus()</h2>
 
@@ -465,6 +511,34 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Bascule la page du <span class="tt">QStackedWidget</span> (seule part propre à Qt, hors de portée d'une table pure) puis applique l'habillage générique de <code class="param">screen</code> (<span class="tt"><a class="el" href="namespacehmi.html#a7e42ffeba1ac86e0a292c24dc3b99f94">hmi::dressingFor</a></span>) : docks, barres, commandes d'édition, navigation manette, minuteur de statut. </p>
+
+</div>
+</div>
+<a id="a99822a539e006f30711402f737385bff" name="a99822a539e006f30711402f737385bff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99822a539e006f30711402f737385bff">&#9670;&#160;</a></span>applyWorkspace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::applyWorkspace </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#afc2e687c85989440c76b94c012a1b91d">EditorWorkspace</a></td>          <td class="paramname"><span class="paramname"><em>workspace</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Applique l'espace de travail <code class="param">workspace</code> (<span class="tt">LOT-68</span>, <span class="tt">EX-IHM-073</span>) : masque les panneaux de l'autre espace, bascule barre d'outils et menu, restaure la disposition propre à cet espace. </p>
+<p>N'enregistre <b>pas</b> la disposition qu'on quitte — c'est <span class="tt"><a class="el" href="#a59c679aa42691272befe551088c8b4e3" title="Bascule sur workspace s&#39;il n&#39;est pas déjà actif, en synchronisant le sélecteur du menu sans réémettre...">switchToWorkspace</a></span> qui sait qu'on quitte vraiment un espace, et l'initialisation n'a rien à enregistrer. </p>
 
 </div>
 </div>
@@ -736,6 +810,32 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 </div><div class="memdoc">
 
 <p>« Continuer » (menu) : reprend au tableau atteint (<span class="tt"><a class="el" href="classhmi_1_1Progression.html#a3e89eaef88420921b419e42b7bf8afd6">Progression::currentLevel</a></span>) ; sans effet si aucune progression (le bouton est alors grisé, <span class="tt"><a class="el" href="classhmi_1_1MainMenu.html#a04db267a3cb26f734247a30dae4f85bf" title="Active/désactive « Continuer » (LOT-59 TACHE-06) : grisé sans progression, seul bouton dont l&#39;état dé...">MainMenu::setContinueEnabled</a></span>). </p>
+
+</div>
+</div>
+<a id="aaed7c2d32c2c0fcfd68f9bdf62c7b4bb" name="aaed7c2d32c2c0fcfd68f9bdf62c7b4bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaed7c2d32c2c0fcfd68f9bdf62c7b4bb">&#9670;&#160;</a></span>layoutKeyFor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::MainWindow::layoutKeyFor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#afc2e687c85989440c76b94c012a1b91d">EditorWorkspace</a></td>          <td class="paramname"><span class="paramname"><em>workspace</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La clé <span class="tt">QSettings</span> de la disposition de <code class="param">workspace</code>. Chaque espace persiste la sienne : une disposition unique rouvrirait les docks de l'atelier par-dessus l'édition. </dd></dl>
 
 </div>
 </div>
@@ -1037,6 +1137,34 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 
 </div>
 </div>
+<a id="a0c0f25275caa45e3ab0fdab1575520f0" name="a0c0f25275caa45e3ab0fdab1575520f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c0f25275caa45e3ab0fdab1575520f0">&#9670;&#160;</a></span>openShortcutsDialog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::openShortcutsDialog </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ouvre l'aperçu des raccourcis (<span class="tt">ShortcutsDialog.ui</span>). </p>
+<p>Le tableau est rempli depuis les raccourcis <b>effectifs</b> des actions, jamais un texte figé : il reste juste après un remappage. </p>
+
+</div>
+</div>
 <a id="a0c2030c04ec61b66dcf517d9d337049f" name="a0c2030c04ec61b66dcf517d9d337049f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0c2030c04ec61b66dcf517d9d337049f">&#9670;&#160;</a></span>pixelAssetCacheKey()</h2>
 
@@ -1196,7 +1324,7 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 </table>
 </div><div class="memdoc">
 
-<p>Met en avant <code class="param">panel</code> (résolution <span class="tt"><a class="el" href="namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726" title="Panneau de droite pouvant être mis en avant (regroupés en onglets, TACHE-02).">PanelId</a></span> -&gt; <span class="tt">QDockWidget*</span>), sans jamais voler le focus clavier — factorisé entre <span class="tt"><a class="el" href="#a79a0a32f6374cffe570e60650baadca4" title="Met en avant le panneau associé à tool (hmi::panelForTool), si le réglage est actif et que l&#39;utilisat...">applyPanelFocus</a></span> et <span class="tt"><a class="el" href="#a8cbad498c7c99b413ae8352e9ab30f06" title="Équivalent pour les outils du canevas pixel art (hmi::panelForPixelTool, LOT-54 TACHE-04) — même gard...">applyPixelPanelFocus</a></span>. </p>
+<p>Met en avant <code class="param">panel</code> (résolution <span class="tt"><a class="el" href="namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726" title="Panneau dockable de l&#39;éditeur.">PanelId</a></span> -&gt; <span class="tt">QDockWidget*</span>), sans jamais voler le focus clavier — factorisé entre <span class="tt"><a class="el" href="#a79a0a32f6374cffe570e60650baadca4" title="Met en avant le panneau associé à tool (hmi::panelForTool), si le réglage est actif et que l&#39;utilisat...">applyPanelFocus</a></span> et <span class="tt"><a class="el" href="#a8cbad498c7c99b413ae8352e9ab30f06" title="Équivalent pour les outils du canevas pixel art (hmi::panelForPixelTool, LOT-54 TACHE-04) — même gard...">applyPixelPanelFocus</a></span>. </p>
 
 </div>
 </div>
@@ -1718,6 +1846,34 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 
 </div>
 </div>
+<a id="a59c679aa42691272befe551088c8b4e3" name="a59c679aa42691272befe551088c8b4e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59c679aa42691272befe551088c8b4e3">&#9670;&#160;</a></span>switchToWorkspace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::switchToWorkspace </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#afc2e687c85989440c76b94c012a1b91d">EditorWorkspace</a></td>          <td class="paramname"><span class="paramname"><em>workspace</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bascule sur <code class="param">workspace</code> <b>s'il n'est pas déjà actif</b>, en synchronisant le sélecteur du menu sans réémettre. </p>
+<p>Point d'entrée unique : <span class="tt"><a class="el" href="#a99822a539e006f30711402f737385bff" title="Applique l&#39;espace de travail workspace (LOT-68, EX-IHM-073) : masque les panneaux de l&#39;autre espace,...">applyWorkspace</a></span> applique, celle-ci décide. </p>
+
+</div>
+</div>
 <a id="a3c0c05a1d1a9c7b062644a4bbba9e2c4" name="a3c0c05a1d1a9c7b062644a4bbba9e2c4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c0c05a1d1a9c7b062644a4bbba9e2c4">&#9670;&#160;</a></span>syncOverlayGeometry()</h2>
 
@@ -1908,6 +2064,32 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 
 </div>
 </div>
+<a id="a75703620647423eab281de7ea851ec34" name="a75703620647423eab281de7ea851ec34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75703620647423eab281de7ea851ec34">&#9670;&#160;</a></span>workspacePanels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt; std::pair&lt; QDockWidget *, <a class="el" href="namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726">hmi::PanelId</a> &gt;, <a class="el" href="namespacehmi.html#af04ce56b73b71704b41ee6d8cfe4e2e2">hmi::PANEL_COUNT</a> &gt; hmi::MainWindow::workspacePanels </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La table des neuf panneaux et de leur identité, relue par <span class="tt"><a class="el" href="#ad46f19e154147f414a4ca0817086c2ac" title="Montre/masque tous les panneaux dockables.">setDocksVisible</a></span> <b>et</b> par <span class="tt"><a class="el" href="#a99822a539e006f30711402f737385bff" title="Applique l&#39;espace de travail workspace (LOT-68, EX-IHM-073) : masque les panneaux de l&#39;autre espace,...">applyWorkspace</a></span>. Une seule table : deux listes divergeraient au premier dock ajouté, et le dock oublié resterait affiché dans les deux espaces. </dd></dl>
+
+</div>
+</div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a5ef79dfc7f245f466e3b459838b93d23" name="a5ef79dfc7f245f466e3b459838b93d23"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5ef79dfc7f245f466e3b459838b93d23">&#9670;&#160;</a></span>_actFollowActiveTool</h2>
@@ -2001,6 +2183,31 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 
 <p>Moteur audio (<span class="tt">LOT-60</span>) : ouvert au démarrage (<span class="tt">EX-REN-047</span>), dégrade en silence sans périphérique (<span class="tt">EX-NFR-040</span>). </p>
 <p>Partagé avec <span class="tt"><a class="el" href="#a1ed57ff25b1be1c311886896b1ae444f" title="Surface de rendu D3D11 (possédée par le conteneur central).">_viewport</a></span> (<span class="tt">setAudioEngine</span>), qui déclenche les sons de jeu ; les sons d'interface se jouent directement d'ici (<span class="tt"><a class="el" href="#a2b36a89653f47498553ff68af07c8de2" title="Joue le son associé à event (hmi::SoundTriggers), sans effet si aucun son ne lui est associé (LOT-60 ...">playInterfaceSound</a></span>). </p>
+
+</div>
+</div>
+<a id="ace98668ce84ee3ba4f9a9ae17ff17a67" name="ace98668ce84ee3ba4f9a9ae17ff17a67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace98668ce84ee3ba4f9a9ae17ff17a67">&#9670;&#160;</a></span>_closing</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::MainWindow::_closing = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Espace de travail actif (<span class="tt">LOT-68</span>). </p>
+<p>Persisté : on rouvre l'éditeur là où on l'a laissé. Vrai dès que la fenêtre a reçu sa demande de fermeture. Coupe les traitements différés qui toucheraient au thème ou à la disposition pendant le démontage. </p>
 
 </div>
 </div>
@@ -2675,6 +2882,30 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 
 </div>
 </div>
+<a id="ae735c11c42b0bd492a6e969e94a970c4" name="ae735c11c42b0bd492a6e969e94a970c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae735c11c42b0bd492a6e969e94a970c4">&#9670;&#160;</a></span>_properties</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1PropertiesPanel.html">PropertiesPanel</a>* hmi::MainWindow::_properties</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Réglages de gameplay de l'élément sélectionné et du tableau (dock Propriétés, <span class="tt">LOT-67</span>). </p>
+
+</div>
+</div>
 <a id="a97fd2eec1f36f4a73a87a1b659573c99" name="a97fd2eec1f36f4a73a87a1b659573c99"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a97fd2eec1f36f4a73a87a1b659573c99">&#9670;&#160;</a></span>_screenState</h2>
 
@@ -3185,6 +3416,28 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 </div><div class="memdoc">
 
 <p>Surface de rendu D3D11 (possédée par le conteneur central). </p>
+
+</div>
+</div>
+<a id="ab63833717c37aaa1a0c3622f2827677e" name="ab63833717c37aaa1a0c3622f2827677e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab63833717c37aaa1a0c3622f2827677e">&#9670;&#160;</a></span>_workspace</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehmi.html#afc2e687c85989440c76b94c012a1b91d">EditorWorkspace</a> hmi::MainWindow::_workspace = <a class="el" href="namespacehmi.html#afc2e687c85989440c76b94c012a1b91daa0db49ba470c1c9ae2128c3470339153">EditorWorkspace::Level</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

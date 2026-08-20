@@ -13,10 +13,15 @@ var searchData=
   ['_7elevelbrowserpanel_10',['~LevelBrowserPanel',['../classhmi_1_1LevelBrowserPanel.html#adde81f1cab1c37e2a715cdb8641fd8ba',1,'hmi::LevelBrowserPanel']]],
   ['_7elevelcompletescreen_11',['~LevelCompleteScreen',['../classhmi_1_1LevelCompleteScreen.html#af867e095c5e3ed893cc2c417a7c16ebb',1,'hmi::LevelCompleteScreen']]],
   ['_7elevelselectscreen_12',['~LevelSelectScreen',['../classhmi_1_1LevelSelectScreen.html#aaf675ab38c9b9f6ef05cc3b3e63904cd',1,'hmi::LevelSelectScreen']]],
-  ['_7emainmenu_13',['~MainMenu',['../classhmi_1_1MainMenu.html#a14456d1cc71348647b0dcfccea2e4e3d',1,'hmi::MainMenu']]],
-  ['_7emainwindow_14',['~MainWindow',['../classhmi_1_1MainWindow.html#a9217cc93491089761355a98056939638',1,'hmi::MainWindow']]],
-  ['_7eoptionspage_15',['~OptionsPage',['../classhmi_1_1OptionsPage.html#aedd14b2f20d69aee127aaa93b779a6d6',1,'hmi::OptionsPage']]],
-  ['_7epausescreen_16',['~PauseScreen',['../classhmi_1_1PauseScreen.html#abca13b1576b060df4ba992f281a97c22',1,'hmi::PauseScreen']]],
-  ['_7espritebatch_17',['~SpriteBatch',['../classhmi_1_1SpriteBatch.html#ae81bf5e883aafc69903b1c90873d67ef',1,'hmi::SpriteBatch']]],
-  ['_7etexturepanel_18',['~TexturePanel',['../classhmi_1_1TexturePanel.html#af9948eba8e1ae33c5f2dcf1cc3d42790',1,'hmi::TexturePanel']]]
+  ['_7elinkpanel_13',['~LinkPanel',['../classhmi_1_1LinkPanel.html#a5e1064b9442bb87d7fb1fbf7eca3d2cf',1,'hmi::LinkPanel']]],
+  ['_7emainmenu_14',['~MainMenu',['../classhmi_1_1MainMenu.html#a14456d1cc71348647b0dcfccea2e4e3d',1,'hmi::MainMenu']]],
+  ['_7emainwindow_15',['~MainWindow',['../classhmi_1_1MainWindow.html#a9217cc93491089761355a98056939638',1,'hmi::MainWindow']]],
+  ['_7eoptionspage_16',['~OptionsPage',['../classhmi_1_1OptionsPage.html#aedd14b2f20d69aee127aaa93b779a6d6',1,'hmi::OptionsPage']]],
+  ['_7epalettepanel_17',['~PalettePanel',['../classhmi_1_1PalettePanel.html#abad00b2f436c14ab35d4cf5f55840698',1,'hmi::PalettePanel']]],
+  ['_7epausescreen_18',['~PauseScreen',['../classhmi_1_1PauseScreen.html#abca13b1576b060df4ba992f281a97c22',1,'hmi::PauseScreen']]],
+  ['_7epixelhistorypanel_19',['~PixelHistoryPanel',['../classhmi_1_1PixelHistoryPanel.html#a6a17db63fcd024357c35c700d4243fc6',1,'hmi::PixelHistoryPanel']]],
+  ['_7epixelpalettepanel_20',['~PixelPalettePanel',['../classhmi_1_1PixelPalettePanel.html#a52d40f7b00ff6084d50f0780b1f3edbe',1,'hmi::PixelPalettePanel']]],
+  ['_7epropertiespanel_21',['~PropertiesPanel',['../classhmi_1_1PropertiesPanel.html#a02ee375a2d6f4c326a51d194913183eb',1,'hmi::PropertiesPanel']]],
+  ['_7espritebatch_22',['~SpriteBatch',['../classhmi_1_1SpriteBatch.html#ae81bf5e883aafc69903b1c90873d67ef',1,'hmi::SpriteBatch']]],
+  ['_7etexturepanel_23',['~TexturePanel',['../classhmi_1_1TexturePanel.html#af9948eba8e1ae33c5f2dcf1cc3d42790',1,'hmi::TexturePanel']]]
 ];

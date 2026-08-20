@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-10-tache-01-donnees.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-10-mecaniques-avancees_2tache-01-donnees"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-10.html#md_Lot_2LOT-10-mecaniques-avancees_2epic" title="Lot/LOT-10-mecaniques-avancees/epic.md">LOT-10</a> · <b>Emplacement :</b> <span class="tt">Source/Core</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md823"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md828"></a>
 Contexte</h1>
 <p>Comme aux lots précédents, on déclare d'abord l'<b>état</b> des nouvelles mécaniques en <b>données pures</b> (<span class="tt">EX-ARCH-011</span>), avant toute logique. Trois mécaniques : double saut, wall jump/slide, dash.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md824"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md829"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">PlayerInput</span></b> (Core/Physics) :<ul>
@@ -121,30 +121,30 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md825"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md830"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="PlayerInput_8h.html" title="Intention de déplacement du personnage, neutre vis-à-vis de l&#39;entrée physique.">Source/Core/Physics/PlayerInput.h</a></span>, <span class="tt"><a class="el" href="PhysicsConfig_8h.html" title="Constantes de réglage de la physique du personnage (données pures).">Source/Core/Physics/PhysicsConfig.h</a></span>, <span class="tt"><a class="el" href="Player_8h.html" title="Composant marqueur du personnage jouable (données pures).">Source/Core/Ecs/Components/Player.h</a></span>.</li>
 <li>Tests unitaires des valeurs par défaut.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md826"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md831"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Valeurs par défaut cohérentes : <span class="tt">PlayerInput::dashPressed == false</span>, <span class="tt">moveY == 0</span> ; <span class="tt">Player::airJumpsRemaining == 0</span>, <span class="tt">dashAvailable == false</span>, <span class="tt">dashTimer == 0</span>, <span class="tt">wallDirection == 0</span>, <span class="tt">facing</span> valeur neutre définie ; <span class="tt">PhysicsConfig</span> avec réglages non nuls et plausibles (<span class="tt">airJumps &gt;= 1</span>, vitesses &gt; 0).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md827"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md832"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Données pures</b> : aucune logique ni type DirectX ; unités monde et <b>secondes</b> documentées.</li>
 <li>N'ajouter que des <b>champs</b> (rétrocompatible LOT-09) ; ne pas décompter ici (rôle des systèmes).</li>
 <li><span class="tt">facing</span> doit avoir une valeur initiale déterministe (p. ex. +1, vers la droite).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md828"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md833"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Champs ajoutés, documentés (Doxygen en en-tête) et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md829"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md834"></a>
 Exigences</h1>
 <p><span class="tt">EX-CTRL-013</span>, <span class="tt">EX-GP-015</span>, <span class="tt">EX-GP-016</span>, <span class="tt">EX-GP-017</span>, <span class="tt">EX-ARCH-011</span>, <span class="tt">EX-NFR-010</span>. </p>
 </div></div><!-- contents -->

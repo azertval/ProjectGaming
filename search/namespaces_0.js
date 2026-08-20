@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['core_0',['core',['../namespacecore.html',1,'']]]
+  ['aisolver_0',['aisolver',['../namespaceaisolver.html',1,'']]]
 ];

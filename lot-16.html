@@ -96,15 +96,15 @@ $(function(){initNavTree('lot-16.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>terminé</b>. Ce lot rend accessible ce que <span class="tt">Core</span> permet déjà sans restriction (aucune taille maximale dans <span class="tt">TileMap</span>/<span class="tt">LevelDraft</span>) mais que l'ergonomie de l'éditeur limitait de fait : choisir directement une grande taille de grille pendant l'édition, et voir un niveau plus grand que la fenêtre correctement dans l'éditeur <b>et</b> en jeu. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1071"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1076"></a>
 Objectif</h1>
 <ul>
 <li>Permettre de <b>saisir directement</b> une largeur et une hauteur cibles (<span class="tt">largeur x hauteur</span>) plutôt que d'incrémenter case par case aux flèches (conservées pour l'ajustement fin), sous un <b>plafond généreux</b> (<span class="tt">EX-EDIT-017</span>).</li>
 <li>Corriger la caméra pour qu'elle <b>englobe tout le niveau</b>, dans l'éditeur comme en jeu, y compris pour un niveau plus grand que la fenêtre — aujourd'hui, dans les deux écrans, le zoom ne descend jamais sous 1×, donc une partie de la grille reste hors champ dès qu'elle dépasse la fenêtre (<span class="tt">EX-REN-013</span> corrigée).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1072"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1077"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1073"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1078"></a>
 Inclus</h2>
 <ul>
 <li><b>Plafond de taille et analyse du format <span class="tt">largeur x hauteur</span></b> : nouvelle validation dédiée (<span class="tt">hmi::LevelSizeValidation</span>, sur le modèle de <span class="tt">LevelNameValidation</span> de LOT-15), plafond partagé par la boîte de dialogue et par le redimensionnement aux flèches (aucun chemin ne le contourne).</li>
@@ -112,14 +112,14 @@ Inclus</h2>
 <li><b>Correction du calcul de zoom automatique</b> : <span class="tt">EditorScreen::renderGrid</span> (cadrage auto <b>et</b> borne minimale du zoom manuel) et <span class="tt">GameScreen::render</span> partagent la même faute d'origine — un plancher <span class="tt">max(1.0, …)</span> qui empêche de dézoomer sous facteur 1, donc de faire tenir un niveau plus grand que la fenêtre. Corrigé aux trois emplacements par la même règle : zoom entier tant qu'il est <span class="tt">≥ 1</span> (netteté pixel art inchangée pour les niveaux actuels), zoom fractionnaire seulement quand nécessaire pour englober un niveau plus grand.</li>
 <li><b>Correction de spécification</b> : <span class="tt">EX-REN-013</span> (« la caméra doit suivre le personnage ») ne correspondait déjà plus à l'implémentation (caméra fixe cadrant le tableau depuis LOT-08) — reformulée pour décrire la stratégie retenue (cadrer tout le niveau, pas suivre).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1074"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1079"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Caméra suiveuse du joueur</b> (avec zone morte/marge, façon <em>platformer</em> classique) — écartée explicitement au profit du cadrage « niveau entier », plus simple et suffisant pour l'objectif (aucune zone invisible), sans logique de suivi/bornage à concevoir.</li>
 <li><b>Contenu livré</b> : aucun nouveau niveau de démonstration n'est ajouté à la séquence de jeu ; ce lot livre la <b>capacité</b>, pas du contenu l'exploitant.</li>
 <li><b>Décors, pipeline photo → pixel art</b> — inchangé, toujours hors périmètre (<span class="tt">EX-DEC-*</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1075"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1080"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Le plafond de taille vit dans <span class="tt">HMI</span>, pas dans <span class="tt">Core</span>.</b> <span class="tt">TileMap</span>/<span class="tt">LevelDraft</span> restent <b>sans limite</b> (cohérent avec l'existant, <span class="tt">EX-NFR-010</span> : logique pure, aucune règle produit arbitraire mêlée à la donnée). Le plafond est un garde-fou d'<b>usage</b> (éviter une grille démesurée par erreur de saisie ou flèche maintenue trop longtemps), porté par la seule couche qui a une notion d'« utilisateur » — l'éditeur.</li>
@@ -129,14 +129,14 @@ Décisions de cadrage</h1>
 <li><b>Caméra « niveau entier » plutôt que suiveuse</b> : plus simple (aucune zone morte, aucun bornage aux limites à calculer, aucun risque de saccade si le joueur va vite), et suffit à l'objectif formulé (« aucune zone invisible »). Le compromis assumé : les tuiles/le personnage rapetissent visuellement à mesure que le niveau grandit — acceptable, le plafond de taille (<span class="tt">EX-EDIT-017</span>) garde ce rapetissement dans des proportions raisonnables.</li>
 <li><b>Le zoom fractionnaire est une exception locale, pas un changement de politique.</b> <span class="tt">EX-ARCH-022</span> dit déjà « zoom <b>de préférence</b> en facteurs entiers » — la préférence reste la règle par défaut (petits niveaux, zoom ≥ 1, inchangé) ; le zoom fractionnaire n'intervient que lorsque c'est strictement nécessaire pour respecter l'objectif « aucune zone invisible ».</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1076"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1081"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle : <span class="tt">EX-EDIT-017</span>.</li>
 <li>Corrigée (formulation, pas le sens de l'exigence globale) : <span class="tt">EX-REN-013</span>.</li>
 <li>Réutilisées (approfondies sans changer leur sens) : <span class="tt">EX-EDIT-005</span> (redimensionnement), <span class="tt">EX-EDIT-013</span> (caméra manuelle de l'éditeur, dont le cadrage automatique est corrigé), <span class="tt">EX-ARCH-022</span> (zoom pixel art, préférence — pas absolu), <span class="tt">EX-NFR-010</span> (logique pure côté <span class="tt">Core</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1077"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1082"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -153,7 +153,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-16-tache-04-documentation-verification.html#md_Lot_2LOT-16-niveaux-plus-grands_2tache-04-documentation-verification" title="Lot/LOT-16-niveaux-plus-grands/tache-04-documentation-verification.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Documentation et vérification  </td><td class="markdownTableBodyNone"><span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1078"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1083"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Depuis l'éditeur, <span class="tt">Ctrl+R</span> ouvre une saisie pré-remplie de la taille courante ; taper une nouvelle taille valide (ex. <span class="tt">60x40</span>) et valider redimensionne la grille en un geste — avec la même confirmation destructrice qu'aux flèches si la nouvelle taille perdrait l'entrée, la sortie ou une liaison (<span class="tt">EX-EDIT-012</span>, inchangé).</li>
@@ -163,12 +163,12 @@ Critères d'acceptation du lot</h1>
 <li>Un niveau qui tient déjà dans la fenêtre (toutes les tailles livrées à ce jour) s'affiche <b>à l'identique</b> d'avant ce lot (zoom entier inchangé) — non-régression.</li>
 <li>Logique nouvelle <b>couverte par des tests</b> (<span class="tt">ctest</span> vert), déterministe, sans GPU. Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et <span class="tt">CHANGELOG.md</span> à jour, lint des exigences vert.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1079"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1084"></a>
 Dépendances</h1>
 <ul>
 <li>Réutilise le brouillon mutable et <span class="tt">requestResize</span> (LOT-14/15, <span class="tt">LevelDraft</span>, <span class="tt">EditorScreen</span>), le mécanisme de saisie de texte et les garde-fous (LOT-15, <span class="tt">TextInputField</span>, <span class="tt">PendingConfirmation</span>), la caméra (<span class="tt">Camera2D</span>, LOT-05) et le rendu de niveau en jeu (<span class="tt">GameScreen</span>, LOT-07/09).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1080"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1085"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-16-tache-01-plafond-validation-taille.html" title="TACHE-01 — Plafond de taille et validation « largeur x hauteur »">TACHE-01 — Plafond de taille et validation « largeur x hauteur »</a></li>

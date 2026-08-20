@@ -94,7 +94,7 @@ $(function(){initNavTree('lot-65-tache-04-documentation-verification.html','',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-65-refonte-niveaux-demo_2tache-04-documentation-verification"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-65.html#md_Lot_2LOT-65-refonte-niveaux-demo_2epic" title="Lot/LOT-65-refonte-niveaux-demo/epic.md">LOT-65</a> · <b>Emplacement :</b> <span class="tt">Source/Test</span>, <span class="tt">Documentation</span> · <b>Statut :</b> 🔄 en cours — tout fait sauf le parcours manuel</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2955"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2960"></a>
 Réalisé</h1>
 <ul>
 <li><span class="tt">EX-LVL-015</span> déclarée (<span class="tt"><a class="el" href="niveaux_8md.html">niveaux.md</a></span>, <span class="tt">TACHE-01</span>) ; <span class="tt">EX-LVL-012</span> actualisée (ne promet plus « 3 niveaux »).</li>
@@ -105,16 +105,16 @@ Réalisé</h1>
 <li>Cahier de test régénéré (1122 cas) ; <span class="tt">python scripts/generate_cahier_test.py --check</span> vert.</li>
 <li>CI locale complète vérifiée verte : <span class="tt">lint_exigences.py</span>, <span class="tt">check_demo_sequence.py</span>, <span class="tt">build_docs.py</span> (Doxygen), <span class="tt">ctest --preset ninja</span> à 100 % (1122/1122).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2956"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2961"></a>
 Reste à faire</h1>
 <ul>
 <li><b>Parcours manuel complet</b> (binaire Release, manette branchée, son activé), du menu à l'écran de fin — hors de portée de cette session (pas d'automatisation d'interface en direct pour vérifier, convention du dépôt). C'est le moment où ce lot attend le plus souvent de trouver des défauts, d'après l'expérience des lots précédents ; à faire par un humain avant de considérer le lot réellement clos.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2957"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2962"></a>
 Contexte</h1>
 <p>Ce lot est le dernier avant la clôture du programme, et le premier depuis longtemps à faire jouer <b>tout</b> le moteur ensemble. Sa vérification n'est donc pas une formalité : c'est la répétition générale de la <span class="tt">0.1.0</span>.</p>
 <p>Deux livrables documentaires en découlent : le <b>registre des défauts découverts</b>, qui alimentera la suite, et la mise à jour des documents décrivant le contenu — dont <span class="tt">EX-LVL-012</span>, qui promet encore « <b>3 niveaux</b> » de démonstration.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2958"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2963"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Registre des défauts</b> découverts en jouant : symptôme, tableau et reproduction. Consigné dans le <span class="tt">CHANGELOG.md</span> (section <em>Non publié</em>) ou en tickets, jamais perdu dans une conversation. C'est le sous-produit le plus utile du lot.</li>
@@ -125,7 +125,7 @@ Travail à réaliser</h1>
 <li><b>Cahier de test</b> régénéré ; chaque nouveau <span class="tt"><a class="el" href="test__animation__personnage_8cpp.html#a7869699d21aa0764adb7b4f64fd228f2" title="Au sol et immobile, le clip est Idle et l&#39;image alterne 0/1 après chaque durée d&#39;image.">TEST()</a></span> porte son bloc <span class="tt">\castest{}</span> écrit en même temps que lui.</li>
 <li><b>Vérification manuelle complète</b> : jouer la séquence entière, du menu à l'écran de fin, avec le son, les effets, la pause et la progression — c'est le parcours que fera un joueur de la <span class="tt">0.1.0</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2959"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2964"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="niveaux_8md.html">Documentation/Specification/niveaux.md</a></span>.</li>
@@ -133,7 +133,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="guide-niveaux_8md.html">Documentation/Guide/guide-niveaux.md</a></span>, <span class="tt"><a class="el" href="jouer_8md.html">Documentation/Manuel/jouer.md</a></span>, <span class="tt">CHANGELOG.md</span>.</li>
 <li><span class="tt"><a class="el" href="CahierTest_8md.html">Documentation/CahierTest.md</a></span> (régénéré).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2960"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2965"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">python scripts/lint_exigences.py</span> — <span class="tt">EX-LVL-015</span> déclarée une fois et référencée.</li>
@@ -143,7 +143,7 @@ Tests (obligatoires)</h1>
 <li>Le garde-fou de couverture et le test système sont <b>verts et stables</b> sur trois exécutions consécutives — un test de contenu intermittent est un défaut, pas un aléa.</li>
 <li><b>Parcours manuel complet</b> de la séquence sur le binaire, du menu à la fin.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2961"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2966"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas taire les défauts découverts.</b> Le registre est le livrable qui justifie une partie du coût du lot ; le vider pour « finir propre » reviendrait à jeter ce qu'on est venu chercher.</li>
@@ -152,12 +152,12 @@ Points d'attention</h1>
 <li>Le lint d'exigences produit des centaines de faux positifs si un worktree traîne sous <span class="tt">.claude/</span> : filtrer avant de conclure.</li>
 <li>Le parcours manuel est long : le faire <b>une fois</b> dans les conditions réelles (binaire Release, manette branchée, son activé) vaut mieux que dix essais partiels dans l'éditeur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2962"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2967"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">EX-LVL-015</span> est déclarée et <span class="tt">EX-LVL-012</span> actualisée ; le <span class="tt">README.md</span> des niveaux inventorie tableaux, mécaniques et cadrages ; le guide décrit le garde-fou et ses limites ; le manuel couvre tous les mécanismes ; le registre des défauts est écrit ; le cahier est régénéré ; la CI complète est verte et stable ; le parcours manuel complet est fait.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2963"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2968"></a>
 Exigences</h1>
 <p><span class="tt">EX-LVL-015</span> (déclarée ici) ; réutilise <span class="tt">EX-LVL-012</span> (actualisée), <span class="tt">EX-NFR-021</span> (test système), <span class="tt">EX-NFR-012</span> (conventions), <span class="tt">EX-NFR-020</span> (tests), <span class="tt">EX-NFR-022</span> (CI verte). </p>
 </div></div><!-- contents -->

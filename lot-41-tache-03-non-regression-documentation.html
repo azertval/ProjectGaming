@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-41-tache-03-non-regression-documentation.html','',
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-41-bascule-physique-texture_2tache-03-non-regression-documentation"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-41.html#md_Lot_2LOT-41-bascule-physique-texture_2epic" title="Lot/LOT-41-bascule-physique-texture/epic.md">LOT-41</a> · <b>Emplacement :</b> <span class="tt">Source/Test</span>, <span class="tt">Documentation</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1963"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1968"></a>
 Contexte</h1>
 <p>Le mode Physique est la <b>référence</b> de tout le programme : c'est lui qui donne la lecture directe des collisions, et c'est à lui que le mode Texture sera comparé pendant treize lots. Il doit donc être verrouillé par un test, pas par une impression visuelle.</p>
 <p>Le cadrage initial exigeait un rendu « identique bit à bit », vérifié à l'œil — une formulation invérifiable. Le <em>QuadRecorder</em> livré en LOT-40 permet de la remplacer par une assertion.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1964"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1969"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Test de référence</b> : pour une scène couvrant les cas représentatifs (tuiles solides, pentes, arrondis, dangers directionnels, mécanismes, blocs réduits, personnage), capturer les primitives composées en mode <span class="tt">Physique</span> et vérifier qu'elles correspondent à la référence établie avant le lot — mêmes régions d'atlas, mêmes positions, mêmes calques, même ordre.</li>
@@ -110,27 +110,27 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1965"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1970"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__render__mode_8cpp.html" title="Tests unitaires de la bascule Physique/Texture (LOT-41, EX-REN-046).">Source/Test/Unit/HMI/Graphics/test_render_mode.cpp</a></span> (nouveau).</li>
 <li><span class="tt"><a class="el" href="guide-rendu_8md.html">Documentation/Guide/guide-rendu.md</a></span>, <span class="tt"><a class="el" href="jouer_8md.html">Documentation/Manuel/jouer.md</a></span>, <span class="tt"><a class="el" href="partager-un-niveau_8md.html">Documentation/Manuel/partager-un-niveau.md</a></span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1966"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1971"></a>
 Tests (obligatoires)</h1>
 <p>Ce sont l'objet même de la tâche (voir ci-dessus). Le test de référence doit rester en place pour tous les lots suivants : c'est le filet qui garantit qu'aucun lot d'habillage ne dégrade la lecture du physique.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1967"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1972"></a>
 Points d'attention</h1>
 <ul>
 <li>Le manuel utilisateur s'adresse à un non-développeur : décrire <span class="tt">F8</span> par ce qu'il fait (« voir le niveau tel qu'il est réellement construit, sans habillage »), pas par son implémentation.</li>
 <li>Ne pas documenter le mode Texture comme « le rendu final » tant que LOT-42 n'est pas livré : à ce stade, il affiche légitimement un damier partout.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1968"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1973"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Le mode Physique est verrouillé par un test de référence ; la bascule est sans effet rémanent ; guide et manuel à jour ; Doxygen et lint verts.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1969"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1974"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-046</span> (bascule) ; réutilise <span class="tt">EX-NFR-004</span> (rendu vérifiable sans GPU), <span class="tt">EX-NFR-030</span> (doc de build et d'usage à jour). </p>
 </div></div><!-- contents -->

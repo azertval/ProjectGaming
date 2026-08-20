@@ -96,7 +96,10 @@ $(function(){initNavTree('test__level__writer_8cpp.html','',''); });
 <p>Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelWriter_8h_source.html">Core/Levels/LevelWriter.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
@@ -149,12 +152,22 @@ Functions</h2></td></tr>
 <tr class="memdesc:a6fe3080209857b0ca1144eb76ccc33dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Des zones de caméra dessinées à la main survivent à un aller-retour JSON, dans le même ordre (<span class="tt">EX-LVL-007</span>).  <br /></td></tr>
 <tr class="memitem:adb3af9e7063338536183db19ccd56c5c" id="r_adb3af9e7063338536183db19ccd56c5c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adb3af9e7063338536183db19ccd56c5c">TEST</a> (LevelWriterTest, CadrageIdentiqueAuRepliResteOmisDuJson)</td></tr>
 <tr class="memdesc:adb3af9e7063338536183db19ccd56c5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un niveau dont le cadrage résolu coïncide avec la règle de repli est réécrit <b>sans</b> le champ <span class="tt">"cameraFraming"</span> : aucune régression de round-trip pour les niveaux jamais retouchés sur ce point (<span class="tt">EX-LVL-006</span>).  <br /></td></tr>
+<tr class="memitem:aa7c158e10d039925f08ea98d2398bbea" id="r_aa7c158e10d039925f08ea98d2398bbea"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa7c158e10d039925f08ea98d2398bbea">TEST</a> (LevelWriterTest, RouteEtModeDePlateformeSurviventAuRoundTrip)</td></tr>
+<tr class="memdesc:aa7c158e10d039925f08ea98d2398bbea"><td class="mdescLeft">&#160;</td><td class="mdescRight">La route et le mode d'une plateforme survivent à un aller-retour écriture/relecture (<span class="tt">EX-GP-054</span>, <span class="tt">EX-EDIT-011</span>).  <br /></td></tr>
+<tr class="memitem:a34dc34dbda8ea01be79c6817afa12ab6" id="r_a34dc34dbda8ea01be79c6817afa12ab6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a34dc34dbda8ea01be79c6817afa12ab6">TEST</a> (LevelWriterTest, ModeParDefautResteOmisDuJson)</td></tr>
+<tr class="memdesc:a34dc34dbda8ea01be79c6817afa12ab6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le mode aller-retour, valeur par défaut, reste omis du JSON écrit — même convention « omis si défaut » que les autres champs du format (<span class="tt">EX-LVL-008</span>).  <br /></td></tr>
+<tr class="memitem:a2fa9e98b614348f95ef315f2ed397ba9" id="r_a2fa9e98b614348f95ef315f2ed397ba9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2fa9e98b614348f95ef315f2ed397ba9">TEST</a> (LevelWriterTest, PlateformeSansRouteNEcritAucunChampDeRoute)</td></tr>
+<tr class="memdesc:a2fa9e98b614348f95ef315f2ed397ba9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une plateforme immobile (route vide) n'écrit aucun champ de route : ni <span class="tt">waypoints</span>, ni le couple <span class="tt">endX</span>/<span class="tt">endY</span> que l'éditeur ne produit plus (<span class="tt">EX-LVL-008</span>).  <br /></td></tr>
+<tr class="memitem:a7ef15ad6a5a49fa69ac87e1484a27518" id="r_a7ef15ad6a5a49fa69ac87e1484a27518"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7ef15ad6a5a49fa69ac87e1484a27518">TEST</a> (LevelWriterTest, PlateformeAncienFormatEstReecriteEnWaypoints)</td></tr>
+<tr class="memdesc:a7ef15ad6a5a49fa69ac87e1484a27518"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une plateforme lue à l'ancien format (<span class="tt">endX</span>/<span class="tt">endY</span>) est réécrite en <span class="tt">waypoints</span> sans changer le parcours : la migration du contenu est portée par la sérialisation elle-même (<span class="tt">EX-LVL-008</span>).  <br /></td></tr>
+<tr class="memitem:a0f1812862297e33bd6d3e63ff8af8a30" id="r_a0f1812862297e33bd6d3e63ff8af8a30"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0f1812862297e33bd6d3e63ff8af8a30">TEST</a> (LevelWriterTest, CapacitesDuTableauSurviventAuRoundTripEtSontOmisesParDefaut)</td></tr>
+<tr class="memdesc:a0f1812862297e33bd6d3e63ff8af8a30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les capacités du tableau survivent à un aller-retour et restent omises quand le niveau s'en remet aux réglages du moteur (<span class="tt">EX-GP-055</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ac815651c8d27505bbe352765fc16b8c6" name="ac815651c8d27505bbe352765fc16b8c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac815651c8d27505bbe352765fc16b8c6">&#9670;&#160;</a></span>TEST() <span class="overload">[1/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac815651c8d27505bbe352765fc16b8c6">&#9670;&#160;</a></span>TEST() <span class="overload">[1/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -184,7 +197,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a851fdd91ec7674bf6eb5893f39e87ab9" name="a851fdd91ec7674bf6eb5893f39e87ab9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a851fdd91ec7674bf6eb5893f39e87ab9">&#9670;&#160;</a></span>TEST() <span class="overload">[2/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a851fdd91ec7674bf6eb5893f39e87ab9">&#9670;&#160;</a></span>TEST() <span class="overload">[2/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -214,7 +227,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="adbcd37e977093979b380dcb4e89223c1" name="adbcd37e977093979b380dcb4e89223c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adbcd37e977093979b380dcb4e89223c1">&#9670;&#160;</a></span>TEST() <span class="overload">[3/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adbcd37e977093979b380dcb4e89223c1">&#9670;&#160;</a></span>TEST() <span class="overload">[3/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -244,7 +257,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa8d67496fbeca91cb650819de1eff770" name="aa8d67496fbeca91cb650819de1eff770"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8d67496fbeca91cb650819de1eff770">&#9670;&#160;</a></span>TEST() <span class="overload">[4/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8d67496fbeca91cb650819de1eff770">&#9670;&#160;</a></span>TEST() <span class="overload">[4/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -274,7 +287,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af35896f7efd723541c3ff4bb55ba2e6d" name="af35896f7efd723541c3ff4bb55ba2e6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af35896f7efd723541c3ff4bb55ba2e6d">&#9670;&#160;</a></span>TEST() <span class="overload">[5/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af35896f7efd723541c3ff4bb55ba2e6d">&#9670;&#160;</a></span>TEST() <span class="overload">[5/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -304,7 +317,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="adb3af9e7063338536183db19ccd56c5c" name="adb3af9e7063338536183db19ccd56c5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb3af9e7063338536183db19ccd56c5c">&#9670;&#160;</a></span>TEST() <span class="overload">[6/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adb3af9e7063338536183db19ccd56c5c">&#9670;&#160;</a></span>TEST() <span class="overload">[6/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -335,8 +348,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a0f1812862297e33bd6d3e63ff8af8a30" name="a0f1812862297e33bd6d3e63ff8af8a30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f1812862297e33bd6d3e63ff8af8a30">&#9670;&#160;</a></span>TEST() <span class="overload">[7/28]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelWriterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CapacitesDuTableauSurviventAuRoundTripEtSontOmisesParDefaut</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les capacités du tableau survivent à un aller-retour et restent omises quand le niveau s'en remet aux réglages du moteur (<span class="tt">EX-GP-055</span>). </p>
+<p><b>Cas de test :</b> <b>Les capacités du tableau survivent à un aller-retour et sont omises par défaut.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Writer<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger un niveau declarant airJumps et dashCharges, serialiser puis recharger.<br  />
+2. Faire de meme avec un niveau qui n'en declare aucun.<br  />
+ <b>Resultat attendu :</b> Les capacites declarees sont conservees ; sans declaration, les champs n'apparaissent pas dans le JSON produit et restent absents apres rechargement. </p>
+
+</div>
+</div>
 <a id="a22f6d37ff433d67bb989a770dcc45206" name="a22f6d37ff433d67bb989a770dcc45206"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22f6d37ff433d67bb989a770dcc45206">&#9670;&#160;</a></span>TEST() <span class="overload">[7/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a22f6d37ff433d67bb989a770dcc45206">&#9670;&#160;</a></span>TEST() <span class="overload">[8/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -366,7 +409,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a4c665b5e760d7ba0fce6a73ee60d1802" name="a4c665b5e760d7ba0fce6a73ee60d1802"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c665b5e760d7ba0fce6a73ee60d1802">&#9670;&#160;</a></span>TEST() <span class="overload">[8/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c665b5e760d7ba0fce6a73ee60d1802">&#9670;&#160;</a></span>TEST() <span class="overload">[9/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -396,7 +439,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="acd74726ff284246b6b7c4df612ac5a23" name="acd74726ff284246b6b7c4df612ac5a23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd74726ff284246b6b7c4df612ac5a23">&#9670;&#160;</a></span>TEST() <span class="overload">[9/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acd74726ff284246b6b7c4df612ac5a23">&#9670;&#160;</a></span>TEST() <span class="overload">[10/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -426,7 +469,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ab8da6d2ae8b2f07e8fd969752e39c0df" name="ab8da6d2ae8b2f07e8fd969752e39c0df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8da6d2ae8b2f07e8fd969752e39c0df">&#9670;&#160;</a></span>TEST() <span class="overload">[10/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8da6d2ae8b2f07e8fd969752e39c0df">&#9670;&#160;</a></span>TEST() <span class="overload">[11/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -456,7 +499,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a9c97557731a891e08890b707fd5284a4" name="a9c97557731a891e08890b707fd5284a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c97557731a891e08890b707fd5284a4">&#9670;&#160;</a></span>TEST() <span class="overload">[11/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c97557731a891e08890b707fd5284a4">&#9670;&#160;</a></span>TEST() <span class="overload">[12/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -486,7 +529,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aaebe16b33250f1cde93573a2fb09e729" name="aaebe16b33250f1cde93573a2fb09e729"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaebe16b33250f1cde93573a2fb09e729">&#9670;&#160;</a></span>TEST() <span class="overload">[12/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aaebe16b33250f1cde93573a2fb09e729">&#9670;&#160;</a></span>TEST() <span class="overload">[13/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -516,7 +559,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a0695318fd6561a23e3547ad1d2a104dd" name="a0695318fd6561a23e3547ad1d2a104dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0695318fd6561a23e3547ad1d2a104dd">&#9670;&#160;</a></span>TEST() <span class="overload">[13/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0695318fd6561a23e3547ad1d2a104dd">&#9670;&#160;</a></span>TEST() <span class="overload">[14/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -546,7 +589,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a50f6b6bb3596c39258d8da757802b750" name="a50f6b6bb3596c39258d8da757802b750"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50f6b6bb3596c39258d8da757802b750">&#9670;&#160;</a></span>TEST() <span class="overload">[14/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a50f6b6bb3596c39258d8da757802b750">&#9670;&#160;</a></span>TEST() <span class="overload">[15/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -575,8 +618,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a34dc34dbda8ea01be79c6817afa12ab6" name="a34dc34dbda8ea01be79c6817afa12ab6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34dc34dbda8ea01be79c6817afa12ab6">&#9670;&#160;</a></span>TEST() <span class="overload">[16/28]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelWriterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ModeParDefautResteOmisDuJson</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le mode aller-retour, valeur par défaut, reste omis du JSON écrit — même convention « omis si défaut » que les autres champs du format (<span class="tt">EX-LVL-008</span>). </p>
+<p><b>Cas de test :</b> <b>Le mode par défaut reste omis du JSON écrit.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Writer<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger une plateforme en mode aller-retour, puis une en mode boucle.<br  />
+2. Serialiser les deux.<br  />
+ <b>Resultat attendu :</b> Le champ "mode" n'apparait que pour le circuit ferme. </p>
+
+</div>
+</div>
 <a id="aed8d3fba9cca56d8e7cd26f62897b4fe" name="aed8d3fba9cca56d8e7cd26f62897b4fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed8d3fba9cca56d8e7cd26f62897b4fe">&#9670;&#160;</a></span>TEST() <span class="overload">[15/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aed8d3fba9cca56d8e7cd26f62897b4fe">&#9670;&#160;</a></span>TEST() <span class="overload">[17/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -606,7 +679,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a1418ff84f950e288518387b56ec9bcaa" name="a1418ff84f950e288518387b56ec9bcaa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1418ff84f950e288518387b56ec9bcaa">&#9670;&#160;</a></span>TEST() <span class="overload">[16/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1418ff84f950e288518387b56ec9bcaa">&#9670;&#160;</a></span>TEST() <span class="overload">[18/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -636,7 +709,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a026680ce06e14d0530b673cb42034095" name="a026680ce06e14d0530b673cb42034095"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a026680ce06e14d0530b673cb42034095">&#9670;&#160;</a></span>TEST() <span class="overload">[17/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a026680ce06e14d0530b673cb42034095">&#9670;&#160;</a></span>TEST() <span class="overload">[19/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -666,7 +739,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7a409f69729e36b289ea6934747e7b33" name="a7a409f69729e36b289ea6934747e7b33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a409f69729e36b289ea6934747e7b33">&#9670;&#160;</a></span>TEST() <span class="overload">[18/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a409f69729e36b289ea6934747e7b33">&#9670;&#160;</a></span>TEST() <span class="overload">[20/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -695,8 +768,68 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a7ef15ad6a5a49fa69ac87e1484a27518" name="a7ef15ad6a5a49fa69ac87e1484a27518"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ef15ad6a5a49fa69ac87e1484a27518">&#9670;&#160;</a></span>TEST() <span class="overload">[21/28]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelWriterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PlateformeAncienFormatEstReecriteEnWaypoints</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une plateforme lue à l'ancien format (<span class="tt">endX</span>/<span class="tt">endY</span>) est réécrite en <span class="tt">waypoints</span> sans changer le parcours : la migration du contenu est portée par la sérialisation elle-même (<span class="tt">EX-LVL-008</span>). </p>
+<p><b>Cas de test :</b> <b>Une plateforme au format endX/endY est réécrite en waypoints.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Writer<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger une plateforme ecrite avec endX/endY.<br  />
+2. Serialiser puis recharger.<br  />
+ <b>Resultat attendu :</b> Le JSON produit porte "waypoints" et non "endX", et la route rechargee est la meme. </p>
+
+</div>
+</div>
+<a id="a2fa9e98b614348f95ef315f2ed397ba9" name="a2fa9e98b614348f95ef315f2ed397ba9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fa9e98b614348f95ef315f2ed397ba9">&#9670;&#160;</a></span>TEST() <span class="overload">[22/28]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelWriterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PlateformeSansRouteNEcritAucunChampDeRoute</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une plateforme immobile (route vide) n'écrit aucun champ de route : ni <span class="tt">waypoints</span>, ni le couple <span class="tt">endX</span>/<span class="tt">endY</span> que l'éditeur ne produit plus (<span class="tt">EX-LVL-008</span>). </p>
+<p><b>Cas de test :</b> <b>Une plateforme sans route n'écrit aucun champ de route.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Writer<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger une plateforme sans waypoints ni endX/endY.<br  />
+2. Serialiser.<br  />
+ <b>Resultat attendu :</b> Le JSON produit ne contient ni "waypoints" ni "endX". </p>
+
+</div>
+</div>
 <a id="a08700befe0d47aa314315dc519624d58" name="a08700befe0d47aa314315dc519624d58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08700befe0d47aa314315dc519624d58">&#9670;&#160;</a></span>TEST() <span class="overload">[19/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a08700befe0d47aa314315dc519624d58">&#9670;&#160;</a></span>TEST() <span class="overload">[23/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -725,8 +858,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aa7c158e10d039925f08ea98d2398bbea" name="aa7c158e10d039925f08ea98d2398bbea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7c158e10d039925f08ea98d2398bbea">&#9670;&#160;</a></span>TEST() <span class="overload">[24/28]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelWriterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RouteEtModeDePlateformeSurviventAuRoundTrip</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La route et le mode d'une plateforme survivent à un aller-retour écriture/relecture (<span class="tt">EX-GP-054</span>, <span class="tt">EX-EDIT-011</span>). </p>
+<p><b>Cas de test :</b> <b>La route et le mode d'une plateforme survivent à un aller-retour.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Writer<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger un niveau dont la plateforme suit une route a deux points en mode boucle.<br  />
+2. Serialiser puis recharger.<br  />
+ <b>Resultat attendu :</b> La route, le mode, la vitesse et le dephasage sont identiques a l'original. </p>
+
+</div>
+</div>
 <a id="a06bb9e17539a281e7f66fe8167ae5fed" name="a06bb9e17539a281e7f66fe8167ae5fed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a06bb9e17539a281e7f66fe8167ae5fed">&#9670;&#160;</a></span>TEST() <span class="overload">[20/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a06bb9e17539a281e7f66fe8167ae5fed">&#9670;&#160;</a></span>TEST() <span class="overload">[25/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -756,7 +919,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a73cdc6e0f8e5beee55ad9dce966ec9e0" name="a73cdc6e0f8e5beee55ad9dce966ec9e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73cdc6e0f8e5beee55ad9dce966ec9e0">&#9670;&#160;</a></span>TEST() <span class="overload">[21/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a73cdc6e0f8e5beee55ad9dce966ec9e0">&#9670;&#160;</a></span>TEST() <span class="overload">[26/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -786,7 +949,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="adc9dc018aeddfbd32ced5b9eee36b083" name="adc9dc018aeddfbd32ced5b9eee36b083"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc9dc018aeddfbd32ced5b9eee36b083">&#9670;&#160;</a></span>TEST() <span class="overload">[22/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adc9dc018aeddfbd32ced5b9eee36b083">&#9670;&#160;</a></span>TEST() <span class="overload">[27/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -816,7 +979,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a6fe3080209857b0ca1144eb76ccc33dd" name="a6fe3080209857b0ca1144eb76ccc33dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6fe3080209857b0ca1144eb76ccc33dd">&#9670;&#160;</a></span>TEST() <span class="overload">[23/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fe3080209857b0ca1144eb76ccc33dd">&#9670;&#160;</a></span>TEST() <span class="overload">[28/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

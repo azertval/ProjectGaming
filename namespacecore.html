@@ -164,6 +164,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait vivre les mécanismes <b>interrupteur/plaque ↔ porte</b> d'un niveau (<span class="tt">EX-GP-020</span>, <span class="tt">EX-GP-021</span>, <span class="tt">EX-GP-025</span>).  <a href="classcore_1_1MechanismController.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PlatformController" id="r_PlatformController"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1PlatformController.html">PlatformController</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait vivre les <b>plateformes mobiles</b> d'un niveau (<span class="tt"><a class="el" href="#ace99a1be913e6294e42e9ebb145eb875a3bcc08b00f6aaac65d7a125de705dd4b">TileType::MovingPlatform</a></span>, <span class="tt">EX-GP-026</span>).  <a href="classcore_1_1PlatformController.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PlatformPath" id="r_PlatformPath"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1PlatformPath.html">PlatformPath</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Route <b>précalculée</b> d'une plateforme : sommets et longueurs cumulées.  <a href="structcore_1_1PlatformPath.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CameraZone" id="r_CameraZone"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1CameraZone.html">CameraZone</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle de caméra dessiné à la main par le level designer (mode <em>par salle</em>), en cases.  <a href="structcore_1_1CameraZone.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CameraFramingConfig" id="r_CameraFramingConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1CameraFramingConfig.html">CameraFramingConfig</a></td></tr>
@@ -181,7 +183,7 @@ Classes</h2></td></tr>
 <tr class="memitem:DangerBlinkConfig" id="r_DangerBlinkConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1DangerBlinkConfig.html">DangerBlinkConfig</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'un danger temporisé (<span class="tt"><a class="el" href="#ace99a1be913e6294e42e9ebb145eb875ae24085adb8d13b6f13d9011fab1980de">TileType::DangerBlink</a></span>, <span class="tt">EX-GP-053</span>) : période, déphasage et durée active, en <b>pas fixes</b> (<span class="tt">EX-NFR-002</span>, déterministe).  <a href="structcore_1_1DangerBlinkConfig.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MovingPlatformConfig" id="r_MovingPlatformConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MovingPlatformConfig.html">MovingPlatformConfig</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'une plateforme mobile (<span class="tt"><a class="el" href="#ace99a1be913e6294e42e9ebb145eb875a3bcc08b00f6aaac65d7a125de705dd4b">TileType::MovingPlatform</a></span>, <span class="tt">EX-GP-026</span>) : aller- retour linéaire déterministe entre deux points, à vitesse constante.  <a href="structcore_1_1MovingPlatformConfig.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'une plateforme mobile (<span class="tt"><a class="el" href="#ace99a1be913e6294e42e9ebb145eb875a3bcc08b00f6aaac65d7a125de705dd4b">TileType::MovingPlatform</a></span>, <span class="tt">EX-GP-026</span>) : route multi-points parcourue à vitesse constante, de façon linéaire et déterministe.  <a href="structcore_1_1MovingPlatformConfig.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TileTextureOverride" id="r_TileTextureOverride"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1TileTextureOverride.html">TileTextureOverride</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture assignée explicitement à <b>une case précise</b>, prioritaire sur le skin de son type (<span class="tt">EX-EDIT-043</span>, LOT-42).  <a href="structcore_1_1TileTextureOverride.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Level" id="r_Level"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1Level.html">Level</a></td></tr>
@@ -261,6 +263,10 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a691dfee41b7946ec78288271f8925d51a06ce2a25e5d12c166a36f654dbea6012">Vertical</a>
  }</td></tr>
 <tr class="memdesc:a691dfee41b7946ec78288271f8925d51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Axe de l'aller-retour d'un danger mobile (<span class="tt"><a class="el" href="#ace99a1be913e6294e42e9ebb145eb875a9be1e41bc76e39e2d71d0bc55947b66d">TileType::DangerMover</a></span>, <span class="tt">EX-GP-051</span>).  <a href="#a691dfee41b7946ec78288271f8925d51">More...</a><br /></td></tr>
+<tr class="memitem:a8a429a2ce785ee89ff543488b51750b1" id="r_a8a429a2ce785ee89ff543488b51750b1"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a8a429a2ce785ee89ff543488b51750b1">PlatformPathMode</a> { <a class="el" href="#a8a429a2ce785ee89ff543488b51750b1a99e52704462d3580db3528cad7ea9660">PingPong</a>
+, <a class="el" href="#a8a429a2ce785ee89ff543488b51750b1a89d7b10cb4238977d2b523dfd9ea7745">Loop</a>
+ }</td></tr>
+<tr class="memdesc:a8a429a2ce785ee89ff543488b51750b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode de bouclage du parcours d'une plateforme mobile (<span class="tt">EX-GP-026</span>, LOT-67).  <a href="#a8a429a2ce785ee89ff543488b51750b1">More...</a><br /></td></tr>
 <tr class="memitem:af2a63d18c9ef40479ebdc204e726e823" id="r_af2a63d18c9ef40479ebdc204e726e823"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#af2a63d18c9ef40479ebdc204e726e823">LevelValidationError</a> { <br />
 &#160;&#160;<a class="el" href="#af2a63d18c9ef40479ebdc204e726e823a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="#af2a63d18c9ef40479ebdc204e726e823ae41199faa7290c167f70f314c5e6c165">ParseError</a>
@@ -369,6 +375,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:a058375c631f77cd8a357ee7bc8f197cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si <code class="param">box</code> repose sur le <b>dessus</b> de <code class="param">platformBox</code> (chevauchement horizontal, bord bas de <code class="param">box</code> au contact du bord haut de <code class="param">platformBox</code>).  <br /></td></tr>
 <tr class="memitem:ae66e09c527611ea8e43dd35c1edbd20c" id="r_ae66e09c527611ea8e43dd35c1edbd20c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae66e09c527611ea8e43dd35c1edbd20c">isSquishedByPlatform</a> (const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;carriedBox, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;collision) noexcept</td></tr>
 <tr class="memdesc:ae66e09c527611ea8e43dd35c1edbd20c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si <code class="param">carriedBox</code> (le personnage, après portage) est <b>écrasé</b> : elle chevauche une tuile solide de <code class="param">collision</code> (<span class="tt">EX-GP-026</span>, cas d'écrasement plafond).  <br /></td></tr>
+<tr class="memitem:a3d27d948b6c91a74b94a1aaeb947f79b" id="r_a3d27d948b6c91a74b94a1aaeb947f79b"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3d27d948b6c91a74b94a1aaeb947f79b">platformPathPoints</a> (const <a class="el" href="structcore_1_1MovingPlatformConfig.html">MovingPlatformConfig</a> &amp;config)</td></tr>
+<tr class="memdesc:a3d27d948b6c91a74b94a1aaeb947f79b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sommets de la route de <code class="param">config</code> en unités monde (coin <b>haut-gauche</b> de chaque case).  <br /></td></tr>
+<tr class="memitem:aa952d3ee1972c33658bdeae20d63fcba" id="r_aa952d3ee1972c33658bdeae20d63fcba"><td class="memItemLeft"><a class="el" href="structcore_1_1PlatformPath.html">PlatformPath</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa952d3ee1972c33658bdeae20d63fcba">buildPlatformPath</a> (const <a class="el" href="structcore_1_1MovingPlatformConfig.html">MovingPlatformConfig</a> &amp;config)</td></tr>
+<tr class="memdesc:aa952d3ee1972c33658bdeae20d63fcba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Précalcule la route de <code class="param">config</code> (voir <span class="tt"><a class="el" href="structcore_1_1PlatformPath.html" title="Route précalculée d&#39;une plateforme : sommets et longueurs cumulées.">PlatformPath</a></span>).  <br /></td></tr>
+<tr class="memitem:aa6e914a274a901675b495bc235848419" id="r_aa6e914a274a901675b495bc235848419"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa6e914a274a901675b495bc235848419">platformPositionAt</a> (const <a class="el" href="structcore_1_1PlatformPath.html">PlatformPath</a> &amp;path, double travelled) noexcept</td></tr>
+<tr class="memdesc:aa6e914a274a901675b495bc235848419"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position (coin haut-gauche, unités monde) atteinte après avoir parcouru <code class="param">travelled</code> unités le long de <code class="param">path</code> depuis son point de départ.  <br /></td></tr>
 <tr class="memitem:a0d231b385924c096dc5f94d17639e679" id="r_a0d231b385924c096dc5f94d17639e679"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a0d231b385924c096dc5f94d17639e679">cameraFramingModeName</a> (<a class="el" href="#a5c6444096b9bc21a78b1f1157e9070b6">CameraFramingMode</a> mode) noexcept</td></tr>
 <tr class="memdesc:a0d231b385924c096dc5f94d17639e679"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom JSON du mode (symétrique à <span class="tt"><a class="el" href="#acae8699b6c75742b88007ea470bf54ea" title="Reconnaît le nom JSON d&#39;un mode ; std::nullopt si non reconnu (mode inconnu, EX-LVL-004).">parseCameraFramingMode</a></span>), pour la sérialisation.  <br /></td></tr>
 <tr class="memitem:acae8699b6c75742b88007ea470bf54ea" id="r_acae8699b6c75742b88007ea470bf54ea"><td class="memItemLeft">std::optional&lt; <a class="el" href="#a5c6444096b9bc21a78b1f1157e9070b6">CameraFramingMode</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acae8699b6c75742b88007ea470bf54ea">parseCameraFramingMode</a> (std::string_view name) noexcept</td></tr>
@@ -811,6 +823,35 @@ COUNT</span>) : une chute extrême ne produit pas un nuage toujours plus dense. 
 
 </div>
 </div>
+<a id="a8a429a2ce785ee89ff543488b51750b1" name="a8a429a2ce785ee89ff543488b51750b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a429a2ce785ee89ff543488b51750b1">&#9670;&#160;</a></span>PlatformPathMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a8a429a2ce785ee89ff543488b51750b1">core::PlatformPathMode</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mode de bouclage du parcours d'une plateforme mobile (<span class="tt">EX-GP-026</span>, LOT-67). </p>
+<p><span class="tt">PingPong</span> (défaut) parcourt la route dans un sens puis la refait à l'envers (A→B→C→B→A…) : c'est le comportement historique, généralisé du segment à deux points au polyligne. <span class="tt">Loop</span> ferme le circuit en reliant le dernier point au premier en ligne droite (A→B→C→A…) — le segment de fermeture fait partie du cycle et se parcourt à la même vitesse que les autres. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a8a429a2ce785ee89ff543488b51750b1a99e52704462d3580db3528cad7ea9660" name="a8a429a2ce785ee89ff543488b51750b1a99e52704462d3580db3528cad7ea9660"></a>PingPong&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8a429a2ce785ee89ff543488b51750b1a89d7b10cb4238977d2b523dfd9ea7745" name="a8a429a2ce785ee89ff543488b51750b1a89d7b10cb4238977d2b523dfd9ea7745"></a>Loop&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <a id="ace99a1be913e6294e42e9ebb145eb875" name="ace99a1be913e6294e42e9ebb145eb875"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ace99a1be913e6294e42e9ebb145eb875">&#9670;&#160;</a></span>TileType</h2>
 
@@ -999,6 +1040,33 @@ COUNT</span>) : une chute extrême ne produit pas un nuage toujours plus dense. 
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="aa952d3ee1972c33658bdeae20d63fcba" name="aa952d3ee1972c33658bdeae20d63fcba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa952d3ee1972c33658bdeae20d63fcba">&#9670;&#160;</a></span>buildPlatformPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1PlatformPath.html">PlatformPath</a> core::buildPlatformPath </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1MovingPlatformConfig.html">MovingPlatformConfig</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>config</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Précalcule la route de <code class="param">config</code> (voir <span class="tt"><a class="el" href="structcore_1_1PlatformPath.html" title="Route précalculée d&#39;une plateforme : sommets et longueurs cumulées.">PlatformPath</a></span>). </p>
 
 </div>
 </div>
@@ -1944,6 +2012,67 @@ slopeSurfaceHeight(type miroir, localX)</span>), pas une famille de formules dup
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Le type correspondant, ou <span class="tt">std::nullopt</span> si le nom est inconnu — un nom inconnu est une donnée invalide à signaler, jamais un type deviné. </dd></dl>
+
+</div>
+</div>
+<a id="a3d27d948b6c91a74b94a1aaeb947f79b" name="a3d27d948b6c91a74b94a1aaeb947f79b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d27d948b6c91a74b94a1aaeb947f79b">&#9670;&#160;</a></span>platformPathPoints()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &gt; core::platformPathPoints </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1MovingPlatformConfig.html">MovingPlatformConfig</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>config</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sommets de la route de <code class="param">config</code> en unités monde (coin <b>haut-gauche</b> de chaque case). </p>
+<p>Le premier point est <span class="tt">startPosition</span>, suivi de <span class="tt">waypoints</span> dans l'ordre. En mode <span class="tt"><a class="el" href="#a8a429a2ce785ee89ff543488b51750b1a89d7b10cb4238977d2b523dfd9ea7745">PlatformPathMode::Loop</a></span>, le point de départ est <b>répété en fin de liste</b> pour matérialiser le segment de fermeture : la liste décrit donc toujours le parcours complet d'un cycle « aller », qu'il soit ouvert (aller-retour) ou fermé (circuit).</p>
+<p>Fonction pure, partagée par <span class="tt"><a class="el" href="classcore_1_1PlatformController.html" title="Fait vivre les plateformes mobiles d&#39;un niveau (TileType::MovingPlatform, EX-GP-026).">core::PlatformController</a></span> (mouvement) et par l'overlay d'édition (<span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span>) : la trajectoire dessinée dans l'éditeur est <b>littéralement</b> celle que le gameplay parcourt, jamais une réimplémentation parallèle. </p>
+
+</div>
+</div>
+<a id="aa6e914a274a901675b495bc235848419" name="aa6e914a274a901675b495bc235848419"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6e914a274a901675b495bc235848419">&#9670;&#160;</a></span>platformPositionAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">Vector2</a> core::platformPositionAt </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1PlatformPath.html">PlatformPath</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>travelled</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Position (coin haut-gauche, unités monde) atteinte après avoir parcouru <code class="param">travelled</code> unités le long de <code class="param">path</code> depuis son point de départ. </p>
+<p><code class="param">travelled</code> est replié sur le cycle (modulo positif, valeurs négatives admises) puis, en aller-retour, mis en miroir au-delà de la moitié du cycle. Une route de longueur nulle renvoie toujours le point de départ. Fonction pure : aucune accumulation d'un appel à l'autre (<span class="tt">EX-NFR-002</span>). </p>
 
 </div>
 </div>

@@ -93,7 +93,7 @@ $(function(){initNavTree('structcore_1_1MovingPlatformConfig.html','','structcor
 </div><!--header-->
 <div class="contents">
 
-<p>Paramètres d'une plateforme mobile (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a3bcc08b00f6aaac65d7a125de705dd4b">TileType::MovingPlatform</a></span>, <span class="tt">EX-GP-026</span>) : aller- retour linéaire déterministe entre deux points, à vitesse constante.  
+<p>Paramètres d'une plateforme mobile (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a3bcc08b00f6aaac65d7a125de705dd4b">TileType::MovingPlatform</a></span>, <span class="tt">EX-GP-026</span>) : route multi-points parcourue à vitesse constante, de façon linéaire et déterministe.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="Level_8h_source.html">Level.h</a>&gt;</code></p>
@@ -101,27 +101,33 @@ $(function(){initNavTree('structcore_1_1MovingPlatformConfig.html','','structcor
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:abd71c2e23844dabbeb44d81ace17510d" id="r_abd71c2e23844dabbeb44d81ace17510d"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#abd71c2e23844dabbeb44d81ace17510d">startPosition</a></td></tr>
-<tr class="memitem:a188f351ce732e05c8875e0f9413b2ef8" id="r_a188f351ce732e05c8875e0f9413b2ef8"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a188f351ce732e05c8875e0f9413b2ef8">endPosition</a></td></tr>
+<tr class="memitem:a202084a3a785047d075df4f29316167d" id="r_a202084a3a785047d075df4f29316167d"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a202084a3a785047d075df4f29316167d">waypoints</a></td></tr>
+<tr class="memdesc:a202084a3a785047d075df4f29316167d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Points suivants de la route, dans l'ordre ; <span class="tt"><a class="el" href="#abd71c2e23844dabbeb44d81ace17510d">startPosition</a></span> en est le point de départ implicite et n'y figure pas.  <br /></td></tr>
+<tr class="memitem:a4439872cd32088400c86796196d64bd8" id="r_a4439872cd32088400c86796196d64bd8"><td class="memItemLeft"><a class="el" href="namespacecore.html#a8a429a2ce785ee89ff543488b51750b1">PlatformPathMode</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4439872cd32088400c86796196d64bd8">mode</a> = <a class="el" href="namespacecore.html#a8a429a2ce785ee89ff543488b51750b1a99e52704462d3580db3528cad7ea9660">PlatformPathMode::PingPong</a></td></tr>
+<tr class="memdesc:a4439872cd32088400c86796196d64bd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bouclage du parcours : aller-retour (défaut) ou circuit fermé.  <br /></td></tr>
 <tr class="memitem:a02d28f032bf18c6fbd102e80855d8ce3" id="r_a02d28f032bf18c6fbd102e80855d8ce3"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a02d28f032bf18c6fbd102e80855d8ce3">speed</a> = 2.0f</td></tr>
 <tr class="memdesc:a02d28f032bf18c6fbd102e80855d8ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vitesse constante du parcours, en cases par seconde (<span class="tt">EX-GP-026</span>).  <br /></td></tr>
 <tr class="memitem:a4ca45c814ff28d1d6dfb5d3ce3848268" id="r_a4ca45c814ff28d1d6dfb5d3ce3848268"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a4ca45c814ff28d1d6dfb5d3ce3848268">phase</a> = 0</td></tr>
-<tr class="memdesc:a4ca45c814ff28d1d6dfb5d3ce3848268"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décalage initial dans le cycle aller-retour, en pas fixes (même principe que <span class="tt"><a class="el" href="structcore_1_1DangerBlinkConfig.html#a74ae6768940a966b4ab83994dbc80295" title="Décalage initial dans le cycle, en pas fixes.">DangerBlinkConfig::phase</a></span>).  <br /></td></tr>
+<tr class="memdesc:a4ca45c814ff28d1d6dfb5d3ce3848268"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décalage initial dans le cycle, en pas fixes (même principe que <span class="tt"><a class="el" href="structcore_1_1DangerBlinkConfig.html#a74ae6768940a966b4ab83994dbc80295" title="Décalage initial dans le cycle, en pas fixes.">DangerBlinkConfig::phase</a></span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Paramètres d'une plateforme mobile (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a3bcc08b00f6aaac65d7a125de705dd4b">TileType::MovingPlatform</a></span>, <span class="tt">EX-GP-026</span>) : aller- retour linéaire déterministe entre deux points, à vitesse constante. </p>
-<p>Même patron que <span class="tt"><a class="el" href="structcore_1_1DangerMoverConfig.html" title="Paramètres d&#39;un danger mobile (TileType::DangerMover, EX-GP-051) : axe et portée de son aller-retour ...">DangerMoverConfig</a></span>/<span class="tt"><a class="el" href="structcore_1_1DangerBlinkConfig.html" title="Paramètres d&#39;un danger temporisé (TileType::DangerBlink, EX-GP-053) : période, déphasage et durée act...">DangerBlinkConfig</a></span> : vit dans un vecteur annexe de <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">Level</a></span>, keyé par position, <span class="tt"><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">TileMap</a></span> ne portant qu'un <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">TileType</a></span> par case. <span class="tt"><a class="el" href="#abd71c2e23844dabbeb44d81ace17510d">startPosition</a></span> est la position de la tuile dans le fichier (point de départ) ; <span class="tt"><a class="el" href="#a188f351ce732e05c8875e0f9413b2ef8">endPosition</a></span> est le second point du parcours — un simple aller-retour entre les deux suffit au besoin (pas de chemin multi-points, cf. <span class="tt">epic.md</span>). <span class="tt"><a class="el" href="#a4ca45c814ff28d1d6dfb5d3ce3848268" title="Décalage initial dans le cycle aller-retour, en pas fixes (même principe que DangerBlinkConfig::phase...">phase</a></span>, en pas fixes, reprend le patron du danger temporisé (<span class="tt"><a class="el" href="structcore_1_1DangerBlinkConfig.html#a74ae6768940a966b4ab83994dbc80295" title="Décalage initial dans le cycle, en pas fixes.">DangerBlinkConfig::phase</a></span>, <span class="tt">EX-GP-053</span>) pour désynchroniser plusieurs plateformes. </p>
+<div class="textblock"><p>Paramètres d'une plateforme mobile (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a3bcc08b00f6aaac65d7a125de705dd4b">TileType::MovingPlatform</a></span>, <span class="tt">EX-GP-026</span>) : route multi-points parcourue à vitesse constante, de façon linéaire et déterministe. </p>
+<p>Même patron que <span class="tt"><a class="el" href="structcore_1_1DangerMoverConfig.html" title="Paramètres d&#39;un danger mobile (TileType::DangerMover, EX-GP-051) : axe et portée de son aller-retour ...">DangerMoverConfig</a></span>/<span class="tt"><a class="el" href="structcore_1_1DangerBlinkConfig.html" title="Paramètres d&#39;un danger temporisé (TileType::DangerBlink, EX-GP-053) : période, déphasage et durée act...">DangerBlinkConfig</a></span> : vit dans un vecteur annexe de <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">Level</a></span>, keyé par position, <span class="tt"><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">TileMap</a></span> ne portant qu'un <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">TileType</a></span> par case. <span class="tt"><a class="el" href="#abd71c2e23844dabbeb44d81ace17510d">startPosition</a></span> est la position de la tuile dans le fichier : elle est le <b>premier point</b> de la route et n'est jamais répétée dans <span class="tt"><a class="el" href="#a202084a3a785047d075df4f29316167d" title="Points suivants de la route, dans l&#39;ordre ; startPosition en est le point de départ implicite et n&#39;y ...">waypoints</a></span>, qui ne contient que les points <b>suivants</b>, dans l'ordre de parcours. Une route vide (aucun waypoint, ou tous confondus avec le départ) décrit une plateforme immobile — une erreur de conception tolérée, pas un niveau invalide (<span class="tt">EX-NFR-040</span>).</p>
+<p><span class="tt"><a class="el" href="#a4ca45c814ff28d1d6dfb5d3ce3848268" title="Décalage initial dans le cycle, en pas fixes (même principe que DangerBlinkConfig::phase).">phase</a></span>, en pas fixes, reprend le patron du danger temporisé (<span class="tt"><a class="el" href="structcore_1_1DangerBlinkConfig.html#a74ae6768940a966b4ab83994dbc80295" title="Décalage initial dans le cycle, en pas fixes.">DangerBlinkConfig::phase</a></span>, <span class="tt">EX-GP-053</span>) pour désynchroniser plusieurs plateformes d'un même niveau. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="a188f351ce732e05c8875e0f9413b2ef8" name="a188f351ce732e05c8875e0f9413b2ef8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a188f351ce732e05c8875e0f9413b2ef8">&#9670;&#160;</a></span>endPosition</h2>
+<a id="a4439872cd32088400c86796196d64bd8" name="a4439872cd32088400c86796196d64bd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4439872cd32088400c86796196d64bd8">&#9670;&#160;</a></span>mode</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> core::MovingPlatformConfig::endPosition</td>
+          <td class="memname"><a class="el" href="namespacecore.html#a8a429a2ce785ee89ff543488b51750b1">PlatformPathMode</a> core::MovingPlatformConfig::mode = <a class="el" href="namespacecore.html#a8a429a2ce785ee89ff543488b51750b1a99e52704462d3580db3528cad7ea9660">PlatformPathMode::PingPong</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Bouclage du parcours : aller-retour (défaut) ou circuit fermé. </p>
 
 </div>
 </div>
@@ -137,7 +143,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Décalage initial dans le cycle aller-retour, en pas fixes (même principe que <span class="tt"><a class="el" href="structcore_1_1DangerBlinkConfig.html#a74ae6768940a966b4ab83994dbc80295" title="Décalage initial dans le cycle, en pas fixes.">DangerBlinkConfig::phase</a></span>). </p>
+<p>Décalage initial dans le cycle, en pas fixes (même principe que <span class="tt"><a class="el" href="structcore_1_1DangerBlinkConfig.html#a74ae6768940a966b4ab83994dbc80295" title="Décalage initial dans le cycle, en pas fixes.">DangerBlinkConfig::phase</a></span>). </p>
 
 </div>
 </div>
@@ -168,6 +174,23 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a202084a3a785047d075df4f29316167d" name="a202084a3a785047d075df4f29316167d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a202084a3a785047d075df4f29316167d">&#9670;&#160;</a></span>waypoints</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&gt; core::MovingPlatformConfig::waypoints</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Points suivants de la route, dans l'ordre ; <span class="tt"><a class="el" href="#abd71c2e23844dabbeb44d81ace17510d">startPosition</a></span> en est le point de départ implicite et n'y figure pas. </p>
+<p>Un seul waypoint = l'aller-retour à deux points historique. </p>
 
 </div>
 </div>

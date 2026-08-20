@@ -98,7 +98,7 @@ $(function(){initNavTree('lots.html','',''); });
 <blockquote class="doxtable">
 <p><b>Exception actée — programme d'habillage <span class="tt">LOT-40</span> → <span class="tt">LOT-55</span>.</b> La règle ci-dessus protège les identifiants <b>livrés</b> : un lot terminé n'est jamais renuméroté, sous peine de rendre fausses toutes les références du CHANGELOG, des commits et des spécifications. Les lots <span class="tt">LOT-40</span> à <span class="tt">LOT-48</span>, <b>tous non commencés</b>, ont été renumérotés <b>une seule fois</b>, lors du recadrage du programme d'habillage, afin que le numéro corresponde à l'ordre d'implémentation réel. Cette exception ne se reproduira pas : à partir de ce recadrage, tout lot planifié conserve son numéro même si son ordre d'exécution change. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3055"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3119"></a>
 Lots</h1>
 <ul>
 <li><a class="el" href="lot-01.html" title="LOT-01 — Fenêtre &amp; boucle de jeu (Direct3D 11)">LOT-01 — Fenêtre &amp; boucle de jeu (Direct3D 11)</a></li>
@@ -167,8 +167,13 @@ Lots</h1>
 <li><a class="el" href="lot-64.html" title="LOT-64 — Cadrage de caméra choisi par le level designer">LOT-64 — Cadrage de caméra choisi par le level designer</a></li>
 <li><a class="el" href="lot-65.html" title="LOT-65 — Refonte des niveaux de démonstration">LOT-65 — Refonte des niveaux de démonstration</a></li>
 <li><a class="el" href="lot-66.html" title="LOT-66 — Reproductibilité et référentiel">LOT-66 — Reproductibilité et référentiel</a></li>
+<li><a class="el" href="lot-67.html" title="LOT-67 — Trajectoires et règles de tableau éditables">LOT-67 — Trajectoires et règles de tableau éditables</a></li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3056"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3120"></a>
+Apres le programme <span class="tt">0.1.0</span></h1>
+<p>Le <span class="tt">LOT-68</span> poursuit dans la meme veine : refonte de l'interface, en deux volets — degraissage des surfaces de commande de l'editeur et identite pixel art des ecrans du jeu (<span class="tt">EX-IHM-070</span> a <span class="tt">EX-IHM-074</span>). Comme le <span class="tt">LOT-67</span>, il repond a un manque constate a l'usage plutot qu'a un programme cadre ; il est documente par ses exigences et les guides, sans dossier de lot dedie.</p>
+<p>Le <a class="el" href="lot-67.html" title="LOT-67 — Trajectoires et règles de tableau éditables">LOT-67</a> ouvre la suite : il ne fait partie d'aucun programme cadre, et repond a un manque constate a l'usage de l'editeur — les trajectoires des elements mobiles et les regles de mobilite d'un tableau n'etaient editables qu'en modifiant le JSON a la main.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3121"></a>
 Programme <span class="tt">0.1.0</span></h1>
 <p>Les lots <span class="tt">LOT-58</span> à <span class="tt">LOT-66</span>, avec le <span class="tt">LOT-53</span> (cadré de longue date et resté non commencé), forment le programme de la version <b><span class="tt">0.1.0</span></b> : le passage d'un moteur complet à un <b>jeu</b> distribuable. Deux familles s'y répondent — la <b>complétude produit</b> (boucle de jeu, son, effets, mécanismes manquants, cadrage de caméra, refonte des niveaux) et le <b>durcissement d'ingénierie</b> (vérification en Release, sanitizer, analyse statique, diagnostics d'une version publiée, budget de rendu mesuré).</p>
 <p>Ces lots sont numérotés <b>dans leur ordre d'exécution</b>, ce que la règle générale ci-dessus permet puisqu'aucun n'était encore livré au moment de leur cadrage. Seul le <span class="tt">LOT-53</span>, cadré de longue date et déjà publié sous ce numéro, conserve le sien et s'exécute entre le <span class="tt">LOT-60</span> et le <span class="tt">LOT-61</span> : c'est précisément le cas que la règle protège.</p>

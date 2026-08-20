@@ -122,7 +122,11 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespacehmi.html#af951fa0fccb19bed92c122562085977aa538dd7170e9aa85616805507f70f32df">hmi::PixelTools</a>
 , <a class="el" href="namespacehmi.html#af951fa0fccb19bed92c122562085977aa86a1b1e9341f1107357650f07ca05a4d">hmi::PixelCommands</a>
  }</td></tr>
-<tr class="memdesc:af951fa0fccb19bed92c122562085977a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Groupe d'exclusivité d'une action : les six outils d'édition forment un groupe <b>exclusif</b> (un seul actif à la fois) ; les commandes n'appartiennent à aucun groupe.  <a href="namespacehmi.html#af951fa0fccb19bed92c122562085977a">More...</a><br /></td></tr>
+<tr class="memdesc:af951fa0fccb19bed92c122562085977a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Groupe d'exclusivité d'une action : les outils d'édition forment un groupe <b>exclusif</b> (un seul actif à la fois) ; les commandes n'appartiennent à aucun groupe.  <a href="namespacehmi.html#af951fa0fccb19bed92c122562085977a">More...</a><br /></td></tr>
+<tr class="memitem:a2a7c152b5b5451602bbf4e4f416b402b" id="r_a2a7c152b5b5451602bbf4e4f416b402b"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a2a7c152b5b5451602bbf4e4f416b402b">hmi::ActionSurface</a> { <a class="el" href="namespacehmi.html#a2a7c152b5b5451602bbf4e4f416b402ba3cac7b31749040871dcdb00cfa905f67">hmi::ToolBarAndMenu</a>
+, <a class="el" href="namespacehmi.html#a2a7c152b5b5451602bbf4e4f416b402ba32be0f45035a8e01272e3765f3e53623">hmi::MenuOnly</a>
+ }</td></tr>
+<tr class="memdesc:a2a7c152b5b5451602bbf4e4f416b402b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Surface d'une action (<span class="tt">LOT-68</span>, <span class="tt">EX-IHM-074</span>).  <a href="namespacehmi.html#a2a7c152b5b5451602bbf4e4f416b402b">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -138,8 +142,10 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a79f2b5a2f6530436d6f2b090de10d6ac" id="r_a79f2b5a2f6530436d6f2b090de10d6ac"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a79f2b5a2f6530436d6f2b090de10d6ac">hmi::EDITOR_ACTION_CATALOG_COUNT</a> = 31</td></tr>
-<tr class="memdesc:a79f2b5a2f6530436d6f2b090de10d6ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre total d'actions du catalogue (sept outils de niveau, cinq outils de canevas pixel art, onze commandes principales, quatre commandes de fichier de l'atelier, quatre commandes de région de l'atelier).  <br /></td></tr>
+<tr class="memitem:a79f2b5a2f6530436d6f2b090de10d6ac" id="r_a79f2b5a2f6530436d6f2b090de10d6ac"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a79f2b5a2f6530436d6f2b090de10d6ac">hmi::EDITOR_ACTION_CATALOG_COUNT</a> = 32</td></tr>
+<tr class="memdesc:a79f2b5a2f6530436d6f2b090de10d6ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre total d'actions du catalogue (huit outils de niveau, cinq outils de canevas pixel art, onze commandes principales, quatre commandes de fichier de l'atelier, quatre commandes de région de l'atelier).  <br /></td></tr>
+<tr class="memitem:a5ebc32fedafb3df6472a578a8faf7596" id="r_a5ebc32fedafb3df6472a578a8faf7596"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a5ebc32fedafb3df6472a578a8faf7596">hmi::TOOLBAR_COMMAND_BUDGET</a> = 5</td></tr>
+<tr class="memdesc:a5ebc32fedafb3df6472a578a8faf7596"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'actions <b>hors sélection d'outil</b> admises dans une barre d'outils (<span class="tt">LOT-68</span>).  <br /></td></tr>
 <tr class="memitem:a1a8d24174b415e8452f331c030addee6" id="r_a1a8d24174b415e8452f331c030addee6"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a1a8d24174b415e8452f331c030addee6">hmi::KEY_BINDING_ICON_COUNT</a> = 9</td></tr>
 <tr class="memdesc:a1a8d24174b415e8452f331c030addee6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'actions d'éditeur remappables ayant une commande effective (<span class="tt"><a class="el" href="namespacehmi.html#af2f4a1af04682540c1b84611a24aa42c" title="Nombre d&#39;actions d&#39;éditeur remappables (EditorAction).">EDITOR_ACTION_COUNT</a></span> moins <span class="tt">TextureAssignTool</span>).  <br /></td></tr>
 </table>

@@ -127,12 +127,22 @@ Functions</h2></td></tr>
 <tr class="memdesc:af861a094d46dbf0c3be671cb207fc540"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">restsOnTopOfPlatform</span> détecte une boîte posée sur le dessus d'une plateforme, et refuse un simple contact latéral ou l'absence de chevauchement.  <br /></td></tr>
 <tr class="memitem:a77e03e41da47bccf6cd972a642c253f9" id="r_a77e03e41da47bccf6cd972a642c253f9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a77e03e41da47bccf6cd972a642c253f9">TEST</a> (PlatformControllerTest, IsSquishedByPlatformDetecteLEcrasement)</td></tr>
 <tr class="memdesc:a77e03e41da47bccf6cd972a642c253f9"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">isSquishedByPlatform</span> détecte un personnage porté embarqué dans une tuile solide (écrasement plafond, <span class="tt">EX-GP-026</span>), et ne signale rien en espace libre.  <br /></td></tr>
+<tr class="memitem:a2ee303ad7f7696ebfeb6bfdc3a332a00" id="r_a2ee303ad7f7696ebfeb6bfdc3a332a00"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2ee303ad7f7696ebfeb6bfdc3a332a00">TEST</a> (PlatformControllerTest, RouteATroisPointsEstParcourueEnAllerRetour)</td></tr>
+<tr class="memdesc:a2ee303ad7f7696ebfeb6bfdc3a332a00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une route à trois points est parcourue segment par segment à vitesse constante, puis refaite à l'envers (aller-retour généralisé, <span class="tt">EX-GP-054</span>).  <br /></td></tr>
+<tr class="memitem:a7707275a5fe7e86b26ed77d56e0a7c63" id="r_a7707275a5fe7e86b26ed77d56e0a7c63"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7707275a5fe7e86b26ed77d56e0a7c63">TEST</a> (PlatformControllerTest, CircuitFermeNeRebrousseJamaisChemin)</td></tr>
+<tr class="memdesc:a7707275a5fe7e86b26ed77d56e0a7c63"><td class="mdescLeft">&#160;</td><td class="mdescRight">En mode circuit fermé, la plateforme revient au départ par le segment de fermeture sans jamais rebrousser chemin (<span class="tt">EX-GP-054</span>).  <br /></td></tr>
+<tr class="memitem:a2158ba4dc3d83d5a01bdfc98187258f5" id="r_a2158ba4dc3d83d5a01bdfc98187258f5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2158ba4dc3d83d5a01bdfc98187258f5">TEST</a> (PlatformControllerTest, RouteDegenereeLaissePlateformeImmobile)</td></tr>
+<tr class="memdesc:a2158ba4dc3d83d5a01bdfc98187258f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une route dégénérée (aucun point, ou points confondus avec le départ) laisse la plateforme immobile plutôt que de diviser par une longueur nulle (<span class="tt">EX-NFR-040</span>).  <br /></td></tr>
+<tr class="memitem:ac0e309f08d34cb7b924c2db4ebe6ba28" id="r_ac0e309f08d34cb7b924c2db4ebe6ba28"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac0e309f08d34cb7b924c2db4ebe6ba28">TEST</a> (PlatformControllerTest, PointDupliqueNeCassePasLeParcours)</td></tr>
+<tr class="memdesc:ac0e309f08d34cb7b924c2db4ebe6ba28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un point dupliqué au milieu d'une route ne produit ni division par zéro ni saut : le segment de longueur nulle est simplement traversé (<span class="tt">EX-NFR-040</span>).  <br /></td></tr>
+<tr class="memitem:ad261c70cf3718b0260c11db5ae1742bf" id="r_ad261c70cf3718b0260c11db5ae1742bf"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad261c70cf3718b0260c11db5ae1742bf">TEST</a> (PlatformControllerTest, AucuneDeriveApresDesMillionsDePas)</td></tr>
+<tr class="memdesc:ad261c70cf3718b0260c11db5ae1742bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">La position reste exacte après des millions de pas fixes : le parcours est une fonction pure du numéro de pas, calculée sans perte de précision (<span class="tt">EX-NFR-002</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de la plateforme mobile (<span class="tt"><a class="el" href="classcore_1_1PlatformController.html" title="Fait vivre les plateformes mobiles d&#39;un niveau (TileType::MovingPlatform, EX-GP-026).">core::PlatformController</a></span>, <span class="tt">EX-GP-026</span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a8e775e6ceccd19bf0ad34c8dab1353ea" name="a8e775e6ceccd19bf0ad34c8dab1353ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e775e6ceccd19bf0ad34c8dab1353ea">&#9670;&#160;</a></span>TEST() <span class="overload">[1/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e775e6ceccd19bf0ad34c8dab1353ea">&#9670;&#160;</a></span>TEST() <span class="overload">[1/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -162,7 +172,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="afa4b8d47022f32c79a2b5d8f5e303215" name="afa4b8d47022f32c79a2b5d8f5e303215"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa4b8d47022f32c79a2b5d8f5e303215">&#9670;&#160;</a></span>TEST() <span class="overload">[2/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afa4b8d47022f32c79a2b5d8f5e303215">&#9670;&#160;</a></span>TEST() <span class="overload">[2/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -191,8 +201,68 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ad261c70cf3718b0260c11db5ae1742bf" name="ad261c70cf3718b0260c11db5ae1742bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad261c70cf3718b0260c11db5ae1742bf">&#9670;&#160;</a></span>TEST() <span class="overload">[3/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PlatformControllerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AucuneDeriveApresDesMillionsDePas</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La position reste exacte après des millions de pas fixes : le parcours est une fonction pure du numéro de pas, calculée sans perte de précision (<span class="tt">EX-NFR-002</span>). </p>
+<p><b>Cas de test :</b> <b>La position ne dérive pas après des millions de pas fixes.</b><br  />
+ <b>Categorie :</b> Unitaire · Platform Controller<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser une plateforme dont le cycle dure un nombre entier de pas.<br  />
+2. Comparer la position apres un tres grand nombre de cycles entiers a celle du meme reste de cycle.<br  />
+ <b>Resultat attendu :</b> Les deux positions coincident : aucune derive accumulee, contrairement a un calcul mene en simple precision qui perdrait le bit de poids faible au-dela de ~16,7 millions de pas. </p>
+
+</div>
+</div>
+<a id="a7707275a5fe7e86b26ed77d56e0a7c63" name="a7707275a5fe7e86b26ed77d56e0a7c63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7707275a5fe7e86b26ed77d56e0a7c63">&#9670;&#160;</a></span>TEST() <span class="overload">[4/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PlatformControllerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CircuitFermeNeRebrousseJamaisChemin</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>En mode circuit fermé, la plateforme revient au départ par le segment de fermeture sans jamais rebrousser chemin (<span class="tt">EX-GP-054</span>). </p>
+<p><b>Cas de test :</b> <b>Un circuit fermé se parcourt toujours dans le même sens.</b><br  />
+ <b>Categorie :</b> Unitaire · Platform Controller<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser un carre (1,1), (3,1), (3,3), (1,3) en mode boucle.<br  />
+2. Avancer d'un cycle complet en relevant la position sur le segment de fermeture.<br  />
+ <b>Resultat attendu :</b> La plateforme emprunte le segment de fermeture puis retrouve exactement sa position de depart apres un cycle, sans repasser a l'envers par les points intermediaires. </p>
+
+</div>
+</div>
 <a id="a037f72cf7bc630c43a161de55296240d" name="a037f72cf7bc630c43a161de55296240d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a037f72cf7bc630c43a161de55296240d">&#9670;&#160;</a></span>TEST() <span class="overload">[3/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a037f72cf7bc630c43a161de55296240d">&#9670;&#160;</a></span>TEST() <span class="overload">[5/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -222,7 +292,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a517fafb35b79adef85d1994ee5ec82d3" name="a517fafb35b79adef85d1994ee5ec82d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a517fafb35b79adef85d1994ee5ec82d3">&#9670;&#160;</a></span>TEST() <span class="overload">[4/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a517fafb35b79adef85d1994ee5ec82d3">&#9670;&#160;</a></span>TEST() <span class="overload">[6/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -252,7 +322,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a876919f0a64b56de18112efb42bc14c5" name="a876919f0a64b56de18112efb42bc14c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a876919f0a64b56de18112efb42bc14c5">&#9670;&#160;</a></span>TEST() <span class="overload">[5/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a876919f0a64b56de18112efb42bc14c5">&#9670;&#160;</a></span>TEST() <span class="overload">[7/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -282,7 +352,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ad8840672d4e900cb8dc67f8d2fd2fa89" name="ad8840672d4e900cb8dc67f8d2fd2fa89"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8840672d4e900cb8dc67f8d2fd2fa89">&#9670;&#160;</a></span>TEST() <span class="overload">[6/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8840672d4e900cb8dc67f8d2fd2fa89">&#9670;&#160;</a></span>TEST() <span class="overload">[8/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -312,7 +382,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a77e03e41da47bccf6cd972a642c253f9" name="a77e03e41da47bccf6cd972a642c253f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a77e03e41da47bccf6cd972a642c253f9">&#9670;&#160;</a></span>TEST() <span class="overload">[7/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a77e03e41da47bccf6cd972a642c253f9">&#9670;&#160;</a></span>TEST() <span class="overload">[9/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -342,7 +412,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a028436afe299ebcbf7ac096ab6188fd0" name="a028436afe299ebcbf7ac096ab6188fd0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a028436afe299ebcbf7ac096ab6188fd0">&#9670;&#160;</a></span>TEST() <span class="overload">[8/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a028436afe299ebcbf7ac096ab6188fd0">&#9670;&#160;</a></span>TEST() <span class="overload">[10/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -371,8 +441,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ac0e309f08d34cb7b924c2db4ebe6ba28" name="ac0e309f08d34cb7b924c2db4ebe6ba28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0e309f08d34cb7b924c2db4ebe6ba28">&#9670;&#160;</a></span>TEST() <span class="overload">[11/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PlatformControllerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PointDupliqueNeCassePasLeParcours</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un point dupliqué au milieu d'une route ne produit ni division par zéro ni saut : le segment de longueur nulle est simplement traversé (<span class="tt">EX-NFR-040</span>). </p>
+<p><b>Cas de test :</b> <b>Un point dupliqué au milieu d'une route est traversé sans incident.</b><br  />
+ <b>Categorie :</b> Unitaire · Platform Controller<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser une route (1,1), (3,1), (3,1), (5,1) avec un point duplique.<br  />
+2. Relever la position de part et d'autre du point duplique.<br  />
+ <b>Resultat attendu :</b> La plateforme progresse a vitesse constante, comme si le doublon n'existait pas. </p>
+
+</div>
+</div>
 <a id="af861a094d46dbf0c3be671cb207fc540" name="af861a094d46dbf0c3be671cb207fc540"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af861a094d46dbf0c3be671cb207fc540">&#9670;&#160;</a></span>TEST() <span class="overload">[9/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af861a094d46dbf0c3be671cb207fc540">&#9670;&#160;</a></span>TEST() <span class="overload">[12/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -398,6 +498,66 @@ Functions</h2></td></tr>
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
  <b>Resultat attendu :</b> Vrai posé dessus, faux à côté ou trop loin. </p>
+
+</div>
+</div>
+<a id="a2ee303ad7f7696ebfeb6bfdc3a332a00" name="a2ee303ad7f7696ebfeb6bfdc3a332a00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ee303ad7f7696ebfeb6bfdc3a332a00">&#9670;&#160;</a></span>TEST() <span class="overload">[13/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PlatformControllerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RouteATroisPointsEstParcourueEnAllerRetour</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une route à trois points est parcourue segment par segment à vitesse constante, puis refaite à l'envers (aller-retour généralisé, <span class="tt">EX-GP-054</span>). </p>
+<p><b>Cas de test :</b> <b>Une route à trois points est parcourue puis refaite à l'envers.</b><br  />
+ <b>Categorie :</b> Unitaire · Platform Controller<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser une route en L (1,1) vers (3,1) puis (3,4), a vitesse 2 cases/s.<br  />
+2. Avancer pas a pas et relever la position aux instants remarquables de l'aller puis du retour.<br  />
+ <b>Resultat attendu :</b> La plateforme suit chaque segment a vitesse constante, atteint le dernier point au bout de l'aller, puis revient au depart en repassant par le coin. </p>
+
+</div>
+</div>
+<a id="a2158ba4dc3d83d5a01bdfc98187258f5" name="a2158ba4dc3d83d5a01bdfc98187258f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2158ba4dc3d83d5a01bdfc98187258f5">&#9670;&#160;</a></span>TEST() <span class="overload">[14/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PlatformControllerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RouteDegenereeLaissePlateformeImmobile</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une route dégénérée (aucun point, ou points confondus avec le départ) laisse la plateforme immobile plutôt que de diviser par une longueur nulle (<span class="tt">EX-NFR-040</span>). </p>
+<p><b>Cas de test :</b> <b>Une route dégénérée laisse la plateforme immobile.</b><br  />
+ <b>Categorie :</b> Unitaire · Platform Controller<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Construire une plateforme sans waypoint, puis une autre dont tous les waypoints valent la position de depart.<br  />
+2. Avancer de plusieurs pas fixes.<br  />
+ <b>Resultat attendu :</b> Les deux restent a leur position de depart, sans division par zero. </p>
 
 </div>
 </div>

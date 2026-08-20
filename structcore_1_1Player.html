@@ -114,8 +114,8 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:adff2c3089248a9bc8bcc286dff1550ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sens du <b>mur</b> au contact en l'air : -1 (mur à gauche) / +1 (à droite) / 0 (aucun), calculé par la physique (<span class="tt">EX-GP-016</span>).  <br /></td></tr>
 <tr class="memitem:ab37e8efccea023b2f1d4f6adada4290b" id="r_ab37e8efccea023b2f1d4f6adada4290b"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ab37e8efccea023b2f1d4f6adada4290b">wallJumpLockTimer</a> = 0.0f</td></tr>
 <tr class="memdesc:ab37e8efccea023b2f1d4f6adada4290b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temps restant (secondes) de <b>verrouillage</b> du contrôle horizontal après un wall jump (la vitesse d'éjection persiste tant qu'il n'est pas écoulé).  <br /></td></tr>
-<tr class="memitem:a7ab08163c367d65f04dfefee21b59529" id="r_a7ab08163c367d65f04dfefee21b59529"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a7ab08163c367d65f04dfefee21b59529">dashAvailable</a> = false</td></tr>
-<tr class="memdesc:a7ab08163c367d65f04dfefee21b59529"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le <b>dash</b> est-il disponible ?  <br /></td></tr>
+<tr class="memitem:aff93501a3b8bd4d52ab36f5a7c5b6855" id="r_aff93501a3b8bd4d52ab36f5a7c5b6855"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aff93501a3b8bd4d52ab36f5a7c5b6855">dashChargesRemaining</a> = 0</td></tr>
+<tr class="memdesc:aff93501a3b8bd4d52ab36f5a7c5b6855"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charges de <b>dash</b> restantes avant de retoucher le sol (<span class="tt">EX-GP-017</span>, <span class="tt">EX-GP-055</span>) ; consommées une par dash, toutes rechargées au contact du sol.  <br /></td></tr>
 <tr class="memitem:a2a7cb76eef85ffa779b1a6cb0e47cedf" id="r_a2a7cb76eef85ffa779b1a6cb0e47cedf"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a2a7cb76eef85ffa779b1a6cb0e47cedf">dashTimer</a> = 0.0f</td></tr>
 <tr class="memdesc:a2a7cb76eef85ffa779b1a6cb0e47cedf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Durée restante (secondes) du dash en cours ; &gt; 0 pendant la ruée (gravité suspendue).  <br /></td></tr>
 <tr class="memitem:a99d532084d5856cea35317d60ded63e8" id="r_a99d532084d5856cea35317d60ded63e8"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a99d532084d5856cea35317d60ded63e8">jumpsRemaining</a> = -1</td></tr>
@@ -199,20 +199,20 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a7ab08163c367d65f04dfefee21b59529" name="a7ab08163c367d65f04dfefee21b59529"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ab08163c367d65f04dfefee21b59529">&#9670;&#160;</a></span>dashAvailable</h2>
+<a id="aff93501a3b8bd4d52ab36f5a7c5b6855" name="aff93501a3b8bd4d52ab36f5a7c5b6855"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff93501a3b8bd4d52ab36f5a7c5b6855">&#9670;&#160;</a></span>dashChargesRemaining</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::Player::dashAvailable = false</td>
+          <td class="memname">int core::Player::dashChargesRemaining = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Le <b>dash</b> est-il disponible ? </p>
-<p>Consommé à l'usage, rechargé au contact du sol (<span class="tt">EX-GP-017</span>). </p>
+<p>Charges de <b>dash</b> restantes avant de retoucher le sol (<span class="tt">EX-GP-017</span>, <span class="tt">EX-GP-055</span>) ; consommées une par dash, toutes rechargées au contact du sol. </p>
+<p>Un compteur, et non plus un booléen : un tableau peut accorder plusieurs dashs par saut (<span class="tt"><a class="el" href="structcore_1_1PhysicsConfig.html#ac5e250214b0f7a815ad9006c960f1a09" title="Nombre de dashs utilisables entre deux contacts avec le sol (EX-GP-017, EX-GP-055).">PhysicsConfig::dashCharges</a></span>). </p>
 
 </div>
 </div>

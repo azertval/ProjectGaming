@@ -1,7 +1,8 @@
 var lots =
 [
-    [ "Lots", "lots.html#autotoc_md3055", null ],
-    [ "Programme <span class=\"tt\">0.1.0</span>", "lots.html#autotoc_md3056", null ],
+    [ "Lots", "lots.html#autotoc_md3119", null ],
+    [ "Apres le programme <span class=\"tt\">0.1.0</span>", "lots.html#autotoc_md3120", null ],
+    [ "Programme <span class=\"tt\">0.1.0</span>", "lots.html#autotoc_md3121", null ],
     [ "LOT-01 — Fenêtre &amp; boucle de jeu (Direct3D 11)", "lot-01.html", "lot-01" ],
     [ "LOT-02 — Journalisation &amp; diagnostics", "lot-02.html", "lot-02" ],
     [ "LOT-03 — Fondation ECS &amp; mathématiques Core", "lot-03.html", "lot-03" ],
@@ -15,16 +16,16 @@ var lots =
     [ "LOT-11 — Ressenti avancé : personnage humanoïde, gravité asymétrique, finitions", "lot-11.html", "lot-11" ],
     [ "LOT-12 — Niveau puzzle : mécanismes interrupteur/porte + budget de mouvements", "lot-12.html", "lot-12" ],
     [ "LOT-13 — Consolidation de la documentation", "lot-13.html", [
-      [ "Objectif", "lot-13.html#autotoc_md941", null ],
-      [ "Périmètre", "lot-13.html#autotoc_md942", [
-        [ "Inclus", "lot-13.html#autotoc_md943", null ],
-        [ "Exclus", "lot-13.html#autotoc_md944", null ]
+      [ "Objectif", "lot-13.html#autotoc_md946", null ],
+      [ "Périmètre", "lot-13.html#autotoc_md947", [
+        [ "Inclus", "lot-13.html#autotoc_md948", null ],
+        [ "Exclus", "lot-13.html#autotoc_md949", null ]
       ] ],
-      [ "Décisions de cadrage", "lot-13.html#autotoc_md945", null ],
-      [ "Exigences couvertes", "lot-13.html#autotoc_md946", null ],
-      [ "Découpage", "lot-13.html#autotoc_md947", null ],
-      [ "Critères d'acceptation du lot", "lot-13.html#autotoc_md948", null ],
-      [ "Dépendances", "lot-13.html#autotoc_md949", null ]
+      [ "Décisions de cadrage", "lot-13.html#autotoc_md950", null ],
+      [ "Exigences couvertes", "lot-13.html#autotoc_md951", null ],
+      [ "Découpage", "lot-13.html#autotoc_md952", null ],
+      [ "Critères d'acceptation du lot", "lot-13.html#autotoc_md953", null ],
+      [ "Dépendances", "lot-13.html#autotoc_md954", null ]
     ] ],
     [ "LOT-14 — Éditeur de niveaux intégré : édition de tuiles, mécanismes, essai immédiat", "lot-14.html", "lot-14" ],
     [ "LOT-15 — Éditeur de niveaux : robustesse et confort d'édition", "lot-15.html", "lot-15" ],
@@ -78,5 +79,6 @@ var lots =
     [ "LOT-63 — Mécanismes manquants du référentiel", "lot-63.html", "lot-63" ],
     [ "LOT-64 — Cadrage de caméra choisi par le level designer", "lot-64.html", "lot-64" ],
     [ "LOT-65 — Refonte des niveaux de démonstration", "lot-65.html", "lot-65" ],
-    [ "LOT-66 — Reproductibilité et référentiel", "lot-66.html", "lot-66" ]
+    [ "LOT-66 — Reproductibilité et référentiel", "lot-66.html", "lot-66" ],
+    [ "LOT-67 — Trajectoires et règles de tableau éditables", "lot-67.html", "lot-67" ]
 ];

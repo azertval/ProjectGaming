@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-08-tache-02-balayage-aabb.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-08-gameplay-personnage_2tache-02-balayage-aabb"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-08.html#md_Lot_2LOT-08-gameplay-personnage_2epic" title="Lot/LOT-08-gameplay-personnage/epic.md">LOT-08</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Physics</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md726"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md731"></a>
 Contexte</h1>
 <p>La décision de cadrage retient une <b>collision continue (swept AABB)</b> pour interdire toute traversée à vitesse élevée (<span class="tt">EX-GP-014</span>) et permettre des niveaux exigeant rapidité et précision. Cette tâche isole le <b>cœur géométrique</b> — une fonction <b>pure</b>, sans ECS ni rendu, donc testable exhaustivement.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md727"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md732"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Primitive de balayage</b> : étant donné une boîte AABB mobile (position + demi-tailles), un <b>déplacement</b> <span class="tt">(dx, dy)</span> sur le pas, et la grille de tuiles solides (<span class="tt">TileMap</span>), calculer le <b>temps d'impact</b> <span class="tt">t ∈ [0, 1]</span> du premier contact et la <b>normale</b> de la surface touchée.</li>
@@ -105,13 +105,13 @@ Travail à réaliser</h1>
 <li><b>Balayage contre la grille</b> : ne tester que les tuiles solides <b>traversées</b> par le déplacement (parcours de la plage de cellules concernée), pas toute la carte.</li>
 <li>API pressentie : un <span class="tt">sweptMove(aabb, delta, tileMap) -&gt; { Vector2 position; Vector2 normal; bool hit; }</span> (ou équivalent), éventuellement itéré en interne pour gérer plusieurs contacts successifs (mur puis sol) sur un même pas.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md728"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md733"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Aabb_8h.html" title="Boîte englobante alignée aux axes (AABB) et fabrique associée.">Source/Core/Physics/Aabb.h</a></span>, <span class="tt"><a class="el" href="SweptCollision_8h.html" title="Collision continue (balayage) d&#39;une boîte AABB contre une grille de tuiles solides.">SweptCollision.h</a></span>/<span class="tt">.cpp</span> (nouveaux).</li>
 <li><span class="tt">Source/Core/CMakeLists.txt</span>, <span class="tt">Source/Test/CMakeLists.txt</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md729"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md734"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Trajet libre</b> : aucun solide sur le chemin → déplacement complet, <span class="tt">hit == false</span>.</li>
@@ -121,7 +121,7 @@ Tests (obligatoires)</h1>
 <li><b>Glissement</b> : un déplacement diagonal contre un mur vertical conserve la composante verticale (la boîte glisse le long du mur).</li>
 <li><b>Coin</b> : arrivée sur un angle rentrant — arrêt propre, sans pénétration.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md730"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md735"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Géométrie pure</b> : <span class="tt">float</span> et <span class="tt">Vector2</span> uniquement ; aucun composant ECS, aucun DirectX.</li>
@@ -129,12 +129,12 @@ Points d'attention</h1>
 <li>Attention aux <b>bords de cellule</b> et aux déplacements nuls (éviter division par zéro, gérer <span class="tt">delta == 0</span> sur un axe).</li>
 <li>Rester <b>déterministe</b> (<span class="tt">EX-NFR-002</span>) : pas d'aléatoire, comportement identique à entrée égale.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md731"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md736"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Primitive de balayage + glissement fonctionnelle, documentée (Doxygen en en-tête, <span class="tt">//</span> dans le <span class="tt">.cpp</span>) et <b>couverte</b> par les cas ci-dessus (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md732"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md737"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-002</span>, <span class="tt">EX-GP-014</span>, <span class="tt">EX-NFR-002</span>, <span class="tt">EX-NFR-010</span>, <span class="tt">EX-ARCH-011</span>. </p>
 </div></div><!-- contents -->

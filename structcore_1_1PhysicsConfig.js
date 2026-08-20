@@ -4,6 +4,7 @@ var structcore_1_1PhysicsConfig =
     [ "apexGravityMultiplier", "structcore_1_1PhysicsConfig.html#ac393eb19e1428343e98922bcdd1451ab", null ],
     [ "apexThreshold", "structcore_1_1PhysicsConfig.html#a7e782cd22d0d68a6e918286166fab6f4", null ],
     [ "coyoteTime", "structcore_1_1PhysicsConfig.html#ac73ce3de3e423e272cad5f348e524bbe", null ],
+    [ "dashCharges", "structcore_1_1PhysicsConfig.html#ac5e250214b0f7a815ad9006c960f1a09", null ],
     [ "dashDuration", "structcore_1_1PhysicsConfig.html#a2e06016d2850f9cf6772501a9d0267cb", null ],
     [ "dashSpeed", "structcore_1_1PhysicsConfig.html#a888d96f8f59b21cc05de8aa32ad8567c", null ],
     [ "fallDragCoefficient", "structcore_1_1PhysicsConfig.html#ad25df5ec421bb0425ed733998852678e", null ],

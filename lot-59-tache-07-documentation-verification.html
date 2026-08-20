@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-59-tache-07-documentation-verification.html','',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-59-boucle-de-jeu_2tache-07-documentation-verification"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-59.html#md_Lot_2LOT-59-boucle-de-jeu_2epic" title="Lot/LOT-59-boucle-de-jeu/epic.md">LOT-59</a> · <b>Emplacement :</b> <span class="tt">Source/Test</span>, <span class="tt">Documentation</span> · <b>Statut :</b> fait (essai manuel humain restant, voir État)</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2700"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2705"></a>
 Contexte</h1>
 <p>Ce lot est le premier depuis longtemps à modifier ce que <b>voit le joueur</b> plutôt que ce que manipule le level designer. Deux documents s'en trouvent faux dès la première tâche : le manuel (« Quitter vers le menu — Échap ») et les spécifications, dont deux exigences portent une mention ⚠️ que ce lot lève.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2701"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2706"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Lever les mentions ⚠️</b> devenues fausses :<ul>
@@ -111,7 +111,7 @@ Travail à réaliser</h1>
 <li><b>Cahier de test</b> : régénérer via <span class="tt">python scripts/generate_cahier_test.py</span> ; chaque nouveau <span class="tt"><a class="el" href="test__animation__personnage_8cpp.html#a7869699d21aa0764adb7b4f64fd228f2" title="Au sol et immobile, le clip est Idle et l&#39;image alterne 0/1 après chaque durée d&#39;image.">TEST()</a></span> porte son bloc <span class="tt">\castest{}</span>, écrit <b>en même temps</b> que le test.</li>
 <li><b>Vérification manuelle</b>, au moment prévu par le lot et pas avant : jouer trois tableaux, mettre en pause, reprendre, quitter l'application, la relancer, vérifier <em>Continuer</em> ; terminer la séquence ; jouer un niveau personnel.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2702"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2707"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Documentation/Specification/{rendu-technique,gameplay,vision}.md</span>.</li>
@@ -120,7 +120,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="CahierTest_8md.html">Documentation/CahierTest.md</a></span> (régénéré, jamais édité à la main).</li>
 <li><span class="tt">CHANGELOG.md</span> (section <em>Non publié</em>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2703"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2708"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">python scripts/lint_exigences.py</span> — les quatre nouvelles exigences sont déclarées <b>une fois</b> et référencées ; aucune référence orpheline.</li>
@@ -129,7 +129,7 @@ Tests (obligatoires)</h1>
 <li><span class="tt">python scripts/build_docs.py</span> avec la version Doxygen épinglée par <span class="tt">ci.yml</span> (<span class="tt">DOXYGEN_VERSION</span>), pas celle du poste.</li>
 <li><span class="tt">ctest --preset vs</span> à 100 %.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2704"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2709"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne documenter que le livré.</b> Si une tâche a été rognée, le guide et le manuel décrivent ce qui existe, pas ce qui était prévu.</li>
@@ -137,12 +137,12 @@ Points d'attention</h1>
 <li>Dans la documentation Doxygen, ne jamais écrire <span class="tt"> `fichier.cpp::Nom` </span> : le <span class="tt">::</span> dans un span casse la génération sur la version épinglée de la CI sans rien dire en local.</li>
 <li>Vérifier la CI <b>complète</b> avant d'ouvrir la PR (<span class="tt">gh pr checks</span>), pas seulement le lint d'exigences.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2705"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2710"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les deux mentions ⚠️ sont levées, le manuel décrit les contrôles réels, le guide documente la machine à états et les deux nouveaux formats, le cahier est régénéré, tous les scripts de vérification et la CI complète sont verts, l'essai manuel est fait.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2706"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2711"></a>
 État</h1>
 <p><b>Documentation.</b> <span class="tt">EX-REN-031</span>/<span class="tt">EX-GP-040</span> levées (⚠️ retirée, description réécrite sur ce qui est livré) ; <span class="tt">EX-IHM-004</span>/<span class="tt">EX-IHM-005</span>/<span class="tt">EX-LVL-013</span>/<span class="tt">EX-LVL-014</span> passées de « prévu » à « concrétisé » en <span class="tt">LOT-59</span>. <span class="tt"><a class="el" href="jouer_8md.html">Documentation/Manuel/jouer.md</a></span> : menu à six entrées, sections Pause et Progression/ sélection ajoutées, Échap corrigé (met en pause, ne quitte plus). <span class="tt">Documentation/Guide/
 <a class="el" href="guide-ecrans_8md.html">guide-ecrans.md</a></span> réécrit en profondeur (machine à états <span class="tt">hmi::ScreenFlow</span>, patron page vs recouvrement et sa raison, piège du réarmement d'horloge en pause, fin de niveau/séquence, sélection et déverrouillage) ; <span class="tt"><a class="el" href="guide-niveaux_8md.html">Documentation/Guide/guide-niveaux.md</a></span> corrigé (le paragraphe « Issue et enchaînement » décrivait encore l'ancien enchaînement automatique) et étendu (format de <span class="tt">sequence-demo.json</span>). <span class="tt">CHANGELOG.md</span> (section <em>Non publié</em>) et cahier de test régénérés.</p>
@@ -151,7 +151,7 @@ scripts/build_docs.py</span> passe (<span class="tt">WARN_AS_ERROR</span>, même
 <p><b>Scripts de vérification</b> : <span class="tt">lint_exigences.py</span>, <span class="tt">generate_cahier_test.py --check</span>, <span class="tt">check_demo_sequence.py</span> tous verts. <span class="tt">ctest</span> (preset <span class="tt">ninja</span>, le seul utilisable en local sur ce poste — le preset <span class="tt">vs</span> exige un générateur Visual Studio 17 2022 indisponible) : <b>972/972</b> (100 %).</p>
 <p><b>Essai manuel — partiellement automatisé, le reste réservé à un humain.</b> Une vérification visuelle automatisée (capture d'écran + navigation clavier, <span class="tt">SetForegroundWindow</span>/<span class="tt">SendKeys</span>/ <span class="tt">CopyFromScreen</span>) a confirmé avec de vraies captures : le menu principal à six entrées avec « Continuer » effectivement grisé sans progression, et l'écran <span class="tt"><a class="el" href="classhmi_1_1LevelSelectScreen.html" title="Écran (page du QStackedWidget, pas un recouvrement – atteint depuis le menu, jamais en jeu) listant l...">hmi::LevelSelectScreen</a></span> (page normale, onglet Séquence listant les quinze tableaux avec le premier jouable et les quatorze suivants marqués « (verrouillé) » — exactement la règle attendue). En revanche, l'entrée clavier synthétique (<span class="tt">SendKeys</span>) <b>n'atteint pas</b> le viewport de jeu embarqué (HWND natif enfant séparé, <span class="tt">QWidget::createWindowContainer</span>) : ni déplacement du personnage ni ouverture de la pause par Échap n'ont eu d'effet observable, alors que la même technique fonctionnait pour le menu — limite technique documentée dans la mémoire projet <span class="tt">project_win32_gui_automation_dpi</span>, pas une régression constatée. Un clic synthétique (<span class="tt">SetCursorPos</span>/<span class="tt">mouse_event</span>) a de plus été <b>bloqué par l'antivirus</b>. Conformément à la préférence déjà exprimée par l'utilisateur (« pas de test inapp », mémoire <span class="tt">feedback_no_live_gui_automation</span>), l'automatisation n'a <b>pas</b> été poussée plus loin (ex. <span class="tt">PostMessage</span> direct sur le HWND enfant) : le reste a été laissé à l'essai manuel humain.</p>
 <p><b>Et le risque signalé était fondé.</b> Le premier essai manuel réel (l'utilisateur, après merge de la PR de vérification initiale) a immédiatement reproduit le risque explicitement noté depuis <span class="tt">TACHE-02</span> : à la fin d'un tableau, le personnage se figeait mais aucun écran de fin de niveau n'apparaissait — ni, par le même mécanisme, l'écran de pause. Cause et correction détaillées dans l'État de <span class="tt">TACHE-02</span> (fenêtre de haut niveau distincte au lieu d'un widget frère du conteneur du viewport) ; corrigé et revérifié (<span class="tt">ctest</span> 972/972, CI complète verte) avant de redemander l'essai manuel.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2707"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2712"></a>
 Exigences</h1>
 <p>Réutilise <span class="tt">EX-REN-031</span>, <span class="tt">EX-GP-040</span> (levées), <span class="tt">EX-IHM-004</span>, <span class="tt">EX-IHM-005</span>, <span class="tt">EX-LVL-013</span>, <span class="tt">EX-LVL-014</span>, <span class="tt">EX-NFR-012</span> (conventions), <span class="tt">EX-NFR-020</span> (tests), <span class="tt">EX-NFR-022</span> (CI verte). </p>
 </div></div><!-- contents -->

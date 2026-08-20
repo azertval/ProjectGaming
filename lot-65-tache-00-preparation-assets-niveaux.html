@@ -94,7 +94,7 @@ $(function(){initNavTree('lot-65-tache-00-preparation-assets-niveaux.html','',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-65-refonte-niveaux-demo_2tache-00-preparation-assets-niveaux"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-65.html#md_Lot_2LOT-65-refonte-niveaux-demo_2epic" title="Lot/LOT-65-refonte-niveaux-demo/epic.md">LOT-65</a> · <b>Emplacement :</b> <span class="tt">Source/Elements/Assets</span>, <span class="tt">scripts</span>, <span class="tt">Source/Elements/Levels</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2922"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2927"></a>
 Contexte</h1>
 <p>La <span class="tt">TACHE-01</span> pose le garde-fou de couverture, et les <span class="tt">TACHE-02</span>/<span class="tt">TACHE-03</span> s'appuient dessus pour refondre le contenu. Deux constats, faits en préparant le lot, changent l'ordre de départ prévu :</p>
 <ol type="1">
@@ -105,9 +105,9 @@ Contexte</h1>
 <blockquote class="doxtable">
 <p>Note au passage : l'epic et plusieurs documents antérieurs au lot mentionnent encore « quinze tableaux ». Le <span class="tt">LOT-63</span>, fusionné entre-temps, en a porté le nombre à dix-sept (<span class="tt">demo-cle.json</span>, <span class="tt">demo-plateforme.json</span>). Cette tâche corrige la mention dans les documents du <span class="tt">LOT-65</span> ; elle ne touche pas aux documents des lots déjà clos, qui décrivent un état passé. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2923"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2928"></a>
 Travail à réaliser</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2924"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2929"></a>
 Banque d'assets</h2>
 <ul>
 <li><b>Étendre les scripts de génération procédurale</b> (<span class="tt">scripts/generate_test_*.py</span>) plutôt que d'en écrire de nouveaux à la main : plus de variantes de fond (<span class="tt">generate_test_backgrounds.py</span>), de décors (<span class="tt">generate_test_decors.py</span>), de textures d'objet (<span class="tt">generate_test_objects.py</span>) — toujours schématiques, reproductibles, sans dépendance externe, dans le même esprit que l'existant.</li>
@@ -116,7 +116,7 @@ Banque d'assets</h2>
 <li><b>Étoffer aussi <span class="tt">Decors/</span>/<span class="tt">Objects/</span></b> avec des sprites Kenney des mêmes packs (clôture, torche, chaîne, échelle, pièce, gemme) : même protocole, dimensions libres pour <span class="tt">Decors/</span> (calées sur la largeur ou la hauteur pour rester proches de la densité de la grille de 16 px), carré 16×16 imposé pour <span class="tt">Objects/</span>.</li>
 <li><b>Aucun art dessiné à la main dans ce lot</b> : génération par script ou retouche mécanique d'assets CC0 existants, jamais de création originale — même exclusion que celle déjà écrite dans l'epic pour <span class="tt">TACHE-02</span>/<span class="tt">TACHE-03</span>, étendue à cette tâche.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2925"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2930"></a>
 Remise à zéro des niveaux</h2>
 <ul>
 <li><b>Supprimer les dix-sept tableaux actuels</b> (<span class="tt">Source/Elements/Levels/demo-*.json</span>).</li>
@@ -126,7 +126,7 @@ Remise à zéro des niveaux</h2>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2926"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2931"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">scripts/generate_test_backgrounds.py</span>, <span class="tt">generate_test_decors.py</span>, <span class="tt">generate_test_objects.py</span> (étendus), nouveau <span class="tt">scripts/generate_test_player.py</span>.</li>
@@ -135,7 +135,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Levels/demo-*.json</span> (supprimés), <span class="tt">sequence-demo.json</span> (vidé).</li>
 <li><span class="tt"><a class="el" href="LOT-65-refonte-niveaux-demo_2epic_8md.html">Documentation/Lot/LOT-65-refonte-niveaux-demo/epic.md</a></span> (compte corrigé, décision de cadrage ajoutée, découpage mis à jour).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2927"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2932"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Chaque script de génération s'exécute sans erreur et produit des fichiers respectant le contrat de dimensions déjà validé au chargement (<span class="tt">EX-REN-007</span>) — vérifié en relançant l'éditeur ou par un test existant s'il couvre ces chemins.</li>
@@ -143,7 +143,7 @@ Tests (obligatoires)</h1>
 <li><span class="tt">CREDITS.md</span> documente chaque nouveau fichier retouché : sprite d'origine, pack, auteur, licence — même table que l'existant, une ligne par fichier.</li>
 <li><b>Pas de critère de franchissabilité ni de couverture ici</b> : ces deux garanties reviennent avec <span class="tt">TACHE-01</span> (garde-fou) et <span class="tt">TACHE-02</span>/<span class="tt">TACHE-03</span> (tableaux). Le seul critère de cette tâche est que les assets se chargent et que les niveaux soient bien absents.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2928"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2933"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le piège de chemin déjà rencontré avec <span class="tt">TextureCache</span></b> s'applique aussi ici : un asset ajouté dans un sous-dossier doit être désigné par le même chemin, préfixe compris, partout où il est référencé (<span class="tt">skins.json</span> compris).</li>
@@ -152,12 +152,12 @@ Points d'attention</h1>
 <li><b>Ce lot n'ajoute toujours aucune mécanique</b> : la banque d'assets s'étoffe, le moteur ne change pas. Un besoin de nouveau champ ou de nouveau type de tuile ressort comme un défaut à consigner, pas comme une extension de cette tâche.</li>
 <li>Volume : les images restées schématiques (générées par script) sont légères ; les sprites Kenney retouchés le sont aussi (16×16 ou 64×64), mais chaque ajout reste une image versionnée — réutiliser avant de multiplier.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2929"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2934"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>La banque d'assets couvre sensiblement plus de types et de familles qu'au début de la tâche (fond, décors, objets, personnage, jeu <span class="tt">kenney</span> étoffé), chaque ajout crédité s'il provient d'une source externe ; les dix-sept tableaux existants et leur séquence sont retirés ; l'epic du lot reflète le compte corrigé et la nouvelle décision de cadrage ; rien de tout cela ne prétend rendre la CI verte, ce n'est pas son critère.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2930"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2935"></a>
 Exigences</h1>
 <p>Réutilise <span class="tt">EX-REN-007</span> (contrat d'asset validé au chargement), <span class="tt">EX-REN-042</span> (assets hors code), <span class="tt">EX-REN-044</span> (fond de niveau), <span class="tt">EX-DEC-002</span> (couches de décor), <span class="tt">EX-EDIT-043</span> (textures par instance). N'introduit aucune exigence nouvelle : c'est de la préparation de contenu, pas une fonctionnalité. </p>
 </div></div><!-- contents -->

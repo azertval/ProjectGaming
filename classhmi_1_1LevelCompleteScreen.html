@@ -116,6 +116,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af867e095c5e3ed893cc2c417a7c16ebb" id="r_af867e095c5e3ed893cc2c417a7c16ebb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af867e095c5e3ed893cc2c417a7c16ebb">~LevelCompleteScreen</a> () override</td></tr>
 <tr class="memitem:a729e089ba3613e217bd2e5f9ccd36899" id="r_a729e089ba3613e217bd2e5f9ccd36899"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a729e089ba3613e217bd2e5f9ccd36899">configure</a> (bool sequenceComplete, const QString &amp;levelName)</td></tr>
 <tr class="memdesc:a729e089ba3613e217bd2e5f9ccd36899"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure l'écran avant affichage : <code class="param">sequenceComplete</code> choisit la variante (fin de séquence si le tableau réussi était le dernier, <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html#a20df02fa3115b15ed910cf81019174ee">GameViewport::isLastGameLevel</a></span>) ; <code class="param">levelName</code> est le nom du tableau réussi (ignoré en fin de séquence).  <br /></td></tr>
+<tr class="memitem:ad999bd0f7d7f7b280a48906d96b92b59" id="r_ad999bd0f7d7f7b280a48906d96b92b59"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad999bd0f7d7f7b280a48906d96b92b59">setRunSummary</a> (const QString &amp;elapsed, int deaths, int jumps)</td></tr>
+<tr class="memdesc:ad999bd0f7d7f7b280a48906d96b92b59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renseigne le bilan du tableau (<span class="tt">LOT-68</span>) : durée mise en forme, morts, sauts.  <br /></td></tr>
 <tr class="memitem:a2c7c74536878245627b5eb070cffd4f9" id="r_a2c7c74536878245627b5eb070cffd4f9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2c7c74536878245627b5eb070cffd4f9">retranslateUi</a> (const <a class="el" href="classhmi_1_1Localization.html">Localization</a> &amp;loc)</td></tr>
 <tr class="memdesc:a2c7c74536878245627b5eb070cffd4f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique la langue active aux libellés, y compris le titre dynamique (dernière configuration passée à <span class="tt"><a class="el" href="#a729e089ba3613e217bd2e5f9ccd36899" title="Configure l&#39;écran avant affichage : sequenceComplete choisit la variante (fin de séquence si le table...">configure</a></span>, langue par défaut au tout premier appel).  <br /></td></tr>
 <tr class="memitem:a192b543eda90ad7ec314a10e08602b40" id="r_a192b543eda90ad7ec314a10e08602b40"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a192b543eda90ad7ec314a10e08602b40">focusDefaultAction</a> ()</td></tr>
@@ -132,6 +134,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a6fbb9497809b987239a308d1ceb165b7" id="r_a6fbb9497809b987239a308d1ceb165b7"><td class="memItemLeft">const <a class="el" href="classhmi_1_1Localization.html">Localization</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a6fbb9497809b987239a308d1ceb165b7">_loc</a> = nullptr</td></tr>
 <tr class="memitem:ac1f4be37f9e8f5e77297f0c9edbcb39c" id="r_ac1f4be37f9e8f5e77297f0c9edbcb39c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ac1f4be37f9e8f5e77297f0c9edbcb39c">_sequenceComplete</a> = false</td></tr>
 <tr class="memitem:a74f2303cbb37e329fe1572f87c4a7aef" id="r_a74f2303cbb37e329fe1572f87c4a7aef"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a74f2303cbb37e329fe1572f87c4a7aef">_levelName</a></td></tr>
+<tr class="memitem:a68a8e5fbc1ce5b70972ce96f603fc22a" id="r_a68a8e5fbc1ce5b70972ce96f603fc22a"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a68a8e5fbc1ce5b70972ce96f603fc22a">_elapsed</a></td></tr>
+<tr class="memdesc:a68a8e5fbc1ce5b70972ce96f603fc22a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bilan du tableau (<span class="tt">LOT-68</span>), retenu pour être réécrit à chaque changement de langue — comme <span class="tt"><a class="el" href="#a74f2303cbb37e329fe1572f87c4a7aef">_levelName</a></span> : les libellés sont traduits, les chiffres non.  <br /></td></tr>
+<tr class="memitem:ad50673d8223a1f6c8697fbeae0589bd2" id="r_ad50673d8223a1f6c8697fbeae0589bd2"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ad50673d8223a1f6c8697fbeae0589bd2">_deaths</a> = 0</td></tr>
+<tr class="memitem:abc0f0ec3a2ac107fefc6c78bef6afa59" id="r_abc0f0ec3a2ac107fefc6c78bef6afa59"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#abc0f0ec3a2ac107fefc6c78bef6afa59">_jumps</a> = 0</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Recouvrement affiché à la réussite d'un tableau (<span class="tt">EX-GP-030</span>), même patron de superposition que <span class="tt"><a class="el" href="classhmi_1_1PauseScreen.html" title="Recouvrement de pause affiché par-dessus la scène de jeu figée (EX-GP-041).">PauseScreen</a></span> (widget frère de <span class="tt"><a class="el" href="classhmi_1_1MainWindow.html#ac5c63412581fcf98bd57cfe47e5b3510" title="Conteneur natif du viewport (page éditeur/jeu).">MainWindow::_editorContainer</a></span>, jamais une page du <span class="tt">QStackedWidget</span>). </p>
@@ -352,7 +358,104 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ad999bd0f7d7f7b280a48906d96b92b59" name="ad999bd0f7d7f7b280a48906d96b92b59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad999bd0f7d7f7b280a48906d96b92b59">&#9670;&#160;</a></span>setRunSummary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::LevelCompleteScreen::setRunSummary </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>elapsed</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>deaths</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>jumps</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Renseigne le bilan du tableau (<span class="tt">LOT-68</span>) : durée mise en forme, morts, sauts. </p>
+<p>Appelée avant <span class="tt"><a class="el" href="#a729e089ba3613e217bd2e5f9ccd36899" title="Configure l&#39;écran avant affichage : sequenceComplete choisit la variante (fin de séquence si le table...">configure</a></span> ou après, indifféremment — les deux écrivent des libellés distincts. </p>
+
+</div>
+</div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="ad50673d8223a1f6c8697fbeae0589bd2" name="ad50673d8223a1f6c8697fbeae0589bd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad50673d8223a1f6c8697fbeae0589bd2">&#9670;&#160;</a></span>_deaths</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::LevelCompleteScreen::_deaths = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a68a8e5fbc1ce5b70972ce96f603fc22a" name="a68a8e5fbc1ce5b70972ce96f603fc22a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68a8e5fbc1ce5b70972ce96f603fc22a">&#9670;&#160;</a></span>_elapsed</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::LevelCompleteScreen::_elapsed</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bilan du tableau (<span class="tt">LOT-68</span>), retenu pour être réécrit à chaque changement de langue — comme <span class="tt"><a class="el" href="#a74f2303cbb37e329fe1572f87c4a7aef">_levelName</a></span> : les libellés sont traduits, les chiffres non. </p>
+
+</div>
+</div>
+<a id="abc0f0ec3a2ac107fefc6c78bef6afa59" name="abc0f0ec3a2ac107fefc6c78bef6afa59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc0f0ec3a2ac107fefc6c78bef6afa59">&#9670;&#160;</a></span>_jumps</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::LevelCompleteScreen::_jumps = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a74f2303cbb37e329fe1572f87c4a7aef" name="a74f2303cbb37e329fe1572f87c4a7aef"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a74f2303cbb37e329fe1572f87c4a7aef">&#9670;&#160;</a></span>_levelName</h2>
 

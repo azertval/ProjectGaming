@@ -14,6 +14,8 @@ var dir_752285e6886e09507a240f7cc29fbbcf =
     [ "test_mechanism_animation_assignments.cpp", "test__mechanism__animation__assignments_8cpp.html", "test__mechanism__animation__assignments_8cpp" ],
     [ "test_palette_appearance.cpp", "test__palette__appearance_8cpp.html", "test__palette__appearance_8cpp" ],
     [ "test_panel_focus.cpp", "test__panel__focus_8cpp.html", "test__panel__focus_8cpp" ],
+    [ "test_path_geometry.cpp", "test__path__geometry_8cpp.html", "test__path__geometry_8cpp" ],
+    [ "test_path_gesture.cpp", "test__path__gesture_8cpp.html", "test__path__gesture_8cpp" ],
     [ "test_pixel_asset_io.cpp", "test__pixel__asset__io_8cpp.html", "test__pixel__asset__io_8cpp" ],
     [ "test_pixel_autotile_preview.cpp", "test__pixel__autotile__preview_8cpp.html", "test__pixel__autotile__preview_8cpp" ],
     [ "test_pixel_canvas_geometry.cpp", "test__pixel__canvas__geometry_8cpp.html", "test__pixel__canvas__geometry_8cpp" ],

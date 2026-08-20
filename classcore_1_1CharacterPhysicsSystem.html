@@ -100,8 +100,11 @@ $(function(){initNavTree('classcore_1_1CharacterPhysicsSystem.html','','classcor
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a75df455f70ba731f4a6f11245ae415bc" id="r_a75df455f70ba731f4a6f11245ae415bc"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a75df455f70ba731f4a6f11245ae415bc">CharacterPhysicsSystem</a> (<a class="el" href="structcore_1_1PhysicsConfig.html">PhysicsConfig</a> config={})</td></tr>
+<tr class="memitem:a75df455f70ba731f4a6f11245ae415bc" id="r_a75df455f70ba731f4a6f11245ae415bc"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a75df455f70ba731f4a6f11245ae415bc">CharacterPhysicsSystem</a> (<a class="el" href="structcore_1_1PhysicsConfig.html">PhysicsConfig</a> <a class="el" href="#af50cc2d2a27eb1db1d092db0697cdfde">config</a>={})</td></tr>
 <tr class="memdesc:a75df455f70ba731f4a6f11245ae415bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le système avec des réglages de physique donnés.  <br /></td></tr>
+<tr class="memitem:a01239c83c3ea3a228efda4f1420d8cef" id="r_a01239c83c3ea3a228efda4f1420d8cef"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a01239c83c3ea3a228efda4f1420d8cef">setConfig</a> (<a class="el" href="structcore_1_1PhysicsConfig.html">PhysicsConfig</a> <a class="el" href="#af50cc2d2a27eb1db1d092db0697cdfde">config</a>) noexcept</td></tr>
+<tr class="memdesc:a01239c83c3ea3a228efda4f1420d8cef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remplace les réglages de physique (<span class="tt">EX-GP-055</span>).  <br /></td></tr>
+<tr class="memitem:af50cc2d2a27eb1db1d092db0697cdfde" id="r_af50cc2d2a27eb1db1d092db0697cdfde"><td class="memItemLeft">const <a class="el" href="structcore_1_1PhysicsConfig.html">PhysicsConfig</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#af50cc2d2a27eb1db1d092db0697cdfde">config</a> () const noexcept</td></tr>
 <tr class="memitem:ab500e26acff834eb6866e6b78af23e98" id="r_ab500e26acff834eb6866e6b78af23e98"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab500e26acff834eb6866e6b78af23e98">update</a> (<a class="el" href="classcore_1_1World.html">World</a> &amp;world, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;tiles, const <a class="el" href="structcore_1_1PlayerInput.html">PlayerInput</a> &amp;input, float fixedDelta, const std::vector&lt; <a class="el" href="structcore_1_1PlatformSample.html">PlatformSample</a> &gt; &amp;platforms={}) const</td></tr>
 <tr class="memdesc:ab500e26acff834eb6866e6b78af23e98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique un pas de simulation à toutes les entités « personnage ».  <br /></td></tr>
 </table><table class="memberdecls">
@@ -156,7 +159,7 @@ Private Attributes</h2></td></tr>
 <p>Construit le système avec des réglages de physique donnés. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">config</td><td>Constantes de physique (vitesse, gravité, chute max). Valeurs par défaut si omis. </td></tr>
+    <tr><td class="paramname"><a class="el" href="#af50cc2d2a27eb1db1d092db0697cdfde">config</a></td><td>Constantes de physique (vitesse, gravité, chute max). Valeurs par défaut si omis. </td></tr>
   </table>
   </dd>
 </dl>
@@ -282,6 +285,32 @@ Private Attributes</h2></td></tr>
 
 <p>Porte le personnage avec la plateforme sur laquelle il repose (s'il en repose une), avant que sa propre physique ne s'applique &ndash; translation directe de <span class="tt">transform.position</span>. </p>
 <p>Marque <span class="tt">player.squished</span> si la translation l'embarque dans une tuile solide (écrasement plafond, <span class="tt">EX-GP-026</span>). </p>
+
+</div>
+</div>
+<a id="af50cc2d2a27eb1db1d092db0697cdfde" name="af50cc2d2a27eb1db1d092db0697cdfde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af50cc2d2a27eb1db1d092db0697cdfde">&#9670;&#160;</a></span>config()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structcore_1_1PhysicsConfig.html">PhysicsConfig</a> &amp; core::CharacterPhysicsSystem::config </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les réglages de physique courants. </dd></dl>
 
 </div>
 </div>
@@ -435,6 +464,39 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Étapes 0/0a-0d/1/2/2b/2bis de <a class="el" href="#ab500e26acff834eb6866e6b78af23e98" title="Applique un pas de simulation à toutes les entités « personnage ».">update()</a> (voir son .cpp) : à partir de l'intention d'entrée et des minuteries de game feel du personnage, détermine la vitesse voulue pour ce pas (saut, dash, gravité effective, wall slide) &ndash; ne touche ni <span class="tt"><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">Transform</a></span> ni les tuiles, seule la résolution de collision (ci-dessous) en a besoin. </p>
+
+</div>
+</div>
+<a id="a01239c83c3ea3a228efda4f1420d8cef" name="a01239c83c3ea3a228efda4f1420d8cef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01239c83c3ea3a228efda4f1420d8cef">&#9670;&#160;</a></span>setConfig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::CharacterPhysicsSystem::setConfig </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1PhysicsConfig.html">PhysicsConfig</a></td>          <td class="paramname"><span class="paramname"><em>config</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Remplace les réglages de physique (<span class="tt">EX-GP-055</span>). </p>
+<p>Sert au chargement d'un tableau qui redéfinit les capacités du personnage (sauts aériens, charges de dash) : le système n'a <b>aucun</b> état interne — tout l'état de simulation vit dans les composants ECS — donc échanger sa configuration est sans effet de bord, là où le reconstruire en cours de vie de l'appelant serait un geste inutilement lourd. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"><a class="el" href="#af50cc2d2a27eb1db1d092db0697cdfde">config</a></td><td>Nouvelles constantes de physique. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

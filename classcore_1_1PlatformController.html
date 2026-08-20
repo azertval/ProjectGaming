@@ -119,13 +119,15 @@ Private Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:aeb1af0d6ecf44ac6c5245a94d98291b0" id="r_aeb1af0d6ecf44ac6c5245a94d98291b0"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1MovingPlatformConfig.html">MovingPlatformConfig</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aeb1af0d6ecf44ac6c5245a94d98291b0">_configs</a></td></tr>
+<tr class="memitem:ae869601690f8509cd22db6008c683ad2" id="r_ae869601690f8509cd22db6008c683ad2"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1PlatformPath.html">PlatformPath</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae869601690f8509cd22db6008c683ad2">_paths</a></td></tr>
+<tr class="memdesc:ae869601690f8509cd22db6008c683ad2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Routes précalculées, une par entrée de <span class="tt"><a class="el" href="#aeb1af0d6ecf44ac6c5245a94d98291b0">_configs</a></span> et dans le même ordre (<span class="tt">EX-GP-054</span>).  <br /></td></tr>
 <tr class="memitem:a1f96d74d5bd280989aa069e74f8e3b6e" id="r_a1f96d74d5bd280989aa069e74f8e3b6e"><td class="memItemLeft">long long&#160;</td><td class="memItemRight"><a class="el" href="#a1f96d74d5bd280989aa069e74f8e3b6e">_stepCount</a> = 0</td></tr>
 <tr class="memdesc:a1f96d74d5bd280989aa069e74f8e3b6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de pas fixes écoulés depuis le chargement.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Fait vivre les <b>plateformes mobiles</b> d'un niveau (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a3bcc08b00f6aaac65d7a125de705dd4b">TileType::MovingPlatform</a></span>, <span class="tt">EX-GP-026</span>). </p>
 <p>Logique <b>pure</b> (aucun rendu ni fenêtre), sur le modèle de <span class="tt"><a class="el" href="classcore_1_1DangerController.html" title="Fait vivre les dangers mobile (TileType::DangerMover, EX-GP-051) et temporisé (TileType::DangerBlink,...">core::DangerController</a></span> (danger mobile, <span class="tt">EX-GP-051</span>) plutôt que de <span class="tt"><a class="el" href="classcore_1_1BlockController.html" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block/BlockHalf/ BlockQuarter,...">core::BlockController</a></span> : contrairement à un bloc poussable, la position d'une plateforme est <b>continue</b> (pas alignée sur la grille), fonction <b>déterministe</b> du nombre de pas fixes écoulés depuis le chargement (<span class="tt">EX-NFR-002</span>) — jamais d'accumulation flottante (<span class="tt">position += vitesse * dt</span>), qui dériverait sur une session longue.</p>
-<p>Aller-retour <b>linéaire</b> entre <span class="tt"><a class="el" href="structcore_1_1MovingPlatformConfig.html#abd71c2e23844dabbeb44d81ace17510d">MovingPlatformConfig::startPosition</a></span> et <span class="tt">endPosition</span>, à vitesse constante (<span class="tt">speed</span>, cases par seconde) : onde triangulaire, même principe que <span class="tt"><a class="el" href="classcore_1_1DangerController.html#a7ab7464ce644f1206c71e4a2f482b48e" title="Boîte mortelle courante du danger mobile index (dans l&#39;ordre de Level::moverConfigs()),...">DangerController::moverBox</a></span> mais généralisée à un segment 2D quelconque (pas seulement un axe).</p>
+<p>Parcours <b>linéaire</b> de la route de <span class="tt"><a class="el" href="structcore_1_1MovingPlatformConfig.html" title="Paramètres d&#39;une plateforme mobile (TileType::MovingPlatform, EX-GP-026) : route multi-points parcour...">MovingPlatformConfig</a></span> (<span class="tt">startPosition</span> puis <span class="tt">waypoints</span>) à vitesse constante (<span class="tt">speed</span>, cases par seconde), en aller-retour ou en circuit fermé selon <span class="tt">mode</span> — même principe que <span class="tt"><a class="el" href="classcore_1_1DangerController.html#a7ab7464ce644f1206c71e4a2f482b48e" title="Boîte mortelle courante du danger mobile index (dans l&#39;ordre de Level::moverConfigs()),...">DangerController::moverBox</a></span>, généralisé d'un axe unique à un polyligne 2D quelconque (<span class="tt">EX-GP-054</span>). La géométrie est portée par <span class="tt"><a class="el" href="structcore_1_1PlatformPath.html" title="Route précalculée d&#39;une plateforme : sommets et longueurs cumulées.">core::PlatformPath</a></span>, partagée avec l'overlay d'édition pour que le trajet dessiné soit celui réellement parcouru.</p>
 <p>Le contrôleur ne résout <b>aucune</b> collision lui-même : il n'expose que la boîte courante et la boîte au pas précédent de chaque plateforme. L'appelant (<span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span>) compose la collision continue (<span class="tt"><a class="el" href="namespacecore.html#a0019562e8e9658def020086ee4d49425" title="Déplace box de delta en s&#39;arrêtant au premier contact avec obstacle, une boîte fixe unique (pas une g...">core::sweepAabbVsAabb</a></span>, comme pour les blocs réduits, <span class="tt">EX-GP-005</span>), porte le personnage et les blocs (<span class="tt"><a class="el" href="classcore_1_1BlockController.html" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block/BlockHalf/ BlockQuarter,...">core::BlockController</a></span>), et interpole l'affichage (<span class="tt"><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">hmi::PreviousPosition</a></span>) à partir de <span class="tt"><a class="el" href="#a46049477fd76e2e6772e2bb3541c3092">previousBoxAt</a></span>/<span class="tt"><a class="el" href="#a4edb35d10efd2e486c62de25082deb41">boxAt</a></span>. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af53e0729c7989f621641586e851bb206" name="af53e0729c7989f621641586e851bb206"></a>
@@ -391,6 +393,30 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae869601690f8509cd22db6008c683ad2" name="ae869601690f8509cd22db6008c683ad2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae869601690f8509cd22db6008c683ad2">&#9670;&#160;</a></span>_paths</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1PlatformPath.html">PlatformPath</a>&gt; core::PlatformController::_paths</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Routes précalculées, une par entrée de <span class="tt"><a class="el" href="#aeb1af0d6ecf44ac6c5245a94d98291b0">_configs</a></span> et dans le même ordre (<span class="tt">EX-GP-054</span>). </p>
 
 </div>
 </div>

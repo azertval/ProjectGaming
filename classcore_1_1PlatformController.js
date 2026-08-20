@@ -10,5 +10,6 @@ var classcore_1_1PlatformController =
     [ "samples", "classcore_1_1PlatformController.html#a030bab451c48d64de1c6a7521d49fd98", null ],
     [ "update", "classcore_1_1PlatformController.html#aa92c730bb854441785f2bab8d35fa061", null ],
     [ "_configs", "classcore_1_1PlatformController.html#aeb1af0d6ecf44ac6c5245a94d98291b0", null ],
+    [ "_paths", "classcore_1_1PlatformController.html#ae869601690f8509cd22db6008c683ad2", null ],
     [ "_stepCount", "classcore_1_1PlatformController.html#a1f96d74d5bd280989aa069e74f8e3b6e", null ]
 ];

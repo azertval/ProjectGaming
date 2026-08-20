@@ -10,5 +10,9 @@ var Level_8h =
     [ "core::DangerMoverAxis", "namespacecore.html#a691dfee41b7946ec78288271f8925d51", [
       [ "core::DangerMoverAxis::Horizontal", "namespacecore.html#a691dfee41b7946ec78288271f8925d51ac1b5fa03ecdb95d4a45dd1c40b02527f", null ],
       [ "core::DangerMoverAxis::Vertical", "namespacecore.html#a691dfee41b7946ec78288271f8925d51a06ce2a25e5d12c166a36f654dbea6012", null ]
+    ] ],
+    [ "core::PlatformPathMode", "namespacecore.html#a8a429a2ce785ee89ff543488b51750b1", [
+      [ "core::PlatformPathMode::PingPong", "namespacecore.html#a8a429a2ce785ee89ff543488b51750b1a99e52704462d3580db3528cad7ea9660", null ],
+      [ "core::PlatformPathMode::Loop", "namespacecore.html#a8a429a2ce785ee89ff543488b51750b1a89d7b10cb4238977d2b523dfd9ea7745", null ]
     ] ]
 ];

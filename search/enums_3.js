@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['editoraction_0',['EditorAction',['../namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585',1,'hmi']]],
-  ['editoractiongroup_1',['EditorActionGroup',['../namespacehmi.html#af951fa0fccb19bed92c122562085977a',1,'hmi']]],
-  ['editorthememode_2',['EditorThemeMode',['../namespacehmi.html#a57dcf8ac7fd26c90a8741e698c896580',1,'hmi']]],
-  ['editorthemesetting_3',['EditorThemeSetting',['../namespacehmi.html#a796b5dfcf1d9de2fb2552d51af677646',1,'hmi']]],
-  ['editortool_4',['EditorTool',['../namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd',1,'hmi']]]
+  ['dangermoveraxis_0',['DangerMoverAxis',['../namespacecore.html#a691dfee41b7946ec78288271f8925d51',1,'core']]],
+  ['decorgestureactionkind_1',['DecorGestureActionKind',['../namespacehmi.html#a36a02809aec3ca6ea3feb8e455433599',1,'hmi']]],
+  ['decorgesturephase_2',['DecorGesturePhase',['../namespacehmi.html#a8744c2d1b1960326e40d3fb62e333ded',1,'hmi']]],
+  ['decorhandle_3',['DecorHandle',['../namespacehmi.html#a85a2df4671d768ea880f930a5f87e00d',1,'hmi']]],
+  ['decorlayer_4',['DecorLayer',['../namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20',1,'core']]]
 ];

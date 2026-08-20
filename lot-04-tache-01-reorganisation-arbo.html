@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-04-tache-01-reorganisation-arbo.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-04-documentation-doxygen_2tache-01-reorganisation-arbo"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-04.html#md_Lot_2LOT-04-documentation-doxygen_2epic" title="Lot/LOT-04-documentation-doxygen/epic.md">LOT-04</a> · <b>Emplacement :</b> racine → <span class="tt">Documentation/</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md480"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md485"></a>
 Contexte</h1>
 <p>Les documents projet sont dispersés : <span class="tt">Specification/</span> et <span class="tt">Lot/</span> sont à la racine, et <span class="tt"><a class="el" href="conventions_8md.html">conventions.md</a></span> vit à part dans <span class="tt">Documentation/</span>. Pour un site de documentation cohérent (et une génération Doxygen simple à cadrer), tout le documentaire est regroupé sous <span class="tt">Documentation/</span>, et les conventions rejoignent les spécifications.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md481"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md486"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Déplacer <span class="tt">Specification/</span> → <span class="tt">Documentation/Specification/</span> (<span class="tt">git mv</span>, historique préservé).</li>
@@ -113,33 +113,33 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md482"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md487"></a>
 Fichiers impactés</h1>
 <ul>
 <li>Déplacements/renommages : <span class="tt">Specification/**</span> (dont retrait des préfixes), <span class="tt">Lot/**</span>, <span class="tt">Documentation/conventions.md</span> → <span class="tt"><a class="el" href="conventions_8md.html">Documentation/Specification/conventions.md</a></span>.</li>
 <li>Édits de références : <span class="tt">README.md</span>, <span class="tt">CONTRIBUTING.md</span>, <span class="tt">CHANGELOG.md</span>, <span class="tt">Documentation/README.md</span>, <span class="tt">Source/Core/Diagnostics/README.md</span>, <span class="tt">Source/Test/README.md</span>, <span class="tt">Documentation/Lot/README.md</span>, epics de lots, spec des exigences non fonctionnelles, liens croisés entre specs.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md483"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md488"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>Recherche globale : <b>aucune</b> occurrence résiduelle de <span class="tt">](Specification/</span>, <span class="tt">](Lot/</span>, <span class="tt">Documentation/conventions.md</span>, ni d'un nom de spec préfixé <span class="tt">NN-...md</span>, pointant vers un chemin disparu.</li>
 <li>Chaque lien relatif Markdown (spec ↔ spec, spec ↔ lot, epic ↔ tâche) résout vers un fichier existant.</li>
 <li><span class="tt">git mv</span> utilisé (déplacements <b>et</b> renommages apparaissent comme tels dans <span class="tt">git status</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md484"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md489"></a>
 Points d'attention</h1>
 <ul>
 <li>Le <span class="tt">README.md</span> racine <b>reste</b> (vitrine GitHub) mais pointe désormais vers <span class="tt">Documentation/</span>.</li>
 <li><span class="tt">Documentation/generated/</span> reste gitignoré ; ne pas le déplacer ni le committer.</li>
 <li>Ne rien changer au code de <span class="tt">Source/</span> (seuls des READMEs y sont édités pour leurs liens).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md485"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md490"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Arborescence conforme à l'epic ; conventions intégrées aux spécifications.</li>
 <li>Zéro lien cassé (vérifié) ; renommages traçables dans l'historique git.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md486"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md491"></a>
 Exigences</h1>
 <p><span class="tt">EX-NFR-012</span>. </p>
 </div></div><!-- contents -->

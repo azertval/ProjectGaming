@@ -94,13 +94,13 @@ $(function(){initNavTree('lot-65-tache-07-actes-mouvement-mecanismes.html','',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-65-refonte-niveaux-demo_2tache-07-actes-mouvement-mecanismes"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-65.html#md_Lot_2LOT-65-refonte-niveaux-demo_2epic" title="Lot/LOT-65-refonte-niveaux-demo/epic.md">LOT-65</a> · <b>Emplacement :</b> <span class="tt">Source/Elements/Levels</span>, <span class="tt">Source/HMI/Game</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2982"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2987"></a>
 Contexte</h1>
 <p>Première moitié de la refonte pilotée par les garde-fous rouges de la <span class="tt">TACHE-05</span>. Les douze premiers tableaux forment le tutoriel implicite : ils apprennent le vocabulaire du jeu, chacun sur une mécanique, avant que les actes suivants ne les croisent.</p>
 <p>Le problème n'est pas que ces tableaux soient trop faciles — c'est qu'ils sont <b>facultatifs</b> : l'interrupteur de <span class="tt">demo-interrupteur</span> est posé sur le trajet direct vers la porte, le bloc de <span class="tt">demo-bloc</span> est contournable au double saut, et <span class="tt">demo-bloc-quart</span> est un couloir entièrement plat où le bloc n'obstrue rien. La doctrine de la <span class="tt">TACHE-05</span> inverse la règle : la mécanique devient la seule issue.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2983"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2988"></a>
 Travail à réaliser</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2984"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2989"></a>
 Acte I — Mouvement</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -118,7 +118,7 @@ Acte I — Mouvement</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">6  </td><td class="markdownTableBodyNone"><span class="tt">demo-mouvement</span> <b>(nouveau)</b>  </td><td class="markdownTableBodyNone">Synthèse d'acte : dash, wall jump et double saut enchaînés.  </td><td class="markdownTableBodyNone">serrés au strict nécessaire  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2985"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2990"></a>
 Acte II — Mécanismes</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -136,7 +136,7 @@ Acte II — Mécanismes</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">12  </td><td class="markdownTableBodyNone"><span class="tt">demo-bloc-quart</span>  </td><td class="markdownTableBodyNone">Passage étroit où seul le ×0,25 passe et où le ×0,5 reste coincé — rend visible une différence de gabarit aujourd'hui invisible.  </td><td class="markdownTableBodyNone">borné  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2986"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2991"></a>
 Invite « Interagir »</h2>
 <p><span class="tt">EX-GP-023</span> exige le contact <b>et</b> l'action « Interagir » pour ramasser une clé. C'est la seule entrée du jeu qu'aucun tableau ne demande ailleurs, et <span class="tt"><a class="el" href="niveaux_8md.html">niveaux.md</a></span> interdit le texte d'indice : un joueur qui l'ignore reste <b>bloqué sans retour</b>. Le level design seul ne suffit pas à garantir la découverte ; une invite contextuelle est donc ajoutée.</p>
 <ul>
@@ -144,7 +144,7 @@ Invite « Interagir »</h2>
 <li><span class="tt"><a class="el" href="namespacehmi.html#a03f731727d8be34206fa2313dad908ab" title="Lignes à afficher pour l&#39;affichage tête haute d&#39;un pas de simulation donné.">hmi::gameHudLines</a></span> : paramètre supplémentaire indiquant que le personnage chevauche une clé non ramassée, calculé par <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> qui possède déjà la boîte et le contrôleur. La fonction reste <b>pure</b>, donc assertable sans GPU.</li>
 <li>Clé de traduction <span class="tt">hud.interact_prompt</span> dans <span class="tt">fr.lang</span> et <span class="tt">en.lang</span>, même mécanisme que <span class="tt">hud.jumps_remaining</span> — aucune chaîne en dur (<span class="tt">EX-REN-033</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2987"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2992"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Elements/Levels/demo-{deplacement,saut,double-saut,wall-jump,dash,mouvement,interrupteur,plaque-pression,cle,bloc,bloc-reduit,bloc-quart}.json</span></li>
@@ -152,14 +152,14 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span> — un script d'entrées par tableau.</li>
 <li><span class="tt"><a class="el" href="MechanismController_8h.html" title="Comportement des mécanismes interrupteur↔porte : état + grille de collision.">Source/Core/Gameplay/MechanismController.h</a></span>, <span class="tt">Source/HMI/Game/GameHud.{h,cpp}</span>, <span class="tt"><a class="el" href="GameSession_8cpp.html">Source/HMI/Game/GameSession.cpp</a></span>, <span class="tt">Source/Elements/Localization/{fr,en}.lang</span>, <span class="tt"><a class="el" href="test__game__hud_8cpp.html" title="Tests unitaires du choix de contenu de l&#39;affichage tête haute (LOT-52 TACHE-03, EX-IHM-003).">Source/Test/Unit/HMI/Game/test_game_hud.cpp</a></span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2988"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2993"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Chaque tableau est franchi par un script d'entrées <b>déterministe</b> qui emploie réellement sa mécanique — un script réduit à « droite » doit échouer, et le garde-fou anti-couloir l'exige.</li>
 <li>L'invite « Interagir » apparaît quand le personnage chevauche une clé non ramassée, disparaît ensuite, et n'apparaît jamais sur un tableau sans clé. Bloc <span class="tt">\castest{}</span> écrit avec le test.</li>
 <li><span class="tt">scripts/check_demo_sequence.py</span> vert après insertion de <span class="tt">demo-mouvement.json</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2989"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2994"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Un budget serré rend le tableau injouable si la géométrie n'est pas exacte.</b> Itérer sur la géométrie jusqu'au franchissement, comme la <span class="tt">TACHE-02</span> l'avait fait, plutôt que de le supposer.</li>
@@ -167,12 +167,12 @@ Points d'attention</h1>
 <li>Le budget de sauts se consomme aussi par le saut <b>aérien</b> gratuit : tenir « saut » en continu épuise un budget serré. Les scripts d'entrées doivent déclencher un saut par atterrissage.</li>
 <li>Le seul canal textuel du jeu reste le champ <span class="tt">name</span>, affiché par <span class="tt"><a class="el" href="namespacehmi.html#a03f731727d8be34206fa2313dad908ab" title="Lignes à afficher pour l&#39;affichage tête haute d&#39;un pas de simulation donné.">hmi::gameHudLines</a></span> : le choisir comme un intitulé de leçon, pas comme un nom de fichier.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2990"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2995"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les douze tableaux sont redessinés, habillés, franchissables par un script déterministe qui emploie leur mécanique, et <b>aucun</b> n'est franchissable en maintenant « droite » ; l'invite « Interagir » est livrée et testée ; garde-fous de la <span class="tt">TACHE-05</span> verts sur ce périmètre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2991"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2996"></a>
 Exigences</h1>
 <p><span class="tt">EX-LVL-012</span> (progression), <span class="tt">EX-GP-014</span> à <span class="tt">EX-GP-017</span> (saut, double saut, wall jump, dash), <span class="tt">EX-GP-020</span> à <span class="tt">EX-GP-025</span> (mécanismes, bloc, clé, budget, plaque), <span class="tt">EX-GP-005</span> (blocs réduits), <span class="tt">EX-CTRL-022</span> (« Interagir »), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-IHM-003</span> (affichage tête haute). </p>
 </div></div><!-- contents -->

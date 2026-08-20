@@ -3,11 +3,11 @@ var searchData=
   ['a_0',['a',['../structcore_1_1Color.html#ae9a048010fb40505d655c0b54703036b',1,'core::Color::a'],['../structhmi_1_1LinkSegment.html#aee08bd222b3b6779ba4682a712961a37',1,'hmi::LinkSegment::a'],['../structhmi_1_1SpriteQuad.html#a93b181adcb81b4e6d1ecbb2c7965108f',1,'hmi::SpriteQuad::a'],['../structhmi_1_1LineQuad.html#ad66407e74212988ac419a0bfe1472806',1,'hmi::LineQuad::a'],['../structhmi_1_1SpriteBatch_1_1Vertex.html#a75f33a9e7282bcd3cd0df7bc1e08870d',1,'hmi::SpriteBatch::Vertex::a'],['../structhmi_1_1DesignColor.html#ae63707ef5eec4c92aa74c883fab32ee7',1,'hmi::DesignColor::a']]],
   ['accent_1',['accent',['../structhmi_1_1ColorTokens.html#a84485ae819debde3dcb282c2918e2c4c',1,'hmi::ColorTokens']]],
   ['accenthover_2',['accentHover',['../structhmi_1_1ColorTokens.html#ad9bcad9a086e443e7b76d767b3ac1477',1,'hmi::ColorTokens']]],
-  ['action_3',['action',['../structhmi_1_1LinkGestureDecision.html#a82612d60258eb16f959bcc9f948e5daf',1,'hmi::LinkGestureDecision::action'],['../structhmi_1_1TextureAssignDecision.html#ae1cbf005293b6615883a6ee5e58a77d0',1,'hmi::TextureAssignDecision::action'],['../structhmi_1_1KeyBindingIconEntry.html#aea48399a23732011146fb79d8a533ad5',1,'hmi::KeyBindingIconEntry::action']]],
+  ['action_3',['action',['../structhmi_1_1LinkGestureDecision.html#a82612d60258eb16f959bcc9f948e5daf',1,'hmi::LinkGestureDecision::action'],['../structhmi_1_1TextureAssignDecision.html#ae1cbf005293b6615883a6ee5e58a77d0',1,'hmi::TextureAssignDecision::action'],['../structhmi_1_1KeyBindingIconEntry.html#aea48399a23732011146fb79d8a533ad5',1,'hmi::KeyBindingIconEntry::action'],['../structhmi_1_1KeyHint.html#a83e0052ab79b9135e6ab609ce0c8f10e',1,'hmi::KeyHint::action']]],
   ['activeduration_4',['activeDuration',['../structcore_1_1DangerBlinkConfig.html#a0bdc88ece316562350a6443d3b091167',1,'core::DangerBlinkConfig']]],
   ['advance_5',['advance',['../structhmi_1_1GlyphMetrics.html#a0f6dca5920b1522a9d96c60cec883e2d',1,'hmi::GlyphMetrics']]],
   ['after_6',['after',['../structhmi_1_1PixelHistoryEntry.html#a8e2843ed5440e08255206e9f3a9827b5',1,'hmi::PixelHistoryEntry']]],
-  ['airjumps_7',['airJumps',['../structcore_1_1PhysicsConfig.html#aece7832fe12221342224bb69afc9e273',1,'core::PhysicsConfig']]],
+  ['airjumps_7',['airJumps',['../structcore_1_1LevelDraft_1_1State.html#a31c09e0779b53175b5695cd1732473a0',1,'core::LevelDraft::State::airJumps'],['../structcore_1_1PhysicsConfig.html#aece7832fe12221342224bb69afc9e273',1,'core::PhysicsConfig::airJumps']]],
   ['airjumpsremaining_8',['airJumpsRemaining',['../structcore_1_1Player.html#a9a15fb635f3f0a169ad0f70c1df2abf9',1,'core::Player']]],
   ['amplitudepixels_9',['amplitudePixels',['../structhmi_1_1ScreenShakeState.html#a3e1d3a4324971d228388ffadbc9d5682',1,'hmi::ScreenShakeState']]],
   ['anchor_10',['anchor',['../structhmi_1_1FollowCameraState.html#aad1ea32f2aa02eb8b804f243ec21cff4',1,'hmi::FollowCameraState']]],
@@ -29,6 +29,6 @@ var searchData=
   ['autotile_5fconfiguration_5fcount_26',['AUTOTILE_CONFIGURATION_COUNT',['../namespacehmi.html#a58aec3b5e8b7ff780934f969eb35febb',1,'hmi']]],
   ['autotile_5fsheet_5fside_27',['AUTOTILE_SHEET_SIDE',['../namespacehmi.html#a645fa51fe9636c77f3b67558bb094d23',1,'hmi']]],
   ['ax_28',['ax',['../structhmi_1_1LineQuad.html#ab5c2f6803c2cdae87e0b50d4eb8589c1',1,'hmi::LineQuad']]],
-  ['axis_29',['axis',['../structcore_1_1DangerMoverConfig.html#a5fb278b81d475fd2c9e9cc4ef0d891d8',1,'core::DangerMoverConfig']]],
+  ['axis_29',['axis',['../structcore_1_1DangerMoverConfig.html#a5fb278b81d475fd2c9e9cc4ef0d891d8',1,'core::DangerMoverConfig::axis'],['../structhmi_1_1PathGestureAction.html#a9a409ce2cea477ce4df5b6e72ae37265',1,'hmi::PathGestureAction::axis']]],
   ['ay_30',['ay',['../structhmi_1_1LineQuad.html#aa9e7c817ab1c5e01364faed685182a69',1,'hmi::LineQuad']]]
 ];

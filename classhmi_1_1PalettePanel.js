@@ -1,6 +1,7 @@
 var classhmi_1_1PalettePanel =
 [
     [ "PalettePanel", "classhmi_1_1PalettePanel.html#aca2b8a823be65548be1dc034db9c3de4", null ],
+    [ "~PalettePanel", "classhmi_1_1PalettePanel.html#abad00b2f436c14ab35d4cf5f55840698", null ],
     [ "buildModel", "classhmi_1_1PalettePanel.html#af1898fdecf86e9004f65845f4f96f364", null ],
     [ "clearThumbnailCache", "classhmi_1_1PalettePanel.html#a87d8b6fe8c8e5368cd13f730e8ca3f77", null ],
     [ "event", "classhmi_1_1PalettePanel.html#a6a63719ecec98fdc59f3728d58ff8ccd", null ],
@@ -19,5 +20,6 @@ var classhmi_1_1PalettePanel =
     [ "_selected", "classhmi_1_1PalettePanel.html#aafd9ee36f3a303d8d38e7d8030a2c81e", null ],
     [ "_skinsDirectory", "classhmi_1_1PalettePanel.html#a04061833fe87337a8016bab7d276384b", null ],
     [ "_skinSet", "classhmi_1_1PalettePanel.html#ad236a5ca81f1ac1c2bca5c6d01c66d1d", null ],
-    [ "_tree", "classhmi_1_1PalettePanel.html#a7da613b972d98e7a045925d712ed7aad", null ]
+    [ "_tree", "classhmi_1_1PalettePanel.html#a7da613b972d98e7a045925d712ed7aad", null ],
+    [ "_ui", "classhmi_1_1PalettePanel.html#a18b4b270d705ba582e3ba334852a8f4a", null ]
 ];

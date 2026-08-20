@@ -2,6 +2,10 @@ var ActionCatalog_8h =
 [
     [ "hmi::EditorActionSpec", "structhmi_1_1EditorActionSpec.html", "structhmi_1_1EditorActionSpec" ],
     [ "hmi::KeyBindingIconEntry", "structhmi_1_1KeyBindingIconEntry.html", "structhmi_1_1KeyBindingIconEntry" ],
+    [ "hmi::ActionSurface", "namespacehmi.html#a2a7c152b5b5451602bbf4e4f416b402b", [
+      [ "hmi::ActionSurface::ToolBarAndMenu", "namespacehmi.html#a2a7c152b5b5451602bbf4e4f416b402ba3cac7b31749040871dcdb00cfa905f67", null ],
+      [ "hmi::ActionSurface::MenuOnly", "namespacehmi.html#a2a7c152b5b5451602bbf4e4f416b402ba32be0f45035a8e01272e3765f3e53623", null ]
+    ] ],
     [ "hmi::EditorActionGroup", "namespacehmi.html#af951fa0fccb19bed92c122562085977a", [
       [ "hmi::EditorActionGroup::None", "namespacehmi.html#af951fa0fccb19bed92c122562085977aa6adf97f83acf6453d4a6a4b1070f3754", null ],
       [ "hmi::EditorActionGroup::LevelTools", "namespacehmi.html#af951fa0fccb19bed92c122562085977aac5ef5463f73a88dcdff84105e558092e", null ],
@@ -18,5 +22,6 @@ var ActionCatalog_8h =
     [ "hmi::keyBindingActionForIcon", "namespacehmi.html#aaec3ea44878dd72a447a29150231ddba", null ],
     [ "hmi::keyBindingIconCatalog", "namespacehmi.html#ab2f97afc82a6834dea728c2748464369", null ],
     [ "hmi::EDITOR_ACTION_CATALOG_COUNT", "namespacehmi.html#a79f2b5a2f6530436d6f2b090de10d6ac", null ],
-    [ "hmi::KEY_BINDING_ICON_COUNT", "namespacehmi.html#a1a8d24174b415e8452f331c030addee6", null ]
+    [ "hmi::KEY_BINDING_ICON_COUNT", "namespacehmi.html#a1a8d24174b415e8452f331c030addee6", null ],
+    [ "hmi::TOOLBAR_COMMAND_BUDGET", "namespacehmi.html#a5ebc32fedafb3df6472a578a8faf7596", null ]
 ];

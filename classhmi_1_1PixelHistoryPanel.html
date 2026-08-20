@@ -112,6 +112,8 @@ Signals</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a3393c870e52fe09f259369a18fbaabdc" id="r_a3393c870e52fe09f259369a18fbaabdc"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3393c870e52fe09f259369a18fbaabdc">PixelHistoryPanel</a> (QWidget *parent=nullptr)</td></tr>
+<tr class="memitem:a6a17db63fcd024357c35c700d4243fc6" id="r_a6a17db63fcd024357c35c700d4243fc6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6a17db63fcd024357c35c700d4243fc6">~PixelHistoryPanel</a> () override</td></tr>
+<tr class="memdesc:a6a17db63fcd024357c35c700d4243fc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hors-ligne : <span class="tt">std::unique_ptr&lt;Ui::PixelHistoryPanel&gt;</span> porte un type incomplet.  <br /></td></tr>
 <tr class="memitem:aa4df859e4ef32205695b942e36770703" id="r_aa4df859e4ef32205695b942e36770703"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa4df859e4ef32205695b942e36770703">refresh</a> (const <a class="el" href="classhmi_1_1PixelHistory.html">PixelHistory</a> &amp;history)</td></tr>
 <tr class="memdesc:aa4df859e4ef32205695b942e36770703"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruit la liste depuis <code class="param">history</code> (après toute mutation : geste, annuler, refaire).  <br /></td></tr>
 <tr class="memitem:ad4e27f62125f94778260a24ac8be4a97" id="r_ad4e27f62125f94778260a24ac8be4a97"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad4e27f62125f94778260a24ac8be4a97">retranslateUi</a> (const <a class="el" href="classhmi_1_1Localization.html">Localization</a> &amp;loc)</td></tr>
@@ -123,6 +125,8 @@ Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:a55fe107d852adb27ea3db9458ecb8e49" id="r_a55fe107d852adb27ea3db9458ecb8e49"><td class="memItemLeft">std::unique_ptr&lt; Ui::PixelHistoryPanel &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a55fe107d852adb27ea3db9458ecb8e49">_ui</a></td></tr>
+<tr class="memdesc:a55fe107d852adb27ea3db9458ecb8e49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mise en page issue de <span class="tt">PixelHistoryPanel.ui</span> (<span class="tt">LOT-68</span>) : le C++ ne branche plus que le fonctionnel, conformément à la convention du projet.  <br /></td></tr>
 <tr class="memitem:a8ab7112a5bb1c27f7e88a8baffcbe977" id="r_a8ab7112a5bb1c27f7e88a8baffcbe977"><td class="memItemLeft">QListWidget *&#160;</td><td class="memItemRight"><a class="el" href="#a8ab7112a5bb1c27f7e88a8baffcbe977">_list</a></td></tr>
 <tr class="memitem:a7fe739a8ed286c51a53d5c48c50838a4" id="r_a7fe739a8ed286c51a53d5c48c50838a4"><td class="memItemLeft">const <a class="el" href="classhmi_1_1Localization.html">Localization</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a7fe739a8ed286c51a53d5c48c50838a4">_loc</a> = nullptr</td></tr>
 <tr class="memitem:abc3c1aae3ce49d4e92f5f215d8b5dcba" id="r_abc3c1aae3ce49d4e92f5f215d8b5dcba"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1PixelHistoryEntry.html">PixelHistoryEntry</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abc3c1aae3ce49d4e92f5f215d8b5dcba">_entries</a></td></tr>
@@ -154,6 +158,33 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6a17db63fcd024357c35c700d4243fc6" name="a6a17db63fcd024357c35c700d4243fc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a17db63fcd024357c35c700d4243fc6">&#9670;&#160;</a></span>~PixelHistoryPanel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::PixelHistoryPanel::~PixelHistoryPanel </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel default">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Hors-ligne : <span class="tt">std::unique_ptr&lt;Ui::PixelHistoryPanel&gt;</span> porte un type incomplet. </p>
 
 </div>
 </div>
@@ -314,6 +345,30 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a55fe107d852adb27ea3db9458ecb8e49" name="a55fe107d852adb27ea3db9458ecb8e49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55fe107d852adb27ea3db9458ecb8e49">&#9670;&#160;</a></span>_ui</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;Ui::PixelHistoryPanel&gt; hmi::PixelHistoryPanel::_ui</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mise en page issue de <span class="tt">PixelHistoryPanel.ui</span> (<span class="tt">LOT-68</span>) : le C++ ne branche plus que le fonctionnel, conformément à la convention du projet. </p>
 
 </div>
 </div>

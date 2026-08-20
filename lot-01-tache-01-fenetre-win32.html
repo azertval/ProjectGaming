@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-01-tache-01-fenetre-win32.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-01-fenetre-boucle-jeu_2tache-01-fenetre-win32"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-01.html#md_Lot_2LOT-01-fenetre-boucle-jeu_2epic" title="Lot/LOT-01-fenetre-boucle-jeu/epic.md">LOT-01</a> · <b>Module :</b> <span class="tt">Source/HMI</span> · <b>Statut :</b> terminé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md345"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md350"></a>
 Contexte</h1>
 <p>Le jeu a besoin d'une fenêtre native Windows comme surface de rendu et source d'événements. Cette tâche pose la fenêtre et sa boucle de messages, sans encore de rendu.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md346"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md351"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Créer une classe <span class="tt">Window</span> (RAII) encapsulant la fenêtre Win32 :<ul>
@@ -109,27 +109,27 @@ Travail à réaliser</h1>
 <li>Exposer les événements utiles à la boucle : <b>demande de fermeture</b>, <b>redimensionnement</b> (nouvelle taille du client), sans traiter encore les entrées de gameplay.</li>
 <li>Fournir un accès au <b>handle</b> de fenêtre (<span class="tt">HWND</span>) pour l'initialisation Direct3D (TACHE-02).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md347"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md352"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Window.h</span>, <span class="tt">Source/HMI/Window.cpp</span> (nouveau).</li>
 <li><span class="tt">Source/HMI/CMakeLists.txt</span> (ajout des sources ; liaison <span class="tt">user32</span>/<span class="tt">gdi32</span> si nécessaire).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md348"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md353"></a>
 Points d'attention</h1>
 <ul>
 <li>Respect des conventions : membres <span class="tt">_camelCase</span>, RAII (pas d'<span class="tt">init()</span>/<span class="tt">cleanup()</span> manuels), documentation <span class="tt">.h</span> + <span class="tt">.cpp</span>.</li>
 <li>La fenêtre ne doit <b>pas</b> dépendre de <span class="tt">Core</span> (sens des dépendances : <span class="tt">HMI → Core</span>).</li>
 <li>Isoler la <span class="tt">WndProc</span> (statique) de l'état d'instance proprement (pointeur utilisateur via <span class="tt">GWLP_USERDATA</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md349"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md354"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>La fenêtre s'ouvre, se déplace, se redimensionne et se ferme (croix) sans erreur.</li>
 <li>Aucune fuite de handle à la fermeture.</li>
 <li>Compile <span class="tt">/W4 /WX</span>, formaté clang-format, API documentée en Doxygen.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md350"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md355"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-003</span>, <span class="tt">EX-REN-001</span>. </p>
 </div></div><!-- contents -->

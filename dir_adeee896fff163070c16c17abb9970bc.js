@@ -8,5 +8,7 @@ var dir_adeee896fff163070c16c17abb9970bc =
     [ "MechanismController.cpp", "MechanismController_8cpp.html", null ],
     [ "MechanismController.h", "MechanismController_8h.html", "MechanismController_8h" ],
     [ "PlatformController.cpp", "PlatformController_8cpp.html", "PlatformController_8cpp" ],
-    [ "PlatformController.h", "PlatformController_8h.html", "PlatformController_8h" ]
+    [ "PlatformController.h", "PlatformController_8h.html", "PlatformController_8h" ],
+    [ "PlatformPath.cpp", "PlatformPath_8cpp.html", "PlatformPath_8cpp" ],
+    [ "PlatformPath.h", "PlatformPath_8h.html", "PlatformPath_8h" ]
 ];

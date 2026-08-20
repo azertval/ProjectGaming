@@ -123,6 +123,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a04db267a3cb26f734247a30dae4f85bf" id="r_a04db267a3cb26f734247a30dae4f85bf"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a04db267a3cb26f734247a30dae4f85bf">setContinueEnabled</a> (bool enabled)</td></tr>
 <tr class="memdesc:a04db267a3cb26f734247a30dae4f85bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active/désactive « Continuer » (<span class="tt">LOT-59</span> TACHE-06) : grisé sans progression, seul bouton dont l'état dépend d'autre chose que la langue &ndash; appelé par <span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">MainWindow</a></span> à chaque retour au menu (source de vérité : <span class="tt"><a class="el" href="classhmi_1_1Progression.html#a3e89eaef88420921b419e42b7bf8afd6">Progression::currentLevel</a></span>, jamais suivi ici).  <br /></td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a116d066889196acb482c00b43612b788" id="r_a116d066889196acb482c00b43612b788"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a116d066889196acb482c00b43612b788">paintEvent</a> (QPaintEvent *event) override</td></tr>
+<tr class="memdesc:a116d066889196acb482c00b43612b788"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint le décor pixel art du menu (<span class="tt">LOT-68</span>, <span class="tt">EX-IHM-070</span>) <b>derrière</b> les enfants : ciel en bandes, lune, silhouettes et sol, plus un voile de lisibilité sous le texte.  <br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:adc9e611b8598b3fc549533691e14ce43" id="r_adc9e611b8598b3fc549533691e14ce43"><td class="memItemLeft">std::unique_ptr&lt; Ui::MainMenu &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adc9e611b8598b3fc549533691e14ce43">_ui</a></td></tr>
@@ -304,6 +309,34 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a116d066889196acb482c00b43612b788" name="a116d066889196acb482c00b43612b788"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a116d066889196acb482c00b43612b788">&#9670;&#160;</a></span>paintEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainMenu::paintEvent </td>
+          <td>(</td>
+          <td class="paramtype">QPaintEvent *</td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Peint le décor pixel art du menu (<span class="tt">LOT-68</span>, <span class="tt">EX-IHM-070</span>) <b>derrière</b> les enfants : ciel en bandes, lune, silhouettes et sol, plus un voile de lisibilité sous le texte. </p>
+<p>La géométrie vient de <span class="tt"><a class="el" href="namespacehmi.html#a1ebed041b4b817775b645ae6d51ea778" title="Pavés du décor, dans l&#39;ordre de dessin (les derniers recouvrent les premiers).">hmi::menuBackdropQuads</a></span> (pure) ; seules les couleurs sont résolues ici. </p>
 
 </div>
 </div>
