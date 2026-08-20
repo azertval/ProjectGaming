@@ -640,6 +640,13 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
 }
 
 void MainWindow::applyIdentityScale() {
+    // Fenetre en cours de fermeture ou de destruction : ne rien recalculer. Qt envoie encore des
+    // evenements de redimensionnement pendant le demontage d'une QMainWindow a docks, ce qui
+    // ramenerait le facteur a 1 et declencherait un rejeu de theme sur des widgets a moitie
+    // detruits.
+    if (_closing || !isVisible()) {
+        return;
+    }
     // Facteur ENTIER des ecrans du jeu (LOT-68, EX-IHM-070), derive de la hauteur LOGIQUE de la
     // fenetre : Qt applique la mise a l echelle systeme par-dessus. Le theme n est rejoue que
     // lorsque le facteur CHANGE -- le refaire a chaque pixel de redimensionnement reconstruirait
@@ -647,7 +654,16 @@ void MainWindow::applyIdentityScale() {
     if (!hmi::setIdentityScale(hmi::pixelArtScale(height()))) {
         return;
     }
-    hmi::reapplyEditorTheme();
+    // DIFFERE au prochain tour de boucle, jamais dans le resizeEvent lui-meme : reposer la feuille
+    // de style de l'application repolit TOUS ses widgets, et le faire au milieu d'un calcul de
+    // disposition ré-entre dans la machinerie de style. Le garde ci-dessus est reevalue a
+    // l'echeance, la fenetre ayant pu se fermer entre-temps.
+    QTimer::singleShot(0, this, [this] {
+        if (_closing || !isVisible()) {
+            return;
+        }
+        hmi::reapplyEditorTheme();
+    });
 }
 
 void MainWindow::moveEvent(QMoveEvent* event) {
@@ -1572,6 +1588,9 @@ void MainWindow::saveLayout() {
 }
 
 void MainWindow::closeEvent(QCloseEvent* event) {
+    // Pose AVANT toute autre chose : a partir d'ici, plus aucun evenement differe ne doit toucher
+    // au theme ni a la disposition (cf. applyIdentityScale).
+    _closing = true;
     saveLayout();
     QMainWindow::closeEvent(event);
 }

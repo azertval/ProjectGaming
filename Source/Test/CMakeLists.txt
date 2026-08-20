@@ -95,6 +95,7 @@ add_executable(UnitTests
     Unit/HMI/Audio/test_sound_catalog.cpp
     Unit/HMI/Interface/test_design_tokens.cpp
     Unit/HMI/Interface/test_application_theme.cpp
+    Unit/HMI/Interface/test_theme_teardown_guards.cpp
     Unit/HMI/Interface/test_editor_actions.cpp
     Unit/HMI/Interface/test_screen_flow.cpp
     Unit/HMI/Interface/test_pixel_art_scale.cpp

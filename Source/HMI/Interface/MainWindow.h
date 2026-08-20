@@ -372,6 +372,9 @@ private:
     EditorActions*
         _actions;  ///< Outils et commandes principales, barre d'outils (LOT-56 TACHE-04).
     /// Espace de travail actif (`LOT-68`). Persisté : on rouvre l'éditeur là où on l'a laissé.
+    /// Vrai dès que la fenêtre a reçu sa demande de fermeture. Coupe les traitements différés qui
+    /// toucheraient au thème ou à la disposition pendant le démontage.
+    bool _closing = false;
     EditorWorkspace _workspace = EditorWorkspace::Level;
     QToolBar* _toolBar;       ///< Barre d'outils de l'éditeur, alimentée par `_actions`.
     QToolBar* _pixelToolBar;  ///< Barre d'outils du canevas pixel art (LOT-54 TACHE-04).
