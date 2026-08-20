@@ -8,25 +8,28 @@
 namespace hmi {
 
 PixelScreenRect imagePixelScreenRect(const PixelCanvasView& view, int x, int y) noexcept {
-    const auto zoom = static_cast<double>(view.zoom);
+    // Echelle RATIONNELLE depuis le LOT-69 TACHE-07 : a denominateur 1 (le defaut), la valeur est
+    // exactement celle d'avant, au bit pres -- c'est ce qui laisse l'atelier pixel art inchange.
+    const double scale = pixelCanvasScale(view);
     return PixelScreenRect{
-        .x = static_cast<double>(x - view.panX) * zoom,
-        .y = static_cast<double>(y - view.panY) * zoom,
-        .width = zoom,
-        .height = zoom,
+        .x = static_cast<double>(x - view.panX) * scale,
+        .y = static_cast<double>(y - view.panY) * scale,
+        .width = scale,
+        .height = scale,
     };
 }
 
 std::optional<std::pair<int, int>> screenToImagePixel(const PixelCanvasView& view, int imageWidth,
                                                       int imageHeight, double screenX,
                                                       double screenY) noexcept {
-    if (view.zoom <= 0) {
+    const double scale = pixelCanvasScale(view);
+    if (scale <= 0.0) {
         return std::nullopt;
     }
     // floor(), jamais une division/cast tronquant vers zero : une position ecran negative doit
     // produire une colonne/ligne strictement decroissante, pas revenir vers 0.
-    const int column = view.panX + static_cast<int>(std::floor(screenX / view.zoom));
-    const int row = view.panY + static_cast<int>(std::floor(screenY / view.zoom));
+    const int column = view.panX + static_cast<int>(std::floor(screenX / scale));
+    const int row = view.panY + static_cast<int>(std::floor(screenY / scale));
     if (column < 0 || row < 0 || column >= imageWidth || row >= imageHeight) {
         return std::nullopt;
     }
@@ -38,6 +41,16 @@ PixelCanvasRealSize pixelCanvasRealSize(int imageWidth, int imageHeight, int zoo
     return PixelCanvasRealSize{
         .width = thumbnailPixelSize(imageWidth * zoom, scaleFactor),
         .height = thumbnailPixelSize(imageHeight * zoom, scaleFactor),
+    };
+}
+
+PixelCanvasRealSize pixelCanvasRealSize(int imageWidth, int imageHeight,
+                                        const PixelCanvasView& view, double scaleFactor) noexcept {
+    const double scale = pixelCanvasScale(view);
+    return PixelCanvasRealSize{
+        .width = thumbnailPixelSize(static_cast<int>(std::lround(imageWidth * scale)), scaleFactor),
+        .height =
+            thumbnailPixelSize(static_cast<int>(std::lround(imageHeight * scale)), scaleFactor),
     };
 }
 

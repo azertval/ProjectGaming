@@ -1,6 +1,6 @@
 # TACHE-07 — Référence peignable et extensions du canevas {#lot-69-tache-07-reference-canevas}
 
-**Lot :** [LOT-69](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** non commencé
+**Lot :** [LOT-69](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** fait
 
 ## Contexte
 Peindre un plan « à 1:1 sur le niveau complet » demande deux choses que l'atelier du `LOT-54` n'a

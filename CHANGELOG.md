@@ -102,6 +102,25 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   et le lot de mises à jour lisait de la mémoire libérée. Le test de rendu hors écran l'a attrapé
   au premier essai.
 
+### Atelier pixel art (LOT-69)
+
+- **Le canevas peut montrer un repère** (`EX-EDIT-046`) : une image **sous** le contenu édité, une
+  autre **par-dessus**, et une grille de **tuiles** distincte de la grille de pixels. Les trois sont
+  optionnelles et additives — l'atelier qui les ignore se comporte exactement comme avant — et
+  n'entrent **jamais** dans le tampon édité, ni dans l'historique, ni dans le copier.
+- **Zoom rationnel** : l'échelle descend désormais **sous le 1:1** (dénominateurs 1, 2, 4, 8) pour
+  embrasser un plan à l'échelle du niveau entier. Les pixels restent carrés, et la grille de pixels
+  s'efface sous le 1:1 où elle couvrirait plus de surface que ce qu'elle sépare. `zoom` reste le
+  numérateur, dénominateur 1 par défaut : les tests hérités du `LOT-54` passent **sans être
+  modifiés**, ce qui est le seul critère qui prouve que l'extension est bien compatible.
+- `PlaneReference` (nouveau, **sans Qt ni GPU**) : pelure d'oignon des tuiles réutilisant la palette
+  du mode Physique — inventer un second jeu de couleurs ferait diverger deux vues du même niveau —,
+  aplatissement des plans voisins par alpha-over, et rééchantillonnage par ratio **entier** (16 → 8
+  garde un pixel sur deux ; jamais d'interpolation, qui fabriquerait des couleurs que l'artiste n'a
+  pas posées).
+- Ce que la référence **n'est pas** : un aperçu. Ni raccords automatiques, ni skins, ni animation —
+  c'est un repère géométrique, et l'essai reste le seul aperçu fidèle.
+
 ### Outillage (LOT-69)
 
 - **Qt passe de 6.8.1 à 6.11.2.** Qt 6.11 est la première version à fournir **Qt Canvas Painter**

@@ -123,6 +123,7 @@ add_executable(UnitTests
     Unit/HMI/Editor/test_pixel_operations.cpp
     Unit/HMI/Editor/test_pixel_history.cpp
     Unit/HMI/Editor/test_pixel_canvas_geometry.cpp
+    Unit/HMI/Editor/test_plane_reference.cpp
     Unit/HMI/Editor/test_pixel_asset_io.cpp
     Unit/HMI/Editor/test_pixel_palette.cpp
     Unit/HMI/Editor/test_pixel_autotile_preview.cpp
@@ -329,6 +330,9 @@ add_executable(UnitTests
     # dependance Qt/GPU), le widget PixelCanvas lui-meme (Qt) n'est compile que dans ProjectGaming,
     # meme distinction que ThumbnailGeometry.cpp/AssetThumbnailView.cpp.
     ../HMI/Editor/PixelCanvasGeometry.cpp
+    # Reperes du mode creation (LOT-69 TACHE-07) : pelure d'oignon des tuiles, aplatissement des
+    # plans voisins et reechantillonnage. Logique pure sur DecodedImage, sans Qt ni GPU.
+    ../HMI/Editor/PlaneReference.cpp
     # Tailles d'asset proposees a la creation dans l'atelier pixel art (LOT-54 TACHE-05) : logique
     # pure, derivee du contrat de dimensions (AssetContract.cpp, deja compile ci-dessus).
     ../HMI/Editor/PixelAssetIO.cpp

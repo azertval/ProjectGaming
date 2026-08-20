@@ -74,6 +74,38 @@ public:
 
     /// Remplace l'image éditée et réinitialise l'historique local (ouverture d'un asset, TACHE-05).
     void setImage(DecodedImage image);
+
+    /**
+     * @brief Pose un **repère dessiné sous** le contenu édité (mode création, `EX-EDIT-046`).
+     *
+     * Trois entrées — celle-ci, `setOverlay` et `setReferenceGridStep` — sont **optionnelles et
+     * additives** : l'atelier pixel art qui les ignore se comporte exactement comme avant
+     * (`LOT-54`). Ce qu'elles montrent n'entre **jamais** dans le tampon édité, ni dans
+     * l'historique, ni dans le copier : ce sont des repères, pas du contenu.
+     *
+     * La référence est un repère **géométrique**, pas un aperçu : ni raccords automatiques, ni
+     * skins, ni animation. L'aperçu fidèle reste l'essai.
+     * @param image   Image du repère, aux dimensions du contenu édité ; vide pour l'enlever.
+     * @param opacity Opacité d'affichage, dans `[0, 1]`.
+     */
+    void setUnderlay(DecodedImage image, float opacity = 1.0f);
+
+    /**
+     * @brief Pose un repère dessiné **par-dessus** le contenu édité — mêmes règles que
+     *        `setUnderlay`.
+     * @param image   Image du repère ; vide pour l'enlever.
+     * @param opacity Opacité d'affichage, dans `[0, 1]`.
+     */
+    void setOverlay(DecodedImage image, float opacity = 1.0f);
+
+    /**
+     * @brief Pose une grille de **tuiles**, distincte de la grille de pixels existante.
+     *
+     * Sur un plan pictural, la grille de pixels ne dit rien de la géométrie du niveau : c'est le
+     * pas de tuile qui permet de viser une case. Les deux coexistent, à des pas différents.
+     * @param step Pas de la grille, en pixels image (la densité du plan) ; `0` l'enlève.
+     */
+    void setReferenceGridStep(int step);
     [[nodiscard]] const DecodedImage& image() const noexcept {
         return _image;
     }
@@ -162,6 +194,11 @@ public:
     /// (déplacer, transformer) immédiatement après.
     void paste() override;
 
+    /// @return Le pas de la grille de tuiles, `0` si aucune n'est posée.
+    [[nodiscard]] int referenceGridStep() const noexcept {
+        return _referenceGridStep;
+    }
+
     /// Région actuellement sélectionnée (outil Sélection), vide si aucune.
     [[nodiscard]] const PixelRegion& selection() const noexcept {
         return _selection;
@@ -244,6 +281,15 @@ private:
     [[nodiscard]] std::uint32_t effectivePaintColor() const noexcept;
 
     DecodedImage _image;
+    /// Repère dessiné **sous** le contenu édité (`setUnderlay`) — jamais dans `_image`, donc jamais
+    /// dans l'historique ni dans le presse-papiers.
+    DecodedImage _underlay;
+    float _underlayOpacity = 1.0f;
+    /// Repère dessiné **par-dessus** le contenu édité (`setOverlay`), mêmes règles.
+    DecodedImage _overlay;
+    float _overlayOpacity = 1.0f;
+    /// Pas de la grille de tuiles, en pixels image ; `0` si aucune.
+    int _referenceGridStep = 0;
     std::string _assetName;
     bool _dirty = false;
     PixelHistory _history;

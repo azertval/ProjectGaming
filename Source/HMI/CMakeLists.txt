@@ -264,6 +264,7 @@ add_executable(ProjectGaming
     Editor/PixelOperations.cpp
     Editor/PixelHistory.cpp
     Editor/PixelCanvasGeometry.cpp
+    Editor/PlaneReference.cpp
     Editor/PixelCanvas.cpp
     Editor/PixelHistoryPanel.cpp
     Editor/PixelAssetIO.cpp
