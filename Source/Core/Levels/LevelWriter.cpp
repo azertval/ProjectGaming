@@ -63,12 +63,11 @@ namespace {
 }  // namespace
 
 std::string LevelWriter::toJsonString(const Level& level) {
-    return buildJson(level.name(), level.tileMap(), level.mechanisms(), level.jumpBudget(),
-                     level.dashBudget(), level.dangerLinks(), level.moverConfigs(),
-                     level.blinkConfigs(), level.background(), level.skinSet(),
-                     level.textureOverrides(), level.platformConfigs(),
-                     level.cameraFraming(), level.airJumps(), level.dashCharges(), level.planes(),
-                     level.parallaxEnabled());
+    return buildJson(
+        level.name(), level.tileMap(), level.mechanisms(), level.jumpBudget(), level.dashBudget(),
+        level.dangerLinks(), level.moverConfigs(), level.blinkConfigs(), level.background(),
+        level.skinSet(), level.textureOverrides(), level.platformConfigs(), level.cameraFraming(),
+        level.airJumps(), level.dashCharges(), level.planes(), level.parallaxEnabled());
 }
 
 bool LevelWriter::saveToFile(const Level& level, const std::filesystem::path& path) {

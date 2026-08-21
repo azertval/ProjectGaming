@@ -42,8 +42,8 @@ class Level;
  * décors-sprites ne sont **pas** des entités : ce sont des données d'habillage du niveau, composées
  * directement par `HMI` sans passer par l'ECS.
  */
-void buildLevelScene(
-    World& world, const Level& level, const std::function<AtlasRegion(TileType)>& regionForTile,
-    const std::function<void(Entity, TileType, int, int)>& onTileEntity = {});
+void buildLevelScene(World& world, const Level& level,
+                     const std::function<AtlasRegion(TileType)>& regionForTile,
+                     const std::function<void(Entity, TileType, int, int)>& onTileEntity = {});
 
 }  // namespace core
