@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_sprite.cpp
  * @brief Tests unitaires du composant d'apparence `Sprite` (données pures).

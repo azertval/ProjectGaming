@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_level_draft.cpp
  * @brief Tests unitaires du modèle d'édition mutable (LOT-14, EX-EDIT-002 à EX-EDIT-007).
@@ -11,6 +14,7 @@
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/LevelDraft.h"
 #include "Core/Levels/LevelLoader.h"
+#include "Core/Levels/Plane.h"
 #include "Core/Levels/TileType.h"
 
 namespace {
@@ -1217,6 +1221,92 @@ TEST(LevelDraftTest, FromLevelRestitueLesDangersAvances) {
     EXPECT_EQ(draft.moverConfigs().front().range, 1);
     ASSERT_EQ(draft.blinkConfigs().size(), 1u);
     EXPECT_EQ(draft.blinkConfigs().front().period, 90);
+}
+
+/**
+ * @brief `fromLevel` restitue les **plans picturaux** et le drapeau de parallaxe d'un niveau déjà
+ * chargé (`EX-DEC-040`, `EX-DEC-043`).
+ *
+ * Défaut réel constaté à l'essai : le brouillon ouvrait un niveau habillé sans ses plans, et
+ * l'enregistrer effaçait tout l'habillage — sans le moindre message, puisqu'un champ simplement
+ * absent ne fait rien échouer. C'est la classe de défaut qu'aucun test de comportement n'attrape :
+ * seul un test de **restitution champ par champ** la voit.
+ * \castest{<b>fromLevel restitue les plans picturaux et le drapeau de parallaxe.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Charger un niveau declarant deux plans et la parallaxe desactivee.<br/>2. En
+ * construire un brouillon par fromLevel.<br/>
+ * \tattendu Les deux plans sont restitues dans l'ordre, avec leurs reglages, et le drapeau de
+ * parallaxe est conserve.
+ * }
+ */
+TEST(LevelDraftTest, FromLevelRestitueLesPlansEtLaParallaxe) {
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(R"({
+      "width": 5, "height": 5,
+      "parallax": false,
+      "planes": [
+        { "file": "fond.png", "pixelsPerUnit": 8, "parallaxX": 0.5, "opacity": 0.75 },
+        { "file": "devant.png", "parallaxX": 1.2, "depth": "front" }
+      ],
+      "tiles": [
+        { "x": 0, "y": 0, "type": "entry" },
+        { "x": 4, "y": 4, "type": "exit" }
+      ]
+    })");
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const LevelDraft draft = LevelDraft::fromLevel(*loaded.level);
+
+    ASSERT_EQ(draft.planes().size(), 2u);
+    EXPECT_EQ(draft.planes()[0].fileName, "fond.png");
+    EXPECT_EQ(draft.planes()[0].pixelsPerUnit, 8);
+    EXPECT_FLOAT_EQ(draft.planes()[0].parallaxX, 0.5F);
+    EXPECT_FLOAT_EQ(draft.planes()[0].opacity, 0.75F);
+    EXPECT_EQ(draft.planes()[0].depth, core::PlaneDepth::Behind);
+    // L'ORDRE compte : il porte la superposition. Un brouillon qui les restituerait triés, ou
+    // inversés, changerait l'apparence du niveau sans que rien ne le signale.
+    EXPECT_EQ(draft.planes()[1].fileName, "devant.png");
+    EXPECT_EQ(draft.planes()[1].depth, core::PlaneDepth::Front);
+    EXPECT_FALSE(draft.parallaxEnabled());
+}
+
+/**
+ * @brief Ouvrir un niveau habillé puis le réécrire **sans y toucher** le laisse identique.
+ *
+ * C'est la formulation qui compte pour la perte d'habillage : le brouillon est le seul chemin par
+ * lequel un niveau livré est réécrit, et un aller-retour qui perd un champ perd le travail de son
+ * auteur en silence.
+ * \castest{<b>Un aller-retour niveau -> brouillon -> niveau conserve les plans.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Charger un niveau declarant deux plans.<br/>2. En faire un brouillon, puis le
+ * reconvertir en niveau sans aucune mutation.<br/>
+ * \tattendu Le niveau reconverti declare les memes plans, dans le meme ordre.
+ * }
+ */
+TEST(LevelDraftTest, AllerRetourBrouillonConserveLesPlans) {
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(R"({
+      "width": 5, "height": 5,
+      "planes": [
+        { "file": "fond.png", "pixelsPerUnit": 4 },
+        { "file": "devant.png", "depth": "front" }
+      ],
+      "tiles": [
+        { "x": 0, "y": 0, "type": "entry" },
+        { "x": 4, "y": 4, "type": "exit" }
+      ]
+    })");
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const LevelDraft draft = LevelDraft::fromLevel(*loaded.level);
+    const core::LevelLoadResult rewritten = draft.toLevel();
+    ASSERT_TRUE(rewritten.ok()) << rewritten.error;
+
+    ASSERT_EQ(rewritten.level->planes().size(), 2u);
+    EXPECT_EQ(rewritten.level->planes()[0].fileName, "fond.png");
+    EXPECT_EQ(rewritten.level->planes()[0].pixelsPerUnit, 4);
+    EXPECT_EQ(rewritten.level->planes()[1].fileName, "devant.png");
+    EXPECT_EQ(rewritten.level->planes()[1].depth, core::PlaneDepth::Front);
 }
 
 /**

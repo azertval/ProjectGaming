@@ -1,11 +1,11 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Editor/PanelFocus.h"
 
 namespace hmi {
 
 const std::array<PanelFocusEntry, PANEL_FOCUS_CATALOG_COUNT>& panelFocusCatalog() {
-    // Outil Décor volontairement absent : ses contrôles (placement et inspection) vivent dans le
-    // panneau Décors (`DecorsPanel`, `LOT-57`), qui n'est tabifié avec aucun autre panneau -- le
-    // mettre en avant n'aurait aucun effet visible (rien à faire passer devant un onglet voisin).
     static const std::array<PanelFocusEntry, PANEL_FOCUS_CATALOG_COUNT> catalog{{
         {.tool = EditorTool::Link, .panel = PanelId::Links},
         {.tool = EditorTool::TextureAssign, .panel = PanelId::Textures},

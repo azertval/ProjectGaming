@@ -176,7 +176,12 @@
       "x": 8,
       "y": 6,
       "type": "movingPlatform",
-      "waypoints": [ { "x": 12, "y": 6 } ],
+      "waypoints": [
+        {
+          "x": 12,
+          "y": 6
+        }
+      ],
       "speed": 1.0
     },
     {
@@ -263,7 +268,12 @@
       "x": 3,
       "y": 11,
       "type": "movingPlatform",
-      "waypoints": [ { "x": 3, "y": 6 } ],
+      "waypoints": [
+        {
+          "x": 3,
+          "y": 6
+        }
+      ],
       "speed": 1.0
     },
     {
@@ -290,24 +300,14 @@
       "type": "solid"
     }
   ],
-  "decors": [
+  "planes": [
     {
-      "asset": "kenney_chain.png",
-      "x": 8.0,
-      "y": 1.0,
-      "layer": "foreground"
+      "file": "demo-plateforme-fond.png",
+      "pixelsPerUnit": 8
     },
     {
-      "asset": "gear.png",
-      "x": 13.0,
-      "y": 1.0,
-      "layer": "background"
-    },
-    {
-      "asset": "pillar.png",
-      "x": 15.5,
-      "y": 7.0,
-      "layer": "background"
+      "file": "demo-plateforme-devant.png",
+      "depth": "front"
     }
   ]
 }

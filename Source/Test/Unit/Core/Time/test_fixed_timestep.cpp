@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_fixed_timestep.cpp
  * @brief Tests unitaires du cadenceur à pas de temps fixe.

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Valentin Eloy
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Genere une spritesheet de personnage de TEST pour ProjectGaming (LOT-48, livree en LOT-65).
 
 `Player/` ne contenait jusqu'ici aucun fichier : le personnage retombait systematiquement sur la

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_danger_avance.cpp
  * @brief Tests d'intégration des dangers avancés (`EX-GP-050` à `EX-GP-053`) : `DangerController`

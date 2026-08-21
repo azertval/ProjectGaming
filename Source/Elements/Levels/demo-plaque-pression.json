@@ -508,24 +508,14 @@
       "type": "solid"
     }
   ],
-  "decors": [
+  "planes": [
     {
-      "asset": "kenney_fence.png",
-      "x": 3.0,
-      "y": 2.2,
-      "layer": "background"
+      "file": "demo-plaque-pression-fond.png",
+      "pixelsPerUnit": 8
     },
     {
-      "asset": "gear.png",
-      "x": 17.0,
-      "y": 0.4,
-      "layer": "background"
-    },
-    {
-      "asset": "lantern.png",
-      "x": 8.0,
-      "y": 0.2,
-      "layer": "foreground"
+      "file": "demo-plaque-pression-devant.png",
+      "depth": "front"
     }
   ]
 }

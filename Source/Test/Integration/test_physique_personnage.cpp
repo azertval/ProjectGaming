@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_physique_personnage.cpp
  * @brief Tests d'intégration de la physique du personnage : ECS + grille + balayage assemblés.
@@ -2436,7 +2439,7 @@ core::Level makePlatformLevel(int startCol, int startRow, int endCol, int endRow
                                    .phase = 0}};
     return core::Level("plateforme-integration", std::move(map), core::GridPosition{0, 0},
                        core::GridPosition{19, 19}, {}, -1, -1, {}, {}, {}, std::nullopt,
-                       std::nullopt, {}, {}, std::move(platformConfigs));
+                       std::nullopt, {}, std::move(platformConfigs));
 }
 
 }  // namespace

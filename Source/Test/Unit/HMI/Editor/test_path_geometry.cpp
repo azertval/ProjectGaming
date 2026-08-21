@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_path_geometry.cpp
  * @brief Tests unitaires de la géométrie des poignées de parcours (LOT-67 TACHE-04,

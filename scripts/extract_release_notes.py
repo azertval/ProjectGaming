@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Valentin Eloy
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Extrait du CHANGELOG la section d'une version, pour servir de notes de release.
 
 ``release.yml`` publiait jusqu'ici avec ``--generate-notes``, qui produit une liste brute de

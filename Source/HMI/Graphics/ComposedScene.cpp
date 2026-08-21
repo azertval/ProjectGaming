@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Graphics/ComposedScene.h"
 
 #include <algorithm>
@@ -9,8 +12,6 @@
 #include "Core/Ecs/Entity.h"
 #include "Core/Ecs/World.h"
 #include "HMI/Graphics/Camera2D.h"
-#include "HMI/Graphics/DecorVisuals.h"
-#include "HMI/Graphics/Parallax.h"
 #include "HMI/Graphics/PlayerSpriteTag.h"
 #include "HMI/Graphics/PreviousPosition.h"
 #include "HMI/Graphics/TileSkinTag.h"
@@ -23,6 +24,13 @@ void ComposedScene::clear() noexcept {
     _textureOrder.clear();
     _considered = 0;
     _culled = 0;
+    _textureBytes = 0;
+}
+
+// Memoire de texture d'une primitive deja ajoutee (EX-NFR-043) : simple accumulation, l'emetteur
+// decide seul de ce qui compte (voir l'en-tete -- aujourd'hui les seuls plans picturaux).
+void ComposedScene::addTextureBytes(std::size_t bytes) noexcept {
+    _textureBytes += bytes;
 }
 
 // Restreint la composition aux primitives visibles dans un cadrage donne (EX-NFR-005). Le
@@ -142,6 +150,7 @@ SceneStatistics ComposedScene::statistics() const noexcept {
     stats.culled = _culled;
     stats.submitted = static_cast<int>(_quads.size());
     stats.batches = batchCount();
+    stats.textureBytes = _textureBytes;
     return stats;
 }
 
@@ -150,13 +159,14 @@ std::string formatSceneStatistics(const SceneStatistics& statistics) {
     return "Rendu : " + std::to_string(statistics.considered) + " primitive(s) composee(s), " +
            std::to_string(statistics.culled) + " ecartee(s) hors cadrage, " +
            std::to_string(statistics.submitted) + " soumise(s) en " +
-           std::to_string(statistics.batches) + " passe(s).";
+           std::to_string(statistics.batches) + " passe(s), " +
+           std::to_string(statistics.textureBytes / 1024) + " Kio de plans.";
 }
 
 // Boite englobante d'un rectangle texture, en unites monde -- tient compte de la rotation
-// (LOT-50 TACHE-02) : un quad pivote occupe un rectangle englobant plus grand que sa taille
-// propre, le culling doit donc le juger sur ce rectangle-la, jamais sur (x, y, width, height) brut
-// (un decor pivote pres du bord du cadrage disparaitrait sinon a tort).
+// : un quad pivote occupe un rectangle englobant plus grand que sa taille propre, le culling
+// doit donc le juger sur ce rectangle-la, jamais sur (x, y, width, height) brut (une entite pivotee
+// pres du bord du cadrage disparaitrait sinon a tort).
 core::Rect spriteQuadBounds(const SpriteQuad& quad) noexcept {
     if (quad.rotation == 0.0f) {
         return core::Rect{core::Vector2{quad.x, quad.y}, core::Vector2{quad.width, quad.height}};
@@ -198,37 +208,13 @@ struct SpriteAppearance {
 };
 
 // Resout l'apparence (texture, region, taille monde) d'une entite affichable selon sa nature --
-// decor libre, personnage, ou tuile generique (seul cas ou l'apparence peut etre absente : calque
-// masque ou axe skin/surcharge sans rien a montrer, cf. hmi::resolveTileAppearance).
+// personnage, ou tuile generique (seul cas ou l'apparence peut etre absente : calque masque ou axe
+// skin/surcharge sans rien a montrer, cf. hmi::resolveTileAppearance).
 std::optional<SpriteAppearance> resolveSpriteAppearance(
     core::World& world, core::Entity entity, const core::Transform& transform,
     const core::Sprite& sprite, RenderMode mode, const SceneTextures& textures,
-    const LayerVisibility& visibility, const DecorVisualTag* decorTag,
-    const PlayerSpriteTag* playerTag, bool usePlayerAppearance) {
+    const LayerVisibility& visibility, const PlayerSpriteTag* playerTag, bool usePlayerAppearance) {
     SpriteAppearance result;
-    if (decorTag != nullptr) {
-        // Apparence resolue par hmi::resolveDecorAppearance (LOT-49 TACHE-02), point d'appel
-        // unique symetrique a hmi::resolveTileAppearance pour les tuiles : asset designe si
-        // charge, damier de repli a sa taille sinon. L'image est toujours echantillonnee en
-        // entier (pas de decoupage en grille, contrairement aux tuiles).
-        //
-        // Rotation (core::Transform::rotation) : appliquee au quad (LOT-50 TACHE-02) --
-        // hmi::SpriteQuad porte une rotation optionnelle (nulle par defaut, cf.
-        // HMI/Graphics/Quad.h), tournee autour du centre du quad par hmi::SpriteBatch::draw, meme
-        // patron que hmi::LineQuad (LOT-37) pour un quad oriente. Revient sur le choix de LOT-49
-        // TACHE-02 de l'ignorer : necessaire pour que la poignee de rotation de l'editeur
-        // (LOT-50) ait un effet visible.
-        const DecorAppearance appearance = resolveDecorAppearance(*decorTag, textures);
-        result.texture = appearance.texture;
-        result.region = core::AtlasRegion{0, 0, appearance.pixelWidth, appearance.pixelHeight};
-        result.atlasWidth = static_cast<float>(appearance.pixelWidth);
-        result.atlasHeight = static_cast<float>(appearance.pixelHeight);
-        result.worldWidth = static_cast<float>(appearance.pixelWidth) / Camera2D::PIXELS_PER_UNIT *
-                            transform.scale.x;
-        result.worldHeight = static_cast<float>(appearance.pixelHeight) /
-                             Camera2D::PIXELS_PER_UNIT * transform.scale.y;
-        return result;
-    }
     if (usePlayerAppearance) {
         result.region = playerTag->textureRegion;
         if (playerTag->usesCharacterSheet) {
@@ -286,21 +272,10 @@ std::optional<SpriteAppearance> resolveSpriteAppearance(
 // Compose les entites affichables d'un monde ECS en primitives (lecture seule de l'ECS).
 void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mode,
                          const SceneTextures& textures, float interpolationAlpha,
-                         const Camera2D* camera, const LayerVisibility& visibility,
-                         bool applyDecorParallax) {
+                         const LayerVisibility& visibility) {
     // Lecture seule de l'ECS : les composants sont pris par reference constante.
     world.view<core::Transform, core::Sprite>().each(
         [&](core::Entity entity, const core::Transform& transform, const core::Sprite& sprite) {
-            // Decor libre (EX-DEC-001, LOT-49) : jamais compose en mode Physique (TACHE-02), qui
-            // doit rester la lecture nue des collisions -- un decor n'en fait jamais partie
-            // (EX-ARCH-012). Sorti tot, avant meme de lire les autres marques de presentation.
-            const DecorVisualTag* decorTag = world.hasComponent<DecorVisualTag>(entity)
-                                                 ? &world.getComponent<DecorVisualTag>(entity)
-                                                 : nullptr;
-            if (decorTag != nullptr && mode != RenderMode::Texture) {
-                return;
-            }
-
             // Habillage du personnage (LOT-48), en RenderMode::Texture uniquement : resolu a part
             // de hmi::resolveTileAppearance (le personnage n'est pas une tuile, cf.
             // PlayerSpriteTag)
@@ -313,20 +288,20 @@ void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mo
 
             // Calque de presentation : porte par l'entite si elle est taguee, sinon le defaut
             // (tuiles). Calcule ici, avant toute resolution d'apparence, pour pouvoir ecarter au
-            // plus tot une entite de calque masque (LOT-51) -- decor et personnage seulement : une
-            // entite "tuile" (aucun RenderLayerTag) est filtree plus finement ci-dessous, par axe
+            // plus tot une entite de calque masque (LOT-51) -- personnage seulement : une entite
+            // "tuile" (aucun RenderLayerTag) est filtree plus finement ci-dessous, par axe
             // skin/surcharge plutot que par ce seul bit de calque (hmi::resolveTileAppearance).
             const RenderLayer layer = world.hasComponent<RenderLayerTag>(entity)
                                           ? world.getComponent<RenderLayerTag>(entity).value
                                           : DEFAULT_RENDER_LAYER;
-            const bool isTileEntity = decorTag == nullptr && !usePlayerAppearance;
+            const bool isTileEntity = !usePlayerAppearance;
             if (!isTileEntity && !visibility.visible(layer)) {
                 return;
             }
 
             const std::optional<SpriteAppearance> resolved =
                 resolveSpriteAppearance(world, entity, transform, sprite, mode, textures,
-                                        visibility, decorTag, playerTag, usePlayerAppearance);
+                                        visibility, playerTag, usePlayerAppearance);
             if (!resolved) {
                 return;  // tuile generique sans apparence a montrer (calque masque, axe isole).
             }
@@ -349,22 +324,6 @@ void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mo
                 position = previous + (transform.position - previous) * interpolationAlpha;
             }
 
-            // Parallaxe (EX-DEC-006, LOT-49 TACHE-03) : purement visuelle -- ne touche que la
-            // position DE RENDU, jamais `transform.position` (la position simulee, EX-ARCH-012).
-            // Le culling (scene.addSprite ci-dessous, via spriteQuadBounds) juge donc la position
-            // DEJA decalee, comme l'exige la tache (une couche parallaxee n'occupe pas le meme
-            // rectangle monde que le niveau).
-            if (decorTag != nullptr && camera != nullptr) {
-                // Mode suivi (LOT-64) : la parallaxe neutralisee (facteur 1.0, comme la couche
-                // Decor) plutot que retiree -- le decor reste pixel-aligne et soumis au culling
-                // via la camera, seul le decalage differentiel entre couches disparait (voir
-                // en-tete, composeWorldSprites).
-                const float factor =
-                    applyDecorParallax ? parallaxFactor(decorTag->layer) : PARALLAX_FACTOR_DECOR;
-                position = parallaxRenderPosition(position, factor, camera->visibleBounds());
-                position = roundToScreenPixel(position, Camera2D::PIXELS_PER_UNIT * camera->zoom());
-            }
-
             position = position + quadOffset;
 
             SpriteQuad quad;
@@ -372,8 +331,8 @@ void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mo
             quad.y = position.y;
             quad.width = worldWidth;
             quad.height = worldHeight;
-            // Rotation du decor (LOT-50) : nulle pour toute autre entite (tuiles, personnage),
-            // jamais ecrite ailleurs que par les mutateurs de decors (core::Transform::rotation).
+            // Rotation portee par le Transform : nulle pour toute entite du jeu (tuiles,
+            // personnage), l'orientation restant l'exception plutot que la regle.
             quad.rotation = transform.rotation;
             // Coordonnees de texture normalisees a partir de la region en pixels.
             quad.u0 = static_cast<float>(region.x) / atlasWidth;

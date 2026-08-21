@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Editor/PixelAssetIO.h"
 
 #include "HMI/Graphics/TextureAtlas.h"
@@ -48,7 +51,7 @@ std::vector<std::pair<int, int>> validAssetSizes(AssetFamily family) {
         }
         return sizes;
     }
-    return {};  // dimensions libres (fond, decor, police) : saisie libre a la charge de l'appelant.
+    return {};  // dimensions libres (fond, police) : saisie libre a la charge de l'appelant.
 }
 
 }  // namespace hmi

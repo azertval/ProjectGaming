@@ -67,12 +67,13 @@
     <!-- Aperçu des raccourcis : insere en code depuis le catalogue. -->
    </widget>
 
-   <!-- Sous-menu Espace de travail : deux entrees exclusives. Le selecteur vit ICI et nulle part
-        ailleurs (EX-IHM-062) ; le mettre aussi en barre d'outils y remettrait des boutons que ce
-        lot vient d'en retirer. -->
+   <!-- Sous-menu Espace de travail : trois entrees exclusives depuis le LOT-69 (mode creation).
+        Le selecteur vit ICI et nulle part ailleurs (EX-IHM-062) ; le mettre aussi en barre
+        d'outils y remettrait des boutons que le LOT-68 vient d'en retirer. -->
    <widget class="QMenu" name="workspaceMenu">
     <property name="title"><string>Espace de travail</string></property>
     <addaction name="actWorkspaceLevel"/>
+    <addaction name="actWorkspacePlanes"/>
     <addaction name="actWorkspacePixelArt"/>
    </widget>
    <!-- Sous-menu Calques : les sept actions suivent l'ORDRE DE DESSIN (hmi::RenderLayer,
@@ -81,12 +82,12 @@
    <widget class="QMenu" name="layersMenu">
     <property name="title"><string>Calques</string></property>
     <addaction name="actLayerBackground"/>
-    <addaction name="actLayerDecorBackground"/>
+    <addaction name="actLayerPlaneBehind"/>
     <addaction name="actLayerShadow"/>
     <addaction name="actLayerTileSkin"/>
     <addaction name="actLayerObjects"/>
     <addaction name="actLayerPlayer"/>
-    <addaction name="actLayerDecorForeground"/>
+    <addaction name="actLayerPlaneFront"/>
     <addaction name="separator"/>
     <addaction name="actShowAllLayers"/>
    </widget>
@@ -120,10 +121,10 @@
    <attribute name="dockWidgetArea"><number>1</number></attribute>
    <widget class="QWidget" name="paletteContents"/>
   </widget>
-  <widget class="QDockWidget" name="DecorsPanel">
-   <property name="windowTitle"><string>Décors</string></property>
+  <widget class="QDockWidget" name="PlanesPanel">
+   <property name="windowTitle"><string>Plans</string></property>
    <attribute name="dockWidgetArea"><number>1</number></attribute>
-   <widget class="QWidget" name="decorsContents"/>
+   <widget class="QWidget" name="planesContents"/>
   </widget>
   <widget class="QDockWidget" name="LevelsPanel">
    <property name="windowTitle"><string>Niveaux</string></property>
@@ -177,6 +178,10 @@
    <property name="checked"><bool>true</bool></property>
    <property name="text"><string>Édition de niveau</string></property>
   </action>
+  <action name="actWorkspacePlanes">
+   <property name="checkable"><bool>true</bool></property>
+   <property name="text"><string>Mode création</string></property>
+  </action>
   <action name="actWorkspacePixelArt">
    <property name="checkable"><bool>true</bool></property>
    <property name="text"><string>Atelier pixel art</string></property>
@@ -199,10 +204,10 @@
    <property name="checked"><bool>true</bool></property>
    <property name="text"><string>Fond</string></property>
   </action>
-  <action name="actLayerDecorBackground">
+  <action name="actLayerPlaneBehind">
    <property name="checkable"><bool>true</bool></property>
    <property name="checked"><bool>true</bool></property>
-   <property name="text"><string>Décor d'arrière-plan</string></property>
+   <property name="text"><string>Plans derrière</string></property>
   </action>
   <action name="actLayerShadow">
    <property name="checkable"><bool>true</bool></property>
@@ -224,10 +229,10 @@
    <property name="checked"><bool>true</bool></property>
    <property name="text"><string>Personnage</string></property>
   </action>
-  <action name="actLayerDecorForeground">
+  <action name="actLayerPlaneFront">
    <property name="checkable"><bool>true</bool></property>
    <property name="checked"><bool>true</bool></property>
-   <property name="text"><string>Décor de premier plan</string></property>
+   <property name="text"><string>Plans devant</string></property>
   </action>
  </widget>
  <resources/>

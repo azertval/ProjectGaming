@@ -126,9 +126,10 @@ viewport. Le problème d'occlusion disparaît par construction :
   `hmi::tileTaxonomy`) émet le type sélectionné, que `MainWindow` relaie au viewport via
   `GameViewport::setActiveTile` ;
 - l'**outil actif** est choisi depuis la barre d'outils à icônes (`hmi::EditorActions`, `LOT-56`) et
-  relayé via `GameViewport::setTool`. L'ancien panneau de boutons radio a disparu ; ce qui restait
-  d'options propres à l'outil Décor vit désormais dans le panneau **Décors** (`hmi::DecorsPanel`),
-  qui regroupe aussi l'inspecteur des décors posés (voir @ref guide-design-ihm).
+  relayé via `GameViewport::setTool`. L'ancien panneau de boutons radio a disparu. Le panneau
+  **Décors**, qui portait les options de l'outil du même nom, a été remplacé au `LOT-69` par le
+  panneau **Plans** (`hmi::PlanesPanel`) : l'habillage d'un niveau ne se pose plus, il se peint
+  (voir « Mode création » ci-dessous).
 
 Depuis le `LOT-68`, cette barre d'outils ne porte **que** la sélection d'outil et quatre commandes
 à usage continu — enregistrer, annuler, refaire, essayer. Tout le reste vit dans la barre de menus,
@@ -289,14 +290,14 @@ table `hmi::qtKeyToHmiKey` (@ref guide-entrees) — l'ancienne fenêtre Win32 et
 
 `F8` (@ref guide-rendu, `LOT-41`) **compose** le rendu final — surcharge par instance (`LOT-45`) >
 skin de type (`LOT-42`) > damier de repli — exactement ce que le joueur voit. À partir de six
-calques empilés (fond, décors d'arrière-plan, skin des tuiles, objets interactifs, personnage,
-décors de premier plan), la seule bascule Physique/Texture ne dit plus **d'où** vient ce qui est
+calques empilés (fond, plans d'arrière-plan, skin des tuiles, objets interactifs, personnage,
+plans de premier plan), la seule bascule Physique/Texture ne dit plus **d'où** vient ce qui est
 affiché à l'écran.
 
 L'onglet **Calques** du panneau **Textures** répond à cette question précise : il **décompose**
 plutôt que de composer. Une case à cocher par calque, dans l'**ordre de dessin** (`hmi::RenderLayer`,
-`EX-REN-014`) — Fond, Décor d'arrière-plan, Ombres, Skin des tuiles, Objets interactifs, Personnage,
-Décor de premier plan — chacune indépendamment activable/désactivable, plus une case « Physique
+`EX-REN-014`) — Fond, Plans d'arrière-plan, Ombres, Skin des tuiles, Objets interactifs, Personnage,
+Plans de premier plan — chacune indépendamment activable/désactivable, plus une case « Physique
 seul » (la même bascule que `F8`, vue sous cet angle) et un bouton « Tout afficher ». C'est un mode
 d'**inspection de l'éditeur**, sans persistance entre deux sessions et **sans aucun effet sur le
 jeu** — masquer un calque ici ne le masque jamais en jeu ni en essai (`hmi::GameSession` ne connaît
@@ -309,13 +310,89 @@ assignée, sans repli sur le skin de leur type ni sur le damier ; cocher uniquem
 tuiles » ne montre que les types dont un skin est chargé dans le jeu courant, une case vide révélant
 directement **quels types n'ont pas encore de skin** — le diagnostic le plus utile du programme
 d'habillage (`LOT-40` → `LOT-55`). Combiner plusieurs cases répond à des questions d'audit
-différentes (« le décor de premier plan cache-t-il quelque chose d'important au-dessus du
+différentes (« le plan de premier plan cache-t-il quelque chose d'important au-dessus du
 personnage ? » suppose deux calques visibles à la fois, pas un seul).
 
 Les libellés « Aperçu » de cet onglet ne doivent jamais se confondre avec « Jeu » (`F8`) : les deux
 réutilisent le même résolveur de priorité (`hmi::resolveTileAppearance`), avec deux règles
 d'affichage différentes plutôt que deux résolveurs — c'est ce qui garantit que l'audit ne divergera
 jamais silencieusement du rendu réel.
+
+## Le mode création : peindre le décor du niveau (`LOT-69`)
+
+Le `LOT-68` avait donné à l'éditeur deux **espaces de travail exclusifs** — édition de niveau,
+atelier pixel art. Le mode création est le **troisième** (menu *Affichage > Espace de travail*), et
+c'est cette structure, plutôt qu'un énième bouton, qui le rend praticable : y entrer masque les
+panneaux qui n'ont rien à y faire et fait apparaître ceux du canevas.
+
+### Le panneau « Plans »
+
+Il occupe la place laissée par l'ancien panneau « Décors ». Il liste les plans du niveau **dans
+l'ordre**, chacun avec son fichier, sa densité, sa profondeur, sa parallaxe par axe, son opacité, un
+œil de visibilité et un bouton « isoler ».
+
+L'ordre est significatif : il décide de la superposition à profondeur égale. D'où des boutons
+**Monter/Descendre** plutôt qu'un tri de colonne, qui laisserait croire que l'ordre n'est qu'un
+confort d'affichage.
+
+Deux détails qui se paient à l'usage s'ils sont mal faits :
+
+- Les champs numériques émettent sur `editingFinished`, **jamais** sur `valueChanged` : taper
+  « 0.75 » dans un facteur de parallaxe produirait sinon quatre mutations, donc quatre pas
+  d'annulation pour un seul geste (leçon du `LOT-67`).
+- La **visibilité** d'un plan (masquage, isolement) n'est pas une propriété du niveau : elle vit
+  dans `hmi::PlaneVisibility`, n'est pas enregistrée, et n'empile aucun pas d'annulation. C'est une
+  aide de travail, pas une donnée.
+
+La case « parallaxe active » du niveau est **grisée**, avec son explication, quand le cadrage est
+*niveau entier* : la caméra n'y défile pas, un facteur ne produirait qu'un désalignement constant.
+
+### Cycle de vie des fichiers
+
+« Ajouter » crée un PNG **entièrement transparent** aux dimensions exactes qu'impose la densité,
+nommé d'après le niveau et rendu unique par un suffixe numérique croissant — `foret.png`,
+`foret-2.png`, … plutôt qu'un identifiant aléatoire, pour qu'un dossier de plans reste lisible à
+l'œil. Changer la densité **rééchantillonne** l'image et la réécrit : le fichier et le format ne
+peuvent jamais dire deux choses différentes. Le rééchantillonnage est un ratio **entier**, sans
+interpolation — un filtrage introduirait des teintes que l'artiste n'a pas posées.
+
+> **Supprimer un plan ne supprime jamais son fichier.** Retirer une entrée annule proprement côté
+> brouillon (`Ctrl+Z` la restaure), mais un fichier effacé, lui, ne revient pas. Le choix retenu est
+> donc de ne retirer que l'entrée : un PNG orphelin dans `Levels/Plans/` est moins grave qu'un
+> dessin perdu. À nettoyer à la main si le dossier s'encombre.
+
+### Peindre
+
+Le bouton « Peindre » bascule dans l'espace Plans avec le plan sélectionné chargé. Le canevas est
+celui de l'atelier pixel art (`hmi::PixelCanvas`) : mêmes outils, même palette, même historique
+visuel, même copier/coller. Rien n'a été réécrit — c'est d'ailleurs vérifié, les tests de
+`hmi::PixelOperations` et `hmi::PixelCanvasGeometry` passent **sans retouche**.
+
+Deux règles à connaître :
+
+- **`Ctrl+S` enregistre le PNG**, pas le niveau. Le canevas est « modifié » indépendamment du
+  brouillon — deux notions distinctes depuis le `LOT-54` — et chacune a son garde-fou de perte de
+  travail. L'enregistrement du niveau, lui, écrit toujours le JSON.
+- **Un coup de pinceau dans un plan n'apparaît jamais dans l'historique d'édition du niveau**, ni
+  réciproquement. Les deux piles sont distinctes par construction, et changer de sujet dans le
+  canevas repart d'une pile vierge.
+
+La barre d'état annonce, en plus de ce qu'elle affiche déjà pour un asset : la résolution du plan,
+sa densité et son **poids mémoire** — le chiffre que le budget du dépôt plafonne (`EX-NFR-043`).
+
+### La référence : un repère géométrique, pas un aperçu
+
+Sous l'image éditée, l'éditeur dessine une **pelure d'oignon** des tuiles du niveau (une couleur
+plate par type, reprise du mode Physique) et les plans qui passent **derrière** celui qu'on peint,
+aplatis ; au-dessus, ceux qui passent **devant**. Une grille de **tuiles**, distincte de la grille
+de pixels, permet de viser une case.
+
+Ce que la référence n'est **pas**, et ne sera pas : ni raccords automatiques, ni skins, ni objets
+animés. Elle dit *où* sont les choses, pas *à quoi elles ressembleront*. L'aperçu fidèle reste
+l'essai (`P`). Le dire ici évite une attente déçue.
+
+Le zoom descend **sous** le 1:1 — un plan fait la taille du niveau entier, le voir en entier est le
+cas normal, pas l'exception.
 
 ## Gérer ses fichiers de niveaux
 

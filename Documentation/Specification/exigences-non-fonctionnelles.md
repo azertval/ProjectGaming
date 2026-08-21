@@ -8,6 +8,14 @@
 - \anchor EX-NFR-001 **EX-NFR-001** — Le jeu doit maintenir **60 images/seconde** sur une configuration de bureau récente pour les niveaux du MVP. Rendue **observable** par le compteur de diagnostic (`F9`, `hmi::DiagnosticsHud`, `LOT-62`) : la cadence dépend de la machine, elle **reste hors de portée d'un contrôle automatique** (une machine virtuelle partagée ne la mesure pas de façon reproductible) — le compteur l'affiche pour être constatée sur sa propre machine de développement, il ne l'assert jamais en CI.
 - \anchor EX-NFR-002 **EX-NFR-002** — La simulation doit fonctionner à **pas de temps fixe** et rester déterministe (mêmes entrées → même résultat).
 - \anchor EX-NFR-003 **EX-NFR-003** — L'empreinte mémoire doit rester stable dans le temps (aucune fuite ; vérifiable via AddressSanitizer). Vérifiée par le job `sanitize` de `ci.yml` (LOT-58) : les trois exécutables de test (`UnitTests`, `IntegrationTests`, `SystemTests`) s'exécutent sous AddressSanitizer à chaque PR.
+- \anchor EX-NFR-043 **EX-NFR-043** — Le coût d'un niveau doit être borné et vérifié sur un
+  **second axe** : la **mémoire de texture**, distincte du nombre de primitives (`EX-NFR-005`). Les
+  plans picturaux (`EX-DEC-040`) en sont le motif : ils n'ajoutent presque **aucune** primitive — un
+  quad chacun — mais occupent une texture à l'échelle du niveau, de sorte qu'un plafond exprimé en
+  primitives laisserait passer exactement la régression qu'ils rendent possible. Le plafond est
+  **testé par niveau livré**, au même endroit et selon le même patron que celui des primitives, et
+  le coût est **affiché à l'auteur** pendant qu'il le dépense (`EX-EDIT-047`) plutôt que découvert
+  en CI. Concrétisé en `LOT-69`.
 - \anchor EX-NFR-005 **EX-NFR-005** — Le rendu ne doit soumettre que les primitives **effectivement
   visibles** : le contenu hors du cadrage de la caméra (`EX-REN-015`, salle courante) est écarté
   avant soumission. Le nombre de primitives émises par image doit rester **borné et observable**,
@@ -68,7 +76,12 @@
   (`EX-NFR-031`) et la licence documentée. Introduit en `LOT-34`. Le poste local déclare une
   version minimale (`QT_VERSION_MINIMUM`, `Source/HMI/CMakeLists.txt`) alignée sur celle de la CI
   et vérifiée automatiquement contre elle (`scripts/check_qt_version_pin.py`) ; un écart local
-  produit un avertissement explicite plutôt qu'une divergence silencieuse (`LOT-66`).
+  produit un avertissement explicite plutôt qu'une divergence silencieuse (`LOT-66`). L'exigence de
+  reproductibilité porte aussi sur l'**outil de provisionnement lui-même** : lorsqu'il doit être
+  pris ailleurs que sur son dépôt de paquets habituel — cas d'`aqtinstall` en `LOT-69`, dont la
+  version publiée ne sait pas installer Qt ≥ 6.11 — la source est épinglée à une **révision
+  précise** (jamais une branche mobile), et le motif du détour ainsi que sa condition de sortie
+  sont écrits à l'endroit où il est déclaré.
 
 ## Traçabilité
 Ces exigences transverses conditionnent l'acceptation de chaque lot. Depuis le `LOT-58`, elles

@@ -114,12 +114,16 @@ générés dans `build/`).
 ### Prérequis
 - Visual Studio 2022+ avec la charge de travail **« Développement Desktop en C++ »**
   (inclut CMake, Ninja et le compilateur MSVC).
-- **Qt6** (`Widgets`, `Gui`, `Multimedia` — module audio, `LOT-60`), version **6.8.1 ou
+- **Qt6** (`Widgets`, `Gui`, `Multimedia` — module audio, `LOT-60`), version **6.11.2 ou
   supérieure** (celle validée par la CI — un écart produit un avertissement à la configuration,
   pas un échec), détecté automatiquement (`CMAKE_PREFIX_PATH`, cf.
   `Source/HMI/CMakeLists.txt`) s'il est installé à l'emplacement conventionnel de
   l'[installateur officiel](https://www.qt.io/download-qt-installer) ou via
-  [`aqtinstall`](https://github.com/miurahr/aqtinstall) (`-m qtmultimedia` pour le module audio).
+  [`aqtinstall`](https://github.com/miurahr/aqtinstall)
+  (`-m qtmultimedia qtshadertools qtcanvaspainter`). Qt 6.11 est le **plancher** depuis le
+  `LOT-69` : c'est la première version fournissant Qt Canvas Painter. Installer Qt ≥ 6.11 avec
+  `aqtinstall` demande une version de l'outil plus récente que celle publiée sur PyPI — voir
+  [`External/README.md`](External/README.md).
   Sans Qt, la cible `ProjectGaming` est **ignorée** (avertissement explicite) : seuls les tests se
   construisent.
 
@@ -210,3 +214,40 @@ de `docs` (`docs.yml`, informatif).
 > les DLL Qt, le plugin de plateforme et le runtime du compilateur à côté de l'exécutable. Le
 > runtime MSVC est **dynamique** (`/MD`) et non statique — les DLL Qt officielles sont construites
 > ainsi, et un CRT statique provoquerait des incohérences d'allocation entre l'application et Qt.
+
+## Licence
+
+ProjectGaming est distribué sous **GNU General Public License v3.0 ou ultérieure**
+(`GPL-3.0-or-later`). Le texte complet est dans [`LICENSE`](LICENSE).
+
+```
+Copyright (C) 2026 Valentin Eloy
+
+Ce programme est un logiciel libre : vous pouvez le redistribuer et/ou le modifier
+selon les termes de la GNU General Public License telle que publiée par la Free
+Software Foundation, soit la version 3 de cette licence, soit (à votre choix)
+toute version ultérieure.
+
+Ce programme est distribué dans l'espoir qu'il sera utile, mais SANS AUCUNE
+GARANTIE, ni explicite ni implicite, y compris les garanties de COMMERCIALISATION
+ou d'ADAPTATION À UN USAGE PARTICULIER. Voir la GNU General Public License pour
+plus de détails.
+```
+
+Ce que cela implique concrètement, et qui n'est pas toujours évident :
+
+- **L'usage commercial n'est pas interdit** — une licence open source ne peut pas le restreindre
+  (définition de l'Open Source, clause 6). Ce que la GPL garantit à la place est plus fort dans les
+  faits : *toute* redistribution, commerciale ou non, d'une version modifiée **doit en publier le
+  source** sous la même licence. Personne ne peut refermer le projet.
+- **Le copyleft se propage.** Tout code lié à ProjectGaming doit être compatible GPL-3.0.
+- **Qt reste sous LGPLv3**, en lien dynamique — les deux licences sont compatibles, la LGPLv3
+  autorisant explicitement la redistribution sous GPLv3. Les obligations propres à Qt sont
+  détaillées dans [`THIRD-PARTY-NOTICES.md`](THIRD-PARTY-NOTICES.md).
+- Les **ressources** (graphismes, sons, polices) ont leurs propres licences — CC0 et SIL OFL —
+  indépendantes de celle du code, et recensées dans le même fichier.
+- Les en-têtes `SPDX-License-Identifier: GPL-3.0-or-later` marquent le **code** du projet, et lui
+  seul. Un `.png` ou un `.wav` du dépôt n'est pas sous GPL pour autant.
+
+Ces mentions sont aussi affichées **dans le jeu**, à l'écran *Crédits* — la LGPLv3 de Qt et la SIL
+OFL des polices l'exigent, et un joueur qui n'ouvrira jamais ce dépôt doit pouvoir les lire.

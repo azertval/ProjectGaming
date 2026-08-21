@@ -6,7 +6,7 @@
 
 ## 1. Cible technique
 - \anchor EX-REN-001 **EX-REN-001** — Le jeu doit fonctionner sous **Windows 10/11 (x64)**.
-- \anchor EX-REN-002 **EX-REN-002** — Le rendu doit s'appuyer sur **Direct3D 11** (bon compromis simplicité/capacités pour de la 2D ; Direct3D 12 écarté car surdimensionné au MVP).
+- \anchor EX-REN-002 **EX-REN-002** — Le rendu doit s'appuyer sur **Direct3D 11** (bon compromis simplicité/capacités pour de la 2D ; Direct3D 12 écarté car surdimensionné au MVP). Depuis le `LOT-69`, l'API n'est plus appelée directement mais **au travers de QRhi** (`EX-REN-050`), qui retient Direct3D 11 par défaut sous Windows : la cible technique est inchangée, seule la couche d'accès l'est.
 - \anchor EX-REN-003 **EX-REN-003** — La fenêtre doit être créée via l'API Win32, redimensionnable, avec titre et icône.
 
 ## 2. Rendu 2D
@@ -47,12 +47,14 @@
   niveau sans taille déclarée conserve la taille par défaut actuelle. Concrétisé en `LOT-64`.
 - \anchor EX-REN-014 **EX-REN-014** — Le rendu doit gérer un ordre de dessin par **couches**,
   défini par un **ordonnancement unique et explicite**, dont aucun calque concurrent ne peut
-  s'écarter : **fond**, **décor d'arrière-plan**, **ombres**, **tuiles physiques**, **objets**,
-  **personnage**, **décor de premier plan**, **interface**, **aides d'édition**. Le calque de
-  **premier plan** est dessiné **au-dessus du personnage** : c'est le moyen de lecture immédiate
-  qui distingue le décor traversable du décor physique (`EX-DEC-002`). Précisé en `LOT-40`.
+  s'écarter : **fond**, **plans derrière**, **ombres**, **tuiles physiques**, **objets**,
+  **personnage**, **plans devant**, **interface**, **aides d'édition**. Le calque de **premier
+  plan** est dessiné **au-dessus du personnage** : c'est le moyen de lecture immédiate qui distingue
+  le décor traversable du décor physique (`EX-DEC-042`). Précisé en `LOT-40`. Les deux calques de
+  décor ont été renommés **plans** en `LOT-69`, avec le système qu'ils portent — laisser un calque
+  au nom d'un système retiré serait exactement la dette que cette exigence cherche à éviter.
 - \anchor EX-REN-041 **EX-REN-041** — Le rendu doit pouvoir **charger ses textures depuis des
-  fichiers image** (PNG au minimum), décodés en pixels RGBA puis créés en texture Direct3D 11, en plus
+  fichiers image** (PNG au minimum), décodés en pixels RGBA puis créés en texture GPU, en plus
   de la génération procédurale historique. Le filtrage reste *nearest* (pixel art, `EX-ARCH-022`).
   Concrétisé en `LOT-39`.
 - \anchor EX-REN-042 **EX-REN-042** — Les **assets graphiques** (atlas de tuiles) doivent être
@@ -107,7 +109,7 @@
 ## 3. Boucle & temps
 - \anchor EX-REN-020 **EX-REN-020** — Le jeu doit tourner à **60 images/seconde** cible.
 - \anchor EX-REN-021 **EX-REN-021** — La logique doit être mise à jour à **pas de temps fixe** (simulation déterministe), le rendu pouvant être découplé.
-- \anchor EX-REN-022 **EX-REN-022** — Le rendu doit synchroniser la présentation (V-Sync activable) pour éviter le *tearing*.
+- \anchor EX-REN-022 **EX-REN-022** — Le rendu doit synchroniser la présentation (V-Sync activable) pour éviter le *tearing*. Depuis le `LOT-69` TACHE-02, la présentation appartient au **compositeur de Qt** (`EX-REN-050`) : elle est donc toujours synchronisée, et le réglage exposé dans les Options est conservé mais sans effet — écart assumé, à trancher si le besoin d'une présentation immédiate réapparaît.
 - \anchor EX-REN-004 **EX-REN-004** — La présentation doit utiliser le **modèle flip** de DXGI
   (`DXGI_SWAP_EFFECT_FLIP_DISCARD`, au moins deux back buffers) plutôt que l'ancien modèle *blt*
   (`DISCARD`) : sous Windows 10/11, le flip model présente le back buffer **sans copie
@@ -143,6 +145,21 @@
   L'absence de périphérique audio, de catalogue de sons ou d'un fichier référencé est une **erreur
   récupérable** (`EX-NFR-040`) : le jeu reste pleinement jouable en silence, avec un avertissement
   journalisé une seule fois par asset. Livré en `LOT-60`.
+
+- \anchor EX-REN-049 **EX-REN-049** — Les **plans picturaux** (`EX-DEC-040`) doivent se composer
+  dans l'**ordonnancement unique** de `EX-REN-014`, **sans y ajouter de valeur par plan** : leur
+  nombre est libre, les énumérer figerait dans le rendu ce que le format déclare variable. Les plans
+  de fond occupent le calque de décor, ceux de devant le calque de premier plan, et leur **rang dans
+  la liste du niveau** fournit le tri fin **à l'intérieur** du calque. Concrétisé en `LOT-69`.
+- \anchor EX-REN-050 **EX-REN-050** — Le rendu doit être présenté dans un **widget composé avec
+  l'interface** (`QRhiWidget`, qui dessine dans une texture d'appui) et non dans une **fenêtre
+  native** embarquée. Motif : un widget frère d'une fenêtre native ne se dessine jamais de façon
+  fiable par-dessus elle, ce qui a déjà coûté deux défauts réels en `LOT-59` (écran de pause
+  invisible, puis focus volé par `Qt::Tool`) et imposait un contournement par fenêtre de haut niveau
+  à géométrie synchronisée. Les aides d'édition du mode création (`EX-EDIT-046`) en dépendent
+  directement. Le rendu reste **Direct3D 11** (`EX-REN-002`), QRhi retenant ce backend par défaut
+  sous Windows, et le filtrage reste *nearest* au zoom entier (`EX-ARCH-022`) — un portage qui
+  rendrait le pixel art flou serait un échec. Concrétisé en `LOT-69`.
 
 ## Traçabilité
 Tout ce qui touche fenêtre, rendu, entrées et interface relève de `Source/HMI` ; la logique de simulation reste dans `Source/Core`. Contraintes de performance : [`exigences-non-fonctionnelles.md`](exigences-non-fonctionnelles.md).

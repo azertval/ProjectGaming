@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Graphics/AssetContract.h"
 
 #include "HMI/Graphics/TextureAtlas.h"
@@ -19,8 +22,6 @@ const char* assetFamilyName(AssetFamily family) noexcept {
             return "Objet interactif";
         case AssetFamily::CharacterSheet:
             return "Spritesheet de personnage";
-        case AssetFamily::Decor:
-            return "Decor";
         case AssetFamily::Font:
             return "Police bitmap";
     }
@@ -63,12 +64,10 @@ AssetDimensionContract assetDimensionContract(AssetFamily family) noexcept {
             contract.minimumTiles = 1;
             return contract;
         case AssetFamily::Background:
-        case AssetFamily::Decor:
         case AssetFamily::Font:
-            // Dimensions libres : le fond est etire sur les bornes du niveau (LOT-44), un decor
-            // est pose sans contrainte de grille (LOT-49), et un atlas de police est decoupe par
-            // ses metriques plutot que par une grille de cases (LOT-52). Seule la positivite est
-            // exigee.
+            // Dimensions libres : le fond est etire sur les bornes du niveau (LOT-44) et un atlas
+            // de police est decoupe par ses metriques plutot que par une grille de cases
+            // (LOT-52). Seule la positivite est exigee.
             return contract;
     }
     return contract;

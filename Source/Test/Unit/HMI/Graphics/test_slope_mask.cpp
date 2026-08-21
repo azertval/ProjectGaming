@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_slope_mask.cpp
  * @brief Tests unitaires du masque de silhouette des pentes et arrondis (LOT-42 TACHE-03).

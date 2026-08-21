@@ -1,15 +1,18 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
+#include <filesystem>
 #include <optional>
 #include <string>
-
-#include <d3d11.h>
 
 #include "Core/Levels/TileType.h"
 #include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/AssetContract.h"
 #include "HMI/Graphics/AssetPaths.h"
 #include "HMI/Graphics/CacheRegistry.h"
+#include "HMI/Graphics/RhiContext.h"
 #include "HMI/Graphics/SlopeMask.h"
 #include "HMI/Graphics/TextureLoader.h"
 
@@ -21,8 +24,8 @@
 namespace hmi {
 
 /**
- * @brief Charge, valide et met en cache des textures Direct3D 11 désignées par leur nom de
- *        fichier logique.
+ * @brief Charge, valide et met en cache des textures GPU désignées par leur nom de fichier
+ *        logique.
  *
  * `hmi::TextureAtlas` ne connaît qu'**une** texture fixe ; le programme d'habillage (`LOT-42` →
  * `LOT-55`) a besoin d'un nombre variable de textures indépendantes (skins, fonds, objets, décors,
@@ -57,12 +60,12 @@ namespace hmi {
 class TextureCache {
 public:
     /**
-     * @brief Construit un cache vide pour un device et un dossier d'assets donnés.
-     * @param device Device Direct3D 11 utilisé pour créer les textures (non possédé, doit
-     *               survivre au cache).
-     * @param paths  Résolveur de chemins d'assets (copié : le cache en garde sa propre copie).
+     * @brief Construit un cache vide pour un contexte de rendu et un dossier d'assets donnés.
+     * @param context Interface de rendu et lot de mises à jour de l'image courante (référencé, non
+     *                copié : le lot change à chaque image).
+     * @param paths   Résolveur de chemins d'assets (copié : le cache en garde sa propre copie).
      */
-    TextureCache(ID3D11Device* device, AssetPaths paths);
+    TextureCache(const RhiContext& context, AssetPaths paths);
 
     TextureCache(const TextureCache&) = delete;
     TextureCache& operator=(const TextureCache&) = delete;
@@ -118,6 +121,23 @@ public:
                                                            int textureWidth, int textureHeight);
 
     /**
+     * @brief Obtient la texture d'un fichier désigné par son **chemin**, hors du dossier d'assets.
+     *
+     * Les **plans picturaux** (`LOT-69`) sont des données de **niveau**, pas des assets
+     * réutilisables : leurs images vivent à côté des niveaux, et aucune famille
+     * (`hmi::AssetFamily`) ne leur impose de dimensions — c'est le format du niveau qui les borne
+     * (`EX-DEC-044`), au chargement, avant même qu'on arrive ici. D'où cette entrée distincte de
+     * `get`, qui résout un nom logique sous `Assets/` et valide un contrat de dimensions.
+     *
+     * Mémoïsation et invalidation identiques à `get` (échec compris), sous le chemin **absolu**
+     * comme clé : deux niveaux peuvent nommer leurs plans pareillement sans se marcher dessus.
+     * @param path Chemin du fichier image.
+     * @return La texture chargée (propriété du cache), ou `nullptr` si le fichier est absent ou
+     *         illisible — jamais d'exception (`EX-NFR-040`).
+     */
+    [[nodiscard]] const LoadedTexture* getFromPath(const std::filesystem::path& path);
+
+    /**
      * @brief Retire une entrée du cache, de sorte que le prochain `get` relise le fichier.
      *
      * Retire aussi un éventuel **échec** mémorisé, et la description d'animation associée le cas
@@ -171,11 +191,11 @@ private:
                                                                     int textureWidth,
                                                                     int textureHeight) const;
 
-    ID3D11Device* _device;  // non possédé
+    const RhiContext& _context;  // possédé par le viewport
     AssetPaths _paths;
     /// Nom logique → texture chargée ; mémorise aussi un **échec** déjà journalisé. La
     /// mémoïsation/invalidation elle-même est factorisée dans `hmi::CacheRegistry` (`LOT-43`),
-    /// testable sans GPU ; seul le **chargement** (`load`) reste ici, spécifique à Direct3D 11.
+    /// testable sans GPU ; seul le **chargement** (`load`) reste ici, spécifique au GPU.
     CacheRegistry<LoadedTexture> _entries;
     /// Nom logique → description d'animation, sous la **même clé** que `_entries` (`LOT-46`
     /// TACHE-03) : c'est ce qui permet à `invalidate`/`invalidateAll` de rester le seul point

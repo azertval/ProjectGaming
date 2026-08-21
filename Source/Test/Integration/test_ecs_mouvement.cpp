@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_ecs_mouvement.cpp
  * @brief Tests d'intégration de l'ECS : entités + composants + système de mouvement

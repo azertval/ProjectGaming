@@ -1,5 +1,9 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
+#include <cstddef>
 #include <cstdint>
 #include <optional>
 #include <string>
@@ -32,6 +36,23 @@ struct LevelStatusInfo {
     core::CameraFramingMode cameraFraming = core::CameraFramingMode::WholeLevel;
 };
 
+/**
+ * @brief Ce qu'un **plan pictural** ajoute à la barre d'état, quand le canevas en peint un
+ *        (`EX-EDIT-046`, `EX-NFR-043`, `LOT-69` TACHE-08).
+ *
+ * Renseigné en plus de `hmi::PixelEditStatusInfo`, jamais à sa place : peindre un plan, c'est
+ * peindre sur le **même** canevas, avec les mêmes outils, la même couleur courante et le même
+ * historique. Seules trois informations manquent — la résolution, la densité et le poids mémoire —
+ * et elles n'ont de sens que pour un plan : un asset de pixel art n'a pas de densité, et son poids
+ * est négligeable par construction.
+ */
+struct PlaneEditStatusInfo {
+    int widthPixels = 0;           ///< Largeur de l'image du plan, en pixels.
+    int heightPixels = 0;          ///< Hauteur de l'image du plan, en pixels.
+    int pixelsPerUnit = 16;        ///< Densité déclarée (`EX-DEC-041`) : 4, 8 ou 16.
+    std::size_t textureBytes = 0;  ///< Poids de la texture, en octets (`EX-NFR-043`).
+};
+
 /// État affiché pour un asset en cours d'édition dans l'atelier pixel art (barre d'état, `LOT-54`
 /// TACHE-04, `EX-IHM-060`).
 struct PixelEditStatusInfo {
@@ -42,6 +63,8 @@ struct PixelEditStatusInfo {
     int zoom = 1;                              ///< Facteur de zoom entier courant (TACHE-03).
     std::uint32_t currentColor = 0xFF000000u;  ///< Couleur courante (R8G8B8A8_UNORM).
     bool paletteConstrained = false;           ///< Mode « contraindre à la palette » (TACHE-07).
+    /// Renseigné dans l'espace « Plans » seulement : le canevas peint alors un plan pictural.
+    std::optional<PlaneEditStatusInfo> plane;
 };
 
 /**
@@ -60,10 +83,12 @@ struct EditorStatusContext {
 /// Lignes à afficher pour la barre d'état de l'éditeur, à un instant donné.
 struct EditorStatusLines {
     /// Zones permanentes, dans l'ordre d'affichage : niveau/asset, modifications non enregistrées,
-    /// outil actif, case/pixel survolé, zoom, couleur courante (atelier pixel art seulement),
-    /// cadrage de caméra (contexte niveau seulement, `EX-EDIT-028`). Une zone vide (chaîne vide)
-    /// quand l'information n'a pas de sens pour le contexte courant — jamais de libellé de
-    /// remplacement.
+    /// outil actif, case/pixel survolé, zoom, couleur courante (atelier pixel art seulement), et
+    /// une septième zone qui porte le cadrage de caméra en contexte niveau (`EX-EDIT-028`) et la
+    /// **fiche du plan** — résolution, densité, poids mémoire — en contexte plan (`EX-NFR-043`).
+    /// Les deux ne coexistent jamais, et une huitième zone resterait vide dans les deux cas. Une
+    /// zone vide (chaîne vide) quand l'information n'a pas de sens pour le contexte courant —
+    /// jamais de libellé de remplacement.
     std::vector<std::string> permanent;
     /// Aide contextuelle à l'outil actif ; vide hors contexte de niveau ou d'atelier.
     std::string help;

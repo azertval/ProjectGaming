@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_bloc_reduit.cpp
  * @brief Tests d'intégration des blocs à taille réduite (`TileType::BlockHalf`/`BlockQuarter`,

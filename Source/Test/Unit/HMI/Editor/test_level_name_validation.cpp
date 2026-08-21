@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_level_name_validation.cpp
  * @brief Tests unitaires de la validation d'un nom de niveau saisi (LOT-15, EX-EDIT-009).

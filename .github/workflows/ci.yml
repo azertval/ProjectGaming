@@ -11,7 +11,16 @@ env:
   # `Source/HMI/CMakeLists.txt` — vérifié automatiquement par
   # `scripts/check_qt_version_pin.py` (job lint-exigences) pour que les deux ne divergent jamais
   # silencieusement (LOT-66 TACHE-01).
-  QT_VERSION: '6.8.1'
+  QT_VERSION: '6.11.2'
+  # aqtinstall publie sur PyPI (3.3.0) ne sait PAS installer Qt >= 6.11 : Qt a change la
+  # disposition de son depot (`qt6_6112/qt6_6112_msvc2022_64/`, un sous-dossier par architecture,
+  # au lieu de `qt6_6103/qt6_6103/`), et 3.3.0 code en dur l'ancienne. Le correctif amont est
+  # merge (miurahr/aqtinstall PR #1000, issues #959/#1007) mais pas encore publie. `aqtsource`
+  # (entree de install-qt-action, prioritaire sur `aqtversion`) permet de pointer le depot git ;
+  # le SHA est EPINGLE et non `@master`, sinon le provisionnement deriverait silencieusement, ce
+  # que `EX-BUILD-010` / `EX-NFR-031` interdisent. A REMPLACER par `aqtversion: '==3.3.1'` des
+  # qu'aqtinstall 3.3.1 parait sur PyPI -- cette URL git n'a pas vocation a rester.
+  AQT_SOURCE: 'git+https://github.com/miurahr/aqtinstall.git@16db45a70b5905ad596941b223469bc86a56901e'
   # Version de Doxygen épinglée (EX-NFR-031, même esprit que EX-BUILD-010 pour Qt).
   # `apt-get install doxygen` livre la version de la distribution (1.9.x sur
   # ubuntu-latest), dont les règles de résolution de liens diffèrent de celles des
@@ -61,8 +70,13 @@ jobs:
           arch: win64_msvc2022_64
           # qtmultimedia : module audio (LOT-60) -- Qt6::Multimedia (QSoundEffect) est un composant
           # additionnel de l'installation Qt, pas une dependance tierce separee.
-          modules: qtmultimedia
+          # qtshadertools : fournit `qsb`, le compilateur de shaders exige par le rendu QRhi
+          # (LOT-69 TACHE-02). qtcanvaspainter : peinture 2D acceleree (LOT-69), nouveau en 6.11.
+          # Un nom de module inconnu fait echouer aqt : ces trois lignes valent donc verification
+          # que le provisionnement de 6.11.2 fournit bien ce dont les taches suivantes dependent.
+          modules: qtmultimedia qtshadertools qtcanvaspainter
           cache: true
+          aqtsource: ${{ env.AQT_SOURCE }}
 
       - name: Configure (CMake)
         # install-qt-action exporte QT_ROOT_DIR ; on le passe en CMAKE_PREFIX_PATH pour que
@@ -163,8 +177,13 @@ jobs:
           arch: win64_msvc2022_64
           # qtmultimedia : module audio (LOT-60) -- Qt6::Multimedia (QSoundEffect) est un composant
           # additionnel de l'installation Qt, pas une dependance tierce separee.
-          modules: qtmultimedia
+          # qtshadertools : fournit `qsb`, le compilateur de shaders exige par le rendu QRhi
+          # (LOT-69 TACHE-02). qtcanvaspainter : peinture 2D acceleree (LOT-69), nouveau en 6.11.
+          # Un nom de module inconnu fait echouer aqt : ces trois lignes valent donc verification
+          # que le provisionnement de 6.11.2 fournit bien ce dont les taches suivantes dependent.
+          modules: qtmultimedia qtshadertools qtcanvaspainter
           cache: true
+          aqtsource: ${{ env.AQT_SOURCE }}
 
       - name: Configure (CMake)
         run: cmake --preset vs
@@ -204,8 +223,13 @@ jobs:
           arch: win64_msvc2022_64
           # qtmultimedia : module audio (LOT-60) -- Qt6::Multimedia (QSoundEffect) est un composant
           # additionnel de l'installation Qt, pas une dependance tierce separee.
-          modules: qtmultimedia
+          # qtshadertools : fournit `qsb`, le compilateur de shaders exige par le rendu QRhi
+          # (LOT-69 TACHE-02). qtcanvaspainter : peinture 2D acceleree (LOT-69), nouveau en 6.11.
+          # Un nom de module inconnu fait echouer aqt : ces trois lignes valent donc verification
+          # que le provisionnement de 6.11.2 fournit bien ce dont les taches suivantes dependent.
+          modules: qtmultimedia qtshadertools qtcanvaspainter
           cache: true
+          aqtsource: ${{ env.AQT_SOURCE }}
 
       - name: Install Ninja
         run: choco install ninja -y --no-progress
@@ -289,8 +313,13 @@ jobs:
           arch: win64_msvc2022_64
           # qtmultimedia : module audio (LOT-60) -- Qt6::Multimedia (QSoundEffect) est un composant
           # additionnel de l'installation Qt, pas une dependance tierce separee.
-          modules: qtmultimedia
+          # qtshadertools : fournit `qsb`, le compilateur de shaders exige par le rendu QRhi
+          # (LOT-69 TACHE-02). qtcanvaspainter : peinture 2D acceleree (LOT-69), nouveau en 6.11.
+          # Un nom de module inconnu fait echouer aqt : ces trois lignes valent donc verification
+          # que le provisionnement de 6.11.2 fournit bien ce dont les taches suivantes dependent.
+          modules: qtmultimedia qtshadertools qtcanvaspainter
           cache: true
+          aqtsource: ${{ env.AQT_SOURCE }}
 
       - name: Install LLVM (clang-tidy) ${{ env.LLVM_VERSION }}
         run: choco install llvm --version=${{ env.LLVM_VERSION }} -y --no-progress --allow-downgrade
@@ -385,6 +414,13 @@ jobs:
 
       - name: Sequence de niveaux demo (LOT-25) synchronisee
         run: python3 scripts/check_demo_sequence.py
+
+      # Les plans picturaux livres sont GENERES (LOT-69) : commites pour que le jeu tourne sans
+      # Python, mais reproductibles depuis les sources. Sans ce controle, une retouche du
+      # generateur pourrait ne jamais atteindre les images -- ou l'inverse, une image editee a la
+      # main ne plus se reconstruire. Les deux videraient le choix de la reproductibilite.
+      - name: Plans picturaux livres reproductibles (LOT-69)
+        run: python3 scripts/generate_demo_plans.py --check
 
   docs:
     # Génère la documentation Doxygen (garde-fou WARN_AS_ERROR) pour valider la

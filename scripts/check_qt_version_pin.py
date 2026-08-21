@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Valentin Eloy
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Vérifie que la version de Qt est identique en CMake et dans les workflows CI.
 
 `Source/HMI/CMakeLists.txt` déclare `QT_VERSION_MINIMUM` : la version de référence utilisée comme

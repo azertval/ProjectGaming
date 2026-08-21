@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Interface/ActionCatalog.h"
 
 #include <stdexcept>
@@ -36,12 +39,6 @@ const std::array<EditorActionSpec, EDITOR_ACTION_CATALOG_COUNT>& editorActionCat
          .surface = ActionSurface::ToolBarAndMenu},
         {.id = IconId::ToolTextureAssign,
          .labelKey = "tool.texture_assign",
-         .shortcut = "",
-         .checkable = true,
-         .group = EditorActionGroup::LevelTools,
-         .surface = ActionSurface::ToolBarAndMenu},
-        {.id = IconId::ToolDecor,
-         .labelKey = "tool.decor",
          .shortcut = "",
          .checkable = true,
          .group = EditorActionGroup::LevelTools,
@@ -240,8 +237,6 @@ std::optional<EditorTool> editorActionTool(IconId id) {
             return EditorTool::Link;
         case IconId::ToolTextureAssign:
             return EditorTool::TextureAssign;
-        case IconId::ToolDecor:
-            return EditorTool::Decor;
         case IconId::ToolCameraZone:
             return EditorTool::CameraZone;
         case IconId::ToolPath:
@@ -263,8 +258,6 @@ IconId editorActionForTool(EditorTool tool) {
             return IconId::ToolLink;
         case EditorTool::TextureAssign:
             return IconId::ToolTextureAssign;
-        case EditorTool::Decor:
-            return IconId::ToolDecor;
         case EditorTool::CameraZone:
             return IconId::ToolCameraZone;
         case EditorTool::Path:

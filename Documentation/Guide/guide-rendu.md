@@ -27,50 +27,46 @@ l'écran finit de rafraîchir l'image précédente, ce qui s'appelle la **synchr
 l'écran, au prix d'attendre ce moment si le jeu est plus rapide que l'écran. L'ensemble
 « back buffer(s) + mécanisme d'échange » s'appelle une **swap chain**.
 
-## \ref hmi::GraphicsDevice "hmi::GraphicsDevice" : initialiser Direct3D 11 et présenter l'image
+## QRhi : une couche d'accès au GPU, pas un changement de cible
 
-**Direct3D 11** est l'API bas niveau, fournie par Windows, qui permet de piloter le GPU (créer des
-ressources, envoyer des commandes de dessin, présenter l'image). `hmi::GraphicsDevice` encapsule les
-trois objets fondamentaux que Direct3D 11 expose pour cela :
+Depuis le `LOT-69` TACHE-02, le projet ne parle plus à Direct3D 11 directement : il passe par
+**QRhi**, la couche d'abstraction de rendu de Qt. La cible technique ne change pas — QRhi retient
+Direct3D 11 par défaut sous Windows (`EX-REN-002`, amendée) — mais le device, la *swap chain* et la
+présentation appartiennent désormais à Qt. La classe qui les portait a été **supprimée** plutôt que
+portée : elle n'avait plus rien à porter.
 
-- le **device** (`ID3D11Device`) : sert à **créer** des ressources GPU (textures, shaders,
-  buffers) — il ne dessine rien lui-même ;
-- le **contexte immédiat** (`ID3D11DeviceContext`) : sert à **émettre les commandes** de dessin
-  effectives (« dessine ces triangles avec cette texture ») ;
-- la **swap chain** (`IDXGISwapChain`) : gère le back buffer et la présentation décrite ci-dessus.
+Ce que le projet conserve en propre :
 
-`GraphicsDevice` les initialise à la construction (à partir du `HWND` — le handle natif Win32 de la
-fenêtre, voir plus bas), expose `clear(r, g, b, a)` (remplir tout le back buffer d'une couleur
-unie, l'étape qui précède tout dessin d'une frame — sans elle, chaque frame réafficherait par-dessus
-les pixels de la précédente), `present()` (échanger front/back buffer, avec V-Sync), et `resize(w,
-h)` (recréer les buffers à une nouvelle taille, nécessaire quand la fenêtre change de dimensions —
-les buffers de la swap chain ont une taille fixe, ils ne « s'étirent » pas automatiquement).
+- `hmi::SpriteBatch` : le pipeline 2D (tampons de sommets et d'indices, tampon uniforme,
+  échantillonneur, états de mélange) et l'émission des lots de dessin ;
+- `hmi::TextureLoader` : la création des textures GPU à partir de pixels décodés ;
+- les **shaders**, écrits une fois en GLSL et compilés en `.qsb` par l'outil `qsb` — un `.qsb`
+  contient plusieurs traductions (SPIR-V, HLSL, MSL), ce qui permet à QRhi de choisir son backend à
+  l'exécution sans que le projet livre un shader par API.
 
-Toutes les ressources Direct3D sont détenues via `Microsoft::WRL::ComPtr` (un pointeur intelligent
-pour les objets **COM**, le mécanisme de gestion d'objets utilisé par les API Windows historiques) :
-leur libération est automatique à la destruction, exactement comme un `std::unique_ptr` pour de la
-mémoire ordinaire — c'est ce qui permet à `GraphicsDevice` de n'avoir aucun destructeur explicite à
-écrire (`~GraphicsDevice() = default`).
+Deux contraintes de QRhi façonnent le code, et méritent d'être connues avant de le lire :
 
-La swap chain utilise le **modèle de présentation flip** (`DXGI_SWAP_EFFECT_FLIP_DISCARD`, avec deux
-back buffers — `EX-REN-004`, `LOT-33`) plutôt que l'ancien modèle *blt* (`DISCARD`, un seul buffer).
-Sous Windows 10/11, le flip model présente le back buffer **directement** au compositeur (DWM), sans
-la copie supplémentaire qu'imposait le modèle *blt* : moins de latence entre l'entrée du joueur et
-l'image affichée, et une cadence plus régulière — y compris V-Sync activée. En contrepartie, `Present`
-**dé-lie** la cible de rendu du back buffer à chaque frame ; `GraphicsDevice::clear()` la relie donc
-(`OMSetRenderTargets`) en tête de chaque frame, avant tout dessin.
+1. **Un téléversement ne se déclare pas pendant une passe de rendu.** Les données (sommets,
+   pixels de texture) transitent par un `QRhiResourceUpdateBatch`, soumis **avant** l'ouverture de
+   la passe. `hmi::SpriteBatch` enregistre donc toute l'image côté CPU, puis téléverse une fois et
+   dessine — au lieu de réécrire son tampon entre deux appels de dessin comme le permettait
+   Direct3D 11.
+2. **L'espace de clip du shader est celui d'OpenGL**, quelle que soit la cible : la matrice de
+   projection est multipliée par `QRhi::clipSpaceCorrMatrix()`, qui la ramène à la convention du
+   backend retenu.
 
 ## La surface de dessin : le viewport Qt (`hmi::GameViewport`)
 
-Direct3D a besoin d'une surface Windows où dessiner. Depuis la refonte Qt (@ref guide-ihm-qt), cette
-surface est un **`QWindow` natif** embarqué, `hmi::GameViewport` : Qt en fournit le handle natif
-(`HWND`, littéralement « *handle to a window* », l'identifiant opaque que Windows utilise pour
-désigner une fenêtre) via `QWindow::winId()` — c'est ce `HWND` que `GraphicsDevice` reçoit à sa
-construction pour savoir *où* dessiner, et sur lequel la swap chain présente **directement** (aucun
-`QBackingStore`).
+Depuis le `LOT-69` TACHE-02, le viewport est un **`QRhiWidget`** : un widget ordinaire, qui rend
+dans une texture d'appui composée avec le reste de l'interface. Il n'y a plus de fenêtre native
+embarquée, donc plus de `HWND` à transmettre, et surtout plus la limitation qui l'accompagnait — un
+widget Qt ne se dessinait jamais de façon fiable par-dessus une fenêtre native, ce qui avait coûté
+deux défauts réels au `LOT-59` (écran de pause invisible, puis vol de focus). Les recouvrements du
+jeu sont redevenus de simples widgets enfants.
 
-Le viewport a une seconde responsabilité : il possède l'**event loop** de rendu (tick cadencé par
-`QEvent::UpdateRequest`) et traduit les événements clavier/souris **Qt** en `hmi::InputState` (@ref
+Le viewport a une seconde responsabilité : il possède la **boucle de rendu** (chaque image
+redemande la suivante par `QWidget::update()`, et `QRhiWidget::render` l'exécute) et traduit les
+événements clavier/souris **Qt** en `hmi::InputState` (@ref
 guide-entrees) — c'est pour cela que la capture d'entrée vit au même endroit que le rendu, plutôt que
 dans un module totalement séparé.
 
@@ -134,8 +130,8 @@ guide-editeur), pas déduits.
 `WholeLevel` s'il tient dans une salle de taille par défaut, `PerRoom` sinon. C'est le seul endroit
 qui incarne cette règle ; ni `hmi::GameSession` ni l'éditeur ne la recalculent — ils lisent toujours
 un cadrage déjà **résolu** (`core::Level::cameraFraming()`), jamais un champ « peut-être absent ».
-La taille de salle du mode *par salle* est elle-même réglable par niveau (`core::CameraFramingConfig
-::roomWidthTiles`/`roomHeightTiles`) ; `hmi::RoomGrid::ROOM_WIDTH_TILES`/`ROOM_HEIGHT_TILES`
+La taille de salle du mode *par salle* est elle-même réglable par niveau
+(`core::CameraFramingConfig::roomWidthTiles` et `roomHeightTiles`) ; `hmi::RoomGrid::ROOM_WIDTH_TILES`/`ROOM_HEIGHT_TILES`
 (`LOT-32`) n'en restent que la valeur par défaut, `RoomGrid` recevant désormais la taille en
 paramètre de construction plutôt que de la connaître en dur.
 
@@ -180,7 +176,7 @@ centre déjà borné ; deux pièges, propres à cette famille de caméra, mérit
    être interpolée pour l'affichage.
 
 Le centre finalement retenu est **aligné sur la grille de pixels** à l'échelle de rendu courante
-(`hmi::roundToScreenPixel`, la même fonction que la parallaxe des décors ci-dessous), **après**
+(`hmi::roundToScreenPixel`, la même fonction que la parallaxe des plans ci-dessous), **après**
 l'interpolation ci-dessus : un centre fractionnaire échantillonnerait chaque texture entre deux
 texels et ruinerait la netteté du pixel art que tout le projet protège depuis le `LOT-05`. Le zoom
 reste **entier** dans les trois modes (`EX-ARCH-022`), calculé par la même `Camera2D::fitZoom` que
@@ -200,7 +196,7 @@ modification du calcul par défaut.
 `hmi::activeCameraZoneIndex` (`Source/HMI/Graphics/CameraZones.h`, fonction pure, sans GPU) résout
 la zone active : la **première** zone de la liste dont le rectangle contient la position du
 personnage (bornes hautes/gauches incluses, basses/droites exclues) l'emporte — même convention
-de priorité par ordre que la superposition des décors (@ref guide-editeur). Aucune zone ne
+de priorité par ordre que la superposition des plans picturaux (@ref guide-editeur). Aucune zone ne
 contient le personnage (trou entre deux zones dessinées) → repli sur le **niveau entier**, jamais
 un état indéfini. `hmi::GameSession` résout la zone active au chargement et à chaque bascule,
 exactement comme elle résout déjà la salle active de la grille automatique
@@ -553,7 +549,7 @@ la main — un calque futur ne demande donc de grandir que `RENDER_LAYER_COUNT`,
 classe.
 
 Deux mécanismes distincts, selon le calque :
-- **Fond, Décor, Ombres, Personnage, Décor de premier plan** : un bit à `false` masque
+- **Fond, Plans, Ombres, Personnage, Plans de premier plan** : un bit à `false` masque
   grossièrement — `hmi::composeWorldSprites`/`DraftRenderer::render` sautent l'entité ou l'appel de
   composition entier avant toute résolution d'apparence, aucune primitive n'est émise.
 - **Skin des tuiles et Objets interactifs** : ces deux calques UI pilotent en réalité les **deux
@@ -596,154 +592,130 @@ par le niveau » ci-dessus pour ce cas particulier. L'interpolation ne touche qu
 la logique de jeu (collisions, fin de niveau)
 continue de lire les positions **simulées** exactes, le déterminisme est préservé (`EX-NFR-002`).
 
-### Décors libres et parallaxe (`LOT-49`)
+### Plans picturaux et parallaxe (`LOT-69`)
 
-`core::Decor` est le premier objet du niveau **libre** : une position en unités monde
-**flottantes**, jamais calée sur la grille de `core::TileMap`, avec échelle, rotation et une
-couche (`core::DecorLayer{Background, Decor, Foreground}`). Vecteur annexe de
-`Level`/`LevelDraft`, sur le patron `Mechanism`/`DangerLink`/`TileTextureOverride` (@ref
-guide-niveaux) — sérialisé dans le tableau racine optionnel `"decors"`, ordre préservé (il fixe la
-superposition **à l'intérieur** d'une couche). Contrairement aux autres données annexes,
-redimensionner le niveau ne tronque **jamais** les décors hors des nouvelles bornes : un décor
-libre peut légitimement déborder (une branche qui dépasse), le tronquer serait une perte de
-travail.
+Le décor d'un niveau n'est pas un **assemblage d'images posées**, c'est une **surface peinte**. Un
+**plan** (`core::Plane`) est un PNG couvrant le niveau **entier**, rangé à côté du niveau dans
+`Levels/Plans/` et référencé par nom. Un niveau porte une **liste ordonnée** de plans, de nombre
+libre — l'ordre décide de la superposition (`EX-DEC-040`).
 
-`core::buildLevelScene` peuple une entité par décor après les tuiles — `Transform` (position,
-échelle, rotation) et `Sprite` dont `layer` porte le rang du décor (tri fin intra-calque) — et
-délègue à `HMI`, via le même patron d'injection que `onTileEntity`, l'attache de
-`hmi::DecorVisualTag` (nom d'asset + couche d'origine). `hmi::decorRenderLayer` projette les trois
-couches vers les **deux** calques réservés dès `LOT-40` : `Background` **et** `Decor` (côté
-`Core`) partagent le même `RenderLayer::Decor` (un seul calque « arrière-plan » existe), seul
-`Foreground` a son propre calque, au-dessus du personnage — c'est le contrat de lecture du lot :
-ce qui passe devant le personnage ne le porte pas et ne le bloque pas.
+> **Ce que cela remplace.** Le `LOT-49`/`LOT-50` habillait un niveau en **posant des sprites** :
+> un décor était un PNG placé à une position, avec échelle et rotation, sur l'une de trois couches
+> figées. Trois limites l'ont fait retirer — `hmi::decorRenderLayer` projetait déjà deux des trois
+> couches sur le **même** calque de rendu (les trois n'exprimaient donc que deux intentions), la
+> parallaxe était **codée en dur** par couche, et poser sept PNG ne permet toujours pas de
+> *peindre* une fresque. Les exigences retirées sont conservées, texte intact, en fin de
+> [`decors.md`](@ref spec-decors). Le prix explicite du remplacement : il n'existe plus de motif
+> décoratif **ponctuel réutilisable** — un tonneau présent dans dix niveaux doit être peint dans
+> chaque plan.
 
-La résolution d'apparence d'un décor est **volontairement séparée** de
-`hmi::resolveTileAppearance` (`hmi::resolveDecorAppearance`, `HMI/Graphics/DecorVisuals.h`), même
-principe que `hmi::PlayerSpriteTag` pour le personnage : un décor n'est jamais découpé en grille
-(l'image entière est échantillonnée, à sa taille **réelle** en pixels — `hmi::AssetFamily::Decor`
-n'impose aucune dimension), là où `resolveTileAppearance` suppose toujours une case. Un asset
-introuvable retombe sur le damier magenta à sa taille normale, avec l'avertissement déjà
-journalisé au chargement (`hmi::sceneTextures`, section `Assets/Decors/`) — contrairement au fond
-de niveau, un décor **désigné** est toujours censé exister. Composé en `RenderMode::Texture`
-uniquement : le mode Physique reste la lecture nue des collisions, et un décor n'en fait jamais
-partie. La rotation (`core::Transform::rotation`) atteint le quad composé (`hmi::SpriteQuad::
-rotation`, `LOT-50`) — `hmi::SpriteBatch::draw` tourne les quatre coins autour du **centre** du
-quad, même patron que `hmi::LineQuad` (`LOT-37`) pour un quad orienté ; le culling
-(`hmi::spriteQuadBounds`) tient compte de cette rotation pour juger de la boîte englobante réelle,
-plus grande que `(largeur, hauteur)` brut dès qu'elle est non nulle.
+Un plan n'a **ni position ni rotation** : il couvre le niveau par construction. Ce qui le distingue
+d'un autre, c'est sa **densité**, sa **parallaxe**, son **opacité** et sa **profondeur**.
 
-**Parallaxe** (`EX-DEC-006`, `hmi::Parallax.h`) : chaque couche porte un facteur de défilement
-(`hmi::parallaxFactor`), `1.0` pour `Decor` (solidaire du niveau, valeur de référence), inférieur
-pour `Background`, supérieur pour `Foreground`. Le point délicat n'est pas la formule mais son
-ancrage : jusqu'au `LOT-64`, la caméra de ce jeu ne défilait **jamais** en continu — elle cadre une
-salle et **bascule nettement** sur la suivante (`hmi::RoomGrid`, `LOT-32`), ou reste fixe (niveau
-entier). Un décalage calculé en espace niveau absolu ferait donc sauter visiblement le décor à
-chaque bascule. La parallaxe est donc calculée **relativement au centre du cadrage courant**
-(`hmi::Camera2D::visibleBounds`) : `hmi::parallaxRenderPosition` renvoie
-`centre + (position − centre) × facteur` — nulle à facteur `1.0`, et telle que deux décors à la
-même position **relative** dans deux salles différentes tombent exactement à la même position
-écran, quelle que soit la salle. Le décor se replace donc à chaque bascule, au moment exact où
-toute l'image change déjà — invisible, là où le décalage absolu aurait été un artefact.
-`hmi::roundToScreenPixel` referme l'écart introduit par un décalage fractionnaire (le zoom pixel
-art reste net, `EX-ARCH-022`), et `hmi::composeWorldSprites` applique la parallaxe **avant** de
-composer le quad — le culling (`hmi::ComposedScene::addSprite`) juge donc la position déjà
-décalée, une couche parallaxée n'occupant pas le même rectangle monde que le niveau.
+#### Densité : un compromis de mémoire, jamais de cadrage
 
-**Neutralisée en mode de cadrage *suivi*** (`core::CameraFramingMode::Follow`, `LOT-64`) : c'est le
-**seul** mode où la caméra défile réellement en continu (les deux autres restent fixes ou
-basculent net, comme ci-dessus) — appliquer la même formule y ferait apparaître, pour la première
-fois, un décalage différentiel entre couches qui était jusqu'ici toujours resté invisible (aucune
-caméra ne bougeait assez pour le révéler). Concrètement, un décor Fond (facteur `0.5`) semblerait
-**suivre la caméra** plutôt que rester solidaire du niveau — l'inverse de ce que « Fond »/« Premier
-plan » sont censés représenter par défaut pour un décor sans intention de parallaxe délibérée.
-`hmi::composeWorldSprites` reçoit donc un paramètre `applyDecorParallax` (`hmi::SpriteRenderer::
-render` le transmet) que `hmi::GameSession::render` met à `false` précisément quand le cadrage
-résolu du niveau est `Follow` : chaque décor est alors composé comme s'il portait le facteur `1.0`
-de la couche `Decor`, quelle que soit sa couche réelle — toujours pixel-aligné et soumis au
-culling via la caméra, seul le **décalage** de parallaxe disparaît. La couche reste donc un pur
-critère d'**ordre de dessin** en mode suivi (avant/après le personnage), jamais un vecteur de
-mouvement.
+`pixelsPerUnit` vaut 16 (natif, la valeur de `hmi::Camera2D::PIXELS_PER_UNIT`), 8 ou 4. C'est le
+seul réglage qui décide de la viabilité mémoire d'un niveau (`EX-DEC-041`) : un plan à 4 px/unité
+coûte **seize fois moins** qu'un plan natif.
 
-Le placement dans l'éditeur (`LOT-49` TACHE-04) était volontairement **minimal** : poser un décor
-à la position exacte du clic, ou le retirer. La manipulation complète — sélectionner, déplacer,
-redimensionner, pivoter, changer de couche, réordonner — est l'objet de `LOT-50`, décrit ci-dessous.
+La densité **ne change pas la géométrie**. `hmi::composePlanes` émet un quad couvrant exactement
+`[0,0]`–`[largeur, hauteur]` en unités monde, UV pleines, quelle que soit la densité : seule la
+**texture** est plus petite, donc plus grossière à l'écran. Un plan lointain n'a pas besoin de la
+définition native, et personne ne le verra.
 
-### Manipulation de décors dans l'éditeur (`LOT-50`)
+Le PNG doit mesurer **exactement** `largeur × densité` par `hauteur × densité`. Une seule fonction
+en décide — `hmi::planePixelSize` — parce que quatre endroits en dépendent (création du fichier,
+changement de densité, contrôle du contenu livré, budget mémoire) et que quatre calculs séparés
+finiraient par diverger. `Core` ne vérifie **pas** l'existence du fichier (`EX-NFR-011`) et
+`hmi::resolvePlaneTextures` replie sur le damier magenta (`EX-NFR-040`) : un plan manquant reste
+un niveau valide, simplement visible comme manquant.
 
-**Mutateurs** (`Source/Core/Levels/LevelDraft.{h,cpp}`) : `moveDecor`, `resizeDecor` (position **et**
-échelle appliquées atomiquement — redimensionner depuis un coin déplace aussi le coin opposé, une
-seule entrée d'historique par geste), `rotateDecor` (normalise toujours dans `[0, 2π[`),
-`setDecorLayer` (envoie le décor en fin de vecteur, donc au rang le plus élevé de sa nouvelle
-couche — comportement défini, jamais laissé émerger), et le réordonnancement intra-couche
-(`bringDecorForward`/`sendDecorBackward`/`bringDecorToFront`/`sendDecorToBack`, qui sautent par-
-dessus les décors d'une autre couche sans les toucher). Chacun renvoie le **nouveau rang** du
-décor (ou `false`/`std::nullopt` si l'index était hors bornes) : c'est le contrat de stabilité des
-index après une opération qui réordonne.
+#### Profondeur : deux valeurs, pas trois
 
-**Géométrie partagée** (`HMI/Editor/DecorGeometry.h`) : `hmi::decorWorldBounds` calcule le
-rectangle englobant d'un décor à partir de la taille **réelle** de son asset (résolue par
-l'appelant via `hmi::TextureCache`, `Core` n'en sait rien) ; `hmi::decorHandleLayout` calcule les
-cinq poignées (quatre coins + rotation) à **taille écran constante**, convertie en unités monde via
-`1 / (Camera2D::PIXELS_PER_UNIT × zoom)`, jamais l'inverse. C'est la **même** géométrie qui sert au
-rendu (`DraftRenderer::composeDecorSelection`) et à la détection (`hmi::DecorGesture`) : les
-calculer à deux endroits différents les aurait fait diverger au premier ajustement de taille.
-`hmi::decorWorldBounds` calcule le rectangle **non tourné** ; `hmi::decorRotatedPoint` (même
-formule que `hmi::SpriteBatch::draw`) tourne un point donné autour de son centre — utilisé par
-`decorHandleLayout` pour les **centres** des cinq poignées (les carrés eux-mêmes restent non
-tournés, repère de coin lisible même pivoté) et par `DraftRenderer::composeDecorSelection` pour les
-quatre coins du cadre, dessiné en segments orientés (`hmi::LineQuad`). Le décor tourne donc bien
-« sous » son propre cadre, plutôt que de laisser un cadre droit trahir une rotation qui, sans ça,
-semblerait n'avoir aucun effet. Seule la désignation du **corps** (hors poignées, `hmi::
-designateDecorAt`) reste testée contre le rectangle non tourné — zone cliquable un peu plus
-généreuse que la silhouette pivotée, jamais plus restrictive.
+`core::PlaneDepth` vaut `Behind` (derrière les tuiles physiques) ou `Front` (devant le personnage).
+`hmi::planeRenderLayer` les projette sur `RenderLayer::Plane` et `RenderLayer::Foreground` — deux
+calques **déjà réservés**, aucune valeur d'énumération ajoutée, `RENDER_LAYER_COUNT` inchangé alors
+même que le nombre de plans est libre. C'est le **rang dans la liste** qui ordonne les plans à
+l'intérieur d'un calque, jamais une valeur de calque par plan : `EX-REN-014` impose un
+ordonnancement unique, et en créer un concurrent serait le défaire.
 
-**Espace de rendu vs. espace modèle** : le curseur converti par `Camera2D::screenToWorld` (donc
-tout ce qui en dérive — désignation, poignées, geste) est comparable à la position **de rendu**
-d'un décor, celle décalée par sa parallaxe de couche (`EX-DEC-006`), pas à sa position modèle brute
-dès que sa couche a un facteur différent de `1.0`. `decorBoundsForGesture`/`selectedDecorHandles`
-(`GameViewport`) calculent donc leurs rectangles à partir de la position **décalée**
-(`hmi::parallaxRenderPosition`) ; `hmi::DecorGesture`, lui, raisonne toujours en position
-**modèle** (`EX-ARCH-012`, la parallaxe reste purement visuelle) — `GameViewport` convertit le
-curseur d'un espace à l'autre à la frontière (`hmi::parallaxModelPosition`, l'inverse exact de
-`parallaxRenderPosition`) avant d'entrer dans le geste, et jamais ailleurs. Un décor posé ou
-déplacé en couche Arrière-plan/Premier plan reste ainsi visuellement **collé** au curseur, quel que
-soit son facteur de parallaxe.
+Une subtilité que seul un test peut figer : `hmi::ComposedScene::sort()` trie par calque, puis par
+**rang de première apparition de texture**, puis par `sortOrder`. Chaque plan portant sa propre
+image, ce sont donc les rangs de texture qui les départagent — et la propriété « les plans
+ressortent dans l'ordre du niveau » n'est vraie que parce qu'ils sont composés **en premier et dans
+l'ordre**. Invisible à la lecture, d'où le test.
 
-**Geste pur** (`HMI/Editor/DecorGesture.h`), même parti que `hmi::LinkGesture` (`LOT-37`) : une
-machine à états sans Qt ni GPU, ni connaissance de la parallaxe (raisonne toujours en espace
-modèle, voir ci-dessus). `hmi::designateDecorAt` désigne l'élément sous le curseur — priorité aux
-poignées du décor déjà sélectionné, puis au corps des décors du dernier au premier (le plus
-au-dessus d'abord). `beginDecorGesture` sélectionne **immédiatement**, avant même de savoir si un
-glisser suivra. `updateDecorGesture` distingue clic et glisser par un seuil de déplacement
-(`DECOR_DRAG_THRESHOLD`) et renvoie une action d'**aperçu** — jamais appliquée au brouillon,
-seulement au rendu, pour que déplacer/redimensionner/pivoter ne produise qu'**une seule** entrée
-d'historique au relâchement (`endDecorGesture`), pas une par position intermédiaire. `Échap`
-(`cancelDecorGesture`) abandonne sans avoir jamais touché `_draft`. L'aimantation sur la grille est
-optionnelle et **jamais imposée** (`EX-DEC-001`) : elle arrondit position/coins à l'entier le plus
-proche, seulement si activée.
+#### Parallaxe : portée par le plan, bornée, et seulement là où la caméra défile
 
-**Rendu de la sélection** (`DraftRenderer::composeDecorSelection`) : cadre de sélection et
-poignées à contour double ton (sombre puis clair, pour rester lisibles sur tout fond), la poignée
-de rotation teintée différemment des coins de redimensionnement. La position affichée applique la
-**même** parallaxe que le sprite réellement rendu (`hmi::parallaxRenderPosition` +
-`hmi::roundToScreenPixel`, appliquée en dernier à la position modèle déjà résolue — brouillon ou
-aperçu de geste) : sans cette conversion, le cadre se désolidarise visiblement du décor dès que sa
-couche n'est pas la couche de référence. Pendant un glisser, `DraftRenderer` mute **directement**
-l'entité ECS du décor concerné (`_decorEntities`, un tableau parallèle à
-`core::LevelDraft::decors()` peuplé par `rebuild`) plutôt que de reconstruire toute la scène à
-chaque position glissée — `invalidate()` reste réservé aux vraies mutations du brouillon. Un
-abandon (`Échap`) force malgré tout un `invalidate()` explicite : lui seul restaure l'entité à sa
-position **committée**, puisque rien dans `_draft` n'a changé pour le déclencher autrement.
-L'aimantation active accentue en prime la grille de repère (`composeGrid`, paramètre
-`accentuate`) — sans ce repère visuel, l'auteur ne comprendrait pas pourquoi sa position « saute ».
+Chaque plan porte un facteur de défilement **par axe** (`EX-DEC-043`), et le niveau décide **si** la
+parallaxe s'applique (champ `parallax`, `true` par défaut). Le décalage est **purement visuel**
+(`EX-ARCH-012`) : la simulation ne le voit jamais.
 
-**Section « Décors » du panneau « Textures »** (`hmi::buildDecorListRows`, fonction pure) : liste
-groupée par couche (arrière-plan, puis décor, puis premier plan) et, à l'intérieur d'une couche,
-dans l'ordre de superposition. La sélection est **unique** — ni le canevas ni la liste n'en gardent
-de copie propre, seul `hmi::GameViewport::selectedDecorIndex()` fait foi, les deux vues ne font que
-la refléter (`decorSelectionChanged`/`decorSelected`, resynchronisation bloquée en signal pour ne
-jamais reboucler). Un décor dont l'asset est introuvable dans `Assets/Decors/` est signalé en
-rouge dans la liste, en plus du damier magenta déjà visible au canevas.
+Trois étapes, dans cet ordre — et l'ordre compte :
+
+1. **Décalage relatif au centre de la salle** (`hmi::parallaxRenderPosition`), jamais absolu en
+   espace niveau. C'est précisément cette formule qui empêche le saut visible à la bascule de salle
+   (`EX-REN-015`) : à chaque salle, le décalage repart de zéro au centre.
+2. **Bornage** (`hmi::clampPlaneOffset`), sans lequel le bord du plan se découvrirait en fin de
+   course et laisserait une bande vide.
+3. **Arrondi au pixel écran** (`hmi::roundToScreenPixel`), sans lequel le pixel art tremblerait.
+
+Inverser 2 et 3 laisserait un décalage borné fractionnaire : l'arrondi doit venir en **dernier**.
+
+**La parallaxe est réactivée en mode suivi**, ce qui **inverse** la décision du `LOT-64`. Celui-ci
+l'avait coupée parce qu'un *décor* est un objet collé au contenu et paraissait « suivre » la
+caméra ; un *plan* est un fond, l'argument ne tient plus. Le mode suivi est d'ailleurs le seul où
+la caméra défile en continu — donc le seul où la parallaxe se voit vraiment.
+
+Corollaire à connaître : en cadrage **niveau entier**, la caméra ne défile pas du tout. Le moteur y
+neutralise la parallaxe (`hmi::planeParallaxActive`) et l'éditeur **grise** la case en l'expliquant
+— un facteur y produirait un désalignement constant, pas du mouvement.
+
+#### Coût : constant en taille de niveau, et c'est tout le problème
+
+Un plan coûte **un quad et une passe** par image, quelles que soient les dimensions du niveau —
+contrairement aux tuiles. Un plafond exprimé en primitives ne le verrait donc **jamais** grossir,
+alors qu'un niveau 200 × 100 à densité native coûterait 20 Mo de texture **par plan**. D'où le
+second axe du budget (`EX-NFR-043`, `SceneStatistics::textureBytes`) — voir « Budget de rendu
+mesuré » plus bas.
+
+Le coût dominant n'est d'ailleurs pas la mémoire mais le **batch** : chaque plan est une texture
+distincte, donc une passe de plus par image, **jamais** écartée par le culling (un plan couvre le
+niveau, il est toujours à l'écran).
+
+#### Peindre un plan : le mode création
+
+Peindre se fait dans le **troisième espace de travail** de l'éditeur, pas dans le viewport : le
+canevas est `hmi::PixelCanvas`, celui de l'atelier pixel art du `LOT-54`, qui sait déjà peindre,
+sélectionner, annuler, coller et contraindre à une palette. Détails dans
+[`guide-editeur.md`](@ref guide-editeur) et [`guide-atelier-pixel-art.md`](@ref guide-atelier-pixel-art).
+
+Deux propriétés méritent d'être connues ici :
+
+- **Le CPU reste l'autorité sur les pixels ; le GPU n'est que l'affichage.** Une `DecodedImage` par
+  plan est la source de vérité, et seuls les rectangles salis sont téléversés. Peindre dans une
+  texture hors écran aurait exigé une **relecture GPU par geste**, et rendu `hmi::PixelOperations`
+  intestable sans carte graphique (`EX-NFR-004`).
+- **La référence est un repère géométrique, pas un aperçu.** Sous l'image éditée, une pelure
+  d'oignon des tuiles (`hmi::buildTileOnionSkin`, qui réutilise la palette du mode Physique) et les
+  plans voisins aplatis ; au-dessus, ceux qui passent devant. Ni raccords automatiques, ni skins, ni
+  animations : elle dit *où* sont les choses, pas *à quoi elles ressembleront*. L'aperçu fidèle
+  reste l'essai.
+
+#### Les plans du contenu livré
+
+Les vingt-deux tableaux de la séquence démo portent chacun un fond à densité 8, et ceux qui avaient
+un décor de premier plan un second plan à densité native. Ces images sont **générées**, jamais
+dessinées à la main :
+
+```
+python scripts/generate_demo_plans.py
+```
+
+Le script peint un fond dérivé du thème de chaque niveau puis y **reporte** ses anciens décors à
+leurs positions d'origine, avec la même géométrie que l'ancien rendu. Choix de reproductibilité
+(`LOT-66`), avec une limite assumée : c'est un report fidèle de l'ancien habillage, pas un décor
+peint qui exploiterait vraiment la profondeur — ce dernier est un acte de *level design*.
 
 ## Le texte dans la scène : `hmi::BitmapFont` et `hmi::TextRenderer` (`LOT-52`)
 
@@ -956,12 +928,32 @@ optimiser quoi que ce soit : ce lot **mesure**.
 ### Le test de non-régression du volume (`Source/Test/Unit/HMI/Graphics/test_render_budget.cpp`)
 
 Pour chaque niveau livré (les quinze fichiers de `Source/Elements/Levels/sequence-demo.json`), le
-test reconstruit exactement la scène que `hmi::GameSession` composerait — tuiles, décors,
+test reconstruit exactement la scène que `hmi::GameSession` composerait — tuiles, plans,
 personnage à l'entrée, caméra cadrée sur la salle de l'entrée — et compare les compteurs de
 `hmi::ComposedScene::statistics()` à un **plafond nommé**, dans les deux modes de rendu (le mode
 Texture, structurellement plus lourd, est celui qui dérive). Le culling est asserté séparément sur
 `demo-salles` (au moins la moitié des primitives écartées) : une borne haute sur le total ne dit pas
 si le culling fonctionne, une borne basse sur ce qu'il écarte, si.
+
+#### Le second axe : la mémoire de texture des plans (`LOT-69`)
+
+Un plafond de **primitives** ne voit pas grossir un plan pictural : celui-ci n'en ajoute qu'une, mais
+occupe une texture à l'échelle du niveau. Sur le plus grand tableau du dépôt (50 × 26), un plan natif
+pèse 1,27 Mio ; sur un niveau 200 × 100, il pèserait **20 Mio** — et seize plans, plus de 300 Mio.
+
+Le test plafonne donc aussi `hmi::planesTextureMemoryBytes` par niveau livré (`EX-NFR-043`), à
+16 Mio. Ce plafond-là n'est **pas** décliné par niveau comme celui des primitives : le volume de
+primitives dépend du contenu posé par l'auteur, la mémoire de plans ne dépend que de la taille du
+niveau et des densités déclarées — deux réglages, pas du contenu.
+
+16 Mio laisse passer **douze** plans natifs sur le plus grand tableau, là où le format en autorise
+seize (`core::MAX_PLANES_PER_LEVEL`) : le plafond refuse donc **avant** la limite de format, ce qui
+est le seul moyen qu'il refuse quoi que ce soit un jour. Un test le vérifie dans ce sens-là — un
+garde-fou qu'on n'a jamais vu refuser ne prouve rien.
+
+Un troisième test fige la propriété qui distingue les plans des tuiles : leur coût en primitives est
+**invariant en taille de niveau** (doubler chaque axe quadruple la mémoire, mais ne change ni le
+nombre de primitives, ni le nombre de passes).
 
 **Faire évoluer un plafond légitimement** : un lot de contenu qui ajoute un calque, agrandit un
 niveau livré, ou change sa salle d'entrée peut légitimement faire grimper les compteurs mesurés.
@@ -1023,7 +1015,7 @@ cadence dépend de la machine, une machine virtuelle partagée ne la mesure pas 
 propre machine de développement ; c'est tout ce que ce lot automatise pour elle.
 
 ## Voir aussi
-- `hmi::GraphicsDevice`, `hmi::GameViewport`, `hmi::Camera2D`.
+- `hmi::SpriteBatch`, `hmi::GameViewport`, `hmi::Camera2D`.
 - `hmi::SpriteBatch`, `hmi::SpriteQuad`, `hmi::LineQuad`, `hmi::TextureAtlas`, `hmi::SpriteRenderer`,
   `hmi::DraftRenderer`.
 - `hmi::RenderLayer`, `hmi::RenderLayerTag`, `hmi::ComposedScene`, `hmi::QuadRecorder`,
@@ -1040,13 +1032,14 @@ propre machine de développement ; c'est tout ce que ce lot automatise pour elle
   @ref guide-editeur).
 - `core::ParticleSystem`, `core::Particle`, `core::DeterministicRandom`, `hmi::ParticleRenderer`,
   `hmi::ScreenShakeState` — particules et secousse d'écran (`LOT-53`, `EX-REN-008`).
-- `core::Decor`, `core::DecorLayer`, `hmi::DecorVisualTag`, `hmi::decorRenderLayer`,
-  `hmi::resolveDecorAppearance`, `hmi::parallaxFactor`, `hmi::parallaxRenderPosition`,
-  `hmi::parallaxModelPosition` — décors libres et parallaxe (`LOT-49`,
-  `EX-DEC-001`/`EX-DEC-002`/`EX-DEC-006`).
-- `core::LevelDraft::moveDecor`/`resizeDecor`/`rotateDecor`/`setDecorLayer`/`bringDecorForward`/
-  `sendDecorBackward`, `hmi::DecorGeometry.h`, `hmi::DecorGesture.h`, `hmi::designateDecorAt`,
-  `hmi::buildDecorListRows` — manipulation de décors dans l'éditeur (`LOT-50`, `EX-DEC-010`).
+- `core::Plane`, `core::PlaneDepth`, `hmi::planeRenderLayer`, `hmi::resolvePlaneTextures`,
+  `hmi::composePlanes`, `hmi::planeParallaxActive`, `hmi::parallaxRenderPosition`,
+  `hmi::clampPlaneOffset`, `hmi::roundToScreenPixel`, `hmi::planesTextureMemoryBytes` — plans
+  picturaux, parallaxe et budget de mémoire (`LOT-69`,
+  `EX-DEC-040`/`EX-DEC-043`/`EX-REN-049`/`EX-NFR-043`).
+- `hmi::buildTileOnionSkin`, `hmi::flattenPlanes`, `hmi::resamplePlane`, `hmi::PlaneVisibility`,
+  `hmi::planePixelSize`, `hmi::uniquePlaneFileName` — repères et cycle de vie du mode création
+  (`LOT-69`, `EX-EDIT-046`/`EX-EDIT-047`).
 - `hmi::BitmapFont`, `hmi::ProceduralFont`, `hmi::buildProceduralFont`, `hmi::measureText`,
   `hmi::composeText`, `hmi::screenProjectionMatrix`, `hmi::gameHudLines`,
   `hmi::GameSession::renderHud` — texte dans la scène et affichage tête haute (`LOT-52`,

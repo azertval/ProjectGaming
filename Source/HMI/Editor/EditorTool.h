@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <cstddef>
@@ -11,7 +14,7 @@ namespace hmi {
 
 /**
  * @brief Outil actif dans la grille de l'éditeur, changé via `Tab` ou la barre d'outils
- *        (`hmi::EditorActions`, panneau `DecorsPanel`).
+ *        (`hmi::EditorActions`).
  *
  * `Paint` peint case par case au clic/glisser (comportement LOT-14, inchangé). `Rectangle` peint
  * un rectangle entier au relâchement d'un glisser. `Selection` définit une zone (glisser) dont le
@@ -23,13 +26,6 @@ namespace hmi {
  * `TextureAssign` (`LOT-45`, `EX-EDIT-043`) assigne une texture par instance à une case : clic
  * gauche assigne/remplace l'asset sélectionné dans la bibliothèque, reclic du même asset ou clic
  * droit retire l'assignation — voir `hmi::resolveTextureAssignClick`.
- * `Decor` (`LOT-49`/`LOT-50`, `EX-DEC-001`, `EX-DEC-010`) place, sélectionne, déplace,
- * redimensionne, pivote et supprime des décors libres, jamais calés sur la grille : cliquer un
- * décor le sélectionne et arme un glisser (corps = déplacer, coin = redimensionner, poignée dédiée
- * = pivoter, `hmi::DecorGesture`) ; cliquer une zone vide pose l'asset/la couche sélectionnés dans
- * la bibliothèque de décors (aucun décor sous le curseur, aucune sélection) ; clic droit ou touche
- * « Suppr » retire le décor visé/sélectionné ; `Échap` abandonne un glisser en cours sans y
- * toucher.
  * `CameraZone` (`LOT-64`, `EX-LVL-007`, `EX-EDIT-029`) dessine une zone de caméra du mode *par
  * salle* : un glisser (comme `Rectangle`) définit un rectangle de cases, ajouté à
  * `core::CameraFramingConfig::zones` au relâchement (`core::LevelDraft::addCameraZone`) ; les
@@ -45,12 +41,12 @@ namespace hmi {
  * fois l'axe et la portée. Vitesse, déphasage et mode de bouclage se règlent dans le panneau
  * Propriétés, pas au canevas.
  */
-enum class EditorTool { Paint, Rectangle, Selection, Link, TextureAssign, Decor, CameraZone, Path };
+enum class EditorTool { Paint, Rectangle, Selection, Link, TextureAssign, CameraZone, Path };
 
 /// Nombre d'outils d'édition, déclaré au plus près de l'énumération qu'il compte. Sert de garde
 /// de **complétude** : le catalogue d'actions doit exposer exactement autant d'outils de niveau
 /// (`hmi::editorActionCatalog`), ce qu'un test vérifie — sans quoi un outil ajouté à
 /// l'énumération peut apparaître dans la barre d'outils sans jamais être relié au viewport.
-inline constexpr std::size_t EDITOR_TOOL_COUNT = 8;
+inline constexpr std::size_t EDITOR_TOOL_COUNT = 7;
 
 }  // namespace hmi

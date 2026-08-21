@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Editor/PathGesture.h"
 
 #include <cmath>
@@ -7,7 +10,7 @@ namespace hmi {
 namespace {
 
 // Case entiere contenant @p position : un point de parcours EST une case, jamais une position
-// continue -- l'aimantation n'est donc pas optionnelle ici, contrairement aux decors libres.
+// continue -- l'aimantation n'est donc pas optionnelle ici.
 [[nodiscard]] core::GridPosition cellAt(core::Vector2 position) {
     return core::GridPosition{.column = static_cast<int>(std::floor(position.x)),
                               .row = static_cast<int>(std::floor(position.y))};

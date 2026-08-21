@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <QByteArray>
@@ -48,7 +51,6 @@ class MemoryLogSink;
 
 namespace hmi {
 
-class DecorsPanel;
 class EditorActions;
 class GameViewport;
 class MainMenu;
@@ -58,6 +60,7 @@ class LevelCompleteScreen;
 class LevelSelectScreen;
 class CreditsScreen;
 class PalettePanel;
+class PlanesPanel;
 class LevelBrowserPanel;
 class LinkPanel;
 class TexturePanel;
@@ -112,6 +115,15 @@ private:
     /// @return La clé `QSettings` de la disposition de @p workspace. Chaque espace persiste la
     /// sienne : une disposition unique rouvrirait les docks de l'atelier par-dessus l'édition.
     [[nodiscard]] static QString layoutKeyFor(EditorWorkspace workspace);
+    /// @return Le nom sous lequel @p workspace est persisté. Un **nom**, jamais l'indice de
+    ///         l'énumération : le `LOT-68` écrivait 0/1, et insérer « Plans » entre les deux
+    ///         aurait fait rouvrir en mode création l'éditeur laissé dans l'atelier.
+    [[nodiscard]] static QString workspaceSettingsName(EditorWorkspace workspace);
+    /// @return L'espace nommé @p name ; l'édition de niveau si le nom est inconnu (y compris les
+    ///         anciens `0`/`1` du `LOT-68`).
+    [[nodiscard]] static EditorWorkspace workspaceFromSettingsName(const QString& name);
+    /// @return L'entrée de menu exclusive qui sélectionne @p workspace.
+    [[nodiscard]] QAction* workspaceSelector(EditorWorkspace workspace) const;
 
     /// @return La table des neuf panneaux et de leur identité, relue par `setDocksVisible` **et**
     /// par `applyWorkspace`. Une seule table : deux listes divergeraient au premier dock ajouté, et
@@ -120,13 +132,24 @@ private:
     workspacePanels() const;
 
 protected:
-    /// Même resynchronisation que `resizeEvent`, nécessaire en plus de lui : un recouvrement est
-    /// une fenêtre de haut niveau positionnée en coordonnées **écran** (`syncOverlayGeometry`),
-    /// donc déplacer la fenêtre principale sans la redimensionner (aucun `resizeEvent`) la
-    /// désaligne quand même.
     void moveEvent(QMoveEvent* event) override;
+    /// Suit la taille du viewport pour les recouvrements qui s'y superposent (pause, fin de
+    /// niveau) : enfants ordinaires depuis le `LOT-69` TACHE-02, ils se redimensionnent avec leur
+    /// parent plutôt que d'être repositionnés en coordonnées écran.
+    bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
+    /// Branche le panneau « Plans » (`LOT-69` TACHE-08) : il demande, le viewport applique.
+    void connectPlanesPanel();
+    /// @return Le dossier des images de plans, à côté des niveaux.
+    [[nodiscard]] std::filesystem::path planesDirectory() const;
+    /// Crée un plan : un PNG entièrement transparent aux dimensions exactes, puis l'entrée dans le
+    /// brouillon. Les deux vont ensemble — une entrée sans fichier afficherait un damier.
+    void createPlane();
+    /// Change la densité d'un plan : **rééchantillonne l'image** puis met à jour la déclaration,
+    /// sans quoi le fichier et le format diraient deux choses différentes.
+    void changePlaneDensity(std::size_t index, int pixelsPerUnit);
+
     /// Crée les panneaux (contenu des docks du `.ui`) et branche les actions de la barre de menus.
     void buildUi();
     void restoreLayout();
@@ -192,6 +215,28 @@ private:
     /// associé (asset pas encore enregistré une première fois, TACHE-05).
     void updateLivePreview();
 
+    // Mode création : peinture d'un plan pictural dans le canevas (LOT-69 TACHE-08).
+    /// Charge le PNG du plan @p index dans `_pixelCanvas`, avec ses repères (pelure d'oignon des
+    /// tuiles sous le plan, plans voisins aplatis dessous et dessus, grille de tuiles). Sans effet
+    /// — et le canevas est refermé — si le rang n'existe pas. Le garde-fou de perte de travail est
+    /// à la charge de l'appelant : cette méthode écrase le contenu du canevas.
+    void loadPlaneIntoCanvas(std::size_t index);
+    /// Écrit l'image du canevas dans le PNG du plan ouvert (`Ctrl+S` dans l'espace « Plans »).
+    /// Sans effet si aucun plan n'y est chargé.
+    void savePlaneImage();
+    /// Vide le canevas de son plan et retire les repères — l'atelier pixel art retrouve alors son
+    /// comportement du `LOT-54`, sans repère hérité du mode création.
+    void closePlaneInCanvas();
+    /// Reconstruit les repères du plan ouvert depuis le brouillon courant : appelé après toute
+    /// mutation qui les périme (ordre, densité, opacité, visibilité, taille du niveau).
+    void refreshPlaneReferences();
+    /// @return `true` si l'on peut poursuivre : rien à perdre dans le canevas, ou perte confirmée.
+    ///         Même garde que `confirmDiscardPixelChanges`, message propre au plan — un plan perdu
+    ///         est un dessin perdu, pas un asset qu'on retrouve dans la bibliothèque.
+    [[nodiscard]] bool confirmDiscardPlaneChanges();
+    /// @return Le chemin du PNG du plan de rang @p index, vide si le rang n'existe pas.
+    [[nodiscard]] std::filesystem::path planeFilePath(std::size_t index) const;
+
     /// Ouvre un sélecteur de couleur (`QColorDialog`) pour choisir librement la couleur courante du
     /// canevas — seul moyen d'atteindre une couleur absente à la fois de l'image ouverte (pipette)
     /// et de la palette de projet (pastilles).
@@ -238,11 +283,6 @@ private:
     /// pure) puis applique l'habillage générique de @p screen (`hmi::dressingFor`) : docks,
     /// barres, commandes d'édition, navigation manette, minuteur de statut.
     void applyScreenDressing(hmi::ScreenId screen);
-    /// Positionne `_pauseScreen`/`_levelCompleteScreen` (fenêtres de haut niveau) pour recouvrir
-    /// exactement `_editorContainer` **en coordonnées écran** (`LOT-59` TACHE-02/03/07) -- appelé
-    /// à la création et à chaque déplacement/redimensionnement de la fenêtre principale
-    /// (`moveEvent`/`resizeEvent`).
-    void syncOverlayGeometry();
 
     // Écran de pause (LOT-59 TACHE-02).
     /// `Échap`/bouton manette B en jeu réel (`GameViewport::pauseRequested`) : ouvre la pause.
@@ -318,17 +358,15 @@ private:
     /// Écran courant et écran de retour d'Options (`LOT-59` TACHE-01, `EX-GP-041`) : seule source
     /// de vérité sur la navigation, mise à jour uniquement par `transitionScreen`.
     hmi::ScreenState _screenState;
-    QStackedWidget* _stack;     ///< Central : empile menu principal, options et viewport.
-    MainMenu* _menu;            ///< Menu principal (page d'accueil).
-    OptionsPage* _options;      ///< Page Options à onglets.
-    QWidget* _editorContainer;  ///< Conteneur natif du viewport (page éditeur/jeu).
-    /// Recouvrement de pause (`LOT-59` TACHE-02) : fenêtre de **haut niveau** possédée par `this`
-    /// (`Qt::Tool | Qt::FramelessWindowHint`, fond translucide), jamais une page ni un enfant de
-    /// `_stack` -- une fenêtre native embarquée via `QWidget::createWindowContainer`
-    /// (`_editorContainer`) peint toujours par-dessus ses **frères** Qt ordinaires, quel que soit
-    /// leur `raise()` : seule une fenêtre de haut niveau distincte se superpose de façon fiable
-    /// (limitation documentée de Qt, constatée en jeu : `TACHE-07`). Géométrie synchronisée en
-    /// coordonnées **écran** (`syncOverlayGeometry`), visibilité pilotée par `applyScreenDressing`.
+    QStackedWidget* _stack;  ///< Central : empile menu principal, options et viewport.
+    MainMenu* _menu;         ///< Menu principal (page d'accueil).
+    OptionsPage* _options;   ///< Page Options à onglets.
+    /// Recouvrement de pause (`LOT-59` TACHE-02) : **widget enfant ordinaire** du viewport
+    /// depuis le `LOT-69` TACHE-02. Il fut une fenêtre de haut niveau tant que le viewport était
+    /// une fenêtre native embarquée (`QWidget::createWindowContainer`), qui peignait toujours
+    /// par-dessus ses frères Qt : le portage sur `QRhiWidget` efface cette contrainte, et avec
+    /// elle la géométrie synchronisée en coordonnées écran. Visibilité pilotée par
+    /// `applyScreenDressing`, géométrie suivie par le filtre d'événements posé sur le viewport.
     PauseScreen* _pauseScreen = nullptr;
     /// Recouvrement de fin de niveau/séquence (`LOT-59` TACHE-03) : même patron que
     /// `_pauseScreen` ci-dessus (fenêtre de haut niveau, pas un enfant de `_stack`).
@@ -346,12 +384,13 @@ private:
     /// jamais.
     EditContextTarget* _editContext = nullptr;
     PalettePanel* _palette;  ///< Arbre de sélection du type de tuile (contenu du dock Palette).
+    PlanesPanel* _planes =
+        nullptr;  ///< Liste des plans picturaux (`LOT-69`, contenu du dock Plans).
     LevelBrowserPanel*
         _levels;  ///< Liste/gestion des fichiers de niveaux (contenu du dock Niveaux).
     /// Placement/inspection de décors (dock Décors, `LOT-57` amendement) — contenait déjà tout ce
     /// qui concerne les décors (`ToolPanel`, `LOT-56` TACHE-04) avant d'y accueillir aussi
     /// l'inspecteur déplacé du panneau Textures. La barre d'outils reste hors de ce panneau.
-    DecorsPanel* _decors;
     LinkPanel* _links;        ///< Liste/gestion des liaisons de mécanismes (dock Liens, LOT-37).
     TexturePanel* _textures;  ///< Habillage : jeu de skins et assignations (dock Textures, LOT-42).
     /// Réglages de gameplay de l'élément sélectionné et du tableau (dock Propriétés, `LOT-67`).
@@ -369,6 +408,11 @@ private:
     /// enregistré (LOT-54 TACHE-05) — `PixelCanvas::assetName()` n'en garde que le nom de fichier,
     /// pour l'affichage ; ce chemin sert à `savePixelAsset` pour retrouver le dossier.
     std::filesystem::path _pixelAssetPath;
+    /// Rang du plan actuellement peint dans `_pixelCanvas` (mode création, `LOT-69` TACHE-08) ;
+    /// absent dès que le canevas sert à l'atelier pixel art. C'est ce qui distingue les deux
+    /// usages du **même** canevas : où `Ctrl+S` écrit, quels repères afficher, et ce que la barre
+    /// d'état annonce. Un plan et un asset n'y sont jamais ouverts en même temps.
+    std::optional<std::size_t> _paintedPlane;
     EditorActions*
         _actions;  ///< Outils et commandes principales, barre d'outils (LOT-56 TACHE-04).
     /// Espace de travail actif (`LOT-68`). Persisté : on rouvre l'éditeur là où on l'a laissé.

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Editor/PixelCanvas.h"
 
 #include <QEvent>
@@ -137,13 +140,13 @@ void PixelCanvas::setCurrentColor(std::uint32_t color) {
 }
 
 void PixelCanvas::zoomIn() {
-    _view.zoom = pixelCanvasZoomIn(_view.zoom);
+    _view = pixelCanvasZoomIn(_view);
     updateGeometry();
     update();
 }
 
 void PixelCanvas::zoomOut() {
-    _view.zoom = pixelCanvasZoomOut(_view.zoom);
+    _view = pixelCanvasZoomOut(_view);
     updateGeometry();
     update();
 }
@@ -154,7 +157,9 @@ std::optional<std::pair<int, int>> PixelCanvas::imagePixelAt(const QPointF& widg
 }
 
 QSize PixelCanvas::sizeHint() const {
-    return {std::max(1, _image.width * _view.zoom), std::max(1, _image.height * _view.zoom)};
+    const double scale = pixelCanvasScale(_view);
+    return {std::max(1, static_cast<int>(std::lround(_image.width * scale))),
+            std::max(1, static_cast<int>(std::lround(_image.height * scale)))};
 }
 
 void PixelCanvas::applyToolAtPoint(int x, int y) {
@@ -380,8 +385,10 @@ void PixelCanvas::mouseMoveEvent(QMouseEvent* event) {
 
     if (_panning) {
         const QPointF delta = event->position() - _panStartWidgetPos;
-        _view.panX = _panStartView.panX - static_cast<int>(std::lround(delta.x() / _view.zoom));
-        _view.panY = _panStartView.panY - static_cast<int>(std::lround(delta.y() / _view.zoom));
+        _view.panX =
+            _panStartView.panX - static_cast<int>(std::lround(delta.x() / pixelCanvasScale(_view)));
+        _view.panY =
+            _panStartView.panY - static_cast<int>(std::lround(delta.y() / pixelCanvasScale(_view)));
         update();
         return;
     }
@@ -423,10 +430,26 @@ void PixelCanvas::wheelEvent(QWheelEvent* event) {
     }
 }
 
+void PixelCanvas::setUnderlay(DecodedImage image, float opacity) {
+    _underlay = std::move(image);
+    _underlayOpacity = std::clamp(opacity, 0.0f, 1.0f);
+    update();
+}
+
+void PixelCanvas::setOverlay(DecodedImage image, float opacity) {
+    _overlay = std::move(image);
+    _overlayOpacity = std::clamp(opacity, 0.0f, 1.0f);
+    update();
+}
+
+void PixelCanvas::setReferenceGridStep(int step) {
+    _referenceGridStep = std::max(0, step);
+    update();
+}
+
 QPixmap PixelCanvas::renderPixmap() const {
     const qreal scale = devicePixelRatioF();
-    const PixelCanvasRealSize real =
-        pixelCanvasRealSize(_image.width, _image.height, _view.zoom, scale);
+    const PixelCanvasRealSize real = pixelCanvasRealSize(_image.width, _image.height, _view, scale);
     QPixmap pixmap(std::max(1, real.width), std::max(1, real.height));
 
     // Surface de peinture (fond + damier) : portee INVARIANTE des jetons (epic.md, decision de
@@ -446,15 +469,48 @@ QPixmap PixelCanvas::renderPixmap() const {
         }
     }
 
+    // Repere SOUS le contenu (mode creation, LOT-69 TACHE-07) : dessine ici, entre le damier et
+    // l'oeuvre. Il n'entre jamais dans _image -- ni historique, ni copier.
+    if (_underlay.width > 0 && _underlay.height > 0) {
+        painter.setOpacity(static_cast<qreal>(_underlayOpacity));
+        painter.drawImage(QRect(0, 0, real.width, real.height), toQImage(_underlay));
+        painter.setOpacity(1.0);
+    }
+
     // Oeuvre : plus proche voisin, jamais interpolee (EX-ARCH-022) -- SmoothPixmapTransform
     // desactive ci-dessus rend drawImage() rapide (nearest-neighbor) plutot que lisse.
     const QImage art = toQImage(_image);
     painter.drawImage(QRect(0, 0, real.width, real.height), art);
 
+    // Repere PAR-DESSUS le contenu, memes regles.
+    if (_overlay.width > 0 && _overlay.height > 0) {
+        painter.setOpacity(static_cast<qreal>(_overlayOpacity));
+        painter.drawImage(QRect(0, 0, real.width, real.height), toQImage(_overlay));
+        painter.setOpacity(1.0);
+    }
+
+    // Grille de TUILES (LOT-69 TACHE-07), distincte de la grille de pixels ci-dessous : sur un plan
+    // pictural, c'est elle qui permet de viser une case du niveau.
+    if (_referenceGridStep > 0) {
+        painter.setPen(toQColor(identityTokens().color.accent));
+        const double stepReal =
+            static_cast<double>(_referenceGridStep) * pixelCanvasScale(_view) * scale;
+        if (stepReal >= 2.0) {
+            for (double x = 0.0; x <= real.width; x += stepReal) {
+                const int screenX = static_cast<int>(std::lround(x));
+                painter.drawLine(screenX, 0, screenX, real.height);
+            }
+            for (double y = 0.0; y <= real.height; y += stepReal) {
+                const int screenY = static_cast<int>(std::lround(y));
+                painter.drawLine(0, screenY, real.width, screenY);
+            }
+        }
+    }
+
     // Grille de pixels, seulement au-dela du seuil de lisibilite (TACHE-03).
-    if (pixelCanvasGridVisible(_view.zoom)) {
+    if (pixelCanvasGridVisible(_view)) {
         painter.setPen(toQColor(identityTokens().color.border));
-        const double zoomReal = static_cast<double>(_view.zoom) * scale;
+        const double zoomReal = pixelCanvasScale(_view) * scale;
         for (int column = 0; column <= _image.width; ++column) {
             const int screenX = static_cast<int>(std::lround(column * zoomReal));
             painter.drawLine(screenX, 0, screenX, real.height);
@@ -469,7 +525,7 @@ QPixmap PixelCanvas::renderPixmap() const {
     // jetons (portee invariante, comme le reste de la surface de peinture) sans masquer les pixels
     // du bord (contour seul, jamais rempli).
     if (!_selection.empty()) {
-        const double zoomReal = static_cast<double>(_view.zoom) * scale;
+        const double zoomReal = pixelCanvasScale(_view) * scale;
         const double rectX = (_selection.minX - _view.panX) * zoomReal;
         const double rectY = (_selection.minY - _view.panY) * zoomReal;
         const double rectW = _selection.width() * zoomReal;
@@ -483,7 +539,7 @@ QPixmap PixelCanvas::renderPixmap() const {
     // que la grille de pixel) et apercu d'assemblage 3x3 -- les reperes disent a quoi sert chaque
     // case, l'assemblage dit si le resultat tient (epic.md).
     if (isBitmask16Candidate(_image, TextureAtlas::TILE_SIZE)) {
-        const double zoomReal = static_cast<double>(_view.zoom) * scale;
+        const double zoomReal = pixelCanvasScale(_view) * scale;
         painter.setPen(QPen(toQColor(identityTokens().color.accent), std::max(2.0, 2.0 * scale)));
         for (int column = 0; column <= AUTOTILE_SHEET_SIDE; ++column) {
             const int screenX =

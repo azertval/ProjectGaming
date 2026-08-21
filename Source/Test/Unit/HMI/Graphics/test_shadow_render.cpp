@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_shadow_render.cpp
  * @brief Tests unitaires des ombres du plan physique (LOT-55, EX-REN-045).

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_gamepad_button_name.cpp
  * @brief Tests unitaires de l'affichage et de la capture de bouton manette (`GamepadButtonName`,

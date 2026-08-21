@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_editor_key_bindings.cpp
  * @brief Tests unitaires du remappage des touches de l'éditeur (`EditorKeyBindings`,

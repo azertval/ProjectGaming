@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_platform_controller.cpp
  * @brief Tests unitaires de la plateforme mobile (`core::PlatformController`, `EX-GP-026`).
@@ -31,7 +34,7 @@ core::Level makeLevelWithPlatform(int endColumn, int endRow, float speed = 2.0f,
                                    .phase = phase}};
     return core::Level("plateforme", std::move(map), core::GridPosition{0, 0},
                        core::GridPosition{7, 7}, {}, -1, -1, {}, {}, {}, std::nullopt, std::nullopt,
-                       {}, {}, std::move(platformConfigs));
+                       {}, std::move(platformConfigs));
 }
 
 // Niveau minimal 8x8 avec une seule plateforme mobile en (1,1) suivant la route donnee (points
@@ -48,7 +51,7 @@ core::Level makeLevelWithPath(std::vector<core::GridPosition> waypoints,
                                    .phase = phase}};
     return core::Level("plateforme", std::move(map), core::GridPosition{0, 0},
                        core::GridPosition{7, 7}, {}, -1, -1, {}, {}, {}, std::nullopt, std::nullopt,
-                       {}, {}, std::move(platformConfigs));
+                       {}, std::move(platformConfigs));
 }
 
 core::Aabb boxAt(int col, int row) {

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Valentin Eloy
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Génère Documentation/CahierTest.md à partir des blocs ``\\castest{...}`` du code de test.
 
 Le Cahier de test agrégeait auparavant tous les cas de test sur une seule page plate (mécanisme

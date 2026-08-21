@@ -24,7 +24,7 @@ de l'architecture d'origine :
 - `Platform/` — provisionnement bas niveau (répertoire exécutable) ;
 - `Input/` — entrées (`hmi::InputState`, `hmi::GamepadPoller`, `*KeyBindings`, pont Qt→`Key`
   `hmi::qtKeyToHmiKey`) ;
-- `Graphics/` — rendu Direct3D 11 (`hmi::GraphicsDevice`, `hmi::SpriteBatch`, `hmi::SpriteRenderer`,
+- `Graphics/` — rendu sur QRhi (`hmi::SpriteBatch`, `hmi::SpriteRenderer`,
   `hmi::TextureAtlas`, `hmi::Camera2D`, `hmi::DraftRenderer`…) ;
 - `Game/` — **session de jeu** (`hmi::GameSession`) et viewport Qt jeu/édition (`hmi::GameViewport`) ;
 - `Localization/` — catalogue de traduction ;

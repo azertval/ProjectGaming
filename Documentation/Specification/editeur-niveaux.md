@@ -206,6 +206,24 @@ pouvoir habiller le niveau avec de vraies textures — sans jamais perdre la lec
   minimal (peindre/effacer, palette, zoom, annuler/refaire) pour créer/modifier directement les
   fichiers d'assets de texture, sans dépendance externe, avec un **aperçu du rendu dans le niveau**
   pendant l'édition. Concrétisé en `LOT-54`.
+- \anchor EX-EDIT-046 **EX-EDIT-046** — L'éditeur doit offrir un **mode création** — un espace de
+  travail à part entière, au même titre que l'édition de niveau et l'atelier pixel art — où le
+  niveau **entier** devient une surface peignable, **plan par plan** (`EX-DEC-045`), au pixel près
+  et à l'échelle **1:1** (un pixel du plan = un pixel du jeu). Le plan actif est peint avec les
+  outils de l'atelier (`EX-EDIT-045`), qui sont **réutilisés et non redéveloppés** ; les tuiles
+  physiques et les autres plans sont composés en **référence atténuée** (« pelure d'oignon »), et
+  tout plan peut être **isolé** ou masqué le temps du travail. Le repère est **géométrique** : il
+  n'a ni raccords automatiques, ni skins, ni animations — l'aperçu fidèle reste le rendu du niveau
+  et l'essai. L'historique du dessin est **strictement distinct** de celui de l'édition de niveau :
+  annuler un coup de pinceau ne doit jamais annuler une pose de tuile. Le zoom doit descendre
+  **sous** le 1:1 pour embrasser un niveau entier, en conservant des pixels **carrés**
+  (`EX-ARCH-022`). Concrétisé en `LOT-69`.
+- \anchor EX-EDIT-047 **EX-EDIT-047** — L'éditeur doit exposer, dans un **panneau dédié**, la liste
+  ordonnée des plans du niveau et leurs réglages : ajout, suppression, **réordonnancement**,
+  densité, facteurs de parallaxe, opacité, profondeur et visibilité. Ajouter un plan crée son
+  fichier PNG **transparent aux dimensions exactes** attendues ; changer sa densité rééchantillonne
+  l'image existante plutôt que de la perdre. Le poids mémoire du niveau (`EX-NFR-043`) est visible
+  **pendant** qu'on le dépense. Concrétisé en `LOT-69`.
 
 ## Traçabilité
 L'éditeur s'appuie sur `Core` (modèle et validation de niveau, `niveaux.md`) et sur le rendu de

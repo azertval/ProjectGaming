@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_editor_status.cpp
  * @brief Tests unitaires du choix de contenu de la barre d'état de l'éditeur (LOT-57 TACHE-01,
@@ -32,14 +35,12 @@ hmi::Localization testLocalization() {
                                     {"tool.selection", "Selection"},
                                     {"tool.link", "Lien"},
                                     {"tool.texture_assign", "Texture"},
-                                    {"tool.decor", "Decor"},
                                     {"tool.camera_zone", "Zone de camera"},
                                     {"status.help_paint", "Aide pinceau"},
                                     {"status.help_rectangle", "Aide rectangle"},
                                     {"status.help_selection", "Aide selection"},
                                     {"status.help_link", "Aide lien"},
                                     {"status.help_texture_assign", "Aide texture"},
-                                    {"status.help_decor", "Aide decor"},
                                     {"status.help_camera_zone", "Aide zone de camera"},
                                     {"pixel_tool.brush", "Pinceau"},
                                     {"pixel_tool.eraser", "Gomme"},
@@ -347,7 +348,6 @@ TEST(EditorStatusTest, ClesDeTraductionExistentDansLesDeuxCatalogues) {
                                 "status.help_selection",
                                 "status.help_link",
                                 "status.help_texture_assign",
-                                "status.help_decor",
                                 "status.help_pixel_brush",
                                 "status.help_pixel_eraser",
                                 "status.help_pixel_fill",

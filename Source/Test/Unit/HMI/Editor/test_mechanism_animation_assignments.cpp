@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_mechanism_animation_assignments.cpp
  * @brief Tests unitaires de la section « Animations » du panneau « Textures » (LOT-47 TACHE-04).

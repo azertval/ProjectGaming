@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_image_encode.cpp
  * @brief Tests unitaires de l'encodage/enregistrement d'image, symétrique du décodage

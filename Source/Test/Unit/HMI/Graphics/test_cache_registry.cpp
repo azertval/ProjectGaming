@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_cache_registry.cpp
  * @brief Tests unitaires du registre de mémoïsation/invalidation (LOT-43 TACHE-03).

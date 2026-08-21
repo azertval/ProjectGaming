@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <cstddef>
@@ -20,8 +23,8 @@ namespace hmi {
  *
  * Fonction **pure**, testable sans GPU (`EX-NFR-004`), même patron que `hmi::RoomGrid` pour le
  * découpage automatique. La **première** zone de la liste qui contient @p position est retenue :
- * l'ordre porte donc la priorité en cas de chevauchement, même convention que la superposition des
- * décors (`core::LevelDraft::decors`) — pas de règle de résolution supplémentaire à inventer.
+ * l'ordre porte donc la priorité en cas de chevauchement — pas de règle de résolution
+ * supplémentaire à inventer.
  * @param zones    Zones de caméra du niveau (`core::CameraFramingConfig::zones`).
  * @param position Position (case) dont on cherche la zone de caméra active.
  * @return L'indice dans @p zones de la première zone contenant @p position ; `std::nullopt` si

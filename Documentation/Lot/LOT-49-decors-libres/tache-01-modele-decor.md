@@ -1,4 +1,4 @@
-# TACHE-01 — *core::Decor* : modèle, couches et sérialisation {#lot-49-tache-01-modele-decor}
+# TACHE-01 — *%core::Decor* : modèle, couches et sérialisation {#lot-49-tache-01-modele-decor}
 
 **Lot :** [LOT-49](epic.md) · **Emplacement :** `Source/Core/Levels` · **Statut :** fait
 
@@ -12,10 +12,10 @@ doté d'un transform en unités monde. C'est la seule vraie nouveauté de modèl
 reste modeste — le patron de vecteur annexe s'applique tel quel, seule la clé change de nature.
 
 ## Travail à réaliser
-- ***core::Decor*** : nom d'asset (chaîne), position en unités monde (**flottante**), échelle,
+- **`%core::Decor`** : nom d'asset (chaîne), position en unités monde (**flottante**), échelle,
   rotation, couche, et l'indicateur statique/manipulable de `EX-DEC-005`. `struct` de données pures.
-- ***core::DecorLayer* `{ Background, Decor, Foreground }`** (`EX-DEC-002`). `Core` ne connaît pas
-  *RenderLayer* : la projection vers les calques de rendu est le travail de `HMI`.
+- **`%core::DecorLayer` `{ Background, Decor, Foreground }`** (`EX-DEC-002`). `Core` ne connaît pas
+  *%RenderLayer* : la projection vers les calques de rendu est le travail de `HMI`.
 - **Vecteur annexe** sur `Level` (lecture) et `LevelDraft` (mutation), sur le patron
   `Mechanism`/`DangerLink` de `Source/Core/Levels/Level.h`.
 - **JSON** : tableau racine optionnel `"decors": [...]`, dans le format versionné de LOT-44 —
@@ -55,7 +55,7 @@ reste modeste — le patron de vecteur annexe s'applique tel quel, seule la clé
   (manipulation en jeu) restent hors programme.
 
 ## Définition de fait (DoD)
-- *core::Decor* existe, transite par le JSON de façon rétrocompatible en préservant son ordre, est
+- *%core::Decor* existe, transite par le JSON de façon rétrocompatible en préservant son ordre, est
   couvert par l'annulation, et le comportement au redimensionnement est documenté ; tests `Core`
   verts ; `/W4 /WX` propre.
 

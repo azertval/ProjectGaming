@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_sound_triggers.cpp
  * @brief Tests unitaires de la table événement → son (LOT-60, EX-REN-047).

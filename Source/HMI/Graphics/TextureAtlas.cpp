@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Graphics/TextureAtlas.h"
 
 #include <filesystem>
@@ -8,21 +11,22 @@
 #include "HMI/Graphics/AssetPaths.h"
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/ProceduralAtlas.h"
+#include "HMI/Graphics/RhiContext.h"
 #include "HMI/Graphics/TextureLoader.h"
 #include "HMI/Platform/ExecutableDirectory.h"
 
 namespace hmi {
 
-// Charge l'atlas (fichier, avec repli procédural) et crée la ressource Direct3D associée.
-TextureAtlas::TextureAtlas(ID3D11Device* device) {
-    if (loadFromFile(device)) {
+// Charge l'atlas (fichier, avec repli procédural) et crée la texture GPU associée.
+TextureAtlas::TextureAtlas(const RhiContext& context) {
+    if (loadFromFile(context)) {
         return;
     }
-    generateProcedural(device);
+    generateProcedural(context);
 }
 
 // Essaie de charger Assets/atlas.png. true si la texture a été créée avec succès.
-bool TextureAtlas::loadFromFile(ID3D11Device* device) {
+bool TextureAtlas::loadFromFile(const RhiContext& context) {
     const AssetPaths assetPaths(executableDirectory() / "Assets");
     const std::optional<std::filesystem::path> path = assetPaths.resolve(ATLAS_FILE_NAME);
     if (!path) {
@@ -31,7 +35,7 @@ bool TextureAtlas::loadFromFile(ID3D11Device* device) {
         return false;
     }
 
-    std::optional<LoadedTexture> loaded = loadTextureFromFile(device, *path);
+    std::optional<LoadedTexture> loaded = loadTextureFromFile(context, *path);
     if (!loaded) {
         GRAPHICS_LOG_WARNING("TextureAtlas : echec du chargement de '" + path->string() +
                              "', repli sur l'atlas procedural");
@@ -41,16 +45,15 @@ bool TextureAtlas::loadFromFile(ID3D11Device* device) {
     _width = loaded->width;
     _height = loaded->height;
     _texture = std::move(loaded->texture);
-    _view = std::move(loaded->view);
     GRAPHICS_LOG_INFO("TextureAtlas : atlas charge depuis '" + path->string() + "'");
     return true;
 }
 
-// Génère l'atlas procédural et crée la ressource Direct3D associée.
-void TextureAtlas::generateProcedural(ID3D11Device* device) {
+// Génère l'atlas procédural et crée la texture GPU associée.
+void TextureAtlas::generateProcedural(const RhiContext& context) {
     const ProceduralAtlasImage image = buildProceduralAtlasImage();
     std::optional<LoadedTexture> loaded =
-        createTexture(device, image.width, image.height, image.pixels);
+        createTexture(context, image.width, image.height, image.pixels);
     if (!loaded) {
         // Echec de creation GPU d'un contenu genere en memoire : erreur d'initialisation non
         // recuperable (device perdu, ressources epuisees), pas un cas metier attendu.
@@ -60,7 +63,6 @@ void TextureAtlas::generateProcedural(ID3D11Device* device) {
     _width = loaded->width;
     _height = loaded->height;
     _texture = std::move(loaded->texture);
-    _view = std::move(loaded->view);
     GRAPHICS_LOG_TRACE("TextureAtlas : atlas procedural genere");
 }
 

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <QObject>
@@ -67,8 +70,7 @@ public:
     void retranslateUi(const Localization& loc);
 
     /// Coche l'action de l'outil actif **sans** émettre `triggered` : resynchronisation depuis la
-    /// touche dédiée de `GameViewport` (remappable, `EditorAction::TextureAssignTool`), même garde
-    /// que `DecorsPanel::setActiveTool`.
+    /// touche dédiée de `GameViewport` (remappable, `EditorAction::TextureAssignTool`).
     void setActiveTool(EditorTool tool) const;
     /// Coche l'action de l'outil de canevas pixel art actif **sans** émettre `triggered` — même
     /// garde que `setActiveTool` (`LOT-54` TACHE-04).

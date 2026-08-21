@@ -35,6 +35,15 @@
   `endX`/`endY`, aucune capacité déclarée) se charge et se joue **à l'identique**, la
   rétrocompatibilité des niveaux existants restant un invariant (`EX-LVL-005`). Concrétisé en
   `LOT-67`.
+- \anchor EX-LVL-009 **EX-LVL-009** — Le format de niveau doit porter la **liste ordonnée des
+  plans** (`EX-DEC-040`) — nom de fichier, densité, facteurs de parallaxe, opacité et profondeur —
+  ainsi qu'un drapeau de niveau décidant si la **parallaxe** s'applique (`EX-DEC-043`). Les champs à
+  leur valeur par défaut ne sont **pas écrits**. Le champ `decors` du format précédent devient
+  **obsolète** : un fichier qui le porte encore reste **valide** et se charge, le champ étant
+  **ignoré avec un avertissement journalisé** nommant le fichier — jamais un rejet. Rejeter
+  casserait tout niveau personnel existant, et convertir automatiquement un assemblage de sprites
+  en surface peinte est impossible sans rastérisation, donc mentirait sur le résultat
+  (`EX-LVL-004`, `EX-LVL-005`, `EX-NFR-040`). Concrétisé en `LOT-69`.
 
 ### Format retenu (JSON, liste de tuiles-objets)
 Types de tuiles : `entry` (entrée), `exit` (sortie), `solid` (solide), `danger`, `switch`

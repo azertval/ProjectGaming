@@ -373,18 +373,10 @@
       "type": "solid"
     }
   ],
-  "decors": [
+  "planes": [
     {
-      "asset": "kenney_fence.png",
-      "x": 2.0,
-      "y": 2.2,
-      "layer": "background"
-    },
-    {
-      "asset": "gear.png",
-      "x": 15.0,
-      "y": 0.4,
-      "layer": "background"
+      "file": "demo-interrupteur-fond.png",
+      "pixelsPerUnit": 8
     }
   ]
 }

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_palette_appearance.cpp
  * @brief Tests unitaires du choix de vignette de la palette (LOT-42 TACHE-05, EX-EDIT-027).

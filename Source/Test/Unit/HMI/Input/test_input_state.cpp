@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_input_state.cpp
  * @brief Tests unitaires de l'état des entrées : fronts clavier/souris et position.

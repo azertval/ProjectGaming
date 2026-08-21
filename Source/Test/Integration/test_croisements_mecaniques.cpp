@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_croisements_mecaniques.cpp
  * @brief Tests d'intégration des **croisements** de mécaniques (`LOT-65` TACHE-06).
@@ -561,7 +564,7 @@ TEST(CroisementsMecaniques, PlateformeMobileTraverseUnePorteFermee) {
     // dans le meme fichier (defaut moteur consigne au LOT-65).
     core::Level level("plateforme-porte", tiles, core::GridPosition{1, 6},
                       core::GridPosition{15, 6}, mechanisms, -1, -1, {}, {}, {}, std::nullopt,
-                      std::nullopt, {}, {}, platforms);
+                      std::nullopt, {}, platforms);
     Scene scene(level);
     scene.spawn(1, 6);
 
@@ -597,7 +600,7 @@ TEST(CroisementsMecaniques, PlateformeMobileEmporteLeBlocPose) {
                                    .speed = 3.0f}};
     core::Level level("plateforme-bloc", tiles, core::GridPosition{1, 6}, core::GridPosition{15, 6},
                       std::vector<core::Mechanism>{}, -1, -1, {}, {}, {}, std::nullopt,
-                      std::nullopt, {}, {}, platforms);
+                      std::nullopt, {}, platforms);
     Scene scene(level);
     scene.spawn(1, 6);
 

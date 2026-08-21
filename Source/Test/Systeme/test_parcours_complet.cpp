@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_parcours_complet.cpp
  * @brief Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux →

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_aabb_vs_aabb.cpp
  * @brief Tests unitaires du balayage AABB continu contre une boîte fixe unique

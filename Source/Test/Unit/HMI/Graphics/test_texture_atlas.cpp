@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_texture_atlas.cpp
  * @brief Tests unitaires du mapping de régions de `hmi::TextureAtlas` (LOT-39, non-régression).

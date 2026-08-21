@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_game_hud.cpp
  * @brief Tests unitaires du choix de contenu de l'affichage tête haute (LOT-52 TACHE-03,

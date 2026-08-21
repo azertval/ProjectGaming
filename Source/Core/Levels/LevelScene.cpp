@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "Core/Levels/LevelScene.h"
 
 #include "Core/Ecs/Components/Transform.h"
@@ -10,12 +13,11 @@
 
 namespace core {
 
-// Peuple un World d'une entite (Transform + Sprite) par tuile non vide du niveau, puis d'une
-// entite par decor libre (EX-DEC-001, LOT-49).
+// Peuple un World d'une entite (Transform + Sprite) par tuile non vide du niveau. Les plans
+// picturaux (LOT-69) ne sont pas des entites : HMI les compose directement.
 void buildLevelScene(World& world, const Level& level,
                      const std::function<AtlasRegion(TileType)>& regionForTile,
-                     const std::function<void(Entity, TileType, int, int)>& onTileEntity,
-                     const std::function<void(Entity, const Decor&, std::size_t)>& onDecorEntity) {
+                     const std::function<void(Entity, TileType, int, int)>& onTileEntity) {
     const TileMap& map = level.tileMap();
     for (int row = 0; row < map.height(); ++row) {
         for (int column = 0; column < map.width(); ++column) {
@@ -50,29 +52,6 @@ void buildLevelScene(World& world, const Level& level,
             if (onTileEntity) {
                 onTileEntity(entity, type, column, row);
             }
-        }
-    }
-
-    // Decors libres (EX-DEC-001, LOT-49) : une entite par decor, position/echelle/rotation en
-    // unites monde flottantes, jamais calees sur la grille (contrairement aux tuiles ci-dessus).
-    // L'ordre du vecteur alimente Sprite::layer (tri fin intra-calque, TACHE-02).
-    const std::vector<Decor>& decors = level.decors();
-    for (std::size_t index = 0; index < decors.size(); ++index) {
-        const Decor& decor = decors[index];
-        const Entity entity = world.createEntity();
-
-        Transform transform;
-        transform.position = decor.position;
-        transform.scale = decor.scale;
-        transform.rotation = decor.rotation;
-        world.addComponent(entity, transform);
-
-        Sprite sprite;
-        sprite.layer = static_cast<std::int32_t>(index);
-        world.addComponent(entity, sprite);
-
-        if (onDecorEntity) {
-            onDecorEntity(entity, decor, index);
         }
     }
 }

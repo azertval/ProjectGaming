@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <array>
@@ -37,7 +40,7 @@ inline constexpr std::size_t RENDER_LAYER_COUNT =
  * TACHE-02). Quand les deux valent `true` (le défaut), le résultat est inchangé depuis `LOT-45` :
  * surcharge > skin > damier, sans distinction.
  *
- * Pour tout autre calque (`Background`, `Decor`, `Shadow`, `Player`, `Foreground`), le bit masque
+ * Pour tout autre calque (`Background`, `Plane`, `Shadow`, `Player`, `Foreground`), le bit masque
  * grossièrement : une entité de ce calque n'émet aucune primitive si son bit est à `false`.
  * `UI`/`EditorOverlay` ne sont pas des calques de **contenu** (aides d'édition, jamais affectées) :
  * la classe leur réserve tout de même une entrée, mais rien ne l'interroge.

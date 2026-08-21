@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_block_controller.cpp
  * @brief Tests unitaires des blocs poussables (`BlockController`, `EX-GP-022`).

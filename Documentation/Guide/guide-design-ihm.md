@@ -45,8 +45,9 @@ plutôt que par convention : un rôle ajouté à l'une existe nécessairement da
 verrouille par ailleurs leur **étanchéité** — l'identité du jeu doit rester rigoureusement
 inchangée quel que soit le thème actif du châssis, y compris après une bascule à chaud.
 
-> Piège de plate-forme consigné dans l'en-tête : `<Windows.h>` (via `GraphicsDevice.h`) définit une
-> macro `small`, qui casserait silencieusement `SpacingTokens::small`. Le fichier la neutralise.
+> Piège de plate-forme consigné dans l'en-tête : `<Windows.h>` définit une macro `small`, qui
+> casserait silencieusement `SpacingTokens::small`. Le fichier la neutralise — garde conservée
+> après le portage QRhi, l'en-tête pouvant encore être tiré indirectement.
 
 ## De jetons purs à une application habillée
 
@@ -168,10 +169,12 @@ dans l'ordre de dessin ; et Annuler/Refaire/Copier/Coller dispatchent via
 puis, au `LOT-54`, `hmi::PixelCanvas`. C'est ce seuil de dispatch qui a permis à l'atelier pixel
 art d'avoir son propre historique sans réécrire une seule ligne du dispatch existant.
 
-Tout doublon apparent n'en est pas un : les deux sélecteurs de couche de décor ont été
-**conservés**, parce qu'ils ciblent des états distincts — la couche du prochain décor posé, et la
-couche du décor sélectionné existant. Ils ont été renommés explicitement et rassemblés dans le
-panneau Décors, l'ambiguïté se levant à l'écran plutôt que dans la documentation.
+Tout doublon apparent n'en est pas un : les deux sélecteurs de couche de décor avaient été
+**conservés** au `LOT-57`, parce qu'ils ciblaient des états distincts — la couche du prochain décor
+posé, et celle du décor sélectionné existant — puis renommés et rassemblés dans le panneau Décors,
+l'ambiguïté se levant à l'écran plutôt que dans la documentation. Le `LOT-69` a retiré les deux
+avec le système de décors : un plan pictural n'est pas posé, et sa profondeur est un réglage de la
+liste, pas un mode de pose.
 
 ## Deux identités, deux règles d'échelle (LOT-68)
 
@@ -225,11 +228,14 @@ ne garde que la sélection d'outil et ce qui se déclenche au fil du geste ; le 
 son raccourci. Un test plafonne le nombre de commandes admises par barre : un plafond qu'on relève
 sans y penser ne protège de rien.
 
-**Deux espaces, jamais superposés.** L'éditeur affichait ses neuf docks et ses deux barres d'outils
+**Des espaces, jamais superposés.** L'éditeur affichait ses neuf docks et ses deux barres d'outils
 simultanément — une trentaine de contrôles permanents — alors que l'édition de niveau et l'atelier
 pixel art ne se pratiquent jamais ensemble. \ref hmi::dressingForWorkspace "dressingForWorkspace" et
-\ref hmi::workspaceForPanel "workspaceForPanel" répartissent panneaux, barres et menus entre deux
-espaces exclusifs, chacun persistant **sa** disposition.
+\ref hmi::workspacesForPanel "workspacesForPanel" répartissent panneaux, barres et menus entre
+espaces exclusifs, chacun persistant **sa** disposition. Ils étaient deux au `LOT-68` ; le
+`LOT-69` en ajoute un **troisième**, le mode création, et c'est ce qui a fait passer la seconde
+d'une valeur unique à un **masque** — le canevas, l'historique et la palette servent aux deux
+espaces de peinture, et dupliquer les docks aurait donné deux canevas à tenir synchronisés.
 
 > À ne pas confondre avec la mise en avant d'`EX-IHM-061`, qui reste une suggestion et ne masque
 > jamais rien. Changer d'espace est un acte explicite de l'utilisateur : c'est ce qui rend le

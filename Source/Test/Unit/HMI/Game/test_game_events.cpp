@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_game_events.cpp
  * @brief Tests unitaires de la détection d'événements de jeu (LOT-60, EX-REN-047).

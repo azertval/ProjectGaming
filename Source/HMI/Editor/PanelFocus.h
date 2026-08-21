@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <array>
@@ -18,18 +21,19 @@
 
 namespace hmi {
 
-/// Panneau dockable de l'éditeur. Couvre les **neuf** docks depuis le `LOT-68` : la mise en avant
+/// Panneau dockable de l'éditeur. Couvre les **neuf** docks depuis le `LOT-69` : la mise en avant
 /// automatique (`EX-IHM-061`) n'en concerne toujours qu'une partie, mais la répartition par espace
 /// de travail (`EX-IHM-073`) les concerne tous, et une énumération partielle laisserait des
 /// panneaux sans espace.
 enum class PanelId {
     // Espace d'edition de niveau.
     Palette,
-    Decors,
     Levels,
     Links,
     Properties,
     Textures,
+    // Espace des plans picturaux (LOT-69).
+    Planes,
     // Espace de l'atelier pixel art.
     PixelCanvas,
     PixelHistory,
@@ -37,7 +41,7 @@ enum class PanelId {
 };
 
 /// Nombre de panneaux, declare au plus pres de l'enumeration qu'il compte. Sert de garde de
-/// **completude** a la repartition par espace de travail (`hmi::workspaceForPanel`, `LOT-68`) :
+/// **completude** a la repartition par espace de travail (`hmi::workspacesForPanel`, `LOT-68`) :
 /// un panneau ajoute sans espace resterait affiche dans les deux, ce qu'un test interdit.
 inline constexpr std::size_t PANEL_COUNT = 9;
 
@@ -54,8 +58,8 @@ constexpr int PANEL_FOCUS_CATALOG_COUNT = 2;
 [[nodiscard]] const std::array<PanelFocusEntry, PANEL_FOCUS_CATALOG_COUNT>& panelFocusCatalog();
 
 /// @return Le panneau à mettre en avant pour @p tool, ou `std::nullopt` si cet outil n'en a pas
-///         (ses contrôles vivent ailleurs, ex. le panneau Décors pour l'outil Décor -- non tabifié,
-///         une mise en avant n'y aurait aucun effet).
+///         (ses contrôles vivent ailleurs, ou son panneau n'est tabifié avec aucun autre -- une
+///         mise en avant n'y aurait aucun effet).
 [[nodiscard]] std::optional<PanelId> panelForTool(EditorTool tool);
 
 /// Une entrée de la table équivalente pour les outils du canevas pixel art (`LOT-54` TACHE-04) :

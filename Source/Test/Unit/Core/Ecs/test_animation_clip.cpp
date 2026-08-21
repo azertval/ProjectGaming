@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_animation_clip.cpp
  * @brief Tests unitaires du modèle de clip d'animation (`core::AnimationClip`/`core::ClipSet`,

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_background_fit.cpp
  * @brief Tests unitaires du recadrage et de la composition du fond de niveau (LOT-44,

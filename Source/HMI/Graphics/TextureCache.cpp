@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Graphics/TextureCache.h"
 
 #include <utility>
@@ -10,8 +13,8 @@
 namespace hmi {
 
 // Construit un cache vide pour un device et un dossier d'assets donnes.
-TextureCache::TextureCache(ID3D11Device* device, AssetPaths paths)
-    : _device(device), _paths(std::move(paths)) {}
+TextureCache::TextureCache(const RhiContext& context, AssetPaths paths)
+    : _context(context), _paths(std::move(paths)) {}
 
 // Charge et valide un asset depuis le disque, sans passer par le cache. Les trois causes d'echec
 // (chemin introuvable, decodage impossible, dimensions non conformes) sont journalisees
@@ -48,9 +51,9 @@ std::optional<LoadedTexture> TextureCache::load(const std::string& fileName, Ass
     }
 
     std::optional<LoadedTexture> texture =
-        createTexture(_device, image->width, image->height, pixels);
+        createTexture(_context, image->width, image->height, pixels);
     if (!texture) {
-        GRAPHICS_LOG_WARNING("Creation Direct3D de la texture " + fileName + " impossible.");
+        GRAPHICS_LOG_WARNING("Creation GPU de la texture " + fileName + " impossible.");
         return std::nullopt;
     }
     GRAPHICS_LOG_INFO("Texture chargee : " + fileName + " (" + std::to_string(image->width) + "x" +
@@ -62,6 +65,27 @@ std::optional<LoadedTexture> TextureCache::load(const std::string& fileName, Ass
 // La texture chargee (propriete du cache), ou nullptr si l'asset est absent/illisible/non conforme.
 const LoadedTexture* TextureCache::get(const std::string& fileName, AssetFamily family) {
     return getUnderKey(fileName, fileName, family, std::nullopt);
+}
+
+// Obtient la texture d'un fichier designe par son chemin, hors du dossier d'assets.
+const LoadedTexture* TextureCache::getFromPath(const std::filesystem::path& path) {
+    const std::string key = path.string();
+    return _entries.getOrLoad(key, [this, &path, &key]() -> std::optional<LoadedTexture> {
+        const std::optional<DecodedImage> image = decodeImageFile(path);
+        if (!image) {
+            GRAPHICS_LOG_WARNING("Image introuvable ou illisible : " + key + ".");
+            return std::nullopt;
+        }
+        std::optional<LoadedTexture> texture =
+            createTexture(_context, image->width, image->height, image->pixels);
+        if (!texture) {
+            GRAPHICS_LOG_WARNING("Creation GPU de la texture " + key + " impossible.");
+            return std::nullopt;
+        }
+        GRAPHICS_LOG_INFO("Image chargee : " + key + " (" + std::to_string(image->width) + "x" +
+                          std::to_string(image->height) + ").");
+        return texture;
+    });
 }
 
 // Obtient la variante d'un asset detouree a la silhouette d'un type de tuile.
@@ -140,7 +164,7 @@ void TextureCache::invalidateAll() {
 const LoadedTexture* TextureCache::missingTexture() {
     if (!_missingTexture) {
         const ProceduralAtlasImage image = buildMissingTextureImage();
-        _missingTexture = createTexture(_device, image.width, image.height, image.pixels);
+        _missingTexture = createTexture(_context, image.width, image.height, image.pixels);
         if (!_missingTexture) {
             GRAPHICS_LOG_ERROR("Creation de la texture de repli (damier magenta) impossible.");
             return nullptr;

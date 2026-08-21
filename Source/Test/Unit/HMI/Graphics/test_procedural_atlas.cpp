@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_procedural_atlas.cpp
  * @brief Tests unitaires de la génération procédurale de l'atlas de repli (LOT-39, EX-NFR-040).

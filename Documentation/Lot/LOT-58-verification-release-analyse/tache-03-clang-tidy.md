@@ -68,7 +68,7 @@ signalé — pas parce que le code est parfait, mais parce qu'on ne le lui a jam
   après exclusion documentée de cinq sous-checks structurellement bruyants pour ce projet (voir
   commentaire dans `.clang-tidy`) : `easily-swappable-parameters` (38 remontées — paires de
   paramètres délibérées du domaine, colonne/ligne, x/y…), `suspicious-include` (16 — idiome Qt
-  `#include "moc_*.cpp"`), `exception-escape` (5 — fonctions `noexcept` à dessein appelant des
+  inclusion des fichiers `moc_….cpp`), `exception-escape` (5 — fonctions `noexcept` à dessein appelant des
   opérations STL dont l'allocation théorique n'est jamais exercée), `invalid-enum-default-
   initialization` (5 — idiome D3D11 `XXX_DESC desc{}` standard), `unchecked-optional-access`
   (2 — motif `Result{optional<T>, bool ok() const}` que le check ne sait pas relier).

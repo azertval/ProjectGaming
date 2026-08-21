@@ -3,7 +3,7 @@
 Rendu Direct3D 11 (wrapper mince, pas de couche multi-backend).
 
 ## Pipeline
-- `GraphicsDevice` — device, swap chain, cible de rendu, effacement + présentation V-Sync (modèle *flip*, `LOT-33`), redimensionnement ; expose `device()`/`context()`.
+- `RhiContext` — le `QRhi` courant et le lot de mises à jour de l'image en cours, partagés par tout ce qui crée des textures (`LOT-69` TACHE-02). Le device, la *swap chain* et la présentation appartiennent à Qt depuis le portage.
 - `SpriteBatch` — pipeline 2D : quads texturés (`SpriteQuad`) et segments orientés (`LineQuad`, `LOT-37`), HLSL compilés à l'exécution, fusion alpha et échantillonnage *nearest* (pixel art) ; `begin`/`draw`/`end` avec *batching*. **Une seule texture liée par `begin`** : depuis `LOT-40`, le rendu émet une passe par groupe de texture plutôt que de modifier ce contrat.
 - `Quad` — primitives de dessin (`SpriteQuad`, `LineQuad`) **sans dépendance Direct3D** (`LOT-40`) : c'est ce qui permet à la composition d'être testée sans GPU.
 - `Camera2D` — projection monde → écran (16 px/unité, Y-bas, zoom) ; matrice de projection, conversions monde↔écran et **cadrage visible** (`visibleBounds`, base du culling, `LOT-40`).

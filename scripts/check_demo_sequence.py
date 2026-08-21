@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Valentin Eloy
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Vérifie que la séquence de niveaux démo (LOT-25, donnée de contenu depuis
 LOT-59 TACHE-04) reste identique entre le jeu et le test système qui la
 rejoue.

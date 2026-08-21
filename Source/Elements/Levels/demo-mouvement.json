@@ -667,18 +667,16 @@
       "type": "solid"
     }
   ],
-  "decors": [
+  "planes": [
     {
-      "asset": "cloud.png",
-      "x": 4.0,
-      "y": 2.0,
-      "layer": "background"
+      "file": "demo-mouvement-fond.png",
+      "pixelsPerUnit": 8,
+      "parallaxX": 0.6
     },
     {
-      "asset": "kenney_chain.png",
-      "x": 23.0,
-      "y": 2.0,
-      "layer": "foreground"
+      "file": "demo-mouvement-devant.png",
+      "parallaxX": 1.15,
+      "depth": "front"
     }
   ]
 }

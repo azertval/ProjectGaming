@@ -94,7 +94,7 @@ associé directement, sans détection supplémentaire.
 
 ## La table : `hmi::SoundTriggers`
 
-`Source/HMI/Audio/SoundTriggers.h::soundForEvent` associe chaque `hmi::GameEvent` à un identifiant
+`hmi::soundForEvent` (`Source/HMI/Audio/SoundTriggers.h`) associe chaque `hmi::GameEvent` à un identifiant
 de `hmi::SoundCatalog`, en un `switch` **exhaustif sans `default`** : un événement ajouté sans
 entrée casse la compilation. Certains événements (`WallContactEnter`, `BlockPushed`, `PauseOpened`)
 résolvent délibérément vers `std::nullopt` — silence documenté, pas un oubli, faute de bruitage

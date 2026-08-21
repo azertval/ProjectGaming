@@ -1,5 +1,9 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
+#include <cstddef>
 #include <cstdint>
 #include <optional>
 #include <string>
@@ -23,8 +27,6 @@ class World;
 }
 
 namespace hmi {
-
-class Camera2D;
 
 /// Nature d'une primitive composée : rectangle aligné aux axes, ou segment épais orienté.
 enum class QuadKind {
@@ -72,6 +74,14 @@ struct SceneStatistics {
     int submitted = 0;
     /// Passes `begin/end` nécessaires : nombre de groupes contigus de même texture.
     int batches = 0;
+    /// Mémoire de texture des **plans picturaux** liés par cette image, en octets
+    /// (`EX-NFR-043`, `LOT-69` TACHE-09).
+    ///
+    /// Second axe d'observabilité, à côté des compteurs de primitives : les plans ajoutent **un
+    /// seul quad** chacun mais occupent une texture à l'échelle du niveau — un plafond exprimé en
+    /// primitives ne les verrait pas grossir. Seuls les plans l'alimentent : les autres primitives
+    /// se partagent l'atlas, dont le coût ne dépend ni du niveau ni de leur nombre.
+    std::size_t textureBytes = 0;
 };
 
 /**
@@ -155,6 +165,17 @@ public:
     bool addLine(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
                  const LineQuad& quad);
 
+    /**
+     * @brief Déclare la mémoire de texture d'une primitive déjà ajoutée (`EX-NFR-043`).
+     *
+     * Séparé de `addSprite` plutôt qu'ajouté à `hmi::SpriteQuad` : seuls les plans picturaux
+     * portent une texture dont la taille dépend du niveau, et grossir chaque primitive de la scène
+     * — atlas, damier, texte, particules — de deux champs jamais lus coûterait sur le chemin
+     * parcouru des centaines de fois par image, pour une information qu'un seul émetteur possède.
+     * @param bytes Poids de la texture liée, en octets.
+     */
+    void addTextureBytes(std::size_t bytes) noexcept;
+
     /// Ordonne la scène (calque, puis texture, puis `sortOrder`), de façon **stable**.
     void sort();
 
@@ -187,6 +208,7 @@ private:
     std::optional<core::Rect> _visibleBounds;
     int _considered = 0;
     int _culled = 0;
+    std::size_t _textureBytes = 0;
 };
 
 /**
@@ -238,34 +260,13 @@ private:
  * @param interpolationAlpha Facteur d'interpolation `[0, 1[` entre le pas de simulation précédent
  *                           et le pas courant (`EX-ARCH-031`) ; `0` reproduit le rendu non
  *                           interpolé.
- * @param camera             Caméra courante, pour la parallaxe des décors (`hmi::parallaxFactor`,
- *                           `EX-DEC-006`, `LOT-49` TACHE-03) : sa `visibleBounds()` sert de
- *                           rectangle de référence (solidaire de la salle), son zoom d'échelle pour
- *                           arrondir le décalage au pixel écran (`hmi::roundToScreenPixel`). Sans
- *                           effet sur les entités non décor. `nullptr` désactive la parallaxe (un
- *                           décor est alors composé à sa position simulée telle quelle), ce qui
- *                           reste correct pour un décor de couche `core::DecorLayer::Decor`
- *                           (facteur `1.0`, `EX-DEC-006`).
  * @param visibility         Jeu de visibilités par calque du mode d'inspection de l'éditeur
  *                           (`hmi::LayerVisibility`, `LOT-51`, `EX-EDIT-044`) : tout visible par
  *                           défaut, donc sans effet pour `hmi::GameSession` qui ne le fournit
  *                           jamais.
- * @param applyDecorParallax Si faux, chaque décor est composé comme s'il était de couche
- *                           `core::DecorLayer::Decor` (facteur `1.0`), quelle que soit sa couche
- *                           réelle -- toujours pixel-aligné (`hmi::roundToScreenPixel`) et toujours
- *                           soumis au culling via `camera`, seul le **décalage** de parallaxe est
- *                           neutralisé. `true` par défaut (comportement historique, `EX-DEC-006`).
- *                           `hmi::GameSession` le met à `false` en mode de cadrage *suivi*
- *                           (`core::CameraFramingMode::Follow`, LOT-64) : la parallaxe n'était
- *                           jusqu'ici jamais visible (aucune caméra ne défilait en continu), et la
- *                           rendre visible sous ce mode ferait paraître les décors Fond/Premier
- *                           plan « suivre » la caméra au lieu de rester solidaires du niveau comme
- *                           tout le reste du contenu.
  */
 void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mode,
                          const SceneTextures& textures, float interpolationAlpha,
-                         const Camera2D* camera = nullptr,
-                         const LayerVisibility& visibility = LayerVisibility{},
-                         bool applyDecorParallax = true);
+                         const LayerVisibility& visibility = LayerVisibility{});
 
 }  // namespace hmi

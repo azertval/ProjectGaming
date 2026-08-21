@@ -1,7 +1,10 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
+#include <QRhiWidget>
 #include <QString>
-#include <QWindow>
 #include <chrono>
 #include <filesystem>
 #include <memory>
@@ -9,13 +12,11 @@
 #include <utility>
 #include <vector>
 
-#include "Core/Levels/Decor.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/LevelDraft.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Math/Rect.h"
 #include "Core/Time/FixedTimestep.h"
-#include "HMI/Editor/DecorGesture.h"
 #include "HMI/Editor/EditContextTarget.h"
 #include "HMI/Editor/EditorTool.h"
 #include "HMI/Editor/PathGesture.h"
@@ -24,7 +25,9 @@
 #include "HMI/Game/LevelRunStats.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/LayerVisibility.h"
+#include "HMI/Graphics/PlaneVisibility.h"
 #include "HMI/Graphics/RenderMode.h"
+#include "HMI/Graphics/RhiContext.h"
 #include "HMI/Graphics/SkinCatalog.h"
 #include "HMI/Input/EditorKeyBindings.h"
 #include "HMI/Input/GameKeyBindings.h"
@@ -34,12 +37,11 @@
 
 /**
  * @file HMI/Game/GameViewport.h
- * @brief Viewport de l'éditeur : rendu Direct3D 11 du brouillon d'édition et de l'essai
- * (LOT-34/35).
+ * @brief Viewport de l'éditeur : rendu du brouillon d'édition et de l'essai sur QRhi
+ * (LOT-34/35, porté au LOT-69 TACHE-02).
  */
 
 namespace hmi {
-class GraphicsDevice;
 class SpriteBatch;
 class TextureAtlas;
 class TextureCache;
@@ -52,7 +54,18 @@ class AudioEngine;
 namespace hmi {
 
 /**
- * @brief Fenêtre native (`QWindow`) où Direct3D 11 présente, embarquée dans Qt.
+ * @brief Widget de rendu (`QRhiWidget`) où la scène est dessinée, composé avec le reste de
+ *        l'interface.
+ *
+ * **Widget, et non fenêtre native, depuis le `LOT-69` TACHE-02** (`EX-REN-050`). L'ancien montage
+ * — une `QWindow` embarquée par `QWidget::createWindowContainer` — a coûté deux défauts réels au
+ * `LOT-59` : un écran de pause qui ne s'affichait jamais de façon fiable par-dessus la fenêtre
+ * native, puis un contournement `Qt::Tool` qui empêchait `activateWindow()`. `QRhiWidget` rend
+ * dans une texture d'appui composée avec les autres widgets : l'empilement redevient celui,
+ * ordinaire, de Qt, et les recouvrements (pause, fin de niveau) redeviennent de simples enfants.
+ *
+ * La cible technique ne change pas : QRhi retient **Direct3D 11** par défaut sous Windows
+ * (`EX-REN-002`, amendée — *au travers de QRhi* plutôt qu'en appelant l'API directement).
  *
  * **Mode édition** (LOT-35) : affiche le brouillon (`core::LevelDraft`) via `hmi::DraftRenderer`,
  * caméra cadrant le niveau entier par défaut. Le clic/glisser gauche **peint** le type de tuile
@@ -68,11 +81,11 @@ namespace hmi {
  * que d'un appel direct — le seuil de dispatch que le futur atelier pixel art (`LOT-54`)
  * réutilisera pour sa propre cible, sans le réécrire.
  */
-class GameViewport : public QWindow, public EditContextTarget {
+class GameViewport : public QRhiWidget, public EditContextTarget {
     Q_OBJECT
 
 public:
-    explicit GameViewport(QWindow* parent = nullptr);
+    explicit GameViewport(QWidget* parent = nullptr);
     ~GameViewport() override;
 
     GameViewport(const GameViewport&) = delete;
@@ -87,24 +100,6 @@ public:
     /// sélection de la bibliothèque « Objets » ; vide si aucun asset n'est sélectionné.
     void setActiveTextureAsset(std::optional<std::string> asset) noexcept {
         _activeTextureAsset = std::move(asset);
-    }
-
-    /// Définit l'asset posé au clic par l'outil Décor (`LOT-49`), relié à la sélection de la
-    /// bibliothèque de décors du panneau « Outils » ; vide si aucun asset n'est sélectionné.
-    void setActiveDecorAsset(std::optional<std::string> asset) noexcept {
-        _activeDecorAsset = std::move(asset);
-    }
-
-    /// Définit la couche du décor posé au clic (`LOT-49`, `EX-DEC-002`), reliée au sélecteur de
-    /// couche du panneau « Outils ».
-    void setActiveDecorLayer(core::DecorLayer layer) noexcept {
-        _activeDecorLayer = layer;
-    }
-
-    /// Active/désactive l'aimantation sur la grille du geste de décors (`LOT-50`, `EX-DEC-001`) —
-    /// optionnelle et jamais imposée, un décor reste libre par construction.
-    void setDecorSnapToGrid(bool enabled) noexcept {
-        _decorSnapToGrid = enabled;
     }
 
     /**
@@ -292,7 +287,9 @@ public:
     /// le dernier (`isLastGameLevel`) : l'écran ne propose alors pas ce bouton.
     void advanceToNextLevel();
 
-    /// Active/désactive la synchronisation verticale (`EX-REN-022`) ; appliqué au device D3D11.
+    /// Active/désactive la synchronisation verticale (`EX-REN-022`). Depuis le portage QRhi, la
+    /// présentation appartient au compositeur de Qt : le réglage est conservé et rapporté, mais
+    /// c'est Qt qui cale l'image sur le rafraîchissement.
     void setVSync(bool enabled) noexcept;
     /// @return true si la V-Sync est active.
     [[nodiscard]] bool vsyncEnabled() const noexcept {
@@ -314,10 +311,14 @@ public:
         return _draft;
     }
 
-    /// @return Le décor actuellement sélectionné (rang dans `draft().decors()`), si un l'est —
-    /// consommé par la section « Décors » du panneau « Textures » (`LOT-50` TACHE-04).
-    [[nodiscard]] std::optional<std::size_t> selectedDecorIndex() const noexcept {
-        return _decorGesture.selectedIndex;
+    /// @return Le plan pictural sélectionné dans le panneau « Plans » (`LOT-69`), si un l'est.
+    [[nodiscard]] std::optional<std::size_t> selectedPlaneIndex() const noexcept {
+        return _selectedPlane;
+    }
+
+    /// @return La visibilité courante des plans (aide d'édition, jamais persistée).
+    [[nodiscard]] const PlaneVisibility& planeVisibility() const noexcept {
+        return _planeVisibility;
     }
 
     /// @return Le parcours actuellement sélectionné (outil « Parcours », `LOT-67`), si un l'est —
@@ -374,7 +375,7 @@ public:
 
     /**
      * @brief Assigne l'asset de fond du niveau courant (section « Fond », `LOT-44`).
-     * @param background Nom de l'asset (`Assets/Backgrounds/*.png`), ou absent pour retirer le
+     * @param background Nom du fichier `.png` dans `Assets/Backgrounds`, ou absent pour retirer le
      *                    fond posé.
      */
     void setLevelBackground(std::optional<std::string> background);
@@ -491,27 +492,39 @@ public:
     void setRenderMode(RenderMode mode);
 
     /**
-     * @brief Sélectionne (ou désélectionne) un décor depuis la section « Décors » du panneau
-     *        « Textures » (`LOT-50` TACHE-04) — l'autre sens de la sélection croisée avec le
-     *        canevas (`hmi::DecorGesture`, TACHE-02).
-     * @param index Rang du décor à sélectionner, ou `std::nullopt` pour désélectionner.
+     * @name Plans picturaux (`EX-EDIT-047`, LOT-69 TACHE-08)
+     *
+     * Tous ces mutateurs passent par `core::LevelDraft`, seul propriétaire : ils sont donc
+     * **annulables** au même titre qu'un coup de pinceau sur les tuiles. La **visibilité**, elle,
+     * n'est pas une propriété du niveau : elle n'empile rien et ne se persiste pas.
+     * @{
      */
-    void selectDecor(std::optional<std::size_t> index);
-
-    /// Réordonne le décor @p index d'un cran vers l'avant de sa couche (bouton « Avancer » de la
-    /// section « Décors »), annulable (`core::LevelDraft::bringDecorForward`).
-    void bringDecorForward(std::size_t index);
-    /// Symétrique de `bringDecorForward` (bouton « Reculer »).
-    void sendDecorBackward(std::size_t index);
-    /// Change la couche du décor @p index (section « Décors »), annulable
-    /// (`core::LevelDraft::setDecorLayer`).
-    void setDecorLayer(std::size_t index, core::DecorLayer layer);
-    /// Supprime le décor @p index (bouton « Supprimer » de la section « Décors »).
-    void removeDecor(std::size_t index);
-    /// Recadre la caméra d'édition sur le décor @p index (bouton « Centrer »), à son zoom courant
-    /// — un décor hors du cadrage automatique (grand niveau) redevient ainsi atteignable sans
-    /// avoir à le chercher à la souris.
-    void centerCameraOnDecor(std::size_t index);
+    /// Sélectionne (ou désélectionne) un plan depuis le panneau.
+    void selectPlane(std::optional<std::size_t> index);
+    /// Ajoute @p plane à la fin de la liste et le sélectionne.
+    void addPlane(core::Plane plane);
+    /// Retire l'entrée du plan @p index. **Le fichier n'est pas supprimé** : le brouillon annule
+    /// l'entrée JSON, pas la disparition d'une image — un fichier orphelin est moins grave qu'un
+    /// travail perdu.
+    void removePlane(std::size_t index);
+    /// Déplace le plan @p index d'un rang ; @p forward le rapproche du dessus de la liste.
+    void movePlane(std::size_t index, bool forward);
+    /// Change la profondeur du plan @p index.
+    void setPlaneDepth(std::size_t index, core::PlaneDepth depth);
+    /// Change la densité déclarée du plan @p index (le rééchantillonnage de l'image est fait par
+    /// l'appelant, qui possède le fichier).
+    void setPlaneDensity(std::size_t index, int pixelsPerUnit);
+    /// Change les facteurs de parallaxe du plan @p index.
+    void setPlaneParallax(std::size_t index, float parallaxX, float parallaxY);
+    /// Change l'opacité du plan @p index.
+    void setPlaneOpacity(std::size_t index, float opacity);
+    /// Change le drapeau de parallaxe du **niveau**.
+    void setLevelParallaxEnabled(bool enabled);
+    /// Masque ou réaffiche le plan @p index (aide d'édition).
+    void setPlaneVisible(std::size_t index, bool visible);
+    /// Isole le plan @p index, ou réaffiche tout si @p isolate est faux.
+    void setPlaneIsolated(std::size_t index, bool isolate);
+    /// @}
 
 signals:
     /// Message d'état à afficher (enregistrement, essai, erreur de validation…).
@@ -537,9 +550,9 @@ signals:
     /// L'outil actif vient de changer par un moyen autre que le panneau Outils (raccourci clavier,
     /// `LOT-45`) — le panneau se resynchronise sans reboucler.
     void toolChanged(hmi::EditorTool tool);
-    /// La sélection de décor vient de changer, par un moyen autre que la section « Décors »
-    /// (clic/pose/suppression au canevas, `LOT-50` TACHE-04) — le panneau se resynchronise.
-    void decorSelectionChanged(std::optional<std::size_t> index);
+    /// La sélection de plan vient de changer par un moyen autre que le panneau (retrait,
+    /// réordonnancement) — le panneau se resynchronise sans reboucler.
+    void planeSelectionChanged(std::optional<std::size_t> index);
     /// La sélection de parcours vient de changer (clic au canevas, outil « Parcours », `LOT-67`)
     /// — consommé par le panneau « Propriétés », qui affiche les réglages de l'élément visé.
     void pathSelectionChanged(std::optional<hmi::PathSelection> selection);
@@ -553,16 +566,24 @@ signals:
     /// Le zoom d'édition vient de changer (molette, pan, recadrage) — consommé par la barre d'état
     /// (`LOT-57` TACHE-01).
     void zoomChanged(float zoom);
-    /// Le device Direct3D 11 et le catalogue de skins viennent d'être (re)créés (`ensureResources`)
-    /// — tout ce qui a lu `skinCatalog()` **avant** la première exposition de la fenêtre (le
-    /// câblage de `MainWindow`, à la construction) l'a lu vide et doit se reconstruire une fois ce
-    /// signal reçu, sous peine de vignettes/arbre de skins sans texture au lancement de l'éditeur.
+    /// Les ressources graphiques et le catalogue de skins viennent d'être (re)créés
+    /// (`QRhiWidget::initialize`) — tout ce qui a lu `skinCatalog()` **avant** la première
+    /// initialisation (le câblage de `MainWindow`, à la construction) l'a lu vide et doit se
+    /// reconstruire une fois ce signal reçu, sous peine de vignettes/arbre de skins sans texture au
+    /// lancement de l'éditeur. Émis à nouveau si `QRhiWidget` recrée son interface de rendu (le
+    /// widget a changé de fenêtre de haut niveau) : les textures sont alors perdues avec elle.
     void resourcesReady();
 
 protected:
+    /// Crée (ou recrée) les ressources graphiques quand `QRhiWidget` fournit son interface de
+    /// rendu, et à chaque fois qu'il en change (`EX-NFR-040` : perte de ressources prévue, pas
+    /// supposée impossible).
+    void initialize(QRhiCommandBuffer* commandBuffer) override;
+    /// Dessine une image : avance la simulation, compose la scène, puis la soumet.
+    void render(QRhiCommandBuffer* commandBuffer) override;
+    /// Libère les ressources graphiques quand `QRhiWidget` défait son interface de rendu.
+    void releaseResources() override;
     bool event(QEvent* event) override;
-    void exposeEvent(QExposeEvent*) override;
-    void resizeEvent(QResizeEvent*) override;
     void keyPressEvent(QKeyEvent* event) override;
     void keyReleaseEvent(QKeyEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;
@@ -571,12 +592,15 @@ protected:
     void wheelEvent(QWheelEvent* event) override;
 
 private:
-    void ensureResources();
-    void tick();
+    /// Crée l'atlas, la police, le cache de textures et le pipeline de dessin sur l'interface de
+    /// rendu courante, puis ouvre le brouillon de départ. Appelée par `initialize`.
+    void createResources();
+    /// Avance la simulation d'une image (entrées, pas fixes, sons) — sans rien dessiner.
+    void tick(float elapsedSeconds);
+    /// Compose et soumet une image sur @p commandBuffer.
     /// @p deltaSeconds : temps réel écoulé depuis l'image précédente (LOT-46 TACHE-05, avance
-    /// l'aperçu des tuiles animées de l'éditeur) ; `0` (défaut) pour un redessin sans avancer
-    /// l'aperçu (redimensionnement).
-    void renderFrame(float deltaSeconds = 0.0f);
+    /// l'aperçu des tuiles animées de l'éditeur).
+    void renderFrame(QRhiCommandBuffer* commandBuffer, float deltaSeconds);
     /// Compose et soumet le compteur de diagnostic (`LOT-62` TACHE-02), coin haut-droit de l'écran
     /// -- sans effet si désactivé, hors session, ou avant que la localisation ne soit chargée
     /// (`EX-NFR-040`, coût nul quand éteint : rien n'est calculé au-delà du test d'entrée).
@@ -626,33 +650,6 @@ private:
     /// grille (`EX-DEC-001`) — contrairement à `cellAt`/`clampedCell`, utilisées par les autres
     /// outils.
     [[nodiscard]] core::Vector2 worldPositionAt(const QMouseEvent* event);
-    /// Dimensions réelles (en pixels) de l'asset d'un décor, damier de repli si introuvable —
-    /// résolution directe via `_textureCache`, même repli que `hmi::resolveDecorAppearance`
-    /// (`LOT-49`) mais sans construire une `hmi::SceneTextures` complète.
-    [[nodiscard]] core::Vector2 decorPixelSize(const std::string& assetName) const;
-    /// Rectangles englobants de tous les décors du brouillon courant (`hmi::decorWorldBounds`),
-    /// alignés avec `_draft.decors()` — pour la désignation et le geste de l'outil Décor
-    /// (`LOT-50` TACHE-02).
-    [[nodiscard]] std::vector<core::Rect> decorBoundsForGesture() const;
-    /// Poignées du décor actuellement sélectionné (`hmi::decorHandleLayout`), si un l'est.
-    [[nodiscard]] std::optional<hmi::DecorHandleLayout> selectedDecorHandles() const;
-    /// Appui (outil Décor, `LOT-50` TACHE-02) : désigne l'élément sous le clic. Un décor/une
-    /// poignée désigné(e) arme le geste de manipulation (`hmi::beginDecorGesture`) ; sinon, pose un
-    /// nouveau décor si un asset est sélectionné dans la bibliothèque (`LOT-49`), ou déselectionne.
-    void handleDecorPress(const QMouseEvent* event);
-    /// Glisser en cours (outil Décor) : fait progresser le geste, met à jour l'aperçu
-    /// (`LOT-50` TACHE-03) sans jamais muter `_draft`.
-    void handleDecorMove(const QMouseEvent* event);
-    /// Relâchement (outil Décor) : termine le geste et applique l'action finale aux mutateurs de
-    /// TACHE-01 (un seul appel, donc une seule entrée d'historique par geste complet) ; clic droit
-    /// retire le décor visé.
-    void handleDecorRelease(const QMouseEvent* event, bool rightClick);
-    /// Abandonne un glisser de décor en cours (`Échap`, `LOT-50` TACHE-02) : restaure l'aperçu,
-    /// aucune mutation du brouillon (rien n'y avait été écrit pendant le glisser).
-    void cancelDecorGesture();
-    /// Applique l'action finale d'un geste de décors (`hmi::endDecorGesture`) aux mutateurs de
-    /// TACHE-01 ; sans effet pour `DecorGestureActionKind::None` (simple clic/sélection).
-    void applyDecorGestureAction(const hmi::DecorGestureAction& action);
     /// Poignées du parcours actuellement sélectionné (`hmi::pathHandleLayout` pour une
     /// plateforme, `hmi::moverHandleLayout` pour un danger mobile), vides si aucun ne l'est.
     [[nodiscard]] std::vector<hmi::PathHandle> selectedPathHandles() const;
@@ -685,7 +682,9 @@ private:
 
     using Clock = std::chrono::steady_clock;
 
-    std::unique_ptr<hmi::GraphicsDevice> _graphics;
+    /// Interface de rendu courante et lot de mises à jour de l'image en cours, partagés avec
+    /// tout ce qui crée des textures (atlas, cache, police).
+    hmi::RhiContext _rhiContext;
     std::unique_ptr<hmi::SpriteBatch> _spriteBatch;
     std::unique_ptr<hmi::TextureAtlas> _atlas;
     std::unique_ptr<hmi::TextureCache> _textureCache;
@@ -741,21 +740,10 @@ private:
     /// Asset assigné au clic par l'outil « Texture par instance » (`LOT-45`), vide si aucun n'est
     /// sélectionné dans la bibliothèque « Objets ».
     std::optional<std::string> _activeTextureAsset;
-    /// Asset posé au clic par l'outil Décor (`LOT-49`), vide si aucun n'est sélectionné dans la
-    /// bibliothèque de décors.
-    std::optional<std::string> _activeDecorAsset;
-    /// Couche du décor posé au clic (`LOT-49`, `EX-DEC-002`) ; `Decor` par défaut (couche de
-    /// référence, `EX-DEC-006`).
-    core::DecorLayer _activeDecorLayer = core::DecorLayer::Decor;
-    /// État du geste de manipulation de décors (`LOT-50` TACHE-02) ; `selectedIndex` porte la
-    /// sélection courante de l'éditeur, au-delà de la durée d'un seul geste.
-    hmi::DecorGestureState _decorGesture;
-    /// Aimantation sur la grille du geste de décors (`LOT-50`), optionnelle, désactivée par défaut.
-    bool _decorSnapToGrid = false;
-    /// Aperçu courant du geste de décors en cours (`LOT-50` TACHE-03) — jamais écrit dans `_draft`,
-    /// seul `hmi::DraftRenderer` le consomme pour afficher la manipulation avant validation.
-    /// `std::nullopt` hors glisser.
-    std::optional<hmi::DecorGestureAction> _decorPreview;
+    /// Plan sélectionné dans le panneau « Plans » (`LOT-69`), si un l'est.
+    std::optional<std::size_t> _selectedPlane;
+    /// Visibilité des plans dans l'éditeur : aide d'édition, jamais persistée ni annulable.
+    hmi::PlaneVisibility _planeVisibility;
     /// État du geste de parcours (`LOT-67`) ; `selected` porte la sélection courante de l'éditeur,
     /// au-delà de la durée d'un seul geste.
     hmi::PathGestureState _pathGesture;
@@ -799,7 +787,7 @@ private:
     /// Jeu de visibilités par calque du mode d'inspection « définition des textures » (`LOT-51`) —
     /// tout visible par défaut, jamais persisté (TACHE-01), édition uniquement.
     LayerVisibility _layerVisibility;
-    bool _vsync = true;      ///< Synchronisation verticale (appliquée au device D3D11).
+    bool _vsync = true;      ///< Synchronisation verticale demandée (cf. `setVSyncEnabled`).
     bool _gameMode = false;  ///< La session courante est une **partie** (menu Jouer) et
                              ///< non un essai depuis l'éditeur (enchaînement/retour menu).
     /// Écran de pause affiché (`LOT-59` TACHE-02) : `tick()` n'avance plus l'accumulateur de pas

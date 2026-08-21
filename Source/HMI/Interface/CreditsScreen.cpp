@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Interface/CreditsScreen.h"
 
 #include <QPushButton>
@@ -35,6 +38,12 @@ void CreditsScreen::retranslateUi(const Localization& loc) {
     _ui->developmentLabel->setText(t("credits.development"));
     _ui->audioLabel->setText(t("credits.audio"));
     _ui->graphicsLabel->setText(t("credits.graphics"));
+    _ui->fontsLabel->setText(t("credits.fonts"));
+    _ui->librariesLabel->setText(t("credits.libraries"));
+    _ui->licenseLabel->setText(t("credits.license"));
+    // Seuls les INTITULES de section sont traduits. Les lignes de credit elles-memes ne le sont
+    // pas : ce sont des noms propres et des noms de licence, qui ne se traduisent jamais -- et la
+    // LGPLv3 comme la SIL OFL demandent une mention identifiable, pas une paraphrase localisee.
     _ui->backButton->setText(t("options.back"));
     // Rappels de touches (LOT-68) : la navigation a la manette repose sur le
     // parcours de focus, encore faut-il savoir quelle touche l'avance.

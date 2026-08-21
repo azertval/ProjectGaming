@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <cstddef>
@@ -215,99 +218,60 @@ public:
     void removeTextureOverride(GridPosition position);
 
     /**
-     * @brief Ajoute un décor libre en fin de vecteur (`EX-DEC-001`, `EX-EDIT-010`).
+     * @name Plans picturaux (`EX-DEC-040`, LOT-69)
      *
-     * L'ordre d'ajout fixe le rang de superposition intra-couche (TACHE-02) : un décor ajouté
-     * après un autre de la même couche se dessine par-dessus.
-     * @param decor Décor à ajouter (position libre, hors grille).
-     */
-    void addDecor(Decor decor);
-
-    /**
-     * @brief Retire le décor au rang @p index (`EX-DEC-010`).
-     * @param index Rang dans `decors()` ; sans effet si hors bornes.
-     */
-    void removeDecor(std::size_t index);
-
-    /**
-     * @brief Déplace le décor au rang @p index à une nouvelle position libre (`EX-DEC-010`).
+     * Tous ces mutateurs empilent **un** pas d'annulation (`pushUndo`) et sont donc annulables
+     * *et* refaisables. Un rang hors bornes est **sans effet** et n'empile rien — même convention
+     * que les mutateurs de décor et de parcours.
      *
-     * Ne change ni la couche ni le rang : seule `Decor::position` est modifiée.
-     * @param index    Rang dans `decors()`.
-     * @param position Nouvelle position, en unités monde (aucune contrainte de grille).
-     * @return `true` si appliqué ; `false` si @p index est hors bornes (sans effet, `EX-NFR-040`).
+     * Contrairement aux décors, les plans ne sont pas regroupés par couche pour le
+     * réordonnancement : leur rang dans la liste **est** l'ordre de superposition, et la
+     * profondeur (`core::PlaneDepth`) est une propriété indépendante. Monter un plan le rapproche
+     * donc du premier plan de la liste, quelle que soit sa profondeur.
+     * @{
      */
-    bool moveDecor(std::size_t index, Vector2 position);
 
-    /**
-     * @brief Redimensionne le décor au rang @p index (`EX-DEC-010`), en repositionnant son coin
-     *        éventuellement du même geste.
-     *
-     * @p position et @p scale sont appliquées **atomiquement**, en une seule mutation annulable :
-     * redimensionner depuis un coin (poignée, `LOT-50` TACHE-02) déplace le coin **opposé au
-     * coin ancré**, sauf depuis le coin bas-droit — les deux changent donc ensemble le plus
-     * souvent, et scinder l'opération en deux appels (`moveDecor` + `resizeDecor`) empilerait
-     * deux entrées d'historique pour un seul geste utilisateur. Un appelant qui ne change que
-     * l'échelle (ex. futur champ numérique, `LOT-50` TACHE-04) passe simplement la position
-     * courante du décor, inchangée.
-     *
-     * Une échelle non strictement positive sur un axe est **rejetée** (aucune mutation, position
-     * comprise) : un décor invisible (échelle nulle) ou retourné par accident (échelle négative)
-     * serait un piège d'usage plutôt qu'une fonctionnalité.
-     * @param index    Rang dans `decors()`.
-     * @param position Nouvelle position (coin haut-gauche), en unités monde.
-     * @param scale    Nouvelle échelle ; chaque composante doit être strictement positive.
-     * @return `true` si appliqué ; `false` si @p index est hors bornes ou si @p scale n'est pas
-     *         strictement positive sur les deux axes (sans effet, `EX-NFR-040`).
-     */
-    bool resizeDecor(std::size_t index, Vector2 position, Vector2 scale);
+    /// Ajoute @p plane en fin de liste (le plus en avant).
+    void addPlane(Plane plane);
 
-    /**
-     * @brief Pivote le décor au rang @p index (`EX-DEC-010`).
-     *
-     * La rotation est **normalisée** dans `[0, 2π[` avant d'être stockée : contrairement à
-     * l'échelle, aucune valeur n'est rejetée, une rotation n'a pas de valeur invalide.
-     * @param index    Rang dans `decors()`.
-     * @param rotation Nouvelle rotation, en radians (n'importe quelle valeur, y compris hors
-     *                 `[0, 2π[` ou négative).
-     * @return `true` si appliqué ; `false` si @p index est hors bornes (sans effet).
-     */
-    bool rotateDecor(std::size_t index, float rotation);
+    /// Retire le plan au rang @p index. Ne touche **jamais** au fichier PNG : le brouillon annule
+    /// une entrée, il ne restaurerait pas un fichier supprimé (voir `LOT-69` TACHE-08).
+    void removePlane(std::size_t index);
 
-    /**
-     * @brief Change la couche du décor au rang @p index (`EX-DEC-010`, `EX-DEC-002`).
-     *
-     * Comportement défini explicitement (`EX-EDIT-010`, pour ne pas le laisser émerger) : le
-     * décor rejoint la **fin** du vecteur, ce qui en fait le rang le plus élevé (« dessus ») de sa
-     * nouvelle couche — même convention que `addDecor`, qui place toujours un nouveau décor en
-     * fin de vecteur. Sans effet (mais succès) si @p layer est déjà la couche courante du décor.
-     * @param index Rang dans `decors()`.
-     * @param layer Nouvelle couche.
-     * @return Le nouveau rang du décor, ou `std::nullopt` si @p index est hors bornes.
-     */
-    std::optional<std::size_t> setDecorLayer(std::size_t index, DecorLayer layer);
+    /// Change la densité du plan au rang @p index (`EX-DEC-041`).
+    /// @return `false` si @p index est hors bornes ou si @p pixelsPerUnit n'est pas une densité
+    ///         valide (`core::isValidPlaneDensity`) — auquel cas rien n'est empilé.
+    bool setPlaneDensity(std::size_t index, int pixelsPerUnit);
 
-    /**
-     * @brief Avance le décor au rang @p index d'un cran dans l'ordre de superposition **de sa
-     *        couche** (`EX-DEC-010`) : échange avec le décor de même couche immédiatement suivant.
-     *
-     * Ne change jamais la couche du décor (`EX-DEC-002`) : seul l'ordre **à l'intérieur** de sa
-     * couche est affecté. Sans effet (mais succès, rang inchangé) si @p index désigne déjà le
-     * décor le plus en avant de sa couche.
-     * @param index Rang dans `decors()`.
-     * @return Le nouveau rang du décor, ou `std::nullopt` si @p index est hors bornes.
-     */
-    std::optional<std::size_t> bringDecorForward(std::size_t index);
+    /// Change les facteurs de parallaxe du plan au rang @p index (`EX-DEC-043`).
+    /// @return `false` si @p index est hors bornes ou si un facteur n'est pas fini.
+    bool setPlaneParallax(std::size_t index, float parallaxX, float parallaxY);
 
-    /// Recule le décor au rang @p index d'un cran dans l'ordre de sa couche (symétrique de
-    /// `bringDecorForward`) : échange avec le décor de même couche immédiatement précédent.
-    std::optional<std::size_t> sendDecorBackward(std::size_t index);
+    /// Change l'opacité du plan au rang @p index.
+    /// @return `false` si @p index est hors bornes ou si @p opacity sort de `[0, 1]`.
+    bool setPlaneOpacity(std::size_t index, float opacity);
 
-    /// Amène le décor au rang @p index au premier rang (le plus en avant) de sa couche.
-    std::optional<std::size_t> bringDecorToFront(std::size_t index);
+    /// Change la profondeur du plan au rang @p index (`EX-DEC-042`).
+    /// @return `false` si @p index est hors bornes.
+    bool setPlaneDepth(std::size_t index, PlaneDepth depth);
 
-    /// Envoie le décor au rang @p index au dernier rang (le plus en arrière) de sa couche.
-    std::optional<std::size_t> sendDecorToBack(std::size_t index);
+    /// Avance le plan au rang @p index d'un cran ; sans effet s'il est déjà le dernier.
+    /// @return Le nouveau rang, ou `std::nullopt` si @p index est hors bornes.
+    std::optional<std::size_t> movePlaneForward(std::size_t index);
+
+    /// Recule le plan au rang @p index d'un cran ; sans effet s'il est déjà le premier.
+    std::optional<std::size_t> movePlaneBackward(std::size_t index);
+
+    /// Amène le plan au rang @p index au dernier rang (le plus en avant).
+    std::optional<std::size_t> movePlaneToFront(std::size_t index);
+
+    /// Envoie le plan au rang @p index au premier rang (le plus en arrière).
+    std::optional<std::size_t> movePlaneToBack(std::size_t index);
+
+    /// Active ou désactive la parallaxe des plans pour ce niveau (`EX-DEC-043`).
+    void setParallaxEnabled(bool enabled);
+
+    /** @} */
 
     /**
      * @brief Redimensionne la grille (`EX-EDIT-005`).
@@ -476,9 +440,14 @@ public:
         return _textureOverrides;
     }
 
-    /// @return Les décors libres courants, dans leur ordre de superposition intra-couche.
-    [[nodiscard]] const std::vector<Decor>& decors() const noexcept {
-        return _decors;
+    /// @return Les plans picturaux courants (`EX-DEC-040`), dans leur ordre de superposition.
+    [[nodiscard]] const std::vector<Plane>& planes() const noexcept {
+        return _planes;
+    }
+
+    /// @return `true` si la parallaxe des plans est active pour ce niveau (`EX-DEC-043`).
+    [[nodiscard]] bool parallaxEnabled() const noexcept {
+        return _parallaxEnabled;
     }
 
     /// @return Le budget de sauts courant (`-1` = illimité).
@@ -568,11 +537,12 @@ private:
         std::optional<std::string> background;
         std::optional<std::string> skinSet;
         std::vector<TileTextureOverride> textureOverrides;
-        std::vector<Decor> decors;
         std::vector<MovingPlatformConfig> platformConfigs;
         CameraFramingConfig cameraFraming;
         std::optional<int> airJumps;
         std::optional<int> dashCharges;
+        std::vector<Plane> planes;
+        bool parallaxEnabled;
     };
 
     /// Capture l'état courant (pour empiler dans l'historique undo/redo).
@@ -598,11 +568,12 @@ private:
     std::optional<std::string> _background;
     std::optional<std::string> _skinSet;
     std::vector<TileTextureOverride> _textureOverrides;
-    std::vector<Decor> _decors;
     std::vector<MovingPlatformConfig> _platformConfigs;
     CameraFramingConfig _cameraFraming;
     std::optional<int> _airJumps;
     std::optional<int> _dashCharges;
+    std::vector<Plane> _planes;
+    bool _parallaxEnabled = true;
     std::vector<State> _undoHistory;
     std::vector<State> _redoHistory;
 };

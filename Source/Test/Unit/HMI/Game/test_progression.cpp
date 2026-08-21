@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_progression.cpp
  * @brief Tests unitaires de la progression de partie persistée (LOT-59 TACHE-05, EX-LVL-014) et de

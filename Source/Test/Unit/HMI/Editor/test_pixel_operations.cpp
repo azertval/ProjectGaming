@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_pixel_operations.cpp
  * @brief Tests unitaires des opérations pures sur tampon de pixels (LOT-54 TACHE-02,

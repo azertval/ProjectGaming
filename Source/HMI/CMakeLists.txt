@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Valentin Eloy
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 # Couche de présentation HMI : **application Qt** (`ProjectGaming`).
 #
 # Depuis le LOT-38, l'IHM « maison » et l'exécutable historique `ProjectGaming` ont été retirés :
@@ -28,7 +31,7 @@ endif()
 # `release.yml`) l'installe explicitement à cette même valeur (`env.QT_VERSION`), vérifié
 # automatiquement par `scripts/check_qt_version_pin.py` (job `lint-exigences`) pour que les deux
 # ne divergent jamais silencieusement.
-set(QT_VERSION_MINIMUM "6.8.1")
+set(QT_VERSION_MINIMUM "6.11.2")
 
 # --- Découverte de Qt sans configuration manuelle ---
 # find_package() ne consulte que CMAKE_PREFIX_PATH. Or l'installateur officiel Qt place ses
@@ -67,12 +70,12 @@ if(_qt_hints)
     list(APPEND CMAKE_PREFIX_PATH ${_qt_hints})
 endif()
 
-find_package(Qt6 ${QT_VERSION_MINIMUM} QUIET COMPONENTS Widgets Gui Multimedia)
+find_package(Qt6 ${QT_VERSION_MINIMUM} QUIET COMPONENTS Widgets Gui GuiPrivate Multimedia ShaderTools)
 if(NOT Qt6_FOUND)
     # Deuxième essai, sans contrainte de version, seulement pour distinguer dans le message
     # « rien d'installé » de « une version installée, mais trop ancienne » — sinon les deux
     # produisent le même NOT Qt6_FOUND et le second cas serait diagnostiqué à tort comme le premier.
-    find_package(Qt6 QUIET COMPONENTS Widgets Gui Multimedia)
+    find_package(Qt6 QUIET COMPONENTS Widgets Gui GuiPrivate Multimedia ShaderTools)
     # Avertissement et non simple statut : sans Qt il n'y a **aucun exécutable**, seulement les
     # tests. Passer inaperçu est précisément ce qui rendait l'absence d'exe difficile à diagnostiquer.
     if(Qt6_FOUND)
@@ -89,7 +92,7 @@ if(NOT Qt6_FOUND)
         find_package(Qt6 QUIET COMPONENTS Widgets Gui)
         if(Qt6_FOUND)
             set(_qt_missing "")
-            foreach(_qt_component Widgets Gui Multimedia)
+            foreach(_qt_component Widgets Gui GuiPrivate Multimedia ShaderTools)
                 find_package(Qt6${_qt_component} QUIET)
                 if(NOT Qt6${_qt_component}_FOUND)
                     list(APPEND _qt_missing ${_qt_component})
@@ -98,6 +101,8 @@ if(NOT Qt6_FOUND)
             message(WARNING
                 "ProjectGaming : Qt6 ${Qt6_VERSION} est bien installé (${Qt6_DIR}), mais il manque "
                 "le(s) module(s) : ${_qt_missing} — cible ignorée, AUCUN EXÉCUTABLE ne sera produit.\n"
+                "ShaderTools (l'outil `qsb`) et GuiPrivate (les en-têtes QRhi) sont exigés depuis le "
+                "LOT-69 TACHE-02 : le rendu passe par QRhi, plus par Direct3D 11 en direct.\n"
                 "Ajouter le(s) module(s) manquant(s) avec l'outil de maintenance Qt "
                 "(MaintenanceTool.exe, à la racine de l'installation), puis reconfigurer.\n"
                 "Passer -DBUILD_EDITOR_QT=OFF pour ne construire que les tests, sans cet avertissement.")
@@ -147,8 +152,8 @@ add_executable(ProjectGaming
     Input/GamepadBindings.cpp
     Input/GamepadButtonName.cpp
     Input/QtKeyMap.cpp
-    # Rendu Direct3D 11
-    Graphics/GraphicsDevice.cpp
+    # Rendu 2D sur QRhi (LOT-69 TACHE-02) — cible Direct3D 11 sous Windows (EX-REN-002),
+    # atteinte au travers de QRhi plutôt qu'en appelant l'API directement.
     Graphics/SpriteBatch.cpp
     Graphics/AssetPaths.cpp
     Graphics/TextureLoader.cpp
@@ -178,7 +183,7 @@ add_executable(ProjectGaming
     Graphics/DraftRenderer.cpp
     Graphics/TileVisuals.cpp
     Graphics/MechanismVisuals.cpp
-    Graphics/DecorVisuals.cpp
+    Graphics/PlaneVisuals.cpp
     Graphics/Parallax.cpp
     Graphics/ProceduralFont.cpp
     Graphics/BitmapFont.cpp
@@ -233,7 +238,6 @@ add_executable(ProjectGaming
     Interface/GamepadBindingsWidget.cpp
     # Éditeur de niveau
     Editor/PalettePanel.cpp
-    Editor/DecorsPanel.cpp
     Editor/LevelBrowserPanel.cpp
     Editor/LinkPanel.cpp
     Editor/TileTaxonomy.cpp
@@ -247,11 +251,8 @@ add_executable(ProjectGaming
     Editor/LinkGeometry.cpp
     Editor/LinkGesture.cpp
     Editor/TextureAssignGesture.cpp
-    Editor/DecorGeometry.cpp
-    Editor/DecorGesture.cpp
     Editor/PathGeometry.cpp
     Editor/PathGesture.cpp
-    Editor/DecorListModel.cpp
     Editor/AssetLibrary.cpp
     Editor/ThumbnailGeometry.cpp
     Editor/AssetThumbnailView.cpp
@@ -263,12 +264,15 @@ add_executable(ProjectGaming
     Editor/PixelOperations.cpp
     Editor/PixelHistory.cpp
     Editor/PixelCanvasGeometry.cpp
+    Editor/PlaneReference.cpp
+    Editor/PlaneFileNaming.cpp
     Editor/PixelCanvas.cpp
     Editor/PixelHistoryPanel.cpp
     Editor/PixelAssetIO.cpp
     Editor/PixelPalette.cpp
     Editor/PixelPalettePanel.cpp
     Editor/PixelAutotilePreview.cpp
+    Editor/PlanesPanel.cpp
     # Ressource embarquée (thème .qss) — traitée par AUTORCC.
     ${ELEMENTS_UI}/resources.qrc
     # Mises en page Qt Designer — traitées par AUTOUIC (génèrent ui_*.h).
@@ -279,11 +283,22 @@ add_executable(ProjectGaming
     ${ELEMENTS_UI}/LevelSelectScreen.ui
     ${ELEMENTS_UI}/CreditsScreen.ui
     ${ELEMENTS_UI}/OptionsPage.ui
-    ${ELEMENTS_UI}/DecorsPanel.ui
     ${ELEMENTS_UI}/TexturePanel.ui
     ${ELEMENTS_UI}/PropertiesPanel.ui
+    ${ELEMENTS_UI}/PlanesPanel.ui
     ${ELEMENTS_UI}/LevelBrowserPanel.ui
     ${ELEMENTS_UI}/AssetThumbnailView.ui
+)
+
+# Shaders du pipeline 2D, compilés en `.qsb` par `qsb` (module ShaderTools) et embarqués comme
+# ressource Qt. Un `.qsb` porte plusieurs variantes (SPIR-V, HLSL, MSL, GLSL) : c'est ce qui permet
+# à QRhi de choisir son backend à l'exécution sans que le projet ait à livrer un shader par API.
+qt6_add_shaders(ProjectGaming "projectgaming_shaders"
+    PREFIX "/shaders"
+    BASE "${CMAKE_CURRENT_SOURCE_DIR}/Graphics/Shaders"
+    FILES
+        Graphics/Shaders/sprite.vert
+        Graphics/Shaders/sprite.frag
 )
 
 # Racine d'inclusion Source/ (pour les includes "HMI/..." et "Core/...").
@@ -297,10 +312,10 @@ target_link_libraries(ProjectGaming PRIVATE
     Core
     Qt6::Widgets
     Qt6::Gui
+    # QRhi vit dans les en-têtes privés de QtGui : c'est une API privée, stable en pratique mais
+    # non couverte par la garantie de compatibilité binaire — assumé, QRhiWidget n'existe pas sans.
+    Qt6::GuiPrivate
     Qt6::Multimedia
-    d3d11
-    dxgi
-    d3dcompiler
     xinput
     project_warnings
     project_options
@@ -357,6 +372,29 @@ if(WINDEPLOYQT_EXE)
             --no-translations --compiler-runtime
             "$<TARGET_FILE:ProjectGaming>"
         COMMENT "Déploiement des DLL Qt + runtime à côté de l'exécutable (windeployqt)")
+
+    # `--no-translations` ci-dessus reste le bon réglage : windeployqt déploierait la trentaine de
+    # catalogues de Qt, alors que l'IHM du projet a le sien. Mais **les boutons standard des boîtes
+    # de dialogue** (« Oui »/« Non »/« Annuler ») viennent de Qt, pas du catalogue du projet, et
+    # restent en anglais sans son `qtbase_<langue>.qm` — une boîte française à boutons anglais, ce
+    # qui s'est vu à l'essai (`LOT-69`). On copie donc **les deux seuls** catalogues dont l'IHM
+    # propose la langue. Fichier absent : la copie est silencieusement ignorée (`copy_if_different`
+    # sur une liste vide), et le programme retombe sur l'anglais (`EX-NFR-040`).
+    get_target_property(_qt_core_location Qt6::Core IMPORTED_LOCATION_RELEASE)
+    if(NOT _qt_core_location)
+        get_target_property(_qt_core_location Qt6::Core IMPORTED_LOCATION)
+    endif()
+    get_filename_component(_qt_prefix "${_qt_bin_dir}" DIRECTORY)
+    set(_qt_translations_dir "${_qt_prefix}/translations")
+    foreach(_lang fr en)
+        if(EXISTS "${_qt_translations_dir}/qtbase_${_lang}.qm")
+            add_custom_command(TARGET ProjectGaming POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                    "${_qt_translations_dir}/qtbase_${_lang}.qm"
+                    "$<TARGET_FILE_DIR:ProjectGaming>/Translations/qtbase_${_lang}.qm"
+                COMMENT "Copie du catalogue Qt qtbase_${_lang}.qm")
+        endif()
+    endforeach()
 else()
     message(STATUS "ProjectGaming : windeployqt introuvable, DLL Qt non déployées "
         "automatiquement (exécution possible depuis un environnement Qt).")

@@ -1,14 +1,16 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Graphics/SpriteRenderer.h"
 
 #include "Core/Ecs/Systems/AnimationSystem.h"
 #include "Core/Ecs/World.h"
-#include "Core/Levels/Decor.h"
 #include "Core/Levels/Level.h"
 #include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/Camera2D.h"
-#include "HMI/Graphics/DecorVisuals.h"
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/ParticleRenderer.h"
+#include "HMI/Graphics/PlaneVisuals.h"
 #include "HMI/Graphics/PlayerSprite.h"
 #include "HMI/Graphics/ShadowRenderer.h"
 #include "HMI/Graphics/TextureAtlas.h"
@@ -31,9 +33,9 @@ void submitComposedScene(SpriteBatch& batch, const DirectX::XMFLOAT4X4& projecti
             if (open) {
                 batch.end();
             }
-            // Seule reconversion vers le type Direct3D de toute la chaine de rendu : la
-            // composition ne manipule qu'une identite opaque (cf. hmi::TextureHandle).
-            batch.begin(projection, static_cast<ID3D11ShaderResourceView*>(composed.texture));
+            // L'identite opaque traverse la chaine telle quelle : ni la composition ni la
+            // soumission ne connaissent le type reel de la texture (cf. hmi::TextureHandle).
+            batch.begin(projection, composed.texture);
             current = composed.texture;
             open = true;
         }
@@ -49,19 +51,43 @@ void submitComposedScene(SpriteBatch& batch, const DirectX::XMFLOAT4X4& projecti
     }
 }
 
+// Resout les images des plans d'un niveau (acces disque/GPU), dans l'ordre de la liste.
+// Implemente ICI et non dans PlaneVisuals.cpp, exactement comme resolveBackgroundTexture vis-a-vis
+// de composeBackground : la composition doit rester compilable et testable sans GPU (EX-NFR-004),
+// ce qu'un appel au cache de textures interdirait.
+std::vector<PlaneTexture> resolvePlaneTextures(TextureCache& cache,
+                                               const std::filesystem::path& directory,
+                                               const std::vector<core::Plane>& planes) {
+    std::vector<PlaneTexture> textures;
+    textures.reserve(planes.size());
+    for (const core::Plane& plane : planes) {
+        const LoadedTexture* loaded = cache.getFromPath(directory / plane.fileName);
+        if (loaded == nullptr) {
+            // Image absente ou illisible : le damier partage rend le manque VISIBLE plutot que
+            // silencieux (EX-NFR-040). L'avertissement a deja ete journalise par le cache.
+            loaded = cache.missingTexture();
+        }
+        if (loaded == nullptr) {
+            textures.push_back(PlaneTexture{});  // meme le damier a echoue : plan muet.
+            continue;
+        }
+        textures.push_back(PlaneTexture{loaded->handle(), loaded->width, loaded->height});
+    }
+    return textures;
+}
+
 // Textures liables par la composition d'une scene : atlas, damier de repli et skins (point unique).
-SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache,
-                            const SkinCatalog* skins, const std::string& skinSet,
-                            const std::vector<core::TileTextureOverride>& textureOverrides,
-                            const std::unordered_map<std::string, core::Animation>& tileAnimations,
-                            const std::vector<core::Decor>& decors) {
+SceneTextures sceneTextures(
+    const TextureAtlas& atlas, TextureCache& cache, const SkinCatalog* skins,
+    const std::string& skinSet, const std::vector<core::TileTextureOverride>& textureOverrides,
+    const std::unordered_map<std::string, core::Animation>& tileAnimations) {
     SceneTextures textures;
-    textures.atlas = atlas.textureView();
+    textures.atlas = atlas.textureHandle();
     textures.atlasWidth = atlas.width();
     textures.atlasHeight = atlas.height();
     // Resolution a la demande : en mode Physique, le damier n'est jamais cree.
     if (const LoadedTexture* missing = cache.missingTexture()) {
-        textures.missing = missing->view.Get();
+        textures.missing = missing->handle();
         textures.missingWidth = missing->width;
         textures.missingHeight = missing->height;
     }
@@ -72,7 +98,7 @@ SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache,
     // repli sur l'atlas si absente/invalide -- meme avertissement deja journalise par le cache).
     if (const LoadedTexture* sheet =
             cache.get(PLAYER_SUBDIRECTORY + PLAYER_SHEET_FILE_NAME, AssetFamily::CharacterSheet)) {
-        textures.characterSheet = sheet->view.Get();
+        textures.characterSheet = sheet->handle();
         textures.characterSheetWidth = sheet->width;
         textures.characterSheetHeight = sheet->height;
     }
@@ -88,25 +114,8 @@ SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache,
         if (loaded == nullptr) {
             continue;  // absent/illisible/refuse : la resolution retombera sur le damier.
         }
-        textures.objects.push_back(SkinTexture{override.assetName, std::nullopt, loaded->view.Get(),
+        textures.objects.push_back(SkinTexture{override.assetName, std::nullopt, loaded->handle(),
                                                loaded->width, loaded->height});
-    }
-
-    // Charge les decors libres du niveau courant (EX-DEC-001, LOT-49), meme principe que les
-    // surcharges de texture ci-dessus : un asset introuvable/illisible/refuse n'est simplement pas
-    // ajoute -- la resolution (hmi::resolveDecorAppearance) retombera sur le damier, apres
-    // l'avertissement deja journalise par le TextureCache.
-    for (const core::Decor& decor : decors) {
-        if (textures.decorIndexOf(decor.assetName) >= 0) {
-            continue;  // asset deja charge.
-        }
-        const LoadedTexture* loaded =
-            cache.get(DECORS_SUBDIRECTORY + decor.assetName, AssetFamily::Decor);
-        if (loaded == nullptr) {
-            continue;
-        }
-        textures.decors.push_back(SkinTexture{decor.assetName, std::nullopt, loaded->view.Get(),
-                                              loaded->width, loaded->height});
     }
 
     textures.skinCatalog = skins;
@@ -152,8 +161,8 @@ SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache,
             }
         }
 
-        textures.skins.push_back(SkinTexture{entry.asset, maskType, loaded->view.Get(),
-                                             loaded->width, loaded->height, animatedFrame});
+        textures.skins.push_back(SkinTexture{entry.asset, maskType, loaded->handle(), loaded->width,
+                                             loaded->height, animatedFrame});
     }
     return textures;
 }
@@ -171,7 +180,7 @@ BackgroundTexture resolveBackgroundTexture(const std::optional<std::string>& bac
     if (texture == nullptr) {
         return {};  // meme le damier de repli n'a pas pu etre cree (device perdu).
     }
-    return BackgroundTexture{texture->view.Get(), texture->width, texture->height};
+    return BackgroundTexture{texture->handle(), texture->width, texture->height};
 }
 
 // Avance l'horloge d'animation partagee des tuiles animees d'un jeu de skins courant (voir
@@ -230,17 +239,25 @@ void SpriteRenderer::render(core::World& world, const Camera2D& camera, RenderMo
                             int levelWidth, int levelHeight,
                             const std::vector<core::TileTextureOverride>& textureOverrides,
                             const std::unordered_map<std::string, core::Animation>& tileAnimations,
-                            const std::vector<core::Decor>& decors,
-                            const core::TileMap* doorCollision, bool applyDecorParallax) {
+                            const std::vector<core::Plane>& planes, bool planeParallax,
+                            const core::TileMap* doorCollision) {
     _scene.clear();
     _scene.setVisibleBounds(camera.visibleBounds());
     const SceneTextures textures =
-        sceneTextures(*_atlas, *_cache, _skins, _skinSet, textureOverrides, tileAnimations, decors);
+        sceneTextures(*_atlas, *_cache, _skins, _skinSet, textureOverrides, tileAnimations);
     composeBackground(_scene, resolveBackgroundTexture(background, *_cache), levelWidth,
                       levelHeight, mode);
+    // Plans picturaux AVANT tout le reste et dans l'ordre declare (LOT-69 TACHE-05) : c'est cet
+    // ordre de composition qui porte leur ordre de dessin, le tri intercalant le rang de premiere
+    // apparition de texture entre le calque et le sortOrder. Propriete figee par un test.
+    PlaneParallax parallax;
+    parallax.active = planeParallax;
+    parallax.cameraBounds = camera.visibleBounds();
+    parallax.pixelsPerWorldUnit = Camera2D::PIXELS_PER_UNIT * camera.zoom();
+    composePlanes(_scene, planes, resolvePlaneTextures(*_cache, _planesDirectory, planes),
+                  levelWidth, levelHeight, mode, PlaneVisibility{}, parallax);
     composeShadows(_scene, world, mode, textures, interpolationAlpha, doorCollision);
-    composeWorldSprites(_scene, world, mode, textures, interpolationAlpha, &camera,
-                        LayerVisibility{}, applyDecorParallax);
+    composeWorldSprites(_scene, world, mode, textures, interpolationAlpha);
     // Particules du personnage (LOT-53 TACHE-03) : meme scene, apres les sprites -- l'ordre de
     // composition n'importe pas, ComposedScene::sort() reordonne par calque/texture/sortOrder.
     composeParticles(_scene, world, mode, textures);

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <array>
@@ -60,7 +63,7 @@ struct EditorActionSpec {
 /// Nombre total d'actions du catalogue (huit outils de niveau, cinq outils de canevas pixel art,
 /// onze commandes principales, quatre commandes de fichier de l'atelier, quatre commandes de
 /// région de l'atelier).
-constexpr int EDITOR_ACTION_CATALOG_COUNT = 32;
+constexpr int EDITOR_ACTION_CATALOG_COUNT = 31;
 
 /// @return Le catalogue complet, dans l'ordre d'affichage voulu de la barre d'outils : les huit
 ///         outils de niveau (ordre de la palette/du panneau Outils historique), les outils

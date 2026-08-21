@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <optional>
@@ -6,8 +9,8 @@
 #include <vector>
 
 #include "Core/Levels/CameraFraming.h"
-#include "Core/Levels/Decor.h"
 #include "Core/Levels/GridPosition.h"
+#include "Core/Levels/Plane.h"
 #include "Core/Levels/TileMap.h"
 
 /**
@@ -169,8 +172,6 @@ public:
      *                     défaut.
      * @param textureOverrides Textures assignées par instance (`EX-EDIT-043`), prioritaires sur
      *                     le skin de leur type.
-     * @param decors       Décors libres du niveau (`EX-DEC-001`, LOT-49), dans leur ordre de
-     *                     superposition intra-couche.
      * @param cameraFraming Cadrage de caméra **résolu** du niveau (`EX-LVL-006`, LOT-64) : déjà
      *                     passé par `resolveCameraFraming` côté chargeur, jamais un champ brut
      *                     "peut-être absent" -- valeur par défaut (`WholeLevel`) légitime pour un
@@ -183,6 +184,14 @@ public:
      * @param dashCharges  Nombre de dashs utilisables entre deux contacts avec le sol
      *                     (`EX-GP-055`) ; absent = valeur du moteur. Même distinction vis-à-vis
      *                     de @p dashBudget.
+     * @param planes       Plans picturaux du niveau (`EX-DEC-040`, LOT-69), dans leur ordre de
+     *                     superposition.
+     * @param parallaxEnabled `true` si la parallaxe des plans s'applique (`EX-DEC-043`) ; le mode
+     *                     de cadrage peut la neutraliser par-dessus ce drapeau.
+     *
+     * @note Ce constructeur atteint **19 paramètres**. Un agrégat `LevelData` devient nécessaire ;
+     *       le `LOT-69` ne le fait pas — sa surface est déjà maximale — mais la dette est actée
+     *       dans son epic.
      */
     Level(std::string name, TileMap tileMap, GridPosition entry, GridPosition exit,
           std::vector<Mechanism> mechanisms, int jumpBudget = -1, int dashBudget = -1,
@@ -191,10 +200,11 @@ public:
           std::vector<DangerBlinkConfig> blinkConfigs = {},
           std::optional<std::string> background = std::nullopt,
           std::optional<std::string> skinSet = std::nullopt,
-          std::vector<TileTextureOverride> textureOverrides = {}, std::vector<Decor> decors = {},
+          std::vector<TileTextureOverride> textureOverrides = {},
           std::vector<MovingPlatformConfig> platformConfigs = {},
           CameraFramingConfig cameraFraming = {}, std::optional<int> airJumps = std::nullopt,
-          std::optional<int> dashCharges = std::nullopt)
+          std::optional<int> dashCharges = std::nullopt, std::vector<Plane> planes = {},
+          bool parallaxEnabled = true)
         : _name(std::move(name)),
           _tileMap(std::move(tileMap)),
           _entry(entry),
@@ -208,11 +218,12 @@ public:
           _background(std::move(background)),
           _skinSet(std::move(skinSet)),
           _textureOverrides(std::move(textureOverrides)),
-          _decors(std::move(decors)),
           _platformConfigs(std::move(platformConfigs)),
           _cameraFraming(cameraFraming),
           _airJumps(airJumps),
-          _dashCharges(dashCharges) {}
+          _dashCharges(dashCharges),
+          _planes(std::move(planes)),
+          _parallaxEnabled(parallaxEnabled) {}
 
     /// @return Le nom du niveau.
     [[nodiscard]] const std::string& name() const noexcept {
@@ -281,10 +292,16 @@ public:
         return _textureOverrides;
     }
 
-    /// @return Les décors libres du niveau (`EX-DEC-001`), dans leur ordre de superposition
-    /// intra-couche.
-    [[nodiscard]] const std::vector<Decor>& decors() const noexcept {
-        return _decors;
+    /// @return Les **plans picturaux** du niveau (`EX-DEC-040`), dans leur ordre de superposition.
+    [[nodiscard]] const std::vector<Plane>& planes() const noexcept {
+        return _planes;
+    }
+
+    /// @return `true` si la **parallaxe** des plans s'applique dans ce niveau (`EX-DEC-043`).
+    /// Le mode de cadrage peut la neutraliser malgré ce drapeau : c'est une règle du moteur, pas
+    /// une propriété du niveau (`hmi::planeParallaxActive`).
+    [[nodiscard]] bool parallaxEnabled() const noexcept {
+        return _parallaxEnabled;
     }
 
     /// @return Les paramètres des plateformes mobiles du niveau (`EX-GP-026`).
@@ -327,11 +344,12 @@ private:
     std::optional<std::string> _background;
     std::optional<std::string> _skinSet;
     std::vector<TileTextureOverride> _textureOverrides;
-    std::vector<Decor> _decors;
     std::vector<MovingPlatformConfig> _platformConfigs;
     CameraFramingConfig _cameraFraming;
     std::optional<int> _airJumps;
     std::optional<int> _dashCharges;
+    std::vector<Plane> _planes;
+    bool _parallaxEnabled = true;
 };
 
 }  // namespace core

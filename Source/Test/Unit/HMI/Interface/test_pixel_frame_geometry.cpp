@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_pixel_frame_geometry.cpp
  * @brief Tests unitaires de la géométrie du cadre pixel art (`LOT-68`, `EX-IHM-070`).

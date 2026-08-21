@@ -1,8 +1,13 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Editor/EditorStatus.h"
 
 #include <array>
 #include <cmath>
+#include <cstddef>
 #include <cstdio>
+#include <vector>
 
 #include "HMI/Localization/Localization.h"
 
@@ -34,6 +39,27 @@ std::string formatTwo(const std::string& templateText, int first, int second) {
     return replacePlaceholder(formatOne(templateText, first), "%2", std::to_string(second));
 }
 
+// Remplace %1, %2, ... par les valeurs donnees, dans l'ordre -- generalisation de formatOne/
+// formatTwo pour la fiche d'un plan, qui en porte quatre.
+std::string formatAll(const std::string& templateText, const std::vector<std::string>& values) {
+    std::string text = templateText;
+    for (std::size_t index = 0; index < values.size(); ++index) {
+        text = replacePlaceholder(text, "%" + std::to_string(index + 1), values[index]);
+    }
+    return text;
+}
+
+// Poids d'une texture en mebioctets, deux decimales. Une seule unite pour toute l'echelle utile :
+// le plus petit plan du depot pese deja 0,08 Mio et le plafond est a 16 Mio -- basculer en kibi
+// sous le mebi rendrait deux plans incomparables d'un coup d'oeil, ce qui est tout ce qu'on
+// demande a cette zone.
+std::string formatMebibytes(std::size_t bytes) {
+    const double mebibytes = static_cast<double>(bytes) / (1024.0 * 1024.0);
+    std::array<char, 32> buffer{};
+    std::snprintf(buffer.data(), buffer.size(), "%.2f", mebibytes);
+    return std::string(buffer.data());
+}
+
 // Cle de traduction du libelle d'un mode de cadrage (LOT-64) -- memes cles que TexturePanel.cpp
 // (section « Cadrage »), reprises ici plutot que dupliquees : un seul point de vocabulaire.
 const char* cameraFramingLabelKey(core::CameraFramingMode mode) {
@@ -61,8 +87,6 @@ const char* toolLabelKey(EditorTool tool) {
             return "tool.link";
         case EditorTool::TextureAssign:
             return "tool.texture_assign";
-        case EditorTool::Decor:
-            return "tool.decor";
         case EditorTool::CameraZone:
             return "tool.camera_zone";
         case EditorTool::Path:
@@ -84,8 +108,6 @@ const char* toolHelpKey(EditorTool tool) {
             return "status.help_link";
         case EditorTool::TextureAssign:
             return "status.help_texture_assign";
-        case EditorTool::Decor:
-            return "status.help_decor";
         case EditorTool::CameraZone:
             return "status.help_camera_zone";
         case EditorTool::Path:
@@ -154,7 +176,12 @@ EditorStatusLines editorStatusLines(const EditorStatusContext& context,
     if (context.pixelEdit) {
         const PixelEditStatusInfo& pixel = *context.pixelEdit;
         if (!pixel.assetName.empty()) {
-            lines.permanent[0] = formatOne(localization.text("status.zone.asset"), pixel.assetName);
+            // Un plan n'est pas un asset : il ne vit pas sous `Assets/` et n'est reutilisable par
+            // aucun autre niveau. Annoncer « Asset : ... » en mode creation dirait le contraire de
+            // ce que le lot etablit.
+            const char* const nameKey =
+                pixel.plane ? "status.zone.plane_file" : "status.zone.asset";
+            lines.permanent[0] = formatOne(localization.text(nameKey), pixel.assetName);
         }
         if (pixel.dirty) {
             lines.permanent[1] = localization.text("status.zone.dirty");
@@ -171,6 +198,15 @@ EditorStatusLines editorStatusLines(const EditorStatusContext& context,
             pixel.paletteConstrained ? "status.zone.color_constrained" : "status.zone.color";
         lines.permanent[5] =
             formatOne(localization.text(colorKey), formatColorHex(pixel.currentColor));
+        // Fiche du plan (LOT-69 TACHE-08) : la septieme zone, libre en contexte plan puisque le
+        // cadrage de camera qu'elle porte ailleurs n'a de sens que sur un niveau.
+        if (pixel.plane) {
+            lines.permanent[6] = formatAll(localization.text("status.zone.plane"),
+                                           {std::to_string(pixel.plane->widthPixels),
+                                            std::to_string(pixel.plane->heightPixels),
+                                            std::to_string(pixel.plane->pixelsPerUnit),
+                                            formatMebibytes(pixel.plane->textureBytes)});
+        }
         lines.help = localization.text(pixelToolHelpKey(pixel.tool));
         return lines;
     }

@@ -76,3 +76,7 @@ La portée correspond en général au module (`core`, `hmi`, `elements`, `test`,
 7. Si `QT_VERSION_MINIMUM` (`Source/HMI/CMakeLists.txt`) a changé, `env.QT_VERSION` de `ci.yml` et
    `release.yml` doit être bumpé à l'identique — vérifié automatiquement par
    `python scripts/check_qt_version_pin.py` (job `lint-exigences`), pas seulement par relecture.
+   Depuis le `LOT-69`, la CI installe Qt avec un `aqtinstall` pris **depuis git à un commit
+   épinglé** (`env.AQT_SOURCE`), la version PyPI ne sachant pas installer Qt ≥ 6.11 : dès
+   qu'`aqtinstall 3.3.1` paraît, remplacer `aqtsource` par `aqtversion: '==3.3.1'` et supprimer
+   `AQT_SOURCE`. Le motif complet est dans [`External/README.md`](External/README.md).

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_bitmap_font.cpp
  * @brief Tests unitaires de la police bitmap (LOT-52 TACHE-01) : mesure pure, lecture des

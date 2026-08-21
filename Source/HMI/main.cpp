@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file HMI/main.cpp
  * @brief Point d'entrée de l'application Qt (`ProjectGaming`).
@@ -9,7 +12,10 @@
 
 #include <QApplication>
 #include <QCoreApplication>
+#include <QLibraryInfo>
+#include <QSettings>
 #include <QString>
+#include <QTranslator>
 #include <cstdint>
 #include <filesystem>
 #include <memory>
@@ -29,6 +35,7 @@
 #include "HMI/HmiLog.h"
 #include "HMI/Interface/ApplicationTheme.h"
 #include "HMI/Interface/MainWindow.h"
+#include "HMI/Platform/ExecutableDirectory.h"
 
 namespace {
 
@@ -137,6 +144,30 @@ int main(int argc, char** argv) {
     // des panneaux de l'éditeur, EX-IHM-011).
     QCoreApplication::setOrganizationName(QStringLiteral("ProjectGaming"));
     QCoreApplication::setApplicationName(QStringLiteral("Editor"));
+
+    // Traductions de Qt LUI-MEME (LOT-69) : les boutons standard des boites de dialogue --
+    // « Oui »/« Non »/« Annuler » -- ne viennent pas du catalogue du projet mais de Qt, qui les
+    // rend en anglais tant qu'aucun QTranslator n'est installe. Une boite entierement redigee en
+    // francais dont les deux boutons disent « Yes »/« No » se remarque immediatement (defaut
+    // constate a l'essai sur les confirmations « Nouvelle partie » et « Quitter vers le menu »).
+    // La langue est celle que l'IHM persiste (QSettings, meme cle que hmi::MainWindow) : les deux
+    // catalogues doivent dire la meme chose. Fichier absent (Qt deploye sans ses traductions) :
+    // on retombe simplement sur l'anglais, jamais une erreur bloquante (EX-NFR-040).
+    static QTranslator qtTranslator;
+    const QString language =
+        QSettings().value(QStringLiteral("language"), QStringLiteral("fr")).toString();
+    const QString qtCatalog = QStringLiteral("qtbase_") + language;
+    // Le dossier depose a cote de l'executable D'ABORD (c'est celui d'une installation livree),
+    // l'installation Qt de developpement ensuite.
+    const QString deployed =
+        QString::fromStdString((hmi::executableDirectory() / "Translations").string());
+    if (qtTranslator.load(qtCatalog, deployed) ||
+        qtTranslator.load(qtCatalog, QLibraryInfo::path(QLibraryInfo::TranslationsPath))) {
+        QCoreApplication::installTranslator(&qtTranslator);
+    } else {
+        HMI_LOG_INFO("Traductions de Qt indisponibles pour la langue '" + language.toStdString() +
+                     "' : les boutons standard resteront en anglais.");
+    }
 
     // Outil de développement (LOT-39, hors jeu) : régénère l'atlas de base en fichier PNG à partir
     // de la génération procédurale historique (seule source de vérité du contenu, cf.

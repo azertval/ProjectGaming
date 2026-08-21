@@ -1,4 +1,4 @@
-# TACHE-01 — `core::FileLogSink` {#lot-61-tache-01-file-log-sink}
+# TACHE-01 — Puits de journalisation fichier {#lot-61-tache-01-file-log-sink}
 
 **Lot :** [LOT-61](epic.md) · **Emplacement :** `Source/Core/Diagnostics` · **Statut :** non commencé
 

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "Core/Ecs/Systems/CharacterPhysicsSystem.h"
 
 #include <algorithm>  // std::min / std::max (borne de chute, coupe de saut)

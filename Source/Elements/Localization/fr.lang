@@ -56,6 +56,7 @@ menubar.layers = Calques
 menubar.panels = Panneaux
 menubar.workspace = Espace de travail
 menubar.workspace_level = Édition de niveau
+menubar.workspace_planes = Mode création
 menubar.workspace_pixel_art = Atelier pixel art
 menubar.level = Niveau
 menubar.resize = Redimensionner…
@@ -68,18 +69,17 @@ menubar.follow_active_tool = Suivre l'outil actif
 # Mode d'inspection par calque (LOT-57 TACHE-03, deplace depuis l'onglet Calques du panneau
 # Textures) : DECOMPOSE le rendu pour auditer, distinct de la bascule Jeu/F8 qui le COMPOSE.
 menubar.layer_background = Fond
-menubar.layer_decor_background = Décor d'arrière-plan
+menubar.layer_plane_behind = Plans derrière
 menubar.layer_shadow = Ombres
 menubar.layer_tile_skin = Skin des tuiles
 menubar.layer_objects = Objets interactifs
 menubar.layer_player = Personnage
-menubar.layer_decor_foreground = Décor de premier plan
+menubar.layer_plane_front = Plans devant
 menubar.layer_show_all = Tout afficher
 menubar.reset_layout = Réinitialiser la disposition
 
 # Panneaux dockables
 dock.palette = Palette
-dock.decors = Décors
 dock.levels = Niveaux
 dock.links = Liens
 dock.textures = Textures
@@ -140,15 +140,6 @@ textures.animations_preview = Aperçu
 textures.animations_complete = Complet
 textures.animations_missing = Manquants
 
-# Inspecteur de décors du panneau Décors (LOT-50, déplacé du panneau Textures en LOT-57)
-decors.column_asset = Asset
-decors.column_layer = Couche
-decors.forward = Avancer
-decors.backward = Reculer
-decors.center = Centrer
-decors.remove = Supprimer
-decors.missing_asset = Asset introuvable dans Assets/Decors/
-
 
 # Bibliotheque d'assets partagee (LOT-43)
 assets.search = Rechercher…
@@ -172,12 +163,13 @@ status.zone.zoom = Zoom : %1%
 status.zone.camera_framing = Cadrage : %1
 status.zone.color = Couleur : %1
 status.zone.color_constrained = Couleur : %1 (contrainte à la palette)
+status.zone.plane_file = Plan : %1
+status.zone.plane = Plan : %1×%2 px · %3 px/unité · %4 Mio
 status.help_paint = Peindre : clic gauche/glisser · Ctrl+Z/Y : annuler/refaire
 status.help_rectangle = Rectangle : glisser pour peindre une zone · Ctrl+Z/Y : annuler/refaire
 status.help_selection = Sélection : glisser pour délimiter · Ctrl+C/V : copier/coller
 status.help_link = Lien : cliquer un déclencheur puis sa cible · recliquer la même paire délie
 status.help_texture_assign = Texture : clic gauche assigne, reclic ou clic droit retire
-status.help_decor = Décor : cliquer une zone vide pour poser, cliquer un décor pour le manipuler
 status.help_camera_zone = Zone de caméra : glisser pour dessiner une zone (mode par salle) ; la retirer depuis la section « Cadrage »
 status.path_waypoint_removed = Point de parcours retiré
 properties.selection_group = Élément sélectionné
@@ -213,9 +205,6 @@ status.help_pixel_selection = Sélection : glisser délimite ou déplace · Ctrl
 status.texture_assigned = Texture assignée : %1
 status.texture_removed = Texture retirée.
 status.texture_no_asset_selected = Aucun asset sélectionné : choisissez-en un dans l'onglet « Objets » du panneau Textures.
-status.decor_placed = Décor posé : %1
-status.decor_removed = Décor retiré.
-status.decor_no_asset_selected = Aucun décor sélectionné : choisissez-en un dans le panneau Outils.
 dialog.unsaved_title = Modifications non enregistrées
 dialog.unsaved_text = Le niveau courant a des modifications non enregistrées. Quitter quand même ?
 dialog.resize_title = Redimensionner le niveau
@@ -229,13 +218,8 @@ tool.rectangle = Rectangle
 tool.selection = Sélection
 tool.link = Lien
 tool.texture_assign = Texture
-tool.decor = Décor
 tool.camera_zone = Zone de caméra
 tool.path = Parcours
-tool.decor_layer_background = Arrière-plan
-tool.decor_layer_decor = Décor
-tool.decor_layer_foreground = Premier plan
-tool.decor_snap_to_grid = Aimanter à la grille
 
 # Outils du canevas pixel art (LOT-54 TACHE-04) : groupe exclusif distinct des outils de niveau
 # ci-dessus, reutilises aussi comme libelle court dans la barre d'etat (hmi::EditorStatus).
@@ -369,6 +353,9 @@ credits.title = Crédits
 credits.development = Développement
 credits.audio = Musique et bruitages
 credits.graphics = Graphismes
+credits.fonts = Polices
+credits.libraries = Bibliothèques
+credits.license = Licence
 
 # Messages d'etat du viewport
 status.region_copied = Zone copiée (%1 × %2).
@@ -483,3 +470,38 @@ hint.back = Retour
 hint.tab = Onglet
 hint.play = Jouer
 hint.resume = Reprendre
+
+# Panneau « Plans » (LOT-69 TACHE-08)
+planes.column_file = Fichier
+planes.column_density = Densité
+planes.column_depth = Profondeur
+planes.column_visible = Visible
+planes.add = Ajouter
+planes.remove = Supprimer
+planes.paint = Peindre
+planes.isolate = Isoler
+planes.forward = Monter
+planes.backward = Descendre
+planes.front = Devant
+planes.behind = Derrière
+planes.settings = Plan sélectionné
+planes.density = Densité (px/unité)
+planes.depth = Profondeur
+planes.depth_behind = Derrière les tuiles
+planes.depth_front = Devant le personnage
+planes.parallax_x = Parallaxe X
+planes.parallax_y = Parallaxe Y
+planes.opacity = Opacité
+planes.level_group = Niveau
+planes.parallax_enabled = Parallaxe active
+planes.parallax_whole_level_hint = Sans effet en cadrage « niveau entier » : la caméra ne défile pas, le décalage ne serait qu'un désalignement constant.
+planes.added = Plan ajouté : %1
+planes.removed = Plan retiré de la liste. Le fichier, lui, est conservé.
+planes.create_failed = Création du plan impossible : vérifiez le dossier des plans.
+planes.paint_failed = Ce plan ne peut pas être peint : sa densité ou la taille du niveau sont hors format.
+planes.saved = Plan enregistré : %1
+planes.save_failed = Enregistrement du plan impossible : vérifiez le dossier des plans.
+planes.none_selected = Aucun plan sélectionné : choisissez-en un dans le panneau « Plans », ou ajoutez-en un.
+planes.discard_title = Plan non enregistré
+planes.discard_text = Le plan en cours contient des modifications non enregistrées. Les enregistrer avant de continuer ?
+dock.planes = Plans

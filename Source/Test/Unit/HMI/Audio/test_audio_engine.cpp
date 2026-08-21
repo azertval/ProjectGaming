@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_audio_engine.cpp
  * @brief Tests unitaires du moteur audio (LOT-60, EX-REN-047, EX-NFR-040).

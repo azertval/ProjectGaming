@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_sound_catalog.cpp
  * @brief Tests unitaires du catalogue de sons (LOT-60, EX-REN-047, EX-REN-048).

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_player_components.cpp
  * @brief Tests unitaires des composants du personnage (données pures) : valeurs par défaut.

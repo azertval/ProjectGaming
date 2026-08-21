@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <cstdint>
@@ -18,14 +21,20 @@ namespace hmi {
  * dernier (`EX-REN-014`).
  *
  * Toutes les valeurs sont réservées **dès `LOT-40`**, même celles qu'aucun code n'utilise encore
- * (`Background` en `LOT-44`, `Decor`/`Foreground` en `LOT-49`, `Shadow` en `LOT-55`, `Object` en
+ * (`Background` en `LOT-44`, `Plane`/`Foreground` en `LOT-49`, `Shadow` en `LOT-55`, `Object` en
  * `LOT-45`, `UI` en `LOT-52`) : c'est précisément cette anticipation qui évite qu'un lot suivant
  * réinvente son propre empilement. Seules `Tile`, `Player` et `EditorOverlay` sont utilisées à ce
  * jour, et elles reproduisent exactement l'ordre d'avant le lot (tuiles sous personnage, aides
  * d'édition au-dessus de tout).
  *
  * `Foreground` est **au-dessus** de `Player` par construction : c'est le contrat de lecture « ce
- * qui passe devant le personnage n'est pas physique » (`EX-DEC-002`).
+ * qui passe devant le personnage n'est pas physique » (`EX-DEC-042`).
+ *
+ * Le nombre de **plans picturaux** d'un niveau est libre (`LOT-69`), mais aucun n'ajoute de valeur
+ * ici : les plans occupent `Plane` ou `Foreground` selon leur profondeur, et leur **rang** dans la
+ * liste du niveau les ordonne à l'intérieur du calque. Donner une valeur d'énumération à chaque
+ * plan figerait dans le rendu ce que le format déclare variable, et ferait enfler
+ * `RENDER_LAYER_COUNT`, donc `hmi::LayerVisibility`.
  *
  * Notion de **présentation** (`HMI`) : `Core` l'ignore et continue de ne connaître que
  * `core::Sprite::layer`, entier de tri **fin à l'intérieur** d'un calque (`EX-NFR-011`).
@@ -33,8 +42,10 @@ namespace hmi {
 enum class RenderLayer : std::int32_t {
     /// Image de fond du niveau (`LOT-44`, `EX-REN-044`).
     Background = 0,
-    /// Décors d'arrière-plan, éventuellement en parallaxe (`LOT-49`, `EX-DEC-002`).
-    Decor,
+    /// Plans picturaux **derrière** les tuiles, éventuellement en parallaxe (`LOT-69`,
+    /// `EX-DEC-042`). Nommé `Decor` jusqu'au `LOT-69` : laisser un calque porter le nom d'un
+    /// système retiré serait exactement la dette que `EX-REN-014` cherche à éviter.
+    Plane,
     /// Ombres portées des tuiles solides (`LOT-55`, `EX-REN-045`).
     Shadow,
     /// Tuiles physiques du niveau — le seul calque peuplé avant `LOT-42`.
@@ -43,7 +54,7 @@ enum class RenderLayer : std::int32_t {
     Object,
     /// Personnage joueur.
     Player,
-    /// Décors de **premier plan**, dessinés par-dessus le personnage (`LOT-49`, `EX-DEC-002`).
+    /// Plans picturaux **devant** le personnage (`LOT-69`, `EX-DEC-042`).
     Foreground,
     /// Texte et interface en scène (`LOT-52`, `EX-REN-031`).
     UI,
@@ -56,8 +67,8 @@ enum class RenderLayer : std::int32_t {
  *
  * La composition du rendu ne fait que **comparer** et **regrouper** des textures ; elle n'a
  * jamais besoin d'en connaître le type Direct3D. Ce typage volontairement opaque permet de la
- * garder libre de `<d3d11.h>` (et donc testable sans GPU, `EX-NFR-004`) : côté soumission,
- * `hmi::SpriteRenderer` reconvertit la valeur en `ID3D11ShaderResourceView*`, seule couche qui en
+ * garder libre de toute dépendance GPU (et donc testable sans carte, `EX-NFR-004`) : côté
+ * soumission, `hmi::SpriteBatch` reconvertit la valeur en `QRhiTexture*`, seule couche qui en
  * connaisse le type réel. Une valeur nulle désigne « aucune texture liée ».
  */
 using TextureHandle = void*;
@@ -87,8 +98,8 @@ inline constexpr RenderLayer DEFAULT_RENDER_LAYER = RenderLayer::Tile;
     switch (layer) {
         case RenderLayer::Background:
             return "Background";
-        case RenderLayer::Decor:
-            return "Decor";
+        case RenderLayer::Plane:
+            return "Plane";
         case RenderLayer::Shadow:
             return "Shadow";
         case RenderLayer::Tile:

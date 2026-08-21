@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_camera_framing.cpp
  * @brief Tests unitaires du cadrage de caméra porté par le niveau : modes, règle de repli et

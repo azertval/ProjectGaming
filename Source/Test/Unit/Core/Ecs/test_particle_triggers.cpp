@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_particle_triggers.cpp
  * @brief Tests unitaires des déclencheurs de particules du personnage (`LOT-53` TACHE-02,

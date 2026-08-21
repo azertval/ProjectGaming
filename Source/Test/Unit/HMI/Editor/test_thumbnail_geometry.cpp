@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_thumbnail_geometry.cpp
  * @brief Tests unitaires du dimensionnement des vignettes à l'échelle d'affichage (`LOT-56`

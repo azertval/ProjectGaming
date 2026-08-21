@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "Core/Levels/LevelWriter.h"
 
 #include <fstream>
@@ -30,18 +33,18 @@ namespace {
     return type == TileType::Door || type == TileType::LockedDoor;
 }
 
-// Nom JSON d'une DecorLayer (LOT-49, EX-DEC-002), symétrique à decorLayerFromName ci-dessous
-// (LevelLoader.cpp).
-[[nodiscard]] const char* decorLayerName(DecorLayer layer) {
-    switch (layer) {
-        case DecorLayer::Background:
-            return "background";
-        case DecorLayer::Decor:
-            return "decor";
-        case DecorLayer::Foreground:
-            return "foreground";
+// Nom JSON d'un PlaneDepth (LOT-69, EX-DEC-042), symétrique à parsePlaneDepth (LevelLoader.cpp).
+// La profondeur par défaut (Behind) n'est jamais écrite (voir buildJson) : ce nom ne sert donc en
+// pratique que pour Front, mais le switch reste exhaustif pour que l'ajout d'une valeur soit
+// signalé par le compilateur.
+[[nodiscard]] const char* planeDepthName(PlaneDepth depth) {
+    switch (depth) {
+        case PlaneDepth::Behind:
+            return "behind";
+        case PlaneDepth::Front:
+            return "front";
     }
-    return "decor";
+    return "behind";
 }
 
 // Nom JSON d'un PlatformPathMode (LOT-67, EX-GP-026), symétrique à parsePlatformPathMode
@@ -60,11 +63,11 @@ namespace {
 }  // namespace
 
 std::string LevelWriter::toJsonString(const Level& level) {
-    return buildJson(level.name(), level.tileMap(), level.mechanisms(), level.jumpBudget(),
-                     level.dashBudget(), level.dangerLinks(), level.moverConfigs(),
-                     level.blinkConfigs(), level.background(), level.skinSet(),
-                     level.textureOverrides(), level.decors(), level.platformConfigs(),
-                     level.cameraFraming(), level.airJumps(), level.dashCharges());
+    return buildJson(
+        level.name(), level.tileMap(), level.mechanisms(), level.jumpBudget(), level.dashBudget(),
+        level.dangerLinks(), level.moverConfigs(), level.blinkConfigs(), level.background(),
+        level.skinSet(), level.textureOverrides(), level.platformConfigs(), level.cameraFraming(),
+        level.airJumps(), level.dashCharges(), level.planes(), level.parallaxEnabled());
 }
 
 bool LevelWriter::saveToFile(const Level& level, const std::filesystem::path& path) {
@@ -83,10 +86,10 @@ std::string LevelWriter::buildJson(
     const std::vector<DangerMoverConfig>& moverConfigs,
     const std::vector<DangerBlinkConfig>& blinkConfigs,
     const std::optional<std::string>& background, const std::optional<std::string>& skinSet,
-    const std::vector<TileTextureOverride>& textureOverrides, const std::vector<Decor>& decors,
+    const std::vector<TileTextureOverride>& textureOverrides,
     const std::vector<MovingPlatformConfig>& platformConfigs,
     const CameraFramingConfig& cameraFraming, const std::optional<int>& airJumps,
-    const std::optional<int>& dashCharges) {
+    const std::optional<int>& dashCharges, const std::vector<Plane>& planes, bool parallaxEnabled) {
     nlohmann::json root;
     root["version"] = kLevelFormatVersion;
     root["name"] = name;
@@ -280,29 +283,39 @@ std::string LevelWriter::buildJson(
     }
     root["tiles"] = std::move(tiles);
 
-    // Tableau racine optionnel "decors" (EX-DEC-001, LOT-49), omis si vide (retrocompatibilite,
-    // EX-LVL-005) : l'ordre du vecteur est preserve (rang = superposition intra-couche).
-    if (!decors.empty()) {
-        nlohmann::json decorsJson = nlohmann::json::array();
-        for (const Decor& decor : decors) {
+    // Tableau racine optionnel "planes" (EX-DEC-040, LOT-69), omis si vide : l'ordre du vecteur
+    // est preserve (rang = superposition). Chaque champ a sa valeur par defaut est omis, comme
+    // partout ailleurs dans ce format (convention du LOT-67) -- un plan solidaire du niveau a
+    // densite native ne produit donc qu'un seul champ, "file".
+    if (!planes.empty()) {
+        nlohmann::json planesJson = nlohmann::json::array();
+        for (const Plane& plane : planes) {
             nlohmann::json entry;
-            entry["asset"] = decor.assetName;
-            entry["x"] = decor.position.x;
-            entry["y"] = decor.position.y;
-            if (decor.scale.x != 1.0F || decor.scale.y != 1.0F) {
-                entry["scaleX"] = decor.scale.x;
-                entry["scaleY"] = decor.scale.y;
+            entry["file"] = plane.fileName;
+            if (plane.pixelsPerUnit != PLANE_NATIVE_PIXELS_PER_UNIT) {
+                entry["pixelsPerUnit"] = plane.pixelsPerUnit;
             }
-            if (decor.rotation != 0.0F) {
-                entry["rotation"] = decor.rotation;
+            if (plane.parallaxX != 1.0F) {
+                entry["parallaxX"] = plane.parallaxX;
             }
-            entry["layer"] = decorLayerName(decor.layer);
-            if (decor.manipulable) {
-                entry["manipulable"] = true;
+            // parallaxY n'est ecrit que s'il differe de parallaxX : le chargeur le fait retomber
+            // sur ce dernier, ecrire les deux quand ils sont egaux serait du bruit.
+            if (plane.parallaxY != plane.parallaxX) {
+                entry["parallaxY"] = plane.parallaxY;
             }
-            decorsJson.push_back(std::move(entry));
+            if (plane.opacity != 1.0F) {
+                entry["opacity"] = plane.opacity;
+            }
+            if (plane.depth != PlaneDepth::Behind) {
+                entry["depth"] = planeDepthName(plane.depth);
+            }
+            planesJson.push_back(std::move(entry));
         }
-        root["decors"] = std::move(decorsJson);
+        root["planes"] = std::move(planesJson);
+    }
+    // Drapeau de parallaxe (EX-DEC-043) : omis a sa valeur par defaut (true).
+    if (!parallaxEnabled) {
+        root["parallax"] = false;
     }
 
     return root.dump();

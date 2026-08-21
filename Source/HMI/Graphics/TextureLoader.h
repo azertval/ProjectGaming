@@ -1,34 +1,51 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <cstdint>
 #include <filesystem>
+#include <memory>
 #include <optional>
 #include <vector>
 
-#include <d3d11.h>
-#include <wrl/client.h>
+#include "HMI/Graphics/RenderLayer.h"
+
+class QRhiTexture;
 
 /**
  * @file HMI/Graphics/TextureLoader.h
- * @brief Chargement de textures Direct3D 11 depuis des fichiers image (`EX-REN-041`).
+ * @brief Chargement de textures GPU depuis des fichiers image (`EX-REN-041`), au travers de QRhi.
  */
 
 namespace hmi {
 
-/// Pixels RGBA décodés d'un fichier image, alpha **non prémultiplié** (cohérent avec le blend
-/// state de `SpriteBatch`, `D3D11_BLEND_SRC_ALPHA`), au format `R8G8B8A8_UNORM`.
+struct RhiContext;
+
+/// Pixels RGBA décodés d'un fichier image, alpha **non prémultiplié** (cohérent avec le mélange
+/// du pipeline de `SpriteBatch`, `SrcAlpha`/`OneMinusSrcAlpha`), au format `RGBA8`.
 struct DecodedImage {
     int width = 0;
     int height = 0;
     std::vector<std::uint32_t> pixels;
 };
 
-/// Texture Direct3D 11 chargée et sa vue de ressource (RAII, `ComPtr`).
+/**
+ * @brief Texture GPU chargée (RAII).
+ *
+ * Le pointeur est **partagé** et non exclusif : le cache de textures (`hmi::TextureCache`) range
+ * ses entrées dans un registre qui les copie, et une même texture peut être servie à plusieurs
+ * consommateurs le temps d'une image.
+ */
 struct LoadedTexture {
-    Microsoft::WRL::ComPtr<ID3D11Texture2D> texture;
-    Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> view;
+    std::shared_ptr<QRhiTexture> texture;
     int width = 0;
     int height = 0;
+
+    /// @return L'identité opaque de la texture, telle que la composition la manipule.
+    [[nodiscard]] TextureHandle handle() const noexcept {
+        return texture.get();
+    }
 };
 
 /**
@@ -61,24 +78,29 @@ struct LoadedTexture {
 [[nodiscard]] bool encodeImageFile(const std::filesystem::path& path, const DecodedImage& image);
 
 /**
- * @brief Crée une texture Direct3D 11 immuable à partir de pixels RGBA déjà décodés.
- * @param device Device Direct3D 11 (crée la texture et sa vue de ressource).
- * @param width  Largeur en pixels (doit être strictement positive).
- * @param height Hauteur en pixels (doit être strictement positive).
- * @param pixels Pixels `R8G8B8A8_UNORM`, taille attendue `width * height`.
+ * @brief Crée une texture GPU à partir de pixels RGBA déjà décodés.
+ *
+ * Le téléversement des pixels est **différé** : il est déposé dans le lot de mises à jour de
+ * l'image en cours (`hmi::RhiContext::updates`), que l'appelant soumet avant d'ouvrir sa passe de
+ * rendu. C'est la contrainte de QRhi qui l'impose, pas un choix d'optimisation — un téléversement
+ * ne peut pas avoir lieu au milieu d'une passe.
+ * @param context Interface de rendu et lot de mises à jour de l'image courante.
+ * @param width   Largeur en pixels (doit être strictement positive).
+ * @param height  Hauteur en pixels (doit être strictement positive).
+ * @param pixels  Pixels `RGBA8`, taille attendue `width * height`.
  * @return La texture chargée, ou `std::nullopt` en cas d'échec de création côté GPU.
  */
-[[nodiscard]] std::optional<LoadedTexture> createTexture(ID3D11Device* device, int width,
+[[nodiscard]] std::optional<LoadedTexture> createTexture(const RhiContext& context, int width,
                                                          int height,
                                                          const std::vector<std::uint32_t>& pixels);
 
 /**
- * @brief Décode un fichier image puis crée la texture Direct3D 11 correspondante.
- * @param device Device Direct3D 11.
- * @param path   Chemin du fichier image.
+ * @brief Décode un fichier image puis crée la texture GPU correspondante.
+ * @param context Interface de rendu et lot de mises à jour de l'image courante.
+ * @param path    Chemin du fichier image.
  * @return La texture chargée, ou `std::nullopt` si le décodage ou la création GPU échoue.
  */
-[[nodiscard]] std::optional<LoadedTexture> loadTextureFromFile(ID3D11Device* device,
+[[nodiscard]] std::optional<LoadedTexture> loadTextureFromFile(const RhiContext& context,
                                                                const std::filesystem::path& path);
 
 }  // namespace hmi

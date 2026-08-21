@@ -309,24 +309,14 @@
       "type": "solid"
     }
   ],
-  "decors": [
+  "planes": [
     {
-      "asset": "cloud.png",
-      "x": 6.0,
-      "y": 1.5,
-      "layer": "background"
+      "file": "demo-double-saut-fond.png",
+      "pixelsPerUnit": 8
     },
     {
-      "asset": "branch.png",
-      "x": 9.0,
-      "y": 6.3,
-      "layer": "foreground"
-    },
-    {
-      "asset": "grass_tuft.png",
-      "x": 3.0,
-      "y": 10.4,
-      "layer": "background"
+      "file": "demo-double-saut-devant.png",
+      "depth": "front"
     }
   ]
 }

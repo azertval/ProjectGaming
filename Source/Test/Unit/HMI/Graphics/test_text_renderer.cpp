@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_text_renderer.cpp
  * @brief Tests unitaires de la composition de texte en quads sur le calque UI (LOT-52 TACHE-02).

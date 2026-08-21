@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_asset_file_operations.cpp
  * @brief Tests unitaires des opérations fichiers sur les assets (LOT-43 TACHE-02).

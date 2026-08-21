@@ -158,7 +158,12 @@ parfaitement valide, exactement comme l'atlas procédural qu'elle remplace.
 ## À venir (programme `LOT-40` → `LOT-55`)
 
 Ce dossier accueillera d'autres **sous-dossiers par famille d'asset**, chacun avec ses dimensions
-attendues **validées au chargement** (`EX-REN-007`) : `Decors/` (`LOT-49`).
+attendues **validées au chargement** (`EX-REN-007`).
+
+> **`LOT-69`** — le sous-dossier `Decors/`, ajouté au `LOT-49`, a été **retiré** : l'habillage d'un
+> niveau n'est plus un assemblage d'images posées mais un **plan pictural** peint, stocké à côté du
+> niveau (`Source/Elements/Levels/Plans/`) et non parmi les assets réutilisables. Un plan est une
+> donnée **de niveau**, pas une famille d'asset.
 
 Le **rechargement à chaud**, absent aujourd'hui, arrive au `LOT-43` : éditer un asset se reflétera
 sans relancer l'application.

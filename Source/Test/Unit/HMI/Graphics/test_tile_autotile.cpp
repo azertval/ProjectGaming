@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_tile_autotile.cpp
  * @brief Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).

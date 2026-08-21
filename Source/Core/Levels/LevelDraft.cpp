@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "Core/Levels/LevelDraft.h"
 
 #include <algorithm>
@@ -29,11 +32,16 @@ LevelDraft LevelDraft::fromLevel(const Level& level) {
     draft._background = level.background();
     draft._skinSet = level.skinSet();
     draft._textureOverrides = level.textureOverrides();
-    draft._decors = level.decors();
     draft._platformConfigs = level.platformConfigs();
     draft._cameraFraming = level.cameraFraming();
     draft._airJumps = level.airJumps();
     draft._dashCharges = level.dashCharges();
+    // Plans picturaux et drapeau de parallaxe (LOT-69). Les oublier ici ne casse rien
+    // visiblement : le brouillon s'ouvre, s'edite et s'enregistre -- mais il se reenregistre SANS
+    // ses plans, donc ouvrir un niveau habille puis le sauver en effacait tout l'habillage. Defaut
+    // constate a l'essai, invisible en relecture parce que le champ manquant ne fait rien echouer.
+    draft._planes = level.planes();
+    draft._parallaxEnabled = level.parallaxEnabled();
     return draft;
 }
 
@@ -297,144 +305,122 @@ void LevelDraft::removeTextureOverride(GridPosition position) {
     });
 }
 
-void LevelDraft::addDecor(Decor decor) {
+// --- Plans picturaux (EX-DEC-040, LOT-69) ---
+//
+// Discipline commune : un rang hors bornes ne fait RIEN et n'empile RIEN (sinon annuler un geste
+// sans effet consommerait un pas d'historique), et une valeur refusee n'empile pas davantage. Le
+// pushUndo() vient donc toujours APRES les validations, jamais avant.
+//
+// Le deplacement ne raisonne pas par couche, contrairement aux decors : le rang dans la liste EST
+// l'ordre de superposition, la profondeur etant une propriete independante (EX-DEC-042).
+
+void LevelDraft::addPlane(Plane plane) {
     pushUndo();
-    _decors.push_back(std::move(decor));
+    _planes.push_back(std::move(plane));
 }
 
-void LevelDraft::removeDecor(std::size_t index) {
-    if (index >= _decors.size()) {
+void LevelDraft::removePlane(std::size_t index) {
+    if (index >= _planes.size()) {
         return;
     }
     pushUndo();
-    _decors.erase(_decors.begin() + static_cast<std::ptrdiff_t>(index));
+    _planes.erase(_planes.begin() + static_cast<std::ptrdiff_t>(index));
 }
 
-bool LevelDraft::moveDecor(std::size_t index, Vector2 position) {
-    if (index >= _decors.size()) {
+bool LevelDraft::setPlaneDensity(std::size_t index, int pixelsPerUnit) {
+    if (index >= _planes.size() || !isValidPlaneDensity(pixelsPerUnit)) {
         return false;
     }
     pushUndo();
-    _decors[index].position = position;
+    _planes[index].pixelsPerUnit = pixelsPerUnit;
     return true;
 }
 
-bool LevelDraft::resizeDecor(std::size_t index, Vector2 position, Vector2 scale) {
-    if (index >= _decors.size() || scale.x <= 0.0F || scale.y <= 0.0F) {
+bool LevelDraft::setPlaneParallax(std::size_t index, float parallaxX, float parallaxY) {
+    if (index >= _planes.size() || !std::isfinite(parallaxX) || !std::isfinite(parallaxY)) {
         return false;
     }
     pushUndo();
-    _decors[index].position = position;
-    _decors[index].scale = scale;
+    _planes[index].parallaxX = parallaxX;
+    _planes[index].parallaxY = parallaxY;
     return true;
 }
 
-bool LevelDraft::rotateDecor(std::size_t index, float rotation) {
-    if (index >= _decors.size()) {
+bool LevelDraft::setPlaneOpacity(std::size_t index, float opacity) {
+    // Comparaisons ecrites en positif pour rejeter aussi NaN, qui echoue toute comparaison.
+    if (index >= _planes.size() || !(opacity >= 0.0F) || !(opacity <= 1.0F)) {
         return false;
     }
     pushUndo();
-    // Normalise dans [0, 2*pi[ : std::fmod conserve le signe de son operande, un reste negatif
-    // est donc ramene dans l'intervalle par un tour complet supplementaire.
-    constexpr float TWO_PI = 6.28318530717958647692F;
-    float normalized = std::fmod(rotation, TWO_PI);
-    if (normalized < 0.0F) {
-        normalized += TWO_PI;
-    }
-    _decors[index].rotation = normalized;
+    _planes[index].opacity = opacity;
     return true;
 }
 
-std::optional<std::size_t> LevelDraft::setDecorLayer(std::size_t index, DecorLayer layer) {
-    if (index >= _decors.size()) {
-        return std::nullopt;
-    }
-    if (_decors[index].layer == layer) {
-        return index;  // deja la couche courante : succes sans effet, aucun deplacement.
+bool LevelDraft::setPlaneDepth(std::size_t index, PlaneDepth depth) {
+    if (index >= _planes.size()) {
+        return false;
     }
     pushUndo();
-    Decor moved = std::move(_decors[index]);
-    moved.layer = layer;
-    _decors.erase(_decors.begin() + static_cast<std::ptrdiff_t>(index));
-    _decors.push_back(std::move(moved));  // meme convention que addDecor : rang le plus eleve.
-    return _decors.size() - 1;
+    _planes[index].depth = depth;
+    return true;
 }
 
-std::optional<std::size_t> LevelDraft::bringDecorForward(std::size_t index) {
-    if (index >= _decors.size()) {
+std::optional<std::size_t> LevelDraft::movePlaneForward(std::size_t index) {
+    if (index >= _planes.size()) {
         return std::nullopt;
     }
-    const DecorLayer layer = _decors[index].layer;
-    for (std::size_t candidate = index + 1; candidate < _decors.size(); ++candidate) {
-        if (_decors[candidate].layer == layer) {
-            pushUndo();
-            std::swap(_decors[index], _decors[candidate]);
-            return candidate;
-        }
-    }
-    return index;  // deja le plus en avant de sa couche : succes sans effet.
-}
-
-std::optional<std::size_t> LevelDraft::sendDecorBackward(std::size_t index) {
-    if (index >= _decors.size()) {
-        return std::nullopt;
-    }
-    const DecorLayer layer = _decors[index].layer;
-    for (std::size_t candidate = index; candidate > 0; --candidate) {
-        if (_decors[candidate - 1].layer == layer) {
-            pushUndo();
-            std::swap(_decors[index], _decors[candidate - 1]);
-            return candidate - 1;
-        }
-    }
-    return index;  // deja le plus en arriere de sa couche : succes sans effet.
-}
-
-std::optional<std::size_t> LevelDraft::bringDecorToFront(std::size_t index) {
-    if (index >= _decors.size()) {
-        return std::nullopt;
-    }
-    const DecorLayer layer = _decors[index].layer;
-    // Rang le plus eleve deja occupe par un decor de cette couche.
-    std::size_t lastSameLayer = index;
-    for (std::size_t candidate = index + 1; candidate < _decors.size(); ++candidate) {
-        if (_decors[candidate].layer == layer) {
-            lastSameLayer = candidate;
-        }
-    }
-    if (lastSameLayer == index) {
-        return index;  // deja le plus en avant de sa couche : succes sans effet.
+    if (index + 1 == _planes.size()) {
+        return index;  // deja le plus en avant : succes sans effet, rien d'empile.
     }
     pushUndo();
-    Decor moved = std::move(_decors[index]);
-    _decors.erase(_decors.begin() + static_cast<std::ptrdiff_t>(index));
-    // lastSameLayer pointait dans le vecteur AVANT l'effacement : un cran plus loin que l'index
-    // d'insertion voulu, puisque l'effacement a decale tout ce qui suivait `index` d'un rang.
-    const std::size_t insertAt = lastSameLayer;
-    _decors.insert(_decors.begin() + static_cast<std::ptrdiff_t>(insertAt), std::move(moved));
-    return insertAt;
+    std::swap(_planes[index], _planes[index + 1]);
+    return index + 1;
 }
 
-std::optional<std::size_t> LevelDraft::sendDecorToBack(std::size_t index) {
-    if (index >= _decors.size()) {
+std::optional<std::size_t> LevelDraft::movePlaneBackward(std::size_t index) {
+    if (index >= _planes.size()) {
         return std::nullopt;
     }
-    const DecorLayer layer = _decors[index].layer;
-    // Rang le plus bas deja occupe par un decor de cette couche.
-    std::size_t firstSameLayer = index;
-    for (std::size_t candidate = index; candidate > 0; --candidate) {
-        if (_decors[candidate - 1].layer == layer) {
-            firstSameLayer = candidate - 1;
-        }
-    }
-    if (firstSameLayer == index) {
-        return index;  // deja le plus en arriere de sa couche : succes sans effet.
+    if (index == 0) {
+        return index;  // deja le plus en arriere.
     }
     pushUndo();
-    Decor moved = std::move(_decors[index]);
-    _decors.erase(_decors.begin() + static_cast<std::ptrdiff_t>(index));
-    _decors.insert(_decors.begin() + static_cast<std::ptrdiff_t>(firstSameLayer), std::move(moved));
-    return firstSameLayer;
+    std::swap(_planes[index], _planes[index - 1]);
+    return index - 1;
+}
+
+std::optional<std::size_t> LevelDraft::movePlaneToFront(std::size_t index) {
+    if (index >= _planes.size()) {
+        return std::nullopt;
+    }
+    const std::size_t last = _planes.size() - 1;
+    if (index == last) {
+        return index;
+    }
+    pushUndo();
+    Plane moved = std::move(_planes[index]);
+    _planes.erase(_planes.begin() + static_cast<std::ptrdiff_t>(index));
+    _planes.push_back(std::move(moved));
+    return last;
+}
+
+std::optional<std::size_t> LevelDraft::movePlaneToBack(std::size_t index) {
+    if (index >= _planes.size()) {
+        return std::nullopt;
+    }
+    if (index == 0) {
+        return index;
+    }
+    pushUndo();
+    Plane moved = std::move(_planes[index]);
+    _planes.erase(_planes.begin() + static_cast<std::ptrdiff_t>(index));
+    _planes.insert(_planes.begin(), std::move(moved));
+    return 0;
+}
+
+void LevelDraft::setParallaxEnabled(bool enabled) {
+    pushUndo();
+    _parallaxEnabled = enabled;
 }
 
 void LevelDraft::setBackground(std::optional<std::string> background) {
@@ -617,11 +603,12 @@ LevelDraft::State LevelDraft::snapshot() const {
                  .background = _background,
                  .skinSet = _skinSet,
                  .textureOverrides = _textureOverrides,
-                 .decors = _decors,
                  .platformConfigs = _platformConfigs,
                  .cameraFraming = _cameraFraming,
                  .airJumps = _airJumps,
-                 .dashCharges = _dashCharges};
+                 .dashCharges = _dashCharges,
+                 .planes = _planes,
+                 .parallaxEnabled = _parallaxEnabled};
 }
 
 void LevelDraft::restore(State state) {
@@ -638,11 +625,12 @@ void LevelDraft::restore(State state) {
     _background = std::move(state.background);
     _skinSet = std::move(state.skinSet);
     _textureOverrides = std::move(state.textureOverrides);
-    _decors = std::move(state.decors);
     _platformConfigs = std::move(state.platformConfigs);
     _cameraFraming = state.cameraFraming;
     _airJumps = state.airJumps;
     _dashCharges = state.dashCharges;
+    _planes = std::move(state.planes);
+    _parallaxEnabled = state.parallaxEnabled;
 }
 
 void LevelDraft::pushUndo() {
@@ -653,8 +641,8 @@ void LevelDraft::pushUndo() {
 LevelLoadResult LevelDraft::toLevel() const {
     const std::string json = LevelWriter::buildJson(
         _name, _tileMap, _mechanisms, _jumpBudget, _dashBudget, _dangerLinks, _moverConfigs,
-        _blinkConfigs, _background, _skinSet, _textureOverrides, _decors, _platformConfigs,
-        _cameraFraming, _airJumps, _dashCharges);
+        _blinkConfigs, _background, _skinSet, _textureOverrides, _platformConfigs, _cameraFraming,
+        _airJumps, _dashCharges, _planes, _parallaxEnabled);
     return LevelLoader::loadFromString(json);
 }
 

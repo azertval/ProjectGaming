@@ -752,24 +752,14 @@
       "type": "solid"
     }
   ],
-  "decors": [
+  "planes": [
     {
-      "asset": "kenney_torch.png",
-      "x": 3.0,
-      "y": 8.2,
-      "layer": "background"
+      "file": "demo-dangers-avances-fond.png",
+      "pixelsPerUnit": 8
     },
     {
-      "asset": "gear.png",
-      "x": 20.0,
-      "y": 1.0,
-      "layer": "background"
-    },
-    {
-      "asset": "lantern.png",
-      "x": 33.0,
-      "y": 0.2,
-      "layer": "foreground"
+      "file": "demo-dangers-avances-devant.png",
+      "depth": "front"
     }
   ]
 }

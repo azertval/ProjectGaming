@@ -394,30 +394,10 @@
       "type": "solid"
     }
   ],
-  "decors": [
+  "planes": [
     {
-      "asset": "bush.png",
-      "x": 2.0,
-      "y": 9.2,
-      "layer": "background"
-    },
-    {
-      "asset": "cloud.png",
-      "x": 18.0,
-      "y": 2.0,
-      "layer": "background"
-    },
-    {
-      "asset": "mushroom.png",
-      "x": 6.0,
-      "y": 10.2,
-      "layer": "background"
-    },
-    {
-      "asset": "grass_tuft.png",
-      "x": 22.0,
-      "y": 8.4,
-      "layer": "background"
+      "file": "demo-pente-fond.png",
+      "pixelsPerUnit": 8
     }
   ]
 }

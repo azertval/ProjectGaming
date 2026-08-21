@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_plateforme_composition.cpp
  * @brief Test d'intégration de la composition ECS d'une plateforme mobile (`EX-GP-026`,
@@ -78,7 +81,7 @@ TEST(PlateformeCompositionTest, EntiteTuileSuitLaPositionSimulee) {
 
     core::World world;
     core::buildLevelScene(
-        world, level, [](core::TileType) { return core::AtlasRegion{}; }, nullptr, nullptr);
+        world, level, [](core::TileType) { return core::AtlasRegion{}; }, nullptr);
 
     const core::Entity platform = findPlatformEntity(world, config.startPosition);
     ASSERT_TRUE(world.hasComponent<core::Transform>(platform));

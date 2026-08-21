@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <cstdint>
@@ -62,7 +65,7 @@ struct TextAnchor {
  *          partagée avec la scène monde soumise par `hmi::SpriteRenderer`.
  * @param scene     Scène composée, remplie (pas vidée : la composition peut être cumulative).
  * @param metrics   Métriques de la police utilisée (`hmi::BitmapFont::metrics`).
- * @param texture   Texture de l'atlas de glyphes (`hmi::BitmapFont::textureView`).
+ * @param texture   Texture de l'atlas de glyphes (`hmi::BitmapFont::textureHandle`).
  * @param textureWidth  Largeur de l'atlas de glyphes, en pixels (normalisation UV).
  * @param textureHeight Hauteur de l'atlas de glyphes, en pixels (normalisation UV).
  * @param text      Texte à composer, encodé en UTF-8.

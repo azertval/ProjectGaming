@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <cstddef>
@@ -27,16 +30,31 @@
 
 namespace hmi {
 
-/// Espace de travail actif. Les deux s'excluent : aucun état intermédiaire n'existe.
+/// Espace de travail actif. Ils s'excluent : aucun état intermédiaire n'existe.
 enum class EditorWorkspace {
     Level,     ///< Édition de niveau.
+    Planes,    ///< Mode création : peinture des plans picturaux (`LOT-69`, `EX-EDIT-046`).
     PixelArt,  ///< Atelier pixel art.
 };
 
 /// Nombre d'espaces, déclaré au plus près de l'énumération qu'il compte.
-inline constexpr std::size_t EDITOR_WORKSPACE_COUNT = 2;
+inline constexpr std::size_t EDITOR_WORKSPACE_COUNT = 3;
 
-/// Ce qu'un espace affiche, hors panneaux (voir `workspaceForPanel`). Même patron que
+/// Ensemble d'espaces, un bit par valeur de `hmi::EditorWorkspace`.
+using EditorWorkspaceMask = unsigned;
+
+/// @return Le masque ne contenant que @p workspace.
+[[nodiscard]] constexpr EditorWorkspaceMask workspaceBit(EditorWorkspace workspace) noexcept {
+    return 1u << static_cast<unsigned>(workspace);
+}
+
+/// @return `true` si @p mask contient @p workspace.
+[[nodiscard]] constexpr bool workspaceMaskContains(EditorWorkspaceMask mask,
+                                                   EditorWorkspace workspace) noexcept {
+    return (mask & workspaceBit(workspace)) != 0u;
+}
+
+/// Ce qu'un espace affiche, hors panneaux (voir `workspacesForPanel`). Même patron que
 /// `hmi::ScreenDressing` : une table décide, la fenêtre applique.
 struct WorkspaceDressing {
     bool levelToolBarVisible = false;
@@ -51,9 +69,22 @@ struct WorkspaceDressing {
 /// fois : c'est la propriété que le lot existe pour établir.
 [[nodiscard]] WorkspaceDressing dressingForWorkspace(EditorWorkspace workspace) noexcept;
 
-/// @return L'espace auquel appartient @p panel. **Total** : chaque panneau appartient à exactement
-/// un espace, sans quoi il resterait affiché dans les deux.
-[[nodiscard]] EditorWorkspace workspaceForPanel(PanelId panel) noexcept;
+/**
+ * @brief Espaces dans lesquels @p panel est affiché.
+ *
+ * **Un masque, pas une valeur unique**, depuis le `LOT-69` TACHE-08. La déclaration précédente
+ * était *totale* — « chaque panneau appartient à exactement un espace » — et cela ne tient plus :
+ * le canevas, l'historique et la palette servent **à la fois** à l'atelier pixel art et au mode
+ * création. Dupliquer les docks serait pire (deux canevas, deux historiques, deux états à tenir
+ * synchronisés) ; le masque dit simplement la vérité.
+ *
+ * La garde de complétude change en conséquence : elle vérifiait « exactement un espace », elle
+ * vérifie désormais « **masque non vide** ». Un panneau sans espace resterait affiché partout, ce
+ * qui viderait la séparation de son sens — et ne se verrait qu'à l'écran, jamais en relecture.
+ * @param panel Panneau interrogé.
+ * @return Le masque des espaces qui l'affichent ; jamais vide.
+ */
+[[nodiscard]] EditorWorkspaceMask workspacesForPanel(PanelId panel) noexcept;
 
 /// @return L'espace auquel appartient @p tool — toujours `Level`, les deux groupes d'outils étant
 /// disjoints par construction. Existe pour que `MainWindow` bascule d'espace en suivant une table

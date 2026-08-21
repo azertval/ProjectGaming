@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Valentin Eloy
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Lint des identifiants d'exigences (EX-...) de ProjectGaming.
 
 Vérifie que les identifiants d'exigences forment un référentiel cohérent :

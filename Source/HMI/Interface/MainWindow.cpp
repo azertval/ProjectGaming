@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Interface/MainWindow.h"
 
 #include <QAction>
@@ -53,7 +56,6 @@
 #include "HMI/Audio/SoundTriggers.h"
 #include "HMI/Diagnostics/SessionLog.h"
 #include "HMI/Editor/AssetReferences.h"
-#include "HMI/Editor/DecorsPanel.h"
 #include "HMI/Editor/EditorStatus.h"
 #include "HMI/Editor/LevelBrowserPanel.h"
 #include "HMI/Editor/LevelFileOperations.h"
@@ -65,10 +67,14 @@
 #include "HMI/Editor/PixelHistoryPanel.h"
 #include "HMI/Editor/PixelPalette.h"
 #include "HMI/Editor/PixelPalettePanel.h"
+#include "HMI/Editor/PlaneFileNaming.h"
+#include "HMI/Editor/PlaneReference.h"
+#include "HMI/Editor/PlanesPanel.h"
 #include "HMI/Editor/PropertiesPanel.h"
 #include "HMI/Editor/TexturePanel.h"
 #include "HMI/Game/GameViewport.h"
 #include "HMI/Graphics/AssetContract.h"
+#include "HMI/Graphics/PlaneVisuals.h"
 #include "HMI/Graphics/TextureLoader.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Input/GamepadButton.h"
@@ -95,7 +101,8 @@ namespace {
 // Version de la disposition sérialisée : à incrémenter si l'ensemble des docks change, pour
 // invalider proprement une disposition sauvegardée devenue incompatible (`restoreState`).
 constexpr int LAYOUT_VERSION =
-    8;  // 8 : espaces de travail exclusifs, une disposition par espace (LOT-68)
+    9;  // 9 : retrait du panneau Décors avec le système de décors (LOT-69 TACHE-04)
+        // 8 : espaces de travail exclusifs, une disposition par espace (LOT-68)
         // 7 : panneau de palette de l'atelier pixel art rejoint le regroupement (LOT-54 TACHE-07)
         // 6 : atelier pixel art (canevas + historique) rejoint le regroupement Niveaux/Liens
         //     (LOT-54 TACHE-04)
@@ -111,6 +118,9 @@ constexpr char STATE_KEY[] = "mainWindow/state";
 constexpr char FOLLOW_ACTIVE_TOOL_KEY[] = "panels/followActiveTool";
 // Espace de travail actif (LOT-68) : meme portee QSettings que la disposition et le theme.
 constexpr char WORKSPACE_KEY[] = "mainWindow/workspace";
+/// Opacite des reperes du mode creation (pelure d'oignon, plans voisins) : assez visible pour
+/// situer, assez efface pour qu'on ne confonde jamais un repere avec ce qu'on peint.
+constexpr float PLANE_REFERENCE_OPACITY = 0.45f;
 // Reglage "contraindre a la palette" de l'atelier pixel art (LOT-54 TACHE-07).
 constexpr char CONSTRAIN_TO_PALETTE_KEY[] = "pixelEditor/constrainToPalette";
 
@@ -126,11 +136,9 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
       _stack(nullptr),
       _menu(nullptr),
       _options(nullptr),
-      _editorContainer(nullptr),
       _viewport(new GameViewport()),
       _palette(nullptr),
       _levels(nullptr),
-      _decors(nullptr),
       _links(nullptr),
       _textures(nullptr),
       _pixelCanvas(nullptr),
@@ -175,10 +183,11 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     }
     _viewport->setAudioEngine(&_audio);
 
-    // `createWindowContainer` embarque la fenêtre native du viewport et en prend la propriété.
-    _editorContainer = QWidget::createWindowContainer(_viewport, this);
-    _editorContainer->setMinimumSize(320, 240);
-    _editorContainer->setFocusPolicy(Qt::StrongFocus);
+    // Le viewport est un widget ordinaire depuis le LOT-69 TACHE-02 (QRhiWidget) : il entre
+    // directement dans la pile centrale, sans conteneur de fenêtre native intermédiaire.
+    _viewport->setMinimumSize(320, 240);
+    _viewport->setFocusPolicy(Qt::StrongFocus);
+    _viewport->installEventFilter(this);
 
     // Central : menu principal, options et viewport empilés (remplace le centralHost du .ui).
     _menu = new MainMenu();
@@ -191,7 +200,7 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     _stack->addWidget(_options);
     _stack->addWidget(_levelSelectScreen);
     _stack->addWidget(_credits);
-    _stack->addWidget(_editorContainer);
+    _stack->addWidget(_viewport);
     setCentralWidget(_stack);
     connect(_levelSelectScreen, &LevelSelectScreen::backRequested, this,
             &MainWindow::closeLevelSelect);
@@ -201,21 +210,15 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
             &MainWindow::playPersonalLevel);
     connect(_credits, &CreditsScreen::backRequested, this, &MainWindow::closeCredits);
 
-    // Recouvrement de pause (LOT-59 TACHE-02) : fenêtre de HAUT NIVEAU possédée par `this`
-    // (Qt::Dialog -- pas d'entrée dans la barre des tâches vu qu'elle a un propriétaire, reste
-    // au-dessus de lui sans Qt::WindowStaysOnTopHint), PAS un enfant de _stack. Un widget Qt
-    // ordinaire, même frère du conteneur natif du viewport (_editorContainer,
-    // QWidget::createWindowContainer), ne se dessine JAMAIS de façon fiable par-dessus la fenêtre
-    // native qu'il embarque, quel que soit son raise() -- limitation documentée de Qt, constatée
-    // en jeu (TACHE-07 : l'écran ne s'affichait pas, la simulation restait figée sans rien à
-    // l'écran). PAS Qt::Tool (essayé d'abord, décrit ci-dessous) : sur Windows, Qt affiche une
-    // fenêtre Qt::Tool avec SW_SHOWNOACTIVATE -- par conception, pour les palettes flottantes qui
-    // ne doivent jamais voler le focus -- ce qui empêche `activateWindow()` de fonctionner
-    // (deuxième bug réel trouvé en jeu : Entrée/Échap restaient sans effet). Qt::Dialog n'a pas
-    // cette restriction, une fenêtre de dialogue étant conçue pour recevoir le focus normalement.
-    // Géométrie synchronisée en coordonnées ÉCRAN (syncOverlayGeometry), pas relative à _stack.
-    _pauseScreen = new PauseScreen(this);
-    _pauseScreen->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
+    // Recouvrement de pause (LOT-59 TACHE-02) : widget ENFANT ORDINAIRE du viewport depuis le
+    // LOT-69 TACHE-02. Il avait dû devenir une fenêtre de haut niveau (Qt::Dialog) parce qu'un
+    // widget frère ne se dessinait jamais de façon fiable par-dessus la fenêtre native embarquée
+    // par createWindowContainer -- deux défauts réels payés au LOT-59 (l'écran ne s'affichait pas,
+    // puis Qt::Tool cassait activateWindow() sur Windows). QRhiWidget rendant dans une texture
+    // composée avec le reste de l'interface, l'empilement redevient celui de Qt : un enfant
+    // raise() suffit, le focus s'obtient sans activation de fenêtre, et la géométrie se donne en
+    // coordonnées locales.
+    _pauseScreen = new PauseScreen(_viewport);
     _pauseScreen->setAttribute(Qt::WA_TranslucentBackground);
     _pauseScreen->hide();
     connect(_pauseScreen, &PauseScreen::resumeRequested, this, &MainWindow::resumeFromPause);
@@ -225,9 +228,8 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_viewport, &GameViewport::pauseRequested, this, &MainWindow::openPause);
 
     // Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même patron que _pauseScreen
-    // ci-dessus (fenêtre de haut niveau Qt::Dialog, pas un enfant de _stack).
-    _levelCompleteScreen = new LevelCompleteScreen(this);
-    _levelCompleteScreen->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
+    // ci-dessus (enfant du viewport).
+    _levelCompleteScreen = new LevelCompleteScreen(_viewport);
     _levelCompleteScreen->setAttribute(Qt::WA_TranslucentBackground);
     _levelCompleteScreen->hide();
     connect(_levelCompleteScreen, &LevelCompleteScreen::continueRequested, this,
@@ -250,9 +252,8 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_palette, &PalettePanel::tileSelected, _viewport,
             [this](core::TileType type) { _viewport->setActiveTile(type); });
     // Raccourci clavier de l'outil « Texture par instance » (LOT-45, « touche dédiée ») :
-    // resynchronise le panneau Décors (visibilité du sélecteur de placement) et la barre d'outils
-    // (LOT-56 TACHE-04), sans reboucler (setActiveTool n'émet rien).
-    connect(_viewport, &GameViewport::toolChanged, _decors, &DecorsPanel::setActiveTool);
+    // resynchronise la barre d'outils (LOT-56 TACHE-04), sans reboucler (setActiveTool n'émet
+    // rien).
     connect(_viewport, &GameViewport::toolChanged, _actions, &EditorActions::setActiveTool);
     // Les messages d'état du viewport (enregistrement, essai, erreurs) s'affichent en bas, puis
     // laissent la main à l'aide contextuelle (LOT-57 TACHE-01).
@@ -289,7 +290,8 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
                                       _viewport->draft().skinSet());
         _textures->setLevelCameraFraming(_viewport->draft().cameraFraming());
         _textures->refreshObjects(_viewport->draft());
-        _decors->refreshDecors(_viewport->draft(), _viewport->selectedDecorIndex());
+        _planes->refresh(_viewport->draft(), _viewport->selectedPlaneIndex(),
+                         _viewport->planeVisibility());
         // Le panneau Proprietes reflete le brouillon ET la selection courante : une mutation peut
         // changer les deux (retirer un point de parcours, par exemple).
         _properties->refresh(_viewport->draft(), _viewport->selectedPath(),
@@ -313,37 +315,12 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_textures, &TexturePanel::textureOverrideRemoveRequested, _viewport,
             &GameViewport::removeTextureOverride);
 
-    // Outil Décor (LOT-49 TACHE-04) : choisir un asset/une couche dans le panneau Décors arme le
-    // clic de placement du viewport, même séparation que la section « Objets » ci-dessus.
-    connect(_decors, &DecorsPanel::decorAssetSelected, _viewport, [this](const QString& fileName) {
-        _viewport->setActiveDecorAsset(
-            fileName.isEmpty() ? std::nullopt : std::make_optional(fileName.toStdString()));
-    });
-    connect(_decors, &DecorsPanel::decorLayerSelected, _viewport,
-            &GameViewport::setActiveDecorLayer);
-    connect(_decors, &DecorsPanel::decorSnapToGridChanged, _viewport,
-            &GameViewport::setDecorSnapToGrid);
     _textures->refreshObjects(_viewport->draft());  // etat initial (avant tout draftChanged).
 
-    // Inspecteur de décors (LOT-50 TACHE-04, déplacé dans le panneau Décors LOT-57) : sélection
-    // croisée avec le canevas -- une seule source (`hmi::GameViewport::selectedDecorIndex`), les
-    // deux vues ne font que la refléter. Les actions de la liste (réordonner/changer de
-    // couche/supprimer/centrer) passent par les mêmes mutateurs que le canevas, donc annulables.
-    connect(_decors, &DecorsPanel::decorSelected, _viewport, &GameViewport::selectDecor);
-    connect(_viewport, &GameViewport::decorSelectionChanged, this,
-            [this](std::optional<std::size_t> index) {
-                _decors->refreshDecors(_viewport->draft(), index);
-            });
-    connect(_decors, &DecorsPanel::decorForwardRequested, _viewport,
-            &GameViewport::bringDecorForward);
-    connect(_decors, &DecorsPanel::decorBackwardRequested, _viewport,
-            &GameViewport::sendDecorBackward);
-    connect(_decors, &DecorsPanel::decorLayerChangeRequested, _viewport,
-            &GameViewport::setDecorLayer);
-    connect(_decors, &DecorsPanel::decorRemoveRequested, _viewport, &GameViewport::removeDecor);
-    connect(_decors, &DecorsPanel::decorCenterRequested, _viewport,
-            &GameViewport::centerCameraOnDecor);
-    _decors->refreshDecors(_viewport->draft(), _viewport->selectedDecorIndex());
+    // Panneau « Plans » (LOT-69 TACHE-08) : le panneau ne mute rien, il demande. Le viewport,
+    // seul proprietaire du brouillon, applique -- donc tout passe par l'historique, sauf la
+    // visibilite, qui est une aide d'edition.
+    connectPlanesPanel();
 
     // Panneau Textures : agit sur le catalogue dont le viewport est proprietaire, et lui signale
     // le jeu courant. Aucune scene n'est reconstruite -- l'apparence est resolue a la composition,
@@ -429,7 +406,6 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_textures, &TexturePanel::reloadRequested, this, [this] {
         _viewport->reloadAssets();
         _textures->reloadAssets();
-        _decors->reloadDecorThumbnails();  // LOT-57 : vignettes de l'inspecteur de decors.
         _palette->clearThumbnailCache();
         _palette->refreshThumbnails(_viewport->renderMode(), _textures->currentSet());
         showTransientStatusMessage(text("textures.reload_done"), 3000);
@@ -478,11 +454,15 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
 
     // Espace de travail persiste (LOT-68) : on rouvre l'editeur la ou on l'a laisse. Applique
     // APRES restoreLayout, qui restaurerait sinon des docks des deux espaces.
-    const bool startInWorkshop =
-        QSettings().value(QString::fromLatin1(WORKSPACE_KEY), 0).toInt() == 1;
-    _ui->actWorkspacePixelArt->setChecked(startInWorkshop);
-    _ui->actWorkspaceLevel->setChecked(!startInWorkshop);
-    applyWorkspace(startInWorkshop ? EditorWorkspace::PixelArt : EditorWorkspace::Level);
+    // Le mode creation n'est JAMAIS restaure au demarrage, meme si l'editeur y a ete laisse : il
+    // suppose un niveau ouvert et un plan selectionne, dont rien ne garantit qu'ils existent
+    // encore. On rouvre alors sur l'edition de niveau, d'ou « Peindre » y ramene en un clic.
+    const EditorWorkspace restored =
+        workspaceFromSettingsName(QSettings().value(QString::fromLatin1(WORKSPACE_KEY)).toString());
+    const EditorWorkspace startWorkspace =
+        restored == EditorWorkspace::Planes ? EditorWorkspace::Level : restored;
+    workspaceSelector(startWorkspace)->setChecked(true);
+    applyWorkspace(startWorkspace);
 
     showMenu();  // l'application démarre sur le menu principal.
 }
@@ -500,7 +480,8 @@ void MainWindow::setDocksVisible(bool visible) {
     // "l'utilisateur a impose un panneau" (LOT-57 TACHE-02).
     _suppressPanelFocusTracking = true;
     for (const auto& [dock, panel] : workspacePanels()) {
-        dock->setVisible(visible && hmi::workspaceForPanel(panel) == _workspace);
+        dock->setVisible(visible &&
+                         hmi::workspaceMaskContains(hmi::workspacesForPanel(panel), _workspace));
     }
     _suppressPanelFocusTracking = false;
 }
@@ -511,7 +492,7 @@ std::array<std::pair<QDockWidget*, hmi::PanelId>, hmi::PANEL_COUNT> MainWindow::
     // premier dock ajoute, et le dock oublie resterait affiche dans les deux espaces.
     return {{
         {_ui->PalettePanel, hmi::PanelId::Palette},
-        {_ui->DecorsPanel, hmi::PanelId::Decors},
+        {_ui->PlanesPanel, hmi::PanelId::Planes},
         {_ui->LevelsPanel, hmi::PanelId::Levels},
         {_ui->LinksPanel, hmi::PanelId::Links},
         {_ui->PropertiesPanel, hmi::PanelId::Properties},
@@ -564,7 +545,7 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
         case ScreenId::Game:
         case ScreenId::Pause:
         case ScreenId::NiveauTermine:
-            _stack->setCurrentWidget(_editorContainer);
+            _stack->setCurrentWidget(_viewport);
             break;
     }
 
@@ -578,20 +559,14 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
     const bool showPauseOverlay = screen == ScreenId::Pause;
     _pauseScreen->setVisible(showPauseOverlay);
     if (showPauseOverlay) {
-        syncOverlayGeometry();
+        _pauseScreen->setGeometry(_viewport->rect());
         _pauseScreen->raise();
-        _pauseScreen->activateWindow();
-        // focusDefaultAction() différé (LOT-59 TACHE-07, bug réel trouvé à l'essai manuel :
-        // Entrée ne faisait rien dans le menu de pause) : _pauseScreen est une fenêtre de haut
-        // niveau distincte, elle ne partage plus automatiquement l'activation de `this`.
-        // activateWindow() ne fait que POSTER la demande d'activation côté OS -- Qt ne marque la
-        // fenêtre comme réellement active qu'en traitant le WM_ACTIVATE en retour, plus tard dans
-        // la boucle d'événements. Poser le focus clavier dans le même appel, avant ce traitement,
-        // ne prend pas effet côté routage clavier de l'OS (même si `QWidget::hasFocus()` répond
-        // vrai côté Qt) : Entrée/Échap restent routés vers la fenêtre précédemment active. Un
-        // délai de 0 ms (prochain tour de la boucle d'événements) suffit à laisser l'activation se
-        // terminer avant de poser le focus.
-        QTimer::singleShot(0, _pauseScreen, [this] { _pauseScreen->focusDefaultAction(); });
+        // Enfant ordinaire depuis le LOT-69 TACHE-02 : le focus se pose directement, sans
+        // activation de fenêtre ni report d'un tour de boucle. Le détour différé qu'imposait la
+        // fenêtre de haut niveau (LOT-59 TACHE-07 : activateWindow() ne fait que poster la demande
+        // à l'OS, et poser le focus avant son traitement laissait Entrée/Échap routés vers la
+        // fenêtre précédente) n'a plus lieu d'être.
+        _pauseScreen->focusDefaultAction();
     }
 
     // Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même règle que _pauseScreen
@@ -600,17 +575,14 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
     const bool showLevelCompleteOverlay = screen == ScreenId::NiveauTermine;
     _levelCompleteScreen->setVisible(showLevelCompleteOverlay);
     if (showLevelCompleteOverlay) {
-        syncOverlayGeometry();
+        _levelCompleteScreen->setGeometry(_viewport->rect());
         _levelCompleteScreen->raise();
-        _levelCompleteScreen->activateWindow();
-        // Focus différé : cf. commentaire de _pauseScreen ci-dessus (même piège d'activation).
-        QTimer::singleShot(0, _levelCompleteScreen,
-                           [this] { _levelCompleteScreen->focusDefaultAction(); });
+        _levelCompleteScreen->focusDefaultAction();
     }
 
     if (!showPauseOverlay && !showLevelCompleteOverlay &&
         (screen == ScreenId::Editor || screen == ScreenId::Game)) {
-        _editorContainer->setFocus();
+        _viewport->setFocus();
     } else if (screen == ScreenId::LevelSelect) {
         _levelSelectScreen->focusDefaultAction();
     } else if (screen == ScreenId::Credits) {
@@ -633,19 +605,313 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
     refreshStatusHelp();
 }
 
-void MainWindow::syncOverlayGeometry() {
-    // Coordonnées ÉCRAN, pas relatives à _stack : _pauseScreen/_levelCompleteScreen sont des
-    // fenêtres de haut niveau depuis TACHE-07 (cf. leur commentaire de construction), plus des
-    // enfants de _stack -- setGeometry(_stack->rect()) les positionnerait n'importe où (coin
-    // haut-gauche de l'écran, taille de _stack) plutôt que par-dessus le viewport.
-    const QRect overlayRect(_editorContainer->mapToGlobal(QPoint(0, 0)), _editorContainer->size());
-    _pauseScreen->setGeometry(overlayRect);
-    _levelCompleteScreen->setGeometry(overlayRect);
+void MainWindow::connectPlanesPanel() {
+    const auto refreshPlanes = [this] {
+        _planes->refresh(_viewport->draft(), _viewport->selectedPlaneIndex(),
+                         _viewport->planeVisibility());
+        // Les reperes du mode creation montrent les plans VOISINS : toute mutation qui change leur
+        // ordre, leur opacite ou leur visibilite les perime. Les rafraichir ici couvre chaque
+        // mutation d'un seul geste, plutot qu'une ligne oubliee sur la neuvieme.
+        refreshPlaneReferences();
+    };
+
+    connect(_planes, &PlanesPanel::planeSelected, _viewport, &GameViewport::selectPlane);
+    connect(_viewport, &GameViewport::planeSelectionChanged, this,
+            [refreshPlanes](std::optional<std::size_t>) { refreshPlanes(); });
+    connect(_planes, &PlanesPanel::addRequested, this, &MainWindow::createPlane);
+    connect(_planes, &PlanesPanel::removeRequested, this, [this](std::size_t index) {
+        _viewport->removePlane(index);
+        // Le FICHIER n'est pas supprime : le brouillon annule l'entree JSON, pas la disparition
+        // d'une image. Un fichier orphelin est moins grave qu'un travail perdu -- et le dire dans
+        // la barre d'etat evite que l'auteur croie avoir tout perdu.
+        showTransientStatusMessage(text("planes.removed"), 4000);
+    });
+    connect(_planes, &PlanesPanel::paintRequested, this, [this](std::size_t index) {
+        _viewport->selectPlane(index);
+        if (_workspace == hmi::EditorWorkspace::Planes) {
+            // Deja en mode creation : switchToWorkspace ne ferait rien (meme espace), c'est donc
+            // ici que le changement de plan doit charger le nouveau sujet dans le canevas.
+            if (_paintedPlane != index && confirmDiscardPlaneChanges()) {
+                loadPlaneIntoCanvas(index);
+            }
+            return;
+        }
+        switchToWorkspace(hmi::EditorWorkspace::Planes);
+    });
+    connect(_planes, &PlanesPanel::reorderRequested, _viewport, &GameViewport::movePlane);
+    connect(_planes, &PlanesPanel::depthChangeRequested, this,
+            [this, refreshPlanes](std::size_t index, core::PlaneDepth depth) {
+                _viewport->setPlaneDepth(index, depth);
+                refreshPlanes();
+            });
+    connect(_planes, &PlanesPanel::densityChangeRequested, this, &MainWindow::changePlaneDensity);
+    connect(_planes, &PlanesPanel::parallaxChangeRequested, _viewport,
+            &GameViewport::setPlaneParallax);
+    connect(_planes, &PlanesPanel::opacityChangeRequested, _viewport,
+            &GameViewport::setPlaneOpacity);
+    connect(_planes, &PlanesPanel::levelParallaxToggled, _viewport,
+            &GameViewport::setLevelParallaxEnabled);
+    connect(_planes, &PlanesPanel::visibilityToggled, this,
+            [this, refreshPlanes](std::size_t index, bool visible) {
+                _viewport->setPlaneVisible(index, visible);
+                refreshPlanes();
+            });
+    connect(_planes, &PlanesPanel::isolateToggled, this,
+            [this, refreshPlanes](std::size_t index, bool isolate) {
+                _viewport->setPlaneIsolated(index, isolate);
+                refreshPlanes();
+            });
+}
+
+std::filesystem::path MainWindow::planesDirectory() const {
+    return hmi::executableDirectory() / "Levels" / "Plans";
+}
+
+void MainWindow::createPlane() {
+    const core::LevelDraft& draft = _viewport->draft();
+    core::Plane plane;
+    plane.pixelsPerUnit = core::PLANE_NATIVE_PIXELS_PER_UNIT;
+
+    // Nom derive de celui du niveau, unique par suffixe : un dossier de plans doit rester lisible
+    // a l'oeil, et un plan se retrouver sans ouvrir l'editeur.
+    std::vector<std::string> existing;
+    for (const core::Plane& present : draft.planes()) {
+        existing.push_back(present.fileName);
+    }
+    plane.fileName = hmi::uniquePlaneFileName(draft.name(), existing);
+
+    const hmi::PlanePixelSize size =
+        hmi::planePixelSize(draft.tileMap().width(), draft.tileMap().height(), plane.pixelsPerUnit);
+    if (plane.fileName.empty() || size.width <= 0) {
+        showTransientStatusMessage(text("planes.create_failed"), 4000);
+        return;
+    }
+
+    // PNG entierement TRANSPARENT aux dimensions exactes : l'auteur peint dessus, il ne repart pas
+    // d'un fond a effacer.
+    hmi::DecodedImage image;
+    image.width = size.width;
+    image.height = size.height;
+    image.pixels.assign(
+        static_cast<std::size_t>(size.width) * static_cast<std::size_t>(size.height), 0u);
+
+    std::error_code error;
+    std::filesystem::create_directories(planesDirectory(), error);
+    if (!hmi::encodeImageFile(planesDirectory() / plane.fileName, image)) {
+        showTransientStatusMessage(text("planes.create_failed"), 4000);
+        return;
+    }
+
+    const QString fileName = QString::fromStdString(plane.fileName);
+    _viewport->addPlane(std::move(plane));
+    showTransientStatusMessage(text("planes.added").arg(fileName), 3000);
+}
+
+void MainWindow::changePlaneDensity(std::size_t index, int pixelsPerUnit) {
+    const core::LevelDraft& draft = _viewport->draft();
+    if (index >= draft.planes().size()) {
+        return;
+    }
+    const core::Plane& plane = draft.planes()[index];
+    if (plane.pixelsPerUnit == pixelsPerUnit) {
+        return;
+    }
+
+    // L'image suit la densite declaree : sans ce reechantillonnage, le fichier et le format
+    // diraient deux choses differentes, et le controle de coherence (TACHE-10) le refuserait.
+    // La perte est reelle et assumee -- descendre puis remonter ne restitue pas l'original.
+    const std::filesystem::path path = planesDirectory() / plane.fileName;
+    if (const std::optional<hmi::DecodedImage> current = hmi::decodeImageFile(path)) {
+        const hmi::DecodedImage resampled =
+            hmi::resamplePlane(*current, plane.pixelsPerUnit, pixelsPerUnit);
+        if (resampled.width > 0 && !hmi::encodeImageFile(path, resampled)) {
+            showTransientStatusMessage(text("planes.create_failed"), 4000);
+            return;
+        }
+    }
+    _viewport->setPlaneDensity(index, pixelsPerUnit);
+    _viewport->reloadAssets();
+    _planes->refresh(_viewport->draft(), _viewport->selectedPlaneIndex(),
+                     _viewport->planeVisibility());
+    // Le plan peint vient peut-etre de changer de resolution sous le canevas : le relire est plus
+    // sur que de rehausser l'image en place, l'image de reference du disque etant l'autorite.
+    if (_paintedPlane == index) {
+        loadPlaneIntoCanvas(index);
+    }
+}
+
+std::filesystem::path MainWindow::planeFilePath(std::size_t index) const {
+    const std::vector<core::Plane>& planes = _viewport->draft().planes();
+    if (index >= planes.size()) {
+        return {};
+    }
+    return planesDirectory() / planes[index].fileName;
+}
+
+void MainWindow::loadPlaneIntoCanvas(std::size_t index) {
+    const std::filesystem::path path = planeFilePath(index);
+    if (path.empty()) {
+        closePlaneInCanvas();
+        return;
+    }
+    const core::Plane& plane = _viewport->draft().planes()[index];
+
+    // Image absente ou illisible : on repart d'une surface TRANSPARENTE aux dimensions attendues
+    // plutot que de refuser d'ouvrir. Le fichier a pu etre supprime hors de l'editeur, et un plan
+    // qu'on ne peut plus peindre serait une impasse -- l'enregistrement le recreera (EX-NFR-040).
+    const hmi::PlanePixelSize size =
+        hmi::planePixelSize(_viewport->levelWidth(), _viewport->levelHeight(), plane.pixelsPerUnit);
+    std::optional<hmi::DecodedImage> image = hmi::decodeImageFile(path);
+    if (!image || image->width != size.width || image->height != size.height) {
+        if (size.width <= 0) {
+            closePlaneInCanvas();
+            showTransientStatusMessage(text("planes.paint_failed"), 4000);
+            return;
+        }
+        hmi::DecodedImage blank;
+        blank.width = size.width;
+        blank.height = size.height;
+        blank.pixels.assign(
+            static_cast<std::size_t>(size.width) * static_cast<std::size_t>(size.height), 0u);
+        image = std::move(blank);
+    }
+
+    // setImage vide l'historique : un coup de pinceau dans un plan n'apparait JAMAIS dans
+    // l'historique d'edition du niveau, ni reciproquement (critere d'acceptation du lot). Les deux
+    // piles sont deja distinctes -- LevelDraft d'un cote, PixelHistory de l'autre -- et changer de
+    // sujet dans le canevas repart d'une pile vierge.
+    _pixelCanvas->setImage(std::move(*image));
+    _pixelCanvas->setAssetName(plane.fileName);
+    _pixelAssetPath.clear();  // un plan n'est pas un asset : Ctrl+S passe par savePlaneImage.
+    _paintedPlane = index;
+    refreshPlaneReferences();
+    syncPaletteToCanvas();
+    refreshStatusHelp();
+}
+
+void MainWindow::refreshPlaneReferences() {
+    if (!_paintedPlane) {
+        return;
+    }
+    const core::LevelDraft& draft = _viewport->draft();
+    const std::vector<core::Plane>& planes = draft.planes();
+
+    // Le rang du plan peint est re-resolu par son NOM DE FICHIER a chaque rafraichissement, jamais
+    // conserve tel quel : monter ou descendre un plan change les rangs, et un rang memorise
+    // designerait alors le voisin -- on peindrait dans une image et on en verrait une autre. Le
+    // nom, lui, suit le plan. S'il a disparu de la liste, le plan a ete retire : on referme.
+    const std::string& painted = _pixelCanvas->assetName();
+    const auto found = std::ranges::find_if(
+        planes, [&painted](const core::Plane& plane) { return plane.fileName == painted; });
+    if (found == planes.end()) {
+        closePlaneInCanvas();
+        return;
+    }
+    _paintedPlane = static_cast<std::size_t>(std::distance(planes.begin(), found));
+    const int density = found->pixelsPerUnit;
+
+    // Les plans voisins, aplatis de part et d'autre du plan peint : ceux qui le precedent sous
+    // l'image editee, ceux qui le suivent au-dessus. C'est ce qui rend l'ordre de la liste visible
+    // pendant qu'on peint, plutot qu'apres coup a l'essai.
+    std::vector<hmi::PlaneLayer> below;
+    std::vector<hmi::PlaneLayer> above;
+    std::vector<std::optional<hmi::DecodedImage>> images(planes.size());
+    for (std::size_t rank = 0; rank < planes.size(); ++rank) {
+        if (rank == *_paintedPlane) {
+            continue;
+        }
+        images[rank] = hmi::decodeImageFile(planeFilePath(rank));
+        if (!images[rank]) {
+            continue;
+        }
+        hmi::PlaneLayer layer;
+        layer.image = &*images[rank];
+        layer.pixelsPerUnit = planes[rank].pixelsPerUnit;
+        layer.opacity = planes[rank].opacity;
+        layer.visible = _viewport->planeVisibility().visible(rank);
+        (rank < *_paintedPlane ? below : above).push_back(layer);
+    }
+
+    const int width = _viewport->levelWidth();
+    const int height = _viewport->levelHeight();
+    // Pelure d'oignon des tuiles SOUS les plans arriere : la geometrie du niveau est le repere le
+    // plus lointain, tout le reste se peint par-dessus.
+    hmi::DecodedImage underlay = hmi::buildTileOnionSkin(draft, density);
+    if (!below.empty()) {
+        std::vector<hmi::PlaneLayer> stack;
+        hmi::PlaneLayer tiles;
+        tiles.image = &underlay;
+        tiles.pixelsPerUnit = density;
+        stack.push_back(tiles);
+        stack.insert(stack.end(), below.begin(), below.end());
+        underlay = hmi::flattenPlanes(stack, density, width, height);
+    }
+    _pixelCanvas->setUnderlay(std::move(underlay), PLANE_REFERENCE_OPACITY);
+    _pixelCanvas->setOverlay(hmi::flattenPlanes(above, density, width, height),
+                             PLANE_REFERENCE_OPACITY);
+    // Grille de TUILES, distincte de la grille de pixels : sur un plan, c'est elle qui permet de
+    // viser une case. Son pas est la densite meme du plan (un pixel par unite x densite).
+    _pixelCanvas->setReferenceGridStep(density);
+}
+
+void MainWindow::closePlaneInCanvas() {
+    if (!_paintedPlane) {
+        return;
+    }
+    _paintedPlane.reset();
+    _pixelCanvas->setImage(hmi::DecodedImage{});
+    _pixelCanvas->setAssetName({});
+    // Les reperes appartiennent au mode creation : les laisser derriere soi les ferait apparaitre
+    // dans l'atelier pixel art, qui n'en a jamais demande (LOT-54 inchange).
+    _pixelCanvas->setUnderlay(hmi::DecodedImage{});
+    _pixelCanvas->setOverlay(hmi::DecodedImage{});
+    _pixelCanvas->setReferenceGridStep(0);
+    refreshStatusHelp();
+}
+
+void MainWindow::savePlaneImage() {
+    if (!_paintedPlane) {
+        return;
+    }
+    const std::filesystem::path path = planeFilePath(*_paintedPlane);
+    if (path.empty()) {
+        closePlaneInCanvas();
+        return;
+    }
+    std::error_code error;
+    std::filesystem::create_directories(path.parent_path(), error);
+    if (!hmi::encodeImageFile(path, _pixelCanvas->image())) {
+        showTransientStatusMessage(text("planes.save_failed"), 4000);
+        return;
+    }
+    _pixelCanvas->markSaved();
+    // Le niveau affiche derriere doit montrer ce qu'on vient d'enregistrer : sans cette
+    // invalidation, le viewport garderait la texture chargee a l'ouverture du niveau.
+    _viewport->reloadAssets();
+    showTransientStatusMessage(
+        text("planes.saved").arg(QString::fromStdString(path.filename().string())), 3000);
+    refreshStatusHelp();
+}
+
+bool MainWindow::confirmDiscardPlaneChanges() {
+    if (!_paintedPlane || !_pixelCanvas->isDirty()) {
+        return true;
+    }
+    const QMessageBox::StandardButton answer =
+        QMessageBox::question(this, text("planes.discard_title"), text("planes.discard_text"),
+                              QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    if (answer == QMessageBox::Cancel) {
+        return false;
+    }
+    if (answer == QMessageBox::Save) {
+        savePlaneImage();
+        return !_pixelCanvas->isDirty();  // l'ecriture a pu echouer : ne rien perdre alors.
+    }
+    return true;
 }
 
 void MainWindow::resizeEvent(QResizeEvent* event) {
     QMainWindow::resizeEvent(event);
-    syncOverlayGeometry();
     applyIdentityScale();
 }
 
@@ -678,7 +944,20 @@ void MainWindow::applyIdentityScale() {
 
 void MainWindow::moveEvent(QMoveEvent* event) {
     QMainWindow::moveEvent(event);
-    syncOverlayGeometry();
+}
+
+bool MainWindow::eventFilter(QObject* watched, QEvent* event) {
+    if (watched == _viewport && event->type() == QEvent::Resize) {
+        // Un recouvrement visible doit couvrir exactement le viewport : le suivre a sa taille
+        // suffit desormais, les deux vivant dans le meme systeme de coordonnees.
+        if (_pauseScreen != nullptr && _pauseScreen->isVisible()) {
+            _pauseScreen->setGeometry(_viewport->rect());
+        }
+        if (_levelCompleteScreen != nullptr && _levelCompleteScreen->isVisible()) {
+            _levelCompleteScreen->setGeometry(_viewport->rect());
+        }
+    }
+    return QMainWindow::eventFilter(watched, event);
 }
 
 void MainWindow::playInterfaceSound(GameEvent event) {
@@ -1007,15 +1286,13 @@ void MainWindow::buildUi() {
     _pixelColorButton = new QToolButton(this);
     _pixelToolBar->addWidget(_pixelColorButton);
 
-    // Contenu des docks : les coquilles (`PalettePanel`/`DecorsPanel`/`LevelsPanel`) et leur
-    // agencement viennent du `.ui` ; leurs widgets, paramétrés (chemins, dépendances), sont créés
-    // en code.
+    // Contenu des docks : les coquilles (`PalettePanel`/`LevelsPanel`) et leur agencement
+    // viennent du `.ui` ; leurs widgets, paramétrés (chemins, dépendances), sont créés en code.
     _palette = new PalettePanel(_ui->PalettePanel);
     _ui->PalettePanel->setWidget(_palette);
-    // Panneau Décors (LOT-57, amendement) : placement + inspecteur, regroupés -- l'ancien panneau
-    // « Outils » ne portait déjà plus que le décor (LOT-56 TACHE-04).
-    _decors = new DecorsPanel(hmi::executableDirectory() / "Assets" / "Decors", _ui->DecorsPanel);
-    _ui->DecorsPanel->setWidget(_decors);
+    // Panneau « Plans » (LOT-69 TACHE-08) : liste ordonnee des plans picturaux du niveau.
+    _planes = new PlanesPanel(_ui->PlanesPanel);
+    _ui->PlanesPanel->setWidget(_planes);
     _levels = new LevelBrowserPanel(hmi::executableDirectory() / "Levels", _ui->LevelsPanel);
     _ui->LevelsPanel->setWidget(_levels);
     _links = new LinkPanel(_ui->LinksPanel);
@@ -1053,8 +1330,8 @@ void MainWindow::buildUi() {
     // Regroupement par defaut des panneaux Niveaux/Liens/Atelier/Historique/Palette en onglets
     // (LOT-57 TACHE-02, etendu LOT-54 TACHE-04/TACHE-07) : chacun reste individuellement
     // deplacable/detachable/refermable (EX-IHM-010), seule la disposition par defaut change.
-    // Textures redevient un dock independant, comme Palette (niveau)/Decors (LOT-57, amendement
-    // post-essai manuel). Doit preceder la capture de _defaultState (constructeur, apres
+    // Textures redevient un dock independant, comme Palette (LOT-57, amendement post-essai
+    // manuel). Doit preceder la capture de _defaultState (constructeur, apres
     // buildUi()).
     // Depuis le LOT-68, la pile ne melange plus deux domaines : les panneaux d'edition de niveau
     // d'un cote, ceux de l'atelier de l'autre. Un onglet « Atelier » au milieu des panneaux de
@@ -1245,8 +1522,16 @@ void MainWindow::buildUi() {
     _pixelMenu->addAction(_actions->action(hmi::IconId::PixelRotateClockwise));
     _pixelMenu->addAction(_actions->action(hmi::IconId::PixelRotateCounterClockwise));
 
-    connect(_actions->action(hmi::IconId::Save), &QAction::triggered, _viewport,
-            [this] { _viewport->save(); });
+    // Ctrl+S ecrit ce que l'espace courant edite : le PNG du plan en mode creation, le JSON du
+    // niveau partout ailleurs (LOT-69 TACHE-08). Deux notions de « modifie » distinctes depuis le
+    // LOT-54 -- le canevas et le brouillon -- donc deux enregistrements distincts.
+    connect(_actions->action(hmi::IconId::Save), &QAction::triggered, this, [this] {
+        if (_workspace == hmi::EditorWorkspace::Planes) {
+            savePlaneImage();
+            return;
+        }
+        _viewport->save();
+    });
     connect(_actions->action(hmi::IconId::Playtest), &QAction::triggered, _viewport,
             [this] { _viewport->startPlaytest(); });
     // Annuler/Refaire/Copier/Coller dispatchent via le contexte d'edition actif (_editContext,
@@ -1367,7 +1652,7 @@ void MainWindow::buildUi() {
     // sous-menu « Panneaux » plutôt que la racine du menu Affichage, qui alignait vingt-trois
     // entrées à plat.
     for (QDockWidget* const dock :
-         {_ui->PalettePanel, _ui->DecorsPanel, _ui->LevelsPanel, _ui->LinksPanel,
+         {_ui->PalettePanel, _ui->PlanesPanel, _ui->LevelsPanel, _ui->LinksPanel,
           _ui->PropertiesPanel, _ui->TexturesPanel, _ui->PixelCanvasPanel, _ui->PixelHistoryPanel,
           _ui->PixelPalettePanel}) {
         _ui->panelsMenu->insertAction(_ui->panelsMenu->actions().constFirst(),
@@ -1379,12 +1664,18 @@ void MainWindow::buildUi() {
     // Selecteur d'espace de travail (LOT-68) : groupe exclusif, aucun etat intermediaire.
     auto* const workspaceGroup = new QActionGroup(this);
     workspaceGroup->setExclusive(true);
-    _ui->actWorkspaceLevel->setActionGroup(workspaceGroup);
-    _ui->actWorkspacePixelArt->setActionGroup(workspaceGroup);
-    connect(_ui->actWorkspaceLevel, &QAction::triggered, this,
-            [this] { applyWorkspace(hmi::EditorWorkspace::Level); });
-    connect(_ui->actWorkspacePixelArt, &QAction::triggered, this,
-            [this] { applyWorkspace(hmi::EditorWorkspace::PixelArt); });
+    // Les trois entrees derivees de l'enumeration, jamais recopiees une a une : c'est ce qui a
+    // laisse l'outil « Parcours » debranche au LOT-67, et un espace oublie ici ne se verrait qu'a
+    // l'usage. Elles passent toutes par switchToWorkspace -- point d'entree unique, qui seul sait
+    // enregistrer la disposition qu'on quitte et changer le sujet du canevas.
+    for (const hmi::EditorWorkspace workspace :
+         {hmi::EditorWorkspace::Level, hmi::EditorWorkspace::Planes,
+          hmi::EditorWorkspace::PixelArt}) {
+        QAction* const selector = workspaceSelector(workspace);
+        selector->setActionGroup(workspaceGroup);
+        connect(selector, &QAction::triggered, this,
+                [this, workspace] { switchToWorkspace(workspace); });
+    }
 
     _actFollowActiveTool = _ui->actFollowActiveTool;
     _actFollowActiveTool->setChecked(
@@ -1399,13 +1690,13 @@ void MainWindow::buildUi() {
     // Texture est traitee en TACHE-04). Cases dans l'ORDRE DE DESSIN (hmi::RenderLayer,
     // EX-REN-014), toutes cochees par defaut, jamais persistees entre deux sessions.
     constexpr std::array<hmi::RenderLayer, 7> LAYER_ORDER{
-        hmi::RenderLayer::Background, hmi::RenderLayer::Decor,  hmi::RenderLayer::Shadow,
+        hmi::RenderLayer::Background, hmi::RenderLayer::Plane,  hmi::RenderLayer::Shadow,
         hmi::RenderLayer::Tile,       hmi::RenderLayer::Object, hmi::RenderLayer::Player,
         hmi::RenderLayer::Foreground};
-    const std::array<QAction*, 7> LAYER_ACTIONS{
-        _ui->actLayerBackground,     _ui->actLayerDecorBackground, _ui->actLayerShadow,
-        _ui->actLayerTileSkin,       _ui->actLayerObjects,         _ui->actLayerPlayer,
-        _ui->actLayerDecorForeground};
+    const std::array<QAction*, 7> LAYER_ACTIONS{_ui->actLayerBackground, _ui->actLayerPlaneBehind,
+                                                _ui->actLayerShadow,     _ui->actLayerTileSkin,
+                                                _ui->actLayerObjects,    _ui->actLayerPlayer,
+                                                _ui->actLayerPlaneFront};
     for (std::size_t i = 0; i < LAYER_ORDER.size(); ++i) {
         const hmi::RenderLayer layer = LAYER_ORDER[i];
         QAction* const act = LAYER_ACTIONS[i];
@@ -1509,13 +1800,83 @@ void MainWindow::openShortcutsDialog() {
 }
 
 QString MainWindow::layoutKeyFor(EditorWorkspace workspace) {
-    return workspace == EditorWorkspace::PixelArt ? QStringLiteral("mainWindow/state.pixelart")
-                                                  : QStringLiteral("mainWindow/state.level");
+    switch (workspace) {
+        case EditorWorkspace::Level:
+            return QStringLiteral("mainWindow/state.level");
+        case EditorWorkspace::Planes:
+            return QStringLiteral("mainWindow/state.planes");
+        case EditorWorkspace::PixelArt:
+            return QStringLiteral("mainWindow/state.pixelart");
+    }
+    return QStringLiteral("mainWindow/state.level");
+}
+
+// Nom persiste d'un espace de travail. Un NOM, pas l'indice de l'enumeration : le LOT-68 ecrivait
+// 0/1, et l'insertion de « Plans » entre les deux aurait fait rouvrir en mode creation l'editeur
+// laisse dans l'atelier. Un nom inconnu (dont ces anciens 0/1) retombe sur l'edition de niveau.
+QString MainWindow::workspaceSettingsName(EditorWorkspace workspace) {
+    switch (workspace) {
+        case EditorWorkspace::Level:
+            return QStringLiteral("level");
+        case EditorWorkspace::Planes:
+            return QStringLiteral("planes");
+        case EditorWorkspace::PixelArt:
+            return QStringLiteral("pixelart");
+    }
+    return QStringLiteral("level");
+}
+
+EditorWorkspace MainWindow::workspaceFromSettingsName(const QString& name) {
+    if (name == QStringLiteral("planes")) {
+        return EditorWorkspace::Planes;
+    }
+    if (name == QStringLiteral("pixelart")) {
+        return EditorWorkspace::PixelArt;
+    }
+    return EditorWorkspace::Level;
+}
+
+QAction* MainWindow::workspaceSelector(EditorWorkspace workspace) const {
+    switch (workspace) {
+        case EditorWorkspace::Level:
+            return _ui->actWorkspaceLevel;
+        case EditorWorkspace::Planes:
+            return _ui->actWorkspacePlanes;
+        case EditorWorkspace::PixelArt:
+            return _ui->actWorkspacePixelArt;
+    }
+    return _ui->actWorkspaceLevel;
 }
 
 void MainWindow::switchToWorkspace(EditorWorkspace workspace) {
     if (_workspace == workspace) {
         return;  // deja la : ne pas resauvegarder ni rejouer une disposition pour rien.
+    }
+    // Bascule annulee par un garde-fou : l'entree de menu s'est deja cochee toute seule (elles
+    // sont exclusives dans un QActionGroup), il faut donc rendre la coche a l'espace ou l'on reste
+    // -- sinon le menu annoncerait un espace different de celui qui est affiche.
+    const auto cancel = [this] {
+        QAction* const stay = workspaceSelector(_workspace);
+        const QSignalBlocker blocker(stay);
+        stay->setChecked(true);
+    };
+    // Le canevas est PARTAGE par les deux espaces de peinture (LOT-69 TACHE-08) : changer d'espace
+    // change son sujet, donc peut perdre ce qui n'y est pas enregistre. Le garde-fou est pose ici,
+    // une fois, plutot que sur chacun des chemins qui menent a un espace.
+    if (workspace == EditorWorkspace::Planes) {
+        // Un plan OU un asset, jamais les deux : le canevas n'a qu'un sujet a la fois, et poser
+        // les deux gardes en serie ferait poser deux fois la meme question.
+        if (_paintedPlane ? !confirmDiscardPlaneChanges() : !confirmDiscardPixelChanges()) {
+            cancel();
+            return;
+        }
+    } else if (_paintedPlane && workspace == EditorWorkspace::PixelArt) {
+        // L'atelier ne doit jamais retrouver un plan dans le canevas : Ctrl+S y ecrirait un asset.
+        if (!confirmDiscardPlaneChanges()) {
+            cancel();
+            return;
+        }
+        closePlaneInCanvas();
     }
     // La disposition de l'espace QUITTE est sauvegardee ICI, et non dans applyWorkspace : c'est
     // cette methode qui sait qu'on quitte vraiment un espace. A l'initialisation, il n'y a rien a
@@ -1523,18 +1884,27 @@ void MainWindow::switchToWorkspace(EditorWorkspace workspace) {
     QSettings().setValue(layoutKeyFor(_workspace), saveState(LAYOUT_VERSION));
     // Le selecteur suit l'etat, sans reemettre : c'est le MEME etat atteint par deux chemins
     // (menu, choix d'outil), jamais deux etats (EX-IHM-062).
-    QAction* const selector =
-        workspace == EditorWorkspace::PixelArt ? _ui->actWorkspacePixelArt : _ui->actWorkspaceLevel;
+    QAction* const selector = workspaceSelector(workspace);
     const QSignalBlocker blocker(selector);
     selector->setChecked(true);
     applyWorkspace(workspace);
+
+    // Charger le plan APRES l'habillage : le canevas doit etre visible quand il recoit son image,
+    // sinon son premier cadrage se calcule sur une taille de widget qui n'est pas encore la sienne.
+    if (workspace == EditorWorkspace::Planes) {
+        if (const std::optional<std::size_t> selected = _viewport->selectedPlaneIndex()) {
+            loadPlaneIntoCanvas(*selected);
+        } else {
+            closePlaneInCanvas();
+            showTransientStatusMessage(text("planes.none_selected"), 4000);
+        }
+    }
 }
 
 void MainWindow::applyWorkspace(EditorWorkspace workspace) {
     QSettings settings;
     _workspace = workspace;
-    settings.setValue(QString::fromLatin1(WORKSPACE_KEY),
-                      workspace == EditorWorkspace::PixelArt ? 1 : 0);
+    settings.setValue(QString::fromLatin1(WORKSPACE_KEY), workspaceSettingsName(workspace));
 
     // Toute la manipulation est gardee : masquer un dock emet visibilityChanged, que le suivi de
     // panneau prendrait sinon pour un choix d'onglet de l'utilisateur.
@@ -1552,7 +1922,8 @@ void MainWindow::applyWorkspace(EditorWorkspace workspace) {
     // d'espace ne rend pas le chassis d'edition visible, elle dit seulement lequel le serait.
     const bool editing = hmi::dressingFor(_screenState.screen).docksVisible;
     for (const auto& [dock, panel] : PANELS) {
-        const bool belongsHere = hmi::workspaceForPanel(panel) == workspace;
+        const bool belongsHere =
+            hmi::workspaceMaskContains(hmi::workspacesForPanel(panel), workspace);
         // La bascule de visibilite du menu suit : un panneau d'un autre espace n'a pas a etre
         // proposable depuis celui-ci.
         dock->toggleViewAction()->setVisible(belongsHere);
@@ -1566,7 +1937,7 @@ void MainWindow::applyWorkspace(EditorWorkspace workspace) {
         // restoreState reaffiche les docks tels qu'ils etaient enregistres, y compris ceux de
         // l'autre espace si une disposition ancienne en portait : on les remasque.
         for (const auto& [dock, panel] : PANELS) {
-            if (hmi::workspaceForPanel(panel) != workspace) {
+            if (!hmi::workspaceMaskContains(hmi::workspacesForPanel(panel), workspace)) {
                 dock->setVisible(false);
             }
         }
@@ -1670,8 +2041,13 @@ void MainWindow::refreshStatusHelp() {
     // que l'ancien rechargement de `status.edit_help` en changement de langue. Lequel des deux
     // contextes (niveau/atelier) dépend du widget qui a le focus clavier (_editContext, LOT-54
     // TACHE-04) -- jamais les deux en même temps (EX-IHM-062).
-    if (_stack->currentWidget() == _editorContainer && menuBar()->isVisible()) {
-        if (_editContext == static_cast<EditContextTarget*>(_pixelCanvas)) {
+    if (_stack->currentWidget() == _viewport && menuBar()->isVisible()) {
+        // En mode creation, la barre parle du PLAN meme si le focus clavier n'est pas encore dans
+        // le canevas : l'espace n'a pas d'autre sujet, et annoncer le niveau et son zoom de camera
+        // pendant qu'on peint une image se lit comme un defaut (constate a l'essai). Ailleurs, la
+        // regle du LOT-54 est inchangee -- c'est le widget focalise qui decide.
+        const bool paintingPlane = _workspace == hmi::EditorWorkspace::Planes && _paintedPlane;
+        if (paintingPlane || _editContext == static_cast<EditContextTarget*>(_pixelCanvas)) {
             PixelEditStatusInfo pixel;
             pixel.assetName = _pixelCanvas->assetName();
             pixel.dirty = _pixelCanvas->isDirty();
@@ -1680,6 +2056,19 @@ void MainWindow::refreshStatusHelp() {
             pixel.zoom = _pixelCanvas->view().zoom;
             pixel.currentColor = _pixelCanvas->currentColor();
             pixel.paletteConstrained = _pixelCanvas->paletteConstrained();
+            // Mode creation : le canevas peint un plan, pas un asset. Trois informations de plus
+            // -- resolution, densite, poids memoire (EX-NFR-043) -- et rien d'autre ne change :
+            // meme canevas, memes outils, meme couleur courante.
+            if (_paintedPlane && *_paintedPlane < _viewport->draft().planes().size()) {
+                const core::Plane& plane = _viewport->draft().planes()[*_paintedPlane];
+                hmi::PlaneEditStatusInfo planeInfo;
+                planeInfo.widthPixels = _pixelCanvas->image().width;
+                planeInfo.heightPixels = _pixelCanvas->image().height;
+                planeInfo.pixelsPerUnit = plane.pixelsPerUnit;
+                planeInfo.textureBytes = hmi::planeTextureMemoryBytes(
+                    plane, _viewport->levelWidth(), _viewport->levelHeight());
+                pixel.plane = planeInfo;
+            }
             context.pixelEdit = pixel;
         } else {
             LevelStatusInfo level;
@@ -1717,7 +2106,7 @@ void MainWindow::applyPanelFocus(hmi::EditorTool tool) {
     }
     const std::optional<hmi::PanelId> panel = hmi::panelForTool(tool);
     if (!panel) {
-        return;  // cet outil n'a pas de panneau dedie (ex. Decor : panneau Outils, jamais masque).
+        return;  // cet outil n'a pas de panneau dedie.
     }
     raisePanel(*panel);
 }
@@ -1863,9 +2252,9 @@ void MainWindow::openPixelAssetCreateDialog() {
 
     // Familles creables depuis l'atelier : Atlas exclu (fichier historique unique, jamais recree a
     // la main) et Font exclu (decoupe par ses metriques, hors perimetre d'un canevas generique).
-    static constexpr std::array<hmi::AssetFamily, 6> FAMILIES{
+    static constexpr std::array<hmi::AssetFamily, 5> FAMILIES{
         hmi::AssetFamily::TileSkin,       hmi::AssetFamily::AutotileSheet, hmi::AssetFamily::Object,
-        hmi::AssetFamily::CharacterSheet, hmi::AssetFamily::Background,    hmi::AssetFamily::Decor,
+        hmi::AssetFamily::CharacterSheet, hmi::AssetFamily::Background,
     };
 
     QDialog dialog(this);
@@ -1980,12 +2369,11 @@ void MainWindow::savePixelAsset(bool saveAs) {
     _pixelCanvas->setAssetName(target.filename().string());
     _pixelCanvas->markSaved();
     // Invalidation CIBLEE du niveau (LOT-40/LOT-43/TACHE-08) : un seul asset a relire, jamais tout
-    // le TextureCache. Les caches de vignettes des panneaux (Textures/Decors/Palette), eux,
+    // le TextureCache. Les caches de vignettes des panneaux (Textures/Palette), eux,
     // n'exposent qu'un rechargement complet -- acceptable ici, sur un enregistrement explicite
     // plutot qu'a chaque geste (updateLivePreview, plus haut, ne les touche pas).
     _viewport->invalidateAsset(pixelAssetCacheKey());
     _textures->reloadAssets();
-    _decors->reloadDecorThumbnails();
     _palette->clearThumbnailCache();
     _palette->refreshThumbnails(_viewport->renderMode(), _textures->currentSet());
     showTransientStatusMessage(
@@ -2013,7 +2401,7 @@ void MainWindow::retranslateUi() {
 
     // Panneaux dockables (les actions « toggle » du menu Affichage suivent le titre du dock).
     _ui->PalettePanel->setWindowTitle(text("dock.palette"));
-    _ui->DecorsPanel->setWindowTitle(text("dock.decors"));
+    _ui->PlanesPanel->setWindowTitle(text("dock.planes"));
     _ui->LevelsPanel->setWindowTitle(text("dock.levels"));
     _ui->LinksPanel->setWindowTitle(text("dock.links"));
     _ui->TexturesPanel->setWindowTitle(text("dock.textures"));
@@ -2036,6 +2424,7 @@ void MainWindow::retranslateUi() {
     _ui->viewMenu->setTitle(text("menubar.view"));
     _ui->workspaceMenu->setTitle(text("menubar.workspace"));
     _ui->actWorkspaceLevel->setText(text("menubar.workspace_level"));
+    _ui->actWorkspacePlanes->setText(text("menubar.workspace_planes"));
     _ui->actWorkspacePixelArt->setText(text("menubar.workspace_pixel_art"));
     _ui->layersMenu->setTitle(text("menubar.layers"));
     _ui->panelsMenu->setTitle(text("menubar.panels"));
@@ -2045,9 +2434,9 @@ void MainWindow::retranslateUi() {
     _themeDarkAction->setText(text("menubar.theme_dark"));
     _actFollowActiveTool->setText(text("menubar.follow_active_tool"));
     static constexpr std::array<const char*, 7> LAYER_ACTION_KEYS{
-        "menubar.layer_background",      "menubar.layer_decor_background", "menubar.layer_shadow",
-        "menubar.layer_tile_skin",       "menubar.layer_objects",          "menubar.layer_player",
-        "menubar.layer_decor_foreground"};
+        "menubar.layer_background", "menubar.layer_plane_behind", "menubar.layer_shadow",
+        "menubar.layer_tile_skin",  "menubar.layer_objects",      "menubar.layer_player",
+        "menubar.layer_plane_front"};
     for (std::size_t i = 0; i < _layerVisibilityActions.size(); ++i) {
         _layerVisibilityActions[i]->setText(text(LAYER_ACTION_KEYS[i]));
     }
@@ -2063,7 +2452,7 @@ void MainWindow::retranslateUi() {
     _credits->retranslateUi(_loc);
     _options->retranslateUi(_loc);
     _palette->retranslateUi(_loc);
-    _decors->retranslateUi(_loc);
+    _planes->retranslateUi(_loc);
     _levels->retranslateUi(_loc);
     _links->retranslateUi(_loc);
     _textures->retranslateUi(_loc);

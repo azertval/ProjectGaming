@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "Core/Ecs/Systems/MovementSystem.h"
 
 #include "Core/Ecs/Components/Transform.h"

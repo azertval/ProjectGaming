@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_screen_flow.cpp
  * @brief Tests unitaires de la machine à états des écrans (LOT-59 TACHE-01, EX-GP-041). Logique

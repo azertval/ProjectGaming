@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_skin_assignments.cpp
  * @brief Tests unitaires de la logique du panneau « Textures » (LOT-42 TACHE-04).
