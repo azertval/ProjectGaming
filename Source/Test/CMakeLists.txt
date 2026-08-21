@@ -50,6 +50,8 @@ add_executable(UnitTests
     # Verification de gradient par differences finies (LOT-ANNEXE-02, TACHE-04) ; GradientCheck.h
     # est header-only, inclus directement par ce fichier de test (pas d'entree propre ici).
     Unit/AiSolver/Math/test_autodiff_gradient_checking.cpp
+    # Bibliotheque de reseaux de neurones maison (LOT-ANNEXE-03) : couche dense (TACHE-01).
+    Unit/AiSolver/Nn/test_dense.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp

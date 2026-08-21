@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**595 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**599 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (513)
+## Tests unitaires (517)
 
 ### AiSolver
 
@@ -105,6 +105,17 @@
 | **TensorOpsTest.AssertionReductionSurTenseurVide** (Mineur)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_tensor_ops.cpp:118`</sub> | TensorOps : assertion sur `mean`/`max` d'un tenseur vide. | 1. Poser un tenseur de forme `{0}`.<br/>2. Appeler `mean` puis `max`. | Vérifie que `empty.size()` vaut `0u`.<br/>Vérifie que l'opération lève bien une exception `std::runtime_error`.<br/>Vérifie que l'opération lève bien une exception `std::runtime_error`. |
 | **TensorOpsTest.AssertionFormesIncompatibles** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_tensor_ops.cpp:144`</sub> | TensorOps : assertion sur formes incompatibles. | 1. Poser `a` de forme `{2, 2}` et `b` de forme `{3}`.<br/>2. Appeler `add(a, b)`. | Vérifie que l'opération lève bien une exception `std::runtime_error`. |
 | **TensorOpsTest.CoherenceAvecView** (Mineur)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_tensor_ops.cpp:169`</sub> | TensorOps : cohérence avec `Tensor::view`. | 1. Poser `a` de forme `{2, 2}`, `view = a.view({4})`.<br/>2. Calculer `a * 2` et `view * 2`. | Vérifie que `scaledFromMatrix.at({0, 0})` vaut `scaledFromView.at({0})`, à `TOLERANCE` près.<br/>Vérifie que `scaledFromMatrix.at({0, 1})` vaut `scaledFromView.at({1})`, à `TOLERANCE` près.<br/>Vérifie que `scaledFromMatrix.at({1, 0})` vaut `scaledFromView.at({2})`, à `TOLERANCE` près.<br/>Vérifie que `scaledFromMatrix.at({1, 1})` vaut `scaledFromView.at({3})`, à `TOLERANCE` près. |
+
+#### Nn (4)
+
+**`test_dense.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **DenseTest.FormeDeSortie** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Nn/test_dense.cpp:38`</sub> | Dense : forme de sortie. | 1. Construire `Dense(4, 3, Xavier, rng)`.<br/>2. Appeler `forward()` sur une entrée `[4,1]`. | Vérifie que `output->value.shape()` vaut `(std::vector<std::size_t>{3, 1})`. |
+| **DenseTest.ParametresExposes** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Nn/test_dense.cpp:56`</sub> | Dense : paramètres exposés. | 1. Construire `Dense(4, 3, Xavier, rng)`.<br/>2. Appeler `parameters()`. | Vérifie que `parameters.size()` vaut `2u`.<br/>Vérifie que `parameters[0]->value.shape()` vaut `(std::vector<std::size_t>{3, 4})`.<br/>Vérifie que `parameters[1]->value.shape()` vaut `(std::vector<std::size_t>{3, 1})`.<br/>Vérifie que `parameters[0]->value.shape()` vaut `layer.weights().shape()`.<br/>Vérifie que `parameters[1]->value.shape()` vaut `layer.bias().shape()`. |
+| **DenseTest.DifferentiableDeBoutEnBout** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Nn/test_dense.cpp:78`</sub> | Dense : différentiable de bout en bout. | 1. Construire `Dense(3, 2, He, rng)`.<br/>2. Sommer la sortie de `forward()` en un scalaire (`add` répété).<br/>3. Appeler `autodiff::backward()`. | Vérifie que `weightsGradientNonZero` est vrai.<br/>Vérifie que `biasGradientNonZero` est vrai. |
+| **DenseTest.DeuxCouchesOntDesPoidsDifferents** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Nn/test_dense.cpp:123`</sub> | Dense : deux couches ont des poids différents. | 1. Construire deux `Dense(4, 3, Xavier, ...)` avec deux `Rng` de graines différentes.<br/> 2. Comparer leurs poids. | Vérifie que `anyDifferent` est vrai. |
 
 ### Core
 
