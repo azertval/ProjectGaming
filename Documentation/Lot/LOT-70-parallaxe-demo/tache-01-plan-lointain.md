@@ -1,7 +1,7 @@
 # TACHE-01 — Plan « lointain » : générateur, contenu, format des deux niveaux {#lot-70-tache-01-plan-lointain}
 
 **Lot :** [LOT-70](epic.md) · **Emplacement :** `scripts`, `Source/Elements/Levels` ·
-**Statut :** en cours
+**Statut :** fait
 
 ## Contexte
 `scripts/generate_demo_plans.py` peint aujourd'hui, pour chaque tableau, un fond (densité 8) et —

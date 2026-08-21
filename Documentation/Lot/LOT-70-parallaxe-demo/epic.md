@@ -1,6 +1,10 @@
 # LOT-70 — Parallaxe à trois profondeurs des tableaux qui défilent {#lot-70}
 
-> Statut : **en cours**. Prérequis : [LOT-69](@ref lot-69) (plans picturaux, parallaxe portée par
+> Statut : **fait** (vérification automatisée : `ctest` à 100 % (1161 tests), build ninja, les
+> quatre linters — exigences, cahier de test, séquence démo, régénération des plans — verts). La
+> vérification visuelle du rendu réel (Direct3D 11/QRhi) reste manuelle, l'exécutable éditeur
+> n'ayant pas pu être construit dans cet environnement (modules Qt `GuiPrivate`/`ShaderTools`
+> absents, indépendant de ce lot). Prérequis : [LOT-69](@ref lot-69) (plans picturaux, parallaxe portée par
 > le plan). Ne fait partie d'aucun programme cadré : répond au manque explicitement consigné par le
 > `LOT-69` TACHE-10 (« un fond peint qui reporte fidèlement l'ancien habillage n'est pas une fresque
 > qui exploiterait vraiment la profondeur — dessiner un tel tableau est un acte de level design, hors
@@ -83,8 +87,8 @@ objectif produit, `decors.md`).
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-plan-lointain.md) | Plan « lointain » : générateur, contenu, format des deux niveaux | `scripts`, `Source/Elements/Levels` | 🔄 |
-| [TACHE-02](tache-02-garde-fou-documentation.md) | Garde-fou de non-régression, documentation et référentiel | `Source/Test`, `Documentation` | ⬜ |
+| [TACHE-01](tache-01-plan-lointain.md) | Plan « lointain » : générateur, contenu, format des deux niveaux | `scripts`, `Source/Elements/Levels` | ✅ |
+| [TACHE-02](tache-02-garde-fou-documentation.md) | Garde-fou de non-régression, documentation et référentiel | `Source/Test`, `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
 1. `demo-mouvement` et `demo-final` déclarent chacun **trois** plans, aux facteurs de parallaxe

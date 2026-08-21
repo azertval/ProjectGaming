@@ -671,6 +671,15 @@ Corollaire à connaître : en cadrage **niveau entier**, la caméra ne défile p
 neutralise la parallaxe (`hmi::planeParallaxActive`) et l'éditeur **grise** la case en l'expliquant
 — un facteur y produirait un désalignement constant, pas du mouvement.
 
+**Convention à trois profondeurs (`LOT-70`).** Sur les deux seuls tableaux livrés où la parallaxe
+est active — `demo-mouvement` (suivi) et `demo-final` (par salle) — la pile de plans suit une
+convention à trois profondeurs, facteurs strictement croissants : un plan **lointain** (densité 4,
+facteur le plus lent, presque immobile), le plan **fond** hérité du `LOT-69` (densité 8, facteur
+intermédiaire), et le plan **devant** (densité native, facteur supérieur à 1 — il dépasse la
+caméra). C'est cette progression, pas un seul plan supplémentaire, qui rend la profondeur lisible ;
+`scripts/generate_demo_plans.py` la peint pour ces deux tableaux uniquement, les vingt autres restant
+le report fidèle du `LOT-69` puisque leur cadrage `WholeLevel` neutralise tout décalage.
+
 #### Coût : constant en taille de niveau, et c'est tout le problème
 
 Un plan coûte **un quad et une passe** par image, quelles que soient les dimensions du niveau —

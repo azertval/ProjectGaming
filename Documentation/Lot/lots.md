@@ -87,8 +87,16 @@ c'est un identifiant stable, jamais réordonné.
 - @subpage lot-66
 - @subpage lot-67
 - @subpage lot-69
+- @subpage lot-70
 
 ## Apres le programme `0.1.0`
+
+Le [LOT-70](@ref lot-70) — **livre** — repond au manque explicitement consigne par le `LOT-69`
+TACHE-10 : la migration des plans picturaux n'avait livre qu'un report fidele de l'ancien habillage,
+jamais une fresque exploitant reellement la profondeur. Il ajoute un troisieme plan, lointain, aux
+deux seuls tableaux ou la parallaxe est active (`demo-mouvement`, `demo-final`) — les vingt autres,
+neutralises par leur cadrage `WholeLevel`, restent inchanges. Comme le `LOT-67`, un dossier de lot
+dedie malgre sa taille modeste, faute d'un programme qui l'aurait deja prevu.
 
 Le [LOT-69](@ref lot-69) — **livre** — est le premier lot d'ampleur d'apres-programme, et le premier
 a **retirer** un systeme livre plutot qu'a en ajouter un : les decors-sprites du `LOT-49`/`LOT-50`

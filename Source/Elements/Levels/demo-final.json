@@ -1227,6 +1227,11 @@
   ],
   "planes": [
     {
+      "file": "demo-final-lointain.png",
+      "pixelsPerUnit": 4,
+      "parallaxX": 0.15
+    },
+    {
       "file": "demo-final-fond.png",
       "pixelsPerUnit": 8,
       "parallaxX": 0.5

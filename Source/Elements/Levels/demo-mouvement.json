@@ -669,6 +669,11 @@
   ],
   "planes": [
     {
+      "file": "demo-mouvement-lointain.png",
+      "pixelsPerUnit": 4,
+      "parallaxX": 0.2
+    },
+    {
       "file": "demo-mouvement-fond.png",
       "pixelsPerUnit": 8,
       "parallaxX": 0.6

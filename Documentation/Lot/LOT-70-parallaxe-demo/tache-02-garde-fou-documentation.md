@@ -1,7 +1,7 @@
 # TACHE-02 — Garde-fou de non-régression, documentation et référentiel {#lot-70-tache-02-garde-fou-documentation}
 
 **Lot :** [LOT-70](epic.md) · **Emplacement :** `Source/Test/Systeme`, `Documentation` ·
-**Statut :** à faire
+**Statut :** fait
 
 ## Contexte
 Rien, aujourd'hui, ne distingue « un tableau à parallaxe active porte trois profondeurs bien
