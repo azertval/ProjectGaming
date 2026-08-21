@@ -56,6 +56,9 @@ add_executable(UnitTests
     Unit/AiSolver/Nn/test_activations.cpp
     # Composition en reseau (LOT-ANNEXE-03, TACHE-03).
     Unit/AiSolver/Nn/test_network.cpp
+    # Initialisation des poids et serialisation (LOT-ANNEXE-03, TACHE-04).
+    Unit/AiSolver/Nn/test_weight_init.cpp
+    Unit/AiSolver/Nn/test_serialization.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp

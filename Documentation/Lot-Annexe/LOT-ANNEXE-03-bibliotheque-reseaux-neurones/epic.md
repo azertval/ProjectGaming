@@ -1,6 +1,6 @@
 # LOT-ANNEXE-03 — Bibliothèque de réseaux de neurones maison {#lot-annexe-03}
 
-> Statut : **en cours** — TACHE-01 à TACHE-03 faites. Prérequis : [LOT-ANNEXE-01](@ref lot-annexe-01) (`Tensor<float>`,
+> Statut : **en cours** — TACHE-01 à TACHE-04 faites. Prérequis : [LOT-ANNEXE-01](@ref lot-annexe-01) (`Tensor<float>`,
 > `Rng`) et [LOT-ANNEXE-02](@ref lot-annexe-02) (autodiff). Compose ces briques en couches et
 > réseaux réutilisables par **tous** les algorithmes d'apprentissage ultérieurs — évolutionniste
 > (génération 2) comme par gradient (génération 3), ces deux familles ayant seulement besoin d'un
@@ -107,7 +107,7 @@ Goodfellow, Bengio, Courville (2016, référence générale) — bibliographie c
 | [TACHE-01](tache-01-couche-dense.md) | Couche dense (poids + biais, forward/backward) | `Source/AiSolver/Nn` | ✅ |
 | [TACHE-02](tache-02-activations.md) | Fonctions d'activation différentiables (`sigmoid`, `softmax`) | `Source/AiSolver/Nn` | ✅ |
 | [TACHE-03](tache-03-composition-reseau.md) | Composition en réseau (`Network`) | `Source/AiSolver/Nn` | ✅ |
-| [TACHE-04](tache-04-initialisation-serialisation.md) | Sérialisation des poids | `Source/AiSolver/Nn` | ⬜ |
+| [TACHE-04](tache-04-initialisation-serialisation.md) | Sérialisation des poids | `Source/AiSolver/Nn` | ✅ |
 | [TACHE-05](tache-05-operations-differentiables-complementaires.md) | Opérations différentiables complémentaires (`log`, `exp`, `divide`, `selectIndex`, `minimum`, `clamp`…) | `Source/AiSolver/Math/Autodiff` | ⬜ |
 | [TACHE-06](tache-06-tests.md) | Tests : reproductibilité, stabilité numérique | `Source/Test/Unit/AiSolver/Nn` | ⬜ |
 

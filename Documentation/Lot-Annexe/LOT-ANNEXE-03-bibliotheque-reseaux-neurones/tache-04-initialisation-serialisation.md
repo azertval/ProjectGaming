@@ -1,6 +1,6 @@
 # TACHE-04 — Sérialisation des poids {#lot-annexe-03-tache-04-initialisation-serialisation}
 
-**Lot :** [LOT-ANNEXE-03](epic.md) · **Emplacement :** `Source/AiSolver/Nn` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-03](epic.md) · **Emplacement :** `Source/AiSolver/Nn` · **Statut :** fait
 
 ## Contexte
 `Network` (TACHE-03) n'a encore aucun moyen de survivre à la fin du processus qui l'a entraîné :
