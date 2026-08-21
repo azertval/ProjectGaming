@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**599 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**605 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (517)
+## Tests unitaires (523)
 
 ### AiSolver
 
@@ -106,7 +106,18 @@
 | **TensorOpsTest.AssertionFormesIncompatibles** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_tensor_ops.cpp:144`</sub> | TensorOps : assertion sur formes incompatibles. | 1. Poser `a` de forme `{2, 2}` et `b` de forme `{3}`.<br/>2. Appeler `add(a, b)`. | Vérifie que l'opération lève bien une exception `std::runtime_error`. |
 | **TensorOpsTest.CoherenceAvecView** (Mineur)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_tensor_ops.cpp:169`</sub> | TensorOps : cohérence avec `Tensor::view`. | 1. Poser `a` de forme `{2, 2}`, `view = a.view({4})`.<br/>2. Calculer `a * 2` et `view * 2`. | Vérifie que `scaledFromMatrix.at({0, 0})` vaut `scaledFromView.at({0})`, à `TOLERANCE` près.<br/>Vérifie que `scaledFromMatrix.at({0, 1})` vaut `scaledFromView.at({1})`, à `TOLERANCE` près.<br/>Vérifie que `scaledFromMatrix.at({1, 0})` vaut `scaledFromView.at({2})`, à `TOLERANCE` près.<br/>Vérifie que `scaledFromMatrix.at({1, 1})` vaut `scaledFromView.at({3})`, à `TOLERANCE` près. |
 
-#### Nn (4)
+#### Nn (10)
+
+**`test_activations.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ActivationsTest.SigmoidBornee** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Nn/test_activations.cpp:31`</sub> | Activations : `sigmoid` bornée. | 1. Construire une feuille `{-10, 10}` (amplitude assez grande pour approcher la saturation sans y arriver exactement en précision `float32` : au-delà, `exp(-x)` devient inférieur à l'epsilon `float` et `1 - exp(-x)` arrondit à `1.0f` pile, ce qui n'est pas un défaut de `sigmoid`, même piège que `tanhOp`, `LOT-ANNEXE-02`).<br/>2. Appeler `sigmoid()`. | Vérifie que `std::isfinite(value)` est vrai.<br/>Vérifie que `value` est strictement supérieur à `0.0f`.<br/>Vérifie que `value` est strictement inférieur à `1.0f`. |
+| **ActivationsTest.SoftmaxSommeAUn** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Nn/test_activations.cpp:57`</sub> | Activations : `softmax` somme à 1. | 1. Construire une feuille `[3,1]` quelconque `{1, 2, 3}`.<br/>2. Appeler `softmax()`. | Vérifie que `value` est supérieur ou égal à `0.0f`.<br/>Vérifie que `value` est inférieur ou égal à `1.0f`.<br/>Vérifie que `total` vaut `1.0f`, à `TOLERANCE` près. |
+| **ActivationsTest.SoftmaxStableSurGrandsLogits** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Nn/test_activations.cpp:85`</sub> | Activations : `softmax` stable sur de grands logits. | 1. Construire une feuille `[2,1]` `{1000, 1}`.<br/>2. Appeler `softmax()`. | Vérifie que `std::isfinite(result->value.at({0, 0}))` est vrai.<br/>Vérifie que `std::isfinite(result->value.at({1, 0}))` est vrai.<br/>Vérifie que `result->value.at({0, 0}) + result->value.at({1, 0})` vaut `1.0f`, à `TOLERANCE` près. |
+| **ActivationsTest.SoftmaxSurEntreesEgalesEstUniforme** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Nn/test_activations.cpp:105`</sub> | Activations : `softmax` sur entrées égales est uniforme. | 1. Construire une feuille `[4,1]` constante `{5, 5, 5, 5}`.<br/>2. Appeler `softmax()`. | Vérifie que `result->value.at({i, 0})` vaut `0.25f`, à `TOLERANCE` près. |
+| **ActivationsTest.GradientCheckingSigmoid** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Nn/test_activations.cpp:127`</sub> | Activations : gradient checking de `sigmoid`. | 1. Tirer un tenseur `[3,1]` aléatoire (graine fixe).<br/>2. Appeler `checkGradient` avec `buildGraph = sigmoid(input)`. | Vérifie que `result.passed` est vrai. |
+| **ActivationsTest.GradientCheckingSoftmax** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Nn/test_activations.cpp:149`</sub> | Activations : gradient checking de `softmax`. | 1. Tirer un tenseur `[3,1]` aléatoire (graine fixe).<br/>2. Appeler `checkGradient` avec `buildGraph = softmax(input)`. | Vérifie que `result.passed` est vrai. |
 
 **`test_dense.cpp`**
 

@@ -13,6 +13,7 @@ add_library(AiSolver STATIC
     # composition en reseau, initialisation des poids, serialisation.
     Nn/Dense.cpp
     Nn/WeightInit.cpp
+    Nn/Activations.cpp
 )
 
 # Racine d'inclusion = Source/ : les en-têtes s'incluent par chemin complet depuis la racine

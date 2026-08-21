@@ -52,6 +52,8 @@ add_executable(UnitTests
     Unit/AiSolver/Math/test_autodiff_gradient_checking.cpp
     # Bibliotheque de reseaux de neurones maison (LOT-ANNEXE-03) : couche dense (TACHE-01).
     Unit/AiSolver/Nn/test_dense.cpp
+    # Activations sigmoid/softmax (LOT-ANNEXE-03, TACHE-02).
+    Unit/AiSolver/Nn/test_activations.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp
