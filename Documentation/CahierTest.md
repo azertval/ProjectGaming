@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**605 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**610 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (523)
+## Tests unitaires (528)
 
 ### AiSolver
 
@@ -106,7 +106,7 @@
 | **TensorOpsTest.AssertionFormesIncompatibles** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_tensor_ops.cpp:144`</sub> | TensorOps : assertion sur formes incompatibles. | 1. Poser `a` de forme `{2, 2}` et `b` de forme `{3}`.<br/>2. Appeler `add(a, b)`. | Vérifie que l'opération lève bien une exception `std::runtime_error`. |
 | **TensorOpsTest.CoherenceAvecView** (Mineur)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_tensor_ops.cpp:169`</sub> | TensorOps : cohérence avec `Tensor::view`. | 1. Poser `a` de forme `{2, 2}`, `view = a.view({4})`.<br/>2. Calculer `a * 2` et `view * 2`. | Vérifie que `scaledFromMatrix.at({0, 0})` vaut `scaledFromView.at({0})`, à `TOLERANCE` près.<br/>Vérifie que `scaledFromMatrix.at({0, 1})` vaut `scaledFromView.at({1})`, à `TOLERANCE` près.<br/>Vérifie que `scaledFromMatrix.at({1, 0})` vaut `scaledFromView.at({2})`, à `TOLERANCE` près.<br/>Vérifie que `scaledFromMatrix.at({1, 1})` vaut `scaledFromView.at({3})`, à `TOLERANCE` près. |
 
-#### Nn (10)
+#### Nn (15)
 
 **`test_activations.cpp`**
 
@@ -127,6 +127,16 @@
 | **DenseTest.ParametresExposes** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Nn/test_dense.cpp:56`</sub> | Dense : paramètres exposés. | 1. Construire `Dense(4, 3, Xavier, rng)`.<br/>2. Appeler `parameters()`. | Vérifie que `parameters.size()` vaut `2u`.<br/>Vérifie que `parameters[0]->value.shape()` vaut `(std::vector<std::size_t>{3, 4})`.<br/>Vérifie que `parameters[1]->value.shape()` vaut `(std::vector<std::size_t>{3, 1})`.<br/>Vérifie que `parameters[0]->value.shape()` vaut `layer.weights().shape()`.<br/>Vérifie que `parameters[1]->value.shape()` vaut `layer.bias().shape()`. |
 | **DenseTest.DifferentiableDeBoutEnBout** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Nn/test_dense.cpp:78`</sub> | Dense : différentiable de bout en bout. | 1. Construire `Dense(3, 2, He, rng)`.<br/>2. Sommer la sortie de `forward()` en un scalaire (`add` répété).<br/>3. Appeler `autodiff::backward()`. | Vérifie que `weightsGradientNonZero` est vrai.<br/>Vérifie que `biasGradientNonZero` est vrai. |
 | **DenseTest.DeuxCouchesOntDesPoidsDifferents** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Nn/test_dense.cpp:123`</sub> | Dense : deux couches ont des poids différents. | 1. Construire deux `Dense(4, 3, Xavier, ...)` avec deux `Rng` de graines différentes.<br/> 2. Comparer leurs poids. | Vérifie que `anyDifferent` est vrai. |
+
+**`test_network.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **NetworkTest.ForwardBoutEnBout** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Nn/test_network.cpp:54`</sub> | Network : forward bout-en-bout. | 1. Construire un `Network` de trois couches `Dense(4,5)+relu`, `Dense(5,3)+sigmoid`, `Dense(3,2)` sans activation.<br/>2. Appeler `forward()` sur une entrée `[4,1]`. | Vérifie que `output->value.shape()` vaut `(std::vector<std::size_t>{2, 1})`. |
+| **NetworkTest.ParametersCouvreToutesLesCouches** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Nn/test_network.cpp:75`</sub> | Network : `parameters()` couvre toutes les couches. | 1. Construire un `Network` de trois couches.<br/>2. Appeler `parameters()` et `layerCount()`. | Vérifie que `network.layerCount()` vaut `3u`.<br/>Vérifie que `network.parameters().size()` vaut `6u`. |
+| **NetworkTest.BackwardBoutEnBoutSurToutesLesCouches** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Nn/test_network.cpp:96`</sub> | Network : `backward()` bout-en-bout sur toutes les couches. | 1. Construire un `Network` de trois couches.<br/>2. Réduire `forward()` à un scalaire et appeler `autodiff::backward()`. | Vérifie que `anyNonZero` est vrai. |
+| **NetworkTest.ActivationNulleLaisseLaSortieLineaire** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Nn/test_network.cpp:131`</sub> | Network : activation `nullptr` laisse la sortie linéaire. | 1. Construire un `Network` d'une seule couche `Dense(2,2)` sans activation.<br/> 2. Comparer `network.forward(input)` à `layer.forward(input)` appelé directement (même couche, mêmes poids). | Vérifie que `networkOutput->value.at({0, 0})` vaut `directOutput->value.at({0, 0})`, à `1e-6f` près.<br/>Vérifie que `networkOutput->value.at({1, 0})` vaut `directOutput->value.at({1, 0})`, à `1e-6f` près. |
+| **NetworkTest.OrdreDesCouchesRespecte** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Nn/test_network.cpp:160`</sub> | Network : l'ordre des couches est respecté. | 1. Construire deux `Network` de deux couches `Dense(3,3)` chacune (mêmes graines), ajoutées dans un ordre inverse l'une de l'autre.<br/>2. Appeler `forward()` sur la même entrée. | Vérifie que `anyDifferent` est vrai. |
 
 ### Core
 

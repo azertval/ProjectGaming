@@ -54,6 +54,8 @@ add_executable(UnitTests
     Unit/AiSolver/Nn/test_dense.cpp
     # Activations sigmoid/softmax (LOT-ANNEXE-03, TACHE-02).
     Unit/AiSolver/Nn/test_activations.cpp
+    # Composition en reseau (LOT-ANNEXE-03, TACHE-03).
+    Unit/AiSolver/Nn/test_network.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp
