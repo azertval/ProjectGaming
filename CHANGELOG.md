@@ -243,6 +243,24 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   *après* le démarrage de la partie, et elle commence par libérer ce qui tenait une texture — dont
   la session de jeu qui venait d'être créée. Le viewport retombait alors silencieusement sur le
   brouillon d'édition. La session est désormais **remontée** une fois les ressources disponibles.
+## [0.1.1] - 2026-08-20
+
+> Septième jalon : les trajectoires de plateformes et de dangers mobiles se dessinent enfin **à la
+> souris** plutôt qu'au JSON (`LOT-67`), et l'éditeur comme les écrans du jeu passent en **pixel
+> art** (`LOT-68`) — cadres à bordure franche, police bitmap embarquée, barre d'outils et menus
+> dégraissés.
+>
+> Une route de plateforme mobile suit désormais une suite de points de passage, en aller-retour ou
+> en **circuit fermé**, manipulable directement au canevas par l'outil « Parcours » ; un panneau
+> « Propriétés » rend enfin accessibles depuis l'éditeur des réglages qui n'existaient jusqu'ici que
+> dans le modèle (vitesse, déphasage, mode, axe/portée d'un danger mobile, période d'un danger
+> temporisé, capacités de mobilité par tableau). Trois vieux défauts de l'éditeur sont corrigés au
+> passage : une plateforme fraîchement posée pouvait rester sans parcours possible avant un
+> enregistrement/rechargement, trois types de tuiles (clé, porte verrouillée, plateforme mobile)
+> n'avaient pas de texture dans le jeu de skins par défaut, et la palette/l'arbre de textures
+> s'ouvraient parfois vides au lancement.
+>
+> **1185 tests** (1119 au jalon précédent).
 
 ### Interface (LOT-68)
 
