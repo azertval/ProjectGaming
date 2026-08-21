@@ -100,9 +100,9 @@ $(function(){initNavTree('classhmi_1_1BitmapFont.html','','classhmi_1_1BitmapFon
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a02df5ed7b73fa5bd98ca8fc1f00e6616" id="r_a02df5ed7b73fa5bd98ca8fc1f00e6616"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a02df5ed7b73fa5bd98ca8fc1f00e6616">BitmapFont</a> (ID3D11Device *device)</td></tr>
-<tr class="memdesc:a02df5ed7b73fa5bd98ca8fc1f00e6616"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge la police (fichier, avec repli procédural) et crée la ressource Direct3D associée.  <br /></td></tr>
-<tr class="memitem:a0490316a566fec41b998116cd318d8ff" id="r_a0490316a566fec41b998116cd318d8ff"><td class="memItemLeft">ID3D11ShaderResourceView *&#160;</td><td class="memItemRight"><a class="el" href="#a0490316a566fec41b998116cd318d8ff">textureView</a> () const</td></tr>
+<tr class="memitem:abdba42184600bd0e7cd41eabe8692335" id="r_abdba42184600bd0e7cd41eabe8692335"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abdba42184600bd0e7cd41eabe8692335">BitmapFont</a> (const <a class="el" href="structhmi_1_1RhiContext.html">RhiContext</a> &amp;context)</td></tr>
+<tr class="memdesc:abdba42184600bd0e7cd41eabe8692335"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge la police (fichier, avec repli procédural) et crée la texture GPU associée.  <br /></td></tr>
+<tr class="memitem:a91bdfb49e31b3e53ed69a4e5c95261e4" id="r_a91bdfb49e31b3e53ed69a4e5c95261e4"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>&#160;</td><td class="memItemRight"><a class="el" href="#a91bdfb49e31b3e53ed69a4e5c95261e4">textureHandle</a> () const</td></tr>
 <tr class="memitem:ab46d4ac7771643b59e079e2f167caeee" id="r_ab46d4ac7771643b59e079e2f167caeee"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ab46d4ac7771643b59e079e2f167caeee">textureWidth</a> () const noexcept</td></tr>
 <tr class="memitem:a0dd1643e1af9dca6d33e567bff6b881c" id="r_a0dd1643e1af9dca6d33e567bff6b881c"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0dd1643e1af9dca6d33e567bff6b881c">textureHeight</a> () const noexcept</td></tr>
 <tr class="memitem:a18f97d846239c69375c15cfac51a0715" id="r_a18f97d846239c69375c15cfac51a0715"><td class="memItemLeft">const <a class="el" href="structhmi_1_1FontMetrics.html">FontMetrics</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a18f97d846239c69375c15cfac51a0715">metrics</a> () const noexcept</td></tr>
@@ -118,25 +118,24 @@ Static Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a504d7aa82efa6d7a7feb49ffaf5a660a" id="r_a504d7aa82efa6d7a7feb49ffaf5a660a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a504d7aa82efa6d7a7feb49ffaf5a660a">loadFromAssets</a> (ID3D11Device *device)</td></tr>
-<tr class="memdesc:a504d7aa82efa6d7a7feb49ffaf5a660a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Essaie de charger <span class="tt">Assets/Fonts/font.png</span> + <span class="tt">font.json</span>.  <br /></td></tr>
-<tr class="memitem:a9bb7020df24f9b1ccb1f574fa91d1918" id="r_a9bb7020df24f9b1ccb1f574fa91d1918"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9bb7020df24f9b1ccb1f574fa91d1918">generateProcedural</a> (ID3D11Device *device)</td></tr>
-<tr class="memdesc:a9bb7020df24f9b1ccb1f574fa91d1918"><td class="mdescLeft">&#160;</td><td class="mdescRight">Génère la police procédurale (<span class="tt"><a class="el" href="namespacehmi.html#aa0557f626aa9e0c77a70fd006a34a105" title="Génère, en mémoire, une police bitmap minimale et déterministe (repli sans asset).">hmi::buildProceduralFont</a></span>) et crée la texture associée.  <br /></td></tr>
+<tr class="memitem:a49198b5dfb15a4254573930752676fe1" id="r_a49198b5dfb15a4254573930752676fe1"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a49198b5dfb15a4254573930752676fe1">loadFromAssets</a> (const <a class="el" href="structhmi_1_1RhiContext.html">RhiContext</a> &amp;context)</td></tr>
+<tr class="memdesc:a49198b5dfb15a4254573930752676fe1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Essaie de charger <span class="tt">Assets/Fonts/font.png</span> + <span class="tt">font.json</span>.  <br /></td></tr>
+<tr class="memitem:a80709e13eb8ee9a68ed60a686e8d360c" id="r_a80709e13eb8ee9a68ed60a686e8d360c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a80709e13eb8ee9a68ed60a686e8d360c">generateProcedural</a> (const <a class="el" href="structhmi_1_1RhiContext.html">RhiContext</a> &amp;context)</td></tr>
+<tr class="memdesc:a80709e13eb8ee9a68ed60a686e8d360c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Génère la police procédurale (<span class="tt"><a class="el" href="namespacehmi.html#aa0557f626aa9e0c77a70fd006a34a105" title="Génère, en mémoire, une police bitmap minimale et déterministe (repli sans asset).">hmi::buildProceduralFont</a></span>) et crée la texture associée.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a9d08a58280e8b83ea1e248e5689ddf18" id="r_a9d08a58280e8b83ea1e248e5689ddf18"><td class="memItemLeft"><a class="el" href="structhmi_1_1FontMetrics.html">FontMetrics</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9d08a58280e8b83ea1e248e5689ddf18">_metrics</a></td></tr>
 <tr class="memitem:a0eac13a7ae9adc2557c1ce3e2212b3ce" id="r_a0eac13a7ae9adc2557c1ce3e2212b3ce"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0eac13a7ae9adc2557c1ce3e2212b3ce">_textureWidth</a> = 0</td></tr>
 <tr class="memitem:a283ea3d6f919eebb69e53f0a5a8016ba" id="r_a283ea3d6f919eebb69e53f0a5a8016ba"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a283ea3d6f919eebb69e53f0a5a8016ba">_textureHeight</a> = 0</td></tr>
-<tr class="memitem:a95594fcb409711c97e9c30befa7c6dcb" id="r_a95594fcb409711c97e9c30befa7c6dcb"><td class="memItemLeft">Microsoft::WRL::ComPtr&lt; ID3D11Texture2D &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a95594fcb409711c97e9c30befa7c6dcb">_texture</a></td></tr>
-<tr class="memitem:a36baa64fc5f64ac9839f2d018930e503" id="r_a36baa64fc5f64ac9839f2d018930e503"><td class="memItemLeft">Microsoft::WRL::ComPtr&lt; ID3D11ShaderResourceView &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a36baa64fc5f64ac9839f2d018930e503">_view</a></td></tr>
+<tr class="memitem:a81c716761ff77657c1d476207514566f" id="r_a81c716761ff77657c1d476207514566f"><td class="memItemLeft">std::shared_ptr&lt; QRhiTexture &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a81c716761ff77657c1d476207514566f">_texture</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Police bitmap chargée depuis <span class="tt">Assets/Fonts/</span>, avec repli <b>procédural</b> (<span class="tt">EX-NFR-040</span>). </p>
-<p>À la construction, essaie de charger <span class="tt">Assets/Fonts/font.png</span> accompagné de ses métriques (<span class="tt">Assets/Fonts/font.json</span>, <span class="tt"><a class="el" href="namespacehmi.html#a6770c69567bdf9f23ff11a42feb080d5" title="Lit des métriques de police depuis un fichier.">hmi::loadFontMetricsFromFile</a></span>), validés par le contrat d'asset (<span class="tt"><a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003a194f5394ae2e9c74dc3c441b92862d1d" title="Atlas de glyphes d&#39;une police bitmap : dimensions libres, découpées par ses métriques (LOT-52),...">AssetFamily::Font</a></span>, <span class="tt">EX-REN-007</span>) puis par leur cohérence mutuelle (<span class="tt"><a class="el" href="namespacehmi.html#aa07f4464477c925f45c59a7c90e6054d" title="Valide la cohérence entre des métriques et les dimensions décodées du PNG associé.">hmi::validateFontMetricsAgainstTexture</a></span>). Si l'un des deux est absent, illisible ou incohérent, retombe sans plantage sur <span class="tt"><a class="el" href="namespacehmi.html#aa0557f626aa9e0c77a70fd006a34a105" title="Génère, en mémoire, une police bitmap minimale et déterministe (repli sans asset).">hmi::buildProceduralFont</a></span> (<span class="tt">LOT-52</span>), sur le modèle de <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, chargée depuis un fichier image avec repli procédural (EX-REN-04...">hmi::TextureAtlas</a></span> vis-à-vis de <span class="tt"><a class="el" href="namespacehmi.html#a0fa1fc503abd25e16f2e3d52f6c8d540" title="Génère, en mémoire, l&#39;atlas procédural historique (grille de tuiles + images du personnage),...">hmi::buildProceduralAtlasImage</a></span> : possède sa <b>propre</b> ressource Direct3D (RAII, <span class="tt">ComPtr</span>), chargée une fois au démarrage — pas de rechargement à chaud (comme l'atlas de tuiles, hors du périmètre de <span class="tt">LOT-43</span> TACHE-03). </p>
+<p>À la construction, essaie de charger <span class="tt">Assets/Fonts/font.png</span> accompagné de ses métriques (<span class="tt">Assets/Fonts/font.json</span>, <span class="tt"><a class="el" href="namespacehmi.html#a6770c69567bdf9f23ff11a42feb080d5" title="Lit des métriques de police depuis un fichier.">hmi::loadFontMetricsFromFile</a></span>), validés par le contrat d'asset (<span class="tt"><a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003a194f5394ae2e9c74dc3c441b92862d1d" title="Atlas de glyphes d&#39;une police bitmap : dimensions libres, découpées par ses métriques (LOT-52),...">AssetFamily::Font</a></span>, <span class="tt">EX-REN-007</span>) puis par leur cohérence mutuelle (<span class="tt"><a class="el" href="namespacehmi.html#aa07f4464477c925f45c59a7c90e6054d" title="Valide la cohérence entre des métriques et les dimensions décodées du PNG associé.">hmi::validateFontMetricsAgainstTexture</a></span>). Si l'un des deux est absent, illisible ou incohérent, retombe sans plantage sur <span class="tt"><a class="el" href="namespacehmi.html#aa0557f626aa9e0c77a70fd006a34a105" title="Génère, en mémoire, une police bitmap minimale et déterministe (repli sans asset).">hmi::buildProceduralFont</a></span> (<span class="tt">LOT-52</span>), sur le modèle de <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, chargée depuis un fichier image avec repli procédural (EX-REN-04...">hmi::TextureAtlas</a></span> vis-à-vis de <span class="tt"><a class="el" href="namespacehmi.html#a0fa1fc503abd25e16f2e3d52f6c8d540" title="Génère, en mémoire, l&#39;atlas procédural historique (grille de tuiles + images du personnage),...">hmi::buildProceduralAtlasImage</a></span> : possède sa <b>propre</b> texture GPU (RAII), chargée une fois au démarrage — pas de rechargement à chaud (comme l'atlas de tuiles, hors du périmètre de <span class="tt">LOT-43</span> TACHE-03). </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a02df5ed7b73fa5bd98ca8fc1f00e6616" name="a02df5ed7b73fa5bd98ca8fc1f00e6616"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02df5ed7b73fa5bd98ca8fc1f00e6616">&#9670;&#160;</a></span>BitmapFont()</h2>
+<a id="abdba42184600bd0e7cd41eabe8692335" name="abdba42184600bd0e7cd41eabe8692335"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdba42184600bd0e7cd41eabe8692335">&#9670;&#160;</a></span>BitmapFont()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -147,7 +146,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">hmi::BitmapFont::BitmapFont </td>
           <td>(</td>
-          <td class="paramtype">ID3D11Device *</td>          <td class="paramname"><span class="paramname"><em>device</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1RhiContext.html">RhiContext</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>context</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -158,10 +157,10 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Charge la police (fichier, avec repli procédural) et crée la ressource Direct3D associée. </p>
+<p>Charge la police (fichier, avec repli procédural) et crée la texture GPU associée. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">device</td><td>Device Direct3D 11 (crée la texture et sa vue de ressource). </td></tr>
+    <tr><td class="paramname">context</td><td>Interface de rendu et lot de mises à jour de l'image courante. </td></tr>
   </table>
   </dd>
 </dl>
@@ -169,8 +168,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="a9bb7020df24f9b1ccb1f574fa91d1918" name="a9bb7020df24f9b1ccb1f574fa91d1918"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9bb7020df24f9b1ccb1f574fa91d1918">&#9670;&#160;</a></span>generateProcedural()</h2>
+<a id="a80709e13eb8ee9a68ed60a686e8d360c" name="a80709e13eb8ee9a68ed60a686e8d360c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80709e13eb8ee9a68ed60a686e8d360c">&#9670;&#160;</a></span>generateProcedural()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -181,7 +180,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void hmi::BitmapFont::generateProcedural </td>
           <td>(</td>
-          <td class="paramtype">ID3D11Device *</td>          <td class="paramname"><span class="paramname"><em>device</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1RhiContext.html">RhiContext</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>context</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -196,8 +195,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a504d7aa82efa6d7a7feb49ffaf5a660a" name="a504d7aa82efa6d7a7feb49ffaf5a660a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a504d7aa82efa6d7a7feb49ffaf5a660a">&#9670;&#160;</a></span>loadFromAssets()</h2>
+<a id="a49198b5dfb15a4254573930752676fe1" name="a49198b5dfb15a4254573930752676fe1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49198b5dfb15a4254573930752676fe1">&#9670;&#160;</a></span>loadFromAssets()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -208,7 +207,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">bool hmi::BitmapFont::loadFromAssets </td>
           <td>(</td>
-          <td class="paramtype">ID3D11Device *</td>          <td class="paramname"><span class="paramname"><em>device</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1RhiContext.html">RhiContext</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>context</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -281,6 +280,32 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a91bdfb49e31b3e53ed69a4e5c95261e4" name="a91bdfb49e31b3e53ed69a4e5c95261e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91bdfb49e31b3e53ed69a4e5c95261e4">&#9670;&#160;</a></span>textureHandle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> hmi::BitmapFont::textureHandle </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'identité opaque de la texture de police (non possédée par l'appelant). </dd></dl>
+
+</div>
+</div>
 <a id="a0dd1643e1af9dca6d33e567bff6b881c" name="a0dd1643e1af9dca6d33e567bff6b881c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0dd1643e1af9dca6d33e567bff6b881c">&#9670;&#160;</a></span>textureHeight()</h2>
 
@@ -304,32 +329,6 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Hauteur de l'atlas de glyphes, en pixels. </dd></dl>
-
-</div>
-</div>
-<a id="a0490316a566fec41b998116cd318d8ff" name="a0490316a566fec41b998116cd318d8ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0490316a566fec41b998116cd318d8ff">&#9670;&#160;</a></span>textureView()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">ID3D11ShaderResourceView * hmi::BitmapFont::textureView </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>La vue de ressource de la texture de police (non possédée par l'appelant). </dd></dl>
 
 </div>
 </div>
@@ -382,8 +381,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a95594fcb409711c97e9c30befa7c6dcb" name="a95594fcb409711c97e9c30befa7c6dcb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95594fcb409711c97e9c30befa7c6dcb">&#9670;&#160;</a></span>_texture</h2>
+<a id="a81c716761ff77657c1d476207514566f" name="a81c716761ff77657c1d476207514566f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81c716761ff77657c1d476207514566f">&#9670;&#160;</a></span>_texture</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -392,7 +391,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Microsoft::WRL::ComPtr&lt;ID3D11Texture2D&gt; hmi::BitmapFont::_texture</td>
+          <td class="memname">std::shared_ptr&lt;QRhiTexture&gt; hmi::BitmapFont::_texture</td>
         </tr>
       </table>
   </td>
@@ -437,28 +436,6 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">int hmi::BitmapFont::_textureWidth = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a36baa64fc5f64ac9839f2d018930e503" name="a36baa64fc5f64ac9839f2d018930e503"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36baa64fc5f64ac9839f2d018930e503">&#9670;&#160;</a></span>_view</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Microsoft::WRL::ComPtr&lt;ID3D11ShaderResourceView&gt; hmi::BitmapFont::_view</td>
         </tr>
       </table>
   </td>

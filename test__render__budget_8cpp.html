@@ -103,17 +103,18 @@ $(function(){initNavTree('test__render__budget_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="Sprite_8h_source.html">Core/Ecs/Components/Sprite.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Transform_8h_source.html">Core/Ecs/Components/Transform.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="World_8h_source.html">Core/Ecs/World.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Decor_8h_source.html">Core/Levels/Decor.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelScene_8h_source.html">Core/Levels/LevelScene.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Plane_8h_source.html">Core/Levels/Plane.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PlayerSpawn_8h_source.html">Core/Physics/PlayerSpawn.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PlaneFileNaming_8h_source.html">HMI/Editor/PlaneFileNaming.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="BackgroundRenderer_8h_source.html">HMI/Graphics/BackgroundRenderer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Camera2D_8h_source.html">HMI/Graphics/Camera2D.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ComposedScene_8h_source.html">HMI/Graphics/ComposedScene.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="DecorVisuals_8h_source.html">HMI/Graphics/DecorVisuals.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ParticleRenderer_8h_source.html">HMI/Graphics/ParticleRenderer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PlaneVisuals_8h_source.html">HMI/Graphics/PlaneVisuals.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PlayerSpriteTag_8h_source.html">HMI/Graphics/PlayerSpriteTag.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="QuadRecorder_8h_source.html">HMI/Graphics/QuadRecorder.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RenderLayer_8h_source.html">HMI/Graphics/RenderLayer.h</a>&quot;</code><br />
@@ -134,12 +135,20 @@ Functions</h2></td></tr>
 <tr class="memdesc:af52a68887cdcd684738271d1cfd2013c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sur un grand niveau à plusieurs salles, le culling écarte une fraction significative des primitives : c'est ce qui distingue un culling qui fonctionne d'un culling qui compile.  <br /></td></tr>
 <tr class="memitem:a23ad35874bb79e2c8a9a3790521ae493" id="r_a23ad35874bb79e2c8a9a3790521ae493"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a23ad35874bb79e2c8a9a3790521ae493">TEST</a> (RenderBudgetTest, DeuxCompositionsDeLaMemeSceneDonnentLeMemeVolume)</td></tr>
 <tr class="memdesc:a23ad35874bb79e2c8a9a3790521ae493"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le volume de primitives d'une scène est déterministe : composer deux fois la même scène, avec la même caméra, donne exactement les mêmes compteurs.  <br /></td></tr>
+<tr class="memitem:a0db142d2673629733b770d42f796473a" id="r_a0db142d2673629733b770d42f796473a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0db142d2673629733b770d42f796473a">TEST</a> (RenderBudgetTest, ChaqueNiveauLivreResteSousLePlafondDeMemoireDePlans)</td></tr>
+<tr class="memdesc:a0db142d2673629733b770d42f796473a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chaque niveau livré reste sous le plafond de <b>mémoire de texture</b> de ses plans.  <br /></td></tr>
+<tr class="memitem:acd3d73475949317c86aa34e55d7aedc5" id="r_acd3d73475949317c86aa34e55d7aedc5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#acd3d73475949317c86aa34e55d7aedc5">TEST</a> (RenderBudgetTest, UnPlanDePlusSurUnNiveauAuPlafondDepasseLeBudgetDeMemoire)</td></tr>
+<tr class="memdesc:acd3d73475949317c86aa34e55d7aedc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un plan supplémentaire à densité native sur un niveau <b>au plafond</b> le fait dépasser : le garde-fou est vérifié dans le sens qui compte — celui du refus.  <br /></td></tr>
+<tr class="memitem:a63fba0dd0e878dff50c7c089e2b83c23" id="r_a63fba0dd0e878dff50c7c089e2b83c23"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a63fba0dd0e878dff50c7c089e2b83c23">TEST</a> (RenderBudgetTest, LeCoutDesPlansEstInvariantEnTailleDeNiveau)</td></tr>
+<tr class="memdesc:a63fba0dd0e878dff50c7c089e2b83c23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le coût de composition des plans est <b>invariant en taille de niveau</b> : c'est ce qui les distingue des tuiles, et la raison pour laquelle un plafond en primitives ne les verrait pas grossir.  <br /></td></tr>
+<tr class="memitem:a3fb117d9b9a4a1dfc7c3fee7b3de7d71" id="r_a3fb117d9b9a4a1dfc7c3fee7b3de7d71"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3fb117d9b9a4a1dfc7c3fee7b3de7d71">TEST</a> (RenderBudgetTest, ChaquePlanCouteUnePrimitiveEtUnePasseJamaisEcartee)</td></tr>
+<tr class="memdesc:a3fb117d9b9a4a1dfc7c3fee7b3de7d71"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">N</span> plans coûtent exactement <span class="tt">+N</span> primitives soumises et <span class="tt">+N</span> passes, <b>aucune</b> écartée par le culling : un plan couvre le niveau entier, il est toujours à l'écran.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Test de non-régression du volume de primitives et de l'efficacité du culling (<span class="tt">LOT-62</span> TACHE-01, <span class="tt">EX-NFR-005</span>, <span class="tt">EX-NFR-004</span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ada1bf345b72e14961102a6f9e3038125" name="ada1bf345b72e14961102a6f9e3038125"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada1bf345b72e14961102a6f9e3038125">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ada1bf345b72e14961102a6f9e3038125">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -168,8 +177,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a0db142d2673629733b770d42f796473a" name="a0db142d2673629733b770d42f796473a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0db142d2673629733b770d42f796473a">&#9670;&#160;</a></span>TEST() <span class="overload">[2/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">RenderBudgetTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChaqueNiveauLivreResteSousLePlafondDeMemoireDePlans</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Chaque niveau livré reste sous le plafond de <b>mémoire de texture</b> de ses plans. </p>
+<p><b>Cas de test :</b> <b>Chaque niveau livre reste sous le plafond de memoire de plans.</b><br  />
+ <b>Categorie :</b> Unitaire · Budget de rendu<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger chaque niveau livre.<br  />
+2. Sommer la memoire exigee par ses plans, densite declaree comprise.<br  />
+ <b>Resultat attendu :</b> Le total reste sous le plafond de memoire par niveau. </p>
+
+</div>
+</div>
 <a id="a6a155bb946a8f0b0476537dbcc08ed03" name="a6a155bb946a8f0b0476537dbcc08ed03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a155bb946a8f0b0476537dbcc08ed03">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a155bb946a8f0b0476537dbcc08ed03">&#9670;&#160;</a></span>TEST() <span class="overload">[3/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,8 +237,37 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a3fb117d9b9a4a1dfc7c3fee7b3de7d71" name="a3fb117d9b9a4a1dfc7c3fee7b3de7d71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fb117d9b9a4a1dfc7c3fee7b3de7d71">&#9670;&#160;</a></span>TEST() <span class="overload">[4/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">RenderBudgetTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChaquePlanCouteUnePrimitiveEtUnePasseJamaisEcartee</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><span class="tt">N</span> plans coûtent exactement <span class="tt">+N</span> primitives soumises et <span class="tt">+N</span> passes, <b>aucune</b> écartée par le culling : un plan couvre le niveau entier, il est toujours à l'écran. </p>
+<p><b>Cas de test :</b> <b>N plans coutent N primitives soumises, N passes et aucune ecartee.</b><br  />
+ <b>Categorie :</b> Unitaire · Budget de rendu<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer quatre plans dans une scene cadree sur une salle du niveau.<br  />
+ <b>Resultat attendu :</b> Quatre primitives examinees, quatre soumises, quatre passes, zero ecartee. </p>
+
+</div>
+</div>
 <a id="af52a68887cdcd684738271d1cfd2013c" name="af52a68887cdcd684738271d1cfd2013c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af52a68887cdcd684738271d1cfd2013c">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af52a68887cdcd684738271d1cfd2013c">&#9670;&#160;</a></span>TEST() <span class="overload">[5/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -229,7 +297,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a23ad35874bb79e2c8a9a3790521ae493" name="a23ad35874bb79e2c8a9a3790521ae493"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23ad35874bb79e2c8a9a3790521ae493">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a23ad35874bb79e2c8a9a3790521ae493">&#9670;&#160;</a></span>TEST() <span class="overload">[6/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -254,6 +322,65 @@ Functions</h2></td></tr>
  <b>Etapes :</b><br  />
  1. Composer deux fois la scene de demo-final, en mode Texture.<br  />
  <b>Resultat attendu :</b> Les compteurs (examinees, ecartees, soumises, passes) sont strictement identiques. </p>
+
+</div>
+</div>
+<a id="a63fba0dd0e878dff50c7c089e2b83c23" name="a63fba0dd0e878dff50c7c089e2b83c23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63fba0dd0e878dff50c7c089e2b83c23">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">RenderBudgetTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeCoutDesPlansEstInvariantEnTailleDeNiveau</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le coût de composition des plans est <b>invariant en taille de niveau</b> : c'est ce qui les distingue des tuiles, et la raison pour laquelle un plafond en primitives ne les verrait pas grossir. </p>
+<p><b>Cas de test :</b> <b>Le cout en primitives des plans ne depend pas de la taille du niveau.</b><br  />
+ <b>Categorie :</b> Unitaire · Budget de rendu<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer quatre plans sur un niveau, puis sur un niveau deux fois plus grand sur chaque axe.<br  />
+ <b>Resultat attendu :</b> Memes primitives examinees, soumises et passes ; la memoire, elle, quadruple. </p>
+
+</div>
+</div>
+<a id="acd3d73475949317c86aa34e55d7aedc5" name="acd3d73475949317c86aa34e55d7aedc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd3d73475949317c86aa34e55d7aedc5">&#9670;&#160;</a></span>TEST() <span class="overload">[8/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">RenderBudgetTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnPlanDePlusSurUnNiveauAuPlafondDepasseLeBudgetDeMemoire</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un plan supplémentaire à densité native sur un niveau <b>au plafond</b> le fait dépasser : le garde-fou est vérifié dans le sens qui compte — celui du refus. </p>
+<p>Un plafond qu'on n'a jamais vu refuser quoi que ce soit ne prouve rien. <b>Cas de test :</b> <b>Un plan de plus sur un niveau au plafond fait echouer le budget de memoire.</b><br  />
+ <b>Categorie :</b> Unitaire · Budget de rendu<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Construire un niveau de la taille du plus grand niveau livre, charge de plans a densite native jusqu'au plafond.<br  />
+2. Ajouter un plan de plus, a la meme densite.<br  />
+ <b>Resultat attendu :</b> Le total passe de « sous le plafond » a « au-dessus », sans que le format lui-meme soit atteint (le nombre de plans reste sous <a class="el" href="namespacecore.html#aba31765307efa0a613fd06d8bcecc203" title="Nombre maximal de plans par niveau (EX-DEC-044) : borne le coût dans le format, plutôt que de le lais...">core::MAX_PLANES_PER_LEVEL</a>). </p>
 
 </div>
 </div>

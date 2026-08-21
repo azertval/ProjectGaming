@@ -101,10 +101,12 @@ $(function(){initNavTree('classhmi_1_1DraftRenderer.html','','classhmi_1_1DraftR
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab7ac8e70c8f5d62819348a53803663a3" id="r_ab7ac8e70c8f5d62819348a53803663a3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab7ac8e70c8f5d62819348a53803663a3">DraftRenderer</a> (<a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> &amp;batch, const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas, <a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache)</td></tr>
-<tr class="memitem:a10756394061b431cc4e9f08589445540" id="r_a10756394061b431cc4e9f08589445540"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a10756394061b431cc4e9f08589445540">render</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera, bool showGrid, const std::optional&lt; std::pair&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; &gt; &amp;highlight, const <a class="el" href="structhmi_1_1LinkOverlayState.html">LinkOverlayState</a> &amp;linkOverlay, <a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, bool showTextureOverrides=false, float deltaSeconds=0.0f, const <a class="el" href="structhmi_1_1DecorOverlayState.html">DecorOverlayState</a> &amp;decorOverlay={}, const <a class="el" href="classhmi_1_1LayerVisibility.html">LayerVisibility</a> &amp;visibility={}, const <a class="el" href="structhmi_1_1PathOverlayState.html">PathOverlayState</a> &amp;pathOverlay={})</td></tr>
-<tr class="memdesc:a10756394061b431cc4e9f08589445540"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée).  <br /></td></tr>
+<tr class="memitem:a12bce2c34abcead32a41e553023fba55" id="r_a12bce2c34abcead32a41e553023fba55"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a12bce2c34abcead32a41e553023fba55">render</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera, bool showGrid, const std::optional&lt; std::pair&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; &gt; &amp;highlight, const <a class="el" href="structhmi_1_1LinkOverlayState.html">LinkOverlayState</a> &amp;linkOverlay, <a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, bool showTextureOverrides=false, float deltaSeconds=0.0f, const <a class="el" href="classhmi_1_1LayerVisibility.html">LayerVisibility</a> &amp;visibility={}, const <a class="el" href="structhmi_1_1PathOverlayState.html">PathOverlayState</a> &amp;pathOverlay={}, const <a class="el" href="classhmi_1_1PlaneVisibility.html">PlaneVisibility</a> &amp;planeVisibility={})</td></tr>
+<tr class="memdesc:a12bce2c34abcead32a41e553023fba55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée).  <br /></td></tr>
+<tr class="memitem:a9af63f0ff64c8b7e52303a8ff14d4afe" id="r_a9af63f0ff64c8b7e52303a8ff14d4afe"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9af63f0ff64c8b7e52303a8ff14d4afe">setPlanesDirectory</a> (std::filesystem::path directory)</td></tr>
+<tr class="memdesc:a9af63f0ff64c8b7e52303a8ff14d4afe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixe le dossier où résoudre les images de plans (<span class="tt">Levels/Plans</span>), comme <span class="tt"><a class="el" href="classhmi_1_1SpriteRenderer.html#a142edb16e6d4d59e22a030b4e974107a" title="Fixe le dossier où résoudre les images de plans (Levels/Plans).">hmi::SpriteRenderer::setPlanesDirectory</a></span>.  <br /></td></tr>
 <tr class="memitem:a866ad56f7e8a029aaff1b8b72210c30a" id="r_a866ad56f7e8a029aaff1b8b72210c30a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a866ad56f7e8a029aaff1b8b72210c30a">invalidate</a> () noexcept</td></tr>
-<tr class="memdesc:a866ad56f7e8a029aaff1b8b72210c30a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque la scène comme périmée : elle sera reconstruite au prochain <span class="tt"><a class="el" href="#a10756394061b431cc4e9f08589445540" title="Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée).">render</a></span> (à appeler après toute mutation du brouillon — peinture, undo/redo, chargement, redimensionnement).  <br /></td></tr>
+<tr class="memdesc:a866ad56f7e8a029aaff1b8b72210c30a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque la scène comme périmée : elle sera reconstruite au prochain <span class="tt"><a class="el" href="#a12bce2c34abcead32a41e553023fba55" title="Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée).">render</a></span> (à appeler après toute mutation du brouillon — peinture, undo/redo, chargement, redimensionnement).  <br /></td></tr>
 <tr class="memitem:acbb89fb6d31cb5718dece21322b1630c" id="r_acbb89fb6d31cb5718dece21322b1630c"><td class="memItemLeft">const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#acbb89fb6d31cb5718dece21322b1630c">lastScene</a> () const noexcept</td></tr>
 <tr class="memitem:a2034472c87db59e7a7941c945e9d61f4" id="r_a2034472c87db59e7a7941c945e9d61f4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2034472c87db59e7a7941c945e9d61f4">setSkins</a> (const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *skins, std::string skinSet={})</td></tr>
 <tr class="memdesc:a2034472c87db59e7a7941c945e9d61f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Désigne le catalogue de skins et le jeu à utiliser en mode Texture (<span class="tt">LOT-42</span>).  <br /></td></tr>
@@ -112,8 +114,8 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a3d4077be5ae7aa58ff2c349443f97d65" id="r_a3d4077be5ae7aa58ff2c349443f97d65"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3d4077be5ae7aa58ff2c349443f97d65">rebuild</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft)</td></tr>
-<tr class="memitem:af8652cf98d80fba9a8296521245b20e6" id="r_af8652cf98d80fba9a8296521245b20e6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af8652cf98d80fba9a8296521245b20e6">composeGrid</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, bool accentuate)</td></tr>
-<tr class="memdesc:af8652cf98d80fba9a8296521245b20e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose la grille de repère (frontières de cases + de salles) sur le calque d'édition.  <br /></td></tr>
+<tr class="memitem:a1eabde0038500f14697e69af39359c1f" id="r_a1eabde0038500f14697e69af39359c1f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1eabde0038500f14697e69af39359c1f">composeGrid</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft)</td></tr>
+<tr class="memdesc:a1eabde0038500f14697e69af39359c1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose la grille de repère (frontières de cases + de salles) sur le calque d'édition.  <br /></td></tr>
 <tr class="memitem:ac3b8c03706fcba4f7050260941a2faa9" id="r_ac3b8c03706fcba4f7050260941a2faa9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac3b8c03706fcba4f7050260941a2faa9">composeCameraFraming</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft)</td></tr>
 <tr class="memdesc:ac3b8c03706fcba4f7050260941a2faa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose la prévisualisation du cadrage de caméra du niveau (<span class="tt">EX-EDIT-028</span>, LOT-64) sur le calque d'édition : le cadre du niveau entier, la grille de salles à taille résolue (<span class="tt"><a class="el" href="classhmi_1_1RoomGrid.html" title="Partitionne une grille de niveau en un tableau de salles de taille fixe, façon Celeste (LOT-32).">hmi::RoomGrid</a></span>), ou le rectangle visible et la zone morte matérialisée du mode suivi (centré sur l'entrée).  <br /></td></tr>
 <tr class="memitem:a6407efa6e5ef2c0c1818b76d99c7bc24" id="r_a6407efa6e5ef2c0c1818b76d99c7bc24"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6407efa6e5ef2c0c1818b76d99c7bc24">composeLinks</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, const <a class="el" href="structhmi_1_1LinkOverlayState.html">LinkOverlayState</a> &amp;overlay)</td></tr>
@@ -129,11 +131,11 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a25e74134b58cd46d21a696664f0b0596"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose le voile d'aperçu d'une zone (outil Rectangle/Sélection) sur le calque d'édition.  <br /></td></tr>
 <tr class="memitem:a314511c7371520ca8ffd2fa9af1127d4" id="r_a314511c7371520ca8ffd2fa9af1127d4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a314511c7371520ca8ffd2fa9af1127d4">composeTextureOverrideMarkers</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft)</td></tr>
 <tr class="memdesc:a314511c7371520ca8ffd2fa9af1127d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signale les cases portant une surcharge de texture par instance sur le calque d'édition (<span class="tt">EX-EDIT-043</span>, <span class="tt">LOT-45</span>).  <br /></td></tr>
-<tr class="memitem:ab1adcc77d7af91dc8999566af02e003b" id="r_ab1adcc77d7af91dc8999566af02e003b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab1adcc77d7af91dc8999566af02e003b">composeDecorSelection</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, const <a class="el" href="structhmi_1_1DecorOverlayState.html">DecorOverlayState</a> &amp;decorOverlay, const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera)</td></tr>
-<tr class="memdesc:ab1adcc77d7af91dc8999566af02e003b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose le cadre de sélection et les poignées du décor sélectionné (<span class="tt">LOT-50</span> TACHE-03), à sa position d'<b>aperçu</b> si un glisser est en cours (<span class="tt"><a class="el" href="structhmi_1_1DecorOverlayState.html#a2d2fe564b8e45898341047336b78da5b" title="Action d&#39;aperçu du geste en cours (hmi::updateDecorGesture), appliquée par-dessus le décor sélectionn...">DecorOverlayState::preview</a></span>) — sans jamais lire ni écrire <span class="tt">_draft</span> au-delà de la copie locale nécessaire à l'aperçu.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:aaf343782d3fea0918617efb4460b9327" id="r_aaf343782d3fea0918617efb4460b9327"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#aaf343782d3fea0918617efb4460b9327">_planesDirectory</a></td></tr>
+<tr class="memdesc:aaf343782d3fea0918617efb4460b9327"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dossier des images de plans (<span class="tt"><a class="el" href="#a9af63f0ff64c8b7e52303a8ff14d4afe" title="Fixe le dossier où résoudre les images de plans (Levels/Plans), comme hmi::SpriteRenderer::setPlanesD...">setPlanesDirectory</a></span>), vide tant qu'aucun n'est fixé.  <br /></td></tr>
 <tr class="memitem:a0b67904e6c3e241a281be17dafe27398" id="r_a0b67904e6c3e241a281be17dafe27398"><td class="memItemLeft"><a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a0b67904e6c3e241a281be17dafe27398">_batch</a></td></tr>
 <tr class="memitem:a823f254cf3e79362168f4f5e3fa526a1" id="r_a823f254cf3e79362168f4f5e3fa526a1"><td class="memItemLeft">const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a823f254cf3e79362168f4f5e3fa526a1">_atlas</a></td></tr>
 <tr class="memitem:aee0b5e62d6615dc8fede40871395017f" id="r_aee0b5e62d6615dc8fede40871395017f"><td class="memItemLeft"><a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aee0b5e62d6615dc8fede40871395017f">_cache</a></td></tr>
@@ -141,17 +143,15 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a1106a948203446e8847a7d5e2a429d4e" id="r_a1106a948203446e8847a7d5e2a429d4e"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a1106a948203446e8847a7d5e2a429d4e">_skinSet</a></td></tr>
 <tr class="memitem:ab0e865117967424e741c7163552d57b5" id="r_ab0e865117967424e741c7163552d57b5"><td class="memItemLeft"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab0e865117967424e741c7163552d57b5">_scene</a></td></tr>
 <tr class="memitem:aa731650ada5f6cfd09d4c94aee44b0fb" id="r_aa731650ada5f6cfd09d4c94aee44b0fb"><td class="memItemLeft"><a class="el" href="classcore_1_1World.html">core::World</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa731650ada5f6cfd09d4c94aee44b0fb">_world</a></td></tr>
-<tr class="memitem:a84c8941c8cc5c37f44e0ddf6ce75ed24" id="r_a84c8941c8cc5c37f44e0ddf6ce75ed24"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Entity.html">core::Entity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a84c8941c8cc5c37f44e0ddf6ce75ed24">_decorEntities</a></td></tr>
-<tr class="memdesc:a84c8941c8cc5c37f44e0ddf6ce75ed24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entités de décor de <span class="tt"><a class="el" href="#aa731650ada5f6cfd09d4c94aee44b0fb">_world</a></span>, dans le même ordre que <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a1d49b3c7088c0f8928c8a2aaadee665e">core::LevelDraft::decors()</a></span> (peuplé par <span class="tt"><a class="el" href="#a3d4077be5ae7aa58ff2c349443f97d65">rebuild</a></span>) — permet d'appliquer l'aperçu d'un geste en cours (<span class="tt">LOT-50</span> TACHE-03) directement à l'entité concernée, sans reconstruire toute la scène à chaque image glissée.  <br /></td></tr>
 <tr class="memitem:a8d81eec42fa953e30cc22510831e6d0d" id="r_a8d81eec42fa953e30cc22510831e6d0d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8d81eec42fa953e30cc22510831e6d0d">_dirty</a> = true</td></tr>
 <tr class="memitem:a21b0dfb3b4d24bb413685d8bb0a3df62" id="r_a21b0dfb3b4d24bb413685d8bb0a3df62"><td class="memItemLeft">std::unordered_map&lt; std::string, <a class="el" href="structcore_1_1Animation.html">core::Animation</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a21b0dfb3b4d24bb413685d8bb0a3df62">_tileAnimations</a></td></tr>
-<tr class="memdesc:a21b0dfb3b4d24bb413685d8bb0a3df62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Horloge d'animation partagee par asset (LOT-46 TACHE-05), avancee en temps reel a chaque <a class="el" href="#a10756394061b431cc4e9f08589445540" title="Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée).">render()</a> &ndash; distincte de celle de <a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">GameSession</a> (pas fixe) : l'apercu d'edition n'a pas besoin d'etre deterministe.  <br /></td></tr>
+<tr class="memdesc:a21b0dfb3b4d24bb413685d8bb0a3df62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Horloge d'animation partagee par asset (LOT-46 TACHE-05), avancee en temps reel a chaque <a class="el" href="#a12bce2c34abcead32a41e553023fba55" title="Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée).">render()</a> &ndash; distincte de celle de <a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">GameSession</a> (pas fixe) : l'apercu d'edition n'a pas besoin d'etre deterministe.  <br /></td></tr>
 <tr class="memitem:a5feb3f40fee7a4be60e6df3922202baf" id="r_a5feb3f40fee7a4be60e6df3922202baf"><td class="memItemLeft">std::set&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5feb3f40fee7a4be60e6df3922202baf">_warnedExcludedAnimations</a></td></tr>
 <tr class="memdesc:a5feb3f40fee7a4be60e6df3922202baf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assets deja signales pour une combinaison exclue (bitmask16/silhouette + animation) : memorise pour ne jamais journaliser a chaque image.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Dessine la grille d'un <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span> en cours d'édition. </p>
-<p>Réutilise le pipeline de rendu du jeu : chaque tuile non vide du brouillon devient une entité (<span class="tt">Transform</span> + <span class="tt">Sprite</span>) d'un <span class="tt"><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">core::World</a></span> interne, composée par <span class="tt"><a class="el" href="namespacehmi.html#abcde42e0b994400c95163a44b713703b" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span> (lecture seule, <span class="tt">EX-ARCH-012</span>). Le <span class="tt"><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">core::World</a></span> n'est <b>reconstruit</b> que lorsque le brouillon change (<span class="tt"><a class="el" href="#a866ad56f7e8a029aaff1b8b72210c30a" title="Marque la scène comme périmée : elle sera reconstruite au prochain render (à appeler après toute muta...">invalidate()</a></span>), pas à chaque frame. Les blocs à taille réduite sont dessinés à leur échelle réelle (<span class="tt"><a class="el" href="namespacecore.html#a9b733af18a1507c5dc7b4ffdd88d8b6a" title="Facteur de taille visuel/collision d&#39;une tuile bloc réduite (EX-GP-005).">core::tileVisualScale</a></span>), comme en jeu — cohérence visuelle stricte.</p>
+<p>Réutilise le pipeline de rendu du jeu : chaque tuile non vide du brouillon devient une entité (<span class="tt">Transform</span> + <span class="tt">Sprite</span>) d'un <span class="tt"><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">core::World</a></span> interne, composée par <span class="tt"><a class="el" href="namespacehmi.html#a649774d217a61e4b37f00d309fa3b60e" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span> (lecture seule, <span class="tt">EX-ARCH-012</span>). Le <span class="tt"><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">core::World</a></span> n'est <b>reconstruit</b> que lorsque le brouillon change (<span class="tt"><a class="el" href="#a866ad56f7e8a029aaff1b8b72210c30a" title="Marque la scène comme périmée : elle sera reconstruite au prochain render (à appeler après toute muta...">invalidate()</a></span>), pas à chaque frame. Les blocs à taille réduite sont dessinés à leur échelle réelle (<span class="tt"><a class="el" href="namespacecore.html#a9b733af18a1507c5dc7b4ffdd88d8b6a" title="Facteur de taille visuel/collision d&#39;une tuile bloc réduite (EX-GP-005).">core::tileVisualScale</a></span>), comme en jeu — cohérence visuelle stricte.</p>
 <p>Depuis <span class="tt">LOT-40</span>, <b>toutes</b> les primitives d'une image (tuiles, grille de repère, liens de mécanismes, aperçu de sélection) sont composées dans une seule <span class="tt"><a class="el" href="classhmi_1_1ComposedScene.html" title="Liste ordonnée des primitives d&#39;une image, indépendante de Direct3D.">hmi::ComposedScene</a></span> puis soumises en bloc : les aides d'édition portent le calque <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a94f3616c83f30ab5a328e602bbb7d751" title="Aides d&#39;édition : grille de repère, liens de mécanismes, aperçu de sélection.">RenderLayer::EditorOverlay</a></span>, qui les place au-dessus de tout le reste par construction plutôt que par l'ordre des appels de dessin. La liste obtenue est donc inspectable sans GPU (<span class="tt">EX-NFR-004</span>) et soumise au culling (<span class="tt">EX-NFR-005</span>). </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab7ac8e70c8f5d62819348a53803663a3" name="ab7ac8e70c8f5d62819348a53803663a3"></a>
@@ -240,45 +240,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ab1adcc77d7af91dc8999566af02e003b" name="ab1adcc77d7af91dc8999566af02e003b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1adcc77d7af91dc8999566af02e003b">&#9670;&#160;</a></span>composeDecorSelection()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::DraftRenderer::composeDecorSelection </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>draft</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structhmi_1_1DecorOverlayState.html">DecorOverlayState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>decorOverlay</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>camera</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Compose le cadre de sélection et les poignées du décor sélectionné (<span class="tt">LOT-50</span> TACHE-03), à sa position d'<b>aperçu</b> si un glisser est en cours (<span class="tt"><a class="el" href="structhmi_1_1DecorOverlayState.html#a2d2fe564b8e45898341047336b78da5b" title="Action d&#39;aperçu du geste en cours (hmi::updateDecorGesture), appliquée par-dessus le décor sélectionn...">DecorOverlayState::preview</a></span>) — sans jamais lire ni écrire <span class="tt">_draft</span> au-delà de la copie locale nécessaire à l'aperçu. </p>
-<p>Sans effet si aucun décor n'est sélectionné. </p>
-
-</div>
-</div>
-<a id="af8652cf98d80fba9a8296521245b20e6" name="af8652cf98d80fba9a8296521245b20e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8652cf98d80fba9a8296521245b20e6">&#9670;&#160;</a></span>composeGrid()</h2>
+<a id="a1eabde0038500f14697e69af39359c1f" name="a1eabde0038500f14697e69af39359c1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1eabde0038500f14697e69af39359c1f">&#9670;&#160;</a></span>composeGrid()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -289,12 +252,8 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void hmi::DraftRenderer::composeGrid </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>draft</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>draft</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>accentuate</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -479,7 +438,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Marque la scène comme périmée : elle sera reconstruite au prochain <span class="tt"><a class="el" href="#a10756394061b431cc4e9f08589445540" title="Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée).">render</a></span> (à appeler après toute mutation du brouillon — peinture, undo/redo, chargement, redimensionnement). </p>
+<p>Marque la scène comme périmée : elle sera reconstruite au prochain <span class="tt"><a class="el" href="#a12bce2c34abcead32a41e553023fba55" title="Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée).">render</a></span> (à appeler après toute mutation du brouillon — peinture, undo/redo, chargement, redimensionnement). </p>
 
 </div>
 </div>
@@ -534,8 +493,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a10756394061b431cc4e9f08589445540" name="a10756394061b431cc4e9f08589445540"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10756394061b431cc4e9f08589445540">&#9670;&#160;</a></span>render()</h2>
+<a id="a12bce2c34abcead32a41e553023fba55" name="a12bce2c34abcead32a41e553023fba55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12bce2c34abcead32a41e553023fba55">&#9670;&#160;</a></span>render()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -583,23 +542,56 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structhmi_1_1DecorOverlayState.html">DecorOverlayState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>decorOverlay</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">const <a class="el" href="classhmi_1_1LayerVisibility.html">LayerVisibility</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>visibility</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structhmi_1_1PathOverlayState.html">PathOverlayState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>pathOverlay</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1PathOverlayState.html">PathOverlayState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>pathOverlay</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1PlaneVisibility.html">PlaneVisibility</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>planeVisibility</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée). </p>
-<p>Si <code class="param">showGrid</code>, superpose la grille de repère (frontières de cases + frontières de salles) — aide au placement, équivalent de la bascule <span class="tt">F10</span> de l'éditeur historique (<span class="tt">EX-EDIT-023</span>). Si <code class="param">highlight</code> est présent, met en surbrillance la zone (bornes min/max incluses) — aperçu de l'outil Rectangle/Sélection. <code class="param">linkOverlay</code> pilote l'affichage des liens de mécanismes (flèches, trait provisoire, surbrillance — <span class="tt">EX-IHM-030</span>). <code class="param">mode</code> choisit le rendu Physique ou Texture des tuiles (<span class="tt">EX-REN-046</span>, <span class="tt">LOT-41</span>) ; les <b>aides d'édition</b> (grille, liens, aperçu) restent identiques dans les deux modes — ce sont des repères d'édition, pas de l'habillage. Si <code class="param">showTextureOverrides</code>, les cases portant une surcharge de texture par instance (<span class="tt">EX-EDIT-043</span>, <span class="tt">LOT-45</span>) sont signalées sur le calque d'édition — actif seulement quand l'outil « Texture par instance » l'est, pour ne pas encombrer les autres outils. <code class="param">deltaSeconds</code> avance l'aperçu des tuiles animées (<span class="tt">LOT-46</span> TACHE-05) en <b>temps réel</b> — contrairement à la simulation (<span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span>), l'aperçu d'édition n'a aucune exigence de déterminisme (<span class="tt">EX-NFR-002</span> ne s'applique qu'en jeu) ; <span class="tt">0</span> (par défaut) fige l'animation. <code class="param">decorOverlay</code> pilote le cadre de sélection, les poignées et l'aperçu de manipulation des décors (<span class="tt">LOT-50</span> TACHE-02/03) — décor par défaut (aucune sélection) si omis. Ces aides, comme le reste du calque <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a94f3616c83f30ab5a328e602bbb7d751" title="Aides d&#39;édition : grille de repère, liens de mécanismes, aperçu de sélection.">RenderLayer::EditorOverlay</a></span>, ne sont <b>jamais</b> composées en jeu ni en essai (<span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> ne passe jamais par <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">DraftRenderer</a></span>). <code class="param">visibility</code> pilote le mode d'inspection « définition des textures » (<span class="tt">LOT-51</span>, <span class="tt">EX-EDIT-044</span>) — tout visible par défaut, sans effet sur les aides d'édition ci-dessus (jamais un calque de contenu). </p>
+<p>Si <code class="param">showGrid</code>, superpose la grille de repère (frontières de cases + frontières de salles) — aide au placement, équivalent de la bascule <span class="tt">F10</span> de l'éditeur historique (<span class="tt">EX-EDIT-023</span>). Si <code class="param">highlight</code> est présent, met en surbrillance la zone (bornes min/max incluses) — aperçu de l'outil Rectangle/Sélection. <code class="param">linkOverlay</code> pilote l'affichage des liens de mécanismes (flèches, trait provisoire, surbrillance — <span class="tt">EX-IHM-030</span>). <code class="param">mode</code> choisit le rendu Physique ou Texture des tuiles (<span class="tt">EX-REN-046</span>, <span class="tt">LOT-41</span>) ; les <b>aides d'édition</b> (grille, liens, aperçu) restent identiques dans les deux modes — ce sont des repères d'édition, pas de l'habillage. Si <code class="param">showTextureOverrides</code>, les cases portant une surcharge de texture par instance (<span class="tt">EX-EDIT-043</span>, <span class="tt">LOT-45</span>) sont signalées sur le calque d'édition — actif seulement quand l'outil « Texture par instance » l'est, pour ne pas encombrer les autres outils. <code class="param">deltaSeconds</code> avance l'aperçu des tuiles animées (<span class="tt">LOT-46</span> TACHE-05) en <b>temps réel</b> — contrairement à la simulation (<span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span>), l'aperçu d'édition n'a aucune exigence de déterminisme (<span class="tt">EX-NFR-002</span> ne s'applique qu'en jeu) ; <span class="tt">0</span> (par défaut) fige l'animation. Les aides d'édition, comme le reste du calque <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a94f3616c83f30ab5a328e602bbb7d751" title="Aides d&#39;édition : grille de repère, liens de mécanismes, aperçu de sélection.">RenderLayer::EditorOverlay</a></span>, ne sont <b>jamais</b> composées en jeu ni en essai (<span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> ne passe jamais par <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">DraftRenderer</a></span>). <code class="param">visibility</code> pilote le mode d'inspection « définition des textures » (<span class="tt">LOT-51</span>, <span class="tt">EX-EDIT-044</span>) — tout visible par défaut, sans effet sur les aides d'édition ci-dessus (jamais un calque de contenu). </p>
+
+</div>
+</div>
+<a id="a9af63f0ff64c8b7e52303a8ff14d4afe" name="a9af63f0ff64c8b7e52303a8ff14d4afe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9af63f0ff64c8b7e52303a8ff14d4afe">&#9670;&#160;</a></span>setPlanesDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DraftRenderer::setPlanesDirectory </td>
+          <td>(</td>
+          <td class="paramtype">std::filesystem::path</td>          <td class="paramname"><span class="paramname"><em>directory</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fixe le dossier où résoudre les images de plans (<span class="tt">Levels/Plans</span>), comme <span class="tt"><a class="el" href="classhmi_1_1SpriteRenderer.html#a142edb16e6d4d59e22a030b4e974107a" title="Fixe le dossier où résoudre les images de plans (Levels/Plans).">hmi::SpriteRenderer::setPlanesDirectory</a></span>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">directory</td><td>Dossier des images de plans. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -682,7 +674,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Un quad plein couvrant <code class="param">rect</code>, texturé par la région unie de l'atlas et teinté — brique commune des aides d'édition rectangulaires (poignées de décors et de parcours). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Un quad plein couvrant <code class="param">rect</code>, texturé par la région unie de l'atlas et teinté — brique commune des aides d'édition rectangulaires (poignées de parcours). </dd></dl>
 
 </div>
 </div>
@@ -753,30 +745,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a84c8941c8cc5c37f44e0ddf6ce75ed24" name="a84c8941c8cc5c37f44e0ddf6ce75ed24"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84c8941c8cc5c37f44e0ddf6ce75ed24">&#9670;&#160;</a></span>_decorEntities</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1Entity.html">core::Entity</a>&gt; hmi::DraftRenderer::_decorEntities</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Entités de décor de <span class="tt"><a class="el" href="#aa731650ada5f6cfd09d4c94aee44b0fb">_world</a></span>, dans le même ordre que <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a1d49b3c7088c0f8928c8a2aaadee665e">core::LevelDraft::decors()</a></span> (peuplé par <span class="tt"><a class="el" href="#a3d4077be5ae7aa58ff2c349443f97d65">rebuild</a></span>) — permet d'appliquer l'aperçu d'un geste en cours (<span class="tt">LOT-50</span> TACHE-03) directement à l'entité concernée, sans reconstruire toute la scène à chaque image glissée. </p>
-
-</div>
-</div>
 <a id="a8d81eec42fa953e30cc22510831e6d0d" name="a8d81eec42fa953e30cc22510831e6d0d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8d81eec42fa953e30cc22510831e6d0d">&#9670;&#160;</a></span>_dirty</h2>
 
@@ -796,6 +764,30 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaf343782d3fea0918617efb4460b9327" name="aaf343782d3fea0918617efb4460b9327"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf343782d3fea0918617efb4460b9327">&#9670;&#160;</a></span>_planesDirectory</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::DraftRenderer::_planesDirectory</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dossier des images de plans (<span class="tt"><a class="el" href="#a9af63f0ff64c8b7e52303a8ff14d4afe" title="Fixe le dossier où résoudre les images de plans (Levels/Plans), comme hmi::SpriteRenderer::setPlanesD...">setPlanesDirectory</a></span>), vide tant qu'aucun n'est fixé. </p>
 
 </div>
 </div>
@@ -885,7 +877,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Horloge d'animation partagee par asset (LOT-46 TACHE-05), avancee en temps reel a chaque <a class="el" href="#a10756394061b431cc4e9f08589445540" title="Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée).">render()</a> &ndash; distincte de celle de <a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">GameSession</a> (pas fixe) : l'apercu d'edition n'a pas besoin d'etre deterministe. </p>
+<p>Horloge d'animation partagee par asset (LOT-46 TACHE-05), avancee en temps reel a chaque <a class="el" href="#a12bce2c34abcead32a41e553023fba55" title="Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée).">render()</a> &ndash; distincte de celle de <a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">GameSession</a> (pas fixe) : l'apercu d'edition n'a pas besoin d'etre deterministe. </p>
 
 </div>
 </div>

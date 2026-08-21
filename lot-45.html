@@ -96,30 +96,30 @@ $(function(){initNavTree('lot-45.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-40.html" title="LOT-40 — Fondations : registre de textures, calques, culling, testabilité">LOT-40</a>, <a class="el" href="lot-41.html" title="LOT-41 — Bascule Physique/Texture (`F8`, non remappable)">LOT-41</a>, <a class="el" href="lot-42.html" title="LOT-42 — Skin des tuiles : jeux de skins et raccords automatiques">LOT-42</a>, <a class="el" href="lot-44.html" title="LOT-44 — Fond de niveau et versionnement du format">LOT-44</a> (version du format de niveau). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2082"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2092"></a>
 Objectif</h1>
 <p>Permettre d'assigner une texture propre à <b>une case précise</b> d'un niveau (ex. « cette porte-là »), prioritaire sur le skin de son type (LOT-42). C'est la deuxième — et dernière — donnée de niveau purement visuelle du programme côté grille ; toutes les autres restent globales (<span class="tt">skins.json</span>) ou relèvent des décors (LOT-49).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2083"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2093"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2084"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2094"></a>
 Inclus</h2>
 <ul>
 <li><b><span class="tt">Core</span></b> : <span class="tt">struct TileTextureOverride { GridPosition position; std::string assetName; };</span>, vecteur annexe sur <span class="tt">Level</span>/<span class="tt">LevelDraft</span> — <b>exactement</b> le patron déjà utilisé par <span class="tt">Mechanism</span>/ <span class="tt">DangerLink</span>/<span class="tt">DangerMoverConfig</span>/<span class="tt">DangerBlinkConfig</span> (<span class="tt"><a class="el" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes.">Source/Core/Levels/Level.h</a></span>).</li>
 <li><b>JSON</b> : champ par tuile optionnel (ex. <span class="tt">"texture": "door_red.png"</span>), même précédent que <span class="tt">switch.id</span>/<span class="tt">door.opensWith</span> dans <span class="tt"><a class="el" href="LevelLoader_8cpp.html">LevelLoader.cpp</a></span>/<span class="tt"><a class="el" href="LevelWriter_8cpp.html">LevelWriter.cpp</a></span> — rétrocompatible, dans le format versionné installé en LOT-44.</li>
 <li><b>Nettoyage</b> : <span class="tt">TileTextureOverride</span> rejoint le funnel <b>déjà existant</b> <span class="tt">LevelDraft::removeLinkedDataAt</span> (appelé par <span class="tt">paintTileInternal</span>, donc par <span class="tt">paintTile</span> <b>et</b> <span class="tt">paintRegion</span>) — un override est retiré quand sa case reçoit un autre type de tuile. Participe aussi à la troncature silencieuse de <span class="tt">resize</span> (même principe que les autres données annexes). <b>Ne voyage pas</b> avec un copier-coller (<span class="tt">paintRegion</span> utilisé pour le collage n'importe <b>pas</b> les overrides de la source) — décision explicite, un override reste attaché à sa case d'origine.</li>
 <li><b>Undo/redo</b> : gratuit via <span class="tt">LevelDraft::State</span> (même mécanisme que les autres champs annexes).</li>
-<li><b>Éditeur</b> : nouvelle valeur <span class="tt"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou la barre d&#39;outils (hmi::EditorActions,...">hmi::EditorTool</a></span> (ex. <em>TextureAssign</em>) + geste pur d'assignation modelé sur <span class="tt"><a class="el" href="namespacehmi.html#a7f0f0f4f71e52b8deb6fb88a8d6411d9" title="Résout le clic de l&#39;outil « Lien » sur clickedCell selon l&#39;attente courante.">hmi::resolveLinkClick</a></span>/<span class="tt">LinkGesture</span> (LOT-37) — clic sur une case → sélecteur parmi <span class="tt">Assets/Objects/*.png</span> (vignettes de LOT-43) → assignation/suppression. Section « Objets » du panneau « Textures » (LOT-42) listant les overrides du niveau courant, pas un panneau séparé.</li>
+<li><b>Éditeur</b> : nouvelle valeur <span class="tt"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou la barre d&#39;outils (hmi::EditorActions).">hmi::EditorTool</a></span> (ex. <em>TextureAssign</em>) + geste pur d'assignation modelé sur <span class="tt"><a class="el" href="namespacehmi.html#a7f0f0f4f71e52b8deb6fb88a8d6411d9" title="Résout le clic de l&#39;outil « Lien » sur clickedCell selon l&#39;attente courante.">hmi::resolveLinkClick</a></span>/<span class="tt">LinkGesture</span> (LOT-37) — clic sur une case → sélecteur parmi <span class="tt">Assets/Objects/*.png</span> (vignettes de LOT-43) → assignation/suppression. Section « Objets » du panneau « Textures » (LOT-42) listant les overrides du niveau courant, pas un panneau séparé.</li>
 <li><b>Résolution en mode Texture</b> : <b>override &gt; skin du jeu courant (LOT-42) &gt; damier magenta (LOT-40)</b>, priorité <b>assertée</b> via le <em>QuadRecorder</em>.</li>
 <li>Dossier <span class="tt">Assets/Objects/</span> + commande <span class="tt">POST_BUILD</span>.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2085"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2095"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Animation</b> de l'asset désigné : un override choisit <b>quel asset</b> est affiché ; le choix du <b>clip</b> au sein de cet asset relève de LOT-46/47. Un asset animé assigné ici s'affichera comme image fixe jusqu'à LOT-46, sans que le format d'override change ensuite.</li>
 <li>Restriction du type de tuile éligible : <b>tout</b> type non-<span class="tt">Empty</span> peut recevoir un override (usage purement visuel, contrairement aux liens de mécanismes qui ont un rôle sémantique) — pas de liste blanche façon <span class="tt">isTriggerTile</span>/<span class="tt">isLinkTargetTile</span>.</li>
 <li>Réécriture des overrides lors d'un renommage d'asset : LOT-43 avertit, ne migre pas.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2086"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2096"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Geste dédié, pas une extension de <span class="tt">LinkGesture</span></b> : la machine à états de <span class="tt">LinkGesture</span> est façonnée pour l'appariement déclencheur/cible, pas l'assignation sur une seule case — un module parallèle (<em>TextureAssignGesture</em>) évite de coupler deux outils sans rapport.</li>
@@ -127,13 +127,13 @@ Décisions de cadrage</h1>
 <li><b>Un seul point de nettoyage</b> (<span class="tt">removeLinkedDataAt</span>) : pas de mécanisme parallèle.</li>
 <li><b>Séparation asset / clip</b> (cf. Exclus) : posée maintenant pour que LOT-46 n'ait pas à changer le format d'override.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2087"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2097"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle : <span class="tt">EX-EDIT-043</span> (assignation d'une texture par instance, priorité sur le skin).</li>
 <li>Réutilisées : <span class="tt">EX-REN-043</span>/<span class="tt">EX-REN-046</span> (rendu, bascule), <span class="tt">EX-EDIT-042</span> (skin, priorité inférieure), <span class="tt">EX-EDIT-010</span> (réutilisation du modèle <span class="tt">Core</span>), <span class="tt">EX-NFR-040</span> (repli), <span class="tt">EX-LVL-005</span> (format versionné), <span class="tt">EX-NFR-004</span> (vérification sans GPU).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2088"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2098"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -144,11 +144,11 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-45-tache-01-modele-override.html#md_Lot_2LOT-45-textures-objets-interactifs_2tache-01-modele-override" title="Lot/LOT-45-textures-objets-interactifs/tache-01-modele-override.md">TACHE-01</a>  </td><td class="markdownTableBodyNone"><span class="tt">TileTextureOverride</span> sur <span class="tt">Level</span>/<span class="tt">LevelDraft</span> + JSON + nettoyage (<span class="tt">removeLinkedDataAt</span>, <span class="tt">resize</span>) + undo/redo  </td><td class="markdownTableBodyNone"><span class="tt">Source/Core/Levels</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a class="el" href="lot-45-tache-02-outil-assignation.html#md_Lot_2LOT-45-textures-objets-interactifs_2tache-02-outil-assignation" title="Lot/LOT-45-textures-objets-interactifs/tache-02-outil-assignation.md">TACHE-02</a>  </td><td class="markdownTableBodyNone">Nouvelle valeur <em>TextureAssign</em> de <span class="tt"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou la barre d&#39;outils (hmi::EditorActions,...">hmi::EditorTool</a></span> + geste pur d'assignation  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Editor</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="lot-45-tache-02-outil-assignation.html#md_Lot_2LOT-45-textures-objets-interactifs_2tache-02-outil-assignation" title="Lot/LOT-45-textures-objets-interactifs/tache-02-outil-assignation.md">TACHE-02</a>  </td><td class="markdownTableBodyNone">Nouvelle valeur <em>TextureAssign</em> de <span class="tt"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou la barre d&#39;outils (hmi::EditorActions).">hmi::EditorTool</a></span> + geste pur d'assignation  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Editor</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-45-tache-03-section-objets-priorite.html#md_Lot_2LOT-45-textures-objets-interactifs_2tache-03-section-objets-priorite" title="Lot/LOT-45-textures-objets-interactifs/tache-03-section-objets-priorite.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Section « Objets » du panneau « Textures » + résolution de priorité au rendu + dossier <span class="tt">Assets/Objects/</span>  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Editor</span>, <span class="tt">Source/HMI/Graphics</span>, <span class="tt">Source/HMI/CMakeLists.txt</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2089"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2099"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Assigner une texture à une case précise l'affiche avec cette texture, même si son type a un skin différent (LOT-42) — priorité assertée sans GPU.</li>
@@ -157,10 +157,10 @@ Critères d'acceptation du lot</h1>
 <li>Un niveau existant (sans override) se charge sans changement de comportement.</li>
 <li>Round-trip JSON, mutateurs <span class="tt">LevelDraft</span> (dont undo/redo) et geste d'assignation testés sans GPU ; build <span class="tt">/W4 /WX</span>, Doxygen, lint verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2090"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2100"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-40.html" title="LOT-40 — Fondations : registre de textures, calques, culling, testabilité">LOT-40</a>, <a class="el" href="lot-41.html" title="LOT-41 — Bascule Physique/Texture (`F8`, non remappable)">LOT-41</a>, <a class="el" href="lot-42.html" title="LOT-42 — Skin des tuiles : jeux de skins et raccords automatiques">LOT-42</a> (résolveur de priorité) et <a class="el" href="lot-44.html" title="LOT-44 — Fond de niveau et versionnement du format">LOT-44</a> (format versionné, patron de données annexes). Bénéficie de <a class="el" href="lot-43.html" title="LOT-43 — Bibliothèque d&#39;assets : vignettes, import, rechargement à chaud">LOT-43</a> (vignettes). Réutilise le patron <span class="tt">Mechanism</span>/<span class="tt">DangerLink</span> (<span class="tt">Core</span>) et <span class="tt">LinkGesture</span>/<span class="tt">LinkGeometry</span>/<span class="tt">LinkPanel</span> (LOT-37, <span class="tt">HMI</span>). Prépare <a class="el" href="lot-47.html" title="LOT-47 — États visuels des mécanismes">LOT-47</a>, <a class="el" href="lot-51.html" title="LOT-51 — Mode « définition des textures » : visibilité par calque">LOT-51</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2091"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2101"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-45-tache-01-modele-override.html" title="TACHE-01 — `TileTextureOverride` : modèle, JSON, nettoyage et historique">TACHE-01 — `TileTextureOverride` : modèle, JSON, nettoyage et historique</a></li>

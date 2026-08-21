@@ -92,39 +92,42 @@ $(function(){initNavTree('AssetPaths_8h_source.html','',''); });
   <div class="headertitle"><div class="title">AssetPaths.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="AssetPaths_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span></div>
-<div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classhmi_1_1AssetPaths.html">   23</a></span><span class="keyword">class </span><a class="code hl_function" href="classhmi_1_1AssetPaths.html#a666907237fced2f867f1e3e3475c5e80">AssetPaths</a> {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="classhmi_1_1AssetPaths.html#a666907237fced2f867f1e3e3475c5e80">AssetPaths</a>(std::filesystem::path <a class="code hl_function" href="classhmi_1_1AssetPaths.html#a7abce09263530f6fca7e647b04ab5781">directory</a>);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    [[nodiscard]] std::optional&lt;std::filesystem::path&gt; <a class="code hl_function" href="classhmi_1_1AssetPaths.html#a03a95267511103f4a1f0b67a2624b5e3">resolve</a>(<span class="keyword">const</span> std::string&amp; fileName) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span></div>
-<div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="classhmi_1_1AssetPaths.html#a7abce09263530f6fca7e647b04ab5781">   40</a></span>    [[nodiscard]] <span class="keyword">const</span> std::filesystem::path&amp; <a class="code hl_function" href="classhmi_1_1AssetPaths.html#a7abce09263530f6fca7e647b04ab5781">directory</a>() const noexcept {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1AssetPaths.html#a1047d2422f1096398a8fbbc63be7e81b">_directory</a>;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
+<a href="AssetPaths_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: GPL-3.0-or-later</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span></div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="classhmi_1_1AssetPaths.html">   26</a></span><span class="keyword">class </span><a class="code hl_function" href="classhmi_1_1AssetPaths.html#a666907237fced2f867f1e3e3475c5e80">AssetPaths</a> {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="classhmi_1_1AssetPaths.html#a666907237fced2f867f1e3e3475c5e80">AssetPaths</a>(std::filesystem::path <a class="code hl_function" href="classhmi_1_1AssetPaths.html#a7abce09263530f6fca7e647b04ab5781">directory</a>);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    [[nodiscard]] std::optional&lt;std::filesystem::path&gt; <a class="code hl_function" href="classhmi_1_1AssetPaths.html#a03a95267511103f4a1f0b67a2624b5e3">resolve</a>(<span class="keyword">const</span> std::string&amp; fileName) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="classhmi_1_1AssetPaths.html#a7abce09263530f6fca7e647b04ab5781">   43</a></span>    [[nodiscard]] <span class="keyword">const</span> std::filesystem::path&amp; <a class="code hl_function" href="classhmi_1_1AssetPaths.html#a7abce09263530f6fca7e647b04ab5781">directory</a>() const noexcept {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1AssetPaths.html#a1047d2422f1096398a8fbbc63be7e81b">_directory</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
 </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="classhmi_1_1AssetPaths.html#a1047d2422f1096398a8fbbc63be7e81b">   45</a></span>    std::filesystem::path <a class="code hl_variable" href="classhmi_1_1AssetPaths.html#a1047d2422f1096398a8fbbc63be7e81b">_directory</a>;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>};</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="classhmi_1_1AssetPaths.html#a1047d2422f1096398a8fbbc63be7e81b">   48</a></span>    std::filesystem::path <a class="code hl_variable" href="classhmi_1_1AssetPaths.html#a1047d2422f1096398a8fbbc63be7e81b">_directory</a>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>};</div>
 </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}  <span class="comment">// namespace hmi</span></div>
-<div class="ttc" id="aclasshmi_1_1AssetPaths_html_a03a95267511103f4a1f0b67a2624b5e3"><div class="ttname"><a href="classhmi_1_1AssetPaths.html#a03a95267511103f4a1f0b67a2624b5e3">hmi::AssetPaths::resolve</a></div><div class="ttdeci">std::optional&lt; std::filesystem::path &gt; resolve(const std::string &amp;fileName) const</div><div class="ttdoc">Résout un nom de fichier logique vers un chemin existant dans le dossier d&#39;assets.</div><div class="ttdef"><b>Definition</b> AssetPaths.cpp:11</div></div>
-<div class="ttc" id="aclasshmi_1_1AssetPaths_html_a1047d2422f1096398a8fbbc63be7e81b"><div class="ttname"><a href="classhmi_1_1AssetPaths.html#a1047d2422f1096398a8fbbc63be7e81b">hmi::AssetPaths::_directory</a></div><div class="ttdeci">std::filesystem::path _directory</div><div class="ttdef"><b>Definition</b> AssetPaths.h:45</div></div>
-<div class="ttc" id="aclasshmi_1_1AssetPaths_html_a666907237fced2f867f1e3e3475c5e80"><div class="ttname"><a href="classhmi_1_1AssetPaths.html#a666907237fced2f867f1e3e3475c5e80">hmi::AssetPaths::AssetPaths</a></div><div class="ttdeci">AssetPaths(std::filesystem::path directory)</div><div class="ttdoc">Construit un résolveur pour un dossier d&#39;assets donné.</div><div class="ttdef"><b>Definition</b> AssetPaths.cpp:8</div></div>
-<div class="ttc" id="aclasshmi_1_1AssetPaths_html_a7abce09263530f6fca7e647b04ab5781"><div class="ttname"><a href="classhmi_1_1AssetPaths.html#a7abce09263530f6fca7e647b04ab5781">hmi::AssetPaths::directory</a></div><div class="ttdeci">const std::filesystem::path &amp; directory() const noexcept</div><div class="ttdef"><b>Definition</b> AssetPaths.h:40</div></div>
-<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> AudioEngine.cpp:12</div></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aclasshmi_1_1AssetPaths_html_a03a95267511103f4a1f0b67a2624b5e3"><div class="ttname"><a href="classhmi_1_1AssetPaths.html#a03a95267511103f4a1f0b67a2624b5e3">hmi::AssetPaths::resolve</a></div><div class="ttdeci">std::optional&lt; std::filesystem::path &gt; resolve(const std::string &amp;fileName) const</div><div class="ttdoc">Résout un nom de fichier logique vers un chemin existant dans le dossier d&#39;assets.</div><div class="ttdef"><b>Definition</b> AssetPaths.cpp:14</div></div>
+<div class="ttc" id="aclasshmi_1_1AssetPaths_html_a1047d2422f1096398a8fbbc63be7e81b"><div class="ttname"><a href="classhmi_1_1AssetPaths.html#a1047d2422f1096398a8fbbc63be7e81b">hmi::AssetPaths::_directory</a></div><div class="ttdeci">std::filesystem::path _directory</div><div class="ttdef"><b>Definition</b> AssetPaths.h:48</div></div>
+<div class="ttc" id="aclasshmi_1_1AssetPaths_html_a666907237fced2f867f1e3e3475c5e80"><div class="ttname"><a href="classhmi_1_1AssetPaths.html#a666907237fced2f867f1e3e3475c5e80">hmi::AssetPaths::AssetPaths</a></div><div class="ttdeci">AssetPaths(std::filesystem::path directory)</div><div class="ttdoc">Construit un résolveur pour un dossier d&#39;assets donné.</div><div class="ttdef"><b>Definition</b> AssetPaths.cpp:11</div></div>
+<div class="ttc" id="aclasshmi_1_1AssetPaths_html_a7abce09263530f6fca7e647b04ab5781"><div class="ttname"><a href="classhmi_1_1AssetPaths.html#a7abce09263530f6fca7e647b04ab5781">hmi::AssetPaths::directory</a></div><div class="ttdeci">const std::filesystem::path &amp; directory() const noexcept</div><div class="ttdef"><b>Definition</b> AssetPaths.h:43</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> AudioEngine.cpp:15</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

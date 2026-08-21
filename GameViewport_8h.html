@@ -93,23 +93,21 @@ $(function(){initNavTree('GameViewport_8h.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Viewport de l'éditeur : rendu Direct3D 11 du brouillon d'édition et de l'essai (LOT-34/35).  
+<p>Viewport de l'éditeur : rendu du brouillon d'édition et de l'essai sur QRhi (LOT-34/35, porté au LOT-69 TACHE-02).  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;QString&gt;</code><br />
-<code>#include &lt;QWindow&gt;</code><br />
+<div class="textblock"><code>#include &lt;QRhiWidget&gt;</code><br />
+<code>#include &lt;QString&gt;</code><br />
 <code>#include &lt;chrono&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
-<code>#include &quot;<a class="el" href="Decor_8h_source.html">Core/Levels/Decor.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelDraft_8h_source.html">Core/Levels/LevelDraft.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Rect_8h_source.html">Core/Math/Rect.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="FixedTimestep_8h_source.html">Core/Time/FixedTimestep.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="DecorGesture_8h_source.html">HMI/Editor/DecorGesture.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="EditContextTarget_8h_source.html">HMI/Editor/EditContextTarget.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="EditorTool_8h_source.html">HMI/Editor/EditorTool.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PathGesture_8h_source.html">HMI/Editor/PathGesture.h</a>&quot;</code><br />
@@ -118,7 +116,9 @@ $(function(){initNavTree('GameViewport_8h.html','',''); });
 <code>#include &quot;<a class="el" href="LevelRunStats_8h_source.html">HMI/Game/LevelRunStats.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Camera2D_8h_source.html">HMI/Graphics/Camera2D.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LayerVisibility_8h_source.html">HMI/Graphics/LayerVisibility.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PlaneVisibility_8h_source.html">HMI/Graphics/PlaneVisibility.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RenderMode_8h_source.html">HMI/Graphics/RenderMode.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="RhiContext_8h_source.html">HMI/Graphics/RhiContext.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SkinCatalog_8h_source.html">HMI/Graphics/SkinCatalog.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="EditorKeyBindings_8h_source.html">HMI/Input/EditorKeyBindings.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GameKeyBindings_8h_source.html">HMI/Input/GameKeyBindings.h</a>&quot;</code><br />
@@ -131,14 +131,14 @@ $(function(){initNavTree('GameViewport_8h.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:hmi_3A_3AGameViewport" id="r_hmi_3A_3AGameViewport"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1GameViewport.html">hmi::GameViewport</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fenêtre native (<span class="tt">QWindow</span>) où Direct3D 11 présente, embarquée dans Qt.  <a href="classhmi_1_1GameViewport.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Widget de rendu (<span class="tt">QRhiWidget</span>) où la scène est dessinée, composé avec le reste de l'interface.  <a href="classhmi_1_1GameViewport.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Viewport de l'éditeur : rendu Direct3D 11 du brouillon d'édition et de l'essai (LOT-34/35). </p>
+<div class="textblock"><p>Viewport de l'éditeur : rendu du brouillon d'édition et de l'essai sur QRhi (LOT-34/35, porté au LOT-69 TACHE-02). </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

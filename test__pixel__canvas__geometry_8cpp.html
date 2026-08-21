@@ -113,12 +113,50 @@ Functions</h2></td></tr>
 <tr class="memdesc:abd479fcbdc7c4ff1d1f7af3ff23a4d74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les commandes de zoom avant/arrière restent toujours dans les bornes entières admises, sans jamais dépasser le zoom maximal ni descendre sous le minimal.  <br /></td></tr>
 <tr class="memitem:a0f210a86f5f040ee5e76724afab0b975" id="r_a0f210a86f5f040ee5e76724afab0b975"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0f210a86f5f040ee5e76724afab0b975">TEST</a> (PixelCanvasGeometryTest, GrilleVisibleAuSeuilAttendu)</td></tr>
 <tr class="memdesc:a0f210a86f5f040ee5e76724afab0b975"><td class="mdescLeft">&#160;</td><td class="mdescRight">La grille de pixels n'est visible qu'à partir du zoom seuil, pas en-deçà.  <br /></td></tr>
+<tr class="memitem:aa7eea6580f3eec11274a124bf6dc4e4d" id="r_aa7eea6580f3eec11274a124bf6dc4e4d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa7eea6580f3eec11274a124bf6dc4e4d">TEST</a> (PixelCanvasGeometryTest, AllerRetourExactSousLeUnPourUn)</td></tr>
+<tr class="memdesc:aa7eea6580f3eec11274a124bf6dc4e4d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>Zoom rationnel</b> (<span class="tt">LOT-69</span> TACHE-07) : l'aller-retour vue ↔ image reste exact aux dénominateurs 2 et 4, c'est-à-dire <b>sous</b> le 1:1.  <br /></td></tr>
+<tr class="memitem:ae41dca3801fd1cb1d8e8b4012ea558ec" id="r_ae41dca3801fd1cb1d8e8b4012ea558ec"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae41dca3801fd1cb1d8e8b4012ea558ec">TEST</a> (PixelCanvasGeometryTest, PixelsCarresATousLesZooms)</td></tr>
+<tr class="memdesc:ae41dca3801fd1cb1d8e8b4012ea558ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les pixels restent <b>carrés</b> à tout zoom, dénominateur compris (<span class="tt">EX-ARCH-022</span>).  <br /></td></tr>
+<tr class="memitem:a16f436a01d6cb8aae998af5684a68a66" id="r_a16f436a01d6cb8aae998af5684a68a66"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a16f436a01d6cb8aae998af5684a68a66">TEST</a> (PixelCanvasGeometryTest, CourseDeZoomRationnelleBornee)</td></tr>
+<tr class="memdesc:a16f436a01d6cb8aae998af5684a68a66"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'échelle descend <b>sous</b> le 1:1 puis y remonte : la course de zoom parcourt les dénominateurs avant les numérateurs, et se borne aux deux extrémités.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires des conversions pures vue ↔ image du canevas pixel art (LOT-54 TACHE-03, <span class="tt">EX-EDIT-045</span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="aa7eea6580f3eec11274a124bf6dc4e4d" name="aa7eea6580f3eec11274a124bf6dc4e4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7eea6580f3eec11274a124bf6dc4e4d">&#9670;&#160;</a></span>TEST() <span class="overload">[1/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PixelCanvasGeometryTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AllerRetourExactSousLeUnPourUn</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><b>Zoom rationnel</b> (<span class="tt">LOT-69</span> TACHE-07) : l'aller-retour vue ↔ image reste exact aux dénominateurs 2 et 4, c'est-à-dire <b>sous</b> le 1:1. </p>
+<p>L'extension est compatible par construction — le dénominateur vaut 1 par défaut, et tous les cas ci-dessus, écrits avant elle, valent tels quels. Ce test-ci couvre le terrain nouveau. <b>Cas de test :</b> <b>L'aller-retour vue vers image reste exact sous le 1:1.</b><br  />
+ <b>Categorie :</b> Unitaire · Geometrie du canevas pixel<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Pour les denominateurs 2 et 4, convertir chaque pixel image en rectangle ecran.<br  />
+</p><ol type="1">
+<li>Reconvertir le centre de ce rectangle en pixel image.<br  />
+ <b>Resultat attendu :</b> Le pixel de depart est retrouve a chaque fois. </li>
+</ol>
+
+</div>
+</div>
 <a id="a83e03cbd63d02b6f129aae3d5964caa8" name="a83e03cbd63d02b6f129aae3d5964caa8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83e03cbd63d02b6f129aae3d5964caa8">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a83e03cbd63d02b6f129aae3d5964caa8">&#9670;&#160;</a></span>TEST() <span class="overload">[2/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -150,7 +188,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="abd479fcbdc7c4ff1d1f7af3ff23a4d74" name="abd479fcbdc7c4ff1d1f7af3ff23a4d74"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd479fcbdc7c4ff1d1f7af3ff23a4d74">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abd479fcbdc7c4ff1d1f7af3ff23a4d74">&#9670;&#160;</a></span>TEST() <span class="overload">[3/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -179,8 +217,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a16f436a01d6cb8aae998af5684a68a66" name="a16f436a01d6cb8aae998af5684a68a66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16f436a01d6cb8aae998af5684a68a66">&#9670;&#160;</a></span>TEST() <span class="overload">[4/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PixelCanvasGeometryTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CourseDeZoomRationnelleBornee</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'échelle descend <b>sous</b> le 1:1 puis y remonte : la course de zoom parcourt les dénominateurs avant les numérateurs, et se borne aux deux extrémités. </p>
+<p><b>Cas de test :</b> <b>La course de zoom descend sous le 1:1 et y remonte.</b><br  />
+ <b>Categorie :</b> Unitaire · Geometrie du canevas pixel<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Reduire depuis le 1:1 jusqu'a la borne basse.<br  />
+2. Agrandir jusqu'a repasser au 1:1.<br  />
+ <b>Resultat attendu :</b> L'echelle atteint 1/8 sans aller plus bas, puis revient exactement a 1. </p>
+
+</div>
+</div>
 <a id="a0f210a86f5f040ee5e76724afab0b975" name="a0f210a86f5f040ee5e76724afab0b975"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f210a86f5f040ee5e76724afab0b975">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f210a86f5f040ee5e76724afab0b975">&#9670;&#160;</a></span>TEST() <span class="overload">[5/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -209,7 +277,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="afab25decc585e59628098d2c591712dd" name="afab25decc585e59628098d2c591712dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afab25decc585e59628098d2c591712dd">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afab25decc585e59628098d2c591712dd">&#9670;&#160;</a></span>TEST() <span class="overload">[6/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -238,8 +306,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ae41dca3801fd1cb1d8e8b4012ea558ec" name="ae41dca3801fd1cb1d8e8b4012ea558ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae41dca3801fd1cb1d8e8b4012ea558ec">&#9670;&#160;</a></span>TEST() <span class="overload">[7/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PixelCanvasGeometryTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PixelsCarresATousLesZooms</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les pixels restent <b>carrés</b> à tout zoom, dénominateur compris (<span class="tt">EX-ARCH-022</span>). </p>
+<p><b>Cas de test :</b> <b>Les pixels restent carres a tout zoom.</b><br  />
+ <b>Categorie :</b> Unitaire · Geometrie du canevas pixel<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Parcourir plusieurs numerateurs et les quatre denominateurs admis.<br  />
+2. Comparer largeur et hauteur du rectangle ecran d'un pixel.<br  />
+ <b>Resultat attendu :</b> Largeur et hauteur sont egales dans tous les cas. </p>
+
+</div>
+</div>
 <a id="a8b21178d6b8ae4d6384c8a768fd4a358" name="a8b21178d6b8ae4d6384c8a768fd4a358"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b21178d6b8ae4d6384c8a768fd4a358">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b21178d6b8ae4d6384c8a768fd4a358">&#9670;&#160;</a></span>TEST() <span class="overload">[8/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -269,7 +367,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a9ecaade659a505144735289138c71f2f" name="a9ecaade659a505144735289138c71f2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ecaade659a505144735289138c71f2f">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ecaade659a505144735289138c71f2f">&#9670;&#160;</a></span>TEST() <span class="overload">[9/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

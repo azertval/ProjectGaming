@@ -96,16 +96,16 @@ $(function(){initNavTree('lot-44.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-40.html" title="LOT-40 — Fondations : registre de textures, calques, culling, testabilité">LOT-40</a>, <a class="el" href="lot-41.html" title="LOT-41 — Bascule Physique/Texture (`F8`, non remappable)">LOT-41</a>, <a class="el" href="lot-42.html" title="LOT-42 — Skin des tuiles : jeux de skins et raccords automatiques">LOT-42</a> (panneau « Textures », jeux de skins). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2051"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2061"></a>
 Objectif</h1>
 <p>Permettre d'associer une image de <b>fond</b> à un niveau donné, dessinée en dessous de tout le reste en mode Texture. Premier lot du programme à toucher <span class="tt">Core</span> et le format de niveau JSON — il porte donc aussi les deux décisions de format qui en découlent :</p>
 <ul>
 <li>le <b>numéro de version</b> du fichier de niveau (<span class="tt">EX-LVL-005</span>), avant que trois lots successifs n'y ajoutent chacun leur champ sans traçabilité ;</li>
 <li>la <b>désignation du jeu de skins</b> utilisé par le niveau (<span class="tt">EX-EDIT-024</span>), dont le format a été posé en LOT-42 mais qui ne pouvait pas être rattaché à un niveau tant que <span class="tt">Core</span> n'était pas touché.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2052"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2062"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2053"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2063"></a>
 Inclus</h2>
 <ul>
 <li><b><span class="tt">Core</span></b> : sur <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a></span>/<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span>, deux champs optionnels (<span class="tt">std::optional&lt;std::string&gt;</span>) — l'asset de fond et le nom du jeu de skins — avec accesseurs et mutateurs, ajoutés à <span class="tt">LevelDraft::State</span> pour l'undo/redo. Même patron que les champs optionnels existants (<span class="tt">jumpBudget</span>/<span class="tt">dashBudget</span>). Ce sont des <b>chaînes</b>, jamais des handles de texture : <span class="tt">Core</span> reste totalement ignorant du rendu.</li>
@@ -115,7 +115,7 @@ Inclus</h2>
 <li><b>Rendu</b> : calque <em>Background</em> de <em>RenderLayer</em> (LOT-40), en mode Texture uniquement, <b>étiré</b> sur les bornes du niveau, avec une règle de <b>ratio d'aspect</b> explicitement tranchée (cf. décisions de cadrage).</li>
 <li>Dossier <span class="tt">Assets/Backgrounds/</span> + commande <span class="tt">POST_BUILD</span>.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2054"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2064"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li>Fond par salle (<span class="tt">RoomGrid</span>) : le fond reste en <b>espace niveau</b>, simplement cadré par la caméra de la salle courante comme le reste du contenu — aucune donnée par salle.</li>
@@ -123,7 +123,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li>Ombres portées sur le fond (LOT-55).</li>
 <li>Migration automatique d'un fichier de niveau d'une version à l'autre : il n'y a qu'une version.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2055"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2065"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Asymétrie manquant/introuvable</b> : un niveau <b>sans</b> fond configuré est un état normal (fond neutre, <b>pas</b> de damier magenta) ; un fond <b>référencé mais introuvable</b> déclenche le damier + avertissement (<span class="tt">EX-NFR-040</span>). Cette distinction doit être explicite dans l'implémentation, ce ne sont pas les mêmes situations.</li>
@@ -132,14 +132,14 @@ Décisions de cadrage</h1>
 <li><b>Frontière <span class="tt">Core</span></b> : <span class="tt">background</span> et <span class="tt">skinSet</span> sont des <b>chaînes</b>. <span class="tt">Core</span> ne connaît ni fichier image, ni dossier d'assets, ni mode de rendu.</li>
 <li><b>Culling</b> : le fond est étiré sur le niveau entier ; son test de visibilité doit porter sur sa boîte englobante réelle, pas sur son point d'ancrage (cf. LOT-40, TACHE-05).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2056"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2066"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelles : <span class="tt">EX-REN-044</span> (fond de niveau optionnel), <span class="tt">EX-LVL-005</span> (version du format de niveau).</li>
 <li>Complétée : <span class="tt">EX-EDIT-024</span> (désignation du jeu de skins par un niveau).</li>
 <li>Réutilisées : <span class="tt">EX-REN-043</span> (rendu multi-textures), <span class="tt">EX-REN-046</span> (bascule), <span class="tt">EX-NFR-040</span> (repli), <span class="tt">EX-REN-007</span> (contrat d'asset), <span class="tt">EX-LVL-003</span>/<span class="tt">EX-LVL-004</span> (format et validation).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2057"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2067"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -154,7 +154,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-44-tache-03-section-fond.html#md_Lot_2LOT-44-fond-de-niveau_2tache-03-section-fond" title="Lot/LOT-44-fond-de-niveau/tache-03-section-fond.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Section « Fond » et sélecteur de jeu de skins du panneau « Textures » + dossier + <span class="tt">POST_BUILD</span>  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Editor</span>, <span class="tt">Source/HMI/CMakeLists.txt</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2058"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2068"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Un niveau sans fond configuré s'affiche exactement comme avant ce lot (mode Physique <b>et</b> Texture), asserté via le <em>QuadRecorder</em>.</li>
@@ -164,10 +164,10 @@ Critères d'acceptation du lot</h1>
 <li>Un niveau désignant un jeu de skins utilise bien ce jeu ; un niveau n'en désignant aucun utilise le jeu par défaut.</li>
 <li>Round-trip JSON (version comprise) et undo/redo testés sans GPU ; build <span class="tt">/W4 /WX</span>, Doxygen, lint verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2059"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2069"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-40.html" title="LOT-40 — Fondations : registre de textures, calques, culling, testabilité">LOT-40</a>, <a class="el" href="lot-41.html" title="LOT-41 — Bascule Physique/Texture (`F8`, non remappable)">LOT-41</a>, et le panneau « Textures » de <a class="el" href="lot-42.html" title="LOT-42 — Skin des tuiles : jeux de skins et raccords automatiques">LOT-42</a> ; bénéficie de <a class="el" href="lot-43.html" title="LOT-43 — Bibliothèque d&#39;assets : vignettes, import, rechargement à chaud">LOT-43</a> (vignettes). <b>Première extension de <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a></span>/<span class="tt">LevelDraft</span> du programme</b> — le patron de champ optionnel + version qu'elle installe est réutilisé tel quel par <a class="el" href="lot-45.html" title="LOT-45 — Objet interactif : texture par instance">LOT-45</a> et <a class="el" href="lot-49.html" title="LOT-49 — Décors libres : modèle, rendu et parallaxe">LOT-49</a>. Prépare <a class="el" href="lot-51.html" title="LOT-51 — Mode « définition des textures » : visibilité par calque">LOT-51</a>, <a class="el" href="lot-55.html" title="LOT-55 — Ombres du plan physique">LOT-55</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2060"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2070"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-44-tache-01-modele-version-format.html" title="TACHE-01 — Champs de niveau et version du format">TACHE-01 — Champs de niveau et version du format</a></li>

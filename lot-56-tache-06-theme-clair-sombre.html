@@ -94,12 +94,12 @@ $(function(){initNavTree('lot-56-tache-06-theme-clair-sombre.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-56-systeme-design-ihm_2tache-06-theme-clair-sombre"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-56.html#md_Lot_2LOT-56-systeme-design-ihm_2epic" title="Lot/LOT-56-systeme-design-ihm/epic.md">LOT-56</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Interface</span>, <span class="tt">Source/Elements/Themes</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2545"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2555"></a>
 Contexte</h1>
 <p>L'habillage du projet est sombre, sans alternative ni réglage, et rien dans <span class="tt">Source/HMI</span> n'interroge le réglage clair/sombre du système. Pour le <b>jeu</b>, c'est normal : le fond sombre et l'accent ambre font partie de son apparence, au même titre que ses tuiles. Pour l'<b>éditeur</b>, c'est un défaut : c'est un outil de production, utilisé de jour, sur de longues sessions, souvent à côté d'autres applications.</p>
 <p>Cette tâche traite donc <b>le seul châssis d'édition</b>. Le menu principal, l'écran Options et le jeu conservent l'identité sombre en toute circonstance — cette frontière n'est pas introduite ici : elle est portée par les jetons depuis la TACHE-01 et par la feuille de style depuis la TACHE-02. Il ne reste qu'à fournir un second jeu de valeurs pour la portée variable, et à le choisir.</p>
 <p>C'est ce qui fait de cette tâche la <b>première à retirer</b> si le lot doit être resserré : elle emporte alors <span class="tt">EX-IHM-054</span> avec elle, sans rien invalider — la séparation des portées reste acquise, et le thème clair pourra être ajouté plus tard sans rien reprendre.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2546"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2556"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Second jeu de valeurs claires</b> pour la portée <b>variable</b> uniquement, couvrant exactement les mêmes rôles que le jeu sombre (la symétrie est déjà vérifiée par un test de la TACHE-01). Les jetons <b>invariants</b> ne sont pas touchés.</li>
@@ -109,7 +109,7 @@ Travail à réaliser</h1>
 <li><b>Couleur d'effacement du viewport</b> suivant le thème actif <b>en mode édition</b>, et restant sur le jeton invariant en mode jeu et en essai (règle posée en TACHE-01).</li>
 <li><b>Traduction</b> des libellés du réglage dans les deux catalogues.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2547"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2557"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="DesignTokens_8h.html" title="Jetons de design de l&#39;IHM Qt (LOT-56, EX-IHM-050, EX-IHM-051) : source unique des couleurs,...">Source/HMI/Interface/DesignTokens.h</a></span> — jeu de valeurs claires de la portée variable.</li>
@@ -119,7 +119,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Localization/fr.lang</span>, <span class="tt">en.lang</span>.</li>
 <li><span class="tt"><a class="el" href="test__application__theme_8cpp.html" title="Tests unitaires du thème de l&#39;IHM : modèle de feuille de style (LOT-56 TACHE-02, EX-IHM-050,...">Source/Test/Unit/HMI/Interface/test_application_theme.cpp</a></span> — complété.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2548"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2558"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Résolution du thème effectif</b> : fonction <b>pure</b> prenant le réglage utilisateur et le réglage système, produisant le thème à appliquer — Système + système clair → clair ; Système + système sombre → sombre ; Clair ou Sombre forcé → ignore le système. Testée sans instance d'application.</li>
@@ -128,7 +128,7 @@ Tests (obligatoires)</h1>
 <li><b>Contraste</b> : pour chaque thème d'éditeur, le rapport de contraste entre le texte et son fond, et entre le texte atténué et son fond, dépasse un seuil de lisibilité fixé — garde-fou contre un thème clair livré illisible.</li>
 <li><b>Persistance</b> : le réglage est relu au démarrage suivant.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2549"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2559"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Un thème clair n'est pas le thème sombre aux couleurs inversées.</b> Les bordures, les ombres et les lignes alternées demandent des écarts de luminosité différents en clair et en sombre ; inverser mécaniquement produit un thème plat. Le test de contraste borne le défaut, il ne le remplace pas.</li>
@@ -138,12 +138,12 @@ Points d'attention</h1>
 <li>Le contenu du jeu — tuiles, décors, fonds, personnage — ne change <b>jamais</b> avec le thème, y compris dans le canevas d'édition : seul l'habillage est concerné. Une tuile ne doit pas changer d'apparence parce que l'éditeur est passé en clair.</li>
 <li>Vérifier le rendu du viewport pendant la bascule : la couleur d'effacement change à la frame suivante, ce qui ne doit produire aucun clignotement visible.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2550"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2560"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>L'éditeur suit le réglage clair/sombre du système par défaut, accepte un forçage depuis son menu Affichage, persiste ce choix et l'applique sans redémarrage ; le menu principal, l'écran Options et le jeu sont inchangés quel que soit le thème actif, ce qu'un test garantit ; la couleur d'effacement du viewport suit le thème en édition et l'identité en jeu ; les deux jeux de valeurs satisfont le seuil de contraste ; icônes et vignettes suivent le thème actif ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2551"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2561"></a>
 Exigences</h1>
 <p><span class="tt">EX-IHM-054</span> (thème clair/sombre de l'éditeur, réglable et persisté, sans effet sur l'identité du jeu) ; réutilise <span class="tt">EX-IHM-050</span> (deux portées d'habillage), <span class="tt">EX-IHM-051</span> (source unique des grandeurs), <span class="tt">EX-REN-033</span> (traduction). </p>
 </div></div><!-- contents -->

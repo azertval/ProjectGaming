@@ -13,11 +13,9 @@ var searchData=
   ['blocked_10',['blocked',['../structcore_1_1CeilingSlopeFollowResult.html#a70edade298ee33b77d266cf593651806',1,'core::CeilingSlopeFollowResult']]],
   ['body_11',['body',['../structhmi_1_1TypographyTokens.html#a4ef65536c7fe503983922d5a4769fcee',1,'hmi::TypographyTokens::body'],['../structhmi_1_1IdentityBaseScale.html#accf376ca961b7275e87ed17edd5aaf87',1,'hmi::IdentityBaseScale::body']]],
   ['border_12',['border',['../structhmi_1_1ColorTokens.html#a241a0c3b5c0ac06b32bc6c8a8931144a',1,'hmi::ColorTokens']]],
-  ['bottomleft_13',['bottomLeft',['../structhmi_1_1DecorHandleLayout.html#a56d9d743dabdb43345fda8aa004871c2',1,'hmi::DecorHandleLayout']]],
-  ['bottomright_14',['bottomRight',['../structhmi_1_1DecorHandleLayout.html#acf73f9b2b6a86bd3a032929bf2d05cf0',1,'hmi::DecorHandleLayout']]],
-  ['bottomy_15',['bottomY',['../structcore_1_1SlopeFollowResult.html#a67675a0a2b2290e4398b009fd40d7ec3',1,'core::SlopeFollowResult']]],
-  ['box_16',['box',['../structcore_1_1TriggerWeight.html#ab974e361606ec4249ab88f8e305c2480',1,'core::TriggerWeight']]],
-  ['button_5fcount_17',['BUTTON_COUNT',['../classhmi_1_1InputState.html#a692a4d893cae9b15948b3d1081bbafeb',1,'hmi::InputState']]],
-  ['bx_18',['bx',['../structhmi_1_1LineQuad.html#a203b268e3040f841fa7089fc58391d22',1,'hmi::LineQuad']]],
-  ['by_19',['by',['../structhmi_1_1LineQuad.html#aea263b042537c77e3ffbebe64b772a27',1,'hmi::LineQuad']]]
+  ['bottomy_13',['bottomY',['../structcore_1_1SlopeFollowResult.html#a67675a0a2b2290e4398b009fd40d7ec3',1,'core::SlopeFollowResult']]],
+  ['box_14',['box',['../structcore_1_1TriggerWeight.html#ab974e361606ec4249ab88f8e305c2480',1,'core::TriggerWeight']]],
+  ['button_5fcount_15',['BUTTON_COUNT',['../classhmi_1_1InputState.html#a692a4d893cae9b15948b3d1081bbafeb',1,'hmi::InputState']]],
+  ['bx_16',['bx',['../structhmi_1_1LineQuad.html#a203b268e3040f841fa7089fc58391d22',1,'hmi::LineQuad']]],
+  ['by_17',['by',['../structhmi_1_1LineQuad.html#aea263b042537c77e3ffbebe64b772a27',1,'hmi::LineQuad']]]
 ];

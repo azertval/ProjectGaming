@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-42-tache-03-masquage-pentes.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-42-skin-tuiles-autotiling_2tache-03-masquage-pentes"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-42.html#md_Lot_2LOT-42-skin-tuiles-autotiling_2epic" title="Lot/LOT-42-skin-tuiles-autotiling/epic.md">LOT-42</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1999"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2009"></a>
 Contexte</h1>
 <p>Douze types de tuiles ont une <b>silhouette non carrée</b> : pentes montantes et descendantes, arrondis convexes et concaves, au sol et au plafond (<span class="tt">EX-GP-003</span>, <span class="tt">EX-GP-004</span>, <span class="tt">EX-GP-006</span>, <span class="tt">EX-GP-007</span>). L'atlas procédural les dessine déjà correctement, en calculant leur masque de forme à partir des <b>mêmes fonctions</b> que la physique — <span class="tt"><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></span>, <span class="tt"><a class="el" href="namespacecore.html#aef7136a2093c38f28dc2f24fedfae124" title="Hauteur de la silhouette d&#39;une pente/arrondi de plafond (EX-GP-006), au même repère que slopeSurfaceH...">core::ceilingSlopeHeight</a></span>, <span class="tt"><a class="el" href="namespacecore.html#a391389199b2161535d2aa57f225ef65f">core::isCeilingSlope</a></span> — pour que l'apparence colle exactement à la hitbox.</p>
 <p>Un skin fourni par l'auteur est, lui, une image carrée. L'afficher tel quel sur une pente donnerait un carré plein là où le personnage traverse : la lecture du niveau serait fausse.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2000"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2010"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Détourage au chargement</b> : lorsqu'un asset est assigné à l'un des douze types à silhouette, en produire une variante dont les pixels situés <b>hors</b> de la forme sont rendus transparents, en réutilisant les fonctions de géométrie de <span class="tt">Core</span> déjà employées par <em>slopeShapePixel</em> (<span class="tt"><a class="el" href="ProceduralAtlas_8cpp.html">ProceduralAtlas.cpp</a></span>).</li>
@@ -106,33 +106,33 @@ Travail à réaliser</h1>
 <li><b>Fonction pure</b> : le calcul du masque (pour un type et une taille donnés, quels pixels sont dedans) est séparé de toute manipulation de texture GPU, donc testable.</li>
 <li>Ces types restent en mode <span class="tt">single</span> : le raccord automatique ne s'applique pas à une silhouette.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2001"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2011"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/SlopeMask.{h,cpp}</span> (nouveau) — masque pur.</li>
 <li><span class="tt">Source/HMI/Graphics/TextureCache.{h,cpp}</span> (variante détourée mise en cache).</li>
 <li><span class="tt"><a class="el" href="test__slope__mask_8cpp.html" title="Tests unitaires du masque de silhouette des pentes et arrondis (LOT-42 TACHE-03).">Source/Test/Unit/HMI/Graphics/test_slope_mask.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2002"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2012"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Pour chacun des douze types : le masque calculé correspond à la silhouette attendue (pixels intérieurs opaques, extérieurs transparents), aux mêmes positions que celles produites par <span class="tt">ProceduralAtlas</span> pour le même type.</li>
 <li>Un type <b>sans</b> silhouette (solide, bloc, danger) n'est pas détouré.</li>
 <li>Test <b>pur</b>, sans GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2003"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2013"></a>
 Points d'attention</h1>
 <ul>
 <li><b>La source de vérité reste <span class="tt">Core</span>.</b> Ne jamais réimplémenter la géométrie des pentes côté <span class="tt">HMI</span> : toute divergence entre le masque affiché et la surface suivie par la physique produirait précisément le bug que ce projet évite depuis <span class="tt">LOT-22</span> (l'affichage doit coller à la hitbox).</li>
 <li>La transparence doit être <b>franche</b> (dedans/dehors), pas anticrénelée : le rendu est en pixel art avec filtrage <em>nearest</em> (<span class="tt">EX-ARCH-022</span>), un bord adouci créerait un halo.</li>
 <li>Vérifier que l'asset d'origine reste disponible non détouré s'il est aussi assigné à un type carré : la mise en cache doit distinguer les deux variantes.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2004"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2014"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les douze types à silhouette affichent leur skin découpé à la bonne forme, identique à la silhouette de la hitbox ; le masque est calculé une fois et mis en cache ; tests purs verts ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2005"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2015"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-042</span> (association type → texture) ; réutilise <span class="tt">EX-GP-003</span>/<span class="tt">EX-GP-004</span>/<span class="tt">EX-GP-006</span>/ <span class="tt">EX-GP-007</span> (silhouettes de pentes et arrondis), <span class="tt">EX-ARCH-022</span> (<em>nearest</em>), <span class="tt">EX-NFR-010</span> (testable sans GPU). </p>
 </div></div><!-- contents -->

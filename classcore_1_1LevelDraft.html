@@ -141,26 +141,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a6820058154fd9e3f777c5fd843b7b0cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigne (ou remplace) la texture affichée pour <b>une case précise</b> (<span class="tt">EX-EDIT-043</span>), prioritaire sur le skin de son type (LOT-42).  <br /></td></tr>
 <tr class="memitem:a6a0636029b5b633d7b93b2ebca0d80c8" id="r_a6a0636029b5b633d7b93b2ebca0d80c8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6a0636029b5b633d7b93b2ebca0d80c8">removeTextureOverride</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> position)</td></tr>
 <tr class="memdesc:a6a0636029b5b633d7b93b2ebca0d80c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire l'override de texture de <code class="param">position</code>, s'il y en a un. Sans effet sinon.  <br /></td></tr>
-<tr class="memitem:aa42de621ae8ab7c2380d8467b4c4f7ce" id="r_aa42de621ae8ab7c2380d8467b4c4f7ce"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa42de621ae8ab7c2380d8467b4c4f7ce">addDecor</a> (<a class="el" href="structcore_1_1Decor.html">Decor</a> decor)</td></tr>
-<tr class="memdesc:aa42de621ae8ab7c2380d8467b4c4f7ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un décor libre en fin de vecteur (<span class="tt">EX-DEC-001</span>, <span class="tt">EX-EDIT-010</span>).  <br /></td></tr>
-<tr class="memitem:aedf72e83d2c50fa8a082296cda3f1c20" id="r_aedf72e83d2c50fa8a082296cda3f1c20"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aedf72e83d2c50fa8a082296cda3f1c20">removeDecor</a> (std::size_t index)</td></tr>
-<tr class="memdesc:aedf72e83d2c50fa8a082296cda3f1c20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire le décor au rang <code class="param">index</code> (<span class="tt">EX-DEC-010</span>).  <br /></td></tr>
-<tr class="memitem:aba9a556ae6046d9038f6368998f8eb75" id="r_aba9a556ae6046d9038f6368998f8eb75"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aba9a556ae6046d9038f6368998f8eb75">moveDecor</a> (std::size_t index, <a class="el" href="structcore_1_1Vector2.html">Vector2</a> position)</td></tr>
-<tr class="memdesc:aba9a556ae6046d9038f6368998f8eb75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déplace le décor au rang <code class="param">index</code> à une nouvelle position libre (<span class="tt">EX-DEC-010</span>).  <br /></td></tr>
-<tr class="memitem:afd9bdb93ac057f2c7e6c8c14be5a74ab" id="r_afd9bdb93ac057f2c7e6c8c14be5a74ab"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#afd9bdb93ac057f2c7e6c8c14be5a74ab">resizeDecor</a> (std::size_t index, <a class="el" href="structcore_1_1Vector2.html">Vector2</a> position, <a class="el" href="structcore_1_1Vector2.html">Vector2</a> scale)</td></tr>
-<tr class="memdesc:afd9bdb93ac057f2c7e6c8c14be5a74ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Redimensionne le décor au rang <code class="param">index</code> (<span class="tt">EX-DEC-010</span>), en repositionnant son coin éventuellement du même geste.  <br /></td></tr>
-<tr class="memitem:ad285d0c016f041d678a7f222a8f8b23f" id="r_ad285d0c016f041d678a7f222a8f8b23f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ad285d0c016f041d678a7f222a8f8b23f">rotateDecor</a> (std::size_t index, float rotation)</td></tr>
-<tr class="memdesc:ad285d0c016f041d678a7f222a8f8b23f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pivote le décor au rang <code class="param">index</code> (<span class="tt">EX-DEC-010</span>).  <br /></td></tr>
-<tr class="memitem:a6d40a7451d269feb1badaf2a5065752e" id="r_a6d40a7451d269feb1badaf2a5065752e"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6d40a7451d269feb1badaf2a5065752e">setDecorLayer</a> (std::size_t index, <a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">DecorLayer</a> layer)</td></tr>
-<tr class="memdesc:a6d40a7451d269feb1badaf2a5065752e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change la couche du décor au rang <code class="param">index</code> (<span class="tt">EX-DEC-010</span>, <span class="tt">EX-DEC-002</span>).  <br /></td></tr>
-<tr class="memitem:ab20f2eb5c24b94a43e85581f8d2ccf23" id="r_ab20f2eb5c24b94a43e85581f8d2ccf23"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab20f2eb5c24b94a43e85581f8d2ccf23">bringDecorForward</a> (std::size_t index)</td></tr>
-<tr class="memdesc:ab20f2eb5c24b94a43e85581f8d2ccf23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Avance le décor au rang <code class="param">index</code> d'un cran dans l'ordre de superposition <b>de sa couche</b> (<span class="tt">EX-DEC-010</span>) : échange avec le décor de même couche immédiatement suivant.  <br /></td></tr>
-<tr class="memitem:a0eabbb032c3a59a3c0888d5f9a3fe95d" id="r_a0eabbb032c3a59a3c0888d5f9a3fe95d"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0eabbb032c3a59a3c0888d5f9a3fe95d">sendDecorBackward</a> (std::size_t index)</td></tr>
-<tr class="memdesc:a0eabbb032c3a59a3c0888d5f9a3fe95d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recule le décor au rang <code class="param">index</code> d'un cran dans l'ordre de sa couche (symétrique de <span class="tt"><a class="el" href="#ab20f2eb5c24b94a43e85581f8d2ccf23" title="Avance le décor au rang index d&#39;un cran dans l&#39;ordre de superposition de sa couche (EX-DEC-010) : éch...">bringDecorForward</a></span>) : échange avec le décor de même couche immédiatement précédent.  <br /></td></tr>
-<tr class="memitem:a374432bd310bf7f4f1da323291a9fadc" id="r_a374432bd310bf7f4f1da323291a9fadc"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a374432bd310bf7f4f1da323291a9fadc">bringDecorToFront</a> (std::size_t index)</td></tr>
-<tr class="memdesc:a374432bd310bf7f4f1da323291a9fadc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Amène le décor au rang <code class="param">index</code> au premier rang (le plus en avant) de sa couche.  <br /></td></tr>
-<tr class="memitem:a0b0f16e06f765e2a1daf4bc797a07f3a" id="r_a0b0f16e06f765e2a1daf4bc797a07f3a"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0b0f16e06f765e2a1daf4bc797a07f3a">sendDecorToBack</a> (std::size_t index)</td></tr>
-<tr class="memdesc:a0b0f16e06f765e2a1daf4bc797a07f3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Envoie le décor au rang <code class="param">index</code> au dernier rang (le plus en arrière) de sa couche.  <br /></td></tr>
 <tr class="memitem:adcaec64d68695ac6214641b19e2ec1af" id="r_adcaec64d68695ac6214641b19e2ec1af"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adcaec64d68695ac6214641b19e2ec1af">resize</a> (int width, int height)</td></tr>
 <tr class="memdesc:adcaec64d68695ac6214641b19e2ec1af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Redimensionne la grille (<span class="tt">EX-EDIT-005</span>).  <br /></td></tr>
 <tr class="memitem:a7bb1c529de03797c0e158a1f13b39084" id="r_a7bb1c529de03797c0e158a1f13b39084"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a7bb1c529de03797c0e158a1f13b39084">wouldResizeDropContent</a> (int width, int height) const noexcept</td></tr>
@@ -201,7 +181,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad7a21f008704e147cb459f4ee5cf2a02" id="r_ad7a21f008704e147cb459f4ee5cf2a02"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1DangerBlinkConfig.html">DangerBlinkConfig</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad7a21f008704e147cb459f4ee5cf2a02">blinkConfigs</a> () const noexcept</td></tr>
 <tr class="memitem:aecfd269545c8989b66c1812104551a51" id="r_aecfd269545c8989b66c1812104551a51"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1MovingPlatformConfig.html">MovingPlatformConfig</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aecfd269545c8989b66c1812104551a51">platformConfigs</a> () const noexcept</td></tr>
 <tr class="memitem:af2eb7b9effb3254a92e30abba631eba9" id="r_af2eb7b9effb3254a92e30abba631eba9"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1TileTextureOverride.html">TileTextureOverride</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#af2eb7b9effb3254a92e30abba631eba9">textureOverrides</a> () const noexcept</td></tr>
-<tr class="memitem:a1d49b3c7088c0f8928c8a2aaadee665e" id="r_a1d49b3c7088c0f8928c8a2aaadee665e"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1Decor.html">Decor</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a1d49b3c7088c0f8928c8a2aaadee665e">decors</a> () const noexcept</td></tr>
+<tr class="memitem:a8f8733144a18e5f7b9cf4327f12486de" id="r_a8f8733144a18e5f7b9cf4327f12486de"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1Plane.html">Plane</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a8f8733144a18e5f7b9cf4327f12486de">planes</a> () const noexcept</td></tr>
+<tr class="memitem:a02fcafcc985dbe6b97f9da87a1aa44e7" id="r_a02fcafcc985dbe6b97f9da87a1aa44e7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a02fcafcc985dbe6b97f9da87a1aa44e7">parallaxEnabled</a> () const noexcept</td></tr>
 <tr class="memitem:a5c63e9d12c9473f4aa8693b04f3293ff" id="r_a5c63e9d12c9473f4aa8693b04f3293ff"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a5c63e9d12c9473f4aa8693b04f3293ff">jumpBudget</a> () const noexcept</td></tr>
 <tr class="memitem:ac8048001ee2bf60309c234ff6f717ff4" id="r_ac8048001ee2bf60309c234ff6f717ff4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac8048001ee2bf60309c234ff6f717ff4">dashBudget</a> () const noexcept</td></tr>
 <tr class="memitem:ac0f3398bfd87d2d89062783dce9874c2" id="r_ac0f3398bfd87d2d89062783dce9874c2"><td class="memItemLeft">const std::optional&lt; int &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ac0f3398bfd87d2d89062783dce9874c2">airJumps</a> () const noexcept</td></tr>
@@ -211,6 +192,33 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0c8ca795b62277f4d0c78036bc16844e" id="r_a0c8ca795b62277f4d0c78036bc16844e"><td class="memItemLeft">const <a class="el" href="structcore_1_1CameraFramingConfig.html">CameraFramingConfig</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a0c8ca795b62277f4d0c78036bc16844e">cameraFraming</a> () const noexcept</td></tr>
 <tr class="memitem:a0017cadc8caea0b43ba08b120ce76bb0" id="r_a0017cadc8caea0b43ba08b120ce76bb0"><td class="memItemLeft"><a class="el" href="structcore_1_1LevelLoadResult.html">LevelLoadResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0017cadc8caea0b43ba08b120ce76bb0">toLevel</a> () const</td></tr>
 <tr class="memdesc:a0017cadc8caea0b43ba08b120ce76bb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit le brouillon en <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">Level</a></span> <b>validé</b> (<span class="tt">EX-EDIT-007</span>), en repassant par la même validation que <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">LevelLoader</a></span> (sérialise puis recharge : aucune règle dupliquée, <span class="tt">EX-EDIT-010</span>).  <br /></td></tr>
+<tr id="pub-methods-0" class="groupHeader"><td colspan="2"><div class="groupHeader">Plans picturaux (&lt;tt&gt;EX-DEC-040&lt;/tt&gt;, LOT-69)</div></td></tr>
+<tr><td colspan="2" class="ititle"><div class="groupText"><p>Tous ces mutateurs empilent <b>un</b> pas d'annulation (<span class="tt"><a class="el" href="#a949cfb0148244f0ba05257d4f523f51d" title="Empile l&#39;état courant sur la pile d&#39;annulation ; à appeler avant toute mutation undoable.">pushUndo</a></span>) et sont donc annulables <em>et</em> refaisables.</p>
+<p>Un rang hors bornes est <b>sans effet</b> et n'empile rien — même convention que les mutateurs de décor et de parcours.</p>
+<p>Contrairement aux décors, les plans ne sont pas regroupés par couche pour le réordonnancement : leur rang dans la liste <b>est</b> l'ordre de superposition, et la profondeur (<span class="tt"><a class="el" href="namespacecore.html#a6dc89438a55a80980ab04f7da513f731" title="Position d&#39;un plan dans l&#39;ordonnancement de rendu, relativement au personnage (EX-DEC-042).">core::PlaneDepth</a></span>) est une propriété indépendante. Monter un plan le rapproche donc du premier plan de la liste, quelle que soit sa profondeur. </p>
+</div></td></tr>
+<tr class="memitem:af7c0de11232cfa5ef01a0e9cd2711676" id="r_af7c0de11232cfa5ef01a0e9cd2711676"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af7c0de11232cfa5ef01a0e9cd2711676">addPlane</a> (<a class="el" href="structcore_1_1Plane.html">Plane</a> plane)</td></tr>
+<tr class="memdesc:af7c0de11232cfa5ef01a0e9cd2711676"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute <code class="param">plane</code> en fin de liste (le plus en avant).  <br /></td></tr>
+<tr class="memitem:a95b03650bb9afc60e2ff64f8853ab2b1" id="r_a95b03650bb9afc60e2ff64f8853ab2b1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a95b03650bb9afc60e2ff64f8853ab2b1">removePlane</a> (std::size_t index)</td></tr>
+<tr class="memdesc:a95b03650bb9afc60e2ff64f8853ab2b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire le plan au rang <code class="param">index</code>.  <br /></td></tr>
+<tr class="memitem:a16312211d7ac0b6b67a3ad032c642d17" id="r_a16312211d7ac0b6b67a3ad032c642d17"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a16312211d7ac0b6b67a3ad032c642d17">setPlaneDensity</a> (std::size_t index, int pixelsPerUnit)</td></tr>
+<tr class="memdesc:a16312211d7ac0b6b67a3ad032c642d17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change la densité du plan au rang <code class="param">index</code> (<span class="tt">EX-DEC-041</span>).  <br /></td></tr>
+<tr class="memitem:a10b426d17bc0fdeb3bd6b336df83848f" id="r_a10b426d17bc0fdeb3bd6b336df83848f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a10b426d17bc0fdeb3bd6b336df83848f">setPlaneParallax</a> (std::size_t index, float parallaxX, float parallaxY)</td></tr>
+<tr class="memdesc:a10b426d17bc0fdeb3bd6b336df83848f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change les facteurs de parallaxe du plan au rang <code class="param">index</code> (<span class="tt">EX-DEC-043</span>).  <br /></td></tr>
+<tr class="memitem:ae78156c0fad7d8627f333943256616be" id="r_ae78156c0fad7d8627f333943256616be"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae78156c0fad7d8627f333943256616be">setPlaneOpacity</a> (std::size_t index, float opacity)</td></tr>
+<tr class="memdesc:ae78156c0fad7d8627f333943256616be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change l'opacité du plan au rang <code class="param">index</code>.  <br /></td></tr>
+<tr class="memitem:a9bead8814af0e45623c16e651d4f6dd3" id="r_a9bead8814af0e45623c16e651d4f6dd3"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9bead8814af0e45623c16e651d4f6dd3">setPlaneDepth</a> (std::size_t index, <a class="el" href="namespacecore.html#a6dc89438a55a80980ab04f7da513f731">PlaneDepth</a> depth)</td></tr>
+<tr class="memdesc:a9bead8814af0e45623c16e651d4f6dd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change la profondeur du plan au rang <code class="param">index</code> (<span class="tt">EX-DEC-042</span>).  <br /></td></tr>
+<tr class="memitem:a287a17a25750b578b1a2ae4e58d51378" id="r_a287a17a25750b578b1a2ae4e58d51378"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a287a17a25750b578b1a2ae4e58d51378">movePlaneForward</a> (std::size_t index)</td></tr>
+<tr class="memdesc:a287a17a25750b578b1a2ae4e58d51378"><td class="mdescLeft">&#160;</td><td class="mdescRight">Avance le plan au rang <code class="param">index</code> d'un cran ; sans effet s'il est déjà le dernier.  <br /></td></tr>
+<tr class="memitem:a0b862133692576f10a53ff8de54c4097" id="r_a0b862133692576f10a53ff8de54c4097"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0b862133692576f10a53ff8de54c4097">movePlaneBackward</a> (std::size_t index)</td></tr>
+<tr class="memdesc:a0b862133692576f10a53ff8de54c4097"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recule le plan au rang <code class="param">index</code> d'un cran ; sans effet s'il est déjà le premier.  <br /></td></tr>
+<tr class="memitem:abf3838beed68b04528a0ae57f3bdb25a" id="r_abf3838beed68b04528a0ae57f3bdb25a"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abf3838beed68b04528a0ae57f3bdb25a">movePlaneToFront</a> (std::size_t index)</td></tr>
+<tr class="memdesc:abf3838beed68b04528a0ae57f3bdb25a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Amène le plan au rang <code class="param">index</code> au dernier rang (le plus en avant).  <br /></td></tr>
+<tr class="memitem:aed96d2b512ef5d877655dc6667116603" id="r_aed96d2b512ef5d877655dc6667116603"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aed96d2b512ef5d877655dc6667116603">movePlaneToBack</a> (std::size_t index)</td></tr>
+<tr class="memdesc:aed96d2b512ef5d877655dc6667116603"><td class="mdescLeft">&#160;</td><td class="mdescRight">Envoie le plan au rang <code class="param">index</code> au premier rang (le plus en arrière).  <br /></td></tr>
+<tr class="memitem:ac8626d2ef51f11d80bf0ca0082d17253" id="r_ac8626d2ef51f11d80bf0ca0082d17253"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac8626d2ef51f11d80bf0ca0082d17253">setParallaxEnabled</a> (bool enabled)</td></tr>
+<tr class="memdesc:ac8626d2ef51f11d80bf0ca0082d17253"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active ou désactive la parallaxe des plans pour ce niveau (<span class="tt">EX-DEC-043</span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -254,11 +262,12 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a092ed94e8ecc1a8aee79de183afe6338" id="r_a092ed94e8ecc1a8aee79de183afe6338"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a092ed94e8ecc1a8aee79de183afe6338">_background</a></td></tr>
 <tr class="memitem:ae457b861d1482369c3d63cf424b073a6" id="r_ae457b861d1482369c3d63cf424b073a6"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae457b861d1482369c3d63cf424b073a6">_skinSet</a></td></tr>
 <tr class="memitem:a1549c812b59d506266ccdefb5356b752" id="r_a1549c812b59d506266ccdefb5356b752"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1TileTextureOverride.html">TileTextureOverride</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1549c812b59d506266ccdefb5356b752">_textureOverrides</a></td></tr>
-<tr class="memitem:a13dd782e9b0882563e3c7bc01d5adfd4" id="r_a13dd782e9b0882563e3c7bc01d5adfd4"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Decor.html">Decor</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a13dd782e9b0882563e3c7bc01d5adfd4">_decors</a></td></tr>
 <tr class="memitem:a6937fc3d89a86200a42b9ebe4beb5ded" id="r_a6937fc3d89a86200a42b9ebe4beb5ded"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1MovingPlatformConfig.html">MovingPlatformConfig</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6937fc3d89a86200a42b9ebe4beb5ded">_platformConfigs</a></td></tr>
 <tr class="memitem:a95450e54584320ce22aac77e1acea933" id="r_a95450e54584320ce22aac77e1acea933"><td class="memItemLeft"><a class="el" href="structcore_1_1CameraFramingConfig.html">CameraFramingConfig</a>&#160;</td><td class="memItemRight"><a class="el" href="#a95450e54584320ce22aac77e1acea933">_cameraFraming</a></td></tr>
 <tr class="memitem:af46552e2646927ecfcade09077486d73" id="r_af46552e2646927ecfcade09077486d73"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af46552e2646927ecfcade09077486d73">_airJumps</a></td></tr>
 <tr class="memitem:a6125a0812a35694142f3d2111a8468a6" id="r_a6125a0812a35694142f3d2111a8468a6"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6125a0812a35694142f3d2111a8468a6">_dashCharges</a></td></tr>
+<tr class="memitem:a76d94172551047cfa39d79a5cb9676e5" id="r_a76d94172551047cfa39d79a5cb9676e5"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Plane.html">Plane</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a76d94172551047cfa39d79a5cb9676e5">_planes</a></td></tr>
+<tr class="memitem:a418445190cdc9567de900eecd6e9a085" id="r_a418445190cdc9567de900eecd6e9a085"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a418445190cdc9567de900eecd6e9a085">_parallaxEnabled</a> = true</td></tr>
 <tr class="memitem:a86779d05f96a388738e19979489d7a63" id="r_a86779d05f96a388738e19979489d7a63"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1LevelDraft_1_1State.html">State</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a86779d05f96a388738e19979489d7a63">_undoHistory</a></td></tr>
 <tr class="memitem:a886d07163934d6b0f0f5b8f9da13c410" id="r_a886d07163934d6b0f0f5b8f9da13c410"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1LevelDraft_1_1State.html">State</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a886d07163934d6b0f0f5b8f9da13c410">_redoHistory</a></td></tr>
 </table>
@@ -314,7 +323,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Ajoute une zone de caméra dessinée à la main en fin de liste (mode <span class="tt">PerRoom</span>, <span class="tt">EX-LVL-007</span>, <span class="tt">EX-EDIT-029</span>), annulable. </p>
-<p>L'ordre d'ajout fixe la priorité en cas de chevauchement (<span class="tt">core::activeCameraZoneIndex</span> côté <span class="tt">HMI</span>, même convention que <span class="tt"><a class="el" href="#aa42de621ae8ab7c2380d8467b4c4f7ce" title="Ajoute un décor libre en fin de vecteur (EX-DEC-001, EX-EDIT-010).">addDecor</a></span>) : une zone ajoutée après une autre ne prend le dessus que là où l'autre ne la couvre pas. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>L'ordre d'ajout fixe la priorité en cas de chevauchement (<span class="tt">core::activeCameraZoneIndex</span> côté <span class="tt">HMI</span>, même convention que <span class="tt">addDecor</span>) : une zone ajoutée après une autre ne prend le dessus que là où l'autre ne la couvre pas. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">zone</td><td>Zone à ajouter, en cases. </td></tr>
   </table>
@@ -323,28 +332,22 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aa42de621ae8ab7c2380d8467b4c4f7ce" name="aa42de621ae8ab7c2380d8467b4c4f7ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa42de621ae8ab7c2380d8467b4c4f7ce">&#9670;&#160;</a></span>addDecor()</h2>
+<a id="af7c0de11232cfa5ef01a0e9cd2711676" name="af7c0de11232cfa5ef01a0e9cd2711676"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7c0de11232cfa5ef01a0e9cd2711676">&#9670;&#160;</a></span>addPlane()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void core::LevelDraft::addDecor </td>
+          <td class="memname">void core::LevelDraft::addPlane </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structcore_1_1Decor.html">Decor</a></td>          <td class="paramname"><span class="paramname"><em>decor</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Plane.html">Plane</a></td>          <td class="paramname"><span class="paramname"><em>plane</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Ajoute un décor libre en fin de vecteur (<span class="tt">EX-DEC-001</span>, <span class="tt">EX-EDIT-010</span>). </p>
-<p>L'ordre d'ajout fixe le rang de superposition intra-couche (TACHE-02) : un décor ajouté après un autre de la même couche se dessine par-dessus. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">decor</td><td>Décor à ajouter (position libre, hors grille). </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Ajoute <code class="param">plane</code> en fin de liste (le plus en avant). </p>
 
 </div>
 </div>
@@ -447,51 +450,6 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Les configurations de danger temporisé posées explicitement (<span class="tt">EX-GP-053</span>). </dd></dl>
-
-</div>
-</div>
-<a id="ab20f2eb5c24b94a43e85581f8d2ccf23" name="ab20f2eb5c24b94a43e85581f8d2ccf23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab20f2eb5c24b94a43e85581f8d2ccf23">&#9670;&#160;</a></span>bringDecorForward()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt; std::size_t &gt; core::LevelDraft::bringDecorForward </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Avance le décor au rang <code class="param">index</code> d'un cran dans l'ordre de superposition <b>de sa couche</b> (<span class="tt">EX-DEC-010</span>) : échange avec le décor de même couche immédiatement suivant. </p>
-<p>Ne change jamais la couche du décor (<span class="tt">EX-DEC-002</span>) : seul l'ordre <b>à l'intérieur</b> de sa couche est affecté. Sans effet (mais succès, rang inchangé) si <code class="param">index</code> désigne déjà le décor le plus en avant de sa couche. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">index</td><td>Rang dans <span class="tt"><a class="el" href="#a1d49b3c7088c0f8928c8a2aaadee665e">decors()</a></span>. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Le nouveau rang du décor, ou <span class="tt">std::nullopt</span> si <code class="param">index</code> est hors bornes. </dd></dl>
-
-</div>
-</div>
-<a id="a374432bd310bf7f4f1da323291a9fadc" name="a374432bd310bf7f4f1da323291a9fadc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a374432bd310bf7f4f1da323291a9fadc">&#9670;&#160;</a></span>bringDecorToFront()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt; std::size_t &gt; core::LevelDraft::bringDecorToFront </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Amène le décor au rang <code class="param">index</code> au premier rang (le plus en avant) de sa couche. </p>
 
 </div>
 </div>
@@ -648,32 +606,6 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Les charges de dash accordées par ce tableau (<span class="tt">EX-GP-055</span>), absent si le niveau s'en remet au réglage du moteur. </dd></dl>
-
-</div>
-</div>
-<a id="a1d49b3c7088c0f8928c8a2aaadee665e" name="a1d49b3c7088c0f8928c8a2aaadee665e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d49b3c7088c0f8928c8a2aaadee665e">&#9670;&#160;</a></span>decors()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::vector&lt; <a class="el" href="structcore_1_1Decor.html">Decor</a> &gt; &amp; core::LevelDraft::decors </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Les décors libres courants, dans leur ordre de superposition intra-couche. </dd></dl>
 
 </div>
 </div>
@@ -911,34 +843,80 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aba9a556ae6046d9038f6368998f8eb75" name="aba9a556ae6046d9038f6368998f8eb75"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba9a556ae6046d9038f6368998f8eb75">&#9670;&#160;</a></span>moveDecor()</h2>
+<a id="a0b862133692576f10a53ff8de54c4097" name="a0b862133692576f10a53ff8de54c4097"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b862133692576f10a53ff8de54c4097">&#9670;&#160;</a></span>movePlaneBackward()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::LevelDraft::moveDecor </td>
+          <td class="memname">std::optional&lt; std::size_t &gt; core::LevelDraft::movePlaneBackward </td>
           <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">Vector2</a></td>          <td class="paramname"><span class="paramname"><em>position</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Déplace le décor au rang <code class="param">index</code> à une nouvelle position libre (<span class="tt">EX-DEC-010</span>). </p>
-<p>Ne change ni la couche ni le rang : seule <span class="tt"><a class="el" href="structcore_1_1Decor.html#aed57c93e14ec7d99f5d70ec572159aac" title="Position en unités monde, flottante : aucune contrainte de grille (EX-DEC-001).">Decor::position</a></span> est modifiée. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">index</td><td>Rang dans <span class="tt"><a class="el" href="#a1d49b3c7088c0f8928c8a2aaadee665e">decors()</a></span>. </td></tr>
-    <tr><td class="paramname">position</td><td>Nouvelle position, en unités monde (aucune contrainte de grille). </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si appliqué ; <span class="tt">false</span> si <code class="param">index</code> est hors bornes (sans effet, <span class="tt">EX-NFR-040</span>). </dd></dl>
+<p>Recule le plan au rang <code class="param">index</code> d'un cran ; sans effet s'il est déjà le premier. </p>
+
+</div>
+</div>
+<a id="a287a17a25750b578b1a2ae4e58d51378" name="a287a17a25750b578b1a2ae4e58d51378"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a287a17a25750b578b1a2ae4e58d51378">&#9670;&#160;</a></span>movePlaneForward()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; std::size_t &gt; core::LevelDraft::movePlaneForward </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Avance le plan au rang <code class="param">index</code> d'un cran ; sans effet s'il est déjà le dernier. </p>
+<dl class="section return"><dt>Returns</dt><dd>Le nouveau rang, ou <span class="tt">std::nullopt</span> si <code class="param">index</code> est hors bornes. </dd></dl>
+
+</div>
+</div>
+<a id="aed96d2b512ef5d877655dc6667116603" name="aed96d2b512ef5d877655dc6667116603"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed96d2b512ef5d877655dc6667116603">&#9670;&#160;</a></span>movePlaneToBack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; std::size_t &gt; core::LevelDraft::movePlaneToBack </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Envoie le plan au rang <code class="param">index</code> au premier rang (le plus en arrière). </p>
+
+</div>
+</div>
+<a id="abf3838beed68b04528a0ae57f3bdb25a" name="abf3838beed68b04528a0ae57f3bdb25a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf3838beed68b04528a0ae57f3bdb25a">&#9670;&#160;</a></span>movePlaneToFront()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; std::size_t &gt; core::LevelDraft::movePlaneToFront </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Amène le plan au rang <code class="param">index</code> au dernier rang (le plus en avant). </p>
 
 </div>
 </div>
@@ -1131,6 +1109,58 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a02fcafcc985dbe6b97f9da87a1aa44e7" name="a02fcafcc985dbe6b97f9da87a1aa44e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02fcafcc985dbe6b97f9da87a1aa44e7">&#9670;&#160;</a></span>parallaxEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::LevelDraft::parallaxEnabled </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si la parallaxe des plans est active pour ce niveau (<span class="tt">EX-DEC-043</span>). </dd></dl>
+
+</div>
+</div>
+<a id="a8f8733144a18e5f7b9cf4327f12486de" name="a8f8733144a18e5f7b9cf4327f12486de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f8733144a18e5f7b9cf4327f12486de">&#9670;&#160;</a></span>planes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="structcore_1_1Plane.html">Plane</a> &gt; &amp; core::LevelDraft::planes </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les plans picturaux courants (<span class="tt">EX-DEC-040</span>), dans leur ordre de superposition. </dd></dl>
+
+</div>
+</div>
 <a id="a9109efae5727f8e4c5f8620bd1651fb0" name="a9109efae5727f8e4c5f8620bd1651fb0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9109efae5727f8e4c5f8620bd1651fb0">&#9670;&#160;</a></span>platformConfigForEdit()</h2>
 
@@ -1258,31 +1288,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aedf72e83d2c50fa8a082296cda3f1c20" name="aedf72e83d2c50fa8a082296cda3f1c20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aedf72e83d2c50fa8a082296cda3f1c20">&#9670;&#160;</a></span>removeDecor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::LevelDraft::removeDecor </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retire le décor au rang <code class="param">index</code> (<span class="tt">EX-DEC-010</span>). </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">index</td><td>Rang dans <span class="tt"><a class="el" href="#a1d49b3c7088c0f8928c8a2aaadee665e">decors()</a></span> ; sans effet si hors bornes. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="ac6222b6123bc9c12d22976c642ab0275" name="ac6222b6123bc9c12d22976c642ab0275"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac6222b6123bc9c12d22976c642ab0275">&#9670;&#160;</a></span>removeLinkedDataAt()</h2>
 
@@ -1312,6 +1317,26 @@ Private Attributes</h2></td></tr>
 
 <p>Retire toute liaison/configuration référençant <code class="param">position</code> (déclencheur, porte, danger commuté, configuration de danger mobile/temporisé, ou override de texture) — appelé avant de reposer un autre type sur une case qui en portait une, pour ne jamais laisser d'entrée orpheline. </p>
 <p><code class="param">keepTextureOverride</code> préserve l'override de texture (repeindre le <b>même</b> type ne doit pas effacer un habillage, <span class="tt">EX-EDIT-043</span>) ; les autres données annexes sont toujours retirées, comme avant ce paramètre. </p>
+
+</div>
+</div>
+<a id="a95b03650bb9afc60e2ff64f8853ab2b1" name="a95b03650bb9afc60e2ff64f8853ab2b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95b03650bb9afc60e2ff64f8853ab2b1">&#9670;&#160;</a></span>removePlane()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::removePlane </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retire le plan au rang <code class="param">index</code>. </p>
+<p>Ne touche <b>jamais</b> au fichier PNG : le brouillon annule une entrée, il ne restaurerait pas un fichier supprimé (voir <span class="tt">LOT-69</span> TACHE-08). </p>
 
 </div>
 </div>
@@ -1388,44 +1413,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="afd9bdb93ac057f2c7e6c8c14be5a74ab" name="afd9bdb93ac057f2c7e6c8c14be5a74ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd9bdb93ac057f2c7e6c8c14be5a74ab">&#9670;&#160;</a></span>resizeDecor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::LevelDraft::resizeDecor </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">Vector2</a></td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">Vector2</a></td>          <td class="paramname"><span class="paramname"><em>scale</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Redimensionne le décor au rang <code class="param">index</code> (<span class="tt">EX-DEC-010</span>), en repositionnant son coin éventuellement du même geste. </p>
-<p><code class="param">position</code> et <code class="param">scale</code> sont appliquées <b>atomiquement</b>, en une seule mutation annulable : redimensionner depuis un coin (poignée, <span class="tt">LOT-50</span> TACHE-02) déplace le coin <b>opposé au coin ancré</b>, sauf depuis le coin bas-droit — les deux changent donc ensemble le plus souvent, et scinder l'opération en deux appels (<span class="tt"><a class="el" href="#aba9a556ae6046d9038f6368998f8eb75" title="Déplace le décor au rang index à une nouvelle position libre (EX-DEC-010).">moveDecor</a></span> + <span class="tt"><a class="el" href="#afd9bdb93ac057f2c7e6c8c14be5a74ab" title="Redimensionne le décor au rang index (EX-DEC-010), en repositionnant son coin éventuellement du même ...">resizeDecor</a></span>) empilerait deux entrées d'historique pour un seul geste utilisateur. Un appelant qui ne change que l'échelle (ex. futur champ numérique, <span class="tt">LOT-50</span> TACHE-04) passe simplement la position courante du décor, inchangée.</p>
-<p>Une échelle non strictement positive sur un axe est <b>rejetée</b> (aucune mutation, position comprise) : un décor invisible (échelle nulle) ou retourné par accident (échelle négative) serait un piège d'usage plutôt qu'une fonctionnalité. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">index</td><td>Rang dans <span class="tt"><a class="el" href="#a1d49b3c7088c0f8928c8a2aaadee665e">decors()</a></span>. </td></tr>
-    <tr><td class="paramname">position</td><td>Nouvelle position (coin haut-gauche), en unités monde. </td></tr>
-    <tr><td class="paramname">scale</td><td>Nouvelle échelle ; chaque composante doit être strictement positive. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si appliqué ; <span class="tt">false</span> si <code class="param">index</code> est hors bornes ou si <code class="param">scale</code> n'est pas strictement positive sur les deux axes (sans effet, <span class="tt">EX-NFR-040</span>). </dd></dl>
-
-</div>
-</div>
 <a id="a320a399e76d85ed27d70875d6b410f93" name="a320a399e76d85ed27d70875d6b410f93"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a320a399e76d85ed27d70875d6b410f93">&#9670;&#160;</a></span>restore()</h2>
 
@@ -1450,75 +1437,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Restitue un état capturé précédemment. </p>
-
-</div>
-</div>
-<a id="ad285d0c016f041d678a7f222a8f8b23f" name="ad285d0c016f041d678a7f222a8f8b23f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad285d0c016f041d678a7f222a8f8b23f">&#9670;&#160;</a></span>rotateDecor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::LevelDraft::rotateDecor </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>rotation</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Pivote le décor au rang <code class="param">index</code> (<span class="tt">EX-DEC-010</span>). </p>
-<p>La rotation est <b>normalisée</b> dans <span class="tt">[0, 2π[</span> avant d'être stockée : contrairement à l'échelle, aucune valeur n'est rejetée, une rotation n'a pas de valeur invalide. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">index</td><td>Rang dans <span class="tt"><a class="el" href="#a1d49b3c7088c0f8928c8a2aaadee665e">decors()</a></span>. </td></tr>
-    <tr><td class="paramname">rotation</td><td>Nouvelle rotation, en radians (n'importe quelle valeur, y compris hors <span class="tt">[0, 2π[</span> ou négative). </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si appliqué ; <span class="tt">false</span> si <code class="param">index</code> est hors bornes (sans effet). </dd></dl>
-
-</div>
-</div>
-<a id="a0eabbb032c3a59a3c0888d5f9a3fe95d" name="a0eabbb032c3a59a3c0888d5f9a3fe95d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0eabbb032c3a59a3c0888d5f9a3fe95d">&#9670;&#160;</a></span>sendDecorBackward()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt; std::size_t &gt; core::LevelDraft::sendDecorBackward </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Recule le décor au rang <code class="param">index</code> d'un cran dans l'ordre de sa couche (symétrique de <span class="tt"><a class="el" href="#ab20f2eb5c24b94a43e85581f8d2ccf23" title="Avance le décor au rang index d&#39;un cran dans l&#39;ordre de superposition de sa couche (EX-DEC-010) : éch...">bringDecorForward</a></span>) : échange avec le décor de même couche immédiatement précédent. </p>
-
-</div>
-</div>
-<a id="a0b0f16e06f765e2a1daf4bc797a07f3a" name="a0b0f16e06f765e2a1daf4bc797a07f3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b0f16e06f765e2a1daf4bc797a07f3a">&#9670;&#160;</a></span>sendDecorToBack()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt; std::size_t &gt; core::LevelDraft::sendDecorToBack </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Envoie le décor au rang <code class="param">index</code> au dernier rang (le plus en arrière) de sa couche. </p>
 
 </div>
 </div>
@@ -1673,37 +1591,6 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="a6d40a7451d269feb1badaf2a5065752e" name="a6d40a7451d269feb1badaf2a5065752e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d40a7451d269feb1badaf2a5065752e">&#9670;&#160;</a></span>setDecorLayer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt; std::size_t &gt; core::LevelDraft::setDecorLayer </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">DecorLayer</a></td>          <td class="paramname"><span class="paramname"><em>layer</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Change la couche du décor au rang <code class="param">index</code> (<span class="tt">EX-DEC-010</span>, <span class="tt">EX-DEC-002</span>). </p>
-<p>Comportement défini explicitement (<span class="tt">EX-EDIT-010</span>, pour ne pas le laisser émerger) : le décor rejoint la <b>fin</b> du vecteur, ce qui en fait le rang le plus élevé (« dessus ») de sa nouvelle couche — même convention que <span class="tt"><a class="el" href="#aa42de621ae8ab7c2380d8467b4c4f7ce" title="Ajoute un décor libre en fin de vecteur (EX-DEC-001, EX-EDIT-010).">addDecor</a></span>, qui place toujours un nouveau décor en fin de vecteur. Sans effet (mais succès) si <code class="param">layer</code> est déjà la couche courante du décor. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">index</td><td>Rang dans <span class="tt"><a class="el" href="#a1d49b3c7088c0f8928c8a2aaadee665e">decors()</a></span>. </td></tr>
-    <tr><td class="paramname">layer</td><td>Nouvelle couche. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Le nouveau rang du décor, ou <span class="tt">std::nullopt</span> si <code class="param">index</code> est hors bornes. </dd></dl>
 
 </div>
 </div>
@@ -1888,6 +1775,126 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Renomme le niveau. </p>
+
+</div>
+</div>
+<a id="ac8626d2ef51f11d80bf0ca0082d17253" name="ac8626d2ef51f11d80bf0ca0082d17253"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8626d2ef51f11d80bf0ca0082d17253">&#9670;&#160;</a></span>setParallaxEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::setParallaxEnabled </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>enabled</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Active ou désactive la parallaxe des plans pour ce niveau (<span class="tt">EX-DEC-043</span>). </p>
+
+</div>
+</div>
+<a id="a16312211d7ac0b6b67a3ad032c642d17" name="a16312211d7ac0b6b67a3ad032c642d17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16312211d7ac0b6b67a3ad032c642d17">&#9670;&#160;</a></span>setPlaneDensity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::LevelDraft::setPlaneDensity </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>pixelsPerUnit</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change la densité du plan au rang <code class="param">index</code> (<span class="tt">EX-DEC-041</span>). </p>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> si <code class="param">index</code> est hors bornes ou si <code class="param">pixelsPerUnit</code> n'est pas une densité valide (<span class="tt"><a class="el" href="namespacecore.html#a0f61acebed3678706e825f972217a233" title="Densité acceptée pour un plan (EX-DEC-041).">core::isValidPlaneDensity</a></span>) — auquel cas rien n'est empilé. </dd></dl>
+
+</div>
+</div>
+<a id="a9bead8814af0e45623c16e651d4f6dd3" name="a9bead8814af0e45623c16e651d4f6dd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bead8814af0e45623c16e651d4f6dd3">&#9670;&#160;</a></span>setPlaneDepth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::LevelDraft::setPlaneDepth </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a6dc89438a55a80980ab04f7da513f731">PlaneDepth</a></td>          <td class="paramname"><span class="paramname"><em>depth</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change la profondeur du plan au rang <code class="param">index</code> (<span class="tt">EX-DEC-042</span>). </p>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> si <code class="param">index</code> est hors bornes. </dd></dl>
+
+</div>
+</div>
+<a id="ae78156c0fad7d8627f333943256616be" name="ae78156c0fad7d8627f333943256616be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae78156c0fad7d8627f333943256616be">&#9670;&#160;</a></span>setPlaneOpacity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::LevelDraft::setPlaneOpacity </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>opacity</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change l'opacité du plan au rang <code class="param">index</code>. </p>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> si <code class="param">index</code> est hors bornes ou si <code class="param">opacity</code> sort de <span class="tt">[0, 1]</span>. </dd></dl>
+
+</div>
+</div>
+<a id="a10b426d17bc0fdeb3bd6b336df83848f" name="a10b426d17bc0fdeb3bd6b336df83848f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10b426d17bc0fdeb3bd6b336df83848f">&#9670;&#160;</a></span>setPlaneParallax()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::LevelDraft::setPlaneParallax </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>parallaxX</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>parallaxY</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change les facteurs de parallaxe du plan au rang <code class="param">index</code> (<span class="tt">EX-DEC-043</span>). </p>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> si <code class="param">index</code> est hors bornes ou si un facteur n'est pas fini. </dd></dl>
 
 </div>
 </div>
@@ -2428,28 +2435,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a13dd782e9b0882563e3c7bc01d5adfd4" name="a13dd782e9b0882563e3c7bc01d5adfd4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13dd782e9b0882563e3c7bc01d5adfd4">&#9670;&#160;</a></span>_decors</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1Decor.html">Decor</a>&gt; core::LevelDraft::_decors</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="ad06d3935521ff07ddb8c35b7ab7ee863" name="ad06d3935521ff07ddb8c35b7ab7ee863"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad06d3935521ff07ddb8c35b7ab7ee863">&#9670;&#160;</a></span>_entry</h2>
 
@@ -2571,6 +2556,50 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::string core::LevelDraft::_name</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a418445190cdc9567de900eecd6e9a085" name="a418445190cdc9567de900eecd6e9a085"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a418445190cdc9567de900eecd6e9a085">&#9670;&#160;</a></span>_parallaxEnabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::LevelDraft::_parallaxEnabled = true</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a76d94172551047cfa39d79a5cb9676e5" name="a76d94172551047cfa39d79a5cb9676e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76d94172551047cfa39d79a5cb9676e5">&#9670;&#160;</a></span>_planes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1Plane.html">Plane</a>&gt; core::LevelDraft::_planes</td>
         </tr>
       </table>
   </td>

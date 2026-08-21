@@ -4,11 +4,11 @@ var PanelFocus_8h =
     [ "hmi::PixelPanelFocusEntry", "structhmi_1_1PixelPanelFocusEntry.html", "structhmi_1_1PixelPanelFocusEntry" ],
     [ "hmi::PanelId", "namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726", [
       [ "hmi::PanelId::Palette", "namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726a278f9a3d3077c522e71022e302b9e0e4", null ],
-      [ "hmi::PanelId::Decors", "namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726ad63f5eaa78dc9b5310ce01da7192289c", null ],
       [ "hmi::PanelId::Levels", "namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726a91aedca00492a5fba2c282abec5626f3", null ],
       [ "hmi::PanelId::Links", "namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726abd908db5ccb07777ced8023dffc802f4", null ],
       [ "hmi::PanelId::Properties", "namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726a9fc2d28c05ed9eb1d75ba4465abf15a9", null ],
       [ "hmi::PanelId::Textures", "namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726a536300d63028e7f16ba150566ecd3a5f", null ],
+      [ "hmi::PanelId::Planes", "namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726abdd4286459900f7788990a266eaf5e28", null ],
       [ "hmi::PanelId::PixelCanvas", "namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726ab1175488d7517a7b3490f45437b7cd0d", null ],
       [ "hmi::PanelId::PixelHistory", "namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726a60421a4156d1beef9070bc14bd2623a4", null ],
       [ "hmi::PanelId::PixelPalette", "namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726a61b4f1c9bd8c6614c124bf11bcd1e187", null ]

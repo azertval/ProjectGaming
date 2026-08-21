@@ -2,6 +2,7 @@ var test__level__draft_8cpp =
 [
     [ "TEST", "test__level__draft_8cpp.html#a3a0a5f62d902b076373f4e926cf5f909", null ],
     [ "TEST", "test__level__draft_8cpp.html#a54e70d614b36f54aa66430067534ccf1", null ],
+    [ "TEST", "test__level__draft_8cpp.html#a60dc5d7abc25e49b2a38de9c018ed8a3", null ],
     [ "TEST", "test__level__draft_8cpp.html#a313c248daf70b629ede75e2f1923bee3", null ],
     [ "TEST", "test__level__draft_8cpp.html#a9981ccf39e2706932d233109ed7774e0", null ],
     [ "TEST", "test__level__draft_8cpp.html#a3dc58db701b424952cf552771b10b7c3", null ],
@@ -9,6 +10,7 @@ var test__level__draft_8cpp =
     [ "TEST", "test__level__draft_8cpp.html#a5bf69bf44b14560075b0dd950172eb80", null ],
     [ "TEST", "test__level__draft_8cpp.html#a30701a8e572ac6c31f95ba2a210b6bd8", null ],
     [ "TEST", "test__level__draft_8cpp.html#a4347303bd7168d872740e6e8bab5e63a", null ],
+    [ "TEST", "test__level__draft_8cpp.html#af54b3e15ef2ecd368045127cd9f2158e", null ],
     [ "TEST", "test__level__draft_8cpp.html#abe79e407f28fdece66c894d282c676e6", null ],
     [ "TEST", "test__level__draft_8cpp.html#aca2cec60a6095c3706914ce903a0f0d4", null ],
     [ "TEST", "test__level__draft_8cpp.html#a3e9d185b50947e1e424601cdee1ac7c7", null ],

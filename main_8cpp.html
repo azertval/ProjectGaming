@@ -97,7 +97,10 @@ $(function(){initNavTree('main_8cpp.html','',''); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QApplication&gt;</code><br />
 <code>#include &lt;QCoreApplication&gt;</code><br />
+<code>#include &lt;QLibraryInfo&gt;</code><br />
+<code>#include &lt;QSettings&gt;</code><br />
 <code>#include &lt;QString&gt;</code><br />
+<code>#include &lt;QTranslator&gt;</code><br />
 <code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
@@ -116,6 +119,7 @@ $(function(){initNavTree('main_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="HmiLog_8h_source.html">HMI/HmiLog.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ApplicationTheme_8h_source.html">HMI/Interface/ApplicationTheme.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="MainWindow_8h_source.html">HMI/Interface/MainWindow.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ExecutableDirectory_8h_source.html">HMI/Platform/ExecutableDirectory.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -124,7 +128,7 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Point d'entrée de l'application Qt (<span class="tt">ProjectGaming</span>). </p>
-<p>Configure la journalisation (console + mémoire en développement, niveau réglable), applique le thème de l'IHM, puis ouvre la fenêtre principale (<span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">hmi::MainWindow</a></span>) dont le widget central est le viewport Direct3D 11 (<span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">hmi::GameViewport</a></span>). </p>
+<p>Configure la journalisation (console + mémoire en développement, niveau réglable), applique le thème de l'IHM, puis ouvre la fenêtre principale (<span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">hmi::MainWindow</a></span>) dont le widget central est le viewport Direct3D 11 (<span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Widget de rendu (QRhiWidget) où la scène est dessinée, composé avec le reste de l&#39;interface.">hmi::GameViewport</a></span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a3c04138a5bfe5d72780bb7e82a18e627" name="a3c04138a5bfe5d72780bb7e82a18e627"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c04138a5bfe5d72780bb7e82a18e627">&#9670;&#160;</a></span>main()</h2>

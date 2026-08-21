@@ -19,6 +19,7 @@ var hierarchy =
     [ "hmi::BackdropQuad", "structhmi_1_1BackdropQuad.html", null ],
     [ "hmi::BackgroundFit", "structhmi_1_1BackgroundFit.html", null ],
     [ "hmi::BackgroundTexture", "structhmi_1_1BackgroundTexture.html", null ],
+    [ "hmi::SpriteBatch::Batch", "structhmi_1_1SpriteBatch_1_1Batch.html", null ],
     [ "hmi::BitmapFont", "classhmi_1_1BitmapFont.html", null ],
     [ "core::BlockController", "classcore_1_1BlockController.html", null ],
     [ "hmi::CacheRegistry&lt; Resource &gt;", "classhmi_1_1CacheRegistry.html", null ],
@@ -38,15 +39,6 @@ var hierarchy =
     [ "core::DangerLink", "structcore_1_1DangerLink.html", null ],
     [ "core::DangerMoverConfig", "structcore_1_1DangerMoverConfig.html", null ],
     [ "hmi::DecodedImage", "structhmi_1_1DecodedImage.html", null ],
-    [ "core::Decor", "structcore_1_1Decor.html", null ],
-    [ "hmi::DecorAppearance", "structhmi_1_1DecorAppearance.html", null ],
-    [ "hmi::DecorGestureAction", "structhmi_1_1DecorGestureAction.html", null ],
-    [ "hmi::DecorGestureState", "structhmi_1_1DecorGestureState.html", null ],
-    [ "hmi::DecorHandleLayout", "structhmi_1_1DecorHandleLayout.html", null ],
-    [ "hmi::DecorHit", "structhmi_1_1DecorHit.html", null ],
-    [ "hmi::DecorListRow", "structhmi_1_1DecorListRow.html", null ],
-    [ "hmi::DecorOverlayState", "structhmi_1_1DecorOverlayState.html", null ],
-    [ "hmi::DecorVisualTag", "structhmi_1_1DecorVisualTag.html", null ],
     [ "hmi::DesignColor", "structhmi_1_1DesignColor.html", null ],
     [ "hmi::DesignTokens", "structhmi_1_1DesignTokens.html", null ],
     [ "core::DeterministicRandom", "classcore_1_1DeterministicRandom.html", null ],
@@ -76,7 +68,6 @@ var hierarchy =
     [ "hmi::GamepadPoller", "classhmi_1_1GamepadPoller.html", null ],
     [ "hmi::GameSession", "classhmi_1_1GameSession.html", null ],
     [ "hmi::GlyphMetrics", "structhmi_1_1GlyphMetrics.html", null ],
-    [ "hmi::GraphicsDevice", "classhmi_1_1GraphicsDevice.html", null ],
     [ "core::GridPosition", "structcore_1_1GridPosition.html", null ],
     [ "core::IComponentPool", "classcore_1_1IComponentPool.html", [
       [ "core::ComponentPool< T >", "classcore_1_1ComponentPool.html", null ]
@@ -149,6 +140,13 @@ var hierarchy =
     [ "hmi::PixelPanelFocusEntry", "structhmi_1_1PixelPanelFocusEntry.html", null ],
     [ "hmi::PixelRegion", "structhmi_1_1PixelRegion.html", null ],
     [ "hmi::PixelScreenRect", "structhmi_1_1PixelScreenRect.html", null ],
+    [ "core::Plane", "structcore_1_1Plane.html", null ],
+    [ "hmi::PlaneEditStatusInfo", "structhmi_1_1PlaneEditStatusInfo.html", null ],
+    [ "hmi::PlaneLayer", "structhmi_1_1PlaneLayer.html", null ],
+    [ "hmi::PlaneParallax", "structhmi_1_1PlaneParallax.html", null ],
+    [ "hmi::PlanePixelSize", "structhmi_1_1PlanePixelSize.html", null ],
+    [ "hmi::PlaneTexture", "structhmi_1_1PlaneTexture.html", null ],
+    [ "hmi::PlaneVisibility", "classhmi_1_1PlaneVisibility.html", null ],
     [ "core::PlatformController", "classcore_1_1PlatformController.html", null ],
     [ "core::PlatformPath", "structcore_1_1PlatformPath.html", null ],
     [ "core::PlatformSample", "structcore_1_1PlatformSample.html", null ],
@@ -171,11 +169,13 @@ var hierarchy =
     [ "QPushButton", null, [
       [ "hmi::PixelMenuButton", "classhmi_1_1PixelMenuButton.html", null ]
     ] ],
+    [ "QRhiWidget", null, [
+      [ "hmi::GameViewport", "classhmi_1_1GameViewport.html", null ]
+    ] ],
     [ "hmi::QuadRecorder", "classhmi_1_1QuadRecorder.html", null ],
     [ "QWidget", null, [
       [ "hmi::AssetThumbnailView", "classhmi_1_1AssetThumbnailView.html", null ],
       [ "hmi::CreditsScreen", "classhmi_1_1CreditsScreen.html", null ],
-      [ "hmi::DecorsPanel", "classhmi_1_1DecorsPanel.html", null ],
       [ "hmi::EditorKeybindingsWidget", "classhmi_1_1EditorKeybindingsWidget.html", null ],
       [ "hmi::GamepadBindingsWidget", "classhmi_1_1GamepadBindingsWidget.html", null ],
       [ "hmi::KeybindingsWidget", "classhmi_1_1KeybindingsWidget.html", null ],
@@ -191,14 +191,13 @@ var hierarchy =
       [ "hmi::PixelFrameWidget", "classhmi_1_1PixelFrameWidget.html", null ],
       [ "hmi::PixelHistoryPanel", "classhmi_1_1PixelHistoryPanel.html", null ],
       [ "hmi::PixelPalettePanel", "classhmi_1_1PixelPalettePanel.html", null ],
+      [ "hmi::PlanesPanel", "classhmi_1_1PlanesPanel.html", null ],
       [ "hmi::PropertiesPanel", "classhmi_1_1PropertiesPanel.html", null ],
       [ "hmi::TexturePanel", "classhmi_1_1TexturePanel.html", null ]
     ] ],
-    [ "QWindow", null, [
-      [ "hmi::GameViewport", "classhmi_1_1GameViewport.html", null ]
-    ] ],
     [ "core::Rect", "structcore_1_1Rect.html", null ],
     [ "hmi::RenderLayerTag", "structhmi_1_1RenderLayerTag.html", null ],
+    [ "hmi::RhiContext", "structhmi_1_1RhiContext.html", null ],
     [ "aisolver::Rng", "classaisolver_1_1Rng.html", null ],
     [ "hmi::RoomBounds", "structhmi_1_1RoomBounds.html", null ],
     [ "hmi::RoomGrid", "classhmi_1_1RoomGrid.html", null ],

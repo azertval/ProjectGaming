@@ -92,31 +92,34 @@ $(function(){initNavTree('LogFormat_8h_source.html','',''); });
   <div class="headertitle"><div class="title">LogFormat.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="LogFormat_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<a href="LogFormat_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: GPL-3.0-or-later</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="LogLevel_8h.html">Core/Diagnostics/LogLevel.h</a>&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>[[nodiscard]] std::string_view <a class="code hl_function" href="namespacecore.html#aacd09bfbf70df9627195ed54b58a0297">fileName</a>(std::string_view path);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacecore.html#aafa85d91ee91c84b123fff01f147615e">formatLogLine</a>(std::string_view timestamp, <a class="code hl_enumeration" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> level,</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                                        std::string_view category, std::string_view file, <span class="keywordtype">int</span> line,</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                                        std::string_view message);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacecore.html#a485afe76bcf660ec5db7d91f924f87a4">currentTimestamp</a>();</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}  <span class="comment">// namespace core</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="LogLevel_8h.html">Core/Diagnostics/LogLevel.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>[[nodiscard]] std::string_view <a class="code hl_function" href="namespacecore.html#aacd09bfbf70df9627195ed54b58a0297">fileName</a>(std::string_view path);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacecore.html#aafa85d91ee91c84b123fff01f147615e">formatLogLine</a>(std::string_view timestamp, <a class="code hl_enumeration" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> level,</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>                                        std::string_view category, std::string_view file, <span class="keywordtype">int</span> line,</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                                        std::string_view message);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacecore.html#a485afe76bcf660ec5db7d91f924f87a4">currentTimestamp</a>();</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}  <span class="comment">// namespace core</span></div>
 <div class="ttc" id="aLogLevel_8h_html"><div class="ttname"><a href="LogLevel_8h.html">LogLevel.h</a></div><div class="ttdoc">Niveaux de journalisation, par gravité croissante.</div></div>
-<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> BuildConfig.h:8</div></div>
-<div class="ttc" id="anamespacecore_html_a485afe76bcf660ec5db7d91f924f87a4"><div class="ttname"><a href="namespacecore.html#a485afe76bcf660ec5db7d91f924f87a4">core::currentTimestamp</a></div><div class="ttdeci">std::string currentTimestamp()</div><div class="ttdoc">Horodatage courant local, au format &quot;HH:MM:SS&quot;.</div><div class="ttdef"><b>Definition</b> LogFormat.cpp:41</div></div>
-<div class="ttc" id="anamespacecore_html_aa9b5a444ee11933c91d5e3235aa5b5e3"><div class="ttname"><a href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">core::LogLevel</a></div><div class="ttdeci">LogLevel</div><div class="ttdoc">Niveau d&#39;un message de journalisation (ordre croissant de gravité).</div><div class="ttdef"><b>Definition</b> LogLevel.h:11</div></div>
-<div class="ttc" id="anamespacecore_html_aacd09bfbf70df9627195ed54b58a0297"><div class="ttname"><a href="namespacecore.html#aacd09bfbf70df9627195ed54b58a0297">core::fileName</a></div><div class="ttdeci">std::string_view fileName(std::string_view path)</div><div class="ttdoc">Réduit un chemin source à son seul nom de fichier.</div><div class="ttdef"><b>Definition</b> LogFormat.cpp:7</div></div>
-<div class="ttc" id="anamespacecore_html_aafa85d91ee91c84b123fff01f147615e"><div class="ttname"><a href="namespacecore.html#aafa85d91ee91c84b123fff01f147615e">core::formatLogLine</a></div><div class="ttdeci">std::string formatLogLine(std::string_view timestamp, LogLevel level, std::string_view category, std::string_view file, int line, std::string_view message)</div><div class="ttdoc">Compose une ligne de journalisation.</div><div class="ttdef"><b>Definition</b> LogFormat.cpp:18</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> BuildConfig.h:11</div></div>
+<div class="ttc" id="anamespacecore_html_a485afe76bcf660ec5db7d91f924f87a4"><div class="ttname"><a href="namespacecore.html#a485afe76bcf660ec5db7d91f924f87a4">core::currentTimestamp</a></div><div class="ttdeci">std::string currentTimestamp()</div><div class="ttdoc">Horodatage courant local, au format &quot;HH:MM:SS&quot;.</div><div class="ttdef"><b>Definition</b> LogFormat.cpp:44</div></div>
+<div class="ttc" id="anamespacecore_html_aa9b5a444ee11933c91d5e3235aa5b5e3"><div class="ttname"><a href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">core::LogLevel</a></div><div class="ttdeci">LogLevel</div><div class="ttdoc">Niveau d&#39;un message de journalisation (ordre croissant de gravité).</div><div class="ttdef"><b>Definition</b> LogLevel.h:14</div></div>
+<div class="ttc" id="anamespacecore_html_aacd09bfbf70df9627195ed54b58a0297"><div class="ttname"><a href="namespacecore.html#aacd09bfbf70df9627195ed54b58a0297">core::fileName</a></div><div class="ttdeci">std::string_view fileName(std::string_view path)</div><div class="ttdoc">Réduit un chemin source à son seul nom de fichier.</div><div class="ttdef"><b>Definition</b> LogFormat.cpp:10</div></div>
+<div class="ttc" id="anamespacecore_html_aafa85d91ee91c84b123fff01f147615e"><div class="ttname"><a href="namespacecore.html#aafa85d91ee91c84b123fff01f147615e">core::formatLogLine</a></div><div class="ttdeci">std::string formatLogLine(std::string_view timestamp, LogLevel level, std::string_view category, std::string_view file, int line, std::string_view message)</div><div class="ttdoc">Compose une ligne de journalisation.</div><div class="ttdef"><b>Definition</b> LogFormat.cpp:21</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

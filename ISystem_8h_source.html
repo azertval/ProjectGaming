@@ -92,28 +92,31 @@ $(function(){initNavTree('ISystem_8h_source.html','',''); });
   <div class="headertitle"><div class="title">ISystem.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="ISystem_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">class </span><a class="code hl_class" href="classcore_1_1World.html">World</a>;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span></div>
-<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="classcore_1_1ISystem.html">   20</a></span><span class="keyword">class </span><a class="code hl_class" href="classcore_1_1ISystem.html">ISystem</a> {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classcore_1_1ISystem.html#a720a3e2dcc57e50cc42fb24b73a8bf9a">   22</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="classcore_1_1ISystem.html#a720a3e2dcc57e50cc42fb24b73a8bf9a">~ISystem</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="classcore_1_1ISystem.html#af7fdaf0677189972cab73e27030306a4">   29</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1ISystem.html#af7fdaf0677189972cab73e27030306a4">update</a>(<a class="code hl_class" href="classcore_1_1World.html">World</a>&amp; world, <span class="keywordtype">float</span> fixedDelta) = 0;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>};</div>
+<a href="ISystem_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: GPL-3.0-or-later</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">class </span><a class="code hl_class" href="classcore_1_1World.html">World</a>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span></div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classcore_1_1ISystem.html">   23</a></span><span class="keyword">class </span><a class="code hl_class" href="classcore_1_1ISystem.html">ISystem</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classcore_1_1ISystem.html#a720a3e2dcc57e50cc42fb24b73a8bf9a">   25</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="classcore_1_1ISystem.html#a720a3e2dcc57e50cc42fb24b73a8bf9a">~ISystem</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="classcore_1_1ISystem.html#af7fdaf0677189972cab73e27030306a4">   32</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1ISystem.html#af7fdaf0677189972cab73e27030306a4">update</a>(<a class="code hl_class" href="classcore_1_1World.html">World</a>&amp; world, <span class="keywordtype">float</span> fixedDelta) = 0;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>};</div>
 </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}  <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aclasscore_1_1ISystem_html"><div class="ttname"><a href="classcore_1_1ISystem.html">core::ISystem</a></div><div class="ttdoc">Interface d&#39;un système : porte la logique itérant sur les composants.</div><div class="ttdef"><b>Definition</b> ISystem.h:20</div></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aclasscore_1_1ISystem_html"><div class="ttname"><a href="classcore_1_1ISystem.html">core::ISystem</a></div><div class="ttdoc">Interface d&#39;un système : porte la logique itérant sur les composants.</div><div class="ttdef"><b>Definition</b> ISystem.h:23</div></div>
 <div class="ttc" id="aclasscore_1_1ISystem_html_a720a3e2dcc57e50cc42fb24b73a8bf9a"><div class="ttname"><a href="classcore_1_1ISystem.html#a720a3e2dcc57e50cc42fb24b73a8bf9a">core::ISystem::~ISystem</a></div><div class="ttdeci">virtual ~ISystem()=default</div></div>
 <div class="ttc" id="aclasscore_1_1ISystem_html_af7fdaf0677189972cab73e27030306a4"><div class="ttname"><a href="classcore_1_1ISystem.html#af7fdaf0677189972cab73e27030306a4">core::ISystem::update</a></div><div class="ttdeci">virtual void update(World &amp;world, float fixedDelta)=0</div><div class="ttdoc">Exécute un pas de simulation du système.</div></div>
-<div class="ttc" id="aclasscore_1_1World_html"><div class="ttname"><a href="classcore_1_1World.html">core::World</a></div><div class="ttdoc">Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.</div><div class="ttdef"><b>Definition</b> World.h:32</div></div>
-<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> BuildConfig.h:8</div></div>
+<div class="ttc" id="aclasscore_1_1World_html"><div class="ttname"><a href="classcore_1_1World.html">core::World</a></div><div class="ttdoc">Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.</div><div class="ttdef"><b>Definition</b> World.h:35</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> BuildConfig.h:11</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

@@ -4,7 +4,7 @@ var RenderLayer_8h =
     [ "hmi::TextureHandle", "namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d", null ],
     [ "hmi::RenderLayer", "namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919", [
       [ "hmi::RenderLayer::Background", "namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919aa9ded1e5ce5d75814730bb4caaf49419", null ],
-      [ "hmi::RenderLayer::Decor", "namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ae953e8671da3a0647c0939df8ebe8e44", null ],
+      [ "hmi::RenderLayer::Plane", "namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a0d3adee051531c15b3509b4d4d75ce7b", null ],
       [ "hmi::RenderLayer::Shadow", "namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a3f39588bb19e28051d9aedfbb170025c", null ],
       [ "hmi::RenderLayer::Tile", "namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152", null ],
       [ "hmi::RenderLayer::Object", "namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a497031794414a552435f90151ac3b54b", null ],

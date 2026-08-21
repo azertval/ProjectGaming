@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-32-tache-01-partition-salles.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-32-niveaux-a-salles_2tache-01-partition-salles"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-32.html#md_Lot_2LOT-32-niveaux-a-salles_2epic" title="Lot/LOT-32-niveaux-a-salles/epic.md">LOT-32</a> · <b>Emplacement :</b> <span class="tt">HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1619"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1629"></a>
 Contexte</h1>
 <p>Le cadrage caméra par salle (TACHE-02) et le repère visuel de l'éditeur (TACHE-03) ont tous les deux besoin de la <b>même</b> réponse à deux questions : « quelle salle contient telle position ? » et « quel est le rectangle (en cases) de la salle <span class="tt">n</span> ? ». Cette logique est purement géométrique (aucune dépendance rendu), donc factorisée une fois, comme <span class="tt">Camera2D::fitZoom</span> l'a été pour le calcul de zoom d'ajustement (<span class="tt">LOT-16</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1620"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1630"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Nouveau type <span class="tt"><a class="el" href="classhmi_1_1RoomGrid.html" title="Partitionne une grille de niveau en un tableau de salles de taille fixe, façon Celeste (LOT-32).">hmi::RoomGrid</a></span></b> (<span class="tt"><a class="el" href="RoomGrid_8h.html" title="Partition d&#39;un niveau en salles de taille fixe, pour le cadrage caméra (LOT-32).">Source/HMI/Graphics/RoomGrid.h</a></span>/<span class="tt">.cpp</span>) :<ul>
@@ -111,31 +111,31 @@ Travail à réaliser</h1>
 <li><b>Aucune dépendance à <span class="tt">Camera2D</span> ni à D3D11</b> dans <span class="tt">RoomGrid</span> lui-même — reste <b>pur</b>, testable sans GPU (<span class="tt">EX-NFR-010</span>). <span class="tt">Camera2D::fitZoom</span> continue d'être appelé <b>par les appelants</b> (TACHE-02/03) avec le rectangle renvoyé par <span class="tt">roomBounds</span>, pas dupliqué ici.</li>
 <li>Un niveau qui tient dans une seule salle doit produire un <span class="tt">RoomGrid</span> à <b>une seule</b> entrée (<span class="tt">columns() == rows() == 1</span>), dont <span class="tt">roomBounds({0, 0})</span> couvre exactement le niveau entier — la condition de non-régression exploitée par TACHE-02.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1621"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1631"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="RoomGrid_8h.html" title="Partition d&#39;un niveau en salles de taille fixe, pour le cadrage caméra (LOT-32).">Source/HMI/Graphics/RoomGrid.h</a></span>/<span class="tt">.cpp</span> (nouveaux).</li>
 <li><span class="tt"><a class="el" href="test__room__grid_8cpp.html" title="Tests unitaires de la partition d&#39;un niveau en salles (RoomGrid, LOT-32).">Source/Test/Unit/HMI/Graphics/test_room_grid.cpp</a></span> (nouveau).</li>
 <li><span class="tt">CMakeLists.txt</span> (ou fichier de liste de sources concerné) : enregistrement des nouveaux fichiers.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1622"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1632"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Unitaires, sans GPU : niveau plus petit qu'une salle (une seule salle, <span class="tt">roomBounds</span> = niveau entier), niveau exactement multiple de la taille de salle (grille pleine, pas de rognage), niveau <b>non multiple</b> (dernière colonne/ligne rognée, vérifier la largeur/hauteur exacte), <span class="tt">roomIndexAt</span> aux quatre coins et au centre de plusieurs salles, position hors bornes (comportement défini — bornée, pas de comportement indéfini).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1623"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1633"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Origine haut-gauche</b>, comme <span class="tt">TileMap</span>/<span class="tt">GridPosition</span> (<span class="tt">EX-ARCH-020</span>) — pas d'inversion d'axe.</li>
 <li>La taille de salle est une <b>constante de code unique pour tout le jeu</b> (décision de cadrage de l'épic) : ne pas la rendre configurable par niveau/JSON à ce stade.</li>
 <li><span class="tt">RoomGrid</span> ne connaît <b>aucune notion de personnage ni de position monde continue</b> (<span class="tt">Vector2</span>) — seulement des cases (<span class="tt">GridPosition</span>, entier). La conversion case ↔ position monde reste la responsabilité de l'appelant (TACHE-02), comme pour le reste du rendu (<span class="tt">EX-ARCH-021</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1624"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1634"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">RoomGrid</span> livré et testé (<span class="tt">ctest</span> vert), aucune dépendance rendu ; build <span class="tt">/W4 /WX</span> sans avertissement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1625"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1635"></a>
 Exigences</h1>
 <p><span class="tt">EX-NFR-010</span> (logique pure, testable sans GPU) ; prépare <span class="tt">EX-REN-015</span> et <span class="tt">EX-EDIT-023</span> (TACHE-02/03). </p>
 </div></div><!-- contents -->

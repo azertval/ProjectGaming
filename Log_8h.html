@@ -145,12 +145,12 @@ Macros</h2></td></tr>
 <div class="line">                                         __FILE__, __LINE__, message));               \</div>
 <div class="line">    }                                                                                 \</div>
 <div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div>
-<div class="ttc" id="aclasscore_1_1Logger_html"><div class="ttname"><a href="classcore_1_1Logger.html">core::Logger</a></div><div class="ttdoc">Filtre les messages par niveau minimal et les diffuse aux sinks enregistrés.</div><div class="ttdef"><b>Definition</b> Logger.h:23</div></div>
-<div class="ttc" id="aclasscore_1_1Logger_html_a1aeae4c7813133be7e1dc64490839bf2"><div class="ttname"><a href="classcore_1_1Logger.html#a1aeae4c7813133be7e1dc64490839bf2">core::Logger::log</a></div><div class="ttdeci">void log(LogLevel level, std::string_view message)</div><div class="ttdoc">Diffuse un message aux sinks s&#39;il passe le filtre de niveau.</div><div class="ttdef"><b>Definition</b> Logger.cpp:24</div></div>
-<div class="ttc" id="aclasscore_1_1Logger_html_a42b5979c9d78e520e0e6d684e329ba26"><div class="ttname"><a href="classcore_1_1Logger.html#a42b5979c9d78e520e0e6d684e329ba26">core::Logger::isEnabled</a></div><div class="ttdeci">bool isEnabled(LogLevel level) const</div><div class="ttdoc">Indique si un niveau passe le filtre courant.</div><div class="ttdef"><b>Definition</b> Logger.cpp:11</div></div>
-<div class="ttc" id="anamespacecore_html_a485afe76bcf660ec5db7d91f924f87a4"><div class="ttname"><a href="namespacecore.html#a485afe76bcf660ec5db7d91f924f87a4">core::currentTimestamp</a></div><div class="ttdeci">std::string currentTimestamp()</div><div class="ttdoc">Horodatage courant local, au format &quot;HH:MM:SS&quot;.</div><div class="ttdef"><b>Definition</b> LogFormat.cpp:41</div></div>
-<div class="ttc" id="anamespacecore_html_a925cad771c457040a01272ff8be8e1a1"><div class="ttname"><a href="namespacecore.html#a925cad771c457040a01272ff8be8e1a1">core::defaultLogger</a></div><div class="ttdeci">Logger &amp; defaultLogger()</div><div class="ttdoc">Journaliseur global de l&#39;application (utilisé par les macros de log).</div><div class="ttdef"><b>Definition</b> Logger.cpp:34</div></div>
-<div class="ttc" id="anamespacecore_html_aafa85d91ee91c84b123fff01f147615e"><div class="ttname"><a href="namespacecore.html#aafa85d91ee91c84b123fff01f147615e">core::formatLogLine</a></div><div class="ttdeci">std::string formatLogLine(std::string_view timestamp, LogLevel level, std::string_view category, std::string_view file, int line, std::string_view message)</div><div class="ttdoc">Compose une ligne de journalisation.</div><div class="ttdef"><b>Definition</b> LogFormat.cpp:18</div></div>
+<div class="ttc" id="aclasscore_1_1Logger_html"><div class="ttname"><a href="classcore_1_1Logger.html">core::Logger</a></div><div class="ttdoc">Filtre les messages par niveau minimal et les diffuse aux sinks enregistrés.</div><div class="ttdef"><b>Definition</b> Logger.h:26</div></div>
+<div class="ttc" id="aclasscore_1_1Logger_html_a1aeae4c7813133be7e1dc64490839bf2"><div class="ttname"><a href="classcore_1_1Logger.html#a1aeae4c7813133be7e1dc64490839bf2">core::Logger::log</a></div><div class="ttdeci">void log(LogLevel level, std::string_view message)</div><div class="ttdoc">Diffuse un message aux sinks s&#39;il passe le filtre de niveau.</div><div class="ttdef"><b>Definition</b> Logger.cpp:27</div></div>
+<div class="ttc" id="aclasscore_1_1Logger_html_a42b5979c9d78e520e0e6d684e329ba26"><div class="ttname"><a href="classcore_1_1Logger.html#a42b5979c9d78e520e0e6d684e329ba26">core::Logger::isEnabled</a></div><div class="ttdeci">bool isEnabled(LogLevel level) const</div><div class="ttdoc">Indique si un niveau passe le filtre courant.</div><div class="ttdef"><b>Definition</b> Logger.cpp:14</div></div>
+<div class="ttc" id="anamespacecore_html_a485afe76bcf660ec5db7d91f924f87a4"><div class="ttname"><a href="namespacecore.html#a485afe76bcf660ec5db7d91f924f87a4">core::currentTimestamp</a></div><div class="ttdeci">std::string currentTimestamp()</div><div class="ttdoc">Horodatage courant local, au format &quot;HH:MM:SS&quot;.</div><div class="ttdef"><b>Definition</b> LogFormat.cpp:44</div></div>
+<div class="ttc" id="anamespacecore_html_a925cad771c457040a01272ff8be8e1a1"><div class="ttname"><a href="namespacecore.html#a925cad771c457040a01272ff8be8e1a1">core::defaultLogger</a></div><div class="ttdeci">Logger &amp; defaultLogger()</div><div class="ttdoc">Journaliseur global de l&#39;application (utilisé par les macros de log).</div><div class="ttdef"><b>Definition</b> Logger.cpp:37</div></div>
+<div class="ttc" id="anamespacecore_html_aafa85d91ee91c84b123fff01f147615e"><div class="ttname"><a href="namespacecore.html#aafa85d91ee91c84b123fff01f147615e">core::formatLogLine</a></div><div class="ttdeci">std::string formatLogLine(std::string_view timestamp, LogLevel level, std::string_view category, std::string_view file, int line, std::string_view message)</div><div class="ttdoc">Compose une ligne de journalisation.</div><div class="ttdef"><b>Definition</b> LogFormat.cpp:21</div></div>
 </div><!-- fragment -->
 <p>Journalise un message pour une catégorie et un niveau donnés, via le journaliseur global. </p>
 
@@ -175,8 +175,8 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#acb91f3beabd6cadfedd9029f0ca76017">PROJECTGAMING_LOG</a>(category, <a class="code hl_enumvalue" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3a902b0d55fddef6f8d651fe1035b7d4bd">::core::LogLevel::Error</a>, message)</div>
-<div class="ttc" id="aLog_8h_html_acb91f3beabd6cadfedd9029f0ca76017"><div class="ttname"><a href="#acb91f3beabd6cadfedd9029f0ca76017">PROJECTGAMING_LOG</a></div><div class="ttdeci">#define PROJECTGAMING_LOG(category, level, message)</div><div class="ttdoc">Journalise un message pour une catégorie et un niveau donnés, via le journaliseur global.</div><div class="ttdef"><b>Definition</b> Log.h:17</div></div>
-<div class="ttc" id="anamespacecore_html_aa9b5a444ee11933c91d5e3235aa5b5e3a902b0d55fddef6f8d651fe1035b7d4bd"><div class="ttname"><a href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3a902b0d55fddef6f8d651fe1035b7d4bd">core::LogLevel::Error</a></div><div class="ttdeci">@ Error</div><div class="ttdoc">Erreur nécessitant attention.</div><div class="ttdef"><b>Definition</b> LogLevel.h:15</div></div>
+<div class="ttc" id="aLog_8h_html_acb91f3beabd6cadfedd9029f0ca76017"><div class="ttname"><a href="#acb91f3beabd6cadfedd9029f0ca76017">PROJECTGAMING_LOG</a></div><div class="ttdeci">#define PROJECTGAMING_LOG(category, level, message)</div><div class="ttdoc">Journalise un message pour une catégorie et un niveau donnés, via le journaliseur global.</div><div class="ttdef"><b>Definition</b> Log.h:20</div></div>
+<div class="ttc" id="anamespacecore_html_aa9b5a444ee11933c91d5e3235aa5b5e3a902b0d55fddef6f8d651fe1035b7d4bd"><div class="ttname"><a href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3a902b0d55fddef6f8d651fe1035b7d4bd">core::LogLevel::Error</a></div><div class="ttdeci">@ Error</div><div class="ttdoc">Erreur nécessitant attention.</div><div class="ttdef"><b>Definition</b> LogLevel.h:18</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -199,7 +199,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#acb91f3beabd6cadfedd9029f0ca76017">PROJECTGAMING_LOG</a>(category, <a class="code hl_enumvalue" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3a4059b0251f66a18cb56f544728796875">::core::LogLevel::Info</a>, message)</div>
-<div class="ttc" id="anamespacecore_html_aa9b5a444ee11933c91d5e3235aa5b5e3a4059b0251f66a18cb56f544728796875"><div class="ttname"><a href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3a4059b0251f66a18cb56f544728796875">core::LogLevel::Info</a></div><div class="ttdeci">@ Info</div><div class="ttdoc">Information de fonctionnement normal.</div><div class="ttdef"><b>Definition</b> LogLevel.h:13</div></div>
+<div class="ttc" id="anamespacecore_html_aa9b5a444ee11933c91d5e3235aa5b5e3a4059b0251f66a18cb56f544728796875"><div class="ttname"><a href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3a4059b0251f66a18cb56f544728796875">core::LogLevel::Info</a></div><div class="ttdeci">@ Info</div><div class="ttdoc">Information de fonctionnement normal.</div><div class="ttdef"><b>Definition</b> LogLevel.h:16</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -222,7 +222,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#acb91f3beabd6cadfedd9029f0ca76017">PROJECTGAMING_LOG</a>(category, <a class="code hl_enumvalue" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1">::core::LogLevel::Trace</a>, message)</div>
-<div class="ttc" id="anamespacecore_html_aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1"><div class="ttname"><a href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1">core::LogLevel::Trace</a></div><div class="ttdeci">@ Trace</div><div class="ttdoc">Détails fins de débogage.</div><div class="ttdef"><b>Definition</b> LogLevel.h:12</div></div>
+<div class="ttc" id="anamespacecore_html_aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1"><div class="ttname"><a href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1">core::LogLevel::Trace</a></div><div class="ttdeci">@ Trace</div><div class="ttdoc">Détails fins de débogage.</div><div class="ttdef"><b>Definition</b> LogLevel.h:15</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -245,7 +245,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#acb91f3beabd6cadfedd9029f0ca76017">PROJECTGAMING_LOG</a>(category, <a class="code hl_enumvalue" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3a0eaadb4fcb48a0a0ed7bc9868be9fbaa">::core::LogLevel::Warning</a>, message)</div>
-<div class="ttc" id="anamespacecore_html_aa9b5a444ee11933c91d5e3235aa5b5e3a0eaadb4fcb48a0a0ed7bc9868be9fbaa"><div class="ttname"><a href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3a0eaadb4fcb48a0a0ed7bc9868be9fbaa">core::LogLevel::Warning</a></div><div class="ttdeci">@ Warning</div><div class="ttdoc">Anomalie non bloquante.</div><div class="ttdef"><b>Definition</b> LogLevel.h:14</div></div>
+<div class="ttc" id="anamespacecore_html_aa9b5a444ee11933c91d5e3235aa5b5e3a0eaadb4fcb48a0a0ed7bc9868be9fbaa"><div class="ttname"><a href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3a0eaadb4fcb48a0a0ed7bc9868be9fbaa">core::LogLevel::Warning</a></div><div class="ttdeci">@ Warning</div><div class="ttdoc">Anomalie non bloquante.</div><div class="ttdef"><b>Definition</b> LogLevel.h:17</div></div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -101,10 +101,13 @@ $(function(){initNavTree('structhmi_1_1PixelCanvasView.html','','structhmi_1_1Pi
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:aedf87dbee43ac78081df87b8a5d58dc1" id="r_aedf87dbee43ac78081df87b8a5d58dc1"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aedf87dbee43ac78081df87b8a5d58dc1">zoom</a> = 8</td></tr>
+<tr class="memdesc:aedf87dbee43ac78081df87b8a5d58dc1"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>Numérateur</b> du zoom.  <br /></td></tr>
 <tr class="memitem:a6969a2a7b78ab67c8c66fd172bdb1e71" id="r_a6969a2a7b78ab67c8c66fd172bdb1e71"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a6969a2a7b78ab67c8c66fd172bdb1e71">panX</a> = 0</td></tr>
 <tr class="memdesc:a6969a2a7b78ab67c8c66fd172bdb1e71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Colonne de l'image affichée au coin haut-gauche du viewport.  <br /></td></tr>
 <tr class="memitem:a76f6d813855b3e9bda5b9e44a8be5728" id="r_a76f6d813855b3e9bda5b9e44a8be5728"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a76f6d813855b3e9bda5b9e44a8be5728">panY</a> = 0</td></tr>
 <tr class="memdesc:a76f6d813855b3e9bda5b9e44a8be5728"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ligne de l'image affichée au coin haut-gauche du viewport.  <br /></td></tr>
+<tr class="memitem:ac24f5a8c98f65c2e95e69f6a60e345f2" id="r_ac24f5a8c98f65c2e95e69f6a60e345f2"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac24f5a8c98f65c2e95e69f6a60e345f2">zoomDenominator</a> = 1</td></tr>
+<tr class="memdesc:ac24f5a8c98f65c2e95e69f6a60e345f2"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>Dénominateur</b> du zoom (<span class="tt">LOT-69</span> TACHE-07) : 1, 2, 4 ou 8.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-friends" class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -186,6 +189,26 @@ Friends</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p><b>Numérateur</b> du zoom. </p>
+<p>Nom conservé depuis le <span class="tt">LOT-54</span> : à dénominateur 1 (le défaut), la sémantique est strictement celle d'avant, et tout le code qui l'ignore continue de valoir. </p>
+
+</div>
+</div>
+<a id="ac24f5a8c98f65c2e95e69f6a60e345f2" name="ac24f5a8c98f65c2e95e69f6a60e345f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac24f5a8c98f65c2e95e69f6a60e345f2">&#9670;&#160;</a></span>zoomDenominator</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::PixelCanvasView::zoomDenominator = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><b>Dénominateur</b> du zoom (<span class="tt">LOT-69</span> TACHE-07) : 1, 2, 4 ou 8. </p>
+<p>Permet de descendre <b>sous</b> le 1:1 pour embrasser un plan à l'échelle du niveau entier, ce qu'un zoom entier ne pouvait pas exprimer. Placé en dernier, et à 1 par défaut, pour que l'atelier pixel art ne bouge pas d'un pixel : c'est une extension, pas un remplacement. </p>
 
 </div>
 </div>

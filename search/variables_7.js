@@ -4,10 +4,11 @@ var searchData=
   ['game_5faction_5fcount_1',['GAME_ACTION_COUNT',['../namespacehmi.html#ab42b3bed825ef5b3664995a516c4eb8d',1,'hmi']]],
   ['game_5fevent_5fcount_2',['GAME_EVENT_COUNT',['../namespacehmi.html#aab9ebfc2ebacc5718532a560bfd830ea',1,'hmi']]],
   ['gamepad_5fbutton_5fcount_3',['GAMEPAD_BUTTON_COUNT',['../namespacehmi.html#aab59d64d595ba17a55cc07311285ba14',1,'hmi']]],
-  ['gamepadnavigationactive_4',['gamepadNavigationActive',['../structhmi_1_1ScreenDressing.html#ab0e80ccc728954e6f7f559caef0f8a8e',1,'hmi::ScreenDressing']]],
-  ['generation_5',['generation',['../structcore_1_1Entity.html#a2ad1b664955eb77c38cef28d6978cf7b',1,'core::Entity']]],
-  ['glyphs_6',['glyphs',['../structhmi_1_1FontMetrics.html#af8edf913ecf02975f75b9d41f9acff65',1,'hmi::FontMetrics']]],
-  ['gravity_7',['gravity',['../structcore_1_1PhysicsConfig.html#abca056c01e3263ccc8d5e3adbd174e91',1,'core::PhysicsConfig']]],
-  ['grounded_8',['grounded',['../structcore_1_1Player.html#a36776822edfa4ee73e00f620aa007085',1,'core::Player::grounded'],['../structcore_1_1SlopeFollowResult.html#aae445ef115720b52473f467d1de25b8c',1,'core::SlopeFollowResult::grounded'],['../structhmi_1_1PlayerEventState.html#a24d35fb1fb2f51edb821b6f85c0d58a8',1,'hmi::PlayerEventState::grounded']]],
-  ['group_9',['group',['../structhmi_1_1EditorActionSpec.html#a8a67cad23c73abe7095578e00c818b81',1,'hmi::EditorActionSpec']]]
+  ['gamepad_5fdisconnected_5fprobe_5fperiod_4',['GAMEPAD_DISCONNECTED_PROBE_PERIOD',['../namespacehmi.html#a2a20dc2308d9f364b3d764c4443ef799',1,'hmi']]],
+  ['gamepadnavigationactive_5',['gamepadNavigationActive',['../structhmi_1_1ScreenDressing.html#ab0e80ccc728954e6f7f559caef0f8a8e',1,'hmi::ScreenDressing']]],
+  ['generation_6',['generation',['../structcore_1_1Entity.html#a2ad1b664955eb77c38cef28d6978cf7b',1,'core::Entity']]],
+  ['glyphs_7',['glyphs',['../structhmi_1_1FontMetrics.html#af8edf913ecf02975f75b9d41f9acff65',1,'hmi::FontMetrics']]],
+  ['gravity_8',['gravity',['../structcore_1_1PhysicsConfig.html#abca056c01e3263ccc8d5e3adbd174e91',1,'core::PhysicsConfig']]],
+  ['grounded_9',['grounded',['../structcore_1_1Player.html#a36776822edfa4ee73e00f620aa007085',1,'core::Player::grounded'],['../structcore_1_1SlopeFollowResult.html#aae445ef115720b52473f467d1de25b8c',1,'core::SlopeFollowResult::grounded'],['../structhmi_1_1PlayerEventState.html#a24d35fb1fb2f51edb821b6f85c0d58a8',1,'hmi::PlayerEventState::grounded']]],
+  ['group_10',['group',['../structhmi_1_1EditorActionSpec.html#a8a67cad23c73abe7095578e00c818b81',1,'hmi::EditorActionSpec']]]
 ];

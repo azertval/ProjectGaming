@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-42-tache-04-panneau-textures.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-42-skin-tuiles-autotiling_2tache-04-panneau-textures"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-42.html#md_Lot_2LOT-42-skin-tuiles-autotiling_2epic" title="Lot/LOT-42-skin-tuiles-autotiling/epic.md">LOT-42</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span>, <span class="tt">Source/HMI/Interface</span>, <span class="tt">Source/HMI/CMakeLists.txt</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2006"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2016"></a>
 Contexte</h1>
 <p>C'est le <b>premier</b> panneau du programme d'habillage, et le seul : LOT-44 (Fond), LOT-45 (Objets), LOT-47 (Animations) et LOT-50 (Décors) y ajouteront leur section plutôt que de créer chacun leur dock. Sa structure doit donc être sectionnée dès maintenant, sinon chaque lot suivant créera le sien.</p>
 <p>Le patron d'enregistrement d'un dock existe déjà et ne doit pas être réinventé : <span class="tt">PalettePanel</span>, <span class="tt">ToolPanel</span>, <span class="tt">LevelBrowserPanel</span> et <span class="tt">LinkPanel</span> sont tous instanciés et rattachés par <span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">hmi::MainWindow</a></span>, avec persistance de la disposition via <span class="tt">QSettings</span> (<span class="tt">EX-IHM-011</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2007"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2017"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">TexturePanel</span></b> (<span class="tt">QDockWidget</span>), organisé en <b>sections</b> (onglets ou groupes repliables) :<ul>
@@ -112,7 +112,7 @@ Travail à réaliser</h1>
 <li><b>Traduction</b> : toutes les chaînes via <span class="tt"><a class="el" href="classhmi_1_1Localization.html" title="Catalogue de traduction (i18n) : associe des clés stables à des chaînes selon la langue active,...">hmi::Localization</a></span>, clés ajoutées à <span class="tt">fr.lang</span> et <span class="tt">en.lang</span>, méthode <span class="tt">retranslateUi</span> appelée en cascade depuis <span class="tt">MainWindow::retranslateUi</span>.</li>
 <li><b>Dossier <span class="tt">Assets/Skins/</span></b> + copie <span class="tt">POST_BUILD</span> dans <span class="tt">Source/HMI/CMakeLists.txt</span>, sur le patron des copies existantes (<span class="tt">Levels</span>, <span class="tt">Localization</span>, <span class="tt">Assets</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2008"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2018"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/TexturePanel.{h,cpp}</span> (nouveau).</li>
@@ -121,13 +121,13 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Localization/fr.lang</span>, <span class="tt">en.lang</span>.</li>
 <li><span class="tt">Source/Elements/Assets/Skins/</span> (nouveau dossier), <span class="tt">Source/HMI/CMakeLists.txt</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2009"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2019"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>La logique alimentant le panneau (liste des types à afficher, association courante, effet d'une assignation sur le catalogue) est <b>séparée du widget</b> et testée sans Qt, sur le modèle de <span class="tt">tileTaxonomy</span> (<span class="tt">TileTaxonomy.{h,cpp}</span>) déjà testé pour la palette.</li>
 <li>Vérification que chaque clé de traduction utilisée existe dans les deux catalogues.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2010"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2020"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Aucun libellé en dur</b> (<span class="tt">EX-REN-033</span>) : c'est une règle bloquante du projet, pas une préférence.</li>
@@ -135,12 +135,12 @@ Points d'attention</h1>
 <li>Concevoir les sections comme un point d'extension : un lot suivant doit pouvoir ajouter la sienne sans toucher aux existantes ni au câblage de <span class="tt">MainWindow</span>.</li>
 <li>Ne pas afficher les trente types dans une liste plate : réutiliser la <b>taxonomie</b> de la palette (<span class="tt">tileTaxonomy</span>) pour les regrouper par catégorie, sinon la section est inutilisable.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2011"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2021"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Le dock « Textures » existe, permet de choisir un jeu et d'assigner un asset et un mode à chaque type, écrit <span class="tt">skins.json</span>, est entièrement traduit, et sa logique est testée sans Qt ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2012"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2022"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-042</span> (association type → texture), <span class="tt">EX-EDIT-024</span> (jeux de skins) ; réutilise <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-IHM-010</span> (fenêtre à panneaux), <span class="tt">EX-IHM-011</span> (persistance de la disposition), <span class="tt">EX-EDIT-018</span> (palette organisée par catégories). </p>
 </div></div><!-- contents -->

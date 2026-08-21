@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-58-tache-06-documentation-verification.html','',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-58-verification-release-analyse_2tache-06-documentation-verification"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-58.html#md_Lot_2LOT-58-verification-release-analyse_2epic" title="Lot/LOT-58-verification-release-analyse/epic.md">LOT-58</a> · <b>Emplacement :</b> <span class="tt">Documentation</span> · <b>Statut :</b> en cours</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2639"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2649"></a>
 Contexte</h1>
 <p>Ce lot ne change rien au produit : il change ce que le dépôt <b>garantit</b>. Sa documentation est donc son livrable principal — et l'occasion de corriger des affirmations aujourd'hui fausses.</p>
 <p><span class="tt"><a class="el" href="conventions_8md.html">conventions.md</a></span> et <span class="tt"><a class="el" href="exigences-non-fonctionnelles_8md.html">exigences-non-fonctionnelles.md</a></span> décrivent clang-tidy, ASan et la couverture comme de l'« outillage déjà en place ». C'était vrai au sens où les fichiers de configuration existaient, et faux au sens où rien ne les exécutait. Après ce lot, la phrase devient exacte — à condition de dire <b>où</b> chaque vérification s'exécute.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2640"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2650"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="conventions_8md.html">Documentation/Specification/conventions.md</a></span></b> : le tableau d'outillage indique, pour chaque outil, <b>où il s'exécute</b> (job CI nommé) et non plus seulement qu'il est configuré.</li>
@@ -108,13 +108,13 @@ Travail à réaliser</h1>
 <li><b><span class="tt">CHANGELOG.md</span></b>, section <em>Non publié</em>.</li>
 <li>Consigner la <b>valeur de référence de couverture</b>, la <b>durée</b> de la CI avant et après, et l'<b>état du triage clang-tidy</b> (familles bloquantes, familles en avertissement et pourquoi).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2641"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2651"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Documentation/Specification/{conventions,exigences-non-fonctionnelles}.md</span>.</li>
 <li><span class="tt">CONTRIBUTING.md</span>, <span class="tt">README.md</span>, <span class="tt">CHANGELOG.md</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2642"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2652"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">python scripts/lint_exigences.py</span> — <span class="tt">EX-NFR-023</span> et <span class="tt">EX-NFR-024</span> déclarées une fois et référencées ; <span class="tt">EX-NFR-003</span> n'est plus orpheline.</li>
@@ -122,14 +122,14 @@ Tests (obligatoires)</h1>
 <li><span class="tt">python scripts/build_docs.py</span> avec la version Doxygen épinglée par <span class="tt">ci.yml</span>.</li>
 <li>Les <b>cinq</b> jobs nouveaux ou modifiés (<span class="tt">build-test-release</span>, <span class="tt">sanitize</span>, <span class="tt">clang-tidy</span>, <span class="tt">format</span>, <span class="tt">build-test-coverage</span>) passent sur la PR du lot — vérifié par <span class="tt">gh pr checks</span>, pas supposé.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2643"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2653"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas annoncer plus que ce qui est livré.</b> Si le triage clang-tidy laisse des familles en avertissement, la documentation le dit, avec la liste. Une doc qui affirme une garantie non tenue est pire que l'absence de doc, puisqu'elle empêche de retrouver le trou.</li>
 <li>La liste des jobs figure à plusieurs endroits (<span class="tt">README.md</span>, <span class="tt">CONTRIBUTING.md</span>, commentaires de <span class="tt">ci.yml</span>) : les faire concorder, ou réduire à un seul endroit faisant autorité.</li>
 <li>Éviter <span class="tt"> `fichier.cpp::Nom` </span> dans la documentation Doxygen : le <span class="tt">::</span> dans un span casse la génération sur la version épinglée de la CI sans rien signaler en local.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2644"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2654"></a>
 État de la vérification (LOT-58) — mode local, sans PR ni push</h1>
 <p>Les six tâches ont été implémentées et vérifiées <b>localement</b>, sans ouvrir de PR (choix explicite pour ce lot) :</p><ul>
 <li><span class="tt">lint_exigences.py</span>, <span class="tt">generate_cahier_test.py --check</span>, <span class="tt">check_demo_sequence.py</span>, <span class="tt">build_docs.py</span> (Doxygen <span class="tt">1.16.1</span> téléchargé pour matcher la CI) : <b>tous verts</b>.</li>
@@ -140,13 +140,13 @@ Points d'attention</h1>
 <li>Couverture : <span class="tt">OpenCppCoverage</span> installé (élévation UAC accordée manuellement), mesure fusionnée prise le 2026-08-10 : <b>93.66 %</b> (8602/9184 lignes), seuil posé à 85 % (marge ~8.5 points), test négatif démontré par calcul direct (seuil à 95 % aurait fait échouer le job). Voir <span class="tt"><a class="el" href="tache-05-couverture_8md.html">tache-05-couverture.md</a></span>, section « État de la mesure », pour la réserve méthodologique (mesure prise sur un build <b>Ninja</b> local, pas le preset <span class="tt">vs</span> exact de la CI).</li>
 </ul>
 <p><b>Ce qui reste, faute de PR/CI réelle</b> : la démonstration <span class="tt">gh pr checks</span> des cinq jobs et la durée réelle de la CI (mesurable seulement sur de vraies machines GitHub Actions), ainsi que la confirmation que la couverture mesurée en CI (preset <span class="tt">vs</span>) reste cohérente avec la mesure Ninja locale. À lever au premier passage réel en CI de la branche <span class="tt">ci/lot-58-verification-release-analyse</span>, avant de considérer le lot totalement clos.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2645"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2655"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les documents décrivent les vérifications <b>réellement exécutées</b>, les deux nouvelles exigences sont déclarées et référencées, <span class="tt">EX-NFR-003</span> est rattachée, les mesures de référence (couverture, durée, triage) sont consignées, et la CI complète est verte sur la PR du lot.</li>
 <li><b>Presque atteinte</b> : voir « État de la vérification » ci-dessus. Documentation, câblage et vérifications locales faits, y compris la mesure de couverture. Seule la CI réelle (première exécution en ligne, <span class="tt">gh pr checks</span>, durée mesurée) reste à faire.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2646"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2656"></a>
 Exigences</h1>
 <p><span class="tt">EX-NFR-023</span>, <span class="tt">EX-NFR-024</span> (déclarées ici) ; réutilise <span class="tt">EX-NFR-003</span> (ASan), <span class="tt">EX-NFR-012</span> (conventions), <span class="tt">EX-NFR-013</span> (sans avertissement), <span class="tt">EX-NFR-022</span> (CI), <span class="tt">EX-NFR-031</span> (outils épinglés). </p>
 </div></div><!-- contents -->

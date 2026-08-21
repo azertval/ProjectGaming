@@ -7,5 +7,5 @@ var searchData=
   ['value_4',['value',['../structcore_1_1Velocity.html#ad6dd1b25f77f486834db55aa9c384b66',1,'core::Velocity::value'],['../structhmi_1_1PreviousPosition.html#abdda43ddf20dfb53ef9a71023e330209',1,'hmi::PreviousPosition::value'],['../structhmi_1_1RenderLayerTag.html#a5e570c7cddb738155928eeeb2d4aaab2',1,'hmi::RenderLayerTag::value']]],
   ['velocity_5',['velocity',['../structcore_1_1Particle.html#a8a93990efa56e0585d216e2e1fe744a4',1,'core::Particle']]],
   ['vertical_6',['vertical',['../structhmi_1_1TextAnchor.html#a2713859c1666083a370e262db44b3da1',1,'hmi::TextAnchor']]],
-  ['view_7',['view',['../structhmi_1_1LoadedTexture.html#ae83354736dadd0d73dbe567cac01b353',1,'hmi::LoadedTexture']]]
+  ['visible_7',['visible',['../structhmi_1_1PlaneLayer.html#a09418f7ac9c2831a9d0ccdd36a26fdc7',1,'hmi::PlaneLayer']]]
 ];

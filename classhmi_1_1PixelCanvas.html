@@ -125,6 +125,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:abc17c9fe22ea1e291b4de1eaeaff8c6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogue de traduction utilisé pour l'infobulle de case en mode planche à raccords (<span class="tt"><a class="el" href="namespacehmi.html#a126525c795b7d17752d39838f2027233" title="Clé de traduction décrivant la configuration de voisinage d&#39;un masque, pour l&#39;atelier pixel art (LOT-...">hmi::autotileConfigurationLabelKey</a></span>, TACHE-08).  <br /></td></tr>
 <tr class="memitem:a52c506d26eb39f62e57e104e9578380c" id="r_a52c506d26eb39f62e57e104e9578380c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a52c506d26eb39f62e57e104e9578380c">setImage</a> (<a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> <a class="el" href="#a4b501185e912927e0db0b542d3e37b47">image</a>)</td></tr>
 <tr class="memdesc:a52c506d26eb39f62e57e104e9578380c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remplace l'image éditée et réinitialise l'historique local (ouverture d'un asset, TACHE-05).  <br /></td></tr>
+<tr class="memitem:acc86c29c021d725cef9d92a53bdeb711" id="r_acc86c29c021d725cef9d92a53bdeb711"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acc86c29c021d725cef9d92a53bdeb711">setUnderlay</a> (<a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> <a class="el" href="#a4b501185e912927e0db0b542d3e37b47">image</a>, float opacity=1.0f)</td></tr>
+<tr class="memdesc:acc86c29c021d725cef9d92a53bdeb711"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose un <b>repère dessiné sous</b> le contenu édité (mode création, <span class="tt">EX-EDIT-046</span>).  <br /></td></tr>
+<tr class="memitem:ad5ebada158fa4c80044036cccdcc4f9b" id="r_ad5ebada158fa4c80044036cccdcc4f9b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad5ebada158fa4c80044036cccdcc4f9b">setOverlay</a> (<a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> <a class="el" href="#a4b501185e912927e0db0b542d3e37b47">image</a>, float opacity=1.0f)</td></tr>
+<tr class="memdesc:ad5ebada158fa4c80044036cccdcc4f9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose un repère dessiné <b>par-dessus</b> le contenu édité — mêmes règles que <span class="tt"><a class="el" href="#acc86c29c021d725cef9d92a53bdeb711" title="Pose un repère dessiné sous le contenu édité (mode création, EX-EDIT-046).">setUnderlay</a></span>.  <br /></td></tr>
+<tr class="memitem:a0da7b9867405be9493faa15bbc5eac75" id="r_a0da7b9867405be9493faa15bbc5eac75"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0da7b9867405be9493faa15bbc5eac75">setReferenceGridStep</a> (int step)</td></tr>
+<tr class="memdesc:a0da7b9867405be9493faa15bbc5eac75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose une grille de <b>tuiles</b>, distincte de la grille de pixels existante.  <br /></td></tr>
 <tr class="memitem:a4b501185e912927e0db0b542d3e37b47" id="r_a4b501185e912927e0db0b542d3e37b47"><td class="memItemLeft">const <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a4b501185e912927e0db0b542d3e37b47">image</a> () const noexcept</td></tr>
 <tr class="memitem:ac5e99a00563e3f35a5c4a6e6024a1c02" id="r_ac5e99a00563e3f35a5c4a6e6024a1c02"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac5e99a00563e3f35a5c4a6e6024a1c02">setAssetName</a> (std::string name)</td></tr>
 <tr class="memdesc:ac5e99a00563e3f35a5c4a6e6024a1c02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom de l'asset ouvert (barre d'état, TACHE-04), vide si aucun.  <br /></td></tr>
@@ -157,6 +163,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a20bcc38541862dc37c51bd27ec9f9cda" id="r_a20bcc38541862dc37c51bd27ec9f9cda"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a20bcc38541862dc37c51bd27ec9f9cda">canPaste</a> () const override</td></tr>
 <tr class="memitem:acb0d735d026ec5e1a4fddcfb2f18322b" id="r_acb0d735d026ec5e1a4fddcfb2f18322b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acb0d735d026ec5e1a4fddcfb2f18322b">paste</a> () override</td></tr>
 <tr class="memdesc:acb0d735d026ec5e1a4fddcfb2f18322b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Colle le presse-papiers de l'atelier au pixel survolé (coin haut-gauche), tronqué au cadre ; sans effet si le presse-papiers est vide.  <br /></td></tr>
+<tr class="memitem:a31959da4b27af57ca2b9c3d0ec99dcc7" id="r_a31959da4b27af57ca2b9c3d0ec99dcc7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a31959da4b27af57ca2b9c3d0ec99dcc7">referenceGridStep</a> () const noexcept</td></tr>
 <tr class="memitem:a001bcef95ff677320ab7ad0d4f68a864" id="r_a001bcef95ff677320ab7ad0d4f68a864"><td class="memItemLeft">const <a class="el" href="structhmi_1_1PixelRegion.html">PixelRegion</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a001bcef95ff677320ab7ad0d4f68a864">selection</a> () const noexcept</td></tr>
 <tr class="memdesc:a001bcef95ff677320ab7ad0d4f68a864"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région actuellement sélectionnée (outil Sélection), vide si aucune.  <br /></td></tr>
 <tr class="memitem:ad0bfd2f381bce53961366195e356e7d4" id="r_ad0bfd2f381bce53961366195e356e7d4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad0bfd2f381bce53961366195e356e7d4">applyFlipHorizontal</a> ()</td></tr>
@@ -208,6 +215,14 @@ Private Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a7fa448742e375ac738d220530e49d889" id="r_a7fa448742e375ac738d220530e49d889"><td class="memItemLeft"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7fa448742e375ac738d220530e49d889">_image</a></td></tr>
+<tr class="memitem:a11de816ae71b05cca18729bc3550b4e6" id="r_a11de816ae71b05cca18729bc3550b4e6"><td class="memItemLeft"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a>&#160;</td><td class="memItemRight"><a class="el" href="#a11de816ae71b05cca18729bc3550b4e6">_underlay</a></td></tr>
+<tr class="memdesc:a11de816ae71b05cca18729bc3550b4e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repère dessiné <b>sous</b> le contenu édité (<span class="tt"><a class="el" href="#acc86c29c021d725cef9d92a53bdeb711" title="Pose un repère dessiné sous le contenu édité (mode création, EX-EDIT-046).">setUnderlay</a></span>) — jamais dans <span class="tt"><a class="el" href="#a7fa448742e375ac738d220530e49d889">_image</a></span>, donc jamais dans l'historique ni dans le presse-papiers.  <br /></td></tr>
+<tr class="memitem:a64a4ac0614f681ac6a79450fd6fd6ffc" id="r_a64a4ac0614f681ac6a79450fd6fd6ffc"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a64a4ac0614f681ac6a79450fd6fd6ffc">_underlayOpacity</a> = 1.0f</td></tr>
+<tr class="memitem:a9a345dd10bd04d37406e8857b905e078" id="r_a9a345dd10bd04d37406e8857b905e078"><td class="memItemLeft"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9a345dd10bd04d37406e8857b905e078">_overlay</a></td></tr>
+<tr class="memdesc:a9a345dd10bd04d37406e8857b905e078"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repère dessiné <b>par-dessus</b> le contenu édité (<span class="tt"><a class="el" href="#ad5ebada158fa4c80044036cccdcc4f9b" title="Pose un repère dessiné par-dessus le contenu édité — mêmes règles que setUnderlay.">setOverlay</a></span>), mêmes règles.  <br /></td></tr>
+<tr class="memitem:a4c89e59f66f844862e3931945d465790" id="r_a4c89e59f66f844862e3931945d465790"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a4c89e59f66f844862e3931945d465790">_overlayOpacity</a> = 1.0f</td></tr>
+<tr class="memitem:a7ea4d88436b205459e797d3b91b474f1" id="r_a7ea4d88436b205459e797d3b91b474f1"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a7ea4d88436b205459e797d3b91b474f1">_referenceGridStep</a> = 0</td></tr>
+<tr class="memdesc:a7ea4d88436b205459e797d3b91b474f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pas de la grille de tuiles, en pixels image ; <span class="tt">0</span> si aucune.  <br /></td></tr>
 <tr class="memitem:a9a2ac334f5ee332ba577fbec39557b6d" id="r_a9a2ac334f5ee332ba577fbec39557b6d"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a9a2ac334f5ee332ba577fbec39557b6d">_assetName</a></td></tr>
 <tr class="memitem:aa77bacd8cfe3f0e602a9dbe5d7a805d4" id="r_aa77bacd8cfe3f0e602a9dbe5d7a805d4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa77bacd8cfe3f0e602a9dbe5d7a805d4">_dirty</a> = false</td></tr>
 <tr class="memitem:a1721294e06a0b709fa771507f16d1e41" id="r_a1721294e06a0b709fa771507f16d1e41"><td class="memItemLeft"><a class="el" href="classhmi_1_1PixelHistory.html">PixelHistory</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1721294e06a0b709fa771507f16d1e41">_history</a></td></tr>
@@ -243,7 +258,7 @@ Private Attributes</h2></td></tr>
 <p><b>Zoom entier</b>, agrandi au plus proche voisin (<span class="tt">EX-ARCH-022</span>), rendu à la résolution <b>réelle</b> de l'écran (<span class="tt"><a class="el" href="namespacehmi.html#a90efb98d6af0cfa83f9f8cf88d319fb4" title="Taille en pixels réels du canevas entier à un facteur d&#39;échelle d&#39;affichage donné.">hmi::pixelCanvasRealSize</a></span>, réutilise <span class="tt">LOT-56</span> TACHE-05) : jamais flou à 125 %/150 % d'échelle d'affichage. La <b>surface de peinture</b> — fond et damier de transparence sous les zones à alpha nul — appartient à la portée <b>invariante</b> des jetons (<span class="tt"><a class="el" href="namespacehmi.html#ad6321dea8cce4302df77dbdbcd3fd155" title="Jetons de l&#39;identité du jeu (menu principal, écran Options, jeu) : invariants, ne suivent jamais aucu...">hmi::identityTokens()</a></span>) : elle ne change jamais avec le thème clair/sombre du châssis d'édition (<span class="tt">LOT-56</span> TACHE-06), à la différence du châssis qui l'entoure (barre d'outils, panneaux — TACHE-04). Un fond qui change de clarté selon l'heure de la journée fausserait la perception des couleurs posées.</p>
 <p>Un geste complet (appui, glisser, relâchement) produit <b>une seule</b> entrée dans <span class="tt"><a class="el" href="namespacehmi.html">hmi</a>::
 <a class="el" href="classhmi_1_1PixelHistory.html" title="Pile d&#39;annulation/rétablissement nommée d&#39;un canevas pixel art.">PixelHistory</a></span>, locale à ce canevas et totalement indépendante de <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span> — annuler un coup de pinceau n'annule jamais une action d'édition de niveau, et réciproquement.</p>
-<p>Implémente <span class="tt"><a class="el" href="classhmi_1_1EditContextTarget.html" title="Interface pure implémentée par le contexte d&#39;édition actif.">hmi::EditContextTarget</a></span> (TACHE-04) : <span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">MainWindow</a></span> y dispatche Annuler/Refaire/ Copier/Coller quand ce canevas est le contexte d'édition actif, exactement comme <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">GameViewport</a></span> pour le niveau — le seuil de dispatch prévu depuis <span class="tt">LOT-57</span> TACHE-04, sans le réécrire. Copier et coller (TACHE-06) visent un presse-papiers <b>propre à l'atelier</b> (<span class="tt"><a class="el" href="structhmi_1_1PixelClipboard.html" title="Contenu copié depuis un tampon (presse-papiers de l&#39;atelier, LOT-54 TACHE-06).">hmi::PixelClipboard</a></span>), distinct de celui de l'éditeur de niveaux. </p>
+<p>Implémente <span class="tt"><a class="el" href="classhmi_1_1EditContextTarget.html" title="Interface pure implémentée par le contexte d&#39;édition actif.">hmi::EditContextTarget</a></span> (TACHE-04) : <span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">MainWindow</a></span> y dispatche Annuler/Refaire/ Copier/Coller quand ce canevas est le contexte d'édition actif, exactement comme <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Widget de rendu (QRhiWidget) où la scène est dessinée, composé avec le reste de l&#39;interface.">GameViewport</a></span> pour le niveau — le seuil de dispatch prévu depuis <span class="tt">LOT-57</span> TACHE-04, sans le réécrire. Copier et coller (TACHE-06) visent un presse-papiers <b>propre à l'atelier</b> (<span class="tt"><a class="el" href="structhmi_1_1PixelClipboard.html" title="Contenu copié depuis un tampon (presse-papiers de l&#39;atelier, LOT-54 TACHE-06).">hmi::PixelClipboard</a></span>), distinct de celui de l'éditeur de niveaux. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad1181c5e5c0fee0cc2c7a77a818e9a9d" name="ad1181c5e5c0fee0cc2c7a77a818e9a9d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad1181c5e5c0fee0cc2c7a77a818e9a9d">&#9670;&#160;</a></span>PixelCanvas()</h2>
@@ -1289,6 +1304,32 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a31959da4b27af57ca2b9c3d0ec99dcc7" name="a31959da4b27af57ca2b9c3d0ec99dcc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31959da4b27af57ca2b9c3d0ec99dcc7">&#9670;&#160;</a></span>referenceGridStep()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::PixelCanvas::referenceGridStep </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le pas de la grille de tuiles, <span class="tt">0</span> si aucune n'est posée. </dd></dl>
+
+</div>
+</div>
 <a id="ab8fb06650b38f5f45956f3d993ffa7ec" name="ab8fb06650b38f5f45956f3d993ffa7ec"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab8fb06650b38f5f45956f3d993ffa7ec">&#9670;&#160;</a></span>renderPixmap()</h2>
 
@@ -1457,8 +1498,38 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Catalogue de traduction utilisé pour l'infobulle de case en mode planche à raccords (<span class="tt"><a class="el" href="namespacehmi.html#a126525c795b7d17752d39838f2027233" title="Clé de traduction décrivant la configuration de voisinage d&#39;un masque, pour l&#39;atelier pixel art (LOT-...">hmi::autotileConfigurationLabelKey</a></span>, TACHE-08). </p>
-<p>Même patron que <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">GameViewport</a>::
+<p>Même patron que <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Widget de rendu (QRhiWidget) où la scène est dessinée, composé avec le reste de l&#39;interface.">GameViewport</a>::
 <a class="el" href="#abc17c9fe22ea1e291b4de1eaeaff8c6f" title="Catalogue de traduction utilisé pour l&#39;infobulle de case en mode planche à raccords (hmi::autotileCon...">setLocalization</a></span>. </p>
+
+</div>
+</div>
+<a id="ad5ebada158fa4c80044036cccdcc4f9b" name="ad5ebada158fa4c80044036cccdcc4f9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5ebada158fa4c80044036cccdcc4f9b">&#9670;&#160;</a></span>setOverlay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::PixelCanvas::setOverlay </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a></td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>opacity</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0f</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pose un repère dessiné <b>par-dessus</b> le contenu édité — mêmes règles que <span class="tt"><a class="el" href="#acc86c29c021d725cef9d92a53bdeb711" title="Pose un repère dessiné sous le contenu édité (mode création, EX-EDIT-046).">setUnderlay</a></span>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"><a class="el" href="#a4b501185e912927e0db0b542d3e37b47">image</a></td><td>Image du repère ; vide pour l'enlever. </td></tr>
+    <tr><td class="paramname">opacity</td><td>Opacité d'affichage, dans <span class="tt">[0, 1]</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1515,6 +1586,62 @@ Private Attributes</h2></td></tr>
 
 <p>Active/désactive le mode « contraindre à la palette » : toute couleur posée (pinceau, pot de peinture) est ramenée à l'entrée la plus proche de <span class="tt"><a class="el" href="#a57a3e829f2511db1840438032a9fb50f" title="Couleurs de la palette de projet (LOT-54 TACHE-07), consultées quand le mode contraint est actif.">setPaletteColors</a></span> (<span class="tt"><a class="el" href="namespacehmi.html">hmi</a>::
 <a class="el" href="namespacehmi.html#aa3ad36cdfd66f4029481e164b0ccb66c" title="Couleur de palette la plus proche de color (mode « contraindre à la palette »).">nearestPaletteColor</a></span>) ; désactivable à tout moment, jamais imposé. </p>
+
+</div>
+</div>
+<a id="a0da7b9867405be9493faa15bbc5eac75" name="a0da7b9867405be9493faa15bbc5eac75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0da7b9867405be9493faa15bbc5eac75">&#9670;&#160;</a></span>setReferenceGridStep()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::PixelCanvas::setReferenceGridStep </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>step</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pose une grille de <b>tuiles</b>, distincte de la grille de pixels existante. </p>
+<p>Sur un plan pictural, la grille de pixels ne dit rien de la géométrie du niveau : c'est le pas de tuile qui permet de viser une case. Les deux coexistent, à des pas différents. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">step</td><td>Pas de la grille, en pixels image (la densité du plan) ; <span class="tt">0</span> l'enlève. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="acc86c29c021d725cef9d92a53bdeb711" name="acc86c29c021d725cef9d92a53bdeb711"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc86c29c021d725cef9d92a53bdeb711">&#9670;&#160;</a></span>setUnderlay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::PixelCanvas::setUnderlay </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a></td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>opacity</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0f</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pose un <b>repère dessiné sous</b> le contenu édité (mode création, <span class="tt">EX-EDIT-046</span>). </p>
+<p>Trois entrées — celle-ci, <span class="tt"><a class="el" href="#ad5ebada158fa4c80044036cccdcc4f9b" title="Pose un repère dessiné par-dessus le contenu édité — mêmes règles que setUnderlay.">setOverlay</a></span> et <span class="tt"><a class="el" href="#a0da7b9867405be9493faa15bbc5eac75" title="Pose une grille de tuiles, distincte de la grille de pixels existante.">setReferenceGridStep</a></span> — sont <b>optionnelles et additives</b> : l'atelier pixel art qui les ignore se comporte exactement comme avant (<span class="tt">LOT-54</span>). Ce qu'elles montrent n'entre <b>jamais</b> dans le tampon édité, ni dans l'historique, ni dans le copier : ce sont des repères, pas du contenu.</p>
+<p>La référence est un repère <b>géométrique</b>, pas un aperçu : ni raccords automatiques, ni skins, ni animation. L'aperçu fidèle reste l'essai. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"><a class="el" href="#a4b501185e912927e0db0b542d3e37b47">image</a></td><td>Image du repère, aux dimensions du contenu édité ; vide pour l'enlever. </td></tr>
+    <tr><td class="paramname">opacity</td><td>Opacité d'affichage, dans <span class="tt">[0, 1]</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1949,6 +2076,52 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a9a345dd10bd04d37406e8857b905e078" name="a9a345dd10bd04d37406e8857b905e078"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a345dd10bd04d37406e8857b905e078">&#9670;&#160;</a></span>_overlay</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> hmi::PixelCanvas::_overlay</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Repère dessiné <b>par-dessus</b> le contenu édité (<span class="tt"><a class="el" href="#ad5ebada158fa4c80044036cccdcc4f9b" title="Pose un repère dessiné par-dessus le contenu édité — mêmes règles que setUnderlay.">setOverlay</a></span>), mêmes règles. </p>
+
+</div>
+</div>
+<a id="a4c89e59f66f844862e3931945d465790" name="a4c89e59f66f844862e3931945d465790"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c89e59f66f844862e3931945d465790">&#9670;&#160;</a></span>_overlayOpacity</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::PixelCanvas::_overlayOpacity = 1.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aaa76a6146739b80152d3b7e7162eb318" name="aaa76a6146739b80152d3b7e7162eb318"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaa76a6146739b80152d3b7e7162eb318">&#9670;&#160;</a></span>_paletteColors</h2>
 
@@ -2061,6 +2234,30 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a7ea4d88436b205459e797d3b91b474f1" name="a7ea4d88436b205459e797d3b91b474f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ea4d88436b205459e797d3b91b474f1">&#9670;&#160;</a></span>_referenceGridStep</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::PixelCanvas::_referenceGridStep = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pas de la grille de tuiles, en pixels image ; <span class="tt">0</span> si aucune. </p>
+
+</div>
+</div>
 <a id="acf3b26e8071369f21ae44335b45896bc" name="acf3b26e8071369f21ae44335b45896bc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acf3b26e8071369f21ae44335b45896bc">&#9670;&#160;</a></span>_selection</h2>
 
@@ -2130,6 +2327,52 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p><span class="tt">true</span> : le geste en cours déplace <span class="tt"><a class="el" href="#acf3b26e8071369f21ae44335b45896bc" title="Sélection courante, vide si aucune.">_selection</a></span>. </p>
+
+</div>
+</div>
+<a id="a11de816ae71b05cca18729bc3550b4e6" name="a11de816ae71b05cca18729bc3550b4e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11de816ae71b05cca18729bc3550b4e6">&#9670;&#160;</a></span>_underlay</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> hmi::PixelCanvas::_underlay</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Repère dessiné <b>sous</b> le contenu édité (<span class="tt"><a class="el" href="#acc86c29c021d725cef9d92a53bdeb711" title="Pose un repère dessiné sous le contenu édité (mode création, EX-EDIT-046).">setUnderlay</a></span>) — jamais dans <span class="tt"><a class="el" href="#a7fa448742e375ac738d220530e49d889">_image</a></span>, donc jamais dans l'historique ni dans le presse-papiers. </p>
+
+</div>
+</div>
+<a id="a64a4ac0614f681ac6a79450fd6fd6ffc" name="a64a4ac0614f681ac6a79450fd6fd6ffc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64a4ac0614f681ac6a79450fd6fd6ffc">&#9670;&#160;</a></span>_underlayOpacity</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::PixelCanvas::_underlayOpacity = 1.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

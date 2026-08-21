@@ -104,8 +104,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a465f7f5e22a70103368698309d6959b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index du skin chargé pour un asset et un type de tuile donnés.  <br /></td></tr>
 <tr class="memitem:a34031672bcb7354b6e3203bec45ca724" id="r_a34031672bcb7354b6e3203bec45ca724"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a34031672bcb7354b6e3203bec45ca724">objectIndexOf</a> (std::string_view asset) const noexcept</td></tr>
 <tr class="memdesc:a34031672bcb7354b6e3203bec45ca724"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index de la texture d'objet chargée pour un asset donné (<span class="tt">EX-EDIT-043</span>, <span class="tt">LOT-45</span>).  <br /></td></tr>
-<tr class="memitem:acd8dde4cfc2c1221fbe22431b338f9cc" id="r_acd8dde4cfc2c1221fbe22431b338f9cc"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#acd8dde4cfc2c1221fbe22431b338f9cc">decorIndexOf</a> (std::string_view asset) const noexcept</td></tr>
-<tr class="memdesc:acd8dde4cfc2c1221fbe22431b338f9cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index du décor chargé pour un asset donné (<span class="tt">EX-DEC-001</span>, <span class="tt">LOT-49</span>).  <br /></td></tr>
 <tr class="memitem:a9e1ba31d45289522af77d0046ba4985a" id="r_a9e1ba31d45289522af77d0046ba4985a"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9e1ba31d45289522af77d0046ba4985a">textureFor</a> (const <a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a> &amp;appearance) const noexcept</td></tr>
 <tr class="memitem:acfdc279bc1f8f78d0781b2d6a2e2c633" id="r_acfdc279bc1f8f78d0781b2d6a2e2c633"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#acfdc279bc1f8f78d0781b2d6a2e2c633">widthFor</a> (const <a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a> &amp;appearance) const noexcept</td></tr>
 <tr class="memitem:abce6688963dc3a0b879a9b86391326e8" id="r_abce6688963dc3a0b879a9b86391326e8"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#abce6688963dc3a0b879a9b86391326e8">heightFor</a> (const <a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a> &amp;appearance) const noexcept</td></tr>
@@ -113,7 +111,7 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a7d9763188484890ea78646b52d3a9820" id="r_a7d9763188484890ea78646b52d3a9820"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7d9763188484890ea78646b52d3a9820">atlas</a> = nullptr</td></tr>
-<tr class="memdesc:a7d9763188484890ea78646b52d3a9820"><td class="mdescLeft">&#160;</td><td class="mdescRight">Atlas du jeu (<span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html#a96e2b0417805039b574fe0651061b43a">hmi::TextureAtlas::textureView</a></span>).  <br /></td></tr>
+<tr class="memdesc:a7d9763188484890ea78646b52d3a9820"><td class="mdescLeft">&#160;</td><td class="mdescRight">Atlas du jeu (<span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html#aa2d7c9cb18e7a706c46016ef5ad56930">hmi::TextureAtlas::textureHandle</a></span>).  <br /></td></tr>
 <tr class="memitem:a306ea6dde62238a5a85e3514cc959d92" id="r_a306ea6dde62238a5a85e3514cc959d92"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a306ea6dde62238a5a85e3514cc959d92">atlasWidth</a> = 0</td></tr>
 <tr class="memdesc:a306ea6dde62238a5a85e3514cc959d92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur de l'atlas, en pixels.  <br /></td></tr>
 <tr class="memitem:a61f67ca5c6c9cc001366ffbbe462471b" id="r_a61f67ca5c6c9cc001366ffbbe462471b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a61f67ca5c6c9cc001366ffbbe462471b">atlasHeight</a> = 0</td></tr>
@@ -139,8 +137,6 @@ usesCharacterSheet</span>), comme <span class="tt"><a class="el" href="classhmi_
 <tr class="memdesc:a1a7d49eb5842bb0fd960fe53cb4159e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom du jeu de skins courant. Vide pour utiliser le jeu par défaut du catalogue.  <br /></td></tr>
 <tr class="memitem:ac8c29b5d6b09f1c5c2e64854717bec0c" id="r_ac8c29b5d6b09f1c5c2e64854717bec0c"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1SkinTexture.html">SkinTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac8c29b5d6b09f1c5c2e64854717bec0c">objects</a></td></tr>
 <tr class="memdesc:ac8c29b5d6b09f1c5c2e64854717bec0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Textures assignées <b>par instance</b> (<span class="tt">EX-EDIT-043</span>, <span class="tt">LOT-45</span>), adressées par index.  <br /></td></tr>
-<tr class="memitem:a470db204d79ec606b21f0f7bf366d4ed" id="r_a470db204d79ec606b21f0f7bf366d4ed"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1SkinTexture.html">SkinTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a470db204d79ec606b21f0f7bf366d4ed">decors</a></td></tr>
-<tr class="memdesc:a470db204d79ec606b21f0f7bf366d4ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décors libres chargés (<span class="tt">EX-DEC-001</span>, <span class="tt">LOT-49</span>), adressés par index.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -152,40 +148,6 @@ Private Member Functions</h2></td></tr>
 <p>Regroupées en une seule donnée parce qu'elles vont toujours ensemble : une texture sans ses dimensions ne permet pas de normaliser des coordonnées de texture, et la composition doit pouvoir servir toutes les branches de <span class="tt"><a class="el" href="namespacehmi.html#a703532077ec14c39205ccde5efbfb6bc" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">hmi::resolveTileAppearance</a></span> sans rien demander au GPU.</p>
 <p>Porte aussi le <b>catalogue</b> et le <b>jeu courant</b> (<span class="tt">LOT-42</span>) : ce sont eux qui décident quelle texture lier, au même titre que les textures elles-mêmes. Les y placer garde la composition paramétrée par une seule donnée, et laisse la fonction de résolution pure et testable sans GPU (<span class="tt">EX-NFR-004</span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="acd8dde4cfc2c1221fbe22431b338f9cc" name="acd8dde4cfc2c1221fbe22431b338f9cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd8dde4cfc2c1221fbe22431b338f9cc">&#9670;&#160;</a></span>decorIndexOf()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int hmi::SceneTextures::decorIndexOf </td>
-          <td>(</td>
-          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>asset</em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Index du décor chargé pour un asset donné (<span class="tt">EX-DEC-001</span>, <span class="tt">LOT-49</span>). </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">asset</td><td>Nom du fichier cherché. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Son index dans <span class="tt"><a class="el" href="#a470db204d79ec606b21f0f7bf366d4ed" title="Décors libres chargés (EX-DEC-001, LOT-49), adressés par index.">decors</a></span>, ou <span class="tt">-1</span> si non chargé. </dd></dl>
-
-</div>
-</div>
 <a id="abce6688963dc3a0b879a9b86391326e8" name="abce6688963dc3a0b879a9b86391326e8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abce6688963dc3a0b879a9b86391326e8">&#9670;&#160;</a></span>heightFor()</h2>
 
@@ -400,7 +362,7 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Atlas du jeu (<span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html#a96e2b0417805039b574fe0651061b43a">hmi::TextureAtlas::textureView</a></span>). </p>
+<p>Atlas du jeu (<span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html#aa2d7c9cb18e7a706c46016ef5ad56930">hmi::TextureAtlas::textureHandle</a></span>). </p>
 
 </div>
 </div>
@@ -482,23 +444,6 @@ usesCharacterSheet</span>), comme <span class="tt"><a class="el" href="classhmi_
 </div><div class="memdoc">
 
 <p>Largeur de la spritesheet du personnage, en pixels. </p>
-
-</div>
-</div>
-<a id="a470db204d79ec606b21f0f7bf366d4ed" name="a470db204d79ec606b21f0f7bf366d4ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a470db204d79ec606b21f0f7bf366d4ed">&#9670;&#160;</a></span>decors</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="structhmi_1_1SkinTexture.html">SkinTexture</a>&gt; hmi::SceneTextures::decors</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Décors libres chargés (<span class="tt">EX-DEC-001</span>, <span class="tt">LOT-49</span>), adressés par index. </p>
-<p>Mêmes remarques que <span class="tt"><a class="el" href="#ac8c29b5d6b09f1c5c2e64854717bec0c" title="Textures assignées par instance (EX-EDIT-043, LOT-45), adressées par index.">objects</a></span> (<span class="tt">maskType</span> toujours vide, dimensions <b>réelles</b> du fichier plutôt qu'une case) : contrairement à un skin, un décor n'est jamais contraint à la taille d'une case. </p>
 
 </div>
 </div>

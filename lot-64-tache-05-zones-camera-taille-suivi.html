@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-64-tache-05-zones-camera-taille-suivi.html','','')
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-64-cadrage-camera-choisi_2tache-05-zones-camera-taille-suivi"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-64.html#md_Lot_2LOT-64-cadrage-camera-choisi_2epic" title="Lot/LOT-64-cadrage-camera-choisi/epic.md">LOT-64</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Levels</span>, <span class="tt">Source/HMI/Graphics</span>, <span class="tt">Source/HMI/Editor</span>, <span class="tt">Source/HMI/Game</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2909"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2919"></a>
 Contexte</h1>
 <p>Les TACHE-01 à 04 livrent trois modes de cadrage, dont le mode <em>par salle</em> : une <b>grille uniforme</b>, une seule taille de salle pour tout le niveau. Une fois ces trois modes en main, le level designer a exprimé un besoin que la grille uniforme ne couvre pas : <b>mélanger plusieurs tailles de caméra au sein d'un même niveau</b> — par exemple une salle large pour une pièce d'ensemble et des salles étroites pour un couloir, dans le même tableau. Il a aussi demandé que le mode <em>suivi</em> puisse, comme le mode <em>par salle</em>, avoir sa taille de vue réglée par niveau plutôt que de retenir en dur la taille de salle par défaut.</p>
 <p>Choix explicite (voir « Décisions de cadrage », <span class="tt">epic.md</span>) : intégrer ce besoin <b>dans ce lot</b> plutôt que d'ouvrir un nouveau lot après fusion, pour livrer un cadrage cohérent en une seule passe. La solution retenue est la plus simple qui couvre le besoin réel : laisser le designer <b>dessiner lui-même</b> des rectangles de caméra sur le canevas, comme il dessine déjà un rectangle de tuiles (<span class="tt">EditorTool::Rectangle</span>) — pas de transition animée, pas de déclencheur, pas de système de caméra scripté.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2910"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2920"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Modèle</b> (<span class="tt">Core</span>) : <span class="tt"><a class="el" href="structcore_1_1CameraZone.html" title="Rectangle de caméra dessiné à la main par le level designer (mode par salle), en cases.">core::CameraZone</a></span> (rectangle en tuiles), liste <span class="tt">zones</span> dans <span class="tt"><a class="el" href="structcore_1_1CameraFramingConfig.html" title="Cadrage de caméra résolu d&#39;un niveau : le mode retenu et ses paramètres.">core::CameraFramingConfig</a></span>, valide uniquement en mode <em>par salle</em>, entièrement dans les bornes du niveau, de taille non nulle. Liste vide par défaut : comportement de grille automatique inchangé tant qu'aucune zone n'est dessinée.</li>
@@ -110,7 +110,7 @@ Travail à réaliser</h1>
 <li><b>Panneau « Cadrage »</b> : tableau récapitulatif des zones (bornes en tuiles), bouton « Retirer » pour la ligne sélectionnée (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a4c37c4afaa5db571265a268a1222a01a" title="Retire la zone de caméra au rang index (EX-LVL-007, EX-EDIT-029), annulable.">core::LevelDraft::removeCameraZone</a></span>, annulable) — les zones se <b>dessinent</b> sur le canevas mais se <b>retirent</b> depuis le panneau, comme la section « Objets ».</li>
 <li><b>Prévisualisation</b> (<span class="tt">DraftRenderer</span>) : en mode <em>par salle</em> avec zones non vide, les rectangles dessinés remplacent entièrement l'affichage de la grille automatique.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2911"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2921"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Core/Levels/CameraFraming.{h,cpp}</span> — <span class="tt">CameraZone</span>, champ <span class="tt">zones</span>, validation étendue.</li>
@@ -127,7 +127,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Localization/{fr,en}.lang</span> — libellés de l'outil, de l'aide et du tableau.</li>
 <li>Tests unitaires étendus/nouveaux dans <span class="tt">Source/Test/Unit/Core/Levels/</span> et <span class="tt">Source/Test/Unit/HMI/{Graphics,Editor,Interface}/</span>, système dans <span class="tt"><a class="el" href="test__parcours__edition_8cpp.html" title="Parcours système : créer un niveau dans l&#39;éditeur, l&#39;enregistrer, le recharger, et vérifier qu&#39;il est...">Source/Test/Systeme/test_parcours_edition.cpp</a></span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2912"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2922"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Validation des zones : mauvais mode, largeur/hauteur nulle, position négative, dépassement du niveau, zones chevauchantes valides.</li>
@@ -140,7 +140,7 @@ Tests (obligatoires)</h1>
 <li>Taille de suivi réglable : validée pour <span class="tt">Follow</span> comme pour <span class="tt">PerRoom</span> ; round-trip de sérialisation.</li>
 <li>Tests <span class="tt">Core</span>/<span class="tt">HMI</span> purs, sans GPU, comme le reste du lot.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2913"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2923"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Compatibilité inchangée.</b> <span class="tt">zones</span> est vide par défaut : tout niveau existant, y compris les quinze tableaux livrés, garde exactement son comportement de grille automatique.</li>
@@ -149,12 +149,12 @@ Points d'attention</h1>
 <li><b>Dessiner sur le canevas, retirer dans le panneau.</b> Cohérent avec la section « Objets » — éviter d'inventer un second geste de suppression sur le canevas pour cet outil précis.</li>
 <li><b>Tout nouvel outil suit l'intégration complète du catalogue</b> (icône, entrée, bijection) : le projet ne connaît pas de raccourci « outil sans icône ».</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2914"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2924"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les zones de caméra dessinées à la main permettent de mélanger plusieurs tailles de caméra dans un même niveau en mode <em>par salle</em> ; la taille de la caméra de suivi est réglable par niveau ; compatibilité totale avec les niveaux sans zones ; tests <span class="tt">ctest</span> à 100 %, <span class="tt">/W4 /WX</span> propre, lints et Doxygen verts.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2915"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2925"></a>
 Exigences</h1>
 <p><span class="tt">EX-LVL-007</span> (zones de caméra dessinées à la main), <span class="tt">EX-REN-017</span> (taille de suivi réglable), <span class="tt">EX-EDIT-029</span> (outil de dessin et tableau des zones dans l'éditeur) — déclarées ici ; réutilise <span class="tt">EX-LVL-006</span> (mode de cadrage porté par le niveau), <span class="tt">EX-REN-015</span>/<span class="tt">EX-REN-016</span> (cadrage par salle et trois modes), <span class="tt">EX-EDIT-005</span> (annulation), <span class="tt">EX-EDIT-010</span> (réutilisation du modèle de <span class="tt">Core</span>), <span class="tt">EX-NFR-004</span> (vérification sans GPU), <span class="tt">EX-NFR-040</span> (erreur récupérable). </p>
 </div></div><!-- contents -->

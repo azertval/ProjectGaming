@@ -114,11 +114,12 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a6dab05769a6e7f213d8e55d9a6b2d446" id="r_a6dab05769a6e7f213d8e55d9a6b2d446"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6dab05769a6e7f213d8e55d9a6b2d446">closeEvent</a> (QCloseEvent *event) override</td></tr>
 <tr class="memdesc:a6dab05769a6e7f213d8e55d9a6b2d446"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sauvegarde la disposition avant fermeture.  <br /></td></tr>
 <tr class="memitem:a0c75214acd44c6e1bef12db335abd37f" id="r_a0c75214acd44c6e1bef12db335abd37f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0c75214acd44c6e1bef12db335abd37f">resizeEvent</a> (QResizeEvent *event) override</td></tr>
-<tr class="memdesc:a0c75214acd44c6e1bef12db335abd37f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resynchronise la géométrie des recouvrements d'écran (<span class="tt"><a class="el" href="#ac65d1b4ea7fccdd8969abcdf83254cd8" title="Recouvrement de pause (LOT-59 TACHE-02) : fenêtre de haut niveau possédée par this (Qt::Tool | Qt::Fr...">_pauseScreen</a></span>/<span class="tt"><a class="el" href="#a7afaff28276c2b437ddf7323c924ed23" title="Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même patron que _pauseScreen ci-dessus (fe...">_levelCompleteScreen</a></span>, <span class="tt">LOT-59</span> TACHE-02/03) &ndash; fenêtres de haut niveau positionnées à la main, jamais redimensionnées automatiquement par <span class="tt"><a class="el" href="#a408483202779acb367aee2733d8b28c7" title="Central : empile menu principal, options et viewport.">_stack</a></span>.  <br /></td></tr>
+<tr class="memdesc:a0c75214acd44c6e1bef12db335abd37f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resynchronise la géométrie des recouvrements d'écran (<span class="tt"><a class="el" href="#ac65d1b4ea7fccdd8969abcdf83254cd8" title="Recouvrement de pause (LOT-59 TACHE-02) : widget enfant ordinaire du viewport depuis le LOT-69 TACHE-...">_pauseScreen</a></span>/<span class="tt"><a class="el" href="#a7afaff28276c2b437ddf7323c924ed23" title="Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même patron que _pauseScreen ci-dessus (fe...">_levelCompleteScreen</a></span>, <span class="tt">LOT-59</span> TACHE-02/03) &ndash; fenêtres de haut niveau positionnées à la main, jamais redimensionnées automatiquement par <span class="tt"><a class="el" href="#a408483202779acb367aee2733d8b28c7" title="Central : empile menu principal, options et viewport.">_stack</a></span>.  <br /></td></tr>
 <tr class="memitem:a0b2365c292ecebf9df8e3feb8083c24e" id="r_a0b2365c292ecebf9df8e3feb8083c24e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0b2365c292ecebf9df8e3feb8083c24e">applyIdentityScale</a> ()</td></tr>
 <tr class="memdesc:a0b2365c292ecebf9df8e3feb8083c24e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalcule le facteur d'agrandissement des ecrans du jeu depuis la hauteur courante et rejoue le theme s'il a change (LOT-68, EX-IHM-070).  <br /></td></tr>
 <tr class="memitem:a8f4ec20153d8d14d3ab9a602f56a466b" id="r_a8f4ec20153d8d14d3ab9a602f56a466b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8f4ec20153d8d14d3ab9a602f56a466b">moveEvent</a> (QMoveEvent *event) override</td></tr>
-<tr class="memdesc:a8f4ec20153d8d14d3ab9a602f56a466b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Même resynchronisation que <span class="tt"><a class="el" href="#a0c75214acd44c6e1bef12db335abd37f" title="Resynchronise la géométrie des recouvrements d&#39;écran (_pauseScreen/_levelCompleteScreen,...">resizeEvent</a></span>, nécessaire en plus de lui : un recouvrement est une fenêtre de haut niveau positionnée en coordonnées <b>écran</b> (<span class="tt"><a class="el" href="#a3c0c05a1d1a9c7b062644a4bbba9e2c4" title="Positionne _pauseScreen/_levelCompleteScreen (fenêtres de haut niveau) pour recouvrir exactement _edi...">syncOverlayGeometry</a></span>), donc déplacer la fenêtre principale sans la redimensionner (aucun <span class="tt"><a class="el" href="#a0c75214acd44c6e1bef12db335abd37f" title="Resynchronise la géométrie des recouvrements d&#39;écran (_pauseScreen/_levelCompleteScreen,...">resizeEvent</a></span>) la désaligne quand même.  <br /></td></tr>
+<tr class="memitem:a2d1f33de682c39a3c520bfc344b5ab59" id="r_a2d1f33de682c39a3c520bfc344b5ab59"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a2d1f33de682c39a3c520bfc344b5ab59">eventFilter</a> (QObject *watched, QEvent *event) override</td></tr>
+<tr class="memdesc:a2d1f33de682c39a3c520bfc344b5ab59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Suit la taille du viewport pour les recouvrements qui s'y superposent (pause, fin de niveau) : enfants ordinaires depuis le <span class="tt">LOT-69</span> TACHE-02, ils se redimensionnent avec leur parent plutôt que d'être repositionnés en coordonnées écran.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -126,7 +127,15 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a99822a539e006f30711402f737385bff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique l'espace de travail <code class="param">workspace</code> (<span class="tt">LOT-68</span>, <span class="tt">EX-IHM-073</span>) : masque les panneaux de l'autre espace, bascule barre d'outils et menu, restaure la disposition propre à cet espace.  <br /></td></tr>
 <tr class="memitem:a59c679aa42691272befe551088c8b4e3" id="r_a59c679aa42691272befe551088c8b4e3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a59c679aa42691272befe551088c8b4e3">switchToWorkspace</a> (<a class="el" href="namespacehmi.html#afc2e687c85989440c76b94c012a1b91d">EditorWorkspace</a> workspace)</td></tr>
 <tr class="memdesc:a59c679aa42691272befe551088c8b4e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bascule sur <code class="param">workspace</code> <b>s'il n'est pas déjà actif</b>, en synchronisant le sélecteur du menu sans réémettre.  <br /></td></tr>
+<tr class="memitem:a027b04a3b312514563ce3a0d81600192" id="r_a027b04a3b312514563ce3a0d81600192"><td class="memItemLeft">QAction *&#160;</td><td class="memItemRight"><a class="el" href="#a027b04a3b312514563ce3a0d81600192">workspaceSelector</a> (<a class="el" href="namespacehmi.html#afc2e687c85989440c76b94c012a1b91d">EditorWorkspace</a> workspace) const</td></tr>
 <tr class="memitem:a75703620647423eab281de7ea851ec34" id="r_a75703620647423eab281de7ea851ec34"><td class="memItemLeft">std::array&lt; std::pair&lt; QDockWidget *, <a class="el" href="namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726">hmi::PanelId</a> &gt;, <a class="el" href="namespacehmi.html#af04ce56b73b71704b41ee6d8cfe4e2e2">hmi::PANEL_COUNT</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a75703620647423eab281de7ea851ec34">workspacePanels</a> () const</td></tr>
+<tr class="memitem:a9366e2431a72f64f6fd73414bc2421e5" id="r_a9366e2431a72f64f6fd73414bc2421e5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9366e2431a72f64f6fd73414bc2421e5">connectPlanesPanel</a> ()</td></tr>
+<tr class="memdesc:a9366e2431a72f64f6fd73414bc2421e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Branche le panneau « Plans » (<span class="tt">LOT-69</span> TACHE-08) : il demande, le viewport applique.  <br /></td></tr>
+<tr class="memitem:aecde93c971ddc897c53a114cfbcba9ef" id="r_aecde93c971ddc897c53a114cfbcba9ef"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#aecde93c971ddc897c53a114cfbcba9ef">planesDirectory</a> () const</td></tr>
+<tr class="memitem:ac0d13c9ba2e418481dad5e0f6d3fc107" id="r_ac0d13c9ba2e418481dad5e0f6d3fc107"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac0d13c9ba2e418481dad5e0f6d3fc107">createPlane</a> ()</td></tr>
+<tr class="memdesc:ac0d13c9ba2e418481dad5e0f6d3fc107"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée un plan : un PNG entièrement transparent aux dimensions exactes, puis l'entrée dans le brouillon.  <br /></td></tr>
+<tr class="memitem:a6bfd4b9ec349f01e4c52e210c7b6e1ed" id="r_a6bfd4b9ec349f01e4c52e210c7b6e1ed"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6bfd4b9ec349f01e4c52e210c7b6e1ed">changePlaneDensity</a> (std::size_t index, int pixelsPerUnit)</td></tr>
+<tr class="memdesc:a6bfd4b9ec349f01e4c52e210c7b6e1ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change la densité d'un plan : <b>rééchantillonne l'image</b> puis met à jour la déclaration, sans quoi le fichier et le format diraient deux choses différentes.  <br /></td></tr>
 <tr class="memitem:a2be2a6b71ee9770ab402e16bf8d61666" id="r_a2be2a6b71ee9770ab402e16bf8d61666"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2be2a6b71ee9770ab402e16bf8d61666">buildUi</a> ()</td></tr>
 <tr class="memdesc:a2be2a6b71ee9770ab402e16bf8d61666"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée les panneaux (contenu des docks du <span class="tt">.ui</span>) et branche les actions de la barre de menus.  <br /></td></tr>
 <tr class="memitem:aef77702f265c861ebec3ef8c62c9cbf9" id="r_aef77702f265c861ebec3ef8c62c9cbf9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aef77702f265c861ebec3ef8c62c9cbf9">restoreLayout</a> ()</td></tr>
@@ -159,7 +168,17 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a0c2030c04ec61b66dcf517d9d337049f" id="r_a0c2030c04ec61b66dcf517d9d337049f"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a0c2030c04ec61b66dcf517d9d337049f">pixelAssetCacheKey</a> () const</td></tr>
 <tr class="memdesc:a0c2030c04ec61b66dcf517d9d337049f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom logique de l'asset ouvert, relatif à <span class="tt">Assets/</span> (ex.  <br /></td></tr>
 <tr class="memitem:a7581f0e4c9e3019b782e5ecf3cf1401c" id="r_a7581f0e4c9e3019b782e5ecf3cf1401c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7581f0e4c9e3019b782e5ecf3cf1401c">updateLivePreview</a> ()</td></tr>
-<tr class="memdesc:a7581f0e4c9e3019b782e5ecf3cf1401c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit l'image en cours sur <span class="tt"><a class="el" href="#a8693f7156ad8338ea1e88913cf266855" title="Chemin complet du fichier de l&#39;asset ouvert dans l&#39;atelier, vide si aucun ou pas encore enregistré (L...">_pixelAssetPath</a></span> et invalide son entrée de <span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures Direct3D 11 désignées par leur nom de fichier logique.">TextureCache</a></span>, pour que le niveau affiché reflète l'édition en cours — sans effet tant qu'aucun chemin n'est associé (asset pas encore enregistré une première fois, TACHE-05).  <br /></td></tr>
+<tr class="memdesc:a7581f0e4c9e3019b782e5ecf3cf1401c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit l'image en cours sur <span class="tt"><a class="el" href="#a8693f7156ad8338ea1e88913cf266855" title="Chemin complet du fichier de l&#39;asset ouvert dans l&#39;atelier, vide si aucun ou pas encore enregistré (L...">_pixelAssetPath</a></span> et invalide son entrée de <span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures GPU désignées par leur nom de fichier logique.">TextureCache</a></span>, pour que le niveau affiché reflète l'édition en cours — sans effet tant qu'aucun chemin n'est associé (asset pas encore enregistré une première fois, TACHE-05).  <br /></td></tr>
+<tr class="memitem:ae2b6d081350501e8eff3e2915235dc08" id="r_ae2b6d081350501e8eff3e2915235dc08"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae2b6d081350501e8eff3e2915235dc08">loadPlaneIntoCanvas</a> (std::size_t index)</td></tr>
+<tr class="memdesc:ae2b6d081350501e8eff3e2915235dc08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge le PNG du plan <code class="param">index</code> dans <span class="tt"><a class="el" href="#a82d3a9dc41ae7d2ec973430715219e5e" title="Canevas de l&#39;atelier pixel art (dock Atelier, LOT-54 TACHE-04) : seconde implémentation de EditContex...">_pixelCanvas</a></span>, avec ses repères (pelure d'oignon des tuiles sous le plan, plans voisins aplatis dessous et dessus, grille de tuiles).  <br /></td></tr>
+<tr class="memitem:a57124ac2472d9e372b444d41b17c6438" id="r_a57124ac2472d9e372b444d41b17c6438"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a57124ac2472d9e372b444d41b17c6438">savePlaneImage</a> ()</td></tr>
+<tr class="memdesc:a57124ac2472d9e372b444d41b17c6438"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit l'image du canevas dans le PNG du plan ouvert (<span class="tt">Ctrl+S</span> dans l'espace « Plans »).  <br /></td></tr>
+<tr class="memitem:adbb90fc80102c6f01e232b7134e30f57" id="r_adbb90fc80102c6f01e232b7134e30f57"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adbb90fc80102c6f01e232b7134e30f57">closePlaneInCanvas</a> ()</td></tr>
+<tr class="memdesc:adbb90fc80102c6f01e232b7134e30f57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vide le canevas de son plan et retire les repères — l'atelier pixel art retrouve alors son comportement du <span class="tt">LOT-54</span>, sans repère hérité du mode création.  <br /></td></tr>
+<tr class="memitem:adff4abfa93ae5ca39e57e306f9786a69" id="r_adff4abfa93ae5ca39e57e306f9786a69"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adff4abfa93ae5ca39e57e306f9786a69">refreshPlaneReferences</a> ()</td></tr>
+<tr class="memdesc:adff4abfa93ae5ca39e57e306f9786a69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruit les repères du plan ouvert depuis le brouillon courant : appelé après toute mutation qui les périme (ordre, densité, opacité, visibilité, taille du niveau).  <br /></td></tr>
+<tr class="memitem:af1529048d81c811d567b00408037cde0" id="r_af1529048d81c811d567b00408037cde0"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af1529048d81c811d567b00408037cde0">confirmDiscardPlaneChanges</a> ()</td></tr>
+<tr class="memitem:a07b944975d592b5ec452733b50827789" id="r_a07b944975d592b5ec452733b50827789"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a07b944975d592b5ec452733b50827789">planeFilePath</a> (std::size_t index) const</td></tr>
 <tr class="memitem:a2a42277558bb0f0e66662cd61fdf789e" id="r_a2a42277558bb0f0e66662cd61fdf789e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2a42277558bb0f0e66662cd61fdf789e">openPixelColorPicker</a> ()</td></tr>
 <tr class="memdesc:a2a42277558bb0f0e66662cd61fdf789e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre un sélecteur de couleur (<span class="tt">QColorDialog</span>) pour choisir librement la couleur courante du canevas — seul moyen d'atteindre une couleur absente à la fois de l'image ouverte (pipette) et de la palette de projet (pastilles).  <br /></td></tr>
 <tr class="memitem:a3b786cda76b1c4b3c58cfe1d926711c2" id="r_a3b786cda76b1c4b3c58cfe1d926711c2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3b786cda76b1c4b3c58cfe1d926711c2">updatePixelColorButtonIcon</a> (std::uint32_t color)</td></tr>
@@ -189,8 +208,6 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 <tr class="memdesc:acbfa0913afbb2f6cb95d431ac6631123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout <code class="param">event</code> via <span class="tt"><a class="el" href="namespacehmi.html#adbeed25b15bad59211fcea357825feec" title="Résout une transition d&#39;écran à partir de l&#39;état courant et d&#39;un événement.">hmi::resolveTransition</a></span> depuis l'écran courant (<span class="tt"><a class="el" href="#a97fd2eec1f36f4a73a87a1b659573c99" title="Écran courant et écran de retour d&#39;Options (LOT-59 TACHE-01, EX-GP-041) : seule source de vérité sur ...">_screenState</a></span>) et applique l'habillage du nouvel écran (<span class="tt"><a class="el" href="#a69da7b7ed0aefd517ac564bd227ad5db" title="Bascule la page du QStackedWidget (seule part propre à Qt, hors de portée d&#39;une table pure) puis appl...">applyScreenDressing</a></span>) &ndash;.  <br /></td></tr>
 <tr class="memitem:a69da7b7ed0aefd517ac564bd227ad5db" id="r_a69da7b7ed0aefd517ac564bd227ad5db"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a69da7b7ed0aefd517ac564bd227ad5db">applyScreenDressing</a> (<a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528d">hmi::ScreenId</a> screen)</td></tr>
 <tr class="memdesc:a69da7b7ed0aefd517ac564bd227ad5db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bascule la page du <span class="tt">QStackedWidget</span> (seule part propre à Qt, hors de portée d'une table pure) puis applique l'habillage générique de <code class="param">screen</code> (<span class="tt"><a class="el" href="namespacehmi.html#a7e42ffeba1ac86e0a292c24dc3b99f94">hmi::dressingFor</a></span>) : docks, barres, commandes d'édition, navigation manette, minuteur de statut.  <br /></td></tr>
-<tr class="memitem:a3c0c05a1d1a9c7b062644a4bbba9e2c4" id="r_a3c0c05a1d1a9c7b062644a4bbba9e2c4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3c0c05a1d1a9c7b062644a4bbba9e2c4">syncOverlayGeometry</a> ()</td></tr>
-<tr class="memdesc:a3c0c05a1d1a9c7b062644a4bbba9e2c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Positionne <span class="tt"><a class="el" href="#ac65d1b4ea7fccdd8969abcdf83254cd8" title="Recouvrement de pause (LOT-59 TACHE-02) : fenêtre de haut niveau possédée par this (Qt::Tool | Qt::Fr...">_pauseScreen</a></span>/<span class="tt"><a class="el" href="#a7afaff28276c2b437ddf7323c924ed23" title="Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même patron que _pauseScreen ci-dessus (fe...">_levelCompleteScreen</a></span> (fenêtres de haut niveau) pour recouvrir exactement <span class="tt"><a class="el" href="#ac5c63412581fcf98bd57cfe47e5b3510" title="Conteneur natif du viewport (page éditeur/jeu).">_editorContainer</a></span> <b>en coordonnées écran</b> (<span class="tt">LOT-59</span> TACHE-02/03/07) &ndash; appelé à la création et à chaque déplacement/redimensionnement de la fenêtre principale (<span class="tt"><a class="el" href="#a8f4ec20153d8d14d3ab9a602f56a466b" title="Même resynchronisation que resizeEvent, nécessaire en plus de lui : un recouvrement est une fenêtre d...">moveEvent</a></span>/<span class="tt"><a class="el" href="#a0c75214acd44c6e1bef12db335abd37f" title="Resynchronise la géométrie des recouvrements d&#39;écran (_pauseScreen/_levelCompleteScreen,...">resizeEvent</a></span>).  <br /></td></tr>
 <tr class="memitem:a248bb07772661a43ec5d61884a90ffa3" id="r_a248bb07772661a43ec5d61884a90ffa3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a248bb07772661a43ec5d61884a90ffa3">openPause</a> ()</td></tr>
 <tr class="memdesc:a248bb07772661a43ec5d61884a90ffa3"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">Échap</span>/bouton manette B en jeu réel (<span class="tt"><a class="el" href="classhmi_1_1GameViewport.html#a1e8798e90caf3cfb3c033f29b4bd55e6" title="Échap (ou le bouton B manette) en mode jeu réel, hors pause : demande l&#39;ouverture de l&#39;écran de pause...">GameViewport::pauseRequested</a></span>) : ouvre la pause.  <br /></td></tr>
 <tr class="memitem:ab94899e24af6068fa65b14f017637d24" id="r_ab94899e24af6068fa65b14f017637d24"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab94899e24af6068fa65b14f017637d24">resumeFromPause</a> ()</td></tr>
@@ -237,6 +254,8 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 <tr class="heading"><td colspan="2"><h2 id="header-pri-static-methods" class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
 <tr class="memitem:aaed7c2d32c2c0fcfd68f9bdf62c7b4bb" id="r_aaed7c2d32c2c0fcfd68f9bdf62c7b4bb"><td class="memItemLeft">static QString&#160;</td><td class="memItemRight"><a class="el" href="#aaed7c2d32c2c0fcfd68f9bdf62c7b4bb">layoutKeyFor</a> (<a class="el" href="namespacehmi.html#afc2e687c85989440c76b94c012a1b91d">EditorWorkspace</a> workspace)</td></tr>
+<tr class="memitem:a5136cda0984d0b96d9ae1c6051adb0ea" id="r_a5136cda0984d0b96d9ae1c6051adb0ea"><td class="memItemLeft">static QString&#160;</td><td class="memItemRight"><a class="el" href="#a5136cda0984d0b96d9ae1c6051adb0ea">workspaceSettingsName</a> (<a class="el" href="namespacehmi.html#afc2e687c85989440c76b94c012a1b91d">EditorWorkspace</a> workspace)</td></tr>
+<tr class="memitem:abc59a0bb011931c1f52b4e75cd5d28b3" id="r_abc59a0bb011931c1f52b4e75cd5d28b3"><td class="memItemLeft">static <a class="el" href="namespacehmi.html#afc2e687c85989440c76b94c012a1b91d">EditorWorkspace</a>&#160;</td><td class="memItemRight"><a class="el" href="#abc59a0bb011931c1f52b4e75cd5d28b3">workspaceFromSettingsName</a> (const QString &amp;name)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -250,12 +269,10 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:aa3e0f10b22dd266b5e55a4ab1843e98a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Menu principal (page d'accueil).  <br /></td></tr>
 <tr class="memitem:a8e52b387114f4dc268ea8f00c67c73da" id="r_a8e52b387114f4dc268ea8f00c67c73da"><td class="memItemLeft"><a class="el" href="classhmi_1_1OptionsPage.html">OptionsPage</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a8e52b387114f4dc268ea8f00c67c73da">_options</a></td></tr>
 <tr class="memdesc:a8e52b387114f4dc268ea8f00c67c73da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Page Options à onglets.  <br /></td></tr>
-<tr class="memitem:ac5c63412581fcf98bd57cfe47e5b3510" id="r_ac5c63412581fcf98bd57cfe47e5b3510"><td class="memItemLeft">QWidget *&#160;</td><td class="memItemRight"><a class="el" href="#ac5c63412581fcf98bd57cfe47e5b3510">_editorContainer</a></td></tr>
-<tr class="memdesc:ac5c63412581fcf98bd57cfe47e5b3510"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conteneur natif du viewport (page éditeur/jeu).  <br /></td></tr>
 <tr class="memitem:ac65d1b4ea7fccdd8969abcdf83254cd8" id="r_ac65d1b4ea7fccdd8969abcdf83254cd8"><td class="memItemLeft"><a class="el" href="classhmi_1_1PauseScreen.html">PauseScreen</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ac65d1b4ea7fccdd8969abcdf83254cd8">_pauseScreen</a> = nullptr</td></tr>
-<tr class="memdesc:ac65d1b4ea7fccdd8969abcdf83254cd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recouvrement de pause (<span class="tt">LOT-59</span> TACHE-02) : fenêtre de <b>haut niveau</b> possédée par <span class="tt">this</span> (<span class="tt">Qt::Tool | Qt::FramelessWindowHint</span>, fond translucide), jamais une page ni un enfant de <span class="tt"><a class="el" href="#a408483202779acb367aee2733d8b28c7" title="Central : empile menu principal, options et viewport.">_stack</a></span> &ndash; une fenêtre native embarquée via <span class="tt">QWidget::createWindowContainer</span> (<span class="tt"><a class="el" href="#ac5c63412581fcf98bd57cfe47e5b3510" title="Conteneur natif du viewport (page éditeur/jeu).">_editorContainer</a></span>) peint toujours par-dessus ses <b>frères</b> Qt ordinaires, quel que soit leur <span class="tt">raise()</span> : seule une fenêtre de haut niveau distincte se superpose de façon fiable (limitation documentée de Qt, constatée en jeu : <span class="tt">TACHE-07</span>).  <br /></td></tr>
+<tr class="memdesc:ac65d1b4ea7fccdd8969abcdf83254cd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recouvrement de pause (<span class="tt">LOT-59</span> TACHE-02) : <b>widget enfant ordinaire</b> du viewport depuis le <span class="tt">LOT-69</span> TACHE-02.  <br /></td></tr>
 <tr class="memitem:a7afaff28276c2b437ddf7323c924ed23" id="r_a7afaff28276c2b437ddf7323c924ed23"><td class="memItemLeft"><a class="el" href="classhmi_1_1LevelCompleteScreen.html">LevelCompleteScreen</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a7afaff28276c2b437ddf7323c924ed23">_levelCompleteScreen</a> = nullptr</td></tr>
-<tr class="memdesc:a7afaff28276c2b437ddf7323c924ed23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recouvrement de fin de niveau/séquence (<span class="tt">LOT-59</span> TACHE-03) : même patron que <span class="tt"><a class="el" href="#ac65d1b4ea7fccdd8969abcdf83254cd8" title="Recouvrement de pause (LOT-59 TACHE-02) : fenêtre de haut niveau possédée par this (Qt::Tool | Qt::Fr...">_pauseScreen</a></span> ci-dessus (fenêtre de haut niveau, pas un enfant de <span class="tt"><a class="el" href="#a408483202779acb367aee2733d8b28c7" title="Central : empile menu principal, options et viewport.">_stack</a></span>).  <br /></td></tr>
+<tr class="memdesc:a7afaff28276c2b437ddf7323c924ed23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recouvrement de fin de niveau/séquence (<span class="tt">LOT-59</span> TACHE-03) : même patron que <span class="tt"><a class="el" href="#ac65d1b4ea7fccdd8969abcdf83254cd8" title="Recouvrement de pause (LOT-59 TACHE-02) : widget enfant ordinaire du viewport depuis le LOT-69 TACHE-...">_pauseScreen</a></span> ci-dessus (fenêtre de haut niveau, pas un enfant de <span class="tt"><a class="el" href="#a408483202779acb367aee2733d8b28c7" title="Central : empile menu principal, options et viewport.">_stack</a></span>).  <br /></td></tr>
 <tr class="memitem:aab0f9b0c9990d3496d32ab706c488519" id="r_aab0f9b0c9990d3496d32ab706c488519"><td class="memItemLeft"><a class="el" href="classhmi_1_1LevelSelectScreen.html">LevelSelectScreen</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aab0f9b0c9990d3496d32ab706c488519">_levelSelectScreen</a> = nullptr</td></tr>
 <tr class="memdesc:aab0f9b0c9990d3496d32ab706c488519"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran de sélection de niveau (<span class="tt">LOT-59</span> TACHE-06) : une page normale de <span class="tt"><a class="el" href="#a408483202779acb367aee2733d8b28c7" title="Central : empile menu principal, options et viewport.">_stack</a></span> (jamais un recouvrement &ndash; atteint depuis le menu, pas en jeu, contrairement aux deux précédents).  <br /></td></tr>
 <tr class="memitem:ab8058881976138d4ce9d4b5c724b8a11" id="r_ab8058881976138d4ce9d4b5c724b8a11"><td class="memItemLeft"><a class="el" href="classhmi_1_1CreditsScreen.html">CreditsScreen</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ab8058881976138d4ce9d4b5c724b8a11">_credits</a> = nullptr</td></tr>
@@ -267,12 +284,12 @@ Private Attributes</h2></td></tr>
 <a class="el" href="#a1ed57ff25b1be1c311886896b1ae444f" title="Surface de rendu D3D11 (possédée par le conteneur central).">_viewport</a></span> (niveau) ou <span class="tt"><a class="el" href="#a82d3a9dc41ae7d2ec973430715219e5e" title="Canevas de l&#39;atelier pixel art (dock Atelier, LOT-54 TACHE-04) : seconde implémentation de EditContex...">_pixelCanvas</a></span> (atelier pixel art, <span class="tt">LOT-54</span> TACHE-04), selon le widget qui a le focus clavier (<span class="tt"><a class="el" href="#aef651eacf7d4b0696a0ec0bfbc1d0483" title="Réassigne le contexte d&#39;édition actif (_editContext) et le contexte de la barre d&#39;état selon le widge...">updateActiveEditContext</a></span>) — le dispatch lui-même ne change jamais.  <br /></td></tr>
 <tr class="memitem:af1127880bfad8cb9a4e49eb5c072ca08" id="r_af1127880bfad8cb9a4e49eb5c072ca08"><td class="memItemLeft"><a class="el" href="classhmi_1_1PalettePanel.html">PalettePanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#af1127880bfad8cb9a4e49eb5c072ca08">_palette</a></td></tr>
 <tr class="memdesc:af1127880bfad8cb9a4e49eb5c072ca08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbre de sélection du type de tuile (contenu du dock Palette).  <br /></td></tr>
+<tr class="memitem:ad7b5a4376b4b8147c28a8b586ca98b4c" id="r_ad7b5a4376b4b8147c28a8b586ca98b4c"><td class="memItemLeft"><a class="el" href="classhmi_1_1PlanesPanel.html">PlanesPanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ad7b5a4376b4b8147c28a8b586ca98b4c">_planes</a></td></tr>
+<tr class="memdesc:ad7b5a4376b4b8147c28a8b586ca98b4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liste des plans picturaux (<span class="tt">LOT-69</span>, contenu du dock Plans).  <br /></td></tr>
 <tr class="memitem:aa3a6277e15086fc09f3ba9b42dfc86e2" id="r_aa3a6277e15086fc09f3ba9b42dfc86e2"><td class="memItemLeft"><a class="el" href="classhmi_1_1LevelBrowserPanel.html">LevelBrowserPanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa3a6277e15086fc09f3ba9b42dfc86e2">_levels</a></td></tr>
 <tr class="memdesc:aa3a6277e15086fc09f3ba9b42dfc86e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liste/gestion des fichiers de niveaux (contenu du dock Niveaux).  <br /></td></tr>
-<tr class="memitem:a5f1add76ec84a6e36c0c848293e2afcd" id="r_a5f1add76ec84a6e36c0c848293e2afcd"><td class="memItemLeft"><a class="el" href="classhmi_1_1DecorsPanel.html">DecorsPanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a5f1add76ec84a6e36c0c848293e2afcd">_decors</a></td></tr>
-<tr class="memdesc:a5f1add76ec84a6e36c0c848293e2afcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Placement/inspection de décors (dock Décors, <span class="tt">LOT-57</span> amendement) — contenait déjà tout ce qui concerne les décors (<span class="tt">ToolPanel</span>, <span class="tt">LOT-56</span> TACHE-04) avant d'y accueillir aussi l'inspecteur déplacé du panneau Textures.  <br /></td></tr>
 <tr class="memitem:a25b7f8b81604897b4eb8e29bdf3fd85e" id="r_a25b7f8b81604897b4eb8e29bdf3fd85e"><td class="memItemLeft"><a class="el" href="classhmi_1_1LinkPanel.html">LinkPanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a25b7f8b81604897b4eb8e29bdf3fd85e">_links</a></td></tr>
-<tr class="memdesc:a25b7f8b81604897b4eb8e29bdf3fd85e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liste/gestion des liaisons de mécanismes (dock Liens, LOT-37).  <br /></td></tr>
+<tr class="memdesc:a25b7f8b81604897b4eb8e29bdf3fd85e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Placement/inspection de décors (dock Décors, <span class="tt">LOT-57</span> amendement) — contenait déjà tout ce qui concerne les décors (<span class="tt">ToolPanel</span>, <span class="tt">LOT-56</span> TACHE-04) avant d'y accueillir aussi l'inspecteur déplacé du panneau Textures.  <br /></td></tr>
 <tr class="memitem:a5602a56b2b14b4139a7512c0acf75a3e" id="r_a5602a56b2b14b4139a7512c0acf75a3e"><td class="memItemLeft"><a class="el" href="classhmi_1_1TexturePanel.html">TexturePanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a5602a56b2b14b4139a7512c0acf75a3e">_textures</a></td></tr>
 <tr class="memdesc:a5602a56b2b14b4139a7512c0acf75a3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Habillage : jeu de skins et assignations (dock Textures, LOT-42).  <br /></td></tr>
 <tr class="memitem:ae735c11c42b0bd492a6e969e94a970c4" id="r_ae735c11c42b0bd492a6e969e94a970c4"><td class="memItemLeft"><a class="el" href="classhmi_1_1PropertiesPanel.html">PropertiesPanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ae735c11c42b0bd492a6e969e94a970c4">_properties</a></td></tr>
@@ -287,6 +304,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:aea2c791ab6d35fa22a0f186c128de6af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Palette de projet, chargée/enregistrée dans Assets/palettes.json.  <br /></td></tr>
 <tr class="memitem:a8693f7156ad8338ea1e88913cf266855" id="r_a8693f7156ad8338ea1e88913cf266855"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a8693f7156ad8338ea1e88913cf266855">_pixelAssetPath</a></td></tr>
 <tr class="memdesc:a8693f7156ad8338ea1e88913cf266855"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chemin complet du fichier de l'asset ouvert dans l'atelier, vide si aucun ou pas encore enregistré (LOT-54 TACHE-05) — <span class="tt"><a class="el" href="classhmi_1_1PixelCanvas.html#ad6eeb984190cd8c1ea473a2eb85c98a4">PixelCanvas::assetName()</a></span> n'en garde que le nom de fichier, pour l'affichage ; ce chemin sert à <span class="tt"><a class="el" href="#a642e967ee46ac21ec8880d51589e93da" title="Enregistre l&#39;asset ouvert.">savePixelAsset</a></span> pour retrouver le dossier.  <br /></td></tr>
+<tr class="memitem:a4fdeb032e52fa354689e76c11872980f" id="r_a4fdeb032e52fa354689e76c11872980f"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4fdeb032e52fa354689e76c11872980f">_paintedPlane</a></td></tr>
+<tr class="memdesc:a4fdeb032e52fa354689e76c11872980f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rang du plan actuellement peint dans <span class="tt"><a class="el" href="#a82d3a9dc41ae7d2ec973430715219e5e" title="Canevas de l&#39;atelier pixel art (dock Atelier, LOT-54 TACHE-04) : seconde implémentation de EditContex...">_pixelCanvas</a></span> (mode création, <span class="tt">LOT-69</span> TACHE-08) ; absent dès que le canevas sert à l'atelier pixel art.  <br /></td></tr>
 <tr class="memitem:aa11ea4bf8bdc5815fc36bee49cd1c0ed" id="r_aa11ea4bf8bdc5815fc36bee49cd1c0ed"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditorActions.html">EditorActions</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa11ea4bf8bdc5815fc36bee49cd1c0ed">_actions</a></td></tr>
 <tr class="memdesc:aa11ea4bf8bdc5815fc36bee49cd1c0ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outils et commandes principales, barre d'outils (LOT-56 TACHE-04).  <br /></td></tr>
 <tr class="memitem:ace98668ce84ee3ba4f9a9ae17ff17a67" id="r_ace98668ce84ee3ba4f9a9ae17ff17a67"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ace98668ce84ee3ba4f9a9ae17ff17a67">_closing</a> = false</td></tr>
@@ -344,7 +363,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Fenêtre principale de l'application Qt : <b>poste de travail d'éditeur</b> à panneaux dockables autour du viewport Direct3D 11. </p>
-<p>Le <b>widget central</b> est le viewport (<span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">GameViewport</a></span>, LOT-34), non dockable. Autour, des <span class="tt">QDockWidget</span> (Palette, Outils, Statut) <b>déplaçables, redimensionnables, détachables</b> (<span class="tt">EX-IHM-010</span>). La <b>disposition</b> (géométrie + agencement des docks) est <b>persistée hors code</b> via <span class="tt">QSettings</span> (<span class="tt">EX-IHM-011</span>) : restaurée au lancement, sauvegardée à la fermeture, et réinitialisable à une disposition par défaut (menu « Affichage »).</p>
+<p>Le <b>widget central</b> est le viewport (<span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Widget de rendu (QRhiWidget) où la scène est dessinée, composé avec le reste de l&#39;interface.">GameViewport</a></span>, LOT-34), non dockable. Autour, des <span class="tt">QDockWidget</span> (Palette, Outils, Statut) <b>déplaçables, redimensionnables, détachables</b> (<span class="tt">EX-IHM-010</span>). La <b>disposition</b> (géométrie + agencement des docks) est <b>persistée hors code</b> via <span class="tt">QSettings</span> (<span class="tt">EX-IHM-011</span>) : restaurée au lancement, sauvegardée à la fermeture, et réinitialisable à une disposition par défaut (menu « Affichage »).</p>
 <p>À cette tâche (LOT-35 TACHE-01), les panneaux sont des <b>coquilles</b> : leur contenu (arbre de palette, barre d'outils, barre d'état) est rempli aux tâches suivantes. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a846dc46b97c2b6eaeddc5c4e987d47c6" name="a846dc46b97c2b6eaeddc5c4e987d47c6"></a>
@@ -596,6 +615,37 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a6bfd4b9ec349f01e4c52e210c7b6e1ed" name="a6bfd4b9ec349f01e4c52e210c7b6e1ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bfd4b9ec349f01e4c52e210c7b6e1ed">&#9670;&#160;</a></span>changePlaneDensity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::changePlaneDensity </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>pixelsPerUnit</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Change la densité d'un plan : <b>rééchantillonne l'image</b> puis met à jour la déclaration, sans quoi le fichier et le format diraient deux choses différentes. </p>
+
+</div>
+</div>
 <a id="a61ba9347fd24263431b87c6f849c76ac" name="a61ba9347fd24263431b87c6f849c76ac"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a61ba9347fd24263431b87c6f849c76ac">&#9670;&#160;</a></span>chooseSequenceLevel()</h2>
 
@@ -732,6 +782,33 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 
 </div>
 </div>
+<a id="adbb90fc80102c6f01e232b7134e30f57" name="adbb90fc80102c6f01e232b7134e30f57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbb90fc80102c6f01e232b7134e30f57">&#9670;&#160;</a></span>closePlaneInCanvas()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::closePlaneInCanvas </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vide le canevas de son plan et retire les repères — l'atelier pixel art retrouve alors son comportement du <span class="tt">LOT-54</span>, sans repère hérité du mode création. </p>
+
+</div>
+</div>
 <a id="aab330acfe884d7b8fef9583592f41a03" name="aab330acfe884d7b8fef9583592f41a03"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aab330acfe884d7b8fef9583592f41a03">&#9670;&#160;</a></span>confirmDiscardPixelChanges()</h2>
 
@@ -755,6 +832,59 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si l'on peut poursuivre (rien à perdre, ou perte confirmée) — même patron que le garde-fou d'ouverture de niveau (<span class="tt">EX-EDIT-021</span>). </dd></dl>
+
+</div>
+</div>
+<a id="af1529048d81c811d567b00408037cde0" name="af1529048d81c811d567b00408037cde0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1529048d81c811d567b00408037cde0">&#9670;&#160;</a></span>confirmDiscardPlaneChanges()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::MainWindow::confirmDiscardPlaneChanges </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si l'on peut poursuivre : rien à perdre dans le canevas, ou perte confirmée. Même garde que <span class="tt"><a class="el" href="#aab330acfe884d7b8fef9583592f41a03">confirmDiscardPixelChanges</a></span>, message propre au plan — un plan perdu est un dessin perdu, pas un asset qu'on retrouve dans la bibliothèque. </dd></dl>
+
+</div>
+</div>
+<a id="a9366e2431a72f64f6fd73414bc2421e5" name="a9366e2431a72f64f6fd73414bc2421e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9366e2431a72f64f6fd73414bc2421e5">&#9670;&#160;</a></span>connectPlanesPanel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::connectPlanesPanel </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Branche le panneau « Plans » (<span class="tt">LOT-69</span> TACHE-08) : il demande, le viewport applique. </p>
 
 </div>
 </div>
@@ -813,6 +943,65 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 
 </div>
 </div>
+<a id="ac0d13c9ba2e418481dad5e0f6d3fc107" name="ac0d13c9ba2e418481dad5e0f6d3fc107"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0d13c9ba2e418481dad5e0f6d3fc107">&#9670;&#160;</a></span>createPlane()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::createPlane </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crée un plan : un PNG entièrement transparent aux dimensions exactes, puis l'entrée dans le brouillon. </p>
+<p>Les deux vont ensemble — une entrée sans fichier afficherait un damier. </p>
+
+</div>
+</div>
+<a id="a2d1f33de682c39a3c520bfc344b5ab59" name="a2d1f33de682c39a3c520bfc344b5ab59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d1f33de682c39a3c520bfc344b5ab59">&#9670;&#160;</a></span>eventFilter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::MainWindow::eventFilter </td>
+          <td>(</td>
+          <td class="paramtype">QObject *</td>          <td class="paramname"><span class="paramname"><em>watched</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QEvent *</td>          <td class="paramname"><span class="paramname"><em>event</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Suit la taille du viewport pour les recouvrements qui s'y superposent (pause, fin de niveau) : enfants ordinaires depuis le <span class="tt">LOT-69</span> TACHE-02, ils se redimensionnent avec leur parent plutôt que d'être repositionnés en coordonnées écran. </p>
+
+</div>
+</div>
 <a id="aaed7c2d32c2c0fcfd68f9bdf62c7b4bb" name="aaed7c2d32c2c0fcfd68f9bdf62c7b4bb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaed7c2d32c2c0fcfd68f9bdf62c7b4bb">&#9670;&#160;</a></span>layoutKeyFor()</h2>
 
@@ -867,6 +1056,34 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 
 </div>
 </div>
+<a id="ae2b6d081350501e8eff3e2915235dc08" name="ae2b6d081350501e8eff3e2915235dc08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2b6d081350501e8eff3e2915235dc08">&#9670;&#160;</a></span>loadPlaneIntoCanvas()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::loadPlaneIntoCanvas </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Charge le PNG du plan <code class="param">index</code> dans <span class="tt"><a class="el" href="#a82d3a9dc41ae7d2ec973430715219e5e" title="Canevas de l&#39;atelier pixel art (dock Atelier, LOT-54 TACHE-04) : seconde implémentation de EditContex...">_pixelCanvas</a></span>, avec ses repères (pelure d'oignon des tuiles sous le plan, plans voisins aplatis dessous et dessus, grille de tuiles). </p>
+<p>Sans effet — et le canevas est refermé — si le rang n'existe pas. Le garde-fou de perte de travail est à la charge de l'appelant : cette méthode écrase le contenu du canevas. </p>
+
+</div>
+</div>
 <a id="a8f4ec20153d8d14d3ab9a602f56a466b" name="a8f4ec20153d8d14d3ab9a602f56a466b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8f4ec20153d8d14d3ab9a602f56a466b">&#9670;&#160;</a></span>moveEvent()</h2>
 
@@ -889,8 +1106,6 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Même resynchronisation que <span class="tt"><a class="el" href="#a0c75214acd44c6e1bef12db335abd37f" title="Resynchronise la géométrie des recouvrements d&#39;écran (_pauseScreen/_levelCompleteScreen,...">resizeEvent</a></span>, nécessaire en plus de lui : un recouvrement est une fenêtre de haut niveau positionnée en coordonnées <b>écran</b> (<span class="tt"><a class="el" href="#a3c0c05a1d1a9c7b062644a4bbba9e2c4" title="Positionne _pauseScreen/_levelCompleteScreen (fenêtres de haut niveau) pour recouvrir exactement _edi...">syncOverlayGeometry</a></span>), donc déplacer la fenêtre principale sans la redimensionner (aucun <span class="tt"><a class="el" href="#a0c75214acd44c6e1bef12db335abd37f" title="Resynchronise la géométrie des recouvrements d&#39;écran (_pauseScreen/_levelCompleteScreen,...">resizeEvent</a></span>) la désaligne quand même. </p>
 
 </div>
 </div>
@@ -1189,7 +1404,59 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 </div><div class="memdoc">
 
 <p>Nom logique de l'asset ouvert, relatif à <span class="tt">Assets/</span> (ex. </p>
-<p><span class="tt">"Skins/mur.png"</span>) : la clé sous laquelle <span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures Direct3D 11 désignées par leur nom de fichier logique.">hmi::TextureCache</a></span>/<span class="tt"><a class="el" href="classhmi_1_1GameViewport.html#a447c144c52c54657cb29e4b7473e8f3b" title="Rechargement à chaud ciblé d&#39;un seul asset (LOT-43 TACHE-03).">GameViewport::invalidateAsset</a></span> connaissent cet asset — un simple nom de fichier ne suffit pas, le cache est indexé par chemin complet (préfixe de sous-dossier compris). </p>
+<p><span class="tt">"Skins/mur.png"</span>) : la clé sous laquelle <span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures GPU désignées par leur nom de fichier logique.">hmi::TextureCache</a></span>/<span class="tt"><a class="el" href="classhmi_1_1GameViewport.html#a447c144c52c54657cb29e4b7473e8f3b" title="Rechargement à chaud ciblé d&#39;un seul asset (LOT-43 TACHE-03).">GameViewport::invalidateAsset</a></span> connaissent cet asset — un simple nom de fichier ne suffit pas, le cache est indexé par chemin complet (préfixe de sous-dossier compris). </p>
+
+</div>
+</div>
+<a id="a07b944975d592b5ec452733b50827789" name="a07b944975d592b5ec452733b50827789"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07b944975d592b5ec452733b50827789">&#9670;&#160;</a></span>planeFilePath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::MainWindow::planeFilePath </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le chemin du PNG du plan de rang <code class="param">index</code>, vide si le rang n'existe pas. </dd></dl>
+
+</div>
+</div>
+<a id="aecde93c971ddc897c53a114cfbcba9ef" name="aecde93c971ddc897c53a114cfbcba9ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecde93c971ddc897c53a114cfbcba9ef">&#9670;&#160;</a></span>planesDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::MainWindow::planesDirectory </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le dossier des images de plans, à côté des niveaux. </dd></dl>
 
 </div>
 </div>
@@ -1328,6 +1595,33 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 
 </div>
 </div>
+<a id="adff4abfa93ae5ca39e57e306f9786a69" name="adff4abfa93ae5ca39e57e306f9786a69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adff4abfa93ae5ca39e57e306f9786a69">&#9670;&#160;</a></span>refreshPlaneReferences()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::refreshPlaneReferences </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reconstruit les repères du plan ouvert depuis le brouillon courant : appelé après toute mutation qui les périme (ordre, densité, opacité, visibilité, taille du niveau). </p>
+
+</div>
+</div>
 <a id="ace1ef846c7704477a23af655b4f78e74" name="ace1ef846c7704477a23af655b4f78e74"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ace1ef846c7704477a23af655b4f78e74">&#9670;&#160;</a></span>refreshStatusHelp()</h2>
 
@@ -1405,7 +1699,7 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 </table>
 </div><div class="memdoc">
 
-<p>Resynchronise la géométrie des recouvrements d'écran (<span class="tt"><a class="el" href="#ac65d1b4ea7fccdd8969abcdf83254cd8" title="Recouvrement de pause (LOT-59 TACHE-02) : fenêtre de haut niveau possédée par this (Qt::Tool | Qt::Fr...">_pauseScreen</a></span>/<span class="tt"><a class="el" href="#a7afaff28276c2b437ddf7323c924ed23" title="Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même patron que _pauseScreen ci-dessus (fe...">_levelCompleteScreen</a></span>, <span class="tt">LOT-59</span> TACHE-02/03) &ndash; fenêtres de haut niveau positionnées à la main, jamais redimensionnées automatiquement par <span class="tt"><a class="el" href="#a408483202779acb367aee2733d8b28c7" title="Central : empile menu principal, options et viewport.">_stack</a></span>. </p>
+<p>Resynchronise la géométrie des recouvrements d'écran (<span class="tt"><a class="el" href="#ac65d1b4ea7fccdd8969abcdf83254cd8" title="Recouvrement de pause (LOT-59 TACHE-02) : widget enfant ordinaire du viewport depuis le LOT-69 TACHE-...">_pauseScreen</a></span>/<span class="tt"><a class="el" href="#a7afaff28276c2b437ddf7323c924ed23" title="Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même patron que _pauseScreen ci-dessus (fe...">_levelCompleteScreen</a></span>, <span class="tt">LOT-59</span> TACHE-02/03) &ndash; fenêtres de haut niveau positionnées à la main, jamais redimensionnées automatiquement par <span class="tt"><a class="el" href="#a408483202779acb367aee2733d8b28c7" title="Central : empile menu principal, options et viewport.">_stack</a></span>. </p>
 
 </div>
 </div>
@@ -1619,6 +1913,34 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 </div><div class="memdoc">
 
 <p>Enregistre <span class="tt"><a class="el" href="#aea2c791ab6d35fa22a0f186c128de6af" title="Palette de projet, chargée/enregistrée dans Assets/palettes.json.">_pixelPalette</a></span> dans <span class="tt">Assets/palettes.json</span>, journalise un échec éventuel. </p>
+
+</div>
+</div>
+<a id="a57124ac2472d9e372b444d41b17c6438" name="a57124ac2472d9e372b444d41b17c6438"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57124ac2472d9e372b444d41b17c6438">&#9670;&#160;</a></span>savePlaneImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::savePlaneImage </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Écrit l'image du canevas dans le PNG du plan ouvert (<span class="tt">Ctrl+S</span> dans l'espace « Plans »). </p>
+<p>Sans effet si aucun plan n'y est chargé. </p>
 
 </div>
 </div>
@@ -1874,33 +2196,6 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 
 </div>
 </div>
-<a id="a3c0c05a1d1a9c7b062644a4bbba9e2c4" name="a3c0c05a1d1a9c7b062644a4bbba9e2c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c0c05a1d1a9c7b062644a4bbba9e2c4">&#9670;&#160;</a></span>syncOverlayGeometry()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::MainWindow::syncOverlayGeometry </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Positionne <span class="tt"><a class="el" href="#ac65d1b4ea7fccdd8969abcdf83254cd8" title="Recouvrement de pause (LOT-59 TACHE-02) : fenêtre de haut niveau possédée par this (Qt::Tool | Qt::Fr...">_pauseScreen</a></span>/<span class="tt"><a class="el" href="#a7afaff28276c2b437ddf7323c924ed23" title="Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même patron que _pauseScreen ci-dessus (fe...">_levelCompleteScreen</a></span> (fenêtres de haut niveau) pour recouvrir exactement <span class="tt"><a class="el" href="#ac5c63412581fcf98bd57cfe47e5b3510" title="Conteneur natif du viewport (page éditeur/jeu).">_editorContainer</a></span> <b>en coordonnées écran</b> (<span class="tt">LOT-59</span> TACHE-02/03/07) &ndash; appelé à la création et à chaque déplacement/redimensionnement de la fenêtre principale (<span class="tt"><a class="el" href="#a8f4ec20153d8d14d3ab9a602f56a466b" title="Même resynchronisation que resizeEvent, nécessaire en plus de lui : un recouvrement est une fenêtre d...">moveEvent</a></span>/<span class="tt"><a class="el" href="#a0c75214acd44c6e1bef12db335abd37f" title="Resynchronise la géométrie des recouvrements d&#39;écran (_pauseScreen/_levelCompleteScreen,...">resizeEvent</a></span>). </p>
-
-</div>
-</div>
 <a id="a995770117dd47f09b9d2754a0216e9bb" name="a995770117dd47f09b9d2754a0216e9bb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a995770117dd47f09b9d2754a0216e9bb">&#9670;&#160;</a></span>syncPaletteToCanvas()</h2>
 
@@ -2033,7 +2328,7 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 </table>
 </div><div class="memdoc">
 
-<p>Écrit l'image en cours sur <span class="tt"><a class="el" href="#a8693f7156ad8338ea1e88913cf266855" title="Chemin complet du fichier de l&#39;asset ouvert dans l&#39;atelier, vide si aucun ou pas encore enregistré (L...">_pixelAssetPath</a></span> et invalide son entrée de <span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures Direct3D 11 désignées par leur nom de fichier logique.">TextureCache</a></span>, pour que le niveau affiché reflète l'édition en cours — sans effet tant qu'aucun chemin n'est associé (asset pas encore enregistré une première fois, TACHE-05). </p>
+<p>Écrit l'image en cours sur <span class="tt"><a class="el" href="#a8693f7156ad8338ea1e88913cf266855" title="Chemin complet du fichier de l&#39;asset ouvert dans l&#39;atelier, vide si aucun ou pas encore enregistré (L...">_pixelAssetPath</a></span> et invalide son entrée de <span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures GPU désignées par leur nom de fichier logique.">TextureCache</a></span>, pour que le niveau affiché reflète l'édition en cours — sans effet tant qu'aucun chemin n'est associé (asset pas encore enregistré une première fois, TACHE-05). </p>
 
 </div>
 </div>
@@ -2064,6 +2359,32 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 
 </div>
 </div>
+<a id="abc59a0bb011931c1f52b4e75cd5d28b3" name="abc59a0bb011931c1f52b4e75cd5d28b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc59a0bb011931c1f52b4e75cd5d28b3">&#9670;&#160;</a></span>workspaceFromSettingsName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehmi.html#afc2e687c85989440c76b94c012a1b91d">EditorWorkspace</a> hmi::MainWindow::workspaceFromSettingsName </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'espace nommé <code class="param">name</code> ; l'édition de niveau si le nom est inconnu (y compris les anciens <span class="tt">0</span>/<span class="tt">1</span> du <span class="tt">LOT-68</span>). </dd></dl>
+
+</div>
+</div>
 <a id="a75703620647423eab281de7ea851ec34" name="a75703620647423eab281de7ea851ec34"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a75703620647423eab281de7ea851ec34">&#9670;&#160;</a></span>workspacePanels()</h2>
 
@@ -2087,6 +2408,58 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>La table des neuf panneaux et de leur identité, relue par <span class="tt"><a class="el" href="#ad46f19e154147f414a4ca0817086c2ac" title="Montre/masque tous les panneaux dockables.">setDocksVisible</a></span> <b>et</b> par <span class="tt"><a class="el" href="#a99822a539e006f30711402f737385bff" title="Applique l&#39;espace de travail workspace (LOT-68, EX-IHM-073) : masque les panneaux de l&#39;autre espace,...">applyWorkspace</a></span>. Une seule table : deux listes divergeraient au premier dock ajouté, et le dock oublié resterait affiché dans les deux espaces. </dd></dl>
+
+</div>
+</div>
+<a id="a027b04a3b312514563ce3a0d81600192" name="a027b04a3b312514563ce3a0d81600192"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a027b04a3b312514563ce3a0d81600192">&#9670;&#160;</a></span>workspaceSelector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QAction * hmi::MainWindow::workspaceSelector </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#afc2e687c85989440c76b94c012a1b91d">EditorWorkspace</a></td>          <td class="paramname"><span class="paramname"><em>workspace</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'entrée de menu exclusive qui sélectionne <code class="param">workspace</code>. </dd></dl>
+
+</div>
+</div>
+<a id="a5136cda0984d0b96d9ae1c6051adb0ea" name="a5136cda0984d0b96d9ae1c6051adb0ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5136cda0984d0b96d9ae1c6051adb0ea">&#9670;&#160;</a></span>workspaceSettingsName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::MainWindow::workspaceSettingsName </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#afc2e687c85989440c76b94c012a1b91d">EditorWorkspace</a></td>          <td class="paramname"><span class="paramname"><em>workspace</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le nom sous lequel <code class="param">workspace</code> est persisté. Un <b>nom</b>, jamais l'indice de l'énumération : le <span class="tt">LOT-68</span> écrivait 0/1, et insérer « Plans » entre les deux aurait fait rouvrir en mode création l'éditeur laissé dans l'atelier. </dd></dl>
 
 </div>
 </div>
@@ -2235,31 +2608,6 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 
 </div>
 </div>
-<a id="a5f1add76ec84a6e36c0c848293e2afcd" name="a5f1add76ec84a6e36c0c848293e2afcd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f1add76ec84a6e36c0c848293e2afcd">&#9670;&#160;</a></span>_decors</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classhmi_1_1DecorsPanel.html">DecorsPanel</a>* hmi::MainWindow::_decors</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Placement/inspection de décors (dock Décors, <span class="tt">LOT-57</span> amendement) — contenait déjà tout ce qui concerne les décors (<span class="tt">ToolPanel</span>, <span class="tt">LOT-56</span> TACHE-04) avant d'y accueillir aussi l'inspecteur déplacé du panneau Textures. </p>
-<p>La barre d'outils reste hors de ce panneau. </p>
-
-</div>
-</div>
 <a id="aa0f18b423a6be1bda623de58166a835f" name="aa0f18b423a6be1bda623de58166a835f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa0f18b423a6be1bda623de58166a835f">&#9670;&#160;</a></span>_defaultState</h2>
 
@@ -2306,30 +2654,6 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 
 <p>Contexte d'édition actif, cible d'Annuler/Refaire/Copier/Coller (<span class="tt">LOT-57</span> TACHE-04) : <span class="tt">
 <a class="el" href="#a1ed57ff25b1be1c311886896b1ae444f" title="Surface de rendu D3D11 (possédée par le conteneur central).">_viewport</a></span> (niveau) ou <span class="tt"><a class="el" href="#a82d3a9dc41ae7d2ec973430715219e5e" title="Canevas de l&#39;atelier pixel art (dock Atelier, LOT-54 TACHE-04) : seconde implémentation de EditContex...">_pixelCanvas</a></span> (atelier pixel art, <span class="tt">LOT-54</span> TACHE-04), selon le widget qui a le focus clavier (<span class="tt"><a class="el" href="#aef651eacf7d4b0696a0ec0bfbc1d0483" title="Réassigne le contexte d&#39;édition actif (_editContext) et le contexte de la barre d&#39;état selon le widge...">updateActiveEditContext</a></span>) — le dispatch lui-même ne change jamais. </p>
-
-</div>
-</div>
-<a id="ac5c63412581fcf98bd57cfe47e5b3510" name="ac5c63412581fcf98bd57cfe47e5b3510"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5c63412581fcf98bd57cfe47e5b3510">&#9670;&#160;</a></span>_editorContainer</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QWidget* hmi::MainWindow::_editorContainer</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Conteneur natif du viewport (page éditeur/jeu). </p>
 
 </div>
 </div>
@@ -2399,7 +2723,7 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 </table>
 </div><div class="memdoc">
 
-<p>Recouvrement de fin de niveau/séquence (<span class="tt">LOT-59</span> TACHE-03) : même patron que <span class="tt"><a class="el" href="#ac65d1b4ea7fccdd8969abcdf83254cd8" title="Recouvrement de pause (LOT-59 TACHE-02) : fenêtre de haut niveau possédée par this (Qt::Tool | Qt::Fr...">_pauseScreen</a></span> ci-dessus (fenêtre de haut niveau, pas un enfant de <span class="tt"><a class="el" href="#a408483202779acb367aee2733d8b28c7" title="Central : empile menu principal, options et viewport.">_stack</a></span>). </p>
+<p>Recouvrement de fin de niveau/séquence (<span class="tt">LOT-59</span> TACHE-03) : même patron que <span class="tt"><a class="el" href="#ac65d1b4ea7fccdd8969abcdf83254cd8" title="Recouvrement de pause (LOT-59 TACHE-02) : widget enfant ordinaire du viewport depuis le LOT-69 TACHE-...">_pauseScreen</a></span> ci-dessus (fenêtre de haut niveau, pas un enfant de <span class="tt"><a class="el" href="#a408483202779acb367aee2733d8b28c7" title="Central : empile menu principal, options et viewport.">_stack</a></span>). </p>
 
 </div>
 </div>
@@ -2471,7 +2795,8 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 </table>
 </div><div class="memdoc">
 
-<p>Liste/gestion des liaisons de mécanismes (dock Liens, LOT-37). </p>
+<p>Placement/inspection de décors (dock Décors, <span class="tt">LOT-57</span> amendement) — contenait déjà tout ce qui concerne les décors (<span class="tt">ToolPanel</span>, <span class="tt">LOT-56</span> TACHE-04) avant d'y accueillir aussi l'inspecteur déplacé du panneau Textures. </p>
+<p>La barre d'outils reste hors de ce panneau. Liste/gestion des liaisons de mécanismes (dock Liens, LOT-37). </p>
 
 </div>
 </div>
@@ -2613,6 +2938,31 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 
 </div>
 </div>
+<a id="a4fdeb032e52fa354689e76c11872980f" name="a4fdeb032e52fa354689e76c11872980f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fdeb032e52fa354689e76c11872980f">&#9670;&#160;</a></span>_paintedPlane</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; hmi::MainWindow::_paintedPlane</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rang du plan actuellement peint dans <span class="tt"><a class="el" href="#a82d3a9dc41ae7d2ec973430715219e5e" title="Canevas de l&#39;atelier pixel art (dock Atelier, LOT-54 TACHE-04) : seconde implémentation de EditContex...">_pixelCanvas</a></span> (mode création, <span class="tt">LOT-69</span> TACHE-08) ; absent dès que le canevas sert à l'atelier pixel art. </p>
+<p>C'est ce qui distingue les deux usages du <b>même</b> canevas : où <span class="tt">Ctrl+S</span> écrit, quels repères afficher, et ce que la barre d'état annonce. Un plan et un asset n'y sont jamais ouverts en même temps. </p>
+
+</div>
+</div>
 <a id="af1127880bfad8cb9a4e49eb5c072ca08" name="af1127880bfad8cb9a4e49eb5c072ca08"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af1127880bfad8cb9a4e49eb5c072ca08">&#9670;&#160;</a></span>_palette</h2>
 
@@ -2657,8 +3007,8 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 </table>
 </div><div class="memdoc">
 
-<p>Recouvrement de pause (<span class="tt">LOT-59</span> TACHE-02) : fenêtre de <b>haut niveau</b> possédée par <span class="tt">this</span> (<span class="tt">Qt::Tool | Qt::FramelessWindowHint</span>, fond translucide), jamais une page ni un enfant de <span class="tt"><a class="el" href="#a408483202779acb367aee2733d8b28c7" title="Central : empile menu principal, options et viewport.">_stack</a></span> &ndash; une fenêtre native embarquée via <span class="tt">QWidget::createWindowContainer</span> (<span class="tt"><a class="el" href="#ac5c63412581fcf98bd57cfe47e5b3510" title="Conteneur natif du viewport (page éditeur/jeu).">_editorContainer</a></span>) peint toujours par-dessus ses <b>frères</b> Qt ordinaires, quel que soit leur <span class="tt">raise()</span> : seule une fenêtre de haut niveau distincte se superpose de façon fiable (limitation documentée de Qt, constatée en jeu : <span class="tt">TACHE-07</span>). </p>
-<p>Géométrie synchronisée en coordonnées <b>écran</b> (<span class="tt"><a class="el" href="#a3c0c05a1d1a9c7b062644a4bbba9e2c4" title="Positionne _pauseScreen/_levelCompleteScreen (fenêtres de haut niveau) pour recouvrir exactement _edi...">syncOverlayGeometry</a></span>), visibilité pilotée par <span class="tt"><a class="el" href="#a69da7b7ed0aefd517ac564bd227ad5db" title="Bascule la page du QStackedWidget (seule part propre à Qt, hors de portée d&#39;une table pure) puis appl...">applyScreenDressing</a></span>. </p>
+<p>Recouvrement de pause (<span class="tt">LOT-59</span> TACHE-02) : <b>widget enfant ordinaire</b> du viewport depuis le <span class="tt">LOT-69</span> TACHE-02. </p>
+<p>Il fut une fenêtre de haut niveau tant que le viewport était une fenêtre native embarquée (<span class="tt">QWidget::createWindowContainer</span>), qui peignait toujours par-dessus ses frères Qt : le portage sur <span class="tt">QRhiWidget</span> efface cette contrainte, et avec elle la géométrie synchronisée en coordonnées écran. Visibilité pilotée par <span class="tt"><a class="el" href="#a69da7b7ed0aefd517ac564bd227ad5db" title="Bascule la page du QStackedWidget (seule part propre à Qt, hors de portée d&#39;une table pure) puis appl...">applyScreenDressing</a></span>, géométrie suivie par le filtre d'événements posé sur le viewport. </p>
 
 </div>
 </div>
@@ -2855,6 +3205,32 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 </div><div class="memdoc">
 
 <p>Barre d'outils du canevas pixel art (LOT-54 TACHE-04). </p>
+
+</div>
+</div>
+<a id="ad7b5a4376b4b8147c28a8b586ca98b4c" name="ad7b5a4376b4b8147c28a8b586ca98b4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7b5a4376b4b8147c28a8b586ca98b4c">&#9670;&#160;</a></span>_planes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1PlanesPanel.html">PlanesPanel</a>* hmi::MainWindow::_planes</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">                =</div>
+<div class="line"><span class="keyword">nullptr</span></div>
+</div><!-- fragment -->
+<p>Liste des plans picturaux (<span class="tt">LOT-69</span>, contenu du dock Plans). </p>
 
 </div>
 </div>

@@ -9,5 +9,6 @@ var searchData=
   ['flipvertical_6',['FlipVertical',['../namespacehmi.html#a5889df12c254317504ef5777d27d9b0ea17a90cd11c563123de1b1a3db779bee6',1,'hmi']]],
   ['follow_7',['Follow',['../namespacecore.html#a5c6444096b9bc21a78b1f1157e9070b6a3903aab323863bd2e9b68218a7a65ebd',1,'core']]],
   ['font_8',['Font',['../namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003a194f5394ae2e9c74dc3c441b92862d1d',1,'hmi']]],
-  ['foreground_9',['Foreground',['../namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20a45bd1d5b32931106efbf1a82fe6a732f',1,'core::Foreground'],['../namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a45bd1d5b32931106efbf1a82fe6a732f',1,'hmi::Foreground'],['../namespacehmi.html#acaf7f33926fae2f8294ef4ee5d24ba52a45bd1d5b32931106efbf1a82fe6a732f',1,'hmi::Foreground']]]
+  ['foreground_9',['Foreground',['../namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a45bd1d5b32931106efbf1a82fe6a732f',1,'hmi::Foreground'],['../namespacehmi.html#acaf7f33926fae2f8294ef4ee5d24ba52a45bd1d5b32931106efbf1a82fe6a732f',1,'hmi::Foreground']]],
+  ['front_10',['Front',['../namespacecore.html#a6dc89438a55a80980ab04f7da513f731a5835bab1ade0060909e31a06af2e2cde',1,'core']]]
 ];

@@ -66,5 +66,6 @@ var dir_7c7356e692772728ab91d19f773c60c4 =
     [ "LOT-64-cadrage-camera-choisi", "dir_cef68d7617ab81ad584c944a6d9df8f1.html", null ],
     [ "LOT-65-refonte-niveaux-demo", "dir_454f6987f77939194d4589233d509782.html", null ],
     [ "LOT-66-reproductibilite-referentiel", "dir_146ee2ab50310745620b47df046cb628.html", null ],
-    [ "LOT-67-trajectoires-editables", "dir_9e3885adf0d87e528b8a41ca7d746d7f.html", null ]
+    [ "LOT-67-trajectoires-editables", "dir_9e3885adf0d87e528b8a41ca7d746d7f.html", null ],
+    [ "LOT-69-plans-picturaux", "dir_ccd021c28de4c79e32cc826c4e6dbc30.html", null ]
 ];

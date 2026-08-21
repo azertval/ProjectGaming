@@ -95,14 +95,15 @@ $(function(){initNavTree('TextureCache_8h.html','',''); });
 
 <p>Registre de textures chargées à la demande par <b>nom logique</b> (<span class="tt">EX-REN-043</span>).  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;optional&gt;</code><br />
+<div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
-<code>#include &lt;d3d11.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="AnimationCatalog_8h_source.html">HMI/Graphics/AnimationCatalog.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="AssetContract_8h_source.html">HMI/Graphics/AssetContract.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="AssetPaths_8h_source.html">HMI/Graphics/AssetPaths.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="CacheRegistry_8h_source.html">HMI/Graphics/CacheRegistry.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="RhiContext_8h_source.html">HMI/Graphics/RhiContext.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SlopeMask_8h_source.html">HMI/Graphics/SlopeMask.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TextureLoader_8h_source.html">HMI/Graphics/TextureLoader.h</a>&quot;</code><br />
 </div>
@@ -111,7 +112,7 @@ $(function(){initNavTree('TextureCache_8h.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:hmi_3A_3ATextureCache" id="r_hmi_3A_3ATextureCache"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1TextureCache.html">hmi::TextureCache</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge, valide et met en cache des textures Direct3D 11 désignées par leur nom de fichier logique.  <a href="classhmi_1_1TextureCache.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge, valide et met en cache des textures GPU désignées par leur nom de fichier logique.  <a href="classhmi_1_1TextureCache.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>

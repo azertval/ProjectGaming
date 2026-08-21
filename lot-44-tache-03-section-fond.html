@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-44-tache-03-section-fond.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-44-fond-de-niveau_2tache-03-section-fond"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-44.html#md_Lot_2LOT-44-fond-de-niveau_2epic" title="Lot/LOT-44-fond-de-niveau/epic.md">LOT-44</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span>, <span class="tt">Source/HMI/CMakeLists.txt</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2075"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2085"></a>
 Contexte</h1>
 <p>Les deux champs ajoutés au niveau en TACHE-01 doivent être éditables. C'est la <b>deuxième</b> section du panneau « Textures » créé en LOT-42, et le premier test de son extensibilité : elle doit s'ajouter sans toucher à la section Skins ni au câblage de <span class="tt">MainWindow</span>.</p>
 <p>Différence importante avec la section Skins : celle-ci édite le <b>niveau courant</b>, pas une configuration globale. Elle doit donc passer par <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span> et bénéficier de son historique.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2076"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2086"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Section « Fond »</b> : sélection d'un asset parmi <span class="tt">Assets/Backgrounds/</span> (grille de vignettes de LOT-43), plus une entrée « aucun fond » explicite — retirer un fond doit être aussi simple que d'en poser un.</li>
@@ -108,32 +108,32 @@ Travail à réaliser</h1>
 <li><b>Dossier <span class="tt">Assets/Backgrounds/</span></b> + copie <span class="tt">POST_BUILD</span> dans <span class="tt">Source/HMI/CMakeLists.txt</span>.</li>
 <li>Traduction de toutes les chaînes, clés ajoutées aux deux catalogues.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2077"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2087"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/TexturePanel.{h,cpp}</span>, <span class="tt">Source/Elements/UI/TexturePanel.ui</span>.</li>
 <li><span class="tt">Source/Elements/Assets/Backgrounds/</span> (nouveau dossier), <span class="tt">Source/HMI/CMakeLists.txt</span>.</li>
 <li><span class="tt">Source/Elements/Localization/fr.lang</span>, <span class="tt">en.lang</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2078"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2088"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Effet d'une sélection sur le brouillon : assignation, retrait, annulation, rétablissement — logique pure testée sans Qt, sur <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span>.</li>
 <li>Le sélecteur de jeu du <b>niveau</b> et celui du <b>jeu courant d'édition</b> sont bien deux valeurs distinctes et ne se contaminent pas.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2079"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2089"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas confondre les deux sélecteurs de jeu de skins.</b> L'un est une propriété persistée du niveau, l'autre un réglage de session de l'éditeur. Les libellés doivent lever l'ambiguïté sans qu'on ait à consulter la documentation.</li>
 <li>Le fond fait partie du niveau : le modifier doit déclencher le garde-fou de perte de travail existant (confirmation avant de quitter sans enregistrer).</li>
 <li>Ne pas afficher le sélecteur de fond en mode Physique sans indication : l'utilisateur ne verrait aucun effet. Signaler que le rendu du fond requiert le mode Texture (<span class="tt">F8</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2080"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2090"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Le fond et le jeu de skins du niveau sont éditables depuis le panneau, annulables, persistés à l'enregistrement, et leur effet est immédiat dans le canevas ; le dossier est déployé ; toutes les chaînes sont traduites ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2081"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2091"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-044</span> (fond de niveau), <span class="tt">EX-EDIT-024</span> (jeu de skins par niveau) ; réutilise <span class="tt">EX-EDIT-026</span> (bibliothèque d'assets), <span class="tt">EX-EDIT-005</span> (annuler/refaire), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-IHM-010</span> (fenêtre à panneaux). </p>
 </div></div><!-- contents -->

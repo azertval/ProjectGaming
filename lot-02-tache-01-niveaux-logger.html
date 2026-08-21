@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-02-tache-01-niveaux-logger.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-02-journalisation_2tache-01-niveaux-logger"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-02.html#md_Lot_2LOT-02-journalisation_2epic" title="Lot/LOT-02-journalisation/epic.md">LOT-02</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Diagnostics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md389"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md399"></a>
 Contexte</h1>
 <p>Base du système de journalisation : définir les niveaux et un <span class="tt">Logger</span> qui filtre puis diffuse les messages vers des sinks (TACHE-02).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md390"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md400"></a>
 Travail à réaliser</h1>
 <ul>
 <li><span class="tt">LogLevel</span> (<span class="tt">enum class</span>) : <span class="tt">Trace</span>, <span class="tt">Info</span>, <span class="tt">Warning</span>, <span class="tt">Error</span> (ordre croissant de gravité).</li>
@@ -109,7 +109,7 @@ Travail à réaliser</h1>
 </li>
 <li>Le <span class="tt">Logger</span> <b>possède</b> ses sinks (RAII) et n'utilise aucun état global caché (une instance explicite ; un accesspoint global optionnel viendra à l'intégration).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md391"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md401"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="LogLevel_8h.html" title="Niveaux de journalisation, par gravité croissante.">Source/Core/Diagnostics/LogLevel.h</a></span> (nouveau).</li>
@@ -117,26 +117,26 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Core/CMakeLists.txt</span>.</li>
 <li><span class="tt">Source/Test/Unit/test_logger.cpp</span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md392"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md402"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Un message de niveau ≥ niveau minimal est transmis aux sinks.</li>
 <li>Un message de niveau &lt; niveau minimal est filtré (aucun sink appelé).</li>
 <li>Plusieurs sinks reçoivent le même message.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md393"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md403"></a>
 Points d'attention</h1>
 <ul>
 <li>Conventions : <span class="tt">enum class</span>, <span class="tt">_camelCase</span>, <span class="tt">[[nodiscard]]</span> sur les accès purs, documentation <span class="tt">.h</span> + <span class="tt">.cpp</span>.</li>
 <li>Pas de dépendance système dans <span class="tt">Logger</span> (les I/O concrètes sont dans les sinks).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md394"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md404"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Filtrage et diffusion corrects, testés (<span class="tt">ctest</span> vert).</li>
 <li>Compile <span class="tt">/W4 /WX</span>, formaté, documenté Doxygen.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md395"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md405"></a>
 Exigences</h1>
 <p>Conventions §10 ; <span class="tt">EX-NFR-010</span>, <span class="tt">EX-NFR-020</span>. </p>
 </div></div><!-- contents -->

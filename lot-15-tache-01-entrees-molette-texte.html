@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-15-tache-01-entrees-molette-texte.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-15-editeur-industriel_2tache-01-entrees-molette-texte"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-15.html#md_Lot_2LOT-15-editeur-industriel_2epic" title="Lot/LOT-15-editeur-industriel/epic.md">LOT-15</a> · <b>Emplacement :</b> <span class="tt">HMI/Input</span>, <span class="tt">HMI/Platform</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1017"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1027"></a>
 Contexte</h1>
 <p>Le zoom caméra (TACHE-04) et la saisie de nom de niveau (TACHE-02) ont besoin de deux entrées qu'<span class="tt">InputState</span> ne capture pas aujourd'hui : le delta de la molette et les caractères tapés au clavier (<span class="tt">WM_CHAR</span>, distinct des codes virtuels <span class="tt">WM_KEYDOWN</span> déjà gérés). Cette tâche pose ces fondations avant les tâches qui les consomment.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1018"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1028"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Molette</b> : <span class="tt">InputState</span> gagne un accumulateur de delta molette, remis à zéro à chaque <span class="tt">beginFrame()</span> (même cycle que les fronts pressée/relâchée) et une méthode <span class="tt">wheelDelta() const</span>. <span class="tt">Window::handleMessage</span> capture <span class="tt">WM_MOUSEWHEEL</span> (<span class="tt">GET_WHEEL_DELTA_WPARAM</span>) et l'accumule via une nouvelle méthode <span class="tt">InputState::onMouseWheel(int delta)</span>.</li>
@@ -106,35 +106,35 @@ Travail à réaliser</h1>
 <li><span class="tt">InputState</span> reste <b>indépendant de toute fenêtre</b> (aucune dépendance <span class="tt">&lt;Windows.h&gt;</span>, même principe que l'existant) : les événements s'injectent directement, ce qui le garde testable en isolation (<span class="tt">EX-NFR-010</span>).</li>
 <li><b>Nouveaux énumérateurs <span class="tt">Key</span></b> nécessaires aux tâches suivantes de ce lot (aucun n'existe aujourd'hui — seuls <span class="tt">A, D, P, Q, S, W, Y, Z</span> et les touches spéciales sont nommés) : <span class="tt">F1</span> (<span class="tt">0x70</span>, aide des raccourcis, TACHE-06), <span class="tt">F2</span> (<span class="tt">0x71</span>, renommer, TACHE-03), <span class="tt">D0</span> (<span class="tt">0x30</span>, réinitialiser la caméra, TACHE-04), <span class="tt">C</span> (<span class="tt">0x43</span>) et <span class="tt">V</span> (<span class="tt">0x56</span>) (copier/coller, TACHE-05). Purement additif, à l'identique du principe déjà documenté sur <span class="tt">Key</span> (« ajouter une touche revient à ajouter un énumérateur ») : les codes <span class="tt">VK_*</span> correspondants sont déjà transmis tels quels par <span class="tt">Window</span>/<span class="tt">InputState</span>, aucune autre modification requise. Le <b>changement d'outil</b> (TACHE-05) réutilise <span class="tt">Key::Tab</span>, déjà déclaré et disponible dans l'éditeur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1019"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1029"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame.">Source/HMI/Input/InputState.h</a></span>/<span class="tt">.cpp</span>.</li>
 <li><span class="tt">Source/HMI/Platform/Window.cpp</span> (deux nouveaux <span class="tt">case</span> dans <span class="tt">handleMessage</span>).</li>
 <li><span class="tt"><a class="el" href="test__input__state_8cpp.html" title="Tests unitaires de l&#39;état des entrées : fronts clavier/souris et position.">Source/Test/Unit/HMI/Input/test_input_state.cpp</a></span> (ou équivalent existant).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1020"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1030"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">wheelDelta()</span> reflète la somme des deltas injectés depuis le dernier <span class="tt">beginFrame()</span>, et revient à zéro après.</li>
 <li><span class="tt">typedCharacters()</span> reflète, dans l'ordre, les caractères injectés depuis le dernier <span class="tt">beginFrame()</span>, et est vide après.</li>
 <li>Aucune régression sur les fronts clavier/souris existants (tests déjà présents).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1021"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1031"></a>
 Points d'attention</h1>
 <ul>
 <li>Ne pas confondre <span class="tt">WM_CHAR</span> (caractère déjà traduit selon la disposition clavier active, nécessaire pour un champ de saisie multilingue) et <span class="tt">WM_KEYDOWN</span> (code virtuel physique, déjà utilisé pour les raccourcis) : les deux coexistent, aucun des deux ne remplace l'autre.</li>
 <li><span class="tt">TranslateMessage</span> (déjà appelé dans <span class="tt">pumpMessages</span>) est le prérequis Win32 à la génération de <span class="tt">WM_CHAR</span> à partir de <span class="tt">WM_KEYDOWN</span> — vérifier qu'il est bien en amont dans la boucle de messages (déjà le cas).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1022"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1032"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Molette et texte tapé disponibles via <span class="tt">InputState</span>, testés (<span class="tt">ctest</span> vert), sans dépendance fenêtre ; build <span class="tt">/W4 /WX</span> ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1023"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1033"></a>
 Exigences</h1>
 <p><span class="tt">EX-NFR-010</span> (support des tâches suivantes, aucune exigence fonctionnelle propre).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1024"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1034"></a>
 Ajustement post-livraison (essai utilisateur)</h1>
 <p>Un énumérateur <span class="tt">F10</span> (<span class="tt">0x79</span>) a été ajouté après coup, pour la bascule de la grille de repère (TACHE-06, elle-même ajoutée après un essai utilisateur — voir sa fiche). Contrairement aux autres touches nommées ici, <span class="tt">F10</span> a exigé plus qu'un énumérateur : un essai interactif a montré qu'elle ne déclenchait jamais rien, car Win32 délivre <span class="tt">F10</span> (et les combinaisons <span class="tt">Alt</span>+quelque-chose) via <span class="tt">WM_SYSKEYDOWN</span>/<span class="tt">WM_SYSKEYUP</span>, pas <span class="tt">WM_KEYDOWN</span>/<span class="tt">WM_KEYUP</span> (convention historique d'activation du menu). <span class="tt">Window::handleMessage</span> capture désormais aussi ces deux messages, enregistrés dans <span class="tt">InputState</span> comme les autres touches, tout en laissant <span class="tt">DefWindowProcW</span> traiter le comportement système par défaut (<span class="tt">Alt+F4</span>, <span class="tt">Alt+Tab</span>) — sauf pour <span class="tt">F10</span> lui-même, absorbé pour éviter l'activation visuelle, inutile ici, du (non-)système de menu de la fenêtre. </p>
 </div></div><!-- contents -->

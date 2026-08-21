@@ -1,6 +1,5 @@
 var structhmi_1_1SceneTextures =
 [
-    [ "decorIndexOf", "structhmi_1_1SceneTextures.html#acd8dde4cfc2c1221fbe22431b338f9cc", null ],
     [ "heightFor", "structhmi_1_1SceneTextures.html#abce6688963dc3a0b879a9b86391326e8", null ],
     [ "objectAt", "structhmi_1_1SceneTextures.html#aa1f53300392e7e5fdd073f05270eabd6", null ],
     [ "objectIndexOf", "structhmi_1_1SceneTextures.html#a34031672bcb7354b6e3203bec45ca724", null ],
@@ -14,7 +13,6 @@ var structhmi_1_1SceneTextures =
     [ "characterSheet", "structhmi_1_1SceneTextures.html#a4e00b051177e2867cf09ce0681fcf9cd", null ],
     [ "characterSheetHeight", "structhmi_1_1SceneTextures.html#a5b50d924a3f3e54e96fc5c47c5486e4e", null ],
     [ "characterSheetWidth", "structhmi_1_1SceneTextures.html#a128662efa22b13bb8df675ee2d385feb", null ],
-    [ "decors", "structhmi_1_1SceneTextures.html#a470db204d79ec606b21f0f7bf366d4ed", null ],
     [ "missing", "structhmi_1_1SceneTextures.html#adceae0832473287b37779cbba8abf54f", null ],
     [ "missingHeight", "structhmi_1_1SceneTextures.html#a40f4f8e34b7c5fbeeeee31cf81fb9ee8", null ],
     [ "missingWidth", "structhmi_1_1SceneTextures.html#a5f3ab270a3963d1d214c9e7fa0b27390", null ],

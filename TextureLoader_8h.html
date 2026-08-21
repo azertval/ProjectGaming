@@ -93,23 +93,23 @@ $(function(){initNavTree('TextureLoader_8h.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Chargement de textures Direct3D 11 depuis des fichiers image (<span class="tt">EX-REN-041</span>).  
+<p>Chargement de textures GPU depuis des fichiers image (<span class="tt">EX-REN-041</span>), au travers de QRhi.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;d3d11.h&gt;</code><br />
-<code>#include &lt;wrl/client.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="RenderLayer_8h_source.html">HMI/Graphics/RenderLayer.h</a>&quot;</code><br />
 </div>
 <p><a href="TextureLoader_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:hmi_3A_3ADecodedImage" id="r_hmi_3A_3ADecodedImage"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DecodedImage.html">hmi::DecodedImage</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pixels RGBA décodés d'un fichier image, alpha <b>non prémultiplié</b> (cohérent avec le blend state de <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage nearest (pixel art).">SpriteBatch</a></span>, <span class="tt">D3D11_BLEND_SRC_ALPHA</span>), au format <span class="tt">R8G8B8A8_UNORM</span>.  <a href="structhmi_1_1DecodedImage.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pixels RGBA décodés d'un fichier image, alpha <b>non prémultiplié</b> (cohérent avec le mélange du pipeline de <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés au travers de QRhi, avec transparence et échantillonnage nearest (pixel ar...">SpriteBatch</a></span>, <span class="tt">SrcAlpha</span>/<span class="tt">OneMinusSrcAlpha</span>), au format <span class="tt">RGBA8</span>.  <a href="structhmi_1_1DecodedImage.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3ALoadedTexture" id="r_hmi_3A_3ALoadedTexture"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1LoadedTexture.html">hmi::LoadedTexture</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture Direct3D 11 chargée et sa vue de ressource (RAII, <span class="tt">ComPtr</span>).  <a href="structhmi_1_1LoadedTexture.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture GPU chargée (RAII).  <a href="structhmi_1_1LoadedTexture.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -121,13 +121,13 @@ Functions</h2></td></tr>
 <tr class="memdesc:a22c3bcff9f77b4c4df7938a08c036dfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décode un fichier image (PNG au minimum) en pixels RGBA.  <br /></td></tr>
 <tr class="memitem:ae4e98112a456615557383e9b5d0d6252" id="r_ae4e98112a456615557383e9b5d0d6252"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ae4e98112a456615557383e9b5d0d6252">hmi::encodeImageFile</a> (const std::filesystem::path &amp;path, const <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;image)</td></tr>
 <tr class="memdesc:ae4e98112a456615557383e9b5d0d6252"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit un fichier PNG depuis des pixels RGBA déjà en mémoire — symétrique de <span class="tt"><a class="el" href="namespacehmi.html#a22c3bcff9f77b4c4df7938a08c036dfd" title="Décode un fichier image (PNG au minimum) en pixels RGBA.">decodeImageFile</a></span>.  <br /></td></tr>
-<tr class="memitem:a98f0f2d822288b333e00905f4cc60165" id="r_a98f0f2d822288b333e00905f4cc60165"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a98f0f2d822288b333e00905f4cc60165">hmi::createTexture</a> (ID3D11Device *device, int width, int height, const std::vector&lt; std::uint32_t &gt; &amp;pixels)</td></tr>
-<tr class="memdesc:a98f0f2d822288b333e00905f4cc60165"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée une texture Direct3D 11 immuable à partir de pixels RGBA déjà décodés.  <br /></td></tr>
-<tr class="memitem:af6ffcc39449660c80e3c1c5a53e6c1ec" id="r_af6ffcc39449660c80e3c1c5a53e6c1ec"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#af6ffcc39449660c80e3c1c5a53e6c1ec">hmi::loadTextureFromFile</a> (ID3D11Device *device, const std::filesystem::path &amp;path)</td></tr>
-<tr class="memdesc:af6ffcc39449660c80e3c1c5a53e6c1ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décode un fichier image puis crée la texture Direct3D 11 correspondante.  <br /></td></tr>
+<tr class="memitem:a4e6bdeca2a66b069fe3b093ee6670f0e" id="r_a4e6bdeca2a66b069fe3b093ee6670f0e"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a4e6bdeca2a66b069fe3b093ee6670f0e">hmi::createTexture</a> (const <a class="el" href="structhmi_1_1RhiContext.html">RhiContext</a> &amp;context, int width, int height, const std::vector&lt; std::uint32_t &gt; &amp;pixels)</td></tr>
+<tr class="memdesc:a4e6bdeca2a66b069fe3b093ee6670f0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée une texture GPU à partir de pixels RGBA déjà décodés.  <br /></td></tr>
+<tr class="memitem:a9821e11a6df2a1d3415b00f423657686" id="r_a9821e11a6df2a1d3415b00f423657686"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a9821e11a6df2a1d3415b00f423657686">hmi::loadTextureFromFile</a> (const <a class="el" href="structhmi_1_1RhiContext.html">RhiContext</a> &amp;context, const std::filesystem::path &amp;path)</td></tr>
+<tr class="memdesc:a9821e11a6df2a1d3415b00f423657686"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décode un fichier image puis crée la texture GPU correspondante.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Chargement de textures Direct3D 11 depuis des fichiers image (<span class="tt">EX-REN-041</span>). </p>
+<div class="textblock"><p>Chargement de textures GPU depuis des fichiers image (<span class="tt">EX-REN-041</span>), au travers de QRhi. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

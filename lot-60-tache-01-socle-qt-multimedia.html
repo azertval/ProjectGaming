@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-60-tache-01-socle-qt-multimedia.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-60-audio-bruitages_2tache-01-socle-qt-multimedia"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-60.html#md_Lot_2LOT-60-audio-bruitages_2epic" title="Lot/LOT-60-audio-bruitages/epic.md">LOT-60</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Audio</span>, <span class="tt">.github/workflows</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2723"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2733"></a>
 Contexte</h1>
 <p>Le projet dépend déjà de Qt (<span class="tt">Widgets</span>, <span class="tt">Gui</span>), provisionné sur trois environnements comme <span class="tt">EX-BUILD-010</span> l'exige : installeur officiel ou <span class="tt">aqtinstall</span> en local, <span class="tt">install-qt-action</span> en CI, <span class="tt">windeployqt</span> à la release. Ajouter l'audio revient à <b>ajouter un module</b> à une dépendance déjà maîtrisée, pas à en introduire une nouvelle — c'est tout l'intérêt du choix de Qt Multimedia.</p>
 <p>Le travail réel de cette tâche est donc moins le code que le <b>provisionnement</b> : si <span class="tt">qtmultimedia</span> n'est pas installé en CI, la cible est ignorée ou le build casse ; s'il n'est pas déployé par <span class="tt">windeployqt</span>, le zip de release démarre muet ou pas du tout, et personne ne s'en aperçoit avant qu'un joueur le signale.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2724"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2734"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Trouver <span class="tt">Qt6::Multimedia</span></b> dans <span class="tt">Source/HMI/CMakeLists.txt</span>, en composant additionnel, en conservant la garde existante : sans Qt, la cible <span class="tt">ProjectGaming</span> est ignorée sans faire échouer la configuration.</li>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 <li><b>Aucune exception à l'absence de périphérique</b> : l'ouverture qui échoue met le moteur dans un état « muet », journalise un avertissement, et toutes les demandes de lecture ultérieures ne font rien (<span class="tt">EX-NFR-040</span>).</li>
 <li><b>Vérifier le déploiement</b> : <span class="tt">windeployqt</span> (déjà appelé en <span class="tt">POST_BUILD</span>) doit déposer les bibliothèques et les greffons multimédia à côté de l'exécutable. Le contrôle « l'exécutable est bien produit » de <span class="tt">ci.yml</span> a un pendant à écrire ici : les bibliothèques audio sont présentes dans le dossier de sortie.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2725"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2735"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Audio/AudioEngine.{h,cpp}</span> (nouveau).</li>
@@ -115,7 +115,7 @@ Fichiers impactés</h1>
 <li><span class="tt">.github/workflows/ci.yml</span>, <span class="tt">.github/workflows/release.yml</span> — module <span class="tt">qtmultimedia</span>.</li>
 <li><span class="tt">Source/HMI/Audio/README.md</span> — le dossier cesse d'être un projet d'intention.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2726"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2736"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Le moteur en état « muet » (périphérique indisponible) accepte toutes les demandes de lecture sans erreur ni plantage — testable en forçant l'état, sans périphérique réel.</li>
@@ -123,7 +123,7 @@ Tests (obligatoires)</h1>
 <li><b><span class="tt">UnitTests</span>, <span class="tt">IntegrationTests</span> et <span class="tt">SystemTests</span> se construisent et passent sans <span class="tt">Qt6::Multimedia</span></b> : c'est la garantie que l'audio n'a pas contaminé la logique testable.</li>
 <li>Contrôle en CI de la présence des bibliothèques audio dans le dossier de sortie.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2727"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2737"></a>
 Points d'attention</h1>
 <ul>
 <li><b><span class="tt">QSoundEffect</span> veut du WAV PCM</b>, pas un format compressé : le choix de format des assets (<span class="tt">TACHE-02</span>) en dépend directement.</li>
@@ -132,18 +132,18 @@ Points d'attention</h1>
 <li>Le module ajoute des mégaoctets au zip de release. Le mesurer et le consigner ; c'est le coût assumé du choix de bibliothèque.</li>
 <li>Ne pas construire d'interface abstraite « au cas où l'on changerait de bibliothèque » : le choix est arrêté, et une abstraction à une seule implémentation coûte sans rien rendre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2728"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2738"></a>
 État</h1>
 <p><span class="tt">Qt6::Multimedia</span> est un composant additionnel de <span class="tt">find_package(Qt6 ...)</span> dans <span class="tt">Source/HMI/CMakeLists.txt</span>, avec la même garde qu'auparavant (Qt absent → cible ignorée, pas d'échec de configuration). <span class="tt"><a class="el" href="classhmi_1_1AudioEngine.html" title="Lecture d&#39;échantillons courts à faible latence, avec volume global et repli muet.">hmi::AudioEngine</a></span> (<span class="tt">Source/HMI/Audio</span>) enveloppe <span class="tt">QSoundEffect</span> : détection du périphérique de sortie par défaut à la construction (<span class="tt">QMediaDevices</span>), état muet propagé sans exception, volume borné à [0, 1], préchargement par identifiant logique. Un constructeur dédié (<span class="tt">ForceMuted::Yes</span>) rend l'état muet vérifiable sans matériel réel — les tests (<span class="tt"><a class="el" href="test__audio__engine_8cpp.html" title="Tests unitaires du moteur audio (LOT-60, EX-REN-047, EX-NFR-040).">test_audio_engine.cpp</a></span>) sont ajoutés à <span class="tt">UnitTests</span> uniquement si <span class="tt">Qt6::Multimedia</span> est résolu, même garde que <span class="tt">Qt6::Gui</span>/<span class="tt"><a class="el" href="TextureLoader_8cpp.html">TextureLoader.cpp</a></span> (LOT-54) : sur un poste sans le module, <span class="tt">UnitTests</span> continue de se construire (DoD).</p>
 <p>Provisionnement CI : <span class="tt">modules: qtmultimedia</span> ajouté aux six points <span class="tt">install-qt-action</span> de <span class="tt">ci.yml</span> (4) et <span class="tt">release.yml</span> (2). Le job <span class="tt">build-test-coverage</span> vérifie la présence de <span class="tt">Qt6Multimediad.dll</span> à côté de l'exécutable après <span class="tt">windeployqt</span>, contrôle qui aurait laissé passer silencieusement un module non déployé.</p>
 <p><b>Non livré par cette tâche</b> : le catalogue de sons et les assets eux-mêmes (<span class="tt">TACHE-02</span>) — <span class="tt">AudioEngine</span> sait précharger et jouer un échantillon, mais aucun son n'est encore associé à un événement de jeu.</p>
 <p><em>Complété en <span class="tt">TACHE-02</span></em> : <span class="tt">preload</span>/<span class="tt">play</span> préchargent et consomment désormais une petite réserve d'instances par identifiant (<span class="tt">MAX_INSTANCES_PER_EVENT</span>) plutôt qu'une seule — la politique de recouvrement prévue par <span class="tt">TACHE-02</span> concerne le moteur, pas le catalogue.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2729"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2739"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">Qt6::Multimedia</span> est provisionné sur les trois environnements, <span class="tt"><a class="el" href="classhmi_1_1AudioEngine.html" title="Lecture d&#39;échantillons courts à faible latence, avec volume global et repli muet.">hmi::AudioEngine</a></span> lit un échantillon et dégrade proprement sans périphérique, les tests restent constructibles sans le module, le déploiement est vérifié en CI ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2730"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2740"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-047</span> (socle audio dans <span class="tt">HMI</span>) ; réutilise <span class="tt">EX-BUILD-010</span> (provisionnement reproductible), <span class="tt">EX-NFR-031</span> (version épinglée), <span class="tt">EX-NFR-040</span> (erreur récupérable), <span class="tt">EX-NFR-010</span> (<span class="tt">Core</span> et tests sans périphérique), <span class="tt">EX-NFR-041</span> (RAII). </p>
 </div></div><!-- contents -->

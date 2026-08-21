@@ -16,14 +16,12 @@ var searchData=
   ['dashed_13',['Dashed',['../namespacehmi.html#a3a61aed1c8e95c289c829398d48488deaeb656e41b6da91494775ecf47a51da91',1,'hmi']]],
   ['dashtrail_14',['DashTrail',['../namespacecore.html#aa6799b2e10b4cf31b2527af8a390ce2ca5035aee0b4665a2808f4a262c62e3e0c',1,'core']]],
   ['death_15',['Death',['../namespacecore.html#aa6799b2e10b4cf31b2527af8a390ce2ca6097f89e3092d4ccd249c9d479785c1f',1,'core']]],
-  ['decor_16',['Decor',['../namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20ae953e8671da3a0647c0939df8ebe8e44',1,'core::Decor'],['../namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68ddae953e8671da3a0647c0939df8ebe8e44',1,'hmi::Decor'],['../namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003ae953e8671da3a0647c0939df8ebe8e44',1,'hmi::Decor'],['../namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ae953e8671da3a0647c0939df8ebe8e44',1,'hmi::Decor']]],
-  ['decors_17',['Decors',['../namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726ad63f5eaa78dc9b5310ce01da7192289c',1,'hmi']]],
-  ['died_18',['Died',['../namespacehmi.html#a3a61aed1c8e95c289c829398d48488deab4ee54591aaa4862bf37f75f6839b514',1,'hmi']]],
-  ['door_19',['Door',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1',1,'core']]],
-  ['doorclosed_20',['DoorClosed',['../namespacehmi.html#a3a61aed1c8e95c289c829398d48488deacff69fd788d6616924dfbb25559ce338',1,'hmi']]],
-  ['dooropened_21',['DoorOpened',['../namespacehmi.html#a3a61aed1c8e95c289c829398d48488deae1491bc2cd0348e5a6c5ba7ed811895d',1,'hmi']]],
-  ['down_22',['Down',['../namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a08a38277b0309070706f6652eeae9a53',1,'hmi::Down'],['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48a08a38277b0309070706f6652eeae9a53',1,'hmi::Down']]],
-  ['dragging_23',['Dragging',['../namespacehmi.html#a8744c2d1b1960326e40d3fb62e333deda7c0a2f343108fd64dbd0b5e97a75f145',1,'hmi::Dragging'],['../namespacehmi.html#ab0882c181493ae76b95c653f243bd019a7c0a2f343108fd64dbd0b5e97a75f145',1,'hmi::Dragging']]],
-  ['duplicateposition_24',['DuplicatePosition',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae661408101649d629107887d94faf5ba',1,'core']]],
-  ['duplicateswitchid_25',['DuplicateSwitchId',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a835bdc9a85fa21f0e6b00dd269e179bb',1,'core']]]
+  ['died_16',['Died',['../namespacehmi.html#a3a61aed1c8e95c289c829398d48488deab4ee54591aaa4862bf37f75f6839b514',1,'hmi']]],
+  ['door_17',['Door',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1',1,'core']]],
+  ['doorclosed_18',['DoorClosed',['../namespacehmi.html#a3a61aed1c8e95c289c829398d48488deacff69fd788d6616924dfbb25559ce338',1,'hmi']]],
+  ['dooropened_19',['DoorOpened',['../namespacehmi.html#a3a61aed1c8e95c289c829398d48488deae1491bc2cd0348e5a6c5ba7ed811895d',1,'hmi']]],
+  ['down_20',['Down',['../namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a08a38277b0309070706f6652eeae9a53',1,'hmi::Down'],['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48a08a38277b0309070706f6652eeae9a53',1,'hmi::Down']]],
+  ['dragging_21',['Dragging',['../namespacehmi.html#ab0882c181493ae76b95c653f243bd019a7c0a2f343108fd64dbd0b5e97a75f145',1,'hmi']]],
+  ['duplicateposition_22',['DuplicatePosition',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae661408101649d629107887d94faf5ba',1,'core']]],
+  ['duplicateswitchid_23',['DuplicateSwitchId',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a835bdc9a85fa21f0e6b00dd269e179bb',1,'core']]]
 ];

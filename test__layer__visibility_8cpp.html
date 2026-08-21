@@ -96,19 +96,17 @@ $(function(){initNavTree('test__layer__visibility_8cpp.html','',''); });
 <p>Tests unitaires du jeu de visibilités par calque du mode d'inspection de l'éditeur (<span class="tt">LOT-51</span>, <span class="tt">EX-EDIT-044</span>).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;optional&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="Sprite_8h_source.html">Core/Ecs/Components/Sprite.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Transform_8h_source.html">Core/Ecs/Components/Transform.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="World_8h_source.html">Core/Ecs/World.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Decor_8h_source.html">Core/Levels/Decor.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ComposedScene_8h_source.html">HMI/Graphics/ComposedScene.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="DecorVisuals_8h_source.html">HMI/Graphics/DecorVisuals.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LayerVisibility_8h_source.html">HMI/Graphics/LayerVisibility.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="MissingTexture_8h_source.html">HMI/Graphics/MissingTexture.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PlayerSpriteTag_8h_source.html">HMI/Graphics/PlayerSpriteTag.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="QuadRecorder_8h_source.html">HMI/Graphics/QuadRecorder.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RenderLayer_8h_source.html">HMI/Graphics/RenderLayer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileSkinTag_8h_source.html">HMI/Graphics/TileSkinTag.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -119,7 +117,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a2412e00d7952ca4d269683a2012bbd79" id="r_a2412e00d7952ca4d269683a2012bbd79"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2412e00d7952ca4d269683a2012bbd79">TEST</a> (LayerVisibilityTest, ShowAllRetablitTousLesCalques)</td></tr>
 <tr class="memdesc:a2412e00d7952ca4d269683a2012bbd79"><td class="mdescLeft">&#160;</td><td class="mdescRight">showAll rétablit tous les calques, même après plusieurs masquages.  <br /></td></tr>
 <tr class="memitem:a080eb062d338b1e429e668b809cb27e4" id="r_a080eb062d338b1e429e668b809cb27e4"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a080eb062d338b1e429e668b809cb27e4">TEST</a> (LayerVisibilityTest, CalqueMasqueNEmetAucunePrimitiveLesAutresInchanges)</td></tr>
-<tr class="memdesc:a080eb062d338b1e429e668b809cb27e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un calque masqué (Personnage) n'émet aucune primitive ; un autre calque (Décor de premier plan) reste inchangé.  <br /></td></tr>
+<tr class="memdesc:a080eb062d338b1e429e668b809cb27e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un calque masqué (Personnage) n'émet aucune primitive ; un autre calque (Tuiles) reste inchangé.  <br /></td></tr>
 <tr class="memitem:a15ee71b515865de0e6bce26d81098fc6" id="r_a15ee71b515865de0e6bce26d81098fc6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a15ee71b515865de0e6bce26d81098fc6">TEST</a> (LayerVisibilityTest, CombinaisonsDeuxUnSeulAucun)</td></tr>
 <tr class="memdesc:a15ee71b515865de0e6bce26d81098fc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combinaisons de visibilité : deux calques visibles, un seul, aucun.  <br /></td></tr>
 <tr class="memitem:a84c1828a76c620efb4e28f9b3332a139" id="r_a84c1828a76c620efb4e28f9b3332a139"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a84c1828a76c620efb4e28f9b3332a139">TEST</a> (LayerVisibilityTest, DefautNeutreSurLaCompositionDUneScene)</td></tr>
@@ -147,14 +145,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Un calque masqué (Personnage) n'émet aucune primitive ; un autre calque (Décor de premier plan) reste inchangé. </p>
+<p>Un calque masqué (Personnage) n'émet aucune primitive ; un autre calque (Tuiles) reste inchangé. </p>
 <p><b>Cas de test :</b> <b>Un calque masque n'emet aucune primitive ; les autres sont inchanges.</b><br  />
  <b>Categorie :</b> Unitaire · Visibilité par calque<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Peupler une entite Personnage et une entite Decor de premier plan.<br  />
+ 1. Peupler une entite Personnage et une entite Tuile.<br  />
 2. Masquer Personnage et composer en mode Texture.<br  />
- <b>Resultat attendu :</b> Aucune primitive sur Personnage ; une primitive sur Decor de premier plan. </p>
+ <b>Resultat attendu :</b> Aucune primitive sur Personnage ; une primitive sur Tuiles. </p>
 
 </div>
 </div>
@@ -182,7 +180,7 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Visibilité par calque<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Peupler un Decor d'arriere-plan et un Personnage.<br  />
+ 1. Peupler une Tuile et un Personnage.<br  />
 2. Composer en mode Texture avec les deux visibles, puis un seul, puis aucun.<br  />
  <b>Resultat attendu :</b> Le nombre de primitives suit exactement les calques visibles a chaque etape. </p>
 
@@ -212,7 +210,7 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Visibilité par calque<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Peupler tuile, decor et personnage.<br  />
+ 1. Peupler une tuile et un personnage.<br  />
 2. Composer avec et sans jeu de visibilites explicite, en mode Texture.<br  />
  <b>Resultat attendu :</b> Les deux scenes ont le meme nombre de primitives. </p>
 
@@ -242,8 +240,8 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Visibilité par calque<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Masquer le calque Décor.<br  />
-2. Interroger Décor et Personnage.<br  />
+ 1. Masquer le calque Plans.<br  />
+2. Interroger Plans et Personnage.<br  />
  <b>Resultat attendu :</b> Décor est masqué, Personnage reste visible. </p>
 
 </div>

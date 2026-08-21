@@ -94,19 +94,19 @@ $(function(){initNavTree('lot-45-tache-02-outil-assignation.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-45-textures-objets-interactifs_2tache-02-outil-assignation"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-45.html#md_Lot_2LOT-45-textures-objets-interactifs_2epic" title="Lot/LOT-45-textures-objets-interactifs/epic.md">LOT-45</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2099"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2109"></a>
 Contexte</h1>
-<p>L'éditeur dispose déjà d'outils sélectionnables (<span class="tt"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou la barre d&#39;outils (hmi::EditorActions,...">hmi::EditorTool</a></span> : Pinceau, Rectangle, Sélection, Lien) et d'un précédent exact pour un geste au clic non trivial : <span class="tt">hmi::LinkGesture</span> et <span class="tt"><a class="el" href="namespacehmi.html#a7f0f0f4f71e52b8deb6fb88a8d6411d9" title="Résout le clic de l&#39;outil « Lien » sur clickedCell selon l&#39;attente courante.">hmi::resolveLinkClick</a></span> (LOT-37), une machine à états <b>pure</b>, testée sans Qt, dont le panneau n'est que le déclencheur.</p>
+<p>L'éditeur dispose déjà d'outils sélectionnables (<span class="tt"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou la barre d&#39;outils (hmi::EditorActions).">hmi::EditorTool</a></span> : Pinceau, Rectangle, Sélection, Lien) et d'un précédent exact pour un geste au clic non trivial : <span class="tt">hmi::LinkGesture</span> et <span class="tt"><a class="el" href="namespacehmi.html#a7f0f0f4f71e52b8deb6fb88a8d6411d9" title="Résout le clic de l&#39;outil « Lien » sur clickedCell selon l&#39;attente courante.">hmi::resolveLinkClick</a></span> (LOT-37), une machine à états <b>pure</b>, testée sans Qt, dont le panneau n'est que le déclencheur.</p>
 <p>Assigner une texture à une case est un geste plus simple — un clic, une cible, un asset — mais qui mérite le même traitement : la logique dans une fonction testable, l'UI réduite au routage d'événements.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2100"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2110"></a>
 Travail à réaliser</h1>
 <ul>
-<li><b>Nouvelle valeur <span class="tt"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou la barre d&#39;outils (hmi::EditorActions,...">hmi::EditorTool</a></span></b> (ex. <em>TextureAssign</em>), ajoutée au panneau Outils et à ses libellés traduits.</li>
+<li><b>Nouvelle valeur <span class="tt"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou la barre d&#39;outils (hmi::EditorActions).">hmi::EditorTool</a></span></b> (ex. <em>TextureAssign</em>), ajoutée au panneau Outils et à ses libellés traduits.</li>
 <li><b>Geste pur</b> (<span class="tt">TextureAssignGesture</span>) : à partir d'une case cliquée, de l'état du niveau et de l'asset actuellement sélectionné dans la bibliothèque, décider de l'action — assigner, remplacer, retirer (clic sur une case déjà assignée avec le même asset, ou clic droit), ou ne rien faire (case vide).</li>
 <li><b>Retour visuel</b> : les cases portant un override sont signalées dans le canevas quand l'outil est actif, sur le calque d'aides d'édition (<em>EditorOverlay</em>) — sinon l'auteur ne sait pas ce qui est déjà habillé.</li>
 <li><b>Raccourci clavier</b> de sélection de l'outil, via la table remappable de l'éditeur (<span class="tt">EditorKeyBindings</span>) comme les outils existants.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2101"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2111"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="EditorTool_8h.html" title="Outil actif dans la grille de l&#39;éditeur (LOT-15, EX-EDIT-014).">Source/HMI/Editor/EditorTool.h</a></span>, <span class="tt">ToolPanel.{h,cpp}</span>, <span class="tt">Source/Elements/UI/ToolPanel.ui</span>.</li>
@@ -115,25 +115,25 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/HMI/Input/EditorKeyBindings.{h,cpp}</span>.</li>
 <li><span class="tt"><a class="el" href="test__texture__assign__gesture_8cpp.html">Source/Test/Unit/HMI/Editor/test_texture_assign_gesture.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2102"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2112"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Décision du geste pour chaque cas : case vide, case sans override, case avec le même override, case avec un override différent, aucun asset sélectionné. Fonction <b>pure</b>, sans Qt ni GPU.</li>
 <li>Le geste ne modifie rien par lui-même : il <b>décrit</b> l'action, c'est l'appelant qui l'applique au brouillon (même séparation que <span class="tt">resolveLinkClick</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2103"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2113"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas étendre <span class="tt">LinkGesture</span>.</b> Sa machine à états est façonnée pour l'appariement déclencheur/cible en deux clics ; y greffer une assignation à un clic coupleraient deux outils sans rapport et rendrait les deux plus fragiles.</li>
 <li>L'outil doit être <b>sans effet</b> en mode Physique, ou signaler clairement que le résultat n'est visible qu'en mode Texture (<span class="tt">F8</span>).</li>
 <li>Vérifier l'interaction avec l'annulation : une assignation est une action d'édition à part entière, elle doit apparaître dans l'historique au même titre qu'un coup de pinceau.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2104"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2114"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>L'outil existe, est sélectionnable au panneau et au clavier, assigne et retire une texture par clic, signale les cases déjà habillées, et sa décision est testée sans Qt ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2105"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2115"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-043</span> (texture par instance) ; réutilise <span class="tt">EX-EDIT-005</span> (annuler/refaire), <span class="tt">EX-EDIT-030</span> (éditeur intégré), <span class="tt">EX-CTRL-012</span> (remappage), <span class="tt">EX-REN-033</span> (traduction). </p>
 </div></div><!-- contents -->

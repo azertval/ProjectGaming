@@ -170,8 +170,6 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle de caméra dessiné à la main par le level designer (mode <em>par salle</em>), en cases.  <a href="structcore_1_1CameraZone.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CameraFramingConfig" id="r_CameraFramingConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1CameraFramingConfig.html">CameraFramingConfig</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cadrage de caméra résolu d'un niveau : le mode retenu et ses paramètres.  <a href="structcore_1_1CameraFramingConfig.html#details">More...</a><br /></td></tr>
-<tr class="memitem:Decor" id="r_Decor"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Decor.html">Decor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décor <b>libre</b> : nom d'asset, transform en unités monde flottantes, couche et indicateur statique/manipulable (<span class="tt">EX-DEC-001</span>, <span class="tt">EX-DEC-005</span>).  <a href="structcore_1_1Decor.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GridPosition" id="r_GridPosition"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position d'une case dans la grille d'un niveau, en <b>coordonnées entières</b>.  <a href="structcore_1_1GridPosition.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Mechanism" id="r_Mechanism"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Mechanism.html">Mechanism</a></td></tr>
@@ -202,6 +200,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge une séquence de niveaux au format <b>JSON</b> (<span class="tt">{version, titleKey, levels: [...]}</span>), <span class="tt">EX-LVL-013</span>.  <a href="classcore_1_1LevelSequenceLoader.html#details">More...</a><br /></td></tr>
 <tr class="memitem:LevelWriter" id="r_LevelWriter"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1LevelWriter.html">LevelWriter</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sérialise un niveau vers le format JSON défini par <span class="tt">EX-LVL-003</span>.  <a href="classcore_1_1LevelWriter.html#details">More...</a><br /></td></tr>
+<tr class="memitem:Plane" id="r_Plane"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Plane.html">Plane</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plan pictural : image couvrant <b>tout</b> le niveau, avec sa densité, sa parallaxe et sa profondeur (<span class="tt">EX-DEC-040</span> à <span class="tt">EX-DEC-043</span>).  <a href="structcore_1_1Plane.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TileMap" id="r_TileMap"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1TileMap.html">TileMap</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grille dense de tuiles typées (<span class="tt">EX-GP-001</span>), origine haut-gauche.  <a href="classcore_1_1TileMap.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DeterministicRandom" id="r_DeterministicRandom"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1DeterministicRandom.html">DeterministicRandom</a></td></tr>
@@ -254,11 +254,6 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a5c6444096b9bc21a78b1f1157e9070b6a3903aab323863bd2e9b68218a7a65ebd">Follow</a>
  }</td></tr>
 <tr class="memdesc:a5c6444096b9bc21a78b1f1157e9070b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode de cadrage de caméra d'un niveau (<span class="tt">EX-REN-016</span>) : décision de <b>conception</b>, pas une règle déduite de ses dimensions.  <a href="#a5c6444096b9bc21a78b1f1157e9070b6">More...</a><br /></td></tr>
-<tr class="memitem:a44c22576c7f052fd73b6de57de7ecc20" id="r_a44c22576c7f052fd73b6de57de7ecc20"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a44c22576c7f052fd73b6de57de7ecc20">DecorLayer</a> { <a class="el" href="#a44c22576c7f052fd73b6de57de7ecc20aa9ded1e5ce5d75814730bb4caaf49419">Background</a>
-, <a class="el" href="#a44c22576c7f052fd73b6de57de7ecc20ae953e8671da3a0647c0939df8ebe8e44">Decor</a>
-, <a class="el" href="#a44c22576c7f052fd73b6de57de7ecc20a45bd1d5b32931106efbf1a82fe6a732f">Foreground</a>
- }</td></tr>
-<tr class="memdesc:a44c22576c7f052fd73b6de57de7ecc20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Couche de superposition d'un décor (<span class="tt">EX-DEC-002</span>).  <a href="#a44c22576c7f052fd73b6de57de7ecc20">More...</a><br /></td></tr>
 <tr class="memitem:a691dfee41b7946ec78288271f8925d51" id="r_a691dfee41b7946ec78288271f8925d51"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a691dfee41b7946ec78288271f8925d51">DangerMoverAxis</a> { <a class="el" href="#a691dfee41b7946ec78288271f8925d51ac1b5fa03ecdb95d4a45dd1c40b02527f">Horizontal</a>
 , <a class="el" href="#a691dfee41b7946ec78288271f8925d51a06ce2a25e5d12c166a36f654dbea6012">Vertical</a>
  }</td></tr>
@@ -303,6 +298,10 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:a11710ea83ff0491921176355c55fa4bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catégorie d'échec de chargement/validation d'une séquence (même rôle que <span class="tt"><a class="el" href="#af2a63d18c9ef40479ebdc204e726e823" title="Catégorie d&#39;échec de chargement/validation d&#39;un niveau (LOT-15, EX-EDIT-012).">LevelValidationError</a></span> pour <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">LevelLoader</a></span>, <span class="tt">EX-NFR-040</span>).  <a href="#a11710ea83ff0491921176355c55fa4bb">More...</a><br /></td></tr>
+<tr class="memitem:a6dc89438a55a80980ab04f7da513f731" id="r_a6dc89438a55a80980ab04f7da513f731"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a6dc89438a55a80980ab04f7da513f731">PlaneDepth</a> { <a class="el" href="#a6dc89438a55a80980ab04f7da513f731a382c70faebc9dd21aff0801c33c5c4eb">Behind</a>
+, <a class="el" href="#a6dc89438a55a80980ab04f7da513f731a5835bab1ade0060909e31a06af2e2cde">Front</a>
+ }</td></tr>
+<tr class="memdesc:a6dc89438a55a80980ab04f7da513f731"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position d'un plan dans l'ordonnancement de rendu, relativement au personnage (<span class="tt">EX-DEC-042</span>).  <a href="#a6dc89438a55a80980ab04f7da513f731">More...</a><br /></td></tr>
 <tr class="memitem:ace99a1be913e6294e42e9ebb145eb875" id="r_ace99a1be913e6294e42e9ebb145eb875"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a> { <br />
 &#160;&#160;<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07">Empty</a>
 , <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa">Solid</a>
@@ -392,13 +391,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a6c0f85da9ce20757943b19c8034f459e" id="r_a6c0f85da9ce20757943b19c8034f459e"><td class="memItemLeft"><a class="el" href="structcore_1_1Aabb.html">Aabb</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6c0f85da9ce20757943b19c8034f459e">dangerHitbox</a> (<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type, int col, int row) noexcept</td></tr>
 <tr class="memdesc:a6c0f85da9ce20757943b19c8034f459e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle <b>mortel</b> d'une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêmes unités que <span class="tt"><a class="el" href="structcore_1_1Aabb.html" title="Rectangle aligné aux axes, décrit par ses coins min (haut-gauche) et max (bas-droite),...">core::Aabb</a></span> consommé par <span class="tt"><a class="el" href="#a23087f4f32dfa24ad53d7a9811ae351d" title="Détermine l&#39;issue du niveau à partir de la boîte du personnage.">core::evaluateOutcome</a></span>).  <br /></td></tr>
 <tr class="memitem:a9f0f0ad0f3b02c7ddf6b34dffba56669" id="r_a9f0f0ad0f3b02c7ddf6b34dffba56669"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9f0f0ad0f3b02c7ddf6b34dffba56669">isDangerTileType</a> (<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type) noexcept</td></tr>
-<tr class="memdesc:a9f0f0ad0f3b02c7ddf6b34dffba56669"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai pour les huit types de danger (<span class="tt">Danger</span> classique et les sept variantes de <span class="tt">LOT-31</span>), pour lesquels <span class="tt"><a class="el" href="#a6c0f85da9ce20757943b19c8034f459e" title="Rectangle mortel d&#39;une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêm...">dangerHitbox</a></span> décrit une géométrie <b>significative</b> (case pleine ou bande directionnelle) — utilisé par le rendu (<span class="tt"><a class="el" href="#a2af6bf1cd31d496a597f6bdf257ce148" title="Peuple un World d&#39;une entité par tuile non vide du niveau.">core::buildLevelScene</a></span>, <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span>) pour ne recalculer le rectangle affiché qu'à ces types précis, laissant les autres à leur case pleine par défaut (<span class="tt"><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">Transform</a></span> non modifié).  <br /></td></tr>
+<tr class="memdesc:a9f0f0ad0f3b02c7ddf6b34dffba56669"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai pour les huit types de danger (<span class="tt">Danger</span> classique et les sept variantes de <span class="tt">LOT-31</span>), pour lesquels <span class="tt"><a class="el" href="#a6c0f85da9ce20757943b19c8034f459e" title="Rectangle mortel d&#39;une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêm...">dangerHitbox</a></span> décrit une géométrie <b>significative</b> (case pleine ou bande directionnelle) — utilisé par le rendu (<span class="tt"><a class="el" href="#a671cc58bea9439fdb3ea23009b0da54b" title="Peuple un World d&#39;une entité par tuile non vide du niveau.">core::buildLevelScene</a></span>, <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span>) pour ne recalculer le rectangle affiché qu'à ces types précis, laissant les autres à leur case pleine par défaut (<span class="tt"><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">Transform</a></span> non modifié).  <br /></td></tr>
 <tr class="memitem:a02b4ac39e4a1c16efbe9ff53132d9a95" id="r_a02b4ac39e4a1c16efbe9ff53132d9a95"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a02b4ac39e4a1c16efbe9ff53132d9a95">operator==</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> left, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> right) noexcept</td></tr>
 <tr class="memitem:a29323798eff97fce936a3352846efb93" id="r_a29323798eff97fce936a3352846efb93"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a29323798eff97fce936a3352846efb93">operator!=</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> left, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> right) noexcept</td></tr>
 <tr class="memitem:a23087f4f32dfa24ad53d7a9811ae351d" id="r_a23087f4f32dfa24ad53d7a9811ae351d"><td class="memItemLeft"><a class="el" href="#a60398ec3835dd2882a7d3a9eaddb65aa">LevelOutcome</a>&#160;</td><td class="memItemRight"><a class="el" href="#a23087f4f32dfa24ad53d7a9811ae351d">evaluateOutcome</a> (const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;playerBox, const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level, const std::vector&lt; <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &gt; &amp;extraDangerBoxes={})</td></tr>
 <tr class="memdesc:a23087f4f32dfa24ad53d7a9811ae351d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détermine l'issue du niveau à partir de la <b>boîte</b> du personnage.  <br /></td></tr>
-<tr class="memitem:a2af6bf1cd31d496a597f6bdf257ce148" id="r_a2af6bf1cd31d496a597f6bdf257ce148"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2af6bf1cd31d496a597f6bdf257ce148">buildLevelScene</a> (<a class="el" href="classcore_1_1World.html">World</a> &amp;world, const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level, const std::function&lt; <a class="el" href="structcore_1_1AtlasRegion.html">AtlasRegion</a>(<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a>)&gt; &amp;regionForTile, const std::function&lt; void(<a class="el" href="structcore_1_1Entity.html">Entity</a>, <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a>, int, int)&gt; &amp;onTileEntity={}, const std::function&lt; void(<a class="el" href="structcore_1_1Entity.html">Entity</a>, const <a class="el" href="structcore_1_1Decor.html">Decor</a> &amp;, std::size_t)&gt; &amp;onDecorEntity={})</td></tr>
-<tr class="memdesc:a2af6bf1cd31d496a597f6bdf257ce148"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peuple un <span class="tt"><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">World</a></span> d'une <b>entité par tuile non vide</b> du niveau.  <br /></td></tr>
+<tr class="memitem:a671cc58bea9439fdb3ea23009b0da54b" id="r_a671cc58bea9439fdb3ea23009b0da54b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a671cc58bea9439fdb3ea23009b0da54b">buildLevelScene</a> (<a class="el" href="classcore_1_1World.html">World</a> &amp;world, const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level, const std::function&lt; <a class="el" href="structcore_1_1AtlasRegion.html">AtlasRegion</a>(<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a>)&gt; &amp;regionForTile, const std::function&lt; void(<a class="el" href="structcore_1_1Entity.html">Entity</a>, <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a>, int, int)&gt; &amp;onTileEntity={})</td></tr>
+<tr class="memdesc:a671cc58bea9439fdb3ea23009b0da54b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peuple un <span class="tt"><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">World</a></span> d'une <b>entité par tuile non vide</b> du niveau.  <br /></td></tr>
+<tr class="memitem:a0f61acebed3678706e825f972217a233" id="r_a0f61acebed3678706e825f972217a233"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a0f61acebed3678706e825f972217a233">isValidPlaneDensity</a> (int pixelsPerUnit) noexcept</td></tr>
+<tr class="memdesc:a0f61acebed3678706e825f972217a233"><td class="mdescLeft">&#160;</td><td class="mdescRight">Densité acceptée pour un plan (<span class="tt">EX-DEC-041</span>).  <br /></td></tr>
 <tr class="memitem:a105a7f2ca0f25e01231a9bc1bbc36ebb" id="r_a105a7f2ca0f25e01231a9bc1bbc36ebb"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a105a7f2ca0f25e01231a9bc1bbc36ebb">isSolid</a> (<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type) noexcept</td></tr>
 <tr class="memdesc:a105a7f2ca0f25e01231a9bc1bbc36ebb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si un type de tuile bloque le déplacement de manière <b>statique</b>.  <br /></td></tr>
 <tr class="memitem:a9b733af18a1507c5dc7b4ffdd88d8b6a" id="r_a9b733af18a1507c5dc7b4ffdd88d8b6a"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a9b733af18a1507c5dc7b4ffdd88d8b6a">tileVisualScale</a> (<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type) noexcept</td></tr>
@@ -482,6 +483,12 @@ COUNT</span>) : une chute extrême ne produit pas un nuage toujours plus dense. 
 <tr class="memdesc:a4e9944a74ac070775a2730be05705abb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Version courante du format de niveau JSON (<span class="tt">EX-LVL-005</span>).  <br /></td></tr>
 <tr class="memitem:a092aaea01e9801e07160e2829611801b" id="r_a092aaea01e9801e07160e2829611801b"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a092aaea01e9801e07160e2829611801b">kLevelSequenceFormatVersion</a> = 1</td></tr>
 <tr class="memdesc:a092aaea01e9801e07160e2829611801b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Version courante du format de séquence JSON (<span class="tt">EX-LVL-005</span>), indépendante de <span class="tt"><a class="el" href="#a4e9944a74ac070775a2730be05705abb" title="Version courante du format de niveau JSON (EX-LVL-005).">core::kLevelFormatVersion</a></span> (fichier distinct, cycle de vie distinct).  <br /></td></tr>
+<tr class="memitem:a93b262158b33f33fa0f8b234387f2d2a" id="r_a93b262158b33f33fa0f8b234387f2d2a"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a93b262158b33f33fa0f8b234387f2d2a">PLANE_NATIVE_PIXELS_PER_UNIT</a> = 16</td></tr>
+<tr class="memdesc:a93b262158b33f33fa0f8b234387f2d2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Densité <b>native</b> d'un plan, en pixels par unité monde — même valeur que l'échelle de rendu (<span class="tt"><a class="el" href="classhmi_1_1Camera2D.html#a3d1d52a7653c7a3dca5eb2e5a5990f88" title="Nombre de pixels par unité monde (EX-ARCH-021).">hmi::Camera2D::PIXELS_PER_UNIT</a></span>), que <span class="tt">Core</span> ne peut pas inclure (<span class="tt">EX-NFR-011</span>).  <br /></td></tr>
+<tr class="memitem:aba31765307efa0a613fd06d8bcecc203" id="r_aba31765307efa0a613fd06d8bcecc203"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#aba31765307efa0a613fd06d8bcecc203">MAX_PLANES_PER_LEVEL</a> = 16</td></tr>
+<tr class="memdesc:aba31765307efa0a613fd06d8bcecc203"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre maximal de plans par niveau (<span class="tt">EX-DEC-044</span>) : borne le coût dans le <b>format</b>, plutôt que de le laisser à l'usage.  <br /></td></tr>
+<tr class="memitem:a2b0b5578c096a53cc778a39c41f18f72" id="r_a2b0b5578c096a53cc778a39c41f18f72"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a2b0b5578c096a53cc778a39c41f18f72">MAX_PLANE_TEXTURE_EXTENT</a> = 16384</td></tr>
+<tr class="memdesc:a2b0b5578c096a53cc778a39c41f18f72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dimension maximale, en pixels, d'une texture de plan sur un axe (<span class="tt">EX-DEC-044</span>) — limite de Direct3D 11 au <em>feature level</em> 11.  <br /></td></tr>
 <tr class="memitem:a49c6e01fbd8905740993109a36f65c11" id="r_a49c6e01fbd8905740993109a36f65c11"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a49c6e01fbd8905740993109a36f65c11">EPSILON</a> = 1e-5f</td></tr>
 <tr class="memdesc:a49c6e01fbd8905740993109a36f65c11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tolérance par défaut pour les comparaisons de flottants issus de calculs.  <br /></td></tr>
 <tr class="memitem:af90aca85784a36802e810be93df9800f" id="r_af90aca85784a36802e810be93df9800f"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#af90aca85784a36802e810be93df9800f">kPlayerWidth</a> = 0.4f</td></tr>
@@ -597,39 +604,6 @@ COUNT</span>) : une chute extrême ne produit pas un nuage toujours plus dense. 
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a691dfee41b7946ec78288271f8925d51ac1b5fa03ecdb95d4a45dd1c40b02527f" name="a691dfee41b7946ec78288271f8925d51ac1b5fa03ecdb95d4a45dd1c40b02527f"></a>Horizontal&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a691dfee41b7946ec78288271f8925d51a06ce2a25e5d12c166a36f654dbea6012" name="a691dfee41b7946ec78288271f8925d51a06ce2a25e5d12c166a36f654dbea6012"></a>Vertical&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-</div>
-</div>
-<a id="a44c22576c7f052fd73b6de57de7ecc20" name="a44c22576c7f052fd73b6de57de7ecc20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44c22576c7f052fd73b6de57de7ecc20">&#9670;&#160;</a></span>DecorLayer</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum class <a class="el" href="#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Couche de superposition d'un décor (<span class="tt">EX-DEC-002</span>). </p>
-<p><span class="tt">Core</span> ne connaît pas <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919" title="Calques de dessin, du plus arrière au plus avant (EX-REN-014, EX-DEC-002).">hmi::RenderLayer</a></span> (<span class="tt">EX-NFR-011</span>) : la projection vers les calques de rendu (<span class="tt">Background</span>/<span class="tt"><a class="el" href="structcore_1_1Decor.html" title="Décor libre : nom d&#39;asset, transform en unités monde flottantes, couche et indicateur statique/manipu...">Decor</a></span>/<span class="tt">Foreground</span>) est le travail de <span class="tt">HMI</span> (<span class="tt"><a class="el" href="namespacehmi.html#acce38c10bb9e9e440f634df58c943f35" title="Projette une couche de décor (Core) vers son calque de rendu (HMI), EX-DEC-002.">hmi::decorRenderLayer</a></span>, TACHE-02). </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a44c22576c7f052fd73b6de57de7ecc20aa9ded1e5ce5d75814730bb4caaf49419" name="a44c22576c7f052fd73b6de57de7ecc20aa9ded1e5ce5d75814730bb4caaf49419"></a>Background&#160;</td><td class="fielddoc"><p>Arrière-plan : sous les tuiles. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a44c22576c7f052fd73b6de57de7ecc20ae953e8671da3a0647c0939df8ebe8e44" name="a44c22576c7f052fd73b6de57de7ecc20ae953e8671da3a0647c0939df8ebe8e44"></a>Decor&#160;</td><td class="fielddoc"><p>Décor : entre les tuiles et le personnage. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a44c22576c7f052fd73b6de57de7ecc20a45bd1d5b32931106efbf1a82fe6a732f" name="a44c22576c7f052fd73b6de57de7ecc20a45bd1d5b32931106efbf1a82fe6a732f"></a>Foreground&#160;</td><td class="fielddoc"><p>Premier plan : au-dessus du personnage (<span class="tt">EX-DEC-002</span>). </p>
-</td></tr>
 </table>
 
 </div>
@@ -823,6 +797,38 @@ COUNT</span>) : une chute extrême ne produit pas un nuage toujours plus dense. 
 
 </div>
 </div>
+<a id="a6dc89438a55a80980ab04f7da513f731" name="a6dc89438a55a80980ab04f7da513f731"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6dc89438a55a80980ab04f7da513f731">&#9670;&#160;</a></span>PlaneDepth</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a6dc89438a55a80980ab04f7da513f731">core::PlaneDepth</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Position d'un plan dans l'ordonnancement de rendu, relativement au personnage (<span class="tt">EX-DEC-042</span>). </p>
+<p><b>Deux valeurs, pas trois.</b> Le système de décors qu'il remplace en déclarait trois (<span class="tt">Background</span>, <span class="tt">Decor</span>, <span class="tt">Foreground</span>) mais la projection vers les calques de rendu en écrasait déjà deux sur la même : les trois couches de conception n'exprimaient que <b>deux</b> intentions de superposition. On acte la simplification plutôt que de la reproduire.</p>
+<p><span class="tt">Core</span> ne connaît pas <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919" title="Calques de dessin, du plus arrière au plus avant (EX-REN-014, EX-DEC-002).">hmi::RenderLayer</a></span> (<span class="tt">EX-NFR-011</span>) : la projection vers les calques de rendu est le travail de <span class="tt">HMI</span>. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a6dc89438a55a80980ab04f7da513f731a382c70faebc9dd21aff0801c33c5c4eb" name="a6dc89438a55a80980ab04f7da513f731a382c70faebc9dd21aff0801c33c5c4eb"></a>Behind&#160;</td><td class="fielddoc"><p>Derrière les tuiles physiques. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a6dc89438a55a80980ab04f7da513f731a5835bab1ade0060909e31a06af2e2cde" name="a6dc89438a55a80980ab04f7da513f731a5835bab1ade0060909e31a06af2e2cde"></a>Front&#160;</td><td class="fielddoc"><p>Devant le personnage (<span class="tt">EX-DEC-042</span>) : c'est le moyen de lecture qui distingue d'un coup d'œil le décor traversable du décor physique. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="a8a429a2ce785ee89ff543488b51750b1" name="a8a429a2ce785ee89ff543488b51750b1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8a429a2ce785ee89ff543488b51750b1">&#9670;&#160;</a></span>PlatformPathMode</h2>
 
@@ -989,8 +995,8 @@ COUNT</span>) : une chute extrême ne produit pas un nuage toujours plus dense. 
 
 </div>
 </div>
-<a id="a2af6bf1cd31d496a597f6bdf257ce148" name="a2af6bf1cd31d496a597f6bdf257ce148"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2af6bf1cd31d496a597f6bdf257ce148">&#9670;&#160;</a></span>buildLevelScene()</h2>
+<a id="a671cc58bea9439fdb3ea23009b0da54b" name="a671cc58bea9439fdb3ea23009b0da54b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a671cc58bea9439fdb3ea23009b0da54b">&#9670;&#160;</a></span>buildLevelScene()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1013,12 +1019,7 @@ COUNT</span>) : une chute extrême ne produit pas un nuage toujours plus dense. 
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::function&lt; void(<a class="el" href="structcore_1_1Entity.html">Entity</a>, <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a>, int, int)&gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>onTileEntity</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::function&lt; void(<a class="el" href="structcore_1_1Entity.html">Entity</a>, const <a class="el" href="structcore_1_1Decor.html">Decor</a> &amp;, std::size_t)&gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>onDecorEntity</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+          <td class="paramtype">const std::function&lt; void(<a class="el" href="structcore_1_1Entity.html">Entity</a>, <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a>, int, int)&gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>onTileEntity</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1034,12 +1035,7 @@ COUNT</span>) : une chute extrême ne produit pas un nuage toujours plus dense. 
   </table>
   </dd>
 </dl>
-<p>Peuple également une entité par <b>décor libre</b> (<span class="tt">EX-DEC-001</span>, LOT-49), après les tuiles : <span class="tt"><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">Transform</a></span> en unités monde flottantes (position/échelle/rotation du décor, <b>jamais</b> calées sur la grille), et <span class="tt"><a class="el" href="structcore_1_1Sprite.html" title="Apparence 2D d&#39;une entité : quelle région de l&#39;atlas dessiner, dans quelle couche et avec quelle tein...">Sprite</a></span> dont <span class="tt">layer</span> porte le rang du décor dans <span class="tt">level.decors()</span> (tri fin intra-calque, TACHE-02). <span class="tt">Core</span> ne pose aucune région d'atlas ni apparence : la résolution d'asset est entièrement injectée via <code class="param">onDecorEntity</code>, même principe que <code class="param">onTileEntity</code>. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">onDecorEntity</td><td>Rappel invoqué après la création de chaque entité décor, avec le décor source et son rang dans <span class="tt">level.decors()</span>. Permet à <span class="tt">HMI</span> d'y attacher ses propres composants (<span class="tt"><a class="el" href="structhmi_1_1DecorVisualTag.html" title="Marque de présentation portée par une entité décor, pour résoudre son apparence et sa parallaxe.">hmi::DecorVisualTag</a></span>, <span class="tt"><a class="el" href="structhmi_1_1RenderLayerTag.html" title="Composant de présentation fixant le calque de dessin d&#39;une entité.">hmi::RenderLayerTag</a></span>) sans que <span class="tt">Core</span> connaisse la notion d'apparence. Vide par défaut. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Ne peuple <b>que</b> les tuiles. Les plans picturaux (<span class="tt">EX-DEC-040</span>, LOT-69) qui ont remplacé les décors-sprites ne sont <b>pas</b> des entités : ce sont des données d'habillage du niveau, composées directement par <span class="tt">HMI</span> sans passer par l'ECS. </p>
 
 </div>
 </div>
@@ -1519,7 +1515,7 @@ slopeSurfaceHeight(type miroir, localX)</span>), pas une famille de formules dup
 </table>
 </div><div class="memdoc">
 
-<p>Vrai pour les huit types de danger (<span class="tt">Danger</span> classique et les sept variantes de <span class="tt">LOT-31</span>), pour lesquels <span class="tt"><a class="el" href="#a6c0f85da9ce20757943b19c8034f459e" title="Rectangle mortel d&#39;une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêm...">dangerHitbox</a></span> décrit une géométrie <b>significative</b> (case pleine ou bande directionnelle) — utilisé par le rendu (<span class="tt"><a class="el" href="#a2af6bf1cd31d496a597f6bdf257ce148" title="Peuple un World d&#39;une entité par tuile non vide du niveau.">core::buildLevelScene</a></span>, <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span>) pour ne recalculer le rectangle affiché qu'à ces types précis, laissant les autres à leur case pleine par défaut (<span class="tt"><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">Transform</a></span> non modifié). </p>
+<p>Vrai pour les huit types de danger (<span class="tt">Danger</span> classique et les sept variantes de <span class="tt">LOT-31</span>), pour lesquels <span class="tt"><a class="el" href="#a6c0f85da9ce20757943b19c8034f459e" title="Rectangle mortel d&#39;une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêm...">dangerHitbox</a></span> décrit une géométrie <b>significative</b> (case pleine ou bande directionnelle) — utilisé par le rendu (<span class="tt"><a class="el" href="#a671cc58bea9439fdb3ea23009b0da54b" title="Peuple un World d&#39;une entité par tuile non vide du niveau.">core::buildLevelScene</a></span>, <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span>) pour ne recalculer le rectangle affiché qu'à ces types précis, laissant les autres à leur case pleine par défaut (<span class="tt"><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">Transform</a></span> non modifié). </p>
 
 </div>
 </div>
@@ -1619,6 +1615,40 @@ slopeSurfaceHeight(type miroir, localX)</span>), pas une famille de formules dup
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si <code class="param">carriedBox</code> chevauche une tuile solide de <code class="param">collision</code>. </dd></dl>
+
+</div>
+</div>
+<a id="a0f61acebed3678706e825f972217a233" name="a0f61acebed3678706e825f972217a233"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f61acebed3678706e825f972217a233">&#9670;&#160;</a></span>isValidPlaneDensity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::isValidPlaneDensity </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>pixelsPerUnit</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Densité acceptée pour un plan (<span class="tt">EX-DEC-041</span>). </p>
+<p><span class="tt">pixelsPerUnit</span> est un <b>entier</b> et non une énumération : il sert directement au calcul des dimensions attendues (<span class="tt">width * pixelsPerUnit</span>), et une énumération imposerait une table de conversion à chaque site d'appel. La contrainte est donc validée au <b>chargement</b>, pas portée par le type. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pixelsPerUnit</td><td>Densité à vérifier. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si la densité vaut 4, 8 ou 16. </dd></dl>
 
 </div>
 </div>
@@ -3095,6 +3125,78 @@ COUNT</span>) : une chute extrême ne produit pas un nuage toujours plus dense. 
 </div><div class="memdoc">
 
 <p>Nombre maximal de particules simultanément vivantes (<span class="tt">EX-NFR-005</span>) : au-delà, <span class="tt">spawn()</span> recycle les plus anciennes plutôt que d'allouer sans borne. </p>
+
+</div>
+</div>
+<a id="a2b0b5578c096a53cc778a39c41f18f72" name="a2b0b5578c096a53cc778a39c41f18f72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b0b5578c096a53cc778a39c41f18f72">&#9670;&#160;</a></span>MAX_PLANE_TEXTURE_EXTENT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::MAX_PLANE_TEXTURE_EXTENT = 16384</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dimension maximale, en pixels, d'une texture de plan sur un axe (<span class="tt">EX-DEC-044</span>) — limite de Direct3D 11 au <em>feature level</em> 11. </p>
+
+</div>
+</div>
+<a id="aba31765307efa0a613fd06d8bcecc203" name="aba31765307efa0a613fd06d8bcecc203"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba31765307efa0a613fd06d8bcecc203">&#9670;&#160;</a></span>MAX_PLANES_PER_LEVEL</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t core::MAX_PLANES_PER_LEVEL = 16</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre maximal de plans par niveau (<span class="tt">EX-DEC-044</span>) : borne le coût dans le <b>format</b>, plutôt que de le laisser à l'usage. </p>
+
+</div>
+</div>
+<a id="a93b262158b33f33fa0f8b234387f2d2a" name="a93b262158b33f33fa0f8b234387f2d2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93b262158b33f33fa0f8b234387f2d2a">&#9670;&#160;</a></span>PLANE_NATIVE_PIXELS_PER_UNIT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::PLANE_NATIVE_PIXELS_PER_UNIT = 16</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Densité <b>native</b> d'un plan, en pixels par unité monde — même valeur que l'échelle de rendu (<span class="tt"><a class="el" href="classhmi_1_1Camera2D.html#a3d1d52a7653c7a3dca5eb2e5a5990f88" title="Nombre de pixels par unité monde (EX-ARCH-021).">hmi::Camera2D::PIXELS_PER_UNIT</a></span>), que <span class="tt">Core</span> ne peut pas inclure (<span class="tt">EX-NFR-011</span>). </p>
 
 </div>
 </div>

@@ -93,7 +93,7 @@ $(function(){initNavTree('classhmi_1_1GameViewport.html','','classhmi_1_1GameVie
 </div><!--header-->
 <div class="contents">
 
-<p>Fenêtre native (<span class="tt">QWindow</span>) où Direct3D 11 présente, embarquée dans Qt.  
+<p>Widget de rendu (<span class="tt">QRhiWidget</span>) où la scène est dessinée, composé avec le reste de l'interface.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="GameViewport_8h_source.html">GameViewport.h</a>&gt;</code></p>
@@ -123,8 +123,8 @@ Signals</h2></td></tr>
 <tr class="memdesc:afff694683060b7d90ea17722220f8e33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le mode de rendu vient de basculer (<span class="tt">F8</span>) — la palette met ses vignettes à jour pour rester fidèle au canevas (<span class="tt">EX-EDIT-027</span>).  <br /></td></tr>
 <tr class="memitem:a0c50902b21767f071d17ce674736c182" id="r_a0c50902b21767f071d17ce674736c182"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0c50902b21767f071d17ce674736c182">toolChanged</a> (<a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">hmi::EditorTool</a> tool)</td></tr>
 <tr class="memdesc:a0c50902b21767f071d17ce674736c182"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'outil actif vient de changer par un moyen autre que le panneau Outils (raccourci clavier, <span class="tt">LOT-45</span>) — le panneau se resynchronise sans reboucler.  <br /></td></tr>
-<tr class="memitem:a29fd278e5ee30802c9b3036d718b1aad" id="r_a29fd278e5ee30802c9b3036d718b1aad"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a29fd278e5ee30802c9b3036d718b1aad">decorSelectionChanged</a> (std::optional&lt; std::size_t &gt; index)</td></tr>
-<tr class="memdesc:a29fd278e5ee30802c9b3036d718b1aad"><td class="mdescLeft">&#160;</td><td class="mdescRight">La sélection de décor vient de changer, par un moyen autre que la section « Décors » (clic/pose/suppression au canevas, <span class="tt">LOT-50</span> TACHE-04) — le panneau se resynchronise.  <br /></td></tr>
+<tr class="memitem:a3ed87525b022aada2c93441c0ef12a61" id="r_a3ed87525b022aada2c93441c0ef12a61"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3ed87525b022aada2c93441c0ef12a61">planeSelectionChanged</a> (std::optional&lt; std::size_t &gt; index)</td></tr>
+<tr class="memdesc:a3ed87525b022aada2c93441c0ef12a61"><td class="mdescLeft">&#160;</td><td class="mdescRight">La sélection de plan vient de changer par un moyen autre que le panneau (retrait, réordonnancement) — le panneau se resynchronise sans reboucler.  <br /></td></tr>
 <tr class="memitem:a5e219072cc19ed9a749e384e10a8fa7a" id="r_a5e219072cc19ed9a749e384e10a8fa7a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5e219072cc19ed9a749e384e10a8fa7a">pathSelectionChanged</a> (std::optional&lt; <a class="el" href="structhmi_1_1PathSelection.html">hmi::PathSelection</a> &gt; selection)</td></tr>
 <tr class="memdesc:a5e219072cc19ed9a749e384e10a8fa7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">La sélection de parcours vient de changer (clic au canevas, outil « Parcours », <span class="tt">LOT-67</span>) — consommé par le panneau « Propriétés », qui affiche les réglages de l'élément visé.  <br /></td></tr>
 <tr class="memitem:aa6a5480098c92f86daabce47c0761757" id="r_aa6a5480098c92f86daabce47c0761757"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa6a5480098c92f86daabce47c0761757">blinkSelectionChanged</a> (std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; cell)</td></tr>
@@ -134,24 +134,18 @@ Signals</h2></td></tr>
 <tr class="memitem:a30636eb8e2e7cd9e0b6100c3b7831964" id="r_a30636eb8e2e7cd9e0b6100c3b7831964"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a30636eb8e2e7cd9e0b6100c3b7831964">zoomChanged</a> (float <a class="el" href="#ab231368af3ebbbca9bc7a5974b89826d">zoom</a>)</td></tr>
 <tr class="memdesc:a30636eb8e2e7cd9e0b6100c3b7831964"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le zoom d'édition vient de changer (molette, pan, recadrage) — consommé par la barre d'état (<span class="tt">LOT-57</span> TACHE-01).  <br /></td></tr>
 <tr class="memitem:aec87e5cea3957a3a9507019010147a03" id="r_aec87e5cea3957a3a9507019010147a03"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aec87e5cea3957a3a9507019010147a03">resourcesReady</a> ()</td></tr>
-<tr class="memdesc:aec87e5cea3957a3a9507019010147a03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le device Direct3D 11 et le catalogue de skins viennent d'être (re)créés (<span class="tt"><a class="el" href="#ade04cd4034cab1c4bd405a1539492812">ensureResources</a></span>) — tout ce qui a lu <span class="tt"><a class="el" href="#ae7d92dd84fe3f73c2c13f2562daa761e" title="Catalogue des jeux de skins, édité par le panneau « Textures » (LOT-42).">skinCatalog()</a></span> <b>avant</b> la première exposition de la fenêtre (le câblage de <span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">MainWindow</a></span>, à la construction) l'a lu vide et doit se reconstruire une fois ce signal reçu, sous peine de vignettes/arbre de skins sans texture au lancement de l'éditeur.  <br /></td></tr>
+<tr class="memdesc:aec87e5cea3957a3a9507019010147a03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les ressources graphiques et le catalogue de skins viennent d'être (re)créés (<span class="tt">QRhiWidget::initialize</span>) — tout ce qui a lu <span class="tt"><a class="el" href="#ae7d92dd84fe3f73c2c13f2562daa761e" title="Catalogue des jeux de skins, édité par le panneau « Textures » (LOT-42).">skinCatalog()</a></span> <b>avant</b> la première initialisation (le câblage de <span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">MainWindow</a></span>, à la construction) l'a lu vide et doit se reconstruire une fois ce signal reçu, sous peine de vignettes/arbre de skins sans texture au lancement de l'éditeur.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a19f1cee9fa08bcd196f4d28e74dbb0be" id="r_a19f1cee9fa08bcd196f4d28e74dbb0be"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a19f1cee9fa08bcd196f4d28e74dbb0be">GameViewport</a> (QWindow *parent=nullptr)</td></tr>
+<tr class="memitem:aa8b92f1b993795ebbb57b543bbcd3267" id="r_aa8b92f1b993795ebbb57b543bbcd3267"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa8b92f1b993795ebbb57b543bbcd3267">GameViewport</a> (QWidget *parent=nullptr)</td></tr>
 <tr class="memitem:a3e379cb5ae84d15bcbd8b4a7493a6162" id="r_a3e379cb5ae84d15bcbd8b4a7493a6162"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3e379cb5ae84d15bcbd8b4a7493a6162">~GameViewport</a> () override</td></tr>
 <tr class="memitem:a92fbacc001ed01b114680ac39ff88329" id="r_a92fbacc001ed01b114680ac39ff88329"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a92fbacc001ed01b114680ac39ff88329">GameViewport</a> (const GameViewport &amp;)=delete</td></tr>
-<tr class="memitem:a99f483aa928ddd6b29d12abd335ea583" id="r_a99f483aa928ddd6b29d12abd335ea583"><td class="memItemLeft"><a class="el" href="#a19f1cee9fa08bcd196f4d28e74dbb0be">GameViewport</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a99f483aa928ddd6b29d12abd335ea583">operator=</a> (const <a class="el" href="#a19f1cee9fa08bcd196f4d28e74dbb0be">GameViewport</a> &amp;)=delete</td></tr>
+<tr class="memitem:a99f483aa928ddd6b29d12abd335ea583" id="r_a99f483aa928ddd6b29d12abd335ea583"><td class="memItemLeft"><a class="el" href="#aa8b92f1b993795ebbb57b543bbcd3267">GameViewport</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a99f483aa928ddd6b29d12abd335ea583">operator=</a> (const <a class="el" href="#aa8b92f1b993795ebbb57b543bbcd3267">GameViewport</a> &amp;)=delete</td></tr>
 <tr class="memitem:aa1b0f14b74c790ed226ce9ad3302eaa5" id="r_aa1b0f14b74c790ed226ce9ad3302eaa5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa1b0f14b74c790ed226ce9ad3302eaa5">setActiveTile</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type) noexcept</td></tr>
 <tr class="memdesc:aa1b0f14b74c790ed226ce9ad3302eaa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit le type de tuile peint au clic (relié à la sélection de la palette).  <br /></td></tr>
 <tr class="memitem:ab2fd09e359b451414074b6b00ddd4c25" id="r_ab2fd09e359b451414074b6b00ddd4c25"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab2fd09e359b451414074b6b00ddd4c25">setActiveTextureAsset</a> (std::optional&lt; std::string &gt; asset) noexcept</td></tr>
 <tr class="memdesc:ab2fd09e359b451414074b6b00ddd4c25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit l'asset assigné au clic par l'outil « Texture par instance » (<span class="tt">LOT-45</span>), relié à la sélection de la bibliothèque « Objets » ; vide si aucun asset n'est sélectionné.  <br /></td></tr>
-<tr class="memitem:aafa498909e1ec9c58ed39e5652f4630a" id="r_aafa498909e1ec9c58ed39e5652f4630a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aafa498909e1ec9c58ed39e5652f4630a">setActiveDecorAsset</a> (std::optional&lt; std::string &gt; asset) noexcept</td></tr>
-<tr class="memdesc:aafa498909e1ec9c58ed39e5652f4630a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit l'asset posé au clic par l'outil Décor (<span class="tt">LOT-49</span>), relié à la sélection de la bibliothèque de décors du panneau « Outils » ; vide si aucun asset n'est sélectionné.  <br /></td></tr>
-<tr class="memitem:a056edea1538cd0013c72ac26e263d2a4" id="r_a056edea1538cd0013c72ac26e263d2a4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a056edea1538cd0013c72ac26e263d2a4">setActiveDecorLayer</a> (<a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a> layer) noexcept</td></tr>
-<tr class="memdesc:a056edea1538cd0013c72ac26e263d2a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit la couche du décor posé au clic (<span class="tt">LOT-49</span>, <span class="tt">EX-DEC-002</span>), reliée au sélecteur de couche du panneau « Outils ».  <br /></td></tr>
-<tr class="memitem:a24183681b844cd98f6b621c6c4755949" id="r_a24183681b844cd98f6b621c6c4755949"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a24183681b844cd98f6b621c6c4755949">setDecorSnapToGrid</a> (bool enabled) noexcept</td></tr>
-<tr class="memdesc:a24183681b844cd98f6b621c6c4755949"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active/désactive l'aimantation sur la grille du geste de décors (<span class="tt">LOT-50</span>, <span class="tt">EX-DEC-001</span>) — optionnelle et jamais imposée, un décor reste libre par construction.  <br /></td></tr>
 <tr class="memitem:a0dcbcc0d9c69040710cb070afe2e828c" id="r_a0dcbcc0d9c69040710cb070afe2e828c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0dcbcc0d9c69040710cb070afe2e828c">setTool</a> (<a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">hmi::EditorTool</a> tool)</td></tr>
 <tr class="memdesc:a0dcbcc0d9c69040710cb070afe2e828c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit l'outil d'édition actif (pinceau, rectangle, sélection, lien, texture par instance).  <br /></td></tr>
 <tr class="memitem:a30fb475c885ff369c5710284cf1450eb" id="r_a30fb475c885ff369c5710284cf1450eb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a30fb475c885ff369c5710284cf1450eb">setLocalization</a> (const <a class="el" href="classhmi_1_1Localization.html">Localization</a> *loc) noexcept</td></tr>
@@ -201,7 +195,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9f91ee29d551621f64b5cc826d41db57" id="r_a9f91ee29d551621f64b5cc826d41db57"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9f91ee29d551621f64b5cc826d41db57">startGame</a> (std::vector&lt; std::filesystem::path &gt; levels, std::size_t startIndex=0)</td></tr>
 <tr class="memdesc:a9f91ee29d551621f64b5cc826d41db57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lance le <b>jeu</b> : joue la séquence de niveaux <code class="param">levels</code>, à partir de <code class="param">startIndex</code> (0 = depuis le début ; « Continuer »/sélection de niveau, <span class="tt">LOT-59</span> TACHE-06, reprennent plus loin).  <br /></td></tr>
 <tr class="memitem:afe2eacdf273a7c4a371040605e8ab9ea" id="r_afe2eacdf273a7c4a371040605e8ab9ea"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afe2eacdf273a7c4a371040605e8ab9ea">pauseSimulation</a> () noexcept</td></tr>
-<tr class="memdesc:afe2eacdf273a7c4a371040605e8ab9ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Suspend la simulation (écran de pause, <span class="tt">LOT-59</span> TACHE-02) : <span class="tt"><a class="el" href="#a9ffcd8a18e982d581b30126ab08407fd">tick()</a></span> cesse d'alimenter l'accumulateur de pas fixe &ndash; aucun pas n'est consommé pendant la pause (<span class="tt">EX-GP-041</span>).  <br /></td></tr>
+<tr class="memdesc:afe2eacdf273a7c4a371040605e8ab9ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Suspend la simulation (écran de pause, <span class="tt">LOT-59</span> TACHE-02) : <span class="tt"><a class="el" href="#a0c668d277f3854cf4a91b8ffe2053597" title="Avance la simulation d&#39;une image (entrées, pas fixes, sons) — sans rien dessiner.">tick()</a></span> cesse d'alimenter l'accumulateur de pas fixe &ndash; aucun pas n'est consommé pendant la pause (<span class="tt">EX-GP-041</span>).  <br /></td></tr>
 <tr class="memitem:a961e7d6ffebba90148177c1569ae1c02" id="r_a961e7d6ffebba90148177c1569ae1c02"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a961e7d6ffebba90148177c1569ae1c02">resumeSimulation</a> ()</td></tr>
 <tr class="memdesc:a961e7d6ffebba90148177c1569ae1c02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reprend la simulation après <span class="tt"><a class="el" href="#afe2eacdf273a7c4a371040605e8ab9ea" title="Suspend la simulation (écran de pause, LOT-59 TACHE-02) : tick() cesse d&#39;alimenter l&#39;accumulateur de ...">pauseSimulation()</a></span> : réarme l'horloge de référence (<span class="tt"><a class="el" href="#a3fc8dc73d01e346896da05e3e0644750">_previousFrame</a></span>) sur l'instant courant, faute de quoi le temps passé en pause serait rattrapé d'un coup au pas suivant (piège documenté par TACHE-02).  <br /></td></tr>
 <tr class="memitem:a950f514e76ffef7f6227b1d6aea3c01d" id="r_a950f514e76ffef7f6227b1d6aea3c01d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a950f514e76ffef7f6227b1d6aea3c01d">simulationPaused</a> () const noexcept</td></tr>
@@ -215,7 +209,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a740ca50280f0c84fc19c74151408e1da" id="r_a740ca50280f0c84fc19c74151408e1da"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a740ca50280f0c84fc19c74151408e1da">advanceToNextLevel</a> ()</td></tr>
 <tr class="memdesc:a740ca50280f0c84fc19c74151408e1da"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Continuer » depuis l'écran de fin de niveau (<span class="tt">LOT-59</span> TACHE-03) : charge le tableau suivant de la séquence &ndash; reprend l'ancien enchaînement automatique sur réussite, mais sur validation du joueur plutôt qu'immédiatement.  <br /></td></tr>
 <tr class="memitem:aa0c06ebd183a129d84615ec54d511db7" id="r_aa0c06ebd183a129d84615ec54d511db7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa0c06ebd183a129d84615ec54d511db7">setVSync</a> (bool enabled) noexcept</td></tr>
-<tr class="memdesc:aa0c06ebd183a129d84615ec54d511db7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active/désactive la synchronisation verticale (<span class="tt">EX-REN-022</span>) ; appliqué au device D3D11.  <br /></td></tr>
+<tr class="memdesc:aa0c06ebd183a129d84615ec54d511db7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active/désactive la synchronisation verticale (<span class="tt">EX-REN-022</span>).  <br /></td></tr>
 <tr class="memitem:afc6cd76360f0150625ee748f25ddd98f" id="r_afc6cd76360f0150625ee748f25ddd98f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#afc6cd76360f0150625ee748f25ddd98f">vsyncEnabled</a> () const noexcept</td></tr>
 <tr class="memitem:a50629a2b5582f9e7d6702b9dc04de3a7" id="r_a50629a2b5582f9e7d6702b9dc04de3a7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a50629a2b5582f9e7d6702b9dc04de3a7">resizeLevel</a> (int width, int height)</td></tr>
 <tr class="memdesc:a50629a2b5582f9e7d6702b9dc04de3a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Redimensionne le niveau en cours d'édition (<span class="tt">EX-EDIT-005</span>).  <br /></td></tr>
@@ -223,7 +217,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5721c31351cdb4eef28bd9856ff6216d" id="r_a5721c31351cdb4eef28bd9856ff6216d"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a5721c31351cdb4eef28bd9856ff6216d">levelWidth</a> () const</td></tr>
 <tr class="memitem:a4d1767ffe75ae9a601c7d211410f86b7" id="r_a4d1767ffe75ae9a601c7d211410f86b7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a4d1767ffe75ae9a601c7d211410f86b7">levelHeight</a> () const</td></tr>
 <tr class="memitem:a987dc586ecf5f86913880758b34bba7a" id="r_a987dc586ecf5f86913880758b34bba7a"><td class="memItemLeft">const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a987dc586ecf5f86913880758b34bba7a">draft</a> () const noexcept</td></tr>
-<tr class="memitem:aa74451d68f30533ea059d2631397e215" id="r_aa74451d68f30533ea059d2631397e215"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa74451d68f30533ea059d2631397e215">selectedDecorIndex</a> () const noexcept</td></tr>
+<tr class="memitem:a273e2da0d67c189ea53d4a7325d06c56" id="r_a273e2da0d67c189ea53d4a7325d06c56"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a273e2da0d67c189ea53d4a7325d06c56">selectedPlaneIndex</a> () const noexcept</td></tr>
+<tr class="memitem:a94e3858bc46bbe625f7a3a46199ec825" id="r_a94e3858bc46bbe625f7a3a46199ec825"><td class="memItemLeft">const <a class="el" href="classhmi_1_1PlaneVisibility.html">PlaneVisibility</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a94e3858bc46bbe625f7a3a46199ec825">planeVisibility</a> () const noexcept</td></tr>
 <tr class="memitem:a6eb673dcc49faf1969e7f60f26cc426a" id="r_a6eb673dcc49faf1969e7f60f26cc426a"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1PathSelection.html">hmi::PathSelection</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6eb673dcc49faf1969e7f60f26cc426a">selectedPath</a> () const noexcept</td></tr>
 <tr class="memitem:a8ff0f40612077db2c1efc94faeb9eaa4" id="r_a8ff0f40612077db2c1efc94faeb9eaa4"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8ff0f40612077db2c1efc94faeb9eaa4">selectedBlinkCell</a> () const noexcept</td></tr>
 <tr class="memitem:a1169a865b5b149dbaf12fbe48172ce3c" id="r_a1169a865b5b149dbaf12fbe48172ce3c"><td class="memItemLeft">const std::optional&lt; <a class="el" href="structhmi_1_1PathGestureAction.html">hmi::PathGestureAction</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a1169a865b5b149dbaf12fbe48172ce3c">pathPreview</a> () const noexcept</td></tr>
@@ -273,26 +268,44 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a447c144c52c54657cb29e4b7473e8f3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rechargement à chaud <b>ciblé</b> d'un seul asset (<span class="tt">LOT-43</span> TACHE-03).  <br /></td></tr>
 <tr class="memitem:a682255be40d1c669df3888777d1d5cea" id="r_a682255be40d1c669df3888777d1d5cea"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a682255be40d1c669df3888777d1d5cea">setRenderMode</a> (<a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode)</td></tr>
 <tr class="memdesc:a682255be40d1c669df3888777d1d5cea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choisit le mode de rendu et <b>persiste</b> le choix (<span class="tt">EX-REN-046</span>, <span class="tt">EX-IHM-011</span>).  <br /></td></tr>
-<tr class="memitem:ac9dfda24439df9c0c3338c131e3256e9" id="r_ac9dfda24439df9c0c3338c131e3256e9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac9dfda24439df9c0c3338c131e3256e9">selectDecor</a> (std::optional&lt; std::size_t &gt; index)</td></tr>
-<tr class="memdesc:ac9dfda24439df9c0c3338c131e3256e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sélectionne (ou désélectionne) un décor depuis la section « Décors » du panneau « Textures » (<span class="tt">LOT-50</span> TACHE-04) — l'autre sens de la sélection croisée avec le canevas (<span class="tt">hmi::DecorGesture</span>, TACHE-02).  <br /></td></tr>
-<tr class="memitem:a5cca8cb89d79d0bf8a3009eee3f052e6" id="r_a5cca8cb89d79d0bf8a3009eee3f052e6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5cca8cb89d79d0bf8a3009eee3f052e6">bringDecorForward</a> (std::size_t index)</td></tr>
-<tr class="memdesc:a5cca8cb89d79d0bf8a3009eee3f052e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réordonne le décor <code class="param">index</code> d'un cran vers l'avant de sa couche (bouton « Avancer » de la section « Décors »), annulable (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#ab20f2eb5c24b94a43e85581f8d2ccf23" title="Avance le décor au rang index d&#39;un cran dans l&#39;ordre de superposition de sa couche (EX-DEC-010) : éch...">core::LevelDraft::bringDecorForward</a></span>).  <br /></td></tr>
-<tr class="memitem:a392baf36de1678e67228f00aed5bd063" id="r_a392baf36de1678e67228f00aed5bd063"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a392baf36de1678e67228f00aed5bd063">sendDecorBackward</a> (std::size_t index)</td></tr>
-<tr class="memdesc:a392baf36de1678e67228f00aed5bd063"><td class="mdescLeft">&#160;</td><td class="mdescRight">Symétrique de <span class="tt"><a class="el" href="#a5cca8cb89d79d0bf8a3009eee3f052e6" title="Réordonne le décor index d&#39;un cran vers l&#39;avant de sa couche (bouton « Avancer » de la section « Déco...">bringDecorForward</a></span> (bouton « Reculer »).  <br /></td></tr>
-<tr class="memitem:a769a139c89b945142b32378b806d1b49" id="r_a769a139c89b945142b32378b806d1b49"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a769a139c89b945142b32378b806d1b49">setDecorLayer</a> (std::size_t index, <a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a> layer)</td></tr>
-<tr class="memdesc:a769a139c89b945142b32378b806d1b49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change la couche du décor <code class="param">index</code> (section « Décors »), annulable (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a6d40a7451d269feb1badaf2a5065752e" title="Change la couche du décor au rang index (EX-DEC-010, EX-DEC-002).">core::LevelDraft::setDecorLayer</a></span>).  <br /></td></tr>
-<tr class="memitem:abb82d7356f42831c6aa6aa245195f1d4" id="r_abb82d7356f42831c6aa6aa245195f1d4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abb82d7356f42831c6aa6aa245195f1d4">removeDecor</a> (std::size_t index)</td></tr>
-<tr class="memdesc:abb82d7356f42831c6aa6aa245195f1d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supprime le décor <code class="param">index</code> (bouton « Supprimer » de la section « Décors »).  <br /></td></tr>
-<tr class="memitem:a3367389fec48ddafd1d120eaac0dc839" id="r_a3367389fec48ddafd1d120eaac0dc839"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3367389fec48ddafd1d120eaac0dc839">centerCameraOnDecor</a> (std::size_t index)</td></tr>
-<tr class="memdesc:a3367389fec48ddafd1d120eaac0dc839"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recadre la caméra d'édition sur le décor <code class="param">index</code> (bouton « Centrer »), à son zoom courant — un décor hors du cadrage automatique (grand niveau) redevient ainsi atteignable sans avoir à le chercher à la souris.  <br /></td></tr>
+<tr id="pub-methods-0" class="groupHeader"><td colspan="2"><div class="groupHeader">Plans picturaux (&lt;tt&gt;EX-EDIT-047&lt;/tt&gt;, LOT-69 TACHE-08)</div></td></tr>
+<tr><td colspan="2" class="ititle"><div class="groupText"><p>Tous ces mutateurs passent par <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span>, seul propriétaire : ils sont donc <b>annulables</b> au même titre qu'un coup de pinceau sur les tuiles.</p>
+<p>La <b>visibilité</b>, elle, n'est pas une propriété du niveau : elle n'empile rien et ne se persiste pas. </p>
+</div></td></tr>
+<tr class="memitem:a132b79cd6ee97c10fa0a5bdeb6641e64" id="r_a132b79cd6ee97c10fa0a5bdeb6641e64"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a132b79cd6ee97c10fa0a5bdeb6641e64">selectPlane</a> (std::optional&lt; std::size_t &gt; index)</td></tr>
+<tr class="memdesc:a132b79cd6ee97c10fa0a5bdeb6641e64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sélectionne (ou désélectionne) un plan depuis le panneau.  <br /></td></tr>
+<tr class="memitem:aa5ea572591bbfb500782fb3ee5bdab7b" id="r_aa5ea572591bbfb500782fb3ee5bdab7b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa5ea572591bbfb500782fb3ee5bdab7b">addPlane</a> (<a class="el" href="structcore_1_1Plane.html">core::Plane</a> plane)</td></tr>
+<tr class="memdesc:aa5ea572591bbfb500782fb3ee5bdab7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute <code class="param">plane</code> à la fin de la liste et le sélectionne.  <br /></td></tr>
+<tr class="memitem:aafef3870453bfac2dcb2769198df5584" id="r_aafef3870453bfac2dcb2769198df5584"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aafef3870453bfac2dcb2769198df5584">removePlane</a> (std::size_t index)</td></tr>
+<tr class="memdesc:aafef3870453bfac2dcb2769198df5584"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire l'entrée du plan <code class="param">index</code>.  <br /></td></tr>
+<tr class="memitem:a84c020174351b7a1b1b98f8e41e3f598" id="r_a84c020174351b7a1b1b98f8e41e3f598"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a84c020174351b7a1b1b98f8e41e3f598">movePlane</a> (std::size_t index, bool forward)</td></tr>
+<tr class="memdesc:a84c020174351b7a1b1b98f8e41e3f598"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déplace le plan <code class="param">index</code> d'un rang ; <code class="param">forward</code> le rapproche du dessus de la liste.  <br /></td></tr>
+<tr class="memitem:af0273851c84e33ac6ee7e51349076c7d" id="r_af0273851c84e33ac6ee7e51349076c7d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af0273851c84e33ac6ee7e51349076c7d">setPlaneDepth</a> (std::size_t index, <a class="el" href="namespacecore.html#a6dc89438a55a80980ab04f7da513f731">core::PlaneDepth</a> depth)</td></tr>
+<tr class="memdesc:af0273851c84e33ac6ee7e51349076c7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change la profondeur du plan <code class="param">index</code>.  <br /></td></tr>
+<tr class="memitem:a98766eeff197f6eca3e149e29a7ad34e" id="r_a98766eeff197f6eca3e149e29a7ad34e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a98766eeff197f6eca3e149e29a7ad34e">setPlaneDensity</a> (std::size_t index, int pixelsPerUnit)</td></tr>
+<tr class="memdesc:a98766eeff197f6eca3e149e29a7ad34e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change la densité déclarée du plan <code class="param">index</code> (le rééchantillonnage de l'image est fait par l'appelant, qui possède le fichier).  <br /></td></tr>
+<tr class="memitem:ae0248111fe500568713d13e90d38c2a7" id="r_ae0248111fe500568713d13e90d38c2a7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae0248111fe500568713d13e90d38c2a7">setPlaneParallax</a> (std::size_t index, float parallaxX, float parallaxY)</td></tr>
+<tr class="memdesc:ae0248111fe500568713d13e90d38c2a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change les facteurs de parallaxe du plan <code class="param">index</code>.  <br /></td></tr>
+<tr class="memitem:a13d79c0508374c122a425f6d39e9c6b4" id="r_a13d79c0508374c122a425f6d39e9c6b4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a13d79c0508374c122a425f6d39e9c6b4">setPlaneOpacity</a> (std::size_t index, float opacity)</td></tr>
+<tr class="memdesc:a13d79c0508374c122a425f6d39e9c6b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change l'opacité du plan <code class="param">index</code>.  <br /></td></tr>
+<tr class="memitem:a9c8f295e4375f99d55ab496821cceaac" id="r_a9c8f295e4375f99d55ab496821cceaac"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9c8f295e4375f99d55ab496821cceaac">setLevelParallaxEnabled</a> (bool enabled)</td></tr>
+<tr class="memdesc:a9c8f295e4375f99d55ab496821cceaac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change le drapeau de parallaxe du <b>niveau</b>.  <br /></td></tr>
+<tr class="memitem:a9aa69324accbbef35fa57083ebea1367" id="r_a9aa69324accbbef35fa57083ebea1367"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9aa69324accbbef35fa57083ebea1367">setPlaneVisible</a> (std::size_t index, bool visible)</td></tr>
+<tr class="memdesc:a9aa69324accbbef35fa57083ebea1367"><td class="mdescLeft">&#160;</td><td class="mdescRight">Masque ou réaffiche le plan <code class="param">index</code> (aide d'édition).  <br /></td></tr>
+<tr class="memitem:af236b2231cc5c0e697f07aa8e1468251" id="r_af236b2231cc5c0e697f07aa8e1468251"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af236b2231cc5c0e697f07aa8e1468251">setPlaneIsolated</a> (std::size_t index, bool isolate)</td></tr>
+<tr class="memdesc:af236b2231cc5c0e697f07aa8e1468251"><td class="mdescLeft">&#160;</td><td class="mdescRight">Isole le plan <code class="param">index</code>, ou réaffiche tout si <code class="param">isolate</code> est faux.  <br /></td></tr>
 <tr class="inherit_header pub_methods_classhmi_1_1EditContextTarget"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classhmi_1_1EditContextTarget')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Public Member Functions inherited from <a class="el" href="classhmi_1_1EditContextTarget.html">hmi::EditContextTarget</a></td></tr>
 <tr class="memitem:a82f63a0d5ba2f3fe2e78ae6bcf79eb99 inherit pub_methods_classhmi_1_1EditContextTarget" id="r_a82f63a0d5ba2f3fe2e78ae6bcf79eb99"><td class="memItemLeft">virtual&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1EditContextTarget.html#a82f63a0d5ba2f3fe2e78ae6bcf79eb99">~EditContextTarget</a> ()=default</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
+<tr class="memitem:a4a31de0d35b6fce76afb749e27539d35" id="r_a4a31de0d35b6fce76afb749e27539d35"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4a31de0d35b6fce76afb749e27539d35">initialize</a> (QRhiCommandBuffer *commandBuffer) override</td></tr>
+<tr class="memdesc:a4a31de0d35b6fce76afb749e27539d35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée (ou recrée) les ressources graphiques quand <span class="tt">QRhiWidget</span> fournit son interface de rendu, et à chaque fois qu'il en change (<span class="tt">EX-NFR-040</span> : perte de ressources prévue, pas supposée impossible).  <br /></td></tr>
+<tr class="memitem:a2d14e7a7931f33399764e36e182c83b7" id="r_a2d14e7a7931f33399764e36e182c83b7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2d14e7a7931f33399764e36e182c83b7">render</a> (QRhiCommandBuffer *commandBuffer) override</td></tr>
+<tr class="memdesc:a2d14e7a7931f33399764e36e182c83b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine une image : avance la simulation, compose la scène, puis la soumet.  <br /></td></tr>
+<tr class="memitem:a44c4f8a4d887b32d8cdd25efc7d9cf1d" id="r_a44c4f8a4d887b32d8cdd25efc7d9cf1d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a44c4f8a4d887b32d8cdd25efc7d9cf1d">releaseResources</a> () override</td></tr>
+<tr class="memdesc:a44c4f8a4d887b32d8cdd25efc7d9cf1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Libère les ressources graphiques quand <span class="tt">QRhiWidget</span> défait son interface de rendu.  <br /></td></tr>
 <tr class="memitem:a5d3760d8afacd89cccc12dff1f843a9b" id="r_a5d3760d8afacd89cccc12dff1f843a9b"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5d3760d8afacd89cccc12dff1f843a9b">event</a> (QEvent *event) override</td></tr>
-<tr class="memitem:a94596a1dc3de04ef62f99131a77dbbca" id="r_a94596a1dc3de04ef62f99131a77dbbca"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a94596a1dc3de04ef62f99131a77dbbca">exposeEvent</a> (QExposeEvent *) override</td></tr>
-<tr class="memitem:a264b2047d89de02557e1c65a15c6dd31" id="r_a264b2047d89de02557e1c65a15c6dd31"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a264b2047d89de02557e1c65a15c6dd31">resizeEvent</a> (QResizeEvent *) override</td></tr>
 <tr class="memitem:ac3bad1f6d1f1e5f61bbb4e35283ad308" id="r_ac3bad1f6d1f1e5f61bbb4e35283ad308"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac3bad1f6d1f1e5f61bbb4e35283ad308">keyPressEvent</a> (QKeyEvent *<a class="el" href="#a5d3760d8afacd89cccc12dff1f843a9b">event</a>) override</td></tr>
 <tr class="memitem:aeab73386d2f7ed680a6bee08b923d1c9" id="r_aeab73386d2f7ed680a6bee08b923d1c9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aeab73386d2f7ed680a6bee08b923d1c9">keyReleaseEvent</a> (QKeyEvent *<a class="el" href="#a5d3760d8afacd89cccc12dff1f843a9b">event</a>) override</td></tr>
 <tr class="memitem:abc604f133e21cb2c361b58b2478746fb" id="r_abc604f133e21cb2c361b58b2478746fb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abc604f133e21cb2c361b58b2478746fb">mousePressEvent</a> (QMouseEvent *<a class="el" href="#a5d3760d8afacd89cccc12dff1f843a9b">event</a>) override</td></tr>
@@ -306,10 +319,12 @@ Private Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:ade04cd4034cab1c4bd405a1539492812" id="r_ade04cd4034cab1c4bd405a1539492812"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ade04cd4034cab1c4bd405a1539492812">ensureResources</a> ()</td></tr>
-<tr class="memitem:a9ffcd8a18e982d581b30126ab08407fd" id="r_a9ffcd8a18e982d581b30126ab08407fd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9ffcd8a18e982d581b30126ab08407fd">tick</a> ()</td></tr>
-<tr class="memitem:acabefda16573458d0d6d86bd29b400e4" id="r_acabefda16573458d0d6d86bd29b400e4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acabefda16573458d0d6d86bd29b400e4">renderFrame</a> (float deltaSeconds=0.0f)</td></tr>
-<tr class="memdesc:acabefda16573458d0d6d86bd29b400e4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code class="param">deltaSeconds</code> : temps réel écoulé depuis l'image précédente (LOT-46 TACHE-05, avance l'aperçu des tuiles animées de l'éditeur) ; <span class="tt">0</span> (défaut) pour un redessin sans avancer l'aperçu (redimensionnement).  <br /></td></tr>
+<tr class="memitem:ad80bbcaacca07a11747eea2ad8566b39" id="r_ad80bbcaacca07a11747eea2ad8566b39"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad80bbcaacca07a11747eea2ad8566b39">createResources</a> ()</td></tr>
+<tr class="memdesc:ad80bbcaacca07a11747eea2ad8566b39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée l'atlas, la police, le cache de textures et le pipeline de dessin sur l'interface de rendu courante, puis ouvre le brouillon de départ.  <br /></td></tr>
+<tr class="memitem:a0c668d277f3854cf4a91b8ffe2053597" id="r_a0c668d277f3854cf4a91b8ffe2053597"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0c668d277f3854cf4a91b8ffe2053597">tick</a> (float <a class="el" href="namespacehmi.html#ac3f6e20f88982fbb59a80f9a1b67dfdd">elapsedSeconds</a>)</td></tr>
+<tr class="memdesc:a0c668d277f3854cf4a91b8ffe2053597"><td class="mdescLeft">&#160;</td><td class="mdescRight">Avance la simulation d'une image (entrées, pas fixes, sons) — sans rien dessiner.  <br /></td></tr>
+<tr class="memitem:a429e3a6ba571a469b45d3dc1e4662991" id="r_a429e3a6ba571a469b45d3dc1e4662991"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a429e3a6ba571a469b45d3dc1e4662991">renderFrame</a> (QRhiCommandBuffer *commandBuffer, float deltaSeconds)</td></tr>
+<tr class="memdesc:a429e3a6ba571a469b45d3dc1e4662991"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose et soumet une image sur <code class="param">commandBuffer</code>.  <br /></td></tr>
 <tr class="memitem:a740b15fef3dea457881dafea9e533187" id="r_a740b15fef3dea457881dafea9e533187"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a740b15fef3dea457881dafea9e533187">renderDiagnosticsOverlay</a> (int viewportWidth, int viewportHeight)</td></tr>
 <tr class="memdesc:a740b15fef3dea457881dafea9e533187"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose et soumet le compteur de diagnostic (<span class="tt">LOT-62</span> TACHE-02), coin haut-droit de l'écran &ndash; sans effet si désactivé, hors session, ou avant que la localisation ne soit chargée (<span class="tt">EX-NFR-040</span>, coût nul quand éteint : rien n'est calculé au-delà du test d'entrée).  <br /></td></tr>
 <tr class="memitem:ae0c7a5dd8a430f39cbc0fbd1e200a574" id="r_ae0c7a5dd8a430f39cbc0fbd1e200a574"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae0c7a5dd8a430f39cbc0fbd1e200a574">stopPlaytest</a> ()</td></tr>
@@ -345,22 +360,6 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:abae0c17d59f3e99daac38bd485051fba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout le clic de l'outil « Texture par instance » (<span class="tt"><a class="el" href="namespacehmi.html#ad9c60c575bab3fcb92a2876cc1b11bfc" title="Résout le clic de l&#39;outil « Texture par instance » sur clickedCell.">hmi::resolveTextureAssignClick</a></span>) et l'applique (assignation/retrait) ; <code class="param">rightClick</code> distingue le clic droit (retrait explicite).  <br /></td></tr>
 <tr class="memitem:ac71069276d05341fffe54f5d071ef5d1" id="r_ac71069276d05341fffe54f5d071ef5d1"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac71069276d05341fffe54f5d071ef5d1">worldPositionAt</a> (const QMouseEvent *<a class="el" href="#a5d3760d8afacd89cccc12dff1f843a9b">event</a>)</td></tr>
 <tr class="memdesc:ac71069276d05341fffe54f5d071ef5d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit la position écran d'un événement souris en position <b>monde</b>, non calée sur la grille (<span class="tt">EX-DEC-001</span>) — contrairement à <span class="tt"><a class="el" href="#a5f7a14d556f4c45f5e5eb6331c27be81" title="Case de grille sous la position écran donnée (pixels physiques), si dans les bornes.">cellAt</a></span>/<span class="tt"><a class="el" href="#a078cc498875632716eaea7c6383171d0" title="Case de grille sous event, bornée à la grille (jamais hors bornes) — pour les glissers rectangle/séle...">clampedCell</a></span>, utilisées par les autres outils.  <br /></td></tr>
-<tr class="memitem:a48ef4fcdc96f2ffad4c19209953e6604" id="r_a48ef4fcdc96f2ffad4c19209953e6604"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a48ef4fcdc96f2ffad4c19209953e6604">decorPixelSize</a> (const std::string &amp;assetName) const</td></tr>
-<tr class="memdesc:a48ef4fcdc96f2ffad4c19209953e6604"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dimensions réelles (en pixels) de l'asset d'un décor, damier de repli si introuvable — résolution directe via <span class="tt"><a class="el" href="#a22acfc4d63a401176b695f09d71ec03b">_textureCache</a></span>, même repli que <span class="tt"><a class="el" href="namespacehmi.html#ac3ffff683e20d285cb666f9785ca0cf1" title="Résout l&#39;apparence d&#39;un décor : asset désigné si chargé, damier de repli sinon.">hmi::resolveDecorAppearance</a></span> (<span class="tt">LOT-49</span>) mais sans construire une <span class="tt"><a class="el" href="structhmi_1_1SceneTextures.html" title="Textures liables par la composition d&#39;une scène, et de quoi choisir laquelle lier.">hmi::SceneTextures</a></span> complète.  <br /></td></tr>
-<tr class="memitem:a6f6db64e55f416ba9ae55caa05d083e2" id="r_a6f6db64e55f416ba9ae55caa05d083e2"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6f6db64e55f416ba9ae55caa05d083e2">decorBoundsForGesture</a> () const</td></tr>
-<tr class="memdesc:a6f6db64e55f416ba9ae55caa05d083e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangles englobants de tous les décors du brouillon courant (<span class="tt"><a class="el" href="namespacehmi.html#a68b105dbefc5ef9bda7a95567e2384a5" title="Rectangle englobant d&#39;un décor, en unités monde.">hmi::decorWorldBounds</a></span>), alignés avec <span class="tt">_draft.decors()</span> — pour la désignation et le geste de l'outil Décor (<span class="tt">LOT-50</span> TACHE-02).  <br /></td></tr>
-<tr class="memitem:a0d79f79517cce4cb66b1a06eee4f94fb" id="r_a0d79f79517cce4cb66b1a06eee4f94fb"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1DecorHandleLayout.html">hmi::DecorHandleLayout</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0d79f79517cce4cb66b1a06eee4f94fb">selectedDecorHandles</a> () const</td></tr>
-<tr class="memdesc:a0d79f79517cce4cb66b1a06eee4f94fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Poignées du décor actuellement sélectionné (<span class="tt"><a class="el" href="namespacehmi.html#a1ec05f9f9a488599614b6924adce974d" title="Calcule les rectangles des poignées d&#39;un décor sélectionné.">hmi::decorHandleLayout</a></span>), si un l'est.  <br /></td></tr>
-<tr class="memitem:ab8542b2a620c9ccbae5d7199353c3162" id="r_ab8542b2a620c9ccbae5d7199353c3162"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab8542b2a620c9ccbae5d7199353c3162">handleDecorPress</a> (const QMouseEvent *<a class="el" href="#a5d3760d8afacd89cccc12dff1f843a9b">event</a>)</td></tr>
-<tr class="memdesc:ab8542b2a620c9ccbae5d7199353c3162"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appui (outil Décor, <span class="tt">LOT-50</span> TACHE-02) : désigne l'élément sous le clic.  <br /></td></tr>
-<tr class="memitem:a9171caff30a55ada633bf7206e205041" id="r_a9171caff30a55ada633bf7206e205041"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9171caff30a55ada633bf7206e205041">handleDecorMove</a> (const QMouseEvent *<a class="el" href="#a5d3760d8afacd89cccc12dff1f843a9b">event</a>)</td></tr>
-<tr class="memdesc:a9171caff30a55ada633bf7206e205041"><td class="mdescLeft">&#160;</td><td class="mdescRight">Glisser en cours (outil Décor) : fait progresser le geste, met à jour l'aperçu (<span class="tt">LOT-50</span> TACHE-03) sans jamais muter <span class="tt"><a class="el" href="#a0965909558a6381fb2a51b90605b2320" title="Brouillon en cours d&#39;édition (source de vérité).">_draft</a></span>.  <br /></td></tr>
-<tr class="memitem:a31b3c74b74b50e949d9da410933b68ae" id="r_a31b3c74b74b50e949d9da410933b68ae"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a31b3c74b74b50e949d9da410933b68ae">handleDecorRelease</a> (const QMouseEvent *<a class="el" href="#a5d3760d8afacd89cccc12dff1f843a9b">event</a>, bool rightClick)</td></tr>
-<tr class="memdesc:a31b3c74b74b50e949d9da410933b68ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relâchement (outil Décor) : termine le geste et applique l'action finale aux mutateurs de TACHE-01 (un seul appel, donc une seule entrée d'historique par geste complet) ; clic droit retire le décor visé.  <br /></td></tr>
-<tr class="memitem:a8701d0f8ef1d356e5664dedc01ad6492" id="r_a8701d0f8ef1d356e5664dedc01ad6492"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8701d0f8ef1d356e5664dedc01ad6492">cancelDecorGesture</a> ()</td></tr>
-<tr class="memdesc:a8701d0f8ef1d356e5664dedc01ad6492"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abandonne un glisser de décor en cours (<span class="tt">Échap</span>, <span class="tt">LOT-50</span> TACHE-02) : restaure l'aperçu, aucune mutation du brouillon (rien n'y avait été écrit pendant le glisser).  <br /></td></tr>
-<tr class="memitem:a42949254bea0fa15c30dd5c5e529f944" id="r_a42949254bea0fa15c30dd5c5e529f944"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a42949254bea0fa15c30dd5c5e529f944">applyDecorGestureAction</a> (const <a class="el" href="structhmi_1_1DecorGestureAction.html">hmi::DecorGestureAction</a> &amp;action)</td></tr>
-<tr class="memdesc:a42949254bea0fa15c30dd5c5e529f944"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique l'action finale d'un geste de décors (<span class="tt"><a class="el" href="namespacehmi.html#a16be7eae78f5fc7596567c6af2d382ab" title="Termine le geste (relâchement) et renvoie l&#39;action finale à appliquer.">hmi::endDecorGesture</a></span>) aux mutateurs de TACHE-01 ; sans effet pour <span class="tt"><a class="el" href="namespacehmi.html#a36a02809aec3ca6ea3feb8e455433599a6adf97f83acf6453d4a6a4b1070f3754" title="Rien à appliquer (glisser encore sous le seuil, ou fin d&#39;un simple clic).">DecorGestureActionKind::None</a></span> (simple clic/sélection).  <br /></td></tr>
 <tr class="memitem:a2d7dc47f354a58b7c89ec619634379c5" id="r_a2d7dc47f354a58b7c89ec619634379c5"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1PathHandle.html">hmi::PathHandle</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2d7dc47f354a58b7c89ec619634379c5">selectedPathHandles</a> () const</td></tr>
 <tr class="memdesc:a2d7dc47f354a58b7c89ec619634379c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Poignées du parcours actuellement sélectionné (<span class="tt"><a class="el" href="namespacehmi.html#a5018d5c3f9b2d64c52bcfaf88e228d1c" title="Calcule les poignées d&#39;un parcours sélectionné.">hmi::pathHandleLayout</a></span> pour une plateforme, <span class="tt"><a class="el" href="namespacehmi.html#aa9697e49ef0c4cea84b7546d33d1c3d4" title="Calcule l&#39;unique poignée d&#39;un danger mobile : son extrémité de course.">hmi::moverHandleLayout</a></span> pour un danger mobile), vides si aucun ne l'est.  <br /></td></tr>
 <tr class="memitem:ac0d89132b7243305f59d196def130ca6" id="r_ac0d89132b7243305f59d196def130ca6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac0d89132b7243305f59d196def130ca6">handlePathPress</a> (const QMouseEvent *<a class="el" href="#a5d3760d8afacd89cccc12dff1f843a9b">event</a>)</td></tr>
@@ -383,7 +382,8 @@ Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:aab3f638516aa5429c3407a41993218a8" id="r_aab3f638516aa5429c3407a41993218a8"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1GraphicsDevice.html">hmi::GraphicsDevice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aab3f638516aa5429c3407a41993218a8">_graphics</a></td></tr>
+<tr class="memitem:a79277c640d9064451180966082c326f4" id="r_a79277c640d9064451180966082c326f4"><td class="memItemLeft"><a class="el" href="structhmi_1_1RhiContext.html">hmi::RhiContext</a>&#160;</td><td class="memItemRight"><a class="el" href="#a79277c640d9064451180966082c326f4">_rhiContext</a></td></tr>
+<tr class="memdesc:a79277c640d9064451180966082c326f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface de rendu courante et lot de mises à jour de l'image en cours, partagés avec tout ce qui crée des textures (atlas, cache, police).  <br /></td></tr>
 <tr class="memitem:a132dc1f84bb787da5f50d8cef3627d38" id="r_a132dc1f84bb787da5f50d8cef3627d38"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a132dc1f84bb787da5f50d8cef3627d38">_spriteBatch</a></td></tr>
 <tr class="memitem:a59a93eb0995d3ebd1f0547b569ff0b9c" id="r_a59a93eb0995d3ebd1f0547b569ff0b9c"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1TextureAtlas.html">hmi::TextureAtlas</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a59a93eb0995d3ebd1f0547b569ff0b9c">_atlas</a></td></tr>
 <tr class="memitem:a22acfc4d63a401176b695f09d71ec03b" id="r_a22acfc4d63a401176b695f09d71ec03b"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1TextureCache.html">hmi::TextureCache</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a22acfc4d63a401176b695f09d71ec03b">_textureCache</a></td></tr>
@@ -409,7 +409,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ae7cbee33340359aeea915deb28375c38" id="r_ae7cbee33340359aeea915deb28375c38"><td class="memItemLeft"><a class="el" href="classhmi_1_1FrameRateAverage.html">hmi::FrameRateAverage</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae7cbee33340359aeea915deb28375c38">_frameRateAverage</a></td></tr>
 <tr class="memdesc:ae7cbee33340359aeea915deb28375c38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moyenne glissante de la cadence de rendu, alimentée uniquement quand <span class="tt"><a class="el" href="#a0c50142a61c2823731332c95c587e3ae">_diagnosticsEnabled</a></span> est vrai (rien n'est calculé quand l'affichage est éteint).  <br /></td></tr>
 <tr class="memitem:a9f45d7a136c288d135d46834cbe9f2c9" id="r_a9f45d7a136c288d135d46834cbe9f2c9"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a9f45d7a136c288d135d46834cbe9f2c9">_lastSimulationSteps</a> = 0</td></tr>
-<tr class="memdesc:a9f45d7a136c288d135d46834cbe9f2c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de pas de simulation consommés au dernier <span class="tt"><a class="el" href="#a9ffcd8a18e982d581b30126ab08407fd">tick()</a></span> &ndash; distinct de la cadence de rendu depuis le <span class="tt">LOT-33</span> (<span class="tt"><a class="el" href="structhmi_1_1DiagnosticsMeasurements.html#a0676efd9a3bc7443d2ff90d30e376225" title="Nombre de pas de simulation consommés à la dernière image (core::FixedTimestep::advance) : révèle imm...">hmi::DiagnosticsMeasurements::simulationSteps</a></span>).  <br /></td></tr>
+<tr class="memdesc:a9f45d7a136c288d135d46834cbe9f2c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de pas de simulation consommés au dernier <span class="tt"><a class="el" href="#a0c668d277f3854cf4a91b8ffe2053597" title="Avance la simulation d&#39;une image (entrées, pas fixes, sons) — sans rien dessiner.">tick()</a></span> &ndash; distinct de la cadence de rendu depuis le <span class="tt">LOT-33</span> (<span class="tt"><a class="el" href="structhmi_1_1DiagnosticsMeasurements.html#a0676efd9a3bc7443d2ff90d30e376225" title="Nombre de pas de simulation consommés à la dernière image (core::FixedTimestep::advance) : révèle imm...">hmi::DiagnosticsMeasurements::simulationSteps</a></span>).  <br /></td></tr>
 <tr class="memitem:abdcf9746af0d898a6ee2d585037af537" id="r_abdcf9746af0d898a6ee2d585037af537"><td class="memItemLeft"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a>&#160;</td><td class="memItemRight"><a class="el" href="#abdcf9746af0d898a6ee2d585037af537">_diagnosticsScene</a></td></tr>
 <tr class="memdesc:abdcf9746af0d898a6ee2d585037af537"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scène dédiée du compteur de diagnostic, jamais partagée avec <span class="tt"><a class="el" href="#aff4b0205eeb55f40afa51e0b0788ba08" title="Session de jeu de l&#39;essai immédiat ; nulle en mode édition (essai ajouté au LOT-35 TACHE-04).">_session</a></span> (dont le HUD de jeu vit dans sa propre scène) ni avec le brouillon d'édition &ndash; même isolement que le texte de <span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a7600fad72568c7816ca4c523d1b7cac7" title="Compose et soumet l&#39;affichage tête haute (budgets, nom du tableau), en espace écran,...">hmi::GameSession::renderHud</a></span> (<span class="tt">LOT-52</span>).  <br /></td></tr>
 <tr class="memitem:a0965909558a6381fb2a51b90605b2320" id="r_a0965909558a6381fb2a51b90605b2320"><td class="memItemLeft"><a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0965909558a6381fb2a51b90605b2320">_draft</a></td></tr>
@@ -432,16 +432,10 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:af0ef65fced561f5c25e609d4eca37674"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type peint au clic (palette).  <br /></td></tr>
 <tr class="memitem:a660e1441fa6a267336b9450cbb524331" id="r_a660e1441fa6a267336b9450cbb524331"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a660e1441fa6a267336b9450cbb524331">_activeTextureAsset</a></td></tr>
 <tr class="memdesc:a660e1441fa6a267336b9450cbb524331"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asset assigné au clic par l'outil « Texture par instance » (<span class="tt">LOT-45</span>), vide si aucun n'est sélectionné dans la bibliothèque « Objets ».  <br /></td></tr>
-<tr class="memitem:a72ca397f707f841d16866836c0809c5f" id="r_a72ca397f707f841d16866836c0809c5f"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a72ca397f707f841d16866836c0809c5f">_activeDecorAsset</a></td></tr>
-<tr class="memdesc:a72ca397f707f841d16866836c0809c5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asset posé au clic par l'outil Décor (<span class="tt">LOT-49</span>), vide si aucun n'est sélectionné dans la bibliothèque de décors.  <br /></td></tr>
-<tr class="memitem:a471e328667ec9409fc6e710dbc289264" id="r_a471e328667ec9409fc6e710dbc289264"><td class="memItemLeft"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a>&#160;</td><td class="memItemRight"><a class="el" href="#a471e328667ec9409fc6e710dbc289264">_activeDecorLayer</a> = <a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20ae953e8671da3a0647c0939df8ebe8e44">core::DecorLayer::Decor</a></td></tr>
-<tr class="memdesc:a471e328667ec9409fc6e710dbc289264"><td class="mdescLeft">&#160;</td><td class="mdescRight">Couche du décor posé au clic (<span class="tt">LOT-49</span>, <span class="tt">EX-DEC-002</span>) ; <span class="tt">Decor</span> par défaut (couche de référence, <span class="tt">EX-DEC-006</span>).  <br /></td></tr>
-<tr class="memitem:a4d1b8f1d44702ae851892ca5811cb506" id="r_a4d1b8f1d44702ae851892ca5811cb506"><td class="memItemLeft"><a class="el" href="structhmi_1_1DecorGestureState.html">hmi::DecorGestureState</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4d1b8f1d44702ae851892ca5811cb506">_decorGesture</a></td></tr>
-<tr class="memdesc:a4d1b8f1d44702ae851892ca5811cb506"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du geste de manipulation de décors (<span class="tt">LOT-50</span> TACHE-02) ; <span class="tt">selectedIndex</span> porte la sélection courante de l'éditeur, au-delà de la durée d'un seul geste.  <br /></td></tr>
-<tr class="memitem:a7124c5364ce334ae3cf74484d5c1d77a" id="r_a7124c5364ce334ae3cf74484d5c1d77a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a7124c5364ce334ae3cf74484d5c1d77a">_decorSnapToGrid</a> = false</td></tr>
-<tr class="memdesc:a7124c5364ce334ae3cf74484d5c1d77a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aimantation sur la grille du geste de décors (<span class="tt">LOT-50</span>), optionnelle, désactivée par défaut.  <br /></td></tr>
-<tr class="memitem:adc76dfdfcc67537e40fa161a498dd7c4" id="r_adc76dfdfcc67537e40fa161a498dd7c4"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1DecorGestureAction.html">hmi::DecorGestureAction</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adc76dfdfcc67537e40fa161a498dd7c4">_decorPreview</a></td></tr>
-<tr class="memdesc:adc76dfdfcc67537e40fa161a498dd7c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aperçu courant du geste de décors en cours (<span class="tt">LOT-50</span> TACHE-03) — jamais écrit dans <span class="tt"><a class="el" href="#a0965909558a6381fb2a51b90605b2320" title="Brouillon en cours d&#39;édition (source de vérité).">_draft</a></span>, seul <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span> le consomme pour afficher la manipulation avant validation.  <br /></td></tr>
+<tr class="memitem:af6532522269795110b249743401383a5" id="r_af6532522269795110b249743401383a5"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af6532522269795110b249743401383a5">_selectedPlane</a></td></tr>
+<tr class="memdesc:af6532522269795110b249743401383a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plan sélectionné dans le panneau « Plans » (<span class="tt">LOT-69</span>), si un l'est.  <br /></td></tr>
+<tr class="memitem:ab9fe605678982eb09b5da4d035c5df29" id="r_ab9fe605678982eb09b5da4d035c5df29"><td class="memItemLeft"><a class="el" href="classhmi_1_1PlaneVisibility.html">hmi::PlaneVisibility</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab9fe605678982eb09b5da4d035c5df29">_planeVisibility</a></td></tr>
+<tr class="memdesc:ab9fe605678982eb09b5da4d035c5df29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visibilité des plans dans l'éditeur : aide d'édition, jamais persistée ni annulable.  <br /></td></tr>
 <tr class="memitem:ab09540c0930baf3de21871df9fd84113" id="r_ab09540c0930baf3de21871df9fd84113"><td class="memItemLeft"><a class="el" href="structhmi_1_1PathGestureState.html">hmi::PathGestureState</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab09540c0930baf3de21871df9fd84113">_pathGesture</a></td></tr>
 <tr class="memdesc:ab09540c0930baf3de21871df9fd84113"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du geste de parcours (<span class="tt">LOT-67</span>) ; <span class="tt">selected</span> porte la sélection courante de l'éditeur, au-delà de la durée d'un seul geste.  <br /></td></tr>
 <tr class="memitem:a29caebb8237b2e789e06d2f1e567f0a5" id="r_a29caebb8237b2e789e06d2f1e567f0a5"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1PathGestureAction.html">hmi::PathGestureAction</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a29caebb8237b2e789e06d2f1e567f0a5">_pathPreview</a></td></tr>
@@ -484,11 +478,11 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a74f96badf8676be9a637e99f4eca318b" id="r_a74f96badf8676be9a637e99f4eca318b"><td class="memItemLeft"><a class="el" href="classhmi_1_1LayerVisibility.html">LayerVisibility</a>&#160;</td><td class="memItemRight"><a class="el" href="#a74f96badf8676be9a637e99f4eca318b">_layerVisibility</a></td></tr>
 <tr class="memdesc:a74f96badf8676be9a637e99f4eca318b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jeu de visibilités par calque du mode d'inspection « définition des textures » (<span class="tt">LOT-51</span>) — tout visible par défaut, jamais persisté (TACHE-01), édition uniquement.  <br /></td></tr>
 <tr class="memitem:a1f2f909759ccc5199434aaba3e9c5766" id="r_a1f2f909759ccc5199434aaba3e9c5766"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1f2f909759ccc5199434aaba3e9c5766">_vsync</a> = true</td></tr>
-<tr class="memdesc:a1f2f909759ccc5199434aaba3e9c5766"><td class="mdescLeft">&#160;</td><td class="mdescRight">Synchronisation verticale (appliquée au device D3D11).  <br /></td></tr>
+<tr class="memdesc:a1f2f909759ccc5199434aaba3e9c5766"><td class="mdescLeft">&#160;</td><td class="mdescRight">Synchronisation verticale demandée (cf. <span class="tt">setVSyncEnabled</span>).  <br /></td></tr>
 <tr class="memitem:af93b0170b51e3476671c5e9b5f6178f2" id="r_af93b0170b51e3476671c5e9b5f6178f2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af93b0170b51e3476671c5e9b5f6178f2">_gameMode</a> = false</td></tr>
 <tr class="memdesc:af93b0170b51e3476671c5e9b5f6178f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">La session courante est une <b>partie</b> (menu Jouer) et non un essai depuis l'éditeur (enchaînement/retour menu).  <br /></td></tr>
 <tr class="memitem:a566ceb125e2c7e196eea38c0f19623e7" id="r_a566ceb125e2c7e196eea38c0f19623e7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a566ceb125e2c7e196eea38c0f19623e7">_paused</a> = false</td></tr>
-<tr class="memdesc:a566ceb125e2c7e196eea38c0f19623e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran de pause affiché (<span class="tt">LOT-59</span> TACHE-02) : <span class="tt"><a class="el" href="#a9ffcd8a18e982d581b30126ab08407fd">tick()</a></span> n'avance plus l'accumulateur de pas fixe tant que c'est vrai &ndash; le rendu, lui, continue.  <br /></td></tr>
+<tr class="memdesc:a566ceb125e2c7e196eea38c0f19623e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran de pause affiché (<span class="tt">LOT-59</span> TACHE-02) : <span class="tt"><a class="el" href="#a0c668d277f3854cf4a91b8ffe2053597" title="Avance la simulation d&#39;une image (entrées, pas fixes, sons) — sans rien dessiner.">tick()</a></span> n'avance plus l'accumulateur de pas fixe tant que c'est vrai &ndash; le rendu, lui, continue.  <br /></td></tr>
 <tr class="memitem:ae419f03e1eb9fb6705b9d6301ddb471d" id="r_ae419f03e1eb9fb6705b9d6301ddb471d"><td class="memItemLeft">std::vector&lt; std::filesystem::path &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae419f03e1eb9fb6705b9d6301ddb471d">_gameLevels</a></td></tr>
 <tr class="memdesc:ae419f03e1eb9fb6705b9d6301ddb471d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Séquence de niveaux du mode jeu.  <br /></td></tr>
 <tr class="memitem:ae0609d50a53bd511ee96019f0b585d78" id="r_ae0609d50a53bd511ee96019f0b585d78"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#ae0609d50a53bd511ee96019f0b585d78">_gameLevel</a> = 0</td></tr>
@@ -497,7 +491,9 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:aff4b0205eeb55f40afa51e0b0788ba08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Session de jeu de l'essai immédiat ; nulle en mode édition (essai ajouté au LOT-35 TACHE-04).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fenêtre native (<span class="tt">QWindow</span>) où Direct3D 11 présente, embarquée dans Qt. </p>
+<div class="textblock"><p>Widget de rendu (<span class="tt">QRhiWidget</span>) où la scène est dessinée, composé avec le reste de l'interface. </p>
+<p><b>Widget, et non fenêtre native, depuis le <span class="tt">LOT-69</span> TACHE-02</b> (<span class="tt">EX-REN-050</span>). L'ancien montage — une <span class="tt">QWindow</span> embarquée par <span class="tt">QWidget::createWindowContainer</span> — a coûté deux défauts réels au <span class="tt">LOT-59</span> : un écran de pause qui ne s'affichait jamais de façon fiable par-dessus la fenêtre native, puis un contournement <span class="tt">Qt::Tool</span> qui empêchait <span class="tt">activateWindow()</span>. <span class="tt">QRhiWidget</span> rend dans une texture d'appui composée avec les autres widgets : l'empilement redevient celui, ordinaire, de Qt, et les recouvrements (pause, fin de niveau) redeviennent de simples enfants.</p>
+<p>La cible technique ne change pas : QRhi retient <b>Direct3D 11</b> par défaut sous Windows (<span class="tt">EX-REN-002</span>, amendée — <em>au travers de QRhi</em> plutôt qu'en appelant l'API directement).</p>
 <p><b>Mode édition</b> (LOT-35) : affiche le brouillon (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span>) via <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span>, caméra cadrant le niveau entier par défaut. Le clic/glisser gauche <b>peint</b> le type de tuile actif (<span class="tt"><a class="el" href="#aa1b0f14b74c790ed226ce9ad3302eaa5" title="Définit le type de tuile peint au clic (relié à la sélection de la palette).">setActiveTile</a></span>, fourni par la palette) à la case survolée (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a>::
 paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span> annulent/refont. La molette <b>zoome</b> manuellement (borné entre l'ajustement automatique et 4 cases visibles sur le plus petit axe) et le glisser <b>bouton droit</b> déplace la caméra (« pan ») ; <span class="tt">0</span> revient au cadrage automatique (LOT-15). <b>Mode essai</b> (LOT-35 TACHE-04) : une <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> rejoue le niveau ; sa boucle à pas fixe (<span class="tt"><a class="el" href="classcore_1_1FixedTimestep.html" title="Convertit un temps réel écoulé variable en un nombre de pas de simulation fixes.">core::FixedTimestep</a></span>) et ses entrées (Qt + XInput) reprennent la discipline du <span class="tt">LOT-33</span>.</p>
 <p>Implémente <span class="tt"><a class="el" href="classhmi_1_1EditContextTarget.html" title="Interface pure implémentée par le contexte d&#39;édition actif.">hmi::EditContextTarget</a></span> (<span class="tt">LOT-57</span> TACHE-04) : c'est aujourd'hui l'unique cible d'Annuler/Refaire/Copier/Coller que <span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">MainWindow</a></span> connaisse, au travers de cette interface plutôt que d'un appel direct — le seuil de dispatch que le futur atelier pixel art (<span class="tt">LOT-54</span>) réutilisera pour sa propre cible, sans le réécrire. </p>
@@ -525,8 +521,8 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div>
 </div>
 <a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a19f1cee9fa08bcd196f4d28e74dbb0be" name="a19f1cee9fa08bcd196f4d28e74dbb0be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19f1cee9fa08bcd196f4d28e74dbb0be">&#9670;&#160;</a></span>GameViewport() <span class="overload">[1/2]</span></h2>
+<a id="aa8b92f1b993795ebbb57b543bbcd3267" name="aa8b92f1b993795ebbb57b543bbcd3267"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8b92f1b993795ebbb57b543bbcd3267">&#9670;&#160;</a></span>GameViewport() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -537,7 +533,7 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
         <tr>
           <td class="memname">hmi::GameViewport::GameViewport </td>
           <td>(</td>
-          <td class="paramtype">QWindow *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span></td><td>)</td>
+          <td class="paramtype">QWidget *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -658,6 +654,25 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
+<a id="aa5ea572591bbfb500782fb3ee5bdab7b" name="aa5ea572591bbfb500782fb3ee5bdab7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5ea572591bbfb500782fb3ee5bdab7b">&#9670;&#160;</a></span>addPlane()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::addPlane </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Plane.html">core::Plane</a></td>          <td class="paramname"><span class="paramname"><em>plane</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ajoute <code class="param">plane</code> à la fin de la liste et le sélectionne. </p>
+
+</div>
+</div>
 <a id="a740ca50280f0c84fc19c74151408e1da" name="a740ca50280f0c84fc19c74151408e1da"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a740ca50280f0c84fc19c74151408e1da">&#9670;&#160;</a></span>advanceToNextLevel()</h2>
 
@@ -675,33 +690,6 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 <p>« Continuer » depuis l'écran de fin de niveau (<span class="tt">LOT-59</span> TACHE-03) : charge le tableau suivant de la séquence &ndash; reprend l'ancien enchaînement automatique sur réussite, mais sur validation du joueur plutôt qu'immédiatement. </p>
 <p>Sans effet si le tableau réussi était déjà le dernier (<span class="tt"><a class="el" href="#a20df02fa3115b15ed910cf81019174ee">isLastGameLevel</a></span>) : l'écran ne propose alors pas ce bouton. </p>
-
-</div>
-</div>
-<a id="a42949254bea0fa15c30dd5c5e529f944" name="a42949254bea0fa15c30dd5c5e529f944"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42949254bea0fa15c30dd5c5e529f944">&#9670;&#160;</a></span>applyDecorGestureAction()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::GameViewport::applyDecorGestureAction </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structhmi_1_1DecorGestureAction.html">hmi::DecorGestureAction</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>action</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Applique l'action finale d'un geste de décors (<span class="tt"><a class="el" href="namespacehmi.html#a16be7eae78f5fc7596567c6af2d382ab" title="Termine le geste (relâchement) et renvoie l&#39;action finale à appliquer.">hmi::endDecorGesture</a></span>) aux mutateurs de TACHE-01 ; sans effet pour <span class="tt"><a class="el" href="namespacehmi.html#a36a02809aec3ca6ea3feb8e455433599a6adf97f83acf6453d4a6a4b1070f3754" title="Rien à appliquer (glisser encore sous le seuil, ou fin d&#39;un simple clic).">DecorGestureActionKind::None</a></span> (simple clic/sélection). </p>
 
 </div>
 </div>
@@ -787,52 +775,6 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div><div class="memdoc">
 
 <p>La case du danger temporisé sélectionné vient de changer (outil « Parcours », <span class="tt">LOT-67</span>) — consommé par le panneau « Propriétés ». </p>
-
-</div>
-</div>
-<a id="a5cca8cb89d79d0bf8a3009eee3f052e6" name="a5cca8cb89d79d0bf8a3009eee3f052e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5cca8cb89d79d0bf8a3009eee3f052e6">&#9670;&#160;</a></span>bringDecorForward()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::GameViewport::bringDecorForward </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Réordonne le décor <code class="param">index</code> d'un cran vers l'avant de sa couche (bouton « Avancer » de la section « Décors »), annulable (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#ab20f2eb5c24b94a43e85581f8d2ccf23" title="Avance le décor au rang index d&#39;un cran dans l&#39;ordre de superposition de sa couche (EX-DEC-010) : éch...">core::LevelDraft::bringDecorForward</a></span>). </p>
-
-</div>
-</div>
-<a id="a8701d0f8ef1d356e5664dedc01ad6492" name="a8701d0f8ef1d356e5664dedc01ad6492"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8701d0f8ef1d356e5664dedc01ad6492">&#9670;&#160;</a></span>cancelDecorGesture()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::GameViewport::cancelDecorGesture </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Abandonne un glisser de décor en cours (<span class="tt">Échap</span>, <span class="tt">LOT-50</span> TACHE-02) : restaure l'aperçu, aucune mutation du brouillon (rien n'y avait été écrit pendant le glisser). </p>
 
 </div>
 </div>
@@ -1002,25 +944,6 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
-<a id="a3367389fec48ddafd1d120eaac0dc839" name="a3367389fec48ddafd1d120eaac0dc839"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3367389fec48ddafd1d120eaac0dc839">&#9670;&#160;</a></span>centerCameraOnDecor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::GameViewport::centerCameraOnDecor </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Recadre la caméra d'édition sur le décor <code class="param">index</code> (bouton « Centrer »), à son zoom courant — un décor hors du cadrage automatique (grand niveau) redevient ainsi atteignable sans avoir à le chercher à la souris. </p>
-
-</div>
-</div>
 <a id="a078cc498875632716eaea7c6383171d0" name="a078cc498875632716eaea7c6383171d0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a078cc498875632716eaea7c6383171d0">&#9670;&#160;</a></span>clampedCell()</h2>
 
@@ -1104,6 +1027,34 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
+<a id="ad80bbcaacca07a11747eea2ad8566b39" name="ad80bbcaacca07a11747eea2ad8566b39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad80bbcaacca07a11747eea2ad8566b39">&#9670;&#160;</a></span>createResources()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::createResources </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crée l'atlas, la police, le cache de textures et le pipeline de dessin sur l'interface de rendu courante, puis ouvre le brouillon de départ. </p>
+<p>Appelée par <span class="tt"><a class="el" href="#a4a31de0d35b6fce76afb749e27539d35" title="Crée (ou recrée) les ressources graphiques quand QRhiWidget fournit son interface de rendu,...">initialize</a></span>. </p>
+
+</div>
+</div>
 <a id="aeec3860cb0502393027e03493158a0a1" name="aeec3860cb0502393027e03493158a0a1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeec3860cb0502393027e03493158a0a1">&#9670;&#160;</a></span>currentGameLevelName()</h2>
 
@@ -1127,87 +1078,6 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Le nom de fichier <b>complet</b> (extension comprise, comme dans <span class="tt"><a class="el" href="structcore_1_1LevelSequence.html#aa0434fd93b1c7018b0357d06857f6000" title="Noms de fichiers de niveaux, dans l&#39;ordre de jeu.">core::LevelSequence::levels</a></span>) du tableau qui vient d'être réussi &ndash; sert à la fois d'affichage à l'écran de fin de niveau et d'identifiant de progression (<span class="tt"><a class="el" href="classhmi_1_1Progression.html" title="Progression dans une séquence de niveaux : tableaux terminés et tableau atteint (celui où reprendre),...">hmi::Progression</a></span>, <span class="tt">LOT-59</span> TACHE-05/06 : doit rester dans le même format que la séquence, sous peine de ne plus jamais correspondre). Chaîne vide hors partie réelle. </dd></dl>
-
-</div>
-</div>
-<a id="a6f6db64e55f416ba9ae55caa05d083e2" name="a6f6db64e55f416ba9ae55caa05d083e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f6db64e55f416ba9ae55caa05d083e2">&#9670;&#160;</a></span>decorBoundsForGesture()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &gt; hmi::GameViewport::decorBoundsForGesture </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Rectangles englobants de tous les décors du brouillon courant (<span class="tt"><a class="el" href="namespacehmi.html#a68b105dbefc5ef9bda7a95567e2384a5" title="Rectangle englobant d&#39;un décor, en unités monde.">hmi::decorWorldBounds</a></span>), alignés avec <span class="tt">_draft.decors()</span> — pour la désignation et le geste de l'outil Décor (<span class="tt">LOT-50</span> TACHE-02). </p>
-
-</div>
-</div>
-<a id="a48ef4fcdc96f2ffad4c19209953e6604" name="a48ef4fcdc96f2ffad4c19209953e6604"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a48ef4fcdc96f2ffad4c19209953e6604">&#9670;&#160;</a></span>decorPixelSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hmi::GameViewport::decorPixelSize </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>assetName</em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Dimensions réelles (en pixels) de l'asset d'un décor, damier de repli si introuvable — résolution directe via <span class="tt"><a class="el" href="#a22acfc4d63a401176b695f09d71ec03b">_textureCache</a></span>, même repli que <span class="tt"><a class="el" href="namespacehmi.html#ac3ffff683e20d285cb666f9785ca0cf1" title="Résout l&#39;apparence d&#39;un décor : asset désigné si chargé, damier de repli sinon.">hmi::resolveDecorAppearance</a></span> (<span class="tt">LOT-49</span>) mais sans construire une <span class="tt"><a class="el" href="structhmi_1_1SceneTextures.html" title="Textures liables par la composition d&#39;une scène, et de quoi choisir laquelle lier.">hmi::SceneTextures</a></span> complète. </p>
-
-</div>
-</div>
-<a id="a29fd278e5ee30802c9b3036d718b1aad" name="a29fd278e5ee30802c9b3036d718b1aad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29fd278e5ee30802c9b3036d718b1aad">&#9670;&#160;</a></span>decorSelectionChanged</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::GameViewport::decorSelectionChanged </td>
-          <td>(</td>
-          <td class="paramtype">std::optional&lt; std::size_t &gt;</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>La sélection de décor vient de changer, par un moyen autre que la section « Décors » (clic/pose/suppression au canevas, <span class="tt">LOT-50</span> TACHE-04) — le panneau se resynchronise. </p>
 
 </div>
 </div>
@@ -1317,31 +1187,6 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
-<a id="ade04cd4034cab1c4bd405a1539492812" name="ade04cd4034cab1c4bd405a1539492812"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade04cd4034cab1c4bd405a1539492812">&#9670;&#160;</a></span>ensureResources()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::GameViewport::ensureResources </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a5d3760d8afacd89cccc12dff1f843a9b" name="a5d3760d8afacd89cccc12dff1f843a9b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5d3760d8afacd89cccc12dff1f843a9b">&#9670;&#160;</a></span>event()</h2>
 
@@ -1391,31 +1236,6 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div><div class="memdoc">
 
 <p>Demande de retour au menu principal (fin de la séquence de niveaux &ndash; plus depuis <span class="tt">LOT-59</span> TACHE-02 sur <span class="tt">Échap</span> en mode jeu, qui ouvre désormais la pause via <span class="tt"><a class="el" href="#a1e8798e90caf3cfb3c033f29b4bd55e6" title="Échap (ou le bouton B manette) en mode jeu réel, hors pause : demande l&#39;ouverture de l&#39;écran de pause...">pauseRequested</a></span>). </p>
-
-</div>
-</div>
-<a id="a94596a1dc3de04ef62f99131a77dbbca" name="a94596a1dc3de04ef62f99131a77dbbca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94596a1dc3de04ef62f99131a77dbbca">&#9670;&#160;</a></span>exposeEvent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::GameViewport::exposeEvent </td>
-          <td>(</td>
-          <td class="paramtype">QExposeEvent *</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel protected">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -1496,92 +1316,6 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div><div class="memdoc">
 
 <p>Accès <b>modifiable</b> aux boutons manette (pour le remappage), même principe que <span class="tt"><a class="el" href="#a30002a154b0395cdc334fe7313e08219" title="Accès modifiable aux touches de jeu (pour le remappage) : la session de jeu lit ces mêmes bindings,...">gameBindings</a></span>. </p>
-
-</div>
-</div>
-<a id="a9171caff30a55ada633bf7206e205041" name="a9171caff30a55ada633bf7206e205041"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9171caff30a55ada633bf7206e205041">&#9670;&#160;</a></span>handleDecorMove()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::GameViewport::handleDecorMove </td>
-          <td>(</td>
-          <td class="paramtype">const QMouseEvent *</td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Glisser en cours (outil Décor) : fait progresser le geste, met à jour l'aperçu (<span class="tt">LOT-50</span> TACHE-03) sans jamais muter <span class="tt"><a class="el" href="#a0965909558a6381fb2a51b90605b2320" title="Brouillon en cours d&#39;édition (source de vérité).">_draft</a></span>. </p>
-
-</div>
-</div>
-<a id="ab8542b2a620c9ccbae5d7199353c3162" name="ab8542b2a620c9ccbae5d7199353c3162"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8542b2a620c9ccbae5d7199353c3162">&#9670;&#160;</a></span>handleDecorPress()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::GameViewport::handleDecorPress </td>
-          <td>(</td>
-          <td class="paramtype">const QMouseEvent *</td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Appui (outil Décor, <span class="tt">LOT-50</span> TACHE-02) : désigne l'élément sous le clic. </p>
-<p>Un décor/une poignée désigné(e) arme le geste de manipulation (<span class="tt"><a class="el" href="namespacehmi.html#a263efd837914cad8c91c95b803c649ae" title="Amorce un geste sur l&#39;élément désigné par hit (hmi::designateDecorAt).">hmi::beginDecorGesture</a></span>) ; sinon, pose un nouveau décor si un asset est sélectionné dans la bibliothèque (<span class="tt">LOT-49</span>), ou déselectionne. </p>
-
-</div>
-</div>
-<a id="a31b3c74b74b50e949d9da410933b68ae" name="a31b3c74b74b50e949d9da410933b68ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31b3c74b74b50e949d9da410933b68ae">&#9670;&#160;</a></span>handleDecorRelease()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::GameViewport::handleDecorRelease </td>
-          <td>(</td>
-          <td class="paramtype">const QMouseEvent *</td>          <td class="paramname"><span class="paramname"><em>event</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>rightClick</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Relâchement (outil Décor) : termine le geste et applique l'action finale aux mutateurs de TACHE-01 (un seul appel, donc une seule entrée d'historique par geste complet) ; clic droit retire le décor visé. </p>
 
 </div>
 </div>
@@ -1805,6 +1539,33 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div><div class="memdoc">
 
 <p>La case survolée vient de changer (déplacement de souris, ou sortie du viewport) — consommé par la barre d'état (<span class="tt">LOT-57</span> TACHE-01), qui évite ainsi un travail continu inutile en ne recalculant que sur changement réel. </p>
+
+</div>
+</div>
+<a id="a4a31de0d35b6fce76afb749e27539d35" name="a4a31de0d35b6fce76afb749e27539d35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a31de0d35b6fce76afb749e27539d35">&#9670;&#160;</a></span>initialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::initialize </td>
+          <td>(</td>
+          <td class="paramtype">QRhiCommandBuffer *</td>          <td class="paramname"><span class="paramname"><em>commandBuffer</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crée (ou recrée) les ressources graphiques quand <span class="tt">QRhiWidget</span> fournit son interface de rendu, et à chaque fois qu'il en change (<span class="tt">EX-NFR-040</span> : perte de ressources prévue, pas supposée impossible). </p>
 
 </div>
 </div>
@@ -2253,6 +2014,29 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
+<a id="a84c020174351b7a1b1b98f8e41e3f598" name="a84c020174351b7a1b1b98f8e41e3f598"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84c020174351b7a1b1b98f8e41e3f598">&#9670;&#160;</a></span>movePlane()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::movePlane </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>forward</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Déplace le plan <code class="param">index</code> d'un rang ; <code class="param">forward</code> le rapproche du dessus de la liste. </p>
+
+</div>
+</div>
 <a id="aa74d719d358d5dc85f90439efd4ce3f7" name="aa74d719d358d5dc85f90439efd4ce3f7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa74d719d358d5dc85f90439efd4ce3f7">&#9670;&#160;</a></span>nextGameLevelName()</h2>
 
@@ -2308,9 +2092,9 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#a19f1cee9fa08bcd196f4d28e74dbb0be">GameViewport</a> &amp; hmi::GameViewport::operator= </td>
+          <td class="memname"><a class="el" href="#aa8b92f1b993795ebbb57b543bbcd3267">GameViewport</a> &amp; hmi::GameViewport::operator= </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="#a19f1cee9fa08bcd196f4d28e74dbb0be">GameViewport</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="#aa8b92f1b993795ebbb57b543bbcd3267">GameViewport</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -2509,7 +2293,7 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </table>
 </div><div class="memdoc">
 
-<p>Suspend la simulation (écran de pause, <span class="tt">LOT-59</span> TACHE-02) : <span class="tt"><a class="el" href="#a9ffcd8a18e982d581b30126ab08407fd">tick()</a></span> cesse d'alimenter l'accumulateur de pas fixe &ndash; aucun pas n'est consommé pendant la pause (<span class="tt">EX-GP-041</span>). </p>
+<p>Suspend la simulation (écran de pause, <span class="tt">LOT-59</span> TACHE-02) : <span class="tt"><a class="el" href="#a0c668d277f3854cf4a91b8ffe2053597" title="Avance la simulation d&#39;une image (entrées, pas fixes, sons) — sans rien dessiner.">tick()</a></span> cesse d'alimenter l'accumulateur de pas fixe &ndash; aucun pas n'est consommé pendant la pause (<span class="tt">EX-GP-041</span>). </p>
 <p>Le rendu continue (la scène reste dessinée derrière l'écran de pause). </p>
 
 </div>
@@ -2561,6 +2345,59 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3ed87525b022aada2c93441c0ef12a61" name="a3ed87525b022aada2c93441c0ef12a61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ed87525b022aada2c93441c0ef12a61">&#9670;&#160;</a></span>planeSelectionChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::planeSelectionChanged </td>
+          <td>(</td>
+          <td class="paramtype">std::optional&lt; std::size_t &gt;</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La sélection de plan vient de changer par un moyen autre que le panneau (retrait, réordonnancement) — le panneau se resynchronise sans reboucler. </p>
+
+</div>
+</div>
+<a id="a94e3858bc46bbe625f7a3a46199ec825" name="a94e3858bc46bbe625f7a3a46199ec825"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94e3858bc46bbe625f7a3a46199ec825">&#9670;&#160;</a></span>planeVisibility()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classhmi_1_1PlaneVisibility.html">PlaneVisibility</a> &amp; hmi::GameViewport::planeVisibility </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La visibilité courante des plans (aide d'édition, jamais persistée). </dd></dl>
 
 </div>
 </div>
@@ -2620,6 +2457,33 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
+<a id="a44c4f8a4d887b32d8cdd25efc7d9cf1d" name="a44c4f8a4d887b32d8cdd25efc7d9cf1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44c4f8a4d887b32d8cdd25efc7d9cf1d">&#9670;&#160;</a></span>releaseResources()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::releaseResources </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Libère les ressources graphiques quand <span class="tt">QRhiWidget</span> défait son interface de rendu. </p>
+
+</div>
+</div>
 <a id="a75183d22f18c6565b01bf59f59f18a1a" name="a75183d22f18c6565b01bf59f59f18a1a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a75183d22f18c6565b01bf59f59f18a1a">&#9670;&#160;</a></span>reloadAssets()</h2>
 
@@ -2636,7 +2500,7 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div><div class="memdoc">
 
 <p>Rechargement à chaud <b>global</b> des assets graphiques (<span class="tt">LOT-43</span> TACHE-03). </p>
-<p>Invalide tout le <span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures Direct3D 11 désignées par leur nom de fichier logique.">TextureCache</a></span> et relit <span class="tt">skins.json</span> — un asset a pu être modifié, renommé ou ajouté hors de l'application. Ne touche ni au brouillon en cours d'édition ni à son historique d'annulation : c'est une opération de <b>présentation</b>, pas d'édition. L'apparence est résolue à la composition de chaque image (<span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span>), donc l'image suivante suffit à montrer le résultat — aucune reconstruction de scène nécessaire. </p>
+<p>Invalide tout le <span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures GPU désignées par leur nom de fichier logique.">TextureCache</a></span> et relit <span class="tt">skins.json</span> — un asset a pu être modifié, renommé ou ajouté hors de l'application. Ne touche ni au brouillon en cours d'édition ni à son historique d'annulation : c'est une opération de <b>présentation</b>, pas d'édition. L'apparence est résolue à la composition de chaque image (<span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span>), donc l'image suivante suffit à montrer le résultat — aucune reconstruction de scène nécessaire. </p>
 
 </div>
 </div>
@@ -2665,14 +2529,14 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
-<a id="abb82d7356f42831c6aa6aa245195f1d4" name="abb82d7356f42831c6aa6aa245195f1d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb82d7356f42831c6aa6aa245195f1d4">&#9670;&#160;</a></span>removeDecor()</h2>
+<a id="aafef3870453bfac2dcb2769198df5584" name="aafef3870453bfac2dcb2769198df5584"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafef3870453bfac2dcb2769198df5584">&#9670;&#160;</a></span>removePlane()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void hmi::GameViewport::removeDecor </td>
+          <td class="memname">void hmi::GameViewport::removePlane </td>
           <td>(</td>
           <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
           <td></td>
@@ -2680,7 +2544,8 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
       </table>
 </div><div class="memdoc">
 
-<p>Supprime le décor <code class="param">index</code> (bouton « Supprimer » de la section « Décors »). </p>
+<p>Retire l'entrée du plan <code class="param">index</code>. </p>
+<p><b>Le fichier n'est pas supprimé</b> : le brouillon annule l'entrée JSON, pas la disparition d'une image — un fichier orphelin est moins grave qu'un travail perdu. </p>
 
 </div>
 </div>
@@ -2729,6 +2594,33 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
+<a id="a2d14e7a7931f33399764e36e182c83b7" name="a2d14e7a7931f33399764e36e182c83b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d14e7a7931f33399764e36e182c83b7">&#9670;&#160;</a></span>render()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::render </td>
+          <td>(</td>
+          <td class="paramtype">QRhiCommandBuffer *</td>          <td class="paramname"><span class="paramname"><em>commandBuffer</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dessine une image : avance la simulation, compose la scène, puis la soumet. </p>
+
+</div>
+</div>
 <a id="a740b15fef3dea457881dafea9e533187" name="a740b15fef3dea457881dafea9e533187"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a740b15fef3dea457881dafea9e533187">&#9670;&#160;</a></span>renderDiagnosticsOverlay()</h2>
 
@@ -2760,8 +2652,8 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
-<a id="acabefda16573458d0d6d86bd29b400e4" name="acabefda16573458d0d6d86bd29b400e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acabefda16573458d0d6d86bd29b400e4">&#9670;&#160;</a></span>renderFrame()</h2>
+<a id="a429e3a6ba571a469b45d3dc1e4662991" name="a429e3a6ba571a469b45d3dc1e4662991"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a429e3a6ba571a469b45d3dc1e4662991">&#9670;&#160;</a></span>renderFrame()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2772,8 +2664,12 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
         <tr>
           <td class="memname">void hmi::GameViewport::renderFrame </td>
           <td>(</td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>deltaSeconds</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.0f</span></td><td>)</td>
+          <td class="paramtype">QRhiCommandBuffer *</td>          <td class="paramname"><span class="paramname"><em>commandBuffer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>deltaSeconds</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -2783,7 +2679,8 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </table>
 </div><div class="memdoc">
 
-<p><code class="param">deltaSeconds</code> : temps réel écoulé depuis l'image précédente (LOT-46 TACHE-05, avance l'aperçu des tuiles animées de l'éditeur) ; <span class="tt">0</span> (défaut) pour un redessin sans avancer l'aperçu (redimensionnement). </p>
+<p>Compose et soumet une image sur <code class="param">commandBuffer</code>. </p>
+<p><code class="param">deltaSeconds</code> : temps réel écoulé depuis l'image précédente (LOT-46 TACHE-05, avance l'aperçu des tuiles animées de l'éditeur). </p>
 
 </div>
 </div>
@@ -2867,31 +2764,6 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
-<a id="a264b2047d89de02557e1c65a15c6dd31" name="a264b2047d89de02557e1c65a15c6dd31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a264b2047d89de02557e1c65a15c6dd31">&#9670;&#160;</a></span>resizeEvent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::GameViewport::resizeEvent </td>
-          <td>(</td>
-          <td class="paramtype">QResizeEvent *</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel protected">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a50629a2b5582f9e7d6702b9dc04de3a7" name="a50629a2b5582f9e7d6702b9dc04de3a7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a50629a2b5582f9e7d6702b9dc04de3a7">&#9670;&#160;</a></span>resizeLevel()</h2>
 
@@ -2938,7 +2810,8 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </table>
 </div><div class="memdoc">
 
-<p>Le device Direct3D 11 et le catalogue de skins viennent d'être (re)créés (<span class="tt"><a class="el" href="#ade04cd4034cab1c4bd405a1539492812">ensureResources</a></span>) — tout ce qui a lu <span class="tt"><a class="el" href="#ae7d92dd84fe3f73c2c13f2562daa761e" title="Catalogue des jeux de skins, édité par le panneau « Textures » (LOT-42).">skinCatalog()</a></span> <b>avant</b> la première exposition de la fenêtre (le câblage de <span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">MainWindow</a></span>, à la construction) l'a lu vide et doit se reconstruire une fois ce signal reçu, sous peine de vignettes/arbre de skins sans texture au lancement de l'éditeur. </p>
+<p>Les ressources graphiques et le catalogue de skins viennent d'être (re)créés (<span class="tt">QRhiWidget::initialize</span>) — tout ce qui a lu <span class="tt"><a class="el" href="#ae7d92dd84fe3f73c2c13f2562daa761e" title="Catalogue des jeux de skins, édité par le panneau « Textures » (LOT-42).">skinCatalog()</a></span> <b>avant</b> la première initialisation (le câblage de <span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">MainWindow</a></span>, à la construction) l'a lu vide et doit se reconstruire une fois ce signal reçu, sous peine de vignettes/arbre de skins sans texture au lancement de l'éditeur. </p>
+<p>Émis à nouveau si <span class="tt">QRhiWidget</span> recrée son interface de rendu (le widget a changé de fenêtre de haut niveau) : les textures sont alors perdues avec elle. </p>
 
 </div>
 </div>
@@ -3053,31 +2926,6 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
-<a id="ac9dfda24439df9c0c3338c131e3256e9" name="ac9dfda24439df9c0c3338c131e3256e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9dfda24439df9c0c3338c131e3256e9">&#9670;&#160;</a></span>selectDecor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::GameViewport::selectDecor </td>
-          <td>(</td>
-          <td class="paramtype">std::optional&lt; std::size_t &gt;</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sélectionne (ou désélectionne) un décor depuis la section « Décors » du panneau « Textures » (<span class="tt">LOT-50</span> TACHE-04) — l'autre sens de la sélection croisée avec le canevas (<span class="tt">hmi::DecorGesture</span>, TACHE-02). </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">index</td><td>Rang du décor à sélectionner, ou <span class="tt">std::nullopt</span> pour désélectionner. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="a8ff0f40612077db2c1efc94faeb9eaa4" name="a8ff0f40612077db2c1efc94faeb9eaa4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8ff0f40612077db2c1efc94faeb9eaa4">&#9670;&#160;</a></span>selectedBlinkCell()</h2>
 
@@ -3101,59 +2949,6 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>La case du danger temporisé sélectionné (<span class="tt">LOT-67</span>), si un l'est. Un <span class="tt">DangerBlink</span> n'a pas de trajectoire donc pas de <span class="tt"><a class="el" href="structhmi_1_1PathSelection.html" title="Parcours sélectionné : quel type d&#39;élément, et son rang dans le vecteur correspondant du brouillon (p...">hmi::PathSelection</a></span> : l'outil « Parcours » le désigne par sa case, pour que ses réglages de timing restent atteignables comme les autres. </dd></dl>
-
-</div>
-</div>
-<a id="a0d79f79517cce4cb66b1a06eee4f94fb" name="a0d79f79517cce4cb66b1a06eee4f94fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d79f79517cce4cb66b1a06eee4f94fb">&#9670;&#160;</a></span>selectedDecorHandles()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt; <a class="el" href="structhmi_1_1DecorHandleLayout.html">hmi::DecorHandleLayout</a> &gt; hmi::GameViewport::selectedDecorHandles </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Poignées du décor actuellement sélectionné (<span class="tt"><a class="el" href="namespacehmi.html#a1ec05f9f9a488599614b6924adce974d" title="Calcule les rectangles des poignées d&#39;un décor sélectionné.">hmi::decorHandleLayout</a></span>), si un l'est. </p>
-
-</div>
-</div>
-<a id="aa74451d68f30533ea059d2631397e215" name="aa74451d68f30533ea059d2631397e215"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa74451d68f30533ea059d2631397e215">&#9670;&#160;</a></span>selectedDecorIndex()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt; std::size_t &gt; hmi::GameViewport::selectedDecorIndex </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Le décor actuellement sélectionné (rang dans <span class="tt"><a class="el" href="#a987dc586ecf5f86913880758b34bba7a">draft()</a>.decors()</span>), si un l'est — consommé par la section « Décors » du panneau « Textures » (<span class="tt">LOT-50</span> TACHE-04). </dd></dl>
 
 </div>
 </div>
@@ -3210,27 +3005,8 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
-<a id="a392baf36de1678e67228f00aed5bd063" name="a392baf36de1678e67228f00aed5bd063"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a392baf36de1678e67228f00aed5bd063">&#9670;&#160;</a></span>sendDecorBackward()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::GameViewport::sendDecorBackward </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Symétrique de <span class="tt"><a class="el" href="#a5cca8cb89d79d0bf8a3009eee3f052e6" title="Réordonne le décor index d&#39;un cran vers l&#39;avant de sa couche (bouton « Avancer » de la section « Déco...">bringDecorForward</a></span> (bouton « Reculer »). </p>
-
-</div>
-</div>
-<a id="aafa498909e1ec9c58ed39e5652f4630a" name="aafa498909e1ec9c58ed39e5652f4630a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aafa498909e1ec9c58ed39e5652f4630a">&#9670;&#160;</a></span>setActiveDecorAsset()</h2>
+<a id="a273e2da0d67c189ea53d4a7325d06c56" name="a273e2da0d67c189ea53d4a7325d06c56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a273e2da0d67c189ea53d4a7325d06c56">&#9670;&#160;</a></span>selectedPlaneIndex()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3239,47 +3015,38 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void hmi::GameViewport::setActiveDecorAsset </td>
+          <td class="memname">std::optional&lt; std::size_t &gt; hmi::GameViewport::selectedPlaneIndex </td>
           <td>(</td>
-          <td class="paramtype">std::optional&lt; std::string &gt;</td>          <td class="paramname"><span class="paramname"><em>asset</em></span></td><td>)</td>
-          <td></td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Définit l'asset posé au clic par l'outil Décor (<span class="tt">LOT-49</span>), relié à la sélection de la bibliothèque de décors du panneau « Outils » ; vide si aucun asset n'est sélectionné. </p>
+<dl class="section return"><dt>Returns</dt><dd>Le plan pictural sélectionné dans le panneau « Plans » (<span class="tt">LOT-69</span>), si un l'est. </dd></dl>
 
 </div>
 </div>
-<a id="a056edea1538cd0013c72ac26e263d2a4" name="a056edea1538cd0013c72ac26e263d2a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a056edea1538cd0013c72ac26e263d2a4">&#9670;&#160;</a></span>setActiveDecorLayer()</h2>
+<a id="a132b79cd6ee97c10fa0a5bdeb6641e64" name="a132b79cd6ee97c10fa0a5bdeb6641e64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a132b79cd6ee97c10fa0a5bdeb6641e64">&#9670;&#160;</a></span>selectPlane()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void hmi::GameViewport::setActiveDecorLayer </td>
+          <td class="memname">void hmi::GameViewport::selectPlane </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a></td>          <td class="paramname"><span class="paramname"><em>layer</em></span></td><td>)</td>
+          <td class="paramtype">std::optional&lt; std::size_t &gt;</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Définit la couche du décor posé au clic (<span class="tt">LOT-49</span>, <span class="tt">EX-DEC-002</span>), reliée au sélecteur de couche du panneau « Outils ». </p>
+<p>Sélectionne (ou désélectionne) un plan depuis le panneau. </p>
 
 </div>
 </div>
@@ -3393,56 +3160,6 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
         </tr>
       </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="a769a139c89b945142b32378b806d1b49" name="a769a139c89b945142b32378b806d1b49"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a769a139c89b945142b32378b806d1b49">&#9670;&#160;</a></span>setDecorLayer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::GameViewport::setDecorLayer </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a></td>          <td class="paramname"><span class="paramname"><em>layer</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Change la couche du décor <code class="param">index</code> (section « Décors »), annulable (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a6d40a7451d269feb1badaf2a5065752e" title="Change la couche du décor au rang index (EX-DEC-010, EX-DEC-002).">core::LevelDraft::setDecorLayer</a></span>). </p>
-
-</div>
-</div>
-<a id="a24183681b844cd98f6b621c6c4755949" name="a24183681b844cd98f6b621c6c4755949"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24183681b844cd98f6b621c6c4755949">&#9670;&#160;</a></span>setDecorSnapToGrid()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::GameViewport::setDecorSnapToGrid </td>
-          <td>(</td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>enabled</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Active/désactive l'aimantation sur la grille du geste de décors (<span class="tt">LOT-50</span>, <span class="tt">EX-DEC-001</span>) — optionnelle et jamais imposée, un décor reste libre par construction. </p>
 
 </div>
 </div>
@@ -3580,7 +3297,7 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 <p>Assigne l'asset de fond du niveau courant (section « Fond », <span class="tt">LOT-44</span>). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">background</td><td>Nom de l'asset (<span class="tt">Assets/Backgrounds/*.png</span>), ou absent pour retirer le fond posé. </td></tr>
+    <tr><td class="paramname">background</td><td>Nom du fichier <span class="tt">.png</span> dans <span class="tt">Assets/Backgrounds</span>, ou absent pour retirer le fond posé. </td></tr>
   </table>
   </dd>
 </dl>
@@ -3663,6 +3380,25 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
+<a id="a9c8f295e4375f99d55ab496821cceaac" name="a9c8f295e4375f99d55ab496821cceaac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c8f295e4375f99d55ab496821cceaac">&#9670;&#160;</a></span>setLevelParallaxEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::setLevelParallaxEnabled </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>enabled</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change le drapeau de parallaxe du <b>niveau</b>. </p>
+
+</div>
+</div>
 <a id="aadfe43ddd5e59b2aff37d65d26796d80" name="aadfe43ddd5e59b2aff37d65d26796d80"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aadfe43ddd5e59b2aff37d65d26796d80">&#9670;&#160;</a></span>setLevelSkinSet()</h2>
 
@@ -3738,6 +3474,149 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a98766eeff197f6eca3e149e29a7ad34e" name="a98766eeff197f6eca3e149e29a7ad34e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98766eeff197f6eca3e149e29a7ad34e">&#9670;&#160;</a></span>setPlaneDensity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::setPlaneDensity </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>pixelsPerUnit</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change la densité déclarée du plan <code class="param">index</code> (le rééchantillonnage de l'image est fait par l'appelant, qui possède le fichier). </p>
+
+</div>
+</div>
+<a id="af0273851c84e33ac6ee7e51349076c7d" name="af0273851c84e33ac6ee7e51349076c7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0273851c84e33ac6ee7e51349076c7d">&#9670;&#160;</a></span>setPlaneDepth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::setPlaneDepth </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a6dc89438a55a80980ab04f7da513f731">core::PlaneDepth</a></td>          <td class="paramname"><span class="paramname"><em>depth</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change la profondeur du plan <code class="param">index</code>. </p>
+
+</div>
+</div>
+<a id="af236b2231cc5c0e697f07aa8e1468251" name="af236b2231cc5c0e697f07aa8e1468251"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af236b2231cc5c0e697f07aa8e1468251">&#9670;&#160;</a></span>setPlaneIsolated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::setPlaneIsolated </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>isolate</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Isole le plan <code class="param">index</code>, ou réaffiche tout si <code class="param">isolate</code> est faux. </p>
+
+</div>
+</div>
+<a id="a13d79c0508374c122a425f6d39e9c6b4" name="a13d79c0508374c122a425f6d39e9c6b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13d79c0508374c122a425f6d39e9c6b4">&#9670;&#160;</a></span>setPlaneOpacity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::setPlaneOpacity </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>opacity</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change l'opacité du plan <code class="param">index</code>. </p>
+
+</div>
+</div>
+<a id="ae0248111fe500568713d13e90d38c2a7" name="ae0248111fe500568713d13e90d38c2a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0248111fe500568713d13e90d38c2a7">&#9670;&#160;</a></span>setPlaneParallax()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::setPlaneParallax </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>parallaxX</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>parallaxY</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change les facteurs de parallaxe du plan <code class="param">index</code>. </p>
+
+</div>
+</div>
+<a id="a9aa69324accbbef35fa57083ebea1367" name="a9aa69324accbbef35fa57083ebea1367"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9aa69324accbbef35fa57083ebea1367">&#9670;&#160;</a></span>setPlaneVisible()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::setPlaneVisible </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>visible</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Masque ou réaffiche le plan <code class="param">index</code> (aide d'édition). </p>
 
 </div>
 </div>
@@ -3900,7 +3779,8 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </table>
 </div><div class="memdoc">
 
-<p>Active/désactive la synchronisation verticale (<span class="tt">EX-REN-022</span>) ; appliqué au device D3D11. </p>
+<p>Active/désactive la synchronisation verticale (<span class="tt">EX-REN-022</span>). </p>
+<p>Depuis le portage QRhi, la présentation appartient au compositeur de Qt : le réglage est conservé et rapporté, mais c'est Qt qui cale l'image sur le rafraîchissement. </p>
 
 </div>
 </div>
@@ -4109,8 +3989,8 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
-<a id="a9ffcd8a18e982d581b30126ab08407fd" name="a9ffcd8a18e982d581b30126ab08407fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ffcd8a18e982d581b30126ab08407fd">&#9670;&#160;</a></span>tick()</h2>
+<a id="a0c668d277f3854cf4a91b8ffe2053597" name="a0c668d277f3854cf4a91b8ffe2053597"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c668d277f3854cf4a91b8ffe2053597">&#9670;&#160;</a></span>tick()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4121,7 +4001,7 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
         <tr>
           <td class="memname">void hmi::GameViewport::tick </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>elapsedSeconds</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -4131,6 +4011,8 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Avance la simulation d'une image (entrées, pas fixes, sons) — sans rien dessiner. </p>
 
 </div>
 </div>
@@ -4497,54 +4379,6 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="a72ca397f707f841d16866836c0809c5f" name="a72ca397f707f841d16866836c0809c5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72ca397f707f841d16866836c0809c5f">&#9670;&#160;</a></span>_activeDecorAsset</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt;std::string&gt; hmi::GameViewport::_activeDecorAsset</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Asset posé au clic par l'outil Décor (<span class="tt">LOT-49</span>), vide si aucun n'est sélectionné dans la bibliothèque de décors. </p>
-
-</div>
-</div>
-<a id="a471e328667ec9409fc6e710dbc289264" name="a471e328667ec9409fc6e710dbc289264"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a471e328667ec9409fc6e710dbc289264">&#9670;&#160;</a></span>_activeDecorLayer</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a> hmi::GameViewport::_activeDecorLayer = <a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20ae953e8671da3a0647c0939df8ebe8e44">core::DecorLayer::Decor</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Couche du décor posé au clic (<span class="tt">LOT-49</span>, <span class="tt">EX-DEC-002</span>) ; <span class="tt">Decor</span> par défaut (couche de référence, <span class="tt">EX-DEC-006</span>). </p>
-
-</div>
-</div>
 <a id="a660e1441fa6a267336b9450cbb524331" name="a660e1441fa6a267336b9450cbb524331"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a660e1441fa6a267336b9450cbb524331">&#9670;&#160;</a></span>_activeTextureAsset</h2>
 
@@ -4708,79 +4542,6 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div><div class="memdoc">
 
 <p>Presse-papiers local (types de tuiles, <span class="tt">[ligne][colonne]</span>), pour <span class="tt">Ctrl+C</span>/<span class="tt">Ctrl+V</span>. </p>
-
-</div>
-</div>
-<a id="a4d1b8f1d44702ae851892ca5811cb506" name="a4d1b8f1d44702ae851892ca5811cb506"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d1b8f1d44702ae851892ca5811cb506">&#9670;&#160;</a></span>_decorGesture</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structhmi_1_1DecorGestureState.html">hmi::DecorGestureState</a> hmi::GameViewport::_decorGesture</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>État du geste de manipulation de décors (<span class="tt">LOT-50</span> TACHE-02) ; <span class="tt">selectedIndex</span> porte la sélection courante de l'éditeur, au-delà de la durée d'un seul geste. </p>
-
-</div>
-</div>
-<a id="adc76dfdfcc67537e40fa161a498dd7c4" name="adc76dfdfcc67537e40fa161a498dd7c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc76dfdfcc67537e40fa161a498dd7c4">&#9670;&#160;</a></span>_decorPreview</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt;<a class="el" href="structhmi_1_1DecorGestureAction.html">hmi::DecorGestureAction</a>&gt; hmi::GameViewport::_decorPreview</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Aperçu courant du geste de décors en cours (<span class="tt">LOT-50</span> TACHE-03) — jamais écrit dans <span class="tt"><a class="el" href="#a0965909558a6381fb2a51b90605b2320" title="Brouillon en cours d&#39;édition (source de vérité).">_draft</a></span>, seul <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span> le consomme pour afficher la manipulation avant validation. </p>
-<p><span class="tt">std::nullopt</span> hors glisser. </p>
-
-</div>
-</div>
-<a id="a7124c5364ce334ae3cf74484d5c1d77a" name="a7124c5364ce334ae3cf74484d5c1d77a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7124c5364ce334ae3cf74484d5c1d77a">&#9670;&#160;</a></span>_decorSnapToGrid</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool hmi::GameViewport::_decorSnapToGrid = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Aimantation sur la grille du geste de décors (<span class="tt">LOT-50</span>), optionnelle, désactivée par défaut. </p>
 
 </div>
 </div>
@@ -5182,28 +4943,6 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
-<a id="aab3f638516aa5429c3407a41993218a8" name="aab3f638516aa5429c3407a41993218a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab3f638516aa5429c3407a41993218a8">&#9670;&#160;</a></span>_graphics</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::unique_ptr&lt;<a class="el" href="classhmi_1_1GraphicsDevice.html">hmi::GraphicsDevice</a>&gt; hmi::GameViewport::_graphics</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a6c194e96b4892be4af8e0196e859d702" name="a6c194e96b4892be4af8e0196e859d702"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6c194e96b4892be4af8e0196e859d702">&#9670;&#160;</a></span>_highlightedOverride</h2>
 
@@ -5320,7 +5059,7 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </table>
 </div><div class="memdoc">
 
-<p>Nombre de pas de simulation consommés au dernier <span class="tt"><a class="el" href="#a9ffcd8a18e982d581b30126ab08407fd">tick()</a></span> &ndash; distinct de la cadence de rendu depuis le <span class="tt">LOT-33</span> (<span class="tt"><a class="el" href="structhmi_1_1DiagnosticsMeasurements.html#a0676efd9a3bc7443d2ff90d30e376225" title="Nombre de pas de simulation consommés à la dernière image (core::FixedTimestep::advance) : révèle imm...">hmi::DiagnosticsMeasurements::simulationSteps</a></span>). </p>
+<p>Nombre de pas de simulation consommés au dernier <span class="tt"><a class="el" href="#a0c668d277f3854cf4a91b8ffe2053597" title="Avance la simulation d&#39;une image (entrées, pas fixes, sons) — sans rien dessiner.">tick()</a></span> &ndash; distinct de la cadence de rendu depuis le <span class="tt">LOT-33</span> (<span class="tt"><a class="el" href="structhmi_1_1DiagnosticsMeasurements.html#a0676efd9a3bc7443d2ff90d30e376225" title="Nombre de pas de simulation consommés à la dernière image (core::FixedTimestep::advance) : révèle imm...">hmi::DiagnosticsMeasurements::simulationSteps</a></span>). </p>
 
 </div>
 </div>
@@ -5561,7 +5300,7 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </table>
 </div><div class="memdoc">
 
-<p>Écran de pause affiché (<span class="tt">LOT-59</span> TACHE-02) : <span class="tt"><a class="el" href="#a9ffcd8a18e982d581b30126ab08407fd">tick()</a></span> n'avance plus l'accumulateur de pas fixe tant que c'est vrai &ndash; le rendu, lui, continue. </p>
+<p>Écran de pause affiché (<span class="tt">LOT-59</span> TACHE-02) : <span class="tt"><a class="el" href="#a0c668d277f3854cf4a91b8ffe2053597" title="Avance la simulation d&#39;une image (entrées, pas fixes, sons) — sans rien dessiner.">tick()</a></span> n'avance plus l'accumulateur de pas fixe tant que c'est vrai &ndash; le rendu, lui, continue. </p>
 
 </div>
 </div>
@@ -5586,6 +5325,30 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div><div class="memdoc">
 
 <p>Case du déclencheur/de la cible en attente d'appariement (outil Lien, premier clic). </p>
+
+</div>
+</div>
+<a id="ab9fe605678982eb09b5da4d035c5df29" name="ab9fe605678982eb09b5da4d035c5df29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9fe605678982eb09b5da4d035c5df29">&#9670;&#160;</a></span>_planeVisibility</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1PlaneVisibility.html">hmi::PlaneVisibility</a> hmi::GameViewport::_planeVisibility</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Visibilité des plans dans l'éditeur : aide d'édition, jamais persistée ni annulable. </p>
 
 </div>
 </div>
@@ -5633,6 +5396,30 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 <p>Mode de rendu courant (bascule <span class="tt">F8</span>, <span class="tt">EX-REN-046</span>), restauré des préférences au démarrage et réécrit à chaque bascule. </p>
 <p>Porté par le viewport parce qu'il est le widget <b>unique</b> derrière l'édition, l'essai et le jeu réel (<span class="tt">EX-IHM-002</span>) : un seul état, jamais dupliqué. </p>
+
+</div>
+</div>
+<a id="a79277c640d9064451180966082c326f4" name="a79277c640d9064451180966082c326f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79277c640d9064451180966082c326f4">&#9670;&#160;</a></span>_rhiContext</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1RhiContext.html">hmi::RhiContext</a> hmi::GameViewport::_rhiContext</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Interface de rendu courante et lot de mises à jour de l'image en cours, partagés avec tout ce qui crée des textures (atlas, cache, police). </p>
 
 </div>
 </div>
@@ -5754,6 +5541,30 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div><div class="memdoc">
 
 <p>Liaison sélectionnée dans le panneau « Liens » (déclencheur, cible) : mise en surbrillance. </p>
+
+</div>
+</div>
+<a id="af6532522269795110b249743401383a5" name="af6532522269795110b249743401383a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6532522269795110b249743401383a5">&#9670;&#160;</a></span>_selectedPlane</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; hmi::GameViewport::_selectedPlane</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Plan sélectionné dans le panneau « Plans » (<span class="tt">LOT-69</span>), si un l'est. </p>
 
 </div>
 </div>
@@ -5986,7 +5797,7 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </table>
 </div><div class="memdoc">
 
-<p>Synchronisation verticale (appliquée au device D3D11). </p>
+<p>Synchronisation verticale demandée (cf. <span class="tt">setVSyncEnabled</span>). </p>
 
 </div>
 </div>

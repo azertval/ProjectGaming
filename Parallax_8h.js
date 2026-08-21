@@ -1,10 +1,9 @@
 var Parallax_8h =
 [
-    [ "hmi::parallaxFactor", "namespacehmi.html#a5deae0becbca097ff1447b2f62de20ec", null ],
-    [ "hmi::parallaxModelPosition", "namespacehmi.html#a55d947fd87c323efd9d2e1b7c1ed0fa5", null ],
-    [ "hmi::parallaxRenderPosition", "namespacehmi.html#a8558cd4ffaa070fd58be27ca40926c53", null ],
+    [ "hmi::clampPlaneOffset", "namespacehmi.html#a45c11c424da11f9afd18672900fa718a", null ],
+    [ "hmi::parallaxModelPosition", "namespacehmi.html#ab8f85bb3d9f14a6f76165d972ed564ca", null ],
+    [ "hmi::parallaxRenderPosition", "namespacehmi.html#adb98b327eb70ccd8295dd479a45f5cd3", null ],
+    [ "hmi::planeParallaxActive", "namespacehmi.html#a814f6eb5e5627ebadda4080537d8b4cd", null ],
     [ "hmi::roundToScreenPixel", "namespacehmi.html#a1e5980df41367af8a056278ffa933ea8", null ],
-    [ "hmi::PARALLAX_FACTOR_BACKGROUND", "namespacehmi.html#a97bc94aecb6f8b18cfea7a7ab1d51d62", null ],
-    [ "hmi::PARALLAX_FACTOR_DECOR", "namespacehmi.html#aa760534a8b88b2cb6682308554504fc3", null ],
-    [ "hmi::PARALLAX_FACTOR_FOREGROUND", "namespacehmi.html#a90f19fb74cf5fbd041fb171696d66837", null ]
+    [ "hmi::PARALLAX_FACTOR_NONE", "namespacehmi.html#a4bf33bc5cbcd87d878ed8a297a3c87f5", null ]
 ];

@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-15-tache-03-nommage-renommage.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-15-editeur-industriel_2tache-03-nommage-renommage"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-15.html#md_Lot_2LOT-15-editeur-industriel_2epic" title="Lot/LOT-15-editeur-industriel/epic.md">LOT-15</a> · <b>Emplacement :</b> <span class="tt">HMI/Editor</span>, <span class="tt">HMI/Interface</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1032"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1042"></a>
 Contexte</h1>
 <p>Aujourd'hui, tout nouveau brouillon s'appelle <span class="tt">"Nouveau niveau"</span> (constante figée dans <span class="tt">EditorScreen</span>) et <span class="tt">LevelDraft::setName()</span> n'est jamais appelé. Deux niveaux créés sans charger de fichier existant enregistrent donc tous les deux dans <span class="tt">Nouveau niveau.json</span> et <b>s'écrasent silencieusement</b> — le défaut le plus risqué relevé sur LOT-14 (<span class="tt">EX-EDIT-009</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1033"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1043"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">TextInputField</span></b> (nouveau, <span class="tt">Source/HMI/Editor/</span>) : widget de saisie de texte minimal et pur (pas de dépendance rendu), consommant <span class="tt">InputState::typedCharacters()</span> (TACHE-01) et <span class="tt">Key::Backspace</span>/<span class="tt">Key::Enter</span>/<span class="tt">Key::Escape</span> ; expose le texte courant, <span class="tt">confirmed()</span>/<span class="tt">cancelled()</span> une fois <span class="tt">Entrée</span>/<span class="tt">Échap</span> pressée. Le dessin (curseur, cadre) est délégué à <span class="tt">EditorScreen</span>, à l'identique du principe déjà suivi par <span class="tt">TilePalette</span>/<span class="tt">LevelPicker</span>.</li>
@@ -106,14 +106,14 @@ Travail à réaliser</h1>
 <li><b>Renommage</b> : <span class="tt">F2</span> (TACHE-01) en cours d'édition ouvre le même widget pré-rempli du nom courant ; confirmer appelle <span class="tt">LevelDraft::setName</span> (déjà existant, jamais câblé) ; <span class="tt">Échap</span> <b>annule le renommage</b> et conserve le nom précédent inchangé (aucun effet sur le brouillon).</li>
 <li><b>Avertissement d'écrasement</b> : <span class="tt">saveDraft()</span> détecte qu'un fichier <span class="tt">&lt;nom&gt;.json</span> existe déjà dans le dossier <span class="tt">Levels</span> <b>et</b> que ce n'est pas celui d'où le brouillon a été chargé (tracker le chemin d'origine, <span class="tt">std::optional&lt;std::filesystem::path&gt; _loadedFrom</span> dans <span class="tt">EditorScreen</span>) ; le cas échéant, affiche une confirmation avant d'écrire (réutilise le mécanisme générique de confirmation posé en TACHE-02). Ce contrôle porte sur le nom déjà validé ci-dessus — il ne revérifie pas les caractères.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1034"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1044"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/TextInputField.h</span>/<span class="tt">.cpp</span> (nouveau).</li>
 <li><span class="tt">Source/HMI/Interface/EditorScreen.h</span>/<span class="tt">.cpp</span> (état de saisie, <span class="tt">_loadedFrom</span>, câblage <span class="tt">F2</span>, prompt post-picker avec retour au picker sur annulation, détection d'écrasement dans <span class="tt">saveDraft</span>).</li>
 <li>Tests unitaires (<span class="tt">Source/Test/Unit/HMI/Editor/test_text_input_field.cpp</span>), test système étendu.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1035"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1045"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">TextInputField</span> : caractères tapés s'accumulent dans l'ordre, <span class="tt">Backspace</span> retire le dernier, <span class="tt">Entrée</span> confirme avec le texte courant (si valide), <span class="tt">Échap</span> annule sans modifier l'appelant.</li>
@@ -122,19 +122,19 @@ Tests (obligatoires)</h1>
 <li><span class="tt">F2</span> puis renommage valide change <span class="tt">LevelDraft::name()</span> et le nom de fichier utilisé au prochain enregistrement.</li>
 <li>Enregistrer sous un nom correspondant à un fichier existant <b>différent</b> du niveau chargé déclenche la confirmation ; enregistrer sous le nom du fichier <b>d'origine</b> du brouillon n'en déclenche pas (c'est une mise à jour normale, pas un écrasement accidentel).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1036"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1046"></a>
 Points d'attention</h1>
 <ul>
 <li>Le nom par défaut proposé au renommage (<span class="tt">F2</span>) est le nom courant, pas une chaîne vide — évite de perdre le nom par une confirmation trop rapide.</li>
 <li><span class="tt">TextInputField</span> doit rester une classe de logique pure (comme <span class="tt">TilePalette</span>), testable sans fenêtre ni GPU (<span class="tt">EX-NFR-010</span>) : le rendu (cadre, curseur clignotant, message de refus) reste dans <span class="tt">EditorScreen</span>.</li>
 <li>La validation de caractères est volontairement une <b>liste noire</b> minimale (caractères strictement interdits par Windows), pas une liste blanche restrictive — un level designer non francophone doit pouvoir utiliser des accents/caractères Unicode dans le nom affiché.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1037"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1047"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Nommage à la création, renommage <span class="tt">F2</span>, avertissement d'écrasement opérationnels et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1038"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1048"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-009</span>. </p>
 </div></div><!-- contents -->

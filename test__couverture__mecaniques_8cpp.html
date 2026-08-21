@@ -103,10 +103,10 @@ $(function(){initNavTree('test__couverture__mecaniques_8cpp.html','',''); });
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="CameraFraming_8h_source.html">Core/Levels/CameraFraming.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Decor_8h_source.html">Core/Levels/Decor.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelSequence_8h_source.html">Core/Levels/LevelSequence.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Plane_8h_source.html">Core/Levels/Plane.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileTypeName_8h_source.html">Core/Levels/TileTypeName.h</a>&quot;</code><br />
@@ -118,7 +118,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a2d22e3973ead0b72bd6afb4436535499" id="r_a2d22e3973ead0b72bd6afb4436535499"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2d22e3973ead0b72bd6afb4436535499">TEST</a> (CouvertureMecaniques, GardeFouSensibleAUneMecaniqueManquante)</td></tr>
 <tr class="memdesc:a2d22e3973ead0b72bd6afb4436535499"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test négatif : retirer les occurrences d'un type, ou n'en laisser qu'une, le fait apparaître comme insuffisamment couvert, sans toucher à l'inventaire lui-même (<span class="tt">allContentTileTypes</span>) &ndash; démontre que le garde-fou est sensible à une régression de couverture <b>comme</b> à une régression de profondeur, indépendamment de tout fichier de niveau réel sur disque.  <br /></td></tr>
 <tr class="memitem:a322ccc1368822adbdaff08658c724538" id="r_a322ccc1368822adbdaff08658c724538"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a322ccc1368822adbdaff08658c724538">TEST</a> (CouvertureMecaniques, ChaqueMecaniqueLivreeEstCouverteParLaSequence)</td></tr>
-<tr class="memdesc:a322ccc1368822adbdaff08658c724538"><td class="mdescLeft">&#160;</td><td class="mdescRight">Garde-fou principal : chaque type de tuile livré est posé au moins <span class="tt">MIN_OCCURRENCES</span> fois dans la séquence réellement livrée (<span class="tt">sequence-demo.json</span>), chaque mode de cadrage y apparaît, et chaque variante significative est employée — danger temporisé déphasé, danger mobile vertical, budget de sauts <b>et</b> budget de dashs (comptés séparément), texture par instance, décor de premier plan, zones de caméra dessinées et taille de salle choisie par le niveau.  <br /></td></tr>
+<tr class="memdesc:a322ccc1368822adbdaff08658c724538"><td class="mdescLeft">&#160;</td><td class="mdescRight">Garde-fou principal : chaque type de tuile livré est posé au moins <span class="tt">MIN_OCCURRENCES</span> fois dans la séquence réellement livrée (<span class="tt">sequence-demo.json</span>), chaque mode de cadrage y apparaît, et chaque variante significative est employée — danger temporisé déphasé, danger mobile vertical, budget de sauts <b>et</b> budget de dashs (comptés séparément), texture par instance, plan pictural de premier plan et parallaxe réglée, zones de caméra dessinées et taille de salle choisie par le niveau.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Garde-fou de couverture des mécaniques par le contenu livré (<span class="tt">EX-LVL-015</span>, <span class="tt">LOT-65</span> TACHE-01). </p>
@@ -144,7 +144,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Garde-fou principal : chaque type de tuile livré est posé au moins <span class="tt">MIN_OCCURRENCES</span> fois dans la séquence réellement livrée (<span class="tt">sequence-demo.json</span>), chaque mode de cadrage y apparaît, et chaque variante significative est employée — danger temporisé déphasé, danger mobile vertical, budget de sauts <b>et</b> budget de dashs (comptés séparément), texture par instance, décor de premier plan, zones de caméra dessinées et taille de salle choisie par le niveau. </p>
+<p>Garde-fou principal : chaque type de tuile livré est posé au moins <span class="tt">MIN_OCCURRENCES</span> fois dans la séquence réellement livrée (<span class="tt">sequence-demo.json</span>), chaque mode de cadrage y apparaît, et chaque variante significative est employée — danger temporisé déphasé, danger mobile vertical, budget de sauts <b>et</b> budget de dashs (comptés séparément), texture par instance, plan pictural de premier plan et parallaxe réglée, zones de caméra dessinées et taille de salle choisie par le niveau. </p>
 <p><b>Cas de test :</b> <b>Chaque type de tuile livré est posé au moins trois fois dans la séquence, et chaque mode de cadrage comme chaque variante significative y est employé.</b><br  />
  <b>Categorie :</b> Systeme · Couverture Mecaniques<br  />
  <b>Criticite :</b> Bloquant<br  />

@@ -13,7 +13,6 @@ var IconGeometry_8h =
       [ "hmi::IconId::ToolSelection", "namespacehmi.html#ab269aabb94611e449a8e7427969874f5a7252d7debae0bab6f7e97a0f9537ae7e", null ],
       [ "hmi::IconId::ToolLink", "namespacehmi.html#ab269aabb94611e449a8e7427969874f5a8702edcc86ce2556bdb66ab132e3ea81", null ],
       [ "hmi::IconId::ToolTextureAssign", "namespacehmi.html#ab269aabb94611e449a8e7427969874f5a841a11a9910d4195f440dac6a99b4b83", null ],
-      [ "hmi::IconId::ToolDecor", "namespacehmi.html#ab269aabb94611e449a8e7427969874f5a28a04f8164a3cc874fcf0ec5b047f437", null ],
       [ "hmi::IconId::ToolCameraZone", "namespacehmi.html#ab269aabb94611e449a8e7427969874f5a63b936c59cd5c8b6056e0a9a0477d6e6", null ],
       [ "hmi::IconId::ToolPath", "namespacehmi.html#ab269aabb94611e449a8e7427969874f5a051087773921f64c106ec2da8310502c", null ],
       [ "hmi::IconId::Save", "namespacehmi.html#ab269aabb94611e449a8e7427969874f5ac9cc8cce247e49bae79f15173ce97354", null ],

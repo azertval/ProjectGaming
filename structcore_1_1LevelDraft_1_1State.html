@@ -111,11 +111,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a16b9838d49f1c786323a5ae999daf0e1" id="r_a16b9838d49f1c786323a5ae999daf0e1"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a16b9838d49f1c786323a5ae999daf0e1">background</a></td></tr>
 <tr class="memitem:ac6c4d0bd41537d66e602a3bcf839f45b" id="r_ac6c4d0bd41537d66e602a3bcf839f45b"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac6c4d0bd41537d66e602a3bcf839f45b">skinSet</a></td></tr>
 <tr class="memitem:a8de69dc28bee05e4af82df1205dbd2d9" id="r_a8de69dc28bee05e4af82df1205dbd2d9"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1TileTextureOverride.html">TileTextureOverride</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8de69dc28bee05e4af82df1205dbd2d9">textureOverrides</a></td></tr>
-<tr class="memitem:ac0d62450e833efe00d584f6b95c4a8f3" id="r_ac0d62450e833efe00d584f6b95c4a8f3"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Decor.html">Decor</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac0d62450e833efe00d584f6b95c4a8f3">decors</a></td></tr>
 <tr class="memitem:afe8c37dc1b4891c69551f67598721107" id="r_afe8c37dc1b4891c69551f67598721107"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1MovingPlatformConfig.html">MovingPlatformConfig</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#afe8c37dc1b4891c69551f67598721107">platformConfigs</a></td></tr>
 <tr class="memitem:ab567ae70615b4bcf67fb55eb91410032" id="r_ab567ae70615b4bcf67fb55eb91410032"><td class="memItemLeft"><a class="el" href="structcore_1_1CameraFramingConfig.html">CameraFramingConfig</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab567ae70615b4bcf67fb55eb91410032">cameraFraming</a></td></tr>
 <tr class="memitem:a31c09e0779b53175b5695cd1732473a0" id="r_a31c09e0779b53175b5695cd1732473a0"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a31c09e0779b53175b5695cd1732473a0">airJumps</a></td></tr>
 <tr class="memitem:a2f4abce1f1c14755d53c3ee569630e0f" id="r_a2f4abce1f1c14755d53c3ee569630e0f"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2f4abce1f1c14755d53c3ee569630e0f">dashCharges</a></td></tr>
+<tr class="memitem:aaf008e84cc69de0be5f5dab224394de3" id="r_aaf008e84cc69de0be5f5dab224394de3"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Plane.html">Plane</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aaf008e84cc69de0be5f5dab224394de3">planes</a></td></tr>
+<tr class="memitem:adf8eea5799ed2f17ab9d6b684f812c3b" id="r_adf8eea5799ed2f17ab9d6b684f812c3b"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#adf8eea5799ed2f17ab9d6b684f812c3b">parallaxEnabled</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>État complet du brouillon, hors historique (utilisé pour les snapshots undo/redo). </p>
@@ -218,20 +219,6 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ac0d62450e833efe00d584f6b95c4a8f3" name="ac0d62450e833efe00d584f6b95c4a8f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0d62450e833efe00d584f6b95c4a8f3">&#9670;&#160;</a></span>decors</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1Decor.html">Decor</a>&gt; core::LevelDraft::State::decors</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="af146bc5caa96d02bffedd3dbac8a4416" name="af146bc5caa96d02bffedd3dbac8a4416"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af146bc5caa96d02bffedd3dbac8a4416">&#9670;&#160;</a></span>entry</h2>
 
@@ -310,6 +297,34 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::string core::LevelDraft::State::name</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adf8eea5799ed2f17ab9d6b684f812c3b" name="adf8eea5799ed2f17ab9d6b684f812c3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf8eea5799ed2f17ab9d6b684f812c3b">&#9670;&#160;</a></span>parallaxEnabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::LevelDraft::State::parallaxEnabled</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaf008e84cc69de0be5f5dab224394de3" name="aaf008e84cc69de0be5f5dab224394de3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf008e84cc69de0be5f5dab224394de3">&#9670;&#160;</a></span>planes</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1Plane.html">Plane</a>&gt; core::LevelDraft::State::planes</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -11,6 +11,7 @@ var searchData=
   ['pixelframerole_8',['PixelFrameRole',['../namespacehmi.html#aa9ca31cc2ce141fdfbdd11b14d1df228',1,'hmi']]],
   ['pixeloperationkind_9',['PixelOperationKind',['../namespacehmi.html#a5889df12c254317504ef5777d27d9b0e',1,'hmi']]],
   ['pixeltool_10',['PixelTool',['../namespacehmi.html#a9cb51e9b7642963a83312d94737fe571',1,'hmi']]],
-  ['platformpathmode_11',['PlatformPathMode',['../namespacecore.html#a8a429a2ce785ee89ff543488b51750b1',1,'core']]],
-  ['playerclipkind_12',['PlayerClipKind',['../namespacehmi.html#a01d3aca49804e2e7ac13786499fe7bf4',1,'hmi']]]
+  ['planedepth_11',['PlaneDepth',['../namespacecore.html#a6dc89438a55a80980ab04f7da513f731',1,'core']]],
+  ['platformpathmode_12',['PlatformPathMode',['../namespacecore.html#a8a429a2ce785ee89ff543488b51750b1',1,'core']]],
+  ['playerclipkind_13',['PlayerClipKind',['../namespacehmi.html#a01d3aca49804e2e7ac13786499fe7bf4',1,'hmi']]]
 ];

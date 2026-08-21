@@ -104,8 +104,10 @@ $(function(){initNavTree('test__editor__workspace_8cpp.html','',''); });
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a398397568f89b6710fbfed13046c835a" id="r_a398397568f89b6710fbfed13046c835a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a398397568f89b6710fbfed13046c835a">TEST</a> (EditorWorkspaceTest, ChaquePanneauAppartientAUnSeulEspace)</td></tr>
-<tr class="memdesc:a398397568f89b6710fbfed13046c835a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chaque panneau appartient à <b>exactement un</b> espace, et les neuf sont couverts.  <br /></td></tr>
+<tr class="memitem:ae8a1cbe1a00d2d1e58859a97882701a5" id="r_ae8a1cbe1a00d2d1e58859a97882701a5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae8a1cbe1a00d2d1e58859a97882701a5">TEST</a> (EditorWorkspaceTest, ChaquePanneauAppartientAAuMoinsUnEspace)</td></tr>
+<tr class="memdesc:ae8a1cbe1a00d2d1e58859a97882701a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chaque panneau appartient à <b>au moins un</b> espace, et les neuf sont couverts.  <br /></td></tr>
+<tr class="memitem:a2589bf0e8e60ffdeaa1c1a7480a77d2d" id="r_a2589bf0e8e60ffdeaa1c1a7480a77d2d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2589bf0e8e60ffdeaa1c1a7480a77d2d">TEST</a> (EditorWorkspaceTest, CanevasPartageEntreLesDeuxEspacesDePeinture)</td></tr>
+<tr class="memdesc:a2589bf0e8e60ffdeaa1c1a7480a77d2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le canevas, l'historique et la palette sont <b>partagés</b> entre les deux espaces de peinture — c'est précisément ce que le masque existe pour exprimer.  <br /></td></tr>
 <tr class="memitem:a583b40d06f35bf8ab6471a6887ef400b" id="r_a583b40d06f35bf8ab6471a6887ef400b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a583b40d06f35bf8ab6471a6887ef400b">TEST</a> (EditorWorkspaceTest, UneSeuleBarreDOutilsParEspace)</td></tr>
 <tr class="memdesc:a583b40d06f35bf8ab6471a6887ef400b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les deux barres d'outils ne sont <b>jamais</b> visibles ensemble.  <br /></td></tr>
 <tr class="memitem:a4d5eabd8e194d7d31b30cee1fde1ad2d" id="r_a4d5eabd8e194d7d31b30cee1fde1ad2d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4d5eabd8e194d7d31b30cee1fde1ad2d">TEST</a> (EditorWorkspaceTest, MenuAtelierReserveASonEspace)</td></tr>
@@ -118,8 +120,8 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires des espaces de travail de l'éditeur (<span class="tt">LOT-68</span>, <span class="tt">EX-IHM-073</span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a398397568f89b6710fbfed13046c835a" name="a398397568f89b6710fbfed13046c835a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a398397568f89b6710fbfed13046c835a">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<a id="a2589bf0e8e60ffdeaa1c1a7480a77d2d" name="a2589bf0e8e60ffdeaa1c1a7480a77d2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2589bf0e8e60ffdeaa1c1a7480a77d2d">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -132,24 +134,53 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ChaquePanneauAppartientAUnSeulEspace</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">CanevasPartageEntreLesDeuxEspacesDePeinture</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Chaque panneau appartient à <b>exactement un</b> espace, et les neuf sont couverts. </p>
-<p>Un panneau sans espace resterait affiché dans les deux, ce qui viderait la séparation de tout son sens — et ne se verrait qu'à l'écran, jamais en relecture. <b>Cas de test :</b> <b>Chaque panneau appartient a exactement un espace de travail.</b><br  />
+<p>Le canevas, l'historique et la palette sont <b>partagés</b> entre les deux espaces de peinture — c'est précisément ce que le masque existe pour exprimer. </p>
+<p><b>Cas de test :</b> <b>Le canevas et ses panneaux servent aux deux espaces de peinture.</b><br  />
  <b>Categorie :</b> Unitaire · Espaces de travail<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Parcourir les neuf panneaux et resoudre leur espace.<br  />
-2. Verifier que le compte couvert vaut PANEL_COUNT et que les deux espaces sont representes.<br  />
- <b>Resultat attendu :</b> Les neuf panneaux sont couverts, repartis entre les deux espaces. </p>
+ 1. Resoudre le masque du canevas, de l'historique et de la palette.<br  />
+ <b>Resultat attendu :</b> Chacun contient a la fois l'atelier pixel art et le mode creation. </p>
+
+</div>
+</div>
+<a id="ae8a1cbe1a00d2d1e58859a97882701a5" name="ae8a1cbe1a00d2d1e58859a97882701a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8a1cbe1a00d2d1e58859a97882701a5">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EditorWorkspaceTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChaquePanneauAppartientAAuMoinsUnEspace</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Chaque panneau appartient à <b>au moins un</b> espace, et les neuf sont couverts. </p>
+<p>La garde a changé de nature au <span class="tt">LOT-69</span> TACHE-08 : elle vérifiait « exactement un espace », elle vérifie désormais « <b>masque non vide</b> ». Le canevas, l'historique et la palette servent aux deux espaces de peinture, et les dupliquer donnerait deux canevas et deux historiques à tenir synchronisés. Un panneau sans aucun espace, lui, resterait affiché partout — ce qui viderait la séparation de son sens, et ne se verrait qu'à l'écran, jamais en relecture. <b>Cas de test :</b> <b>Chaque panneau appartient a au moins un espace de travail.</b><br  />
+ <b>Categorie :</b> Unitaire · Espaces de travail<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Parcourir les neuf panneaux et resoudre leur masque d'espaces.<br  />
+2. Verifier que le compte couvert vaut PANEL_COUNT et que les trois espaces sont representes.<br  />
+ <b>Resultat attendu :</b> Les neuf panneaux ont un masque non vide, et chaque espace affiche au moins un panneau. </p>
 
 </div>
 </div>
 <a id="a7cfcacc1e25ed2ec2459a693c186801a" name="a7cfcacc1e25ed2ec2459a693c186801a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7cfcacc1e25ed2ec2459a693c186801a">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cfcacc1e25ed2ec2459a693c186801a">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -181,7 +212,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a3da38cd6c1ebb77ef23ffddacd074925" name="a3da38cd6c1ebb77ef23ffddacd074925"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3da38cd6c1ebb77ef23ffddacd074925">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3da38cd6c1ebb77ef23ffddacd074925">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -211,7 +242,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a4d5eabd8e194d7d31b30cee1fde1ad2d" name="a4d5eabd8e194d7d31b30cee1fde1ad2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d5eabd8e194d7d31b30cee1fde1ad2d">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d5eabd8e194d7d31b30cee1fde1ad2d">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -234,13 +265,13 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Espaces de travail<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
- 1. Lire l'habillage des deux espaces.<br  />
- <b>Resultat attendu :</b> Le menu de l'atelier n'est visible que dans l'espace PixelArt. </p>
+ 1. Lire l'habillage des trois espaces.<br  />
+ <b>Resultat attendu :</b> Le menu de l'atelier n'est pas visible dans l'espace d'edition de niveau. </p>
 
 </div>
 </div>
 <a id="a583b40d06f35bf8ab6471a6887ef400b" name="a583b40d06f35bf8ab6471a6887ef400b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a583b40d06f35bf8ab6471a6887ef400b">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a583b40d06f35bf8ab6471a6887ef400b">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

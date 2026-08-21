@@ -36,7 +36,6 @@ var namespacecore =
     [ "PlatformPath", "structcore_1_1PlatformPath.html", "structcore_1_1PlatformPath" ],
     [ "CameraZone", "structcore_1_1CameraZone.html", "structcore_1_1CameraZone" ],
     [ "CameraFramingConfig", "structcore_1_1CameraFramingConfig.html", "structcore_1_1CameraFramingConfig" ],
-    [ "Decor", "structcore_1_1Decor.html", "structcore_1_1Decor" ],
     [ "GridPosition", "structcore_1_1GridPosition.html", "structcore_1_1GridPosition" ],
     [ "Mechanism", "structcore_1_1Mechanism.html", "structcore_1_1Mechanism" ],
     [ "DangerLink", "structcore_1_1DangerLink.html", "structcore_1_1DangerLink" ],
@@ -52,6 +51,7 @@ var namespacecore =
     [ "LevelSequenceLoadResult", "structcore_1_1LevelSequenceLoadResult.html", "structcore_1_1LevelSequenceLoadResult" ],
     [ "LevelSequenceLoader", "classcore_1_1LevelSequenceLoader.html", "classcore_1_1LevelSequenceLoader" ],
     [ "LevelWriter", "classcore_1_1LevelWriter.html", "classcore_1_1LevelWriter" ],
+    [ "Plane", "structcore_1_1Plane.html", "structcore_1_1Plane" ],
     [ "TileMap", "classcore_1_1TileMap.html", "classcore_1_1TileMap" ],
     [ "DeterministicRandom", "classcore_1_1DeterministicRandom.html", "classcore_1_1DeterministicRandom" ],
     [ "Rect", "structcore_1_1Rect.html", "structcore_1_1Rect" ],
@@ -77,11 +77,6 @@ var namespacecore =
     [ "DangerMoverAxis", "namespacecore.html#a691dfee41b7946ec78288271f8925d51", [
       [ "Horizontal", "namespacecore.html#a691dfee41b7946ec78288271f8925d51ac1b5fa03ecdb95d4a45dd1c40b02527f", null ],
       [ "Vertical", "namespacecore.html#a691dfee41b7946ec78288271f8925d51a06ce2a25e5d12c166a36f654dbea6012", null ]
-    ] ],
-    [ "DecorLayer", "namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20", [
-      [ "Background", "namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20aa9ded1e5ce5d75814730bb4caaf49419", null ],
-      [ "Decor", "namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20ae953e8671da3a0647c0939df8ebe8e44", null ],
-      [ "Foreground", "namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20a45bd1d5b32931106efbf1a82fe6a732f", null ]
     ] ],
     [ "LevelOutcome", "namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa", [
       [ "Playing", "namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaac9dbb2b7c84159b632d71e512eba8428", null ],
@@ -121,6 +116,10 @@ var namespacecore =
       [ "DashTrail", "namespacecore.html#aa6799b2e10b4cf31b2527af8a390ce2ca5035aee0b4665a2808f4a262c62e3e0c", null ],
       [ "LandingDust", "namespacecore.html#aa6799b2e10b4cf31b2527af8a390ce2ca0cdb0f6c72187ce44ad0d64103920653", null ],
       [ "Death", "namespacecore.html#aa6799b2e10b4cf31b2527af8a390ce2ca6097f89e3092d4ccd249c9d479785c1f", null ]
+    ] ],
+    [ "PlaneDepth", "namespacecore.html#a6dc89438a55a80980ab04f7da513f731", [
+      [ "Behind", "namespacecore.html#a6dc89438a55a80980ab04f7da513f731a382c70faebc9dd21aff0801c33c5c4eb", null ],
+      [ "Front", "namespacecore.html#a6dc89438a55a80980ab04f7da513f731a5835bab1ade0060909e31a06af2e2cde", null ]
     ] ],
     [ "PlatformPathMode", "namespacecore.html#a8a429a2ce785ee89ff543488b51750b1", [
       [ "PingPong", "namespacecore.html#a8a429a2ce785ee89ff543488b51750b1a99e52704462d3580db3528cad7ea9660", null ],
@@ -163,7 +162,7 @@ var namespacecore =
     ] ],
     [ "advanceAnimation", "namespacecore.html#a209ceac8415ddadd8463746b94934eed", null ],
     [ "approximatelyEqual", "namespacecore.html#a69640dd3c9f3f8778a7c7621839c3794", null ],
-    [ "buildLevelScene", "namespacecore.html#a2af6bf1cd31d496a597f6bdf257ce148", null ],
+    [ "buildLevelScene", "namespacecore.html#a671cc58bea9439fdb3ea23009b0da54b", null ],
     [ "buildPlatformPath", "namespacecore.html#aa952d3ee1972c33658bdeae20d63fcba", null ],
     [ "cameraFramingModeName", "namespacecore.html#a0d231b385924c096dc5f94d17639e679", null ],
     [ "ceilingSlopeHeight", "namespacecore.html#aef7136a2093c38f28dc2f24fedfae124", null ],
@@ -180,6 +179,7 @@ var namespacecore =
     [ "isFollowableSurface", "namespacecore.html#aaa7b295b62e61a2f387f7b2775836d90", null ],
     [ "isSolid", "namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb", null ],
     [ "isSquishedByPlatform", "namespacecore.html#ae66e09c527611ea8e43dd35c1edbd20c", null ],
+    [ "isValidPlaneDensity", "namespacecore.html#a0f61acebed3678706e825f972217a233", null ],
     [ "operator!=", "namespacecore.html#a197b5bff2c73896fbfb05df9ea6419b9", null ],
     [ "operator!=", "namespacecore.html#a29323798eff97fce936a3352846efb93", null ],
     [ "operator*", "namespacecore.html#ab422b18bf5b03f40421c9391b725dcd0", null ],
@@ -227,6 +227,9 @@ var namespacecore =
     [ "LANDING_MAX_IMPACT_SPEED", "namespacecore.html#a2f9bf6d59b037b9aa946013451473361", null ],
     [ "LANDING_MIN_IMPACT_SPEED", "namespacecore.html#a4436c8349be20efa9139c98f7101a87d", null ],
     [ "MAX_PARTICLES", "namespacecore.html#a111487c1e65133a09f9f0aeb582b7e17", null ],
+    [ "MAX_PLANE_TEXTURE_EXTENT", "namespacecore.html#a2b0b5578c096a53cc778a39c41f18f72", null ],
+    [ "MAX_PLANES_PER_LEVEL", "namespacecore.html#aba31765307efa0a613fd06d8bcecc203", null ],
+    [ "PLANE_NATIVE_PIXELS_PER_UNIT", "namespacecore.html#a93b262158b33f33fa0f8b234387f2d2a", null ],
     [ "PLAYER_CLIP_DASH", "namespacecore.html#a29878d049f4e3e4ea35da414d6783daf", null ],
     [ "PLAYER_CLIP_FALL", "namespacecore.html#a383d9d113ce5c48640f24d6f9759d83c", null ],
     [ "PLAYER_CLIP_IDLE", "namespacecore.html#a2b3cb5d42063608aa724d3b47aab0a6e", null ],

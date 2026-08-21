@@ -95,7 +95,8 @@ $(function(){initNavTree('GamepadPoller_8h.html','',''); });
 
 <p>Sondage XInput de la manette, fusionné dans un <span class="tt">InputState</span> (réutilisable).  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="InputState_8h_source.html">HMI/Input/InputState.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;chrono&gt;</code><br />
+<code>#include &quot;<a class="el" href="InputState_8h_source.html">HMI/Input/InputState.h</a>&quot;</code><br />
 </div>
 <p><a href="GamepadPoller_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -107,6 +108,16 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aa68d5419b15fd65eb0cbe477f135f642" id="r_aa68d5419b15fd65eb0cbe477f135f642"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aa68d5419b15fd65eb0cbe477f135f642">hmi::gamepadProbeDue</a> (bool wasConnected, std::chrono::steady_clock::duration sinceLastProbe) noexcept</td></tr>
+<tr class="memdesc:aa68d5419b15fd65eb0cbe477f135f642"><td class="mdescLeft">&#160;</td><td class="mdescRight">Faut-il re-sonder XInput maintenant ?  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a2a20dc2308d9f364b3d764c4443ef799" id="r_a2a20dc2308d9f364b3d764c4443ef799"><td class="memItemLeft">constexpr std::chrono::milliseconds&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a2a20dc2308d9f364b3d764c4443ef799">hmi::GAMEPAD_DISCONNECTED_PROBE_PERIOD</a> {2000}</td></tr>
+<tr class="memdesc:a2a20dc2308d9f364b3d764c4443ef799"><td class="mdescLeft">&#160;</td><td class="mdescRight">Délai minimal entre deux sondages XInput d'un slot resté <b>déconnecté</b> (anti-saccade).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Sondage XInput de la manette, fusionné dans un <span class="tt">InputState</span> (réutilisable). </p>

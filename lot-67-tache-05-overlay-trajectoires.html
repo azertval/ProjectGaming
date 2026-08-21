@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-67-tache-05-overlay-trajectoires.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-67-trajectoires-editables_2tache-05-overlay-trajectoires"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-67.html#md_Lot_2LOT-67-trajectoires-editables_2epic" title="Lot/LOT-67-trajectoires-editables/epic.md">LOT-67</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3098"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3108"></a>
 Contexte</h1>
 <p><span class="tt">composeMovingPlatformPaths</span> tracait un unique segment entre deux points, avec une pointe de fleche. La route multi-points le perime, et rien ne materialisait la course d'un danger mobile ni les poignees manipulables.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3099"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3109"></a>
 Travail a realiser</h1>
 <ul>
 <li>Generaliser le trace au polyligne, une pointe par segment : elle donne le <b>sens</b> de parcours, seul moyen de distinguer un circuit ferme a l'oeil.</li>
@@ -105,20 +105,20 @@ Travail a realiser</h1>
 <li>Appliquer l'apercu du geste sur une <b>copie locale</b> de la configuration : le brouillon n'est touche qu'au relachement.</li>
 <li>Ajouter <span class="tt">composeDangerMoverPaths</span> : trait rouge-orange (famille danger, distincte de l'azur des plateformes et du bleu/orange des liens), avec une pointe a <b>chaque</b> bout — la course est un aller-retour, pas un sens unique.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3100"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3110"></a>
 Fichiers impactes</h1>
 <p><span class="tt">Source/HMI/Graphics/DraftRenderer.{h,cpp}</span>, <span class="tt"><a class="el" href="GameViewport_8cpp.html">Source/HMI/Game/GameViewport.cpp</a></span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3101"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3111"></a>
 Tests (obligatoires)</h1>
 <p>La geometrie composee est testee <b>en amont</b>, dans <span class="tt"><a class="el" href="test__platform__path_8cpp.html" title="Tests unitaires de la route d&#39;une plateforme mobile (core::PlatformPath, LOT-67, EX-GP-054) — la prim...">test_platform_path.cpp</a></span> et <span class="tt"><a class="el" href="test__path__geometry_8cpp.html" title="Tests unitaires de la géométrie des poignées de parcours (LOT-67 TACHE-04, EX-EDIT-032) — purs,...">test_path_geometry.cpp</a></span> : ce sont les primitives pures dont l'overlay se contente de tracer le resultat.</p>
 <p><span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span> exige un <span class="tt">ID3D11Device</span> (via <span class="tt">SpriteBatch</span> et <span class="tt">TextureAtlas</span>) : il n'est instancie par <b>aucun</b> test du depot, et ne peut pas l'etre sans GPU. Le rendu lui-meme releve donc de la verification IHM manuelle, conformement a la convention du projet pour les lots de rendu.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3102"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3112"></a>
 Points d'attention</h1>
 <p>L'ordre de dessin des poignees de parcours reutilise celui des poignees de decors : les deux outils ne sont jamais actifs en meme temps, aucune superposition n'est possible.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3103"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3113"></a>
 Definition de fait (DoD)</h1>
 <p>Le trajet affiche correspond au trajet parcouru (meme primitive). Verification manuelle : poignees visibles a la selection, apercu suivant le curseur, trajet de danger mobile distinct.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3104"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3114"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-032</span>, <span class="tt">EX-EDIT-030</span>, <span class="tt">EX-GP-051</span>, <span class="tt">EX-GP-054</span>. </p>
 </div></div><!-- contents -->

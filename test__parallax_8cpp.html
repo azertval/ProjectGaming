@@ -93,52 +93,42 @@ $(function(){initNavTree('test__parallax_8cpp.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Tests unitaires du facteur de parallaxe par couche et du décalage relatif à la salle courante (LOT-49 TACHE-03, <span class="tt">EX-DEC-006</span>).  
+<p>Tests unitaires du décalage de parallaxe, de son bornage et de sa table d'activation (LOT-49 TACHE-03, généralisé au LOT-69 TACHE-06 : facteur <b>par axe</b>, porté par le plan).  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;optional&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
+<div class="textblock"><code>#include &lt;cmath&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="Sprite_8h_source.html">Core/Ecs/Components/Sprite.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Transform_8h_source.html">Core/Ecs/Components/Transform.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="World_8h_source.html">Core/Ecs/World.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Decor_8h_source.html">Core/Levels/Decor.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="CameraFraming_8h_source.html">Core/Levels/CameraFraming.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Rect_8h_source.html">Core/Math/Rect.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Vector2_8h_source.html">Core/Math/Vector2.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Camera2D_8h_source.html">HMI/Graphics/Camera2D.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="ComposedScene_8h_source.html">HMI/Graphics/ComposedScene.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="DecorVisuals_8h_source.html">HMI/Graphics/DecorVisuals.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="MissingTexture_8h_source.html">HMI/Graphics/MissingTexture.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Parallax_8h_source.html">HMI/Graphics/Parallax.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="RenderMode_8h_source.html">HMI/Graphics/RenderMode.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:adff98d7bc5d303fd8aaac9952d3c9880" id="r_adff98d7bc5d303fd8aaac9952d3c9880"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adff98d7bc5d303fd8aaac9952d3c9880">TEST</a> (ParallaxTest, LeFacteurDeLaCoucheDecorVautUn)</td></tr>
-<tr class="memdesc:adff98d7bc5d303fd8aaac9952d3c9880"><td class="mdescLeft">&#160;</td><td class="mdescRight">La couche <span class="tt"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20ae953e8671da3a0647c0939df8ebe8e44" title="Décor : entre les tuiles et le personnage.">core::DecorLayer::Decor</a></span> porte le facteur de référence <span class="tt">1.0</span> ; <span class="tt">Background</span> est inférieur (défile moins vite), <span class="tt">Foreground</span> supérieur (défile plus vite).  <br /></td></tr>
 <tr class="memitem:ac6a86f3228e1689132460a09fcb286a8" id="r_ac6a86f3228e1689132460a09fcb286a8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac6a86f3228e1689132460a09fcb286a8">TEST</a> (ParallaxTest, FacteurUnLaissePositionInchangee)</td></tr>
 <tr class="memdesc:ac6a86f3228e1689132460a09fcb286a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">À facteur <span class="tt">1.0</span>, la position de rendu est strictement inchangée, quel que soit le cadrage de la caméra.  <br /></td></tr>
+<tr class="memitem:a8417a0ea8d9dd934c418c617977cc5f7" id="r_a8417a0ea8d9dd934c418c617977cc5f7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8417a0ea8d9dd934c418c617977cc5f7">TEST</a> (ParallaxTest, FacteurParAxeAgitIndependamment)</td></tr>
+<tr class="memdesc:a8417a0ea8d9dd934c418c617977cc5f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le facteur est <b>par axe</b> : un plan peut défiler horizontalement sans bouger verticalement, ce qu'un facteur unique ne pouvait pas exprimer.  <br /></td></tr>
 <tr class="memitem:a775f5168da5de90928c88636e6e5252f" id="r_a775f5168da5de90928c88636e6e5252f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a775f5168da5de90928c88636e6e5252f">TEST</a> (ParallaxTest, FacteursOpposesProduisentDesDecalagesOpposesEtProportionnels)</td></tr>
 <tr class="memdesc:a775f5168da5de90928c88636e6e5252f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deux facteurs équidistants de <span class="tt">1.0</span> produisent des décalages de sens opposés et de même amplitude (proportionnalité au facteur).  <br /></td></tr>
 <tr class="memitem:ad4bbc06b973aa9836f186bf2ab0333c2" id="r_ad4bbc06b973aa9836f186bf2ab0333c2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad4bbc06b973aa9836f186bf2ab0333c2">TEST</a> (ParallaxTest, MemePositionRelativeDonneMemePositionEcranEntreSalles)</td></tr>
-<tr class="memdesc:ad4bbc06b973aa9836f186bf2ab0333c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le décalage se calcule depuis le centre de la salle <b>courante</b> : un décor à la même position relative dans deux salles différentes se retrouve au même endroit à l'écran — c'est le test qui verrouille l'arbitrage (<span class="tt"><a class="el" href="decors_8md.html">decors.md</a></span>).  <br /></td></tr>
-<tr class="memitem:ad70e0f635d738b043c26f473853124f8" id="r_ad70e0f635d738b043c26f473853124f8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad70e0f635d738b043c26f473853124f8">TEST</a> (ParallaxTest, RoundToScreenPixelArrondiAuPixelEcran)</td></tr>
-<tr class="memdesc:ad70e0f635d738b043c26f473853124f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">roundToScreenPixel arrondit une position monde au pixel écran entier le plus proche.  <br /></td></tr>
+<tr class="memdesc:ad4bbc06b973aa9836f186bf2ab0333c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le décalage se calcule depuis le centre de la salle <b>courante</b> : un contenu à la même position relative dans deux salles différentes se retrouve au même endroit à l'écran — c'est le test qui verrouille l'arbitrage (<span class="tt"><a class="el" href="decors_8md.html">decors.md</a></span>).  <br /></td></tr>
 <tr class="memitem:af814606cf7dc02c82a4640fe99aa8983" id="r_af814606cf7dc02c82a4640fe99aa8983"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af814606cf7dc02c82a4640fe99aa8983">TEST</a> (ParallaxTest, ParallaxModelPositionEstLInverseDeParallaxRenderPosition)</td></tr>
-<tr class="memdesc:af814606cf7dc02c82a4640fe99aa8983"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">parallaxModelPosition</span> est l'inverse exact de <span class="tt">parallaxRenderPosition</span> : convertir une position modèle en rendu puis revenir en arrière redonne la position de départ.  <br /></td></tr>
-<tr class="memitem:a7544767ca9637c2b1db0a422e475e974" id="r_a7544767ca9637c2b1db0a422e475e974"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7544767ca9637c2b1db0a422e475e974">TEST</a> (ParallaxTest, ParallaxModelPositionFacteurUnLaissePositionInchangee)</td></tr>
-<tr class="memdesc:a7544767ca9637c2b1db0a422e475e974"><td class="mdescLeft">&#160;</td><td class="mdescRight">À facteur <span class="tt">1.0</span>, <span class="tt">parallaxModelPosition</span> laisse aussi la position inchangée (couche de référence, symétrique de <span class="tt">parallaxRenderPosition</span>).  <br /></td></tr>
-<tr class="memitem:a04884a15213adbe1843abd896bb98073" id="r_a04884a15213adbe1843abd896bb98073"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a04884a15213adbe1843abd896bb98073">TEST</a> (ParallaxTest, DecorParallaxeVisibleNEstPasEcarte)</td></tr>
-<tr class="memdesc:a04884a15213adbe1843abd896bb98073"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un décor pris en défaut par le culling à sa position simulée devient visible une fois la parallaxe appliquée (échelle réduite, couche arrière-plan) — le culling juge la position <b>décalée</b>.  <br /></td></tr>
-<tr class="memitem:aee2bd1c71a41b717b5464150401b1f25" id="r_aee2bd1c71a41b717b5464150401b1f25"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aee2bd1c71a41b717b5464150401b1f25">TEST</a> (ParallaxTest, DecorParallaxeHorsCadreEstEcarte)</td></tr>
-<tr class="memdesc:aee2bd1c71a41b717b5464150401b1f25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un décor visible à sa position simulée peut être écarté une fois la parallaxe appliquée (couche premier plan, facteur &gt; 1, l'exagère hors cadre).  <br /></td></tr>
-<tr class="memitem:a09d8a26585550ffb2d9d051e301ef5c5" id="r_a09d8a26585550ffb2d9d051e301ef5c5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a09d8a26585550ffb2d9d051e301ef5c5">TEST</a> (ParallaxTest, ApplyDecorParallaxFauxNeutraliseLeDecalage)</td></tr>
-<tr class="memdesc:a09d8a26585550ffb2d9d051e301ef5c5"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">applyDecorParallax = false</span> (mode de cadrage <em>suivi</em>, LOT-64) neutralise le décalage de parallaxe des couches Fond/Premier plan &ndash; le décor reste composé à sa position simulée exacte, comme la couche <span class="tt">Decor</span>, sans pour autant désactiver son alignement au pixel écran.  <br /></td></tr>
+<tr class="memdesc:af814606cf7dc02c82a4640fe99aa8983"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">parallaxModelPosition</span> est l'inverse <b>exact</b> de <span class="tt">parallaxRenderPosition</span>.  <br /></td></tr>
+<tr class="memitem:a4a446209c0a10448fb23a9b43bbe015e" id="r_a4a446209c0a10448fb23a9b43bbe015e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4a446209c0a10448fb23a9b43bbe015e">TEST</a> (ParallaxTest, DecalageBorneLaisseLePlanCouvrantAuBordDuNiveau)</td></tr>
+<tr class="memdesc:a4a446209c0a10448fb23a9b43bbe015e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un plan à facteur <span class="tt">0,5</span>, caméra au <b>bord</b> du niveau, couvre toujours le cadrage : le décalage est borné avant d'être appliqué.  <br /></td></tr>
+<tr class="memitem:ac7b48d48f4902e7afc5832e7253f7f45" id="r_ac7b48d48f4902e7afc5832e7253f7f45"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac7b48d48f4902e7afc5832e7253f7f45">TEST</a> (ParallaxTest, PlanPlusPetitQueLeCadrageNEstPasDecale)</td></tr>
+<tr class="memdesc:ac7b48d48f4902e7afc5832e7253f7f45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un plan plus <b>petit</b> que le cadrage ne peut être couvrant : son décalage est ramené à zéro plutôt que de le laisser dériver.  <br /></td></tr>
+<tr class="memitem:ad70e0f635d738b043c26f473853124f8" id="r_ad70e0f635d738b043c26f473853124f8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad70e0f635d738b043c26f473853124f8">TEST</a> (ParallaxTest, RoundToScreenPixelArrondiAuPixelEcran)</td></tr>
+<tr class="memdesc:ad70e0f635d738b043c26f473853124f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'arrondi au pixel écran s'applique <b>après</b> le bornage : un décalage borné reste fractionnaire, et c'est lui qu'il faut aligner.  <br /></td></tr>
+<tr class="memitem:a8b5dc5a42d4e37cceb91b61239ebbb9c" id="r_a8b5dc5a42d4e37cceb91b61239ebbb9c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8b5dc5a42d4e37cceb91b61239ebbb9c">TEST</a> (ParallaxTest, TableDActivationExhaustive)</td></tr>
+<tr class="memdesc:a8b5dc5a42d4e37cceb91b61239ebbb9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">La table d'activation est <b>exhaustive</b> : trois modes de cadrage × deux valeurs du drapeau de niveau, aucune combinaison laissée à l'interprétation.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Tests unitaires du facteur de parallaxe par couche et du décalage relatif à la salle courante (LOT-49 TACHE-03, <span class="tt">EX-DEC-006</span>). </p>
+<div class="textblock"><p>Tests unitaires du décalage de parallaxe, de son bornage et de sa table d'activation (LOT-49 TACHE-03, généralisé au LOT-69 TACHE-06 : facteur <b>par axe</b>, porté par le plan). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a09d8a26585550ffb2d9d051e301ef5c5" name="a09d8a26585550ffb2d9d051e301ef5c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09d8a26585550ffb2d9d051e301ef5c5">&#9670;&#160;</a></span>TEST() <span class="overload">[1/10]</span></h2>
+<a id="a4a446209c0a10448fb23a9b43bbe015e" name="a4a446209c0a10448fb23a9b43bbe015e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a446209c0a10448fb23a9b43bbe015e">&#9670;&#160;</a></span>TEST() <span class="overload">[1/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -151,24 +141,24 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ApplyDecorParallaxFauxNeutraliseLeDecalage</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">DecalageBorneLaisseLePlanCouvrantAuBordDuNiveau</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p><span class="tt">applyDecorParallax = false</span> (mode de cadrage <em>suivi</em>, LOT-64) neutralise le décalage de parallaxe des couches Fond/Premier plan &ndash; le décor reste composé à sa position simulée exacte, comme la couche <span class="tt">Decor</span>, sans pour autant désactiver son alignement au pixel écran. </p>
-<p><b>Cas de test :</b> <b>applyDecorParallax=false neutralise le decalage de parallaxe.</b><br  />
+<p>Un plan à facteur <span class="tt">0,5</span>, caméra au <b>bord</b> du niveau, couvre toujours le cadrage : le décalage est borné avant d'être appliqué. </p>
+<p>Sans ce bornage, une bande vide apparaîtrait au bout de la course — le défaut ne se verrait qu'au bord d'un niveau, en jeu, et pas une seule fois pendant l'édition. <b>Cas de test :</b> <b>Un plan borne couvre toujours le cadrage, camera au bord du niveau.</b><br  />
  <b>Categorie :</b> Unitaire · Parallax<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Composer un décor de couche Fond, décalé du centre de la caméra, avec <span class="tt">applyDecorParallax</span> vrai puis faux.<br  />
-2. Comparer la position du quad composé à la position simulée du décor.<br  />
- <b>Resultat attendu :</b> Avec <span class="tt">true</span> (défaut), la position composée diffère de la position simulée (parallaxe appliquée) ; avec <span class="tt">false</span>, elle lui est exactement égale (aucun décalage), comme la couche <span class="tt">Decor</span>. </p>
+ 1. Placer la camera contre le bord droit d'un niveau et calculer le decalage d'un plan a facteur 0,1.<br  />
+2. Borner ce decalage.<br  />
+ <b>Resultat attendu :</b> Le plan decale contient encore entierement le cadrage. </p>
 
 </div>
 </div>
-<a id="aee2bd1c71a41b717b5464150401b1f25" name="aee2bd1c71a41b717b5464150401b1f25"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee2bd1c71a41b717b5464150401b1f25">&#9670;&#160;</a></span>TEST() <span class="overload">[2/10]</span></h2>
+<a id="a8417a0ea8d9dd934c418c617977cc5f7" name="a8417a0ea8d9dd934c418c617977cc5f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8417a0ea8d9dd934c418c617977cc5f7">&#9670;&#160;</a></span>TEST() <span class="overload">[2/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -181,52 +171,23 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">DecorParallaxeHorsCadreEstEcarte</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">FacteurParAxeAgitIndependamment</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Un décor visible à sa position simulée peut être écarté une fois la parallaxe appliquée (couche premier plan, facteur &gt; 1, l'exagère hors cadre). </p>
-<p><b>Cas de test :</b> <b>Un decor parallaxe hors cadre est ecarte par le culling.</b><br  />
+<p>Le facteur est <b>par axe</b> : un plan peut défiler horizontalement sans bouger verticalement, ce qu'un facteur unique ne pouvait pas exprimer. </p>
+<p><b>Cas de test :</b> <b>Le facteur de parallaxe agit axe par axe.</b><br  />
  <b>Categorie :</b> Unitaire · Parallax<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Composer un decor dans le cadrage a sa position simulee mais dont le facteur premier plan le pousse hors du cadrage.<br  />
- <b>Resultat attendu :</b> Le decor est ecarte (non compose). </p>
-
-</div>
-</div>
-<a id="a04884a15213adbe1843abd896bb98073" name="a04884a15213adbe1843abd896bb98073"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04884a15213adbe1843abd896bb98073">&#9670;&#160;</a></span>TEST() <span class="overload">[3/10]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">ParallaxTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">DecorParallaxeVisibleNEstPasEcarte</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Un décor pris en défaut par le culling à sa position simulée devient visible une fois la parallaxe appliquée (échelle réduite, couche arrière-plan) — le culling juge la position <b>décalée</b>. </p>
-<p><b>Cas de test :</b> <b>Un decor parallaxe visible n'est pas ecarte par le culling.</b><br  />
- <b>Categorie :</b> Unitaire · Parallax<br  />
- <b>Criticite :</b> Critique<br  />
- <b>Etapes :</b><br  />
- 1. Composer un decor hors cadre a sa position simulee mais dont le facteur arriere-plan le ramene dans le cadrage.<br  />
- <b>Resultat attendu :</b> Le decor est compose (non ecarte). </p>
+ 1. Calculer la position de rendu avec un facteur different sur X et sur Y.<br  />
+ <b>Resultat attendu :</b> X est decale, Y reste inchange. </p>
 
 </div>
 </div>
 <a id="a775f5168da5de90928c88636e6e5252f" name="a775f5168da5de90928c88636e6e5252f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a775f5168da5de90928c88636e6e5252f">&#9670;&#160;</a></span>TEST() <span class="overload">[4/10]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a775f5168da5de90928c88636e6e5252f">&#9670;&#160;</a></span>TEST() <span class="overload">[3/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -255,7 +216,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ac6a86f3228e1689132460a09fcb286a8" name="ac6a86f3228e1689132460a09fcb286a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6a86f3228e1689132460a09fcb286a8">&#9670;&#160;</a></span>TEST() <span class="overload">[5/10]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6a86f3228e1689132460a09fcb286a8">&#9670;&#160;</a></span>TEST() <span class="overload">[4/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -278,42 +239,13 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Parallax<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Calculer la position de rendu d'un decor a facteur 1.0.<br  />
- <b>Resultat attendu :</b> La position renvoyee est identique a la position simulee. </p>
-
-</div>
-</div>
-<a id="adff98d7bc5d303fd8aaac9952d3c9880" name="adff98d7bc5d303fd8aaac9952d3c9880"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adff98d7bc5d303fd8aaac9952d3c9880">&#9670;&#160;</a></span>TEST() <span class="overload">[6/10]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">ParallaxTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">LeFacteurDeLaCoucheDecorVautUn</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>La couche <span class="tt"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20ae953e8671da3a0647c0939df8ebe8e44" title="Décor : entre les tuiles et le personnage.">core::DecorLayer::Decor</a></span> porte le facteur de référence <span class="tt">1.0</span> ; <span class="tt">Background</span> est inférieur (défile moins vite), <span class="tt">Foreground</span> supérieur (défile plus vite). </p>
-<p><b>Cas de test :</b> <b>Le facteur de la couche Decor vaut 1.0, valeur de reference.</b><br  />
- <b>Categorie :</b> Unitaire · Parallax<br  />
- <b>Criticite :</b> Critique<br  />
- <b>Etapes :</b><br  />
- 1. Lire parallaxFactor pour les trois couches.<br  />
- <b>Resultat attendu :</b> Decor vaut 1.0 ; Background &lt; 1.0 &lt; Foreground. </p>
+ 1. Calculer la position de rendu a facteur 1.0 sur les deux axes.<br  />
+ <b>Resultat attendu :</b> La position renvoyee est identique a la position modele. </p>
 
 </div>
 </div>
 <a id="ad4bbc06b973aa9836f186bf2ab0333c2" name="ad4bbc06b973aa9836f186bf2ab0333c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4bbc06b973aa9836f186bf2ab0333c2">&#9670;&#160;</a></span>TEST() <span class="overload">[7/10]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4bbc06b973aa9836f186bf2ab0333c2">&#9670;&#160;</a></span>TEST() <span class="overload">[5/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -331,19 +263,19 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Le décalage se calcule depuis le centre de la salle <b>courante</b> : un décor à la même position relative dans deux salles différentes se retrouve au même endroit à l'écran — c'est le test qui verrouille l'arbitrage (<span class="tt"><a class="el" href="decors_8md.html">decors.md</a></span>). </p>
+<p>Le décalage se calcule depuis le centre de la salle <b>courante</b> : un contenu à la même position relative dans deux salles différentes se retrouve au même endroit à l'écran — c'est le test qui verrouille l'arbitrage (<span class="tt"><a class="el" href="decors_8md.html">decors.md</a></span>). </p>
 <p><b>Cas de test :</b> <b>Meme position relative -&gt; meme position ecran dans deux salles.</b><br  />
  <b>Categorie :</b> Unitaire · Parallax<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Placer un decor a la meme position RELATIVE dans deux salles de centres differents.<br  />
-2. Calculer sa position de rendu dans chaque salle.<br  />
- <b>Resultat attendu :</b> Ramenee au centre de sa salle, la position de rendu est identique dans les deux cas. </p>
+ 1. Placer un point a la meme position RELATIVE dans deux salles de centres differents.<br  />
+2. Comparer leurs positions de rendu, ramenees au centre de leur salle.<br  />
+ <b>Resultat attendu :</b> Les deux ecarts au centre sont identiques. </p>
 
 </div>
 </div>
 <a id="af814606cf7dc02c82a4640fe99aa8983" name="af814606cf7dc02c82a4640fe99aa8983"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af814606cf7dc02c82a4640fe99aa8983">&#9670;&#160;</a></span>TEST() <span class="overload">[8/10]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af814606cf7dc02c82a4640fe99aa8983">&#9670;&#160;</a></span>TEST() <span class="overload">[6/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -361,19 +293,18 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><span class="tt">parallaxModelPosition</span> est l'inverse exact de <span class="tt">parallaxRenderPosition</span> : convertir une position modèle en rendu puis revenir en arrière redonne la position de départ. </p>
+<p><span class="tt">parallaxModelPosition</span> est l'inverse <b>exact</b> de <span class="tt">parallaxRenderPosition</span>. </p>
 <p><b>Cas de test :</b> <b>parallaxModelPosition est l'inverse de parallaxRenderPosition.</b><br  />
  <b>Categorie :</b> Unitaire · Parallax<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Calculer la position de rendu d'une position modele (facteur != 1).<br  />
-2. Appliquer parallaxModelPosition au resultat.<br  />
- <b>Resultat attendu :</b> La position modele d'origine est retrouvee. </p>
+ 1. Convertir une position modele en position de rendu, puis revenir.<br  />
+ <b>Resultat attendu :</b> La position de depart est retrouvee sur les deux axes. </p>
 
 </div>
 </div>
-<a id="a7544767ca9637c2b1db0a422e475e974" name="a7544767ca9637c2b1db0a422e475e974"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7544767ca9637c2b1db0a422e475e974">&#9670;&#160;</a></span>TEST() <span class="overload">[9/10]</span></h2>
+<a id="ac7b48d48f4902e7afc5832e7253f7f45" name="ac7b48d48f4902e7afc5832e7253f7f45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7b48d48f4902e7afc5832e7253f7f45">&#9670;&#160;</a></span>TEST() <span class="overload">[7/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -386,23 +317,23 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ParallaxModelPositionFacteurUnLaissePositionInchangee</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">PlanPlusPetitQueLeCadrageNEstPasDecale</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>À facteur <span class="tt">1.0</span>, <span class="tt">parallaxModelPosition</span> laisse aussi la position inchangée (couche de référence, symétrique de <span class="tt">parallaxRenderPosition</span>). </p>
-<p><b>Cas de test :</b> <b>parallaxModelPosition a facteur 1 laisse la position inchangee.</b><br  />
+<p>Un plan plus <b>petit</b> que le cadrage ne peut être couvrant : son décalage est ramené à zéro plutôt que de le laisser dériver. </p>
+<p><b>Cas de test :</b> <b>Un plan plus petit que le cadrage n'est pas decale.</b><br  />
  <b>Categorie :</b> Unitaire · Parallax<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
- 1. Appliquer parallaxModelPosition a facteur 1.0.<br  />
- <b>Resultat attendu :</b> La position renvoyee est identique a la position de rendu. </p>
+ 1. Borner un decalage pour un plan plus petit que le cadrage.<br  />
+ <b>Resultat attendu :</b> Le decalage vaut zero sur les deux axes. </p>
 
 </div>
 </div>
 <a id="ad70e0f635d738b043c26f473853124f8" name="ad70e0f635d738b043c26f473853124f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad70e0f635d738b043c26f473853124f8">&#9670;&#160;</a></span>TEST() <span class="overload">[10/10]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad70e0f635d738b043c26f473853124f8">&#9670;&#160;</a></span>TEST() <span class="overload">[8/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -420,13 +351,43 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>roundToScreenPixel arrondit une position monde au pixel écran entier le plus proche. </p>
+<p>L'arrondi au pixel écran s'applique <b>après</b> le bornage : un décalage borné reste fractionnaire, et c'est lui qu'il faut aligner. </p>
 <p><b>Cas de test :</b> <b>roundToScreenPixel arrondit au pixel ecran le plus proche.</b><br  />
  <b>Categorie :</b> Unitaire · Parallax<br  />
- <b>Criticite :</b> Majeur<br  />
+ <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Arrondir une position fractionnaire a 16 px/unite.<br  />
- <b>Resultat attendu :</b> Le resultat correspond a un nombre entier de pixels ecran. </p>
+ 1. Arrondir une position fractionnaire a une echelle de 16 px par unite.<br  />
+2. Recommencer a echelle nulle.<br  />
+ <b>Resultat attendu :</b> La position est alignee au pixel ; a echelle nulle, elle est renvoyee inchangee. </p>
+
+</div>
+</div>
+<a id="a8b5dc5a42d4e37cceb91b61239ebbb9c" name="a8b5dc5a42d4e37cceb91b61239ebbb9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b5dc5a42d4e37cceb91b61239ebbb9c">&#9670;&#160;</a></span>TEST() <span class="overload">[9/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ParallaxTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TableDActivationExhaustive</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La table d'activation est <b>exhaustive</b> : trois modes de cadrage × deux valeurs du drapeau de niveau, aucune combinaison laissée à l'interprétation. </p>
+<p>Le mode <em>suivi</em> y est <b>actif</b>, ce qui inverse la décision du <span class="tt">LOT-64</span> — assumé : celui-ci avait coupé la parallaxe parce qu'un décor est un objet collé au contenu et paraissait « suivre » la caméra ; un plan est un fond, l'argument tombe. <b>Cas de test :</b> <b>La table d'activation de la parallaxe est exhaustive.</b><br  />
+ <b>Categorie :</b> Unitaire · Parallax<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Interroger planeParallaxActive pour les trois modes de cadrage, drapeau actif puis inactif.<br  />
+ <b>Resultat attendu :</b> Actif en suivi et par salle, neutralise en niveau entier ; toujours inactif si le drapeau du niveau est faux. </p>
 
 </div>
 </div>

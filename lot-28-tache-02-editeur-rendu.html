@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-28-tache-02-editeur-rendu.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-28-arrondis-concaves_2tache-02-editeur-rendu"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-28.html#md_Lot_2LOT-28-arrondis-concaves_2epic" title="Lot/LOT-28-arrondis-concaves/epic.md">LOT-28</a> · <b>Emplacement :</b> <span class="tt">HMI/Editor</span>, <span class="tt">HMI/Graphics</span> · <b>Statut :</b> ✅</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1487"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1497"></a>
 Contexte</h1>
 <p>Rend les quatre nouvelles tuiles plaçables dans l'éditeur (nouveau sous-groupe « Concave », frère de « Arrondi » sous la catégorie « Tuile », <span class="tt">LOT-27</span>) et affichées avec leur silhouette réelle (courbe concave), cohérente avec la physique posée en TACHE-01 — sur le modèle de l'arrondi convexe (<span class="tt">LOT-23</span>/<span class="tt">LOT-26</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1488"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1498"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">HMI/Editor/TilePalette.h</span></b> : nouveau <span class="tt">Subgroup::Concave</span> (<span class="tt">SUBGROUP_COUNT</span> <span class="tt">3 → 4</span>).</li>
@@ -111,31 +111,31 @@ Travail à réaliser</h1>
 </blockquote>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1489"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1499"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/TilePalette.h</span>/<span class="tt">.cpp</span>.</li>
 <li><span class="tt"><a class="el" href="TileVisuals_8h.html" title="Correspondance type de tuile → région d&#39;atlas, partagée entre le jeu et l&#39;éditeur.">Source/HMI/Graphics/TileVisuals.h</a></span>/<span class="tt">.cpp</span>, <span class="tt"><a class="el" href="TextureAtlas_8cpp.html">TextureAtlas.cpp</a></span>.</li>
 <li>Tests : <span class="tt">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1490"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1500"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">TilePaletteTest</span> : le sous-groupe « Concave » apparaît sous « Tuile » une fois dépliée, à côté de « Pente »/« Arrondi » ; déplié, il expose ses quatre orientations (<span class="tt">"Sol D"</span>, <span class="tt">"Sol G"</span>, <span class="tt">"Plaf D"</span>, <span class="tt">"Plaf G"</span>) ; cliquer une feuille sélectionne le bon <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span>. Le total de lignes entièrement déplié (<span class="tt">expandEverything</span>/<span class="tt">FenetreReduiteLimiteLesEntreesVisibles</span>, actuellement 25) passe à <b>30</b> (1 en-tête + 4 feuilles de plus) — mettre à jour la fonction d'aide <span class="tt">expandEverything</span> (déplier aussi « Concave ») et l'assertion <span class="tt">totalRowCount()</span>.</li>
 <li>Build <span class="tt">/W4 /WX</span> sans avertissement (pas de test HMI dédié à la génération d'atlas — cohérent avec l'absence de tests directs pour les variantes existantes, <span class="tt">TextureAtlas</span> dépendant de Direct3D).</li>
 <li>Revue de code : confirmer que les quatre cases visées par <span class="tt">slopeTileGridPosition</span> pour les nouveaux types n'entrent en collision avec <b>aucune</b> case déjà utilisée par un autre type de tuile (Solid, Block/BlockHalf/BlockQuarter, les huit types de pente/arrondi existants, la case de damier de transparence).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1491"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1501"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas agrandir la grille de l'atlas</b> : contrairement à <span class="tt">LOT-26</span>, qui avait dû passer <span class="tt">TILES_PER_SIDE</span> de <span class="tt">4</span> à <span class="tt">5</span> (une seule case restant libre), l'agrandissement précédent a laissé sept cases inoccupées — largement de quoi loger ces quatre nouvelles silhouettes sans retoucher <span class="tt">tileColor</span> ni risquer de décaler la couleur d'une tuile existante (le risque principal identifié lors de <span class="tt">LOT-26-TACHE-02</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1492"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1502"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Quatre nouvelles tuiles plaçables depuis un sous-groupe « Concave » dédié de la palette, rendues avec leur silhouette réelle en gris, cohérente avec la physique (TACHE-01) ; aucune couleur de tuile existante décalée ; aucune case d'atlas partagée par erreur entre deux types.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1493"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1503"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-007</span> (éditeur et rendu). </p>
 </div></div><!-- contents -->

@@ -93,21 +93,52 @@ $(function(){initNavTree('structhmi_1_1LoadedTexture.html','','structhmi_1_1Load
 </div><!--header-->
 <div class="contents">
 
-<p>Texture Direct3D 11 chargée et sa vue de ressource (RAII, <span class="tt">ComPtr</span>).  
+<p>Texture GPU chargée (RAII).  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="TextureLoader_8h_source.html">TextureLoader.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:abc3c97ef24fe096e5429fcdb7b5e3d5e" id="r_abc3c97ef24fe096e5429fcdb7b5e3d5e"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>&#160;</td><td class="memItemRight"><a class="el" href="#abc3c97ef24fe096e5429fcdb7b5e3d5e">handle</a> () const noexcept</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ab2f05e252e47f73496b4b7a7eba9a5c7" id="r_ab2f05e252e47f73496b4b7a7eba9a5c7"><td class="memItemLeft">Microsoft::WRL::ComPtr&lt; ID3D11Texture2D &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab2f05e252e47f73496b4b7a7eba9a5c7">texture</a></td></tr>
-<tr class="memitem:ae83354736dadd0d73dbe567cac01b353" id="r_ae83354736dadd0d73dbe567cac01b353"><td class="memItemLeft">Microsoft::WRL::ComPtr&lt; ID3D11ShaderResourceView &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae83354736dadd0d73dbe567cac01b353">view</a></td></tr>
+<tr class="memitem:a67650178772d769575f41474d13c4e4e" id="r_a67650178772d769575f41474d13c4e4e"><td class="memItemLeft">std::shared_ptr&lt; QRhiTexture &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a67650178772d769575f41474d13c4e4e">texture</a></td></tr>
 <tr class="memitem:a1530f7a7b5a8c3b036b8ec279c55b330" id="r_a1530f7a7b5a8c3b036b8ec279c55b330"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a1530f7a7b5a8c3b036b8ec279c55b330">width</a> = 0</td></tr>
 <tr class="memitem:a60bd4aa4803c4c3a7806fab906be9803" id="r_a60bd4aa4803c4c3a7806fab906be9803"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a60bd4aa4803c4c3a7806fab906be9803">height</a> = 0</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Texture Direct3D 11 chargée et sa vue de ressource (RAII, <span class="tt">ComPtr</span>). </p>
-</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<div class="textblock"><p>Texture GPU chargée (RAII). </p>
+<p>Le pointeur est <b>partagé</b> et non exclusif : le cache de textures (<span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures GPU désignées par leur nom de fichier logique.">hmi::TextureCache</a></span>) range ses entrées dans un registre qui les copie, et une même texture peut être servie à plusieurs consommateurs le temps d'une image. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="abc3c97ef24fe096e5429fcdb7b5e3d5e" name="abc3c97ef24fe096e5429fcdb7b5e3d5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc3c97ef24fe096e5429fcdb7b5e3d5e">&#9670;&#160;</a></span>handle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> hmi::LoadedTexture::handle </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'identité opaque de la texture, telle que la composition la manipule. </dd></dl>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a60bd4aa4803c4c3a7806fab906be9803" name="a60bd4aa4803c4c3a7806fab906be9803"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a60bd4aa4803c4c3a7806fab906be9803">&#9670;&#160;</a></span>height</h2>
 
@@ -122,28 +153,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ab2f05e252e47f73496b4b7a7eba9a5c7" name="ab2f05e252e47f73496b4b7a7eba9a5c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2f05e252e47f73496b4b7a7eba9a5c7">&#9670;&#160;</a></span>texture</h2>
+<a id="a67650178772d769575f41474d13c4e4e" name="a67650178772d769575f41474d13c4e4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67650178772d769575f41474d13c4e4e">&#9670;&#160;</a></span>texture</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Microsoft::WRL::ComPtr&lt;ID3D11Texture2D&gt; hmi::LoadedTexture::texture</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae83354736dadd0d73dbe567cac01b353" name="ae83354736dadd0d73dbe567cac01b353"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae83354736dadd0d73dbe567cac01b353">&#9670;&#160;</a></span>view</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Microsoft::WRL::ComPtr&lt;ID3D11ShaderResourceView&gt; hmi::LoadedTexture::view</td>
+          <td class="memname">std::shared_ptr&lt;QRhiTexture&gt; hmi::LoadedTexture::texture</td>
         </tr>
       </table>
 </div><div class="memdoc">
