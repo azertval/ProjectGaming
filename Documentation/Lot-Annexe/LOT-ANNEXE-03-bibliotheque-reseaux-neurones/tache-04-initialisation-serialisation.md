@@ -1,27 +1,22 @@
-# TACHE-04 — Initialisation des poids et sérialisation {#lot-annexe-03-tache-04-initialisation-serialisation}
+# TACHE-04 — Sérialisation des poids {#lot-annexe-03-tache-04-initialisation-serialisation}
 
-**Lot :** [LOT-ANNEXE-03](epic.md) · **Emplacement :** `Source/AiSolver/Nn` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-03](epic.md) · **Emplacement :** `Source/AiSolver/Nn` · **Statut :** fait
 
 ## Contexte
-`Dense` (TACHE-01) déclare un paramètre `WeightInitScheme` dont le corps d'implémentation restait à
-livrer, et `Network` (TACHE-03) n'a encore aucun moyen de survivre à la fin du processus qui l'a
-entraîné. Cette tâche ferme les deux : l'initialisation effective des poids (dont dépend fortement
-la qualité de tout entraînement ultérieur, quel que soit l'algorithme), et la sérialisation d'un
-réseau entraîné sur disque — le mécanisme par lequel un modèle appris hors ligne devient rejouable
-en jeu.
+`Network` (TACHE-03) n'a encore aucun moyen de survivre à la fin du processus qui l'a entraîné :
+cette tâche livre la sérialisation d'un réseau entraîné sur disque — le mécanisme par lequel un
+modèle appris hors ligne devient rejouable en jeu.
+
+**Écart avec la planification initiale** : cette tâche devait aussi livrer le corps de
+`initializeWeights` (`WeightInitScheme::Xavier`/`He`), TACHE-01 n'en posant que le contrat. En
+pratique, le DoD de TACHE-01 (« deux couches ont des poids différents ») exigeait une initialisation
+réellement aléatoire pour être testable — `WeightInit.h`/`.cpp` ont donc été livrés complets dès
+TACHE-01 (cf. ses points d'attention). Cette tâche se limite à la sérialisation ; ses propres tests
+statistiques sur l'initialisation (bornes Xavier, plausibilité He, reproductibilité par graine)
+restent ici, dans `test_weight_init.cpp` — seule l'implémentation a changé de tâche, pas sa
+couverture de test.
 
 ## Travail à réaliser
-- **`Source/AiSolver/Nn/WeightInit.h`/`.cpp`** : complète `WeightInitScheme` (déclaré en TACHE-01)
-  avec `void initializeWeights(Tensor<float>& weights, WeightInitScheme scheme, Rng& rng);`.
-  - `WeightInitScheme::Xavier` : tirage **uniforme** dans `[-bound, bound]` avec `bound =
-    sqrt(6.0f / (fanIn + fanOut))` (`fanIn`/`fanOut` déduits de `weights.shape()`, convention
-    `[outputSize, inputSize]` posée en TACHE-01), via `rng.nextFloat(-bound, bound)` par élément.
-  - `WeightInitScheme::He` : tirage **gaussien** de moyenne `0` et d'écart-type `sqrt(2.0f /
-    fanIn)`, via `rng.nextGaussian(0.0f, stddev)` par élément.
-  - Le biais n'est **pas** concerné par ces schémas : `Dense` (TACHE-01) l'initialise à zéro
-    (convention standard, indépendante du schéma de poids).
-  - `Dense::Dense` (TACHE-01) est mis à jour pour appeler réellement `initializeWeights` sur
-    `_weights` (jusqu'ici, seul le contrat existait).
 - **`Source/AiSolver/Nn/Serialization.h`/`.cpp`** : format binaire versionné.
   - Constantes `constexpr std::uint32_t WEIGHTS_FILE_MAGIC = 0x41494E4Eu;` (ASCII `"AINN"`) et
     `constexpr std::uint32_t WEIGHTS_FILE_VERSION = 1;`.
@@ -38,12 +33,9 @@ en jeu.
     charger ses poids, ce lot ne reconstruit pas la structure depuis le fichier).
 
 ## Fichiers impactés
-- `Source/AiSolver/Nn/WeightInit.h` (complété — l'énumération existait déjà depuis TACHE-01).
-- `Source/AiSolver/Nn/WeightInit.cpp` (nouveau).
-- `Source/AiSolver/Nn/Dense.cpp` (mise à jour — appel réel à `initializeWeights`).
 - `Source/AiSolver/Nn/Serialization.h` (nouveau).
 - `Source/AiSolver/Nn/Serialization.cpp` (nouveau).
-- `Source/AiSolver/CMakeLists.txt` (ajout de `Nn/WeightInit.cpp`, `Nn/Serialization.cpp`).
+- `Source/AiSolver/CMakeLists.txt` (ajout de `Nn/Serialization.cpp`).
 - `Source/Test/CMakeLists.txt` (ajout de `Unit/AiSolver/Nn/test_weight_init.cpp`,
   `Unit/AiSolver/Nn/test_serialization.cpp`).
 - `Source/Test/Unit/AiSolver/Nn/test_weight_init.cpp` (nouveau).

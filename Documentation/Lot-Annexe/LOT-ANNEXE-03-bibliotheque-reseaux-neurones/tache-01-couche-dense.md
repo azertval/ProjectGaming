@@ -1,6 +1,6 @@
 # TACHE-01 — Couche dense (poids + biais, forward/backward) {#lot-annexe-03-tache-01-couche-dense}
 
-**Lot :** [LOT-ANNEXE-03](epic.md) · **Emplacement :** `Source/AiSolver/Nn` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-03](epic.md) · **Emplacement :** `Source/AiSolver/Nn` · **Statut :** fait
 
 ## Contexte
 Première tâche du lot, et premier fichier du module `Source/AiSolver/Nn` (n'existe pas encore).
@@ -31,12 +31,9 @@ composer ces deux opérations à la main pour chaque couche d'un réseau serait 
 ## Fichiers impactés
 - `Source/AiSolver/Nn/Dense.h` (nouveau).
 - `Source/AiSolver/Nn/Dense.cpp` (nouveau).
-- `Source/AiSolver/Nn/WeightInit.h` (nouveau, `enum class WeightInitScheme { Xavier, He };`
-  seulement — l'implémentation complète de l'initialisation est TACHE-04 ; cette tâche ne fait que
-  déclarer l'énumération pour que le constructeur de `Dense` ait un type de paramètre, et appelle en
-  interne une fonction `initializeWeights` dont le **contrat** est fixé ici et le **corps** livré en
-  TACHE-04).
-- `Source/AiSolver/CMakeLists.txt` (ajout de `Nn/Dense.cpp`).
+- `Source/AiSolver/Nn/WeightInit.h`/`.cpp` (nouveaux — `enum class WeightInitScheme { Xavier, He };`
+  et `initializeWeights()` complète, cf. points d'attention : livrée ici plutôt qu'en TACHE-04).
+- `Source/AiSolver/CMakeLists.txt` (ajout de `Nn/Dense.cpp`, `Nn/WeightInit.cpp`).
 - `Source/Test/CMakeLists.txt` (ajout de `Unit/AiSolver/Nn/test_dense.cpp`).
 - `Source/Test/Unit/AiSolver/Nn/test_dense.cpp` (nouveau).
 
@@ -61,12 +58,12 @@ composer ces deux opérations à la main pour chaque couche d'un réseau serait 
 - **`_weights`/`_bias` sont créés une seule fois, à la construction** : ne jamais les recréer dans
   `forward()`, sous peine de perdre le lien avec les gradients accumulés d'une itération
   d'entraînement à l'autre (cf. décision de cadrage de l'épic).
-- **`WeightInitScheme` est déclaré ici mais son corps d'initialisation vient de TACHE-04** : le
-  constructeur de `Dense` appelle une fonction dont le contrat est fixé maintenant (signature,
-  fichier `WeightInit.h`) mais dont l'implémentation réelle (Xavier/He) n'existe pas encore tant que
-  TACHE-04 n'est pas faite — documenté explicitement en commentaire dans `Dense.cpp` pour éviter
-  toute confusion sur l'ordre réel d'implémentation si les tâches ne sont pas menées dans l'ordre du
-  tableau.
+- **`WeightInitScheme` et `initializeWeights` sont livrés complets dès cette tâche**, contrairement
+  au découpage envisagé à la planification (contrat ici, corps en TACHE-04) : le DoD de TACHE-01
+  exige un test (« deux couches ont des poids différents ») qui ne peut pas passer sans une
+  initialisation réellement aléatoire — un corps différé aurait laissé `Dense` non testable telle
+  quelle. TACHE-04 se recentre donc sur la seule sérialisation ; ses propres tests statistiques
+  (bornes Xavier, plausibilité He, reproductibilité par graine) restent dans son périmètre.
 
 ## Définition de fait (DoD)
 - `Dense` disponible et testé (`ctest` vert) pour la forme, les paramètres exposés et

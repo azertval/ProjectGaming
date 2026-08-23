@@ -1,6 +1,6 @@
 # TACHE-05 — Opérations différentiables complémentaires {#lot-annexe-03-tache-05-operations-differentiables-complementaires}
 
-**Lot :** [LOT-ANNEXE-03](epic.md) · **Emplacement :** `Source/AiSolver/Math/Autodiff` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-03](epic.md) · **Emplacement :** `Source/AiSolver/Math/Autodiff` · **Statut :** fait
 
 ## Contexte
 `LOT-ANNEXE-02` livre cinq opérations différentiables (`add`, `multiply`, `matmul`, `relu`,
@@ -60,10 +60,15 @@ par ce lot : ajouter neuf opérations sans toucher au moteur.
 
 ## Fichiers impactés
 - `Source/AiSolver/Math/Autodiff/Ops.h` (complété).
-- `Source/AiSolver/Math/Autodiff/Ops.cpp` (complété).
-- `Source/AiSolver/Math/TensorOps.h` (complété si besoin, cf. ci-dessus).
+- `Source/AiSolver/Math/Autodiff/Ops.cpp` (complété — `divide()` ajoute une
+  `PROJECTGAMING_ASSERT` sur diviseur nul, au-delà de ce que décrivait le plan initial, pour
+  couvrir le test « assertion sur diviseur nul » explicitement demandé plus bas).
 - `Source/Test/Unit/AiSolver/Math/test_autodiff_ops.cpp` (complété — fichier créé en
-  `LOT-ANNEXE-02`, TACHE-02).
+  `LOT-ANNEXE-02`, TACHE-02) : passe avant des neuf opérations, plus la chaîne policy gradient
+  bout-en-bout (avec `nn::softmax`, `LOT-ANNEXE-03` TACHE-02).
+- `Source/Test/Unit/AiSolver/Math/test_autodiff_gradient_checking.cpp` (complété — fichier créé en
+  `LOT-ANNEXE-02`, TACHE-04, non listé initialement ici mais nécessaire au DoD « gradient checking
+  systématique »).
 
 ## Tests (obligatoires)
 - **Gradient checking systématique** : chacune des neuf opérations passe le contrôle par différences

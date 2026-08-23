@@ -1,6 +1,6 @@
 # TACHE-03 — Composition en réseau (`Network`) {#lot-annexe-03-tache-03-composition-reseau}
 
-**Lot :** [LOT-ANNEXE-03](epic.md) · **Emplacement :** `Source/AiSolver/Nn` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-03](epic.md) · **Emplacement :** `Source/AiSolver/Nn` · **Statut :** fait
 
 ## Contexte
 `Dense` (TACHE-01) et les activations (TACHE-02, plus `relu`/`tanhOp` de `LOT-ANNEXE-02`) existent

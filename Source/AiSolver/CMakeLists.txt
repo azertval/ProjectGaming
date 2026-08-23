@@ -9,6 +9,13 @@ add_library(AiSolver STATIC
     # Operations differentiables de base (LOT-ANNEXE-02, TACHE-02), construites au-dessus de la
     # fabrique generique ci-dessus.
     Math/Autodiff/Ops.cpp
+    # Bibliotheque de reseaux de neurones maison (LOT-ANNEXE-03) : couche dense, activations,
+    # composition en reseau, initialisation des poids, serialisation.
+    Nn/Dense.cpp
+    Nn/WeightInit.cpp
+    Nn/Activations.cpp
+    Nn/Network.cpp
+    Nn/Serialization.cpp
 )
 
 # Racine d'inclusion = Source/ : les en-têtes s'incluent par chemin complet depuis la racine
