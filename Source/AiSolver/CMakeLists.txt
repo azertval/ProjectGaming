@@ -16,6 +16,11 @@ add_library(AiSolver STATIC
     Nn/Activations.cpp
     Nn/Network.cpp
     Nn/Serialization.cpp
+    # Optimiseurs maison (LOT-ANNEXE-04) : relient le gradient accumule par l'autodiff (Node::grad)
+    # aux parametres exposes par un reseau (Network::parameters), IOptimizer.h reste header-only.
+    Optim/OptimizerUtils.cpp
+    Optim/Sgd.cpp
+    Optim/Adam.cpp
 )
 
 # Racine d'inclusion = Source/ : les en-têtes s'incluent par chemin complet depuis la racine

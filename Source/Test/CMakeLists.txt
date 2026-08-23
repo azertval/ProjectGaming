@@ -74,6 +74,14 @@ add_executable(UnitTests
     # Tests transversaux du reseau complet, activations melees (LOT-ANNEXE-03, TACHE-06).
     Unit/AiSolver/Nn/test_network_reproducibility.cpp
     Unit/AiSolver/Nn/test_network_stability.cpp
+    # Optimiseurs maison (LOT-ANNEXE-04) : SGD avec/sans inertie (TACHE-01), zeroGrad partage.
+    Unit/AiSolver/Optim/test_optimizer_utils.cpp
+    Unit/AiSolver/Optim/test_sgd.cpp
+    # Adam, moments d'ordre 1/2, correction de biais (LOT-ANNEXE-04, TACHE-02).
+    Unit/AiSolver/Optim/test_adam.cpp
+    # Convergence sur problemes jouets (LOT-ANNEXE-04, TACHE-03), bloquant avant la generation 3 ;
+    # ToyProblems.h est header-only, inclus directement par ce fichier de test.
+    Unit/AiSolver/Optim/test_convergence.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp

@@ -1,6 +1,6 @@
 # LOT-ANNEXE-04 — Optimiseurs maison {#lot-annexe-04}
 
-> Statut : **non commencé**. Prérequis : [LOT-ANNEXE-02](@ref lot-annexe-02) (autodiff, source des
+> Statut : **fait**. Prérequis : [LOT-ANNEXE-02](@ref lot-annexe-02) (autodiff, source des
 > gradients) et [LOT-ANNEXE-03](@ref lot-annexe-03) (réseaux, source des paramètres à optimiser).
 > Dernier lot de la génération 0 : ferme la chaîne de calcul qui rend l'apprentissage par gradient
 > (génération 3) possible.
@@ -93,9 +93,9 @@ dans le chapitre.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-sgd.md) | SGD (avec/sans inertie) | `Source/AiSolver/Optim` | ⬜ |
-| [TACHE-02](tache-02-adam.md) | Adam (moments d'ordre 1/2, correction de biais) | `Source/AiSolver/Optim` | ⬜ |
-| [TACHE-03](tache-03-tests-convergence.md) | Tests de convergence sur fonctions jouets (bloquant) | `Source/Test/Unit/AiSolver/Optim` | ⬜ |
+| [TACHE-01](tache-01-sgd.md) | SGD (avec/sans inertie) | `Source/AiSolver/Optim` | ✅ |
+| [TACHE-02](tache-02-adam.md) | Adam (moments d'ordre 1/2, correction de biais) | `Source/AiSolver/Optim` | ✅ |
+| [TACHE-03](tache-03-tests-convergence.md) | Tests de convergence sur fonctions jouets (bloquant) | `Source/Test/Unit/AiSolver/Optim` | ✅ |
 
 ## Critères d'acceptation du lot
 1. `Sgd` (sans inertie) minimise une fonction quadratique convexe connue jusqu'à une tolérance

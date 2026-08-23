@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**1276 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**1290 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (1167)
+## Tests unitaires (1181)
 
 ### AiSolver
 
@@ -192,6 +192,42 @@
 | **WeightInitTest.XavierResteDansLesBornes** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Nn/test_weight_init.cpp:24`</sub> | WeightInit : `Xavier` reste dans les bornes. | 1. Initialiser un tenseur `[50, 30]` (fanOut=50, fanIn=30) avec `Xavier`.<br/> 2. Comparer chaque élément à `±bound`. | Vérifie que `value` est supérieur ou égal à `-bound`.<br/>Vérifie que `value` est inférieur ou égal à `bound`. |
 | **WeightInitTest.HePlausible** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Nn/test_weight_init.cpp:48`</sub> | WeightInit : `He` plausible. | 1. Initialiser un tenseur `[200, 100]` (fanIn=100) avec `He`.<br/>2. Calculer moyenne et écart-type empiriques. | Vérifie que `mean` vaut `0.0`, à `0.05` près.<br/>Vérifie que `stddev` vaut `expectedStddev`, à `expectedStddev * 0.2` près. |
 | **WeightInitTest.ReproductibiliteParGraine** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Nn/test_weight_init.cpp:80`</sub> | WeightInit : reproductibilité par graine. | 1. Initialiser deux tenseurs `[4,3]` identiques avec deux `Rng` de même graine (`Xavier`).<br/>2. Comparer élément par élément. | Vérifie que `weightsA.data()[i]` vaut `weightsB.data()[i]`. |
+
+#### Optim (14)
+
+**`test_adam.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **AdamTest.CorrectionDeBiaisAuPremierPas** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Optim/test_adam.cpp:32`</sub> | Adam : correction de biais au premier pas. | 1. Construire un paramètre scalaire `value = 0`, `grad = 1`.<br/>2. Appliquer un seul `Adam(0.1f, 0.9f, 0.999f, 1e-8f).step({parameter})`. | Vérifie que `parameter->value.at({0})` vaut `-0.1f`, à `1e-4f` près. |
+| **AdamTest.CompteurDePasPartage** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Optim/test_adam.cpp:54`</sub> | Adam : compteur de pas partagé. | 1. Construire deux paramètres scalaires de même valeur et même gradient.<br/>2. Les optimiser ensemble par la même instance d'`Adam`, sur trois `step`. | Vérifie que `a->value.at({0})` vaut `b->value.at({0})`, à `TOLERANCE` près. |
+| **AdamTest.AbsenceDeNanSurGradientNulPersistant** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Optim/test_adam.cpp:77`</sub> | Adam : absence de NaN/inf sur gradient nul persistant. | 1. Construire un paramètre scalaire de gradient toujours nul.<br/>2. Appliquer 50 `step` consécutifs (gradient remis à zéro entre chaque, déjà nul). | Vérifie que `std::isfinite(parameter->value.at({0}))` est vrai. |
+| **AdamTest.ConvergeSurQuadratiqueSimple** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Optim/test_adam.cpp:97`</sub> | Adam : convergence sur une quadratique simple. | 1. Construire un paramètre scalaire `x = 0`, cible `5`.<br/>2. Répéter (calcul du gradient `2(x-cible)`, `step`, `zeroGrad`) jusqu'à 500 itérations. | Vérifie que `x->value.at({0})` vaut `target`, à `1e-2f` près. |
+
+**`test_convergence.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ConvergenceTest.SgdSansInertieConvergeSurQuadratique** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Optim/test_convergence.cpp:75`</sub> | Convergence : `Sgd` sans inertie sur la quadratique convexe. | 1. Minimiser `QuadraticToyProblem` par `Sgd(0.02f)` depuis `x = 0`.<br/>2. Chercher la première itération à partir de laquelle l'erreur reste sous `1e-2` jusqu'à `1000` itérations. | Vérifie que `iterations` est strictement inférieur à `maxIterations`. |
+| **ConvergenceTest.SgdAvecInertieConvergePlusVite** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Optim/test_convergence.cpp:93`</sub> | Convergence : `Sgd` avec inertie converge plus vite que sans inertie. | 1. Minimiser `QuadraticToyProblem` par `Sgd(0.02f)` puis `Sgd(0.02f, 0.5f)`, mêmes conditions initiales.<br/>2. Comparer le nombre d'itérations nécessaires pour rester sous la tolérance `1e-2` jusqu'à `1000` itérations. | Vérifie que `withoutMomentum` est strictement inférieur à `maxIterations`.<br/>Vérifie que `withMomentum` est strictement inférieur à `maxIterations`.<br/>Vérifie que `withMomentum` est strictement inférieur à `withoutMomentum`. |
+| **ConvergenceTest.AdamConvergeSurRegressionPolynomiale** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Optim/test_convergence.cpp:117`</sub> | Convergence : `Adam` sur la régression polynomiale. | 1. Générer `PolynomialToyProblem::generateSamples` (graine `Rng` fixe).<br/>2. Minimiser la perte MSE des poids `[1, 3]` par `Adam(0.1f)` sur `500` itérations. | Vérifie que `lastLoss->value.at({0, 0})` est strictement inférieur à `0.05f`. |
+| **ConvergenceTest.AdamConvergeLaOuSgdDiverge** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Optim/test_convergence.cpp:147`</sub> | Convergence : `Adam` converge là où `Sgd` sans inertie diverge. | 1. Générer les mêmes échantillons (graine `Rng` fixe).<br/>2. Minimiser la perte par `Sgd(1.0f)` puis par `Adam(1.0f)` sur `200` itérations, même taux d'apprentissage `1.0`. | Vérifie que `std::isfinite(sgdLoss->value.at({0, 0}))` est faux.<br/>Vérifie que `std::isfinite(adamLoss->value.at({0, 0}))` est vrai.<br/>Vérifie que `adamLoss->value.at({0, 0})` est strictement inférieur à `1.0f`. |
+| **ConvergenceTest.ReproductibiliteAGraineRngFixee** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Optim/test_convergence.cpp:195`</sub> | Convergence : reproductibilité à graine `Rng` fixée. | 1. Exécuter deux fois la même boucle d'entraînement `Adam` sur `PolynomialToyProblem`, même graine `Rng`.<br/>2. Comparer les poids finaux. | Vérifie que `first.data()[i]` vaut `second.data()[i]`. |
+
+**`test_optimizer_utils.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **OptimizerUtilsTest.ZeroGradRemetLesGradientsAZero** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Optim/test_optimizer_utils.cpp:28`</sub> | OptimizerUtils : `zeroGrad` remet les gradients à zéro. | 1. Construire deux paramètres de gradient non nul.<br/>2. Appeler `zeroGrad` sur les deux. | Vérifie que `a->grad.at({0})` vaut `0.0f`, à `TOLERANCE` près.<br/>Vérifie que `b->grad.at({0})` vaut `0.0f`, à `TOLERANCE` près.<br/>Vérifie que `a->value.at({0})` vaut `3.0f`, à `TOLERANCE` près.<br/>Vérifie que `b->value.at({0})` vaut `-2.0f`, à `TOLERANCE` près. |
+| **OptimizerUtilsTest.SansEffetSurLesParametresNonFournis** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Optim/test_optimizer_utils.cpp:51`</sub> | OptimizerUtils : sans effet sur les paramètres non fournis. | 1. Construire deux paramètres de gradient non nul.<br/>2. Appeler `zeroGrad` sur un seul des deux. | Vérifie que `a->grad.at({0})` vaut `0.0f`, à `TOLERANCE` près.<br/>Vérifie que `b->grad.at({0})` vaut `9.0f`, à `TOLERANCE` près. |
+
+**`test_sgd.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **SgdTest.MiseAJourSansInertie** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Optim/test_sgd.cpp:29`</sub> | Sgd : mise à jour sans inertie. | 1. Construire un paramètre scalaire `value = 10`, `grad = 4`.<br/>2. Appliquer `Sgd(0.5f).step({parameter})`. | Vérifie que `parameter->value.at({0})` vaut `8.0f`, à `TOLERANCE` près. |
+| **SgdTest.MiseAJourAvecInertie** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Optim/test_sgd.cpp:49`</sub> | Sgd : mise à jour avec inertie. | 1. Construire un paramètre scalaire `value = 0`, `grad = 1` constant.<br/>2. Appliquer `Sgd(0.1f, 0.9f).step({parameter})` deux fois de suite (gradient reposé à `1` entre les deux). | Vérifie que `parameter->value.at({0})` vaut `-0.1f`, à `TOLERANCE` près.<br/>Vérifie que `parameter->value.at({0})` vaut `-0.29f`, à `TOLERANCE` près. |
+| **SgdTest.SansEffetSurLesParametresNonFournis** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Optim/test_sgd.cpp:74`</sub> | Sgd : sans effet sur les paramètres non fournis. | 1. Construire deux paramètres de gradient non nul.<br/>2. Appeler `step` et `zeroGrad` sur un seul des deux. | Vérifie que `excluded->value.at({0})` vaut `5.0f`, à `TOLERANCE` près.<br/>Vérifie que `excluded->grad.at({0})` vaut `2.0f`, à `TOLERANCE` près. |
 
 ### Core
 
