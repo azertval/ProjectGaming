@@ -29,6 +29,7 @@
 
 #include <gtest/gtest.h>
 
+#include "AiSolver/Env/HeadlessLevelEnvironment.h"
 #include "Core/Ecs/Components/Collider.h"
 #include "Core/Ecs/Components/Player.h"
 #include "Core/Ecs/Components/Transform.h"
@@ -769,6 +770,144 @@ std::vector<ScriptedLevel> scriptedSequence() {
     };
 }
 
+// Rejoue l'orchestration de reference (identique a playLevelTraced ci-dessus) et
+// aisolver::HeadlessLevelEnvironment::step EN PARALLELE, pas par pas, avec EXACTEMENT le meme
+// core::PlayerInput calcule par le script -- echoue au PREMIER pas ou position, vitesse ou issue
+// divergent entre les deux orchestrations (LOT-ANNEXE-05 TACHE-05). Duplique le corps de
+// playLevelTraced() plutot que de le reutiliser : HeadlessLevelEnvironment est une replique
+// INDEPENDANTE (decision de cadrage de l'epic, pas de partage de code entre HMI/AiSolver et ce
+// test système), et cette garde doit driver les deux orchestrations en lockstep pour comparer
+// leur etat a CHAQUE pas, pas seulement a l'issue finale.
+void expectStepByStepFidelity(const ScriptedLevel& scripted, int maxSteps = 3000) {
+    const std::filesystem::path path =
+        std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / scripted.file;
+
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(path);
+    ASSERT_TRUE(loaded.ok()) << "niveau : " << scripted.file;
+    const core::Level& level = *loaded.level;
+
+    core::World world;
+    const core::Entity player = spawn(world, level.entry());
+    world.getComponent<core::Player>(player).jumpsRemaining = level.jumpBudget();
+    world.getComponent<core::Player>(player).dashesRemaining = level.dashBudget();
+    core::CharacterPhysicsSystem system;
+    core::BlockController blocks(level);
+    core::MechanismController mechanisms(level);
+    core::PlatformController platforms(level);
+    core::DangerController dangers(level);
+
+    aisolver::HeadlessLevelEnvironment env;
+    ASSERT_TRUE(env.reset(path)) << "niveau : " << scripted.file;
+
+    core::LevelOutcome outcome = core::LevelOutcome::Playing;
+    for (int step = 0; step < maxSteps && outcome == core::LevelOutcome::Playing; ++step) {
+        const core::Transform& previousTransform = world.getComponent<core::Transform>(player);
+        const core::Collider& collider = world.getComponent<core::Collider>(player);
+        const core::Aabb previousBox =
+            core::Aabb::fromTopLeftSize(previousTransform.position, collider.size);
+        const core::PlayerInput in =
+            scripted.input(step, world.getComponent<core::Player>(player),
+                           previousTransform.position.x, previousTransform.position.y);
+
+        // --- Orchestration de reference : copie exacte du corps de playLevelTraced ci-dessus. ---
+        platforms.update();
+        const std::vector<core::PlatformSample> platformSamples = platforms.samples();
+
+        const core::TileMap mechanismMap = mechanisms.collisionMap();
+        blocks.update(previousBox, in.moveX, mechanismMap, platformSamples);
+        const core::TileMap collision = blocks.collisionMap(mechanismMap);
+        system.update(world, collision, in, STEP, platformSamples);
+
+        core::Transform& transform = world.getComponent<core::Transform>(player);
+        const core::Vector2 delta = transform.position - previousBox.min;
+        core::Vector2 bestPosition = transform.position;
+        core::Vector2 bestNormal{};
+        const std::vector<float>& scales = blocks.scales();
+        for (std::size_t index = 0; index < scales.size(); ++index) {
+            if (scales[index] >= 1.0f) {
+                continue;
+            }
+            const core::SweepResult result =
+                core::sweepAabbVsAabb(previousBox, delta, blocks.boxAt(index));
+            if (result.normal.x != 0.0f && std::fabs(result.position.x - previousBox.min.x) <
+                                               std::fabs(bestPosition.x - previousBox.min.x)) {
+                bestPosition.x = result.position.x;
+                bestNormal.x = result.normal.x;
+            }
+            if (result.normal.y != 0.0f && std::fabs(result.position.y - previousBox.min.y) <
+                                               std::fabs(bestPosition.y - previousBox.min.y)) {
+                bestPosition.y = result.position.y;
+                bestNormal.y = result.normal.y;
+            }
+        }
+        if (bestNormal.x != 0.0f || bestNormal.y != 0.0f) {
+            transform.position = bestPosition;
+            core::Velocity& velocity = world.getComponent<core::Velocity>(player);
+            if (bestNormal.x != 0.0f) {
+                velocity.value.x = 0.0f;
+            }
+            if (bestNormal.y != 0.0f) {
+                velocity.value.y = 0.0f;
+                if (bestNormal.y < 0.0f) {
+                    world.getComponent<core::Player>(player).grounded = true;
+                }
+            }
+        }
+
+        const core::Aabb box = core::Aabb::fromTopLeftSize(transform.position, collider.size);
+
+        std::vector<core::TriggerWeight> blockWeights;
+        blockWeights.reserve(blocks.positions().size());
+        for (std::size_t index = 0; index < blocks.positions().size(); ++index) {
+            blockWeights.push_back(
+                core::TriggerWeight{.box = blocks.boxAt(index), .mass = blocks.massAt(index)});
+        }
+        mechanisms.update(box, world.getComponent<core::Player>(player).mass, in.interactPressed,
+                          blockWeights);
+
+        dangers.update();
+        std::vector<core::Aabb> extraDangerBoxes;
+        for (std::size_t index = 0; index < dangers.moverCount(); ++index) {
+            extraDangerBoxes.push_back(dangers.moverBox(index));
+        }
+        for (const core::DangerBlinkConfig& config : level.blinkConfigs()) {
+            if (dangers.isBlinkActive(config.position)) {
+                extraDangerBoxes.push_back(core::dangerHitbox(
+                    core::TileType::DangerBlink, config.position.column, config.position.row));
+            }
+        }
+        for (const core::DangerLink& link : level.dangerLinks()) {
+            if (mechanisms.isDangerActive(link.dangerPosition)) {
+                extraDangerBoxes.push_back(core::dangerHitbox(core::TileType::DangerSwitched,
+                                                              link.dangerPosition.column,
+                                                              link.dangerPosition.row));
+            }
+        }
+        if (world.getComponent<core::Player>(player).squished || mechanisms.crushedPlayer()) {
+            extraDangerBoxes.push_back(box);
+        }
+        outcome = core::evaluateOutcome(box, level, extraDangerBoxes);
+
+        // --- aisolver::HeadlessLevelEnvironment, MEME entree pour ce pas. ---
+        const aisolver::StepObservation observation = env.step(in);
+
+        // Comparaison pas-a-pas : premiere divergence rapportee avec le pas exact et le niveau.
+        const core::Velocity& velocity = world.getComponent<core::Velocity>(player);
+        ASSERT_NEAR(box.min.x, observation.playerBox.min.x, 1e-4f)
+            << "niveau : " << scripted.file << ", pas " << step << " (position x)";
+        ASSERT_NEAR(box.min.y, observation.playerBox.min.y, 1e-4f)
+            << "niveau : " << scripted.file << ", pas " << step << " (position y)";
+        ASSERT_NEAR(velocity.value.x, observation.playerVelocity.value.x, 1e-4f)
+            << "niveau : " << scripted.file << ", pas " << step << " (vitesse x)";
+        ASSERT_NEAR(velocity.value.y, observation.playerVelocity.value.y, 1e-4f)
+            << "niveau : " << scripted.file << ", pas " << step << " (vitesse y)";
+        ASSERT_EQ(outcome, observation.outcome)
+            << "niveau : " << scripted.file << ", pas " << step << " (issue)";
+    }
+
+    EXPECT_EQ(outcome, core::LevelOutcome::Won) << "niveau : " << scripted.file;
+}
+
 }  // namespace
 
 /**
@@ -880,4 +1019,30 @@ TEST(ParcoursCompletSysteme, GardeFouDeProximiteSignaleUneMecaniqueHorsDePortee)
     EXPECT_TRUE(isMechanicTile(core::TileType::Switch));
     EXPECT_TRUE(isMechanicTile(core::TileType::SlopeDownRight));
     EXPECT_TRUE(isMechanicTile(core::TileType::DangerBlink));
+}
+
+/**
+ * @brief Garde de fidélité pas-à-pas (`LOT-ANNEXE-05` TACHE-05) : chaque niveau de la séquence est
+ * rejoué EN PARALLÈLE par l'orchestration de référence (identique à `playLevelTraced`) et par
+ * `aisolver::HeadlessLevelEnvironment::step`, avec exactement le même `core::PlayerInput` à chaque
+ * pas — la comparaison porte sur la position, la vitesse et l'issue à CHAQUE pas, pas seulement sur
+ * l'issue finale (à la différence de `ParcoursCompletSysteme.FranchitTouteLaSequence`), pour
+ * détecter une trajectoire divergente qui atteindrait malgré tout la même issue par compensation
+ * d'erreurs.
+ * \castest{<b>Les deux orchestrations (référence et `HeadlessLevelEnvironment`) restent identiques
+ * pas à pas, position/vitesse/issue, sur toute la séquence livrée.</b><br/>
+ * \tcat Systeme · Parcours Complet<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Les deux orchestrations (référence et `HeadlessLevelEnvironment`) restent identiques
+ * pas à pas, position/vitesse/issue, sur toute la séquence livrée.
+ * }
+ */
+TEST(ParcoursCompletSystemeHeadlessEnvironment, FideliteParPas) {
+    const std::vector<ScriptedLevel> sequence = scriptedSequence();
+    ASSERT_FALSE(sequence.empty());
+    for (const ScriptedLevel& level : sequence) {
+        expectStepByStepFidelity(level);
+    }
 }

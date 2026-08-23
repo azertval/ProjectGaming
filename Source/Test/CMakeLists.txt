@@ -82,6 +82,9 @@ add_executable(UnitTests
     # Convergence sur problemes jouets (LOT-ANNEXE-04, TACHE-03), bloquant avant la generation 3 ;
     # ToyProblems.h est header-only, inclus directement par ce fichier de test.
     Unit/AiSolver/Optim/test_convergence.cpp
+    # Environnement de simulation headless (LOT-ANNEXE-05) : reset/step, budget de pas et mesure de
+    # progression, sans fenetre ni GPU.
+    Unit/AiSolver/Env/test_headless_level_environment.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp
@@ -492,6 +495,9 @@ add_executable(SystemTests
 
 target_link_libraries(SystemTests PRIVATE
     Core
+    # AiSolver (LOT-ANNEXE-05, TACHE-05) : garde de fidelite pas-a-pas entre l'orchestration de
+    # reference (playLevelTraced, test_parcours_complet.cpp) et aisolver::HeadlessLevelEnvironment.
+    AiSolver
     GTest::gtest_main
     project_warnings
     project_options
