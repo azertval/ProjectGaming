@@ -24,6 +24,11 @@ add_library(AiSolver STATIC
     # Environnement de simulation headless (LOT-ANNEXE-05) : rejoue un niveau pas a pas, sans
     # fenetre ni GPU, derriere une API reset/step -- lie uniquement a Core (voir ci-dessous).
     Env/HeadlessLevelEnvironment.cpp
+    # Encodage de l'observation (LOT-ANNEXE-06) : traduit l'etat lu via HeadlessLevelEnvironment en
+    # tenseurs consommables par un reseau de neurones (fenetre de tuiles, etat joueur, mecanismes).
+    Env/TileWindowEncoder.cpp
+    Env/PlayerStateEncoder.cpp
+    Env/MechanismStateEncoder.cpp
 )
 
 # Racine d'inclusion = Source/ : les en-têtes s'incluent par chemin complet depuis la racine
