@@ -85,6 +85,14 @@ add_executable(UnitTests
     # Environnement de simulation headless (LOT-ANNEXE-05) : reset/step, budget de pas et mesure de
     # progression, sans fenetre ni GPU.
     Unit/AiSolver/Env/test_headless_level_environment.cpp
+    # Encodage de l'observation (LOT-ANNEXE-06) : fenetre de tuiles categorielle (TACHE-01), vecteur
+    # d'etat joueur (TACHE-02), etat des mecanismes dans la fenetre (TACHE-03), determinisme et
+    # stabilite dimensionnelle aux bords (TACHE-04).
+    Unit/AiSolver/Env/test_tile_window_encoder.cpp
+    Unit/AiSolver/Env/test_player_state_encoder.cpp
+    Unit/AiSolver/Env/test_mechanism_state_encoder.cpp
+    Unit/AiSolver/Env/test_observation_determinisme.cpp
+    Unit/AiSolver/Env/test_observation_bords_carte.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp

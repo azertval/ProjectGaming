@@ -119,6 +119,14 @@ public:
     /// @return Le niveau chargé (nom, dimensions, sortie…), en lecture seule.
     [[nodiscard]] const core::Level& level() const;
 
+    /// @return Le contrôleur de mécanismes du niveau chargé, en lecture seule (`LOT-ANNEXE-06` :
+    /// interroge l'état porte ouverte/fermée sans dupliquer la simulation).
+    [[nodiscard]] const core::MechanismController& mechanisms() const noexcept;
+
+    /// @return Le contrôleur de dangers du niveau chargé, en lecture seule (`LOT-ANNEXE-06` :
+    /// interroge l'état danger mobile/temporisé actif sans dupliquer la simulation).
+    [[nodiscard]] const core::DangerController& dangers() const noexcept;
+
     /// @return `true` une fois `EnvironmentConfig::maxSteps` pas simulés depuis le dernier `reset`.
     [[nodiscard]] bool budgetExhausted() const noexcept;
 

@@ -101,6 +101,16 @@ const core::Level& HeadlessLevelEnvironment::level() const {
     return *_level;
 }
 
+const core::MechanismController& HeadlessLevelEnvironment::mechanisms() const noexcept {
+    PROJECTGAMING_ASSERT(loaded(), "mechanisms() appele sans reset() reussi au prealable");
+    return *_mechanisms;
+}
+
+const core::DangerController& HeadlessLevelEnvironment::dangers() const noexcept {
+    PROJECTGAMING_ASSERT(loaded(), "dangers() appele sans reset() reussi au prealable");
+    return *_dangers;
+}
+
 bool HeadlessLevelEnvironment::budgetExhausted() const noexcept {
     return _stepIndex >= _config.maxSteps;
 }
