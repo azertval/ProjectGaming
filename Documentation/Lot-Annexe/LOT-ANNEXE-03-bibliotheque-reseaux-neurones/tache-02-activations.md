@@ -1,6 +1,6 @@
 # TACHE-02 — Fonctions d'activation différentiables (`sigmoid`, `softmax`) {#lot-annexe-03-tache-02-activations}
 
-**Lot :** [LOT-ANNEXE-03](epic.md) · **Emplacement :** `Source/AiSolver/Nn` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-03](epic.md) · **Emplacement :** `Source/AiSolver/Nn` · **Statut :** fait
 
 ## Contexte
 `Dense` (TACHE-01) produit une sortie affine brute ; un réseau a besoin d'activations non linéaires
