@@ -1396,7 +1396,16 @@ void MainWindow::buildUi() {
                         return;
                     }
                     _pixelCanvas->setActiveTool(tool);
-                    switchToWorkspace(hmi::workspaceForPixelTool(tool));
+                    // JAMAIS depuis l'espace Plans (LOT-69) : la barre d'outils pixel y est
+                    // partagee avec l'Atelier (hmi::dressingForWorkspace), donc ce bouton n'est
+                    // visible que dans ces deux espaces -- mais hmi::workspaceForPixelTool renvoie
+                    // toujours PixelArt. Le suivre depuis Plans fermerait le plan en cours
+                    // (switchToWorkspace y vide le canevas, closePlaneInCanvas) alors que rien ne
+                    // le demande : choisir la Gomme pendant qu'on peint un plan ne doit jamais faire
+                    // perdre ce qu'on est en train de peindre.
+                    if (_workspace != hmi::EditorWorkspace::Planes) {
+                        switchToWorkspace(hmi::workspaceForPixelTool(tool));
+                    }
                     refreshStatusHelp();
                     applyPixelPanelFocus(tool);
                 });
