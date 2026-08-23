@@ -7,6 +7,20 @@ on:
     branches: [ main ]
 
 env:
+  # Version de Qt épinglée (EX-BUILD-010), identique à `QT_VERSION_MINIMUM` dans
+  # `Source/HMI/CMakeLists.txt` — vérifié automatiquement par
+  # `scripts/check_qt_version_pin.py` (job lint-exigences) pour que les deux ne divergent jamais
+  # silencieusement (LOT-66 TACHE-01).
+  QT_VERSION: '6.11.2'
+  # aqtinstall publie sur PyPI (3.3.0) ne sait PAS installer Qt >= 6.11 : Qt a change la
+  # disposition de son depot (`qt6_6112/qt6_6112_msvc2022_64/`, un sous-dossier par architecture,
+  # au lieu de `qt6_6103/qt6_6103/`), et 3.3.0 code en dur l'ancienne. Le correctif amont est
+  # merge (miurahr/aqtinstall PR #1000, issues #959/#1007) mais pas encore publie. `aqtsource`
+  # (entree de install-qt-action, prioritaire sur `aqtversion`) permet de pointer le depot git ;
+  # le SHA est EPINGLE et non `@master`, sinon le provisionnement deriverait silencieusement, ce
+  # que `EX-BUILD-010` / `EX-NFR-031` interdisent. A REMPLACER par `aqtversion: '==3.3.1'` des
+  # qu'aqtinstall 3.3.1 parait sur PyPI -- cette URL git n'a pas vocation a rester.
+  AQT_SOURCE: 'git+https://github.com/miurahr/aqtinstall.git@16db45a70b5905ad596941b223469bc86a56901e'
   # Version de Doxygen épinglée (EX-NFR-031, même esprit que EX-BUILD-010 pour Qt).
   # `apt-get install doxygen` livre la version de la distribution (1.9.x sur
   # ubuntu-latest), dont les règles de résolution de liens diffèrent de celles des
@@ -14,6 +28,26 @@ env:
   # échouait en CI. Poste de développement et CI doivent exécuter la MÊME version,
   # sinon la vérification locale ne prédit rien.
   DOXYGEN_VERSION: 1.16.1
+  # Version de LLVM (clang-tidy, clang-format) épinglée pour la même raison que Doxygen : deux
+  # versions majeures ne signalent/ne formatent pas identiquement, et un contrôle qui ne prédit
+  # pas le résultat local ne sert qu'à agacer. Installer la même version en local pour que
+  # `clang-tidy`/`clang-format` prédisent le verdict de la CI (LOT-58).
+  # Relevée de 18.1.8 a 20.1.8 (branche fix/clang-tidy-triage) : l'image `windows-2022` du runner
+  # a progresse vers un toolset MSVC dont le STL refuse desormais de se laisser analyser par un
+  # clang-cl plus ancien que Clang 19 (`static_assert ... STL1000 : Unexpected compiler version,
+  # expected Clang 19.0.0 or newer` dans `yvals_core.h`, sur CHAQUE fichier) -- 18.1.8 echouait a
+  # se compiler lui-meme, pas un defaut du code analyse. 20.1.8 choisie car disponible identique
+  # sur Chocolatey (clang-tidy) et PyPI (clang-format), une marge au-dessus du minimum strict.
+  LLVM_VERSION: 20.1.8
+  # Version d'OpenCppCoverage épinglée, même raison que Doxygen/LLVM ci-dessus : le workflow
+  # l'installait jusqu'ici sans version fixée (LOT-58).
+  OPENCPPCOVERAGE_VERSION: 0.9.9.0
+  # Seuil de couverture (LOT-58, TACHE-05) : cliquet anti-régression, pas un objectif. Mesuré
+  # localement le 2026-08-10 (build Ninja Debug, UnitTests+IntegrationTests+SystemTests fusionnés) :
+  # 93.66 % (8602/9184 lignes). Seuil calé avec une marge explicite de ~8.5 points — voir
+  # tache-05-couverture.md, section « État de la mesure », pour la méthode et la mise en garde sur
+  # l'écart possible avec la mesure en CI (preset `vs`, image `windows-2022`, non reproduite ici).
+  COVERAGE_THRESHOLD_PERCENT: 85
 
 jobs:
   build-test-coverage:
@@ -30,11 +64,19 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
-          version: '6.8.1'
+          version: ${{ env.QT_VERSION }}
           host: windows
           target: desktop
           arch: win64_msvc2022_64
+          # qtmultimedia : module audio (LOT-60) -- Qt6::Multimedia (QSoundEffect) est un composant
+          # additionnel de l'installation Qt, pas une dependance tierce separee.
+          # qtshadertools : fournit `qsb`, le compilateur de shaders exige par le rendu QRhi
+          # (LOT-69 TACHE-02). qtcanvaspainter : peinture 2D acceleree (LOT-69), nouveau en 6.11.
+          # Un nom de module inconnu fait echouer aqt : ces trois lignes valent donc verification
+          # que le provisionnement de 6.11.2 fournit bien ce dont les taches suivantes dependent.
+          modules: qtmultimedia qtshadertools qtcanvaspainter
           cache: true
+          aqtsource: ${{ env.AQT_SOURCE }}
 
       - name: Configure (CMake)
         # install-qt-action exporte QT_ROOT_DIR ; on le passe en CMAKE_PREFIX_PATH pour que
@@ -58,19 +100,54 @@ jobs:
           if (-not (Test-Path $exe)) { throw "Executable absent : $exe" }
           Write-Host "OK : $exe"
 
-      - name: Install OpenCppCoverage
-        run: choco install opencppcoverage -y --no-progress
-
-      - name: Coverage
+      - name: Verifier que le module audio est deploye (LOT-60)
         shell: pwsh
+        # windeployqt ne depose Qt6Multimediad.dll que s'il detecte l'usage reel de la bibliotheque
+        # ('d' : suffixe des DLL Qt de configuration Debug) : un build local peut compiler sans
+        # jamais prouver que le zip de release sera sonore. C'est le seul controle qui valide
+        # reellement le deploiement du module (tache-01, DoD).
+        run: |
+          $dll = 'build/vs/bin/Debug/Qt6Multimediad.dll'
+          if (-not (Test-Path $dll)) { throw "Bibliotheque audio non deployee : $dll" }
+          Write-Host "OK : $dll"
+
+      - name: Install OpenCppCoverage ${{ env.OPENCPPCOVERAGE_VERSION }}
+        run: choco install opencppcoverage --version=${{ env.OPENCPPCOVERAGE_VERSION }} -y --no-progress --allow-downgrade
+
+      - name: Coverage (UnitTests + IntegrationTests + SystemTests, fusionnes)
+        shell: pwsh
+        # LOT-58 : le rapport précédent ne mesurait que UnitTests.exe -- les 89 tests d'intégration
+        # et les 3 tests système (toute la physique de bout en bout, la franchissabilité des
+        # niveaux livrés) en étaient absents, rendant le chiffre affiché faux par construction.
+        # OpenCppCoverage n'accepte qu'un exécutable par invocation : chaque suite est exportée au
+        # format binaire intermédiaire, puis les trois sont fusionnées (--input_coverage) en un
+        # seul rapport agrégé.
         run: |
           $exe = "C:\Program Files\OpenCppCoverage\OpenCppCoverage.exe"
-          & $exe `
-            --sources "$env:GITHUB_WORKSPACE\Source" `
-            --excluded_sources "$env:GITHUB_WORKSPACE\Source\Test" `
-            --export_type "cobertura:coverage.xml" `
-            --export_type "html:coverage-html" `
-            -- "build\vs\bin\Debug\UnitTests.exe"
+          $common = @(
+            "--sources", "$env:GITHUB_WORKSPACE\Source",
+            "--excluded_sources", "$env:GITHUB_WORKSPACE\Source\Test",
+            "--excluded_sources", "$env:GITHUB_WORKSPACE\External"
+          )
+          & $exe @common --export_type "binary:unit.cov" -- "build\vs\bin\Debug\UnitTests.exe"
+          & $exe @common --export_type "binary:integration.cov" -- "build\vs\bin\Debug\IntegrationTests.exe"
+          & $exe @common --export_type "binary:system.cov" -- "build\vs\bin\Debug\SystemTests.exe"
+          & $exe --input_coverage "unit.cov" --input_coverage "integration.cov" --input_coverage "system.cov" `
+            --export_type "cobertura:coverage.xml" --export_type "html:coverage-html"
+
+      - name: Seuil de couverture (LOT-58)
+        shell: pwsh
+        # Le seuil est un cliquet anti-régression, pas un objectif (voir tache-05-couverture.md) :
+        # une chute EN DESSOUS fait échouer la CI, il n'est pas destiné à forcer une hausse.
+        run: |
+          [xml]$report = Get-Content coverage.xml
+          $percent = [math]::Round([double]$report.coverage.'line-rate' * 100, 2)
+          Write-Host "Couverture agregee (UnitTests+IntegrationTests+SystemTests) : $percent %"
+          $threshold = ${{ env.COVERAGE_THRESHOLD_PERCENT }}
+          if ($percent -lt $threshold) {
+            Write-Error "Couverture $percent % sous le seuil $threshold % (EX-NFR-022, LOT-58)."
+            exit 1
+          }
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
@@ -79,6 +156,52 @@ jobs:
           path: |
             coverage.xml
             coverage-html/
+
+  build-test-release:
+    # Les deux jobs ci-dessus (et l'historique de la CI avant ce lot) ne construisent et ne testent
+    # qu'en Debug. Le premier build Release avait lieu dans release.yml, DÉCLENCHÉ PAR LE TAG : une
+    # casse Release-only (variable lue uniquement par une assertion, donc inutilisée sous NDEBUG,
+    # cf. 90f85254) n'était découverte qu'après un tag public. Ce job la découvre en PR (LOT-58).
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: windows
+          target: desktop
+          arch: win64_msvc2022_64
+          # qtmultimedia : module audio (LOT-60) -- Qt6::Multimedia (QSoundEffect) est un composant
+          # additionnel de l'installation Qt, pas une dependance tierce separee.
+          # qtshadertools : fournit `qsb`, le compilateur de shaders exige par le rendu QRhi
+          # (LOT-69 TACHE-02). qtcanvaspainter : peinture 2D acceleree (LOT-69), nouveau en 6.11.
+          # Un nom de module inconnu fait echouer aqt : ces trois lignes valent donc verification
+          # que le provisionnement de 6.11.2 fournit bien ce dont les taches suivantes dependent.
+          modules: qtmultimedia qtshadertools qtcanvaspainter
+          cache: true
+          aqtsource: ${{ env.AQT_SOURCE }}
+
+      - name: Configure (CMake)
+        run: cmake --preset vs
+        env:
+          CMAKE_PREFIX_PATH: ${{ env.QT_ROOT_DIR }}
+
+      - name: Build (Release)
+        run: cmake --build --preset vs-release
+
+      - name: Test (CTest, Release)
+        run: ctest --preset vs-release
+
+      - name: Verifier que l'executable est bien produit
+        shell: pwsh
+        run: |
+          $exe = 'build/vs/bin/Release/ProjectGaming.exe'
+          if (-not (Test-Path $exe)) { throw "Executable absent : $exe" }
+          Write-Host "OK : $exe"
 
   build-ninja:
     # Le preset `vs` s'appuie sur MSBuild, qui établit lui-même l'environnement MSVC ; le preset
@@ -94,11 +217,19 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
-          version: '6.8.1'
+          version: ${{ env.QT_VERSION }}
           host: windows
           target: desktop
           arch: win64_msvc2022_64
+          # qtmultimedia : module audio (LOT-60) -- Qt6::Multimedia (QSoundEffect) est un composant
+          # additionnel de l'installation Qt, pas une dependance tierce separee.
+          # qtshadertools : fournit `qsb`, le compilateur de shaders exige par le rendu QRhi
+          # (LOT-69 TACHE-02). qtcanvaspainter : peinture 2D acceleree (LOT-69), nouveau en 6.11.
+          # Un nom de module inconnu fait echouer aqt : ces trois lignes valent donc verification
+          # que le provisionnement de 6.11.2 fournit bien ce dont les taches suivantes dependent.
+          modules: qtmultimedia qtshadertools qtcanvaspainter
           cache: true
+          aqtsource: ${{ env.AQT_SOURCE }}
 
       - name: Install Ninja
         run: choco install ninja -y --no-progress
@@ -125,6 +256,145 @@ jobs:
           if (-not (Test-Path $exe)) { throw "Executable absent : $exe" }
           Write-Host "OK : $exe"
 
+  sanitize:
+    # ENABLE_ASAN existe depuis le LOT-01 et n'etait cable dans aucun workflow : EX-NFR-003
+    # (empreinte memoire, verifiable via AddressSanitizer) etait orpheline. Ce job instrumente les
+    # trois executables de test (jamais l'application Qt/D3D11, injouable sans affichage) et les
+    # execute -- meme etablissement de l'environnement MSVC que build-ninja (LOT-58).
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Ninja
+        run: choco install ninja -y --no-progress
+
+      - name: Configure, build et execution sous AddressSanitizer
+        shell: cmd
+        # Tout dans UN SEUL step : chaque step GitHub Actions demarre un cmd.exe neuf, et
+        # l'effet de vcvars64.bat (PATH, dont le dossier de la DLL runtime ASan) ne survit pas
+        # d'un step a l'autre. Executer les .exe dans un step separe les fait echouer avant meme
+        # d'afficher un rapport ASan (clang_rt.asan_dynamic-x86_64.dll introuvable, exit code 1
+        # sans message) -- exactement le piege documente dans tache-02-job-asan.md.
+        run: |
+          for /f "usebackq tokens=*" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do (
+            call "%%i\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
+          )
+          cmake -S . -B build/ninja-asan -G Ninja -DCMAKE_BUILD_TYPE=Debug -DENABLE_ASAN=ON -DBUILD_EDITOR_QT=OFF || exit /b 1
+          cmake --build build/ninja-asan || exit /b 1
+          build\ninja-asan\bin\UnitTests.exe || exit /b 1
+          build\ninja-asan\bin\IntegrationTests.exe || exit /b 1
+          build\ninja-asan\bin\SystemTests.exe || exit /b 1
+
+  clang-tidy:
+    # .clang-tidy est complet depuis le debut du projet et n'etait execute nulle part (LOT-58) :
+    # conventions.md le presentait comme de l'outillage « en place », a tort. Analyse ciblee sur le
+    # DIFF de la PR (pas tout le depot) : la dette existante (jamais passee au crible) ne bloque
+    # personne, et le cout de ce job ne croit pas avec la taille du depot. Seule bugprone-* est
+    # bloquante (WarningsAsErrors dans .clang-tidy, apres triage -- voir tache-03) ; les autres
+    # familles (cppcoreguidelines-*, modernize-*, performance-*, readability-*) restent visibles
+    # dans les logs sans faire echouer le job : un triage complet est hors budget de ce lot.
+    # windows-2022 (pas Linux) : le code inclut Direct3D 11/Windows.h, indisponibles sous Linux.
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: windows
+          target: desktop
+          arch: win64_msvc2022_64
+          # qtmultimedia : module audio (LOT-60) -- Qt6::Multimedia (QSoundEffect) est un composant
+          # additionnel de l'installation Qt, pas une dependance tierce separee.
+          # qtshadertools : fournit `qsb`, le compilateur de shaders exige par le rendu QRhi
+          # (LOT-69 TACHE-02). qtcanvaspainter : peinture 2D acceleree (LOT-69), nouveau en 6.11.
+          # Un nom de module inconnu fait echouer aqt : ces trois lignes valent donc verification
+          # que le provisionnement de 6.11.2 fournit bien ce dont les taches suivantes dependent.
+          modules: qtmultimedia qtshadertools qtcanvaspainter
+          cache: true
+          aqtsource: ${{ env.AQT_SOURCE }}
+
+      - name: Install LLVM (clang-tidy) ${{ env.LLVM_VERSION }}
+        run: choco install llvm --version=${{ env.LLVM_VERSION }} -y --no-progress --allow-downgrade
+
+      - name: Configure (Ninja, compile_commands.json, sans PCH)
+        # ENABLE_PCH=OFF : le fichier .pch genere par MSVC n'est pas un format que clang-tidy sait
+        # lire, l'analyse echouerait sur chaque fichier avec un message qui ne parle pas de PCH.
+        shell: cmd
+        run: |
+          for /f "usebackq tokens=*" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do (
+            call "%%i\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
+          )
+          cmake -S . -B build/ninja-tidy -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_PCH=OFF || exit /b 1
+        env:
+          CMAKE_PREFIX_PATH: ${{ env.QT_ROOT_DIR }}
+
+      - name: Build (genere les en-tetes AUTOUIC/AUTOMOC, ui_*.h/moc_*.cpp)
+        # clang-tidy lit compile_commands.json mais n'execute jamais AUTOUIC/AUTOMOC lui-meme : sans
+        # ce build, tout fichier incluant "ui_*.h" (widgets avec un formulaire .ui) echoue a l'analyse
+        # avec "file not found", une erreur de configuration CI, pas un defaut du code (confirme en
+        # premiere execution reelle -- voir tache-03-clang-tidy.md).
+        shell: cmd
+        run: |
+          for /f "usebackq tokens=*" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do (
+            call "%%i\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
+          )
+          cmake --build build/ninja-tidy || exit /b 1
+
+      - name: clang-tidy sur les fichiers modifies par la PR
+        shell: pwsh
+        # Diff contre la base de la PR : seuls les fichiers Source/*.cpp (hors Source/Test) reellement
+        # touches sont analyses. --diff-filter=ACMR exclut les fichiers supprimes (sinon clang-tidy
+        # echouerait a les trouver).
+        run: |
+          git fetch origin "${{ github.base_ref }}" --depth=1
+          $files = git diff --name-only --diff-filter=ACMR "origin/${{ github.base_ref }}...HEAD" -- 'Source/*.cpp' |
+            Where-Object { $_ -notmatch '^Source/Test/' }
+
+          if (-not $files) {
+            Write-Host "Aucun fichier Source/*.cpp modifie par cette PR : rien a analyser."
+            exit 0
+          }
+
+          Write-Host "Fichiers analyses :`n$($files -join "`n")"
+          $clangTidy = "C:\Program Files\LLVM\bin\clang-tidy.exe"
+          $failed = $false
+          foreach ($f in $files) {
+            & $clangTidy -p build\ninja-tidy --extra-arg=-Wno-unused-command-line-argument $f
+            if ($LASTEXITCODE -ne 0) { $failed = $true }
+          }
+          if ($failed) {
+            Write-Error "clang-tidy : au moins une violation bloquante (bugprone-*)."
+            exit 1
+          }
+
+  format:
+    # CONTRIBUTING.md exige un code formate (clang-format) avant tout commit depuis le debut du
+    # projet ; rien ne le verifiait (LOT-58). Controle, jamais reecriture : le job signale, il ne
+    # pousse pas de commit de reformatage. Sur Linux (contrairement a clang-tidy) : clang-format
+    # n'a pas besoin des en-tetes Direct3D/Windows, seulement du texte source.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install clang-format ${{ env.LLVM_VERSION }}
+        # Le paquet PyPI redistribue les binaires officiels LLVM : meme mecanisme et memes
+        # garanties de version que le job clang-tidy (LOT-58), sans installer tout LLVM.
+        run: pip install "clang-format==${{ env.LLVM_VERSION }}"
+
+      - name: Verifier le formatage (Source/, hors External/)
+        run: |
+          clang-format --version
+          git ls-files 'Source/*.cpp' 'Source/*.h' | xargs clang-format --dry-run --Werror --style=file
+
   lint-exigences:
     # Contrôle du référentiel d'exigences (EX-...) : unicité des déclarations et
     # absence de référence orpheline. Léger et portable (Python), donc sur Linux.
@@ -136,11 +406,21 @@ jobs:
       - name: Lint des identifiants d'exigences
         run: python3 scripts/lint_exigences.py
 
+      - name: Version de Qt coherente CMake / CI (EX-BUILD-010)
+        run: python3 scripts/check_qt_version_pin.py
+
       - name: Cahier de test a jour
         run: python3 scripts/generate_cahier_test.py --check
 
       - name: Sequence de niveaux demo (LOT-25) synchronisee
         run: python3 scripts/check_demo_sequence.py
+
+      # Les plans picturaux livres sont GENERES (LOT-69) : commites pour que le jeu tourne sans
+      # Python, mais reproductibles depuis les sources. Sans ce controle, une retouche du
+      # generateur pourrait ne jamais atteindre les images -- ou l'inverse, une image editee a la
+      # main ne plus se reconstruire. Les deux videraient le choix de la reproductibilite.
+      - name: Plans picturaux livres reproductibles (LOT-69)
+        run: python3 scripts/generate_demo_plans.py --check
 
   docs:
     # Génère la documentation Doxygen (garde-fou WARN_AS_ERROR) pour valider la

@@ -1,110 +1,70 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Graphics/SpriteBatch.h"
 
+#include <QColor>
+#include <QFile>
+#include <QMatrix4x4>
+#include <QSize>
+#include <algorithm>
 #include <cmath>
 #include <cstdint>
 #include <cstring>
 #include <stdexcept>
 #include <string>
 
-#include <d3dcompiler.h>
+#include <rhi/qrhi.h>
 
 #include "HMI/Graphics/GraphicsLog.h"
 
 namespace hmi {
 
 namespace {
-using Microsoft::WRL::ComPtr;
 
-// Lève une exception si un appel Direct3D a échoué (frontière de construction).
-void throwIfFailed(HRESULT result, const char* message) {
-    if (FAILED(result)) {
-        throw std::runtime_error(message);
+// Charge un shader precompile (.qsb) depuis les ressources de l'executable. Un shader absent est
+// une erreur de BUILD, pas un etat d'execution recuperable : la ressource est embarquee par
+// qt6_add_shaders, elle ne peut manquer que si la compilation n'a pas eu lieu.
+QShader loadShader(const char* resourcePath) {
+    QFile file(QString::fromLatin1(resourcePath));
+    if (!file.open(QIODevice::ReadOnly)) {
+        throw std::runtime_error(std::string("Shader introuvable dans les ressources : ") +
+                                 resourcePath);
     }
-}
-
-// Source HLSL du vertex shader : projette la position monde et transmet UV et couleur.
-constexpr char kVertexShaderSource[] = R"(
-cbuffer Projection : register(b0) { float4x4 uProjection; };
-struct VSInput  { float2 position : POSITION; float2 uv : TEXCOORD0; float4 color : COLOR0; };
-struct VSOutput { float4 position : SV_POSITION; float2 uv : TEXCOORD0; float4 color : COLOR0; };
-VSOutput main(VSInput input) {
-    VSOutput output;
-    output.position = mul(float4(input.position, 0.0f, 1.0f), uProjection);
-    output.uv = input.uv;
-    output.color = input.color;
-    return output;
-}
-)";
-
-// Source HLSL du pixel shader : texture d'atlas échantillonnée, multipliée par la teinte.
-constexpr char kPixelShaderSource[] = R"(
-Texture2D uTexture : register(t0);
-SamplerState uSampler : register(s0);
-struct PSInput { float4 position : SV_POSITION; float2 uv : TEXCOORD0; float4 color : COLOR0; };
-float4 main(PSInput input) : SV_TARGET {
-    return uTexture.Sample(uSampler, input.uv) * input.color;
-}
-)";
-
-// Compile un shader HLSL à l'exécution.
-// Le bytecode compilé.
-ComPtr<ID3DBlob> compileShader(const char* source, const char* entryPoint, const char* target) {
-    UINT flags = D3DCOMPILE_ENABLE_STRICTNESS;
-#ifdef _DEBUG
-    flags |= D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
-#endif
-    ComPtr<ID3DBlob> bytecode;
-    ComPtr<ID3DBlob> errors;
-    const HRESULT result = D3DCompile(source, std::strlen(source), nullptr, nullptr, nullptr,
-                                      entryPoint, target, flags, 0, &bytecode, &errors);
-    if (FAILED(result)) {
-        std::string message = "Echec de compilation d'un shader";
-        if (errors) {
-            message += " : ";
-            message.append(static_cast<const char*>(errors->GetBufferPointer()),
-                           errors->GetBufferSize());
-        }
-        throw std::runtime_error(message);
+    const QShader shader = QShader::fromSerialized(file.readAll());
+    if (!shader.isValid()) {
+        throw std::runtime_error(std::string("Shader illisible : ") + resourcePath);
     }
-    return bytecode;
+    return shader;
 }
+
+// Taille d'un bloc de projection : une matrice 4x4 de flottants.
+constexpr int PROJECTION_BYTES = 16 * static_cast<int>(sizeof(float));
+
+// Convertit la matrice ligne-major de DirectXMath (convention `position * matrice`) en QMatrix4x4
+// (convention `matrice * position`, comme GLSL) : c'est exactement sa transposee. La correction
+// d'espace de clip de QRhi est appliquee par-dessus -- le shader ecrit en convention OpenGL, QRhi
+// la ramene a celle du backend (Direct3D 11 sous Windows).
+QMatrix4x4 toClipMatrix(QRhi* rhi, const DirectX::XMFLOAT4X4& projection) {
+    const QMatrix4x4 columnMajor(
+        projection.m[0][0], projection.m[1][0], projection.m[2][0], projection.m[3][0],
+        projection.m[0][1], projection.m[1][1], projection.m[2][1], projection.m[3][1],
+        projection.m[0][2], projection.m[1][2], projection.m[2][2], projection.m[3][2],
+        projection.m[0][3], projection.m[1][3], projection.m[2][3], projection.m[3][3]);
+    return rhi->clipSpaceCorrMatrix() * columnMajor;
+}
+
 }  // namespace
 
-// Construit le pipeline (shaders, buffers, états de rendu).
-SpriteBatch::SpriteBatch(ID3D11Device* device, ID3D11DeviceContext* context) : _context(context) {
+// Construit le pipeline (shaders, tampons, echantillonneur) sur une interface QRhi.
+SpriteBatch::SpriteBatch(QRhi* rhi) : _rhi(rhi) {
+    if (_rhi == nullptr) {
+        throw std::runtime_error("SpriteBatch : QRhi nul");
+    }
     _vertices.reserve(MAXIMUM_QUADS * 4);
 
-    // Shaders et layout d'entrée.
-    const ComPtr<ID3DBlob> vertexBytecode = compileShader(kVertexShaderSource, "main", "vs_5_0");
-    const ComPtr<ID3DBlob> pixelBytecode = compileShader(kPixelShaderSource, "main", "ps_5_0");
-    throwIfFailed(
-        device->CreateVertexShader(vertexBytecode->GetBufferPointer(),
-                                   vertexBytecode->GetBufferSize(), nullptr, &_vertexShader),
-        "Echec de creation du vertex shader");
-    throwIfFailed(device->CreatePixelShader(pixelBytecode->GetBufferPointer(),
-                                            pixelBytecode->GetBufferSize(), nullptr, &_pixelShader),
-                  "Echec de creation du pixel shader");
-
-    const D3D11_INPUT_ELEMENT_DESC layout[] = {
-        {"POSITION", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-        {"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 8, D3D11_INPUT_PER_VERTEX_DATA, 0},
-        {"COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0},
-    };
-    throwIfFailed(device->CreateInputLayout(layout, static_cast<UINT>(std::size(layout)),
-                                            vertexBytecode->GetBufferPointer(),
-                                            vertexBytecode->GetBufferSize(), &_inputLayout),
-                  "Echec de creation du layout d'entree");
-
-    // Tampon de sommets dynamique (réécrit à chaque lot).
-    D3D11_BUFFER_DESC vertexDescription{};
-    vertexDescription.ByteWidth = static_cast<UINT>(MAXIMUM_QUADS * 4 * sizeof(Vertex));
-    vertexDescription.Usage = D3D11_USAGE_DYNAMIC;
-    vertexDescription.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-    vertexDescription.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-    throwIfFailed(device->CreateBuffer(&vertexDescription, nullptr, &_vertexBuffer),
-                  "Echec de creation du tampon de sommets");
-
-    // Tampon d'indices immuable : deux triangles par quad (0,1,2, 0,2,3).
+    // Tampon d'indices immuable : deux triangles par quad (0,1,2, 0,2,3). Indices 16 bits, d'ou le
+    // plafond de MAXIMUM_QUADS quads par appel de dessin.
     std::vector<std::uint16_t> indices(MAXIMUM_QUADS * 6);
     for (std::size_t quad = 0; quad < MAXIMUM_QUADS; ++quad) {
         const auto base = static_cast<std::uint16_t>(quad * 4);
@@ -116,123 +76,233 @@ SpriteBatch::SpriteBatch(ID3D11Device* device, ID3D11DeviceContext* context) : _
         indices[offset + 4] = static_cast<std::uint16_t>(base + 2);
         indices[offset + 5] = static_cast<std::uint16_t>(base + 3);
     }
-    D3D11_BUFFER_DESC indexDescription{};
-    indexDescription.ByteWidth = static_cast<UINT>(indices.size() * sizeof(std::uint16_t));
-    indexDescription.Usage = D3D11_USAGE_IMMUTABLE;
-    indexDescription.BindFlags = D3D11_BIND_INDEX_BUFFER;
-    D3D11_SUBRESOURCE_DATA indexData{};
-    indexData.pSysMem = indices.data();
-    throwIfFailed(device->CreateBuffer(&indexDescription, &indexData, &_indexBuffer),
-                  "Echec de creation du tampon d'indices");
+    _indexBuffer.reset(
+        _rhi->newBuffer(QRhiBuffer::Immutable, QRhiBuffer::IndexBuffer,
+                        static_cast<quint32>(indices.size() * sizeof(std::uint16_t))));
+    if (!_indexBuffer->create()) {
+        throw std::runtime_error("SpriteBatch : echec de creation du tampon d'indices");
+    }
+    // Le contenu d'un tampon immuable se televerse une fois, dans son propre lot soumis a part :
+    // ce tampon vit plus longtemps qu'une image, il ne dépend d'aucune passe.
+    QRhiResourceUpdateBatch* const initial = _rhi->nextResourceUpdateBatch();
+    initial->uploadStaticBuffer(_indexBuffer.get(), indices.data());
+    _pendingIndexUpload = initial;
 
-    // Tampon constant : matrice de projection.
-    D3D11_BUFFER_DESC constantDescription{};
-    constantDescription.ByteWidth = sizeof(DirectX::XMFLOAT4X4);
-    constantDescription.Usage = D3D11_USAGE_DEFAULT;
-    constantDescription.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-    throwIfFailed(device->CreateBuffer(&constantDescription, nullptr, &_constantBuffer),
-                  "Echec de creation du tampon constant");
+    // Echantillonnage *nearest* (pixel art net), bords fixes : l'invariant de nettete du portage
+    // (EX-ARCH-022). Aucun mipmap -- une texture de pixel art ne se filtre pas.
+    _sampler.reset(_rhi->newSampler(QRhiSampler::Nearest, QRhiSampler::Nearest, QRhiSampler::None,
+                                    QRhiSampler::ClampToEdge, QRhiSampler::ClampToEdge));
+    if (!_sampler->create()) {
+        throw std::runtime_error("SpriteBatch : echec de creation de l'echantillonneur");
+    }
 
-    // État de fusion alpha (transparence).
-    D3D11_BLEND_DESC blendDescription{};
-    blendDescription.RenderTarget[0].BlendEnable = TRUE;
-    blendDescription.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
-    blendDescription.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
-    blendDescription.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-    blendDescription.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
-    blendDescription.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_INV_SRC_ALPHA;
-    blendDescription.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-    blendDescription.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-    throwIfFailed(device->CreateBlendState(&blendDescription, &_blendState),
-                  "Echec de creation de l'etat de fusion");
+    _uniformStride = _rhi->ubufAligned(PROJECTION_BYTES);
+    if (!ensureUniformCapacity(64)) {
+        throw std::runtime_error("SpriteBatch : echec de creation du tampon uniforme");
+    }
+    if (!ensureVertexCapacity(2048)) {
+        throw std::runtime_error("SpriteBatch : echec de creation du tampon de sommets");
+    }
 
-    // Échantillonnage *nearest* (pixel art net), bords fixés (clamp).
-    D3D11_SAMPLER_DESC samplerDescription{};
-    samplerDescription.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
-    samplerDescription.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
-    samplerDescription.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
-    samplerDescription.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
-    samplerDescription.ComparisonFunc = D3D11_COMPARISON_NEVER;
-    samplerDescription.MaxLOD = D3D11_FLOAT32_MAX;
-    throwIfFailed(device->CreateSamplerState(&samplerDescription, &_samplerState),
-                  "Echec de creation de l'echantillonneur");
-
-    // Rasterizer 2D : pas de culling (les quads peuvent être vus des deux côtés).
-    D3D11_RASTERIZER_DESC rasterizerDescription{};
-    rasterizerDescription.FillMode = D3D11_FILL_SOLID;
-    rasterizerDescription.CullMode = D3D11_CULL_NONE;
-    rasterizerDescription.DepthClipEnable = TRUE;
-    throwIfFailed(device->CreateRasterizerState(&rasterizerDescription, &_rasterizerState),
-                  "Echec de creation de l'etat de rasterisation");
-    GRAPHICS_LOG_TRACE("SpriteBatch : pipeline 2D cree (shaders, buffers, etats)");
+    GRAPHICS_LOG_TRACE("SpriteBatch : pipeline 2D cree sur QRhi (" +
+                       std::string(_rhi->backendName()) + ")");
 }
 
-// Démarre un lot : configure les états et la texture, et la projection caméra.
-void SpriteBatch::begin(const DirectX::XMFLOAT4X4& projection, ID3D11ShaderResourceView* texture) {
-    _texture = texture;
+SpriteBatch::~SpriteBatch() = default;
 
-    // HLSL lit les matrices en colonne-major : on téléverse la transposée de la matrice
-    // ligne-major de DirectXMath pour que `mul(vecteur, matrice)` soit correct.
-    DirectX::XMFLOAT4X4 transposed;
-    DirectX::XMStoreFloat4x4(&transposed,
-                             DirectX::XMMatrixTranspose(DirectX::XMLoadFloat4x4(&projection)));
-    _context->UpdateSubresource(_constantBuffer.Get(), 0, nullptr, &transposed, 0, 0);
+// Redimensionne le tampon uniforme pour `batchCount` emplacements de projection.
+bool SpriteBatch::ensureUniformCapacity(std::size_t batchCount) {
+    if (batchCount <= _uniformSlots && _uniformBuffer) {
+        return true;
+    }
+    const std::size_t slotCount = batchCount * 2;  // marge : evite de recreer a chaque lot ajoute
+    auto buffer = std::unique_ptr<QRhiBuffer>(_rhi->newBuffer(
+        QRhiBuffer::Dynamic, QRhiBuffer::UniformBuffer,
+        static_cast<quint32>(slotCount * static_cast<std::size_t>(_uniformStride))));
+    if (!buffer->create()) {
+        return false;
+    }
+    _uniformBuffer = std::move(buffer);
+    _uniformSlots = slotCount;
+    // Les liaisons referencent le tampon : elles deviennent caduques avec lui.
+    _bindings.clear();
+    _layoutBindings.reset();
+    return true;
+}
 
-    _context->IASetInputLayout(_inputLayout.Get());
-    _context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-    _context->VSSetShader(_vertexShader.Get(), nullptr, 0);
-    _context->VSSetConstantBuffers(0, 1, _constantBuffer.GetAddressOf());
-    _context->PSSetShader(_pixelShader.Get(), nullptr, 0);
-    _context->PSSetSamplers(0, 1, _samplerState.GetAddressOf());
-    _context->PSSetShaderResources(0, 1, &_texture);
+// Redimensionne le tampon de sommets si l'image enregistree n'y tient pas.
+bool SpriteBatch::ensureVertexCapacity(std::size_t quadCount) {
+    const quint32 needed = static_cast<quint32>(quadCount * 4 * sizeof(Vertex));
+    if (_vertexBuffer && _vertexBuffer->size() >= needed) {
+        return true;
+    }
+    auto buffer = std::unique_ptr<QRhiBuffer>(
+        _rhi->newBuffer(QRhiBuffer::Dynamic, QRhiBuffer::VertexBuffer, needed * 2));
+    if (!buffer->create()) {
+        return false;
+    }
+    _vertexBuffer = std::move(buffer);
+    return true;
+}
 
-    const float blendFactor[4] = {0.0f, 0.0f, 0.0f, 0.0f};
-    _context->OMSetBlendState(_blendState.Get(), blendFactor, 0xffffffff);
-    _context->RSSetState(_rasterizerState.Get());
+// Liaisons de ressources associees a une texture, creees a la premiere rencontre.
+QRhiShaderResourceBindings* SpriteBatch::bindingsFor(QRhiTexture* texture) {
+    const auto found = _bindings.find(texture);
+    if (found != _bindings.end()) {
+        return found->second.get();
+    }
+    auto bindings = std::unique_ptr<QRhiShaderResourceBindings>(_rhi->newShaderResourceBindings());
+    bindings->setBindings({
+        QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
+            0, QRhiShaderResourceBinding::VertexStage, _uniformBuffer.get(), PROJECTION_BYTES),
+        QRhiShaderResourceBinding::sampledTexture(1, QRhiShaderResourceBinding::FragmentStage,
+                                                  texture, _sampler.get()),
+    });
+    if (!bindings->create()) {
+        GRAPHICS_LOG_WARNING("SpriteBatch : echec de creation des liaisons de ressources");
+        return nullptr;
+    }
+    QRhiShaderResourceBindings* const raw = bindings.get();
+    _bindings.emplace(texture, std::move(bindings));
+    return raw;
+}
 
+// Cree (ou recree) le pipeline pour la passe de rendu donnee.
+bool SpriteBatch::ensurePipeline(QRhiRenderTarget* target) {
+    QRhiRenderPassDescriptor* const pass = target->renderPassDescriptor();
+    if (_pipeline && _pipelinePass == pass) {
+        return true;
+    }
+
+    // Liaisons de reference : jamais utilisees pour dessiner, seulement pour decrire la
+    // disposition attendue par le pipeline (QRhi n'exige que la compatibilite de disposition).
+    if (!_layoutBindings) {
+        _layoutBindings.reset(_rhi->newShaderResourceBindings());
+        _layoutBindings->setBindings({
+            QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
+                0, QRhiShaderResourceBinding::VertexStage, _uniformBuffer.get(), PROJECTION_BYTES),
+            QRhiShaderResourceBinding::sampledTexture(1, QRhiShaderResourceBinding::FragmentStage,
+                                                      nullptr, _sampler.get()),
+        });
+        if (!_layoutBindings->create()) {
+            GRAPHICS_LOG_WARNING("SpriteBatch : echec de creation des liaisons de reference");
+            return false;
+        }
+    }
+
+    auto pipeline = std::unique_ptr<QRhiGraphicsPipeline>(_rhi->newGraphicsPipeline());
+    pipeline->setShaderStages({
+        {QRhiShaderStage::Vertex, loadShader(":/shaders/sprite.vert.qsb")},
+        {QRhiShaderStage::Fragment, loadShader(":/shaders/sprite.frag.qsb")},
+    });
+
+    QRhiVertexInputLayout inputLayout;
+    inputLayout.setBindings({{static_cast<quint32>(sizeof(Vertex))}});
+    inputLayout.setAttributes({
+        {0, 0, QRhiVertexInputAttribute::Float2, 0},
+        {0, 1, QRhiVertexInputAttribute::Float2, 2 * sizeof(float)},
+        {0, 2, QRhiVertexInputAttribute::Float4, 4 * sizeof(float)},
+    });
+    pipeline->setVertexInputLayout(inputLayout);
+    pipeline->setShaderResourceBindings(_layoutBindings.get());
+    pipeline->setRenderPassDescriptor(pass);
+    pipeline->setTopology(QRhiGraphicsPipeline::Triangles);
+    // Rendu 2D : les quads peuvent etre vus des deux cotes (un segment oriente peut « retourner »
+    // son quadrilatere), et il n'y a ni profondeur ni pochoir a ecrire.
+    pipeline->setCullMode(QRhiGraphicsPipeline::None);
+    pipeline->setDepthTest(false);
+    pipeline->setDepthWrite(false);
+
+    // Fusion alpha, alpha NON premultiplie -- meme equation que l'etat Direct3D 11 d'origine.
+    QRhiGraphicsPipeline::TargetBlend blend;
+    blend.enable = true;
+    blend.srcColor = QRhiGraphicsPipeline::SrcAlpha;
+    blend.dstColor = QRhiGraphicsPipeline::OneMinusSrcAlpha;
+    blend.opColor = QRhiGraphicsPipeline::Add;
+    blend.srcAlpha = QRhiGraphicsPipeline::One;
+    blend.dstAlpha = QRhiGraphicsPipeline::OneMinusSrcAlpha;
+    blend.opAlpha = QRhiGraphicsPipeline::Add;
+    pipeline->setTargetBlends({blend});
+
+    if (!pipeline->create()) {
+        GRAPHICS_LOG_WARNING("SpriteBatch : echec de creation du pipeline graphique");
+        return false;
+    }
+    _pipeline = std::move(pipeline);
+    _pipelinePass = pass;
+    return true;
+}
+
+// Ouvre l'enregistrement d'une image.
+void SpriteBatch::beginFrame() {
     _vertices.clear();
+    _batches.clear();
+    _projections.clear();
+    _recording = false;
+}
+
+// Demarre un lot : fixe la texture echantillonnee et la projection.
+void SpriteBatch::begin(const DirectX::XMFLOAT4X4& projection, TextureHandle texture) {
+    closeBatch();
+    _current = Batch{};
+    _current.texture = static_cast<QRhiTexture*>(texture);
+    _current.firstQuad = _vertices.size() / 4;
+    _current.uniformOffset = static_cast<int>(_projections.size()) * _uniformStride;
+    _projections.push_back(projection);
+    _recording = true;
+}
+
+// Ferme le lot en cours d'enregistrement, s'il y en a un.
+void SpriteBatch::closeBatch() {
+    if (!_recording) {
+        return;
+    }
+    _current.quadCount = _vertices.size() / 4 - _current.firstQuad;
+    if (_current.quadCount > 0 && _current.texture != nullptr) {
+        _batches.push_back(_current);
+    }
+    _recording = false;
 }
 
 // Ajoute un quad au lot courant.
 void SpriteBatch::draw(const SpriteQuad& quad) {
-    // Tampon plein : on vide avant d'ajouter (le lot reste dans le même état).
-    if (_vertices.size() >= MAXIMUM_QUADS * 4) {
-        flush();
+    const float halfWidth = quad.width * 0.5f;
+    const float halfHeight = quad.height * 0.5f;
+    const float centerX = quad.x + halfWidth;
+    const float centerY = quad.y + halfHeight;
+    const float cosR = std::cos(quad.rotation);
+    const float sinR = std::sin(quad.rotation);
+
+    // Coins relatifs au centre (haut-gauche, haut-droit, bas-droit, bas-gauche), tournes de
+    // `rotation` radians autour du centre -- a rotation nulle (cosR=1, sinR=0), coincide avec le
+    // rectangle aligne d'origine (meme formule que draw(LineQuad), coins pousses dans le meme
+    // ordre attendu par le tampon d'indices).
+    const float offsetsX[4] = {-halfWidth, halfWidth, halfWidth, -halfWidth};
+    const float offsetsY[4] = {-halfHeight, -halfHeight, halfHeight, halfHeight};
+    const float us[4] = {quad.u0, quad.u1, quad.u1, quad.u0};
+    const float vs[4] = {quad.v0, quad.v0, quad.v1, quad.v1};
+    for (int i = 0; i < 4; ++i) {
+        const float x = centerX + offsetsX[i] * cosR - offsetsY[i] * sinR;
+        const float y = centerY + offsetsX[i] * sinR + offsetsY[i] * cosR;
+        _vertices.push_back(Vertex{x, y, us[i], vs[i], quad.r, quad.g, quad.b, quad.a});
     }
-
-    const float left = quad.x;
-    const float top = quad.y;
-    const float right = quad.x + quad.width;
-    const float bottom = quad.y + quad.height;
-
-    // Quatre coins, dans l'ordre attendu par le tampon d'indices (haut-gauche, haut-droit,
-    // bas-droit, bas-gauche). Y vers le bas : `top` < `bottom`.
-    _vertices.push_back(Vertex{left, top, quad.u0, quad.v0, quad.r, quad.g, quad.b, quad.a});
-    _vertices.push_back(Vertex{right, top, quad.u1, quad.v0, quad.r, quad.g, quad.b, quad.a});
-    _vertices.push_back(Vertex{right, bottom, quad.u1, quad.v1, quad.r, quad.g, quad.b, quad.a});
-    _vertices.push_back(Vertex{left, bottom, quad.u0, quad.v1, quad.r, quad.g, quad.b, quad.a});
 }
 
-// Ajoute un segment épais (orienté librement) au lot courant.
+// Ajoute un segment epais (oriente librement) au lot courant.
 void SpriteBatch::draw(const LineQuad& line) {
     const float dx = line.bx - line.ax;
     const float dy = line.by - line.ay;
     const float length = std::sqrt(dx * dx + dy * dy);
     if (length < 1e-6f) {
-        return;  // segment dégénéré : rien à dessiner.
+        return;  // segment degenere : rien a dessiner.
     }
 
-    // Tampon plein : on vide avant d'ajouter (le lot reste dans le même état).
-    if (_vertices.size() >= MAXIMUM_QUADS * 4) {
-        flush();
-    }
-
-    // Décalage perpendiculaire (normale unitaire × demi-épaisseur), de part et d'autre du segment.
+    // Decalage perpendiculaire (normale unitaire x demi-epaisseur), de part et d'autre du segment.
     const float nx = -dy / length * (line.thickness * 0.5f);
     const float ny = dx / length * (line.thickness * 0.5f);
 
-    // Quatre coins, même ordre que draw(SpriteQuad) (le tampon d'indices attend un quadrilatère
-    // convexe cohérent, peu importe son orientation) : a+n, b+n, b-n, a-n.
+    // Quatre coins, meme ordre que draw(SpriteQuad) (le tampon d'indices attend un quadrilatere
+    // convexe coherent, peu importe son orientation) : a+n, b+n, b-n, a-n.
     _vertices.push_back(
         Vertex{line.ax + nx, line.ay + ny, line.u0, line.v0, line.r, line.g, line.b, line.a});
     _vertices.push_back(
@@ -243,35 +313,73 @@ void SpriteBatch::draw(const LineQuad& line) {
         Vertex{line.ax - nx, line.ay - ny, line.u0, line.v1, line.r, line.g, line.b, line.a});
 }
 
-// Termine le lot : émet le dessin des quads accumulés.
+// Termine le lot : fige la plage de quads enregistree.
 void SpriteBatch::end() {
-    flush();
+    closeBatch();
 }
 
-// Émet le dessin des quads accumulés et vide le tampon.
-void SpriteBatch::flush() {
-    if (_vertices.empty()) {
-        return;
+// Televerse l'image enregistree et l'emet en une passe de rendu.
+void SpriteBatch::submit(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target,
+                         QRhiResourceUpdateBatch* updates, const float clear[4]) {
+    closeBatch();
+
+    const QColor clearColor = QColor::fromRgbF(clear[0], clear[1], clear[2], clear[3]);
+    const std::size_t quadCount = _vertices.size() / 4;
+
+    // Le lot de televersement du tampon d'indices n'a pas encore ete soumis (premiere image) :
+    // il doit l'etre avant tout dessin qui s'en sert.
+    if (_pendingIndexUpload != nullptr) {
+        if (updates != nullptr) {
+            updates->merge(_pendingIndexUpload);
+        } else {
+            updates = _pendingIndexUpload;
+        }
+        _pendingIndexUpload = nullptr;
     }
 
-    // Réécriture complète du tampon dynamique (WRITE_DISCARD). En cas d'échec (perte de
-    // device), on saute le dessin plutôt que de lever une exception dans la boucle de jeu.
-    D3D11_MAPPED_SUBRESOURCE mapped{};
-    if (FAILED(_context->Map(_vertexBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped))) {
-        return;
+    const bool drawable = quadCount > 0 && ensureVertexCapacity(quadCount) &&
+                          ensureUniformCapacity(_projections.size()) && ensurePipeline(target);
+    if (drawable) {
+        if (updates == nullptr) {
+            updates = _rhi->nextResourceUpdateBatch();
+        }
+        updates->updateDynamicBuffer(_vertexBuffer.get(), 0,
+                                     static_cast<quint32>(_vertices.size() * sizeof(Vertex)),
+                                     _vertices.data());
+        for (std::size_t index = 0; index < _projections.size(); ++index) {
+            const QMatrix4x4 clipMatrix = toClipMatrix(_rhi, _projections[index]);
+            updates->updateDynamicBuffer(
+                _uniformBuffer.get(),
+                static_cast<quint32>(index * static_cast<std::size_t>(_uniformStride)),
+                PROJECTION_BYTES, clipMatrix.constData());
+        }
     }
-    std::memcpy(mapped.pData, _vertices.data(), _vertices.size() * sizeof(Vertex));
-    _context->Unmap(_vertexBuffer.Get(), 0);
 
-    const UINT stride = sizeof(Vertex);
-    const UINT offset = 0;
-    _context->IASetVertexBuffers(0, 1, _vertexBuffer.GetAddressOf(), &stride, &offset);
-    _context->IASetIndexBuffer(_indexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0);
-
-    const auto indexCount = static_cast<UINT>((_vertices.size() / 4) * 6);
-    _context->DrawIndexed(indexCount, 0, 0);
-
-    _vertices.clear();
+    commandBuffer->beginPass(target, clearColor, {1.0f, 0}, updates);
+    if (drawable) {
+        const QSize pixelSize = target->pixelSize();
+        commandBuffer->setGraphicsPipeline(_pipeline.get());
+        commandBuffer->setViewport({0.0f, 0.0f, static_cast<float>(pixelSize.width()),
+                                    static_cast<float>(pixelSize.height())});
+        for (const Batch& batch : _batches) {
+            QRhiShaderResourceBindings* const bindings = bindingsFor(batch.texture);
+            if (bindings == nullptr) {
+                continue;
+            }
+            const QRhiCommandBuffer::DynamicOffset offset{
+                0, static_cast<quint32>(batch.uniformOffset)};
+            commandBuffer->setShaderResources(bindings, 1, &offset);
+            const quint32 vertexOffset = static_cast<quint32>(batch.firstQuad * 4 * sizeof(Vertex));
+            const QRhiCommandBuffer::VertexInput vertexInput(_vertexBuffer.get(), vertexOffset);
+            commandBuffer->setVertexInput(0, 1, &vertexInput, _indexBuffer.get(), 0,
+                                          QRhiCommandBuffer::IndexUInt16);
+            // Un appel de dessin ne peut couvrir plus de quads que n'en indexe le tampon
+            // d'indices (16 bits) : un lot plus gros est tronque plutot que de lire hors bornes.
+            const std::size_t drawnQuads = (std::min)(batch.quadCount, MAXIMUM_QUADS);
+            commandBuffer->drawIndexed(static_cast<quint32>(drawnQuads * 6));
+        }
+    }
+    commandBuffer->endPass();
 }
 
 }  // namespace hmi

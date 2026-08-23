@@ -1,8 +1,12 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <QPixmap>
 #include <QWidget>
 #include <filesystem>
+#include <memory>
 #include <string>
 #include <unordered_map>
 
@@ -15,9 +19,14 @@
  * @brief Panneau « Palette » : arbre de sélection du type de tuile à peindre (LOT-35).
  */
 
+class QEvent;
 class QModelIndex;
 class QStandardItemModel;
 class QTreeView;
+
+namespace Ui {
+class PalettePanel;
+}
 
 namespace hmi {
 
@@ -37,6 +46,9 @@ class PalettePanel : public QWidget {
 
 public:
     explicit PalettePanel(QWidget* parent = nullptr);
+
+    /// Hors-ligne : `std::unique_ptr<Ui::PalettePanel>` porte un type incomplet.
+    ~PalettePanel() override;
 
     /// @return Le type de tuile actuellement sélectionné (`Solid` par défaut).
     [[nodiscard]] core::TileType selectedTile() const noexcept {
@@ -63,9 +75,22 @@ public:
      */
     void refreshThumbnails(RenderMode mode, const std::string& setName);
 
+    /**
+     * @brief Vide le cache d'images décodées (rechargement à chaud, `LOT-43` TACHE-03).
+     *
+     * Sans effet visible tant que `refreshThumbnails` n'est pas rappelé ensuite : un fichier
+     * modifié hors de l'application reste caché tant que le décodage n'est pas rejoué.
+     */
+    void clearThumbnailCache();
+
 signals:
     /// Émis quand l'utilisateur sélectionne une tuile (feuille) dans l'arbre.
     void tileSelected(core::TileType type);
+
+protected:
+    /// Régénère les vignettes lors d'un changement d'écran (`QEvent::ScreenChangeInternal`) :
+    /// l'échelle d'affichage a pu changer (`LOT-56` TACHE-05).
+    bool event(QEvent* event) override;
 
 private:
     void buildModel();
@@ -73,6 +98,9 @@ private:
     /// Vignette d'un type dans le mode courant, décodée au premier besoin puis mise en cache.
     [[nodiscard]] QPixmap thumbnailFor(core::TileType type);
 
+    /// Mise en page issue de `PalettePanel.ui` (`LOT-68`) : le C++ ne branche plus que le
+    /// fonctionnel, conformément à la convention du projet.
+    std::unique_ptr<Ui::PalettePanel> _ui;
     QTreeView* _tree;
     QStandardItemModel* _model;
     core::TileType _selected = core::TileType::Solid;

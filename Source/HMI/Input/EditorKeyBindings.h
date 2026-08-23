@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <array>
@@ -17,10 +20,11 @@ namespace hmi {
 /**
  * @brief Action d'éditeur logique, remappable indépendamment de la touche physique.
  *
- * Sous-ensemble **significatif** des raccourcis de l'éditeur (`hmi::GameViewport`, mode édition), pas exhaustif (décision de
- * cadrage `LOT-29`) : navigation de menu, redimensionnement par flèches, `Ctrl+R`, `"0"`, `Tab`,
- * Maj+clic restent câblés en dur. Le modificateur `Ctrl` de Save/Undo/Redo/Copy/Paste reste
- * lui-même câblé en dur ; seule la touche-lettre associée est ici remappable.
+ * Sous-ensemble **significatif** des raccourcis de l'éditeur (`hmi::GameViewport`, mode édition),
+ * pas exhaustif (décision de cadrage `LOT-29`) : navigation de menu, redimensionnement par flèches,
+ * `Ctrl+R`, `"0"`, `Tab`, Maj+clic restent câblés en dur. Le modificateur `Ctrl` de
+ * Save/Undo/Redo/Copy/Paste reste lui-même câblé en dur ; seule la touche-lettre associée est ici
+ * remappable.
  */
 enum class EditorAction {
     Save,
@@ -32,10 +36,12 @@ enum class EditorAction {
     ToggleGrid,
     ToggleHelp,
     Rename,
+    /// Sélectionne l'outil « Texture par instance » (`LOT-45`, `EX-EDIT-043`).
+    TextureAssignTool,
 };
 
 /// Nombre d'actions d'éditeur remappables (`EditorAction`).
-constexpr int EDITOR_ACTION_COUNT = 9;
+constexpr int EDITOR_ACTION_COUNT = 10;
 
 /**
  * @brief Association action d'éditeur -> touche, avec persistance JSON (`EX-CTRL-012`, `LOT-29`).
@@ -46,7 +52,8 @@ constexpr int EDITOR_ACTION_COUNT = 9;
  */
 class EditorKeyBindings {
 public:
-    /// Construit avec les valeurs par défaut (S/Z/Y/C/V/P/F10/F1/F2, cf. l'éditeur `hmi::GameViewport`).
+    /// Construit avec les valeurs par défaut (S/Z/Y/C/V/P/F10/F1/F2/T, cf. l'éditeur
+    /// `hmi::GameViewport`).
     EditorKeyBindings();
 
     /// @return La touche actuellement liée à @p action.
@@ -81,7 +88,7 @@ public:
     [[nodiscard]] static EditorKeyBindings load(const std::filesystem::path& path);
 
 private:
-    std::array<Key, EDITOR_ACTION_COUNT> _keys;
+    std::array<Key, EDITOR_ACTION_COUNT> _keys{};
 };
 
 }  // namespace hmi

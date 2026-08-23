@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_gamepad_bindings.cpp
  * @brief Tests unitaires du remappage manette (`GamepadBindings`, `EX-CTRL-002`, `EX-CTRL-012`).
@@ -11,14 +14,14 @@
 #include "HMI/Input/GamepadBindings.h"
 
 /**
- * @brief Les six actions ont leurs boutons par défaut (D-pad/stick, A, épaule droite) à la
+ * @brief Les sept actions ont leurs boutons par défaut (D-pad/stick, A, épaule droite, X) à la
  *        construction.
- * \castest{<b>Les six actions ont leurs boutons par défaut à la construction.</b><br/>
+ * \castest{<b>Les sept actions ont leurs boutons par défaut à la construction.</b><br/>
  * \tcat Unitaire · Gamepad Bindings<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
- * \tattendu Les six actions ont leurs boutons par défaut à la construction.
+ * \tattendu Les sept actions ont leurs boutons par défaut à la construction.
  * }
  */
 TEST(GamepadBindingsTest, ValeursParDefautALaConstruction) {
@@ -29,6 +32,7 @@ TEST(GamepadBindingsTest, ValeursParDefautALaConstruction) {
     EXPECT_EQ(bindings.button(hmi::GameAction::AimDown), hmi::GamepadButton::Down);
     EXPECT_EQ(bindings.button(hmi::GameAction::Jump), hmi::GamepadButton::A);
     EXPECT_EQ(bindings.button(hmi::GameAction::Dash), hmi::GamepadButton::RightShoulder);
+    EXPECT_EQ(bindings.button(hmi::GameAction::Interact), hmi::GamepadButton::X);
 }
 
 /**
@@ -128,8 +132,8 @@ TEST(GamepadBindingsTest, SaveEtLoadAllerRetour) {
  * }
  */
 TEST(GamepadBindingsTest, LoadFichierAbsentRenvoieLesDefauts) {
-    const std::filesystem::path path = std::filesystem::temp_directory_path() /
-                                       "projectgaming_test_gamepad_bindings_absent.json";
+    const std::filesystem::path path =
+        std::filesystem::temp_directory_path() / "projectgaming_test_gamepad_bindings_absent.json";
     std::filesystem::remove(path);
 
     const hmi::GamepadBindings bindings = hmi::GamepadBindings::load(path);
@@ -148,8 +152,8 @@ TEST(GamepadBindingsTest, LoadFichierAbsentRenvoieLesDefauts) {
  * }
  */
 TEST(GamepadBindingsTest, LoadNomBoutonInconnuIgnore) {
-    const std::filesystem::path path = std::filesystem::temp_directory_path() /
-                                       "projectgaming_test_gamepad_bindings_inconnu.json";
+    const std::filesystem::path path =
+        std::filesystem::temp_directory_path() / "projectgaming_test_gamepad_bindings_inconnu.json";
     {
         std::ofstream file(path, std::ios::binary);
         file << R"({"manette": {"sauter": "bouton_qui_n_existe_pas"}})";
@@ -158,6 +162,36 @@ TEST(GamepadBindingsTest, LoadNomBoutonInconnuIgnore) {
     const hmi::GamepadBindings bindings = hmi::GamepadBindings::load(path);
     std::filesystem::remove(path);
 
+    EXPECT_EQ(bindings.button(hmi::GameAction::Jump), hmi::GamepadButton::A);
+}
+
+/**
+ * @brief Un fichier écrit avant ce lot (section « manette » sans « interagir ») se relit sans
+ *        erreur, l'action prenant son bouton par défaut.
+ * \castest{<b>Un fichier écrit avant ce lot (sans « interagir ») se relit sans erreur, l'action
+ * prenant son bouton par défaut.</b><br/>
+ * \tcat Unitaire · Gamepad Bindings<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un fichier « manette » antérieur à `LOT-63` (sans « interagir ») se relit sans erreur,
+ * Interagir prenant son bouton par défaut (X).
+ * }
+ */
+TEST(GamepadBindingsTest, LoadFichierAnterieurSansInteragirPrendLaValeurParDefaut) {
+    const std::filesystem::path path = std::filesystem::temp_directory_path() /
+                                       "projectgaming_test_gamepad_bindings_anterieur.json";
+    {
+        std::ofstream file(path, std::ios::binary);
+        // Section "manette" telle qu'ecrite avant LOT-63 : aucune entree "interagir".
+        file << R"({"manette": {"gauche": "gauche", "droite": "droite", "haut": "haut",
+                                 "bas": "bas", "sauter": "a", "dash": "rb"}})";
+    }
+
+    const hmi::GamepadBindings bindings = hmi::GamepadBindings::load(path);
+    std::filesystem::remove(path);
+
+    EXPECT_EQ(bindings.button(hmi::GameAction::Interact), hmi::GamepadButton::X);
     EXPECT_EQ(bindings.button(hmi::GameAction::Jump), hmi::GamepadButton::A);
 }
 
@@ -174,8 +208,8 @@ TEST(GamepadBindingsTest, LoadNomBoutonInconnuIgnore) {
  * }
  */
 TEST(GamepadBindingsTest, SavePreserveLesAutresSections) {
-    const std::filesystem::path path = std::filesystem::temp_directory_path() /
-                                       "projectgaming_test_gamepad_bindings_partage.json";
+    const std::filesystem::path path =
+        std::filesystem::temp_directory_path() / "projectgaming_test_gamepad_bindings_partage.json";
     {
         std::ofstream file(path, std::ios::binary);
         file << R"({"jeu": {"sauter": 32}, "editeur": {"sauvegarder": 83}})";

@@ -1,6 +1,6 @@
 # TACHE-02 — Affichage isolé sans repli {#lot-51-tache-02-affichage-isole}
 
-**Lot :** [LOT-51](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-51](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 Masquer les autres calques ne suffit pas à auditer un calque. La priorité de résolution figée en
@@ -29,8 +29,11 @@ réellement configuré sur ce calque** — quitte à ne rien voir du tout.
   quadrillage discret sur le calque isolé, par exemple, plutôt qu'un écran noir ambigu.
 
 ## Fichiers impactés
-- `Source/HMI/Graphics/TileVisuals.{h,cpp}` (règle d'affichage isolé).
-- `Source/HMI/Graphics/DraftRenderer.{h,cpp}`.
+- `Source/HMI/Graphics/TileAppearance.{h,cpp}` (extension de `resolveTileAppearance`, le résolveur
+  unique — pas `TileVisuals.{h,cpp}`, qui ne porte que la correspondance type de tuile → région
+  d'atlas et ne connaît pas la priorité surcharge/skin/damier).
+- `Source/HMI/Graphics/ComposedScene.cpp` (seul appelant de production, ajusté au retour désormais
+  optionnel).
 - `Source/Test/Unit/HMI/Graphics/test_texture_resolution.cpp` (étendu).
 
 ## Tests (obligatoires)

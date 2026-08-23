@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Input/PlayerInputMapper.h"
 
 #include "Core/Physics/PlayerInput.h"
@@ -16,7 +19,7 @@ core::PlayerInput toPlayerInput(const InputState& input, const GameKeyBindings& 
 
     core::PlayerInput result;
     // Gauche et droite se neutralisent (-1 + 1 = 0) : comportement deterministe.
-    result.moveX = (right ? 1.0f : 0.0f) - (left ? 1.0f : 0.0f);
+    result.moveX = (right ? 1.0F : 0.0F) - (left ? 1.0F : 0.0F);
     // Saut : jumpPressed = front (declenche/bufferise), jumpHeld = maintenu (hauteur variable).
     const Key jumpKey = gameKeyBindings.key(GameAction::Jump);
     const GamepadButton jumpButton = gamepadBindings.button(GameAction::Jump);
@@ -24,13 +27,22 @@ core::PlayerInput toPlayerInput(const InputState& input, const GameKeyBindings& 
     result.jumpHeld = input.keyDown(jumpKey) || input.gamepadButtonDown(jumpButton);
     // Visee verticale du dash (y vers le bas) : Bas = +1, Haut = -1, sinon 0.
     const bool aimDown = input.keyDown(gameKeyBindings.key(GameAction::AimDown)) ||
-                        input.gamepadButtonDown(gamepadBindings.button(GameAction::AimDown));
+                         input.gamepadButtonDown(gamepadBindings.button(GameAction::AimDown));
     const bool aimUp = input.keyDown(gameKeyBindings.key(GameAction::AimUp)) ||
-                      input.gamepadButtonDown(gamepadBindings.button(GameAction::AimUp));
-    result.moveY = (aimDown ? 1.0f : 0.0f) - (aimUp ? 1.0f : 0.0f);
+                       input.gamepadButtonDown(gamepadBindings.button(GameAction::AimUp));
+    result.moveY = (aimDown ? 1.0F : 0.0F) - (aimUp ? 1.0F : 0.0F);
     // Dash : au front (`EX-CTRL-013`).
     result.dashPressed = input.keyPressed(gameKeyBindings.key(GameAction::Dash)) ||
-                        input.gamepadButtonPressed(gamepadBindings.button(GameAction::Dash));
+                         input.gamepadButtonPressed(gamepadBindings.button(GameAction::Dash));
+    // Interagir : pressee/maintenue/relachee (EX-CTRL-011), complete l'activation par contact
+    // sans la remplacer (EX-CTRL-022).
+    const Key interactKey = gameKeyBindings.key(GameAction::Interact);
+    const GamepadButton interactButton = gamepadBindings.button(GameAction::Interact);
+    result.interactPressed =
+        input.keyPressed(interactKey) || input.gamepadButtonPressed(interactButton);
+    result.interactHeld = input.keyDown(interactKey) || input.gamepadButtonDown(interactButton);
+    result.interactReleased =
+        input.keyReleased(interactKey) || input.gamepadButtonReleased(interactButton);
     return result;
 }
 

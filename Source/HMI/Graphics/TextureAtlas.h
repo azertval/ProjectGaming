@@ -1,10 +1,15 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
-#include <d3d11.h>
-#include <wrl/client.h>
+#include <memory>
 
-#include "Core/Ecs/Components/Animation.h"
 #include "Core/Ecs/Components/Sprite.h"
+#include "HMI/Graphics/ProceduralAtlas.h"
+#include "HMI/Graphics/RenderLayer.h"
+
+class QRhiTexture;
 
 /**
  * @file HMI/Graphics/TextureAtlas.h
@@ -12,6 +17,8 @@
  */
 
 namespace hmi {
+
+struct RhiContext;
 
 /**
  * @brief Texture d'atlas et table de régions, chargée depuis un **fichier image** avec repli
@@ -37,10 +44,11 @@ public:
 
     /// Côté d'une tuile, en pixels (`EX-ARCH-021`).
     static constexpr int TILE_SIZE = 16;
-    /// Nombre de tuiles par ligne et par colonne dans la grille de tuiles générée. `5` depuis
-    /// l'ajout des pentes/arrondis de plafond (`EX-GP-006`) : `4` (16 cases) ne laissait qu'une
-    /// case libre, insuffisant pour leurs quatre nouvelles silhouettes.
-    static constexpr int TILES_PER_SIDE = 5;
+    /// Nombre de tuiles par ligne et par colonne dans la grille de tuiles générée. `6` depuis
+    /// l'ajout de la clé/porte verrouillée/plateforme mobile (`EX-GP-023`/`EX-GP-026`, `LOT-63`) :
+    /// `5` (25 cases, depuis l'ajout des pentes/arrondis de plafond, `EX-GP-006`) ne laissait plus
+    /// qu'une case libre après la clé et la porte verrouillée, insuffisant pour la plateforme.
+    static constexpr int TILES_PER_SIDE = 6;
     /// Côté d'une image d'animation du personnage, en pixels. **Carrée** (= `TILE_SIZE`) : le
     /// ratio 1:2 final vient de `Transform::scale` (`core::playerSize`), pas de la région.
     static constexpr int PLAYER_FRAME_SIZE = TILE_SIZE;
@@ -49,15 +57,14 @@ public:
     static constexpr int PLAYER_FRAME_COLUMNS = TILES_PER_SIDE;
 
     /**
-     * @brief Charge l'atlas (fichier, avec repli procédural) et crée la ressource Direct3D
-     *        associée.
-     * @param device Device Direct3D 11 (crée la texture et sa vue de ressource).
+     * @brief Charge l'atlas (fichier, avec repli procédural) et crée la texture GPU associée.
+     * @param context Interface de rendu et lot de mises à jour de l'image courante.
      */
-    explicit TextureAtlas(ID3D11Device* device);
+    explicit TextureAtlas(const RhiContext& context);
 
-    /// @return La vue de ressource de la texture d'atlas (non possédée par l'appelant).
-    [[nodiscard]] ID3D11ShaderResourceView* textureView() const {
-        return _view.Get();
+    /// @return L'identité opaque de la texture d'atlas (non possédée par l'appelant).
+    [[nodiscard]] TextureHandle textureHandle() const {
+        return _texture.get();
     }
 
     /// @return Largeur de l'atlas, en pixels.
@@ -86,23 +93,21 @@ public:
      *
      * Pure arithmétique de grille (aucun état d'instance) : `static`, testable sans GPU
      * (`EX-NFR-010`).
-     * @param clip       Clip d'animation (`EX-REN-012`).
+     * @param clip       Clip d'animation du personnage (`hmi::PlayerClipKind`, `EX-REN-012`).
      * @param frameIndex Index de l'image dans le clip (0-based).
      * @return La région d'atlas (16×16, carrée) de cette image (`EX-REN-011`).
      */
-    [[nodiscard]] static core::AtlasRegion playerFrameRegion(core::AnimationClip clip,
-                                                             int frameIndex);
+    [[nodiscard]] static core::AtlasRegion playerFrameRegion(PlayerClipKind clip, int frameIndex);
 
 private:
     /// Essaie de charger `Assets/atlas.png`. @return true si la texture a été créée avec succès.
-    bool loadFromFile(ID3D11Device* device);
+    bool loadFromFile(const RhiContext& context);
     /// Génère l'atlas procédural (`hmi::buildProceduralAtlasImage`) et crée la texture associée.
-    void generateProcedural(ID3D11Device* device);
+    void generateProcedural(const RhiContext& context);
 
     int _width = 0;
     int _height = 0;
-    Microsoft::WRL::ComPtr<ID3D11Texture2D> _texture;
-    Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> _view;
+    std::shared_ptr<QRhiTexture> _texture;
 };
 
 }  // namespace hmi

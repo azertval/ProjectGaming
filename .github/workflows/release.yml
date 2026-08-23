@@ -20,6 +20,22 @@ on:
 permissions:
   contents: write
 
+env:
+  # Version de Qt épinglée (EX-BUILD-010), identique à `QT_VERSION_MINIMUM` dans
+  # `Source/HMI/CMakeLists.txt` et à `env.QT_VERSION` de `ci.yml` — vérifié automatiquement par
+  # `scripts/check_qt_version_pin.py` (job lint-exigences de ci.yml) pour que les trois écritures
+  # ne divergent jamais silencieusement (LOT-66 TACHE-01).
+  QT_VERSION: '6.11.2'
+  # aqtinstall publie sur PyPI (3.3.0) ne sait PAS installer Qt >= 6.11 : Qt a change la
+  # disposition de son depot (`qt6_6112/qt6_6112_msvc2022_64/`, un sous-dossier par architecture,
+  # au lieu de `qt6_6103/qt6_6103/`), et 3.3.0 code en dur l'ancienne. Le correctif amont est
+  # merge (miurahr/aqtinstall PR #1000, issues #959/#1007) mais pas encore publie. `aqtsource`
+  # (entree de install-qt-action, prioritaire sur `aqtversion`) permet de pointer le depot git ;
+  # le SHA est EPINGLE et non `@master`, sinon le provisionnement deriverait silencieusement, ce
+  # que `EX-BUILD-010` / `EX-NFR-031` interdisent. A REMPLACER par `aqtversion: '==3.3.1'` des
+  # qu'aqtinstall 3.3.1 parait sur PyPI -- cette URL git n'a pas vocation a rester.
+  AQT_SOURCE: 'git+https://github.com/miurahr/aqtinstall.git@16db45a70b5905ad596941b223469bc86a56901e'
+
 jobs:
   rolling-debug:
     if: github.ref_type == 'branch'
@@ -34,11 +50,19 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
-          version: '6.8.1'
+          version: ${{ env.QT_VERSION }}
           host: windows
           target: desktop
           arch: win64_msvc2022_64
+          # qtmultimedia : module audio (LOT-60) -- Qt6::Multimedia (QSoundEffect) est un composant
+          # additionnel de l'installation Qt, pas une dependance tierce separee.
+          # qtshadertools : fournit `qsb`, le compilateur de shaders exige par le rendu QRhi
+          # (LOT-69 TACHE-02). qtcanvaspainter : peinture 2D acceleree (LOT-69), nouveau en 6.11.
+          # Un nom de module inconnu fait echouer aqt : ces trois lignes valent donc verification
+          # que le provisionnement de 6.11.2 fournit bien ce dont les taches suivantes dependent.
+          modules: qtmultimedia qtshadertools qtcanvaspainter
           cache: true
+          aqtsource: ${{ env.AQT_SOURCE }}
 
       - name: Configure (Debug autonome, sans tests)
         run: >
@@ -82,11 +106,19 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
-          version: '6.8.1'
+          version: ${{ env.QT_VERSION }}
           host: windows
           target: desktop
           arch: win64_msvc2022_64
+          # qtmultimedia : module audio (LOT-60) -- Qt6::Multimedia (QSoundEffect) est un composant
+          # additionnel de l'installation Qt, pas une dependance tierce separee.
+          # qtshadertools : fournit `qsb`, le compilateur de shaders exige par le rendu QRhi
+          # (LOT-69 TACHE-02). qtcanvaspainter : peinture 2D acceleree (LOT-69), nouveau en 6.11.
+          # Un nom de module inconnu fait echouer aqt : ces trois lignes valent donc verification
+          # que le provisionnement de 6.11.2 fournit bien ce dont les taches suivantes dependent.
+          modules: qtmultimedia qtshadertools qtcanvaspainter
           cache: true
+          aqtsource: ${{ env.AQT_SOURCE }}
 
       - name: Configure (Debug autonome, sans tests)
         run: >
@@ -120,6 +152,14 @@ jobs:
           Copy-Item build-prod/bin/Release/* package-release/ -Recurse -Force
           Compress-Archive -Path package-release/* -DestinationPath "ProjectGaming-${{ github.ref_name }}-release.zip" -Force
 
+      # Les notes viennent du CHANGELOG plutôt que de `--generate-notes`, qui ne produit qu'une
+      # liste brute de messages de commit — illisible pour le non-développeur à qui la release
+      # versionnée est destinée. Le script échoue si la section de la version manque : mieux vaut
+      # interrompre le workflow qu'ouvrir une release aux notes vides, qui ne se corrige pas
+      # proprement. Cette étape est donc volontairement AVANT la publication.
+      - name: Notes de release depuis le CHANGELOG
+        run: python scripts/extract_release_notes.py "${{ github.ref_name }}" -o release-notes.md
+
       - name: Publish versioned release
         shell: pwsh
         env:
@@ -129,4 +169,4 @@ jobs:
             "ProjectGaming-${{ github.ref_name }}-debug.zip" `
             "ProjectGaming-${{ github.ref_name }}-release.zip" `
             --title "${{ github.ref_name }}" `
-            --generate-notes
+            --notes-file release-notes.md

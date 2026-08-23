@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <string>
@@ -30,8 +33,9 @@ enum class AssetFamily {
     Object,
     /// Spritesheet du personnage : grille d'images carrées de la taille d'une case (`LOT-48`).
     CharacterSheet,
-    /// Élément de décor libre : dimensions libres, posé sans contrainte de grille (`LOT-49`).
-    Decor,
+    /// Atlas de glyphes d'une police bitmap : dimensions libres, découpées par ses métriques
+    /// (`LOT-52`), pas par une grille de cases.
+    Font,
 };
 
 /**

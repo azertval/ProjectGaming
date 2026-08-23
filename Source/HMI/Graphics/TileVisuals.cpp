@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Graphics/TileVisuals.h"
 
 #include "HMI/Graphics/TextureAtlas.h"
@@ -30,9 +33,16 @@ core::AtlasRegion regionForTile(core::TileType type) {
         case core::TileType::Switch:
             return TextureAtlas::tile(3, 0);  // jaune
         case core::TileType::PressurePlate:
-            return TextureAtlas::tile(1, 1);  // cyan (libere par LOT-17 : ancien placeholder du personnage)
+            return TextureAtlas::tile(
+                1, 1);  // cyan (libere par LOT-17 : ancien placeholder du personnage)
         case core::TileType::Door:
             return TextureAtlas::tile(2, 1);  // orange
+        case core::TileType::Key:
+            return TextureAtlas::tile(4, 0);  // or (EX-GP-023, LOT-63)
+        case core::TileType::LockedDoor:
+            return TextureAtlas::tile(3, 4);  // brun fonce (EX-GP-023, LOT-63)
+        case core::TileType::MovingPlatform:
+            return TextureAtlas::tile(5, 0);  // azur (EX-GP-026, LOT-63 : grille agrandie a 6x6)
         case core::TileType::Block:
             return TextureAtlas::tile(3, 1);  // violet
         case core::TileType::SlopeUpRight:
@@ -54,9 +64,11 @@ core::AtlasRegion regionForTile(core::TileType type) {
             return TextureAtlas::tile(position.column, position.row);
         }
         case core::TileType::BlockHalf:
-            return TextureAtlas::tile(1, 3);  // gris foncé (variante teintée du bloc plein, EX-GP-005)
+            return TextureAtlas::tile(1,
+                                      3);  // gris foncé (variante teintée du bloc plein, EX-GP-005)
         case core::TileType::BlockQuarter:
-            return TextureAtlas::tile(0, 3);  // gris clair (plus le bloc est petit, plus la teinte s'éclaircit)
+            return TextureAtlas::tile(
+                0, 3);  // gris clair (plus le bloc est petit, plus la teinte s'éclaircit)
         case core::TileType::Empty:
             break;
     }
@@ -68,37 +80,48 @@ core::AtlasRegion regionForTile(core::TileType type) {
 std::optional<AtlasGridPosition> slopeTileGridPosition(core::TileType type) {
     switch (type) {
         case core::TileType::SlopeUpRight:
-            return AtlasGridPosition{1, 2};
+            return AtlasGridPosition{.column = 1, .row = 2};
         case core::TileType::SlopeUpLeft:
-            return AtlasGridPosition{2, 2};
+            return AtlasGridPosition{.column = 2, .row = 2};
         case core::TileType::RoundedUpRight:
-            return AtlasGridPosition{3, 2};
+            return AtlasGridPosition{.column = 3, .row = 2};
         case core::TileType::RoundedUpLeft:
-            return AtlasGridPosition{0, 1};
+            return AtlasGridPosition{.column = 0, .row = 1};
         case core::TileType::SlopeDownRight:
-            return AtlasGridPosition{2, 3};
+            return AtlasGridPosition{.column = 2, .row = 3};
         case core::TileType::SlopeDownLeft:
-            return AtlasGridPosition{3, 3};
+            return AtlasGridPosition{.column = 3, .row = 3};
         case core::TileType::RoundedDownRight:
-            return AtlasGridPosition{0, 4};
+            return AtlasGridPosition{.column = 0, .row = 4};
         case core::TileType::RoundedDownLeft:
-            return AtlasGridPosition{1, 4};
+            return AtlasGridPosition{.column = 1, .row = 4};
         case core::TileType::ConcaveUpRight:
-            return AtlasGridPosition{4, 1};
+            return AtlasGridPosition{.column = 4, .row = 1};
         case core::TileType::ConcaveUpLeft:
-            return AtlasGridPosition{4, 2};
+            return AtlasGridPosition{.column = 4, .row = 2};
         case core::TileType::ConcaveDownRight:
-            return AtlasGridPosition{4, 3};
+            return AtlasGridPosition{.column = 4, .row = 3};
         case core::TileType::ConcaveDownLeft:
             // (4, 4) est réservée au damier de transparence (TextureAtlas::transparentTileIndex,
             // vérifiée AVANT le masque de forme) — l'utiliser ici afficherait le damier au lieu de
             // la silhouette concave. (2, 4) est la seule des « sept cases libres » de l'épic qui
             // était en réalité disponible (l'épic comptait par erreur la case réservée parmi les
             // sept, qui n'en laissait donc que six réellement libres).
-            return AtlasGridPosition{2, 4};
+            return AtlasGridPosition{.column = 2, .row = 4};
         default:
             return std::nullopt;
     }
+}
+
+// Cherche la surcharge de texture assignee a une case precise (EX-EDIT-043, LOT-45).
+std::optional<std::string> textureOverrideAt(
+    const std::vector<core::TileTextureOverride>& overrides, core::GridPosition position) {
+    for (const core::TileTextureOverride& override : overrides) {
+        if (override.position == position) {
+            return override.assetName;
+        }
+    }
+    return std::nullopt;
 }
 
 }  // namespace hmi

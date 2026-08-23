@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Graphics/AssetContract.h"
 
 #include "HMI/Graphics/TextureAtlas.h"
@@ -19,8 +22,8 @@ const char* assetFamilyName(AssetFamily family) noexcept {
             return "Objet interactif";
         case AssetFamily::CharacterSheet:
             return "Spritesheet de personnage";
-        case AssetFamily::Decor:
-            return "Decor";
+        case AssetFamily::Font:
+            return "Police bitmap";
     }
     return "Inconnu";
 }
@@ -38,9 +41,14 @@ AssetDimensionContract assetDimensionContract(AssetFamily family) noexcept {
             contract.minimumTiles = TextureAtlas::TILES_PER_SIDE;
             return contract;
         case AssetFamily::TileSkin:
-            // Exactement une case : un skin de tuile plus grand serait tronque silencieusement.
-            contract.exactWidth = TextureAtlas::TILE_SIZE;
+            // Une case de haut, un multiple de case en largeur : le cas historique (une seule
+            // case, LOT-42) est le cas particulier a une image ; un skin ANIME (LOT-46) est une
+            // spritesheet horizontale sur ce meme rang, plusieurs images de large. La coherence
+            // fine avec un eventuel fichier d'animation (nombre exact d'images, indices
+            // references) releve de hmi::AnimationCatalog::validateAgainstTexture, en aval.
             contract.exactHeight = TextureAtlas::TILE_SIZE;
+            contract.multipleOfTileSize = true;
+            contract.minimumTiles = 1;
             return contract;
         case AssetFamily::AutotileSheet:
             // Planche a raccords bitmask (LOT-42) : au moins 4x4 cases pour couvrir les 16
@@ -56,9 +64,10 @@ AssetDimensionContract assetDimensionContract(AssetFamily family) noexcept {
             contract.minimumTiles = 1;
             return contract;
         case AssetFamily::Background:
-        case AssetFamily::Decor:
-            // Dimensions libres : le fond est etire sur les bornes du niveau (LOT-44) et un decor
-            // est pose sans contrainte de grille (LOT-49). Seule la positivite est exigee.
+        case AssetFamily::Font:
+            // Dimensions libres : le fond est etire sur les bornes du niveau (LOT-44) et un atlas
+            // de police est decoupe par ses metriques plutot que par une grille de cases
+            // (LOT-52). Seule la positivite est exigee.
             return contract;
     }
     return contract;
@@ -105,9 +114,10 @@ AssetValidation validateAsset(AssetFamily family, const std::string& fileName, i
     }
 
     if (conforming) {
-        return AssetValidation{true, std::string{}};
+        return AssetValidation{.valid = true, .message = std::string{}};
     }
-    return AssetValidation{false, "Asset " + fileName + " (" + assetFamilyName(family) +
+    return AssetValidation{.valid = false,
+                           .message = "Asset " + fileName + " (" + assetFamilyName(family) +
                                       ") refuse : dimensions " + std::to_string(width) + "x" +
                                       std::to_string(height) + " px, attendu " +
                                       describeContract(contract) + "."};

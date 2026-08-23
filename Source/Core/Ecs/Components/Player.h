@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 /**
@@ -36,9 +39,10 @@ struct Player {
     /// Temps restant (secondes) de **verrouillage** du contrôle horizontal après un wall jump
     /// (la vitesse d'éjection persiste tant qu'il n'est pas écoulé).
     float wallJumpLockTimer = 0.0f;
-    /// Le **dash** est-il disponible ? Consommé à l'usage, rechargé au contact du sol
-    /// (`EX-GP-017`).
-    bool dashAvailable = false;
+    /// Charges de **dash** restantes avant de retoucher le sol (`EX-GP-017`, `EX-GP-055`) ;
+    /// consommées une par dash, toutes rechargées au contact du sol. Un compteur, et non plus un
+    /// booléen : un tableau peut accorder plusieurs dashs par saut (`PhysicsConfig::dashCharges`).
+    int dashChargesRemaining = 0;
     /// Durée restante (secondes) du dash en cours ; > 0 pendant la ruée (gravité suspendue).
     float dashTimer = 0.0f;
     /// Sauts **restants** dans le tableau (budget, `EX-GP-024`) ; **-1 = illimité**. Décompté par
@@ -60,6 +64,18 @@ struct Player {
     /// atteint (`core::resolveCeilingSlopeFollow`, `EX-GP-007`).
     float ascentSweepMinX = 0.0f;
     float ascentSweepMaxX = 0.0f;
+    /// Vrai pendant le pas où un saut (sol, coyote, mur ou aérien) vient de se déclencher ; remis
+    /// à faux au début du pas suivant. Contrairement aux autres champs, ne porte aucun état de
+    /// simulation persistant — c'est un **front** à usage externe (`hmi::GameEvents`, `LOT-60`) :
+    /// aucune des minuteries existantes (`jumpBufferTimer`...) ne permet de distinguer un saut
+    /// déclenché d'un buffer simplement expiré sans saut.
+    bool justJumped = false;
+    /// Vrai pendant le pas où le personnage a été **écrasé** par une plateforme mobile contre un
+    /// plafond (`EX-GP-026`, cas d'écrasement — décision de cadrage : mortel, comme un danger).
+    /// Même nature que `justJumped` : un front à usage externe, remis à faux au début du pas
+    /// suivant, sans effet sur la simulation elle-même (l'appelant traduit ce champ en issue
+    /// `LevelOutcome::Lost`, `core::evaluateOutcome`).
+    bool squished = false;
 };
 
 }  // namespace core

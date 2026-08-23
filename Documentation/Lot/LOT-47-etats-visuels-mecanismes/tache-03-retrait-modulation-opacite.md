@@ -1,6 +1,6 @@
 # TACHE-03 — Retrait des modulations d'opacité {#lot-47-tache-03-retrait-modulation-opacite}
 
-**Lot :** [LOT-47](epic.md) · **Emplacement :** `Source/HMI/Game` · **Statut :** non commencé
+**Lot :** [LOT-47](epic.md) · **Emplacement :** `Source/HMI/Game` · **Statut :** fait
 
 ## Contexte
 `hmi::GameSession` code aujourd'hui l'état des mécanismes dans le **canal alpha** de la teinte :
@@ -28,14 +28,20 @@ Ce retrait est la contrepartie du lot : sans lui, deux systèmes coderaient le m
   rendu de diagnostic, pas le rendu du jeu. À documenter comme tel.
 
 ## Fichiers impactés
-- `Source/HMI/Game/GameSession.{h,cpp}`.
-- `Source/Test/Unit/HMI/Graphics/test_mechanism_visuals.cpp` (assertions d'absence de modulation).
+- `Source/HMI/Game/GameSession.{h,cpp}` : `refreshMechanismDiagnosticTint`, appelée au **rendu**
+  (dépend du mode courant, décision purement visuelle), remplace `refreshDoorVisuals`/
+  `refreshDangerStateVisuals`.
+- `Source/HMI/Graphics/MechanismVisuals.{h,cpp}` : `mechanismDiagnosticAlpha`, la décision
+  elle-même extraite en fonction **pure** (mode + état + paire d'alpha → alpha), pour rester
+  testable sans GPU — `GameSession` ne fait plus que l'appeler et écrire le résultat sur `tint`.
+- `Source/Test/Unit/HMI/Graphics/test_mechanism_visuals.cpp` (tests de `mechanismDiagnosticAlpha`).
 
 ## Tests (obligatoires)
-- En mode **Texture**, aucun quad de mécanisme n'a une teinte alpha différente de 1 — asserté via le
-  *QuadRecorder*.
-- En mode **Physique**, le comportement retenu ci-dessus est celui observé (porte ouverte
-  distinguable).
+- En mode **Texture**, `mechanismDiagnosticAlpha` renvoie toujours `1.0`, quel que soit l'état :
+  c'est la garantie qu'aucun quad de mécanisme n'a une teinte alpha différente de 1 dans ce mode
+  (`GameSession` ne fait qu'écrire cette valeur sur `core::Sprite::tint`, sans autre logique).
+- En mode **Physique**, `mechanismDiagnosticAlpha` renvoie la paire d'alpha fournie par
+  l'appelant — porte ouverte distinguable, danger actif distinguable.
 - Les tests de gameplay existants (mécanismes, dangers, blocs) passent **sans modification** : ce lot
   ne touche pas la simulation.
 

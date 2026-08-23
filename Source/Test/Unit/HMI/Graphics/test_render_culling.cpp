@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_render_culling.cpp
  * @brief Tests unitaires du culling par cadrage caméra (LOT-40, EX-NFR-005, EX-REN-015).
@@ -175,6 +178,89 @@ TEST(RenderCullingTest, PrimitiveEtireeConservee) {
     scene.setVisibleBounds(VISIBLE_BOUNDS);
 
     EXPECT_TRUE(scene.addSprite(hmi::RenderLayer::Background, texture, 0, background));
+}
+
+/**
+ * @brief Un quad texturé sans rotation a la même boîte englobante que le rectangle brut
+ * (`x`, `y`, `width`, `height`) : la rotation nulle ne coûte rien et ne change rien.
+ * \castest{<b>spriteQuadBounds sans rotation vaut le rectangle brut.</b><br/>
+ * \tcat Unitaire · Render Culling<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Calculer la boite englobante d'un quad de rotation nulle.<br/>
+ * \tattendu La boite correspond exactement a (x, y, width, height).
+ * }
+ */
+TEST(RenderCullingTest, SpriteQuadBoundsSansRotationEstLeRectangleBrut) {
+    hmi::SpriteQuad quad;
+    quad.x = 5.0f;
+    quad.y = 3.0f;
+    quad.width = 4.0f;
+    quad.height = 2.0f;
+
+    const core::Rect bounds = hmi::spriteQuadBounds(quad);
+
+    EXPECT_FLOAT_EQ(bounds.position.x, 5.0f);
+    EXPECT_FLOAT_EQ(bounds.position.y, 3.0f);
+    EXPECT_FLOAT_EQ(bounds.size.x, 4.0f);
+    EXPECT_FLOAT_EQ(bounds.size.y, 2.0f);
+}
+
+/**
+ * @brief Un quad texturé tourné d'un quart de tour (90°) a une boîte englobante correspondant à ses
+ * dimensions permutées (large devient haut), centrée au même endroit que le rectangle non tourné —
+ * le culling doit juger ce rectangle-là, jamais (x, y, width, height) brut (`LOT-50` TACHE-02).
+ * \castest{<b>spriteQuadBounds a 90 degres permute largeur et hauteur.</b><br/>
+ * \tcat Unitaire · Render Culling<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Calculer la boite englobante d'un quad large tourne de 90 degres.<br/>
+ * \tattendu La boite est haute (largeur/hauteur permutees), centree au meme endroit.
+ * }
+ */
+TEST(RenderCullingTest, SpriteQuadBoundsA90DegresPermuteLargeurEtHauteur) {
+    hmi::SpriteQuad quad;
+    quad.x = 0.0f;
+    quad.y = 0.0f;
+    quad.width = 4.0f;
+    quad.height = 2.0f;
+    quad.rotation = 1.57079632679f;  // pi/2
+
+    const core::Rect bounds = hmi::spriteQuadBounds(quad);
+
+    EXPECT_NEAR(bounds.size.x, 2.0f, 1e-3f);
+    EXPECT_NEAR(bounds.size.y, 4.0f, 1e-3f);
+    // Meme centre que le rectangle non tourne : (2, 1).
+    EXPECT_NEAR(bounds.position.x + bounds.size.x * 0.5f, 2.0f, 1e-3f);
+    EXPECT_NEAR(bounds.position.y + bounds.size.y * 0.5f, 1.0f, 1e-3f);
+}
+
+/**
+ * @brief Un décor tourné près du bord du cadrage, dont le rectangle non tourné serait hors champ
+ * mais dont la boîte englobante réelle (élargie par la rotation) chevauche le cadrage, reste
+ * soumis : un culling naïf sur (x, y, width, height) l'écarterait à tort.
+ * \castest{<b>Un quad tourne dont la boite reelle chevauche le cadrage reste soumis.</b><br/>
+ * \tcat Unitaire · Render Culling<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Fixer un cadrage de reference.<br/>2. Composer un quad tourne de 45 degres juste a
+ * l'exterieur du rectangle non tourne, mais dont la diagonale rentre dans le cadrage.<br/>
+ * \tattendu Le quad est conserve.
+ * }
+ */
+TEST(RenderCullingTest, QuadTourneChevauchantLeCadrageResteSoumis) {
+    hmi::ComposedScene scene;
+    scene.setVisibleBounds(VISIBLE_BOUNDS);  // (10, 10) a (30, 20) ; marge d'une unite -> bord
+                                             // droit du cadrage de culling a x = 31.
+
+    // Rectangle NON tourne (31.2, 14.0, 2x2) : bord gauche a x=31.2, entierement au-dela du bord
+    // droit du cadrage de culling (31.0) -- un culling naif l'ecarterait. Tourne de 45 degres, sa
+    // demi-diagonale (~1.414) ramene son bord gauche reel a x~30.79, dans le cadrage.
+    hmi::SpriteQuad quad;
+    quad.width = 2.0f;
+    quad.height = 2.0f;
+    quad.x = 31.2f;
+    quad.y = 14.0f;
+    quad.rotation = 0.78539816339f;  // pi/4
+
+    EXPECT_TRUE(scene.addSprite(hmi::RenderLayer::EditorOverlay, texture, 0, quad));
 }
 
 /**

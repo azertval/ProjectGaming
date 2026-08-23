@@ -1,11 +1,14 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <array>
 #include <cstddef>
 #include <filesystem>
 
-#include "HMI/Input/GamepadButton.h"
 #include "HMI/Input/GameKeyBindings.h"
+#include "HMI/Input/GamepadButton.h"
 
 /**
  * @file HMI/Input/GamepadBindings.h
@@ -42,7 +45,7 @@ public:
      */
     void setKey(GameAction action, GamepadButton newButton) noexcept;
 
-    /// Restaure les six actions à leurs boutons par défaut (`defaultButton`).
+    /// Restaure les sept actions à leurs boutons par défaut (`defaultButton`).
     void resetToDefaults() noexcept;
 
     /// @return Le bouton par défaut de @p action, indépendant de l'état courant.
@@ -63,7 +66,7 @@ public:
     [[nodiscard]] static GamepadBindings load(const std::filesystem::path& path);
 
 private:
-    std::array<GamepadButton, GAME_ACTION_COUNT> _buttons;
+    std::array<GamepadButton, GAME_ACTION_COUNT> _buttons{};
 };
 
 }  // namespace hmi

@@ -4,6 +4,8 @@
   "jeux": {
     "test": {
       "solid": { "asset": "stone.png", "mode": "bitmask16" },
+      "entry": { "asset": "entry.png", "mode": "single" },
+      "exit": { "asset": "exit.png", "mode": "single" },
       "block": { "asset": "crate.png", "mode": "single" },
       "blockHalf": { "asset": "crate.png", "mode": "single" },
       "blockQuarter": { "asset": "crate.png", "mode": "single" },
@@ -12,9 +14,15 @@
       "dangerDown": { "asset": "spikes.png", "mode": "single" },
       "dangerLeft": { "asset": "spikes.png", "mode": "single" },
       "dangerRight": { "asset": "spikes.png", "mode": "single" },
-      "dangerMover": { "asset": "spikes.png", "mode": "single" },
-      "dangerSwitched": { "asset": "spikes.png", "mode": "single" },
-      "dangerBlink": { "asset": "spikes.png", "mode": "single" },
+      "dangerMover": { "asset": "danger_mover.png", "mode": "single" },
+      "dangerSwitched": { "asset": "danger_switched.png", "mode": "single" },
+      "dangerBlink": { "asset": "danger_blink.png", "mode": "single" },
+      "key": { "asset": "key.png", "mode": "single" },
+      "lockedDoor": { "asset": "locked_door.png", "mode": "single" },
+      "movingPlatform": { "asset": "platform.png", "mode": "single" },
+      "switch": { "asset": "switch.png", "mode": "single" },
+      "door": { "asset": "door.png", "mode": "single" },
+      "pressurePlate": { "asset": "plate.png", "mode": "single" },
       "slopeUpRight": { "asset": "slope_stone.png", "mode": "single" },
       "slopeUpLeft": { "asset": "slope_stone.png", "mode": "single" },
       "slopeDownRight": { "asset": "slope_stone.png", "mode": "single" },
@@ -27,6 +35,14 @@
       "concaveUpLeft": { "asset": "slope_stone.png", "mode": "single" },
       "concaveDownRight": { "asset": "slope_stone.png", "mode": "single" },
       "concaveDownLeft": { "asset": "slope_stone.png", "mode": "single" }
+    },
+    "kenney": {
+      "key": { "asset": "key.png", "mode": "single" },
+      "lockedDoor": { "asset": "locked_door.png", "mode": "single" },
+      "movingPlatform": { "asset": "platform.png", "mode": "single" },
+      "danger": { "asset": "kenney_spikes.png", "mode": "single" },
+      "switch": { "asset": "kenney_switch.png", "mode": "single" },
+      "door": { "asset": "kenney_door.png", "mode": "single" }
     },
     "aucun": {}
   }

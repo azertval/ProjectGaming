@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "Core/Levels/TileTypeName.h"
 
 #include <cstddef>
@@ -84,19 +87,26 @@ std::string tileTypeName(TileType type) {
             return "dangerSwitched";
         case TileType::DangerBlink:
             return "dangerBlink";
+        case TileType::Key:
+            return "key";
+        case TileType::LockedDoor:
+            return "lockedDoor";
+        case TileType::MovingPlatform:
+            return "movingPlatform";
     }
     return "empty";  // inatteignable : le switch ci-dessus couvre tout l'enum.
 }
 
 std::optional<TileType> parseTileType(std::string_view name) {
     // Table construite une fois a partir de tileTypeName : la reciprocite des deux conversions est
-    // ainsi structurelle, pas seulement testee. Ajouter un TileType suffit donc a le rendre lisible.
-    // Les cles sont des std::string (proprietaires) : tileTypeName renvoie une valeur, dont un
-    // string_view ne survivrait pas.
-    using NameTable = std::unordered_map<std::string, TileType, TransparentStringHash, std::equal_to<>>;
+    // ainsi structurelle, pas seulement testee. Ajouter un TileType suffit donc a le rendre
+    // lisible. Les cles sont des std::string (proprietaires) : tileTypeName renvoie une valeur,
+    // dont un string_view ne survivrait pas.
+    using NameTable =
+        std::unordered_map<std::string, TileType, TransparentStringHash, std::equal_to<>>;
     static const NameTable byName = [] {
         NameTable table;
-        for (int raw = 0; raw <= static_cast<int>(TileType::DangerBlink); ++raw) {
+        for (int raw = 0; raw <= static_cast<int>(TileType::MovingPlatform); ++raw) {
             const auto type = static_cast<TileType>(raw);
             table.emplace(tileTypeName(type), type);
         }

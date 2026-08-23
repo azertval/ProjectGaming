@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "Core/Levels/LevelScene.h"
 
 #include "Core/Ecs/Components/Transform.h"
@@ -10,7 +13,8 @@
 
 namespace core {
 
-// Peuple un World d'une entite (Transform + Sprite) par tuile non vide du niveau.
+// Peuple un World d'une entite (Transform + Sprite) par tuile non vide du niveau. Les plans
+// picturaux (LOT-69) ne sont pas des entites : HMI les compose directement.
 void buildLevelScene(World& world, const Level& level,
                      const std::function<AtlasRegion(TileType)>& regionForTile,
                      const std::function<void(Entity, TileType, int, int)>& onTileEntity) {

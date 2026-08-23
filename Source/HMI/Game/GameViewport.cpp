@@ -1,7 +1,9 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Game/GameViewport.h"
 
 #include <QEvent>
-#include <QExposeEvent>
 #include <QKeyEvent>
 #include <QMouseEvent>
 #include <QPlatformSurfaceEvent>
@@ -14,23 +16,39 @@
 #include <optional>
 #include <utility>
 
+#include "Core/Ecs/Components/Sprite.h"  // core::Color
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelOutcome.h"
 #include "Core/Levels/LevelWriter.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Math/Vector2.h"
+#include "HMI/Audio/AudioEngine.h"
+#include "HMI/Audio/SoundTriggers.h"
+#include "HMI/Editor/LevelFileOperations.h"
+#include "HMI/Editor/LevelNameValidation.h"
 #include "HMI/Editor/LinkGeometry.h"
 #include "HMI/Editor/LinkGesture.h"
+#include "HMI/Editor/PathGeometry.h"
+#include "HMI/Editor/PathGesture.h"
+#include "HMI/Editor/TextureAssignGesture.h"
 #include "HMI/Input/QtKeyMap.h"
-// GraphicsDevice tire <Windows.h>/<d3d11.h> (HWND, device D3D11). Inclus après les en-têtes Qt.
+// QRhi est une API privée de QtGui : l'en-tête vit sous rhi/, pas parmi les classes publiques.
+#include <rhi/qrhi.h>
+
+#include "HMI/Graphics/AssetContract.h"
 #include "HMI/Graphics/AssetPaths.h"
+#include "HMI/Graphics/BitmapFont.h"
 #include "HMI/Graphics/DraftRenderer.h"
-#include "HMI/Graphics/GraphicsDevice.h"
+#include "HMI/Graphics/MissingTexture.h"
+#include "HMI/Graphics/Parallax.h"
 #include "HMI/Graphics/SpriteBatch.h"
+#include "HMI/Graphics/TextRenderer.h"
 #include "HMI/Graphics/TextureAtlas.h"
 #include "HMI/Graphics/TextureCache.h"
 #include "HMI/HmiLog.h"
+#include "HMI/Interface/ApplicationTheme.h"
+#include "HMI/Interface/DesignTokens.h"
 #include "HMI/Localization/Localization.h"
 #include "HMI/Platform/ExecutableDirectory.h"
 
@@ -63,10 +81,11 @@ namespace {
 
 }  // namespace
 
-GameViewport::GameViewport(QWindow* parent)
-    : QWindow(parent),
+GameViewport::GameViewport(QWidget* parent)
+    : QRhiWidget(parent),
       _gameBindings(hmi::GameKeyBindings::load(keybindingsPath())),
       _gamepadBindings(hmi::GamepadBindings::load(keybindingsPath())),
+      _editorBindings(hmi::EditorKeyBindings::load(keybindingsPath())),
       _draft(core::LevelDraft::empty("Nouveau niveau", 24, 14)),
       _camera(1280, 720) {
     // Restaure le mode de rendu du dernier lancement (EX-IHM-011). Une preference absente, vide ou
@@ -80,6 +99,17 @@ GameViewport::GameViewport(QWindow* parent)
 }
 
 GameViewport::~GameViewport() = default;
+
+void GameViewport::setTool(hmi::EditorTool tool) {
+    if (_tool == tool) {
+        return;
+    }
+    _tool = tool;
+    emit toolChanged(tool);
+    if (_draftRenderer) {
+        _draftRenderer->invalidate();  // le retour visuel des overrides depend de l'outil actif.
+    }
+}
 
 // Choisit le mode de rendu et persiste le choix (EX-REN-046, EX-IHM-011).
 void GameViewport::setRenderMode(RenderMode mode) {
@@ -98,29 +128,28 @@ void GameViewport::setRenderMode(RenderMode mode) {
 }
 
 int GameViewport::pixelWidth() const {
-    return std::max(1, static_cast<int>(width() * devicePixelRatio()));
+    return std::max(1, static_cast<int>(static_cast<qreal>(width()) * devicePixelRatio()));
 }
 
 int GameViewport::pixelHeight() const {
-    return std::max(1, static_cast<int>(height() * devicePixelRatio()));
+    return std::max(1, static_cast<int>(static_cast<qreal>(height()) * devicePixelRatio()));
 }
 
-void GameViewport::ensureResources() {
-    if (_graphics) {
-        return;
-    }
-    const HWND handle = reinterpret_cast<HWND>(winId());
-    HMI_LOG_INFO("Viewport : initialisation Direct3D 11 (" + std::to_string(pixelWidth()) + "x" +
-                 std::to_string(pixelHeight()) + ").");
-    _graphics = std::make_unique<hmi::GraphicsDevice>(handle, pixelWidth(), pixelHeight());
-    _graphics->setVSyncEnabled(_vsync);
-    _spriteBatch = std::make_unique<hmi::SpriteBatch>(_graphics->device(), _graphics->context());
-    _atlas = std::make_unique<hmi::TextureAtlas>(_graphics->device());
+void GameViewport::createResources() {
+    HMI_LOG_INFO("Viewport : initialisation du rendu sur QRhi (" + std::to_string(pixelWidth()) +
+                 "x" + std::to_string(pixelHeight()) + ").");
+    _spriteBatch = std::make_unique<hmi::SpriteBatch>(_rhiContext.rhi);
+    _atlas = std::make_unique<hmi::TextureAtlas>(_rhiContext);
+    // Police bitmap du HUD (LOT-52), chargee une fois comme l'atlas (repli procedural integre,
+    // pas de damier de secours a gerer ici).
+    _font = std::make_unique<hmi::BitmapFont>(_rhiContext);
     // Registre des textures nommees (LOT-40) : proprietaire du damier de repli du mode Texture,
     // et point d'entree des skins a partir du LOT-42.
     _textureCache = std::make_unique<hmi::TextureCache>(
-        _graphics->device(), hmi::AssetPaths{hmi::executableDirectory() / "Assets"});
+        _rhiContext, hmi::AssetPaths{hmi::executableDirectory() / "Assets"});
     _draftRenderer = std::make_unique<hmi::DraftRenderer>(*_spriteBatch, *_atlas, *_textureCache);
+    // Images des plans (LOT-69 TACHE-05) : a cote des niveaux, comme en jeu.
+    _draftRenderer->setPlanesDirectory(hmi::executableDirectory() / "Levels" / "Plans");
 
     // Catalogue des skins (LOT-42), lu a cote de l'executable comme les niveaux et les traductions.
     // Fichier absent ou illisible : catalogue vide, tout retombe sur le damier -- un etat de depart
@@ -143,17 +172,52 @@ void GameViewport::ensureResources() {
     } else {
         HMI_LOG_WARNING("Editeur : echec du chargement du niveau de demo : " + result.error);
     }
+
+    // MainWindow cable ses panneaux (palette, arbre de skins) a la construction, avant que la
+    // fenetre ne soit exposee -- donc avant que ce catalogue ne soit charge. `resourcesReady`
+    // leur donne l'occasion de se reconstruire une fois `_skins` reellement peuple, faute de quoi
+    // l'editeur s'ouvre sans aucune texture jusqu'a la premiere bascule de mode/jeu de skins.
+    emit resourcesReady();
 }
 
 void GameViewport::updateEditCamera() {
+    _camera.setViewportSize(pixelWidth(), pixelHeight());
+    if (_manualCamera) {
+        _camera.setZoom(_manualZoom);
+        _camera.setCenter(_manualCenter);
+        return;
+    }
     const int levelWidth = _draft.tileMap().width();
     const int levelHeight = _draft.tileMap().height();
-    _camera.setViewportSize(pixelWidth(), pixelHeight());
     _camera.setZoom(hmi::Camera2D::fitZoom(
         static_cast<float>(pixelWidth()), static_cast<float>(pixelHeight()),
         static_cast<float>(levelWidth), static_cast<float>(levelHeight), 0.92f));
     _camera.setCenter(core::Vector2{static_cast<float>(levelWidth) * 0.5f,
                                     static_cast<float>(levelHeight) * 0.5f});
+}
+
+core::Vector2 GameViewport::screenPosition(const QMouseEvent* event) const {
+    const qreal ratio = devicePixelRatio();
+    return core::Vector2{static_cast<float>(event->position().x() * ratio),
+                         static_cast<float>(event->position().y() * ratio)};
+}
+
+float GameViewport::minManualZoom() const {
+    return hmi::Camera2D::fitZoom(static_cast<float>(pixelWidth()),
+                                  static_cast<float>(pixelHeight()),
+                                  static_cast<float>(_draft.tileMap().width()),
+                                  static_cast<float>(_draft.tileMap().height()), 0.92f);
+}
+
+float GameViewport::maxManualZoom() const {
+    // Laisse au moins 4 cases visibles sur le plus petit axe de l'ecran : precision jugee
+    // suffisante pour poser un bloc (ajustement post-livraison, LOT-15). Borne au minimum : un
+    // niveau plus petit que 4 cases sur un axe rendrait sinon ce maximum inferieur au minimum
+    // (std::clamp exige min <= max), verrouillant le zoom a l'ajustement automatique.
+    constexpr float MINIMUM_VISIBLE_CELLS = 4.0f;
+    const float smallerAxis = static_cast<float>((std::min)(pixelWidth(), pixelHeight()));
+    const float rawMax = smallerAxis / (MINIMUM_VISIBLE_CELLS * hmi::Camera2D::PIXELS_PER_UNIT);
+    return (std::max)(rawMax, minManualZoom());
 }
 
 std::optional<core::GridPosition> GameViewport::cellAt(const QMouseEvent* event) {
@@ -204,6 +268,28 @@ void GameViewport::applyRectangle(core::GridPosition a, core::GridPosition b) {
     markDraftMutated();
 }
 
+// Ajoute une zone de camera dessinee a la main (outil CameraZone, EX-LVL-007, EX-EDIT-029) : meme
+// decoupe min/max que applyRectangle ci-dessus, mais ajoutee au cadrage plutot que peinte sur la
+// grille.
+void GameViewport::addCameraZoneFromDrag(core::GridPosition a, core::GridPosition b) {
+    const int minColumn = std::min(a.column, b.column);
+    const int maxColumn = std::max(a.column, b.column);
+    const int minRow = std::min(a.row, b.row);
+    const int maxRow = std::max(a.row, b.row);
+    _draft.addCameraZone(core::CameraZone{.x = minColumn,
+                                          .y = minRow,
+                                          .width = maxColumn - minColumn + 1,
+                                          .height = maxRow - minRow + 1});
+    _dirty = true;
+    markDraftMutated();
+}
+
+void GameViewport::removeCameraZone(std::size_t index) {
+    _draft.removeCameraZone(index);
+    _dirty = true;
+    markDraftMutated();
+}
+
 void GameViewport::copySelection() {
     if (!_selection) {
         return;
@@ -224,10 +310,10 @@ void GameViewport::copySelection() {
 }
 
 void GameViewport::pasteClipboard() {
-    if (_clipboard.empty()) {
+    if (_clipboard.empty() || !_hoverCell) {
         return;
     }
-    _draft.paintRegion(_hoverCell.column, _hoverCell.row, _clipboard);
+    _draft.paintRegion(_hoverCell->column, _hoverCell->row, _clipboard);
     _dirty = true;
     markDraftMutated();
     emit statusMessage(statusText("status.region_pasted"));
@@ -239,6 +325,9 @@ std::optional<std::pair<core::GridPosition, core::GridPosition>> GameViewport::h
                                                  std::min(_dragStart.row, _dragCurrent.row)},
                               core::GridPosition{std::max(_dragStart.column, _dragCurrent.column),
                                                  std::max(_dragStart.row, _dragCurrent.row)});
+    }
+    if (_highlightedOverride) {
+        return std::make_pair(*_highlightedOverride, *_highlightedOverride);
     }
     return _selection;
 }
@@ -264,6 +353,375 @@ void GameViewport::unlinkMechanism(core::GridPosition targetPosition) {
     markDraftMutated();
 }
 
+void GameViewport::removeTextureOverride(core::GridPosition position) {
+    _draft.removeTextureOverride(position);
+    _dirty = true;
+    markDraftMutated();
+}
+
+void GameViewport::setHighlightedTextureOverride(std::optional<core::GridPosition> position) {
+    _highlightedOverride = position;  // presentation seule : aucune mutation du brouillon.
+    if (_draftRenderer) {
+        _draftRenderer->invalidate();
+    }
+}
+
+void GameViewport::handleTextureAssignClick(const QMouseEvent* event, bool rightClick) {
+    const std::optional<core::GridPosition> cell = cellAt(event);
+    if (!cell) {
+        return;
+    }
+    const core::TileType clickedType = _draft.tileMap().tile(cell->column, cell->row);
+    std::optional<std::string> existingOverride;
+    for (const core::TileTextureOverride& override : _draft.textureOverrides()) {
+        if (override.position == *cell) {
+            existingOverride = override.assetName;
+            break;
+        }
+    }
+
+    const hmi::TextureAssignDecision decision = hmi::resolveTextureAssignClick(
+        *cell, clickedType, existingOverride, _activeTextureAsset, rightClick);
+    switch (decision.action) {
+        case hmi::TextureAssignAction::Ignore:
+            // Cas silencieux le plus deroutant : cliquer pour assigner sans avoir choisi d'asset
+            // dans la bibliotheque "Objets" ne fait rien -- le signaler, sinon l'action semble ne
+            // pas marcher du tout.
+            if (!rightClick && clickedType != core::TileType::Empty && !_activeTextureAsset) {
+                emit statusMessage(statusText("status.texture_no_asset_selected"));
+            }
+            break;
+        case hmi::TextureAssignAction::Assign:
+            _draft.setTextureOverride(decision.cell, decision.assetName);
+            _dirty = true;
+            markDraftMutated();
+            emit statusMessage(statusText("status.texture_assigned")
+                                   .arg(QString::fromStdString(decision.assetName)));
+            break;
+        case hmi::TextureAssignAction::Remove:
+            _draft.removeTextureOverride(decision.cell);
+            _dirty = true;
+            markDraftMutated();
+            emit statusMessage(statusText("status.texture_removed"));
+            break;
+    }
+}
+
+core::Vector2 GameViewport::worldPositionAt(const QMouseEvent* event) {
+    updateEditCamera();  // s'assure que la conversion écran→monde utilise le cadrage courant.
+    const qreal ratio = devicePixelRatio();
+    return _camera.screenToWorld(core::Vector2{static_cast<float>(event->position().x() * ratio),
+                                               static_cast<float>(event->position().y() * ratio)});
+}
+
+// --- Outil « Parcours » (LOT-67, EX-EDIT-032) -------------------------------------------------
+// Une fonction par evenement, la logique de designation et de calcul vivant dans
+// hmi::PathGesture / hmi::PathGeometry (purs, sans Qt). Un parcours est cale sur la grille de jeu :
+// aucune conversion d'espace n'est necessaire entre le curseur et le modele.
+
+std::vector<hmi::PathHandle> GameViewport::selectedPathHandles() const {
+    if (!_pathGesture.selected) {
+        return {};
+    }
+    const float worldUnitsPerScreenPixel = 1.0f / (hmi::Camera2D::PIXELS_PER_UNIT * _camera.zoom());
+    const hmi::PathSelection selection = *_pathGesture.selected;
+    if (selection.kind == hmi::PathTargetKind::Platform) {
+        if (selection.index >= _draft.platformConfigs().size()) {
+            return {};
+        }
+        return hmi::pathHandleLayout(_draft.platformConfigs()[selection.index],
+                                     worldUnitsPerScreenPixel);
+    }
+    if (selection.index >= _draft.moverConfigs().size()) {
+        return {};
+    }
+    return {
+        hmi::moverHandleLayout(_draft.moverConfigs()[selection.index], worldUnitsPerScreenPixel)};
+}
+
+void GameViewport::handlePathPress(const QMouseEvent* event) {
+    const core::Vector2 cursor = worldPositionAt(event);
+    const std::optional<hmi::PathHit> hit =
+        hmi::designatePathAt(cursor, _draft.platformConfigs(), _draft.moverConfigs(),
+                             _pathGesture.selected, selectedPathHandles());
+    if (!hit) {
+        _pathGesture.selected.reset();
+        _pathGesture.phase = hmi::PathGesturePhase::Idle;
+        emit pathSelectionChanged(_pathGesture.selected);
+        // Un danger temporise n'a pas de trajectoire, donc jamais de PathHit : sans ce cas, ses
+        // reglages de timing resteraient inatteignables depuis l'editeur. Il est designe par sa
+        // case, et sa selection exclut celle d'un parcours (et reciproquement, plus bas).
+        const core::GridPosition cell = clampedCell(event);
+        _selectedBlinkCell =
+            _draft.tileMap().inBounds(cell.column, cell.row) &&
+                    _draft.tileMap().tile(cell.column, cell.row) == core::TileType::DangerBlink
+                ? std::make_optional(cell)
+                : std::nullopt;
+        emit blinkSelectionChanged(_selectedBlinkCell);
+        return;
+    }
+    _selectedBlinkCell.reset();
+    emit blinkSelectionChanged(_selectedBlinkCell);
+    // moverStart n'a de sens que pour un danger mobile ; inoffensif sinon (le geste l'ignore).
+    const core::GridPosition moverStart =
+        hit->target.kind == hmi::PathTargetKind::Mover
+            ? _draft.moverConfigs()[hit->target.index].startPosition
+            : core::GridPosition{};
+    hmi::beginPathGesture(_pathGesture, *hit, cursor, moverStart);
+    emit pathSelectionChanged(_pathGesture.selected);
+}
+
+void GameViewport::handlePathMove(const QMouseEvent* event) {
+    if (_pathGesture.phase == hmi::PathGesturePhase::Idle) {
+        return;
+    }
+    const hmi::PathGestureAction preview =
+        hmi::updatePathGesture(_pathGesture, worldPositionAt(event));
+    _pathPreview = preview.kind == hmi::PathGestureActionKind::None ? std::nullopt
+                                                                    : std::make_optional(preview);
+    // L'apercu est un parametre de rendu, pas une mutation du brouillon : DraftRenderer le relit a
+    // chaque image, aucune reconstruction de scene n'est necessaire ici.
+}
+
+void GameViewport::handlePathRelease(const QMouseEvent* event, bool rightClick) {
+    if (rightClick) {
+        // Clic droit sur une poignee de POINT : retire ce point. Sur un milieu de segment ou dans
+        // le vide, sans effet -- il n'y a rien a retirer.
+        const std::optional<hmi::PathHandle> handle =
+            hmi::hitTestPathHandles(worldPositionAt(event), selectedPathHandles());
+        if (!handle || handle->kind != hmi::PathHandleKind::Waypoint || !_pathGesture.selected ||
+            _pathGesture.selected->kind != hmi::PathTargetKind::Platform) {
+            return;
+        }
+        _draft.removePlatformWaypoint(
+            _draft.platformConfigs()[_pathGesture.selected->index].startPosition, handle->index);
+        _dirty = true;
+        markDraftMutated();
+        emit statusMessage(statusText("status.path_waypoint_removed"));
+        return;
+    }
+
+    if (_pathGesture.phase == hmi::PathGesturePhase::Idle) {
+        return;
+    }
+    const hmi::PathGestureAction action = hmi::endPathGesture(_pathGesture, worldPositionAt(event));
+    _pathPreview.reset();
+    applyPathGestureAction(action);
+}
+
+void GameViewport::applyPathGestureAction(const hmi::PathGestureAction& action) {
+    if (action.kind == hmi::PathGestureActionKind::None) {
+        return;
+    }
+    if (action.target.kind == hmi::PathTargetKind::Mover) {
+        if (action.target.index >= _draft.moverConfigs().size()) {
+            return;
+        }
+        _draft.setMoverConfig(_draft.moverConfigs()[action.target.index].startPosition, action.axis,
+                              action.range);
+        _dirty = true;
+        markDraftMutated();
+        return;
+    }
+    if (action.target.index >= _draft.platformConfigs().size()) {
+        return;
+    }
+    const core::GridPosition start = _draft.platformConfigs()[action.target.index].startPosition;
+    switch (action.kind) {
+        case hmi::PathGestureActionKind::MoveWaypoint:
+            _draft.movePlatformWaypoint(start, action.waypointIndex, action.position);
+            break;
+        case hmi::PathGestureActionKind::InsertWaypoint:
+            _draft.insertPlatformWaypoint(start, action.waypointIndex, action.position);
+            break;
+        case hmi::PathGestureActionKind::RemoveWaypoint:
+            _draft.removePlatformWaypoint(start, action.waypointIndex);
+            break;
+        case hmi::PathGestureActionKind::None:
+        case hmi::PathGestureActionKind::SetMoverRange:
+            return;  // deja traites plus haut
+    }
+    _dirty = true;
+    markDraftMutated();
+}
+
+void GameViewport::cancelPathGesture() {
+    if (_pathGesture.phase == hmi::PathGesturePhase::Idle) {
+        return;
+    }
+    hmi::cancelPathGesture(_pathGesture);
+    _pathPreview.reset();
+}
+
+void GameViewport::selectPlane(std::optional<std::size_t> index) {
+    if (index && *index >= _draft.planes().size()) {
+        return;
+    }
+    _selectedPlane = index;
+    emit planeSelectionChanged(_selectedPlane);
+}
+
+void GameViewport::addPlane(core::Plane plane) {
+    _draft.addPlane(std::move(plane));
+    _selectedPlane = _draft.planes().size() - 1;  // le nouveau plan reste selectionne
+    markDraftMutated();
+    emit planeSelectionChanged(_selectedPlane);
+}
+
+void GameViewport::removePlane(std::size_t index) {
+    if (index >= _draft.planes().size()) {
+        return;
+    }
+    _draft.removePlane(index);
+    // La selection suit le MEME plan quand c'est possible : retirer celui du dessus ne doit pas
+    // faire glisser la selection sur son voisin sans qu'on l'ait demande.
+    if (_selectedPlane == index) {
+        _selectedPlane.reset();
+    } else if (_selectedPlane && *_selectedPlane > index) {
+        *_selectedPlane -= 1;
+    }
+    markDraftMutated();
+    emit planeSelectionChanged(_selectedPlane);
+}
+
+void GameViewport::movePlane(std::size_t index, bool forward) {
+    const std::optional<std::size_t> moved =
+        forward ? _draft.movePlaneForward(index) : _draft.movePlaneBackward(index);
+    if (!moved) {
+        return;
+    }
+    // Le rang change : la selection suit le plan deplace, pas l'ancien rang qui designe desormais
+    // son voisin.
+    _selectedPlane = moved;
+    markDraftMutated();
+    emit planeSelectionChanged(_selectedPlane);
+}
+
+void GameViewport::setPlaneDepth(std::size_t index, core::PlaneDepth depth) {
+    if (_draft.setPlaneDepth(index, depth)) {
+        markDraftMutated();
+    }
+}
+
+void GameViewport::setPlaneDensity(std::size_t index, int pixelsPerUnit) {
+    if (_draft.setPlaneDensity(index, pixelsPerUnit)) {
+        markDraftMutated();
+    }
+}
+
+void GameViewport::setPlaneParallax(std::size_t index, float parallaxX, float parallaxY) {
+    if (_draft.setPlaneParallax(index, parallaxX, parallaxY)) {
+        markDraftMutated();
+    }
+}
+
+void GameViewport::setPlaneOpacity(std::size_t index, float opacity) {
+    if (_draft.setPlaneOpacity(index, opacity)) {
+        markDraftMutated();
+    }
+}
+
+void GameViewport::setLevelParallaxEnabled(bool enabled) {
+    _draft.setParallaxEnabled(enabled);
+    markDraftMutated();
+}
+
+void GameViewport::setPlaneVisible(std::size_t index, bool visible) {
+    // Aide d'edition : aucun pas d'annulation, aucune ecriture dans le brouillon.
+    _planeVisibility.setVisible(index, visible);
+    if (_draftRenderer) {
+        _draftRenderer->invalidate();
+    }
+}
+
+void GameViewport::setPlaneIsolated(std::size_t index, bool isolate) {
+    if (isolate) {
+        _planeVisibility.isolate(index);
+    } else {
+        _planeVisibility.showAll();
+    }
+    if (_draftRenderer) {
+        _draftRenderer->invalidate();
+    }
+}
+
+void GameViewport::setLevelBackground(std::optional<std::string> background) {
+    _draft.setBackground(std::move(background));
+    _dirty = true;
+    markDraftMutated();
+}
+
+void GameViewport::setLevelSkinSet(std::optional<std::string> skinSet) {
+    _draft.setSkinSet(std::move(skinSet));
+    _dirty = true;
+    markDraftMutated();
+}
+
+void GameViewport::setLevelCameraFraming(core::CameraFramingConfig cameraFraming) {
+    _draft.setCameraFraming(cameraFraming);
+    _dirty = true;
+    markDraftMutated();
+}
+
+// Reglages du panneau « Proprietes » (LOT-67) : tous suivent le meme patron que les setters de
+// niveau ci-dessus -- muter le brouillon, marquer sale, notifier. Aucune validation ici : les
+// bornes sont posees par les widgets, et LevelDraft tolere les valeurs hors norme (EX-NFR-040).
+void GameViewport::setPlatformSpeed(core::GridPosition position, float speed) {
+    _draft.setPlatformSpeed(position, speed);
+    _dirty = true;
+    markDraftMutated();
+}
+
+void GameViewport::setPlatformPhase(core::GridPosition position, int phase) {
+    _draft.setPlatformPhase(position, phase);
+    _dirty = true;
+    markDraftMutated();
+}
+
+void GameViewport::setPlatformMode(core::GridPosition position, core::PlatformPathMode mode) {
+    _draft.setPlatformMode(position, mode);
+    _dirty = true;
+    markDraftMutated();
+}
+
+void GameViewport::setMoverConfig(core::GridPosition position, core::DangerMoverAxis axis,
+                                  int range) {
+    _draft.setMoverConfig(position, axis, range);
+    _dirty = true;
+    markDraftMutated();
+}
+
+void GameViewport::setBlinkConfig(core::GridPosition position, int period, int phase,
+                                  int activeDuration) {
+    _draft.setBlinkConfig(position, period, phase, activeDuration);
+    _dirty = true;
+    markDraftMutated();
+}
+
+void GameViewport::setLevelJumpBudget(int jumpBudget) {
+    _draft.setJumpBudget(jumpBudget);
+    _dirty = true;
+    markDraftMutated();
+}
+
+void GameViewport::setLevelDashBudget(int dashBudget) {
+    _draft.setDashBudget(dashBudget);
+    _dirty = true;
+    markDraftMutated();
+}
+
+void GameViewport::setLevelAirJumps(std::optional<int> airJumps) {
+    _draft.setAirJumps(airJumps);
+    _dirty = true;
+    markDraftMutated();
+}
+
+void GameViewport::setLevelDashCharges(std::optional<int> dashCharges) {
+    _draft.setDashCharges(dashCharges);
+    _dirty = true;
+    markDraftMutated();
+}
+
 void GameViewport::setSkinSet(const std::string& setName) {
     // Le catalogue est deja a jour (le panneau agit dessus directement) : il n'y a que le jeu
     // courant a propager, et l'image suivante montrera le resultat. Aucune scene a reconstruire.
@@ -274,6 +732,32 @@ void GameViewport::setSkinSet(const std::string& setName) {
         _session->setSkins(&_skins, setName);
     }
     _skinSet = setName;
+}
+
+void GameViewport::reloadAssets() {
+    // Invalidation avant relecture du catalogue : un asset renomme doit disparaitre du cache
+    // AVANT que la nouvelle assignation ne pointe vers son remplacant.
+    if (_textureCache) {
+        _textureCache->invalidateAll();
+    }
+    // skins.json a pu changer hors de l'application (renommage/suppression d'un asset) : on le
+    // relit entierement, comme au demarrage. _skins garde son adresse (membre) : DraftRenderer et
+    // la session en cours, qui n'en detiennent qu'un pointeur, voient le nouveau contenu sans
+    // etre re-cables (LOT-42).
+    hmi::SkinCatalogResult skins =
+        hmi::SkinCatalog::loadFromFile(hmi::executableDirectory() / "Assets" / "skins.json");
+    if (skins.ok()) {
+        _skins = std::move(*skins.catalog);
+    }
+    // Aucune reconstruction de scene necessaire : l'apparence est resolue a la composition de
+    // chaque image (hmi::DraftRenderer), donc l'image suivante montre deja le resultat (LOT-42).
+    HMI_LOG_INFO("Viewport : rechargement a chaud des assets.");
+}
+
+void GameViewport::invalidateAsset(const std::string& fileName) {
+    if (_textureCache) {
+        _textureCache->invalidate(fileName);
+    }
 }
 
 bool GameViewport::linkExists(core::GridPosition switchPosition,
@@ -344,122 +828,261 @@ void GameViewport::handleLinkClick(const QMouseEvent* event) {
     }
 }
 
-void GameViewport::tick() {
-    if (!isExposed()) {
-        return;
+void GameViewport::tick(float elapsedSeconds) {
+    // Cadence de rendu (LOT-62 TACHE-02) : seulement quand le compteur est actif -- rien n'est
+    // calculé au-delà du test, coût nul quand il est éteint.
+    if (_diagnosticsEnabled) {
+        _frameRateAverage.addSample(elapsedSeconds);
     }
-    ensureResources();
 
+    _gamepad.poll(_input);
+
+    // Ouverture de la pause à la manette (bouton B, `EX-CTRL-012`), même geste que « retour »
+    // ailleurs dans l'IHM -- seulement en partie réelle, jamais en essai depuis l'éditeur
+    // (`LOT-59` TACHE-02).
+    if (_gameMode && !_paused && _input.gamepadButtonPressed(GamepadButton::B)) {
+        emit pauseRequested();
+    }
+
+    // Pause (LOT-59 TACHE-02, EX-GP-041) : l'accumulateur n'est PAS alimenté (pas un dt nul, un
+    // appel simplement absent) -- aucun pas n'est consommé tant que la pause dure. Le rendu, lui,
+    // continue ci-dessous : la scène reste dessinée derrière l'écran de pause.
+    if (!_paused) {
+        const int steps = _timestep.advance(elapsedSeconds);
+        _lastSimulationSteps = steps;  // pas consommés à cette image (LOT-62 TACHE-02).
+        const float fixedDelta = _timestep.fixedDeltaSeconds();
+        for (int step = 0; step < steps; ++step) {
+            const core::LevelOutcome outcome =
+                _session ? _session->update(_input, fixedDelta) : core::LevelOutcome::Playing;
+            // Bilan du tableau (LOT-68) : compte au PAS, pour la meme raison que les sons
+            // ci-dessous -- une mesure a l'image dependrait de la cadence de rendu.
+            if (_session && _gameMode) {
+                accumulateStep(_runStats, _session->lastStepEvents());
+            }
+            // Sons de jeu (LOT-60 TACHE-03) : un evenement par pas, jamais par image de rendu --
+            // lastStepEvents() reflete exactement CE pas, celui qui vient de s'executer.
+            if (_session && _audioEngine) {
+                for (const GameEvent gameEvent : _session->lastStepEvents()) {
+                    if (const std::optional<std::string> soundId = soundForEvent(gameEvent)) {
+                        _audioEngine->play(*soundId);
+                    }
+                }
+            }
+            if (_session && outcome == core::LevelOutcome::Won) {
+                _input.beginFrame();
+                if (_gameMode) {
+                    // Fige la scène et signale la réussite : c'est l'écran de fin de niveau qui
+                    // décide (Continuer/Rejouer), le joueur valide -- plus d'enchaînement
+                    // automatique (LOT-59 TACHE-03). `break` immédiat : ne pas avancer les pas
+                    // restants de ce tick sur un niveau déjà gagné.
+                    pauseSimulation();
+                    emit levelSucceeded();
+                } else {
+                    stopPlaytest();  // essai éditeur : retour à l'édition
+                }
+                break;
+            }
+            _input.beginFrame();
+        }
+    } else {
+        // Consomme les fronts (ex. bouton B tenu en ouvrant la pause) sans avancer la simulation
+        // -- sinon un appui encore maintenu à la reprise ferait osciller entrée/sortie de pause
+        // (piège documenté par TACHE-02).
+        _input.beginFrame();
+    }
+}
+
+// Crée (ou recrée) les ressources graphiques quand QRhiWidget fournit son interface de rendu.
+void GameViewport::initialize(QRhiCommandBuffer* commandBuffer) {
+    if (_rhiContext.rhi == rhi()) {
+        return;  // même interface : les ressources déjà créées restent valides.
+    }
+    // Une session en cours ne survit pas a la liberation ci-dessous (elle tient l'atlas, la police
+    // et le lot de sprites) : on retient ce qu'il faudra REMONTER, sinon l'ecran retombe
+    // silencieusement sur le brouillon -- defaut reel constate au portage QRhi, ou « Jouer »
+    // depuis le menu affichait le niveau en mode edition. Le cas nominal n'est meme pas un
+    // changement d'interface tardif : c'est la TOUTE PREMIERE image. Le viewport n'est peint
+    // qu'une fois affiche, donc initialize() passe APRES startGame(), qui a deja demande la
+    // session.
+    const bool restorePlaytest = _session.has_value() && !_gameMode;
+    // Changement d'interface (première image, ou widget passé sous une autre fenêtre de haut
+    // niveau) : tout ce qui tient une texture est caduc. Ordre de libération : la session et les
+    // rendus AVANT les textures qu'ils référencent.
+    releaseResources();
+    _rhiContext.rhi = rhi();
+    _rhiContext.updates = _rhiContext.rhi->nextResourceUpdateBatch();
+    createResources();
+    // Téléversements accumulés par la création des textures : soumis ici, hors de toute passe.
+    commandBuffer->resourceUpdate(_rhiContext.updates);
+    _rhiContext.updates = nullptr;
+    // Remontage de la session, une fois les ressources disponibles. Le tableau repart de son
+    // debut : l'avancee dans la salle n'est pas rejouable, et la reprendre a mi-course exigerait
+    // de serialiser toute la simulation pour un cas qui ne se produit qu'a la premiere image ou
+    // au changement d'interface de rendu.
+    if (_gameMode) {
+        loadGameLevel(_gameLevel);
+    } else if (restorePlaytest) {
+        startPlaytest();
+    }
+    _previousFrame = Clock::now();
+}
+
+// Libère les ressources graphiques quand QRhiWidget défait son interface de rendu.
+void GameViewport::releaseResources() {
+    _session.reset();
+    _draftRenderer.reset();
+    _textureCache.reset();  // libère les textures avant le pipeline qui les échantillonne
+    _font.reset();
+    _atlas.reset();
+    _spriteBatch.reset();
+    _rhiContext.rhi = nullptr;
+    _rhiContext.updates = nullptr;
+}
+
+// Dessine une image : avance la simulation, compose la scène, puis la soumet.
+void GameViewport::render(QRhiCommandBuffer* commandBuffer) {
+    if (_spriteBatch == nullptr) {
+        return;  // initialize() n'a pas encore pu créer les ressources.
+    }
     const Clock::time_point now = Clock::now();
     const float elapsedSeconds = std::chrono::duration<float>(now - _previousFrame).count();
     _previousFrame = now;
 
-    _gamepad.poll(_input);
+    // Lot de mises à jour de CETTE image : les textures chargées paresseusement pendant la
+    // composition y déposent leurs pixels, et `submit` le soumet avant d'ouvrir sa passe.
+    _rhiContext.updates = _rhiContext.rhi->nextResourceUpdateBatch();
+    tick(elapsedSeconds);
+    renderFrame(commandBuffer, elapsedSeconds);
+    _rhiContext.updates = nullptr;
 
-    const int steps = _timestep.advance(elapsedSeconds);
-    const float fixedDelta = _timestep.fixedDeltaSeconds();
-    for (int step = 0; step < steps; ++step) {
-        if (_session && _session->update(_input, fixedDelta) == core::LevelOutcome::Won) {
-            if (_gameMode) {
-                loadGameLevel(_gameLevel + 1);  // enchaîne le niveau suivant de la séquence
-            } else {
-                stopPlaytest();  // essai éditeur : retour à l'édition
-            }
-        }
-        _input.beginFrame();
-    }
-
-    renderFrame();
-    requestUpdate();
+    // Animation continue : la prochaine image est demandée dès celle-ci terminée, comme le faisait
+    // `requestUpdate()` du temps de la fenêtre native.
+    update();
 }
 
-void GameViewport::renderFrame() {
-    if (!isExposed()) {
-        return;
-    }
-    ensureResources();
-    _graphics->clear(0.10f, 0.12f, 0.16f, 1.0f);
+void GameViewport::renderFrame(QRhiCommandBuffer* commandBuffer, float deltaSeconds) {
+    _spriteBatch->beginFrame();
+    // Fond derive des jetons (LOT-56) : portee variable (chassis d'edition, suivant le theme actif
+    // de l'editeur, TACHE-06) en edition, portee invariante (identite du jeu) en jeu/essai -- seule
+    // surface qui appartient tour a tour aux deux portees (hmi::viewportClearColor).
+    const hmi::DesignColor clearColor =
+        hmi::viewportClearColor(/*editorMode=*/!_session, hmi::currentEditorTokens());
+    const float clear[4] = {static_cast<float>(clearColor.r) / 255.0f,
+                            static_cast<float>(clearColor.g) / 255.0f,
+                            static_cast<float>(clearColor.b) / 255.0f, 1.0f};
     if (_session) {
         _session->render(pixelWidth(), pixelHeight(), _renderMode, _timestep.interpolationAlpha());
+        renderDiagnosticsOverlay(pixelWidth(), pixelHeight());
     } else {
         updateEditCamera();
+        // Zoom courant pour la barre d'etat (LOT-57 TACHE-01) : pas de signal natif sur Camera2D,
+        // comparaison au dernier zoom notifie plutot qu'une emission a chaque image.
+        if (_camera.zoom() != _lastEmittedZoom) {
+            _lastEmittedZoom = _camera.zoom();
+            emit zoomChanged(_lastEmittedZoom);
+        }
         hmi::LinkOverlayState linkOverlay;
         linkOverlay.hoveredCell = _hoverCell;
         linkOverlay.pendingLink = _pendingLink;
         linkOverlay.selectedLink = _selectedLink;
-        _draftRenderer->render(_draft, _camera, _showGrid, highlight(), linkOverlay, _renderMode);
+        // Retour visuel des cases habillees (LOT-45) : seulement quand l'outil dedie est actif,
+        // sinon l'auteur ne sait pas ce qui est deja habille sans que ca encombre les autres
+        // outils.
+        const bool showTextureOverrides = _tool == hmi::EditorTool::TextureAssign;
+        // Poignees et apercu du parcours (LOT-67) : purement presentatifs, jamais ecrits dans le
+        // brouillon. L'echelle vient d'ici, seul endroit qui connaisse le zoom courant.
+        hmi::PathOverlayState pathOverlay;
+        pathOverlay.selected = _pathGesture.selected;
+        pathOverlay.preview = _pathPreview;
+        pathOverlay.worldUnitsPerScreenPixel =
+            1.0f / (hmi::Camera2D::PIXELS_PER_UNIT * _camera.zoom());
+        _draftRenderer->render(_draft, _camera, _showGrid, highlight(), linkOverlay, _renderMode,
+                               showTextureOverrides, deltaSeconds, _layerVisibility, pathOverlay,
+                               _planeVisibility);
     }
-    _graphics->present();
+    // Téléversement unique puis passe unique : c'est ici, et nulle part ailleurs, que le GPU voit
+    // l'image (cf. `hmi::SpriteBatch`, enregistrement en deux phases).
+    _spriteBatch->submit(commandBuffer, renderTarget(), _rhiContext.updates, clear);
+}
+
+void GameViewport::renderDiagnosticsOverlay(int viewportWidth, int viewportHeight) {
+    if (!_diagnosticsEnabled || !_session || _loc == nullptr) {
+        return;  // eteint, hors session, ou localisation pas encore chargee (EX-NFR-040).
+    }
+
+    hmi::DiagnosticsMeasurements measurements;
+    measurements.framesPerSecond = _frameRateAverage.framesPerSecond();
+    measurements.sceneStatistics = _session->renderStatistics();
+    measurements.simulationSteps = _lastSimulationSteps;
+    const std::vector<std::string> lines = hmi::composeDiagnosticsHudLines(measurements, *_loc);
+
+    // Meme habillage (ombre + texte) que hmi::GameSession::renderHud, coin haut-DROIT (LOT-62
+    // TACHE-02) pour ne jamais recouvrir le HUD de jeu (budgets), ancre coin haut-gauche.
+    constexpr float MARGIN = 8.0f;
+    constexpr float SCALE = 1.0f;
+    constexpr float LINE_SPACING = 2.0f;
+    constexpr core::Color SHADOW_COLOR{0.0f, 0.0f, 0.0f, 0.75f};
+    constexpr core::Color TEXT_COLOR{1.0f, 1.0f, 1.0f, 1.0f};
+    constexpr hmi::TextAnchor ANCHOR{hmi::TextHorizontalAnchor::Right,
+                                     hmi::TextVerticalAnchor::Top};
+
+    _diagnosticsScene.clear();
+    const float x = static_cast<float>(viewportWidth) - MARGIN;
+    float lineY = MARGIN;
+    for (const std::string& line : lines) {
+        hmi::composeText(_diagnosticsScene, *_font, line, x + 1.0f, lineY + 1.0f, SCALE,
+                         SHADOW_COLOR, ANCHOR);
+        hmi::composeText(_diagnosticsScene, *_font, line, x, lineY, SCALE, TEXT_COLOR, ANCHOR);
+        lineY += static_cast<float>(_font->metrics().lineHeight) * SCALE + LINE_SPACING;
+    }
+    _diagnosticsScene.sort();
+    hmi::submitComposedScene(*_spriteBatch,
+                             hmi::screenProjectionMatrix(viewportWidth, viewportHeight),
+                             _diagnosticsScene);
 }
 
 bool GameViewport::event(QEvent* event) {
     switch (event->type()) {
-        case QEvent::UpdateRequest:
-            tick();
-            return true;
         case QEvent::FocusOut:
             _input.releaseAll();
             break;
-        case QEvent::PlatformSurface:
-            // Libère les ressources Direct3D 11 tant que la surface native existe encore (crash de
-            // fermeture, cf. LOT-34). Ordre : session/renderer avant le device.
-            if (static_cast<QPlatformSurfaceEvent*>(event)->surfaceEventType() ==
-                QPlatformSurfaceEvent::SurfaceAboutToBeDestroyed) {
-                _session.reset();
-                _draftRenderer.reset();
-                _textureCache.reset();  // libere les textures avant le device qui les a creees
-                _atlas.reset();
-                _spriteBatch.reset();
-                _graphics.reset();
-                _loopStarted = false;
+        case QEvent::Leave:
+            // Le curseur quitte le viewport : la case survolee n'a plus de sens (LOT-57 TACHE-01,
+            // barre d'etat).
+            if (_hoverCell) {
+                _hoverCell.reset();
+                emit hoveredCellChanged(std::nullopt);
             }
             break;
         default:
             break;
     }
-    return QWindow::event(event);
-}
-
-void GameViewport::exposeEvent(QExposeEvent*) {
-    if (!isExposed()) {
-        return;
-    }
-    ensureResources();
-    if (!_loopStarted) {
-        _loopStarted = true;
-        _previousFrame = Clock::now();
-    }
-    requestUpdate();
-}
-
-void GameViewport::resizeEvent(QResizeEvent*) {
-    if (_graphics) {
-        _graphics->resize(pixelWidth(), pixelHeight());
-        renderFrame();
-    }
+    return QRhiWidget::event(event);
 }
 
 void GameViewport::keyPressEvent(QKeyEvent* event) {
-    // Bascule du mode de rendu : traitee **avant** toute autre branche, pour etre active en
-    // edition, en essai et en jeu reel (EX-REN-046). Touche fixe, jamais remappable -- meme parti
-    // pris que F10 (grille de repere) ; hmi::Key n'a d'ailleurs aucune valeur F8, donc la touche
-    // ne peut structurellement pas entrer dans une table de remappage.
-    if (event->key() == Qt::Key_F8) {
-        setRenderMode(_renderMode == RenderMode::Physique ? RenderMode::Texture
-                                                          : RenderMode::Physique);
-        return;
-    }
-
-    // Mode jeu/essai : Échap sort ; les autres touches alimentent le jeu.
+    // Mode jeu/essai : Échap ouvre la pause (partie réelle, LOT-59 TACHE-02) ou sort (essai) ;
+    // les autres touches alimentent le jeu -- jamais pendant une pause, où le focus clavier
+    // revient à l'écran de pause (MainWindow::applyScreenDressing), pas au viewport.
     if (_session) {
         if (event->key() == Qt::Key_Escape) {
+            if (_paused) {
+                return;  // ne devrait pas arriver (focus sur l'écran de pause) ; robustesse
+            }
             if (_gameMode) {
-                _gameMode = false;
-                _session.reset();
-                emit exitToMenuRequested();
+                emit pauseRequested();
             } else {
                 stopPlaytest();
             }
+            return;
+        }
+        if (_paused) {
+            return;
+        }
+        // Compteur de diagnostic (F9, LOT-62 TACHE-02) : touche dédiée non remappable, même statut
+        // que F8 (bascule de rendu) -- jamais transmise au jeu comme entrée (return immédiat).
+        if (!event->isAutoRepeat() && event->key() == Qt::Key_F9) {
+            toggleDiagnosticsOverlay();
             return;
         }
         if (!event->isAutoRepeat()) {
@@ -479,39 +1102,20 @@ void GameViewport::keyPressEvent(QKeyEvent* event) {
         }
         return;
     }
-    if (event->modifiers() & Qt::ControlModifier) {
-        if (event->key() == Qt::Key_Z && _draft.undo()) {
-            _dirty = true;
-            markDraftMutated();
-            return;
-        }
-        if (event->key() == Qt::Key_Y && _draft.redo()) {
-            _dirty = true;
-            markDraftMutated();
-            return;
-        }
-        if (event->key() == Qt::Key_S) {
-            save();
-            return;
-        }
-        if (event->key() == Qt::Key_C) {
-            copySelection();
-            return;
-        }
-        if (event->key() == Qt::Key_V) {
-            pasteClipboard();
-            return;
-        }
-    }
-    if (event->key() == Qt::Key_P) {
-        startPlaytest();
+    if (event->key() == Qt::Key_Escape && _pathGesture.phase != hmi::PathGesturePhase::Idle) {
+        cancelPathGesture();  // meme principe pour un glisser de parcours (LOT-67)
         return;
     }
-    if (event->key() == Qt::Key_F10) {
-        _showGrid = !_showGrid;  // bascule de la grille de repère (comme l'éditeur historique).
-        return;
-    }
+    // Annuler/refaire/enregistrer/essai/grille/recadrer/mode de rendu/copier/coller sont désormais
+    // des actions Qt uniques (barre d'outils/menu, `hmi::EditorActions`, LOT-56 TACHE-04 et
+    // LOT-57 TACHE-04) : plus de second traitement ici, sous peine de double déclenchement au même
+    // appui de touche (annuler deux pas d'un coup, coller deux fois).
     if (event->isAutoRepeat()) {
+        return;
+    }
+    if (const std::optional<hmi::Key> key = qtKeyToHmiKey(event->key());
+        key && *key == _editorBindings.key(hmi::EditorAction::TextureAssignTool)) {
+        setTool(hmi::EditorTool::TextureAssign);
         return;
     }
     if (const std::optional<hmi::Key> key = qtKeyToHmiKey(event->key())) {
@@ -541,6 +1145,37 @@ void GameViewport::save() {
     }
 }
 
+bool GameViewport::renameOpenLevel(const std::string& newName) {
+    if (!hmi::isValidLevelName(newName)) {
+        emit statusMessage(statusText("status.rename_failed"));
+        return false;
+    }
+    const std::string trimmed = hmi::trimLevelName(newName);
+    if (trimmed == _draft.name()) {
+        return true;  // rien a faire.
+    }
+    const std::filesystem::path levelsDir = hmi::executableDirectory() / "Levels";
+    const std::filesystem::path oldPath = levelsDir / (_draft.name() + ".json");
+    if (std::filesystem::exists(oldPath)) {
+        // Niveau deja enregistre au moins une fois : renomme le fichier sur disque, meme chemin que
+        // LevelBrowserPanel::onRename -- le brouillon en memoire est mis a jour separement
+        // ci-dessous (writeRenamed opere sur une copie chargee depuis le disque, pas sur _draft).
+        const hmi::LevelFileOperations ops(levelsDir);
+        const hmi::FileOpResult result = ops.rename(oldPath, trimmed);
+        if (!result.ok) {
+            HMI_LOG_WARNING("Editeur : renommage refuse : " + result.error);
+            emit statusMessage(statusText("status.rename_failed_reason")
+                                   .arg(QString::fromStdString(result.error)));
+            return false;
+        }
+    }
+    _draft.setName(trimmed);
+    markDraftMutated();
+    HMI_LOG_INFO("Editeur : niveau renomme en « " + trimmed + " ».");
+    emit statusMessage(statusText("status.level_renamed").arg(QString::fromStdString(trimmed)));
+    return true;
+}
+
 void GameViewport::openLevel(const std::filesystem::path& path) {
     core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(path);
     if (!loaded.ok()) {
@@ -554,6 +1189,8 @@ void GameViewport::openLevel(const std::filesystem::path& path) {
     _dirty = false;
     _pendingLink.reset();
     _selectedLink.reset();
+    _manualCamera =
+        false;  // cadrage automatique sur le niveau ouvert (LOT-15), pas l'ancien pan/zoom.
     markDraftMutated();
     HMI_LOG_INFO("Editeur : niveau ouvert : " + path.string());
     emit statusMessage(
@@ -571,13 +1208,54 @@ void GameViewport::startPlaytest() {
             statusText("status.playtest_failed").arg(QString::fromStdString(validated.error)));
         return;
     }
-    ensureResources();
+    if (_spriteBatch == nullptr) {
+        emit statusMessage(statusText("status.playtest_failed"));
+        return;  // rendu pas encore initialise (aucune image dessinee) : rien a essayer.
+    }
     _session.emplace(*_spriteBatch, *_atlas, *_textureCache, pixelWidth(), pixelHeight(),
-                     std::move(*validated.level), _gameBindings, _gamepadBindings);
+                     std::move(*validated.level), _gameBindings, _gamepadBindings, *_font, _loc);
     // Meme habillage qu'en edition : l'essai doit montrer exactement le canevas de l'editeur.
     _session->setSkins(&_skins, _skinSet);
     HMI_LOG_INFO("Editeur : essai immediat demarre.");
     emit statusMessage(statusText("status.playtesting"));
+}
+
+void GameViewport::undo() {
+    if (_draft.undo()) {
+        _dirty = true;
+        markDraftMutated();
+    }
+}
+
+void GameViewport::redo() {
+    if (_draft.redo()) {
+        _dirty = true;
+        markDraftMutated();
+    }
+}
+
+void GameViewport::toggleGrid() noexcept {
+    _showGrid = !_showGrid;
+}
+
+void GameViewport::resetCamera() noexcept {
+    _manualCamera = false;
+}
+
+void GameViewport::toggleRenderMode() {
+    setRenderMode(_renderMode == RenderMode::Physique ? RenderMode::Texture : RenderMode::Physique);
+}
+
+void GameViewport::setDiagnosticsOverlayEnabled(bool enabled) noexcept {
+    if (_diagnosticsEnabled == enabled) {
+        return;
+    }
+    toggleDiagnosticsOverlay();
+}
+
+void GameViewport::toggleDiagnosticsOverlay() noexcept {
+    _diagnosticsEnabled = !_diagnosticsEnabled;
+    _frameRateAverage.reset();
 }
 
 void GameViewport::stopPlaytest() {
@@ -593,19 +1271,71 @@ void GameViewport::stopPlaytest() {
 
 void GameViewport::setVSync(bool enabled) noexcept {
     _vsync = enabled;
-    HMI_LOG_INFO(std::string("Options : V-Sync ") + (enabled ? "activee." : "desactivee."));
-    if (_graphics) {
-        _graphics->setVSyncEnabled(enabled);
+    // Depuis le portage QRhi (LOT-69 TACHE-02), la presentation appartient au compositeur de Qt :
+    // le reglage est conserve et journalise, mais aucune swap chain du projet ne l'applique plus.
+    HMI_LOG_INFO(std::string("Options : V-Sync ") + (enabled ? "activee." : "desactivee.") +
+                 " La presentation est calee par Qt depuis le portage QRhi.");
+}
+
+void GameViewport::pauseSimulation() noexcept {
+    _paused = true;
+}
+
+void GameViewport::resumeSimulation() {
+    _paused = false;
+    // Réarme l'horloge de référence sur l'instant courant : sans ça, le prochain tick() verrait
+    // un elapsedSeconds egal a toute la duree de la pause, et FixedTimestep::advance rendrait
+    // d'un coup tous les pas « manques » (le personnage traverserait le niveau, TACHE-02).
+    _previousFrame = Clock::now();
+}
+
+void GameViewport::restartCurrentLevel() {
+    if (_session) {
+        _session->reload();
     }
 }
 
-void GameViewport::startGame(std::vector<std::filesystem::path> levels) {
-    ensureResources();
+void GameViewport::quitGame() noexcept {
+    _gameMode = false;
+    _paused = false;
+    _session.reset();
+}
+
+bool GameViewport::isLastGameLevel() const noexcept {
+    return _gameLevel + 1 >= _gameLevels.size();
+}
+
+std::string GameViewport::currentGameLevelName() const {
+    if (!_gameMode || _gameLevel >= _gameLevels.size()) {
+        return {};
+    }
+    // Nom de fichier COMPLET (extension comprise), pas `.stem()` : ce nom sert aussi
+    // d'identifiant de progression (LOT-59 TACHE-05/06, `hmi::Progression`/`hmi::isLevelUnlocked`)
+    // comparé aux entrées de `core::LevelSequence::levels`, qui portent l'extension -- un `.stem()`
+    // ici désynchronisait silencieusement les deux formats (bug réel trouvé en jeu : la progression
+    // s'écrivait mais ne débloquait jamais rien, aucun nom ne correspondait jamais). La séquence
+    // affiche déjà ses entrées avec extension ailleurs (`hmi::LevelSelectScreen`), donc pas
+    // d'incohérence nouvelle côté affichage.
+    return _gameLevels[_gameLevel].filename().string();
+}
+
+std::string GameViewport::nextGameLevelName() const {
+    if (!_gameMode || _gameLevel + 1 >= _gameLevels.size()) {
+        return {};
+    }
+    return _gameLevels[_gameLevel + 1].filename().string();  // cf. currentGameLevelName().
+}
+
+void GameViewport::advanceToNextLevel() {
+    loadGameLevel(_gameLevel + 1);
+}
+
+void GameViewport::startGame(std::vector<std::filesystem::path> levels, std::size_t startIndex) {
     _gameLevels = std::move(levels);
     _gameMode = true;
     HMI_LOG_INFO("Jeu : demarrage de la sequence (" + std::to_string(_gameLevels.size()) +
-                 " niveaux).");
-    loadGameLevel(0);
+                 " niveaux, indice de depart " + std::to_string(startIndex) + ").");
+    loadGameLevel(startIndex);
 }
 
 void GameViewport::loadGameLevel(std::size_t index) {
@@ -625,10 +1355,21 @@ void GameViewport::loadGameLevel(std::size_t index) {
         return;
     }
     _gameLevel = index;
+    // Bilan remis a zero A CHAQUE entree dans un tableau, rejeu compris : c'est le bilan DE CE
+    // passage, pas un cumul de la session.
+    _runStats = LevelRunStats{};
     HMI_LOG_INFO("Jeu : niveau " + std::to_string(index) +
                  " charge : " + _gameLevels[index].filename().string());
+    if (_spriteBatch == nullptr) {
+        // Les ressources de rendu n'existent pas encore : QRhiWidget ne les cree qu'a la premiere
+        // image, et le viewport n'est peint qu'une fois affiche -- donc APRES ce chemin quand on
+        // lance une partie depuis le menu. Le tableau reste designe (`_gameMode`, `_gameLevel`) et
+        // `initialize()` remonte la session des qu'il le peut. Emplacer ici lierait une reference
+        // a un lot de sprites nul.
+        return;
+    }
     _session.emplace(*_spriteBatch, *_atlas, *_textureCache, pixelWidth(), pixelHeight(),
-                     std::move(*loaded.level), _gameBindings, _gamepadBindings);
+                     std::move(*loaded.level), _gameBindings, _gamepadBindings, *_font, _loc);
     _session->setSkins(&_skins, _skinSet);
 }
 
@@ -675,7 +1416,19 @@ void GameViewport::mousePressEvent(QMouseEvent* event) {
     if (const std::optional<hmi::MouseButton> button = mapQtMouseButton(event->button())) {
         _input.onMouseButtonDown(*button);
     }
-    if (_session || event->button() != Qt::LeftButton) {
+    if (_session) {
+        return;
+    }
+    if (event->button() == Qt::RightButton) {
+        // Le bouton droit sert au pan (glisser) ET, pour l'outil « Texture par instance »
+        // (LOT-45), au retrait explicite (clic sans glisser) -- la decision entre les deux est
+        // prise a la relache, une fois qu'on sait si un glisser a eu lieu.
+        _rightDragging = true;
+        _cameraPanned = false;
+        _rightDragLastScreen = screenPosition(event);
+        return;
+    }
+    if (event->button() != Qt::LeftButton) {
         return;
     }
     // Mode édition : dispatch selon l'outil actif.
@@ -686,12 +1439,19 @@ void GameViewport::mousePressEvent(QMouseEvent* event) {
             break;
         case hmi::EditorTool::Rectangle:
         case hmi::EditorTool::Selection:
+        case hmi::EditorTool::CameraZone:
             _dragging = true;
             _dragStart = clampedCell(event);
             _dragCurrent = _dragStart;
             break;
         case hmi::EditorTool::Link:
             handleLinkClick(event);
+            break;
+        case hmi::EditorTool::TextureAssign:
+            handleTextureAssignClick(event, /*rightClick=*/false);
+            break;
+        case hmi::EditorTool::Path:
+            handlePathPress(event);
             break;
     }
 }
@@ -700,6 +1460,21 @@ void GameViewport::mouseReleaseEvent(QMouseEvent* event) {
     updateMousePosition(event);
     if (const std::optional<hmi::MouseButton> button = mapQtMouseButton(event->button())) {
         _input.onMouseButtonUp(*button);
+    }
+    if (event->button() == Qt::RightButton) {
+        // Glisser droit sans mouvement significatif = un clic : l'outil « Texture par instance »
+        // (LOT-45) y retire l'override de la case, l'outil « Parcours » y retire le point vise,
+        // les autres outils l'ignorent. Un glisser (pan) ne declenche jamais d'action d'edition.
+        if (_rightDragging && !_cameraPanned) {
+            if (_tool == hmi::EditorTool::TextureAssign) {
+                handleTextureAssignClick(event, /*rightClick=*/true);
+            } else if (_tool == hmi::EditorTool::Path) {
+                handlePathRelease(event, /*rightClick=*/true);
+            }
+        }
+        _rightDragging = false;
+        _cameraPanned = false;
+        return;
     }
     if (event->button() != Qt::LeftButton) {
         return;
@@ -714,8 +1489,13 @@ void GameViewport::mouseReleaseEvent(QMouseEvent* event) {
                                                   std::min(_dragStart.row, _dragCurrent.row)},
                                core::GridPosition{std::max(_dragStart.column, _dragCurrent.column),
                                                   std::max(_dragStart.row, _dragCurrent.row)});
+        } else if (_tool == hmi::EditorTool::CameraZone) {
+            addCameraZoneFromDrag(_dragStart, _dragCurrent);
         }
         _dragging = false;
+    }
+    if (_tool == hmi::EditorTool::Path) {
+        handlePathRelease(event, /*rightClick=*/false);
     }
     _painting = false;
 }
@@ -725,18 +1505,59 @@ void GameViewport::mouseMoveEvent(QMouseEvent* event) {
     if (_session) {
         return;
     }
-    if (const std::optional<core::GridPosition> cell = cellAt(event)) {
-        _hoverCell = *cell;  // cible du collage (Ctrl+V)
+    if (_rightDragging) {
+        constexpr float PAN_THRESHOLD_PIXELS = 3.0f;  // au-dela : un glisser, pas un clic.
+        const core::Vector2 current = screenPosition(event);
+        const core::Vector2 delta = current - _rightDragLastScreen;
+        if (std::abs(delta.x) > PAN_THRESHOLD_PIXELS || std::abs(delta.y) > PAN_THRESHOLD_PIXELS) {
+            _cameraPanned = true;
+        }
+        if (!_manualCamera) {
+            // Premier glisser : demarre le cadrage manuel a partir du cadrage automatique
+            // courant, pour ne pas faire sauter la vue.
+            updateEditCamera();
+            _manualZoom = _camera.zoom();
+            _manualCenter = _camera.center();
+            _manualCamera = true;
+        }
+        const float scale = hmi::Camera2D::PIXELS_PER_UNIT * _manualZoom;
+        _manualCenter.x -= delta.x / scale;
+        _manualCenter.y -= delta.y / scale;
+        _rightDragLastScreen = current;
+    }
+    const std::optional<core::GridPosition> cell = cellAt(event);  // cible du collage (Ctrl+V)
+    if (cell != _hoverCell) {
+        _hoverCell = cell;
+        emit hoveredCellChanged(_hoverCell);
     }
     if (_painting) {
         paintAt(event);  // glisser de peinture
     } else if (_dragging) {
         _dragCurrent = clampedCell(event);  // aperçu du rectangle/de la sélection
+    } else if (_tool == hmi::EditorTool::Path) {
+        handlePathMove(event);  // glisser d'une poignee de parcours (LOT-67)
     }
 }
 
 void GameViewport::wheelEvent(QWheelEvent* event) {
     _input.onMouseWheel(event->angleDelta().y());
+    if (_session) {
+        return;  // essai/jeu : la molette n'alimente que l'input, aucun zoom manuel.
+    }
+    const int notches = event->angleDelta().y() / 120;  // 120 = un cran de molette (Qt/Win32).
+    if (notches == 0) {
+        return;
+    }
+    if (!_manualCamera) {
+        // Premier cran : demarre le cadrage manuel a partir du cadrage automatique courant, pour
+        // ne pas faire sauter la vue au premier zoom.
+        updateEditCamera();
+        _manualZoom = _camera.zoom();
+        _manualCenter = _camera.center();
+        _manualCamera = true;
+    }
+    _manualZoom =
+        std::clamp(_manualZoom + static_cast<float>(notches), minManualZoom(), maxManualZoom());
 }
 
 }  // namespace hmi

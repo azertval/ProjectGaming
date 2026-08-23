@@ -1,6 +1,6 @@
 # TACHE-02 — Outil de décors et geste pur de manipulation {#lot-50-tache-02-outil-geste}
 
-**Lot :** [LOT-50](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** non commencé
+**Lot :** [LOT-50](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** fait
 
 ## Contexte
 Manipuler un décor à la souris est le geste le plus riche de l'éditeur : il faut désigner une cible
@@ -59,6 +59,19 @@ manipulation finirait dispersée dans des gestionnaires d'événements Qt intest
 - L'outil existe, est sélectionnable au panneau et au clavier ; placer, sélectionner, déplacer,
   redimensionner et pivoter fonctionnent, avec abandon et aimantation optionnelle ; le geste est pur
   et testé sans Qt ; `/W4 /WX` propre.
+
+## Correctif post-livraison
+La mise en garde ci-dessus (« Points d'attention ») avait été identifiée mais pas suivie à la
+livraison initiale : la désignation/les poignées comparaient le curseur (position de **rendu**) à
+des rectangles calculés depuis la position **modèle** brute des décors, jamais convertie. Sans
+effet sur la couche `Decor` (facteur `1.0`, `EX-DEC-006`), mais un décor en couche
+Arrière-plan/Premier plan désignait/manipulait à côté de ce qui était visible à l'écran — rapporté
+comme « le cadre de modification se désolidarise du décor ». Corrigé en convertissant
+explicitement aux deux frontières concernées (`GameViewport::decorBoundsForGesture`/
+`selectedDecorHandles` vers l'espace de rendu, `hmi::parallaxRenderPosition` ; le curseur vers
+l'espace modèle avant d'entrer dans `hmi::DecorGesture`, `hmi::parallaxModelPosition`, son inverse
+exact) — voir @ref guide-rendu pour le détail. `hmi::DecorGesture` lui-même n'a pas changé : il n'a
+jamais connu la parallaxe, et n'a pas à la connaître.
 
 ## Exigences
 `EX-DEC-010` (placer, déplacer, redimensionner, supprimer), `EX-EDIT-040` (édition de décors) ;

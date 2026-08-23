@@ -5,40 +5,206 @@
 
 # Menu principal
 menu.title = ProjectGaming
-menu.play = Jouer
+menu.continue = Continuer
+menu.new_game = Nouvelle partie
+menu.select_level = Choisir un niveau
 menu.edit_mode = Mode Édition
 menu.options = Options
+menu.credits = Crédits
 menu.quit = Quitter
+menu.new_game_confirm_title = Nouvelle partie ?
+menu.new_game_confirm_text = La progression actuelle sera effacée. Commencer une nouvelle partie ?
+
+# Écran de pause (LOT-59 TACHE-02)
+pause.title = Pause
+pause.resume = Reprendre
+pause.restart = Recommencer le niveau
+pause.options = Options
+pause.quit_to_menu = Quitter vers le menu
+pause.quit_confirm_title = Quitter vers le menu ?
+pause.quit_confirm_text = La progression du tableau en cours sera perdue. Quitter vers le menu ?
+
+# Écran de fin de niveau et de fin de séquence (LOT-59 TACHE-03)
+level_complete.title_level = Tableau terminé : %1
+level_complete.title_sequence = Séquence terminée !
+level_complete.continue = Continuer
+level_complete.replay = Rejouer
+level_complete.return_to_menu = Retour au menu
+level_complete.summary = Temps %1 · Morts %2 · Sauts %3
+
+# Séquence de niveaux (LOT-59 TACHE-04)
+sequence.demo.title = Séquence de démonstration
+game.sequence_failed_title = Séquence illisible
+game.sequence_failed_text = Impossible de charger la séquence de niveaux : %1
+
+# Écran de sélection de niveau (LOT-59 TACHE-06)
+level_select.title = Choisir un niveau
+level_select.tab_sequence = Séquence
+level_select.tab_personal = Niveaux personnels
+level_select.back = Retour
+level_select.completed_suffix = (terminé)
+level_select.locked_suffix = (verrouillé)
 
 # Fenetre principale et barre de menus
 window.title = ProjectGaming — Éditeur
-menubar.application = Application
 menubar.main_menu = Menu principal
 menubar.quit = Quitter
+menubar.file = Fichier
+menubar.edit = Édition
+menubar.help = Aide
+menubar.layers = Calques
+menubar.panels = Panneaux
+menubar.workspace = Espace de travail
+menubar.workspace_level = Édition de niveau
+menubar.workspace_planes = Mode création
+menubar.workspace_pixel_art = Atelier pixel art
 menubar.level = Niveau
-menubar.save = Enregistrer (Ctrl+S)
-menubar.playtest = Essayer (P)
 menubar.resize = Redimensionner…
 menubar.view = Affichage
+menubar.theme = Thème
+menubar.theme_system = Système
+menubar.theme_light = Clair
+menubar.theme_dark = Sombre
+menubar.follow_active_tool = Suivre l'outil actif
+# Mode d'inspection par calque (LOT-57 TACHE-03, deplace depuis l'onglet Calques du panneau
+# Textures) : DECOMPOSE le rendu pour auditer, distinct de la bascule Jeu/F8 qui le COMPOSE.
+menubar.layer_background = Fond
+menubar.layer_plane_behind = Plans derrière
+menubar.layer_shadow = Ombres
+menubar.layer_tile_skin = Skin des tuiles
+menubar.layer_objects = Objets interactifs
+menubar.layer_player = Personnage
+menubar.layer_plane_front = Plans devant
+menubar.layer_show_all = Tout afficher
 menubar.reset_layout = Réinitialiser la disposition
 
 # Panneaux dockables
 dock.palette = Palette
-dock.tools = Outils
 dock.levels = Niveaux
 dock.links = Liens
 dock.textures = Textures
+dock.properties = Propriétés
+dock.pixel_canvas = Atelier
+dock.pixel_history = Historique de l'atelier
+dock.pixel_palette = Palette
 
 # Panneau Textures (LOT-42)
 textures.skin_set = Jeu de skins
+textures.skin_set_tooltip = Jeu de skins de la session d'édition, distinct de celui du niveau (section « Fond »).
 textures.section_skins = Skins
 textures.column_type = Type de tuile
 textures.column_asset = Fichier
 textures.column_mode = Mode
 textures.none = (aucun)
+textures.pick_asset = Choisir un asset
+textures.reload = Recharger
+textures.reload_tooltip = Recharge les textures depuis le disque
+textures.reload_done = Textures rechargées.
+
+# Section « Fond » du panneau Textures (LOT-44)
+textures.section_background = Fond
+textures.background_mode_hint = Le rendu du fond nécessite le mode Texture (F8).
+textures.background_label = Fond
+textures.level_skin_set = Jeu de skins du niveau
+textures.level_skin_set_tooltip = Jeu de skins utilisé par CE niveau, distinct du sélecteur « Jeu de skins » ci-dessus (jeu courant d'édition).
+textures.default_set = (jeu par défaut)
+
+# Section « Cadrage » du panneau Textures (LOT-64)
+textures.section_camera_framing = Cadrage
+textures.camera_framing_mode = Mode de cadrage
+textures.camera_framing_room_width = Largeur de vue
+textures.camera_framing_room_height = Hauteur de vue
+textures.camera_framing_room_default = Par défaut
+camera_framing.whole_level = Niveau entier
+camera_framing.per_room = Par salle
+camera_framing.follow = Suivi du personnage
+textures.camera_framing_zones_hint = Glisser sur le canevas avec l'outil « Zone de caméra » pour en ajouter une.
+textures.camera_framing_zones_remove = Retirer
+textures.camera_framing_zones_column_x = X
+textures.camera_framing_zones_column_y = Y
+textures.camera_framing_zones_column_width = Largeur
+textures.camera_framing_zones_column_height = Hauteur
+
+# Section « Objets » du panneau Textures (LOT-45)
+textures.section_objects = Objets
+textures.objects_asset_label = Asset à assigner
+textures.objects_list_label = Surcharges du niveau
+textures.objects_remove = Retirer
+textures.objects_column_position = Position
+textures.objects_column_asset = Fichier
+
+# Section « Animations » du panneau Textures (LOT-47)
+textures.section_animations = Animations
+textures.animations_column_diagnostic = Clips
+textures.animations_preview = Aperçu
+textures.animations_complete = Complet
+textures.animations_missing = Manquants
+
+
+# Bibliotheque d'assets partagee (LOT-43)
+assets.search = Rechercher…
+assets.none = (aucun)
+assets.import = Importer
+assets.rename = Renommer
+assets.duplicate = Dupliquer
+assets.delete = Supprimer
+assets.rename_prompt = Nouveau nom :
+assets.delete_title = Supprimer
+assets.delete_confirm = Supprimer définitivement « %1 » ?
+assets.references_warning = « %1 » est utilisé par : %2
+assets.operation_failed = Opération impossible
 
 # Barre de statut et dialogues
-status.edit_help = Éditeur — peindre : clic gauche · Ctrl+Z/Y · P : essayer · F10 : grille
+status.zone.level = Niveau : %1
+status.zone.asset = Asset : %1
+status.zone.dirty = Modifié
+status.zone.hover = (%1, %2)
+status.zone.zoom = Zoom : %1%
+status.zone.camera_framing = Cadrage : %1
+status.zone.color = Couleur : %1
+status.zone.color_constrained = Couleur : %1 (contrainte à la palette)
+status.zone.plane_file = Plan : %1
+status.zone.plane = Plan : %1×%2 px · %3 px/unité · %4 Mio
+status.help_paint = Peindre : clic gauche/glisser · Ctrl+Z/Y : annuler/refaire
+status.help_rectangle = Rectangle : glisser pour peindre une zone · Ctrl+Z/Y : annuler/refaire
+status.help_selection = Sélection : glisser pour délimiter · Ctrl+C/V : copier/coller
+status.help_link = Lien : cliquer un déclencheur puis sa cible · recliquer la même paire délie
+status.help_texture_assign = Texture : clic gauche assigne, reclic ou clic droit retire
+status.help_camera_zone = Zone de caméra : glisser pour dessiner une zone (mode par salle) ; la retirer depuis la section « Cadrage »
+status.path_waypoint_removed = Point de parcours retiré
+properties.selection_group = Élément sélectionné
+properties.no_selection = Sélectionnez une plateforme mobile ou un piège avec l'outil Parcours.
+properties.platform_speed = Vitesse (cases/s)
+properties.platform_phase = Déphasage (pas)
+properties.platform_mode = Parcours
+properties.platform_waypoints = Points : %1
+properties.mode_pingpong = Aller-retour
+properties.mode_loop = Boucle
+properties.mover_axis = Axe
+properties.mover_range = Portée (cases)
+properties.axis_horizontal = Horizontal
+properties.axis_vertical = Vertical
+properties.blink_period = Période (pas)
+properties.blink_phase = Déphasage (pas)
+properties.blink_active = Durée active (pas)
+properties.budget_group = Budget du tableau (consommable, jamais rechargé)
+properties.jump_budget = Sauts
+properties.dash_budget = Dashs
+properties.capability_group = Capacités (rechargées à chaque atterrissage)
+properties.air_jumps = Sauts aériens
+properties.dash_charges = Charges de dash
+properties.unlimited = Illimité
+properties.engine_default = Par défaut
+panel.properties = Propriétés
+status.help_path = Parcours : cliquer une plateforme ou un danger mobile, glisser une poignée pour déplacer un point, le losange d'un segment pour en insérer un, clic droit pour retirer
+status.help_pixel_brush = Pinceau : clic gauche/glisser peint · Ctrl+Z/Y : annuler/refaire
+status.help_pixel_eraser = Gomme : clic gauche/glisser efface · Ctrl+Z/Y : annuler/refaire
+status.help_pixel_fill = Pot de peinture : clic remplit la zone connexe
+status.help_pixel_eyedropper = Pipette : clic prélève la couleur du pixel visé
+status.help_pixel_selection = Sélection : glisser délimite ou déplace · Ctrl+C/V : copier/coller
+status.texture_assigned = Texture assignée : %1
+status.texture_removed = Texture retirée.
+status.texture_no_asset_selected = Aucun asset sélectionné : choisissez-en un dans l'onglet « Objets » du panneau Textures.
 dialog.unsaved_title = Modifications non enregistrées
 dialog.unsaved_text = Le niveau courant a des modifications non enregistrées. Quitter quand même ?
 dialog.resize_title = Redimensionner le niveau
@@ -51,6 +217,85 @@ tool.brush = Pinceau
 tool.rectangle = Rectangle
 tool.selection = Sélection
 tool.link = Lien
+tool.texture_assign = Texture
+tool.camera_zone = Zone de caméra
+tool.path = Parcours
+
+# Outils du canevas pixel art (LOT-54 TACHE-04) : groupe exclusif distinct des outils de niveau
+# ci-dessus, reutilises aussi comme libelle court dans la barre d'etat (hmi::EditorStatus).
+pixel_tool.brush = Pinceau
+pixel_tool.eraser = Gomme
+pixel_tool.fill = Pot de peinture
+pixel_tool.eyedropper = Pipette
+pixel_tool.selection = Sélection
+
+# Actions/commandes de la barre d'outils (LOT-56 TACHE-04) : libellé seul, le raccourci vient de
+# l'action elle-même (EditorActions::retranslateUi), jamais saisi ici.
+action.save = Enregistrer
+action.playtest = Essayer
+action.undo = Annuler
+action.redo = Refaire
+action.toggle_grid = Grille
+action.reset_camera = Recadrer
+action.toggle_render_mode = Mode de rendu
+action.copy = Copier
+action.paste = Coller
+action.rename = Renommer
+action.shortcuts_overview = Aperçu des raccourcis
+
+# Commandes de fichier de l'atelier pixel art (LOT-54 TACHE-05).
+action.pixel_open = Ouvrir un asset…
+action.pixel_create = Créer un asset…
+action.pixel_save = Enregistrer l'asset
+action.pixel_save_as = Enregistrer l'asset sous…
+action.pixel_flip_horizontal = Symétrie horizontale
+action.pixel_flip_vertical = Symétrie verticale
+action.pixel_rotate_cw = Pivoter (horaire)
+action.pixel_rotate_ccw = Pivoter (antihoraire)
+
+# Panneau de palette de l'atelier pixel art (LOT-54 TACHE-07).
+pixel_palette.add = Ajouter
+pixel_palette.remove = Retirer
+pixel_palette.rename = Renommer
+pixel_palette.move_up = Monter
+pixel_palette.move_down = Descendre
+pixel_palette.extract = Extraire de l'asset
+pixel_palette.constrain = Contraindre à la palette
+pixel_palette.rename_prompt = Nouveau nom de la couleur
+pixel_palette.new_color_name = Couleur %1
+
+# Configurations de voisinage d'une planche a raccords (LOT-42, meme table que TileAutotile.cpp) :
+# libelle affiche dans l'atelier pixel art en mode planche (LOT-54 TACHE-08).
+autotile.config.0 = Tuile isolée
+autotile.config.1 = Extrémité basse de colonne
+autotile.config.2 = Extrémité gauche de rangée
+autotile.config.3 = Coin extérieur bas-gauche
+autotile.config.4 = Extrémité haute de colonne
+autotile.config.5 = Segment vertical
+autotile.config.6 = Coin extérieur haut-gauche
+autotile.config.7 = Bord gauche
+autotile.config.8 = Extrémité droite de rangée
+autotile.config.9 = Coin extérieur bas-droite
+autotile.config.10 = Segment horizontal
+autotile.config.11 = Bord bas
+autotile.config.12 = Coin extérieur haut-droite
+autotile.config.13 = Bord droit
+autotile.config.14 = Bord haut
+autotile.config.15 = Intérieur plein
+
+# Boîtes de dialogue de l'atelier pixel art (LOT-54 TACHE-05).
+menubar.pixel = Atelier
+pixel.open_title = Ouvrir un asset
+pixel.open_failed = Échec de l'ouverture de l'asset.
+pixel.create_title = Créer un asset
+pixel.create_family = Famille
+pixel.create_size = Taille
+pixel.save_title = Enregistrer l'asset
+pixel.save_failed = Échec de l'enregistrement de l'asset.
+pixel.save_done = Asset enregistré : %1
+pixel.overwrite_title = Remplacer l'asset ?
+pixel.overwrite_text = « %1 » est référencé par : %2. Le remplacer ?
+pixel.color_picker_title = Couleur courante
 
 # Panneau Liens (LOT-37)
 link.column.type = Type
@@ -79,17 +324,19 @@ tab.audio = Audio
 tab.general = Général
 tab.keyboard = Commande clavier
 tab.gamepad = Commande manette
+tab.editor = Éditeur
+dialog.shortcuts_title = Raccourcis clavier
+dialog.shortcuts_command = Commande
+dialog.shortcuts_key = Raccourci
 options.title = Options
 options.back = Retour
 options.vsync = Synchronisation verticale
 options.enabled = Activée
 options.display = Affichage
 options.fullscreen = Plein écran
-options.resolution = Résolution
-options.resolution_auto = Automatique (fenêtre)
-options.fps_limit = Limite d'images/s
-options.unlimited = Illimité
-options.audio_soon = Audio à venir (aucun système audio pour le moment).
+options.diagnostics = Compteur de diagnostic
+options.diagnostics_show = Afficher en haut à droite
+options.volume = Volume
 options.language = Langue
 options.logs = Journaux
 options.save_logs = Enregistrer les journaux de session
@@ -100,6 +347,15 @@ options.gamepad_connected = Manette : connectée
 options.gamepad_disconnected = Manette : non connectée
 language.fr = Français
 language.en = English
+
+# Ecran Credits (LOT-60)
+credits.title = Crédits
+credits.development = Développement
+credits.audio = Musique et bruitages
+credits.graphics = Graphismes
+credits.fonts = Polices
+credits.libraries = Bibliothèques
+credits.license = Licence
 
 # Messages d'etat du viewport
 status.region_copied = Zone copiée (%1 × %2).
@@ -113,6 +369,9 @@ status.playtest_failed = Essai impossible : %1
 status.playtesting = Essai en cours — Échap pour revenir à l'édition.
 status.back_to_edit = Retour à l'édition.
 status.level_resized = Niveau redimensionné : %1 × %2
+status.rename_failed = Nom de niveau invalide.
+status.rename_failed_reason = Renommage impossible : %1
+status.level_renamed = Niveau renommé : %1
 
 # Remappage des touches (LOT-29/LOT-30, EX-CTRL-012, EX-CTRL-002)
 keybindings.game_title = Touches de jeu
@@ -129,6 +388,7 @@ keybindings.action.aim_up = Viser le dash vers le haut
 keybindings.action.aim_down = Viser le dash vers le bas
 keybindings.action.jump = Sauter
 keybindings.action.dash = Dash
+keybindings.action.interact = Interagir
 keybindings.action.save = Sauvegarder
 keybindings.action.undo = Annuler
 keybindings.action.redo = Refaire
@@ -138,6 +398,18 @@ keybindings.action.playtest = Test rapide
 keybindings.action.grid = Grille
 keybindings.action.help = Aide
 keybindings.action.rename = Renommer
+keybindings.action.texture_tool = Outil Texture
+
+# Affichage tete haute en jeu (LOT-52, EX-IHM-003)
+hud.jumps_remaining = Sauts : %1
+hud.dashes_remaining = Dashs : %1
+hud.interact_prompt = Interagir pour ramasser
+
+# Compteur de diagnostic en jeu (LOT-62, F9, EX-NFR-001, EX-NFR-005)
+diag.fps = Images/s : %1
+diag.primitives = Primitives : %1 composees / %2 soumises
+diag.batches = Passes : %1
+diag.steps = Pas de simulation : %1
 
 # Palette de tuiles : categories, sous-groupes, tuiles
 palette.cat.tile = Tuile
@@ -160,6 +432,9 @@ palette.tile.quarter = Quart (¼)
 palette.tile.switch = Interrupteur
 palette.tile.plate = Plaque de pression
 palette.tile.door = Porte
+palette.tile.key = Clé
+palette.tile.locked_door = Porte verrouillée
+palette.tile.moving_platform = Plateforme mobile
 palette.tile.danger = Danger
 palette.tile.danger_moving = Danger mobile
 palette.tile.danger_switched = Danger commuté
@@ -170,3 +445,63 @@ palette.tile.spikes_left = Pics vers la gauche
 palette.tile.spikes_right = Pics vers la droite
 palette.tile.entry = Entrée
 palette.tile.exit = Sortie
+
+# Atelier pixel art (LOT-54) : noms d'operations de l'historique du canevas, distincts de
+# l'historique du niveau (EX-IHM-062, TACHE-02).
+pixel_editor.operation.brush = pinceau
+pixel_editor.operation.eraser = gomme
+pixel_editor.operation.fill = remplissage
+pixel_editor.operation.move = déplacement de région
+pixel_editor.operation.flip_horizontal = symétrie horizontale
+pixel_editor.operation.flip_vertical = symétrie verticale
+pixel_editor.operation.rotate_cw = rotation horaire
+pixel_editor.operation.rotate_ccw = rotation antihoraire
+pixel_editor.operation.paste = collage
+
+# Rappels de touches en bas des ecrans du jeu (LOT-68).
+key.up_down = ↑↓
+key.left_right = ←→
+key.confirm = A
+key.back = B
+key.escape = ÉCHAP
+hint.navigate = Naviguer
+hint.confirm = Valider
+hint.back = Retour
+hint.tab = Onglet
+hint.play = Jouer
+hint.resume = Reprendre
+
+# Panneau « Plans » (LOT-69 TACHE-08)
+planes.column_file = Fichier
+planes.column_density = Densité
+planes.column_depth = Profondeur
+planes.column_visible = Visible
+planes.add = Ajouter
+planes.remove = Supprimer
+planes.paint = Peindre
+planes.isolate = Isoler
+planes.forward = Monter
+planes.backward = Descendre
+planes.front = Devant
+planes.behind = Derrière
+planes.settings = Plan sélectionné
+planes.density = Densité (px/unité)
+planes.depth = Profondeur
+planes.depth_behind = Derrière les tuiles
+planes.depth_front = Devant le personnage
+planes.parallax_x = Parallaxe X
+planes.parallax_y = Parallaxe Y
+planes.opacity = Opacité
+planes.level_group = Niveau
+planes.parallax_enabled = Parallaxe active
+planes.parallax_whole_level_hint = Sans effet en cadrage « niveau entier » : la caméra ne défile pas, le décalage ne serait qu'un désalignement constant.
+planes.added = Plan ajouté : %1
+planes.removed = Plan retiré de la liste. Le fichier, lui, est conservé.
+planes.create_failed = Création du plan impossible : vérifiez le dossier des plans.
+planes.paint_failed = Ce plan ne peut pas être peint : sa densité ou la taille du niveau sont hors format.
+planes.saved = Plan enregistré : %1
+planes.save_failed = Enregistrement du plan impossible : vérifiez le dossier des plans.
+planes.none_selected = Aucun plan sélectionné : choisissez-en un dans le panneau « Plans », ou ajoutez-en un.
+planes.discard_title = Plan non enregistré
+planes.discard_text = Le plan en cours contient des modifications non enregistrées. Les enregistrer avant de continuer ?
+dock.planes = Plans

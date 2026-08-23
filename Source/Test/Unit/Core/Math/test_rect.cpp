@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_rect.cpp
  * @brief Tests unitaires du rectangle aligné sur les axes de `Core`.

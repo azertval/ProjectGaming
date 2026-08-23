@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Input/InputState.h"
 
 namespace hmi {
@@ -173,6 +176,12 @@ bool InputState::gamepadButtonDown(GamepadButton button) const noexcept {
 bool InputState::gamepadButtonPressed(GamepadButton button) const noexcept {
     const std::size_t index = gamepadButtonIndex(button);
     return _gamepadButtonsCurrent[index] && !_gamepadButtonsPrevious[index];
+}
+
+// Indique si button (piste manette brute) vient d'être relâché cette frame (front descendant).
+bool InputState::gamepadButtonReleased(GamepadButton button) const noexcept {
+    const std::size_t index = gamepadButtonIndex(button);
+    return !_gamepadButtonsCurrent[index] && _gamepadButtonsPrevious[index];
 }
 
 // Abscisse de la souris, en pixels de la zone client.

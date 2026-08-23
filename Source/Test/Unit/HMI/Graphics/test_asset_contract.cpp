@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_asset_contract.cpp
  * @brief Tests unitaires du contrat de dimensions des assets graphiques (LOT-40, EX-REN-007).
@@ -53,6 +56,44 @@ TEST(AssetContractTest, SkinDeTuileNonConformeRefuseAvecMessage) {
     EXPECT_TRUE(contains(validation.message, "mur.png")) << validation.message;
     EXPECT_TRUE(contains(validation.message, "24x16")) << validation.message;
     EXPECT_TRUE(contains(validation.message, "16x16")) << validation.message;
+}
+
+/**
+ * @brief Un skin de tuile ANIME (`LOT-46`) est une spritesheet horizontale sur un seul rang :
+ *        plusieurs cases de large, une case de haut. La cohérence fine (nombre d'images, indices
+ *        référencés par les clips) relève de `hmi::AnimationCatalog::validateAgainstTexture`.
+ * \castest{<b>Une spritesheet animee (plusieurs cases de large, une case de haut) est
+ * acceptee.</b><br/>
+ * \tcat Unitaire · Asset Contract<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Valider un skin de tuile de 64x16 px (4 images).<br/>
+ * \tattendu La validation reussit.
+ * }
+ */
+TEST(AssetContractTest, SkinDeTuileAnimeSpritesheetHorizontaleAcceptee) {
+    const hmi::AssetValidation validation =
+        hmi::validateAsset(hmi::AssetFamily::TileSkin, "water.png",
+                           hmi::TextureAtlas::TILE_SIZE * 4, hmi::TextureAtlas::TILE_SIZE);
+
+    EXPECT_TRUE(validation.valid) << validation.message;
+}
+
+/**
+ * @brief Un skin de tuile de plus d'un rang (hauteur multiple de la case, mais pas exactement une
+ *        case) reste refusé : la spritesheet animée n'a jamais qu'un seul rang (`LOT-46`).
+ * \castest{<b>Une image sur plusieurs rangs (hauteur non conforme) est refusee.</b><br/>
+ * \tcat Unitaire · Asset Contract<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Valider un skin de tuile de 16x32 px.<br/>
+ * \tattendu La validation echoue.
+ * }
+ */
+TEST(AssetContractTest, SkinDeTuileSurPlusieursRangsRefuse) {
+    const hmi::AssetValidation validation =
+        hmi::validateAsset(hmi::AssetFamily::TileSkin, "mur.png", hmi::TextureAtlas::TILE_SIZE,
+                           hmi::TextureAtlas::TILE_SIZE * 2);
+
+    EXPECT_FALSE(validation.valid);
 }
 
 /**
@@ -142,8 +183,7 @@ TEST(AssetContractTest, AtlasLivreConforme) {
 TEST(AssetContractTest, ToutesLesFamillesSontNommees) {
     const hmi::AssetFamily families[] = {
         hmi::AssetFamily::Atlas,      hmi::AssetFamily::TileSkin, hmi::AssetFamily::AutotileSheet,
-        hmi::AssetFamily::Background, hmi::AssetFamily::Object,   hmi::AssetFamily::CharacterSheet,
-        hmi::AssetFamily::Decor};
+        hmi::AssetFamily::Background, hmi::AssetFamily::Object,   hmi::AssetFamily::CharacterSheet};
 
     for (const hmi::AssetFamily family : families) {
         const std::string name = hmi::assetFamilyName(family);

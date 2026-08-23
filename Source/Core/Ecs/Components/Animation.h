@@ -1,4 +1,11 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
+
+#include <memory>
+
+#include "Core/Ecs/AnimationClip.h"
 
 /**
  * @file Core/Ecs/Components/Animation.h
@@ -8,36 +15,28 @@
 namespace core {
 
 /**
- * @brief Clip d'animation du personnage (`EX-REN-012`).
- */
-enum class AnimationClip {
-    /// Immobile, au sol.
-    Idle,
-    /// Déplacement horizontal, au sol.
-    Run,
-    /// En l'air (saut ou chute) — pose unique, pas un cycle.
-    Jump,
-};
-
-/// Nombre d'images du clip `Idle`. Seule source de vérité (`Core` et `HMI`, cf. LOT-18).
-constexpr int IDLE_FRAME_COUNT = 2;
-/// Nombre d'images du clip `Run`.
-constexpr int RUN_FRAME_COUNT = 4;
-/// Nombre d'images du clip `Jump` (pose unique, jamais animée).
-constexpr int JUMP_FRAME_COUNT = 1;
-
-/**
- * @brief État d'animation courant d'une entité : quel clip, quelle image, depuis combien de temps.
+ * @brief État d'animation courant d'une entité : quel jeu de clips, quel clip, quelle image,
+ *        depuis combien de temps.
  *
  * Donnée pure sans logique (`EX-ARCH-011`), mise à jour par `AnimationSystem` et lue par le rendu
- * (`HMI`) pour choisir la région d'atlas à afficher. Le clip est une **projection** de l'état
- * physique du personnage (`Player::grounded`, `Velocity`) — il ne s'agit pas d'un état piloté par
- * une entrée du joueur, ni d'une source de vérité supplémentaire.
+ * (`HMI`) pour choisir la région à afficher (`LOT-46`). Le clip courant est une **projection** de
+ * l'état de simulation (ex. `Player::grounded`/`Velocity` pour le personnage) — il ne s'agit pas
+ * d'un état piloté directement par une entrée du joueur, ni d'une source de vérité supplémentaire.
+ *
+ * `clips` est partagé (`shared_ptr` vers une donnée **immuable**) plutôt que copié : plusieurs
+ * entités animées par le même jeu (ex. toutes les tuiles d'eau d'un niveau) n'en dupliquent pas le
+ * contenu. `nullptr` signifie « pas de jeu assigné » — une entité dans cet état n'est jamais créée
+ * en pratique (`Core::buildLevelScene`/`spawnPlayer` assignent toujours un jeu avant l'ajout du
+ * composant), mais `AnimationSystem` reste sûr face à ce cas (`EX-NFR-040`).
  */
 struct Animation {
-    /// Clip actuellement joué.
-    AnimationClip clip = AnimationClip::Idle;
-    /// Index de l'image courante dans le clip (0-based, borné au nombre d'images du clip).
+    /// Jeu de clips utilisé par cette entité (immuable, partagé).
+    std::shared_ptr<const ClipSet> clips;
+    /// Index du clip courant dans `clips`, déjà résolu (`ClipSet::indexOf`) : la progression au
+    /// pas fixe ne compare donc jamais de chaîne, y compris pour un grand nombre d'entités
+    /// animées (`LOT-46` TACHE-02).
+    int clipIndex = 0;
+    /// Index de l'image courante, **dans le clip** (0-based, borné à `AnimationClip::frames`).
     int frameIndex = 0;
     /// Temps écoulé (secondes) depuis le passage à `frameIndex`.
     float elapsed = 0.0f;

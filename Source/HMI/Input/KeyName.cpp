@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Input/KeyName.h"
 
 #include <array>
@@ -55,6 +58,8 @@ std::string keyDisplayName(Key key) {
             return "R";
         case Key::S:
             return "S";
+        case Key::T:
+            return "T";
         case Key::V:
             return "V";
         case Key::W:
@@ -80,7 +85,7 @@ std::string keyDisplayName(Key key) {
     }
     std::ostringstream stream;
     stream << "Touche 0x" << std::hex << std::uppercase << std::setw(2) << std::setfill('0')
-          << code;
+           << code;
     return stream.str();
 }
 

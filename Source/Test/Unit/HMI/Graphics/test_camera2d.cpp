@@ -1,10 +1,14 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_camera2d.cpp
  * @brief Tests unitaires de la caméra 2D (conversions monde ↔ écran, projection).
  */
 
-#include <DirectXMath.h>
 #include <cmath>
+
+#include <DirectXMath.h>
 #include <gtest/gtest.h>
 
 #include "Core/Math/Vector2.h"
@@ -33,6 +37,26 @@ TEST(Camera2DTest, CentreAuMilieuDeLEcran) {
     const core::Vector2 screen = camera.worldToScreen(core::Vector2{10.0f, 5.0f});
     EXPECT_NEAR(screen.x, WIDTH * 0.5f, TOLERANCE);
     EXPECT_NEAR(screen.y, HEIGHT * 0.5f, TOLERANCE);
+}
+
+/**
+ * @brief `center()`/`zoom()` renvoient exactement ce que `setCenter()`/`setZoom()` ont posé —
+ * nécessaire au pan/zoom manuel de l'éditeur, qui repart du cadrage courant au premier geste.
+ * \castest{<b>center() et zoom() renvoient exactement les valeurs posées.</b><br/>
+ * \tcat Unitaire · Camera2 D<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
+TEST(Camera2DTest, CenterEtZoomRenvoientLesValeursPosees) {
+    hmi::Camera2D camera(WIDTH, HEIGHT);
+    camera.setCenter(core::Vector2{3.0f, 4.0f});
+    camera.setZoom(2.5f);
+
+    EXPECT_FLOAT_EQ(camera.center().x, 3.0f);
+    EXPECT_FLOAT_EQ(camera.center().y, 4.0f);
+    EXPECT_FLOAT_EQ(camera.zoom(), 2.5f);
 }
 
 /**

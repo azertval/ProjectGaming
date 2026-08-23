@@ -1,7 +1,9 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Input/GamepadPoller.h"
 
 #include <Windows.h>  // doit précéder <Xinput.h> (définit l'architecture cible).
-
 #include <Xinput.h>
 
 #include "HMI/HmiLog.h"
@@ -24,16 +26,16 @@ namespace {
 }  // namespace
 
 void GamepadPoller::poll(InputState& input) {
-    // XInputGetState est notablement coûteux quand le slot interrogé est vide (le pilote énumère
-    // les périphériques à chaque appel) : sonder chaque frame une manette absente provoque des
-    // micro-saccades chez un joueur clavier. Tant que la manette reste déconnectée, on ne la
-    // re-sonde donc qu'une frame sur DISCONNECTED_POLL_INTERVAL ; entre-temps l'état reste
-    // « déconnecté ». Dès qu'une manette est présente, le sondage redevient systématique.
-    if (!_wasConnected && --_pollCountdown > 0) {
+    // Espacement des sondages d'un slot vide : decide EN TEMPS REEL (hmi::gamepadProbeDue), jamais
+    // en nombre d'appels -- poll() est appele tantot par la boucle de rendu, tantot par un
+    // temporisateur d'interface, et un compteur d'appels donnait alors une detection de manette
+    // allant de deux secondes a une minute selon l'appelant.
+    const std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+    if (!gamepadProbeDue(_wasConnected, now - _lastProbe)) {
         input.setGamepadConnected(false);
         return;
     }
-    _pollCountdown = DISCONNECTED_POLL_INTERVAL;
+    _lastProbe = now;
 
     XINPUT_STATE state{};
     const bool connected = XInputGetState(0, &state) == ERROR_SUCCESS;

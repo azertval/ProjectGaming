@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/azertval/ProjectGaming/actions/workflows/ci.yml/badge.svg)](https://github.com/azertval/ProjectGaming/actions/workflows/ci.yml)
 [![Documentation](https://github.com/azertval/ProjectGaming/actions/workflows/docs.yml/badge.svg)](https://github.com/azertval/ProjectGaming/actions/workflows/docs.yml)
-[![Release Debug](https://github.com/azertval/ProjectGaming/actions/workflows/release.yml/badge.svg)](https://github.com/azertval/ProjectGaming/releases/tag/debug-latest)
+[![Release](https://github.com/azertval/ProjectGaming/actions/workflows/release.yml/badge.svg)](https://github.com/azertval/ProjectGaming/releases/latest)
 ![C++20](https://img.shields.io/badge/C%2B%2B-20-00599C)
 ![Direct3D 11](https://img.shields.io/badge/Direct3D-11-8A2BE2)
 
@@ -10,7 +10,8 @@ Jeu 2D de plateforme / puzzle développé **from scratch** en **C++20 / Direct3D
 (Windows), sans moteur tiers.
 
 - 📖 **Documentation en ligne** : <https://azertval.github.io/ProjectGaming/>
-- ⬇️ **Télécharger (version Debug)** : <https://github.com/azertval/ProjectGaming/releases/tag/debug-latest>
+- ⬇️ **Télécharger la dernière version** : <https://github.com/azertval/ProjectGaming/releases/latest>
+  (préversion roulante du dernier `main` : <https://github.com/azertval/ProjectGaming/releases/tag/debug-latest>)
 
 ## Description
 
@@ -41,13 +42,48 @@ Le moteur physique est complet et **jouable** :
 - **Collisions** par **balayage continu** (swept AABB) : aucune traversée à vitesse élevée.
 - **Niveaux** en tuiles typées, de taille arbitraire, chargés depuis des fichiers **JSON**, avec
   **validation**.
-- **Mécanismes** interrupteur ↔ porte, **plaque de pression**, et **budget de mouvements**
-  (sauts/dashs limités par tableau) pour des tableaux **puzzle**.
+- **Mécanismes** interrupteur ↔ porte, **plaque de pression**, **clé et porte verrouillée**,
+  **plateforme mobile**, action **Interagir**, et **budget de mouvements** (sauts/dashs limités par
+  tableau) pour des tableaux **puzzle**.
 - **Éditeur de niveaux** intégré : peinture à la souris, outils rectangle/sélection, liaison de
-  mécanismes, undo/redo, essai immédiat, guide non-codeur pour partager un niveau via Git.
-- **Enchaînement de niveaux** en séquence (titre → niveaux → titre), **menu** multilingue (fr/en),
-  **menu d'options** (V-Sync, langue), jouable/navigable au **clavier, à la souris et à la
+  mécanismes, undo/redo, essai immédiat, guide non-codeur pour partager un niveau via Git ; le level
+  designer choisit le **cadrage de caméra** (par salle, niveau entier ou suivi) tableau par tableau.
+- **Enchaînement de niveaux** en séquence (titre → niveaux → titre), **pause** en cours de partie,
+  **progression persistée** (reprise au tableau exact, y compris après avoir quitté), vingt-deux
+  tableaux de démonstration couvrant l'intégralité des mécaniques, **menu** multilingue (fr/en),
+  **menu d'options** (V-Sync, volume, langue), jouable/navigable au **clavier, à la souris et à la
   manette** (XInput).
+- **Bruitages** (Qt Multimedia) : saut, atterrissage, dash, mécanismes, mort, victoire de tableau,
+  navigation de menu — volume réglable et persisté, jeu pleinement jouable en silence sans
+  périphérique audio. **Effets de particules** sur les mouvements du personnage (saut, atterrissage,
+  dash).
+- **Diagnostics** : compteur de budget de rendu affichable (`F9`), et journal de session
+  enregistré sur disque — un défaut rencontré par un joueur laisse une trace exploitable.
+
+Le moteur est **habillé** (programme `LOT-40` → `LOT-55`) :
+
+- **Rendu texturé multicouche** avec culling : sept calques, **fond** de niveau, **décors libres**
+  hors grille avec **parallaxe**, **ombres** du plan physique, premier plan au-dessus du
+  personnage. Bascule Physique/Texture par `F8`, et mode d'inspection par calque pour auditer un
+  habillage.
+- **Skins de tuiles** avec **raccords automatiques** (16 voisinages), **texture par instance** sur
+  les objets interactifs, **repli procédural** déterministe quand un asset manque — le jeu reste
+  jouable sans aucun fichier d'image.
+- **Animation pilotée par données** (`nom-asset.anim.json`) : clips nommés, bouclés ou joués une
+  fois, apparence des mécanismes suivant leur **état logique**, personnage habillé depuis une
+  spritesheet externe.
+- **Texte dans la scène** : police bitmap avec repli procédural, affichage tête haute des budgets
+  de sauts/dashs et du tableau courant.
+
+Et l'**éditeur** est un poste de travail complet :
+
+- **Bibliothèque d'assets** à vignettes (import, renommage, duplication, suppression) avec
+  **rechargement à chaud**, et détection des assets encore référencés avant suppression.
+- **Atelier pixel art intégré** : dessiner, remplir, pipetter, transformer une région, gérer des
+  palettes et voir l'aperçu des raccords — sans quitter l'application.
+- **Système de design** : barre d'outils à icônes, thème **clair/sombre** suivant le système,
+  vignettes nettes à toute échelle d'affichage, barre d'état permanente, raccourcis d'éditeur
+  remappables.
 
 Toute la simulation vit dans `Core` (pure, déterministe au pas fixe) et est **couverte par des
 tests** (unitaires, intégration, système) — voir le **Cahier de test**.
@@ -65,7 +101,7 @@ tests** (unitaires, intégration, système) — voir le **Cahier de test**.
 | Sous-dossier | Contenu |
 |--------------|---------|
 | `Core/` | Logique et moteur : ECS, mathématiques, boucle à pas fixe, diagnostics — **sans dépendance à DirectX**. |
-| `HMI/` | Présentation : fenêtre Win32, rendu Direct3D 11, entrées, éditeur. Dépend de `Core`, jamais l'inverse. |
+| `HMI/` | Présentation : l'application **Qt** (fenêtre, menu, options, éditeur), le rendu Direct3D 11 du jeu embarqué dans un viewport, et les entrées. Dépend de `Core`, jamais l'inverse. |
 | `Elements/` | Assets et éléments statiques (sprites, tuiles, sons, niveaux). |
 | `Test/` | Tests **unitaires** (`Unit/`), **d'intégration** (`Integration/`) et **système** (`Systeme/`) — GoogleTest. |
 
@@ -78,6 +114,18 @@ générés dans `build/`).
 ### Prérequis
 - Visual Studio 2022+ avec la charge de travail **« Développement Desktop en C++ »**
   (inclut CMake, Ninja et le compilateur MSVC).
+- **Qt6** (`Widgets`, `Gui`, `Multimedia` — module audio, `LOT-60`), version **6.11.2 ou
+  supérieure** (celle validée par la CI — un écart produit un avertissement à la configuration,
+  pas un échec), détecté automatiquement (`CMAKE_PREFIX_PATH`, cf.
+  `Source/HMI/CMakeLists.txt`) s'il est installé à l'emplacement conventionnel de
+  l'[installateur officiel](https://www.qt.io/download-qt-installer) ou via
+  [`aqtinstall`](https://github.com/miurahr/aqtinstall)
+  (`-m qtmultimedia qtshadertools qtcanvaspainter`). Qt 6.11 est le **plancher** depuis le
+  `LOT-69` : c'est la première version fournissant Qt Canvas Painter. Installer Qt ≥ 6.11 avec
+  `aqtinstall` demande une version de l'outil plus récente que celle publiée sur PyPI — voir
+  [`External/README.md`](External/README.md).
+  Sans Qt, la cible `ProjectGaming` est **ignorée** (avertissement explicite) : seuls les tests se
+  construisent.
 
 ### Depuis Visual Studio (recommandé)
 1. `Fichier > Ouvrir > Dossier…` puis sélectionner la racine du dépôt.
@@ -90,6 +138,11 @@ cmake --preset vs        # configure (ou : ninja)
 cmake --build --preset vs
 ctest --preset vs        # lance les tests
 ```
+
+Presets **Release** (`vs-release`, `ninja-release`) : mêmes commandes de build/test avec
+`--preset vs-release` ou `--preset ninja-release` (configurer avec `ninja-release` pour ce dernier).
+Vérifiés en CI (LOT-58) : certaines casses (variable lue uniquement par une assertion, `NDEBUG`)
+n'apparaissent qu'en Release.
 
 > Reproductible sur plusieurs postes : tout est versionné sauf `build/` (local).
 > GoogleTest est récupéré automatiquement par CMake (FetchContent).
@@ -141,8 +194,60 @@ vérification locale ne prédirait plus rien. Binaires officiels :
 
 ## Intégration continue
 
-| Workflow | Déclencheur | Rôle |
-|----------|-------------|------|
-| **CI** (`ci.yml`) | Pull Request vers `main` | Configure, **build** et **tests** (CTest) sur `windows-2022`, **couverture** (OpenCppCoverage) et **lint des exigences**. Contrôle requis pour merger. |
-| **Documentation** (`docs.yml`) | Push sur `main` | Génère la **Doxygen** (garde-fou `WARN_AS_ERROR`) et la publie sur la branche `gh-pages` (site en ligne). |
-| **Release Debug** (`release.yml`) | Push sur `main` | Compile un exécutable **Debug autonome** (runtime statique) et publie la release roulante **`debug-latest`** pour les non-développeurs. |
+Chaque job ci-dessous est un **contrôle requis pour merger** (protection de branche), à l'exception
+de `docs` (`docs.yml`, informatif).
+
+| Workflow | Job | Déclencheur | Rôle |
+|----------|-----|-------------|------|
+| **CI** (`ci.yml`) | `build-test-coverage` | PR vers `main` | Build + tests (CTest) **Debug** sur `windows-2022`, **couverture** agrégée `UnitTests`+`IntegrationTests`+`SystemTests` avec seuil (LOT-58). |
+| **CI** (`ci.yml`) | `build-test-release` | PR vers `main` | Build + tests **Release** (LOT-58) : une casse Release-only (variable inutilisée sous `NDEBUG`…) est refusée avant le tag, pas après. |
+| **CI** (`ci.yml`) | `build-ninja` | PR vers `main` | Build + tests via le générateur Ninja (détection Qt automatique). |
+| **CI** (`ci.yml`) | `sanitize` | PR vers `main` | Les trois exécutables de test sous **AddressSanitizer** (LOT-58, `EX-NFR-003`). |
+| **CI** (`ci.yml`) | `clang-tidy` | PR vers `main` | Analyse statique sur le diff de la PR ; `bugprone-*` bloquant, le reste consigné (LOT-58). |
+| **CI** (`ci.yml`) | `format` | PR vers `main` | `clang-format --dry-run --Werror`, version épinglée (LOT-58). |
+| **CI** (`ci.yml`) | `lint-exigences` | PR vers `main` | Identifiants `EX-…`, cahier de test à jour, séquence de niveaux démo. |
+| **Documentation** (`docs.yml`) | `docs` | Push sur `main` | Génère la **Doxygen** (garde-fou `WARN_AS_ERROR`) et la publie sur la branche `gh-pages` (site en ligne). |
+| **Release** (`release.yml`) | `rolling-debug` | Push sur `main` | Compile un exécutable **Debug autonome** et publie la préversion roulante **`debug-latest`** pour les non-développeurs. |
+| **Release** (`release.yml`) | `versioned-release` | Tag `vX.Y.Z` | Publie une **release versionnée** (non préversion) avec les exécutables **Debug et Release**, chacun autonome. |
+
+> « Autonome » signifie qu'aucune installation n'est requise côté utilisateur : `windeployqt` dépose
+> les DLL Qt, le plugin de plateforme et le runtime du compilateur à côté de l'exécutable. Le
+> runtime MSVC est **dynamique** (`/MD`) et non statique — les DLL Qt officielles sont construites
+> ainsi, et un CRT statique provoquerait des incohérences d'allocation entre l'application et Qt.
+
+## Licence
+
+ProjectGaming est distribué sous **GNU General Public License v3.0 ou ultérieure**
+(`GPL-3.0-or-later`). Le texte complet est dans [`LICENSE`](LICENSE).
+
+```
+Copyright (C) 2026 Valentin Eloy
+
+Ce programme est un logiciel libre : vous pouvez le redistribuer et/ou le modifier
+selon les termes de la GNU General Public License telle que publiée par la Free
+Software Foundation, soit la version 3 de cette licence, soit (à votre choix)
+toute version ultérieure.
+
+Ce programme est distribué dans l'espoir qu'il sera utile, mais SANS AUCUNE
+GARANTIE, ni explicite ni implicite, y compris les garanties de COMMERCIALISATION
+ou d'ADAPTATION À UN USAGE PARTICULIER. Voir la GNU General Public License pour
+plus de détails.
+```
+
+Ce que cela implique concrètement, et qui n'est pas toujours évident :
+
+- **L'usage commercial n'est pas interdit** — une licence open source ne peut pas le restreindre
+  (définition de l'Open Source, clause 6). Ce que la GPL garantit à la place est plus fort dans les
+  faits : *toute* redistribution, commerciale ou non, d'une version modifiée **doit en publier le
+  source** sous la même licence. Personne ne peut refermer le projet.
+- **Le copyleft se propage.** Tout code lié à ProjectGaming doit être compatible GPL-3.0.
+- **Qt reste sous LGPLv3**, en lien dynamique — les deux licences sont compatibles, la LGPLv3
+  autorisant explicitement la redistribution sous GPLv3. Les obligations propres à Qt sont
+  détaillées dans [`THIRD-PARTY-NOTICES.md`](THIRD-PARTY-NOTICES.md).
+- Les **ressources** (graphismes, sons, polices) ont leurs propres licences — CC0 et SIL OFL —
+  indépendantes de celle du code, et recensées dans le même fichier.
+- Les en-têtes `SPDX-License-Identifier: GPL-3.0-or-later` marquent le **code** du projet, et lui
+  seul. Un `.png` ou un `.wav` du dépôt n'est pas sous GPL pour autant.
+
+Ces mentions sont aussi affichées **dans le jeu**, à l'écran *Crédits* — la LGPLv3 de Qt et la SIL
+OFL des polices l'exigent, et un joueur qui n'ouvrira jamais ce dépôt doit pouvoir les lire.

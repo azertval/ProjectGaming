@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_render_mode.cpp
  * @brief Tests unitaires de la bascule Physique/Texture (LOT-41, EX-REN-046).
@@ -134,8 +137,10 @@ TEST(RenderModeTest, ModePhysiqueRendLaRegionDAtlas) {
     for (int row = 0; row < hmi::TextureAtlas::TILES_PER_SIDE; ++row) {
         for (int column = 0; column < hmi::TextureAtlas::TILES_PER_SIDE; ++column) {
             const core::AtlasRegion expected = hmi::TextureAtlas::tile(column, row);
-            const hmi::TileAppearance appearance = hmi::resolveTileAppearance(
-                hmi::RenderMode::Physique, expected, nullptr, testTextures());
+            const hmi::TileAppearance appearance =
+                hmi::resolveTileAppearance(hmi::RenderMode::Physique, expected, nullptr,
+                                           testTextures())
+                    .value();
 
             EXPECT_EQ(appearance.source, hmi::AppearanceSource::Atlas);
             EXPECT_EQ(appearance.region.x, expected.x);
@@ -162,7 +167,8 @@ TEST(RenderModeTest, ModeTextureRetombeSurLeDamier) {
             const hmi::TileAppearance appearance =
                 hmi::resolveTileAppearance(hmi::RenderMode::Texture,
                                            hmi::TextureAtlas::tile(column, row), nullptr,
-                                           testTextures());
+                                           testTextures())
+                    .value();
 
             EXPECT_EQ(appearance.source, hmi::AppearanceSource::MissingTexture);
             EXPECT_EQ(appearance.region.x, 0);

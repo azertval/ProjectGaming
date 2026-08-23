@@ -1,15 +1,18 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
+#include <QWidget>
 #include <array>
 #include <filesystem>
-
-#include <QWidget>
 
 #include "HMI/Input/GameKeyBindings.h"
 
 /**
  * @file HMI/Interface/KeybindingsWidget.h
- * @brief Remappage des touches de jeu (`EX-CTRL-012`), en widget embarquable (onglet Options, LOT-38).
+ * @brief Remappage des touches de jeu (`EX-CTRL-012`), en widget embarquable (onglet Options,
+ * LOT-38).
  */
 
 class QFormLayout;
@@ -48,7 +51,7 @@ private:
     hmi::GameKeyBindings& _bindings;
     std::filesystem::path _savePath;
     int _capturing = -1;  ///< Indice de l'action en cours de capture, ou -1.
-    std::array<QPushButton*, hmi::GAME_ACTION_COUNT> _buttons;
+    std::array<QPushButton*, hmi::GAME_ACTION_COUNT> _buttons{};
     std::array<QLabel*, hmi::GAME_ACTION_COUNT> _actionLabels{};
     QLabel* _help = nullptr;
     const Localization* _loc = nullptr;

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_game_key_bindings.cpp
  * @brief Tests unitaires du remappage des touches de jeu (`GameKeyBindings`, `EX-CTRL-012`).
@@ -11,14 +14,15 @@
 #include "HMI/Input/GameKeyBindings.h"
 
 /**
- * @brief Les six actions ont leurs valeurs par défaut (flèches/Espace/Maj) à la construction.
- * \castest{<b>Les six actions ont leurs valeurs par défaut (flèches/Espace/Maj) à la
+ * @brief Les sept actions ont leurs valeurs par défaut (flèches/Espace/Maj/E) à la construction.
+ * \castest{<b>Les sept actions ont leurs valeurs par défaut (flèches/Espace/Maj/E) à la
  * construction.</b><br/>
  * \tcat Unitaire · Game Key Bindings<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
- * \tattendu Les six actions ont leurs valeurs par défaut (flèches/Espace/Maj) à la construction.
+ * \tattendu Les sept actions ont leurs valeurs par défaut (flèches/Espace/Maj/E) à la
+ * construction.
  * }
  */
 TEST(GameKeyBindingsTest, ValeursParDefautALaConstruction) {
@@ -29,6 +33,7 @@ TEST(GameKeyBindingsTest, ValeursParDefautALaConstruction) {
     EXPECT_EQ(bindings.key(hmi::GameAction::AimDown), hmi::Key::Down);
     EXPECT_EQ(bindings.key(hmi::GameAction::Jump), hmi::Key::Space);
     EXPECT_EQ(bindings.key(hmi::GameAction::Dash), hmi::Key::Shift);
+    EXPECT_EQ(bindings.key(hmi::GameAction::Interact), hmi::Key::E);
 }
 
 /**
@@ -186,6 +191,36 @@ TEST(GameKeyBindingsTest, LoadValeurHorsBornesIgnoree) {
     const hmi::GameKeyBindings bindings = hmi::GameKeyBindings::load(path);
     std::filesystem::remove(path);
 
+    EXPECT_EQ(bindings.key(hmi::GameAction::Jump), hmi::Key::Space);
+}
+
+/**
+ * @brief Un fichier écrit avant ce lot (section « jeu » sans « interagir ») se relit sans erreur,
+ *        l'action prenant sa valeur par défaut.
+ * \castest{<b>Un fichier écrit avant ce lot (sans « interagir ») se relit sans erreur, l'action
+ * prenant sa valeur par défaut.</b><br/>
+ * \tcat Unitaire · Game Key Bindings<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un fichier « jeu » antérieur à `LOT-63` (sans « interagir ») se relit sans erreur,
+ * Interagir prenant sa touche par défaut (E), et les autres actions restent inchangées.
+ * }
+ */
+TEST(GameKeyBindingsTest, LoadFichierAnterieurSansInteragirPrendLaValeurParDefaut) {
+    const std::filesystem::path path =
+        std::filesystem::temp_directory_path() / "projectgaming_test_game_bindings_anterieur.json";
+    {
+        std::ofstream file(path, std::ios::binary);
+        // Section "jeu" telle qu'ecrite avant LOT-63 : aucune entree "interagir".
+        file << R"({"jeu": {"gauche": 37, "droite": 39, "haut": 38, "bas": 40, "sauter": 32,
+                             "dash": 16}})";
+    }
+
+    const hmi::GameKeyBindings bindings = hmi::GameKeyBindings::load(path);
+    std::filesystem::remove(path);
+
+    EXPECT_EQ(bindings.key(hmi::GameAction::Interact), hmi::Key::E);
     EXPECT_EQ(bindings.key(hmi::GameAction::Jump), hmi::Key::Space);
 }
 

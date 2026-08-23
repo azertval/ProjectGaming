@@ -57,7 +57,8 @@ convention que tout le moteur, @ref guide-maths). Elle expose `tile(colonne, lig
 
 `core::Level` regroupe : un nom, une `TileMap`, une position d'**entrée** et de **sortie**
 (`GridPosition`), une liste de `core::Mechanism` (liaisons interrupteur↔porte, résolues en
-positions) et des **budgets** de mouvements (`jumpBudget`/`dashBudget`, décrits plus bas). C'est
+positions), des **budgets** de mouvements (`jumpBudget`/`dashBudget`, décrits plus bas) et un
+**cadrage de caméra** résolu (`core::CameraFramingConfig`, `LOT-64`, détaillé plus bas). C'est
 l'objet que le chargeur produit et que le reste du moteur (rendu, gameplay) consomme en lecture
 seule — la `TileMap` d'un `Level` ne change **jamais** après le chargement ; c'est le contrôleur de
 mécanismes (voir plus loin) qui maintient sa **propre** copie mutable pour représenter les portes en
@@ -124,6 +125,51 @@ le succès ; en cas d'échec, `level` est vide et `error` décrit le problème d
 garde la gestion d'erreur explicite à chaque site d'appel, cohérent avec le reste du moteur qui ne
 s'appuie pas sur les exceptions pour son flux de contrôle normal.
 
+### Cadrage de caméra (`cameraFraming`, `LOT-64`)
+
+Un champ racine optionnel, `"cameraFraming"`, porte le mode de cadrage choisi par le level designer
+(`EX-LVL-006`) — la mécanique de ce cadrage (zone morte, anticipation, lissage du mode suivi) est
+détaillée dans @ref guide-rendu, cette section ne couvre que sa place dans le **format** :
+
+```json
+"cameraFraming": { "mode": "perRoom", "roomWidthTiles": 20, "roomHeightTiles": 12 }
+```
+
+`mode` vaut `"wholeLevel"`, `"perRoom"` ou `"follow"` ; `roomWidthTiles`/`roomHeightTiles` sont lus
+en mode `"perRoom"` **et** `"follow"` (`EX-REN-017` : la taille de vue du suivi réutilise les mêmes
+champs que la taille de salle) et restent optionnels dans les deux cas (taille par défaut si
+absents). **Champ absent** — tous les niveaux antérieurs à ce lot — le chargeur applique la **règle
+de repli** (`core::resolveCameraFraming`) : elle reproduit exactement le comportement historique
+(`"wholeLevel"` si le niveau tient dans une salle de taille par défaut, `"perRoom"` sinon), pour que
+la rétrocompatibilité des niveaux existants reste garantie (`EX-LVL-005`). C'est pour ce champ que le
+numéro de version de format est passé de `1` à `2` (`core::kLevelFormatVersion`) — le mécanisme de
+repli lui-même n'exigeait pas ce bump (un champ absent se lit déjà sans erreur), mais la convention
+du projet est de tracer chaque champ significatif ajouté au format.
+
+`core::LevelWriter` n'émet le champ que si le cadrage **diverge** de ce que la règle de repli
+recalculerait pour les dimensions du niveau : un niveau jamais retouché sur ce point reste sans le
+champ après un aller-retour éditeur, exactement comme avant ce lot.
+
+En mode `"perRoom"`, un tableau optionnel `"zones"` (`EX-LVL-007`) porte des rectangles de caméra
+dessinés à la main par le level designer, chacun `{ "x", "y", "width", "height" }` en tuiles :
+
+```json
+"cameraFraming": {
+  "mode": "perRoom",
+  "zones": [
+    { "x": 0, "y": 0, "width": 20, "height": 12 },
+    { "x": 20, "y": 0, "width": 10, "height": 12 }
+  ]
+}
+```
+
+Ce tableau permet de **mélanger plusieurs tailles de caméra** dans un même niveau, là où
+`roomWidthTiles`/`roomHeightTiles` seuls n'en autorisent qu'une, uniforme sur tout le niveau. La
+résolution de la zone active (la **première** de la liste couvrant la position du personnage) est
+un mécanisme de `HMI`, détaillé dans @ref guide-rendu — ce champ n'est ici qu'une **donnée**,
+absente par défaut : un niveau sans `"zones"` (ou avec un tableau vide) garde exactement le
+comportement de grille automatique `roomWidthTiles`/`roomHeightTiles` décrit ci-dessus.
+
 ## De la grille aux entités : \ref core::buildLevelScene "buildLevelScene"
 
 Le `TileMap` d'un niveau n'est, en lui-même, qu'un tableau de types — il ne peut pas être
@@ -183,6 +229,27 @@ désormais, mais `MechanismController` ne les interroge pas encore : un bloc pos
 pression ne l'active pas — l'infrastructure de comparaison de poids est prête à l'accueillir, mais
 le câblage bloc → plaque reste une évolution à venir.
 
+### Clé et porte verrouillée (`EX-GP-023`, `LOT-63`)
+
+`TileType::Key`/`LockedDoor` sont une **troisième** paire déclencheur↔cible, résolue par la
+**même** liaison `core::Mechanism` que interrupteur/plaque↔porte ci-dessus — ajoutée au **même**
+vecteur (`Level::mechanisms()`), aucune notion de liaison dupliquée. `MechanismController` fige la
+nature de chaque déclencheur à la construction (comme `_continuous` pour interrupteur/plaque) :
+une clé se distingue par son `TileType::Key` d'origine.
+
+Deux différences de comportement, câblées directement dans `MechanismController::update` :
+
+- **ramassage** : contrairement à l'interrupteur (contact seul), une clé exige le contact **et**
+  le front de l'action « Interagir » (`core::PlayerInput::interactPressed`, `EX-CTRL-022`) —
+  c'est le premier usage réel de cette action ;
+- **irréversibilité** : une fois ramassée, la porte liée s'ouvre et **le reste** — jamais de
+  re-fermeture, contrairement à l'interrupteur qui bascule. `_switchOn[index]` ne repasse donc
+  jamais à `false` une fois vrai pour un mécanisme de type clé.
+
+La grille de collision est mise à jour exactement comme pour une porte classique (`Solid` fermée,
+type d'origine — `Door` ou `LockedDoor` — une fois ouverte), via le même champ `_openType` capturé
+à la construction (avant que le constructeur ne fige toutes les portes en `Solid`).
+
 ## Blocs poussables
 
 `core::BlockController` (logique **pure**, dans `Core/Gameplay`, sans dépendance rendu) fait vivre
@@ -239,7 +306,87 @@ la **même** marge (`(1 - facteur) / 2`) pour positionner et mettre à l'échell
 réduit — le sprite affiché correspond donc exactement, par construction, à la boîte réellement
 testée, sans risque de divergence entre deux calculs indépendants.
 
-## Budget de mouvements
+## Plateformes mobiles (`EX-GP-026`, `LOT-63`)
+
+`core::PlatformController` (logique **pure**, dans `Core/Gameplay`) fait vivre les tuiles
+`TileType::MovingPlatform` : contrairement aux blocs poussables ci-dessus (position **case par
+case**), la position d'une plateforme est **continue**, fonction **déterministe** du nombre de pas
+fixes écoulés depuis le chargement (`EX-NFR-002`) — jamais d'accumulation flottante
+(`position += vitesse * dt`, qui dériverait sur une session longue).
+
+Depuis le `LOT-67` (`EX-GP-054`), le trajet est une **route à N points** : `startPosition` est le
+point de départ, `MovingPlatformConfig::waypoints` liste les points suivants, et `mode` choisit
+entre l'**aller-retour** (la route puis son inverse, comportement historique généralisé) et le
+**circuit fermé** (`Loop` : le dernier point rejoint le premier en ligne droite, ce segment de
+fermeture faisant partie du cycle et se parcourant à la même vitesse). La vitesse (`speed`, cases
+par seconde) est constante sur toute la route, et le déphasage optionnel (`phase`, en pas fixes —
+même principe que `DangerBlinkConfig::phase`) désynchronise plusieurs plateformes d'un même niveau.
+
+La géométrie vit dans `core::PlatformPath` (`Core/Gameplay/PlatformPath.h`), **partagé** avec
+l'overlay d'édition : le trajet dessiné dans l'éditeur est littéralement celui que le gameplay
+parcourt, jamais une réimplémentation parallèle. Les longueurs cumulées sont précalculées au
+chargement (`boxAtStep` est appelée plusieurs fois par pas et par consommateur) et la distance
+parcourue est cumulée en **double précision** : convertie en `float`, elle perdrait le bit de poids
+faible au-delà d'environ 16,7 millions de pas (~77 h), ce qui décalerait visiblement la plateforme
+en fin de longue session. Un segment de longueur nulle (point dupliqué) est traversé sans incident,
+et une route vide décrit une plateforme immobile plutôt qu'un niveau invalide (`EX-NFR-040`).
+
+Un fichier écrit avant le multi-points (couple `endX`/`endY`) reste **lu** tel quel et converti en
+route à un point : son comportement est inchangé (`EX-LVL-008`). L'éditeur, lui, réécrit toujours en
+`waypoints`.
+
+**L'ordre de résolution dans le pas est la décision structurante**, documentée ici parce qu'un
+autre ordre produit des défauts subtils et intermittents (`hmi::GameSession::update`,
+`Source/Test/Systeme/test_parcours_complet.cpp`, même composition) :
+
+1. `PlatformController::update()` avance **en premier** — toutes les plateformes du niveau
+   atteignent leur position de ce pas avant que quoi que ce soit d'autre ne s'exécute.
+2. Les blocs poussables reposant sur une plateforme sont **portés** avec elle
+   (`BlockController::update(..., platforms)`) : un déplacement infra-case est accumulé par bloc
+   et converti en poussée d'une case entière dès qu'il atteint `1.0`, pour rester cohérent avec le
+   reste du contrôleur (jamais de position infra-case pour un bloc).
+3. Le personnage est **porté** s'il reposait sur une plateforme au pas précédent (translation
+   directe de sa position, avant que sa propre physique ne s'applique) — vérifié purement par
+   géométrie (`core::restsOnTopOfPlatform` contre la position de la plateforme **au pas
+   précédent**), sans état à mémoriser d'un pas à l'autre.
+4. La physique du personnage s'applique normalement sur la grille (murs, sols), **puis** sa
+   collision continue contre chaque plateforme est résolue (`core::sweepAabbVsAabb`, même patron
+   que les blocs réduits ci-dessus) — c'est cette seconde passe qui pose le personnage sur le
+   dessus d'une plateforme la première fois (avant que le portage n'ait quoi que ce soit à faire),
+   et qui empêche toute traversée quelle que soit la vitesse de la plateforme.
+
+**Écrasement** : une plateforme montante contre un plafond, avec le personnage entre les deux, est
+**mortelle** (`core::Player::squished`, décision de cadrage retenue) — plutôt que de mettre la
+plateforme en pause, ce qui casserait sa position purement fonction du numéro de pas.
+
+> ⚠️ **Défaut connu, non corrigé (`LOT-65`, consigné dans `CHANGELOG.md`)** : la seule
+> **présence** d'une configuration `MovingPlatformConfig` dans un niveau — même **immobile**
+> (`speed = 0`) et géométriquement **loin** du personnage — casse la résolution de collision
+> pendant qu'un autre personnage suit une **pente** ailleurs dans ce même niveau (constaté :
+> une chute erronée en pleine ascension d'une pente, alors qu'aucune plateforme n'est en jeu à
+> cet endroit). Isolé par bissection (retirer uniquement la tuile `movingPlatform` d'une copie de
+> niveau suffit à faire disparaître l'échec) ; racine non creusée plus loin, décision de cadrage du
+> `LOT-65` (consigner, pas corriger en cours de refonte de contenu). En pratique : éviter de
+> combiner une plateforme mobile et une pente dans un même fichier de niveau tant que ce défaut
+> n'est pas corrigé.
+
+## Budget de mouvements et capacités du tableau
+
+Deux notions **distinctes**, à ne jamais confondre — c'est la confusion la plus facile à faire ici,
+et le panneau « Propriétés » de l'éditeur les sépare en deux groupes explicitement libellés pour
+cette raison :
+
+| | Champs JSON | Sémantique |
+|---|---|---|
+| **Budget** (`EX-GP-024`) | `jumpBudget`, `dashBudget` | Total consommable sur **tout le tableau**, jamais rechargé ; `-1` = illimité. Réinitialisé au (re)chargement du niveau. |
+| **Capacité** (`EX-GP-055`, `LOT-67`) | `airJumps`, `dashCharges` | Nombre de sauts aériens / de dashs **rechargés à chaque contact avec le sol** ; absent = réglage du moteur (`core::PhysicsConfig`). |
+
+Les capacités sont appliquées par `hmi::GameSession::loadLevel`, qui construit une
+`core::PhysicsConfig` dérivée du niveau et la pose sur le système de physique
+(`CharacterPhysicsSystem::setConfig`) **avant** de faire apparaître le personnage — sa recharge
+initiale en dépend. Le dash porte désormais un compteur de charges
+(`core::Player::dashChargesRemaining`) et non plus un booléen : un tableau peut en accorder
+plusieurs par saut. Valeur par défaut `1`, soit le comportement historique à l'identique.
 
 Un tableau **puzzle** peut vouloir limiter délibérément le nombre de sauts et/ou de dashs
 disponibles, pour forcer le joueur à les utiliser avec parcimonie plutôt que librement
@@ -334,13 +481,113 @@ l'**échec l'emporte sur le succès** — une règle simple et prévisible plut�
 l'ordre de test interne.
 
 Cette fonction ne fait que **classer** l'état ; c'est côté présentation que la transition a
-réellement lieu. Le viewport de jeu (`hmi::GameViewport`, alimenté par la liste de
-`hmi::MainWindow::startGame`) gère l'**ordre** des niveaux d'une session et l'enchaînement qui en
-découle : une issue `Won` avance vers le niveau suivant de la séquence ; après le **dernier** niveau,
-il revient au menu plutôt que de tenter un niveau inexistant (`EX-LVL-010`/`EX-LVL-011`).
+réellement lieu. Le viewport de jeu (`hmi::GameViewport`, alimenté par la liste résolue depuis
+`core::LevelSequence`, ci-dessous) gère l'**ordre** des niveaux d'une session. Depuis `LOT-59`,
+une issue `Won` ne charge plus le niveau suivant directement : elle **fige** la simulation
+(`pauseSimulation`) et signale la réussite (`GameViewport::levelSucceeded`) — c'est l'écran de fin
+de niveau qui avance ensuite, sur validation du joueur (@ref guide-ecrans détaille l'écran ;
+`EX-LVL-010`/`EX-LVL-011` restent respectées : l'**ordre** est inchangé, seul le passage par un
+écran plutôt qu'un enchaînement instantané a changé).
+
+## Séquence de niveaux (donnée de contenu, `LOT-59`)
+
+La **séquence jouée** (quel fichier après quel autre) est elle-même une donnée de contenu
+(`EX-LVL-013`), au même titre qu'un niveau — jamais un littéral C++. `core::LevelSequenceLoader`
+(`Core/Levels/LevelSequence.h`) suit exactement le patron de `core::LevelLoader` ci-dessus : lecture
+JSON **non lançante** (`try`/`catch` sur `nlohmann::json::exception`), résultat catégorisé
+(`core::LevelSequenceLoadResult`, même forme que `LevelLoadResult`), version de format indépendante
+(`core::kLevelSequenceFormatVersion`).
+
+Format (`Source/Elements/Levels/sequence-demo.json`) :
+
+```json
+{
+  "version": 1,
+  "titleKey": "sequence.demo.title",
+  "levels": ["demo-deplacement.json", "demo-saut.json", "…"]
+}
+```
+
+`levels` contient des **noms de fichiers**, résolus par l'appelant relativement au dossier de
+niveaux (`hmi::executableDirectory() / "Levels"`) — `Core` ignore ce dossier (`EX-NFR-011`), mais
+`loadFromFile` vérifie tout de même que chaque niveau référencé existe **à côté du fichier de
+séquence lui-même** (c'est là que vivent les niveaux) : un nom mal orthographié est une erreur
+récupérable et **nommée** (`EX-NFR-040`), jamais un chargement hors bornes différé au premier
+niveau joué. Cette même contrainte impose un préfixe de nom de fichier **réservé**, `sequence-`,
+dans `Source/Elements/Levels` : un fichier de séquence n'est pas un niveau, et
+`hmi::LevelFileOperations::list()` (panneau Niveaux de l'éditeur, @ref guide-editeur) l'exclut
+explicitement de ce qu'il propose d'ouvrir.
+
+`scripts/check_demo_sequence.py` (CI) vérifie que `sequence-demo.json` reste identique, dans le
+même ordre, à la liste rejouée par le test système `Source/Test/Systeme/test_parcours_complet.cpp`
+— un décalage entre les deux est précisément le défaut qui a déclenché `LOT-25`.
+
+## Garde-fou de couverture des mécaniques (`EX-LVL-015`, `LOT-65`)
+
+`scripts/check_demo_sequence.py` protège l'**ordre** de la séquence ; il ne dit rien de sa
+**couverture** : rien n'empêchait, avant ce lot, qu'un type de tuile livré et testé unitairement
+n'apparaisse dans **aucun** tableau réellement joué. `Source/Test/Systeme/
+test_couverture_mecaniques.cpp` comble ce trou.
+
+**Ce qu'il vérifie exactement — et ce qu'il ne vérifie pas.** Le garde-fou parcourt la séquence
+livrée (`sequence-demo.json`) et relève, pour chaque tableau chargé avec succès, les types de
+`core::TileType` présents dans sa `TileMap`, le mode de `core::CameraFramingMode` résolu, et cinq
+variantes significatives portées par des champs plutôt que par le type (danger temporisé
+**déphasé**, danger mobile **vertical**, budget de mouvements **borné**, texture assignée **par
+instance**, plan pictural de **premier plan**, parallaxe de plan **réglée**). Le test échoue, en nommant précisément ce qui manque, si un
+type, un mode ou une variante livrés n'apparaît dans aucun tableau. C'est une vérification de
+**présence**, pas de **franchissabilité** : une mécanique posée dans un coin inaccessible du
+tableau serait « couverte » sans jamais être jouée — c'est le test système
+(`ParcoursCompletSysteme.FranchitTouteLaSequence`, `EX-NFR-021`) qui vérifie que chaque tableau se
+termine réellement. Les deux sont nécessaires et complémentaires.
+
+**Dérivé de l'énumération, jamais recopié.** L'inventaire des types (`allContentTileTypes` dans le
+fichier de test) parcourt `core::TileType` par entier (`0` à `MovingPlatform`, sa dernière valeur)
+— même technique que `core::parseTileType` (`Core/Levels/TileTypeName.cpp`). Ajouter un type **avant**
+`MovingPlatform` dans l'énumération est pris en compte sans aucune modification du garde-fou ; en
+ajouter un **après** exige de bouger cette borne, mais c'est déjà le cas pour `parseTileType`
+lui-même — ce n'est pas une limite propre à ce garde-fou. Les modes de cadrage, eux, restent une
+liste explicite (trois valeurs, jamais recopiées ailleurs dans ce module) : un petit `enum` stable
+n'a pas besoin de la même précaution.
+
+**Exclusions.** Une mécanique légitimement impossible à couvrir figurerait dans
+`excludedTileTypes()`, nommée et commentée — aujourd'hui cette liste est **vide** : chaque type de
+`core::TileType` correspond à un contenu plaçable dans un tableau de démonstration. Si une
+exclusion devient un jour nécessaire, c'est l'emplacement où l'ajouter, jamais un contournement
+ailleurs dans le test.
+
+### De la couverture à la profondeur (second temps du `LOT-65`)
+
+Le garde-fou ci-dessus, écrit en `TACHE-01`, avait lui-même annoncé sa limite (« couvert ≠
+franchi ») sans la combler. Il est devenu **vert** sur un contenu où onze tableaux sur vingt-deux ne
+demandaient rien au joueur, où chaque mécanique n'existait qu'en **un** exemplaire, et où treize
+tuiles de mécanique étaient **hors d'atteinte** du personnage — dont l'interrupteur d'un danger
+commuté, qui ne pouvait donc jamais être commuté. Trois contrôles supplémentaires ont été ajoutés,
+et le premier a été durci. Ils mesurent tous l'**usage**, non la présence :
+
+| Contrôle | Où | Ce qu'il refuse |
+|---|---|---|
+| **Profondeur** | `test_couverture_mecaniques.cpp` | Un type de tuile posé moins de `MIN_OCCURRENCES` (trois) fois dans toute la séquence. Une occurrence unique prouve qu'un type se *charge*, pas qu'il se *joue*. |
+| **Budgets séparés** | idem | Une séquence sans budget de sauts, **ou** sans budget de dashs. Le « ou » d'origine laissait passer une séquence entière sans le moindre `dashBudget`. |
+| **Variantes de cadrage** | idem | Une séquence sans zone de caméra dessinée (`EX-LVL-007`) ou sans taille de salle choisie par un niveau (`EX-REN-017`) — invisibles d'un contrôle portant sur le seul `mode`. |
+| **Anti-couloir** | `test_parcours_complet.cpp` | Un tableau franchi en maintenant simplement « droite », hors exclusion nommée (`corridorExemptLevels`). |
+| **Proximité au trajet** | idem | Une tuile de mécanique hors de portée d'un saut (`REACH_TILES`) du chemin réellement parcouru, relevé pendant le rejeu. |
+
+Le seuil de proximité est calibré sur un saut **simple** et non sur un double saut : une mécanique
+qu'il faut déjà savoir enchaîner deux sauts pour effleurer n'est pas sur le chemin. La marge
+au-delà laisse passer le hors-chemin volontaire (un secret facultatif reste légitime) ; ce qui est
+refusé, c'est l'**inatteignable**.
+
+La doctrine de conception que ces contrôles rendent vérifiable — chemin critique, répétition,
+contrainte de capacité, introduction avant emploi — est écrite dans
+`Documentation/Specification/niveaux.md`, Sec. 3.
 
 ## Voir aussi
 - `core::Level`, `core::TileMap`, `core::TileType`, `core::LevelLoader`, `core::LevelLoadResult`.
-- `core::buildLevelScene`, `core::MechanismController`, `core::BlockController`, `core::DangerController`, `core::dangerHitbox`, `core::evaluateOutcome`, `hmi::GameSession`.
+- `core::LevelSequence`, `core::LevelSequenceLoader`, `core::LevelSequenceLoadResult`.
+- `core::buildLevelScene`, `core::MechanismController`, `core::BlockController`, `core::DangerController`, `core::PlatformController`, `core::dangerHitbox`, `core::evaluateOutcome`, `hmi::GameSession`.
+- @ref guide-ecrans — l'écran de fin de niveau qui décide de la suite depuis `LOT-59`, et la
+  progression persistée entre deux lancements.
 - @ref guide-physique — comment le balayage consomme `isSolid`/`collisionMap()`.
 - @ref guide-ecs — le composant `core::Player` qui porte les compteurs de budget.
+- `Source/Test/Systeme/test_couverture_mecaniques.cpp` — le garde-fou de couverture (`EX-LVL-015`).

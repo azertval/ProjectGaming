@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_danger_geometry.cpp
  * @brief Tests unitaires de la géométrie des dangers directionnels (`core::dangerHitbox`,
@@ -114,8 +117,8 @@ TEST(DangerGeometryTest, DangerRightBordeLaDroite) {
  * }
  */
 TEST(DangerGeometryTest, DangersTemporelsOccupentLaCaseEntiere) {
-    for (const core::TileType type :
-        {core::TileType::DangerMover, core::TileType::DangerSwitched, core::TileType::DangerBlink}) {
+    for (const core::TileType type : {core::TileType::DangerMover, core::TileType::DangerSwitched,
+                                      core::TileType::DangerBlink}) {
         const core::Aabb box = core::dangerHitbox(type, 1, 2);
         EXPECT_FLOAT_EQ(box.min.x, 1.0f);
         EXPECT_FLOAT_EQ(box.min.y, 2.0f);

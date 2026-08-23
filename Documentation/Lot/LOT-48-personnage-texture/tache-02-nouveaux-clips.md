@@ -1,6 +1,6 @@
 # TACHE-02 — Clips couvrant les états de gameplay livrés {#lot-48-tache-02-nouveaux-clips}
 
-**Lot :** [LOT-48](epic.md) · **Emplacement :** `Source/Core/Ecs/Systems`, `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-48](epic.md) · **Emplacement :** `Source/Core/Ecs/Systems`, `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 Le gameplay du personnage s'est enrichi sur trois lots sans que le visuel suive :

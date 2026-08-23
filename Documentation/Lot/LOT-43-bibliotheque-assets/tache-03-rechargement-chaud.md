@@ -1,6 +1,6 @@
 # TACHE-03 — Rechargement à chaud des assets {#lot-43-tache-03-rechargement-chaud}
 
-**Lot :** [LOT-43](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/HMI/Editor` · **Statut :** non commencé
+**Lot :** [LOT-43](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/HMI/Editor` · **Statut :** fait
 
 ## Contexte
 Aujourd'hui, `hmi::TextureAtlas` charge son fichier **une fois** au démarrage : modifier

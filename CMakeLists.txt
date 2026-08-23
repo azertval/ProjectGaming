@@ -1,7 +1,14 @@
+# SPDX-FileCopyrightText: 2026 Valentin Eloy
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 cmake_minimum_required(VERSION 3.21)
 
+# VERSION est la **source unique de vérité** du numéro de version : `core::Engine::version()` le
+# reçoit par définition de compilation (Source/Core/CMakeLists.txt), et `scripts/build_docs.py`
+# l'injecte dans le `PROJECT_NUMBER` de Doxygen à la génération (le Doxyfile versionné ne le porte
+# pas). Bumper ici, et nulle part ailleurs, avant de poser le tag `vX.Y.Z`.
 project(ProjectGaming
-    VERSION 0.1.0
+    VERSION 0.1.1
     DESCRIPTION "Jeu 2D de plateforme/puzzle en C++/DirectX"
     LANGUAGES CXX)
 
@@ -91,9 +98,19 @@ endif()
 # --- Options de compilation transverses (sanitizers) ---
 add_library(project_options INTERFACE)
 if(ENABLE_ASAN)
+    # Portée GLOBALE (add_compile_options/add_link_options), pas seulement sur project_options :
+    # sous MSVC, /fsanitize=address instrumente les conteneurs STL (annotate_string,
+    # annotate_vector, annotate_optional...), et l'éditeur de liens exige que TOUS les objets liés
+    # dans un même binaire partagent la même instrumentation (LNK2038 sinon). GoogleTest est
+    # récupéré par FetchContent (add_subdirectory(External) ci-dessous) et ne lie pas
+    # project_options : sans portée globale, gtest.lib serait compilé sans le sanitizer et
+    # l'édition de liens de tout exécutable de test échouerait (« discordance détectée »).
     if(MSVC)
+        add_compile_options(/fsanitize=address)
         target_compile_options(project_options INTERFACE /fsanitize=address)
     else()
+        add_compile_options(-fsanitize=address -fno-omit-frame-pointer)
+        add_link_options(-fsanitize=address)
         target_compile_options(project_options INTERFACE -fsanitize=address -fno-omit-frame-pointer)
         target_link_options(project_options INTERFACE -fsanitize=address)
     endif()

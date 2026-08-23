@@ -1,11 +1,18 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Valentin Eloy
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Lint des identifiants d'exigences (EX-...) de ProjectGaming.
 
 Vérifie que les identifiants d'exigences forment un référentiel cohérent :
 - chaque exigence est **déclarée exactement une fois** (ancre Doxygen
   ``\\anchor EX-XXX-NNN`` dans les spécifications) ;
 - toute **référence** à un ``EX-XXX-NNN`` (spécifications, lots, code,
-  workflows) pointe vers une exigence déclarée (aucune référence orpheline).
+  workflows) pointe vers une exigence déclarée (aucune référence orpheline) ;
+- toute exigence **déclarée** est référencée au moins une fois quelque part (spécification
+  détaillée, lot, code) — sauf si elle est explicitement qualifiée d'**invariant transverse** ou de
+  **post-MVP** dans le fichier de spécification qui la déclare (LOT-66 TACHE-03) : ce silence-là est
+  documenté, pas orphelin.
 
 Usage :
   python scripts/lint_exigences.py           # contrôle (code de sortie 1 si problème)
@@ -20,7 +27,20 @@ ANCHOR_RE = re.compile(r'\\anchor\s+(EX-[A-Z]+-[0-9]+)')
 SPLIT_RE = re.compile(r'(EX-[A-Z]+)-([0-9]+)')
 
 SCAN_EXTENSIONS = ('.md', '.h', '.hpp', '.cpp', '.yml', '.yaml')
-EXCLUDED_DIRS = {'.git', 'generated', 'build', 'build-release', 'out', 'External', 'bin', 'obj'}
+EXCLUDED_DIRS = {'.git', 'generated', 'build', 'build-release', 'out', 'External', 'bin', 'obj',
+                 # Worktree d'agent (ex. fork Claude Code) : un clone complet du dépôt peut y vivre
+                 # temporairement et fait sortir chaque identifiant en double (LOT-66).
+                 '.claude'}
+
+# Exigences déclarées sans être jamais référencées, PAR CONSTRUCTION : des invariants transverses
+# que tout lot respecte sans avoir à les citer (documenté dans le fichier qui les déclare), ou un
+# reste post-MVP explicitement écarté. Toute nouvelle entrée doit s'accompagner de cette même
+# qualification dans la spécification concernée — ne pas s'en servir pour faire taire le lint.
+UNREFERENCED_ALLOWED = {
+    'EX-ARCH-001', 'EX-ARCH-060', 'EX-ARCH-070',  # invariants transverses, architecture.md
+    'EX-NFR-032',                                  # invariant transverse, exigences-non-fonctionnelles.md
+    'EX-DEC-031',                                  # post-MVP (section 3, hors 0.1.0), decors.md
+}
 
 
 def iter_files(root):
@@ -70,6 +90,13 @@ def check(root):
         if rid not in declarations:
             spots = ', '.join('%s:%d' % p for p in places[:5])
             errors.append('ORPHELINE : %s referencee mais jamais declaree (%s)' % (rid, spots))
+
+    for rid, places in sorted(declarations.items()):
+        if rid not in references and rid not in UNREFERENCED_ALLOWED:
+            spot = '%s:%d' % places[0]
+            errors.append('NON REFERENCEE : %s declaree (%s) mais jamais referencee ailleurs '
+                          '(a referencer, ou a qualifier d\'invariant/post-MVP dans '
+                          'UNREFERENCED_ALLOWED)' % (rid, spot))
 
     if errors:
         print('Lint exigences : %d probleme(s)' % len(errors))

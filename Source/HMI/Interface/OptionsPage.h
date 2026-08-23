@@ -1,9 +1,11 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
+#include <QWidget>
 #include <filesystem>
 #include <memory>
-
-#include <QWidget>
 
 /**
  * @file HMI/Interface/OptionsPage.h
@@ -19,7 +21,9 @@ namespace hmi {
 class GameViewport;
 class Localization;
 class KeybindingsWidget;
+class EditorKeybindingsWidget;
 class GamepadBindingsWidget;
+class AudioEngine;
 
 /**
  * @brief Page Options **unique**, affichée dans la fenêtre principale (pas en pop-up), au style du
@@ -34,7 +38,15 @@ class OptionsPage : public QWidget {
     Q_OBJECT
 
 public:
-    OptionsPage(GameViewport* viewport, std::filesystem::path keybindingsPath,
+    /**
+     * @param viewport        Viewport de jeu (V-Sync, remappage).
+     * @param audio           Moteur audio (`LOT-60` TACHE-04), non possédé ; jamais nul en usage
+     *                        réel (`MainWindow` le construit avant la page). Le curseur de volume
+     *                        n'a d'effet que si non nul.
+     * @param keybindingsPath Chemin de persistance des remappages.
+     * @param parent          Widget parent Qt (propriété standard, `nullptr` par défaut).
+     */
+    OptionsPage(GameViewport* viewport, AudioEngine* audio, std::filesystem::path keybindingsPath,
                 QWidget* parent = nullptr);
     ~OptionsPage() override;
 
@@ -48,12 +60,18 @@ signals:
     void languageChanged(const QString& code);
     /// Émis quand l'utilisateur demande l'enregistrement des journaux de session.
     void saveLogsRequested();
+    /// Émis après chaque remappage réussi d'une touche d'éditeur (`LOT-57` TACHE-04) : l'appelant
+    /// doit resynchroniser les raccourcis effectifs des actions (`EditorActions::applyShortcuts`).
+    void editorBindingsChanged();
 
 private:
     std::unique_ptr<Ui::OptionsPage> _ui;
+    AudioEngine* _audio = nullptr;  ///< Non possédé (`EX-NFR-040` : nul = curseur sans effet).
     KeybindingsWidget* _keyboard = nullptr;  ///< Onglet remappage clavier (contenu dynamique).
+    EditorKeybindingsWidget* _editorKeyboard = nullptr;  ///< Onglet remappage éditeur (LOT-57).
     GamepadBindingsWidget* _gamepad = nullptr;  ///< Onglet remappage manette (contenu dynamique).
     int _keyboardTabIndex = -1;
+    int _editorKeyboardTabIndex = -1;
     int _gamepadTabIndex = -1;
 };
 

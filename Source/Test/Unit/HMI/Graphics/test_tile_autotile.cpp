@@ -1,10 +1,15 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_tile_autotile.cpp
  * @brief Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).
  */
 
+#include <array>
 #include <cstdint>
 #include <set>
+#include <string_view>
 
 #include <gtest/gtest.h>
 
@@ -204,8 +209,8 @@ TEST(TileAutotileTest, PenteNonCompteeCommeVoisinSolide) {
  * }
  */
 TEST(TileAutotileTest, CaseRepresentativeEstLInterieurPlein) {
-    const hmi::AutotileCell full = hmi::autotileCell(
-        hmi::NEIGHBOR_UP | hmi::NEIGHBOR_RIGHT | hmi::NEIGHBOR_DOWN | hmi::NEIGHBOR_LEFT);
+    const hmi::AutotileCell full = hmi::autotileCell(hmi::NEIGHBOR_UP | hmi::NEIGHBOR_RIGHT |
+                                                     hmi::NEIGHBOR_DOWN | hmi::NEIGHBOR_LEFT);
 
     EXPECT_EQ(hmi::autotileRepresentativeCell(), full);
     EXPECT_FALSE(hmi::autotileRepresentativeCell() == (hmi::AutotileCell{0, 0}));
@@ -224,4 +229,81 @@ TEST(TileAutotileTest, BitsParasitesIgnores) {
     constexpr std::uint8_t noisy = 0xF0 | hmi::NEIGHBOR_UP;
 
     EXPECT_EQ(hmi::autotileCell(noisy), hmi::autotileCell(hmi::NEIGHBOR_UP));
+}
+
+/**
+ * @brief Chacun des seize masques produit une clé de libellé distincte (atelier pixel art, LOT-54
+ *        TACHE-08) : aucune case de la planche ne partage le libellé d'une autre.
+ * \castest{<b>Les seize masques produisent seize cles de libelle distinctes.</b><br/>
+ * \tcat Unitaire · Raccords automatiques<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Produire la cle de libelle de chacun des seize masques.<br/>
+ * \tattendu Les seize cles sont deux a deux differentes.
+ * }
+ */
+TEST(TileAutotileTest, SeizeMasquesProduisentSeizeClesDeLibelleDistinctes) {
+    std::set<std::string_view> keys;
+    for (int mask = 0; mask < hmi::AUTOTILE_CONFIGURATION_COUNT; ++mask) {
+        keys.insert(hmi::autotileConfigurationLabelKey(static_cast<std::uint8_t>(mask)));
+    }
+    EXPECT_EQ(keys.size(), static_cast<std::size_t>(hmi::AUTOTILE_CONFIGURATION_COUNT));
+}
+
+/**
+ * @brief Les bits parasites d'un masque de libellé sont ignorés, comme pour `autotileCell`.
+ * \castest{<b>Un masque de libelle portant des bits parasites reste dans la table.</b><br/>
+ * \tcat Unitaire · Raccords automatiques<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Demander le libelle d'un masque dont les bits de poids fort sont a 1.<br/>
+ * \tattendu Le libelle est celui des quatre bits de poids faible.
+ * }
+ */
+TEST(TileAutotileTest, LibelleIgnoreLesBitsParasites) {
+    constexpr std::uint8_t noisy = 0xF0 | hmi::NEIGHBOR_UP;
+    EXPECT_EQ(hmi::autotileConfigurationLabelKey(noisy),
+              hmi::autotileConfigurationLabelKey(hmi::NEIGHBOR_UP));
+}
+
+/**
+ * @brief L'assemblage 3×3 démonstratif place l'intérieur plein (les quatre voisins internes
+ *        solides) au centre, et couvre coins/bords/intérieur — un panorama représentatif des
+ *        seize configurations, pas seulement un sous-ensemble.
+ * \castest{<b>L'assemblage 3x3 place l'interieur plein au centre.</b><br/>
+ * \tcat Unitaire · Raccords automatiques<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Produire les neuf masques de l'assemblage.<br/>2. Verifier la case centrale et la
+ * diversite des masques.<br/>
+ * \tattendu Le masque central vaut le masque plein (quatre voisins) ; les neuf masques ne sont pas
+ * tous identiques.
+ * }
+ */
+TEST(TileAutotileTest, AssemblageTroisParTroisPlaceLInterieurPleinAuCentre) {
+    const std::array<std::uint8_t, 9> masks = hmi::autotileAssemblyMasks();
+
+    constexpr std::uint8_t fullMask =
+        hmi::NEIGHBOR_UP | hmi::NEIGHBOR_RIGHT | hmi::NEIGHBOR_DOWN | hmi::NEIGHBOR_LEFT;
+    EXPECT_EQ(masks[4], fullMask) << "case centrale (index 4 = ligne 1, colonne 1)";
+
+    const std::set<std::uint8_t> distinctMasks(masks.begin(), masks.end());
+    EXPECT_GT(distinctMasks.size(), 1U) << "l'assemblage doit couvrir plusieurs configurations";
+}
+
+/**
+ * @brief Chaque masque de l'assemblage 3×3 résout, via la table canonique, une case valide de la
+ *        planche 4×4 — jamais une seconde table qui pourrait diverger.
+ * \castest{<b>Chaque masque de l'assemblage resout une case valide de la planche.</b><br/>
+ * \tcat Unitaire · Raccords automatiques<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Resoudre la case de chacun des neuf masques via autotileCell.<br/>
+ * \tattendu Chaque case tient dans la planche 4x4 (colonne et ligne entre 0 et 3).
+ * }
+ */
+TEST(TileAutotileTest, AssemblageResoutDesCasesValidesViaLaTableCanonique) {
+    for (const std::uint8_t mask : hmi::autotileAssemblyMasks()) {
+        const hmi::AutotileCell cell = hmi::autotileCell(mask);
+        EXPECT_GE(cell.column, 0);
+        EXPECT_LT(cell.column, hmi::AUTOTILE_SHEET_SIDE);
+        EXPECT_GE(cell.row, 0);
+        EXPECT_LT(cell.row, hmi::AUTOTILE_SHEET_SIDE);
+    }
 }

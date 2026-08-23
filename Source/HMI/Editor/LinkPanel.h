@@ -1,6 +1,10 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <QWidget>
+#include <memory>
 #include <optional>
 #include <utility>
 #include <vector>
@@ -22,6 +26,10 @@ namespace core {
 class LevelDraft;
 }
 
+namespace Ui {
+class LinkPanel;
+}
+
 namespace hmi {
 
 class Localization;
@@ -41,6 +49,9 @@ class LinkPanel : public QWidget {
 public:
     explicit LinkPanel(QWidget* parent = nullptr);
 
+    /// Hors-ligne : `std::unique_ptr<Ui::LinkPanel>` porte un type incomplet.
+    ~LinkPanel() override;
+
     /// Reconstruit la liste depuis @p draft (après toute mutation du brouillon).
     void refresh(const core::LevelDraft& draft);
 
@@ -59,6 +70,9 @@ private:
     void onSelectionChanged();
     void onDeleteClicked();
 
+    /// Mise en page issue de `LinkPanel.ui` (`LOT-68`) : le C++ ne branche plus que le
+    /// fonctionnel, conformément à la convention du projet.
+    std::unique_ptr<Ui::LinkPanel> _ui;
     QTableView* _table;
     QStandardItemModel* _model;
     QPushButton* _deleteButton;

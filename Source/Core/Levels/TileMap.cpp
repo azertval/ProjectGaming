@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "Core/Levels/TileMap.h"
 
 #include <cstddef>
@@ -22,14 +25,14 @@ bool TileMap::inBounds(int column, int row) const noexcept {
 // Type de la tuile a une case (precondition : case dans les bornes).
 TileType TileMap::tile(int column, int row) const {
     PROJECTGAMING_ASSERT(inBounds(column, row), "Acces hors bornes de TileMap");
-    return _tiles[static_cast<std::size_t>(row) * static_cast<std::size_t>(_width) +
+    return _tiles[(static_cast<std::size_t>(row) * static_cast<std::size_t>(_width)) +
                   static_cast<std::size_t>(column)];
 }
 
 // Change le type de la tuile a une case (precondition : case dans les bornes).
 void TileMap::setTile(int column, int row, TileType type) {
     PROJECTGAMING_ASSERT(inBounds(column, row), "Ecriture hors bornes de TileMap");
-    _tiles[static_cast<std::size_t>(row) * static_cast<std::size_t>(_width) +
+    _tiles[(static_cast<std::size_t>(row) * static_cast<std::size_t>(_width)) +
            static_cast<std::size_t>(column)] = type;
 }
 

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_player_components.cpp
  * @brief Tests unitaires des composants du personnage (données pures) : valeurs par défaut.
@@ -44,7 +47,7 @@ TEST(PlayerComponentsTest, PlayerParDefautPasAuSol) {
     EXPECT_FLOAT_EQ(player.facing, 1.0f);
     EXPECT_FLOAT_EQ(player.wallDirection, 0.0f);
     EXPECT_FLOAT_EQ(player.wallJumpLockTimer, 0.0f);
-    EXPECT_FALSE(player.dashAvailable);
+    EXPECT_EQ(player.dashChargesRemaining, 0);
     EXPECT_FLOAT_EQ(player.dashTimer, 0.0f);
     EXPECT_EQ(player.jumpsRemaining, -1);  // budget illimité par défaut
     EXPECT_EQ(player.dashesRemaining, -1);

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_localization.cpp
  * @brief Tests unitaires du catalogue de traduction : analyse, repli, changement de langue.
@@ -168,5 +171,5 @@ TEST(LocalizationTest, CatalogueFrancaisLivreSeCharge) {
     ASSERT_TRUE(localization.loadDefaultLanguage("fr"));
     EXPECT_EQ(localization.activeLanguage(), "fr");
     EXPECT_EQ(localization.text("menu.quit"), "Quitter");
-    EXPECT_EQ(localization.text("menu.play"), "Jouer");
+    EXPECT_EQ(localization.text("menu.continue"), "Continuer");
 }

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <array>
@@ -16,7 +19,7 @@ namespace hmi {
 /**
  * @brief Action de jeu logique, remappable indépendamment de la touche physique qui la déclenche.
  *
- * Miroir des six lectures de `PlayerInputMapper.cpp`. Chaque action a une touche **unique** et
+ * Miroir des sept lectures de `PlayerInputMapper.cpp`. Chaque action a une touche **unique** et
  * pleinement remappable — aucun alias fixe : un alias câblé en dur sur une touche donnée entrerait
  * en collision dès qu'une **autre** action est remappée sur cette même touche, les deux se
  * déclenchant à la fois (silencieusement annulé pour une paire opposée comme Gauche/Droite, voir
@@ -29,10 +32,11 @@ enum class GameAction {
     AimDown,
     Jump,
     Dash,
+    Interact,
 };
 
 /// Nombre d'actions de jeu remappables (`GameAction`).
-constexpr int GAME_ACTION_COUNT = 6;
+constexpr int GAME_ACTION_COUNT = 7;
 
 /**
  * @brief Association action de jeu -> touche, avec persistance JSON (`EX-CTRL-012`, `LOT-29`).
@@ -45,7 +49,7 @@ constexpr int GAME_ACTION_COUNT = 6;
  */
 class GameKeyBindings {
 public:
-    /// Construit avec les valeurs par défaut (flèches/Espace/Maj, cf. `PlayerInputMapper.cpp`).
+    /// Construit avec les valeurs par défaut (flèches/Espace/Maj/E, cf. `PlayerInputMapper.cpp`).
     GameKeyBindings();
 
     /// @return La touche actuellement liée à @p action.
@@ -59,7 +63,7 @@ public:
      */
     void setKey(GameAction action, Key newKey) noexcept;
 
-    /// Restaure les six actions à leurs touches par défaut (`defaultKey`).
+    /// Restaure les sept actions à leurs touches par défaut (`defaultKey`).
     void resetToDefaults() noexcept;
 
     /// @return La touche par défaut de @p action, indépendante de l'état courant.
@@ -80,7 +84,7 @@ public:
     [[nodiscard]] static GameKeyBindings load(const std::filesystem::path& path);
 
 private:
-    std::array<Key, GAME_ACTION_COUNT> _keys;
+    std::array<Key, GAME_ACTION_COUNT> _keys{};
 };
 
 }  // namespace hmi

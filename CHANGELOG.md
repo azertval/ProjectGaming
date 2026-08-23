@@ -6,7 +6,1096 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+### Parallaxe à trois profondeurs des tableaux qui défilent (LOT-70)
+
+- `demo-mouvement` (suivi continu) et `demo-final` (caméra par salle) — les deux seuls tableaux
+  livrés où `hmi::planeParallaxActive` est vrai — gagnent un troisième plan, **lointain**, à
+  densité 4 et à facteur de parallaxe plus lent que le plan « fond » existant (0.2 contre 0.6 pour
+  `demo-mouvement`, 0.15 contre 0.5 pour `demo-final`). Les vingt autres tableaux, dont la
+  parallaxe est neutralisée en cadrage `WholeLevel`, sont inchangés.
+- `scripts/generate_demo_plans.py` gagne une fonction de peinture dédiée au plan lointain (crête
+  déchiquetée unique, ciel plus estompé, semis clairsemé), et un motif procédural `star()` pour le
+  thème nocturne. Reproductible comme le reste du générateur (`--check`).
+- Un garde-fou système (`test_plans_livres.cpp`) vérifie que tout niveau à parallaxe active déclare
+  au moins trois plans aux facteurs strictement croissants, avec son cas négatif.
+- Répond au manque explicitement consigné par le `LOT-69` TACHE-10 : la migration n'avait livré
+  qu'un report fidèle de l'ancien habillage, pas une fresque exploitant réellement la profondeur.
+
+### Licence
+
+- Le projet passe de « Tous droits réservés » à la **GNU General Public License v3.0 ou ultérieure**
+  (`GPL-3.0-or-later`). `LICENSE` contient désormais le texte officiel, verbatim.
+- Précision utile, car l'intention initiale était « open source, pas d'usage commercial » : ces deux
+  exigences sont **incompatibles**. La définition de l'Open Source interdit de restreindre les
+  domaines d'usage (clause 6), donc aucune licence open source ne peut interdire le commercial. La
+  GPL apporte la garantie voisine, et plus solide en pratique : toute redistribution d'une version
+  modifiée — commerciale ou non — **doit en publier le source** sous la même licence.
+- Nouveau **`THIRD-PARTY-NOTICES.md`** : relevé des dépendances de code (Qt LGPLv3, GoogleTest
+  BSD-3-Clause, nlohmann/json MIT) et index des licences de ressources (CC0, SIL OFL), qui étaient
+  déjà documentées à côté des fichiers concernés mais nulle part rassemblées. Il détaille aussi les
+  trois obligations concrètes que le lien dynamique à Qt impose — et pourquoi passer Qt en lien
+  statique serait une décision de licence, pas d'optimisation.
+- **En-têtes SPDX** (`SPDX-License-Identifier: GPL-3.0-or-later`) sur les 516 fichiers de code du
+  dépôt. Ils marquent le **code, et lui seul** : images, sons, polices et bibliothèques tierces
+  gardent leur propre licence. La précision est écrite dans le README et les notices, parce que
+  l'inverse serait facile à croire et faux.
+- L'écran **Crédits du jeu** gagne trois sections : **polices** (SIL OFL), **bibliothèques**
+  (Qt 6, LGPLv3, lien dynamique) et **licence** du jeu. La LGPLv3 et la SIL OFL exigent cette
+  mention ; surtout, un joueur qui n'ouvrira jamais le dépôt doit pouvoir la lire. Seuls les
+  intitulés de section sont traduits — un nom de licence ne se paraphrase pas.
+
+### Plans picturaux (LOT-69)
+
+- Le niveau porte désormais une **liste ordonnée de plans** (`EX-DEC-040`) : chaque plan est une
+  image couvrant tout le niveau, dans son propre fichier, avec sa **densité** (16, 8 ou 4 px par
+  unité), ses **facteurs de parallaxe** par axe, son opacité et sa profondeur. L'ordre de la liste
+  est l'ordre de superposition.
+- Le format de niveau gagne `planes` et `parallax` (`EX-LVL-009`). Un niveau sans plan est
+  strictement inchangé, et aucun champ à sa valeur par défaut n'est écrit — un plan solidaire du
+  niveau à densité native ne produit que son nom de fichier.
+- Le coût est **borné par le format** et non laissé à l'usage (`EX-DEC-044`) : nombre de plans
+  plafonné, et refus d'un plan dont la texture dépasserait la limite du matériel. C'est la
+  *combinaison* taille × densité qui est vérifiée, pas la densité seule.
+- Tous les mutateurs de plan du brouillon d'édition sont **annulables et refaisables**, et un
+  mutateur refusé n'empile aucun pas d'historique.
+- Le système de **décors-sprites** (`LOT-49`/`LOT-50`) est **retiré** : modèle, format, rendu,
+  outil de canevas, panneau dédié, gestes et assets de placement. Il n'existe plus de motif
+  décoratif ponctuel réutilisable — un même élément présent dans dix niveaux se peint (ou se colle)
+  dans chaque plan. Les exigences correspondantes sont marquées retirées dans le référentiel,
+  leurs ancres conservées.
+- Un niveau portant encore le champ `decors` **se charge sans erreur** : le champ est ignoré et
+  journalisé comme obsolète, jamais rejeté (`EX-LVL-005`). Un simple charger-puis-enregistrer suffit
+  à migrer le fichier, la réécriture ne contenant plus le champ.
+
+### Rendu (LOT-69)
+
+- **Les plans picturaux se composent et se dessinent** (`EX-REN-049`) : un quad par plan couvrant
+  le niveau entier, dans l'ordre déclaré, avec son opacité. La densité ne change **pas** la
+  géométrie — un plan à 8 px/unité couvre la même surface qu'un plan natif, en plus grossier :
+  c'est un compromis de mémoire, pas de cadrage.
+- Le calque `Decor` devient **`Plane`**, et les entrées de menu correspondantes « Plans derrière » /
+  « Plans devant ». Laisser un calque porter le nom d'un système retiré aurait été précisément la
+  dette que `EX-REN-014` cherche à éviter.
+- **La parallaxe est portée par le plan** (`EX-DEC-043`), réglable **par axe** et par niveau, à
+  la place des trois constantes figées de l'ancien système. Le décalage reste calculé **relativement
+  au centre de la salle** : c'est précisément ce qui empêche le saut à la bascule de salle
+  (`EX-REN-015`), et un décalage absolu — envisagé au cadrage — rouvrirait ce défaut.
+- Le décalage est **borné** : un plan couvre toujours le cadrage, y compris caméra collée au bord
+  du niveau. L'alternative « que l'artiste peigne des marges » a été écartée — la marge nécessaire
+  dépend du facteur *et* de la taille de salle, et l'erreur ne se verrait qu'en jeu, au bord d'un
+  niveau.
+- **La parallaxe est réactivée en mode de cadrage *suivi***, ce qui **inverse une décision du
+  `LOT-64`. Le motif est net : celui-ci l'avait coupée parce qu'un décor est un objet collé au
+  contenu et paraissait « suivre » la caméra ; un plan est un fond, l'argument tombe. En cadrage
+  *niveau entier*, elle reste neutralisée — la caméra ne bougeant pas, le décalage ne serait qu'un
+  désalignement constant du plan par rapport aux tuiles.
+- **Visibilité par plan** dans l'éditeur (`EX-DEC-045`) : masquage individuel et **isolement** d'un
+  plan, non persistés — une aide d'édition, pas une propriété du niveau.
+- Une propriété invisible à la lecture est désormais **figée par un test** : les plans ne
+  ressortent dans l'ordre du niveau que parce qu'ils sont composés en premier et dans l'ordre, le
+  tri de la scène intercalant le rang de première apparition de texture entre le calque et le tri
+  fin. Sans ce test, un simple réordonnancement d'appels l'aurait cassée en silence.
+
+- **Le rendu passe sur QRhi** (`EX-REN-050`). La cible technique ne change pas — QRhi retient
+  **Direct3D 11** par défaut sous Windows (`EX-REN-002`, amendée) — mais l'API n'est plus appelée
+  directement : `hmi::GraphicsDevice` (device, swap chain, présentation) est **supprimé**, Qt en
+  étant désormais propriétaire, et les shaders sont compilés en `.qsb` puis embarqués.
+- **Le viewport est un widget ordinaire** (`QRhiWidget`), plus une fenêtre native embarquée. C'est
+  le bénéfice concret : l'écran de pause et l'écran de fin de niveau **redeviennent de simples
+  enfants**, là où ils avaient dû devenir des fenêtres de haut niveau à géométrie synchronisée en
+  coordonnées écran pour contourner deux défauts réels du `LOT-59` (écran de pause invisible, puis
+  `Qt::Tool` empêchant `activateWindow()`). Le focus s'obtient à nouveau directement, sans report
+  d'un tour de boucle d'événements.
+- **La netteté du pixel art est désormais testée, pas seulement constatée** : un rendu **hors
+  écran** d'un motif témoin est relu pixel par pixel et comparé à l'exact — un filtrage devenu
+  linéaire, qui passerait sans bruit toute la CI, y échoue.
+- **V-Sync** (`EX-REN-022`) : la présentation appartient au compositeur de Qt, elle est donc
+  toujours synchronisée. Le réglage des Options est conservé mais n'a plus d'effet — écart assumé
+  et documenté dans le référentiel.
+- Un défaut de la première version du portage mérite d'être noté, parce qu'il ne se voyait que sur
+  du contenu **multicolore** : l'image de téléversement d'une texture ne possédait pas ses pixels,
+  et le lot de mises à jour lisait de la mémoire libérée. Le test de rendu hors écran l'a attrapé
+  au premier essai.
+
+### Atelier pixel art (LOT-69)
+
+- **Le canevas peut montrer un repère** (`EX-EDIT-046`) : une image **sous** le contenu édité, une
+  autre **par-dessus**, et une grille de **tuiles** distincte de la grille de pixels. Les trois sont
+  optionnelles et additives — l'atelier qui les ignore se comporte exactement comme avant — et
+  n'entrent **jamais** dans le tampon édité, ni dans l'historique, ni dans le copier.
+- **Zoom rationnel** : l'échelle descend désormais **sous le 1:1** (dénominateurs 1, 2, 4, 8) pour
+  embrasser un plan à l'échelle du niveau entier. Les pixels restent carrés, et la grille de pixels
+  s'efface sous le 1:1 où elle couvrirait plus de surface que ce qu'elle sépare. `zoom` reste le
+  numérateur, dénominateur 1 par défaut : les tests hérités du `LOT-54` passent **sans être
+  modifiés**, ce qui est le seul critère qui prouve que l'extension est bien compatible.
+- `PlaneReference` (nouveau, **sans Qt ni GPU**) : pelure d'oignon des tuiles réutilisant la palette
+  du mode Physique — inventer un second jeu de couleurs ferait diverger deux vues du même niveau —,
+  aplatissement des plans voisins par alpha-over, et rééchantillonnage par ratio **entier** (16 → 8
+  garde un pixel sur deux ; jamais d'interpolation, qui fabriquerait des couleurs que l'artiste n'a
+  pas posées).
+- Ce que la référence **n'est pas** : un aperçu. Ni raccords automatiques, ni skins, ni animation —
+  c'est un repère géométrique, et l'essai reste le seul aperçu fidèle.
+
+### Outillage (LOT-69)
+
+- **Qt passe de 6.8.1 à 6.11.2.** Qt 6.11 est la première version à fournir **Qt Canvas Painter**
+  (peinture 2D accélérée sur cible QRhi), sur lequel s'appuient les tâches suivantes du `LOT-69`.
+  La CI installe désormais aussi `qtshadertools` (l'outil `qsb`, compilateur de shaders exigé par le
+  rendu QRhi) et `qtcanvaspainter`.
+- Quitter Qt 6.8 **LTS** est assumé : au-delà de 6.8.3, les correctifs de cette branche ne sont
+  publiés que sous licence commerciale — le support long terme ne bénéficiait donc pas à ce projet.
+- La CI provisionne Qt avec un **`aqtinstall` pris depuis git, à un commit épinglé**
+  (`env.AQT_SOURCE`, entrée `aqtsource` de `install-qt-action`). Motif : Qt a changé la disposition
+  de son dépôt à partir de 6.11 et `aqtinstall 3.3.0`, dernière version publiée sur PyPI, ne sait
+  plus l'atteindre ; le correctif amont est mergé mais pas encore publié. Détour **temporaire et
+  documenté**, à retirer dès la parution d'`aqtinstall 3.3.1`.
+- `EX-BUILD-010` est amendée : l'exigence de provisionnement reproductible porte explicitement sur
+  l'**outil de provisionnement lui-même**, qui doit être épinglé à une révision précise et jamais à
+  une branche mobile.
+
+### Mode création (LOT-69)
+
+- **Troisième espace de travail** dans l'éditeur (`EX-EDIT-046`), à côté de l'édition de niveau et
+  de l'atelier pixel art. Y entrer masque ce qui n'y sert pas et fait apparaître le canevas : c'est
+  cette structure du `LOT-68`, et non un énième bouton, qui rend le mode praticable.
+- Conséquence sur la table qui décide où vit un panneau : elle rendait **un** espace par panneau —
+  « chaque panneau appartient à exactement un espace » — et cela ne tient plus, canevas, historique
+  et palette servant aux **deux** espaces de peinture. Elle rend désormais un **masque**, et la
+  garde de complétude passe de « exactement un » à « masque non vide ». Dupliquer les docks aurait
+  donné deux canevas et deux historiques à tenir synchronisés.
+- **Panneau « Plans »** (`EX-EDIT-047`), à la place de l'ancien panneau « Décors » : liste ordonnée
+  avec densité, profondeur, parallaxe par axe, opacité, œil de visibilité et isolement, boutons de
+  réordonnancement, et un bouton « Peindre » qui bascule dans le mode création avec le plan chargé.
+- **Cycle de vie des fichiers** : « Ajouter » crée un PNG entièrement transparent aux dimensions
+  exactes qu'impose la densité, nommé d'après le niveau et rendu unique par un suffixe numérique
+  croissant — jamais un identifiant aléatoire, pour qu'un dossier de plans reste lisible à l'œil.
+  Changer la densité rééchantillonne l'image et la réécrit.
+- **Retirer un plan ne supprime jamais son fichier.** Le brouillon sait annuler une entrée JSON, pas
+  la disparition d'une image : un PNG orphelin est moins grave qu'un dessin perdu. Écrit dans la
+  documentation utilisateur plutôt que laissé à découvrir.
+- Dans le mode création, **`Ctrl+S` enregistre le PNG** ; l'enregistrement de niveau écrit le JSON.
+  Deux notions de « modifié » distinctes depuis le `LOT-54`, donc deux garde-fous de perte de
+  travail. Un coup de pinceau dans un plan n'apparaît **jamais** dans l'historique d'édition du
+  niveau, ni réciproquement.
+- La barre d'état annonce la résolution du plan, sa densité et son **poids mémoire** —
+  le chiffre même que le budget du dépôt plafonne.
+- L'espace de travail est désormais persisté **par son nom** et non par un indice : le `LOT-68`
+  écrivait `0`/`1`, et insérer « Plans » entre les deux aurait fait rouvrir en mode création
+  l'éditeur laissé dans l'atelier. Le mode création, lui, n'est jamais restauré au démarrage — il
+  suppose un niveau ouvert et un plan sélectionné.
+
+### Budget de rendu (LOT-69)
+
+- Le budget mesuré du `LOT-62` gagne un **second axe** : la **mémoire de texture** des plans
+  (`EX-NFR-043`), à côté des compteurs de primitives et dans la même structure de statistiques.
+  Motif : un plan n'ajoute qu'**une** primitive mais occupe une texture à l'échelle du niveau — un
+  plafond exprimé en primitives ne le verrait jamais grossir, alors qu'un niveau 200 × 100 à densité
+  native coûterait 20 Mo **par plan**.
+- Ce plafond-là n'est **pas** décliné par niveau comme celui des primitives : le volume de
+  primitives dépend du contenu posé par l'auteur, la mémoire de plans ne dépend que de la taille du
+  niveau et des densités déclarées.
+- Il est calibré pour **refuser avant la limite de format** : 16 Mio laissent passer douze plans
+  natifs sur le plus grand tableau du dépôt, là où le format en autorise seize. Un test le vérifie
+  dans ce sens-là — un garde-fou qu'on n'a jamais vu refuser ne prouve rien.
+- Un test fige la propriété qui distingue les plans des tuiles : leur coût en primitives et en
+  passes est **invariant en taille de niveau**, alors que leur mémoire suit la surface.
+
+### Contenu (LOT-69)
+
+- **Les vingt-deux tableaux livrés passent aux plans picturaux.** Le cadrage du lot annonçait
+  `demo-final` comme seul niveau porteur de décors : c'était faux, tous en portaient (soixante-deux
+  entrées au total). Chacun reçoit un **fond** à densité 8, et ceux qui avaient un décor de premier
+  plan un second plan à densité native.
+- Les décors sont **reportés à leurs positions d'origine**, avec la même géométrie que l'ancien
+  rendu. L'intention visuelle de chaque tableau est préservée ; ce n'est pas pour autant une fresque
+  peinte qui exploiterait vraiment la profondeur — cela reste un acte de *level design*, hors de ce
+  lot d'outillage.
+- Les images sont **générées, jamais dessinées à la main** (`scripts/generate_demo_plans.py`) :
+  reproductibilité, dans la ligne du `LOT-66`. `Source/Elements/Assets/Decors/` et son générateur
+  disparaissent ; les quatre motifs Kenney qu'il contenait sont **conservés** comme *sources* du
+  générateur (`scripts/motifs/`) — les supprimer aurait rendu le script injouable, donc non
+  reproductible.
+- **Des facteurs de parallaxe ne sont déclarés que sur `demo-final` et `demo-mouvement`**, les deux
+  seuls niveaux dont la caméra défile. Ailleurs, le cadrage *niveau entier* la neutralise :
+  déclarer un facteur y aurait été une promesse que rien ne tient.
+- Le garde-fou de couverture des mécaniques exigeait déjà, dans sa documentation, un « décor de
+  premier plan » — sans que le code ne le vérifie. Il vérifie désormais réellement la présence d'un
+  **plan devant le personnage** et d'une **parallaxe réglée**.
+- Deux tests système nouveaux : **aucun niveau du dépôt ne porte encore `decors`**, et **tout plan
+  référencé existe aux dimensions attendues**. Ni `Core` (qui ne vérifie pas l'existence d'un
+  fichier) ni `HMI` (qui replie sur un damier) ne signaleraient l'un ou l'autre.
+
+### Corrections (LOT-69)
+
+- **La manette n'était plus détectée depuis les écrans d'interface.** Le sondage XInput est espacé
+  tant qu'aucune manette n'est présente — interroger un slot vide coûte cher et provoque des
+  micro-saccades — mais cet espacement se comptait en **nombre d'appels**. Or le sondage est
+  déclenché tantôt par la boucle de rendu (une fois par image), tantôt par un temporisateur
+  d'interface (150 ms au menu, 500 ms dans les Options) : le même compteur donnait donc un délai de
+  détection allant de deux secondes à **une minute** selon l'appelant. L'espacement est désormais
+  décidé en **temps réel**, ce qui borne la détection quelle que soit la cadence.
+- **Ouvrir un niveau habillé dans l'éditeur perdait tous ses plans.** Le brouillon d'édition
+  (`LevelDraft::fromLevel`) ne recopiait ni la liste des plans ni le drapeau de parallaxe : le
+  niveau s'ouvrait, s'éditait et s'enregistrait normalement — mais **sans son habillage**, effacé
+  en silence. Aucun message, aucun échec : un champ simplement absent ne fait rien échouer, ce qui
+  est exactement la classe de défaut qu'aucun test de comportement n'attrape. Deux tests le figent
+  désormais, dont un aller-retour niveau → brouillon → niveau.
+- **Les boutons des boîtes de dialogue étaient en anglais** dans une interface française : « Yes »
+  et « No » viennent de Qt, pas du catalogue du projet, et Qt les rend en anglais tant qu'aucun
+  `QTranslator` n'est installé. Le catalogue `qtbase_<langue>.qm` est désormais chargé et déployé
+  à côté de l'exécutable — les deux seuls dont l'IHM propose la langue, pas la trentaine que
+  `windeployqt` copierait.
+- Dans le mode création, la barre d'état annonçait le **niveau** et son zoom de caméra pendant
+  qu'on peignait une image, tant que le focus clavier n'était pas entré dans le canevas. L'espace
+  n'ayant pas d'autre sujet, elle parle désormais du plan sans attendre le focus — et dit « Plan »
+  plutôt qu'« Asset », un plan n'étant réutilisable par aucun autre niveau.
+- Les réglages du plan sélectionné affichaient les **bornes basses** de leurs champs
+  (« Parallaxe 0,01 · Opacité 0,00 ») quand aucun plan n'était sélectionné, ce qui se lisait comme
+  une configuration choisie. Ils montrent les valeurs par défaut d'un plan. Le facteur de parallaxe
+  accepte par ailleurs **0** : un plan strictement immobile est un réglage légitime.
+- **Lancer une partie depuis le menu affichait le niveau en mode édition.** Le portage QRhi a rendu
+  la création des ressources graphiques paresseuse : elle a lieu à la **première image**, donc
+  *après* le démarrage de la partie, et elle commence par libérer ce qui tenait une texture — dont
+  la session de jeu qui venait d'être créée. Le viewport retombait alors silencieusement sur le
+  brouillon d'édition. La session est désormais **remontée** une fois les ressources disponibles.
+## [0.1.1] - 2026-08-20
+
+> Septième jalon : les trajectoires de plateformes et de dangers mobiles se dessinent enfin **à la
+> souris** plutôt qu'au JSON (`LOT-67`), et l'éditeur comme les écrans du jeu passent en **pixel
+> art** (`LOT-68`) — cadres à bordure franche, police bitmap embarquée, barre d'outils et menus
+> dégraissés.
+>
+> Une route de plateforme mobile suit désormais une suite de points de passage, en aller-retour ou
+> en **circuit fermé**, manipulable directement au canevas par l'outil « Parcours » ; un panneau
+> « Propriétés » rend enfin accessibles depuis l'éditeur des réglages qui n'existaient jusqu'ici que
+> dans le modèle (vitesse, déphasage, mode, axe/portée d'un danger mobile, période d'un danger
+> temporisé, capacités de mobilité par tableau). Trois vieux défauts de l'éditeur sont corrigés au
+> passage : une plateforme fraîchement posée pouvait rester sans parcours possible avant un
+> enregistrement/rechargement, trois types de tuiles (clé, porte verrouillée, plateforme mobile)
+> n'avaient pas de texture dans le jeu de skins par défaut, et la palette/l'arbre de textures
+> s'ouvraient parfois vides au lancement.
+>
+> **1185 tests** (1119 au jalon précédent).
+
+### Interface (LOT-68)
+
+- Les six écrans du jeu passent en **pixel art** : police bitmap embarquée (Pixelify Sans, Press
+  Start 2P), cadres à bordure franche et coins entaillés, décor au menu principal, et une échelle
+  d'agrandissement **entière** dérivée de la taille de la fenêtre — l'interface n'est plus figée à
+  une taille visiblement petite dès qu'on dépasse la définition d'un portable.
+- L'élément focalisé porte désormais un **curseur** et non une simple nuance de couleur : la
+  navigation à la manette n'a pas de pointeur pour dire où elle en est.
+- L'écran de fin de tableau affiche un **bilan** : temps, morts et sauts. Le temps est compté en pas
+  de simulation, donc comparable d'une machine à l'autre.
+- L'écran Options perd ses sélecteurs de **résolution** et de **limite d'images/s**, grisés et jamais
+  branchés, et gagne un réglage qui agit : l'affichage du **compteur de diagnostic**, jusqu'ici
+  atteignable par la seule touche `F9`.
+- La barre d'outils de l'éditeur ne porte plus que les outils et quatre commandes à usage continu :
+  elle en portait onze, dont neuf figuraient déjà au menu.
+- La barre de menus est réorganisée **par nature d'action** (Fichier, Édition, Niveau, Affichage,
+  Atelier, Aide), et les réglages nombreux passent en sous-menus — le menu Affichage alignait
+  vingt-trois entrées à plat.
+- L'éditeur se présente en **espaces de travail exclusifs** : édition de niveau ou atelier pixel art.
+  Chacun n'affiche que ses panneaux et sa barre d'outils, et retient sa propre disposition.
+
+
 ### Ajouté
+- **Route multi-points pour les plateformes mobiles** (`LOT-67`, `EX-GP-054`) : une plateforme suit
+  désormais une suite de points de passage, parcourue en aller-retour ou en **circuit fermé**, à
+  vitesse constante — là où elle ne pouvait relier que deux points.
+- **Outil « Parcours » dans l'éditeur** (`EX-EDIT-032`) : les trajectoires se manipulent directement
+  au canevas, par des poignées glissables — déplacer, insérer ou retirer un point d'une route,
+  redéfinir l'axe et la portée d'un danger mobile. Chaque geste complet ne coûte qu'une annulation.
+- **Panneau « Propriétés »** (`EX-EDIT-033`) : vitesse, déphasage et mode d'une plateforme ; axe et
+  portée d'un danger mobile ; période, déphasage et durée active d'un danger temporisé ; règles du
+  tableau. Ces réglages existaient dans le modèle depuis le `LOT-63` mais **aucun n'était atteignable
+  depuis l'éditeur** : il fallait éditer le JSON à la main.
+- **Capacités de mobilité par tableau** (`EX-GP-055`) : un niveau peut redéfinir le nombre de sauts
+  aériens et de **charges de dash**, rechargés à chaque atterrissage — à distinguer des budgets de
+  `EX-GP-024`, consommables une fois pour toutes sur le tableau. Le dash porte désormais un compteur
+  de charges et non plus un booléen ; sa valeur par défaut reproduit le comportement historique.
+
+### Modifié
+- Le format de niveau porte `waypoints` et `mode` pour les plateformes, ainsi que `airJumps` et
+  `dashCharges` à la racine (`EX-LVL-008`). Le couple `endX`/`endY` reste **lu** : un fichier
+  antérieur se charge et se joue à l'identique. `demo-plateforme.json` conserve volontairement une
+  plateforme à l'ancien format, pour que la compatibilité soit prouvée par le contenu livré.
+
+### Corrigé
+- **Dérive de position des plateformes en session longue** : la distance parcourue était cumulée en
+  simple précision, ce qui perdait le bit de poids faible au-delà d'environ 16,7 millions de pas
+  (~77 h de jeu) et décalait visiblement la plateforme. Le calcul passe en double précision, et un
+  test fige le comportement à vingt millions de pas.
+- **Budgets de sauts et de dashs non annulables** : `LevelDraft::setJumpBudget` et `setDashBudget`
+  n'empilaient pas de pas d'annulation, contrairement à toutes les autres propriétés de niveau
+  (fond, jeu de skins, cadrage). `Ctrl+Z` ignorait donc silencieusement ces changements.
+- **Plateforme/danger mobile fraîchement posé sans parcours possible** (`EX-GP-026`/`EX-GP-051`,
+  `EX-EDIT-032`) : `LevelDraft::paintTile` ne créait sa configuration de route qu'au premier
+  enregistrement/rechargement du niveau (seul `LevelLoader` la créait par défaut). Tant que ce
+  round-trip n'avait pas eu lieu, l'outil « Parcours » ne trouvait la tuile dans aucun des vecteurs
+  qu'il parcourt et ne pouvait donc pas la désigner : impossible de démarrer son parcours sans
+  d'abord sauvegarder puis recharger. La pose crée désormais la configuration par défaut
+  immédiatement, comme `LevelLoader`.
+- **Trois types de tuiles sans texture par défaut** : clé, porte verrouillée et plateforme mobile
+  n'avaient d'entrée que dans le jeu de skins `kenney`, pas dans `test` (le jeu par défaut,
+  `skins.json`) — damier de repli systématique tant que le niveau ne redéfinissait pas son jeu de
+  skins. Les trois assets existaient déjà (`key.png`, `locked_door.png`, `platform.png`) ; il ne
+  manquait que les entrées.
+- **Palette et arbre de textures vides au lancement de l'éditeur** : le câblage de `MainWindow`
+  (à la construction) lisait le catalogue de skins avant que `GameViewport::ensureResources` ne
+  l'ait chargé (différé à la première exposition du canevas Direct3D), donc dans un état encore
+  vide. La palette de blocs et l'arbre de la section « Textures » s'ouvraient sans aucune vignette,
+  jusqu'à la première bascule de mode de rendu ou de jeu de skins qui les rafraîchissait par
+  ailleurs. `GameViewport` émet désormais `resourcesReady` une fois le catalogue réellement chargé,
+  et `MainWindow` s'y reconstruit.
+
+## [0.1.0] - 2026-08-17
+
+> Sixième jalon, et premier qui **annonce un jeu** plutôt qu'un moteur : les jalons `0.0.x`
+> construisaient les briques, celui-ci les assemble en une expérience qui se termine, qui se
+> retient et qui se fait entendre.
+>
+> On peut désormais **mettre le jeu en pause**, voir **la fin d'un tableau** marquée clairement, et
+> **retrouver sa progression** au tableau exact où on l'a quittée plutôt que de repartir du premier
+> niveau à chaque lancement (`LOT-59`). Sauter, atterrir, dasher, activer un interrupteur, mourir et
+> gagner un tableau **font du bruit** — volume réglable et persisté, jeu pleinement jouable en
+> silence (`LOT-60`). Des **effets de particules** accompagnent les mouvements du personnage
+> (`LOT-53`). Trois mécanismes que les spécifications annonçaient depuis le début arrivent enfin :
+> l'action « Interagir », les clés et portes verrouillées, les plateformes mobiles (`LOT-63`). Le
+> level designer choisit désormais le **cadrage de caméra** d'un niveau plutôt que de le subir
+> (`LOT-64`). Un défaut rencontré par un joueur sur la version publiée laisse maintenant une
+> **trace exploitable** (`LOT-61`). Le budget de rendu et l'empreinte mémoire, jusque-là de simples
+> promesses, sont désormais **mesurés à chaque build** (`LOT-62`).
+>
+> Les vingt-deux tableaux de démonstration ont été **entièrement redessinés** pour que chacun
+> exploite réellement sa mécanique plutôt que la contourner, banque d'assets et personnage refaits
+> en conséquence (`LOT-65`).
+>
+> Ce jalon règle enfin les trois derniers écarts qui séparaient le dépôt d'une publication propre :
+> Qt épinglé et vérifié sur les trois environnements, numéro de version qui n'existe plus qu'à un
+> seul endroit, et référentiel de spécifications qui dit la vérité sur ce qui est livré (`LOT-66`).
+>
+> **1119 tests** (943 au jalon précédent).
+
+### Ajouté
+- **LOT-66 TACHE-04 — Bascule `0.1.0` et vérification finale.** `project(VERSION)` passe à `0.1.0`,
+  seul endroit où le numéro est écrit (`TACHE-02`). `README.md` mis à jour pour décrire le jeu
+  livré (pause, progression, son, effets, mécanismes ajoutés) plutôt que le moteur du jalon
+  précédent. Notes de release vérifiées (`scripts/extract_release_notes.py v0.1.0`).
+- **LOT-66 TACHE-03 — Statuts des spécifications et exigences orphelines.** Huit fichiers sur dix
+  restaient marqués « brouillon », certains depuis vingt lots, alors qu'ils décrivent un système
+  livré. Chacun porte désormais un statut réel, daté (`0.1.0`), sur le modèle déjà appliqué à
+  `decors.md`/`editeur-niveaux.md`. `EX-ARCH-001`/`060`/`070` et `EX-NFR-032` sont documentés comme
+  des **invariants transverses** (respectés par tout lot sans être cités) ; `EX-DEC-031` comme
+  **post-MVP** ; `EX-VIS-002` à `EX-VIS-007` reçoivent chacun un renvoi vers l'exigence détaillée
+  qui le concrétise (et réciproquement). Les deux points ⚠️ restants (réglage fin du ressenti,
+  `gameplay.md`) sont explicitement reportés au-delà de `0.1.0`, pas laissés en suspens.
+  `scripts/lint_exigences.py` détecte désormais aussi les exigences **déclarées mais jamais
+  référencées** (au lieu de seulement les références orphelines), avec une liste explicite et
+  documentée d'exemptions pour les invariants et le post-MVP — même logique que la vérification déjà
+  automatique ailleurs dans ce lot plutôt qu'une revue manuelle.
+- **LOT-66 TACHE-02 — Numéro de version généré, plus jamais recopié.** Le `Doxyfile` portait sa
+  propre copie du `PROJECT_NUMBER`, vérifiée (et non générée) par `scripts/build_docs.py` : un
+  oubli devenait un échec de CI au lieu d'être rendu impossible. Le `Doxyfile` versionné ne porte
+  plus de numéro (`PROJECT_NUMBER` vide) ; le script l'injecte depuis `project(VERSION)` en le
+  passant à Doxygen sur l'entrée standard (`doxygen -`), sans écrire de fichier temporaire.
+  Bumper `project(VERSION)` suffit désormais — l'étape manuelle a disparu de `CONTRIBUTING.md`.
+- **LOT-66 TACHE-01 — Qt épinglé et vérifié sur les trois environnements** (`EX-BUILD-010`). La CI
+  et la release installaient Qt `6.8.1` explicitement ; le poste local retenait silencieusement la
+  version la **plus récente** trouvée sur le disque, sans que rien ne signale un écart. Le CMake
+  déclare désormais `QT_VERSION_MINIMUM` (source unique), l'utilise comme version minimale de
+  `find_package(Qt6 ...)`, avertit (sans bloquer) si la version trouvée diffère de celle de la CI,
+  et journalise la version retenue (configuration) ainsi que celle contre laquelle le binaire a été
+  compilé (`QT_VERSION_STR`, journal de session LOT-61 — utile en rapport de défaut). La cohérence
+  entre `QT_VERSION_MINIMUM` (CMake) et `env.QT_VERSION` (`ci.yml`, `release.yml`) est vérifiée
+  automatiquement par `scripts/check_qt_version_pin.py` (job `lint-exigences`), plutôt que par
+  relecture.
+- **LOT-65 (second temps) — De la couverture à la profondeur.** Le garde-fou de couverture livré en
+  `TACHE-01` était vert, et le contenu qu'il validait ne tenait pourtant aucune des promesses de
+  `EX-LVL-012` : une revue des vingt-deux tableaux a établi que **onze d'entre eux ne demandent rien
+  au joueur** (dix se franchissent en maintenant « droite », `demo-plateforme` sans aucune entrée),
+  que chaque mécanique n'existe qu'en **un seul exemplaire**, et que **treize tuiles de mécanique
+  sont physiquement hors d'atteinte** — dont les quatre plafonds inclinés de `demo-plafond` et
+  l'interrupteur de `demo-dangers-avances`, ce qui rendait son danger commuté impossible à commuter.
+  La `TACHE-01` avait pourtant écrit la limite (« couvert ≠ franchi ») sans en tirer les
+  conséquences.
+  - **Quatre garde-fous qui mesurent l'usage, pas la présence** (`TACHE-05`) : aucun tableau
+    franchissable en maintenant « droite » (hors exclusion nommée) ; un type de tuile posé au moins
+    trois fois dans la séquence ; `jumpBudget` et `dashBudget` comptés **séparément** (le « ou »
+    précédent laissait passer une séquence entière sans budget de dash) ; zones de caméra et taille
+    de salle par niveau, invisibles d'un contrôle portant sur le seul mode de cadrage. Le rejeu
+    scripté relève désormais la **trajectoire réelle** et refuse une mécanique hors de portée.
+    Doctrine correspondante écrite dans `niveaux.md`, Sec. 3.
+  - **Deux corrections moteur assumées** (`TACHE-06`), assouplissement délibéré et borné du cadrage
+    « ce lot n'ajoute rien au moteur » — sans elles, ni le tutoriel de la clé ni l'énigme du tableau
+    final ne tiennent : une porte qui se **referme sur le personnage** est désormais **mortelle**
+    (`EX-GP-021`, via `core::Player::squished` déjà en place pour les plateformes) au lieu de le
+    laisser encastré dans un mur sans échec possible — ce que `demo-plaque-pression` provoquait à
+    **chaque partie** ; et un **bloc poussable peut enfoncer une plaque de pression** (`EX-GP-025`,
+    seuil `MIN_TRIGGER_MASS` déjà présent), ce qui débloque l'idiome de puzzle le plus classique du
+    genre, jusqu'ici hors d'atteinte parce que le contrôleur ne recevait que la boîte du joueur. Un
+    bloc réduit reste trop léger : la distinction est visible dans le tableau.
+  - **Batterie de croisements de mécaniques** (`Source/Test/Integration/test_croisements_mecaniques.cpp`) :
+    douze combinaisons qui n'étaient testées nulle part — dash contre un bloc plein puis réduit,
+    dash sous un plafond incliné, dash sur une plaque, bloc sur plaque, bloc trop léger, porte
+    écrasante, bloc poussé sur un danger, plateforme traversant une porte fermée, plateforme
+    emportant un bloc, deux déclencheurs sur une même porte.
+  - **Vingt-deux tableaux redessinés**, chacun conçu pour que sa mécanique soit la **seule** issue.
+    Les interrupteurs passent dans des alcôves du plafond qu'il faut atteindre en sautant ; les
+    plafonds inclinés et les dangers directionnels **bordent** le couloir au lieu de flotter à deux
+    hauteurs de saut au-dessus ; les blocs deviennent indispensables parce que le budget de sauts ne
+    suffit plus à les contourner ; `demo-plaque-pression` repose sur un bloc posé sur la plaque au
+    lieu d'un saut qui prend la porte de vitesse. Deux tableaux disparaissent : `demo-arrondi`
+    (fusionné dans `demo-pente`, dont il reprenait le tracé à une tuile près) et `demo-salles`
+    (272 tuiles, zéro mécanique, 40 % de sa surface scellée sous le sol — et joué **après** le
+    final), absorbé par le nouveau final multi-salles. Deux tableaux naissent : `demo-mouvement`
+    (synthèse de l'acte de mouvement) et `demo-synthese`.
+  - **Un vrai tableau final** : quatre salles, une énigme composée par salle, la clé gardée par des
+    dangers temporisés déphasés, et les deux variantes de cadrage du `LOT-64` qu'aucun tableau
+    n'employait — zones de caméra dessinées à la main (`EX-LVL-007`) et taille de salle propre au
+    niveau (`EX-REN-017`).
+  - **Invite « Interagir »** (`hmi::gameHudLines`) : rappel contextuel au contact d'une clé non
+    ramassée. Le ramassage exige une entrée qu'aucun autre tableau ne demande et que le jeu ne peut
+    pas expliquer ; sans invite, un joueur qui l'ignore reste bloqué devant la porte verrouillée
+    sans aucun retour.
+  - **Banque d'assets élargie**, entièrement générée par script : huit décors, trois fonds (forêt,
+    crépuscule, industriel), quatre objets. Le **personnage** est refait — il était illisible devant
+    une tuile de teinte voisine : cerne calculé depuis la silhouette, visage, ombrage, bottes,
+    écrasement/étirement, et six phases de course distinctes là où le cycle précédent en comptait
+    quatre dont **deux identiques**.
+  - **Doublons de test retirés** : `test_physique_personnage.cpp` ne rejoue plus les tableaux
+    livrés. Il portait une solution scriptée par tableau, doublon plus faible de
+    `ParcoursCompletSysteme` qui les rejoue tous avec deux garde-fous de plus ; la refonte a cassé
+    la copie la plus faible sans rien apprendre. Les tests **négatifs** restent : ils n'encodent
+    aucune solution.
+
+### Registre des défauts (consignés, non corrigés)
+- **Une pente franchissable à la marche ne l'est pas au dash.** Sur la silhouette exacte des
+  tableaux de pente livrés (pente à 45° suivie d'un palier plein), un personnage qui **dashe** se
+  fige au sommet : il bute contre la colonne pleine du palier avec les pieds encore 0,15 case trop
+  bas, et n'en repart jamais. La même géométrie se franchit sans difficulté à la marche. Le suivi de
+  surface (`core::resolveSlopeFollow`) n'avait jamais été éprouvé qu'à 0,05 case par pas ; un dash
+  en parcourt 0,25. Caractérisé par
+  `CroisementsMecaniques.DashSurUnePenteResteBloqueAuSommetDefautConsigne`, qui vérifie d'abord que
+  la géométrie se franchit à la marche pour prouver qu'il mesure bien le dash. Conséquence sur le
+  contenu : aucun tableau ne rend un dash **obligatoire** dans une montée de pente vers un palier.
+
+### Ajouté (premier temps)
+- **LOT-65 — Refonte des niveaux de démonstration** (concrétise `EX-LVL-015` ; actualise
+  `EX-LVL-012`, dont le « 3 niveaux » du MVP ne décrivait plus rien depuis longtemps). Dernier lot
+  de contenu du programme `0.1.0` : refaire les tableaux livrés pour qu'ils exploitent et testent
+  toutes les mécaniques du moteur, plutôt que les quinze bancs d'essai nus hérités du `LOT-25`.
+  - **Garde-fou de couverture** (`Source/Test/Systeme/test_couverture_mecaniques.cpp`,
+    `EX-LVL-015`) : un contrôle échoue, en nommant précisément ce qui manque, si un type de tuile,
+    un mode de cadrage ou une variante significative (danger temporisé déphasé, danger mobile
+    vertical, budget de mouvements borné, texture par instance, décor de premier plan) n'apparaît
+    dans aucun tableau de la séquence livrée — dérivé des énumérations du code (même technique que
+    `core::parseTileType`), jamais d'une liste recopiée à la main.
+  - **Banque d'assets renforcée avant la refonte du contenu** : deux fonds supplémentaires (nuit,
+    souterrain), cinq décors et deux objets d'instance en plus, une première spritesheet de
+    personnage (`Player/player.png`, absente jusqu'ici — le jeu retombait systématiquement sur la
+    silhouette procédurale), tous générés par script (schématiques, sans dépendance externe, même
+    esprit que l'existant). Le jeu de skins `kenney` (real art CC0, `LOT-63`) étoffé de trois types
+    supplémentaires (`danger`, `switch`, `door`) et d'un premier fond réel, retouchés depuis les
+    mêmes packs Kenney déjà crédités.
+  - **Dix-sept tableaux redessinés** (nouvelle géométrie, jamais recopiée depuis l'historique git
+    — repartir d'une page blanche pour chacun, pas seulement pour la séquence) et habillés : fond,
+    décors, jeu de skins `kenney` pour trois d'entre eux, et cadrage de caméra **choisi
+    explicitement** plutôt que subi — `demo-final.json` (le parcours continu le plus long de la
+    séquence) passe ainsi en cadrage *suivi* plutôt que de retomber sur *par salle* du seul fait de
+    ses dimensions. Chaque tableau vérifié individuellement par le test système, en itérant sur la
+    géométrie jusqu'au franchissement plutôt qu'en le supposant.
+  - **Cinq tableaux supplémentaires**, groupés par famille plutôt qu'un par type, couvrant les
+    quatorze types de tuile qu'aucun tableau n'employait encore : pentes/arrondis/concaves montant
+    vers la **gauche** (`demo-pente-gauche.json`), les quatre variantes de **plafond** incliné
+    (`demo-plafond.json`), arrondis **concaves** de sol et de plafond (`demo-concave.json`), bloc
+    poussable à taille **quart** (`demo-bloc-quart.json`), dangers directionnels bas/gauche/droite
+    (`demo-dangers-directionnels.json`). Séquence portée de dix-sept à **vingt-deux** tableaux.
+  - **Registre des défauts** : un défaut de moteur découvert en construisant cette séquence, isolé
+    par bissection, **consigné et non corrigé** ici (décision de cadrage du lot) — la seule
+    présence d'une configuration de `movingPlatform` dans un niveau, même immobile et loin du
+    personnage, casse la résolution de collision pendant le suivi d'une pente ailleurs dans ce même
+    niveau. `demo-final.json` n'associe donc pas la plateforme mobile aux autres mécaniques
+    combinées ; `demo-plateforme.json` continue de la couvrir isolément. Aucun autre défaut
+    découvert en rejouant (scripté, `ctest` à 100 %, 1122 tests) cette séquence. Le parcours
+    **manuel** complet (binaire Release, manette, son) — le moment où ce lot attend le plus souvent
+    d'en trouver, d'après l'expérience des lots précédents — reste à faire.
+- **LOT-64 — Cadrage de caméra choisi par le level designer** (déclare `EX-LVL-006`, `EX-REN-016`,
+  `EX-EDIT-028`, `EX-LVL-007`, `EX-REN-017`, `EX-EDIT-029` ; reformule `EX-REN-015`). Le cadrage
+  devient une **donnée du niveau**, plus une règle en dur déduite de ses dimensions.
+  - **Trois modes** (`core::CameraFramingMode`) : *niveau entier*, *par salle* (comportement
+    historique, désormais explicite), *suivi du personnage* — le mode qui manquait au moteur.
+  - **Caméra de suivi** (`hmi::FollowCamera`, `Source/HMI/Graphics`) : zone morte, anticipation
+    s'inversant progressivement, lissage cadencé sur le pas fixe, bornage aux limites du niveau
+    (centrage sur l'axe trop étroit), centre aligné au pixel — fonction pure, testée sans GPU.
+  - **Taille de salle réglable par niveau** (`hmi::RoomGrid` reçoit désormais la taille en
+    paramètre ; les anciennes constantes n'en restent que la valeur par défaut).
+  - **Repli compatible** (`core::resolveCameraFraming`) : un niveau sans champ `cameraFraming`
+    déclaré se joue **exactement** comme avant ce lot — les quinze tableaux livrés et le test
+    système restent inchangés. Version de format `1` → `2` (`EX-LVL-005`).
+  - **Choix et prévisualisation dans l'éditeur** (section « Cadrage » du panneau Textures) : les
+    trois modes se voient dans le canevas (cadre du niveau, grille de salles à taille variable,
+    rectangle de suivi avec zone morte matérialisée), le mode courant reste visible dans la barre
+    d'état, le changement de mode est annulable.
+  - **Corrigé pendant l'essai manuel** : la parallaxe des décors (`EX-DEC-006`, `LOT-49`), jusqu'ici
+    invisible faute de caméra défilant en continu, apparaissait pour la première fois en mode
+    *suivi* — un décor Fond/Premier plan semblait « suivre » la caméra au lieu de rester solidaire
+    du niveau. Neutralisée spécifiquement pour ce mode (`hmi::composeWorldSprites`, paramètre
+    `applyDecorParallax`) : les trois couches restent strictement fixes dans le niveau, comme dans
+    les deux autres modes de cadrage.
+  - **Zones de caméra dessinées à la main** (`core::CameraZone`, `EX-LVL-007`) : en mode *par
+    salle*, le level designer dessine ses propres rectangles de caméra directement sur le canevas
+    (nouvel outil « Zone de caméra »), ce qui permet de **mélanger plusieurs tailles de caméra dans
+    un même niveau** — la grille automatique à taille unique n'est plus qu'un cas particulier
+    (liste de zones vide). Priorité à la première zone couvrant le personnage en cas de
+    chevauchement, repli sur le niveau entier hors de toute zone ; ajout/retrait annulables,
+    tableau récapitulatif dans la section « Cadrage ».
+  - **Taille de la caméra de suivi réglable par niveau** (`EX-REN-017`) : le mode *suivi* réutilise
+    les mêmes champs que la taille de salle du mode *par salle*, au lieu de la constante par défaut
+    codée en dur.
+- **LOT-63 — Mécanismes manquants du référentiel** (lève `EX-GP-023`, marqué « ⚠️ optionnel MVP »
+  depuis la rédaction des spécifications ; déclare `EX-CTRL-022` et `EX-GP-026`). Réduit l'écart
+  entre ce que le référentiel promettait et ce que le jeu contenait.
+  - **Action logique « Interagir »** (`core::PlayerInput::interactPressed`, touches par défaut
+    **E**/**X**, remappables indépendamment au clavier et à la manette) : complète l'activation
+    par contact des mécanismes sans la remplacer ; premier usage, le ramassage d'une clé.
+  - **Clé et porte verrouillée** (`TileType::Key`/`LockedDoor`) : liaison résolue par la **même**
+    infrastructure `core::Mechanism` qu'interrupteur/plaque↔porte (aucune notion de liaison
+    dupliquée) ; ramassage par contact **et** « Interagir » ; ouverture **définitive**
+    (contrairement à la porte d'un interrupteur).
+  - **Plateforme mobile** (`TileType::MovingPlatform`, `core::PlatformController`) : aller-retour
+    déterministe entre deux points (fonction du numéro de pas fixe, jamais du temps réel ni d'une
+    accumulation), portant le personnage et les blocs poussables sans traversée, glissement ni
+    tremblement à l'affichage ; écrasement contre un plafond mortel (décision de cadrage).
+  - **Intégration éditeur complète** des trois mécanismes (palette, liaison, paramétrage, rendu de
+    brouillon avec parcours matérialisé) et **habillage réel sous licence libre** (CC0, Kenney,
+    jeu de skins `kenney`) — crédits dans `Source/Elements/Assets/CREDITS.md` et l'écran Crédits.
+  - **Trois niveaux de démonstration** (`demo-cle.json`, `demo-plateforme.json`, action
+    « Interagir » exercée) insérés dans la séquence livrée.
+  - **Corrigé en cours de lot** : l'agrandissement de la grille procédurale (`TextureAtlas` 5×5 →
+    6×6, pour loger `MovingPlatform`) laissait `Source/Elements/Assets/atlas.png` **désynchronisé**
+    du code (fichier versionné, jamais recalculé automatiquement, `LOT-39`) — personnage mal recadré
+    en mouvement, `Key`/`LockedDoor` invisibles, mécanismes du lot en noir en mode Physique.
+    Régénéré (`--export-atlas`) ; couvert par un nouveau test d'intégration
+    (`test_plateforme_composition.cpp`) qui exerce le repérage d'entité-tuile et le rafraîchissement
+    visuel d'une plateforme mobile exactement comme `hmi::GameSession`, jusqu'ici jamais testés.
+- **LOT-62 — Budget de rendu mesuré** (honore `EX-NFR-005` et `EX-NFR-001`, jamais vérifiées
+  jusqu'ici). Transforme deux exigences déclaratives en garanties assertées, sans rien optimiser.
+  - **Test de non-régression du volume de primitives**
+    (`Source/Test/Unit/HMI/Graphics/test_render_budget.cpp`) : chaque niveau livré reste sous un
+    plafond nommé, composées et soumises, en mode Physique et en mode Texture ; le culling écarte
+    une fraction assertée sur `demo-salles` ; un test négatif démontre qu'une double émission
+    dépasse le plafond. Déterministe, sans GPU (`EX-NFR-004`).
+  - **Compteur de diagnostic en jeu** (`hmi::DiagnosticsHud`, touche **`F9`** non remappable) :
+    cadence de rendu (moyenne glissante), primitives composées/soumises, passes de dessin, pas de
+    simulation consommés — désactivé par défaut, sans effet sur la simulation.
+  - **Mesures de référence datées** consignées dans le [guide du rendu](@ref guide-rendu).
+- **LOT-60 — Audio : socle et bruitages** (lève `EX-REN-040`, marqué ⚠️ depuis sa rédaction ;
+  déclare `EX-REN-047`, `EX-REN-048`). Le jeu produit enfin du son.
+  - **`hmi::AudioEngine`** (Qt Multimedia, `QSoundEffect`) : détection du périphérique de sortie,
+    repli **muet** sans plantage (`EX-NFR-040`), volume borné, tourniquet de trois instances par
+    événement (un déclenchement en rafale se recouvre sans s'interrompre lui-même).
+    `Qt6::Multimedia` provisionné comme composant additionnel de Qt (même garde que
+    `Widgets`/`Gui`), sur les six points `install-qt-action` de `ci.yml`/`release.yml`.
+  - **`hmi::SoundCatalog`** : nom d'événement → fichier (`Source/Elements/Audio/sounds.json`),
+    même patron que `hmi::SkinCatalog` (fichier absent → catalogue vide, entrée malformée → échec
+    entier, jamais deviné). Douze bruitages **réels**, libres de droit (CC0, Kenney), remplacent
+    l'idée initiale de sons procéduraux — crédits dans `Source/Elements/Audio/CREDITS.md`.
+  - **`hmi::GameEvents`/`hmi::SoundTriggers`** : détection pure des transitions de jeu (saut,
+    atterrissage, dash, mécanismes, mort, victoire) au pas fixe, table événement → son exhaustive,
+    réutilisable telle quelle par un futur système de particules (`LOT-53`). Deux accesseurs
+    ajoutés à `Core` pour exposer ce qu'il est seul à savoir : `core::Player::justJumped` (front
+    de saut, aucune combinaison des champs existants n'était fiable) et
+    `core::MechanismController::isContinuous` (distinction interrupteur/plaque).
+  - **Volume réglable et persisté** (`QSettings`, même portée que la langue/le mode de rendu),
+    effet immédiat, retour sonore au relâchement du curseur.
+  - **Écran Crédits** dans le menu principal (développement, bruitages).
+- **LOT-59 — Boucle de jeu complète : pause, fin de niveau, progression** (`EX-IHM-004`,
+  `EX-IHM-005`, `EX-LVL-013`, `EX-LVL-014` ; lève `EX-REN-031` et `EX-GP-040`, tous deux marqués ⚠️
+  depuis leur rédaction). Premier lot de **contenu** du programme `0.1.0` : le moteur était
+  complet, le *jeu* ne l'était pas.
+  - **Machine à états d'écran** (`hmi::ScreenFlow`, logique pure) : deux écrans supplémentaires,
+    `Pause` et `NiveauTermine`, recouvrant la scène en jeu sans jamais devenir une page du
+    `QStackedWidget` (patron de superposition à un `QWidget::createWindowContainer`) ; un
+    septième, `LevelSelect`, atteint depuis le menu.
+  - **Écran de pause** : Échap/bouton manette B ouvre la pause au lieu de quitter directement.
+    Simulation réellement suspendue (aucun pas de temps fixe consommé, pas un `dt` multiplié par
+    zéro) ; réarmement de l'horloge de référence à la reprise pour éviter un rattrapage massif de
+    pas ; `hmi::InputState::beginFrame` continue d'être appelé en pause pour qu'un bouton manette
+    tenu ne fasse pas osciller entrée/sortie.
+  - **Écran de fin de niveau / fin de séquence** : une réussite fige la scène et ouvre un écran
+    (Continuer/Rejouer, ou retour au menu après le dernier tableau) au lieu d'enchaîner
+    instantanément sur le suivant.
+  - **Séquence de niveaux en donnée de contenu** (`core::LevelSequenceLoader`, même patron que
+    `core::LevelLoader`) : `sequence-demo.json` remplace le littéral C++ de `MainWindow`.
+    `scripts/check_demo_sequence.py` compare désormais ce fichier au test système.
+  - **Progression persistée** (`hmi::Progression`, `Settings/progression.json`, écriture
+    atomique) : tableau atteint et tableaux terminés stockés par **nom**, jamais par indice, pour
+    résister à un réordonnancement de la séquence.
+  - **Sélection de niveau côté joueur** : « Jouer » devient trois entrées (Continuer/Nouvelle
+    partie/Choisir un niveau). Règle de déverrouillage pure et testée
+    (`hmi::isLevelUnlocked`) : les tableaux terminés plus le premier non terminé sont jouables,
+    revalidée avant tout lancement (défense en profondeur). Les niveaux personnels du dossier
+    (créés dans l'éditeur) sont jouables hors séquence sans jamais toucher la progression.
+- **LOT-58 — Vérification Release, sanitizer et analyse statique** (`EX-NFR-023`, `EX-NFR-024`,
+  rattache `EX-NFR-003`) : la CI tient enfin les promesses que le dépôt écrivait déjà. Cinq
+  vérifications, déclarées ou configurées depuis le début du projet et exécutées **nulle part**,
+  rejoignent les contrôles requis pour merger.
+  - **Job `build-test-release`** : build et `ctest` en configuration **Release** sur chaque PR,
+    plus les presets `vs-release`/`ninja-release`. Jusqu'ici, le premier build Release d'un cycle
+    avait lieu dans `release.yml`, **après** le tag — un cas réel (`90f85254`) a déjà coûté une
+    casse Release-only découverte trop tard.
+  - **Job `sanitize`** : `UnitTests`, `IntegrationTests` et `SystemTests` sous AddressSanitizer.
+    `EX-NFR-003` était orpheline depuis le `LOT-01` ; un vrai `heap-use-after-free` a été trouvé et
+    corrigé dans `LoggerTest.ClearSinksArreteLaDiffusion` (le test inspectait un sink après que
+    `Logger::clearSinks()` l'ait détruit).
+  - **Job `clang-tidy`** : analyse ciblée sur le diff de chaque PR. `bugprone-*` ramenée à zéro
+    (cinq sous-checks documentés comme non pertinents pour ce projet — idiomes Qt/D3D11/`Result`)
+    et rendue **bloquante** ; les autres familles restent consignées, non bloquantes.
+  - **Job `format`** : `clang-format --dry-run --Werror`, version LLVM épinglée. Reformatage
+    initial isolé (192 fichiers, aucun changement de comportement, `943/943` tests verts après).
+  - **Couverture étendue** : agrège désormais `UnitTests` + `IntegrationTests` + `SystemTests`
+    (jusqu'ici, seul `UnitTests` était mesuré) avec un seuil qui fait échouer la CI en cas de
+    chute. Mesurée à **93.66 %** (build local Ninja Debug, 2026-08-10), seuil posé à 85 %
+    (marge ~8.5 points) — à confirmer sur la mesure réelle en CI (preset `vs`, voir
+    `tache-05-couverture.md`).
+  - Outils épinglés : LLVM `18.1.8` (clang-tidy, clang-format), OpenCppCoverage `0.9.9.0`.
+- **Cadrage du programme `0.1.0`** (`LOT-58` → `LOT-66`) : documentation seule, aucun code. Issu
+  d'un audit du dépôt comparant l'état livré à ce que les spécifications promettent déjà. Deux
+  familles d'écarts, traitées ensemble parce qu'elles se protègent l'une l'autre.
+  - **Complétude produit** — le moteur est complet, le *jeu* ne l'est pas. `LOT-59` (boucle de jeu :
+    écrans de pause et de fin de niveau, séquence sortie du littéral C++ de `MainWindow`,
+    progression persistée, sélection de niveau côté joueur) lève `EX-REN-031` et `EX-GP-040`, tous
+    deux marqués ⚠️ depuis leur rédaction. `LOT-60` (audio) lève `EX-REN-040` : le jeu est
+    aujourd'hui **totalement silencieux**, alors que `vision.md` place les bruitages dans le MVP —
+    la bibliothèque retenue est **Qt Multimedia**, par cohérence avec une interface déjà
+    intégralement Qt depuis le `LOT-38`. `LOT-63` livre les mécanismes que le référentiel annonce
+    sans les avoir : clé et porte verrouillée (`EX-GP-023`, ⚠️ optionnel MVP), action « Interagir »
+    (seule ligne du tableau des contrôles sans identifiant d'exigence), plateforme mobile. Le
+    `LOT-53` (effets et particules), cadré de longue date et resté non commencé, rejoint le
+    programme.
+  - **Durcissement d'ingénierie** — trois vérifications étaient **déclarées** et exécutées **nulle
+    part**. `LOT-58` les met en œuvre : la CI ne construisait ni ne testait **jamais** en
+    configuration Release (le premier build Release d'un cycle avait lieu *après* la pose du tag —
+    une casse Release-only a déjà été livrée, cf. `90f85254`) ; AddressSanitizer n'avait pas tourné
+    depuis le `LOT-01`, faisant de `EX-NFR-003` une exigence **orpheline** ; `clang-tidy` et
+    `clang-format` n'étaient câblés nulle part malgré `conventions.md`. S'y ajoutent la couverture,
+    produite sans seuil et mesurée sur les seuls tests unitaires. `LOT-61` donne une trace
+    exploitable à une version publiée — `main()` n'installe aucun sink en Release, donc un défaut
+    signalé par un joueur n'est accompagné d'aucun élément. `LOT-62` transforme `EX-NFR-005`
+    (« borné et observable ») et `EX-NFR-001` (60 images/seconde) en garanties assertées plutôt que
+    déclaratives.
+  - **Contrôle du cadrage et contenu à niveau** — deux manques relevés en cours d'audit. `LOT-64` :
+    la caméra est aujourd'hui **entièrement automatique** (niveau entier sous 24 × 14 tuiles,
+    salle par salle au-delà, deux **constantes de compilation**) et le moteur n'a **aucune caméra de
+    suivi** ; le cadrage devient une donnée du niveau, choisie et prévisualisée dans l'éditeur, avec
+    trois modes. `LOT-65` : les quinze tableaux datent du `LOT-25` et n'exploitent ni les mécaniques
+    ni l'habillage ajoutés depuis — un garde-fou **dérivé des énumérations du code** échouera tant
+    qu'une mécanique livrée n'apparaîtra dans aucun niveau franchi par le test système.
+  - `LOT-66` clôt le programme : Qt épinglé en local comme en CI (`EX-BUILD-010` — le CMake retient
+    aujourd'hui la version *la plus récente installée*), numéro de version **généré** au lieu d'être
+    recopié dans le `Doxyfile`, statuts des spécifications sortis de « brouillon », exigences
+    orphelines requalifiées, puis bascule `0.1.0`.
+  - Nouvelles exigences déclarées ici : `EX-IHM-004`, `EX-IHM-005`, `EX-LVL-006`, `EX-LVL-013`,
+    `EX-LVL-014`, `EX-LVL-015`, `EX-NFR-042`, `EX-REN-016`, `EX-REN-047`, `EX-REN-048`,
+    `EX-CTRL-022`, `EX-EDIT-028`, `EX-GP-026` — deux exigences de qualité CI supplémentaires sont
+    déclarées et exécutées par le `LOT-58` ci-dessus. `vision.md` lève la sauvegarde de
+    progression de son hors-périmètre MVP.
+  - Les lots sont numérotés **dans leur ordre d'exécution** — aucun n'était livré au moment du
+    cadrage, ce que la règle de stabilité des numéros (`Documentation/Lot/lots.md`) autorise. Seul
+    le `LOT-53`, déjà publié sous ce numéro, conserve le sien et s'intercale entre le `LOT-60` et le
+    `LOT-61`. Principe d'ordonnancement : le **durcissement précède** le contenu qu'il doit
+    protéger, et la refonte des niveaux vient en dernier puisqu'elle consomme tout le reste.
+
+## [0.0.5] - 2026-08-10
+
+> Cinquième jalon : le moteur est **habillé**. Le programme `LOT-40` → `LOT-55`, ouvert juste après
+> le jalon précédent, est livré en entier : rendu texturé multicouche avec culling, skins de tuiles
+> et **raccords automatiques**, texture par instance, fonds de niveau, **décors libres** hors grille
+> avec parallaxe, moteur d'**animation piloté par données**, personnage habillé depuis une
+> spritesheet externe, retour du **texte dans la scène** et affichage tête haute, et enfin les
+> **ombres du plan physique** (LOT-55) — le tout derrière une bascule `F8` qui restitue à tout
+> moment la lecture nue des collisions.
+>
+> L'**éditeur** change d'échelle en parallèle : bibliothèque d'assets à vignettes avec rechargement
+> à chaud (LOT-43), manipulation complète des décors (LOT-50), mode d'inspection par calque
+> (LOT-51), puis trois lots qui s'attaquent à l'interface elle-même — un **système de design**
+> assumé, thème clair/sombre compris (LOT-56), une **redistribution de l'information** où ce qui
+> informe devient permanent et ce qui commande devient unique (LOT-57), et un **atelier pixel art
+> intégré** (LOT-54) qui ferme la boucle entre dessiner un asset et le voir dans le niveau.
+>
+> Cette version retire aussi le dernier morceau d'IHM « maison » (LOT-38 Étape B) : il ne reste
+> qu'une application Qt. **943 tests** (541 au jalon précédent).
+>
+> Voir le détail ci-dessous (LOT-38 Étape B, LOT-39 → LOT-57).
+
+### Ajouté
+- **LOT-55 — Ombres du plan physique** (`EX-REN-045`, `EX-ARCH-012`) : **dernier lot du programme
+  d'habillage** `LOT-40` → `LOT-55`. Le calque `RenderLayer::Shadow`, réservé sans être utilisé
+  depuis le `LOT-40`, s'active enfin — entre `Decor` et `Tile`, donc sous les tuiles et au-dessus du
+  fond et des décors d'arrière-plan. L'objectif est de **lecture**, pas d'esthétique : distinguer
+  d'un coup d'œil ce qui est **physique** (solide, donc porteur) de ce qui n'est que décor — le
+  complément exact du calque de premier plan (`LOT-49`), qui dit l'inverse.
+  - `hmi::composeShadows` (`HMI/Graphics/ShadowRenderer.h`) parcourt les mêmes entités que
+    `hmi::composeWorldSprites` et n'en retient que celles qui projettent une ombre : pleines
+    (`core::isSolid`) ou à silhouette inclinée/courbe (`hmi::hasSilhouette`, `LOT-42`). La région
+    échantillonnée est directement `hmi::regionForTile` — le **même** atlas procédural que le mode
+    Physique, déjà opaque exactement là où la matière est présente. Teinter ce quad en noir
+    semi-transparent, décalé d'un pixel, donne donc l'ombre à sa **forme réelle** (pente, arrondi,
+    bloc réduit via `core::tileVisualScale`) sans réimplémenter la moindre géométrie et **sans aucun
+    nouveau prédicat de solidité dans `Core`** : une ombre est la projection d'une forme, pas d'un
+    degré de solidité, et `Core` expose déjà cette forme sous une version plus riche qu'un booléen.
+  - Une **porte** fait exception à la règle « ombre = type statique » : son type reste `Door` quel
+    que soit l'état du mécanisme, alors que sa solidité réelle dépend de l'interrupteur.
+    `composeShadows` accepte donc une grille de collision optionnelle
+    (`MechanismController::collisionMap`, fournie par `GameSession`) et tranche sur l'état
+    **courant** — fermée, elle projette ; ouverte, elle ne projette plus. `hmi::DraftRenderer`, qui
+    ne simule aucun mécanisme, ne la fournit pas : dans l'éditeur une porte n'a jamais d'ombre, état
+    normal et non défaut.
+  - Actif en `RenderMode::Texture` **uniquement**, aucun effet sur le gameplay (`EX-ARCH-012`), même
+    culling que le reste, masquable par l'axe `Shadow` de `hmi::LayerVisibility` (`LOT-51`). Un bloc
+    poussable en mouvement voit son ombre suivre par la même interpolation
+    (`hmi::PreviousPosition`) que son propre sprite. Un niveau sans fond ni décor n'a simplement
+    aucune surface pour recevoir l'ombre — pas d'erreur, pas de cas particulier.
+  - Documenté dans `Documentation/Guide/guide-rendu.md`, qui remplace au passage sa section
+    d'orientation « ce qui vient ensuite » (obsolète depuis plusieurs lots) par l'état livré complet
+    du programme d'habillage. **943 tests verts**, build `/W4 /WX` propre.
+
+- **LOT-54 — Atelier pixel art intégré** (`EX-EDIT-045`) : créer et modifier les fichiers d'assets
+  de texture (skins, planches, fonds, objets, décors) **sans quitter l'application**, en voyant
+  immédiatement le résultat dans le niveau. Depuis le `LOT-43`, on savait importer et recharger un
+  asset, jamais le **modifier** : corriger un pixel imposait un aller-retour vers un éditeur externe,
+  particulièrement coûteux sur une planche à raccords dont la justesse ne se juge qu'une fois
+  assemblée. Ce lot s'exécute délibérément **derrière** `LOT-56` et `LOT-57` — le canevas n'a donc à
+  inventer ni son habillage, ni ses commandes, ni son affichage d'état, et le budget ainsi libéré
+  finance des fonctions d'édition plutôt que de la plomberie d'interface.
+  - **TACHE-01 — Écriture d'image** : `hmi::encodeImageFile`, symétrique exact de `decodeImageFile`
+    (`LOT-40`), écriture PNG **atomique** (fichier temporaire puis remplacement) depuis un tampon
+    RGBA non prémultiplié — le rechargement à chaud surveille le même dossier et pourrait lire un
+    fichier à demi écrit. `--export-atlas` passe désormais par ce même chemin. `UnitTests` reste
+    constructible sans Qt (le seul test touchant Qt est ajouté conditionnellement).
+  - **TACHE-02 — Opérations et historique** : `hmi::PixelOperations` (pinceau, gomme, ligne de
+    Bresenham sans trou au glisser rapide, remplissage par zone contiguë **itératif** — jamais
+    récursif —, pipette), fonctions pures sur `hmi::DecodedImage`, sans Qt ni GPU.
+    `hmi::PixelHistory` : pile d'annulation **locale au canevas**, totalement indépendante de
+    `core::LevelDraft` (annuler un coup de pinceau n'annule jamais une pose de tuile), à opérations
+    **nommées** (clés présentes dans les deux catalogues de traduction), mémorisant des **régions**
+    plutôt que des instantanés complets, profondeur plafonnée, retour à un point antérieur en un
+    appel.
+  - **TACHE-03 — Canevas** : `hmi::PixelCanvasGeometry` (conversions pures vue ↔ image, zoom
+    toujours **entier** pour que les pixels restent carrés), réutilisant `hmi::thumbnailPixelSize`
+    (`LOT-56`) pour la netteté à toute échelle d'affichage plutôt que de la redéfinir.
+    `hmi::PixelCanvas` (`QWidget`) : plus proche voisin, grille de pixels au-delà d'un seuil de zoom,
+    damier de transparence. Fond et damier tirés des jetons de portée **invariante** — un fond qui
+    changerait de clarté avec le thème fausserait la perception des couleurs posées, rédhibitoire
+    pour l'outil dont c'est le sujet. Un geste complet produit **une** entrée d'historique.
+  - **TACHE-04 — Actions, barre d'outils, barre d'état** : quatre outils en actions Qt formant un
+    groupe exclusif **distinct** de celui des outils de niveau (`EditorActionGroup::PixelTools`),
+    icônes dessinées par code. Annuler/Refaire restent une action **unique** à cible contextuelle :
+    `PixelCanvas` implémente `hmi::EditContextTarget` et `MainWindow` réassigne la cible au widget
+    qui reçoit le focus clavier — le dispatch livré par `LOT-57` n'est pas modifié.
+    `hmi::EditorStatus` et `hmi::PanelFocus` sont **étendus** (`PixelEditStatusInfo`, `PanelId::
+    PixelCanvas`/`PixelHistory`), jamais doublés. Nouveau `PixelHistoryPanel`.
+  - **TACHE-05 — Ouvrir, créer, enregistrer** : `hmi::validAssetSizes` dérive les tailles proposées
+    du contrat d'asset (`EX-REN-007`) plutôt que de les redécrire — une création non conforme devient
+    impossible au lieu d'être refusée après coup ; les familles à dimensions libres (fond, décor,
+    police) ouvrent une saisie libre. Garde-fou d'écrasement nommant les références concernées.
+  - **TACHE-06 — Outils de région** : sélection rectangulaire, déplacement, symétries horizontale et
+    verticale, rotations par quart de tour, copier/coller par un presse-papiers autonome — toutes
+    fonctions pures, exposées comme des actions.
+  - **TACHE-07 — Palettes** : `hmi::PixelPalette` (couleurs nommées persistées dans
+    `Assets/palettes.json`, même patron que `SkinCatalog` — fichier absent traité comme une palette
+    vide, entrée malformée ignorée plutôt que d'abandonner toute la palette),
+    `hmi::extractPalette` (ordre déterministe, occurrences, jamais l'alpha nul) et
+    `hmi::nearestPaletteColor` (départage stable, alpha d'origine préservé). Panneau d'édition et
+    réglage « contraindre à la palette », persisté. Un sélecteur de couleur libre a été ajouté dans
+    la foulée : pipette et pastilles étaient les deux seuls moyens de changer de couleur, aucun ne
+    permettant d'en choisir une absente des deux.
+  - **TACHE-08 — Aperçu live et planche à raccords** : `MainWindow::updateLivePreview` écrit l'image
+    en cours et invalide **ciblément** son entrée de `TextureCache` (`GameViewport::invalidateAsset`,
+    prévu depuis `LOT-43`) à chaque geste complet — jamais par pixel. `TileAutotile` est étendu
+    (`autotileConfigurationLabelKey`, `autotileAssemblyMasks`) pour que la **même** table canonique
+    décrive aussi les seize configurations en langage naturel et fournisse l'assemblage 3×3, jamais
+    une seconde table. `hmi::PixelAutotilePreview` (pur) détecte une planche 4×4 et compose l'aperçu
+    d'assemblage depuis le tampon en mémoire ; le canevas y ajoute repères de cases et infobulle
+    nommant la configuration survolée.
+  - **Non livrés, actés dans l'épic** : le point d'entrée depuis le panneau Textures n'est pas câblé
+    (TACHE-05), et l'aperçu **d'animation** n'est pas livré faute de temps pour intégrer
+    `AnimationCatalog` au canevas (TACHE-08) — l'aperçu de **raccords**, lui, l'est.
+  - Documenté dans `Documentation/Guide/guide-atelier-pixel-art.md`. Build `/W4 /WX` propre.
+
+- **LOT-57 — Architecture de l'information de l'éditeur** (`EX-IHM-060` à `EX-IHM-062`) :
+  redistribution de l'éditeur — ce qui informe devient permanent, ce qui commande devient unique, ce
+  qui ne sert qu'à un outil s'efface quand cet outil n'est pas actif.
+  - **TACHE-01 — Barre d'état structurée** : remplace la ligne unique `status.edit_help` (figée à
+    l'entrée en mode éditeur, définitivement effacée par le premier message transitoire) par cinq
+    zones **permanentes** (`hmi::EditorStatus`, fonction pure sur le patron de `hmi::gameHudLines`,
+    `LOT-52`) — niveau ouvert, modifications non enregistrées, outil actif, case survolée, zoom —
+    ajoutées à la barre d'état via `addPermanentWidget` (jamais recouvertes par un message). Aide
+    contextuelle à l'outil actif, restaurée automatiquement à l'expiration d'un message transitoire
+    (`MainWindow::refreshStatusHelp`/`showTransientStatusMessage`, minuteur unique). Case survolée et
+    zoom nouvellement exposés par `GameViewport` (`hoveredCell()`/`zoom()`, signaux `hoveredCellChanged`/
+    `zoomChanged`, émis seulement sur changement réel). **6 nouveaux tests**, sans Qt/GPU ; build
+    `/W4 /WX` propre, suite verte.
+  - **TACHE-02 — Regroupement des panneaux, suivi de l'outil actif** : les panneaux Niveaux, Liens et
+    Textures sont désormais regroupés en onglets par défaut (`tabifyDockWidget`, disposition v4,
+    invalide les dispositions antérieures), chacun restant individuellement déplaçable, détachable et
+    refermable. L'onglet pertinent est mis en avant à chaque changement d'outil (`hmi::panelForTool`,
+    table pure sur le patron d'`ActionCatalog`) tant que l'utilisateur n'a rien imposé lui-même (choix
+    manuel d'onglet, déplacement de panneau) — jamais un masquage, réglable et persisté depuis le menu
+    Affichage. **4 nouveaux tests**, sans Qt ; build `/W4 /WX` propre, suite verte.
+  - **TACHE-03 — Recentrage du panneau Textures** : l'onglet Calques (mode d'inspection « définition
+    des textures », `LOT-51`) quitte le panneau Textures pour le menu Affichage — une entrée par
+    calque dans l'ordre de dessin, plus « tout afficher », sans changement de comportement
+    (`EX-EDIT-044` inchangée, jamais lue par `GameSession`). L'avertissement permanent qu'imposait sa
+    présence dans le panneau devient inutile dans son nouvel emplacement. Le panneau Textures ne
+    porte plus que la définition d'apparence (Skins, Fond, Objets, Animations, Décors) ; les deux
+    sélecteurs de jeu de skins (session d'édition vs. niveau) portent désormais chacun une infobulle
+    distincte. Aucun nouveau test (changements Qt purs) ; build `/W4 /WX` propre, suite verte.
+  - **TACHE-04 — Déduplication des commandes et raccourcis** : `hmi::EditorKeyBindings` définissait
+    dix actions d'éditeur remappables dont neuf n'étaient jamais lues (raccourcis interceptés en
+    dur, non remappables ; Copier/Coller au clavier bypassaient même `EditorKeyBindings`). Toutes
+    passent désormais par `hmi::EditorActions` (`hmi::keyBindingIconCatalog`, table pure liant
+    action remappable et commande du catalogue) : `EditorActions::applyShortcuts` synchronise le
+    raccourci **effectif** de chaque `QAction` depuis les touches remappées, y compris après un
+    remappage à chaud. Nouvel onglet « Éditeur » de la page Options (`EditorKeybindingsWidget`,
+    même patron que le remappage clavier de jeu). Renommer (F2) renomme désormais le niveau ouvert
+    (`GameViewport::renameOpenLevel`, réutilise `LevelFileOperations`/`LevelNameValidation` comme
+    `LevelBrowserPanel`) ; l'aide (F1) ouvre un aperçu des raccourcis lisant les touches effectives,
+    jamais un texte figé. La bascule Physique/Texture (case dupliquée retirée en TACHE-03) rejoint
+    le menu Affichage comme entrée unique de l'action déjà existante (`EX-IHM-062`). Annuler/Refaire/
+    Copier/Coller dispatchent désormais via `hmi::EditContextTarget`, interface que `GameViewport`
+    implémente — le seuil de dispatch qu'un futur atelier pixel art (`LOT-54`) réutilisera pour sa
+    propre cible sans le réécrire. Le doublon de sélecteur de couche de décor (panneau Outils vs.
+    onglet Décors) est conservé : les deux ciblent des états distincts (couche du prochain décor
+    posé vs. couche du décor sélectionné existant), pas un doublon strict. **3 nouveaux tests** (dont
+    un garde-fou cassant si une action est ajoutée sans être branchée) ; build `/W4 /WX` propre, suite
+    verte.
+  - **Amendement post-essai manuel** : premier essai réel de l'éditeur reconstruit, deux retours
+    tranchés dans la foulée. Le panneau « Outils » (`ToolPanel`), qui ne portait déjà plus que le
+    strict nécessaire de l'outil Décor depuis `LOT-56`, devient le panneau **Décors**
+    (`DecorsPanel`) et regroupe désormais aussi l'inspecteur des décors posés déplacé de l'onglet
+    « Décors » du panneau Textures — les deux sélecteurs de couche (placement du prochain décor,
+    couche du décor sélectionné) coexistent donc maintenant dans le même panneau, renommés
+    explicitement pour lever toute ambiguïté. Le panneau Textures sort du regroupement en onglets de
+    TACHE-02 et redevient indépendant, comme Palette/Décors. La barre d'outils du haut, elle, reste
+    à sa place (barre globale de la fenêtre principale, hors du panneau Décors). `LAYOUT_VERSION`
+    4 → 5.
+
+- **LOT-56 — Système de design de l'IHM Qt** (`EX-IHM-050` à `EX-IHM-055`) : l'éditeur prend enfin
+  la main sur sa propre apparence — jusqu'ici le style **natif** de la plate-forme, qui ignorait une
+  large part de l'unique feuille de style existante (`theme.qss`, restreinte au menu principal et à
+  la page Options par `objectName`, faute de mieux).
+  - `hmi::DesignTokens` (`HMI/Interface/DesignTokens.h`) — jetons de design purs (couleurs par rôle,
+    espacement, typographie, tailles), en deux portées de structure identique : l'**identité** du
+    jeu (menu, Options, jeu — invariante) et le **châssis d'édition** (variable). `hmi::
+    ApplicationTheme` choisit le style Qt Fusion avant tout widget, construit la `QPalette`
+    complète (actif/inactif/désactivé) et produit `theme.qss` par substitution de marqueurs depuis
+    les jetons (`hmi::substituteStyleSheetTemplate`, fonction pure) — plus aucune couleur littérale,
+    et une étanchéité entre les deux portées garantie par test. Focus clavier visible partout
+    (navigation à la manette, `EX-IHM-040`).
+  - Police **Inter** embarquée (`Assets/Fonts/Inter-{Regular,Bold}.ttf`, licence SIL OFL 1.1) avec
+    repli sur une famille générique si absente (`hmi::resolveFontFamily`, jamais un second nom codé
+    en dur) ; typographie à échelle unique, tailles et marges des `.ui` retirées au profit des
+    jetons.
+  - Barre d'outils à icônes (`hmi::EditorActions`) remplaçant les boutons radio empilés du panneau
+    Outils (`EX-EDIT-015`) : six outils et sept commandes (enregistrer, essayer, annuler, refaire,
+    grille, recadrer, mode de rendu) exposés comme des actions Qt **uniques**, simultanément dans le
+    menu, la barre d'outils et leur raccourci — plus de double définition. Icônes dessinées par code
+    (`hmi::iconGeometry`/`hmi::themeIcon`, géométrie pure + rendu `QPainter`), recolorées depuis les
+    jetons.
+  - Vignettes de la palette, des grilles d'assets et des lignes du panneau Textures rendues à la
+    résolution **réelle** de l'écran (`hmi::thumbnailPixelSize`, fonction pure) : nettes à 100 %,
+    125 % et 150 % d'échelle d'affichage, régénérées lors d'un changement d'écran.
+  - Thème **clair/sombre de l'éditeur** (`hmi::editorLightTokens`, `hmi::
+    resolveEffectiveEditorTheme`), suivant par défaut le réglage du système d'exploitation, réglable
+    depuis le menu Affichage (Système/Clair/Sombre) et persisté ; appliqué à chaud (palette, feuille
+    de style, icônes) sans redémarrage. Contraste texte/fond vérifié pour les deux thèmes (seuils
+    WCAG). L'identité (menu principal, Options, jeu) reste rigoureusement inchangée quel que soit le
+    thème actif, y compris après une bascule à chaud — garanti par test.
+  - **24 nouveaux tests**, tous sans Qt/GPU (la couche Qt — `ApplicationTheme`, `ThemeIcons`,
+    `EditorActions` — reste, comme `BitmapFont`/`GameViewport`, hors `UnitTests` ; seule leur
+    logique pure — jetons, gabarit de feuille de style, catalogue d'actions, géométrie d'icônes,
+    résolution de thème — y est compilée) ; build `/W4 /WX` propre, suite verte.
+
+- **LOT-52 — Texte, police bitmap et affichage tête haute** (`EX-IHM-003`, re-concrétise
+  `EX-REN-032` retirée au `LOT-38`) : le jeu peut de nouveau afficher du texte **dans la scène
+  rendue** — les budgets de sauts/dashs (`EX-GP-024`, `LOT-12`) et le nom du tableau, jusqu'ici
+  invisibles faute de tout rendu de texte, apparaissent désormais en jeu et en essai.
+  - `hmi::ProceduralFont`/`hmi::BitmapFont` — police bitmap chargée depuis `Assets/Fonts/
+    font.png` + ses métriques (`font.json`, format JSON versionné, même patron que
+    `hmi::AnimationCatalog`), validée par le contrat d'asset (`AssetFamily::Font`, `EX-REN-007`)
+    et par sa cohérence avec les dimensions du PNG. Repli **procédural** déterministe si l'atlas
+    ou ses métriques sont absents/invalides (glyphes 5×7 pixels, ASCII imprimable + accents
+    français `é è à ç ù ê î ô û`, sur le modèle de `hmi::buildProceduralAtlasImage`, `LOT-39`) :
+    le jeu reste lisible sans aucun asset de police (`EX-NFR-040`). Aucun asset n'est livré pour
+    l'instant (`Source/Elements/Assets/Fonts/README.md`) : le repli procédural est donc le
+    rendu actif tant qu'un artiste n'a pas déposé `font.png`/`font.json`. Un caractère non
+    couvert est substitué par un glyphe de remplacement, jamais un trou silencieux. Mesure de
+    texte pure (`hmi::measureText`), parcourant des **points de code** UTF-8 (pas des octets) —
+    piège classique explicitement évité, comme documenté dans l'ancien `hmi::BitmapFont` retiré.
+  - `hmi::TextRenderer` (`HMI/Graphics/TextRenderer.h`) — compose une chaîne en `SpriteQuad` sur
+    le calque `RenderLayer::UI` (réservé sans être utilisé depuis `LOT-40`), avec ancrage
+    paramétrable (gauche/centre/droite, haut/milieu/bas) et positions arrondies au pixel écran
+    entier (netteté, `EX-ARCH-022`). **Projection écran dédiée** (`hmi::screenProjectionMatrix`,
+    dépendant uniquement des dimensions du viewport) : premier cas du projet où une passe de
+    rendu a sa propre projection, indépendante de `Camera2D` — le HUD ne tourne ni ne change de
+    taille avec le zoom. Composé dans une `hmi::ComposedScene` **dédiée**, distincte de celle de
+    `hmi::SpriteRenderer` et jamais soumise à un cadrage de culling caméra : le texte, en espace
+    écran, n'a pas de position monde (`LOT-40` TACHE-05 ne s'y applique pas).
+  - `hmi::GameHud`/`hmi::GameSession::renderHud` — fonction **pure** (`hmi::gameHudLines`)
+    choisissant les lignes à afficher (compteurs de sauts/dashs, seulement si le budget du
+    niveau est **fini** — `-1` = illimité, cas de la grande majorité des tableaux, aucune ligne
+    superflue ; nom du tableau) à partir de `core::Player`/`core::Level::name`, testée sans GPU.
+    Affichage en jeu et en essai (hérité du point d'entrée unique `hmi::GameSession::render`,
+    jamais appelé en édition pure — `hmi::DraftRenderer` reste le seul chemin de l'éditeur) avec
+    une ombre portée (décalage d'un pixel) pour rester lisible sur fond clair comme sur fond
+    sombre. Nouvelles clés `hud.jumps_remaining`/`hud.dashes_remaining` dans les deux catalogues
+    de traduction (`EX-REN-033`).
+  - **32 nouveaux tests**, tous sans GPU (`hmi::ProceduralFont`/`hmi::TextRenderer`/`hmi::
+    GameHud` sont des fichiers séparés de leurs classes propriétaires de ressources Direct3D —
+    `hmi::BitmapFont` n'est pas compilé dans `UnitTests`, comme `hmi::TextureAtlas`) ; build
+    `/W4 /WX` propre, suite verte.
+
+- **LOT-51 — Mode d'inspection « définition des textures » par calque** (`EX-EDIT-044`) : nouvel
+  onglet « Calques » du panneau Textures — une case à cocher par calque de rendu, dans l'ordre de
+  dessin, plus « Physique seul » et « Tout afficher ». Réservé à l'éditeur, **sans aucun effet** ni
+  sur `hmi::GameSession` ni sur la bascule `F8` (`LOT-41`), distinction rappelée par une info-bulle.
+  `hmi::LayerVisibility` (nouveau) : jeu de visibilités indexé par `RenderLayer`, tout visible par
+  défaut, sans persistance entre deux sessions. `hmi::resolveTileAppearance` étend le résolveur
+  unique surcharge > skin > damier avec un mode « isoler » : les bits Tuile/Objet pilotent
+  désormais les deux axes de résolution d'une tuile plutôt qu'un calque physique distinct, en
+  isolant sans repli sur le damier quand un seul axe est actif. `composeWorldSprites`/
+  `DraftRenderer::render` filtrent à la **composition** (jamais à la construction de la scène ECS).
+
+- **LOT-50 — Manipulation de décors dans l'éditeur** (`EX-DEC-010`) : outillage d'édition complet
+  pour un décor déjà posé (`LOT-49`) — sélectionner, déplacer, redimensionner, pivoter, changer de
+  couche et réordonner, en plus du placement/retrait déjà existants.
+  - Mutateurs `core::LevelDraft` (`moveDecor`/`resizeDecor`/`rotateDecor`/`setDecorLayer`/
+    `bring*Forward`/`send*Backward`/`bring*ToFront`/`send*ToBack`) : position et échelle
+    appliquées **atomiquement** pour un redimensionnement, une seule entrée d'historique
+    (undo/redo) par geste complet.
+  - Géométrie partagée (`hmi::DecorGeometry`) et machine à état pure du geste (`hmi::
+    DecorGesture`, même patron que `hmi::LinkGesture`, `LOT-37`) : désignation, distinction
+    clic/glisser, poignées (taille écran constante), abandon — jamais de mutation directe du
+    brouillon pendant l'aperçu. Remplace `hmi::DecorPlacementGesture` (`LOT-49`), supersedé par la
+    détection par rectangle englobant.
+  - Section « Décors » du panneau Textures : liste groupée par couche puis par ordre de
+    superposition, sélection **croisée** unique avec le canevas, signalement des assets manquants.
+  - **Trois défauts corrigés en cours de lot** : `decorWorldBounds` oubliait de convertir les
+    pixels de l'asset en unités monde (rectangle englobant, donc poignées et cadre de sélection,
+    seize fois trop grands) ; la rotation posée par la poignée dédiée n'avait aucun effet visible
+    (`core::Transform::rotation` était ignorée au rendu depuis `LOT-49` — `hmi::SpriteQuad` porte
+    désormais une rotation optionnelle, appliquée par `SpriteBatch::draw`, coins tournés autour du
+    centre) ; le cadre de sélection et ses poignées restaient alignés aux axes pendant que le
+    décor tournait sous eux (`hmi::decorRotatedPoint`, même formule de rotation que le rendu).
+
+- **LOT-49 — Décors libres, rendu multicouche et parallaxe** (`EX-DEC-001`, `EX-DEC-002`,
+  `EX-DEC-006`) : `core::Decor` (position/échelle/rotation libres, hors grille, couche,
+  statique/manipulable) sérialisé dans le format de niveau versionné (`LOT-44`). Rendu sur les
+  calques arrière-plan et premier plan (le premier plan passe **au-dessus** du personnage), repli
+  sur le damier magenta pour un asset introuvable ; **parallaxe** relative au centre de la salle
+  courante, cohérente avec la caméra à coupure nette entre salles (`LOT-32`). Placement minimal
+  dans l'éditeur (poser/supprimer) depuis une nouvelle bibliothèque `Assets/Decors/`.
+
+- **LOT-48 — Personnage habillé depuis une spritesheet externe** : dernier sprite resté hors du
+  programme d'habillage — en mode Texture, le personnage retombait jusqu'ici sur le damier
+  magenta. Spritesheet externe (`Assets/Player/`) avec repli procédural, taille de l'image
+  **découplée** de la hitbox par un point d'ancrage centre-bas (une image plus grande que la
+  hitbox ne la déforme donc plus), projection état → clip étendue à la chute, l'atterrissage, la
+  glissade murale et le dash (clips prioritaires, résolus sans nouveau champ sur `core::Player`),
+  personnage retourné selon son sens de déplacement.
+
+- **LOT-47 — Apparence des mécanismes pilotée par leur état logique** (`EX-REN-006`) : une porte,
+  un interrupteur, une plaque de pression et les dangers commuté/temporisé/mobile changent
+  désormais d'**apparence** selon leur état en mode Texture, plutôt que la simple modulation
+  d'opacité qu'appliquait `GameSession` jusque-là. `hmi::MechanismVisuals` traduit l'état lu dans
+  `Core` en clip attendu (infrastructure `LOT-46`) ; un clip manquant retombe proprement sur
+  l'image statique. La modulation d'opacité de diagnostic reste réservée au mode **Physique**,
+  désormais isolée dans une fonction pure. Nouvelle section « Animations » du panneau Textures
+  (asset par défaut par famille de mécanisme, diagnostic des clips manquants, aperçu).
+
+- **LOT-46 — Moteur d'animation générique piloté par données** (précise `EX-REN-012`) : remplace
+  l'`enum AnimationClip` figé (`Idle`/`Run`/`Jump`) par des clips-**données**
+  (`core::AnimationClip`/`core::ClipSet`) et généralise `AnimationSystem` à **toute** entité
+  portant `core::Animation`, plus seulement le personnage. Nouveau format `nom-asset.anim.json`
+  (`hmi::AnimationCatalog`) décrivant une spritesheet animée, mis en cache et invalidé
+  **conjointement** par `TextureCache`. Anime les skins de tuiles (eau, lave, torche) via une
+  horloge **partagée par asset**, résolue à la composition du rendu plutôt qu'écrite par tuile —
+  toutes les tuiles d'un même type animé restent ainsi en phase, sans coût par case. Le personnage
+  est migré à l'identique (mêmes durées, mêmes images), non-régression attestée par le test de
+  référence existant. **Deux défauts corrigés en cours de lot** : le canevas d'édition
+  (`hmi::DraftRenderer`, rendu en continu hors essai) composait toujours la première image d'un
+  asset animé, sans jamais progresser (horloge partagée factorisée entre pas fixe déterministe du
+  jeu et temps réel de l'aperçu d'édition) ; `TextureCache::getAnimation` résolvait le descripteur
+  à la racine du dossier `Assets` plutôt que dans `Assets/Skins/`, empêchant silencieusement
+  toute tuile de s'animer.
+
+- **LOT-45 — Texture par instance sur les objets interactifs** : assigne une texture à une case
+  **précise** d'un niveau, prioritaire sur le skin de son type (`LOT-42`) — `core::
+  TileTextureOverride` sur `Level`/`LevelDraft` (JSON, nettoyage, undo/redo), outil `hmi::
+  EditorTool::TextureAssign` avec geste pur (`hmi::TextureAssignGesture`) et raccourci `T`,
+  résolveur de priorité **unique** (surcharge > skin > damier) dans `hmi::resolveTileAppearance`,
+  partagé par le jeu et l'éditeur. Section « Objets » du panneau Textures (choix d'asset, liste
+  des surcharges, retrait, surbrillance croisée) et dossier `Assets/Objects/`. Corrige au passage
+  une régression silencieuse survenue lors de la réécriture Qt/Direct3D 11 (`LOT-33`-`35`) : le
+  pan/zoom manuel de l'éditeur (molette, glisser bouton droit, touche `0`) avait disparu, la
+  caméra recalculant un cadrage automatique à chaque image.
+
+- **LOT-44 — Fond de niveau et versionnement du format** : associe un fond à un niveau (calque
+  `Background`, ratio préservé, recadrage par le centre, repli en damier si introuvable) et
+  introduit le **numéro de version** du format JSON de niveau — première extension de
+  `core::Level`/`LevelDraft` du programme d'habillage, pour que les formats suivants (décors,
+  surcharges de texture) puissent évoluer sans casser les niveaux déjà écrits. Section « Fond » et
+  sélecteur de jeu de skins **du niveau** (distinct du jeu de skins courant d'édition) ajoutés au
+  panneau Textures.
+
+- **LOT-43 — Bibliothèque d'assets à vignettes, gestion de fichiers et rechargement à chaud** :
+  le panneau Textures affichait les skins par nom de fichier et imposait de passer par
+  l'explorateur puis de relancer l'application à chaque retouche d'asset — un coût payé à chaque
+  itération des lots d'habillage suivants. Widget de vignettes partagé (`hmi::
+  AssetThumbnailView`), import/renommage/duplication/suppression avec **détection des
+  références** (`skins.json`), et rechargement à chaud (invalidation `TextureCache` + relecture du
+  catalogue) sans reconstruire la scène ni toucher au brouillon en cours d'édition. La
+  mémoïsation/invalidation de `TextureCache` est extraite dans `hmi::CacheRegistry`, un registre
+  générique testable sans GPU dont `LOT-40` dépendait déjà sans qu'elle soit vérifiée isolément.
+
+- **LOT-42 — Skins de tuiles, raccords automatiques et panneau Textures** : premier lot de
+  contenu visuel du programme d'habillage — le mode Texture (`LOT-41`) cesse d'afficher un damier
+  partout.
+  - `hmi::SkinCatalog` — associe un type de tuile à un asset et un mode de découpage, en **jeux
+    nommés** ; format versionné dès sa création (une version supérieure à celle gérée est refusée
+    plutôt que lue au mieux), aucune exception ne franchit la lecture (`EX-NFR-040`, patron de
+    `core::LevelLoadResult`).
+  - `hmi::TileAutotile` — table de **raccords automatiques** par masque de voisinage solide
+    (quatre voisins, seize configurations, planche 4×4) : une image unique par type rendait la
+    grille visible et le dessus d'une plateforme indiscernable de son intérieur. L'extérieur du
+    niveau compte comme solide et le raccord suit la **solidité**, pas le type (un bloc poussable
+    jouxtant un mur ne laisse pas de couture) ; les pentes/arrondis, jamais solides, ne
+    participent pas au voisinage.
+  - Skins appliqués au rendu via `hmi::TileSkinTag` (composant de présentation, même patron que
+    `RenderLayerTag`) et le résolveur unique `hmi::resolveTileAppearance` (priorité skin >
+    damier) ; le masque de voisinage est calculé **une fois** à la construction, indépendant du
+    mode et du jeu de skins, pour que `F8` ou une réassignation se voient à l'image suivante sans
+    reconstruire l'ECS.
+  - **Détourage** des skins des douze types à silhouette inclinée/courbe (`hmi::
+    isInsideSilhouette`, point de vérité unique partagé avec l'atlas procédural) : un skin fourni
+    par l'auteur reste une image carrée, le moteur le découpe à la forme exacte de la hitbox
+    (`core::slopeSurfaceHeight`), jamais anticrénelée (filtrage *nearest*, `EX-ARCH-022`).
+  - Dock **« Textures »**, organisé en onglets dès ce lot bien qu'il n'en compte qu'un — sans
+    cette structure, chacun des lots d'habillage suivants (Fond, Objets, Animations, Décors)
+    aurait créé son propre panneau. Fichier et mode choisis dans une liste fermée (balayage de
+    `Assets/Skins/`, jamais une saisie de chemin).
+  - Palette de l'éditeur rendue **fidèle** au mode de rendu courant (`hmi::paletteThumbnail`,
+    fonction pure appliquant exactement la même priorité que `hmi::resolveTileAppearance` —
+    vérifié par test qu'elles ne divergent jamais) : texture réelle en mode Texture, couleur plate
+    en mode Physique, damier pour un type non habillé.
+  - **Portabilité du build** corrigée à l'ouverture du lot : sur une configuration neuve, aucun
+    exécutable n'était produit (Qt non découvert par `find_package` hors `CMAKE_PREFIX_PATH`, et
+    l'architecture du terminal appelant décidait silencieusement de celle du build, x86 depuis une
+    « Developer PowerShell »). `scripts/build.ps1` établit désormais lui-même l'environnement x64
+    (`vswhere`), et un garde-fou rejette les deux cas à la configuration CMake.
+
 - **LOT-41 — Bascule Physique/Texture (`F8`)** (`EX-REN-046`) : une commande **fixe et non
   remappable** bascule, en édition, en essai **et** en jeu réel, entre le rendu **Physique**
   (couleur plate par type de tuile — la lecture directe des collisions, comportement historique
@@ -136,12 +1225,58 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   `QSettings`) et un bouton **« Enregistrer les journaux »** (`hmi::saveSessionLog`, build dev).
 
 ### Modifié
+- **Préparation de la release — dette de documentation et de vérification** : audit complet mené
+  avant de poser le tag, et correction de ce qu'il a mis au jour.
+  - **Une seule source de vérité pour le numéro de version.** `core::Engine::version()` renvoyait
+    `"0.1.0"` en dur et `project(… VERSION …)` valait `0.1.0` — aucun des deux n'avait jamais
+    correspondu à un tag publié, seul le `Doxyfile` étant bumpé à chaque jalon. Le `project()`
+    racine devient l'unique endroit où le numéro est écrit : il alimente `core::Engine::version()`
+    par définition de compilation (`PROJECTGAMING_VERSION`), et `scripts/build_docs.py` — déjà
+    exécuté par la CI — **échoue** désormais si le `PROJECT_NUMBER` du `Doxyfile` s'en écarte.
+  - **Le garde-fou du Cahier de test en était un à moitié.** `generate_cahier_test.py` ne
+    reconnaissait que la forme `TEST(` : les cas de test attachés à une *fixture* (`TEST_F`)
+    disparaissaient du cahier **sans le moindre message**, dont l'intégralité de
+    `test_image_encode.cpp`. Et `--check` ne comparait le fichier qu'au résultat du script, jamais
+    au code : un test jamais documenté n'apparaissait d'aucun côté de la comparaison, donc passait.
+    Les trois formes sont maintenant reconnues, et un **contrôle de complétude** échoue en listant
+    tout test dépourvu de bloc `\castest{}`.
+  - **145 tests sur 943 (15 %) n'étaient dans aucun cahier** — des fichiers entiers issus des
+    `LOT-46` à `LOT-50`. Tous documentés : le Cahier de test passe de **790 à 943 cas**. Au passage,
+    deux blocs de documentation détachés de leur test dans `test_physique_personnage.cpp` (trois
+    blocs empilés devant un seul `TEST`) ont été remis en face du test qu'ils décrivent.
+  - **Guide du développeur** : `LOT-54`, `LOT-56` et `LOT-57` n'y avaient aucune couverture. Deux
+    pages ajoutées — `guide-atelier-pixel-art.md` et `guide-design-ihm.md` — et `guide-ihm-qt.md`,
+    qui s'arrêtait au `LOT-36`, recadré et relié aux deux nouvelles ; références à `hmi::ToolPanel`
+    (supprimé au `LOT-57`) corrigées dans `guide-editeur.md`.
+  - **README et manuel** : la liste des fonctionnalités décrivait l'état d'avant le programme
+    d'habillage ; `HMI/` y était encore « fenêtre Win32 » ; le tableau d'intégration continue
+    annonçait un runtime « statique » (faux depuis le `LOT-38` — les DLL Qt imposent `/MD`) et
+    ignorait le déclencheur `vX.Y.Z`. Le manuel ne connaissait que la préversion roulante et
+    documente désormais les **versions publiées**.
+  - **Notes de release lisibles** : `release.yml` publiait avec `--generate-notes`, qui produit une
+    liste brute de messages de commit — utile à un développeur qui connaît déjà le projet, opaque
+    pour le non-développeur à qui la release versionnée est justement destinée. Le workflow lit
+    désormais la section correspondante du CHANGELOG (`scripts/extract_release_notes.py`,
+    `--notes-file`), et **échoue avant de publier** si elle est absente : une release ouverte avec
+    des notes vides ne se corrige pas proprement. La marche à suivre pour publier une version est
+    consignée dans `CONTRIBUTING.md`.
 - **LOT-38 (Étape B) — Retrait du legacy & réorganisation** : suppression de l'IHM « maison »
   (écrans `IScreen`/`ScreenManager`, widgets d'éditeur, police bitmap, fenêtre Win32) et de
   l'exécutable historique ; `Source/HMI` devient l'unique cible (`ProjectGaming`), code réparti par
   domaine (`Platform`/`Input`/`Graphics`/`Game`/`Localization`/`Interface`/`Editor`). Documentation
   (guides écrans/éditeur/rendu/entrées) et journalisation mises à jour en conséquence.
 
+## [0.0.4] - 2026-07-27
+
+> Quatrième jalon : **fluidité du moteur** au-dessus de 60 Hz (LOT-33) — les entrées sont désormais
+> consommées par **pas de simulation** plutôt que par frame de rendu (plus de perte à haut
+> framerate), la présentation passe en **flip-model** (latence entrée → image réduite, cadence plus
+> régulière) et le rendu **interpole** la position des entités mobiles entre deux pas fixes, sans
+> jamais toucher au déterminisme de la simulation. **541 tests** (540 au jalon précédent).
+>
+> Voir le [CHANGELOG](CHANGELOG.md) pour le détail (LOT-33).
+
+### Modifié
 - **LOT-33 — Fluidité du moteur** (`EX-REN-004`, `EX-ARCH-031`, `EX-CTRL-020`, `EX-CTRL-021`) :
   ensemble de corrections de choix techniques boucle/rendu/entrées qui dégradaient le ressenti
   au-dessus de 60 Hz. **Entrées nerveuses** : les fronts (pressée/relâchée) sont désormais consommés
@@ -160,6 +1295,21 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   alpha)` via `core::FixedTimestep::interpolationAlpha`, supprimant le *judder* à haut framerate. La
   simulation reste strictement déterministe (l'interpolation ne touche que l'affichage) ; la caméra
   n'est pas interpolée (coupure nette par salle, `LOT-32`).
+
+## [0.0.3] - 2026-07-25
+
+> Troisième jalon : le prototype devient un **vrai platformer**. Personnage animé (LOT-17/18) et
+> **physique newtonienne** (LOT-19) ; **manette** pleinement supportée et **remappage** complet,
+> clavier **et** manette (LOT-20, LOT-29, LOT-30) ; bibliothèque de tuiles de plateforme — pentes,
+> arrondis (convexes puis concaves), blocs poussables et blocs à taille fractionnaire, sol **et**
+> plafond (LOT-21 à LOT-26, LOT-28) ; **dangers avancés** — directionnels, mobiles, commutés,
+> temporisés (LOT-31) ; niveaux à **salles** façon *Celeste* (LOT-32) ; palette de l'éditeur
+> réorganisée par catégories (LOT-27) et refactoring complet des niveaux de démonstration (LOT-25).
+> **540 tests** (292 au jalon précédent).
+>
+> Voir le [CHANGELOG](CHANGELOG.md) pour le détail par lot (LOT-17 → LOT-32).
+
+### Ajouté
 - **LOT-32 — Niveaux à salles** (`EX-REN-015`, `EX-EDIT-023`) : un niveau plus grand qu'une
   **salle** (nouveau `hmi::RoomGrid`, taille fixe en tuiles, `Source/HMI/Graphics`) se joue avec
   une caméra qui cadre la salle **courante** du personnage, au zoom pixel art natif, et bascule

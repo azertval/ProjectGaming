@@ -1,6 +1,10 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Editor/PalettePanel.h"
 
 #include <QColor>
+#include <QEvent>
 #include <QIcon>
 #include <QImage>
 #include <QItemSelectionModel>
@@ -12,7 +16,6 @@
 #include <QTreeView>
 #include <QVBoxLayout>
 #include <QVariant>
-
 #include <cstdint>
 #include <cstring>
 #include <optional>
@@ -22,14 +25,16 @@
 
 #include "HMI/Editor/PaletteAppearance.h"
 #include "HMI/Editor/TaxonomyLabels.h"
+#include "HMI/Editor/ThumbnailGeometry.h"
 #include "HMI/Editor/TileTaxonomy.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/ProceduralAtlas.h"
 #include "HMI/Graphics/SlopeMask.h"
-#include "HMI/Graphics/TextureAtlas.h"
 #include "HMI/Graphics/TextureLoader.h"
 #include "HMI/Graphics/TileVisuals.h"
+#include "HMI/Interface/DesignTokens.h"
 #include "HMI/Localization/Localization.h"
+#include "ui_PalettePanel.h"
 
 namespace hmi {
 
@@ -45,10 +50,10 @@ constexpr int TILE_TYPE_ROLE = Qt::UserRole + 1;
     return QString::fromStdString(localizedTaxonomyLabel(loc, label));
 }
 
-// Cote des vignettes de la palette, en pixels d'ecran. Multiple entier de la taille d'une case
-// (16) : toute autre valeur reechantillonnerait le pixel art de travers, meme en plus proche
-// voisin.
-constexpr int THUMBNAIL_SIZE = TextureAtlas::TILE_SIZE * 2;
+// Cote des vignettes de la palette, en pixels d'ecran : jeton de taille (LOT-56), deja un multiple
+// entier de la taille d'une case (16) -- toute autre valeur reechantillonnerait le pixel art de
+// travers, meme en plus proche voisin.
+const int THUMBNAIL_SIZE = editorDarkTokens().size.paletteThumbnail;
 
 // Crée une feuille sélectionnable portant son type de tuile.
 [[nodiscard]] QStandardItem* makeLeaf(const TileEntry& entry, const Localization* loc) {
@@ -63,7 +68,7 @@ constexpr int THUMBNAIL_SIZE = TextureAtlas::TILE_SIZE * 2;
     QImage image(decoded.width, decoded.height, QImage::Format_RGBA8888);
     for (int y = 0; y < decoded.height; ++y) {
         const std::uint32_t* const row =
-            decoded.pixels.data() + static_cast<std::size_t>(y) * decoded.width;
+            decoded.pixels.data() + (static_cast<std::size_t>(y) * decoded.width);
         std::memcpy(image.scanLine(y), row, static_cast<std::size_t>(decoded.width) * 4);
     }
     return image;
@@ -80,8 +85,11 @@ constexpr int THUMBNAIL_SIZE = TextureAtlas::TILE_SIZE * 2;
 }  // namespace
 
 PalettePanel::PalettePanel(QWidget* parent)
-    : QWidget(parent), _tree(new QTreeView(this)), _model(new QStandardItemModel(this)) {
-    _tree->setHeaderHidden(true);
+    : QWidget(parent),
+      _ui(std::make_unique<Ui::PalettePanel>()),
+      _model(new QStandardItemModel(this)) {
+    _ui->setupUi(this);
+    _tree = _ui->tree;
     _tree->setModel(_model);
     _tree->setSelectionMode(QAbstractItemView::SingleSelection);
 
@@ -90,11 +98,9 @@ PalettePanel::PalettePanel(QWidget* parent)
 
     connect(_tree->selectionModel(), &QItemSelectionModel::currentChanged, this,
             [this](const QModelIndex& current, const QModelIndex&) { onCurrentChanged(current); });
-
-    auto* const layout = new QVBoxLayout(this);
-    layout->setContentsMargins(0, 0, 0, 0);
-    layout->addWidget(_tree);
 }
+
+PalettePanel::~PalettePanel() = default;
 
 void PalettePanel::buildModel() {
     for (const TileCategory& category : tileTaxonomy()) {
@@ -133,10 +139,15 @@ void PalettePanel::refreshThumbnails(RenderMode mode, const std::string& setName
     _mode = mode;
     _skinSet = setName;
     // Les images decodees restent valables : c'est le CHOIX de vignette qui change, pas le contenu
-    // des fichiers. Seul le rechargement a chaud (LOT-43) devra vider ce cache.
+    // des fichiers. clearThumbnailCache() vide le cache quand le contenu a reellement change
+    // (rechargement a chaud, LOT-43).
     _model->clear();
     buildModel();
     _tree->expandAll();
+}
+
+void PalettePanel::clearThumbnailCache() {
+    _decoded.clear();
 }
 
 // Vignette d'un type dans le mode courant : meme decision que le canevas, rendue en pixels ici.
@@ -164,12 +175,14 @@ QPixmap PalettePanel::thumbnailFor(core::TileType type) {
         }
         case PaletteThumbnailSource::MissingTexture: {
             const ProceduralAtlasImage missing = buildMissingTextureImage();
-            source = toImage(DecodedImage{missing.width, missing.height, missing.pixels});
+            source = toImage(DecodedImage{
+                .width = missing.width, .height = missing.height, .pixels = missing.pixels});
             break;
         }
         case PaletteThumbnailSource::Atlas: {
             const ProceduralAtlasImage atlas = buildProceduralAtlasImage();
-            source = toImage(DecodedImage{atlas.width, atlas.height, atlas.pixels});
+            source = toImage(
+                DecodedImage{.width = atlas.width, .height = atlas.height, .pixels = atlas.pixels});
             break;
         }
     }
@@ -189,10 +202,27 @@ QPixmap PalettePanel::thumbnailFor(core::TileType type) {
         }
     }
 
-    // Mise a l'echelle en PLUS PROCHE VOISIN : l'interpolation lisse par defaut de Qt rendrait le
-    // pixel art flou, incoherent avec le rendu du canevas (EX-ARCH-022).
-    return QPixmap::fromImage(
-        tile.scaled(THUMBNAIL_SIZE, THUMBNAIL_SIZE, Qt::KeepAspectRatio, Qt::FastTransformation));
+    // Mise a l'echelle en PLUS PROCHE VOISIN, a la resolution REELLE (LOT-56 TACHE-05) : sans quoi
+    // l'interpolation lisse de Qt (fond d'ecran a 125%/150%) rendrait le pixel art flou, incoherent
+    // avec le rendu du canevas (EX-ARCH-022).
+    const qreal scale = devicePixelRatioF();
+    const int pixelSize = thumbnailPixelSize(THUMBNAIL_SIZE, scale);
+    QPixmap pixmap = QPixmap::fromImage(
+        tile.scaled(pixelSize, pixelSize, Qt::KeepAspectRatio, Qt::FastTransformation));
+    pixmap.setDevicePixelRatio(scale);
+    return pixmap;
+}
+
+bool PalettePanel::event(QEvent* event) {
+    if (event->type() == QEvent::ScreenChangeInternal) {
+        // Un deplacement vers un ecran d'echelle differente doit regenerer les vignettes (LOT-56
+        // TACHE-05) : le cache decode reste valable, seule la mise a l'echelle doit etre rejouee.
+        _decoded.clear();
+        _model->clear();
+        buildModel();
+        _tree->expandAll();
+    }
+    return QWidget::event(event);
 }
 
 void PalettePanel::onCurrentChanged(const QModelIndex& current) {

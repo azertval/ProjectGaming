@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Graphics/QuadRecorder.h"
 
 #include <algorithm>
@@ -38,8 +41,7 @@ bool QuadRecorder::areTextureGroupsContiguous() const {
             seenInLayer.clear();
         } else if (_quads[i].texture != _quads[i - 1].texture) {
             seenInLayer.push_back(_quads[i - 1].texture);
-            if (std::find(seenInLayer.begin(), seenInLayer.end(), _quads[i].texture) !=
-                seenInLayer.end()) {
+            if (std::ranges::find(seenInLayer, _quads[i].texture) != seenInLayer.end()) {
                 return false;  // texture deja close plus haut dans ce calque : groupe rompu
             }
         }
@@ -85,7 +87,7 @@ int QuadRecorder::countWithTexture(TextureHandle texture) const {
 
 // true si au moins un rectangle capture est a la position monde donnee.
 bool QuadRecorder::containsSpriteAt(float x, float y, float tolerance) const {
-    return std::any_of(_quads.begin(), _quads.end(), [&](const ComposedQuad& composed) {
+    return std::ranges::any_of(_quads, [&](const ComposedQuad& composed) {
         return composed.kind == QuadKind::Sprite && std::fabs(composed.sprite.x - x) <= tolerance &&
                std::fabs(composed.sprite.y - y) <= tolerance;
     });

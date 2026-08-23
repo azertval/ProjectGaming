@@ -1,6 +1,6 @@
 # LOT-46 — Moteur d'animation générique piloté par données {#lot-46}
 
-> Statut : **non commencé**. Prérequis : [LOT-40](@ref lot-40) (*TextureCache*, contrat d'asset),
+> Statut : **fait**. Prérequis : [LOT-40](@ref lot-40) (*TextureCache*, contrat d'asset),
 > [LOT-42](@ref lot-42) (skins), [LOT-45](@ref lot-45) (assets par instance). Prérequis de
 > [LOT-47](@ref lot-47) et [LOT-48](@ref lot-48).
 
@@ -84,11 +84,11 @@ visible du personnage.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-modele-clip.md) | Modèle de clip et de jeu de clips (données pures) + `core::Animation` révisé | `Source/Core/Ecs` | ⬜ |
-| [TACHE-02](tache-02-systeme-generalise.md) | `AnimationSystem` généralisé à toute entité animée, clips bouclés et joués une fois | `Source/Core/Ecs/Systems` | ⬜ |
-| [TACHE-03](tache-03-format-anim-json.md) | Format `nom-asset.anim.json` : lecture, validation, mise en cache, repli image fixe | `Source/HMI/Graphics` | ⬜ |
-| [TACHE-04](tache-04-migration-personnage.md) | Migration des clips du personnage, non-régression | `Source/Core`, `Source/HMI/Graphics`, `Source/Test` | ⬜ |
-| [TACHE-05](tache-05-tuiles-animees.md) | Skins de tuiles animés (eau, lave, torche) | `Source/HMI/Graphics` | ⬜ |
+| [TACHE-01](tache-01-modele-clip.md) | Modèle de clip et de jeu de clips (données pures) + `core::Animation` révisé | `Source/Core/Ecs` | ✅ |
+| [TACHE-02](tache-02-systeme-generalise.md) | `AnimationSystem` généralisé à toute entité animée, clips bouclés et joués une fois | `Source/Core/Ecs/Systems` | ✅ |
+| [TACHE-03](tache-03-format-anim-json.md) | Format `nom-asset.anim.json` : lecture, validation, mise en cache, repli image fixe | `Source/HMI/Graphics` | ✅ |
+| [TACHE-04](tache-04-migration-personnage.md) | Migration des clips du personnage, non-régression | `Source/Core`, `Source/HMI/Graphics`, `Source/Test` | ✅ |
+| [TACHE-05](tache-05-tuiles-animees.md) | Skins de tuiles animés (eau, lave, torche) | `Source/HMI/Graphics` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Le personnage s'anime **exactement** comme avant le lot : mêmes images, mêmes durées, même ordre —

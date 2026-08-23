@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Editor/LinkGesture.h"
 
 #include "HMI/Editor/LinkGeometry.h"
@@ -10,7 +13,10 @@ LinkGestureDecision resolveLinkClick(std::optional<PendingLink> pending,
     const bool clickedIsTrigger = isTriggerTile(clickedTileType);
     const bool clickedIsTarget = isLinkTargetTile(clickedTileType);
     if (!clickedIsTrigger && !clickedIsTarget) {
-        return LinkGestureDecision{LinkGestureAction::Ignore, {}, {}, {}};
+        return LinkGestureDecision{.action = LinkGestureAction::Ignore,
+                                   .cell = {},
+                                   .switchPosition = {},
+                                   .targetPosition = {}};
     }
 
     if (pending) {
@@ -20,7 +26,10 @@ LinkGestureDecision resolveLinkClick(std::optional<PendingLink> pending,
             const bool sameCategory =
                 (pendingIsTrigger && clickedIsTrigger) || (pendingIsTarget && clickedIsTarget);
             if (sameCategory) {
-                return LinkGestureDecision{LinkGestureAction::ReplacePending, clickedCell, {}, {}};
+                return LinkGestureDecision{.action = LinkGestureAction::ReplacePending,
+                                           .cell = clickedCell,
+                                           .switchPosition = {},
+                                           .targetPosition = {}};
             }
             const core::GridPosition switchPosition =
                 pendingIsTrigger ? pending->cell : clickedCell;
@@ -28,12 +37,18 @@ LinkGestureDecision resolveLinkClick(std::optional<PendingLink> pending,
                 pendingIsTrigger ? clickedCell : pending->cell;
             const LinkGestureAction action =
                 alreadyLinked ? LinkGestureAction::Unlink : LinkGestureAction::Link;
-            return LinkGestureDecision{action, {}, switchPosition, targetPosition};
+            return LinkGestureDecision{.action = action,
+                                       .cell = {},
+                                       .switchPosition = switchPosition,
+                                       .targetPosition = targetPosition};
         }
         // Attente perimee (la case a ete repeinte depuis) : traitee comme aucune attente.
     }
 
-    return LinkGestureDecision{LinkGestureAction::SetPending, clickedCell, {}, {}};
+    return LinkGestureDecision{.action = LinkGestureAction::SetPending,
+                               .cell = clickedCell,
+                               .switchPosition = {},
+                               .targetPosition = {}};
 }
 
 }  // namespace hmi

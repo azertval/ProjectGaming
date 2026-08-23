@@ -1,6 +1,6 @@
 # LOT-52 — Texte, police bitmap et affichage tête haute {#lot-52}
 
-> Statut : **non commencé**. Prérequis : [LOT-40](@ref lot-40) (*TextureCache*, calque *UI*),
+> Statut : **fait**. Prérequis : [LOT-40](@ref lot-40) (*TextureCache*, calque *UI*),
 > [LOT-43](@ref lot-43) (bibliothèque d'assets).
 
 ## Objectif
@@ -84,9 +84,9 @@ sur l'ancien chemin.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-police-bitmap.md) | Police bitmap : atlas de glyphes, métriques, chargement, repli procédural | `Source/HMI/Graphics` | ⬜ |
-| [TACHE-02](tache-02-text-renderer.md) | *TextRenderer* : composition d'une chaîne en quads sur le calque *UI*, mesure pure | `Source/HMI/Graphics` | ⬜ |
-| [TACHE-03](tache-03-hud.md) | Affichage tête haute (budgets, nom du tableau) + clés de traduction | `Source/HMI/Game`, `Source/Elements/Localization` | ⬜ |
+| [TACHE-01](tache-01-police-bitmap.md) | Police bitmap : atlas de glyphes, métriques, chargement, repli procédural | `Source/HMI/Graphics` | ✅ |
+| [TACHE-02](tache-02-text-renderer.md) | *TextRenderer* : composition d'une chaîne en quads sur le calque *UI*, mesure pure | `Source/HMI/Graphics` | ✅ |
+| [TACHE-03](tache-03-hud.md) | Affichage tête haute (budgets, nom du tableau) + clés de traduction | `Source/HMI/Game`, `Source/Elements/Localization` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Une chaîne s'affiche dans le viewport du jeu, nette, sans filtrage flou.

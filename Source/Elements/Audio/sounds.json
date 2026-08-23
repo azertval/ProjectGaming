@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "sons": {
+    "saut": "saut.wav",
+    "atterrissage": "atterrissage.wav",
+    "dash": "dash.wav",
+    "interrupteur": "interrupteur.wav",
+    "porte": "porte.wav",
+    "plaque_pression": "plaque_pression.wav",
+    "ramassage": "ramassage.wav",
+    "mort": "mort.wav",
+    "victoire_tableau": "victoire_tableau.wav",
+    "fin_sequence": "fin_sequence.wav",
+    "menu_deplacement": "menu_deplacement.wav",
+    "menu_validation": "menu_validation.wav"
+  }
+}

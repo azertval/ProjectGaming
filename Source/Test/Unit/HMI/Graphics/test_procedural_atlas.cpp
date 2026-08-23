@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_procedural_atlas.cpp
  * @brief Tests unitaires de la génération procédurale de l'atlas de repli (LOT-39, EX-NFR-040).
@@ -24,7 +27,8 @@ TEST(ProceduralAtlasTest, DimensionsAttendues) {
     const hmi::ProceduralAtlasImage image = hmi::buildProceduralAtlasImage();
 
     const int gridSide = hmi::TextureAtlas::TILE_SIZE * hmi::TextureAtlas::TILES_PER_SIDE;
-    const int totalFrames = core::IDLE_FRAME_COUNT + core::RUN_FRAME_COUNT + core::JUMP_FRAME_COUNT;
+    const int totalFrames =
+        hmi::PLAYER_IDLE_FRAME_COUNT + hmi::PLAYER_RUN_FRAME_COUNT + hmi::PLAYER_JUMP_FRAME_COUNT;
     const int frameRows = (totalFrames + hmi::TextureAtlas::PLAYER_FRAME_COLUMNS - 1) /
                           hmi::TextureAtlas::PLAYER_FRAME_COLUMNS;
 

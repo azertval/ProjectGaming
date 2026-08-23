@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Input/GamepadButtonName.h"
 
 #include "HMI/Input/InputState.h"
@@ -32,7 +35,7 @@ std::string gamepadButtonDisplayName(GamepadButton button) {
 
 std::optional<GamepadButton> capturedGamepadButton(const InputState& input) {
     for (int code = 0; code < GAMEPAD_BUTTON_COUNT; ++code) {
-        const GamepadButton candidate = static_cast<GamepadButton>(code);
+        const auto candidate = static_cast<GamepadButton>(code);
         if (input.gamepadButtonPressed(candidate)) {
             return candidate;
         }

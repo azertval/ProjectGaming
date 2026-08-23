@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Input/EditorKeyBindings.h"
 
 #include <fstream>
@@ -33,6 +36,8 @@ namespace {
             return "aide";
         case EditorAction::Rename:
             return "renommer";
+        case EditorAction::TextureAssignTool:
+            return "outilTexture";
     }
     return "";
 }
@@ -59,6 +64,8 @@ Key EditorKeyBindings::defaultKey(EditorAction action) noexcept {
             return Key::F1;
         case EditorAction::Rename:
             return Key::F2;
+        case EditorAction::TextureAssignTool:
+            return Key::T;
     }
     return Key::Escape;  // inatteignable : switch exhaustif sur EditorAction ci-dessus.
 }
@@ -74,7 +81,7 @@ Key EditorKeyBindings::key(EditorAction action) const noexcept {
 // Echange avec l'action qui detenait deja newKey, s'il y en a une : jamais deux actions sur la
 // meme touche a l'issue de l'appel.
 void EditorKeyBindings::setKey(EditorAction action, Key newKey) noexcept {
-    const std::size_t index = static_cast<std::size_t>(action);
+    const auto index = static_cast<std::size_t>(action);
     for (std::size_t other = 0; other < _keys.size(); ++other) {
         if (other != index && _keys[other] == newKey) {
             _keys[other] = _keys[index];

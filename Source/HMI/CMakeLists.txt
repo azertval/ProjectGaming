@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Valentin Eloy
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 # Couche de présentation HMI : **application Qt** (`ProjectGaming`).
 #
 # Depuis le LOT-38, l'IHM « maison » et l'exécutable historique `ProjectGaming` ont été retirés :
@@ -22,6 +25,13 @@ if(NOT BUILD_EDITOR_QT)
     message(STATUS "ProjectGaming : désactivé (BUILD_EDITOR_QT=OFF).")
     return()
 endif()
+
+# --- Version de référence (EX-BUILD-010) ---
+# Seul endroit où la version de Qt est écrite dans le CMake : la CI (`.github/workflows/ci.yml`,
+# `release.yml`) l'installe explicitement à cette même valeur (`env.QT_VERSION`), vérifié
+# automatiquement par `scripts/check_qt_version_pin.py` (job `lint-exigences`) pour que les deux
+# ne divergent jamais silencieusement.
+set(QT_VERSION_MINIMUM "6.11.2")
 
 # --- Découverte de Qt sans configuration manuelle ---
 # find_package() ne consulte que CMAKE_PREFIX_PATH. Or l'installateur officiel Qt place ses
@@ -60,17 +70,62 @@ if(_qt_hints)
     list(APPEND CMAKE_PREFIX_PATH ${_qt_hints})
 endif()
 
-find_package(Qt6 QUIET COMPONENTS Widgets Gui)
+find_package(Qt6 ${QT_VERSION_MINIMUM} QUIET COMPONENTS Widgets Gui GuiPrivate Multimedia ShaderTools)
 if(NOT Qt6_FOUND)
+    # Deuxième essai, sans contrainte de version, seulement pour distinguer dans le message
+    # « rien d'installé » de « une version installée, mais trop ancienne » — sinon les deux
+    # produisent le même NOT Qt6_FOUND et le second cas serait diagnostiqué à tort comme le premier.
+    find_package(Qt6 QUIET COMPONENTS Widgets Gui GuiPrivate Multimedia ShaderTools)
     # Avertissement et non simple statut : sans Qt il n'y a **aucun exécutable**, seulement les
     # tests. Passer inaperçu est précisément ce qui rendait l'absence d'exe difficile à diagnostiquer.
-    message(WARNING
-        "ProjectGaming : Qt6 introuvable, cible ignorée — AUCUN EXÉCUTABLE ne sera produit.\n"
-        "Emplacements examinés : ${_qt_hints}\n"
-        "Corriger en installant Qt via l'installateur officiel, ou en désignant l'installation :\n"
-        "  cmake --preset ninja -DCMAKE_PREFIX_PATH=<chemin>/msvc2022_64\n"
-        "Passer -DBUILD_EDITOR_QT=OFF pour ne construire que les tests, sans cet avertissement.")
+    if(Qt6_FOUND)
+        message(WARNING
+            "ProjectGaming : Qt6 ${Qt6_VERSION} trouvé (${Qt6_DIR}), mais inférieur à la version "
+            "minimale requise ${QT_VERSION_MINIMUM} — cible ignorée, AUCUN EXÉCUTABLE ne sera produit.\n"
+            "Installer au moins Qt ${QT_VERSION_MINIMUM} (ou désigner une autre installation via "
+            "-DCMAKE_PREFIX_PATH), ou passer -DBUILD_EDITOR_QT=OFF pour ne construire que les tests.")
+    else()
+        # Troisième cas, distinct des deux précédents : Qt est bien installé, mais il lui manque un
+        # MODULE (typiquement Multimedia, un composant additionnel que l'installateur officiel ne
+        # coche pas par défaut). find_package échoue alors en bloc, et annoncer « Qt6 introuvable »
+        # envoie chercher au mauvais endroit — le cas a réellement coûté une session de diagnostic.
+        find_package(Qt6 QUIET COMPONENTS Widgets Gui)
+        if(Qt6_FOUND)
+            set(_qt_missing "")
+            foreach(_qt_component Widgets Gui GuiPrivate Multimedia ShaderTools)
+                find_package(Qt6${_qt_component} QUIET)
+                if(NOT Qt6${_qt_component}_FOUND)
+                    list(APPEND _qt_missing ${_qt_component})
+                endif()
+            endforeach()
+            message(WARNING
+                "ProjectGaming : Qt6 ${Qt6_VERSION} est bien installé (${Qt6_DIR}), mais il manque "
+                "le(s) module(s) : ${_qt_missing} — cible ignorée, AUCUN EXÉCUTABLE ne sera produit.\n"
+                "ShaderTools (l'outil `qsb`) et GuiPrivate (les en-têtes QRhi) sont exigés depuis le "
+                "LOT-69 TACHE-02 : le rendu passe par QRhi, plus par Direct3D 11 en direct.\n"
+                "Ajouter le(s) module(s) manquant(s) avec l'outil de maintenance Qt "
+                "(MaintenanceTool.exe, à la racine de l'installation), puis reconfigurer.\n"
+                "Passer -DBUILD_EDITOR_QT=OFF pour ne construire que les tests, sans cet avertissement.")
+        else()
+            message(WARNING
+                "ProjectGaming : Qt6 introuvable, cible ignorée — AUCUN EXÉCUTABLE ne sera produit.\n"
+                "Version minimale requise : ${QT_VERSION_MINIMUM}.\n"
+                "Emplacements examinés : ${_qt_hints}\n"
+                "Corriger en installant Qt via l'installateur officiel, ou en désignant l'installation :\n"
+                "  cmake --preset ninja -DCMAKE_PREFIX_PATH=<chemin>/msvc2022_64\n"
+                "Passer -DBUILD_EDITOR_QT=OFF pour ne construire que les tests, sans cet avertissement.")
+        endif()
+    endif()
     return()
+endif()
+
+if(NOT Qt6_VERSION VERSION_EQUAL QT_VERSION_MINIMUM)
+    # Avertissement, pas erreur (cf. TACHE-01) : interdire de construire sur une version voisine
+    # coûterait plus qu'il ne rapporterait. Le but est qu'un écart soit visible, pas interdit.
+    message(WARNING
+        "ProjectGaming : Qt6 ${Qt6_VERSION} trouvé (${Qt6_DIR}), différent de la version de "
+        "référence ${QT_VERSION_MINIMUM} (celle validée par la CI) — le build peut diverger de la "
+        "CI sans que rien d'autre ne le signale.")
 endif()
 
 message(STATUS "ProjectGaming : Qt6 ${Qt6_VERSION} trouvé (${Qt6_DIR}).")
@@ -97,8 +152,8 @@ add_executable(ProjectGaming
     Input/GamepadBindings.cpp
     Input/GamepadButtonName.cpp
     Input/QtKeyMap.cpp
-    # Rendu Direct3D 11
-    Graphics/GraphicsDevice.cpp
+    # Rendu 2D sur QRhi (LOT-69 TACHE-02) — cible Direct3D 11 sous Windows (EX-REN-002),
+    # atteinte au travers de QRhi plutôt qu'en appelant l'API directement.
     Graphics/SpriteBatch.cpp
     Graphics/AssetPaths.cpp
     Graphics/TextureLoader.cpp
@@ -109,53 +164,141 @@ add_executable(ProjectGaming
     Graphics/TileAutotile.cpp
     Graphics/SlopeMask.cpp
     Graphics/ProceduralAtlas.cpp
+    Graphics/AnimationCatalog.cpp
+    Graphics/PlayerSprite.cpp
     Graphics/MissingTexture.cpp
     Graphics/TextureAtlas.cpp
     Graphics/TextureCache.cpp
     Graphics/TextureAtlasRegions.cpp
     Graphics/Camera2D.cpp
     Graphics/RoomGrid.cpp
+    Graphics/FollowCamera.cpp
+    Graphics/CameraZones.cpp
     Graphics/ComposedScene.cpp
     Graphics/QuadRecorder.cpp
+    Graphics/BackgroundRenderer.cpp
+    Graphics/ShadowRenderer.cpp
+    Graphics/ParticleRenderer.cpp
     Graphics/SpriteRenderer.cpp
     Graphics/DraftRenderer.cpp
     Graphics/TileVisuals.cpp
+    Graphics/MechanismVisuals.cpp
+    Graphics/PlaneVisuals.cpp
+    Graphics/Parallax.cpp
+    Graphics/ProceduralFont.cpp
+    Graphics/BitmapFont.cpp
+    Graphics/TextRenderer.cpp
     # Jeu (simulation d'un niveau + viewport Qt jeu/édition)
     Game/GameSession.cpp
     Game/GameViewport.cpp
+    Game/Progression.cpp
+    Game/GameHud.cpp
+    Game/DiagnosticsHud.cpp
+    Game/GameEvents.cpp
+    Game/LevelRunStats.cpp
     # Localisation
     Localization/Localization.cpp
+    # Audio (bruitages, LOT-60)
+    Audio/SoundCatalog.cpp
+    Audio/SoundTriggers.cpp
+    Audio/AudioEngine.cpp
     # Diagnostics (enregistrement des journaux de session)
     Diagnostics/SessionLog.cpp
     # Interface (fenêtre, menu, options, remappage)
+    Interface/DesignTokens.cpp
+    Interface/StyleSheetTemplate.cpp
+    Interface/FontResolution.cpp
+    Interface/ThemeResolution.cpp
+    Interface/ApplicationTheme.cpp
+    Interface/IconGeometry.cpp
+    # Habillage pixel art des ecrans du jeu (LOT-68) : logique pure, compilee aussi
+    # dans UnitTests (cf. Source/Test/CMakeLists.txt).
+    Interface/PixelArtScale.cpp
+    Interface/PixelFrameGeometry.cpp
+    Interface/MenuBackdropGeometry.cpp
+    Interface/KeyHintText.cpp
+    # Widgets Qt de l'habillage pixel art (LOT-68) : peintres au-dessus de la geometrie pure
+    # ci-dessus, promus dans les .ui. Non compiles dans UnitTests (dependent de Qt).
+    Interface/PixelFrameWidget.cpp
+    Interface/PixelMenuButton.cpp
+    Interface/ThemeIcons.cpp
+    Interface/ActionCatalog.cpp
+    Interface/EditorActions.cpp
+    Interface/ScreenFlow.cpp
+    Interface/EditorWorkspace.cpp
     Interface/MainWindow.cpp
     Interface/MainMenu.cpp
+    Interface/PauseScreen.cpp
+    Interface/LevelCompleteScreen.cpp
+    Interface/LevelSelectScreen.cpp
+    Interface/CreditsScreen.cpp
     Interface/OptionsPage.cpp
     Interface/KeybindingsWidget.cpp
+    Interface/EditorKeybindingsWidget.cpp
     Interface/GamepadBindingsWidget.cpp
     # Éditeur de niveau
     Editor/PalettePanel.cpp
-    Editor/ToolPanel.cpp
     Editor/LevelBrowserPanel.cpp
     Editor/LinkPanel.cpp
     Editor/TileTaxonomy.cpp
     Editor/TaxonomyLabels.cpp
     Editor/TexturePanel.cpp
+    Editor/PropertiesPanel.cpp
     Editor/SkinAssignments.cpp
     Editor/PaletteAppearance.cpp
     Editor/LevelFileOperations.cpp
     Editor/LevelNameValidation.cpp
     Editor/LinkGeometry.cpp
     Editor/LinkGesture.cpp
+    Editor/TextureAssignGesture.cpp
+    Editor/PathGeometry.cpp
+    Editor/PathGesture.cpp
+    Editor/AssetLibrary.cpp
+    Editor/ThumbnailGeometry.cpp
+    Editor/AssetThumbnailView.cpp
+    Editor/AssetFileOperations.cpp
+    Editor/AssetReferences.cpp
+    Editor/MechanismAnimationAssignments.cpp
+    Editor/EditorStatus.cpp
+    Editor/PanelFocus.cpp
+    Editor/PixelOperations.cpp
+    Editor/PixelHistory.cpp
+    Editor/PixelCanvasGeometry.cpp
+    Editor/PlaneReference.cpp
+    Editor/PlaneFileNaming.cpp
+    Editor/PixelCanvas.cpp
+    Editor/PixelHistoryPanel.cpp
+    Editor/PixelAssetIO.cpp
+    Editor/PixelPalette.cpp
+    Editor/PixelPalettePanel.cpp
+    Editor/PixelAutotilePreview.cpp
+    Editor/PlanesPanel.cpp
     # Ressource embarquée (thème .qss) — traitée par AUTORCC.
     ${ELEMENTS_UI}/resources.qrc
     # Mises en page Qt Designer — traitées par AUTOUIC (génèrent ui_*.h).
     ${ELEMENTS_UI}/MainWindow.ui
     ${ELEMENTS_UI}/MainMenu.ui
+    ${ELEMENTS_UI}/PauseScreen.ui
+    ${ELEMENTS_UI}/LevelCompleteScreen.ui
+    ${ELEMENTS_UI}/LevelSelectScreen.ui
+    ${ELEMENTS_UI}/CreditsScreen.ui
     ${ELEMENTS_UI}/OptionsPage.ui
-    ${ELEMENTS_UI}/ToolPanel.ui
     ${ELEMENTS_UI}/TexturePanel.ui
+    ${ELEMENTS_UI}/PropertiesPanel.ui
+    ${ELEMENTS_UI}/PlanesPanel.ui
     ${ELEMENTS_UI}/LevelBrowserPanel.ui
+    ${ELEMENTS_UI}/AssetThumbnailView.ui
+)
+
+# Shaders du pipeline 2D, compilés en `.qsb` par `qsb` (module ShaderTools) et embarqués comme
+# ressource Qt. Un `.qsb` porte plusieurs variantes (SPIR-V, HLSL, MSL, GLSL) : c'est ce qui permet
+# à QRhi de choisir son backend à l'exécution sans que le projet ait à livrer un shader par API.
+qt6_add_shaders(ProjectGaming "projectgaming_shaders"
+    PREFIX "/shaders"
+    BASE "${CMAKE_CURRENT_SOURCE_DIR}/Graphics/Shaders"
+    FILES
+        Graphics/Shaders/sprite.vert
+        Graphics/Shaders/sprite.frag
 )
 
 # Racine d'inclusion Source/ (pour les includes "HMI/..." et "Core/...").
@@ -169,9 +312,10 @@ target_link_libraries(ProjectGaming PRIVATE
     Core
     Qt6::Widgets
     Qt6::Gui
-    d3d11
-    dxgi
-    d3dcompiler
+    # QRhi vit dans les en-têtes privés de QtGui : c'est une API privée, stable en pratique mais
+    # non couverte par la garantie de compatibilité binaire — assumé, QRhiWidget n'existe pas sans.
+    Qt6::GuiPrivate
+    Qt6::Multimedia
     xinput
     project_warnings
     project_options
@@ -193,21 +337,28 @@ endif()
 
 # Copie des assets à côté de l'exécutable, pour que l'éditeur charge niveaux et traductions
 # relativement à son binaire.
-add_custom_command(TARGET ProjectGaming POST_BUILD
+#
+# Cible séparée (et non des POST_BUILD sur ProjectGaming) : sous Ninja, un POST_BUILD est fondu
+# dans l'arête de build de l'exécutable et n'est rejoué que si celle-ci l'est — c'est-à-dire quand
+# un .obj change. Modifier uniquement un fichier sous Source/Elements/{Levels,Assets,...} ne
+# touche aucun .obj, donc l'exécutable reste « à jour » aux yeux de Ninja et la copie est silencieusement
+# sautée, même via un `cmake --build` complet, sans cible restreinte. Une cible dédiée sans sortie
+# déclarée est toujours considérée sale par Ninja et s'exécute donc à chaque build.
+add_custom_target(CopyGameData ALL
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${PROJECT_SOURCE_DIR}/Source/Elements/Localization
         $<TARGET_FILE_DIR:ProjectGaming>/Localization
-    COMMENT "Copie des catalogues de traduction (.lang)")
-add_custom_command(TARGET ProjectGaming POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${PROJECT_SOURCE_DIR}/Source/Elements/Levels
         $<TARGET_FILE_DIR:ProjectGaming>/Levels
-    COMMENT "Copie des niveaux (.json)")
-add_custom_command(TARGET ProjectGaming POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${PROJECT_SOURCE_DIR}/Source/Elements/Assets
         $<TARGET_FILE_DIR:ProjectGaming>/Assets
-    COMMENT "Copie des assets graphiques (atlas de textures, LOT-39)")
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${PROJECT_SOURCE_DIR}/Source/Elements/Audio
+        $<TARGET_FILE_DIR:ProjectGaming>/Audio
+    COMMENT "Copie des données de jeu (traductions, niveaux, assets, audio)")
+add_dependencies(ProjectGaming CopyGameData)
 
 # Déploiement Qt : copie les DLL Qt (plateforme, styles) à côté de l'exécutable pour que
 # l'utilisateur final n'ait **aucune bibliothèque à installer** — un simple dossier exécutable
@@ -221,6 +372,29 @@ if(WINDEPLOYQT_EXE)
             --no-translations --compiler-runtime
             "$<TARGET_FILE:ProjectGaming>"
         COMMENT "Déploiement des DLL Qt + runtime à côté de l'exécutable (windeployqt)")
+
+    # `--no-translations` ci-dessus reste le bon réglage : windeployqt déploierait la trentaine de
+    # catalogues de Qt, alors que l'IHM du projet a le sien. Mais **les boutons standard des boîtes
+    # de dialogue** (« Oui »/« Non »/« Annuler ») viennent de Qt, pas du catalogue du projet, et
+    # restent en anglais sans son `qtbase_<langue>.qm` — une boîte française à boutons anglais, ce
+    # qui s'est vu à l'essai (`LOT-69`). On copie donc **les deux seuls** catalogues dont l'IHM
+    # propose la langue. Fichier absent : la copie est silencieusement ignorée (`copy_if_different`
+    # sur une liste vide), et le programme retombe sur l'anglais (`EX-NFR-040`).
+    get_target_property(_qt_core_location Qt6::Core IMPORTED_LOCATION_RELEASE)
+    if(NOT _qt_core_location)
+        get_target_property(_qt_core_location Qt6::Core IMPORTED_LOCATION)
+    endif()
+    get_filename_component(_qt_prefix "${_qt_bin_dir}" DIRECTORY)
+    set(_qt_translations_dir "${_qt_prefix}/translations")
+    foreach(_lang fr en)
+        if(EXISTS "${_qt_translations_dir}/qtbase_${_lang}.qm")
+            add_custom_command(TARGET ProjectGaming POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                    "${_qt_translations_dir}/qtbase_${_lang}.qm"
+                    "$<TARGET_FILE_DIR:ProjectGaming>/Translations/qtbase_${_lang}.qm"
+                COMMENT "Copie du catalogue Qt qtbase_${_lang}.qm")
+        endif()
+    endforeach()
 else()
     message(STATUS "ProjectGaming : windeployqt introuvable, DLL Qt non déployées "
         "automatiquement (exécution possible depuis un environnement Qt).")

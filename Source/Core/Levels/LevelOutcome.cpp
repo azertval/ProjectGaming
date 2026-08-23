@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "Core/Levels/LevelOutcome.h"
 
 #include <algorithm>  // std::clamp
@@ -16,9 +19,9 @@ namespace {
 // La boîte recouvre-t-elle la case (col, row) ? Chevauchement d'aire strictement positive :
 // se contenter d'effleurer un bord ne compte pas (évite les faux positifs aux frontières).
 bool overlapsCell(const Aabb& box, int col, int row) {
-    const float left = static_cast<float>(col);
-    const float top = static_cast<float>(row);
-    return box.min.x < left + 1.0f && box.max.x > left && box.min.y < top + 1.0f && box.max.y > top;
+    const auto left = static_cast<float>(col);
+    const auto top = static_cast<float>(row);
+    return box.min.x < left + 1.0F && box.max.x > left && box.min.y < top + 1.0F && box.max.y > top;
 }
 
 // La boîte recouvre-t-elle @p other ? Généralisation de overlapsCell à un rectangle arbitraire

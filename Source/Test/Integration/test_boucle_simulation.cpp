@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_boucle_simulation.cpp
  * @brief Test d'intégration inter-lots : le cadenceur à pas fixe (LOT-01) pilote

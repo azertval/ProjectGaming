@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Editor/TaxonomyLabels.h"
 
 #include <unordered_map>
@@ -28,6 +31,9 @@ std::string taxonomyLabelKey(const std::string& label) {
         {"Interrupteur", "palette.tile.switch"},
         {"Plaque de pression", "palette.tile.plate"},
         {"Porte", "palette.tile.door"},
+        {"Clé", "palette.tile.key"},
+        {"Porte verrouillée", "palette.tile.locked_door"},
+        {"Plateforme mobile", "palette.tile.moving_platform"},
         {"Danger", "palette.tile.danger"},
         {"Danger mobile", "palette.tile.danger_moving"},
         {"Danger commuté", "palette.tile.danger_switched"},

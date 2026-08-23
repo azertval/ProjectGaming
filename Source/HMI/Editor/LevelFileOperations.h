@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <filesystem>
@@ -6,7 +9,8 @@
 
 /**
  * @file HMI/Editor/LevelFileOperations.h
- * @brief Opérations fichiers sur les niveaux (créer/renommer/dupliquer/supprimer), sans Qt (LOT-36).
+ * @brief Opérations fichiers sur les niveaux (créer/renommer/dupliquer/supprimer), sans Qt
+ * (LOT-36).
  */
 
 namespace hmi {
@@ -51,7 +55,7 @@ public:
     [[nodiscard]] FileOpResult duplicate(const std::filesystem::path& source) const;
 
     /// Supprime le fichier de niveau @p source.
-    [[nodiscard]] FileOpResult remove(const std::filesystem::path& source) const;
+    [[nodiscard]] static FileOpResult remove(const std::filesystem::path& source);
 
 private:
     /// Chemin du fichier `.json` correspondant à un nom de niveau, dans le dossier géré.

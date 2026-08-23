@@ -1,9 +1,9 @@
 # TACHE-02 — Rendu des trois couches et premier plan {#lot-49-tache-02-rendu-couches}
 
-**Lot :** [LOT-49](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-49](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
-Les calques `Decor` et `Foreground` ont été réservés dans *RenderLayer* en LOT-40 sans être
+Les calques `Decor` et `Foreground` ont été réservés dans *%RenderLayer* en LOT-40 sans être
 utilisés. Cette tâche les active — et avec eux, la propriété qui fait tout l'intérêt du lot : le
 calque `Foreground` est **au-dessus** de `Player`.
 
@@ -12,12 +12,12 @@ personnage ne le porte pas et ne le bloque pas. Cette convention de lecture est 
 demande aucun apprentissage.
 
 ## Travail à réaliser
-- **Construction de scène** : chaque *core::Decor* du niveau donne une entité portant
+- **Construction de scène** : chaque *%core::Decor* du niveau donne une entité portant
   `core::Transform` (position, échelle, rotation) et `core::Sprite`, créée par
   `core::buildLevelScene` comme les tuiles. L'ordre dans le vecteur alimente `Sprite::layer` (tri
   fin **à l'intérieur** d'une couche).
-- **Projection couche → calque** : *core::DecorLayer* vers les valeurs correspondantes de
-  *RenderLayer*, côté `HMI`. Fonction pure, triviale mais explicite — c'est le point où la frontière
+- **Projection couche → calque** : *%core::DecorLayer* vers les valeurs correspondantes de
+  *%RenderLayer*, côté `HMI`. Fonction pure, triviale mais explicite — c'est le point où la frontière
   `Core`/`HMI` est tenue.
 - **Mode Texture uniquement** : aucun décor en mode Physique, qui doit rester la lecture nue des
   collisions.
@@ -56,6 +56,11 @@ demande aucun apprentissage.
 - Les trois couches sont rendues dans le bon ordre, le premier plan au-dessus du personnage ; aucun
   décor en mode Physique ; l'asset introuvable dégrade proprement ; le sort de la rotation est
   tranché et documenté ; ordre asserté sans GPU ; `/W4 /WX` propre.
+
+## Révision (`LOT-50`)
+Tranché ici pour l'ignorer (poignée de rotation, `LOT-50` TACHE-02, encore à venir). Une fois cette
+poignée livrée, le choix s'est révélé un geste sans effet visible — revu en TACHE-03 de `LOT-50`
+(voir @ref lot-50-tache-03-selection-poignees) : la rotation atteint désormais le quad composé.
 
 ## Exigences
 `EX-DEC-002` (couches), `EX-DEC-003` (pixel art net) ; réutilise `EX-REN-014` (ordonnancement des

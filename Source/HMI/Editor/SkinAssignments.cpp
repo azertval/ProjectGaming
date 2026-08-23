@@ -1,6 +1,10 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Editor/SkinAssignments.h"
 
 #include <algorithm>
+#include <array>
 #include <optional>
 #include <system_error>
 
@@ -12,7 +16,7 @@ namespace {
 
 // Extensions d'image acceptees pour un skin. Le decodage (hmi::decodeImageFile) gere davantage de
 // formats, mais proposer un fichier qui ne sera pas lu serait pire que de ne pas le proposer.
-constexpr const char* IMAGE_EXTENSIONS[] = {".png", ".PNG"};
+constexpr std::array<const char*, 2> IMAGE_EXTENSIONS{".png", ".PNG"};
 
 // Ajoute une ligne pour un type, en y reportant son assignation courante si elle existe.
 void appendRow(std::vector<SkinRow>& rows, const SkinCatalog& catalog, std::string_view setName,
@@ -71,13 +75,12 @@ std::vector<std::string> listSkinAssets(const std::filesystem::path& skinsDirect
             continue;
         }
         const std::string extension = entry.path().extension().string();
-        if (std::find(std::begin(IMAGE_EXTENSIONS), std::end(IMAGE_EXTENSIONS), extension) ==
-            std::end(IMAGE_EXTENSIONS)) {
+        if (std::ranges::find(IMAGE_EXTENSIONS, extension) == std::end(IMAGE_EXTENSIONS)) {
             continue;
         }
         assets.push_back(entry.path().filename().string());
     }
-    std::sort(assets.begin(), assets.end());
+    std::ranges::sort(assets);
     return assets;
 }
 
@@ -90,7 +93,7 @@ void applySkinAssignment(SkinCatalog& catalog, std::string_view setName, core::T
         catalog.clearAssignment(set, type);
         return;
     }
-    catalog.assign(set, type, SkinEntry{asset, mode});
+    catalog.assign(set, type, SkinEntry{.asset = asset, .mode = mode});
 }
 
 }  // namespace hmi

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "Core/Levels/LevelWriter.h"
 
 #include <fstream>
@@ -7,6 +10,7 @@
 
 #include <nlohmann/json.hpp>
 
+#include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Levels/TileTypeName.h"
@@ -15,18 +19,55 @@ namespace core {
 
 namespace {
 
-// Vrai pour les tuiles "déclencheur" liables à une porte (interrupteur ou plaque de pression,
-// EX-GP-020/EX-GP-025) : les deux partagent la même règle d'identifiant (LevelLoader.cpp).
+// Vrai pour les tuiles "déclencheur" liables à une cible (interrupteur, plaque de pression ou
+// clé, EX-GP-020/EX-GP-025/EX-GP-023) : toutes partagent la même règle d'identifiant
+// (LevelLoader.cpp).
 [[nodiscard]] bool isTriggerType(TileType type) {
-    return type == TileType::Switch || type == TileType::PressurePlate;
+    return type == TileType::Switch || type == TileType::PressurePlate || type == TileType::Key;
+}
+
+// Vrai pour les tuiles "cible" d'une liaison de mécanisme (porte classique ou porte verrouillée) :
+// les deux se résolvent depuis le même vecteur `mechanisms` (LevelLoader.cpp), écrivent le même
+// champ 'opensWith'.
+[[nodiscard]] bool isDoorLikeType(TileType type) {
+    return type == TileType::Door || type == TileType::LockedDoor;
+}
+
+// Nom JSON d'un PlaneDepth (LOT-69, EX-DEC-042), symétrique à parsePlaneDepth (LevelLoader.cpp).
+// La profondeur par défaut (Behind) n'est jamais écrite (voir buildJson) : ce nom ne sert donc en
+// pratique que pour Front, mais le switch reste exhaustif pour que l'ajout d'une valeur soit
+// signalé par le compilateur.
+[[nodiscard]] const char* planeDepthName(PlaneDepth depth) {
+    switch (depth) {
+        case PlaneDepth::Behind:
+            return "behind";
+        case PlaneDepth::Front:
+            return "front";
+    }
+    return "behind";
+}
+
+// Nom JSON d'un PlatformPathMode (LOT-67, EX-GP-026), symétrique à parsePlatformPathMode
+// (LevelLoader.cpp). Le mode par défaut n'est jamais écrit (voir buildJson) : ce nom ne sert que
+// pour un circuit fermé, mais reste exhaustif pour rester symétrique du parseur.
+[[nodiscard]] const char* platformPathModeName(PlatformPathMode mode) {
+    switch (mode) {
+        case PlatformPathMode::PingPong:
+            return "pingpong";
+        case PlatformPathMode::Loop:
+            return "loop";
+    }
+    return "pingpong";
 }
 
 }  // namespace
 
 std::string LevelWriter::toJsonString(const Level& level) {
-    return buildJson(level.name(), level.tileMap(), level.mechanisms(), level.jumpBudget(),
-                     level.dashBudget(), level.dangerLinks(), level.moverConfigs(),
-                     level.blinkConfigs());
+    return buildJson(
+        level.name(), level.tileMap(), level.mechanisms(), level.jumpBudget(), level.dashBudget(),
+        level.dangerLinks(), level.moverConfigs(), level.blinkConfigs(), level.background(),
+        level.skinSet(), level.textureOverrides(), level.platformConfigs(), level.cameraFraming(),
+        level.airJumps(), level.dashCharges(), level.planes(), level.parallaxEnabled());
 }
 
 bool LevelWriter::saveToFile(const Level& level, const std::filesystem::path& path) {
@@ -39,12 +80,18 @@ bool LevelWriter::saveToFile(const Level& level, const std::filesystem::path& pa
     return file.good();
 }
 
-std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileMap,
-                                   const std::vector<Mechanism>& mechanisms, int jumpBudget,
-                                   int dashBudget, const std::vector<DangerLink>& dangerLinks,
-                                   const std::vector<DangerMoverConfig>& moverConfigs,
-                                   const std::vector<DangerBlinkConfig>& blinkConfigs) {
+std::string LevelWriter::buildJson(
+    const std::string& name, const TileMap& tileMap, const std::vector<Mechanism>& mechanisms,
+    int jumpBudget, int dashBudget, const std::vector<DangerLink>& dangerLinks,
+    const std::vector<DangerMoverConfig>& moverConfigs,
+    const std::vector<DangerBlinkConfig>& blinkConfigs,
+    const std::optional<std::string>& background, const std::optional<std::string>& skinSet,
+    const std::vector<TileTextureOverride>& textureOverrides,
+    const std::vector<MovingPlatformConfig>& platformConfigs,
+    const CameraFramingConfig& cameraFraming, const std::optional<int>& airJumps,
+    const std::optional<int>& dashCharges, const std::vector<Plane>& planes, bool parallaxEnabled) {
     nlohmann::json root;
+    root["version"] = kLevelFormatVersion;
     root["name"] = name;
     root["width"] = tileMap.width();
     root["height"] = tileMap.height();
@@ -53,6 +100,47 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
     }
     if (dashBudget != -1) {
         root["dashBudget"] = dashBudget;
+    }
+    // Capacites du tableau (EX-GP-055), a distinguer des budgets ci-dessus : omises quand le
+    // niveau s'en remet aux reglages du moteur.
+    if (airJumps) {
+        root["airJumps"] = *airJumps;
+    }
+    if (dashCharges) {
+        root["dashCharges"] = *dashCharges;
+    }
+    if (background) {
+        root["background"] = *background;
+    }
+    if (skinSet) {
+        root["skinSet"] = *skinSet;
+    }
+    // Cadrage de camera (EX-LVL-006, LOT-64) : omis quand il coincide avec ce que la regle de
+    // repli recalculerait pour ces dimensions -- meme convention "omis si defaut" que jumpBudget/
+    // dashBudget/background/skinSet ci-dessus, condition necessaire pour qu'un niveau jamais
+    // retouche sur ce point reste sans le champ apres un aller-retour editeur.
+    if (cameraFraming != resolveCameraFraming(std::nullopt, tileMap.width(), tileMap.height())) {
+        nlohmann::json framingJson;
+        framingJson["mode"] = std::string(cameraFramingModeName(cameraFraming.mode));
+        if (cameraFraming.roomWidthTiles) {
+            framingJson["roomWidthTiles"] = *cameraFraming.roomWidthTiles;
+        }
+        if (cameraFraming.roomHeightTiles) {
+            framingJson["roomHeightTiles"] = *cameraFraming.roomHeightTiles;
+        }
+        if (!cameraFraming.zones.empty()) {
+            nlohmann::json zonesJson = nlohmann::json::array();
+            for (const CameraZone& zone : cameraFraming.zones) {
+                nlohmann::json zoneJson;
+                zoneJson["x"] = zone.x;
+                zoneJson["y"] = zone.y;
+                zoneJson["width"] = zone.width;
+                zoneJson["height"] = zone.height;
+                zonesJson.push_back(std::move(zoneJson));
+            }
+            framingJson["zones"] = std::move(zonesJson);
+        }
+        root["cameraFraming"] = std::move(framingJson);
     }
 
     // Identifiants de déclencheurs (interrupteur ou plaque de pression) régénérés de façon
@@ -85,12 +173,11 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
     // schéma que doorOpensWith ci-dessus.
     std::map<std::pair<int, int>, std::string> dangerOpensWith;
     for (const DangerLink& link : dangerLinks) {
-        const auto found = switchIds.find(
-            std::make_pair(link.triggerPosition.column, link.triggerPosition.row));
+        const auto found =
+            switchIds.find(std::make_pair(link.triggerPosition.column, link.triggerPosition.row));
         if (found != switchIds.end()) {
             dangerOpensWith.emplace(
-                std::make_pair(link.dangerPosition.column, link.dangerPosition.row),
-                found->second);
+                std::make_pair(link.dangerPosition.column, link.dangerPosition.row), found->second);
         }
     }
 
@@ -104,6 +191,21 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
     for (const DangerBlinkConfig& config : blinkConfigs) {
         blinkByPosition.emplace(std::make_pair(config.position.column, config.position.row),
                                 config);
+    }
+    // Position de plateforme mobile -> configuration explicite, si posee (EX-GP-026), meme schema
+    // que moverByPosition/blinkByPosition ci-dessus.
+    std::map<std::pair<int, int>, MovingPlatformConfig> platformByPosition;
+    for (const MovingPlatformConfig& config : platformConfigs) {
+        platformByPosition.emplace(
+            std::make_pair(config.startPosition.column, config.startPosition.row), config);
+    }
+
+    // Position -> nom d'asset de la texture assignee par instance (EX-EDIT-043), independamment
+    // du type de la tuile a cette position.
+    std::map<std::pair<int, int>, std::string> textureOverrideByPosition;
+    for (const TileTextureOverride& override : textureOverrides) {
+        textureOverrideByPosition.emplace(
+            std::make_pair(override.position.column, override.position.row), override.assetName);
     }
 
     nlohmann::json tiles = nlohmann::json::array();
@@ -122,7 +224,7 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
                 if (found != switchIds.end()) {
                     tile["id"] = found->second;
                 }
-            } else if (type == TileType::Door) {
+            } else if (isDoorLikeType(type)) {
                 const auto found = doorOpensWith.find(std::make_pair(column, row));
                 if (found != doorOpensWith.end()) {
                     tile["opensWith"] = found->second;
@@ -135,8 +237,8 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
             } else if (type == TileType::DangerMover) {
                 const auto found = moverByPosition.find(std::make_pair(column, row));
                 if (found != moverByPosition.end()) {
-                    tile["axis"] = found->second.axis == DangerMoverAxis::Vertical ? "vertical"
-                                                                                   : "horizontal";
+                    tile["axis"] =
+                        found->second.axis == DangerMoverAxis::Vertical ? "vertical" : "horizontal";
                     tile["range"] = found->second.range;
                 }
             } else if (type == TileType::DangerBlink) {
@@ -146,11 +248,75 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
                     tile["phase"] = found->second.phase;
                     tile["activeDuration"] = found->second.activeDuration;
                 }
+            } else if (type == TileType::MovingPlatform) {
+                const auto found = platformByPosition.find(std::make_pair(column, row));
+                if (found != platformByPosition.end()) {
+                    // Route multi-points (LOT-67) : "waypoints" remplace le couple endX/endY, que
+                    // le chargeur accepte encore mais que l'editeur ne reecrit jamais. Omis quand
+                    // la route est vide (plateforme immobile), comme "mode" quand il vaut le
+                    // defaut -- meme convention "omis si defaut" que les champs racine.
+                    if (!found->second.waypoints.empty()) {
+                        nlohmann::json waypointsJson = nlohmann::json::array();
+                        for (const GridPosition& waypoint : found->second.waypoints) {
+                            nlohmann::json waypointJson;
+                            waypointJson["x"] = waypoint.column;
+                            waypointJson["y"] = waypoint.row;
+                            waypointsJson.push_back(std::move(waypointJson));
+                        }
+                        tile["waypoints"] = std::move(waypointsJson);
+                    }
+                    if (found->second.mode != PlatformPathMode::PingPong) {
+                        tile["mode"] = std::string(platformPathModeName(found->second.mode));
+                    }
+                    tile["speed"] = found->second.speed;
+                    tile["phase"] = found->second.phase;
+                }
+            }
+            // Texture assignee par instance (EX-EDIT-043) : independante du type, peut
+            // accompagner n'importe quel champ ci-dessus.
+            const auto overrideFound = textureOverrideByPosition.find(std::make_pair(column, row));
+            if (overrideFound != textureOverrideByPosition.end()) {
+                tile["texture"] = overrideFound->second;
             }
             tiles.push_back(std::move(tile));
         }
     }
     root["tiles"] = std::move(tiles);
+
+    // Tableau racine optionnel "planes" (EX-DEC-040, LOT-69), omis si vide : l'ordre du vecteur
+    // est preserve (rang = superposition). Chaque champ a sa valeur par defaut est omis, comme
+    // partout ailleurs dans ce format (convention du LOT-67) -- un plan solidaire du niveau a
+    // densite native ne produit donc qu'un seul champ, "file".
+    if (!planes.empty()) {
+        nlohmann::json planesJson = nlohmann::json::array();
+        for (const Plane& plane : planes) {
+            nlohmann::json entry;
+            entry["file"] = plane.fileName;
+            if (plane.pixelsPerUnit != PLANE_NATIVE_PIXELS_PER_UNIT) {
+                entry["pixelsPerUnit"] = plane.pixelsPerUnit;
+            }
+            if (plane.parallaxX != 1.0F) {
+                entry["parallaxX"] = plane.parallaxX;
+            }
+            // parallaxY n'est ecrit que s'il differe de parallaxX : le chargeur le fait retomber
+            // sur ce dernier, ecrire les deux quand ils sont egaux serait du bruit.
+            if (plane.parallaxY != plane.parallaxX) {
+                entry["parallaxY"] = plane.parallaxY;
+            }
+            if (plane.opacity != 1.0F) {
+                entry["opacity"] = plane.opacity;
+            }
+            if (plane.depth != PlaneDepth::Behind) {
+                entry["depth"] = planeDepthName(plane.depth);
+            }
+            planesJson.push_back(std::move(entry));
+        }
+        root["planes"] = std::move(planesJson);
+    }
+    // Drapeau de parallaxe (EX-DEC-043) : omis a sa valeur par defaut (true).
+    if (!parallaxEnabled) {
+        root["parallax"] = false;
+    }
 
     return root.dump();
 }

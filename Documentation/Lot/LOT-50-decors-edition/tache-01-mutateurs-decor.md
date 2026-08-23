@@ -1,6 +1,6 @@
 # TACHE-01 — Mutateurs de décors sur `LevelDraft` {#lot-50-tache-01-mutateurs-decor}
 
-**Lot :** [LOT-50](epic.md) · **Emplacement :** `Source/Core/Levels` · **Statut :** non commencé
+**Lot :** [LOT-50](epic.md) · **Emplacement :** `Source/Core/Levels` · **Statut :** fait
 
 ## Contexte
 LOT-49 a posé le modèle et deux opérations : ajouter, supprimer. Manipuler un décor en demande

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Editor/LevelFileOperations.h"
 
 #include <algorithm>
@@ -51,11 +54,17 @@ std::vector<std::filesystem::path> LevelFileOperations::list() const {
     }
     for (const std::filesystem::directory_entry& entry :
          std::filesystem::directory_iterator(_dir, error)) {
-        if (entry.is_regular_file(error) && entry.path().extension() == ".json") {
+        // "sequence-" est un préfixe réservé aux fichiers de séquence de contenu (LOT-59
+        // TACHE-04, sequence-demo.json, EX-LVL-013), qui vivent volontairement à côté des niveaux
+        // (le chargeur y vérifie que chaque niveau référencé existe dans le même dossier) sans en
+        // être un : les exclure évite qu'ils apparaissent comme un niveau ouvrable dans ce
+        // panneau (le format ne correspond pas, l'ouverture échouerait).
+        if (entry.is_regular_file(error) && entry.path().extension() == ".json" &&
+            entry.path().filename().string().rfind("sequence-", 0) != 0) {
             levels.push_back(entry.path());
         }
     }
-    std::sort(levels.begin(), levels.end(), [](const auto& lhs, const auto& rhs) {
+    std::ranges::sort(levels, [](const auto& lhs, const auto& rhs) {
         return lhs.filename().string() < rhs.filename().string();
     });
     return levels;
@@ -123,7 +132,7 @@ FileOpResult LevelFileOperations::duplicate(const std::filesystem::path& source)
     return writeRenamed(source, candidate, pathForName(candidate));
 }
 
-FileOpResult LevelFileOperations::remove(const std::filesystem::path& source) const {
+FileOpResult LevelFileOperations::remove(const std::filesystem::path& source) {
     std::error_code error;
     if (!std::filesystem::exists(source, error)) {
         return FileOpResult::failure("Niveau introuvable.");

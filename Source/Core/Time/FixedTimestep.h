@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 /**
@@ -23,7 +26,8 @@ public:
     /**
      * @brief Construit un cadenceur.
      * @param fixedDeltaSeconds   Durée d'un pas de simulation, en secondes (défaut : 1/60).
-     * @param maximumStepsPerCall Nombre maximal de pas restitués par appel à advance() (anti-spirale).
+     * @param maximumStepsPerCall Nombre maximal de pas restitués par appel à advance()
+     * (anti-spirale).
      */
     explicit FixedTimestep(float fixedDeltaSeconds = 1.0f / 60.0f, int maximumStepsPerCall = 5);
 

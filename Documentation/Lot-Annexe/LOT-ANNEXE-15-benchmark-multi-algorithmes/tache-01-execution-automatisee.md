@@ -78,9 +78,10 @@ question, brique de base du harnais de `LOT-ANNEXE-15`.
   mêmes nombres de pas, répétition par répétition).
 - **Graines dérivées distinctes** : `deriveSeed(base, i) != deriveSeed(base, j)` pour `i != j`, sur
   un échantillon de valeurs (test direct de la fonction de dérivation).
-- **Modèle évolutionniste : variance nulle** : sur `EvolutionaryTrainedPolicy` (`ActionDecodingMode
-  ::Argmax` uniquement), les `N` répétitions d'un même modèle sur un même niveau sont **strictement
-  identiques** (même issue, même nombre de pas) — sert de garde de cohérence croisée avec la
+- **Modèle évolutionniste : variance nulle** : sur `EvolutionaryTrainedPolicy`
+  (`ActionDecodingMode::Argmax` uniquement), les `N` répétitions d'un même modèle sur un même
+  niveau sont **strictement identiques** (même issue, même nombre de pas) — sert de garde de
+  cohérence croisée avec la
   décision de cadrage de `LOT-ANNEXE-10`.
 - **Politique stochastique simulée** : sur un `TrainedPolicy` factice à comportement aléatoire connu
   (ex. une « pièce » biaisée simulée pour le choix d'action), le `successRate()` mesuré sur un grand
@@ -92,9 +93,9 @@ question, brique de base du harnais de `LOT-ANNEXE-15`.
 - **Troncature sans boucle infinie** : un `TrainedPolicy` factice qui ne termine jamais le niveau est
   correctement arrêté à `maxStepsPerEpisode`, comptabilisé en timeout (`LevelOutcome::Playing` à la
   coupure), sans dépassement.
-- **Refus explicite du mode `Stochastic` pour l'évolutionniste** : `EvolutionaryTrainedPolicy
-  ::selectAction(..., ActionDecodingMode::Stochastic, ...)` signale une erreur récupérable
-  (`EX-NFR-040`), ne plante pas.
+- **Refus explicite du mode `Stochastic` pour l'évolutionniste** :
+  `EvolutionaryTrainedPolicy::selectAction(..., ActionDecodingMode::Stochastic, ...)` signale une
+  erreur récupérable (`EX-NFR-040`), ne plante pas.
 - **Intégration (niveau réel)** : sur un petit niveau JSON de test avec une politique scriptée
   triviale connue pour réussir à tous les coups, `BenchmarkResult::successRate() == 1.0`.
 

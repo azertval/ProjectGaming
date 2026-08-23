@@ -27,50 +27,46 @@ l'écran finit de rafraîchir l'image précédente, ce qui s'appelle la **synchr
 l'écran, au prix d'attendre ce moment si le jeu est plus rapide que l'écran. L'ensemble
 « back buffer(s) + mécanisme d'échange » s'appelle une **swap chain**.
 
-## \ref hmi::GraphicsDevice "hmi::GraphicsDevice" : initialiser Direct3D 11 et présenter l'image
+## QRhi : une couche d'accès au GPU, pas un changement de cible
 
-**Direct3D 11** est l'API bas niveau, fournie par Windows, qui permet de piloter le GPU (créer des
-ressources, envoyer des commandes de dessin, présenter l'image). `hmi::GraphicsDevice` encapsule les
-trois objets fondamentaux que Direct3D 11 expose pour cela :
+Depuis le `LOT-69` TACHE-02, le projet ne parle plus à Direct3D 11 directement : il passe par
+**QRhi**, la couche d'abstraction de rendu de Qt. La cible technique ne change pas — QRhi retient
+Direct3D 11 par défaut sous Windows (`EX-REN-002`, amendée) — mais le device, la *swap chain* et la
+présentation appartiennent désormais à Qt. La classe qui les portait a été **supprimée** plutôt que
+portée : elle n'avait plus rien à porter.
 
-- le **device** (`ID3D11Device`) : sert à **créer** des ressources GPU (textures, shaders,
-  buffers) — il ne dessine rien lui-même ;
-- le **contexte immédiat** (`ID3D11DeviceContext`) : sert à **émettre les commandes** de dessin
-  effectives (« dessine ces triangles avec cette texture ») ;
-- la **swap chain** (`IDXGISwapChain`) : gère le back buffer et la présentation décrite ci-dessus.
+Ce que le projet conserve en propre :
 
-`GraphicsDevice` les initialise à la construction (à partir du `HWND` — le handle natif Win32 de la
-fenêtre, voir plus bas), expose `clear(r, g, b, a)` (remplir tout le back buffer d'une couleur
-unie, l'étape qui précède tout dessin d'une frame — sans elle, chaque frame réafficherait par-dessus
-les pixels de la précédente), `present()` (échanger front/back buffer, avec V-Sync), et `resize(w,
-h)` (recréer les buffers à une nouvelle taille, nécessaire quand la fenêtre change de dimensions —
-les buffers de la swap chain ont une taille fixe, ils ne « s'étirent » pas automatiquement).
+- `hmi::SpriteBatch` : le pipeline 2D (tampons de sommets et d'indices, tampon uniforme,
+  échantillonneur, états de mélange) et l'émission des lots de dessin ;
+- `hmi::TextureLoader` : la création des textures GPU à partir de pixels décodés ;
+- les **shaders**, écrits une fois en GLSL et compilés en `.qsb` par l'outil `qsb` — un `.qsb`
+  contient plusieurs traductions (SPIR-V, HLSL, MSL), ce qui permet à QRhi de choisir son backend à
+  l'exécution sans que le projet livre un shader par API.
 
-Toutes les ressources Direct3D sont détenues via `Microsoft::WRL::ComPtr` (un pointeur intelligent
-pour les objets **COM**, le mécanisme de gestion d'objets utilisé par les API Windows historiques) :
-leur libération est automatique à la destruction, exactement comme un `std::unique_ptr` pour de la
-mémoire ordinaire — c'est ce qui permet à `GraphicsDevice` de n'avoir aucun destructeur explicite à
-écrire (`~GraphicsDevice() = default`).
+Deux contraintes de QRhi façonnent le code, et méritent d'être connues avant de le lire :
 
-La swap chain utilise le **modèle de présentation flip** (`DXGI_SWAP_EFFECT_FLIP_DISCARD`, avec deux
-back buffers — `EX-REN-004`, `LOT-33`) plutôt que l'ancien modèle *blt* (`DISCARD`, un seul buffer).
-Sous Windows 10/11, le flip model présente le back buffer **directement** au compositeur (DWM), sans
-la copie supplémentaire qu'imposait le modèle *blt* : moins de latence entre l'entrée du joueur et
-l'image affichée, et une cadence plus régulière — y compris V-Sync activée. En contrepartie, `Present`
-**dé-lie** la cible de rendu du back buffer à chaque frame ; `GraphicsDevice::clear()` la relie donc
-(`OMSetRenderTargets`) en tête de chaque frame, avant tout dessin.
+1. **Un téléversement ne se déclare pas pendant une passe de rendu.** Les données (sommets,
+   pixels de texture) transitent par un `QRhiResourceUpdateBatch`, soumis **avant** l'ouverture de
+   la passe. `hmi::SpriteBatch` enregistre donc toute l'image côté CPU, puis téléverse une fois et
+   dessine — au lieu de réécrire son tampon entre deux appels de dessin comme le permettait
+   Direct3D 11.
+2. **L'espace de clip du shader est celui d'OpenGL**, quelle que soit la cible : la matrice de
+   projection est multipliée par `QRhi::clipSpaceCorrMatrix()`, qui la ramène à la convention du
+   backend retenu.
 
 ## La surface de dessin : le viewport Qt (`hmi::GameViewport`)
 
-Direct3D a besoin d'une surface Windows où dessiner. Depuis la refonte Qt (@ref guide-ihm-qt), cette
-surface est un **`QWindow` natif** embarqué, `hmi::GameViewport` : Qt en fournit le handle natif
-(`HWND`, littéralement « *handle to a window* », l'identifiant opaque que Windows utilise pour
-désigner une fenêtre) via `QWindow::winId()` — c'est ce `HWND` que `GraphicsDevice` reçoit à sa
-construction pour savoir *où* dessiner, et sur lequel la swap chain présente **directement** (aucun
-`QBackingStore`).
+Depuis le `LOT-69` TACHE-02, le viewport est un **`QRhiWidget`** : un widget ordinaire, qui rend
+dans une texture d'appui composée avec le reste de l'interface. Il n'y a plus de fenêtre native
+embarquée, donc plus de `HWND` à transmettre, et surtout plus la limitation qui l'accompagnait — un
+widget Qt ne se dessinait jamais de façon fiable par-dessus une fenêtre native, ce qui avait coûté
+deux défauts réels au `LOT-59` (écran de pause invisible, puis vol de focus). Les recouvrements du
+jeu sont redevenus de simples widgets enfants.
 
-Le viewport a une seconde responsabilité : il possède l'**event loop** de rendu (tick cadencé par
-`QEvent::UpdateRequest`) et traduit les événements clavier/souris **Qt** en `hmi::InputState` (@ref
+Le viewport a une seconde responsabilité : il possède la **boucle de rendu** (chaque image
+redemande la suivante par `QWidget::update()`, et `QRhiWidget::render` l'exécute) et traduit les
+événements clavier/souris **Qt** en `hmi::InputState` (@ref
 guide-entrees) — c'est pour cela que la capture d'entrée vit au même endroit que le rendu, plutôt que
 dans un module totalement séparé.
 
@@ -88,10 +84,12 @@ quoi que ce soit ; c'est le rôle de `hmi::Camera2D`. Deux paramètres gouvernen
   contours voulue par ce style visuel.
 
 La caméra a aussi un **centre** (`setCenter`, en unités monde) : le point qui apparaît au milieu de
-l'écran. Ni le jeu (`GameSession`) ni l'éditeur (mode édition du viewport) ne font suivre ce centre en continu au personnage
-(`EX-REN-013`) : il est recalculé par **cadrage**, sur le milieu du contenu à englober — le niveau
-entier dans l'éditeur, ou la **salle courante** en jeu si le niveau en compte plusieurs (voir
-ci-dessous). `projectionMatrix()` combine centre, échelle
+l'écran. L'éditeur (mode édition du viewport) ne fait jamais suivre ce centre en continu au
+personnage : il cadre toujours le niveau entier, avec pan/zoom manuel (`EX-EDIT-013`). En jeu, le
+centre est recalculé par **cadrage**, selon le mode choisi par le niveau (`EX-REN-016`, trois
+modes détaillés ci-dessous) : le milieu du niveau entier, celui de la **salle courante**, ou un
+suivi continu du personnage — le seul des trois qui fait effectivement bouger le centre à chaque
+pas. `projectionMatrix()` combine centre, échelle
 et dimensions de la fenêtre (le *viewport*) en une **matrice de projection orthographique** : une
 transformation mathématique standard en rendu 2D/3D qui convertit une position monde en position
 « clip » — l'espace normalisé que le GPU attend en sortie du *vertex shader* (voir plus bas). C'est
@@ -116,6 +114,100 @@ seule salle retombe exactement sur le cadrage « niveau entier » de LOT-16, san
 `RoomGrid` produit alors une unique salle couvrant le niveau. L'éditeur, lui, garde son cadrage
 « niveau entier » avec pan/zoom manuel (`EX-EDIT-013`) — seul un quadrillage superposé (`F10`)
 indique les frontières de salles, sans changer sa caméra (@ref guide-editeur).
+
+### Le cadrage choisi par le niveau : trois modes (`LOT-64`)
+
+Avant `LOT-64`, le choix entre « niveau entier » et « par salle » ci-dessus était une règle **unique
+et en dur**, déduite des dimensions du niveau (tient dans une salle ou non) — invisible depuis
+l'éditeur, et sans échappatoire pour un niveau qui aurait voulu l'un ou l'autre indépendamment de sa
+taille. `core::CameraFramingConfig` (`Source/Core/Levels/CameraFraming.h`) en fait une **donnée du
+niveau** (`EX-LVL-006`), au même titre que ses tuiles : trois modes, `WholeLevel`, `PerRoom` et
+`Follow` (`EX-REN-016`), choisis par le level designer dans la section « Cadrage » de l'éditeur (@ref
+guide-editeur), pas déduits.
+
+**Règle de repli** (`core::resolveCameraFraming`) : un niveau qui ne déclare aucun champ
+`cameraFraming` — tous les niveaux antérieurs à ce lot — se comporte **exactement** comme avant :
+`WholeLevel` s'il tient dans une salle de taille par défaut, `PerRoom` sinon. C'est le seul endroit
+qui incarne cette règle ; ni `hmi::GameSession` ni l'éditeur ne la recalculent — ils lisent toujours
+un cadrage déjà **résolu** (`core::Level::cameraFraming()`), jamais un champ « peut-être absent ».
+La taille de salle du mode *par salle* est elle-même réglable par niveau
+(`core::CameraFramingConfig::roomWidthTiles` et `roomHeightTiles`) ; `hmi::RoomGrid::ROOM_WIDTH_TILES`/`ROOM_HEIGHT_TILES`
+(`LOT-32`) n'en restent que la valeur par défaut, `RoomGrid` recevant désormais la taille en
+paramètre de construction plutôt que de la connaître en dur.
+
+**Le mode `Follow`** (`hmi::FollowCamera.h`) est le seul des trois qui manquait réellement au
+moteur : les deux autres ne faisaient qu'exposer une règle qui existait déjà. Il accompagne le
+personnage avec quatre mécanismes combinés, chacun répondant à un défaut connu de cette famille de
+caméra :
+
+- une **zone morte** (`FOLLOW_DEAD_ZONE_HALF_WIDTH_UNITS`/`HEIGHT_UNITS`) : le personnage se déplace
+  librement dans un petit rectangle centré sur le point suivi (l'**ancre**) sans faire bouger la
+  caméra ; l'ancre elle-même ne se déplace que lorsque le personnage sort de ce rectangle, tout
+  juste assez pour l'y ramener au bord — c'est ce qui supprime le tremblement permanent d'une
+  caméra qui collerait exactement à la position du personnage ;
+- une **anticipation** (`FOLLOW_ANTICIPATION_DISTANCE_UNITS`) : le centre visé est décalé devant le
+  personnage, dans le sens de son déplacement (`core::Player::facing`), pour qu'on voie où l'on va.
+  Ce décalage s'**inverse progressivement** au changement de sens (son propre lissage exponentiel,
+  `FOLLOW_ANTICIPATION_TIME_CONSTANT_SECONDS`), jamais d'un coup — une inversion instantanée donne
+  le mal de mer ;
+- un **lissage** exponentiel (`FOLLOW_SMOOTHING_TIME_CONSTANT_SECONDS`) vers ce centre visé, à temps
+  de réponse **constant** (indépendant du pas) : `centre += (cible − centre) × (1 − e^(−dt/τ))` ;
+- un **bornage** aux limites du niveau : la caméra ne montre jamais hors de la grille. Le cas
+  particulier — un niveau plus étroit que le cadrage sur un axe — **centre** la caméra sur cet axe
+  plutôt que de la border, sinon elle resterait collée à un bord en permanence.
+
+`hmi::advanceFollowCamera` est une **fonction pure** (aucune horloge système, aucune dépendance
+GPU), testée exhaustivement sans GPU (`Source/Test/Unit/HMI/Graphics/test_follow_camera.cpp`) —
+même statut que `hmi::RoomGrid`/`hmi::Parallax`. Elle avance l'état d'un pas et renvoie un nouveau
+centre déjà borné ; deux pièges, propres à cette famille de caméra, méritent d'être nommés :
+
+1. **Le lissage doit être cadencé sur le pas fixe, jamais sur la fréquence de rendu**
+   (`EX-REN-021`) : `hmi::GameSession::updateFollowCamera` avance l'état une seule fois par pas de
+   simulation, avec `fixedDelta` — jamais avec un delta de frame. Une caméra lissée par image se
+   comporterait différemment à 60 et à 144 Hz, un défaut de déterminisme visuel classique de cette
+   architecture à pas fixe découplé du rendu (@ref guide-boucle).
+2. **Le centre de caméra doit lui-même être interpolé au rendu**, exactement comme une entité
+   portant `hmi::PreviousPosition` (section précédente) : `GameSession::applyCameraFraming` calcule
+   `lerp(centre du pas précédent, centre du pas courant, alpha)` avant d'appeler `setCenter`. Sans
+   cette étape, le personnage — rendu lisse par interpolation — semblerait **trembler** par rapport
+   à un décor calé sur un centre de caméra qui ne bouge que par sauts discrets, une fois par pas
+   fixe. C'est le prolongement direct du mécanisme déjà en place pour les entités mobiles : la
+   caméra de suivi est, elle aussi, une position qui change au pas fixe et doit donc, elle aussi,
+   être interpolée pour l'affichage.
+
+Le centre finalement retenu est **aligné sur la grille de pixels** à l'échelle de rendu courante
+(`hmi::roundToScreenPixel`, la même fonction que la parallaxe des plans ci-dessous), **après**
+l'interpolation ci-dessus : un centre fractionnaire échantillonnerait chaque texture entre deux
+texels et ruinerait la netteté du pixel art que tout le projet protège depuis le `LOT-05`. Le zoom
+reste **entier** dans les trois modes (`EX-ARCH-022`), calculé par la même `Camera2D::fitZoom` que
+les deux autres modes, appliquée à une surface de référence — la taille de vue du mode suivi
+(`EX-REN-017`, voir ci-dessous), faute de rectangle de contenu naturel à ajuster.
+
+### Mélanger plusieurs tailles de caméra : zones dessinées à la main et taille de suivi réglable (`EX-LVL-007`, `EX-REN-017`)
+
+La grille automatique du mode *par salle* ci-dessus impose une **seule** taille de salle pour tout
+le niveau. `core::CameraFramingConfig::zones` (une liste de `core::CameraZone`, rectangles en
+tuiles) lève cette limite : un niveau peut porter des zones de caméra de tailles **différentes**,
+dessinées par le level designer directement sur le canevas de l'éditeur (@ref guide-editeur) plutôt
+que calculées. Liste vide par défaut : sans zone dessinée, le comportement de grille automatique
+décrit plus haut reste **inchangé**, `zones` n'étant qu'une donnée optionnelle en plus, jamais une
+modification du calcul par défaut.
+
+`hmi::activeCameraZoneIndex` (`Source/HMI/Graphics/CameraZones.h`, fonction pure, sans GPU) résout
+la zone active : la **première** zone de la liste dont le rectangle contient la position du
+personnage (bornes hautes/gauches incluses, basses/droites exclues) l'emporte — même convention
+de priorité par ordre que la superposition des plans picturaux (@ref guide-editeur). Aucune zone ne
+contient le personnage (trou entre deux zones dessinées) → repli sur le **niveau entier**, jamais
+un état indéfini. `hmi::GameSession` résout la zone active au chargement et à chaque bascule,
+exactement comme elle résout déjà la salle active de la grille automatique
+(`RoomGrid::roomIndexAt`) ; les deux mécanismes ne coexistent jamais pour un même niveau, le choix
+entre l'un et l'autre se faisant simplement sur `zones.empty()`.
+
+Le mode `Follow` réutilise les **mêmes champs** que la taille de salle du mode *par salle*
+(`roomWidthTiles`/`roomHeightTiles`) pour sa propre taille de vue, plutôt que de retenir en dur la
+taille de salle par défaut : un niveau qui veut un suivi plus large ou plus étroit que cette
+valeur par défaut le déclare, sans champ dédié supplémentaire — même donnée, deux usages
+(`core::validateCameraFramingConfig` l'accepte pour les deux modes).
 
 ## Le pipeline de dessin de sprites : \ref hmi::SpriteBatch "hmi::SpriteBatch"
 
@@ -258,6 +350,45 @@ personnage sa proportion finale deux fois plus haute que large. Une région déj
 donc dessinée **pré-compressée** de moitié en hauteur dans son canevas carré, pour retrouver ses
 proportions naturelles une fois étirée par l'échelle du `Transform`.
 
+Cette contrainte (région carrée + pré-compression) reste **exacte pour ce chemin précis** : l'atlas
+procédural, utilisé tel quel en `RenderMode::Physique` et comme repli de `RenderMode::Texture` en
+l'absence de spritesheet externe (`core::Sprite::region`/`Transform::scale`, **inchangés** depuis
+avant `LOT-48`). Elle ne s'applique plus à la spritesheet externe du personnage — voir la section
+suivante.
+
+### `LOT-48` : spritesheet externe et découplage image/hitbox
+
+Le personnage était le seul sprite du jeu resté hors du programme d'habillage (`LOT-40` → `LOT-47`)
+: en `RenderMode::Texture`, faute de `hmi::TileSkinTag` (réservé aux tuiles), il retombait sur le
+damier magenta. `hmi::PlayerSpriteTag` (`HMI/Graphics/PlayerSpriteTag.h`) referme cet écart par un
+mécanisme **dédié**, parallèle à `hmi::resolveTileAppearance` plutôt que branché dessus (le
+personnage n'est pas une tuile) : `hmi::composeWorldSprites` reconnaît l'entité qui porte ce
+composant et l'affiche selon son quad et sa texture **résolus**, en `RenderMode::Texture`
+uniquement — `RenderMode::Physique` continue de lire `core::Sprite::region`/`Transform::scale`
+exactement comme avant.
+
+`GameSession::refreshPlayerSprite()` résout, chaque image :
+
+1. La **spritesheet** (`Assets/Player/player.png`, `hmi::AssetFamily::CharacterSheet`), chargée par
+   le `TextureCache` avec sa description `player.anim.json` (même format que `LOT-46`) ; absente ou
+   invalide, repli sur l'atlas procédural — `hmi::PlayerSpriteTag::usesCharacterSheet` indique
+   laquelle des deux textures lier.
+2. Le **clip à afficher** : `core::AnimationSystem` résout un nom parmi sept (`idle`, `run`, `jump`,
+   `fall`, `land`, `wallslide`, `dash`, voir plus bas) ; ni la spritesheet ni l'atlas procédural
+   (qui n'en connaît que trois) n'ont à tous les fournir — `hmi::resolveDeclaredPlayerClip` fait
+   retomber un clip absent sur le plus proche déclaré (`fall → jump`, `land → idle`,
+   `wallslide → jump`, `dash → run`), chaîne de repli **unique**, appliquée identiquement à la
+   spritesheet et à l'atlas procédural (traité comme une spritesheet qui n'en déclare que trois,
+   `hmi::proceduralPlayerClipNames`).
+3. Le **quad** : `hmi::computePlayerSpriteQuad` (fonction pure, testée sans GPU) ancre le
+   **centre-bas** de l'image sur le centre-bas de `core::playerSize()` — la seule source de vérité
+   de la hitbox, jamais lue en écriture par ce calcul. Une image plus grande ou plus large que la
+   hitbox (cape, cheveux, effet de dash) déborde donc symétriquement, sans jamais déplacer la
+   collision (`EX-ARCH-012`). L'ancrage horizontal centré rend le retournement (point 4) gratuit en
+   position.
+4. L'**orientation** : `core::Player::facing` détermine `hmi::PlayerSpriteTag::flipHorizontal` ;
+   `hmi::composeWorldSprites` échange alors `u0`/`u1` du quad composé, sans toucher `quadOffset`.
+
 Ce choix — étendre l'atlas existant plutôt que placer le personnage dans une texture séparée —
 découle directement de la contrainte de batching énoncée plus haut : le personnage est dessiné à
 **chaque** frame parmi des centaines d'autres sprites, d'où l'obligation de partager la texture de
@@ -276,22 +407,58 @@ coordonnées de pixel) — direct à lire et à ajuster pour une forme humanoïd
 (2 `Idle`, 4 `Run`, 1 `Jump`) sont produites par la même logique, avec des paramètres différents —
 pas 7 fonctions dupliquées.
 
-### L'animation : une projection de l'état physique, pas un état séparé
+### L'animation : des clips en données, une progression générale (`LOT-46`)
 
-`EX-REN-012` demande une animation par séquence d'images (repos, course, saut). Le clip actif et
-l'image courante sont portés par un composant `core::Animation` (`clip`, `frameIndex`, `elapsed`)
-et mis à jour chaque pas fixe par `core::AnimationSystem` (@ref guide-ecs) — **entièrement côté
-`Core`**, sans dépendance aux pixels ni à `HMI` (`EX-ARCH-011`) : le système lit
-`Player::grounded` et `Velocity::value.x` (déjà calculés par `CharacterPhysicsSystem` **pour le
-même pas** — l'ordre d'appel dans `GameSession::update` est significatif, @ref guide-ecs) pour
-déterminer si le personnage est en l'air, en train de courir, ou immobile ; aucun nouvel état n'est
-ajouté à `core::Player`, l'animation est une pure **conséquence** de l'état physique existant.
+`EX-REN-005`/`EX-REN-012` demandent une animation par séquence d'images, décrite par des
+**données** plutôt que codée en dur, et applicable à **toute** entité — pas seulement au
+personnage. Un clip (`core::AnimationClip`) est une donnée pure : un nom, une suite d'indices
+d'images, une durée par image, bouclé ou joué une fois (`core::ClipEndMode`) avec un clip suivant.
+Plusieurs clips forment un `core::ClipSet`, adressable par nom et résolu en index à l'ajout — la
+progression au pas fixe ne compare donc jamais de chaîne. Le composant `core::Animation` référence
+ce jeu de clips (`clips`, partagé via `shared_ptr` — plusieurs entités animées par le même jeu,
+comme toutes les tuiles d'eau d'un niveau, n'en dupliquent pas le contenu), le clip courant déjà
+résolu (`clipIndex`), l'image courante (`frameIndex`) et le temps écoulé (`elapsed`).
 
-Côté `HMI`, `GameSession::render` appelle `refreshPlayerSprite()` **à chaque frame** (pas seulement
-au spawn, à la différence de LOT-17) : elle lit `core::Animation` du personnage et met à jour
-`sprite.region = _atlas.playerFrameRegion(animation.clip, animation.frameIndex)`. C'est la même
-séparation que partout ailleurs dans le rendu : `Core` décide **quoi** afficher (quel clip, quelle
-image), `HMI` sait seule **à quoi ça ressemble** (quels pixels).
+`core::AnimationSystem::update` (@ref guide-ecs) fait deux choses, dans une seule traversée des
+entités portant `core::Animation` — **entièrement côté `Core`**, sans dépendance aux pixels ni à
+`HMI` (`EX-ARCH-011`) :
+
+1. **projection**, spécifique au personnage : pour une entité `Player` + `Velocity` + `Animation`,
+   lit l'état physique déjà calculé par `CharacterPhysicsSystem` **pour le même pas** (l'ordre
+   d'appel dans `GameSession::update` reste significatif) pour choisir le clip cible par son
+   **nom**, parmi sept depuis `LOT-48` : « idle », « run », « jump », « fall », « land »,
+   « wallslide », « dash », par ordre de priorité **explicite** (`core::AnimationSystem.cpp`,
+   fonction `targetClipName`) — dash (`dashTimer` actif) domine tout, puis un atterrissage en cours
+   ou qui débute (transition détectée par comparaison du clip **résolu au pas précédent** avec les
+   trois clips aériens, comme les transitions de mécanismes `LOT-47` TACHE-02), puis glissade
+   murale, puis chute/saut (signe de la vitesse verticale), puis course/repos ; un changement de
+   clip réinitialise net l'image et le chronomètre, et consomme le pas sans faire progresser
+   l'image. Aucun champ n'a été ajouté à `core::Player` pour cette extension : l'animation reste une
+   **conséquence** de l'état physique existant (`EX-ARCH-012`) ;
+2. **progression**, générale (`core::advanceAnimation`, réutilisable hors ECS) : avance l'image
+   courante selon la durée du clip résolu, boucle ou bascule sur le clip suivant en fin de clip
+   joué une fois — c'est ce mécanisme, déjà générique depuis `LOT-46`, qui enchaîne « land » sur
+   « idle » une fois sa brève transition jouée. Une entité sans projection spécifique (une tuile
+   animée, `LOT-46` TACHE-05) progresse par ce seul mécanisme.
+
+Le personnage reste le seul consommateur de la projection ; son jeu de clips (`core::playerClipSet()`)
+n'a pas de pose procédurale dédiée pour les quatre clips `LOT-48` : `HMI` les fait retomber sur le
+plus proche déclaré (voir la section précédente), `Core` n'a pas à le savoir. Côté `HMI`,
+`GameSession::render` appelle toujours `refreshPlayerSprite()` à chaque image : elle lit
+`core::Animation` du personnage, résout le nom du clip courant (`core::ClipSet::clipAt(clipIndex)
+.name`) et en tire à la fois la région **procédurale** (`core::Sprite::region`, comportement
+inchangé) et l'apparence **habillée** (`hmi::PlayerSpriteTag`, `LOT-48`, section précédente).
+`hmi::PlayerClipKind` reste une énumération **côté présentation seulement**
+(`ProceduralAtlas.h`), distincte de `core::AnimationClip` générique : `Core` ignore jusqu'à
+l'existence de ces trois poses procédurales en particulier (`EX-ARCH-012`).
+
+Une description `nom-asset.anim.json` (`hmi::AnimationCatalog`), lue à côté de l'asset et mise en
+cache par `hmi::TextureCache` (invalidée conjointement avec la texture), permet d'animer un skin de
+tuile (eau, lave, torche) sans code supplémentaire : une horloge d'animation est alors partagée par
+**asset**, pas par tuile (`GameSession::updateTileAnimations`, avancée au pas fixe), pour que toutes
+les tuiles d'un même type restent en phase sans coût par case ; la région courante est résolue à la
+**composition** (`hmi::sceneTextures`/`resolveTileAppearance`), jamais écrite dans `core::Sprite`.
+Un asset sans fichier d'animation reste une image fixe, sans erreur ni avertissement.
 
 ## \ref hmi::SpriteRenderer "hmi::SpriteRenderer" : le pont ECS → écran
 
@@ -371,6 +538,34 @@ au pas fixe (`EX-REN-021`), cohérent avec la séparation décrite en @ref guide
 avance par pas fixes, discrets ; le rendu, lui, redessine l'état courant une fois par **frame**
 réelle, qu'un pas fixe ait eu lieu ou non entre deux frames.
 
+### Isoler un calque pour l'audit : `hmi::LayerVisibility` (`LOT-51`)
+
+`F8` **compose** : il choisit une seule apparence par tuile (surcharge > skin > damier) pour
+reproduire fidèlement ce que le joueur voit. L'éditeur a aussi besoin de l'inverse — **décomposer**,
+pour répondre à « qu'est-ce qui est réellement configuré sur *ce* calque ? ». C'est le rôle de
+`hmi::LayerVisibility` (section « Calques » du panneau Textures, @ref guide-editeur), un jeu de
+booléens **indexé par la valeur de `hmi::RenderLayer`** plutôt que par une liste de champs écrite à
+la main — un calque futur ne demande donc de grandir que `RENDER_LAYER_COUNT`, jamais de réécrire la
+classe.
+
+Deux mécanismes distincts, selon le calque :
+- **Fond, Plans, Ombres, Personnage, Plans de premier plan** : un bit à `false` masque
+  grossièrement — `hmi::composeWorldSprites`/`DraftRenderer::render` sautent l'entité ou l'appel de
+  composition entier avant toute résolution d'apparence, aucune primitive n'est émise.
+- **Skin des tuiles et Objets interactifs** : ces deux calques UI pilotent en réalité les **deux
+  axes de résolution** d'une même entité « tuile » (toujours dessinée sur `RenderLayer::Tile`, l'ordre
+  de dessin ne change jamais) — `RenderLayer::Tile` pour l'axe skin, `RenderLayer::Object` pour l'axe
+  surcharge. Tant que les deux valent `true` (le défaut), `hmi::resolveTileAppearance` se comporte
+  exactement comme au `LOT-45` : surcharge > skin > damier, sans repli différent. Dès qu'un seul des
+  deux est masqué, la résolution **isole** — plus de repli sur le damier pour l'axe inactif : une
+  case sans surcharge n'affiche rien quand seul l'axe surcharge est actif, un type sans skin
+  n'affiche rien quand seul l'axe skin est actif. C'est le même résolveur, avec un indicateur
+  « composer » ou « isoler », **jamais** un second résolveur parallèle qui risquerait de diverger.
+
+Édition uniquement : `hmi::GameSession` ne fournit jamais de `hmi::LayerVisibility` à
+`composeWorldSprites` (valeur par défaut, tout visible), donc le jeu réel et l'essai restent
+strictement inchangés par ce mode. Aucune persistance entre deux sessions, contrairement à `F8`.
+
 ### Interpoler le mouvement : `hmi::PreviousPosition` et le facteur d'interpolation
 
 Ce découplage crée un artefact visuel dès qu'un écran dépasse 60 Hz : entre deux pas de simulation,
@@ -388,27 +583,292 @@ entités réellement mobiles (personnage, dangers mobiles, blocs poussables) re�
 Au rendu, `SpriteRenderer::render` reçoit le **facteur d'interpolation** `[0, 1[` du cadenceur
 (`core::FixedTimestep::interpolationAlpha`, passé en paramètre par `hmi::GameSession::render`) et dessine chaque
 entité portant le composant à `lerp(position précédente, position courante, alpha)` ; les tuiles
-fixes, sans le composant, sont dessinées à leur position courante, inchangées. La caméra, elle, n'est
-**pas** interpolée : elle bascule déjà par coupure nette entre salles (`LOT-32`), sans suivi continu.
-L'interpolation ne touche que l'**affichage** — la logique de jeu (collisions, fin de niveau)
+fixes, sans le composant, sont dessinées à leur position courante, inchangées. La caméra, en mode
+*niveau entier* ou *par salle*, n'est **pas** interpolée : elle bascule par coupure nette entre
+salles (`LOT-32`) ou reste fixe, sans suivi continu. En mode *suivi* (`LOT-64`, détaillé plus haut),
+c'est l'inverse : c'est justement l'**absence** d'interpolation du centre de caméra qui produirait
+un artefact, puisque ce mode fait bouger le centre à **chaque** pas fixe — voir « Le cadrage choisi
+par le niveau » ci-dessus pour ce cas particulier. L'interpolation ne touche que l'**affichage** —
+la logique de jeu (collisions, fin de niveau)
 continue de lire les positions **simulées** exactes, le déterminisme est préservé (`EX-NFR-002`).
 
-## Le texte d'interface : côté Qt, plus dans le pipeline Direct3D
+### Plans picturaux et parallaxe (`LOT-69`)
 
-Le texte (menus, libellés, options) ne se dessine **pas** avec ce pipeline : c'est une préoccupation
-entièrement différente, portée par les **widgets Qt** de l'IHM (@ref guide-ihm-qt). Direct3D 11 ne
-rend donc que la **scène de jeu** (tuiles, personnage, décors) dans le viewport ; l'ancienne police
-bitmap « maison » et sa projection écran ont été retirées avec l'IHM « maison » au `LOT-38`. Un
-libellé de menu reste à la même position et à la même taille à l'écran parce que Qt le compose dans
-une couche indépendante de la caméra du monde, sans passer par `SpriteBatch`.
+Le décor d'un niveau n'est pas un **assemblage d'images posées**, c'est une **surface peinte**. Un
+**plan** (`core::Plane`) est un PNG couvrant le niveau **entier**, rangé à côté du niveau dans
+`Levels/Plans/` et référencé par nom. Un niveau porte une **liste ordonnée** de plans, de nombre
+libre — l'ordre décide de la superposition (`EX-DEC-040`).
 
-Cette séparation a une conséquence qu'il faut connaître : **rien ne sait afficher du texte à
-l'intérieur de la scène**. Qt compose ses widgets *par-dessus* la fenêtre, en espace écran ; il ne
-peut pas ancrer une information au monde du jeu ni la faire suivre la caméra. Tout affichage tête
-haute ou indication en jeu est donc, aujourd'hui, impossible — c'est pourquoi les budgets de sauts
-et de dashs (`EX-GP-024`, `LOT-12`) existent dans la simulation sans être visibles nulle part. Une
-police bitmap sera réintroduite **du côté de la scène** au `LOT-52`, sur son propre calque et via
-`SpriteBatch`, sans remettre en cause le choix de Qt pour l'interface hors-jeu.
+> **Ce que cela remplace.** Le `LOT-49`/`LOT-50` habillait un niveau en **posant des sprites** :
+> un décor était un PNG placé à une position, avec échelle et rotation, sur l'une de trois couches
+> figées. Trois limites l'ont fait retirer — `hmi::decorRenderLayer` projetait déjà deux des trois
+> couches sur le **même** calque de rendu (les trois n'exprimaient donc que deux intentions), la
+> parallaxe était **codée en dur** par couche, et poser sept PNG ne permet toujours pas de
+> *peindre* une fresque. Les exigences retirées sont conservées, texte intact, en fin de
+> [`decors.md`](@ref spec-decors). Le prix explicite du remplacement : il n'existe plus de motif
+> décoratif **ponctuel réutilisable** — un tonneau présent dans dix niveaux doit être peint dans
+> chaque plan.
+
+Un plan n'a **ni position ni rotation** : il couvre le niveau par construction. Ce qui le distingue
+d'un autre, c'est sa **densité**, sa **parallaxe**, son **opacité** et sa **profondeur**.
+
+#### Densité : un compromis de mémoire, jamais de cadrage
+
+`pixelsPerUnit` vaut 16 (natif, la valeur de `hmi::Camera2D::PIXELS_PER_UNIT`), 8 ou 4. C'est le
+seul réglage qui décide de la viabilité mémoire d'un niveau (`EX-DEC-041`) : un plan à 4 px/unité
+coûte **seize fois moins** qu'un plan natif.
+
+La densité **ne change pas la géométrie**. `hmi::composePlanes` émet un quad couvrant exactement
+`[0,0]`–`[largeur, hauteur]` en unités monde, UV pleines, quelle que soit la densité : seule la
+**texture** est plus petite, donc plus grossière à l'écran. Un plan lointain n'a pas besoin de la
+définition native, et personne ne le verra.
+
+Le PNG doit mesurer **exactement** `largeur × densité` par `hauteur × densité`. Une seule fonction
+en décide — `hmi::planePixelSize` — parce que quatre endroits en dépendent (création du fichier,
+changement de densité, contrôle du contenu livré, budget mémoire) et que quatre calculs séparés
+finiraient par diverger. `Core` ne vérifie **pas** l'existence du fichier (`EX-NFR-011`) et
+`hmi::resolvePlaneTextures` replie sur le damier magenta (`EX-NFR-040`) : un plan manquant reste
+un niveau valide, simplement visible comme manquant.
+
+#### Profondeur : deux valeurs, pas trois
+
+`core::PlaneDepth` vaut `Behind` (derrière les tuiles physiques) ou `Front` (devant le personnage).
+`hmi::planeRenderLayer` les projette sur `RenderLayer::Plane` et `RenderLayer::Foreground` — deux
+calques **déjà réservés**, aucune valeur d'énumération ajoutée, `RENDER_LAYER_COUNT` inchangé alors
+même que le nombre de plans est libre. C'est le **rang dans la liste** qui ordonne les plans à
+l'intérieur d'un calque, jamais une valeur de calque par plan : `EX-REN-014` impose un
+ordonnancement unique, et en créer un concurrent serait le défaire.
+
+Une subtilité que seul un test peut figer : `hmi::ComposedScene::sort()` trie par calque, puis par
+**rang de première apparition de texture**, puis par `sortOrder`. Chaque plan portant sa propre
+image, ce sont donc les rangs de texture qui les départagent — et la propriété « les plans
+ressortent dans l'ordre du niveau » n'est vraie que parce qu'ils sont composés **en premier et dans
+l'ordre**. Invisible à la lecture, d'où le test.
+
+#### Parallaxe : portée par le plan, bornée, et seulement là où la caméra défile
+
+Chaque plan porte un facteur de défilement **par axe** (`EX-DEC-043`), et le niveau décide **si** la
+parallaxe s'applique (champ `parallax`, `true` par défaut). Le décalage est **purement visuel**
+(`EX-ARCH-012`) : la simulation ne le voit jamais.
+
+Trois étapes, dans cet ordre — et l'ordre compte :
+
+1. **Décalage relatif au centre de la salle** (`hmi::parallaxRenderPosition`), jamais absolu en
+   espace niveau. C'est précisément cette formule qui empêche le saut visible à la bascule de salle
+   (`EX-REN-015`) : à chaque salle, le décalage repart de zéro au centre.
+2. **Bornage** (`hmi::clampPlaneOffset`), sans lequel le bord du plan se découvrirait en fin de
+   course et laisserait une bande vide.
+3. **Arrondi au pixel écran** (`hmi::roundToScreenPixel`), sans lequel le pixel art tremblerait.
+
+Inverser 2 et 3 laisserait un décalage borné fractionnaire : l'arrondi doit venir en **dernier**.
+
+**La parallaxe est réactivée en mode suivi**, ce qui **inverse** la décision du `LOT-64`. Celui-ci
+l'avait coupée parce qu'un *décor* est un objet collé au contenu et paraissait « suivre » la
+caméra ; un *plan* est un fond, l'argument ne tient plus. Le mode suivi est d'ailleurs le seul où
+la caméra défile en continu — donc le seul où la parallaxe se voit vraiment.
+
+Corollaire à connaître : en cadrage **niveau entier**, la caméra ne défile pas du tout. Le moteur y
+neutralise la parallaxe (`hmi::planeParallaxActive`) et l'éditeur **grise** la case en l'expliquant
+— un facteur y produirait un désalignement constant, pas du mouvement.
+
+**Convention à trois profondeurs (`LOT-70`).** Sur les deux seuls tableaux livrés où la parallaxe
+est active — `demo-mouvement` (suivi) et `demo-final` (par salle) — la pile de plans suit une
+convention à trois profondeurs, facteurs strictement croissants : un plan **lointain** (densité 4,
+facteur le plus lent, presque immobile), le plan **fond** hérité du `LOT-69` (densité 8, facteur
+intermédiaire), et le plan **devant** (densité native, facteur supérieur à 1 — il dépasse la
+caméra). C'est cette progression, pas un seul plan supplémentaire, qui rend la profondeur lisible ;
+`scripts/generate_demo_plans.py` la peint pour ces deux tableaux uniquement, les vingt autres restant
+le report fidèle du `LOT-69` puisque leur cadrage `WholeLevel` neutralise tout décalage.
+
+#### Coût : constant en taille de niveau, et c'est tout le problème
+
+Un plan coûte **un quad et une passe** par image, quelles que soient les dimensions du niveau —
+contrairement aux tuiles. Un plafond exprimé en primitives ne le verrait donc **jamais** grossir,
+alors qu'un niveau 200 × 100 à densité native coûterait 20 Mo de texture **par plan**. D'où le
+second axe du budget (`EX-NFR-043`, `SceneStatistics::textureBytes`) — voir « Budget de rendu
+mesuré » plus bas.
+
+Le coût dominant n'est d'ailleurs pas la mémoire mais le **batch** : chaque plan est une texture
+distincte, donc une passe de plus par image, **jamais** écartée par le culling (un plan couvre le
+niveau, il est toujours à l'écran).
+
+#### Peindre un plan : le mode création
+
+Peindre se fait dans le **troisième espace de travail** de l'éditeur, pas dans le viewport : le
+canevas est `hmi::PixelCanvas`, celui de l'atelier pixel art du `LOT-54`, qui sait déjà peindre,
+sélectionner, annuler, coller et contraindre à une palette. Détails dans
+[`guide-editeur.md`](@ref guide-editeur) et [`guide-atelier-pixel-art.md`](@ref guide-atelier-pixel-art).
+
+Deux propriétés méritent d'être connues ici :
+
+- **Le CPU reste l'autorité sur les pixels ; le GPU n'est que l'affichage.** Une `DecodedImage` par
+  plan est la source de vérité, et seuls les rectangles salis sont téléversés. Peindre dans une
+  texture hors écran aurait exigé une **relecture GPU par geste**, et rendu `hmi::PixelOperations`
+  intestable sans carte graphique (`EX-NFR-004`).
+- **La référence est un repère géométrique, pas un aperçu.** Sous l'image éditée, une pelure
+  d'oignon des tuiles (`hmi::buildTileOnionSkin`, qui réutilise la palette du mode Physique) et les
+  plans voisins aplatis ; au-dessus, ceux qui passent devant. Ni raccords automatiques, ni skins, ni
+  animations : elle dit *où* sont les choses, pas *à quoi elles ressembleront*. L'aperçu fidèle
+  reste l'essai.
+
+#### Les plans du contenu livré
+
+Les vingt-deux tableaux de la séquence démo portent chacun un fond à densité 8, et ceux qui avaient
+un décor de premier plan un second plan à densité native. Ces images sont **générées**, jamais
+dessinées à la main :
+
+```
+python scripts/generate_demo_plans.py
+```
+
+Le script peint un fond dérivé du thème de chaque niveau puis y **reporte** ses anciens décors à
+leurs positions d'origine, avec la même géométrie que l'ancien rendu. Choix de reproductibilité
+(`LOT-66`), avec une limite assumée : c'est un report fidèle de l'ancien habillage, pas un décor
+peint qui exploiterait vraiment la profondeur — ce dernier est un acte de *level design*.
+
+## Le texte dans la scène : `hmi::BitmapFont` et `hmi::TextRenderer` (`LOT-52`)
+
+Le texte de l'interface **hors-jeu** (menus, libellés, options) ne se dessine toujours **pas** avec
+ce pipeline : c'est une préoccupation entièrement différente, portée par les **widgets Qt** de
+l'IHM (@ref guide-ihm-qt), dans une couche indépendante de la caméra du monde. Mais depuis `LOT-52`,
+le pipeline Direct3D sait de nouveau afficher du texte **dans la scène de jeu** — l'ancienne police
+bitmap « maison », retirée avec l'IHM « maison » au `LOT-38`, est réintroduite du bon côté de la
+frontière (`SpriteBatch`, pas Qt) et rebranchée sur les fondations de `LOT-40` (calque `UI`,
+`TextureCache`, contrat d'asset) plutôt que sur son ancien chemin.
+
+**`hmi::BitmapFont`** essaie de charger `Assets/Fonts/font.png` accompagné de ses métriques
+(`Assets/Fonts/font.json` : la région et l'avance de chaque glyphe, format JSON versionné comme
+`hmi::AnimationCatalog`), validées par le contrat d'asset (`AssetFamily::Font`) puis par leur
+cohérence avec les dimensions décodées du PNG. Aucun asset n'est livré pour l'instant
+(`Source/Elements/Assets/Fonts/README.md`) : la police retombe donc, comme `hmi::TextureAtlas` sans
+`atlas.png`, sur un repli **procédural** déterministe (`hmi::buildProceduralFont`, glyphes 5×7
+pixels blancs sur fond transparent, ASCII imprimable et accents français `é è à ç ù ê î ô û`) — le
+jeu reste lisible sans aucun asset de police (`EX-NFR-040`). Comme `TextureAtlas`, `BitmapFont`
+possède sa **propre** ressource Direct3D (pas de passage par `TextureCache` : elle n'est chargée
+qu'une fois au démarrage, sans rechargement à chaud). Un point de code non couvert est substitué
+par un glyphe de remplacement (`?` par défaut), jamais un trou silencieux. La mesure d'une chaîne
+(`hmi::measureText`) est **pure** : elle ne dépend que des métriques, pas du GPU, ce qui permet de
+cadrer un texte sans le dessiner ; elle parcourt des **points de code** UTF-8, pas des octets — un
+caractère accentué du catalogue de traduction (`EX-REN-033`) en occupe plusieurs.
+
+**`hmi::composeText`** (`HMI/Graphics/TextRenderer.h`) compose une chaîne en `SpriteQuad`, un par
+glyphe, sur `RenderLayer::UI` — le calque réservé sans être utilisé depuis `LOT-40`. C'est le
+**premier** cas du projet où une passe de rendu a sa propre projection : `hmi::screenProjectionMatrix`
+construit une projection écran → clip à partir des seules dimensions du viewport, indépendante de
+`Camera2D`, pour que le texte ne tourne ni ne change de taille avec le zoom de la caméra du monde.
+Un ancrage (`hmi::TextAnchor`, gauche/centre/droite × haut/milieu/bas) évite d'avoir à mesurer le
+texte soi-même pour le centrer ; les positions sont arrondies au pixel écran entier, la police
+restant en filtrage *nearest* comme le reste du rendu (`EX-ARCH-022`).
+
+Le texte, en espace écran, n'a **pas** de position monde : il ne doit jamais être soumis au culling
+par cadrage caméra (`LOT-40` TACHE-05). `hmi::GameSession::renderHud` compose donc le HUD dans une
+`hmi::ComposedScene` **dédiée**, distincte de celle de `hmi::SpriteRenderer` et sur laquelle
+`setVisibleBounds` n'est jamais appelé — plutôt que d'étendre `hmi::submitComposedScene` à deux
+projections, une seconde passe `begin`/`end` complète (même `SpriteBatch`, projection écran) suit
+la passe monde de la même frame.
+
+**`hmi::gameHudLines`** (`Source/HMI/Game/GameHud.h`) choisit, en fonction **pure**, les lignes à
+afficher : les budgets de sauts et de dashs (`EX-GP-024`, `LOT-12`) — jusqu'ici invisibles, faute de
+tout rendu de texte, malgré leur existence dans `core::Player` depuis ce lot —, seulement si le
+budget du niveau est **fini** (`-1` = illimité, cas de la grande majorité des tableaux : aucune
+ligne superflue), puis le nom du tableau. Affiché en jeu et en essai (parce que `renderHud` est
+appelé depuis le point d'entrée unique `hmi::GameSession::render`, jamais depuis `hmi::
+DraftRenderer`, seul chemin de l'éditeur en édition pure), avec une ombre portée (décalage d'un
+pixel) pour rester lisible sur fond clair comme sur fond sombre.
+
+## Ombres du plan physique (`LOT-55`)
+
+Dernier calque du programme d'habillage à s'activer : `RenderLayer::Shadow`, réservé sans être
+utilisé depuis `LOT-40`, entre `Decor` et `Tile` dans l'empilement — sous les tuiles, au-dessus du
+fond et des décors d'arrière-plan. L'objectif est de **lecture**, pas d'esthétique : aider le
+niveau designer, et en `RenderMode::Texture` le joueur, à distinguer d'un coup d'œil ce qui est
+**physique** (solide, collidable) de ce qui est **décor** — le complément exact du calque de
+premier plan (`LOT-49`) : l'un dit « ceci passe devant vous, donc ne vous porte pas », l'autre
+« ceci est en relief, donc vous porte ».
+
+`hmi::composeShadows` (`HMI/Graphics/ShadowRenderer.h`) parcourt les mêmes entités que
+`hmi::composeWorldSprites` (`core::Transform` + `hmi::TileSkinTag`), et n'en retient que celles qui
+projettent une ombre : pleines (`core::isSolid`) ou à silhouette inclinée/courbe (`hmi::
+hasSilhouette`, `LOT-42`). La région échantillonnée est directement `hmi::regionForTile(type)` — le
+**même** atlas procédural que `RenderMode::Physique` et que le détourage de silhouette des skins :
+cette région est déjà opaque exactement là où la matière est présente et transparente ailleurs
+(`hmi::isInsideSilhouette`), donc teinter le quad en noir semi-transparent, décalé d'un pixel, donne
+l'ombre à sa forme réelle — pente, arrondi, ou bloc réduit (`core::tileVisualScale`, porté par
+`core::Transform::scale` comme pour le sprite de la tuile) — sans réimplémenter la géométrie ni
+ajouter le moindre nouveau prédicat de solidité dans `Core` : une ombre est la projection d'une
+**forme**, pas d'un degré de solidité, et cette forme est déjà exposée côté `Core` sous une forme
+plus riche qu'un booléen. Un bloc poussable en mouvement voit son ombre suivre automatiquement, par
+la même interpolation (`hmi::PreviousPosition`) que son propre sprite — jamais recalculée à part.
+
+Une porte fait exception à la règle « ombre = type statique » : `hmi::TileSkinTag::type` reste
+`TileType::Door` quel que soit l'état du mécanisme (figé au chargement), alors que sa solidité
+**réelle** dépend de l'interrupteur qui la commande. `hmi::composeShadows` accepte donc une grille
+de collision optionnelle (`core::MechanismController::collisionMap()`, fournie par `hmi::
+GameSession`) pour trancher l'ombre d'une porte sur son état **courant** plutôt que sur son type
+figé — une porte fermée projette une ombre, une porte ouverte n'en projette plus.
+`hmi::DraftRenderer` (aucune simulation de mécanisme dans l'éditeur) ne fournit pas cette grille :
+une porte n'y projette jamais d'ombre, état normal plutôt qu'un défaut.
+
+Actif **uniquement** en `RenderMode::Texture` (`RenderMode::Physique` reste la lecture nue des
+collisions, déjà sans ambiguïté par la couleur plate) et sans le moindre effet sur le gameplay
+(`EX-ARCH-012`) : les ombres passent par le même culling que le reste (`hmi::ComposedScene::
+addSprite`), et l'axe `Shadow` de `hmi::LayerVisibility` (`LOT-51`) les masque grossièrement dans
+l'éditeur, comme `Background`/`Decor`/`Foreground`.
+
+## Particules et secousse d'écran (`LOT-53`)
+
+Une fois le personnage et le décor texturés (`LOT-48`, `LOT-49`), l'absence d'effets devient la
+principale différence entre ce rendu et celui d'un jeu fini : un dash ne se distingue d'une course
+que par la vitesse, un atterrissage après une longue chute est identique à un pas. `LOT-53` ajoute
+un retour visuel bref à quatre transitions déjà exposées par `core::Player` : dash, atterrissage,
+mort — sans jamais toucher au gameplay (`EX-ARCH-012`).
+
+### L'émetteur, dans `Core`, déterministe (`core::ParticleSystem`)
+
+Une simulation de particules est l'endroit classique où l'on est tenté d'utiliser l'horloge système
+et un générateur aléatoire non maîtrisé — c'est plus simple à écrire, et « ce n'est que du visuel ».
+Ce serait ici une régression : le projet tient le déterminisme au pas fixe depuis `LOT-01`
+(`EX-NFR-002`). `core::ParticleSystem` simule donc les particules (`core::Particle` : position,
+vitesse, durée de vie) comme des entités `core::World` ordinaires, au pas fixe, et tire tout son
+aléa (vitesse, angle de dispersion, durée de vie) d'un `core::DeterministicRandom` **reseedé pour
+chaque particule** à partir d'un triplet reproductible — graine de base, numéro de pas, identifiant
+de l'entité (`core::deriveSeed`) — jamais l'horloge. Deux exécutions de la même séquence d'entrées
+produisent ainsi exactement les mêmes particules.
+
+Le nombre de particules vivantes est borné (`core::MAX_PARTICLES`, `EX-NFR-005`) : au-delà, la plus
+**ancienne** est recyclée — mais jamais en s'appuyant sur l'ordre d'itération du sparse set de
+l'ECS (instable après un retrait, `core::ComponentPool`) : `ParticleSystem` tient sa propre file
+d'émission (FIFO) comme seule source de vérité pour l'intégration et le recyclage.
+
+### Les déclencheurs, câblés dans `hmi::GameSession`
+
+`core::ParticleSystem::emitDashTrail`/`emitLanding`/`emitDeath` sont des **émissions**, pas des
+**détections** : la détection des transitions du personnage réutilise `hmi::detectPlayerEvents`
+(`LOT-60`) déjà calculée par `hmi::GameSession`, sans la dupliquer une troisième fois dans le
+projet (après `LOT-47` et `LOT-60`). La traînée de dash est une exception : elle s'émet à **chaque**
+pas où `core::Player::dashTimer > 0` (émission continue, pas un événement ponctuel), tandis que la
+poussière à l'atterrissage voit son intensité (nombre de particules) croître avec la vitesse
+d'impact, nulle en dessous d'un seuil nommé (`core::LANDING_MIN_IMPACT_SPEED`) — un petit saut ne
+soulève pas de poussière.
+
+### Le rendu (`hmi::ParticleRenderer`) et la secousse d'écran (`hmi::Camera2D`)
+
+`hmi::composeParticles` (`HMI/Graphics/ParticleRenderer.h`), appelé par `hmi::SpriteRenderer::render`
+comme `hmi::composeShadows`, dessine un quad par particule vivante — un simple carré teinté
+(région opaque unie de l'atlas, `hmi::TextureAtlas::tile(0, 0)`, pas d'asset dédié), dont l'opacité
+suit `life / maxLife` (fondu en fin de vie). Le calque dépend de l'effet : la traînée de dash passe
+sur `RenderLayer::Object` (**derrière** le personnage), la poussière et l'éclat de mort sur
+`RenderLayer::Foreground` (**devant**) — actif uniquement en `RenderMode::Texture`, comme les
+ombres.
+
+La secousse d'écran (atterrissage **lourd**, mort) est le seul effet du lot qui n'est pas une
+particule : `hmi::ScreenShakeState` décroît linéairement vers zéro sur une durée brève et
+volontairement conservatrice (`hmi::SCREEN_SHAKE_DURATION`), et son décalage courant
+(`hmi::screenShakeOffset`, arrondi au pixel écran entier, `EX-ARCH-022`) n'est appliqué qu'à
+`Camera2D::projectionMatrix` via `setShakeOffsetPixels` — **jamais** à `Camera2D::_center`. C'est
+cette séparation qui garantit, par construction, que la secousse ne peut ni provoquer de bascule de
+salle (`updateCurrentRoom`, pilotée par la position du personnage, jamais par la caméra) ni fausser
+le culling (`visibleBounds`, dérivé du seul `_center`).
 
 ## Assembler la frame complète
 
@@ -420,40 +880,158 @@ les buffers). C'est la même boucle que celle décrite en @ref guide-boucle, don
 étape — toujours exécutée **une fois par frame réelle**, après que tous les pas de simulation fixes
 de cette frame ont eu lieu.
 
-## Ce qui vient ensuite : le programme d'habillage (`LOT-40` → `LOT-55`)
+## Le programme d'habillage, livré (`LOT-40` → `LOT-55`)
 
 Le pipeline d'origine était volontairement minimal : **une** texture liée par lot de dessin, deux
 valeurs de couche, aucun culling, et une seule façon de représenter l'état d'un objet — la teinte.
 Cela suffisait au rendu en couleurs plates ; cela ne suffit plus dès qu'on veut de vraies textures.
-Les deux premiers lots du programme (`LOT-40` et `LOT-41`) ont levé les verrous structurels ; les
-suivants ajoutent le contenu visuel.
+Un programme de seize lots (voir [les lots](@ref lots)) a levé ces limites une à une ; `LOT-55`
+(ombres du plan physique, décrites plus haut) en est le dernier :
 
-Un programme de seize lots est cadré pour lever ces limites (voir [les lots](@ref lots)). Les points
-de cette page qu'il modifie, dans l'ordre :
-
-- **`LOT-40`** — *livré* : registre de textures par nom logique, calques nommés, regroupement des
-  quads par `(calque, texture)`, validation des dimensions d'asset, culling, capture des primitives
-  (décrits plus haut dans cette page).
-- **`LOT-41`** — *livré* : la bascule `F8` entre rendu **Physique** et rendu **Texture** (décrite
+- **`LOT-40`** — registre de textures par nom logique, calques nommés, regroupement des quads par
+  `(calque, texture)`, validation des dimensions d'asset, culling, capture des primitives (décrits
   plus haut dans cette page).
-- **`LOT-42`** — le **skin des tuiles** et les raccords automatiques : le lot à partir duquel le
-  mode Texture cesse d'afficher un damier.
+- **`LOT-41`** — la bascule `F8` entre rendu **Physique** et rendu **Texture** (décrite plus haut
+  dans cette page).
+- **`LOT-42`** — le skin des tuiles (`hmi::TileSkinTag`, `hmi::resolveTileAppearance`) et les
+  raccords automatiques entre tuiles voisines : le lot à partir duquel le mode Texture cesse
+  d'afficher le damier magenta pour un type habillé.
+- **`LOT-43`** — la bibliothèque d'assets à vignettes de l'éditeur (gestion de fichiers,
+  rechargement à chaud des textures), hors du pipeline de rendu lui-même (@ref guide-editeur).
+- **`LOT-44`** — le fond de niveau (`hmi::composeBackground`, `RenderLayer::Background`),
+  recadré en mode *cover* sur les bornes du niveau, en `RenderMode::Texture` uniquement.
+- **`LOT-45`** — la texture assignée **par instance** à une case (`EX-EDIT-043`), prioritaire sur
+  le skin de son type dans `hmi::resolveTileAppearance`.
 - **`LOT-46`** — les animations décrites par des **données** et non par un `enum` figé, applicables
-  à toute entité et plus seulement au personnage.
+  à toute entité et plus seulement au personnage (décrit plus haut dans cette page).
+- **`LOT-47`** — l'apparence des mécanismes (porte, interrupteur, dangers commutés/temporisés)
+  pilotée par leur état logique plutôt que par une simple modulation d'opacité de diagnostic.
+- **`LOT-48`** — le personnage habillé depuis une spritesheet externe, découplée de sa hitbox
+  (décrit plus haut dans cette page).
 - **`LOT-49`** — des décors libres hors grille sur trois couches, dont une **au-dessus** du
-  personnage.
-- **`LOT-52`** — le retour du texte dans la scène rendue.
+  personnage, et leur parallaxe relative à la salle courante (décrits plus haut dans cette page).
+- **`LOT-50`** — manipulation complète des décors dans l'éditeur — sélectionner, déplacer,
+  redimensionner, pivoter, changer de couche, réordonner (décrit plus haut dans cette page).
+- **`LOT-51`** — le mode d'inspection « définition des textures » — visibilité et isolement par
+  calque, distinct de `F8` (décrit plus haut dans cette page).
+- **`LOT-52`** — le retour du texte dans la scène rendue — police bitmap avec repli procédural,
+  composition sur le calque `UI` et sa propre projection écran, affichage tête haute des budgets de
+  sauts/dashs et du tableau courant (décrits plus haut dans cette page).
+- **`LOT-54`** — l'atelier de pixel art intégré à l'éditeur (dessin, palette, aperçu de raccords),
+  qui produit les assets consommés par ce pipeline sans le modifier lui-même
+  (@ref guide-atelier-pixel-art).
+- **`LOT-55`** — les ombres du plan physique (`hmi::composeShadows`, `RenderLayer::Shadow`,
+  décrites plus haut dans cette page).
 
-Tant que ces lots ne sont pas livrés, ce guide décrit l'état réel du code ; il sera mis à jour au
-fil de leur intégration.
+`LOT-53` (effets et particules, décrit plus haut dans cette page) n'appartient pas à ce programme
+d'habillage : indépendant de `LOT-55` (aucun des deux ne dépend de l'autre), c'est un effort
+distinct qui **bâtit sur** le personnage et le décor texturés plutôt que d'en faire partie.
+
+## Budget de rendu mesuré (`LOT-62`)
+
+`EX-NFR-005` demande que le nombre de primitives émises par image reste **borné et observable** ;
+`EX-NFR-001` demande **60 images par seconde**. Les deux exigences existaient depuis les premiers
+lots du rendu, sans jamais avoir de moyen de vérification. `LOT-62` leur en donne un — sans
+optimiser quoi que ce soit : ce lot **mesure**.
+
+### Le test de non-régression du volume (`Source/Test/Unit/HMI/Graphics/test_render_budget.cpp`)
+
+Pour chaque niveau livré (les quinze fichiers de `Source/Elements/Levels/sequence-demo.json`), le
+test reconstruit exactement la scène que `hmi::GameSession` composerait — tuiles, plans,
+personnage à l'entrée, caméra cadrée sur la salle de l'entrée — et compare les compteurs de
+`hmi::ComposedScene::statistics()` à un **plafond nommé**, dans les deux modes de rendu (le mode
+Texture, structurellement plus lourd, est celui qui dérive). Le culling est asserté séparément sur
+`demo-salles` (au moins la moitié des primitives écartées) : une borne haute sur le total ne dit pas
+si le culling fonctionne, une borne basse sur ce qu'il écarte, si.
+
+#### Le second axe : la mémoire de texture des plans (`LOT-69`)
+
+Un plafond de **primitives** ne voit pas grossir un plan pictural : celui-ci n'en ajoute qu'une, mais
+occupe une texture à l'échelle du niveau. Sur le plus grand tableau du dépôt (50 × 26), un plan natif
+pèse 1,27 Mio ; sur un niveau 200 × 100, il pèserait **20 Mio** — et seize plans, plus de 300 Mio.
+
+Le test plafonne donc aussi `hmi::planesTextureMemoryBytes` par niveau livré (`EX-NFR-043`), à
+16 Mio. Ce plafond-là n'est **pas** décliné par niveau comme celui des primitives : le volume de
+primitives dépend du contenu posé par l'auteur, la mémoire de plans ne dépend que de la taille du
+niveau et des densités déclarées — deux réglages, pas du contenu.
+
+16 Mio laisse passer **douze** plans natifs sur le plus grand tableau, là où le format en autorise
+seize (`core::MAX_PLANES_PER_LEVEL`) : le plafond refuse donc **avant** la limite de format, ce qui
+est le seul moyen qu'il refuse quoi que ce soit un jour. Un test le vérifie dans ce sens-là — un
+garde-fou qu'on n'a jamais vu refuser ne prouve rien.
+
+Un troisième test fige la propriété qui distingue les plans des tuiles : leur coût en primitives est
+**invariant en taille de niveau** (doubler chaque axe quadruple la mémoire, mais ne change ni le
+nombre de primitives, ni le nombre de passes).
+
+**Faire évoluer un plafond légitimement** : un lot de contenu qui ajoute un calque, agrandit un
+niveau livré, ou change sa salle d'entrée peut légitimement faire grimper les compteurs mesurés.
+Dans ce cas, relever les nouvelles valeurs (`ctest` affiche `considered`/`submitted` réels dans le
+message d'échec, ventilés par calque via `hmi::QuadRecorder::describe`) et choisir un plafond
+**large** au-dessus — de l'ordre de 1,5 à 2 fois la valeur mesurée, pour continuer à attraper un
+facteur deux accidentel sans transformer chaque lot de contenu en mise à jour de constante.
+**Ajuster un plafond pour faire passer un test sans avoir compris pourquoi il a été dépassé est
+exactement ce qu'il ne faut pas faire** : un dépassement est un résultat, il se consigne (voir
+tableau de référence ci-dessous) avant de se corriger, jamais pendant.
+
+### Mesures de référence, à la date du `LOT-62` (2026-08-12)
+
+Composées avec `test_render_budget.cpp`, caméra cadrée sur la salle d'entrée, sans skins chargés
+(tout retombe sur l'atlas procédural en Physique ou le damier en Texture — sans effet sur le
+*volume*, seule chose mesurée ici) :
+
+| Niveau                     | Physique (composées / soumises) | Texture (composées / soumises) |
+|-----------------------------|:-------------------------------:|:-------------------------------:|
+| `demo-deplacement.json`     | 48 / 48                         | 90 / 90                         |
+| `demo-saut.json`             | 44 / 44                         | 85 / 85                         |
+| `demo-double-saut.json`      | 39 / 39                         | 71 / 71                         |
+| `demo-wall-jump.json`        | 25 / 25                         | 47 / 47                         |
+| `demo-dash.json`              | 43 / 43                         | 82 / 82                         |
+| `demo-interrupteur.json`      | 33 / 33                         | 61 / 61                         |
+| `demo-plaque-pression.json`   | 34 / 34                         | 63 / 63                         |
+| `demo-bloc.json`               | 40 / 40                         | 73 / 73                         |
+| `demo-budget.json`             | 31 / 31                         | 59 / 59                         |
+| `demo-pente.json`              | 31 / 31                         | 59 / 59                         |
+| `demo-arrondi.json`            | 31 / 31                         | 59 / 59                         |
+| `demo-bloc-reduit.json`        | 34 / 34                         | 65 / 65                         |
+| `demo-dangers-avances.json`    | 52 / 52                         | 96 / 96                         |
+| `demo-final.json`              | 68 / 46                         | 128 / 89                        |
+| `demo-salles.json`             | 241 / 86                        | 479 / 170                       |
+
+`demo-final` et `demo-salles` sont les deux seuls niveaux livrés dépassant une salle
+(`hmi::RoomGrid::ROOM_WIDTH_TILES` × `ROOM_HEIGHT_TILES`) : c'est là que le culling écarte une
+fraction significative des primitives composées (respectivement 32 % et 64 % en mode Texture).
+Chaque autre niveau livré tient dans sa salle d'entrée sans reste : aucune primitive n'y est jamais
+écartée.
+
+### Compteur de diagnostic en jeu (`F9`)
+
+`hmi::DiagnosticsHud` (`Source/HMI/Game/DiagnosticsHud.{h,cpp}`) compose quatre lignes — cadence de
+rendu (moyenne glissante sur `DIAGNOSTICS_FPS_WINDOW_SECONDS`, jamais une cadence instantanée,
+illisible d'une image à l'autre), primitives composées/soumises, passes de dessin, et pas de
+simulation consommés à la dernière image (une boucle qui rattrape s'y voit immédiatement) — sur le
+patron de `hmi::gameHudLines` (`LOT-52`) : composition **pure**, testée sans rendu
+(`Source/Test/Unit/HMI/Game/test_diagnostics_hud.cpp`), dessinée par le même `hmi::TextRenderer` que
+le HUD de jeu, coin haut-**droit** pour ne jamais recouvrir les budgets de sauts/dashs (coin
+haut-gauche). Activé par **`F9`**, touche dédiée non remappable comme `F8` (bascule de rendu),
+désactivée par défaut et sans coût quand elle l'est (rien n'est mesuré tant qu'elle n'est pas
+activée).
+
+`EX-NFR-001` (60 images par seconde) reste **hors de portée d'un contrôle automatique** : la
+cadence dépend de la machine, une machine virtuelle partagée ne la mesure pas de façon reproductible
+(cf. `epic.md`, décisions de cadrage). `F9` sur `demo-salles` — le niveau livré le plus lourd,
+480 primitives composées en mode Texture avant culling — est le moyen de l'observer soi-même sur sa
+propre machine de développement ; c'est tout ce que ce lot automatise pour elle.
 
 ## Voir aussi
-- `hmi::GraphicsDevice`, `hmi::GameViewport`, `hmi::Camera2D`.
+- `hmi::SpriteBatch`, `hmi::GameViewport`, `hmi::Camera2D`.
 - `hmi::SpriteBatch`, `hmi::SpriteQuad`, `hmi::LineQuad`, `hmi::TextureAtlas`, `hmi::SpriteRenderer`,
   `hmi::DraftRenderer`.
 - `hmi::RenderLayer`, `hmi::RenderLayerTag`, `hmi::ComposedScene`, `hmi::QuadRecorder`,
   `hmi::TextureCache`, `hmi::validateAsset`, `hmi::buildMissingTextureImage` — fondations du rendu
   texturé (`LOT-40`, `EX-REN-043`/`EX-REN-007`/`EX-NFR-004`/`EX-NFR-005`).
+- `hmi::LayerVisibility`, `hmi::resolveTileAppearance` — visibilité et isolement par calque, mode
+  d'inspection éditeur distinct de `F8` (`LOT-51`, `EX-EDIT-044`).
 - `hmi::RenderMode`, `hmi::resolveTileAppearance` — bascule Physique/Texture (`LOT-41`,
   `EX-REN-046`).
 - `hmi::AssetPaths`, `hmi::TextureLoader` (`decodeImageFile`, `createTexture`,
@@ -461,6 +1039,22 @@ fil de leur intégration.
   repli procédural (`LOT-39`, `EX-REN-041`/`EX-REN-042`).
 - `hmi::LinkGeometry`, `hmi::LinkGesture`, `hmi::LinkPanel` — liens de mécanismes (`LOT-37`, voir
   @ref guide-editeur).
+- `core::ParticleSystem`, `core::Particle`, `core::DeterministicRandom`, `hmi::ParticleRenderer`,
+  `hmi::ScreenShakeState` — particules et secousse d'écran (`LOT-53`, `EX-REN-008`).
+- `core::Plane`, `core::PlaneDepth`, `hmi::planeRenderLayer`, `hmi::resolvePlaneTextures`,
+  `hmi::composePlanes`, `hmi::planeParallaxActive`, `hmi::parallaxRenderPosition`,
+  `hmi::clampPlaneOffset`, `hmi::roundToScreenPixel`, `hmi::planesTextureMemoryBytes` — plans
+  picturaux, parallaxe et budget de mémoire (`LOT-69`,
+  `EX-DEC-040`/`EX-DEC-043`/`EX-REN-049`/`EX-NFR-043`).
+- `hmi::buildTileOnionSkin`, `hmi::flattenPlanes`, `hmi::resamplePlane`, `hmi::PlaneVisibility`,
+  `hmi::planePixelSize`, `hmi::uniquePlaneFileName` — repères et cycle de vie du mode création
+  (`LOT-69`, `EX-EDIT-046`/`EX-EDIT-047`).
+- `hmi::BitmapFont`, `hmi::ProceduralFont`, `hmi::buildProceduralFont`, `hmi::measureText`,
+  `hmi::composeText`, `hmi::screenProjectionMatrix`, `hmi::gameHudLines`,
+  `hmi::GameSession::renderHud` — texte dans la scène et affichage tête haute (`LOT-52`,
+  `EX-IHM-003`/`EX-REN-032`).
+- `hmi::composeShadows`, `hmi::SHADOW_OFFSET_X`/`SHADOW_OFFSET_Y`, `hmi::SHADOW_OPACITY` — ombres du
+  plan physique (`LOT-55`, `EX-REN-045`).
 - `core::Transform`, `core::Sprite`, `core::AtlasRegion`, `core::Color` — les composants lus par le rendu.
 - @ref guide-ecs — le `World` et les vues que `SpriteRenderer` parcourt.
 - @ref guide-boucle — où le rendu s'insère dans la boucle de jeu.

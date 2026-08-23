@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_editor_key_bindings.cpp
  * @brief Tests unitaires du remappage des touches de l'éditeur (`EditorKeyBindings`,
@@ -12,14 +15,14 @@
 #include "HMI/Input/EditorKeyBindings.h"
 
 /**
- * @brief Les neuf actions ont leurs valeurs par défaut (S/Z/Y/C/V/P/F10/F1/F2) à la construction.
- * \castest{<b>Les neuf actions ont leurs valeurs par défaut (S/Z/Y/C/V/P/F10/F1/F2) à la
+ * @brief Les dix actions ont leurs valeurs par défaut (S/Z/Y/C/V/P/F10/F1/F2/T) à la construction.
+ * \castest{<b>Les dix actions ont leurs valeurs par défaut (S/Z/Y/C/V/P/F10/F1/F2/T) à la
  * construction.</b><br/>
  * \tcat Unitaire · Editor Key Bindings<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
- * \tattendu Les neuf actions ont leurs valeurs par défaut (S/Z/Y/C/V/P/F10/F1/F2) à la
+ * \tattendu Les dix actions ont leurs valeurs par défaut (S/Z/Y/C/V/P/F10/F1/F2/T) à la
  * construction.
  * }
  */
@@ -34,6 +37,7 @@ TEST(EditorKeyBindingsTest, ValeursParDefautALaConstruction) {
     EXPECT_EQ(bindings.key(hmi::EditorAction::ToggleGrid), hmi::Key::F10);
     EXPECT_EQ(bindings.key(hmi::EditorAction::ToggleHelp), hmi::Key::F1);
     EXPECT_EQ(bindings.key(hmi::EditorAction::Rename), hmi::Key::F2);
+    EXPECT_EQ(bindings.key(hmi::EditorAction::TextureAssignTool), hmi::Key::T);
 }
 
 /**
@@ -52,6 +56,24 @@ TEST(EditorKeyBindingsTest, SetKeyEchangeSurConflit) {
     bindings.setKey(hmi::EditorAction::Rename, hmi::Key::S);
     EXPECT_EQ(bindings.key(hmi::EditorAction::Rename), hmi::Key::S);
     EXPECT_EQ(bindings.key(hmi::EditorAction::Save), hmi::Key::F2);
+}
+
+/**
+ * @brief `setKey` échange aussi correctement quand l'outil « Texture par instance » est impliqué
+ *        (seule action non couverte par `SetKeyEchangeSurConflit`, LOT-57 TACHE-04).
+ * \castest{<b>`setKey` echange correctement quand TextureAssignTool est impliquee.</b><br/>
+ * \tcat Unitaire · Editor Key Bindings<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Remapper TextureAssignTool sur la touche par defaut de Playtest.<br/>2. Verifier
+ * l'echange.<br/>
+ * \tattendu TextureAssignTool porte desormais P, Playtest porte T.
+ * }
+ */
+TEST(EditorKeyBindingsTest, SetKeyEchangeAvecTextureAssignTool) {
+    hmi::EditorKeyBindings bindings;
+    bindings.setKey(hmi::EditorAction::TextureAssignTool, hmi::Key::P);
+    EXPECT_EQ(bindings.key(hmi::EditorAction::TextureAssignTool), hmi::Key::P);
+    EXPECT_EQ(bindings.key(hmi::EditorAction::Playtest), hmi::Key::T);
 }
 
 /**
@@ -112,8 +134,8 @@ TEST(EditorKeyBindingsTest, SaveEtLoadAllerRetour) {
  * }
  */
 TEST(EditorKeyBindingsTest, LoadFichierAbsentRenvoieLesDefauts) {
-    const std::filesystem::path path = std::filesystem::temp_directory_path() /
-                                       "projectgaming_test_editor_bindings_absent.json";
+    const std::filesystem::path path =
+        std::filesystem::temp_directory_path() / "projectgaming_test_editor_bindings_absent.json";
     std::filesystem::remove(path);
 
     const hmi::EditorKeyBindings bindings = hmi::EditorKeyBindings::load(path);
@@ -132,8 +154,8 @@ TEST(EditorKeyBindingsTest, LoadFichierAbsentRenvoieLesDefauts) {
  * }
  */
 TEST(EditorKeyBindingsTest, SavePreserveLaSectionJeu) {
-    const std::filesystem::path path = std::filesystem::temp_directory_path() /
-                                       "projectgaming_test_editor_bindings_partage.json";
+    const std::filesystem::path path =
+        std::filesystem::temp_directory_path() / "projectgaming_test_editor_bindings_partage.json";
     {
         std::ofstream file(path, std::ios::binary);
         file << R"({"jeu": {"sauter": 32}})";
@@ -150,5 +172,37 @@ TEST(EditorKeyBindingsTest, SavePreserveLaSectionJeu) {
     std::filesystem::remove(path);
 
     EXPECT_NE(content.find("\"jeu\""), std::string::npos);
+    EXPECT_NE(content.find("sauter"), std::string::npos);
+}
+
+/**
+ * @brief Sauvegarder les touches d'éditeur préserve une section « manette » déjà présente
+ *        (symétrique de `SavePreserveLaSectionJeu`, LOT-57 TACHE-04).
+ * \castest{<b>Sauvegarder les touches d'editeur preserve une section manette deja
+ * presente.</b><br/> \tcat Unitaire · Editor Key Bindings<br/> \tcrit Majeur<br/> \tetapes 1.
+ * Ecrire un fichier avec une section manette.<br/>2. Sauvegarder des touches d'editeur
+ * dessus.<br/>3. Relire le fichier.<br/> \tattendu La section manette et son contenu sont toujours
+ * presents.
+ * }
+ */
+TEST(EditorKeyBindingsTest, SavePreserveLaSectionManette) {
+    const std::filesystem::path path =
+        std::filesystem::temp_directory_path() / "projectgaming_test_editor_bindings_manette.json";
+    {
+        std::ofstream file(path, std::ios::binary);
+        file << R"({"manette": {"sauter": 0}})";
+    }
+
+    hmi::EditorKeyBindings bindings;
+    ASSERT_TRUE(bindings.save(path));
+
+    std::string content;
+    {
+        std::ifstream reread(path, std::ios::binary);
+        content.assign(std::istreambuf_iterator<char>(reread), std::istreambuf_iterator<char>());
+    }
+    std::filesystem::remove(path);
+
+    EXPECT_NE(content.find("\"manette\""), std::string::npos);
     EXPECT_NE(content.find("sauter"), std::string::npos);
 }

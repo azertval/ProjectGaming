@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <optional>
@@ -19,5 +22,17 @@ namespace hmi {
  * F1/F2/F10) passent par une correspondance explicite. `nullopt` pour une touche non suivie.
  */
 [[nodiscard]] std::optional<hmi::Key> qtKeyToHmiKey(int qtKey);
+
+/**
+ * @brief Traduit un `hmi::Key` en code `Qt::Key`, inverse de `qtKeyToHmiKey` (`LOT-57` TACHE-04).
+ *
+ * Sert à faire refléter un remappage (`EditorKeyBindings`/`GameKeyBindings`) sur le raccourci
+ * effectif d'un `QAction` (`hmi::EditorActions::applyShortcuts`). Comme l'aller, les lettres et
+ * chiffres partagent déjà la même valeur entre Qt et Win32 — conversion directe pour tout code non
+ * explicitement nommé.
+ * @param key Touche à traduire.
+ * @return Le code `Qt::Key` correspondant.
+ */
+[[nodiscard]] int hmiKeyToQtKey(hmi::Key key);
 
 }  // namespace hmi

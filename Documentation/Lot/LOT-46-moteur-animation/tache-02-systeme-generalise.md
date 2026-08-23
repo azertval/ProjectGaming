@@ -1,6 +1,6 @@
 # TACHE-02 — `AnimationSystem` généralisé {#lot-46-tache-02-systeme-generalise}
 
-**Lot :** [LOT-46](epic.md) · **Emplacement :** `Source/Core/Ecs/Systems` · **Statut :** non commencé
+**Lot :** [LOT-46](epic.md) · **Emplacement :** `Source/Core/Ecs/Systems` · **Statut :** fait
 
 ## Contexte
 `core::AnimationSystem::update` parcourt aujourd'hui `view<Player, Velocity, Animation>` : par

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_aabb_vs_aabb.cpp
  * @brief Tests unitaires du balayage AABB continu contre une boîte fixe unique
@@ -90,9 +93,8 @@ TEST(AabbVsAabbTest, ButeeVerticaleSurUnObstacleReduit) {
 /**
  * @brief Le personnage peut passer dans l'espace laissé libre autour d'un obstacle réduit, sans
  * être bloqué par la case entière qui le contient (`EX-GP-005`).
- * \castest{<b>Balayage boîte-boîte : le vide autour d'un obstacle réduit reste franchissable</b><br/>
- * \tcat Unitaire · Physique · Balayage AABB vs AABB<br/>
- * \tcrit Majeur<br/>
+ * \castest{<b>Balayage boîte-boîte : le vide autour d'un obstacle réduit reste
+ * franchissable</b><br/> \tcat Unitaire · Physique · Balayage AABB vs AABB<br/> \tcrit Majeur<br/>
  * \tetapes 1. Placer un obstacle réduit centré en (2, 1) (marge de 0,25 de chaque côté).<br/>2.
  * Balayer une boîte étroite qui passe dans cette marge, sans jamais chevaucher l'obstacle.<br/>
  * \tattendu Aucun contact : la marge autour de l'obstacle réduit est bien franchissable.
@@ -104,7 +106,8 @@ TEST(AabbVsAabbTest, EspaceAutourDeLObstacleReduitEstFranchissable) {
     // la bande [1.25, 1.75] occupee par l'obstacle reduit : jamais de chevauchement vertical.
     const core::Aabb narrowBox =
         core::Aabb::fromTopLeftSize(core::Vector2{1.5f, 1.0f}, core::Vector2{0.2f, 0.05f});
-    const core::SweepResult r = core::sweepAabbVsAabb(narrowBox, core::Vector2{2.0f, 0.0f}, obstacle);
+    const core::SweepResult r =
+        core::sweepAabbVsAabb(narrowBox, core::Vector2{2.0f, 0.0f}, obstacle);
 
     EXPECT_FALSE(r.hit);
     EXPECT_FLOAT_EQ(r.position.x, 3.5f);
@@ -128,8 +131,7 @@ TEST(AabbVsAabbTest, GlissementDiagonalLeLongDUnObstacleReduit) {
     // mais dont le trajet vertical propre ne rencontre pas l'obstacle (deplacement Y libre).
     const core::Aabb box =
         core::Aabb::fromTopLeftSize(core::Vector2{0.5f, 1.3f}, core::Vector2{1.0f, 0.2f});
-    const core::SweepResult r =
-        core::sweepAabbVsAabb(box, core::Vector2{5.0f, 3.0f}, obstacle);
+    const core::SweepResult r = core::sweepAabbVsAabb(box, core::Vector2{5.0f, 3.0f}, obstacle);
 
     EXPECT_FLOAT_EQ(r.normal.x, -1.0f);
     EXPECT_FLOAT_EQ(r.position.x, 1.25f);  // bord droit = 2.25 = bord gauche de l'obstacle

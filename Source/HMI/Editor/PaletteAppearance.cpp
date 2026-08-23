@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Editor/PaletteAppearance.h"
 
 #include <optional>
@@ -15,7 +18,8 @@ namespace {
 [[nodiscard]] PaletteThumbnail missingThumbnail() {
     PaletteThumbnail thumbnail;
     thumbnail.source = PaletteThumbnailSource::MissingTexture;
-    thumbnail.region = core::AtlasRegion{0, 0, MISSING_TEXTURE_SIZE, MISSING_TEXTURE_SIZE};
+    thumbnail.region = core::AtlasRegion{
+        .x = 0, .y = 0, .width = MISSING_TEXTURE_SIZE, .height = MISSING_TEXTURE_SIZE};
     return thumbnail;
 }
 
@@ -51,9 +55,10 @@ PaletteThumbnail paletteThumbnail(RenderMode mode, core::TileType type,
         // Case representative (interieur plein) : la planche entiere serait illisible en vignette,
         // et la case zero (tuile isolee) serait un cas particulier peu representatif du motif.
         const AutotileCell cell = autotileRepresentativeCell();
-        thumbnail.region = core::AtlasRegion{cell.column * SIZE, cell.row * SIZE, SIZE, SIZE};
+        thumbnail.region = core::AtlasRegion{
+            .x = cell.column * SIZE, .y = cell.row * SIZE, .width = SIZE, .height = SIZE};
     } else {
-        thumbnail.region = core::AtlasRegion{0, 0, SIZE, SIZE};
+        thumbnail.region = core::AtlasRegion{.x = 0, .y = 0, .width = SIZE, .height = SIZE};
     }
     return thumbnail;
 }

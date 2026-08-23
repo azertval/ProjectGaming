@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_skin_assignments.cpp
  * @brief Tests unitaires de la logique du panneau « Textures » (LOT-42 TACHE-04).
@@ -158,8 +161,7 @@ TEST(SkinAssignmentsTest, AssignationPuisRetraitDepuisLePanneau) {
 
     hmi::applySkinAssignment(catalog, "foret", core::TileType::Danger, "spikes.png",
                              hmi::SkinMode::Single);
-    const std::optional<hmi::SkinEntry> assigned =
-        catalog.resolve("foret", core::TileType::Danger);
+    const std::optional<hmi::SkinEntry> assigned = catalog.resolve("foret", core::TileType::Danger);
     ASSERT_TRUE(assigned.has_value());
     EXPECT_EQ(assigned->asset, "spikes.png");
 
@@ -273,16 +275,25 @@ TEST(SkinAssignmentsTest, LibellesTaxonomieTraduitsDansLesDeuxLangues) {
  * \castest{<b>Les libelles propres au panneau Textures existent dans les deux catalogues.</b><br/>
  * \tcat Unitaire · Panneau Textures<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Pour chaque cle utilisee par le panneau, la resoudre en francais puis en anglais.<br/>
- * \tattendu Chaque cle est traduite dans les deux langues.
+ * \tetapes 1. Pour chaque cle utilisee par le panneau, la resoudre en francais puis en
+ * anglais.<br/> \tattendu Chaque cle est traduite dans les deux langues.
  * }
  */
 TEST(SkinAssignmentsTest, LibellesDuPanneauTraduits) {
     // Aucun libelle en dur (EX-REN-033) : regle bloquante du projet, pas une preference.
     const std::vector<std::string> keys{
-        "dock.textures",         "textures.skin_set",     "textures.section_skins",
-        "textures.column_type",  "textures.column_asset", "textures.column_mode",
+        "dock.textures",
+        "textures.skin_set",
+        "textures.section_skins",
+        "textures.column_type",
+        "textures.column_asset",
+        "textures.column_mode",
         "textures.none",
+        "textures.section_animations",
+        "textures.animations_column_diagnostic",
+        "textures.animations_preview",
+        "textures.animations_complete",
+        "textures.animations_missing",
     };
 
     for (const std::string& language : {"fr", "en"}) {

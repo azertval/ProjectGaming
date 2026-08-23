@@ -1,7 +1,12 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include <cstdint>
 #include <filesystem>
+#include <fstream>
 #include <string>
 #include <system_error>
+#include <vector>
 
 #include <gtest/gtest.h>
 
@@ -27,6 +32,17 @@ protected:
 
 }  // namespace
 
+/**
+ * @brief Créer un niveau écrit sur disque un fichier **valide** et l'expose immédiatement dans la
+ * liste : la création part d'un `core::LevelDraft` vide passé par la validation, jamais d'un
+ * fichier vide qui échouerait au premier chargement.
+ * \castest{<b>Créer un niveau écrit un fichier valide, immédiatement listé.</b><br/>
+ * \tcat Unitaire · Opérations sur fichiers de niveau<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST_F(LevelFileOps, CreeUnNiveauValide) {
     const hmi::LevelFileOperations ops(dir);
     const hmi::FileOpResult result = ops.create("MonNiveau", 10, 6);
@@ -35,13 +51,58 @@ TEST_F(LevelFileOps, CreeUnNiveauValide) {
     EXPECT_EQ(ops.list().size(), 1U);
 }
 
+/**
+ * @brief Un fichier de séquence de contenu (`sequence-*.json`, `LOT-59` TACHE-04) partageant le
+ * dossier des niveaux n'est **pas** un niveau et ne doit jamais apparaître dans la liste : il ne
+ * se chargerait pas comme tel si l'utilisateur tentait de l'ouvrir depuis ce panneau.
+ * \castest{<b>Un fichier de séquence n'apparaît jamais dans la liste des niveaux.</b><br/>
+ * \tcat Unitaire · Opérations sur fichiers de niveau<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Créer un niveau valide, puis écrire à côté un fichier `sequence-demo.json`
+ * quelconque.<br/>2. Lister le dossier.<br/>
+ * \tattendu Seul le niveau valide apparaît dans la liste ; le fichier de séquence en est exclu.
+ * }
+ */
+TEST_F(LevelFileOps, FichierDeSequenceExcluDeLaListe) {
+    const hmi::LevelFileOperations ops(dir);
+    ASSERT_TRUE(ops.create("MonNiveau", 10, 6).ok);
+    std::ofstream sequenceFile(dir / "sequence-demo.json");
+    sequenceFile << R"({ "levels": ["MonNiveau.json"] })";
+    sequenceFile.close();
+
+    const std::vector<std::filesystem::path> listed = ops.list();
+    ASSERT_EQ(listed.size(), 1U);
+    EXPECT_EQ(listed.front().filename().string(), "MonNiveau.json");
+}
+
+/**
+ * @brief Un nom invalide (barre oblique, qui s'échapperait du dossier des niveaux) et un nom déjà
+ * pris sont refusés par un résultat récupérable, jamais par une exception ni par un écrasement
+ * silencieux du niveau existant.
+ * \castest{<b>Un nom invalide ou déjà pris est refusé, sans écraser le niveau existant.</b><br/>
+ * \tcat Unitaire · Opérations sur fichiers de niveau<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST_F(LevelFileOps, RefuseNomInvalideEtCollision) {
     const hmi::LevelFileOperations ops(dir);
-    EXPECT_FALSE(ops.create("a/b", 10, 6).ok);   // barre oblique interdite
+    EXPECT_FALSE(ops.create("a/b", 10, 6).ok);  // barre oblique interdite
     EXPECT_TRUE(ops.create("Niveau", 10, 6).ok);
     EXPECT_FALSE(ops.create("Niveau", 10, 6).ok);  // collision de nom
 }
 
+/**
+ * @brief Renommer **déplace** le fichier : l'ancien chemin disparaît et le nouveau existe. Une
+ * copie qui laisserait l'ancien en place produirait deux niveaux là où l'auteur en attend un.
+ * \castest{<b>Renommer déplace le fichier : l'ancien chemin disparaît, le nouveau existe.</b><br/>
+ * \tcat Unitaire · Opérations sur fichiers de niveau<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST_F(LevelFileOps, RenommeEtDeplaceLeFichier) {
     const hmi::LevelFileOperations ops(dir);
     const hmi::FileOpResult created = ops.create("Ancien", 10, 6);
@@ -52,6 +113,16 @@ TEST_F(LevelFileOps, RenommeEtDeplaceLeFichier) {
     EXPECT_TRUE(std::filesystem::exists(renamed.path));
 }
 
+/**
+ * @brief Dupliquer deux fois le même niveau produit deux copies **distinctes** : le nom de la
+ * copie est rendu unique à chaque appel, sinon la seconde duplication écraserait la première.
+ * \castest{<b>Dupliquer deux fois le même niveau produit deux copies distinctes.</b><br/>
+ * \tcat Unitaire · Opérations sur fichiers de niveau<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST_F(LevelFileOps, DupliqueSousUnNomUnique) {
     const hmi::LevelFileOperations ops(dir);
     const hmi::FileOpResult base = ops.create("Base", 10, 6);
@@ -64,6 +135,16 @@ TEST_F(LevelFileOps, DupliqueSousUnNomUnique) {
     EXPECT_EQ(ops.list().size(), 3U);
 }
 
+/**
+ * @brief Supprimer retire effectivement le fichier du disque et le signale par un résultat
+ * favorable — le panneau se fie à ce résultat pour retirer la ligne de sa liste.
+ * \castest{<b>Supprimer retire effectivement le fichier du disque.</b><br/>
+ * \tcat Unitaire · Opérations sur fichiers de niveau<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * }
+ */
 TEST_F(LevelFileOps, SupprimeLeFichier) {
     const hmi::LevelFileOperations ops(dir);
     const hmi::FileOpResult created = ops.create("X", 10, 6);

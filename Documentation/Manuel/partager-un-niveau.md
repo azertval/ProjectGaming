@@ -46,7 +46,8 @@ gauche de l'écran ; appuyez sur **F1** à tout moment pour afficher la liste co
 | Copier / coller une zone | Outil **Sélection** : cliquer-glisser pour définir la zone, puis **Ctrl+C** pour la copier ; **Ctrl+V** colle la copie à l'endroit survolé par la souris. |
 | Déplacer la vue / zoomer | Cliquer-glisser avec le **bouton droit** de la souris pour déplacer la vue ; **molette** pour zoomer/dézoomer ; touche **0** pour revenir au cadrage automatique. |
 | Afficher un quadrillage | **F10** — des lignes fines apparaissent sur chaque case, utile pour bien viser avant de peindre. |
-| Voir le niveau habillé ou brut | **F8** — bascule entre le niveau **habillé** et le niveau **tel qu'il est construit** (chaque case dans une couleur unie selon son rôle). Indispensable pour vérifier qu'un décor ne fait pas croire à un sol qui n'existe pas. Fonctionne aussi pendant l'essai (**P**) et en jeu. Le choix est conservé pour les fois suivantes. |
+| Voir le niveau habillé ou brut | **F8** — bascule entre le niveau **habillé** (les cases physiques projettent une ombre légère sur ce qu'il y a derrière elles, pour distinguer d'un coup d'œil ce qui porte de ce qui n'est que décor) et le niveau **tel qu'il est construit** (chaque case dans une couleur unie selon son rôle). Indispensable pour vérifier qu'un décor ne fait pas croire à un sol qui n'existe pas. Fonctionne aussi pendant l'essai (**P**) et en jeu. Le choix est conservé pour les fois suivantes. |
+| Vérifier ce qui manque encore d'habillage | Onglet **Calques** du panneau **Textures** : une case à cocher par plan (Fond, Décors, Ombres, Skin des tuiles, Objets, Personnage…). Ne cocher que **Skin des tuiles** montre uniquement les tuiles déjà habillées — les cases restées vides sont celles qui n'ont pas encore de texture. Le bouton **Tout afficher** revient à la vue normale. Ceci est un outil de **vérification pour l'éditeur uniquement** : il ne change jamais ce que le joueur voit. |
 | Agrandir / réduire la grille (case par case) | Flèches **←**/**→** pour la largeur, **↑**/**↓** pour la hauteur. Si la réduction supprimerait l'entrée, la sortie ou une liaison, une confirmation est demandée (**Entrée** = confirmer, **Échap** = annuler) avant d'agir. |
 | Choisir une taille précise | **Ctrl+R**, taper la nouvelle taille au format `largeurxhauteur` (ex. `60x40`, ou `60*40`), **Entrée** pour valider (**Échap** annule sans rien changer). Même plafond et même confirmation destructrice qu'aux flèches. |
 | Renommer le niveau | **F2**, taper le nouveau nom, **Entrée** pour valider (**Échap** pour annuler sans rien changer). |
@@ -55,9 +56,50 @@ gauche de l'écran ; appuyez sur **F1** à tout moment pour afficher la liste co
 | Enregistrer | **Ctrl+S** — un message en bas de l'écran confirme l'enregistrement, ou explique le problème si le niveau n'est pas encore jouable (par exemple : il manque une sortie). Si le nom correspond à un **autre** niveau déjà enregistré, une confirmation est demandée avant d'écraser ce fichier. |
 | Quitter l'éditeur | **Échap** (hors essai immédiat) — retour au menu. Si des modifications ne sont pas encore enregistrées, une confirmation est demandée avant de les perdre. |
 
-Le niveau est enregistré à côté de l'exécutable, dans le dossier `Levels`. Quelle que soit sa
-taille, un niveau reste **entièrement visible** à l'ouverture (la caméra dézoome automatiquement
-si besoin) — aussi bien dans l'éditeur qu'en jeu.
+### Choisir comment la caméra suit le joueur
+
+Onglet **Cadrage** du panneau **Textures** : choisissez comment la caméra du jeu cadre votre
+tableau — ce réglage ne change rien à l'affichage dans l'éditeur (qui montre toujours tout le
+niveau), seulement à ce que verra le joueur en jeu ou pendant un essai (**P**). Trois choix, avec un
+aperçu immédiat dans le canevas (un cadre en pointillés de couleur) :
+
+- **Niveau entier** — le joueur voit tout le tableau d'un coup d'œil, sans jamais bouger. Convient
+  à un **puzzle** : le joueur doit voir l'ensemble du mécanisme pour comprendre comment le résoudre.
+- **Par salle** — pour un tableau plus grand qu'un écran : la caméra reste fixe tant que le joueur
+  reste dans la même « salle », puis bascule net dès qu'il en franchit la frontière (une grille de
+  repère apparaît dans l'aperçu). Convient à un grand niveau construit comme une **suite de pièces**
+  distinctes.
+- **Suivi du personnage** — la caméra accompagne le joueur en continu, comme dans la plupart des
+  jeux de plateforme. Convient à un tableau **long et linéaire** (une course, un couloir), où
+  montrer tout d'un coup n'aurait pas de sens. Un champ **Taille de la caméra** (largeur/hauteur en
+  cases) permet de régler ce qu'elle montre autour du joueur ; laissé vide, la taille par défaut
+  s'applique.
+
+Un niveau créé avant l'existence de ce réglage se comporte **exactement comme avant** (niveau
+entier ou par salle selon sa taille) : rien à faire pour les niveaux déjà publiés.
+
+#### Mélanger plusieurs tailles de caméra dans un même niveau (mode « Par salle »)
+
+Le quadrillage automatique du mode **Par salle** impose une seule taille de « salle » pour tout le
+tableau. Pour mélanger des tailles différentes — par exemple une grande pièce d'ensemble et un
+couloir étroit dans le même niveau — dessinez vos propres zones de caméra :
+
+1. Choisissez le mode **Par salle**.
+2. Dans la barre d'outils, sélectionnez l'outil **Zone de caméra**.
+3. Cliquez-glissez sur le canevas pour dessiner un rectangle : il devient une zone de caméra dès
+   que vous relâchez le bouton de la souris. Répétez pour chaque zone souhaitée.
+4. Le tableau **Zones de caméra**, dans l'onglet **Cadrage**, liste toutes les zones dessinées
+   (position et taille). Pour en retirer une, sélectionnez-la dans ce tableau puis cliquez sur
+   **Retirer** — le dessin sur le canevas ne se retire pas au clic, seulement depuis ce tableau.
+
+Chaque geste (dessiner une zone, en retirer une) s'annule normalement avec **Ctrl+Z**. Si deux
+zones se chevauchent, c'est celle dessinée **en premier** qui l'emporte à cet endroit. Tant
+qu'aucune zone n'est dessinée, le quadrillage automatique décrit ci-dessus reste inchangé — dessiner
+des zones est une option, pas une obligation.
+
+Le niveau est enregistré à côté de l'exécutable, dans le dossier `Levels`. Dans l'**éditeur**,
+quelle que soit sa taille, un niveau reste **entièrement visible** à l'ouverture (la caméra dézoome
+automatiquement si besoin) — c'est le cadrage choisi ci-dessus qui s'applique **en jeu**.
 
 ## 4. Publier votre niveau
 

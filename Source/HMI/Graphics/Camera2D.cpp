@@ -1,9 +1,36 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Graphics/Camera2D.h"
 
 #include <algorithm>
 #include <cmath>
 
 namespace hmi {
+
+// Declenche (ou relance) une secousse d'ecran (voir en-tete).
+void triggerScreenShake(ScreenShakeState& state, float amplitudePixels, float duration) noexcept {
+    state.amplitudePixels = amplitudePixels;
+    state.elapsed = 0.0f;
+    state.duration = duration;
+}
+
+// Avance une secousse d'ecran d'un pas fixe (voir en-tete).
+void advanceScreenShake(ScreenShakeState& state, float fixedDelta) noexcept {
+    if (state.elapsed < state.duration) {
+        state.elapsed = (std::min)(state.duration, state.elapsed + fixedDelta);
+    }
+}
+
+// Decalage courant d'une secousse d'ecran, en pixels ENTIERS (voir en-tete).
+core::Vector2 screenShakeOffset(const ScreenShakeState& state) noexcept {
+    if (state.duration <= 0.0f || state.elapsed >= state.duration) {
+        return core::Vector2{0.0f, 0.0f};  // terminee (ou jamais declenchee) : aucun decalage.
+    }
+    const float remaining = 1.0f - (state.elapsed / state.duration);  // 1 -> 0
+    const float rawOffsetY = state.amplitudePixels * remaining;
+    return core::Vector2{0.0f, std::round(rawOffsetY)};
+}
 
 // Construit une caméra pour une surface de rendu donnée.
 Camera2D::Camera2D(int viewportWidth, int viewportHeight)
@@ -37,8 +64,13 @@ DirectX::XMFLOAT4X4 Camera2D::projectionMatrix() const {
     // couvrir 1 en NDC. L'axe Y est inversé (monde Y-bas, NDC Y-haut).
     const float scaleX = scale() * 2.0f / static_cast<float>(_viewportWidth);
     const float scaleY = scale() * 2.0f / static_cast<float>(_viewportHeight);
-    const float translateX = -_center.x * scaleX;
-    const float translateY = _center.y * scaleY;
+    // Secousse d'ecran (LOT-53 TACHE-03) : decalage en pixels -> NDC, ajoute a la translation
+    // SEULEMENT (jamais a _center) -- convertit un decalage ecran (Y vers le bas) en decalage NDC
+    // (Y vers le haut), d'ou le signe oppose sur l'axe Y par rapport a translateX.
+    const float shakeNdcX = _shakeOffsetPixels.x * (2.0f / static_cast<float>(_viewportWidth));
+    const float shakeNdcY = _shakeOffsetPixels.y * (2.0f / static_cast<float>(_viewportHeight));
+    const float translateX = (-_center.x * scaleX) + shakeNdcX;
+    const float translateY = (_center.y * scaleY) - shakeNdcY;
 
     // Ligne-major, appliquée en `position * matrice` (convention DirectXMath) :
     // clip.x =  scaleX * (x - cx) ; clip.y = -scaleY * (y - cy) ; clip.z = 0 ; clip.w = 1.

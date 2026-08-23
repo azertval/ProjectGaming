@@ -70,7 +70,7 @@ interrupteur ouvre quelle porte sans comparer des couleurs). Deux ajouts corrige
   (`Source/HMI/Editor/LinkGeometry.h`), pure et testée sans GPU (`EX-NFR-010`) ; le tracé
   lui-même réutilise la primitive de segment orienté ajoutée à `hmi::SpriteBatch` (voir
   @ref guide-rendu).
-- **Outil « Lien »** (`hmi::EditorTool::Link`, panneau Outils) : cliquer un déclencheur
+- **Outil « Lien »** (`hmi::EditorTool::Link`, barre d'outils) : cliquer un déclencheur
   (interrupteur/plaque) passe en **attente de cible** (case signalée par un voile jaune, trait
   provisoire vers la souris) ; cliquer une cible (porte/danger commuté) **crée** la liaison
   (`LevelDraft::linkMechanism`) ; refaire la même paire la **supprime** (`unlinkMechanism`,
@@ -125,10 +125,48 @@ viewport. Le problème d'occlusion disparaît par construction :
 - la **Palette** (`hmi::PalettePanel`, un `QTreeView` alimenté par la taxonomie pure
   `hmi::tileTaxonomy`) émet le type sélectionné, que `MainWindow` relaie au viewport via
   `GameViewport::setActiveTile` ;
-- les **Outils** (`hmi::ToolPanel`) émettent l'outil actif, relayé via `GameViewport::setTool`.
+- l'**outil actif** est choisi depuis la barre d'outils à icônes (`hmi::EditorActions`, `LOT-56`) et
+  relayé via `GameViewport::setTool`. L'ancien panneau de boutons radio a disparu. Le panneau
+  **Décors**, qui portait les options de l'outil du même nom, a été remplacé au `LOT-69` par le
+  panneau **Plans** (`hmi::PlanesPanel`) : l'habillage d'un niveau ne se pose plus, il se peint
+  (voir « Mode création » ci-dessous).
+
+Depuis le `LOT-68`, cette barre d'outils ne porte **que** la sélection d'outil et quatre commandes
+à usage continu — enregistrer, annuler, refaire, essayer. Tout le reste vit dans la barre de menus,
+organisée par nature d'action (Fichier, Édition, Niveau, Affichage, Atelier, Aide). Et l'éditeur se
+présente en **deux espaces de travail exclusifs**, édition de niveau ou atelier pixel art, chacun
+n'affichant que ses propres panneaux : le détail de ces arbitrages est en @ref guide-design-ihm.
 
 Le viewport ne reçoit donc que des **clics de grille** ; il n'a plus à arbitrer entre « peindre » et
 « cliquer un panneau ». Détail de ces widgets Qt : @ref guide-ihm-qt.
+
+### L'outil « Parcours » : dessiner la route d'un élément mobile
+
+`hmi::EditorTool::Path` (`LOT-67`) donne au *level designer* la maîtrise des trajectoires, qui
+imposaient jusque-là d'ouvrir le JSON à la main. Le geste tient en deux temps :
+
+1. **cliquer la tuile de départ** d'une plateforme mobile ou d'un danger mobile la sélectionne — la
+   tuile elle-même sert de zone de sélection, il n'y a pas de poignée dessus ;
+2. **glisser une poignée** modifie la route : une poignée de **point** déplace ce point (clic droit
+   le retire), une poignée de **milieu de segment** en insère un nouveau et le déplace du même
+   geste — le patron des éditeurs de courbe, qui évite un mode « ajouter » séparé.
+
+Une route encore **vide** est le cas qu'on rencontre en premier, et il n'avait pas de réponse
+jusqu'au `LOT-68` : sans point à déplacer ni segment à couper, une plateforme fraîchement peinte
+n'offrait rien à saisir, et son parcours ne pouvait jamais être *commencé* — seulement modifié s'il
+existait déjà. Elle expose désormais une poignée d'**amorce** sur sa tuile de départ, dont le
+glisser crée le premier point de passage.
+
+> L'amorce ne déplace pas le départ : on le déplace en **repeignant** la tuile. La règle « le point
+> de départ n'a pas de poignée » reste donc entière — lui en donner une créerait deux façons
+> contradictoires de faire la même chose.
+
+Les poignées gardent une taille **écran** constante (`hmi::pathHandleLayout`) : leur taille en
+unités monde suit l'échelle de la caméra, sans quoi elles deviendraient inutilisables aux extrêmes
+de zoom. Un geste complet ne produit qu'**une** action, donc un seul pas d'annulation.
+
+Les réglages qui ne se dessinent pas — vitesse, déphasage, mode de parcours, période d'un danger
+temporisé, règles du tableau — vivent dans le panneau **Propriétés** (`hmi::PropertiesPanel`).
 
 ### Trois outils, une même grille : \ref hmi::EditorTool "EditorTool"
 
@@ -248,6 +286,114 @@ capture de `F10` (et de toutes les touches d'édition) passe désormais par `key
 table `hmi::qtKeyToHmiKey` (@ref guide-entrees) — l'ancienne fenêtre Win32 et ses messages
 `WM_SYSKEYDOWN` n'existent plus.
 
+## Le mode « définition des textures » : auditer les calques sans les confondre avec `F8` (`LOT-51`)
+
+`F8` (@ref guide-rendu, `LOT-41`) **compose** le rendu final — surcharge par instance (`LOT-45`) >
+skin de type (`LOT-42`) > damier de repli — exactement ce que le joueur voit. À partir de six
+calques empilés (fond, plans d'arrière-plan, skin des tuiles, objets interactifs, personnage,
+plans de premier plan), la seule bascule Physique/Texture ne dit plus **d'où** vient ce qui est
+affiché à l'écran.
+
+L'onglet **Calques** du panneau **Textures** répond à cette question précise : il **décompose**
+plutôt que de composer. Une case à cocher par calque, dans l'**ordre de dessin** (`hmi::RenderLayer`,
+`EX-REN-014`) — Fond, Plans d'arrière-plan, Ombres, Skin des tuiles, Objets interactifs, Personnage,
+Plans de premier plan — chacune indépendamment activable/désactivable, plus une case « Physique
+seul » (la même bascule que `F8`, vue sous cet angle) et un bouton « Tout afficher ». C'est un mode
+d'**inspection de l'éditeur**, sans persistance entre deux sessions et **sans aucun effet sur le
+jeu** — masquer un calque ici ne le masque jamais en jeu ni en essai (`hmi::GameSession` ne connaît
+pas cet onglet).
+
+**Ce qui distingue ce mode d'un simple masquage** : quand un seul calque de contenu est coché,
+l'affichage **isole** — il ne retombe **jamais** sur un niveau de priorité inférieur. Cocher
+uniquement « Objets interactifs » ne montre que les cases portant une surcharge par instance
+assignée, sans repli sur le skin de leur type ni sur le damier ; cocher uniquement « Skin des
+tuiles » ne montre que les types dont un skin est chargé dans le jeu courant, une case vide révélant
+directement **quels types n'ont pas encore de skin** — le diagnostic le plus utile du programme
+d'habillage (`LOT-40` → `LOT-55`). Combiner plusieurs cases répond à des questions d'audit
+différentes (« le plan de premier plan cache-t-il quelque chose d'important au-dessus du
+personnage ? » suppose deux calques visibles à la fois, pas un seul).
+
+Les libellés « Aperçu » de cet onglet ne doivent jamais se confondre avec « Jeu » (`F8`) : les deux
+réutilisent le même résolveur de priorité (`hmi::resolveTileAppearance`), avec deux règles
+d'affichage différentes plutôt que deux résolveurs — c'est ce qui garantit que l'audit ne divergera
+jamais silencieusement du rendu réel.
+
+## Le mode création : peindre le décor du niveau (`LOT-69`)
+
+Le `LOT-68` avait donné à l'éditeur deux **espaces de travail exclusifs** — édition de niveau,
+atelier pixel art. Le mode création est le **troisième** (menu *Affichage > Espace de travail*), et
+c'est cette structure, plutôt qu'un énième bouton, qui le rend praticable : y entrer masque les
+panneaux qui n'ont rien à y faire et fait apparaître ceux du canevas.
+
+### Le panneau « Plans »
+
+Il occupe la place laissée par l'ancien panneau « Décors ». Il liste les plans du niveau **dans
+l'ordre**, chacun avec son fichier, sa densité, sa profondeur, sa parallaxe par axe, son opacité, un
+œil de visibilité et un bouton « isoler ».
+
+L'ordre est significatif : il décide de la superposition à profondeur égale. D'où des boutons
+**Monter/Descendre** plutôt qu'un tri de colonne, qui laisserait croire que l'ordre n'est qu'un
+confort d'affichage.
+
+Deux détails qui se paient à l'usage s'ils sont mal faits :
+
+- Les champs numériques émettent sur `editingFinished`, **jamais** sur `valueChanged` : taper
+  « 0.75 » dans un facteur de parallaxe produirait sinon quatre mutations, donc quatre pas
+  d'annulation pour un seul geste (leçon du `LOT-67`).
+- La **visibilité** d'un plan (masquage, isolement) n'est pas une propriété du niveau : elle vit
+  dans `hmi::PlaneVisibility`, n'est pas enregistrée, et n'empile aucun pas d'annulation. C'est une
+  aide de travail, pas une donnée.
+
+La case « parallaxe active » du niveau est **grisée**, avec son explication, quand le cadrage est
+*niveau entier* : la caméra n'y défile pas, un facteur ne produirait qu'un désalignement constant.
+
+### Cycle de vie des fichiers
+
+« Ajouter » crée un PNG **entièrement transparent** aux dimensions exactes qu'impose la densité,
+nommé d'après le niveau et rendu unique par un suffixe numérique croissant — `foret.png`,
+`foret-2.png`, … plutôt qu'un identifiant aléatoire, pour qu'un dossier de plans reste lisible à
+l'œil. Changer la densité **rééchantillonne** l'image et la réécrit : le fichier et le format ne
+peuvent jamais dire deux choses différentes. Le rééchantillonnage est un ratio **entier**, sans
+interpolation — un filtrage introduirait des teintes que l'artiste n'a pas posées.
+
+> **Supprimer un plan ne supprime jamais son fichier.** Retirer une entrée annule proprement côté
+> brouillon (`Ctrl+Z` la restaure), mais un fichier effacé, lui, ne revient pas. Le choix retenu est
+> donc de ne retirer que l'entrée : un PNG orphelin dans `Levels/Plans/` est moins grave qu'un
+> dessin perdu. À nettoyer à la main si le dossier s'encombre.
+
+### Peindre
+
+Le bouton « Peindre » bascule dans l'espace Plans avec le plan sélectionné chargé. Le canevas est
+celui de l'atelier pixel art (`hmi::PixelCanvas`) : mêmes outils, même palette, même historique
+visuel, même copier/coller. Rien n'a été réécrit — c'est d'ailleurs vérifié, les tests de
+`hmi::PixelOperations` et `hmi::PixelCanvasGeometry` passent **sans retouche**.
+
+Deux règles à connaître :
+
+- **`Ctrl+S` enregistre le PNG**, pas le niveau. Le canevas est « modifié » indépendamment du
+  brouillon — deux notions distinctes depuis le `LOT-54` — et chacune a son garde-fou de perte de
+  travail. L'enregistrement du niveau, lui, écrit toujours le JSON.
+- **Un coup de pinceau dans un plan n'apparaît jamais dans l'historique d'édition du niveau**, ni
+  réciproquement. Les deux piles sont distinctes par construction, et changer de sujet dans le
+  canevas repart d'une pile vierge.
+
+La barre d'état annonce, en plus de ce qu'elle affiche déjà pour un asset : la résolution du plan,
+sa densité et son **poids mémoire** — le chiffre que le budget du dépôt plafonne (`EX-NFR-043`).
+
+### La référence : un repère géométrique, pas un aperçu
+
+Sous l'image éditée, l'éditeur dessine une **pelure d'oignon** des tuiles du niveau (une couleur
+plate par type, reprise du mode Physique) et les plans qui passent **derrière** celui qu'on peint,
+aplatis ; au-dessus, ceux qui passent **devant**. Une grille de **tuiles**, distincte de la grille
+de pixels, permet de viser une case.
+
+Ce que la référence n'est **pas**, et ne sera pas : ni raccords automatiques, ni skins, ni objets
+animés. Elle dit *où* sont les choses, pas *à quoi elles ressembleront*. L'aperçu fidèle reste
+l'essai (`P`). Le dire ici évite une attente déçue.
+
+Le zoom descend **sous** le 1:1 — un plan fait la taille du niveau entier, le voir en entier est le
+cas normal, pas l'exception.
+
 ## Gérer ses fichiers de niveaux
 
 Le panneau **Niveaux** (`hmi::LevelBrowserPanel`) liste les fichiers `.json` du dossier `Levels` et
@@ -261,10 +407,16 @@ dupliquer/supprimer, sans dépendance Qt) — la même séparation « logique pu
 ## Voir aussi
 - `core::LevelDraft` (dont `paintRegion`, `wouldResizeDropContent`), `core::LevelWriter`,
   `core::LevelLoader` (dont `LevelValidationError`), `core::Mechanism`.
-- `hmi::GameViewport`, `hmi::EditorTool`, `hmi::PalettePanel`, `hmi::tileTaxonomy`, `hmi::ToolPanel`,
-  `hmi::LevelBrowserPanel`, `hmi::LevelFileOperations`, `hmi::isValidLevelName`.
+- `hmi::GameViewport`, `hmi::EditorTool`, `hmi::PalettePanel`, `hmi::tileTaxonomy`,
+  `hmi::DecorsPanel`, `hmi::LevelBrowserPanel`, `hmi::LevelFileOperations`, `hmi::isValidLevelName`.
 - `hmi::Camera2D::fitZoom` — le cadrage partagé par l'éditeur et le jeu.
+- `hmi::LayerVisibility`, `hmi::resolveTileAppearance` — le mode d'inspection « définition des
+  textures » (`LOT-51`) et le résolveur unique qu'il réutilise avec `F8`.
 - @ref guide-ihm-qt — l'IHM Qt : fenêtre, docks, arbre de palette, navigateur de fichiers, viewport.
+- @ref guide-atelier-pixel-art — l'atelier pixel art : modifier les assets sans quitter l'éditeur,
+  avec un historique **distinct** de celui du brouillon décrit ici.
+- @ref guide-design-ihm — la barre d'état permanente, le regroupement des panneaux et l'unicité des
+  commandes de l'éditeur (`LOT-56`, `LOT-57`).
 - @ref guide-niveaux — le modèle de niveau immuable, la validation et le format JSON réutilisés sans
   duplication.
 - @ref guide-rendu — `SpriteBatch`/`Camera2D`/`TextureAtlas`, réutilisés tels quels par

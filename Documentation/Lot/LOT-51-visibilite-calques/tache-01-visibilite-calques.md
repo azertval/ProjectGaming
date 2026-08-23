@@ -1,6 +1,6 @@
 # TACHE-01 — Jeu de visibilités par calque {#lot-51-tache-01-visibilite-calques}
 
-**Lot :** [LOT-51](epic.md) · **Emplacement :** `Source/HMI/Game`, `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-51](epic.md) · **Emplacement :** `Source/HMI/Game`, `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 À ce stade du programme, une scène empile fond, décors d'arrière-plan, ombres, tuiles habillées,
@@ -25,8 +25,10 @@ différentes.
   lancement.
 
 ## Fichiers impactés
-- `Source/HMI/Graphics/LayerVisibility.{h,cpp}` (nouveau).
-- `Source/HMI/Game/GameViewport.{h,cpp}`, `Source/HMI/Graphics/DraftRenderer.{h,cpp}`.
+- `Source/HMI/Graphics/LayerVisibility.h` (nouveau) — classe entièrement `inline`/`constexpr`
+  (comme `hmi::RenderLayer` lui-même) : aucune logique non triviale ne justifie un `.cpp` séparé.
+- `Source/HMI/Game/GameViewport.{h,cpp}`, `Source/HMI/Graphics/DraftRenderer.{h,cpp}`,
+  `Source/HMI/Graphics/ComposedScene.{h,cpp}` (filtrage à la composition).
 - `Source/Test/Unit/HMI/Graphics/test_layer_visibility.cpp` (nouveau).
 
 ## Tests (obligatoires)

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "Core/Ecs/EntityManager.h"
 
 namespace core {
@@ -5,7 +8,7 @@ namespace core {
 // Crée une nouvelle entité vivante.
 // Un handle valide, distinct de toute entité vivante existante.
 Entity EntityManager::create() {
-    Entity::Index index;
+    Entity::Index index = 0;
     if (!_freeIndices.empty()) {
         // Recycle un index libéré : sa génération a déjà été incrémentée à la
         // destruction, ce qui distingue le nouveau handle de l'ancien.
@@ -20,7 +23,7 @@ Entity EntityManager::create() {
 
     _alive[index] = true;
     ++_aliveCount;
-    return Entity{index, _generations[index]};
+    return Entity{.index = index, .generation = _generations[index]};
 }
 
 // Détruit une entité et libère son index pour recyclage.

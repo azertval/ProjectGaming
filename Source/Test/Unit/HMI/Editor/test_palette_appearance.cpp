@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_palette_appearance.cpp
  * @brief Tests unitaires du choix de vignette de la palette (LOT-42 TACHE-05, EX-EDIT-027).
@@ -39,8 +42,8 @@ hmi::SkinCatalog referenceCatalog() {
  * \castest{<b>En mode Physique, la palette montre la couleur plate du type.</b><br/>
  * \tcat Unitaire · Vignette de palette<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Demander la vignette de Solid en mode Physique, alors qu'un skin lui est assigne.<br/>
- * \tattendu La vignette vient de l'atlas, a la region d'atlas du type.
+ * \tetapes 1. Demander la vignette de Solid en mode Physique, alors qu'un skin lui est
+ * assigne.<br/> \tattendu La vignette vient de l'atlas, a la region d'atlas du type.
  * }
  */
 TEST(PaletteAppearanceTest, ModePhysiqueMontreLaCouleurPlate) {
@@ -186,7 +189,7 @@ TEST(PaletteAppearanceTest, PaletteEtCanevasDecidentPareil) {
             const hmi::PaletteThumbnail thumbnail =
                 hmi::paletteThumbnail(mode, type, physical, &catalog, "foret");
             const hmi::TileAppearance appearance =
-                hmi::resolveTileAppearance(mode, physical, &tag, textures);
+                hmi::resolveTileAppearance(mode, physical, &tag, textures).value();
 
             const bool sameAtlas = thumbnail.source == hmi::PaletteThumbnailSource::Atlas &&
                                    appearance.source == hmi::AppearanceSource::Atlas;
@@ -197,8 +200,8 @@ TEST(PaletteAppearanceTest, PaletteEtCanevasDecidentPareil) {
                 appearance.source == hmi::AppearanceSource::MissingTexture;
 
             EXPECT_TRUE(sameAtlas || sameSkin || sameMissing)
-                << "divergence palette/canevas pour le type "
-                << static_cast<int>(type) << " en mode " << static_cast<int>(mode);
+                << "divergence palette/canevas pour le type " << static_cast<int>(type)
+                << " en mode " << static_cast<int>(mode);
         }
     }
 }

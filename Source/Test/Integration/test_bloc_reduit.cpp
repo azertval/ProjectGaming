@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_bloc_reduit.cpp
  * @brief Tests d'intégration des blocs à taille réduite (`TileType::BlockHalf`/`BlockQuarter`,
@@ -125,8 +128,8 @@ TEST(BlocReduitIntegration, ArreteAuBordDeSaBoiteReelle) {
     for (int col = 0; col < 10; ++col) {
         tiles.setTile(col, 3, core::TileType::Solid);  // sol
     }
-    tiles.setTile(2, 2, core::TileType::BlockHalf);   // coince contre le mur, ne se pousse pas
-    tiles.setTile(3, 2, core::TileType::Solid);       // mur derriere le bloc : la poussee echoue
+    tiles.setTile(2, 2, core::TileType::BlockHalf);  // coince contre le mur, ne se pousse pas
+    tiles.setTile(3, 2, core::TileType::Solid);      // mur derriere le bloc : la poussee echoue
     core::Level level("bloc-reduit", tiles, core::GridPosition{0, 2}, core::GridPosition{9, 2},
                       std::vector<core::Mechanism>{});
     core::BlockController blocks(level);
@@ -167,8 +170,8 @@ TEST(BlocReduitIntegration, EspaceAutourResteFranchissable) {
         tiles.setTile(col, 5, core::TileType::Solid);  // sol, loin sous le personnage
     }
     tiles.setTile(4, 3, core::TileType::BlockQuarter);  // pose au sol, tres bas dans sa case
-    core::Level level("bloc-reduit-libre", tiles, core::GridPosition{0, 0}, core::GridPosition{9, 0},
-                      std::vector<core::Mechanism>{});
+    core::Level level("bloc-reduit-libre", tiles, core::GridPosition{0, 0},
+                      core::GridPosition{9, 0}, std::vector<core::Mechanism>{});
     core::BlockController blocks(level);
     core::World world;
     // Personnage haut dans la colonne du bloc (loin de sa boite reelle centree en y~3.5-3.75) :
@@ -178,7 +181,8 @@ TEST(BlocReduitIntegration, EspaceAutourResteFranchissable) {
     const core::PlayerInput input{1.0f};
 
     const float startX = world.getComponent<core::Transform>(player).position.x;
-    for (int i = 0; i < 180; ++i) {  // 3 s : largement de quoi traverser toute la largeur (10 unites/3 vitesse)
+    for (int i = 0; i < 180;
+         ++i) {  // 3 s : largement de quoi traverser toute la largeur (10 unites/3 vitesse)
         simulateStep(world, player, tiles, blocks, input, physics);
     }
     const float endX = world.getComponent<core::Transform>(player).position.x;

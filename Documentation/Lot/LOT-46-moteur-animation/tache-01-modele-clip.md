@@ -1,6 +1,6 @@
 # TACHE-01 — Le clip devient une donnée {#lot-46-tache-01-modele-clip}
 
-**Lot :** [LOT-46](epic.md) · **Emplacement :** `Source/Core/Ecs` · **Statut :** non commencé
+**Lot :** [LOT-46](epic.md) · **Emplacement :** `Source/Core/Ecs` · **Statut :** fait
 
 ## Contexte
 L'animation actuelle est **entièrement figée dans le code** :

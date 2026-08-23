@@ -1,6 +1,6 @@
 # TACHE-01 — Correspondance état logique → clip {#lot-47-tache-01-correspondance-etat-clip}
 
-**Lot :** [LOT-47](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-47](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 `Core` expose déjà tous les états nécessaires, calculés au pas fixe et testés :

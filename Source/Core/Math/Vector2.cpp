@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "Core/Math/Vector2.h"
 
 #include <cmath>
@@ -44,13 +47,13 @@ Vector2& Vector2::operator/=(float scalar) {
 // Produit scalaire avec un autre vecteur.
 // La somme des produits composante à composante.
 float Vector2::dot(const Vector2& other) const {
-    return x * other.x + y * other.y;
+    return (x * other.x) + (y * other.y);
 }
 
 // Carré de la longueur euclidienne (évite une racine carrée).
 // `x*x + y*y`.
 float Vector2::lengthSquared() const {
-    return x * x + y * y;
+    return (x * x) + (y * y);
 }
 
 // Longueur euclidienne du vecteur.

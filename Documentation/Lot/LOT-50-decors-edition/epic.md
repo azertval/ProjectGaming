@@ -1,6 +1,6 @@
 # LOT-50 — Décors : placement et manipulation dans l'éditeur {#lot-50}
 
-> Statut : **non commencé**. Prérequis : [LOT-49](@ref lot-49) (modèle et rendu des décors),
+> Statut : **fait**. Prérequis : [LOT-49](@ref lot-49) (modèle et rendu des décors),
 > [LOT-43](@ref lot-43) (bibliothèque d'assets).
 
 ## Objectif
@@ -57,10 +57,10 @@ C'est la différence entre « le format supporte les décors » et « on peut co
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-mutateurs-decor.md) | Mutateurs de décors sur `LevelDraft` (déplacer, redimensionner, pivoter, réordonner, changer de couche) | `Source/Core/Levels` | ⬜ |
-| [TACHE-02](tache-02-outil-geste.md) | Outil *DecorPlace* + geste pur de placement, sélection et manipulation | `Source/HMI/Editor` | ⬜ |
-| [TACHE-03](tache-03-selection-poignees.md) | Rendu de la sélection et des poignées sur le calque d'aides d'édition + aimantation | `Source/HMI/Graphics`, `Source/HMI/Editor` | ⬜ |
-| [TACHE-04](tache-04-section-decors.md) | Section « Décors » du panneau « Textures », sélection croisée avec le canevas | `Source/HMI/Editor` | ⬜ |
+| [TACHE-01](tache-01-mutateurs-decor.md) | Mutateurs de décors sur `LevelDraft` (déplacer, redimensionner, pivoter, réordonner, changer de couche) | `Source/Core/Levels` | ✅ |
+| [TACHE-02](tache-02-outil-geste.md) | Outil *DecorPlace* + geste pur de placement, sélection et manipulation | `Source/HMI/Editor` | ✅ |
+| [TACHE-03](tache-03-selection-poignees.md) | Rendu de la sélection et des poignées sur le calque d'aides d'édition + aimantation | `Source/HMI/Graphics`, `Source/HMI/Editor` | ✅ |
+| [TACHE-04](tache-04-section-decors.md) | Section « Décors » du panneau « Textures », sélection croisée avec le canevas | `Source/HMI/Editor` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Un décor peut être placé, sélectionné, déplacé, redimensionné, pivoté, changé de couche,

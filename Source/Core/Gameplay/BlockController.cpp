@@ -1,9 +1,13 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "Core/Gameplay/BlockController.h"
 
 #include <cmath>
 #include <string>
 
 #include "Core/Gameplay/GameplayLog.h"
+#include "Core/Gameplay/PlatformController.h"
 #include "Core/Physics/Aabb.h"
 #include "Core/Physics/SlopeGeometry.h"
 
@@ -12,7 +16,7 @@ namespace {
 
 // Tolérance de contact bloc/personnage : les deux bords doivent se toucher à peu près, pas se
 // chevaucher franchement (sinon une simple superposition passagère pousserait le bloc).
-constexpr float PUSH_TOUCH_TOLERANCE = 0.05f;
+constexpr float PUSH_TOUCH_TOLERANCE = 0.05F;
 
 // true si `type` est l'une des trois tailles de bloc (EX-GP-005) ; false sinon.
 [[nodiscard]] bool isBlockTile(TileType type) {
@@ -22,7 +26,7 @@ constexpr float PUSH_TOUCH_TOLERANCE = 0.05f;
 // Boîte RÉELLE occupée par un bloc à sa position courante : pleine case si `scale == 1`, sinon
 // centrée et réduite (`EX-GP-005`) — une case = une unité monde (`EX-ARCH-021`).
 [[nodiscard]] Aabb blockBox(GridPosition position, float scale) {
-    const float margin = (1.0f - scale) * 0.5f;
+    const float margin = (1.0F - scale) * 0.5F;
     const Vector2 topLeft{static_cast<float>(position.column) + margin,
                           static_cast<float>(position.row) + margin};
     return Aabb::fromTopLeftSize(topLeft, Vector2{scale, scale});
@@ -41,15 +45,18 @@ BlockController::BlockController(const Level& level) {
         for (int column = 0; column < map.width(); ++column) {
             const TileType tile = map.tile(column, row);
             if (isBlockTile(tile)) {
-                _positions.push_back(GridPosition{column, row});
+                _positions.push_back(GridPosition{.column = column, .row = row});
                 _scales.push_back(tileVisualScale(tile));
             }
         }
     }
     _fallTimers.assign(_positions.size(), 0);
+    _platformCarryAccumulator.assign(_positions.size(), Vector2{});
 }
 
-Aabb BlockController::boxAt(std::size_t index) const { return blockBox(_positions[index], _scales[index]); }
+Aabb BlockController::boxAt(std::size_t index) const {
+    return blockBox(_positions[index], _scales[index]);
+}
 
 bool BlockController::isFree(GridPosition target, const TileMap& base,
                              std::size_t excluding) const {
@@ -80,38 +87,91 @@ bool BlockController::isFree(GridPosition target, const TileMap& base,
     return true;
 }
 
-void BlockController::update(const Aabb& playerBox, float moveIntentX, const TileMap& base) {
-    // 1. Poussée : direction du déplacement voulu, bloc touché de ce côté, case suivante libre.
-    if (moveIntentX != 0.0f) {
-        const int direction = moveIntentX > 0.0f ? 1 : -1;
-        for (std::size_t index = 0; index < _positions.size(); ++index) {
-            const GridPosition current = _positions[index];
-            const Aabb box = blockBox(current, _scales[index]);
-            if (!overlapsVertically(playerBox, box)) {
+void BlockController::update(const Aabb& playerBox, float moveIntentX, const TileMap& base,
+                             const std::vector<PlatformSample>& platforms) {
+    pushBlocks(playerBox, moveIntentX, base);
+    carryBlocksOnPlatforms(base, platforms);
+    dropBlocks(base);
+}
+
+void BlockController::pushBlocks(const Aabb& playerBox, float moveIntentX, const TileMap& base) {
+    // Direction du déplacement voulu, bloc touché de ce côté, case suivante libre.
+    if (moveIntentX == 0.0F) {
+        return;
+    }
+    const int direction = moveIntentX > 0.0F ? 1 : -1;
+    for (std::size_t index = 0; index < _positions.size(); ++index) {
+        const GridPosition current = _positions[index];
+        const Aabb box = blockBox(current, _scales[index]);
+        if (!overlapsVertically(playerBox, box)) {
+            continue;
+        }
+        const bool touchesFromLeft =
+            direction > 0 && std::fabs(playerBox.max.x - box.min.x) <= PUSH_TOUCH_TOLERANCE;
+        const bool touchesFromRight =
+            direction < 0 && std::fabs(playerBox.min.x - box.max.x) <= PUSH_TOUCH_TOLERANCE;
+        if (!touchesFromLeft && !touchesFromRight) {
+            continue;
+        }
+        const GridPosition target{.column = current.column + direction, .row = current.row};
+        if (isFree(target, base, index)) {
+            _positions[index] = target;
+            _fallTimers[index] = 0;  // repart de zéro : re-teste la chute dès le prochain pas
+            GAMEPLAY_LOG_TRACE("Bloc #" + std::to_string(index) + " pousse vers (" +
+                               std::to_string(target.column) + ", " + std::to_string(target.row) +
+                               ")");
+        }
+    }
+}
+
+void BlockController::carryBlocksOnPlatforms(const TileMap& base,
+                                             const std::vector<PlatformSample>& platforms) {
+    for (std::size_t index = 0; index < _positions.size(); ++index) {
+        const Aabb box = blockBox(_positions[index], _scales[index]);
+        bool supported = false;
+        for (const PlatformSample& sample : platforms) {
+            if (!restsOnTopOfPlatform(box, sample.previousBox)) {
                 continue;
             }
-            const bool touchesFromLeft =
-                direction > 0 && std::fabs(playerBox.max.x - box.min.x) <= PUSH_TOUCH_TOLERANCE;
-            const bool touchesFromRight =
-                direction < 0 && std::fabs(playerBox.min.x - box.max.x) <= PUSH_TOUCH_TOLERANCE;
-            if (!touchesFromLeft && !touchesFromRight) {
-                continue;
-            }
-            const GridPosition target{current.column + direction, current.row};
-            if (isFree(target, base, index)) {
+            supported = true;
+            _fallTimers[index] = 0;  // porte : jamais considere non soutenu ce pas-ci
+            _platformCarryAccumulator[index] += sample.currentBox.min - sample.previousBox.min;
+            break;  // une seule plateforme porte un bloc a la fois
+        }
+        if (!supported) {
+            _platformCarryAccumulator[index] = Vector2{};
+            continue;
+        }
+
+        // Convertit le deplacement infra-case accumule en poussee(s) d'une case entiere, des que
+        // le seuil est atteint -- meme granularite que le reste du controleur (jamais de position
+        // infra-case pour un bloc). Le reliquat est conserve, jamais perdu.
+        for (int axis = 0; axis < 2; ++axis) {
+            float& accumulated =
+                axis == 0 ? _platformCarryAccumulator[index].x : _platformCarryAccumulator[index].y;
+            while (std::fabs(accumulated) >= 1.0F) {
+                const int direction = accumulated > 0.0F ? 1 : -1;
+                const GridPosition current = _positions[index];
+                const GridPosition target =
+                    axis == 0
+                        ? GridPosition{.column = current.column + direction, .row = current.row}
+                        : GridPosition{.column = current.column, .row = current.row + direction};
+                if (!isFree(target, base, index)) {
+                    accumulated = 0.0F;  // bloque : le reliquat ne s'accumule pas indefiniment
+                    break;
+                }
                 _positions[index] = target;
-                _fallTimers[index] = 0;  // repart de zéro : re-teste la chute dès le prochain pas
-                GAMEPLAY_LOG_TRACE("Bloc #" + std::to_string(index) + " pousse vers (" +
-                                   std::to_string(target.column) + ", " +
-                                   std::to_string(target.row) + ")");
+                accumulated -= static_cast<float>(direction);
             }
         }
     }
+}
 
-    // 2. Chute : un bloc non soutenu tombe d'une case au bout de FALL_INTERVAL_STEPS pas.
+void BlockController::dropBlocks(const TileMap& base) {
+    // Un bloc non soutenu tombe d'une case au bout de FALL_INTERVAL_STEPS pas.
     for (std::size_t index = 0; index < _positions.size(); ++index) {
         const GridPosition current = _positions[index];
-        const GridPosition below{current.column, current.row + 1};
+        const GridPosition below{.column = current.column, .row = current.row + 1};
         if (!isFree(below, base, index)) {
             _fallTimers[index] = 0;
             continue;
@@ -142,7 +202,7 @@ TileMap BlockController::collisionMap(const TileMap& base) const {
     // franchissable AUTOUR de lui dans la grille classique (EX-GP-005) — sa collision réelle est
     // résolue à part par `core::sweepAabbVsAabb` (voir `boxAt`/`scales`, en-tête de la classe).
     for (std::size_t index = 0; index < _positions.size(); ++index) {
-        if (_scales[index] >= 1.0f) {
+        if (_scales[index] >= 1.0F) {
             combined.setTile(_positions[index].column, _positions[index].row, TileType::Solid);
         }
     }

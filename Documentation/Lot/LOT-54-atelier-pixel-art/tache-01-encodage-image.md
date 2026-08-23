@@ -1,6 +1,6 @@
 # TACHE-01 — Encodage et enregistrement d'image {#lot-54-tache-01-encodage-image}
 
-**Lot :** [LOT-54](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-54](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 Le projet sait **lire** une image depuis le LOT-39 : `hmi::decodeImageFile` décode un fichier en
@@ -8,6 +8,10 @@ pixels RGBA non prémultipliés via `QImage`. Il ne sait pas en **écrire** — 
 particulier, l'outil `--export-atlas` de `main.cpp`, qui utilise `QImage::save` directement.
 
 L'atelier a besoin de l'opération symétrique, sous une forme réutilisable et testable.
+
+C'est la seule tâche du lot qui ne dépend ni de [LOT-56](@ref lot-56) ni de [LOT-57](@ref lot-57) :
+elle ne touche à aucune interface. Elle peut donc être réalisée en premier, indépendamment de
+l'ordre d'exécution retenu pour le reste.
 
 ## Travail à réaliser
 - **`encodeImageFile` / `saveImageFile`**, symétriques de `decodeImageFile` : depuis un tampon de

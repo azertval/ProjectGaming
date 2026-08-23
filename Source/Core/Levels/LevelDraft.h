@@ -1,9 +1,14 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
+#include <cstddef>
 #include <optional>
 #include <string>
 #include <vector>
 
+#include "Core/Levels/CameraFraming.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
@@ -97,11 +102,11 @@ public:
      *
      * Remplace toute liaison existante pour @p targetPosition (une cible n'a qu'un seul
      * déclencheur associé) ; plusieurs cibles peuvent en revanche partager le même déclencheur.
-     * Même geste éditeur pour les deux cibles (clic déclencheur, clic cible) — la liaison résultante
-     * est rangée dans `mechanisms()` (cible `Door`) ou `dangerLinks()` (cible `DangerSwitched`)
-     * selon ce que porte réellement @p targetPosition.
-     * @pre La case @p switchPosition porte un `Switch`/`PressurePlate`, la case @p targetPosition
-     *      porte une `Door` **ou** un `DangerSwitched`.
+     * Même geste éditeur pour les deux cibles (clic déclencheur, clic cible) — la liaison
+     * résultante est rangée dans `mechanisms()` (cible `Door`) ou `dangerLinks()` (cible
+     * `DangerSwitched`) selon ce que porte réellement @p targetPosition.
+     * @pre La case @p switchPosition porte un `Switch`/`PressurePlate`/`Key`, la case
+     *      @p targetPosition porte une `Door`/`LockedDoor` **ou** un `DangerSwitched`.
      */
     void linkMechanism(GridPosition switchPosition, GridPosition targetPosition);
 
@@ -128,6 +133,145 @@ public:
      * @pre La case @p position porte un `DangerBlink`.
      */
     void setBlinkConfig(GridPosition position, int period, int phase, int activeDuration);
+
+    /**
+     * @brief Définit la route complète, le mode, la vitesse et le déphasage d'une plateforme
+     *        mobile (`EX-GP-026`).
+     *
+     * Remplace toute configuration existante pour @p position. Mêmes remarques que
+     * `setMoverConfig`/`setBlinkConfig` : sans appel, une `MovingPlatform` garde les valeurs de
+     * conception par défaut (`MovingPlatformConfig`), appliquées par `LevelLoader` au rechargement.
+     * @param position  Case portant la plateforme, et point de **départ** de sa route.
+     * @param waypoints Points **suivants** de la route, dans l'ordre ; @p position en est le point
+     *                  de départ implicite et ne doit pas y figurer. Vide = plateforme immobile.
+     * @param mode      Aller-retour ou circuit fermé. Un circuit ferme la route sur son départ ;
+     *                  sans point de passage, il n'y a rien à fermer et le mode est sans effet.
+     * @param speed     Vitesse de parcours, en cases par seconde, constante sur toute la route.
+     * @param phase     Déphasage en pas de simulation : décale le départ dans le cycle, ce qui
+     *                  permet de désynchroniser deux plateformes de routes identiques.
+     * @pre La case @p position porte une `MovingPlatform`.
+     */
+    void setPlatformConfig(GridPosition position, std::vector<GridPosition> waypoints,
+                           PlatformPathMode mode, float speed, int phase);
+
+    /**
+     * @brief Ajoute un point à la fin de la route de la plateforme en @p position (`EX-GP-026`).
+     *
+     * Crée la configuration si la plateforme n'en avait pas encore (le nouveau point devient alors
+     * l'unique waypoint, soit l'aller-retour à deux points historique). Annulable en un seul pas.
+     * @pre La case @p position porte une `MovingPlatform`.
+     */
+    void addPlatformWaypoint(GridPosition position, GridPosition waypoint);
+
+    /**
+     * @brief Insère @p waypoint au rang @p index de la route de la plateforme en @p position.
+     *
+     * Sert le geste « cliquer un segment pour y ajouter un point » de l'éditeur : @p index est le
+     * rang qu'occupera le point inséré. Sans effet si la plateforme n'a pas de configuration ou si
+     * @p index dépasse la taille de la route.
+     * @pre La case @p position porte une `MovingPlatform`.
+     */
+    void insertPlatformWaypoint(GridPosition position, std::size_t index, GridPosition waypoint);
+
+    /**
+     * @brief Déplace le point de rang @p index de la route de la plateforme en @p position.
+     *
+     * Sert le glisser d'une poignée : un seul snapshot pour tout le geste, empilé à l'appel.
+     * Sans effet si la plateforme n'a pas de configuration ou si @p index est hors de la route.
+     * @pre La case @p position porte une `MovingPlatform`.
+     */
+    void movePlatformWaypoint(GridPosition position, std::size_t index, GridPosition waypoint);
+
+    /**
+     * @brief Retire le point de rang @p index de la route de la plateforme en @p position.
+     *
+     * Sans effet si la plateforme n'a pas de configuration ou si @p index est hors de la route.
+     * Retirer le dernier point laisse une plateforme immobile, jamais une configuration invalide.
+     * @pre La case @p position porte une `MovingPlatform`.
+     */
+    void removePlatformWaypoint(GridPosition position, std::size_t index);
+
+    /// Change le mode de bouclage de la plateforme en @p position (`EX-GP-026`), annulable. Crée
+    /// la configuration si elle n'existait pas. @pre @p position porte une `MovingPlatform`.
+    void setPlatformMode(GridPosition position, PlatformPathMode mode);
+
+    /// Change la vitesse (cases/seconde) de la plateforme en @p position, annulable. Crée la
+    /// configuration si elle n'existait pas. @pre @p position porte une `MovingPlatform`.
+    void setPlatformSpeed(GridPosition position, float speed);
+
+    /// Change le déphasage (pas fixes) de la plateforme en @p position, annulable. Crée la
+    /// configuration si elle n'existait pas. @pre @p position porte une `MovingPlatform`.
+    void setPlatformPhase(GridPosition position, int phase);
+
+    /**
+     * @brief Assigne (ou remplace) la texture affichée pour **une case précise** (`EX-EDIT-043`),
+     *        prioritaire sur le skin de son type (LOT-42).
+     *
+     * Repeindre un **autre** type de tuile sur @p position retire l'override (funnel
+     * `removeLinkedDataAt`) ; repeindre le **même** type le conserve. Ne voyage pas avec
+     * `paintRegion` (collage) : un override reste attaché à sa case d'origine.
+     * @pre La case @p position porte un type de tuile non `Empty`.
+     */
+    void setTextureOverride(GridPosition position, std::string assetName);
+
+    /// Retire l'override de texture de @p position, s'il y en a un. Sans effet sinon.
+    void removeTextureOverride(GridPosition position);
+
+    /**
+     * @name Plans picturaux (`EX-DEC-040`, LOT-69)
+     *
+     * Tous ces mutateurs empilent **un** pas d'annulation (`pushUndo`) et sont donc annulables
+     * *et* refaisables. Un rang hors bornes est **sans effet** et n'empile rien — même convention
+     * que les mutateurs de décor et de parcours.
+     *
+     * Contrairement aux décors, les plans ne sont pas regroupés par couche pour le
+     * réordonnancement : leur rang dans la liste **est** l'ordre de superposition, et la
+     * profondeur (`core::PlaneDepth`) est une propriété indépendante. Monter un plan le rapproche
+     * donc du premier plan de la liste, quelle que soit sa profondeur.
+     * @{
+     */
+
+    /// Ajoute @p plane en fin de liste (le plus en avant).
+    void addPlane(Plane plane);
+
+    /// Retire le plan au rang @p index. Ne touche **jamais** au fichier PNG : le brouillon annule
+    /// une entrée, il ne restaurerait pas un fichier supprimé (voir `LOT-69` TACHE-08).
+    void removePlane(std::size_t index);
+
+    /// Change la densité du plan au rang @p index (`EX-DEC-041`).
+    /// @return `false` si @p index est hors bornes ou si @p pixelsPerUnit n'est pas une densité
+    ///         valide (`core::isValidPlaneDensity`) — auquel cas rien n'est empilé.
+    bool setPlaneDensity(std::size_t index, int pixelsPerUnit);
+
+    /// Change les facteurs de parallaxe du plan au rang @p index (`EX-DEC-043`).
+    /// @return `false` si @p index est hors bornes ou si un facteur n'est pas fini.
+    bool setPlaneParallax(std::size_t index, float parallaxX, float parallaxY);
+
+    /// Change l'opacité du plan au rang @p index.
+    /// @return `false` si @p index est hors bornes ou si @p opacity sort de `[0, 1]`.
+    bool setPlaneOpacity(std::size_t index, float opacity);
+
+    /// Change la profondeur du plan au rang @p index (`EX-DEC-042`).
+    /// @return `false` si @p index est hors bornes.
+    bool setPlaneDepth(std::size_t index, PlaneDepth depth);
+
+    /// Avance le plan au rang @p index d'un cran ; sans effet s'il est déjà le dernier.
+    /// @return Le nouveau rang, ou `std::nullopt` si @p index est hors bornes.
+    std::optional<std::size_t> movePlaneForward(std::size_t index);
+
+    /// Recule le plan au rang @p index d'un cran ; sans effet s'il est déjà le premier.
+    std::optional<std::size_t> movePlaneBackward(std::size_t index);
+
+    /// Amène le plan au rang @p index au dernier rang (le plus en avant).
+    std::optional<std::size_t> movePlaneToFront(std::size_t index);
+
+    /// Envoie le plan au rang @p index au premier rang (le plus en arrière).
+    std::optional<std::size_t> movePlaneToBack(std::size_t index);
+
+    /// Active ou désactive la parallaxe des plans pour ce niveau (`EX-DEC-043`).
+    void setParallaxEnabled(bool enabled);
+
+    /** @} */
 
     /**
      * @brief Redimensionne la grille (`EX-EDIT-005`).
@@ -180,20 +324,71 @@ public:
         return !_redoHistory.empty();
     }
 
-    /// Définit le budget de sauts (`-1` = illimité).
-    void setJumpBudget(int jumpBudget) noexcept {
-        _jumpBudget = jumpBudget;
-    }
+    /// Définit le budget de sauts consommable sur tout le tableau (`EX-GP-024`, `-1` = illimité),
+    /// annulable. À distinguer de `setAirJumps`, qui règle une capacité rechargée au sol.
+    void setJumpBudget(int jumpBudget);
 
-    /// Définit le budget de dashs (`-1` = illimité).
-    void setDashBudget(int dashBudget) noexcept {
-        _dashBudget = dashBudget;
-    }
+    /// Définit le budget de dashs consommable sur tout le tableau (`EX-GP-024`, `-1` = illimité),
+    /// annulable. À distinguer de `setDashCharges`.
+    void setDashBudget(int dashBudget);
+
+    /**
+     * @brief Définit les sauts **aériens** accordés par ce tableau (`EX-GP-055`), annulable.
+     *
+     * Capacité rechargée à **chaque** contact avec le sol, contrairement au budget de
+     * `setJumpBudget` qui se consomme une fois pour toutes sur l'ensemble du tableau.
+     * @param airJumps Nombre de sauts aériens, ou absent pour s'en remettre au réglage du moteur
+     *                 (`PhysicsConfig::airJumps`).
+     */
+    void setAirJumps(std::optional<int> airJumps);
+
+    /**
+     * @brief Définit les charges de **dash** accordées par ce tableau (`EX-GP-055`), annulable.
+     * @param dashCharges Nombre de dashs utilisables entre deux contacts avec le sol, ou absent
+     *                    pour s'en remettre au réglage du moteur (`PhysicsConfig::dashCharges`).
+     */
+    void setDashCharges(std::optional<int> dashCharges);
 
     /// Renomme le niveau.
     void setName(std::string name) {
         _name = std::move(name);
     }
+
+    /**
+     * @brief Assigne l'asset de fond du niveau (`EX-REN-044`), annulable.
+     * @param background Nom de l'asset (ex. `"forest.png"`), ou vide pour retirer le fond posé.
+     *                    Une chaîne, jamais un handle : `Core` ignore tout du dossier d'assets.
+     */
+    void setBackground(std::optional<std::string> background);
+
+    /**
+     * @brief Assigne le jeu de skins du niveau (`EX-EDIT-024`), annulable.
+     * @param skinSet Nom du jeu (`skins.json`), ou vide pour le jeu par défaut.
+     */
+    void setSkinSet(std::optional<std::string> skinSet);
+
+    /**
+     * @brief Change le cadrage de caméra du niveau (`EX-LVL-006`, `EX-EDIT-028`), annulable.
+     * @param cameraFraming Nouveau cadrage résolu (mode et, pour *par salle*, taille de salle).
+     */
+    void setCameraFraming(CameraFramingConfig cameraFraming);
+
+    /**
+     * @brief Ajoute une zone de caméra dessinée à la main en fin de liste (mode `PerRoom`,
+     *        `EX-LVL-007`, `EX-EDIT-029`), annulable.
+     *
+     * L'ordre d'ajout fixe la priorité en cas de chevauchement (`core::activeCameraZoneIndex`
+     * côté `HMI`, même convention que `addDecor`) : une zone ajoutée après une autre ne prend le
+     * dessus que là où l'autre ne la couvre pas.
+     * @param zone Zone à ajouter, en cases.
+     */
+    void addCameraZone(CameraZone zone);
+
+    /**
+     * @brief Retire la zone de caméra au rang @p index (`EX-LVL-007`, `EX-EDIT-029`), annulable.
+     * @param index Rang dans `cameraFraming().zones` ; sans effet si hors bornes.
+     */
+    void removeCameraZone(std::size_t index);
 
     /// @return Le nom courant du niveau.
     [[nodiscard]] const std::string& name() const noexcept {
@@ -235,6 +430,26 @@ public:
         return _blinkConfigs;
     }
 
+    /// @return Les configurations de plateforme mobile posées explicitement (`EX-GP-026`).
+    [[nodiscard]] const std::vector<MovingPlatformConfig>& platformConfigs() const noexcept {
+        return _platformConfigs;
+    }
+
+    /// @return Les textures assignées par instance du niveau (`EX-EDIT-043`).
+    [[nodiscard]] const std::vector<TileTextureOverride>& textureOverrides() const noexcept {
+        return _textureOverrides;
+    }
+
+    /// @return Les plans picturaux courants (`EX-DEC-040`), dans leur ordre de superposition.
+    [[nodiscard]] const std::vector<Plane>& planes() const noexcept {
+        return _planes;
+    }
+
+    /// @return `true` si la parallaxe des plans est active pour ce niveau (`EX-DEC-043`).
+    [[nodiscard]] bool parallaxEnabled() const noexcept {
+        return _parallaxEnabled;
+    }
+
     /// @return Le budget de sauts courant (`-1` = illimité).
     [[nodiscard]] int jumpBudget() const noexcept {
         return _jumpBudget;
@@ -243,6 +458,33 @@ public:
     /// @return Le budget de dashs courant (`-1` = illimité).
     [[nodiscard]] int dashBudget() const noexcept {
         return _dashBudget;
+    }
+
+    /// @return Les sauts aériens accordés par ce tableau (`EX-GP-055`), absent si le niveau s'en
+    /// remet au réglage du moteur.
+    [[nodiscard]] const std::optional<int>& airJumps() const noexcept {
+        return _airJumps;
+    }
+
+    /// @return Les charges de dash accordées par ce tableau (`EX-GP-055`), absent si le niveau
+    /// s'en remet au réglage du moteur.
+    [[nodiscard]] const std::optional<int>& dashCharges() const noexcept {
+        return _dashCharges;
+    }
+
+    /// @return L'asset de fond courant (`EX-REN-044`), absent si aucun n'est posé.
+    [[nodiscard]] const std::optional<std::string>& background() const noexcept {
+        return _background;
+    }
+
+    /// @return Le jeu de skins courant du niveau (`EX-EDIT-024`), absent pour le jeu par défaut.
+    [[nodiscard]] const std::optional<std::string>& skinSet() const noexcept {
+        return _skinSet;
+    }
+
+    /// @return Le cadrage de caméra courant du niveau (`EX-LVL-006`).
+    [[nodiscard]] const CameraFramingConfig& cameraFraming() const noexcept {
+        return _cameraFraming;
     }
 
     /**
@@ -268,9 +510,17 @@ private:
     void setExitInternal(int column, int row);
 
     /// Retire toute liaison/configuration référençant @p position (déclencheur, porte, danger
-    /// commuté, ou configuration de danger mobile/temporisé) — appelé avant de reposer un autre
-    /// type sur une case qui en portait une, pour ne jamais laisser d'entrée orpheline.
-    void removeLinkedDataAt(GridPosition position);
+    /// commuté, configuration de danger mobile/temporisé, ou override de texture) — appelé avant
+    /// de reposer un autre type sur une case qui en portait une, pour ne jamais laisser d'entrée
+    /// orpheline. @p keepTextureOverride préserve l'override de texture (repeindre le **même**
+    /// type ne doit pas effacer un habillage, `EX-EDIT-043`) ; les autres données annexes sont
+    /// toujours retirées, comme avant ce paramètre.
+    void removeLinkedDataAt(GridPosition position, bool keepTextureOverride = false);
+
+    /// Configuration de la plateforme en @p position, **créée aux valeurs par défaut** si absente.
+    /// Empile un unique `pushUndo()` : point de passage commun des mutateurs granulaires de route,
+    /// pour qu'un geste ne coûte jamais plus d'un pas d'annulation.
+    [[nodiscard]] MovingPlatformConfig& platformConfigForEdit(GridPosition position);
 
     /// État complet du brouillon, hors historique (utilisé pour les snapshots undo/redo).
     struct State {
@@ -284,6 +534,15 @@ private:
         std::vector<DangerLink> dangerLinks;
         std::vector<DangerMoverConfig> moverConfigs;
         std::vector<DangerBlinkConfig> blinkConfigs;
+        std::optional<std::string> background;
+        std::optional<std::string> skinSet;
+        std::vector<TileTextureOverride> textureOverrides;
+        std::vector<MovingPlatformConfig> platformConfigs;
+        CameraFramingConfig cameraFraming;
+        std::optional<int> airJumps;
+        std::optional<int> dashCharges;
+        std::vector<Plane> planes;
+        bool parallaxEnabled;
     };
 
     /// Capture l'état courant (pour empiler dans l'historique undo/redo).
@@ -306,6 +565,15 @@ private:
     std::vector<DangerLink> _dangerLinks;
     std::vector<DangerMoverConfig> _moverConfigs;
     std::vector<DangerBlinkConfig> _blinkConfigs;
+    std::optional<std::string> _background;
+    std::optional<std::string> _skinSet;
+    std::vector<TileTextureOverride> _textureOverrides;
+    std::vector<MovingPlatformConfig> _platformConfigs;
+    CameraFramingConfig _cameraFraming;
+    std::optional<int> _airJumps;
+    std::optional<int> _dashCharges;
+    std::vector<Plane> _planes;
+    bool _parallaxEnabled = true;
     std::vector<State> _undoHistory;
     std::vector<State> _redoHistory;
 };

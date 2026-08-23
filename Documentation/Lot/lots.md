@@ -74,3 +74,68 @@ c'est un identifiant stable, jamais réordonné.
 - @subpage lot-53
 - @subpage lot-54
 - @subpage lot-55
+- @subpage lot-56
+- @subpage lot-57
+- @subpage lot-58
+- @subpage lot-59
+- @subpage lot-60
+- @subpage lot-61
+- @subpage lot-62
+- @subpage lot-63
+- @subpage lot-64
+- @subpage lot-65
+- @subpage lot-66
+- @subpage lot-67
+- @subpage lot-69
+- @subpage lot-70
+
+## Apres le programme `0.1.0`
+
+Le [LOT-70](@ref lot-70) — **livre** — repond au manque explicitement consigne par le `LOT-69`
+TACHE-10 : la migration des plans picturaux n'avait livre qu'un report fidele de l'ancien habillage,
+jamais une fresque exploitant reellement la profondeur. Il ajoute un troisieme plan, lointain, aux
+deux seuls tableaux ou la parallaxe est active (`demo-mouvement`, `demo-final`) — les vingt autres,
+neutralises par leur cadrage `WholeLevel`, restent inchanges. Comme le `LOT-67`, un dossier de lot
+dedie malgre sa taille modeste, faute d'un programme qui l'aurait deja prevu.
+
+Le [LOT-69](@ref lot-69) — **livre** — est le premier lot d'ampleur d'apres-programme, et le premier
+a **retirer** un systeme livre plutot qu'a en ajouter un : les decors-sprites du `LOT-49`/`LOT-50`
+cedent la place a des **plans picturaux** peints dans l'editeur, avec parallaxe reglable.
+Contrairement aux `LOT-67`/`LOT-68`, il a un **dossier de lot dedie** : sa surface (dix taches, dont
+le portage du rendu sur QRhi et le retrait d'un sous-systeme entier) le justifie amplement.
+
+Le `LOT-68` poursuit dans la meme veine : refonte de l'interface, en deux volets — degraissage
+des surfaces de commande de l'editeur et identite pixel art des ecrans du jeu (`EX-IHM-070` a
+`EX-IHM-074`). Comme le `LOT-67`, il repond a un manque constate a l'usage plutot qu'a un programme
+cadre ; il est documente par ses exigences et les guides, sans dossier de lot dedie.
+
+Le [LOT-67](@ref lot-67) ouvre la suite : il ne fait partie d'aucun programme cadre, et repond a un
+manque constate a l'usage de l'editeur — les trajectoires des elements mobiles et les regles de
+mobilite d'un tableau n'etaient editables qu'en modifiant le JSON a la main.
+
+## Programme `0.1.0`
+
+Les lots `LOT-58` à `LOT-66`, avec le `LOT-53` (cadré de longue date et resté non commencé),
+forment le programme de la version **`0.1.0`** : le passage d'un moteur complet à un **jeu**
+distribuable. Deux familles s'y répondent — la **complétude produit** (boucle de jeu, son, effets,
+mécanismes manquants, cadrage de caméra, refonte des niveaux) et le **durcissement d'ingénierie**
+(vérification en Release, sanitizer, analyse statique, diagnostics d'une version publiée, budget de
+rendu mesuré).
+
+Ces lots sont numérotés **dans leur ordre d'exécution**, ce que la règle générale ci-dessus permet
+puisqu'aucun n'était encore livré au moment de leur cadrage. Seul le `LOT-53`, cadré de longue date
+et déjà publié sous ce numéro, conserve le sien et s'exécute entre le `LOT-60` et le `LOT-61` :
+c'est précisément le cas que la règle protège.
+
+| Rang | Lot | Pourquoi à cette place |
+|:----:|-----|------------------------|
+| 1 | [LOT-58](@ref lot-58) | Le durcissement précède le contenu qu'il doit protéger. |
+| 2 | [LOT-59](@ref lot-59) | Tous les autres lots produit se voient à travers ses écrans. |
+| 3 | [LOT-60](@ref lot-60) | Le son a besoin d'un écran de fin de niveau où exister. |
+| 4 | [LOT-53](@ref lot-53) | Réutilise les déclencheurs d'événements posés par le `LOT-60`. |
+| 5 | [LOT-61](@ref lot-61) | Indépendant ; requis avant qu'un tiers n'exécute le jeu. |
+| 6 | [LOT-62](@ref lot-62) | Mesure le budget une fois tous les émetteurs livrés. |
+| 7 | [LOT-63](@ref lot-63) | **Découpable** : le lot qu'on rogne si le calendrier se tend. |
+| 8 | [LOT-64](@ref lot-64) | Le cadrage doit exister avant qu'on refasse les niveaux. |
+| 9 | [LOT-65](@ref lot-65) | Dernier lot de contenu : exploite tout ce qui précède. |
+| 10 | [LOT-66](@ref lot-66) | Clôt le programme ; les statuts ne se figent qu'à la fin. |

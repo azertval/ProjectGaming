@@ -40,10 +40,43 @@ La portée correspond en général au module (`core`, `hmi`, `elements`, `test`,
   `vX.Y.Z` poussé, publie une **Release versionnée** (non préversion) avec les exécutables
   **Debug et Release**, chacun autonome — destinés aux non-développeurs (télécharger,
   décompresser, lancer).
+
+## Publier une version
+1. Bumper `VERSION` dans le `project()` du `CMakeLists.txt` racine — **seul** endroit où le numéro
+   est écrit : il alimente `core::Engine::version()` à la compilation, et `scripts/build_docs.py`
+   l'injecte dans la documentation générée. Rien d'autre à aligner à la main.
+2. Dans `CHANGELOG.md`, transformer `## [Non publié]` en `## [X.Y.Z] - AAAA-MM-JJ`, lui ajouter un
+   chapeau de jalon, et rouvrir un `## [Non publié]` vide au-dessus.
+3. Vérifier les notes que produira la release :
+   `python scripts/extract_release_notes.py vX.Y.Z` — le workflow lit **cette** section du
+   CHANGELOG (`--notes-file`) et **échoue** si elle est absente.
+4. Merger, puis poser le tag sur le commit de merge : `git tag vX.Y.Z && git push origin vX.Y.Z`.
 - **Documentation** (`docs.yml`) : génère la Doxygen et la publie sur la branche **`gh-pages`** (lisible en ligne via GitHub Pages).
 
 ## Avant d'ouvrir une PR
 1. `cmake --build --preset vs` compile sans avertissement.
 2. `ctest --preset vs` passe à 100 %.
-3. Le code est formaté (`clang-format`) et les nouveaux comportements sont couverts par des tests.
-4. Le `CHANGELOG.md` (section *Unreleased*) est mis à jour si pertinent.
+3. `cmake --preset vs && cmake --build --preset vs-release && ctest --preset vs-release` compile et
+   teste en configuration **Release** (LOT-58) : certaines casses (variable lue uniquement par une
+   assertion, code conditionné à `core::kDeveloperBuild`) ne se voient qu'ici.
+4. Le code est formaté (`clang-format`) et les nouveaux comportements sont couverts par des tests.
+   Vérifié en CI (LOT-58) avec une version **épinglée** (`LLVM_VERSION` dans `ci.yml`) : deux
+   versions majeures ne formatent pas identiquement. Reproduire localement (même version,
+   installée en isolation via le paquet PyPI qui redistribue les binaires officiels LLVM, sans
+   dépendre de celle fournie par l'IDE) :
+   `pip install "clang-format==$LLVM_VERSION" && git ls-files 'Source/*.cpp' 'Source/*.h' | xargs clang-format --dry-run --Werror --style=file`
+5. `clang-tidy` sur les fichiers `Source/*.cpp` modifiés (LOT-58) :
+   `cmake -S . -B build/ninja-tidy -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_PCH=OFF`
+   puis `clang-tidy -p build/ninja-tidy <fichier.cpp>` (version LLVM épinglée : `LLVM_VERSION` dans
+   `ci.yml`). Seules les violations `bugprone-*` font échouer la CI ; les autres familles
+   (`cppcoreguidelines-*`, `modernize-*`, `performance-*`, `readability-*`) restent visibles mais
+   non bloquantes (triage complet hors périmètre du `LOT-58`, voir
+   `Documentation/Lot/LOT-58-verification-release-analyse/tache-03-clang-tidy.md`).
+6. Le `CHANGELOG.md` (section *Unreleased*) est mis à jour si pertinent.
+7. Si `QT_VERSION_MINIMUM` (`Source/HMI/CMakeLists.txt`) a changé, `env.QT_VERSION` de `ci.yml` et
+   `release.yml` doit être bumpé à l'identique — vérifié automatiquement par
+   `python scripts/check_qt_version_pin.py` (job `lint-exigences`), pas seulement par relecture.
+   Depuis le `LOT-69`, la CI installe Qt avec un `aqtinstall` pris **depuis git à un commit
+   épinglé** (`env.AQT_SOURCE`), la version PyPI ne sachant pas installer Qt ≥ 6.11 : dès
+   qu'`aqtinstall 3.3.1` paraît, remplacer `aqtsource` par `aqtversion: '==3.3.1'` et supprimer
+   `AQT_SOURCE`. Le motif complet est dans [`External/README.md`](External/README.md).

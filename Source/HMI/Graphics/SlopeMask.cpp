@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Graphics/SlopeMask.h"
 
 #include <algorithm>
@@ -10,13 +13,12 @@ namespace hmi {
 namespace {
 
 // Masque d'alpha d'un pixel R8G8B8A8_UNORM (octet de poids fort).
-constexpr std::uint32_t ALPHA_MASK = 0xFF000000u;
+constexpr std::uint32_t ALPHA_MASK = 0xFF000000U;
 
 }  // namespace
 
 bool hasSilhouette(core::TileType type) noexcept {
-    return std::find(std::begin(SILHOUETTE_TILE_TYPES), std::end(SILHOUETTE_TILE_TYPES), type) !=
-           std::end(SILHOUETTE_TILE_TYPES);
+    return std::ranges::find(SILHOUETTE_TILE_TYPES, type) != std::end(SILHOUETTE_TILE_TYPES);
 }
 
 bool isInsideSilhouette(core::TileType type, int localX, int localY, int size) noexcept {
@@ -27,7 +29,7 @@ bool isInsideSilhouette(core::TileType type, int localX, int localY, int size) n
     // Echantillonnage au BORD des pixels de coin (0 et size-1 atteignent exactement 0,0 et 1,0) et
     // non a leur centre. Voir la justification detaillee dans l'en-tete : sans cela, un arrondi
     // concave presente une encoche visible sur sa colonne de bord.
-    const float lastIndex = static_cast<float>(size - 1);
+    const auto lastIndex = static_cast<float>(size - 1);
     const float normalizedX = static_cast<float>(localX) / lastIndex;
     const float normalizedY = static_cast<float>(localY) / lastIndex;
 
@@ -62,7 +64,7 @@ void applySilhouetteMask(core::TileType type, int width, int height,
             }
             // Transparence franche : on efface l'alpha sans toucher aux composantes de couleur,
             // que le blend ignore une fois alpha nul (alpha NON premultiplie, cf. SpriteBatch).
-            pixels[static_cast<std::size_t>(y) * static_cast<std::size_t>(width) +
+            pixels[(static_cast<std::size_t>(y) * static_cast<std::size_t>(width)) +
                    static_cast<std::size_t>(x)] &= ~ALPHA_MASK;
         }
     }

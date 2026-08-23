@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <filesystem>
@@ -23,19 +26,37 @@ namespace core {
  * moindre changement de formulation.
  */
 enum class LevelValidationError {
-    None,               ///< Pas d'erreur (chargement réussi).
-    ParseError,         ///< JSON malformé, champ obligatoire manquant, ou de mauvais type.
-    UnknownTileType,    ///< Type de tuile non reconnu.
-    OutOfBounds,        ///< Tuile positionnée hors des dimensions déclarées.
-    DuplicatePosition,  ///< Deux tuiles à la même position.
-    MissingSwitchId,    ///< Interrupteur sans identifiant.
-    DuplicateSwitchId,  ///< Deux interrupteurs partagent le même identifiant.
-    InvalidEntryCount,  ///< Zéro ou plusieurs tuiles d'entrée (une seule attendue).
-    InvalidExitCount,   ///< Zéro ou plusieurs tuiles de sortie (une seule attendue).
-    UnresolvedMechanism,  ///< Porte ou danger commuté lié à un identifiant d'interrupteur
-                          ///< inexistant.
-    FileNotFound,         ///< Fichier de niveau introuvable sur disque.
+    None,                      ///< Pas d'erreur (chargement réussi).
+    ParseError,                ///< JSON malformé, champ obligatoire manquant, ou de mauvais type.
+    UnknownTileType,           ///< Type de tuile non reconnu.
+    OutOfBounds,               ///< Tuile positionnée hors des dimensions déclarées.
+    DuplicatePosition,         ///< Deux tuiles à la même position.
+    MissingSwitchId,           ///< Interrupteur sans identifiant.
+    DuplicateSwitchId,         ///< Deux interrupteurs partagent le même identifiant.
+    InvalidEntryCount,         ///< Zéro ou plusieurs tuiles d'entrée (une seule attendue).
+    InvalidExitCount,          ///< Zéro ou plusieurs tuiles de sortie (une seule attendue).
+    UnresolvedMechanism,       ///< Porte ou danger commuté lié à un identifiant d'interrupteur
+                               ///< inexistant.
+    FileNotFound,              ///< Fichier de niveau introuvable sur disque.
+    UnsupportedFormatVersion,  ///< `"version"` du fichier supérieure à celle gérée (`EX-LVL-005`).
+    InvalidCameraFraming,      ///< Cadrage de caméra invalide (`EX-LVL-006`) : mode inconnu, taille
+                               ///< de salle nulle/supérieure au niveau, ou paramètre étranger au
+                               ///< mode retenu.
 };
+
+/**
+ * @brief Version courante du format de niveau JSON (`EX-LVL-005`).
+ *
+ * Écrite par `LevelWriter` dans le champ racine `"version"`. Un fichier sans ce champ est lu
+ * comme la version initiale (0), sans erreur ni avertissement — rétrocompatibilité des niveaux
+ * antérieurs à ce champ (`LOT-44`). Une version supérieure à celle-ci est une erreur exploitable
+ * (`LevelValidationError::UnsupportedFormatVersion`), pas une lecture au mieux.
+ *
+ * Version 2 (`LOT-64`) : ajout du champ optionnel `"cameraFraming"` (`EX-LVL-006`). Un fichier de
+ * version antérieure, sans ce champ, se charge sans erreur -- la règle de repli
+ * (`core::resolveCameraFraming`) reproduit exactement le comportement historique.
+ */
+inline constexpr int kLevelFormatVersion = 2;
 
 /**
  * @brief Résultat d'un chargement de niveau : soit un `Level`, soit une **erreur** décrite.

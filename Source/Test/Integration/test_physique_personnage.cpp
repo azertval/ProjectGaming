@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_physique_personnage.cpp
  * @brief Tests d'intégration de la physique du personnage : ECS + grille + balayage assemblés.
@@ -6,6 +9,15 @@
  * grille de collision (`TileMap`) et résolution continue (`sweepAabb`). On vérifie de bout en bout
  * la gravité, l'atterrissage, le blocage, la vitesse constante, le non-tunneling et le
  * déterminisme.
+ *
+ * **Ce module ne rejoue plus les tableaux livrés** (`LOT-65` TACHE-07). Il portait une solution
+ * scriptée par tableau — un doublon, plus faible, de ce que `ParcoursCompletSysteme` rejoue déjà en
+ * entier, avec des scripts réactifs et deux garde-fous que celui-ci n'avait pas (anti-couloir,
+ * proximité au trajet). Maintenir la solution d'un tableau à **deux** endroits est un piège : la
+ * refonte du contenu a cassé la copie la plus faible, sans rien apprendre que le test système
+ * n'ait déjà dit. Les tests **négatifs** restent ici (« le niveau *exige* le saut / le dash »,
+ * « une porte fermée bloque ») : ils n'encodent aucune solution, seulement une propriété que la
+ * physique doit garantir quelle que soit la géométrie livrée.
  */
 
 #include <algorithm>
@@ -25,6 +37,7 @@
 #include "Core/Ecs/World.h"
 #include "Core/Gameplay/BlockController.h"
 #include "Core/Gameplay/MechanismController.h"
+#include "Core/Gameplay/PlatformController.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelOutcome.h"
@@ -243,8 +256,8 @@ core::LevelOutcome playPuzzleFile(const char* file,
 // Script d'entrées REACTIF : fonction du pas ET de l'état courant (au sol, position), pour les
 // scénarios où le bon moment d'agir dépend de la trajectoire (double saut, wall jump, blocs) et ne
 // peut pas être fixé à l'avance par un simple numéro de pas.
-using ReactiveInput = std::function<core::PlayerInput(int step, const core::Player& player, float x,
-                                                       float y)>;
+using ReactiveInput =
+    std::function<core::PlayerInput(int step, const core::Player& player, float x, float y)>;
 
 // Rejoue un niveau livré, mécanismes ET blocs poussables compris (même composition que
 // `hmi::GameSession::update` : blocs -> grille -> balayage -> boîte-boîte pour les blocs réduits),
@@ -266,6 +279,7 @@ core::LevelOutcome playReactiveFile(const char* file, const ReactiveInput& input
     core::CharacterPhysicsSystem system;
     core::BlockController blocks(level);
     core::MechanismController mechanisms(level);
+    core::PlatformController platforms(level);
 
     core::LevelOutcome outcome = core::LevelOutcome::Playing;
     for (int step = 0; step < maxSteps && outcome == core::LevelOutcome::Playing; ++step) {
@@ -273,13 +287,18 @@ core::LevelOutcome playReactiveFile(const char* file, const ReactiveInput& input
         const core::Collider& collider = world.getComponent<core::Collider>(player);
         const core::Aabb previousBox =
             core::Aabb::fromTopLeftSize(previousTransform.position, collider.size);
-        const core::PlayerInput in = input(step, world.getComponent<core::Player>(player),
-                                           previousTransform.position.x, previousTransform.position.y);
+        const core::PlayerInput in =
+            input(step, world.getComponent<core::Player>(player), previousTransform.position.x,
+                  previousTransform.position.y);
+
+        // Plateformes mobiles (EX-GP-026) : deplacees EN PREMIER, comme hmi::GameSession::update.
+        platforms.update();
+        const std::vector<core::PlatformSample> platformSamples = platforms.samples();
 
         const core::TileMap mechanismMap = mechanisms.collisionMap();
-        blocks.update(previousBox, in.moveX, mechanismMap);
+        blocks.update(previousBox, in.moveX, mechanismMap, platformSamples);
         const core::TileMap collision = blocks.collisionMap(mechanismMap);
-        system.update(world, collision, in, STEP);
+        system.update(world, collision, in, STEP, platformSamples);
 
         // Composition boîte-boîte pour les blocs réduits (EX-GP-005), comme GameSession::update.
         core::Transform& transform = world.getComponent<core::Transform>(player);
@@ -319,8 +338,15 @@ core::LevelOutcome playReactiveFile(const char* file, const ReactiveInput& input
         }
 
         const core::Aabb box = core::Aabb::fromTopLeftSize(transform.position, collider.size);
-        mechanisms.update(box);
-        outcome = core::evaluateOutcome(box, level);
+        mechanisms.update(box, 1.0f, in.interactPressed);
+
+        // Ecrasement par une plateforme mobile (EX-GP-026) : mortel, comme
+        // hmi::GameSession::update.
+        std::vector<core::Aabb> extraDangerBoxes;
+        if (world.getComponent<core::Player>(player).squished) {
+            extraDangerBoxes.push_back(box);
+        }
+        outcome = core::evaluateOutcome(box, level, extraDangerBoxes);
     }
     return outcome;
 }
@@ -438,8 +464,8 @@ TEST(PhysiquePersonnageIntegration, ChuteConvergeVersUneVitesseTerminale) {
     // Vitesse terminale attendue a masse par defaut (1.0) : gravite effective en chute
     // (config.gravity * config.fallGravityMultiplier) / config.fallDragCoefficient.
     const core::PhysicsConfig config;
-    const float expectedTerminal = (config.gravity * config.fallGravityMultiplier) /
-                                   config.fallDragCoefficient;
+    const float expectedTerminal =
+        (config.gravity * config.fallGravityMultiplier) / config.fallDragCoefficient;
 
     float lastVy = 0.0f;
     for (int i = 0; i < 2000; ++i) {
@@ -467,7 +493,8 @@ TEST(PhysiquePersonnageIntegration, AccelerationDeChuteDecroitVersLeRegimePerman
     core::TileMap tiles(4, 1000);
     const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
     // Flottement a l'apex desactive (apexThreshold = 0) : isole la traction newtonienne pure,
-    // sans le palier de gravite reduite pres de v=0 (EX-GP-018, comportement inchange par ailleurs).
+    // sans le palier de gravite reduite pres de v=0 (EX-GP-018, comportement inchange par
+    // ailleurs).
     core::PhysicsConfig config;
     config.apexThreshold = 0.0f;
     core::CharacterPhysicsSystem system(config);
@@ -628,8 +655,9 @@ TEST(PhysiquePersonnageIntegration, NeTraversePasLeSolEnChuteRapide) {
     fillRow(tiles, 50);  // sol loin en bas
     const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
     core::PhysicsConfig fast;
-    fast.gravity = 2000.0f;              // accélération énorme
-    fast.fallDragCoefficient = 1.0e-6f;  // trainee quasi nulle : pas de borne, le pas dépasse une tuile
+    fast.gravity = 2000.0f;  // accélération énorme
+    fast.fallDragCoefficient =
+        1.0e-6f;  // trainee quasi nulle : pas de borne, le pas dépasse une tuile
     core::CharacterPhysicsSystem system(fast);
     const core::PlayerInput input{};
 
@@ -1034,7 +1062,7 @@ TEST(PhysiquePersonnageIntegration, DashUneSeuleFoisEnLAir) {
         ++guard;
     }
     ASSERT_FALSE(world.getComponent<core::Player>(player).grounded);
-    ASSERT_TRUE(world.getComponent<core::Player>(player).dashAvailable);
+    ASSERT_GT(world.getComponent<core::Player>(player).dashChargesRemaining, 0);
 
     // 1er dash en l'air (horizontal).
     core::PlayerInput dash;
@@ -1046,7 +1074,7 @@ TEST(PhysiquePersonnageIntegration, DashUneSeuleFoisEnLAir) {
     for (int i = 0; i < 15; ++i) {  // fin du dash, toujours en chute dans le vide
         system.update(world, tiles, core::PlayerInput{}, STEP);
     }
-    ASSERT_FALSE(world.getComponent<core::Player>(player).dashAvailable);  // consommé
+    ASSERT_EQ(world.getComponent<core::Player>(player).dashChargesRemaining, 0);  // consommée
     ASSERT_FALSE(world.getComponent<core::Player>(player).grounded);
 
     // 2e dash refusé (indisponible jusqu'au retour au sol).
@@ -1054,6 +1082,61 @@ TEST(PhysiquePersonnageIntegration, DashUneSeuleFoisEnLAir) {
     dash2.dashPressed = true;
     dash2.moveX = 1.0f;
     system.update(world, tiles, dash2, STEP);
+    EXPECT_LT(world.getComponent<core::Velocity>(player).value.x, config.dashSpeed * 0.9f);
+}
+
+/**
+ * @brief Un tableau accordant deux charges de dash en autorise deux d'affilée en l'air, puis
+ *        refuse la troisième jusqu'au retour au sol (`EX-GP-055`).
+ * \castest{<b>Deux charges de dash autorisent deux ruées en l'air, pas trois.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Configurer la physique avec deux charges de dash et quitter le sol.<br/>2. Dasher
+ * deux fois en l'air, en laissant chaque ruee se terminer.<br/>3. Tenter une troisieme ruee.<br/>
+ * \tattendu Les deux premieres ruees atteignent la vitesse de dash, la troisieme est refusee : le
+ * nombre de charges est bien celui du tableau et non le reglage par defaut du moteur.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, DeuxChargesDeDashAutorisentDeuxRueesEnLAir) {
+    core::World world;
+    core::TileMap tiles(30, 60);
+    for (int col = 0; col <= 4; ++col) {  // plateforme a gauche, le vide a droite
+        tiles.setTile(col, 30, core::TileType::Solid);
+    }
+    const core::Entity player = spawnPlayer(world, 1.0f, 28.0f);
+    core::PhysicsConfig config;
+    config.dashCharges = 2;  // ce que ferait un niveau portant "dashCharges": 2
+    core::CharacterPhysicsSystem system(config);
+    for (int i = 0; i < 400; ++i) {  // se poser (charges rechargees au sol)
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+    const core::PlayerInput right{1.0f};
+    int guard = 0;
+    while (world.getComponent<core::Player>(player).grounded && guard < 600) {
+        system.update(world, tiles, right, STEP);
+        ++guard;
+    }
+    ASSERT_FALSE(world.getComponent<core::Player>(player).grounded);
+    ASSERT_EQ(world.getComponent<core::Player>(player).dashChargesRemaining, 2);
+
+    core::PlayerInput dash;
+    dash.dashPressed = true;
+    dash.moveX = 1.0f;
+
+    // Deux ruees successives, chacune suivie de la fin de son minuteur.
+    for (int attempt = 0; attempt < 2; ++attempt) {
+        system.update(world, tiles, dash, STEP);
+        EXPECT_GT(world.getComponent<core::Velocity>(player).value.x, config.dashSpeed * 0.9f)
+            << "ruee n" << attempt + 1;
+        for (int i = 0; i < 15; ++i) {
+            system.update(world, tiles, core::PlayerInput{}, STEP);
+        }
+    }
+    ASSERT_EQ(world.getComponent<core::Player>(player).dashChargesRemaining, 0);
+    ASSERT_FALSE(world.getComponent<core::Player>(player).grounded);
+
+    // Troisieme ruee refusee : les deux charges du tableau sont epuisees.
+    system.update(world, tiles, dash, STEP);
     EXPECT_LT(world.getComponent<core::Velocity>(player).value.x, config.dashSpeed * 0.9f);
 }
 
@@ -1258,30 +1341,6 @@ TEST(PhysiquePersonnageIntegration, PasDeWallJumpSansMur) {
 }
 
 /**
- * @brief Le niveau saut est franchissable **avec le saut** : en avançant et sautant, on atteint la
- * sortie.
- * \castest{<b>Le niveau saut est franchissable **avec le saut** : en avançant et sautant, on atteint
- * la sortie.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau saut est franchissable **avec le saut** : en avançant et sautant, on atteint la
- * sortie.
- * }
- */
-TEST(PhysiquePersonnageIntegration, Niveau2FranchissableAvecSaut) {
-    const auto rightAndJump = [](int) {
-        core::PlayerInput in;
-        in.moveX = 1.0f;
-        in.jumpPressed = true;  // saut maintenu/répété : franchit la marche ascendante
-        in.jumpHeld = true;
-        return in;
-    };
-    EXPECT_EQ(playLevelFile("demo-saut.json", rightAndJump), core::LevelOutcome::Won);
-}
-
-/**
  * @brief Le niveau saut **exige** le saut : en avançant seulement (sans sauter), la marche bloque.
  * \castest{<b>Le niveau saut **exige** le saut : en avançant seulement (sans sauter), la marche
  * bloque.</b><br/>
@@ -1289,7 +1348,8 @@ TEST(PhysiquePersonnageIntegration, Niveau2FranchissableAvecSaut) {
  * \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
- * \tattendu Le niveau saut **exige** le saut : en avançant seulement (sans sauter), la marche bloque.
+ * \tattendu Le niveau saut **exige** le saut : en avançant seulement (sans sauter), la marche
+ * bloque.
  * }
  */
 TEST(PhysiquePersonnageIntegration, Niveau2RequiertLeSaut) {
@@ -1303,34 +1363,9 @@ TEST(PhysiquePersonnageIntegration, Niveau2RequiertLeSaut) {
 }
 
 /**
- * @brief Le niveau dash (couloir bas + fosse) est franchissable **au dash** : avancer + dasher
- * franchit.
- * \castest{<b>Le niveau dash (couloir bas + fosse) est franchissable **au dash** : avancer + dasher
- * franchit.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau dash (couloir bas + fosse) est franchissable **au dash** : avancer + dasher
- * franchit.
- * }
- */
-TEST(PhysiquePersonnageIntegration, Niveau3FranchissableAvecDash) {
-    const auto rightAndDash = [](int) {
-        core::PlayerInput in;
-        in.moveX = 1.0f;
-        in.dashPressed = true;  // dash répété : franchit la fosse (plafond bas → saut impossible)
-        return in;
-    };
-    EXPECT_EQ(playLevelFile("demo-dash.json", rightAndDash), core::LevelOutcome::Won);
-}
-
-/**
- * @brief Le niveau dash **exige** le dash : en avançant seulement, on tombe dans la fosse de danger.
- * \castest{<b>Le niveau dash **exige** le dash : en avançant seulement, on tombe dans la fosse de
- * danger.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
+ * @brief Le niveau dash **exige** le dash : en avançant seulement, on tombe dans la fosse de
+ * danger. \castest{<b>Le niveau dash **exige** le dash : en avançant seulement, on tombe dans la
+ * fosse de danger.</b><br/> \tcat Integration · Physique Personnage<br/> \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
  * \tattendu Le niveau dash **exige** le dash : en avançant seulement, on tombe dans la fosse de
@@ -1345,27 +1380,6 @@ TEST(PhysiquePersonnageIntegration, Niveau3RequiertLeDash) {
     };
     EXPECT_NE(playLevelFile("demo-dash.json", rightOnly),
               core::LevelOutcome::Won);  // tombe dans la fosse
-}
-
-/**
- * @brief Le niveau interrupteur : toucher l'interrupteur ouvre la porte → la sortie devient atteignable.
- * \castest{<b>Le niveau interrupteur : toucher l'interrupteur ouvre la porte → la sortie devient
- * atteignable.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau interrupteur : toucher l'interrupteur ouvre la porte → la sortie devient
- * atteignable.
- * }
- */
-TEST(PhysiquePersonnageIntegration, Niveau4FranchissableAvecInterrupteur) {
-    const auto right = [](int) {
-        core::PlayerInput in;
-        in.moveX = 1.0f;  // le trajet passe sur l'interrupteur (ouvre la porte) puis la sortie
-        return in;
-    };
-    EXPECT_EQ(playPuzzleFile("demo-interrupteur.json", right), core::LevelOutcome::Won);
 }
 
 /**
@@ -1433,45 +1447,6 @@ TEST(PhysiquePersonnageIntegration, CoyoteTimeAutoriseUnSautJusteApresLeBord) {
 TEST(PhysiquePersonnageIntegration, JumpBufferingHonoreUnSautPreAppuye) {
     EXPECT_TRUE(bufferedJump(2));    // appuyé 2 pas avant l'atterrissage → saute à la pose
     EXPECT_FALSE(bufferedJump(30));  // appuyé bien trop tôt → buffer expiré
-}
-
-/**
- * @brief Le niveau de démonstration livré est **franchissable** sans saut : en maintenant « droite
- * », le personnage descend l'escalier de paliers et atteint la sortie sans jamais mourir.
- * \castest{<b>Le niveau de démonstration livré est **franchissable** sans saut : en maintenant «
- * droite », le personnage descend l'escalier de paliers et atteint la sortie sans jamais
- * mourir.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau de démonstration livré est **franchissable** sans saut : en maintenant «
- * droite », le personnage descend l'escalier de paliers et atteint la sortie sans jamais mourir.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauDemoEstFranchissableEnAllantADroite) {
-    const std::filesystem::path path =
-        std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / "demo-deplacement.json";
-    const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(path);
-    ASSERT_TRUE(loaded.ok()) << loaded.error;
-    const core::Level& level = *loaded.level;
-
-    core::World world;
-    const core::Entity player = spawnHumanoid(world, level.entry());
-    core::CharacterPhysicsSystem system;
-    const core::PlayerInput goRight{1.0f};
-
-    // On simule jusqu'à l'issue (borne large pour éviter une boucle infinie si le niveau régresse).
-    core::LevelOutcome outcome = core::LevelOutcome::Playing;
-    for (int step = 0; step < 3000 && outcome == core::LevelOutcome::Playing; ++step) {
-        system.update(world, level.tileMap(), goRight, STEP);
-        const core::Transform& transform = world.getComponent<core::Transform>(player);
-        const core::Collider& collider = world.getComponent<core::Collider>(player);
-        outcome = core::evaluateOutcome(
-            core::Aabb::fromTopLeftSize(transform.position, collider.size), level);
-    }
-
-    EXPECT_EQ(outcome, core::LevelOutcome::Won);  // franchi, jamais Lost
 }
 
 /**
@@ -1560,7 +1535,8 @@ TEST(PhysiquePersonnageIntegration, SuitUnePenteDescendanteEnMarchant) {
     for (int col = 3; col <= 7; ++col) {               // sol bas, apres la pente
         tiles.setTile(col, 6, core::TileType::Solid);
     }
-    const core::Entity player = spawnPlayer(world, 0.3f, 4.0f);  // bord bas = 5.0 : posé au sol haut
+    const core::Entity player =
+        spawnPlayer(world, 0.3f, 4.0f);  // bord bas = 5.0 : posé au sol haut
     core::CharacterPhysicsSystem system;
     const core::PlayerInput input{1.0f};
 
@@ -1585,11 +1561,12 @@ TEST(PhysiquePersonnageIntegration, SuitUnePenteDescendanteEnMarchant) {
             yExitSlope = bottom;
         }
         ++guard;
-    // Seuil à 4.0 plutôt que 3.5 (juste après la pente) : la boîte 1×1 chevauche encore brièvement
-    // la pente et le sol bas juste après la transition, un « rattrapage » de contact (grounded
-    // oscille sol/chute sur quelques pas, comme `TransitionPenteSolPlatSansAACoup`) le temps que la
-    // boîte tienne entièrement dans une colonne de sol plat — laisser un peu plus de marge avant de
-    // vérifier l'état final évite un pas malchanceux pris en plein rattrapage.
+        // Seuil à 4.0 plutôt que 3.5 (juste après la pente) : la boîte 1×1 chevauche encore
+        // brièvement la pente et le sol bas juste après la transition, un « rattrapage » de contact
+        // (grounded oscille sol/chute sur quelques pas, comme `TransitionPenteSolPlatSansAACoup`)
+        // le temps que la boîte tienne entièrement dans une colonne de sol plat — laisser un peu
+        // plus de marge avant de vérifier l'état final évite un pas malchanceux pris en plein
+        // rattrapage.
     } while (centerX < 4.0f && guard < 600);
 
     ASSERT_TRUE(sawSlopeSample);
@@ -1617,7 +1594,7 @@ TEST(PhysiquePersonnageIntegration, SuitUnePenteDescendanteEnMarchant) {
 TEST(PhysiquePersonnageIntegration, ChuteRapideSurUnePenteSansLaTraverser) {
     core::World world;
     core::TileMap tiles(4, 60);
-    tiles.setTile(1, 50, core::TileType::SlopeUpRight);  // localX = 0.8 → hauteur = 0.2
+    tiles.setTile(1, 50, core::TileType::SlopeUpRight);          // localX = 0.8 → hauteur = 0.2
     const core::Entity player = spawnPlayer(world, 1.3f, 0.0f);  // tombe de haut, colonne 1
     core::PhysicsConfig fast;
     fast.gravity = 2000.0f;
@@ -1727,7 +1704,8 @@ TEST(PhysiquePersonnageIntegration, TransitionPenteSolPlatSansAACoup) {
     // invisible, téléportation) produirait un saut bien plus grand qu'un seul pas de marche. Le
     // raccord final (sortie de la pente vers le plein solide adjacent) produit un rattrapage un
     // peu plus large qu'un pas normal (largeur du personnage < largeur d'une case) : on borne
-    // large (une demi-case) pour couvrir ce rattrapage sans laisser passer un vrai à-coup (≥ 1 case).
+    // large (une demi-case) pour couvrir ce rattrapage sans laisser passer un vrai à-coup (≥ 1
+    // case).
     EXPECT_LT(maxStep, 0.5f);
 }
 
@@ -1747,7 +1725,8 @@ TEST(PhysiquePersonnageIntegration, TransitionPenteSolPlatSansAACoup) {
 TEST(PhysiquePersonnageIntegration, SuitUnArrondiAscendantEnMarchant) {
     core::World world;
     core::TileMap tiles(8, 8);
-    for (int col = 0; col <= 1; ++col) {  // sol bas, avant l'arrondi (meme disposition que la pente)
+    for (int col = 0; col <= 1;
+         ++col) {  // sol bas, avant l'arrondi (meme disposition que la pente)
         tiles.setTile(col, 6, core::TileType::Solid);
     }
     tiles.setTile(2, 5, core::TileType::RoundedUpRight);  // quart de cercle, meme orientation
@@ -1792,54 +1771,6 @@ TEST(PhysiquePersonnageIntegration, SuitUnArrondiAscendantEnMarchant) {
 }
 
 /**
- * @brief Le niveau pente est franchissable en marchant : la pente mène au palier surélevé sans
- * saut (`EX-GP-003`).
- * \castest{<b>Le niveau pente est franchissable en marchant, sans saut.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau pente est franchissable en marchant, sans saut.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauPenteFranchissable) {
-    const auto rightOnly = [](int) { return core::PlayerInput{1.0f}; };
-    EXPECT_EQ(playLevelFile("demo-pente.json", rightOnly), core::LevelOutcome::Won);
-}
-
-/**
- * @brief Le niveau plaque de pression est franchissable : marcher dessus ouvre la porte qui
- * surplombe le mur bloquant, le temps de sauter par-dessus (`EX-GP-025`).
- * \castest{<b>Le niveau plaque de pression est franchissable : la plaque ouvre la porte, un saut
- * par-dessus le mur permet de rejoindre la sortie.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau plaque de pression est franchissable : la plaque ouvre la porte, un saut
- * par-dessus le mur permet de rejoindre la sortie.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauPlaquePressionFranchissable) {
-    bool jumped = false;
-    const ReactiveInput script = [&jumped](int, const core::Player& player, float x, float) {
-        core::PlayerInput in;
-        in.moveX = 1.0f;
-        if (!jumped && player.grounded && x >= 5.5f) {
-            // Des l'arrivee contre le mur (case 6), la plaque (case 5) est deja recouverte
-            // depuis plusieurs pas : la porte au-dessus du mur est ouverte, le saut peut passer.
-            in.jumpPressed = true;
-            in.jumpHeld = true;
-            jumped = true;
-        } else if (jumped) {
-            in.jumpHeld = true;
-        }
-        return in;
-    };
-    EXPECT_EQ(playReactiveFile("demo-plaque-pression.json", script), core::LevelOutcome::Won);
-}
-
-/**
  * @brief Le niveau plaque de pression **exige** de sauter par-dessus le mur : marcher seul
  * (sans jamais sauter) reste bloqué contre le mur, même une fois la plaque activée (`EX-GP-025`).
  * \castest{<b>Le niveau plaque de pression exige un saut : marcher sans sauter reste bloqué contre
@@ -1855,22 +1786,6 @@ TEST(PhysiquePersonnageIntegration, NiveauPlaquePressionFranchissable) {
 TEST(PhysiquePersonnageIntegration, NiveauPlaquePressionExigeUnSaut) {
     const auto rightOnly = [](int) { return core::PlayerInput{1.0f}; };
     EXPECT_NE(playLevelFile("demo-plaque-pression.json", rightOnly), core::LevelOutcome::Won);
-}
-
-/**
- * @brief Le niveau arrondi est franchissable en marchant : la courbe mène au palier surélevé sans
- * saut (`EX-GP-004`).
- * \castest{<b>Le niveau arrondi est franchissable en marchant, sans saut.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau arrondi est franchissable en marchant, sans saut.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauArrondiFranchissable) {
-    const auto rightOnly = [](int) { return core::PlayerInput{1.0f}; };
-    EXPECT_EQ(playLevelFile("demo-arrondi.json", rightOnly), core::LevelOutcome::Won);
 }
 
 /**
@@ -1990,17 +1905,19 @@ TEST(PhysiquePersonnageIntegration, PlafondInclineSupportePersonnageParLeDessus)
 TEST(PhysiquePersonnageIntegration, SuitUnArrondiConcaveAscendantEnMarchant) {
     core::World world;
     core::TileMap tiles(8, 8);
-    for (int col = 0; col <= 1; ++col) {  // sol bas, avant l'arrondi (meme disposition que RoundedUpRight)
+    for (int col = 0; col <= 1;
+         ++col) {  // sol bas, avant l'arrondi (meme disposition que RoundedUpRight)
         tiles.setTile(col, 6, core::TileType::Solid);
     }
-    tiles.setTile(2, 5, core::TileType::ConcaveUpRight);  // quart de cercle concave, meme orientation
-    for (int col = 3; col <= 7; ++col) {                  // sol haut, apres l'arrondi
+    tiles.setTile(2, 5,
+                  core::TileType::ConcaveUpRight);  // quart de cercle concave, meme orientation
+    for (int col = 3; col <= 7; ++col) {            // sol haut, apres l'arrondi
         tiles.setTile(col, 5, core::TileType::Solid);
     }
     // Taille RÉELLE du personnage (0,4×0,8, comme `TransitionPenteSolPlatSansAACoup`), pas la boîte
-    // 1×1 des autres tests de ce fichier : une boîte pleine case chevauche déjà le sol haut adjacent
-    // (colonne 3, plein) au moment même de l'échantillon à mi-case (x=2,5, bord droit de la boîte
-    // atteignant x=3,0), déclenchant le rattrapage de raccord pente→sol documenté par
+    // 1×1 des autres tests de ce fichier : une boîte pleine case chevauche déjà le sol haut
+    // adjacent (colonne 3, plein) au moment même de l'échantillon à mi-case (x=2,5, bord droit de
+    // la boîte atteignant x=3,0), déclenchant le rattrapage de raccord pente→sol documenté par
     // `TransitionPenteSolPlatSansAACoup` avant que le suivi de la courbe concave n'ait eu la chance
     // de s'exprimer — non spécifique à cette formule, mais bien plus visible ici (courbe concave
     // restant proche du palier bas jusque tard) qu'avec la formule convexe (déjà proche du palier
@@ -2214,52 +2131,13 @@ TEST(PhysiquePersonnageIntegration, ArrondisConcavesDeSolAdjacentsSansChuteALaJo
     ASSERT_LT(guard, 600);
     // Valeur théorique au pic (x=3, jointure) : 5,0 pile. Une légère « décroche » près du pic
     // (tangente quasi verticale, courante pour toute courbe aussi raide, voir
-    // `TransitionPenteSolPlatSansAACoup`) reste ici sous 5,4 — bien avant le fond de la case voisine
-    // (6,0, qui signalerait une chute complète).
+    // `TransitionPenteSolPlatSansAACoup`) reste ici sous 5,4 — bien avant le fond de la case
+    // voisine (6,0, qui signalerait une chute complète).
     EXPECT_LT(maxBottomNearPeak, 5.4f);
     EXPECT_TRUE(world.getComponent<core::Player>(player).grounded);
     EXPECT_NEAR(world.getComponent<core::Transform>(player).position.y, 6.0f - size.y, 0.05f);
 }
 
-/**
- * @brief Un arrondi concave de **plafond**, seul sur sa case (voisine vide), bloque toujours un
- * saut visant son bord « plein » (silhouette la plus épaisse, tout près de son propre bord de
- * case). Même exigence que pour le sol (largeur complète de la boîte, pas seulement son centre) :
- * sinon le centre de la boîte glisse dans la case voisine vide (aucune silhouette à vérifier là)
- * avant que son bord n'ait fini de traverser la portion la plus épaisse, laissant un saut passer
- * au travers par en dessous sans être bloqué du tout.
- * \castest{<b>Un arrondi concave de plafond bloque un saut visant son bord plein, même tout près
- * du bord de sa propre case.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Bloquant<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le saut est bloqué par la silhouette épaisse près du bord de case, bien avant
- * d'atteindre l'apogée libre d'un saut totalement non bloqué.
- * }
- */
-/**
- * @brief Sauter tout en marchant (les deux à la fois, comme un joueur réel) **vers son propre bord
- * épais** sous un arrondi concave de plafond bloque toujours le saut, y compris quand marcher
- * pendant la montée déplace la boîte plus vite que le seuil vertical de blocage n'est atteint : la
- * colonne pertinente peut alors « disparaître » d'un pas à l'autre — voire sur PLUSIEURS pas
- * consécutifs quand le seuil est manqué de peu à chaque fois (une mémoire limitée au seul pas
- * précédent ne suffit pas). `core::CharacterPhysicsSystem` mémorise l'étendue horizontale couverte
- * par la boîte depuis le **début de la montée courante** (`Player::ascentSweepMinX/MaxX`), pas
- * seulement le pas précédent. Testé dans les deux orientations (`ConcaveDownRight` en marchant vers
- * la droite, son bord épais ; `ConcaveDownLeft` en marchant vers la gauche, symétrique) — marcher
- * vers son propre bord **fin** n'est volontairement PAS testé ici : s'en éloigner en marchant y
- * ramène légitimement vers une silhouette quasi vide (`EX-GP-007`).
- * \castest{<b>Sauter tout en marchant vers le bord épais d'un arrondi concave de plafond bloque
- * toujours le saut, en combinant les deux mouvements.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Bloquant<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le saut reste bloqué par la silhouette épaisse en marchant vers elle pendant la montée
- * — jamais un passage complet jusqu'à l'apogée libre d'un saut non bloqué.
- * }
- */
 /**
  * @brief Un saut bloqué près du bord **fin** (silhouette quasi vide) d'un arrondi concave de
  * plafond reste bloqué DURABLEMENT — le personnage retombe normalement ensuite, il ne se
@@ -2293,11 +2171,13 @@ TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBordFinResteBloqueSansTelepo
     map.setTile(CEILING_COLUMN, CEILING_ROW, core::TileType::ConcaveDownRight);
 
     core::World world;
-    const core::Entity player = spawnHumanoid(world, core::GridPosition{CEILING_COLUMN, FLOOR_ROW - 1});
+    const core::Entity player =
+        spawnHumanoid(world, core::GridPosition{CEILING_COLUMN, FLOOR_ROW - 1});
     // offset=0.20 : bord FIN (silhouette quasi vide), le blocage a lieu tout pres du sommet de la
     // case — c'est justement la ou le bord bas du personnage (hauteur 0,8) reste encore dans la
     // meme case apres le blocage (voir la doc du test).
-    world.getComponent<core::Transform>(player).position.x = static_cast<float>(CEILING_COLUMN) + 0.20f;
+    world.getComponent<core::Transform>(player).position.x =
+        static_cast<float>(CEILING_COLUMN) + 0.20f;
     core::CharacterPhysicsSystem system;
 
     for (int i = 0; i < 10; ++i) {  // se poser au sol avant de sauter
@@ -2324,6 +2204,28 @@ TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBordFinResteBloqueSansTelepo
     SUCCEED();
 }
 
+/**
+ * @brief Sauter tout en marchant (les deux à la fois, comme un joueur réel) **vers son propre bord
+ * épais** sous un arrondi concave de plafond bloque toujours le saut, y compris quand marcher
+ * pendant la montée déplace la boîte plus vite que le seuil vertical de blocage n'est atteint : la
+ * colonne pertinente peut alors « disparaître » d'un pas à l'autre — voire sur PLUSIEURS pas
+ * consécutifs quand le seuil est manqué de peu à chaque fois (une mémoire limitée au seul pas
+ * précédent ne suffit pas). `core::CharacterPhysicsSystem` mémorise l'étendue horizontale couverte
+ * par la boîte depuis le **début de la montée courante** (`Player::ascentSweepMinX/MaxX`), pas
+ * seulement le pas précédent. Testé dans les deux orientations (`ConcaveDownRight` en marchant vers
+ * la droite, son bord épais ; `ConcaveDownLeft` en marchant vers la gauche, symétrique) — marcher
+ * vers son propre bord **fin** n'est volontairement PAS testé ici : s'en éloigner en marchant y
+ * ramène légitimement vers une silhouette quasi vide (`EX-GP-007`).
+ * \castest{<b>Sauter tout en marchant vers le bord épais d'un arrondi concave de plafond bloque
+ * toujours le saut, en combinant les deux mouvements.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le saut reste bloqué par la silhouette épaisse en marchant vers elle pendant la montée
+ * — jamais un passage complet jusqu'à l'apogée libre d'un saut non bloqué.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBloqueMemeEnMarchantPendantLeSaut) {
     constexpr int CEILING_COLUMN = 3;
     constexpr int CEILING_ROW = 3;
@@ -2384,8 +2286,8 @@ TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBloqueMemeEnMarchantPendantL
         EXPECT_GT(minTop, 2.9f) << "ConcaveDownLeft, offset=" << offset << " (marche a gauche)";
     }
     // Même défaut, même correctif générique (indépendant du type de tuile) : vérifié aussi sur les
-    // pentes LINÉAIRES de plafond (`EX-GP-006`, `LOT-26`), pas seulement les arrondis concaves de ce
-    // lot — `SlopeDownRight`/`SlopeDownLeft` ont la même silhouette « épaisse d'un côté, fine de
+    // pentes LINÉAIRES de plafond (`EX-GP-006`, `LOT-26`), pas seulement les arrondis concaves de
+    // ce lot — `SlopeDownRight`/`SlopeDownLeft` ont la même silhouette « épaisse d'un côté, fine de
     // l'autre » (`h = x` / `h = 1 - x`), même mécanisme de disparition de colonne en marchant.
     for (float offset = 0.60f; offset <= 0.95f; offset += 0.05f) {
         const float startX = static_cast<float>(CEILING_COLUMN) + offset;
@@ -2399,6 +2301,23 @@ TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBloqueMemeEnMarchantPendantL
     }
 }
 
+/**
+ * @brief Un arrondi concave de **plafond**, seul sur sa case (voisine vide), bloque toujours un
+ * saut visant son bord « plein » (silhouette la plus épaisse, tout près de son propre bord de
+ * case). Même exigence que pour le sol (largeur complète de la boîte, pas seulement son centre) :
+ * sinon le centre de la boîte glisse dans la case voisine vide (aucune silhouette à vérifier là)
+ * avant que son bord n'ait fini de traverser la portion la plus épaisse, laissant un saut passer
+ * au travers par en dessous sans être bloqué du tout.
+ * \castest{<b>Un arrondi concave de plafond bloque un saut visant son bord plein, même tout près
+ * du bord de sa propre case.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le saut est bloqué par la silhouette épaisse près du bord de case, bien avant
+ * d'atteindre l'apogée libre d'un saut totalement non bloqué.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBloqueMemePresDuBordDeSaPropreCase) {
     constexpr int CEILING_COLUMN = 3;
     constexpr int CEILING_ROW = 3;
@@ -2409,15 +2328,17 @@ TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBloqueMemePresDuBordDeSaProp
         map.setTile(col, FLOOR_ROW, core::TileType::Solid);
     }
     map.setTile(CEILING_COLUMN, CEILING_ROW, core::TileType::ConcaveDownRight);
-    // Colonne 4 (au-delà du bord droit, le plus epais) volontairement VIDE : sans appui voisin, rien
-    // ne peut compenser une colonne mal choisie.
+    // Colonne 4 (au-delà du bord droit, le plus epais) volontairement VIDE : sans appui voisin,
+    // rien ne peut compenser une colonne mal choisie.
 
     core::World world;
-    const core::Entity player = spawnHumanoid(world, core::GridPosition{CEILING_COLUMN, FLOOR_ROW - 1});
+    const core::Entity player =
+        spawnHumanoid(world, core::GridPosition{CEILING_COLUMN, FLOOR_ROW - 1});
     // Bord droit de la boîte (largeur 0,4) à x=4,2 : centre à x=4,0, PILE sur la frontière de case
     // — la colonne qui doit bloquer le saut est la colonne 3 (la vraie tuile, dont le bord PLEIN,
     // silhouette la plus épaisse, touche justement cette frontière), pas la colonne 4 (vide).
-    world.getComponent<core::Transform>(player).position.x = static_cast<float>(CEILING_COLUMN) + 0.8f;
+    world.getComponent<core::Transform>(player).position.x =
+        static_cast<float>(CEILING_COLUMN) + 0.8f;
     core::CharacterPhysicsSystem system;
 
     bool jumped = false;
@@ -2444,38 +2365,6 @@ TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBloqueMemePresDuBordDeSaProp
 }
 
 /**
- * @brief Le niveau double saut est franchissable en enchaînant un saut au sol puis un saut aérien
- * (`EX-GP-015`) : un mur trop haut pour un seul saut devient franchissable.
- * \castest{<b>Le niveau double saut est franchissable en enchaînant saut au sol et saut
- * aérien.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau double saut est franchissable en enchaînant saut au sol et saut aérien.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauDoubleSautFranchissable) {
-    bool secondJumpDone = false;
-    const auto script = [&secondJumpDone](int, const core::Player& player, float x, float) {
-        core::PlayerInput in;
-        in.moveX = 1.0f;
-        in.jumpHeld = true;
-        if (player.grounded && x < 6.6f) {
-            // pas encore pres du mur : marcher, pas de saut premature.
-        } else if (player.grounded) {
-            in.jumpPressed = true;  // saut au sol
-            secondJumpDone = false;
-        } else if (!secondJumpDone && x >= 7.2f) {
-            in.jumpPressed = true;  // saut aerien, declenche pres du mur
-            secondJumpDone = true;
-        }
-        return in;
-    };
-    EXPECT_EQ(playReactivePhysicsOnly("demo-double-saut.json", script), core::LevelOutcome::Won);
-}
-
-/**
  * @brief Le niveau double saut **exige** le saut aérien : un seul saut (au sol) ne suffit pas à
  * franchir le mur (`EX-GP-015`).
  * \castest{<b>Le niveau double saut exige le saut aérien : un seul saut ne suffit pas.</b><br/>
@@ -2495,126 +2384,6 @@ TEST(PhysiquePersonnageIntegration, NiveauDoubleSautRequiertLeSautAerien) {
         return in;
     };
     EXPECT_NE(playReactivePhysicsOnly("demo-double-saut.json", script), core::LevelOutcome::Won);
-}
-
-/**
- * @brief Le niveau wall jump est franchissable en enchaînant wall slide et wall jump entre les
- * deux parois du puits (`EX-GP-016`).
- * \castest{<b>Le niveau wall jump est franchissable en enchaînant wall slide et wall jump.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau wall jump est franchissable en enchaînant wall slide et wall jump.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauWallJumpFranchissable) {
-    float lastPush = 1.0f;
-    const auto script = [&lastPush](int, const core::Player& player, float, float) {
-        core::PlayerInput in;
-        in.jumpPressed = true;
-        in.jumpHeld = true;
-        if (player.wallDirection != 0.0f) {
-            lastPush = -player.wallDirection;
-        }
-        in.moveX = lastPush;
-        return in;
-    };
-    EXPECT_EQ(playReactivePhysicsOnly("demo-wall-jump.json", script), core::LevelOutcome::Won);
-}
-
-/**
- * @brief Le niveau bloc poussable est franchissable en poussant le bloc contre le mur pour s'en
- * servir de marche (`EX-GP-022`).
- * \castest{<b>Le niveau bloc poussable est franchissable en poussant le bloc contre le mur pour
- * s'en servir de marche.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau bloc poussable est franchissable en poussant le bloc contre le mur pour s'en
- * servir de marche.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauBlocFranchissable) {
-    bool climbed = false;
-    bool cleared = false;
-    const auto script = [&climbed, &cleared](int, const core::Player& player, float x, float y) {
-        core::PlayerInput in;
-        in.moveX = 1.0f;
-        in.jumpHeld = true;
-        if (!climbed && player.grounded && x >= 6.2f && y > 5.5f) {
-            in.jumpPressed = true;  // grimpe sur le bloc pousse contre le mur
-            climbed = true;
-        } else if (climbed && !cleared && player.grounded && y <= 5.5f) {
-            in.jumpPressed = true;  // depuis le bloc, franchit le mur
-            cleared = true;
-        }
-        return in;
-    };
-    EXPECT_EQ(playReactiveFile("demo-bloc.json", script), core::LevelOutcome::Won);
-}
-
-/**
- * @brief Le niveau bloc à taille réduite est franchissable : poussé dans la fosse, il la comble à
- * la hauteur du chemin, laissant l'espace franchissable autour (`EX-GP-005`).
- * \castest{<b>Le niveau bloc à taille réduite est franchissable, le bloc comblant la fosse à la
- * hauteur du chemin.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau bloc à taille réduite est franchissable, le bloc comblant la fosse à la
- * hauteur du chemin.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauBlocReduitFranchissable) {
-    const auto script = [](int, const core::Player& player, float, float) {
-        core::PlayerInput in;
-        in.moveX = 1.0f;
-        in.jumpPressed = player.grounded;  // petit saut : franchit le leger ressaut du bloc reduit
-        in.jumpHeld = true;
-        return in;
-    };
-    EXPECT_EQ(playReactiveFile("demo-bloc-reduit.json", script), core::LevelOutcome::Won);
-}
-
-/**
- * @brief Le niveau budget est franchissable avec exactement le budget de sauts prévu (`EX-GP-024`)
- * : deux marches ascendantes, un saut par atterrissage sur terrain plat compris.
- * \castest{<b>Le niveau budget est franchissable avec exactement le budget de sauts prévu.</b><br/>
- * \tcat Integration · Physique Personnage<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Le niveau budget est franchissable avec exactement le budget de sauts prévu.
- * }
- */
-TEST(PhysiquePersonnageIntegration, NiveauBudgetFranchissable) {
-    const std::filesystem::path path =
-        std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / "demo-budget.json";
-    const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(path);
-    ASSERT_TRUE(loaded.ok()) << loaded.error;
-    const core::Level& level = *loaded.level;
-
-    core::World world;
-    const core::Entity player = spawnHumanoid(world, level.entry());
-    world.getComponent<core::Player>(player).jumpsRemaining = level.jumpBudget();
-    core::CharacterPhysicsSystem system;
-
-    core::LevelOutcome outcome = core::LevelOutcome::Playing;
-    for (int step = 0; step < 3000 && outcome == core::LevelOutcome::Playing; ++step) {
-        core::PlayerInput in;
-        in.moveX = 1.0f;
-        in.jumpPressed = world.getComponent<core::Player>(player).grounded;
-        in.jumpHeld = true;
-        system.update(world, level.tileMap(), in, STEP);
-        const core::Transform& transform = world.getComponent<core::Transform>(player);
-        const core::Collider& collider = world.getComponent<core::Collider>(player);
-        outcome = core::evaluateOutcome(
-            core::Aabb::fromTopLeftSize(transform.position, collider.size), level);
-    }
-    EXPECT_EQ(outcome, core::LevelOutcome::Won);
 }
 
 /**
@@ -2655,44 +2424,195 @@ TEST(PhysiquePersonnageIntegration, NiveauBudgetRequiertLesDeuxSauts) {
     EXPECT_NE(outcome, core::LevelOutcome::Won);  // bloque a la seconde marche, budget epuise
 }
 
+namespace {
+
+// Niveau minimal (grille vide) portant une seule plateforme mobile de (startCol,startRow) a
+// (endCol,endRow), a la vitesse donnee (cases/s).
+core::Level makePlatformLevel(int startCol, int startRow, int endCol, int endRow,
+                              float speed = 2.0f) {
+    core::TileMap map(20, 20);
+    map.setTile(startCol, startRow, core::TileType::MovingPlatform);
+    std::vector<core::MovingPlatformConfig> platformConfigs{
+        core::MovingPlatformConfig{.startPosition = core::GridPosition{startCol, startRow},
+                                   .waypoints = {core::GridPosition{endCol, endRow}},
+                                   .speed = speed,
+                                   .phase = 0}};
+    return core::Level("plateforme-integration", std::move(map), core::GridPosition{0, 0},
+                       core::GridPosition{19, 19}, {}, -1, -1, {}, {}, {}, std::nullopt,
+                       std::nullopt, {}, std::move(platformConfigs));
+}
+
+}  // namespace
+
 /**
- * @brief Le niveau final combine dash, pente, bloc poussable, interrupteur/porte et double saut en
- * un seul parcours cohérent, et reste franchissable de bout en bout.
- * \castest{<b>Le niveau final combine plusieurs mécaniques en un seul parcours cohérent et reste
- * franchissable.</b><br/>
+ * @brief Un personnage au sol sur une plateforme mobile horizontale est porté avec elle : son
+ * décalage par rapport à la plateforme reste nul, sans glissement cumulé sur cent pas
+ * (`EX-GP-026`).
+ * \castest{<b>Une plateforme mobile horizontale porte le personnage sans glissement.</b><br/>
  * \tcat Integration · Physique Personnage<br/>
  * \tcrit Bloquant<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
- * \tattendu Le niveau final combine plusieurs mécaniques en un seul parcours cohérent et reste
- * franchissable.
+ * \tattendu Le personnage reste exactement aligné avec la plateforme à chaque pas, sans dérive.
  * }
  */
-TEST(PhysiquePersonnageIntegration, NiveauFinalFranchissable) {
-    bool secondJumpDone = false;
-    const auto script = [&secondJumpDone](int, const core::Player& player, float x, float) {
-        core::PlayerInput in;
-        in.moveX = 1.0f;
-        if (x < 10.0f) {
-            in.dashPressed = true;  // couloir bas + fosse
-        } else if (x < 13.0f) {
-            // transition + pente : marcher sans sauter (suivi de pente).
-        } else if (x < 27.0f) {
-            in.jumpPressed = player.grounded;  // petits sauts : bloc pousse, interrupteur/porte
-            in.jumpHeld = true;
-        } else {
-            if (player.grounded && x < 27.6f) {
-                // pas encore pres du mur final : continuer a marcher.
-            } else if (player.grounded) {
-                in.jumpPressed = true;
-                secondJumpDone = false;
-            } else if (!secondJumpDone && x >= 28.2f) {
-                in.jumpPressed = true;  // double saut final
-                secondJumpDone = true;
-            }
-            in.jumpHeld = true;
-        }
-        return in;
-    };
-    EXPECT_EQ(playReactiveFile("demo-final.json", script), core::LevelOutcome::Won);
+TEST(PhysiquePersonnageIntegration, PlateformeHorizontalePorteSansGlissement) {
+    core::World world;
+    const core::Level level = makePlatformLevel(2, 5, 10, 5);
+    core::PlatformController platforms(level);
+    core::TileMap tiles(20, 20);  // grille vide : seule la plateforme (hors grille) porte
+    core::CharacterPhysicsSystem system;
+
+    // Personnage pose exactement sur le dessus de la plateforme a sa position de depart (2,5),
+    // deja marque au sol (scenario : le portage etait deja engage avant le debut du test).
+    const core::Entity player = spawnPlayer(world, 2.0f, 4.0f);
+    world.getComponent<core::Player>(player).grounded = true;
+
+    for (int i = 0; i < 100; ++i) {
+        platforms.update();  // la plateforme bouge D'ABORD (ordre de resolution du pas, TACHE-03)
+        system.update(world, tiles, core::PlayerInput{}, STEP, platforms.samples());
+
+        const float playerX = world.getComponent<core::Transform>(player).position.x;
+        const float platformX = platforms.boxAt(0).min.x;
+        EXPECT_NEAR(playerX, platformX, TOLERANCE) << "pas " << i;
+        EXPECT_TRUE(world.getComponent<core::Player>(player).grounded) << "pas " << i;
+    }
+}
+
+/**
+ * @brief Un personnage au sol sur une plateforme mobile verticale la suit sans s'enfoncer ni s'en
+ * décoller, en montée comme en descente (`EX-GP-026`).
+ * \castest{<b>Une plateforme mobile verticale porte le personnage sans enfoncement ni
+ * décollement.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le bord bas du personnage reste exactement au niveau du dessus de la plateforme.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, PlateformeVerticalePorteSansEnfoncementNiDecollement) {
+    core::World world;
+    const core::Level level = makePlatformLevel(3, 5, 3, 1);  // monte de 4 cases
+    core::PlatformController platforms(level);
+    core::TileMap tiles(20, 20);
+    core::CharacterPhysicsSystem system;
+
+    const core::Entity player = spawnPlayer(world, 3.0f, 4.0f);  // pose sur le dessus (y=5)
+    world.getComponent<core::Player>(player).grounded = true;
+
+    for (int i = 0; i < 150; ++i) {  // couvre montee ET descente (cycle = 2s = 120 pas a 2 cases/s)
+        platforms.update();
+        system.update(world, tiles, core::PlayerInput{}, STEP, platforms.samples());
+
+        const float playerBottom = world.getComponent<core::Transform>(player).position.y + 1.0f;
+        const float platformTop = platforms.boxAt(0).min.y;
+        EXPECT_NEAR(playerBottom, platformTop, TOLERANCE) << "pas " << i;
+    }
+}
+
+/**
+ * @brief Aucune traversée : à la vitesse de plateforme la plus élevée retenue, le personnage n'est
+ * jamais traversé par la plateforme (`EX-GP-014`, préservé pour un obstacle mobile).
+ * \castest{<b>Aucune traversée à vitesse de plateforme maximale.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le personnage n'est jamais retrouvé chevauchant la plateforme.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, AucuneTraverseeAVitesseMaximale) {
+    core::World world;
+    // Plateforme rapide fonçant droit sur un personnage immobile a proximite de son parcours.
+    const core::Level level = makePlatformLevel(0, 5, 12, 5, /*speed=*/8.0f);
+    core::PlatformController platforms(level);
+    core::TileMap tiles(20, 20);
+    core::CharacterPhysicsSystem system;
+
+    const core::Entity player = spawnPlayer(world, 6.0f, 5.0f);  // sur le trajet de la plateforme
+
+    for (int i = 0; i < 200; ++i) {
+        platforms.update();
+        system.update(world, tiles, core::PlayerInput{}, STEP, platforms.samples());
+
+        const core::Aabb playerBox = core::Aabb::fromTopLeftSize(
+            world.getComponent<core::Transform>(player).position, core::Vector2{1.0f, 1.0f});
+        const core::Aabb platformBox = platforms.boxAt(0);
+        const bool overlapping =
+            playerBox.min.x < platformBox.max.x && playerBox.max.x > platformBox.min.x &&
+            playerBox.min.y < platformBox.max.y && playerBox.max.y > platformBox.min.y;
+        EXPECT_FALSE(overlapping) << "pas " << i;
+    }
+}
+
+/**
+ * @brief Écrasement : une plateforme montante contre un plafond avec le personnage entre les deux
+ * est mortelle (`Player::squished`) — décision de cadrage retenue (`TACHE-03`).
+ * \castest{<b>Une plateforme montante contre un plafond écrase le personnage.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu `Player::squished` devient vrai avant que la plateforme n'atteigne le plafond.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, EcrasementContreUnPlafondEstMortel) {
+    core::World world;
+    // Plateforme montant de la ligne 8 vers la ligne 0 ; plafond solide en ligne 1 (juste au-dessus
+    // du point d'arrivee) pour laisser au personnage porte le temps de se faire ecraser.
+    const core::Level level = makePlatformLevel(3, 8, 3, 0, /*speed=*/2.0f);
+    core::PlatformController platforms(level);
+    core::TileMap tiles(20, 20);
+    for (int col = 0; col < 20; ++col) {
+        tiles.setTile(col, 1, core::TileType::Solid);  // plafond bas
+    }
+    core::CharacterPhysicsSystem system;
+
+    const core::Entity player = spawnPlayer(world, 3.0f, 7.0f);  // pose sur le dessus (y=8)
+    world.getComponent<core::Player>(player).grounded = true;
+
+    bool squished = false;
+    for (int i = 0; i < 300 && !squished; ++i) {
+        platforms.update();
+        system.update(world, tiles, core::PlayerInput{}, STEP, platforms.samples());
+        squished = world.getComponent<core::Player>(player).squished;
+    }
+    EXPECT_TRUE(squished);
+}
+
+/**
+ * @brief Un bloc poussable posé sur une plateforme mobile horizontale est porté avec elle
+ * (`core::BlockController`, `EX-GP-026`/`EX-GP-022`).
+ * \castest{<b>Un bloc poussable posé sur une plateforme est porté.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu La colonne du bloc progresse dans le sens de la plateforme, sans jamais tomber.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, BlocPousseSurPlateformeEstPorte) {
+    core::TileMap map(20, 20);
+    // Bloc pose sur le DESSUS de la plateforme (ligne 4, une case au-dessus de la plateforme en
+    // ligne 5) -- pas a la meme case (la plateforme n'est pas dans la grille, EX-GP-005).
+    map.setTile(4, 4, core::TileType::Block);
+    const core::Level level("bloc-plateforme", map, core::GridPosition{0, 0},
+                            core::GridPosition{19, 19}, {});
+    const core::Level platformLevel = makePlatformLevel(4, 5, 12, 5);
+
+    core::PlatformController platforms(platformLevel);
+    core::BlockController blocks(level);
+    const core::Aabb noPlayerContact =
+        core::Aabb::fromTopLeftSize(core::Vector2{-5.0f, -5.0f}, core::Vector2{1.0f, 1.0f});
+
+    const int startColumn = blocks.positions().front().column;
+    for (int i = 0; i < 100; ++i) {
+        platforms.update();
+        blocks.update(noPlayerContact, /*moveIntentX=*/0.0f, map, platforms.samples());
+    }
+    // La plateforme a parcouru 8 cases en 100 pas (2 cases/s, 1.67s) : le bloc doit avoir progresse
+    // dans le meme sens, jamais etre tombe (reste sur la meme ligne).
+    EXPECT_GT(blocks.positions().front().column, startColumn);
+    EXPECT_EQ(blocks.positions().front().row, 4);
 }

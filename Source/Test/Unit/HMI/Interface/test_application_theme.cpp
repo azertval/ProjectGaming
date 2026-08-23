@@ -1,0 +1,283 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+/**
+ * @file test_application_theme.cpp
+ * @brief Tests unitaires du thème de l'IHM : modèle de feuille de style (`LOT-56` TACHE-02,
+ *        `EX-IHM-050`, `EX-IHM-051`) et police/typographie (TACHE-03, `EX-IHM-052`).
+ */
+
+#include <cstdint>
+#include <fstream>
+#include <regex>
+#include <sstream>
+#include <unordered_map>
+
+#include <gtest/gtest.h>
+
+#include "HMI/Interface/DesignTokens.h"
+#include "HMI/Interface/FontResolution.h"
+#include "HMI/Interface/StyleSheetTemplate.h"
+#include "HMI/Interface/ThemeResolution.h"
+
+namespace {
+
+// Chemin (source) du modele reel, pour verifier le fichier livre plutot qu'une chaine de test
+// isolee -- coherent avec PROJECTGAMING_ASSETS_DIR etc. (Test/CMakeLists.txt).
+[[nodiscard]] std::string readThemeTemplate() {
+    std::ifstream file(PROJECTGAMING_THEME_PATH);
+    std::ostringstream buffer;
+    buffer << file.rdbuf();
+    return buffer.str();
+}
+
+}  // namespace
+
+/**
+ * @brief Chaque marqueur `${nom}` présent dans le modèle est remplacé par sa valeur ; le résultat
+ *        ne contient plus aucun marqueur.
+ * \castest{<b>La substitution remplace tous les marqueurs du modele.</b><br/>
+ * \tcat Unitaire · Theme de l'IHM<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Substituer un modele avec deux marqueurs connus.<br/>
+ * \tattendu Le texte produit contient les valeurs substituees et plus aucun marqueur.
+ * }
+ */
+TEST(ApplicationThemeTest, SubstitutionRemplaceTousLesMarqueurs) {
+    const std::unordered_map<std::string, std::string> values{{"a", "1"}, {"b", "2"}};
+    const hmi::StyleSheetSubstitutionResult result =
+        hmi::substituteStyleSheetTemplate("x: ${a}; y: ${b};", values);
+    ASSERT_TRUE(result.ok);
+    EXPECT_EQ(result.text, "x: 1; y: 2;");
+}
+
+/**
+ * @brief Un marqueur absent de la table de substitution est **signalé**, jamais produit
+ *        silencieusement avec un trou.
+ * \castest{<b>Un marqueur inconnu est signale plutot que produit avec un trou.</b><br/>
+ * \tcat Unitaire · Theme de l'IHM<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Substituer un modele dont un marqueur n'a pas de valeur.<br/>
+ * \tattendu Le resultat est en echec et nomme le marqueur manquant.
+ * }
+ */
+TEST(ApplicationThemeTest, MarqueurInconnuEstSignale) {
+    const hmi::StyleSheetSubstitutionResult result =
+        hmi::substituteStyleSheetTemplate("x: ${inconnu};", {});
+    ASSERT_FALSE(result.ok);
+    EXPECT_NE(result.error.find("inconnu"), std::string::npos);
+}
+
+/**
+ * @brief Le modèle réel livré (`Source/Elements/Themes/theme.qss`) ne contient aucune couleur
+ *        écrite en dur : toutes passent par un marqueur `${...}`.
+ * \castest{<b>Le modele de theme livre ne contient aucune couleur litterale.</b><br/>
+ * \tcat Unitaire · Theme de l'IHM<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Lire le fichier theme.qss livre.<br/>2. Chercher un motif de couleur
+ * hexadecimale.<br/> \tattendu Aucune occurrence en dehors des commentaires n'est trouvee.
+ * }
+ */
+TEST(ApplicationThemeTest, AucuneCouleurLitteraleDansLeModeleReel) {
+    const std::string themeText = readThemeTemplate();
+    ASSERT_FALSE(themeText.empty()) << "theme.qss introuvable a PROJECTGAMING_THEME_PATH";
+
+    // Retire les commentaires /* ... */ (l'en-tete documente l'historique en exemples de couleurs)
+    // avant de chercher un motif de couleur hexadecimale dans les regles elles-memes.
+    const std::regex commentPattern(R"(/\*[\s\S]*?\*/)");
+    const std::string withoutComments = std::regex_replace(themeText, commentPattern, "");
+
+    const std::regex hexColorPattern(R"(#[0-9a-fA-F]{6}\b)");
+    EXPECT_FALSE(std::regex_search(withoutComments, hexColorPattern))
+        << "couleur hexadecimale litterale trouvee hors commentaire";
+}
+
+/**
+ * @brief Produire la feuille de style avec deux jeux de valeurs **variables** différents donne
+ *        deux résultats dont les règles d'**identité** (`#MainMenu`, `#OptionsPage`) sont
+ *        identiques au caractère près : le thème de l'éditeur ne doit jamais faire bouger le menu
+ *        principal.
+ * \castest{<b>Les regles d'identite sont etanches au theme de l'editeur.</b><br/>
+ * \tcat Unitaire · Theme de l'IHM<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Substituer le modele reel avec deux jeux de jetons d'editeur de couleurs
+ * differentes, les valeurs derivant de buildStyleSheetValues.<br/>2. Extraire les blocs
+ * `#MainMenu`/`#OptionsPage` des deux resultats.<br/> \tattendu Les deux extraits sont identiques
+ * au caractere pres.
+ * }
+ */
+TEST(ApplicationThemeTest, EtancheiteDesPortees) {
+    const std::string themeText = readThemeTemplate();
+    ASSERT_FALSE(themeText.empty()) << "theme.qss introuvable a PROJECTGAMING_THEME_PATH";
+
+    // Les valeurs sont DERIVEES de buildStyleSheetValues, jamais recopiees : une liste ecrite a la
+    // main ici devrait etre etendue a chaque marqueur ajoute au modele, et ne le serait pas -- le
+    // test echouerait alors sur un "marqueur inconnu" qui n'a rien a voir avec l'etancheite qu'il
+    // verifie. Seules les couleurs de l'EDITEUR sont forcees, puisque c'est la variable du test.
+    auto valuesWithEditor = [&](std::uint8_t level) {
+        hmi::DesignTokens editorTokens = hmi::editorDarkTokens();
+        const hmi::DesignColor uniform{.r = level, .g = level, .b = level};
+        editorTokens.color.background = uniform;
+        editorTokens.color.surface = uniform;
+        editorTokens.color.surfaceAlt = uniform;
+        editorTokens.color.border = uniform;
+        editorTokens.color.text = uniform;
+        editorTokens.color.textMuted = uniform;
+        editorTokens.color.accent = uniform;
+        editorTokens.color.accentHover = uniform;
+        editorTokens.color.error = uniform;
+        editorTokens.color.outline = uniform;
+        editorTokens.color.bevelLight = uniform;
+        editorTokens.color.bevelDark = uniform;
+        return hmi::buildStyleSheetValues(editorTokens);
+    };
+
+    const hmi::StyleSheetSubstitutionResult dark =
+        hmi::substituteStyleSheetTemplate(themeText, valuesWithEditor(0x11));
+    const hmi::StyleSheetSubstitutionResult light =
+        hmi::substituteStyleSheetTemplate(themeText, valuesWithEditor(0xee));
+    ASSERT_TRUE(dark.ok) << dark.error;
+    ASSERT_TRUE(light.ok) << light.error;
+
+    // Extrait la portion "identite" : de la premiere regle #MainMenu jusqu'a la premiere regle du
+    // chassis d'edition (marquee par le commentaire de section) -- stable tant que theme.qss garde
+    // ses deux sections dans cet ordre.
+    const std::string sectionMarker = "Chassis d'edition";
+    const std::size_t darkEnd = dark.text.find(sectionMarker);
+    const std::size_t lightEnd = light.text.find(sectionMarker);
+    ASSERT_NE(darkEnd, std::string::npos);
+    ASSERT_NE(lightEnd, std::string::npos);
+    EXPECT_EQ(dark.text.substr(0, darkEnd), light.text.substr(0, lightEnd));
+}
+
+/**
+ * @brief La police embarquée est retenue quand elle a pu être enregistrée ; sinon, aucun nom de
+ *        famille n'est renvoyé (TACHE-03) -- l'appelant Qt doit alors demander une famille
+ *        générique, jamais un second nom codé en dur.
+ * \castest{<b>La resolution de police retombe sur une famille generique sans nom code en
+ * dur.</b><br/> \tcat Unitaire · Theme de l'IHM<br/> \tcrit Critique<br/> \tetapes 1. Resoudre la
+ * police embarquee enregistree, puis non enregistree.<br/> \tattendu Le premier cas rend la famille
+ * embarquee ; le second ne rend aucun nom de famille.
+ * }
+ */
+TEST(ApplicationThemeTest, ResolutionDePoliceSansNomDeRepliCodeEnDur) {
+    const hmi::FontFamilyResolution registered = hmi::resolveFontFamily(true, "Inter");
+    EXPECT_TRUE(registered.useEmbeddedFamily);
+    EXPECT_EQ(registered.embeddedFamily, "Inter");
+
+    const hmi::FontFamilyResolution missing = hmi::resolveFontFamily(false, "Inter");
+    EXPECT_FALSE(missing.useEmbeddedFamily);
+    EXPECT_TRUE(missing.embeddedFamily.empty());
+}
+
+/**
+ * @brief L'échelle typographique produit des tailles strictement positives, et les rôles de titre
+ *        et de corps sont ordonnés du plus grand au plus petit : titre d'écran > titre de
+ *        section > corps > libellé secondaire.
+ * \castest{<b>L'echelle typographique est positive et ordonnee du plus grand au plus
+ * petit.</b><br/> \tcat Unitaire · Theme de l'IHM<br/> \tcrit Majeur<br/> \tetapes 1. Lire les
+ * tailles de l'echelle typographique des jetons.<br/> \tattendu Toutes sont strictement positives ;
+ * titre d'ecran > titre de section > corps > libelle secondaire.
+ * }
+ */
+TEST(ApplicationThemeTest, EchelleTypographiquePositiveEtOrdonnee) {
+    const hmi::TypographyTokens& typography = hmi::identityTokens().typography;
+    EXPECT_GT(typography.screenTitle.pointSize, 0);
+    EXPECT_GT(typography.sectionTitle.pointSize, 0);
+    EXPECT_GT(typography.body.pointSize, 0);
+    EXPECT_GT(typography.caption.pointSize, 0);
+    EXPECT_GT(typography.monospaceBody.pointSize, 0);
+
+    EXPECT_GT(typography.screenTitle.pointSize, typography.sectionTitle.pointSize);
+    EXPECT_GT(typography.sectionTitle.pointSize, typography.body.pointSize);
+    EXPECT_GT(typography.body.pointSize, typography.caption.pointSize);
+}
+
+/**
+ * @brief Aucune propriété de police ni de marge figée ne subsiste dans `MainMenu.ui` ou
+ *        `OptionsPage.ui` : la typographie et l'espacement viennent des jetons, pas du fichier
+ *        `.ui`.
+ * \castest{<b>Aucune taille de police ni marge figee ne subsiste dans les fichiers .ui.</b><br/>
+ * \tcat Unitaire · Theme de l'IHM<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Lire MainMenu.ui et OptionsPage.ui.<br/>2. Chercher une propriete font/margin figee
+ * au niveau du widget racine.<br/>
+ * \tattendu Aucune des deux proprietes n'apparait dans l'un ou l'autre fichier.
+ * }
+ */
+TEST(ApplicationThemeTest, AucuneTailleDePoliceResiduelleDansLesFichiersUi) {
+    for (const char* path : {PROJECTGAMING_MAIN_MENU_UI_PATH, PROJECTGAMING_OPTIONS_PAGE_UI_PATH}) {
+        std::ifstream file(path);
+        std::ostringstream buffer;
+        buffer << file.rdbuf();
+        const std::string text = buffer.str();
+        ASSERT_FALSE(text.empty()) << "fichier .ui introuvable : " << path;
+        EXPECT_EQ(text.find("<property name=\"font\">"), std::string::npos)
+            << "propriete de police figee trouvee dans " << path;
+        EXPECT_EQ(text.find("Margin"), std::string::npos)
+            << "propriete de marge figee trouvee dans " << path;
+    }
+}
+
+/**
+ * @brief Résolution pure du thème effectif (`LOT-56` TACHE-06) : `Système` suit le système
+ *        d'exploitation, `Clair`/`Sombre` forcé l'ignore.
+ * \castest{<b>La resolution du theme effectif suit le reglage et, si Systeme, le systeme.</b><br/>
+ * \tcat Unitaire · Theme de l'IHM<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Resoudre les quatre combinaisons reglage/systeme.<br/>
+ * \tattendu Systeme+sombre -> Sombre ; Systeme+clair -> Clair ; Clair/Sombre force ignorent le
+ * systeme dans les deux etats.
+ * }
+ */
+TEST(ApplicationThemeTest, ResolutionDuThemeEffectifSuitLeReglageEtLeSysteme) {
+    using hmi::EditorThemeMode;
+    using hmi::EditorThemeSetting;
+    EXPECT_EQ(
+        hmi::resolveEffectiveEditorTheme(EditorThemeSetting::System, /*systemPrefersDark=*/true),
+        EditorThemeMode::Dark);
+    EXPECT_EQ(
+        hmi::resolveEffectiveEditorTheme(EditorThemeSetting::System, /*systemPrefersDark=*/false),
+        EditorThemeMode::Light);
+    EXPECT_EQ(
+        hmi::resolveEffectiveEditorTheme(EditorThemeSetting::Light, /*systemPrefersDark=*/true),
+        EditorThemeMode::Light);
+    EXPECT_EQ(
+        hmi::resolveEffectiveEditorTheme(EditorThemeSetting::Dark, /*systemPrefersDark=*/false),
+        EditorThemeMode::Dark);
+}
+
+/**
+ * @brief Avec les **vrais** jetons sombre et clair du châssis d'édition, les règles d'identité
+ *        (`#MainMenu`, `#OptionsPage`) de la feuille de style produite restent identiques au
+ *        caractère près : complète `ApplicationThemeTest.EtancheiteDesPortees` (jetons de test
+ *        arbitraires) en couvrant la bascule réelle que `LOT-56` TACHE-06 introduit.
+ * \castest{<b>L'etancheite des portees tient avec les vrais themes sombre et clair.</b><br/>
+ * \tcat Unitaire · Theme de l'IHM<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Produire la feuille de style avec editorDarkTokens() puis editorLightTokens().<br/>
+ * 2. Comparer les blocs `#MainMenu`/`#OptionsPage` des deux resultats.<br/>
+ * \tattendu Les deux extraits sont identiques au caractere pres.
+ * }
+ */
+TEST(ApplicationThemeTest, EtancheiteDesPorteesAvecLesVraisThemes) {
+    const std::string themeText = readThemeTemplate();
+    ASSERT_FALSE(themeText.empty()) << "theme.qss introuvable a PROJECTGAMING_THEME_PATH";
+
+    const hmi::StyleSheetSubstitutionResult dark = hmi::substituteStyleSheetTemplate(
+        themeText, hmi::buildStyleSheetValues(hmi::editorDarkTokens()));
+    const hmi::StyleSheetSubstitutionResult light = hmi::substituteStyleSheetTemplate(
+        themeText, hmi::buildStyleSheetValues(hmi::editorLightTokens()));
+    ASSERT_TRUE(dark.ok) << dark.error;
+    ASSERT_TRUE(light.ok) << light.error;
+
+    const std::string sectionMarker = "Chassis d'edition";
+    const std::size_t darkEnd = dark.text.find(sectionMarker);
+    const std::size_t lightEnd = light.text.find(sectionMarker);
+    ASSERT_NE(darkEnd, std::string::npos);
+    ASSERT_NE(lightEnd, std::string::npos);
+    EXPECT_EQ(dark.text.substr(0, darkEnd), light.text.substr(0, lightEnd));
+    // Les deux themes doivent en revanche produire des blocs "chassis d'edition" differents :
+    // sinon TACHE-06 n'aurait aucun effet visible.
+    EXPECT_NE(dark.text.substr(darkEnd), light.text.substr(lightEnd));
+}

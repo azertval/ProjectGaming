@@ -73,7 +73,10 @@ uniquement de la documentation externe.
   zone de tuiles.
 - \anchor EX-EDIT-015 **EX-EDIT-015** — L'éditeur doit exposer ses commandes de façon
   **découvrable** à l'écran : une barre d'outils pour changer d'outil, un aperçu des raccourcis
-  clavier, et des libellés sur les entrées de la palette.
+  clavier, et des libellés sur les entrées de la palette. *La barre d'outils à icônes est concrétisée
+  en [`LOT-56`](@ref lot-56) (`EX-IHM-055`) et l'aperçu des raccourcis en [`LOT-57`](@ref lot-57) : le
+  changement d'outil passait jusqu'ici par des boutons radio empilés, et aucun aperçu des raccourcis
+  n'était atteignable depuis l'application.*
 - \anchor EX-EDIT-016 **EX-EDIT-016** — Lorsque plusieurs liaisons interrupteur ↔ porte sont
   visibles simultanément, chacune doit être **visuellement distinguable** des autres (et non une
   teinte unique partagée par toutes les liaisons).
@@ -165,6 +168,32 @@ pouvoir habiller le niveau avec de vraies textures — sans jamais perdre la lec
 - \anchor EX-EDIT-027 **EX-EDIT-027** — La **palette de l'éditeur** doit afficher l'apparence
   réellement rendue : en mode Texture, la texture assignée au type ; en mode Physique, la couleur
   plate. Peindre sans voir ce que l'on pose est une régression d'usage. Concrétisé en `LOT-42`.
+- \anchor EX-EDIT-028 **EX-EDIT-028** — L'éditeur doit permettre de **choisir le mode de cadrage**
+  du niveau (`EX-LVL-006`) et de le **prévisualiser** dans le canevas — cadre du niveau, grille de
+  salles, ou rectangle visible et zone morte pour le suivi — sans avoir à lancer l'essai. Le
+  changement de mode est une opération d'édition **annulable** (`EX-EDIT-005`) et le mode courant est
+  visible en permanence dans la barre d'état (`EX-IHM-062`). Sans cela, le cadrage resterait
+  accessible aux seuls éditeurs de JSON, ce que l'existence même de l'éditeur (`EX-VIS-006`) exclut.
+  Concrétisé en `LOT-64`.
+- \anchor EX-EDIT-029 **EX-EDIT-029** — L'éditeur doit permettre de **dessiner et retirer** les
+  zones de caméra du mode *par salle* (`EX-LVL-007`) directement sur le canevas, par un outil dédié
+  au même titre que les autres outils de dessin (rectangle, sélection), avec un tableau
+  récapitulatif dans la section « Cadrage ». Chaque ajout ou retrait est une opération d'édition
+  **annulable** (`EX-EDIT-005`). Concrétisé en `LOT-64`.
+- \anchor EX-EDIT-032 **EX-EDIT-032** — L'éditeur doit permettre de **manipuler directement au
+  canevas** la trajectoire des éléments mobiles : déplacer, insérer et retirer les points de la
+  route d'une plateforme mobile (`EX-GP-054`), redéfinir l'axe et la portée d'un danger mobile
+  (`EX-GP-051`), au moyen de **poignées glissables** de taille écran constante. Chaque geste complet
+  est **une seule** opération annulable (`EX-EDIT-005`), jamais une par position intermédiaire.
+  Sans cela, ces trajectoires resteraient accessibles aux seuls éditeurs de JSON, ce que l'existence
+  même de l'éditeur (`EX-VIS-006`) exclut. Concrétisé en `LOT-67`.
+- \anchor EX-EDIT-033 **EX-EDIT-033** — L'éditeur doit exposer, dans un panneau dédié, les
+  **paramètres de temporisation** des éléments mobiles (vitesse, déphasage et mode de parcours d'une
+  plateforme ; axe et portée d'un danger mobile ; période, déphasage et durée active d'un danger
+  temporisé) ainsi que les **règles du tableau** (budgets de `EX-GP-024` et capacités de
+  `EX-GP-055`), sous une forme éditable et **annulable** (`EX-EDIT-005`). Les deux notions de règles
+  doivent être présentées **distinctement**, un budget consommable ne se confondant pas avec une
+  capacité rechargée. Concrétisé en `LOT-67`.
 - \anchor EX-EDIT-043 **EX-EDIT-043** — L'éditeur doit permettre d'assigner une **texture propre à
   une case précise** (« objet interactif », ex. une porte particulière), par un geste de clic dédié,
   prioritaire sur l'association globale (`EX-EDIT-042`) pour cette case. Concrétisé en `LOT-45`.
@@ -177,6 +206,24 @@ pouvoir habiller le niveau avec de vraies textures — sans jamais perdre la lec
   minimal (peindre/effacer, palette, zoom, annuler/refaire) pour créer/modifier directement les
   fichiers d'assets de texture, sans dépendance externe, avec un **aperçu du rendu dans le niveau**
   pendant l'édition. Concrétisé en `LOT-54`.
+- \anchor EX-EDIT-046 **EX-EDIT-046** — L'éditeur doit offrir un **mode création** — un espace de
+  travail à part entière, au même titre que l'édition de niveau et l'atelier pixel art — où le
+  niveau **entier** devient une surface peignable, **plan par plan** (`EX-DEC-045`), au pixel près
+  et à l'échelle **1:1** (un pixel du plan = un pixel du jeu). Le plan actif est peint avec les
+  outils de l'atelier (`EX-EDIT-045`), qui sont **réutilisés et non redéveloppés** ; les tuiles
+  physiques et les autres plans sont composés en **référence atténuée** (« pelure d'oignon »), et
+  tout plan peut être **isolé** ou masqué le temps du travail. Le repère est **géométrique** : il
+  n'a ni raccords automatiques, ni skins, ni animations — l'aperçu fidèle reste le rendu du niveau
+  et l'essai. L'historique du dessin est **strictement distinct** de celui de l'édition de niveau :
+  annuler un coup de pinceau ne doit jamais annuler une pose de tuile. Le zoom doit descendre
+  **sous** le 1:1 pour embrasser un niveau entier, en conservant des pixels **carrés**
+  (`EX-ARCH-022`). Concrétisé en `LOT-69`.
+- \anchor EX-EDIT-047 **EX-EDIT-047** — L'éditeur doit exposer, dans un **panneau dédié**, la liste
+  ordonnée des plans du niveau et leurs réglages : ajout, suppression, **réordonnancement**,
+  densité, facteurs de parallaxe, opacité, profondeur et visibilité. Ajouter un plan crée son
+  fichier PNG **transparent aux dimensions exactes** attendues ; changer sa densité rééchantillonne
+  l'image existante plutôt que de la perdre. Le poids mémoire du niveau (`EX-NFR-043`) est visible
+  **pendant** qu'on le dépense. Concrétisé en `LOT-69`.
 
 ## Traçabilité
 L'éditeur s'appuie sur `Core` (modèle et validation de niveau, `niveaux.md`) et sur le rendu de

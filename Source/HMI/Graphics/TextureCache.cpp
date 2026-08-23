@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "HMI/Graphics/TextureCache.h"
 
 #include <utility>
@@ -10,8 +13,8 @@
 namespace hmi {
 
 // Construit un cache vide pour un device et un dossier d'assets donnes.
-TextureCache::TextureCache(ID3D11Device* device, AssetPaths paths)
-    : _device(device), _paths(std::move(paths)) {}
+TextureCache::TextureCache(const RhiContext& context, AssetPaths paths)
+    : _context(context), _paths(std::move(paths)) {}
 
 // Charge et valide un asset depuis le disque, sans passer par le cache. Les trois causes d'echec
 // (chemin introuvable, decodage impossible, dimensions non conformes) sont journalisees
@@ -48,9 +51,9 @@ std::optional<LoadedTexture> TextureCache::load(const std::string& fileName, Ass
     }
 
     std::optional<LoadedTexture> texture =
-        createTexture(_device, image->width, image->height, pixels);
+        createTexture(_context, image->width, image->height, pixels);
     if (!texture) {
-        GRAPHICS_LOG_WARNING("Creation Direct3D de la texture " + fileName + " impossible.");
+        GRAPHICS_LOG_WARNING("Creation GPU de la texture " + fileName + " impossible.");
         return std::nullopt;
     }
     GRAPHICS_LOG_INFO("Texture chargee : " + fileName + " (" + std::to_string(image->width) + "x" +
@@ -62,6 +65,27 @@ std::optional<LoadedTexture> TextureCache::load(const std::string& fileName, Ass
 // La texture chargee (propriete du cache), ou nullptr si l'asset est absent/illisible/non conforme.
 const LoadedTexture* TextureCache::get(const std::string& fileName, AssetFamily family) {
     return getUnderKey(fileName, fileName, family, std::nullopt);
+}
+
+// Obtient la texture d'un fichier designe par son chemin, hors du dossier d'assets.
+const LoadedTexture* TextureCache::getFromPath(const std::filesystem::path& path) {
+    const std::string key = path.string();
+    return _entries.getOrLoad(key, [this, &path, &key]() -> std::optional<LoadedTexture> {
+        const std::optional<DecodedImage> image = decodeImageFile(path);
+        if (!image) {
+            GRAPHICS_LOG_WARNING("Image introuvable ou illisible : " + key + ".");
+            return std::nullopt;
+        }
+        std::optional<LoadedTexture> texture =
+            createTexture(_context, image->width, image->height, image->pixels);
+        if (!texture) {
+            GRAPHICS_LOG_WARNING("Creation GPU de la texture " + key + " impossible.");
+            return std::nullopt;
+        }
+        GRAPHICS_LOG_INFO("Image chargee : " + key + " (" + std::to_string(image->width) + "x" +
+                          std::to_string(image->height) + ").");
+        return texture;
+    });
 }
 
 // Obtient la variante d'un asset detouree a la silhouette d'un type de tuile.
@@ -79,32 +103,68 @@ const LoadedTexture* TextureCache::getMasked(const std::string& fileName, AssetF
 const LoadedTexture* TextureCache::getUnderKey(const std::string& cacheKey,
                                                const std::string& fileName, AssetFamily family,
                                                std::optional<core::TileType> maskType) {
-    // Un echec deja constate est memorise (entree a std::nullopt) : sans cela, un asset manquant
-    // relirait le disque et rejouerait son avertissement a chaque image.
-    const auto found = _entries.find(cacheKey);
-    if (found != _entries.end()) {
-        return found->second ? &*found->second : nullptr;
+    // La memoisation (et la memorisation d'un echec deja constate) est deleguee a CacheRegistry :
+    // sans elle, un asset manquant relirait le disque et rejouerait son avertissement a chaque
+    // image.
+    return _entries.getOrLoad(cacheKey, [&] { return load(fileName, family, maskType); });
+}
+
+// Charge et valide la description d'animation d'un asset depuis le disque (sans cache).
+std::optional<AnimationDescription> TextureCache::loadAnimation(const std::string& fileName,
+                                                                int textureWidth,
+                                                                int textureHeight) const {
+    const std::string descriptorName = AnimationCatalog::descriptorFileName(fileName);
+    const std::optional<std::filesystem::path> path = _paths.resolve(descriptorName);
+    if (!path) {
+        // Absence de fichier = image fixe : cas par defaut, silencieux (pas d'avertissement,
+        // LOT-46 TACHE-03) -- a la difference d'un asset texture introuvable (load(), ci-dessus).
+        return std::nullopt;
     }
 
-    const auto inserted = _entries.emplace(cacheKey, load(fileName, family, maskType)).first;
-    return inserted->second ? &*inserted->second : nullptr;
+    const AnimationDescriptionResult result = AnimationCatalog::loadFromFile(*path);
+    if (!result.ok()) {
+        GRAPHICS_LOG_WARNING("Animation " + fileName + " : " + result.error);
+        return std::nullopt;
+    }
+
+    const AssetValidation validation = AnimationCatalog::validateAgainstTexture(
+        *result.description, fileName, textureWidth, textureHeight);
+    if (!validation.valid) {
+        GRAPHICS_LOG_WARNING(validation.message);
+        return std::nullopt;
+    }
+
+    GRAPHICS_LOG_INFO("Animation chargee : " + descriptorName + " (" +
+                      std::to_string(result.description->clips.clipCount()) + " clip(s)).");
+    return result.description;
 }
 
-// Retire une entree du cache, de sorte que le prochain get relise le fichier.
+// Obtient la description d'animation d'un asset, en la chargeant au premier acces.
+const AnimationDescription* TextureCache::getAnimation(const std::string& fileName,
+                                                       int textureWidth, int textureHeight) {
+    return _animationEntries.getOrLoad(
+        fileName, [&] { return loadAnimation(fileName, textureWidth, textureHeight); });
+}
+
+// Retire une entree du cache, de sorte que le prochain get relise le fichier. Invalidation
+// conjointe (LOT-46 TACHE-03) : la description d'animation associee, sous la meme cle, est
+// retiree en meme temps que la texture -- un seul point d'invalidation pour l'appelant.
 void TextureCache::invalidate(const std::string& fileName) {
-    _entries.erase(fileName);
+    _entries.invalidate(fileName);
+    _animationEntries.invalidate(fileName);
 }
 
-// Retire toutes les entrees du cache (rechargement global).
+// Retire toutes les entrees du cache (rechargement global), textures et animations.
 void TextureCache::invalidateAll() {
-    _entries.clear();
+    _entries.invalidateAll();
+    _animationEntries.invalidateAll();
 }
 
 // Texture de repli en damier magenta, creee une seule fois a la demande.
 const LoadedTexture* TextureCache::missingTexture() {
     if (!_missingTexture) {
         const ProceduralAtlasImage image = buildMissingTextureImage();
-        _missingTexture = createTexture(_device, image.width, image.height, image.pixels);
+        _missingTexture = createTexture(_context, image.width, image.height, image.pixels);
         if (!_missingTexture) {
             GRAPHICS_LOG_ERROR("Creation de la texture de repli (damier magenta) impossible.");
             return nullptr;

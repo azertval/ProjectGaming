@@ -1,6 +1,6 @@
 # TACHE-02 — Transitions jouées une fois et repli sur clip manquant {#lot-47-tache-02-transitions}
 
-**Lot :** [LOT-47](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/HMI/Game` · **Statut :** non commencé
+**Lot :** [LOT-47](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/HMI/Game` · **Statut :** fait
 
 ## Contexte
 Une porte qui passe instantanément de « fermée » à « ouverte » reste un changement d'image, pas une
@@ -26,8 +26,15 @@ en TACHE-01, et traite le cas où l'asset ne fournit pas le clip attendu.
   repartent de leur clip d'état, sans rejouer de transition.
 
 ## Fichiers impactés
-- `Source/HMI/Graphics/MechanismVisuals.{h,cpp}`.
-- `Source/HMI/Game/GameSession.{h,cpp}`.
+- `Source/HMI/Graphics/MechanismVisuals.{h,cpp}` : état `MechanismVisualState` par instance et
+  `advanceMechanismVisual` (décision + progression, logique pure).
+- `Source/HMI/Game/GameSession.{h,cpp}` : résout l'asset effectivement lié à chaque instance (via
+  `hmi::resolveTileAppearance`, point unique, jamais dupliqué) et écrit le résultat sur sa tuile.
+- `Source/HMI/Graphics/TileSkinTag.h` : nouveau champ `animatedFrame`, image courante **par
+  instance**, prioritaire sur l'horloge partagée par asset de `LOT-46` TACHE-05 (qui ne peut pas,
+  à elle seule, distinguer deux tuiles du même asset à des états différents).
+- `Source/HMI/Graphics/TileAppearance.cpp` : `resolveTileAppearance` consulte `animatedFrame` en
+  priorité, pour les sources `Skin` et `Override`.
 - `Source/Test/Unit/HMI/Graphics/test_mechanism_transitions.cpp` (nouveau).
 
 ## Tests (obligatoires)

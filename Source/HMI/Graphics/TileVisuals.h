@@ -1,8 +1,15 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <optional>
+#include <string>
+#include <vector>
 
 #include "Core/Ecs/Components/Sprite.h"
+#include "Core/Levels/GridPosition.h"
+#include "Core/Levels/Level.h"
 #include "Core/Levels/TileType.h"
 
 /**
@@ -54,5 +61,19 @@ struct AtlasGridPosition {
  *         courbe.
  */
 [[nodiscard]] std::optional<AtlasGridPosition> slopeTileGridPosition(core::TileType type);
+
+/**
+ * @brief Cherche la surcharge de texture assignée à une case précise (`EX-EDIT-043`, `LOT-45`).
+ *
+ * Recherche linéaire : le nombre de surcharges d'un niveau reste modeste (donnée purement
+ * visuelle, posée à la main), et cette fonction n'est appelée qu'à la **construction** de la scène
+ * (une fois par tuile), jamais à chaque image — même principe que `solidNeighborMask`.
+ * @param overrides Surcharges du niveau
+ * (`core::Level::textureOverrides`/`core::LevelDraft::textureOverrides`).
+ * @param position  Position de la case cherchée.
+ * @return Le nom de l'asset assigné à cette case, ou `std::nullopt` si elle n'en a pas.
+ */
+[[nodiscard]] std::optional<std::string> textureOverrideAt(
+    const std::vector<core::TileTextureOverride>& overrides, core::GridPosition position);
 
 }  // namespace hmi

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <filesystem>
@@ -69,11 +72,11 @@ struct SkinEntry {
  * reformulation.
  */
 enum class SkinCatalogError {
-    None,               ///< Pas d'erreur.
-    FileNotFound,       ///< Fichier absent. Cas **légitime**, pas une anomalie (voir ci-dessous).
-    ParseError,         ///< JSON malformé, ou racine qui n'est pas un objet.
-    UnsupportedVersion, ///< Numéro de version supérieur à `SkinCatalog::FORMAT_VERSION`.
-    MalformedStructure, ///< Structure inattendue (« jeux » absent, entrée sans « asset »…).
+    None,                ///< Pas d'erreur.
+    FileNotFound,        ///< Fichier absent. Cas **légitime**, pas une anomalie (voir ci-dessous).
+    ParseError,          ///< JSON malformé, ou racine qui n'est pas un objet.
+    UnsupportedVersion,  ///< Numéro de version supérieur à `SkinCatalog::FORMAT_VERSION`.
+    MalformedStructure,  ///< Structure inattendue (« jeux » absent, entrée sans « asset »…).
 };
 
 // Le resultat contient un SkinCatalog par valeur : il ne peut etre defini qu'apres la classe. Une

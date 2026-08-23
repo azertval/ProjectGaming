@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 /**
@@ -17,15 +20,18 @@ namespace hmi {
  * @brief Un quad texturé à dessiner : rectangle en **unités monde**, région de texture
  *        (coordonnées normalisées) et teinte.
  *
- * Le coin est haut-gauche, l'axe Y va vers le bas (convention du projet). Les coordonnées
- * de texture `u,v` sont normalisées dans [0, 1] ; la conversion depuis une région d'atlas
- * en pixels est faite en amont (par le rendu des sprites).
+ * Le coin (`x`, `y`) est haut-gauche **avant rotation**, l'axe Y va vers le bas (convention du
+ * projet). Les coordonnées de texture `u,v` sont normalisées dans [0, 1] ; la conversion depuis
+ * une région d'atlas en pixels est faite en amont (par le rendu des sprites). `rotation` (radians,
+ * `LOT-50` TACHE-02) tourne le rectangle autour de **son propre centre** — nul par défaut, donc
+ * sans coût ni différence visuelle pour les quads alignés aux axes (tuiles, personnage).
  */
 struct SpriteQuad {
     float x = 0.0f;
     float y = 0.0f;
     float width = 0.0f;
     float height = 0.0f;
+    float rotation = 0.0f;
     float u0 = 0.0f;
     float v0 = 0.0f;
     float u1 = 1.0f;

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_player_input_mapper.cpp
  * @brief Tests unitaires de la traduction clavier/manette → intention (`toPlayerInput`).
@@ -225,8 +228,9 @@ TEST(PlayerInputMapperTest, RemapperUneActionClavierUtiliseLaNouvelleTouche) {
     hmi::GameKeyBindings gameKeyBindings;
     gameKeyBindings.setKey(hmi::GameAction::Dash, hmi::Key::F1);
 
-    EXPECT_TRUE(hmi::toPlayerInput(withKeys({hmi::Key::F1}), gameKeyBindings, hmi::GamepadBindings{})
-                    .dashPressed);
+    EXPECT_TRUE(
+        hmi::toPlayerInput(withKeys({hmi::Key::F1}), gameKeyBindings, hmi::GamepadBindings{})
+            .dashPressed);
 }
 
 /**
@@ -268,9 +272,8 @@ TEST(PlayerInputMapperTest, RemapperGaucheEtDroiteSurDesTouchesDistinctesNeLesAn
  * }
  */
 TEST(PlayerInputMapperTest, ActionDeclencheeParSonBoutonManetteParDefaut) {
-    const core::PlayerInput input =
-        hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::A), hmi::GameKeyBindings{},
-                          hmi::GamepadBindings{});
+    const core::PlayerInput input = hmi::toPlayerInput(
+        withGamepadButton(hmi::GamepadButton::A), hmi::GameKeyBindings{}, hmi::GamepadBindings{});
     EXPECT_TRUE(input.jumpPressed);
 }
 
@@ -316,12 +319,128 @@ TEST(PlayerInputMapperTest, RemapperGaucheEtDroiteManetteSurDesBoutonsDistinctsN
     gamepadBindings.setKey(hmi::GameAction::MoveRight, hmi::GamepadButton::Y);
     const hmi::GameKeyBindings gameKeyBindings;
 
-    EXPECT_FLOAT_EQ(
-        hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::X), gameKeyBindings, gamepadBindings)
-            .moveX,
-        -1.0f);
-    EXPECT_FLOAT_EQ(
-        hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::Y), gameKeyBindings, gamepadBindings)
-            .moveX,
-        1.0f);
+    EXPECT_FLOAT_EQ(hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::X), gameKeyBindings,
+                                       gamepadBindings)
+                        .moveX,
+                    -1.0f);
+    EXPECT_FLOAT_EQ(hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::Y), gameKeyBindings,
+                                       gamepadBindings)
+                        .moveX,
+                    1.0f);
+}
+
+/**
+ * @brief E fraîchement enfoncée → Interagir **pressé** (front) et **maintenu** ; aucune touche →
+ *        ni pressé ni maintenu.
+ * \castest{<b>E fraîchement enfoncée → Interagir pressé (front) et maintenu.</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu E fraîchement enfoncée → `interactPressed` et `interactHeld` vrais ; sans la touche,
+ * les deux sont faux.
+ * }
+ */
+TEST(PlayerInputMapperTest, EPresseeDeclencheInteragir) {
+    const core::PlayerInput pressed = mapWithDefaults(withKeys({hmi::Key::E}));
+    EXPECT_TRUE(pressed.interactPressed);
+    EXPECT_TRUE(pressed.interactHeld);
+    EXPECT_FALSE(pressed.interactReleased);
+
+    const core::PlayerInput none = mapWithDefaults(hmi::InputState{});
+    EXPECT_FALSE(none.interactPressed);
+    EXPECT_FALSE(none.interactHeld);
+}
+
+/**
+ * @brief Interagir maintenu sans nouveau front → `interactHeld` vrai mais `interactPressed` faux.
+ * \castest{<b>Interagir maintenu sans nouveau front → interactHeld vrai mais interactPressed
+ * faux.</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Sur une deuxième frame avec E toujours enfoncée, `interactPressed` est faux et
+ * `interactHeld` reste vrai.
+ * }
+ */
+TEST(PlayerInputMapperTest, InteragirMaintenuN_estPasUnFront) {
+    hmi::InputState input;
+    input.onKeyDown(hmi::Key::E);  // frame 1 : le front a deja eu lieu
+    input.beginFrame();            // frame 2 : l'etat courant devient l'etat precedent
+    input.onKeyDown(hmi::Key::E);  // toujours enfoncee, mais plus au front
+
+    const core::PlayerInput mapped = mapWithDefaults(input);
+    EXPECT_FALSE(mapped.interactPressed);
+    EXPECT_TRUE(mapped.interactHeld);
+}
+
+/**
+ * @brief Relâcher E produit le front `interactReleased`, une frame seulement.
+ * \castest{<b>Relâcher E produit le front interactReleased, une frame seulement.</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Après `onKeyUp`, `interactReleased` est vrai à la frame du relâchement puis faux à la
+ * frame suivante.
+ * }
+ */
+TEST(PlayerInputMapperTest, RelacherEDeclencheInteragirRelache) {
+    hmi::InputState input;
+    input.onKeyDown(hmi::Key::E);
+    input.beginFrame();
+    input.onKeyUp(hmi::Key::E);
+
+    const core::PlayerInput released = mapWithDefaults(input);
+    EXPECT_TRUE(released.interactReleased);
+    EXPECT_FALSE(released.interactHeld);
+
+    input.beginFrame();
+    const core::PlayerInput settled = mapWithDefaults(input);
+    EXPECT_FALSE(settled.interactReleased);
+}
+
+/**
+ * @brief Interagir se déclenche aussi via son bouton manette lié (X) par défaut, indépendamment
+ *        du clavier.
+ * \castest{<b>Interagir se déclenche via son bouton manette par défaut (X).</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le bouton X manette declenche `interactPressed`, sans qu'aucune touche clavier ne
+ * soit enfoncee.
+ * }
+ */
+TEST(PlayerInputMapperTest, BoutonXManetteDeclencheInteragir) {
+    const core::PlayerInput input = hmi::toPlayerInput(
+        withGamepadButton(hmi::GamepadButton::X), hmi::GameKeyBindings{}, hmi::GamepadBindings{});
+    EXPECT_TRUE(input.interactPressed);
+}
+
+/**
+ * @brief Remapper Interagir (clavier ou manette) réagit à la nouvelle source, sans changer le
+ *        comportement par contact des mécanismes existants (aucun autre champ affecté).
+ * \castest{<b>Remapper Interagir réagit à la nouvelle touche/bouton.</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Remapper Interagir sur F1 (clavier) ou Y (manette) le declenche via cette nouvelle
+ * source ; la source par defaut de l'autre peripherique reste independante.
+ * }
+ */
+TEST(PlayerInputMapperTest, RemapperInteragirUtiliseLaNouvelleSource) {
+    hmi::GameKeyBindings gameKeyBindings;
+    gameKeyBindings.setKey(hmi::GameAction::Interact, hmi::Key::F1);
+    EXPECT_TRUE(
+        hmi::toPlayerInput(withKeys({hmi::Key::F1}), gameKeyBindings, hmi::GamepadBindings{})
+            .interactPressed);
+
+    hmi::GamepadBindings gamepadBindings;
+    gamepadBindings.setKey(hmi::GameAction::Interact, hmi::GamepadButton::Y);
+    EXPECT_TRUE(hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::Y), hmi::GameKeyBindings{},
+                                   gamepadBindings)
+                    .interactPressed);
 }
