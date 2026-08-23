@@ -1,7 +1,7 @@
 # TACHE-04 — Boucle de génération {#lot-annexe-10-tache-04-boucle-generation}
 
 **Lot :** [LOT-ANNEXE-10](epic.md) · **Emplacement :** `Source/AiSolver/Training/Evolutionary` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 TACHE-01 à TACHE-03 fournissent les briques élémentaires (population, évaluation de fitness,

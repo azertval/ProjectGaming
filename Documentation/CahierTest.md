@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**1368 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**1390 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (1257)
+## Tests unitaires (1279)
 
 ### AiSolver
 
@@ -390,6 +390,60 @@
 | **TrainingStatsRecorderTest.BoutEnBoutProgressionPuisPlateau** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Stats/test_training_stats_recorder.cpp:107`</sub> | Bout en bout : écriture puis relecture d'une séquence progression + plateau. | 1. Enregistrer 8 lignes : 4 en progression stricte, 4 en plateau (même `bestReward`).<br/> 2. Relire le fichier avec l'analyseur CSV minimal du test. | Vérifie que `lines.size()` vaut `bestRewards.size() + 1`.<br/>Vérifie que `lines[0]` vaut `"index,bestReward,meanReward,worstReward,rewardStdDev,bestStepCount,successRate," "seed,levelName,timestampIso8601,movingAverageReward,rewardDelta"`.<br/>Vérifie que `fields.size()` vaut `12u`.<br/>Vérifie que `std::stoi(fields[0])` vaut `static_cast<int>(i)`.<br/>Vérifie que `std::stof(fields[1])` vaut `bestRewards[i]` (comparaison flottante).<br/>Vérifie que `fields[8]` vaut `"demo-deplacement"`.<br/>Vérifie que `std::stof(fields[10])` vaut `expectedMovingAverage[i]`, à `1e-4f` près.<br/>Vérifie que `std::stof(fields[11])` vaut `expectedDelta[i]`, à `1e-4f` près.<br/>Vérifie que `std::stof(lastFields[11])` vaut `0.0f`, à `1e-4f` près. |
 | **TrainingStatsRecorderTest.FichierInterrompuResteExploitable** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Stats/test_training_stats_recorder.cpp:172`</sub> | Fichier interrompu simulé : destruction du recorder après `k` appels. | 1. Créer un `TrainingStatsRecorder`, appeler `record` 3 fois sur une séquence prévue de 10.<br/>2. Détruire le recorder (fin de portée) avant les 7 appels restants. | Vérifie que `lines.size()` vaut `4u`.<br/>Vérifie que `fields.size()` vaut `12u`.<br/>Vérifie que `std::stoi(fields[0])` vaut `static_cast<int>(i - 1)`. |
 | **TrainingStatsRecorderTest.RecordAjouteUneLigneSansAlterer** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Stats/test_training_stats_recorder.cpp:203`</sub> | `record` ajoute une ligne sans altérer les précédentes. | 1. `record` une première fois, lire le fichier.<br/>2. `record` une deuxième fois, lire de nouveau. | Vérifie que `afterFirst.size()` vaut `2u`.<br/>Vérifie que `afterSecond.size()` vaut `3u`.<br/>Vérifie que `afterSecond[0]` vaut `afterFirst[0]`.<br/>Vérifie que `afterSecond[1]` vaut `afterFirst[1]`. |
+
+#### Training (22)
+
+**`test_evolutionary_non_regression.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **EvolutionaryNonRegressionTest.CroissanceDuFitnessSurNiveauTrivial** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_evolutionary_non_regression.cpp:77`</sub> | EvolutionaryTrainer : croissance du fitness sur niveau trivial. | 1. `EvolutionaryTrainer` sur `demo-deplacement.json`, population de 24, seed fixée.<br/> 2. Enchaîner 40 générations, en observant `bestIndividual().fitness` après chacune. | Vérifie que `currentBest` est supérieur ou égal à `previousBest`.<br/>Vérifie que `previousBest` est strictement supérieur à `MINIMUM_FITNESS_THRESHOLD`. |
+
+**`test_evolutionary_reproducibility.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **EvolutionaryReproducibilityTest.ReproductibiliteStricteASeedFixee** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_evolutionary_reproducibility.cpp:102`</sub> | EvolutionaryTrainer : reproductibilité stricte à seed fixée. | 1. Deux `EvolutionaryTrainer` identiques (même config, même seed, même niveau), 6 générations chacun.<br/>2. Comparer bit-à-bit l'historique de meilleur fitness et les poids finaux du meilleur individu. | Vérifie que `first.bestFitnessPerGeneration.size()` vaut `second.bestFitnessPerGeneration.size()`.<br/>Vérifie que `first.bestFitnessPerGeneration[i]` vaut `second.bestFitnessPerGeneration[i]`.<br/>Vérifie que `first.finalBestWeights.size()` vaut `second.finalBestWeights.size()`.<br/>Vérifie que `first.finalBestWeights[i]` vaut `second.finalBestWeights[i]`. |
+| **EvolutionaryReproducibilityTest.SensibiliteEffectiveALaSeed** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_evolutionary_reproducibility.cpp:129`</sub> | EvolutionaryTrainer : sensibilité effective à la seed. | 1. Deux `EvolutionaryTrainer` identiques sauf la seed, 6 générations chacun.<br/>2. Comparer l'historique de meilleur fitness et les poids finaux. | Vérifie que `anyDifferent` est vrai. |
+
+**`test_evolutionary_trainer.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **EvolutionaryTrainerTest.TailleDePopulationPreservee** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_evolutionary_trainer.cpp:67`</sub> | EvolutionaryTrainer : taille de population préservée. | 1. Construire un `EvolutionaryTrainer`, population de 6.<br/>2. Appeler `runGeneration()` trois fois. | `EXPECT_NO_THROW(trainer.runGeneration())`<br/>Vérifie que `trainer.bestIndividual().fitness` est supérieur ou égal à `aisolver::training::evolutionary::kUnevaluatedFitness`. |
+| **EvolutionaryTrainerTest.NonRegressionDeLElite** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_evolutionary_trainer.cpp:97`</sub> | EvolutionaryTrainer : non-régression de l'élite. | 1. Construire un `EvolutionaryTrainer`.<br/>2. Enchaîner 5 `runGeneration()`, en observant `bestIndividual().fitness` après chacune. | Vérifie que `currentBest` est supérieur ou égal à `previousBest`. |
+| **EvolutionaryTrainerTest.IndiceDeGenerationCorrect** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_evolutionary_trainer.cpp:128`</sub> | EvolutionaryTrainer : indice de génération correct. | 1. Construire un `EvolutionaryTrainer`.<br/>2. Enchaîner 4 `runGeneration()`, lire `generationIndex()` après chacune. | Vérifie que `trainer.generationIndex()` vaut `expected`. |
+| **EvolutionaryTrainerTest.CoherenceDeBestIndividual** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_evolutionary_trainer.cpp:156`</sub> | EvolutionaryTrainer : cohérence de `bestIndividual()`. | 1. Construire un `EvolutionaryTrainer`.<br/>2. Appeler `runGeneration()` deux fois. | Vérifie que `trainer.bestIndividual().fitness` est strictement supérieur à `aisolver::training::evolutionary::kUnevaluatedFitness`. |
+
+**`test_fitness_evaluator.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **FitnessEvaluatorTest.DeterminismeDUneEvaluation** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_fitness_evaluator.cpp:75`</sub> | evaluateFitness : déterminisme. | 1. Individu à action constante « avancer à droite ».<br/>2. Évaluer deux fois sur `demo-deplacement.json`. | Vérifie que `first.fitness` vaut `second.fitness` (comparaison flottante).<br/>Vérifie que `first.stepCount` vaut `second.stepCount`.<br/>Vérifie que `first.status` vaut `second.status`. |
+| **FitnessEvaluatorTest.OrdreDeFitnessCoherent** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_fitness_evaluator.cpp:98`</sub> | evaluateFitness : ordre de fitness cohérent. | 1. Deux individus à action constante (« avancer à droite » vs « ne rien faire »).<br/>2. Évaluer chacun sur `demo-deplacement.json`. | Vérifie que `movingEvaluation.fitness` est strictement supérieur à `stillEvaluation.fitness`. |
+| **FitnessEvaluatorTest.TerminaisonGarantieSurBlocage** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_fitness_evaluator.cpp:120`</sub> | evaluateFitness : terminaison garantie (blocage détecté). | 1. Individu à action constante « ne rien faire ».<br/>2. Évaluer sur `demo-deplacement.json`. | Vérifie que `evaluation.stepCount` est strictement inférieur à `3000`. |
+| **FitnessEvaluatorTest.EvaluateAllSansFuiteDEtat** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_fitness_evaluator.cpp:140`</sub> | evaluateAll : aucune fuite d'état entre individus. | 1. Évaluer deux individus isolément (deux environnements distincts).<br/>2. Évaluer les deux mêmes individus (poids identiques, individus neufs) via `Population::evaluateAll` sur une seule instance d'environnement. | Vérifie que `evaluations.size()` vaut `2u`.<br/>Vérifie que `evaluations[0].fitness` vaut `isolatedMovingEvaluation.fitness` (comparaison flottante).<br/>Vérifie que `evaluations[1].fitness` vaut `isolatedStillEvaluation.fitness` (comparaison flottante). |
+
+**`test_genetic_operators.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **GeneticOperatorsTest.TournoiRetientLeMeilleurDuTirage** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_genetic_operators.cpp:52`</sub> | selectParent : retient toujours le meilleur du tirage. | 1. Population de fitness `{1, 2, 3, 4, 5}`, tournoi de taille 200 (tirage avec remise : la probabilité qu'au moins un tirage touche l'indice de fitness maximal est alors quasi certaine, `1 - (4/5)^200 ≈ 1`).<br/>2. Appeler `selectParent`. | Vérifie que `selected.fitness` vaut `5.0f` (comparaison flottante). |
+| **GeneticOperatorsTest.SelectionDeterministeASeedFixee** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_genetic_operators.cpp:73`</sub> | selectParent : déterminisme. | 1. Deux `Rng` de même graine, même population.<br/>2. Appeler `selectParent` une fois chacun. | Vérifie que `selectedA.fitness` vaut `selectedB.fitness` (comparaison flottante). |
+| **GeneticOperatorsTest.CroisementParentsIdentiques** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_genetic_operators.cpp:95`</sub> | crossover : cas dégénéré, parents identiques. | 1. Deux individus construits avec le même `Rng` (mêmes poids).<br/>2. Croiser. | Vérifie que `childParams.size()` vaut `parentParams.size()`.<br/>Vérifie que `childParams[index]->value.data()[element]` vaut `parentParams[index]->value.data()[element]` (comparaison flottante). |
+| **GeneticOperatorsTest.CroisementProprieteDeBorne** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_genetic_operators.cpp:124`</sub> | crossover : propriété de borne. | 1. Deux parents de poids différents.<br/>2. Croiser. | Vérifie que `childValue` est inférieur ou égal à `std::max(a, b) + 1e-6f`.<br/>Vérifie que `childValue` est supérieur ou égal à `std::min(a, b) - 1e-6f`. |
+| **GeneticOperatorsTest.MutationTauxNulNeModifieRien** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_genetic_operators.cpp:156`</sub> | mutate : taux nul, aucune modification. | 1. Individu construit, poids copiés.<br/>2. `mutate` avec `mutationRate = 0`. | Vérifie que `parameter->value.data()[i]` vaut `before[cursor++]` (comparaison flottante). |
+| **GeneticOperatorsTest.MutationTauxPleinReproductible** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_genetic_operators.cpp:192`</sub> | mutate : taux plein, reproductible. | 1. Deux individus identiques (même `Rng` de construction).<br/>2. `mutate` chacun avec `mutationRate = 1` et des `Rng` de mutation de même graine. | Vérifie que `paramsA[index]->value.data()[element]` vaut `paramsB[index]->value.data()[element]` (comparaison flottante). |
+| **GeneticOperatorsTest.BestIndividualPlusHautFitness** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_genetic_operators.cpp:226`</sub> | bestIndividual : plus haut fitness connu. | 1. Population de fitness `{3, 9, 1}`.<br/>2. Appeler `bestIndividual`. | Vérifie que `bestIndividual(population).fitness` vaut `9.0f` (comparaison flottante). |
+
+**`test_population.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **PopulationTest.TailleEtTopologieCorrectes** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_population.cpp:38`</sub> | Population : taille et topologie correctes. | 1. Construire une `Population` de 7 individus.<br/>2. Lire `size()` et `parameters()`/`layerCount()` de chaque réseau. | Vérifie que `population.size()` vaut `7u`.<br/>Vérifie que `population.individual(index).network().layerCount()` vaut `2u`.<br/>Vérifie que `population.individual(index).network().parameters().size()` vaut `4u`. |
+| **PopulationTest.PoidsIndependantsEntreIndividus** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_population.cpp:59`</sub> | Population : poids indépendants entre individus. | 1. Construire une `Population` de 2 individus.<br/>2. Comparer leurs premiers poids, puis modifier ceux du premier individu. | Vérifie que `paramsA.size()` vaut `paramsB.size()`.<br/>Vérifie que `anyDifferent` est vrai.<br/>Vérifie que `paramsB[0]->value.data()[0]` vaut `originalB`. |
+| **PopulationTest.ReproductibiliteInitialisation** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_population.cpp:92`</sub> | Population : reproductibilité de l'initialisation. | 1. Construire deux `Population` identiques avec des `Rng` de même graine.<br/>2. Comparer bit-à-bit tous les poids. | Vérifie que `paramsA.size()` vaut `paramsB.size()`.<br/>Vérifie que `paramsA[index]->value.size()` vaut `paramsB[index]->value.size()`.<br/>Vérifie que `paramsA[index]->value.data()[element]` vaut `paramsB[index]->value.data()[element]`. |
+| **PopulationTest.FitnessInitialNonEvalue** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_population.cpp:121`</sub> | Population : fitness initial non évalué. | 1. Construire une `Population`.<br/>2. Lire `fitness` de chaque individu. | Vérifie que `population.individual(index).fitness` vaut `kUnevaluatedFitness`. |
 
 ### Core
 

@@ -111,6 +111,15 @@ add_executable(UnitTests
     Unit/AiSolver/Stats/test_csv_format.cpp
     Unit/AiSolver/Stats/test_training_run_path.cpp
     Unit/AiSolver/Stats/test_training_stats_recorder.cpp
+    # Algorithme evolutionniste maison (LOT-ANNEXE-10) : population (TACHE-01), evaluation de
+    # fitness (TACHE-02), operateurs genetiques (TACHE-03), boucle de generation (TACHE-04),
+    # reproductibilite et non-regression (TACHE-05).
+    Unit/AiSolver/Training/test_population.cpp
+    Unit/AiSolver/Training/test_fitness_evaluator.cpp
+    Unit/AiSolver/Training/test_genetic_operators.cpp
+    Unit/AiSolver/Training/test_evolutionary_trainer.cpp
+    Unit/AiSolver/Training/test_evolutionary_reproducibility.cpp
+    Unit/AiSolver/Training/test_evolutionary_non_regression.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp

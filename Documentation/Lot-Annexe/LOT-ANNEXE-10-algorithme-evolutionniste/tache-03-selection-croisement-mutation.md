@@ -1,7 +1,7 @@
 # TACHE-03 — Sélection, croisement, mutation, élitisme {#lot-annexe-10-tache-03-selection-croisement-mutation}
 
 **Lot :** [LOT-ANNEXE-10](epic.md) · **Emplacement :** `Source/AiSolver/Training/Evolutionary` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 TACHE-02 assigne un fitness à chaque individu d'une génération évaluée. Cette tâche fournit les

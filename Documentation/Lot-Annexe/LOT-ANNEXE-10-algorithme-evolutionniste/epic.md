@@ -1,6 +1,6 @@
 # LOT-ANNEXE-10 — Algorithme évolutionniste maison {#lot-annexe-10}
 
-> Statut : **non commencé**. Dépend de [LOT-ANNEXE-01](@ref lot-annexe-01) (`Tensor`/`Rng` maison),
+> Statut : **fait**. Dépend de [LOT-ANNEXE-01](@ref lot-annexe-01) (`Tensor`/`Rng` maison),
 > [LOT-ANNEXE-03](@ref lot-annexe-03) (bibliothèque de réseaux de neurones maison),
 > [LOT-ANNEXE-05](@ref lot-annexe-05) (`HeadlessLevelEnvironment`), [LOT-ANNEXE-08](@ref
 > lot-annexe-08) (fonction de récompense et critères d'épisode) et [LOT-ANNEXE-09](@ref
@@ -109,11 +109,11 @@ gradient) — bibliographie complète dans le chapitre.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-population-reseaux.md) | Population de réseaux | `Source/AiSolver/Training/Evolutionary` | ⬜ |
-| [TACHE-02](tache-02-evaluation-fitness.md) | Évaluation de fitness | `Source/AiSolver/Training/Evolutionary` | ⬜ |
-| [TACHE-03](tache-03-selection-croisement-mutation.md) | Sélection, croisement, mutation, élitisme | `Source/AiSolver/Training/Evolutionary` | ⬜ |
-| [TACHE-04](tache-04-boucle-generation.md) | Boucle de génération | `Source/AiSolver/Training/Evolutionary` | ⬜ |
-| [TACHE-05](tache-05-tests-reproductibilite.md) | Tests de reproductibilité et non-régression | `Source/Test/Unit/AiSolver/Training` | ⬜ |
+| [TACHE-01](tache-01-population-reseaux.md) | Population de réseaux | `Source/AiSolver/Training/Evolutionary` | ✅ |
+| [TACHE-02](tache-02-evaluation-fitness.md) | Évaluation de fitness | `Source/AiSolver/Training/Evolutionary` | ✅ |
+| [TACHE-03](tache-03-selection-croisement-mutation.md) | Sélection, croisement, mutation, élitisme | `Source/AiSolver/Training/Evolutionary` | ✅ |
+| [TACHE-04](tache-04-boucle-generation.md) | Boucle de génération | `Source/AiSolver/Training/Evolutionary` | ✅ |
+| [TACHE-05](tache-05-tests-reproductibilite.md) | Tests de reproductibilité et non-régression | `Source/Test/Unit/AiSolver/Training` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Une population de N individus (réseaux de LOT-ANNEXE-03, topologie identique) est instanciée

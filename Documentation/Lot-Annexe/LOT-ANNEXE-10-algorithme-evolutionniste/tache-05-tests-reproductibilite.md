@@ -1,7 +1,7 @@
 # TACHE-05 — Tests de reproductibilité et non-régression {#lot-annexe-10-tache-05-tests-reproductibilite}
 
 **Lot :** [LOT-ANNEXE-10](epic.md) · **Emplacement :** `Source/Test/Unit/AiSolver/Training` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 Chaque tâche précédente teste sa brique isolément. Cette tâche ajoute les tests d'**intégration**

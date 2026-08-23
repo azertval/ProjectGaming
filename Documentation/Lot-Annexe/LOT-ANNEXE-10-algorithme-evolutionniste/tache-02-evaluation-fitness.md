@@ -1,7 +1,7 @@
 # TACHE-02 — Évaluation de fitness {#lot-annexe-10-tache-02-evaluation-fitness}
 
 **Lot :** [LOT-ANNEXE-10](epic.md) · **Emplacement :** `Source/AiSolver/Training/Evolutionary` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 TACHE-01 fournit une population d'individus aux poids indépendants, mais sans aucun moyen de les

@@ -47,6 +47,18 @@ add_library(AiSolver STATIC
     Stats/CsvFormat.cpp
     Stats/TrainingStatsRecorder.cpp
     Stats/TrainingRunPath.cpp
+    # Assemblage plat des encodeurs de LOT-ANNEXE-06 en un vecteur d'entree de reseau unique,
+    # introduit par LOT-ANNEXE-10 (premier consommateur reel de cet assemblage).
+    Env/ObservationEncoder.cpp
+    # Algorithme evolutionniste maison (LOT-ANNEXE-10) : population de reseaux a poids independants
+    # (TACHE-01), evaluation de fitness par run complet sur HeadlessLevelEnvironment (TACHE-02),
+    # selection/croisement/mutation/elitisme (TACHE-03), boucle de generation journalisee
+    # (TACHE-04) -- premiere brique d'apprentissage du programme, ligne de base sans autodiff.
+    Training/Evolutionary/NetworkTopology.cpp
+    Training/Evolutionary/Population.cpp
+    Training/Evolutionary/FitnessEvaluator.cpp
+    Training/Evolutionary/GeneticOperators.cpp
+    Training/Evolutionary/EvolutionaryTrainer.cpp
 )
 
 # Racine d'inclusion = Source/ : les en-têtes s'incluent par chemin complet depuis la racine

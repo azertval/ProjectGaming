@@ -1,7 +1,7 @@
 # TACHE-01 — Population de réseaux {#lot-annexe-10-tache-01-population-reseaux}
 
 **Lot :** [LOT-ANNEXE-10](epic.md) · **Emplacement :** `Source/AiSolver/Training/Evolutionary` ·
-**Statut :** non commencé
+**Statut :** fait
 
 ## Contexte
 LOT-ANNEXE-03 fournit une bibliothèque de réseaux de neurones maison (couches, propagation avant,
