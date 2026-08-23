@@ -99,6 +99,11 @@ add_executable(UnitTests
     Unit/AiSolver/Env/test_action_space.cpp
     Unit/AiSolver/Env/test_action_decoding.cpp
     Unit/AiSolver/Replay/test_replay_file.cpp
+    # Fonction de récompense (TACHE-01), classification de fin d'épisode (TACHE-02) et scénarios
+    # combinés (TACHE-03), LOT-ANNEXE-08 : signal d'apprentissage unique et partagé.
+    Unit/AiSolver/Env/test_reward.cpp
+    Unit/AiSolver/Env/test_episode.cpp
+    Unit/AiSolver/Env/test_reward_episode.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp
@@ -486,10 +491,17 @@ add_executable(IntegrationTests
     Integration/test_danger_avance.cpp
     Integration/test_plateforme_composition.cpp
     Integration/test_croisements_mecaniques.cpp
+    # Non-régression récompense/épisode sur les niveaux demo-*.json livrés (LOT-ANNEXE-08,
+    # TACHE-03) : rejoue le script d'entrées de test_parcours_complet.cpp via
+    # aisolver::HeadlessLevelEnvironment.
+    Integration/test_recompense_demo_niveaux.cpp
 )
 
 target_link_libraries(IntegrationTests PRIVATE
     Core
+    # AiSolver (LOT-ANNEXE-08) : test_recompense_demo_niveaux.cpp rejoue les niveaux livrés via
+    # aisolver::HeadlessLevelEnvironment et sa fonction de récompense.
+    AiSolver
     GTest::gtest_main
     project_warnings
     project_options

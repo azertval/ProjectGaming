@@ -1,6 +1,6 @@
 # LOT-ANNEXE-08 — Fonction de récompense et critères d'épisode {#lot-annexe-08}
 
-> Statut : **non commencé**. Prérequis : [LOT-ANNEXE-05](@ref lot-annexe-05) (`HeadlessLevelEnvironment`,
+> Statut : **fait**. Prérequis : [LOT-ANNEXE-05](@ref lot-annexe-05) (`HeadlessLevelEnvironment`,
 > budget de pas et mesure de progression). Quatrième lot de la génération 1 : définit le signal
 > d'apprentissage **unique**, partagé par tous les algorithmes des générations 2 et 3 — évite qu'un
 > algorithme évolutionniste et un algorithme de policy gradient optimisent, sans le savoir, deux
@@ -99,9 +99,9 @@ chapitre.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-recompense-progression-bonus-penalites.md) | Récompense de progression, bonus de complétion, pénalités | `Source/AiSolver/Env` | ⬜ |
-| [TACHE-02](tache-02-detection-fin-episode.md) | Détection de fin d'épisode | `Source/AiSolver/Env` | ⬜ |
-| [TACHE-03](tache-03-tests-cas-limites.md) | Tests : cas limites et non-régression sur `demo-*.json` | `Source/Test/Unit/AiSolver/Env` | ⬜ |
+| [TACHE-01](tache-01-recompense-progression-bonus-penalites.md) | Récompense de progression, bonus de complétion, pénalités | `Source/AiSolver/Env` | ✅ |
+| [TACHE-02](tache-02-detection-fin-episode.md) | Détection de fin d'épisode | `Source/AiSolver/Env` | ✅ |
+| [TACHE-03](tache-03-tests-cas-limites.md) | Tests : cas limites et non-régression sur `demo-*.json` | `Source/Test/Unit/AiSolver/Env` | ✅ |
 
 ## Critères d'acceptation du lot
 1. La récompense de progression est strictement positive lorsque la distance à la sortie diminue

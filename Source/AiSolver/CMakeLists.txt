@@ -35,6 +35,11 @@ add_library(AiSolver STATIC
     Env/ActionSpace.cpp
     Env/ActionDecoding.cpp
     Replay/ReplayFile.cpp
+    # Fonction de récompense et classification de fin d'épisode (LOT-ANNEXE-08) : signal
+    # d'apprentissage unique et partagé par tout algorithme d'apprentissage du programme
+    # (générations 2 et 3), condition de comparabilité de leurs résultats (génération 4).
+    Env/Reward.cpp
+    Env/Episode.cpp
 )
 
 # Racine d'inclusion = Source/ : les en-têtes s'incluent par chemin complet depuis la racine
