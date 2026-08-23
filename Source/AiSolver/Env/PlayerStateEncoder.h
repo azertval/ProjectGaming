@@ -32,7 +32,7 @@ namespace aisolver {
  *      condition de déclenchement que `core::CharacterPhysicsSystem` (dash en cours **ou** charges
  *      épuisées rendent tous deux un nouveau dash impossible).
  *   9. Budget de saut normalisé (`1.0f` si illimité, `jumpsRemaining / jumpBudget()` sinon).
- *  10. Budget de dash normalisé, même formule.
+ *   10. Budget de dash normalisé, même formule.
  *
  * L'épic (`Documentation/Lot-Annexe/LOT-ANNEXE-06-encodage-observation/epic.md`) annonce une taille
  * de `10` en toutes lettres, mais sa propre liste de composantes (reprise ci-dessus) en énumère
