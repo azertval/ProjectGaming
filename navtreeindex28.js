@@ -1,5 +1,6 @@
 var NAVTREEINDEX28 =
 {
+"lot-56-tache-02-theme-global.html#autotoc_md2533":[6,58,9,6],
 "lot-56-tache-03-typographie-police.html":[6,58,10],
 "lot-56-tache-03-typographie-police.html#autotoc_md2534":[6,58,10,0],
 "lot-56-tache-03-typographie-police.html#autotoc_md2535":[6,58,10,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX28 =
 "lot-60-tache-03-declencheurs.html#autotoc_md2751":[6,62,10,2],
 "lot-60-tache-03-declencheurs.html#autotoc_md2752":[6,62,10,3],
 "lot-60-tache-03-declencheurs.html#autotoc_md2753":[6,62,10,4],
-"lot-60-tache-03-declencheurs.html#autotoc_md2754":[6,62,10,5],
-"lot-60-tache-03-declencheurs.html#autotoc_md2755":[6,62,10,6]
+"lot-60-tache-03-declencheurs.html#autotoc_md2754":[6,62,10,5]
 };

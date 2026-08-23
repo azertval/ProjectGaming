@@ -1,5 +1,6 @@
 var NAVTREEINDEX25 =
 {
+"lot-38-tache-04-nettoyage-tests-doc.html#autotoc_md1868":[6,40,11,0],
 "lot-38-tache-04-nettoyage-tests-doc.html#autotoc_md1869":[6,40,11,1],
 "lot-38-tache-04-nettoyage-tests-doc.html#autotoc_md1870":[6,40,11,2],
 "lot-38-tache-04-nettoyage-tests-doc.html#autotoc_md1871":[6,40,11,3],
@@ -248,6 +249,5 @@ var NAVTREEINDEX25 =
 "lot-44-tache-03-section-fond.html#autotoc_md2086":[6,46,10,1],
 "lot-44-tache-03-section-fond.html#autotoc_md2087":[6,46,10,2],
 "lot-44-tache-03-section-fond.html#autotoc_md2088":[6,46,10,3],
-"lot-44-tache-03-section-fond.html#autotoc_md2089":[6,46,10,4],
-"lot-44-tache-03-section-fond.html#autotoc_md2090":[6,46,10,5]
+"lot-44-tache-03-section-fond.html#autotoc_md2089":[6,46,10,4]
 };

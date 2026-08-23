@@ -1,5 +1,6 @@
 var NAVTREEINDEX26 =
 {
+"lot-44-tache-03-section-fond.html#autotoc_md2090":[6,46,10,5],
 "lot-44-tache-03-section-fond.html#autotoc_md2091":[6,46,10,6],
 "lot-44.html":[6,46],
 "lot-44.html#autotoc_md2061":[6,46,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX26 =
 "lot-50-tache-03-selection-poignees.html#autotoc_md2308":[6,52,10,7],
 "lot-50-tache-04-section-decors.html":[6,52,11],
 "lot-50-tache-04-section-decors.html#autotoc_md2309":[6,52,11,0],
-"lot-50-tache-04-section-decors.html#autotoc_md2310":[6,52,11,1],
-"lot-50-tache-04-section-decors.html#autotoc_md2311":[6,52,11,2]
+"lot-50-tache-04-section-decors.html#autotoc_md2310":[6,52,11,1]
 };

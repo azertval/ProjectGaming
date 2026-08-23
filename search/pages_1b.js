@@ -59,12 +59,13 @@ var searchData=
   ['qui_20a_20le_20droit_20de_20se_20lier_20à_20qui_56',['Mécanismes : qui a le droit de se lier à qui',['../guide-editeur.html#autotoc_md102',1,'']]],
   ['qui_20commande_20est_20unique_57',['Architecture de l&apos;information : ce qui informe reste, ce qui commande est unique',['../guide-design-ihm.html#autotoc_md71',1,'']]],
   ['qui_20déclenche_20les_20transitions_20_3a_20les_20signaux_58',['Qui déclenche les transitions : les signaux',['../guide-ecrans.html#autotoc_md81',1,'']]],
-  ['qui_20informe_20reste_20ce_20qui_20commande_20est_20unique_59',['Architecture de l&apos;information : ce qui informe reste, ce qui commande est unique',['../guide-design-ihm.html#autotoc_md71',1,'']]],
-  ['qui_20n_20invente_20rien_60',['Typographie : une police embarquée, un repli qui n&apos;invente rien',['../guide-design-ihm.html#autotoc_md67',1,'']]],
-  ['qui_20se_20voit_20_3a_20le_20culling_20lot_2040_61',['Ne dessiner que ce qui se voit : le culling (&lt;span class=&quot;tt&quot;&gt;LOT-40&lt;/span&gt;)',['../guide-rendu.html#autotoc_md223',1,'']]],
-  ['qui_20suivent_20l_20outil_62',['Des panneaux groupés, et qui suivent l&apos;outil',['../guide-design-ihm.html#autotoc_md73',1,'']]],
-  ['quitter_20l_20éditeur_63',['Essai immédiat : jouer sans quitter l&apos;éditeur',['../guide-editeur.html#autotoc_md111',1,'']]],
-  ['quitter_20l_20application_20pour_20changer_20un_20pixel_64',['Le problème : quitter l&apos;application pour changer un pixel',['../guide-atelier-pixel-art.html#autotoc_md37',1,'']]],
-  ['quitter_20sans_20enregistrer_65',['TACHE-02 — Garde-fous : redimensionnement destructeur, quitter sans enregistrer',['../lot-15-tache-02-garde-fous-perte-donnees.html',1,'lot-15']]],
-  ['qwindow_20embarqué_20→_20graphicsdevice_66',['TACHE-02 — Fenêtre Qt + viewport `QWindow` embarqué → `GraphicsDevice`',['../lot-34-tache-02-viewport-d3d11-embarque.html',1,'lot-34']]]
+  ['qui_20défilent_59',['LOT-70 — Parallaxe à trois profondeurs des tableaux qui défilent',['../lot-70.html',1,'lots']]],
+  ['qui_20informe_20reste_20ce_20qui_20commande_20est_20unique_60',['Architecture de l&apos;information : ce qui informe reste, ce qui commande est unique',['../guide-design-ihm.html#autotoc_md71',1,'']]],
+  ['qui_20n_20invente_20rien_61',['Typographie : une police embarquée, un repli qui n&apos;invente rien',['../guide-design-ihm.html#autotoc_md67',1,'']]],
+  ['qui_20se_20voit_20_3a_20le_20culling_20lot_2040_62',['Ne dessiner que ce qui se voit : le culling (&lt;span class=&quot;tt&quot;&gt;LOT-40&lt;/span&gt;)',['../guide-rendu.html#autotoc_md223',1,'']]],
+  ['qui_20suivent_20l_20outil_63',['Des panneaux groupés, et qui suivent l&apos;outil',['../guide-design-ihm.html#autotoc_md73',1,'']]],
+  ['quitter_20l_20éditeur_64',['Essai immédiat : jouer sans quitter l&apos;éditeur',['../guide-editeur.html#autotoc_md111',1,'']]],
+  ['quitter_20l_20application_20pour_20changer_20un_20pixel_65',['Le problème : quitter l&apos;application pour changer un pixel',['../guide-atelier-pixel-art.html#autotoc_md37',1,'']]],
+  ['quitter_20sans_20enregistrer_66',['TACHE-02 — Garde-fous : redimensionnement destructeur, quitter sans enregistrer',['../lot-15-tache-02-garde-fous-perte-donnees.html',1,'lot-15']]],
+  ['qwindow_20embarqué_20→_20graphicsdevice_67',['TACHE-02 — Fenêtre Qt + viewport `QWindow` embarqué → `GraphicsDevice`',['../lot-34-tache-02-viewport-d3d11-embarque.html',1,'lot-34']]]
 ];

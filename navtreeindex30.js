@@ -1,5 +1,6 @@
 var NAVTREEINDEX30 =
 {
+"lot-65-tache-04-documentation-verification.html#autotoc_md2978":[6,67,12,8],
 "lot-65-tache-05-doctrine-gardes-fous-profondeur.html":[6,67,13],
 "lot-65-tache-05-doctrine-gardes-fous-profondeur.html#autotoc_md2979":[6,67,13,0],
 "lot-65-tache-05-doctrine-gardes-fous-profondeur.html#autotoc_md2980":[6,67,13,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX30 =
 "lot-69-tache-08-espace-plans.html#autotoc_md3197":[6,70,16,6],
 "lot-69-tache-09-budget-memoire.html":[6,70,17],
 "lot-69-tache-09-budget-memoire.html#autotoc_md3198":[6,70,17,0],
-"lot-69-tache-09-budget-memoire.html#autotoc_md3199":[6,70,17,1],
-"lot-69-tache-09-budget-memoire.html#autotoc_md3200":[6,70,17,2]
+"lot-69-tache-09-budget-memoire.html#autotoc_md3199":[6,70,17,1]
 };

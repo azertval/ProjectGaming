@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['2_0',['2',['../cahiertest.html#autotoc_md24',1,'Bloc Réduit — &lt;span class=&quot;tt&quot;&gt;test_bloc_reduit.cpp&lt;/span&gt; (2)'],['../cahiertest.html#autotoc_md25',1,'Boucle Simulation — &lt;span class=&quot;tt&quot;&gt;test_boucle_simulation.cpp&lt;/span&gt; (2)'],['../cahiertest.html#autotoc_md36',1,'Contenu livre — &lt;span class=&quot;tt&quot;&gt;test_plans_livres.cpp&lt;/span&gt; (2)'],['../cahiertest.html#autotoc_md15',1,'Diagnostics (2)'],['../cahiertest.html#autotoc_md29',1,'Niveau Ecs — &lt;span class=&quot;tt&quot;&gt;test_niveau_ecs.cpp&lt;/span&gt; (2)']]],
+  ['2_0',['2',['../cahiertest.html#autotoc_md24',1,'Bloc Réduit — &lt;span class=&quot;tt&quot;&gt;test_bloc_reduit.cpp&lt;/span&gt; (2)'],['../cahiertest.html#autotoc_md25',1,'Boucle Simulation — &lt;span class=&quot;tt&quot;&gt;test_boucle_simulation.cpp&lt;/span&gt; (2)'],['../cahiertest.html#autotoc_md15',1,'Diagnostics (2)'],['../cahiertest.html#autotoc_md29',1,'Niveau Ecs — &lt;span class=&quot;tt&quot;&gt;test_niveau_ecs.cpp&lt;/span&gt; (2)']]],
   ['2_20éditeur_1',['2. Éditeur',['../spec-interface-ihm.html#autotoc_md324',1,'']]],
   ['2_20édition_2',['2. Édition',['../spec-decors.html#autotoc_md289',1,'']]],
   ['2_20actions_20du_20jeu_20mapping_20logique_3',['2. Actions du jeu (mapping logique)',['../spec-controles.html#autotoc_md264',1,'']]],
   ['2_20architecture_20maintenabilité_4',['2. Architecture &amp;amp; maintenabilité',['../spec-exigences.html#autotoc_md308',1,'']]],
   ['2_20intégration_20qt_20dans_20cmake_5',['2. Intégration Qt dans CMake',['../lot-34-tache-01-provisionnement-qt-build.html#autotoc_md1704',1,'']]],
-  ['2_20lancer_20l_20éditeur_6',['2. Lancer l&apos;éditeur',['../manuel-partager-niveau.html#autotoc_md3223',1,'']]],
+  ['2_20lancer_20l_20éditeur_6',['2. Lancer l&apos;éditeur',['../manuel-partager-niveau.html#autotoc_md3247',1,'']]],
   ['2_20modèle_20d_20entités_20_3a_20ecs_7',['2. Modèle d&apos;entités : ECS',['../spec-architecture.html#autotoc_md252',1,'']]],
   ['2_20nommage_8',['2. Nommage',['../spec-conventions.html#autotoc_md269',1,'']]],
   ['2_20personnage_20déplacement_9',['2. Personnage &amp;amp; déplacement',['../spec-gameplay.html#autotoc_md316',1,'']]],

@@ -1,5 +1,6 @@
 var NAVTREEINDEX20 =
 {
+"lot-08-tache-05-actions-logiques.html#autotoc_md763":[6,10,12,1],
 "lot-08-tache-05-actions-logiques.html#autotoc_md764":[6,10,12,2],
 "lot-08-tache-05-actions-logiques.html#autotoc_md765":[6,10,12,3],
 "lot-08-tache-05-actions-logiques.html#autotoc_md766":[6,10,12,4],
@@ -248,6 +249,5 @@ var NAVTREEINDEX20 =
 "lot-14-tache-01-serialisation-modele-edition.html#autotoc_md981":[6,16,8,6],
 "lot-14-tache-02-ecran-editeur-palette.html":[6,16,9],
 "lot-14-tache-02-ecran-editeur-palette.html#autotoc_md982":[6,16,9,0],
-"lot-14-tache-02-ecran-editeur-palette.html#autotoc_md983":[6,16,9,1],
-"lot-14-tache-02-ecran-editeur-palette.html#autotoc_md984":[6,16,9,2]
+"lot-14-tache-02-ecran-editeur-palette.html#autotoc_md983":[6,16,9,1]
 };

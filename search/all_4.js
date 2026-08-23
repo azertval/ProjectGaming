@@ -1,7 +1,7 @@
 var searchData=
 [
   ['4×0_208_20sprite_0',['TACHE-03 — Personnage humanoïde (spawn 0,4×0,8, sprite)',['../lot-11-tache-03-personnage-humanoide.html',1,'lot-11']]],
-  ['4_1',['4',['../cahiertest.html#autotoc_md35',1,'Éditeur de niveaux — &lt;span class=&quot;tt&quot;&gt;test_parcours_edition.cpp&lt;/span&gt; (4)'],['../cahiertest.html#autotoc_md27',1,'Dangers avancés — &lt;span class=&quot;tt&quot;&gt;test_danger_avance.cpp&lt;/span&gt; (4)'],['../cahiertest.html#autotoc_md28',1,'Ecs Mouvement — &lt;span class=&quot;tt&quot;&gt;test_ecs_mouvement.cpp&lt;/span&gt; (4)']]],
+  ['4_1',['4',['../cahiertest.html#autotoc_md35',1,'Éditeur de niveaux — &lt;span class=&quot;tt&quot;&gt;test_parcours_edition.cpp&lt;/span&gt; (4)'],['../cahiertest.html#autotoc_md36',1,'Contenu livre — &lt;span class=&quot;tt&quot;&gt;test_plans_livres.cpp&lt;/span&gt; (4)'],['../cahiertest.html#autotoc_md27',1,'Dangers avancés — &lt;span class=&quot;tt&quot;&gt;test_danger_avance.cpp&lt;/span&gt; (4)'],['../cahiertest.html#autotoc_md28',1,'Ecs Mouvement — &lt;span class=&quot;tt&quot;&gt;test_ecs_mouvement.cpp&lt;/span&gt; (4)']]],
   ['4_20approche_20d_20implémentation_20décidée_2',['4. Approche d&apos;implémentation (décidée)',['../spec-editeur.html#autotoc_md297',1,'']]],
   ['4_20conditions_20de_20fin_20de_20niveau_3',['4. Conditions de fin de niveau',['../spec-gameplay.html#autotoc_md320',1,'']]],
   ['4_20frontière_20simulation_20↔_20rendu_4',['4. Frontière simulation ↔ rendu',['../spec-architecture.html#autotoc_md254',1,'']]],
@@ -11,7 +11,7 @@ var searchData=
   ['4_20périmètre_20séquencement_8',['4. Périmètre &amp;amp; séquencement',['../spec-decors.html#autotoc_md291',1,'']]],
   ['4_20portabilité_20reproductibilité_9',['4. Portabilité &amp;amp; reproductibilité',['../spec-exigences.html#autotoc_md310',1,'']]],
   ['4_20provisionnement_20ci_20github_20workflows_20ci_20yml_20job_20build_20test_20coverage_10',['4. Provisionnement CI (&lt;span class=&quot;tt&quot;&gt;.github/workflows/ci.yml&lt;/span&gt;, job &lt;span class=&quot;tt&quot;&gt;build-test-coverage&lt;/span&gt;)',['../lot-34-tache-01-provisionnement-qt-build.html#autotoc_md1706',1,'']]],
-  ['4_20publier_20votre_20niveau_11',['4. Publier votre niveau',['../manuel-partager-niveau.html#autotoc_md3227',1,'']]],
+  ['4_20publier_20votre_20niveau_11',['4. Publier votre niveau',['../manuel-partager-niveau.html#autotoc_md3251',1,'']]],
   ['4_20saut_20et_20game_20feel_12',['4. Saut et &lt;em&gt;game feel&lt;/em&gt;',['../guide-physique.html#autotoc_md199',1,'']]],
   ['40_13',['Ne dessiner que ce qui se voit : le culling (&lt;span class=&quot;tt&quot;&gt;LOT-40&lt;/span&gt;)',['../guide-rendu.html#autotoc_md223',1,'']]],
   ['40_20—_20fondations_20_3a_20registre_20de_20textures_20calques_20culling_20testabilité_14',['LOT-40 — Fondations : registre de textures, calques, culling, testabilité',['../lot-40.html',1,'lots']]],

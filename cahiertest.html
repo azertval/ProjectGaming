@@ -93,7 +93,7 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>1166 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>1168 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
 Tests unitaires (1059)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
@@ -7890,7 +7890,7 @@ Vérifie que <span class="tt">transform.position.y</span> vaut <span class="tt">
 Vérifie que <span class="tt">moved</span> est vrai.  </td></tr>
 </table>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md32"></a>
-Tests système (12)</h1>
+Tests système (14)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md33"></a>
 Couverture Mecaniques — <span class="tt">test_couverture_mecaniques.cpp</span> (3)</h2>
 <table class="markdownTable">
@@ -8030,23 +8030,34 @@ Vérifie que <span class="tt">level.cameraFraming().zones[0]</span> vaut <span c
 Vérifie que <span class="tt">level.cameraFraming().zones[1]</span> vaut <span class="tt">(<a class="el" href="structcore_1_1CameraZone.html" title="Rectangle de caméra dessiné à la main par le level designer (mode par salle), en cases.">core::CameraZone</a>{.x = 20, .y = 0, .width = 10, .height = 20})</span>.  </td></tr>
 </table>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md36"></a>
-Contenu livre — <span class="tt">test_plans_livres.cpp</span> (2)</h2>
+Contenu livre — <span class="tt">test_plans_livres.cpp</span> (4)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>PlansLivresSysteme.AucunNiveauNePorteEncoreDesDecors</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__plans__livres_8cpp.html" title="Tests système du contenu livré côté plans picturaux : plus aucun décor dans les niveaux,...">Source/Test/Systeme/test_plans_livres.cpp</a>:96</span></sub>  </td><td class="markdownTableBodyNone">Aucun niveau livre ne porte encore le champ 'decors'.  </td><td class="markdownTableBodyNone">1. Lire le texte de chaque fichier demo-*.json du depot.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">files.empty()</span> est faux.<br  />
+<sub><span class="tt"><a class="el" href="test__plans__livres_8cpp.html" title="Tests système du contenu livré côté plans picturaux : plus aucun décor dans les niveaux,...">Source/Test/Systeme/test_plans_livres.cpp</a>:121</span></sub>  </td><td class="markdownTableBodyNone">Aucun niveau livre ne porte encore le champ 'decors'.  </td><td class="markdownTableBodyNone">1. Lire le texte de chaque fichier demo-*.json du depot.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">files.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">file</span> est vrai.<br  />
 Vérifie que <span class="tt">text.find("\\"decors\\\\"\")</span> vaut <span class="tt">std::string::npos</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>PlansLivresSysteme.ToutPlanReferenceExisteAuxDimensionsAttendues</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__plans__livres_8cpp.html" title="Tests système du contenu livré côté plans picturaux : plus aucun décor dans les niveaux,...">Source/Test/Systeme/test_plans_livres.cpp</a>:126</span></sub>  </td><td class="markdownTableBodyNone">Tout plan referencé existe et a les dimensions de sa densite.  </td><td class="markdownTableBodyNone">1. Charger chaque niveau livre.<br  />
+<sub><span class="tt"><a class="el" href="test__plans__livres_8cpp.html" title="Tests système du contenu livré côté plans picturaux : plus aucun décor dans les niveaux,...">Source/Test/Systeme/test_plans_livres.cpp</a>:151</span></sub>  </td><td class="markdownTableBodyNone">Tout plan referencé existe et a les dimensions de sa densite.  </td><td class="markdownTableBodyNone">1. Charger chaque niveau livre.<br  />
 2. Pour chacun de ses plans, ouvrir le PNG dans Levels/Plans et lire ses dimensions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">files.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">loaded.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">size.width</span> vaut <span class="tt">level.tileMap().width() * plane.pixelsPerUnit</span>.<br  />
 Vérifie que <span class="tt">size.height</span> vaut <span class="tt">level.tileMap().height() * plane.pixelsPerUnit</span>.<br  />
 Vérifie que <span class="tt">checked</span> est strictement supérieur à <span class="tt">0</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PlansLivresSysteme.NiveauxAParallaxeActiveDeclarentTroisProfondeursCroissantes</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__plans__livres_8cpp.html" title="Tests système du contenu livré côté plans picturaux : plus aucun décor dans les niveaux,...">Source/Test/Systeme/test_plans_livres.cpp</a>:190</span></sub>  </td><td class="markdownTableBodyNone">Les niveaux a parallaxe active declarent trois profondeurs croissantes.  </td><td class="markdownTableBodyNone">1. Charger demo-mouvement.json et demo-final.json.<br  />
+2. Lire la liste ordonnee de leurs plans.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">loaded.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">hasStrictlyIncreasingParallaxDepth(loaded.level-&gt;planes(), 3)</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PlansLivresSysteme.UnPlanLointainManquantFaitEchouerLeGardeFouDeProfondeur</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__plans__livres_8cpp.html" title="Tests système du contenu livré côté plans picturaux : plus aucun décor dans les niveaux,...">Source/Test/Systeme/test_plans_livres.cpp</a>:216</span></sub>  </td><td class="markdownTableBodyNone">Retirer le plan lointain fait echouer le garde-fou de profondeur.  </td><td class="markdownTableBodyNone">1. Charger demo-mouvement.json.<br  />
+2. Retirer son premier plan (le lointain) de la liste en memoire.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">loaded.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">withoutFarPlane.empty()</span> est faux.<br  />
+Vérifie que <span class="tt">hasStrictlyIncreasingParallaxDepth(withoutFarPlane, 3)</span> est faux.  </td></tr>
 </table>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

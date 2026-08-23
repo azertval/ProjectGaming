@@ -641,6 +641,7 @@ var namespacehmi =
     [ "imagePixelScreenRect", "namespacehmi.html#ac0bf9debe0673864ec313b2422695f30", null ],
     [ "isBitmask16Candidate", "namespacehmi.html#a36da6ef3a19b18c97c6401f40f52c456", null ],
     [ "isInsideSilhouette", "namespacehmi.html#a4c1e8f8b25b6e5fe20c207887cd1dc33", null ],
+    [ "isLevelPlayable", "namespacehmi.html#a5b07931e9a29f7bcbffef65e91c124b0", null ],
     [ "isLevelUnlocked", "namespacehmi.html#a9a410292879939089d6bf584f60d60e6", null ],
     [ "isLinkTargetTile", "namespacehmi.html#abc01bff6f3bc784144a6436903733777", null ],
     [ "isStatefulMechanism", "namespacehmi.html#aaed807c56ca3863821f035b79b34b36e", null ],

@@ -1,5 +1,6 @@
 var NAVTREEINDEX29 =
 {
+"lot-60-tache-03-declencheurs.html#autotoc_md2755":[6,62,10,6],
 "lot-60-tache-03-declencheurs.html#autotoc_md2756":[6,62,10,7],
 "lot-60-tache-04-volume-options.html":[6,62,11],
 "lot-60-tache-04-volume-options.html#autotoc_md2757":[6,62,11,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX29 =
 "lot-65-tache-04-documentation-verification.html#autotoc_md2974":[6,67,12,4],
 "lot-65-tache-04-documentation-verification.html#autotoc_md2975":[6,67,12,5],
 "lot-65-tache-04-documentation-verification.html#autotoc_md2976":[6,67,12,6],
-"lot-65-tache-04-documentation-verification.html#autotoc_md2977":[6,67,12,7],
-"lot-65-tache-04-documentation-verification.html#autotoc_md2978":[6,67,12,8]
+"lot-65-tache-04-documentation-verification.html#autotoc_md2977":[6,67,12,7]
 };

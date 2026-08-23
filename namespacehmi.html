@@ -813,7 +813,7 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a9b98e769ab5ebdffe34a30c4b431ff7ca222a267cc5778206b253be35ee3ddab5">Current</a>
 , <a class="el" href="#a9b98e769ab5ebdffe34a30c4b431ff7cad0f2e5376298c880665077b565ffd7dd">Locked</a>
  }</td></tr>
-<tr class="memdesc:a9b98e769ab5ebdffe34a30c4b431ff7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">État d'un tableau de séquence dans la liste (<span class="tt"><a class="el" href="classhmi_1_1LevelSelectScreen.html#ae1a3504c3144a05d08cf8805e91b5a8a" title="Remplit l&#39;onglet Séquence : une ligne par tableau de sequence, dans l&#39;ordre, avec son état (hmi::isLe...">LevelSelectScreen::setSequenceLevels</a></span>) &ndash; résolu une fois par <span class="tt"><a class="el" href="#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">hmi::isLevelUnlocked</a></span>/<span class="tt"><a class="el" href="classhmi_1_1Progression.html#a8e868a89a51f89b4c9bf68b791952f61">Progression::isCompleted</a></span>, jamais recalculé par ce widget (qui ne connaît ni <span class="tt"><a class="el" href="classhmi_1_1Progression.html" title="Progression dans une séquence de niveaux : tableaux terminés et tableau atteint (celui où reprendre),...">Progression</a></span> ni la règle de déverrouillage).  <a href="#a9b98e769ab5ebdffe34a30c4b431ff7c">More...</a><br /></td></tr>
+<tr class="memdesc:a9b98e769ab5ebdffe34a30c4b431ff7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">État d'un tableau de séquence dans la liste (<span class="tt"><a class="el" href="classhmi_1_1LevelSelectScreen.html#ae1a3504c3144a05d08cf8805e91b5a8a" title="Remplit l&#39;onglet Séquence : une ligne par tableau de sequence, dans l&#39;ordre, avec son état (hmi::isLe...">LevelSelectScreen::setSequenceLevels</a></span>) &ndash; résolu une fois par <span class="tt"><a class="el" href="#a5b07931e9a29f7bcbffef65e91c124b0" title="Variante utilisée par l&#39;IHM (affichage de l&#39;écran de sélection ET garde au lancement,...">hmi::isLevelPlayable</a></span>/<span class="tt"><a class="el" href="classhmi_1_1Progression.html#a8e868a89a51f89b4c9bf68b791952f61">Progression::isCompleted</a></span>, jamais recalculé par ce widget (qui ne connaît ni <span class="tt"><a class="el" href="classhmi_1_1Progression.html" title="Progression dans une séquence de niveaux : tableaux terminés et tableau atteint (celui où reprendre),...">Progression</a></span> ni la règle de déverrouillage).  <a href="#a9b98e769ab5ebdffe34a30c4b431ff7c">More...</a><br /></td></tr>
 <tr class="memitem:aaa18c515c21f28af61bd057d2c1df415" id="r_aaa18c515c21f28af61bd057d2c1df415"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aaa18c515c21f28af61bd057d2c1df415">BackdropRole</a> { <br />
 &#160;&#160;<a class="el" href="#aaa18c515c21f28af61bd057d2c1df415a8cf626d46ed9b651ba701d7f032ccec0">SkyHigh</a>
 , <a class="el" href="#aaa18c515c21f28af61bd057d2c1df415adeda56df39da60ff81bfee718b51861e">SkyMid</a>
@@ -1063,6 +1063,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:abd29a70dbe17218e0dc84beb9f69e056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met une durée en forme <span class="tt">m:ss</span>, ou <span class="tt">h:mm:ss</span> au-delà de l'heure.  <br /></td></tr>
 <tr class="memitem:a9a410292879939089d6bf584f60d60e6" id="r_a9a410292879939089d6bf584f60d60e6"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9a410292879939089d6bf584f60d60e6">isLevelUnlocked</a> (const <a class="el" href="classhmi_1_1Progression.html">Progression</a> &amp;progression, const std::vector&lt; std::string &gt; &amp;sequence, const std::string &amp;levelName)</td></tr>
 <tr class="memdesc:a9a410292879939089d6bf584f60d60e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Règle de déverrouillage (<span class="tt">LOT-59</span> TACHE-06, <span class="tt">EX-IHM-005</span>) : fonction <b>pure</b>, seule source de vérité sur ce qui est jouable &ndash; un écran ne fait que l'afficher, jamais sa propre condition.  <br /></td></tr>
+<tr class="memitem:a5b07931e9a29f7bcbffef65e91c124b0" id="r_a5b07931e9a29f7bcbffef65e91c124b0"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5b07931e9a29f7bcbffef65e91c124b0">isLevelPlayable</a> (const <a class="el" href="classhmi_1_1Progression.html">Progression</a> &amp;progression, const std::vector&lt; std::string &gt; &amp;sequence, const std::string &amp;levelName)</td></tr>
+<tr class="memdesc:a5b07931e9a29f7bcbffef65e91c124b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variante utilisée par l'IHM (affichage de l'écran de sélection ET garde au lancement, <span class="tt">LOT-70</span>) : identique à <span class="tt"><a class="el" href="#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">isLevelUnlocked</a></span>, sauf en build de <b>développement</b> (<span class="tt"><a class="el" href="namespacecore.html#ada3f6bef6b32bd54ea16d550e0769fb1" title="Vrai dans les builds de développement (Debug), faux en Release.">core::kDeveloperBuild</a></span>, <span class="tt"><a class="el" href="BuildConfig_8h.html" title="Indicateurs de configuration de build (développement vs release).">Core/BuildConfig.h</a></span>) où elle retourne toujours vrai &ndash; pour tester un tableau donné sans rejouer toute la séquence depuis le début à chaque lancement.  <br /></td></tr>
 <tr class="memitem:ab940bcb1480c0e6616726dd361be3c1d" id="r_ab940bcb1480c0e6616726dd361be3c1d"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#ab940bcb1480c0e6616726dd361be3c1d">assetFamilyName</a> (<a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> family) noexcept</td></tr>
 <tr class="memdesc:ab940bcb1480c0e6616726dd361be3c1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom lisible d'une famille d'assets, utilisé dans les messages de journalisation.  <br /></td></tr>
 <tr class="memitem:a842c2e980bf7c8686d4a549d583d6866" id="r_a842c2e980bf7c8686d4a549d583d6866"><td class="memItemLeft"><a class="el" href="structhmi_1_1AssetDimensionContract.html">AssetDimensionContract</a>&#160;</td><td class="memItemRight"><a class="el" href="#a842c2e980bf7c8686d4a549d583d6866">assetDimensionContract</a> (<a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> family) noexcept</td></tr>
@@ -2232,7 +2234,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>État d'un tableau de séquence dans la liste (<span class="tt"><a class="el" href="classhmi_1_1LevelSelectScreen.html#ae1a3504c3144a05d08cf8805e91b5a8a" title="Remplit l&#39;onglet Séquence : une ligne par tableau de sequence, dans l&#39;ordre, avec son état (hmi::isLe...">LevelSelectScreen::setSequenceLevels</a></span>) &ndash; résolu une fois par <span class="tt"><a class="el" href="#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">hmi::isLevelUnlocked</a></span>/<span class="tt"><a class="el" href="classhmi_1_1Progression.html#a8e868a89a51f89b4c9bf68b791952f61">Progression::isCompleted</a></span>, jamais recalculé par ce widget (qui ne connaît ni <span class="tt"><a class="el" href="classhmi_1_1Progression.html" title="Progression dans une séquence de niveaux : tableaux terminés et tableau atteint (celui où reprendre),...">Progression</a></span> ni la règle de déverrouillage). </p>
+<p>État d'un tableau de séquence dans la liste (<span class="tt"><a class="el" href="classhmi_1_1LevelSelectScreen.html#ae1a3504c3144a05d08cf8805e91b5a8a" title="Remplit l&#39;onglet Séquence : une ligne par tableau de sequence, dans l&#39;ordre, avec son état (hmi::isLe...">LevelSelectScreen::setSequenceLevels</a></span>) &ndash; résolu une fois par <span class="tt"><a class="el" href="#a5b07931e9a29f7bcbffef65e91c124b0" title="Variante utilisée par l&#39;IHM (affichage de l&#39;écran de sélection ET garde au lancement,...">hmi::isLevelPlayable</a></span>/<span class="tt"><a class="el" href="classhmi_1_1Progression.html#a8e868a89a51f89b4c9bf68b791952f61">Progression::isCompleted</a></span>, jamais recalculé par ce widget (qui ne connaît ni <span class="tt"><a class="el" href="classhmi_1_1Progression.html" title="Progression dans une séquence de niveaux : tableaux terminés et tableau atteint (celui où reprendre),...">Progression</a></span> ni la règle de déverrouillage). </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a9b98e769ab5ebdffe34a30c4b431ff7ca07ca5050e697392c9ed47e6453f1453f" name="a9b98e769ab5ebdffe34a30c4b431ff7ca07ca5050e697392c9ed47e6453f1453f"></a>Completed&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a9b98e769ab5ebdffe34a30c4b431ff7ca222a267cc5778206b253be35ee3ddab5" name="a9b98e769ab5ebdffe34a30c4b431ff7ca222a267cc5778206b253be35ee3ddab5"></a>Current&#160;</td><td class="fielddoc"><p>Jouable, pas encore terminé (le tableau atteint). </p>
@@ -6936,6 +6938,43 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true si le pixel est dans la matière, false s'il est du côté vide. </dd></dl>
+
+</div>
+</div>
+<a id="a5b07931e9a29f7bcbffef65e91c124b0" name="a5b07931e9a29f7bcbffef65e91c124b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b07931e9a29f7bcbffef65e91c124b0">&#9670;&#160;</a></span>isLevelPlayable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::isLevelPlayable </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1Progression.html">Progression</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>progression</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>sequence</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>levelName</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Variante utilisée par l'IHM (affichage de l'écran de sélection ET garde au lancement, <span class="tt">LOT-70</span>) : identique à <span class="tt"><a class="el" href="#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">isLevelUnlocked</a></span>, sauf en build de <b>développement</b> (<span class="tt"><a class="el" href="namespacecore.html#ada3f6bef6b32bd54ea16d550e0769fb1" title="Vrai dans les builds de développement (Debug), faux en Release.">core::kDeveloperBuild</a></span>, <span class="tt"><a class="el" href="BuildConfig_8h.html" title="Indicateurs de configuration de build (développement vs release).">Core/BuildConfig.h</a></span>) où elle retourne toujours vrai &ndash; pour tester un tableau donné sans rejouer toute la séquence depuis le début à chaque lancement. </p>
+<p><span class="tt"><a class="el" href="#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">isLevelUnlocked</a></span> elle-même reste inchangée (ses tests couvrent la règle de progression indépendamment du type de build) ; en Release les deux fonctions coïncident. </p>
 
 </div>
 </div>

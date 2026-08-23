@@ -1,5 +1,6 @@
 var NAVTREEINDEX23 =
 {
+"lot-25.html":[6,27],
 "lot-25.html#autotoc_md1387":[6,27,0],
 "lot-25.html#autotoc_md1388":[6,27,1],
 "lot-25.html#autotoc_md1389":[6,27,1,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX23 =
 "lot-32-tache-03-repere-editeur.html#autotoc_md1643":[6,34,10,0],
 "lot-32-tache-03-repere-editeur.html#autotoc_md1644":[6,34,10,1],
 "lot-32-tache-03-repere-editeur.html#autotoc_md1645":[6,34,10,2],
-"lot-32-tache-03-repere-editeur.html#autotoc_md1646":[6,34,10,3],
-"lot-32-tache-03-repere-editeur.html#autotoc_md1647":[6,34,10,4]
+"lot-32-tache-03-repere-editeur.html#autotoc_md1646":[6,34,10,3]
 };

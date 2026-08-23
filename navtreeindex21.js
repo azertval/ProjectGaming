@@ -1,5 +1,6 @@
 var NAVTREEINDEX21 =
 {
+"lot-14-tache-02-ecran-editeur-palette.html#autotoc_md984":[6,16,9,2],
 "lot-14-tache-02-ecran-editeur-palette.html#autotoc_md985":[6,16,9,3],
 "lot-14-tache-02-ecran-editeur-palette.html#autotoc_md986":[6,16,9,4],
 "lot-14-tache-02-ecran-editeur-palette.html#autotoc_md987":[6,16,9,5],
@@ -248,6 +249,5 @@ var NAVTREEINDEX21 =
 "lot-19-tache-02-plaque-de-pression.html#autotoc_md1202":[6,21,9,6],
 "lot-19-tache-03-editeur-niveau-demo.html":[6,21,10],
 "lot-19-tache-03-editeur-niveau-demo.html#autotoc_md1203":[6,21,10,0],
-"lot-19-tache-03-editeur-niveau-demo.html#autotoc_md1204":[6,21,10,1],
-"lot-19-tache-03-editeur-niveau-demo.html#autotoc_md1205":[6,21,10,2]
+"lot-19-tache-03-editeur-niveau-demo.html#autotoc_md1204":[6,21,10,1]
 };

@@ -1,5 +1,6 @@
 var NAVTREEINDEX27 =
 {
+"lot-50-tache-04-section-decors.html#autotoc_md2311":[6,52,11,2],
 "lot-50-tache-04-section-decors.html#autotoc_md2312":[6,52,11,3],
 "lot-50-tache-04-section-decors.html#autotoc_md2313":[6,52,11,4],
 "lot-50-tache-04-section-decors.html#autotoc_md2314":[6,52,11,5],
@@ -248,6 +249,5 @@ var NAVTREEINDEX27 =
 "lot-56-tache-02-theme-global.html#autotoc_md2529":[6,58,9,2],
 "lot-56-tache-02-theme-global.html#autotoc_md2530":[6,58,9,3],
 "lot-56-tache-02-theme-global.html#autotoc_md2531":[6,58,9,4],
-"lot-56-tache-02-theme-global.html#autotoc_md2532":[6,58,9,5],
-"lot-56-tache-02-theme-global.html#autotoc_md2533":[6,58,9,6]
+"lot-56-tache-02-theme-global.html#autotoc_md2532":[6,58,9,5]
 };

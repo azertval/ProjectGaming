@@ -9,7 +9,7 @@ var searchData=
   ['5_20menus_20options_20unification_6',['5. Menus, options, unification',['../spec-interface-ihm.html#autotoc_md327',1,'']]],
   ['5_20non_20objectifs_20éditeur_20mvp_7',['5. Non-objectifs (éditeur, MVP)',['../spec-editeur.html#autotoc_md299',1,'']]],
   ['5_20provisionnement_20release_20github_20workflows_20release_20yml_8',['5. Provisionnement Release (&lt;span class=&quot;tt&quot;&gt;.github/workflows/release.yml&lt;/span&gt;)',['../lot-34-tache-01-provisionnement-qt-build.html#autotoc_md1707',1,'']]],
-  ['5_20récupérer_20les_20niveaux_20des_20autres_9',['5. Récupérer les niveaux des autres',['../manuel-partager-niveau.html#autotoc_md3228',1,'']]],
+  ['5_20récupérer_20les_20niveaux_20des_20autres_9',['5. Récupérer les niveaux des autres',['../manuel-partager-niveau.html#autotoc_md3252',1,'']]],
   ['5_20robustesse_10',['5. Robustesse',['../spec-exigences.html#autotoc_md311',1,'']]],
   ['50_11',['Révision (&lt;span class=&quot;tt&quot;&gt;LOT-50&lt;/span&gt;)',['../lot-49-tache-02-rendu-couches.html#autotoc_md2260',1,'']]],
   ['50_20—_20décors_20_3a_20placement_20et_20manipulation_20dans_20l_20éditeur_12',['LOT-50 — Décors : placement et manipulation dans l&apos;éditeur',['../lot-50.html',1,'lots']]],

@@ -1,5 +1,6 @@
 var NAVTREEINDEX24 =
 {
+"lot-32-tache-03-repere-editeur.html#autotoc_md1647":[6,34,10,4],
 "lot-32-tache-03-repere-editeur.html#autotoc_md1648":[6,34,10,5],
 "lot-32-tache-03-repere-editeur.html#autotoc_md1649":[6,34,10,6],
 "lot-32-tache-04-demo-documentation-verification.html":[6,34,11],
@@ -248,6 +249,5 @@ var NAVTREEINDEX24 =
 "lot-38-tache-03-retrait-legacy-ui.html#autotoc_md1865":[6,40,10,4],
 "lot-38-tache-03-retrait-legacy-ui.html#autotoc_md1866":[6,40,10,5],
 "lot-38-tache-03-retrait-legacy-ui.html#autotoc_md1867":[6,40,10,6],
-"lot-38-tache-04-nettoyage-tests-doc.html":[6,40,11],
-"lot-38-tache-04-nettoyage-tests-doc.html#autotoc_md1868":[6,40,11,0]
+"lot-38-tache-04-nettoyage-tests-doc.html":[6,40,11]
 };
