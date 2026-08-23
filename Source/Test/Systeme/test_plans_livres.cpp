@@ -92,7 +92,7 @@ PngSize readPngSize(const std::filesystem::path& path) {
 /// la liste écrite en dur plutôt que recalculée depuis le cadrage résolu du niveau — même patron
 /// que `deliveredLevelBudgets()` de `test_render_budget.cpp`.
 constexpr std::array<const char*, 2> PARALLAX_ACTIVE_LEVELS{"demo-mouvement.json",
-                                                             "demo-final.json"};
+                                                            "demo-final.json"};
 
 /// @return `true` si @p planes compte au moins @p minimumCount plans dont les `parallaxX` sont
 /// **strictement croissants** dans l'ordre de la liste — la forme qui rend une parallaxe
@@ -198,8 +198,8 @@ TEST(PlansLivresSysteme, ToutPlanReferenceExisteAuxDimensionsAttendues) {
 TEST(PlansLivresSysteme, NiveauxAParallaxeActiveDeclarentTroisProfondeursCroissantes) {
     for (const char* name : PARALLAX_ACTIVE_LEVELS) {
         SCOPED_TRACE(name);
-        const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(levelsDirectory() /
-                                                                              name);
+        const core::LevelLoadResult loaded =
+            core::LevelLoader::loadFromFile(levelsDirectory() / name);
         ASSERT_TRUE(loaded.ok()) << name << " : " << loaded.error;
         EXPECT_TRUE(hasStrictlyIncreasingParallaxDepth(loaded.level->planes(), 3))
             << name
