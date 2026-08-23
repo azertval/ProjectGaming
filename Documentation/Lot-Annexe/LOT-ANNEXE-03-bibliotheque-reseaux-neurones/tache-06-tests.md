@@ -1,6 +1,6 @@
 # TACHE-06 — Tests : reproductibilité, stabilité numérique {#lot-annexe-03-tache-06-tests}
 
-**Lot :** [LOT-ANNEXE-03](epic.md) · **Emplacement :** `Source/Test/Unit/AiSolver/Nn` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-03](epic.md) · **Emplacement :** `Source/Test/Unit/AiSolver/Nn` · **Statut :** fait
 
 ## Contexte
 TACHE-01 à 04 introduisent chacune leurs cas de test locaux (couche dense, activations,
