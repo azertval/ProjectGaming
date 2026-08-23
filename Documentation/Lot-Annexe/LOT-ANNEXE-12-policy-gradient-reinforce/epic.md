@@ -1,6 +1,6 @@
 # LOT-ANNEXE-12 — Policy gradient maison (REINFORCE) {#lot-annexe-12}
 
-> Statut : **non commencé**. Prérequis : [LOT-ANNEXE-02](@ref lot-annexe-02) (autodiff),
+> Statut : **fait**. Prérequis : [LOT-ANNEXE-02](@ref lot-annexe-02) (autodiff),
 > [LOT-ANNEXE-04](@ref lot-annexe-04) (optimiseurs), [LOT-ANNEXE-05](@ref lot-annexe-05)
 > (environnement headless), [LOT-ANNEXE-08](@ref lot-annexe-08) (récompense),
 > [LOT-ANNEXE-09](@ref lot-annexe-09) (statistiques). Premier lot de la génération 3
@@ -116,11 +116,11 @@ chapitre.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-collecte-trajectoires.md) | Collecte de trajectoires sur un épisode complet | `Source/AiSolver/Training/PolicyGradient` | ⬜ |
-| [TACHE-02](tache-02-calcul-retour.md) | Calcul du retour actualisé par pas | `Source/AiSolver/Training/PolicyGradient` | ⬜ |
-| [TACHE-03](tache-03-perte-reinforce.md) | Perte REINFORCE rétropropagée via l'autodiff maison | `Source/AiSolver/Training/PolicyGradient` | ⬜ |
-| [TACHE-04](tache-04-boucle-entrainement.md) | Boucle d'entraînement par épisodes et journalisation | `Source/AiSolver/Training/PolicyGradient` | ⬜ |
-| [TACHE-05](tache-05-tests-gradient-checking.md) | Tests : gradient checking et non-régression de progression | `Source/Test/Unit/AiSolver/Training` | ⬜ |
+| [TACHE-01](tache-01-collecte-trajectoires.md) | Collecte de trajectoires sur un épisode complet | `Source/AiSolver/Training/PolicyGradient` | ✅ |
+| [TACHE-02](tache-02-calcul-retour.md) | Calcul du retour actualisé par pas | `Source/AiSolver/Training/PolicyGradient` | ✅ |
+| [TACHE-03](tache-03-perte-reinforce.md) | Perte REINFORCE rétropropagée via l'autodiff maison | `Source/AiSolver/Training/PolicyGradient` | ✅ |
+| [TACHE-04](tache-04-boucle-entrainement.md) | Boucle d'entraînement par épisodes et journalisation | `Source/AiSolver/Training/PolicyGradient` | ✅ |
+| [TACHE-05](tache-05-tests-gradient-checking.md) | Tests : gradient checking et non-régression de progression | `Source/Test/Unit/AiSolver/Training` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Sur un niveau de contrôle simple et déterministe, la récompense moyenne par épisode **progresse**

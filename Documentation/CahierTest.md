@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**1402 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**1424 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (1291)
+## Tests unitaires (1313)
 
 ### AiSolver
 
@@ -391,7 +391,7 @@
 | **TrainingStatsRecorderTest.FichierInterrompuResteExploitable** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Stats/test_training_stats_recorder.cpp:172`</sub> | Fichier interrompu simulé : destruction du recorder après `k` appels. | 1. Créer un `TrainingStatsRecorder`, appeler `record` 3 fois sur une séquence prévue de 10.<br/>2. Détruire le recorder (fin de portée) avant les 7 appels restants. | Vérifie que `lines.size()` vaut `4u`.<br/>Vérifie que `fields.size()` vaut `12u`.<br/>Vérifie que `std::stoi(fields[0])` vaut `static_cast<int>(i - 1)`. |
 | **TrainingStatsRecorderTest.RecordAjouteUneLigneSansAlterer** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Stats/test_training_stats_recorder.cpp:203`</sub> | `record` ajoute une ligne sans altérer les précédentes. | 1. `record` une première fois, lire le fichier.<br/>2. `record` une deuxième fois, lire de nouveau. | Vérifie que `afterFirst.size()` vaut `2u`.<br/>Vérifie que `afterSecond.size()` vaut `3u`.<br/>Vérifie que `afterSecond[0]` vaut `afterFirst[0]`.<br/>Vérifie que `afterSecond[1]` vaut `afterFirst[1]`. |
 
-#### Training (34)
+#### Training (56)
 
 **`test_deterministic_replay.cpp`**
 
@@ -463,6 +463,28 @@
 | **PopulationTest.ReproductibiliteInitialisation** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_population.cpp:92`</sub> | Population : reproductibilité de l'initialisation. | 1. Construire deux `Population` identiques avec des `Rng` de même graine.<br/>2. Comparer bit-à-bit tous les poids. | Vérifie que `paramsA.size()` vaut `paramsB.size()`.<br/>Vérifie que `paramsA[index]->value.size()` vaut `paramsB[index]->value.size()`.<br/>Vérifie que `paramsA[index]->value.data()[element]` vaut `paramsB[index]->value.data()[element]`. |
 | **PopulationTest.FitnessInitialNonEvalue** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_population.cpp:121`</sub> | Population : fitness initial non évalué. | 1. Construire une `Population`.<br/>2. Lire `fitness` de chaque individu. | Vérifie que `population.individual(index).fitness` vaut `kUnevaluatedFitness`. |
 
+**`test_reinforce_loss.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ReinforceLossTest.GradientCheckingTrajectoireDUnPas** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_reinforce_loss.cpp:109`</sub> | computeReinforceLoss : gradient checking, trajectoire d'un pas. | 1. Réseau minuscule, trajectoire d'un pas, retour positif.<br/>2. Comparer gradient analytique et numérique. | Vérifie que `maxError` est strictement inférieur à `1e-2f`. |
+| **ReinforceLossTest.GradientCheckingTrajectoireDeTroisPas** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_reinforce_loss.cpp:129`</sub> | computeReinforceLoss : gradient checking, trajectoire de 3 pas. | 1. Réseau minuscule, 3 pas, retours `[2, -1, 0.5]`.<br/>2. Comparer gradients. | Vérifie que `maxError` est strictement inférieur à `1e-2f`. |
+| **ReinforceLossTest.GradientCheckingTrajectoireDeDixPas** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_reinforce_loss.cpp:150`</sub> | computeReinforceLoss : gradient checking, trajectoire de 10 pas. | 1. Réseau minuscule, 10 pas, retours variés.<br/>2. Comparer gradients. | Vérifie que `maxError` est strictement inférieur à `1e-2f`. |
+| **ReinforceLossTest.RetourNulGradientNul** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_reinforce_loss.cpp:174`</sub> | computeReinforceLoss : retour nul, gradient nul. | 1. Réseau minuscule, trajectoire d'un pas, retour `0`.<br/>2. `backward()`. | Vérifie que `parameter->grad.data()[i]` vaut `0.0f` (comparaison flottante). |
+| **ReinforceLossTest.PerteEtGradientNonDegeneres** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_reinforce_loss.cpp:203`</sub> | computeReinforceLoss : perte et gradient non dégénérés. | 1. Réseau minuscule, trajectoire de 3 pas, retours non nuls.<br/>2. `backward()`. | Vérifie que `loss->value.data()[0]` diffère de `0.0f`.<br/>Vérifie que `anyNonZeroGradient` est vrai. |
+| **ReinforceLossTest.IndependanceALaLongueurDEpisode** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_reinforce_loss.cpp:240`</sub> | computeReinforceLoss : indépendance à la longueur d'épisode. | 1. Même politique, deux trajectoires de 2 et 8 pas, retour constant par pas.<br/>2. Comparer les pertes. | Vérifie que `shortLoss` vaut `longLoss`, à `1e-4f` près. |
+| **ReinforceLossTest.SigneDuGradientAugmenteLaProbabiliteRenforcee** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_reinforce_loss.cpp:277`</sub> | computeReinforceLoss : signe du gradient (augmente la probabilité renforcée). | 1. Réseau minuscule, observation fixe, retour positif élevé.<br/>2. `backward()` + un pas de SGD.<br/>3. Repasser en avant sur la même observation. | Vérifie que `probabilityAfter` est strictement supérieur à `probabilityBefore`. |
+
+**`test_reinforce_trainer.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ReinforceTrainerTest.ProgressionDeLaRecompenseSurLeNiveauDeControle** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_reinforce_trainer.cpp:114`</sub> | ReinforceTrainer : progression de la récompense sur le niveau de contrôle. | 1. `ReinforceTrainer` sur le niveau trivial, `80` épisodes.<br/>2. Comparer la récompense moyenne des 10 premiers et des 10 derniers épisodes (colonne `bestReward` du CSV, un seul épisode par ligne). | Vérifie que `lines.size()` vaut `kEpisodeCount + 1`.<br/>Vérifie que `lastTen` est strictement supérieur à `firstTen`. |
+| **ReinforceTrainerTest.CsvBienForme** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_reinforce_trainer.cpp:156`</sub> | ReinforceTrainer : CSV bien formé. | 1. Run de `80` épisodes.<br/>2. Compter les lignes du CSV. | Vérifie que `lines.size()` vaut `kEpisodeCount + 1`. |
+| **ReinforceTrainerTest.ReproductibiliteIntegrale** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_reinforce_trainer.cpp:174`</sub> | ReinforceTrainer : reproductibilité intégrale. | 1. Deux runs identiques (même seed de base).<br/>2. Comparer les CSV produits. | Vérifie que `linesA.size()` vaut `linesB.size()`.<br/>Vérifie que `stripTimestampColumn(linesA[i])` vaut `stripTimestampColumn(linesB[i])`. |
+| **ReinforceTrainerTest.RemiseAZeroDesGradientsEntreEpisodes** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_reinforce_trainer.cpp:199`</sub> | ReinforceTrainer : remise à zéro des gradients entre épisodes. | 1. Run complet.<br/>2. Lire le gradient de chaque paramètre du réseau de politique. | Vérifie que `parameter->grad.data()[i]` vaut `0.0f` (comparaison flottante). |
+| **ReinforceTrainerTest.RobustesseAUnEpisodeTresCourt** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_reinforce_trainer.cpp:230`</sub> | ReinforceTrainer : robustesse à un épisode très court. | 1. Budget de pas réduit à `1` (force une fin d'épisode dès le premier pas si non résolu).<br/>2. `run(5)`. | `EXPECT_NO_THROW(trainer.run(5))`<br/>Vérifie que `lines.size()` vaut `6u`. |
+
 **`test_replay_export.cpp`**
 
 | Titre (criticité) | Brief | Étapes | Résultat attendu |
@@ -471,6 +493,26 @@
 | **ReplayExportTest.RefusDExportSurEchec** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_replay_export.cpp:101`</sub> | exportReplay : refus d'export sur échec. | 1. Construire un rejeu quelconque, `solved = false`.<br/>2. Tenter l'export. | Vérifie que `exportResult.exported` est faux.<br/>Vérifie que `exportResult.error` vaut `ReplayExportError::NotSolved`.<br/>Vérifie que `std::filesystem::exists(outputPath)` est faux. |
 | **ReplayExportTest.ReferenceAuBonNiveau** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_replay_export.cpp:124`</sub> | exportReplay : référence au bon niveau. | 1. Entraîner, rejouer et exporter sur le niveau trivial.<br/>2. Relire le fichier. | Vérifie que `training.solved` est vrai.<br/>Vérifie que `exportReplay(replay, training.solved, level.levelPath(), outputPath, "evolutionnaire", 4242) .exported` est vrai.<br/>Vérifie que `loaded.ok()` est vrai.<br/>Vérifie que `loaded.replay->levelPath` vaut `level.levelPath().filename().string()`. |
 | **ReplayExportTest.PointDEntreeMinimalBoutEnBout** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_replay_export.cpp:151`</sub> | trainLevelAndExportReplay : bout en bout. | 1. Appeler `trainLevelAndExportReplay` sur le niveau trivial. | Vérifie que `outcome.trainingResult.solved` est vrai.<br/>Vérifie que `outcome.exportResult.exported` est vrai.<br/>Vérifie que `std::filesystem::exists(outputPath)` est vrai.<br/>Vérifie que `loaded.ok()` est vrai.<br/>Vérifie que `loaded.replay->steps.empty()` est faux. |
+
+**`test_return_calculator.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ReturnCalculatorTest.GammaUnSommeBrute** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_return_calculator.cpp:36`</sub> | computeReturns : gamma = 1 (Monte-Carlo brut). | 1. Trajectoire `[1, 2, 3, 4]`.<br/>2. `computeReturns(trajectory, 1.0f)`. | Vérifie que `returns.size()` vaut `4u`.<br/>Vérifie que `returns[0]` vaut `10.0f` (comparaison flottante).<br/>Vérifie que `returns[3]` vaut `4.0f` (comparaison flottante). |
+| **ReturnCalculatorTest.GammaZeroMyope** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_return_calculator.cpp:53`</sub> | computeReturns : gamma = 0 (myope). | 1. Trajectoire `[1, 2, 3, 4]`.<br/>2. `computeReturns(trajectory, 0.0f)`. | Vérifie que `returns.size()` vaut `rewards.size()`.<br/>Vérifie que `returns[i]` vaut `rewards[i]` (comparaison flottante). |
+| **ReturnCalculatorTest.RecurrenceAGammaIntermediaire** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_return_calculator.cpp:73`</sub> | computeReturns : récurrence à gamma intermédiaire. | 1. Trajectoire `[1, 1, 1]`, `gamma = 0.9`.<br/>2. `computeReturns`. | Vérifie que `returns.size()` vaut `3u`.<br/>Vérifie que `returns[2]` vaut `1.0f`, à `1e-6f` près.<br/>Vérifie que `returns[1]` vaut `1.0f + 0.9f`, à `1e-6f` près.<br/>Vérifie que `returns[0]` vaut `1.0f + 0.9f + 0.81f`, à `1e-6f` près. |
+| **ReturnCalculatorTest.TrajectoireDUnSeulPas** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_return_calculator.cpp:92`</sub> | computeReturns : trajectoire d'un seul pas. | 1. Trajectoire `[5]`.<br/>2. `computeReturns(trajectory, 0.5f)`. | Vérifie que `returns.size()` vaut `1u`.<br/>Vérifie que `returns[0]` vaut `5.0f` (comparaison flottante). |
+| **ReturnCalculatorTest.MonotonieDeLaLongueur** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_return_calculator.cpp:109`</sub> | computeReturns : monotonie de la longueur. | 1. Trajectoires de longueurs 0, 1, 7.<br/>2. `computeReturns` sur chacune. | Vérifie que `computeReturns(trajectoryFromRewards({}), 0.9f).size()` vaut `0u`.<br/>Vérifie que `computeReturns(trajectoryFromRewards({1.0f}), 0.9f).size()` vaut `1u`.<br/>Vérifie que `computeReturns(trajectoryFromRewards({1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f}), 0.9f) .size()` vaut `7u`. |
+
+**`test_trajectory_collector.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **TrajectoryCollectorTest.LongueurCoherenteAvecTimeout** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_trajectory_collector.cpp:65`</sub> | TrajectoryCollector : longueur cohérente avec un timeout. | 1. Politique à action constante « ne rien faire ».<br/>2. Collecter un épisode sur le niveau trivial, budget de pas réduit. | Vérifie que `env.reset(level.levelPath())` est vrai.<br/>Vérifie que `trajectory.status` vaut `aisolver::EpisodeStatus::TimedOut`.<br/>Vérifie que `trajectory.steps.size()` vaut `static_cast<std::size_t>(kReducedMaxSteps)`. |
+| **TrajectoryCollectorTest.LongueurCoherenteAvecVictoireRapide** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_trajectory_collector.cpp:93`</sub> | TrajectoryCollector : longueur cohérente avec une victoire rapide. | 1. Politique à action constante « avancer à droite ».<br/>2. Collecter un épisode sur le niveau trivial (résoluble en 1 pas). | Vérifie que `env.reset(level.levelPath())` est vrai.<br/>Vérifie que `trajectory.status` vaut `aisolver::EpisodeStatus::Won`.<br/>Vérifie que `trajectory.steps.size()` est strictement inférieur à `static_cast<std::size_t>(kReducedMaxSteps)`. |
+| **TrajectoryCollectorTest.LogProbabilitesValides** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_trajectory_collector.cpp:121`</sub> | TrajectoryCollector : log-probabilités valides. | 1. Politique à action constante.<br/>2. Collecter un épisode. | Vérifie que `env.reset(level.levelPath())` est vrai.<br/>Vérifie que `trajectory.steps.empty()` est faux.<br/>Vérifie que `step.logProbability` est inférieur ou égal à `0.0f`.<br/>Vérifie que `std::exp(trajectory.steps.front().logProbability)` vaut `1.0f`, à `1e-3f` près. |
+| **TrajectoryCollectorTest.DeterminismeAGraineFixee** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_trajectory_collector.cpp:154`</sub> | TrajectoryCollector : déterminisme à graine fixée. | 1. Même politique, deux `Rng` initialisés à la même graine.<br/>2. Collecter deux épisodes sur deux environnements distincts. | Vérifie que `envA.reset(level.levelPath())` est vrai.<br/>Vérifie que `envB.reset(level.levelPath())` est vrai.<br/>Vérifie que `trajectoryA.steps.size()` vaut `trajectoryB.steps.size()`.<br/>Vérifie que `trajectoryA.status` vaut `trajectoryB.status`.<br/>Vérifie que `trajectoryA.steps[i].actionIndex` vaut `trajectoryB.steps[i].actionIndex`.<br/>Vérifie que `trajectoryA.steps[i].logProbability` vaut `trajectoryB.steps[i].logProbability` (comparaison flottante).<br/>Vérifie que `trajectoryA.steps[i].reward` vaut `trajectoryB.steps[i].reward` (comparaison flottante). |
+| **TrajectoryCollectorTest.CouvertureNonDegenereeDeLEspaceDAction** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_trajectory_collector.cpp:200`</sub> | TrajectoryCollector : couverture non dégénérée de l'espace d'action. | 1. Politique proche de l'uniforme.<br/>2. Collecter une trentaine d'épisodes courts, cumuler les indices d'action rencontrés. | Vérifie que `env.reset(level.levelPath())` est vrai.<br/>Vérifie que `observedActions.size()` est supérieur ou égal à `8u`.<br/>Vérifie que `observedActions.size()` est inférieur ou égal à `actionCount()`. |
 
 ### Core
 

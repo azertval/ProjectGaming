@@ -67,6 +67,15 @@ add_library(AiSolver STATIC
     Training/LevelTrainingSession.cpp
     Training/DeterministicReplay.cpp
     Training/ReplayExport.cpp
+    # Policy gradient maison REINFORCE (LOT-ANNEXE-12) : premier algorithme du programme dirige par
+    # un gradient calcule exactement (autodiff, TACHE-03), par opposition a la recherche aveugle par
+    # population de LOT-ANNEXE-10 -- collecte de trajectoire (TACHE-01), retour actualise
+    # (TACHE-02), perte REINFORCE retropropagee (TACHE-03), boucle d'entrainement journalisee
+    # (TACHE-04).
+    Training/PolicyGradient/TrajectoryCollector.cpp
+    Training/PolicyGradient/ReturnCalculator.cpp
+    Training/PolicyGradient/ReinforceLoss.cpp
+    Training/PolicyGradient/ReinforceTrainer.cpp
 )
 
 # Racine d'inclusion = Source/ : les en-têtes s'incluent par chemin complet depuis la racine

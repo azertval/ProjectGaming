@@ -1,7 +1,7 @@
 # TACHE-04 — Boucle d'entraînement par épisodes et journalisation {#lot-annexe-12-tache-04-boucle-entrainement}
 
 **Lot :** [LOT-ANNEXE-12](epic.md) · **Emplacement :** `Source/AiSolver/Training/PolicyGradient` ·
-**Statut :** à faire
+**Statut :** fait
 
 ## Contexte
 TACHE-01 à TACHE-03 fournissent les briques (collecte, retour, perte) ; il manque l'assemblage qui

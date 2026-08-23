@@ -1,7 +1,7 @@
 # TACHE-05 — Tests : gradient checking et non-régression de progression {#lot-annexe-12-tache-05-tests-gradient-checking}
 
 **Lot :** [LOT-ANNEXE-12](epic.md) · **Emplacement :** `Source/Test/Unit/AiSolver/Training` ·
-**Statut :** à faire
+**Statut :** fait
 
 ## Contexte
 Les tâches précédentes intègrent déjà des tests unitaires locaux à chaque brique (TACHE-01 à

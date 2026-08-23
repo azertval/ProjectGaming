@@ -1,7 +1,7 @@
 # TACHE-02 — Calcul du retour actualisé par pas {#lot-annexe-12-tache-02-calcul-retour}
 
 **Lot :** [LOT-ANNEXE-12](epic.md) · **Emplacement :** `Source/AiSolver/Training/PolicyGradient` ·
-**Statut :** à faire
+**Statut :** fait
 
 ## Contexte
 Une `Trajectory` collectée (TACHE-01) ne porte, pour chaque pas, que la récompense **immédiate**.

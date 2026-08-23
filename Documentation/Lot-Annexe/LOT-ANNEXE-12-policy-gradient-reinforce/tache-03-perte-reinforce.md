@@ -1,7 +1,7 @@
 # TACHE-03 — Perte REINFORCE rétropropagée via l'autodiff maison {#lot-annexe-12-tache-03-perte-reinforce}
 
 **Lot :** [LOT-ANNEXE-12](epic.md) · **Emplacement :** `Source/AiSolver/Training/PolicyGradient` ·
-**Statut :** à faire
+**Statut :** fait
 
 ## Contexte
 C'est la tâche **centrale** du lot : celle qui fait réellement exister l'exigence ferme

@@ -123,6 +123,13 @@ add_executable(UnitTests
     Unit/AiSolver/Training/test_level_training_session.cpp
     Unit/AiSolver/Training/test_deterministic_replay.cpp
     Unit/AiSolver/Training/test_replay_export.cpp
+    # Policy gradient maison REINFORCE (LOT-ANNEXE-12) : collecte de trajectoire (TACHE-01), retour
+    # actualise (TACHE-02), perte REINFORCE et gradient checking -- le test le plus important du lot
+    # (TACHE-03/05), boucle d'entrainement bout en bout sur le niveau de controle trivial (TACHE-04).
+    Unit/AiSolver/Training/test_trajectory_collector.cpp
+    Unit/AiSolver/Training/test_return_calculator.cpp
+    Unit/AiSolver/Training/test_reinforce_loss.cpp
+    Unit/AiSolver/Training/test_reinforce_trainer.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp

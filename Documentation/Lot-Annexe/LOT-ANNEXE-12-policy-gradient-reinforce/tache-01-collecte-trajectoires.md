@@ -1,7 +1,7 @@
 # TACHE-01 — Collecte de trajectoires sur un épisode complet {#lot-annexe-12-tache-01-collecte-trajectoires}
 
 **Lot :** [LOT-ANNEXE-12](epic.md) · **Emplacement :** `Source/AiSolver/Training/PolicyGradient` ·
-**Statut :** à faire
+**Statut :** fait
 
 ## Contexte
 `HeadlessLevelEnvironment` (LOT-ANNEXE-05) expose déjà un cycle observation → action → pas de
