@@ -1,7 +1,7 @@
 # TACHE-01 — Décision de cadrage PPO vs DQN et implémentation de l'algorithme retenu {#lot-annexe-14-tache-01-decision-ppo-dqn}
 
 **Lot :** [LOT-ANNEXE-14](epic.md) · **Emplacement :** `Source/AiSolver/Training/Advanced` ·
-**Statut :** à faire
+**Statut :** fait
 
 ## Contexte
 C'est la tâche charnière du lot : contrairement aux tâches habituelles, elle **commence** par une

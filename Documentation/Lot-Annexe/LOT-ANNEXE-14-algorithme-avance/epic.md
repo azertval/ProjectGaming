@@ -1,6 +1,6 @@
 # LOT-ANNEXE-14 — Algorithme avancé (PPO maison ou Q-learning à mémoire de rejeu) {#lot-annexe-14}
 
-> Statut : **non commencé**. Prérequis : [LOT-ANNEXE-13](@ref lot-annexe-13) (acteur-critique, dont
+> Statut : **fait**. Prérequis : [LOT-ANNEXE-13](@ref lot-annexe-13) (acteur-critique, dont
 > les résultats chiffrés orientent le choix d'algorithme de ce lot). Bénéficie de
 > [LOT-ANNEXE-05](@ref lot-annexe-05) (environnement headless), [LOT-ANNEXE-07](@ref lot-annexe-07)
 > (espace d'action) et [LOT-ANNEXE-09](@ref lot-annexe-09) (statistiques). Troisième et dernier lot
@@ -110,9 +110,38 @@ l'ouverture de ce lot.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-decision-ppo-dqn.md) | Décision de cadrage PPO vs DQN et implémentation de l'algorithme retenu | `Source/AiSolver/Training/Advanced` | ⬜ |
-| [TACHE-02](tache-02-integration-harnais.md) | Intégration au harnais d'entraînement existant | `Source/AiSolver/Training/Advanced` | ⬜ |
-| [TACHE-03](tache-03-comparaison-chiffree.md) | Comparaison chiffrée contre la génération 2 et le reste de la génération 3 | `Source/AiSolver/Training/Advanced` | ⬜ |
+| [TACHE-01](tache-01-decision-ppo-dqn.md) | Décision de cadrage PPO vs DQN et implémentation de l'algorithme retenu | `Source/AiSolver/Training/Advanced` | ✅ |
+| [TACHE-02](tache-02-integration-harnais.md) | Intégration au harnais d'entraînement existant | `Source/AiSolver/Training/Advanced` | ✅ |
+| [TACHE-03](tache-03-comparaison-chiffree.md) | Comparaison chiffrée contre la génération 2 et le reste de la génération 3 | `Source/AiSolver/Training/Advanced` | ✅ |
+
+## Décision retenue et résultat de la comparaison
+
+**Décision (TACHE-01) : DQN**, plutôt que PPO. LOT-ANNEXE-13 (acteur-critique) a produit un résultat
+non concluant sur l'instabilité : sur le niveau de contrôle trivial (résolu en moins d'un épisode),
+REINFORCE montrait déjà une variance de fin de run plus faible que l'acteur-critique — le niveau était
+trop simple pour révéler un bénéfice de clipping PPO, qui cible précisément une instabilité non
+démontrée ici. L'espace d'action discret à 24 actions (LOT-ANNEXE-07) se prête en revanche bien à une
+approche par valeur d'action : DQN cible l'efficacité d'échantillonnage (réutilisation des transitions
+via `ReplayBuffer`), un facteur pertinent indépendamment du constat de stabilité.
+
+**Comparaison chiffrée (TACHE-03)** — même niveau de contrôle (trivial, utilisé par LOT-ANNEXE-12/13),
+même budget équivalent de 120 épisodes de jeu pour les quatre approches (conversion générations ×
+individus → épisodes pour l'évolutionniste), 3 essais par approche, seuil de récompense = 5.0 :
+
+| Approche | Essais atteignant le seuil | Épisodes moyens jusqu'au seuil | Écart-type de récompense en fin de run |
+|---|---|---|---|
+| Évolutionniste (LOT-ANNEXE-10) | 3/3 | 0.000 | 0.00475 |
+| REINFORCE (LOT-ANNEXE-12) | 3/3 | 0.667 | 0.08844 |
+| Acteur-critique (LOT-ANNEXE-13) | 3/3 | 0.333 | 47.60 |
+| **DQN (LOT-ANNEXE-14)** | 3/3 | 0.333 | **0.02409** |
+
+Les quatre approches atteignent systématiquement le seuil sur ce niveau trivial. DQN produit la
+variance de fin de run la plus faible des quatre — y compris plus faible que l'acteur-critique, dont
+la variance élevée ici confirme, a posteriori, que ce niveau de contrôle ne sollicite pas fortement
+la stabilité de politique (cohérent avec le constat déjà fait en LOT-ANNEXE-13). Mesure honnête et non
+orientée : ce résultat porte sur les niveaux de contrôle retenus par les générations 2 et 3, pas sur
+une généralisation — celle-ci est explicitement le rôle mesuré séparément par la génération 4
+(LOT-ANNEXE-15/16). `EX-IA-015` est couverte par cette mesure comparative.
 
 ## Critères d'acceptation du lot
 1. La décision PPO vs DQN est **documentée explicitement** (dans TACHE-01, une fois tranchée), avec

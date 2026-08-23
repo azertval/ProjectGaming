@@ -90,6 +90,17 @@ add_library(AiSolver STATIC
     Training/ActorCritic/CriticLoss.cpp
     Training/ActorCritic/ActorCriticTrainer.cpp
     Training/ActorCritic/ConvergenceComparator.cpp
+    # Algorithme avance DQN (LOT-ANNEXE-14) : dernier lot de la generation 3 -- le choix entre PPO
+    # et DQN est tranche a l'ouverture du lot (TACHE-01, cf. epic.md) sur la base des resultats de
+    # LOT-ANNEXE-13, non concluants sur l'instabilite (niveau de controle trop simple pour la
+    # reveler) ; DQN retenu, l'espace d'action discret de LOT-ANNEXE-07 s'y pretant bien. Reseau
+    # Q(s,a) et memoire de rejeu (TACHE-01), integration au harnais existant (TACHE-02),
+    # comparaison chiffree a quatre series generalisant ConvergenceComparator (TACHE-03).
+    Training/Advanced/QNetwork.cpp
+    Training/Advanced/ReplayBuffer.cpp
+    Training/Advanced/DqnLoss.cpp
+    Training/Advanced/DqnTrainer.cpp
+    Training/Advanced/GenerationComparator.cpp
 )
 
 # Racine d'inclusion = Source/ : les en-têtes s'incluent par chemin complet depuis la racine

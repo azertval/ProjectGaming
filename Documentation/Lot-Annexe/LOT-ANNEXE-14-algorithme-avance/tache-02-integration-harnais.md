@@ -1,7 +1,7 @@
 # TACHE-02 — Intégration au harnais d'entraînement existant {#lot-annexe-14-tache-02-integration-harnais}
 
 **Lot :** [LOT-ANNEXE-14](epic.md) · **Emplacement :** `Source/AiSolver/Training/Advanced` ·
-**Statut :** à faire
+**Statut :** fait
 
 ## Contexte
 TACHE-01 produit un algorithme entraînable (`PpoTrainer` ou `DqnTrainer`) mais potentiellement

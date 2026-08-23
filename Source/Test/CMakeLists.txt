@@ -139,6 +139,14 @@ add_executable(UnitTests
     Unit/AiSolver/Training/test_critic_loss.cpp
     Unit/AiSolver/Training/test_actor_critic_trainer.cpp
     Unit/AiSolver/Training/test_convergence_comparator.cpp
+    # Algorithme avance DQN (LOT-ANNEXE-14) : reseau Q(s,a) et memoire de rejeu (TACHE-01), perte de
+    # Bellman/gradient checking (TACHE-01), boucle d'entrainement integree au harnais existant
+    # (TACHE-02), comparaison chiffree generalisee a quatre series (TACHE-03).
+    Unit/AiSolver/Training/test_q_network.cpp
+    Unit/AiSolver/Training/test_replay_buffer.cpp
+    Unit/AiSolver/Training/test_dqn_loss.cpp
+    Unit/AiSolver/Training/test_dqn_trainer.cpp
+    Unit/AiSolver/Training/test_generation_comparator.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp

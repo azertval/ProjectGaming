@@ -1,7 +1,7 @@
 # TACHE-03 — Comparaison chiffrée contre la génération 2 et le reste de la génération 3 {#lot-annexe-14-tache-03-comparaison-chiffree}
 
 **Lot :** [LOT-ANNEXE-14](epic.md) · **Emplacement :** `Source/AiSolver/Training/Advanced` ·
-**Statut :** à faire
+**Statut :** fait
 
 ## Contexte
 C'est la tâche de clôture de la génération 3, et du même coup de l'exigence ferme de l'utilisateur :

@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**1443 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**1461 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (1332)
+## Tests unitaires (1350)
 
 ### AiSolver
 
@@ -391,7 +391,7 @@
 | **TrainingStatsRecorderTest.FichierInterrompuResteExploitable** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Stats/test_training_stats_recorder.cpp:172`</sub> | Fichier interrompu simulé : destruction du recorder après `k` appels. | 1. Créer un `TrainingStatsRecorder`, appeler `record` 3 fois sur une séquence prévue de 10.<br/>2. Détruire le recorder (fin de portée) avant les 7 appels restants. | Vérifie que `lines.size()` vaut `4u`.<br/>Vérifie que `fields.size()` vaut `12u`.<br/>Vérifie que `std::stoi(fields[0])` vaut `static_cast<int>(i - 1)`. |
 | **TrainingStatsRecorderTest.RecordAjouteUneLigneSansAlterer** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Stats/test_training_stats_recorder.cpp:203`</sub> | `record` ajoute une ligne sans altérer les précédentes. | 1. `record` une première fois, lire le fichier.<br/>2. `record` une deuxième fois, lire de nouveau. | Vérifie que `afterFirst.size()` vaut `2u`.<br/>Vérifie que `afterSecond.size()` vaut `3u`.<br/>Vérifie que `afterSecond[0]` vaut `afterFirst[0]`.<br/>Vérifie que `afterSecond[1]` vaut `afterFirst[1]`. |
 
-#### Training (75)
+#### Training (93)
 
 **`test_actor_critic_loss.cpp`**
 
@@ -451,6 +451,24 @@
 | **DeterministicReplayTest.BorneDeLongueur** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_deterministic_replay.cpp:127`</sub> | replayBestIndividual : borne de longueur. | 1. Entraîner un individu.<br/>2. Le rejouer sur un environnement au budget de pas réduit et connu. | Vérifie que `training.solved` est vrai.<br/>Vérifie que `replay.steps.size()` est inférieur ou égal à `static_cast<std::size_t>(kMaxSteps)`. |
 | **DeterministicReplayTest.RejeuDUnIndividuNonResolvant** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_deterministic_replay.cpp:150`</sub> | replayBestIndividual : rejeu d'un individu non résolvant. | 1. Entraîner un individu.<br/>2. Le rejouer sur un environnement au budget de pas nul. | Vérifie que `training.solved` est vrai.<br/>Vérifie que `replay.status` diffère de `aisolver::EpisodeStatus::Won`.<br/>Vérifie que `replay.steps.empty()` est vrai. |
 
+**`test_dqn_loss.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **DqnLossTest.GradientCheckingParRapportAuReseauPrincipal** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_dqn_loss.cpp:102`</sub> | computeDqnLoss : gradient checking par rapport au reseau principal. | 1. Reseaux principal/cible minuscules, mini-lot de 3 transitions.<br/>2. Comparer gradients analytique et numerique. | Vérifie que `maxError` est strictement inférieur à `1e-2f`. |
+| **DqnLossTest.TransitionTerminaleIgnoreLeReseauCible** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_dqn_loss.cpp:130`</sub> | computeDqnLoss : transition terminale ignore le reseau cible. | 1. Un mini-lot d'une transition, `done = true`.<br/>2. Comparer la perte a l'erreur quadratique calculee a la main a partir de la seule recompense. | Vérifie que `actualLoss` vaut `expectedLoss`, à `1e-4f` près. |
+| **DqnLossTest.LeReseauCibleNAccumuleAucunGradient** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_dqn_loss.cpp:164`</sub> | computeDqnLoss : le reseau cible n'accumule aucun gradient. | 1. `backward()` sur la perte d'un mini-lot non terminal.<br/>2. Lire le gradient de chaque parametre du reseau cible. | Vérifie que `parameter->grad.data()[i]` vaut `0.0f` (comparaison flottante). |
+
+**`test_dqn_trainer.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **DqnTrainerTest.CsvBienFormes** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_dqn_trainer.cpp:126`</sub> | DqnTrainer : CSV bien formes. | 1. Run de 15 episodes.<br/>2. Lire les deux CSV. | Vérifie que `statLines.size()` vaut `kEpisodeCount + 1`.<br/>Vérifie que `dqnLines.size()` vaut `kEpisodeCount + 1`.<br/>Vérifie que `dqnLines[0]` vaut `"index,replayBufferSize,epsilon"`. |
+| **DqnTrainerTest.ReproductibiliteIntegrale** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_dqn_trainer.cpp:163`</sub> | DqnTrainer : reproductibilite integrale. | 1. Deux runs independants, meme graine/configuration.<br/>2. Comparer les CSV. | Vérifie que `first` vaut `second`. |
+| **DqnTrainerTest.ReseauCibleFigeAvantLaPeriodeDeSynchronisation** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_dqn_trainer.cpp:201`</sub> | DqnTrainer : reseau cible fige avant la periode de synchronisation. | 1. `targetSyncPeriodSteps` tres grand, run court.<br/>2. Comparer poids cible avant/ apres et poids principal avant/apres. | Vérifie que `targetBefore.data()[i]` vaut `targetAfter.data()[i]` (comparaison flottante).<br/>Vérifie que `anyChanged` est vrai. |
+| **DqnTrainerTest.SynchronisationEffectiveDuReseauCible** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_dqn_trainer.cpp:248`</sub> | DqnTrainer : synchronisation effective du reseau cible. | 1. `targetSyncPeriodSteps` petit, run de plusieurs episodes.<br/>2. Comparer les poids des deux reseaux a la fin. | Vérifie que `trainer.totalSteps()` est supérieur ou égal à `config.targetSyncPeriodSteps`.<br/>Vérifie que `anyChanged` est vrai. |
+| **DqnTrainerTest.ConfigurationDEpsilonEffective** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_dqn_trainer.cpp:294`</sub> | DqnTrainer : configuration d'epsilon effective. | 1. Deux runs identiques hormis `epsilonDecaySteps`.<br/>2. Comparer `currentEpsilon()` apres le meme run. | Vérifie que `trainer.totalSteps()` est strictement supérieur à `0u`.<br/>Vérifie que `epsilonFastDecay` diffère de `epsilonSlowDecay`. |
+
 **`test_evolutionary_non_regression.cpp`**
 
 | Titre (criticité) | Brief | Étapes | Résultat attendu |
@@ -482,6 +500,16 @@
 | **FitnessEvaluatorTest.TerminaisonGarantieSurBlocage** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_fitness_evaluator.cpp:120`</sub> | evaluateFitness : terminaison garantie (blocage détecté). | 1. Individu à action constante « ne rien faire ».<br/>2. Évaluer sur `demo-deplacement.json`. | Vérifie que `evaluation.stepCount` est strictement inférieur à `3000`. |
 | **FitnessEvaluatorTest.EvaluateAllSansFuiteDEtat** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_fitness_evaluator.cpp:140`</sub> | evaluateAll : aucune fuite d'état entre individus. | 1. Évaluer deux individus isolément (deux environnements distincts).<br/>2. Évaluer les deux mêmes individus (poids identiques, individus neufs) via `Population::evaluateAll` sur une seule instance d'environnement. | Vérifie que `evaluations.size()` vaut `2u`.<br/>Vérifie que `evaluations[0].fitness` vaut `isolatedMovingEvaluation.fitness` (comparaison flottante).<br/>Vérifie que `evaluations[1].fitness` vaut `isolatedStillEvaluation.fitness` (comparaison flottante). |
 
+**`test_generation_comparator.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **GenerationComparatorTest.NonRegressionDuCasADeuxSeries** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_generation_comparator.cpp:97`</sub> | compareGenerations : non-regression du cas a deux series. | 1. Deux series synthetiques.<br/>2. `compareConvergence` direct vs `compareGenerations`. | Vérifie que `results.size()` vaut `2u`.<br/>Vérifie que `results[0].report.has_value()` est vrai.<br/>Vérifie que `results[1].report.has_value()` est vrai.<br/>Vérifie que `results[0].report->meanEpisodesToThreshold` vaut `directReportA.meanEpisodesToThreshold`.<br/>Vérifie que `results[0].report->trialsReachingThreshold` vaut `directReportA.trialsReachingThreshold`.<br/>Vérifie que `results[0].report->finalRewardStdDev` vaut `directReportA.finalRewardStdDev` (comparaison flottante).<br/>Vérifie que `results[1].report->meanEpisodesToThreshold` vaut `directReportB.meanEpisodesToThreshold`.<br/>Vérifie que `results[1].report->trialsReachingThreshold` vaut `directReportB.trialsReachingThreshold`.<br/>Vérifie que `results[1].report->finalRewardStdDev` vaut `directReportB.finalRewardStdDev` (comparaison flottante). |
+| **GenerationComparatorTest.LectureUniformeDeCsvHeterogenes** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_generation_comparator.cpp:130`</sub> | compareGenerations : lecture uniforme de CSV heterogenes. | 1. Deux series avec des colonnes supplementaires differentes.<br/>2. `compareGenerations`. | Vérifie que `results.size()` vaut `2u`.<br/>Vérifie que `results[0].report.has_value()` est vrai.<br/>Vérifie que `results[1].report.has_value()` est vrai. |
+| **GenerationComparatorTest.RobustesseAUneSerieManquanteOuVide** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_generation_comparator.cpp:155`</sub> | compareGenerations : robustesse a une serie manquante ou vide. | 1. Trois series, l'une vide.<br/>2. `compareGenerations`. | Vérifie que `results.size()` vaut `3u`.<br/>Vérifie que `results[0].report.has_value()` est vrai.<br/>Vérifie que `results[1].report.has_value()` est faux.<br/>Vérifie que `results[2].report.has_value()` est vrai. |
+| **GenerationComparatorTest.ConversionDeBudgetEquitable** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_generation_comparator.cpp:181`</sub> | evolutionaryEpisodeBudget : conversion de budget equitable. | 1. `generationCount = 15`, `populationSize = 8`.<br/>2. `evolutionaryEpisodeBudget`. | Vérifie que `evolutionaryEpisodeBudget(15, 8)` vaut `120u`.<br/>Vérifie que `evolutionaryEpisodeBudget(0, 8)` vaut `0u`.<br/>Vérifie que `evolutionaryEpisodeBudget(15, 0)` vaut `0u`. |
+| **GenerationComparatorTest.ComparaisonAQuatreSeriesClotureGeneration3** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_generation_comparator.cpp:201`</sub> | Comparaison chiffree a quatre series (cloture generation 3). | 1. 3 essais de chaque approche, budget de jeu equivalent, niveau trivial.<br/>2. `compareGenerations` sur les quatre series. | Vérifie que `evolutionaryEpisodeBudget(kGenerationCount, kPopulationSize)` vaut `kEpisodeBudget`.<br/>Vérifie que `results.size()` vaut `4u`.<br/>Vérifie que `result.report.has_value()` est vrai.<br/>Vérifie que `std::isfinite(result.report->finalRewardStdDev)` est vrai.<br/>Vérifie que `result.report->finalRewardStdDev` est supérieur ou égal à `0.0f`. |
+
 **`test_genetic_operators.cpp`**
 
 | Titre (criticité) | Brief | Étapes | Résultat attendu |
@@ -512,6 +540,13 @@
 | **PopulationTest.ReproductibiliteInitialisation** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_population.cpp:92`</sub> | Population : reproductibilité de l'initialisation. | 1. Construire deux `Population` identiques avec des `Rng` de même graine.<br/>2. Comparer bit-à-bit tous les poids. | Vérifie que `paramsA.size()` vaut `paramsB.size()`.<br/>Vérifie que `paramsA[index]->value.size()` vaut `paramsB[index]->value.size()`.<br/>Vérifie que `paramsA[index]->value.data()[element]` vaut `paramsB[index]->value.data()[element]`. |
 | **PopulationTest.FitnessInitialNonEvalue** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_population.cpp:121`</sub> | Population : fitness initial non évalué. | 1. Construire une `Population`.<br/>2. Lire `fitness` de chaque individu. | Vérifie que `population.individual(index).fitness` vaut `kUnevaluatedFitness`. |
 
+**`test_q_network.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **QNetworkTest.FormeDeSortie** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_q_network.cpp:37`</sub> | QNetwork : forme de sortie. | 1. `QNetwork` sur une observation quelconque.<br/>2. `forward`. | Vérifie que `output->value.size()` vaut `actionCount()`. |
+| **QNetworkTest.CopieProfondeIndependante** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_q_network.cpp:53`</sub> | QNetwork : copie profonde independante. | 1. Synchroniser une cible depuis une source.<br/>2. Muter un poids de la source. | Vérifie que `sourceParameters.size()` vaut `targetParameters.size()`.<br/>Vérifie que `sourceParameters[i]->value.size()` vaut `targetParameters[i]->value.size()`.<br/>Vérifie que `sourceParameters[i]->value.data()[j]` vaut `targetParameters[i]->value.data()[j]` (comparaison flottante).<br/>Vérifie que `targetParameters.front()->value.data()[0]` vaut `originalTargetValue` (comparaison flottante). |
+
 **`test_reinforce_loss.cpp`**
 
 | Titre (criticité) | Brief | Étapes | Résultat attendu |
@@ -533,6 +568,14 @@
 | **ReinforceTrainerTest.ReproductibiliteIntegrale** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_reinforce_trainer.cpp:174`</sub> | ReinforceTrainer : reproductibilité intégrale. | 1. Deux runs identiques (même seed de base).<br/>2. Comparer les CSV produits. | Vérifie que `linesA.size()` vaut `linesB.size()`.<br/>Vérifie que `stripTimestampColumn(linesA[i])` vaut `stripTimestampColumn(linesB[i])`. |
 | **ReinforceTrainerTest.RemiseAZeroDesGradientsEntreEpisodes** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_reinforce_trainer.cpp:199`</sub> | ReinforceTrainer : remise à zéro des gradients entre épisodes. | 1. Run complet.<br/>2. Lire le gradient de chaque paramètre du réseau de politique. | Vérifie que `parameter->grad.data()[i]` vaut `0.0f` (comparaison flottante). |
 | **ReinforceTrainerTest.RobustesseAUnEpisodeTresCourt** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_reinforce_trainer.cpp:230`</sub> | ReinforceTrainer : robustesse à un épisode très court. | 1. Budget de pas réduit à `1` (force une fin d'épisode dès le premier pas si non résolu).<br/>2. `run(5)`. | `EXPECT_NO_THROW(trainer.run(5))`<br/>Vérifie que `lines.size()` vaut `6u`. |
+
+**`test_replay_buffer.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ReplayBufferTest.CapaciteRespecteeEvincementDeLaPlusAncienne** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_replay_buffer.cpp:37`</sub> | ReplayBuffer : capacite respectee, evincement de la plus ancienne. | 1. Capacite 3, pousser 5 transitions marquees 0..4.<br/>2. Verifier la taille et les marqueurs presents. | Vérifie que `buffer.size()` vaut `3u`.<br/>Vérifie que `buffer.capacity()` vaut `3u`.<br/>Vérifie que `markersPresent.count(0)` vaut `0u`.<br/>Vérifie que `markersPresent.count(1)` vaut `0u`.<br/>Vérifie que `markersPresent.count(2)` vaut `1u`.<br/>Vérifie que `markersPresent.count(3)` vaut `1u`.<br/>Vérifie que `markersPresent.count(4)` vaut `1u`. |
+| **ReplayBufferTest.EchantillonnageUniformeSansBiaisDeRecence** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_replay_buffer.cpp:68`</sub> | ReplayBuffer : echantillonnage uniforme, sans biais de recence. | 1. 5 transitions marquees 0..4 dans un tampon de capacite 5.<br/>2. 2000 tirages d'un element. | Vérifie que `markersSeen.size()` vaut `5u`. |
+| **ReplayBufferTest.TirageAvecRemiseSurTamponDUneSeuleTransition** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_replay_buffer.cpp:93`</sub> | ReplayBuffer : tirage avec remise. | 1. Tampon d'une seule transition.<br/>2. `sample(4, rng)`. | Vérifie que `batch.size()` vaut `4u`.<br/>Vérifie que `transition.reward` vaut `42.0f` (comparaison flottante). |
 
 **`test_replay_export.cpp`**
 
