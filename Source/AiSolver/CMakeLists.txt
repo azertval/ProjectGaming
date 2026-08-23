@@ -40,6 +40,13 @@ add_library(AiSolver STATIC
     # (générations 2 et 3), condition de comparabilité de leurs résultats (génération 4).
     Env/Reward.cpp
     Env/Episode.cpp
+    # Journalisation CSV incrementale des statistiques d'entrainement (LOT-ANNEXE-09) : format de
+    # colonnes unique, reutilise sans changement par toute la generation 2/3 puis par le harnais de
+    # benchmark (LOT-ANNEXE-15).
+    Stats/MovingAverage.cpp
+    Stats/CsvFormat.cpp
+    Stats/TrainingStatsRecorder.cpp
+    Stats/TrainingRunPath.cpp
 )
 
 # Racine d'inclusion = Source/ : les en-têtes s'incluent par chemin complet depuis la racine

@@ -1,6 +1,6 @@
 # LOT-ANNEXE-09 — Journalisation CSV des statistiques d'entraînement {#lot-annexe-09}
 
-> Statut : **non commencé**. Aucun prérequis fonctionnel direct (peut être développé en parallèle
+> Statut : **fait**. Aucun prérequis fonctionnel direct (peut être développé en parallèle
 > des autres lots de la génération 1). Dernier lot de la génération 1 : exigence explicite de
 > l'utilisateur — en complément de la démo rejouée en jeu, savoir **rapidement** si l'IA a atteint
 > son plafond sur le niveau en cours d'entraînement.
@@ -91,11 +91,11 @@ notion d'apprentissage en soi.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-training-stats-recorder.md) | `TrainingStatsRecorder` : interface générique | `Source/AiSolver/Stats` | ⬜ |
-| [TACHE-02](tache-02-colonnes-csv.md) | Colonnes CSV | `Source/AiSolver/Stats` | ⬜ |
-| [TACHE-03](tache-03-moyenne-mobile-delta.md) | Moyenne mobile et delta (détection de plateau) | `Source/AiSolver/Stats` | ⬜ |
-| [TACHE-04](tache-04-fichier-par-run.md) | Un fichier CSV par run, sous `/TrainingRuns/` | `Source/AiSolver/Stats` | ⬜ |
-| [TACHE-05](tache-05-tests.md) | Tests : écriture/relecture, stabilité du format | `Source/Test/Unit/AiSolver/Stats` | ⬜ |
+| [TACHE-01](tache-01-training-stats-recorder.md) | `TrainingStatsRecorder` : interface générique | `Source/AiSolver/Stats` | ✅ |
+| [TACHE-02](tache-02-colonnes-csv.md) | Colonnes CSV | `Source/AiSolver/Stats` | ✅ |
+| [TACHE-03](tache-03-moyenne-mobile-delta.md) | Moyenne mobile et delta (détection de plateau) | `Source/AiSolver/Stats` | ✅ |
+| [TACHE-04](tache-04-fichier-par-run.md) | Un fichier CSV par run, sous `/TrainingRuns/` | `Source/AiSolver/Stats` | ✅ |
+| [TACHE-05](tache-05-tests.md) | Tests : écriture/relecture, stabilité du format | `Source/Test/Unit/AiSolver/Stats` | ✅ |
 
 ## Critères d'acceptation du lot
 1. `TrainingStatsRecorder::record` accepte la même structure de ligne quel que soit l'algorithme

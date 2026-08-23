@@ -104,6 +104,13 @@ add_executable(UnitTests
     Unit/AiSolver/Env/test_reward.cpp
     Unit/AiSolver/Env/test_episode.cpp
     Unit/AiSolver/Env/test_reward_episode.cpp
+    # Journalisation CSV incrementale des statistiques d'entrainement (LOT-ANNEXE-09) : moyenne
+    # mobile/delta (TACHE-03), format de colonnes (TACHE-02), chemin de fichier par run (TACHE-04),
+    # recorder bout en bout (TACHE-01/05).
+    Unit/AiSolver/Stats/test_moving_average.cpp
+    Unit/AiSolver/Stats/test_csv_format.cpp
+    Unit/AiSolver/Stats/test_training_run_path.cpp
+    Unit/AiSolver/Stats/test_training_stats_recorder.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp
