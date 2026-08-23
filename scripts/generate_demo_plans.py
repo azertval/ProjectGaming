@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: 2026 Valentin Eloy
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-"""Genere les PLANS PICTURAUX des niveaux livres (LOT-69 TACHE-10).
+"""Genere les PLANS PICTURAUX des niveaux livres (LOT-69 TACHE-10, etendu au LOT-70).
 
 Pourquoi un script plutot que des images dessinees et commitees : la reproductibilite (LOT-66). Le
 resultat se reconstruit a l'identique depuis les sources du depot, et une correction de motif se
@@ -15,10 +15,15 @@ Ce que le script produit -- et ce qu'il ne pretend pas produire :
 - Il y **reporte** les anciens decors-sprites du niveau, a leurs positions d'origine : ceux
   d'arriere-plan dans le fond, ceux de premier plan dans un second plan a densite native, cree
   seulement pour les niveaux qui en avaient.
+- Pour les deux seuls niveaux ou la parallaxe est active (`FAR_BACKDROP_LEVELS`, LOT-70), il peint
+  en plus un plan **lointain** a densite 4, plus lent que le fond -- une vraie troisieme
+  profondeur, chacune a son propre facteur de defilement (`EX-DEC-043`), plutot qu'un jeu de
+  teintes empile sur un seul plan.
 
-L'intention visuelle de chaque tableau est ainsi preservee, mais ce n'est pas une fresque peinte
-qui exploiterait vraiment la profondeur : dessiner un tel tableau est un acte de level design, hors
-de ce lot d'outillage.
+L'intention visuelle de chaque tableau reste preservee ; seuls les deux niveaux a parallaxe active
+gagnent une fresque a trois profondeurs (LOT-70). Les vingt autres restent le report fidele de
+l'ancien habillage decrit par le LOT-69 -- les repeindre serait un acte de level design distinct,
+hors de ce lot.
 
 Aucune dependance externe (meme encodage PNG que les generateurs d'assets du projet). Les motifs
 proceduraux viennent de l'ancien `generate_test_decors.py`, retire avec le systeme de decors : ils
@@ -60,6 +65,20 @@ BACKDROP_PIXELS_PER_UNIT = 8
 # Opacite du voile de ciel d'un fond peint, sur 255. Assez pour teinter et unifier, assez peu
 # pour que l'image de fond du niveau reste visible dessous.
 SKY_VEIL_ALPHA = 90
+
+# Densite du plan LOINTAIN (LOT-70) : la moitie de celle du fond, pour la meme raison que
+# BACKDROP_PIXELS_PER_UNIT -- il est vu de plus loin encore, et masque sous l'horizon du plan
+# fond (opaque), donc invisible sur l'essentiel de sa surface.
+FAR_BACKDROP_PIXELS_PER_UNIT = 4
+
+# Voile de ciel du plan lointain : plus transparent que SKY_VEIL_ALPHA -- la profondeur se lit
+# aussi a l'estompage atmospherique, pas seulement au facteur de parallaxe.
+FAR_SKY_VEIL_ALPHA = 55
+
+# Fraction de l'horizon du plan fond (0.62, voir paint_backdrop) a laquelle placer la crete du
+# plan lointain : strictement AU-DESSUS, jamais en dessous -- le fond y est opaque et la
+# recouvrirait entierement, du travail invisible a l'ecran (LOT-70).
+FAR_HORIZON_RATIO = 0.82
 
 
 class Image:
@@ -397,6 +416,17 @@ def gear() -> Image:
     return image
 
 
+def star() -> Image:
+    """Un eclat lointain, quatre branches courtes -- motif du plan LOINTAIN nocturne (LOT-70)."""
+    glow: Color = (255, 250, 220, 235)
+    dim: Color = (255, 250, 220, 130)
+    image = Image(5, 5, TRANSPARENT)
+    image.set(2, 2, glow)
+    image.blend_rect(1, 2, 3, 1, dim)
+    image.blend_rect(2, 1, 1, 3, dim)
+    return image
+
+
 PROCEDURAL_MOTIFS = {
     "bush": bush,
     "branch": branch,
@@ -411,6 +441,7 @@ PROCEDURAL_MOTIFS = {
     "lantern": lantern,
     "pillar": pillar,
     "gear": gear,
+    "star": star,
 }
 
 # Motifs issus des packs Kenney (CC0 1.0), conserves comme ENTREES du generateur : ils ne sont
@@ -566,6 +597,8 @@ THEMES: dict[str, dict] = {
         "motifs": ("pillar", "gear", "rock"),
         "hanging": ("lantern",),
         "drifting": (),
+        # Plan LOINTAIN (LOT-70) : silhouettes de piliers au loin, posees sur la crete lointaine.
+        "far": {"drifting": (), "standing": ("pillar",)},
     },
     "test_night.png": {
         "sky": ((26, 30, 58, 255), (14, 16, 34, 255)),
@@ -573,6 +606,8 @@ THEMES: dict[str, dict] = {
         "motifs": ("crystal", "rock"),
         "hanging": (),
         "drifting": (),
+        # Plan LOINTAIN (LOT-70) : un semis d'etoiles au-dessus de la crete lointaine.
+        "far": {"drifting": ("star",), "standing": ()},
     },
     "kenney_grass.png": {
         "sky": ((150, 200, 236, 255), (206, 232, 246, 255)),
@@ -584,6 +619,33 @@ THEMES: dict[str, dict] = {
 }
 
 DEFAULT_THEME = THEMES["test_sky.png"]
+
+
+def jagged_ridge(
+    plane: Image,
+    rng: random.Random,
+    top_row: int,
+    fill: Color,
+    crest: Color | None,
+    roughness: int,
+    pixels_per_unit: int,
+    bottom_row: int | None = None,
+) -> None:
+    """Peint une silhouette dechiquetee : bandes verticales de largeur aleatoire, sommet jitteré.
+
+    Remplit jusqu'a `bottom_row` (par defaut le bas du plan). Un plan dont la crete superpose une
+    zone deja opaque sur un AUTRE plan -- le lointain sous l'horizon du fond, LOT-70 -- n'a pas
+    besoin d'aller plus bas que cette zone : peindre au-dela serait invisible a l'ecran.
+    """
+    limit = plane.height if bottom_row is None else bottom_row
+    column = 0
+    while column < plane.width:
+        span = max(2, rng.randint(3, 9) * pixels_per_unit // 4)
+        top = max(0, top_row + rng.randint(-roughness, roughness) * pixels_per_unit // 4)
+        plane.fill_rect(column, top, span, max(0, limit - top), fill)
+        if crest is not None:
+            plane.fill_rect(column, top, span, 2, crest)
+        column += span
 
 
 def paint_backdrop(
@@ -623,18 +685,56 @@ def paint_backdrop(
             (-4, (distant[0], distant[1], distant[2], distant[3]), None, 3),
             (0, far, near, 2),
         ):
-            column = 0
-            while column < plane.width:
-                span = max(2, rng.randint(3, 9) * pixels_per_unit // 4)
-                top = horizon + offset + rng.randint(-roughness, roughness) * pixels_per_unit // 4
-                plane.fill_rect(column, max(0, top), span, plane.height, fill)
-                if crest is not None:
-                    plane.fill_rect(column, max(0, top), span, 2, crest)
-                column += span
+            jagged_ridge(plane, rng, horizon + offset, fill, crest, roughness, pixels_per_unit)
 
     stand_on(plane, rng, theme["motifs"], max(1, width_units // 7), horizon, pixels_per_unit)
     hang_from_top(plane, rng, theme["hanging"], max(1, width_units // 10), pixels_per_unit)
     return plane
+
+
+def paint_far_backdrop(
+    width_units: int, height_units: int, pixels_per_unit: int, theme: dict, seed: str
+) -> Image:
+    """Peint le plan LOINTAIN d'un niveau (LOT-70) : ciel plus estompe qu'au fond, UNE seule
+    crete dechiquetee et un semis clairseme au-dessus.
+
+    Une seule crete, contrairement a `paint_backdrop` : ici la profondeur vient du facteur de
+    parallaxe propre a ce plan (`EX-DEC-043`, plus lent que celui du fond), pas d'un jeu de teintes
+    empilees sur un plan unique. La crete s'arrete a l'horizon du plan FOND correspondant (meme
+    formule, `0.62 * hauteur`) : plus bas, elle serait entierement recouverte par le fond opaque.
+    """
+    plane = Image(width_units * pixels_per_unit, height_units * pixels_per_unit)
+    rng = random.Random(seed + "-lointain")  # deterministe, distinct de la graine du fond.
+
+    sky_top, sky_bottom = theme["sky"]
+    wash(
+        plane,
+        (sky_top[0], sky_top[1], sky_top[2], FAR_SKY_VEIL_ALPHA),
+        (sky_bottom[0], sky_bottom[1], sky_bottom[2], FAR_SKY_VEIL_ALPHA),
+    )
+
+    fond_horizon = int(plane.height * 0.62)
+    far_horizon = int(fond_horizon * FAR_HORIZON_RATIO)
+
+    if theme["canopy"] is not None:
+        near, _far = theme["canopy"]
+        ridge_tone = tuple(int(round((near[i] + sky_bottom[i]) / 2)) for i in range(4))
+        jagged_ridge(plane, rng, far_horizon, ridge_tone, None, 3, pixels_per_unit,
+                     bottom_row=fond_horizon)
+
+    far = theme.get("far", {})
+    drift(plane, rng, far.get("drifting", ()), max(1, width_units // 8), 0, far_horizon - 2,
+          pixels_per_unit)
+    stand_on(plane, rng, far.get("standing", ()), max(1, width_units // 10), far_horizon,
+             pixels_per_unit)
+    return plane
+
+
+# Les deux seuls niveaux ou hmi::planeParallaxActive est vrai (cadrage Follow/PerRoom) : les seuls
+# ou un plan lointain, plus lent que le fond, serait effectivement visible a l'usage. Livrer ce
+# plan partout couterait une texture et une passe de rendu (LOT-69 TACHE-09) pour un decalage que
+# le cadrage WholeLevel neutralise ailleurs (LOT-70).
+FAR_BACKDROP_LEVELS = frozenset({"demo-mouvement", "demo-final"})
 
 
 # Les decors-sprites que les niveaux livres portaient AVANT le LOT-69, a leurs positions
@@ -758,11 +858,13 @@ LEGACY_DECORS: dict[str, tuple[tuple[str, float, float, str], ...]] = {
 
 def build_level(stem: str, width_units: int, height_units: int, theme: dict) -> dict[str, Image]:
     """Les plans d'un niveau : un fond peint qui recoit ses anciens decors d'arriere-plan, et --
-    seulement s'il en avait -- un plan de devant qui ne porte que ceux de premier plan.
+    seulement s'il en avait -- un plan de devant qui ne porte que ceux de premier plan. Les deux
+    niveaux de `FAR_BACKDROP_LEVELS` recoivent en plus un plan lointain (LOT-70).
 
     Le plan de devant n'est cree QUE si le niveau en a besoin : livrer partout un plan presque
     entierement transparent couterait une texture pleine taille et une passe de rendu par image
-    (TACHE-09) pour ne rien montrer.
+    (TACHE-09) pour ne rien montrer. Meme regle pour le plan lointain, restreint aux deux niveaux
+    ou la parallaxe est effectivement active (`hmi::planeParallaxActive`).
     """
     decors = LEGACY_DECORS.get(stem, ())
     behind = paint_backdrop(width_units, height_units, BACKDROP_PIXELS_PER_UNIT, theme, stem)
@@ -771,6 +873,12 @@ def build_level(stem: str, width_units: int, height_units: int, theme: dict) -> 
             place(behind, name, x, y, BACKDROP_PIXELS_PER_UNIT)
 
     planes = {f"{stem}-fond.png": behind}
+
+    if stem in FAR_BACKDROP_LEVELS:
+        far = paint_far_backdrop(width_units, height_units, FAR_BACKDROP_PIXELS_PER_UNIT, theme,
+                                  stem)
+        planes[f"{stem}-lointain.png"] = far
+
     front_decors = [decor for decor in decors if decor[3] == "foreground"]
     if front_decors:
         front = Image(width_units * NATIVE_PIXELS_PER_UNIT, height_units * NATIVE_PIXELS_PER_UNIT)

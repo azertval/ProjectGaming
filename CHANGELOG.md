@@ -6,6 +6,21 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+### Parallaxe à trois profondeurs des tableaux qui défilent (LOT-70)
+
+- `demo-mouvement` (suivi continu) et `demo-final` (caméra par salle) — les deux seuls tableaux
+  livrés où `hmi::planeParallaxActive` est vrai — gagnent un troisième plan, **lointain**, à
+  densité 4 et à facteur de parallaxe plus lent que le plan « fond » existant (0.2 contre 0.6 pour
+  `demo-mouvement`, 0.15 contre 0.5 pour `demo-final`). Les vingt autres tableaux, dont la
+  parallaxe est neutralisée en cadrage `WholeLevel`, sont inchangés.
+- `scripts/generate_demo_plans.py` gagne une fonction de peinture dédiée au plan lointain (crête
+  déchiquetée unique, ciel plus estompé, semis clairsemé), et un motif procédural `star()` pour le
+  thème nocturne. Reproductible comme le reste du générateur (`--check`).
+- Un garde-fou système (`test_plans_livres.cpp`) vérifie que tout niveau à parallaxe active déclare
+  au moins trois plans aux facteurs strictement croissants, avec son cas négatif.
+- Répond au manque explicitement consigné par le `LOT-69` TACHE-10 : la migration n'avait livré
+  qu'un report fidèle de l'ancien habillage, pas une fresque exploitant réellement la profondeur.
+
 ### Licence
 
 - Le projet passe de « Tous droits réservés » à la **GNU General Public License v3.0 ou ultérieure**

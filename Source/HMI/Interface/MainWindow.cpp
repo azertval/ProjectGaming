@@ -654,7 +654,13 @@ void MainWindow::connectPlanesPanel() {
     connect(_planes, &PlanesPanel::visibilityToggled, this,
             [this, refreshPlanes](std::size_t index, bool visible) {
                 _viewport->setPlaneVisible(index, visible);
-                refreshPlanes();
+                // Differe : ce signal vient d'un itemChanged emis PAR planeTree lui-meme (case a
+                // cocher de la colonne Visible) -- refreshPlanes() reconstruit cet arbre (clear()
+                // dans PlanesPanel::rebuildTree). Le faire de facon synchrone detruit l'item que
+                // QTreeWidget est encore en train de traiter (le clic n'a pas fini de se propager
+                // dans sa pile d'appels interne) -> crash. Un cran d'event loop suffit a laisser
+                // Qt terminer son propre traitement avant qu'on ne vide l'arbre.
+                QTimer::singleShot(0, this, refreshPlanes);
             });
     connect(_planes, &PlanesPanel::isolateToggled, this,
             [this, refreshPlanes](std::size_t index, bool isolate) {
@@ -1229,7 +1235,7 @@ void MainWindow::chooseSequenceLevel(const QString& levelName) {
     if (!sequence) {
         return;
     }
-    if (!isLevelUnlocked(_progression, sequence->levels, name)) {
+    if (!isLevelPlayable(_progression, sequence->levels, name)) {
         HMI_LOG_WARNING("Selection de niveau : tableau verrouille ignore (" + name + ").");
         return;
     }
@@ -1390,7 +1396,16 @@ void MainWindow::buildUi() {
                         return;
                     }
                     _pixelCanvas->setActiveTool(tool);
-                    switchToWorkspace(hmi::workspaceForPixelTool(tool));
+                    // JAMAIS depuis l'espace Plans (LOT-69) : la barre d'outils pixel y est
+                    // partagee avec l'Atelier (hmi::dressingForWorkspace), donc ce bouton n'est
+                    // visible que dans ces deux espaces -- mais hmi::workspaceForPixelTool renvoie
+                    // toujours PixelArt. Le suivre depuis Plans fermerait le plan en cours
+                    // (switchToWorkspace y vide le canevas, closePlaneInCanvas) alors que rien ne
+                    // le demande : choisir la Gomme pendant qu'on peint un plan ne doit jamais
+                    // faire perdre ce qu'on est en train de peindre.
+                    if (_workspace != hmi::EditorWorkspace::Planes) {
+                        switchToWorkspace(hmi::workspaceForPixelTool(tool));
+                    }
                     refreshStatusHelp();
                     applyPixelPanelFocus(tool);
                 });

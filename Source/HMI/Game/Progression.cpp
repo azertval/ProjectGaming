@@ -9,6 +9,7 @@
 
 #include <nlohmann/json.hpp>
 
+#include "Core/BuildConfig.h"
 #include "HMI/HmiLog.h"
 
 namespace hmi {
@@ -106,6 +107,18 @@ bool isLevelUnlocked(const Progression& progression, const std::vector<std::stri
     }
     return false;  // sequence entierement terminee et levelName absent : n'existe pas (ou n'est
                    // pas dans cette sequence), jamais jouable par cette regle.
+}
+
+bool isLevelPlayable(const Progression& progression, const std::vector<std::string>& sequence,
+                     const std::string& levelName) {
+    // if/else (pas de retour anticipe suivi d'un autre return) : sous MSVC /WX, un `if constexpr`
+    // qui retourne laisse le code suivant statiquement inatteignable en build de developpement,
+    // ce que le compilateur signale (C4702) et que /WX transforme en erreur.
+    if constexpr (core::kDeveloperBuild) {
+        return true;
+    } else {
+        return isLevelUnlocked(progression, sequence, levelName);
+    }
 }
 
 }  // namespace hmi

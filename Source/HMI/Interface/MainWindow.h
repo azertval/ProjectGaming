@@ -342,8 +342,9 @@ private:
     /// Retour au menu depuis l'écran de crédits.
     void closeCredits();
     /// Un tableau de séquence a été choisi dans `_levelSelectScreen` : **revalidé** via
-    /// `hmi::isLevelUnlocked` avant tout lancement (défense en profondeur, `EX-IHM-005`) -- jamais
-    /// lancé verrouillé, même si l'écran l'a par erreur laissé passer.
+    /// `hmi::isLevelPlayable` avant tout lancement (défense en profondeur, `EX-IHM-005`) -- jamais
+    /// lancé verrouillé, même si l'écran l'a par erreur laissé passer (sauf en build de
+    /// développement, où tout est jouable, `LOT-70`).
     void chooseSequenceLevel(const QString& levelName);
     /// Un niveau **personnel** a été choisi (hors séquence) : lancé seul
     /// (`_gameTracksProgression = false`), ne touche jamais la progression de la séquence.

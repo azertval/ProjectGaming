@@ -109,4 +109,16 @@ private:
                                    const std::vector<std::string>& sequence,
                                    const std::string& levelName);
 
+/**
+ * @brief Variante utilisée par l'IHM (affichage de l'écran de sélection ET garde au lancement,
+ *        `LOT-70`) : identique à `isLevelUnlocked`, sauf en build de **développement**
+ *        (`core::kDeveloperBuild`, `Core/BuildConfig.h`) où elle retourne toujours vrai -- pour
+ *        tester un tableau donné sans rejouer toute la séquence depuis le début à chaque
+ *        lancement. `isLevelUnlocked` elle-même reste inchangée (ses tests couvrent la règle de
+ *        progression indépendamment du type de build) ; en Release les deux fonctions coïncident.
+ */
+[[nodiscard]] bool isLevelPlayable(const Progression& progression,
+                                   const std::vector<std::string>& sequence,
+                                   const std::string& levelName);
+
 }  // namespace hmi

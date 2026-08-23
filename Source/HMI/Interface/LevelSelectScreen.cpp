@@ -22,15 +22,16 @@ namespace hmi {
 namespace {
 
 // État affiché pour chaque tableau de la séquence -- résolu une fois (setSequenceLevels), jamais
-// recalculé au clic : la règle de déverrouillage (hmi::isLevelUnlocked) est la seule autorité,
-// mais MainWindow la revalide de toute façon avant de lancer quoi que ce soit.
+// recalculé au clic : la règle de déverrouillage (hmi::isLevelPlayable, qui delegue a
+// hmi::isLevelUnlocked hors build de developpement) est la seule autorité, mais MainWindow la
+// revalide de toute façon avant de lancer quoi que ce soit.
 [[nodiscard]] LevelSelectState resolveState(const Progression& progression,
                                             const std::vector<std::string>& sequence,
                                             const std::string& levelName) {
     if (progression.isCompleted(levelName)) {
         return LevelSelectState::Completed;
     }
-    return isLevelUnlocked(progression, sequence, levelName) ? LevelSelectState::Current
+    return isLevelPlayable(progression, sequence, levelName) ? LevelSelectState::Current
                                                              : LevelSelectState::Locked;
 }
 

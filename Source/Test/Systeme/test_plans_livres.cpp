@@ -4,8 +4,9 @@
 /**
  * @file test_plans_livres.cpp
  * @brief Tests système du contenu livré côté plans picturaux : plus aucun décor dans les
- *        niveaux, et tout plan référencé existe aux dimensions que sa densité impose
- *        (`EX-LVL-009`, `EX-DEC-040`, `EX-DEC-041`, `EX-NFR-031`, LOT-69 TACHE-10).
+ *        niveaux, tout plan référencé existe aux dimensions que sa densité impose, et les niveaux
+ *        à parallaxe active déclarent trois profondeurs croissantes (`EX-LVL-009`, `EX-DEC-040`,
+ *        `EX-DEC-041`, `EX-DEC-043`, `EX-NFR-031`, LOT-69 TACHE-10, LOT-70).
  *
  * Le contrôle porte sur les **fichiers du dépôt**, pas sur une structure en mémoire : c'est le
  * seul endroit qui puisse attraper un plan déclaré mais jamais généré, ou généré à une taille que
@@ -85,6 +86,30 @@ PngSize readPngSize(const std::filesystem::path& path) {
     return PngSize{readBigEndian(16), readBigEndian(20)};
 }
 
+/// Les deux seuls niveaux livrés où `hmi::planeParallaxActive` vaut `true` (cadrage `Follow` pour
+/// `demo-mouvement`, `PerRoom` pour `demo-final`) : les seuls où une troisième profondeur de plan
+/// a un effet visible (LOT-70). `HMI` n'est pas une dépendance de ce fichier (`EX-NFR-004`), d'où
+/// la liste écrite en dur plutôt que recalculée depuis le cadrage résolu du niveau — même patron
+/// que `deliveredLevelBudgets()` de `test_render_budget.cpp`.
+constexpr std::array<const char*, 2> PARALLAX_ACTIVE_LEVELS{"demo-mouvement.json",
+                                                            "demo-final.json"};
+
+/// @return `true` si @p planes compte au moins @p minimumCount plans dont les `parallaxX` sont
+/// **strictement croissants** dans l'ordre de la liste — la forme qui rend une parallaxe
+/// multi-profondeur effectivement lisible (lointain le plus lent, devant le plus rapide, LOT-70).
+bool hasStrictlyIncreasingParallaxDepth(const std::vector<core::Plane>& planes,
+                                        std::size_t minimumCount) {
+    if (planes.size() < minimumCount) {
+        return false;
+    }
+    for (std::size_t index = 1; index < planes.size(); ++index) {
+        if (!(planes[index - 1].parallaxX < planes[index].parallaxX)) {
+            return false;
+        }
+    }
+    return true;
+}
+
 }  // namespace
 
 /**
@@ -152,4 +177,59 @@ TEST(PlansLivresSysteme, ToutPlanReferenceExisteAuxDimensionsAttendues) {
     }
     EXPECT_GT(checked, 0) << "Aucun plan verifie : le contenu livre n'en declare plus un seul, ce "
                              "qui viderait ce test de son sens.";
+}
+
+/**
+ * @brief Les niveaux à parallaxe active déclarent au moins trois profondeurs de plan, aux
+ *        facteurs de parallaxe strictement croissants (LOT-70).
+ *
+ * Un facteur croissant du plus lointain au plus proche (`EX-DEC-043`) est ce qui rend la
+ * parallaxe lisible comme une **profondeur**, plutôt que comme un simple désalignement entre
+ * plans. Sans ce test, un niveau réédité dans l'éditeur pourrait perdre son plan lointain ou voir
+ * ses facteurs inversés sans qu'aucun test ne le remarque.
+ * \castest{<b>Les niveaux a parallaxe active declarent trois profondeurs croissantes.</b><br/>
+ * \tcat Systeme · Contenu livre<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Charger demo-mouvement.json et demo-final.json.<br/>2. Lire la liste ordonnee de
+ * leurs plans.<br/>
+ * \tattendu Chacun compte au moins trois plans dont les parallaxX sont strictement croissants.
+ * }
+ */
+TEST(PlansLivresSysteme, NiveauxAParallaxeActiveDeclarentTroisProfondeursCroissantes) {
+    for (const char* name : PARALLAX_ACTIVE_LEVELS) {
+        SCOPED_TRACE(name);
+        const core::LevelLoadResult loaded =
+            core::LevelLoader::loadFromFile(levelsDirectory() / name);
+        ASSERT_TRUE(loaded.ok()) << name << " : " << loaded.error;
+        EXPECT_TRUE(hasStrictlyIncreasingParallaxDepth(loaded.level->planes(), 3))
+            << name
+            << " devrait declarer au moins trois plans aux facteurs de parallaxe strictement "
+               "croissants (LOT-70) : lointain < fond < devant.";
+    }
+}
+
+/**
+ * @brief Un plan lointain manquant fait échouer le garde-fou de profondeur.
+ *
+ * Le sens qui compte : un garde-fou qu'on n'a jamais vu refuser quoi que ce soit ne prouve rien
+ * (même principe que `RenderBudgetTest.UnPlanDePlusSurUnNiveauAuPlafondDepasseLeBudgetDeMemoire`).
+ * \castest{<b>Retirer le plan lointain fait echouer le garde-fou de profondeur.</b><br/>
+ * \tcat Systeme · Contenu livre<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Charger demo-mouvement.json.<br/>2. Retirer son premier plan (le lointain) de la
+ * liste en memoire.<br/>
+ * \tattendu Le garde-fou refuse la liste amputee.
+ * }
+ */
+TEST(PlansLivresSysteme, UnPlanLointainManquantFaitEchouerLeGardeFouDeProfondeur) {
+    const core::LevelLoadResult loaded =
+        core::LevelLoader::loadFromFile(levelsDirectory() / "demo-mouvement.json");
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    std::vector<core::Plane> withoutFarPlane = loaded.level->planes();
+    ASSERT_FALSE(withoutFarPlane.empty());
+    withoutFarPlane.erase(withoutFarPlane.begin());
+
+    EXPECT_FALSE(hasStrictlyIncreasingParallaxDepth(withoutFarPlane, 3))
+        << "Un plan lointain en moins doit faire echouer le garde-fou de profondeur.";
 }
