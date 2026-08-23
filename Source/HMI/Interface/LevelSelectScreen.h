@@ -27,7 +27,7 @@ class Localization;
 class Progression;
 
 /// État d'un tableau de séquence dans la liste (`LevelSelectScreen::setSequenceLevels`) --
-/// résolu une fois par `hmi::isLevelUnlocked`/`Progression::isCompleted`, jamais recalculé par ce
+/// résolu une fois par `hmi::isLevelPlayable`/`Progression::isCompleted`, jamais recalculé par ce
 /// widget (qui ne connaît ni `Progression` ni la règle de déverrouillage).
 enum class LevelSelectState {
     Completed,
@@ -41,7 +41,7 @@ enum class LevelSelectState {
  *        **personnels** du dossier (créés dans l'éditeur, hors séquence et hors progression).
  *
  * N'émet que des intentions ; `MainWindow` **revalide** tout choix de tableau de séquence via
- * `hmi::isLevelUnlocked` avant de le lancer (défense en profondeur, `EX-IHM-005`) -- cet écran
+ * `hmi::isLevelPlayable` avant de le lancer (défense en profondeur, `EX-IHM-005`) -- cet écran
  * grise déjà les tableaux verrouillés (`Qt::ItemIsEnabled`), mais n'est pas l'unique garde.
  */
 class LevelSelectScreen : public QWidget {
@@ -57,7 +57,7 @@ public:
     void retranslateUi(const Localization& loc);
 
     /// Remplit l'onglet Séquence : une ligne par tableau de @p sequence, dans l'ordre, avec son
-    /// état (`hmi::isLevelUnlocked`/`Progression::isCompleted`) -- terminé, atteint (jouable, non
+    /// état (`hmi::isLevelPlayable`/`Progression::isCompleted`) -- terminé, atteint (jouable, non
     /// terminé) ou verrouillé (grisé, non activable, ni au clic ni au clavier/manette).
     void setSequenceLevels(const std::vector<std::string>& sequence,
                            const Progression& progression);

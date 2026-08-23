@@ -9,6 +9,7 @@
 
 #include <nlohmann/json.hpp>
 
+#include "Core/BuildConfig.h"
 #include "HMI/HmiLog.h"
 
 namespace hmi {
@@ -106,6 +107,14 @@ bool isLevelUnlocked(const Progression& progression, const std::vector<std::stri
     }
     return false;  // sequence entierement terminee et levelName absent : n'existe pas (ou n'est
                    // pas dans cette sequence), jamais jouable par cette regle.
+}
+
+bool isLevelPlayable(const Progression& progression, const std::vector<std::string>& sequence,
+                     const std::string& levelName) {
+    if constexpr (core::kDeveloperBuild) {
+        return true;
+    }
+    return isLevelUnlocked(progression, sequence, levelName);
 }
 
 }  // namespace hmi

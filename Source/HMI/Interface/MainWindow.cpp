@@ -1235,7 +1235,7 @@ void MainWindow::chooseSequenceLevel(const QString& levelName) {
     if (!sequence) {
         return;
     }
-    if (!isLevelUnlocked(_progression, sequence->levels, name)) {
+    if (!isLevelPlayable(_progression, sequence->levels, name)) {
         HMI_LOG_WARNING("Selection de niveau : tableau verrouille ignore (" + name + ").");
         return;
     }
