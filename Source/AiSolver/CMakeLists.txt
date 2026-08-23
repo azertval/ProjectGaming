@@ -21,6 +21,9 @@ add_library(AiSolver STATIC
     Optim/OptimizerUtils.cpp
     Optim/Sgd.cpp
     Optim/Adam.cpp
+    # Environnement de simulation headless (LOT-ANNEXE-05) : rejoue un niveau pas a pas, sans
+    # fenetre ni GPU, derriere une API reset/step -- lie uniquement a Core (voir ci-dessous).
+    Env/HeadlessLevelEnvironment.cpp
 )
 
 # Racine d'inclusion = Source/ : les en-têtes s'incluent par chemin complet depuis la racine
