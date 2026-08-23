@@ -93,6 +93,12 @@ add_executable(UnitTests
     Unit/AiSolver/Env/test_mechanism_state_encoder.cpp
     Unit/AiSolver/Env/test_observation_determinisme.cpp
     Unit/AiSolver/Env/test_observation_bords_carte.cpp
+    # Espace d'action discret (TACHE-01), decodage deterministe/stochastique (TACHE-02) et format
+    # de rejeu v1 (TACHE-03), LOT-ANNEXE-07 : test de bout en bout inclus dans test_replay_file.cpp
+    # (TACHE-04).
+    Unit/AiSolver/Env/test_action_space.cpp
+    Unit/AiSolver/Env/test_action_decoding.cpp
+    Unit/AiSolver/Replay/test_replay_file.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp

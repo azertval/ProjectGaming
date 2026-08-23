@@ -29,6 +29,12 @@ add_library(AiSolver STATIC
     Env/TileWindowEncoder.cpp
     Env/PlayerStateEncoder.cpp
     Env/MechanismStateEncoder.cpp
+    # Espace d'action discret, decodage deterministe/stochastique et format de rejeu v1
+    # (LOT-ANNEXE-07) : traduisent une distribution produite par un reseau en core::PlayerInput
+    # jouable, et exportent une sequence d'actions gagnante dans un fichier rejouable en jeu.
+    Env/ActionSpace.cpp
+    Env/ActionDecoding.cpp
+    Replay/ReplayFile.cpp
 )
 
 # Racine d'inclusion = Source/ : les en-têtes s'incluent par chemin complet depuis la racine
@@ -39,4 +45,7 @@ target_include_directories(AiSolver PUBLIC ${PROJECT_SOURCE_DIR}/Source)
 # PROJECTGAMING_ASSERT (Core/Diagnostics/Assert.h) et sont inclus directement par les consommateurs
 # d'AiSolver -- il leur faut donc le chemin d'inclusion et l'édition de liens de Core, pas
 # seulement Rng.cpp (seul fichier compilé dans cette bibliothèque).
-target_link_libraries(AiSolver PUBLIC Core project_warnings project_options)
+# PRIVATE : seul Replay/ReplayFile.cpp (LOT-ANNEXE-07) utilise nlohmann::json directement, aucun
+# en-tete public d'AiSolver ne l'expose (meme raison que Core PRIVATE ci-dessus).
+target_link_libraries(AiSolver PUBLIC Core project_warnings project_options
+    PRIVATE nlohmann_json::nlohmann_json)
