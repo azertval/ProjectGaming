@@ -54,12 +54,14 @@ void EvolutionaryTrainer::runGeneration() {
     float worstReward = evaluations.front().fitness;
     float sumReward = 0.0f;
     int bestStepCount = evaluations.front().stepCount;
+    EpisodeStatus bestStatus = evaluations.front().status;
     int wonCount = 0;
     for (const FitnessEvaluation& evaluation : evaluations) {
         sumReward += evaluation.fitness;
         if (evaluation.fitness > bestReward) {
             bestReward = evaluation.fitness;
             bestStepCount = evaluation.stepCount;
+            bestStatus = evaluation.status;
         }
         if (evaluation.fitness < worstReward) {
             worstReward = evaluation.fitness;
@@ -68,6 +70,7 @@ void EvolutionaryTrainer::runGeneration() {
             ++wonCount;
         }
     }
+    _lastChampionStatus = bestStatus;
     const float meanReward = sumReward / static_cast<float>(evaluations.size());
     float varianceSum = 0.0f;
     for (const FitnessEvaluation& evaluation : evaluations) {

@@ -1,7 +1,7 @@
 # TACHE-04 — Documentation de l'ordre de niveaux indicatif {#lot-annexe-11-tache-04-ordre-niveaux-curriculum}
 
 **Lot :** [LOT-ANNEXE-11](epic.md) · **Emplacement :** `Documentation/Lot-Annexe` · **Statut :**
-non commencé
+fait
 
 ## Contexte
 `LevelTrainingSession` (TACHE-01) entraîne toujours **un seul** niveau par exécution, sans jamais
@@ -29,23 +29,36 @@ sans introduire aucun mécanisme logiciel qui l'imposerait.
 
 ## Tableau niveau → mécanique(s) (ordre indicatif, repris de `demo-*.json`)
 
+> Mis à jour au moment de la rédaction de ce lot pour refléter la séquence effective de
+> `Source/Elements/Levels/sequence-demo.json`/`Source/Test/Systeme/ScriptedLevelSequence.h` (22
+> niveaux) — la table d'origine de cette section, rédigée au cadrage du programme Lot-Annexe, avant
+> l'évolution ultérieure de cette séquence (`LOT-65`), ne correspondait plus à l'ordre réel ; voir
+> le point d'attention ci-dessus sur l'obsolescence possible.
+
 | # | Fichier | Mécanique(s) exercée(s) |
 |---|---------|--------------------------|
-| 1 | `demo-deplacement.json` | Mouvement horizontal, chute, sol — aucune action de saut requise |
+| 1 | `demo-deplacement.json` | Mouvement horizontal, chute, sol — aucun saut requis |
 | 2 | `demo-saut.json` | Saut simple, hauteur variable |
 | 3 | `demo-double-saut.json` | Saut aérien (double saut) |
 | 4 | `demo-wall-jump.json` | Wall slide + wall jump |
-| 5 | `demo-dash.json` | Dash 8 directions |
-| 6 | `demo-interrupteur.json` | Interrupteur ↔ porte (activation au front) |
-| 7 | `demo-plaque-pression.json` | Plaque de pression (activation continue) |
-| 8 | `demo-bloc.json` | Bloc poussable |
-| 9 | `demo-budget.json` | Budget limité de sauts/dashs |
-| 10 | `demo-pente.json` | Pente à 45° |
-| 11 | `demo-arrondi.json` | Arrondi (variante courbe de la pente) |
-| 12 | `demo-bloc-reduit.json` | Bloc à taille réduite (`×0.5`) |
-| 13 | `demo-dangers-avances.json` | Dangers directionnel/mobile/commuté/temporisé (optionnels, contournables) |
-| 14 | `demo-final.json` | Combinaison : dash, pente, bloc poussable, interrupteur/porte, double saut |
-| 15 | `demo-salles.json` | Niveau à salles multiples (passage à l'échelle spatiale, pas de nouvelle mécanique de déplacement) |
+| 5 | `demo-dash.json` | Dash |
+| 6 | `demo-mouvement.json` | Synthèse : dash, double saut, wall jump enchaînés |
+| 7 | `demo-interrupteur.json` | Interrupteur ↔ porte (activation au front) |
+| 8 | `demo-plaque-pression.json` | Plaque de pression (activation continue, poids qui doit rester) |
+| 9 | `demo-cle.json` | Clé ↔ porte verrouillée (contact + interaction) |
+| 10 | `demo-bloc.json` | Bloc poussable |
+| 11 | `demo-bloc-reduit.json` | Bloc à taille réduite (`×0.5`) |
+| 12 | `demo-bloc-quart.json` | Bloc à taille quart (`×0.25`, obstrue un couloir bas) |
+| 13 | `demo-pente.json` | Pentes et arrondis (montée puis descente) |
+| 14 | `demo-pente-gauche.json` | Pentes orientées vers la gauche (miroir du précédent) |
+| 15 | `demo-concave.json` | Arrondis concaves (sol et plafond) |
+| 16 | `demo-plafond.json` | Plafond incliné (saut sous obstacle) |
+| 17 | `demo-dangers-directionnels.json` | Dangers directionnels (marche sûre, saut dangereux) |
+| 18 | `demo-dangers-avances.json` | Dangers mobile/commuté/temporisé (fenêtres d'attente) |
+| 19 | `demo-plateforme.json` | Plateformes mobiles (portage de bloc, timing) |
+| 20 | `demo-budget.json` | Budget limité de sauts/dashs |
+| 21 | `demo-synthese.json` | Synthèse : mécanismes, terrain et dangers entrelacés |
+| 22 | `demo-final.json` | Niveau final multi-salles : combine l'ensemble des mécaniques précédentes |
 
 ## Fichiers impactés
 - `Documentation/Lot-Annexe/LOT-ANNEXE-11-entrainement-niveau-par-niveau/

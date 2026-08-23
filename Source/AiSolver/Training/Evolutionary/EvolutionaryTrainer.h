@@ -7,6 +7,7 @@
 #include <filesystem>
 #include <string>
 
+#include "AiSolver/Env/Episode.h"
 #include "AiSolver/Stats/TrainingStatsRecorder.h"
 #include "AiSolver/Training/Evolutionary/EvolutionaryConfig.h"
 #include "AiSolver/Training/Evolutionary/Population.h"
@@ -56,6 +57,14 @@ public:
     /// @return Le meilleur individu connu de la génération courante (fitness maximal).
     [[nodiscard]] const Individual& bestIndividual() const;
 
+    /// @return Le statut de fin d'épisode (`LOT-ANNEXE-08`) du meilleur individu de la dernière
+    /// génération exécutée (`runGeneration()`) — donne à l'appelant (`LOT-ANNEXE-11`) le moyen de
+    /// distinguer un champion qui progresse d'un champion qui résout réellement le niveau, sans
+    /// réévaluer l'individu une seconde fois.
+    [[nodiscard]] EpisodeStatus lastChampionStatus() const noexcept {
+        return _lastChampionStatus;
+    }
+
     /// @return Le nombre d'appels effectifs à `runGeneration()` déjà réalisés.
     [[nodiscard]] int generationIndex() const noexcept {
         return _generationIndex;
@@ -72,6 +81,7 @@ private:
     std::string _levelName;
     Population _population;
     int _generationIndex = 0;
+    EpisodeStatus _lastChampionStatus = EpisodeStatus::Ongoing;
 };
 
 }  // namespace aisolver::training::evolutionary

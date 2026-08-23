@@ -1,6 +1,6 @@
 # LOT-ANNEXE-11 — Entraînement niveau-par-niveau et export de rejeu {#lot-annexe-11}
 
-> Statut : **non commencé**. Dépend de [LOT-ANNEXE-10](@ref lot-annexe-10) (algorithme
+> Statut : **fait**. Dépend de [LOT-ANNEXE-10](@ref lot-annexe-10) (algorithme
 > évolutionniste) et [LOT-ANNEXE-07](@ref lot-annexe-07) (format de rejeu v1, décodage `argmax`).
 > Dernier lot de la génération 2 : applique l'algorithme à un niveau réel du jeu et produit un
 > livrable concret — une séquence d'actions rejouable en jeu, sans aucune inférence live.
@@ -94,10 +94,10 @@ s'inspire du principe pédagogique « un mécanisme à la fois » déjà appliqu
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-boucle-entrainement.md) | Boucle d'entraînement pour un niveau et critère d'arrêt | `Source/AiSolver/Training` | ⬜ |
-| [TACHE-02](tache-02-rejeu-deterministe.md) | Rejeu déterministe du meilleur individu | `Source/AiSolver/Training` | ⬜ |
-| [TACHE-03](tache-03-export-rejeu.md) | Export au format de rejeu v1 | `Source/AiSolver/Training` | ⬜ |
-| [TACHE-04](tache-04-ordre-niveaux-curriculum.md) | Documentation de l'ordre de niveaux indicatif | `Documentation/Lot-Annexe` | ⬜ |
+| [TACHE-01](tache-01-boucle-entrainement.md) | Boucle d'entraînement pour un niveau et critère d'arrêt | `Source/AiSolver/Training` | ✅ |
+| [TACHE-02](tache-02-rejeu-deterministe.md) | Rejeu déterministe du meilleur individu | `Source/AiSolver/Training` | ✅ |
+| [TACHE-03](tache-03-export-rejeu.md) | Export au format de rejeu v1 | `Source/AiSolver/Training` | ✅ |
+| [TACHE-04](tache-04-ordre-niveaux-curriculum.md) | Documentation de l'ordre de niveaux indicatif | `Documentation/Lot-Annexe` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Une exécution d'entraînement prend en entrée un unique chemin de fichier niveau et ne

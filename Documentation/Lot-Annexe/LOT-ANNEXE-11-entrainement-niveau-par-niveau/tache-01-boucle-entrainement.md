@@ -1,7 +1,7 @@
 # TACHE-01 — Boucle d'entraînement pour un niveau et critère d'arrêt {#lot-annexe-11-tache-01-boucle-entrainement}
 
 **Lot :** [LOT-ANNEXE-11](epic.md) · **Emplacement :** `Source/AiSolver/Training` · **Statut :**
-non commencé
+fait
 
 ## Contexte
 LOT-ANNEXE-10 fournit `EvolutionaryTrainer::runGeneration()`, une mécanique générique agnostique de

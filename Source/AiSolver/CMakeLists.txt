@@ -59,6 +59,14 @@ add_library(AiSolver STATIC
     Training/Evolutionary/FitnessEvaluator.cpp
     Training/Evolutionary/GeneticOperators.cpp
     Training/Evolutionary/EvolutionaryTrainer.cpp
+    # Entrainement niveau-par-niveau et export de rejeu (LOT-ANNEXE-11) : applique
+    # EvolutionaryTrainer a un fichier de niveau reel avec un vrai critere d'arret
+    # (LevelTrainingSession), rejoue le meilleur individu final en mode deterministe
+    # (DeterministicReplay), puis exporte la sequence gagnante au format v1 de LOT-ANNEXE-07
+    # (ReplayExport) -- premier lot du programme a produire un livrable exploitable hors ligne.
+    Training/LevelTrainingSession.cpp
+    Training/DeterministicReplay.cpp
+    Training/ReplayExport.cpp
 )
 
 # Racine d'inclusion = Source/ : les en-têtes s'incluent par chemin complet depuis la racine

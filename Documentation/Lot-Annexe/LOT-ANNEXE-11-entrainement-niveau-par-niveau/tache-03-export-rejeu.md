@@ -1,7 +1,7 @@
 # TACHE-03 — Export au format de rejeu v1 {#lot-annexe-11-tache-03-export-rejeu}
 
 **Lot :** [LOT-ANNEXE-11](epic.md) · **Emplacement :** `Source/AiSolver/Training` · **Statut :**
-non commencé
+fait
 
 ## Contexte
 TACHE-02 produit une séquence d'actions en mémoire. Cette tâche l'écrit sur disque au format de

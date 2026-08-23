@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**1390 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**1402 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (1279)
+## Tests unitaires (1291)
 
 ### AiSolver
 
@@ -391,7 +391,16 @@
 | **TrainingStatsRecorderTest.FichierInterrompuResteExploitable** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Stats/test_training_stats_recorder.cpp:172`</sub> | Fichier interrompu simulé : destruction du recorder après `k` appels. | 1. Créer un `TrainingStatsRecorder`, appeler `record` 3 fois sur une séquence prévue de 10.<br/>2. Détruire le recorder (fin de portée) avant les 7 appels restants. | Vérifie que `lines.size()` vaut `4u`.<br/>Vérifie que `fields.size()` vaut `12u`.<br/>Vérifie que `std::stoi(fields[0])` vaut `static_cast<int>(i - 1)`. |
 | **TrainingStatsRecorderTest.RecordAjouteUneLigneSansAlterer** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Stats/test_training_stats_recorder.cpp:203`</sub> | `record` ajoute une ligne sans altérer les précédentes. | 1. `record` une première fois, lire le fichier.<br/>2. `record` une deuxième fois, lire de nouveau. | Vérifie que `afterFirst.size()` vaut `2u`.<br/>Vérifie que `afterSecond.size()` vaut `3u`.<br/>Vérifie que `afterSecond[0]` vaut `afterFirst[0]`.<br/>Vérifie que `afterSecond[1]` vaut `afterFirst[1]`. |
 
-#### Training (22)
+#### Training (34)
+
+**`test_deterministic_replay.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **DeterministicReplayTest.RejeuIndependantReussi** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_deterministic_replay.cpp:78`</sub> | replayBestIndividual : rejeu indépendant réussi. | 1. Entraîner un individu jusqu'à résolution du niveau trivial.<br/>2. Le rejouer sur une nouvelle instance `HeadlessLevelEnvironment`. | Vérifie que `training.solved` est vrai.<br/>Vérifie que `replay.status` vaut `aisolver::EpisodeStatus::Won`.<br/>Vérifie que `replay.steps.empty()` est faux. |
+| **DeterministicReplayTest.DeterminismeDuRejeu** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_deterministic_replay.cpp:101`</sub> | replayBestIndividual : déterminisme du rejeu. | 1. Entraîner un individu.<br/>2. Le rejouer deux fois, sur deux environnements distincts. | Vérifie que `training.solved` est vrai.<br/>Vérifie que `firstReplay.status` vaut `secondReplay.status`.<br/>Vérifie que `firstReplay.finalReward` vaut `secondReplay.finalReward` (comparaison flottante).<br/>Vérifie que `sameSteps(firstReplay.steps, secondReplay.steps)` est vrai. |
+| **DeterministicReplayTest.BorneDeLongueur** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_deterministic_replay.cpp:127`</sub> | replayBestIndividual : borne de longueur. | 1. Entraîner un individu.<br/>2. Le rejouer sur un environnement au budget de pas réduit et connu. | Vérifie que `training.solved` est vrai.<br/>Vérifie que `replay.steps.size()` est inférieur ou égal à `static_cast<std::size_t>(kMaxSteps)`. |
+| **DeterministicReplayTest.RejeuDUnIndividuNonResolvant** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_deterministic_replay.cpp:150`</sub> | replayBestIndividual : rejeu d'un individu non résolvant. | 1. Entraîner un individu.<br/>2. Le rejouer sur un environnement au budget de pas nul. | Vérifie que `training.solved` est vrai.<br/>Vérifie que `replay.status` diffère de `aisolver::EpisodeStatus::Won`.<br/>Vérifie que `replay.steps.empty()` est vrai. |
 
 **`test_evolutionary_non_regression.cpp`**
 
@@ -436,6 +445,15 @@
 | **GeneticOperatorsTest.MutationTauxPleinReproductible** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_genetic_operators.cpp:192`</sub> | mutate : taux plein, reproductible. | 1. Deux individus identiques (même `Rng` de construction).<br/>2. `mutate` chacun avec `mutationRate = 1` et des `Rng` de mutation de même graine. | Vérifie que `paramsA[index]->value.data()[element]` vaut `paramsB[index]->value.data()[element]` (comparaison flottante). |
 | **GeneticOperatorsTest.BestIndividualPlusHautFitness** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_genetic_operators.cpp:226`</sub> | bestIndividual : plus haut fitness connu. | 1. Population de fitness `{3, 9, 1}`.<br/>2. Appeler `bestIndividual`. | Vérifie que `bestIndividual(population).fitness` vaut `9.0f` (comparaison flottante). |
 
+**`test_level_training_session.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **LevelTrainingSessionTest.ArretParResolutionStable** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_level_training_session.cpp:39`</sub> | LevelTrainingSession : arrêt par résolution stable. | 1. Session sur le niveau trivial, population 32, seed fixée, plafond large (200).<br/> 2. `run()`. | Vérifie que `result.solved` est vrai.<br/>Vérifie que `result.generationsRun` est strictement inférieur à `static_cast<unsigned>(stopping.maxGenerations)`. |
+| **LevelTrainingSessionTest.ArretParPlafondDeGenerations** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_level_training_session.cpp:69`</sub> | LevelTrainingSession : arrêt par plafond de générations. | 1. Session sur le niveau trivial, seuil de stabilité (1000) inatteignable en 2 générations.<br/>2. `run()`. | Vérifie que `result.solved` est faux.<br/>Vérifie que `result.generationsRun` vaut `2u`. |
+| **LevelTrainingSessionTest.ReinitialisationDuCompteurDeSuccesConsecutifs** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_level_training_session.cpp:100`</sub> | updateConsecutiveStableWins : réinitialisation du compteur. | 1. Enchaîner des mises à jour avec rupture de champion ou de résolution. | Vérifie que `counter` vaut `1`.<br/>Vérifie que `counter` vaut `2`.<br/>Vérifie que `counter` vaut `3`.<br/>Vérifie que `counter` vaut `1`.<br/>Vérifie que `counter` vaut `0`. |
+| **LevelTrainingSessionTest.UnSeulNiveauPourTouteLaSession** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_level_training_session.cpp:132`</sub> | LevelTrainingSession : un seul niveau pour toute la session. | 1. Session sur le niveau trivial.<br/>2. `run()`. | Vérifie que `session.environment().loaded()` est vrai.<br/>Vérifie que `session.environment().level().name()` vaut `"TrivialAI"`. |
+
 **`test_population.cpp`**
 
 | Titre (criticité) | Brief | Étapes | Résultat attendu |
@@ -444,6 +462,15 @@
 | **PopulationTest.PoidsIndependantsEntreIndividus** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_population.cpp:59`</sub> | Population : poids indépendants entre individus. | 1. Construire une `Population` de 2 individus.<br/>2. Comparer leurs premiers poids, puis modifier ceux du premier individu. | Vérifie que `paramsA.size()` vaut `paramsB.size()`.<br/>Vérifie que `anyDifferent` est vrai.<br/>Vérifie que `paramsB[0]->value.data()[0]` vaut `originalB`. |
 | **PopulationTest.ReproductibiliteInitialisation** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_population.cpp:92`</sub> | Population : reproductibilité de l'initialisation. | 1. Construire deux `Population` identiques avec des `Rng` de même graine.<br/>2. Comparer bit-à-bit tous les poids. | Vérifie que `paramsA.size()` vaut `paramsB.size()`.<br/>Vérifie que `paramsA[index]->value.size()` vaut `paramsB[index]->value.size()`.<br/>Vérifie que `paramsA[index]->value.data()[element]` vaut `paramsB[index]->value.data()[element]`. |
 | **PopulationTest.FitnessInitialNonEvalue** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_population.cpp:121`</sub> | Population : fitness initial non évalué. | 1. Construire une `Population`.<br/>2. Lire `fitness` de chaque individu. | Vérifie que `population.individual(index).fitness` vaut `kUnevaluatedFitness`. |
+
+**`test_replay_export.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ReplayExportTest.ExportReussiEtRoundTrip** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_replay_export.cpp:67`</sub> | exportReplay : export réussi et round-trip. | 1. Entraîner et rejouer un individu résolu.<br/>2. Exporter, puis relire le fichier produit. | Vérifie que `training.solved` est vrai.<br/>Vérifie que `replay.status` vaut `aisolver::EpisodeStatus::Won`.<br/>Vérifie que `exportResult.exported` est vrai.<br/>Vérifie que `exportResult.error` vaut `ReplayExportError::None`.<br/>Vérifie que `loaded.ok()` est vrai.<br/>Vérifie que `loaded.replay->steps.size()` vaut `replay.steps.size()`.<br/>Vérifie que `loaded.replay->algorithmName` vaut `"evolutionnaire"`.<br/>Vérifie que `loaded.replay->seed` vaut `4242u`. |
+| **ReplayExportTest.RefusDExportSurEchec** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_replay_export.cpp:101`</sub> | exportReplay : refus d'export sur échec. | 1. Construire un rejeu quelconque, `solved = false`.<br/>2. Tenter l'export. | Vérifie que `exportResult.exported` est faux.<br/>Vérifie que `exportResult.error` vaut `ReplayExportError::NotSolved`.<br/>Vérifie que `std::filesystem::exists(outputPath)` est faux. |
+| **ReplayExportTest.ReferenceAuBonNiveau** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_replay_export.cpp:124`</sub> | exportReplay : référence au bon niveau. | 1. Entraîner, rejouer et exporter sur le niveau trivial.<br/>2. Relire le fichier. | Vérifie que `training.solved` est vrai.<br/>Vérifie que `exportReplay(replay, training.solved, level.levelPath(), outputPath, "evolutionnaire", 4242) .exported` est vrai.<br/>Vérifie que `loaded.ok()` est vrai.<br/>Vérifie que `loaded.replay->levelPath` vaut `level.levelPath().filename().string()`. |
+| **ReplayExportTest.PointDEntreeMinimalBoutEnBout** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_replay_export.cpp:151`</sub> | trainLevelAndExportReplay : bout en bout. | 1. Appeler `trainLevelAndExportReplay` sur le niveau trivial. | Vérifie que `outcome.trainingResult.solved` est vrai.<br/>Vérifie que `outcome.exportResult.exported` est vrai.<br/>Vérifie que `std::filesystem::exists(outputPath)` est vrai.<br/>Vérifie que `loaded.ok()` est vrai.<br/>Vérifie que `loaded.replay->steps.empty()` est faux. |
 
 ### Core
 

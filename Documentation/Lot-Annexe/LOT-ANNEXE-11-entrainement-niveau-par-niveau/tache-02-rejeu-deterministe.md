@@ -1,7 +1,7 @@
 # TACHE-02 — Rejeu déterministe du meilleur individu {#lot-annexe-11-tache-02-rejeu-deterministe}
 
 **Lot :** [LOT-ANNEXE-11](epic.md) · **Emplacement :** `Source/AiSolver/Training` · **Statut :**
-non commencé
+fait
 
 ## Contexte
 TACHE-01 produit un `TrainingResult` contenant le meilleur individu (poids figés) au moment de

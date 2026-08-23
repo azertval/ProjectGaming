@@ -120,6 +120,9 @@ add_executable(UnitTests
     Unit/AiSolver/Training/test_evolutionary_trainer.cpp
     Unit/AiSolver/Training/test_evolutionary_reproducibility.cpp
     Unit/AiSolver/Training/test_evolutionary_non_regression.cpp
+    Unit/AiSolver/Training/test_level_training_session.cpp
+    Unit/AiSolver/Training/test_deterministic_replay.cpp
+    Unit/AiSolver/Training/test_replay_export.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp
