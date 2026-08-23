@@ -1,7 +1,7 @@
 # TACHE-04 — Comparaison chiffrée de convergence vs REINFORCE brut {#lot-annexe-13-tache-04-comparaison-convergence}
 
 **Lot :** [LOT-ANNEXE-13](epic.md) · **Emplacement :** `Source/AiSolver/Training/ActorCritic` ·
-**Statut :** à faire
+**Statut :** fait
 
 ## Contexte
 Les tâches précédentes rendent l'acteur-critique fonctionnel ; il reste à **démontrer**, avec des

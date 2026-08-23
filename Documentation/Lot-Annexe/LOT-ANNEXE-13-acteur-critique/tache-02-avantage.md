@@ -1,7 +1,7 @@
 # TACHE-02 — Avantage remplaçant le retour brut dans la perte de politique {#lot-annexe-13-tache-02-avantage}
 
 **Lot :** [LOT-ANNEXE-13](epic.md) · **Emplacement :** `Source/AiSolver/Training/ActorCritic` ·
-**Statut :** à faire
+**Statut :** fait
 
 ## Contexte
 Le critique (TACHE-01) sait désormais estimer la valeur d'un état. Cette tâche exploite cette

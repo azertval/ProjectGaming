@@ -1,7 +1,7 @@
 # TACHE-01 — Réseau critique (estimation de la valeur d'état) {#lot-annexe-13-tache-01-reseau-critique}
 
 **Lot :** [LOT-ANNEXE-13](epic.md) · **Emplacement :** `Source/AiSolver/Training/ActorCritic` ·
-**Statut :** à faire
+**Statut :** fait
 
 ## Contexte
 LOT-ANNEXE-12 n'entraîne qu'un réseau (la politique). Ce lot introduit un second réseau, le

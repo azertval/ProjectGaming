@@ -1,7 +1,7 @@
 # TACHE-03 — Perte du critique et optimisation conjointe acteur/critique {#lot-annexe-13-tache-03-perte-critique-optimisation-conjointe}
 
 **Lot :** [LOT-ANNEXE-13](epic.md) · **Emplacement :** `Source/AiSolver/Training/ActorCritic` ·
-**Statut :** à faire
+**Statut :** fait
 
 ## Contexte
 Le critique (TACHE-01) doit lui-même être entraîné pour que son estimation de valeur devienne fiable

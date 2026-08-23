@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**1424 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**1443 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (1313)
+## Tests unitaires (1332)
 
 ### AiSolver
 
@@ -391,7 +391,56 @@
 | **TrainingStatsRecorderTest.FichierInterrompuResteExploitable** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Stats/test_training_stats_recorder.cpp:172`</sub> | Fichier interrompu simulé : destruction du recorder après `k` appels. | 1. Créer un `TrainingStatsRecorder`, appeler `record` 3 fois sur une séquence prévue de 10.<br/>2. Détruire le recorder (fin de portée) avant les 7 appels restants. | Vérifie que `lines.size()` vaut `4u`.<br/>Vérifie que `fields.size()` vaut `12u`.<br/>Vérifie que `std::stoi(fields[0])` vaut `static_cast<int>(i - 1)`. |
 | **TrainingStatsRecorderTest.RecordAjouteUneLigneSansAlterer** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Stats/test_training_stats_recorder.cpp:203`</sub> | `record` ajoute une ligne sans altérer les précédentes. | 1. `record` une première fois, lire le fichier.<br/>2. `record` une deuxième fois, lire de nouveau. | Vérifie que `afterFirst.size()` vaut `2u`.<br/>Vérifie que `afterSecond.size()` vaut `3u`.<br/>Vérifie que `afterSecond[0]` vaut `afterFirst[0]`.<br/>Vérifie que `afterSecond[1]` vaut `afterFirst[1]`. |
 
-#### Training (56)
+#### Training (75)
+
+**`test_actor_critic_loss.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ActorCriticLossTest.GradientCheckingParRapportALaPolitique** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_actor_critic_loss.cpp:105`</sub> | computeActorCriticLoss : gradient checking par rapport à la politique. | 1. Réseau minuscule, 3 pas, avantages `[2, -1, 0.5]`.<br/>2. Comparer gradients analytique et numérique. | Vérifie que `maxError` est strictement inférieur à `1e-2f`. |
+| **ActorCriticLossTest.AvantageNulGradientNul** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_actor_critic_loss.cpp:127`</sub> | computeActorCriticLoss : avantage nul, gradient nul. | 1. Réseau minuscule, trajectoire d'un pas, avantage `0`.<br/>2. `backward()`. | Vérifie que `parameter->grad.data()[i]` vaut `0.0f` (comparaison flottante). |
+
+**`test_actor_critic_trainer.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ActorCriticTrainerTest.ConvergenceDuCritique** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_actor_critic_trainer.cpp:74`</sub> | ActorCriticTrainer : convergence du critique. | 1. `ActorCriticTrainer` sur le niveau trivial, `80` épisodes.<br/>2. Comparer l'erreur quadratique moyenne du critique des 10 premiers et des 10 derniers épisodes. | Vérifie que `lines.size()` vaut `kEpisodeCount + 1`.<br/>Vérifie que `lastTen` est strictement inférieur à `firstTen`. |
+| **ActorCriticTrainerTest.IndependanceDesDeuxOptimisations** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_actor_critic_trainer.cpp:133`</sub> | ActorCriticTrainer : indépendance des deux optimisations. | 1. Run avec `updateCritic = false`.<br/>2. Comparer les poids du critique avant/après (inchangés) et ceux de la politique (changés). | Vérifie que `criticWeightsBefore.size()` vaut `criticWeightsAfter.size()`.<br/>Vérifie que `criticWeightsBefore.data()[i]` vaut `criticWeightsAfter.data()[i]` (comparaison flottante).<br/>Vérifie que `anyChanged` est vrai. |
+| **ActorCriticTrainerTest.RemiseAZeroDesGradientsDesDeuxReseaux** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_actor_critic_trainer.cpp:184`</sub> | ActorCriticTrainer : remise à zéro des gradients des deux réseaux. | 1. Run complet (10 épisodes).<br/>2. Lire le gradient de chaque paramètre des deux réseaux. | Vérifie que `parameter->grad.data()[i]` vaut `0.0f` (comparaison flottante).<br/>Vérifie que `parameter->grad.data()[i]` vaut `0.0f` (comparaison flottante). |
+| **ActorCriticTrainerTest.CsvDePerteDuCritiqueBienForme** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_actor_critic_trainer.cpp:227`</sub> | ActorCriticTrainer : CSV de perte du critique bien formé. | 1. Run de `20` épisodes avec chemin de CSV de perte du critique.<br/>2. Lire le fichier. | Vérifie que `lines.size()` vaut `21u`.<br/>Vérifie que `lines[0]` vaut `"index,criticLoss"`.<br/>Vérifie que `comma` diffère de `std::string::npos`.<br/>Vérifie que `std::isfinite(value)` est vrai.<br/>Vérifie que `value` est supérieur ou égal à `0.0f`. |
+
+**`test_advantage_calculator.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **AdvantageCalculatorTest.SigneDeLAvantage** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_advantage_calculator.cpp:48`</sub> | computeAdvantages : signe de l'avantage. | 1. Critique quelconque, deux pas de retours connus.<br/>2. Comparer chaque avantage à la valeur estimée correspondante. | Vérifie que `advantages.size()` vaut `2u`.<br/>Vérifie que `advantages[0]` est strictement supérieur à `0.0f`.<br/>Vérifie que `advantages[1]` est strictement inférieur à `0.0f`. |
+| **AdvantageCalculatorTest.AvantageNulDegenere** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_advantage_calculator.cpp:76`</sub> | computeAdvantages : avantage nul dégénéré. | 1. Retours construits égaux à la valeur estimée courante.<br/>2. `computeAdvantages`. | Vérifie que `advantage` vaut `0.0f`, à `1e-5f` près. |
+
+**`test_convergence_comparator.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ConvergenceComparatorTest.NombreDEpisodesJusquAuPlafond** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_convergence_comparator.cpp:77`</sub> | analyzeRun : nombre d'épisodes jusqu'au plafond. | 1. CSV synthétique `[0, 1, 2, ..., 9]`, seuil `5`.<br/>2. `analyzeRun`. | Vérifie que `metrics.episodesToThreshold.has_value()` est vrai.<br/>Vérifie que `*metrics.episodesToThreshold` vaut `5`. |
+| **ConvergenceComparatorTest.PlafondJamaisAtteint** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_convergence_comparator.cpp:96`</sub> | analyzeRun : plafond jamais atteint. | 1. CSV synthétique dont aucune valeur n'atteint le seuil.<br/>2. `analyzeRun`. | Vérifie que `metrics.episodesToThreshold.has_value()` est faux. |
+| **ConvergenceComparatorTest.EcartTypeDeFinDeRun** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_convergence_comparator.cpp:114`</sub> | compareConvergence : écart-type de fin de run. | 1. Trois CSV synthétiques à récompense finale constante `8`, `10`, `12`.<br/>2. `compareConvergence`, fenêtre couvrant tout le run. | Vérifie que `report.finalRewardStdDev` vaut `std::sqrt(expectedVariance)`, à `1e-4f` près.<br/>Vérifie que `report.trialsReachingThreshold` vaut `0u`.<br/>Vérifie que `report.meanEpisodesToThreshold.has_value()` est faux. |
+| **ConvergenceComparatorTest.LectureCroiseeReinforceEtActeurCritique** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_convergence_comparator.cpp:145`</sub> | compareConvergence : lecture croisée REINFORCE / acteur-critique. | 1. Run court de chaque algorithme sur le niveau trivial.<br/>2. `compareConvergence` sur chaque CSV produit. | Vérifie que `reinforceReport.totalTrials` vaut `1u`.<br/>Vérifie que `actorCriticReport.totalTrials` vaut `1u`. |
+| **ConvergenceComparatorTest.ComparaisonReinforceVsActorCritiqueSurNiveauDeControle** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_convergence_comparator.cpp:199`</sub> | Comparaison chiffrée acteur-critique vs REINFORCE brut. | 1. 4 essais de chaque algorithme, 60 épisodes, niveau trivial.<br/>2. `compareConvergence` sur chaque série. | Vérifie que `std::isfinite(reinforceReport.finalRewardStdDev)` est vrai.<br/>Vérifie que `reinforceReport.finalRewardStdDev` est supérieur ou égal à `0.0f`.<br/>Vérifie que `std::isfinite(actorCriticReport.finalRewardStdDev)` est vrai.<br/>Vérifie que `actorCriticReport.finalRewardStdDev` est supérieur ou égal à `0.0f`. |
+
+**`test_critic_loss.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **CriticLossTest.GradientChecking** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_critic_loss.cpp:51`</sub> | computeCriticLoss : gradient checking. | 1. Critique minuscule, 4 pas, retours variés.<br/>2. Comparer gradient analytique et différences finies. | Vérifie que `maxError` est strictement inférieur à `1e-2f`. |
+| **CriticLossTest.PerteNulleQuandLaPredictionEstExacte** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_critic_loss.cpp:111`</sub> | computeCriticLoss : perte nulle quand la prédiction est exacte. | 1. Retours construits égaux à la valeur estimée courante.<br/>2. `computeCriticLoss`. | Vérifie que `loss->value.data()[0]` vaut `0.0f`, à `1e-6f` près. |
+
+**`test_critic_network.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **CriticNetworkTest.FormeDeSortieScalaire** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_critic_network.cpp:43`</sub> | CriticNetwork : forme de sortie scalaire. | 1. Construire un critique.<br/>2. `forward` sur deux observations distinctes. | Vérifie que `first->value.size()` vaut `1u`.<br/>Vérifie que `second->value.size()` vaut `1u`. |
+| **CriticNetworkTest.DeterminismeAPoidsFixes** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_critic_network.cpp:62`</sub> | CriticNetwork : déterminisme à poids fixés. | 1. Construire un critique.<br/>2. `forward` deux fois sur la même observation. | Vérifie que `first` vaut `second` (comparaison flottante). |
+| **CriticNetworkTest.SensibiliteAuxPoids** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_critic_network.cpp:81`</sub> | CriticNetwork : sensibilité aux poids. | 1. `forward` sur une observation.<br/>2. Perturber un poids.<br/>3. `forward` de nouveau. | Vérifie que `parameters.empty()` est faux.<br/>Vérifie que `before` diffère de `after`. |
+| **CriticNetworkTest.IndependanceDuReseauDePolitique** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_critic_network.cpp:107`</sub> | CriticNetwork : indépendance du réseau de politique. | 1. Construire une politique et un critique, RNG distincts.<br/>2. `forward` de la politique.<br/>3. Perturber le critique.<br/>4. `forward` de la politique à nouveau. | Vérifie que `criticParameters.empty()` est faux.<br/>Vérifie que `before.size()` vaut `after.size()`.<br/>Vérifie que `before.data()[i]` vaut `after.data()[i]` (comparaison flottante). |
 
 **`test_deterministic_replay.cpp`**
 

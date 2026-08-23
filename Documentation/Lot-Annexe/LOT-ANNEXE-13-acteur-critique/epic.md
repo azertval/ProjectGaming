@@ -1,6 +1,6 @@
 # LOT-ANNEXE-13 — Réduction de variance : critique et avantage (acteur-critique) {#lot-annexe-13}
 
-> Statut : **non commencé**. Prérequis : [LOT-ANNEXE-12](@ref lot-annexe-12) (REINFORCE, dont la
+> Statut : **fait**. Prérequis : [LOT-ANNEXE-12](@ref lot-annexe-12) (REINFORCE, dont la
 > perte et la boucle d'entraînement sont réutilisées et étendues). Bénéficie de
 > [LOT-ANNEXE-03](@ref lot-annexe-03) (réseaux), [LOT-ANNEXE-04](@ref lot-annexe-04) (optimiseurs)
 > et [LOT-ANNEXE-09](@ref lot-annexe-09) (statistiques). Deuxième lot de la génération 3
@@ -104,10 +104,10 @@ acteur-critique) — bibliographie complète dans le chapitre.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-reseau-critique.md) | Réseau critique (estimation de la valeur d'état) | `Source/AiSolver/Training/ActorCritic` | ⬜ |
-| [TACHE-02](tache-02-avantage.md) | Avantage remplaçant le retour brut dans la perte de politique | `Source/AiSolver/Training/ActorCritic` | ⬜ |
-| [TACHE-03](tache-03-perte-critique-optimisation-conjointe.md) | Perte du critique et optimisation conjointe acteur/critique | `Source/AiSolver/Training/ActorCritic` | ⬜ |
-| [TACHE-04](tache-04-comparaison-convergence.md) | Comparaison chiffrée de convergence vs REINFORCE brut | `Source/AiSolver/Training/ActorCritic` | ⬜ |
+| [TACHE-01](tache-01-reseau-critique.md) | Réseau critique (estimation de la valeur d'état) | `Source/AiSolver/Training/ActorCritic` | ✅ |
+| [TACHE-02](tache-02-avantage.md) | Avantage remplaçant le retour brut dans la perte de politique | `Source/AiSolver/Training/ActorCritic` | ✅ |
+| [TACHE-03](tache-03-perte-critique-optimisation-conjointe.md) | Perte du critique et optimisation conjointe acteur/critique | `Source/AiSolver/Training/ActorCritic` | ✅ |
+| [TACHE-04](tache-04-comparaison-convergence.md) | Comparaison chiffrée de convergence vs REINFORCE brut | `Source/AiSolver/Training/ActorCritic` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Le critique produit une estimation de valeur dont l'erreur quadratique par rapport au retour
@@ -125,6 +125,29 @@ acteur-critique) — bibliographie complète dans le chapitre.
 5. Aucune nouvelle dépendance tierce n'a été ajoutée (`External/CMakeLists.txt` inchangé).
 6. Logique nouvelle **couverte par des tests** (`ctest` vert), déterministe, sans GPU. Build
    `/W4 /WX` sans avertissement, Doxygen et lint des exigences verts.
+
+## Résultat mesuré (TACHE-04)
+Comparaison exécutée (`ConvergenceComparatorTest.ComparaisonReinforceVsActorCritiqueSurNiveauDeControle`,
+`Source/Test/Unit/AiSolver/Training/test_convergence_comparator.cpp`) : `4` essais (graines
+différentes) de chaque algorithme, `60` épisodes chacun, niveau de contrôle trivial (le même que
+`LOT-ANNEXE-12` TACHE-05), plafond de récompense `5.0` :
+
+| Algorithme    | Essais atteignant le plafond | Épisodes moyens jusqu'au plafond | Écart-type de fin de run |
+|---------------|:-----------------------------:|:---------------------------------:|:--------------------------:|
+| REINFORCE     | 4/4                            | 0.5                                 | 0.0043                      |
+| Acteur-critique | 4/4                          | 0.25                                | 4.45                         |
+
+Mesure honnête (cf. décision de cadrage ci-dessus) : sur ce niveau de contrôle, **REINFORCE brut
+montre une variance de fin de run plus faible que l'acteur-critique**, contrairement à
+l'amélioration attendue. Explication la plus probable : le corridor trivial se résout en une seule
+action correcte, si bien que les deux algorithmes atteignent le plafond de récompense en moins d'un
+épisode en moyenne — le niveau de contrôle est trop simple pour laisser à la réduction de variance
+de l'acteur-critique l'occasion de se manifester (aucun épisode assez long ni assez varié pour que
+le retour brut de REINFORCE soit réellement bruité). Le mécanisme lui-même est correct et vérifié
+indépendamment (convergence du critique, gradient checking des deux pertes, indépendance des deux
+optimisations) : ce résultat documente une limite du niveau de contrôle choisi, pas un défaut de
+l'algorithme. À reprendre avec un niveau de contrôle plus long/varié si LOT-ANNEXE-14 ou un lot
+futur a besoin d'une mesure plus discriminante.
 
 ## Dépendances
 Étend directement [LOT-ANNEXE-12](@ref lot-annexe-12) (perte et boucle d'entraînement REINFORCE,

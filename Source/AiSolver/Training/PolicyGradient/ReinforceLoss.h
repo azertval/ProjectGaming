@@ -21,11 +21,9 @@ namespace aisolver::training {
  * @brief Construit le graphe de la perte REINFORCE moyenne sur l'épisode :
  * `mean_t(-log(pi(a_t|s_t)) * G_t)`.
  *
- * Pour chaque pas, **rejoue** le passage avant de `policy` sur l'observation enregistrée (poids
- * actuels du réseau) — ne réutilise jamais `TrajectoryStep::logProbability`, qui est une valeur
- * détachée sans historique de graphe. Le nœud renvoyé est un graphe d'autodiff normal :
- * `autodiff::backward()` dessus calcule, par rétropropagation, le gradient par rapport à tous les
- * paramètres de `policy` traversés — aucune formule de gradient écrite à la main ici.
+ * Délègue à `computeWeightedPolicyGradientLoss` (`Training/PolicyGradientLoss.h`,
+ * `LOT-ANNEXE-13` TACHE-02 : formule factorisée avec `computeActorCriticLoss`, poids = retour brut
+ * ici plutôt que l'avantage) — comportement strictement inchangé depuis `LOT-ANNEXE-12`.
  *
  * Convention de signe : la perte est déjà le **négatif** de l'objectif de policy gradient (à
  * minimiser par un optimiseur de descente de gradient standard, `LOT-ANNEXE-04`).

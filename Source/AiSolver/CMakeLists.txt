@@ -76,6 +76,20 @@ add_library(AiSolver STATIC
     Training/PolicyGradient/ReturnCalculator.cpp
     Training/PolicyGradient/ReinforceLoss.cpp
     Training/PolicyGradient/ReinforceTrainer.cpp
+    # Formule de perte de policy gradient commune (LOT-ANNEXE-13), factorisee hors de
+    # PolicyGradient/ReinforceLoss.cpp pour etre partagee avec ActorCritic sans dependance d'un
+    # sous-dossier de Training vers l'autre.
+    Training/PolicyGradientLoss.cpp
+    # Acteur-critique (LOT-ANNEXE-13) : reduction de variance du gradient de REINFORCE -- reseau
+    # critique estimant la valeur d'etat (TACHE-01), avantage remplacant le retour brut dans la
+    # perte de politique (TACHE-02), perte du critique et boucle d'optimisation conjointe
+    # acteur/critique (TACHE-03), comparaison chiffree de convergence vs REINFORCE brut (TACHE-04).
+    Training/ActorCritic/CriticNetwork.cpp
+    Training/ActorCritic/AdvantageCalculator.cpp
+    Training/ActorCritic/ActorCriticLoss.cpp
+    Training/ActorCritic/CriticLoss.cpp
+    Training/ActorCritic/ActorCriticTrainer.cpp
+    Training/ActorCritic/ConvergenceComparator.cpp
 )
 
 # Racine d'inclusion = Source/ : les en-têtes s'incluent par chemin complet depuis la racine

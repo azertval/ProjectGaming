@@ -130,6 +130,15 @@ add_executable(UnitTests
     Unit/AiSolver/Training/test_return_calculator.cpp
     Unit/AiSolver/Training/test_reinforce_loss.cpp
     Unit/AiSolver/Training/test_reinforce_trainer.cpp
+    # Acteur-critique (LOT-ANNEXE-13) : reseau critique (TACHE-01), avantage et non-regression de
+    # la perte REINFORCE apres factorisation (TACHE-02), perte du critique et boucle d'optimisation
+    # conjointe (TACHE-03), comparaison chiffree de convergence vs REINFORCE brut (TACHE-04).
+    Unit/AiSolver/Training/test_critic_network.cpp
+    Unit/AiSolver/Training/test_advantage_calculator.cpp
+    Unit/AiSolver/Training/test_actor_critic_loss.cpp
+    Unit/AiSolver/Training/test_critic_loss.cpp
+    Unit/AiSolver/Training/test_actor_critic_trainer.cpp
+    Unit/AiSolver/Training/test_convergence_comparator.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp
