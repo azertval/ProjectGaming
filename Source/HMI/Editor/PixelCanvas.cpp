@@ -78,6 +78,10 @@ PixelCanvas::PixelCanvas(QWidget* parent) : QWidget(parent) {
     // c'est ce changement de focus que MainWindow observe pour reassigner le contexte d'edition
     // actif (TACHE-04, EX-IHM-062).
     setFocusPolicy(Qt::StrongFocus);
+    // Croix, jamais la fleche par defaut : la fleche pointe depuis son coin haut-gauche, ce qui la
+    // fait paraitre decalee de plusieurs pixels ecran par rapport a la case reellement ciblee des
+    // que le zoom grossit chaque pixel image en plusieurs pixels ecran.
+    setCursor(Qt::CrossCursor);
 }
 
 void PixelCanvas::setImage(DecodedImage image) {
@@ -365,6 +369,7 @@ void PixelCanvas::mouseMoveEvent(QMouseEvent* event) {
     if (pixel != _hoveredPixel) {
         _hoveredPixel = pixel;
         emit hoveredPixelChanged(_hoveredPixel);
+        update();  // repeint le contour de vise (pixel survole) meme hors geste/pan.
     }
 
     // Mode planche a raccords (TACHE-08) : infobulle nommant la configuration de la case survolee
@@ -404,6 +409,7 @@ void PixelCanvas::leaveEvent(QEvent* /*event*/) {
     if (_hoveredPixel) {
         _hoveredPixel.reset();
         emit hoveredPixelChanged(_hoveredPixel);
+        update();  // efface le contour de vise laisse par le dernier pixel survole.
     }
 }
 
@@ -519,6 +525,19 @@ QPixmap PixelCanvas::renderPixmap() const {
             const int screenY = static_cast<int>(std::lround(row * zoomReal));
             painter.drawLine(0, screenY, real.width, screenY);
         }
+    }
+
+    // Pixel survole : contour de vise, pas seulement le curseur systeme -- a fort zoom, la pointe
+    // d'une fleche/croix reste large de plusieurs pixels ecran a cote de la case qu'elle designe
+    // reellement, ce qui donne l'impression trompeuse que le clic "tombe a cote". Tait pendant un
+    // geste (pinceau en cours) pour ne pas geler sur le dernier point survole avant le glisser.
+    if (_hoveredPixel && !_gestureActive) {
+        const double zoomReal = pixelCanvasScale(_view) * scale;
+        const double rectX = (_hoveredPixel->first - _view.panX) * zoomReal;
+        const double rectY = (_hoveredPixel->second - _view.panY) * zoomReal;
+        painter.setPen(QPen(toQColor(identityTokens().color.accent), std::max(1.0, scale)));
+        painter.setBrush(Qt::NoBrush);
+        painter.drawRect(QRectF(rectX, rectY, zoomReal, zoomReal));
     }
 
     // Region selectionnee (TACHE-06) : reste visible pendant qu'on la deplace, tracee depuis les
