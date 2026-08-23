@@ -654,7 +654,13 @@ void MainWindow::connectPlanesPanel() {
     connect(_planes, &PlanesPanel::visibilityToggled, this,
             [this, refreshPlanes](std::size_t index, bool visible) {
                 _viewport->setPlaneVisible(index, visible);
-                refreshPlanes();
+                // Differe : ce signal vient d'un itemChanged emis PAR planeTree lui-meme (case a
+                // cocher de la colonne Visible) -- refreshPlanes() reconstruit cet arbre (clear()
+                // dans PlanesPanel::rebuildTree). Le faire de facon synchrone detruit l'item que
+                // QTreeWidget est encore en train de traiter (le clic n'a pas fini de se propager
+                // dans sa pile d'appels interne) -> crash. Un cran d'event loop suffit a laisser
+                // Qt terminer son propre traitement avant qu'on ne vide l'arbre.
+                QTimer::singleShot(0, this, refreshPlanes);
             });
     connect(_planes, &PlanesPanel::isolateToggled, this,
             [this, refreshPlanes](std::size_t index, bool isolate) {
