@@ -58,9 +58,10 @@ a échoué »).
   `evaluateOutcome` se comporte comme avant) ; seul `demo-dangers-avances.json` est concerné, et son
   script (`rightOnly()`, couloir principal) ne croise aucun danger actif — l'issue `Won` déjà vérifiée
   par le test existant doit rester inchangée.
-- **Cette garde ne remplace pas une revue de code** sur les futurs changements de `hmi::GameSession
-  ::update` ou de `Core` : elle détecte une divergence de **comportement observable** (position,
-  vitesse, issue), pas une divergence de code qui resterait sans effet observable sur ces niveaux
+- **Cette garde ne remplace pas une revue de code** sur les futurs changements de
+  `hmi::GameSession::update` ou de `Core` : elle détecte une divergence de **comportement
+  observable** (position, vitesse, issue), pas une divergence de code qui resterait sans effet
+  observable sur ces niveaux
   précis.
 
 ## Définition de fait (DoD)

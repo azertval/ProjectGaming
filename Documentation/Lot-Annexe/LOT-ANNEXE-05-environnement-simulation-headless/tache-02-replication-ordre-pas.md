@@ -5,8 +5,9 @@
 ## Contexte
 `playLevel()` (`Source/Test/Systeme/test_parcours_complet.cpp`) est la référence normative de
 l'ordre de composition d'un pas de simulation, elle-même alignée sur `hmi::GameSession::update`
-(`Source/HMI/Game/GameSession.cpp`, étapes 1bis à 5). Cette tâche implémente `HeadlessLevelEnvironment
-::step` en reproduisant cet ordre **exactement**, étape par étape, avec l'ajout du
+(`Source/HMI/Game/GameSession.cpp`, étapes 1bis à 5). Cette tâche implémente
+`HeadlessLevelEnvironment::step` en reproduisant cet ordre **exactement**, étape par étape, avec
+l'ajout du
 `core::DangerController` (présent chez `GameSession`, absent de `playLevel()` — voir la décision de
 cadrage de l'épic).
 
