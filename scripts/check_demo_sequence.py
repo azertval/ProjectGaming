@@ -11,10 +11,8 @@ Deux endroits énumèrent, dans le même ordre, les fichiers ``demo-*.json`` de
 - ``Source/Elements/Levels/sequence-demo.json`` (champ ``levels``) : la
   séquence réellement jouée par l'éditeur Qt (``MainWindow::showGame``,
   ``EX-LVL-013`` — donnée de contenu, plus un littéral C++).
-- ``Source/Test/Systeme/ScriptedLevelSequence.h`` : la séquence scriptée
-  (extraite de ``test_parcours_complet.cpp`` par LOT-ANNEXE-08 pour être
-  partagée avec le test d'intégration IA) que le test système et le test
-  d'intégration rejouent tous deux de bout en bout.
+- ``Source/Test/Systeme/test_parcours_complet.cpp`` : le test système qui la
+  rejoue de bout en bout.
 
 Sans ce script, rien n'empêche d'ajouter/retirer/réordonner un niveau d'un
 côté sans répercuter le changement de l'autre — un niveau chargé en jeu mais
@@ -29,7 +27,7 @@ import re
 import sys
 
 SEQUENCE_JSON = os.path.join('Source', 'Elements', 'Levels', 'sequence-demo.json')
-SYSTEM_TEST = os.path.join('Source', 'Test', 'Systeme', 'ScriptedLevelSequence.h')
+SYSTEM_TEST = os.path.join('Source', 'Test', 'Systeme', 'test_parcours_complet.cpp')
 
 DEMO_FILE_RE = re.compile(r'"(demo-[A-Za-z0-9_-]+\.json)"')
 
