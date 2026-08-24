@@ -99,10 +99,14 @@ TEST(NetworkStabilityTest, AucunNanInfSurChaqueCoucheEntreesExtremes) {
 TEST(NetworkStabilityTest, GradientNonNulSurTousLesParametresReseauMele) {
     Rng rng(9102);
     Network network;
-    network.addLayer(std::make_unique<Dense>(4, 5, WeightInitScheme::He, rng), aisolver::autodiff::relu);
-    network.addLayer(std::make_unique<Dense>(5, 4, WeightInitScheme::Xavier, rng), aisolver::autodiff::tanhOp);
-    network.addLayer(std::make_unique<Dense>(4, 3, WeightInitScheme::Xavier, rng), aisolver::nn::sigmoid);
-    network.addLayer(std::make_unique<Dense>(3, 3, WeightInitScheme::Xavier, rng), aisolver::nn::softmax);
+    network.addLayer(std::make_unique<Dense>(4, 5, WeightInitScheme::He, rng),
+                     aisolver::autodiff::relu);
+    network.addLayer(std::make_unique<Dense>(5, 4, WeightInitScheme::Xavier, rng),
+                     aisolver::autodiff::tanhOp);
+    network.addLayer(std::make_unique<Dense>(4, 3, WeightInitScheme::Xavier, rng),
+                     aisolver::nn::sigmoid);
+    network.addLayer(std::make_unique<Dense>(3, 3, WeightInitScheme::Xavier, rng),
+                     aisolver::nn::softmax);
 
     // Une perte sommant tous les elements d'une sortie softmax serait degeneree (somme == 1,
     // constante, gradient nul partout) : on isole une seule composante, comme le fait la perte de
@@ -139,8 +143,10 @@ TEST(NetworkStabilityTest, GradientNonNulSurTousLesParametresReseauMele) {
 TEST(NetworkStabilityTest, GradientCheckingSigmoidSoftmaxEnComposition) {
     Rng rng(9103);
     auto network = std::make_shared<Network>();
-    network->addLayer(std::make_unique<Dense>(3, 4, WeightInitScheme::Xavier, rng), aisolver::nn::sigmoid);
-    network->addLayer(std::make_unique<Dense>(4, 3, WeightInitScheme::Xavier, rng), aisolver::nn::softmax);
+    network->addLayer(std::make_unique<Dense>(3, 4, WeightInitScheme::Xavier, rng),
+                      aisolver::nn::sigmoid);
+    network->addLayer(std::make_unique<Dense>(4, 3, WeightInitScheme::Xavier, rng),
+                      aisolver::nn::softmax);
 
     Rng inputRng(9104);
     Tensor<float> input({3, 1});
@@ -149,7 +155,8 @@ TEST(NetworkStabilityTest, GradientCheckingSigmoidSoftmaxEnComposition) {
     }
 
     const GradientCheckResult result = checkGradient(
-        [network](const std::vector<NodePtr>& nodes) { return network->forward(nodes[0]); }, {input});
+        [network](const std::vector<NodePtr>& nodes) { return network->forward(nodes[0]); },
+        {input});
 
     EXPECT_TRUE(result.passed) << "Ecart maximal : " << result.maxAbsoluteError;
 }

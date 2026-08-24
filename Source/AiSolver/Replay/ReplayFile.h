@@ -89,7 +89,8 @@ struct ReplayFile {
 };
 
 /**
- * @brief Résultat d'une lecture de fichier de rejeu : soit un `ReplayFile`, soit une erreur décrite.
+ * @brief Résultat d'une lecture de fichier de rejeu : soit un `ReplayFile`, soit une erreur
+ * décrite.
  *
  * Sur le même modèle que `core::LevelLoadResult` : aucune exception ne traverse jamais
  * `readReplay` (`EX-NFR-040`), une erreur (fichier introuvable, JSON malformé) est toujours

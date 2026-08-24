@@ -25,8 +25,8 @@ public:
     explicit ActorCriticTrainedPolicy(nn::Network& actor) : _actor(actor) {}
 
     [[nodiscard]] std::optional<core::PlayerInput> selectAction(const Tensor<float>& observation,
-                                                                 ActionDecodingMode mode,
-                                                                 Rng& rng) override;
+                                                                ActionDecodingMode mode,
+                                                                Rng& rng) override;
 
 private:
     nn::Network& _actor;

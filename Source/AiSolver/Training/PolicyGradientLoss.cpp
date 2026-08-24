@@ -9,10 +9,11 @@
 namespace aisolver::training {
 
 autodiff::NodePtr computeWeightedPolicyGradientLoss(nn::Network& policy,
-                                                     const Trajectory& trajectory,
-                                                     const std::vector<float>& weights) {
-    PROJECTGAMING_ASSERT(!trajectory.steps.empty(),
-                         "computeWeightedPolicyGradientLoss : la trajectoire ne doit pas etre vide");
+                                                    const Trajectory& trajectory,
+                                                    const std::vector<float>& weights) {
+    PROJECTGAMING_ASSERT(
+        !trajectory.steps.empty(),
+        "computeWeightedPolicyGradientLoss : la trajectoire ne doit pas etre vide");
     PROJECTGAMING_ASSERT(weights.size() == trajectory.steps.size(),
                          "computeWeightedPolicyGradientLoss : weights doit avoir la meme longueur "
                          "que la trajectoire");

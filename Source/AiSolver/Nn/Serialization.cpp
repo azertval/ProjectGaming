@@ -24,7 +24,8 @@ void writeTensor(std::ofstream& stream, const Tensor<float>& tensor) {
     for (std::size_t dimension : tensor.shape()) {
         writeUint64(stream, static_cast<std::uint64_t>(dimension));
     }
-    stream.write(reinterpret_cast<const char*>(tensor.data()), static_cast<std::streamsize>(tensor.size() * sizeof(float)));
+    stream.write(reinterpret_cast<const char*>(tensor.data()),
+                 static_cast<std::streamsize>(tensor.size() * sizeof(float)));
 }
 
 bool readUint32(std::ifstream& stream, std::uint32_t& value) {
@@ -53,7 +54,8 @@ bool readTensor(std::ifstream& stream, Tensor<float>& tensor) {
         shape[static_cast<std::size_t>(axis)] = static_cast<std::size_t>(dimension);
     }
     Tensor<float> loaded(shape);
-    stream.read(reinterpret_cast<char*>(loaded.data()), static_cast<std::streamsize>(loaded.size() * sizeof(float)));
+    stream.read(reinterpret_cast<char*>(loaded.data()),
+                static_cast<std::streamsize>(loaded.size() * sizeof(float)));
     if (!stream) {
         return false;
     }
@@ -97,7 +99,8 @@ bool loadWeights(Network& network, const std::filesystem::path& path) {
         return false;
     }
     std::uint64_t layerCount = 0;
-    if (!readUint64(stream, layerCount) || layerCount != static_cast<std::uint64_t>(network.layerCount())) {
+    if (!readUint64(stream, layerCount) ||
+        layerCount != static_cast<std::uint64_t>(network.layerCount())) {
         return false;
     }
 
@@ -107,7 +110,8 @@ bool loadWeights(Network& network, const std::filesystem::path& path) {
     for (std::size_t layer = 0; layer < network.layerCount(); ++layer) {
         Tensor<float> weights({0});
         Tensor<float> bias({0});
-        if (!readTensor(stream, weights) || weights.shape() != parameters[2 * layer]->value.shape()) {
+        if (!readTensor(stream, weights) ||
+            weights.shape() != parameters[2 * layer]->value.shape()) {
             return false;
         }
         if (!readTensor(stream, bias) || bias.shape() != parameters[2 * layer + 1]->value.shape()) {

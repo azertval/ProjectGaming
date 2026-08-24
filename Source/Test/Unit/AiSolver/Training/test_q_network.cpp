@@ -12,9 +12,9 @@
 #include "AiSolver/Math/Rng.h"
 #include "AiSolver/Training/Advanced/QNetwork.h"
 
+using aisolver::actionCount;
 using aisolver::Rng;
 using aisolver::Tensor;
-using aisolver::actionCount;
 using aisolver::training::QNetwork;
 
 namespace {

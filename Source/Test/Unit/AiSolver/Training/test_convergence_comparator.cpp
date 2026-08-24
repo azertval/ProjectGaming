@@ -120,14 +120,14 @@ TEST(ConvergenceComparatorTest, PlafondJamaisAtteint) {
  */
 TEST(ConvergenceComparatorTest, EcartTypeDeFinDeRun) {
     const std::filesystem::path directory = syntheticDirectory("stddev");
-    const std::vector<std::filesystem::path> paths{directory / "trial_a.csv",
-                                                    directory / "trial_b.csv",
-                                                    directory / "trial_c.csv"};
+    const std::vector<std::filesystem::path> paths{
+        directory / "trial_a.csv", directory / "trial_b.csv", directory / "trial_c.csv"};
     writeSyntheticCsv(paths[0], {8.0f, 8.0f, 8.0f});
     writeSyntheticCsv(paths[1], {10.0f, 10.0f, 10.0f});
     writeSyntheticCsv(paths[2], {12.0f, 12.0f, 12.0f});
 
-    const auto report = compareConvergence(paths, /*rewardThreshold=*/1000.0f, /*finalWindowSize=*/3);
+    const auto report =
+        compareConvergence(paths, /*rewardThreshold=*/1000.0f, /*finalWindowSize=*/3);
 
     const float mean = (8.0f + 10.0f + 12.0f) / 3.0f;
     const float expectedVariance =
@@ -178,7 +178,7 @@ TEST(ConvergenceComparatorTest, LectureCroiseeReinforceEtActeurCritique) {
     ActorCriticConfig acConfig;
     acConfig.seedBase = 62;
     ActorCriticTrainer acTrainer(*acPolicy, policyOptimizer, critic, criticOptimizer, acEnvironment,
-                                level.levelPath(), acConfig, acRecorder, "TrivialAI");
+                                 level.levelPath(), acConfig, acRecorder, "TrivialAI");
     acTrainer.run(kEpisodeCount);
 
     const auto reinforceReport =
@@ -220,15 +220,16 @@ TEST(ConvergenceComparatorTest, ComparaisonReinforceVsActorCritiqueSurNiveauDeCo
         Rng reinforceRng(seed);
         auto reinforcePolicy = buildNetwork(policyTopology(encoder.inputSize()), reinforceRng);
         Sgd reinforceOptimizer(0.05f);
-        HeadlessLevelEnvironment reinforceEnvironment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+        HeadlessLevelEnvironment reinforceEnvironment(
+            EnvironmentConfig{.maxSteps = kReducedMaxSteps});
         const std::filesystem::path reinforcePath =
             level.file(("reinforce_" + std::to_string(trial) + ".csv").c_str());
         TrainingStatsRecorder reinforceRecorder(reinforcePath);
         ReinforceConfig reinforceConfig;
         reinforceConfig.seedBase = seed;
-        ReinforceTrainer reinforceTrainer(*reinforcePolicy, reinforceOptimizer, reinforceEnvironment,
-                                          level.levelPath(), reinforceConfig, reinforceRecorder,
-                                          "TrivialAI");
+        ReinforceTrainer reinforceTrainer(*reinforcePolicy, reinforceOptimizer,
+                                          reinforceEnvironment, level.levelPath(), reinforceConfig,
+                                          reinforceRecorder, "TrivialAI");
         reinforceTrainer.run(kEpisodeCount);
         reinforcePaths.push_back(reinforcePath);
 
@@ -245,8 +246,8 @@ TEST(ConvergenceComparatorTest, ComparaisonReinforceVsActorCritiqueSurNiveauDeCo
         ActorCriticConfig acConfig;
         acConfig.seedBase = seed;
         ActorCriticTrainer acTrainer(*acPolicy, policyOptimizer, critic, criticOptimizer,
-                                    acEnvironment, level.levelPath(), acConfig, acRecorder,
-                                    "TrivialAI");
+                                     acEnvironment, level.levelPath(), acConfig, acRecorder,
+                                     "TrivialAI");
         acTrainer.run(kEpisodeCount);
         actorCriticPaths.push_back(acPath);
     }

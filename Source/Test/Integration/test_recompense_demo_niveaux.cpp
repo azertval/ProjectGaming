@@ -81,17 +81,17 @@ TEST(RecompenseDemoNiveauxTest, ChaqueNiveauDemoAtteintWonAvecRecompenseDomineeP
             const core::PlayerInput input = scripted.input(step, playerState, x, y);
             const aisolver::StepObservation observation = env.step(input);
 
-            cumulativeReward += aisolver::computeReward(rewardConfig, previousBox,
-                                                        observation.playerBox, env.level().exit(),
-                                                        observation.outcome);
+            cumulativeReward +=
+                aisolver::computeReward(rewardConfig, previousBox, observation.playerBox,
+                                        env.level().exit(), observation.outcome);
             previousBox = observation.playerBox;
             playerState = observation.playerState;
             x = observation.playerBox.min.x;
             y = observation.playerBox.min.y;
             ++step;
             status = aisolver::classifyEpisode(observation.outcome, observation.stepIndex,
-                                                env.stepsSinceProgress(), HARD_STEP_BUDGET,
-                                                STUCK_THRESHOLD);
+                                               env.stepsSinceProgress(), HARD_STEP_BUDGET,
+                                               STUCK_THRESHOLD);
         }
 
         EXPECT_EQ(status, aisolver::EpisodeStatus::Won) << "niveau : " << scripted.file;

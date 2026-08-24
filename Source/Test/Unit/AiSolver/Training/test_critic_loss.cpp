@@ -111,7 +111,8 @@ TEST(CriticLossTest, GradientChecking) {
  * \castest{<b>computeCriticLoss : perte nulle quand la prédiction est exacte.</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Retours construits égaux à la valeur estimée courante.<br/>2. `computeCriticLoss`.<br/>
+ * \tetapes 1. Retours construits égaux à la valeur estimée courante.<br/>2.
+ * `computeCriticLoss`.<br/>
  * \tattendu Perte proche de `0`.}
  */
 TEST(CriticLossTest, PerteNulleQuandLaPredictionEstExacte) {

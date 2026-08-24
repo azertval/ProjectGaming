@@ -40,7 +40,8 @@ struct ReplayExportResult {
 
 /**
  * @brief Écrit `replay` au format de rejeu v1 (`LOT-ANNEXE-07`, `Source/AiSolver/Replay`), sauf si
- * `solved` est faux (aucun fichier écrit dans ce cas — refus explicite, pas une écriture partielle).
+ * `solved` est faux (aucun fichier écrit dans ce cas — refus explicite, pas une écriture
+ * partielle).
  * @param replay        Rejeu produit par `replayBestIndividual` (séquence, statut, récompense).
  * @param solved        `TrainingResult::solved` de l'entraînement ayant produit `replay`.
  * @param levelPath     Chemin du niveau source ; seul le nom de fichier est conservé dans le

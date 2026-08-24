@@ -75,8 +75,8 @@ ReplayExportResult exportReplay(const DeterministicReplayResult& replay, bool so
     file.algorithmId = algorithmId;
 
     const bool written = writeReplay(outputPath, file);
-    return ReplayExportResult{written, written ? ReplayExportError::None
-                                               : ReplayExportError::WriteFailed};
+    return ReplayExportResult{written,
+                              written ? ReplayExportError::None : ReplayExportError::WriteFailed};
 }
 
 TrainAndExportOutcome trainLevelAndExportReplay(const std::filesystem::path& levelPath,
@@ -94,9 +94,9 @@ TrainAndExportOutcome trainLevelAndExportReplay(const std::filesystem::path& lev
     const DeterministicReplayResult replay =
         replayBestIndividual(trainingResult.bestIndividual, replayEnvironment, levelPath);
 
-    const ReplayExportResult exportResult = exportReplay(
-        replay, trainingResult.solved, levelPath, replayOutputPath, kAlgorithmName, seed,
-        kAlgorithmId);
+    const ReplayExportResult exportResult =
+        exportReplay(replay, trainingResult.solved, levelPath, replayOutputPath, kAlgorithmName,
+                     seed, kAlgorithmId);
 
     return TrainAndExportOutcome{std::move(trainingResult), exportResult};
 }

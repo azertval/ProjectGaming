@@ -93,7 +93,8 @@ TEST(DenseTest, DifferentiableDeBoutEnBout) {
     Tensor<float> onesRow({1, 2});
     onesRow.data()[0] = 1.0f;
     onesRow.data()[1] = 1.0f;
-    const NodePtr scalarLoss = aisolver::autodiff::matmul(aisolver::autodiff::variable(onesRow), squared);
+    const NodePtr scalarLoss =
+        aisolver::autodiff::matmul(aisolver::autodiff::variable(onesRow), squared);
 
     aisolver::autodiff::backward(scalarLoss);
 
@@ -123,7 +124,8 @@ TEST(DenseTest, DifferentiableDeBoutEnBout) {
  * \castest{<b>Dense : deux couches ont des poids différents.</b><br/>
  * \tcat Unitaire · Nn<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Construire deux `Dense(4, 3, Xavier, ...)` avec deux `Rng` de graines différentes.<br/>
+ * \tetapes 1. Construire deux `Dense(4, 3, Xavier, ...)` avec deux `Rng` de graines
+ * différentes.<br/>
  * 2. Comparer leurs poids.<br/>
  * \tattendu Au moins un élément diffère entre les deux jeux de poids.}
  */

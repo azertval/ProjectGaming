@@ -26,7 +26,8 @@ autodiff::NodePtr computeDqnLoss(QNetwork& mainNetwork, QNetwork& targetNetwork,
     autodiff::NodePtr totalLoss;
     for (const Transition& transition : batch) {
         const autodiff::NodePtr predictedQ = mainNetwork.forward(transition.observation);
-        const autodiff::NodePtr selectedQ = autodiff::selectIndex(predictedQ, transition.actionIndex);
+        const autodiff::NodePtr selectedQ =
+            autodiff::selectIndex(predictedQ, transition.actionIndex);
 
         // Cible detachee du graphe : le reseau cible n'est jamais retropropage (meme convention que
         // computeAdvantages/CriticLoss, LOT-ANNEXE-13).

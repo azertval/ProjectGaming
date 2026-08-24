@@ -45,7 +45,8 @@ TEST(ReplayValidationTest, NiveauAbsentRenvoieLevelFileMissing) {
     replay.levelPath = "niveau-qui-n-existe-pas.json";
     replay.levelFingerprint = 0;
 
-    const std::optional<aisolver::ReplayValidationError> error = aisolver::validateReplay(replay, levelsDir());
+    const std::optional<aisolver::ReplayValidationError> error =
+        aisolver::validateReplay(replay, levelsDir());
     ASSERT_TRUE(error.has_value());
     EXPECT_EQ(*error, aisolver::ReplayValidationError::LevelFileMissing);
 }
@@ -63,9 +64,11 @@ TEST(ReplayValidationTest, NiveauAbsentRenvoieLevelFileMissing) {
 TEST(ReplayValidationTest, EmpreinteDivergenteRenvoieLevelFingerprintMismatch) {
     aisolver::ReplayFile replay;
     replay.levelPath = "demo-deplacement.json";
-    replay.levelFingerprint = 0xDEADBEEFULL;  // Empreinte factice, ne correspond a aucun contenu reel.
+    replay.levelFingerprint =
+        0xDEADBEEFULL;  // Empreinte factice, ne correspond a aucun contenu reel.
 
-    const std::optional<aisolver::ReplayValidationError> error = aisolver::validateReplay(replay, levelsDir());
+    const std::optional<aisolver::ReplayValidationError> error =
+        aisolver::validateReplay(replay, levelsDir());
     ASSERT_TRUE(error.has_value());
     EXPECT_EQ(*error, aisolver::ReplayValidationError::LevelFingerprintMismatch);
 }
@@ -85,6 +88,7 @@ TEST(ReplayValidationTest, RejeuValideNeRenvoieAucuneErreur) {
     replay.levelPath = "demo-deplacement.json";
     replay.levelFingerprint = realFingerprintOf("demo-deplacement.json");
 
-    const std::optional<aisolver::ReplayValidationError> error = aisolver::validateReplay(replay, levelsDir());
+    const std::optional<aisolver::ReplayValidationError> error =
+        aisolver::validateReplay(replay, levelsDir());
     EXPECT_FALSE(error.has_value());
 }

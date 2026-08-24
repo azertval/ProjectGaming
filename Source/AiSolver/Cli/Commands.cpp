@@ -54,11 +54,11 @@ std::unique_ptr<optim::IOptimizer> makeOptimizer(const std::string& name, float 
 
 /**
  * @brief Rejoue @p policy en mode `Argmax` sur `environment`/`levelPath`, jusqu'à fin d'épisode ou
- * budget de pas — même structure que `training::replayBestIndividual` (`LOT-ANNEXE-11`), généralisée
- * à n'importe quel `eval::TrainedPolicy` (`LOT-ANNEXE-15`) plutôt que dupliquée pour chaque famille
- * d'algorithme : c'est précisément le rôle de cette abstraction uniforme.
- * @return `std::nullopt` si `levelPath` ne se charge pas (erreur récupérable, jamais de plantage sur
- *         un chemin fourni par l'utilisateur en ligne de commande).
+ * budget de pas — même structure que `training::replayBestIndividual` (`LOT-ANNEXE-11`),
+ * généralisée à n'importe quel `eval::TrainedPolicy` (`LOT-ANNEXE-15`) plutôt que dupliquée pour
+ * chaque famille d'algorithme : c'est précisément le rôle de cette abstraction uniforme.
+ * @return `std::nullopt` si `levelPath` ne se charge pas (erreur récupérable, jamais de plantage
+ * sur un chemin fourni par l'utilisateur en ligne de commande).
  */
 [[nodiscard]] std::optional<training::DeterministicReplayResult> argmaxRollout(
     eval::TrainedPolicy& policy, HeadlessLevelEnvironment& environment,
@@ -159,7 +159,8 @@ std::optional<TrainArgs> parseTrainArgs(const std::vector<std::string>& args, st
     if (const std::optional<std::string> seed = findOption(args, "--seed"); seed.has_value()) {
         result.seed = std::stoull(*seed);
     }
-    if (const std::optional<std::string> config = findOption(args, "--config"); config.has_value()) {
+    if (const std::optional<std::string> config = findOption(args, "--config");
+        config.has_value()) {
         result.configFile = std::filesystem::path(*config);
     }
     if (const std::optional<std::string> runsRoot = findOption(args, "--runs-root");
@@ -174,7 +175,8 @@ std::optional<TrainArgs> parseTrainArgs(const std::vector<std::string>& args, st
         value.has_value()) {
         result.mutationRate = std::stof(*value);
     }
-    if (const std::optional<std::string> value = findOption(args, "--episodes"); value.has_value()) {
+    if (const std::optional<std::string> value = findOption(args, "--episodes");
+        value.has_value()) {
         result.episodes = static_cast<std::size_t>(std::stoull(*value));
     }
     if (const std::optional<std::string> value = findOption(args, "--learning-rate");
@@ -184,7 +186,8 @@ std::optional<TrainArgs> parseTrainArgs(const std::vector<std::string>& args, st
     if (const std::optional<std::string> value = findOption(args, "--gamma"); value.has_value()) {
         result.gamma = std::stof(*value);
     }
-    if (const std::optional<std::string> value = findOption(args, "--optimizer"); value.has_value()) {
+    if (const std::optional<std::string> value = findOption(args, "--optimizer");
+        value.has_value()) {
         result.optimizer = *value;
     }
     return result;
@@ -220,14 +223,15 @@ std::optional<EvaluateArgs> parseEvaluateArgs(const std::vector<std::string>& ar
         repetitions.has_value()) {
         result.repetitions = std::stoi(*repetitions);
     }
-    if (const std::optional<std::string> report = findOption(args, "--report"); report.has_value()) {
+    if (const std::optional<std::string> report = findOption(args, "--report");
+        report.has_value()) {
         result.report = std::filesystem::path(*report);
     }
     return result;
 }
 
 std::optional<ExportReplayArgs> parseExportReplayArgs(const std::vector<std::string>& args,
-                                                       std::string& error) {
+                                                      std::string& error) {
     const std::optional<std::string> model = findOption(args, "--model");
     const std::optional<std::string> algo = findOption(args, "--algo");
     const std::optional<std::string> level = findOption(args, "--level");
@@ -297,9 +301,9 @@ int runTrain(const TrainArgs& args) {
     if (args.algo == "evo") {
         const training::evolutionary::NetworkTopology topology =
             training::evolutionary::policyTopology(inputSize, config.hiddenSize);
-        const training::TrainAndExportOutcome outcome = training::trainLevelAndExportReplay(
-            args.level, topology, config.evolutionary, config.stopping, args.seed, statsPath,
-            replayPath);
+        const training::TrainAndExportOutcome outcome =
+            training::trainLevelAndExportReplay(args.level, topology, config.evolutionary,
+                                                config.stopping, args.seed, statsPath, replayPath);
         solved = outcome.trainingResult.solved;
         if (!nn::saveWeights(outcome.trainingResult.bestIndividual.network(), modelPath)) {
             std::cerr << "train : echec de sauvegarde du modele : " << modelPath << "\n";
@@ -427,8 +431,8 @@ int runTrain(const TrainArgs& args) {
 
 int runEvaluate(const EvaluateArgs& args) {
     const std::size_t inputSize = ObservationEncoder().inputSize();
-    const training::evolutionary::NetworkTopology topology =
-        training::evolutionary::policyTopology(inputSize, training::evolutionary::DEFAULT_HIDDEN_SIZE);
+    const training::evolutionary::NetworkTopology topology = training::evolutionary::policyTopology(
+        inputSize, training::evolutionary::DEFAULT_HIDDEN_SIZE);
     Rng scratchRng(0);
 
     eval::BenchmarkConfig config;
@@ -437,8 +441,7 @@ int runEvaluate(const EvaluateArgs& args) {
 
     eval::BenchmarkResult result;
     if (args.algo == "avance") {
-        training::QNetwork network(inputSize, training::QNetwork::kDefaultHiddenSize,
-                                   scratchRng);
+        training::QNetwork network(inputSize, training::QNetwork::kDefaultHiddenSize, scratchRng);
         if (!nn::loadWeights(network.network(), args.model)) {
             std::cerr << "evaluate : impossible de charger le modele : " << args.model << "\n";
             return 1;
@@ -479,16 +482,15 @@ int runEvaluate(const EvaluateArgs& args) {
 
 int runExportReplay(const ExportReplayArgs& args) {
     const std::size_t inputSize = ObservationEncoder().inputSize();
-    const training::evolutionary::NetworkTopology topology =
-        training::evolutionary::policyTopology(inputSize, training::evolutionary::DEFAULT_HIDDEN_SIZE);
+    const training::evolutionary::NetworkTopology topology = training::evolutionary::policyTopology(
+        inputSize, training::evolutionary::DEFAULT_HIDDEN_SIZE);
     Rng scratchRng(0);
     const AlgorithmLabels labels = labelsFor(args.algo);
     HeadlessLevelEnvironment environment;
 
     std::optional<training::DeterministicReplayResult> replay;
     if (args.algo == "avance") {
-        training::QNetwork network(inputSize, training::QNetwork::kDefaultHiddenSize,
-                                   scratchRng);
+        training::QNetwork network(inputSize, training::QNetwork::kDefaultHiddenSize, scratchRng);
         if (!nn::loadWeights(network.network(), args.model)) {
             std::cerr << "export-replay : impossible de charger le modele : " << args.model << "\n";
             return 1;

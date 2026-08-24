@@ -64,8 +64,8 @@ struct ConvergenceReport {
  * @param rewardThreshold Même seuil que `analyzeRun`, partagé entre les deux algorithmes comparés.
  * @param finalWindowSize Même fenêtre que `analyzeRun`.
  */
-[[nodiscard]] ConvergenceReport compareConvergence(const std::vector<std::filesystem::path>& csvPaths,
-                                                   float rewardThreshold,
-                                                   int finalWindowSize = 10);
+[[nodiscard]] ConvergenceReport compareConvergence(
+    const std::vector<std::filesystem::path>& csvPaths, float rewardThreshold,
+    int finalWindowSize = 10);
 
 }  // namespace aisolver::training

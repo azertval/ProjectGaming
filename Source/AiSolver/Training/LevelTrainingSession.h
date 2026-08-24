@@ -25,10 +25,10 @@ namespace aisolver::training {
  * @brief Critère d'arrêt d'une session d'entraînement : résolution stable, ou plafond.
  *
  * « Résolu N fois d'affilée » n'est pas une répétition de tirages aléatoires (l'évaluation et le
- * rejeu sont déterministes, `LOT-ANNEXE-10`) : c'est une exigence de stabilité inter-générationnelle
- * — le champion reste invaincu (aucun individu ne le dépasse) et résolvant (`EpisodeStatus::Won`)
- * pendant `requiredConsecutiveSuccesses` générations consécutives (voir décision de cadrage de
- * l'épic).
+ * rejeu sont déterministes, `LOT-ANNEXE-10`) : c'est une exigence de stabilité
+ * inter-générationnelle — le champion reste invaincu (aucun individu ne le dépasse) et résolvant
+ * (`EpisodeStatus::Won`) pendant `requiredConsecutiveSuccesses` générations consécutives (voir
+ * décision de cadrage de l'épic).
  */
 struct StoppingConfig {
     /// Nombre de générations consécutives où le champion doit rester invaincu et résolvant pour
@@ -81,9 +81,9 @@ public:
      *                     progression) ; valeur par défaut de `LOT-ANNEXE-05` si omise.
      */
     LevelTrainingSession(std::filesystem::path levelPath, evolutionary::NetworkTopology topology,
-                        evolutionary::EvolutionaryConfig config, StoppingConfig stopping,
-                        std::uint64_t seed, const std::filesystem::path& statsCsvPath,
-                        EnvironmentConfig environmentConfig = {});
+                         evolutionary::EvolutionaryConfig config, StoppingConfig stopping,
+                         std::uint64_t seed, const std::filesystem::path& statsCsvPath,
+                         EnvironmentConfig environmentConfig = {});
 
     /**
      * @brief Exécute des générations jusqu'à ce que le champion reste invaincu et résolvant

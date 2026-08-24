@@ -80,7 +80,8 @@ TEST(BenchmarkReportTest, UneLigneParModeleAccumule) {
  */
 TEST(BenchmarkReportTest, ReutiliseLEchappementCsvPartage) {
     BenchmarkReport report;
-    report.addResult("Evolutionniste", "Niveau, avec virgule", makeResult(core::LevelOutcome::Won, 3));
+    report.addResult("Evolutionniste", "Niveau, avec virgule",
+                     makeResult(core::LevelOutcome::Won, 3));
 
     const std::filesystem::path path = reportPath("escaping");
     report.writeCsv(path);

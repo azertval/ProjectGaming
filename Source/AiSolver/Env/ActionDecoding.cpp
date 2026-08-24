@@ -14,8 +14,8 @@ namespace {
 
 void checkDistributionShape(const Tensor<float>& distribution) {
     PROJECTGAMING_ASSERT(distribution.rank() == 1 && distribution.shape()[0] == actionCount(),
-                          "decodeArgmax/decodeStochastic : distribution de forme incorrecte "
-                          "(attendu un vecteur de taille actionCount())");
+                         "decodeArgmax/decodeStochastic : distribution de forme incorrecte "
+                         "(attendu un vecteur de taille actionCount())");
 }
 
 }  // namespace

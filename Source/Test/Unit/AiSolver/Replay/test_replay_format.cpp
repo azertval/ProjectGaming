@@ -20,7 +20,8 @@ namespace {
 /// Source/Test/Unit/AiSolver/Replay/test_replay_file.cpp.
 class TempDirectory {
 public:
-    TempDirectory() : _path(std::filesystem::temp_directory_path() / "aisolver_test_replay_format") {
+    TempDirectory()
+        : _path(std::filesystem::temp_directory_path() / "aisolver_test_replay_format") {
         std::filesystem::create_directories(_path);
     }
     ~TempDirectory() {
@@ -114,8 +115,8 @@ TEST(ReplayFormatTest, FichierVersion2RestitueLesNouveauxChamps) {
  * \castest{Round-trip des nouveaux champs.<br/>
  * \tcat Unitaire · AiSolver Replay<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Construire un `ReplayFile` avec `totalDurationSeconds`/`algorithmId` renseignes.<br/>2.
- * `writeReplay` puis `readReplay`.<br/>
+ * \tetapes 1. Construire un `ReplayFile` avec `totalDurationSeconds`/`algorithmId`
+ * renseignes.<br/>2. `writeReplay` puis `readReplay`.<br/>
  * \tattendu Les deux champs relus sont identiques a l'original ; `formatVersion == 2`.}
  */
 TEST(ReplayFormatTest, RoundTripDesNouveauxChamps) {

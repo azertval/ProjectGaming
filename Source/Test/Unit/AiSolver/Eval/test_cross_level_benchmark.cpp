@@ -20,6 +20,7 @@
 
 #include <gtest/gtest.h>
 
+#include "../Training/TrivialLevelFixture.h"
 #include "AiSolver/Env/HeadlessLevelEnvironment.h"
 #include "AiSolver/Env/ObservationEncoder.h"
 #include "AiSolver/Eval/CrossLevelBenchmark.h"
@@ -28,7 +29,6 @@
 #include "AiSolver/Training/LevelTrainingSession.h"
 #include "AiSolver/Training/TrainingResult.h"
 #include "Core/Physics/PlayerInput.h"
-#include "../Training/TrivialLevelFixture.h"
 
 using aisolver::EnvironmentConfig;
 using aisolver::ObservationEncoder;
@@ -56,8 +56,8 @@ public:
     explicit ScriptedPolicy(core::PlayerInput fixedInput) : _fixedInput(fixedInput) {}
 
     [[nodiscard]] std::optional<core::PlayerInput> selectAction(const aisolver::Tensor<float>&,
-                                                                 ActionDecodingMode,
-                                                                 aisolver::Rng&) override {
+                                                                ActionDecodingMode,
+                                                                aisolver::Rng&) override {
         return _fixedInput;
     }
 

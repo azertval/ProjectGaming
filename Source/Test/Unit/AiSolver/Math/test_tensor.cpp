@@ -130,8 +130,9 @@ TEST(TensorTest, AssertionIndexationInvalide) {
     aisolver::Tensor<float> tensor({2, 3});
 
     // Le gestionnaire lève pour interrompre avant tout accès hors-bornes au tampon.
-    core::setAssertionHandler(
-        [](const char*, const char*, const char*, int) { throw std::runtime_error("precondition"); });
+    core::setAssertionHandler([](const char*, const char*, const char*, int) {
+        throw std::runtime_error("precondition");
+    });
 
     EXPECT_THROW({ [[maybe_unused]] float& v = tensor.at({0}); }, std::runtime_error);
     EXPECT_THROW({ [[maybe_unused]] float& v = tensor.at({0, 5}); }, std::runtime_error);
@@ -156,10 +157,12 @@ TEST(TensorTest, AssertionVueVolumeIncompatible) {
 #else
     aisolver::Tensor<float> tensor({2, 3});
 
-    core::setAssertionHandler(
-        [](const char*, const char*, const char*, int) { throw std::runtime_error("precondition"); });
+    core::setAssertionHandler([](const char*, const char*, const char*, int) {
+        throw std::runtime_error("precondition");
+    });
 
-    EXPECT_THROW({ [[maybe_unused]] aisolver::Tensor<float> view = tensor.view({4}); }, std::runtime_error);
+    EXPECT_THROW(
+        { [[maybe_unused]] aisolver::Tensor<float> view = tensor.view({4}); }, std::runtime_error);
 
     core::setAssertionHandler(nullptr);
 #endif

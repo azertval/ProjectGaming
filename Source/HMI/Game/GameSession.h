@@ -102,7 +102,8 @@ public:
      *        partagé, utilisé aussi bien par le jeu réel (via `update(const InputState&, float)`,
      *        qui ne fait plus que traduire puis déléguer ici) que par la lecture d'un rejeu
      *        (`hmi::ReplayPlayback`), sans aucune divergence possible entre les deux chemins.
-     * @param input      Intention de jeu déjà résolue (entrée réelle traduite, ou rejeu enregistré).
+     * @param input      Intention de jeu déjà résolue (entrée réelle traduite, ou rejeu
+     * enregistré).
      * @param fixedDelta Durée du pas fixe, en secondes.
      * @return L'issue : `Playing`, `Won` (l'appelant décide), ou `Lost` (niveau déjà rechargé).
      */

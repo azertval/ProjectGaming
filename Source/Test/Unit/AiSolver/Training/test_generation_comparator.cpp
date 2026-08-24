@@ -23,11 +23,11 @@
 #include "AiSolver/Math/Rng.h"
 #include "AiSolver/Optim/Sgd.h"
 #include "AiSolver/Stats/TrainingStatsRecorder.h"
+#include "AiSolver/Training/ActorCritic/ActorCriticTrainer.h"
+#include "AiSolver/Training/ActorCritic/CriticNetwork.h"
 #include "AiSolver/Training/Advanced/DqnTrainer.h"
 #include "AiSolver/Training/Advanced/GenerationComparator.h"
 #include "AiSolver/Training/Advanced/QNetwork.h"
-#include "AiSolver/Training/ActorCritic/ActorCriticTrainer.h"
-#include "AiSolver/Training/ActorCritic/CriticNetwork.h"
 #include "AiSolver/Training/Evolutionary/EvolutionaryConfig.h"
 #include "AiSolver/Training/Evolutionary/EvolutionaryTrainer.h"
 #include "AiSolver/Training/Evolutionary/NetworkTopology.h"
@@ -80,9 +80,9 @@ void writeSyntheticCsv(const std::filesystem::path& path, const std::vector<floa
 }
 
 std::filesystem::path syntheticDirectory(const char* suffix) {
-    const std::filesystem::path path = std::filesystem::temp_directory_path() /
-                                       (std::string("aisolver_test_generation_comparator_") +
-                                        suffix);
+    const std::filesystem::path path =
+        std::filesystem::temp_directory_path() /
+        (std::string("aisolver_test_generation_comparator_") + suffix);
     std::error_code ignored;
     std::filesystem::remove_all(path, ignored);
     std::filesystem::create_directories(path);
@@ -97,7 +97,8 @@ std::filesystem::path syntheticDirectory(const char* suffix) {
  * \castest{<b>compareGenerations : non-regression du cas a deux series.</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Deux series synthetiques.<br/>2. `compareConvergence` direct vs `compareGenerations`.<br/>
+ * \tetapes 1. Deux series synthetiques.<br/>2. `compareConvergence` direct vs
+ * `compareGenerations`.<br/>
  * \tattendu Memes metriques (episodesToThreshold, ecart-type) des deux cotes.}
  */
 TEST(GenerationComparatorTest, NonRegressionDuCasADeuxSeries) {
@@ -165,8 +166,7 @@ TEST(GenerationComparatorTest, RobustesseAUneSerieManquanteOuVide) {
     writeSyntheticCsv(pathA, {1.0f, 2.0f});
     writeSyntheticCsv(pathC, {3.0f, 4.0f});
 
-    const std::vector<NamedSeries> series{
-        {"A", {pathA}}, {"B (absente)", {}}, {"C", {pathC}}};
+    const std::vector<NamedSeries> series{{"A", {pathA}}, {"B (absente)", {}}, {"C", {pathC}}};
     const std::vector<GenerationComparisonResult> results = compareGenerations(series, 100.0f);
 
     ASSERT_EQ(results.size(), 3u);
@@ -233,8 +233,8 @@ TEST(GenerationComparatorTest, ComparaisonAQuatreSeriesClotureGeneration3) {
         evoConfig.populationSize = kPopulationSize;
         HeadlessLevelEnvironment evoEnvironment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
         EvolutionaryTrainer evoTrainer(policyTopology(encoder.inputSize()), evoConfig,
-                                      evoEnvironment, level.levelPath(), seed, evoRecorder,
-                                      "TrivialAI");
+                                       evoEnvironment, level.levelPath(), seed, evoRecorder,
+                                       "TrivialAI");
         for (std::size_t generation = 0; generation < kGenerationCount; ++generation) {
             evoTrainer.runGeneration();
         }
@@ -244,15 +244,16 @@ TEST(GenerationComparatorTest, ComparaisonAQuatreSeriesClotureGeneration3) {
         Rng reinforceRng(seed);
         auto reinforcePolicy = buildNetwork(policyTopology(encoder.inputSize()), reinforceRng);
         Sgd reinforceOptimizer(0.05f);
-        HeadlessLevelEnvironment reinforceEnvironment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+        HeadlessLevelEnvironment reinforceEnvironment(
+            EnvironmentConfig{.maxSteps = kReducedMaxSteps});
         const std::filesystem::path reinforcePath =
             level.file(("reinforce_" + suffix + ".csv").c_str());
         TrainingStatsRecorder reinforceRecorder(reinforcePath);
         ReinforceConfig reinforceConfig;
         reinforceConfig.seedBase = seed;
         ReinforceTrainer reinforceTrainer(*reinforcePolicy, reinforceOptimizer,
-                                          reinforceEnvironment, level.levelPath(),
-                                          reinforceConfig, reinforceRecorder, "TrivialAI");
+                                          reinforceEnvironment, level.levelPath(), reinforceConfig,
+                                          reinforceRecorder, "TrivialAI");
         reinforceTrainer.run(kEpisodeBudget);
         reinforcePaths.push_back(reinforcePath);
 
@@ -269,8 +270,8 @@ TEST(GenerationComparatorTest, ComparaisonAQuatreSeriesClotureGeneration3) {
         ActorCriticConfig acConfig;
         acConfig.seedBase = seed;
         ActorCriticTrainer acTrainer(*acPolicy, acPolicyOptimizer, critic, criticOptimizer,
-                                    acEnvironment, level.levelPath(), acConfig, acRecorder,
-                                    "TrivialAI");
+                                     acEnvironment, level.levelPath(), acConfig, acRecorder,
+                                     "TrivialAI");
         acTrainer.run(kEpisodeBudget);
         acPaths.push_back(acPath);
 

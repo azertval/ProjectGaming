@@ -10,7 +10,8 @@ Tensor<float> NoisyObservationWrapper::encode(const HeadlessLevelEnvironment& en
                                               const core::Player& playerState,
                                               const core::Velocity& playerVelocity,
                                               Rng& rng) const {
-    const Tensor<float> clean = _encoder.encode(environment, playerBox, playerState, playerVelocity);
+    const Tensor<float> clean =
+        _encoder.encode(environment, playerBox, playerState, playerVelocity);
     if (_noiseAmplitude <= 0.0f) {
         return clean;
     }

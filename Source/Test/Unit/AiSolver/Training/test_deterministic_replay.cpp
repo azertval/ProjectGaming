@@ -55,7 +55,8 @@ TrainingResult trainSolvedIndividual(const TrivialLevelDirectory& level) {
     return session.run();
 }
 
-bool sameSteps(const std::vector<core::PlayerInput>& lhs, const std::vector<core::PlayerInput>& rhs) {
+bool sameSteps(const std::vector<core::PlayerInput>& lhs,
+               const std::vector<core::PlayerInput>& rhs) {
     if (lhs.size() != rhs.size()) {
         return false;
     }
@@ -161,8 +162,8 @@ TEST(DeterministicReplayTest, RejeuDUnIndividuNonResolvant) {
     ASSERT_TRUE(training.solved);
 
     HeadlessLevelEnvironment zeroBudgetEnvironment(EnvironmentConfig{.maxSteps = 0});
-    const DeterministicReplayResult replay = replayBestIndividual(
-        training.bestIndividual, zeroBudgetEnvironment, level.levelPath());
+    const DeterministicReplayResult replay =
+        replayBestIndividual(training.bestIndividual, zeroBudgetEnvironment, level.levelPath());
 
     EXPECT_NE(replay.status, aisolver::EpisodeStatus::Won);
     EXPECT_TRUE(replay.steps.empty());

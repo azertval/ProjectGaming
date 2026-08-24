@@ -36,8 +36,8 @@ public:
     /// @brief Même contrat que `ObservationEncoder::encode`, plus @p rng (seule source d'aléatoire
     /// du bruit, dérivée par l'appelant de la même graine que le reste de la répétition).
     [[nodiscard]] Tensor<float> encode(const HeadlessLevelEnvironment& environment,
-                                        const core::Aabb& playerBox, const core::Player& playerState,
-                                        const core::Velocity& playerVelocity, Rng& rng) const;
+                                       const core::Aabb& playerBox, const core::Player& playerState,
+                                       const core::Velocity& playerVelocity, Rng& rng) const;
 
     /// @return L'amplitude de bruit configurée.
     [[nodiscard]] float noiseAmplitude() const noexcept {

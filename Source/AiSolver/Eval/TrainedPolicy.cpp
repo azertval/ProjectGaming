@@ -9,8 +9,8 @@
 namespace aisolver::eval::detail {
 
 std::optional<core::PlayerInput> decodeFromDistribution(const Tensor<float>& distribution,
-                                                         ActionDecodingMode mode, Rng& rng,
-                                                         bool allowStochastic) {
+                                                        ActionDecodingMode mode, Rng& rng,
+                                                        bool allowStochastic) {
     if (mode == ActionDecodingMode::Stochastic) {
         if (!allowStochastic) {
             return std::nullopt;

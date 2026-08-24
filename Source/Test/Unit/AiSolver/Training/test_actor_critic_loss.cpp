@@ -140,7 +140,8 @@ TEST(ActorCriticLossTest, AvantageNulGradientNul) {
     for (const auto& parameter : parameters) {
         parameter->zeroGrad();
     }
-    const aisolver::autodiff::NodePtr loss = computeActorCriticLoss(*policy, trajectory, advantages);
+    const aisolver::autodiff::NodePtr loss =
+        computeActorCriticLoss(*policy, trajectory, advantages);
     aisolver::autodiff::backward(loss);
 
     for (const auto& parameter : parameters) {

@@ -11,7 +11,7 @@
 namespace aisolver {
 
 std::optional<ReplayValidationError> validateReplay(const ReplayFile& replay,
-                                                      const std::filesystem::path& levelsDir) {
+                                                    const std::filesystem::path& levelsDir) {
     const std::filesystem::path levelPath = levelsDir / replay.levelPath;
 
     std::ifstream file(levelPath, std::ios::binary);

@@ -24,7 +24,8 @@ namespace {
 
 /// Tenseur de forme donnée, éléments tirés uniformément dans `[min, max]` via `Rng` (graine fixe,
 /// reproductibilité du test).
-Tensor<float> randomTensor(aisolver::Rng& rng, const std::vector<std::size_t>& shape, float min, float max) {
+Tensor<float> randomTensor(aisolver::Rng& rng, const std::vector<std::size_t>& shape, float min,
+                           float max) {
     Tensor<float> result(shape);
     float* data = result.data();
     for (std::size_t i = 0; i < result.size(); ++i) {
@@ -47,10 +48,13 @@ Tensor<float> randomTensor(aisolver::Rng& rng, const std::vector<std::size_t>& s
 TEST(GradientCheckingTest, Add) {
     aisolver::Rng rng(1001);
     const std::vector<Tensor<float>> inputs = {randomTensor(rng, {2, 2}, -3.0f, 3.0f),
-                                                randomTensor(rng, {2, 2}, -3.0f, 3.0f)};
+                                               randomTensor(rng, {2, 2}, -3.0f, 3.0f)};
 
     const GradientCheckResult result = checkGradient(
-        [](const std::vector<NodePtr>& nodes) { return aisolver::autodiff::add(nodes[0], nodes[1]); }, inputs);
+        [](const std::vector<NodePtr>& nodes) {
+            return aisolver::autodiff::add(nodes[0], nodes[1]);
+        },
+        inputs);
 
     EXPECT_TRUE(result.passed) << "Ecart maximal : " << result.maxAbsoluteError;
 }
@@ -68,10 +72,13 @@ TEST(GradientCheckingTest, Add) {
 TEST(GradientCheckingTest, Multiply) {
     aisolver::Rng rng(1002);
     const std::vector<Tensor<float>> inputs = {randomTensor(rng, {2, 2}, -3.0f, 3.0f),
-                                                randomTensor(rng, {2, 2}, -3.0f, 3.0f)};
+                                               randomTensor(rng, {2, 2}, -3.0f, 3.0f)};
 
     const GradientCheckResult result = checkGradient(
-        [](const std::vector<NodePtr>& nodes) { return aisolver::autodiff::multiply(nodes[0], nodes[1]); }, inputs);
+        [](const std::vector<NodePtr>& nodes) {
+            return aisolver::autodiff::multiply(nodes[0], nodes[1]);
+        },
+        inputs);
 
     EXPECT_TRUE(result.passed) << "Ecart maximal : " << result.maxAbsoluteError;
 }
@@ -88,10 +95,13 @@ TEST(GradientCheckingTest, Multiply) {
 TEST(GradientCheckingTest, Matmul) {
     aisolver::Rng rng(1003);
     const std::vector<Tensor<float>> inputs = {randomTensor(rng, {2, 3}, -2.0f, 2.0f),
-                                                randomTensor(rng, {3, 2}, -2.0f, 2.0f)};
+                                               randomTensor(rng, {3, 2}, -2.0f, 2.0f)};
 
     const GradientCheckResult result = checkGradient(
-        [](const std::vector<NodePtr>& nodes) { return aisolver::autodiff::matmul(nodes[0], nodes[1]); }, inputs);
+        [](const std::vector<NodePtr>& nodes) {
+            return aisolver::autodiff::matmul(nodes[0], nodes[1]);
+        },
+        inputs);
 
     EXPECT_TRUE(result.passed) << "Ecart maximal : " << result.maxAbsoluteError;
 }
@@ -119,7 +129,8 @@ TEST(GradientCheckingTest, Relu) {
     const std::vector<Tensor<float>> inputs = {input};
 
     const GradientCheckResult result = checkGradient(
-        [](const std::vector<NodePtr>& nodes) { return aisolver::autodiff::relu(nodes[0]); }, inputs);
+        [](const std::vector<NodePtr>& nodes) { return aisolver::autodiff::relu(nodes[0]); },
+        inputs);
 
     EXPECT_TRUE(result.passed) << "Ecart maximal : " << result.maxAbsoluteError;
 }
@@ -140,7 +151,8 @@ TEST(GradientCheckingTest, TanhOp) {
     const std::vector<Tensor<float>> inputs = {randomTensor(rng, {2, 2}, -1.5f, 1.5f)};
 
     const GradientCheckResult result = checkGradient(
-        [](const std::vector<NodePtr>& nodes) { return aisolver::autodiff::tanhOp(nodes[0]); }, inputs);
+        [](const std::vector<NodePtr>& nodes) { return aisolver::autodiff::tanhOp(nodes[0]); },
+        inputs);
 
     EXPECT_TRUE(result.passed) << "Ecart maximal : " << result.maxAbsoluteError;
 }
@@ -160,12 +172,14 @@ TEST(GradientCheckingTest, TanhOp) {
 TEST(GradientCheckingTest, DetecteUneReglederivationFausse) {
     aisolver::Rng rng(1006);
     const std::vector<Tensor<float>> inputs = {randomTensor(rng, {2, 2}, -3.0f, 3.0f),
-                                                randomTensor(rng, {2, 2}, -3.0f, 3.0f)};
+                                               randomTensor(rng, {2, 2}, -3.0f, 3.0f)};
 
     const auto wrongAdd = [](const NodePtr& a, const NodePtr& b) {
         return aisolver::autodiff::binaryOp(
             a, b,
-            [](const Tensor<float>& valueA, const Tensor<float>& valueB) { return aisolver::add(valueA, valueB); },
+            [](const Tensor<float>& valueA, const Tensor<float>& valueB) {
+                return aisolver::add(valueA, valueB);
+            },
             [](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>&,
                const Tensor<float>&) {
                 // Faute volontaire : devrait propager outputGrad inchange (d(a+b)/da = 1), pas 2x.
@@ -175,8 +189,9 @@ TEST(GradientCheckingTest, DetecteUneReglederivationFausse) {
                const Tensor<float>&) { return outputGrad; });
     };
 
-    const GradientCheckResult result =
-        checkGradient([&wrongAdd](const std::vector<NodePtr>& nodes) { return wrongAdd(nodes[0], nodes[1]); }, inputs);
+    const GradientCheckResult result = checkGradient(
+        [&wrongAdd](const std::vector<NodePtr>& nodes) { return wrongAdd(nodes[0], nodes[1]); },
+        inputs);
 
     EXPECT_FALSE(result.passed);
 }
@@ -196,10 +211,13 @@ TEST(GradientCheckingTest, DetecteUneReglederivationFausse) {
 TEST(GradientCheckingTest, Subtract) {
     aisolver::Rng rng(1101);
     const std::vector<Tensor<float>> inputs = {randomTensor(rng, {2, 2}, -3.0f, 3.0f),
-                                                randomTensor(rng, {2, 2}, -3.0f, 3.0f)};
+                                               randomTensor(rng, {2, 2}, -3.0f, 3.0f)};
 
     const GradientCheckResult result = checkGradient(
-        [](const std::vector<NodePtr>& nodes) { return aisolver::autodiff::subtract(nodes[0], nodes[1]); }, inputs);
+        [](const std::vector<NodePtr>& nodes) {
+            return aisolver::autodiff::subtract(nodes[0], nodes[1]);
+        },
+        inputs);
 
     EXPECT_TRUE(result.passed) << "Ecart maximal : " << result.maxAbsoluteError;
 }
@@ -217,10 +235,13 @@ TEST(GradientCheckingTest, Subtract) {
 TEST(GradientCheckingTest, Divide) {
     aisolver::Rng rng(1102);
     const std::vector<Tensor<float>> inputs = {randomTensor(rng, {2, 2}, -3.0f, 3.0f),
-                                                randomTensor(rng, {2, 2}, 0.5f, 3.0f)};
+                                               randomTensor(rng, {2, 2}, 0.5f, 3.0f)};
 
     const GradientCheckResult result = checkGradient(
-        [](const std::vector<NodePtr>& nodes) { return aisolver::autodiff::divide(nodes[0], nodes[1]); }, inputs);
+        [](const std::vector<NodePtr>& nodes) {
+            return aisolver::autodiff::divide(nodes[0], nodes[1]);
+        },
+        inputs);
 
     EXPECT_TRUE(result.passed) << "Ecart maximal : " << result.maxAbsoluteError;
 }
@@ -239,9 +260,15 @@ TEST(GradientCheckingTest, AddScalarEtMultiplyScalar) {
     const std::vector<Tensor<float>> inputs = {randomTensor(rng, {2, 2}, -3.0f, 3.0f)};
 
     const GradientCheckResult addResult = checkGradient(
-        [](const std::vector<NodePtr>& nodes) { return aisolver::autodiff::addScalar(nodes[0], 3.0f); }, inputs);
+        [](const std::vector<NodePtr>& nodes) {
+            return aisolver::autodiff::addScalar(nodes[0], 3.0f);
+        },
+        inputs);
     const GradientCheckResult multiplyResult = checkGradient(
-        [](const std::vector<NodePtr>& nodes) { return aisolver::autodiff::multiplyScalar(nodes[0], -2.0f); }, inputs);
+        [](const std::vector<NodePtr>& nodes) {
+            return aisolver::autodiff::multiplyScalar(nodes[0], -2.0f);
+        },
+        inputs);
 
     EXPECT_TRUE(addResult.passed) << "Ecart maximal : " << addResult.maxAbsoluteError;
     EXPECT_TRUE(multiplyResult.passed) << "Ecart maximal : " << multiplyResult.maxAbsoluteError;
@@ -260,8 +287,9 @@ TEST(GradientCheckingTest, LogOp) {
     aisolver::Rng rng(1104);
     const std::vector<Tensor<float>> inputs = {randomTensor(rng, {2, 2}, 0.5f, 3.0f)};
 
-    const GradientCheckResult result =
-        checkGradient([](const std::vector<NodePtr>& nodes) { return aisolver::autodiff::logOp(nodes[0]); }, inputs);
+    const GradientCheckResult result = checkGradient(
+        [](const std::vector<NodePtr>& nodes) { return aisolver::autodiff::logOp(nodes[0]); },
+        inputs);
 
     EXPECT_TRUE(result.passed) << "Ecart maximal : " << result.maxAbsoluteError;
 }
@@ -280,8 +308,9 @@ TEST(GradientCheckingTest, ExpOp) {
     aisolver::Rng rng(1105);
     const std::vector<Tensor<float>> inputs = {randomTensor(rng, {2, 2}, -2.0f, 2.0f)};
 
-    const GradientCheckResult result =
-        checkGradient([](const std::vector<NodePtr>& nodes) { return aisolver::autodiff::expOp(nodes[0]); }, inputs);
+    const GradientCheckResult result = checkGradient(
+        [](const std::vector<NodePtr>& nodes) { return aisolver::autodiff::expOp(nodes[0]); },
+        inputs);
 
     EXPECT_TRUE(result.passed) << "Ecart maximal : " << result.maxAbsoluteError;
 }
@@ -300,7 +329,10 @@ TEST(GradientCheckingTest, SelectIndex) {
     const std::vector<Tensor<float>> inputs = {randomTensor(rng, {4}, -3.0f, 3.0f)};
 
     const GradientCheckResult result = checkGradient(
-        [](const std::vector<NodePtr>& nodes) { return aisolver::autodiff::selectIndex(nodes[0], 2); }, inputs);
+        [](const std::vector<NodePtr>& nodes) {
+            return aisolver::autodiff::selectIndex(nodes[0], 2);
+        },
+        inputs);
 
     EXPECT_TRUE(result.passed) << "Ecart maximal : " << result.maxAbsoluteError;
 }
@@ -327,7 +359,10 @@ TEST(GradientCheckingTest, Minimum) {
     const std::vector<Tensor<float>> inputs = {a, b};
 
     const GradientCheckResult result = checkGradient(
-        [](const std::vector<NodePtr>& nodes) { return aisolver::autodiff::minimum(nodes[0], nodes[1]); }, inputs);
+        [](const std::vector<NodePtr>& nodes) {
+            return aisolver::autodiff::minimum(nodes[0], nodes[1]);
+        },
+        inputs);
 
     EXPECT_TRUE(result.passed) << "Ecart maximal : " << result.maxAbsoluteError;
 }
@@ -347,7 +382,10 @@ TEST(GradientCheckingTest, Clamp) {
     const std::vector<Tensor<float>> inputs = {randomTensor(rng, {2, 2}, -0.5f, 0.5f)};
 
     const GradientCheckResult result = checkGradient(
-        [](const std::vector<NodePtr>& nodes) { return aisolver::autodiff::clamp(nodes[0], -1.0f, 1.0f); }, inputs);
+        [](const std::vector<NodePtr>& nodes) {
+            return aisolver::autodiff::clamp(nodes[0], -1.0f, 1.0f);
+        },
+        inputs);
 
     EXPECT_TRUE(result.passed) << "Ecart maximal : " << result.maxAbsoluteError;
 }

@@ -10,7 +10,8 @@
 namespace aisolver::nn {
 
 void initializeWeights(Tensor<float>& weights, WeightInitScheme scheme, Rng& rng) {
-    PROJECTGAMING_ASSERT(weights.rank() == 2, "initializeWeights() : les poids doivent etre de rang 2");
+    PROJECTGAMING_ASSERT(weights.rank() == 2,
+                         "initializeWeights() : les poids doivent etre de rang 2");
     const std::size_t fanOut = weights.shape()[0];
     const std::size_t fanIn = weights.shape()[1];
 

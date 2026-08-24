@@ -62,7 +62,8 @@ TEST(TrainedPolicyTest, EvolutionaryAcceptelArgmaxSeulement) {
     EXPECT_FALSE(policy.supportsMode(ActionDecodingMode::Stochastic));
 
     Rng actionRng(2);
-    const auto argmaxResult = policy.selectAction(zeroObservation(), ActionDecodingMode::Argmax, actionRng);
+    const auto argmaxResult =
+        policy.selectAction(zeroObservation(), ActionDecodingMode::Argmax, actionRng);
     EXPECT_TRUE(argmaxResult.has_value());
 
     const auto stochasticResult =
@@ -89,8 +90,8 @@ TEST(TrainedPolicyTest, ReinforceAccepteLesDeuxModes) {
     Rng actionRng(4);
     EXPECT_TRUE(
         policy.selectAction(zeroObservation(), ActionDecodingMode::Argmax, actionRng).has_value());
-    EXPECT_TRUE(
-        policy.selectAction(zeroObservation(), ActionDecodingMode::Stochastic, actionRng).has_value());
+    EXPECT_TRUE(policy.selectAction(zeroObservation(), ActionDecodingMode::Stochastic, actionRng)
+                    .has_value());
 }
 
 /**
@@ -109,8 +110,8 @@ TEST(TrainedPolicyTest, ActorCriticAccepteLesDeuxModes) {
     Rng actionRng(6);
     EXPECT_TRUE(
         policy.selectAction(zeroObservation(), ActionDecodingMode::Argmax, actionRng).has_value());
-    EXPECT_TRUE(
-        policy.selectAction(zeroObservation(), ActionDecodingMode::Stochastic, actionRng).has_value());
+    EXPECT_TRUE(policy.selectAction(zeroObservation(), ActionDecodingMode::Stochastic, actionRng)
+                    .has_value());
 }
 
 /**
@@ -133,8 +134,8 @@ TEST(TrainedPolicyTest, AlgorithmeAvanceAcceptelArgmaxSeulement) {
     Rng actionRng(8);
     EXPECT_TRUE(
         policy.selectAction(zeroObservation(), ActionDecodingMode::Argmax, actionRng).has_value());
-    EXPECT_FALSE(
-        policy.selectAction(zeroObservation(), ActionDecodingMode::Stochastic, actionRng).has_value());
+    EXPECT_FALSE(policy.selectAction(zeroObservation(), ActionDecodingMode::Stochastic, actionRng)
+                     .has_value());
 }
 
 /**

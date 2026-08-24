@@ -56,9 +56,9 @@ public:
      * @param noiseAmplitude `<= 0.0f` désactive le bruit (voir `NoisyObservationWrapper`).
      */
     [[nodiscard]] static BenchmarkResult runWithNoise(TrainedPolicy& policy,
-                                                       const std::filesystem::path& levelPath,
-                                                       const BenchmarkConfig& config,
-                                                       float noiseAmplitude);
+                                                      const std::filesystem::path& levelPath,
+                                                      const BenchmarkConfig& config,
+                                                      float noiseAmplitude);
 };
 
 }  // namespace aisolver::eval

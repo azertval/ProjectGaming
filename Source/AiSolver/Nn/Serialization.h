@@ -10,7 +10,8 @@
 
 /**
  * @file AiSolver/Nn/Serialization.h
- * @brief Format binaire versionné de sauvegarde/chargement des poids d'un `Network` (LOT-ANNEXE-03).
+ * @brief Format binaire versionné de sauvegarde/chargement des poids d'un `Network`
+ * (LOT-ANNEXE-03).
  *
  * Ne stocke aucune information de structure au-delà des formes (pas de type d'activation, pas de
  * schéma d'initialisation) : reconstruire un `Network` compatible (mêmes couches, mêmes

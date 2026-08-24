@@ -61,7 +61,8 @@ struct DqnConfig {
 /**
  * @brief Assemble `QNetwork` (principal + cible), `ReplayBuffer`, `computeDqnLoss` et un optimiseur
  * (`optim::IOptimizer`, `LOT-ANNEXE-04`) en une boucle par pas, journalisée par épisode
- * (`TrainingStatsRecorder`, `LOT-ANNEXE-09`) exactement comme `ReinforceTrainer`/`ActorCriticTrainer`.
+ * (`TrainingStatsRecorder`, `LOT-ANNEXE-09`) exactement comme
+ * `ReinforceTrainer`/`ActorCriticTrainer`.
  *
  * Un seul niveau à la fois (décision transverse du programme), un seul `HeadlessLevelEnvironment`
  * construit pour toute la durée du run : aucune API ne permet d'en substituer un autre en cours de
@@ -72,9 +73,9 @@ struct DqnConfig {
  * `ReinforceTrainer`/`ActorCriticTrainer` -- les mises à jour de poids surviennent à une fréquence
  * différente (par mini-lot de pas, pas par épisode), mais ceci ne change ni la fréquence ni le
  * schéma de la journalisation partagée (décision de cadrage de l'épic, TACHE-02). Les colonnes
- * spécifiques à DQN (taille du `ReplayBuffer`, `epsilon` courant en fin d'épisode) sont journalisées
- * dans un CSV secondaire optionnel (`index,replayBufferSize,epsilon`), même patron que la perte du
- * critique de `ActorCriticTrainer` -- jamais une colonne ajoutée au format partagé.
+ * spécifiques à DQN (taille du `ReplayBuffer`, `epsilon` courant en fin d'épisode) sont
+ * journalisées dans un CSV secondaire optionnel (`index,replayBufferSize,epsilon`), même patron que
+ * la perte du critique de `ActorCriticTrainer` -- jamais une colonne ajoutée au format partagé.
  */
 class DqnTrainer {
 public:
@@ -92,9 +93,9 @@ public:
      * @param dqnStatsCsvPath Chemin optionnel du CSV secondaire `index,replayBufferSize,epsilon`.
      */
     DqnTrainer(QNetwork& mainNetwork, QNetwork& targetNetwork, optim::IOptimizer& optimizer,
-              HeadlessLevelEnvironment& environment, std::filesystem::path levelPath,
-              DqnConfig config, TrainingStatsRecorder& recorder, std::string levelName,
-              std::optional<std::filesystem::path> dqnStatsCsvPath = std::nullopt);
+               HeadlessLevelEnvironment& environment, std::filesystem::path levelPath,
+               DqnConfig config, TrainingStatsRecorder& recorder, std::string levelName,
+               std::optional<std::filesystem::path> dqnStatsCsvPath = std::nullopt);
 
     /// @brief Exécute `episodeCount` épisodes complets (chacun jusqu'à victoire/échec/timeout/
     /// blocage), en mettant à jour le réseau principal à la période configurée.

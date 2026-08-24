@@ -21,9 +21,11 @@ namespace aisolver::nn {
  * activation `tanh`/`sigmoid`, `He` pour une activation `relu` (recommandation standard).
  */
 enum class WeightInitScheme {
-    /// Tirage uniforme dans `[-bound, bound]`, `bound = sqrt(6 / (fanIn + fanOut))` (Glorot & Bengio, 2010).
+    /// Tirage uniforme dans `[-bound, bound]`, `bound = sqrt(6 / (fanIn + fanOut))` (Glorot &
+    /// Bengio, 2010).
     Xavier,
-    /// Tirage gaussien de moyenne `0` et d'écart-type `sqrt(2 / fanIn)` (He, Zhang, Ren, Sun, 2015).
+    /// Tirage gaussien de moyenne `0` et d'écart-type `sqrt(2 / fanIn)` (He, Zhang, Ren, Sun,
+    /// 2015).
     He,
 };
 

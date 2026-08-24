@@ -21,9 +21,10 @@ namespace aisolver {
 template <typename T>
 [[nodiscard]] Tensor<T> matmul(const Tensor<T>& a, const Tensor<T>& b) {
     PROJECTGAMING_ASSERT(a.rank() == 2 && b.rank() == 2,
-                          "matmul() : les deux tenseurs doivent etre de rang 2");
-    PROJECTGAMING_ASSERT(a.shape()[1] == b.shape()[0],
-                          "matmul() : dimension interne incompatible (colonnes de a != lignes de b)");
+                         "matmul() : les deux tenseurs doivent etre de rang 2");
+    PROJECTGAMING_ASSERT(
+        a.shape()[1] == b.shape()[0],
+        "matmul() : dimension interne incompatible (colonnes de a != lignes de b)");
 
     const std::size_t m = a.shape()[0];
     const std::size_t k = a.shape()[1];

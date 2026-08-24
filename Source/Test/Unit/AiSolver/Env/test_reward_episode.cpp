@@ -38,7 +38,7 @@ TEST(RewardEpisodeTest, MortImmediateRecompenseDomineeParLaPenaliteEtEpisodeLost
     const core::GridPosition exit{50, 50};
 
     const float reward = aisolver::computeReward(config, boxAt(0.0f, 0.0f), boxAt(0.0f, 0.0f), exit,
-                                                  core::LevelOutcome::Lost);
+                                                 core::LevelOutcome::Lost);
     EXPECT_LT(reward, 0.0f);
     EXPECT_NEAR(reward, config.deathPenalty - config.timePenalty, 1e-6f);
 
@@ -63,8 +63,8 @@ TEST(RewardEpisodeTest, CompletionImmediateRecompenseDomineeParLeBonusEtEpisodeW
     const core::GridPosition exit{10, 10};
     const core::Aabb onExit = boxAt(10.0f, 10.0f);
 
-    const float reward = aisolver::computeReward(config, onExit, onExit, exit,
-                                                  core::LevelOutcome::Won);
+    const float reward =
+        aisolver::computeReward(config, onExit, onExit, exit, core::LevelOutcome::Won);
     EXPECT_GT(reward, 0.0f);
     EXPECT_NEAR(reward, config.completionBonus - config.timePenalty, 1e-6f);
 
@@ -89,19 +89,19 @@ TEST(RewardEpisodeTest, StagnationProlongeeMeneAStuckAuSeuil) {
     constexpr int HARD_BUDGET = 3000;
 
     for (int stepsSinceProgress = 0; stepsSinceProgress < STUCK_THRESHOLD; ++stepsSinceProgress) {
-        const aisolver::EpisodeStatus status = aisolver::classifyEpisode(
-            core::LevelOutcome::Playing, stepsSinceProgress, stepsSinceProgress, HARD_BUDGET,
-            STUCK_THRESHOLD);
+        const aisolver::EpisodeStatus status =
+            aisolver::classifyEpisode(core::LevelOutcome::Playing, stepsSinceProgress,
+                                      stepsSinceProgress, HARD_BUDGET, STUCK_THRESHOLD);
         EXPECT_EQ(status, aisolver::EpisodeStatus::Ongoing) << "pas " << stepsSinceProgress;
     }
 
-    const aisolver::EpisodeStatus status = aisolver::classifyEpisode(
-        core::LevelOutcome::Playing, STUCK_THRESHOLD, STUCK_THRESHOLD, HARD_BUDGET,
-        STUCK_THRESHOLD);
+    const aisolver::EpisodeStatus status =
+        aisolver::classifyEpisode(core::LevelOutcome::Playing, STUCK_THRESHOLD, STUCK_THRESHOLD,
+                                  HARD_BUDGET, STUCK_THRESHOLD);
     EXPECT_EQ(status, aisolver::EpisodeStatus::Stuck);
 
-    const aisolver::EpisodeStatus statusAfter = aisolver::classifyEpisode(
-        core::LevelOutcome::Playing, STUCK_THRESHOLD + 1, STUCK_THRESHOLD + 1, HARD_BUDGET,
-        STUCK_THRESHOLD);
+    const aisolver::EpisodeStatus statusAfter =
+        aisolver::classifyEpisode(core::LevelOutcome::Playing, STUCK_THRESHOLD + 1,
+                                  STUCK_THRESHOLD + 1, HARD_BUDGET, STUCK_THRESHOLD);
     EXPECT_EQ(statusAfter, aisolver::EpisodeStatus::Stuck);
 }

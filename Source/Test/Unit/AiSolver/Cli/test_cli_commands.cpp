@@ -12,6 +12,7 @@
 
 #include <gtest/gtest.h>
 
+#include "../Training/TrivialLevelFixture.h"
 #include "AiSolver/Cli/Commands.h"
 #include "AiSolver/Env/ObservationEncoder.h"
 #include "AiSolver/Eval/ActionDecodingMode.h"
@@ -23,7 +24,6 @@
 #include "AiSolver/Replay/ReplayFile.h"
 #include "AiSolver/Replay/ReplayValidation.h"
 #include "AiSolver/Training/Evolutionary/NetworkTopology.h"
-#include "../Training/TrivialLevelFixture.h"
 
 using namespace aisolver::cli;
 using aisolver_test::TrivialLevelDirectory;
@@ -32,7 +32,7 @@ namespace {
 
 std::filesystem::path findFile(const std::filesystem::path& root, const char* name) {
     for (const std::filesystem::directory_entry& entry :
-        std::filesystem::recursive_directory_iterator(root)) {
+         std::filesystem::recursive_directory_iterator(root)) {
         if (entry.path().filename() == name) {
             return entry.path();
         }

@@ -196,8 +196,8 @@ TEST(DqnTrainerTest, ReproductibiliteIntegrale) {
 
 /**
  * @brief Avec une période de synchronisation très supérieure au nombre de pas du run, le réseau
- * cible reste rigoureusement figé (aucune synchronisation ne survient) alors que le réseau principal
- * change bien.
+ * cible reste rigoureusement figé (aucune synchronisation ne survient) alors que le réseau
+ * principal change bien.
  * \castest{<b>DqnTrainer : reseau cible fige avant la periode de synchronisation.</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Bloquant<br/>

@@ -100,7 +100,7 @@ TEST(ActorCriticTrainerTest, ConvergenceDuCritique) {
     config.seedBase = 21;
 
     ActorCriticTrainer trainer(*policy, policyOptimizer, critic, criticOptimizer, environment,
-                              level.levelPath(), config, recorder, "TrivialAI", criticLossCsv);
+                               level.levelPath(), config, recorder, "TrivialAI", criticLossCsv);
     trainer.run(kEpisodeCount);
 
     const std::vector<std::string> lines = splitLines(readWholeFile(criticLossCsv));
@@ -158,7 +158,7 @@ TEST(ActorCriticTrainerTest, IndependanceDesDeuxOptimisations) {
     ActorCriticConfig config;
     config.seedBase = 31;
     ActorCriticTrainer trainer(*policy, policyOptimizer, critic, criticOptimizer, environment,
-                              level.levelPath(), config, recorder, "TrivialAI");
+                               level.levelPath(), config, recorder, "TrivialAI");
     trainer.run(20, /*updateCritic=*/false);
 
     const auto& criticWeightsAfter = critic.parameters().front()->value;
@@ -206,7 +206,7 @@ TEST(ActorCriticTrainerTest, RemiseAZeroDesGradientsDesDeuxReseaux) {
     ActorCriticConfig config;
     config.seedBase = 41;
     ActorCriticTrainer trainer(*policy, policyOptimizer, critic, criticOptimizer, environment,
-                              level.levelPath(), config, recorder, "TrivialAI");
+                               level.levelPath(), config, recorder, "TrivialAI");
     trainer.run(10);
 
     for (const auto& parameter : policy->parameters()) {
@@ -250,7 +250,7 @@ TEST(ActorCriticTrainerTest, CsvDePerteDuCritiqueBienForme) {
     ActorCriticConfig config;
     config.seedBase = 51;
     ActorCriticTrainer trainer(*policy, policyOptimizer, critic, criticOptimizer, environment,
-                              level.levelPath(), config, recorder, "TrivialAI", criticLossCsv);
+                               level.levelPath(), config, recorder, "TrivialAI", criticLossCsv);
     trainer.run(20);
 
     const std::vector<std::string> lines = splitLines(readWholeFile(criticLossCsv));

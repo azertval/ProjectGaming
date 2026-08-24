@@ -56,8 +56,8 @@ TrajectoryStep stepAt(std::size_t actionIndex, const Tensor<float>& observation)
 
 /// Gradient par differences finies centrees sur chaque poids/biais du reseau de politique, compare
 /// au gradient analytique de `backward()` -- meme methode que GradientCheck.h (LOT-ANNEXE-02,
-/// TACHE-04), adaptee ici : les parametres vivent dans le reseau (Dense), pas dans des Tensor passes
-/// en argument d'une fonction de construction de graphe.
+/// TACHE-04), adaptee ici : les parametres vivent dans le reseau (Dense), pas dans des Tensor
+/// passes en argument d'une fonction de construction de graphe.
 float maxAbsoluteGradientError(aisolver::nn::Network& policy, const Trajectory& trajectory,
                                const std::vector<float>& returns, float epsilon = 1e-3f) {
     const std::vector<aisolver::autodiff::NodePtr> parameters = policy.parameters();
@@ -156,7 +156,8 @@ TEST(ReinforceLossTest, GradientCheckingTrajectoireDeTroisPas) {
 TEST(ReinforceLossTest, GradientCheckingTrajectoireDeDixPas) {
     auto policy = tinyPolicy(3);
     Trajectory trajectory;
-    const std::vector<float> returns{1.0f, -0.5f, 0.0f, 2.0f, -1.5f, 0.3f, 0.7f, -0.2f, 1.1f, -0.9f};
+    const std::vector<float> returns{1.0f, -0.5f, 0.0f,  2.0f, -1.5f,
+                                     0.3f, 0.7f,  -0.2f, 1.1f, -0.9f};
     for (std::size_t i = 0; i < returns.size(); ++i) {
         const float a = 0.1f * static_cast<float>(i) - 0.5f;
         const float b = std::sin(static_cast<float>(i));
@@ -234,9 +235,9 @@ TEST(ReinforceLossTest, PerteEtGradientNonDegeneres) {
 }
 
 /**
- * @brief Deux trajectoires synthétiques de longueurs différentes mais de retours par pas comparables
- * produisent des pertes d'ordre de grandeur comparable (la moyenne, pas la somme, rend la perte
- * indépendante de la longueur de l'épisode).
+ * @brief Deux trajectoires synthétiques de longueurs différentes mais de retours par pas
+ * comparables produisent des pertes d'ordre de grandeur comparable (la moyenne, pas la somme, rend
+ * la perte indépendante de la longueur de l'épisode).
  * \castest{<b>computeReinforceLoss : indépendance à la longueur d'épisode.</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Majeur<br/>
@@ -271,14 +272,15 @@ TEST(ReinforceLossTest, IndependanceALaLongueurDEpisode) {
 }
 
 /**
- * @brief Une action à log-probabilité basse associée à un retour positif élevé produit, après un pas
- * d'optimiseur, une augmentation mesurable de la probabilité de cette action sur la même
+ * @brief Une action à log-probabilité basse associée à un retour positif élevé produit, après un
+ * pas d'optimiseur, une augmentation mesurable de la probabilité de cette action sur la même
  * observation (vérifie le sens de la mise à jour, pas seulement sa magnitude).
- * \castest{<b>computeReinforceLoss : signe du gradient (augmente la probabilité renforcée).</b><br/>
+ * \castest{<b>computeReinforceLoss : signe du gradient (augmente la probabilité
+ * renforcée).</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Réseau minuscule, observation fixe, retour positif élevé.<br/>2. `backward()` + un pas
- * de SGD.<br/>3. Repasser en avant sur la même observation.<br/>
+ * \tetapes 1. Réseau minuscule, observation fixe, retour positif élevé.<br/>2. `backward()` + un
+ * pas de SGD.<br/>3. Repasser en avant sur la même observation.<br/>
  * \tattendu Probabilité de l'action renforcée strictement supérieure après la mise à jour.}
  */
 TEST(ReinforceLossTest, SigneDuGradientAugmenteLaProbabiliteRenforcee) {

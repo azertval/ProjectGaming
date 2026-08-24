@@ -42,8 +42,7 @@
 namespace {
 
 std::filesystem::path fixturePath() {
-    return std::filesystem::path(PROJECTGAMING_REPLAY_FIXTURES_DIR) /
-           "rejeu-test-deplacement.json";
+    return std::filesystem::path(PROJECTGAMING_REPLAY_FIXTURES_DIR) / "rejeu-test-deplacement.json";
 }
 
 std::filesystem::path levelsDir() {

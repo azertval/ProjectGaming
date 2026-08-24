@@ -156,8 +156,9 @@ TEST(BackwardTest, AssertionRacineNonScalaire) {
 #else
     const NodePtr root = variable(Tensor<float>({2}));
 
-    core::setAssertionHandler(
-        [](const char*, const char*, const char*, int) { throw std::runtime_error("precondition"); });
+    core::setAssertionHandler([](const char*, const char*, const char*, int) {
+        throw std::runtime_error("precondition");
+    });
 
     EXPECT_THROW(backward(root), std::runtime_error);
 

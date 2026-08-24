@@ -248,11 +248,15 @@ TEST(AutodiffOpsTest, DivideRefuseDiviseurNul) {
     Tensor<float> dataB({1});
     dataB.at({0}) = 0.0f;
 
-    core::setAssertionHandler(
-        [](const char*, const char*, const char*, int) { throw std::runtime_error("precondition"); });
+    core::setAssertionHandler([](const char*, const char*, const char*, int) {
+        throw std::runtime_error("precondition");
+    });
 
     EXPECT_THROW(
-        { [[maybe_unused]] NodePtr result = aisolver::autodiff::divide(variable(dataA), variable(dataB)); },
+        {
+            [[maybe_unused]] NodePtr result =
+                aisolver::autodiff::divide(variable(dataA), variable(dataB));
+        },
         std::runtime_error);
 
     core::setAssertionHandler(nullptr);
@@ -339,10 +343,13 @@ TEST(AutodiffOpsTest, LogOpRefuseEntreeNonPositive) {
     Tensor<float> data({1});
     data.at({0}) = 0.0f;
 
-    core::setAssertionHandler(
-        [](const char*, const char*, const char*, int) { throw std::runtime_error("precondition"); });
+    core::setAssertionHandler([](const char*, const char*, const char*, int) {
+        throw std::runtime_error("precondition");
+    });
 
-    EXPECT_THROW({ [[maybe_unused]] NodePtr result = aisolver::autodiff::logOp(variable(data)); }, std::runtime_error);
+    EXPECT_THROW(
+        { [[maybe_unused]] NodePtr result = aisolver::autodiff::logOp(variable(data)); },
+        std::runtime_error);
 
     core::setAssertionHandler(nullptr);
 #endif
@@ -437,8 +444,8 @@ TEST(AutodiffOpsTest, MinimumSelectionDuBonOperandeAuBackward) {
 
     const NodePtr result = aisolver::autodiff::minimum(leafA, leafB);
     // Reduit [2] a un scalaire par somme des deux elements (pas de sum() dedie dans autodiff).
-    const NodePtr scalarLoss = aisolver::autodiff::add(
-        aisolver::autodiff::selectIndex(result, 0), aisolver::autodiff::selectIndex(result, 1));
+    const NodePtr scalarLoss = aisolver::autodiff::add(aisolver::autodiff::selectIndex(result, 0),
+                                                       aisolver::autodiff::selectIndex(result, 1));
 
     aisolver::autodiff::backward(scalarLoss);
 
@@ -488,7 +495,8 @@ TEST(AutodiffOpsTest, ClampGradientNulHorsBornes) {
 
     const NodePtr clamped = aisolver::autodiff::clamp(leaf, -1.0f, 1.0f);
     const NodePtr scalarLoss = aisolver::autodiff::add(
-        aisolver::autodiff::add(aisolver::autodiff::selectIndex(clamped, 0), aisolver::autodiff::selectIndex(clamped, 1)),
+        aisolver::autodiff::add(aisolver::autodiff::selectIndex(clamped, 0),
+                                aisolver::autodiff::selectIndex(clamped, 1)),
         aisolver::autodiff::selectIndex(clamped, 2));
 
     aisolver::autodiff::backward(scalarLoss);
@@ -528,7 +536,8 @@ TEST(AutodiffOpsTest, ChainePolicyGradientBoutEnBout) {
     const NodePtr logits = aisolver::autodiff::matmul(w, x);
     const NodePtr probabilities = aisolver::nn::softmax(logits);
     const NodePtr chosenProbability = aisolver::autodiff::selectIndex(probabilities, 1);
-    const NodePtr loss = aisolver::autodiff::multiplyScalar(aisolver::autodiff::logOp(chosenProbability), -2.5f);
+    const NodePtr loss =
+        aisolver::autodiff::multiplyScalar(aisolver::autodiff::logOp(chosenProbability), -2.5f);
 
     aisolver::autodiff::backward(loss);
 

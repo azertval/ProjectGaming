@@ -1228,13 +1228,14 @@ void MainWindow::watchAiPlay() {
         }
     }
     if (!anyReplay) {
-        QMessageBox::information(this, text("replay.no_replays_title"), text("replay.no_replays_text"));
+        QMessageBox::information(this, text("replay.no_replays_title"),
+                                 text("replay.no_replays_text"));
         return;
     }
 
-    const QString path = QFileDialog::getOpenFileName(
-        this, text("replay.select_title"), QString::fromStdString(replaysDir.string()),
-        QStringLiteral("Rejeux (*.json)"));
+    const QString path = QFileDialog::getOpenFileName(this, text("replay.select_title"),
+                                                      QString::fromStdString(replaysDir.string()),
+                                                      QStringLiteral("Rejeux (*.json)"));
     if (path.isEmpty()) {
         return;  // dialogue annule.
     }

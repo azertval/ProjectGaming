@@ -30,7 +30,7 @@ namespace aisolver::training {
  * @pre `returns.size() == trajectory.steps.size()`.
  */
 [[nodiscard]] std::vector<float> computeAdvantages(const std::vector<float>& returns,
-                                                    CriticNetwork& critic,
-                                                    const Trajectory& trajectory);
+                                                   CriticNetwork& critic,
+                                                   const Trajectory& trajectory);
 
 }  // namespace aisolver::training

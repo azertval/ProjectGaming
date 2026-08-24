@@ -43,8 +43,8 @@ struct Action {
  * @brief Action correspondant à un indice donné (inverse de `indexOf`).
  *
  * L'ordre d'énumération (direction en poids fort, puis `jumpPressed`, `jumpHeld`, `dashPressed`)
- * est un **invariant stable** : une fois qu'un modèle a été entraîné sur cet ordre (génération 2/3),
- * le changer romprait la correspondance entre l'indice de sortie d'un réseau déjà entraîné et
+ * est un **invariant stable** : une fois qu'un modèle a été entraîné sur cet ordre (génération
+ * 2/3), le changer romprait la correspondance entre l'indice de sortie d'un réseau déjà entraîné et
  * l'action qu'il désigne réellement (voir TACHE-01, points d'attention).
  * @param index Indice dans `[0, actionCount())`.
  * @pre `index < actionCount()`.
@@ -61,8 +61,8 @@ struct Action {
  * `moveX` vaut `-1`/`0`/`1` selon `Direction`, `moveY` est toujours `0` (décision de cadrage de
  * l'épic). Les champs d'interaction (`interactPressed`/`interactHeld`/`interactReleased`) ne font
  * pas partie de l'espace d'action de ce lot et restent à leur valeur par défaut (`false`) : aucun
- * niveau de la séquence `demo-*.json` ne conditionne sa résolution sur l'interaction manuelle plutôt
- * que le contact automatique des mécanismes.
+ * niveau de la séquence `demo-*.json` ne conditionne sa résolution sur l'interaction manuelle
+ * plutôt que le contact automatique des mécanismes.
  */
 [[nodiscard]] core::PlayerInput toPlayerInput(const Action& action);
 

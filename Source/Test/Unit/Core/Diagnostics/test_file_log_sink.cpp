@@ -118,7 +118,8 @@ TEST_F(FileLogSinkTest, CreeLesDossiersParentsManquants) {
  * \tcrit Mineur<br/>
  * \tetapes 1. Écrire un fichier avec un premier sink.<br/>2. Rouvrir sur le même chemin sans
  * `append`, puis avec `append = true`.<br/>
- * \tattendu Sans `append`, l'ancien contenu disparaît ; avec `append`, il est conservé et complété.}
+ * \tattendu Sans `append`, l'ancien contenu disparaît ; avec `append`, il est conservé et
+ * complété.}
  */
 TEST_F(FileLogSinkTest, EcraseParDefautCompleteAvecAppend) {
     const std::filesystem::path path = dir / "session.log";

@@ -36,14 +36,17 @@ struct ReinforceConfig {
  *
  * Un seul niveau à la fois (décision de cadrage transverse du programme) : construit à partir d'un
  * `HeadlessLevelEnvironment&` et d'**un seul** chemin de niveau, jamais reconstruit ni changé en
- * cours de run. Ne possède ni le réseau de politique ni l'optimiseur (références) : l'appelant reste
- * seul propriétaire de leur durée de vie, pour pouvoir les réutiliser après le run (export, rejeu).
+ * cours de run. Ne possède ni le réseau de politique ni l'optimiseur (références) : l'appelant
+ * reste seul propriétaire de leur durée de vie, pour pouvoir les réutiliser après le run (export,
+ * rejeu).
  */
 class ReinforceTrainer {
 public:
     /**
-     * @param policy      Réseau de politique, entraîné en place (poids mis à jour à chaque épisode).
-     * @param optimizer   Optimiseur appliquant la mise à jour de poids (`optim::Sgd`/`optim::Adam`).
+     * @param policy      Réseau de politique, entraîné en place (poids mis à jour à chaque
+     * épisode).
+     * @param optimizer   Optimiseur appliquant la mise à jour de poids
+     * (`optim::Sgd`/`optim::Adam`).
      * @param environment Environnement réutilisé à chaque épisode ; réinitialisé sur `levelPath` en
      *                    tout début de chaque épisode par cette classe.
      * @param levelPath   Chemin du niveau **unique** joué par tout le run.

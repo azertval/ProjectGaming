@@ -42,7 +42,7 @@ std::filesystem::path scratchFile(const char* suffix) {
 TEST(LoadTrainingConfigTest, SansFichierNiSurchargeProduitLesDefauts) {
     const TrainingConfig config = loadTrainingConfig(std::nullopt, CommandLineOverrides{});
     EXPECT_EQ(config.evolutionary.populationSize,
-             aisolver::training::evolutionary::DEFAULT_POPULATION_SIZE);
+              aisolver::training::evolutionary::DEFAULT_POPULATION_SIZE);
     EXPECT_FLOAT_EQ(config.gamma, 0.99f);
     EXPECT_EQ(config.optimizer, "sgd");
     EXPECT_EQ(config.episodes, 300u);
@@ -60,7 +60,7 @@ TEST(LoadTrainingConfigTest, UnFichierAbsentEstIgnoreSansErreur) {
     const TrainingConfig config =
         loadTrainingConfig(scratchFile("fichier_inexistant.json"), CommandLineOverrides{});
     EXPECT_EQ(config.evolutionary.populationSize,
-             aisolver::training::evolutionary::DEFAULT_POPULATION_SIZE);
+              aisolver::training::evolutionary::DEFAULT_POPULATION_SIZE);
 }
 
 /**

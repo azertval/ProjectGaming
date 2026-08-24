@@ -35,10 +35,11 @@ aisolver::LevelFingerprint realFingerprint() {
     return aisolver::computeLevelFingerprint(contents.str());
 }
 
-std::filesystem::path writeReplayFixture(const char* suffix, aisolver::LevelFingerprint fingerprint) {
-    const std::filesystem::path path = std::filesystem::temp_directory_path() /
-                                       (std::string("aisolver_test_replay_playback_") + suffix +
-                                        ".json");
+std::filesystem::path writeReplayFixture(const char* suffix,
+                                         aisolver::LevelFingerprint fingerprint) {
+    const std::filesystem::path path =
+        std::filesystem::temp_directory_path() /
+        (std::string("aisolver_test_replay_playback_") + suffix + ".json");
     aisolver::ReplayFile file;
     file.levelPath = kLevelFileName;
     file.levelFingerprint = fingerprint;

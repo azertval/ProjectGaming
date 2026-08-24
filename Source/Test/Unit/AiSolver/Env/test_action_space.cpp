@@ -72,8 +72,10 @@ TEST(ActionSpaceTest, AucuneCollisionEntreActions) {
  * \tattendu `moveX` vaut -1/0/1 selon `Left`/`None`/`Right` ; `moveY` vaut 0 dans tous les cas.}
  */
 TEST(ActionSpaceTest, TraductionDirectionVersMoveX) {
-    const core::PlayerInput left = aisolver::toPlayerInput(aisolver::Action{aisolver::Direction::Left});
-    const core::PlayerInput none = aisolver::toPlayerInput(aisolver::Action{aisolver::Direction::None});
+    const core::PlayerInput left =
+        aisolver::toPlayerInput(aisolver::Action{aisolver::Direction::Left});
+    const core::PlayerInput none =
+        aisolver::toPlayerInput(aisolver::Action{aisolver::Direction::None});
     const core::PlayerInput right =
         aisolver::toPlayerInput(aisolver::Action{aisolver::Direction::Right});
 

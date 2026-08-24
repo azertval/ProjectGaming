@@ -30,7 +30,8 @@ std::size_t columnIndex(const std::vector<std::string>& header, const std::strin
             return index;
         }
     }
-    PROJECTGAMING_ASSERT(false, "ConvergenceComparator : colonne introuvable dans l'en-tete du CSV");
+    PROJECTGAMING_ASSERT(false,
+                         "ConvergenceComparator : colonne introuvable dans l'en-tete du CSV");
     return 0;
 }
 

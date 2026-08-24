@@ -56,7 +56,8 @@ void ActorCriticTrainer::run(std::size_t episodeCount, bool updateCritic) {
 
         // Deux graphes independants, deux backward() distincts (decision de cadrage de l'epic :
         // jamais combines en un seul noeud scalaire final).
-        const autodiff::NodePtr policyLoss = computeActorCriticLoss(_policy, trajectory, advantages);
+        const autodiff::NodePtr policyLoss =
+            computeActorCriticLoss(_policy, trajectory, advantages);
         const std::vector<autodiff::NodePtr> policyParameters = _policy.parameters();
         autodiff::backward(policyLoss);
         _policyOptimizer.step(policyParameters);

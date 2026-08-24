@@ -171,7 +171,8 @@ template <typename T>
 template <typename T>
 [[nodiscard]] T sum(const Tensor<T>& a) {
     T total{};
-    detail::forEachOffset(a, [&](std::size_t offset) { total = static_cast<T>(total + a.data()[offset]); });
+    detail::forEachOffset(
+        a, [&](std::size_t offset) { total = static_cast<T>(total + a.data()[offset]); });
     return total;
 }
 

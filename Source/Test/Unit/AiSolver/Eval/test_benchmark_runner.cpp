@@ -13,6 +13,7 @@
 
 #include <gtest/gtest.h>
 
+#include "../Training/TrivialLevelFixture.h"
 #include "AiSolver/Env/ActionSpace.h"
 #include "AiSolver/Env/ObservationEncoder.h"
 #include "AiSolver/Eval/AdvancedAlgorithmTrainedPolicy.h"
@@ -22,7 +23,6 @@
 #include "AiSolver/Math/Rng.h"
 #include "AiSolver/Training/Advanced/QNetwork.h"
 #include "AiSolver/Training/Evolutionary/NetworkTopology.h"
-#include "../Training/TrivialLevelFixture.h"
 
 using aisolver::Action;
 using aisolver::actionCount;
@@ -61,7 +61,7 @@ std::size_t realObservationInputSize() {
 // constantActionNetwork/test_trajectory_collector.cpp) : deterministe et fiable en test, sans
 // entrainement reel.
 std::unique_ptr<aisolver::nn::Network> constantActionNetwork(std::size_t inputSize,
-                                                              std::size_t actionIndex) {
+                                                             std::size_t actionIndex) {
     Rng initRng(1);
     auto network =
         aisolver::training::evolutionary::buildNetwork(policyTopology(inputSize), initRng);
@@ -88,7 +88,7 @@ public:
     explicit ScriptedTrainedPolicy(core::PlayerInput fixedInput) : _fixedInput(fixedInput) {}
 
     [[nodiscard]] std::optional<core::PlayerInput> selectAction(const Tensor<float>&,
-                                                                 ActionDecodingMode, Rng&) override {
+                                                                ActionDecodingMode, Rng&) override {
         return _fixedInput;
     }
 
@@ -147,7 +147,8 @@ TEST(BenchmarkRunnerTest, IntegrationPolitiqueScripteeReussitToujours) {
  */
 TEST(BenchmarkRunnerTest, TroncatureSansBoucleInfinie) {
     const TrivialLevelDirectory level("scripted_never_wins");
-    ScriptedTrainedPolicy policy(core::PlayerInput{});  // Immobile : ne peut jamais atteindre la sortie.
+    ScriptedTrainedPolicy policy(
+        core::PlayerInput{});  // Immobile : ne peut jamais atteindre la sortie.
 
     BenchmarkConfig config;
     config.repetitions = 1;
@@ -192,7 +193,8 @@ TEST(BenchmarkRunnerTest, ReproductibiliteStricte) {
  * \tcat Unitaire · AiSolver Eval<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. EvolutionaryTrainedPolicy, 6 repetitions, mode Argmax.<br/>
- * \tattendu Toutes les repetitions ont la meme issue et le meme nombre de pas ; stepVariance() == 0.}
+ * \tattendu Toutes les repetitions ont la meme issue et le meme nombre de pas ; stepVariance() ==
+ * 0.}
  */
 TEST(BenchmarkRunnerTest, ModeleEvolutionnisteVarianceNulle) {
     const TrivialLevelDirectory level("evolutionary_zero_variance");
@@ -227,8 +229,7 @@ TEST(BenchmarkRunnerTest, RefusExpliciteDuModeStochastiquePourEvolutionniste) {
     EvolutionaryTrainedPolicy policy(*network);
     Rng rng(2);
     const Tensor<float> observation({kInputSize, 1});
-    EXPECT_FALSE(
-        policy.selectAction(observation, ActionDecodingMode::Stochastic, rng).has_value());
+    EXPECT_FALSE(policy.selectAction(observation, ActionDecodingMode::Stochastic, rng).has_value());
 }
 
 /**

@@ -27,7 +27,8 @@ namespace detail {
 }
 
 /// Strides *row-major* (dernier axe contigu) d'un tampon dense pour la forme donnée.
-[[nodiscard]] inline std::vector<std::size_t> rowMajorStrides(const std::vector<std::size_t>& shape) {
+[[nodiscard]] inline std::vector<std::size_t> rowMajorStrides(
+    const std::vector<std::size_t>& shape) {
     std::vector<std::size_t> strides(shape.size());
     std::size_t stride = 1;
     for (std::size_t axis = shape.size(); axis-- > 0;) {
@@ -113,8 +114,8 @@ public:
      */
     [[nodiscard]] Tensor<T> view(std::vector<std::size_t> newShape) const {
         PROJECTGAMING_ASSERT(detail::shapeProduct(newShape) == size(),
-                              "Tensor::view() : le volume de la nouvelle forme doit rester "
-                              "identique au nombre d'elements du tenseur");
+                             "Tensor::view() : le volume de la nouvelle forme doit rester "
+                             "identique au nombre d'elements du tenseur");
         std::vector<std::size_t> newStrides = detail::rowMajorStrides(newShape);
         return Tensor<T>(_buffer, std::move(newShape), std::move(newStrides));
     }
@@ -138,7 +139,7 @@ private:
     /// Calcule l'offset linéaire (produit scalaire indices·strides) d'une position, avec assertion.
     [[nodiscard]] std::size_t offsetOf(std::initializer_list<std::size_t> indices) const {
         PROJECTGAMING_ASSERT(indices.size() == rank(),
-                              "Tensor::at() : nombre d'indices different du rang du tenseur");
+                             "Tensor::at() : nombre d'indices different du rang du tenseur");
         std::size_t offset = 0;
         std::size_t axis = 0;
         for (std::size_t index : indices) {

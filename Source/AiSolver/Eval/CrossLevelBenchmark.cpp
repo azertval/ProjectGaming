@@ -17,9 +17,10 @@ std::vector<CrossLevelBenchmarkResult> runCrossLevelCampaign(
     std::vector<CrossLevelBenchmarkResult> results;
     results.reserve(pairs.size());
     for (const CrossLevelPair& pair : pairs) {
-        BenchmarkResult result = BenchmarkRunner::run(pair.policy, pair.executedOnLevelPath, config);
+        BenchmarkResult result =
+            BenchmarkRunner::run(pair.policy, pair.executedOnLevelPath, config);
         results.push_back(CrossLevelBenchmarkResult{pair.trainedOnLevel, pair.executedOnLevel,
-                                                     std::move(result)});
+                                                    std::move(result)});
     }
     return results;
 }

@@ -32,7 +32,8 @@ void BenchmarkReport::writeCsv(const std::filesystem::path& path) const {
     csvFile << "algorithmName,levelName,successRate,meanStepCount,stepCountStdDev\n";
     for (const BenchmarkReportRow& row : _rows) {
         csvFile << escapeCsvField(row.algorithmName) << ',' << escapeCsvField(row.levelName) << ','
-                << row.successRate << ',' << row.meanStepCount << ',' << row.stepCountStdDev << '\n';
+                << row.successRate << ',' << row.meanStepCount << ',' << row.stepCountStdDev
+                << '\n';
     }
 }
 

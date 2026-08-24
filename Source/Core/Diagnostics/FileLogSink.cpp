@@ -14,8 +14,7 @@ FileLogSink::FileLogSink(std::filesystem::path path, bool append) {
         std::filesystem::create_directories(parent, errorCode);
     }
 
-    const std::ios_base::openmode mode =
-        std::ios::out | (append ? std::ios::app : std::ios::trunc);
+    const std::ios_base::openmode mode = std::ios::out | (append ? std::ios::app : std::ios::trunc);
     _stream.open(path, mode);
 }
 

@@ -114,9 +114,9 @@ void runReinforce(const TrivialLevelDirectory& level, std::uint64_t seedBase,
  * \castest{<b>ReinforceTrainer : progression de la récompense sur le niveau de contrôle.</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. `ReinforceTrainer` sur le niveau trivial, `80` épisodes.<br/>2. Comparer la récompense
- * moyenne des 10 premiers et des 10 derniers épisodes (colonne `bestReward` du CSV, un seul épisode
- * par ligne).<br/>
+ * \tetapes 1. `ReinforceTrainer` sur le niveau trivial, `80` épisodes.<br/>2. Comparer la
+ * récompense moyenne des 10 premiers et des 10 derniers épisodes (colonne `bestReward` du CSV, un
+ * seul épisode par ligne).<br/>
  * \tattendu Moyenne des 10 derniers épisodes strictement supérieure à celle des 10 premiers.}
  */
 TEST(ReinforceTrainerTest, ProgressionDeLaRecompenseSurLeNiveauDeControle) {

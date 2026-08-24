@@ -18,7 +18,8 @@ namespace aisolver::training {
 
 /**
  * @brief Un pas de trajectoire : ce que REINFORCE doit connaître après coup pour calculer le retour
- * (`ReturnCalculator.h`) et la perte (`ReinforceLoss.h`) — aucune logique de calcul ici (`EX-ARCH-011`).
+ * (`ReturnCalculator.h`) et la perte (`ReinforceLoss.h`) — aucune logique de calcul ici
+ * (`EX-ARCH-011`).
  *
  * `logProbability` est la valeur du nœud de log-probabilité au moment de l'échantillonnage
  * (`TrajectoryCollector`), un `float` détaché : `ReinforceLoss.h` **rejoue** le passage avant pour

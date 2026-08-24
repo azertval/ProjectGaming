@@ -22,8 +22,9 @@ namespace aisolver::nn {
  *
  * Non copiable : ses paramètres (`autodiff::NodePtr`) sont créés une seule fois à la construction
  * et vivent pour toute la durée de vie de la couche — un entraînement ajuste les **mêmes**
- * paramètres sur plusieurs passes, jamais des copies. Aucune activation appliquée : une transformation
- * affine pure, l'activation étant la responsabilité de l'appelant (`Network`, `Activations.h`).
+ * paramètres sur plusieurs passes, jamais des copies. Aucune activation appliquée : une
+ * transformation affine pure, l'activation étant la responsabilité de l'appelant (`Network`,
+ * `Activations.h`).
  */
 class Dense {
 public:
@@ -34,8 +35,8 @@ public:
      * @brief Alloue et initialise les paramètres de la couche.
      * @param inputSize  Dimension de l'entrée attendue par `forward()`.
      * @param outputSize Dimension de la sortie produite par `forward()`.
-     * @param scheme     Schéma d'initialisation des poids (`WeightInit.h`) ; le biais est initialisé
-     *                    à zéro, indépendamment du schéma.
+     * @param scheme     Schéma d'initialisation des poids (`WeightInit.h`) ; le biais est
+     * initialisé à zéro, indépendamment du schéma.
      * @param rng        Source d'aléatoire déterministe consommée par l'initialisation.
      */
     Dense(std::size_t inputSize, std::size_t outputSize, WeightInitScheme scheme, Rng& rng);
@@ -47,8 +48,8 @@ public:
      */
     [[nodiscard]] autodiff::NodePtr forward(const autodiff::NodePtr& input);
 
-    /// @return `{poids, biais}`, dans cet ordre — ordre stable, réutilisé par `Network::parameters()`
-    /// et la sérialisation (`Serialization.h`).
+    /// @return `{poids, biais}`, dans cet ordre — ordre stable, réutilisé par
+    /// `Network::parameters()` et la sérialisation (`Serialization.h`).
     [[nodiscard]] std::vector<autodiff::NodePtr> parameters() const;
 
     /// @return Valeur courante des poids, forme `[outputSize, inputSize]`.

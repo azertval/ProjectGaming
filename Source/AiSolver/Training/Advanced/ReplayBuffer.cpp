@@ -8,7 +8,8 @@
 namespace aisolver::training {
 
 ReplayBuffer::ReplayBuffer(std::size_t capacity) : _capacity(capacity) {
-    PROJECTGAMING_ASSERT(_capacity > 0, "ReplayBuffer : la capacite doit etre strictement positive");
+    PROJECTGAMING_ASSERT(_capacity > 0,
+                         "ReplayBuffer : la capacite doit etre strictement positive");
     _transitions.reserve(_capacity);
 }
 

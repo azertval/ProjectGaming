@@ -139,8 +139,9 @@ bool writeReplay(const std::filesystem::path& path, const ReplayFile& replay) {
 ReplayLoadResult readReplay(const std::filesystem::path& path) {
     std::ifstream file(path, std::ios::binary);
     if (!file) {
-        return ReplayLoadResult{.replay = std::nullopt,
-                                 .error = "Fichier de rejeu introuvable ou illisible : " + path.string()};
+        return ReplayLoadResult{
+            .replay = std::nullopt,
+            .error = "Fichier de rejeu introuvable ou illisible : " + path.string()};
     }
     std::ostringstream contents;
     contents << file.rdbuf();
@@ -154,7 +155,7 @@ ReplayLoadResult readReplay(const std::filesystem::path& path) {
     const nlohmann::json root = nlohmann::json::parse(text, nullptr, false);
     if (!root.is_object()) {
         return ReplayLoadResult{.replay = std::nullopt,
-                                 .error = "La racine du document n'est pas un objet."};
+                                .error = "La racine du document n'est pas un objet."};
     }
 
     ReplayFile replay;
@@ -163,7 +164,7 @@ ReplayLoadResult readReplay(const std::filesystem::path& path) {
     if (root.contains(FIELD_FORMAT_VERSION)) {
         if (!root[FIELD_FORMAT_VERSION].is_number_unsigned()) {
             return ReplayLoadResult{.replay = std::nullopt,
-                                     .error = "Le champ « formatVersion » n'est pas un entier."};
+                                    .error = "Le champ « formatVersion » n'est pas un entier."};
         }
         replay.formatVersion = root[FIELD_FORMAT_VERSION].get<std::uint32_t>();
     } else {
@@ -173,7 +174,7 @@ ReplayLoadResult readReplay(const std::filesystem::path& path) {
     if (root.contains(FIELD_LEVEL_PATH)) {
         if (!root[FIELD_LEVEL_PATH].is_string()) {
             return ReplayLoadResult{.replay = std::nullopt,
-                                     .error = "Le champ « levelPath » n'est pas une chaine."};
+                                    .error = "Le champ « levelPath » n'est pas une chaine."};
         }
         replay.levelPath = root[FIELD_LEVEL_PATH].get<std::string>();
     }
@@ -181,7 +182,7 @@ ReplayLoadResult readReplay(const std::filesystem::path& path) {
     if (root.contains(FIELD_LEVEL_FINGERPRINT)) {
         if (!root[FIELD_LEVEL_FINGERPRINT].is_number_unsigned()) {
             return ReplayLoadResult{.replay = std::nullopt,
-                                     .error = "Le champ « levelFingerprint » n'est pas un entier."};
+                                    .error = "Le champ « levelFingerprint » n'est pas un entier."};
         }
         replay.levelFingerprint = root[FIELD_LEVEL_FINGERPRINT].get<std::uint64_t>();
     }
@@ -189,15 +190,16 @@ ReplayLoadResult readReplay(const std::filesystem::path& path) {
     if (root.contains(FIELD_ALGORITHM_NAME)) {
         if (!root[FIELD_ALGORITHM_NAME].is_string()) {
             return ReplayLoadResult{.replay = std::nullopt,
-                                     .error = "Le champ « algorithmName » n'est pas une chaine."};
+                                    .error = "Le champ « algorithmName » n'est pas une chaine."};
         }
         replay.algorithmName = root[FIELD_ALGORITHM_NAME].get<std::string>();
     }
 
     if (root.contains(FIELD_EXPORTED_AT)) {
         if (!root[FIELD_EXPORTED_AT].is_string()) {
-            return ReplayLoadResult{.replay = std::nullopt,
-                                     .error = "Le champ « exportedAtIso8601 » n'est pas une chaine."};
+            return ReplayLoadResult{
+                .replay = std::nullopt,
+                .error = "Le champ « exportedAtIso8601 » n'est pas une chaine."};
         }
         replay.exportedAtIso8601 = root[FIELD_EXPORTED_AT].get<std::string>();
     }
@@ -205,7 +207,7 @@ ReplayLoadResult readReplay(const std::filesystem::path& path) {
     if (root.contains(FIELD_SEED)) {
         if (!root[FIELD_SEED].is_number_unsigned()) {
             return ReplayLoadResult{.replay = std::nullopt,
-                                     .error = "Le champ « seed » n'est pas un entier."};
+                                    .error = "Le champ « seed » n'est pas un entier."};
         }
         replay.seed = root[FIELD_SEED].get<std::uint64_t>();
     }
@@ -213,7 +215,7 @@ ReplayLoadResult readReplay(const std::filesystem::path& path) {
     if (root.contains(FIELD_FINAL_REWARD)) {
         if (!root[FIELD_FINAL_REWARD].is_number()) {
             return ReplayLoadResult{.replay = std::nullopt,
-                                     .error = "Le champ « finalReward » n'est pas un nombre."};
+                                    .error = "Le champ « finalReward » n'est pas un nombre."};
         }
         replay.finalReward = root[FIELD_FINAL_REWARD].get<float>();
     }
@@ -233,7 +235,7 @@ ReplayLoadResult readReplay(const std::filesystem::path& path) {
     if (root.contains(FIELD_ALGORITHM_ID)) {
         if (!root[FIELD_ALGORITHM_ID].is_string()) {
             return ReplayLoadResult{.replay = std::nullopt,
-                                     .error = "Le champ « algorithmId » n'est pas une chaine."};
+                                    .error = "Le champ « algorithmId » n'est pas une chaine."};
         }
         replay.algorithmId = root[FIELD_ALGORITHM_ID].get<std::string>();
     }
@@ -241,14 +243,14 @@ ReplayLoadResult readReplay(const std::filesystem::path& path) {
     if (root.contains(FIELD_STEPS)) {
         if (!root[FIELD_STEPS].is_array()) {
             return ReplayLoadResult{.replay = std::nullopt,
-                                     .error = "Le champ « steps » n'est pas un tableau."};
+                                    .error = "Le champ « steps » n'est pas un tableau."};
         }
         replay.steps.reserve(root[FIELD_STEPS].size());
         for (const nlohmann::json& stepJson : root[FIELD_STEPS]) {
             core::PlayerInput step;
             if (!stepFromJson(stepJson, step)) {
                 return ReplayLoadResult{.replay = std::nullopt,
-                                         .error = "Un element de « steps » est invalide."};
+                                        .error = "Un element de « steps » est invalide."};
             }
             replay.steps.push_back(step);
         }

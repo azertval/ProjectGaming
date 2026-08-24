@@ -49,8 +49,8 @@ struct TrainingStatsRow {
  * jamais rouvert en ajout (voir `makeTrainingRunPath`/`generateRunId`, `TrainingRunPath.h`, pour la
  * construction du chemin d'un nouveau run).
  *
- * Aucune dépendance à un module du dossier `Source/AiSolver/Training` : cette classe ignore tout des
- * algorithmes qui l'appellent, condition pour qu'un même format serve indifféremment aux
+ * Aucune dépendance à un module du dossier `Source/AiSolver/Training` : cette classe ignore tout
+ * des algorithmes qui l'appellent, condition pour qu'un même format serve indifféremment aux
  * générations 2 et 3, puis au harnais de benchmark (`LOT-ANNEXE-15`).
  */
 class TrainingStatsRecorder {
@@ -63,7 +63,7 @@ public:
      * `MovingAverageTracker`) ; documentée, pas une constante magique enfouie.
      */
     explicit TrainingStatsRecorder(const std::filesystem::path& outputCsvPath,
-                                    int movingAverageWindow = 20);
+                                   int movingAverageWindow = 20);
 
     /**
      * @brief Ajoute une ligne au fichier CSV et force son écriture sur disque (`flush`).

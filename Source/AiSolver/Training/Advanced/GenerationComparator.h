@@ -14,8 +14,8 @@
 /**
  * @file AiSolver/Training/Advanced/GenerationComparator.h
  * @brief Comparaison chiffrée de convergence entre *N* approches (`LOT-ANNEXE-14`, TACHE-03,
- * `EX-IA-015`) -- généralise `ConvergenceComparator` (`LOT-ANNEXE-13`, deux séries) sans dupliquer sa
- * logique de lecture/calcul, réutilisée telle quelle par série.
+ * `EX-IA-015`) -- généralise `ConvergenceComparator` (`LOT-ANNEXE-13`, deux séries) sans dupliquer
+ * sa logique de lecture/calcul, réutilisée telle quelle par série.
  */
 
 namespace aisolver::training {
@@ -37,8 +37,8 @@ struct GenerationComparisonResult {
 
 /**
  * @brief Applique `compareConvergence` (`LOT-ANNEXE-13`) à chaque série, dans l'ordre fourni.
- * @param series          Une entrée par approche comparée (évolutionniste, REINFORCE, acteur-critique,
- *                        algorithme avancé, ...) ; chaque série lue indépendamment des autres.
+ * @param series          Une entrée par approche comparée (évolutionniste, REINFORCE,
+ * acteur-critique, algorithme avancé, ...) ; chaque série lue indépendamment des autres.
  * @param rewardThreshold Même seuil, partagé par toutes les séries comparées.
  * @param finalWindowSize Même fenêtre de fin de run, partagée par toutes les séries.
  */

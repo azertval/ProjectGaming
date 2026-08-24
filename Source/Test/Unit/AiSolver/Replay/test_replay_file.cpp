@@ -69,7 +69,8 @@ TEST(ReplayFileTest, RoundTripCompletAvecMetadonnees) {
     original.seed = 987654321ULL;
     original.finalReward = 42.5f;
     for (int step = 0; step < 5000; ++step) {
-        const aisolver::Action action = aisolver::actionAt(static_cast<std::size_t>(step) % aisolver::actionCount());
+        const aisolver::Action action =
+            aisolver::actionAt(static_cast<std::size_t>(step) % aisolver::actionCount());
         original.steps.push_back(aisolver::toPlayerInput(action));
     }
 

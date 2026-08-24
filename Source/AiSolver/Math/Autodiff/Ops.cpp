@@ -10,7 +10,10 @@ namespace aisolver::autodiff {
 
 NodePtr add(const NodePtr& a, const NodePtr& b) {
     return binaryOp(
-        a, b, [](const Tensor<float>& valueA, const Tensor<float>& valueB) { return aisolver::add(valueA, valueB); },
+        a, b,
+        [](const Tensor<float>& valueA, const Tensor<float>& valueB) {
+            return aisolver::add(valueA, valueB);
+        },
         [](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>&,
            const Tensor<float>&) { return outputGrad; },
         [](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>&,
@@ -20,7 +23,9 @@ NodePtr add(const NodePtr& a, const NodePtr& b) {
 NodePtr multiply(const NodePtr& a, const NodePtr& b) {
     return binaryOp(
         a, b,
-        [](const Tensor<float>& valueA, const Tensor<float>& valueB) { return aisolver::multiply(valueA, valueB); },
+        [](const Tensor<float>& valueA, const Tensor<float>& valueB) {
+            return aisolver::multiply(valueA, valueB);
+        },
         [](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>&,
            const Tensor<float>& valueB) { return aisolver::multiply(outputGrad, valueB); },
         [](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>& valueA,
@@ -29,22 +34,30 @@ NodePtr multiply(const NodePtr& a, const NodePtr& b) {
 
 NodePtr matmul(const NodePtr& a, const NodePtr& b) {
     return binaryOp(
-        a, b, [](const Tensor<float>& valueA, const Tensor<float>& valueB) { return aisolver::matmul(valueA, valueB); },
+        a, b,
+        [](const Tensor<float>& valueA, const Tensor<float>& valueB) {
+            return aisolver::matmul(valueA, valueB);
+        },
         [](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>&,
-           const Tensor<float>& valueB) { return aisolver::matmul(outputGrad, aisolver::transpose(valueB)); },
+           const Tensor<float>& valueB) {
+            return aisolver::matmul(outputGrad, aisolver::transpose(valueB));
+        },
         [](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>& valueA,
-           const Tensor<float>&) { return aisolver::matmul(aisolver::transpose(valueA), outputGrad); });
+           const Tensor<float>&) {
+            return aisolver::matmul(aisolver::transpose(valueA), outputGrad);
+        });
 }
 
 NodePtr relu(const NodePtr& a) {
     return unaryOp(
         a,
         [](const Tensor<float>& value) {
-            return aisolver::detail::elementwiseUnary(value, [](float x) { return x > 0.0f ? x : 0.0f; });
+            return aisolver::detail::elementwiseUnary(value,
+                                                      [](float x) { return x > 0.0f ? x : 0.0f; });
         },
         [](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>& inputValue) {
-            return aisolver::detail::elementwise(outputGrad, inputValue,
-                                                  [](float g, float x) { return x > 0.0f ? g : 0.0f; });
+            return aisolver::detail::elementwise(
+                outputGrad, inputValue, [](float g, float x) { return x > 0.0f ? g : 0.0f; });
         });
 }
 
@@ -54,7 +67,8 @@ NodePtr tanhOp(const NodePtr& a) {
         [](const Tensor<float>& value) {
             return aisolver::detail::elementwiseUnary(value, [](float x) { return std::tanh(x); });
         },
-        [](const Tensor<float>& outputValue, const Tensor<float>& outputGrad, const Tensor<float>&) {
+        [](const Tensor<float>& outputValue, const Tensor<float>& outputGrad,
+           const Tensor<float>&) {
             return aisolver::detail::elementwise(
                 outputGrad, outputValue, [](float g, float t) { return g * (1.0f - t * t); });
         });
@@ -65,7 +79,9 @@ NodePtr tanhOp(const NodePtr& a) {
 NodePtr subtract(const NodePtr& a, const NodePtr& b) {
     return binaryOp(
         a, b,
-        [](const Tensor<float>& valueA, const Tensor<float>& valueB) { return aisolver::subtract(valueA, valueB); },
+        [](const Tensor<float>& valueA, const Tensor<float>& valueB) {
+            return aisolver::subtract(valueA, valueB);
+        },
         [](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>&,
            const Tensor<float>&) { return outputGrad; },
         [](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>&,
@@ -98,7 +114,9 @@ NodePtr divide(const NodePtr& a, const NodePtr& b) {
 NodePtr addScalar(const NodePtr& a, float scalar) {
     return unaryOp(
         a, [scalar](const Tensor<float>& value) { return aisolver::addScalar(value, scalar); },
-        [](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>&) { return outputGrad; });
+        [](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>&) {
+            return outputGrad;
+        });
 }
 
 NodePtr multiplyScalar(const NodePtr& a, float scalar) {
@@ -114,7 +132,8 @@ NodePtr logOp(const NodePtr& a) {
         a,
         [](const Tensor<float>& value) {
             return aisolver::detail::elementwiseUnary(value, [](float x) {
-                PROJECTGAMING_ASSERT(x > 0.0f, "logOp() : tous les elements d'entree doivent etre > 0");
+                PROJECTGAMING_ASSERT(x > 0.0f,
+                                     "logOp() : tous les elements d'entree doivent etre > 0");
                 return std::log(x);
             });
         },
@@ -129,9 +148,8 @@ NodePtr expOp(const NodePtr& a) {
         [](const Tensor<float>& value) {
             return aisolver::detail::elementwiseUnary(value, [](float x) { return std::exp(x); });
         },
-        [](const Tensor<float>& outputValue, const Tensor<float>& outputGrad, const Tensor<float>&) {
-            return aisolver::multiply(outputGrad, outputValue);
-        });
+        [](const Tensor<float>& outputValue, const Tensor<float>& outputGrad,
+           const Tensor<float>&) { return aisolver::multiply(outputGrad, outputValue); });
 }
 
 NodePtr selectIndex(const NodePtr& a, std::size_t index) {
@@ -143,7 +161,8 @@ NodePtr selectIndex(const NodePtr& a, std::size_t index) {
             result.data()[0] = value.data()[index];
             return result;
         },
-        [index](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>& inputValue) {
+        [index](const Tensor<float>&, const Tensor<float>& outputGrad,
+                const Tensor<float>& inputValue) {
             // Nul partout sauf a `index`, ou il vaut le gradient de sortie (scalaire, un seul
             // element) : Tensor<T> initialise ses elements a T{} (donc 0.0f), il suffit d'ecrire
             // le seul element non nul.
@@ -157,21 +176,24 @@ NodePtr minimum(const NodePtr& a, const NodePtr& b) {
     return binaryOp(
         a, b,
         [](const Tensor<float>& valueA, const Tensor<float>& valueB) {
-            return aisolver::detail::elementwise(valueA, valueB, [](float x, float y) { return x < y ? x : y; });
+            return aisolver::detail::elementwise(valueA, valueB,
+                                                 [](float x, float y) { return x < y ? x : y; });
         },
         [](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>& valueA,
            const Tensor<float>& valueB) {
             // Egalite stricte : convention arbitraire documentee, va a `a`.
             return aisolver::detail::elementwise(
                 outputGrad,
-                aisolver::detail::elementwise(valueA, valueB, [](float x, float y) { return x <= y ? 1.0f : 0.0f; }),
+                aisolver::detail::elementwise(
+                    valueA, valueB, [](float x, float y) { return x <= y ? 1.0f : 0.0f; }),
                 [](float g, float mask) { return g * mask; });
         },
         [](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>& valueA,
            const Tensor<float>& valueB) {
             return aisolver::detail::elementwise(
                 outputGrad,
-                aisolver::detail::elementwise(valueA, valueB, [](float x, float y) { return x < y ? 0.0f : 1.0f; }),
+                aisolver::detail::elementwise(valueA, valueB,
+                                              [](float x, float y) { return x < y ? 0.0f : 1.0f; }),
                 [](float g, float mask) { return g * mask; });
         });
 }
@@ -191,7 +213,8 @@ NodePtr clamp(const NodePtr& a, float low, float high) {
                 return x;
             });
         },
-        [low, high](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>& inputValue) {
+        [low, high](const Tensor<float>&, const Tensor<float>& outputGrad,
+                    const Tensor<float>& inputValue) {
             return aisolver::detail::elementwise(
                 outputGrad, inputValue,
                 [low, high](float g, float x) { return (x > low && x < high) ? g : 0.0f; });

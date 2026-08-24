@@ -8,12 +8,12 @@
 
 #include <gtest/gtest.h>
 
+#include "../Training/TrivialLevelFixture.h"
 #include "AiSolver/Env/HeadlessLevelEnvironment.h"
 #include "AiSolver/Env/ObservationEncoder.h"
 #include "AiSolver/Eval/NoisyObservation.h"
 #include "AiSolver/Math/Rng.h"
 #include "Core/Physics/PlayerInput.h"
-#include "../Training/TrivialLevelFixture.h"
 
 using aisolver::EnvironmentConfig;
 using aisolver::HeadlessLevelEnvironment;
@@ -51,13 +51,13 @@ TEST(NoisyObservationTest, AmplitudeNulleEstIdentiqueASansBruit) {
     const ObservationEncoder encoder;
     const NoisyObservationWrapper wrapper(encoder, 0.0f);
 
-    const aisolver::Tensor<float> clean =
-        encoder.encode(environment, observation.playerBox, observation.playerState,
-                       observation.playerVelocity);
+    const aisolver::Tensor<float> clean = encoder.encode(
+        environment, observation.playerBox, observation.playerState, observation.playerVelocity);
 
     Rng rng(42);
-    const aisolver::Tensor<float> noisy = wrapper.encode(
-        environment, observation.playerBox, observation.playerState, observation.playerVelocity, rng);
+    const aisolver::Tensor<float> noisy =
+        wrapper.encode(environment, observation.playerBox, observation.playerState,
+                       observation.playerVelocity, rng);
 
     ASSERT_EQ(clean.size(), noisy.size());
     for (std::size_t index = 0; index < clean.size(); ++index) {
@@ -86,13 +86,13 @@ TEST(NoisyObservationTest, AmplitudeNonNulleModifieLObservation) {
     const ObservationEncoder encoder;
     const NoisyObservationWrapper wrapper(encoder, 0.5f);
 
-    const aisolver::Tensor<float> clean =
-        encoder.encode(environment, observation.playerBox, observation.playerState,
-                       observation.playerVelocity);
+    const aisolver::Tensor<float> clean = encoder.encode(
+        environment, observation.playerBox, observation.playerState, observation.playerVelocity);
 
     Rng rng(7);
-    const aisolver::Tensor<float> noisy = wrapper.encode(
-        environment, observation.playerBox, observation.playerState, observation.playerVelocity, rng);
+    const aisolver::Tensor<float> noisy =
+        wrapper.encode(environment, observation.playerBox, observation.playerState,
+                       observation.playerVelocity, rng);
 
     ASSERT_EQ(clean.size(), noisy.size());
     bool atLeastOneDiffers = false;
@@ -121,12 +121,14 @@ TEST(NoisyObservationTest, ReproductibleAGraineFixee) {
     const NoisyObservationWrapper wrapper(encoder, 0.3f);
 
     Rng rngA(99);
-    const aisolver::Tensor<float> first = wrapper.encode(
-        environment, observation.playerBox, observation.playerState, observation.playerVelocity, rngA);
+    const aisolver::Tensor<float> first =
+        wrapper.encode(environment, observation.playerBox, observation.playerState,
+                       observation.playerVelocity, rngA);
 
     Rng rngB(99);
-    const aisolver::Tensor<float> second = wrapper.encode(
-        environment, observation.playerBox, observation.playerState, observation.playerVelocity, rngB);
+    const aisolver::Tensor<float> second =
+        wrapper.encode(environment, observation.playerBox, observation.playerState,
+                       observation.playerVelocity, rngB);
 
     ASSERT_EQ(first.size(), second.size());
     for (std::size_t index = 0; index < first.size(); ++index) {
@@ -152,8 +154,9 @@ TEST(NoisyObservationTest, NeModifieJamaisLEtatReelDeLEnvironnement) {
     const ObservationEncoder encoder;
     const NoisyObservationWrapper wrapper(encoder, 1.0f);
     Rng rng(11);
-    const aisolver::Tensor<float> ignored = wrapper.encode(
-        environment, observation.playerBox, observation.playerState, observation.playerVelocity, rng);
+    const aisolver::Tensor<float> ignored =
+        wrapper.encode(environment, observation.playerBox, observation.playerState,
+                       observation.playerVelocity, rng);
     (void)ignored;
 
     // encode() est un decorateur pur : aucun step supplementaire n'a ete simule, aucune

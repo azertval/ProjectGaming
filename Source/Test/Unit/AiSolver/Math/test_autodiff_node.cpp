@@ -11,8 +11,8 @@
 #include "AiSolver/Math/TensorOps.h"
 
 using aisolver::Tensor;
-using aisolver::autodiff::NodePtr;
 using aisolver::autodiff::binaryOp;
+using aisolver::autodiff::NodePtr;
 using aisolver::autodiff::unaryOp;
 using aisolver::autodiff::variable;
 
@@ -86,7 +86,9 @@ TEST(NodeTest, UnaryOpCalculeValueImmediatement) {
 
     const NodePtr output = unaryOp(
         input, [](const Tensor<float>& value) { return aisolver::multiplyScalar(value, 2.0f); },
-        [](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>&) { return outputGrad; });
+        [](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>&) {
+            return outputGrad;
+        });
 
     EXPECT_FLOAT_EQ(output->value.at({0}), 6.0f);
     EXPECT_FLOAT_EQ(output->value.at({1}), 10.0f);
@@ -118,7 +120,9 @@ TEST(NodeTest, BinaryOpCalculeValueImmediatement) {
 
     const NodePtr output = binaryOp(
         a, b,
-        [](const Tensor<float>& valueA, const Tensor<float>& valueB) { return aisolver::add(valueA, valueB); },
+        [](const Tensor<float>& valueA, const Tensor<float>& valueB) {
+            return aisolver::add(valueA, valueB);
+        },
         [](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>&,
            const Tensor<float>&) { return outputGrad; },
         [](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>&,

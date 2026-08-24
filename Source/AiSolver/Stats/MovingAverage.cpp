@@ -5,8 +5,7 @@
 
 namespace aisolver {
 
-MovingAverageTracker::MovingAverageTracker(int windowSize) : windowSize_(windowSize) {
-}
+MovingAverageTracker::MovingAverageTracker(int windowSize) : windowSize_(windowSize) {}
 
 float MovingAverageTracker::push(float value) {
     window_.push_back(value);

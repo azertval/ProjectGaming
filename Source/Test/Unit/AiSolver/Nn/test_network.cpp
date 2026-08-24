@@ -61,8 +61,10 @@ NodePtr sumToScalar(const NodePtr& node) {
 TEST(NetworkTest, ForwardBoutEnBout) {
     Rng rng(5001);
     Network network;
-    network.addLayer(std::make_unique<Dense>(4, 5, WeightInitScheme::He, rng), aisolver::autodiff::relu);
-    network.addLayer(std::make_unique<Dense>(5, 3, WeightInitScheme::Xavier, rng), aisolver::nn::sigmoid);
+    network.addLayer(std::make_unique<Dense>(4, 5, WeightInitScheme::He, rng),
+                     aisolver::autodiff::relu);
+    network.addLayer(std::make_unique<Dense>(5, 3, WeightInitScheme::Xavier, rng),
+                     aisolver::nn::sigmoid);
     network.addLayer(std::make_unique<Dense>(3, 2, WeightInitScheme::Xavier, rng), nullptr);
 
     const NodePtr output = network.forward(columnVariable(4, 0.5f));
@@ -82,8 +84,10 @@ TEST(NetworkTest, ForwardBoutEnBout) {
 TEST(NetworkTest, ParametersCouvreToutesLesCouches) {
     Rng rng(5002);
     Network network;
-    network.addLayer(std::make_unique<Dense>(4, 5, WeightInitScheme::He, rng), aisolver::autodiff::relu);
-    network.addLayer(std::make_unique<Dense>(5, 3, WeightInitScheme::Xavier, rng), aisolver::nn::sigmoid);
+    network.addLayer(std::make_unique<Dense>(4, 5, WeightInitScheme::He, rng),
+                     aisolver::autodiff::relu);
+    network.addLayer(std::make_unique<Dense>(5, 3, WeightInitScheme::Xavier, rng),
+                     aisolver::nn::sigmoid);
     network.addLayer(std::make_unique<Dense>(3, 2, WeightInitScheme::Xavier, rng), nullptr);
 
     EXPECT_EQ(network.layerCount(), 3u);
@@ -103,8 +107,10 @@ TEST(NetworkTest, ParametersCouvreToutesLesCouches) {
 TEST(NetworkTest, BackwardBoutEnBoutSurToutesLesCouches) {
     Rng rng(5003);
     Network network;
-    network.addLayer(std::make_unique<Dense>(4, 5, WeightInitScheme::He, rng), aisolver::autodiff::relu);
-    network.addLayer(std::make_unique<Dense>(5, 3, WeightInitScheme::Xavier, rng), aisolver::nn::sigmoid);
+    network.addLayer(std::make_unique<Dense>(4, 5, WeightInitScheme::He, rng),
+                     aisolver::autodiff::relu);
+    network.addLayer(std::make_unique<Dense>(5, 3, WeightInitScheme::Xavier, rng),
+                     aisolver::nn::sigmoid);
     network.addLayer(std::make_unique<Dense>(3, 2, WeightInitScheme::Xavier, rng), nullptr);
 
     const NodePtr output = network.forward(columnVariable(4, 0.5f));
@@ -172,9 +178,10 @@ TEST(NetworkTest, OrdreDesCouchesRespecte) {
     Rng rngA1(6001);
     Rng rngA2(6002);
     Network networkForward;
-    networkForward.addLayer(std::make_unique<Dense>(3, 3, WeightInitScheme::Xavier, rngA1), aisolver::autodiff::tanhOp);
-    networkForward.addLayer(
-        std::make_unique<Dense>(3, 3, WeightInitScheme::Xavier, rngA2), aisolver::autodiff::tanhOp);
+    networkForward.addLayer(std::make_unique<Dense>(3, 3, WeightInitScheme::Xavier, rngA1),
+                            aisolver::autodiff::tanhOp);
+    networkForward.addLayer(std::make_unique<Dense>(3, 3, WeightInitScheme::Xavier, rngA2),
+                            aisolver::autodiff::tanhOp);
 
     Rng rngB1(6001);
     Rng rngB2(6002);

@@ -31,7 +31,8 @@ namespace {
 
 class TempDirectory {
 public:
-    TempDirectory() : _path(std::filesystem::temp_directory_path() / "aisolver_nn_test_reproducibility") {
+    TempDirectory()
+        : _path(std::filesystem::temp_directory_path() / "aisolver_nn_test_reproducibility") {
         std::filesystem::create_directories(_path);
     }
     ~TempDirectory() {
@@ -52,10 +53,14 @@ private:
 std::unique_ptr<Network> buildMixedNetwork(std::uint64_t seed) {
     Rng rng(seed);
     auto network = std::make_unique<Network>();
-    network->addLayer(std::make_unique<Dense>(5, 6, WeightInitScheme::He, rng), aisolver::autodiff::relu);
-    network->addLayer(std::make_unique<Dense>(6, 4, WeightInitScheme::Xavier, rng), aisolver::autodiff::tanhOp);
-    network->addLayer(std::make_unique<Dense>(4, 3, WeightInitScheme::Xavier, rng), aisolver::nn::sigmoid);
-    network->addLayer(std::make_unique<Dense>(3, 3, WeightInitScheme::Xavier, rng), aisolver::nn::softmax);
+    network->addLayer(std::make_unique<Dense>(5, 6, WeightInitScheme::He, rng),
+                      aisolver::autodiff::relu);
+    network->addLayer(std::make_unique<Dense>(6, 4, WeightInitScheme::Xavier, rng),
+                      aisolver::autodiff::tanhOp);
+    network->addLayer(std::make_unique<Dense>(4, 3, WeightInitScheme::Xavier, rng),
+                      aisolver::nn::sigmoid);
+    network->addLayer(std::make_unique<Dense>(3, 3, WeightInitScheme::Xavier, rng),
+                      aisolver::nn::softmax);
     return network;
 }
 

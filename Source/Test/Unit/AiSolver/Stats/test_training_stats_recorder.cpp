@@ -107,7 +107,8 @@ aisolver::TrainingStatsRow rowAt(int index, float bestReward) {
  * \castest{<b>Bout en bout : écriture puis relecture d'une séquence progression + plateau.</b><br/>
  * \tcat Unitaire · AiSolver Stats<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Enregistrer 8 lignes : 4 en progression stricte, 4 en plateau (même `bestReward`).<br/>
+ * \tetapes 1. Enregistrer 8 lignes : 4 en progression stricte, 4 en plateau (même
+ * `bestReward`).<br/>
  * 2. Relire le fichier avec l'analyseur CSV minimal du test.<br/>
  * \tattendu 9 lignes (en-tête + 8 données) ; en-tête conforme ; chaque colonne fournie correspond à
  * ce qui a été enregistré ; les colonnes de moyenne mobile/delta correspondent à un

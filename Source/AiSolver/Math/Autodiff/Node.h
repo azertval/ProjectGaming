@@ -49,18 +49,19 @@ public:
 private:
     friend NodePtr variable(Tensor<float> value);
     friend void backward(const NodePtr& root);
-    friend NodePtr unaryOp(
-        const NodePtr& input, std::function<Tensor<float>(const Tensor<float>&)> forward,
-        std::function<Tensor<float>(const Tensor<float>&, const Tensor<float>&, const Tensor<float>&)>
-            localGrad);
+    friend NodePtr unaryOp(const NodePtr& input,
+                           std::function<Tensor<float>(const Tensor<float>&)> forward,
+                           std::function<Tensor<float>(const Tensor<float>&, const Tensor<float>&,
+                                                       const Tensor<float>&)>
+                               localGrad);
     friend NodePtr binaryOp(
         const NodePtr& a, const NodePtr& b,
         std::function<Tensor<float>(const Tensor<float>&, const Tensor<float>&)> forward,
-        std::function<Tensor<float>(const Tensor<float>&, const Tensor<float>&, const Tensor<float>&,
-                                     const Tensor<float>&)>
+        std::function<Tensor<float>(const Tensor<float>&, const Tensor<float>&,
+                                    const Tensor<float>&, const Tensor<float>&)>
             localGradA,
-        std::function<Tensor<float>(const Tensor<float>&, const Tensor<float>&, const Tensor<float>&,
-                                     const Tensor<float>&)>
+        std::function<Tensor<float>(const Tensor<float>&, const Tensor<float>&,
+                                    const Tensor<float>&, const Tensor<float>&)>
             localGradB);
 
     /// Nœuds parents dans le graphe ; vide pour une feuille produite par `variable()`.
@@ -105,18 +106,17 @@ private:
  * @param b          Second nœud parent.
  * @param forward    Calcule la valeur de sortie à partir des valeurs de `a` et `b`.
  * @param localGradA Contribution à accumuler sur `a->grad`, à partir de la valeur de sortie, du
- *                   gradient de sortie, de la valeur de `a` et de la valeur de `b` (dans cet ordre).
+ *                   gradient de sortie, de la valeur de `a` et de la valeur de `b` (dans cet
+ * ordre).
  * @param localGradB Contribution à accumuler sur `b->grad`, mêmes arguments que `localGradA`.
  */
 [[nodiscard]] NodePtr binaryOp(
     const NodePtr& a, const NodePtr& b,
     std::function<Tensor<float>(const Tensor<float>&, const Tensor<float>&)> forward,
     std::function<Tensor<float>(const Tensor<float>&, const Tensor<float>&, const Tensor<float>&,
-                                 const Tensor<float>&)>
-        localGradA,
+                                const Tensor<float>&)> localGradA,
     std::function<Tensor<float>(const Tensor<float>&, const Tensor<float>&, const Tensor<float>&,
-                                 const Tensor<float>&)>
-        localGradB);
+                                const Tensor<float>&)> localGradB);
 
 /**
  * @brief Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable
@@ -124,8 +124,8 @@ private:
  *
  * Initialise `root->grad` à `1` (dérivée d'une quantité par rapport à elle-même), construit un tri
  * topologique du graphe par parcours en profondeur post-fixe (chaque nœud après ses parents), puis
- * appelle `_backwardFn()` sur chaque nœud de ce tri en ordre inverse (de `root` vers les feuilles) :
- * chaque appel accumule (`+=`) sa contribution dans le(s) `grad` du(des) parent(s) direct(s). Les
+ * appelle `_backwardFn()` sur chaque nœud de ce tri en ordre inverse (de `root` vers les feuilles)
+ * : chaque appel accumule (`+=`) sa contribution dans le(s) `grad` du(des) parent(s) direct(s). Les
  * feuilles produites par `variable()` n'ont pas de `_backwardFn` et sont ignorées.
  *
  * N'appelle jamais `zeroGrad()` : appeler `backward()` deux fois de suite sur le même graphe sans

@@ -138,8 +138,8 @@ TEST(ActivationsTest, GradientCheckingSigmoid) {
         input.data()[i] = rng.nextFloat(-2.0f, 2.0f);
     }
 
-    const GradientCheckResult result =
-        checkGradient([](const std::vector<NodePtr>& nodes) { return aisolver::nn::sigmoid(nodes[0]); }, {input});
+    const GradientCheckResult result = checkGradient(
+        [](const std::vector<NodePtr>& nodes) { return aisolver::nn::sigmoid(nodes[0]); }, {input});
 
     EXPECT_TRUE(result.passed) << "Ecart maximal : " << result.maxAbsoluteError;
 }
@@ -160,8 +160,8 @@ TEST(ActivationsTest, GradientCheckingSoftmax) {
         input.data()[i] = rng.nextFloat(-2.0f, 2.0f);
     }
 
-    const GradientCheckResult result =
-        checkGradient([](const std::vector<NodePtr>& nodes) { return aisolver::nn::softmax(nodes[0]); }, {input});
+    const GradientCheckResult result = checkGradient(
+        [](const std::vector<NodePtr>& nodes) { return aisolver::nn::softmax(nodes[0]); }, {input});
 
     EXPECT_TRUE(result.passed) << "Ecart maximal : " << result.maxAbsoluteError;
 }

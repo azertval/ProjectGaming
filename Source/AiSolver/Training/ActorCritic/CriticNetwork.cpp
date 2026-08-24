@@ -18,8 +18,8 @@ CriticNetwork::CriticNetwork(std::size_t inputSize, std::size_t hiddenSize, Rng&
     // Sortie scalaire non bornee : pas d'activation finale (contrairement au softmax de la
     // politique), la perte d'entrainement (CriticLoss.h) la fait converger vers l'echelle des
     // retours observes.
-    _network.addLayer(
-        std::make_unique<nn::Dense>(hiddenSize, 1, nn::WeightInitScheme::Xavier, rng), nullptr);
+    _network.addLayer(std::make_unique<nn::Dense>(hiddenSize, 1, nn::WeightInitScheme::Xavier, rng),
+                      nullptr);
 }
 
 autodiff::NodePtr CriticNetwork::forward(const Tensor<float>& observation) {

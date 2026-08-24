@@ -128,8 +128,9 @@ TEST(TensorOpsTest, AssertionReductionSurTenseurVide) {
     const aisolver::Tensor<float> empty({0});
     ASSERT_EQ(empty.size(), 0u);
 
-    core::setAssertionHandler(
-        [](const char*, const char*, const char*, int) { throw std::runtime_error("precondition"); });
+    core::setAssertionHandler([](const char*, const char*, const char*, int) {
+        throw std::runtime_error("precondition");
+    });
 
     EXPECT_THROW({ [[maybe_unused]] float v = aisolver::mean(empty); }, std::runtime_error);
     EXPECT_THROW({ [[maybe_unused]] float v = aisolver::max(empty); }, std::runtime_error);
@@ -154,10 +155,13 @@ TEST(TensorOpsTest, AssertionFormesIncompatibles) {
     const aisolver::Tensor<float> a({2, 2});
     const aisolver::Tensor<float> b({3});
 
-    core::setAssertionHandler(
-        [](const char*, const char*, const char*, int) { throw std::runtime_error("precondition"); });
+    core::setAssertionHandler([](const char*, const char*, const char*, int) {
+        throw std::runtime_error("precondition");
+    });
 
-    EXPECT_THROW({ [[maybe_unused]] aisolver::Tensor<float> result = aisolver::add(a, b); }, std::runtime_error);
+    EXPECT_THROW(
+        { [[maybe_unused]] aisolver::Tensor<float> result = aisolver::add(a, b); },
+        std::runtime_error);
 
     core::setAssertionHandler(nullptr);
 #endif

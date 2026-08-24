@@ -144,9 +144,9 @@ TEST(ParseTrainArgsTest, AccepteLesQuatreAlgorithmesConnus) {
 TEST(ParseTrainArgsTest, AnalyseLesSurchargesIndividuelles) {
     std::string error;
     const std::optional<TrainArgs> parsed =
-        parseTrainArgs({"--level", "demo.json", "--algo", "evo", "--seed", "7",
-                        "--population-size", "8", "--mutation-rate", "0.2", "--episodes", "50",
-                        "--learning-rate", "0.01", "--gamma", "0.95", "--optimizer", "adam"},
+        parseTrainArgs({"--level", "demo.json", "--algo", "evo", "--seed", "7", "--population-size",
+                        "8", "--mutation-rate", "0.2", "--episodes", "50", "--learning-rate",
+                        "0.01", "--gamma", "0.95", "--optimizer", "adam"},
                        error);
     ASSERT_TRUE(parsed.has_value());
     EXPECT_EQ(parsed->seed, 7u);
@@ -187,10 +187,10 @@ TEST(ParseEvaluateArgsTest, RejetteUnModeleUnAlgorithmeOuUnNiveauManquant) {
  */
 TEST(ParseEvaluateArgsTest, AnalyseUnAppelValideAvecRapportOptionnel) {
     std::string error;
-    const std::optional<EvaluateArgs> parsed = parseEvaluateArgs(
-        {"--model", "m.bin", "--algo", "pg", "--level", "l.json", "--repetitions", "10",
-         "--report", "r.csv"},
-        error);
+    const std::optional<EvaluateArgs> parsed =
+        parseEvaluateArgs({"--model", "m.bin", "--algo", "pg", "--level", "l.json", "--repetitions",
+                           "10", "--report", "r.csv"},
+                          error);
     ASSERT_TRUE(parsed.has_value());
     EXPECT_EQ(parsed->repetitions, 10);
     ASSERT_TRUE(parsed->report.has_value());
@@ -208,8 +208,8 @@ TEST(ParseEvaluateArgsTest, AnalyseUnAppelValideAvecRapportOptionnel) {
  */
 TEST(ParseExportReplayArgsTest, RejetteUneSortieManquante) {
     std::string error;
-    const std::optional<ExportReplayArgs> parsed = parseExportReplayArgs(
-        {"--model", "m.bin", "--algo", "evo", "--level", "l.json"}, error);
+    const std::optional<ExportReplayArgs> parsed =
+        parseExportReplayArgs({"--model", "m.bin", "--algo", "evo", "--level", "l.json"}, error);
     EXPECT_FALSE(parsed.has_value());
     EXPECT_FALSE(error.empty());
 }

@@ -21,10 +21,11 @@
  * `ac` (acteur-critique, `LOT-ANNEXE-13`) ou `avance` (DQN, `LOT-ANNEXE-14`).
  *
  * Écart documenté par rapport au texte de l'épic : `evaluate`/`export-replay` exposent un `--algo`
- * requis (absent du texte de l'épic), nécessaire pour reconstruire la topologie du réseau et choisir
- * le bon adaptateur `TrainedPolicy` (`LOT-ANNEXE-15`) avant de recharger des poids déjà entraînés —
- * `Nn/Serialization.h` (`LOT-ANNEXE-03`) ne stocke que des formes, jamais l'activation d'une couche,
- * qui distingue pourtant DQN (sortie non bornée) des trois autres familles (sortie `softmax`).
+ * requis (absent du texte de l'épic), nécessaire pour reconstruire la topologie du réseau et
+ * choisir le bon adaptateur `TrainedPolicy` (`LOT-ANNEXE-15`) avant de recharger des poids déjà
+ * entraînés — `Nn/Serialization.h` (`LOT-ANNEXE-03`) ne stocke que des formes, jamais l'activation
+ * d'une couche, qui distingue pourtant DQN (sortie non bornée) des trois autres familles (sortie
+ * `softmax`).
  */
 
 namespace aisolver::cli {
@@ -70,11 +71,11 @@ struct ExportReplayArgs {
  *         n'est pas l'une des quatre valeurs acceptées.
  */
 [[nodiscard]] std::optional<TrainArgs> parseTrainArgs(const std::vector<std::string>& args,
-                                                       std::string& error);
+                                                      std::string& error);
 
 /// @copydoc parseTrainArgs
 [[nodiscard]] std::optional<EvaluateArgs> parseEvaluateArgs(const std::vector<std::string>& args,
-                                                             std::string& error);
+                                                            std::string& error);
 
 /// @copydoc parseTrainArgs
 [[nodiscard]] std::optional<ExportReplayArgs> parseExportReplayArgs(

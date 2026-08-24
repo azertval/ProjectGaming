@@ -12,7 +12,8 @@
 /**
  * @file GradientCheck.h
  * @brief Vérification de gradient par différences finies centrées (LOT-ANNEXE-02, TACHE-04),
- * utilitaire de test réutilisable — header-only, pas d'entrée dans `Source/AiSolver/CMakeLists.txt`.
+ * utilitaire de test réutilisable — header-only, pas d'entrée dans
+ * `Source/AiSolver/CMakeLists.txt`.
  */
 
 namespace aisolver {
@@ -31,13 +32,13 @@ namespace detail {
  * ses éléments.
  *
  * `backward()` (LOT-ANNEXE-02, TACHE-03) n'accepte qu'une racine scalaire ; les opérations testées
- * ici (`add`, `multiply`, `matmul`, `relu`, `tanhOp`) produisent en général une sortie non scalaire.
- * Sommer la sortie avant `backward()` équivaut à vérifier chaque élément de sortie avec un gradient
- * de sortie unitaire (`d(sum)/d(sortie_i) = 1`), ce qui recouvre exactement le produit
+ * ici (`add`, `multiply`, `matmul`, `relu`, `tanhOp`) produisent en général une sortie non
+ * scalaire. Sommer la sortie avant `backward()` équivaut à vérifier chaque élément de sortie avec
+ * un gradient de sortie unitaire (`d(sum)/d(sortie_i) = 1`), ce qui recouvre exactement le produit
  * jacobien-vecteur que produirait une différence finie appliquée directement à chaque élément de
  * sortie. Construit via `unaryOp` (TACHE-01), comme toute opération différentiable de ce lot — pas
- * de `sum` dédié dans `autodiff` (`Ops.h`), hors périmètre de l'épic, ce réducteur reste local à cet
- * utilitaire de test.
+ * de `sum` dédié dans `autodiff` (`Ops.h`), hors périmètre de l'épic, ce réducteur reste local à
+ * cet utilitaire de test.
  */
 [[nodiscard]] inline autodiff::NodePtr reduceToScalar(const autodiff::NodePtr& node) {
     return autodiff::unaryOp(
@@ -69,8 +70,8 @@ namespace detail {
  * inchangées), en dérive le gradient numérique `(sortiePerturbeePlus - sortiePerturbeeMoins) /
  * (2 * epsilon)`. Le gradient analytique est lu une seule fois, sur un graphe construit avec les
  * entrées non perturbées et un unique appel à `backward()`. `maxAbsoluteError` est l'écart absolu
- * maximal observé sur l'ensemble des éléments de toutes les entrées ; `passed` est vrai si cet écart
- * reste sous `tolerance`.
+ * maximal observé sur l'ensemble des éléments de toutes les entrées ; `passed` est vrai si cet
+ * écart reste sous `tolerance`.
  *
  * @param buildGraph Construit le nœud de sortie à partir des nœuds d'entrée (dans le même ordre que
  *                    `inputs`) ; reconstruit à chaque perturbation, jamais muté en place.
@@ -104,8 +105,10 @@ namespace detail {
             nodesPlus.reserve(inputs.size());
             nodesMinus.reserve(inputs.size());
             for (std::size_t i = 0; i < inputs.size(); ++i) {
-                nodesPlus.push_back(autodiff::variable(i == inputIndex ? perturbedPlus : inputs[i].clone()));
-                nodesMinus.push_back(autodiff::variable(i == inputIndex ? perturbedMinus : inputs[i].clone()));
+                nodesPlus.push_back(
+                    autodiff::variable(i == inputIndex ? perturbedPlus : inputs[i].clone()));
+                nodesMinus.push_back(
+                    autodiff::variable(i == inputIndex ? perturbedMinus : inputs[i].clone()));
             }
 
             const float outputPlus = detail::reduceToScalar(buildGraph(nodesPlus))->value.at({0});

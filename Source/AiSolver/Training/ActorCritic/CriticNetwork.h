@@ -35,7 +35,8 @@ public:
 
     /**
      * @param inputSize  Taille du vecteur d'observation encodé (`ObservationEncoder::inputSize()`).
-     * @param hiddenSize Taille de la couche cachée (configuration séparée de celle de la politique).
+     * @param hiddenSize Taille de la couche cachée (configuration séparée de celle de la
+     * politique).
      * @param rng        Source d'aléatoire déterministe consommée par l'initialisation des poids
      *                   (même schéma `Xavier` que la politique, `LOT-ANNEXE-03`).
      */

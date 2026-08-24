@@ -24,8 +24,8 @@ struct Transition {
     std::size_t actionIndex = 0;
     float reward = 0.0f;
     Tensor<float> nextObservation{{0}};
-    /// `true` si `nextObservation` correspond à un état terminal (l'épisode s'est arrêté à ce pas) :
-    /// la cible de Bellman (`DqnLoss.h`) ignore alors `max_a Q_cible(nextObservation, a)`.
+    /// `true` si `nextObservation` correspond à un état terminal (l'épisode s'est arrêté à ce pas)
+    /// : la cible de Bellman (`DqnLoss.h`) ignore alors `max_a Q_cible(nextObservation, a)`.
     bool done = false;
 };
 
@@ -34,8 +34,8 @@ struct Transition {
  * transition la plus ancienne (tampon en anneau, jamais de réallocation en cours de run).
  *
  * `sample` tire uniformément dans l'ensemble des transitions actuellement stockées (avec remise,
- * même transition potentiellement tirée plusieurs fois dans un même mini-lot) : aucun biais vers les
- * transitions les plus récemment poussées.
+ * même transition potentiellement tirée plusieurs fois dans un même mini-lot) : aucun biais vers
+ * les transitions les plus récemment poussées.
  */
 class ReplayBuffer {
 public:

@@ -7,7 +7,8 @@
 /**
  * @file AiSolver/Math/Autodiff/Ops.h
  * @brief Opérations différentiables de base (LOT-ANNEXE-02, TACHE-02) et complémentaires
- * (LOT-ANNEXE-03, TACHE-05), construites au-dessus de `unaryOp`/`binaryOp` (LOT-ANNEXE-02, TACHE-01).
+ * (LOT-ANNEXE-03, TACHE-05), construites au-dessus de `unaryOp`/`binaryOp` (LOT-ANNEXE-02,
+ * TACHE-01).
  */
 
 namespace aisolver::autodiff {
@@ -37,8 +38,8 @@ namespace aisolver::autodiff {
 // (le premier étant la perte de policy gradient, LOT-ANNEXE-12). Même méthode : construites via
 // unaryOp/binaryOp, sans modifier Node.h/Node.cpp.
 
-/// @return Nœud résultat de `a->value - b->value` ; gradient vers `a` = gradient de sortie inchangé,
-/// gradient vers `b` = opposé du gradient de sortie.
+/// @return Nœud résultat de `a->value - b->value` ; gradient vers `a` = gradient de sortie
+/// inchangé, gradient vers `b` = opposé du gradient de sortie.
 [[nodiscard]] NodePtr subtract(const NodePtr& a, const NodePtr& b);
 
 /// @return Nœud résultat de `a->value / b->value` (élément par élément) ; règle du quotient.

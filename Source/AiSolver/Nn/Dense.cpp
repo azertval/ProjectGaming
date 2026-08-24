@@ -9,7 +9,8 @@ namespace aisolver::nn {
 
 namespace {
 
-Tensor<float> makeWeights(std::size_t inputSize, std::size_t outputSize, WeightInitScheme scheme, Rng& rng) {
+Tensor<float> makeWeights(std::size_t inputSize, std::size_t outputSize, WeightInitScheme scheme,
+                          Rng& rng) {
     Tensor<float> weights({outputSize, inputSize});
     initializeWeights(weights, scheme, rng);
     return weights;

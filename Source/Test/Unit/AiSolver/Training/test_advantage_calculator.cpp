@@ -76,7 +76,8 @@ TEST(AdvantageCalculatorTest, SigneDeLAvantage) {
  * \castest{<b>computeAdvantages : avantage nul dégénéré.</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Retours construits égaux à la valeur estimée courante.<br/>2. `computeAdvantages`.<br/>
+ * \tetapes 1. Retours construits égaux à la valeur estimée courante.<br/>2.
+ * `computeAdvantages`.<br/>
  * \tattendu Tous les avantages sont nuls (à la précision flottante près).}
  */
 TEST(AdvantageCalculatorTest, AvantageNulDegenere) {

@@ -38,7 +38,8 @@ struct BenchmarkReportRow {
 class BenchmarkReport {
 public:
     /// @brief Ajoute une ligne (un couple algorithme/niveau) à partir d'un `BenchmarkResult` déjà
-    /// calculé (`meanStepCount` = `meanStepsAll()`, `stepCountStdDev` = racine de `stepVariance()`).
+    /// calculé (`meanStepCount` = `meanStepsAll()`, `stepCountStdDev` = racine de
+    /// `stepVariance()`).
     void addResult(std::string algorithmName, std::string levelName, const BenchmarkResult& result);
 
     /// @return Nombre de lignes accumulées jusqu'ici.

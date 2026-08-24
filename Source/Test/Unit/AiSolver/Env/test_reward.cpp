@@ -34,9 +34,8 @@ core::Aabb boxAt(float x, float y) {
 TEST(RewardTest, ProgressionPositive) {
     const aisolver::RewardConfig config;
     const core::GridPosition exit{0, 0};
-    const float reward =
-        aisolver::computeReward(config, boxAt(10.0f, 0.0f), boxAt(9.0f, 0.0f), exit,
-                                core::LevelOutcome::Playing);
+    const float reward = aisolver::computeReward(config, boxAt(10.0f, 0.0f), boxAt(9.0f, 0.0f),
+                                                 exit, core::LevelOutcome::Playing);
     EXPECT_GT(reward, 0.0f);
 }
 
@@ -53,14 +52,12 @@ TEST(RewardTest, RegressionOuStagnationJamaisPositive) {
     const aisolver::RewardConfig config;
     const core::GridPosition exit{0, 0};
 
-    const float regression =
-        aisolver::computeReward(config, boxAt(9.0f, 0.0f), boxAt(10.0f, 0.0f), exit,
-                                core::LevelOutcome::Playing);
+    const float regression = aisolver::computeReward(config, boxAt(9.0f, 0.0f), boxAt(10.0f, 0.0f),
+                                                     exit, core::LevelOutcome::Playing);
     EXPECT_LE(regression, 0.0f);
 
-    const float stagnation =
-        aisolver::computeReward(config, boxAt(9.0f, 0.0f), boxAt(9.0f, 0.0f), exit,
-                                core::LevelOutcome::Playing);
+    const float stagnation = aisolver::computeReward(config, boxAt(9.0f, 0.0f), boxAt(9.0f, 0.0f),
+                                                     exit, core::LevelOutcome::Playing);
     EXPECT_LE(stagnation, 0.0f);
 }
 
@@ -86,7 +83,7 @@ TEST(RewardTest, BonusDeCompletionDomine) {
         for (int step = 0; step < STEPS; ++step) {
             const bool last = (step == STEPS - 1);
             total += aisolver::computeReward(config, boxAt(0.0f, 0.0f), boxAt(0.0f, 0.0f), exit,
-                                              last ? finalOutcome : core::LevelOutcome::Playing);
+                                             last ? finalOutcome : core::LevelOutcome::Playing);
         }
         return total;
     };
@@ -113,7 +110,7 @@ TEST(RewardTest, ValeursParDefautPlausibles) {
     const aisolver::RewardConfig config;
     const core::GridPosition exit{20, 10};
     for (const core::LevelOutcome outcome :
-        {core::LevelOutcome::Playing, core::LevelOutcome::Won, core::LevelOutcome::Lost}) {
+         {core::LevelOutcome::Playing, core::LevelOutcome::Won, core::LevelOutcome::Lost}) {
         const float reward =
             aisolver::computeReward(config, boxAt(0.0f, 0.0f), boxAt(1.0f, 0.5f), exit, outcome);
         EXPECT_TRUE(std::isfinite(reward));

@@ -26,17 +26,17 @@ float Rng::nextFloat(float min, float max) {
     return min + nextFloat() * (max - min);
 }
 
-// loi normale par la transformation de Box-Muller, calculée à la main sur deux appels à nextFloat() :
-// z = std::sqrt(-2.0f * std::log(u1)) * std::cos(2.0f * kPi * u2), puis mean + stddev * z.
-float Rng::nextGaussian(float mean, float stddev) {    
+// loi normale par la transformation de Box-Muller, calculée à la main sur deux appels à nextFloat()
+// : z = std::sqrt(-2.0f * std::log(u1)) * std::cos(2.0f * kPi * u2), puis mean + stddev * z.
+float Rng::nextGaussian(float mean, float stddev) {
     float kPi = 3.14159265358979323846f;
 
     float u1 = 0.0f;
-    do { // u1 est retiré tant qu'il vaut exactement 0.0f (le logarithme de zéro n'est pas défini)
+    do {  // u1 est retiré tant qu'il vaut exactement 0.0f (le logarithme de zéro n'est pas défini)
         u1 = nextFloat();
     } while (u1 == 0.0f);
 
-    float u2 = nextFloat(); 
+    float u2 = nextFloat();
 
     float z = std::sqrt(-2.0f * std::log(u1)) * std::cos(2.0f * kPi * u2);
 
@@ -47,12 +47,12 @@ float Rng::nextGaussian(float mean, float stddev) {
 // soit range = max - min + 1, on tire _engine() jusqu'à obtenir une valeur strictement
 // inférieure au plus grand multiple de range représentable sur 64 bits,
 // puis on renvoie min + valeur % range — le rejet élimine le biais (léger mais réel)
-// du modulo simple sur les dernières valeurs de la plage. 
+// du modulo simple sur les dernières valeurs de la plage.
 int Rng::nextInt(int min, int max) {
     PROJECTGAMING_ASSERT(min <= max, "Rng::nextInt(min, max) : min doit etre <= max");
     const auto range = static_cast<std::uint64_t>(max - min) + 1;
-    const std::uint64_t limit =
-        std::numeric_limits<std::uint64_t>::max() - std::numeric_limits<std::uint64_t>::max() % range;
+    const std::uint64_t limit = std::numeric_limits<std::uint64_t>::max() -
+                                std::numeric_limits<std::uint64_t>::max() % range;
     std::uint64_t value;
     do {
         value = _engine();

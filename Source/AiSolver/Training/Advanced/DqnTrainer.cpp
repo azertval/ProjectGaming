@@ -96,8 +96,8 @@ void DqnTrainer::run(std::size_t episodeCount) {
             const float epsilon = currentEpsilon();
             std::size_t actionIndex;
             if (_rng.nextFloat() < epsilon) {
-                actionIndex = static_cast<std::size_t>(
-                    _rng.nextInt(0, static_cast<int>(actionCount()) - 1));
+                actionIndex =
+                    static_cast<std::size_t>(_rng.nextInt(0, static_cast<int>(actionCount()) - 1));
             } else {
                 const autodiff::NodePtr qValues = _mainNetwork.forward(observationVector);
                 actionIndex = argmaxIndex(qValues->value);
@@ -105,8 +105,9 @@ void DqnTrainer::run(std::size_t episodeCount) {
             const Action action = actionAt(actionIndex);
 
             const StepObservation stepObservation = _environment.step(toPlayerInput(action));
-            const float reward = computeReward(rewardConfig, previousBox, stepObservation.playerBox,
-                                               _environment.level().exit(), stepObservation.outcome);
+            const float reward =
+                computeReward(rewardConfig, previousBox, stepObservation.playerBox,
+                              _environment.level().exit(), stepObservation.outcome);
             totalReward += reward;
             ++stepCount;
 
@@ -114,10 +115,10 @@ void DqnTrainer::run(std::size_t episodeCount) {
             playerState = stepObservation.playerState;
             playerVelocity = stepObservation.playerVelocity;
 
-            status = classifyEpisode(stepObservation.outcome, stepObservation.stepIndex,
-                                     _environment.stepsSinceProgress(),
-                                     std::numeric_limits<int>::max(),
-                                     evolutionary::DEFAULT_STUCK_THRESHOLD);
+            status =
+                classifyEpisode(stepObservation.outcome, stepObservation.stepIndex,
+                                _environment.stepsSinceProgress(), std::numeric_limits<int>::max(),
+                                evolutionary::DEFAULT_STUCK_THRESHOLD);
 
             Tensor<float> nextObservationVector =
                 observationEncoder.encode(_environment, previousBox, playerState, playerVelocity);
@@ -134,8 +135,7 @@ void DqnTrainer::run(std::size_t episodeCount) {
 
             if (_replayBuffer.size() >= _config.warmupSize &&
                 _totalSteps % _config.updatePeriodSteps == 0) {
-                const std::vector<Transition> batch =
-                    _replayBuffer.sample(_config.batchSize, _rng);
+                const std::vector<Transition> batch = _replayBuffer.sample(_config.batchSize, _rng);
                 const autodiff::NodePtr loss =
                     computeDqnLoss(_mainNetwork, _targetNetwork, batch, _config.gamma);
                 const std::vector<autodiff::NodePtr> parameters = _mainNetwork.parameters();
@@ -167,8 +167,8 @@ void DqnTrainer::run(std::size_t episodeCount) {
         _recorder.record(row);
 
         if (_dqnStatsCsv) {
-            *_dqnStatsCsv << _episodeIndex << ',' << _replayBuffer.size() << ','
-                          << currentEpsilon() << '\n';
+            *_dqnStatsCsv << _episodeIndex << ',' << _replayBuffer.size() << ',' << currentEpsilon()
+                          << '\n';
             _dqnStatsCsv->flush();
         }
 

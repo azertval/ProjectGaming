@@ -72,7 +72,8 @@ TEST(ActionDecodingTest, ArgmaxEgaliteRetourneLePremierIndice) {
 /**
  * @brief `decodeStochastic`, sur un grand nombre de tirages, reproduit la distribution d'entree a
  * une tolerance statistique documentee.
- * \castest{<b>`decodeStochastic` reproduit la distribution d'entree sans biais systematique.</b><br/>
+ * \castest{<b>`decodeStochastic` reproduit la distribution d'entree sans biais
+ * systematique.</b><br/>
  * \tcat Unitaire · AiSolver Env<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Construire une distribution non uniforme (deux actions concentrent la masse de

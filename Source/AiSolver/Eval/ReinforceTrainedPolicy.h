@@ -22,8 +22,8 @@ public:
     explicit ReinforceTrainedPolicy(nn::Network& policy) : _policy(policy) {}
 
     [[nodiscard]] std::optional<core::PlayerInput> selectAction(const Tensor<float>& observation,
-                                                                 ActionDecodingMode mode,
-                                                                 Rng& rng) override;
+                                                                ActionDecodingMode mode,
+                                                                Rng& rng) override;
 
 private:
     nn::Network& _policy;

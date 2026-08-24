@@ -25,8 +25,8 @@
 using aisolver::EnvironmentConfig;
 using aisolver::HeadlessLevelEnvironment;
 using aisolver::ObservationEncoder;
-using aisolver::ReplayLoadResult;
 using aisolver::readReplay;
+using aisolver::ReplayLoadResult;
 using aisolver::validateReplay;
 using aisolver::training::DeterministicReplayResult;
 using aisolver::training::exportReplay;
@@ -36,8 +36,8 @@ using aisolver::training::ReplayExportError;
 using aisolver::training::ReplayExportResult;
 using aisolver::training::StoppingConfig;
 using aisolver::training::TrainAndExportOutcome;
-using aisolver::training::trainLevelAndExportReplay;
 using aisolver::training::TrainingResult;
+using aisolver::training::trainLevelAndExportReplay;
 using aisolver::training::evolutionary::EvolutionaryConfig;
 using aisolver::training::evolutionary::policyTopology;
 using aisolver_test::TrivialLevelDirectory;
@@ -84,8 +84,8 @@ TEST(ReplayExportTest, ExportReussiEtRoundTrip) {
     ASSERT_EQ(replay.status, aisolver::EpisodeStatus::Won);
 
     const std::filesystem::path outputPath = level.file("replay.json");
-    const ReplayExportResult exportResult =
-        exportReplay(replay, training.solved, level.levelPath(), outputPath, "evolutionnaire", 4242);
+    const ReplayExportResult exportResult = exportReplay(replay, training.solved, level.levelPath(),
+                                                         outputPath, "evolutionnaire", 4242);
 
     ASSERT_TRUE(exportResult.exported);
     EXPECT_EQ(exportResult.error, ReplayExportError::None);
@@ -203,10 +203,9 @@ TEST(ReplayExportTest, PointDEntreeMinimalBoutEnBout) {
     stopping.maxGenerations = 200;
 
     const std::filesystem::path outputPath = level.file("replay.json");
-    const TrainAndExportOutcome outcome =
-        trainLevelAndExportReplay(level.levelPath(), policyTopology(encoder.inputSize()), config,
-                                  stopping, 4242, level.file("stats.csv"), outputPath,
-                                  EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    const TrainAndExportOutcome outcome = trainLevelAndExportReplay(
+        level.levelPath(), policyTopology(encoder.inputSize()), config, stopping, 4242,
+        level.file("stats.csv"), outputPath, EnvironmentConfig{.maxSteps = kReducedMaxSteps});
 
     EXPECT_TRUE(outcome.trainingResult.solved);
     EXPECT_TRUE(outcome.exportResult.exported);

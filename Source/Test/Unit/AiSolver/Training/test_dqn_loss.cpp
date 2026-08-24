@@ -4,7 +4,8 @@
 /**
  * @file test_dqn_loss.cpp
  * @brief Gradient checking de `computeDqnLoss` (LOT-ANNEXE-14, TACHE-01), par rapport aux poids du
- * réseau principal uniquement -- même méthodologie que `test_actor_critic_loss.cpp` (LOT-ANNEXE-13).
+ * réseau principal uniquement -- même méthodologie que `test_actor_critic_loss.cpp`
+ * (LOT-ANNEXE-13).
  */
 
 #include <cmath>
@@ -113,10 +114,10 @@ TEST(DqnLossTest, GradientCheckingParRapportAuReseauPrincipal) {
     QNetwork targetNetwork(kInputSize, kHiddenSize, targetRng);
 
     std::vector<Transition> batch;
-    batch.push_back(transitionAt(0, observationOf(0.1f, 0.2f, 0.3f), 1.0f,
-                                 observationOf(0.0f, 0.1f, -0.2f)));
-    batch.push_back(transitionAt(5, observationOf(-0.4f, 0.0f, 0.2f), -0.5f,
-                                 observationOf(0.3f, -0.1f, 0.1f)));
+    batch.push_back(
+        transitionAt(0, observationOf(0.1f, 0.2f, 0.3f), 1.0f, observationOf(0.0f, 0.1f, -0.2f)));
+    batch.push_back(
+        transitionAt(5, observationOf(-0.4f, 0.0f, 0.2f), -0.5f, observationOf(0.3f, -0.1f, 0.1f)));
     batch.push_back(transitionAt(12, observationOf(0.3f, -0.1f, -0.2f), 0.2f,
                                  observationOf(-0.2f, 0.2f, 0.0f)));
 
@@ -145,8 +146,7 @@ TEST(DqnLossTest, TransitionTerminaleIgnoreLeReseauCible) {
     constexpr std::size_t kActionIndex = 6;
     constexpr float kReward = 0.75f;
 
-    const float predictedQ =
-        mainNetwork.forward(observation)->value.data()[kActionIndex];
+    const float predictedQ = mainNetwork.forward(observation)->value.data()[kActionIndex];
     const float expectedLoss = (predictedQ - kReward) * (predictedQ - kReward);
 
     std::vector<Transition> batch;

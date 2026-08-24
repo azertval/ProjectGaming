@@ -32,7 +32,8 @@ namespace {
 /// Repertoire temporaire du test courant, nettoye a la destruction (RAII), meme si le test echoue.
 class TempDirectory {
 public:
-    TempDirectory() : _path(std::filesystem::temp_directory_path() / "aisolver_nn_test_serialization") {
+    TempDirectory()
+        : _path(std::filesystem::temp_directory_path() / "aisolver_nn_test_serialization") {
         std::filesystem::create_directories(_path);
     }
     ~TempDirectory() {
@@ -53,7 +54,8 @@ private:
 std::unique_ptr<Network> buildNetwork(std::uint64_t seed) {
     Rng rng(seed);
     auto network = std::make_unique<Network>();
-    network->addLayer(std::make_unique<Dense>(3, 4, WeightInitScheme::He, rng), aisolver::autodiff::relu);
+    network->addLayer(std::make_unique<Dense>(3, 4, WeightInitScheme::He, rng),
+                      aisolver::autodiff::relu);
     network->addLayer(std::make_unique<Dense>(4, 2, WeightInitScheme::Xavier, rng), nullptr);
     return network;
 }
@@ -89,7 +91,8 @@ TEST(SerializationTest, SauvegardePuisRechargementProduitLaMemeSortie) {
 
     ASSERT_TRUE(aisolver::nn::saveWeights(*original, filePath));
 
-    std::unique_ptr<Network> reloaded = buildNetwork(8002);  // graine differente : poids differents avant chargement.
+    std::unique_ptr<Network> reloaded =
+        buildNetwork(8002);  // graine differente : poids differents avant chargement.
     ASSERT_TRUE(aisolver::nn::loadWeights(*reloaded, filePath));
     const NodePtr reloadedOutput = reloaded->forward(input);
 
@@ -135,7 +138,8 @@ TEST(SerializationTest, RejetVersionInconnue) {
     const std::filesystem::path filePath = tempDir.filePath("bad_version.ainn");
     {
         std::ofstream stream(filePath, std::ios::binary);
-        stream.write(reinterpret_cast<const char*>(&aisolver::nn::WEIGHTS_FILE_MAGIC), sizeof(std::uint32_t));
+        stream.write(reinterpret_cast<const char*>(&aisolver::nn::WEIGHTS_FILE_MAGIC),
+                     sizeof(std::uint32_t));
         const std::uint32_t wrongVersion = 999;
         stream.write(reinterpret_cast<const char*>(&wrongVersion), sizeof(wrongVersion));
     }
@@ -163,7 +167,8 @@ TEST(SerializationTest, RejetStructureIncompatibleReseauInchange) {
 
     Rng rng(8006);
     Network oneLayer;
-    oneLayer.addLayer(std::make_unique<Dense>(3, 4, WeightInitScheme::He, rng), aisolver::autodiff::relu);
+    oneLayer.addLayer(std::make_unique<Dense>(3, 4, WeightInitScheme::He, rng),
+                      aisolver::autodiff::relu);
     const Tensor<float> weightsBefore = oneLayer.parameters()[0]->value.clone();
 
     EXPECT_FALSE(aisolver::nn::loadWeights(oneLayer, filePath));

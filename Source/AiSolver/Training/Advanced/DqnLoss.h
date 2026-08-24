@@ -17,9 +17,9 @@
 namespace aisolver::training {
 
 /**
- * @brief Erreur quadratique moyenne, sur un mini-lot, entre `Q(s_t, a_t)` (réseau principal, nœud de
- * graphe d'autodiff) et la cible de Bellman `reward_t + gamma * max_a Q_cible(s_{t+1}, a)` (réseau
- * cible, valeur détachée du graphe -- jamais rétropropagée, même convention que
+ * @brief Erreur quadratique moyenne, sur un mini-lot, entre `Q(s_t, a_t)` (réseau principal, nœud
+ * de graphe d'autodiff) et la cible de Bellman `reward_t + gamma * max_a Q_cible(s_{t+1}, a)`
+ * (réseau cible, valeur détachée du graphe -- jamais rétropropagée, même convention que
  * `computeAdvantages`/`CriticLoss`, `LOT-ANNEXE-13`).
  *
  * Pour une transition terminale (`Transition::done == true`), la cible se réduit à `reward_t` (pas

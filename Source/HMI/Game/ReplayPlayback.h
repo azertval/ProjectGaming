@@ -18,9 +18,9 @@
  *
  * Ne connaît jamais `hmi::InputState` ni les bindings clavier/manette (un rejeu **est** déjà
  * l'intention enregistrée, il n'y a rien à traduire) et ne référence **jamais**
- * `Source/AiSolver/Nn`, `Autodiff`, `Optim` ni aucun module de `Source/AiSolver/Training` — décision
- * transverse du programme, rappelée par l'épic de ce lot : `HMI` rejoue une séquence déjà figée,
- * aucune inférence de réseau de neurones n'a lieu ici ni ailleurs dans `HMI`/`Core`.
+ * `Source/AiSolver/Nn`, `Autodiff`, `Optim` ni aucun module de `Source/AiSolver/Training` —
+ * décision transverse du programme, rappelée par l'épic de ce lot : `HMI` rejoue une séquence déjà
+ * figée, aucune inférence de réseau de neurones n'a lieu ici ni ailleurs dans `HMI`/`Core`.
  */
 
 namespace hmi {

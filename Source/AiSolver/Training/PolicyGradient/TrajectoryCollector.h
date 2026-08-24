@@ -28,9 +28,9 @@ namespace aisolver::training {
 class TrajectoryCollector {
 public:
     /// @param stuckThreshold Seuil de blocage transmis à `classifyEpisode` (`Episode.h`), même
-    /// défaut que `evolutionary::evaluateFitness` pour rester cohérent entre familles d'algorithmes.
-    explicit TrajectoryCollector(
-        int stuckThreshold = evolutionary::DEFAULT_STUCK_THRESHOLD);
+    /// défaut que `evolutionary::evaluateFitness` pour rester cohérent entre familles
+    /// d'algorithmes.
+    explicit TrajectoryCollector(int stuckThreshold = evolutionary::DEFAULT_STUCK_THRESHOLD);
 
     /**
      * @brief Rejoue `policy` sur `environment` jusqu'à fin d'épisode, en échantillonnant chaque

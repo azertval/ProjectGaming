@@ -24,7 +24,7 @@ namespace aisolver::cli {
  *         élément de @p args (valeur manquante).
  */
 [[nodiscard]] std::optional<std::string> findOption(const std::vector<std::string>& args,
-                                                     std::string_view name);
+                                                    std::string_view name);
 
 /// @return `true` si @p name (un drapeau sans valeur, ex. `"--verbose"`) apparaît dans @p args.
 [[nodiscard]] bool hasFlag(const std::vector<std::string>& args, std::string_view name);

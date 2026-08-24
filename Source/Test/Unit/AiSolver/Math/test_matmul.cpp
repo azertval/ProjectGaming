@@ -101,10 +101,13 @@ TEST(MatmulTest, AssertionDimensionsIncompatibles) {
     const aisolver::Tensor<float> a({2, 3});
     const aisolver::Tensor<float> b({4, 5});
 
-    core::setAssertionHandler(
-        [](const char*, const char*, const char*, int) { throw std::runtime_error("precondition"); });
+    core::setAssertionHandler([](const char*, const char*, const char*, int) {
+        throw std::runtime_error("precondition");
+    });
 
-    EXPECT_THROW({ [[maybe_unused]] aisolver::Tensor<float> result = aisolver::matmul(a, b); }, std::runtime_error);
+    EXPECT_THROW(
+        { [[maybe_unused]] aisolver::Tensor<float> result = aisolver::matmul(a, b); },
+        std::runtime_error);
 
     core::setAssertionHandler(nullptr);
 #endif
@@ -128,10 +131,12 @@ TEST(MatmulTest, AssertionRangInvalide) {
     const aisolver::Tensor<float> cube({2, 2, 2});
     const aisolver::Tensor<float> matrix({2, 2});
 
-    core::setAssertionHandler(
-        [](const char*, const char*, const char*, int) { throw std::runtime_error("precondition"); });
+    core::setAssertionHandler([](const char*, const char*, const char*, int) {
+        throw std::runtime_error("precondition");
+    });
 
-    EXPECT_THROW({ [[maybe_unused]] auto r = aisolver::matmul(vector, matrix); }, std::runtime_error);
+    EXPECT_THROW(
+        { [[maybe_unused]] auto r = aisolver::matmul(vector, matrix); }, std::runtime_error);
     EXPECT_THROW({ [[maybe_unused]] auto r = aisolver::matmul(matrix, cube); }, std::runtime_error);
     EXPECT_THROW({ [[maybe_unused]] auto r = aisolver::transpose(vector); }, std::runtime_error);
     EXPECT_THROW({ [[maybe_unused]] auto r = aisolver::transpose(cube); }, std::runtime_error);

@@ -47,6 +47,7 @@ namespace aisolver {
  * @param temperature  Strictement positive.
  * @param rng          Générateur déterministe fourni par l'appelant.
  */
-[[nodiscard]] Action decodeStochastic(const Tensor<float>& distribution, float temperature, Rng& rng);
+[[nodiscard]] Action decodeStochastic(const Tensor<float>& distribution, float temperature,
+                                      Rng& rng);
 
 }  // namespace aisolver

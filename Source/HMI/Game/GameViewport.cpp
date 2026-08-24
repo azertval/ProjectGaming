@@ -880,7 +880,8 @@ void GameViewport::tick(float elapsedSeconds) {
             }
             // Sons de jeu (LOT-60 TACHE-03) : un evenement par pas, jamais par image de rendu --
             // lastStepEvents() reflete exactement CE pas, celui qui vient de s'executer. Sans
-            // effet sur `replayEnded` : aucun pas n'a ete simule ce tour, l'evenement serait perime.
+            // effet sur `replayEnded` : aucun pas n'a ete simule ce tour, l'evenement serait
+            // perime.
             if (_session && _audioEngine && !replayEnded) {
                 for (const GameEvent gameEvent : _session->lastStepEvents()) {
                     if (const std::optional<std::string> soundId = soundForEvent(gameEvent)) {

@@ -27,7 +27,8 @@
  */
 TEST(LevelFingerprintTest, EmpreintesIdentiquesPourContenuIdentique) {
     const std::string content = R"({"width": 10, "height": 8, "tiles": []})";
-    EXPECT_EQ(aisolver::computeLevelFingerprint(content), aisolver::computeLevelFingerprint(content));
+    EXPECT_EQ(aisolver::computeLevelFingerprint(content),
+              aisolver::computeLevelFingerprint(content));
 }
 
 /**

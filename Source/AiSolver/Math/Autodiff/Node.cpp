@@ -45,15 +45,14 @@ NodePtr unaryOp(
     return result;
 }
 
-NodePtr binaryOp(
-    const NodePtr& a, const NodePtr& b,
-    std::function<Tensor<float>(const Tensor<float>&, const Tensor<float>&)> forward,
-    std::function<Tensor<float>(const Tensor<float>&, const Tensor<float>&, const Tensor<float>&,
-                                 const Tensor<float>&)>
-        localGradA,
-    std::function<Tensor<float>(const Tensor<float>&, const Tensor<float>&, const Tensor<float>&,
-                                 const Tensor<float>&)>
-        localGradB) {
+NodePtr binaryOp(const NodePtr& a, const NodePtr& b,
+                 std::function<Tensor<float>(const Tensor<float>&, const Tensor<float>&)> forward,
+                 std::function<Tensor<float>(const Tensor<float>&, const Tensor<float>&,
+                                             const Tensor<float>&, const Tensor<float>&)>
+                     localGradA,
+                 std::function<Tensor<float>(const Tensor<float>&, const Tensor<float>&,
+                                             const Tensor<float>&, const Tensor<float>&)>
+                     localGradB) {
     auto result = std::make_shared<Node>(forward(a->value, b->value));
     result->_parents = {a, b};
 
@@ -68,7 +67,7 @@ NodePtr binaryOp(
 
 void backward(const NodePtr& root) {
     PROJECTGAMING_ASSERT(root->value.size() == 1,
-                          "backward() : la racine doit etre un tenseur scalaire (un seul element)");
+                         "backward() : la racine doit etre un tenseur scalaire (un seul element)");
 
     // Derivee d'une quantite par rapport a elle-meme.
     root->grad = Tensor<float>(root->value.shape());

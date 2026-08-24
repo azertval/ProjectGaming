@@ -29,8 +29,8 @@ public:
         : _mainNetwork(mainNetwork) {}
 
     [[nodiscard]] std::optional<core::PlayerInput> selectAction(const Tensor<float>& observation,
-                                                                 ActionDecodingMode mode,
-                                                                 Rng& rng) override;
+                                                                ActionDecodingMode mode,
+                                                                Rng& rng) override;
 
     [[nodiscard]] bool supportsMode(ActionDecodingMode mode) const noexcept override {
         return mode == ActionDecodingMode::Argmax;

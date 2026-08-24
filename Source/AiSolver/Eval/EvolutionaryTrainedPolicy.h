@@ -15,10 +15,10 @@
 namespace aisolver::eval {
 
 /**
- * @brief N'accepte que `ActionDecodingMode::Argmax` : seul mode que la génération 2 (évolutionniste)
- * a jamais connu (décision de cadrage de `LOT-ANNEXE-10`, réaffirmée ici) — un appel en
- * `Stochastic` est un usage incorrect signalé (`selectAction` retourne `std::nullopt`), pas
- * silencieusement ignoré.
+ * @brief N'accepte que `ActionDecodingMode::Argmax` : seul mode que la génération 2
+ * (évolutionniste) a jamais connu (décision de cadrage de `LOT-ANNEXE-10`, réaffirmée ici) — un
+ * appel en `Stochastic` est un usage incorrect signalé (`selectAction` retourne `std::nullopt`),
+ * pas silencieusement ignoré.
  */
 class EvolutionaryTrainedPolicy : public TrainedPolicy {
 public:
@@ -26,8 +26,8 @@ public:
     explicit EvolutionaryTrainedPolicy(nn::Network& network) : _network(network) {}
 
     [[nodiscard]] std::optional<core::PlayerInput> selectAction(const Tensor<float>& observation,
-                                                                 ActionDecodingMode mode,
-                                                                 Rng& rng) override;
+                                                                ActionDecodingMode mode,
+                                                                Rng& rng) override;
 
     [[nodiscard]] bool supportsMode(ActionDecodingMode mode) const noexcept override {
         return mode == ActionDecodingMode::Argmax;
