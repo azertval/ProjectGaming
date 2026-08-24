@@ -35,6 +35,7 @@ add_library(Core STATIC
     Diagnostics/LogFormat.cpp
     Diagnostics/Logger.cpp
     Diagnostics/ConsoleLogSink.cpp
+    Diagnostics/FileLogSink.cpp
     Diagnostics/Assert.cpp
 )
 

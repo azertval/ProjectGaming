@@ -178,6 +178,7 @@ python scripts/lint_exigences.py           # identifiants EX-… : ni doublon, n
 python scripts/lint_exigences.py --next    # prochain numéro libre, par catégorie
 python scripts/generate_cahier_test.py --check   # cahier de test à jour
 python scripts/check_demo_sequence.py      # séquence des niveaux démo cohérente
+python scripts/check_ai_replays.py         # rejeux IA publiés synchronisés avec leur niveau
 python scripts/build_docs.py               # documentation Doxygen (WARN_AS_ERROR)
 ```
 

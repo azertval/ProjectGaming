@@ -22,6 +22,7 @@
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelOutcome.h"
 #include "Core/Physics/Aabb.h"
+#include "Core/Physics/PlayerInput.h"
 #include "HMI/Game/GameEvents.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/CameraZones.h"
@@ -94,6 +95,19 @@ public:
      * @return L'issue : `Playing`, `Won` (l'appelant décide), ou `Lost` (niveau déjà rechargé).
      */
     core::LevelOutcome update(const InputState& input, float fixedDelta);
+
+    /**
+     * @brief Simule le niveau d'un pas fixe à partir d'une intention déjà résolue, sans passer par
+     *        `hmi::InputState`/`toPlayerInput` (`LOT-ANNEXE-18`, TACHE-01) : cœur de simulation
+     *        partagé, utilisé aussi bien par le jeu réel (via `update(const InputState&, float)`,
+     *        qui ne fait plus que traduire puis déléguer ici) que par la lecture d'un rejeu
+     *        (`hmi::ReplayPlayback`), sans aucune divergence possible entre les deux chemins.
+     * @param input      Intention de jeu déjà résolue (entrée réelle traduite, ou rejeu
+     * enregistré).
+     * @param fixedDelta Durée du pas fixe, en secondes.
+     * @return L'issue : `Playing`, `Won` (l'appelant décide), ou `Lost` (niveau déjà rechargé).
+     */
+    core::LevelOutcome update(const core::PlayerInput& input, float fixedDelta);
 
     /// Recharge le niveau courant (personnage à l'entrée, mécanismes et budgets remis).
     void reload();

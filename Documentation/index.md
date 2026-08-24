@@ -21,9 +21,12 @@ Le détail de chaque lot (objectifs, tâches, avancement) est dans la rubrique
 
 ## Navigation
 - @subpage guide — **Guide du développeur** : comprendre tout le moteur (concepts, code, maths).
+- @subpage guide-annexe — **Guide Annexe** : notions d'IA (tutoriel, sources citées) pour le
+  programme [Lot-Annexe](@ref lots-annexe).
 - @subpage cahiertest — **Cahier de test** : tous les cas de test (catégorie, criticité, étapes).
 - @subpage specifications — besoins, contraintes et exigences (`EX-…`), conventions de code.
 - @subpage lots — plan de travail : un lot par incrément, découpé en tâches.
+- @subpage lots-annexe — programme annexe : IA de résolution autonome maison.
 - @subpage manuel — manuel utilisateur (télécharger et lancer le jeu).
 - **Référence de code** — classes, espaces de noms et fichiers de `Source/` : voir
   l'arbre de navigation (menu latéral) et les onglets *Namespaces* / *Classes*.

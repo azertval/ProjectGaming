@@ -7,6 +7,8 @@ menu.title = ProjectGaming
 menu.continue = Continue
 menu.new_game = New Game
 menu.select_level = Select Level
+menu.ai_mode = AI Mode
+ai_mode.title = AI Mode
 menu.edit_mode = Edit Mode
 menu.options = Options
 menu.credits = Credits
@@ -35,6 +37,11 @@ level_complete.summary = Time %1 · Deaths %2 · Jumps %3
 sequence.demo.title = Demo Sequence
 game.sequence_failed_title = Sequence Unreadable
 game.sequence_failed_text = Could not load the level sequence: %1
+replay.select_title = Choose a replay
+replay.no_replays_title = No replay available
+replay.no_replays_text = No replay file was found under Elements/Replays.
+replay.invalid_title = Invalid replay
+replay.invalid_text = This replay cannot be played: %1
 
 # Level select screen (LOT-59 TACHE-06)
 level_select.title = Select Level

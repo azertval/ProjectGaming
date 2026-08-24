@@ -8,6 +8,8 @@ menu.title = ProjectGaming
 menu.continue = Continuer
 menu.new_game = Nouvelle partie
 menu.select_level = Choisir un niveau
+menu.ai_mode = Mode IA
+ai_mode.title = Mode IA
 menu.edit_mode = Mode Édition
 menu.options = Options
 menu.credits = Crédits
@@ -36,6 +38,11 @@ level_complete.summary = Temps %1 · Morts %2 · Sauts %3
 sequence.demo.title = Séquence de démonstration
 game.sequence_failed_title = Séquence illisible
 game.sequence_failed_text = Impossible de charger la séquence de niveaux : %1
+replay.select_title = Choisir un rejeu
+replay.no_replays_title = Aucun rejeu disponible
+replay.no_replays_text = Aucun fichier de rejeu n'a été trouvé dans Elements/Replays.
+replay.invalid_title = Rejeu invalide
+replay.invalid_text = Ce rejeu ne peut pas être joué : %1
 
 # Écran de sélection de niveau (LOT-59 TACHE-06)
 level_select.title = Choisir un niveau

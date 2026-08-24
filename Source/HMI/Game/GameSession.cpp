@@ -875,6 +875,10 @@ void GameSession::applyCameraFraming(int viewportWidth, int viewportHeight,
 
 // Simule le personnage d'un pas fixe (mecanismes + physique + animation), puis statue sur l'issue.
 core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta) {
+    return update(toPlayerInput(input, _gameBindings, _gamepadBindings), fixedDelta);
+}
+
+core::LevelOutcome GameSession::update(const core::PlayerInput& intent, float fixedDelta) {
     if (!_level) {
         return core::LevelOutcome::Playing;  // chargement echoue : rien a simuler (etat neutre)
     }
@@ -889,9 +893,6 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
     _particles.update(_world, fixedDelta);
     // 0ter. Secousse d'ecran (LOT-53 TACHE-03) : decroissance au pas fixe, comme les particules.
     advanceScreenShake(_screenShake, fixedDelta);
-
-    // 1. Entrees -> intention.
-    const core::PlayerInput intent = toPlayerInput(input, _gameBindings, _gamepadBindings);
 
     // 1bis. Plateformes mobiles (EX-GP-026, LOT-63) : deplacees EN PREMIER (ordre de resolution
     // documente, TACHE-03) -- portage du personnage et des blocs, puis leur propre physique,

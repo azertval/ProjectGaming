@@ -415,6 +415,12 @@ jobs:
       - name: Sequence de niveaux demo (LOT-25) synchronisee
         run: python3 scripts/check_demo_sequence.py
 
+      # Garde-fou LOT-ANNEXE-20 : un rejeu IA publie (Source/Elements/Replays/) dont le niveau
+      # reference a change depuis l'export (empreinte FNV-1a divergente) ou n'existe plus doit
+      # faire echouer la PR, avant que la peremption ne soit decouverte au chargement en jeu.
+      - name: Rejeux IA publies synchronises avec leur niveau (LOT-ANNEXE-20)
+        run: python3 scripts/check_ai_replays.py
+
       # Les plans picturaux livres sont GENERES (LOT-69) : commites pour que le jeu tourne sans
       # Python, mais reproductibles depuis les sources. Sans ce controle, une retouche du
       # generateur pourrait ne jamais atteindre les images -- ou l'inverse, une image editee a la
