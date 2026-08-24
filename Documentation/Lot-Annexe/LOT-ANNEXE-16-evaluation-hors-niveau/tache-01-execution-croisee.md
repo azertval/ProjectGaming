@@ -1,6 +1,6 @@
 # TACHE-01 — Exécution croisée (modèle de A exécuté sur B) {#lot-annexe-16-tache-01-execution-croisee}
 
-**Lot :** [LOT-ANNEXE-16](epic.md) · **Emplacement :** `Source/AiSolver/Eval` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-16](epic.md) · **Emplacement :** `Source/AiSolver/Eval` · **Statut :** fait
 
 ## Contexte
 `aisolver::eval::BenchmarkRunner::run` (`LOT-ANNEXE-15`) accepte déjà indépendamment un

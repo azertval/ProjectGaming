@@ -1,6 +1,6 @@
 # LOT-ANNEXE-16 — Évaluation hors-niveau (transfert) {#lot-annexe-16}
 
-> Statut : **non commencé**. Prérequis : [LOT-ANNEXE-15](@ref lot-annexe-15) (harnais de
+> Statut : **fait**. Prérequis : [LOT-ANNEXE-15](@ref lot-annexe-15) (harnais de
 > benchmark), dont ce lot réutilise intégralement l'infrastructure sans la dupliquer. Dernier lot
 > de la génération 4.
 
@@ -82,8 +82,8 @@ principe à une paire de niveaux.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-execution-croisee.md) | Exécution croisée (modèle de A exécuté sur B) | `Source/AiSolver/Eval` | ⬜ |
-| [TACHE-02](tache-02-documentation-resultats.md) | Documentation des résultats observés | `Documentation/Lot-Annexe` | ⬜ |
+| [TACHE-01](tache-01-execution-croisee.md) | Exécution croisée (modèle de A exécuté sur B) | `Source/AiSolver/Eval` | ✅ |
+| [TACHE-02](tache-02-documentation-resultats.md) | Documentation des résultats observés | `Documentation/Lot-Annexe` | ✅ |
 
 ## Critères d'acceptation du lot
 1. `BenchmarkRunner::run` (`LOT-ANNEXE-15`) est appelé sans aucune modification de sa signature ni
@@ -102,6 +102,13 @@ Réutilise intégralement [LOT-ANNEXE-15](@ref lot-annexe-15) (`BenchmarkRunner`
 sans dépendance directe supplémentaire au-delà de ce que `LOT-ANNEXE-15` référence déjà. Dernier lot
 de la génération 4 : aucun lot de cette génération n'en dépend.
 
+## Résultats
+Campagne exécutée (2 paires de niveaux, modèle évolutionniste entraîné sur le niveau trivial) :
+transfert nul mesuré dans les deux cas, y compris sur la paire de mécanique partagée — voir le
+détail du protocole, les chiffres et leur lecture dans
+@ref lot-annexe-16-resultats-transfert.
+
 ## Navigation des tâches
 - @subpage lot-annexe-16-tache-01-execution-croisee
 - @subpage lot-annexe-16-tache-02-documentation-resultats
+- @subpage lot-annexe-16-resultats-transfert

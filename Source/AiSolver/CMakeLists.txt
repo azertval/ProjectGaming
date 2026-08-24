@@ -116,6 +116,7 @@ add_library(AiSolver STATIC
     Eval/BenchmarkRunner.cpp
     Eval/BenchmarkReport.cpp
     Eval/NoisyObservation.cpp
+    Eval/CrossLevelBenchmark.cpp
 )
 
 # Racine d'inclusion = Source/ : les en-têtes s'incluent par chemin complet depuis la racine

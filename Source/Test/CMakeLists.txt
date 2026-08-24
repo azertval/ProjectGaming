@@ -155,6 +155,7 @@ add_executable(UnitTests
     Unit/AiSolver/Eval/test_benchmark_runner.cpp
     Unit/AiSolver/Eval/test_benchmark_report.cpp
     Unit/AiSolver/Eval/test_noisy_observation.cpp
+    Unit/AiSolver/Eval/test_cross_level_benchmark.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp

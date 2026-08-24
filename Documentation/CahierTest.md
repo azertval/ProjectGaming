@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**1482 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**1485 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (1371)
+## Tests unitaires (1374)
 
 ### AiSolver
 
@@ -119,7 +119,7 @@
 | **TileWindowEncoderTest.BordDeCarteProduitUnTenseurCompletAvecCasesNulles** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Env/test_tile_window_encoder.cpp:100`</sub> | Un centre proche d'un coin produit un tenseur complet, cases hors grille en vecteur nul. | 1. `TileMap` 5x5, centre `(0, 0)`, `radius = 3`.<br/>2. Encoder. | Vérifie que `encoded.shape()` vaut `(std::vector<std::size_t>{channelCount, 7, 7})`.<br/>Vérifie que `encoded.at({channel, 0, 0})` vaut `0.0f` (comparaison flottante). |
 | **TileWindowEncoderTest.EncodageDeterministe** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Env/test_tile_window_encoder.cpp:128`</sub> | `encode` est deterministe (memes entrees, meme tenseur). | 1. Encoder deux fois la meme `TileMap`/`center`. | Vérifie que `first.size()` vaut `second.size()`.<br/>Vérifie que `first.data()[index]` vaut `second.data()[index]`. |
 
-#### Eval (21)
+#### Eval (24)
 
 **`test_benchmark_report.cpp`**
 
@@ -142,6 +142,14 @@
 | **BenchmarkRunnerTest.RefusExpliciteDuModeStochastiquePourAlgorithmeAvance** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Eval/test_benchmark_runner.cpp:235`</sub> | Refus explicite du mode Stochastic pour l'algorithme avance (DQN). | 1. AdvancedAlgorithmTrainedPolicy::selectAction en mode Stochastic. | Vérifie que `policy.selectAction(observation, ActionDecodingMode::Stochastic, actionRng).has_value()` est faux. |
 | **BenchmarkResultTest.DistinctionMeanStepsAllEtOnSuccess** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Eval/test_benchmark_runner.cpp:252`</sub> | Distinction meanStepsAll / meanStepsOnSuccess. | 1. Melanger episodes reussis (peu de pas) et timeouts (plafond de pas) dans un BenchmarkResult. | Vérifie que `result.meanStepsOnSuccess()` vaut `15.0` (comparaison flottante).<br/>Vérifie que `result.meanStepsAll()` vaut `57.5` (comparaison flottante).<br/>Vérifie que `result.meanStepsAll()` diffère de `result.meanStepsOnSuccess()`.<br/>Vérifie que `result.successRate()` vaut `0.5` (comparaison flottante). |
 | **BenchmarkResultTest.ConvergenceTauxDeReussiteVersProbabiliteTheorique** (Mineur)<br/><sub>`Source/Test/Unit/AiSolver/Eval/test_benchmark_runner.cpp:273`</sub> | Convergence du taux de reussite vers la probabilite theorique. | 1. Simuler 4000 episodes via une piece biaisee (p=0.3), graine fixee.<br/>2. Calculer successRate(). | Vérifie que `result.successRate()` vaut `kTheoreticalProbability`, à `0.02` près. |
+
+**`test_cross_level_benchmark.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **CrossLevelBenchmarkTest.DistingueLesDeuxNiveauxDansLeRapport** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Eval/test_cross_level_benchmark.cpp:142`</sub> | Un CrossLevelBenchmarkResult ecrit deux colonnes de niveau distinctes, jamais fusionnees. | 1. Construire un CrossLevelBenchmarkResult (trainedOnLevel="A", executedOnLevel="B"). <br/>2. writeCrossLevelCsv. | Vérifie que `header` vaut `"trainedOnLevel,executedOnLevel,successRate,meanStepCount,stepCountStdDev"`.<br/>Vérifie que `row.find("A,B,")` diffère de `std::string::npos`. |
+| **CrossLevelBenchmarkTest.CampagneMultiPairesRespecteLOrdre** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Eval/test_cross_level_benchmark.cpp:175`</sub> | runCrossLevelCampaign produit un resultat par paire, dans l'ordre fourni. | 1. Trois paires distinctes, meme politique scriptee, meme niveau trivial.<br/>2. runCrossLevelCampaign. | Vérifie que `results.size()` vaut `3u`.<br/>Vérifie que `results[0].trainedOnLevel` vaut `"TrainA"`.<br/>Vérifie que `results[0].executedOnLevel` vaut `"ExecX"`.<br/>Vérifie que `results[1].trainedOnLevel` vaut `"TrainB"`.<br/>Vérifie que `results[1].executedOnLevel` vaut `"ExecY"`.<br/>Vérifie que `results[2].trainedOnLevel` vaut `"TrainC"`.<br/>Vérifie que `results[2].executedOnLevel` vaut `"ExecZ"`.<br/>Vérifie que `result.result.episodes.size()` vaut `2u`. |
+| **CrossLevelTransferTest.CampagneReelleDeuxPairesDeNiveaux** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Eval/test_cross_level_benchmark.cpp:222`</sub> | Campagne de transfert reelle sur deux paires de niveaux illustratives. | 1. Entrainement evolutionniste jusqu'a resolution stable sur le niveau trivial.<br/>2. Execution croisee (20 repetitions) sur un niveau de meme mecanique et un niveau de mecanique differente. | Vérifie que `trainingResult.solved` est vrai.<br/>Vérifie que `results.size()` vaut `2u`.<br/>Vérifie que `successRate` est supérieur ou égal à `0.0`.<br/>Vérifie que `successRate` est inférieur ou égal à `1.0`.<br/>Vérifie que `std::isfinite(result.result.meanStepsAll())` est vrai. |
 
 **`test_noisy_observation.cpp`**
 

@@ -1,6 +1,6 @@
 # TACHE-02 — Documentation des résultats observés {#lot-annexe-16-tache-02-documentation-resultats}
 
-**Lot :** [LOT-ANNEXE-16](epic.md) · **Emplacement :** `Documentation/Lot-Annexe` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-16](epic.md) · **Emplacement :** `Documentation/Lot-Annexe` · **Statut :** fait
 
 ## Contexte
 TACHE-01 produit des chiffres (taux de réussite croisé par paire de niveaux) ; cette tâche les met
