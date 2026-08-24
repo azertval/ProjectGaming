@@ -47,6 +47,9 @@ signals:
     void continueRequested();
     void newGameRequested();
     void selectLevelRequested();
+    /// Entrée « Regarder l'IA jouer » (`LOT-ANNEXE-18`, `EX-IA-019`) : choix d'un fichier de rejeu
+    /// publié (`Elements/Replays/`), sans jamais référencer `Source/AiSolver/Nn`/`Training`.
+    void watchAiRequested();
     void editorRequested();
     void optionsRequested();
     void creditsRequested();

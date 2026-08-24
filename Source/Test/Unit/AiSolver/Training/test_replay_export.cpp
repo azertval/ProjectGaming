@@ -14,6 +14,7 @@
 #include "AiSolver/Env/HeadlessLevelEnvironment.h"
 #include "AiSolver/Env/ObservationEncoder.h"
 #include "AiSolver/Replay/ReplayFile.h"
+#include "AiSolver/Replay/ReplayValidation.h"
 #include "AiSolver/Training/DeterministicReplay.h"
 #include "AiSolver/Training/Evolutionary/NetworkTopology.h"
 #include "AiSolver/Training/LevelTrainingSession.h"
@@ -26,6 +27,7 @@ using aisolver::HeadlessLevelEnvironment;
 using aisolver::ObservationEncoder;
 using aisolver::ReplayLoadResult;
 using aisolver::readReplay;
+using aisolver::validateReplay;
 using aisolver::training::DeterministicReplayResult;
 using aisolver::training::exportReplay;
 using aisolver::training::LevelTrainingSession;
@@ -143,6 +145,41 @@ TEST(ReplayExportTest, ReferenceAuBonNiveau) {
     const ReplayLoadResult loaded = readReplay(outputPath);
     ASSERT_TRUE(loaded.ok()) << loaded.error;
     EXPECT_EQ(loaded.replay->levelPath, level.levelPath().filename().string());
+}
+
+/**
+ * @brief Un rejeu exporté porte une empreinte de niveau non nulle qui valide effectivement contre
+ * son niveau source (`LOT-ANNEXE-17`), sans quoi aucun rejeu produit par ce point d'entrée ne
+ * pourrait jamais être joué en jeu (`LOT-ANNEXE-18`).
+ * \castest{exportReplay : empreinte de niveau valide et duree/algorithmId renseignes.<br/>
+ * \tcat Unitaire · AiSolver Training<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Entraîner, rejouer et exporter avec un `algorithmId` explicite.<br/>2. Relire le
+ * fichier et le valider (`aisolver::validateReplay`) contre son niveau source.<br/>
+ * \tattendu Validation sans erreur ; `totalDurationSeconds` et `algorithmId` correspondent.}
+ */
+TEST(ReplayExportTest, EmpreinteDeNiveauValideEtMetadonneesRenseignees) {
+    const TrivialLevelDirectory level("export-fingerprint");
+    TrainingResult training = trainSolvedIndividual(level);
+    ASSERT_TRUE(training.solved);
+
+    HeadlessLevelEnvironment environment;
+    const DeterministicReplayResult replay =
+        replayBestIndividual(training.bestIndividual, environment, level.levelPath());
+    const std::filesystem::path outputPath = level.file("replay.json");
+    ASSERT_TRUE(exportReplay(replay, training.solved, level.levelPath(), outputPath,
+                             "evolutionnaire", 4242, "evo")
+                    .exported);
+
+    const ReplayLoadResult loaded = readReplay(outputPath);
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+    EXPECT_NE(loaded.replay->levelFingerprint, 0u);
+    EXPECT_FLOAT_EQ(loaded.replay->totalDurationSeconds,
+                    static_cast<float>(replay.steps.size()) / 60.0f);
+    EXPECT_EQ(loaded.replay->algorithmId, "evo");
+
+    const std::filesystem::path levelsDir = level.levelPath().parent_path();
+    EXPECT_EQ(validateReplay(*loaded.replay, levelsDir), std::nullopt);
 }
 
 /**

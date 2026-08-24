@@ -417,6 +417,7 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_menu, &MainMenu::continueRequested, this, &MainWindow::continueGame);
     connect(_menu, &MainMenu::newGameRequested, this, &MainWindow::newGame);
     connect(_menu, &MainMenu::selectLevelRequested, this, &MainWindow::openLevelSelect);
+    connect(_menu, &MainMenu::watchAiRequested, this, &MainWindow::watchAiPlay);
     connect(_menu, &MainMenu::optionsRequested, this, &MainWindow::showOptions);
     connect(_menu, &MainMenu::creditsRequested, this, &MainWindow::openCredits);
     connect(_menu, &MainMenu::quitRequested, this, &MainWindow::close);
@@ -1210,6 +1211,47 @@ void MainWindow::closeLevelSelect() {
         return;
     }
     HMI_LOG_INFO("Navigation : retour au menu depuis la selection de niveau.");
+}
+
+void MainWindow::watchAiPlay() {
+    // Rejeux "publies" (LOT-ANNEXE-18) : dossier versionne dedie, distinct de /TrainingRuns/ (non
+    // versionne, runs d'entrainement bruts) -- cf. Elements/Replays/README.md.
+    const std::filesystem::path replaysDir = hmi::executableDirectory() / "Replays";
+    bool anyReplay = false;
+    std::error_code listError;
+    if (std::filesystem::exists(replaysDir, listError)) {
+        for (const auto& entry : std::filesystem::directory_iterator(replaysDir, listError)) {
+            if (entry.path().extension() == ".json") {
+                anyReplay = true;
+                break;
+            }
+        }
+    }
+    if (!anyReplay) {
+        QMessageBox::information(this, text("replay.no_replays_title"), text("replay.no_replays_text"));
+        return;
+    }
+
+    const QString path = QFileDialog::getOpenFileName(
+        this, text("replay.select_title"), QString::fromStdString(replaysDir.string()),
+        QStringLiteral("Rejeux (*.json)"));
+    if (path.isEmpty()) {
+        return;  // dialogue annule.
+    }
+
+    // Valide AVANT toute transition d'ecran (LOT-ANNEXE-18, critere d'acceptation 2) : un rejeu
+    // invalide ne doit jamais faire apparaitre l'ecran de jeu, meme brievement.
+    if (!_viewport->startReplay(std::filesystem::path(path.toStdString()))) {
+        QMessageBox::warning(
+            this, text("replay.invalid_title"),
+            text("replay.invalid_text").arg(QString::fromStdString(_viewport->lastReplayError())));
+        return;
+    }
+
+    if (!transitionScreen(ScreenEvent::OpenGame)) {
+        return;
+    }
+    HMI_LOG_INFO("Navigation : regarder l'IA jouer (" + path.toStdString() + ").");
 }
 
 void MainWindow::openCredits() {

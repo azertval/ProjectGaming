@@ -1,6 +1,6 @@
 # TACHE-01 — Lecture du rejeu et alimentation de GameSession {#lot-annexe-18-tache-01-lecture-rejeu-alimentation-gamesession}
 
-**Lot :** [LOT-ANNEXE-18](epic.md) · **Emplacement :** `Source/HMI/Game` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-18](epic.md) · **Emplacement :** `Source/HMI/Game` · **Statut :** fait
 
 ## Contexte
 `hmi::GameSession::update(const InputState&, float fixedDelta)` traduit aujourd'hui l'entrée réelle

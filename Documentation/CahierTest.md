@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**1494 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**1500 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (1383)
+## Tests unitaires (1387)
 
 ### AiSolver
 
@@ -466,7 +466,7 @@
 | **TrainingStatsRecorderTest.FichierInterrompuResteExploitable** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Stats/test_training_stats_recorder.cpp:172`</sub> | Fichier interrompu simulé : destruction du recorder après `k` appels. | 1. Créer un `TrainingStatsRecorder`, appeler `record` 3 fois sur une séquence prévue de 10.<br/>2. Détruire le recorder (fin de portée) avant les 7 appels restants. | Vérifie que `lines.size()` vaut `4u`.<br/>Vérifie que `fields.size()` vaut `12u`.<br/>Vérifie que `std::stoi(fields[0])` vaut `static_cast<int>(i - 1)`. |
 | **TrainingStatsRecorderTest.RecordAjouteUneLigneSansAlterer** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Stats/test_training_stats_recorder.cpp:203`</sub> | `record` ajoute une ligne sans altérer les précédentes. | 1. `record` une première fois, lire le fichier.<br/>2. `record` une deuxième fois, lire de nouveau. | Vérifie que `afterFirst.size()` vaut `2u`.<br/>Vérifie que `afterSecond.size()` vaut `3u`.<br/>Vérifie que `afterSecond[0]` vaut `afterFirst[0]`.<br/>Vérifie que `afterSecond[1]` vaut `afterFirst[1]`. |
 
-#### Training (93)
+#### Training (94)
 
 **`test_actor_critic_loss.cpp`**
 
@@ -656,10 +656,11 @@
 
 | Titre (criticité) | Brief | Étapes | Résultat attendu |
 |---|---|---|---|
-| **ReplayExportTest.ExportReussiEtRoundTrip** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_replay_export.cpp:67`</sub> | exportReplay : export réussi et round-trip. | 1. Entraîner et rejouer un individu résolu.<br/>2. Exporter, puis relire le fichier produit. | Vérifie que `training.solved` est vrai.<br/>Vérifie que `replay.status` vaut `aisolver::EpisodeStatus::Won`.<br/>Vérifie que `exportResult.exported` est vrai.<br/>Vérifie que `exportResult.error` vaut `ReplayExportError::None`.<br/>Vérifie que `loaded.ok()` est vrai.<br/>Vérifie que `loaded.replay->steps.size()` vaut `replay.steps.size()`.<br/>Vérifie que `loaded.replay->algorithmName` vaut `"evolutionnaire"`.<br/>Vérifie que `loaded.replay->seed` vaut `4242u`. |
-| **ReplayExportTest.RefusDExportSurEchec** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_replay_export.cpp:101`</sub> | exportReplay : refus d'export sur échec. | 1. Construire un rejeu quelconque, `solved = false`.<br/>2. Tenter l'export. | Vérifie que `exportResult.exported` est faux.<br/>Vérifie que `exportResult.error` vaut `ReplayExportError::NotSolved`.<br/>Vérifie que `std::filesystem::exists(outputPath)` est faux. |
-| **ReplayExportTest.ReferenceAuBonNiveau** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_replay_export.cpp:124`</sub> | exportReplay : référence au bon niveau. | 1. Entraîner, rejouer et exporter sur le niveau trivial.<br/>2. Relire le fichier. | Vérifie que `training.solved` est vrai.<br/>Vérifie que `exportReplay(replay, training.solved, level.levelPath(), outputPath, "evolutionnaire", 4242) .exported` est vrai.<br/>Vérifie que `loaded.ok()` est vrai.<br/>Vérifie que `loaded.replay->levelPath` vaut `level.levelPath().filename().string()`. |
-| **ReplayExportTest.PointDEntreeMinimalBoutEnBout** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_replay_export.cpp:151`</sub> | trainLevelAndExportReplay : bout en bout. | 1. Appeler `trainLevelAndExportReplay` sur le niveau trivial. | Vérifie que `outcome.trainingResult.solved` est vrai.<br/>Vérifie que `outcome.exportResult.exported` est vrai.<br/>Vérifie que `std::filesystem::exists(outputPath)` est vrai.<br/>Vérifie que `loaded.ok()` est vrai.<br/>Vérifie que `loaded.replay->steps.empty()` est faux. |
+| **ReplayExportTest.ExportReussiEtRoundTrip** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_replay_export.cpp:69`</sub> | exportReplay : export réussi et round-trip. | 1. Entraîner et rejouer un individu résolu.<br/>2. Exporter, puis relire le fichier produit. | Vérifie que `training.solved` est vrai.<br/>Vérifie que `replay.status` vaut `aisolver::EpisodeStatus::Won`.<br/>Vérifie que `exportResult.exported` est vrai.<br/>Vérifie que `exportResult.error` vaut `ReplayExportError::None`.<br/>Vérifie que `loaded.ok()` est vrai.<br/>Vérifie que `loaded.replay->steps.size()` vaut `replay.steps.size()`.<br/>Vérifie que `loaded.replay->algorithmName` vaut `"evolutionnaire"`.<br/>Vérifie que `loaded.replay->seed` vaut `4242u`. |
+| **ReplayExportTest.RefusDExportSurEchec** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_replay_export.cpp:103`</sub> | exportReplay : refus d'export sur échec. | 1. Construire un rejeu quelconque, `solved = false`.<br/>2. Tenter l'export. | Vérifie que `exportResult.exported` est faux.<br/>Vérifie que `exportResult.error` vaut `ReplayExportError::NotSolved`.<br/>Vérifie que `std::filesystem::exists(outputPath)` est faux. |
+| **ReplayExportTest.ReferenceAuBonNiveau** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_replay_export.cpp:126`</sub> | exportReplay : référence au bon niveau. | 1. Entraîner, rejouer et exporter sur le niveau trivial.<br/>2. Relire le fichier. | Vérifie que `training.solved` est vrai.<br/>Vérifie que `exportReplay(replay, training.solved, level.levelPath(), outputPath, "evolutionnaire", 4242) .exported` est vrai.<br/>Vérifie que `loaded.ok()` est vrai.<br/>Vérifie que `loaded.replay->levelPath` vaut `level.levelPath().filename().string()`. |
+| **ReplayExportTest.EmpreinteDeNiveauValideEtMetadonneesRenseignees** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_replay_export.cpp:154`</sub> | exportReplay : empreinte de niveau valide et duree/algorithmId renseignes. | 1. Entraîner, rejouer et exporter avec un `algorithmId` explicite.<br/>2. Relire le fichier et le valider (`aisolver::validateReplay`) contre son niveau source. | Vérifie que `training.solved` est vrai.<br/>Vérifie que `exportReplay(replay, training.solved, level.levelPath(), outputPath, "evolutionnaire", 4242, "evo") .exported` est vrai.<br/>Vérifie que `loaded.ok()` est vrai.<br/>Vérifie que `loaded.replay->levelFingerprint` diffère de `0u`.<br/>Vérifie que `loaded.replay->totalDurationSeconds` vaut `static_cast<float>(replay.steps.size()) / 60.0f` (comparaison flottante).<br/>Vérifie que `loaded.replay->algorithmId` vaut `"evo"`.<br/>Vérifie que `validateReplay(*loaded.replay, levelsDir)` vaut `std::nullopt`. |
+| **ReplayExportTest.PointDEntreeMinimalBoutEnBout** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Training/test_replay_export.cpp:188`</sub> | trainLevelAndExportReplay : bout en bout. | 1. Appeler `trainLevelAndExportReplay` sur le niveau trivial. | Vérifie que `outcome.trainingResult.solved` est vrai.<br/>Vérifie que `outcome.exportResult.exported` est vrai.<br/>Vérifie que `std::filesystem::exists(outputPath)` est vrai.<br/>Vérifie que `loaded.ok()` est vrai.<br/>Vérifie que `loaded.replay->steps.empty()` est faux. |
 
 **`test_return_calculator.cpp`**
 
@@ -1647,7 +1648,7 @@
 | **TileTaxonomy.ChaqueTypeFigureExactementUneFois** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_tile_taxonomy.cpp:41`</sub> | Chaque type de tuile figure exactement une fois dans la taxonomie. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `types.size()` vaut `TILE_TYPE_COUNT`.<br/>Vérifie que `unique.size()` vaut `types.size()`.<br/>Vérifie que `unique.size()` vaut `TILE_TYPE_COUNT`. |
 | **TileTaxonomy.ChaqueEntreeAUnLibelle** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_tile_taxonomy.cpp:63`</sub> | Chaque catégorie, sous-groupe et tuile de la taxonomie porte un libellé non vide. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `category.label.empty()` est faux.<br/>Vérifie que `entry.label.empty()` est faux.<br/>Vérifie que `subgroup.label.empty()` est faux.<br/>Vérifie que `entry.label.empty()` est faux. |
 
-#### Game (48)
+#### Game (51)
 
 **`test_diagnostics_hud.cpp`**
 
@@ -1721,6 +1722,14 @@
 | **ProgressionUnlockTest.TroisTableauxTerminesDeverrouillentLeQuatrieme** (Critique)<br/><sub>`Source/Test/Unit/HMI/Game/test_progression.cpp:266`</sub> | Trois tableaux terminés : les trois plus le quatrième sont jouables. | 1. Marquer les trois premiers tableaux terminés.<br/>2. Interroger `isLevelUnlocked` pour chaque tableau de la séquence. | Vérifie que `hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, "demo-deplacement.json")` est vrai.<br/>Vérifie que `hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, "demo-saut.json")` est vrai.<br/>Vérifie que `hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, "demo-double-saut.json")` est vrai.<br/>Vérifie que `hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, "demo-wall-jump.json")` est vrai.<br/>Vérifie que `hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, "demo-dash.json")` est faux. |
 | **ProgressionUnlockTest.SequenceEntierementTermineeTousJouables** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_progression.cpp:290`</sub> | Séquence entièrement terminée : tous les tableaux sont jouables. | 1. Marquer tous les tableaux de la séquence terminés.<br/>2. Interroger `isLevelUnlocked` pour chacun. | Vérifie que `hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, level)` est vrai. |
 | **ProgressionUnlockTest.TableauVerrouilleNEstJamaisJouable** (Critique)<br/><sub>`Source/Test/Unit/HMI/Game/test_progression.cpp:312`</sub> | Un tableau verrouillé n'est jamais jouable. | 1. Ne terminer aucun tableau.<br/>2. Interroger `isLevelUnlocked` pour un tableau loin dans la séquence. | Vérifie que `hmi::isLevelUnlocked(progression, FIVE_LEVEL_SEQUENCE, "demo-dash.json")` est faux. |
+
+**`test_replay_playback.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ReplayPlaybackTest.RejeuValideRejoueLaSequenceDansLOrdre** (Bloquant)<br/><sub>`Source/Test/Unit/HMI/Game/test_replay_playback.cpp:54`</sub> | ReplayPlayback accepte un rejeu valide et rejoue sa sequence dans l'ordre. | 1. Construire un fichier de rejeu avec l'empreinte reelle du niveau.<br/>2. Construire ReplayPlayback dessus, appeler nextInput() jusqu'a epuisement. | Vérifie que `playback.valid()` est vrai.<br/>Vérifie que `playback.levelPath()` vaut `kLevelFileName`.<br/>Vérifie que `first.has_value()` est vrai.<br/>Vérifie que `first->moveX` vaut `1.0f` (comparaison flottante).<br/>Vérifie que `second.has_value()` est vrai.<br/>Vérifie que `second->moveX` vaut `0.0f` (comparaison flottante).<br/>Vérifie que `playback.nextInput()` vaut `std::nullopt`. |
+| **ReplayPlaybackTest.RejeuInvalideEstRefuseSansPlantage** (Bloquant)<br/><sub>`Source/Test/Unit/HMI/Game/test_replay_playback.cpp:83`</sub> | ReplayPlayback refuse un rejeu dont l'empreinte de niveau ne correspond pas. | 1. Construire un fichier de rejeu avec une empreinte fausse.<br/>2. Construire ReplayPlayback dessus. | Vérifie que `playback.valid()` est faux.<br/>Vérifie que `playback.error().empty()` est faux.<br/>Vérifie que `playback.nextInput()` vaut `std::nullopt`. |
+| **ReplayPlaybackTest.FichierDeRejeuIntrouvableEstRecuperable** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Game/test_replay_playback.cpp:103`</sub> | ReplayPlayback refuse un fichier de rejeu introuvable. | 1. Construire ReplayPlayback sur un chemin inexistant. | Vérifie que `playback.valid()` est faux.<br/>Vérifie que `playback.nextInput()` vaut `std::nullopt`. |
 
 #### Graphics (278)
 
@@ -2557,7 +2566,7 @@
 |---|---|---|---|
 | **RecompenseDemoNiveauxTest.ChaqueNiveauDemoAtteintWonAvecRecompenseDomineeParLeBonus** (Bloquant)<br/><sub>`Source/Test/Integration/test_recompense_demo_niveaux.cpp:36`</sub> | Chaque niveau `demo-*.json` atteint `Won` avec une récompense cumulée positive dominée par le bonus de complétion. | 1. Pour chaque niveau de `scriptedSequence()`, rejoue son script d'entrées via `HeadlessLevelEnvironment`, cumulant la récompense de chaque pas.<br/>2. Classe l'épisode via `classifyEpisode` à l'issue du rejeu. | Vérifie que `sequence.empty()` est faux.<br/>Vérifie que `env.reset(levelPath(scripted.file))` est vrai.<br/>Vérifie que `status` vaut `aisolver::EpisodeStatus::Won`.<br/>Vérifie que `cumulativeReward` est strictement supérieur à `rewardConfig.completionBonus / 2.0f`. |
 
-## Tests système (15)
+## Tests système (17)
 
 ### Couverture Mecaniques — `test_couverture_mecaniques.cpp` (3)
 
@@ -2593,3 +2602,10 @@
 | **PlansLivresSysteme.ToutPlanReferenceExisteAuxDimensionsAttendues** (Critique)<br/><sub>`Source/Test/Systeme/test_plans_livres.cpp:151`</sub> | Tout plan referencé existe et a les dimensions de sa densite. | 1. Charger chaque niveau livre.<br/>2. Pour chacun de ses plans, ouvrir le PNG dans Levels/Plans et lire ses dimensions. | Vérifie que `files.empty()` est faux.<br/>Vérifie que `loaded.ok()` est vrai.<br/>Vérifie que `size.width` vaut `level.tileMap().width() * plane.pixelsPerUnit`.<br/>Vérifie que `size.height` vaut `level.tileMap().height() * plane.pixelsPerUnit`.<br/>Vérifie que `checked` est strictement supérieur à `0`. |
 | **PlansLivresSysteme.NiveauxAParallaxeActiveDeclarentTroisProfondeursCroissantes** (Majeur)<br/><sub>`Source/Test/Systeme/test_plans_livres.cpp:190`</sub> | Les niveaux a parallaxe active declarent trois profondeurs croissantes. | 1. Charger demo-mouvement.json et demo-final.json.<br/>2. Lire la liste ordonnee de leurs plans. | Vérifie que `loaded.ok()` est vrai.<br/>Vérifie que `hasStrictlyIncreasingParallaxDepth(loaded.level->planes(), 3)` est vrai. |
 | **PlansLivresSysteme.UnPlanLointainManquantFaitEchouerLeGardeFouDeProfondeur** (Majeur)<br/><sub>`Source/Test/Systeme/test_plans_livres.cpp:216`</sub> | Retirer le plan lointain fait echouer le garde-fou de profondeur. | 1. Charger demo-mouvement.json.<br/>2. Retirer son premier plan (le lointain) de la liste en memoire. | Vérifie que `loaded.ok()` est vrai.<br/>Vérifie que `withoutFarPlane.empty()` est faux.<br/>Vérifie que `hasStrictlyIncreasingParallaxDepth(withoutFarPlane, 3)` est faux. |
+
+### Systeme — `test_rejeu_ia.cpp` (2)
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **RejeuIaSysteme.LaFixtureAboutitAWon** (Bloquant)<br/><sub>`Source/Test/Systeme/test_rejeu_ia.cpp:56`</sub> | Rejeu de la fixture aboutit a Won. | 1. Lire et valider la fixture de rejeu.<br/>2. Rejouer sa sequence sur HeadlessLevelEnvironment jusqu'a Won/Lost/epuisement. | Vérifie que `loaded.ok()` est vrai.<br/>Vérifie que `validationError` vaut `std::nullopt`.<br/>Vérifie que `environment.reset(levelsDir() / loaded.replay->levelPath)` est vrai.<br/>Vérifie que `outcome` vaut `core::LevelOutcome::Won`. |
+| **RejeuIaSysteme.RejeuInvalideSiLeNiveauChange** (Bloquant)<br/><sub>`Source/Test/Systeme/test_rejeu_ia.cpp:85`</sub> | Rejeu invalide si la fixture de niveau change. | 1. Copier le niveau reference dans un repertoire temporaire, en le modifiant.<br/>2. Valider le rejeu contre ce repertoire modifie. | Vérifie que `loaded.ok()` est vrai.<br/>Vérifie que `original` est vrai.<br/>Vérifie que `validationError` vaut `aisolver::ReplayValidationError::LevelFingerprintMismatch`. |

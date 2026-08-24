@@ -1,6 +1,6 @@
 # LOT-ANNEXE-18 — Mode « regarder l'IA jouer » (intégration HMI) {#lot-annexe-18}
 
-> Statut : **non commencé**. Prérequis : [LOT-ANNEXE-17](@ref lot-annexe-17) (format de rejeu
+> Statut : **fait**. Prérequis : [LOT-ANNEXE-17](@ref lot-annexe-17) (format de rejeu
 > validé). Premier lot de la génération 5 et **seule** pièce de tout le programme Lot-Annexe qui
 > touche `HMI` — tout le reste (générations 0 à 4) vit exclusivement dans le nouveau module
 > `Source/AiSolver`, jamais dans `Core` ni `HMI`.
@@ -94,9 +94,9 @@ introduite par le programme Lot-Annexe.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-lecture-rejeu-alimentation-gamesession.md) | Lecture du rejeu et alimentation de `GameSession` | `Source/HMI/Game` | ⬜ |
-| [TACHE-02](tache-02-entree-menu-selection-rejeu.md) | Entrée de menu dédiée, sélection d'un rejeu | `Source/HMI/Interface` | ⬜ |
-| [TACHE-03](tache-03-test-systeme-rejeu.md) | Test système : le rejeu aboutit à `Won` | `Source/Test/Systeme` | ⬜ |
+| [TACHE-01](tache-01-lecture-rejeu-alimentation-gamesession.md) | Lecture du rejeu et alimentation de `GameSession` | `Source/HMI/Game` | ✅ |
+| [TACHE-02](tache-02-entree-menu-selection-rejeu.md) | Entrée de menu dédiée, sélection d'un rejeu | `Source/HMI/Interface` | ✅ |
+| [TACHE-03](tache-03-test-systeme-rejeu.md) | Test système : le rejeu aboutit à `Won` | `Source/Test/Systeme` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Un fichier de rejeu valide, chargé et joué via le nouveau mode, produit exactement la trajectoire

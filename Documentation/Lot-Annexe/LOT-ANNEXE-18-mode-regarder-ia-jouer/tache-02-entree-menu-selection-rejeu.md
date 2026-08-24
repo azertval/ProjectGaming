@@ -1,6 +1,6 @@
 # TACHE-02 — Entrée de menu dédiée, sélection d'un rejeu {#lot-annexe-18-tache-02-entree-menu-selection-rejeu}
 
-**Lot :** [LOT-ANNEXE-18](epic.md) · **Emplacement :** `Source/HMI/Interface` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-18](epic.md) · **Emplacement :** `Source/HMI/Interface` · **Statut :** fait
 
 ## Contexte
 `ReplayPlayback` (TACHE-01) sait jouer un fichier de rejeu donné ; il manque encore un point d'accès

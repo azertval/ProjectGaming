@@ -852,21 +852,49 @@ void GameViewport::tick(float elapsedSeconds) {
         _lastSimulationSteps = steps;  // pas consommés à cette image (LOT-62 TACHE-02).
         const float fixedDelta = _timestep.fixedDeltaSeconds();
         for (int step = 0; step < steps; ++step) {
-            const core::LevelOutcome outcome =
-                _session ? _session->update(_input, fixedDelta) : core::LevelOutcome::Playing;
+            // Lecture de rejeu (LOT-ANNEXE-18, TACHE-01/TACHE-02) : source de l'intention remplacee
+            // par la sequence enregistree, jamais l'entree clavier/manette -- ReplayPlayback ne
+            // connait meme pas _input. `replayEnded` distingue la sequence epuisee (nextInput() ==
+            // nullopt) d'une issue de simulation (Won/Lost), toutes deux traitees ci-dessous par un
+            // meme retour au menu (aucun enchainement, un rejeu porte sur un seul niveau).
+            core::LevelOutcome outcome = core::LevelOutcome::Playing;
+            bool replayEnded = false;
+            if (_session) {
+                if (_replayPlayback) {
+                    const std::optional<core::PlayerInput> replayInput =
+                        _replayPlayback->nextInput();
+                    if (replayInput) {
+                        outcome = _session->update(*replayInput, fixedDelta);
+                    } else {
+                        replayEnded = true;
+                    }
+                } else {
+                    outcome = _session->update(_input, fixedDelta);
+                }
+            }
             // Bilan du tableau (LOT-68) : compte au PAS, pour la meme raison que les sons
-            // ci-dessous -- une mesure a l'image dependrait de la cadence de rendu.
+            // ci-dessous -- une mesure a l'image dependrait de la cadence de rendu. `_gameMode`
+            // exclut deja le rejeu (jamais defini simultanement, cf. startReplay).
             if (_session && _gameMode) {
                 accumulateStep(_runStats, _session->lastStepEvents());
             }
             // Sons de jeu (LOT-60 TACHE-03) : un evenement par pas, jamais par image de rendu --
-            // lastStepEvents() reflete exactement CE pas, celui qui vient de s'executer.
-            if (_session && _audioEngine) {
+            // lastStepEvents() reflete exactement CE pas, celui qui vient de s'executer. Sans
+            // effet sur `replayEnded` : aucun pas n'a ete simule ce tour, l'evenement serait perime.
+            if (_session && _audioEngine && !replayEnded) {
                 for (const GameEvent gameEvent : _session->lastStepEvents()) {
                     if (const std::optional<std::string> soundId = soundForEvent(gameEvent)) {
                         _audioEngine->play(*soundId);
                     }
                 }
+            }
+            if (_replayPlayback && (replayEnded || outcome == core::LevelOutcome::Won ||
+                                    outcome == core::LevelOutcome::Lost)) {
+                _input.beginFrame();
+                _replayPlayback.reset();
+                _session.reset();
+                emit exitToMenuRequested();
+                break;
             }
             if (_session && outcome == core::LevelOutcome::Won) {
                 _input.beginFrame();
@@ -904,7 +932,10 @@ void GameViewport::initialize(QRhiCommandBuffer* commandBuffer) {
     // changement d'interface tardif : c'est la TOUTE PREMIERE image. Le viewport n'est peint
     // qu'une fois affiche, donc initialize() passe APRES startGame(), qui a deja demande la
     // session.
-    const bool restorePlaytest = _session.has_value() && !_gameMode;
+    // Exclut le rejeu (LOT-ANNEXE-18) : `_replayPlayback` a sa propre branche de remontee
+    // ci-dessous, `startPlaytest()` reconstruirait une session depuis le brouillon d'edition, sans
+    // rapport avec le niveau du rejeu en cours.
+    const bool restorePlaytest = _session.has_value() && !_gameMode && !_replayPlayback;
     // Changement d'interface (première image, ou widget passé sous une autre fenêtre de haut
     // niveau) : tout ce qui tient une texture est caduc. Ordre de libération : la session et les
     // rendus AVANT les textures qu'ils référencent.
@@ -923,6 +954,12 @@ void GameViewport::initialize(QRhiCommandBuffer* commandBuffer) {
         loadGameLevel(_gameLevel);
     } else if (restorePlaytest) {
         startPlaytest();
+    } else if (_replayPlayback) {
+        // Rejeu (LOT-ANNEXE-18) : relance startReplay() plutôt qu'un simple rechargement de niveau
+        // -- repart du DÉBUT de la séquence enregistrée (index inclus), cohérent avec le tableau
+        // qui repart lui aussi de son entrée (même convention que loadGameLevel ci-dessus) ; sans
+        // ça, la séquence reprendrait en cours sur un niveau fraîchement rechargé, désynchronisée.
+        startReplay(_replayPath);
     }
     _previousFrame = Clock::now();
 }
@@ -1071,6 +1108,13 @@ void GameViewport::keyPressEvent(QKeyEvent* event) {
             }
             if (_gameMode) {
                 emit pauseRequested();
+            } else if (_replayPlayback) {
+                // Rejeu (LOT-ANNEXE-18) : jamais de pause (pas de rejeu navigable, decision de
+                // cadrage de l'epic) -- Échap retourne directement au menu, comme la fin normale
+                // du rejeu (tick()), plutot que stopPlaytest() (essai éditeur, hors contexte ici).
+                _replayPlayback.reset();
+                _session.reset();
+                emit exitToMenuRequested();
             } else {
                 stopPlaytest();
             }
@@ -1366,6 +1410,47 @@ void GameViewport::loadGameLevel(std::size_t index) {
         // lance une partie depuis le menu. Le tableau reste designe (`_gameMode`, `_gameLevel`) et
         // `initialize()` remonte la session des qu'il le peut. Emplacer ici lierait une reference
         // a un lot de sprites nul.
+        return;
+    }
+    _session.emplace(*_spriteBatch, *_atlas, *_textureCache, pixelWidth(), pixelHeight(),
+                     std::move(*loaded.level), _gameBindings, _gamepadBindings, *_font, _loc);
+    _session->setSkins(&_skins, _skinSet);
+}
+
+bool GameViewport::startReplay(const std::filesystem::path& replayPath) {
+    const std::filesystem::path levelsDir = hmi::executableDirectory() / "Levels";
+    hmi::ReplayPlayback playback(replayPath, levelsDir);
+    if (!playback.valid()) {
+        _lastReplayError = playback.error();
+        HMI_LOG_WARNING("Rejeu : refuse (" + replayPath.string() + ") : " + _lastReplayError);
+        return false;
+    }
+    _replayPath = replayPath;
+    // Jamais simultane avec `_gameMode` (LOT-ANNEXE-18) : un rejeu ne suit ni la progression ni le
+    // bilan de tableau, et ne s'enchaine jamais vers un niveau suivant -- cf. tick().
+    _gameMode = false;
+    const std::filesystem::path levelPath = levelsDir / playback.levelPath();
+    _replayPlayback = std::move(playback);
+    HMI_LOG_INFO("Rejeu : demarrage (" + replayPath.string() + ").");
+    loadReplayLevel(levelPath);
+    return true;
+}
+
+void GameViewport::loadReplayLevel(const std::filesystem::path& levelPath) {
+    core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(levelPath);
+    if (!loaded.ok()) {
+        // Deja valide par ReplayPlayback (meme fichier, empreinte deja verifiee) : ne devrait
+        // jamais se produire, mais reste recuperable plutot que de planter (EX-NFR-040).
+        HMI_LOG_WARNING("Rejeu : niveau illisible malgre validation (" + levelPath.string() + ").");
+        _replayPlayback.reset();
+        emit exitToMenuRequested();
+        return;
+    }
+    _runStats = LevelRunStats{};
+    if (_spriteBatch == nullptr) {
+        // Ressources de rendu pas encore pretes (toute premiere image) : le rejeu reste designe
+        // (_replayPlayback, _replayPath), initialize() le remonte des qu'il le peut -- meme repli
+        // que loadGameLevel ci-dessus.
         return;
     }
     _session.emplace(*_spriteBatch, *_atlas, *_textureCache, pixelWidth(), pixelHeight(),

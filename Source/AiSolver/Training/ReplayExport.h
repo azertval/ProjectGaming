@@ -48,12 +48,15 @@ struct ReplayExportResult {
  * @param outputPath    Chemin du fichier de rejeu à (re)créer.
  * @param algorithmName Nom de l'algorithme ayant produit ce rejeu (ex. `"evolutionnaire"`).
  * @param seed          Graine de l'entraînement source.
+ * @param algorithmId   Identifiant court de l'algorithme d'origine (`ReplayFile::algorithmId`,
+ *                      `LOT-ANNEXE-17`), ex. `"evo"` ; vide par défaut (valeur sentinelle).
  * @return Le résultat de l'export, jamais d'exception.
  */
 [[nodiscard]] ReplayExportResult exportReplay(const DeterministicReplayResult& replay, bool solved,
                                               const std::filesystem::path& levelPath,
                                               const std::filesystem::path& outputPath,
-                                              const std::string& algorithmName, std::uint64_t seed);
+                                              const std::string& algorithmName, std::uint64_t seed,
+                                              const std::string& algorithmId = {});
 
 /// Issue du point d'entrée minimal : le résultat de l'entraînement et celui de l'export tenté.
 struct TrainAndExportOutcome {

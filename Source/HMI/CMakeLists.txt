@@ -191,6 +191,7 @@ add_executable(ProjectGaming
     # Jeu (simulation d'un niveau + viewport Qt jeu/édition)
     Game/GameSession.cpp
     Game/GameViewport.cpp
+    Game/ReplayPlayback.cpp
     Game/Progression.cpp
     Game/GameHud.cpp
     Game/DiagnosticsHud.cpp
@@ -310,6 +311,11 @@ set_target_properties(ProjectGaming PROPERTIES AUTOUIC_SEARCH_PATHS ${ELEMENTS_U
 
 target_link_libraries(ProjectGaming PRIVATE
     Core
+    # Lecture/validation de rejeu (HMI/Game/ReplayPlayback.h, LOT-ANNEXE-18) : seule dependance de
+    # HMI vers Source/AiSolver, limitee en usage au sous-espace aisolver:: de Source/AiSolver/Replay
+    # -- une bibliotheque CMake complete puisque add_library ne se decoupe pas en sous-cibles
+    # internes, mais jamais Nn/Autodiff/Optim/Training (decision de cadrage documentee, epic.md).
+    AiSolver
     Qt6::Widgets
     Qt6::Gui
     # QRhi vit dans les en-têtes privés de QtGui : c'est une API privée, stable en pratique mais
@@ -357,7 +363,10 @@ add_custom_target(CopyGameData ALL
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${PROJECT_SOURCE_DIR}/Source/Elements/Audio
         $<TARGET_FILE_DIR:ProjectGaming>/Audio
-    COMMENT "Copie des données de jeu (traductions, niveaux, assets, audio)")
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${PROJECT_SOURCE_DIR}/Source/Elements/Replays
+        $<TARGET_FILE_DIR:ProjectGaming>/Replays
+    COMMENT "Copie des données de jeu (traductions, niveaux, assets, audio, rejeux publiés)")
 add_dependencies(ProjectGaming CopyGameData)
 
 # Déploiement Qt : copie les DLL Qt (plateforme, styles) à côté de l'exécutable pour que

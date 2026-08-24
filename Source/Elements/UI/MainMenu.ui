@@ -42,6 +42,16 @@
     </widget>
    </item>
    <item>
+    <widget class="hmi::PixelMenuButton" name="watchAiButton">
+     <!-- Regarder l'IA jouer (LOT-ANNEXE-18) : rejoue un fichier de Elements/Replays/, choisi via
+          une boite de dialogue de fichier, pas de panneau de liste dedie (decision de cadrage,
+          voir MainWindow::watchAiPlay). -->
+     <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
+     <property name="text"><string>Regarder l'IA jouer</string></property>
+     <property name="flat"><bool>true</bool></property>
+    </widget>
+   </item>
+   <item>
     <widget class="hmi::PixelMenuButton" name="editorButton">
      <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
      <property name="text"><string>Éditeur de niveaux</string></property>

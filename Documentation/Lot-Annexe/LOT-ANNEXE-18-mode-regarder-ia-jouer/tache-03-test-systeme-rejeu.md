@@ -1,6 +1,6 @@
 # TACHE-03 — Test système : le rejeu aboutit à Won {#lot-annexe-18-tache-03-test-systeme-rejeu}
 
-**Lot :** [LOT-ANNEXE-18](epic.md) · **Emplacement :** `Source/Test/Systeme` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-18](epic.md) · **Emplacement :** `Source/Test/Systeme` · **Statut :** fait
 
 ## Contexte
 `test_parcours_complet.cpp` prouve, pour la séquence `demo-*.json`, que des scripts d'entrée codés

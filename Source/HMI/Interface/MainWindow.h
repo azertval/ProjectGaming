@@ -335,6 +335,11 @@ private:
     /// de déverrouillage) et des niveaux personnels du dossier (hors séquence,
     /// `LevelFileOperations` filtrée).
     void openLevelSelect();
+    /// « Regarder l'IA jouer » (menu, `LOT-ANNEXE-18`) : choix d'un fichier de rejeu publié
+    /// (`Elements/Replays/`, boîte de dialogue de fichier — pas de panneau de liste dédié) puis
+    /// `GameViewport::startReplay`. Signale une boîte d'erreur (dossier vide, rejeu invalide) sans
+    /// ouvrir l'écran de jeu, jamais de plantage (`EX-NFR-040`).
+    void watchAiPlay();
     /// Retour au menu depuis l'écran de sélection de niveau.
     void closeLevelSelect();
     /// « Crédits » (menu) : ouvre `_credits` (`LOT-60`).

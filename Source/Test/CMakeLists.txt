@@ -210,6 +210,7 @@ add_executable(UnitTests
     Unit/HMI/Game/test_progression.cpp
     Unit/HMI/Game/test_game_events.cpp
     Unit/HMI/Game/test_level_run_stats.cpp
+    Unit/HMI/Game/test_replay_playback.cpp
     Unit/HMI/Audio/test_sound_triggers.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
@@ -336,6 +337,9 @@ add_executable(UnitTests
     # fonctions pures (aucune dependance Qt/peripherique), meme patron que MechanismVisuals.cpp :
     # testables hors GPU/Qt (EX-NFR-010).
     ../HMI/Game/GameEvents.cpp
+    # Lecture/validation de rejeu (LOT-ANNEXE-18, TACHE-01) : aucune dependance Qt/GPU (uniquement
+    # AiSolver/Replay), meme patron que GameEvents.cpp ci-dessus -- testable hors fenetre.
+    ../HMI/Game/ReplayPlayback.cpp
     ../HMI/Audio/SoundTriggers.cpp
     # La validation d'un nom de niveau saisi est une fonction pure, testable hors GPU.
     ../HMI/Editor/LevelNameValidation.cpp
@@ -576,6 +580,7 @@ add_executable(SystemTests
     Systeme/test_parcours_complet.cpp
     Systeme/test_parcours_edition.cpp
     Systeme/test_plans_livres.cpp
+    Systeme/test_rejeu_ia.cpp
 )
 
 target_link_libraries(SystemTests PRIVATE
@@ -589,8 +594,10 @@ target_link_libraries(SystemTests PRIVATE
 )
 
 # Chemin (source) des niveaux : le parcours complet rejoue les niveaux livrés.
+# PROJECTGAMING_REPLAY_FIXTURES_DIR (LOT-ANNEXE-18, TACHE-03) : fixture de rejeu committee.
 target_compile_definitions(SystemTests PRIVATE
-    PROJECTGAMING_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels")
+    PROJECTGAMING_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels"
+    PROJECTGAMING_REPLAY_FIXTURES_DIR="${PROJECT_SOURCE_DIR}/Source/Test/Systeme/Fixtures")
 
 # Enregistre chaque TEST() auprès de CTest.
 gtest_discover_tests(UnitTests)
