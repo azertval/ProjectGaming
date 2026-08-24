@@ -53,7 +53,8 @@ Tensor<float> MechanismStateEncoder::encode(const core::MechanismController& mec
                                             const core::DangerController& dangers,
                                             const core::Level& level, core::GridPosition center,
                                             int radius) const {
-    const auto size = static_cast<std::size_t>(2 * radius + 1);
+    const int windowSize = 2 * radius + 1;
+    const auto size = static_cast<std::size_t>(windowSize);
     Tensor<float> result({static_cast<std::size_t>(kChannelCount), size, size});
 
     // Canal 0 : porte ouverte, une case par mecanisme (mechanism.doorPosition).

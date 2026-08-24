@@ -27,8 +27,10 @@ Tensor<float> TileWindowEncoder::encode(const core::TileMap& tiles,
                 continue;  // vecteur nul par defaut (Tensor initialise a T{})
             }
             const auto channel = static_cast<std::size_t>(tiles.tile(column, row));
-            const auto windowRow = static_cast<std::size_t>(dr + _radius);
-            const auto windowColumn = static_cast<std::size_t>(dc + _radius);
+            const int windowRowIndex = dr + _radius;
+            const int windowColumnIndex = dc + _radius;
+            const auto windowRow = static_cast<std::size_t>(windowRowIndex);
+            const auto windowColumn = static_cast<std::size_t>(windowColumnIndex);
             result.at({channel, windowRow, windowColumn}) = 1.0f;
         }
     }
