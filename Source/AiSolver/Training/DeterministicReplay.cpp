@@ -24,8 +24,6 @@ DeterministicReplayResult replayBestIndividual(evolutionary::Individual& individ
 
     const ObservationEncoder observationEncoder;
     const RewardConfig rewardConfig;
-    const GridDistanceField distanceField(environment.level().tileMap(),
-                                          environment.level().exit());
 
     // Etat de depart identique a FitnessEvaluator::evaluateFitness (LOT-ANNEXE-10) : meme
     // convention de reconstruction de l'etat de spawn avant le premier step().
@@ -49,6 +47,9 @@ DeterministicReplayResult replayBestIndividual(evolutionary::Individual& individ
         result.steps.push_back(input);
 
         const StepObservation stepObservation = environment.step(input);
+        // Reconstruit a chaque pas (LOT-ANNEXE-21) : voir TrajectoryCollector::collectEpisode.
+        const GridDistanceField distanceField =
+            buildObjectiveDistanceField(environment.level(), environment.mechanisms());
         result.finalReward += computeReward(rewardConfig, distanceField, previousBox,
                                             stepObservation.playerBox, stepObservation.outcome);
 

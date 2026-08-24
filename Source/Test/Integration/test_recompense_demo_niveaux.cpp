@@ -61,7 +61,6 @@ TEST(RecompenseDemoNiveauxTest, ChaqueNiveauDemoAtteintWonAvecRecompenseDomineeP
     for (const ScriptedLevel& scripted : sequence) {
         aisolver::HeadlessLevelEnvironment env;
         ASSERT_TRUE(env.reset(levelPath(scripted.file))) << "niveau : " << scripted.file;
-        const aisolver::GridDistanceField distanceField(env.level().tileMap(), env.level().exit());
 
         float cumulativeReward = 0.0f;
         aisolver::EpisodeStatus status = aisolver::EpisodeStatus::Ongoing;
@@ -83,6 +82,11 @@ TEST(RecompenseDemoNiveauxTest, ChaqueNiveauDemoAtteintWonAvecRecompenseDomineeP
             const core::PlayerInput input = scripted.input(step, playerState, x, y);
             const aisolver::StepObservation observation = env.step(input);
 
+            // Reconstruit a chaque pas (LOT-ANNEXE-21) : voir TrajectoryCollector::collectEpisode,
+            // meme calcul que la boucle d'entrainement pour que ce test de non-regression reste
+            // fidele.
+            const aisolver::GridDistanceField distanceField =
+                aisolver::buildObjectiveDistanceField(env.level(), env.mechanisms());
             cumulativeReward += aisolver::computeReward(rewardConfig, distanceField, previousBox,
                                                         observation.playerBox, observation.outcome);
             previousBox = observation.playerBox;

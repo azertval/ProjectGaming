@@ -26,8 +26,6 @@ Trajectory TrajectoryCollector::collectEpisode(HeadlessLevelEnvironment& environ
 
     const ObservationEncoder observationEncoder;
     const RewardConfig rewardConfig;
-    const GridDistanceField distanceField(environment.level().tileMap(),
-                                          environment.level().exit());
 
     // Boîte/état de départ : même convention que evolutionary::evaluateFitness (LOT-ANNEXE-10) --
     // HeadlessLevelEnvironment n'expose pas d'observation avant le premier step().
@@ -55,6 +53,10 @@ Trajectory TrajectoryCollector::collectEpisode(HeadlessLevelEnvironment& environ
         const float logProbability = std::log(probability);
 
         const StepObservation stepObservation = environment.step(toPlayerInput(action));
+        // Reconstruit a chaque pas (LOT-ANNEXE-21) : l'ensemble des cibles change des qu'une porte
+        // s'ouvre, la grille de collision (environment.mechanisms()) est la source de verite.
+        const GridDistanceField distanceField =
+            buildObjectiveDistanceField(environment.level(), environment.mechanisms());
         const float reward = computeReward(rewardConfig, distanceField, previousBox,
                                            stepObservation.playerBox, stepObservation.outcome);
 

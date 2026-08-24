@@ -13,9 +13,12 @@
 
 #include "AiSolver/Env/GridDistanceField.h"
 #include "AiSolver/Env/Reward.h"
+#include "Core/Gameplay/MechanismController.h"
 #include "Core/Levels/GridPosition.h"
+#include "Core/Levels/Level.h"
 #include "Core/Levels/LevelOutcome.h"
 #include "Core/Levels/TileMap.h"
+#include "Core/Levels/TileType.h"
 #include "Core/Physics/Aabb.h"
 
 namespace {
@@ -166,5 +169,51 @@ TEST(RewardTest, DetourAutourDunMurRecompensePositivement) {
 
     const float reward = aisolver::computeReward(config, distanceField, boxAt(1.0f, 2.0f),
                                                  boxAt(0.0f, 2.0f), core::LevelOutcome::Playing);
+    EXPECT_GT(reward, 0.0f);
+}
+
+/**
+ * @brief Tant qu'une porte verrouillée reste fermée, `buildObjectiveDistanceField` cible sa clé en
+ * plus de la sortie -- s'approcher de la clé produit une progression positive même quand la sortie
+ * est inatteignable derrière la porte (amendement LOT-ANNEXE-21, `EX-IA-023` déplacé des murs
+ * statiques aux mécanismes).
+ * \castest{<b>Porte verrouillée fermée : approcher la clé progresse malgré une sortie
+ * inatteignable.</b><br/>
+ * \tcat Unitaire · AiSolver Env<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Couloir 5x1 : clé en `(1,0)`, porte verrouillée fermée en `(2,0)`, sortie en
+ * `(4,0)` -- inatteignable tant que la porte est fermée.<br/>2. Vérifie que le champ à cible unique
+ * (sortie seule, ancien comportement) renvoie la sentinelle pour la case d'entrée.<br/>3. Vérifie
+ * que `buildObjectiveDistanceField` renvoie une distance finie et décroissante à mesure qu'on
+ * s'approche de la clé, et que le pas correspondant reçoit une récompense de progression
+ * positive.<br/>
+ * \tattendu Distance finie/décroissante vers la clé via le champ objectif, alors que le champ
+ * à cible unique (sortie) reste inatteignable ; récompense de progression strictement positive.}
+ */
+TEST(RewardTest, PorteVerrouilleeFermeeCibleLaCleTantQueLaSortieEstInatteignable) {
+    core::TileMap map(5, 1);
+    map.setTile(1, 0, core::TileType::Key);
+    map.setTile(2, 0, core::TileType::LockedDoor);
+    const core::GridPosition entry{0, 0};
+    const core::GridPosition keyPosition{1, 0};
+    const core::GridPosition exit{4, 0};
+    const std::vector<core::Mechanism> mechanisms{core::Mechanism{keyPosition, core::GridPosition{2, 0}}};
+    const core::Level level("test", map, entry, exit, mechanisms);
+    const core::MechanismController mechanismController(level);
+
+    // Ancien comportement (cible unique = sortie) : inatteignable depuis l'entrée, la porte bloque
+    // tout le couloir.
+    const aisolver::GridDistanceField exitOnlyField(mechanismController.collisionMap(), exit);
+    EXPECT_EQ(exitOnlyField.distance(entry), map.width() * map.height());
+
+    // Nouveau champ objectif : la clé (porte encore fermée) est une cible concurrente atteignable.
+    const aisolver::GridDistanceField objectiveField =
+        aisolver::buildObjectiveDistanceField(level, mechanismController);
+    EXPECT_EQ(objectiveField.distance(entry), 1);
+    EXPECT_EQ(objectiveField.distance(keyPosition), 0);
+
+    const aisolver::RewardConfig config;
+    const float reward = aisolver::computeReward(config, objectiveField, boxAt(0.0f, 0.0f),
+                                                 boxAt(1.0f, 0.0f), core::LevelOutcome::Playing);
     EXPECT_GT(reward, 0.0f);
 }

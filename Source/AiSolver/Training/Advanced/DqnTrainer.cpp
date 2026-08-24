@@ -76,8 +76,6 @@ void DqnTrainer::run(std::size_t episodeCount, const std::function<bool()>& shou
         }
         [[maybe_unused]] const bool loaded = _environment.reset(_levelPath);
         PROJECTGAMING_ASSERT(loaded, "DqnTrainer::run : le niveau doit se charger");
-        const GridDistanceField distanceField(_environment.level().tileMap(),
-                                              _environment.level().exit());
 
         // Boite/etat de depart : meme convention que TrajectoryCollector (LOT-ANNEXE-12) --
         // HeadlessLevelEnvironment n'expose pas d'observation avant le premier step().
@@ -110,6 +108,9 @@ void DqnTrainer::run(std::size_t episodeCount, const std::function<bool()>& shou
             const Action action = actionAt(actionIndex);
 
             const StepObservation stepObservation = _environment.step(toPlayerInput(action));
+            // Reconstruit a chaque pas (LOT-ANNEXE-21) : voir TrajectoryCollector::collectEpisode.
+            const GridDistanceField distanceField =
+                buildObjectiveDistanceField(_environment.level(), _environment.mechanisms());
             const float reward = computeReward(rewardConfig, distanceField, previousBox,
                                                stepObservation.playerBox, stepObservation.outcome);
             totalReward += reward;
