@@ -13,26 +13,34 @@ constexpr int kUnreachable = -1;
 }  // namespace
 
 GridDistanceField::GridDistanceField(const core::TileMap& tileMap, const core::GridPosition& target)
+    : GridDistanceField(tileMap, std::vector<core::GridPosition>{target}) {}
+
+GridDistanceField::GridDistanceField(const core::TileMap& tileMap,
+                                     const std::vector<core::GridPosition>& targets)
     : _width(tileMap.width()),
       _height(tileMap.height()),
       _distances(static_cast<std::size_t>(_width) * static_cast<std::size_t>(_height),
                  kUnreachable) {
-    if (!tileMap.inBounds(target.column, target.row) ||
-        tileMap.isSolid(target.column, target.row)) {
-        // Cible hors-grille ou solide (ne devrait pas arriver pour une sortie valide, garde
-        // défensive) : le champ reste entièrement inatteignable, distance() renvoie la sentinelle
-        // partout plutôt que de planter.
-        return;
-    }
-
     const auto index = [this](int column, int row) {
         return static_cast<std::size_t>(row) * static_cast<std::size_t>(_width) +
                static_cast<std::size_t>(column);
     };
 
-    _distances[index(target.column, target.row)] = 0;
     std::queue<core::GridPosition> frontier;
-    frontier.push(target);
+    for (const core::GridPosition& target : targets) {
+        if (!tileMap.inBounds(target.column, target.row) ||
+            tileMap.isSolid(target.column, target.row)) {
+            // Cible hors-grille ou solide (porte verrouillée pas encore ouverte, par exemple) :
+            // ignorée plutôt que de faire échouer les autres cibles -- garde défensive.
+            continue;
+        }
+        const std::size_t targetIndex = index(target.column, target.row);
+        if (_distances[targetIndex] != kUnreachable) {
+            continue;  // Cible dupliquée (plusieurs mécanismes partageant la même position).
+        }
+        _distances[targetIndex] = 0;
+        frontier.push(target);
+    }
 
     static constexpr std::array<int, 4> kDeltaColumn{0, 0, -1, 1};
     static constexpr std::array<int, 4> kDeltaRow{-1, 1, 0, 0};

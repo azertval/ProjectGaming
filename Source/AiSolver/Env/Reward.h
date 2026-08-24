@@ -4,6 +4,8 @@
 #pragma once
 
 #include "AiSolver/Env/GridDistanceField.h"
+#include "Core/Gameplay/MechanismController.h"
+#include "Core/Levels/Level.h"
 #include "Core/Levels/LevelOutcome.h"
 #include "Core/Physics/Aabb.h"
 
@@ -38,15 +40,18 @@ struct RewardConfig {
 /**
  * @brief Calcule la récompense d'un pas unique, fonction pure sans état interne ni effet de bord.
  *
- * La distance à la sortie est une distance de plus court chemin sur la grille, respectant les murs
+ * La distance est une distance de plus court chemin sur la grille, respectant les murs
  * (`GridDistanceField`, amendement `LOT-ANNEXE-08` motivé par `EX-IA-023` : la distance euclidienne
  * en ligne droite, utilisée avant cet amendement, pénalisait les pas de détour pourtant nécessaires
  * autour d'un mur, un signal actif contre la bonne politique plutôt que simplement imparfait). Le
  * centre de la boîte du personnage est converti en case de grille (partie entière des coordonnées
  * monde, 1 case = 1 unité monde, même convention que `HMI::GameViewport::cellAt`).
  * @param config Constantes de la fonction de récompense.
- * @param distanceField Champ de distances vers la sortie, précalculé une fois par niveau
- *        (`GridDistanceField`, construit à partir de `core::Level::tileMap()`/`exit()`).
+ * @param distanceField Champ de distances vers l'objectif immédiat courant -- pas nécessairement la
+ *        sortie seule (`buildObjectiveDistanceField`, amendement `LOT-ANNEXE-21` : sans cela, une
+ *        porte verrouillée encore fermée se comporte comme un raccourci fantôme vers la sortie dans
+ *        le calcul, ce qui punit le détour par sa clé pourtant nécessaire -- même défaut que
+ *        `EX-IA-023` ci-dessus, déplacé des murs statiques vers les mécanismes).
  * @param previousBox Boîte du personnage avant ce pas.
  * @param currentBox Boîte du personnage après ce pas.
  * @param outcome Issue du niveau à l'issue de ce pas.
@@ -56,5 +61,25 @@ struct RewardConfig {
                                   const GridDistanceField& distanceField,
                                   const core::Aabb& previousBox, const core::Aabb& currentBox,
                                   core::LevelOutcome outcome);
+
+/**
+ * @brief Construit le champ de distances de l'**objectif immédiat** courant (`LOT-ANNEXE-21`).
+ *
+ * Cible la sortie **et** la position de chaque déclencheur (`core::Mechanism::switchPosition` --
+ * clé, interrupteur ou plaque de pression) dont la porte liée n'est pas encore ouverte
+ * (`!mechanisms.isDoorOpen(index)`), sur la grille de collision **courante**
+ * (`mechanisms.collisionMap()`, portes fermées solides). `GridDistanceField::distance()` renvoie
+ * alors la distance à la plus proche de ces cibles : tant qu'une porte reste fermée, s'approcher de
+ * son déclencheur réduit la distance exactement comme s'approcher de la sortie le ferait une fois
+ * le chemin dégagé -- sans connaître ni l'ordre de résolution attendu ni la nature du mécanisme
+ * (générique, ne nécessite aucune modification quand un niveau ajoute de nouveaux mécanismes).
+ * À reconstruire à chaque pas (coût négligeable, `LOT-ANNEXE-08`) : l'ensemble des cibles change dès
+ * qu'une porte s'ouvre.
+ * @param level Niveau chargé (sortie, liaisons de mécanismes).
+ * @param mechanisms Contrôleur de mécanismes du pas courant (état ouvert/fermé, grille de
+ *        collision à jour).
+ */
+[[nodiscard]] GridDistanceField buildObjectiveDistanceField(
+    const core::Level& level, const core::MechanismController& mechanisms);
 
 }  // namespace aisolver

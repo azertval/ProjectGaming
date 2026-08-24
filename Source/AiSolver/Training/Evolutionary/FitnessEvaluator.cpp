@@ -22,8 +22,6 @@ FitnessEvaluation evaluateFitness(Individual& individual, HeadlessLevelEnvironme
 
     const ObservationEncoder observationEncoder;
     const RewardConfig rewardConfig;
-    const GridDistanceField distanceField(environment.level().tileMap(),
-                                          environment.level().exit());
 
     // Boîte/état de départ : même convention que test_recompense_demo_niveaux.cpp (LOT-ANNEXE-08)
     // -- HeadlessLevelEnvironment n'expose pas d'observation avant le premier step(), le premier
@@ -47,6 +45,9 @@ FitnessEvaluation evaluateFitness(Individual& individual, HeadlessLevelEnvironme
         const Action action = decodeArgmax(distribution);
 
         const StepObservation stepObservation = environment.step(toPlayerInput(action));
+        // Reconstruit a chaque pas (LOT-ANNEXE-21) : voir TrajectoryCollector::collectEpisode.
+        const GridDistanceField distanceField =
+            buildObjectiveDistanceField(environment.level(), environment.mechanisms());
         cumulativeReward += computeReward(rewardConfig, distanceField, previousBox,
                                           stepObservation.playerBox, stepObservation.outcome);
 

@@ -29,18 +29,40 @@ namespace aisolver {
  * introduire de recherche de chemin complète (pas de replanification par pas, pas de notion de coût
  * autre que le nombre de cases) : un unique BFS à la construction, puis des lectures `O(1)`.
  *
- * Cases dynamiques (portes, plateformes mobiles) non prises en compte : seule la solidité statique
- * (`core::TileMap::isSolid`) borne le BFS, cohérent avec la portée de la récompense partagée
- * (`LOT-ANNEXE-08`), qui ne modélise déjà aucun mécanisme spécifique à un niveau.
+ * Prend en entrée n'importe quelle `core::TileMap` : passer `core::MechanismController::
+ * collisionMap()` plutôt que la grille statique du niveau fait respecter au BFS l'état **courant**
+ * des portes/portes verrouillées (solides tant que fermées, gérées dynamiquement par le
+ * contrôleur, jamais par `core::TileMap::isSolid`) -- sans quoi le champ traite une porte encore
+ * fermée comme déjà franchissable et signale une progression sur un chemin en réalité bloqué
+ * (amendement `LOT-ANNEXE-21`, motivé par le comportement observé sur des niveaux à mécanismes
+ * enchaînés : la clé ne réduit pas la distance de plus court chemin sous l'ancien calcul, qui
+ * ignorait déjà la porte verrouillée qu'elle ouvre).
  */
 class GridDistanceField {
 public:
     /**
      * @brief Calcule le champ par BFS multi-source à partir de @p target.
-     * @param tileMap Grille statique du niveau (cases solides/non-solides).
+     * @param tileMap Grille de collision (cases solides/non-solides) -- `core::MechanismController::
+     *        collisionMap()` pour respecter l'état courant des portes, `core::Level::tileMap()`
+     *        pour la seule solidité statique.
      * @param target  Case cible (typiquement `core::Level::exit()`), point de départ du BFS.
      */
     GridDistanceField(const core::TileMap& tileMap, const core::GridPosition& target);
+
+    /**
+     * @brief Calcule le champ par BFS **multi-source** à partir de @p targets.
+     *
+     * Généralise le constructeur à cible unique : la distance renvoyée par `distance()` est celle
+     * au **plus proche** élément de @p targets, ce qui permet de faire cohabiter la sortie du
+     * niveau avec les positions des déclencheurs (`core::Mechanism::switchPosition`) pas encore
+     * résolus comme cibles concurrentes -- l'objectif immédiat le plus proche, sans hiérarchie ni
+     * connaissance de l'ordre de résolution attendu.
+     * @param tileMap Grille de collision (voir constructeur à cible unique).
+     * @param targets Cases cibles ; une case hors-grille ou solide est simplement ignorée (garde
+     *        défensive, ne fait pas échouer les autres cibles). Vide -> champ entièrement
+     *        inatteignable.
+     */
+    GridDistanceField(const core::TileMap& tileMap, const std::vector<core::GridPosition>& targets);
 
     /**
      * @brief Distance de plus court chemin, en nombre de cases, depuis @p position jusqu'à la case

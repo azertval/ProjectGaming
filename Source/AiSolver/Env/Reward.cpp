@@ -37,4 +37,16 @@ float computeReward(const RewardConfig& config, const GridDistanceField& distanc
     return reward;
 }
 
+GridDistanceField buildObjectiveDistanceField(const core::Level& level,
+                                              const core::MechanismController& mechanisms) {
+    std::vector<core::GridPosition> targets{level.exit()};
+    const std::vector<core::Mechanism>& links = mechanisms.mechanisms();
+    for (std::size_t index = 0; index < links.size(); ++index) {
+        if (!mechanisms.isDoorOpen(index)) {
+            targets.push_back(links[index].switchPosition);
+        }
+    }
+    return GridDistanceField(mechanisms.collisionMap(), targets);
+}
+
 }  // namespace aisolver

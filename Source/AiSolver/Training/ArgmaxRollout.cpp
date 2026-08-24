@@ -24,8 +24,6 @@ std::optional<DeterministicReplayResult> argmaxRollout(eval::TrainedPolicy& poli
 
     const ObservationEncoder observationEncoder;
     const RewardConfig rewardConfig;
-    const GridDistanceField distanceField(environment.level().tileMap(),
-                                          environment.level().exit());
     Rng rng(0);  // Argmax ne consomme jamais rng ; instance jetable pour satisfaire la signature.
 
     const core::GridPosition entry = environment.level().entry();
@@ -50,6 +48,9 @@ std::optional<DeterministicReplayResult> argmaxRollout(eval::TrainedPolicy& poli
         result.steps.push_back(*input);
 
         const StepObservation stepObservation = environment.step(*input);
+        // Reconstruit a chaque pas (LOT-ANNEXE-21) : voir TrajectoryCollector::collectEpisode.
+        const GridDistanceField distanceField =
+            buildObjectiveDistanceField(environment.level(), environment.mechanisms());
         result.finalReward += computeReward(rewardConfig, distanceField, previousBox,
                                             stepObservation.playerBox, stepObservation.outcome);
 

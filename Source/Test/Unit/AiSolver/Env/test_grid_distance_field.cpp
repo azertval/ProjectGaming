@@ -107,3 +107,46 @@ TEST(GridDistanceFieldTest, CaseHorsGrilleRenvoieLaSentinelle) {
     EXPECT_EQ(field.distance(core::GridPosition{-1, 0}), sentinel);
     EXPECT_EQ(field.distance(core::GridPosition{5, 5}), sentinel);
 }
+
+/**
+ * @brief Le constructeur multi-cibles renvoie la distance à la **plus proche** des cibles fournies
+ * (amendement LOT-ANNEXE-21).
+ * \castest{<b>Multi-cibles : distance à la plus proche des cibles fournies.</b><br/>
+ * \tcat Unitaire · AiSolver Env<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Grille ouverte 10x10, deux cibles `(0,0)` et `(9,9)`.<br/>2. Lit la distance d'une
+ * case proche de chaque cible.<br/>
+ * \tattendu Chaque case obtient la distance à la cible la plus proche, pas la plus lointaine.}
+ */
+TEST(GridDistanceFieldTest, MultiCiblesDistanceALaPlusProche) {
+    const core::TileMap map(10, 10);
+    const std::vector<core::GridPosition> targets{core::GridPosition{0, 0},
+                                                   core::GridPosition{9, 9}};
+    const aisolver::GridDistanceField field(map, targets);
+
+    EXPECT_EQ(field.distance(core::GridPosition{1, 0}), 1);   // Proche de (0,0).
+    EXPECT_EQ(field.distance(core::GridPosition{8, 9}), 1);   // Proche de (9,9).
+    EXPECT_EQ(field.distance(core::GridPosition{0, 0}), 0);
+    EXPECT_EQ(field.distance(core::GridPosition{9, 9}), 0);
+}
+
+/**
+ * @brief Une cible solide ou hors-grille dans la liste multi-cibles est ignorée, sans empêcher les
+ * autres cibles valides de produire un champ atteignable.
+ * \castest{<b>Multi-cibles : une cible invalide n'empêche pas les autres de fonctionner.</b><br/>
+ * \tcat Unitaire · AiSolver Env<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Grille 5x5, case `(1,1)` solide utilisée comme première cible, `(4,4)` valide comme
+ * seconde.<br/>
+ * \tattendu La distance à `(4,4)` reste correcte malgré la cible solide.}
+ */
+TEST(GridDistanceFieldTest, MultiCiblesIgnoreUneCibleSolideOuHorsGrille) {
+    core::TileMap map(5, 5);
+    map.setTile(1, 1, core::TileType::Solid);
+    const std::vector<core::GridPosition> targets{core::GridPosition{1, 1}, core::GridPosition{6, 6},
+                                                   core::GridPosition{4, 4}};
+    const aisolver::GridDistanceField field(map, targets);
+
+    EXPECT_EQ(field.distance(core::GridPosition{4, 4}), 0);
+    EXPECT_EQ(field.distance(core::GridPosition{3, 4}), 1);
+}
