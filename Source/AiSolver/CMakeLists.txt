@@ -139,3 +139,14 @@ target_include_directories(AiSolver PUBLIC ${PROJECT_SOURCE_DIR}/Source)
 # en-tete public d'AiSolver ne l'expose (meme raison que Core PRIVATE ci-dessus).
 target_link_libraries(AiSolver PUBLIC Core project_warnings project_options
     PRIVATE nlohmann_json::nlohmann_json)
+
+# Outillage CLI (LOT-ANNEXE-19) : executable distinct de la bibliotheque AiSolver (pas une source
+# supplementaire de celle-ci), mince habillage en ligne de commande des sous-commandes
+# train/evaluate/export-replay, deleguant integralement aux types deja cadres par les lots amont.
+add_executable(aisolver-cli
+    Cli/ArgParsing.cpp
+    Cli/TrainingConfig.cpp
+    Cli/Commands.cpp
+    Cli/Main.cpp
+)
+target_link_libraries(aisolver-cli PRIVATE AiSolver nlohmann_json::nlohmann_json)

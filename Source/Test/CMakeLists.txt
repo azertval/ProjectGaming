@@ -163,6 +163,17 @@ add_executable(UnitTests
     Unit/AiSolver/Replay/test_level_fingerprint.cpp
     Unit/AiSolver/Replay/test_replay_validation.cpp
     Unit/AiSolver/Replay/test_replay_format.cpp
+    # Outillage CLI (LOT-ANNEXE-19) : Commands.cpp/ArgParsing.cpp/TrainingConfig.cpp n'appartiennent
+    # pas a la bibliotheque AiSolver (elles sont l'executable distinct aisolver-cli, cf.
+    # Source/AiSolver/CMakeLists.txt), meme patron que GameEvents.cpp/ReplayPlayback.cpp ci-dessous
+    # pour HMI : compilees directement dans cette cible pour rester testables sans lancer le vrai
+    # executable (Main.cpp, lui, n'est jamais compile ici).
+    ../AiSolver/Cli/ArgParsing.cpp
+    ../AiSolver/Cli/TrainingConfig.cpp
+    ../AiSolver/Cli/Commands.cpp
+    Unit/AiSolver/Cli/test_argument_parsing.cpp
+    Unit/AiSolver/Cli/test_training_config.cpp
+    Unit/AiSolver/Cli/test_cli_commands.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp

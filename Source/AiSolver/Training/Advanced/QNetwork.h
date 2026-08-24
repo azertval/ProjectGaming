@@ -59,6 +59,17 @@ public:
      */
     void copyWeightsFrom(const QNetwork& source);
 
+    /// @return Le réseau interne, pour la (dé)sérialisation des poids (`nn::saveWeights`/
+    /// `loadWeights`, `LOT-ANNEXE-19`) — même patron d'accès que `evolutionary::Individual::network()`.
+    [[nodiscard]] nn::Network& network() noexcept {
+        return _network;
+    }
+
+    /// @copydoc network()
+    [[nodiscard]] const nn::Network& network() const noexcept {
+        return _network;
+    }
+
 private:
     nn::Network _network;
 };

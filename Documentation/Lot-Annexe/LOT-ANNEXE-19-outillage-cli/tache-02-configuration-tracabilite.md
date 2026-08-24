@@ -1,6 +1,6 @@
 # TACHE-02 — Configuration des hyperparamètres et traçabilité {#lot-annexe-19-tache-02-configuration-tracabilite}
 
-**Lot :** [LOT-ANNEXE-19](epic.md) · **Emplacement :** `Source/AiSolver/Cli` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-19](epic.md) · **Emplacement :** `Source/AiSolver/Cli` · **Statut :** fait
 
 ## Contexte
 TACHE-01 pose les sous-commandes avec leurs arguments minimaux (niveau, modèle, algorithme) ; cette

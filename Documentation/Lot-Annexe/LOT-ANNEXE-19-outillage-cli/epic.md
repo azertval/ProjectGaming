@@ -1,6 +1,6 @@
 # LOT-ANNEXE-19 — Outillage CLI {#lot-annexe-19}
 
-> Statut : **non commencé**. Regroupe l'ensemble des générations 2 à 4 sous une interface en ligne
+> Statut : **fait**. Regroupe l'ensemble des générations 2 à 4 sous une interface en ligne
 > de commande unique. Deuxième lot de la génération 5.
 
 ## Objectif
@@ -81,8 +81,8 @@ respectives pour les sources pertinentes selon la sous-commande utilisée.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-sous-commandes.md) | Sous-commandes `train`/`evaluate`/`export-replay` | `Source/AiSolver/Cli` | ⬜ |
-| [TACHE-02](tache-02-configuration-tracabilite.md) | Configuration des hyperparamètres et traçabilité | `Source/AiSolver/Cli` | ⬜ |
+| [TACHE-01](tache-01-sous-commandes.md) | Sous-commandes `train`/`evaluate`/`export-replay` | `Source/AiSolver/Cli` | ✅ |
+| [TACHE-02](tache-02-configuration-tracabilite.md) | Configuration des hyperparamètres et traçabilité | `Source/AiSolver/Cli` | ✅ |
 
 ## Critères d'acceptation du lot
 1. `aisolver-cli train --level <chemin> --algo evo` lance un entraînement évolutionniste complet

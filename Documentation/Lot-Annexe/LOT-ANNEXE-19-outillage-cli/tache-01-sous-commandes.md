@@ -1,6 +1,6 @@
 # TACHE-01 — Sous-commandes train/evaluate/export-replay {#lot-annexe-19-tache-01-sous-commandes}
 
-**Lot :** [LOT-ANNEXE-19](epic.md) · **Emplacement :** `Source/AiSolver/Cli` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-19](epic.md) · **Emplacement :** `Source/AiSolver/Cli` · **Statut :** fait
 
 ## Contexte
 Toute la logique nécessaire existe déjà dans `Source/AiSolver` (générations 2 à 4) ; il manque un
