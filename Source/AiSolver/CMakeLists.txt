@@ -39,6 +39,10 @@ add_library(AiSolver STATIC
     # d'apprentissage unique et partagé par tout algorithme d'apprentissage du programme
     # (générations 2 et 3), condition de comparabilité de leurs résultats (génération 4).
     Env/Reward.cpp
+    # Champ de distances de plus court chemin sur la grille (amendement LOT-ANNEXE-08, EX-IA-023) :
+    # remplace la distance euclidienne en ligne droite dans Env/Reward.cpp pour les niveaux où un
+    # mur force un détour.
+    Env/GridDistanceField.cpp
     Env/Episode.cpp
     # Journalisation CSV incrementale des statistiques d'entrainement (LOT-ANNEXE-09) : format de
     # colonnes unique, reutilise sans changement par toute la generation 2/3 puis par le harnais de

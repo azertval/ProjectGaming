@@ -14,6 +14,7 @@
 #include <gtest/gtest.h>
 
 #include "AiSolver/Env/Episode.h"
+#include "AiSolver/Env/GridDistanceField.h"
 #include "AiSolver/Env/HeadlessLevelEnvironment.h"
 #include "AiSolver/Env/Reward.h"
 #include "Core/Levels/LevelOutcome.h"
@@ -60,6 +61,7 @@ TEST(RecompenseDemoNiveauxTest, ChaqueNiveauDemoAtteintWonAvecRecompenseDomineeP
     for (const ScriptedLevel& scripted : sequence) {
         aisolver::HeadlessLevelEnvironment env;
         ASSERT_TRUE(env.reset(levelPath(scripted.file))) << "niveau : " << scripted.file;
+        const aisolver::GridDistanceField distanceField(env.level().tileMap(), env.level().exit());
 
         float cumulativeReward = 0.0f;
         aisolver::EpisodeStatus status = aisolver::EpisodeStatus::Ongoing;
@@ -81,9 +83,8 @@ TEST(RecompenseDemoNiveauxTest, ChaqueNiveauDemoAtteintWonAvecRecompenseDomineeP
             const core::PlayerInput input = scripted.input(step, playerState, x, y);
             const aisolver::StepObservation observation = env.step(input);
 
-            cumulativeReward +=
-                aisolver::computeReward(rewardConfig, previousBox, observation.playerBox,
-                                        env.level().exit(), observation.outcome);
+            cumulativeReward += aisolver::computeReward(rewardConfig, distanceField, previousBox,
+                                                        observation.playerBox, observation.outcome);
             previousBox = observation.playerBox;
             playerState = observation.playerState;
             x = observation.playerBox.min.x;

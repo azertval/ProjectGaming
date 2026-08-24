@@ -13,9 +13,13 @@ seules, le signal scalaire que tout algorithme d'apprentissage du programme cher
   timePenalty` (par pas), valeurs par défaut choisies pour que `completionBonus` domine
   significativement la somme plausible des autres termes sur un épisode typique (quelques centaines
   de pas).
-- **`float computeReward(const RewardConfig&, const Aabb& previousBox, const Aabb& currentBox,
-  const core::GridPosition& exit, core::LevelOutcome outcome)`** (`Source/AiSolver/Env/Reward.cpp`) :
-  - distance euclidienne du centre de `previousBox`/`currentBox` au centre de la case `exit` ;
+- **`float computeReward(const RewardConfig&, const GridDistanceField& distanceField, const Aabb&
+  previousBox, const Aabb& currentBox, core::LevelOutcome outcome)`**
+  (`Source/AiSolver/Env/Reward.cpp`) :
+  - **[Amendé, `EX-IA-023`]** distance de plus court chemin sur la grille (`GridDistanceField`,
+    respectant les murs) de la case du centre de `previousBox`/`currentBox` à la case cible passée à
+    la construction de `distanceField` (initialement : distance euclidienne en ligne droite au
+    centre de `exit` — voir amendement dans `epic.md`) ;
   - récompense de progression = `progressScale × (distancePrécédente - distanceCourante)` ;
   - si `outcome == Won` : ajoute `completionBonus` ;
   - si `outcome == Lost` : ajoute `deathPenalty` (négatif) ;
@@ -23,6 +27,8 @@ seules, le signal scalaire que tout algorithme d'apprentissage du programme cher
 
 ## Fichiers impactés
 - `Source/AiSolver/Env/Reward.h/.cpp` — nouveau.
+- `Source/AiSolver/Env/GridDistanceField.h/.cpp` — nouveau (amendement `EX-IA-023`) : BFS de
+  distance de grille, remplace la distance euclidienne dans `computeReward`.
 - `Source/AiSolver/CMakeLists.txt` — ajout des nouveaux fichiers.
 
 ## Tests (obligatoires)
@@ -37,11 +43,14 @@ seules, le signal scalaire que tout algorithme d'apprentissage du programme cher
   `NaN` ni valeur aberrante sur des distances et durées typiques des niveaux `demo-*.json`.
 
 ## Points d'attention
-- **La distance utilisée est euclidienne dans l'espace monde (`core::Vector2`), jamais une distance
-  de plus court chemin sur la grille** (décision de cadrage de l'épic) — ne pas tenter d'ajouter un
-  pathfinding ici, même partiel.
+- **La distance utilisée est une distance de grille (`GridDistanceField`, BFS 4-connexe respectant
+  les murs statiques), amendement `EX-IA-023`** — remplace la distance euclidienne d'origine, qui
+  pénalisait activement les pas de détour nécessaires autour d'un mur. `GridDistanceField` reste un
+  BFS **statique** précalculé une fois par niveau, pas un pathfinding dynamique replanifié à chaque
+  pas.
 - **`computeReward` est une fonction pure**, sans état interne ni effet de bord — appelée à chaque
-  pas par la boucle d'entraînement (génération 2/3), elle ne doit dépendre que de ses arguments.
+  pas par la boucle d'entraînement (génération 2/3), elle ne doit dépendre que de ses arguments
+  (`distanceField` inclus, construit une fois par l'appelant avant la boucle d'épisode).
 
 ## Définition de fait (DoD)
 - `RewardConfig`/`computeReward` disponibles et testés (`ctest` vert) ; build `/W4 /WX` sans
@@ -54,4 +63,5 @@ creuse contre dense), 6.3 (*shaping* par potentiel : pourquoi une **différence*
 une distance) et 6.4 (ordres de grandeur entre les termes).
 
 ## Exigences
-`EX-IA-009` (nouvelle, partagée avec TACHE-02/03 du même lot).
+`EX-IA-009` (nouvelle, partagée avec TACHE-02/03 du même lot). `EX-IA-023` (amendement, distance de
+grille).

@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "Core/Levels/GridPosition.h"
+#include "AiSolver/Env/GridDistanceField.h"
 #include "Core/Levels/LevelOutcome.h"
 #include "Core/Physics/Aabb.h"
 
@@ -38,18 +38,23 @@ struct RewardConfig {
 /**
  * @brief Calcule la récompense d'un pas unique, fonction pure sans état interne ni effet de bord.
  *
- * La distance à la sortie est calculée en ligne droite (norme euclidienne) entre le centre de la
- * boîte du personnage et le centre de la case de sortie, jamais par un plus court chemin sur la
- * grille (décision de cadrage de l'épic `LOT-ANNEXE-08`).
+ * La distance à la sortie est une distance de plus court chemin sur la grille, respectant les murs
+ * (`GridDistanceField`, amendement `LOT-ANNEXE-08` motivé par `EX-IA-023` : la distance euclidienne
+ * en ligne droite, utilisée avant cet amendement, pénalisait les pas de détour pourtant nécessaires
+ * autour d'un mur, un signal actif contre la bonne politique plutôt que simplement imparfait). Le
+ * centre de la boîte du personnage est converti en case de grille (partie entière des coordonnées
+ * monde, 1 case = 1 unité monde, même convention que `HMI::GameViewport::cellAt`).
  * @param config Constantes de la fonction de récompense.
+ * @param distanceField Champ de distances vers la sortie, précalculé une fois par niveau
+ *        (`GridDistanceField`, construit à partir de `core::Level::tileMap()`/`exit()`).
  * @param previousBox Boîte du personnage avant ce pas.
  * @param currentBox Boîte du personnage après ce pas.
- * @param exit Position de la case de sortie du niveau (`core::Level::exit()`).
  * @param outcome Issue du niveau à l'issue de ce pas.
  * @return La récompense scalaire de ce pas.
  */
-[[nodiscard]] float computeReward(const RewardConfig& config, const core::Aabb& previousBox,
-                                  const core::Aabb& currentBox, const core::GridPosition& exit,
+[[nodiscard]] float computeReward(const RewardConfig& config,
+                                  const GridDistanceField& distanceField,
+                                  const core::Aabb& previousBox, const core::Aabb& currentBox,
                                   core::LevelOutcome outcome);
 
 }  // namespace aisolver

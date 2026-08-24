@@ -1,10 +1,33 @@
 # LOT-ANNEXE-08 — Fonction de récompense et critères d'épisode {#lot-annexe-08}
 
-> Statut : **fait**. Prérequis : [LOT-ANNEXE-05](@ref lot-annexe-05) (`HeadlessLevelEnvironment`,
-> budget de pas et mesure de progression). Quatrième lot de la génération 1 : définit le signal
-> d'apprentissage **unique**, partagé par tous les algorithmes des générations 2 et 3 — évite qu'un
-> algorithme évolutionniste et un algorithme de policy gradient optimisent, sans le savoir, deux
-> définitions différentes de « bien jouer ».
+> Statut : **fait**, amendé (`EX-IA-023`, voir section dédiée ci-dessous). Prérequis :
+> [LOT-ANNEXE-05](@ref lot-annexe-05) (`HeadlessLevelEnvironment`, budget de pas et mesure de
+> progression). Quatrième lot de la génération 1 : définit le signal d'apprentissage **unique**,
+> partagé par tous les algorithmes des générations 2 et 3 — évite qu'un algorithme évolutionniste et
+> un algorithme de policy gradient optimisent, sans le savoir, deux définitions différentes de
+> « bien jouer ».
+
+## Amendement : distance de grille (BFS) au lieu de la distance euclidienne
+Constat opérationnel après plusieurs entraînements réels (génération 2/3, `LOT-ANNEXE-21`) : sur un
+niveau où la sortie est directement au-dessus/en-dessous du point de départ mais où un mur force un
+détour latéral, la distance euclidienne (décision de cadrage initiale ci-dessous) pénalise
+**activement** les pas de détour pourtant nécessaires — s'écarter latéralement pour contourner le
+mur augmente la distance en ligne droite, donc produit une récompense négative, alors que ce pas est
+la seule façon de progresser réellement. Ce n'est pas seulement un signal imparfait (accepté dès
+l'origine) mais un signal qui **combat** la bonne politique sur cette géométrie, bloquant
+l'apprentissage sur les niveaux concernés.
+
+**Correction** : `aisolver::GridDistanceField` (`Source/AiSolver/Env/GridDistanceField.h/.cpp`)
+remplace la distance euclidienne par une distance de plus court chemin sur la grille (BFS
+4-connexe, respectant les cases statiquement solides de `core::TileMap::isSolid`), précalculée une
+fois par niveau (un seul BFS à la construction, `O(largeur × hauteur)`) puis lue en `O(1)` à chaque
+pas — pas de replanification par pas, pas de pathfinding dynamique. `computeReward` prend désormais
+un `const GridDistanceField&` à la place du `core::GridPosition& exit` brut.
+
+**Ce que l'amendement ne change pas** : la structure de la récompense (progression + bonus +
+pénalités, `RewardConfig` inchangée), le caractère dense (par pas) du signal, et le fait qu'aucun
+mécanisme spécifique à un niveau n'est modélisé (façonnage toujours générique, cf. Exclus
+ci-dessous). Seule la **mesure de distance** change.
 
 ## Objectif
 `HeadlessLevelEnvironment` (`LOT-ANNEXE-05`) expose une issue brute (`core::LevelOutcome` :
@@ -57,13 +80,16 @@ algorithme optimise un problème légèrement différent ». Ce lot fixe une foi
   algorithme de gradient (génération 3) sur des niveaux de plusieurs centaines de pas — la
   récompense de progression donne un signal à **chaque** pas, y compris pour un épisode qui échoue
   finalement, ce qui informe quand même la direction d'amélioration.
-- **La distance à la sortie est calculée en ligne droite (norme euclidienne) dans l'espace monde,
-  jamais en distance de plus court chemin à travers le niveau.** Une distance de plus court chemin
-  supposerait un pathfinding sur la grille (hors périmètre du programme, cf. absence de toute
-  logique de recherche de chemin dans `Core`) ; la distance euclidienne reste un signal imparfait
-  mais dense et bon marché à calculer à chaque pas, laissant à l'algorithme d'apprentissage la charge
-  de découvrir le chemin réel (contournement d'obstacles, mécanismes) — cohérent avec l'esprit
-  « apprentissage », pas « recherche de chemin déjà connue ».
+- **[Amendé, voir section dédiée ci-dessus]** ~~La distance à la sortie est calculée en ligne droite
+  (norme euclidienne) dans l'espace monde, jamais en distance de plus court chemin à travers le
+  niveau.~~ Décision initiale : une distance de plus court chemin supposerait un pathfinding sur la
+  grille (jugé hors périmètre du programme à l'origine, cf. absence de toute logique de recherche de
+  chemin dans `Core`) ; la distance euclidienne restait un signal imparfait mais dense et bon marché.
+  **Corrigé** : `GridDistanceField` (`Source/AiSolver/Env/`, pas `Core`) calcule une distance de
+  plus court chemin par BFS statique (une fois par niveau, jamais une replanification dynamique par
+  pas) — reste dans l'esprit « apprentissage découvre le chemin », l'algorithme continue de découvrir
+  *quelles actions* suivre, seule la *mesure de distance* sous-jacente au signal devient fidèle à la
+  géométrie du niveau plutôt qu'à l'espace euclidien brut.
 - **La pénalité de mort et le bonus de complétion sont des constantes fixes, pas apprises ni
   calibrées automatiquement par niveau.** Valeurs documentées comme des paramètres de
   `aisolver::RewardConfig`, ajustables manuellement si l'expérience (génération 2/3) révèle un
@@ -90,6 +116,11 @@ chapitre.
   vers la sortie, bonus de complétion, pénalité de mort, pénalité de temps) et une classification de
   fin d'épisode (victoire, échec, timeout, blocage) doivent être définis une seule fois et réutilisés
   par tout algorithme d'apprentissage du programme, pour garantir la comparabilité de leurs résultats.
+- Nouvelle (amendement) : \anchor EX-IA-023 **EX-IA-023** — La récompense de progression doit se
+  baser sur une distance de plus court chemin sur la grille (respectant les murs statiques), jamais
+  une distance euclidienne en ligne droite, pour qu'un pas de détour nécessaire autour d'un mur ne
+  reçoive jamais une récompense de progression négative alors qu'il rapproche réellement le
+  personnage de la sortie.
 - Réutilisées : `EX-IA-005` (`HeadlessLevelEnvironment`, budget de pas et mesure de progression),
   `EX-GP-030`/`EX-GP-031` (conditions de victoire/échec du jeu, base de la classification d'épisode).
 

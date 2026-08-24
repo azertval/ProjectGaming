@@ -104,6 +104,10 @@ add_executable(UnitTests
     Unit/AiSolver/Env/test_reward.cpp
     Unit/AiSolver/Env/test_episode.cpp
     Unit/AiSolver/Env/test_reward_episode.cpp
+    # Champ de distances de plus court chemin sur la grille (amendement LOT-ANNEXE-08, EX-IA-023) :
+    # remplace la distance euclidienne dans Env/Reward.cpp pour les niveaux à détour forcé par un
+    # mur.
+    Unit/AiSolver/Env/test_grid_distance_field.cpp
     # Journalisation CSV incrementale des statistiques d'entrainement (LOT-ANNEXE-09) : moyenne
     # mobile/delta (TACHE-03), format de colonnes (TACHE-02), chemin de fichier par run (TACHE-04),
     # recorder bout en bout (TACHE-01/05).
@@ -169,7 +173,9 @@ add_executable(UnitTests
     # pour HMI : compilees directement dans cette cible pour rester testables sans lancer le vrai
     # executable (Main.cpp, lui, n'est jamais compile ici).
     ../AiSolver/Cli/ArgParsing.cpp
-    ../AiSolver/Cli/TrainingConfig.cpp
+    # Cli/TrainingConfig.cpp n'est plus compile ici : deplace dans la bibliotheque AiSolver
+    # (LOT-ANNEXE-21) pour etre reutilise par HMI/Ai/TrainingWorker -- deja fourni par le lien
+    # AiSolver ci-dessous, le compiler aussi ici produirait des symboles dupliques.
     ../AiSolver/Cli/Commands.cpp
     Unit/AiSolver/Cli/test_argument_parsing.cpp
     Unit/AiSolver/Cli/test_training_config.cpp

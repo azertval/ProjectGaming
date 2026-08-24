@@ -17,11 +17,13 @@ namespace aisolver::training::evolutionary {
 
 FitnessEvaluation evaluateFitness(Individual& individual, HeadlessLevelEnvironment& environment,
                                   const std::filesystem::path& levelPath, int stuckThreshold) {
-    const bool loaded = environment.reset(levelPath);
+    [[maybe_unused]] const bool loaded = environment.reset(levelPath);
     PROJECTGAMING_ASSERT(loaded, "evaluateFitness : le niveau doit se charger");
 
     const ObservationEncoder observationEncoder;
     const RewardConfig rewardConfig;
+    const GridDistanceField distanceField(environment.level().tileMap(),
+                                          environment.level().exit());
 
     // Boîte/état de départ : même convention que test_recompense_demo_niveaux.cpp (LOT-ANNEXE-08)
     // -- HeadlessLevelEnvironment n'expose pas d'observation avant le premier step(), le premier
@@ -45,8 +47,8 @@ FitnessEvaluation evaluateFitness(Individual& individual, HeadlessLevelEnvironme
         const Action action = decodeArgmax(distribution);
 
         const StepObservation stepObservation = environment.step(toPlayerInput(action));
-        cumulativeReward += computeReward(rewardConfig, previousBox, stepObservation.playerBox,
-                                          environment.level().exit(), stepObservation.outcome);
+        cumulativeReward += computeReward(rewardConfig, distanceField, previousBox,
+                                          stepObservation.playerBox, stepObservation.outcome);
 
         previousBox = stepObservation.playerBox;
         playerState = stepObservation.playerState;

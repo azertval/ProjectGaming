@@ -3,22 +3,32 @@
 
 /**
  * @file test_reward.cpp
- * @brief Tests unitaires de aisolver::computeReward (LOT-ANNEXE-08, TACHE-01).
+ * @brief Tests unitaires de aisolver::computeReward (LOT-ANNEXE-08, TACHE-01 ; amendement
+ * distance de grille, EX-IA-023).
  */
 
 #include <cmath>
 
 #include <gtest/gtest.h>
 
+#include "AiSolver/Env/GridDistanceField.h"
 #include "AiSolver/Env/Reward.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/LevelOutcome.h"
+#include "Core/Levels/TileMap.h"
 #include "Core/Physics/Aabb.h"
 
 namespace {
 
 core::Aabb boxAt(float x, float y) {
     return core::Aabb::fromTopLeftSize(core::Vector2{x, y}, core::Vector2{1.0f, 1.0f});
+}
+
+/// Grille carrée entièrement vide (aucune case solide) : la distance de grille se réduit alors au
+/// même comportement que l'ancienne distance euclidienne pour les tests qui ne visent pas
+/// spécifiquement un mur.
+core::TileMap openMap(int size) {
+    return core::TileMap(size, size);
 }
 
 }  // namespace
@@ -28,14 +38,17 @@ core::Aabb boxAt(float x, float y) {
  * \castest{<b>Se rapprocher de la sortie produit une récompense strictement positive.</b><br/>
  * \tcat Unitaire · AiSolver Env<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. `previousBox` a distance 10 de la sortie, `currentBox` a distance 9.<br/>
+ * \tetapes 1. `previousBox` a distance 10 de la sortie, `currentBox` a distance 9, grille
+ * ouverte.<br/>
  * \tattendu La récompense est strictement positive.}
  */
 TEST(RewardTest, ProgressionPositive) {
     const aisolver::RewardConfig config;
+    const core::TileMap map = openMap(30);
     const core::GridPosition exit{0, 0};
-    const float reward = aisolver::computeReward(config, boxAt(10.0f, 0.0f), boxAt(9.0f, 0.0f),
-                                                 exit, core::LevelOutcome::Playing);
+    const aisolver::GridDistanceField distanceField(map, exit);
+    const float reward = aisolver::computeReward(config, distanceField, boxAt(10.0f, 0.0f),
+                                                 boxAt(9.0f, 0.0f), core::LevelOutcome::Playing);
     EXPECT_GT(reward, 0.0f);
 }
 
@@ -44,20 +57,22 @@ TEST(RewardTest, ProgressionPositive) {
  * \castest{<b>Reculer ou stagner ne produit jamais une récompense positive.</b><br/>
  * \tcat Unitaire · AiSolver Env<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Recul : `previousBox` plus proche que `currentBox`.<br/>2. Stagnation : boîtes
- * identiques.<br/>
+ * \tetapes 1. Recul : `previousBox` plus proche que `currentBox`, grille ouverte.<br/>2. Stagnation
+ * : boîtes identiques.<br/>
  * \tattendu La récompense est négative ou nulle dans les deux cas.}
  */
 TEST(RewardTest, RegressionOuStagnationJamaisPositive) {
     const aisolver::RewardConfig config;
+    const core::TileMap map = openMap(30);
     const core::GridPosition exit{0, 0};
+    const aisolver::GridDistanceField distanceField(map, exit);
 
-    const float regression = aisolver::computeReward(config, boxAt(9.0f, 0.0f), boxAt(10.0f, 0.0f),
-                                                     exit, core::LevelOutcome::Playing);
+    const float regression = aisolver::computeReward(
+        config, distanceField, boxAt(9.0f, 0.0f), boxAt(10.0f, 0.0f), core::LevelOutcome::Playing);
     EXPECT_LE(regression, 0.0f);
 
-    const float stagnation = aisolver::computeReward(config, boxAt(9.0f, 0.0f), boxAt(9.0f, 0.0f),
-                                                     exit, core::LevelOutcome::Playing);
+    const float stagnation = aisolver::computeReward(
+        config, distanceField, boxAt(9.0f, 0.0f), boxAt(9.0f, 0.0f), core::LevelOutcome::Playing);
     EXPECT_LE(stagnation, 0.0f);
 }
 
@@ -75,15 +90,18 @@ TEST(RewardTest, RegressionOuStagnationJamaisPositive) {
  */
 TEST(RewardTest, BonusDeCompletionDomine) {
     const aisolver::RewardConfig config;
+    const core::TileMap map = openMap(30);
     const core::GridPosition exit{0, 0};
+    const aisolver::GridDistanceField distanceField(map, exit);
     constexpr int STEPS = 500;
 
     auto cumulative = [&](core::LevelOutcome finalOutcome) {
         float total = 0.0f;
         for (int step = 0; step < STEPS; ++step) {
             const bool last = (step == STEPS - 1);
-            total += aisolver::computeReward(config, boxAt(0.0f, 0.0f), boxAt(0.0f, 0.0f), exit,
-                                             last ? finalOutcome : core::LevelOutcome::Playing);
+            total +=
+                aisolver::computeReward(config, distanceField, boxAt(0.0f, 0.0f), boxAt(0.0f, 0.0f),
+                                        last ? finalOutcome : core::LevelOutcome::Playing);
         }
         return total;
     };
@@ -108,11 +126,45 @@ TEST(RewardTest, BonusDeCompletionDomine) {
  */
 TEST(RewardTest, ValeursParDefautPlausibles) {
     const aisolver::RewardConfig config;
+    const core::TileMap map = openMap(30);
     const core::GridPosition exit{20, 10};
+    const aisolver::GridDistanceField distanceField(map, exit);
     for (const core::LevelOutcome outcome :
          {core::LevelOutcome::Playing, core::LevelOutcome::Won, core::LevelOutcome::Lost}) {
-        const float reward =
-            aisolver::computeReward(config, boxAt(0.0f, 0.0f), boxAt(1.0f, 0.5f), exit, outcome);
+        const float reward = aisolver::computeReward(config, distanceField, boxAt(0.0f, 0.0f),
+                                                     boxAt(1.0f, 0.5f), outcome);
         EXPECT_TRUE(std::isfinite(reward));
     }
+}
+
+/**
+ * @brief Un pas de détour nécessaire autour d'un mur reçoit une récompense de progression positive,
+ * même s'il éloigne le personnage de la sortie en ligne droite.
+ * \castest{<b>Un détour forcé par un mur reçoit une récompense positive malgré un éloignement en
+ * ligne droite (amendement LOT-ANNEXE-08, EX-IA-023).</b><br/>
+ * \tcat Unitaire · AiSolver Env<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Grille 3x3, sortie en `(1,0)`, case `(1,1)` solide (mur direct entre le personnage en
+ * `(1,2)` et la sortie).<br/>2. `previousBox` en `(1,2)`, `currentBox` en `(0,2)` (pas latéral de
+ * contournement).<br/>3. Vérifie qu'en ligne droite (euclidienne) ce pas éloignerait le personnage
+ * de la sortie (`(1.5,2.5)`→dist `2.0` vs `(0.5,2.5)`→dist `~2.236`).<br/>
+ * \tattendu La récompense de progression est strictement positive : la distance de grille (BFS,
+ * respectant le mur) diminue (`4`→`3`) alors que la distance euclidienne aurait augmenté.}
+ */
+TEST(RewardTest, DetourAutourDunMurRecompensePositivement) {
+    const aisolver::RewardConfig config;
+    core::TileMap map(3, 3);
+    map.setTile(1, 1, core::TileType::Solid);
+    const core::GridPosition exit{1, 0};
+    const aisolver::GridDistanceField distanceField(map, exit);
+
+    // Confirme le piège : en ligne droite, s'écarter de la colonne de la sortie *augmente* la
+    // distance euclidienne pour ce pas (2.0 -> ~2.236), ce que l'ancienne récompense (LOT-ANNEXE-08
+    // avant amendement) aurait pénalisé.
+    ASSERT_EQ(distanceField.distance(core::GridPosition{1, 2}), 4);
+    ASSERT_EQ(distanceField.distance(core::GridPosition{0, 2}), 3);
+
+    const float reward = aisolver::computeReward(config, distanceField, boxAt(1.0f, 2.0f),
+                                                 boxAt(0.0f, 2.0f), core::LevelOutcome::Playing);
+    EXPECT_GT(reward, 0.0f);
 }

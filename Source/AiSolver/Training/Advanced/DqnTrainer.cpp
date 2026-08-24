@@ -66,13 +66,18 @@ float DqnTrainer::currentEpsilon() const noexcept {
     return _config.epsilonStart + progress * (_config.epsilonEnd - _config.epsilonStart);
 }
 
-void DqnTrainer::run(std::size_t episodeCount) {
+void DqnTrainer::run(std::size_t episodeCount, const std::function<bool()>& shouldStop) {
     const ObservationEncoder observationEncoder;
     const RewardConfig rewardConfig;
 
     for (std::size_t i = 0; i < episodeCount; ++i) {
-        const bool loaded = _environment.reset(_levelPath);
+        if (shouldStop && shouldStop()) {
+            return;
+        }
+        [[maybe_unused]] const bool loaded = _environment.reset(_levelPath);
         PROJECTGAMING_ASSERT(loaded, "DqnTrainer::run : le niveau doit se charger");
+        const GridDistanceField distanceField(_environment.level().tileMap(),
+                                              _environment.level().exit());
 
         // Boite/etat de depart : meme convention que TrajectoryCollector (LOT-ANNEXE-12) --
         // HeadlessLevelEnvironment n'expose pas d'observation avant le premier step().
@@ -105,9 +110,8 @@ void DqnTrainer::run(std::size_t episodeCount) {
             const Action action = actionAt(actionIndex);
 
             const StepObservation stepObservation = _environment.step(toPlayerInput(action));
-            const float reward =
-                computeReward(rewardConfig, previousBox, stepObservation.playerBox,
-                              _environment.level().exit(), stepObservation.outcome);
+            const float reward = computeReward(rewardConfig, distanceField, previousBox,
+                                               stepObservation.playerBox, stepObservation.outcome);
             totalReward += reward;
             ++stepCount;
 

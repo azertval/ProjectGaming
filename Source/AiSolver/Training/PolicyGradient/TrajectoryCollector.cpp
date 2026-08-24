@@ -26,6 +26,8 @@ Trajectory TrajectoryCollector::collectEpisode(HeadlessLevelEnvironment& environ
 
     const ObservationEncoder observationEncoder;
     const RewardConfig rewardConfig;
+    const GridDistanceField distanceField(environment.level().tileMap(),
+                                          environment.level().exit());
 
     // Boîte/état de départ : même convention que evolutionary::evaluateFitness (LOT-ANNEXE-10) --
     // HeadlessLevelEnvironment n'expose pas d'observation avant le premier step().
@@ -53,8 +55,8 @@ Trajectory TrajectoryCollector::collectEpisode(HeadlessLevelEnvironment& environ
         const float logProbability = std::log(probability);
 
         const StepObservation stepObservation = environment.step(toPlayerInput(action));
-        const float reward = computeReward(rewardConfig, previousBox, stepObservation.playerBox,
-                                           environment.level().exit(), stepObservation.outcome);
+        const float reward = computeReward(rewardConfig, distanceField, previousBox,
+                                           stepObservation.playerBox, stepObservation.outcome);
 
         trajectory.steps.push_back(
             TrajectoryStep{observationVector, actionIndex, logProbability, reward});

@@ -19,11 +19,13 @@ DeterministicReplayResult replayBestIndividual(evolutionary::Individual& individ
                                                HeadlessLevelEnvironment& environment,
                                                const std::filesystem::path& levelPath,
                                                int stuckThreshold) {
-    const bool loaded = environment.reset(levelPath);
+    [[maybe_unused]] const bool loaded = environment.reset(levelPath);
     PROJECTGAMING_ASSERT(loaded, "replayBestIndividual : le niveau doit se charger");
 
     const ObservationEncoder observationEncoder;
     const RewardConfig rewardConfig;
+    const GridDistanceField distanceField(environment.level().tileMap(),
+                                          environment.level().exit());
 
     // Etat de depart identique a FitnessEvaluator::evaluateFitness (LOT-ANNEXE-10) : meme
     // convention de reconstruction de l'etat de spawn avant le premier step().
@@ -47,8 +49,8 @@ DeterministicReplayResult replayBestIndividual(evolutionary::Individual& individ
         result.steps.push_back(input);
 
         const StepObservation stepObservation = environment.step(input);
-        result.finalReward += computeReward(rewardConfig, previousBox, stepObservation.playerBox,
-                                            environment.level().exit(), stepObservation.outcome);
+        result.finalReward += computeReward(rewardConfig, distanceField, previousBox,
+                                            stepObservation.playerBox, stepObservation.outcome);
 
         previousBox = stepObservation.playerBox;
         playerState = stepObservation.playerState;
