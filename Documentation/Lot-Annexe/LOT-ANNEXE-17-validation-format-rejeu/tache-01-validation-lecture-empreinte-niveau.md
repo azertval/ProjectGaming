@@ -1,7 +1,6 @@
 # TACHE-01 — Validation à la lecture (empreinte de niveau) {#lot-annexe-17-tache-01-validation-lecture-empreinte-niveau}
 
-**Lot :** [LOT-ANNEXE-17](epic.md) · **Emplacement :** `Source/AiSolver/Replay` · **Statut :** à
-faire
+**Lot :** [LOT-ANNEXE-17](epic.md) · **Emplacement :** `Source/AiSolver/Replay` · **Statut :** fait
 
 ## Contexte
 Le format de rejeu v1 (`LOT-ANNEXE-07`) enregistre déjà, dans ses métadonnées, le chemin du niveau

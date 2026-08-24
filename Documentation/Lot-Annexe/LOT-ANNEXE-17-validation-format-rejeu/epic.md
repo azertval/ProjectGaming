@@ -1,6 +1,6 @@
 # LOT-ANNEXE-17 — Validation et stabilisation du format de rejeu {#lot-annexe-17}
 
-> Statut : **non commencé**. Prérequis : [LOT-ANNEXE-07](@ref lot-annexe-07) (format de rejeu v1).
+> Statut : **fait**. Prérequis : [LOT-ANNEXE-07](@ref lot-annexe-07) (format de rejeu v1).
 > Dernier lot avant le branchement du rejeu sur le jeu réel ([LOT-ANNEXE-18](@ref lot-annexe-18)) :
 > stabilise le format v1 à la lumière de l'usage réel par les générations 2 et 3, et ajoute la
 > validation à la lecture qui manquait jusqu'ici — un rejeu ne doit jamais être silencieusement
@@ -89,8 +89,8 @@ rappel du déterminisme (`EX-NFR-002`) qui rend le rejeu fidèle possible en pre
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-validation-lecture-empreinte-niveau.md) | Validation à la lecture (empreinte de niveau) | `Source/AiSolver/Replay` | ⬜ |
-| [TACHE-02](tache-02-stabilisation-format-v1.md) | Stabilisation du format v1 (nouveaux champs, compatibilité ascendante) | `Source/AiSolver/Replay` | ⬜ |
+| [TACHE-01](tache-01-validation-lecture-empreinte-niveau.md) | Validation à la lecture (empreinte de niveau) | `Source/AiSolver/Replay` | ✅ |
+| [TACHE-02](tache-02-stabilisation-format-v1.md) | Stabilisation du format v1 (nouveaux champs, compatibilité ascendante) | `Source/AiSolver/Replay` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Charger un rejeu dont le fichier de niveau référencé a été modifié après l'export échoue

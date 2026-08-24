@@ -23,8 +23,13 @@ namespace aisolver {
  * @brief Version courante du format de rejeu (`EX-IA-008`), même principe que
  *        `core::kLevelFormatVersion` (`EX-LVL-005`) : un fichier sans champ `formatVersion` est lu
  *        comme la version initiale (0), sans erreur.
+ *
+ * Passée à `2` par `LOT-ANNEXE-17` (TACHE-02, stabilisation du format v1) : ajout de
+ * `totalDurationSeconds` et `algorithmId`. Un fichier `formatVersion == 1` (écrit avant ce lot,
+ * sans ces deux champs) reste lisible sans erreur — ils sont alors pris à leur valeur sentinelle
+ * (`0.0f` et `""`).
  */
-inline constexpr std::uint32_t kReplayFormatVersion = 1;
+inline constexpr std::uint32_t kReplayFormatVersion = 2;
 
 /**
  * @brief Un fichier de rejeu : séquence déterministe de `core::PlayerInput` rejouable en jeu sans
@@ -33,13 +38,15 @@ inline constexpr std::uint32_t kReplayFormatVersion = 1;
  * Format JSON (schéma) :
  * @code
  * {
- *   "formatVersion": 1,
+ *   "formatVersion": 2,
  *   "levelPath": "demo-deplacement.json",
  *   "levelFingerprint": 0,
  *   "algorithmName": "evolutionnaire",
  *   "exportedAtIso8601": "2026-08-23T12:00:00Z",
  *   "seed": 42,
  *   "finalReward": 1.0,
+ *   "totalDurationSeconds": 1.5,
+ *   "algorithmId": "evo",
  *   "steps": [
  *     {"moveX": 1.0, "jumpPressed": false, "jumpHeld": false, "moveY": 0.0,
  *      "dashPressed": false, "interactPressed": false, "interactHeld": false,
@@ -55,8 +62,8 @@ struct ReplayFile {
     /// Chemin **relatif** (à `Source/Elements/Levels`) du niveau d'origine — jamais un chemin
     /// absolu, pour rester portable d'une machine à l'autre.
     std::string levelPath;
-    /// Empreinte du niveau d'origine — réservée, non vérifiée par ce lot (`0` en attendant),
-    /// vérification ajoutée par `LOT-ANNEXE-17`.
+    /// Empreinte du niveau d'origine (`computeLevelFingerprint`, `LOT-ANNEXE-17`), vérifiée à la
+    /// lecture par `validateReplay` (`LevelFingerprint.h`/`ReplayValidation.h`).
     std::uint64_t levelFingerprint = 0;
     /// Séquence ordonnée d'entrées, une par pas fixe (`1/60 s`).
     std::vector<core::PlayerInput> steps;
@@ -68,6 +75,17 @@ struct ReplayFile {
     std::uint64_t seed = 0;
     /// Statistique finale de l'entraînement (ex. récompense cumulée du dernier épisode réussi).
     float finalReward = 0.0f;
+    /// Durée totale du rejeu (`steps.size() × delta de pas fixe`), calculée une fois à l'export
+    /// plutôt que recalculée à chaque lecture — commodité d'affichage/de reporting, jamais une
+    /// source de vérité (le nombre de pas réel de `steps` fait foi pour la simulation).
+    /// `0.0f` (valeur sentinelle) sur un fichier `formatVersion == 1` (`LOT-ANNEXE-17`).
+    float totalDurationSeconds = 0.0f;
+    /// Identifiant court de l'algorithme d'origine (ex. `"evo"`, `"pg"`, `"ac"`, `"avance"` —
+    /// mêmes valeurs que l'argument `--algo` du CLI, `LOT-ANNEXE-19`), pour retrouver a posteriori
+    /// de quel algorithme un rejeu est issu sans consulter les journaux d'entraînement. Chaîne
+    /// libre, pas une énumération figée. `""` (valeur sentinelle) sur un fichier
+    /// `formatVersion == 1` (`LOT-ANNEXE-17`).
+    std::string algorithmId;
 };
 
 /**

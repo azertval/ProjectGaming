@@ -1,7 +1,6 @@
 # TACHE-02 — Stabilisation du format v1 {#lot-annexe-17-tache-02-stabilisation-format-v1}
 
-**Lot :** [LOT-ANNEXE-17](epic.md) · **Emplacement :** `Source/AiSolver/Replay` · **Statut :** à
-faire
+**Lot :** [LOT-ANNEXE-17](epic.md) · **Emplacement :** `Source/AiSolver/Replay` · **Statut :** fait
 
 ## Contexte
 Le format de rejeu v1 (`LOT-ANNEXE-07`) a été défini en génération 1, avant qu'aucun algorithme

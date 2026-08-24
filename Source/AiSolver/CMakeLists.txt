@@ -117,6 +117,14 @@ add_library(AiSolver STATIC
     Eval/BenchmarkReport.cpp
     Eval/NoisyObservation.cpp
     Eval/CrossLevelBenchmark.cpp
+    # Validation et stabilisation du format de rejeu v1 (LOT-ANNEXE-17), dernier prealable avant le
+    # branchement du rejeu sur le jeu reel (LOT-ANNEXE-18) : empreinte deterministe FNV-1a du
+    # fichier de niveau (TACHE-01), validee a la lecture avant toute utilisation du rejeu -- erreur
+    # recuperable, jamais un plantage. Format v1 stabilise (TACHE-02, formatVersion 1 -> 2) avec
+    # deux champs de commodite (totalDurationSeconds, algorithmId), compatibilite ascendante
+    # stricte avec les fichiers deja ecrits par les generations 2/3.
+    Replay/LevelFingerprint.cpp
+    Replay/ReplayValidation.cpp
 )
 
 # Racine d'inclusion = Source/ : les en-têtes s'incluent par chemin complet depuis la racine

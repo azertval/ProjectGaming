@@ -21,6 +21,8 @@ constexpr const char* FIELD_ALGORITHM_NAME = "algorithmName";
 constexpr const char* FIELD_EXPORTED_AT = "exportedAtIso8601";
 constexpr const char* FIELD_SEED = "seed";
 constexpr const char* FIELD_FINAL_REWARD = "finalReward";
+constexpr const char* FIELD_TOTAL_DURATION_SECONDS = "totalDurationSeconds";
+constexpr const char* FIELD_ALGORITHM_ID = "algorithmId";
 
 constexpr const char* FIELD_MOVE_X = "moveX";
 constexpr const char* FIELD_JUMP_PRESSED = "jumpPressed";
@@ -113,6 +115,8 @@ bool writeReplay(const std::filesystem::path& path, const ReplayFile& replay) {
     root[FIELD_EXPORTED_AT] = replay.exportedAtIso8601;
     root[FIELD_SEED] = replay.seed;
     root[FIELD_FINAL_REWARD] = replay.finalReward;
+    root[FIELD_TOTAL_DURATION_SECONDS] = replay.totalDurationSeconds;
+    root[FIELD_ALGORITHM_ID] = replay.algorithmId;
 
     nlohmann::ordered_json steps = nlohmann::ordered_json::array();
     for (const core::PlayerInput& step : replay.steps) {
@@ -212,6 +216,26 @@ ReplayLoadResult readReplay(const std::filesystem::path& path) {
                                      .error = "Le champ « finalReward » n'est pas un nombre."};
         }
         replay.finalReward = root[FIELD_FINAL_REWARD].get<float>();
+    }
+
+    // Absents sur un fichier formatVersion == 1 (avant LOT-ANNEXE-17) : valeur sentinelle plutot
+    // que d'echouer la lecture -- ces fichiers restent des rejeux valides, seulement moins
+    // renseignes.
+    if (root.contains(FIELD_TOTAL_DURATION_SECONDS)) {
+        if (!root[FIELD_TOTAL_DURATION_SECONDS].is_number()) {
+            return ReplayLoadResult{
+                .replay = std::nullopt,
+                .error = "Le champ « totalDurationSeconds » n'est pas un nombre."};
+        }
+        replay.totalDurationSeconds = root[FIELD_TOTAL_DURATION_SECONDS].get<float>();
+    }
+
+    if (root.contains(FIELD_ALGORITHM_ID)) {
+        if (!root[FIELD_ALGORITHM_ID].is_string()) {
+            return ReplayLoadResult{.replay = std::nullopt,
+                                     .error = "Le champ « algorithmId » n'est pas une chaine."};
+        }
+        replay.algorithmId = root[FIELD_ALGORITHM_ID].get<std::string>();
     }
 
     if (root.contains(FIELD_STEPS)) {

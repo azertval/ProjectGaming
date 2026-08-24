@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**1485 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**1494 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (1374)
+## Tests unitaires (1383)
 
 ### AiSolver
 
@@ -393,7 +393,15 @@
 | **SgdTest.MiseAJourAvecInertie** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Optim/test_sgd.cpp:49`</sub> | Sgd : mise à jour avec inertie. | 1. Construire un paramètre scalaire `value = 0`, `grad = 1` constant.<br/>2. Appliquer `Sgd(0.1f, 0.9f).step({parameter})` deux fois de suite (gradient reposé à `1` entre les deux). | Vérifie que `parameter->value.at({0})` vaut `-0.1f`, à `TOLERANCE` près.<br/>Vérifie que `parameter->value.at({0})` vaut `-0.29f`, à `TOLERANCE` près. |
 | **SgdTest.SansEffetSurLesParametresNonFournis** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Optim/test_sgd.cpp:74`</sub> | Sgd : sans effet sur les paramètres non fournis. | 1. Construire deux paramètres de gradient non nul.<br/>2. Appeler `step` et `zeroGrad` sur un seul des deux. | Vérifie que `excluded->value.at({0})` vaut `5.0f`, à `TOLERANCE` près.<br/>Vérifie que `excluded->grad.at({0})` vaut `2.0f`, à `TOLERANCE` près. |
 
-#### Replay (6)
+#### Replay (15)
+
+**`test_level_fingerprint.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **LevelFingerprintTest.EmpreintesIdentiquesPourContenuIdentique** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Replay/test_level_fingerprint.cpp:17`</sub> | Empreintes identiques pour un contenu identique. | 1. `computeLevelFingerprint` deux fois sur la meme chaine. | Vérifie que `aisolver::computeLevelFingerprint(content)` vaut `aisolver::computeLevelFingerprint(content)`. |
+| **LevelFingerprintTest.EmpreintesDifferentesPourContenuDifferent** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Replay/test_level_fingerprint.cpp:31`</sub> | Empreintes differentes pour un contenu different. | 1. `computeLevelFingerprint` sur deux chaines ne differant que d'un caractere. | Vérifie que `aisolver::computeLevelFingerprint(a)` diffère de `aisolver::computeLevelFingerprint(b)`. |
+| **LevelFingerprintTest.ChaineVideEstUnCasLimiteValide** (Mineur)<br/><sub>`Source/Test/Unit/AiSolver/Replay/test_level_fingerprint.cpp:46`</sub> | Chaine vide : cas limite valide. | 1. `computeLevelFingerprint` sur une chaine vide. | Vérifie que `aisolver::computeLevelFingerprint("")` vaut `aisolver::computeLevelFingerprint("")`. |
 
 **`test_replay_file.cpp`**
 
@@ -405,6 +413,22 @@
 | **ReplayFileTest.JsonMalformeRenvoieUneErreur** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Replay/test_replay_file.cpp:136`</sub> | JSON malforme -> erreur recuperable. | 1. Ecrire un fichier contenant du texte non-JSON.<br/>2. `readReplay` sur ce fichier. | Vérifie que `result.ok()` est faux.<br/>Vérifie que `result.error.empty()` est faux. |
 | **ReplayFileTest.SequenceVideValide** (Mineur)<br/><sub>`Source/Test/Unit/AiSolver/Replay/test_replay_file.cpp:158`</sub> | Sequence vide valide a l'ecriture/lecture. | 1. Construire un `ReplayFile` avec `steps` vide.<br/>2. `writeReplay` puis `readReplay`. | Vérifie que `aisolver::writeReplay(path, replay)` est vrai.<br/>Vérifie que `result.ok()` est vrai.<br/>Vérifie que `result.replay->steps.empty()` est vrai. |
 | **ReplayFileTest.PipelineDecodageExportRejeuDeterministe** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Replay/test_replay_file.cpp:182`</sub> | Pipeline decodage -> export -> rejeu, determinisme de bout en bout. | 1. Decoder une sequence de 60 actions (`decodeArgmax` sur des distributions synthetiques constantes : marche a droite), convertir en `core::PlayerInput`, assembler en `ReplayFile`, ecrire puis relire.<br/>2. Rejouer la sequence d'origine et la sequence relue sur deux `HeadlessLevelEnvironment` distincts, sur `demo-deplacement.json`. | Vérifie que `aisolver::writeReplay(path, replay)` est vrai.<br/>Vérifie que `result.ok()` est vrai.<br/>Vérifie que `originalEnv.reset(levelPath("demo-deplacement.json"))` est vrai.<br/>Vérifie que `rereadEnv.reset(levelPath("demo-deplacement.json"))` est vrai.<br/>Vérifie que `originalObservation.outcome` vaut `rereadObservation.outcome`.<br/>Vérifie que `originalObservation.playerBox.min.x` vaut `rereadObservation.playerBox.min.x`, à `1e-6f` près.<br/>Vérifie que `originalObservation.playerBox.min.y` vaut `rereadObservation.playerBox.min.y`, à `1e-6f` près. |
+
+**`test_replay_format.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ReplayFormatTest.FichierVersion1SansNouveauxChampsResteLisible** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Replay/test_replay_format.cpp:44`</sub> | Lecture d'un fichier formatVersion == 1 : valeurs sentinelle. | 1. Ecrire a la main un fichier JSON `formatVersion: 1`, sans les deux nouveaux champs.<br/>2. `readReplay`. | Vérifie que `result.ok()` est vrai.<br/>Vérifie que `result.replay->formatVersion` vaut `1u`.<br/>Vérifie que `result.replay->totalDurationSeconds` vaut `0.0f` (comparaison flottante).<br/>Vérifie que `result.replay->algorithmId` vaut `""`. |
+| **ReplayFormatTest.FichierVersion2RestitueLesNouveauxChamps** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Replay/test_replay_format.cpp:78`</sub> | Lecture d'un fichier formatVersion == 2 : champs restitues. | 1. Ecrire a la main un fichier JSON `formatVersion: 2` avec les deux nouveaux champs.<br/>2. `readReplay`. | Vérifie que `result.ok()` est vrai.<br/>Vérifie que `result.replay->formatVersion` vaut `2u`.<br/>Vérifie que `result.replay->totalDurationSeconds` vaut `12.5f` (comparaison flottante).<br/>Vérifie que `result.replay->algorithmId` vaut `"pg"`. |
+| **ReplayFormatTest.RoundTripDesNouveauxChamps** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Replay/test_replay_format.cpp:114`</sub> | Round-trip des nouveaux champs. | 1. Construire un `ReplayFile` avec `totalDurationSeconds`/`algorithmId` renseignes.<br/>2. `writeReplay` puis `readReplay`. | Vérifie que `aisolver::writeReplay(path, original)` est vrai.<br/>Vérifie que `result.ok()` est vrai.<br/>Vérifie que `result.replay->formatVersion` vaut `aisolver::kReplayFormatVersion`.<br/>Vérifie que `result.replay->formatVersion` vaut `2u`.<br/>Vérifie que `result.replay->totalDurationSeconds` vaut `original.totalDurationSeconds` (comparaison flottante).<br/>Vérifie que `result.replay->algorithmId` vaut `original.algorithmId`. |
+
+**`test_replay_validation.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ReplayValidationTest.NiveauAbsentRenvoieLevelFileMissing** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Replay/test_replay_validation.cpp:36`</sub> | Niveau absent -> LevelFileMissing. | 1. `ReplayFile::levelPath` reference un fichier inexistant.<br/>2. `validateReplay`. | Vérifie que `error.has_value()` est vrai.<br/>Vérifie que `*error` vaut `aisolver::ReplayValidationError::LevelFileMissing`. |
+| **ReplayValidationTest.EmpreinteDivergenteRenvoieLevelFingerprintMismatch** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Replay/test_replay_validation.cpp:56`</sub> | Empreinte divergente -> LevelFingerprintMismatch. | 1. `ReplayFile` reference un niveau reel existant, avec une empreinte factice.<br/>2. `validateReplay`. | Vérifie que `error.has_value()` est vrai.<br/>Vérifie que `*error` vaut `aisolver::ReplayValidationError::LevelFingerprintMismatch`. |
+| **ReplayValidationTest.RejeuValideNeRenvoieAucuneErreur** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Replay/test_replay_validation.cpp:76`</sub> | Rejeu valide -> aucune erreur. | 1. `ReplayFile` reference un niveau reel, avec sa veritable empreinte.<br/>2. `validateReplay`. | Vérifie que `error.has_value()` est faux. |
 
 #### Stats (14)
 

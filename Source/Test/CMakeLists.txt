@@ -156,6 +156,13 @@ add_executable(UnitTests
     Unit/AiSolver/Eval/test_benchmark_report.cpp
     Unit/AiSolver/Eval/test_noisy_observation.cpp
     Unit/AiSolver/Eval/test_cross_level_benchmark.cpp
+    # Validation et stabilisation du format de rejeu v1 (LOT-ANNEXE-17) : empreinte FNV-1a
+    # deterministe du fichier de niveau (TACHE-01), validation a la lecture (fichier absent,
+    # empreinte divergente, rejeu valide), stabilisation du format (formatVersion 1 -> 2,
+    # compatibilite ascendante stricte, TACHE-02).
+    Unit/AiSolver/Replay/test_level_fingerprint.cpp
+    Unit/AiSolver/Replay/test_replay_validation.cpp
+    Unit/AiSolver/Replay/test_replay_format.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp
