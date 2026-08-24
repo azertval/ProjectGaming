@@ -17,6 +17,15 @@
 namespace aisolver {
 
 /**
+ * @brief Échappe un champ textuel selon la convention CSV déjà en usage (guillemets si le champ
+ * contient une virgule ou un guillemet, guillemet interne doublé).
+ *
+ * Exposée pour être réutilisée telle quelle par tout module produisant un CSV du même format
+ * (`BenchmarkReport`, `LOT-ANNEXE-15`) sans dupliquer cette logique.
+ */
+[[nodiscard]] std::string escapeCsvField(std::string_view field);
+
+/**
  * @brief En-tête de colonnes, fixe et dans cet ordre exact.
  *
  * Aucune dépendance à une bibliothèque CSV tierce : un seul champ textuel (`levelName`) est à

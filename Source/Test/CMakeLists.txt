@@ -147,6 +147,14 @@ add_executable(UnitTests
     Unit/AiSolver/Training/test_dqn_loss.cpp
     Unit/AiSolver/Training/test_dqn_trainer.cpp
     Unit/AiSolver/Training/test_generation_comparator.cpp
+    # Harnais de benchmark multi-algorithmes (LOT-ANNEXE-15), premier lot de la generation 4 :
+    # adaptateurs TrainedPolicy uniformes (TACHE-01), execution automatisee repetee et reproductible
+    # (TACHE-01), rapport comparatif CSV par niveau x algorithme reutilisant l'echappement partage
+    # (TACHE-02), robustesse au bruit d'observation sans jamais toucher l'etat reel simule (TACHE-03).
+    Unit/AiSolver/Eval/test_trained_policy.cpp
+    Unit/AiSolver/Eval/test_benchmark_runner.cpp
+    Unit/AiSolver/Eval/test_benchmark_report.cpp
+    Unit/AiSolver/Eval/test_noisy_observation.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp

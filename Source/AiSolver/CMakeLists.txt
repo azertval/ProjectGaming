@@ -101,6 +101,21 @@ add_library(AiSolver STATIC
     Training/Advanced/DqnLoss.cpp
     Training/Advanced/DqnTrainer.cpp
     Training/Advanced/GenerationComparator.cpp
+    # Harnais de benchmark multi-algorithmes (LOT-ANNEXE-15), premier lot de la generation 4 :
+    # adaptateur TrainedPolicy uniforme vers chaque famille de modele entraine (TACHE-01),
+    # execution automatisee repetee mesurant taux de reussite/pas moyen/variance de la politique
+    # elle-meme (pas du rejeu deterministe fige), rapport comparatif CSV par niveau x algorithme
+    # (TACHE-02), test de robustesse a un bruit d'observation qui ne touche jamais l'etat reel
+    # simule (TACHE-03). Ne depend qu'en lecture de Training/* ; Training/* ne depend jamais d'Eval.
+    Eval/TrainedPolicy.cpp
+    Eval/EvolutionaryTrainedPolicy.cpp
+    Eval/ReinforceTrainedPolicy.cpp
+    Eval/ActorCriticTrainedPolicy.cpp
+    Eval/AdvancedAlgorithmTrainedPolicy.cpp
+    Eval/BenchmarkResult.cpp
+    Eval/BenchmarkRunner.cpp
+    Eval/BenchmarkReport.cpp
+    Eval/NoisyObservation.cpp
 )
 
 # Racine d'inclusion = Source/ : les en-têtes s'incluent par chemin complet depuis la racine

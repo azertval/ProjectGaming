@@ -1,6 +1,6 @@
 # LOT-ANNEXE-15 — Harnais de benchmark multi-algorithmes {#lot-annexe-15}
 
-> Statut : **non commencé**. Prérequis : [LOT-ANNEXE-05](@ref lot-annexe-05) (`HeadlessLevelEnvironment`),
+> Statut : **fait**. Prérequis : [LOT-ANNEXE-05](@ref lot-annexe-05) (`HeadlessLevelEnvironment`),
 > [LOT-ANNEXE-06](@ref lot-annexe-06) (encodage d'observation), [LOT-ANNEXE-09](@ref lot-annexe-09)
 > (`TrainingStatsRecorder`) et **au moins un** algorithme entraîné sur un niveau
 > ([LOT-ANNEXE-10](@ref lot-annexe-10)/[LOT-ANNEXE-11](@ref lot-annexe-11) — évolutionniste — ou
@@ -120,9 +120,9 @@ nécessité de répéter les exécutions plutôt que de se fier à un seul essai
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-execution-automatisee.md) | Exécution automatisée répétée d'un modèle sur son niveau d'origine | `Source/AiSolver/Eval` | ⬜ |
-| [TACHE-02](tache-02-rapport-comparatif-csv.md) | Rapport comparatif CSV par niveau × algorithme | `Source/AiSolver/Eval` | ⬜ |
-| [TACHE-03](tache-03-robustesse-bruit.md) | Test de robustesse au bruit d'observation | `Source/AiSolver/Eval` | ⬜ |
+| [TACHE-01](tache-01-execution-automatisee.md) | Exécution automatisée répétée d'un modèle sur son niveau d'origine | `Source/AiSolver/Eval` | ✅ |
+| [TACHE-02](tache-02-rapport-comparatif-csv.md) | Rapport comparatif CSV par niveau × algorithme | `Source/AiSolver/Eval` | ✅ |
+| [TACHE-03](tache-03-robustesse-bruit.md) | Test de robustesse au bruit d'observation | `Source/AiSolver/Eval` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Pour un modèle (algorithme, niveau) donné, `N` répétitions produisent un taux de réussite, un

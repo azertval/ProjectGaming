@@ -1,6 +1,6 @@
 # TACHE-02 — Rapport comparatif CSV par niveau × algorithme {#lot-annexe-15-tache-02-rapport-comparatif-csv}
 
-**Lot :** [LOT-ANNEXE-15](epic.md) · **Emplacement :** `Source/AiSolver/Eval` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-15](epic.md) · **Emplacement :** `Source/AiSolver/Eval` · **Statut :** fait
 
 ## Contexte
 TACHE-01 produit, pour **un** modèle donné, `N` répétitions et leurs mesures agrégées (taux de

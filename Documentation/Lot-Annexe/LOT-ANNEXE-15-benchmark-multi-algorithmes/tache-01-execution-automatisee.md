@@ -1,7 +1,6 @@
 # TACHE-01 — Exécution automatisée répétée d'un modèle sur son niveau d'origine {#lot-annexe-15-tache-01-execution-automatisee}
 
-**Lot :** [LOT-ANNEXE-15](epic.md) · **Emplacement :** `Source/AiSolver/Eval` · **Statut :** non
-commencé
+**Lot :** [LOT-ANNEXE-15](epic.md) · **Emplacement :** `Source/AiSolver/Eval` · **Statut :** fait
 
 ## Contexte
 L'entraînement niveau par niveau (`LOT-ANNEXE-10`/`11`, `LOT-ANNEXE-12`/`13`/`14`) ne mesure jamais

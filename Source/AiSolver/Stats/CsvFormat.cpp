@@ -7,8 +7,6 @@
 
 namespace aisolver {
 
-namespace {
-
 std::string escapeCsvField(std::string_view field) {
     const bool needsQuoting =
         field.find(',') != std::string_view::npos || field.find('"') != std::string_view::npos;
@@ -27,8 +25,6 @@ std::string escapeCsvField(std::string_view field) {
     escaped += '"';
     return escaped;
 }
-
-}  // namespace
 
 std::string csvHeader() {
     return "index,bestReward,meanReward,worstReward,rewardStdDev,bestStepCount,successRate,seed,"

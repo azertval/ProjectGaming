@@ -1,6 +1,6 @@
 # TACHE-03 — Test de robustesse au bruit d'observation {#lot-annexe-15-tache-03-robustesse-bruit}
 
-**Lot :** [LOT-ANNEXE-15](epic.md) · **Emplacement :** `Source/AiSolver/Eval` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-15](epic.md) · **Emplacement :** `Source/AiSolver/Eval` · **Statut :** fait
 
 ## Contexte
 TACHE-01/02 mesurent la performance brute d'un modèle sur son niveau d'origine, dans les mêmes
