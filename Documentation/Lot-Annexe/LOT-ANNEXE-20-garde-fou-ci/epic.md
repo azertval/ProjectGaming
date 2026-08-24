@@ -1,6 +1,6 @@
 # LOT-ANNEXE-20 — Garde-fou CI {#lot-annexe-20}
 
-> Statut : **non commencé**. Prérequis : [LOT-ANNEXE-17](@ref lot-annexe-17) (validation de rejeu,
+> Statut : **fait**. Prérequis : [LOT-ANNEXE-17](@ref lot-annexe-17) (validation de rejeu,
 > empreinte FNV-1a) et [LOT-ANNEXE-18](@ref lot-annexe-18) (rejeux réellement versionnés/joués en
 > jeu). Dernier lot du programme Lot-Annexe.
 
@@ -82,8 +82,8 @@ logicielle (CI), réutilisant l'algorithme de hachage déjà motivé dans
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-check-ai-replays.md) | `scripts/check_ai_replays.py` | `scripts` | ⬜ |
-| [TACHE-02](tache-02-integration-ci.md) | Intégration à la CI existante | `.github/workflows` | ⬜ |
+| [TACHE-01](tache-01-check-ai-replays.md) | `scripts/check_ai_replays.py` | `scripts` | ✅ |
+| [TACHE-02](tache-02-integration-ci.md) | Intégration à la CI existante | `.github/workflows` | ✅ |
 
 ## Critères d'acceptation du lot
 1. `python scripts/check_ai_replays.py`, exécuté depuis la racine du dépôt sur un ensemble de

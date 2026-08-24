@@ -7,6 +7,11 @@
  * `EX-IA-018`).
  */
 
+#include <cstdint>
+#include <filesystem>
+#include <fstream>
+#include <sstream>
+
 #include <gtest/gtest.h>
 
 #include "AiSolver/Replay/LevelFingerprint.h"
@@ -51,4 +56,29 @@ TEST(LevelFingerprintTest, EmpreintesDifferentesPourContenuDifferent) {
  */
 TEST(LevelFingerprintTest, ChaineVideEstUnCasLimiteValide) {
     EXPECT_EQ(aisolver::computeLevelFingerprint(""), aisolver::computeLevelFingerprint(""));
+}
+
+/**
+ * @brief L'empreinte calculee par cette implementation C++ sur un fichier de niveau reel committe
+ * correspond exactement a celle calculee par la reimplementation Python de `LOT-ANNEXE-20`
+ * (`scripts/check_ai_replays.py`, fonction `fnv1a_64`) sur le meme fichier -- valeur de reference
+ * partagee entre les deux implementations, verifiee manuellement en appelant `fnv1a_64` depuis un
+ * interprete Python sur le contenu binaire brut du meme fichier de niveau.
+ * \castest{Empreinte C++ identique a la reimplementation Python (LOT-ANNEXE-20).<br/>
+ * \tcat Unitaire · AiSolver Replay<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Lecture brute de `Source/Elements/Levels/demo-deplacement.json`.<br/>2.
+ * `computeLevelFingerprint` sur son contenu.<br/>
+ * \tattendu Le resultat vaut exactement `12567232183729497359`, la meme valeur que celle produite
+ * par `fnv1a_64` (Python) sur le meme fichier.}
+ */
+TEST(LevelFingerprintTest, EmpreinteIdentiqueALaReimplementationPythonDuGardeFouCi) {
+    std::ifstream file(std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / "demo-deplacement.json",
+                       std::ios::binary);
+    ASSERT_TRUE(file);
+    std::ostringstream contents;
+    contents << file.rdbuf();
+
+    constexpr std::uint64_t kExpectedFingerprint = 12567232183729497359ULL;
+    EXPECT_EQ(aisolver::computeLevelFingerprint(contents.str()), kExpectedFingerprint);
 }

@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**1521 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**1522 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (1408)
+## Tests unitaires (1409)
 
 ### AiSolver
 
@@ -431,15 +431,16 @@
 | **SgdTest.MiseAJourAvecInertie** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Optim/test_sgd.cpp:49`</sub> | Sgd : mise à jour avec inertie. | 1. Construire un paramètre scalaire `value = 0`, `grad = 1` constant.<br/>2. Appliquer `Sgd(0.1f, 0.9f).step({parameter})` deux fois de suite (gradient reposé à `1` entre les deux). | Vérifie que `parameter->value.at({0})` vaut `-0.1f`, à `TOLERANCE` près.<br/>Vérifie que `parameter->value.at({0})` vaut `-0.29f`, à `TOLERANCE` près. |
 | **SgdTest.SansEffetSurLesParametresNonFournis** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Optim/test_sgd.cpp:74`</sub> | Sgd : sans effet sur les paramètres non fournis. | 1. Construire deux paramètres de gradient non nul.<br/>2. Appeler `step` et `zeroGrad` sur un seul des deux. | Vérifie que `excluded->value.at({0})` vaut `5.0f`, à `TOLERANCE` près.<br/>Vérifie que `excluded->grad.at({0})` vaut `2.0f`, à `TOLERANCE` près. |
 
-#### Replay (15)
+#### Replay (16)
 
 **`test_level_fingerprint.cpp`**
 
 | Titre (criticité) | Brief | Étapes | Résultat attendu |
 |---|---|---|---|
-| **LevelFingerprintTest.EmpreintesIdentiquesPourContenuIdentique** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Replay/test_level_fingerprint.cpp:17`</sub> | Empreintes identiques pour un contenu identique. | 1. `computeLevelFingerprint` deux fois sur la meme chaine. | Vérifie que `aisolver::computeLevelFingerprint(content)` vaut `aisolver::computeLevelFingerprint(content)`. |
-| **LevelFingerprintTest.EmpreintesDifferentesPourContenuDifferent** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Replay/test_level_fingerprint.cpp:31`</sub> | Empreintes differentes pour un contenu different. | 1. `computeLevelFingerprint` sur deux chaines ne differant que d'un caractere. | Vérifie que `aisolver::computeLevelFingerprint(a)` diffère de `aisolver::computeLevelFingerprint(b)`. |
-| **LevelFingerprintTest.ChaineVideEstUnCasLimiteValide** (Mineur)<br/><sub>`Source/Test/Unit/AiSolver/Replay/test_level_fingerprint.cpp:46`</sub> | Chaine vide : cas limite valide. | 1. `computeLevelFingerprint` sur une chaine vide. | Vérifie que `aisolver::computeLevelFingerprint("")` vaut `aisolver::computeLevelFingerprint("")`. |
+| **LevelFingerprintTest.EmpreintesIdentiquesPourContenuIdentique** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Replay/test_level_fingerprint.cpp:22`</sub> | Empreintes identiques pour un contenu identique. | 1. `computeLevelFingerprint` deux fois sur la meme chaine. | Vérifie que `aisolver::computeLevelFingerprint(content)` vaut `aisolver::computeLevelFingerprint(content)`. |
+| **LevelFingerprintTest.EmpreintesDifferentesPourContenuDifferent** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Replay/test_level_fingerprint.cpp:36`</sub> | Empreintes differentes pour un contenu different. | 1. `computeLevelFingerprint` sur deux chaines ne differant que d'un caractere. | Vérifie que `aisolver::computeLevelFingerprint(a)` diffère de `aisolver::computeLevelFingerprint(b)`. |
+| **LevelFingerprintTest.ChaineVideEstUnCasLimiteValide** (Mineur)<br/><sub>`Source/Test/Unit/AiSolver/Replay/test_level_fingerprint.cpp:51`</sub> | Chaine vide : cas limite valide. | 1. `computeLevelFingerprint` sur une chaine vide. | Vérifie que `aisolver::computeLevelFingerprint("")` vaut `aisolver::computeLevelFingerprint("")`. |
+| **LevelFingerprintTest.EmpreinteIdentiqueALaReimplementationPythonDuGardeFouCi** (Bloquant)<br/><sub>`Source/Test/Unit/AiSolver/Replay/test_level_fingerprint.cpp:68`</sub> | Empreinte C++ identique a la reimplementation Python (LOT-ANNEXE-20). | 1. Lecture brute de `Source/Elements/Levels/demo-deplacement.json`.<br/>2. `computeLevelFingerprint` sur son contenu. | Vérifie que `file` est vrai.<br/>Vérifie que `aisolver::computeLevelFingerprint(contents.str())` vaut `kExpectedFingerprint`. |
 
 **`test_replay_file.cpp`**
 

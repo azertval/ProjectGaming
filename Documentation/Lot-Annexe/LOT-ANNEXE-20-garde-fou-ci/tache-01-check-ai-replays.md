@@ -1,6 +1,6 @@
 # TACHE-01 — scripts/check_ai_replays.py {#lot-annexe-20-tache-01-check-ai-replays}
 
-**Lot :** [LOT-ANNEXE-20](epic.md) · **Emplacement :** `scripts` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-20](epic.md) · **Emplacement :** `scripts` · **Statut :** fait
 
 ## Contexte
 `LOT-ANNEXE-17` valide un rejeu à la lecture, en C++, au moment où le jeu (ou la CLI) le charge —

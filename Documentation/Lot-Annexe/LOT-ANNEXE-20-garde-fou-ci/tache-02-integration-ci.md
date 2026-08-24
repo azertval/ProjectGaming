@@ -1,6 +1,6 @@
 # TACHE-02 — Intégration à la CI existante {#lot-annexe-20-tache-02-integration-ci}
 
-**Lot :** [LOT-ANNEXE-20](epic.md) · **Emplacement :** `.github/workflows` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-20](epic.md) · **Emplacement :** `.github/workflows` · **Statut :** fait
 
 ## Contexte
 `scripts/check_ai_replays.py` (TACHE-01) existe et fonctionne en local ; cette tâche le fait
