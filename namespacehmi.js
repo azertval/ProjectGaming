@@ -1,5 +1,8 @@
 var namespacehmi =
 [
+    [ "EvaluationOutcome", "structhmi_1_1EvaluationOutcome.html", "structhmi_1_1EvaluationOutcome" ],
+    [ "TrainingRequest", "structhmi_1_1TrainingRequest.html", "structhmi_1_1TrainingRequest" ],
+    [ "TrainingWorker", "classhmi_1_1TrainingWorker.html", "classhmi_1_1TrainingWorker" ],
     [ "AudioEngine", "classhmi_1_1AudioEngine.html", "classhmi_1_1AudioEngine" ],
     [ "SoundCatalog", "classhmi_1_1SoundCatalog.html", "classhmi_1_1SoundCatalog" ],
     [ "SoundCatalogResult", "structhmi_1_1SoundCatalogResult.html", "structhmi_1_1SoundCatalogResult" ],
@@ -63,6 +66,7 @@ var namespacehmi =
     [ "GameViewport", "classhmi_1_1GameViewport.html", "classhmi_1_1GameViewport" ],
     [ "LevelRunStats", "structhmi_1_1LevelRunStats.html", "structhmi_1_1LevelRunStats" ],
     [ "Progression", "classhmi_1_1Progression.html", "classhmi_1_1Progression" ],
+    [ "ReplayPlayback", "classhmi_1_1ReplayPlayback.html", "classhmi_1_1ReplayPlayback" ],
     [ "AnimationDescription", "structhmi_1_1AnimationDescription.html", "structhmi_1_1AnimationDescription" ],
     [ "AnimationDescriptionResult", "structhmi_1_1AnimationDescriptionResult.html", "structhmi_1_1AnimationDescriptionResult" ],
     [ "AnimationCatalog", "classhmi_1_1AnimationCatalog.html", "classhmi_1_1AnimationCatalog" ],
@@ -127,6 +131,7 @@ var namespacehmi =
     [ "InputState", "classhmi_1_1InputState.html", "classhmi_1_1InputState" ],
     [ "EditorActionSpec", "structhmi_1_1EditorActionSpec.html", "structhmi_1_1EditorActionSpec" ],
     [ "KeyBindingIconEntry", "structhmi_1_1KeyBindingIconEntry.html", "structhmi_1_1KeyBindingIconEntry" ],
+    [ "AiModeScreen", "classhmi_1_1AiModeScreen.html", "classhmi_1_1AiModeScreen" ],
     [ "CreditsScreen", "classhmi_1_1CreditsScreen.html", "classhmi_1_1CreditsScreen" ],
     [ "DesignColor", "structhmi_1_1DesignColor.html", "structhmi_1_1DesignColor" ],
     [ "ColorTokens", "structhmi_1_1ColorTokens.html", "structhmi_1_1ColorTokens" ],
@@ -494,7 +499,9 @@ var namespacehmi =
       [ "CloseLevelSelect", "namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90ab8d67e3fbaeb7b592150799fe3c63921", null ],
       [ "LevelChosen", "namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90acf7b8208a0c2708351e67f4ac50d96d5", null ],
       [ "OpenCredits", "namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a2a1540e25ac6f65503d2539901c3eb7c", null ],
-      [ "CloseCredits", "namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a64b9ec7c728085981f7746660948ed17", null ]
+      [ "CloseCredits", "namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a64b9ec7c728085981f7746660948ed17", null ],
+      [ "OpenAiMode", "namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90ad2f34896611927168c4d068f53974225", null ],
+      [ "CloseAiMode", "namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90a6ff5644bb8b3e7c7beb79427062dc1cd", null ]
     ] ],
     [ "ScreenId", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528d", [
       [ "Menu", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911", null ],
@@ -504,7 +511,8 @@ var namespacehmi =
       [ "Pause", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da105b296a83f9c105355403f3332af50f", null ],
       [ "NiveauTermine", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da5a916597759e7c491e7d0567658bbb21", null ],
       [ "LevelSelect", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528daab6c96d1fa3464b353f8da4213d53569", null ],
-      [ "Credits", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51", null ]
+      [ "Credits", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51", null ],
+      [ "AiMode", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da1af7f4ce6abc06f9091acece8303cde9", null ]
     ] ],
     [ "SkinCatalogError", "namespacehmi.html#ae064c48cb814db754a1228bda7b8d77d", [
       [ "None", "namespacehmi.html#ae064c48cb814db754a1228bda7b8d77da6adf97f83acf6453d4a6a4b1070f3754", null ],
@@ -616,6 +624,7 @@ var namespacehmi =
     [ "endPathGesture", "namespacehmi.html#ad328cc852695bf64550233a5aca951ce", null ],
     [ "eraseLine", "namespacehmi.html#a2085949801371f7bfb91d94f2dd2ac18", null ],
     [ "erasePixel", "namespacehmi.html#af51c0f2ec41091ef3e6e9c031098db4b", null ],
+    [ "evaluateModel", "namespacehmi.html#a9d273e253c37f6033ab963e74c20aee3", null ],
     [ "executableDirectory", "namespacehmi.html#a18648161d8a6c752202b6034613a947b", null ],
     [ "extractPalette", "namespacehmi.html#a7ba85f23cf2dc7ce24be072c8ae4bc97", null ],
     [ "findSkinCatalogReferences", "namespacehmi.html#ab28a0db7bcd8252c1df7c0f37443e0f2", null ],

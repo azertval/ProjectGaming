@@ -94,13 +94,13 @@ $(function(){initNavTree('lot-54-tache-03-canevas.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-54-atelier-pixel-art_2tache-03-canevas"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-54.html#md_Lot_2LOT-54-atelier-pixel-art_2epic" title="Lot/LOT-54-atelier-pixel-art/epic.md">LOT-54</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2433"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2547"></a>
 Contexte</h1>
 <p>Le widget qui montre l'image en cours d'édition et transforme les gestes de souris en appels aux opérations de la TACHE-02. Tout repose sur des primitives déjà présentes : Qt Widgets depuis le <span class="tt">LOT-34</span>, <span class="tt">QImage</span> et <span class="tt">QPainter</span>.</p>
 <p>Deux contraintes viennent de <a class="el" href="lot-56.html" title="LOT-56 — Système de design de l&#39;IHM Qt">LOT-56</a> et changent la nature de cette tâche par rapport au cadrage initial du lot.</p>
 <p>La première est la <b>netteté</b>. Le canevas est une surface de pixel art agrandie au plus proche voisin — exactement le sujet de la TACHE-05 de LOT-56, qui corrige les trois chemins de vignettes produisant leurs images en pixels <b>logiques</b> et donc interpolées à 125 % ou 150 % d'échelle d'affichage. Écrire ici un quatrième chemin ignorant <span class="tt">devicePixelRatio</span> reproduirait le défaut le jour même où il vient d'être corrigé, et sur le widget où il serait le plus visible : un éditeur de pixels dont les pixels sont flous.</p>
 <p>La seconde est la <b>provenance des couleurs</b>. La grille, le damier de transparence, le fond et les poignées de sélection sont des choix de couleur ; LOT-56 a fait des jetons la source unique de ces grandeurs, et son critère d'acceptation interdit qu'une constante de style subsiste dans le code d'un widget.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2434"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2548"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Canevas</b> (<span class="tt">QWidget</span>) affichant une <span class="tt">QImage</span> en cours d'édition, à un zoom <b>entier</b>, avec une grille de pixels visible au-delà d'un certain facteur et un <b>damier de transparence</b> sous les zones à alpha nul.</li>
@@ -112,7 +112,7 @@ Travail à réaliser</h1>
 <li><b>Conversion position de souris → pixel de l'image</b>, exposée en fonction <b>pure</b> : c'est elle qui détermine le pixel survolé affiché dans la barre d'état (TACHE-04), et elle doit rester juste à tout zoom, à tout décalage de vue et à toute échelle d'affichage.</li>
 <li><b>Regroupement des gestes</b> : appui, glisser, relâchement produisent <b>une</b> opération d'historique (TACHE-02), pas une par déplacement de souris.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2435"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2549"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/PixelCanvas.{h,cpp}</span> (nouveau) — widget.</li>
@@ -120,7 +120,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="DesignTokens_8h.html" title="Jetons de design de l&#39;IHM Qt (LOT-56, EX-IHM-050, EX-IHM-051) : source unique des couleurs,...">Source/HMI/Interface/DesignTokens.h</a></span> (créé en <span class="tt">LOT-56</span>) — jetons de la surface de peinture.</li>
 <li><span class="tt"><a class="el" href="test__pixel__canvas__geometry_8cpp.html" title="Tests unitaires des conversions pures vue ↔ image du canevas pixel art (LOT-54 TACHE-03,...">Source/Test/Unit/HMI/Editor/test_pixel_canvas_geometry.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2436"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2550"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Conversion vue → image</b> : pour une combinaison de zoom, de décalage de vue et de facteur d'échelle d'affichage, la position de souris donne le bon pixel ; une position hors de l'image produit une absence de pixel, pas un indice tronqué au bord.</li>
@@ -130,7 +130,7 @@ Tests (obligatoires)</h1>
 <li><b>Aucune couleur en dur</b> : le widget n'expose aucune constante de style ; ses couleurs proviennent des jetons.</li>
 <li>Conversions <b>pures</b>, testées sans Qt ni GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2437"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2551"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Déclarer le facteur d'échelle sans agrandir l'image produit un canevas deux fois trop petit ; agrandir sans déclarer le facteur produit un canevas flou.</b> Les deux gestes vont ensemble — c'est le piège relevé par la TACHE-05 de LOT-56, et il s'applique identiquement ici.</li>
@@ -138,12 +138,12 @@ Points d'attention</h1>
 <li>Le damier de transparence est dessiné dans l'espace de l'<b>écran</b>, pas dans celui de l'image : sinon il se met à zoomer avec le dessin et devient illisible aux forts facteurs.</li>
 <li>Ne pas dupliquer la logique d'entrée du canevas de niveau : ce sont deux surfaces distinctes, mais la convention de déplacement de vue et de zoom doit rester la même pour l'utilisateur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2438"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2552"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Le canevas affiche une image à zoom entier avec grille et damier, se déplace et zoome ; il reste net aux échelles d'affichage 100 %, 125 % et 150 % ; sa surface de peinture est identique en thème clair et sombre ; toutes ses couleurs viennent des jetons ; les conversions sont pures et testées ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2439"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2553"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-045</span> (outil de dessin pixel art) ; réutilise <span class="tt">EX-EDIT-013</span> (déplacement et zoom), <span class="tt">EX-IHM-051</span> (source unique des grandeurs), <span class="tt">EX-IHM-053</span> (netteté à toute échelle d'affichage), <span class="tt">EX-IHM-050</span> (thème en deux portées), <span class="tt">EX-ARCH-022</span> (pixel art net), <span class="tt">EX-NFR-010</span> (testable sans GPU). </p>
 </div></div><!-- contents -->

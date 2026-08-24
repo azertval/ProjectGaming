@@ -94,7 +94,7 @@ $(function(){initNavTree('lot-65-tache-06-croisements-mecaniques.html','',''); }
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-65-refonte-niveaux-demo_2tache-06-croisements-mecaniques"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-65.html#md_Lot_2LOT-65-refonte-niveaux-demo_2epic" title="Lot/LOT-65-refonte-niveaux-demo/epic.md">LOT-65</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Gameplay</span>, <span class="tt">Source/Test/Integration</span>, <span class="tt">Documentation/Specification</span> · <b>Statut :</b> en cours</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2987"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3101"></a>
 Contexte</h1>
 <p>La revue qui a motivé la <span class="tt">TACHE-05</span> a mis au jour un trou plus large que la couverture des mécaniques <b>isolées</b> : la suite de tests couvre chaque mécanique <b>seule</b> de façon dense (<span class="tt"><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">test_physique_personnage.cpp</a></span> en compte 75) et presque <b>aucun croisement</b>.</p>
 <p>Deux situations distinctes, à ne pas confondre :</p>
@@ -105,15 +105,15 @@ Contexte</h1>
 <li><b>Un bloc ne peut pas presser une plaque de pression.</b> <span class="tt">core::MechanismController::update(playerBox, playerMass, interactPressed)</span> ne reçoit que la boîte du <b>joueur</b>, alors que <span class="tt">EX-GP-025</span> parle d'un « poids suffisant » et que le contrôleur porte déjà un seuil <span class="tt">MIN_TRIGGER_MASS</span>. L'idiome de puzzle le plus classique du genre — poser un poids pour tenir une porte ouverte et partir — est hors d'atteinte, ce qui appauvrit sévèrement les tableaux de synthèse à venir.</li>
 </ol>
 <p>Ces deux points sortent du cadrage « ce lot n'ajoute rien au moteur ». C'est un assouplissement <b>délibéré et borné</b> : sans eux, ni l'énigme du tableau final ni la refonte de <span class="tt">demo-plaque-pression</span> ne tiennent debout. Les deux corrections sont livrées <b>avant</b> tout contenu, sinon les tableaux s'appuieraient de nouveau sur un comportement accidentel.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2988"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3102"></a>
 Travail à réaliser</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2989"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3103"></a>
 Corrections moteur</h2>
 <ul>
 <li><b>Porte écrasante mortelle.</b> Quand une porte redevient solide sur la case occupée par le personnage, poser <span class="tt"><a class="el" href="structcore_1_1Player.html#a39d12f09a2ae70d648ec96c5ec094d51" title="Vrai pendant le pas où le personnage a été écrasé par une plateforme mobile contre un plafond (EX-GP-...">core::Player::squished</a></span>. Toute l'infrastructure aval existe déjà : <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> et <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span> traduisent tous deux <span class="tt">squished</span> en boîte de danger supplémentaire pour <span class="tt"><a class="el" href="namespacecore.html#a23087f4f32dfa24ad53d7a9811ae351d" title="Détermine l&#39;issue du niveau à partir de la boîte du personnage.">core::evaluateOutcome</a></span>. Déclarer l'exigence côté <span class="tt"><a class="el" href="gameplay_8md.html">gameplay.md</a></span>.</li>
 <li><b>Bloc activant une plaque.</b> <span class="tt"><a class="el" href="classcore_1_1MechanismController.html#ae58f158d3609cc2c267ce0f77e62d7a5" title="Met à jour les mécanismes pour un pas : bascule les interrupteurs touchés (front),...">core::MechanismController::update</a></span> accepte les boîtes des blocs en plus de celle du joueur, chacune avec sa masse comparée au seuil <span class="tt">MIN_TRIGGER_MASS</span> existant. Les appelants disposent déjà des boîtes via <span class="tt"><a class="el" href="classcore_1_1BlockController.html#ace9150fb416f7dae1e95b6eb1b7225fe">core::BlockController::boxAt</a></span>. Actualiser <span class="tt">EX-GP-025</span>, dont la formule « poids suffisant » cesse d'être sans objet.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2990"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3104"></a>
 Batterie de tests de croisement</h2>
 <p>Un module d'intégration dédié, <b>indépendant du contenu</b> (géométrie construite en mémoire, pas de fichier de niveau) :</p>
 <table class="markdownTable">
@@ -138,7 +138,7 @@ Batterie de tests de croisement</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Deux déclencheurs (interrupteur <b>et</b> plaque) sur la même porte  </td><td class="markdownTableBodyNone">Non testé ; la validation du chargeur n'en dit rien.  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2991"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3105"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Core/Gameplay/MechanismController.{h,cpp}</span> — écrasement par porte, boîtes des blocs.</li>
@@ -147,7 +147,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="test__mechanism__controller_8cpp.html" title="Tests unitaires des mécanismes interrupteur↔porte (MechanismController).">Source/Test/Unit/Core/Gameplay/test_mechanism_controller.cpp</a></span> — bloc sur plaque, porte écrasante.</li>
 <li><span class="tt"><a class="el" href="gameplay_8md.html">Documentation/Specification/gameplay.md</a></span> — <span class="tt">EX-GP-021</span>, <span class="tt">EX-GP-025</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2992"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3106"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Chaque croisement du tableau ci-dessus a <b>son</b> test, avec son bloc <span class="tt">\castest{}</span> écrit en même temps que lui.</li>
@@ -156,7 +156,7 @@ Tests (obligatoires)</h1>
 <li>Un bloc de masse insuffisante ne déclenche pas la plaque (symétrique de <span class="tt">PlaqueDePressionPoidsInsuffisant</span>).</li>
 <li><span class="tt">/W4 /WX</span> propre ; tests <span class="tt">Core</span> sans GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2993"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3107"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas élargir la correction au-delà du besoin.</b> L'objectif n'est pas de généraliser les déclencheurs à toute entité, mais d'ajouter les blocs, dont la masse est déjà une donnée.</li>
@@ -164,18 +164,18 @@ Points d'attention</h1>
 <li><b>Un test de croisement qui passe du premier coup n'est pas une perte</b> : il fige un comportement jusque-là non spécifié. Un test qui échoue révèle un défaut à consigner — pas nécessairement à corriger dans ce lot.</li>
 <li>L'ordre de résolution dans le pas fixe (plateformes, puis blocs, puis physique, puis mécanismes) est déjà documenté et reproduit à l'identique par le test système : ne pas le réinventer.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2994"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3108"></a>
 Résultat constaté</h1>
 <p>Douze croisements livrés ; <b>onze figent un comportement correct</b>, <b>un révèle un défaut</b>.</p>
 <p><b>Défaut trouvé — une pente franchissable à la marche ne l'est pas au dash.</b> Sur la silhouette exacte des tableaux de pente livrés (pente à 45° suivie d'un palier plein), un personnage qui dashe se fige au sommet : il bute contre la colonne pleine du palier avec les pieds encore 0,15 case trop bas. Le test le <b>caractérise</b> plutôt que de le corriger — conformément au cadrage du lot — et vérifie d'abord que la même géométrie se franchit à la marche, faute de quoi on ne saurait pas s'il mesure un défaut ou une géométrie mal choisie. Consigné au <span class="tt">CHANGELOG</span>. <b>Conséquence pour <span class="tt">TACHE-07</span>/<span class="tt">TACHE-08</span> : aucun tableau ne rend un dash obligatoire dans une montée de pente vers un palier.</b></p>
 <p><b>Comportements figés au passage</b>, jusque-là non spécifiés : un dash n'est jamais arrêté par une plaque (elle s'active malgré la brièveté du contact) ; un bloc poussé sur un danger ne le neutralise pas ; une plateforme mobile n'est jamais retenue par une porte fermée (sa position est une fonction du numéro de pas, pas le résultat d'une collision) ; deux déclencheurs liés à une même porte coexistent sans que le contrôleur ne se contredise.</p>
 <p><b>Les deux corrections moteur sont validées de bout en bout</b> : un bloc posé sur une plaque tient la porte ouverte <b>après</b> le départ du personnage, un bloc réduit reste trop léger pour l'enfoncer, et une porte qui se referme sur le personnage provoque l'échec au lieu de l'encastrer.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2995"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3109"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les deux corrections moteur sont livrées, spécifiées et testées ; la batterie de croisements couvre les dix combinaisons listées ; chaque test porte son <span class="tt">\castest{}</span> ; tout défaut découvert et non corrigé est consigné au <span class="tt">CHANGELOG</span> avec sa reproduction ; <span class="tt">/W4 /WX</span> propre, <span class="tt">ctest</span> vert.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2996"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3110"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-021</span> (porte liée à un interrupteur — écrasement), <span class="tt">EX-GP-025</span> (plaque de pression, poids suffisant) ; réutilise <span class="tt">EX-GP-022</span> (bloc poussable), <span class="tt">EX-GP-026</span> (plateforme mobile), <span class="tt">EX-GP-017</span> (dash), <span class="tt">EX-GP-003</span>/<span class="tt">EX-GP-004</span>/<span class="tt">EX-GP-006</span>/<span class="tt">EX-GP-007</span> (pentes et arrondis), <span class="tt">EX-NFR-020</span> (tests), <span class="tt">EX-NFR-010</span> (<span class="tt">Core</span> sans GPU). </p>
 </div></div><!-- contents -->

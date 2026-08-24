@@ -94,14 +94,14 @@ $(function(){initNavTree('lot-69-tache-10-contenu-documentation.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-69-plans-picturaux_2tache-10-contenu-documentation"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-69.html#md_Lot_2LOT-69-plans-picturaux_2epic" title="Lot/LOT-69-plans-picturaux/epic.md">LOT-69</a> · <b>Emplacement :</b> <span class="tt">Source/Elements/Levels</span>, <span class="tt">Documentation</span> · <b>Statut :</b> livré</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3205"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3319"></a>
 Contexte</h1>
 <blockquote class="doxtable">
 <p><b>Correction en cours de tâche.</b> Le cadrage annonçait <span class="tt">demo-final.json</span> comme <b>seul</b> niveau porteur de décors. C'est faux : <b>les vingt-deux</b> niveaux livrés en portent (soixante-deux entrées au total, refondues au <span class="tt">LOT-65</span>), <span class="tt">demo-final</span> étant simplement le plus fourni avec sept. Le report vaut donc pour tous, et la migration a été étendue en conséquence — laisser vingt et un tableaux se dépouiller silencieusement de leur habillage aurait été la régression que ce lot existe pour éviter. </p>
 </blockquote>
 <p>Il faut préserver leur intention visuelle sans prétendre à une conversion mécanique : un assemblage de sprites ne devient pas une fresque peinte par transformation automatique.</p>
 <p>Le volet référentiel est contraint par <span class="tt">scripts/lint_exigences.py</span> : chaque exigence déclarée <b>exactement une fois</b>, aucune référence orpheline, et toute exigence déclarée référencée quelque part.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3206"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3320"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Migrer les vingt-deux niveaux</b> : retirer <span class="tt">decors</span>, déclarer un <b>fond</b> à densité 8 et — pour les seuls niveaux qui portaient des décors de premier plan — un <b>plan de devant</b> à densité native. Livrer partout un plan de devant presque vide coûterait une texture pleine taille et une passe de rendu par image (<span class="tt">TACHE-09</span>) pour ne rien montrer.</li>
@@ -115,23 +115,23 @@ Travail à réaliser</h1>
 <li><span class="tt">CHANGELOG.md</span> sous <span class="tt">[Non publié]</span> : compléter la section du lot, en mentionnant explicitement le <b>retrait</b> du système de décors et l'<b>inversion</b> de la décision du <span class="tt">LOT-64</span> sur la parallaxe en mode suivi — deux changements visibles qui ne doivent pas se découvrir à l'usage.</li>
 <li>Régénérer le cahier de test et relancer les quatre linters.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3207"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3321"></a>
 Fichiers impactés</h1>
 <p><span class="tt">Source/Elements/Levels/demo-*.json</span>, <span class="tt">Source/Elements/Levels/Plans/*</span> (nouveaux), <span class="tt">scripts/generate_demo_plans.py</span> et <span class="tt">scripts/motifs/*</span> (nouveaux), <span class="tt">Source/Elements/Assets/{Decors/*, CREDITS.md, README.md}</span>, <span class="tt">Documentation/Specification/*</span>, <span class="tt">Documentation/Guide/*</span>, <span class="tt"><a class="el" href="lots_8md.html">Documentation/Lot/lots.md</a></span>, <span class="tt">Documentation/Lot/LOT-69-plans-picturaux/*</span>, <span class="tt">CHANGELOG.md</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3208"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3322"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span> / <span class="tt"><a class="el" href="test__couverture__mecaniques_8cpp.html" title="Garde-fou de couverture des mécaniques par le contenu livré (EX-LVL-015, LOT-65 TACHE-01).">test_couverture_mecaniques.cpp</a></span> : les niveaux livrés chargent et se jouent inchangés — la migration ne touche que l'habillage.</li>
 <li><span class="tt"><a class="el" href="test__plans__livres_8cpp.html" title="Tests système du contenu livré côté plans picturaux : plus aucun décor dans les niveaux,...">test_plans_livres.cpp</a></span> (nouveau) : <b>aucun niveau du dépôt ne contient <span class="tt">decors</span></b>, et <b>tout plan référencé existe aux dimensions attendues</b> pour sa densité. Le contrôle porte sur les fichiers du dépôt : ni <span class="tt">Core</span> (qui ne vérifie pas l'existence, <span class="tt">EX-NFR-011</span>) ni <span class="tt">HMI</span> (qui replie sur un damier, <span class="tt">EX-NFR-040</span>) ne signaleraient un plan manquant.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3209"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3323"></a>
 Points d'attention</h1>
 <p>La stratégie « exigences retirées » doit être <b>validée en exécutant le lint</b>, pas supposée : c'est le point où le volet documentaire peut casser silencieusement. Elle est préférable à un ajout dans la liste d'exceptions du linter, dont le contrat documenté ne couvre que les invariants transverses et le post-MVP — l'élargir à « retirée » modifierait ce contrat pour rien.</p>
 <p>Générer les plans par script plutôt que commiter des images dessinées est un choix de <b>reproductibilité</b>, dans la ligne du <span class="tt">LOT-66</span>. Il a une limite à assumer : le résultat est un report fidèle de l'ancien habillage, pas un décor peint qui exploiterait vraiment sept plans. Ce dernier est un acte de <em>level design</em>, hors de ce lot d'outillage.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3210"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3324"></a>
 Definition de fait (DoD)</h1>
 <p>Aucun niveau ne porte plus de décors, tous les plans référencés existent, les quatre linters passent, le cahier de test est régénéré, les statuts sont figés. <span class="tt">ctest</span> à 100 %.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3211"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3325"></a>
 Exigences</h1>
 <p><span class="tt">EX-LVL-009</span>, <span class="tt">EX-LVL-012</span>, <span class="tt">EX-LVL-013</span>, <span class="tt">EX-DEC-040</span>, <span class="tt">EX-DEC-032</span>, <span class="tt">EX-NFR-031</span>. </p>
 </div></div><!-- contents -->

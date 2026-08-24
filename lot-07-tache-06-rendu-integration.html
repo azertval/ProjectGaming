@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-07-tache-06-rendu-integration.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-07-niveaux_2tache-06-rendu-integration"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-07.html#md_Lot_2LOT-07-niveaux_2epic" title="Lot/LOT-07-niveaux/epic.md">LOT-07</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Interface</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md717"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md831"></a>
 Contexte</h1>
 <p>Tâche d'assemblage : donner à voir le niveau chargé. Le <span class="tt">GameScreen</span> (LOT-06) construit aujourd'hui une scène codée en dur ; il doit désormais <b>charger le niveau de démonstration</b> (TACHE-05) et <b>afficher sa grille de tuiles</b> (<span class="tt">EX-REN-010</span>), en lecture seule de l'ECS (<span class="tt">EX-ARCH-012</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md718"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md832"></a>
 Travail à réaliser</h1>
 <ul>
 <li><span class="tt">GameScreen</span> : au lieu de <span class="tt">buildDemoScene</span>, <b>charger</b> le niveau via <span class="tt">LevelLoader</span> (chemin relatif au binaire, cf. TACHE-05) et <b>peupler le <span class="tt">World</span></b> d'une <b>entité-tuile par tuile</b> non vide : <span class="tt">Transform</span> (position <span class="tt">[colonne, ligne]</span> en unités monde) + <span class="tt">Sprite</span> (région d'atlas / couleur selon le <span class="tt">TileType</span>).</li>
@@ -105,32 +105,32 @@ Travail à réaliser</h1>
 <li><b>Échec de chargement récupérable</b> : si le niveau est introuvable/invalide, ne pas planter — journaliser l'erreur et afficher un état neutre (ex. message), <span class="tt">EX-NFR-040</span>.</li>
 <li>« Charger niveau » (menu) ouvre ce <span class="tt">GameScreen</span> ; <b>Échap</b> revient au menu (inchangé).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md719"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md833"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/GameScreen.h</span>/<span class="tt">.cpp</span>.</li>
 <li>Éventuel utilitaire de correspondance <span class="tt">TileType</span> → région d'atlas (dans <span class="tt">HMI</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md720"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md834"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li><b>« Charger niveau »</b> ouvre le niveau de démo et <b>sa grille s'affiche</b> (tuiles solides, danger, entrée, sortie, interrupteur/porte visibles) ; Échap revient au menu.</li>
 <li>Un niveau <b>invalide/introuvable</b> ne fait <b>pas planter</b> l'application (erreur journalisée).</li>
 <li>Vérification <b>visuelle</b> de bout en bout (lancer l'exécutable), pas seulement la compilation.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md721"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md835"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Réutiliser</b> le <span class="tt">SpriteRenderer</span>/<span class="tt">SpriteBatch</span>/<span class="tt">Camera2D</span> du LOT-05 : le niveau est rendu comme des sprites, sans nouveau pipeline. Lecture seule de l'ECS (<span class="tt">EX-ARCH-012</span>).</li>
 <li>La grille peut être grande : peupler les entités <b>au chargement</b> de l'écran (une fois), pas à chaque frame.</li>
 <li>Pas de <b>déplacement</b> ni de <b>collision</b> ici : uniquement l'affichage du niveau (le gameplay est un lot ultérieur).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md722"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md836"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>« Charger niveau » ouvre le niveau chargé, la grille s'affiche, échec de chargement géré ; build <span class="tt">/W4 /WX</span>, CI verte, Doxygen et <span class="tt">CHANGELOG.md</span> à jour ; tous les critères d'acceptation de l'<a class="el" href="lot-07.html#md_Lot_2LOT-07-niveaux_2epic" title="Lot/LOT-07-niveaux/epic.md">epic</a> satisfaits.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md723"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md837"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-010</span>, <span class="tt">EX-GP-001</span>, <span class="tt">EX-ARCH-012</span>, <span class="tt">EX-NFR-040</span>. </p>
 </div></div><!-- contents -->

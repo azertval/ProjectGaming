@@ -2,6 +2,8 @@ var dir_c537f82b8f955c3b1ce6a355f8c4c1be =
 [
     [ "ActionCatalog.cpp", "ActionCatalog_8cpp.html", "ActionCatalog_8cpp" ],
     [ "ActionCatalog.h", "ActionCatalog_8h.html", "ActionCatalog_8h" ],
+    [ "AiModeScreen.cpp", "AiModeScreen_8cpp.html", null ],
+    [ "AiModeScreen.h", "AiModeScreen_8h.html", "AiModeScreen_8h" ],
     [ "ApplicationTheme.cpp", "ApplicationTheme_8cpp.html", "ApplicationTheme_8cpp" ],
     [ "ApplicationTheme.h", "ApplicationTheme_8h.html", "ApplicationTheme_8h" ],
     [ "CreditsScreen.cpp", "CreditsScreen_8cpp.html", null ],

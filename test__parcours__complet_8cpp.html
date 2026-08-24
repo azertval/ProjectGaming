@@ -103,6 +103,7 @@ $(function(){initNavTree('test__parcours__complet_8cpp.html','',''); });
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="HeadlessLevelEnvironment_8h_source.html">AiSolver/Env/HeadlessLevelEnvironment.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Collider_8h_source.html">Core/Ecs/Components/Collider.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Player_8h_source.html">Core/Ecs/Components/Player.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Transform_8h_source.html">Core/Ecs/Components/Transform.h</a>&quot;</code><br />
@@ -135,6 +136,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a7e251419bd61b6ba994380d9e1ec3022"><td class="mdescLeft">&#160;</td><td class="mdescRight">Garde-fou anti-couloir (<span class="tt">LOT-65</span> TACHE-05) : aucun tableau de la séquence livrée ne se franchit en maintenant simplement « droite ».  <br /></td></tr>
 <tr class="memitem:af649cead3218362649d99f2280f46c23" id="r_af649cead3218362649d99f2280f46c23"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af649cead3218362649d99f2280f46c23">TEST</a> (ParcoursCompletSysteme, GardeFouDeProximiteSignaleUneMecaniqueHorsDePortee)</td></tr>
 <tr class="memdesc:af649cead3218362649d99f2280f46c23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test négatif du garde-fou de proximité : une tuile posée au-delà de la portée d'un saut au-dessus du trajet est signalée, alors que la même tuile posée sur le trajet ne l'est pas — démontre la sensibilité du contrôle sans dépendre d'aucun fichier de niveau réel.  <br /></td></tr>
+<tr class="memitem:a6a151e6b510d76de4bfd5c6c1acb6d63" id="r_a6a151e6b510d76de4bfd5c6c1acb6d63"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6a151e6b510d76de4bfd5c6c1acb6d63">TEST</a> (ParcoursCompletSystemeHeadlessEnvironment, FideliteParPas)</td></tr>
+<tr class="memdesc:a6a151e6b510d76de4bfd5c6c1acb6d63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Garde de fidélité pas-à-pas (<span class="tt">LOT-ANNEXE-05</span> TACHE-05) : chaque niveau de la séquence est rejoué EN PARALLÈLE par l'orchestration de référence (identique à <span class="tt">playLevelTraced</span>) et par <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">aisolver::HeadlessLevelEnvironment::step</a></span>, avec exactement le même <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span> à chaque pas — la comparaison porte sur la position, la vitesse et l'issue à CHAQUE pas, pas seulement sur l'issue finale (à la différence de <span class="tt">ParcoursCompletSysteme.FranchitTouteLaSequence</span>), pour détecter une trajectoire divergente qui atteindrait malgré tout la même issue par compensation d'erreurs.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »), sur les fichiers livrés, sans la couche GPU. </p>
@@ -142,7 +145,7 @@ Functions</h2></td></tr>
 <p>Cette liste <b>doit</b> rester identique, dans le même ordre, à celle jouée par <span class="tt"><a class="el" href="MainWindow_8cpp.html">Source/HMI/Interface/MainWindow.cpp</a></span> (<span class="tt">MainWindow::startGame</span>) — un décalage entre les deux (un niveau chargé en jeu mais absent d'ici, ou l'inverse) est précisément le défaut qui a déclenché <span class="tt">LOT-25</span> (<span class="tt">demo5.json</span> manquait ici). <span class="tt">scripts/check_demo_sequence.py</span> (CI) compare les deux listes automatiquement. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a7e251419bd61b6ba994380d9e1ec3022" name="a7e251419bd61b6ba994380d9e1ec3022"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e251419bd61b6ba994380d9e1ec3022">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e251419bd61b6ba994380d9e1ec3022">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -172,7 +175,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af2359f723477064fe6474dea0eef51fb" name="af2359f723477064fe6474dea0eef51fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2359f723477064fe6474dea0eef51fb">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af2359f723477064fe6474dea0eef51fb">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -203,7 +206,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af649cead3218362649d99f2280f46c23" name="af649cead3218362649d99f2280f46c23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af649cead3218362649d99f2280f46c23">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af649cead3218362649d99f2280f46c23">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -229,6 +232,36 @@ Functions</h2></td></tr>
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
  <b>Resultat attendu :</b> Une tuile de mécanique posée hors de portée d'un saut au-dessus du trajet est signalée par le garde-fou de proximité ; la même tuile sur le trajet ne l'est pas. </p>
+
+</div>
+</div>
+<a id="a6a151e6b510d76de4bfd5c6c1acb6d63" name="a6a151e6b510d76de4bfd5c6c1acb6d63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a151e6b510d76de4bfd5c6c1acb6d63">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ParcoursCompletSystemeHeadlessEnvironment</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FideliteParPas</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Garde de fidélité pas-à-pas (<span class="tt">LOT-ANNEXE-05</span> TACHE-05) : chaque niveau de la séquence est rejoué EN PARALLÈLE par l'orchestration de référence (identique à <span class="tt">playLevelTraced</span>) et par <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">aisolver::HeadlessLevelEnvironment::step</a></span>, avec exactement le même <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span> à chaque pas — la comparaison porte sur la position, la vitesse et l'issue à CHAQUE pas, pas seulement sur l'issue finale (à la différence de <span class="tt">ParcoursCompletSysteme.FranchitTouteLaSequence</span>), pour détecter une trajectoire divergente qui atteindrait malgré tout la même issue par compensation d'erreurs. </p>
+<p><b>Cas de test :</b> <b>Les deux orchestrations (référence et <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span>) restent identiques pas à pas, position/vitesse/issue, sur toute la séquence livrée.</b><br  />
+ <b>Categorie :</b> Systeme · Parcours Complet<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Les deux orchestrations (référence et <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span>) restent identiques pas à pas, position/vitesse/issue, sur toute la séquence livrée. </p>
 
 </div>
 </div>

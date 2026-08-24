@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-69-tache-04-retrait-decors.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-69-plans-picturaux_2tache-04-retrait-decors"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-69.html#md_Lot_2LOT-69-plans-picturaux_2epic" title="Lot/LOT-69-plans-picturaux/epic.md">LOT-69</a> · <b>Emplacement :</b> <span class="tt">Source/{Core,HMI,Test,Elements}</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3163"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3277"></a>
 Contexte</h1>
 <p>Le cadrage a tranché un <b>remplacement net</b> : maintenir décors et plans en parallèle doublerait le format, le rendu et l'éditeur pour un système destiné à disparaître. La tâche exécute ce retrait d'un bloc, une fois le modèle de remplacement en place (<span class="tt">TACHE-03</span>) et avant que le rendu des plans n'arrive (<span class="tt">TACHE-05</span>) — de sorte que les deux systèmes ne coexistent jamais.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3164"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3278"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Supprimer</b> : <span class="tt">Source/Core/Levels/Decor.h</span> ; <span class="tt">Source/HMI/Graphics/DecorVisuals.{h,cpp}</span> ; <span class="tt">Source/HMI/Editor/{DecorGeometry,DecorGesture,DecorListModel,DecorsPanel}.{h,cpp}</span> ; <span class="tt">Source/Elements/UI/DecorsPanel.ui</span> ; le générateur d'assets de décors dans <span class="tt">scripts/</span>.</li>
@@ -107,21 +107,21 @@ Travail à réaliser</h1>
 <li><b>Conserver <span class="tt">Source/Elements/Assets/Decors/</span> jusqu'à <span class="tt">TACHE-10</span></b>, qui s'en sert comme source pour générer les plans de <span class="tt">demo-final</span> avant de le supprimer.</li>
 <li><b>Sort du champ <span class="tt">"decors"</span> dans le format</b> (déplacé depuis <span class="tt">TACHE-03</span>, voir l'écart assumé qui y est documenté) : supprimer <span class="tt">parseDecors</span> et, si le champ est présent, <b>l'ignorer en journalisant un avertissement</b> nommant le fichier — jamais un <span class="tt">LevelValidationError</span>. Un champ obsolète n'est pas une donnée <em>invalide</em> (<span class="tt">EX-LVL-004</span> vise la validité), et rejeter rendrait illisible tout niveau personnel antérieur, à rebours de l'invariant <span class="tt">EX-LVL-005</span>. <span class="tt">LevelWriter</span> cesse de l'émettre, de sorte qu'un simple charger-puis-enregistrer migre un fichier. Incrémenter <span class="tt">kLevelFormatVersion</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3165"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3279"></a>
 Fichiers impactés</h1>
 <p>Une quinzaine de fichiers supprimés, autant retouchés, répartis sur <span class="tt">Core/Levels</span>, <span class="tt">HMI/{Graphics,Editor,Game,Interface}</span>, <span class="tt">Elements/UI</span> et <span class="tt">Test</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3166"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3280"></a>
 Tests (obligatoires)</h1>
 <p>Un seul test nouveau, sur le champ obsolète : un JSON portant <span class="tt">"decors"</span> <b>charge sans erreur</b>, produit <span class="tt">planes()</span> vide, et sa réécriture ne contient plus le champ. Pour le reste, la tâche <b>retire</b> : le critère est que la suite restante passe à 100 % et que rien ne référence plus un symbole de décor. Attendre une <b>baisse temporaire</b> du nombre de cas de test, remontée par <span class="tt">TACHE-03</span> et les suivantes — et donc un cahier de test à régénérer.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3167"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3281"></a>
 Points d'attention</h1>
 <p>C'est la tâche la plus large en <b>surface</b> du lot, et la plus mécanique. Elle doit passer <b>après</b> <span class="tt">TACHE-03</span> (le modèle de remplacement existe) et <b>avant</b> <span class="tt">TACHE-05</span> (jamais deux systèmes en parallèle).</p>
 <p>Supprimer plutôt que déprécier est délibéré : le compilateur recense alors <b>tous</b> les appelants d'un coup, là où une dépréciation laisserait les deux notions cohabiter indéfiniment. Le <span class="tt">LOT-67</span> avait fait le même choix en retirant <span class="tt">endPosition</span>.</p>
 <p>La couverture (<span class="tt">COVERAGE_THRESHOLD_PERCENT</span>) peut bouger : retirer du code testé change le rapport. Vérifier qu'on reste au-dessus du seuil plutôt que de le découvrir en CI.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3168"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3282"></a>
 Definition de fait (DoD)</h1>
 <p>Aucun symbole <span class="tt">Decor</span> ne subsiste hors des documents de lots livrés et du <span class="tt">CHANGELOG</span>. <span class="tt">ctest</span> à 100 %, couverture au-dessus du seuil, cahier de test régénéré.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3169"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3283"></a>
 Exigences</h1>
 <p><span class="tt">EX-DEC-001</span>, <span class="tt">EX-DEC-002</span>, <span class="tt">EX-DEC-004</span>, <span class="tt">EX-DEC-005</span>, <span class="tt">EX-DEC-010</span>, <span class="tt">EX-DEC-020</span>, <span class="tt">EX-DEC-021</span> (retirées — voir la section « Exigences retirées » de <a class="el" href="spec-decors.html" title="Plans picturaux &amp; pipeline pixel art"><span class="tt">decors.md</span></a>). </p>
 </div></div><!-- contents -->

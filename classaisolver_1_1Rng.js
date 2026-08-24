@@ -4,5 +4,6 @@ var classaisolver_1_1Rng =
     [ "nextFloat", "classaisolver_1_1Rng.html#a35450493bcc3fe1ab92faf1de3dc5e99", null ],
     [ "nextFloat", "classaisolver_1_1Rng.html#a5224b3019ca03decd0a1f2eb8f38335c", null ],
     [ "nextGaussian", "classaisolver_1_1Rng.html#ac018c3c4ba800358b718e25f7a5d6cd5", null ],
-    [ "nextInt", "classaisolver_1_1Rng.html#ac3e2915343e5639433ee3e6d69fe9fdf", null ]
+    [ "nextInt", "classaisolver_1_1Rng.html#ac3e2915343e5639433ee3e6d69fe9fdf", null ],
+    [ "_engine", "classaisolver_1_1Rng.html#a34db3dc203b61d458ab13eceb0869ee4", null ]
 ];

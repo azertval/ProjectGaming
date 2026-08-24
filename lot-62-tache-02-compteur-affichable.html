@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-62-tache-02-compteur-affichable.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-62-budget-rendu-mesure_2tache-02-compteur-affichable"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-62.html#md_Lot_2LOT-62-budget-rendu-mesure_2epic" title="Lot/LOT-62-budget-rendu-mesure/epic.md">LOT-62</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Game</span>, <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2821"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2935"></a>
 Contexte</h1>
 <p><span class="tt">EX-NFR-001</span> demande 60 images par seconde. Personne ne sait si elle est tenue : rien ne mesure la cadence, rien ne l'affiche. Le seul indice disponible est une trace de <span class="tt"><a class="el" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par calque puis par texture.">hmi::SpriteRenderer</a></span>, émise uniquement quand les statistiques changent, et illisible en cours de partie.</p>
 <p>Or <span class="tt">LOT-52</span> a livré exactement le mécanisme qu'il faut : une police bitmap, un rendu de texte dans la scène, et un affichage tête haute (<span class="tt">hmi::GameHud</span>) qui compose déjà des lignes à partir de l'état du jeu. Ajouter un compteur, c'est ajouter des lignes à un affichage existant.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2822"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2936"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Mesure de la cadence</b> : moyenne glissante sur une fenêtre courte (constante nommée), calculée dans <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Widget de rendu (QRhiWidget) où la scène est dessinée, composé avec le reste de l&#39;interface.">hmi::GameViewport</a></span> à partir de l'horloge de rendu déjà présente (<span class="tt">_previousFrame</span>).</li>
@@ -108,7 +108,7 @@ Travail à réaliser</h1>
 <li><b>Aucun effet sur la simulation</b> (<span class="tt">EX-ARCH-012</span>) : la mesure lit, elle ne modifie rien, et les lignes s'affichent sur le calque d'interface, hors du monde.</li>
 <li><b>Coût négligeable quand l'affichage est éteint</b> : ne rien calculer plutôt que calculer sans afficher.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2823"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2937"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Game/DiagnosticsHud.{h,cpp}</span> (nouveau) — composition pure des lignes.</li>
@@ -117,7 +117,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Localization/{fr,en}.lang</span> — libellés éventuels.</li>
 <li><span class="tt"><a class="el" href="test__diagnostics__hud_8cpp.html" title="Tests unitaires de la moyenne glissante de cadence et du choix de contenu du compteur de diagnostic (...">Source/Test/Unit/HMI/Game/test_diagnostics_hud.cpp</a></span> (nouveau), <span class="tt">Source/Test/CMakeLists.txt</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2824"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2938"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>La composition des lignes est <b>pure</b> et testée : valeurs données → lignes attendues, y compris aux cas limites (aucune image mesurée, division par zéro évitée).</li>
@@ -126,7 +126,7 @@ Tests (obligatoires)</h1>
 <li>Aucune primitive de diagnostic n'est émise dans le monde : les lignes vivent sur le calque d'interface — asserté via le <em>QuadRecorder</em>, comme le fait déjà <span class="tt">LOT-52</span>.</li>
 <li>Tests sans GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2825"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2939"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas afficher une cadence instantanée</b> : <span class="tt">1 / dt</span> sur une image saute dans tous les sens et n'informe sur rien. Une moyenne glissante sur une fenêtre courte est la seule forme lisible.</li>
@@ -135,12 +135,12 @@ Points d'attention</h1>
 <li>Si le choix se porte sur une touche, vérifier qu'elle n'entre pas en conflit avec les raccourcis d'éditeur remappables (<span class="tt">LOT-29</span>) — <span class="tt">F8</span> a été rendue non remappable pour cette raison.</li>
 <li>L'affichage ne doit pas masquer le HUD de jeu (budgets de sauts et de dashs) : choisir un coin libre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2826"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2940"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Un affichage de diagnostic activable montre cadence, primitives, lots et pas de simulation, avec une composition pure et testée, sans effet sur la simulation, sans coût quand il est éteint, et sans second chemin de rendu de texte ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2827"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2941"></a>
 Exigences</h1>
 <p>Réutilise <span class="tt">EX-NFR-001</span> (60 images par seconde — rendue observable ici), <span class="tt">EX-NFR-005</span> (primitives observables), <span class="tt">EX-IHM-003</span> (affichage tête haute), <span class="tt">EX-REN-032</span> (texte dans la scène), <span class="tt">EX-ARCH-012</span> (rendu sans effet sur la simulation), <span class="tt">EX-NFR-004</span> (vérification sans GPU), <span class="tt">EX-CTRL-012</span> (touches). </p>
 </div></div><!-- contents -->

@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-21-tache-02-integration-editeur-jeu.html','',''); 
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-21-bloc-poussable_2tache-02-integration-editeur-jeu"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-21.html#md_Lot_2LOT-21-bloc-poussable_2epic" title="Lot/LOT-21-bloc-poussable/epic.md">LOT-21</a> · <b>Emplacement :</b> <span class="tt">HMI/Editor</span>, <span class="tt">HMI/Graphics</span>, <span class="tt">HMI/Interface</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1265"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1379"></a>
 Contexte</h1>
 <p><span class="tt">BlockController</span> (TACHE-01) est une logique pure ; cette tâche la rend <b>utilisable</b> : plaçable dans l'éditeur, visible en jeu, et câblée dans la boucle de <span class="tt">GameScreen</span> au bon moment (avant la physique du personnage, cf. décision de cadrage de l'épic).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1266"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1380"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">HMI/Editor/EditorLayout.h</span></b> : <span class="tt">PALETTE_TYPE_COUNT</span> passe de 8 à 9 (dimensionnement du panneau latéral).</li>
@@ -112,31 +112,31 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1267"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1381"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/EditorLayout.h</span>, <span class="tt">TilePalette.h</span>/<span class="tt">.cpp</span>.</li>
 <li><span class="tt"><a class="el" href="TileVisuals_8cpp.html">Source/HMI/Graphics/TileVisuals.cpp</a></span>.</li>
 <li><span class="tt">Source/HMI/Interface/GameScreen.h</span>/<span class="tt">.cpp</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1268"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1382"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">ctest</span> existant (<span class="tt">test_tile_palette.cpp</span>) reste vert sans modification (utilise déjà <span class="tt">EXPECT_GE(entries().size(), 7u)</span>, pas un compte figé).</li>
 <li><b>Vérification visuelle obligatoire</b> dans l'application compilée : peindre un bloc dans l'éditeur, l'enregistrer, le recharger, tester (<span class="tt">P</span>) — pousser le personnage contre le bloc le déplace ; le retirer de son support le fait tomber.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1269"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1383"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ordre d'appel critique</b> : <span class="tt">_blocks-&gt;update(...)</span> doit s'exécuter avant <span class="tt">_physics.update(...)</span>, avec la boîte du personnage <b>avant</b> ce pas (pas après) — c'est ce qui garantit qu'un bloc qui vient de se dégager ne bloque jamais le personnage sur ce même pas (voir décision de cadrage de l'épic).</li>
 <li><b><span class="tt">_blocks-&gt;collisionMap(...)</span> recopie toute la grille à chaque pas fixe</b> (balayage complet, comme <span class="tt">MechanismController</span> le fait déjà pour son propre état) : acceptable pour les tailles de niveau de ce projet (<span class="tt">EX-NFR-010</span>), pas optimisé au-delà — cohérent avec le reste du moteur, qui privilégie la simplicité à la micro-optimisation prématurée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1270"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1384"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Bloc plaçable dans l'éditeur, visible et fonctionnel en jeu (poussée + chute), sans régression sur les écrans existants ; build <span class="tt">/W4 /WX</span> sans avertissement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1271"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1385"></a>
 Exigences</h1>
 <p>Aucune exigence propre — intégration de <span class="tt">EX-GP-022</span> (TACHE-01) dans <span class="tt">HMI</span>. </p>
 </div></div><!-- contents -->

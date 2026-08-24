@@ -94,41 +94,41 @@ $(function(){initNavTree('lot-23-tache-01-modele-tuile-arrondie.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-23-collision-arrondie_2tache-01-modele-tuile-arrondie"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-23.html#md_Lot_2LOT-23-collision-arrondie_2epic" title="Lot/LOT-23-collision-arrondie/epic.md">LOT-23</a> · <b>Emplacement :</b> <span class="tt">Core/Levels</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1327"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1441"></a>
 Contexte</h1>
 <p>Étend l'abstraction de suivi de surface posée par <span class="tt">LOT-22</span> (fonction de hauteur par type de tuile) à un profil courbe, sans toucher à la passe de résolution physique elle-même.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1328"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1442"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Core/Levels/TileType.h</a></span></b> : deux nouvelles valeurs, <span class="tt">RoundedUpRight</span> et <span class="tt">RoundedUpLeft</span>. <span class="tt">isSolid</span> renvoie <span class="tt">false</span> pour les deux, comme pour les pentes (même raisonnement : la solidité est gérée par la passe de suivi de surface, pas par le balayage classique).</li>
 <li><b>Fonction de hauteur</b> (le point d'extension posé en <span class="tt">LOT-22-TACHE-01</span>, ex. <span class="tt">slopeSurfaceHeight</span> ou renommée en quelque chose comme <span class="tt">tileSurfaceHeight</span> si le nom d'origine devient trop restrictif une fois deux familles de courbes gérées) : ajoute les deux nouveaux cas, formule du quart de cercle (voir décision de cadrage de l'épic).</li>
 <li><b><span class="tt"><a class="el" href="LevelLoader_8cpp.html">Core/Levels/LevelLoader.cpp</a></span>/<span class="tt"><a class="el" href="LevelWriter_8cpp.html">LevelWriter.cpp</a></span></b> : reconnaît/sérialise <span class="tt">"roundedUpRight"</span>/<span class="tt">"roundedUpLeft"</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1329"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1443"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Source/Core/Levels/TileType.h</a></span> (ou fichier de géométrie partagé avec <span class="tt">LOT-22</span>).</li>
 <li><span class="tt"><a class="el" href="LevelLoader_8cpp.html">Source/Core/Levels/LevelLoader.cpp</a></span>, <span class="tt"><a class="el" href="LevelWriter_8cpp.html">LevelWriter.cpp</a></span>.</li>
 <li>Tests : nouveaux cas dans le test unitaire de la fonction de hauteur (introduit en <span class="tt">LOT-22-TACHE-01</span>), <span class="tt"><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">test_level_loader.cpp</a></span>, <span class="tt"><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">test_level_writer.cpp</a></span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1330"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1444"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>La formule du quart de cercle renvoie les hauteurs attendues aux bords et au centre, pour les deux orientations (valeurs calculées à la main, comparées avec tolérance).</li>
 <li><span class="tt">isSolid</span> renvoie <span class="tt">false</span> pour les deux nouveaux types.</li>
 <li>Chargement et round-trip JSON d'un niveau contenant les deux types arrondis.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1331"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1445"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas dupliquer la fonction de hauteur</b> : l'étendre (nouveau <span class="tt">case</span> dans le même <span class="tt">switch</span>/la même fonction que les pentes), pas créer une seconde fonction parallèle — sinon la passe de résolution de <span class="tt">LOT-22-TACHE-02</span> devrait connaître les deux, dupliquant la logique qu'elle est censée factoriser.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1332"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1446"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Tuiles arrondies chargeables/sérialisables ; formule de courbe testée en isolation ; aucune modification de la passe de résolution physique (réutilisée telle quelle).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1333"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1447"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-004</span> (déjà déclarée dans <span class="tt"><a class="el" href="gameplay_8md.html">gameplay.md</a></span>, modèle de données). </p>
 </div></div><!-- contents -->

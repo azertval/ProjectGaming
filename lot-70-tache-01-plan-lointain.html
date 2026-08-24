@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-70-tache-01-plan-lointain.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-70-parallaxe-demo_2tache-01-plan-lointain"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-70.html#md_Lot_2LOT-70-parallaxe-demo_2epic" title="Lot/LOT-70-parallaxe-demo/epic.md">LOT-70</a> · <b>Emplacement :</b> <span class="tt">scripts</span>, <span class="tt">Source/Elements/Levels</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3222"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3336"></a>
 Contexte</h1>
 <p><span class="tt">scripts/generate_demo_plans.py</span> peint aujourd'hui, pour chaque tableau, un fond (densité 8) et — seulement s'il portait des décors de premier plan — un devant (densité native). <span class="tt">paint_backdrop</span> contient déjà, en interne, une boucle qui peint <b>deux</b> crénelages (un lointain plus clair, un proche plus sombre) pour donner une illusion de profondeur — mais c'est une illusion <b>peinte</b>, sur un seul plan, à un seul facteur de parallaxe : les deux crénelages bougent ensemble. Ce que ce lot ajoute, c'est un <b>vrai</b> troisième plan, avec son propre facteur, plus lent.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3223"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3337"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Factoriser la boucle de crête déchiquetée de <span class="tt">paint_backdrop</span> en une fonction <span class="tt">jagged_ridge</span> réutilisable (mêmes paramètres que l'usage actuel : ligne de crête, remplissage, teinte de sommet, rugosité, densité).</li>
@@ -113,10 +113,10 @@ Travail à réaliser</h1>
 <li>Mettre à jour <span class="tt">demo-mouvement.json</span> et <span class="tt">demo-final.json</span> : ajouter le plan lointain <b>en tête</b> de <span class="tt">planes</span> (densité 4, <span class="tt">parallaxX</span> inférieur à celui du plan fond existant — 0.2 contre 0.6 pour <span class="tt">demo-mouvement</span>, 0.15 contre 0.5 pour <span class="tt">demo-final</span>, l'écart plus large sur <span class="tt">demo-final</span> compensant ses salles plus grandes). Le plan fond et le plan devant existants ne changent pas.</li>
 <li>Régénérer les PNG (<span class="tt">python scripts/generate_demo_plans.py</span>) ; les vingt autres tableaux ne doivent produire <b>aucune</b> différence d'octet.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3224"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3338"></a>
 Fichiers impactés</h1>
 <p><span class="tt">scripts/generate_demo_plans.py</span>, <span class="tt">Source/Elements/Levels/demo-mouvement.json</span>, <span class="tt">Source/Elements/Levels/demo-final.json</span>, <span class="tt">Source/Elements/Levels/Plans/demo-mouvement-lointain.png</span> (nouveau), <span class="tt">Source/Elements/Levels/Plans/demo-final-lointain.png</span> (nouveau).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3225"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3339"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">python scripts/generate_demo_plans.py --check</span> : vert, y compris sur les vingt tableaux non touchés (aucun octet de différence).</li>
@@ -124,14 +124,14 @@ Tests (obligatoires)</h1>
 <li>Chargement des deux niveaux modifiés inchangé au niveau gameplay : les tests système existants (<span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span>, <span class="tt"><a class="el" href="test__couverture__mecaniques_8cpp.html" title="Garde-fou de couverture des mécaniques par le contenu livré (EX-LVL-015, LOT-65 TACHE-01).">test_couverture_mecaniques.cpp</a></span>) passent sans retouche, la modification étant purement visuelle (<span class="tt">EX-ARCH-012</span>).</li>
 <li><span class="tt">ctest</span> du budget de rendu (<span class="tt"><a class="el" href="test__render__budget_8cpp.html" title="Test de non-régression du volume de primitives et de l&#39;efficacité du culling (LOT-62 TACHE-01,...">test_render_budget.cpp</a></span>) : le plan supplémentaire reste sous le plafond de mémoire de texture et de primitives des deux niveaux concernés.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3226"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3340"></a>
 Points d'attention</h1>
 <p>Le plan lointain n'est visible <b>que</b> dans la bande de ciel du plan fond (semi-transparente au-dessus de son horizon) : peindre du contenu sous cette ligne serait du travail perdu, invisible à l'écran quelle que soit sa qualité. C'est la contrainte qui fixe la position de la crête du plan lointain, pas un choix esthétique libre.</p>
 <p><span class="tt">jagged_ridge</span> doit produire des résultats <b>identiques</b> à l'ancien code inline de <span class="tt">paint_backdrop</span> une fois appelée avec les mêmes paramètres — sinon les vingt-deux PNG existants changeraient tous, ce que <span class="tt">--check</span> détecterait immédiatement au premier lancement après le refactor.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3227"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3341"></a>
 Definition de fait (DoD)</h1>
 <p>Les deux niveaux ciblés déclarent trois plans aux facteurs croissants, les PNG sont générés et reproductibles, les vingt autres tableaux sont bit-à-bit inchangés, <span class="tt">ctest</span> à 100 %.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3228"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3342"></a>
 Exigences</h1>
 <p><span class="tt">EX-DEC-040</span>, <span class="tt">EX-DEC-041</span>, <span class="tt">EX-DEC-043</span>, <span class="tt">EX-LVL-009</span>. </p>
 </div></div><!-- contents -->

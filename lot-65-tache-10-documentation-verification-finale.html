@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-65-tache-10-documentation-verification-finale.html
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-65-refonte-niveaux-demo_2tache-10-documentation-verification-finale"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-65.html#md_Lot_2LOT-65-refonte-niveaux-demo_2epic" title="Lot/LOT-65-refonte-niveaux-demo/epic.md">LOT-65</a> · <b>Emplacement :</b> <span class="tt">Documentation</span>, <span class="tt">Source/Elements/Levels</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3026"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3140"></a>
 Contexte</h1>
 <p>La <span class="tt">TACHE-04</span> avait documenté la séquence des vingt-deux tableaux ; les <span class="tt">TACHE-05</span> à <span class="tt">TACHE-09</span> en ont refait le contenu et changé la composition. Cette tâche remet la documentation en accord avec ce qui est livré, et exécute la vérification complète — dont le parcours <b>manuel</b>, seul juge du volet tutoriel, qu'aucun test automatique ne peut rendre.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3027"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3141"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">Source/Elements/Levels/README.md</span></b> : tableau des vingt-deux tableaux dans le nouvel ordre, avec la mécanique démontrée, le cadrage <b>et</b> les budgets — l'information qui manquait et qui est devenue structurante. Mentionner la disparition de <span class="tt">demo-arrondi.json</span> (fusionné) et de <span class="tt">demo-salles.json</span> (absorbé par le final).</li>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 <li><b><span class="tt">epic.md</span></b> : découpage à jour, statut, et une section rendant compte de l'écart entre les critères d'acceptation et ce que les <span class="tt">TACHE-02</span>/<span class="tt">TACHE-03</span> avaient réellement livré.</li>
 <li><b><span class="tt">CHANGELOG.md</span></b>, section <em>Non publié</em> : refonte, corrections moteur, garde-fous, et registre des défauts découverts en jouant les croisements.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3028"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3142"></a>
 Vérification</h1>
 <ol type="1">
 <li>Compilation <span class="tt">/W4 /WX</span> propre, <span class="tt">ctest</span> à 100 %.</li>
@@ -117,7 +117,7 @@ Vérification</h1>
 <li>Documentation Doxygen sans avertissement.</li>
 <li><b>Parcours manuel complet</b> en Release, manette et son : le seul moyen de juger si la séquence enseigne réellement, et le moment où ce lot trouve historiquement le plus de défauts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3029"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3143"></a>
 Points d'attention</h1>
 <ul>
 <li><b>La documentation suit le code livré, jamais l'intention.</b> Ne décrire un tableau qu'une fois qu'il est franchi par le test système.</li>
@@ -125,12 +125,12 @@ Points d'attention</h1>
 <li>Attention aux pièges Doxygen déjà rencontrés dans ce dépôt : jamais de <span class="tt"> `fichier.cpp::Nom` </span> dans un span, et un <span class="tt">**gras**/**gras**</span> referme un bloc <span class="tt">/** */</span>.</li>
 <li>Le numéro de version ne s'écrit qu'à un seul endroit, <span class="tt">project(VERSION)</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3030"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3144"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Documentation, spécification, guide, epic et changelog décrivent le contenu réellement livré ; les six vérifications automatiques sont vertes ; le parcours manuel est fait et ses constats consignés.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3031"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3145"></a>
 Exigences</h1>
 <p><span class="tt">EX-LVL-012</span>, <span class="tt">EX-LVL-015</span> ; réutilise <span class="tt">EX-NFR-020</span> (tests), <span class="tt">EX-NFR-021</span> (test système), <span class="tt">EX-NFR-030</span> (documentation). </p>
 </div></div><!-- contents -->

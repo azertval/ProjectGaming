@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-03-tache-03-stockage-composants.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-03-fondation-ecs_2tache-03-stockage-composants"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-03.html#md_Lot_2LOT-03-fondation-ecs_2epic" title="Lot/LOT-03-fondation-ecs/epic.md">LOT-03</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md457"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md571"></a>
 Contexte</h1>
 <p>Chaque type de composant est stocké dans un <b>sparse set</b> : un tableau dense de composants (itération cache-friendly) doublé d'un tableau creux indexé par l'entité (accès en temps constant).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md458"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md572"></a>
 Travail à réaliser</h1>
 <ul>
 <li><span class="tt">ComponentPool&lt;T&gt;</span> (sparse set) :<ul>
@@ -109,14 +109,14 @@ Travail à réaliser</h1>
 <li>Registre de pools typés dans le <span class="tt">World</span> (une pool par type de composant, créée à la demande).</li>
 <li>Cohérence avec la destruction d'entité (TACHE-02) : détruire une entité retire ses composants de toutes les pools.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md459"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md573"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="ComponentPool_8h.html" title="Stockage typé des composants d&#39;un ECS sous forme de sparse set.">Source/Core/Ecs/ComponentPool.h</a></span> (nouveau, template).</li>
 <li>Intégration dans <span class="tt">World</span> (voir TACHE-05).</li>
 <li><span class="tt">Source/Test/Unit/test_component_pool.cpp</span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md460"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md574"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">add</span> puis <span class="tt">get</span> renvoie la valeur stockée ; <span class="tt">has</span> est cohérent.</li>
@@ -124,20 +124,20 @@ Tests (obligatoires)</h1>
 <li><span class="tt">get</span>/<span class="tt">remove</span> sur une entité absente est géré selon le contrat (assertion de précondition, cf. politique d'erreurs).</li>
 <li>Le stockage dense reste contigu après suppressions.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md461"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md575"></a>
 Points d'attention</h1>
 <ul>
 <li>Composants = <b>données pures</b> (<span class="tt">EX-ARCH-011</span>), sans logique — condition pour la sérialisation future.</li>
 <li>Attention à l'invalidation des références après <em>swap-and-pop</em> (documenter le contrat).</li>
 <li>Conventions : <span class="tt">_camelCase</span>, <span class="tt">[[nodiscard]]</span> sur <span class="tt">get</span>/<span class="tt">has</span>, documentation <span class="tt">.h</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md462"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md576"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Pool correcte et dense, testée (<span class="tt">ctest</span> vert).</li>
 <li>Compile <span class="tt">/W4 /WX</span>, formaté, documenté Doxygen.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md463"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md577"></a>
 Exigences</h1>
 <p><span class="tt">EX-ARCH-011</span>, <span class="tt">EX-ARCH-012</span>, <span class="tt">EX-NFR-010</span>, <span class="tt">EX-NFR-020</span>. </p>
 </div></div><!-- contents -->

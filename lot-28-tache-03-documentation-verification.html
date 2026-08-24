@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-28-tache-03-documentation-verification.html','',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-28-arrondis-concaves_2tache-03-documentation-verification"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-28.html#md_Lot_2LOT-28-arrondis-concaves_2epic" title="Lot/LOT-28-arrondis-concaves/epic.md">LOT-28</a> · <b>Emplacement :</b> <span class="tt">Documentation</span> · <b>Statut :</b> ✅</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1504"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1618"></a>
 Contexte</h1>
 <p>Dernière tâche du lot : aligner la documentation sur le comportement livré par TACHE-01/TACHE-02.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1505"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1619"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="gameplay_8md.html">Documentation/Specification/gameplay.md</a></span></b> : nouvelle exigence <span class="tt">EX-GP-007</span> (section 1, « Monde en tuiles », à la suite d'<span class="tt">EX-GP-006</span>), et mise à jour du tableau récapitulatif des types de tuile s'il en existe une ligne par famille.</li>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 <li><b><span class="tt">CHANGELOG.md</span></b> : entrée <span class="tt">[Non publié]</span> décrivant le lot (formule concave, sous-groupe de palette, aucune régression).</li>
 <li><b>Doxygen</b>, <b>Cahier de test</b>, <b>lint des exigences</b> : mêmes vérifications que les lots précédents.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1506"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1620"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="gameplay_8md.html">Documentation/Specification/gameplay.md</a></span>, <span class="tt"><a class="el" href="niveaux_8md.html">niveaux.md</a></span>.</li>
@@ -116,14 +116,14 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="CahierTest_8md.html">Documentation/CahierTest.md</a></span> (régénéré).</li>
 <li><span class="tt">CHANGELOG.md</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1507"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1621"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">python scripts/lint_exigences.py</span> retourne un code de sortie <span class="tt">0</span>.</li>
 <li><span class="tt">python scripts/generate_cahier_test.py --check</span> confirme que le Cahier de test est à jour.</li>
 <li><span class="tt">doxygen Doxyfile</span> (depuis <span class="tt">Documentation/</span>) se termine avec un code de sortie <span class="tt">0</span> et <b>aucune</b> ligne de sortie.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1508"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1622"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Écart de cadrage constaté</b> (voir TACHE-02) : l'épic évaluait à <b>sept</b> le nombre de cases libres dans la grille d'atlas après l'agrandissement <span class="tt">LOT-26</span>, mais l'une d'elles (<span class="tt">(4,4)</span>) est en réalité réservée au damier de transparence (<span class="tt">TextureAtlas::transparentTileIndex</span>) — il n'y en avait donc réellement que <b>six</b>. <span class="tt">ConcaveDownLeft</span>, initialement assignée à <span class="tt">(4,4)</span>, affichait le damier au lieu de sa silhouette ; corrigé en la réassignant à <span class="tt">(2,4)</span>, authentiquement libre. Épic et TACHE-02 mis à jour en conséquence.</li>
@@ -133,12 +133,12 @@ Points d'attention</h1>
 <li><b>Écart constaté en cours de lot</b> (voir TACHE-02) : <span class="tt">slopeShapePixel</span> (<span class="tt"><a class="el" href="TextureAtlas_8cpp.html">TextureAtlas.cpp</a></span>) échantillonnait au centre de chaque pixel, ne touchant jamais exactement les bords <span class="tt">0</span>/<span class="tt">1</span> de la case — sans conséquence pour les pentes/arrondis existants, mais laissant une encoche visible près du bord <b>plein</b> (tangente raide) d'un arrondi concave. Corrigé en échantillonnant au bord des pixels de coin. TACHE-02 mise à jour en conséquence.</li>
 <li><b>Vérifié en jeu (essai immédiat, <span class="tt">P</span>, depuis l'éditeur)</b> après les deux correctifs ci-dessus : deux arrondis concaves de sol adjacents (<span class="tt">ConcaveUpRight</span>/<span class="tt">ConcaveUpLeft</span>, formant un pic/une arche) se traversent en marchant sans chute, silhouette rendue comme un pic net sans encoche — reproduit fidèlement le scénario rapporté par le demandeur (capture d'écran à l'appui).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1509"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1623"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Documentation cohérente avec le comportement livré ; <span class="tt">epic.md</span> marqué <b>terminé</b>, chaque tâche marquée ✅.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1510"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1624"></a>
 Exigences</h1>
 <p>Aucune exigence propre — tâche de cohérence documentaire pour l'ensemble du lot. </p>
 </div></div><!-- contents -->

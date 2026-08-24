@@ -4,6 +4,8 @@ var dir_8e2ac860808ba0027dfb31d2758a18b0 =
     [ "Assert.h", "Assert_8h.html", "Assert_8h" ],
     [ "ConsoleLogSink.cpp", "ConsoleLogSink_8cpp.html", null ],
     [ "ConsoleLogSink.h", "ConsoleLogSink_8h.html", "ConsoleLogSink_8h" ],
+    [ "FileLogSink.cpp", "FileLogSink_8cpp.html", null ],
+    [ "FileLogSink.h", "FileLogSink_8h.html", "FileLogSink_8h" ],
     [ "ILogSink.h", "ILogSink_8h.html", "ILogSink_8h" ],
     [ "Log.h", "Log_8h.html", "Log_8h" ],
     [ "LogFormat.cpp", "LogFormat_8cpp.html", "LogFormat_8cpp" ],

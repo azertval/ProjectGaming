@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-08-tache-03-physique-personnage.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-08-gameplay-personnage_2tache-03-physique-personnage"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-08.html#md_Lot_2LOT-08-gameplay-personnage_2epic" title="Lot/LOT-08-gameplay-personnage/epic.md">LOT-08</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs/Systems</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md748"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md862"></a>
 Contexte</h1>
 <p>Cette tâche assemble l'intention d'entrée (TACHE-01) et le balayage (TACHE-02) en un <b>système de simulation</b> à pas fixe, sur le modèle du <span class="tt">MovementSystem</span> existant : toute la logique dans le système, les composants restent des données. C'est le cœur jouable du personnage — déplacement, gravité, collisions — <b>sans saut</b> (hors périmètre).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md749"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md863"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">CharacterPhysicsSystem</span></b> (ou nom proche) opérant sur les entités <span class="tt">Player</span> + <span class="tt">Transform</span> + <span class="tt">Velocity</span> + <span class="tt">Collider</span>, avec accès au <span class="tt">TileMap</span> (solides) et à l'intention <span class="tt">PlayerInput</span>.</li>
@@ -110,13 +110,13 @@ Travail à réaliser</h1>
 </li>
 <li>Constantes de physique regroupées et nommées (gravité, vitesse horizontale, vitesse de chute max), faciles à ajuster lors du futur <em>tuning</em>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md750"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md864"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="CharacterPhysicsSystem_8h.html" title="Système de physique du personnage : déplacement, gravité et collisions au pas fixe.">Source/Core/Ecs/Systems/CharacterPhysicsSystem.h</a></span>/<span class="tt">.cpp</span> (nouveau).</li>
 <li><span class="tt">Source/Core/CMakeLists.txt</span>, <span class="tt">Source/Test/CMakeLists.txt</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md751"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md865"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Chute</b> : sans sol dessous, <span class="tt">y</span> augmente et <span class="tt">vy</span> croît d'un pas à l'autre (gravité continue).</li>
@@ -126,7 +126,7 @@ Tests (obligatoires)</h1>
 <li><b>Non-tunneling en chute rapide</b> : une grande vitesse verticale sur un pas ne traverse pas un sol fin (via le balayage) — vérifie l'intégration physique ↔ collision.</li>
 <li><b>Déterminisme</b> : mêmes entrées (état + intention + dt) → même état final (<span class="tt">EX-NFR-002</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md752"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md866"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Logique dans le système, données dans les composants</b> (<span class="tt">EX-ARCH-011</span>) — miroir du <span class="tt">MovementSystem</span>.</li>
@@ -134,12 +134,12 @@ Points d'attention</h1>
 <li>Pas fixe uniquement (<span class="tt">EX-NFR-002</span>) : aucune dépendance au temps réel de la frame.</li>
 <li>Réutiliser le balayage de TACHE-02 sans le réimplémenter ; le système <b>oriente</b>, la primitive <b>résout</b>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md753"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md867"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">CharacterPhysicsSystem</span> fonctionnel, documenté et <b>testé</b> (cas ci-dessus, <span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md754"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md868"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-010</span>, <span class="tt">EX-GP-012</span>, <span class="tt">EX-GP-002</span>, <span class="tt">EX-GP-014</span>, <span class="tt">EX-NFR-002</span>, <span class="tt">EX-ARCH-011</span>. </p>
 </div></div><!-- contents -->

@@ -94,7 +94,7 @@ $(function(){initNavTree('lot-65-tache-05-doctrine-gardes-fous-profondeur.html',
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-65-refonte-niveaux-demo_2tache-05-doctrine-gardes-fous-profondeur"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-65.html#md_Lot_2LOT-65-refonte-niveaux-demo_2epic" title="Lot/LOT-65-refonte-niveaux-demo/epic.md">LOT-65</a> · <b>Emplacement :</b> <span class="tt">Documentation/Specification</span>, <span class="tt">Source/Test</span> · <b>Statut :</b> en cours</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2979"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3093"></a>
 Contexte</h1>
 <p>La <span class="tt">TACHE-01</span> avait écrit, en toutes lettres, la limite de son propre garde-fou :</p>
 <blockquote class="doxtable">
@@ -109,7 +109,7 @@ Contexte</h1>
 <li>les <span class="tt">zones</span> de caméra (<span class="tt">EX-LVL-007</span>) et <span class="tt">roomWidthTiles</span>/<span class="tt">roomHeightTiles</span> (<span class="tt">EX-REN-017</span>), livrées par le <span class="tt">LOT-64</span>, n'apparaissent dans aucun tableau — le garde-fou ne relève que le <span class="tt">mode</span>.</li>
 </ul>
 <p>Le critère d'acceptation n°4 du lot (« introduit une mécanique à la fois, puis les combine dans des tableaux de synthèse ») et l'exigence <span class="tt">EX-LVL-012</span> ne sont donc pas tenus. Cette tâche livre la <b>doctrine</b> qui manquait et les <b>garde-fous</b> qui la rendent vérifiable — de nouveau <b>rouges</b>, et de nouveau pilotes des tâches suivantes.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2980"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3094"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Doctrine de conception</b> dans <span class="tt"><a class="el" href="niveaux_8md.html">Documentation/Specification/niveaux.md</a></span> § Conception, en complément des trois lignes existantes :<ol type="1">
@@ -125,14 +125,14 @@ Travail à réaliser</h1>
 <li><b>Variantes de cadrage</b> : étendre <span class="tt">CoverageState</span> aux <span class="tt">zones</span> de caméra et à une taille de salle/suivi explicitement déclarée.</li>
 <li><b>Garde-fou de proximité au trajet</b> : pendant le rejeu scripté, enregistrer la trajectoire du personnage et affirmer que chaque tuile de mécanique du tableau passe à portée d'un saut d'une position réellement occupée — le contrôle qui manquait à <span class="tt">TACHE-01</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2981"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3095"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="niveaux_8md.html">Documentation/Specification/niveaux.md</a></span> — § Conception.</li>
 <li><span class="tt"><a class="el" href="test__couverture__mecaniques_8cpp.html" title="Garde-fou de couverture des mécaniques par le contenu livré (EX-LVL-015, LOT-65 TACHE-01).">Source/Test/Systeme/test_couverture_mecaniques.cpp</a></span> — profondeur, budgets séparés, cadrage.</li>
 <li><span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span> — anti-couloir, proximité au trajet.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2982"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3096"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Les quatre contrôles <b>échouent</b> au départ en nommant précisément les tableaux et mécaniques en cause — résultat attendu de cette tâche.</li>
@@ -140,7 +140,7 @@ Tests (obligatoires)</h1>
 <li>Les exclusions sont <b>toutes</b> commentées et justifiées.</li>
 <li>Test <span class="tt">Core</span> pur, sans GPU ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2983"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3097"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le seuil de répétition est un choix, pas une vérité.</b> Trois instances suffisent à distinguer « posé » de « pratiqué » sans imposer de remplissage ; le fixer dans une constante nommée, pas en littéral dispersé.</li>
@@ -148,19 +148,19 @@ Points d'attention</h1>
 <li><b>Ne pas transformer l'anti-couloir en interdiction de marcher.</b> Un tableau peut comporter de longues portions plates ; ce qui est refusé, c'est qu'il se <em>termine</em> sans autre entrée que « droite ».</li>
 <li>Réutiliser <span class="tt">playLevel</span> tel quel plutôt que d'en écrire une variante : la composition des contrôleurs (plateformes, blocs, mécanismes) y est déjà exactement celle de <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2984"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3098"></a>
 État initial constaté</h1>
 <p>Les quatre contrôles livrés, exécutés sur la séquence héritée des <span class="tt">TACHE-02</span>/<span class="tt">TACHE-03</span> :</p>
 <p><b>Anti-couloir — 10 tableaux franchis en maintenant « droite »</b> : <span class="tt">demo-interrupteur</span>, <span class="tt">demo-pente</span>, <span class="tt">demo-pente-gauche</span>, <span class="tt">demo-arrondi</span>, <span class="tt">demo-concave</span>, <span class="tt">demo-plafond</span>, <span class="tt">demo-bloc-quart</span>, <span class="tt">demo-dangers-avances</span>, <span class="tt">demo-dangers-directionnels</span>, <span class="tt">demo-salles</span>. En y ajoutant <span class="tt">demo-plateforme</span>, franchi sans <b>aucune</b> entrée, <b>onze tableaux sur vingt-deux</b> ne demandent rien au joueur. <span class="tt">demo-bloc-quart</span> n'avait pas été repéré par la revue manuelle : son script de rejeu comportait un saut, mais ce saut n'est pas nécessaire — le contrôle automatique est plus fiable que la relecture, ce qui est précisément sa raison d'être.</p>
 <p><b>Profondeur — 27 types de tuile posés moins de trois fois</b>, dont 26 une seule fois dans toute la séquence : <span class="tt">danger</span>, <span class="tt">pressurePlate</span>, <span class="tt">block</span>, <span class="tt">slopeUpLeft</span>, <span class="tt">roundedUpRight</span>, <span class="tt">roundedUpLeft</span>, <span class="tt">blockHalf</span>, <span class="tt">blockQuarter</span>, les quatre variantes de plafond, les quatre concaves, les quatre dangers directionnels, <span class="tt">dangerMover</span>, <span class="tt">dangerSwitched</span>, <span class="tt">dangerBlink</span>, <span class="tt">key</span>, <span class="tt">lockedDoor</span>, <span class="tt">movingPlatform</span> ; <span class="tt">slopeUpRight</span> deux fois. Seuls <span class="tt">switch</span>, <span class="tt">door</span>, <span class="tt">solid</span>, <span class="tt">entry</span> et <span class="tt">exit</span> passent le seuil.</p>
 <p><b>Variantes non employées</b> : aucun <span class="tt">dashBudget</span>, aucune zone de caméra (<span class="tt">cameraFraming.zones</span>), aucune taille de salle ou de suivi choisie par un niveau (<span class="tt">roomWidthTiles</span>/<span class="tt">roomHeightTiles</span>).</p>
 <p><b>Proximité — 13 tuiles de mécanique hors d'atteinte du personnage</b> : 4 dans <span class="tt">demo-plafond</span> (toutes ses variantes de plafond incliné), 5 dans <span class="tt">demo-dangers-avances</span> (les quatre dangers <b>et</b> l'interrupteur du danger commuté), 2 dans <span class="tt">demo-concave</span> (ses deux concaves de plafond), 2 dans <span class="tt">demo-dangers-directionnels</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2985"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3099"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>La doctrine est écrite dans la spécification ; quatre contrôles automatiques échouent tant qu'un tableau est franchissable sans jouer, qu'une mécanique n'est posée qu'une fois, qu'un budget de dash n'est employé nulle part ou qu'une variante de cadrage manque ; chacun a son test négatif ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2986"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3100"></a>
 Exigences</h1>
 <p><span class="tt">EX-LVL-012</span> (difficulté croissante, une mécanique à la fois puis synthèses), <span class="tt">EX-LVL-015</span> (couverture vérifiée automatiquement) ; réutilise <span class="tt">EX-GP-024</span> (budget de mouvements), <span class="tt">EX-LVL-006</span> et <span class="tt">EX-LVL-007</span> (cadrage), <span class="tt">EX-REN-017</span> (taille de suivi), <span class="tt">EX-NFR-021</span> (test système). </p>
 </div></div><!-- contents -->

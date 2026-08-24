@@ -96,7 +96,7 @@ $(function(){initNavTree('lot-67.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b> (vérification automatisée : build Debug/Release, <span class="tt">ctest</span> à 100 %, lint d'exigences, cahier de test régénéré ; la vérification IHM du canevas Direct3D 11 — poignées, aperçu du glisser, panneau — reste manuelle, comme pour tout lot touchant au rendu). Prérequis : <a class="el" href="lot-63.html" title="LOT-63 — Mécanismes manquants du référentiel">LOT-63</a> (plateformes mobiles et dangers avancés), <a class="el" href="lot-50.html" title="LOT-50 — Décors : placement et manipulation dans l&#39;éditeur">LOT-50</a> (patron de geste à poignées), <a class="el" href="lot-64.html" title="LOT-64 — Cadrage de caméra choisi par le level designer">LOT-64</a> (patron de propriété de niveau éditable). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3070"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3184"></a>
 Objectif</h1>
 <p>Rendre au level designer la maîtrise des éléments mobiles, aujourd'hui hors de sa portée.</p>
 <p>Le constat qui déclenche ce lot est net : <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span> expose depuis le <span class="tt">LOT-63</span> trois mutateurs annulables et couverts par des tests — <span class="tt">setPlatformConfig</span>, <span class="tt">setMoverConfig</span>, <span class="tt">setBlinkConfig</span> — dont <b>aucun n'a jamais eu d'appelant dans <span class="tt">Source/HMI</span></b>. Le modèle d'édition existait, l'éditeur ne s'en servait pas. Concrètement, définir la route d'une plateforme mobile ou le rythme d'un piège imposait d'ouvrir le JSON à la main, ce que l'existence même de l'éditeur (<span class="tt">EX-VIS-006</span>) exclut. Même situation pour <span class="tt">jumpBudget</span>/<span class="tt">dashBudget</span>, sérialisés et appliqués au spawn depuis longtemps, jamais exposés.</p>
@@ -105,9 +105,9 @@ Objectif</h1>
 <li><b>Une plateforme n'avait que deux points.</b> <span class="tt">MovingPlatformConfig</span> portait <span class="tt">startPosition</span> et <span class="tt">endPosition</span>, et la documentation actait explicitement « pas de chemin multi-points ». Un parcours en L, un circuit fermé, un aller simple par un autre chemin : rien de tout cela n'était exprimable.</li>
 <li><b>Le nombre de sauts aériens était global et codé en dur</b> (<span class="tt">PhysicsConfig::airJumps</span>), et le dash n'avait qu'un booléen rechargé à l'atterrissage — aucune notion de charges. Un tableau ne pouvait pas moduler la mobilité du personnage, alors qu'il pouvait déjà en limiter le budget.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3071"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3185"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3072"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3186"></a>
 Inclus</h2>
 <ul>
 <li><b>Route multi-points</b> pour les plateformes mobiles (<span class="tt">EX-GP-054</span>) : N points de passage, mode aller-retour ou circuit fermé, à vitesse constante et de façon déterministe.</li>
@@ -117,7 +117,7 @@ Inclus</h2>
 <li><b>Capacités par tableau</b> (<span class="tt">EX-GP-055</span>) : sauts aériens et charges de dash, rechargés à chaque atterrissage — distincts des budgets consommables déjà existants.</li>
 <li><b>Correction</b> du <span class="tt">pushUndo()</span> manquant sur <span class="tt">setJumpBudget</span>/<span class="tt">setDashBudget</span>, seules propriétés de niveau non annulables de tout le brouillon.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3073"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3187"></a>
 Exclus</h2>
 <ul>
 <li><b>La taille d'une plateforme reste une case</b> (<span class="tt">1×1</span> codé en dur dans <span class="tt">PlatformController</span>). Les poignées de parcours pourraient suggérer qu'on redimensionne aussi : ce n'est pas le cas, et aucune poignée de coin n'est introduite, précisément pour ne pas le laisser croire.</li>
@@ -125,7 +125,7 @@ Exclus</h2>
 <li><b>Aucun nouveau tableau</b> n'est conçu. Le contenu livré est migré vers le nouveau format sans changement de comportement ; dessiner un niveau exploitant les circuits fermés est un acte de <em>level design</em>, distinct de ce lot d'outillage.</li>
 <li>La <b>vitesse d'un danger mobile</b> reste une constante de conception, comme avant.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3074"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3188"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Les waypoints listent les points <em>après</em> le départ.</b> La tuile elle-même est le point 0, implicite : c'est la généralisation exacte de <span class="tt">endX</span>/<span class="tt">endY</span>, et cela rend impossible toute contradiction entre le premier point et la position de la tuile.</li>
@@ -136,10 +136,10 @@ Décisions de cadrage</h1>
 <li><b>Un nouveau dock, pas un onglet du panneau Textures.</b> Le <span class="tt">LOT-57</span> a recentré ce panneau sur ce qui définit l'apparence, en le débarrassant de l'inspecteur des décors. Y loger de la vitesse de plateforme et des budgets de saut referait exactement l'erreur qu'il a corrigée : c'est du comportement, pas de l'habillage.</li>
 <li><b>Le point de départ n'a pas de poignée.</b> Il est la tuile, qu'on déplace en la repeignant — lui donner une poignée créerait deux façons contradictoires de faire la même chose.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3075"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3189"></a>
 Exigences couvertes</h1>
 <p><span class="tt">EX-GP-054</span>, <span class="tt">EX-GP-055</span>, <span class="tt">EX-LVL-008</span>, <span class="tt">EX-EDIT-032</span>, <span class="tt">EX-EDIT-033</span> (nouvelles) ; <span class="tt">EX-GP-026</span> (amendée : la limite à deux points disparaît). Réutilisées : <span class="tt">EX-GP-024</span>, <span class="tt">EX-GP-015</span>, <span class="tt">EX-GP-017</span>, <span class="tt">EX-GP-051</span>, <span class="tt">EX-GP-053</span>, <span class="tt">EX-EDIT-005</span>, <span class="tt">EX-EDIT-030</span>, <span class="tt">EX-LVL-005</span>, <span class="tt">EX-NFR-002</span>, <span class="tt">EX-NFR-040</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3076"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3190"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -162,7 +162,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">TACHE-07  </td><td class="markdownTableBodyNone">Contenu, documentation et référentiel  </td><td class="markdownTableBodyNone"><span class="tt">Source/Elements/Levels</span>, <span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3077"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3191"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Une plateforme à un seul point de route se comporte <b>exactement</b> comme avant le lot : les tests de la suite existante passent sans retouche de leurs valeurs attendues.</li>
@@ -173,10 +173,10 @@ Critères d'acceptation du lot</h1>
 <li>Les quatre règles du tableau (deux budgets, deux capacités) sont éditables et annulables, et le panneau distingue visiblement les deux notions.</li>
 <li><span class="tt">ctest</span> à 100 %, lint d'exigences vert, cahier de test régénéré.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3078"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3192"></a>
 Dépendances</h1>
 <p>Aucun lot ne dépend de celui-ci. Il s'appuie sur les mécaniques du <span class="tt">LOT-63</span> (plateformes, dangers avancés), sur le patron de geste à poignées du <span class="tt">LOT-50</span> et sur le patron de propriété de niveau éditable du <span class="tt">LOT-64</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3079"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3193"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-67-tache-01-route-multi-points.html" title="TACHE-01 — Route multi-points dans le modele, le format et le brouillon">TACHE-01 — Route multi-points dans le modele, le format et le brouillon</a></li>

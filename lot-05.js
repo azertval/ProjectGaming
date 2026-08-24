@@ -1,68 +1,68 @@
 var lot_05 =
 [
-    [ "Objectif", "lot-05.html#autotoc_md554", null ],
-    [ "Périmètre", "lot-05.html#autotoc_md555", [
-      [ "Inclus", "lot-05.html#autotoc_md556", null ],
-      [ "Exclus (lots ultérieurs)", "lot-05.html#autotoc_md557", null ]
+    [ "Objectif", "lot-05.html#autotoc_md668", null ],
+    [ "Périmètre", "lot-05.html#autotoc_md669", [
+      [ "Inclus", "lot-05.html#autotoc_md670", null ],
+      [ "Exclus (lots ultérieurs)", "lot-05.html#autotoc_md671", null ]
     ] ],
-    [ "Décisions de cadrage", "lot-05.html#autotoc_md558", null ],
-    [ "Exigences couvertes", "lot-05.html#autotoc_md559", null ],
-    [ "Découpage", "lot-05.html#autotoc_md560", null ],
-    [ "Critères d'acceptation du lot", "lot-05.html#autotoc_md561", null ],
-    [ "Dépendances", "lot-05.html#autotoc_md562", null ],
-    [ "Navigation des tâches", "lot-05.html#autotoc_md563", null ],
+    [ "Décisions de cadrage", "lot-05.html#autotoc_md672", null ],
+    [ "Exigences couvertes", "lot-05.html#autotoc_md673", null ],
+    [ "Découpage", "lot-05.html#autotoc_md674", null ],
+    [ "Critères d'acceptation du lot", "lot-05.html#autotoc_md675", null ],
+    [ "Dépendances", "lot-05.html#autotoc_md676", null ],
+    [ "Navigation des tâches", "lot-05.html#autotoc_md677", null ],
     [ "TACHE-01 — Composant Sprite (données pures)", "lot-05-tache-01-composant-sprite.html", [
-      [ "Contexte", "lot-05-tache-01-composant-sprite.html#autotoc_md564", null ],
-      [ "Travail à réaliser", "lot-05-tache-01-composant-sprite.html#autotoc_md565", null ],
-      [ "Fichiers impactés", "lot-05-tache-01-composant-sprite.html#autotoc_md566", null ],
-      [ "Tests (obligatoires si logique)", "lot-05-tache-01-composant-sprite.html#autotoc_md567", null ],
-      [ "Points d'attention", "lot-05-tache-01-composant-sprite.html#autotoc_md568", null ],
-      [ "Définition de fait (DoD)", "lot-05-tache-01-composant-sprite.html#autotoc_md569", null ],
-      [ "Exigences", "lot-05-tache-01-composant-sprite.html#autotoc_md570", null ]
+      [ "Contexte", "lot-05-tache-01-composant-sprite.html#autotoc_md678", null ],
+      [ "Travail à réaliser", "lot-05-tache-01-composant-sprite.html#autotoc_md679", null ],
+      [ "Fichiers impactés", "lot-05-tache-01-composant-sprite.html#autotoc_md680", null ],
+      [ "Tests (obligatoires si logique)", "lot-05-tache-01-composant-sprite.html#autotoc_md681", null ],
+      [ "Points d'attention", "lot-05-tache-01-composant-sprite.html#autotoc_md682", null ],
+      [ "Définition de fait (DoD)", "lot-05-tache-01-composant-sprite.html#autotoc_md683", null ],
+      [ "Exigences", "lot-05-tache-01-composant-sprite.html#autotoc_md684", null ]
     ] ],
     [ "TACHE-02 — Pipeline de quads texturés (HLSL, blend, nearest)", "lot-05-tache-02-pipeline-quads-textures.html", [
-      [ "Contexte", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md571", null ],
-      [ "Travail à réaliser", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md572", null ],
-      [ "Fichiers impactés", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md573", null ],
-      [ "Vérifications (obligatoires)", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md574", null ],
-      [ "Points d'attention", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md575", null ],
-      [ "Définition de fait (DoD)", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md576", null ],
-      [ "Exigences", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md577", null ]
+      [ "Contexte", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md685", null ],
+      [ "Travail à réaliser", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md686", null ],
+      [ "Fichiers impactés", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md687", null ],
+      [ "Vérifications (obligatoires)", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md688", null ],
+      [ "Points d'attention", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md689", null ],
+      [ "Définition de fait (DoD)", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md690", null ],
+      [ "Exigences", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md691", null ]
     ] ],
     [ "TACHE-03 — Atlas de textures procédural", "lot-05-tache-03-atlas-procedural.html", [
-      [ "Contexte", "lot-05-tache-03-atlas-procedural.html#autotoc_md578", null ],
-      [ "Travail à réaliser", "lot-05-tache-03-atlas-procedural.html#autotoc_md579", null ],
-      [ "Fichiers impactés", "lot-05-tache-03-atlas-procedural.html#autotoc_md580", null ],
-      [ "Vérifications (obligatoires)", "lot-05-tache-03-atlas-procedural.html#autotoc_md581", null ],
-      [ "Points d'attention", "lot-05-tache-03-atlas-procedural.html#autotoc_md582", null ],
-      [ "Définition de fait (DoD)", "lot-05-tache-03-atlas-procedural.html#autotoc_md583", null ],
-      [ "Exigences", "lot-05-tache-03-atlas-procedural.html#autotoc_md584", null ]
+      [ "Contexte", "lot-05-tache-03-atlas-procedural.html#autotoc_md692", null ],
+      [ "Travail à réaliser", "lot-05-tache-03-atlas-procedural.html#autotoc_md693", null ],
+      [ "Fichiers impactés", "lot-05-tache-03-atlas-procedural.html#autotoc_md694", null ],
+      [ "Vérifications (obligatoires)", "lot-05-tache-03-atlas-procedural.html#autotoc_md695", null ],
+      [ "Points d'attention", "lot-05-tache-03-atlas-procedural.html#autotoc_md696", null ],
+      [ "Définition de fait (DoD)", "lot-05-tache-03-atlas-procedural.html#autotoc_md697", null ],
+      [ "Exigences", "lot-05-tache-03-atlas-procedural.html#autotoc_md698", null ]
     ] ],
     [ "TACHE-04 — Caméra 2D (monde → écran)", "lot-05-tache-04-camera-2d.html", [
-      [ "Contexte", "lot-05-tache-04-camera-2d.html#autotoc_md585", null ],
-      [ "Travail à réaliser", "lot-05-tache-04-camera-2d.html#autotoc_md586", null ],
-      [ "Fichiers impactés", "lot-05-tache-04-camera-2d.html#autotoc_md587", null ],
-      [ "Tests (obligatoires)", "lot-05-tache-04-camera-2d.html#autotoc_md588", null ],
-      [ "Points d'attention", "lot-05-tache-04-camera-2d.html#autotoc_md589", null ],
-      [ "Définition de fait (DoD)", "lot-05-tache-04-camera-2d.html#autotoc_md590", null ],
-      [ "Exigences", "lot-05-tache-04-camera-2d.html#autotoc_md591", null ]
+      [ "Contexte", "lot-05-tache-04-camera-2d.html#autotoc_md699", null ],
+      [ "Travail à réaliser", "lot-05-tache-04-camera-2d.html#autotoc_md700", null ],
+      [ "Fichiers impactés", "lot-05-tache-04-camera-2d.html#autotoc_md701", null ],
+      [ "Tests (obligatoires)", "lot-05-tache-04-camera-2d.html#autotoc_md702", null ],
+      [ "Points d'attention", "lot-05-tache-04-camera-2d.html#autotoc_md703", null ],
+      [ "Définition de fait (DoD)", "lot-05-tache-04-camera-2d.html#autotoc_md704", null ],
+      [ "Exigences", "lot-05-tache-04-camera-2d.html#autotoc_md705", null ]
     ] ],
     [ "TACHE-05 — Système de rendu des sprites (ECS → écran)", "lot-05-tache-05-systeme-rendu-sprites.html", [
-      [ "Contexte", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md592", null ],
-      [ "Travail à réaliser", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md593", null ],
-      [ "Fichiers impactés", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md594", null ],
-      [ "Vérifications (obligatoires)", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md595", null ],
-      [ "Points d'attention", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md596", null ],
-      [ "Définition de fait (DoD)", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md597", null ],
-      [ "Exigences", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md598", null ]
+      [ "Contexte", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md706", null ],
+      [ "Travail à réaliser", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md707", null ],
+      [ "Fichiers impactés", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md708", null ],
+      [ "Vérifications (obligatoires)", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md709", null ],
+      [ "Points d'attention", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md710", null ],
+      [ "Définition de fait (DoD)", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md711", null ],
+      [ "Exigences", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md712", null ]
     ] ],
     [ "TACHE-06 — Câblage du World dans la boucle + scène de démo", "lot-05-tache-06-cablage-world-demo.html", [
-      [ "Contexte", "lot-05-tache-06-cablage-world-demo.html#autotoc_md599", null ],
-      [ "Travail à réaliser", "lot-05-tache-06-cablage-world-demo.html#autotoc_md600", null ],
-      [ "Fichiers impactés", "lot-05-tache-06-cablage-world-demo.html#autotoc_md601", null ],
-      [ "Vérifications (obligatoires)", "lot-05-tache-06-cablage-world-demo.html#autotoc_md602", null ],
-      [ "Points d'attention", "lot-05-tache-06-cablage-world-demo.html#autotoc_md603", null ],
-      [ "Définition de fait (DoD)", "lot-05-tache-06-cablage-world-demo.html#autotoc_md604", null ],
-      [ "Exigences", "lot-05-tache-06-cablage-world-demo.html#autotoc_md605", null ]
+      [ "Contexte", "lot-05-tache-06-cablage-world-demo.html#autotoc_md713", null ],
+      [ "Travail à réaliser", "lot-05-tache-06-cablage-world-demo.html#autotoc_md714", null ],
+      [ "Fichiers impactés", "lot-05-tache-06-cablage-world-demo.html#autotoc_md715", null ],
+      [ "Vérifications (obligatoires)", "lot-05-tache-06-cablage-world-demo.html#autotoc_md716", null ],
+      [ "Points d'attention", "lot-05-tache-06-cablage-world-demo.html#autotoc_md717", null ],
+      [ "Définition de fait (DoD)", "lot-05-tache-06-cablage-world-demo.html#autotoc_md718", null ],
+      [ "Exigences", "lot-05-tache-06-cablage-world-demo.html#autotoc_md719", null ]
     ] ]
 ];

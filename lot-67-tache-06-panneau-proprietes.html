@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-67-tache-06-panneau-proprietes.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-67-trajectoires-editables_2tache-06-panneau-proprietes"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-67.html#md_Lot_2LOT-67-trajectoires-editables_2epic" title="Lot/LOT-67-trajectoires-editables/epic.md">LOT-67</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span>, <span class="tt">Source/Elements/UI</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3115"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3229"></a>
 Contexte</h1>
 <p>Les parametres de temporisation (vitesse, dephasage, periode, duree active) ne se manipulent pas au canevas : ce sont des nombres. Aucun panneau ne les exposait, et les regles du tableau non plus.</p>
 <p>Le projet n'a <b>aucun</b> inspecteur de proprietes generique, ni reflexion : chaque propriete est cablee a la main, le panneau emettant un signal type que le viewport applique au brouillon.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3116"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3230"></a>
 Travail a realiser</h1>
 <ul>
 <li>Creer un <b>nouveau dock</b> « Proprietes » plutot qu'un onglet du panneau Textures : celui-ci porte l'apparence, et le <span class="tt">LOT-57</span> l'a precisement debarrasse de ce qui n'en relevait pas.</li>
@@ -108,19 +108,19 @@ Travail a realiser</h1>
 <li>Les champs numeriques emettent sur <span class="tt">editingFinished</span>, <b>jamais</b> <span class="tt">valueChanged</span> : taper « 120 » produirait sinon trois mutations, donc trois pas d'annulation pour un seul geste.</li>
 <li>Les signaux portent la <b>case</b> de l'element, jamais un rang de vecteur : un rang se perime des qu'une configuration est ajoutee ou retiree, une case non.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3117"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3231"></a>
 Fichiers impactes</h1>
 <p><span class="tt">Source/HMI/Editor/PropertiesPanel.{h,cpp}</span> (nouveaux), <span class="tt">Source/Elements/UI/PropertiesPanel.ui</span> (nouveau), <span class="tt">MainWindow.ui</span>, <span class="tt">Source/HMI/Interface/MainWindow.{h,cpp}</span>, <span class="tt">Source/HMI/Game/GameViewport.{h,cpp}</span>, <span class="tt">Source/Elements/Localization/*.lang</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3118"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3232"></a>
 Tests (obligatoires)</h1>
 <p>Les mutations sous-jacentes sont couvertes par <span class="tt"><a class="el" href="test__level__draft_8cpp.html" title="Tests unitaires du modèle d&#39;édition mutable (LOT-14, EX-EDIT-002 à EX-EDIT-007).">test_level_draft.cpp</a></span> (mutateurs granulaires et annulation des quatre regles de tableau) ; la traduction, par le test de completude des catalogues. Le panneau lui-meme est un widget Qt : son comportement d'affichage releve de la verification IHM manuelle, comme les autres panneaux du depot.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3119"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3233"></a>
 Points d'attention</h1>
 <p>La garde de reentrance (<span class="tt">_updating</span>) est indispensable : sans elle, repeupler les champs depuis le brouillon reemettrait des mutations en boucle.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3120"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3234"></a>
 Definition de fait (DoD)</h1>
 <p>Les quatre regles et tous les parametres de temporisation sont editables et annulables ; les deux notions de regles sont visiblement distinctes.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3121"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3235"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-033</span>, <span class="tt">EX-EDIT-005</span>, <span class="tt">EX-GP-024</span>, <span class="tt">EX-GP-053</span>, <span class="tt">EX-GP-055</span>, <span class="tt">EX-IHM-062</span>. </p>
 </div></div><!-- contents -->

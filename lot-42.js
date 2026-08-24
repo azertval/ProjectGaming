@@ -1,59 +1,59 @@
 var lot_42 =
 [
-    [ "Objectif", "lot-42.html#autotoc_md1985", null ],
-    [ "Périmètre", "lot-42.html#autotoc_md1986", [
-      [ "Inclus", "lot-42.html#autotoc_md1987", null ],
-      [ "Exclus (hors périmètre de ce lot)", "lot-42.html#autotoc_md1988", null ]
+    [ "Objectif", "lot-42.html#autotoc_md2099", null ],
+    [ "Périmètre", "lot-42.html#autotoc_md2100", [
+      [ "Inclus", "lot-42.html#autotoc_md2101", null ],
+      [ "Exclus (hors périmètre de ce lot)", "lot-42.html#autotoc_md2102", null ]
     ] ],
-    [ "Décisions de cadrage", "lot-42.html#autotoc_md1989", null ],
-    [ "Exigences couvertes", "lot-42.html#autotoc_md1990", null ],
-    [ "Découpage", "lot-42.html#autotoc_md1991", null ],
-    [ "Critères d'acceptation du lot", "lot-42.html#autotoc_md1992", null ],
-    [ "Dépendances", "lot-42.html#autotoc_md1993", null ],
-    [ "Navigation des tâches", "lot-42.html#autotoc_md1994", null ],
+    [ "Décisions de cadrage", "lot-42.html#autotoc_md2103", null ],
+    [ "Exigences couvertes", "lot-42.html#autotoc_md2104", null ],
+    [ "Découpage", "lot-42.html#autotoc_md2105", null ],
+    [ "Critères d'acceptation du lot", "lot-42.html#autotoc_md2106", null ],
+    [ "Dépendances", "lot-42.html#autotoc_md2107", null ],
+    [ "Navigation des tâches", "lot-42.html#autotoc_md2108", null ],
     [ "TACHE-01 — `skins.json` : format versionné et jeux de skins", "lot-42-tache-01-skins-json.html", [
-      [ "Contexte", "lot-42-tache-01-skins-json.html#autotoc_md1995", null ],
-      [ "Travail à réaliser", "lot-42-tache-01-skins-json.html#autotoc_md1996", null ],
-      [ "Fichiers impactés", "lot-42-tache-01-skins-json.html#autotoc_md1997", null ],
-      [ "Tests (obligatoires)", "lot-42-tache-01-skins-json.html#autotoc_md1998", null ],
-      [ "Points d'attention", "lot-42-tache-01-skins-json.html#autotoc_md1999", null ],
-      [ "Définition de fait (DoD)", "lot-42-tache-01-skins-json.html#autotoc_md2000", null ],
-      [ "Exigences", "lot-42-tache-01-skins-json.html#autotoc_md2001", null ]
+      [ "Contexte", "lot-42-tache-01-skins-json.html#autotoc_md2109", null ],
+      [ "Travail à réaliser", "lot-42-tache-01-skins-json.html#autotoc_md2110", null ],
+      [ "Fichiers impactés", "lot-42-tache-01-skins-json.html#autotoc_md2111", null ],
+      [ "Tests (obligatoires)", "lot-42-tache-01-skins-json.html#autotoc_md2112", null ],
+      [ "Points d'attention", "lot-42-tache-01-skins-json.html#autotoc_md2113", null ],
+      [ "Définition de fait (DoD)", "lot-42-tache-01-skins-json.html#autotoc_md2114", null ],
+      [ "Exigences", "lot-42-tache-01-skins-json.html#autotoc_md2115", null ]
     ] ],
     [ "TACHE-02 — Raccords automatiques : voisinage solide → case de planche", "lot-42-tache-02-raccords-automatiques.html", [
-      [ "Contexte", "lot-42-tache-02-raccords-automatiques.html#autotoc_md2002", null ],
-      [ "Travail à réaliser", "lot-42-tache-02-raccords-automatiques.html#autotoc_md2003", null ],
-      [ "Fichiers impactés", "lot-42-tache-02-raccords-automatiques.html#autotoc_md2004", null ],
-      [ "Tests (obligatoires)", "lot-42-tache-02-raccords-automatiques.html#autotoc_md2005", null ],
-      [ "Points d'attention", "lot-42-tache-02-raccords-automatiques.html#autotoc_md2006", null ],
-      [ "Définition de fait (DoD)", "lot-42-tache-02-raccords-automatiques.html#autotoc_md2007", null ],
-      [ "Exigences", "lot-42-tache-02-raccords-automatiques.html#autotoc_md2008", null ]
+      [ "Contexte", "lot-42-tache-02-raccords-automatiques.html#autotoc_md2116", null ],
+      [ "Travail à réaliser", "lot-42-tache-02-raccords-automatiques.html#autotoc_md2117", null ],
+      [ "Fichiers impactés", "lot-42-tache-02-raccords-automatiques.html#autotoc_md2118", null ],
+      [ "Tests (obligatoires)", "lot-42-tache-02-raccords-automatiques.html#autotoc_md2119", null ],
+      [ "Points d'attention", "lot-42-tache-02-raccords-automatiques.html#autotoc_md2120", null ],
+      [ "Définition de fait (DoD)", "lot-42-tache-02-raccords-automatiques.html#autotoc_md2121", null ],
+      [ "Exigences", "lot-42-tache-02-raccords-automatiques.html#autotoc_md2122", null ]
     ] ],
     [ "TACHE-03 — Masquage alpha automatique des pentes et arrondis", "lot-42-tache-03-masquage-pentes.html", [
-      [ "Contexte", "lot-42-tache-03-masquage-pentes.html#autotoc_md2009", null ],
-      [ "Travail à réaliser", "lot-42-tache-03-masquage-pentes.html#autotoc_md2010", null ],
-      [ "Fichiers impactés", "lot-42-tache-03-masquage-pentes.html#autotoc_md2011", null ],
-      [ "Tests (obligatoires)", "lot-42-tache-03-masquage-pentes.html#autotoc_md2012", null ],
-      [ "Points d'attention", "lot-42-tache-03-masquage-pentes.html#autotoc_md2013", null ],
-      [ "Définition de fait (DoD)", "lot-42-tache-03-masquage-pentes.html#autotoc_md2014", null ],
-      [ "Exigences", "lot-42-tache-03-masquage-pentes.html#autotoc_md2015", null ]
+      [ "Contexte", "lot-42-tache-03-masquage-pentes.html#autotoc_md2123", null ],
+      [ "Travail à réaliser", "lot-42-tache-03-masquage-pentes.html#autotoc_md2124", null ],
+      [ "Fichiers impactés", "lot-42-tache-03-masquage-pentes.html#autotoc_md2125", null ],
+      [ "Tests (obligatoires)", "lot-42-tache-03-masquage-pentes.html#autotoc_md2126", null ],
+      [ "Points d'attention", "lot-42-tache-03-masquage-pentes.html#autotoc_md2127", null ],
+      [ "Définition de fait (DoD)", "lot-42-tache-03-masquage-pentes.html#autotoc_md2128", null ],
+      [ "Exigences", "lot-42-tache-03-masquage-pentes.html#autotoc_md2129", null ]
     ] ],
     [ "TACHE-04 — Panneau Qt « Textures » (section Skins)", "lot-42-tache-04-panneau-textures.html", [
-      [ "Contexte", "lot-42-tache-04-panneau-textures.html#autotoc_md2016", null ],
-      [ "Travail à réaliser", "lot-42-tache-04-panneau-textures.html#autotoc_md2017", null ],
-      [ "Fichiers impactés", "lot-42-tache-04-panneau-textures.html#autotoc_md2018", null ],
-      [ "Tests (obligatoires)", "lot-42-tache-04-panneau-textures.html#autotoc_md2019", null ],
-      [ "Points d'attention", "lot-42-tache-04-panneau-textures.html#autotoc_md2020", null ],
-      [ "Définition de fait (DoD)", "lot-42-tache-04-panneau-textures.html#autotoc_md2021", null ],
-      [ "Exigences", "lot-42-tache-04-panneau-textures.html#autotoc_md2022", null ]
+      [ "Contexte", "lot-42-tache-04-panneau-textures.html#autotoc_md2130", null ],
+      [ "Travail à réaliser", "lot-42-tache-04-panneau-textures.html#autotoc_md2131", null ],
+      [ "Fichiers impactés", "lot-42-tache-04-panneau-textures.html#autotoc_md2132", null ],
+      [ "Tests (obligatoires)", "lot-42-tache-04-panneau-textures.html#autotoc_md2133", null ],
+      [ "Points d'attention", "lot-42-tache-04-panneau-textures.html#autotoc_md2134", null ],
+      [ "Définition de fait (DoD)", "lot-42-tache-04-panneau-textures.html#autotoc_md2135", null ],
+      [ "Exigences", "lot-42-tache-04-panneau-textures.html#autotoc_md2136", null ]
     ] ],
     [ "TACHE-05 — Palette de l'éditeur fidèle au mode de rendu", "lot-42-tache-05-palette-fidele.html", [
-      [ "Contexte", "lot-42-tache-05-palette-fidele.html#autotoc_md2023", null ],
-      [ "Travail à réaliser", "lot-42-tache-05-palette-fidele.html#autotoc_md2024", null ],
-      [ "Fichiers impactés", "lot-42-tache-05-palette-fidele.html#autotoc_md2025", null ],
-      [ "Tests (obligatoires)", "lot-42-tache-05-palette-fidele.html#autotoc_md2026", null ],
-      [ "Points d'attention", "lot-42-tache-05-palette-fidele.html#autotoc_md2027", null ],
-      [ "Définition de fait (DoD)", "lot-42-tache-05-palette-fidele.html#autotoc_md2028", null ],
-      [ "Exigences", "lot-42-tache-05-palette-fidele.html#autotoc_md2029", null ]
+      [ "Contexte", "lot-42-tache-05-palette-fidele.html#autotoc_md2137", null ],
+      [ "Travail à réaliser", "lot-42-tache-05-palette-fidele.html#autotoc_md2138", null ],
+      [ "Fichiers impactés", "lot-42-tache-05-palette-fidele.html#autotoc_md2139", null ],
+      [ "Tests (obligatoires)", "lot-42-tache-05-palette-fidele.html#autotoc_md2140", null ],
+      [ "Points d'attention", "lot-42-tache-05-palette-fidele.html#autotoc_md2141", null ],
+      [ "Définition de fait (DoD)", "lot-42-tache-05-palette-fidele.html#autotoc_md2142", null ],
+      [ "Exigences", "lot-42-tache-05-palette-fidele.html#autotoc_md2143", null ]
     ] ]
 ];

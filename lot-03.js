@@ -1,68 +1,68 @@
 var lot_03 =
 [
-    [ "Objectif", "lot-03.html#autotoc_md433", null ],
-    [ "⚠️ Décision préalable : ECS maison vs bibliothèque", "lot-03.html#autotoc_md434", null ],
-    [ "Périmètre", "lot-03.html#autotoc_md435", [
-      [ "Inclus", "lot-03.html#autotoc_md436", null ],
-      [ "Exclus (lots ultérieurs)", "lot-03.html#autotoc_md437", null ]
+    [ "Objectif", "lot-03.html#autotoc_md547", null ],
+    [ "⚠️ Décision préalable : ECS maison vs bibliothèque", "lot-03.html#autotoc_md548", null ],
+    [ "Périmètre", "lot-03.html#autotoc_md549", [
+      [ "Inclus", "lot-03.html#autotoc_md550", null ],
+      [ "Exclus (lots ultérieurs)", "lot-03.html#autotoc_md551", null ]
     ] ],
-    [ "Exigences couvertes", "lot-03.html#autotoc_md438", null ],
-    [ "Découpage", "lot-03.html#autotoc_md439", null ],
-    [ "Critères d'acceptation du lot", "lot-03.html#autotoc_md440", null ],
-    [ "Dépendances", "lot-03.html#autotoc_md441", null ],
-    [ "Navigation des tâches", "lot-03.html#autotoc_md442", null ],
+    [ "Exigences couvertes", "lot-03.html#autotoc_md552", null ],
+    [ "Découpage", "lot-03.html#autotoc_md553", null ],
+    [ "Critères d'acceptation du lot", "lot-03.html#autotoc_md554", null ],
+    [ "Dépendances", "lot-03.html#autotoc_md555", null ],
+    [ "Navigation des tâches", "lot-03.html#autotoc_md556", null ],
     [ "TACHE-01 — Types mathématiques de Core", "lot-03-tache-01-math-core.html", [
-      [ "Contexte", "lot-03-tache-01-math-core.html#autotoc_md443", null ],
-      [ "Travail à réaliser", "lot-03-tache-01-math-core.html#autotoc_md444", null ],
-      [ "Fichiers impactés", "lot-03-tache-01-math-core.html#autotoc_md445", null ],
-      [ "Tests (obligatoires)", "lot-03-tache-01-math-core.html#autotoc_md446", null ],
-      [ "Points d'attention", "lot-03-tache-01-math-core.html#autotoc_md447", null ],
-      [ "Définition de fait (DoD)", "lot-03-tache-01-math-core.html#autotoc_md448", null ],
-      [ "Exigences", "lot-03-tache-01-math-core.html#autotoc_md449", null ]
+      [ "Contexte", "lot-03-tache-01-math-core.html#autotoc_md557", null ],
+      [ "Travail à réaliser", "lot-03-tache-01-math-core.html#autotoc_md558", null ],
+      [ "Fichiers impactés", "lot-03-tache-01-math-core.html#autotoc_md559", null ],
+      [ "Tests (obligatoires)", "lot-03-tache-01-math-core.html#autotoc_md560", null ],
+      [ "Points d'attention", "lot-03-tache-01-math-core.html#autotoc_md561", null ],
+      [ "Définition de fait (DoD)", "lot-03-tache-01-math-core.html#autotoc_md562", null ],
+      [ "Exigences", "lot-03-tache-01-math-core.html#autotoc_md563", null ]
     ] ],
     [ "TACHE-02 — Entités : handles générationnels &amp; cycle de vie", "lot-03-tache-02-entites.html", [
-      [ "Contexte", "lot-03-tache-02-entites.html#autotoc_md450", null ],
-      [ "Travail à réaliser", "lot-03-tache-02-entites.html#autotoc_md451", null ],
-      [ "Fichiers impactés", "lot-03-tache-02-entites.html#autotoc_md452", null ],
-      [ "Tests (obligatoires)", "lot-03-tache-02-entites.html#autotoc_md453", null ],
-      [ "Points d'attention", "lot-03-tache-02-entites.html#autotoc_md454", null ],
-      [ "Définition de fait (DoD)", "lot-03-tache-02-entites.html#autotoc_md455", null ],
-      [ "Exigences", "lot-03-tache-02-entites.html#autotoc_md456", null ]
+      [ "Contexte", "lot-03-tache-02-entites.html#autotoc_md564", null ],
+      [ "Travail à réaliser", "lot-03-tache-02-entites.html#autotoc_md565", null ],
+      [ "Fichiers impactés", "lot-03-tache-02-entites.html#autotoc_md566", null ],
+      [ "Tests (obligatoires)", "lot-03-tache-02-entites.html#autotoc_md567", null ],
+      [ "Points d'attention", "lot-03-tache-02-entites.html#autotoc_md568", null ],
+      [ "Définition de fait (DoD)", "lot-03-tache-02-entites.html#autotoc_md569", null ],
+      [ "Exigences", "lot-03-tache-02-entites.html#autotoc_md570", null ]
     ] ],
     [ "TACHE-03 — Stockage de composants (sparse set typé)", "lot-03-tache-03-stockage-composants.html", [
-      [ "Contexte", "lot-03-tache-03-stockage-composants.html#autotoc_md457", null ],
-      [ "Travail à réaliser", "lot-03-tache-03-stockage-composants.html#autotoc_md458", null ],
-      [ "Fichiers impactés", "lot-03-tache-03-stockage-composants.html#autotoc_md459", null ],
-      [ "Tests (obligatoires)", "lot-03-tache-03-stockage-composants.html#autotoc_md460", null ],
-      [ "Points d'attention", "lot-03-tache-03-stockage-composants.html#autotoc_md461", null ],
-      [ "Définition de fait (DoD)", "lot-03-tache-03-stockage-composants.html#autotoc_md462", null ],
-      [ "Exigences", "lot-03-tache-03-stockage-composants.html#autotoc_md463", null ]
+      [ "Contexte", "lot-03-tache-03-stockage-composants.html#autotoc_md571", null ],
+      [ "Travail à réaliser", "lot-03-tache-03-stockage-composants.html#autotoc_md572", null ],
+      [ "Fichiers impactés", "lot-03-tache-03-stockage-composants.html#autotoc_md573", null ],
+      [ "Tests (obligatoires)", "lot-03-tache-03-stockage-composants.html#autotoc_md574", null ],
+      [ "Points d'attention", "lot-03-tache-03-stockage-composants.html#autotoc_md575", null ],
+      [ "Définition de fait (DoD)", "lot-03-tache-03-stockage-composants.html#autotoc_md576", null ],
+      [ "Exigences", "lot-03-tache-03-stockage-composants.html#autotoc_md577", null ]
     ] ],
     [ "TACHE-04 — Requêtes / vues multi-composants", "lot-03-tache-04-vues-requetes.html", [
-      [ "Contexte", "lot-03-tache-04-vues-requetes.html#autotoc_md464", null ],
-      [ "Travail à réaliser", "lot-03-tache-04-vues-requetes.html#autotoc_md465", null ],
-      [ "Fichiers impactés", "lot-03-tache-04-vues-requetes.html#autotoc_md466", null ],
-      [ "Tests (obligatoires)", "lot-03-tache-04-vues-requetes.html#autotoc_md467", null ],
-      [ "Points d'attention", "lot-03-tache-04-vues-requetes.html#autotoc_md468", null ],
-      [ "Définition de fait (DoD)", "lot-03-tache-04-vues-requetes.html#autotoc_md469", null ],
-      [ "Exigences", "lot-03-tache-04-vues-requetes.html#autotoc_md470", null ]
+      [ "Contexte", "lot-03-tache-04-vues-requetes.html#autotoc_md578", null ],
+      [ "Travail à réaliser", "lot-03-tache-04-vues-requetes.html#autotoc_md579", null ],
+      [ "Fichiers impactés", "lot-03-tache-04-vues-requetes.html#autotoc_md580", null ],
+      [ "Tests (obligatoires)", "lot-03-tache-04-vues-requetes.html#autotoc_md581", null ],
+      [ "Points d'attention", "lot-03-tache-04-vues-requetes.html#autotoc_md582", null ],
+      [ "Définition de fait (DoD)", "lot-03-tache-04-vues-requetes.html#autotoc_md583", null ],
+      [ "Exigences", "lot-03-tache-04-vues-requetes.html#autotoc_md584", null ]
     ] ],
     [ "TACHE-05 — Systèmes &amp; World (orchestration au pas fixe)", "lot-03-tache-05-systemes-world.html", [
-      [ "Contexte", "lot-03-tache-05-systemes-world.html#autotoc_md471", null ],
-      [ "Travail à réaliser", "lot-03-tache-05-systemes-world.html#autotoc_md472", null ],
-      [ "Fichiers impactés", "lot-03-tache-05-systemes-world.html#autotoc_md473", null ],
-      [ "Tests (obligatoires)", "lot-03-tache-05-systemes-world.html#autotoc_md474", null ],
-      [ "Points d'attention", "lot-03-tache-05-systemes-world.html#autotoc_md475", null ],
-      [ "Définition de fait (DoD)", "lot-03-tache-05-systemes-world.html#autotoc_md476", null ],
-      [ "Exigences", "lot-03-tache-05-systemes-world.html#autotoc_md477", null ]
+      [ "Contexte", "lot-03-tache-05-systemes-world.html#autotoc_md585", null ],
+      [ "Travail à réaliser", "lot-03-tache-05-systemes-world.html#autotoc_md586", null ],
+      [ "Fichiers impactés", "lot-03-tache-05-systemes-world.html#autotoc_md587", null ],
+      [ "Tests (obligatoires)", "lot-03-tache-05-systemes-world.html#autotoc_md588", null ],
+      [ "Points d'attention", "lot-03-tache-05-systemes-world.html#autotoc_md589", null ],
+      [ "Définition de fait (DoD)", "lot-03-tache-05-systemes-world.html#autotoc_md590", null ],
+      [ "Exigences", "lot-03-tache-05-systemes-world.html#autotoc_md591", null ]
     ] ],
     [ "TACHE-06 — Composant Transform + système de mouvement (démo)", "lot-03-tache-06-transform-demo.html", [
-      [ "Contexte", "lot-03-tache-06-transform-demo.html#autotoc_md478", null ],
-      [ "Travail à réaliser", "lot-03-tache-06-transform-demo.html#autotoc_md479", null ],
-      [ "Fichiers impactés", "lot-03-tache-06-transform-demo.html#autotoc_md480", null ],
-      [ "Tests (obligatoires)", "lot-03-tache-06-transform-demo.html#autotoc_md481", null ],
-      [ "Points d'attention", "lot-03-tache-06-transform-demo.html#autotoc_md482", null ],
-      [ "Définition de fait (DoD)", "lot-03-tache-06-transform-demo.html#autotoc_md483", null ],
-      [ "Exigences", "lot-03-tache-06-transform-demo.html#autotoc_md484", null ]
+      [ "Contexte", "lot-03-tache-06-transform-demo.html#autotoc_md592", null ],
+      [ "Travail à réaliser", "lot-03-tache-06-transform-demo.html#autotoc_md593", null ],
+      [ "Fichiers impactés", "lot-03-tache-06-transform-demo.html#autotoc_md594", null ],
+      [ "Tests (obligatoires)", "lot-03-tache-06-transform-demo.html#autotoc_md595", null ],
+      [ "Points d'attention", "lot-03-tache-06-transform-demo.html#autotoc_md596", null ],
+      [ "Définition de fait (DoD)", "lot-03-tache-06-transform-demo.html#autotoc_md597", null ],
+      [ "Exigences", "lot-03-tache-06-transform-demo.html#autotoc_md598", null ]
     ] ]
 ];

@@ -1,0 +1,24 @@
+var dir_4b64aa2d0988f5c3b2bdd729b0be8728 =
+[
+    [ "LOT-ANNEXE-01-bibliotheque-tensorielle-rng", "dir_0bd32b834dfc3ec1415636c36ca6c5bb.html", null ],
+    [ "LOT-ANNEXE-02-moteur-autodiff", "dir_74430ec419707ac1b06220d53c622634.html", null ],
+    [ "LOT-ANNEXE-03-bibliotheque-reseaux-neurones", "dir_b74cdb23fff8f98c0c69babcfa827d3d.html", null ],
+    [ "LOT-ANNEXE-04-optimiseurs", "dir_b14431cd0ab66d0a2e1354d3259ce2f7.html", null ],
+    [ "LOT-ANNEXE-05-environnement-simulation-headless", "dir_06bff98b52eda2b82ba275cdc1e0e513.html", null ],
+    [ "LOT-ANNEXE-06-encodage-observation", "dir_fcfef75ed99958819a0ac605b702f9cd.html", null ],
+    [ "LOT-ANNEXE-07-espace-action-format-rejeu", "dir_409dcba6ecd42d27c1ba28d683df7f48.html", null ],
+    [ "LOT-ANNEXE-08-fonction-recompense-episodes", "dir_e1b16921338715d204ef8a80b0f9c181.html", null ],
+    [ "LOT-ANNEXE-09-journalisation-statistiques", "dir_1230e95ca45685106c5799b4fe0fe2ce.html", null ],
+    [ "LOT-ANNEXE-10-algorithme-evolutionniste", "dir_b0858e907d1138e12ecbdaf37d505cb7.html", null ],
+    [ "LOT-ANNEXE-11-entrainement-niveau-par-niveau", "dir_abc4223c1981b40881866e72c5a4e549.html", null ],
+    [ "LOT-ANNEXE-12-policy-gradient-reinforce", "dir_c4d1819e13365e9ec31eaf22e37a7f64.html", null ],
+    [ "LOT-ANNEXE-13-acteur-critique", "dir_1838ef6fa9ca453373c33fdd79443715.html", null ],
+    [ "LOT-ANNEXE-14-algorithme-avance", "dir_b1edc75d1abe1cae65218b1c22f65e97.html", null ],
+    [ "LOT-ANNEXE-15-benchmark-multi-algorithmes", "dir_ba42025e2cf155c7d66b25a14f3834ce.html", null ],
+    [ "LOT-ANNEXE-16-evaluation-hors-niveau", "dir_23b6ff12dc07a754883d0a52b3fa2955.html", null ],
+    [ "LOT-ANNEXE-17-validation-format-rejeu", "dir_e4f7cf8122543173db24fee242823359.html", null ],
+    [ "LOT-ANNEXE-18-mode-regarder-ia-jouer", "dir_e8af1f5f9fd63933ace78e1d6ef5cd8a.html", null ],
+    [ "LOT-ANNEXE-19-outillage-cli", "dir_31901861cd842a72a8ecd7844ea0555c.html", null ],
+    [ "LOT-ANNEXE-20-garde-fou-ci", "dir_b8463e2859b7280fe6e7675842468617.html", null ],
+    [ "LOT-ANNEXE-21-mode-ia-ihm", "dir_54b22e11389ead0671a7f583ae7b1ac0.html", null ]
+];

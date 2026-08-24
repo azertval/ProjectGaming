@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-50-tache-02-outil-geste.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-50-decors-edition_2tache-02-outil-geste"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-50.html#md_Lot_2LOT-50-decors-edition_2epic" title="Lot/LOT-50-decors-edition/epic.md">LOT-50</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2293"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2407"></a>
 Contexte</h1>
 <p>Manipuler un décor à la souris est le geste le plus riche de l'éditeur : il faut désigner une cible parmi des objets qui se recouvrent, distinguer un clic d'un glisser, savoir si l'on déplace ou si l'on redimensionne selon la poignée saisie, et gérer l'abandon.</p>
 <p>Le projet a un précédent exact de geste non trivial traité proprement : <span class="tt">hmi::LinkGesture</span> et <span class="tt"><a class="el" href="namespacehmi.html#a7f0f0f4f71e52b8deb6fb88a8d6411d9" title="Résout le clic de l&#39;outil « Lien » sur clickedCell selon l&#39;attente courante.">hmi::resolveLinkClick</a></span> (<span class="tt">LOT-37</span>) — une machine à états <b>pure</b>, testée sans Qt, dont le viewport n'est que le routeur d'événements. C'est ce patron qu'il faut suivre, sans quoi la logique de manipulation finirait dispersée dans des gestionnaires d'événements Qt intestables.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2294"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2408"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Nouvelle valeur <span class="tt"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou la barre d&#39;outils (hmi::EditorActions).">hmi::EditorTool</a></span></b> (ex. <em>DecorPlace</em>), ajoutée au panneau Outils, à ses libellés traduits et à la table de raccourcis de l'éditeur.</li>
@@ -112,7 +112,7 @@ Travail à réaliser</h1>
 <li><b>Sortie du geste</b> : une <b>description d'action</b> (déplacer tel décor de tant, redimensionner à telle échelle…), appliquée par l'appelant aux mutateurs de TACHE-01 — même séparation que <span class="tt">resolveLinkClick</span>.</li>
 <li><b>Aimantation optionnelle</b> sur la grille, activable/désactivable, jamais imposée : un décor est libre par construction (<span class="tt">EX-DEC-001</span>), l'aimantation n'est qu'un confort d'alignement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2295"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2409"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="EditorTool_8h.html" title="Outil actif dans la grille de l&#39;éditeur (LOT-15, EX-EDIT-014).">Source/HMI/Editor/EditorTool.h</a></span>, <span class="tt">ToolPanel.{h,cpp}</span>, <span class="tt">Source/Elements/UI/ToolPanel.ui</span>.</li>
@@ -121,7 +121,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/HMI/Input/EditorKeyBindings.{h,cpp}</span>.</li>
 <li><span class="tt">Source/Test/Unit/HMI/Editor/test_decor_gesture.cpp</span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2296"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2410"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Désignation</b> : décors superposés → le plus au-dessus est désigné ; décor sur une couche masquée (LOT-51) → ignoré ; clic dans le vide → aucune sélection.</li>
@@ -131,22 +131,22 @@ Tests (obligatoires)</h1>
 <li><b>Aimantation</b> : activée → position alignée ; désactivée → position exacte.</li>
 <li>Machine à états <b>pure</b>, testée sans Qt ni GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2297"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2411"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le geste ne mute rien.</b> Il décrit une action ; c'est l'appelant qui l'applique au brouillon. C'est ce qui le rend testable et ce qui garantit que chaque manipulation passe par l'historique.</li>
 <li>Un décor <b>très petit</b> ou <b>très grand</b> doit rester sélectionnable et redimensionnable : prévoir une taille minimale de zone cliquable pour les poignées, indépendante du zoom.</li>
 <li>La désignation doit tenir compte du zoom et du décalage de parallaxe (LOT-49, TACHE-03) : le décor est affiché à une position différente de sa position modèle. Cliquer là où on le <b>voit</b> doit sélectionner le bon décor — c'est un piège certain si la conversion n'est pas explicite.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2298"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2412"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>L'outil existe, est sélectionnable au panneau et au clavier ; placer, sélectionner, déplacer, redimensionner et pivoter fonctionnent, avec abandon et aimantation optionnelle ; le geste est pur et testé sans Qt ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2299"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2413"></a>
 Correctif post-livraison</h1>
 <p>La mise en garde ci-dessus (« Points d'attention ») avait été identifiée mais pas suivie à la livraison initiale : la désignation/les poignées comparaient le curseur (position de <b>rendu</b>) à des rectangles calculés depuis la position <b>modèle</b> brute des décors, jamais convertie. Sans effet sur la couche <span class="tt">Decor</span> (facteur <span class="tt">1.0</span>, <span class="tt">EX-DEC-006</span>), mais un décor en couche Arrière-plan/Premier plan désignait/manipulait à côté de ce qui était visible à l'écran — rapporté comme « le cadre de modification se désolidarise du décor ». Corrigé en convertissant explicitement aux deux frontières concernées (<span class="tt">GameViewport::decorBoundsForGesture</span>/ <span class="tt">selectedDecorHandles</span> vers l'espace de rendu, <span class="tt"><a class="el" href="namespacehmi.html#adb98b327eb70ccd8295dd479a45f5cd3" title="Calcule la position de rendu d&#39;un contenu, décalée par sa parallaxe.">hmi::parallaxRenderPosition</a></span> ; le curseur vers l'espace modèle avant d'entrer dans <span class="tt">hmi::DecorGesture</span>, <span class="tt"><a class="el" href="namespacehmi.html#ab8f85bb3d9f14a6f76165d972ed564ca" title="Inverse de parallaxRenderPosition : retrouve la position modèle équivalente à un point exprimé en esp...">hmi::parallaxModelPosition</a></span>, son inverse exact) — voir <a class="el" href="guide-rendu.html" title="Rendu 2D : de l&#39;ECS à l&#39;écran">Rendu 2D : de l'ECS à l'écran</a> pour le détail. <span class="tt">hmi::DecorGesture</span> lui-même n'a pas changé : il n'a jamais connu la parallaxe, et n'a pas à la connaître.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2300"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2414"></a>
 Exigences</h1>
 <p><span class="tt">EX-DEC-010</span> (placer, déplacer, redimensionner, supprimer), <span class="tt">EX-EDIT-040</span> (édition de décors) ; réutilise <span class="tt">EX-DEC-001</span> (position libre), <span class="tt">EX-EDIT-005</span> (annuler/refaire), <span class="tt">EX-EDIT-030</span> (éditeur intégré), <span class="tt">EX-CTRL-012</span> (remappage), <span class="tt">EX-REN-033</span> (traduction). </p>
 </div></div><!-- contents -->

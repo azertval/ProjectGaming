@@ -2,6 +2,7 @@ var namespacecore =
 [
     [ "Engine", "classcore_1_1Engine.html", "classcore_1_1Engine" ],
     [ "ConsoleLogSink", "classcore_1_1ConsoleLogSink.html", "classcore_1_1ConsoleLogSink" ],
+    [ "FileLogSink", "classcore_1_1FileLogSink.html", "classcore_1_1FileLogSink" ],
     [ "ILogSink", "classcore_1_1ILogSink.html", "classcore_1_1ILogSink" ],
     [ "Logger", "classcore_1_1Logger.html", "classcore_1_1Logger" ],
     [ "MemoryLogSink", "classcore_1_1MemoryLogSink.html", "classcore_1_1MemoryLogSink" ],

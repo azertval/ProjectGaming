@@ -236,6 +236,12 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 <tr class="memdesc:a703c568cb80ba0012846c8baf1a05b72"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Nouvelle partie » (menu) : confirmation si une progression existe (elle serait perdue), puis efface la progression et recommence au premier tableau.  <br /></td></tr>
 <tr class="memitem:ab0630b94a956d5864fc8a29474b635d8" id="r_ab0630b94a956d5864fc8a29474b635d8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab0630b94a956d5864fc8a29474b635d8">openLevelSelect</a> ()</td></tr>
 <tr class="memdesc:ab0630b94a956d5864fc8a29474b635d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Choisir un niveau » (menu) : ouvre <span class="tt"><a class="el" href="#aab0f9b0c9990d3496d32ab706c488519" title="Écran de sélection de niveau (LOT-59 TACHE-06) : une page normale de _stack (jamais un recouvrement –...">_levelSelectScreen</a></span>, peuplé de la séquence (avec état de déverrouillage) et des niveaux personnels du dossier (hors séquence, <span class="tt"><a class="el" href="classhmi_1_1LevelFileOperations.html" title="Opérations sur les fichiers de niveaux d&#39;un dossier, sans dépendance Qt/GPU.">LevelFileOperations</a></span> filtrée).  <br /></td></tr>
+<tr class="memitem:a61bcffba710ceb0cd40285ead5e29ef3" id="r_a61bcffba710ceb0cd40285ead5e29ef3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a61bcffba710ceb0cd40285ead5e29ef3">openAiMode</a> ()</td></tr>
+<tr class="memdesc:a61bcffba710ceb0cd40285ead5e29ef3"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Mode IA » (menu, <span class="tt">LOT-ANNEXE-21</span>) : ouvre <span class="tt"><a class="el" href="#a26997856ec120b026c632b75b99fa8fb" title="Écran Mode IA (LOT-ANNEXE-21) : même patron que _levelSelectScreen, page normale de _stack.">_aiMode</a></span> (entraînement, validation/sauvegarde, rejeu) — remplace l'ancien <span class="tt">watchAiPlay</span> (<span class="tt">LOT-ANNEXE-18</span>), dont l'onglet Rejeu de <span class="tt"><a class="el" href="#a26997856ec120b026c632b75b99fa8fb" title="Écran Mode IA (LOT-ANNEXE-21) : même patron que _levelSelectScreen, page normale de _stack.">_aiMode</a></span> reprend le rôle.  <br /></td></tr>
+<tr class="memitem:ae393d9302186566e0ec890b1ba0f0dab" id="r_ae393d9302186566e0ec890b1ba0f0dab"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae393d9302186566e0ec890b1ba0f0dab">closeAiMode</a> ()</td></tr>
+<tr class="memdesc:ae393d9302186566e0ec890b1ba0f0dab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retour au menu depuis l'écran Mode IA.  <br /></td></tr>
+<tr class="memitem:a0efb1655ef693bf903ab2b91ac6b062f" id="r_a0efb1655ef693bf903ab2b91ac6b062f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0efb1655ef693bf903ab2b91ac6b062f">playAiReplay</a> (const QString &amp;replayPath)</td></tr>
+<tr class="memdesc:a0efb1655ef693bf903ab2b91ac6b062f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un rejeu a été choisi dans <span class="tt"><a class="el" href="#a26997856ec120b026c632b75b99fa8fb" title="Écran Mode IA (LOT-ANNEXE-21) : même patron que _levelSelectScreen, page normale de _stack.">_aiMode</a></span> (aperçu en direct ou onglet Rejeu) : même chargement que l'ancien <span class="tt">watchAiPlay</span>, signale une boîte d'erreur (rejeu invalide) sans ouvrir l'écran de jeu, jamais de plantage (<span class="tt">EX-NFR-040</span>).  <br /></td></tr>
 <tr class="memitem:ad55a250e14a07d8fe97ce263e78b6e5a" id="r_ad55a250e14a07d8fe97ce263e78b6e5a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad55a250e14a07d8fe97ce263e78b6e5a">closeLevelSelect</a> ()</td></tr>
 <tr class="memdesc:ad55a250e14a07d8fe97ce263e78b6e5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retour au menu depuis l'écran de sélection de niveau.  <br /></td></tr>
 <tr class="memitem:ad0160f504de7ad658481fd2480488831" id="r_ad0160f504de7ad658481fd2480488831"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad0160f504de7ad658481fd2480488831">openCredits</a> ()</td></tr>
@@ -277,6 +283,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:aab0f9b0c9990d3496d32ab706c488519"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran de sélection de niveau (<span class="tt">LOT-59</span> TACHE-06) : une page normale de <span class="tt"><a class="el" href="#a408483202779acb367aee2733d8b28c7" title="Central : empile menu principal, options et viewport.">_stack</a></span> (jamais un recouvrement &ndash; atteint depuis le menu, pas en jeu, contrairement aux deux précédents).  <br /></td></tr>
 <tr class="memitem:ab8058881976138d4ce9d4b5c724b8a11" id="r_ab8058881976138d4ce9d4b5c724b8a11"><td class="memItemLeft"><a class="el" href="classhmi_1_1CreditsScreen.html">CreditsScreen</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ab8058881976138d4ce9d4b5c724b8a11">_credits</a> = nullptr</td></tr>
 <tr class="memdesc:ab8058881976138d4ce9d4b5c724b8a11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran de crédits (<span class="tt">LOT-60</span>) : même patron que <span class="tt"><a class="el" href="#aab0f9b0c9990d3496d32ab706c488519" title="Écran de sélection de niveau (LOT-59 TACHE-06) : une page normale de _stack (jamais un recouvrement –...">_levelSelectScreen</a></span>, page normale de <span class="tt"><a class="el" href="#a408483202779acb367aee2733d8b28c7" title="Central : empile menu principal, options et viewport.">_stack</a></span>.  <br /></td></tr>
+<tr class="memitem:a26997856ec120b026c632b75b99fa8fb" id="r_a26997856ec120b026c632b75b99fa8fb"><td class="memItemLeft"><a class="el" href="classhmi_1_1AiModeScreen.html">AiModeScreen</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a26997856ec120b026c632b75b99fa8fb">_aiMode</a> = nullptr</td></tr>
+<tr class="memdesc:a26997856ec120b026c632b75b99fa8fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran Mode IA (<span class="tt">LOT-ANNEXE-21</span>) : même patron que <span class="tt"><a class="el" href="#aab0f9b0c9990d3496d32ab706c488519" title="Écran de sélection de niveau (LOT-59 TACHE-06) : une page normale de _stack (jamais un recouvrement –...">_levelSelectScreen</a></span>, page normale de <span class="tt"><a class="el" href="#a408483202779acb367aee2733d8b28c7" title="Central : empile menu principal, options et viewport.">_stack</a></span>.  <br /></td></tr>
 <tr class="memitem:a1ed57ff25b1be1c311886896b1ae444f" id="r_a1ed57ff25b1be1c311886896b1ae444f"><td class="memItemLeft"><a class="el" href="classhmi_1_1GameViewport.html">GameViewport</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a1ed57ff25b1be1c311886896b1ae444f">_viewport</a></td></tr>
 <tr class="memdesc:a1ed57ff25b1be1c311886896b1ae444f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Surface de rendu D3D11 (possédée par le conteneur central).  <br /></td></tr>
 <tr class="memitem:acdb82ee8e5a56236705ceec1908982ff" id="r_acdb82ee8e5a56236705ceec1908982ff"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditContextTarget.html">EditContextTarget</a> *&#160;</td><td class="memItemRight"><a class="el" href="#acdb82ee8e5a56236705ceec1908982ff">_editContext</a> = nullptr</td></tr>
@@ -670,6 +678,33 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Un tableau de séquence a été choisi dans <span class="tt"><a class="el" href="#aab0f9b0c9990d3496d32ab706c488519" title="Écran de sélection de niveau (LOT-59 TACHE-06) : une page normale de _stack (jamais un recouvrement –...">_levelSelectScreen</a></span> : <b>revalidé</b> via <span class="tt"><a class="el" href="namespacehmi.html#a5b07931e9a29f7bcbffef65e91c124b0" title="Variante utilisée par l&#39;IHM (affichage de l&#39;écran de sélection ET garde au lancement,...">hmi::isLevelPlayable</a></span> avant tout lancement (défense en profondeur, <span class="tt">EX-IHM-005</span>) &ndash; jamais lancé verrouillé, même si l'écran l'a par erreur laissé passer (sauf en build de développement, où tout est jouable, <span class="tt">LOT-70</span>). </p>
+
+</div>
+</div>
+<a id="ae393d9302186566e0ec890b1ba0f0dab" name="ae393d9302186566e0ec890b1ba0f0dab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae393d9302186566e0ec890b1ba0f0dab">&#9670;&#160;</a></span>closeAiMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::closeAiMode </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retour au menu depuis l'écran Mode IA. </p>
 
 </div>
 </div>
@@ -1136,6 +1171,33 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 
 </div>
 </div>
+<a id="a61bcffba710ceb0cd40285ead5e29ef3" name="a61bcffba710ceb0cd40285ead5e29ef3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61bcffba710ceb0cd40285ead5e29ef3">&#9670;&#160;</a></span>openAiMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::openAiMode </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>« Mode IA » (menu, <span class="tt">LOT-ANNEXE-21</span>) : ouvre <span class="tt"><a class="el" href="#a26997856ec120b026c632b75b99fa8fb" title="Écran Mode IA (LOT-ANNEXE-21) : même patron que _levelSelectScreen, page normale de _stack.">_aiMode</a></span> (entraînement, validation/sauvegarde, rejeu) — remplace l'ancien <span class="tt">watchAiPlay</span> (<span class="tt">LOT-ANNEXE-18</span>), dont l'onglet Rejeu de <span class="tt"><a class="el" href="#a26997856ec120b026c632b75b99fa8fb" title="Écran Mode IA (LOT-ANNEXE-21) : même patron que _levelSelectScreen, page normale de _stack.">_aiMode</a></span> reprend le rôle. </p>
+
+</div>
+</div>
 <a id="ad0160f504de7ad658481fd2480488831" name="ad0160f504de7ad658481fd2480488831"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad0160f504de7ad658481fd2480488831">&#9670;&#160;</a></span>openCredits()</h2>
 
@@ -1457,6 +1519,33 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Le dossier des images de plans, à côté des niveaux. </dd></dl>
+
+</div>
+</div>
+<a id="a0efb1655ef693bf903ab2b91ac6b062f" name="a0efb1655ef693bf903ab2b91ac6b062f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0efb1655ef693bf903ab2b91ac6b062f">&#9670;&#160;</a></span>playAiReplay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::playAiReplay </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>replayPath</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Un rejeu a été choisi dans <span class="tt"><a class="el" href="#a26997856ec120b026c632b75b99fa8fb" title="Écran Mode IA (LOT-ANNEXE-21) : même patron que _levelSelectScreen, page normale de _stack.">_aiMode</a></span> (aperçu en direct ou onglet Rejeu) : même chargement que l'ancien <span class="tt">watchAiPlay</span>, signale une boîte d'erreur (rejeu invalide) sans ouvrir l'écran de jeu, jamais de plantage (<span class="tt">EX-NFR-040</span>). </p>
 
 </div>
 </div>
@@ -2531,6 +2620,30 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a26997856ec120b026c632b75b99fa8fb" name="a26997856ec120b026c632b75b99fa8fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26997856ec120b026c632b75b99fa8fb">&#9670;&#160;</a></span>_aiMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1AiModeScreen.html">AiModeScreen</a>* hmi::MainWindow::_aiMode = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Écran Mode IA (<span class="tt">LOT-ANNEXE-21</span>) : même patron que <span class="tt"><a class="el" href="#aab0f9b0c9990d3496d32ab706c488519" title="Écran de sélection de niveau (LOT-59 TACHE-06) : une page normale de _stack (jamais un recouvrement –...">_levelSelectScreen</a></span>, page normale de <span class="tt"><a class="el" href="#a408483202779acb367aee2733d8b28c7" title="Central : empile menu principal, options et viewport.">_stack</a></span>. </p>
 
 </div>
 </div>

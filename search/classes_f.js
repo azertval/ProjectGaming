@@ -1,27 +1,6 @@
 var searchData=
 [
-  ['sample_0',['Sample',['../structhmi_1_1AudioEngine_1_1Sample.html',1,'hmi::AudioEngine']]],
-  ['scenestatistics_1',['SceneStatistics',['../structhmi_1_1SceneStatistics.html',1,'hmi']]],
-  ['scenetextures_2',['SceneTextures',['../structhmi_1_1SceneTextures.html',1,'hmi']]],
-  ['screendressing_3',['ScreenDressing',['../structhmi_1_1ScreenDressing.html',1,'hmi']]],
-  ['screenshakestate_4',['ScreenShakeState',['../structhmi_1_1ScreenShakeState.html',1,'hmi']]],
-  ['screenstate_5',['ScreenState',['../structhmi_1_1ScreenState.html',1,'hmi']]],
-  ['sizetokens_6',['SizeTokens',['../structhmi_1_1SizeTokens.html',1,'hmi']]],
-  ['skincatalog_7',['SkinCatalog',['../classhmi_1_1SkinCatalog.html',1,'hmi']]],
-  ['skincatalogresult_8',['SkinCatalogResult',['../structhmi_1_1SkinCatalogResult.html',1,'hmi']]],
-  ['skinentry_9',['SkinEntry',['../structhmi_1_1SkinEntry.html',1,'hmi']]],
-  ['skinrow_10',['SkinRow',['../structhmi_1_1SkinRow.html',1,'hmi']]],
-  ['skinsection_11',['SkinSection',['../structhmi_1_1SkinSection.html',1,'hmi']]],
-  ['skintexture_12',['SkinTexture',['../structhmi_1_1SkinTexture.html',1,'hmi']]],
-  ['slopefollowresult_13',['SlopeFollowResult',['../structcore_1_1SlopeFollowResult.html',1,'core']]],
-  ['soundcatalog_14',['SoundCatalog',['../classhmi_1_1SoundCatalog.html',1,'hmi']]],
-  ['soundcatalogresult_15',['SoundCatalogResult',['../structhmi_1_1SoundCatalogResult.html',1,'hmi']]],
-  ['spacingtokens_16',['SpacingTokens',['../structhmi_1_1SpacingTokens.html',1,'hmi']]],
-  ['sprite_17',['Sprite',['../structcore_1_1Sprite.html',1,'core']]],
-  ['spritebatch_18',['SpriteBatch',['../classhmi_1_1SpriteBatch.html',1,'hmi']]],
-  ['spritequad_19',['SpriteQuad',['../structhmi_1_1SpriteQuad.html',1,'hmi']]],
-  ['spriterenderer_20',['SpriteRenderer',['../classhmi_1_1SpriteRenderer.html',1,'hmi']]],
-  ['state_21',['State',['../structcore_1_1LevelDraft_1_1State.html',1,'core::LevelDraft']]],
-  ['stylesheetsubstitutionresult_22',['StyleSheetSubstitutionResult',['../structhmi_1_1StyleSheetSubstitutionResult.html',1,'hmi']]],
-  ['sweepresult_23',['SweepResult',['../structcore_1_1SweepResult.html',1,'core']]]
+  ['qnetwork_0',['QNetwork',['../classaisolver_1_1training_1_1QNetwork.html',1,'aisolver::training::QNetwork'],['../classQNetwork.html',1,'QNetwork']]],
+  ['quadratictoyproblem_1',['QuadraticToyProblem',['../structaisolver_1_1QuadraticToyProblem.html',1,'aisolver::QuadraticToyProblem'],['../structQuadraticToyProblem.html',1,'QuadraticToyProblem']]],
+  ['quadrecorder_2',['QuadRecorder',['../classhmi_1_1QuadRecorder.html',1,'hmi']]]
 ];

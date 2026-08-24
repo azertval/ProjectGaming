@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-69-tache-06-parallaxe-plans.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-69-plans-picturaux_2tache-06-parallaxe-plans"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-69.html#md_Lot_2LOT-69-plans-picturaux_2epic" title="Lot/LOT-69-plans-picturaux/epic.md">LOT-69</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/{Graphics,Game}</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3177"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3291"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="Parallax_8h.html" title="Décalage de parallaxe, bornage d&#39;un plan et décision d&#39;activation (EX-DEC-043, LOT-69).">Source/HMI/Graphics/Parallax.h</a></span> fige trois constantes — <span class="tt">0.5</span>, <span class="tt">1.0</span>, <span class="tt">1.15</span> — indexées par la couche de décor, et dépend donc de <span class="tt">Core/Levels/Decor.h</span>. La formule elle-même est bonne et le reste : <span class="tt">rendu = centre + (position − centre) × facteur</span>, où <span class="tt">centre</span> est celui de la <b>salle courante</b> et non l'origine du niveau. C'est ce qui empêche le décor de <b>sauter</b> à chaque bascule de salle (<span class="tt">EX-REN-015</span>) : le décalage se replace au moment exact où toute l'image change déjà.</p>
 <p>Un décalage <b>absolu</b> en espace niveau a été envisagé au cadrage, au motif qu'un plan continu n'a pas de repère ponctuel. Il a été écarté : la formule relative reste correcte pour un plan, et la remplacer rouvrirait précisément le défaut qu'elle corrige.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3178"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3292"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Retirer <span class="tt">PARALLAX_FACTOR_*</span>, <span class="tt">parallaxFactor(DecorLayer)</span> et l'inclusion de <span class="tt">Decor.h</span>.</li>
@@ -120,23 +120,23 @@ Travail à réaliser</h1>
 <li>Supprimer <span class="tt">applyDecorParallax</span> de <span class="tt">GameSession</span> au profit de cette table.</li>
 <li><b>Neutraliser la parallaxe en mode création</b> : sinon la correspondance curseur ↔ pixel dépendrait de la position de caméra et le 1:1 promis serait faux.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3179"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3293"></a>
 Fichiers impactés</h1>
 <p><span class="tt">Source/HMI/Graphics/Parallax.{h,cpp}</span>, <span class="tt"><a class="el" href="PlaneVisuals_8cpp.html">Source/HMI/Graphics/PlaneVisuals.cpp</a></span>, <span class="tt"><a class="el" href="GameSession_8cpp.html">Source/HMI/Game/GameSession.cpp</a></span>, <span class="tt"><a class="el" href="GameViewport_8cpp.html">Source/HMI/Game/GameViewport.cpp</a></span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3180"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3294"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__parallax_8cpp.html" title="Tests unitaires du décalage de parallaxe, de son bornage et de sa table d&#39;activation (LOT-49 TACHE-03...">test_parallax.cpp</a></span> réécrit : facteur <span class="tt">1.0</span> → position <b>inchangée</b> ; <span class="tt">parallaxModelPosition</span> inverse exact de <span class="tt">parallaxRenderPosition</span> ; <b>clamp</b> — un plan à facteur <span class="tt">0.5</span>, caméra en bord de niveau, couvre toujours le cadrage ; <span class="tt">roundToScreenPixel</span> appliqué <b>après</b> le clamp ; table <span class="tt">planeParallaxActive</span> <b>exhaustive</b> sur les trois modes × deux valeurs du drapeau.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3181"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3295"></a>
 Points d'attention</h1>
 <p>La réactivation en mode <b>suivi</b> inverse une décision du <span class="tt">LOT-64</span>. C'est un changement de comportement <b>visible</b> : il s'assume dans l'epic et le <span class="tt">CHANGELOG</span>, il ne se glisse pas dans un refactor. Le motif est net — le <span class="tt">LOT-64</span> avait coupé la parallaxe parce qu'un <b>décor</b> est un objet collé au contenu du niveau et paraissait « suivre » la caméra ; un plan est un fond, l'argument tombe.</p>
 <p>Le drapeau est <b>par niveau</b>, mais la neutralisation en <span class="tt">WholeLevel</span> est une règle du moteur. Un level designer cochera « parallaxe » sur un niveau <span class="tt">WholeLevel</span> et ne verra rien : l'interface doit <b>griser la case dans ce mode et l'expliquer</b> (<span class="tt">TACHE-08</span>), sinon c'est un défaut perçu.</p>
 <p>L'arrondi au pixel écran reste indispensable : un décalage fractionnaire rend le pixel art flou ou tremblant.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3182"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3296"></a>
 Definition de fait (DoD)</h1>
 <p>Plus aucune constante de parallaxe en dur, facteur porté par le plan, plan toujours couvrant, table de comportement testée exhaustivement. <span class="tt">ctest</span> à 100 %.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3183"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3297"></a>
 Exigences</h1>
 <p><span class="tt">EX-DEC-043</span>, <span class="tt">EX-REN-015</span>, <span class="tt">EX-REN-016</span>, <span class="tt">EX-ARCH-012</span>, <span class="tt">EX-ARCH-022</span>, <span class="tt">EX-NFR-010</span>. </p>
 </div></div><!-- contents -->

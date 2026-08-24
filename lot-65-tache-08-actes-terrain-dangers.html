@@ -94,13 +94,13 @@ $(function(){initNavTree('lot-65-tache-08-actes-terrain-dangers.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-65-refonte-niveaux-demo_2tache-08-actes-terrain-dangers"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-65.html#md_Lot_2LOT-65-refonte-niveaux-demo_2epic" title="Lot/LOT-65-refonte-niveaux-demo/epic.md">LOT-65</a> · <b>Emplacement :</b> <span class="tt">Source/Elements/Levels</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3007"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3121"></a>
 Contexte</h1>
 <p>C'est le périmètre le plus abîmé de la séquence livrée : <b>six</b> des huit tableaux concernés se franchissent en maintenant « droite », et quatre posent leur sujet <b>hors d'atteinte du personnage</b> — les quatre variantes de plafond incliné, les deux concaves de plafond, et l'ensemble des dangers, alcôves et interrupteur compris. Le <span class="tt">dangerSwitched</span> livré ne peut donc jamais être commuté, et <span class="tt">demo-plafond</span> se réduit à dix-huit cases de marche en ligne droite sous des tuiles que la physique interdit d'atteindre.</p>
 <p>Deux tableaux sont par ailleurs redondants : <span class="tt">demo-pente</span> et <span class="tt">demo-arrondi</span> sont le même tracé à une tuile près.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3008"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3122"></a>
 Travail à réaliser</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3009"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3123"></a>
 Acte III — Terrain</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -114,7 +114,7 @@ Acte III — Terrain</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">16  </td><td class="markdownTableBodyNone"><span class="tt">demo-concave</span>  </td><td class="markdownTableBodyNone">Concaves de sol sur le chemin, concaves de plafond en plafond <b>bas réel</b>.  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3010"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3124"></a>
 Acte IV — Dangers et plateformes</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -128,7 +128,7 @@ Acte IV — Dangers et plateformes</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">20  </td><td class="markdownTableBodyNone"><span class="tt">demo-budget</span>  </td><td class="markdownTableBodyNone">Trajet dont le nombre de sauts <b>égale exactement</b> le budget, plus un segment à dash borné : première utilisation de <span class="tt">dashBudget</span> du jeu.  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3011"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3125"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Elements/Levels/demo-{pente,pente-gauche,plafond,concave,dangers-directionnels,dangers-avances,plateforme,budget}.json</span></li>
@@ -136,7 +136,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Levels/sequence-demo.json</span>.</li>
 <li><span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span> — scripts d'entrées.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3012"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3126"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Chaque tableau franchi par un script déterministe qui emploie sa mécanique ; aucun franchissable en maintenant « droite ».</li>
@@ -144,7 +144,7 @@ Tests (obligatoires)</h1>
 <li><span class="tt">demo-budget</span> échoue si l'on retire un saut au budget — la contrainte doit <b>mordre</b>.</li>
 <li><span class="tt">scripts/check_demo_sequence.py</span> vert après suppression de <span class="tt">demo-arrondi.json</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3013"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3127"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Défaut moteur connu, non corrigé</b> : la seule présence d'une configuration de <span class="tt">movingPlatform</span> dans un niveau, même immobile et loin du personnage, casse la résolution de collision pendant le suivi d'une pente <b>ailleurs dans ce même niveau</b>. <span class="tt">demo-plateforme</span> ne contient donc ni pente, ni arrondi, ni concave — et aucun tableau à pente ne contient de plateforme.</li>
@@ -152,12 +152,12 @@ Points d'attention</h1>
 <li><b>Un danger sur le chemin doit rester franchissable</b> sans réflexe impossible : la bande mortelle de <span class="tt"><a class="el" href="namespacecore.html#a6c0f85da9ce20757943b19c8034f459e" title="Rectangle mortel d&#39;une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêm...">core::dangerHitbox</a></span> est étroite, et la face opposée de la case est un appui légitime.</li>
 <li>Les tableaux de dangers sont ceux où la doctrine « introduire avant d'employer » compte le plus : chaque variante se montre inoffensive avant d'être mortelle sur le chemin.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3014"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3128"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les huit tableaux sont redessinés et franchissables par un script déterministe employant leur mécanique ; <span class="tt">demo-arrondi.json</span> est supprimé et la séquence à jour ; les garde-fous anti-couloir et de proximité sont verts sur ce périmètre ; <span class="tt">dashBudget</span> est employé.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3015"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3129"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-003</span>, <span class="tt">EX-GP-004</span>, <span class="tt">EX-GP-006</span>, <span class="tt">EX-GP-007</span> (pentes, arrondis, plafonds, concaves), <span class="tt">EX-GP-050</span> à <span class="tt">EX-GP-053</span> (dangers directionnels, mobiles, commutés, temporisés), <span class="tt">EX-GP-026</span> (plateforme mobile), <span class="tt">EX-GP-024</span> (budget de mouvements), <span class="tt">EX-GP-022</span> (bloc poussable), <span class="tt">EX-LVL-012</span> (progression). </p>
 </div></div><!-- contents -->

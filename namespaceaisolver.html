@@ -93,11 +93,1676 @@ $(function(){initNavTree('namespaceaisolver.html','',''); });
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:cli" id="r_cli"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1cli.html">cli</a></td></tr>
+<tr class="memitem:eval" id="r_eval"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1eval.html">eval</a></td></tr>
+<tr class="memitem:autodiff" id="r_autodiff"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1autodiff.html">autodiff</a></td></tr>
+<tr class="memitem:detail" id="r_detail"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1detail.html">detail</a></td></tr>
+<tr class="memitem:nn" id="r_nn"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1nn.html">nn</a></td></tr>
+<tr class="memitem:optim" id="r_optim"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1optim.html">optim</a></td></tr>
+<tr class="memitem:training" id="r_training"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1training.html">training</a></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:Action" id="r_Action"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1Action.html">Action</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.  <a href="structaisolver_1_1Action.html#details">More...</a><br /></td></tr>
+<tr class="memitem:GridDistanceField" id="r_GridDistanceField"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1GridDistanceField.html">GridDistanceField</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance de plus court chemin en nombre de cases (4-connexité, respectant les cases statiquement solides d'un <span class="tt"><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">core::TileMap</a></span>), pré-calculée une fois par BFS multi-source depuis une case cible.  <a href="classaisolver_1_1GridDistanceField.html#details">More...</a><br /></td></tr>
+<tr class="memitem:StepObservation" id="r_StepObservation"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1StepObservation.html">StepObservation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retour d'un appel à <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">HeadlessLevelEnvironment::step</a></span> : issue, boîte et état complet du personnage à l'instant de ce pas.  <a href="structaisolver_1_1StepObservation.html#details">More...</a><br /></td></tr>
+<tr class="memitem:EnvironmentConfig" id="r_EnvironmentConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1EnvironmentConfig.html">EnvironmentConfig</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration d'un <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> : budget de pas dur et seuil de progression.  <a href="structaisolver_1_1EnvironmentConfig.html#details">More...</a><br /></td></tr>
+<tr class="memitem:HeadlessLevelEnvironment" id="r_HeadlessLevelEnvironment"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html">HeadlessLevelEnvironment</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joue <b>un seul niveau</b>, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une API <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a0f5782ba82dad6e0cb8886ca6ddd471b" title="Charge un niveau et fait apparaître le personnage à l&#39;entrée.">reset</a></span>/<span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">step</a></span> (<span class="tt">EX-IA-005</span>).  <a href="classaisolver_1_1HeadlessLevelEnvironment.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MechanismStateEncoder" id="r_MechanismStateEncoder"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1MechanismStateEncoder.html">MechanismStateEncoder</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode l'état <b>dynamique</b> des mécanismes de la fenêtre (porte ouverte/fermée, danger actif), complémentaire au type <b>statique</b> encodé par <span class="tt"><a class="el" href="classaisolver_1_1TileWindowEncoder.html" title="Encode une fenêtre carrée de core::TileMap, centrée sur une case, en tenseur one-hot.">TileWindowEncoder</a></span>.  <a href="classaisolver_1_1MechanismStateEncoder.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ObservationEncoder" id="r_ObservationEncoder"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1ObservationEncoder.html">ObservationEncoder</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatène, dans un ordre fixe et documenté, les trois encodeurs d'observation en un seul vecteur d'entrée de réseau.  <a href="classaisolver_1_1ObservationEncoder.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PlayerStateEncoder" id="r_PlayerStateEncoder"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1PlayerStateEncoder.html">PlayerStateEncoder</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode la cinématique propre du personnage (vitesse, contact, minuteries, budgets) en un vecteur de taille fixe, complémentaire à <span class="tt"><a class="el" href="classaisolver_1_1TileWindowEncoder.html" title="Encode une fenêtre carrée de core::TileMap, centrée sur une case, en tenseur one-hot.">TileWindowEncoder</a></span> (environnement immédiat).  <a href="classaisolver_1_1PlayerStateEncoder.html#details">More...</a><br /></td></tr>
+<tr class="memitem:RewardConfig" id="r_RewardConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1RewardConfig.html">RewardConfig</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constantes de la fonction de récompense (<span class="tt">EX-IA-009</span>).  <a href="structaisolver_1_1RewardConfig.html#details">More...</a><br /></td></tr>
+<tr class="memitem:TileWindowEncoder" id="r_TileWindowEncoder"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1TileWindowEncoder.html">TileWindowEncoder</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode une fenêtre carrée de <span class="tt"><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">core::TileMap</a></span>, centrée sur une case, en tenseur one-hot.  <a href="classaisolver_1_1TileWindowEncoder.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Rng" id="r_Rng"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1Rng.html">Rng</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Générateur de nombres pseudo-aléatoires (PRNG) pour l'IA.  <a href="classaisolver_1_1Rng.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Source d'aléatoire déterministe et reproductible à partir d'une seule graine.  <a href="classaisolver_1_1Rng.html#details">More...</a><br /></td></tr>
+<tr class="memitem:Tensor" id="r_Tensor"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1Tensor.html">Tensor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conteneur numérique N-dimensionnel à forme et <em>stride</em> explicites.  <a href="classaisolver_1_1Tensor.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ReplayFile" id="r_ReplayFile"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1ReplayFile.html">ReplayFile</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un fichier de rejeu : séquence déterministe de <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span> rejouable en jeu sans aucune inférence live, avec ses métadonnées d'entraînement.  <a href="structaisolver_1_1ReplayFile.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ReplayLoadResult" id="r_ReplayLoadResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1ReplayLoadResult.html">ReplayLoadResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une lecture de fichier de rejeu : soit un <span class="tt"><a class="el" href="structaisolver_1_1ReplayFile.html" title="Un fichier de rejeu : séquence déterministe de core::PlayerInput rejouable en jeu sans aucune inféren...">ReplayFile</a></span>, soit une erreur décrite.  <a href="structaisolver_1_1ReplayLoadResult.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MovingAverageTracker" id="r_MovingAverageTracker"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1MovingAverageTracker.html">MovingAverageTracker</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moyenne mobile sur les <span class="tt">windowSize</span> dernières valeurs poussées.  <a href="classaisolver_1_1MovingAverageTracker.html#details">More...</a><br /></td></tr>
+<tr class="memitem:TrainingStatsRow" id="r_TrainingStatsRow"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1TrainingStatsRow.html">TrainingStatsRow</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une ligne de statistiques : une génération (évolutionniste) ou un épisode/lot d'épisodes (par gradient).  <a href="structaisolver_1_1TrainingStatsRow.html#details">More...</a><br /></td></tr>
+<tr class="memitem:TrainingStatsRecorder" id="r_TrainingStatsRecorder"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html">TrainingStatsRecorder</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à <span class="tt"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html#a4f468c0c31b586b6f6e1a988b059181a" title="Ajoute une ligne au fichier CSV et force son écriture sur disque (flush).">record</a></span>, jamais rouvert en ajout (voir <span class="tt"><a class="el" href="#aa17e50f126f244b7559548162fc9e134" title="Construit le chemin trainingRunsRoot / levelName / runId / &quot;stats.csv&quot; et crée les dossiers intermédi...">makeTrainingRunPath</a></span>/<span class="tt"><a class="el" href="#a94f49d6b0ed3a6c1d11c7e81ed110d52" title="Génère un identifiant de run par horodatage ISO 8601 compact (ex.">generateRunId</a></span>, <span class="tt"><a class="el" href="TrainingRunPath_8h.html" title="Construction du chemin de fichier CSV d&#39;un run d&#39;entraînement, sous /TrainingRuns/ (LOT-ANNEXE-09,...">TrainingRunPath.h</a></span>, pour la construction du chemin d'un nouveau run).  <a href="classaisolver_1_1TrainingStatsRecorder.html#details">More...</a><br /></td></tr>
+<tr class="memitem:GradientCheckResult" id="r_GradientCheckResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1GradientCheckResult.html">GradientCheckResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une vérification de gradient : <span class="tt"><a class="el" href="structaisolver_1_1GradientCheckResult.html#a8e1fb90d85853aa0fd6f2f7ec7144bc9">passed</a></span> est vrai si l'écart maximal observé entre gradient analytique et gradient numérique reste sous la tolérance demandée.  <a href="structaisolver_1_1GradientCheckResult.html#details">More...</a><br /></td></tr>
+<tr class="memitem:QuadraticToyProblem" id="r_QuadraticToyProblem"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1QuadraticToyProblem.html">QuadraticToyProblem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quadratique convexe à minimum connu : <span class="tt">f(x) = (x - target)^2</span>, gradient <span class="tt">2(x - target)</span>.  <a href="structaisolver_1_1QuadraticToyProblem.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PolynomialToyProblem" id="r_PolynomialToyProblem"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1PolynomialToyProblem.html">PolynomialToyProblem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Régression polynomiale à coefficients connus (<span class="tt">y = kCoeffA*x^2 + kCoeffB*x + <a class="el" href="structaisolver_1_1PolynomialToyProblem.html#a99b975214db44e0f4f27e69494f8c7b8">kCoeffC</a></span>), ajustée par un vecteur de poids de forme <span class="tt">[1, 3]</span> (colonnes <span class="tt">[x^2, x, 1]</span>) minimisant l'erreur quadratique moyenne sur un jeu de points synthétiques.  <a href="structaisolver_1_1PolynomialToyProblem.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:af11f067d4f1b224aeaa363c793c3711b" id="r_af11f067d4f1b224aeaa363c793c3711b"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#af11f067d4f1b224aeaa363c793c3711b">LevelFingerprint</a> = std::uint64_t</td></tr>
+<tr class="memdesc:af11f067d4f1b224aeaa363c793c3711b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empreinte d'un fichier de niveau (hash FNV-1a 64 bits, voir <span class="tt"><a class="el" href="#a0c132221c5ad7598dffec2bfb73bccc3" title="Calcule l&#39;empreinte du contenu brut (octets tels que lus, sans reformatage ni reparsing JSON) d&#39;un fi...">computeLevelFingerprint</a></span>).  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a8b91e4ce2193d2729de1836c406dcc90" id="r_a8b91e4ce2193d2729de1836c406dcc90"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a8b91e4ce2193d2729de1836c406dcc90">Direction</a> { <a class="el" href="#a8b91e4ce2193d2729de1836c406dcc90a945d5e233cf7d6240f6b783b36a374ff">Left</a>
+, <a class="el" href="#a8b91e4ce2193d2729de1836c406dcc90a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="#a8b91e4ce2193d2729de1836c406dcc90a92b09c7c48c520c3c55e497875da437c">Right</a>
+ }</td></tr>
+<tr class="memdesc:a8b91e4ce2193d2729de1836c406dcc90"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="#a8b91e4ce2193d2729de1836c406dcc90" title="Direction de déplacement horizontal discrète (voir la décision de cadrage de l&#39;épic : core::PlayerInp...">Direction</a> de déplacement horizontal discrète (voir la décision de cadrage de l'épic : <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html#adce05fa0a13062c53bfef04c63b85623" title="Intention de déplacement horizontal, normalisée dans l&#39;intervalle [-1, 1] : -1 = vers la gauche,...">core::PlayerInput::moveX</a></span> n'est en pratique jamais utilisé en dehors de <span class="tt">{-1, 0, 1}</span>).  <a href="#a8b91e4ce2193d2729de1836c406dcc90">More...</a><br /></td></tr>
+<tr class="memitem:adda23dcaaf73b2335b5a52701af05d68" id="r_adda23dcaaf73b2335b5a52701af05d68"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#adda23dcaaf73b2335b5a52701af05d68">EpisodeStatus</a> { <br />
+&#160;&#160;<a class="el" href="#adda23dcaaf73b2335b5a52701af05d68a7ee7defde6dc3a1d4a4a891b3894e790">Ongoing</a>
+, <a class="el" href="#adda23dcaaf73b2335b5a52701af05d68a19abd416eb9fe03ae7400a22446956a5">Won</a>
+, <a class="el" href="#adda23dcaaf73b2335b5a52701af05d68ab578b733cbb788fc6ad208314d2c4c2b">Lost</a>
+, <a class="el" href="#adda23dcaaf73b2335b5a52701af05d68a9541eb2348d883dd8e32ae0420274c4c">TimedOut</a>
+, <br />
+&#160;&#160;<a class="el" href="#adda23dcaaf73b2335b5a52701af05d68aa2c4543906f921f4589e33086abcc102">Stuck</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:adda23dcaaf73b2335b5a52701af05d68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Statut d'un épisode d'entraînement, plus riche que <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa" title="Issue courante d&#39;un niveau, déduite de la position du personnage.">core::LevelOutcome</a></span> (qui ignore blocage et plafond de pas, inutiles au jeu mais nécessaires à un entraînement automatisé).  <a href="#adda23dcaaf73b2335b5a52701af05d68">More...</a><br /></td></tr>
+<tr class="memitem:a859cdf92a0dce561aebd84feee736f88" id="r_a859cdf92a0dce561aebd84feee736f88"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a859cdf92a0dce561aebd84feee736f88">ReplayValidationError</a> { <a class="el" href="#a859cdf92a0dce561aebd84feee736f88a3cc7cd93d14b8633b8d65930bbb3fec1">LevelFileMissing</a>
+, <a class="el" href="#a859cdf92a0dce561aebd84feee736f88aa5827f791e034a525d2450351b1949b2">LevelFingerprintMismatch</a>
+ }</td></tr>
+<tr class="memdesc:a859cdf92a0dce561aebd84feee736f88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raison pour laquelle un rejeu est invalide (voir <span class="tt"><a class="el" href="#aae9da93cacb6498823404bc00c7b9cc3" title="Valide un rejeu déjà désérialisé : le niveau qu&#39;il référence doit exister et son empreinte doit corre...">validateReplay</a></span>).  <a href="#a859cdf92a0dce561aebd84feee736f88">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aa2c594166eb644b6546d993c245e48c7" id="r_aa2c594166eb644b6546d993c245e48c7"><td class="memItemLeft"><a class="el" href="structAction.html">Action</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa2c594166eb644b6546d993c245e48c7">decodeArgmax</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; float &gt; &amp;distribution)</td></tr>
+<tr class="memdesc:aa2c594166eb644b6546d993c245e48c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sélectionne l'action de probabilité maximale (décodage déterministe).  <br /></td></tr>
+<tr class="memitem:abac6fb128f0210708c1ac95475a47219" id="r_abac6fb128f0210708c1ac95475a47219"><td class="memItemLeft"><a class="el" href="structAction.html">Action</a>&#160;</td><td class="memItemRight"><a class="el" href="#abac6fb128f0210708c1ac95475a47219">decodeStochastic</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; float &gt; &amp;distribution, float temperature, <a class="el" href="classRng.html">Rng</a> &amp;rng)</td></tr>
+<tr class="memdesc:abac6fb128f0210708c1ac95475a47219"><td class="mdescLeft">&#160;</td><td class="mdescRight">Échantillonne une action selon la distribution, pondérée par une température.  <br /></td></tr>
+<tr class="memitem:aaa9c005c559e8b4e96ece3a1aec29b3c" id="r_aaa9c005c559e8b4e96ece3a1aec29b3c"><td class="memItemLeft"><a class="el" href="structAction.html">Action</a>&#160;</td><td class="memItemRight"><a class="el" href="#aaa9c005c559e8b4e96ece3a1aec29b3c">actionAt</a> (std::size_t index)</td></tr>
+<tr class="memdesc:aaa9c005c559e8b4e96ece3a1aec29b3c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structaisolver_1_1Action.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> correspondant à un indice donné (inverse de <span class="tt"><a class="el" href="#a08e0bc710addf53ab9170d92a336018f">indexOf</a></span>).  <br /></td></tr>
+<tr class="memitem:a08e0bc710addf53ab9170d92a336018f" id="r_a08e0bc710addf53ab9170d92a336018f"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a08e0bc710addf53ab9170d92a336018f">indexOf</a> (const <a class="el" href="structAction.html">Action</a> &amp;action)</td></tr>
+<tr class="memitem:a45874eecdbf9a34fd9448a5ab97d8162" id="r_a45874eecdbf9a34fd9448a5ab97d8162"><td class="memItemLeft"><a class="el" href="structcore_1_1PlayerInput.html">core::PlayerInput</a>&#160;</td><td class="memItemRight"><a class="el" href="#a45874eecdbf9a34fd9448a5ab97d8162">toPlayerInput</a> (const <a class="el" href="structAction.html">Action</a> &amp;action)</td></tr>
+<tr class="memdesc:a45874eecdbf9a34fd9448a5ab97d8162"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit une action discrète en <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span>, consommé par <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">HeadlessLevelEnvironment::step</a></span> (<span class="tt">LOT-ANNEXE-05</span>).  <br /></td></tr>
+<tr class="memitem:a4f3464dafad270e2884fb0ba7d1d0034" id="r_a4f3464dafad270e2884fb0ba7d1d0034"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a4f3464dafad270e2884fb0ba7d1d0034">actionCount</a> () noexcept</td></tr>
+<tr class="memitem:a59583736f24a97702e07be216ee2c971" id="r_a59583736f24a97702e07be216ee2c971"><td class="memItemLeft"><a class="el" href="#adda23dcaaf73b2335b5a52701af05d68">EpisodeStatus</a>&#160;</td><td class="memItemRight"><a class="el" href="#a59583736f24a97702e07be216ee2c971">classifyEpisode</a> (<a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa">core::LevelOutcome</a> outcome, int stepIndex, int stepsSinceProgress, int hardStepBudget, int stuckThreshold)</td></tr>
+<tr class="memdesc:a59583736f24a97702e07be216ee2c971"><td class="mdescLeft">&#160;</td><td class="mdescRight">Classe la fin d'épisode à partir de l'issue du jeu et des compteurs de pas/progression.  <br /></td></tr>
+<tr class="memitem:acfa113b8f54b1f1c80752e87fdcee984" id="r_acfa113b8f54b1f1c80752e87fdcee984"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#acfa113b8f54b1f1c80752e87fdcee984">computeReward</a> (const <a class="el" href="structaisolver_1_1RewardConfig.html">RewardConfig</a> &amp;config, const <a class="el" href="classaisolver_1_1GridDistanceField.html">GridDistanceField</a> &amp;distanceField, const <a class="el" href="structcore_1_1Aabb.html">core::Aabb</a> &amp;previousBox, const <a class="el" href="structcore_1_1Aabb.html">core::Aabb</a> &amp;currentBox, <a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa">core::LevelOutcome</a> outcome)</td></tr>
+<tr class="memdesc:acfa113b8f54b1f1c80752e87fdcee984"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule la récompense d'un pas unique, fonction pure sans état interne ni effet de bord.  <br /></td></tr>
+<tr class="memitem:a98e499722c1bf9e864602845e1154f06" id="r_a98e499722c1bf9e864602845e1154f06"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a98e499722c1bf9e864602845e1154f06 template"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a98e499722c1bf9e864602845e1154f06">matmul</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a, const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;b)</td></tr>
+<tr class="memdesc:a98e499722c1bf9e864602845e1154f06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Produit matriciel standard entre deux matrices (rang 2) <span class="tt">[m,k] * [k,n] -&gt; [m,n]</span>.  <br /></td></tr>
+<tr class="memitem:aa021d9acc72bb653937b573c3c13b8f2" id="r_aa021d9acc72bb653937b573c3c13b8f2"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:aa021d9acc72bb653937b573c3c13b8f2 template"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa021d9acc72bb653937b573c3c13b8f2">transpose</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a)</td></tr>
+<tr class="memdesc:aa021d9acc72bb653937b573c3c13b8f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transposition d'une matrice (rang 2) : renvoie une <b>copie</b> de forme <span class="tt">[n, m]</span>.  <br /></td></tr>
+<tr class="memitem:a0c215845fcb11428c0a6a05028bbd126" id="r_a0c215845fcb11428c0a6a05028bbd126"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a0c215845fcb11428c0a6a05028bbd126 template"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0c215845fcb11428c0a6a05028bbd126">add</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a, const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;b)</td></tr>
+<tr class="memitem:a41369536fdb13a5c63d9c11d09d5d586" id="r_a41369536fdb13a5c63d9c11d09d5d586"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a41369536fdb13a5c63d9c11d09d5d586 template"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a41369536fdb13a5c63d9c11d09d5d586">subtract</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a, const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;b)</td></tr>
+<tr class="memitem:a1a942678acedc3fc8baab3bd6a2f6c1a" id="r_a1a942678acedc3fc8baab3bd6a2f6c1a"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a1a942678acedc3fc8baab3bd6a2f6c1a template"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1a942678acedc3fc8baab3bd6a2f6c1a">multiply</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a, const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;b)</td></tr>
+<tr class="memitem:a312fc82fe440754d5bba398019030405" id="r_a312fc82fe440754d5bba398019030405"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a312fc82fe440754d5bba398019030405 template"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a312fc82fe440754d5bba398019030405">divide</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a, const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;b)</td></tr>
+<tr class="memitem:a58ef67f6c9b91d3945d4343d5cca1849" id="r_a58ef67f6c9b91d3945d4343d5cca1849"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a58ef67f6c9b91d3945d4343d5cca1849 template"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a58ef67f6c9b91d3945d4343d5cca1849">addScalar</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a, T scalar)</td></tr>
+<tr class="memitem:a7275886f1d1eb5b62a947e8db4dcc299" id="r_a7275886f1d1eb5b62a947e8db4dcc299"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a7275886f1d1eb5b62a947e8db4dcc299 template"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7275886f1d1eb5b62a947e8db4dcc299">subtractScalar</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a, T scalar)</td></tr>
+<tr class="memitem:ae76e6ca85d44249f01ba88d0ab7faa02" id="r_ae76e6ca85d44249f01ba88d0ab7faa02"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:ae76e6ca85d44249f01ba88d0ab7faa02 template"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae76e6ca85d44249f01ba88d0ab7faa02">multiplyScalar</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a, T scalar)</td></tr>
+<tr class="memitem:a3c7a156b22ac969eaff80e197093372f" id="r_a3c7a156b22ac969eaff80e197093372f"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a3c7a156b22ac969eaff80e197093372f template"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3c7a156b22ac969eaff80e197093372f">divideScalar</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a, T scalar)</td></tr>
+<tr class="memitem:a27c9450f351f9f180e8ddc216d8d36fc" id="r_a27c9450f351f9f180e8ddc216d8d36fc"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a27c9450f351f9f180e8ddc216d8d36fc template"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a27c9450f351f9f180e8ddc216d8d36fc">operator+</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a, const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;b)</td></tr>
+<tr class="memitem:a7a99e92ef8900faf70b9de25cf677a88" id="r_a7a99e92ef8900faf70b9de25cf677a88"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a7a99e92ef8900faf70b9de25cf677a88 template"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7a99e92ef8900faf70b9de25cf677a88">operator-</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a, const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;b)</td></tr>
+<tr class="memitem:a0802a478058b01e5f185dc352eec032a" id="r_a0802a478058b01e5f185dc352eec032a"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a0802a478058b01e5f185dc352eec032a template"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0802a478058b01e5f185dc352eec032a">operator*</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a, const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;b)</td></tr>
+<tr class="memitem:a92fb82a1d4aba5f03200ada08922fcfa" id="r_a92fb82a1d4aba5f03200ada08922fcfa"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a92fb82a1d4aba5f03200ada08922fcfa template"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a92fb82a1d4aba5f03200ada08922fcfa">operator/</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a, const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;b)</td></tr>
+<tr class="memitem:a0260d52725d9f6eb6b46953f6361c47c" id="r_a0260d52725d9f6eb6b46953f6361c47c"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a0260d52725d9f6eb6b46953f6361c47c template"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0260d52725d9f6eb6b46953f6361c47c">operator+</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a, T scalar)</td></tr>
+<tr class="memitem:ac005d842da7a1127d9c9ec30a28625d2" id="r_ac005d842da7a1127d9c9ec30a28625d2"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:ac005d842da7a1127d9c9ec30a28625d2 template"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac005d842da7a1127d9c9ec30a28625d2">operator-</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a, T scalar)</td></tr>
+<tr class="memitem:a5b4ebe880c0350dfc10639ebc30b8d00" id="r_a5b4ebe880c0350dfc10639ebc30b8d00"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a5b4ebe880c0350dfc10639ebc30b8d00 template"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5b4ebe880c0350dfc10639ebc30b8d00">operator*</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a, T scalar)</td></tr>
+<tr class="memitem:a304ea2e5474b84873c290507d14ea131" id="r_a304ea2e5474b84873c290507d14ea131"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a304ea2e5474b84873c290507d14ea131 template"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a304ea2e5474b84873c290507d14ea131">operator/</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a, T scalar)</td></tr>
+<tr class="memitem:a37b46714fcbdd35fdeba3f5aa7493e9d" id="r_a37b46714fcbdd35fdeba3f5aa7493e9d"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a37b46714fcbdd35fdeba3f5aa7493e9d template"><td class="memItemLeft">T&#160;</td><td class="memItemRight"><a class="el" href="#a37b46714fcbdd35fdeba3f5aa7493e9d">sum</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a)</td></tr>
+<tr class="memitem:ad5f0d68c82eaa2495f8a1dd2dcba63f7" id="r_ad5f0d68c82eaa2495f8a1dd2dcba63f7"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:ad5f0d68c82eaa2495f8a1dd2dcba63f7 template"><td class="memItemLeft">T&#160;</td><td class="memItemRight"><a class="el" href="#ad5f0d68c82eaa2495f8a1dd2dcba63f7">mean</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a)</td></tr>
+<tr class="memitem:a5c6ea6bfe2a503720332899798f6ca22" id="r_a5c6ea6bfe2a503720332899798f6ca22"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a5c6ea6bfe2a503720332899798f6ca22 template"><td class="memItemLeft">T&#160;</td><td class="memItemRight"><a class="el" href="#a5c6ea6bfe2a503720332899798f6ca22">max</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a)</td></tr>
+<tr class="memitem:a0c132221c5ad7598dffec2bfb73bccc3" id="r_a0c132221c5ad7598dffec2bfb73bccc3"><td class="memItemLeft"><a class="el" href="#af11f067d4f1b224aeaa363c793c3711b">LevelFingerprint</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0c132221c5ad7598dffec2bfb73bccc3">computeLevelFingerprint</a> (std::string_view levelFileContent) noexcept</td></tr>
+<tr class="memdesc:a0c132221c5ad7598dffec2bfb73bccc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule l'empreinte du contenu <b>brut</b> (octets tels que lus, sans reformatage ni reparsing JSON) d'un fichier de niveau, via FNV-1a 64 bits.  <br /></td></tr>
+<tr class="memitem:a3399a1e98c29b1c3b60517627cd06cb1" id="r_a3399a1e98c29b1c3b60517627cd06cb1"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a3399a1e98c29b1c3b60517627cd06cb1">writeReplay</a> (const std::filesystem::path &amp;path, const <a class="el" href="structaisolver_1_1ReplayFile.html">ReplayFile</a> &amp;replay)</td></tr>
+<tr class="memdesc:a3399a1e98c29b1c3b60517627cd06cb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit un fichier de rejeu au format JSON.  <br /></td></tr>
+<tr class="memitem:a1d0765d18d448f2bbb6ff13d818a8685" id="r_a1d0765d18d448f2bbb6ff13d818a8685"><td class="memItemLeft"><a class="el" href="structReplayLoadResult.html">ReplayLoadResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1d0765d18d448f2bbb6ff13d818a8685">readReplay</a> (const std::filesystem::path &amp;path)</td></tr>
+<tr class="memdesc:a1d0765d18d448f2bbb6ff13d818a8685"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit un fichier de rejeu au format JSON.  <br /></td></tr>
+<tr class="memitem:aae9da93cacb6498823404bc00c7b9cc3" id="r_aae9da93cacb6498823404bc00c7b9cc3"><td class="memItemLeft">std::optional&lt; <a class="el" href="#a859cdf92a0dce561aebd84feee736f88">ReplayValidationError</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aae9da93cacb6498823404bc00c7b9cc3">validateReplay</a> (const <a class="el" href="structaisolver_1_1ReplayFile.html">ReplayFile</a> &amp;replay, const std::filesystem::path &amp;levelsDir)</td></tr>
+<tr class="memdesc:aae9da93cacb6498823404bc00c7b9cc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valide un rejeu déjà désérialisé : le niveau qu'il référence doit exister et son empreinte doit correspondre à celle enregistrée à l'export.  <br /></td></tr>
+<tr class="memitem:a3e22f5dccd7bd60c0429cab2fbb8b9e7" id="r_a3e22f5dccd7bd60c0429cab2fbb8b9e7"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a3e22f5dccd7bd60c0429cab2fbb8b9e7">escapeCsvField</a> (std::string_view field)</td></tr>
+<tr class="memdesc:a3e22f5dccd7bd60c0429cab2fbb8b9e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Échappe un champ textuel selon la convention CSV déjà en usage (guillemets si le champ contient une virgule ou un guillemet, guillemet interne doublé).  <br /></td></tr>
+<tr class="memitem:a20566c5f2ffca31c4b4ccdb0f4fb5887" id="r_a20566c5f2ffca31c4b4ccdb0f4fb5887"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a20566c5f2ffca31c4b4ccdb0f4fb5887">csvHeader</a> ()</td></tr>
+<tr class="memdesc:a20566c5f2ffca31c4b4ccdb0f4fb5887"><td class="mdescLeft">&#160;</td><td class="mdescRight">En-tête de colonnes, fixe et dans cet ordre exact.  <br /></td></tr>
+<tr class="memitem:a36982ef8c5c61f6b9d4b959fbf4d56e6" id="r_a36982ef8c5c61f6b9d4b959fbf4d56e6"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a36982ef8c5c61f6b9d4b959fbf4d56e6">csvRow</a> (const <a class="el" href="structaisolver_1_1TrainingStatsRow.html">TrainingStatsRow</a> &amp;row, float movingAverageReward, float rewardDelta, std::string_view timestampIso8601)</td></tr>
+<tr class="memdesc:a36982ef8c5c61f6b9d4b959fbf4d56e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sérialise une ligne de statistiques, valeurs séparées par des virgules.  <br /></td></tr>
+<tr class="memitem:aa17e50f126f244b7559548162fc9e134" id="r_aa17e50f126f244b7559548162fc9e134"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#aa17e50f126f244b7559548162fc9e134">makeTrainingRunPath</a> (const std::filesystem::path &amp;trainingRunsRoot, std::string_view levelName, std::string_view runId)</td></tr>
+<tr class="memdesc:aa17e50f126f244b7559548162fc9e134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le chemin <span class="tt">trainingRunsRoot / levelName / runId / "stats.csv"</span> et crée les dossiers intermédiaires manquants.  <br /></td></tr>
+<tr class="memitem:a94f49d6b0ed3a6c1d11c7e81ed110d52" id="r_a94f49d6b0ed3a6c1d11c7e81ed110d52"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a94f49d6b0ed3a6c1d11c7e81ed110d52">generateRunId</a> ()</td></tr>
+<tr class="memdesc:a94f49d6b0ed3a6c1d11c7e81ed110d52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Génère un identifiant de run par horodatage ISO 8601 compact (ex.  <br /></td></tr>
+<tr class="memitem:a9e329421866b257cf6a93da46b53cb3b" id="r_a9e329421866b257cf6a93da46b53cb3b"><td class="memItemLeft"><a class="el" href="structGradientCheckResult.html">GradientCheckResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9e329421866b257cf6a93da46b53cb3b">checkGradient</a> (const std::function&lt; <a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a>(const std::vector&lt; <a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a> &gt; &amp;)&gt; &amp;buildGraph, const std::vector&lt; <a class="el" href="classTensor.html">Tensor</a>&lt; float &gt; &gt; &amp;inputs, float epsilon=1e-3f, float tolerance=1e-2f)</td></tr>
+<tr class="memdesc:a9e329421866b257cf6a93da46b53cb3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare, élément par élément de chaque entrée, le gradient analytique (<span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span>) au gradient numérique (différences finies centrées) d'un graphe construit par <span class="tt">buildGraph</span>.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a555dca592758c1fdf33b8eb0573102e1" id="r_a555dca592758c1fdf33b8eb0573102e1"><td class="memItemLeft">constexpr std::uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a555dca592758c1fdf33b8eb0573102e1">kReplayFormatVersion</a> = 2</td></tr>
+<tr class="memdesc:a555dca592758c1fdf33b8eb0573102e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Version courante du format de rejeu (<span class="tt">EX-IA-008</span>), même principe que <span class="tt"><a class="el" href="namespacecore.html#a4e9944a74ac070775a2730be05705abb" title="Version courante du format de niveau JSON (EX-LVL-005).">core::kLevelFormatVersion</a></span> (<span class="tt">EX-LVL-005</span>) : un fichier sans champ <span class="tt">formatVersion</span> est lu comme la version initiale (0), sans erreur.  <br /></td></tr>
+<tr class="memitem:a7240db6bfdbb8a3a9acce0ada7c6a71d" id="r_a7240db6bfdbb8a3a9acce0ada7c6a71d"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a7240db6bfdbb8a3a9acce0ada7c6a71d">kDefaultTrainingRunsRoot</a> = &quot;TrainingRuns&quot;</td></tr>
+<tr class="memdesc:a7240db6bfdbb8a3a9acce0ada7c6a71d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Racine par défaut des sorties d'entraînement, relative à la racine du dépôt (déjà exclue de Git par <span class="tt">.gitignore</span>, <span class="tt">/TrainingRuns/</span>).  <br /></td></tr>
 </table>
+<a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
+<a id="af11f067d4f1b224aeaa363c793c3711b" name="af11f067d4f1b224aeaa363c793c3711b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af11f067d4f1b224aeaa363c793c3711b">&#9670;&#160;</a></span>LevelFingerprint</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#af11f067d4f1b224aeaa363c793c3711b">aisolver::LevelFingerprint</a> = std::uint64_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Empreinte d'un fichier de niveau (hash FNV-1a 64 bits, voir <span class="tt"><a class="el" href="#a0c132221c5ad7598dffec2bfb73bccc3" title="Calcule l&#39;empreinte du contenu brut (octets tels que lus, sans reformatage ni reparsing JSON) d&#39;un fi...">computeLevelFingerprint</a></span>). </p>
+
+</div>
+</div>
+<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a id="a8b91e4ce2193d2729de1836c406dcc90" name="a8b91e4ce2193d2729de1836c406dcc90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b91e4ce2193d2729de1836c406dcc90">&#9670;&#160;</a></span>Direction</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a8b91e4ce2193d2729de1836c406dcc90">aisolver::Direction</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="#a8b91e4ce2193d2729de1836c406dcc90" title="Direction de déplacement horizontal discrète (voir la décision de cadrage de l&#39;épic : core::PlayerInp...">Direction</a> de déplacement horizontal discrète (voir la décision de cadrage de l'épic : <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html#adce05fa0a13062c53bfef04c63b85623" title="Intention de déplacement horizontal, normalisée dans l&#39;intervalle [-1, 1] : -1 = vers la gauche,...">core::PlayerInput::moveX</a></span> n'est en pratique jamais utilisé en dehors de <span class="tt">{-1, 0, 1}</span>). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a8b91e4ce2193d2729de1836c406dcc90a945d5e233cf7d6240f6b783b36a374ff" name="a8b91e4ce2193d2729de1836c406dcc90a945d5e233cf7d6240f6b783b36a374ff"></a>Left&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8b91e4ce2193d2729de1836c406dcc90a6adf97f83acf6453d4a6a4b1070f3754" name="a8b91e4ce2193d2729de1836c406dcc90a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8b91e4ce2193d2729de1836c406dcc90a92b09c7c48c520c3c55e497875da437c" name="a8b91e4ce2193d2729de1836c406dcc90a92b09c7c48c520c3c55e497875da437c"></a>Right&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="adda23dcaaf73b2335b5a52701af05d68" name="adda23dcaaf73b2335b5a52701af05d68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adda23dcaaf73b2335b5a52701af05d68">&#9670;&#160;</a></span>EpisodeStatus</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#adda23dcaaf73b2335b5a52701af05d68">aisolver::EpisodeStatus</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Statut d'un épisode d'entraînement, plus riche que <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa" title="Issue courante d&#39;un niveau, déduite de la position du personnage.">core::LevelOutcome</a></span> (qui ignore blocage et plafond de pas, inutiles au jeu mais nécessaires à un entraînement automatisé). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="adda23dcaaf73b2335b5a52701af05d68a7ee7defde6dc3a1d4a4a891b3894e790" name="adda23dcaaf73b2335b5a52701af05d68a7ee7defde6dc3a1d4a4a891b3894e790"></a>Ongoing&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adda23dcaaf73b2335b5a52701af05d68a19abd416eb9fe03ae7400a22446956a5" name="adda23dcaaf73b2335b5a52701af05d68a19abd416eb9fe03ae7400a22446956a5"></a>Won&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adda23dcaaf73b2335b5a52701af05d68ab578b733cbb788fc6ad208314d2c4c2b" name="adda23dcaaf73b2335b5a52701af05d68ab578b733cbb788fc6ad208314d2c4c2b"></a>Lost&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adda23dcaaf73b2335b5a52701af05d68a9541eb2348d883dd8e32ae0420274c4c" name="adda23dcaaf73b2335b5a52701af05d68a9541eb2348d883dd8e32ae0420274c4c"></a>TimedOut&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adda23dcaaf73b2335b5a52701af05d68aa2c4543906f921f4589e33086abcc102" name="adda23dcaaf73b2335b5a52701af05d68aa2c4543906f921f4589e33086abcc102"></a>Stuck&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a859cdf92a0dce561aebd84feee736f88" name="a859cdf92a0dce561aebd84feee736f88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a859cdf92a0dce561aebd84feee736f88">&#9670;&#160;</a></span>ReplayValidationError</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a859cdf92a0dce561aebd84feee736f88">aisolver::ReplayValidationError</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Raison pour laquelle un rejeu est invalide (voir <span class="tt"><a class="el" href="#aae9da93cacb6498823404bc00c7b9cc3" title="Valide un rejeu déjà désérialisé : le niveau qu&#39;il référence doit exister et son empreinte doit corre...">validateReplay</a></span>). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a859cdf92a0dce561aebd84feee736f88a3cc7cd93d14b8633b8d65930bbb3fec1" name="a859cdf92a0dce561aebd84feee736f88a3cc7cd93d14b8633b8d65930bbb3fec1"></a>LevelFileMissing&#160;</td><td class="fielddoc"><p>Le fichier de niveau référencé par le rejeu n'existe pas sous le répertoire de niveaux. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a859cdf92a0dce561aebd84feee736f88aa5827f791e034a525d2450351b1949b2" name="a859cdf92a0dce561aebd84feee736f88aa5827f791e034a525d2450351b1949b2"></a>LevelFingerprintMismatch&#160;</td><td class="fielddoc"><p>Le fichier de niveau existe mais son empreinte diverge de celle enregistrée à l'export. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="aaa9c005c559e8b4e96ece3a1aec29b3c" name="aaa9c005c559e8b4e96ece3a1aec29b3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa9c005c559e8b4e96ece3a1aec29b3c">&#9670;&#160;</a></span>actionAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structAction.html">Action</a> aisolver::actionAt </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="structaisolver_1_1Action.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> correspondant à un indice donné (inverse de <span class="tt"><a class="el" href="#a08e0bc710addf53ab9170d92a336018f">indexOf</a></span>). </p>
+<p>L'ordre d'énumération (direction en poids fort, puis <span class="tt">jumpPressed</span>, <span class="tt">jumpHeld</span>, <span class="tt">dashPressed</span>) est un <b>invariant stable</b> : une fois qu'un modèle a été entraîné sur cet ordre (génération 2/3), le changer romprait la correspondance entre l'indice de sortie d'un réseau déjà entraîné et l'action qu'il désigne réellement (voir TACHE-01, points d'attention). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>Indice dans <span class="tt">[0, <a class="el" href="#a4f3464dafad270e2884fb0ba7d1d0034">actionCount()</a>)</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd><span class="tt">index &lt; <a class="el" href="#a4f3464dafad270e2884fb0ba7d1d0034">actionCount()</a></span>. </dd></dl>
+
+</div>
+</div>
+<a id="a4f3464dafad270e2884fb0ba7d1d0034" name="a4f3464dafad270e2884fb0ba7d1d0034"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f3464dafad270e2884fb0ba7d1d0034">&#9670;&#160;</a></span>actionCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t aisolver::actionCount </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Nombre total d'actions distinctes de l'espace d'action (<span class="tt">3 × 2 × 2 × 2 = 24</span>). </dd></dl>
+
+</div>
+</div>
+<a id="a0c215845fcb11428c0a6a05028bbd126" name="a0c215845fcb11428c0a6a05028bbd126"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c215845fcb11428c0a6a05028bbd126">&#9670;&#160;</a></span>add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; aisolver::add </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Somme élément par élément ; <span class="tt"><a class="el" href="Assert_8h.html#a24ec0bff1ac1e68bdf8ac50376a41076" title="Vérifie une précondition.">PROJECTGAMING_ASSERT</a></span> si les formes diffèrent. </dd></dl>
+
+</div>
+</div>
+<a id="a58ef67f6c9b91d3945d4343d5cca1849" name="a58ef67f6c9b91d3945d4343d5cca1849"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58ef67f6c9b91d3945d4343d5cca1849">&#9670;&#160;</a></span>addScalar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; aisolver::addScalar </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T</td>          <td class="paramname"><span class="paramname"><em>scalar</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Chaque élément de <span class="tt">a</span> additionné au même scalaire (diffusion scalaire). </dd></dl>
+
+</div>
+</div>
+<a id="a9e329421866b257cf6a93da46b53cb3b" name="a9e329421866b257cf6a93da46b53cb3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e329421866b257cf6a93da46b53cb3b">&#9670;&#160;</a></span>checkGradient()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structGradientCheckResult.html">GradientCheckResult</a> aisolver::checkGradient </td>
+          <td>(</td>
+          <td class="paramtype">const std::function&lt; <a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a>(const std::vector&lt; <a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a> &gt; &amp;)&gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>buildGraph</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="classTensor.html">Tensor</a>&lt; float &gt; &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>inputs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>epsilon</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1e-3f</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>tolerance</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1e-2f</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compare, élément par élément de chaque entrée, le gradient analytique (<span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span>) au gradient numérique (différences finies centrées) d'un graphe construit par <span class="tt">buildGraph</span>. </p>
+<p>Pour chaque tenseur d'entrée et chacun de ses éléments : reconstruit le graphe deux fois (une fois avec l'élément perturbé de <span class="tt">+epsilon</span>, une fois de <span class="tt">-epsilon</span>, les autres entrées inchangées), en dérive le gradient numérique <span class="tt">(sortiePerturbeePlus - sortiePerturbeeMoins) /
+(2 * epsilon)</span>. Le gradient analytique est lu une seule fois, sur un graphe construit avec les entrées non perturbées et un unique appel à <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span>. <span class="tt">maxAbsoluteError</span> est l'écart absolu maximal observé sur l'ensemble des éléments de toutes les entrées ; <span class="tt">passed</span> est vrai si cet écart reste sous <span class="tt">tolerance</span>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buildGraph</td><td>Construit le nœud de sortie à partir des nœuds d'entrée (dans le même ordre que <span class="tt">inputs</span>) ; reconstruit à chaque perturbation, jamais muté en place. </td></tr>
+    <tr><td class="paramname">inputs</td><td>Tenseurs d'entrée, un par paramètre de <span class="tt">buildGraph</span>. </td></tr>
+    <tr><td class="paramname">epsilon</td><td>Amplitude de la perturbation centrée (valeur par défaut choisie empiriquement, cf. points d'attention de TACHE-04). </td></tr>
+    <tr><td class="paramname">tolerance</td><td>Écart absolu maximal toléré entre gradient analytique et numérique. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a59583736f24a97702e07be216ee2c971" name="a59583736f24a97702e07be216ee2c971"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59583736f24a97702e07be216ee2c971">&#9670;&#160;</a></span>classifyEpisode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#adda23dcaaf73b2335b5a52701af05d68">EpisodeStatus</a> aisolver::classifyEpisode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa">core::LevelOutcome</a></td>          <td class="paramname"><span class="paramname"><em>outcome</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>stepIndex</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>stepsSinceProgress</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>hardStepBudget</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>stuckThreshold</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Classe la fin d'épisode à partir de l'issue du jeu et des compteurs de pas/progression. </p>
+<p>Fonction pure, sans accès à <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> : reçoit ses compteurs en paramètres, testable sans construire d'environnement réel. Ordre de priorité explicite : victoire/défaite réelles (<span class="tt">outcome</span>) priment toujours sur les critères artificiels (<span class="tt">TimedOut</span>/<span class="tt">Stuck</span>), qui restent deux bornes indépendantes (un agent qui progresse lentement mais sûrement ne doit pas être coupé aussi tôt qu'un agent qui stagne complètement). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">outcome</td><td>Issue du niveau (<span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa" title="Issue courante d&#39;un niveau, déduite de la position du personnage.">core::LevelOutcome</a></span>) à ce pas. </td></tr>
+    <tr><td class="paramname">stepIndex</td><td>Nombre de pas simulés depuis le dernier <span class="tt">reset</span>. </td></tr>
+    <tr><td class="paramname">stepsSinceProgress</td><td>Nombre de pas consécutifs sans amélioration de la meilleure distance atteinte (<span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a37fcd4f51e12da89d4ca5f13735ab43a">HeadlessLevelEnvironment::stepsSinceProgress</a></span>). </td></tr>
+    <tr><td class="paramname">hardStepBudget</td><td>Plafond dur de pas (<span class="tt"><a class="el" href="structaisolver_1_1EnvironmentConfig.html#a41443052ea64cebb5799e46b0a0b505a" title="Nombre maximal de pas simulables entre deux reset (même valeur par défaut que playLevel() dans Source...">EnvironmentConfig::maxSteps</a></span>). </td></tr>
+    <tr><td class="paramname">stuckThreshold</td><td>Seuil de pas sans progression au-delà duquel l'épisode est jugé bloqué. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le statut de l'épisode à ce pas. </dd></dl>
+
+</div>
+</div>
+<a id="a0c132221c5ad7598dffec2bfb73bccc3" name="a0c132221c5ad7598dffec2bfb73bccc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c132221c5ad7598dffec2bfb73bccc3">&#9670;&#160;</a></span>computeLevelFingerprint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#af11f067d4f1b224aeaa363c793c3711b">LevelFingerprint</a> aisolver::computeLevelFingerprint </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>levelFileContent</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calcule l'empreinte du contenu <b>brut</b> (octets tels que lus, sans reformatage ni reparsing JSON) d'un fichier de niveau, via FNV-1a 64 bits. </p>
+<p>Algorithme fixe, sans bibliothèque tierce, implémenté à la main : simplicité et reproductibilité l'emportent sur une notion d'équivalence sémantique (deux fichiers textuellement différents mais sémantiquement identiques produisent des empreintes différentes, accepté délibérément). Choix délibérément non cryptographique — rien à sécuriser, seulement détecter un changement accidentel.</p>
+<p>Convention d'octets stricte à respecter par toute réimplémentation (notamment <span class="tt">LOT-ANNEXE-20</span>, garde-fou CI en Python pur) : <code class="param">levelFileContent</code> doit être exactement le contenu du fichier tel que lu (encodage UTF-8, aucune normalisation de fin de ligne).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">levelFileContent</td><td>Contenu brut du fichier de niveau. Fonction pure, testable sans accès disque — c'est à l'appelant de lire le fichier. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>L'empreinte FNV-1a 64 bits de <code class="param">levelFileContent</code>. </dd></dl>
+
+</div>
+</div>
+<a id="acfa113b8f54b1f1c80752e87fdcee984" name="acfa113b8f54b1f1c80752e87fdcee984"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfa113b8f54b1f1c80752e87fdcee984">&#9670;&#160;</a></span>computeReward()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float aisolver::computeReward </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structaisolver_1_1RewardConfig.html">RewardConfig</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>config</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classaisolver_1_1GridDistanceField.html">GridDistanceField</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>distanceField</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Aabb.html">core::Aabb</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>previousBox</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Aabb.html">core::Aabb</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>currentBox</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa">core::LevelOutcome</a></td>          <td class="paramname"><span class="paramname"><em>outcome</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calcule la récompense d'un pas unique, fonction pure sans état interne ni effet de bord. </p>
+<p>La distance à la sortie est une distance de plus court chemin sur la grille, respectant les murs (<span class="tt"><a class="el" href="classaisolver_1_1GridDistanceField.html" title="Distance de plus court chemin en nombre de cases (4-connexité, respectant les cases statiquement soli...">GridDistanceField</a></span>, amendement <span class="tt">LOT-ANNEXE-08</span> motivé par <span class="tt">EX-IA-023</span> : la distance euclidienne en ligne droite, utilisée avant cet amendement, pénalisait les pas de détour pourtant nécessaires autour d'un mur, un signal actif contre la bonne politique plutôt que simplement imparfait). Le centre de la boîte du personnage est converti en case de grille (partie entière des coordonnées monde, 1 case = 1 unité monde, même convention que <span class="tt">HMI::GameViewport::cellAt</span>). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">config</td><td>Constantes de la fonction de récompense. </td></tr>
+    <tr><td class="paramname">distanceField</td><td>Champ de distances vers la sortie, précalculé une fois par niveau (<span class="tt"><a class="el" href="classaisolver_1_1GridDistanceField.html" title="Distance de plus court chemin en nombre de cases (4-connexité, respectant les cases statiquement soli...">GridDistanceField</a></span>, construit à partir de <span class="tt"><a class="el" href="classcore_1_1Level.html#af42df8d6a33bdaa7aedf5b2aafd728ef">core::Level::tileMap()</a></span>/<span class="tt">exit()</span>). </td></tr>
+    <tr><td class="paramname">previousBox</td><td>Boîte du personnage avant ce pas. </td></tr>
+    <tr><td class="paramname">currentBox</td><td>Boîte du personnage après ce pas. </td></tr>
+    <tr><td class="paramname">outcome</td><td>Issue du niveau à l'issue de ce pas. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La récompense scalaire de ce pas. </dd></dl>
+
+</div>
+</div>
+<a id="a20566c5f2ffca31c4b4ccdb0f4fb5887" name="a20566c5f2ffca31c4b4ccdb0f4fb5887"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20566c5f2ffca31c4b4ccdb0f4fb5887">&#9670;&#160;</a></span>csvHeader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string aisolver::csvHeader </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>En-tête de colonnes, fixe et dans cet ordre exact. </p>
+<p>Aucune dépendance à une bibliothèque CSV tierce : un seul champ textuel (<span class="tt">levelName</span>) est à risque d'échappement dans tout le schéma, une fonction dédiée de quelques lignes suffit (conforme à la contrainte « from scratch, aucune dépendance tierce nouvelle » du programme). </p>
+
+</div>
+</div>
+<a id="a36982ef8c5c61f6b9d4b959fbf4d56e6" name="a36982ef8c5c61f6b9d4b959fbf4d56e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36982ef8c5c61f6b9d4b959fbf4d56e6">&#9670;&#160;</a></span>csvRow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string aisolver::csvRow </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structaisolver_1_1TrainingStatsRow.html">TrainingStatsRow</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>row</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>movingAverageReward</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>rewardDelta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>timestampIso8601</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sérialise une ligne de statistiques, valeurs séparées par des virgules. </p>
+<p><span class="tt">levelName</span> est entouré de guillemets s'il contient une virgule ou un guillemet (un guillemet interne est alors doublé, convention CSV usuelle) ; toute autre colonne est numérique et ne nécessite aucun échappement. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">row</td><td>Ligne fournie par l'appelant (voir <span class="tt"><a class="el" href="structaisolver_1_1TrainingStatsRow.html" title="Une ligne de statistiques : une génération (évolutionniste) ou un épisode/lot d&#39;épisodes (par gradien...">TrainingStatsRow</a></span>). </td></tr>
+    <tr><td class="paramname">movingAverageReward</td><td>Moyenne mobile de <span class="tt">bestReward</span>, calculée par le recorder (<span class="tt"><a class="el" href="classaisolver_1_1MovingAverageTracker.html" title="Moyenne mobile sur les windowSize dernières valeurs poussées.">MovingAverageTracker</a></span>), jamais par l'appelant. </td></tr>
+    <tr><td class="paramname">rewardDelta</td><td>Delta de la moyenne mobile par rapport à l'appel précédent, calculé par le recorder. </td></tr>
+    <tr><td class="paramname">timestampIso8601</td><td>Horodatage d'enregistrement, format ISO 8601 (<span class="tt">AAAA-MM-JJThh:mm:ssZ</span>) : trié lexicographiquement dans le même ordre que chronologiquement. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La ligne CSV, sans saut de ligne final. </dd></dl>
+
+</div>
+</div>
+<a id="aa2c594166eb644b6546d993c245e48c7" name="aa2c594166eb644b6546d993c245e48c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2c594166eb644b6546d993c245e48c7">&#9670;&#160;</a></span>decodeArgmax()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structAction.html">Action</a> aisolver::decodeArgmax </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>distribution</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sélectionne l'action de probabilité maximale (décodage déterministe). </p>
+<p>Utilisé pour le rejeu final exporté (<span class="tt">LOT-ANNEXE-11</span>) et pour tout modèle évolutionniste (<span class="tt">LOT-ANNEXE-10</span>, qui ne produit pas de distribution stochastique à proprement parler).</p>
+<p>En cas d'égalité stricte entre plusieurs indices, retourne systématiquement l'action du <b>premier</b> indice au sens de l'ordre d'énumération de <span class="tt">ActionSpace</span> (déterministe, ne dépend d'aucun état externe). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">distribution</td><td>Tenseur de rang 1, taille <span class="tt"><a class="el" href="#a4f3464dafad270e2884fb0ba7d1d0034">actionCount()</a></span>, supposé déjà normalisé (somme à <span class="tt">1</span>, produit d'une couche <span class="tt">softmax</span>) — ni renormalisé ni validé ici. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="abac6fb128f0210708c1ac95475a47219" name="abac6fb128f0210708c1ac95475a47219"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abac6fb128f0210708c1ac95475a47219">&#9670;&#160;</a></span>decodeStochastic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structAction.html">Action</a> aisolver::decodeStochastic </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>distribution</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>temperature</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classRng.html">Rng</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>rng</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Échantillonne une action selon la distribution, pondérée par une température. </p>
+<p>Applique la température à la distribution d'entrée (<span class="tt">p_i^(1/temperature) / somme</span>, <span class="tt">temperature = 1.0</span> la laisse inchangée), puis tire l'indice résultant par la méthode de la roulette (somme cumulée) à partir d'un flottant uniforme tiré de <code class="param">rng</code>. Toute source d'aléatoire passe par <code class="param">rng</code>, fournie par l'appelant (jamais de graine interne à cette fonction, cohérent avec <span class="tt">LOT-ANNEXE-01</span>) : deux appels avec la même instance de <span class="tt"><a class="el" href="classaisolver_1_1Rng.html" title="Source d&#39;aléatoire déterministe et reproductible à partir d&#39;une seule graine.">Rng</a></span> dans le même état produisent la même action.</p>
+<p>Utilisé pour l'exploration pendant l'entraînement par gradient (génération 3) : une température basse rend ce décodage quasi-équivalent à <span class="tt"><a class="el" href="#aa2c594166eb644b6546d993c245e48c7" title="Sélectionne l&#39;action de probabilité maximale (décodage déterministe).">decodeArgmax</a></span>, une température haute aplatit la distribution vers un tirage quasi uniforme. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">distribution</td><td>Tenseur de rang 1, taille <span class="tt"><a class="el" href="#a4f3464dafad270e2884fb0ba7d1d0034">actionCount()</a></span>, supposé déjà normalisé (voir <span class="tt"><a class="el" href="#aa2c594166eb644b6546d993c245e48c7" title="Sélectionne l&#39;action de probabilité maximale (décodage déterministe).">decodeArgmax</a></span>). </td></tr>
+    <tr><td class="paramname">temperature</td><td>Strictement positive. </td></tr>
+    <tr><td class="paramname">rng</td><td>Générateur déterministe fourni par l'appelant. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a312fc82fe440754d5bba398019030405" name="a312fc82fe440754d5bba398019030405"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a312fc82fe440754d5bba398019030405">&#9670;&#160;</a></span>divide()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; aisolver::divide </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Quotient élément par élément ; <span class="tt"><a class="el" href="Assert_8h.html#a24ec0bff1ac1e68bdf8ac50376a41076" title="Vérifie une précondition.">PROJECTGAMING_ASSERT</a></span> si les formes diffèrent. </dd></dl>
+
+</div>
+</div>
+<a id="a3c7a156b22ac969eaff80e197093372f" name="a3c7a156b22ac969eaff80e197093372f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c7a156b22ac969eaff80e197093372f">&#9670;&#160;</a></span>divideScalar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; aisolver::divideScalar </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T</td>          <td class="paramname"><span class="paramname"><em>scalar</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Chaque élément de <span class="tt">a</span> divisé par le même scalaire (diffusion scalaire). </dd></dl>
+
+</div>
+</div>
+<a id="a3e22f5dccd7bd60c0429cab2fbb8b9e7" name="a3e22f5dccd7bd60c0429cab2fbb8b9e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e22f5dccd7bd60c0429cab2fbb8b9e7">&#9670;&#160;</a></span>escapeCsvField()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string aisolver::escapeCsvField </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>field</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Échappe un champ textuel selon la convention CSV déjà en usage (guillemets si le champ contient une virgule ou un guillemet, guillemet interne doublé). </p>
+<p>Exposée pour être réutilisée telle quelle par tout module produisant un CSV du même format (<span class="tt"><a class="el" href="classBenchmarkReport.html" title="Accumule des BenchmarkResult (sortie de BenchmarkRunner, un par modèle exécuté) au fil d&#39;une campagne...">BenchmarkReport</a></span>, <span class="tt">LOT-ANNEXE-15</span>) sans dupliquer cette logique. </p>
+
+</div>
+</div>
+<a id="a94f49d6b0ed3a6c1d11c7e81ed110d52" name="a94f49d6b0ed3a6c1d11c7e81ed110d52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94f49d6b0ed3a6c1d11c7e81ed110d52">&#9670;&#160;</a></span>generateRunId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string aisolver::generateRunId </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Génère un identifiant de run par horodatage ISO 8601 compact (ex. </p>
+<p><span class="tt">20260729-143512</span>).</p>
+<p>Deux appels dans la même seconde produisent des identifiants distincts : un compteur incrémental est suffixé en repli (<span class="tt">20260729-143512-1</span>, <span class="tt">20260729-143512-2</span>, …). </p>
+
+</div>
+</div>
+<a id="a08e0bc710addf53ab9170d92a336018f" name="a08e0bc710addf53ab9170d92a336018f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08e0bc710addf53ab9170d92a336018f">&#9670;&#160;</a></span>indexOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t aisolver::indexOf </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structAction.html">Action</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>action</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'indice (dans <span class="tt">[0, <a class="el" href="#a4f3464dafad270e2884fb0ba7d1d0034">actionCount()</a>)</span>) correspondant à une action (inverse de <span class="tt"><a class="el" href="#aaa9c005c559e8b4e96ece3a1aec29b3c" title="Action correspondant à un indice donné (inverse de indexOf).">actionAt</a></span>). </dd></dl>
+
+</div>
+</div>
+<a id="aa17e50f126f244b7559548162fc9e134" name="aa17e50f126f244b7559548162fc9e134"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa17e50f126f244b7559548162fc9e134">&#9670;&#160;</a></span>makeTrainingRunPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path aisolver::makeTrainingRunPath </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>trainingRunsRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>levelName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>runId</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construit le chemin <span class="tt">trainingRunsRoot / levelName / runId / "stats.csv"</span> et crée les dossiers intermédiaires manquants. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">trainingRunsRoot</td><td>Racine des runs d'entraînement (voir <span class="tt"><a class="el" href="#a7240db6bfdbb8a3a9acce0ada7c6a71d" title="Racine par défaut des sorties d&#39;entraînement, relative à la racine du dépôt (déjà exclue de Git par ....">kDefaultTrainingRunsRoot</a></span>). </td></tr>
+    <tr><td class="paramname">levelName</td><td>Nom du niveau entraîné : isole les runs de niveaux différents dans des dossiers disjoints (régime d'entraînement niveau par niveau). </td></tr>
+    <tr><td class="paramname">runId</td><td>Identifiant du run (voir <span class="tt"><a class="el" href="#a94f49d6b0ed3a6c1d11c7e81ed110d52" title="Génère un identifiant de run par horodatage ISO 8601 compact (ex.">generateRunId</a></span>) : deux runs successifs sur le même niveau restent chacun consultables séparément. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le chemin du fichier <span class="tt">stats.csv</span> du run, dossiers parents déjà créés sur disque. </dd></dl>
+
+</div>
+</div>
+<a id="a98e499722c1bf9e864602845e1154f06" name="a98e499722c1bf9e864602845e1154f06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98e499722c1bf9e864602845e1154f06">&#9670;&#160;</a></span>matmul()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; aisolver::matmul </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Produit matriciel standard entre deux matrices (rang 2) <span class="tt">[m,k] * [k,n] -&gt; [m,n]</span>. </p>
+<dl class="section note"><dt>Note</dt><dd>Complexité O(m·k·n), triple boucle directe, sans optimisation par blocs — cohérent avec l'exclusion de performance de l'épic LOT-ANNEXE-01 (correction visée, pas la vitesse). </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><span class="tt">a.rank() == 2 &amp;&amp; b.rank() == 2 &amp;&amp; a.shape()[1] == b.shape()[0]</span> (<span class="tt"><a class="el" href="Assert_8h.html#a24ec0bff1ac1e68bdf8ac50376a41076" title="Vérifie une précondition.">PROJECTGAMING_ASSERT</a></span>). </dd></dl>
+
+</div>
+</div>
+<a id="a5c6ea6bfe2a503720332899798f6ca22" name="a5c6ea6bfe2a503720332899798f6ca22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c6ea6bfe2a503720332899798f6ca22">&#9670;&#160;</a></span>max()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T aisolver::max </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Maximum de tous les éléments ; <span class="tt"><a class="el" href="Assert_8h.html#a24ec0bff1ac1e68bdf8ac50376a41076" title="Vérifie une précondition.">PROJECTGAMING_ASSERT</a></span> sur un tenseur vide. </dd></dl>
+
+</div>
+</div>
+<a id="ad5f0d68c82eaa2495f8a1dd2dcba63f7" name="ad5f0d68c82eaa2495f8a1dd2dcba63f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5f0d68c82eaa2495f8a1dd2dcba63f7">&#9670;&#160;</a></span>mean()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T aisolver::mean </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Moyenne de tous les éléments ; <span class="tt"><a class="el" href="Assert_8h.html#a24ec0bff1ac1e68bdf8ac50376a41076" title="Vérifie une précondition.">PROJECTGAMING_ASSERT</a></span> sur un tenseur vide. </dd></dl>
+
+</div>
+</div>
+<a id="a1a942678acedc3fc8baab3bd6a2f6c1a" name="a1a942678acedc3fc8baab3bd6a2f6c1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a942678acedc3fc8baab3bd6a2f6c1a">&#9670;&#160;</a></span>multiply()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; aisolver::multiply </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Produit élément par élément ; <span class="tt"><a class="el" href="Assert_8h.html#a24ec0bff1ac1e68bdf8ac50376a41076" title="Vérifie une précondition.">PROJECTGAMING_ASSERT</a></span> si les formes diffèrent. </dd></dl>
+
+</div>
+</div>
+<a id="ae76e6ca85d44249f01ba88d0ab7faa02" name="ae76e6ca85d44249f01ba88d0ab7faa02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae76e6ca85d44249f01ba88d0ab7faa02">&#9670;&#160;</a></span>multiplyScalar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; aisolver::multiplyScalar </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T</td>          <td class="paramname"><span class="paramname"><em>scalar</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Chaque élément de <span class="tt">a</span> multiplié par le même scalaire (diffusion scalaire). </dd></dl>
+
+</div>
+</div>
+<a id="a0802a478058b01e5f185dc352eec032a" name="a0802a478058b01e5f185dc352eec032a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0802a478058b01e5f185dc352eec032a">&#9670;&#160;</a></span>operator*() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; aisolver::operator* </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5b4ebe880c0350dfc10639ebc30b8d00" name="a5b4ebe880c0350dfc10639ebc30b8d00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b4ebe880c0350dfc10639ebc30b8d00">&#9670;&#160;</a></span>operator*() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; aisolver::operator* </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T</td>          <td class="paramname"><span class="paramname"><em>scalar</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a27c9450f351f9f180e8ddc216d8d36fc" name="a27c9450f351f9f180e8ddc216d8d36fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27c9450f351f9f180e8ddc216d8d36fc">&#9670;&#160;</a></span>operator+() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; aisolver::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0260d52725d9f6eb6b46953f6361c47c" name="a0260d52725d9f6eb6b46953f6361c47c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0260d52725d9f6eb6b46953f6361c47c">&#9670;&#160;</a></span>operator+() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; aisolver::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T</td>          <td class="paramname"><span class="paramname"><em>scalar</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7a99e92ef8900faf70b9de25cf677a88" name="a7a99e92ef8900faf70b9de25cf677a88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a99e92ef8900faf70b9de25cf677a88">&#9670;&#160;</a></span>operator-() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; aisolver::operator- </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac005d842da7a1127d9c9ec30a28625d2" name="ac005d842da7a1127d9c9ec30a28625d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac005d842da7a1127d9c9ec30a28625d2">&#9670;&#160;</a></span>operator-() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; aisolver::operator- </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T</td>          <td class="paramname"><span class="paramname"><em>scalar</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a92fb82a1d4aba5f03200ada08922fcfa" name="a92fb82a1d4aba5f03200ada08922fcfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92fb82a1d4aba5f03200ada08922fcfa">&#9670;&#160;</a></span>operator/() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; aisolver::operator/ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a304ea2e5474b84873c290507d14ea131" name="a304ea2e5474b84873c290507d14ea131"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a304ea2e5474b84873c290507d14ea131">&#9670;&#160;</a></span>operator/() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; aisolver::operator/ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T</td>          <td class="paramname"><span class="paramname"><em>scalar</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1d0765d18d448f2bbb6ff13d818a8685" name="a1d0765d18d448f2bbb6ff13d818a8685"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d0765d18d448f2bbb6ff13d818a8685">&#9670;&#160;</a></span>readReplay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structReplayLoadResult.html">ReplayLoadResult</a> aisolver::readReplay </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lit un fichier de rejeu au format JSON. </p>
+<p>Aucune validation de cohérence n'est effectuée ici (empreinte de niveau, budget de pas…) : ajoutée par <span class="tt">LOT-ANNEXE-17</span>, qui étend ce format. Un fichier sans champ <span class="tt">formatVersion</span> est lu comme la version initiale (<span class="tt">0</span>), sans erreur. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>Chemin du fichier à lire. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Résultat de la lecture, jamais d'exception (<span class="tt">EX-NFR-040</span>). </dd></dl>
+
+</div>
+</div>
+<a id="a41369536fdb13a5c63d9c11d09d5d586" name="a41369536fdb13a5c63d9c11d09d5d586"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41369536fdb13a5c63d9c11d09d5d586">&#9670;&#160;</a></span>subtract()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; aisolver::subtract </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Différence élément par élément ; <span class="tt"><a class="el" href="Assert_8h.html#a24ec0bff1ac1e68bdf8ac50376a41076" title="Vérifie une précondition.">PROJECTGAMING_ASSERT</a></span> si les formes diffèrent. </dd></dl>
+
+</div>
+</div>
+<a id="a7275886f1d1eb5b62a947e8db4dcc299" name="a7275886f1d1eb5b62a947e8db4dcc299"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7275886f1d1eb5b62a947e8db4dcc299">&#9670;&#160;</a></span>subtractScalar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; aisolver::subtractScalar </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T</td>          <td class="paramname"><span class="paramname"><em>scalar</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Chaque élément de <span class="tt">a</span> diminué du même scalaire (diffusion scalaire). </dd></dl>
+
+</div>
+</div>
+<a id="a37b46714fcbdd35fdeba3f5aa7493e9d" name="a37b46714fcbdd35fdeba3f5aa7493e9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37b46714fcbdd35fdeba3f5aa7493e9d">&#9670;&#160;</a></span>sum()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T aisolver::sum </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Somme de tous les éléments (réduction globale). </dd></dl>
+
+</div>
+</div>
+<a id="a45874eecdbf9a34fd9448a5ab97d8162" name="a45874eecdbf9a34fd9448a5ab97d8162"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45874eecdbf9a34fd9448a5ab97d8162">&#9670;&#160;</a></span>toPlayerInput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1PlayerInput.html">core::PlayerInput</a> aisolver::toPlayerInput </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structAction.html">Action</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>action</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Traduit une action discrète en <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span>, consommé par <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">HeadlessLevelEnvironment::step</a></span> (<span class="tt">LOT-ANNEXE-05</span>). </p>
+<p><span class="tt">moveX</span> vaut <span class="tt">-1</span>/<span class="tt">0</span>/<span class="tt">1</span> selon <span class="tt"><a class="el" href="#a8b91e4ce2193d2729de1836c406dcc90" title="Direction de déplacement horizontal discrète (voir la décision de cadrage de l&#39;épic : core::PlayerInp...">Direction</a></span>, <span class="tt">moveY</span> est toujours <span class="tt">0</span> (décision de cadrage de l'épic). Les champs d'interaction (<span class="tt">interactPressed</span>/<span class="tt">interactHeld</span>/<span class="tt">interactReleased</span>) ne font pas partie de l'espace d'action de ce lot et restent à leur valeur par défaut (<span class="tt">false</span>) : aucun niveau de la séquence <span class="tt">demo-*.json</span> ne conditionne sa résolution sur l'interaction manuelle plutôt que le contact automatique des mécanismes. </p>
+
+</div>
+</div>
+<a id="aa021d9acc72bb653937b573c3c13b8f2" name="aa021d9acc72bb653937b573c3c13b8f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa021d9acc72bb653937b573c3c13b8f2">&#9670;&#160;</a></span>transpose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; aisolver::transpose </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Transposition d'une matrice (rang 2) : renvoie une <b>copie</b> de forme <span class="tt">[n, m]</span>. </p>
+<p>Une copie plutôt qu'une vue à <em>strides</em> permutés : plus simple à raisonner pour ce lot, et évite qu'une opération élémentaire (<span class="tt">TensorOps</span>) suppose à tort un parcours row-major strict sur le résultat. </p><dl class="section pre"><dt>Precondition</dt><dd><span class="tt">a.rank() == 2</span> (<span class="tt"><a class="el" href="Assert_8h.html#a24ec0bff1ac1e68bdf8ac50376a41076" title="Vérifie une précondition.">PROJECTGAMING_ASSERT</a></span>). </dd></dl>
+
+</div>
+</div>
+<a id="aae9da93cacb6498823404bc00c7b9cc3" name="aae9da93cacb6498823404bc00c7b9cc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae9da93cacb6498823404bc00c7b9cc3">&#9670;&#160;</a></span>validateReplay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="#a859cdf92a0dce561aebd84feee736f88">ReplayValidationError</a> &gt; aisolver::validateReplay </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structaisolver_1_1ReplayFile.html">ReplayFile</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>replay</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>levelsDir</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Valide un rejeu déjà désérialisé : le niveau qu'il référence doit exister et son empreinte doit correspondre à celle enregistrée à l'export. </p>
+<p>Ne lit jamais le fichier de rejeu lui-même — <code class="param">replay</code> est déjà désérialisé par <span class="tt"><a class="el" href="#a1d0765d18d448f2bbb6ff13d818a8685" title="Lit un fichier de rejeu au format JSON.">readReplay</a></span> (<span class="tt">LOT-ANNEXE-07</span>), dont la responsabilité (fichier de rejeu introuvable, JSON malformé) reste entièrement la sienne, jamais dupliquée ici. Ne lève jamais d'exception (<span class="tt">EX-NFR-040</span>) : le résultat porte une erreur optionnelle, à l'appelant de décider de la suite.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">replay</td><td>Rejeu déjà chargé (<span class="tt"><a class="el" href="#a1d0765d18d448f2bbb6ff13d818a8685" title="Lit un fichier de rejeu au format JSON.">readReplay</a></span>), dont on valide <span class="tt">levelPath</span>/<span class="tt">levelFingerprint</span>. </td></tr>
+    <tr><td class="paramname">levelsDir</td><td>Répertoire sous lequel résoudre <span class="tt">replay.levelPath</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt"><a class="el" href="#a859cdf92a0dce561aebd84feee736f88a3cc7cd93d14b8633b8d65930bbb3fec1" title="Le fichier de niveau référencé par le rejeu n&#39;existe pas sous le répertoire de niveaux.">ReplayValidationError::LevelFileMissing</a></span> si le fichier de niveau n'existe pas, <span class="tt"><a class="el" href="#a859cdf92a0dce561aebd84feee736f88aa5827f791e034a525d2450351b1949b2" title="Le fichier de niveau existe mais son empreinte diverge de celle enregistrée à l&#39;export.">ReplayValidationError::LevelFingerprintMismatch</a></span> si son empreinte diverge, <span class="tt">std::nullopt</span> si le rejeu est valide. </dd></dl>
+
+</div>
+</div>
+<a id="a3399a1e98c29b1c3b60517627cd06cb1" name="a3399a1e98c29b1c3b60517627cd06cb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3399a1e98c29b1c3b60517627cd06cb1">&#9670;&#160;</a></span>writeReplay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool aisolver::writeReplay </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structaisolver_1_1ReplayFile.html">ReplayFile</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>replay</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Écrit un fichier de rejeu au format JSON. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>Chemin du fichier à (re)créer ; les dossiers parents manquants sont créés. </td></tr>
+    <tr><td class="paramname">replay</td><td>Contenu à écrire. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si l'écriture a réussi, <span class="tt">false</span> sinon (jamais d'exception). </dd></dl>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="a7240db6bfdbb8a3a9acce0ada7c6a71d" name="a7240db6bfdbb8a3a9acce0ada7c6a71d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7240db6bfdbb8a3a9acce0ada7c6a71d">&#9670;&#160;</a></span>kDefaultTrainingRunsRoot</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* aisolver::kDefaultTrainingRunsRoot = &quot;TrainingRuns&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Racine par défaut des sorties d'entraînement, relative à la racine du dépôt (déjà exclue de Git par <span class="tt">.gitignore</span>, <span class="tt">/TrainingRuns/</span>). </p>
+<p>Reste un nom relatif : l'appelant (CLI, <span class="tt">LOT-ANNEXE-19</span>) résout ce chemin en absolu selon son propre répertoire de travail — cette fonction ne fait aucune hypothèse sur le répertoire courant du processus. </p>
+
+</div>
+</div>
+<a id="a555dca592758c1fdf33b8eb0573102e1" name="a555dca592758c1fdf33b8eb0573102e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a555dca592758c1fdf33b8eb0573102e1">&#9670;&#160;</a></span>kReplayFormatVersion</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t aisolver::kReplayFormatVersion = 2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Version courante du format de rejeu (<span class="tt">EX-IA-008</span>), même principe que <span class="tt"><a class="el" href="namespacecore.html#a4e9944a74ac070775a2730be05705abb" title="Version courante du format de niveau JSON (EX-LVL-005).">core::kLevelFormatVersion</a></span> (<span class="tt">EX-LVL-005</span>) : un fichier sans champ <span class="tt">formatVersion</span> est lu comme la version initiale (0), sans erreur. </p>
+<p>Passée à <span class="tt">2</span> par <span class="tt">LOT-ANNEXE-17</span> (TACHE-02, stabilisation du format v1) : ajout de <span class="tt">totalDurationSeconds</span> et <span class="tt">algorithmId</span>. Un fichier <span class="tt">formatVersion == 1</span> (écrit avant ce lot, sans ces deux champs) reste lisible sans erreur — ils sont alors pris à leur valeur sentinelle (<span class="tt">0.0f</span> et <span class="tt">""</span>). </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

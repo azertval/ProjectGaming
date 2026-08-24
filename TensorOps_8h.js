@@ -1,0 +1,25 @@
+var TensorOps_8h =
+[
+    [ "aisolver::add", "namespaceaisolver.html#a0c215845fcb11428c0a6a05028bbd126", null ],
+    [ "aisolver::addScalar", "namespaceaisolver.html#a58ef67f6c9b91d3945d4343d5cca1849", null ],
+    [ "aisolver::divide", "namespaceaisolver.html#a312fc82fe440754d5bba398019030405", null ],
+    [ "aisolver::divideScalar", "namespaceaisolver.html#a3c7a156b22ac969eaff80e197093372f", null ],
+    [ "aisolver::detail::elementwise", "namespaceaisolver_1_1detail.html#af6fc5602a4ef4980a2776fe1ecb0d258", null ],
+    [ "aisolver::detail::elementwiseUnary", "namespaceaisolver_1_1detail.html#a0aecf8b551d266339f39431a74d3a192", null ],
+    [ "aisolver::detail::forEachOffset", "namespaceaisolver_1_1detail.html#ad0cb55c48f34ffd8f90d9859aaf4b142", null ],
+    [ "aisolver::max", "namespaceaisolver.html#a5c6ea6bfe2a503720332899798f6ca22", null ],
+    [ "aisolver::mean", "namespaceaisolver.html#ad5f0d68c82eaa2495f8a1dd2dcba63f7", null ],
+    [ "aisolver::multiply", "namespaceaisolver.html#a1a942678acedc3fc8baab3bd6a2f6c1a", null ],
+    [ "aisolver::multiplyScalar", "namespaceaisolver.html#ae76e6ca85d44249f01ba88d0ab7faa02", null ],
+    [ "aisolver::operator*", "namespaceaisolver.html#a0802a478058b01e5f185dc352eec032a", null ],
+    [ "aisolver::operator*", "namespaceaisolver.html#a5b4ebe880c0350dfc10639ebc30b8d00", null ],
+    [ "aisolver::operator+", "namespaceaisolver.html#a27c9450f351f9f180e8ddc216d8d36fc", null ],
+    [ "aisolver::operator+", "namespaceaisolver.html#a0260d52725d9f6eb6b46953f6361c47c", null ],
+    [ "aisolver::operator-", "namespaceaisolver.html#a7a99e92ef8900faf70b9de25cf677a88", null ],
+    [ "aisolver::operator-", "namespaceaisolver.html#ac005d842da7a1127d9c9ec30a28625d2", null ],
+    [ "aisolver::operator/", "namespaceaisolver.html#a92fb82a1d4aba5f03200ada08922fcfa", null ],
+    [ "aisolver::operator/", "namespaceaisolver.html#a304ea2e5474b84873c290507d14ea131", null ],
+    [ "aisolver::subtract", "namespaceaisolver.html#a41369536fdb13a5c63d9c11d09d5d586", null ],
+    [ "aisolver::subtractScalar", "namespaceaisolver.html#a7275886f1d1eb5b62a947e8db4dcc299", null ],
+    [ "aisolver::sum", "namespaceaisolver.html#a37b46714fcbdd35fdeba3f5aa7493e9d", null ]
+];

@@ -1,41 +1,41 @@
 var lot_21 =
 [
-    [ "Objectif", "lot-21.html#autotoc_md1248", null ],
-    [ "Périmètre", "lot-21.html#autotoc_md1249", [
-      [ "Inclus", "lot-21.html#autotoc_md1250", null ],
-      [ "Exclus (hors périmètre de ce lot)", "lot-21.html#autotoc_md1251", null ]
+    [ "Objectif", "lot-21.html#autotoc_md1362", null ],
+    [ "Périmètre", "lot-21.html#autotoc_md1363", [
+      [ "Inclus", "lot-21.html#autotoc_md1364", null ],
+      [ "Exclus (hors périmètre de ce lot)", "lot-21.html#autotoc_md1365", null ]
     ] ],
-    [ "Décisions de cadrage", "lot-21.html#autotoc_md1252", null ],
-    [ "Exigences couvertes", "lot-21.html#autotoc_md1253", null ],
-    [ "Découpage", "lot-21.html#autotoc_md1254", null ],
-    [ "Critères d'acceptation du lot", "lot-21.html#autotoc_md1255", null ],
-    [ "Dépendances", "lot-21.html#autotoc_md1256", null ],
-    [ "Navigation des tâches", "lot-21.html#autotoc_md1257", null ],
+    [ "Décisions de cadrage", "lot-21.html#autotoc_md1366", null ],
+    [ "Exigences couvertes", "lot-21.html#autotoc_md1367", null ],
+    [ "Découpage", "lot-21.html#autotoc_md1368", null ],
+    [ "Critères d'acceptation du lot", "lot-21.html#autotoc_md1369", null ],
+    [ "Dépendances", "lot-21.html#autotoc_md1370", null ],
+    [ "Navigation des tâches", "lot-21.html#autotoc_md1371", null ],
     [ "TACHE-01 — Modèle et contrôleur (Core)", "lot-21-tache-01-controleur-blocs.html", [
-      [ "Contexte", "lot-21-tache-01-controleur-blocs.html#autotoc_md1258", null ],
-      [ "Travail à réaliser", "lot-21-tache-01-controleur-blocs.html#autotoc_md1259", null ],
-      [ "Fichiers impactés", "lot-21-tache-01-controleur-blocs.html#autotoc_md1260", null ],
-      [ "Tests (obligatoires)", "lot-21-tache-01-controleur-blocs.html#autotoc_md1261", null ],
-      [ "Points d'attention", "lot-21-tache-01-controleur-blocs.html#autotoc_md1262", null ],
-      [ "Définition de fait (DoD)", "lot-21-tache-01-controleur-blocs.html#autotoc_md1263", null ],
-      [ "Exigences", "lot-21-tache-01-controleur-blocs.html#autotoc_md1264", null ]
+      [ "Contexte", "lot-21-tache-01-controleur-blocs.html#autotoc_md1372", null ],
+      [ "Travail à réaliser", "lot-21-tache-01-controleur-blocs.html#autotoc_md1373", null ],
+      [ "Fichiers impactés", "lot-21-tache-01-controleur-blocs.html#autotoc_md1374", null ],
+      [ "Tests (obligatoires)", "lot-21-tache-01-controleur-blocs.html#autotoc_md1375", null ],
+      [ "Points d'attention", "lot-21-tache-01-controleur-blocs.html#autotoc_md1376", null ],
+      [ "Définition de fait (DoD)", "lot-21-tache-01-controleur-blocs.html#autotoc_md1377", null ],
+      [ "Exigences", "lot-21-tache-01-controleur-blocs.html#autotoc_md1378", null ]
     ] ],
     [ "TACHE-02 — Intégration éditeur et jeu (HMI)", "lot-21-tache-02-integration-editeur-jeu.html", [
-      [ "Contexte", "lot-21-tache-02-integration-editeur-jeu.html#autotoc_md1265", null ],
-      [ "Travail à réaliser", "lot-21-tache-02-integration-editeur-jeu.html#autotoc_md1266", null ],
-      [ "Fichiers impactés", "lot-21-tache-02-integration-editeur-jeu.html#autotoc_md1267", null ],
-      [ "Tests (obligatoires)", "lot-21-tache-02-integration-editeur-jeu.html#autotoc_md1268", null ],
-      [ "Points d'attention", "lot-21-tache-02-integration-editeur-jeu.html#autotoc_md1269", null ],
-      [ "Définition de fait (DoD)", "lot-21-tache-02-integration-editeur-jeu.html#autotoc_md1270", null ],
-      [ "Exigences", "lot-21-tache-02-integration-editeur-jeu.html#autotoc_md1271", null ]
+      [ "Contexte", "lot-21-tache-02-integration-editeur-jeu.html#autotoc_md1379", null ],
+      [ "Travail à réaliser", "lot-21-tache-02-integration-editeur-jeu.html#autotoc_md1380", null ],
+      [ "Fichiers impactés", "lot-21-tache-02-integration-editeur-jeu.html#autotoc_md1381", null ],
+      [ "Tests (obligatoires)", "lot-21-tache-02-integration-editeur-jeu.html#autotoc_md1382", null ],
+      [ "Points d'attention", "lot-21-tache-02-integration-editeur-jeu.html#autotoc_md1383", null ],
+      [ "Définition de fait (DoD)", "lot-21-tache-02-integration-editeur-jeu.html#autotoc_md1384", null ],
+      [ "Exigences", "lot-21-tache-02-integration-editeur-jeu.html#autotoc_md1385", null ]
     ] ],
     [ "TACHE-03 — Documentation et vérification", "lot-21-tache-03-documentation-verification.html", [
-      [ "Contexte", "lot-21-tache-03-documentation-verification.html#autotoc_md1272", null ],
-      [ "Travail à réaliser", "lot-21-tache-03-documentation-verification.html#autotoc_md1273", null ],
-      [ "Fichiers impactés", "lot-21-tache-03-documentation-verification.html#autotoc_md1274", null ],
-      [ "Tests (obligatoires)", "lot-21-tache-03-documentation-verification.html#autotoc_md1275", null ],
-      [ "Points d'attention", "lot-21-tache-03-documentation-verification.html#autotoc_md1276", null ],
-      [ "Définition de fait (DoD)", "lot-21-tache-03-documentation-verification.html#autotoc_md1277", null ],
-      [ "Exigences", "lot-21-tache-03-documentation-verification.html#autotoc_md1278", null ]
+      [ "Contexte", "lot-21-tache-03-documentation-verification.html#autotoc_md1386", null ],
+      [ "Travail à réaliser", "lot-21-tache-03-documentation-verification.html#autotoc_md1387", null ],
+      [ "Fichiers impactés", "lot-21-tache-03-documentation-verification.html#autotoc_md1388", null ],
+      [ "Tests (obligatoires)", "lot-21-tache-03-documentation-verification.html#autotoc_md1389", null ],
+      [ "Points d'attention", "lot-21-tache-03-documentation-verification.html#autotoc_md1390", null ],
+      [ "Définition de fait (DoD)", "lot-21-tache-03-documentation-verification.html#autotoc_md1391", null ],
+      [ "Exigences", "lot-21-tache-03-documentation-verification.html#autotoc_md1392", null ]
     ] ]
 ];

@@ -5,13 +5,15 @@ var searchData=
   ['iconsmall_2',['iconSmall',['../structhmi_1_1SizeTokens.html#addb037ea908f42364d6d6678e7741a38',1,'hmi::SizeTokens']]],
   ['id_3',['id',['../structhmi_1_1EditorActionSpec.html#ae57c07b18c77b3fb0f82518b3c9894e8',1,'hmi::EditorActionSpec::id'],['../structhmi_1_1KeyBindingIconEntry.html#a9cec0e2778469f7283e1cd18a8e113c5',1,'hmi::KeyBindingIconEntry::id']]],
   ['image_4',['image',['../structhmi_1_1PlaneLayer.html#a8764ad805eecad0059b5ef80b15c76eb',1,'hmi::PlaneLayer::image'],['../structhmi_1_1ProceduralFont.html#a688c94f0dcc8e378212602baf9727c9c',1,'hmi::ProceduralFont::image']]],
-  ['index_5',['index',['../structcore_1_1Entity.html#a8549b4984fb56b9cb482921c204267c6',1,'core::Entity::index'],['../structhmi_1_1PathHandle.html#a48243b333181fad30869c815ae23495b',1,'hmi::PathHandle::index'],['../structhmi_1_1PathSelection.html#a89f14f1554083669c86033853c78031c',1,'hmi::PathSelection::index']]],
+  ['index_5',['index',['../structaisolver_1_1TrainingStatsRow.html#a070e4b09fb201a6d7c5b7d5cffe94656',1,'aisolver::TrainingStatsRow::index'],['../structcore_1_1Entity.html#a8549b4984fb56b9cb482921c204267c6',1,'core::Entity::index'],['../structhmi_1_1PathHandle.html#a48243b333181fad30869c815ae23495b',1,'hmi::PathHandle::index'],['../structhmi_1_1PathSelection.html#a89f14f1554083669c86033853c78031c',1,'hmi::PathSelection::index']]],
   ['initialized_6',['initialized',['../structhmi_1_1FollowCameraState.html#a72db7ef3af947acd7febdb8c59939480',1,'hmi::FollowCameraState::initialized'],['../structhmi_1_1MechanismVisualState.html#a76732eae8559e530eb7671cc13933192',1,'hmi::MechanismVisualState::initialized']]],
-  ['instances_7',['instances',['../structhmi_1_1AudioEngine_1_1Sample.html#ab37159d7a242ef750ae7d8a8c07d9bab',1,'hmi::AudioEngine::Sample']]],
-  ['interactheld_8',['interactHeld',['../structcore_1_1PlayerInput.html#a4bbea3e0e16a22ae2486edab64d61999',1,'core::PlayerInput']]],
-  ['interactpressed_9',['interactPressed',['../structcore_1_1PlayerInput.html#a82259f11fc02e6548e64cbdf2a2acae9',1,'core::PlayerInput']]],
-  ['interactreleased_10',['interactReleased',['../structcore_1_1PlayerInput.html#a548432079d9a6adff1b9f2032a35e72b',1,'core::PlayerInput']]],
-  ['invalid_5fentity_11',['INVALID_ENTITY',['../namespacecore.html#a2a9202a1a89eacaec610bdc83b0ff272',1,'core']]],
-  ['invalid_5findex_12',['INVALID_INDEX',['../structcore_1_1Entity.html#a215ee621f52074b73615e4c567820e38',1,'core::Entity']]],
-  ['invalid_5fposition_13',['INVALID_POSITION',['../classcore_1_1ComponentPool.html#a1b125a165f29d95bd74bc14cdd40be64',1,'core::ComponentPool']]]
+  ['initscheme_7',['initScheme',['../structaisolver_1_1training_1_1evolutionary_1_1LayerTopology.html#af64b10aafa36f5eee095fdf29089e512',1,'aisolver::training::evolutionary::LayerTopology::initScheme'],['../structLayerTopology.html#af64b10aafa36f5eee095fdf29089e512',1,'LayerTopology::initScheme']]],
+  ['inputsize_8',['inputSize',['../structaisolver_1_1training_1_1evolutionary_1_1LayerTopology.html#ac75d015dbeae07765ceb447d5fa0433c',1,'aisolver::training::evolutionary::LayerTopology::inputSize'],['../structLayerTopology.html#ac75d015dbeae07765ceb447d5fa0433c',1,'LayerTopology::inputSize']]],
+  ['instances_9',['instances',['../structhmi_1_1AudioEngine_1_1Sample.html#ab37159d7a242ef750ae7d8a8c07d9bab',1,'hmi::AudioEngine::Sample']]],
+  ['interactheld_10',['interactHeld',['../structcore_1_1PlayerInput.html#a4bbea3e0e16a22ae2486edab64d61999',1,'core::PlayerInput']]],
+  ['interactpressed_11',['interactPressed',['../structcore_1_1PlayerInput.html#a82259f11fc02e6548e64cbdf2a2acae9',1,'core::PlayerInput']]],
+  ['interactreleased_12',['interactReleased',['../structcore_1_1PlayerInput.html#a548432079d9a6adff1b9f2032a35e72b',1,'core::PlayerInput']]],
+  ['invalid_5fentity_13',['INVALID_ENTITY',['../namespacecore.html#a2a9202a1a89eacaec610bdc83b0ff272',1,'core']]],
+  ['invalid_5findex_14',['INVALID_INDEX',['../structcore_1_1Entity.html#a215ee621f52074b73615e4c567820e38',1,'core::Entity']]],
+  ['invalid_5fposition_15',['INVALID_POSITION',['../classcore_1_1ComponentPool.html#a1b125a165f29d95bd74bc14cdd40be64',1,'core::ComponentPool']]]
 ];

@@ -13,5 +13,7 @@ var dir_e63fac7525d4addf9f5e759ec10d14ef =
     [ "LevelRunStats.cpp", "LevelRunStats_8cpp.html", "LevelRunStats_8cpp" ],
     [ "LevelRunStats.h", "LevelRunStats_8h.html", "LevelRunStats_8h" ],
     [ "Progression.cpp", "Progression_8cpp.html", "Progression_8cpp" ],
-    [ "Progression.h", "Progression_8h.html", "Progression_8h" ]
+    [ "Progression.h", "Progression_8h.html", "Progression_8h" ],
+    [ "ReplayPlayback.cpp", "ReplayPlayback_8cpp.html", null ],
+    [ "ReplayPlayback.h", "ReplayPlayback_8h.html", "ReplayPlayback_8h" ]
 ];

@@ -96,26 +96,26 @@ $(function(){initNavTree('lot-18.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>terminé</b>. Second des deux lots dédiés au visuel du personnage (<span class="tt">EX-REN-012</span>) : <a class="el" href="lot-17.html#md_Lot_2LOT-17-sprite-personnage_2epic" title="Lot/LOT-17-sprite-personnage/epic.md">LOT-17</a> a livré une silhouette <b>statique</b>, celui-ci lui donne une <b>séquence d'images</b> selon l'état du personnage (repos, course, saut). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1148"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1262"></a>
 Objectif</h1>
 <p>Le personnage affiche aujourd'hui une pose unique et fixe, quel que soit son état (immobile, en train de courir, en l'air). Ce lot ajoute une <b>animation par séquence d'images</b>, pilotée par l'état de simulation déjà disponible (<span class="tt"><a class="el" href="structcore_1_1Player.html#a36776822edfa4ee73e00f620aa007085" title="Vrai si le personnage repose sur une surface solide ; calculé par la physique.">core::Player::grounded</a></span>, <span class="tt"><a class="el" href="structcore_1_1Velocity.html" title="Vitesse linéaire d&#39;une entité, en unités monde par seconde.">core::Velocity</a></span>) — sans manette ni minuterie propre au joueur : le clip actif est <b>dérivé</b> de l'état physique, pas déclenché manuellement.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1149"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1263"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1150"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1264"></a>
 Inclus</h2>
 <ul>
 <li>Trois <b>clips</b> : <span class="tt">Idle</span> (repos, 2 images), <span class="tt">Run</span> (course, 4 images), <span class="tt">Jump</span> (saut, 1 image — une pose aérienne fixe, pas un cycle : l'arc de saut n'appelle pas de bouclage).</li>
 <li>Un composant <span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...">core::Animation</a></span> (donnée pure) et un <span class="tt"><a class="el" href="classcore_1_1AnimationSystem.html" title="Fait progresser l&#39;animation de toute entité portant core::Animation, et projette l&#39;état physique du p...">core::AnimationSystem</a></span> (logique pure, <span class="tt">EX-ARCH-011</span>) qui détermine le clip actif et avance l'image courante au pas fixe.</li>
 <li>Une grille de frames dans <span class="tt">TextureAtlas</span> (7 images 16×16, sur le modèle carré corrigé en LOT-17) et le branchement dans <span class="tt">GameScreen</span> : le sprite du personnage change de région à chaque frame de rendu selon l'état d'animation, plus seulement une fois au spawn.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1151"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1265"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Retournement horizontal</b> du sprite selon <span class="tt">Player::facing</span> (le personnage regarde toujours « de face ») : aucun support de <em>flip</em> dans <span class="tt">Sprite</span>/<span class="tt">SpriteRenderer</span> aujourd'hui ; l'ajouter exigerait un champ supplémentaire et une modification du calcul des UV, hors de portée d'un lot centré sur le cycle d'images. Le personnage reste symétrique gauche/droite (cohérent avec la silhouette de LOT-17).</li>
 <li><b>Clips additionnels</b> (atterrissage, dash, etc.) — seuls les trois clips de <span class="tt">EX-REN-012</span> sont couverts.</li>
 <li>Toute interpolation entre images (<em>tweening</em>) : le pixel art change d'image par à-coups, comme attendu pour ce style (cf. échantillonnage <em>nearest</em>, <a class="el" href="guide-rendu.html" title="Rendu 2D : de l&#39;ECS à l&#39;écran">Rendu 2D : de l'ECS à l'écran</a>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1152"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1266"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Le clip actif est calculé, pas piloté par un état explicite du joueur.</b> <span class="tt">AnimationSystem</span> lit <span class="tt">Player::grounded</span> et <span class="tt">Velocity::value.x</span> (déjà mis à jour par <span class="tt">CharacterPhysicsSystem</span> avant que l'animation ne s'exécute) : au sol et immobile → <span class="tt">Idle</span> ; au sol et en mouvement horizontal → <span class="tt">Run</span> ; en l'air → <span class="tt">Jump</span>. Aucun nouvel état n'est ajouté à <span class="tt"><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></span> : l'animation est une <b>projection</b> de l'état physique existant, jamais une source de vérité supplémentaire.</li>
@@ -124,12 +124,12 @@ Décisions de cadrage</h1>
 <li><b>Changement de clip = réinitialisation de l'image courante</b> (image 0, chronomètre à zéro) : plus simple qu'une transition entre clips, et suffisant — les transitions (ex. <span class="tt">Run</span> → <span class="tt">Jump</span>) sont déjà rendues nettes par la coupure d'image du pixel art, pas besoin de fondu.</li>
 <li><b>Le saut n'est pas un cycle</b> : une seule image, tenue tant que le personnage est en l'air. Un vrai cycle (montée/sommet/descente) demanderait de distinguer ces phases dans <span class="tt">Player</span>, hors de portée ici — cohérent avec <span class="tt">EX-REN-012</span> qui ne demande qu'une pose de « saut ».</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1153"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1267"></a>
 Exigences couvertes</h1>
 <ul>
 <li><span class="tt">EX-REN-012</span> (animation par séquence d'images : repos, course, saut).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1154"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1268"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -144,7 +144,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-18-tache-03-documentation-verification.html#md_Lot_2LOT-18-animation-personnage_2tache-03-documentation-verification" title="Lot/LOT-18-animation-personnage/tache-03-documentation-verification.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Documentation et vérification  </td><td class="markdownTableBodyNone"><span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1155"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1269"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Le personnage immobile au sol alterne entre deux poses de repos à intervalle régulier.</li>
@@ -154,12 +154,12 @@ Critères d'acceptation du lot</h1>
 <li>Aucune déformation du personnage à l'écran (chaque image reste dans la boîte de collision 0,4×0,8 — non-régression du bug corrigé en LOT-17).</li>
 <li>Logique de clip/image <b>couverte par des tests d'intégration</b> (<span class="tt">ctest</span> vert), déterministe, sans GPU. Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1156"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1270"></a>
 Dépendances</h1>
 <ul>
 <li>Étend <span class="tt">TextureAtlas</span> et la silhouette statique (LOT-17), consomme <span class="tt"><a class="el" href="structcore_1_1Player.html#a36776822edfa4ee73e00f620aa007085" title="Vrai si le personnage repose sur une surface solide ; calculé par la physique.">core::Player::grounded</a></span> (LOT-10/11/12, coyote time/wall jump/budget) et <span class="tt"><a class="el" href="structcore_1_1Velocity.html" title="Vitesse linéaire d&#39;une entité, en unités monde par seconde.">core::Velocity</a></span> (LOT-03).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1157"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1271"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-18-tache-01-composant-systeme-animation.html" title="TACHE-01 — Composant et système d&#39;animation">TACHE-01 — Composant et système d'animation</a></li>

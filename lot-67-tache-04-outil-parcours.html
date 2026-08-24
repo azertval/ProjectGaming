@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-67-tache-04-outil-parcours.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-67-trajectoires-editables_2tache-04-outil-parcours"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-67.html#md_Lot_2LOT-67-trajectoires-editables_2epic" title="Lot/LOT-67-trajectoires-editables/epic.md">LOT-67</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/{Editor,Game,Interface}</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3101"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3215"></a>
 Contexte</h1>
 <p>Aucun outil ne permettait de toucher a une trajectoire. Le patron a suivre existait pourtant, pose par le <span class="tt">LOT-50</span> pour les decors : une geometrie de poignees pure (<span class="tt">DecorGeometry</span>) et une machine a etats de geste pure (<span class="tt">DecorGesture</span>), le viewport n'etant qu'un routeur d'evenements Qt.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3102"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3216"></a>
 Travail a realiser</h1>
 <ul>
 <li><span class="tt">hmi::PathGeometry</span> : poignees de point et de milieu de segment, a <b>taille ecran constante</b>, calculees depuis <span class="tt"><a class="el" href="namespacecore.html#a3d27d948b6c91a74b94a1aaeb947f79b" title="Sommets de la route de config en unités monde (coin haut-gauche de chaque case).">core::platformPathPoints</a></span> — donc depuis la trajectoire reellement parcourue. Une poignee unique d'extremite pour un danger mobile.</li>
@@ -107,22 +107,22 @@ Travail a realiser</h1>
 <li>Ajouter <span class="tt">EditorTool::Path</span>, son icone dessinee par code, son entree de catalogue et ses libelles traduits ; router appui, deplacement, relachement, clic droit et <span class="tt">Echap</span> dans <span class="tt">GameViewport</span>.</li>
 <li>Un <span class="tt">DangerBlink</span> n'ayant pas de trajectoire, il est selectionne <b>par sa case</b> : sans quoi ses reglages de temporisation resteraient inatteignables.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3103"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3217"></a>
 Fichiers impactes</h1>
 <p><span class="tt">Source/HMI/Editor/PathGeometry.{h,cpp}</span>, <span class="tt">PathGesture.{h,cpp}</span> (nouveaux), <span class="tt"><a class="el" href="EditorTool_8h.html" title="Outil actif dans la grille de l&#39;éditeur (LOT-15, EX-EDIT-014).">EditorTool.h</a></span>, <span class="tt"><a class="el" href="EditorStatus_8cpp.html">EditorStatus.cpp</a></span>, <span class="tt">Source/HMI/Interface/IconGeometry.{h,cpp}</span>, <span class="tt">ActionCatalog.{h,cpp}</span>, <span class="tt">Source/HMI/Game/GameViewport.{h,cpp}</span>, <span class="tt">Source/Elements/Localization/*.lang</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3104"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3218"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__path__geometry_8cpp.html" title="Tests unitaires de la géométrie des poignées de parcours (LOT-67 TACHE-04, EX-EDIT-032) — purs,...">test_path_geometry.cpp</a></span> : le depart n'a pas de poignee ; le circuit ferme expose un milieu de plus ; taille ecran constante a deux zooms ; priorite du point sur le milieu ; poignee d'extremite d'un danger mobile ; route vide sans poignee.</li>
 <li><span class="tt"><a class="el" href="test__path__gesture_8cpp.html" title="Tests unitaires du geste de manipulation de parcours (LOT-67 TACHE-04, EX-EDIT-032) — purs,...">test_path_gesture.cpp</a></span> : clic de selection sans manipulation ; clic sans mouvement sans effet ; glisser deplacant un point sur la case visee ; glisser d'un milieu inserant au bon rang ; <b>une seule</b> action finale par geste ; abandon sans effet ; axe et portee d'un danger mobile, portee jamais negative.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3105"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3219"></a>
 Points d'attention</h1>
 <p><span class="tt">EDITOR_ACTION_CATALOG_COUNT</span> est une constante en dur : l'oublier casse le test de catalogue. Le point de depart n'a <b>pas</b> de poignee, et aucune poignee de coin n'est introduite — elle serait indistinguable d'un point de route et laisserait croire a un redimensionnement, qui n'existe pas.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3106"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3220"></a>
 Definition de fait (DoD)</h1>
 <p>L'outil apparait dans la barre d'outils, les gestes sont couverts par des tests purs sans Qt ni GPU, et chaque geste complet ne coute qu'un pas d'annulation. <span class="tt">ctest</span> a 100 %.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3107"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3221"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-032</span>, <span class="tt">EX-EDIT-005</span>, <span class="tt">EX-GP-051</span>, <span class="tt">EX-GP-054</span>, <span class="tt">EX-NFR-010</span>. </p>
 </div></div><!-- contents -->

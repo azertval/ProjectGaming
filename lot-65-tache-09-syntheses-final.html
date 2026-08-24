@@ -94,17 +94,17 @@ $(function(){initNavTree('lot-65-tache-09-syntheses-final.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-65-refonte-niveaux-demo_2tache-09-syntheses-final"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-65.html#md_Lot_2LOT-65-refonte-niveaux-demo_2epic" title="Lot/LOT-65-refonte-niveaux-demo/epic.md">LOT-65</a> · <b>Emplacement :</b> <span class="tt">Source/Elements/Levels</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3016"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3130"></a>
 Contexte</h1>
 <p>C'est le critère d'acceptation n°4 du lot — « puis les combine dans des tableaux de synthèse » — et c'est celui qui n'a pas été tenu. Le <span class="tt">demo-final</span> livré mesure 62×10 pour <b>trois</b> tuiles non solides (un interrupteur, une porte, une pente) ; ses segments recopient quatre tableaux existants séparés par une trentaine de cases de couloir plat ; l'interrupteur est posé sur le trajet direct vers la porte, de sorte qu'aucune mécanique n'en croise une autre et qu'il n'y a <b>aucune énigme</b>.</p>
 <p>Il n'est même pas dernier : <span class="tt">demo-salles</span> — 272 tuiles, <b>zéro mécanique</b>, dont environ 40 % de la surface est scellée sous un sol plein et inatteignable — est joué après lui. La séquence se termine donc sur une démonstration structurelle où l'on marche puis l'on tombe.</p>
 <p><span class="tt">demo-salles</span> est <b>absorbé</b> par le final : son rôle (couvrir le cadrage par salle) est repris par un tableau qui, lui, a un contenu.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3017"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3131"></a>
 Travail à réaliser</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3018"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3132"></a>
 21 — <span class="tt">demo-synthese</span> (nouveau)</h2>
 <p>Marche d'approche du final : mécanismes, terrain et dangers <b>entrelacés</b> plutôt que juxtaposés, sans énigme longue. Porte le croisement « deux déclencheurs — interrupteur <em>et</em> plaque — sur la même porte » établi par la <span class="tt">TACHE-06</span>. Budgets serrés.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3019"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3133"></a>
 22 — <span class="tt">demo-final</span> (reconstruit, dernier de la séquence)</h2>
 <ul>
 <li><b>Multi-salles</b>, cadrage <span class="tt">perRoom</span>, absorbant <span class="tt">demo-salles.json</span> (supprimé).</li>
@@ -114,10 +114,10 @@ Travail à réaliser</h1>
 <li>Budgets serrés, choisis pour interdire le contournement au double saut ou au dash.</li>
 <li><b>Aucune plateforme mobile dans ce fichier</b> tant que le défaut plateforme + pente n'est pas corrigé ; la plateforme reste couverte isolément par <span class="tt">demo-plateforme</span>.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3020"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3134"></a>
 Séquence</h2>
 <p><span class="tt">sequence-demo.json</span> mis à jour : <span class="tt">demo-arrondi.json</span> (fusionné en <span class="tt">TACHE-08</span>) et <span class="tt">demo-salles.json</span> (absorbé ici) retirés, <span class="tt">demo-mouvement.json</span> (<span class="tt">TACHE-07</span>) et <span class="tt">demo-synthese.json</span> ajoutés, <span class="tt">demo-final.json</span> <b>en dernier</b>. Total inchangé : vingt-deux tableaux.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3021"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3135"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Elements/Levels/demo-synthese.json</span> (nouveau), <span class="tt">demo-final.json</span> (reconstruit).</li>
@@ -125,7 +125,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Levels/sequence-demo.json</span>.</li>
 <li><span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3022"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3136"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Les deux tableaux sont franchis par un script déterministe ; aucun ne l'est en maintenant « droite ».</li>
@@ -133,7 +133,7 @@ Tests (obligatoires)</h1>
 <li>Le mode <span class="tt">perRoom</span> reste couvert après la disparition de <span class="tt">demo-salles.json</span>.</li>
 <li><span class="tt">scripts/check_demo_sequence.py</span> vert.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3023"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3137"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Une énigme n'est pas un détour.</b> Un interrupteur posé sur le trajet vers sa porte n'est pas une énigme, c'est un ornement : c'est l'erreur exacte du <span class="tt">demo-final</span> livré, à ne pas reproduire.</li>
@@ -141,12 +141,12 @@ Points d'attention</h1>
 <li><b>Aucune impasse</b> (<span class="tt"><a class="el" href="niveaux_8md.html">niveaux.md</a></span> § Conception) : un bloc poussé au mauvais endroit ne doit jamais rendre la sortie inatteignable sans échec possible. C'est le risque principal du bloc sur plaque, et il se vérifie par test, pas par relecture.</li>
 <li>Les zones de caméra sont une donnée du niveau : les dessiner dans l'éditeur puis relire le fichier produit, plutôt que d'écrire les rectangles à la main.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3024"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3138"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">demo-synthese</span> et <span class="tt">demo-final</span> sont livrés et franchissables ; <span class="tt">demo-salles.json</span> et <span class="tt">demo-arrondi.json</span> ont disparu ; la séquence compte vingt-deux tableaux, <span class="tt">demo-final</span> en dernier ; les <span class="tt">zones</span> de caméra et une taille de salle explicite sont employées ; tous les garde-fous verts.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3025"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3139"></a>
 Exigences</h1>
 <p><span class="tt">EX-LVL-012</span> (synthèses), <span class="tt">EX-LVL-015</span> (couverture), <span class="tt">EX-LVL-006</span> et <span class="tt">EX-LVL-007</span> (cadrage, zones), <span class="tt">EX-REN-017</span> (taille de suivi), <span class="tt">EX-GP-023</span> (clé), <span class="tt">EX-GP-025</span> (plaque et poids), <span class="tt">EX-GP-024</span> (budgets), <span class="tt">EX-GP-050</span> à <span class="tt">EX-GP-053</span> (dangers), <span class="tt">EX-VIS-005</span> (niveaux enchaînés). </p>
 </div></div><!-- contents -->

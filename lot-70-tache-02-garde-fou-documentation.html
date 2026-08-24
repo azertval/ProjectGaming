@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-70-tache-02-garde-fou-documentation.html','',''); 
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-70-parallaxe-demo_2tache-02-garde-fou-documentation"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-70.html#md_Lot_2LOT-70-parallaxe-demo_2epic" title="Lot/LOT-70-parallaxe-demo/epic.md">LOT-70</a> · <b>Emplacement :</b> <span class="tt">Source/Test/Systeme</span>, <span class="tt">Documentation</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3229"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3343"></a>
 Contexte</h1>
 <p>Rien, aujourd'hui, ne distingue « un tableau à parallaxe active porte trois profondeurs bien réglées » de « il en porte deux, ou trois mal ordonnées » : <span class="tt"><a class="el" href="test__plans__livres_8cpp.html" title="Tests système du contenu livré côté plans picturaux : plus aucun décor dans les niveaux,...">test_plans_livres.cpp</a></span> (<span class="tt">LOT-69</span> TACHE-10) vérifie seulement que chaque plan référencé existe aux bonnes dimensions, jamais combien il y en a ni comment leurs facteurs se comparent. Sans garde-fou, un niveau réédité dans l'éditeur pourrait perdre son plan lointain, ou un facteur mal tapé pourrait inverser l'ordre des profondeurs, sans qu'aucun test ne le remarque — exactement le defaut que ce lot corrige à l'écran, réintroduit en silence.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3230"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3344"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Étendre <span class="tt"><a class="el" href="test__plans__livres_8cpp.html" title="Tests système du contenu livré côté plans picturaux : plus aucun décor dans les niveaux,...">test_plans_livres.cpp</a></span> (même fichier que les contrôles de plans existants, pas un nouveau : le lecteur qui cherche « que vérifie-t-on sur les plans livrés » y trouve tout) d'un test système : pour <span class="tt">demo-mouvement.json</span> et <span class="tt">demo-final.json</span>, au moins <b>trois</b> plans, dont les <span class="tt">parallaxX</span> sont <b>strictement croissants</b> dans l'ordre de la liste.</li>
@@ -107,10 +107,10 @@ Travail à réaliser</h1>
 <li><span class="tt"><a class="el" href="lots_8md.html">Documentation/Lot/lots.md</a></span> : ajouter <span class="tt">@subpage lot-70</span> à l'index et une entrée dans la section « Après le programme 0.1.0 », sur le modèle de celles de <span class="tt">LOT-67</span>/<span class="tt">LOT-69</span>.</li>
 <li>Régénérer <span class="tt"><a class="el" href="CahierTest_8md.html">Documentation/CahierTest.md</a></span> (<span class="tt">python scripts/generate_cahier_test.py</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3231"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3345"></a>
 Fichiers impactés</h1>
 <p><span class="tt"><a class="el" href="test__plans__livres_8cpp.html" title="Tests système du contenu livré côté plans picturaux : plus aucun décor dans les niveaux,...">Source/Test/Systeme/test_plans_livres.cpp</a></span>, <span class="tt"><a class="el" href="guide-rendu_8md.html">Documentation/Guide/guide-rendu.md</a></span>, <span class="tt"><a class="el" href="lots_8md.html">Documentation/Lot/lots.md</a></span>, <span class="tt">CHANGELOG.md</span>, <span class="tt"><a class="el" href="CahierTest_8md.html">Documentation/CahierTest.md</a></span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3232"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3346"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Le nouveau test échoue si un tableau à parallaxe active porte moins de trois plans, ou des facteurs non strictement croissants.</li>
@@ -118,13 +118,13 @@ Tests (obligatoires)</h1>
 <li><span class="tt">scripts/generate_cahier_test.py --check</span> : vert.</li>
 <li><span class="tt">scripts/check_demo_sequence.py</span> : vert.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3233"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3347"></a>
 Points d'attention</h1>
 <p>Ce lot ne déclare <b>aucune</b> exigence nouvelle (voir « Exigences couvertes » de l'epic) : le lint d'exigences n'a donc rien à valider de neuf ici, seulement à rester vert malgré les fichiers modifiés.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3234"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3348"></a>
 Definition de fait (DoD)</h1>
 <p>Garde-fou vert au sens positif et négatif, les quatre linters passent, le cahier de test est régénéré, les statuts de <span class="tt"><a class="el" href="lots_8md.html">lots.md</a></span>/<span class="tt">epic.md</span> sont figés à « fait ». <span class="tt">ctest</span> à 100 %.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3235"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3349"></a>
 Exigences</h1>
 <p><span class="tt">EX-DEC-043</span>, <span class="tt">EX-DEC-040</span>. </p>
 </div></div><!-- contents -->

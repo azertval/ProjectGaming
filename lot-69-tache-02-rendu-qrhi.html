@@ -94,12 +94,12 @@ $(function(){initNavTree('lot-69-tache-02-rendu-qrhi.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-69-plans-picturaux_2tache-02-rendu-qrhi"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-69.html#md_Lot_2LOT-69-plans-picturaux_2epic" title="Lot/LOT-69-plans-picturaux/epic.md">LOT-69</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/{Graphics,Game,Interface}</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3148"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3262"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Widget de rendu (QRhiWidget) où la scène est dessinée, composé avec le reste de l&#39;interface.">hmi::GameViewport</a></span> est une <b><span class="tt">QWindow</span> native</b> embarquée par <span class="tt">QWidget::createWindowContainer</span> (<span class="tt"><a class="el" href="MainWindow_8cpp.html">Source/HMI/Interface/MainWindow.cpp</a></span>). Le commentaire qui accompagne l'écran de pause y documente <b>deux défauts réels</b> payés en <span class="tt">LOT-59</span> : un widget Qt frère du conteneur natif ne se dessine jamais de façon fiable <b>par-dessus</b> la fenêtre native, quel que soit son <span class="tt">raise()</span> — l'écran de pause ne s'affichait pas, la simulation restait figée sans rien à l'écran ; puis le contournement <span class="tt">Qt::Tool</span> a cassé <span class="tt">activateWindow()</span> sur Windows (<span class="tt">SW_SHOWNOACTIVATE</span>), Entrée et Échap restant sans effet. Le contournement en vigueur est une fenêtre de <b>haut niveau</b> <span class="tt">Qt::Dialog</span> dont la géométrie est synchronisée en coordonnées <b>écran</b> (<span class="tt">MainWindow::syncOverlayGeometry</span>).</p>
 <p>Le mode création (<span class="tt">TACHE-07</span>) a besoin de repères <b>au-dessus</b> du canevas. Les bâtir sur une fenêtre native reproduirait cette classe de défauts. <span class="tt">QRhiWidget</span> (Qt 6.7+) rend dans une <b>texture d'appui composée avec le reste de l'interface</b> : l'empilement redevient celui, ordinaire, des widgets.</p>
 <p>La surface Direct3D 11 réelle est bien plus petite qu'il n'y paraît. Sur les 17 fichiers qui mentionnent D3D11/DXGI, le code GPU véritable tient dans deux : <span class="tt"><a class="el" href="SpriteBatch_8cpp.html">SpriteBatch.cpp</a></span> (buffers, shaders, états) et <span class="tt">GraphicsDevice.cpp</span> (device, swap chain, présentation) — de l'ordre de <b>700 lignes</b>, dont une partie <b>disparaît</b> puisque Qt possède désormais la cible de rendu. <span class="tt">ComposedScene</span> et <span class="tt">DraftRenderer</span>, qui font le vrai travail de composition, sont <b>déjà sans GPU</b> et testables sans carte graphique (<span class="tt">TextureHandle</span> est un <span class="tt">void*</span> opaque) : ce découplage, fait de longue date, est ce qui rend le portage tractable.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3149"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3263"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Porter <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés au travers de QRhi, avec transparence et échantillonnage nearest (pixel ar...">hmi::SpriteBatch</a></span> sur <b>QRhi</b> : buffers, pipeline, échantillonneur, et shaders recompilés en <span class="tt">.qsb</span> via <span class="tt">qsb</span> (module <span class="tt">qtshadertools</span>). L'échantillonnage reste <b><span class="tt">Nearest</span></b> et le zoom entier (<span class="tt">EX-ARCH-022</span>).</li>
@@ -108,25 +108,25 @@ Travail à réaliser</h1>
 <li><b>Ramener <span class="tt">PauseScreen</span> au rang de widget enfant ordinaire</b> et supprimer <span class="tt">MainWindow::syncOverlayGeometry</span> ainsi que la synchronisation en coordonnées écran. C'est le bénéfice concret de la tâche : la dette du <span class="tt">LOT-59</span> s'efface au lieu de s'étendre.</li>
 <li>Ajouter <span class="tt">ShaderTools</span> (et <span class="tt">CanvasPainter</span> si <span class="tt">TACHE-05</span> le consomme) aux composants <span class="tt">find_package(Qt6 …)</span>, maintenant qu'ils ont un consommateur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3150"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3264"></a>
 Fichiers impactés</h1>
 <p><span class="tt">Source/HMI/Graphics/{SpriteBatch,GraphicsDevice,SpriteRenderer,TextureLoader,TextureCache,TextureAtlas,BitmapFont}.{h,cpp}</span>, <span class="tt">Source/HMI/Game/GameViewport.{h,cpp}</span>, <span class="tt">Source/HMI/Interface/MainWindow.{h,cpp}</span>, <span class="tt">Source/HMI/CMakeLists.txt</span>, shaders (nouveaux <span class="tt">.vert</span>/<span class="tt">.frag</span> + <span class="tt">.qsb</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3151"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3265"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Non-régression visuelle</b> : rendu <b>hors écran</b> d'un niveau témoin, comparé à une image de référence, pour figer la netteté <em>nearest</em> et le zoom entier. C'est le seul test qui protège vraiment l'objectif du portage ; sans lui, un rendu flou passerait toute la CI.</li>
 <li>Les tests existants sans GPU (<span class="tt">ComposedScene</span>, <span class="tt">QuadRecorder</span>, budget, culling) doivent passer <b>sans retouche</b> : ils prouvent que le portage n'a pas déplacé la frontière testable.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3152"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3266"></a>
 Points d'attention</h1>
 <p><span class="tt">EX-REN-002</span> reste satisfaite : QRhi retient <b>Direct3D 11</b> par défaut sous Windows. L'exigence est amendée pour dire <em>au travers de QRhi</em> plutôt que <em>en appelant l'API directement</em> ; la cible technique ne change pas.</p>
 <p>Le risque dominant du lot est ici : <b>un portage qui rendrait le pixel art flou est un échec</b>, quelle que soit la qualité du reste. Traiter le filtrage et l'arrondi de zoom comme des invariants vérifiés, pas comme des détails d'implémentation.</p>
 <p><span class="tt">QRhiWidget</span> peut perdre ses ressources graphiques quand le widget change de fenêtre de haut niveau : prévoir la recréation plutôt que la supposer impossible.</p>
 <p>La vérification du rendu à l'écran reste <b>manuelle</b> (<span class="tt">EX-NFR-004</span> borne ce qui est automatisable) : netteté, absence de tearing, et le retour à un écran de pause qui s'affiche et prend le focus.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3153"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3267"></a>
 Definition de fait (DoD)</h1>
 <p>Plus une ligne de Direct3D 11 appelée directement, <span class="tt">GraphicsDevice</span> supprimé, <span class="tt">syncOverlayGeometry</span> supprimé, <span class="tt">ctest</span> à 100 %, et le test de non-régression visuelle vert.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3154"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3268"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-050</span>, <span class="tt">EX-REN-002</span> (amendée), <span class="tt">EX-ARCH-022</span>, <span class="tt">EX-NFR-004</span>, <span class="tt">EX-NFR-041</span>. </p>
 </div></div><!-- contents -->

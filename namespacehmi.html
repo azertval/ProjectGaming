@@ -95,6 +95,12 @@ $(function(){initNavTree('namespacehmi.html','',''); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:EvaluationOutcome" id="r_EvaluationOutcome"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1EvaluationOutcome.html">EvaluationOutcome</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une évaluation, mêmes champs que <span class="tt"><a class="el" href="structaisolver_1_1eval_1_1BenchmarkResult.html" title="Accumule les issues de N répétitions et expose les métriques agrégées de fiabilité.">aisolver::eval::BenchmarkResult</a></span> en types simples (<span class="tt">HMI/Interface</span> n'a pas besoin de connaître le type <span class="tt">AiSolver</span> sous-jacent).  <a href="structhmi_1_1EvaluationOutcome.html#details">More...</a><br /></td></tr>
+<tr class="memitem:TrainingRequest" id="r_TrainingRequest"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1TrainingRequest.html">TrainingRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'un run, saisis dans l'onglet Entraînement — mêmes champs que <span class="tt"><a class="el" href="structaisolver_1_1cli_1_1TrainArgs.html" title="Arguments de train.">aisolver::cli::TrainArgs</a></span>/<span class="tt"><a class="el" href="structCommandLineOverrides.html" title="Surcharges d&#39;arguments individuels de la ligne de commande (priorité la plus haute,...">CommandLineOverrides</a></span> (<span class="tt">LOT-ANNEXE-19</span>), en <span class="tt">QString</span>/valeurs simples pour rester utilisables sans dépendre de <span class="tt">AiSolver/Cli</span> depuis un en-tête Qt.  <a href="structhmi_1_1TrainingRequest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:TrainingWorker" id="r_TrainingWorker"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1TrainingWorker.html">TrainingWorker</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Travailleur <span class="tt">QObject</span>, déplacé sur un <span class="tt">QThread</span> par l'appelant (<span class="tt"><a class="el" href="classhmi_1_1AiModeScreen.html" title="Page du QStackedWidget (comme MainMenu/CreditsScreen), pas un recouvrement.">AiModeScreen</a></span>) : <span class="tt"><a class="el" href="classhmi_1_1TrainingWorker.html#ab89d6d66bc03a4d7c1edbea7ed422381" title="Lance l&#39;entraînement (bloquant) ; à connecter au signal QThread::started.">run()</a></span> bloque jusqu'à la fin de l'entraînement ou une interruption via <span class="tt"><a class="el" href="classhmi_1_1TrainingWorker.html#a974884e1ba9314db828350f2196452ab" title="Demande l&#39;arrêt à la prochaine génération/épisode (EX-NFR-040 : jamais de terminaison brutale du thre...">requestStop()</a></span>.  <a href="classhmi_1_1TrainingWorker.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AudioEngine" id="r_AudioEngine"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1AudioEngine.html">AudioEngine</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lecture d'échantillons courts à faible latence, avec volume global et repli muet.  <a href="classhmi_1_1AudioEngine.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SoundCatalog" id="r_SoundCatalog"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SoundCatalog.html">SoundCatalog</a></td></tr>
@@ -154,7 +160,7 @@ Classes</h2></td></tr>
 <tr class="memitem:PathHit" id="r_PathHit"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PathHit.html">PathHit</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Élément visé par un clic (voir <span class="tt"><a class="el" href="#aa7136d52da0c16b03b6aa44ed4b16761" title="Désigne l&#39;élément sous point : quel parcours, et quelle poignée le cas échéant.">hmi::designatePathAt</a></span>).  <a href="structhmi_1_1PathHit.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PathGestureAction" id="r_PathGestureAction"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PathGestureAction.html">PathGestureAction</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action à appliquer par l'appelant : en aperçu pendant le glisser (<span class="tt"><a class="el" href="#af736321fdd7ce3607695e85f2cc620e4" title="Fait progresser un glisser en cours.">updatePathGesture</a></span>, consommée par le rendu), ou pour de bon au relâchement (<span class="tt"><a class="el" href="#ad328cc852695bf64550233a5aca951ce" title="Termine le geste (relâchement) et renvoie l&#39;action finale à appliquer.">endPathGesture</a></span>, consommée par les mutateurs).  <a href="structhmi_1_1PathGestureAction.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> à appliquer par l'appelant : en aperçu pendant le glisser (<span class="tt"><a class="el" href="#af736321fdd7ce3607695e85f2cc620e4" title="Fait progresser un glisser en cours.">updatePathGesture</a></span>, consommée par le rendu), ou pour de bon au relâchement (<span class="tt"><a class="el" href="#ad328cc852695bf64550233a5aca951ce" title="Termine le geste (relâchement) et renvoie l&#39;action finale à appliquer.">endPathGesture</a></span>, consommée par les mutateurs).  <a href="structhmi_1_1PathGestureAction.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PathGestureState" id="r_PathGestureState"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PathGestureState.html">PathGestureState</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État complet du geste, possédé par l'appelant.  <a href="structhmi_1_1PathGestureState.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PixelCanvas" id="r_PixelCanvas"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PixelCanvas.html">PixelCanvas</a></td></tr>
@@ -221,6 +227,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compteurs d'un tableau, remis à zéro à chaque entrée dans le tableau (y compris en rejouant).  <a href="structhmi_1_1LevelRunStats.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Progression" id="r_Progression"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1Progression.html">Progression</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classhmi_1_1Progression.html" title="Progression dans une séquence de niveaux : tableaux terminés et tableau atteint (celui où reprendre),...">Progression</a> dans une séquence de niveaux : tableaux <b>terminés</b> et tableau <b>atteint</b> (celui où reprendre), identifiés par <b>nom de fichier</b>, jamais par indice.  <a href="classhmi_1_1Progression.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ReplayPlayback" id="r_ReplayPlayback"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1ReplayPlayback.html">ReplayPlayback</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge et valide un fichier de rejeu, puis fournit sa séquence de <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span>, un pas fixe à la fois, en lecture seule stricte (ne modifie jamais le fichier de rejeu).  <a href="classhmi_1_1ReplayPlayback.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AnimationDescription" id="r_AnimationDescription"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AnimationDescription.html">AnimationDescription</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description d'animation d'un asset : disposition de sa spritesheet et ses clips.  <a href="structhmi_1_1AnimationDescription.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AnimationDescriptionResult" id="r_AnimationDescriptionResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AnimationDescriptionResult.html">AnimationDescriptionResult</a></td></tr>
@@ -349,6 +357,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description d'une action, indépendante de Qt : de quoi construire un <span class="tt">QAction</span> complet (icône, libellé, raccourci, caractère cochable) sans dupliquer sa définition ailleurs.  <a href="structhmi_1_1EditorActionSpec.html#details">More...</a><br /></td></tr>
 <tr class="memitem:KeyBindingIconEntry" id="r_KeyBindingIconEntry"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1KeyBindingIconEntry.html">KeyBindingIconEntry</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Correspondance entre une action d'éditeur remappable (<span class="tt"><a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585" title="Action d&#39;éditeur logique, remappable indépendamment de la touche physique.">hmi::EditorAction</a></span>, <span class="tt"><a class="el" href="EditorKeyBindings_8h.html" title="Association remappable action d&#39;éditeur -&gt; touche clavier, avec persistance (EX-CTRL-012).">EditorKeyBindings.h</a></span>) et l'identifiant d'action du catalogue qui la rend effective (<span class="tt">LOT-57</span> TACHE-04, <span class="tt">EX-IHM-062</span>).  <a href="structhmi_1_1KeyBindingIconEntry.html#details">More...</a><br /></td></tr>
+<tr class="memitem:AiModeScreen" id="r_AiModeScreen"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1AiModeScreen.html">AiModeScreen</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Page du <span class="tt">QStackedWidget</span> (comme <span class="tt"><a class="el" href="classhmi_1_1MainMenu.html" title="Menu principal : point d&#39;entrée de l&#39;application Qt (EX-IHM-040).">MainMenu</a></span>/<span class="tt"><a class="el" href="classhmi_1_1CreditsScreen.html" title="Écran de crédits (développement, bruitages) atteint depuis le menu principal.">CreditsScreen</a></span>), pas un recouvrement.  <a href="classhmi_1_1AiModeScreen.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CreditsScreen" id="r_CreditsScreen"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CreditsScreen.html">CreditsScreen</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran de crédits (développement, bruitages) atteint depuis le menu principal.  <a href="classhmi_1_1CreditsScreen.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DesignColor" id="r_DesignColor"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DesignColor.html">DesignColor</a></td></tr>
@@ -458,7 +468,7 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="#ace704959d626f266592987f16eb2f3d5ac1a39b6a60f8b2f87e23d60ab649d994">Unlink</a>
 <br />
  }</td></tr>
-<tr class="memdesc:ace704959d626f266592987f16eb2f3d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action à appliquer sur le brouillon/l'état d'édition suite à un clic de l'outil « Lien ».  <a href="#ace704959d626f266592987f16eb2f3d5">More...</a><br /></td></tr>
+<tr class="memdesc:ace704959d626f266592987f16eb2f3d5"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> à appliquer sur le brouillon/l'état d'édition suite à un clic de l'outil « Lien ».  <a href="#ace704959d626f266592987f16eb2f3d5">More...</a><br /></td></tr>
 <tr class="memitem:a484fc821d307ce050da2a61ed1760a8d" id="r_a484fc821d307ce050da2a61ed1760a8d"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a484fc821d307ce050da2a61ed1760a8d">PaletteThumbnailSource</a> { <a class="el" href="#a484fc821d307ce050da2a61ed1760a8daa6567816e007283cf9781c35b95dd56f">Atlas</a>
 , <a class="el" href="#a484fc821d307ce050da2a61ed1760a8da9313566fe19aca293daefe4ce37942bf">Skin</a>
 , <a class="el" href="#a484fc821d307ce050da2a61ed1760a8dab12558f73b1de2a91f9d7719eea5be7f">MissingTexture</a>
@@ -533,7 +543,7 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a76066d550faf628786294c82cd2d12a4a185b7133db22230701a857c059360cc2">Assign</a>
 , <a class="el" href="#a76066d550faf628786294c82cd2d12a4a1063e38cb53d94d386f21227fcd84717">Remove</a>
  }</td></tr>
-<tr class="memdesc:a76066d550faf628786294c82cd2d12a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action à appliquer sur le brouillon suite à un clic de l'outil « Texture par instance ».  <a href="#a76066d550faf628786294c82cd2d12a4">More...</a><br /></td></tr>
+<tr class="memdesc:a76066d550faf628786294c82cd2d12a4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> à appliquer sur le brouillon suite à un clic de l'outil « Texture par instance ».  <a href="#a76066d550faf628786294c82cd2d12a4">More...</a><br /></td></tr>
 <tr class="memitem:a3a61aed1c8e95c289c829398d48488de" id="r_a3a61aed1c8e95c289c829398d48488de"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a3a61aed1c8e95c289c829398d48488de">GameEvent</a> { <br />
 &#160;&#160;<a class="el" href="#a3a61aed1c8e95c289c829398d48488dea280e2398821e9b67fa22ab6d512c746b">Jumped</a>
 , <a class="el" href="#a3a61aed1c8e95c289c829398d48488dead686e9ef2eb30c76874d445ae35bccc2">Landed</a>
@@ -671,7 +681,7 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585a9bf65705792468edbe653567639a35e9">TextureAssignTool</a>
 <br />
  }</td></tr>
-<tr class="memdesc:aa4f5968d7b564d555f29fdc5d2fc9585"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action d'éditeur logique, remappable indépendamment de la touche physique.  <a href="#aa4f5968d7b564d555f29fdc5d2fc9585">More...</a><br /></td></tr>
+<tr class="memdesc:aa4f5968d7b564d555f29fdc5d2fc9585"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> d'éditeur logique, remappable indépendamment de la touche physique.  <a href="#aa4f5968d7b564d555f29fdc5d2fc9585">More...</a><br /></td></tr>
 <tr class="memitem:a133516ef8002bd9e4d870db9494f5867" id="r_a133516ef8002bd9e4d870db9494f5867"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a133516ef8002bd9e4d870db9494f5867">GameAction</a> { <br />
 &#160;&#160;<a class="el" href="#a133516ef8002bd9e4d870db9494f5867ae8a98c6fabdea857c20c91e9bfd318ca">MoveLeft</a>
 , <a class="el" href="#a133516ef8002bd9e4d870db9494f5867a78af9b7fcdf1574f729de1454e15257b">MoveRight</a>
@@ -683,7 +693,7 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a133516ef8002bd9e4d870db9494f5867aefbc873e4634f3db63d62377d36e5f56">Interact</a>
 <br />
  }</td></tr>
-<tr class="memdesc:a133516ef8002bd9e4d870db9494f5867"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action de jeu logique, remappable indépendamment de la touche physique qui la déclenche.  <a href="#a133516ef8002bd9e4d870db9494f5867">More...</a><br /></td></tr>
+<tr class="memdesc:a133516ef8002bd9e4d870db9494f5867"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> de jeu logique, remappable indépendamment de la touche physique qui la déclenche.  <a href="#a133516ef8002bd9e4d870db9494f5867">More...</a><br /></td></tr>
 <tr class="memitem:a7bd1f14c12b142d5227ad2560e7c5e88" id="r_a7bd1f14c12b142d5227ad2560e7c5e88"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88">GamepadButton</a> { <br />
 &#160;&#160;<a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88a258f49887ef8d14ac268c92b02503aaa">Up</a>
 , <a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88a08a38277b0309070706f6652eeae9a53">Down</a>
@@ -848,6 +858,8 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a168b24f798c2e6d06beb9472a071528da5a916597759e7c491e7d0567658bbb21">NiveauTermine</a>
 , <a class="el" href="#a168b24f798c2e6d06beb9472a071528daab6c96d1fa3464b353f8da4213d53569">LevelSelect</a>
 , <a class="el" href="#a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51">Credits</a>
+, <br />
+&#160;&#160;<a class="el" href="#a168b24f798c2e6d06beb9472a071528da1af7f4ce6abc06f9091acece8303cde9">AiMode</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a168b24f798c2e6d06beb9472a071528d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran actuellement affiché par la fenêtre principale.  <a href="#a168b24f798c2e6d06beb9472a071528d">More...</a><br /></td></tr>
@@ -874,6 +886,8 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="#a964211f19cf43757eaaa80c3c29b0e90a2a1540e25ac6f65503d2539901c3eb7c">OpenCredits</a>
 , <a class="el" href="#a964211f19cf43757eaaa80c3c29b0e90a64b9ec7c728085981f7746660948ed17">CloseCredits</a>
+, <a class="el" href="#a964211f19cf43757eaaa80c3c29b0e90ad2f34896611927168c4d068f53974225">OpenAiMode</a>
+, <a class="el" href="#a964211f19cf43757eaaa80c3c29b0e90a6ff5644bb8b3e7c7beb79427062dc1cd">CloseAiMode</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a964211f19cf43757eaaa80c3c29b0e90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Événement pouvant déclencher une transition d'écran.  <a href="#a964211f19cf43757eaaa80c3c29b0e90">More...</a><br /></td></tr>
@@ -889,6 +903,8 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a9d273e253c37f6033ab963e74c20aee3" id="r_a9d273e253c37f6033ab963e74c20aee3"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1EvaluationOutcome.html">EvaluationOutcome</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9d273e253c37f6033ab963e74c20aee3">evaluateModel</a> (const QString &amp;modelPath, const QString &amp;levelPath, const QString &amp;algo, int repetitions)</td></tr>
+<tr class="memdesc:a9d273e253c37f6033ab963e74c20aee3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Évalue le modèle <span class="tt">modelPath</span> (topologie de <span class="tt">algo</span>) sur <span class="tt">levelPath</span>, <span class="tt">repetitions</span> fois, en mode Argmax.  <br /></td></tr>
 <tr class="memitem:a949e50cc6c6b8c2df661c6277ac59506" id="r_a949e50cc6c6b8c2df661c6277ac59506"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a949e50cc6c6b8c2df661c6277ac59506">soundForEvent</a> (<a class="el" href="#a3a61aed1c8e95c289c829398d48488de">GameEvent</a> event)</td></tr>
 <tr class="memdesc:a949e50cc6c6b8c2df661c6277ac59506"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associe un <span class="tt"><a class="el" href="#a3a61aed1c8e95c289c829398d48488de" title="Événement discret survenu sur un pas de simulation ou une action d&#39;interface.">hmi::GameEvent</a></span> à un identifiant de <span class="tt"><a class="el" href="classhmi_1_1SoundCatalog.html" title="Catalogue des sons : nom d&#39;événement → fichier (relatif à Source/Elements/Audio/).">hmi::SoundCatalog</a></span>.  <br /></td></tr>
 <tr class="memitem:a5bc539b762cfd88b17c71d8a44a1a22b" id="r_a5bc539b762cfd88b17c71d8a44a1a22b"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5bc539b762cfd88b17c71d8a44a1a22b">serializeSessionLog</a> (const std::vector&lt; <a class="el" href="structcore_1_1MemoryLogSink_1_1Entry.html">core::MemoryLogSink::Entry</a> &gt; &amp;entries)</td></tr>
@@ -1720,7 +1736,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Action d'éditeur logique, remappable indépendamment de la touche physique. </p>
+<p><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> d'éditeur logique, remappable indépendamment de la touche physique. </p>
 <p>Sous-ensemble <b>significatif</b> des raccourcis de l'éditeur (<span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Widget de rendu (QRhiWidget) où la scène est dessinée, composé avec le reste de l&#39;interface.">hmi::GameViewport</a></span>, mode édition), pas exhaustif (décision de cadrage <span class="tt">LOT-29</span>) : navigation de menu, redimensionnement par flèches, <span class="tt">Ctrl+R</span>, <span class="tt">"0"</span>, <span class="tt">Tab</span>, Maj+clic restent câblés en dur. Le modificateur <span class="tt">Ctrl</span> de Save/Undo/Redo/Copy/Paste reste lui-même câblé en dur ; seule la touche-lettre associée est ici remappable. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa4f5968d7b564d555f29fdc5d2fc9585ac9cc8cce247e49bae79f15173ce97354" name="aa4f5968d7b564d555f29fdc5d2fc9585ac9cc8cce247e49bae79f15173ce97354"></a>Save&#160;</td><td class="fielddoc"></td></tr>
@@ -1979,7 +1995,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Action de jeu logique, remappable indépendamment de la touche physique qui la déclenche. </p>
+<p><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> de jeu logique, remappable indépendamment de la touche physique qui la déclenche. </p>
 <p>Miroir des sept lectures de <span class="tt"><a class="el" href="PlayerInputMapper_8cpp.html">PlayerInputMapper.cpp</a></span>. Chaque action a une touche <b>unique</b> et pleinement remappable — aucun alias fixe : un alias câblé en dur sur une touche donnée entrerait en collision dès qu'une <b>autre</b> action est remappée sur cette même touche, les deux se déclenchant à la fois (silencieusement annulé pour une paire opposée comme Gauche/Droite, voir <span class="tt"><a class="el" href="PlayerInputMapper_8cpp.html">PlayerInputMapper.cpp</a></span>). </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a133516ef8002bd9e4d870db9494f5867ae8a98c6fabdea857c20c91e9bfd318ca" name="a133516ef8002bd9e4d870db9494f5867ae8a98c6fabdea857c20c91e9bfd318ca"></a>MoveLeft&#160;</td><td class="fielddoc"></td></tr>
@@ -2264,7 +2280,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Action à appliquer sur le brouillon/l'état d'édition suite à un clic de l'outil « Lien ». </p>
+<p><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> à appliquer sur le brouillon/l'état d'édition suite à un clic de l'outil « Lien ». </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ace704959d626f266592987f16eb2f3d5afd038fc7f319e48f3115d92bf5bdbef9" name="ace704959d626f266592987f16eb2f3d5afd038fc7f319e48f3115d92bf5bdbef9"></a>Ignore&#160;</td><td class="fielddoc"><p>Case cliquée ni déclencheur ni cible : sans effet. </p>
 </td></tr>
@@ -2852,6 +2868,8 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a964211f19cf43757eaaa80c3c29b0e90acf7b8208a0c2708351e67f4ac50d96d5" name="a964211f19cf43757eaaa80c3c29b0e90acf7b8208a0c2708351e67f4ac50d96d5"></a>LevelChosen&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a964211f19cf43757eaaa80c3c29b0e90a2a1540e25ac6f65503d2539901c3eb7c" name="a964211f19cf43757eaaa80c3c29b0e90a2a1540e25ac6f65503d2539901c3eb7c"></a>OpenCredits&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a964211f19cf43757eaaa80c3c29b0e90a64b9ec7c728085981f7746660948ed17" name="a964211f19cf43757eaaa80c3c29b0e90a64b9ec7c728085981f7746660948ed17"></a>CloseCredits&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a964211f19cf43757eaaa80c3c29b0e90ad2f34896611927168c4d068f53974225" name="a964211f19cf43757eaaa80c3c29b0e90ad2f34896611927168c4d068f53974225"></a>OpenAiMode&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a964211f19cf43757eaaa80c3c29b0e90a6ff5644bb8b3e7c7beb79427062dc1cd" name="a964211f19cf43757eaaa80c3c29b0e90a6ff5644bb8b3e7c7beb79427062dc1cd"></a>CloseAiMode&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -2886,6 +2904,7 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528da5a916597759e7c491e7d0567658bbb21" name="a168b24f798c2e6d06beb9472a071528da5a916597759e7c491e7d0567658bbb21"></a>NiveauTermine&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528daab6c96d1fa3464b353f8da4213d53569" name="a168b24f798c2e6d06beb9472a071528daab6c96d1fa3464b353f8da4213d53569"></a>LevelSelect&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51" name="a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51"></a>Credits&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528da1af7f4ce6abc06f9091acece8303cde9" name="a168b24f798c2e6d06beb9472a071528da1af7f4ce6abc06f9091acece8303cde9"></a>AiMode&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -3045,7 +3064,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Action à appliquer sur le brouillon suite à un clic de l'outil « Texture par instance ». </p>
+<p><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> à appliquer sur le brouillon suite à un clic de l'outil « Texture par instance ». </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a76066d550faf628786294c82cd2d12a4afd038fc7f319e48f3115d92bf5bdbef9" name="a76066d550faf628786294c82cd2d12a4afd038fc7f319e48f3115d92bf5bdbef9"></a>Ignore&#160;</td><td class="fielddoc"><p>Case vide, ou aucun asset sélectionné dans la bibliothèque : sans effet. </p>
 </td></tr>
@@ -6065,6 +6084,57 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La région modifiée (le seul pixel <span class="tt">(x, y)</span>), vide si <span class="tt">(x, y)</span> est hors bornes. </dd></dl>
+
+</div>
+</div>
+<a id="a9d273e253c37f6033ab963e74c20aee3" name="a9d273e253c37f6033ab963e74c20aee3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d273e253c37f6033ab963e74c20aee3">&#9670;&#160;</a></span>evaluateModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structhmi_1_1EvaluationOutcome.html">EvaluationOutcome</a> &gt; hmi::evaluateModel </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>modelPath</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>levelPath</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>algo</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>repetitions</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Évalue le modèle <span class="tt">modelPath</span> (topologie de <span class="tt">algo</span>) sur <span class="tt">levelPath</span>, <span class="tt">repetitions</span> fois, en mode Argmax. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">modelPath</td><td>Chemin des poids sauvegardés (<span class="tt">nn::saveWeights</span>, format <span class="tt">LOT-ANNEXE-03</span>). </td></tr>
+    <tr><td class="paramname">levelPath</td><td>Niveau sur lequel évaluer. </td></tr>
+    <tr><td class="paramname">algo</td><td><span class="tt">"evo"</span>, <span class="tt">"pg"</span>, <span class="tt">"ac"</span> ou <span class="tt">"avance"</span> — choisit l'adaptateur <span class="tt">eval::TrainedPolicy</span> et la topologie réseau adaptée. </td></tr>
+    <tr><td class="paramname">repetitions</td><td>Nombre d'épisodes rejoués pour la mesure. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">std::nullopt</span> si le modèle ne se charge pas (chemin invalide, format incompatible). </dd></dl>
 
 </div>
 </div>

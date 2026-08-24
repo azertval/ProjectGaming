@@ -94,12 +94,12 @@ $(function(){initNavTree('lot-69-tache-01-qt-6-11.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-69-plans-picturaux_2tache-01-qt-6-11"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-69.html#md_Lot_2LOT-69-plans-picturaux_2epic" title="Lot/LOT-69-plans-picturaux/epic.md">LOT-69</a> · <b>Emplacement :</b> <span class="tt">Source/HMI</span>, <span class="tt">.github/workflows</span>, <span class="tt">Documentation</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3141"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3255"></a>
 Contexte</h1>
 <p>Le lot repose sur <b>Qt Canvas Painter</b>, peinture 2D accélérée sur cible QRhi, disponible pour Qt Widgets via <span class="tt">QCanvasPainterWidget</span>. Elle n'existe <b>qu'à partir de Qt 6.11</b>, alors que le projet était épinglé à <b>6.8.1</b>. Le portage du rendu (<span class="tt">TACHE-02</span>) a par ailleurs besoin de <span class="tt">qsb</span>, le compilateur de shaders fourni par le module <span class="tt">qtshadertools</span>.</p>
 <p>Quitter Qt 6.8 <b>LTS</b> méritait d'être pesé. Le point qui tranche : au-delà de <b>6.8.3</b>, les correctifs de cette branche ne sont publiés que sous <b>licence commerciale</b>. Le « support jusqu'en 2029 » ne bénéficiait donc pas à ce projet, et l'argument LTS tombe.</p>
 <p>Un obstacle imprévu a été rencontré et levé. Qt a changé la <b>disposition de son dépôt</b> à partir de 6.11 : <span class="tt">qt6_6112/qt6_6112_msvc2022_64/</span> — un sous-dossier par architecture — au lieu de <span class="tt">qt6_6103/qt6_6103/</span>. <span class="tt">aqtinstall 3.3.0</span>, dernière version <b>publiée sur PyPI</b>, code en dur l'ancienne disposition et échoue sur <span class="tt">Failed to download checksum for the file 'Updates.xml'</span>. Comme la CI provisionne Qt par <span class="tt">jurplel/install-qt-action</span>, qui n'est qu'un enrobage d'aqt, la CI héritait du même blocage.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3142"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3256"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Porter <span class="tt">QT_VERSION_MINIMUM</span> (<span class="tt">Source/HMI/CMakeLists.txt</span>) à <b>6.11.2</b>, et <span class="tt">env.QT_VERSION</span> de <span class="tt">ci.yml</span> et <span class="tt">release.yml</span> à l'identique — le garde-fou <span class="tt">scripts/check_qt_version_pin.py</span> refuse toute divergence.</li>
@@ -108,22 +108,22 @@ Travail à réaliser</h1>
 <li>Amender <span class="tt">EX-BUILD-010</span> : l'exigence de provisionnement reproductible porte aussi sur l'<b>outil de provisionnement lui-même</b>, épinglé à une révision précise, avec motif et condition de sortie écrits là où le détour est déclaré.</li>
 <li>Mettre à jour <span class="tt">External/README.md</span> (référence du provisionnement), <span class="tt">README.md</span> (prérequis) et <span class="tt">CONTRIBUTING.md</span> (consigne de bump, condition de retrait d'<span class="tt">aqtsource</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3143"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3257"></a>
 Fichiers impactés</h1>
 <p><span class="tt">Source/HMI/CMakeLists.txt</span>, <span class="tt">.github/workflows/ci.yml</span>, <span class="tt">.github/workflows/release.yml</span>, <span class="tt">External/README.md</span>, <span class="tt">README.md</span>, <span class="tt">CONTRIBUTING.md</span>, <span class="tt"><a class="el" href="exigences-non-fonctionnelles_8md.html">Documentation/Specification/exigences-non-fonctionnelles.md</a></span>, <span class="tt">CHANGELOG.md</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3144"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3258"></a>
 Tests (obligatoires)</h1>
 <p>Aucun test unitaire : la tâche ne touche aucune ligne de code source. La vérification est la <b>gate CI rejouée en local</b> — <span class="tt">check_qt_version_pin.py</span>, <span class="tt">lint_exigences.py</span>, <span class="tt">generate_cahier_test.py --check</span>, <span class="tt">check_demo_sequence.py</span> — puis build Debug et <span class="tt">ctest</span> complets contre 6.11.2, qui doivent passer <b>sans modification du code</b>. Le YAML des deux workflows est revalidé après édition.</p>
 <p>Signe que le pin a réellement pris : l'avertissement CMake de divergence de version (<span class="tt">Source/HMI/CMakeLists.txt</span>, comparaison à <span class="tt">QT_VERSION_MINIMUM</span>) <b>disparaît</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3145"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3259"></a>
 Points d'attention</h1>
 <p>Les composants <span class="tt">CanvasPainter</span> et <span class="tt">ShaderTools</span> ne sont <b>pas</b> ajoutés à <span class="tt">find_package</span> par cette tâche, contrairement à ce qu'une lecture rapide du cadrage suggérerait. Dans ce <span class="tt">CMakeLists</span>, un composant manquant ne produit pas une erreur mais un <span class="tt">return()</span> avec avertissement — donc <b>aucun exécutable</b>. Exiger un module qu'aucun code ne consomme encore ferait courir ce risque pour zéro bénéfice. Ils sont en revanche installés en CI, et comme aqt échoue sur un nom de module inconnu, une CI verte prouve déjà que le provisionnement les fournit. <span class="tt">TACHE-02</span> les ajoutera à <span class="tt">find_package</span> en même temps que son premier consommateur.</p>
 <p>Le détour par git est <b>temporaire</b>. Dès qu'<span class="tt">aqtinstall 3.3.1</span> paraît sur PyPI, remplacer <span class="tt">aqtsource</span> par <span class="tt">aqtversion: '==3.3.1'</span> et supprimer <span class="tt">AQT_SOURCE</span>. La condition de sortie est écrite dans les workflows, <span class="tt">External/README.md</span> et <span class="tt">CONTRIBUTING.md</span> — sans quoi l'URL git y resterait des années.</p>
 <p>Deux points ne sont vérifiables que par un vrai run CI : que le runner installe bien 6.11.2 via <span class="tt">aqtsource</span>, et que le <span class="tt">windeployqt</span> de 6.11 déploie correctement les DLL à côté du binaire packagé.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3146"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3260"></a>
 Definition de fait (DoD)</h1>
 <p>Qt 6.11.2 épinglé de façon identique dans les trois écritures et vérifié automatiquement. Build Debug et <span class="tt">ctest</span> à 100 % contre 6.11.2, sans avertissement CMake. Les quatre linters passent.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3147"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3261"></a>
 Exigences</h1>
 <p><span class="tt">EX-BUILD-010</span> (amendée), <span class="tt">EX-NFR-031</span>, <span class="tt">EX-NFR-022</span>. </p>
 </div></div><!-- contents -->

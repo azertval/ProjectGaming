@@ -1,0 +1,10 @@
+var structaisolver_1_1PolynomialToyProblem =
+[
+    [ "Sample", "structaisolver_1_1PolynomialToyProblem_1_1Sample.html", "structaisolver_1_1PolynomialToyProblem_1_1Sample" ],
+    [ "generateSamples", "structaisolver_1_1PolynomialToyProblem.html#a1e81592f5f01879e9448d08e3687d9fa", null ],
+    [ "loss", "structaisolver_1_1PolynomialToyProblem.html#a4303951741bd7f720ad92162e271fafc", null ],
+    [ "kCoeffA", "structaisolver_1_1PolynomialToyProblem.html#a145021142899e604c3358298f6e39e99", null ],
+    [ "kCoeffB", "structaisolver_1_1PolynomialToyProblem.html#a8c15f05ffd08d1dfa490e8b8b767d294", null ],
+    [ "kCoeffC", "structaisolver_1_1PolynomialToyProblem.html#a99b975214db44e0f4f27e69494f8c7b8", null ],
+    [ "kSampleCount", "structaisolver_1_1PolynomialToyProblem.html#a3490a91d3c7d17e3c3325b55210dce23", null ]
+];

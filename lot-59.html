@@ -96,7 +96,7 @@ $(function(){initNavTree('lot-59.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>code, tests et documentation faits ; essai manuel humain final restant</b> (voir État de <a class="el" href="lot-59-tache-07-documentation-verification.html#md_Lot_2LOT-59-boucle-de-jeu_2tache-07-documentation-verification" title="Lot/LOT-59-boucle-de-jeu/tache-07-documentation-verification.md">TACHE-07</a>). Prérequis : <a class="el" href="lot-38.html" title="LOT-38 — Refonte IHM (Qt) : menus, options, remappage &amp; retrait du legacy UI">LOT-38</a> (IHM Qt unifiée), <a class="el" href="lot-52.html" title="LOT-52 — Texte, police bitmap et affichage tête haute">LOT-52</a> (texte dans la scène). <b>Premier lot de contenu</b> du programme <span class="tt">0.1.0</span>, après le durcissement du <a class="el" href="lot-58.html" title="LOT-58 — Vérification Release, sanitizer et analyse statique">LOT-58</a>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2657"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2771"></a>
 Objectif</h1>
 <p>Faire du moteur un <b>jeu</b> : une partie qu'on peut mettre en pause, dont on voit la fin d'un tableau, et qu'on retrouve là où on l'avait laissée.</p>
 <p>Trois manques se tiennent, et c'est pour ça qu'ils forment un seul lot :</p>
@@ -107,9 +107,9 @@ Objectif</h1>
 </ol>
 <p>Les deux premiers points sont écrits dans les spécifications depuis longtemps, marqués ⚠️ : <span class="tt">EX-REN-031</span> (« non implémenté ») et <span class="tt">EX-GP-040</span> (« partiellement implémenté »). Ce lot les lève.</p>
 <p>C'est le premier lot de <b>contenu</b> du programme parce que tous les autres se voient à travers lui : un bruitage de victoire (<span class="tt">LOT-60</span>) ou un effet de mort (<span class="tt">LOT-53</span>) n'ont pas de place où exister tant qu'il n'y a ni écran de fin, ni pause.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2658"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2772"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2659"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2773"></a>
 Inclus</h2>
 <ul>
 <li><b>États d'écran manquants</b> : <span class="tt">Pause</span> et <span class="tt">NiveauTermine</span> ajoutés à <span class="tt"><a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528d" title="Écran actuellement affiché par la fenêtre principale.">hmi::ScreenId</a></span>, avec des transitions explicites et unidirectionnelles (<span class="tt">EX-GP-041</span>). Échap <b>ouvre la pause</b> au lieu de quitter ; quitter devient un choix du menu de pause.</li>
@@ -120,7 +120,7 @@ Inclus</h2>
 <li><b>Sélection de niveau côté joueur</b> (<span class="tt">EX-IHM-005</span>) : Continuer / Nouvelle partie / Choisir un niveau, ce dernier limité aux niveaux déjà atteints plus le suivant.</li>
 <li>Le tout <b>navigable au clavier, à la souris et à la manette</b>, comme le reste de l'IHM.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2660"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2774"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li>Sauvegarde en cours de niveau (points de contrôle, état exact du personnage) : la granularité est le <b>tableau</b>, pas l'instant.</li>
@@ -128,7 +128,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li>Refonte générale de <span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">hmi::MainWindow</a></span> ou de <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Widget de rendu (QRhiWidget) où la scène est dessinée, composé avec le reste de l&#39;interface.">hmi::GameViewport</a></span> : on extrait ce que ce lot touche — la machine à états d'écran — et rien de plus (cf. décisions de cadrage).</li>
 <li>Écran-titre animé, transitions visuelles élaborées entre écrans.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2661"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2775"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Un seul lot pour les trois manques.</b> Ils partagent la même machine à états et le même écran de fin de niveau : les livrer séparément supposerait d'écrire deux fois la navigation, puis de la défaire.</li>
@@ -138,14 +138,14 @@ Décisions de cadrage</h1>
 <li><b>Extraction minimale de <span class="tt">MainWindow</span>.</b> <span class="tt"><a class="el" href="MainWindow_8cpp.html">MainWindow.cpp</a></span> fait 1413 lignes et <span class="tt"><a class="el" href="GameViewport_8h.html" title="Viewport de l&#39;éditeur : rendu du brouillon d&#39;édition et de l&#39;essai sur QRhi (LOT-34/35,...">GameViewport.h</a></span> déclare 43 membres : ce lot ajoute des écrans, donc la tentation de tout réorganiser est réelle. Elle est écartée. On extrait la <b>navigation entre écrans</b> parce qu'on la modifie de toute façon ; le reste est laissé en l'état. Un refactoring de confort, non demandé et non couvert par les tests d'IHM, est exactement le genre de chantier qui casse une version.</li>
 <li><b>La sélection de niveau ne déverrouille pas tout.</b> Proposer les quinze tableaux d'emblée annulerait la progression qu'on vient d'ajouter.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2662"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2776"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelles : <span class="tt">EX-IHM-004</span> (écrans de pause et de fin de niveau), <span class="tt">EX-IHM-005</span> (sélection de niveau côté joueur), <span class="tt">EX-LVL-013</span> (séquence en donnée de contenu), <span class="tt">EX-LVL-014</span> (progression persistée).</li>
 <li>Levées : <span class="tt">EX-REN-031</span> (⚠️ non implémenté → livré), <span class="tt">EX-GP-040</span> (⚠️ partiellement implémenté → livré).</li>
 <li>Réutilisées : <span class="tt">EX-GP-041</span> (machine à états), <span class="tt">EX-GP-030</span>/<span class="tt">EX-GP-031</span>/<span class="tt">EX-GP-032</span> (fin de niveau, échec, redémarrage), <span class="tt">EX-LVL-010</span>/<span class="tt">EX-LVL-011</span> (ordre des niveaux, enchaînement), <span class="tt">EX-REN-033</span> (catalogue de traduction), <span class="tt">EX-IHM-001</span> (interface hors-jeu en Qt), <span class="tt">EX-CTRL-012</span> (remappage), <span class="tt">EX-NFR-040</span> (erreur récupérable).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2663"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2777"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -168,7 +168,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-59-tache-07-documentation-verification.html#md_Lot_2LOT-59-boucle-de-jeu_2tache-07-documentation-verification" title="Lot/LOT-59-boucle-de-jeu/tache-07-documentation-verification.md">TACHE-07</a>  </td><td class="markdownTableBodyNone">Documentation et vérification  </td><td class="markdownTableBodyNone"><span class="tt">Source/Test</span>, <span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2664"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2778"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Échap en cours de partie ouvre un écran de <b>pause</b> ; Reprendre restitue la partie <b>exactement</b> dans l'état où elle était (position, vitesse, budgets, phase des dangers temporisés).</li>
@@ -181,10 +181,10 @@ Critères d'acceptation du lot</h1>
 <li><span class="tt">EX-REN-031</span> et <span class="tt">EX-GP-040</span> ne portent plus de mention ⚠️ dans les spécifications.</li>
 <li>Build <span class="tt">/W4 /WX</span>, <span class="tt">ctest</span> à 100 %, Doxygen et lints verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2665"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2779"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-38.html" title="LOT-38 — Refonte IHM (Qt) : menus, options, remappage &amp; retrait du legacy UI">LOT-38</a> (IHM Qt unifiée, écrans et navigation manette) et <a class="el" href="lot-36.html" title="LOT-36 — Refonte IHM (Qt) : gestion des niveaux (liste, recherche, fichiers)">LOT-36</a> (<span class="tt">LevelBrowserPanel</span>, réutilisé pour la sélection de niveau). Prérequis de <a class="el" href="lot-60.html" title="LOT-60 — Audio : socle et bruitages">LOT-60</a> (le bruitage de victoire a besoin d'un écran de fin) et de <a class="el" href="lot-53.html" title="LOT-53 — Effets et particules">LOT-53</a> (l'effet de mort se lit dans une boucle qui sait perdre).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2666"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2780"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-59-tache-01-machine-etats-ecrans.html" title="TACHE-01 — Machine à états d&#39;écran">TACHE-01 — Machine à états d'écran</a></li>

@@ -24,6 +24,7 @@ var classhmi_1_1GameSession =
     [ "setSkins", "classhmi_1_1GameSession.html#af73e9ba375e947026121ce9e52d0e1aa", null ],
     [ "snapshotPreviousPositions", "classhmi_1_1GameSession.html#a6bb897af2e39b7bb5bbf7507d4f7b6ad", null ],
     [ "spawnPlayer", "classhmi_1_1GameSession.html#a4db26f5baed613a962f368bc27c4dbe8", null ],
+    [ "update", "classhmi_1_1GameSession.html#ace6500a9583c80a0f6f8f0d805a15144", null ],
     [ "update", "classhmi_1_1GameSession.html#a890870ab22ce42a6b1d67f20e7209aa2", null ],
     [ "updateCurrentCameraZone", "classhmi_1_1GameSession.html#a3070fe308ff868f747fd5fe8ac8098d4", null ],
     [ "updateCurrentRoom", "classhmi_1_1GameSession.html#a626952821cb4fc9a0144a4bdf6b9eaaf", null ],

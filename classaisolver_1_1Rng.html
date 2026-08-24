@@ -93,7 +93,7 @@ $(function(){initNavTree('classaisolver_1_1Rng.html','','classaisolver_1_1Rng-me
 </div><!--header-->
 <div class="contents">
 
-<p>Générateur de nombres pseudo-aléatoires (PRNG) pour l'IA.  
+<p>Source d'aléatoire déterministe et reproductible à partir d'une seule graine.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="Rng_8h_source.html">Rng.h</a>&gt;</code></p>
@@ -101,18 +101,22 @@ $(function(){initNavTree('classaisolver_1_1Rng.html','','classaisolver_1_1Rng-me
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa015214d96570eab5def7d06b6b8242d" id="r_aa015214d96570eab5def7d06b6b8242d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa015214d96570eab5def7d06b6b8242d">Rng</a> (std::uint64_t seed)</td></tr>
-<tr class="memdesc:aa015214d96570eab5def7d06b6b8242d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur du générateur de nombres pseudo-aléatoires.  <br /></td></tr>
+<tr class="memdesc:aa015214d96570eab5def7d06b6b8242d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le générateur à partir d'une graine explicite.  <br /></td></tr>
 <tr class="memitem:a35450493bcc3fe1ab92faf1de3dc5e99" id="r_a35450493bcc3fe1ab92faf1de3dc5e99"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a35450493bcc3fe1ab92faf1de3dc5e99">nextFloat</a> ()</td></tr>
-<tr class="memdesc:a35450493bcc3fe1ab92faf1de3dc5e99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Génère un nombre flottant aléatoire entre 0 et 1 pas de constructeur par défaut (une graine doit toujours être fournie explicitement, jamais dérivée de l'horloge).  <br /></td></tr>
-<tr class="memitem:a5224b3019ca03decd0a1f2eb8f38335c" id="r_a5224b3019ca03decd0a1f2eb8f38335c"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a5224b3019ca03decd0a1f2eb8f38335c">nextFloat</a> (float min, float max)</td></tr>
-<tr class="memdesc:a5224b3019ca03decd0a1f2eb8f38335c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Génère un nombre flottant aléatoire entre min et max.  <br /></td></tr>
-<tr class="memitem:ac018c3c4ba800358b718e25f7a5d6cd5" id="r_ac018c3c4ba800358b718e25f7a5d6cd5"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ac018c3c4ba800358b718e25f7a5d6cd5">nextGaussian</a> (float mean=0.0f, float stddev=1.0f)</td></tr>
-<tr class="memdesc:ac018c3c4ba800358b718e25f7a5d6cd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Génère un nombre flottant aléatoire selon une distribution gaussienne.  <br /></td></tr>
-<tr class="memitem:ac3e2915343e5639433ee3e6d69fe9fdf" id="r_ac3e2915343e5639433ee3e6d69fe9fdf"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac3e2915343e5639433ee3e6d69fe9fdf">nextInt</a> (int min, int max)</td></tr>
-<tr class="memdesc:ac3e2915343e5639433ee3e6d69fe9fdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Génère un nombre entier aléatoire entre min et max.  <br /></td></tr>
+<tr class="memitem:a5224b3019ca03decd0a1f2eb8f38335c" id="r_a5224b3019ca03decd0a1f2eb8f38335c"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a5224b3019ca03decd0a1f2eb8f38335c">nextFloat</a> (float min, float <a class="el" href="namespaceaisolver.html#a5c6ea6bfe2a503720332899798f6ca22">max</a>)</td></tr>
+<tr class="memdesc:a5224b3019ca03decd0a1f2eb8f38335c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flottant uniforme dans un intervalle donné.  <br /></td></tr>
+<tr class="memitem:ac018c3c4ba800358b718e25f7a5d6cd5" id="r_ac018c3c4ba800358b718e25f7a5d6cd5"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ac018c3c4ba800358b718e25f7a5d6cd5">nextGaussian</a> (float <a class="el" href="namespaceaisolver.html#ad5f0d68c82eaa2495f8a1dd2dcba63f7">mean</a>=0.0f, float stddev=1.0f)</td></tr>
+<tr class="memdesc:ac018c3c4ba800358b718e25f7a5d6cd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tirage gaussien (transformation de Box-Muller).  <br /></td></tr>
+<tr class="memitem:ac3e2915343e5639433ee3e6d69fe9fdf" id="r_ac3e2915343e5639433ee3e6d69fe9fdf"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac3e2915343e5639433ee3e6d69fe9fdf">nextInt</a> (int min, int <a class="el" href="namespaceaisolver.html#a5c6ea6bfe2a503720332899798f6ca22">max</a>)</td></tr>
+<tr class="memdesc:ac3e2915343e5639433ee3e6d69fe9fdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entier uniforme dans un intervalle donné (bornes incluses), par rejet.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a34db3dc203b61d458ab13eceb0869ee4" id="r_a34db3dc203b61d458ab13eceb0869ee4"><td class="memItemLeft">std::mt19937_64&#160;</td><td class="memItemRight"><a class="el" href="#a34db3dc203b61d458ab13eceb0869ee4">_engine</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Générateur de nombres pseudo-aléatoires (PRNG) pour l'IA. </p>
+<div class="textblock"><p>Source d'aléatoire déterministe et reproductible à partir d'une seule graine. </p>
+<dl class="section note"><dt>Note</dt><dd>Aucune loi de probabilité de la bibliothèque standard (<span class="tt">std::…_distribution</span>) n'est utilisée : la norme C++ ne garantit que la suite de <span class="tt">std::mt19937_64</span> lui-même, pas celle d'une distribution — chaque méthode dérive donc sa valeur à la main de <span class="tt"><a class="el" href="#a34db3dc203b61d458ab13eceb0869ee4">_engine()</a></span>, seul état persistant de la classe (voir <span class="tt"><a class="el" href="tache-01-rng-deterministe_8md.html">Documentation/Lot-Annexe/LOT-ANNEXE-01-bibliotheque-tensorielle-rng/tache-01-rng-deterministe.md</a></span>). </dd></dl>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa015214d96570eab5def7d06b6b8242d" name="aa015214d96570eab5def7d06b6b8242d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa015214d96570eab5def7d06b6b8242d">&#9670;&#160;</a></span>Rng()</h2>
@@ -137,10 +141,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Constructeur du générateur de nombres pseudo-aléatoires. </p>
+<p>Construit le générateur à partir d'une graine explicite. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">seed</td><td>Graine pour le générateur </td></tr>
+    <tr><td class="paramname">seed</td><td>Graine ; aucune valeur par défaut (jamais dérivée de l'horloge). </td></tr>
   </table>
   </dd>
 </dl>
@@ -153,6 +157,9 @@ Public Member Functions</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">float aisolver::Rng::nextFloat </td>
@@ -161,10 +168,13 @@ Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-
-<p>Génère un nombre flottant aléatoire entre 0 et 1 pas de constructeur par défaut (une graine doit toujours être fournie explicitement, jamais dérivée de l'horloge). </p>
-<dl class="section return"><dt>Returns</dt><dd>Nombre flottant aléatoire </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Flottant uniforme dans <span class="tt">[0, 1)</span>. </dd></dl>
 
 </div>
 </div>
@@ -173,6 +183,9 @@ Public Member Functions</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">float aisolver::Rng::nextFloat </td>
@@ -185,17 +198,21 @@ Public Member Functions</h2></td></tr>
           <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>max</em></span>&#160;)</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Génère un nombre flottant aléatoire entre min et max. </p>
+<p>Flottant uniforme dans un intervalle donné. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">min</td><td>Valeur minimale </td></tr>
-    <tr><td class="paramname">max</td><td>Valeur maximale </td></tr>
+    <tr><td class="paramname">min</td><td>Borne inférieure (incluse). </td></tr>
+    <tr><td class="paramname"><a class="el" href="namespaceaisolver.html#a5c6ea6bfe2a503720332899798f6ca22">max</a></td><td>Borne supérieure (exclue). </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Nombre flottant aléatoire </dd></dl>
 
 </div>
 </div>
@@ -204,6 +221,9 @@ Public Member Functions</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">float aisolver::Rng::nextGaussian </td>
@@ -216,17 +236,21 @@ Public Member Functions</h2></td></tr>
           <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>stddev</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0f</span>&#160;)</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Génère un nombre flottant aléatoire selon une distribution gaussienne. </p>
+<p>Tirage gaussien (transformation de Box-Muller). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mean</td><td>Valeur moyenne </td></tr>
-    <tr><td class="paramname">stddev</td><td>Écart-type </td></tr>
+    <tr><td class="paramname"><a class="el" href="namespaceaisolver.html#ad5f0d68c82eaa2495f8a1dd2dcba63f7">mean</a></td><td>Moyenne de la loi normale. </td></tr>
+    <tr><td class="paramname">stddev</td><td>Écart-type de la loi normale. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Nombre flottant aléatoire </dd></dl>
 
 </div>
 </div>
@@ -235,6 +259,9 @@ Public Member Functions</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">int aisolver::Rng::nextInt </td>
@@ -247,22 +274,50 @@ Public Member Functions</h2></td></tr>
           <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>max</em></span>&#160;)</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Génère un nombre entier aléatoire entre min et max. </p>
+<p>Entier uniforme dans un intervalle donné (bornes incluses), par rejet. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">min</td><td>Valeur minimale </td></tr>
-    <tr><td class="paramname">max</td><td>Valeur maximale </td></tr>
+    <tr><td class="paramname">min</td><td>Borne inférieure (incluse). </td></tr>
+    <tr><td class="paramname"><a class="el" href="namespaceaisolver.html#a5c6ea6bfe2a503720332899798f6ca22">max</a></td><td>Borne supérieure (incluse). </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Nombre entier aléatoire </dd></dl>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a34db3dc203b61d458ab13eceb0869ee4" name="a34db3dc203b61d458ab13eceb0869ee4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34db3dc203b61d458ab13eceb0869ee4">&#9670;&#160;</a></span>_engine</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::mt19937_64 aisolver::Rng::_engine</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/ProjectGaming/ProjectGaming/Source/AiSolver/Math/<a class="el" href="Rng_8h_source.html">Rng.h</a></li>
+<li>/home/runner/work/ProjectGaming/ProjectGaming/Source/AiSolver/Math/<a class="el" href="Rng_8cpp.html">Rng.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

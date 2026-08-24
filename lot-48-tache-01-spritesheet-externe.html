@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-48-tache-01-spritesheet-externe.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-48-personnage-texture_2tache-01-spritesheet-externe"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-48.html#md_Lot_2LOT-48-personnage-texture_2epic" title="Lot/LOT-48-personnage-texture/epic.md">LOT-48</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2216"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2330"></a>
 Contexte</h1>
 <p>Le personnage est dessiné par <em>hmi::playerPixel</em> (<span class="tt"><a class="el" href="ProceduralAtlas_8cpp.html">ProceduralAtlas.cpp</a></span>) : une silhouette humanoïde composée de rectangles de couleur — cheveux, peau, chemise, pantalon, chaussures — générée en C++. Changer son apparence impose de recompiler.</p>
 <p>Un piège documenté attend toute modification : la silhouette est <b>pré-compressée verticalement</b> dans le générateur, parce que <span class="tt">Transform::scale</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a6b2b8e5dc4a0b610cc1225c14e1ce5cb">core::playerSize()</a></span> (0,4 × 0,8 unité) et étire donc l'image. C'est la contrainte « la région du personnage doit rester carrée », héritée d'une régression corrigée en <span class="tt">LOT-17</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2217"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2331"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Chargement</b> d'une spritesheet depuis <span class="tt">Assets/Player/</span>, via le <em>TextureCache</em> (LOT-40), décrite par son <span class="tt">nom-asset.anim.json</span> (LOT-46).</li>
@@ -111,7 +111,7 @@ Travail à réaliser</h1>
 </li>
 <li><b>Calcul du quad du personnage</b> à partir de la taille d'image, de l'ancrage et de l'échelle : une fonction <b>pure</b>, testable.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2218"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2332"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/PlayerSprite.{h,cpp}</span> (nouveau) — chargement, ancrage, calcul du quad.</li>
@@ -120,7 +120,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Assets/Player/</span> (nouveau dossier), <span class="tt">Source/HMI/CMakeLists.txt</span>.</li>
 <li><span class="tt"><a class="el" href="test__player__sprite_8cpp.html" title="Tests unitaires de l&#39;habillage du personnage : ancrage image/hitbox, repli entre clips et retournemen...">Source/Test/Unit/HMI/Graphics/test_player_sprite.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2219"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2333"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Ancrage</b> : pour plusieurs tailles d'image (égale, plus grande, plus large que la hitbox), le quad calculé place l'image au bon endroit relativement à la boîte de collision. Fonction pure.</li>
@@ -128,19 +128,19 @@ Tests (obligatoires)</h1>
 <li>Absence de spritesheet → repli procédural, sans exception, avec la même apparence qu'aujourd'hui.</li>
 <li>Spritesheet aux dimensions incohérentes avec sa description → refus par le contrat d'asset, repli.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2220"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2334"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le piège du double étirement.</b> Aujourd'hui, la région carrée est étirée par <span class="tt">Transform::scale</span>, et le générateur pré-compresse pour compenser. Le nouveau calcul doit rendre cette compensation inutile — et la retirer du générateur si c'est fait, sinon les deux se cumuleront.</li>
 <li><b>Aucun test de gameplay ne doit changer.</b> Si un test de franchissabilité échoue, c'est que la hitbox a bougé : c'est un défaut, pas un ajustement.</li>
 <li>Documenter l'ancrage dans <span class="tt">Source/Elements/Assets/README.md</span> : c'est ce que l'auteur doit comprendre pour dessiner un personnage aligné.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2221"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2335"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>La spritesheet externe remplace l'atlas procédural quand elle est présente, avec repli sinon ; la taille d'image est indépendante de la hitbox, qui est inchangée ; l'ancrage est testé et documenté ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2222"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2336"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-009</span> (personnage depuis une spritesheet externe) ; réutilise <span class="tt">EX-REN-042</span> (assets externalisés avec repli), <span class="tt">EX-REN-007</span> (contrat d'asset), <span class="tt">EX-ARCH-012</span> (rendu sans effet sur la simulation), <span class="tt">EX-GP-018</span> (gabarit et ressenti du personnage), <span class="tt">EX-NFR-040</span> (repli). </p>
 </div></div><!-- contents -->

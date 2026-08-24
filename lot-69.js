@@ -1,108 +1,108 @@
 var lot_69 =
 [
-    [ "Objectif", "lot-69.html#autotoc_md3129", null ],
-    [ "Périmètre", "lot-69.html#autotoc_md3130", [
-      [ "Inclus", "lot-69.html#autotoc_md3131", null ],
-      [ "Exclus", "lot-69.html#autotoc_md3132", null ]
+    [ "Objectif", "lot-69.html#autotoc_md3243", null ],
+    [ "Périmètre", "lot-69.html#autotoc_md3244", [
+      [ "Inclus", "lot-69.html#autotoc_md3245", null ],
+      [ "Exclus", "lot-69.html#autotoc_md3246", null ]
     ] ],
-    [ "Décisions de cadrage", "lot-69.html#autotoc_md3133", null ],
-    [ "Exigences couvertes", "lot-69.html#autotoc_md3134", null ],
-    [ "Découpage", "lot-69.html#autotoc_md3135", [
-      [ "Séquencement", "lot-69.html#autotoc_md3136", null ]
+    [ "Décisions de cadrage", "lot-69.html#autotoc_md3247", null ],
+    [ "Exigences couvertes", "lot-69.html#autotoc_md3248", null ],
+    [ "Découpage", "lot-69.html#autotoc_md3249", [
+      [ "Séquencement", "lot-69.html#autotoc_md3250", null ]
     ] ],
-    [ "Critères d'acceptation du lot", "lot-69.html#autotoc_md3137", null ],
-    [ "Dépendances", "lot-69.html#autotoc_md3138", null ],
-    [ "Risques", "lot-69.html#autotoc_md3139", null ],
-    [ "Navigation des tâches", "lot-69.html#autotoc_md3140", null ],
+    [ "Critères d'acceptation du lot", "lot-69.html#autotoc_md3251", null ],
+    [ "Dépendances", "lot-69.html#autotoc_md3252", null ],
+    [ "Risques", "lot-69.html#autotoc_md3253", null ],
+    [ "Navigation des tâches", "lot-69.html#autotoc_md3254", null ],
     [ "TACHE-01 — Passage à Qt 6.11 et provisionnement reproductible", "lot-69-tache-01-qt-6-11.html", [
-      [ "Contexte", "lot-69-tache-01-qt-6-11.html#autotoc_md3141", null ],
-      [ "Travail à réaliser", "lot-69-tache-01-qt-6-11.html#autotoc_md3142", null ],
-      [ "Fichiers impactés", "lot-69-tache-01-qt-6-11.html#autotoc_md3143", null ],
-      [ "Tests (obligatoires)", "lot-69-tache-01-qt-6-11.html#autotoc_md3144", null ],
-      [ "Points d'attention", "lot-69-tache-01-qt-6-11.html#autotoc_md3145", null ],
-      [ "Definition de fait (DoD)", "lot-69-tache-01-qt-6-11.html#autotoc_md3146", null ],
-      [ "Exigences", "lot-69-tache-01-qt-6-11.html#autotoc_md3147", null ]
+      [ "Contexte", "lot-69-tache-01-qt-6-11.html#autotoc_md3255", null ],
+      [ "Travail à réaliser", "lot-69-tache-01-qt-6-11.html#autotoc_md3256", null ],
+      [ "Fichiers impactés", "lot-69-tache-01-qt-6-11.html#autotoc_md3257", null ],
+      [ "Tests (obligatoires)", "lot-69-tache-01-qt-6-11.html#autotoc_md3258", null ],
+      [ "Points d'attention", "lot-69-tache-01-qt-6-11.html#autotoc_md3259", null ],
+      [ "Definition de fait (DoD)", "lot-69-tache-01-qt-6-11.html#autotoc_md3260", null ],
+      [ "Exigences", "lot-69-tache-01-qt-6-11.html#autotoc_md3261", null ]
     ] ],
     [ "TACHE-02 — Rendu sur QRhi et fin de la fenêtre native", "lot-69-tache-02-rendu-qrhi.html", [
-      [ "Contexte", "lot-69-tache-02-rendu-qrhi.html#autotoc_md3148", null ],
-      [ "Travail à réaliser", "lot-69-tache-02-rendu-qrhi.html#autotoc_md3149", null ],
-      [ "Fichiers impactés", "lot-69-tache-02-rendu-qrhi.html#autotoc_md3150", null ],
-      [ "Tests (obligatoires)", "lot-69-tache-02-rendu-qrhi.html#autotoc_md3151", null ],
-      [ "Points d'attention", "lot-69-tache-02-rendu-qrhi.html#autotoc_md3152", null ],
-      [ "Definition de fait (DoD)", "lot-69-tache-02-rendu-qrhi.html#autotoc_md3153", null ],
-      [ "Exigences", "lot-69-tache-02-rendu-qrhi.html#autotoc_md3154", null ]
+      [ "Contexte", "lot-69-tache-02-rendu-qrhi.html#autotoc_md3262", null ],
+      [ "Travail à réaliser", "lot-69-tache-02-rendu-qrhi.html#autotoc_md3263", null ],
+      [ "Fichiers impactés", "lot-69-tache-02-rendu-qrhi.html#autotoc_md3264", null ],
+      [ "Tests (obligatoires)", "lot-69-tache-02-rendu-qrhi.html#autotoc_md3265", null ],
+      [ "Points d'attention", "lot-69-tache-02-rendu-qrhi.html#autotoc_md3266", null ],
+      [ "Definition de fait (DoD)", "lot-69-tache-02-rendu-qrhi.html#autotoc_md3267", null ],
+      [ "Exigences", "lot-69-tache-02-rendu-qrhi.html#autotoc_md3268", null ]
     ] ],
     [ "TACHE-03 — Modèle de plan, format de niveau et brouillon annulable", "lot-69-tache-03-modele-plan.html", [
-      [ "Contexte", "lot-69-tache-03-modele-plan.html#autotoc_md3155", null ],
-      [ "Travail à réaliser", "lot-69-tache-03-modele-plan.html#autotoc_md3156", null ],
-      [ "Fichiers impactés", "lot-69-tache-03-modele-plan.html#autotoc_md3157", null ],
-      [ "Tests (obligatoires)", "lot-69-tache-03-modele-plan.html#autotoc_md3158", null ],
-      [ "Écart assumé par rapport au cadrage initial", "lot-69-tache-03-modele-plan.html#autotoc_md3159", null ],
-      [ "Points d'attention", "lot-69-tache-03-modele-plan.html#autotoc_md3160", null ],
-      [ "Definition de fait (DoD)", "lot-69-tache-03-modele-plan.html#autotoc_md3161", null ],
-      [ "Exigences", "lot-69-tache-03-modele-plan.html#autotoc_md3162", null ]
+      [ "Contexte", "lot-69-tache-03-modele-plan.html#autotoc_md3269", null ],
+      [ "Travail à réaliser", "lot-69-tache-03-modele-plan.html#autotoc_md3270", null ],
+      [ "Fichiers impactés", "lot-69-tache-03-modele-plan.html#autotoc_md3271", null ],
+      [ "Tests (obligatoires)", "lot-69-tache-03-modele-plan.html#autotoc_md3272", null ],
+      [ "Écart assumé par rapport au cadrage initial", "lot-69-tache-03-modele-plan.html#autotoc_md3273", null ],
+      [ "Points d'attention", "lot-69-tache-03-modele-plan.html#autotoc_md3274", null ],
+      [ "Definition de fait (DoD)", "lot-69-tache-03-modele-plan.html#autotoc_md3275", null ],
+      [ "Exigences", "lot-69-tache-03-modele-plan.html#autotoc_md3276", null ]
     ] ],
     [ "TACHE-04 — Retrait du système de décors", "lot-69-tache-04-retrait-decors.html", [
-      [ "Contexte", "lot-69-tache-04-retrait-decors.html#autotoc_md3163", null ],
-      [ "Travail à réaliser", "lot-69-tache-04-retrait-decors.html#autotoc_md3164", null ],
-      [ "Fichiers impactés", "lot-69-tache-04-retrait-decors.html#autotoc_md3165", null ],
-      [ "Tests (obligatoires)", "lot-69-tache-04-retrait-decors.html#autotoc_md3166", null ],
-      [ "Points d'attention", "lot-69-tache-04-retrait-decors.html#autotoc_md3167", null ],
-      [ "Definition de fait (DoD)", "lot-69-tache-04-retrait-decors.html#autotoc_md3168", null ],
-      [ "Exigences", "lot-69-tache-04-retrait-decors.html#autotoc_md3169", null ]
+      [ "Contexte", "lot-69-tache-04-retrait-decors.html#autotoc_md3277", null ],
+      [ "Travail à réaliser", "lot-69-tache-04-retrait-decors.html#autotoc_md3278", null ],
+      [ "Fichiers impactés", "lot-69-tache-04-retrait-decors.html#autotoc_md3279", null ],
+      [ "Tests (obligatoires)", "lot-69-tache-04-retrait-decors.html#autotoc_md3280", null ],
+      [ "Points d'attention", "lot-69-tache-04-retrait-decors.html#autotoc_md3281", null ],
+      [ "Definition de fait (DoD)", "lot-69-tache-04-retrait-decors.html#autotoc_md3282", null ],
+      [ "Exigences", "lot-69-tache-04-retrait-decors.html#autotoc_md3283", null ]
     ] ],
     [ "TACHE-05 — Composition et rendu des plans", "lot-69-tache-05-composition-plans.html", [
-      [ "Contexte", "lot-69-tache-05-composition-plans.html#autotoc_md3170", null ],
-      [ "Travail à réaliser", "lot-69-tache-05-composition-plans.html#autotoc_md3171", null ],
-      [ "Fichiers impactés", "lot-69-tache-05-composition-plans.html#autotoc_md3172", null ],
-      [ "Tests (obligatoires)", "lot-69-tache-05-composition-plans.html#autotoc_md3173", null ],
-      [ "Points d'attention", "lot-69-tache-05-composition-plans.html#autotoc_md3174", null ],
-      [ "Definition de fait (DoD)", "lot-69-tache-05-composition-plans.html#autotoc_md3175", null ],
-      [ "Exigences", "lot-69-tache-05-composition-plans.html#autotoc_md3176", null ]
+      [ "Contexte", "lot-69-tache-05-composition-plans.html#autotoc_md3284", null ],
+      [ "Travail à réaliser", "lot-69-tache-05-composition-plans.html#autotoc_md3285", null ],
+      [ "Fichiers impactés", "lot-69-tache-05-composition-plans.html#autotoc_md3286", null ],
+      [ "Tests (obligatoires)", "lot-69-tache-05-composition-plans.html#autotoc_md3287", null ],
+      [ "Points d'attention", "lot-69-tache-05-composition-plans.html#autotoc_md3288", null ],
+      [ "Definition de fait (DoD)", "lot-69-tache-05-composition-plans.html#autotoc_md3289", null ],
+      [ "Exigences", "lot-69-tache-05-composition-plans.html#autotoc_md3290", null ]
     ] ],
     [ "TACHE-06 — Parallaxe portée par le plan", "lot-69-tache-06-parallaxe-plans.html", [
-      [ "Contexte", "lot-69-tache-06-parallaxe-plans.html#autotoc_md3177", null ],
-      [ "Travail à réaliser", "lot-69-tache-06-parallaxe-plans.html#autotoc_md3178", null ],
-      [ "Fichiers impactés", "lot-69-tache-06-parallaxe-plans.html#autotoc_md3179", null ],
-      [ "Tests (obligatoires)", "lot-69-tache-06-parallaxe-plans.html#autotoc_md3180", null ],
-      [ "Points d'attention", "lot-69-tache-06-parallaxe-plans.html#autotoc_md3181", null ],
-      [ "Definition de fait (DoD)", "lot-69-tache-06-parallaxe-plans.html#autotoc_md3182", null ],
-      [ "Exigences", "lot-69-tache-06-parallaxe-plans.html#autotoc_md3183", null ]
+      [ "Contexte", "lot-69-tache-06-parallaxe-plans.html#autotoc_md3291", null ],
+      [ "Travail à réaliser", "lot-69-tache-06-parallaxe-plans.html#autotoc_md3292", null ],
+      [ "Fichiers impactés", "lot-69-tache-06-parallaxe-plans.html#autotoc_md3293", null ],
+      [ "Tests (obligatoires)", "lot-69-tache-06-parallaxe-plans.html#autotoc_md3294", null ],
+      [ "Points d'attention", "lot-69-tache-06-parallaxe-plans.html#autotoc_md3295", null ],
+      [ "Definition de fait (DoD)", "lot-69-tache-06-parallaxe-plans.html#autotoc_md3296", null ],
+      [ "Exigences", "lot-69-tache-06-parallaxe-plans.html#autotoc_md3297", null ]
     ] ],
     [ "TACHE-07 — Référence peignable et extensions du canevas", "lot-69-tache-07-reference-canevas.html", [
-      [ "Contexte", "lot-69-tache-07-reference-canevas.html#autotoc_md3184", null ],
-      [ "Travail à réaliser", "lot-69-tache-07-reference-canevas.html#autotoc_md3185", null ],
-      [ "Fichiers impactés", "lot-69-tache-07-reference-canevas.html#autotoc_md3186", null ],
-      [ "Tests (obligatoires)", "lot-69-tache-07-reference-canevas.html#autotoc_md3187", null ],
-      [ "Points d'attention", "lot-69-tache-07-reference-canevas.html#autotoc_md3188", null ],
-      [ "Definition de fait (DoD)", "lot-69-tache-07-reference-canevas.html#autotoc_md3189", null ],
-      [ "Exigences", "lot-69-tache-07-reference-canevas.html#autotoc_md3190", null ]
+      [ "Contexte", "lot-69-tache-07-reference-canevas.html#autotoc_md3298", null ],
+      [ "Travail à réaliser", "lot-69-tache-07-reference-canevas.html#autotoc_md3299", null ],
+      [ "Fichiers impactés", "lot-69-tache-07-reference-canevas.html#autotoc_md3300", null ],
+      [ "Tests (obligatoires)", "lot-69-tache-07-reference-canevas.html#autotoc_md3301", null ],
+      [ "Points d'attention", "lot-69-tache-07-reference-canevas.html#autotoc_md3302", null ],
+      [ "Definition de fait (DoD)", "lot-69-tache-07-reference-canevas.html#autotoc_md3303", null ],
+      [ "Exigences", "lot-69-tache-07-reference-canevas.html#autotoc_md3304", null ]
     ] ],
     [ "TACHE-08 — Espace « Plans », panneau et cycle de vie des fichiers", "lot-69-tache-08-espace-plans.html", [
-      [ "Contexte", "lot-69-tache-08-espace-plans.html#autotoc_md3191", null ],
-      [ "Travail à réaliser", "lot-69-tache-08-espace-plans.html#autotoc_md3192", null ],
-      [ "Fichiers impactés", "lot-69-tache-08-espace-plans.html#autotoc_md3193", null ],
-      [ "Tests (obligatoires)", "lot-69-tache-08-espace-plans.html#autotoc_md3194", null ],
-      [ "Points d'attention", "lot-69-tache-08-espace-plans.html#autotoc_md3195", null ],
-      [ "Definition de fait (DoD)", "lot-69-tache-08-espace-plans.html#autotoc_md3196", null ],
-      [ "Exigences", "lot-69-tache-08-espace-plans.html#autotoc_md3197", null ]
+      [ "Contexte", "lot-69-tache-08-espace-plans.html#autotoc_md3305", null ],
+      [ "Travail à réaliser", "lot-69-tache-08-espace-plans.html#autotoc_md3306", null ],
+      [ "Fichiers impactés", "lot-69-tache-08-espace-plans.html#autotoc_md3307", null ],
+      [ "Tests (obligatoires)", "lot-69-tache-08-espace-plans.html#autotoc_md3308", null ],
+      [ "Points d'attention", "lot-69-tache-08-espace-plans.html#autotoc_md3309", null ],
+      [ "Definition de fait (DoD)", "lot-69-tache-08-espace-plans.html#autotoc_md3310", null ],
+      [ "Exigences", "lot-69-tache-08-espace-plans.html#autotoc_md3311", null ]
     ] ],
     [ "TACHE-09 — Budget de mémoire de texture", "lot-69-tache-09-budget-memoire.html", [
-      [ "Contexte", "lot-69-tache-09-budget-memoire.html#autotoc_md3198", null ],
-      [ "Travail à réaliser", "lot-69-tache-09-budget-memoire.html#autotoc_md3199", null ],
-      [ "Fichiers impactés", "lot-69-tache-09-budget-memoire.html#autotoc_md3200", null ],
-      [ "Tests (obligatoires)", "lot-69-tache-09-budget-memoire.html#autotoc_md3201", null ],
-      [ "Points d'attention", "lot-69-tache-09-budget-memoire.html#autotoc_md3202", null ],
-      [ "Definition de fait (DoD)", "lot-69-tache-09-budget-memoire.html#autotoc_md3203", null ],
-      [ "Exigences", "lot-69-tache-09-budget-memoire.html#autotoc_md3204", null ]
+      [ "Contexte", "lot-69-tache-09-budget-memoire.html#autotoc_md3312", null ],
+      [ "Travail à réaliser", "lot-69-tache-09-budget-memoire.html#autotoc_md3313", null ],
+      [ "Fichiers impactés", "lot-69-tache-09-budget-memoire.html#autotoc_md3314", null ],
+      [ "Tests (obligatoires)", "lot-69-tache-09-budget-memoire.html#autotoc_md3315", null ],
+      [ "Points d'attention", "lot-69-tache-09-budget-memoire.html#autotoc_md3316", null ],
+      [ "Definition de fait (DoD)", "lot-69-tache-09-budget-memoire.html#autotoc_md3317", null ],
+      [ "Exigences", "lot-69-tache-09-budget-memoire.html#autotoc_md3318", null ]
     ] ],
     [ "TACHE-10 — Contenu, documentation et référentiel", "lot-69-tache-10-contenu-documentation.html", [
-      [ "Contexte", "lot-69-tache-10-contenu-documentation.html#autotoc_md3205", null ],
-      [ "Travail à réaliser", "lot-69-tache-10-contenu-documentation.html#autotoc_md3206", null ],
-      [ "Fichiers impactés", "lot-69-tache-10-contenu-documentation.html#autotoc_md3207", null ],
-      [ "Tests (obligatoires)", "lot-69-tache-10-contenu-documentation.html#autotoc_md3208", null ],
-      [ "Points d'attention", "lot-69-tache-10-contenu-documentation.html#autotoc_md3209", null ],
-      [ "Definition de fait (DoD)", "lot-69-tache-10-contenu-documentation.html#autotoc_md3210", null ],
-      [ "Exigences", "lot-69-tache-10-contenu-documentation.html#autotoc_md3211", null ]
+      [ "Contexte", "lot-69-tache-10-contenu-documentation.html#autotoc_md3319", null ],
+      [ "Travail à réaliser", "lot-69-tache-10-contenu-documentation.html#autotoc_md3320", null ],
+      [ "Fichiers impactés", "lot-69-tache-10-contenu-documentation.html#autotoc_md3321", null ],
+      [ "Tests (obligatoires)", "lot-69-tache-10-contenu-documentation.html#autotoc_md3322", null ],
+      [ "Points d'attention", "lot-69-tache-10-contenu-documentation.html#autotoc_md3323", null ],
+      [ "Definition de fait (DoD)", "lot-69-tache-10-contenu-documentation.html#autotoc_md3324", null ],
+      [ "Exigences", "lot-69-tache-10-contenu-documentation.html#autotoc_md3325", null ]
     ] ]
 ];

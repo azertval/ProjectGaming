@@ -1,51 +1,51 @@
 var lot_57 =
 [
-    [ "Objectif", "lot-57.html#autotoc_md2562", null ],
-    [ "Périmètre", "lot-57.html#autotoc_md2563", [
-      [ "Inclus", "lot-57.html#autotoc_md2564", null ],
-      [ "Exclus (hors périmètre de ce lot)", "lot-57.html#autotoc_md2565", null ]
+    [ "Objectif", "lot-57.html#autotoc_md2676", null ],
+    [ "Périmètre", "lot-57.html#autotoc_md2677", [
+      [ "Inclus", "lot-57.html#autotoc_md2678", null ],
+      [ "Exclus (hors périmètre de ce lot)", "lot-57.html#autotoc_md2679", null ]
     ] ],
-    [ "Décisions de cadrage", "lot-57.html#autotoc_md2566", null ],
-    [ "Exigences couvertes", "lot-57.html#autotoc_md2567", null ],
-    [ "Amendement post-essai manuel (2026-08-09)", "lot-57.html#autotoc_md2568", null ],
-    [ "Découpage", "lot-57.html#autotoc_md2569", null ],
-    [ "Critères d'acceptation du lot", "lot-57.html#autotoc_md2570", null ],
-    [ "Dépendances", "lot-57.html#autotoc_md2571", null ],
-    [ "Navigation des tâches", "lot-57.html#autotoc_md2572", null ],
+    [ "Décisions de cadrage", "lot-57.html#autotoc_md2680", null ],
+    [ "Exigences couvertes", "lot-57.html#autotoc_md2681", null ],
+    [ "Amendement post-essai manuel (2026-08-09)", "lot-57.html#autotoc_md2682", null ],
+    [ "Découpage", "lot-57.html#autotoc_md2683", null ],
+    [ "Critères d'acceptation du lot", "lot-57.html#autotoc_md2684", null ],
+    [ "Dépendances", "lot-57.html#autotoc_md2685", null ],
+    [ "Navigation des tâches", "lot-57.html#autotoc_md2686", null ],
     [ "TACHE-01 — Barre d'état : état permanent et aide contextuelle", "lot-57-tache-01-barre-etat.html", [
-      [ "Contexte", "lot-57-tache-01-barre-etat.html#autotoc_md2573", null ],
-      [ "Travail à réaliser", "lot-57-tache-01-barre-etat.html#autotoc_md2574", null ],
-      [ "Fichiers impactés", "lot-57-tache-01-barre-etat.html#autotoc_md2575", null ],
-      [ "Tests (obligatoires)", "lot-57-tache-01-barre-etat.html#autotoc_md2576", null ],
-      [ "Points d'attention", "lot-57-tache-01-barre-etat.html#autotoc_md2577", null ],
-      [ "Définition de fait (DoD)", "lot-57-tache-01-barre-etat.html#autotoc_md2578", null ],
-      [ "Exigences", "lot-57-tache-01-barre-etat.html#autotoc_md2579", null ]
+      [ "Contexte", "lot-57-tache-01-barre-etat.html#autotoc_md2687", null ],
+      [ "Travail à réaliser", "lot-57-tache-01-barre-etat.html#autotoc_md2688", null ],
+      [ "Fichiers impactés", "lot-57-tache-01-barre-etat.html#autotoc_md2689", null ],
+      [ "Tests (obligatoires)", "lot-57-tache-01-barre-etat.html#autotoc_md2690", null ],
+      [ "Points d'attention", "lot-57-tache-01-barre-etat.html#autotoc_md2691", null ],
+      [ "Définition de fait (DoD)", "lot-57-tache-01-barre-etat.html#autotoc_md2692", null ],
+      [ "Exigences", "lot-57-tache-01-barre-etat.html#autotoc_md2693", null ]
     ] ],
     [ "TACHE-02 — Regroupement des panneaux, suivant l'outil actif", "lot-57-tache-02-panneaux-groupes.html", [
-      [ "Contexte", "lot-57-tache-02-panneaux-groupes.html#autotoc_md2580", null ],
-      [ "Travail à réaliser", "lot-57-tache-02-panneaux-groupes.html#autotoc_md2581", null ],
-      [ "Fichiers impactés", "lot-57-tache-02-panneaux-groupes.html#autotoc_md2582", null ],
-      [ "Tests (obligatoires)", "lot-57-tache-02-panneaux-groupes.html#autotoc_md2583", null ],
-      [ "Points d'attention", "lot-57-tache-02-panneaux-groupes.html#autotoc_md2584", null ],
-      [ "Définition de fait (DoD)", "lot-57-tache-02-panneaux-groupes.html#autotoc_md2585", null ],
-      [ "Exigences", "lot-57-tache-02-panneaux-groupes.html#autotoc_md2586", null ]
+      [ "Contexte", "lot-57-tache-02-panneaux-groupes.html#autotoc_md2694", null ],
+      [ "Travail à réaliser", "lot-57-tache-02-panneaux-groupes.html#autotoc_md2695", null ],
+      [ "Fichiers impactés", "lot-57-tache-02-panneaux-groupes.html#autotoc_md2696", null ],
+      [ "Tests (obligatoires)", "lot-57-tache-02-panneaux-groupes.html#autotoc_md2697", null ],
+      [ "Points d'attention", "lot-57-tache-02-panneaux-groupes.html#autotoc_md2698", null ],
+      [ "Définition de fait (DoD)", "lot-57-tache-02-panneaux-groupes.html#autotoc_md2699", null ],
+      [ "Exigences", "lot-57-tache-02-panneaux-groupes.html#autotoc_md2700", null ]
     ] ],
     [ "TACHE-03 — Recentrage du panneau Textures", "lot-57-tache-03-panneau-textures.html", [
-      [ "Contexte", "lot-57-tache-03-panneau-textures.html#autotoc_md2587", null ],
-      [ "Travail à réaliser", "lot-57-tache-03-panneau-textures.html#autotoc_md2588", null ],
-      [ "Fichiers impactés", "lot-57-tache-03-panneau-textures.html#autotoc_md2589", null ],
-      [ "Tests (obligatoires)", "lot-57-tache-03-panneau-textures.html#autotoc_md2590", null ],
-      [ "Points d'attention", "lot-57-tache-03-panneau-textures.html#autotoc_md2591", null ],
-      [ "Définition de fait (DoD)", "lot-57-tache-03-panneau-textures.html#autotoc_md2592", null ],
-      [ "Exigences", "lot-57-tache-03-panneau-textures.html#autotoc_md2593", null ]
+      [ "Contexte", "lot-57-tache-03-panneau-textures.html#autotoc_md2701", null ],
+      [ "Travail à réaliser", "lot-57-tache-03-panneau-textures.html#autotoc_md2702", null ],
+      [ "Fichiers impactés", "lot-57-tache-03-panneau-textures.html#autotoc_md2703", null ],
+      [ "Tests (obligatoires)", "lot-57-tache-03-panneau-textures.html#autotoc_md2704", null ],
+      [ "Points d'attention", "lot-57-tache-03-panneau-textures.html#autotoc_md2705", null ],
+      [ "Définition de fait (DoD)", "lot-57-tache-03-panneau-textures.html#autotoc_md2706", null ],
+      [ "Exigences", "lot-57-tache-03-panneau-textures.html#autotoc_md2707", null ]
     ] ],
     [ "TACHE-04 — Déduplication des commandes et raccourcis d'éditeur", "lot-57-tache-04-deduplication-raccourcis.html", [
-      [ "Contexte", "lot-57-tache-04-deduplication-raccourcis.html#autotoc_md2594", null ],
-      [ "Travail à réaliser", "lot-57-tache-04-deduplication-raccourcis.html#autotoc_md2595", null ],
-      [ "Fichiers impactés", "lot-57-tache-04-deduplication-raccourcis.html#autotoc_md2596", null ],
-      [ "Tests (obligatoires)", "lot-57-tache-04-deduplication-raccourcis.html#autotoc_md2597", null ],
-      [ "Points d'attention", "lot-57-tache-04-deduplication-raccourcis.html#autotoc_md2598", null ],
-      [ "Définition de fait (DoD)", "lot-57-tache-04-deduplication-raccourcis.html#autotoc_md2599", null ],
-      [ "Exigences", "lot-57-tache-04-deduplication-raccourcis.html#autotoc_md2600", null ]
+      [ "Contexte", "lot-57-tache-04-deduplication-raccourcis.html#autotoc_md2708", null ],
+      [ "Travail à réaliser", "lot-57-tache-04-deduplication-raccourcis.html#autotoc_md2709", null ],
+      [ "Fichiers impactés", "lot-57-tache-04-deduplication-raccourcis.html#autotoc_md2710", null ],
+      [ "Tests (obligatoires)", "lot-57-tache-04-deduplication-raccourcis.html#autotoc_md2711", null ],
+      [ "Points d'attention", "lot-57-tache-04-deduplication-raccourcis.html#autotoc_md2712", null ],
+      [ "Définition de fait (DoD)", "lot-57-tache-04-deduplication-raccourcis.html#autotoc_md2713", null ],
+      [ "Exigences", "lot-57-tache-04-deduplication-raccourcis.html#autotoc_md2714", null ]
     ] ]
 ];

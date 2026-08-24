@@ -194,6 +194,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aab134b8878fb7e9bac927dd1068ba875"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affiche ou masque le compteur de diagnostic.  <br /></td></tr>
 <tr class="memitem:a9f91ee29d551621f64b5cc826d41db57" id="r_a9f91ee29d551621f64b5cc826d41db57"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9f91ee29d551621f64b5cc826d41db57">startGame</a> (std::vector&lt; std::filesystem::path &gt; levels, std::size_t startIndex=0)</td></tr>
 <tr class="memdesc:a9f91ee29d551621f64b5cc826d41db57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lance le <b>jeu</b> : joue la séquence de niveaux <code class="param">levels</code>, à partir de <code class="param">startIndex</code> (0 = depuis le début ; « Continuer »/sélection de niveau, <span class="tt">LOT-59</span> TACHE-06, reprennent plus loin).  <br /></td></tr>
+<tr class="memitem:ad669e32fa12ba1988ac9fb44eb893741" id="r_ad669e32fa12ba1988ac9fb44eb893741"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ad669e32fa12ba1988ac9fb44eb893741">startReplay</a> (const std::filesystem::path &amp;replayPath)</td></tr>
+<tr class="memdesc:ad669e32fa12ba1988ac9fb44eb893741"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lance la lecture d'un fichier de rejeu (<span class="tt">LOT-ANNEXE-18</span>, TACHE-02, <span class="tt">EX-IA-019</span>).  <br /></td></tr>
+<tr class="memitem:a08ce84c68d6c6f6b159da885d0c67d4b" id="r_a08ce84c68d6c6f6b159da885d0c67d4b"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a08ce84c68d6c6f6b159da885d0c67d4b">lastReplayError</a> () const noexcept</td></tr>
 <tr class="memitem:afe2eacdf273a7c4a371040605e8ab9ea" id="r_afe2eacdf273a7c4a371040605e8ab9ea"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afe2eacdf273a7c4a371040605e8ab9ea">pauseSimulation</a> () noexcept</td></tr>
 <tr class="memdesc:afe2eacdf273a7c4a371040605e8ab9ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Suspend la simulation (écran de pause, <span class="tt">LOT-59</span> TACHE-02) : <span class="tt"><a class="el" href="#a0c668d277f3854cf4a91b8ffe2053597" title="Avance la simulation d&#39;une image (entrées, pas fixes, sons) — sans rien dessiner.">tick()</a></span> cesse d'alimenter l'accumulateur de pas fixe &ndash; aucun pas n'est consommé pendant la pause (<span class="tt">EX-GP-041</span>).  <br /></td></tr>
 <tr class="memitem:a961e7d6ffebba90148177c1569ae1c02" id="r_a961e7d6ffebba90148177c1569ae1c02"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a961e7d6ffebba90148177c1569ae1c02">resumeSimulation</a> ()</td></tr>
@@ -331,6 +334,9 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:ae0c7a5dd8a430f39cbc0fbd1e200a574"><td class="mdescLeft">&#160;</td><td class="mdescRight">Termine l'essai et restitue l'éditeur (brouillon intact).  <br /></td></tr>
 <tr class="memitem:ae1a38ed54a427056246e325402516f72" id="r_ae1a38ed54a427056246e325402516f72"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae1a38ed54a427056246e325402516f72">loadGameLevel</a> (std::size_t index)</td></tr>
 <tr class="memdesc:ae1a38ed54a427056246e325402516f72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge le niveau <code class="param">index</code> de la séquence de jeu.  <br /></td></tr>
+<tr class="memitem:a713dad7dd7b6087ab48b20d1d927005f" id="r_a713dad7dd7b6087ab48b20d1d927005f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a713dad7dd7b6087ab48b20d1d927005f">loadReplayLevel</a> (const std::filesystem::path &amp;levelPath)</td></tr>
+<tr class="memdesc:a713dad7dd7b6087ab48b20d1d927005f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge <code class="param">levelPath</code> comme session de rejeu (<span class="tt"><a class="el" href="#ad669e32fa12ba1988ac9fb44eb893741" title="Lance la lecture d&#39;un fichier de rejeu (LOT-ANNEXE-18, TACHE-02, EX-IA-019).">startReplay</a></span>, <span class="tt">LOT-ANNEXE-18</span>) ; même repli que <span class="tt"><a class="el" href="#ae1a38ed54a427056246e325402516f72" title="Charge le niveau index de la séquence de jeu.">loadGameLevel</a></span> si les ressources de rendu n'existent pas encore (<span class="tt"><a class="el" href="#a132dc1f84bb787da5f50d8cef3627d38">_spriteBatch</a> ==
+nullptr</span>, toute première image) &ndash; <span class="tt"><a class="el" href="#a4a31de0d35b6fce76afb749e27539d35" title="Crée (ou recrée) les ressources graphiques quand QRhiWidget fournit son interface de rendu,...">initialize()</a></span> la remonte dès qu'il le peut.  <br /></td></tr>
 <tr class="memitem:ab2638f80f14726b02741409d6ff1f960" id="r_ab2638f80f14726b02741409d6ff1f960"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab2638f80f14726b02741409d6ff1f960">updateMousePosition</a> (const QMouseEvent *<a class="el" href="#a5d3760d8afacd89cccc12dff1f843a9b">event</a>)</td></tr>
 <tr class="memitem:a751bc28ce93fe7547fafd85eeae90feb" id="r_a751bc28ce93fe7547fafd85eeae90feb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a751bc28ce93fe7547fafd85eeae90feb">updateEditCamera</a> ()</td></tr>
 <tr class="memdesc:a751bc28ce93fe7547fafd85eeae90feb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recale la caméra d'édition : cadrage automatique sur le niveau entier, sauf pan/zoom manuel actif (molette/glisser bouton droit), auquel cas la caméra manuelle est réappliquée.  <br /></td></tr>
@@ -489,6 +495,12 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:ae0609d50a53bd511ee96019f0b585d78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indice du niveau courant dans la séquence.  <br /></td></tr>
 <tr class="memitem:aff4b0205eeb55f40afa51e0b0788ba08" id="r_aff4b0205eeb55f40afa51e0b0788ba08"><td class="memItemLeft">std::optional&lt; <a class="el" href="classhmi_1_1GameSession.html">hmi::GameSession</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aff4b0205eeb55f40afa51e0b0788ba08">_session</a></td></tr>
 <tr class="memdesc:aff4b0205eeb55f40afa51e0b0788ba08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Session de jeu de l'essai immédiat ; nulle en mode édition (essai ajouté au LOT-35 TACHE-04).  <br /></td></tr>
+<tr class="memitem:a619085797efaeac69074146d9f1e54b9" id="r_a619085797efaeac69074146d9f1e54b9"><td class="memItemLeft">std::optional&lt; <a class="el" href="classhmi_1_1ReplayPlayback.html">hmi::ReplayPlayback</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a619085797efaeac69074146d9f1e54b9">_replayPlayback</a></td></tr>
+<tr class="memdesc:a619085797efaeac69074146d9f1e54b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lecture de rejeu active (<span class="tt">LOT-ANNEXE-18</span>), nulle hors mode rejeu &ndash; <span class="tt"><a class="el" href="#a0c668d277f3854cf4a91b8ffe2053597" title="Avance la simulation d&#39;une image (entrées, pas fixes, sons) — sans rien dessiner.">tick()</a></span> en consomme <span class="tt">nextInput()</span> à la place de <span class="tt"><a class="el" href="#ab07f0b981e5691b293d269d3f638466c">_input</a></span> tant qu'elle est engagée.  <br /></td></tr>
+<tr class="memitem:a37838cb5ba0a24e6a7cef12d816c32cb" id="r_a37838cb5ba0a24e6a7cef12d816c32cb"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a37838cb5ba0a24e6a7cef12d816c32cb">_replayPath</a></td></tr>
+<tr class="memdesc:a37838cb5ba0a24e6a7cef12d816c32cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chemin du fichier de rejeu en cours, retenu pour que <span class="tt"><a class="el" href="#a4a31de0d35b6fce76afb749e27539d35" title="Crée (ou recrée) les ressources graphiques quand QRhiWidget fournit son interface de rendu,...">initialize()</a></span> puisse relancer <span class="tt"><a class="el" href="#ad669e32fa12ba1988ac9fb44eb893741" title="Lance la lecture d&#39;un fichier de rejeu (LOT-ANNEXE-18, TACHE-02, EX-IA-019).">startReplay()</a></span> (repart du début du rejeu, même convention que <span class="tt">loadGameLevel(_gameLevel)</span>) si les ressources de rendu n'étaient pas encore prêtes à l'appel initial, ou si l'interface de rendu change en cours de lecture (rare, même repli que le reste de la session de jeu).  <br /></td></tr>
+<tr class="memitem:ae0e19843a6d33cb2b1e29e96ad48732b" id="r_ae0e19843a6d33cb2b1e29e96ad48732b"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ae0e19843a6d33cb2b1e29e96ad48732b">_lastReplayError</a></td></tr>
+<tr class="memdesc:ae0e19843a6d33cb2b1e29e96ad48732b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Message du dernier <span class="tt"><a class="el" href="#ad669e32fa12ba1988ac9fb44eb893741" title="Lance la lecture d&#39;un fichier de rejeu (LOT-ANNEXE-18, TACHE-02, EX-IA-019).">startReplay</a></span> refusé (<span class="tt"><a class="el" href="#a08ce84c68d6c6f6b159da885d0c67d4b">lastReplayError()</a></span>), vide sinon.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Widget de rendu (<span class="tt">QRhiWidget</span>) où la scène est dessinée, composé avec le reste de l'interface. </p>
@@ -1696,6 +1708,32 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
+<a id="a08ce84c68d6c6f6b159da885d0c67d4b" name="a08ce84c68d6c6f6b159da885d0c67d4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08ce84c68d6c6f6b159da885d0c67d4b">&#9670;&#160;</a></span>lastReplayError()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; hmi::GameViewport::lastReplayError </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le message d'erreur du dernier <span class="tt"><a class="el" href="#ad669e32fa12ba1988ac9fb44eb893741" title="Lance la lecture d&#39;un fichier de rejeu (LOT-ANNEXE-18, TACHE-02, EX-IA-019).">startReplay</a></span> refusé, chaîne vide sinon. </dd></dl>
+
+</div>
+</div>
 <a id="a401e5d33501960bfd5b314a730a1eedf" name="a401e5d33501960bfd5b314a730a1eedf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a401e5d33501960bfd5b314a730a1eedf">&#9670;&#160;</a></span>layerVisibility()</h2>
 
@@ -1857,6 +1895,34 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div><div class="memdoc">
 
 <p>Charge le niveau <code class="param">index</code> de la séquence de jeu. </p>
+
+</div>
+</div>
+<a id="a713dad7dd7b6087ab48b20d1d927005f" name="a713dad7dd7b6087ab48b20d1d927005f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a713dad7dd7b6087ab48b20d1d927005f">&#9670;&#160;</a></span>loadReplayLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::loadReplayLevel </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>levelPath</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Charge <code class="param">levelPath</code> comme session de rejeu (<span class="tt"><a class="el" href="#ad669e32fa12ba1988ac9fb44eb893741" title="Lance la lecture d&#39;un fichier de rejeu (LOT-ANNEXE-18, TACHE-02, EX-IA-019).">startReplay</a></span>, <span class="tt">LOT-ANNEXE-18</span>) ; même repli que <span class="tt"><a class="el" href="#ae1a38ed54a427056246e325402516f72" title="Charge le niveau index de la séquence de jeu.">loadGameLevel</a></span> si les ressources de rendu n'existent pas encore (<span class="tt"><a class="el" href="#a132dc1f84bb787da5f50d8cef3627d38">_spriteBatch</a> ==
+nullptr</span>, toute première image) &ndash; <span class="tt"><a class="el" href="#a4a31de0d35b6fce76afb749e27539d35" title="Crée (ou recrée) les ressources graphiques quand QRhiWidget fournit son interface de rendu,...">initialize()</a></span> la remonte dès qu'il le peut. </p>
 
 </div>
 </div>
@@ -3908,6 +3974,32 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
+<a id="ad669e32fa12ba1988ac9fb44eb893741" name="ad669e32fa12ba1988ac9fb44eb893741"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad669e32fa12ba1988ac9fb44eb893741">&#9670;&#160;</a></span>startReplay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::GameViewport::startReplay </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>replayPath</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Lance la lecture d'un fichier de rejeu (<span class="tt">LOT-ANNEXE-18</span>, TACHE-02, <span class="tt">EX-IA-019</span>). </p>
+<p>Valide le rejeu (<span class="tt"><a class="el" href="classhmi_1_1ReplayPlayback.html" title="Charge et valide un fichier de rejeu, puis fournit sa séquence de core::PlayerInput,...">hmi::ReplayPlayback</a></span>, lui-même appuyé sur <span class="tt"><a class="el" href="namespaceaisolver.html#aae9da93cacb6498823404bc00c7b9cc3" title="Valide un rejeu déjà désérialisé : le niveau qu&#39;il référence doit exister et son empreinte doit corre...">aisolver::validateReplay</a></span>, <span class="tt">LOT-ANNEXE-17</span>) avant tout affichage : un rejeu invalide (niveau modifié depuis l'export, ou introuvable) n'ouvre jamais l'écran de jeu, <span class="tt">false</span> est renvoyé sans aucun effet. Un rejeu porte toujours sur un <b>seul</b> niveau (pas d'enchaînement automatique) ; <span class="tt"><a class="el" href="#a0c668d277f3854cf4a91b8ffe2053597" title="Avance la simulation d&#39;une image (entrées, pas fixes, sons) — sans rien dessiner.">tick()</a></span> en consomme la séquence à la place de l'entrée clavier/manette jusqu'à épuisement ou <span class="tt">Won</span>/<span class="tt">Lost</span>, dans les deux cas suivi d'un retour au menu (<span class="tt"><a class="el" href="#a02acfb1387ff9e966f73e33f0e666894" title="Demande de retour au menu principal (fin de la séquence de niveaux – plus depuis LOT-59 TACHE-02 sur ...">exitToMenuRequested</a></span>). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">replayPath</td><td>Chemin du fichier de rejeu à jouer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si le rejeu est valide et sa lecture démarrée, <span class="tt">false</span> sinon (<span class="tt"><a class="el" href="#a08ce84c68d6c6f6b159da885d0c67d4b">lastReplayError()</a></span> porte alors le message). </dd></dl>
+
+</div>
+</div>
 <a id="af5803731561d226a0140c1cb35d162bb" name="af5803731561d226a0140c1cb35d162bb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af5803731561d226a0140c1cb35d162bb">&#9670;&#160;</a></span>statusMessage</h2>
 
@@ -5039,6 +5131,30 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
+<a id="ae0e19843a6d33cb2b1e29e96ad48732b" name="ae0e19843a6d33cb2b1e29e96ad48732b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0e19843a6d33cb2b1e29e96ad48732b">&#9670;&#160;</a></span>_lastReplayError</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::GameViewport::_lastReplayError</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Message du dernier <span class="tt"><a class="el" href="#ad669e32fa12ba1988ac9fb44eb893741" title="Lance la lecture d&#39;un fichier de rejeu (LOT-ANNEXE-18, TACHE-02, EX-IA-019).">startReplay</a></span> refusé (<span class="tt"><a class="el" href="#a08ce84c68d6c6f6b159da885d0c67d4b">lastReplayError()</a></span>), vide sinon. </p>
+
+</div>
+</div>
 <a id="a9f45d7a136c288d135d46834cbe9f2c9" name="a9f45d7a136c288d135d46834cbe9f2c9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9f45d7a136c288d135d46834cbe9f2c9">&#9670;&#160;</a></span>_lastSimulationSteps</h2>
 
@@ -5396,6 +5512,55 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 <p>Mode de rendu courant (bascule <span class="tt">F8</span>, <span class="tt">EX-REN-046</span>), restauré des préférences au démarrage et réécrit à chaque bascule. </p>
 <p>Porté par le viewport parce qu'il est le widget <b>unique</b> derrière l'édition, l'essai et le jeu réel (<span class="tt">EX-IHM-002</span>) : un seul état, jamais dupliqué. </p>
+
+</div>
+</div>
+<a id="a37838cb5ba0a24e6a7cef12d816c32cb" name="a37838cb5ba0a24e6a7cef12d816c32cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37838cb5ba0a24e6a7cef12d816c32cb">&#9670;&#160;</a></span>_replayPath</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::GameViewport::_replayPath</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Chemin du fichier de rejeu en cours, retenu pour que <span class="tt"><a class="el" href="#a4a31de0d35b6fce76afb749e27539d35" title="Crée (ou recrée) les ressources graphiques quand QRhiWidget fournit son interface de rendu,...">initialize()</a></span> puisse relancer <span class="tt"><a class="el" href="#ad669e32fa12ba1988ac9fb44eb893741" title="Lance la lecture d&#39;un fichier de rejeu (LOT-ANNEXE-18, TACHE-02, EX-IA-019).">startReplay()</a></span> (repart du début du rejeu, même convention que <span class="tt">loadGameLevel(_gameLevel)</span>) si les ressources de rendu n'étaient pas encore prêtes à l'appel initial, ou si l'interface de rendu change en cours de lecture (rare, même repli que le reste de la session de jeu). </p>
+
+</div>
+</div>
+<a id="a619085797efaeac69074146d9f1e54b9" name="a619085797efaeac69074146d9f1e54b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a619085797efaeac69074146d9f1e54b9">&#9670;&#160;</a></span>_replayPlayback</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="classhmi_1_1ReplayPlayback.html">hmi::ReplayPlayback</a>&gt; hmi::GameViewport::_replayPlayback</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lecture de rejeu active (<span class="tt">LOT-ANNEXE-18</span>), nulle hors mode rejeu &ndash; <span class="tt"><a class="el" href="#a0c668d277f3854cf4a91b8ffe2053597" title="Avance la simulation d&#39;une image (entrées, pas fixes, sons) — sans rien dessiner.">tick()</a></span> en consomme <span class="tt">nextInput()</span> à la place de <span class="tt"><a class="el" href="#ab07f0b981e5691b293d269d3f638466c">_input</a></span> tant qu'elle est engagée. </p>
+<p>Distincte de <span class="tt"><a class="el" href="#af93b0170b51e3476671c5e9b5f6178f2" title="La session courante est une partie (menu Jouer) et non un essai depuis l&#39;éditeur (enchaînement/retour...">_gameMode</a></span> : un rejeu ne suit ni la progression ni le bilan de tableau (<span class="tt"><a class="el" href="structhmi_1_1LevelRunStats.html" title="Compteurs d&#39;un tableau, remis à zéro à chaque entrée dans le tableau (y compris en rejouant).">LevelRunStats</a></span>), et se termine toujours par un retour au menu (jamais un enchaînement de séquence). </p>
 
 </div>
 </div>

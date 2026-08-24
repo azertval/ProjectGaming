@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-69-tache-08-espace-plans.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-69-plans-picturaux_2tache-08-espace-plans"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-69.html#md_Lot_2LOT-69-plans-picturaux_2epic" title="Lot/LOT-69-plans-picturaux/epic.md">LOT-69</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/{Editor,Interface}</span>, <span class="tt">Source/Elements/UI</span> · <b>Statut :</b> livré</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3191"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3305"></a>
 Contexte</h1>
 <p>Le <span class="tt">LOT-68</span> a introduit des <b>espaces de travail exclusifs</b> (<span class="tt"><a class="el" href="namespacehmi.html#afc2e687c85989440c76b94c012a1b91d" title="Espace de travail actif. Ils s&#39;excluent : aucun état intermédiaire n&#39;existe.">hmi::EditorWorkspace</a></span>) : édition de niveau, atelier pixel art. Le mode création est le troisième — c'est cette structure, et non un énième bouton, qui le rend propre.</p>
 <p>Le panneau des plans prend la place laissée par celui des décors. <span class="tt">TexturePanel</span> serait défendable, un plan relevant de l'apparence, mais le <span class="tt">LOT-57</span> l'a recentré et le <span class="tt">LOT-67</span> a explicitement refusé d'y remettre autre chose ; une liste réordonnable avec propriétés par élément est exactement la forme qui justifiait un dock au <span class="tt">LOT-67</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3192"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3306"></a>
 Travail à réaliser</h1>
 <ul>
 <li><span class="tt">EditorWorkspace</span> : ajouter <span class="tt">Plans</span>, porter le compte d'espaces de 2 à 3, adapter l'habillage. <b><span class="tt">workspaceForPanel</span> doit renvoyer un masque</b> et non une valeur unique : il est aujourd'hui déclaré <em>total</em> — « chaque panneau appartient à exactement un espace » — alors que le canevas, l'historique et la palette doivent apparaître dans <b>deux</b> espaces. Dupliquer les docks serait pire : deux canevas, deux historiques. La garde de complétude devient « masque non vide ».</li>
@@ -109,10 +109,10 @@ Travail à réaliser</h1>
 <li><b>Griser la case « parallaxe » en mode de cadrage <span class="tt">WholeLevel</span></b> et l'expliquer (voir <span class="tt">TACHE-06</span>).</li>
 <li>Barre d'état : nom du plan, résolution, densité, coordonnée pixel sous le curseur, couleur courante et <b>poids mémoire</b> (<span class="tt">EX-NFR-043</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3193"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3307"></a>
 Fichiers impactés</h1>
 <p><span class="tt">Source/HMI/Interface/EditorWorkspace.{h,cpp}</span>, <span class="tt">MainWindow.{h,cpp}</span>, <span class="tt">Source/HMI/Editor/{PlanesPanel,PanelFocus,EditorStatus}.{h,cpp}</span>, <span class="tt">Source/Elements/UI/{PlanesPanel.ui,MainWindow.ui}</span>, <span class="tt">Source/Elements/Localization/*</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3194"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3308"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__editor__workspace_8cpp.html" title="Tests unitaires des espaces de travail de l&#39;éditeur (LOT-68, EX-IHM-073).">test_editor_workspace.cpp</a></span> : complétude <b>par masque</b> ; les trois espaces ; jamais deux barres d'outils simultanées.</li>
@@ -120,15 +120,15 @@ Tests (obligatoires)</h1>
 <li><span class="tt"><a class="el" href="test__plane__file__naming_8cpp.html" title="Tests unitaires du nommage et des dimensions des fichiers de plan (EX-EDIT-047, EX-DEC-041,...">test_plane_file_naming.cpp</a></span> (nouveau) : unicité du nom, dimensions attendues pour une densité donnée, caractères acceptés (patron de <span class="tt">LevelNameValidation</span>).</li>
 </ul>
 <p>Le panneau lui-même relève de la <b>vérification IHM manuelle</b>, comme le panneau de propriétés du <span class="tt">LOT-67</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3195"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3309"></a>
 Points d'attention</h1>
 <p>La mise en page vit <b>intégralement dans le <span class="tt">.ui</span></b> (Qt Designer) ; le C++ ne branche que le fonctionnel. Contrainte de projet, pas préférence de style.</p>
 <p>Les champs numériques émettent sur <b><span class="tt">editingFinished</span></b>, jamais <span class="tt">valueChanged</span> : sinon taper « 0.75 » empile quatre pas d'annulation. Leçon déjà tirée au <span class="tt">LOT-67</span>.</p>
 <p><b>La suppression d'un plan n'est pas annulable côté fichier.</b> Le brouillon annule l'entrée JSON, pas la disparition du PNG. Choix retenu : <b>ne jamais supprimer le fichier</b>, seulement l'entrée. À écrire dans la documentation utilisateur — un fichier orphelin est moins grave qu'un travail perdu.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3196"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3310"></a>
 Definition de fait (DoD)</h1>
 <p>Trois espaces de travail cohérents, plans éditables et réordonnables, PNG créés aux bonnes dimensions, aucun mélange d'historique. <span class="tt">ctest</span> à 100 %.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3197"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3311"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-047</span>, <span class="tt">EX-EDIT-046</span>, <span class="tt">EX-DEC-041</span>, <span class="tt">EX-DEC-043</span>, <span class="tt">EX-NFR-043</span>, <span class="tt">EX-IHM-073</span>. </p>
 </div></div><!-- contents -->

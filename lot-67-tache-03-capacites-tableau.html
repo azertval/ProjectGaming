@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-67-tache-03-capacites-tableau.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-67-trajectoires-editables_2tache-03-capacites-tableau"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-67.html#md_Lot_2LOT-67-trajectoires-editables_2epic" title="Lot/LOT-67-trajectoires-editables/epic.md">LOT-67</a> · <b>Emplacement :</b> <span class="tt">Source/Core/{Physics,Ecs,Levels}</span>, <span class="tt">Source/HMI/Game</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3094"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3208"></a>
 Contexte</h1>
 <p>Un tableau pouvait deja <b>limiter</b> le nombre total de sauts et de dashs (<span class="tt">EX-GP-024</span>), mais pas <b>moduler</b> les capacites du personnage. <span class="tt">PhysicsConfig::airJumps</span> etait global et code en dur, et le dash n'avait qu'un booleen <span class="tt">Player::dashAvailable</span> recharge a l'atterrissage — donc exactement un dash par saut, sans reglage possible.</p>
 <p><span class="tt">GameSession</span> construisait par ailleurs son systeme de physique par defaut : aucune <span class="tt">PhysicsConfig</span> personnalisee n'etait passee nulle part en production. Il n'existait aucun point d'injection.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3095"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3209"></a>
 Travail a realiser</h1>
 <ul>
 <li>Ajouter <span class="tt">PhysicsConfig::dashCharges</span> (defaut <span class="tt">1</span>, soit le comportement historique) et remplacer <span class="tt">Player::dashAvailable</span> (booleen) par <span class="tt">Player::dashChargesRemaining</span> (compteur). Adapter la consommation dans <span class="tt">applyDash</span> et la recharge au contact du sol.</li>
@@ -107,24 +107,24 @@ Travail a realiser</h1>
 <li>Appliquer la configuration dans <span class="tt">GameSession::loadLevel</span>, <b>avant</b> l'apparition du personnage : sa recharge initiale en depend.</li>
 <li><b>Corriger</b> <span class="tt">setJumpBudget</span>/<span class="tt">setDashBudget</span>, seules proprietes de niveau du brouillon a ne pas empiler de <span class="tt">pushUndo()</span> — donc les seules non annulables, contrairement au fond, au jeu de skins et au cadrage.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3096"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3210"></a>
 Fichiers impactes</h1>
 <p><span class="tt"><a class="el" href="PhysicsConfig_8h.html" title="Constantes de réglage de la physique du personnage (données pures).">Source/Core/Physics/PhysicsConfig.h</a></span>, <span class="tt"><a class="el" href="Player_8h.html" title="Composant marqueur du personnage jouable (données pures).">Source/Core/Ecs/Components/Player.h</a></span>, <span class="tt">Source/Core/Ecs/Systems/CharacterPhysicsSystem.{h,cpp}</span>, <span class="tt"><a class="el" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes.">Source/Core/Levels/Level.h</a></span>, <span class="tt"><a class="el" href="LevelLoader_8cpp.html">LevelLoader.cpp</a></span>, <span class="tt">LevelWriter.{h,cpp}</span>, <span class="tt">LevelDraft.{h,cpp}</span>, <span class="tt"><a class="el" href="GameSession_8cpp.html">Source/HMI/Game/GameSession.cpp</a></span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3097"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3211"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">test_physique_personnage.cpp</a></span> : deux charges de dash autorisent deux ruees en l'air, la troisieme est refusee ; les tests existants du dash simple restent valides apres migration.</li>
 <li><span class="tt"><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">test_level_writer.cpp</a></span> : capacites conservees par un aller-retour, omises par defaut.</li>
 <li><span class="tt"><a class="el" href="test__level__draft_8cpp.html" title="Tests unitaires du modèle d&#39;édition mutable (LOT-14, EX-EDIT-002 à EX-EDIT-007).">test_level_draft.cpp</a></span> : les quatre regles de tableau annulables ; capacites survivant a la conversion en niveau jouable.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3098"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3212"></a>
 Points d'attention</h1>
 <p>Ne jamais confondre <b>budget</b> et <b>capacite</b> : le premier se consomme une fois pour toutes sur le tableau, la seconde se recharge a chaque atterrissage. La documentation et le panneau les separent explicitement pour cette raison.</p>
 <p>Le renommage de <span class="tt">dashAvailable</span> change aussi son <b>type</b> : le compilateur recense les sites, mais verifier qu'aucun affichage de diagnostic ne le lisait.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3099"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3213"></a>
 Definition de fait (DoD)</h1>
 <p>Un niveau sans capacite declaree se joue a l'identique. Les quatre regles sont annulables. <span class="tt">ctest</span> a 100 %.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3100"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3214"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-055</span>, <span class="tt">EX-GP-024</span>, <span class="tt">EX-GP-015</span>, <span class="tt">EX-GP-017</span>, <span class="tt">EX-EDIT-005</span>, <span class="tt">EX-LVL-008</span>. </p>
 </div></div><!-- contents -->
