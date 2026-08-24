@@ -42,12 +42,12 @@
     </widget>
    </item>
    <item>
-    <widget class="hmi::PixelMenuButton" name="watchAiButton">
-     <!-- Regarder l'IA jouer (LOT-ANNEXE-18) : rejoue un fichier de Elements/Replays/, choisi via
-          une boite de dialogue de fichier, pas de panneau de liste dedie (decision de cadrage,
-          voir MainWindow::watchAiPlay). -->
+    <widget class="hmi::PixelMenuButton" name="aiModeButton">
+     <!-- Mode IA (LOT-ANNEXE-21) : ecran a trois onglets (Entrainement, Validation et sauvegarde,
+          Rejeu), remplace l'ancienne entree Regarder l'IA jouer (LOT-ANNEXE-18), dont l'onglet
+          Rejeu reprend le role. -->
      <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
-     <property name="text"><string>Regarder l'IA jouer</string></property>
+     <property name="text"><string>Mode IA</string></property>
      <property name="flat"><bool>true</bool></property>
     </widget>
    </item>

@@ -48,6 +48,10 @@ void TrainingStatsRecorder::record(const TrainingStatsRow& row) {
 
     csvFile_ << csvRow(row, movingAverageReward, rewardDelta, currentIso8601()) << "\n";
     csvFile_.flush();
+
+    if (onRecord_) {
+        onRecord_(row);
+    }
 }
 
 }  // namespace aisolver

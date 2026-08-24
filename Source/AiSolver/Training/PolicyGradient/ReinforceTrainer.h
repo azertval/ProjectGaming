@@ -5,6 +5,7 @@
 
 #include <cstdint>
 #include <filesystem>
+#include <functional>
 #include <string>
 
 #include "AiSolver/Env/HeadlessLevelEnvironment.h"
@@ -68,8 +69,12 @@ public:
      * Une seule passe d'optimisation par trajectoire collectée (pas plusieurs époques sur le même
      * lot de données, cf. décision de cadrage de l'épic — la différence structurante avec PPO,
      * `LOT-ANNEXE-14`).
+     * @param episodeCount Nombre d'épisodes à exécuter à la suite de ceux déjà joués.
+     * @param shouldStop Vérifié au début de chaque épisode (`LOT-ANNEXE-21`) ; si présent et
+     *        renvoie `true`, l'exécution s'arrête avant cet épisode (arrêt propre, pas une
+     *        exception). `nullptr` (défaut) : comportement inchangé.
      */
-    void run(std::size_t episodeCount);
+    void run(std::size_t episodeCount, const std::function<bool()>& shouldStop = {});
 
     /// @return Le nombre d'épisodes déjà exécutés par ce trainer.
     [[nodiscard]] int episodeIndex() const noexcept {

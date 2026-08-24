@@ -197,6 +197,10 @@ add_executable(ProjectGaming
     Game/DiagnosticsHud.cpp
     Game/GameEvents.cpp
     Game/LevelRunStats.cpp
+    # Mode IA (LOT-ANNEXE-21) : entrainement interactif depuis l'IHM, seul point de HMI autorise a
+    # referencer AiSolver/Training/Nn/Optim/Eval (amendement documente de LOT-ANNEXE-18, epic.md).
+    Ai/TrainingWorker.cpp
+    Ai/EvaluationHelper.cpp
     # Localisation
     Localization/Localization.cpp
     # Audio (bruitages, LOT-60)
@@ -233,6 +237,7 @@ add_executable(ProjectGaming
     Interface/LevelCompleteScreen.cpp
     Interface/LevelSelectScreen.cpp
     Interface/CreditsScreen.cpp
+    Interface/AiModeScreen.cpp
     Interface/OptionsPage.cpp
     Interface/KeybindingsWidget.cpp
     Interface/EditorKeybindingsWidget.cpp
@@ -283,6 +288,7 @@ add_executable(ProjectGaming
     ${ELEMENTS_UI}/LevelCompleteScreen.ui
     ${ELEMENTS_UI}/LevelSelectScreen.ui
     ${ELEMENTS_UI}/CreditsScreen.ui
+    ${ELEMENTS_UI}/AiModeScreen.ui
     ${ELEMENTS_UI}/OptionsPage.ui
     ${ELEMENTS_UI}/TexturePanel.ui
     ${ELEMENTS_UI}/PropertiesPanel.ui
@@ -311,10 +317,12 @@ set_target_properties(ProjectGaming PROPERTIES AUTOUIC_SEARCH_PATHS ${ELEMENTS_U
 
 target_link_libraries(ProjectGaming PRIVATE
     Core
-    # Lecture/validation de rejeu (HMI/Game/ReplayPlayback.h, LOT-ANNEXE-18) : seule dependance de
-    # HMI vers Source/AiSolver, limitee en usage au sous-espace aisolver:: de Source/AiSolver/Replay
-    # -- une bibliotheque CMake complete puisque add_library ne se decoupe pas en sous-cibles
-    # internes, mais jamais Nn/Autodiff/Optim/Training (decision de cadrage documentee, epic.md).
+    # Lecture/validation de rejeu (HMI/Game/ReplayPlayback.h, LOT-ANNEXE-18) : une bibliotheque
+    # CMake complete puisque add_library ne se decoupe pas en sous-cibles internes. En dehors de
+    # HMI/Ai (LOT-ANNEXE-21, entrainement interactif depuis l'IHM -- amendement documente de la
+    # regle de LOT-ANNEXE-18), le reste de HMI (ReplayPlayback, GameSession, GameViewport, Editor)
+    # reste limite au sous-espace aisolver:: de Source/AiSolver/Replay, jamais Nn/Autodiff/Optim/
+    # Training.
     AiSolver
     Qt6::Widgets
     Qt6::Gui

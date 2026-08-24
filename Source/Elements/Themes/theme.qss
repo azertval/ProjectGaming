@@ -34,7 +34,8 @@
    facteur entier n'aurait alors plus rien d'entier. Aucun border-radius nulle part : un coin
    arrondi produit un degrade d'anticrenelage que le filtrage au plus proche voisin ne rend pas. */
 
-#MainMenu, #OptionsPage, #PauseScreen, #LevelSelectScreen, #LevelCompleteScreen, #CreditsScreen {
+#MainMenu, #OptionsPage, #PauseScreen, #LevelSelectScreen, #LevelCompleteScreen, #CreditsScreen,
+#AiModeScreen {
     background-color: ${identity.color.background};
     font-family: ${identity.font.body};
     font-size: ${identity.size.body}px;
@@ -53,7 +54,8 @@
 #PauseScreen QLabel#pauseTitle,
 #LevelSelectScreen QLabel#titleLabel,
 #LevelCompleteScreen QLabel#titleLabel,
-#CreditsScreen QLabel#creditsTitle {
+#CreditsScreen QLabel#creditsTitle,
+#AiModeScreen QLabel#titleLabel {
     color: ${identity.color.accent};
     font-family: ${identity.font.title};
     font-size: ${identity.size.screenTitle}px;
@@ -148,13 +150,15 @@
 
 /* ---- Onglets ---- */
 #OptionsPage QTabWidget::pane,
-#LevelSelectScreen QTabWidget::pane {
+#LevelSelectScreen QTabWidget::pane,
+#AiModeScreen QTabWidget::pane {
     border: ${identity.frame.thickness}px solid ${identity.color.outline};
     background: ${identity.color.surface};
     border-radius: 0;
 }
 #OptionsPage QTabBar::tab,
-#LevelSelectScreen QTabBar::tab {
+#LevelSelectScreen QTabBar::tab,
+#AiModeScreen QTabBar::tab {
     background: ${identity.color.surfaceAlt};
     color: ${identity.color.textMuted};
     border: ${identity.frame.thickness}px solid ${identity.color.outline};
@@ -165,17 +169,49 @@
     font-weight: bold;
 }
 #OptionsPage QTabBar::tab:selected,
-#LevelSelectScreen QTabBar::tab:selected {
+#LevelSelectScreen QTabBar::tab:selected,
+#AiModeScreen QTabBar::tab:selected {
     color: ${identity.color.background};
     background: ${identity.color.accent};
 }
 
-/* ---- Controles de l'ecran Options ---- */
+/* ---- Controles de l'ecran Options et de Mode IA (LOT-ANNEXE-21) ---- */
 #OptionsPage QLabel,
 #OptionsPage QCheckBox,
-#OptionsPage QComboBox {
+#OptionsPage QComboBox,
+#AiModeScreen QLabel,
+#AiModeScreen QCheckBox,
+#AiModeScreen QComboBox,
+#AiModeScreen QRadioButton,
+#AiModeScreen QSpinBox,
+#AiModeScreen QDoubleSpinBox {
     color: ${identity.color.text};
     font-size: ${identity.size.body}px;
+}
+#AiModeScreen QComboBox,
+#AiModeScreen QSpinBox,
+#AiModeScreen QDoubleSpinBox {
+    background: ${identity.color.surfaceAlt};
+    border: ${identity.frame.thickness}px solid ${identity.color.outline};
+    border-radius: 0;
+    padding: ${identity.space.small}px ${identity.space.medium}px;
+}
+#AiModeScreen QTableWidget {
+    background: ${identity.color.surface};
+    alternate-background-color: ${identity.color.surfaceAlt};
+    color: ${identity.color.text};
+    border: ${identity.frame.thickness}px solid ${identity.color.outline};
+    gridline-color: ${identity.color.border};
+    selection-background-color: ${identity.color.accent};
+    selection-color: ${identity.color.background};
+}
+#AiModeScreen QHeaderView::section {
+    background: ${identity.color.surfaceAlt};
+    color: ${identity.color.textMuted};
+    border: none;
+    border-right: ${identity.frame.thickness}px solid ${identity.color.outline};
+    border-bottom: ${identity.frame.thickness}px solid ${identity.color.outline};
+    padding: ${identity.space.small}px;
 }
 #OptionsPage QCheckBox::indicator {
     width: ${identity.size.body}px;
@@ -207,7 +243,8 @@
     width: ${identity.space.medium}px;
     margin: -${identity.space.small}px 0;
 }
-#OptionsPage QPushButton {
+#OptionsPage QPushButton,
+#AiModeScreen QPushButton {
     color: ${identity.color.background};
     background: ${identity.color.accent};
     border: ${identity.frame.thickness}px solid ${identity.color.outline};
@@ -217,15 +254,24 @@
     font-size: ${identity.size.body}px;
 }
 #OptionsPage QPushButton:hover,
-#OptionsPage QPushButton:focus {
+#OptionsPage QPushButton:focus,
+#AiModeScreen QPushButton:hover,
+#AiModeScreen QPushButton:focus {
     background: ${identity.color.accentHover};
 }
+#OptionsPage QPushButton:disabled,
+#AiModeScreen QPushButton:disabled {
+    background: ${identity.color.surfaceAlt};
+    color: ${identity.color.textMuted};
+    border-color: ${identity.color.border};
+}
 
-/* Retour de l'ecran Options : c'est une ENTREE DE MENU, pas une commande — elle doit se lire comme
-   celles du menu principal, pas comme le bouton plein d'enregistrement des journaux juste au-dessus.
+/* Retour de l'ecran Options/Mode IA : c'est une ENTREE DE MENU, pas une commande — elle doit se
+   lire comme celles du menu principal, pas comme un bouton plein d'action juste au-dessus.
    Le selecteur vise la classe promue : Qt remplace "::" par "--" dans le nom de type QSS, et cette
    regle l'emporte sur la precedente parce qu'elle est plus specifique. */
-#OptionsPage hmi--PixelMenuButton {
+#OptionsPage hmi--PixelMenuButton,
+#AiModeScreen hmi--PixelMenuButton {
     color: ${identity.color.textMuted};
     background: transparent;
     border: none;
@@ -235,7 +281,9 @@
     font-weight: bold;
 }
 #OptionsPage hmi--PixelMenuButton:hover,
-#OptionsPage hmi--PixelMenuButton:focus {
+#OptionsPage hmi--PixelMenuButton:focus,
+#AiModeScreen hmi--PixelMenuButton:hover,
+#AiModeScreen hmi--PixelMenuButton:focus {
     color: ${identity.color.accent};
     background: transparent;
 }

@@ -5,6 +5,7 @@
 
 #include <cstdint>
 #include <filesystem>
+#include <functional>
 
 #include "AiSolver/Env/HeadlessLevelEnvironment.h"
 #include "AiSolver/Stats/TrainingStatsRecorder.h"
@@ -92,8 +93,19 @@ public:
      *
      * Toute rupture (nouveau champion, ou champion non résolvant) remet le compteur de stabilité à
      * zéro — voir la décision de cadrage de l'épic.
+     * @param shouldStop Vérifié au début de chaque génération (`LOT-ANNEXE-21`) ; si présent et
+     *        renvoie `true`, la session s'arrête avant cette génération, comme si le plafond
+     *        avait été atteint (résultat partiel, jamais une exception). `nullptr` (défaut) :
+     *        comportement inchangé, jamais interrompu avant la résolution ou le plafond.
+     * @param onGenerationChampion Appelé après chaque génération avec le champion courant
+     *        (`LOT-ANNEXE-21`) : seul point d'accès de l'appelant au réseau du champion pendant
+     *        la session (`_trainer` reste privé) — sert à l'aperçu en direct de l'IHM (rejeu du
+     *        champion courant), jamais à une décision d'arrêt (voir `shouldStop`). `nullptr`
+     *        (défaut) : aucun effet.
      */
-    [[nodiscard]] TrainingResult run();
+    [[nodiscard]] TrainingResult run(
+        const std::function<bool()>& shouldStop = {},
+        const std::function<void(const evolutionary::Individual&)>& onGenerationChampion = {});
 
     /// @return L'environnement de la session, en lecture seule (diagnostic/tests).
     [[nodiscard]] const HeadlessLevelEnvironment& environment() const noexcept {

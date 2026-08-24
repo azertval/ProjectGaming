@@ -59,6 +59,7 @@ class PauseScreen;
 class LevelCompleteScreen;
 class LevelSelectScreen;
 class CreditsScreen;
+class AiModeScreen;
 class PalettePanel;
 class PlanesPanel;
 class LevelBrowserPanel;
@@ -335,11 +336,16 @@ private:
     /// de déverrouillage) et des niveaux personnels du dossier (hors séquence,
     /// `LevelFileOperations` filtrée).
     void openLevelSelect();
-    /// « Regarder l'IA jouer » (menu, `LOT-ANNEXE-18`) : choix d'un fichier de rejeu publié
-    /// (`Elements/Replays/`, boîte de dialogue de fichier — pas de panneau de liste dédié) puis
-    /// `GameViewport::startReplay`. Signale une boîte d'erreur (dossier vide, rejeu invalide) sans
-    /// ouvrir l'écran de jeu, jamais de plantage (`EX-NFR-040`).
-    void watchAiPlay();
+    /// « Mode IA » (menu, `LOT-ANNEXE-21`) : ouvre `_aiMode` (entraînement, validation/sauvegarde,
+    /// rejeu) — remplace l'ancien `watchAiPlay` (`LOT-ANNEXE-18`), dont l'onglet Rejeu de
+    /// `_aiMode` reprend le rôle.
+    void openAiMode();
+    /// Retour au menu depuis l'écran Mode IA.
+    void closeAiMode();
+    /// Un rejeu a été choisi dans `_aiMode` (aperçu en direct ou onglet Rejeu) : même chargement
+    /// que l'ancien `watchAiPlay`, signale une boîte d'erreur (rejeu invalide) sans ouvrir l'écran
+    /// de jeu, jamais de plantage (`EX-NFR-040`).
+    void playAiReplay(const QString& replayPath);
     /// Retour au menu depuis l'écran de sélection de niveau.
     void closeLevelSelect();
     /// « Crédits » (menu) : ouvre `_credits` (`LOT-60`).
@@ -383,6 +389,9 @@ private:
     /// Écran de crédits (`LOT-60`) : même patron que `_levelSelectScreen`, page normale de
     /// `_stack`.
     CreditsScreen* _credits = nullptr;
+    /// Écran Mode IA (`LOT-ANNEXE-21`) : même patron que `_levelSelectScreen`, page normale de
+    /// `_stack`.
+    AiModeScreen* _aiMode = nullptr;
     GameViewport* _viewport;  ///< Surface de rendu D3D11 (possédée par le conteneur central).
     /// Contexte d'édition actif, cible d'Annuler/Refaire/Copier/Coller (`LOT-57` TACHE-04) : `
     /// _viewport` (niveau) ou `_pixelCanvas` (atelier pixel art, `LOT-54` TACHE-04), selon le

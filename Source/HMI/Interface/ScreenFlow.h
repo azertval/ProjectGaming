@@ -28,6 +28,7 @@ enum class ScreenId {
     NiveauTermine,
     LevelSelect,
     Credits,
+    AiMode,
 };
 
 /// Événement pouvant déclencher une transition d'écran. Un seul événement `OpenOptions`/
@@ -52,6 +53,8 @@ enum class ScreenEvent {
     LevelChosen,
     OpenCredits,
     CloseCredits,
+    OpenAiMode,
+    CloseAiMode,
 };
 
 /// Habillage de fenêtre associé à un écran : ce que chaque `showXxx()` répétait à la main

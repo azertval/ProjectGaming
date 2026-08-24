@@ -224,3 +224,36 @@ TEST(TrainingStatsRecorderTest, RecordAjouteUneLigneSansAlterer) {
     EXPECT_EQ(afterSecond[0], afterFirst[0]);
     EXPECT_EQ(afterSecond[1], afterFirst[1]);
 }
+
+/**
+ * @brief `setOnRecord` observe exactement une ligne par appel à `record`, sans effet sur le CSV
+ * produit (LOT-ANNEXE-21) : ni son nombre de lignes, ni ses champs autres que l'horodatage
+ * (naturellement variable d'un appel à l'autre, jamais comparé ici).
+ * \castest{<b>`setOnRecord` observe sans effet de bord sur le CSV.</b><br/>
+ * \tcat Unitaire · AiSolver Stats<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Enregistrer un observateur qui copie l'index de chaque ligne reçue.<br/>2. `record`
+ * trois lignes.<br/>
+ * \tattendu Trois appels à l'observateur, un index par génération dans l'ordre ; le CSV compte
+ * exactement quatre lignes (en-tête + trois), comme sans observateur.}
+ */
+TEST(TrainingStatsRecorderTest, SetOnRecordObserveSansEffetDeBord) {
+    TempDirectory tempDir;
+    const std::filesystem::path csvPath = tempDir.file("stats_observed.csv");
+
+    std::vector<int> observedIndices;
+    aisolver::TrainingStatsRecorder recorder(csvPath);
+    recorder.setOnRecord([&observedIndices](const aisolver::TrainingStatsRow& row) {
+        observedIndices.push_back(row.index);
+    });
+
+    for (int i = 0; i < 3; ++i) {
+        recorder.record(rowAt(i, static_cast<float>(i)));
+    }
+
+    ASSERT_EQ(observedIndices.size(), 3u);
+    EXPECT_EQ(observedIndices[0], 0);
+    EXPECT_EQ(observedIndices[1], 1);
+    EXPECT_EQ(observedIndices[2], 2);
+    EXPECT_EQ(readAllLines(csvPath).size(), 4u);
+}

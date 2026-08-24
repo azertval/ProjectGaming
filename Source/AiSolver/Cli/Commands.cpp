@@ -35,6 +35,7 @@
 #include "AiSolver/Training/ActorCritic/CriticNetwork.h"
 #include "AiSolver/Training/Advanced/DqnTrainer.h"
 #include "AiSolver/Training/Advanced/QNetwork.h"
+#include "AiSolver/Training/ArgmaxRollout.h"
 #include "AiSolver/Training/Evolutionary/FitnessEvaluator.h"
 #include "AiSolver/Training/Evolutionary/NetworkTopology.h"
 #include "AiSolver/Training/PolicyGradient/ReinforceTrainer.h"
@@ -50,65 +51,6 @@ std::unique_ptr<optim::IOptimizer> makeOptimizer(const std::string& name, float 
         return std::make_unique<optim::Adam>(learningRate);
     }
     return std::make_unique<optim::Sgd>(learningRate);
-}
-
-/**
- * @brief Rejoue @p policy en mode `Argmax` sur `environment`/`levelPath`, jusqu'à fin d'épisode ou
- * budget de pas — même structure que `training::replayBestIndividual` (`LOT-ANNEXE-11`),
- * généralisée à n'importe quel `eval::TrainedPolicy` (`LOT-ANNEXE-15`) plutôt que dupliquée pour
- * chaque famille d'algorithme : c'est précisément le rôle de cette abstraction uniforme.
- * @return `std::nullopt` si `levelPath` ne se charge pas (erreur récupérable, jamais de plantage
- * sur un chemin fourni par l'utilisateur en ligne de commande).
- */
-[[nodiscard]] std::optional<training::DeterministicReplayResult> argmaxRollout(
-    eval::TrainedPolicy& policy, HeadlessLevelEnvironment& environment,
-    const std::filesystem::path& levelPath) {
-    if (!environment.reset(levelPath)) {
-        return std::nullopt;
-    }
-
-    const ObservationEncoder observationEncoder;
-    const RewardConfig rewardConfig;
-    Rng rng(0);  // Argmax ne consomme jamais rng ; instance jetable pour satisfaire la signature.
-
-    const core::GridPosition entry = environment.level().entry();
-    core::Aabb previousBox = core::Aabb::fromTopLeftSize(
-        core::playerSpawnPosition(entry.column, entry.row), core::playerSize());
-    core::Player playerState{};
-    core::Velocity playerVelocity{};
-
-    training::DeterministicReplayResult result;
-    EpisodeStatus status = EpisodeStatus::Ongoing;
-
-    while (status == EpisodeStatus::Ongoing && !environment.budgetExhausted()) {
-        const Tensor<float> observation =
-            observationEncoder.encode(environment, previousBox, playerState, playerVelocity);
-        const std::optional<core::PlayerInput> input =
-            policy.selectAction(observation, eval::ActionDecodingMode::Argmax, rng);
-        if (!input.has_value()) {
-            // Politique n'acceptant pas Argmax : ne devrait jamais survenir (les quatre adaptateurs
-            // de LOT-ANNEXE-15 acceptent tous Argmax), garde défensive plutôt qu'un plantage.
-            return std::nullopt;
-        }
-        result.steps.push_back(*input);
-
-        const StepObservation stepObservation = environment.step(*input);
-        result.finalReward += computeReward(rewardConfig, previousBox, stepObservation.playerBox,
-                                            environment.level().exit(), stepObservation.outcome);
-
-        previousBox = stepObservation.playerBox;
-        playerState = stepObservation.playerState;
-        playerVelocity = stepObservation.playerVelocity;
-
-        status = classifyEpisode(stepObservation.outcome, stepObservation.stepIndex,
-                                 environment.stepsSinceProgress(), std::numeric_limits<int>::max(),
-                                 training::evolutionary::DEFAULT_STUCK_THRESHOLD);
-    }
-    if (status == EpisodeStatus::Ongoing) {
-        status = EpisodeStatus::TimedOut;
-    }
-    result.status = status;
-    return result;
 }
 
 /// Nom long (`ReplayFile::algorithmName`) et identifiant court (`ReplayFile::algorithmId`, même
@@ -332,7 +274,7 @@ int runTrain(const TrainArgs& args) {
         eval::ReinforceTrainedPolicy evalPolicy(*policy);
         HeadlessLevelEnvironment rolloutEnvironment;
         const std::optional<training::DeterministicReplayResult> replay =
-            argmaxRollout(evalPolicy, rolloutEnvironment, args.level);
+            training::argmaxRollout(evalPolicy, rolloutEnvironment, args.level);
         if (replay.has_value()) {
             solved = replay->status == EpisodeStatus::Won;
             const training::ReplayExportResult exportResult =
@@ -368,7 +310,7 @@ int runTrain(const TrainArgs& args) {
         eval::ActorCriticTrainedPolicy evalPolicy(*policy);
         HeadlessLevelEnvironment rolloutEnvironment;
         const std::optional<training::DeterministicReplayResult> replay =
-            argmaxRollout(evalPolicy, rolloutEnvironment, args.level);
+            training::argmaxRollout(evalPolicy, rolloutEnvironment, args.level);
         if (replay.has_value()) {
             solved = replay->status == EpisodeStatus::Won;
             const training::ReplayExportResult exportResult =
@@ -408,7 +350,7 @@ int runTrain(const TrainArgs& args) {
         eval::AdvancedAlgorithmTrainedPolicy evalPolicy(mainNetwork);
         HeadlessLevelEnvironment rolloutEnvironment;
         const std::optional<training::DeterministicReplayResult> replay =
-            argmaxRollout(evalPolicy, rolloutEnvironment, args.level);
+            training::argmaxRollout(evalPolicy, rolloutEnvironment, args.level);
         if (replay.has_value()) {
             solved = replay->status == EpisodeStatus::Won;
             const training::ReplayExportResult exportResult =
@@ -496,7 +438,7 @@ int runExportReplay(const ExportReplayArgs& args) {
             return 1;
         }
         eval::AdvancedAlgorithmTrainedPolicy policy(network);
-        replay = argmaxRollout(policy, environment, args.level);
+        replay = training::argmaxRollout(policy, environment, args.level);
     } else {
         std::unique_ptr<nn::Network> network =
             training::evolutionary::buildNetwork(topology, scratchRng);
@@ -506,13 +448,13 @@ int runExportReplay(const ExportReplayArgs& args) {
         }
         if (args.algo == "pg") {
             eval::ReinforceTrainedPolicy policy(*network);
-            replay = argmaxRollout(policy, environment, args.level);
+            replay = training::argmaxRollout(policy, environment, args.level);
         } else if (args.algo == "ac") {
             eval::ActorCriticTrainedPolicy policy(*network);
-            replay = argmaxRollout(policy, environment, args.level);
+            replay = training::argmaxRollout(policy, environment, args.level);
         } else {
             eval::EvolutionaryTrainedPolicy policy(*network);
-            replay = argmaxRollout(policy, environment, args.level);
+            replay = training::argmaxRollout(policy, environment, args.level);
         }
     }
 

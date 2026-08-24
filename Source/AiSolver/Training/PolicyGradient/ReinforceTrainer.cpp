@@ -26,12 +26,15 @@ ReinforceTrainer::ReinforceTrainer(nn::Network& policy, optim::IOptimizer& optim
       _recorder(recorder),
       _levelName(std::move(levelName)) {}
 
-void ReinforceTrainer::run(std::size_t episodeCount) {
+void ReinforceTrainer::run(std::size_t episodeCount, const std::function<bool()>& shouldStop) {
     for (std::size_t i = 0; i < episodeCount; ++i) {
+        if (shouldStop && shouldStop()) {
+            return;
+        }
         const std::uint64_t seed = _config.seedBase + static_cast<std::uint64_t>(_episodeIndex);
         Rng rng(seed);
 
-        const bool loaded = _environment.reset(_levelPath);
+        [[maybe_unused]] const bool loaded = _environment.reset(_levelPath);
         PROJECTGAMING_ASSERT(loaded, "ReinforceTrainer::run : le niveau doit se charger");
 
         // Collecte (poids figes pendant tout l'episode) -> retours -> perte (memes poids,

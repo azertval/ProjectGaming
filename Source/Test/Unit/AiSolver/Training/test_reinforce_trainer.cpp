@@ -253,3 +253,35 @@ TEST(ReinforceTrainerTest, RobustesseAUnEpisodeTresCourt) {
     const std::vector<std::string> lines = splitLines(readWholeFile(csvPath));
     EXPECT_EQ(lines.size(), 6u);
 }
+
+/**
+ * @brief `shouldStop` renvoyant `true` dès le premier appel interrompt le run avant le premier
+ * épisode (`LOT-ANNEXE-21`).
+ * \castest{<b>ReinforceTrainer : `shouldStop` interrompt avant le premier épisode.</b><br/>
+ * \tcat Unitaire · AiSolver Training<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. `run(10, shouldStop)` avec un `shouldStop` qui renvoie `true` dès le premier
+ * appel.<br/>
+ * \tattendu `episodeIndex() == 0` (aucun épisode exécuté), aucune ligne journalisée au-delà de
+ * l'en-tête.}
+ */
+TEST(ReinforceTrainerTest, ShouldStopInterromptAvantLePremierEpisode) {
+    const TrivialLevelDirectory level("shouldstop");
+    const ObservationEncoder encoder;
+    Rng networkRng(13);
+    auto policy = buildNetwork(policyTopology(encoder.inputSize()), networkRng);
+    Sgd optimizer(0.05f);
+    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    const std::filesystem::path csvPath = level.file("stats.csv");
+    TrainingStatsRecorder recorder(csvPath);
+
+    ReinforceConfig config;
+    config.seedBase = 13;
+    ReinforceTrainer trainer(*policy, optimizer, environment, level.levelPath(), config, recorder,
+                             "TrivialAI");
+    trainer.run(10, [] { return true; });
+
+    EXPECT_EQ(trainer.episodeIndex(), 0);
+    const std::vector<std::string> lines = splitLines(readWholeFile(csvPath));
+    EXPECT_EQ(lines.size(), 1u);  // en-tete seul.
+}

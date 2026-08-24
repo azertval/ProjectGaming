@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <filesystem>
 #include <fstream>
+#include <functional>
 #include <string>
 
 #include "AiSolver/Stats/MovingAverage.h"
@@ -75,11 +76,25 @@ public:
      */
     void record(const TrainingStatsRow& row);
 
+    /**
+     * @brief Observateur optionnel, appelé à la fin de chaque `record()` avec la ligne qui vient
+     * d'être journalisée (`LOT-ANNEXE-21`) : point d'observation unique, déjà traversé par les
+     * quatre familles d'algorithmes (évolutionniste, REINFORCE, acteur-critique, DQN), pour ne
+     * jamais dupliquer la boucle d'entraînement dans l'IHM — celle-ci n'a besoin que d'observer,
+     * jamais de réimplémenter.
+     * @param callback Invoqué après l'écriture disque de chaque ligne ; `nullptr` (défaut) pour
+     *        ne rien observer, comportement inchangé.
+     */
+    void setOnRecord(std::function<void(const TrainingStatsRow&)> callback) {
+        onRecord_ = std::move(callback);
+    }
+
 private:
     std::ofstream csvFile_;
     MovingAverageTracker movingAverage_;
     bool hasPreviousMovingAverage_ = false;
     float previousMovingAverage_ = 0.0f;
+    std::function<void(const TrainingStatsRow&)> onRecord_;
 };
 
 }  // namespace aisolver

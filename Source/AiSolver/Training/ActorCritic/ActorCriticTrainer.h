@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <filesystem>
 #include <fstream>
+#include <functional>
 #include <optional>
 #include <string>
 
@@ -83,8 +84,12 @@ public:
      *                      mais son optimiseur n'est jamais appelé (`step`) : sert à vérifier que
      *                      les deux optimisations sont bien indépendantes (test dédié,
      *                      `LOT-ANNEXE-13` TACHE-03).
+     * @param shouldStop Vérifié au début de chaque épisode (`LOT-ANNEXE-21`) ; si présent et
+     *        renvoie `true`, l'exécution s'arrête avant cet épisode. `nullptr` (défaut) :
+     *        comportement inchangé.
      */
-    void run(std::size_t episodeCount, bool updateCritic = true);
+    void run(std::size_t episodeCount, bool updateCritic = true,
+             const std::function<bool()>& shouldStop = {});
 
     /// @return Le nombre d'épisodes déjà exécutés par ce trainer.
     [[nodiscard]] int episodeIndex() const noexcept {

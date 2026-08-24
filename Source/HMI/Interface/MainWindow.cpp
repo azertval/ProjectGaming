@@ -78,6 +78,7 @@
 #include "HMI/Graphics/TextureLoader.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Input/GamepadButton.h"
+#include "HMI/Interface/AiModeScreen.h"
 #include "HMI/Interface/ApplicationTheme.h"
 #include "HMI/Interface/CreditsScreen.h"
 #include "HMI/Interface/DesignTokens.h"
@@ -195,11 +196,13 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
                                hmi::executableDirectory() / "Settings" / "keybindings.json");
     _levelSelectScreen = new LevelSelectScreen();
     _credits = new CreditsScreen();
+    _aiMode = new AiModeScreen();
     _stack = new QStackedWidget(this);
     _stack->addWidget(_menu);
     _stack->addWidget(_options);
     _stack->addWidget(_levelSelectScreen);
     _stack->addWidget(_credits);
+    _stack->addWidget(_aiMode);
     _stack->addWidget(_viewport);
     setCentralWidget(_stack);
     connect(_levelSelectScreen, &LevelSelectScreen::backRequested, this,
@@ -209,6 +212,8 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_levelSelectScreen, &LevelSelectScreen::personalLevelChosen, this,
             &MainWindow::playPersonalLevel);
     connect(_credits, &CreditsScreen::backRequested, this, &MainWindow::closeCredits);
+    connect(_aiMode, &AiModeScreen::backRequested, this, &MainWindow::closeAiMode);
+    connect(_aiMode, &AiModeScreen::replayRequested, this, &MainWindow::playAiReplay);
 
     // Recouvrement de pause (LOT-59 TACHE-02) : widget ENFANT ORDINAIRE du viewport depuis le
     // LOT-69 TACHE-02. Il avait dû devenir une fenêtre de haut niveau (Qt::Dialog) parce qu'un
@@ -417,7 +422,7 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_menu, &MainMenu::continueRequested, this, &MainWindow::continueGame);
     connect(_menu, &MainMenu::newGameRequested, this, &MainWindow::newGame);
     connect(_menu, &MainMenu::selectLevelRequested, this, &MainWindow::openLevelSelect);
-    connect(_menu, &MainMenu::watchAiRequested, this, &MainWindow::watchAiPlay);
+    connect(_menu, &MainMenu::aiModeRequested, this, &MainWindow::openAiMode);
     connect(_menu, &MainMenu::optionsRequested, this, &MainWindow::showOptions);
     connect(_menu, &MainMenu::creditsRequested, this, &MainWindow::openCredits);
     connect(_menu, &MainMenu::quitRequested, this, &MainWindow::close);
@@ -542,6 +547,9 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
         case ScreenId::Credits:
             _stack->setCurrentWidget(_credits);
             break;
+        case ScreenId::AiMode:
+            _stack->setCurrentWidget(_aiMode);
+            break;
         case ScreenId::Editor:
         case ScreenId::Game:
         case ScreenId::Pause:
@@ -588,6 +596,8 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
         _levelSelectScreen->focusDefaultAction();
     } else if (screen == ScreenId::Credits) {
         _credits->focusDefaultAction();
+    } else if (screen == ScreenId::AiMode) {
+        _aiMode->focusDefaultAction();
     }
 
     const ScreenDressing dressing = hmi::dressingFor(screen);
@@ -1213,36 +1223,27 @@ void MainWindow::closeLevelSelect() {
     HMI_LOG_INFO("Navigation : retour au menu depuis la selection de niveau.");
 }
 
-void MainWindow::watchAiPlay() {
-    // Rejeux "publies" (LOT-ANNEXE-18) : dossier versionne dedie, distinct de /TrainingRuns/ (non
-    // versionne, runs d'entrainement bruts) -- cf. Elements/Replays/README.md.
-    const std::filesystem::path replaysDir = hmi::executableDirectory() / "Replays";
-    bool anyReplay = false;
-    std::error_code listError;
-    if (std::filesystem::exists(replaysDir, listError)) {
-        for (const auto& entry : std::filesystem::directory_iterator(replaysDir, listError)) {
-            if (entry.path().extension() == ".json") {
-                anyReplay = true;
-                break;
-            }
-        }
-    }
-    if (!anyReplay) {
-        QMessageBox::information(this, text("replay.no_replays_title"),
-                                 text("replay.no_replays_text"));
+void MainWindow::openAiMode() {
+    if (!transitionScreen(ScreenEvent::OpenAiMode)) {
         return;
     }
+    _aiMode->refreshLevelList();
+    _aiMode->refreshRunsAndReplays();
+    HMI_LOG_INFO("Navigation : mode IA.");
+}
 
-    const QString path = QFileDialog::getOpenFileName(this, text("replay.select_title"),
-                                                      QString::fromStdString(replaysDir.string()),
-                                                      QStringLiteral("Rejeux (*.json)"));
-    if (path.isEmpty()) {
-        return;  // dialogue annule.
+void MainWindow::closeAiMode() {
+    if (!transitionScreen(ScreenEvent::CloseAiMode)) {
+        return;
     }
+    HMI_LOG_INFO("Navigation : retour au menu depuis le mode IA.");
+}
 
-    // Valide AVANT toute transition d'ecran (LOT-ANNEXE-18, critere d'acceptation 2) : un rejeu
-    // invalide ne doit jamais faire apparaitre l'ecran de jeu, meme brievement.
-    if (!_viewport->startReplay(std::filesystem::path(path.toStdString()))) {
+void MainWindow::playAiReplay(const QString& replayPath) {
+    // Valide AVANT toute transition d'ecran (meme critere que l'ancien watchAiPlay,
+    // LOT-ANNEXE-18) : un rejeu invalide ne doit jamais faire apparaitre l'ecran de jeu, meme
+    // brievement.
+    if (!_viewport->startReplay(std::filesystem::path(replayPath.toStdString()))) {
         QMessageBox::warning(
             this, text("replay.invalid_title"),
             text("replay.invalid_text").arg(QString::fromStdString(_viewport->lastReplayError())));
@@ -1252,7 +1253,7 @@ void MainWindow::watchAiPlay() {
     if (!transitionScreen(ScreenEvent::OpenGame)) {
         return;
     }
-    HMI_LOG_INFO("Navigation : regarder l'IA jouer (" + path.toStdString() + ").");
+    HMI_LOG_INFO("Navigation : lecture d'un rejeu IA (" + replayPath.toStdString() + ").");
 }
 
 void MainWindow::openCredits() {
@@ -2508,6 +2509,7 @@ void MainWindow::retranslateUi() {
     _levelCompleteScreen->retranslateUi(_loc);
     _levelSelectScreen->retranslateUi(_loc);
     _credits->retranslateUi(_loc);
+    _aiMode->retranslateUi(_loc);
     _options->retranslateUi(_loc);
     _palette->retranslateUi(_loc);
     _planes->retranslateUi(_loc);

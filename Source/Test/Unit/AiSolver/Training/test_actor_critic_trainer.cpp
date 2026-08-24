@@ -264,3 +264,37 @@ TEST(ActorCriticTrainerTest, CsvDePerteDuCritiqueBienForme) {
         EXPECT_GE(value, 0.0f);
     }
 }
+
+/**
+ * @brief `shouldStop` renvoyant `true` dès le premier appel interrompt le run avant le premier
+ * épisode (`LOT-ANNEXE-21`).
+ * \castest{<b>ActorCriticTrainer : `shouldStop` interrompt avant le premier épisode.</b><br/>
+ * \tcat Unitaire · AiSolver Training<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. `run(10, true, shouldStop)` avec un `shouldStop` qui renvoie `true` dès le premier
+ * appel.<br/>
+ * \tattendu `episodeIndex() == 0` (aucun épisode exécuté).}
+ */
+TEST(ActorCriticTrainerTest, ShouldStopInterromptAvantLePremierEpisode) {
+    const TrivialLevelDirectory level("shouldstop");
+    const ObservationEncoder encoder;
+
+    Rng policyRng(61);
+    auto policy = buildNetwork(policyTopology(encoder.inputSize()), policyRng);
+    Sgd policyOptimizer(0.05f);
+
+    Rng criticRng(62);
+    CriticNetwork critic(encoder.inputSize(), kCriticHiddenSize, criticRng);
+    Sgd criticOptimizer(0.05f);
+
+    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    TrainingStatsRecorder recorder(level.file("stats.csv"));
+
+    ActorCriticConfig config;
+    config.seedBase = 61;
+    ActorCriticTrainer trainer(*policy, policyOptimizer, critic, criticOptimizer, environment,
+                               level.levelPath(), config, recorder, "TrivialAI");
+    trainer.run(10, true, [] { return true; });
+
+    EXPECT_EQ(trainer.episodeIndex(), 0);
+}

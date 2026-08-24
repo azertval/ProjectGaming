@@ -47,9 +47,9 @@ signals:
     void continueRequested();
     void newGameRequested();
     void selectLevelRequested();
-    /// Entrée « Regarder l'IA jouer » (`LOT-ANNEXE-18`, `EX-IA-019`) : choix d'un fichier de rejeu
-    /// publié (`Elements/Replays/`), sans jamais référencer `Source/AiSolver/Nn`/`Training`.
-    void watchAiRequested();
+    /// Entrée « Mode IA » (`LOT-ANNEXE-21`, `EX-IA-022`) : écran à trois onglets (entraînement,
+    /// validation/sauvegarde, rejeu) — remplace l'ancienne `watchAiRequested` (`LOT-ANNEXE-18`).
+    void aiModeRequested();
     void editorRequested();
     void optionsRequested();
     void creditsRequested();

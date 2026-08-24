@@ -60,14 +60,23 @@ LevelTrainingSession::LevelTrainingSession(std::filesystem::path levelPath,
       _trainer(topology, config, _environment, _levelPath, seed, _recorder,
                _levelPath.stem().string()) {}
 
-TrainingResult LevelTrainingSession::run() {
+TrainingResult LevelTrainingSession::run(
+    const std::function<bool()>& shouldStop,
+    const std::function<void(const evolutionary::Individual&)>& onGenerationChampion) {
     float previousChampionFitness = -std::numeric_limits<float>::infinity();
     int consecutiveStableWins = 0;
 
     for (int generation = 0; generation < _stopping.maxGenerations; ++generation) {
+        if (shouldStop && shouldStop()) {
+            return TrainingResult{false, static_cast<unsigned>(generation),
+                                  cloneIndividual(_trainer.bestIndividual(), _topology)};
+        }
         _trainer.runGeneration();
 
         const evolutionary::Individual& champion = _trainer.bestIndividual();
+        if (onGenerationChampion) {
+            onGenerationChampion(champion);
+        }
         const bool sameChampionAsBefore = champion.fitness == previousChampionFitness;
         const bool resolvingNow = _trainer.lastChampionStatus() == EpisodeStatus::Won;
 

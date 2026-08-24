@@ -325,3 +325,34 @@ TEST(DqnTrainerTest, ConfigurationDEpsilonEffective) {
     const float epsilonSlowDecay = epsilonAfterRun(100);
     EXPECT_NE(epsilonFastDecay, epsilonSlowDecay);
 }
+
+/**
+ * @brief `shouldStop` renvoyant `true` dès le premier appel interrompt le run avant le premier
+ * épisode (`LOT-ANNEXE-21`).
+ * \castest{<b>DqnTrainer : `shouldStop` interrompt avant le premier épisode.</b><br/>
+ * \tcat Unitaire · AiSolver Training<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. `run(10, shouldStop)` avec un `shouldStop` qui renvoie `true` dès le premier
+ * appel.<br/>
+ * \tattendu `episodeIndex() == 0` et `totalSteps() == 0` (aucun épisode exécuté).}
+ */
+TEST(DqnTrainerTest, ShouldStopInterromptAvantLePremierEpisode) {
+    const TrivialLevelDirectory level("shouldstop");
+    const ObservationEncoder encoder;
+
+    Rng mainRng(41);
+    QNetwork mainNetwork(encoder.inputSize(), kHiddenSize, mainRng);
+    Rng targetRng(42);
+    QNetwork targetNetwork(encoder.inputSize(), kHiddenSize, targetRng);
+    Sgd optimizer(0.05f);
+
+    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    TrainingStatsRecorder recorder(level.file("stats.csv"));
+
+    DqnTrainer trainer(mainNetwork, targetNetwork, optimizer, environment, level.levelPath(),
+                       baseConfig(41), recorder, "TrivialAI");
+    trainer.run(10, [] { return true; });
+
+    EXPECT_EQ(trainer.episodeIndex(), 0);
+    EXPECT_EQ(trainer.totalSteps(), 0u);
+}

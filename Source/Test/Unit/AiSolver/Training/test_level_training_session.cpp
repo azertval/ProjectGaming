@@ -155,3 +155,69 @@ TEST(LevelTrainingSessionTest, UnSeulNiveauPourTouteLaSession) {
     ASSERT_TRUE(session.environment().loaded());
     EXPECT_EQ(session.environment().level().name(), "TrivialAI");
 }
+
+/**
+ * @brief `shouldStop` renvoyant `true` dès le premier appel interrompt la session après une seule
+ * génération, bien avant le plafond (`LOT-ANNEXE-21`).
+ * \castest{<b>LevelTrainingSession : `shouldStop` interrompt avant le plafond.</b><br/>
+ * \tcat Unitaire · AiSolver Training<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Session avec un plafond large (200) et un critère de résolution jamais atteignable
+ * (`requiredConsecutiveSuccesses` très élevé).<br/>2. `run(shouldStop)` avec un `shouldStop` qui
+ * renvoie `true` dès le premier appel.<br/>
+ * \tattendu `TrainingResult::solved == false`, `generationsRun` égal à `0` (interrompue avant la
+ * première génération).}
+ */
+TEST(LevelTrainingSessionTest, ShouldStopInterromptAvantLePlafond) {
+    const TrivialLevelDirectory level("shouldstop");
+    const ObservationEncoder encoder;
+
+    EvolutionaryConfig config;
+    config.populationSize = 8;
+    StoppingConfig stopping;
+    stopping.requiredConsecutiveSuccesses = 1000;
+    stopping.maxGenerations = 200;
+
+    LevelTrainingSession session(level.levelPath(), policyTopology(encoder.inputSize()), config,
+                                 stopping, 7, level.file("stats.csv"),
+                                 EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    const TrainingResult result = session.run([] { return true; });
+
+    EXPECT_FALSE(result.solved);
+    EXPECT_EQ(result.generationsRun, 0u);
+}
+
+/**
+ * @brief `onGenerationChampion` reçoit, à chaque génération, le champion réellement retenu par le
+ * trainer interne (`LOT-ANNEXE-21`) : seul point d'accès externe à son réseau pendant la session.
+ * \castest{<b>LevelTrainingSession : `onGenerationChampion` reçoit le vrai champion.</b><br/>
+ * \tcat Unitaire · AiSolver Training<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Session sur le niveau trivial, plafond de 3 générations.<br/>2. `run` avec un
+ * `onGenerationChampion` qui compte ses appels.<br/>
+ * \tattendu Le callback est appelé une fois par génération réellement exécutée (au moins une,
+ * au plus le plafond).}
+ */
+TEST(LevelTrainingSessionTest, OnGenerationChampionRecoitLeVraiChampion) {
+    const TrivialLevelDirectory level("ongenerationchampion");
+    const ObservationEncoder encoder;
+
+    EvolutionaryConfig config;
+    config.populationSize = 8;
+    StoppingConfig stopping;
+    stopping.requiredConsecutiveSuccesses = 1000;
+    stopping.maxGenerations = 3;
+
+    LevelTrainingSession session(level.levelPath(), policyTopology(encoder.inputSize()), config,
+                                 stopping, 3, level.file("stats.csv"),
+                                 EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    int callCount = 0;
+    const TrainingResult result =
+        session.run({}, [&callCount](const aisolver::training::evolutionary::Individual& champion) {
+            ++callCount;
+            EXPECT_TRUE(champion.network().parameters().size() > 0);
+        });
+    static_cast<void>(result);
+
+    EXPECT_EQ(callCount, 3);
+}

@@ -39,6 +39,10 @@ exacte observée pendant l'entraînement (`EX-NFR-002`, déterminisme au pas fix
   programme entier, rappelée ici avec la plus grande insistance parce que c'est le lot le plus
   susceptible d'être tenté d'y déroger « pour aller plus vite ». `ReplayPlayback` ne charge ni ne
   référence jamais `Source/AiSolver/Nn`, `Autodiff` ni aucun module de `Source/AiSolver/Training`.
+  **Amendée, explicitement et localement, par [LOT-ANNEXE-21](@ref lot-annexe-21)** : l'entraînement
+  interactif depuis l'IHM (barre de progression, aperçu en direct, arrêt propre) exige un accès
+  direct à `AiSolver/Training`/`Nn`/`Optim`, limité au seul espace de noms `HMI/Ai` — cette règle
+  reste vraie pour tout le reste de `HMI`, `ReplayPlayback` inclus.
 - **Édition ou retouche d'un rejeu depuis l'éditeur de niveaux** (`HMI/Editor`) : ce lot ajoute un
   **mode de jeu**, pas une fonctionnalité d'édition — `HMI/Editor` n'est pas modifié.
 - **Rejeu partiel ou navigable** (avance/recul dans la séquence, pause) : un rejeu se joue du

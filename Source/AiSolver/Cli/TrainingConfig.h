@@ -78,7 +78,7 @@ struct CommandLineOverrides {
  *        (`--config` non fourni).
  * @param overrides Surcharges d'arguments individuels, appliquées après le fichier.
  * @return La configuration entièrement résolue, jamais partielle — condition de traçabilité
- *         (`écrite dans les métadonnées d'un run par `writeTrainingConfigJson`).
+ *         (écrite dans les métadonnées d'un run par `writeTrainingConfigJson`).
  */
 [[nodiscard]] TrainingConfig loadTrainingConfig(
     const std::optional<std::filesystem::path>& configFile, const CommandLineOverrides& overrides);
@@ -87,6 +87,8 @@ struct CommandLineOverrides {
  * @brief Écrit la configuration résolue @p config dans @p path (`config.json` du dossier de run),
  * pour qu'un run passé reste reproductible sans connaître les valeurs par défaut du code de
  * l'époque.
+ * @param config Configuration résolue (défaut → fichier → arguments) à journaliser.
+ * @param path Chemin du fichier à (re)créer ; les dossiers parents manquants sont créés.
  * @return `false` si le fichier ne peut pas être ouvert en écriture, `true` sinon (jamais
  *         d'exception).
  */

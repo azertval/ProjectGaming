@@ -7,6 +7,7 @@
 #include <cstdint>
 #include <filesystem>
 #include <fstream>
+#include <functional>
 #include <optional>
 #include <string>
 
@@ -99,7 +100,11 @@ public:
 
     /// @brief Exécute `episodeCount` épisodes complets (chacun jusqu'à victoire/échec/timeout/
     /// blocage), en mettant à jour le réseau principal à la période configurée.
-    void run(std::size_t episodeCount);
+    /// @param episodeCount Nombre d'épisodes à exécuter à la suite de ceux déjà joués.
+    /// @param shouldStop Vérifié au début de chaque épisode (`LOT-ANNEXE-21`) ; si présent et
+    ///        renvoie `true`, l'exécution s'arrête avant cet épisode. `nullptr` (défaut) :
+    ///        comportement inchangé.
+    void run(std::size_t episodeCount, const std::function<bool()>& shouldStop = {});
 
     /// @return Le nombre d'épisodes déjà exécutés par ce trainer.
     [[nodiscard]] int episodeIndex() const noexcept {

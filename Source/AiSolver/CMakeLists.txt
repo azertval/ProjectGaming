@@ -71,6 +71,14 @@ add_library(AiSolver STATIC
     Training/LevelTrainingSession.cpp
     Training/DeterministicReplay.cpp
     Training/ReplayExport.cpp
+    # Rejeu deterministe generalise a n'importe quel eval::TrainedPolicy (LOT-ANNEXE-19, extrait en
+    # LOT-ANNEXE-21) : partage entre aisolver-cli (Commands.cpp) et l'IHM (HMI/Ai/TrainingWorker),
+    # jamais duplique.
+    Training/ArgmaxRollout.cpp
+    # Resolution/tracabilite des hyperparametres (LOT-ANNEXE-19, TACHE-02) : dans la bibliotheque
+    # (pas seulement l'executable aisolver-cli, cf. add_executable ci-dessous) pour que
+    # HMI/Ai/TrainingWorker (LOT-ANNEXE-21) reutilise les memes types/defauts sans les dupliquer.
+    Cli/TrainingConfig.cpp
     # Policy gradient maison REINFORCE (LOT-ANNEXE-12) : premier algorithme du programme dirige par
     # un gradient calcule exactement (autodiff, TACHE-03), par opposition a la recherche aveugle par
     # population de LOT-ANNEXE-10 -- collecte de trajectoire (TACHE-01), retour actualise
@@ -149,7 +157,6 @@ target_link_libraries(AiSolver PUBLIC Core project_warnings project_options
 # train/evaluate/export-replay, deleguant integralement aux types deja cadres par les lots amont.
 add_executable(aisolver-cli
     Cli/ArgParsing.cpp
-    Cli/TrainingConfig.cpp
     Cli/Commands.cpp
     Cli/Main.cpp
 )

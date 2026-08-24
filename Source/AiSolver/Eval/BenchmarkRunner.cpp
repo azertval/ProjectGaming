@@ -34,7 +34,7 @@ BenchmarkResult BenchmarkRunner::runWithNoise(TrainedPolicy& policy,
         Rng rng(deriveSeed(config.rngSeedBase, repetition));
         HeadlessLevelEnvironment environment(
             EnvironmentConfig{.maxSteps = config.maxStepsPerEpisode});
-        const bool loaded = environment.reset(levelPath);
+        [[maybe_unused]] const bool loaded = environment.reset(levelPath);
         PROJECTGAMING_ASSERT(loaded, "BenchmarkRunner::runWithNoise : le niveau doit se charger");
 
         const core::GridPosition entry = environment.level().entry();

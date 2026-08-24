@@ -2,7 +2,7 @@
 
 > Statut : **fait**. Prérequis : [LOT-ANNEXE-17](@ref lot-annexe-17) (validation de rejeu,
 > empreinte FNV-1a) et [LOT-ANNEXE-18](@ref lot-annexe-18) (rejeux réellement versionnés/joués en
-> jeu). Dernier lot du programme Lot-Annexe.
+> jeu). [LOT-ANNEXE-21](@ref lot-annexe-21) a depuis été ajouté après celui-ci.
 
 ## Objectif
 `LOT-ANNEXE-17` garantit qu'un rejeu **chargé par le jeu** est refusé s'il ne correspond plus à son
@@ -104,8 +104,8 @@ logicielle (CI), réutilisant l'algorithme de hachage déjà motivé dans
 ## Dépendances
 Réutilise l'algorithme et la convention d'octets de [LOT-ANNEXE-17](@ref lot-annexe-17) (empreinte
 FNV-1a). Suppose l'existence de rejeux réellement versionnés par [LOT-ANNEXE-18](@ref
-lot-annexe-18) (dossier de rejeux publiés) pour avoir un objet à vérifier. Dernier lot du
-programme : aucun lot ultérieur n'en dépend.
+lot-annexe-18) (dossier de rejeux publiés) pour avoir un objet à vérifier. Aucun lot ultérieur n'en
+dépend (`LOT-ANNEXE-21` s'appuie sur `LOT-ANNEXE-18`/`19`, pas sur ce garde-fou CI).
 
 ## Navigation des tâches
 - @subpage lot-annexe-20-tache-01-check-ai-replays
