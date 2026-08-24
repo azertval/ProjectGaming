@@ -3,12 +3,11 @@
 
 #pragma once
 
+#include <QObject>
+#include <QString>
 #include <atomic>
 #include <cstdint>
 #include <optional>
-
-#include <QObject>
-#include <QString>
 
 /**
  * @file HMI/Ai/TrainingWorker.h
@@ -70,7 +69,7 @@ signals:
 
     /// @brief Run terminé (résolu, interrompu, ou plafond atteint) sans erreur récupérable.
     void finished(bool solved, QString modelPath, QString statsPath, QString configPath,
-                 QString replayPath, bool replayExported);
+                  QString replayPath, bool replayExported);
 
     /// @brief Erreur récupérable (niveau introuvable, échec d'écriture...) — jamais d'exception
     /// traversant `run()` (`EX-NFR-040`).

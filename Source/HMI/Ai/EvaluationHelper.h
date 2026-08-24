@@ -3,9 +3,8 @@
 
 #pragma once
 
-#include <optional>
-
 #include <QString>
+#include <optional>
 
 /**
  * @file HMI/Ai/EvaluationHelper.h
@@ -40,8 +39,7 @@ struct EvaluationOutcome {
  * @return `std::nullopt` si le modèle ne se charge pas (chemin invalide, format incompatible).
  */
 [[nodiscard]] std::optional<EvaluationOutcome> evaluateModel(const QString& modelPath,
-                                                              const QString& levelPath,
-                                                              const QString& algo,
-                                                              int repetitions);
+                                                             const QString& levelPath,
+                                                             const QString& algo, int repetitions);
 
 }  // namespace hmi

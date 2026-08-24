@@ -50,7 +50,8 @@ std::optional<EvaluationOutcome> evaluateModel(const QString& modelPath, const Q
         eval::AdvancedAlgorithmTrainedPolicy policy(network);
         result = eval::BenchmarkRunner::run(policy, level, config);
     } else {
-        std::unique_ptr<nn::Network> network = training::evolutionary::buildNetwork(topology, scratchRng);
+        std::unique_ptr<nn::Network> network =
+            training::evolutionary::buildNetwork(topology, scratchRng);
         if (!nn::loadWeights(*network, model)) {
             return std::nullopt;
         }

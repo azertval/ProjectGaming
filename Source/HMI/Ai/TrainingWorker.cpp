@@ -54,7 +54,7 @@ using Clock = std::chrono::steady_clock;
 constexpr auto kPreviewInterval = std::chrono::milliseconds(1500);
 
 std::unique_ptr<aisolver::optim::IOptimizer> makeOptimizer(const QString& name,
-                                                            float learningRate) {
+                                                           float learningRate) {
     if (name.toStdString() == "adam") {
         return std::make_unique<aisolver::optim::Adam>(learningRate);
     }
@@ -103,9 +103,9 @@ void TrainingWorker::run() {
         return;
     }
 
-    const cli::CommandLineOverrides overrides{
-        _request.populationSize, _request.mutationRate, _request.episodes,
-        _request.learningRate,   _request.gamma,        std::nullopt};
+    const cli::CommandLineOverrides overrides{_request.populationSize, _request.mutationRate,
+                                              _request.episodes,       _request.learningRate,
+                                              _request.gamma,          std::nullopt};
     cli::TrainingConfig config = cli::loadTrainingConfig(std::nullopt, overrides);
     if (!_request.optimizer.isEmpty()) {
         config.optimizer = _request.optimizer.toStdString();
@@ -113,9 +113,9 @@ void TrainingWorker::run() {
 
     const std::string levelName = levelPath.stem().string();
     const std::string runId = generateRunId();
-    const std::filesystem::path runsRoot = _request.runsRoot.isEmpty()
-                                               ? kDefaultTrainingRunsRoot
-                                               : std::filesystem::path(_request.runsRoot.toStdString());
+    const std::filesystem::path runsRoot =
+        _request.runsRoot.isEmpty() ? kDefaultTrainingRunsRoot
+                                    : std::filesystem::path(_request.runsRoot.toStdString());
     const std::filesystem::path statsPath = makeTrainingRunPath(runsRoot, levelName, runId);
     const std::filesystem::path runDir = statsPath.parent_path();
     const std::filesystem::path modelPath = runDir / "model.bin";
@@ -172,8 +172,8 @@ void TrainingWorker::run() {
         training::LevelTrainingSession session(levelPath, topology, config.evolutionary,
                                                config.stopping, _request.seed, statsPath);
 
-        training::TrainingResult result = session.run(
-            shouldStop, [&](const training::evolutionary::Individual& champion) {
+        training::TrainingResult result =
+            session.run(shouldStop, [&](const training::evolutionary::Individual& champion) {
                 const Clock::time_point now = Clock::now();
                 if (now - lastPreview < kPreviewInterval) {
                     return;
@@ -181,26 +181,22 @@ void TrainingWorker::run() {
                 lastPreview = now;
                 HeadlessLevelEnvironment previewEnvironment;
                 training::evolutionary::Individual scratch =
-                    training::evolutionary::Individual(
-                        [&] {
-                            Rng scratchRng(0);
-                            auto network =
-                                training::evolutionary::buildNetwork(topology, scratchRng);
-                            const std::vector<autodiff::NodePtr> targetParameters =
-                                network->parameters();
-                            const std::vector<autodiff::NodePtr> sourceParameters =
-                                champion.network().parameters();
-                            for (std::size_t index = 0; index < targetParameters.size();
-                                ++index) {
-                                targetParameters[index]->value =
-                                    sourceParameters[index]->value.clone();
-                            }
-                            return network;
-                        }());
+                    training::evolutionary::Individual([&] {
+                        Rng scratchRng(0);
+                        auto network = training::evolutionary::buildNetwork(topology, scratchRng);
+                        const std::vector<autodiff::NodePtr> targetParameters =
+                            network->parameters();
+                        const std::vector<autodiff::NodePtr> sourceParameters =
+                            champion.network().parameters();
+                        for (std::size_t index = 0; index < targetParameters.size(); ++index) {
+                            targetParameters[index]->value = sourceParameters[index]->value.clone();
+                        }
+                        return network;
+                    }());
                 const training::DeterministicReplayResult replay =
                     training::replayBestIndividual(scratch, previewEnvironment, levelPath);
-                if (writePreviewReplay(replay, levelPath, previewPath, algorithmName,
-                                       _request.seed, algorithmId)) {
+                if (writePreviewReplay(replay, levelPath, previewPath, algorithmName, _request.seed,
+                                       algorithmId)) {
                     emit previewReady(QString::fromStdString(previewPath.string()),
                                       QString::fromStdString(algorithmId), _request.levelPath);
                 }
@@ -211,8 +207,8 @@ void TrainingWorker::run() {
             return;
         }
         HeadlessLevelEnvironment finalEnvironment;
-        const training::DeterministicReplayResult finalReplay = training::replayBestIndividual(
-            result.bestIndividual, finalEnvironment, levelPath);
+        const training::DeterministicReplayResult finalReplay =
+            training::replayBestIndividual(result.bestIndividual, finalEnvironment, levelPath);
         const training::ReplayExportResult exportResult = training::exportReplay(
             finalReplay, solved, levelPath, replayPath, algorithmName, _request.seed, algorithmId);
         solved = solved && exportResult.exported;
@@ -225,8 +221,7 @@ void TrainingWorker::run() {
 
     // Familles par gradient (pg/ac/avance) : reseau/optimiseur possedes localement, comme
     // aisolver::cli::runTrain -- meme construction, jamais dupliquee au-dela de ce dispatch.
-    const auto topology =
-        training::evolutionary::policyTopology(inputSize, config.hiddenSize);
+    const auto topology = training::evolutionary::policyTopology(inputSize, config.hiddenSize);
     HeadlessLevelEnvironment environment;
 
     if (algo == "pg") {
@@ -244,8 +239,8 @@ void TrainingWorker::run() {
         // l'entrainement, elle reste valide tout du long (memes poids, mis a jour en place),
         // et sert donc a la fois a l'apercu periodique (pendant) et au rejeu final (apres).
         eval::ReinforceTrainedPolicy evalPolicy(*policy);
-        recorder.setOnRecord([this, &evalPolicy, &maybeEmitPreview,
-                              &algorithmName, &algorithmId](const TrainingStatsRow& row) {
+        recorder.setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
+                              &algorithmId](const TrainingStatsRow& row) {
             emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
             maybeEmitPreview(evalPolicy, algorithmName, algorithmId);
         });
@@ -281,8 +276,8 @@ void TrainingWorker::run() {
         actorCriticConfig.gamma = config.gamma;
         actorCriticConfig.seedBase = _request.seed;
         eval::ActorCriticTrainedPolicy evalPolicy(*policy);
-        recorder.setOnRecord([this, &evalPolicy, &maybeEmitPreview,
-                              &algorithmName, &algorithmId](const TrainingStatsRow& row) {
+        recorder.setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
+                              &algorithmId](const TrainingStatsRow& row) {
             emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
             maybeEmitPreview(evalPolicy, algorithmName, algorithmId);
         });
@@ -325,13 +320,13 @@ void TrainingWorker::run() {
         dqnConfig.epsilonDecaySteps = config.dqnEpsilonDecaySteps;
         dqnConfig.seedBase = _request.seed;
         eval::AdvancedAlgorithmTrainedPolicy evalPolicy(mainNetwork);
-        recorder.setOnRecord([this, &evalPolicy, &maybeEmitPreview,
-                              &algorithmName, &algorithmId](const TrainingStatsRow& row) {
+        recorder.setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
+                              &algorithmId](const TrainingStatsRow& row) {
             emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
             maybeEmitPreview(evalPolicy, algorithmName, algorithmId);
         });
-        training::DqnTrainer trainer(mainNetwork, targetNetwork, *optimizer, environment,
-                                     levelPath, dqnConfig, recorder, levelName);
+        training::DqnTrainer trainer(mainNetwork, targetNetwork, *optimizer, environment, levelPath,
+                                     dqnConfig, recorder, levelName);
         trainer.run(config.episodes, shouldStop);
         if (!nn::saveWeights(mainNetwork.network(), modelPath)) {
             emit failed(QStringLiteral("Echec de sauvegarde du modele."));
@@ -349,9 +344,9 @@ void TrainingWorker::run() {
     }
 
     emit finished(solved, QString::fromStdString(modelPath.string()),
-                 QString::fromStdString(statsPath.string()),
-                 QString::fromStdString(configPath.string()),
-                 QString::fromStdString(replayPath.string()), solved);
+                  QString::fromStdString(statsPath.string()),
+                  QString::fromStdString(configPath.string()),
+                  QString::fromStdString(replayPath.string()), solved);
 }
 
 }  // namespace hmi
