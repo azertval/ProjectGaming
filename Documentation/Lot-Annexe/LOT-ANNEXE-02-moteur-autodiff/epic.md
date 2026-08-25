@@ -88,10 +88,7 @@ automatique) ; Baydin, Pearlmutter, Radul, Siskind (2018, synthèse moderne dire
 bibliographie complète dans le chapitre.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-002 **EX-IA-002** — Le programme d'IA doit disposer d'un moteur de
-  différentiation automatique en mode *reverse* (graphe de calcul dynamique, `backward()` par
-  parcours topologique inverse), **implémenté en interne**, avec une vérification systématique par
-  différences finies (*gradient checking*) bloquante pour toute nouvelle opération différentiable.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-002`](@ref EX-IA-002).
 - Réutilisées : `EX-IA-001` (`Tensor<float>`, socle de valeur de chaque nœud), `EX-NFR-010`/
   `EX-NFR-012`/`EX-NFR-013`/`EX-NFR-020` (testabilité headless, conventions, `/W4 /WX`, couverture de
   tests), `EX-ARCH-001` (sens de dépendance, `AiSolver → Core`, jamais l'inverse).

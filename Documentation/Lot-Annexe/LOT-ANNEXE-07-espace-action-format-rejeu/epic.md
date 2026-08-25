@@ -95,14 +95,8 @@ format de rejeu lui-même (TACHE-03) est une décision d'ingénierie logicielle 
 une notion de la littérature — aucune source externe associée.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-007 **EX-IA-007** — L'agent doit disposer d'un espace d'action discret et
-  fini dérivé de `core::PlayerInput`, avec un décodage déterministe (`argmax`, pour le rejeu final)
-  et un décodage stochastique (échantillonnage pondéré par température, via un générateur
-  déterministe fourni par l'appelant, pour l'exploration en entraînement).
-- Nouvelle : \anchor EX-IA-008 **EX-IA-008** — Une séquence d'actions gagnante doit pouvoir être
-  exportée dans un format de fichier de rejeu versionné (identifiant/empreinte du niveau, séquence
-  de `core::PlayerInput` par pas fixe, métadonnées d'entraînement), lisible et inscriptible, destiné
-  à être rejoué en jeu de façon strictement déterministe sans aucune inférence live.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-007`](@ref EX-IA-007).
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-008`](@ref EX-IA-008).
 - Réutilisées : `EX-IA-001` (`aisolver::Rng`), `EX-IA-005` (`HeadlessLevelEnvironment`,
   `core::PlayerInput`), `EX-LVL-005` (principe de numéro de version sans rupture rétroactive, repris
   par analogie pour le format de rejeu).

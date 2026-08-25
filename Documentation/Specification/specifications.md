@@ -20,6 +20,7 @@ créer son fichier avec une ancre `{#spec-<nom>}` et ajouter une ligne
 - @subpage spec-exigences
 - @subpage spec-editeur
 - @subpage spec-interface-ihm
+- @subpage spec-ia
 - @subpage spec-architecture
 - @subpage spec-decors
 - @subpage spec-conventions

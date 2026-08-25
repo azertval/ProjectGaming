@@ -99,10 +99,7 @@ Box & Muller (1958, tirage gaussien à partir de deux tirages uniformes) — bib
 dans le chapitre.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-001 **EX-IA-001** — Le programme d'IA doit disposer d'une bibliothèque de
-  calcul tensoriel (`Tensor<T>`, opérations élémentaires, réductions, produit matriciel) et d'un
-  générateur pseudo-aléatoire déterministe (`Rng`, seed explicite), tous deux **implémentés en
-  interne** sans dépendance à un framework de calcul numérique tiers.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-001`](@ref EX-IA-001).
 - Réutilisées : `EX-NFR-010`/`EX-NFR-012`/`EX-NFR-013` (testabilité headless, conventions,
   `/W4 /WX`), `EX-NFR-020` (couverture par tests unitaires), `EX-ARCH-001` (sens de dépendance
   `HMI → Core`, étendu ici à `AiSolver → Core`, jamais l'inverse).

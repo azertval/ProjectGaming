@@ -95,10 +95,7 @@ bibliographie complète dans le chapitre, à relire avant de trancher entre les 
 l'ouverture de ce lot.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-015 **EX-IA-015** — L'agent doit disposer d'un algorithme d'apprentissage
-  par gradient avancé (PPO ou DQN maison, le choix étant tranché à l'ouverture du lot sur la base de
-  mesures chiffrées), intégré au harnais d'entraînement existant et comparé chiffres à l'appui à la
-  génération 2 (évolutionniste) et au reste de la génération 3 (REINFORCE, acteur-critique).
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-015`](@ref EX-IA-015).
 - Réutilisées (inchangées) : `EX-IA-013` (perte de policy gradient, base commune), `EX-IA-014`
   (avantage, si PPO est retenu) et les exigences des lots amont — environnement headless
   (LOT-ANNEXE-05), espace d'action et format de rejeu v1 (LOT-ANNEXE-07),

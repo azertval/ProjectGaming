@@ -99,13 +99,7 @@ répété, robustesse au bruit). Source directe : Henderson, Islam, Bachman, Pin
 nécessité de répéter les exécutions plutôt que de se fier à un seul essai.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-016 **EX-IA-016** — Un harnais de benchmark générique, indépendant de la
-  famille d'algorithme, doit permettre d'exécuter **de façon répétée** (`N` répétitions) un modèle
-  déjà entraîné sur son niveau d'origine via `HeadlessLevelEnvironment`, de mesurer le taux de
-  réussite, le nombre de pas moyen et la variance associés, de produire un rapport comparatif au
-  format CSV par niveau × algorithme, et de mesurer la robustesse de la politique à un bruit léger
-  de l'observation perçue, sans jamais modifier l'état réel simulé, le modèle évalué, ni la logique
-  d'entraînement qui l'a produit.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-016`](@ref EX-IA-016).
 - Réutilisées (inchangées) : `EX-NFR-002` (déterminisme au pas fixe), `EX-NFR-010` (testable sans
   fenêtre ni GPU), `EX-NFR-013` (`/W4 /WX`), `EX-NFR-020` (couverture par tests), `EX-NFR-040`
   (erreur récupérable signalée, pas de plantage) et les exigences des lots amont —

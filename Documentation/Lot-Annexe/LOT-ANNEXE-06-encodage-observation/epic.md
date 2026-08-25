@@ -76,11 +76,7 @@ déjà citées dans ces deux chapitres — ce lot applique les notions, il n'en 
 nouvelle.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-006 **EX-IA-006** — L'état du jeu, lu via `HeadlessLevelEnvironment`
-  (`EX-IA-005`), doit pouvoir être encodé en un tenseur d'observation de forme stable (fenêtre de
-  tuiles catégorielle, état joueur, état des mécanismes environnants), de façon **déterministe**
-  (mêmes entrées `Core` → même tenseur), consommable par tout algorithme d'apprentissage sans
-  connaissance des types `Core` sous-jacents.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-006`](@ref EX-IA-006).
 - Réutilisées : `EX-IA-005` (environnement headless), `EX-GP-001` (types de tuiles), `EX-GP-019`/
   `025` (masse, plaque de pression), `EX-GP-050`-`053` (dangers avancés), `EX-NFR-002` (déterminisme).
 

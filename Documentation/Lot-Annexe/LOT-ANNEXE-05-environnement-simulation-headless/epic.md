@@ -79,10 +79,7 @@ et al. (2016, *OpenAI Gym*, popularise l'interface `reset`/`step`) — `Headless
 inspire dans sa forme uniquement, sans aucune dépendance à cette bibliothèque.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-005 **EX-IA-005** — Le jeu doit être jouable **sans fenêtre ni GPU**, au
-  pas fixe, via une API `reset(chemin)`/`step(core::PlayerInput)` reproduisant fidèlement
-  l'orchestration de simulation du jeu (mécanismes, blocs, physique, dangers, issue), sans aucune
-  modification de `Core`, avec une garde de non-régression pas-à-pas permanente en CI.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-005`](@ref EX-IA-005).
 - Réutilisées (inchangées) : `EX-GP-001` à `EX-GP-025`/`050`-`053` (modèle de niveau et mécaniques,
   consommées en lecture seule), `EX-NFR-002` (déterminisme au pas fixe), `EX-NFR-004` (vérification
   sans GPU), `EX-ARCH-011`/`EX-ARCH-030` (données pures, orchestration par systèmes).

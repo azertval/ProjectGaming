@@ -139,3 +139,8 @@ c'est précisément le cas que la règle protège.
 | 8 | [LOT-64](@ref lot-64) | Le cadrage doit exister avant qu'on refasse les niveaux. |
 | 9 | [LOT-65](@ref lot-65) | Dernier lot de contenu : exploite tout ce qui précède. |
 | 10 | [LOT-66](@ref lot-66) | Clôt le programme ; les statuts ne se figent qu'à la fin. |
+
+## Programme annexe
+
+Un second découpage, indépendant de celui-ci, porte l'IA de résolution autonome : @ref lots-annexe.
+Sa numérotation (`LOT-ANNEXE-NN`) ne croise jamais celle des lots principaux.
