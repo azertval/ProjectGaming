@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "AiSolver/Math/Autodiff/Node.h"
 
 #include <unordered_set>

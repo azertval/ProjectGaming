@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_convergence.cpp
  * @brief Tests de convergence des optimiseurs sur des problèmes jouets (LOT-ANNEXE-04, TACHE-03).
