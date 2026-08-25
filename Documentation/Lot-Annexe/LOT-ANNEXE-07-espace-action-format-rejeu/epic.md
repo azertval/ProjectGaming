@@ -1,6 +1,6 @@
 # LOT-ANNEXE-07 — Espace d'action, décodage politique et format de rejeu v1 {#lot-annexe-07}
 
-> Statut : **non commencé**. Prérequis : [LOT-ANNEXE-05](@ref lot-annexe-05) (`HeadlessLevelEnvironment`,
+> Statut : **fait**. Prérequis : [LOT-ANNEXE-05](@ref lot-annexe-05) (`HeadlessLevelEnvironment`,
 > `core::PlayerInput`) et [LOT-ANNEXE-01](@ref lot-annexe-01) (`aisolver::Rng`). Troisième lot de la
 > génération 1 : définit à la fois la **sortie** que produira toute politique entraînée et le
 > **format de fichier** dans lequel exporter la séquence gagnante — volontairement tôt (génération
@@ -113,10 +113,10 @@ une notion de la littérature — aucune source externe associée.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-espace-action-discret.md) | Espace d'action discret | `Source/AiSolver/Env` | ⬜ |
-| [TACHE-02](tache-02-decodage-argmax-stochastique.md) | Décodage déterministe et stochastique | `Source/AiSolver/Env` | ⬜ |
-| [TACHE-03](tache-03-format-rejeu-v1.md) | Format de rejeu v1 | `Source/AiSolver/Replay` | ⬜ |
-| [TACHE-04](tache-04-tests.md) | Tests : couverture, absence de biais, round-trip | `Source/Test/Unit/AiSolver` | ⬜ |
+| [TACHE-01](tache-01-espace-action-discret.md) | Espace d'action discret | `Source/AiSolver/Env` | ✅ |
+| [TACHE-02](tache-02-decodage-argmax-stochastique.md) | Décodage déterministe et stochastique | `Source/AiSolver/Env` | ✅ |
+| [TACHE-03](tache-03-format-rejeu-v1.md) | Format de rejeu v1 | `Source/AiSolver/Replay` | ✅ |
+| [TACHE-04](tache-04-tests.md) | Tests : couverture, absence de biais, round-trip | `Source/Test/Unit/AiSolver` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Toutes les combinaisons de l'espace d'action discret produisent un `core::PlayerInput` valide et

@@ -1,6 +1,6 @@
 # LOT-ANNEXE-06 — Encodage observation {#lot-annexe-06}
 
-> Statut : **non commencé**. Prérequis : [LOT-ANNEXE-05](@ref lot-annexe-05) (environnement
+> Statut : **fait**. Prérequis : [LOT-ANNEXE-05](@ref lot-annexe-05) (environnement
 > headless) et [LOT-ANNEXE-01](@ref lot-annexe-01) (`Tensor`). Transforme l'état de jeu lu via
 > `HeadlessLevelEnvironment` en tenseur exploitable par un réseau de neurones.
 
@@ -90,10 +90,10 @@ nouvelle.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-fenetre-tuiles-encodage-categoriel.md) | Fenêtre de tuiles centrée, encodage catégoriel par `TileType` | `Source/AiSolver/Env` | ⬜ |
-| [TACHE-02](tache-02-vecteur-etat-joueur.md) | Vecteur d'état joueur | `Source/AiSolver/Env` | ⬜ |
-| [TACHE-03](tache-03-etat-mecanismes-fenetre.md) | État des mécanismes actifs dans la fenêtre | `Source/AiSolver/Env` | ⬜ |
-| [TACHE-04](tache-04-tests-determinisme-dimension.md) | Tests : déterminisme et stabilité dimensionnelle aux bords | `Source/Test/Unit/AiSolver/Env` | ⬜ |
+| [TACHE-01](tache-01-fenetre-tuiles-encodage-categoriel.md) | Fenêtre de tuiles centrée, encodage catégoriel par `TileType` | `Source/AiSolver/Env` | ✅ |
+| [TACHE-02](tache-02-vecteur-etat-joueur.md) | Vecteur d'état joueur | `Source/AiSolver/Env` | ✅ |
+| [TACHE-03](tache-03-etat-mecanismes-fenetre.md) | État des mécanismes actifs dans la fenêtre | `Source/AiSolver/Env` | ✅ |
+| [TACHE-04](tache-04-tests-determinisme-dimension.md) | Tests : déterminisme et stabilité dimensionnelle aux bords | `Source/Test/Unit/AiSolver/Env` | ✅ |
 
 ## Critères d'acceptation du lot
 1. L'encodeur produit un tenseur de forme stable (dimensions connues à l'avance à partir du seul

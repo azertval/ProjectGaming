@@ -1,6 +1,6 @@
 # LOT-ANNEXE-05 — Environnement de simulation headless {#lot-annexe-05}
 
-> Statut : **non commencé**. Prérequis : aucun lot annexe (peut démarrer dès que la génération 0
+> Statut : **fait**. Prérequis : aucun lot annexe (peut démarrer dès que la génération 0
 > fournit de quoi compiler `AiSolver`, sans dépendance **fonctionnelle** sur elle). Premier lot de
 > la génération 1 : donne à tout algorithme d'apprentissage à venir un moyen de **jouer** un niveau
 > sans fenêtre ni GPU.
@@ -93,11 +93,11 @@ inspire dans sa forme uniquement, sans aucune dépendance à cette bibliothèque
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-headless-level-environment.md) | `HeadlessLevelEnvironment` : squelette, `reset`, entité joueur | `Source/AiSolver/Env` | ⬜ |
-| [TACHE-02](tache-02-replication-ordre-pas.md) | `step` : réplication exacte de l'ordre de composition par pas | `Source/AiSolver/Env` | ⬜ |
-| [TACHE-03](tache-03-budget-pas-detection-blocage.md) | Budget de pas et mesure de progression (blocage) | `Source/AiSolver/Env` | ⬜ |
-| [TACHE-04](tache-04-cible-cmake-aisolver.md) | Cible CMake `AiSolver` | `Source/AiSolver`, `Source/CMakeLists.txt` | ⬜ |
-| [TACHE-05](tache-05-garde-fidelite-parcours-complet.md) | Garde de fidélité pas-à-pas (CI permanente) | `Source/Test/Systeme` | ⬜ |
+| [TACHE-01](tache-01-headless-level-environment.md) | `HeadlessLevelEnvironment` : squelette, `reset`, entité joueur | `Source/AiSolver/Env` | ✅ |
+| [TACHE-02](tache-02-replication-ordre-pas.md) | `step` : réplication exacte de l'ordre de composition par pas | `Source/AiSolver/Env` | ✅ |
+| [TACHE-03](tache-03-budget-pas-detection-blocage.md) | Budget de pas et mesure de progression (blocage) | `Source/AiSolver/Env` | ✅ |
+| [TACHE-04](tache-04-cible-cmake-aisolver.md) | Cible CMake `AiSolver` | `Source/AiSolver`, `Source/CMakeLists.txt` | ✅ |
+| [TACHE-05](tache-05-garde-fidelite-parcours-complet.md) | Garde de fidélité pas-à-pas (CI permanente) | `Source/Test/Systeme` | ✅ |
 
 ## Critères d'acceptation du lot
 1. `HeadlessLevelEnvironment::reset` charge n'importe quel niveau JSON valide de
