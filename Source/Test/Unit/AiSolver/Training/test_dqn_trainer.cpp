@@ -38,8 +38,8 @@ using aisolver_test::TrivialLevelDirectory;
 
 namespace {
 
-constexpr int kReducedMaxSteps = 40;
-constexpr std::size_t kHiddenSize = 8;
+constexpr int REDUCED_MAX_STEPS = 40;
+constexpr std::size_t HIDDEN_SIZE = 8;
 
 std::string readWholeFile(const std::filesystem::path& path) {
     std::ifstream file(path, std::ios::binary);
@@ -104,7 +104,7 @@ std::string stripTimestampColumn(const std::string& csvContent) {
 
 DqnConfig baseConfig(std::uint64_t seedBase) {
     DqnConfig config;
-    config.hiddenSize = kHiddenSize;
+    config.hiddenSize = HIDDEN_SIZE;
     config.replayCapacity = 200;
     config.batchSize = 4;
     config.warmupSize = 4;
@@ -132,28 +132,28 @@ DqnConfig baseConfig(std::uint64_t seedBase) {
 TEST(DqnTrainerTest, CsvBienFormes) {
     const TrivialLevelDirectory level("csv");
     const ObservationEncoder encoder;
-    constexpr std::size_t kEpisodeCount = 15;
+    constexpr std::size_t EPISODE_COUNT = 15;
 
     Rng mainRng(11);
-    QNetwork mainNetwork(encoder.inputSize(), kHiddenSize, mainRng);
+    QNetwork mainNetwork(encoder.inputSize(), HIDDEN_SIZE, mainRng);
     Rng targetRng(12);
-    QNetwork targetNetwork(encoder.inputSize(), kHiddenSize, targetRng);
+    QNetwork targetNetwork(encoder.inputSize(), HIDDEN_SIZE, targetRng);
     targetNetwork.copyWeightsFrom(mainNetwork);
     Sgd optimizer(0.05f);
 
-    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     TrainingStatsRecorder recorder(level.file("stats.csv"));
     const std::filesystem::path dqnStatsCsv = level.file("dqn_stats.csv");
 
     DqnTrainer trainer(mainNetwork, targetNetwork, optimizer, environment, level.levelPath(),
                        baseConfig(11), recorder, "TrivialAI", dqnStatsCsv);
-    trainer.run(kEpisodeCount);
+    trainer.run(EPISODE_COUNT);
 
     const std::vector<std::string> statLines = splitLines(readWholeFile(level.file("stats.csv")));
-    EXPECT_EQ(statLines.size(), kEpisodeCount + 1);
+    EXPECT_EQ(statLines.size(), EPISODE_COUNT + 1);
 
     const std::vector<std::string> dqnLines = splitLines(readWholeFile(dqnStatsCsv));
-    ASSERT_EQ(dqnLines.size(), kEpisodeCount + 1);
+    ASSERT_EQ(dqnLines.size(), EPISODE_COUNT + 1);
     EXPECT_EQ(dqnLines[0], "index,replayBufferSize,epsilon");
 }
 
@@ -167,25 +167,25 @@ TEST(DqnTrainerTest, CsvBienFormes) {
  * \tattendu Fichiers strictement identiques.}
  */
 TEST(DqnTrainerTest, ReproductibiliteIntegrale) {
-    constexpr std::size_t kEpisodeCount = 10;
+    constexpr std::size_t EPISODE_COUNT = 10;
 
     const auto runOnce = [&](const char* suffix) {
         const TrivialLevelDirectory level(suffix);
         const ObservationEncoder encoder;
 
         Rng mainRng(99);
-        QNetwork mainNetwork(encoder.inputSize(), kHiddenSize, mainRng);
+        QNetwork mainNetwork(encoder.inputSize(), HIDDEN_SIZE, mainRng);
         Rng targetRng(100);
-        QNetwork targetNetwork(encoder.inputSize(), kHiddenSize, targetRng);
+        QNetwork targetNetwork(encoder.inputSize(), HIDDEN_SIZE, targetRng);
         targetNetwork.copyWeightsFrom(mainNetwork);
         Sgd optimizer(0.05f);
 
-        HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+        HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
         TrainingStatsRecorder recorder(level.file("stats.csv"));
 
         DqnTrainer trainer(mainNetwork, targetNetwork, optimizer, environment, level.levelPath(),
                            baseConfig(7), recorder, "TrivialAI");
-        trainer.run(kEpisodeCount);
+        trainer.run(EPISODE_COUNT);
         return stripTimestampColumn(readWholeFile(level.file("stats.csv")));
     };
 
@@ -210,15 +210,15 @@ TEST(DqnTrainerTest, ReseauCibleFigeAvantLaPeriodeDeSynchronisation) {
     const ObservationEncoder encoder;
 
     Rng mainRng(21);
-    QNetwork mainNetwork(encoder.inputSize(), kHiddenSize, mainRng);
+    QNetwork mainNetwork(encoder.inputSize(), HIDDEN_SIZE, mainRng);
     Rng targetRng(22);
-    QNetwork targetNetwork(encoder.inputSize(), kHiddenSize, targetRng);
+    QNetwork targetNetwork(encoder.inputSize(), HIDDEN_SIZE, targetRng);
 
     const auto targetBefore = targetNetwork.parameters().front()->value.clone();
     const auto mainBefore = mainNetwork.parameters().front()->value.clone();
 
     Sgd optimizer(0.1f);
-    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     TrainingStatsRecorder recorder(level.file("stats.csv"));
 
     DqnConfig config = baseConfig(21);
@@ -258,12 +258,12 @@ TEST(DqnTrainerTest, SynchronisationEffectiveDuReseauCible) {
     const ObservationEncoder encoder;
 
     Rng mainRng(23);
-    QNetwork mainNetwork(encoder.inputSize(), kHiddenSize, mainRng);
+    QNetwork mainNetwork(encoder.inputSize(), HIDDEN_SIZE, mainRng);
     Rng targetRng(24);
-    QNetwork targetNetwork(encoder.inputSize(), kHiddenSize, targetRng);
+    QNetwork targetNetwork(encoder.inputSize(), HIDDEN_SIZE, targetRng);
 
     Sgd optimizer(0.1f);
-    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     TrainingStatsRecorder recorder(level.file("stats.csv"));
 
     DqnConfig config = baseConfig(23);
@@ -276,7 +276,7 @@ TEST(DqnTrainerTest, SynchronisationEffectiveDuReseauCible) {
     // Au moins une synchronisation garantie ; le reseau cible ne doit plus etre a son
     // initialisation d'origine (differente de celle du principal par construction).
     Rng freshTargetRng(24);
-    QNetwork freshTarget(encoder.inputSize(), kHiddenSize, freshTargetRng);
+    QNetwork freshTarget(encoder.inputSize(), HIDDEN_SIZE, freshTargetRng);
     const auto& targetNow = targetNetwork.parameters().front()->value;
     const auto& targetOriginal = freshTarget.parameters().front()->value;
     bool anyChanged = false;
@@ -304,12 +304,12 @@ TEST(DqnTrainerTest, ConfigurationDEpsilonEffective) {
         const ObservationEncoder encoder;
 
         Rng mainRng(31);
-        QNetwork mainNetwork(encoder.inputSize(), kHiddenSize, mainRng);
+        QNetwork mainNetwork(encoder.inputSize(), HIDDEN_SIZE, mainRng);
         Rng targetRng(32);
-        QNetwork targetNetwork(encoder.inputSize(), kHiddenSize, targetRng);
+        QNetwork targetNetwork(encoder.inputSize(), HIDDEN_SIZE, targetRng);
         Sgd optimizer(0.05f);
 
-        HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+        HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
         TrainingStatsRecorder recorder(level.file("stats.csv"));
 
         DqnConfig config = baseConfig(31);
@@ -341,12 +341,12 @@ TEST(DqnTrainerTest, ShouldStopInterromptAvantLePremierEpisode) {
     const ObservationEncoder encoder;
 
     Rng mainRng(41);
-    QNetwork mainNetwork(encoder.inputSize(), kHiddenSize, mainRng);
+    QNetwork mainNetwork(encoder.inputSize(), HIDDEN_SIZE, mainRng);
     Rng targetRng(42);
-    QNetwork targetNetwork(encoder.inputSize(), kHiddenSize, targetRng);
+    QNetwork targetNetwork(encoder.inputSize(), HIDDEN_SIZE, targetRng);
     Sgd optimizer(0.05f);
 
-    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     TrainingStatsRecorder recorder(level.file("stats.csv"));
 
     DqnTrainer trainer(mainNetwork, targetNetwork, optimizer, environment, level.levelPath(),

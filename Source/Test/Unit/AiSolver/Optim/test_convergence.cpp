@@ -58,7 +58,7 @@ std::size_t iterationsToConvergeOnQuadratic(float learningRate, float momentum, 
         backward(QuadraticToyProblem::loss(x));
         sgd.step({x});
         sgd.zeroGrad({x});
-        absoluteErrors.push_back(std::abs(x->value.at({0}) - QuadraticToyProblem::kTarget));
+        absoluteErrors.push_back(std::abs(x->value.at({0}) - QuadraticToyProblem::TARGET));
     }
 
     std::size_t lastAboveTolerance = maxIterations;

@@ -52,7 +52,7 @@ using Clock = std::chrono::steady_clock;
 // Periode minimale entre deux apercus (LOT-ANNEXE-21) : un rejeu deterministe complet plus une
 // ecriture disque a chaque generation/episode ralentirait un niveau rapide pour rien -- la vue
 // "Rejeu 3D" n'a besoin que d'un aperçu recent, pas de chaque generation.
-constexpr auto kPreviewInterval = std::chrono::milliseconds(1500);
+constexpr auto PREVIEW_INTERVAL = std::chrono::milliseconds(1500);
 
 std::unique_ptr<aisolver::optim::IOptimizer> makeOptimizer(const QString& name,
                                                            float learningRate) {
@@ -108,7 +108,7 @@ void TrainingWorker::run() {
                                               _request.episodes,       _request.learningRate,
                                               _request.gamma,          std::nullopt};
     cli::TrainingConfig config = cli::loadTrainingConfig(std::nullopt, overrides);
-    config.algo = _request.algo.toStdString();
+    config.algorithmId = _request.algorithmId.toStdString();
     if (!_request.optimizer.isEmpty()) {
         config.optimizer = _request.optimizer.toStdString();
     }
@@ -116,7 +116,7 @@ void TrainingWorker::run() {
     const std::string levelName = levelPath.stem().string();
     const std::string runId = generateRunId();
     const std::filesystem::path runsRoot =
-        _request.runsRoot.isEmpty() ? kDefaultTrainingRunsRoot
+        _request.runsRoot.isEmpty() ? DEFAULT_TRAINING_RUNS_ROOT
                                     : std::filesystem::path(_request.runsRoot.toStdString());
     const std::filesystem::path statsPath = makeTrainingRunPath(runsRoot, levelName, runId);
     const std::filesystem::path runDir = statsPath.parent_path();
@@ -137,7 +137,9 @@ void TrainingWorker::run() {
         return;
     }
 
-    const std::string algo = _request.algo.toStdString();
+    // Algorithme DEMANDE par l'ecran. Distinct de `algorithmId` plus bas, qui est l'etiquette
+    // ecrite dans les metadonnees du run : l'un choisit la branche, l'autre decrit le resultat.
+    const std::string requestedAlgorithm = _request.algorithmId.toStdString();
     const std::size_t inputSize = ObservationEncoder().inputSize();
     Clock::time_point lastPreview{};
 
@@ -150,12 +152,12 @@ void TrainingWorker::run() {
     std::optional<TrainingStatsRecorder> recorder;
 
     // Aperçu périodique du champion courant (pg/ac/avance) : un rejeu Argmax déterministe complet
-    // à CHAQUE épisode ralentirait un niveau rapide pour rien -- rythme borné par kPreviewInterval,
+    // à CHAQUE épisode ralentirait un niveau rapide pour rien -- rythme borné par PREVIEW_INTERVAL,
     // même raison que le chemin évolutionniste (`onGenerationChampion` ci-dessous).
     const auto maybeEmitPreview = [&](eval::TrainedPolicy& evalPolicy, const std::string& name,
                                       const std::string& id, int generation) {
         const Clock::time_point now = Clock::now();
-        if (now - lastPreview < kPreviewInterval) {
+        if (now - lastPreview < PREVIEW_INTERVAL) {
             return;
         }
         lastPreview = now;
@@ -174,7 +176,7 @@ void TrainingWorker::run() {
     std::string algorithmName = "evolutionnaire";
     std::string algorithmId = "evo";
 
-    if (algo == "evo") {
+    if (requestedAlgorithm == "evo") {
         algorithmName = "evolutionnaire";
         algorithmId = "evo";
         const training::evolutionary::NetworkTopology topology =
@@ -191,7 +193,7 @@ void TrainingWorker::run() {
             session.run(shouldStop, [&](const training::evolutionary::Individual& champion) {
                 ++evoGeneration;
                 const Clock::time_point now = Clock::now();
-                if (now - lastPreview < kPreviewInterval) {
+                if (now - lastPreview < PREVIEW_INTERVAL) {
                     return;
                 }
                 lastPreview = now;
@@ -242,7 +244,7 @@ void TrainingWorker::run() {
     const auto topology = training::evolutionary::policyTopology(inputSize, config.hiddenSize);
     HeadlessLevelEnvironment environment;
 
-    if (algo == "pg") {
+    if (requestedAlgorithm == "pg") {
         algorithmName = "reinforce";
         algorithmId = "pg";
         Rng policyRng(_request.seed);
@@ -279,7 +281,7 @@ void TrainingWorker::run() {
                 *replay, solved, levelPath, replayPath, algorithmName, _request.seed, algorithmId);
             solved = solved && exportResult.exported;
         }
-    } else if (algo == "ac") {
+    } else if (requestedAlgorithm == "ac") {
         algorithmName = "acteur-critique";
         algorithmId = "ac";
         Rng policyRng(_request.seed);

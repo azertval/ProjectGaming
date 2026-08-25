@@ -7,16 +7,16 @@ namespace aisolver {
 
 namespace {
 
-constexpr std::uint64_t kFnv1aOffsetBasis = 0xcbf29ce484222325ULL;
-constexpr std::uint64_t kFnv1aPrime = 0x100000001b3ULL;
+constexpr std::uint64_t FNV1A_OFFSET_BASIS = 0xcbf29ce484222325ULL;
+constexpr std::uint64_t FNV1A_PRIME = 0x100000001b3ULL;
 
 }  // namespace
 
 LevelFingerprint computeLevelFingerprint(std::string_view levelFileContent) noexcept {
-    std::uint64_t hash = kFnv1aOffsetBasis;
+    std::uint64_t hash = FNV1A_OFFSET_BASIS;
     for (const char byte : levelFileContent) {
         hash ^= static_cast<std::uint64_t>(static_cast<unsigned char>(byte));
-        hash *= kFnv1aPrime;
+        hash *= FNV1A_PRIME;
     }
     return hash;
 }

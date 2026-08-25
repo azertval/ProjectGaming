@@ -45,7 +45,7 @@ TEST(DangerGeometryTest, DangerUpBordeLeHaut) {
     EXPECT_FLOAT_EQ(box.min.x, 0.0f);
     EXPECT_FLOAT_EQ(box.max.x, 1.0f);
     EXPECT_FLOAT_EQ(box.min.y, 0.0f);
-    EXPECT_FLOAT_EQ(box.max.y, core::kDangerEdgeThickness);
+    EXPECT_FLOAT_EQ(box.max.y, core::DANGER_EDGE_THICKNESS);
 }
 
 /**
@@ -63,7 +63,7 @@ TEST(DangerGeometryTest, DangerDownBordeLeBas) {
     const core::Aabb box = core::dangerHitbox(core::TileType::DangerDown, 0, 0);
     EXPECT_FLOAT_EQ(box.min.x, 0.0f);
     EXPECT_FLOAT_EQ(box.max.x, 1.0f);
-    EXPECT_FLOAT_EQ(box.min.y, 1.0f - core::kDangerEdgeThickness);
+    EXPECT_FLOAT_EQ(box.min.y, 1.0f - core::DANGER_EDGE_THICKNESS);
     EXPECT_FLOAT_EQ(box.max.y, 1.0f);
 }
 
@@ -83,7 +83,7 @@ TEST(DangerGeometryTest, DangerLeftBordeLaGauche) {
     EXPECT_FLOAT_EQ(box.min.y, 0.0f);
     EXPECT_FLOAT_EQ(box.max.y, 1.0f);
     EXPECT_FLOAT_EQ(box.min.x, 0.0f);
-    EXPECT_FLOAT_EQ(box.max.x, core::kDangerEdgeThickness);
+    EXPECT_FLOAT_EQ(box.max.x, core::DANGER_EDGE_THICKNESS);
 }
 
 /**
@@ -101,7 +101,7 @@ TEST(DangerGeometryTest, DangerRightBordeLaDroite) {
     const core::Aabb box = core::dangerHitbox(core::TileType::DangerRight, 0, 0);
     EXPECT_FLOAT_EQ(box.min.y, 0.0f);
     EXPECT_FLOAT_EQ(box.max.y, 1.0f);
-    EXPECT_FLOAT_EQ(box.min.x, 1.0f - core::kDangerEdgeThickness);
+    EXPECT_FLOAT_EQ(box.min.x, 1.0f - core::DANGER_EDGE_THICKNESS);
     EXPECT_FLOAT_EQ(box.max.x, 1.0f);
 }
 

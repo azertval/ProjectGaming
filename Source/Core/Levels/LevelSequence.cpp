@@ -39,9 +39,9 @@ LevelSequenceLoadResult LevelSequenceLoader::loadFromString(std::string_view jso
         // Version du format (EX-LVL-005) : absente = version initiale (0), même
         // rétrocompatibilité que LevelLoader.
         const int version = root.value("version", 0);
-        if (version > kLevelSequenceFormatVersion) {
+        if (version > LEVEL_SEQUENCE_FORMAT_VERSION) {
             return failure("Version de format non geree : " + std::to_string(version) +
-                               " (maximum gere : " + std::to_string(kLevelSequenceFormatVersion) +
+                               " (maximum gere : " + std::to_string(LEVEL_SEQUENCE_FORMAT_VERSION) +
                                ")",
                            LevelSequenceError::UnsupportedFormatVersion);
         }

@@ -68,7 +68,7 @@ private:
 // Corridor plus long (3 pas vers la droite au lieu d'un seul) : meme mecanique que
 // TrivialLevelDirectory (deplacement lateral pur, aucun saut), geometrie jamais vue a
 // l'entrainement -- paire "mecanique partagee" de la campagne de TACHE-02.
-inline constexpr const char* kTrivialLongLevelJson = R"({
+inline constexpr const char* TRIVIAL_LONG_LEVEL_JSON = R"({
   "name": "TrivialLong",
   "width": 6,
   "height": 3,
@@ -91,7 +91,7 @@ inline constexpr const char* kTrivialLongLevelJson = R"({
 // Corridor avec une breche d'une case (aucun sol en x=2, ni au niveau du sol) : franchissable
 // uniquement en sautant -- une mecanique jamais requise par TrivialLevelDirectory (deplacement pur)
 // -- paire "mecanique differente" de la campagne de TACHE-02.
-inline constexpr const char* kGapLevelJson = R"({
+inline constexpr const char* GAP_LEVEL_JSON = R"({
   "name": "Gap",
   "width": 6,
   "height": 3,
@@ -232,10 +232,10 @@ TEST(CrossLevelBenchmarkTest, CampagneMultiPairesRespecteLOrdre) {
  */
 TEST(CrossLevelTransferTest, CampagneReelleDeuxPairesDeNiveaux) {
     const TrivialLevelDirectory trainingLevel("transfer_training");
-    const NamedLevelDirectory longLevel("transfer_long", kTrivialLongLevelJson);
-    const NamedLevelDirectory gapLevel("transfer_gap", kGapLevelJson);
+    const NamedLevelDirectory longLevel("transfer_long", TRIVIAL_LONG_LEVEL_JSON);
+    const NamedLevelDirectory gapLevel("transfer_gap", GAP_LEVEL_JSON);
     const ObservationEncoder encoder;
-    constexpr int kReducedMaxSteps = 50;
+    constexpr int REDUCED_MAX_STEPS = 50;
 
     EvolutionaryConfig trainingConfig;
     trainingConfig.populationSize = 32;
@@ -245,7 +245,7 @@ TEST(CrossLevelTransferTest, CampagneReelleDeuxPairesDeNiveaux) {
 
     LevelTrainingSession session(trainingLevel.levelPath(), policyTopology(encoder.inputSize()),
                                  trainingConfig, stopping, 7777, trainingLevel.file("stats.csv"),
-                                 EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+                                 EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     TrainingResult trainingResult = session.run();
     ASSERT_TRUE(trainingResult.solved);
 

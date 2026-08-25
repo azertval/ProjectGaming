@@ -33,10 +33,10 @@ namespace aisolver::cli {
 /// Arguments de `train`.
 struct TrainArgs {
     std::filesystem::path level;
-    std::string algo;
+    std::string algorithmId;
     std::uint64_t seed = 0;
     std::optional<std::filesystem::path> configFile;
-    std::filesystem::path runsRoot = kDefaultTrainingRunsRoot;
+    std::filesystem::path runsRoot = DEFAULT_TRAINING_RUNS_ROOT;
     std::optional<std::size_t> populationSize;
     std::optional<float> mutationRate;
     std::optional<std::size_t> episodes;
@@ -48,7 +48,7 @@ struct TrainArgs {
 /// Arguments de `evaluate`.
 struct EvaluateArgs {
     std::filesystem::path model;
-    std::string algo;
+    std::string algorithmId;
     std::filesystem::path level;
     int repetitions = 30;
     std::optional<std::filesystem::path> report;
@@ -57,7 +57,7 @@ struct EvaluateArgs {
 /// Arguments de `export-replay`.
 struct ExportReplayArgs {
     std::filesystem::path model;
-    std::string algo;
+    std::string algorithmId;
     std::filesystem::path level;
     std::filesystem::path output;
     std::uint64_t seed = 0;
@@ -93,8 +93,9 @@ struct ExportReplayArgs {
 [[nodiscard]] std::optional<ExportReplayArgs> parseExportReplayArgs(
     const std::vector<std::string>& args, std::string& error);
 
-/// @return `true` si `algo` est l'une des quatre valeurs acceptées (`evo`/`pg`/`ac`/`avance`).
-[[nodiscard]] bool isKnownAlgorithm(const std::string& algo);
+/// @return `true` si `algorithmId` est l'une des quatre valeurs acceptées
+/// (`evo`/`pg`/`ac`/`avance`).
+[[nodiscard]] bool isKnownAlgorithm(const std::string& algorithmId);
 
 /**
  * @brief Exécute `train` : construit et lance un entraînement complet sur `args.level`, journalise

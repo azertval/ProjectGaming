@@ -120,15 +120,15 @@ TEST(ParseTrainArgsTest, RejetteUnAlgorithmeInvalide) {
  * \tcrit Critique<br/>
  * \tetapes 1. Arguments `--level demo.json --algo <evo|pg|ac|avance>` pour chaque
  * valeur.<br/>2. `parseTrainArgs`.<br/>
- * \tattendu Analyse reussie, `algo` egal a la valeur fournie, pour les quatre cas.}
+ * \tattendu Analyse reussie, `algorithmId` egal a la valeur fournie, pour les quatre cas.}
  */
 TEST(ParseTrainArgsTest, AccepteLesQuatreAlgorithmesConnus) {
-    for (const char* algo : {"evo", "pg", "ac", "avance"}) {
+    for (const char* algorithmId : {"evo", "pg", "ac", "avance"}) {
         std::string error;
         const std::optional<TrainArgs> parsed =
-            parseTrainArgs({"--level", "demo.json", "--algo", algo}, error);
-        ASSERT_TRUE(parsed.has_value()) << algo;
-        EXPECT_EQ(parsed->algo, algo);
+            parseTrainArgs({"--level", "demo.json", "--algo", algorithmId}, error);
+        ASSERT_TRUE(parsed.has_value()) << algorithmId;
+        EXPECT_EQ(parsed->algorithmId, algorithmId);
     }
 }
 
@@ -221,7 +221,7 @@ TEST(ParseExportReplayArgsTest, RejetteUneSortieManquante) {
  * \tcrit Majeur<br/>
  * \tetapes 1. Arguments `--model m.bin --algo avance --level l.json --output o.json --seed
  * 3`.<br/>2. `parseExportReplayArgs`.<br/>
- * \tattendu `algo == "avance"`, `seed == 3`.}
+ * \tattendu `algorithmId == "avance"`, `seed == 3`.}
  */
 TEST(ParseExportReplayArgsTest, AnalyseUnAppelValide) {
     std::string error;
@@ -230,7 +230,7 @@ TEST(ParseExportReplayArgsTest, AnalyseUnAppelValide) {
                                "--output", "o.json", "--seed", "3"},
                               error);
     ASSERT_TRUE(parsed.has_value());
-    EXPECT_EQ(parsed->algo, "avance");
+    EXPECT_EQ(parsed->algorithmId, "avance");
     EXPECT_EQ(parsed->seed, 3u);
 }
 

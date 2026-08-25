@@ -10,7 +10,7 @@ namespace aisolver {
 namespace {
 
 /// Nombre de valeurs de `Direction`, dans son ordre d'énumération (`Left, None, Right`).
-constexpr std::size_t kDirectionCount = 3;
+constexpr std::size_t DIRECTION_COUNT = 3;
 
 [[nodiscard]] Direction directionAt(std::size_t index) {
     switch (index) {
@@ -46,7 +46,7 @@ Action actionAt(std::size_t index) {
     index /= 2;
     const bool jumpPressed = (index % 2) != 0;
     index /= 2;
-    const Direction direction = directionAt(index % kDirectionCount);
+    const Direction direction = directionAt(index % DIRECTION_COUNT);
     return Action{direction, jumpPressed, jumpHeld, dashPressed, interactPressed};
 }
 

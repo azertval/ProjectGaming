@@ -30,7 +30,7 @@ using aisolver_test::TrivialLevelDirectory;
 namespace {
 // Budget de pas reduit (vs. 3000 par defaut) : le niveau trivial se resout en quelques pas,
 // reduit tres largement le cout d'une population evaluee sur des dizaines de generations.
-constexpr int kReducedMaxSteps = 50;
+constexpr int REDUCED_MAX_STEPS = 50;
 }  // namespace
 
 /**
@@ -55,7 +55,7 @@ TEST(LevelTrainingSessionTest, ArretParResolutionStable) {
 
     LevelTrainingSession session(level.levelPath(), policyTopology(encoder.inputSize()), config,
                                  stopping, 4242, level.file("stats.csv"),
-                                 EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+                                 EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
 
     const TrainingResult result = session.run();
 
@@ -85,7 +85,7 @@ TEST(LevelTrainingSessionTest, ArretParPlafondDeGenerations) {
 
     LevelTrainingSession session(level.levelPath(), policyTopology(encoder.inputSize()), config,
                                  stopping, 1, level.file("stats.csv"),
-                                 EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+                                 EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
 
     const TrainingResult result = session.run();
 
@@ -148,7 +148,7 @@ TEST(LevelTrainingSessionTest, UnSeulNiveauPourTouteLaSession) {
 
     LevelTrainingSession session(level.levelPath(), policyTopology(encoder.inputSize()), config,
                                  stopping, 1, level.file("stats.csv"),
-                                 EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+                                 EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     const TrainingResult result = session.run();
     static_cast<void>(result);
 
@@ -180,7 +180,7 @@ TEST(LevelTrainingSessionTest, ShouldStopInterromptAvantLePlafond) {
 
     LevelTrainingSession session(level.levelPath(), policyTopology(encoder.inputSize()), config,
                                  stopping, 7, level.file("stats.csv"),
-                                 EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+                                 EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     const TrainingResult result = session.run([] { return true; });
 
     EXPECT_FALSE(result.solved);
@@ -210,7 +210,7 @@ TEST(LevelTrainingSessionTest, OnGenerationChampionRecoitLeVraiChampion) {
 
     LevelTrainingSession session(level.levelPath(), policyTopology(encoder.inputSize()), config,
                                  stopping, 3, level.file("stats.csv"),
-                                 EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+                                 EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     int callCount = 0;
     const TrainingResult result =
         session.run({}, [&callCount](const aisolver::training::evolutionary::Individual& champion) {

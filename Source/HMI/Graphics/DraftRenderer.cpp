@@ -220,8 +220,8 @@ void DraftRenderer::composeGrid(const core::LevelDraft& draft) {
     // valeurs par defaut sinon) : plus epaisses, teinte ambre. Meme remarque que
     // composeCameraFraming pour le mode "par salle".
     const core::CameraFramingConfig& framing = draft.cameraFraming();
-    const int roomWidthTiles = framing.roomWidthTiles.value_or(core::kDefaultRoomWidthTiles);
-    const int roomHeightTiles = framing.roomHeightTiles.value_or(core::kDefaultRoomHeightTiles);
+    const int roomWidthTiles = framing.roomWidthTiles.value_or(core::DEFAULT_ROOM_WIDTH_TILES);
+    const int roomHeightTiles = framing.roomHeightTiles.value_or(core::DEFAULT_ROOM_HEIGHT_TILES);
     constexpr float ROOM_LINE = 0.09f;
     constexpr float roomLineAlpha = 0.5f;
     for (int column = 0; column * roomWidthTiles <= width; ++column) {
@@ -308,9 +308,9 @@ void DraftRenderer::composeCameraFraming(const core::LevelDraft& draft) {
             // Reutilise hmi::RoomGrid (LOT-32) a la taille resolue -- jamais une seconde
             // implementation du decoupage en salles (tache-03).
             const int roomWidthTiles =
-                framing.roomWidthTiles.value_or(core::kDefaultRoomWidthTiles);
+                framing.roomWidthTiles.value_or(core::DEFAULT_ROOM_WIDTH_TILES);
             const int roomHeightTiles =
-                framing.roomHeightTiles.value_or(core::kDefaultRoomHeightTiles);
+                framing.roomHeightTiles.value_or(core::DEFAULT_ROOM_HEIGHT_TILES);
             const RoomGrid rooms(width, height, roomWidthTiles, roomHeightTiles);
             for (int row = 0; row < rooms.rows(); ++row) {
                 for (int column = 0; column < rooms.columns(); ++column) {
@@ -327,8 +327,8 @@ void DraftRenderer::composeCameraFraming(const core::LevelDraft& draft) {
             if (!entry) {
                 break;  // pas d'entree posee : rien de significatif a previsualiser (tache-03).
             }
-            const float viewWidth = static_cast<float>(core::kDefaultRoomWidthTiles);
-            const float viewHeight = static_cast<float>(core::kDefaultRoomHeightTiles);
+            const float viewWidth = static_cast<float>(core::DEFAULT_ROOM_WIDTH_TILES);
+            const float viewHeight = static_cast<float>(core::DEFAULT_ROOM_HEIGHT_TILES);
             // Meme regle de bornage/centrage qu'hmi::advanceFollowCamera (FollowCamera.cpp) : un
             // axe plus etroit que le cadrage centre plutot que borne -- previsualisation fidele au
             // comportement reel, pas une approximation.

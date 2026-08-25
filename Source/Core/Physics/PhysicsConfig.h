@@ -11,6 +11,18 @@
 namespace core {
 
 /**
+ * @brief Tolérance géométrique des routines de balayage, en unités monde.
+ *
+ * Empêche qu'un simple **effleurement** de frontière — un bord exactement posé sur une
+ * limite de case — compte comme un chevauchement. Partagée par `sweepX`/`sweepY`
+ * (`SweptCollision`) et par la résolution AABB/AABB : les deux doivent s'accorder sur ce
+ * qu'est un contact, sans quoi une même position serait bloquante pour l'une et libre pour
+ * l'autre. Ce n'est pas un réglage de ressenti, d'où sa place ici et non dans
+ * `PhysicsConfig` : la modifier ne change pas le jeu, elle change la définition du contact.
+ */
+inline constexpr float COLLISION_SKIN = 1e-4F;
+
+/**
  * @brief Paramètres réglables de la physique du personnage, regroupés pour faciliter le *tuning*.
  *
  * Donnée pure (`EX-ARCH-011`) : le `CharacterPhysicsSystem` la lit, ne la modifie pas. Les valeurs

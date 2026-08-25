@@ -24,11 +24,11 @@ namespace {
 
 // Un niveau reel (livre) sert de reference : son empreinte doit correspondre a la lecture reelle
 // du fichier sur disque, pas a un niveau synthetise en memoire (LOT-ANNEXE-17).
-constexpr const char* kLevelFileName = "demo-deplacement.json";
+constexpr const char* LEVEL_FILE_NAME = "demo-deplacement.json";
 
 aisolver::LevelFingerprint realFingerprint() {
     const std::filesystem::path levelPath =
-        std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / kLevelFileName;
+        std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / LEVEL_FILE_NAME;
     std::ifstream file(levelPath, std::ios::binary);
     std::ostringstream contents;
     contents << file.rdbuf();
@@ -41,7 +41,7 @@ std::filesystem::path writeReplayFixture(const char* suffix,
         std::filesystem::temp_directory_path() /
         (std::string("aisolver_test_replay_playback_") + suffix + ".json");
     aisolver::ReplayFile file;
-    file.levelPath = kLevelFileName;
+    file.levelPath = LEVEL_FILE_NAME;
     file.levelFingerprint = fingerprint;
     file.steps = {core::PlayerInput{.moveX = 1.0f}, core::PlayerInput{.moveX = 0.0f}};
     file.algorithmName = "test";
@@ -64,7 +64,7 @@ TEST(ReplayPlaybackTest, RejeuValideRejoueLaSequenceDansLOrdre) {
     ReplayPlayback playback(path, std::filesystem::path(PROJECTGAMING_LEVELS_DIR));
 
     ASSERT_TRUE(playback.valid()) << playback.error();
-    EXPECT_EQ(playback.levelPath(), kLevelFileName);
+    EXPECT_EQ(playback.levelPath(), LEVEL_FILE_NAME);
 
     const std::optional<core::PlayerInput> first = playback.nextInput();
     ASSERT_TRUE(first.has_value());

@@ -31,7 +31,7 @@ public:
     /// Taille de couche cachée par défaut : comparable à `evolutionary::DEFAULT_HIDDEN_SIZE`, pour
     /// que la comparaison de convergence (TACHE-04) isole l'effet de la réduction de variance, pas
     /// celui d'un critique disproportionnellement plus grand que la politique.
-    static constexpr std::size_t kDefaultHiddenSize = 16;
+    static constexpr std::size_t DEFAULT_HIDDEN_SIZE = 16;
 
     /**
      * @param inputSize  Taille du vecteur d'observation encodé (`ObservationEncoder::inputSize()`).

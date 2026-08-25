@@ -19,12 +19,12 @@ namespace aisolver {
 /// Git par `.gitignore`, `/TrainingRuns/`). Reste un nom relatif : l'appelant (CLI,
 /// `LOT-ANNEXE-19`) résout ce chemin en absolu selon son propre répertoire de travail — cette
 /// fonction ne fait aucune hypothèse sur le répertoire courant du processus.
-inline constexpr const char* kDefaultTrainingRunsRoot = "TrainingRuns";
+inline constexpr const char* DEFAULT_TRAINING_RUNS_ROOT = "TrainingRuns";
 
 /**
  * @brief Construit le chemin `trainingRunsRoot / levelName / runId / "stats.csv"` et crée les
  * dossiers intermédiaires manquants.
- * @param trainingRunsRoot Racine des runs d'entraînement (voir `kDefaultTrainingRunsRoot`).
+ * @param trainingRunsRoot Racine des runs d'entraînement (voir `DEFAULT_TRAINING_RUNS_ROOT`).
  * @param levelName Nom du niveau entraîné : isole les runs de niveaux différents dans des dossiers
  * disjoints (régime d'entraînement niveau par niveau).
  * @param runId Identifiant du run (voir `generateRunId`) : deux runs successifs sur le même niveau

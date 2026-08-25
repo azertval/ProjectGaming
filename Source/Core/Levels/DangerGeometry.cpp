@@ -5,8 +5,8 @@
 
 namespace core {
 
-Aabb dangerHitbox(TileType type, int col, int row) noexcept {
-    const auto left = static_cast<float>(col);
+Aabb dangerHitbox(TileType type, int column, int row) noexcept {
+    const auto left = static_cast<float>(column);
     const auto top = static_cast<float>(row);
     const float right = left + 1.0F;
     const float bottom = top + 1.0F;
@@ -14,15 +14,15 @@ Aabb dangerHitbox(TileType type, int col, int row) noexcept {
     switch (type) {
         case TileType::DangerUp:
             return Aabb{.min = Vector2{left, top},
-                        .max = Vector2{right, top + kDangerEdgeThickness}};
+                        .max = Vector2{right, top + DANGER_EDGE_THICKNESS}};
         case TileType::DangerDown:
-            return Aabb{.min = Vector2{left, bottom - kDangerEdgeThickness},
+            return Aabb{.min = Vector2{left, bottom - DANGER_EDGE_THICKNESS},
                         .max = Vector2{right, bottom}};
         case TileType::DangerLeft:
             return Aabb{.min = Vector2{left, top},
-                        .max = Vector2{left + kDangerEdgeThickness, bottom}};
+                        .max = Vector2{left + DANGER_EDGE_THICKNESS, bottom}};
         case TileType::DangerRight:
-            return Aabb{.min = Vector2{right - kDangerEdgeThickness, top},
+            return Aabb{.min = Vector2{right - DANGER_EDGE_THICKNESS, top},
                         .max = Vector2{right, bottom}};
         default:
             return Aabb{.min = Vector2{left, top}, .max = Vector2{right, bottom}};

@@ -13,13 +13,13 @@
 namespace core {
 
 /// Largeur du personnage, en unités monde (une tuile = 1 unité).
-inline constexpr float kPlayerWidth = 0.4f;
+inline constexpr float PLAYER_WIDTH = 0.4f;
 /// Hauteur du personnage, en unités monde.
-inline constexpr float kPlayerHeight = 0.8f;
+inline constexpr float PLAYER_HEIGHT = 0.8f;
 
 /// @return Les dimensions (largeur, hauteur) du personnage, pour le Collider et le rendu.
 [[nodiscard]] inline Vector2 playerSize() {
-    return Vector2{kPlayerWidth, kPlayerHeight};
+    return Vector2{PLAYER_WIDTH, PLAYER_HEIGHT};
 }
 
 /**
@@ -29,8 +29,8 @@ inline constexpr float kPlayerHeight = 0.8f;
  * `y` vers le bas). Évite de faire apparaître le personnage collé à un bord de la tuile.
  */
 [[nodiscard]] inline Vector2 playerSpawnPosition(int column, int row) {
-    return Vector2{static_cast<float>(column) + (1.0f - kPlayerWidth) * 0.5f,
-                   static_cast<float>(row) + (1.0f - kPlayerHeight) * 0.5f};
+    return Vector2{static_cast<float>(column) + (1.0f - PLAYER_WIDTH) * 0.5f,
+                   static_cast<float>(row) + (1.0f - PLAYER_HEIGHT) * 0.5f};
 }
 
 }  // namespace core

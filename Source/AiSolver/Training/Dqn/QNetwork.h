@@ -30,7 +30,7 @@ class QNetwork {
 public:
     /// Même taille de couche cachée par défaut que `CriticNetwork` (comparaison de génération 3 à
     /// capacité de réseau comparable, TACHE-03).
-    static constexpr std::size_t kDefaultHiddenSize = 16;
+    static constexpr std::size_t DEFAULT_HIDDEN_SIZE = 16;
 
     /**
      * @param inputSize  Taille du vecteur d'observation encodé (`ObservationEncoder::inputSize()`).

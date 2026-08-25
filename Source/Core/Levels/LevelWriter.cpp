@@ -91,7 +91,7 @@ std::string LevelWriter::buildJson(
     const CameraFramingConfig& cameraFraming, const std::optional<int>& airJumps,
     const std::optional<int>& dashCharges, const std::vector<Plane>& planes, bool parallaxEnabled) {
     nlohmann::json root;
-    root["version"] = kLevelFormatVersion;
+    root["version"] = LEVEL_FORMAT_VERSION;
     root["name"] = name;
     root["width"] = tileMap.width();
     root["height"] = tileMap.height();

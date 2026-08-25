@@ -29,16 +29,16 @@ using aisolver::training::evolutionary::policyTopology;
 
 namespace {
 
-constexpr std::size_t kInputSize = 3;
-constexpr std::size_t kHiddenSize = 4;
+constexpr std::size_t INPUT_SIZE = 3;
+constexpr std::size_t HIDDEN_SIZE = 4;
 
 std::unique_ptr<aisolver::nn::Network> tinyPolicy(std::uint64_t seed) {
     Rng rng(seed);
-    return buildNetwork(policyTopology(kInputSize, kHiddenSize), rng);
+    return buildNetwork(policyTopology(INPUT_SIZE, HIDDEN_SIZE), rng);
 }
 
 Tensor<float> observationOf(float a, float b, float c) {
-    Tensor<float> observation({kInputSize, 1});
+    Tensor<float> observation({INPUT_SIZE, 1});
     observation.at({0, 0}) = a;
     observation.at({1, 0}) = b;
     observation.at({2, 0}) = c;
@@ -286,7 +286,7 @@ TEST(ReinforceLossTest, IndependanceALaLongueurDEpisode) {
 TEST(ReinforceLossTest, SigneDuGradientAugmenteLaProbabiliteRenforcee) {
     auto policy = tinyPolicy(7);
     const Tensor<float> observation = observationOf(0.2f, -0.3f, 0.1f);
-    constexpr std::size_t kActionIndex = 9;
+    constexpr std::size_t ACTION_INDEX = 9;
 
     const auto probabilityOf = [&](std::size_t actionIndex) {
         const aisolver::autodiff::NodePtr inputNode = aisolver::autodiff::variable(observation);
@@ -294,10 +294,10 @@ TEST(ReinforceLossTest, SigneDuGradientAugmenteLaProbabiliteRenforcee) {
         return outputNode->value.data()[actionIndex];
     };
 
-    const float probabilityBefore = probabilityOf(kActionIndex);
+    const float probabilityBefore = probabilityOf(ACTION_INDEX);
 
     Trajectory trajectory;
-    trajectory.steps.push_back(stepAt(kActionIndex, observation));
+    trajectory.steps.push_back(stepAt(ACTION_INDEX, observation));
     const std::vector<float> returns{5.0f};
 
     const std::vector<aisolver::autodiff::NodePtr> parameters = policy->parameters();
@@ -310,6 +310,6 @@ TEST(ReinforceLossTest, SigneDuGradientAugmenteLaProbabiliteRenforcee) {
     aisolver::optim::Sgd optimizer(0.05f);
     optimizer.step(parameters);
 
-    const float probabilityAfter = probabilityOf(kActionIndex);
+    const float probabilityAfter = probabilityOf(ACTION_INDEX);
     EXPECT_GT(probabilityAfter, probabilityBefore);
 }

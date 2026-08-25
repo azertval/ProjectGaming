@@ -152,20 +152,20 @@ TEST(ConvergenceComparatorTest, EcartTypeDeFinDeRun) {
 TEST(ConvergenceComparatorTest, LectureCroiseeReinforceEtActeurCritique) {
     const TrivialLevelDirectory level("cross_read");
     const ObservationEncoder encoder;
-    constexpr int kReducedMaxSteps = 40;
-    constexpr std::size_t kEpisodeCount = 15;
+    constexpr int REDUCED_MAX_STEPS = 40;
+    constexpr std::size_t EPISODE_COUNT = 15;
 
     Rng reinforceRng(61);
     auto reinforcePolicy = buildNetwork(policyTopology(encoder.inputSize()), reinforceRng);
     Sgd reinforceOptimizer(0.05f);
-    HeadlessLevelEnvironment reinforceEnvironment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    HeadlessLevelEnvironment reinforceEnvironment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     TrainingStatsRecorder reinforceRecorder(level.file("reinforce.csv"));
     ReinforceConfig reinforceConfig;
     reinforceConfig.seedBase = 61;
     ReinforceTrainer reinforceTrainer(*reinforcePolicy, reinforceOptimizer, reinforceEnvironment,
                                       level.levelPath(), reinforceConfig, reinforceRecorder,
                                       "TrivialAI");
-    reinforceTrainer.run(kEpisodeCount);
+    reinforceTrainer.run(EPISODE_COUNT);
 
     Rng policyRng(62);
     auto acPolicy = buildNetwork(policyTopology(encoder.inputSize()), policyRng);
@@ -173,13 +173,13 @@ TEST(ConvergenceComparatorTest, LectureCroiseeReinforceEtActeurCritique) {
     Rng criticRng(63);
     CriticNetwork critic(encoder.inputSize(), 8, criticRng);
     Sgd criticOptimizer(0.05f);
-    HeadlessLevelEnvironment acEnvironment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    HeadlessLevelEnvironment acEnvironment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     TrainingStatsRecorder acRecorder(level.file("actor_critic.csv"));
     ActorCriticConfig acConfig;
     acConfig.seedBase = 62;
     ActorCriticTrainer acTrainer(*acPolicy, policyOptimizer, critic, criticOptimizer, acEnvironment,
                                  level.levelPath(), acConfig, acRecorder, "TrivialAI");
-    acTrainer.run(kEpisodeCount);
+    acTrainer.run(EPISODE_COUNT);
 
     const auto reinforceReport =
         compareConvergence({level.file("reinforce.csv")}, /*rewardThreshold=*/1.0f);
@@ -206,22 +206,22 @@ TEST(ConvergenceComparatorTest, LectureCroiseeReinforceEtActeurCritique) {
 TEST(ConvergenceComparatorTest, ComparaisonReinforceVsActorCritiqueSurNiveauDeControle) {
     const TrivialLevelDirectory level("comparison");
     const ObservationEncoder encoder;
-    constexpr int kReducedMaxSteps = 40;
-    constexpr std::size_t kEpisodeCount = 60;
-    constexpr int kTrialCount = 4;
-    constexpr float kRewardThreshold = 5.0f;
+    constexpr int REDUCED_MAX_STEPS = 40;
+    constexpr std::size_t EPISODE_COUNT = 60;
+    constexpr int TRIAL_COUNT = 4;
+    constexpr float REWARD_THRESHOLD = 5.0f;
 
     std::vector<std::filesystem::path> reinforcePaths;
     std::vector<std::filesystem::path> actorCriticPaths;
 
-    for (int trial = 0; trial < kTrialCount; ++trial) {
+    for (int trial = 0; trial < TRIAL_COUNT; ++trial) {
         const std::uint64_t seed = 1000 + static_cast<std::uint64_t>(trial);
 
         Rng reinforceRng(seed);
         auto reinforcePolicy = buildNetwork(policyTopology(encoder.inputSize()), reinforceRng);
         Sgd reinforceOptimizer(0.05f);
         HeadlessLevelEnvironment reinforceEnvironment(
-            EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+            EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
         const std::filesystem::path reinforcePath =
             level.file(("reinforce_" + std::to_string(trial) + ".csv").c_str());
         TrainingStatsRecorder reinforceRecorder(reinforcePath);
@@ -230,7 +230,7 @@ TEST(ConvergenceComparatorTest, ComparaisonReinforceVsActorCritiqueSurNiveauDeCo
         ReinforceTrainer reinforceTrainer(*reinforcePolicy, reinforceOptimizer,
                                           reinforceEnvironment, level.levelPath(), reinforceConfig,
                                           reinforceRecorder, "TrivialAI");
-        reinforceTrainer.run(kEpisodeCount);
+        reinforceTrainer.run(EPISODE_COUNT);
         reinforcePaths.push_back(reinforcePath);
 
         Rng policyRng(seed + 500);
@@ -239,7 +239,7 @@ TEST(ConvergenceComparatorTest, ComparaisonReinforceVsActorCritiqueSurNiveauDeCo
         Rng criticRng(seed + 900);
         CriticNetwork critic(encoder.inputSize(), 8, criticRng);
         Sgd criticOptimizer(0.05f);
-        HeadlessLevelEnvironment acEnvironment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+        HeadlessLevelEnvironment acEnvironment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
         const std::filesystem::path acPath =
             level.file(("actor_critic_" + std::to_string(trial) + ".csv").c_str());
         TrainingStatsRecorder acRecorder(acPath);
@@ -248,12 +248,12 @@ TEST(ConvergenceComparatorTest, ComparaisonReinforceVsActorCritiqueSurNiveauDeCo
         ActorCriticTrainer acTrainer(*acPolicy, policyOptimizer, critic, criticOptimizer,
                                      acEnvironment, level.levelPath(), acConfig, acRecorder,
                                      "TrivialAI");
-        acTrainer.run(kEpisodeCount);
+        acTrainer.run(EPISODE_COUNT);
         actorCriticPaths.push_back(acPath);
     }
 
-    const auto reinforceReport = compareConvergence(reinforcePaths, kRewardThreshold);
-    const auto actorCriticReport = compareConvergence(actorCriticPaths, kRewardThreshold);
+    const auto reinforceReport = compareConvergence(reinforcePaths, REWARD_THRESHOLD);
+    const auto actorCriticReport = compareConvergence(actorCriticPaths, REWARD_THRESHOLD);
 
     std::printf(
         "[LOT-ANNEXE-13 TACHE-04] REINFORCE : %zu/%zu essais atteignent le plafond, "

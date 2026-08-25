@@ -208,44 +208,44 @@ TEST(GenerationComparatorTest, ConversionDeBudgetEquitable) {
 TEST(GenerationComparatorTest, ComparaisonAQuatreSeriesClotureGeneration3) {
     const TrivialLevelDirectory level("four_way");
     const ObservationEncoder encoder;
-    constexpr int kReducedMaxSteps = 40;
-    constexpr int kTrialCount = 3;
-    constexpr std::size_t kEpisodeBudget = 120;
-    constexpr std::size_t kPopulationSize = 8;
-    constexpr std::size_t kGenerationCount = kEpisodeBudget / kPopulationSize;  // 15
-    constexpr float kRewardThreshold = 5.0f;
+    constexpr int REDUCED_MAX_STEPS = 40;
+    constexpr int TRIAL_COUNT = 3;
+    constexpr std::size_t EPISODE_BUDGET = 120;
+    constexpr std::size_t POPULATION_SIZE = 8;
+    constexpr std::size_t GENERATION_COUNT = EPISODE_BUDGET / POPULATION_SIZE;  // 15
+    constexpr float REWARD_THRESHOLD = 5.0f;
 
-    ASSERT_EQ(evolutionaryEpisodeBudget(kGenerationCount, kPopulationSize), kEpisodeBudget);
+    ASSERT_EQ(evolutionaryEpisodeBudget(GENERATION_COUNT, POPULATION_SIZE), EPISODE_BUDGET);
 
     std::vector<std::filesystem::path> evoPaths;
     std::vector<std::filesystem::path> reinforcePaths;
     std::vector<std::filesystem::path> acPaths;
     std::vector<std::filesystem::path> dqnPaths;
 
-    for (int trial = 0; trial < kTrialCount; ++trial) {
+    for (int trial = 0; trial < TRIAL_COUNT; ++trial) {
         const std::uint64_t seed = 2000 + static_cast<std::uint64_t>(trial);
         const std::string suffix = std::to_string(trial);
 
-        // --- Evolutionniste : kGenerationCount generations x kPopulationSize individus.
+        // --- Evolutionniste : GENERATION_COUNT generations x POPULATION_SIZE individus.
         const std::filesystem::path evoPath = level.file(("evo_" + suffix + ".csv").c_str());
         TrainingStatsRecorder evoRecorder(evoPath);
         EvolutionaryConfig evoConfig;
-        evoConfig.populationSize = kPopulationSize;
-        HeadlessLevelEnvironment evoEnvironment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+        evoConfig.populationSize = POPULATION_SIZE;
+        HeadlessLevelEnvironment evoEnvironment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
         EvolutionaryTrainer evoTrainer(policyTopology(encoder.inputSize()), evoConfig,
                                        evoEnvironment, level.levelPath(), seed, evoRecorder,
                                        "TrivialAI");
-        for (std::size_t generation = 0; generation < kGenerationCount; ++generation) {
+        for (std::size_t generation = 0; generation < GENERATION_COUNT; ++generation) {
             evoTrainer.runGeneration();
         }
         evoPaths.push_back(evoPath);
 
-        // --- REINFORCE : kEpisodeBudget episodes.
+        // --- REINFORCE : EPISODE_BUDGET episodes.
         Rng reinforceRng(seed);
         auto reinforcePolicy = buildNetwork(policyTopology(encoder.inputSize()), reinforceRng);
         Sgd reinforceOptimizer(0.05f);
         HeadlessLevelEnvironment reinforceEnvironment(
-            EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+            EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
         const std::filesystem::path reinforcePath =
             level.file(("reinforce_" + suffix + ".csv").c_str());
         TrainingStatsRecorder reinforceRecorder(reinforcePath);
@@ -254,17 +254,17 @@ TEST(GenerationComparatorTest, ComparaisonAQuatreSeriesClotureGeneration3) {
         ReinforceTrainer reinforceTrainer(*reinforcePolicy, reinforceOptimizer,
                                           reinforceEnvironment, level.levelPath(), reinforceConfig,
                                           reinforceRecorder, "TrivialAI");
-        reinforceTrainer.run(kEpisodeBudget);
+        reinforceTrainer.run(EPISODE_BUDGET);
         reinforcePaths.push_back(reinforcePath);
 
-        // --- Acteur-critique : kEpisodeBudget episodes.
+        // --- Acteur-critique : EPISODE_BUDGET episodes.
         Rng acPolicyRng(seed + 500);
         auto acPolicy = buildNetwork(policyTopology(encoder.inputSize()), acPolicyRng);
         Sgd acPolicyOptimizer(0.05f);
         Rng criticRng(seed + 900);
         CriticNetwork critic(encoder.inputSize(), 8, criticRng);
         Sgd criticOptimizer(0.05f);
-        HeadlessLevelEnvironment acEnvironment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+        HeadlessLevelEnvironment acEnvironment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
         const std::filesystem::path acPath = level.file(("ac_" + suffix + ".csv").c_str());
         TrainingStatsRecorder acRecorder(acPath);
         ActorCriticConfig acConfig;
@@ -272,16 +272,16 @@ TEST(GenerationComparatorTest, ComparaisonAQuatreSeriesClotureGeneration3) {
         ActorCriticTrainer acTrainer(*acPolicy, acPolicyOptimizer, critic, criticOptimizer,
                                      acEnvironment, level.levelPath(), acConfig, acRecorder,
                                      "TrivialAI");
-        acTrainer.run(kEpisodeBudget);
+        acTrainer.run(EPISODE_BUDGET);
         acPaths.push_back(acPath);
 
-        // --- DQN : kEpisodeBudget episodes.
+        // --- DQN : EPISODE_BUDGET episodes.
         Rng dqnMainRng(seed + 1300);
         QNetwork dqnMain(encoder.inputSize(), 8, dqnMainRng);
         Rng dqnTargetRng(seed + 1700);
         QNetwork dqnTarget(encoder.inputSize(), 8, dqnTargetRng);
         Sgd dqnOptimizer(0.05f);
-        HeadlessLevelEnvironment dqnEnvironment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+        HeadlessLevelEnvironment dqnEnvironment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
         const std::filesystem::path dqnPath = level.file(("dqn_" + suffix + ".csv").c_str());
         TrainingStatsRecorder dqnRecorder(dqnPath);
         DqnConfig dqnConfig;
@@ -293,7 +293,7 @@ TEST(GenerationComparatorTest, ComparaisonAQuatreSeriesClotureGeneration3) {
         dqnConfig.seedBase = seed;
         DqnTrainer dqnTrainer(dqnMain, dqnTarget, dqnOptimizer, dqnEnvironment, level.levelPath(),
                               dqnConfig, dqnRecorder, "TrivialAI");
-        dqnTrainer.run(kEpisodeBudget);
+        dqnTrainer.run(EPISODE_BUDGET);
         dqnPaths.push_back(dqnPath);
     }
 
@@ -304,7 +304,7 @@ TEST(GenerationComparatorTest, ComparaisonAQuatreSeriesClotureGeneration3) {
         {"DQN (LOT-ANNEXE-14)", dqnPaths},
     };
     const std::vector<GenerationComparisonResult> results =
-        compareGenerations(series, kRewardThreshold);
+        compareGenerations(series, REWARD_THRESHOLD);
 
     ASSERT_EQ(results.size(), 4u);
     for (const GenerationComparisonResult& result : results) {
@@ -315,7 +315,7 @@ TEST(GenerationComparatorTest, ComparaisonAQuatreSeriesClotureGeneration3) {
             "[LOT-ANNEXE-14 TACHE-03] %-32s : %zu/%zu essais atteignent le plafond (seuil=%.1f), "
             "episodesToThreshold moyen = %s, ecart-type fin de run = %f\n",
             result.name.c_str(), result.report->trialsReachingThreshold, result.report->totalTrials,
-            static_cast<double>(kRewardThreshold),
+            static_cast<double>(REWARD_THRESHOLD),
             result.report->meanEpisodesToThreshold
                 ? std::to_string(*result.report->meanEpisodesToThreshold).c_str()
                 : "N/A",

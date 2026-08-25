@@ -44,9 +44,9 @@ using aisolver_test::TrivialLevelDirectory;
 
 namespace {
 
-constexpr int kReducedMaxSteps = 40;
-constexpr std::size_t kEpisodeCount = 80;
-constexpr std::size_t kCriticHiddenSize = 8;
+constexpr int REDUCED_MAX_STEPS = 40;
+constexpr std::size_t EPISODE_COUNT = 80;
+constexpr std::size_t CRITIC_HIDDEN_SIZE = 8;
 
 std::string readWholeFile(const std::filesystem::path& path) {
     std::ifstream file(path, std::ios::binary);
@@ -88,10 +88,10 @@ TEST(ActorCriticTrainerTest, ConvergenceDuCritique) {
     Sgd policyOptimizer(0.05f);
 
     Rng criticRng(22);
-    CriticNetwork critic(encoder.inputSize(), kCriticHiddenSize, criticRng);
+    CriticNetwork critic(encoder.inputSize(), CRITIC_HIDDEN_SIZE, criticRng);
     Sgd criticOptimizer(0.05f);
 
-    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     TrainingStatsRecorder recorder(level.file("stats.csv"));
     const std::filesystem::path criticLossCsv = level.file("critic_loss.csv");
 
@@ -101,10 +101,10 @@ TEST(ActorCriticTrainerTest, ConvergenceDuCritique) {
 
     ActorCriticTrainer trainer(*policy, policyOptimizer, critic, criticOptimizer, environment,
                                level.levelPath(), config, recorder, "TrivialAI", criticLossCsv);
-    trainer.run(kEpisodeCount);
+    trainer.run(EPISODE_COUNT);
 
     const std::vector<std::string> lines = splitLines(readWholeFile(criticLossCsv));
-    ASSERT_EQ(lines.size(), kEpisodeCount + 1);
+    ASSERT_EQ(lines.size(), EPISODE_COUNT + 1);
 
     const auto criticLossOf = [](const std::string& line) {
         const std::size_t comma = line.find(',');
@@ -146,13 +146,13 @@ TEST(ActorCriticTrainerTest, IndependanceDesDeuxOptimisations) {
     Sgd policyOptimizer(0.05f);
 
     Rng criticRng(32);
-    CriticNetwork critic(encoder.inputSize(), kCriticHiddenSize, criticRng);
+    CriticNetwork critic(encoder.inputSize(), CRITIC_HIDDEN_SIZE, criticRng);
     Sgd criticOptimizer(0.05f);
 
     const auto criticWeightsBefore = critic.parameters().front()->value.clone();
     const auto policyWeightsBefore = policy->parameters().front()->value.clone();
 
-    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     TrainingStatsRecorder recorder(level.file("stats.csv"));
 
     ActorCriticConfig config;
@@ -197,10 +197,10 @@ TEST(ActorCriticTrainerTest, RemiseAZeroDesGradientsDesDeuxReseaux) {
     Sgd policyOptimizer(0.05f);
 
     Rng criticRng(42);
-    CriticNetwork critic(encoder.inputSize(), kCriticHiddenSize, criticRng);
+    CriticNetwork critic(encoder.inputSize(), CRITIC_HIDDEN_SIZE, criticRng);
     Sgd criticOptimizer(0.05f);
 
-    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     TrainingStatsRecorder recorder(level.file("stats.csv"));
 
     ActorCriticConfig config;
@@ -240,10 +240,10 @@ TEST(ActorCriticTrainerTest, CsvDePerteDuCritiqueBienForme) {
     Sgd policyOptimizer(0.05f);
 
     Rng criticRng(52);
-    CriticNetwork critic(encoder.inputSize(), kCriticHiddenSize, criticRng);
+    CriticNetwork critic(encoder.inputSize(), CRITIC_HIDDEN_SIZE, criticRng);
     Sgd criticOptimizer(0.05f);
 
-    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     TrainingStatsRecorder recorder(level.file("stats.csv"));
     const std::filesystem::path criticLossCsv = level.file("critic_loss.csv");
 
@@ -284,10 +284,10 @@ TEST(ActorCriticTrainerTest, ShouldStopInterromptAvantLePremierEpisode) {
     Sgd policyOptimizer(0.05f);
 
     Rng criticRng(62);
-    CriticNetwork critic(encoder.inputSize(), kCriticHiddenSize, criticRng);
+    CriticNetwork critic(encoder.inputSize(), CRITIC_HIDDEN_SIZE, criticRng);
     Sgd criticOptimizer(0.05f);
 
-    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     TrainingStatsRecorder recorder(level.file("stats.csv"));
 
     ActorCriticConfig config;

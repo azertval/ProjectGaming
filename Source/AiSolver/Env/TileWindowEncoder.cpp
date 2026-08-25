@@ -16,7 +16,7 @@ TileWindowEncoder::TileWindowEncoder(int radius) : _radius(radius) {
 Tensor<float> TileWindowEncoder::encode(const core::TileMap& tiles,
                                         core::GridPosition center) const {
     const int size = windowSize();
-    Tensor<float> result({static_cast<std::size_t>(kChannelCount), static_cast<std::size_t>(size),
+    Tensor<float> result({static_cast<std::size_t>(CHANNEL_COUNT), static_cast<std::size_t>(size),
                           static_cast<std::size_t>(size)});
 
     for (int dr = -_radius; dr <= _radius; ++dr) {

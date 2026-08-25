@@ -68,8 +68,8 @@ core::Entity spawnPlayer(core::World& world, float x, float y) {
 
 // Remplit une ligne entière de tuiles solides (sol/plafond continu).
 void fillRow(core::TileMap& tiles, int row) {
-    for (int col = 0; col < tiles.width(); ++col) {
-        tiles.setTile(col, row, core::TileType::Solid);
+    for (int column = 0; column < tiles.width(); ++column) {
+        tiles.setTile(column, row, core::TileType::Solid);
     }
 }
 
@@ -104,8 +104,8 @@ float jumpApexHeight(int holdFrames) {
 bool jumpAfterLeavingLedge(int delayFrames) {
     core::World world;
     core::TileMap tiles(20, 20);
-    for (int col = 0; col <= 3; ++col) {  // rebord : sol sur les colonnes 0..3
-        tiles.setTile(col, 12, core::TileType::Solid);
+    for (int column = 0; column <= 3; ++column) {  // rebord : sol sur les colonnes 0..3
+        tiles.setTile(column, 12, core::TileType::Solid);
     }
     const core::Entity player = spawnPlayer(world, 1.0f, 10.0f);
     core::PhysicsConfig config;
@@ -1045,8 +1045,8 @@ TEST(PhysiquePersonnageIntegration, GraviteSuspenduePendantDash) {
 TEST(PhysiquePersonnageIntegration, DashUneSeuleFoisEnLAir) {
     core::World world;
     core::TileMap tiles(30, 60);
-    for (int col = 0; col <= 4; ++col) {  // plateforme à gauche, le vide à droite
-        tiles.setTile(col, 30, core::TileType::Solid);
+    for (int column = 0; column <= 4; ++column) {  // plateforme à gauche, le vide à droite
+        tiles.setTile(column, 30, core::TileType::Solid);
     }
     const core::Entity player = spawnPlayer(world, 1.0f, 28.0f);
     core::CharacterPhysicsSystem system;
@@ -1100,8 +1100,8 @@ TEST(PhysiquePersonnageIntegration, DashUneSeuleFoisEnLAir) {
 TEST(PhysiquePersonnageIntegration, DeuxChargesDeDashAutorisentDeuxRueesEnLAir) {
     core::World world;
     core::TileMap tiles(30, 60);
-    for (int col = 0; col <= 4; ++col) {  // plateforme a gauche, le vide a droite
-        tiles.setTile(col, 30, core::TileType::Solid);
+    for (int column = 0; column <= 4; ++column) {  // plateforme a gauche, le vide a droite
+        tiles.setTile(column, 30, core::TileType::Solid);
     }
     const core::Entity player = spawnPlayer(world, 1.0f, 28.0f);
     core::PhysicsConfig config;
@@ -1397,8 +1397,8 @@ TEST(PhysiquePersonnageIntegration, Niveau3RequiertLeDash) {
 TEST(PhysiquePersonnageIntegration, PorteFermeeBloque) {
     // Couloir au sol (ligne 4) ; interrupteur EN HAUT (hors du chemin), porte sur le chemin.
     core::TileMap map(12, 5);
-    for (int col = 0; col < 12; ++col) {
-        map.setTile(col, 4, core::TileType::Solid);
+    for (int column = 0; column < 12; ++column) {
+        map.setTile(column, 4, core::TileType::Solid);
     }
     map.setTile(6, 0, core::TileType::Switch);  // inatteignable en marchant
     map.setTile(6, 3, core::TileType::Door);    // barre le couloir (ligne du personnage)
@@ -1465,12 +1465,12 @@ TEST(PhysiquePersonnageIntegration, JumpBufferingHonoreUnSautPreAppuye) {
 TEST(PhysiquePersonnageIntegration, SuitUnePenteAscendanteEnMarchant) {
     core::World world;
     core::TileMap tiles(8, 8);
-    for (int col = 0; col <= 1; ++col) {  // sol bas, avant la pente
-        tiles.setTile(col, 6, core::TileType::Solid);
+    for (int column = 0; column <= 1; ++column) {  // sol bas, avant la pente
+        tiles.setTile(column, 6, core::TileType::Solid);
     }
     tiles.setTile(2, 5, core::TileType::SlopeUpRight);  // monte de gauche a droite
-    for (int col = 3; col <= 7; ++col) {                // sol haut, apres la pente
-        tiles.setTile(col, 5, core::TileType::Solid);
+    for (int column = 3; column <= 7; ++column) {       // sol haut, apres la pente
+        tiles.setTile(column, 5, core::TileType::Solid);
     }
     const core::Entity player = spawnPlayer(world, 0.3f, 5.0f);  // bord bas = 6.0 : posé au sol bas
     core::CharacterPhysicsSystem system;
@@ -1528,12 +1528,12 @@ TEST(PhysiquePersonnageIntegration, SuitUnePenteAscendanteEnMarchant) {
 TEST(PhysiquePersonnageIntegration, SuitUnePenteDescendanteEnMarchant) {
     core::World world;
     core::TileMap tiles(8, 8);
-    for (int col = 0; col <= 1; ++col) {  // sol haut, avant la pente
-        tiles.setTile(col, 5, core::TileType::Solid);
+    for (int column = 0; column <= 1; ++column) {  // sol haut, avant la pente
+        tiles.setTile(column, 5, core::TileType::Solid);
     }
     tiles.setTile(2, 5, core::TileType::SlopeUpLeft);  // descend de gauche a droite
-    for (int col = 3; col <= 7; ++col) {               // sol bas, apres la pente
-        tiles.setTile(col, 6, core::TileType::Solid);
+    for (int column = 3; column <= 7; ++column) {      // sol bas, apres la pente
+        tiles.setTile(column, 6, core::TileType::Solid);
     }
     const core::Entity player =
         spawnPlayer(world, 0.3f, 4.0f);  // bord bas = 5.0 : posé au sol haut
@@ -1672,12 +1672,12 @@ TEST(PhysiquePersonnageIntegration, SauteDepuisUnePenteImpulsionNormale) {
 TEST(PhysiquePersonnageIntegration, TransitionPenteSolPlatSansAACoup) {
     core::World world;
     core::TileMap tiles(8, 8);
-    for (int col = 0; col <= 1; ++col) {
-        tiles.setTile(col, 6, core::TileType::Solid);
+    for (int column = 0; column <= 1; ++column) {
+        tiles.setTile(column, 6, core::TileType::Solid);
     }
     tiles.setTile(2, 5, core::TileType::SlopeUpRight);
-    for (int col = 3; col <= 7; ++col) {
-        tiles.setTile(col, 5, core::TileType::Solid);
+    for (int column = 3; column <= 7; ++column) {
+        tiles.setTile(column, 5, core::TileType::Solid);
     }
     // Taille RÉELLE du personnage (0,4×0,8, `spawnHumanoid`) : bien plus étroite qu'une case, donc
     // bien plus proche du jeu réel que la boîte 1×1 des autres tests de ce fichier — pertinent ici
@@ -1725,13 +1725,13 @@ TEST(PhysiquePersonnageIntegration, TransitionPenteSolPlatSansAACoup) {
 TEST(PhysiquePersonnageIntegration, SuitUnArrondiAscendantEnMarchant) {
     core::World world;
     core::TileMap tiles(8, 8);
-    for (int col = 0; col <= 1;
-         ++col) {  // sol bas, avant l'arrondi (meme disposition que la pente)
-        tiles.setTile(col, 6, core::TileType::Solid);
+    for (int column = 0; column <= 1;
+         ++column) {  // sol bas, avant l'arrondi (meme disposition que la pente)
+        tiles.setTile(column, 6, core::TileType::Solid);
     }
     tiles.setTile(2, 5, core::TileType::RoundedUpRight);  // quart de cercle, meme orientation
-    for (int col = 3; col <= 7; ++col) {                  // sol haut, apres l'arrondi
-        tiles.setTile(col, 5, core::TileType::Solid);
+    for (int column = 3; column <= 7; ++column) {         // sol haut, apres l'arrondi
+        tiles.setTile(column, 5, core::TileType::Solid);
     }
     const core::Entity player = spawnPlayer(world, 0.3f, 5.0f);  // bord bas = 6.0 : pose au sol bas
     core::CharacterPhysicsSystem system;
@@ -1809,8 +1809,8 @@ TEST(PhysiquePersonnageIntegration, PlafondInclineBloqueSelonSaSilhouette) {
 
     const auto minYReached = [](float startX) {
         core::TileMap map(10, 6);
-        for (int col = 0; col < 10; ++col) {
-            map.setTile(col, FLOOR_ROW, core::TileType::Solid);
+        for (int column = 0; column < 10; ++column) {
+            map.setTile(column, FLOOR_ROW, core::TileType::Solid);
         }
         map.setTile(CEILING_COLUMN, CEILING_ROW, core::TileType::SlopeDownRight);
 
@@ -1866,8 +1866,8 @@ TEST(PhysiquePersonnageIntegration, PlafondInclineSupportePersonnageParLeDessus)
     constexpr int FAR_FLOOR_ROW = 9;  // tres eloigne : prouve qu'il ne s'agit pas d'une coincidence
 
     core::TileMap map(10, 10);
-    for (int col = 0; col < 10; ++col) {
-        map.setTile(col, FAR_FLOOR_ROW, core::TileType::Solid);
+    for (int column = 0; column < 10; ++column) {
+        map.setTile(column, FAR_FLOOR_ROW, core::TileType::Solid);
     }
     map.setTile(CEILING_COLUMN, CEILING_ROW, core::TileType::SlopeDownRight);
 
@@ -1882,7 +1882,7 @@ TEST(PhysiquePersonnageIntegration, PlafondInclineSupportePersonnageParLeDessus)
     const core::Player& player_ = world.getComponent<core::Player>(player);
     const core::Transform& transform = world.getComponent<core::Transform>(player);
     EXPECT_TRUE(player_.grounded);
-    EXPECT_NEAR(transform.position.y, static_cast<float>(CEILING_ROW) - core::kPlayerHeight, 0.05f);
+    EXPECT_NEAR(transform.position.y, static_cast<float>(CEILING_ROW) - core::PLAYER_HEIGHT, 0.05f);
 }
 
 /**
@@ -1905,14 +1905,14 @@ TEST(PhysiquePersonnageIntegration, PlafondInclineSupportePersonnageParLeDessus)
 TEST(PhysiquePersonnageIntegration, SuitUnArrondiConcaveAscendantEnMarchant) {
     core::World world;
     core::TileMap tiles(8, 8);
-    for (int col = 0; col <= 1;
-         ++col) {  // sol bas, avant l'arrondi (meme disposition que RoundedUpRight)
-        tiles.setTile(col, 6, core::TileType::Solid);
+    for (int column = 0; column <= 1;
+         ++column) {  // sol bas, avant l'arrondi (meme disposition que RoundedUpRight)
+        tiles.setTile(column, 6, core::TileType::Solid);
     }
     tiles.setTile(2, 5,
                   core::TileType::ConcaveUpRight);  // quart de cercle concave, meme orientation
-    for (int col = 3; col <= 7; ++col) {            // sol haut, apres l'arrondi
-        tiles.setTile(col, 5, core::TileType::Solid);
+    for (int column = 3; column <= 7; ++column) {   // sol haut, apres l'arrondi
+        tiles.setTile(column, 5, core::TileType::Solid);
     }
     // Taille RÉELLE du personnage (0,4×0,8, comme `TransitionPenteSolPlatSansAACoup`), pas la boîte
     // 1×1 des autres tests de ce fichier : une boîte pleine case chevauche déjà le sol haut
@@ -1986,8 +1986,8 @@ TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBloqueSelonSaSilhouette) {
 
     const auto minYReached = [](float startX) {
         core::TileMap map(10, 6);
-        for (int col = 0; col < 10; ++col) {
-            map.setTile(col, FLOOR_ROW, core::TileType::Solid);
+        for (int column = 0; column < 10; ++column) {
+            map.setTile(column, FLOOR_ROW, core::TileType::Solid);
         }
         map.setTile(CEILING_COLUMN, CEILING_ROW, core::TileType::ConcaveDownRight);
 
@@ -2049,8 +2049,8 @@ TEST(PhysiquePersonnageIntegration, ConcaveDePlafondSupportePersonnageParLeDessu
     constexpr int FAR_FLOOR_ROW = 9;  // tres eloigne : prouve qu'il ne s'agit pas d'une coincidence
 
     core::TileMap map(10, 10);
-    for (int col = 0; col < 10; ++col) {
-        map.setTile(col, FAR_FLOOR_ROW, core::TileType::Solid);
+    for (int column = 0; column < 10; ++column) {
+        map.setTile(column, FAR_FLOOR_ROW, core::TileType::Solid);
     }
     map.setTile(CEILING_COLUMN, CEILING_ROW, core::TileType::ConcaveDownRight);
 
@@ -2065,7 +2065,7 @@ TEST(PhysiquePersonnageIntegration, ConcaveDePlafondSupportePersonnageParLeDessu
     const core::Player& player_ = world.getComponent<core::Player>(player);
     const core::Transform& transform = world.getComponent<core::Transform>(player);
     EXPECT_TRUE(player_.grounded);
-    EXPECT_NEAR(transform.position.y, static_cast<float>(CEILING_ROW) - core::kPlayerHeight, 0.05f);
+    EXPECT_NEAR(transform.position.y, static_cast<float>(CEILING_ROW) - core::PLAYER_HEIGHT, 0.05f);
 }
 
 /**
@@ -2091,13 +2091,13 @@ TEST(PhysiquePersonnageIntegration, ConcaveDePlafondSupportePersonnageParLeDessu
 TEST(PhysiquePersonnageIntegration, ArrondisConcavesDeSolAdjacentsSansChuteALaJointure) {
     core::World world;
     core::TileMap tiles(8, 8);
-    for (int col = 0; col <= 1; ++col) {
-        tiles.setTile(col, 6, core::TileType::Solid);
+    for (int column = 0; column <= 1; ++column) {
+        tiles.setTile(column, 6, core::TileType::Solid);
     }
     tiles.setTile(2, 5, core::TileType::ConcaveUpRight);
     tiles.setTile(3, 5, core::TileType::ConcaveUpLeft);
-    for (int col = 4; col <= 7; ++col) {
-        tiles.setTile(col, 6, core::TileType::Solid);
+    for (int column = 4; column <= 7; ++column) {
+        tiles.setTile(column, 6, core::TileType::Solid);
     }
     const core::Vector2 size = core::playerSize();
     const core::Entity player = world.createEntity();
@@ -2165,8 +2165,8 @@ TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBordFinResteBloqueSansTelepo
     constexpr int FLOOR_ROW = 5;
 
     core::TileMap map(10, 6);
-    for (int col = 0; col < 10; ++col) {
-        map.setTile(col, FLOOR_ROW, core::TileType::Solid);
+    for (int column = 0; column < 10; ++column) {
+        map.setTile(column, FLOOR_ROW, core::TileType::Solid);
     }
     map.setTile(CEILING_COLUMN, CEILING_ROW, core::TileType::ConcaveDownRight);
 
@@ -2233,8 +2233,8 @@ TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBloqueMemeEnMarchantPendantL
 
     const auto minTopYReached = [](core::TileType ceilingType, float startX, float moveX) {
         core::TileMap map(10, 6);
-        for (int col = 0; col < 10; ++col) {
-            map.setTile(col, FLOOR_ROW, core::TileType::Solid);
+        for (int column = 0; column < 10; ++column) {
+            map.setTile(column, FLOOR_ROW, core::TileType::Solid);
         }
         map.setTile(CEILING_COLUMN, CEILING_ROW, ceilingType);
 
@@ -2324,8 +2324,8 @@ TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBloqueMemePresDuBordDeSaProp
     constexpr int FLOOR_ROW = 5;
 
     core::TileMap map(10, 6);
-    for (int col = 0; col < 10; ++col) {
-        map.setTile(col, FLOOR_ROW, core::TileType::Solid);
+    for (int column = 0; column < 10; ++column) {
+        map.setTile(column, FLOOR_ROW, core::TileType::Solid);
     }
     map.setTile(CEILING_COLUMN, CEILING_ROW, core::TileType::ConcaveDownRight);
     // Colonne 4 (au-delà du bord droit, le plus epais) volontairement VIDE : sans appui voisin,
@@ -2564,8 +2564,8 @@ TEST(PhysiquePersonnageIntegration, EcrasementContreUnPlafondEstMortel) {
     const core::Level level = makePlatformLevel(3, 8, 3, 0, /*speed=*/2.0f);
     core::PlatformController platforms(level);
     core::TileMap tiles(20, 20);
-    for (int col = 0; col < 20; ++col) {
-        tiles.setTile(col, 1, core::TileType::Solid);  // plafond bas
+    for (int column = 0; column < 20; ++column) {
+        tiles.setTile(column, 1, core::TileType::Solid);  // plafond bas
     }
     core::CharacterPhysicsSystem system;
 

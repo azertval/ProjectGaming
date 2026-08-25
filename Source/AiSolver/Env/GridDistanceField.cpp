@@ -9,7 +9,7 @@
 namespace aisolver {
 
 namespace {
-constexpr int kUnreachable = -1;
+constexpr int UNREACHABLE = -1;
 }  // namespace
 
 GridDistanceField::GridDistanceField(const core::TileMap& tileMap, const core::GridPosition& target)
@@ -20,7 +20,7 @@ GridDistanceField::GridDistanceField(const core::TileMap& tileMap,
     : _width(tileMap.width()),
       _height(tileMap.height()),
       _distances(static_cast<std::size_t>(_width) * static_cast<std::size_t>(_height),
-                 kUnreachable) {
+                 UNREACHABLE) {
     const auto index = [this](int column, int row) {
         return static_cast<std::size_t>(row) * static_cast<std::size_t>(_width) +
                static_cast<std::size_t>(column);
@@ -35,30 +35,30 @@ GridDistanceField::GridDistanceField(const core::TileMap& tileMap,
             continue;
         }
         const std::size_t targetIndex = index(target.column, target.row);
-        if (_distances[targetIndex] != kUnreachable) {
+        if (_distances[targetIndex] != UNREACHABLE) {
             continue;  // Cible dupliquée (plusieurs mécanismes partageant la même position).
         }
         _distances[targetIndex] = 0;
         frontier.push(target);
     }
 
-    static constexpr std::array<int, 4> kDeltaColumn{0, 0, -1, 1};
-    static constexpr std::array<int, 4> kDeltaRow{-1, 1, 0, 0};
+    static constexpr std::array<int, 4> DELTA_COLUMN{0, 0, -1, 1};
+    static constexpr std::array<int, 4> DELTA_ROW{-1, 1, 0, 0};
 
     while (!frontier.empty()) {
         const core::GridPosition current = frontier.front();
         frontier.pop();
         const int currentDistance = _distances[index(current.column, current.row)];
 
-        for (std::size_t direction = 0; direction < kDeltaColumn.size(); ++direction) {
-            const int neighborColumn = current.column + kDeltaColumn[direction];
-            const int neighborRow = current.row + kDeltaRow[direction];
+        for (std::size_t direction = 0; direction < DELTA_COLUMN.size(); ++direction) {
+            const int neighborColumn = current.column + DELTA_COLUMN[direction];
+            const int neighborRow = current.row + DELTA_ROW[direction];
             if (!tileMap.inBounds(neighborColumn, neighborRow) ||
                 tileMap.isSolid(neighborColumn, neighborRow)) {
                 continue;
             }
             const std::size_t neighborIndex = index(neighborColumn, neighborRow);
-            if (_distances[neighborIndex] != kUnreachable) {
+            if (_distances[neighborIndex] != UNREACHABLE) {
                 continue;
             }
             _distances[neighborIndex] = currentDistance + 1;
@@ -77,7 +77,7 @@ int GridDistanceField::distance(const core::GridPosition& position) const noexce
         static_cast<std::size_t>(position.row) * static_cast<std::size_t>(_width) +
         static_cast<std::size_t>(position.column);
     const int value = _distances[linearIndex];
-    return value == kUnreachable ? sentinel : value;
+    return value == UNREACHABLE ? sentinel : value;
 }
 
 }  // namespace aisolver

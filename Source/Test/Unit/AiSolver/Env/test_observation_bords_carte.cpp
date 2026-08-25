@@ -26,12 +26,12 @@ std::filesystem::path levelPath(const char* file) {
 
 std::vector<std::size_t> expectedTileShape(int radius) {
     const auto size = static_cast<std::size_t>(2 * radius + 1);
-    return {static_cast<std::size_t>(aisolver::TileWindowEncoder::kChannelCount), size, size};
+    return {static_cast<std::size_t>(aisolver::TileWindowEncoder::CHANNEL_COUNT), size, size};
 }
 
 std::vector<std::size_t> expectedMechanismShape(int radius) {
     const auto size = static_cast<std::size_t>(2 * radius + 1);
-    return {static_cast<std::size_t>(aisolver::MechanismStateEncoder::kChannelCount), size, size};
+    return {static_cast<std::size_t>(aisolver::MechanismStateEncoder::CHANNEL_COUNT), size, size};
 }
 
 }  // namespace

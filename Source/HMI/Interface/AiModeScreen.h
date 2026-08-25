@@ -76,7 +76,7 @@ private slots:
     void onLaunchTraining();
     void onStopTraining();
     void onTrainingProgress(int index, double bestReward, double meanReward, double successRate);
-    void onTrainingPreviewReady(QString replayPath, QString algo, QString levelPath,
+    void onTrainingPreviewReady(QString replayPath, QString algorithmId, QString levelPath,
                                 int generation);
     void onTrainingFinished(bool solved, QString modelPath, QString statsPath, QString configPath,
                             QString replayPath, bool replayExported);

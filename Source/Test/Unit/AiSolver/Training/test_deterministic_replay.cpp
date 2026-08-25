@@ -36,7 +36,7 @@ using aisolver_test::TrivialLevelDirectory;
 namespace {
 
 // Budget de pas reduit (vs. 3000 par defaut) : le niveau trivial se resout en quelques pas.
-constexpr int kReducedMaxSteps = 50;
+constexpr int REDUCED_MAX_STEPS = 50;
 
 /// Entraîne un individu qui résout à coup sûr le niveau trivial (mêmes paramètres que
 /// `LevelTrainingSessionTest.ArretParResolutionStable`), utilisé comme fixture par les tests
@@ -51,7 +51,7 @@ TrainingResult trainSolvedIndividual(const TrivialLevelDirectory& level) {
 
     LevelTrainingSession session(level.levelPath(), policyTopology(encoder.inputSize()), config,
                                  stopping, 4242, level.file("stats.csv"),
-                                 EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+                                 EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     return session.run();
 }
 
@@ -137,12 +137,12 @@ TEST(DeterministicReplayTest, BorneDeLongueur) {
     TrainingResult training = trainSolvedIndividual(level);
     ASSERT_TRUE(training.solved);
 
-    constexpr int kMaxSteps = 50;
-    HeadlessLevelEnvironment boundedEnvironment(EnvironmentConfig{.maxSteps = kMaxSteps});
+    constexpr int MAX_STEPS = 50;
+    HeadlessLevelEnvironment boundedEnvironment(EnvironmentConfig{.maxSteps = MAX_STEPS});
     const DeterministicReplayResult replay =
         replayBestIndividual(training.bestIndividual, boundedEnvironment, level.levelPath());
 
-    EXPECT_LE(replay.steps.size(), static_cast<std::size_t>(kMaxSteps));
+    EXPECT_LE(replay.steps.size(), static_cast<std::size_t>(MAX_STEPS));
 }
 
 /**

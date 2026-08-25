@@ -37,20 +37,20 @@ namespace hmi {
 
 namespace {
 
-constexpr const char* kRunsRoot = "TrainingRuns";
-constexpr const char* kReplaysDirName = "Replays";
-constexpr const char* kLevelsDirName = "Levels";
+constexpr const char* RUNS_ROOT = "TrainingRuns";
+constexpr const char* REPLAYS_DIR_NAME = "Replays";
+constexpr const char* LEVELS_DIR_NAME = "Levels";
 
 std::filesystem::path levelsDir() {
-    return executableDirectory() / kLevelsDirName;
+    return executableDirectory() / LEVELS_DIR_NAME;
 }
 
 std::filesystem::path runsRootDir() {
-    return executableDirectory() / kRunsRoot;
+    return executableDirectory() / RUNS_ROOT;
 }
 
 std::filesystem::path replaysDir() {
-    return executableDirectory() / kReplaysDirName;
+    return executableDirectory() / REPLAYS_DIR_NAME;
 }
 
 }  // namespace
@@ -124,10 +124,10 @@ void AiModeScreen::retranslateUi(const Localization& loc) {
 
     // Onglet Entraînement.
     _ui->levelLabel->setText(t("ai_mode.level"));
-    _ui->algoLabel->setText(t("ai_mode.algorithm"));
-    _ui->algoEvoRadio->setText(t("ai_mode.algo_evo"));
-    _ui->algoPgRadio->setText(t("ai_mode.algo_pg"));
-    _ui->algoAcRadio->setText(t("ai_mode.algo_ac"));
+    _ui->algorithmLabel->setText(t("ai_mode.algorithm"));
+    _ui->evolutionaryAlgorithmRadio->setText(t("ai_mode.algo_evo"));
+    _ui->reinforceAlgorithmRadio->setText(t("ai_mode.algo_pg"));
+    _ui->actorCriticAlgorithmRadio->setText(t("ai_mode.algo_ac"));
     _ui->advancedAlgorithmRadio->setText(t("ai_mode.algo_dqn"));
     _ui->populationLabel->setText(t("ai_mode.population"));
     _ui->mutationRateLabel->setText(t("ai_mode.mutation_rate"));
@@ -140,8 +140,8 @@ void AiModeScreen::retranslateUi(const Localization& loc) {
     _ui->stopTrainingButton->setText(t("ai_mode.stop_training"));
     _ui->previewButton->setText(t("ai_mode.preview"));
     _ui->statsTable->setHorizontalHeaderLabels(
-        {t("ai_mode.col_generation"), t("ai_mode.col_best_reward"), t("ai_mode.col_mean_reward"),
-         t("ai_mode.col_success_rate")});
+        {t("ai_mode.column_generation"), t("ai_mode.column_best_reward"),
+         t("ai_mode.column_mean_reward"), t("ai_mode.column_success_rate")});
 
     // Onglet Validation & sauvegarde.
     _ui->runLabel->setText(t("ai_mode.run"));
@@ -154,18 +154,18 @@ void AiModeScreen::retranslateUi(const Localization& loc) {
     _ui->exportReplayButton->setText(t("ai_mode.export_replay"));
 
     // Onglet Rejeu.
-    _ui->replayTable->setHorizontalHeaderLabels({t("ai_mode.col_level"), t("ai_mode.col_algorithm"),
-                                                 t("ai_mode.col_reward"),
-                                                 t("ai_mode.col_exported")});
+    _ui->replayTable->setHorizontalHeaderLabels(
+        {t("ai_mode.column_level"), t("ai_mode.column_algorithm"), t("ai_mode.column_reward"),
+         t("ai_mode.column_exported")});
     _ui->launchReplayButton->setText(t("ai_mode.launch_replay"));
     _ui->replayHintLabel->setText(t("ai_mode.replay_hint"));
 
     // Infobulles : une par champ/bouton, rejouees ici comme le reste — une infobulle posee une
     // seule fois à la construction resterait dans la langue de depart.
     _ui->levelCombo->setToolTip(t("ai_mode.level_tip"));
-    _ui->algoEvoRadio->setToolTip(t("ai_mode.algo_evo_tip"));
-    _ui->algoPgRadio->setToolTip(t("ai_mode.algo_pg_tip"));
-    _ui->algoAcRadio->setToolTip(t("ai_mode.algo_ac_tip"));
+    _ui->evolutionaryAlgorithmRadio->setToolTip(t("ai_mode.algo_evo_tip"));
+    _ui->reinforceAlgorithmRadio->setToolTip(t("ai_mode.algo_pg_tip"));
+    _ui->actorCriticAlgorithmRadio->setToolTip(t("ai_mode.algo_ac_tip"));
     _ui->advancedAlgorithmRadio->setToolTip(t("ai_mode.algo_dqn_tip"));
     _ui->populationSpin->setToolTip(t("ai_mode.population_tip"));
     _ui->mutationRateSpin->setToolTip(t("ai_mode.mutation_rate_tip"));
@@ -272,10 +272,10 @@ void AiModeScreen::stopTrainingIfActive() {
 }
 
 QString AiModeScreen::selectedAlgo() const {
-    if (_ui->algoPgRadio->isChecked()) {
+    if (_ui->reinforceAlgorithmRadio->isChecked()) {
         return QStringLiteral("pg");
     }
-    if (_ui->algoAcRadio->isChecked()) {
+    if (_ui->actorCriticAlgorithmRadio->isChecked()) {
         return QStringLiteral("ac");
     }
     if (_ui->advancedAlgorithmRadio->isChecked()) {
@@ -286,9 +286,9 @@ QString AiModeScreen::selectedAlgo() const {
 
 void AiModeScreen::setTrainingControlsEnabled(bool enabled) {
     _ui->levelCombo->setEnabled(enabled);
-    _ui->algoEvoRadio->setEnabled(enabled);
-    _ui->algoPgRadio->setEnabled(enabled);
-    _ui->algoAcRadio->setEnabled(enabled);
+    _ui->evolutionaryAlgorithmRadio->setEnabled(enabled);
+    _ui->reinforceAlgorithmRadio->setEnabled(enabled);
+    _ui->actorCriticAlgorithmRadio->setEnabled(enabled);
     _ui->advancedAlgorithmRadio->setEnabled(enabled);
     _ui->populationSpin->setEnabled(enabled);
     _ui->mutationRateSpin->setEnabled(enabled);
@@ -308,7 +308,7 @@ void AiModeScreen::onLaunchTraining() {
 
     TrainingRequest request;
     request.levelPath = _ui->levelCombo->currentData().toString();
-    request.algo = selectedAlgo();
+    request.algorithmId = selectedAlgo();
     request.seed = static_cast<std::uint64_t>(_ui->seedSpin->value());
     request.runsRoot = QString::fromStdString(runsRootDir().string());
     request.populationSize = static_cast<std::size_t>(_ui->populationSpin->value());
@@ -355,7 +355,7 @@ void AiModeScreen::onTrainingProgress(int index, double bestReward, double meanR
         text("ai_mode.status_progress").arg(index).arg(QString::number(bestReward, 'f', 3)));
 }
 
-void AiModeScreen::onTrainingPreviewReady(QString replayPath, QString /*algo*/,
+void AiModeScreen::onTrainingPreviewReady(QString replayPath, QString /*algorithmId*/,
                                           QString /*levelPath*/, int generation) {
     // Un aperçu par génération/épisode, jamais écrasé (voir TrainingWorker::run) : on suit la
     // dernière génération reçue tant que l'utilisateur n'a pas sélectionné une génération
@@ -420,7 +420,7 @@ void AiModeScreen::onEvaluate() {
     const QString runAlgo =
         QString::fromStdString(aisolver::cli::loadTrainingConfig(
                                    runPath / "config.json", aisolver::cli::CommandLineOverrides{})
-                                   .algo);
+                                   .algorithmId);
     const std::optional<EvaluationOutcome> outcome = evaluateModel(
         QString::fromStdString(modelPath.string()), QString::fromStdString(levelPath.string()),
         runAlgo, _ui->repetitionsSpin->value());

@@ -15,14 +15,14 @@ namespace aisolver::training {
 
 namespace {
 
-constexpr const char* kAlgorithmName = "evolutionnaire";
-constexpr const char* kAlgorithmId = "evo";
+constexpr const char* ALGORITHM_NAME = "evolutionnaire";
+constexpr const char* ALGORITHM_ID = "evo";
 
-// Meme pas fixe que HeadlessLevelEnvironment (kFixedDelta, prive a son .cpp) : duplique plutot que
+// Meme pas fixe que HeadlessLevelEnvironment (FIXED_DELTA, prive a son .cpp) : duplique plutot que
 // reexpose, meme convention que le defaut de core::FixedTimestep -- une seule source de simulation
 // (le rejeu lui-meme, deja produit a ce pas) fait foi, cette valeur ne sert qu'a l'affichage de
 // `totalDurationSeconds`.
-constexpr float kFixedDeltaSeconds = 1.0f / 60.0f;
+constexpr float FIXED_DELTA_SECONDS = 1.0f / 60.0f;
 
 // Horodatage ISO 8601 (UTC), meme principe que TrainingRunPath.cpp::currentIso8601Compact mais
 // avec les separateurs complets attendus par ReplayFile::exportedAtIso8601 (helper prive, non
@@ -71,7 +71,7 @@ ReplayExportResult exportReplay(const DeterministicReplayResult& replay, bool so
     file.exportedAtIso8601 = currentIso8601();
     file.seed = seed;
     file.finalReward = replay.finalReward;
-    file.totalDurationSeconds = static_cast<float>(replay.steps.size()) * kFixedDeltaSeconds;
+    file.totalDurationSeconds = static_cast<float>(replay.steps.size()) * FIXED_DELTA_SECONDS;
     file.algorithmId = algorithmId;
 
     const bool written = writeReplay(outputPath, file);
@@ -95,8 +95,8 @@ TrainAndExportOutcome trainLevelAndExportReplay(const std::filesystem::path& lev
         replayBestIndividual(trainingResult.bestIndividual, replayEnvironment, levelPath);
 
     const ReplayExportResult exportResult =
-        exportReplay(replay, trainingResult.solved, levelPath, replayOutputPath, kAlgorithmName,
-                     seed, kAlgorithmId);
+        exportReplay(replay, trainingResult.solved, levelPath, replayOutputPath, ALGORITHM_NAME,
+                     seed, ALGORITHM_ID);
 
     return TrainAndExportOutcome{std::move(trainingResult), exportResult};
 }

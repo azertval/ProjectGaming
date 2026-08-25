@@ -16,10 +16,10 @@
 namespace core {
 namespace {
 
-// La boîte recouvre-t-elle la case (col, row) ? Chevauchement d'aire strictement positive :
+// La boîte recouvre-t-elle la case (column, row) ? Chevauchement d'aire strictement positive :
 // se contenter d'effleurer un bord ne compte pas (évite les faux positifs aux frontières).
-bool overlapsCell(const Aabb& box, int col, int row) {
-    const auto left = static_cast<float>(col);
+bool overlapsCell(const Aabb& box, int column, int row) {
+    const auto left = static_cast<float>(column);
     const auto top = static_cast<float>(row);
     return box.min.x < left + 1.0F && box.max.x > left && box.min.y < top + 1.0F && box.max.y > top;
 }
@@ -54,18 +54,18 @@ LevelOutcome evaluateOutcome(const Aabb& playerBox, const Level& level,
     // Échec prioritaire n°2 : contact avec un danger statique. On ne teste que les cases
     // recouvertes, via la géométrie exacte de core::dangerHitbox (case pleine pour Danger, bande
     // étroite pour les variantes directionnelles, EX-GP-050).
-    const int colBegin =
+    const int columnBegin =
         std::clamp(static_cast<int>(std::floor(playerBox.min.x)), 0, map.width() - 1);
-    const int colEnd =
+    const int columnEnd =
         std::clamp(static_cast<int>(std::floor(playerBox.max.x)), 0, map.width() - 1);
     const int rowBegin =
         std::clamp(static_cast<int>(std::floor(playerBox.min.y)), 0, map.height() - 1);
     const int rowEnd =
         std::clamp(static_cast<int>(std::floor(playerBox.max.y)), 0, map.height() - 1);
     for (int row = rowBegin; row <= rowEnd; ++row) {
-        for (int col = colBegin; col <= colEnd; ++col) {
-            const TileType type = map.tile(col, row);
-            if (isStaticDanger(type) && overlapsBox(playerBox, dangerHitbox(type, col, row))) {
+        for (int column = columnBegin; column <= columnEnd; ++column) {
+            const TileType type = map.tile(column, row);
+            if (isStaticDanger(type) && overlapsBox(playerBox, dangerHitbox(type, column, row))) {
                 return LevelOutcome::Lost;
             }
         }

@@ -26,11 +26,11 @@ using aisolver::training::TrajectoryStep;
 
 namespace {
 
-constexpr std::size_t kInputSize = 3;
-constexpr std::size_t kHiddenSize = 4;
+constexpr std::size_t INPUT_SIZE = 3;
+constexpr std::size_t HIDDEN_SIZE = 4;
 
 Tensor<float> observationOf(float a, float b, float c) {
-    Tensor<float> observation({kInputSize, 1});
+    Tensor<float> observation({INPUT_SIZE, 1});
     observation.at({0, 0}) = a;
     observation.at({1, 0}) = b;
     observation.at({2, 0}) = c;
@@ -57,7 +57,7 @@ TrajectoryStep stepAt(const Tensor<float>& observation) {
  */
 TEST(CriticLossTest, GradientChecking) {
     Rng rng(1);
-    CriticNetwork critic(kInputSize, kHiddenSize, rng);
+    CriticNetwork critic(INPUT_SIZE, HIDDEN_SIZE, rng);
 
     Trajectory trajectory;
     trajectory.steps.push_back(stepAt(observationOf(0.1f, 0.2f, 0.3f)));
@@ -117,7 +117,7 @@ TEST(CriticLossTest, GradientChecking) {
  */
 TEST(CriticLossTest, PerteNulleQuandLaPredictionEstExacte) {
     Rng rng(2);
-    CriticNetwork critic(kInputSize, kHiddenSize, rng);
+    CriticNetwork critic(INPUT_SIZE, HIDDEN_SIZE, rng);
 
     Trajectory trajectory;
     trajectory.steps.push_back(stepAt(observationOf(0.2f, -0.1f, 0.4f)));

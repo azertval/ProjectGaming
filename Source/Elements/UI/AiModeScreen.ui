@@ -41,12 +41,12 @@
          <item row="0" column="0"><widget class="QLabel" name="levelLabel"><property name="text"><string>Niveau</string></property></widget></item>
          <item row="0" column="1"><widget class="QComboBox" name="levelCombo"/></item>
 
-         <item row="1" column="0"><widget class="QLabel" name="algoLabel"><property name="text"><string>Algorithme</string></property></widget></item>
+         <item row="1" column="0"><widget class="QLabel" name="algorithmLabel"><property name="text"><string>Algorithme</string></property></widget></item>
          <item row="1" column="1">
-          <layout class="QHBoxLayout" name="algoRow">
-           <item><widget class="QRadioButton" name="algoEvoRadio"><property name="text"><string>Évolutif</string></property><property name="checked"><bool>true</bool></property></widget></item>
-           <item><widget class="QRadioButton" name="algoPgRadio"><property name="text"><string>REINFORCE</string></property></widget></item>
-           <item><widget class="QRadioButton" name="algoAcRadio"><property name="text"><string>Acteur-critique</string></property></widget></item>
+          <layout class="QHBoxLayout" name="algorithmRow">
+           <item><widget class="QRadioButton" name="evolutionaryAlgorithmRadio"><property name="text"><string>Évolutif</string></property><property name="checked"><bool>true</bool></property></widget></item>
+           <item><widget class="QRadioButton" name="reinforceAlgorithmRadio"><property name="text"><string>REINFORCE</string></property></widget></item>
+           <item><widget class="QRadioButton" name="actorCriticAlgorithmRadio"><property name="text"><string>Acteur-critique</string></property></widget></item>
            <item><widget class="QRadioButton" name="advancedAlgorithmRadio"><property name="text"><string>DQN</string></property></widget></item>
           </layout>
          </item>

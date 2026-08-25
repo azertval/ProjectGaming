@@ -9,6 +9,7 @@
 #include "Core/Levels/TileMap.h"
 #include "Core/Math/Vector2.h"
 #include "Core/Physics/Aabb.h"
+#include "Core/Physics/PhysicsConfig.h"
 #include "Core/Physics/SlopeGeometry.h"
 
 namespace core {
@@ -16,22 +17,21 @@ namespace {
 
 // Fine « peau » : évite d'accrocher la tuile que le bord de la boîte ne fait qu'effleurer
 // (bord exactement sur une frontière de cellule). Détermine la portée PERPENDICULAIRE au balayage.
-constexpr float K_SKIN = 1e-4F;
 
 // Une pente (EX-GP-003) n'est jamais solide (voir isSolid), donc le bord bas de la boîte peut s'y
 // enfoncer PARTIELLEMENT dans la case — contrairement au sol plat, où il ne fait jamais
-// qu'affleurer la frontière (raison pour laquelle `kSkin` suffit à exclure cette ligne du balayage
-// horizontal). Sans cette exclusion, un bloc plein adjacent à la MÊME ligne qu'une pente bloquerait
-// le personnage à mi-montée : son corps chevauche encore la case du dessous alors qu'il n'a fait
-// que suivre la pente (comportement normal, pas un mur). On exclut donc du balayage horizontal
-// toute ligne où l'empreinte horizontale COURANTE de la boîte repose sur une pente.
-bool rowIsSlopeGround(const TileMap& tiles, const Vector2& pos, const Vector2& size, int row) {
+// qu'affleurer la frontière (raison pour laquelle `COLLISION_SKIN` suffit à exclure cette ligne du
+// balayage horizontal). Sans cette exclusion, un bloc plein adjacent à la MÊME ligne qu'une pente
+// bloquerait le personnage à mi-montée : son corps chevauche encore la case du dessous alors qu'il
+// n'a fait que suivre la pente (comportement normal, pas un mur). On exclut donc du balayage
+// horizontal toute ligne où l'empreinte horizontale COURANTE de la boîte repose sur une pente.
+bool rowIsSlopeGround(const TileMap& tiles, const Vector2& position, const Vector2& size, int row) {
     const int width = tiles.width();
-    const int colStart = std::clamp(static_cast<int>(std::floor(pos.x)), 0, width - 1);
-    const int colEnd =
-        std::clamp(static_cast<int>(std::floor(pos.x + size.x - K_SKIN)), 0, width - 1);
-    for (int col = colStart; col <= colEnd; ++col) {
-        if (isFollowableSurface(tiles.tile(col, row))) {
+    const int columnStart = std::clamp(static_cast<int>(std::floor(position.x)), 0, width - 1);
+    const int columnEnd = std::clamp(
+        static_cast<int>(std::floor(position.x + size.x - COLLISION_SKIN)), 0, width - 1);
+    for (int column = columnStart; column <= columnEnd; ++column) {
+        if (isFollowableSurface(tiles.tile(column, row))) {
             return true;
         }
     }
@@ -40,44 +40,46 @@ bool rowIsSlopeGround(const TileMap& tiles, const Vector2& pos, const Vector2& s
 
 // Choix technique (voir en-tête) : on résout AXE PAR AXE. Chaque axe est un balayage 1D continu.
 // L'avantage décisif sur la méthode diagonale « Minkowski + slabs » est le CLAMP DIRECT : on cale
-// la position sur la coordonnée entière du mur (ex. `col - size.x`), sans jamais faire
-// `pos += delta * t`. INVARIANT : une position résolue est une coordonnée de mur exacte, jamais
-// une interpolation — donc aucune dérive flottante ne peut faire « coller » au mur.
+// la position sur la coordonnée entière du mur (ex. `column - size.x`), sans jamais faire
+// `position += delta * t`. INVARIANT : une position résolue est une coordonnée de mur exacte,
+// jamais une interpolation — donc aucune dérive flottante ne peut faire « coller » au mur.
 
 // Balayage 1D sur l'axe X. Renvoie l'abscisse résolue du coin haut-gauche ; règle sign à
 // -1 (mur à droite → normale vers la gauche), +1 (mur à gauche) ou 0 (aucun contact).
-float sweepX(const TileMap& tiles, const Vector2& pos, const Vector2& size, float dx, float& sign) {
+float sweepX(const TileMap& tiles, const Vector2& position, const Vector2& size, float dx,
+             float& sign) {
     sign = 0.0F;
-    const float newX = pos.x + dx;
+    const float newX = position.x + dx;
     const int width = tiles.width();
     const int height = tiles.height();
 
     // Lignes réellement occupées par la boîte (la peau évite de mordre la ligne juste effleurée).
-    const int rowMin = std::clamp(static_cast<int>(std::floor(pos.y)), 0, height - 1);
-    const int rowMax =
-        std::clamp(static_cast<int>(std::floor(pos.y + size.y - K_SKIN)), 0, height - 1);
+    const int rowMin = std::clamp(static_cast<int>(std::floor(position.y)), 0, height - 1);
+    const int rowMax = std::clamp(
+        static_cast<int>(std::floor(position.y + size.y - COLLISION_SKIN)), 0, height - 1);
 
     if (dx > 0.0F) {
         // On balaie de la colonne du bord droit actuel jusqu'à celle du bord droit visé : le
         // premier solide rencontré est le plus proche (aucune traversée, même si dx ≫ 1 tuile).
-        const int colStart = std::clamp(static_cast<int>(std::floor(pos.x + size.x)), 0, width - 1);
-        const int colEnd = std::clamp(static_cast<int>(std::floor(newX + size.x)), 0, width - 1);
-        for (int col = colStart; col <= colEnd; ++col) {
+        const int columnStart =
+            std::clamp(static_cast<int>(std::floor(position.x + size.x)), 0, width - 1);
+        const int columnEnd = std::clamp(static_cast<int>(std::floor(newX + size.x)), 0, width - 1);
+        for (int column = columnStart; column <= columnEnd; ++column) {
             for (int row = rowMin; row <= rowMax; ++row) {
-                if (tiles.isSolid(col, row) && !rowIsSlopeGround(tiles, pos, size, row)) {
+                if (tiles.isSolid(column, row) && !rowIsSlopeGround(tiles, position, size, row)) {
                     sign = -1.0F;
-                    return static_cast<float>(col) - size.x;  // bord droit collé au mur (col)
+                    return static_cast<float>(column) - size.x;  // bord droit collé au mur (column)
                 }
             }
         }
     } else {
-        const int colStart = std::clamp(static_cast<int>(std::floor(pos.x)), 0, width - 1);
-        const int colEnd = std::clamp(static_cast<int>(std::floor(newX)), 0, width - 1);
-        for (int col = colStart; col >= colEnd; --col) {
+        const int columnStart = std::clamp(static_cast<int>(std::floor(position.x)), 0, width - 1);
+        const int columnEnd = std::clamp(static_cast<int>(std::floor(newX)), 0, width - 1);
+        for (int column = columnStart; column >= columnEnd; --column) {
             for (int row = rowMin; row <= rowMax; ++row) {
-                if (tiles.isSolid(col, row) && !rowIsSlopeGround(tiles, pos, size, row)) {
+                if (tiles.isSolid(column, row) && !rowIsSlopeGround(tiles, position, size, row)) {
                     sign = 1.0F;
-                    return static_cast<float>(col + 1);  // bord gauche collé au mur (col + 1)
+                    return static_cast<float>(column + 1);  // bord gauche collé au mur (column + 1)
                 }
             }
         }
@@ -86,34 +88,35 @@ float sweepX(const TileMap& tiles, const Vector2& pos, const Vector2& size, floa
 }
 
 // Symétrique sur l'axe Y (lignes ↔ colonnes). sign : -1 (sol dessous), +1 (plafond dessus), 0.
-float sweepY(const TileMap& tiles, const Vector2& pos, const Vector2& size, float dy, float& sign) {
+float sweepY(const TileMap& tiles, const Vector2& position, const Vector2& size, float dy,
+             float& sign) {
     sign = 0.0F;
-    const float newY = pos.y + dy;
+    const float newY = position.y + dy;
     const int width = tiles.width();
     const int height = tiles.height();
 
-    const int colMin = std::clamp(static_cast<int>(std::floor(pos.x)), 0, width - 1);
-    const int colMax =
-        std::clamp(static_cast<int>(std::floor(pos.x + size.x - K_SKIN)), 0, width - 1);
+    const int columnMin = std::clamp(static_cast<int>(std::floor(position.x)), 0, width - 1);
+    const int columnMax = std::clamp(
+        static_cast<int>(std::floor(position.x + size.x - COLLISION_SKIN)), 0, width - 1);
 
     if (dy > 0.0F) {
         const int rowStart =
-            std::clamp(static_cast<int>(std::floor(pos.y + size.y)), 0, height - 1);
+            std::clamp(static_cast<int>(std::floor(position.y + size.y)), 0, height - 1);
         const int rowEnd = std::clamp(static_cast<int>(std::floor(newY + size.y)), 0, height - 1);
         for (int row = rowStart; row <= rowEnd; ++row) {
-            for (int col = colMin; col <= colMax; ++col) {
-                if (tiles.isSolid(col, row)) {
+            for (int column = columnMin; column <= columnMax; ++column) {
+                if (tiles.isSolid(column, row)) {
                     sign = -1.0F;
                     return static_cast<float>(row) - size.y;  // bord bas posé sur le sol (row)
                 }
             }
         }
     } else {
-        const int rowStart = std::clamp(static_cast<int>(std::floor(pos.y)), 0, height - 1);
+        const int rowStart = std::clamp(static_cast<int>(std::floor(position.y)), 0, height - 1);
         const int rowEnd = std::clamp(static_cast<int>(std::floor(newY)), 0, height - 1);
         for (int row = rowStart; row >= rowEnd; --row) {
-            for (int col = colMin; col <= colMax; ++col) {
-                if (tiles.isSolid(col, row)) {
+            for (int column = columnMin; column <= columnMax; ++column) {
+                if (tiles.isSolid(column, row)) {
                     sign = 1.0F;
                     return static_cast<float>(row + 1);  // bord haut sous le plafond (row + 1)
                 }
@@ -128,20 +131,20 @@ float sweepY(const TileMap& tiles, const Vector2& pos, const Vector2& size, floa
 // Déplace la boîte de `delta` en s'arrêtant aux tuiles solides, puis en glissant (voir en-tête).
 SweepResult sweepAabb(const Aabb& box, const Vector2& delta, const TileMap& tiles) {
     const Vector2 size = box.max - box.min;  // dimensions pleines
-    Vector2 pos = box.min;                   // coin haut-gauche
+    Vector2 position = box.min;              // coin haut-gauche
     Vector2 blocked{};
 
-    // Résolution X puis Y. La passe Y part de `pos.x` DÉJÀ résolu : c'est ce qui permet le
+    // Résolution X puis Y. La passe Y part de `position.x` DÉJÀ résolu : c'est ce qui permet le
     // glissement (buter sur un mur en X, puis continuer à tomber en Y le long de ce mur).
     if (delta.x != 0.0F) {
-        pos.x = sweepX(tiles, pos, size, delta.x, blocked.x);
+        position.x = sweepX(tiles, position, size, delta.x, blocked.x);
     }
     if (delta.y != 0.0F) {
-        pos.y = sweepY(tiles, pos, size, delta.y, blocked.y);
+        position.y = sweepY(tiles, position, size, delta.y, blocked.y);
     }
 
     SweepResult result;
-    result.position = pos;
+    result.position = position;
     result.normal = blocked;
     result.hit = (blocked.x != 0.0F) || (blocked.y != 0.0F);
     return result;

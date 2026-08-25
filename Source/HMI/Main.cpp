@@ -132,7 +132,7 @@ int main(int argc, char** argv) {
     // chaque message (`FileLogSink`) — c'est ce qui reste lisible après un arrêt brutal (crash),
     // y compris en release où il n'y a ni console ni bouton d'export à atteindre après coup.
     core::MemoryLogSink* sessionLog = nullptr;
-    if constexpr (core::kDeveloperBuild) {
+    if constexpr (core::DEVELOPER_BUILD) {
         core::defaultLogger().addSink(std::make_unique<core::ConsoleLogSink>());
         auto memorySink = std::make_unique<core::MemoryLogSink>();
         sessionLog = memorySink.get();

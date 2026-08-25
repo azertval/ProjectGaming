@@ -48,7 +48,7 @@ std::filesystem::path findFile(const std::filesystem::path& root, const char* na
  * \castest{`runTrain` evolutionniste -> CSV, modele, config, rejeu.<br/>
  * \tcat Integration · AiSolver Cli<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. `TrainArgs` (`algo=evo`, niveau trivial, population reduite).<br/>2.
+ * \tetapes 1. `TrainArgs` (`algorithmId=evo`, niveau trivial, population reduite).<br/>2.
  * `runTrain`.<br/>
  * \tattendu Code de sortie `0` ; `stats.csv`, `model.bin`, `config.json` et `replay.json`
  * (niveau resolu) presents dans le dossier de run.}
@@ -57,7 +57,7 @@ TEST(CliCommandsTest, RunTrainEvoProduitStatsModeleEtRejeu) {
     const TrivialLevelDirectory level("cli_train_evo");
     TrainArgs args;
     args.level = level.levelPath();
-    args.algo = "evo";
+    args.algorithmId = "evo";
     args.seed = 1;
     args.runsRoot = level.file("runs");
     args.populationSize = 8;
@@ -82,7 +82,7 @@ TEST(CliCommandsTest, RunTrainEvoProduitStatsModeleEtRejeu) {
 TEST(CliCommandsTest, RunTrainRejetteUnNiveauIntrouvable) {
     TrainArgs args;
     args.level = "chemin/vers/rien.json";
-    args.algo = "evo";
+    args.algorithmId = "evo";
     EXPECT_NE(runTrain(args), 0);
 }
 
@@ -101,7 +101,7 @@ TEST(CliCommandsTest, RunEvaluateCoherentAvecUnAppelDirectAuHarnais) {
     const TrivialLevelDirectory level("cli_evaluate");
     TrainArgs trainArgs;
     trainArgs.level = level.levelPath();
-    trainArgs.algo = "evo";
+    trainArgs.algorithmId = "evo";
     trainArgs.seed = 2;
     trainArgs.runsRoot = level.file("runs");
     trainArgs.populationSize = 8;
@@ -112,7 +112,7 @@ TEST(CliCommandsTest, RunEvaluateCoherentAvecUnAppelDirectAuHarnais) {
 
     EvaluateArgs evalArgs;
     evalArgs.model = modelPath;
-    evalArgs.algo = "evo";
+    evalArgs.algorithmId = "evo";
     evalArgs.level = level.levelPath();
     evalArgs.repetitions = 4;
 
@@ -162,7 +162,7 @@ TEST(CliCommandsTest, RunExportReplayProduitUnRejeuValide) {
     const TrivialLevelDirectory level("cli_export_replay");
     TrainArgs trainArgs;
     trainArgs.level = level.levelPath();
-    trainArgs.algo = "evo";
+    trainArgs.algorithmId = "evo";
     trainArgs.seed = 3;
     trainArgs.runsRoot = level.file("runs");
     trainArgs.populationSize = 8;
@@ -173,7 +173,7 @@ TEST(CliCommandsTest, RunExportReplayProduitUnRejeuValide) {
 
     ExportReplayArgs exportArgs;
     exportArgs.model = modelPath;
-    exportArgs.algo = "evo";
+    exportArgs.algorithmId = "evo";
     exportArgs.level = level.levelPath();
     exportArgs.output = level.file("exported_replay.json");
     exportArgs.seed = 3;
