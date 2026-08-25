@@ -25,6 +25,11 @@
     </layout>
    </item>
    <item>
+    <!-- Cadre a bordure franche de l'identite pixel art (EX-IHM-070), comme l'ecran de
+         pause et l'ecran de fin de niveau. -->
+    <widget class="hmi::PixelFrameWidget" name="contentFrame">
+     <layout class="QVBoxLayout" name="contentFrameLayout">
+      <item>
     <widget class="QTabWidget" name="tabs">
 
      <!-- ===== Onglet Entrainement ===== -->
@@ -222,10 +227,19 @@
      </widget>
 
     </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>hmi::PixelFrameWidget</class>
+   <extends>QWidget</extends>
+   <header>HMI/Interface/PixelFrameWidget.h</header>
+   <container>1</container>
+  </customwidget>
   <customwidget>
    <class>hmi::PixelMenuButton</class>
    <extends>QPushButton</extends>

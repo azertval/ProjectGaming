@@ -15,6 +15,12 @@
  * @brief Écran « Mode IA » du menu principal (`LOT-ANNEXE-21`, `EX-IA-022`) : trois onglets
  * (Entraînement, Validation & sauvegarde, Rejeu), équivalent IHM de `aisolver-cli`
  * (`LOT-ANNEXE-19`).
+ *
+ * Écran **du jeu** : il relève donc de l'identité pixel art (`EX-IHM-070`) — police bitmap,
+ * couleurs et facteur d'agrandissement entier reçus de `theme.qss`, cadre à bordure franche
+ * (`PixelFrameWidget`, posé dans le `.ui`) — et de la marque explicite de focus (`EX-IHM-071`),
+ * peinte par `PixelFocusCaret` pour les contrôles Qt ordinaires et par `PixelMenuButton` pour
+ * l'entrée « Retour ».
  */
 
 namespace Ui {
@@ -24,6 +30,7 @@ class AiModeScreen;
 namespace hmi {
 
 class Localization;
+class PixelFocusCaret;
 
 /**
  * @brief Page du `QStackedWidget` (comme `MainMenu`/`CreditsScreen`), pas un recouvrement.
@@ -88,6 +95,10 @@ private:
     void teardownWorker();
 
     std::unique_ptr<Ui::AiModeScreen> _ui;
+    /// Marque explicite de focus (`EX-IHM-071`) pour les contrôles Qt ordinaires de l'écran, que
+    /// leur feuille de style ne peut pas signaler autrement que par la teinte. Enfant de l'écran,
+    /// donc détruit avec lui.
+    PixelFocusCaret* _focusCaret = nullptr;
     std::unique_ptr<QThread> _workerThread;
     TrainingWorker* _worker = nullptr;  ///< Possédé par `_workerThread` (deleteLater), pas `_ui`.
     /// Catalogue courant, mémorisé par `retranslateUi` : les messages d'état produits pendant un
