@@ -11,7 +11,7 @@ lancer le jeu.
 - `TrainingConfig` — hyperparamètres **résolus** d'un run, traçables de bout en bout : un `train`
   lancé sans `--config` utilise des valeurs par défaut, mais ces valeurs sont écrites dans le CSV du
   run plutôt que laissées implicites.
-- `ArgParsing` — analyse minimale d'arguments `--nom valeur`, sans dépendance tierce.
+- `ArgumentParsing` — analyse minimale d'arguments `--nom valeur`, sans dépendance tierce.
 
 ```
 aisolver-cli train        --level <chemin> --algo <evo|pg|ac|avance> [--seed N] [--config <fichier>]

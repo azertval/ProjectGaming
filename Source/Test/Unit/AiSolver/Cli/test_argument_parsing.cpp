@@ -9,7 +9,7 @@
 
 #include <gtest/gtest.h>
 
-#include "AiSolver/Cli/ArgParsing.h"
+#include "AiSolver/Cli/ArgumentParsing.h"
 #include "AiSolver/Cli/Commands.h"
 
 using aisolver::cli::EvaluateArgs;

@@ -21,7 +21,7 @@
 #include "AiSolver/Eval/EvolutionaryTrainedPolicy.h"
 #include "AiSolver/Eval/TrainedPolicy.h"
 #include "AiSolver/Math/Rng.h"
-#include "AiSolver/Training/Advanced/QNetwork.h"
+#include "AiSolver/Training/Dqn/QNetwork.h"
 #include "AiSolver/Training/Evolutionary/NetworkTopology.h"
 
 using aisolver::Action;

@@ -145,7 +145,7 @@ add_executable(UnitTests
     Unit/AiSolver/Training/test_actor_critic_loss.cpp
     Unit/AiSolver/Training/test_critic_loss.cpp
     Unit/AiSolver/Training/test_actor_critic_trainer.cpp
-    Unit/AiSolver/Training/test_convergence_comparator.cpp
+    Unit/AiSolver/Eval/test_convergence_comparator.cpp
     # Algorithme avance DQN (LOT-ANNEXE-14) : reseau Q(s,a) et memoire de rejeu (TACHE-01), perte de
     # Bellman/gradient checking (TACHE-01), boucle d'entrainement integree au harnais existant
     # (TACHE-02), comparaison chiffree generalisee a quatre series (TACHE-03).
@@ -153,7 +153,7 @@ add_executable(UnitTests
     Unit/AiSolver/Training/test_replay_buffer.cpp
     Unit/AiSolver/Training/test_dqn_loss.cpp
     Unit/AiSolver/Training/test_dqn_trainer.cpp
-    Unit/AiSolver/Training/test_generation_comparator.cpp
+    Unit/AiSolver/Eval/test_generation_comparator.cpp
     # Harnais de benchmark multi-algorithmes (LOT-ANNEXE-15), premier lot de la generation 4 :
     # adaptateurs TrainedPolicy uniformes (TACHE-01), execution automatisee repetee et reproductible
     # (TACHE-01), rapport comparatif CSV par niveau x algorithme reutilisant l'echappement partage
@@ -170,12 +170,12 @@ add_executable(UnitTests
     Unit/AiSolver/Replay/test_level_fingerprint.cpp
     Unit/AiSolver/Replay/test_replay_validation.cpp
     Unit/AiSolver/Replay/test_replay_format.cpp
-    # Outillage CLI (LOT-ANNEXE-19) : Commands.cpp/ArgParsing.cpp/TrainingConfig.cpp n'appartiennent
+    # Outillage CLI (LOT-ANNEXE-19) : Commands.cpp/ArgumentParsing.cpp/TrainingConfig.cpp n'appartiennent
     # pas a la bibliotheque AiSolver (elles sont l'executable distinct aisolver-cli, cf.
     # Source/AiSolver/CMakeLists.txt), meme patron que GameEvents.cpp/ReplayPlayback.cpp ci-dessous
     # pour HMI : compilees directement dans cette cible pour rester testables sans lancer le vrai
     # executable (Main.cpp, lui, n'est jamais compile ici).
-    ../AiSolver/Cli/ArgParsing.cpp
+    ../AiSolver/Cli/ArgumentParsing.cpp
     # Cli/TrainingConfig.cpp n'est plus compile ici : deplace dans la bibliotheque AiSolver
     # (LOT-ANNEXE-21) pour etre reutilise par HMI/Ai/TrainingWorker -- deja fourni par le lien
     # AiSolver ci-dessous, le compiler aussi ici produirait des symboles dupliques.

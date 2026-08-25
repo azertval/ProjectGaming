@@ -7,7 +7,7 @@
 #include <memory>
 #include <sstream>
 
-#include "AiSolver/Cli/ArgParsing.h"
+#include "AiSolver/Cli/ArgumentParsing.h"
 #include "AiSolver/Cli/TrainingConfig.h"
 #include "AiSolver/Env/Episode.h"
 #include "AiSolver/Env/HeadlessLevelEnvironment.h"
@@ -30,9 +30,9 @@
 #include "AiSolver/Stats/TrainingStatsRecorder.h"
 #include "AiSolver/Training/ActorCritic/ActorCriticTrainer.h"
 #include "AiSolver/Training/ActorCritic/CriticNetwork.h"
-#include "AiSolver/Training/Advanced/DqnTrainer.h"
-#include "AiSolver/Training/Advanced/QNetwork.h"
 #include "AiSolver/Training/ArgmaxRollout.h"
+#include "AiSolver/Training/Dqn/DqnTrainer.h"
+#include "AiSolver/Training/Dqn/QNetwork.h"
 #include "AiSolver/Training/Evolutionary/NetworkTopology.h"
 #include "AiSolver/Training/PolicyGradient/ReinforceTrainer.h"
 #include "AiSolver/Training/ReplayExport.h"

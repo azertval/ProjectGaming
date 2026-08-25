@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2026 Valentin Eloy
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "AiSolver/Cli/ArgParsing.h"
+#include "AiSolver/Cli/ArgumentParsing.h"
 
 namespace aisolver::cli {
 

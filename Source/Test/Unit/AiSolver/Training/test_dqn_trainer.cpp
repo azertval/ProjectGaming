@@ -21,8 +21,8 @@
 #include "AiSolver/Env/ObservationEncoder.h"
 #include "AiSolver/Optim/Sgd.h"
 #include "AiSolver/Stats/TrainingStatsRecorder.h"
-#include "AiSolver/Training/Advanced/DqnTrainer.h"
-#include "AiSolver/Training/Advanced/QNetwork.h"
+#include "AiSolver/Training/Dqn/DqnTrainer.h"
+#include "AiSolver/Training/Dqn/QNetwork.h"
 #include "TrivialLevelFixture.h"
 
 using aisolver::EnvironmentConfig;

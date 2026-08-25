@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 /**
- * @file HMI/main.cpp
+ * @file HMI/Main.cpp
  * @brief Point d'entrée de l'application Qt (`ProjectGaming`).
  *
  * Configure la journalisation (console + mémoire en développement, niveau réglable), applique le

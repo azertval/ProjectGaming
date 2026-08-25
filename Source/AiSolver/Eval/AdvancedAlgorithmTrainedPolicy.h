@@ -4,7 +4,7 @@
 #pragma once
 
 #include "AiSolver/Eval/TrainedPolicy.h"
-#include "AiSolver/Training/Advanced/QNetwork.h"
+#include "AiSolver/Training/Dqn/QNetwork.h"
 
 /**
  * @file AiSolver/Eval/AdvancedAlgorithmTrainedPolicy.h

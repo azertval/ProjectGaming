@@ -18,38 +18,38 @@
 
 #include <gtest/gtest.h>
 
+#include "../Training/TrivialLevelFixture.h"
 #include "AiSolver/Env/HeadlessLevelEnvironment.h"
 #include "AiSolver/Env/ObservationEncoder.h"
+#include "AiSolver/Eval/GenerationComparator.h"
 #include "AiSolver/Math/Rng.h"
 #include "AiSolver/Optim/Sgd.h"
 #include "AiSolver/Stats/TrainingStatsRecorder.h"
 #include "AiSolver/Training/ActorCritic/ActorCriticTrainer.h"
 #include "AiSolver/Training/ActorCritic/CriticNetwork.h"
-#include "AiSolver/Training/Advanced/DqnTrainer.h"
-#include "AiSolver/Training/Advanced/GenerationComparator.h"
-#include "AiSolver/Training/Advanced/QNetwork.h"
+#include "AiSolver/Training/Dqn/DqnTrainer.h"
+#include "AiSolver/Training/Dqn/QNetwork.h"
 #include "AiSolver/Training/Evolutionary/EvolutionaryConfig.h"
 #include "AiSolver/Training/Evolutionary/EvolutionaryTrainer.h"
 #include "AiSolver/Training/Evolutionary/NetworkTopology.h"
 #include "AiSolver/Training/PolicyGradient/ReinforceTrainer.h"
-#include "TrivialLevelFixture.h"
 
 using aisolver::EnvironmentConfig;
 using aisolver::HeadlessLevelEnvironment;
 using aisolver::ObservationEncoder;
 using aisolver::Rng;
 using aisolver::TrainingStatsRecorder;
+using aisolver::eval::compareConvergence;
+using aisolver::eval::compareGenerations;
+using aisolver::eval::evolutionaryEpisodeBudget;
+using aisolver::eval::GenerationComparisonResult;
+using aisolver::eval::NamedSeries;
 using aisolver::optim::Sgd;
 using aisolver::training::ActorCriticConfig;
 using aisolver::training::ActorCriticTrainer;
-using aisolver::training::compareConvergence;
-using aisolver::training::compareGenerations;
 using aisolver::training::CriticNetwork;
 using aisolver::training::DqnConfig;
 using aisolver::training::DqnTrainer;
-using aisolver::training::evolutionaryEpisodeBudget;
-using aisolver::training::GenerationComparisonResult;
-using aisolver::training::NamedSeries;
 using aisolver::training::QNetwork;
 using aisolver::training::ReinforceConfig;
 using aisolver::training::ReinforceTrainer;

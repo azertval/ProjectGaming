@@ -111,7 +111,7 @@ constexpr int LAYOUT_VERSION =
         //     regroupement en onglets (LOT-57, amendement post-essai manuel)
 
 // Clés de persistance (portée application ; l'organisation/appli sont fixées dans `main`,
-// HMI/main.cpp).
+// HMI/Main.cpp).
 constexpr char GEOMETRY_KEY[] = "mainWindow/geometry";
 constexpr char STATE_KEY[] = "mainWindow/state";
 // Réglage de mise en avant automatique des panneaux (LOT-57 TACHE-02) : local à MainWindow, pas
@@ -524,7 +524,7 @@ bool MainWindow::transitionScreen(ScreenEvent event) {
 
 void MainWindow::applyScreenDressing(ScreenId screen) {
     // Choix de la page du QStackedWidget : seule part propre a Qt (pointeurs de widgets), hors de
-    // portee d'une table pure (hmi::ScreenDressing). Pause/NiveauTermine recouvrent Game (meme
+    // portee d'une table pure (hmi::ScreenDressing). Pause/LevelComplete recouvrent Game (meme
     // page) : leurs widgets d'ecran (TACHE-02/03) se dessinent PAR-DESSUS, la scene reste visible
     // derriere.
     switch (screen) {
@@ -552,7 +552,7 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
         case ScreenId::Editor:
         case ScreenId::Game:
         case ScreenId::Pause:
-        case ScreenId::NiveauTermine:
+        case ScreenId::LevelComplete:
             _stack->setCurrentWidget(_viewport);
             break;
     }
@@ -578,7 +578,7 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
     // Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même règle que _pauseScreen
     // ci-dessus -- `openLevelComplete` a déjà appelé `_levelCompleteScreen->configure(...)` avant
     // cette transition, ici on ne fait que (dé)montrer.
-    const bool showLevelCompleteOverlay = screen == ScreenId::NiveauTermine;
+    const bool showLevelCompleteOverlay = screen == ScreenId::LevelComplete;
     _levelCompleteScreen->setVisible(showLevelCompleteOverlay);
     if (showLevelCompleteOverlay) {
         _levelCompleteScreen->setGeometry(_viewport->rect());

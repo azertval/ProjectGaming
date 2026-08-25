@@ -9,16 +9,16 @@
 #include <string>
 #include <vector>
 
-#include "AiSolver/Training/ActorCritic/ConvergenceComparator.h"
+#include "AiSolver/Eval/ConvergenceComparator.h"
 
 /**
- * @file AiSolver/Training/Advanced/GenerationComparator.h
+ * @file AiSolver/Eval/GenerationComparator.h
  * @brief Comparaison chiffrée de convergence entre *N* approches (`LOT-ANNEXE-14`, TACHE-03,
  * `EX-IA-015`) -- généralise `ConvergenceComparator` (`LOT-ANNEXE-13`, deux séries) sans dupliquer
  * sa logique de lecture/calcul, réutilisée telle quelle par série.
  */
 
-namespace aisolver::training {
+namespace aisolver::eval {
 
 /// Une série nommée : plusieurs essais (graines) du même algorithme, un CSV `TrainingStatsRecorder`
 /// par essai (même schéma de colonnes communes que `ConvergenceComparator`).
@@ -57,4 +57,4 @@ struct GenerationComparisonResult {
 [[nodiscard]] std::size_t evolutionaryEpisodeBudget(std::size_t generationCount,
                                                     std::size_t populationSize);
 
-}  // namespace aisolver::training
+}  // namespace aisolver::eval

@@ -1,9 +1,9 @@
 // SPDX-FileCopyrightText: 2026 Valentin Eloy
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "AiSolver/Training/Advanced/GenerationComparator.h"
+#include "AiSolver/Eval/GenerationComparator.h"
 
-namespace aisolver::training {
+namespace aisolver::eval {
 
 std::vector<GenerationComparisonResult> compareGenerations(const std::vector<NamedSeries>& series,
                                                            float rewardThreshold,
@@ -26,4 +26,4 @@ std::size_t evolutionaryEpisodeBudget(std::size_t generationCount, std::size_t p
     return generationCount * populationSize;
 }
 
-}  // namespace aisolver::training
+}  // namespace aisolver::eval

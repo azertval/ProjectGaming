@@ -37,7 +37,7 @@ TEST(ScreenFlowTest, TransitionsAutoriseesMenentALEcranAttendu) {
     const ScreenState editor{.screen = ScreenId::Editor, .optionsReturnTo = ScreenId::Menu};
     const ScreenState game{.screen = ScreenId::Game, .optionsReturnTo = ScreenId::Menu};
     const ScreenState pause{.screen = ScreenId::Pause, .optionsReturnTo = ScreenId::Menu};
-    const ScreenState niveauTermine{.screen = ScreenId::NiveauTermine,
+    const ScreenState niveauTermine{.screen = ScreenId::LevelComplete,
                                     .optionsReturnTo = ScreenId::Menu};
     const ScreenState levelSelect{.screen = ScreenId::LevelSelect,
                                   .optionsReturnTo = ScreenId::Menu};
@@ -55,7 +55,7 @@ TEST(ScreenFlowTest, TransitionsAutoriseesMenentALEcranAttendu) {
     EXPECT_EQ(resolveTransition(game, ScreenEvent::OpenMenu)->screen, ScreenId::Menu);
     EXPECT_EQ(resolveTransition(game, ScreenEvent::OpenPause)->screen, ScreenId::Pause);
     EXPECT_EQ(resolveTransition(game, ScreenEvent::LevelSucceeded)->screen,
-              ScreenId::NiveauTermine);
+              ScreenId::LevelComplete);
     EXPECT_EQ(resolveTransition(pause, ScreenEvent::ResumePause)->screen, ScreenId::Game);
     EXPECT_EQ(resolveTransition(pause, ScreenEvent::RestartFromPause)->screen, ScreenId::Game);
     EXPECT_EQ(resolveTransition(pause, ScreenEvent::QuitPauseToMenu)->screen, ScreenId::Menu);
@@ -112,11 +112,11 @@ TEST(ScreenFlowTest, OptionsRevientVersSonEcranDOrigine) {
 
 /**
  * @brief Une transition interdite est refusée (std::nullopt), notamment Editor -> Pause et
- *        Menu -> NiveauTermine (exemples cités par TACHE-01).
+ *        Menu -> LevelComplete (exemples cités par TACHE-01).
  * \castest{<b>Une transition interdite est refusée.</b><br/>
  * \tcat Unitaire · Machine à états des écrans<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Tenter Editor -> Pause (via OpenPause).<br/>2. Tenter Menu -> NiveauTermine (via
+ * \tetapes 1. Tenter Editor -> Pause (via OpenPause).<br/>2. Tenter Menu -> LevelComplete (via
  * LevelSucceeded).<br/>3. Tenter Menu -> Pause directement.<br/>
  * \tattendu Chaque tentative renvoie std::nullopt.
  * }
@@ -218,7 +218,7 @@ TEST(ScreenFlowTest, HabillageDeFenetreEstCeluiAttenduParEcran) {
     EXPECT_TRUE(aiMode.gamepadNavigationActive);
     EXPECT_FALSE(aiMode.overlayVisible);
 
-    for (const ScreenId overlayScreen : {ScreenId::Pause, ScreenId::NiveauTermine}) {
+    for (const ScreenId overlayScreen : {ScreenId::Pause, ScreenId::LevelComplete}) {
         const ScreenDressing overlay = dressingFor(overlayScreen);
         EXPECT_FALSE(overlay.docksVisible) << static_cast<int>(overlayScreen);
         EXPECT_FALSE(overlay.menuBarVisible) << static_cast<int>(overlayScreen);
@@ -234,16 +234,16 @@ TEST(ScreenFlowTest, HabillageDeFenetreEstCeluiAttenduParEcran) {
  * @brief Rejouer ou continuer depuis l'écran de fin de niveau ramène toujours à Game -- jamais
  *        directement à un autre écran (le contenu réel du niveau suivant est décidé ailleurs,
  *        hors de la responsabilité de la machine à états).
- * \castest{<b>Continuer/Rejouer depuis NiveauTermine ramène à Game.</b><br/>
+ * \castest{<b>Continuer/Rejouer depuis LevelComplete ramène à Game.</b><br/>
  * \tcat Unitaire · Machine à états des écrans<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Résoudre ContinueAfterLevel depuis NiveauTermine.<br/>2. Résoudre ReplayLevel depuis
- * NiveauTermine.<br/>
+ * \tetapes 1. Résoudre ContinueAfterLevel depuis LevelComplete.<br/>2. Résoudre ReplayLevel depuis
+ * LevelComplete.<br/>
  * \tattendu Les deux transitions mènent à Game.
  * }
  */
-TEST(ScreenFlowTest, ContinuerOuRejouerDepuisNiveauTermineRameneAGame) {
-    const ScreenState niveauTermine{.screen = ScreenId::NiveauTermine,
+TEST(ScreenFlowTest, ContinuerOuRejouerDepuisLevelCompleteRameneAGame) {
+    const ScreenState niveauTermine{.screen = ScreenId::LevelComplete,
                                     .optionsReturnTo = ScreenId::Menu};
     EXPECT_EQ(resolveTransition(niveauTermine, ScreenEvent::ContinueAfterLevel)->screen,
               ScreenId::Game);

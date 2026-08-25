@@ -101,18 +101,18 @@ add_library(AiSolver STATIC
     Training/ActorCritic/ActorCriticLoss.cpp
     Training/ActorCritic/CriticLoss.cpp
     Training/ActorCritic/ActorCriticTrainer.cpp
-    Training/ActorCritic/ConvergenceComparator.cpp
+    Eval/ConvergenceComparator.cpp
     # Algorithme avance DQN (LOT-ANNEXE-14) : dernier lot de la generation 3 -- le choix entre PPO
     # et DQN est tranche a l'ouverture du lot (TACHE-01, cf. epic.md) sur la base des resultats de
     # LOT-ANNEXE-13, non concluants sur l'instabilite (niveau de controle trop simple pour la
     # reveler) ; DQN retenu, l'espace d'action discret de LOT-ANNEXE-07 s'y pretant bien. Reseau
     # Q(s,a) et memoire de rejeu (TACHE-01), integration au harnais existant (TACHE-02),
     # comparaison chiffree a quatre series generalisant ConvergenceComparator (TACHE-03).
-    Training/Advanced/QNetwork.cpp
-    Training/Advanced/ReplayBuffer.cpp
-    Training/Advanced/DqnLoss.cpp
-    Training/Advanced/DqnTrainer.cpp
-    Training/Advanced/GenerationComparator.cpp
+    Training/Dqn/QNetwork.cpp
+    Training/Dqn/ReplayBuffer.cpp
+    Training/Dqn/DqnLoss.cpp
+    Training/Dqn/DqnTrainer.cpp
+    Eval/GenerationComparator.cpp
     # Harnais de benchmark multi-algorithmes (LOT-ANNEXE-15), premier lot de la generation 4 :
     # adaptateur TrainedPolicy uniforme vers chaque famille de modele entraine (TACHE-01),
     # execution automatisee repetee mesurant taux de reussite/pas moyen/variance de la politique
@@ -156,7 +156,7 @@ target_link_libraries(AiSolver PUBLIC Core project_warnings project_options
 # supplementaire de celle-ci), mince habillage en ligne de commande des sous-commandes
 # train/evaluate/export-replay, deleguant integralement aux types deja cadres par les lots amont.
 add_executable(aisolver-cli
-    Cli/ArgParsing.cpp
+    Cli/ArgumentParsing.cpp
     Cli/Commands.cpp
     Cli/Main.cpp
 )

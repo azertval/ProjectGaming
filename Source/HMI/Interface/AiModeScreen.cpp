@@ -18,7 +18,7 @@
 
 #include "AiSolver/Cli/TrainingConfig.h"
 #include "AiSolver/Replay/ReplayFile.h"
-#include "HMI/Ai/EvaluationHelper.h"
+#include "HMI/Ai/ModelEvaluation.h"
 #include "HMI/Interface/ApplicationTheme.h"
 #include "HMI/Interface/DesignTokens.h"
 #include "HMI/Interface/PixelFocusCaret.h"
@@ -30,7 +30,7 @@
  * @file HMI/Interface/AiModeScreen.cpp
  * @brief Voir `AiModeScreen.h`. Ne référence jamais `AiSolver/Training`/`Nn`/`Optim` directement
  * (amendement de `LOT-ANNEXE-18` limité à `HMI/Ai`, voir `epic.md` de `LOT-ANNEXE-21`) : délègue à
- * `hmi::TrainingWorker` (thread, entraînement) et `hmi::evaluateModel` (`HMI/Ai/EvaluationHelper`).
+ * `hmi::TrainingWorker` (thread, entraînement) et `hmi::evaluateModel` (`HMI/Ai/ModelEvaluation`).
  */
 
 namespace hmi {
@@ -128,7 +128,7 @@ void AiModeScreen::retranslateUi(const Localization& loc) {
     _ui->algoEvoRadio->setText(t("ai_mode.algo_evo"));
     _ui->algoPgRadio->setText(t("ai_mode.algo_pg"));
     _ui->algoAcRadio->setText(t("ai_mode.algo_ac"));
-    _ui->algoAvanceRadio->setText(t("ai_mode.algo_dqn"));
+    _ui->advancedAlgorithmRadio->setText(t("ai_mode.algo_dqn"));
     _ui->populationLabel->setText(t("ai_mode.population"));
     _ui->mutationRateLabel->setText(t("ai_mode.mutation_rate"));
     _ui->episodesLabel->setText(t("ai_mode.episodes"));
@@ -166,7 +166,7 @@ void AiModeScreen::retranslateUi(const Localization& loc) {
     _ui->algoEvoRadio->setToolTip(t("ai_mode.algo_evo_tip"));
     _ui->algoPgRadio->setToolTip(t("ai_mode.algo_pg_tip"));
     _ui->algoAcRadio->setToolTip(t("ai_mode.algo_ac_tip"));
-    _ui->algoAvanceRadio->setToolTip(t("ai_mode.algo_dqn_tip"));
+    _ui->advancedAlgorithmRadio->setToolTip(t("ai_mode.algo_dqn_tip"));
     _ui->populationSpin->setToolTip(t("ai_mode.population_tip"));
     _ui->mutationRateSpin->setToolTip(t("ai_mode.mutation_rate_tip"));
     _ui->episodesSpin->setToolTip(t("ai_mode.episodes_tip"));
@@ -278,7 +278,7 @@ QString AiModeScreen::selectedAlgo() const {
     if (_ui->algoAcRadio->isChecked()) {
         return QStringLiteral("ac");
     }
-    if (_ui->algoAvanceRadio->isChecked()) {
+    if (_ui->advancedAlgorithmRadio->isChecked()) {
         return QStringLiteral("avance");
     }
     return QStringLiteral("evo");
@@ -289,7 +289,7 @@ void AiModeScreen::setTrainingControlsEnabled(bool enabled) {
     _ui->algoEvoRadio->setEnabled(enabled);
     _ui->algoPgRadio->setEnabled(enabled);
     _ui->algoAcRadio->setEnabled(enabled);
-    _ui->algoAvanceRadio->setEnabled(enabled);
+    _ui->advancedAlgorithmRadio->setEnabled(enabled);
     _ui->populationSpin->setEnabled(enabled);
     _ui->mutationRateSpin->setEnabled(enabled);
     _ui->episodesSpin->setEnabled(enabled);

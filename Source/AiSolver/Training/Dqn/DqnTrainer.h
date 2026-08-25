@@ -15,11 +15,11 @@
 #include "AiSolver/Math/Rng.h"
 #include "AiSolver/Optim/IOptimizer.h"
 #include "AiSolver/Stats/TrainingStatsRecorder.h"
-#include "AiSolver/Training/Advanced/QNetwork.h"
-#include "AiSolver/Training/Advanced/ReplayBuffer.h"
+#include "AiSolver/Training/Dqn/QNetwork.h"
+#include "AiSolver/Training/Dqn/ReplayBuffer.h"
 
 /**
- * @file AiSolver/Training/Advanced/DqnTrainer.h
+ * @file AiSolver/Training/Dqn/DqnTrainer.h
  * @brief Boucle d'entraînement DQN par pas, intégrée au harnais existant (`LOT-ANNEXE-14`,
  * TACHE-01/TACHE-02, `EX-IA-015`).
  */

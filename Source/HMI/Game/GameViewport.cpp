@@ -1205,8 +1205,8 @@ bool GameViewport::renameOpenLevel(const std::string& newName) {
         // LevelBrowserPanel::onRename -- le brouillon en memoire est mis a jour separement
         // ci-dessous (writeRenamed opere sur une copie chargee depuis le disque, pas sur _draft).
         const hmi::LevelFileOperations ops(levelsDir);
-        const hmi::FileOpResult result = ops.rename(oldPath, trimmed);
-        if (!result.ok) {
+        const hmi::FileOperationResult result = ops.rename(oldPath, trimmed);
+        if (!result.ok()) {
             HMI_LOG_WARNING("Editeur : renommage refuse : " + result.error);
             emit statusMessage(statusText("status.rename_failed_reason")
                                    .arg(QString::fromStdString(result.error)));

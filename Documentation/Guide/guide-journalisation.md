@@ -154,7 +154,7 @@ Deux détails valent d'être notés :
 Le niveau minimal du `Logger` n'est pas figé dans le code : `core::parseLogLevel(text)`
 (`Core/Diagnostics/LogLevelParse.h`) convertit une chaîne (« trace », « info », « warning »/« warn »,
 « error », insensible à la casse) en `LogLevel`, ce qui permet de le régler **au lancement** sans
-recompiler. Dans ce moteur (`Source/HMI/main.cpp`), deux sources sont acceptées, avec priorité à la
+recompiler. Dans ce moteur (`Source/HMI/Main.cpp`), deux sources sont acceptées, avec priorité à la
 seconde si les deux sont présentes :
 
 1. la variable d'environnement `PROJECTGAMING_LOG_LEVEL` ;

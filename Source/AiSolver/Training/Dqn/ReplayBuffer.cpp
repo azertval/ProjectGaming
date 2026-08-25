@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2026 Valentin Eloy
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "AiSolver/Training/Advanced/ReplayBuffer.h"
+#include "AiSolver/Training/Dqn/ReplayBuffer.h"
 
 #include "Core/Diagnostics/Assert.h"
 
