@@ -19,6 +19,11 @@
  * l'acteur-critique, est journalisée à part (voir `ActorCriticTrainer.h`) et n'entre pas dans cette
  * comparaison. Les colonnes sont retrouvées par nom dans l'en-tête (pas par position fixe), pour
  * rester robuste à un ajout de colonne futur dans `Stats/CsvFormat.h`.
+ *
+ * **API de bibliothèque, sans point d'entrée `aisolver-cli`.** L'outil en ligne de commande
+ * n'expose que `train`, `evaluate` et `export-replay` : ce module est appelé par ses tests, et
+ * reste disponible pour une nouvelle campagne. Ce n'est pas un oubli — la campagne du lot a été
+ * exécutée une fois et ses résultats consignés (`Documentation/Lot-Annexe/`).
  */
 
 namespace aisolver::eval {

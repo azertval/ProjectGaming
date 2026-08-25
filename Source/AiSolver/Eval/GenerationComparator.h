@@ -16,6 +16,11 @@
  * @brief Comparaison chiffrée de convergence entre *N* approches (`LOT-ANNEXE-14`, TACHE-03,
  * `EX-IA-015`) -- généralise `ConvergenceComparator` (`LOT-ANNEXE-13`, deux séries) sans dupliquer
  * sa logique de lecture/calcul, réutilisée telle quelle par série.
+ *
+ * **API de bibliothèque, sans point d'entrée `aisolver-cli`.** L'outil en ligne de commande
+ * n'expose que `train`, `evaluate` et `export-replay` : ce module est appelé par ses tests, et
+ * reste disponible pour une nouvelle campagne. Ce n'est pas un oubli — la campagne du lot a été
+ * exécutée une fois et ses résultats consignés (`Documentation/Lot-Annexe/`).
  */
 
 namespace aisolver::eval {
