@@ -32,7 +32,15 @@ document rapporte des chiffres, il n'en tire aucune conclusion sur la qualité d
 | Paire | successRate | meanStepsAll |
 |---|---|---|
 | `Trivial` → `TrivialLong` | 0,000 | 100,00 (plafond, timeout systématique) |
-| `Trivial` → `Gap` | 0,000 | 100,00 (plafond, timeout systématique) |
+| `Trivial` → `Gap` | 0,000 | 47,00 (épisodes clos avant le plafond, agent **bloqué**) |
+
+> **Remesuré lors de l'audit de release v0.1.2.** La conclusion — transfert **nul** dans les
+> deux cas — est inchangée. Seul le nombre moyen de pas de la paire `Gap` a bougé : il valait
+> le plafond de 100 pas lors de la campagne d'origine, il vaut 47 aujourd'hui. Les épisodes ne
+> vont plus au bout du budget, ils se closent plus tôt sur un état **bloqué** — l'agent
+> s'immobilise devant la brèche au lieu de s'agiter jusqu'à l'épuisement du budget. Un test
+> rendu falsifiable a révélé l'écart ; il ne fige plus cette valeur, seulement le taux de
+> réussite nul et la borne du budget, pour que la mesure reste vérifiable sans être fragile.
 
 À titre de repère (mesure non croisée, même modèle, niveau d'origine, `LOT-ANNEXE-15`) : ce même
 modèle résout systématiquement `Trivial` par construction (critère d'arrêt de l'entraînement,
