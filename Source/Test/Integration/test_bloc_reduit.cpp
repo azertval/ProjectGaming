@@ -125,8 +125,8 @@ void simulateStep(core::World& world, core::Entity player, const core::TileMap& 
  */
 TEST(BlocReduitIntegration, ArreteAuBordDeSaBoiteReelle) {
     core::TileMap tiles(10, 4);
-    for (int col = 0; col < 10; ++col) {
-        tiles.setTile(col, 3, core::TileType::Solid);  // sol
+    for (int column = 0; column < 10; ++column) {
+        tiles.setTile(column, 3, core::TileType::Solid);  // sol
     }
     tiles.setTile(2, 2, core::TileType::BlockHalf);  // coince contre le mur, ne se pousse pas
     tiles.setTile(3, 2, core::TileType::Solid);      // mur derriere le bloc : la poussee echoue
@@ -166,8 +166,8 @@ TEST(BlocReduitIntegration, ArreteAuBordDeSaBoiteReelle) {
  */
 TEST(BlocReduitIntegration, EspaceAutourResteFranchissable) {
     core::TileMap tiles(10, 6);
-    for (int col = 0; col < 10; ++col) {
-        tiles.setTile(col, 5, core::TileType::Solid);  // sol, loin sous le personnage
+    for (int column = 0; column < 10; ++column) {
+        tiles.setTile(column, 5, core::TileType::Solid);  // sol, loin sous le personnage
     }
     tiles.setTile(4, 3, core::TileType::BlockQuarter);  // pose au sol, tres bas dans sa case
     core::Level level("bloc-reduit-libre", tiles, core::GridPosition{0, 0},

@@ -16,10 +16,10 @@
 
 using aisolver::Rng;
 using aisolver::training::evolutionary::Individual;
-using aisolver::training::evolutionary::kUnevaluatedFitness;
 using aisolver::training::evolutionary::LayerTopology;
 using aisolver::training::evolutionary::NetworkTopology;
 using aisolver::training::evolutionary::Population;
+using aisolver::training::evolutionary::UNEVALUATED_FITNESS;
 
 namespace {
 
@@ -122,12 +122,12 @@ TEST(PopulationTest, ReproductibiliteInitialisation) {
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Construire une `Population`.<br/>2. Lire `fitness` de chaque individu.<br/>
- * \tattendu Chaque `fitness` vaut `kUnevaluatedFitness`.}
+ * \tattendu Chaque `fitness` vaut `UNEVALUATED_FITNESS`.}
  */
 TEST(PopulationTest, FitnessInitialNonEvalue) {
     Rng rng(3001);
     Population population(smallTopology(), 4, rng);
     for (std::size_t index = 0; index < population.size(); ++index) {
-        EXPECT_EQ(population.individual(index).fitness, kUnevaluatedFitness);
+        EXPECT_EQ(population.individual(index).fitness, UNEVALUATED_FITNESS);
     }
 }

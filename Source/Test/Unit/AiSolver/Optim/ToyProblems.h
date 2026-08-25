@@ -24,37 +24,37 @@ namespace aisolver {
 
 /// Quadratique convexe à minimum connu : `f(x) = (x - target)^2`, gradient `2(x - target)`.
 struct QuadraticToyProblem {
-    static constexpr float kTarget = 5.0f;
+    static constexpr float TARGET = 5.0f;
 
-    /// @return Nœud de perte `(x->value - kTarget)^2`, relié au graphe d'autodiff.
+    /// @return Nœud de perte `(x->value - TARGET)^2`, relié au graphe d'autodiff.
     [[nodiscard]] static autodiff::NodePtr loss(const autodiff::NodePtr& x) {
-        const autodiff::NodePtr diff = autodiff::addScalar(x, -kTarget);
+        const autodiff::NodePtr diff = autodiff::addScalar(x, -TARGET);
         return autodiff::multiply(diff, diff);
     }
 };
 
-/// Régression polynomiale à coefficients connus (`y = kCoeffA*x^2 + kCoeffB*x + kCoeffC`), ajustée
+/// Régression polynomiale à coefficients connus (`y = COEFF_A*x^2 + COEFF_B*x + COEFF_C`), ajustée
 /// par un vecteur de poids de forme `[1, 3]` (colonnes `[x^2, x, 1]`) minimisant l'erreur
 /// quadratique moyenne sur un jeu de points synthétiques.
 struct PolynomialToyProblem {
-    static constexpr float kCoeffA = 2.0f;
-    static constexpr float kCoeffB = -3.0f;
-    static constexpr float kCoeffC = 1.0f;
-    static constexpr std::size_t kSampleCount = 20;
+    static constexpr float COEFF_A = 2.0f;
+    static constexpr float COEFF_B = -3.0f;
+    static constexpr float COEFF_C = 1.0f;
+    static constexpr std::size_t SAMPLE_COUNT = 20;
 
     struct Sample {
         float x;
         float y;
     };
 
-    /// @return `kSampleCount` points `(x, y)` générés à partir de `rng`, `x` uniforme dans
+    /// @return `SAMPLE_COUNT` points `(x, y)` générés à partir de `rng`, `x` uniforme dans
     /// `[-3, 3]`, `y` calculé exactement (aucun bruit ajouté).
     [[nodiscard]] static std::vector<Sample> generateSamples(Rng& rng) {
         std::vector<Sample> samples;
-        samples.reserve(kSampleCount);
-        for (std::size_t i = 0; i < kSampleCount; ++i) {
+        samples.reserve(SAMPLE_COUNT);
+        for (std::size_t i = 0; i < SAMPLE_COUNT; ++i) {
             const float x = rng.nextFloat(-3.0f, 3.0f);
-            const float y = kCoeffA * x * x + kCoeffB * x + kCoeffC;
+            const float y = COEFF_A * x * x + COEFF_B * x + COEFF_C;
             samples.push_back(Sample{x, y});
         }
         return samples;

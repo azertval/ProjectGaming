@@ -29,8 +29,8 @@ enum class LevelSequenceError {
 };
 
 /// Version courante du format de séquence JSON (`EX-LVL-005`), indépendante de
-/// `core::kLevelFormatVersion` (fichier distinct, cycle de vie distinct).
-inline constexpr int kLevelSequenceFormatVersion = 1;
+/// `core::LEVEL_FORMAT_VERSION` (fichier distinct, cycle de vie distinct).
+inline constexpr int LEVEL_SEQUENCE_FORMAT_VERSION = 1;
 
 /**
  * @brief Séquence de niveaux chargée : ordre exact du fichier, plus une clé de titre traduisible.

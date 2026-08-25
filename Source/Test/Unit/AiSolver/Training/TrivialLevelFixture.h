@@ -20,7 +20,7 @@ namespace aisolver_test {
 
 /// Corridor a deux cases, sol et murs lateraux : la seule action utile est un deplacement vers la
 /// droite (aucun saut, aucun obstacle).
-inline constexpr const char* kTrivialLevelJson = R"({
+inline constexpr const char* TRIVIAL_LEVEL_JSON = R"({
   "name": "TrivialAI",
   "width": 4,
   "height": 3,
@@ -36,7 +36,7 @@ inline constexpr const char* kTrivialLevelJson = R"({
   ]
 })";
 
-/// Répertoire temporaire du test courant contenant `kTrivialLevelJson` sur disque (requis par
+/// Répertoire temporaire du test courant contenant `TRIVIAL_LEVEL_JSON` sur disque (requis par
 /// `HeadlessLevelEnvironment::reset`, qui charge par chemin de fichier), nettoyé à la destruction
 /// (RAII) — même patron que `Source/Test/Unit/AiSolver/Stats/test_training_stats_recorder.cpp`.
 class TrivialLevelDirectory {
@@ -48,7 +48,7 @@ public:
         std::filesystem::remove_all(_path, ignored);
         std::filesystem::create_directories(_path);
         std::ofstream file(levelPath(), std::ios::binary | std::ios::trunc);
-        file << kTrivialLevelJson;
+        file << TRIVIAL_LEVEL_JSON;
     }
     ~TrivialLevelDirectory() {
         std::error_code ignored;

@@ -80,16 +80,16 @@ TEST(CameraFramingTest, CadrageDeclareEstResoluTelQuel) {
  */
 TEST(CameraFramingTest, RegleDeRepliReproduitLaRegleHistoriqueAuxBornes) {
     const core::CameraFramingConfig exact = core::resolveCameraFraming(
-        std::nullopt, core::kDefaultRoomWidthTiles, core::kDefaultRoomHeightTiles);
+        std::nullopt, core::DEFAULT_ROOM_WIDTH_TILES, core::DEFAULT_ROOM_HEIGHT_TILES);
     EXPECT_EQ(exact.mode, core::CameraFramingMode::WholeLevel);
 
     const core::CameraFramingConfig tooWide = core::resolveCameraFraming(
-        std::nullopt, core::kDefaultRoomWidthTiles + 1, core::kDefaultRoomHeightTiles);
+        std::nullopt, core::DEFAULT_ROOM_WIDTH_TILES + 1, core::DEFAULT_ROOM_HEIGHT_TILES);
     EXPECT_EQ(tooWide.mode, core::CameraFramingMode::PerRoom);
     EXPECT_FALSE(tooWide.roomWidthTiles.has_value());
 
     const core::CameraFramingConfig tooTall = core::resolveCameraFraming(
-        std::nullopt, core::kDefaultRoomWidthTiles, core::kDefaultRoomHeightTiles + 1);
+        std::nullopt, core::DEFAULT_ROOM_WIDTH_TILES, core::DEFAULT_ROOM_HEIGHT_TILES + 1);
     EXPECT_EQ(tooTall.mode, core::CameraFramingMode::PerRoom);
 }
 

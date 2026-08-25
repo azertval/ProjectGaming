@@ -29,17 +29,18 @@ struct EvaluationOutcome {
 };
 
 /**
- * @brief Évalue le modèle `modelPath` (topologie de `algo`) sur `levelPath`, `repetitions` fois,
- * en mode Argmax.
+ * @brief Évalue le modèle `modelPath` (topologie de `algorithmId`) sur `levelPath`, `repetitions`
+ * fois, en mode Argmax.
  * @param modelPath   Chemin des poids sauvegardés (`nn::saveWeights`, format `LOT-ANNEXE-03`).
  * @param levelPath   Niveau sur lequel évaluer.
- * @param algo        `"evo"`, `"pg"`, `"ac"` ou `"avance"` — choisit l'adaptateur
+ * @param algorithmId        `"evo"`, `"pg"`, `"ac"` ou `"avance"` — choisit l'adaptateur
  *                    `eval::TrainedPolicy` et la topologie réseau adaptée.
  * @param repetitions Nombre d'épisodes rejoués pour la mesure.
  * @return `std::nullopt` si le modèle ne se charge pas (chemin invalide, format incompatible).
  */
 [[nodiscard]] std::optional<EvaluationOutcome> evaluateModel(const QString& modelPath,
                                                              const QString& levelPath,
-                                                             const QString& algo, int repetitions);
+                                                             const QString& algorithmId,
+                                                             int repetitions);
 
 }  // namespace hmi

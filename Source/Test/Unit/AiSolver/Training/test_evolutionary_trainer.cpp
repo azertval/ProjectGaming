@@ -87,7 +87,7 @@ TEST(EvolutionaryTrainerTest, TailleDePopulationPreservee) {
     for (int generation = 0; generation < 3; ++generation) {
         EXPECT_NO_THROW(trainer.runGeneration());
         EXPECT_GE(trainer.bestIndividual().fitness,
-                  aisolver::training::evolutionary::kUnevaluatedFitness);
+                  aisolver::training::evolutionary::UNEVALUATED_FITNESS);
     }
 }
 
@@ -157,7 +157,7 @@ TEST(EvolutionaryTrainerTest, IndiceDeGenerationCorrect) {
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Construire un `EvolutionaryTrainer`.<br/>2. Appeler `runGeneration()` deux fois.<br/>
- * \tattendu `bestIndividual().fitness` est fini (pas `kUnevaluatedFitness`) après chaque appel.}
+ * \tattendu `bestIndividual().fitness` est fini (pas `UNEVALUATED_FITNESS`) après chaque appel.}
  */
 TEST(EvolutionaryTrainerTest, CoherenceDeBestIndividual) {
     TempDirectory tempDir;
@@ -174,6 +174,6 @@ TEST(EvolutionaryTrainerTest, CoherenceDeBestIndividual) {
     for (int generation = 0; generation < 2; ++generation) {
         trainer.runGeneration();
         EXPECT_GT(trainer.bestIndividual().fitness,
-                  aisolver::training::evolutionary::kUnevaluatedFitness);
+                  aisolver::training::evolutionary::UNEVALUATED_FITNESS);
     }
 }

@@ -145,7 +145,7 @@ TEST(SweptCollisionTest, ButeeGauche) {
         core::sweepAabb(unitBox(6.0f, 1.0f), core::Vector2{-5.0f, 0.0f}, tiles);
 
     EXPECT_TRUE(r.hit);
-    EXPECT_FLOAT_EQ(r.position.x, 3.0f);  // bord gauche = 3.0 = bord droit du mur (col 2)
+    EXPECT_FLOAT_EQ(r.position.x, 3.0f);  // bord gauche = 3.0 = bord droit du mur (column 2)
     EXPECT_FLOAT_EQ(r.normal.x, 1.0f);
 }
 
@@ -180,8 +180,8 @@ TEST(SweptCollisionTest, ButeePlafond) {
  */
 TEST(SweptCollisionTest, MarcheSurLeSolSansBlocageHorizontal) {
     core::TileMap tiles = emptyMap(10, 3);
-    for (int col = 0; col < 10; ++col) {
-        tiles.setTile(col, 2, core::TileType::Solid);  // sol continu sur la ligne 2
+    for (int column = 0; column < 10; ++column) {
+        tiles.setTile(column, 2, core::TileType::Solid);  // sol continu sur la ligne 2
     }
     // La boîte repose sur le sol (bord bas = 2.0) et avance à droite.
     const core::SweepResult r =

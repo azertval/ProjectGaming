@@ -72,14 +72,14 @@ struct AlgorithmLabels {
     std::string shortId;
 };
 
-[[nodiscard]] AlgorithmLabels labelsFor(const std::string& algo) {
-    if (algo == "pg") {
+[[nodiscard]] AlgorithmLabels labelsFor(const std::string& algorithmId) {
+    if (algorithmId == "pg") {
         return {"reinforce", "pg"};
     }
-    if (algo == "ac") {
+    if (algorithmId == "ac") {
         return {"acteur-critique", "ac"};
     }
-    if (algo == "avance") {
+    if (algorithmId == "avance") {
         return {"dqn", "avance"};
     }
     return {"evolutionnaire", "evo"};
@@ -87,29 +87,30 @@ struct AlgorithmLabels {
 
 }  // namespace
 
-bool isKnownAlgorithm(const std::string& algo) {
-    return algo == "evo" || algo == "pg" || algo == "ac" || algo == "avance";
+bool isKnownAlgorithm(const std::string& algorithmId) {
+    return algorithmId == "evo" || algorithmId == "pg" || algorithmId == "ac" ||
+           algorithmId == "avance";
 }
 
 std::optional<TrainArgs> parseTrainArgs(const std::vector<std::string>& args, std::string& error) {
     const std::optional<std::string> level = findOption(args, "--level");
-    const std::optional<std::string> algo = findOption(args, "--algo");
+    const std::optional<std::string> algorithmId = findOption(args, "--algo");
     if (!level.has_value()) {
         error = "train : --level est requis";
         return std::nullopt;
     }
-    if (!algo.has_value()) {
+    if (!algorithmId.has_value()) {
         error = "train : --algo est requis (evo|pg|ac|avance)";
         return std::nullopt;
     }
-    if (!isKnownAlgorithm(*algo)) {
-        error = "train : --algo invalide '" + *algo + "' (attendu : evo, pg, ac ou avance)";
+    if (!isKnownAlgorithm(*algorithmId)) {
+        error = "train : --algo invalide '" + *algorithmId + "' (attendu : evo, pg, ac ou avance)";
         return std::nullopt;
     }
 
     TrainArgs result;
     result.level = *level;
-    result.algo = *algo;
+    result.algorithmId = *algorithmId;
     if (const std::optional<std::string> value = findOption(args, "--seed"); value.has_value()) {
         const std::optional<std::uint64_t> parsed = parseNumber<std::uint64_t>(*value);
         if (!parsed) {
@@ -180,18 +181,19 @@ std::optional<TrainArgs> parseTrainArgs(const std::vector<std::string>& args, st
 std::optional<EvaluateArgs> parseEvaluateArgs(const std::vector<std::string>& args,
                                               std::string& error) {
     const std::optional<std::string> model = findOption(args, "--model");
-    const std::optional<std::string> algo = findOption(args, "--algo");
+    const std::optional<std::string> algorithmId = findOption(args, "--algo");
     const std::optional<std::string> level = findOption(args, "--level");
     if (!model.has_value()) {
         error = "evaluate : --model est requis";
         return std::nullopt;
     }
-    if (!algo.has_value()) {
+    if (!algorithmId.has_value()) {
         error = "evaluate : --algo est requis (evo|pg|ac|avance)";
         return std::nullopt;
     }
-    if (!isKnownAlgorithm(*algo)) {
-        error = "evaluate : --algo invalide '" + *algo + "' (attendu : evo, pg, ac ou avance)";
+    if (!isKnownAlgorithm(*algorithmId)) {
+        error =
+            "evaluate : --algo invalide '" + *algorithmId + "' (attendu : evo, pg, ac ou avance)";
         return std::nullopt;
     }
     if (!level.has_value()) {
@@ -201,7 +203,7 @@ std::optional<EvaluateArgs> parseEvaluateArgs(const std::vector<std::string>& ar
 
     EvaluateArgs result;
     result.model = *model;
-    result.algo = *algo;
+    result.algorithmId = *algorithmId;
     result.level = *level;
     if (const std::optional<std::string> value = findOption(args, "--repetitions");
         value.has_value()) {
@@ -222,19 +224,20 @@ std::optional<EvaluateArgs> parseEvaluateArgs(const std::vector<std::string>& ar
 std::optional<ExportReplayArgs> parseExportReplayArgs(const std::vector<std::string>& args,
                                                       std::string& error) {
     const std::optional<std::string> model = findOption(args, "--model");
-    const std::optional<std::string> algo = findOption(args, "--algo");
+    const std::optional<std::string> algorithmId = findOption(args, "--algo");
     const std::optional<std::string> level = findOption(args, "--level");
     const std::optional<std::string> output = findOption(args, "--output");
     if (!model.has_value()) {
         error = "export-replay : --model est requis";
         return std::nullopt;
     }
-    if (!algo.has_value()) {
+    if (!algorithmId.has_value()) {
         error = "export-replay : --algo est requis (evo|pg|ac|avance)";
         return std::nullopt;
     }
-    if (!isKnownAlgorithm(*algo)) {
-        error = "export-replay : --algo invalide '" + *algo + "' (attendu : evo, pg, ac ou avance)";
+    if (!isKnownAlgorithm(*algorithmId)) {
+        error = "export-replay : --algo invalide '" + *algorithmId +
+                "' (attendu : evo, pg, ac ou avance)";
         return std::nullopt;
     }
     if (!level.has_value()) {
@@ -248,7 +251,7 @@ std::optional<ExportReplayArgs> parseExportReplayArgs(const std::vector<std::str
 
     ExportReplayArgs result;
     result.model = *model;
-    result.algo = *algo;
+    result.algorithmId = *algorithmId;
     result.level = *level;
     result.output = *output;
     if (const std::optional<std::string> value = findOption(args, "--seed"); value.has_value()) {
@@ -273,7 +276,8 @@ int runTrain(const TrainArgs& args) {
         args.learningRate,   args.gamma,        args.optimizer,
     };
     TrainingConfig config = loadTrainingConfig(args.configFile, overrides);
-    config.algo = args.algo;  // journalise avec le run : sans lui, le modele est illisible
+    config.algorithmId =
+        args.algorithmId;  // journalise avec le run : sans lui, le modele est illisible
 
     const std::string levelName = args.level.stem().string();
     const std::string runId = generateRunId();
@@ -290,10 +294,10 @@ int runTrain(const TrainArgs& args) {
     }
 
     const std::size_t inputSize = ObservationEncoder().inputSize();
-    const AlgorithmLabels labels = labelsFor(args.algo);
+    const AlgorithmLabels labels = labelsFor(args.algorithmId);
     bool solved = false;
 
-    if (args.algo == "evo") {
+    if (args.algorithmId == "evo") {
         const training::evolutionary::NetworkTopology topology =
             training::evolutionary::policyTopology(inputSize, config.hiddenSize);
         const training::TrainAndExportOutcome outcome =
@@ -304,7 +308,7 @@ int runTrain(const TrainArgs& args) {
             std::cerr << "train : echec de sauvegarde du modele : " << modelPath << "\n";
             return 1;
         }
-    } else if (args.algo == "pg") {
+    } else if (args.algorithmId == "pg") {
         Rng policyRng(args.seed);
         const auto topology = training::evolutionary::policyTopology(inputSize, config.hiddenSize);
         const std::unique_ptr<nn::Network> policy =
@@ -335,7 +339,7 @@ int runTrain(const TrainArgs& args) {
                                        args.seed, labels.shortId);
             solved = solved && exportResult.exported;
         }
-    } else if (args.algo == "ac") {
+    } else if (args.algorithmId == "ac") {
         Rng policyRng(args.seed);
         Rng criticRng(args.seed + 900);
         const auto topology = training::evolutionary::policyTopology(inputSize, config.hiddenSize);
@@ -413,7 +417,7 @@ int runTrain(const TrainArgs& args) {
         }
     }
 
-    std::cout << "train : termine (" << args.algo << ", niveau " << levelName
+    std::cout << "train : termine (" << args.algorithmId << ", niveau " << levelName
               << ", resolu=" << (solved ? "oui" : "non") << ")\n"
               << "  stats : " << statsPath << "\n"
               << "  modele : " << modelPath << "\n"
@@ -436,7 +440,7 @@ int runEvaluate(const EvaluateArgs& args) {
     config.decodingMode = eval::ActionDecodingMode::Argmax;
 
     eval::BenchmarkResult result;
-    if (args.algo == "avance") {
+    if (args.algorithmId == "avance") {
         training::QNetwork network(inputSize, hiddenSize, scratchRng);
         if (!nn::loadWeights(network.network(), args.model)) {
             std::cerr << "evaluate : impossible de charger le modele : " << args.model << "\n";
@@ -451,10 +455,10 @@ int runEvaluate(const EvaluateArgs& args) {
             std::cerr << "evaluate : impossible de charger le modele : " << args.model << "\n";
             return 1;
         }
-        if (args.algo == "pg") {
+        if (args.algorithmId == "pg") {
             eval::ReinforceTrainedPolicy policy(*network);
             result = eval::BenchmarkRunner::run(policy, args.level, config);
-        } else if (args.algo == "ac") {
+        } else if (args.algorithmId == "ac") {
             eval::ActorCriticTrainedPolicy policy(*network);
             result = eval::BenchmarkRunner::run(policy, args.level, config);
         } else {
@@ -470,7 +474,7 @@ int runEvaluate(const EvaluateArgs& args) {
 
     if (args.report.has_value()) {
         eval::BenchmarkReport report;
-        report.addResult(labelsFor(args.algo).longName, args.level.stem().string(), result);
+        report.addResult(labelsFor(args.algorithmId).longName, args.level.stem().string(), result);
         report.writeCsv(*args.report);
     }
     return 0;
@@ -482,11 +486,11 @@ int runExportReplay(const ExportReplayArgs& args) {
     const training::evolutionary::NetworkTopology topology =
         training::evolutionary::policyTopology(inputSize, hiddenSize);
     Rng scratchRng(0);
-    const AlgorithmLabels labels = labelsFor(args.algo);
+    const AlgorithmLabels labels = labelsFor(args.algorithmId);
     HeadlessLevelEnvironment environment;
 
     std::optional<training::DeterministicReplayResult> replay;
-    if (args.algo == "avance") {
+    if (args.algorithmId == "avance") {
         training::QNetwork network(inputSize, hiddenSize, scratchRng);
         if (!nn::loadWeights(network.network(), args.model)) {
             std::cerr << "export-replay : impossible de charger le modele : " << args.model << "\n";
@@ -501,10 +505,10 @@ int runExportReplay(const ExportReplayArgs& args) {
             std::cerr << "export-replay : impossible de charger le modele : " << args.model << "\n";
             return 1;
         }
-        if (args.algo == "pg") {
+        if (args.algorithmId == "pg") {
             eval::ReinforceTrainedPolicy policy(*network);
             replay = training::argmaxRollout(policy, environment, args.level);
-        } else if (args.algo == "ac") {
+        } else if (args.algorithmId == "ac") {
             eval::ActorCriticTrainedPolicy policy(*network);
             replay = training::argmaxRollout(policy, environment, args.level);
         } else {

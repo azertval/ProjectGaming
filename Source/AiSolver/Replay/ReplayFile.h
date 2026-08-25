@@ -21,14 +21,14 @@ namespace aisolver {
 
 /**
  * @brief Version courante du format de rejeu (`EX-IA-008`), même principe que
- *        `core::kLevelFormatVersion` (`EX-LVL-005`) : un fichier sans champ `formatVersion` est lu
+ *        `core::LEVEL_FORMAT_VERSION` (`EX-LVL-005`) : un fichier sans champ `formatVersion` est lu
  *        comme la version initiale (0), sans erreur.
  *
  * La version 2 ajoute `totalDurationSeconds` et `algorithmId` à la version 1. La lecture reste
  * ascendante : un fichier en version 1 ne porte pas ces deux champs et se lit sans erreur, avec
  * leur valeur sentinelle (`0.0f` et `""`).
  */
-inline constexpr std::uint32_t kReplayFormatVersion = 2;
+inline constexpr std::uint32_t REPLAY_FORMAT_VERSION = 2;
 
 /**
  * @brief Un fichier de rejeu : séquence déterministe de `core::PlayerInput` rejouable en jeu sans
@@ -56,8 +56,8 @@ inline constexpr std::uint32_t kReplayFormatVersion = 2;
  * @endcode
  */
 struct ReplayFile {
-    /// Numéro de version explicite du format (voir `kReplayFormatVersion`).
-    std::uint32_t formatVersion = kReplayFormatVersion;
+    /// Numéro de version explicite du format (voir `REPLAY_FORMAT_VERSION`).
+    std::uint32_t formatVersion = REPLAY_FORMAT_VERSION;
     /// Chemin **relatif** (à `Source/Elements/Levels`) du niveau d'origine — jamais un chemin
     /// absolu, pour rester portable d'une machine à l'autre.
     std::string levelPath;

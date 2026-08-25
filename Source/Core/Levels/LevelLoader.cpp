@@ -391,9 +391,9 @@ void warnOnObsoleteDecors(const nlohmann::json& root, const std::string& levelNa
     // Version du format (EX-LVL-005) : absente = version initiale (0), sans erreur ni
     // avertissement (rétrocompatibilité des niveaux antérieurs à ce champ, LOT-44).
     const int version = root.value("version", 0);
-    if (version > kLevelFormatVersion) {
+    if (version > LEVEL_FORMAT_VERSION) {
         return failure("Version de format non geree : " + std::to_string(version) +
-                           " (maximum gere : " + std::to_string(kLevelFormatVersion) + ")",
+                           " (maximum gere : " + std::to_string(LEVEL_FORMAT_VERSION) + ")",
                        LevelValidationError::UnsupportedFormatVersion);
     }
     return std::nullopt;

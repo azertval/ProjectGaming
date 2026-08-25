@@ -56,7 +56,7 @@ enum class LevelValidationError {
  * version antérieure, sans ce champ, se charge sans erreur -- la règle de repli
  * (`core::resolveCameraFraming`) reproduit exactement le comportement historique.
  */
-inline constexpr int kLevelFormatVersion = 2;
+inline constexpr int LEVEL_FORMAT_VERSION = 2;
 
 /**
  * @brief Résultat d'un chargement de niveau : soit un `Level`, soit une **erreur** décrite.

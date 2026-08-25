@@ -40,7 +40,7 @@ struct RoomBounds {
 class RoomGrid {
 public:
     /// Largeur de salle par défaut, en cases (`EX-REN-015`) — mêmes valeurs que
-    /// `core::kDefaultRoomWidthTiles` (`Core`, LOT-64) : deux constantes distinctes plutôt qu'une
+    /// `core::DEFAULT_ROOM_WIDTH_TILES` (`Core`, LOT-64) : deux constantes distinctes plutôt qu'une
     /// dépendance de `HMI` vers `Core` pour une seule valeur (`RoomGrid` précède `Core::Levels`
     /// historiquement) ; `Source/Test/Unit/Core/Levels/test_camera_framing.cpp` vérifie qu'elles
     /// restent égales.

@@ -114,7 +114,7 @@ bool isLevelPlayable(const Progression& progression, const std::vector<std::stri
     // if/else plutot qu'un retour anticipe : une branche `if constexpr` qui retourne rend le
     // code qui la suit statiquement inatteignable dans l'une des deux configurations, ce que MSVC
     // refuse sous /WX. La forme if/else n'a pas de code apres elle.
-    if constexpr (core::kDeveloperBuild) {
+    if constexpr (core::DEVELOPER_BUILD) {
         return true;
     } else {
         return isLevelUnlocked(progression, sequence, levelName);

@@ -160,7 +160,7 @@ ReplayLoadResult readReplay(const std::filesystem::path& path) {
 
     ReplayFile replay;
 
-    // Absent = version initiale (0), meme principe que core::kLevelFormatVersion (EX-LVL-005).
+    // Absent = version initiale (0), meme principe que core::LEVEL_FORMAT_VERSION (EX-LVL-005).
     if (root.contains(FIELD_FORMAT_VERSION)) {
         if (!root[FIELD_FORMAT_VERSION].is_number_unsigned()) {
             return ReplayLoadResult{.replay = std::nullopt,

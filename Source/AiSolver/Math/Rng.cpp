@@ -27,9 +27,9 @@ float Rng::nextFloat(float min, float max) {
 }
 
 // loi normale par la transformation de Box-Muller, calculée à la main sur deux appels à nextFloat()
-// : z = std::sqrt(-2.0f * std::log(u1)) * std::cos(2.0f * kPi * u2), puis mean + stddev * z.
+// : z = std::sqrt(-2.0f * std::log(u1)) * std::cos(2.0f * PI * u2), puis mean + stddev * z.
 float Rng::nextGaussian(float mean, float stddev) {
-    float kPi = 3.14159265358979323846f;
+    float PI = 3.14159265358979323846f;
 
     float u1 = 0.0f;
     do {  // u1 est retiré tant qu'il vaut exactement 0.0f (le logarithme de zéro n'est pas défini)
@@ -38,7 +38,7 @@ float Rng::nextGaussian(float mean, float stddev) {
 
     float u2 = nextFloat();
 
-    float z = std::sqrt(-2.0f * std::log(u1)) * std::cos(2.0f * kPi * u2);
+    float z = std::sqrt(-2.0f * std::log(u1)) * std::cos(2.0f * PI * u2);
 
     return mean + stddev * z;
 }

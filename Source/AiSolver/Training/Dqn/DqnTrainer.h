@@ -31,7 +31,7 @@ namespace aisolver::training {
  * le trainer), même esprit que `ReinforceConfig`/`ActorCriticConfig` (`LOT-ANNEXE-12`/`13`).
  */
 struct DqnConfig {
-    std::size_t hiddenSize = QNetwork::kDefaultHiddenSize;
+    std::size_t hiddenSize = QNetwork::DEFAULT_HIDDEN_SIZE;
     /// Capacité de la mémoire de rejeu (`ReplayBuffer`).
     std::size_t replayCapacity = 2000;
     /// Taille du mini-lot échantillonné à chaque mise à jour.

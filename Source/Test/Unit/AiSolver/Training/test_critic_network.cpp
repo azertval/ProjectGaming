@@ -22,11 +22,11 @@ using aisolver::training::evolutionary::policyTopology;
 
 namespace {
 
-constexpr std::size_t kInputSize = 5;
-constexpr std::size_t kHiddenSize = 4;
+constexpr std::size_t INPUT_SIZE = 5;
+constexpr std::size_t HIDDEN_SIZE = 4;
 
 Tensor<float> observationOf(float a, float b, float c, float d, float e) {
-    Tensor<float> observation({kInputSize, 1});
+    Tensor<float> observation({INPUT_SIZE, 1});
     observation.at({0, 0}) = a;
     observation.at({1, 0}) = b;
     observation.at({2, 0}) = c;
@@ -48,7 +48,7 @@ Tensor<float> observationOf(float a, float b, float c, float d, float e) {
  */
 TEST(CriticNetworkTest, FormeDeSortieScalaire) {
     Rng rng(1);
-    CriticNetwork critic(kInputSize, kHiddenSize, rng);
+    CriticNetwork critic(INPUT_SIZE, HIDDEN_SIZE, rng);
 
     const auto first = critic.forward(observationOf(0.1f, 0.2f, -0.1f, 0.0f, 0.3f));
     const auto second = critic.forward(observationOf(-0.5f, 0.4f, 0.2f, -0.2f, 0.1f));
@@ -67,7 +67,7 @@ TEST(CriticNetworkTest, FormeDeSortieScalaire) {
  */
 TEST(CriticNetworkTest, DeterminismeAPoidsFixes) {
     Rng rng(2);
-    CriticNetwork critic(kInputSize, kHiddenSize, rng);
+    CriticNetwork critic(INPUT_SIZE, HIDDEN_SIZE, rng);
     const Tensor<float> observation = observationOf(0.3f, -0.1f, 0.2f, 0.4f, -0.3f);
 
     const float first = critic.forward(observation)->value.data()[0];
@@ -87,7 +87,7 @@ TEST(CriticNetworkTest, DeterminismeAPoidsFixes) {
  */
 TEST(CriticNetworkTest, SensibiliteAuxPoids) {
     Rng rng(3);
-    CriticNetwork critic(kInputSize, kHiddenSize, rng);
+    CriticNetwork critic(INPUT_SIZE, HIDDEN_SIZE, rng);
     const Tensor<float> observation = observationOf(0.1f, 0.1f, 0.1f, 0.1f, 0.1f);
 
     const float before = critic.forward(observation)->value.data()[0];
@@ -113,9 +113,9 @@ TEST(CriticNetworkTest, SensibiliteAuxPoids) {
  */
 TEST(CriticNetworkTest, IndependanceDuReseauDePolitique) {
     Rng policyRng(4);
-    auto policy = buildNetwork(policyTopology(kInputSize, kHiddenSize), policyRng);
+    auto policy = buildNetwork(policyTopology(INPUT_SIZE, HIDDEN_SIZE), policyRng);
     Rng criticRng(5);
-    CriticNetwork critic(kInputSize, kHiddenSize, criticRng);
+    CriticNetwork critic(INPUT_SIZE, HIDDEN_SIZE, criticRng);
 
     const Tensor<float> observation = observationOf(0.2f, -0.2f, 0.1f, 0.0f, 0.4f);
     const auto policyInput = aisolver::autodiff::variable(observation);

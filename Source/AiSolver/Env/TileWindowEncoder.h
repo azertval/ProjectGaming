@@ -49,7 +49,7 @@ public:
     /// catégories) : à mettre à jour manuellement si `TileType` gagne une valeur — risque
     /// documenté, pas mitigé par ce lot (aucune modification de `Core`).
     [[nodiscard]] int channelCount() const noexcept {
-        return kChannelCount;
+        return CHANNEL_COUNT;
     }
 
     /// @return La largeur/hauteur de la fenêtre, `2 * radius + 1`.
@@ -58,7 +58,7 @@ public:
     }
 
     /// Nombre de valeurs de `core::TileType` au moment de ce lot (33 : `Empty`…`MovingPlatform`).
-    static constexpr int kChannelCount = 33;
+    static constexpr int CHANNEL_COUNT = 33;
 
 private:
     int _radius;

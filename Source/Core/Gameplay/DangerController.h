@@ -48,7 +48,7 @@ public:
      *
      * Aller-retour **linéaire déterministe** entre `startPosition` et `startPosition + range`
      * cases sur l'axe de la configuration (`core::DangerMoverConfig::axis`), à une vitesse de
-     * conception fixe (`kMoverSpeed`). Sa position **initiale** de la grille (`TileType::
+     * conception fixe (`MOVER_SPEED`). Sa position **initiale** de la grille (`TileType::
      * DangerMover`) n'est donc plus à jour une fois le contrôleur avancé — c'est cette boîte,
      * pas un balayage de la grille statique, qui doit être testée pour la résolution de fin de
      * niveau (`core::evaluateOutcome`).

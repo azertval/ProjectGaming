@@ -24,10 +24,10 @@ namespace aisolver {
  *   1. `velocity.value.y` — idem.
  *   2. `player.grounded ? 1.0f : 0.0f`.
  *   3. `player.wallDirection` — déjà dans `{-1, 0, 1}`, utilisé tel quel.
- *   4. `player.coyoteTimer / kNominalCoyoteTime`.
- *   5. `player.jumpBufferTimer / kNominalJumpBufferTime`.
- *   6. `player.wallJumpLockTimer / kNominalWallJumpLockTime`.
- *   7. `player.dashTimer / kNominalDashDuration`.
+ *   4. `player.coyoteTimer / NOMINAL_COYOTE_TIME`.
+ *   5. `player.jumpBufferTimer / NOMINAL_JUMP_BUFFER_TIME`.
+ *   6. `player.wallJumpLockTimer / NOMINAL_WALL_JUMP_LOCK_TIME`.
+ *   7. `player.dashTimer / NOMINAL_DASH_DURATION`.
  *   8. Dash disponible (`dashChargesRemaining > 0 && dashTimer <= 0`) ? `1.0f` : `0.0f` — même
  *      condition de déclenchement que `core::CharacterPhysicsSystem` (dash en cours **ou** charges
  *      épuisées rendent tous deux un nouveau dash impossible).
@@ -54,20 +54,20 @@ public:
     /// @return La taille fixe du vecteur produit par `encode` (`11`, voir l'ordre documenté
     /// ci-dessus).
     [[nodiscard]] static constexpr int size() noexcept {
-        return kPlayerStateSize;
+        return PLAYER_STATE_SIZE;
     }
 
-    static constexpr int kPlayerStateSize = 11;
+    static constexpr int PLAYER_STATE_SIZE = 11;
 
     // Constantes de normalisation des minuteries de *game feel*, dupliquées depuis les valeurs par
     // défaut de core::PhysicsConfig (Core/Physics/PhysicsConfig.h) : CharacterPhysicsSystem garde
     // sa configuration privée (pas d'accesseur public), introduire un tel accesseur pour ce seul
     // besoin cosmétique toucherait Core (décision de cadrage, epic LOT-ANNEXE-06). Point de
     // recalibration explicite si PhysicsConfig change ses valeurs par défaut.
-    static constexpr float kNominalCoyoteTime = 0.08f;        // PhysicsConfig::coyoteTime
-    static constexpr float kNominalJumpBufferTime = 0.12f;    // PhysicsConfig::jumpBufferTime
-    static constexpr float kNominalWallJumpLockTime = 0.18f;  // PhysicsConfig::wallJumpLockTime
-    static constexpr float kNominalDashDuration = 0.15f;      // PhysicsConfig::dashDuration
+    static constexpr float NOMINAL_COYOTE_TIME = 0.08f;          // PhysicsConfig::coyoteTime
+    static constexpr float NOMINAL_JUMP_BUFFER_TIME = 0.12f;     // PhysicsConfig::jumpBufferTime
+    static constexpr float NOMINAL_WALL_JUMP_LOCK_TIME = 0.18f;  // PhysicsConfig::wallJumpLockTime
+    static constexpr float NOMINAL_DASH_DURATION = 0.15f;        // PhysicsConfig::dashDuration
 };
 
 }  // namespace aisolver

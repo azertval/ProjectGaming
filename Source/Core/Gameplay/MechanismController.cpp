@@ -13,7 +13,7 @@
 namespace core {
 namespace {
 
-// La boîte recouvre-t-elle la case (col, row) ? Chevauchement d'aire strictement positive.
+// La boîte recouvre-t-elle la case (column, row) ? Chevauchement d'aire strictement positive.
 bool overlapsCell(const Aabb& box, GridPosition cell) {
     const auto left = static_cast<float>(cell.column);
     const auto top = static_cast<float>(cell.row);

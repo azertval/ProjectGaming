@@ -26,12 +26,12 @@ namespace hmi {
 // Meme dispatch que aisolver::cli::runEvaluate (Cli/Commands.cpp, LOT-ANNEXE-19) : adapte a un
 // resultat en types simples plutot qu'un code de sortie/flux console, jamais une regle differente.
 std::optional<EvaluationOutcome> evaluateModel(const QString& modelPath, const QString& levelPath,
-                                               const QString& algo, int repetitions) {
+                                               const QString& algorithmId, int repetitions) {
     using namespace aisolver;
 
     const std::filesystem::path model = modelPath.toStdString();
     const std::filesystem::path level = levelPath.toStdString();
-    const std::string algoStd = algo.toStdString();
+    const std::string algorithmIdStd = algorithmId.toStdString();
 
     const std::size_t inputSize = ObservationEncoder().inputSize();
     // Taille relue du run qui a produit le modele, jamais supposee : voir
@@ -46,7 +46,7 @@ std::optional<EvaluationOutcome> evaluateModel(const QString& modelPath, const Q
     config.decodingMode = eval::ActionDecodingMode::Argmax;
 
     eval::BenchmarkResult result;
-    if (algoStd == "avance") {
+    if (algorithmIdStd == "avance") {
         training::QNetwork network(inputSize, hiddenSize, scratchRng);
         if (!nn::loadWeights(network.network(), model)) {
             return std::nullopt;
@@ -59,10 +59,10 @@ std::optional<EvaluationOutcome> evaluateModel(const QString& modelPath, const Q
         if (!nn::loadWeights(*network, model)) {
             return std::nullopt;
         }
-        if (algoStd == "pg") {
+        if (algorithmIdStd == "pg") {
             eval::ReinforceTrainedPolicy policy(*network);
             result = eval::BenchmarkRunner::run(policy, level, config);
-        } else if (algoStd == "ac") {
+        } else if (algorithmIdStd == "ac") {
             eval::ActorCriticTrainedPolicy policy(*network);
             result = eval::BenchmarkRunner::run(policy, level, config);
         } else {

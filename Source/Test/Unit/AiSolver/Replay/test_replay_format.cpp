@@ -133,7 +133,7 @@ TEST(ReplayFormatTest, RoundTripDesNouveauxChamps) {
     const aisolver::ReplayLoadResult result = aisolver::readReplay(path);
     ASSERT_TRUE(result.ok()) << result.error;
 
-    EXPECT_EQ(result.replay->formatVersion, aisolver::kReplayFormatVersion);
+    EXPECT_EQ(result.replay->formatVersion, aisolver::REPLAY_FORMAT_VERSION);
     EXPECT_EQ(result.replay->formatVersion, 2u);
     EXPECT_FLOAT_EQ(result.replay->totalDurationSeconds, original.totalDurationSeconds);
     EXPECT_EQ(result.replay->algorithmId, original.algorithmId);

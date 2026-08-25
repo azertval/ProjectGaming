@@ -55,10 +55,10 @@ public:
 
     /// @return Le nombre de canaux produits (`2` : porte ouverte, danger actif).
     [[nodiscard]] int channelCount() const noexcept {
-        return kChannelCount;
+        return CHANNEL_COUNT;
     }
 
-    static constexpr int kChannelCount = 2;
+    static constexpr int CHANNEL_COUNT = 2;
 };
 
 }  // namespace aisolver

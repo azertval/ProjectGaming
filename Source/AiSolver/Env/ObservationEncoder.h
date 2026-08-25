@@ -43,9 +43,9 @@ public:
     /// Rayon de fenêtre par défaut (voir `TileWindowEncoder`) : compromis entre visibilité des
     /// obstacles proches et taille du vecteur d'entrée (donc coût de la propagation avant, répétée
     /// à chaque pas de chaque individu de chaque génération).
-    static constexpr int kDefaultRadius = 2;
+    static constexpr int DEFAULT_RADIUS = 2;
 
-    explicit ObservationEncoder(int radius = kDefaultRadius);
+    explicit ObservationEncoder(int radius = DEFAULT_RADIUS);
 
     /**
      * @brief Encode l'observation complète pour un état donné du personnage.

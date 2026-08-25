@@ -22,7 +22,7 @@ namespace aisolver {
 namespace {
 // Pas fixe déterministe (EX-NFR-002), même constante que STEP dans
 // Source/Test/Systeme/test_parcours_complet.cpp et hmi::GameSession (LOT-33).
-constexpr float kFixedDelta = 1.0f / 60.0f;
+constexpr float FIXED_DELTA = 1.0f / 60.0f;
 }  // namespace
 
 HeadlessLevelEnvironment::HeadlessLevelEnvironment(EnvironmentConfig config) : _config(config) {}
@@ -187,7 +187,7 @@ StepObservation HeadlessLevelEnvironment::step(const core::PlayerInput& input) {
 
     // 3. Physique du personnage sur la grille des mecanismes completee par les blocs.
     const core::TileMap collision = _blocks->collisionMap(mechanismMap);
-    _physics->update(_world, collision, input, kFixedDelta, platformSamples);
+    _physics->update(_world, collision, input, FIXED_DELTA, platformSamples);
 
     // 4. Sweep boite-boite des blocs a taille reduite (EX-GP-005) : leur boite reelle n'est jamais
     //    posee sur la grille de collision ci-dessus, composee ici sur le deplacement REEL obtenu

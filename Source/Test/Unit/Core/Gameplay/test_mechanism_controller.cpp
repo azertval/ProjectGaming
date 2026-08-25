@@ -32,10 +32,11 @@ core::Level makeLevelWithMechanism() {
                        std::move(mechanisms));
 }
 
-// Boîte 1×1 posée sur la case (col, row).
-core::Aabb boxAt(int col, int row) {
+// Boîte 1×1 posée sur la case (column, row).
+core::Aabb boxAt(int column, int row) {
     return core::Aabb::fromTopLeftSize(
-        core::Vector2{static_cast<float>(col), static_cast<float>(row)}, core::Vector2{1.0f, 1.0f});
+        core::Vector2{static_cast<float>(column), static_cast<float>(row)},
+        core::Vector2{1.0f, 1.0f});
 }
 
 // Niveau minimal 6×3 : une plaque de pression en (2,1) liée à une porte en (4,1).
