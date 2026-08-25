@@ -64,6 +64,38 @@ Le niveau est une **grille de tuiles** de taille fixe : **16 × 16 px** par tuil
   **budget** de `EX-GP-024`, qui se consomme une fois pour toutes sur l'ensemble du tableau et n'est
   jamais rechargé. Un tableau qui n'en déclare aucune conserve les réglages du moteur, à
   l'identique. Concrétisé en `LOT-67`.
+- \anchor EX-GP-056 **EX-GP-056** — Le dash (`EX-GP-017`) doit pouvoir être **chargé** : maintenir
+  la direction opposée à celle du prochain dash pendant un seuil configurable, puis déclencher le
+  dash, doit produire un **dash boosté** (vitesse et/ou durée majorées par rapport au dash normal).
+  Relâcher ou changer de direction avant le seuil annule la charge en cours. Ne crée **aucune**
+  charge de dash supplémentaire (`dashChargesRemaining`) ni budget (`EX-GP-024`) : seul le dash
+  normalement consommé est modifié. Concrétisé en `LOT-72`.
+- \anchor EX-GP-057 **EX-GP-057** — Un **bloc poussable** (`EX-GP-022`) percuté pendant un dash doit
+  être repoussé de **plusieurs cases en un seul pas fixe** (au lieu d'une case par contact comme la
+  poussée en marche normale), jusqu'au premier obstacle ou une distance maximale configurable, sans
+  jamais traverser d'obstacle. Concrétisé en `LOT-72`.
+- \anchor EX-GP-058 **EX-GP-058** — Le personnage doit pouvoir déclencher, **en l'air uniquement**,
+  un **ground pound** : une chute accélérée verticale à vitesse imposée, qui se termine au contact
+  du sol par un **front** exploitable par l'IHM (secousse caméra) et n'altère pas l'interaction déjà
+  existante avec les mécanismes sensibles au poids (`EX-GP-025`). Concrétisé en `LOT-72`.
+- \anchor EX-GP-059 **EX-GP-059** — En l'air, au contact d'un mur (`EX-GP-016`, `wallDirection`), en
+  poussant vers le mur, la vitesse de chute du personnage doit être **clampée** (**wall slide**) à
+  une valeur inférieure à la chute libre, sans modifier le déclenchement du **wall jump** existant.
+  Concrétisé en `LOT-72`.
+- \anchor EX-GP-060 **EX-GP-060** — Pendant un dash, la trajectoire doit **suivre les pentes et
+  plafonds inclinés** (`EX-GP-003`/`EX-GP-004`/`EX-GP-006`/`EX-GP-007`) comme le déplacement normal,
+  au lieu du seul balayage classique. Un dash dont la trajectoire se termine contre une pente doit
+  convertir sa vitesse résiduelle en **glissade le long de la pente**, plutôt que de s'arrêter net.
+  Concrétisé en `LOT-72`.
+- \anchor EX-GP-061 **EX-GP-061** — Le personnage doit disposer d'un **combo dash + saut** :
+  sauter **pendant** un dash doit y mettre fin immédiatement et **conserver** sa vitesse horizontale
+  (jump-cancel) ; si ce jump-cancel a lieu au contact d'un mur, c'est un **wall jump**
+  (`EX-GP-016`) qui doit se déclencher, pas un saut simple ; un saut déclenché dans une courte
+  fenêtre après une poussée renforcée (`EX-GP-057`) doit hériter d'une fraction configurable de la
+  vitesse horizontale du bloc ; des jump-cancels rapprochés doivent cumuler un bonus de vitesse
+  **plafonné**, remis à zéro au contact du sol. Le nombre d'enchaînements reste borné par les
+  charges/budget de dash déjà existants (`EX-GP-055`, `EX-GP-024`) — aucune charge supplémentaire
+  n'est créée. Concrétisé en `LOT-72`.
 
 ## 2. Personnage & déplacement
 - \anchor EX-GP-010 **EX-GP-010** — Le personnage doit se déplacer horizontalement à vitesse constante (~3 tuiles/s en jeu, `Source/Core/Physics/PhysicsConfig.h` `moveSpeed` — ⚠️ réglage fin non figé, reporté au-delà de `0.1.0`).
