@@ -74,10 +74,7 @@ Aucune notion d'apprentissage automatique nouvelle : ce lot est de l'ingénierie
 rappel du déterminisme (`EX-NFR-002`) qui rend le rejeu fidèle possible en premier lieu.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-018 **EX-IA-018** — Un fichier de rejeu doit être **validé à la
-  lecture** : le niveau qu'il référence doit exister et son empreinte doit correspondre à celle
-  enregistrée à l'export ; toute divergence est signalée comme une erreur récupérable, jamais
-  silencieuse.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-018`](@ref EX-IA-018).
 - Réutilisées (inchangées) : format de rejeu v1 et ses métadonnées (`LOT-ANNEXE-07`), politique
   d'erreur récupérable (`Documentation/Specification/conventions.md`), `EX-NFR-002` (déterminisme :
   la validation garantit justement que les conditions du déterminisme — même niveau — sont

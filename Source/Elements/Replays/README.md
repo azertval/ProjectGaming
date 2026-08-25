@@ -1,7 +1,7 @@
 # Elements/Replays/
 
-Rejeux publiés, sélectionnables depuis l'entrée de menu « Regarder l'IA jouer »
-(`LOT-ANNEXE-18`, `EX-IA-019`).
+Rejeux publiés, sélectionnables depuis l'onglet **Rejeu** de l'écran **Mode IA**
+(`LOT-ANNEXE-18`/`LOT-ANNEXE-21`, `EX-IA-019`).
 
 - Un rejeu est un fichier JSON au format de rejeu v2 (`aisolver::ReplayFile`,
   `LOT-ANNEXE-07`/`LOT-ANNEXE-17`) : séquence de `core::PlayerInput` par pas fixe, empreinte du

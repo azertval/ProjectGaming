@@ -99,10 +99,7 @@ Singh, Mansour (1999/2000, théorème du gradient de politique) — bibliographi
 chapitre.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-013 **EX-IA-013** — L'agent doit disposer d'un algorithme de policy
-  gradient maison (REINFORCE) : la politique est mise à jour par rétropropagation, via le moteur
-  d'autodiff maison, du gradient de la perte `-log π(a|s) × retour`, et non par une recherche sans
-  gradient (évolutionniste ou autre).
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-013`](@ref EX-IA-013).
 - Réutilisées (inchangées) : les exigences des lots amont — bibliothèque tensorielle et RNG
   (LOT-ANNEXE-01), moteur d'autodiff et gradient checking (LOT-ANNEXE-02), bibliothèque de réseaux
   de neurones (LOT-ANNEXE-03), optimiseurs SGD/Adam (LOT-ANNEXE-04), environnement headless

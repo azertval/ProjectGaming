@@ -88,11 +88,7 @@ Zhang, Ren, Sun (2015, initialisation He) ; Nair & Hinton (2010, popularisation 
 Goodfellow, Bengio, Courville (2016, référence générale) — bibliographie complète dans le chapitre.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-003 **EX-IA-003** — Le programme d'IA doit disposer d'une bibliothèque de
-  réseaux de neurones **implémentée en interne** (couche dense, activations différentiables,
-  opérations différentiables complémentaires, composition en réseau, initialisation Xavier/He,
-  sérialisation versionnée des poids), sans dépendance à un framework de calcul numérique ou
-  d'apprentissage automatique tiers.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-003`](@ref EX-IA-003).
 - Réutilisées : `EX-IA-001` (`Tensor<float>`, `Rng`), `EX-IA-002` (moteur d'autodiff, fabrique
   générique d'opérations différentiables), `EX-NFR-010`/`EX-NFR-012`/`EX-NFR-013`/`EX-NFR-020`
   (testabilité headless, conventions, `/W4 /WX`, couverture de tests), `EX-ARCH-001` (sens de

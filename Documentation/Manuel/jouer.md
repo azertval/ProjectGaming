@@ -5,12 +5,13 @@ comprendre les mécaniques rencontrées dans les niveaux.
 
 ## Le menu principal
 
-Sept entrées, navigables aux flèches **↑**/**↓** (ou à la souris) et validées par **Entrée**
+Huit entrées, navigables aux flèches **↑**/**↓** (ou à la souris) et validées par **Entrée**
 (ou clic) : **Continuer** (reprend au tableau atteint ; grisée tant qu'aucune partie n'a été
 commencée), **Nouvelle partie** (recommence au premier tableau — demande confirmation si une
 progression existe, puisqu'elle sera effacée), **Choisir un niveau** (voir plus bas), **Mode
-Édition** (voir [créer un niveau](@ref manuel-partager-niveau)), **Options**, **Crédits**
-(développement et bruitages), **Quitter**. Un bouton **drapeau** en bas à droite bascule la langue
+Édition** (voir [créer un niveau](@ref manuel-partager-niveau)), **Mode IA** (voir
+[regarder l'IA jouer](@ref manuel-mode-ia)), **Options**, **Crédits** (développement et bruitages),
+**Quitter**. Un bouton **drapeau** en bas à droite bascule la langue
 de l'interface (français/anglais) à tout moment.
 
 ## Contrôles en jeu

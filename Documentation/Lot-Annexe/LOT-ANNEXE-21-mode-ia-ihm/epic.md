@@ -75,11 +75,7 @@ Aucune notion d'apprentissage automatique nouvelle : ce lot est un habillage IHM
 capacités déjà cadrées par les lots amont — voir leurs sections « Notions abordées » respectives.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-022 **EX-IA-022** — Le menu principal doit exposer un écran « Mode IA »
-  (entraînement, validation/sauvegarde, rejeu) équivalent aux capacités de `aisolver-cli`
-  (`LOT-ANNEXE-19`), avec un entraînement non bloquant (thread séparé), observable (progression,
-  aperçu en direct) et interruptible proprement (résultat partiel sauvegardé), sans dupliquer la
-  moindre règle d'apprentissage.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-022`](@ref EX-IA-022).
 - Réutilisées (inchangées) : les exigences de tous les lots exposés (`LOT-ANNEXE-10` à `20`).
 
 ## Découpage

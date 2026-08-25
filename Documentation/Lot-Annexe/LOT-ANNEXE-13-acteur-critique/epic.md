@@ -89,11 +89,7 @@ l'invariance de la baseline) ; Konda & Tsitsiklis (2000, article d'origine de l'
 acteur-critique) — bibliographie complète dans le chapitre.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-014 **EX-IA-014** — L'agent doit disposer d'un mécanisme de réduction de
-  variance du gradient de policy gradient (acteur-critique) : un réseau critique estime la valeur
-  d'état, et l'avantage (`retour − valeur estimée`) remplace le retour brut dans la perte de
-  politique de `EX-IA-013`, avec mesure chiffrée de l'amélioration de convergence par rapport à
-  REINFORCE brut.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-014`](@ref EX-IA-014).
 - Réutilisées (inchangées) : `EX-IA-013` (perte de politique de LOT-ANNEXE-12, étendue à l'avantage)
   et les exigences des lots amont — réseaux de neurones (LOT-ANNEXE-03), optimiseurs
   (LOT-ANNEXE-04), `TrainingStatsRecorder` (LOT-ANNEXE-09) — non renumérotées ici.

@@ -69,11 +69,7 @@ objectif). Aucune source nouvelle par rapport à ce chapitre — ce lot applique
 principe à une paire de niveaux.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-017 **EX-IA-017** — Le taux de réussite d'un modèle entraîné sur un
-  niveau donné doit pouvoir être mesuré, par simple réutilisation du harnais de benchmark
-  existant, lorsqu'il est exécuté sur un niveau différent de celui qui l'a produit ; ce résultat
-  est une mesure de référence sur la nature de l'apprentissage réalisé, jamais un objectif
-  d'entraînement ni un critère de qualité d'un algorithme.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-017`](@ref EX-IA-017).
 - Réutilisées (inchangées) : `EX-IA-016` (harnais de benchmark, `LOT-ANNEXE-15`).
 
 ## Découpage

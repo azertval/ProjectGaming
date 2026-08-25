@@ -94,10 +94,7 @@ réseau pour du RL) ; Salimans et al. (2017, stratégies d'évolution comme alte
 gradient) — bibliographie complète dans le chapitre.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-011 **EX-IA-011** — algorithme évolutionniste maison : population de
-  réseaux à poids indépendants, évaluation de fitness par récompense cumulée sur un run complet,
-  sélection/croisement/mutation/élitisme, boucle de génération journalisée, reproductible à seed
-  fixée.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-011`](@ref EX-IA-011).
 - Réutilisées (inchangées) : bibliothèque de calcul et générateur pseudo-aléatoire de
   LOT-ANNEXE-01, bibliothèque de réseaux de neurones de LOT-ANNEXE-03, `HeadlessLevelEnvironment`
   de LOT-ANNEXE-05, fonction de récompense et critères d'épisode de LOT-ANNEXE-08, journalisation

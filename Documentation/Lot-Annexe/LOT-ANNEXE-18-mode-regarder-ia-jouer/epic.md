@@ -84,11 +84,7 @@ en jeu est le déterminisme au pas fixe (`EX-NFR-002`), déjà une propriété d
 introduite par le programme Lot-Annexe.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-019 **EX-IA-019** — Le jeu doit pouvoir rejouer, dans une partie réelle
-  (rendu compris), un fichier de rejeu produit par le programme d'IA, en alimentant la boucle de
-  simulation existante (`hmi::GameSession`) avec la séquence de `core::PlayerInput` enregistrée,
-  après validation de sa cohérence avec le niveau référencé, sans qu'aucune inférence de réseau de
-  neurones n'intervienne dans `Core` ou `HMI`.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-019`](@ref EX-IA-019).
 - Réutilisées (inchangées) : `EX-IA-008` (format de rejeu v1), `EX-IA-018` (validation à la
   lecture), `EX-NFR-002` (déterminisme au pas fixe, condition de fidélité du rejeu).
 
